@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "notes": "Read-only placeholder for now. Will eventually mirror plant card structure with maintenance logs, alerts, and per-vehicle care."
+  },
+  "vehicles": [
+    {
+      "id": "gti-2016",
+      "name": "2016 VW GTI",
+      "trim": "MK7 Autobahn",
+      "emoji": "\ud83d\ude97",
+      "engine": "EA888 Gen 3, APR Stage 1 tuned",
+      "category": "daily-driver",
+      "status": "Active \u2014 coolant leak diagnosis ongoing"
+    },
+    {
+      "id": "tiguan-2018",
+      "name": "2018 VW Tiguan",
+      "trim": "S",
+      "emoji": "\ud83d\ude99",
+      "category": "daily-driver",
+      "status": "Active"
+    },
+    {
+      "id": "f150-2006",
+      "name": "2006 Ford F-150",
+      "trim": "",
+      "emoji": "\ud83d\udefb",
+      "engine": "4.2L V6",
+      "category": "truck",
+      "status": "Active"
+    },
+    {
+      "id": "bronco-1989",
+      "name": "1989 Ford Bronco",
+      "trim": "Eddie Bauer",
+      "emoji": "\ud83d\udfe2",
+      "engine": "5.8L 351W V8",
+      "category": "classic",
+      "status": "Restoration in progress"
+    },
+    {
+      "id": "drz400-2002",
+      "name": "2002 Suzuki DR-Z400S",
+      "trim": "",
+      "emoji": "\ud83c\udfcd\ufe0f",
+      "category": "motorcycle",
+      "status": "Active"
+    },
+    {
+      "id": "dirtbike-400",
+      "name": "Dirt Bike 400cc",
+      "trim": "details TBD",
+      "emoji": "\ud83c\udfc1",
+      "category": "off-road",
+      "status": "Active"
+    },
+    {
+      "id": "dirtbike-200",
+      "name": "Dirt Bike 200cc",
+      "trim": "details TBD",
+      "emoji": "\ud83c\udfc1",
+      "category": "off-road",
+      "status": "Active"
+    },
+    {
+      "id": "g22a-2005",
+      "name": "2005 Yamaha G22A Golf Cart",
+      "trim": "8.5KW",
+      "emoji": "\ud83d\udefa",
+      "category": "utility",
+      "status": "Stock M12\u00d71.5 drain plug stripped \u2014 repair plug identified"
+    },
+    {
+      "id": "husqvarna-mower",
+      "name": "Husqvarna Riding Mower",
+      "trim": "",
+      "emoji": "\ud83d\ude9c",
+      "category": "equipment",
+      "status": "Active"
+    }
+  ]
+}

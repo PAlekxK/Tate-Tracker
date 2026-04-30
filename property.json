@@ -1,0 +1,230 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "lastUpdated": "2026-04-27",
+    "note": "All values are sourced from NOAA climate normals, USDA soil surveys, USGS topographic data, and published lapse-rate/cold-air-drainage research for the Appalachian region. Elevation and coordinates are estimated — verify on-site with a GPS app and update latitude/longitude/elevation_ft once confirmed.",
+    "dataSources": [
+      "NOAA 1991–2020 Climate Normals, KJZP Pickens County Airport (elev 1,535 ft)",
+      "Almanac.com frost dates for Jasper GA (sourced from NOAA normals)",
+      "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)",
+      "USDA NRCS Official Series Descriptions: Hayesville, Cecil, Pacolet",
+      "Appalachian lapse rate study: Springer Nature 'Air and soil temperatures in the Appalachian Highlands' (2025)",
+      "Cold-air drainage research: GeoJournal 'Thermal belt and cold air drainage on mountain slopes'",
+      "USDA Plant Hardiness Zone Map 2023",
+      "UGA Cooperative Extension climate and soil resources for North Georgia"
+    ]
+  },
+
+  "property": {
+    "name": "Church Mountain Road Property",
+    "address": "282 Church Mountain Road",
+    "city": "Jasper",
+    "state": "GA",
+    "zip": "30143",
+    "county": "Pickens County",
+    "region": "Blue Ridge Foothills, North Georgia",
+    "owner": "Paul"
+  },
+
+  "location": {
+    "coordinates": {
+      "latitude": null,
+      "longitude": null,
+      "approximateLat": 34.52,
+      "approximateLon": -84.46,
+      "note": "Approximate only — Church Mountain Road rises north/northwest of Jasper city center. Update latitude and longitude with a GPS reading on-site for precise weather API queries."
+    },
+    "elevation": {
+      "estimated_ft": 1750,
+      "range_ft": [1600, 2000],
+      "confidence": "estimated",
+      "basis": "Jasper city center sits at ~1,467 ft; KJZP Pickens County Airport is 1,535 ft. Church Mountain Road ascends a named mountain above town. Blue Ridge foothills in this area commonly run 1,600–2,100 ft on named mountain roads. Midpoint estimate of 1,750 ft used for calculations.",
+      "valleyFloorRef_ft": 1467,
+      "airportRef_ft": 1535,
+      "verifyInstruction": "Open any maps or GPS app, navigate to 282 Church Mountain Road, and read your elevation. Update estimated_ft and set confidence to 'confirmed'."
+    }
+  },
+
+  "hardiness": {
+    "officialZone": "7b",
+    "officialZoneMinTemp_F": 5,
+    "officialZoneMaxTemp_F": 10,
+    "elevationAdjustedZone": "7a (exposed ridges and mid-slope); 6b possible in confirmed frost pockets",
+    "elevationAdjustedMinTemp_F": 0,
+    "explanation": "Pickens County is officially USDA Zone 7b. At an estimated elevation of ~1,750 ft — roughly 280 ft above the KJZP reference station — the standard environmental lapse rate (3.5–5.5°F per 1,000 ft) implies approximately 1–1.5°F cooler average winter minimum. This alone keeps you squarely in 7b on open mid-slope positions. However, cold-air drainage into draws and hollows can push low spots an additional 8–15°F colder on calm clear nights, briefly reaching Zone 6b conditions. Plant accordingly: assume 7b for exposed and mid-slope beds, assume 7a or colder for any low-lying or sheltered hollow plantings.",
+    "lapseRate_F_per_1000ft": 3.5,
+    "coldAirDrainageEffect_F": "8–15°F colder in valley bottoms / hollows on calm clear nights vs. mid-slope"
+  },
+
+  "frostDates": {
+    "source": "NOAA 1991–2020 Climate Normals for Jasper GA, elevation-adjusted for estimated ~280 ft above KJZP",
+    "valleyFloor_KJZP": {
+      "note": "These are the official climate-normal dates for the Jasper/KJZP station (1,535 ft) — your baseline reference.",
+      "lastSpring_50pct": "April 23",
+      "lastSpring_90pctSafe": "May 14",
+      "firstFall_50pct": "October 27",
+      "firstFallRiskBegins": "October 9",
+      "growingSeason_days": 187
+    },
+    "atPropertyElevation": {
+      "note": "Adjusted ~+7 days spring / -7 days fall for estimated ~280 ft additional elevation. Applies to open mid-slope planting positions. Add another 5–14 days to frost-safe date for any beds in frost pockets.",
+      "lastSpring_50pct": "April 30",
+      "lastSpring_90pctSafe": "May 21",
+      "firstFall_50pct": "October 20",
+      "firstFallRiskBegins": "October 2",
+      "growingSeason_days": 173
+    },
+    "frostPocketWarning": "Any hollow, draw, or low-lying area where cold air pools on calm nights can experience frost 1–4 weeks earlier in fall and later in spring than the open mid-slope estimates above. If you have beds in these spots, treat them as Zone 6b."
+  },
+
+  "climate": {
+    "annualPrecipitation_in": 57,
+    "precipitationNotes": "57 in/yr at valley station. Orographic lift on mountain slopes typically adds 5–15% over the valley reading — Church Mountain property likely receives 60–65 in/yr. Well distributed year-round with slight spring peak (Mar–May). Afternoon convective thunderstorms common Jun–Aug.",
+    "temperature": {
+      "annualRange_F": [33, 87],
+      "janAvgHigh_F": 47.1,
+      "janAvgLow_F": 31.5,
+      "julAvgHigh_F": 87.6,
+      "julAvgLow_F": 65.8,
+      "extremeWinterLow_F": "Rarely below 10°F at mid-slope; frost pockets may briefly reach 0–5°F in hard winters"
+    },
+    "humidity": {
+      "summer": "High — 70–90% RH June–September; afternoon humidity combined with heat creates ideal conditions for fungal disease (boxwood blight, powdery mildew, downy mildew). Prioritize air circulation in plantings.",
+      "fallWinter": "Moderate — drier, lower humidity; best season for outdoor work and soil amendments"
+    },
+    "wind": {
+      "summer": "Light and variable; primarily SW; afternoon thunderstorm outflow can produce sudden strong gusts",
+      "winter": "NW to NE; cold Canadian air masses; exposed ridge positions get significant wind chill and evergreen desiccation",
+      "iceStormRisk": "Moderate — Pickens County sits in the Appalachian cold-air damming zone; 1–3 ice events per winter typical. Freezing rain more likely than heavy snow.",
+      "snowfall_in_avg": "5–12 inches annually; rarely accumulates more than 3–4 inches; melts quickly"
+    },
+    "growingSeasonNotes": "Warm enough for a long productive growing season, but late spring frosts mean wait until late May to plant tender annuals at elevation. Fall harvest window closes earlier than metro Atlanta by 2–3 weeks."
+  },
+
+  "soils": {
+    "likelySeries": ["Hayesville", "Cecil", "Pacolet"],
+    "parentMaterial": "Residuum weathered from high-grade metamorphic and igneous rock — mica gneiss, mica schist, granodiorite. Typical of the Southern Appalachian Blue Ridge.",
+    "texture": "Sandy loam to loam surface horizon (A/E); red-yellow sandy clay loam to clay loam subsoil (Bt argillic horizon). Moderately high clay content in subsoil can impede drainage in flat areas.",
+    "structure": "Moderate granular structure when in good health; can become compacted and crusting when depleted of organic matter or heavily trafficked.",
+    "pH": {
+      "nativeRange": "4.5–5.5 (extremely acid to moderately acid, unlimed)",
+      "plantingTargets": {
+        "acidLovers": "4.5–5.5 — azaleas, rhododendrons, mountain laurel, blueberries; your native soil is ideal unlimed",
+        "generalShrubsAndTrees": "5.5–6.5 — dogwood, hydrangea, boxwood, holly, Japanese maple; may need light liming",
+        "vegetables": "6.0–6.8 — may need liming for vegetable gardens",
+        "turf": "6.0–6.5 — likely needs liming if establishing lawn areas"
+      },
+      "soilTestRecommendation": "Get a UGA Extension soil test for each distinct planting area before adding any amendments. $9 basic test through Pickens County Extension Office (706-253-8840). Tests for pH, P, K, Ca, Mg and give lime/fertilizer recommendations."
+    },
+    "drainage": {
+      "onSlopes": "Well-drained to excessively drained — water moves through quickly; drought stress risk in summer",
+      "flatAreas": "Watch for perched water tables above clay subsoil; test drainage by digging 12-inch hole and observing after rain",
+      "lowAreas": "Potential for seasonal wet spots — check before planting moisture-sensitive species"
+    },
+    "organicMatter": {
+      "native": "Low to moderate on slopes; naturally depleted by erosion and rapid decomposition in warm humid climate",
+      "improvement": "Annual additions of leaf mulch and compost are the single highest-return investment for mountain garden soil. 2–3 inch mulch layer year-round on all beds."
+    },
+    "nutrients": {
+      "potassium": "Moderate to high from mica weathering — K deficiency uncommon",
+      "phosphorus": "Often low-to-medium; acidic soils fix P in unavailable forms. Test before adding P fertilizer.",
+      "calcium_magnesium": "Often low due to acidity; liming with dolomitic limestone raises pH and simultaneously adds Ca and Mg",
+      "nitrogen": "Low; organic matter additions and slow-release fertilizers most appropriate"
+    },
+    "rockContent": "Moderate to high — mica schist and gneiss parent material means rocks, chert, and occasionally large boulders near the surface. Raised beds may be preferable for intensive vegetable gardening."
+  },
+
+  "microclimate": {
+    "overview": "Church Mountain Road sits in a highly variable microclimate zone. The combination of elevation, slope aspect, and topographic position (ridge vs. draw vs. mid-slope vs. valley bottom) can create temperature differences of 15–20°F across a single property on a calm clear night. Knowing your specific positions is more valuable than any regional average.",
+    "elevationEffect": "Every 500 ft above Jasper valley adds approximately 1.75–2.75°F cooler average temperature. Spring green-up 5–10 days later than downtown Jasper; fall color 1–2 weeks earlier.",
+    "aspectEffects": {
+      "south_southwest": {
+        "character": "Warmest and driest",
+        "summerHeat_F_above_avg": 5,
+        "springFrostLater_days": 0,
+        "bestFor": "Heat-loving vegetables, sun-tolerant ornamentals, fruit trees",
+        "caution": "High summer heat stress — water demands elevated; Japanese maple and azalea leaf scorch more likely here"
+      },
+      "north_northeast": {
+        "character": "Coolest and moistest",
+        "summerHeat_F_below_avg": 4,
+        "springFrostLater_days": 3,
+        "bestFor": "Azaleas, rhododendrons, mountain laurel, ferns, wildflowers, hostas",
+        "caution": "Frost lingers later in spring; fungal disease (anthracnose, root rot) elevated by persistent moisture and shade"
+      },
+      "east": {
+        "character": "Morning sun, afternoon shade — the balanced optimum",
+        "bestFor": "Hydrangeas, dogwoods, most ornamentals; broadest compatible plant list",
+        "caution": "None significant — generally most favorable orientation for the plant list you have"
+      },
+      "west": {
+        "character": "Afternoon sun and heat exposure",
+        "bestFor": "Drought-tolerant species, native shrubs",
+        "caution": "High afternoon water stress in summer; wind exposure from prevailing SW summer breezes"
+      }
+    },
+    "thermalBelt": {
+      "description": "Mid-slope positions approximately 100–400 ft above the valley floor are typically the frost-safest positions on any mountain property. Cold air, being denser than warm air, drains downhill on calm clear nights and pools in the valley while the mid-slope stays warmer.",
+      "estimatedAdvantage_F": "3–8°F warmer than valley bottom on calm clear nights",
+      "implication": "Your best beds for borderline-hardy plants are on the middle slope, not the valley bottom or the exposed ridge top."
+    },
+    "frostPockets": {
+      "description": "Any topographic low — hollow, draw, depression, base of a slope, area surrounded by tree walls that block drainage — is a frost pocket. Cold air pools there on calm clear nights.",
+      "typicalColdOffset_F": "8–15°F colder than open mid-slope",
+      "identification": "On a clear calm night in spring or fall, use a thermometer to compare your low spots vs. mid-slope. A 10°F difference is not uncommon.",
+      "gardeningImplication": "Do not plant marginally-hardy species in known frost pockets. Good uses for frost pockets: native woodland species, hardy ferns, cold-tolerant vegetables."
+    },
+    "orographicPrecipitation": {
+      "description": "Moist air flowing up the mountain slopes cools and drops moisture as it rises — orographic lift. Church Mountain likely receives 5–15% more rainfall than the KJZP valley station records.",
+      "estimatedAnnualPrecip_in": 62,
+      "implication": "Drainage is important; hillside beds drain quickly but lower/flat areas may stay wetter than expected. Summer dry spells still happen — they just may be shorter than in the valley."
+    }
+  },
+
+  "propertyZones": {
+    "note": "Define your property's specific areas here to enable zone-aware care recommendations. Examples below — edit to match your actual layout.",
+    "zones": [
+      {
+        "id": "zone-placeholder",
+        "name": "Example: Front Beds (East-facing, mid-slope)",
+        "aspect": "east",
+        "position": "mid-slope",
+        "sunExposure": "morning-sun",
+        "knownFrostPocket": false,
+        "soilNotes": "",
+        "plantsHere": [],
+        "notes": "Replace this placeholder with your actual zones"
+      }
+    ]
+  },
+
+  "resources": {
+    "localExtension": {
+      "name": "UGA Cooperative Extension — Pickens County",
+      "phone": "706-253-8840",
+      "services": "Soil testing ($9), plant disease ID, pest ID, variety recommendations for North Georgia"
+    },
+    "soilTesting": {
+      "lab": "UGA Agricultural and Environmental Services Laboratories",
+      "submitVia": "Pickens County Extension Office",
+      "cost": "$9 basic test (pH, P, K, Ca, Mg, organic matter, lime recommendation)",
+      "turnaround": "1–2 weeks",
+      "recommendation": "Test each major planting area separately; test every 3 years or when plants show nutrient symptoms"
+    },
+    "nearestWeatherStation": {
+      "id": "KJZP",
+      "name": "Pickens County Airport",
+      "elevation_ft": 1535,
+      "note": "Nearest official ASOS station. At 1,535 ft, it's close to your estimated elevation range. NWS forecast zone: GAZ013 (Pickens County)."
+    },
+    "personalWeatherStations": {
+      "source": "Weather Underground Wundermap",
+      "url": "https://www.wunderground.com/wundermap",
+      "note": "Search for personal weather stations on/near Church Mountain Road. Neighbor PWS data will be more representative of your microclimate than KJZP."
+    },
+    "nwsForecast": {
+      "url": "https://forecast.weather.gov/MapClick.php?zoneid=GAZ013",
+      "note": "NWS zone forecast for Pickens County. Check for freeze watches and warnings."
+    }
+  }
+}

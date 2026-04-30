@@ -1,0 +1,506 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "lastUpdated": "2026-04-28",
+    "dataSources": [
+      "Lake Sequoyah history: Pickens Past / North Georgia History — Tate Mountain Estates records",
+      "Lake Sequoyah elevation 2,800 ft: Kennesaw State University SOAR postcard archive",
+      "Lake size ~38 acres: Lake-Link / Fishing.org",
+      "Largemouth bass temperature/behavior: BassResource.com, Flop Industries, On The Water",
+      "Crappie temperature/behavior: Boundary Voyage, Crappie Co.",
+      "Bluegill temperature/behavior: Wired2Fish, Tailored Tackle, Angling Buzz",
+      "Georgia DNR statewide freshwater regulations: eRegulations.com / gadnr.org",
+      "Appalachian water temperature lapse research applied from property.json elevation data"
+    ],
+    "notes": "Water temperature estimates for Lake Sequoyah are derived from seasonal air temperature patterns adjusted for 2,800 ft elevation. Actual lake temperature varies — a $15 fishing thermometer on a line is the most reliable tool. Regulations should be verified annually at georgiawildlife.com before each season."
+  },
+  "lake": {
+    "name": "Lake Sequoyah",
+    "address": "428 Lake Sequoyah Road, Jasper, GA 30143",
+    "county": "Pickens County",
+    "distanceFromProperty_miles": 6.2,
+    "elevation_ft": 2800,
+    "size_acres": 38,
+    "feedStream": "Clear Creek",
+    "type": "Reservoir",
+    "history": "Built 1928–1930 by Col. Sam Tate (Georgia Marble Company) as part of the Tate Mountain Estates resort development on Burnt Mountain. Dam completed April 1930. One of the highest-elevation warmwater fishing lakes in North Georgia.",
+    "elevationNote": "At 2,800 ft, this lake runs 8–12°F cooler than lowland Georgia lakes year-round. Spring warm-up is 4–6 weeks behind Atlanta-area lakes. Summer peak temps rarely exceed 78–80°F — an advantage for year-round fish activity compared to hot lowland lakes that suppress feeding in summer. Plan your seasonal timing around this."
+  },
+  "regulations": {
+    "source": "Georgia DNR Wildlife Resources Division statewide freshwater regulations — verify annually at georgiawildlife.com",
+    "license": "Georgia freshwater fishing license required age 16+. Available at georgiawildlife.com or local retailers.",
+    "species": {
+      "largemouthBass": {
+        "dailyLimit": 10,
+        "limitNote": "Combined largemouth and spotted bass",
+        "minimumSize_in": 12,
+        "season": "Year-round"
+      },
+      "crappie": {
+        "dailyLimit": 30,
+        "minimumSize_in": null,
+        "season": "Year-round"
+      },
+      "bluegill": {
+        "dailyLimit": 50,
+        "minimumSize_in": null,
+        "season": "Year-round"
+      }
+    },
+    "catchAndRelease": "During spawn (roughly late May–mid June at this elevation), consider voluntary C&R for bass on beds — removing spawning fish reduces next year's class."
+  },
+  "waterTempGuide": {
+    "note": "These are estimated seasonal ranges for Lake Sequoyah at 2,800 ft. Use a clip-on thermometer for real readings. The cutoffs below drive all species behavior.",
+    "ranges": [
+      {
+        "label": "Dead of Winter",
+        "low_F": 38,
+        "high_F": 48,
+        "months": [
+          11,
+          0,
+          1
+        ],
+        "fishing": "poor",
+        "summary": "All species sluggish. Bass suspended at deepest water. Not worth targeting unless mild spell brings surface to 50°F+."
+      },
+      {
+        "label": "Early Spring Stir",
+        "low_F": 48,
+        "high_F": 58,
+        "months": [
+          2,
+          3
+        ],
+        "fishing": "fair",
+        "summary": "Bass starting to move from deep winter haunts toward staging areas. Crappie beginning prespawn migration toward brush. Slow presentation critical — fish lethargic but can be tempted."
+      },
+      {
+        "label": "Pre-Spawn Prime",
+        "low_F": 58,
+        "high_F": 65,
+        "months": [
+          3,
+          4
+        ],
+        "fishing": "excellent",
+        "summary": "Best sustained fishing of the year. Bass feeding aggressively before spawn — largest females most catchable now. Crappie moving to shallow brush. This window at Sequoyah runs roughly late April through May."
+      },
+      {
+        "label": "Spawn",
+        "low_F": 65,
+        "high_F": 72,
+        "months": [
+          4,
+          5
+        ],
+        "fishing": "good",
+        "summary": "Bass on beds in 2–6 ft, highly visible and catchable but stressed. Crappie spawning near stumps and brush. Bluegill begin spawning. Consider C&R ethics during this window."
+      },
+      {
+        "label": "Post-Spawn / Early Summer",
+        "low_F": 70,
+        "high_F": 78,
+        "months": [
+          5,
+          6
+        ],
+        "fishing": "good",
+        "summary": "Bass recovering from spawn, moving to structure in 8–15 ft. Feeding resumes. Bluegill very active on beds. Topwater productive at dawn. At 2,800 ft these temps rarely become oppressive."
+      },
+      {
+        "label": "Peak Summer",
+        "low_F": 72,
+        "high_F": 80,
+        "months": [
+          6,
+          7
+        ],
+        "fishing": "good",
+        "summary": "Unlike lowland GA lakes, Sequoyah's elevation keeps summer temps below 80°F — fish remain reasonably active. Dawn and dusk are prime. Bass holding near shade, points, and any structure. Bluegill most active species."
+      },
+      {
+        "label": "Late Summer",
+        "low_F": 68,
+        "high_F": 76,
+        "months": [
+          7,
+          8
+        ],
+        "fishing": "good",
+        "summary": "Temps beginning to moderate. Bass moving back toward shallower structure. Crappie transitioning to fall patterns. Consistent action for all three species."
+      },
+      {
+        "label": "Fall Feed",
+        "low_F": 55,
+        "high_F": 70,
+        "months": [
+          8,
+          9,
+          10
+        ],
+        "fishing": "excellent",
+        "summary": "Second-best window of the year, arguably the most fun. Bass feeding aggressively to pack on weight before winter — chasing baitfish in open water and shallows. Crappie pushing toward brush. Fast-moving lures effective."
+      },
+      {
+        "label": "Late Fall Slowdown",
+        "low_F": 45,
+        "high_F": 55,
+        "months": [
+          10,
+          11
+        ],
+        "fishing": "fair",
+        "summary": "Cooling quickly at elevation. Bass and crappie moving to deeper water. Slowing presentations. Late crappie can still be excellent at this lake on mild days."
+      }
+    ]
+  },
+  "species": [
+    {
+      "id": "largemouth-bass",
+      "name": "Largemouth Bass",
+      "scientificName": "Micropterus salmoides",
+      "emoji": "🎣",
+      "overview": "The primary target species at Sequoyah. A small mountain reservoir at 2,800 ft means the population is not as dense as lowland impoundments, but the fish are healthy and well-fed. At this elevation the spawn runs 6–8 weeks behind Atlanta-area lakes — expect bedding fish in late May to mid-June rather than April.",
+      "tempPhases": [
+        {
+          "phase": "Winter (inactive)",
+          "waterTemp_F": "< 50°F",
+          "behavior": "Suspended near deepest water, metabolism near zero, almost no feeding. Not worth targeting.",
+          "depth": "Deepest available basin — 15+ ft",
+          "bestApproach": "If you must fish: 3/8 oz football jig dragged extremely slowly along bottom. Expect few bites."
+        },
+        {
+          "phase": "Pre-spawn (best of year)",
+          "waterTemp_F": "55–65°F",
+          "behavior": "Feeding aggressively to fuel the spawn. Staging near points, secondary channel edges, and structure adjacent to spawning flats. Largest females are most catchable in this window.",
+          "depth": "5–12 ft on staging structure",
+          "bestApproach": "Squarebill crankbait along rocky points. Swimbait on a jighead along channel edges. Texas-rigged Senko or creature bait worked slowly. Spinnerbait in stained water or overcast days."
+        },
+        {
+          "phase": "Spawn",
+          "waterTemp_F": "65–72°F",
+          "behavior": "Males fanning beds in 2–6 ft on hard bottom near cover (stumps, rocks, laydowns). Females nearby, less aggressive. Highly visible — polarized sunglasses essential.",
+          "depth": "2–6 ft, hard bottom",
+          "bestApproach": "Finesse ned rig or drop shot worked on or near beds. Topwater popper early morning. Consider C&R for bedding fish."
+        },
+        {
+          "phase": "Post-spawn / summer",
+          "waterTemp_F": "70–80°F",
+          "behavior": "Males guarding fry in shallows. Females recovering near first deep structure. At Sequoyah's elevation summer temps stay manageable — bass don't go as deep or shut down as hard as in lowland lakes.",
+          "depth": "8–15 ft near structure",
+          "bestApproach": "Topwater (Whopper Plopper, popper) at dawn and dusk. Wacky-rigged Senko around any submerged stumps or wood. Ned rig on rocky points. Spinnerbait along weedline edges."
+        },
+        {
+          "phase": "Fall feed",
+          "waterTemp_F": "55–70°F",
+          "behavior": "Most aggressive feeding of the year. Chasing shad and other baitfish in open water and over shallow flats. Fast-moving baits very effective. Often visibly blowing up on baitfish near the surface.",
+          "depth": "Variable — follow the baitfish",
+          "bestApproach": "Topwater and medium-running crankbait. Chatterbait or vibrating jig. Lipless crankbait (Red Eye Shad). Follow shad activity — bass won't be far."
+        }
+      ],
+      "localTips": [
+        "At 2,800 ft, the spawn runs 6–8 weeks later than Atlanta-area lakes. Don't expect bed fish before late May.",
+        "Stump fields and submerged timber (remnants of the original Clear Creek valley) are key structure.",
+        "Morning topwater in June and July will produce even through summer — the cooler water keeps bass surface-feeding longer into the day than lowland lakes.",
+        "The dam face and any rocky riprap are worth working in all seasons — shad and crayfish concentrate there."
+      ]
+    },
+    {
+      "id": "crappie",
+      "name": "Crappie",
+      "scientificName": "Pomoxis spp.",
+      "emoji": "🐟",
+      "overview": "Black and white crappie both likely present. At this elevation, crappie are slower to warm up in spring — the pre-spawn and spawn window runs about a month behind lowland lakes. They hold tightly to brush, stumps, and submerged wood year-round.",
+      "tempPhases": [
+        {
+          "phase": "Winter",
+          "waterTemp_F": "< 50°F",
+          "behavior": "Suspended in deep water (10–20 ft) near brush piles or channel edges. Slow, but catchable with vertical jigging.",
+          "depth": "10–20 ft",
+          "bestApproach": "Drop a 1/32 oz jig or live minnow straight down into known brush. Virtually no lateral movement — dead still or barely twitching."
+        },
+        {
+          "phase": "Pre-spawn",
+          "waterTemp_F": "55–62°F",
+          "behavior": "Moving from deep brush toward shallower staging areas. Feeding actively. One of the best consistent crappie windows.",
+          "depth": "6–12 ft on brush and secondary structure",
+          "bestApproach": "1/16–1/8 oz tube jig or curly tail grub in chartreuse, white, or pink. Slow horizontal retrieve near brush edges. Live minnow under a slip float is deadly."
+        },
+        {
+          "phase": "Spawn",
+          "waterTemp_F": "62–68°F",
+          "behavior": "Moves into shallow water (2–6 ft) near stumps, brush, and submerged wood to spawn. Very catchable — highly aggressive defenders.",
+          "depth": "2–6 ft near cover",
+          "bestApproach": "Small tube jig or split-tail grub pitched to cover. Spider rig with multiple poles covering different depths. Live minnow is the most reliable spawn bait. This window at Sequoyah runs approximately late May to mid-June."
+        },
+        {
+          "phase": "Summer",
+          "waterTemp_F": "68–78°F",
+          "behavior": "Moving to deeper, cooler water or suspending under shade near structure. Dawn and dusk feeding windows. Not absent — just harder to locate.",
+          "depth": "8–15 ft; dawn/dusk shallower",
+          "bestApproach": "Vertical jigging near deep brush. Night fishing can be excellent — crappie attracted to lights. 1/16 oz jig in white or chartreuse."
+        },
+        {
+          "phase": "Fall",
+          "waterTemp_F": "55–68°F",
+          "behavior": "Returns to shallower brush as temps cool. Feeding aggressively on shad. Often schooled up — if you catch one, there are more nearby.",
+          "depth": "4–12 ft near brush and structure",
+          "bestApproach": "Jig in natural shad colors — silver, white, grey. Live minnow under a bobber over brush. Casting and counting down to depth before retrieve."
+        }
+      ],
+      "localTips": [
+        "Brush piles are everything for crappie. Any submerged wood, stumps, or artificial structure holds fish.",
+        "At 2,800 ft expect spawn 4–6 weeks later than lowland GA — late May to mid-June vs. April in Atlanta.",
+        "Crappie at elevation tend to be smaller but very concentrated in structure. Find the brush, find the fish.",
+        "A slip float rig with a live minnow 3–4 ft deep is the most consistently productive method for all seasons."
+      ]
+    },
+    {
+      "id": "bluegill",
+      "name": "Bluegill",
+      "scientificName": "Lepomis macrochirus",
+      "emoji": "🐠",
+      "overview": "The most accessible and arguably most fun species at Sequoyah. Abundant, aggressive, and willing to bite throughout the warmwater season. Excellent on ultralight tackle. Spawn multiple times per summer, making them catchable from late May through early September at this elevation.",
+      "tempPhases": [
+        {
+          "phase": "Winter / Cold",
+          "waterTemp_F": "< 55°F",
+          "behavior": "Schooled tight in deeper, warmer water. Low activity. Can be caught but not worth targeting specifically.",
+          "depth": "8–15 ft",
+          "bestApproach": "Small jig or cricket on a drop shot near the bottom."
+        },
+        {
+          "phase": "Spring warm-up",
+          "waterTemp_F": "58–68°F",
+          "behavior": "Moving shallower as temps rise. Appetite increasing. Edges of weed beds, rocky shallows, and dock areas.",
+          "depth": "3–8 ft",
+          "bestApproach": "Small in-line spinner (Rooster Tail). Live cricket or worm under a small bobber 2–3 ft deep. Light jig in chartreuse or white."
+        },
+        {
+          "phase": "Spawn (peak season)",
+          "waterTemp_F": "70–80°F",
+          "behavior": "Colonies of males fanning visible circular beds in gravel or sandy shallows, 1–4 ft deep. Extremely aggressive — will strike almost anything near the bed. Multiple spawn batches run through summer.",
+          "depth": "1–4 ft, visible beds",
+          "bestApproach": "Small popper on ultralight spinning or fly rod — one of the most fun freshwater experiences available. Live cricket or wax worm is also deadly. Small rubber spider fly or foam beetle. This window at Sequoyah runs June through early August.",
+          "note": "Bluegill spawn multiple times per season when temps are right — you may catch this window 2–3 times from June through August."
+        },
+        {
+          "phase": "Late Summer / Fall",
+          "waterTemp_F": "62–72°F",
+          "behavior": "Post-spawn fish scattered but still very active. Schooling near weed edges and structure, chasing small insects and nymphs.",
+          "depth": "3–10 ft",
+          "bestApproach": "Small soft plastic grub. Fly fishing with wooly bugger or small streamer. Worm under a bobber."
+        }
+      ],
+      "localTips": [
+        "Bluegill are the best 'always something biting' option at Sequoyah. If bass and crappie are slow, bluegill will save the trip.",
+        "Fly fishing for bluegill on beds (June–July) is genuinely world-class fun on a small mountain lake — 5 or 6 weight rod, small poppers.",
+        "At 2,800 ft the spawn runs late — don't expect beds until early-to-mid June, about 4 weeks after lowland GA.",
+        "Crickets from any local bait shop are the single most reliable bluegill bait for all seasons."
+      ]
+    }
+  ],
+  "seasonalCalendar": {
+    "note": "All months adjusted for Lake Sequoyah's 2,800 ft elevation. Lowland Georgia references (Atlanta, Lake Lanier) run 4–6 weeks ahead of these dates.",
+    "months": {
+      "Jan": {
+        "worthFishing": false,
+        "conditions": "Cold — all species inactive in deep water. Save it for a warm spell above 50°F.",
+        "species": []
+      },
+      "Feb": {
+        "worthFishing": false,
+        "conditions": "Still cold. Late February can produce crappie if temps break 50°F on sunny afternoons.",
+        "species": [
+          "crappie"
+        ]
+      },
+      "Mar": {
+        "worthFishing": "marginal",
+        "conditions": "Water 45–55°F. Crappie starting to stir in deep brush. Bass pre-staging has begun but fish are lethargic.",
+        "species": [
+          "crappie"
+        ]
+      },
+      "Apr": {
+        "worthFishing": true,
+        "conditions": "Water rising through 52–62°F — prime pre-spawn bass window opens late April. Crappie active near brush. Best month to watch temps closely.",
+        "species": [
+          "bass",
+          "crappie"
+        ]
+      },
+      "May": {
+        "worthFishing": true,
+        "conditions": "Best month of the year. Pre-spawn bass at peak aggression. Crappie spawn begins late May. Bluegill warming up. DO NOT MISS THIS WINDOW.",
+        "species": [
+          "bass",
+          "crappie",
+          "bluegill"
+        ]
+      },
+      "Jun": {
+        "worthFishing": true,
+        "conditions": "Bass spawning mid-June at this elevation. Bluegill spawn in full swing — incredible fly fishing. Post-spawn bass recovering. Topwater dawn is excellent.",
+        "species": [
+          "bass",
+          "crappie",
+          "bluegill"
+        ]
+      },
+      "Jul": {
+        "worthFishing": true,
+        "conditions": "Peak summer but manageable at 2,800 ft. All species active, especially bluegill. Fish dawn/dusk. Bass on structure 8–12 ft.",
+        "species": [
+          "bass",
+          "bluegill",
+          "crappie"
+        ]
+      },
+      "Aug": {
+        "worthFishing": true,
+        "conditions": "Late summer — temps begin moderating. Bluegill still on beds or post-spawn. Bass starting early fall patterns. Consistent action all day.",
+        "species": [
+          "bass",
+          "bluegill",
+          "crappie"
+        ]
+      },
+      "Sep": {
+        "worthFishing": true,
+        "conditions": "Fall feed begins. Bass aggressively chasing baitfish. Crappie moving back to brush in shallows. One of the best months of the year.",
+        "species": [
+          "bass",
+          "crappie",
+          "bluegill"
+        ]
+      },
+      "Oct": {
+        "worthFishing": true,
+        "conditions": "Excellent fall action continuing. Bass topwater in mornings. Crappie near brush 4–10 ft. Temps dropping quickly at elevation — close the season strong.",
+        "species": [
+          "bass",
+          "crappie"
+        ]
+      },
+      "Nov": {
+        "worthFishing": "marginal",
+        "conditions": "Water cooling fast. Bass moving deep, slowing down. Crappie last good window on mild days. Dress warm.",
+        "species": [
+          "crappie"
+        ]
+      },
+      "Dec": {
+        "worthFishing": false,
+        "conditions": "Cold and slow. Rest up for next season.",
+        "species": []
+      }
+    }
+  },
+  "gearRecommendations": {
+    "bass": {
+      "rod": "Medium-heavy 7' spinning or baitcaster",
+      "line": "10–15 lb fluorocarbon or 30–40 lb braid with fluoro leader",
+      "mustHaveLures": [
+        "Squarebill crankbait (spring/fall)",
+        "Wacky-rigged Senko 5\" (all season)",
+        "Ned rig — 3\" Elaztech worm on 1/10 oz head (finesse days)",
+        "Topwater Whopper Plopper (dawn summer/fall)",
+        "1/2 oz spinnerbait — white or chartreuse blade (overcast/stained)"
+      ]
+    },
+    "crappie": {
+      "rod": "Light 6'6\" ultralight spinning",
+      "line": "4–6 lb mono or light fluoro",
+      "mustHaveLures": [
+        "1/16 oz tube jig — chartreuse, white, or pink",
+        "Bobby Garland Baby Shad on light jighead",
+        "Live minnow under slip float (most reliable)",
+        "Small curly tail grub"
+      ]
+    },
+    "bluegill": {
+      "rod": "Ultralight spinning or 5-wt fly rod",
+      "line": "4 lb mono",
+      "mustHaveLures": [
+        "Live cricket under small bobber (hardest to beat)",
+        "Small Rooster Tail 1/16 oz",
+        "Foam spider or small popper on fly rod",
+        "Wax worm or small piece of nightcrawler"
+      ]
+    },
+    "generalNotes": [
+      "A basic $15 waterproof thermometer on a string is the highest-ROI fishing tool for this lake — knowing the exact water temp tells you where every species is and what they'll hit.",
+      "Polarized sunglasses for spotting bass beds and reading the water in the shallows.",
+      "Small tackle box is plenty for a mountain lake of this size — don't overpack.",
+      "Lake Sequoyah is a small reservoir. Walk the shoreline and probe the structure rather than covering open water."
+    ]
+  },
+  "historicalWaterTemp": {
+    "note": "Monthly typical lake water temp ranges for Lake Sequoyah (~2,800 ft elevation). Derived from NOAA 1991–2020 Climate Normals for Pickens County adjusted for elevation lapse rate (~4.7°F cooler than Jasper valley) and lake thermal inertia (water lags air 4–6 weeks warming, 2–3 weeks cooling). Not measured data — use as a planning guide; actual temps vary with weather.",
+    "dataSource": "NOAA 1991–2020 Climate Normals, KJZP Pickens County Airport (1,535 ft); elevation-adjusted for 2,800 ft; thermal lag applied",
+    "months": {
+      "Jan": {
+        "typical_F": 42,
+        "low_F": 38,
+        "high_F": 47
+      },
+      "Feb": {
+        "typical_F": 40,
+        "low_F": 36,
+        "high_F": 45
+      },
+      "Mar": {
+        "typical_F": 44,
+        "low_F": 39,
+        "high_F": 51
+      },
+      "Apr": {
+        "typical_F": 52,
+        "low_F": 46,
+        "high_F": 59
+      },
+      "May": {
+        "typical_F": 60,
+        "low_F": 54,
+        "high_F": 66
+      },
+      "Jun": {
+        "typical_F": 68,
+        "low_F": 63,
+        "high_F": 73
+      },
+      "Jul": {
+        "typical_F": 74,
+        "low_F": 70,
+        "high_F": 78
+      },
+      "Aug": {
+        "typical_F": 74,
+        "low_F": 70,
+        "high_F": 78
+      },
+      "Sep": {
+        "typical_F": 68,
+        "low_F": 63,
+        "high_F": 73
+      },
+      "Oct": {
+        "typical_F": 58,
+        "low_F": 52,
+        "high_F": 64
+      },
+      "Nov": {
+        "typical_F": 49,
+        "low_F": 43,
+        "high_F": 55
+      },
+      "Dec": {
+        "typical_F": 44,
+        "low_F": 38,
+        "high_F": 49
+      }
+    }
+  }
+}
