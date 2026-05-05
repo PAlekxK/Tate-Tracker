@@ -1,83 +1,229 @@
 {
   "_meta": {
-    "schemaVersion": 1,
-    "notes": "Read-only placeholder for now. Will eventually mirror plant card structure with maintenance logs, alerts, and per-vehicle care."
+    "schemaVersion": 2,
+    "notes": "Full vehicle fleet with decoded VINs, engine specs, and maintenance status."
   },
   "vehicles": [
     {
       "id": "gti-2016",
       "name": "2016 VW GTI",
       "trim": "MK7 Autobahn",
-      "emoji": "\ud83d\ude97",
-      "engine": "EA888 Gen 3, APR Stage 1 tuned",
+      "emoji": "🚗",
+      "engine": "EA888 Gen 3 2.0T, APR Stage 1 tuned",
       "category": "daily-driver",
-      "status": "Active \u2014 coolant leak diagnosis ongoing"
+      "status": "Active — coolant leak diagnosis ongoing",
+      "specs": {
+        "displacement": "1,984 cc turbocharged inline-4",
+        "power": "~230 hp (APR Stage 1 tune)",
+        "transmission": "6-speed DSG (DQ250)",
+        "drivetrain": "FWD"
+      },
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation — check thermostat housing and expansion tank cap first."
     },
     {
       "id": "tiguan-2018",
       "name": "2018 VW Tiguan",
       "trim": "S",
-      "emoji": "\ud83d\ude99",
+      "emoji": "🚙",
+      "engine": "EA888 Gen 3B 2.0T",
       "category": "daily-driver",
-      "status": "Active"
+      "status": "Active",
+      "specs": {
+        "displacement": "1,984 cc turbocharged inline-4",
+        "power": "184 hp @ 4,400–6,000 rpm",
+        "transmission": "8-speed automatic (8A)",
+        "drivetrain": "FWD (base trim)"
+      }
     },
     {
       "id": "f150-2006",
       "name": "2006 Ford F-150",
       "trim": "",
-      "emoji": "\ud83d\udefb",
-      "engine": "4.2L V6",
+      "emoji": "🛻",
+      "engine": "4.2L Essex V6",
       "category": "truck",
-      "status": "Active"
+      "status": "Active",
+      "specs": {
+        "displacement": "4,196 cc OHV V6",
+        "power": "202 hp @ 4,250 rpm",
+        "torque": "260 lb-ft @ 3,500 rpm",
+        "transmission": "4-speed automatic (4R70W)",
+        "payload": "~1,400 lb"
+      }
     },
     {
       "id": "bronco-1989",
       "name": "1989 Ford Bronco",
       "trim": "Eddie Bauer",
-      "emoji": "\ud83d\udfe2",
-      "engine": "5.8L 351W V8",
+      "emoji": "🟢",
+      "engine": "5.8L 351W Windsor V8",
       "category": "classic",
-      "status": "Restoration in progress"
+      "status": "Restoration in progress",
+      "specs": {
+        "displacement": "5,766 cc OHV V8",
+        "power": "210 hp @ 3,800 rpm (stock)",
+        "torque": "315 lb-ft @ 2,800 rpm",
+        "transmission": "AOD 4-speed automatic",
+        "transfer_case": "Borg Warner 1356",
+        "drivetrain": "4WD"
+      },
+      "notes": "Eddie Bauer edition — two-tone paint, upgraded interior. Full restoration underway."
     },
     {
-      "id": "drz400-2002",
-      "name": "2002 Suzuki DR-Z400S",
+      "id": "dr200s-2017",
+      "name": "2017 Suzuki DR200S",
       "trim": "",
-      "emoji": "\ud83c\udfcd\ufe0f",
+      "emoji": "🏍️",
       "category": "motorcycle",
-      "status": "Active"
+      "status": "Active",
+      "vin": "JS1SH42A4H2••••••",
+      "vinDecode": {
+        "JS1": "Suzuki — manufactured in Japan",
+        "SH42": "DR200S model code",
+        "A": "check character",
+        "4": "check digit",
+        "H": "model year 2017 (17th letter in VIN year cycle)",
+        "2": "Hamamatsu factory",
+        "101809": "production sequence number"
+      },
+      "specs": {
+        "displacement": "199 cc",
+        "engineType": "Single-cylinder 4-stroke, air-cooled, SOHC",
+        "bore_stroke": "66.0 × 58.0 mm",
+        "compression": "9.5:1",
+        "carburetor": "Mikuni BST31",
+        "power": "~17 hp",
+        "transmission": "5-speed manual",
+        "clutch": "Wet multi-plate",
+        "frameType": "Tubular steel semi-double cradle",
+        "frontSuspension": "Telescopic fork, 6.9 in travel",
+        "rearSuspension": "Link-type with coil-over shock, 7.3 in travel",
+        "frontBrake": "Single disc",
+        "rearBrake": "Drum",
+        "frontTire": "3.00-21 51P",
+        "rearTire": "4.10-18 59P",
+        "seatHeight": "33.3 in",
+        "groundClearance": "11.4 in",
+        "fuelCapacity": "3.3 gal",
+        "fuelEconomy": "~88 mpg",
+        "weight_curb": "278 lbs",
+        "starter": "Electric + kick"
+      },
+      "notes": "Label on frame reads: MOTORCYCLE DR200S MADE IN JAPAN. Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain."
     },
     {
-      "id": "dirtbike-400",
-      "name": "Dirt Bike 400cc",
-      "trim": "details TBD",
-      "emoji": "\ud83c\udfc1",
-      "category": "off-road",
-      "status": "Active"
-    },
-    {
-      "id": "dirtbike-200",
-      "name": "Dirt Bike 200cc",
-      "trim": "details TBD",
-      "emoji": "\ud83c\udfc1",
-      "category": "off-road",
-      "status": "Active"
+      "id": "drz400s-2001",
+      "name": "2001 Suzuki DR-Z400S",
+      "trim": "",
+      "emoji": "🏍️",
+      "category": "motorcycle",
+      "status": "Active",
+      "vin": "JS1SK43A212••••••",
+      "vinDecode": {
+        "JS1": "Suzuki — manufactured in Japan",
+        "SK43": "DR-Z400S model code",
+        "A": "check character",
+        "2": "check digit",
+        "1": "model year 2001",
+        "2": "Hamamatsu factory",
+        "100941": "production sequence number"
+      },
+      "specs": {
+        "displacement": "398 cc",
+        "engineType": "Single-cylinder 4-stroke, liquid-cooled, DOHC",
+        "bore_stroke": "90.0 × 62.6 mm",
+        "compression": "11.3:1",
+        "carburetor": "Mikuni BSR36",
+        "power": "39 hp @ 8,400 rpm",
+        "torque": "18 lb-ft (24 Nm) @ 5,800 rpm",
+        "transmission": "5-speed manual",
+        "clutch": "Wet multi-plate",
+        "frameType": "Chrome-moly steel double cradle",
+        "frontSuspension": "KYB inverted telescopic fork, 11.0 in travel",
+        "rearSuspension": "KYB link-type shock, 11.0 in travel",
+        "frontBrake": "Single disc, 250 mm",
+        "rearBrake": "Single disc, 220 mm",
+        "frontTire": "80/100-21",
+        "rearTire": "120/90-18",
+        "seatHeight": "37.4 in",
+        "groundClearance": "11.8 in",
+        "fuelCapacity": "2.6 gal",
+        "weight_dry": "291 lbs",
+        "starter": "Electric + kick"
+      },
+      "notes": "VIN position 10 = '1' confirms 2001 model year (previously catalogued as 2002 — corrected from VIN photo). Dual-sport — street-legal with headlight, tail light, and mirrors."
     },
     {
       "id": "g22a-2005",
       "name": "2005 Yamaha G22A Golf Cart",
       "trim": "8.5KW",
-      "emoji": "\ud83d\udefa",
+      "emoji": "🛺",
       "category": "utility",
-      "status": "Stock M12\u00d71.5 drain plug stripped \u2014 repair plug identified"
+      "status": "Stock M12×1.5 drain plug stripped — repair plug identified",
+      "specs": {
+        "motor": "8.5 kW DC electric",
+        "voltage": "48V",
+        "batteries": "6× 8V deep-cycle",
+        "payload": "~800 lb",
+        "topSpeed": "~19 mph"
+      },
+      "notes": "Use an M12×1.5 → 1/2\" NPT repair drain plug to fix the stripped oil drain on the rear axle/transaxle."
     },
     {
       "id": "husqvarna-mower",
       "name": "Husqvarna Riding Mower",
       "trim": "",
-      "emoji": "\ud83d\ude9c",
+      "emoji": "🚜",
       "category": "equipment",
       "status": "Active"
+    },
+    {
+      "id": "chainsaw-ms290",
+      "name": "Stihl MS 290 Farm Boss",
+      "trim": "",
+      "emoji": "🪚",
+      "category": "equipment",
+      "status": "Active",
+      "specs": {
+        "displacement": "56.5 cc",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "power": "3.8 hp (2.8 kW) @ 7,400 rpm",
+        "idleSpeed": "2,800 rpm",
+        "maxSpeed": "12,500 rpm",
+        "weight": "13.2 lbs (6.0 kg) without bar/chain",
+        "fuelCapacity": "18.9 fl oz (560 mL)",
+        "oilCapacity": "11.2 fl oz (330 mL)",
+        "fuelMix": "50:1 (2.6 fl oz 2-stroke oil per gallon)",
+        "recommendedBar": "16\"–20\" (18\" Farm Boss standard)",
+        "chainPitch": "3/8\" (0.325\" available)",
+        "chainGauge": "0.050\"",
+        "antivibration": "4-point AV system",
+        "produced": "2000–2012"
+      },
+      "notes": "The 'Farm Boss' — Stihl's iconic mid-range saw for landowners and farmers. Well-suited for firewood, storm cleanup, and land clearing. Parts widely available even post-production. Mix 50:1 with quality 2-stroke oil; never use E15+ ethanol fuel."
+    },
+    {
+      "id": "chainsaw-cs352",
+      "name": "Echo CS-352 Chainsaw",
+      "trim": "i-30 Starter",
+      "emoji": "🪚",
+      "category": "equipment",
+      "status": "Active",
+      "specs": {
+        "displacement": "34.4 cc",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "power": "~1.7 hp",
+        "weight": "8.8 lbs dry (without bar/chain)",
+        "fuelCapacity": "8.5 fl oz",
+        "oilCapacity": "8.8 fl oz",
+        "fuelMix": "50:1",
+        "recommendedBar": "14\"–16\"",
+        "chainPitch": "3/8\" LP (low-profile)",
+        "chainGauge": "0.050\"",
+        "starter": "i-30 reduced-effort starter (30% less pull force)",
+        "features": "Automatic chain oiler, tool-free chain tensioner, 2-year consumer warranty"
+      },
+      "notes": "Lighter-duty saw — ideal for limbing, brush clearing, and smaller diameter wood (up to ~12\" logs). The i-30 reduced-effort starter makes cold starts much easier. Good complement to the heavier MS 290 for smaller tasks."
     }
   ]
 }
