@@ -176,6 +176,14 @@
   .fish-worth-bar.good      { background: #eef8e8; border: 1.5px solid #a0d880; color: #2a5a1a; }
   .fish-worth-bar.fair      { background: #fff8e0; border: 1.5px solid #d8c040; color: #5a4a00; }
   .fish-worth-bar.poor      { background: #f8f0f0; border: 1.5px solid #d8a0a0; color: #5a1a1a; }
+  .fish-temp-context { font-size: 11px; margin-top: 6px; opacity: 0.8; font-style: italic; }
+  .fish-month-prog { display: flex; gap: 6px; padding: 8px 14px 12px; }
+  .fish-prog-step { flex: 1; text-align: center; background: #f0f8f0; border-radius: 8px; padding: 6px 4px; border: 1px solid #c8e0c8; }
+  .fish-prog-step.prog-current { background: #e8f0f8; border-color: #a0c0dc; }
+  .fish-prog-step.prog-prime { background: #e8f8e8; border-color: #80c880; }
+  .fish-prog-week { font-size: 10px; font-weight: 700; color: #5a7a6a; letter-spacing: 0.3px; text-transform: uppercase; }
+  .fish-prog-temp { font-size: 14px; font-weight: 700; color: #1a3a5a; margin: 2px 0; }
+  .fish-prog-phase { font-size: 9.5px; color: #4a6a5a; }
   .fish-species-tabs {
     display: flex; gap: 6px;
     padding: 12px 18px 0;
@@ -2505,6 +2513,20 @@ function getCurrentFishingPhase(lakeTemp) {
   return ranges[ranges.length - 1];
 }
 
+function projectLakeTempProgression(lakeTemp, monthIdx) {
+  const hwt = FISHING_DATA.historicalWaterTemp;
+  const MONTH_KEYS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const curHwt  = hwt && hwt.months[MONTH_KEYS[monthIdx]];
+  const nextHwt = hwt && hwt.months[MONTH_KEYS[(monthIdx + 1) % 12]];
+  if (!curHwt || !nextHwt) return null;
+  const weeklyRate = (nextHwt.typical_F - curHwt.typical_F) / 4;
+  return [
+    Math.round(lakeTemp),
+    Math.round(lakeTemp + weeklyRate),
+    Math.round(lakeTemp + weeklyRate * 2)
+  ];
+}
+
 function renderTempChart(currentLakeTemp) {
   const hwt = FISHING_DATA.historicalWaterTemp;
   if (!hwt) return '';
@@ -2583,10 +2605,22 @@ function renderFishing() {
   const calMonth = cal[monthKey];
   const worth = calMonth ? calMonth.worthFishing : false;
 
-  const worthClass = worth === true ? (phase.fishing === "excellent" ? "excellent" : "good") :
-                     worth === "marginal" ? "fair" : "poor";
-  const worthIcon = worth === true ? (phase.fishing === "excellent" ? "🎣 Excellent" : "👍 Worth Fishing") :
-                    worth === "marginal" ? "🤷 Marginal" : "❌ Not Worth It";
+  // Historical water temp for this month — used for temperature-aware verdict
+  const hwt = FISHING_DATA.historicalWaterTemp;
+  const hwtMonth = hwt ? hwt.months[monthKey] : null;
+
+  // If lakeTemp is below the historical floor for this month, step the verdict down one tier
+  const belowHistFloor = hwtMonth && lakeTemp < hwtMonth.low_F;
+  let effectiveWorth = worth;
+  if (belowHistFloor) {
+    if (effectiveWorth === true) effectiveWorth = "marginal";
+    else if (effectiveWorth === "marginal") effectiveWorth = false;
+  }
+
+  const worthClass = effectiveWorth === true ? (phase.fishing === "excellent" ? "excellent" : "good") :
+                     effectiveWorth === "marginal" ? "fair" : "poor";
+  const worthIcon = effectiveWorth === true ? (phase.fishing === "excellent" ? "🎣 Excellent" : "👍 Worth Fishing") :
+                    effectiveWorth === "marginal" ? (belowHistFloor ? "🌡️ Still Warming" : "🤷 Marginal") : "❌ Not Worth It";
 
   let html = "";
   html += renderFishingForecast(lakeTemp, phase);
@@ -2597,8 +2631,6 @@ function renderFishing() {
   html += '<div class="fish-lake-name">' + escapeHtml(lake.name) + '</div>';
   html += '<div class="fish-lake-meta">' + lake.size_acres + ' acres · ' + lake.elevation_ft.toLocaleString() + ' ft elevation · ' + lake.distanceFromProperty_miles + ' mi from property</div>';
   html += '</div>';
-  const hwt = FISHING_DATA.historicalWaterTemp;
-  const hwtMonth = hwt ? hwt.months[monthKey] : null;
   const histRangeHtml = hwtMonth
     ? '<div class="fish-temp-label" style="margin-top:2px;">' + hwtMonth.low_F + '–' + hwtMonth.high_F + '°F typical</div>'
     : '';
@@ -2612,7 +2644,32 @@ function renderFishing() {
   // Worth fishing bar
   html += '<div class="fish-worth-bar ' + worthClass + '">';
   html += worthIcon + ' this month — <strong>' + phase.label + '</strong>: ' + escapeHtml(phase.summary);
+  if (belowHistFloor && hwtMonth) {
+    html += '<div class="fish-temp-context">Lake still warming · ~' + lakeTemp + '°F vs. typical ' + hwtMonth.low_F + '–' + hwtMonth.high_F + '°F for ' + monthKey + '</div>';
+  }
   html += '</div>';
+
+  // Within-month temperature progression — shows where the lake is headed in shoulder seasons
+  if (belowHistFloor) {
+    const proj = projectLakeTempProgression(lakeTemp, currentMonth);
+    if (proj) {
+      const day = today.getDate();
+      const weekIdx = day <= 10 ? 0 : day <= 20 ? 1 : 2;
+      const labels = ["Early " + monthKey, "Mid-" + monthKey, "Late " + monthKey];
+      html += '<div class="fish-month-prog">';
+      proj.forEach((t, i) => {
+        const ph = getCurrentFishingPhase(t);
+        const isPrime = hwtMonth && t >= hwtMonth.low_F;
+        const cls = "fish-prog-step" + (i === weekIdx ? " prog-current" : "") + (isPrime ? " prog-prime" : "");
+        html += '<div class="' + cls + '">';
+        html += '<div class="fish-prog-week">' + labels[i] + '</div>';
+        html += '<div class="fish-prog-temp">~' + t + '°F</div>';
+        html += '<div class="fish-prog-phase">' + escapeHtml(ph.label) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+  }
 
   // Regulations bar
   const reg = fd.regulations.species;
@@ -2654,7 +2711,7 @@ function renderFishing() {
 
   document.getElementById("fishing-content").innerHTML = html;
   document.getElementById("fishing-summary").textContent =
-    worthIcon.replace(/[🎣👍🤷❌]/g,"").trim() + " · ~" + lakeTemp + "°F · " + phase.label;
+    worthIcon.replace(/^\S+\s+/, "") + " · ~" + lakeTemp + "°F · " + phase.label;
 
   // Wire up tabs
   document.querySelectorAll(".fish-tab").forEach(btn => {
