@@ -432,6 +432,41 @@
     padding-top: 7px;
     border-top: 1px dashed #a8d8b8;
   }
+  .garden-hero-trends {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px dashed #a8d8b8;
+  }
+  .trend {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    min-width: 0;
+  }
+  .trend-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .trend-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #4a7a6a;
+  }
+  .trend-now { font-size: 11px; font-weight: 700; color: #1a4028; }
+  .trend-spark { margin: 3px 0 1px; line-height: 0; }
+  .trend-spark svg { display: block; width: 100%; height: 26px; }
+  .trend-range { font-size: 9.5px; color: #6a8a6a; line-height: 1.3; }
+  .trend-rising  { color: #1a6b3a; }
+  .trend-falling { color: #b04030; }
+  .trend-stable  { color: #5a7a5a; }
   .garden-hero-offline {
     background: #fafaf4;
     border: 1.5px solid #c8c870;
@@ -1962,8 +1997,9 @@ async function fetchLiveWeather() {
 
     // Capture station state RIGHT BEFORE the wholesale reassignment — Ambient
     // may have completed any time between fetchLiveWeather start and now.
-    const savedStationData   = WEATHER_DATA.stationData;
-    const savedStationOnline = WEATHER_DATA.stationOnline;
+    const savedStationData    = WEATHER_DATA.stationData;
+    const savedStationOnline  = WEATHER_DATA.stationOnline;
+    const savedStationHistory = WEATHER_DATA.stationHistory;
 
     WEATHER_DATA = {
       _meta: { isPlaceholder: false, fetchedAt: new Date().toISOString(), source: "Open-Meteo API (live)" },
@@ -2013,7 +2049,7 @@ async function fetchLiveWeather() {
 
     // If the on-property station already reported, re-apply its overrides — the
     // wholesale WEATHER_DATA reassignment above wiped them.
-    if (savedStationData) applyStationOverrides(savedStationData);
+    if (savedStationData) applyStationOverrides(savedStationData, savedStationHistory);
     if (savedStationOnline === false && !savedStationData) WEATHER_DATA.stationOnline = false;
 
     renderWeatherSummary();
@@ -2044,10 +2080,11 @@ const AMBIENT_MAC     = "D8%3AF1%3A5B%3A15%3A28%3AB8";
 // Apply on-property station readings on top of WEATHER_DATA.current. Idempotent —
 // safe to re-call whenever WEATHER_DATA gets reassigned (e.g. when Open-Meteo
 // finishes after Ambient and wholesale-replaces the object).
-function applyStationOverrides(d) {
+function applyStationOverrides(d, history) {
   if (!d) return;
   WEATHER_DATA.stationOnline = true;
   WEATHER_DATA.stationData = d;
+  if (history) WEATHER_DATA.stationHistory = history;
   if (d.tempf       != null) WEATHER_DATA.current.temperature = Math.round(d.tempf);
   if (d.feelsLike   != null) WEATHER_DATA.current.feelsLike   = Math.round(d.feelsLike);
   if (d.humidity    != null) WEATHER_DATA.current.humidity    = d.humidity;
@@ -2066,8 +2103,9 @@ function applyStationOverrides(d) {
 }
 
 async function fetchAmbientWeather() {
+  // limit=288 = 24 hours at 5-min cadence — gives us trend sparklines on the same call
   const url = "https://api.ambientweather.net/v1/devices/" + AMBIENT_MAC +
-    "?applicationKey=" + AMBIENT_APP_KEY + "&apiKey=" + AMBIENT_API_KEY + "&limit=1";
+    "?applicationKey=" + AMBIENT_APP_KEY + "&apiKey=" + AMBIENT_API_KEY + "&limit=288";
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error("HTTP " + res.status);
@@ -2079,7 +2117,7 @@ async function fetchAmbientWeather() {
       renderAmbientStationPanel(null);
       return;
     }
-    applyStationOverrides(d);
+    applyStationOverrides(d, data);
     renderWeatherSummary();
     renderWeather();
     renderDashboardStrip();
@@ -2092,6 +2130,72 @@ async function fetchAmbientWeather() {
     WEATHER_DATA.stationOnline = false;
     renderAmbientStationPanel(null, err.message);
   }
+}
+
+// Sparkline — minimal SVG polyline, fills its container width
+function renderSparkline(values, opts) {
+  opts = opts || {};
+  const stroke = opts.stroke || "#5cb87a";
+  const W = 100, H = 26;
+  const valid = (values || []).filter(v => v != null && !isNaN(v));
+  if (valid.length < 2) return "";
+  const min = Math.min.apply(null, valid);
+  const max = Math.max.apply(null, valid);
+  const range = (max - min) || 1;
+  const step = (W - 2) / (valid.length - 1);
+  const pts = valid.map((v, i) => {
+    const x = 1 + i * step;
+    const y = H - 2 - ((v - min) / range) * (H - 4);
+    return x.toFixed(1) + "," + y.toFixed(1);
+  }).join(" ");
+  const lastX = (1 + (valid.length - 1) * step).toFixed(1);
+  const lastY = (H - 2 - ((valid[valid.length - 1] - min) / range) * (H - 4)).toFixed(1);
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' +
+    '<polyline points="' + pts + '" fill="none" stroke="' + stroke + '" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>' +
+    '<circle cx="' + lastX + '" cy="' + lastY + '" r="2.2" fill="' + stroke + '"/>' +
+    '</svg>';
+}
+
+// 24-hour trend strip — temp, humidity, pressure
+function renderTrendStrip(history) {
+  if (!Array.isArray(history) || history.length < 5) return "";
+  // Ambient returns newest-first; sort ascending for left-to-right time
+  const sorted = history.slice().sort((a, b) => (a.dateutc || 0) - (b.dateutc || 0));
+  const temps = sorted.map(r => r.tempf);
+  const hums  = sorted.map(r => r.humidity);
+  const press = sorted.map(r => r.baromrelin);
+  const t0 = temps[temps.length - 1];
+  const tMin = Math.min.apply(null, temps.filter(v => v != null));
+  const tMax = Math.max.apply(null, temps.filter(v => v != null));
+  const h0 = hums[hums.length - 1];
+  const hMin = Math.min.apply(null, hums.filter(v => v != null));
+  const hMax = Math.max.apply(null, hums.filter(v => v != null));
+  const pressValid = press.filter(v => v != null);
+  const p0 = pressValid[0];
+  const pNow = pressValid[pressValid.length - 1];
+  const pDelta = pNow - p0;
+  const pTrend = pDelta > 0.05 ? "rising" : pDelta < -0.05 ? "falling" : "stable";
+  const pArrow = pDelta > 0.05 ? "↗" : pDelta < -0.05 ? "↘" : "→";
+  const pTrendCls = pTrend === "falling" ? "trend-falling" : pTrend === "rising" ? "trend-rising" : "trend-stable";
+  const pStroke   = pTrend === "falling" ? "#b04030" : pTrend === "rising" ? "#1a6b3a" : "#5a7a5a";
+
+  return '<div class="garden-hero-trends">' +
+    '<div class="trend">' +
+      '<div class="trend-header"><span class="trend-label">Temp 24h</span><span class="trend-now">' + Math.round(t0) + '°</span></div>' +
+      '<div class="trend-spark">' + renderSparkline(temps, { stroke: "#5cb87a" }) + '</div>' +
+      '<div class="trend-range">' + Math.round(tMin) + '° → ' + Math.round(tMax) + '°</div>' +
+    '</div>' +
+    '<div class="trend">' +
+      '<div class="trend-header"><span class="trend-label">Humidity 24h</span><span class="trend-now">' + h0 + '%</span></div>' +
+      '<div class="trend-spark">' + renderSparkline(hums, { stroke: "#3a7aaa" }) + '</div>' +
+      '<div class="trend-range">' + hMin + '% → ' + hMax + '%</div>' +
+    '</div>' +
+    '<div class="trend">' +
+      '<div class="trend-header"><span class="trend-label">Pressure ' + pArrow + '</span><span class="trend-now ' + pTrendCls + '">' + pNow.toFixed(2) + '</span></div>' +
+      '<div class="trend-spark">' + renderSparkline(press, { stroke: pStroke }) + '</div>' +
+      '<div class="trend-range ' + pTrendCls + '">' + (pDelta >= 0 ? '+' : '') + pDelta.toFixed(2) + ' inHg / 24h</div>' +
+    '</div>' +
+  '</div>';
 }
 
 // Comfort labels — single-glance descriptors built from station data
@@ -2190,6 +2294,9 @@ function renderAmbientStationPanel(d, errMsg) {
   // Battery low warning (subtle)
   const battTag = battLow ? '<span class="src-tag" style="background:#fff5e0;border-color:#d08828;color:#a06820;margin-left:6px;">🔋 Low battery</span>' : "";
 
+  // 24-hour trend sparklines (temp, humidity, pressure) — uses cached station history
+  const trendStrip = renderTrendStrip(WEATHER_DATA.stationHistory);
+
   panel.innerHTML =
     '<div class="garden-hero">' +
       '<div class="garden-hero-header">' +
@@ -2199,6 +2306,7 @@ function renderAmbientStationPanel(d, errMsg) {
       '<div class="garden-hero-line">' + headline + '</div>' +
       comfortLine +
       indoorLine +
+      trendStrip +
     '</div>';
 }
 
