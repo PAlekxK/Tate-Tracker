@@ -126,18 +126,11 @@ The on-property hero leads with a synthesized italic "Today" callout (Crimson Te
 - **Scheduling plan documented in `tools/SCHEDULING.md`** — concrete YAML for a GitHub Action running every 6h + a midnight finalize, plus alternative launchd plist for local-only. Recommend GitHub Action long-term so accumulation doesn't depend on the laptop being awake. Setup needs: `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` as repo secrets, then drop in the workflow file. Schema-extension ideas (rain event timing, GDD, solar hours, predominant wind direction) are in the same doc.
 - **Viewer integration is not done yet.** Once the file has ~30+ days, the rainfall block can switch from ERA5 grid baselines to property-recorded comparisons ("wettest May on our 14-month record"). For now the file is just accumulating.
 
-### Icon/emoji audit — collisions and poor fits
-Several icons clash or don't represent their subject well. Goal: every icon should be the most semantically precise choice for its context — doesn't need to be cheerful, just accurate.
-
-**Confirmed collisions:**
-- Plants card 🌿 = Propagate action 🌿 — exact duplicate at two different UI levels
-
-**Poor fits:**
-- Vehicles card 🚗 — the fleet is an F-150, Bronco, two dirt bikes, a golf cart, chainsaws, and a riding mower. A sedan is the least representative item. Consider 🛻 or 🔧.
-- Propagate 🌿, Fertilize 🌱, and Repot 🪴 form a cluster of similar green plant emojis used as sibling actions — they don't read as distinct at a glance. One or more should move to a non-plant metaphor (e.g. Fertilize could be a pellet/bag/chemical; Repot could be a shovel or vessel).
-- Celestial events: 9 of 14 individual events share ☄️ (comet). Meteor showers, conjunctions, eclipses, and Milky Way season should each have a distinct emoji — they are different phenomena.
-
-**Approach:** Audit all icons holistically — card level, care action level, and celestial event level — and choose the most precise, non-overlapping emoji for each. Emojis don't need to be cute; they need to be unambiguous.
+### ~~Icon/emoji audit — collisions and poor fits~~ ✓ Done
+- Vehicles & Equipment card: 🚗 → 🛻 (better fits the actual fleet)
+- Propagate: 🌿 → 🌱 (resolved the Plants-card collision)
+- Fertilize: 🌱 → 🌾 (broke up the green-plant cluster of propagate/fertilize/repot)
+- Meteor showers: 7 regular ones ☄️ → 🌠 (semantically correct — comets are reserved for "Exceptional Year" / "Best of the Year" markers)
 
 ### Additional live data sources + dynamic summarization
 Goal: make the page as dynamically informed as possible at load time — beyond just the weather forecast.
@@ -158,20 +151,20 @@ Explore adding actual photographs for each bird and amphibian species rather tha
 
 ## Pending design improvements (prioritized)
 
-1. ~~**Mobile dashboard strip** — 3-column grid wraps awkwardly at 390px~~ ✓ Done — now uses `repeat(auto-fit, minmax(150px, 1fr))`.
-2. **Body background** — Add subtle grain/noise texture over the gradient for depth.
-3. **Extend Crimson Text** — Card titles ("Weather", "Plants") should use the serif for typographic contrast vs DM Sans data labels.
+1. ~~**Mobile dashboard strip** — 3-column grid wraps awkwardly at 390px~~ ✓ Done.
+2. ~~**Body background** — subtle grain/noise texture~~ ✓ Done — layered SVG fractalNoise over the gradient.
+3. ~~**Extend Crimson Text** — Card titles use serif~~ ✓ Done (was already in place; verified).
 4. **Card expand animation** — Currently hard-toggles. Add CSS `grid-template-rows: 0fr → 1fr` or max-height transition.
-5. **"REFERENCE" section divider** — Plain uppercase text; should be a ruled line or carry more visual weight.
-6. **Dashboard strip stat hierarchy** — Key numbers (temp, bird count) need more visual weight vs their labels.
-7. **Header breathing room** — Increase top padding (22px → 32px) and h1 size (26px → 30px).
+5. ~~**"REFERENCE" section divider** — needed more visual weight~~ ✓ Done — serif italic Crimson Text label, fade-to-clear gradient lines.
+6. ~~**Dashboard strip stat hierarchy** — values needed more visual weight~~ ✓ Done — 17px → 20px, weight 600 → 700, darker color.
+7. ~~**Header breathing room** — 22px → 32px padding, h1 30px~~ ✓ Done.
 
 ## Active drafts (not yet promoted to live data)
 
 These files are staging areas. Do **not** wire them to the viewer until the user says go.
 
 - **`vehicles.draft.json`** (schema v3, 15 items) — proposes splitting flat array into `group: "vehicle" | "equipment"` and adds a per-item `maintenance` block (fuel, oil, sparkPlug, filters, consumables) with `confidence: verified | inferred | tbd` tags. New equipment added: Kobalt KM2040X-06 mower, Echo PB-7910T backpack blower, Echo PB-250LN handheld blower, Homelite UT33650A trimmer, Homelite gas blower/vac (model not stickered — likely UT09521 family). Husqvarna riding mower fully fleshed out from the on-unit replacement-parts sticker (Kawasaki FR691V, 54" deck, all part numbers verified). Husqvarna model number itself still TBD (sticker not yet found).
-- **`plants.draft.json`** — five new plants identified: Berry Box® Pyracomeles (USPP35913, verified by Pike Nursery tag), Yuki Cherry Blossom® Deutzia (NCDX2, verified by tag), Clematis (genus high; cultivar uncertain), Hostas (genus high; cultivars uncertain), pond Iris (genus high; species likely Blue Flag). Each entry needs a Zone 7b care calendar before promotion. Also tracks `qualityPhotosForFutureIntegration` — quality reference photos flagged for the future "real photos in the dashboard" enhancement.
+- **`plants.draft.json`** — five new plants identified: Berry Box® Pyracomeles (USPP35913, verified by Pike Nursery tag), Yuki Cherry Blossom® Deutzia (NCDX2, verified by tag), Clematis (genus high; cultivar uncertain), Hostas (genus high; cultivars uncertain), pond Iris (genus high; species likely Blue Flag). **Care calendars filled out for all 5** in proper plants.json schema (under `plantsForPromotion`) — ready to lift directly into `plants.json.plants[]`. The `promotionChecklist` block in the draft documents the exact lift-and-paste workflow. Also tracks `qualityPhotosForFutureIntegration` — quality reference photos flagged for the future "real photos in the dashboard" enhancement.
 
 ## Uncommitted work in progress
 
