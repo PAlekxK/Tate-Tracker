@@ -9,11 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: linear-gradient(165deg, #edf7e6 0%, #e2f0d8 55%, #eff8e8 100%); min-height: 100vh; font-family: "DM Sans", -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  html, body {
+    background-color: #e6f0db;
+    background-image:
+      linear-gradient(165deg, rgba(237,247,230,0.75) 0%, rgba(226,240,216,0.75) 55%, rgba(239,248,232,0.75) 100%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.30  0 0 0 0 0.18  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-attachment: fixed, fixed;
+    background-size: auto, 160px 160px;
+    min-height: 100vh;
+    font-family: "DM Sans", -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
 
   .header {
     background: linear-gradient(135deg, #183524 0%, #2a6040 50%, #3a8a58 100%);
-    padding: 22px 18px 20px;
+    padding: 32px 18px 26px;
     position: relative;
     overflow: hidden;
     color: #fff;
@@ -23,7 +33,7 @@
   .header::after { bottom: -60px; left: -40px; width: 160px; height: 160px; }
   .header-inner { position: relative; max-width: 660px; margin: 0 auto; }
   .header-date { font-size: 11px; color: rgba(255,255,255,0.78); letter-spacing: 0.8px; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; }
-  .header h1 { font-family: "Crimson Text", Georgia, serif; font-size: 26px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; line-height: 1.2; }
+  .header h1 { font-family: "Crimson Text", Georgia, serif; font-size: 30px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 10px; margin-top: 4px; line-height: 1.2; }
   .header-address {
     font-size: 12px;
     color: rgba(255,255,255,0.85);
@@ -1437,16 +1447,17 @@
   }
   .dash-cell-value {
     font-family: "Crimson Text", Georgia, serif;
-    font-size: 17px;
-    font-weight: 600;
-    color: #1a3a1a;
-    line-height: 1.15;
+    font-size: 20px;
+    font-weight: 700;
+    color: #102810;
+    line-height: 1.1;
+    letter-spacing: -0.2px;
   }
   .dash-cell-sub {
     font-size: 10px;
     color: #6a8a6a;
-    margin-top: 3px;
-    line-height: 1.35;
+    margin-top: 4px;
+    line-height: 1.4;
   }
   .dash-tease-row {
     display: flex;
@@ -1469,16 +1480,18 @@
   .tier-divider {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 4px 2px 6px;
+    gap: 14px;
+    margin: 18px 4px 14px;
   }
-  .tier-divider-line { flex: 1; height: 1px; background: #d8eacc; }
+  .tier-divider-line { flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, #b8d8b0 30%, #b8d8b0 70%, transparent); }
   .tier-divider-label {
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.9px;
-    color: #9aba9a;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 12px;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    color: #6a8a6a;
+    text-transform: none;
   }
   .main-card.tier2 {
     border-color: #e0edd4;
@@ -1788,7 +1801,7 @@
   <!-- VEHICLES CARD -->
   <div class="main-card tier2" id="card-vehicles">
     <div class="main-card-header" data-toggle="vehicles">
-      <div class="main-card-icon vehicles">🚗</div>
+      <div class="main-card-icon vehicles">🛻</div>
       <div class="main-card-meta">
         <div class="main-card-title">Vehicles &amp; Equipment</div>
         <div class="main-card-summary" id="vehicles-summary">—</div>
@@ -1832,7 +1845,7 @@ const CELESTIAL_DATA = {
       type: "meteor",
       name: "Eta Aquariid Meteor Shower",
       shortName: "Eta Aquariids",
-      emoji: "☄️",
+      emoji: "🌠",
       peak: "Pre-dawn May 5–6",
       georgiaVisibility: "good",
       rate: "15–30/hr",
@@ -1938,7 +1951,7 @@ const CELESTIAL_DATA = {
       type: "meteor",
       name: "Orionid Meteor Shower",
       shortName: "Orionids",
-      emoji: "☄️",
+      emoji: "🌠",
       peak: "Pre-dawn Oct 21–22",
       georgiaVisibility: "good",
       rate: "10–20/hr",
@@ -1953,7 +1966,7 @@ const CELESTIAL_DATA = {
       type: "meteor",
       name: "Leonid Meteor Shower",
       shortName: "Leonids",
-      emoji: "☄️",
+      emoji: "🌠",
       peak: "Pre-dawn Nov 17–18",
       georgiaVisibility: "good",
       rate: "10–15/hr",
@@ -1983,7 +1996,7 @@ const CELESTIAL_DATA = {
       type: "meteor",
       name: "Quadrantid Meteor Shower",
       shortName: "Quadrantids 2027",
-      emoji: "☄️",
+      emoji: "🌠",
       peak: "Pre-dawn Jan 3–4; brief 6-hour peak window",
       georgiaVisibility: "good",
       rate: "25–60/hr",
@@ -1998,7 +2011,7 @@ const CELESTIAL_DATA = {
       type: "meteor",
       name: "Eta Aquariid Meteor Shower",
       shortName: "Eta Aquariids 2027",
-      emoji: "☄️",
+      emoji: "🌠",
       peak: "Pre-dawn May 6–7",
       georgiaVisibility: "good",
       rate: "15–30/hr",
@@ -2013,7 +2026,7 @@ const CELESTIAL_DATA = {
       type: "meteor",
       name: "Perseid Meteor Shower",
       shortName: "Perseids 2027",
-      emoji: "☄️",
+      emoji: "🌠",
       peak: "Night of Aug 11–12",
       georgiaVisibility: "good",
       rate: "30–50/hr",
@@ -2028,7 +2041,7 @@ const CELESTIAL_DATA = {
       type: "meteor",
       name: "Geminid Meteor Shower",
       shortName: "Geminids 2027",
-      emoji: "☄️",
+      emoji: "🌠",
       peak: "Night of Dec 13–14",
       georgiaVisibility: "good",
       rate: "50–100/hr",
@@ -2046,8 +2059,8 @@ const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 
 const CARE_TYPES = {
   prune:     { label: "Prune",     icon: "✂️" },
-  propagate: { label: "Propagate", icon: "🌿" },
-  fertilize: { label: "Fertilize", icon: "🌱" },
+  propagate: { label: "Propagate", icon: "🌱" },  // was 🌿 — collided with Plants card
+  fertilize: { label: "Fertilize", icon: "🌾" },  // was 🌱 — moved to allow propagate=seedling
   water:     { label: "Water",     icon: "💧" },
   repot:     { label: "Repot",     icon: "🪴" },
   inspect:   { label: "Inspect",   icon: "🔍" },

@@ -1,0 +1,372 @@
+{
+  "_meta": {
+    "schemaVersion": 3,
+    "status": "DRAFT — five plant entries ready in plants.json schema. Lift entries from `plantsForPromotion` directly into plants.json.plants[] when ready. The `qualityPhotosForFutureIntegration` block stays as a separate todo.",
+    "notes": "All five entries below match the plants.json v3 schema (fields: id, name, scientificName, emoji, guide, currentSeasonNote, soilNotes, aspectPreference, frostSensitivity, care{prune, propagate, fertilize, water, repot, inspect}). Care entries use 0-indexed months and elevation-adjusted peak windows for ~2,959 ft.",
+    "elevation_ft": 2959,
+    "lastFrost_50pct": "May 3",
+    "lastFrost_90pctSafe": "May 24",
+    "firstFrost_50pct": "October 17"
+  },
+  "plantsForPromotion": [
+    {
+      "id": "pyracomeles-berry-box",
+      "name": "Pyracomeles (Berry Box)",
+      "scientificName": "×Pyracomeles 'NCXP1' (Berry Box®, USPP35913)",
+      "emoji": "🌳",
+      "guide": "Berry Box® is a compact intergeneric evergreen — a hybrid of pyracantha and osteomeles bred for fine boxwood-like foliage, white spring flowers, and red berries that hold from fall through winter. Stays naturally tight at 2–3 ft tall and wide with no shearing required. Tolerant of full sun to part shade and most well-drained soils. Drought-tolerant once established. Low maintenance — much of the appeal is that it gives the boxwood look without boxwood blight risk.",
+      "currentSeasonNote": "Early May: white flower clusters peak now or just finished. Once bloom is over, light shaping is fine. Watch for aphids on new growth — soft spring tips are their favorite landing zone.",
+      "soilNotes": "Tolerant of Hayesville/Cecil/Pacolet soils as long as drainage is good. Slightly acidic to neutral pH (5.5–7.0) preferred. The clay Bt subsoil at Church Mountain Road is fine for Pyracomeles — it has deeper roots than boxwood and handles transitional drainage. Avoid permanently wet low spots.",
+      "aspectPreference": "Full sun to light shade. South, east, and west exposures all work. North-facing positions reduce flower and berry display by 30–50%. Best berry production on south or east-facing slopes with morning-to-midday sun.",
+      "frostSensitivity": "Hardy USDA Zone 6–9. Solidly within range at Church Mountain Road's elevation-adjusted Zone 6b. No winter protection needed for established plants. Late frosts (post-May 10) can damage open flowers but rarely hurt the plant itself.",
+      "care": {
+        "prune": {
+          "months": [4, 5],
+          "peakWindow": "May 15–June 5 — once spring flowers finish, before berries set",
+          "narrow": false,
+          "description": "Light shaping after flowering. Tip-prune any stray shoots; never shear the way you would a boxwood — Berry Box has a naturally rounded form and shearing creates twiggy interior dead zones. Avoid pruning after July: that removes the developing berries which are the best feature of the plant. If hard renewal is needed (rare), do it in late winter (Feb)."
+        },
+        "propagate": {
+          "months": [7, 8],
+          "peakWindow": "Aug 1–20 — semi-hardwood stage",
+          "narrow": false,
+          "description": "Berry Box is patented (USPP35913) — propagation for sale is prohibited. For personal use, semi-hardwood cuttings in late summer root reasonably well in 50/50 perlite and peat with bottom heat. Most home gardeners simply buy additional plants from the nursery."
+        },
+        "fertilize": {
+          "months": [2, 3],
+          "peakWindow": "Mar 15–Apr 5 before bud break",
+          "narrow": false,
+          "description": "Early spring with a balanced slow-release fertilizer (e.g. Espoma Plant-tone 5-3-3). Acidic soil amendments not required. Established plants in good soil rarely need more than a single spring feed. Over-fertilizing produces lush growth at the expense of berry display."
+        },
+        "water": {
+          "months": [5, 6, 7, 8],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Weekly deep watering for the first two summers after planting (May–Sep). Established plants are drought-tolerant and rarely need supplemental water at Church Mountain Road's 60–65 in/yr rainfall. During extended summer drought, water deeply once every 10–14 days."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape shrub, not a container plant."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "aphids-spring",
+              "label": "Spring aphids",
+              "months": [3, 4, 5],
+              "peakWindow": "Apr 15–May 20 on new growth",
+              "narrow": false,
+              "description": "Look for clusters of small green or black aphids on new shoot tips. Strong jet of water knocks most populations off. Severe infestations: insecticidal soap or neem in early evening. Avoid systemic neonicotinoids — they kill pollinators visiting the flowers."
+            },
+            {
+              "id": "spider-mites-summer",
+              "label": "Spider mites",
+              "months": [6, 7, 8],
+              "peakWindow": "Jul 10–Aug 20 in dry hot stretches",
+              "narrow": false,
+              "description": "Hot dry July–August conditions favor spider mites. Symptoms: stippled yellowish foliage and fine webbing on undersides of leaves. Hose down foliage every few days during hot dry weeks to suppress populations. Severe cases: horticultural oil spray in cool morning."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "deutzia-yuki-cherry-blossom",
+      "name": "Yuki Cherry Blossom Deutzia",
+      "scientificName": "Deutzia 'NCDX2' (Yuki Cherry Blossom®)",
+      "emoji": "🌸",
+      "guide": "A petite spreading deutzia bred for compact (12–24 inch) habit and abundant pink spring flowers. Excellent for borders, edges of beds, and ground-cover-style massing. Burgundy fall foliage. Easy to grow in average soils. Deer browse occasionally — usually skipped if other choices are available.",
+      "currentSeasonNote": "Early May: peak bloom or just finishing at Church Mountain Road's elevation. Wait until bloom completely finishes before any pruning — deutzias bloom on previous-year wood, so summer or fall pruning sacrifices next spring's flowers.",
+      "soilNotes": "Tolerant of Hayesville/Cecil/Pacolet soils. Prefers slightly acidic (5.5–6.5), moist, well-drained loam. The native pH range at Church Mountain Road is ideal. Mulch 2 inches with shredded hardwood or pine straw to keep roots cool through summer. Heavy clay at the Bt subsoil layer is acceptable as long as the surface drains.",
+      "aspectPreference": "Best in 4–6 hours of sun (part to full sun). South-east and east-facing slopes are ideal — morning sun with afternoon shade keeps the pink flowers from fading prematurely. Full afternoon sun in west/south positions works but bloom color may pale.",
+      "frostSensitivity": "Hardy USDA Zone 5–8 (down to −20°F). Solid for Church Mountain Road. New growth emerging in April–May is frost-sensitive — a hard late-April freeze can blacken the leaf tips. Plant recovers fully; no intervention needed.",
+      "care": {
+        "prune": {
+          "months": [4, 5],
+          "peakWindow": "May 20–June 10 — directly after bloom finishes",
+          "narrow": true,
+          "description": "Critical timing: Yuki Cherry Blossom blooms on previous-year wood. Prune ONLY after flowers have completely finished, before mid-June. Light renewal — remove the oldest 1/3 of stems at the base every 2–3 years to keep the plant vigorous. Any pruning after July removes next spring's flower buds. The plant 'seldom needs pruning' per Proven Winners — it stays naturally compact."
+        },
+        "propagate": {
+          "months": [5, 6],
+          "peakWindow": "Jun 1–20 — softwood cuttings",
+          "narrow": false,
+          "description": "Patented cultivar (Deutzia 'NCDX2') — commercial propagation prohibited. For personal use: softwood cuttings in early summer root readily in moist perlite-peat mix under intermittent mist. Most gardeners simply purchase additional plants for additional plantings."
+        },
+        "fertilize": {
+          "months": [2, 3],
+          "peakWindow": "Mar 15–Apr 5 before bud break",
+          "narrow": false,
+          "description": "Early spring with a balanced slow-release fertilizer (Espoma Plant-tone or similar). Established plants in good soil rarely need more than annual feeding. Skip if growth is already vigorous — over-fertilizing produces lush foliage at the expense of next year's flowers."
+        },
+        "water": {
+          "months": [5, 6, 7, 8],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Weekly during the first two summers after planting. Established plants are moderately drought-tolerant but appreciate a deep weekly soak during July–August dry spells. The shallow root system benefits from consistent moisture and 2-inch mulch."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape shrub. Could be grown in large containers but not typical."
+        },
+        "inspect": {
+          "months": [4, 5, 6],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Generally pest- and disease-free. Watch new spring growth for occasional aphid clusters; hose off if found. Deer browse occasionally — Proven Winners rates deer resistance as 'low,' meaning deer may sample but typically don't decimate. If deer pressure is heavy, repellent spray in early spring helps establish 'avoid' association."
+        }
+      }
+    },
+    {
+      "id": "clematis",
+      "name": "Clematis (large-flowered hybrid)",
+      "scientificName": "Clematis sp. (Group 2 — likely 'Nelly Moser' or 'Dr. Ruppel')",
+      "emoji": "🌺",
+      "guide": "A vining perennial that climbs by twisting leaf petioles around any thin support — wire, twine, branches. Pink-and-magenta bicolor flowers with a darker bar down each tepal. Group 2 clematis bloom twice: once in late May–June on previous year's wood, then a smaller second flush in August on new wood. The classic gardener's wisdom: 'cool feet, warm head' — keep the roots shaded and cool with mulch or low plantings, let the vine itself climb into sun.",
+      "currentSeasonNote": "Early May: vines should be actively growing and approaching bloom. First flowers typically open mid- to late-May at Church Mountain Road's elevation. If buds look swollen, peak bloom is 1–2 weeks out. Now is a fine time to apply mulch and check that the support trellis is firmly anchored before flower weight piles on.",
+      "soilNotes": "Prefers neutral to slightly alkaline soil (pH 6.5–7.5). Church Mountain Road's native acidic Hayesville soils are below that range — top-dress with a small handful of garden lime around the base each spring (no more than 1 cup per plant). Heavy mulch (3 inches) over the root zone is essential to keep roots cool. Avoid letting bark or organic mulch touch the stem directly — leave a 2-inch gap.",
+      "aspectPreference": "Vine in full to part sun (6+ hours). Roots in shade. The east-facing deck cable-rail trellis location is excellent — morning sun for blooms, afternoon shade for the soil. Avoid hot south or west positions where roots overheat.",
+      "frostSensitivity": "Hardy USDA Zone 4–9. Solid for Church Mountain Road. The vine dies back partially in winter but the woody base survives. Late spring frosts can blacken emerging shoots; the plant pushes new growth from lower nodes within a few weeks.",
+      "care": {
+        "prune": {
+          "subcategories": [
+            {
+              "id": "group2-spring",
+              "label": "Light spring pruning (Group 2)",
+              "months": [1, 2],
+              "peakWindow": "Feb 20–Mar 10 before bud swell",
+              "narrow": false,
+              "description": "Group 2 clematis (large-flowered, twice-blooming hybrids like 'Nelly Moser' / 'Dr. Ruppel') need only LIGHT pruning. Late winter, before bud swell: remove dead and weak stems at the base; shorten remaining stems back to the strongest pair of fat green buds. Don't cut hard to the ground — that sacrifices the May–June bloom which comes from old wood."
+            },
+            {
+              "id": "deadhead-summer",
+              "label": "Deadhead after first bloom",
+              "months": [5, 6],
+              "peakWindow": "Jun 15–Jul 5 — when first flush finishes",
+              "narrow": false,
+              "description": "After the May–June bloom finishes, snip off spent flowers down to the next strong leaf pair. This encourages the August second flush on new wood. Optional but improves the secondary display."
+            }
+          ]
+        },
+        "propagate": {
+          "months": [4, 5, 6],
+          "peakWindow": "May 25–Jun 20 — soft layering or stem cuttings",
+          "narrow": false,
+          "description": "Easy to propagate by ground layering: in late spring, bend a low pliable stem to the soil, nick the underside, pin it down with a u-shaped wire, and cover with 2 inches of soil. By the following spring it will have rooted; sever and transplant. Stem cuttings (2-node sections) in early summer also work in moist perlite under shade."
+        },
+        "fertilize": {
+          "subcategories": [
+            {
+              "id": "spring-feed",
+              "label": "Spring feed",
+              "months": [2, 3],
+              "peakWindow": "Mar 15–Apr 5",
+              "narrow": false,
+              "description": "Balanced slow-release fertilizer in early spring (e.g. Espoma Tomato-tone or Plant-tone). Top-dress with composted manure or finished compost around the root zone."
+            },
+            {
+              "id": "summer-feed",
+              "label": "After first bloom",
+              "months": [5, 6],
+              "peakWindow": "Jun 15–Jul 5",
+              "narrow": false,
+              "description": "Light second feeding after the May–June bloom finishes — supports the August re-bloom. Liquid feed (kelp, fish emulsion) applied at half strength is gentler than another granular dose."
+            }
+          ]
+        },
+        "water": {
+          "months": [5, 6, 7, 8],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Deep weekly water during the growing season. Clematis is shallow-rooted (top 12 inches) and sensitive to drought stress — a wilted vine in mid-summer often loses its second bloom flush. Water at the base; avoid wetting foliage in the evening to reduce powdery mildew risk."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable for in-ground plantings. Container clematis (rare) would refresh top-third of soil annually in early spring."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "clematis-wilt",
+              "label": "Clematis wilt",
+              "months": [4, 5, 6],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Sudden collapse of one or more stems mid-spring is the classic clematis wilt — a fungal infection (Phoma clematidina) that enters at soil level. Cut affected stems all the way to the ground and dispose (don't compost). The crown almost always survives and re-sprouts from below ground. Mature plants outgrow susceptibility; younger plants are most at risk."
+            },
+            {
+              "id": "powdery-mildew",
+              "label": "Powdery mildew",
+              "months": [6, 7, 8],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Whitish powder on leaves in humid summer weather. Improve air circulation around the trellis. Avoid overhead watering. Severe cases: a milk-water spray (1:9) or potassium bicarbonate fungicide. Cosmetic, rarely fatal."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hosta",
+      "name": "Hosta (mixed cultivars)",
+      "scientificName": "Hosta sp. (multiple cultivars in the bed)",
+      "emoji": "🌿",
+      "guide": "Foliage perennial of the shade garden. Dies completely to ground each winter; emerges as tightly furled spear-shaped 'pips' in late April–May at this elevation. Once unfurled, the leaves stay until first frost. Lavender or white late-summer flower scapes. Multiple cultivars in this bed — blue-grey corrugated heart-leaf type (likely H. sieboldiana family), white-margined variegated forms (Patriot/Francee family), and chartreuse types (Sum and Substance family). All share the same care.",
+      "currentSeasonNote": "Early May: pips have emerged and leaves are unfurling. This is the prime window for slug-baiting BEFORE serious damage starts — by the time leaves are fully open, slugs have already found them. Apply iron-phosphate slug bait (Sluggo or Escar-Go, pet-safe) around the base now.",
+      "soilNotes": "Prefers moist, fertile, well-drained loam with high organic matter. Hayesville/Cecil/Pacolet native soils benefit from annual compost top-dressing. Slightly acidic (5.5–6.5) is ideal. Tolerant of clay if surface drainage is decent. The stone-walled bed location is excellent — the wall provides cool root run and the bed accumulates organic matter from leaf litter.",
+      "aspectPreference": "Shade to morning sun. East and north-facing positions are ideal at Church Mountain Road. Blue-leaf cultivars retain their waxy bloom best in full shade — direct sun causes them to fade to dusty green. Variegated forms tolerate more sun but burn at edges in afternoon heat. Chartreuse forms color best with 2–4 hours of dappled sun.",
+      "frostSensitivity": "Hardy USDA Zone 3–9. Bulletproof for Church Mountain Road. Late frosts AFTER pips emerge can blacken the new leaves — a hard freeze post-May 10 can damage the season's display. If a late frost is forecast, drape with old sheets or upturned buckets overnight; remove in the morning.",
+      "care": {
+        "prune": {
+          "months": [10, 11, 0, 1],
+          "peakWindow": "Nov 1–20 after first hard frost flattens the foliage",
+          "narrow": false,
+          "description": "Cut back blackened foliage after the first hard frost (typically late October–early November at this elevation). Or wait until early spring before pips emerge (Feb–early March). Composting the spent leaves is fine if no slug eggs are visible underneath. Some gardeners leave the foliage as winter cover for the crowns; either approach works."
+        },
+        "propagate": {
+          "months": [2, 3],
+          "peakWindow": "Mar 20–Apr 10 — before pips fully emerge",
+          "narrow": true,
+          "description": "Divide every 4–5 years in EARLY spring, before the leaves unfurl — once leaves are open, division causes a season of stress. Lift the entire clump with a fork; separate by hand or with a sharp spade into chunks each carrying 2–3 pips and a section of root. Replant immediately, water in. Narrow window — don't rush past it."
+        },
+        "fertilize": {
+          "months": [3, 4],
+          "peakWindow": "Apr 1–25 at emergence",
+          "narrow": false,
+          "description": "Light feeding at emergence with a balanced slow-release fertilizer (10-10-10 or Plant-tone). Top-dress with 1 inch of compost around (not on) the crown. Hostas are not heavy feeders — over-fertilizing produces floppy leaves susceptible to wind tear."
+        },
+        "water": {
+          "months": [5, 6, 7, 8],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Deep weekly water through the growing season — hostas wilt visibly when dry and recover slowly. Apply 2–3 inches of mulch (shredded hardwood or pine straw) to retain moisture. The stone-walled bed will dry faster than open ground; check more frequently during July–August dry spells."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable for in-ground plantings. Container hostas (sometimes used for accent) would refresh soil and divide every 2–3 years in early spring."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "slugs",
+              "label": "Slug damage",
+              "months": [4, 5, 6, 7, 8, 9],
+              "peakWindow": "May 1–Jun 30 — emerging leaves are slug magnets",
+              "narrow": false,
+              "description": "The single biggest hosta problem at Church Mountain Road's humid climate. Symptoms: irregular holes chewed in the leaves, especially overnight. Bait with iron-phosphate pellets (Sluggo, Escar-Go) at emergence and re-apply after each heavy rain. Beer traps work but need refilling. Avoid thick mulch right against the crown — it shelters slugs."
+            },
+            {
+              "id": "deer",
+              "label": "Deer browsing",
+              "months": [3, 4, 5, 6, 7, 8, 9, 10],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Hostas are notorious deer candy. At Church Mountain Road, deer pressure is significant. Repellent spray (Liquid Fence or homemade egg-and-garlic) every 2–3 weeks during the growing season is the most reliable defense. Physical fencing or cages around prized cultivars in heavy-pressure years."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "iris-pond",
+      "name": "Pond Iris (Blue Flag)",
+      "scientificName": "Iris virginica or I. versicolor (Southern or Northern Blue Flag)",
+      "emoji": "💜",
+      "guide": "Native or near-native wetland iris growing in shallow water at the pond edge. Strap-like sword-shaped foliage emerges from rhizomes anchored in mud. Deep purple/violet falls and standards with a yellow-and-white signal patch. Spreads gradually by rhizome extension — clumps double in size every 3–5 years. Very low maintenance once established; the pond does most of the work.",
+      "currentSeasonNote": "Early May: bloom stalks emerging or about to. Peak bloom typically May 20–June 10 at Church Mountain Road's elevation. Now is a fine time to thin out any decaying winter foliage from the previous year that's still in the water — it adds organic load as it breaks down.",
+      "soilNotes": "Lives in pond mud and shallow water (0–4 inches over the rhizome). The pond's accumulated organic sediment provides all nutrition needed. No amendment required. Tolerant of seasonal water-level fluctuation as long as the rhizome stays consistently moist.",
+      "aspectPreference": "Full sun for best bloom. Tolerates light shade but flower count drops 30–50%. The pond location with open sky exposure is ideal. North-bank plantings get more sun (south-facing aspect into the pond); south-bank plantings get less.",
+      "frostSensitivity": "Hardy USDA Zone 3–9. Bulletproof. Native species; built for North Georgia winters. Foliage dies back to the rhizome after first hard frost; new shoots emerge in April.",
+      "care": {
+        "prune": {
+          "subcategories": [
+            {
+              "id": "deadhead",
+              "label": "Remove spent bloom stalks",
+              "months": [5, 6],
+              "peakWindow": "Jun 5–25 after flowering finishes",
+              "narrow": false,
+              "description": "Snip spent flower stalks at the base after each bloom. Prevents seed-pod formation, which redirects energy back to the rhizome. Especially important in pond settings where mass seeding can crowd the planting."
+            },
+            {
+              "id": "fall-cleanup",
+              "label": "Cut back foliage in late fall",
+              "months": [10, 11],
+              "peakWindow": "After first hard frost flattens leaves",
+              "narrow": false,
+              "description": "Cut foliage to about 6 inches above the water surface after frost has killed back the leaves. Removing the dead foliage from the water reduces decomposition load on the pond and limits overwintering iris borer eggs (their preferred winter habitat is in old leaf debris)."
+            }
+          ]
+        },
+        "propagate": {
+          "months": [7, 8],
+          "peakWindow": "Aug 10–Sep 5 — post-bloom, before fall dormancy",
+          "narrow": false,
+          "description": "Divide rhizomes every 3–5 years to prevent overcrowding. Lift the clump with a fork (or pull from the mud), wash off muck to expose the rhizome network, cut into sections each with a healthy fan of leaves and several inches of root. Replant immediately at the same depth as before — rhizome top barely covered, leaf bases above water. August–early September timing avoids stressing during peak summer heat and gives roots time to re-establish before winter."
+        },
+        "fertilize": {
+          "months": [3, 4],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Light feeding only. Pond iris in established ponds rarely need fertilizer — the pond's organic load supplies plenty. If bloom is poor, slow-release aquatic fertilizer tablets (e.g. Pondtabbs) pushed into the mud around the rhizome in early spring help. Excessive fertilizer causes lush leaves at the expense of bloom and can drive pond algae blooms."
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — lives in the pond. No supplemental irrigation needed."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable for pond-edge plantings. Container-grown specimens (rare for Blue Flag) would refresh aquatic potting mix every 2–3 years in early spring."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "iris-borer",
+              "label": "Iris borer",
+              "months": [4, 5, 6],
+              "peakWindow": "May 10–Jun 15 — larvae feed inside leaf bases",
+              "narrow": true,
+              "description": "The most serious iris pest. Adult moths lay eggs on dead foliage in fall; larvae hatch in spring and tunnel down through new leaves into the rhizome where they cause soft rot. Symptoms: water-soaked or 'bleeding' streaks on leaves; ragged chewed leaf edges; foul-smelling rhizomes. Control: remove and destroy ALL old foliage in late fall (eliminates overwintering eggs). If borers found in spring, squash them inside the leaf channel or remove the affected fan entirely. Iron-phosphate slug bait near the base in early spring can disrupt hatching. Severe infestations may require dividing and replanting only clean rhizome sections."
+            },
+            {
+              "id": "leaf-spot",
+              "label": "Bacterial leaf spot",
+              "months": [6, 7, 8],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Brown or yellow spots on leaves during humid summer weather. Cosmetic only — rarely affects rhizome health. Improve air circulation by thinning crowded clumps. Severe: copper-based fungicide if needed."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "qualityPhotosForFutureIntegration": {
+    "purpose": "Track high-quality reference photos to be integrated into the dashboard later (per CLAUDE.md 'Wildlife photos' task — extending to plants too). Storage approach TBD: external URL refs in JSON, or base64-inline to keep single-file constraint.",
+    "photos": [
+      { "imageRef": "Image #32", "subject": "Mountain laurel in full bloom", "useFor": "plants.json mountain-laurel hero photo" },
+      { "imageRef": "Image #34", "subject": "Clematis on deck trellis", "useFor": "plants.json clematis hero photo" },
+      { "imageRef": "Image #35", "subject": "Hosta collection in stone-walled bed", "useFor": "plants.json hosta hero photo" },
+      { "imageRef": "Image #41", "subject": "Pond iris at water's edge with reflections", "useFor": "plants.json iris hero photo" }
+    ]
+  },
+  "promotionChecklist": [
+    "1. Append the 5 entries from `plantsForPromotion` into `plants.json` → `plants[]` array (preserve existing 8 entries)",
+    "2. Update `plants.json._meta` if needed (no schema change required — these match v3)",
+    "3. Re-inline PLANTS_DATA in viewer.html (the constant near line 1820)",
+    "4. Verify each new plant appears in This Month / By Species / 3 Month / Full Year tabs",
+    "5. Verify dashboard strip Plants cell picks up the new species names where months overlap (e.g. 'May Inspect' will now include Hostas + Pond Iris)"
+  ]
+}
