@@ -123,7 +123,7 @@ The on-property hero leads with a synthesized italic "Today" callout (Crimson Te
 - New `weather-history.json` at repo root holds daily rollups (min/max/avg for temp, humidity, wind, rain, pressure, solar, UV, indoor sensors).
 - New `tools/record-daily-rollup.mjs` — Node 18+ script (zero deps) that fetches Ambient Weather, builds a daily rollup, and merges it into `weather-history.json`. Idempotent — re-running on a day already recorded replaces it. See `tools/README.md` for usage.
 - Already backfilled: 5 days (May 2 partial, May 3, May 4, May 5, May 6 partial).
-- **Next step:** scheduling. Run manually for now; later wire up either launchd (local) or a GitHub Action (cloud-based, fully hands-off — preferred long-term).
+- **Scheduling plan documented in `tools/SCHEDULING.md`** — concrete YAML for a GitHub Action running every 6h + a midnight finalize, plus alternative launchd plist for local-only. Recommend GitHub Action long-term so accumulation doesn't depend on the laptop being awake. Setup needs: `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` as repo secrets, then drop in the workflow file. Schema-extension ideas (rain event timing, GDD, solar hours, predominant wind direction) are in the same doc.
 - **Viewer integration is not done yet.** Once the file has ~30+ days, the rainfall block can switch from ERA5 grid baselines to property-recorded comparisons ("wettest May on our 14-month record"). For now the file is just accumulating.
 
 ### Icon/emoji audit — collisions and poor fits
