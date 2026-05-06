@@ -2032,12 +2032,15 @@ const AMBIENT_API_KEY = "3123e9a73a6a4d549fc8801b19ecd902c5806dcadeb44dc5a967656
 const AMBIENT_MAC     = "D8%3AF1%3A5B%3A15%3A28%3AB8";
 
 async function fetchAmbientWeather() {
+  console.log("[AW] fetchAmbientWeather() starting at", new Date().toISOString());
   const url = "https://api.ambientweather.net/v1/devices/" + AMBIENT_MAC +
     "?applicationKey=" + AMBIENT_APP_KEY + "&apiKey=" + AMBIENT_API_KEY + "&limit=1";
   try {
     const res = await fetch(url);
+    console.log("[AW] fetch returned", res.status, "at", new Date().toISOString());
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
+    console.log("[AW] parsed JSON, array length:", Array.isArray(data) ? data.length : "not array");
     // API returns an array of device data arrays; each element is an observation
     // When called with limit=1 on a specific device, data[0] is the latest observation
     const d = Array.isArray(data) && data.length > 0 ? data[0] : null;
