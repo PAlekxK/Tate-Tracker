@@ -1162,7 +1162,7 @@
     max-width: 660px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 8px;
   }
   .dash-cell {
@@ -1196,18 +1196,21 @@
     margin-top: 3px;
     line-height: 1.35;
   }
-  .dash-alert-pill {
-    display: inline-block;
-    background: #fff3e0;
-    border: 1px solid #f0b050;
-    color: #9a5010;
-    border-radius: 7px;
-    font-size: 9px;
-    font-weight: 700;
-    padding: 1px 6px;
-    margin-top: 3px;
+  .dash-tease-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 4px;
+    font-size: 10.5px;
+    line-height: 1.35;
+    color: #2a4a2a;
   }
-  .dash-alert-pill.severe { background: #fdebe7; border-color: #c04030; color: #a02020; }
+  .dash-tease-row:first-child { margin-top: 5px; }
+  .dash-tease-icon { flex-shrink: 0; font-size: 11px; }
+  .dash-tease-body { min-width: 0; }
+  .dash-tease-action { font-weight: 700; color: #1a3a1a; }
+  .dash-tease-names { color: #6a8a6a; }
+  .dash-tease-more { font-style: italic; color: #8a9a8a; font-size: 10px; margin-top: 3px; }
   .dash-all-clear { font-size: 10px; color: #3a8a3a; font-weight: 600; margin-top: 3px; display: block; }
 
   /* === TIER DIVIDER === */
@@ -1397,6 +1400,11 @@
       <div class="dash-cell-value" id="dash-wildlife-val">—</div>
       <div class="dash-cell-sub" id="dash-wildlife-sub"></div>
     </div>
+    <div class="dash-cell" onclick="expandCard('card-vehicles')">
+      <div class="dash-cell-label">Vehicles &amp; Equipment</div>
+      <div class="dash-cell-value">Reference</div>
+      <div class="dash-cell-sub">Specifications &amp; maintenance for the fleet and yard equipment.</div>
+    </div>
   </div>
 </div>
 
@@ -1487,6 +1495,7 @@
       <div class="wildlife-tabs">
         <button class="wildlife-tab active" data-wildlife-tab="birds">Birds</button>
         <button class="wildlife-tab" data-wildlife-tab="amphibians">Amphibians &amp; Pond</button>
+        <button class="wildlife-tab" data-wildlife-tab="fishing">Fishing</button>
       </div>
       <div id="wildlife-tab-content"></div>
     </div>
@@ -1497,19 +1506,6 @@
     <div class="tier-divider-line"></div>
     <div class="tier-divider-label">Reference</div>
     <div class="tier-divider-line"></div>
-  </div>
-
-  <!-- FISHING CARD -->
-  <div class="main-card tier2" id="card-fishing">
-    <div class="main-card-header" data-toggle="fishing">
-      <div class="main-card-icon fishing">🎣</div>
-      <div class="main-card-meta">
-        <div class="main-card-title">Fishing — Lake Sequoyah</div>
-        <div class="main-card-summary" id="fishing-summary">Bass · Crappie · Bluegill</div>
-      </div>
-      <span class="main-card-chevron">▼</span>
-    </div>
-    <div class="main-card-body" id="fishing-content"></div>
   </div>
 
   <!-- CELESTIAL / SKY CARD -->
@@ -1929,10 +1925,11 @@ async function fetchLiveWeather() {
 
     renderWeatherSummary();
     renderWeather();
-    renderFishing();
     renderCelestialSummary();
     renderCelestial();
     renderDashboardStrip();
+    renderWildlifeSummary();
+    if (typeof currentWildlifeTab !== "undefined" && currentWildlifeTab === "fishing") renderFishing();
     fetchRecentPrecip();
 
     const ts = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
@@ -2049,6 +2046,8 @@ async function fetchAmbientWeather() {
     renderWeatherSummary();
     renderWeather();
     renderDashboardStrip();
+    renderWildlifeSummary();
+    if (typeof currentWildlifeTab !== "undefined" && currentWildlifeTab === "fishing") renderFishing();
     renderRainfallPanel();
     renderAmbientStationPanel(d);
   } catch (err) {
@@ -2709,9 +2708,8 @@ function renderFishing() {
   html += renderFishSpecies(currentFishSpecies, lakeTemp);
   html += '</div>';
 
-  document.getElementById("fishing-content").innerHTML = html;
-  document.getElementById("fishing-summary").textContent =
-    worthIcon.replace(/^\S+\s+/, "") + " · ~" + lakeTemp + "°F · " + phase.label;
+  const fishTarget = document.getElementById("wildlife-tab-content") || document.getElementById("fishing-content");
+  if (fishTarget) fishTarget.innerHTML = html;
 
   // Wire up tabs
   document.querySelectorAll(".fish-tab").forEach(btn => {
@@ -3016,7 +3014,7 @@ function renderPlantCard(plant) {
     ? '<div class="plant-tags">' + activeNow.map(t =>
         '<span class="tag t-' + t + '">' + CARE_TYPES[t].icon + ' ' + CARE_TYPES[t].label + '</span>'
       ).join("") + '</div>'
-    : '<div class="plant-empty">No actions needed this month</div>';
+    : '<div class="plant-empty">Quiet month for this plant</div>';
   const careBlocks = Object.entries(CARE_TYPES).map(([type]) => {
     const entry = plant.care && plant.care[type];
     return entry ? renderCareBlock(type, entry) : "";
@@ -3063,10 +3061,7 @@ function renderPlantList() {
 // =========================
 
 function renderVehiclesSummary() {
-  const v = VEHICLES_DATA.vehicles;
-  const flagged = v.filter(x => /diagnosis|stripped|restoration|in progress/i.test(x.status || "")).length;
-  const flaggedText = flagged > 0 ? ` · ${flagged} need${flagged === 1 ? "s" : ""} attention` : "";
-  document.getElementById("vehicles-summary").textContent = v.length + " items in fleet" + flaggedText;
+  document.getElementById("vehicles-summary").textContent = "Specifications and maintenance";
 }
 
 function renderVehicles() {
@@ -4372,52 +4367,97 @@ function renderDashboardStrip() {
   const daily = WEATHER_DATA.daily;
   const alerts = generateAlerts();
 
-  // Weather cell
+  // Weather cell — show alert teasers (icon + brief title), no orange pill
   const wIcon = WEATHER_CODES[cur.weatherCode] || "";
   const wValEl = document.getElementById("dash-weather-val");
   const wSubEl = document.getElementById("dash-weather-sub");
   if (wValEl) wValEl.textContent = cur.temperature + "°F";
   if (wSubEl) {
     if (alerts.length > 0) {
-      const worst = alerts.find(a => a.severity === "severe") || alerts[0];
-      const cls = worst.severity === "severe" ? " severe" : "";
-      wSubEl.innerHTML = '<span class="dash-alert-pill' + cls + '">' +
-        alerts.length + " alert" + (alerts.length > 1 ? "s" : "") + "</span><br>" +
-        escapeHtml(worst.title);
+      const max = 3;
+      const shown = alerts.slice(0, max);
+      let html = shown.map(a =>
+        '<div class="dash-tease-row">' +
+          '<span class="dash-tease-icon">' + a.icon + '</span>' +
+          '<span class="dash-tease-body">' + escapeHtml(a.title) + '</span>' +
+        '</div>'
+      ).join("");
+      if (alerts.length > max) {
+        html += '<div class="dash-tease-more">+' + (alerts.length - max) + ' more</div>';
+      }
+      wSubEl.innerHTML = html;
     } else {
       const todayHigh = daily[0] ? " · H " + daily[0].high + "°" : "";
       wSubEl.textContent = (wIcon + " " + cur.condition + todayHigh).trim();
     }
   }
 
-  // Plants cell
+  // Plants cell — show per-care-type rows: icon + label + plant names teaser
   const activeTypes = Object.keys(CARE_TYPES).filter(t => plantsNeedingCare(t).length > 0);
   const pValEl = document.getElementById("dash-plants-val");
   const pSubEl = document.getElementById("dash-plants-sub");
   if (pValEl) {
     if (activeTypes.length === 0) {
-      pValEl.textContent = "All clear";
-      if (pSubEl) pSubEl.innerHTML = '<span class="dash-all-clear">Nothing due in ' + MONTHS[currentMonth] + "</span>";
+      pValEl.textContent = MONTHS[currentMonth];
+      if (pSubEl) pSubEl.innerHTML = '<span class="dash-all-clear">Quiet month — nothing scheduled</span>';
     } else {
-      const total = activeTypes.reduce((s, t) => s + plantsNeedingCare(t).length, 0);
-      pValEl.textContent = total + " action" + (total > 1 ? "s" : "") + " due";
-      if (pSubEl) pSubEl.textContent = activeTypes.map(t => CARE_TYPES[t].label).join(" · ");
+      pValEl.textContent = MONTHS[currentMonth];
+      const maxPlantsPerRow = 3;
+      const rows = activeTypes.map(t => {
+        const plants = plantsNeedingCare(t);
+        const shown = plants.slice(0, maxPlantsPerRow).map(p => p.name.toLowerCase());
+        const tail = plants.length > maxPlantsPerRow ? ", +" + (plants.length - maxPlantsPerRow) : "";
+        return '<div class="dash-tease-row">' +
+          '<span class="dash-tease-icon">' + CARE_TYPES[t].icon + '</span>' +
+          '<span class="dash-tease-body">' +
+            '<span class="dash-tease-action">' + CARE_TYPES[t].label + '</span> · ' +
+            '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
+          '</span>' +
+        '</div>';
+      }).join("");
+      if (pSubEl) pSubEl.innerHTML = rows;
     }
   }
 
-  // Wildlife cell
+  // Wildlife cell — three teaser rows: birds, amphibians, fishing
   const wldValEl = document.getElementById("dash-wildlife-val");
   const wldSubEl = document.getElementById("dash-wildlife-sub");
   if (wldValEl && typeof BIRDS_DATA !== "undefined" && typeof AMPHIBIANS_DATA !== "undefined") {
-    const birdsNow = BIRDS_DATA.species.filter(s => (s.monthsPresent || []).includes(currentMonth)).length;
-    const ampsNow  = AMPHIBIANS_DATA.species.filter(s => (s.monthsActive || []).includes(currentMonth)).length;
-    wldValEl.textContent = birdsNow + " birds · " + ampsNow + " amphibians";
-    const mn = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][currentMonth];
-    const birdCal = BIRDS_DATA.seasonalCalendar && BIRDS_DATA.seasonalCalendar[mn];
-    if (wldSubEl && birdCal && birdCal.watchFor) {
-      const watchStr = birdCal.watchFor.split(".")[0];
-      wldSubEl.textContent = watchStr.length > 60 ? watchStr.slice(0, 57) + "…" : watchStr;
+    wldValEl.textContent = MONTHS[currentMonth];
+    const maxNames = 3;
+    const birdsNow = BIRDS_DATA.species.filter(s => (s.monthsPresent || []).includes(currentMonth));
+    const ampsNow  = AMPHIBIANS_DATA.species.filter(s => (s.monthsActive  || []).includes(currentMonth));
+
+    function teaseRow(icon, label, names, totalCount) {
+      const shown = names.slice(0, maxNames).map(n => n.toLowerCase());
+      const tail = totalCount > maxNames ? ", +" + (totalCount - maxNames) : "";
+      return '<div class="dash-tease-row">' +
+        '<span class="dash-tease-icon">' + icon + '</span>' +
+        '<span class="dash-tease-body">' +
+          '<span class="dash-tease-action">' + label + '</span> · ' +
+          '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
+        '</span>' +
+      '</div>';
     }
+
+    let html = "";
+    if (birdsNow.length) html += teaseRow("🐦", "Birds", birdsNow.map(b => b.name), birdsNow.length);
+    if (ampsNow.length)  html += teaseRow("🐸", "Amphibians", ampsNow.map(a => a.name), ampsNow.length);
+
+    // Fishing row — pull lake temp + phase live
+    if (typeof FISHING_DATA !== "undefined" && typeof estimateLakeTemp === "function") {
+      const lakeTemp = estimateLakeTemp();
+      const phase = getCurrentFishingPhase(lakeTemp);
+      html += '<div class="dash-tease-row">' +
+        '<span class="dash-tease-icon">🎣</span>' +
+        '<span class="dash-tease-body">' +
+          '<span class="dash-tease-action">Lake Sequoyah</span> · ' +
+          '<span class="dash-tease-names">~' + lakeTemp + '°F · ' + escapeHtml(phase.label) + '</span>' +
+        '</span>' +
+      '</div>';
+    }
+
+    if (wldSubEl) wldSubEl.innerHTML = html;
   }
 }
 
@@ -4490,7 +4530,7 @@ function renderThisMonthPlants() {
     wrap.innerHTML =
       '<div class="plant-all-clear">' +
         '<div class="plant-all-clear-check">✓</div>' +
-        'No actions due in <strong>' + MONTHS[currentMonth] + '</strong>.<br>' +
+        'Nothing scheduled in <strong>' + MONTHS[currentMonth] + '</strong>.<br>' +
         '<span style="font-size:12px;color:#6a8a6a;">Browse By Species or Year View to plan ahead.</span>' +
       '</div>';
     return;
@@ -4560,7 +4600,8 @@ function switchWildlifeTab(tab) {
   document.querySelectorAll(".wildlife-tab").forEach(b =>
     b.classList.toggle("active", b.dataset.wildlifeTab === tab));
   if (tab === "birds") renderBirds();
-  else renderAmphibians();
+  else if (tab === "amphibians") renderAmphibians();
+  else if (tab === "fishing") renderFishing();
 }
 
 function renderWildlifeSummary() {
@@ -4570,11 +4611,16 @@ function renderWildlifeSummary() {
   const res = birdsNow.filter(s => s.status === "resident").length;
   const sum = birdsNow.filter(s => s.status === "summer").length;
   const win = birdsNow.filter(s => s.status === "winter").length;
-  if (res) parts.push(res + " resident" + (res > 1 ? "s" : ""));
+  if (res) parts.push(res + " resident bird" + (res > 1 ? "s" : ""));
   if (sum) parts.push(sum + " summer visitor" + (sum > 1 ? "s" : ""));
   if (win) parts.push(win + " winter visitor" + (win > 1 ? "s" : ""));
   if (ampsNow.length) parts.push(ampsNow.length + " amphibian" + (ampsNow.length > 1 ? "s" : "") + " active");
-  document.getElementById("wildlife-summary").textContent = parts.join(" · ") || "Birds · Amphibians · Pond";
+  if (typeof FISHING_DATA !== "undefined" && typeof estimateLakeTemp === "function") {
+    const t = estimateLakeTemp();
+    const ph = getCurrentFishingPhase(t);
+    parts.push("Lake Sequoyah ~" + t + "°F · " + ph.label);
+  }
+  document.getElementById("wildlife-summary").textContent = parts.join(" · ") || "Birds · Amphibians · Fishing";
 }
 
 // Wire plant view tabs
@@ -4598,7 +4644,6 @@ renderPlantList();
 renderCalendarSummary();
 renderCalendarLegend();
 renderCalendarBody();
-renderFishing();
 renderCelestialSummary();
 renderCelestial();
 renderWildlifeSummary();

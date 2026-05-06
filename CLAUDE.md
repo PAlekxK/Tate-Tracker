@@ -61,13 +61,14 @@ const CARE_COLORS = { prune: "#c0622f", propagate: "#3d8a5e", ... }
 |---|---|
 | `renderWeather()` | Full weather card with forecast, radar, PWS panel |
 | `renderRainfallPanel()` | Rainfall context with rv-badge status chips |
-| `renderFishing()` | Composite fishing score + per-species breakdown |
+| `renderFishing()` | Fishing tab content (lives inside Wildlife card; writes to `#wildlife-tab-content`) |
 | `renderProperty()` | Property profile card |
 | `renderPlantList()` | By Species view (calls `renderPlantCard` per plant) |
 | `renderThisMonthPlants()` | This Month view grouped by care type |
 | `renderTimeline()` | 3 Month view |
 | `renderCalendarBody()` + `renderCalendarLegend()` | Full Year heatmap |
-| `renderBirds()` / `renderAmphibians()` | Wildlife tabs |
+| `renderBirds()` / `renderAmphibians()` | Wildlife tabs (Birds, Amphibians) |
+| `renderDashboardStrip()` | Top 4-tile teaser strip (Weather, Plants, Wildlife, Vehicles) |
 
 ### Plant view tabs
 
@@ -91,6 +92,15 @@ Cards expand/collapse via `.expanded` class toggled on `.main-card` when its `.m
 
 ### ~~Fishing card — temperature/verdict contradiction~~ ✓ Done
 Verdict now steps down when `lakeTemp < hwtMonth.low_F`. A context note and Early/Mid/Late month progression strip appear in shoulder seasons. See `projectLakeTempProgression()` and the `belowHistFloor` logic in `renderFishing()`.
+
+### ~~Dashboard strip redesign — teaser tiles + Vehicles tile + Fishing merged into Wildlife~~ ✓ Done
+- Strip now has 4 tiles using `repeat(auto-fit, minmax(150px, 1fr))` so it reflows 2×2 on mobile.
+- Each tile shows actual content (icon + label + plant/species names) instead of count pills. The `.dash-alert-pill` orange/red styling was removed in favor of `.dash-tease-row` (icon + body, quiet text).
+- Vehicles & Equipment tile is static "Reference" (no month-based content).
+- Standalone Fishing card removed; Fishing is now a third tab inside the Wildlife card (Birds, Amphibians, Fishing). `renderFishing()` writes to `#wildlife-tab-content`. Fishing-related text in the Wildlife card subtitle includes lake temp + phase.
+
+### ~~Tone audit — urgency language~~ ✓ Mostly done
+Replaced: "17 actions due" → month-name + per-care-type teaser; "3 alerts" → quiet alert teaser rows; "3 need attention" / "items in fleet" → "Specifications and maintenance". Remaining strings to scan: any internal weather alert titles that read "Warning" / "Severe" — those are arguably right when the conditions are dangerous (freeze, damaging wind), so probably leave them as-is.
 
 ### Icon/emoji audit — collisions and poor fits
 Several icons clash or don't represent their subject well. Goal: every icon should be the most semantically precise choice for its context — doesn't need to be cheerful, just accurate.
@@ -122,21 +132,34 @@ Once multiple live data streams are available, explore using the Claude API to s
 ### Wildlife photos — birds & amphibians (lower priority)
 Explore adding actual photographs for each bird and amphibian species rather than emoji icons. Species are well-defined (all are North Georgia mountain species present on the property), so sourcing accurate photos is feasible — Wikimedia Commons and iNaturalist have permissively licensed images for all of them. Implementation consideration: photos would need to be either hosted externally (URL references in the JSON) or base64-inlined to keep the single-file constraint. Thumbnail treatment within the expandable species rows is the natural insertion point. Lower priority due to implementation complexity.
 
-### Tone — review urgency language throughout
-Several strings read like a task manager rather than a field journal. Audit and soften:
-- "17 actions due" → something like "17 things happening this month"
-- "3 need attention" (vehicles) → "3 to keep an eye on"
-- "3 alerts" (weather) → review whether "alerts" is the right word or if a gentler framing fits
-
 ## Pending design improvements (prioritized)
 
-1. **Mobile dashboard strip** — 3-column grid wraps awkwardly at 390px; needs single-column fallback or shorter text.
+1. ~~**Mobile dashboard strip** — 3-column grid wraps awkwardly at 390px~~ ✓ Done — now uses `repeat(auto-fit, minmax(150px, 1fr))`.
 2. **Body background** — Add subtle grain/noise texture over the gradient for depth.
 3. **Extend Crimson Text** — Card titles ("Weather", "Plants") should use the serif for typographic contrast vs DM Sans data labels.
 4. **Card expand animation** — Currently hard-toggles. Add CSS `grid-template-rows: 0fr → 1fr` or max-height transition.
 5. **"REFERENCE" section divider** — Plain uppercase text; should be a ruled line or carry more visual weight.
 6. **Dashboard strip stat hierarchy** — Key numbers (temp, bird count) need more visual weight vs their labels.
 7. **Header breathing room** — Increase top padding (22px → 32px) and h1 size (26px → 30px).
+
+## Active drafts (not yet promoted to live data)
+
+These files are staging areas. Do **not** wire them to the viewer until the user says go.
+
+- **`vehicles.draft.json`** (schema v3, 15 items) — proposes splitting flat array into `group: "vehicle" | "equipment"` and adds a per-item `maintenance` block (fuel, oil, sparkPlug, filters, consumables) with `confidence: verified | inferred | tbd` tags. New equipment added: Kobalt KM2040X-06 mower, Echo PB-7910T backpack blower, Echo PB-250LN handheld blower, Homelite UT33650A trimmer, Homelite gas blower/vac (model not stickered — likely UT09521 family). Husqvarna riding mower fully fleshed out from the on-unit replacement-parts sticker (Kawasaki FR691V, 54" deck, all part numbers verified). Husqvarna model number itself still TBD (sticker not yet found).
+- **`plants.draft.json`** — five new plants identified: Berry Box® Pyracomeles (USPP35913, verified by Pike Nursery tag), Yuki Cherry Blossom® Deutzia (NCDX2, verified by tag), Clematis (genus high; cultivar uncertain), Hostas (genus high; cultivars uncertain), pond Iris (genus high; species likely Blue Flag). Each entry needs a Zone 7b care calendar before promotion. Also tracks `qualityPhotosForFutureIntegration` — quality reference photos flagged for the future "real photos in the dashboard" enhancement.
+
+## Outstanding asks for Paul
+
+1. **Husqvarna riding mower:** model sticker (under seat or rear fender) — need the specific Husqvarna SKU like TS354XD / YTH24K54 / GTH54LS.
+2. **Homelite trimmer:** confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker is slightly ambiguous.
+3. **Homelite blower/vac:** no model sticker found on the unit. Maintenance specs are inferred from the trimmer's engine family (HHCPS.0264AT). Acceptable for at-a-store reference.
+
+## Next steps after the drafts go live
+
+- Viewer needs updating to render the new `vehicles.json` v3 with the `group` split (vehicle vs equipment) — likely two collapsible sub-sections inside the Vehicles & Equipment card, or two tabs.
+- Viewer needs updating to render the new plants once their care calendars are filled in.
+- Backfill maintenance blocks have already been written for all carried-over v2 items in the draft.
 
 ## Location constants
 
