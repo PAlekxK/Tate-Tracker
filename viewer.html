@@ -1960,6 +1960,11 @@ async function fetchLiveWeather() {
     const DAY_NAMES  = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     const DAY_LABELS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
+    // Capture station state RIGHT BEFORE the wholesale reassignment — Ambient
+    // may have completed any time between fetchLiveWeather start and now.
+    const savedStationData   = WEATHER_DATA.stationData;
+    const savedStationOnline = WEATHER_DATA.stationOnline;
+
     WEATHER_DATA = {
       _meta: { isPlaceholder: false, fetchedAt: new Date().toISOString(), source: "Open-Meteo API (live)" },
       current: {
@@ -2006,6 +2011,11 @@ async function fetchLiveWeather() {
     };
     WEATHER_DATA.hourlyPressure = (data.hourly && data.hourly.surface_pressure) ? data.hourly.surface_pressure : null;
 
+    // If the on-property station already reported, re-apply its overrides — the
+    // wholesale WEATHER_DATA reassignment above wiped them.
+    if (savedStationData) applyStationOverrides(savedStationData);
+    if (savedStationOnline === false && !savedStationData) WEATHER_DATA.stationOnline = false;
+
     renderWeatherSummary();
     renderWeather();
     renderCelestialSummary();
@@ -2031,46 +2041,45 @@ const AMBIENT_APP_KEY = "18bddad32ee64161962476f115eb8ededbd71d2cea74439397ef85f
 const AMBIENT_API_KEY = "3123e9a73a6a4d549fc8801b19ecd902c5806dcadeb44dc5a96765614991a964";
 const AMBIENT_MAC     = "D8%3AF1%3A5B%3A15%3A28%3AB8";
 
+// Apply on-property station readings on top of WEATHER_DATA.current. Idempotent —
+// safe to re-call whenever WEATHER_DATA gets reassigned (e.g. when Open-Meteo
+// finishes after Ambient and wholesale-replaces the object).
+function applyStationOverrides(d) {
+  if (!d) return;
+  WEATHER_DATA.stationOnline = true;
+  WEATHER_DATA.stationData = d;
+  if (d.tempf       != null) WEATHER_DATA.current.temperature = Math.round(d.tempf);
+  if (d.feelsLike   != null) WEATHER_DATA.current.feelsLike   = Math.round(d.feelsLike);
+  if (d.humidity    != null) WEATHER_DATA.current.humidity    = d.humidity;
+  if (d.windspeedmph != null) {
+    WEATHER_DATA.current.windSpeed    = Math.round(d.windspeedmph);
+    WEATHER_DATA.current.windGusts    = d.windgustmph != null ? Math.round(d.windgustmph) : WEATHER_DATA.current.windGusts;
+    WEATHER_DATA.current.windDirection = d.winddir != null ? degreesToCompass(d.winddir) : WEATHER_DATA.current.windDirection;
+  }
+  if (d.baromrelin != null) WEATHER_DATA.current.pressure_hpa = Math.round(d.baromrelin * 33.8639);
+  WEATHER_DATA.stationRain = {
+    hourly:  d.hourlyrainin  != null ? Math.round(d.hourlyrainin  * 100) / 100 : null,
+    daily:   d.dailyrainin   != null ? Math.round(d.dailyrainin   * 100) / 100 : null,
+    weekly:  d.weeklyrainin  != null ? Math.round(d.weeklyrainin  * 100) / 100 : null,
+    monthly: d.monthlyrainin != null ? Math.round(d.monthlyrainin * 100) / 100 : null
+  };
+}
+
 async function fetchAmbientWeather() {
-  console.log("[AW] fetchAmbientWeather() starting at", new Date().toISOString());
   const url = "https://api.ambientweather.net/v1/devices/" + AMBIENT_MAC +
     "?applicationKey=" + AMBIENT_APP_KEY + "&apiKey=" + AMBIENT_API_KEY + "&limit=1";
   try {
     const res = await fetch(url);
-    console.log("[AW] fetch returned", res.status, "at", new Date().toISOString());
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
-    console.log("[AW] parsed JSON, array length:", Array.isArray(data) ? data.length : "not array");
-    // API returns an array of device data arrays; each element is an observation
-    // When called with limit=1 on a specific device, data[0] is the latest observation
     const d = Array.isArray(data) && data.length > 0 ? data[0] : null;
-    console.log("[AW] d preview:", d ? { keys: Object.keys(d).length, tempf: d.tempf, tempfType: typeof d.tempf } : "null");
     if (!d || Object.keys(d).length === 0 || d.tempf == null) {
-      console.log("[AW] taking offline branch - stationOnline=false");
+      // Station registered but hardware not yet reporting
       WEATHER_DATA.stationOnline = false;
       renderAmbientStationPanel(null);
       return;
     }
-    console.log("[AW] proceeding to set stationOnline=true");
-    WEATHER_DATA.stationOnline = true;
-    WEATHER_DATA.stationData = d;
-    // Override current conditions with on-property station readings
-    WEATHER_DATA.current.temperature = Math.round(d.tempf);
-    if (d.feelsLike != null) WEATHER_DATA.current.feelsLike = Math.round(d.feelsLike);
-    if (d.humidity  != null) WEATHER_DATA.current.humidity  = d.humidity;
-    if (d.windspeedmph != null) {
-      WEATHER_DATA.current.windSpeed    = Math.round(d.windspeedmph);
-      WEATHER_DATA.current.windGusts    = d.windgustmph != null ? Math.round(d.windgustmph) : WEATHER_DATA.current.windGusts;
-      WEATHER_DATA.current.windDirection = d.winddir != null ? degreesToCompass(d.winddir) : WEATHER_DATA.current.windDirection;
-    }
-    if (d.baromrelin != null) WEATHER_DATA.current.pressure_hpa = Math.round(d.baromrelin * 33.8639);
-    // Store rain gauge readings (physical gauge on property — more accurate than grid model)
-    WEATHER_DATA.stationRain = {
-      hourly:  d.hourlyrainin  != null ? Math.round(d.hourlyrainin  * 100) / 100 : null,
-      daily:   d.dailyrainin   != null ? Math.round(d.dailyrainin   * 100) / 100 : null,
-      weekly:  d.weeklyrainin  != null ? Math.round(d.weeklyrainin  * 100) / 100 : null,
-      monthly: d.monthlyrainin != null ? Math.round(d.monthlyrainin * 100) / 100 : null
-    };
+    applyStationOverrides(d);
     renderWeatherSummary();
     renderWeather();
     renderDashboardStrip();
