@@ -2044,12 +2044,14 @@ async function fetchAmbientWeather() {
     // API returns an array of device data arrays; each element is an observation
     // When called with limit=1 on a specific device, data[0] is the latest observation
     const d = Array.isArray(data) && data.length > 0 ? data[0] : null;
+    console.log("[AW] d preview:", d ? { keys: Object.keys(d).length, tempf: d.tempf, tempfType: typeof d.tempf } : "null");
     if (!d || Object.keys(d).length === 0 || d.tempf == null) {
-      // Station registered but hardware not yet reporting
+      console.log("[AW] taking offline branch - stationOnline=false");
       WEATHER_DATA.stationOnline = false;
       renderAmbientStationPanel(null);
       return;
     }
+    console.log("[AW] proceeding to set stationOnline=true");
     WEATHER_DATA.stationOnline = true;
     WEATHER_DATA.stationData = d;
     // Override current conditions with on-property station readings
