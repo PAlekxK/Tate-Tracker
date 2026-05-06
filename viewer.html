@@ -359,6 +359,89 @@
   .weather-detail { font-size: 11.5px; color: #6a8a6a; margin-top: 2px; line-height: 1.5; }
   .weather-icon-big { font-size: 36px; }
 
+  /* === DATA SOURCE TAGS — make it clear what's live on-property vs forecast vs reference === */
+  .src-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 8px;
+    border: 1px solid;
+  }
+  .src-tag-station   { background: #e6f8ec; border-color: #5cb87a; color: #1d6035; }
+  .src-tag-forecast  { background: #e8f1fa; border-color: #8ab4d8; color: #2a5078; }
+  .src-tag-reference { background: #f0f0ec; border-color: #b0b0a4; color: #555048; }
+  .src-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 6px 0;
+    gap: 8px;
+  }
+  .src-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #4a7a6a;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* === GARDEN HERO — station-driven sentence + indoor mini-line === */
+  .garden-hero {
+    background: linear-gradient(135deg, #f0fff6, #e6f8ec);
+    border: 1.5px solid #5cb87a;
+    border-radius: 14px;
+    padding: 12px 14px 11px;
+    margin: 10px 18px 14px;
+  }
+  .garden-hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    gap: 8px;
+  }
+  .garden-hero-updated {
+    font-size: 10.5px;
+    color: #5a7a6a;
+    font-weight: 500;
+  }
+  .garden-hero-line {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a4028;
+    line-height: 1.4;
+  }
+  .garden-hero-temp { font-size: 22px; font-weight: 700; }
+  .garden-hero-comfort {
+    font-size: 11.5px;
+    color: #4a7a5a;
+    font-style: italic;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  .garden-hero-indoor {
+    font-size: 11.5px;
+    color: #5a7a6a;
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px dashed #a8d8b8;
+  }
+  .garden-hero-offline {
+    background: #fafaf4;
+    border: 1.5px solid #c8c870;
+    color: #606040;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin: 10px 18px 14px;
+    font-size: 12px;
+  }
+
   .forecast-strip {
     display: flex; gap: 7px;
     overflow-x: auto; padding-bottom: 6px;
@@ -1997,6 +2080,26 @@ async function fetchAmbientWeather() {
   }
 }
 
+// Comfort labels — single-glance descriptors built from station data
+function dewPointComfort(dp) {
+  if (dp == null) return null;
+  if (dp < 55) return "crisp";
+  if (dp < 60) return "comfortable";
+  if (dp < 65) return "humid";
+  if (dp < 70) return "muggy";
+  return "oppressive";
+}
+function windAdjective(mph) {
+  if (mph == null) return null;
+  if (mph < 1)  return "calm";
+  if (mph < 4)  return "very light";
+  if (mph < 8)  return "light";
+  if (mph < 13) return "breezy";
+  if (mph < 19) return "gusty";
+  if (mph < 25) return "windy";
+  return "very windy";
+}
+
 function renderAmbientStationPanel(d, errMsg) {
   const panelId = "ambient-station-panel";
   let panel = document.getElementById(panelId);
@@ -2007,45 +2110,81 @@ function renderAmbientStationPanel(d, errMsg) {
     panel.id = panelId;
     weatherContent.insertAdjacentElement("afterbegin", panel);
   }
+
   if (!d) {
     const msg = errMsg ? "Error: " + errMsg : "Hardware not yet online — data will appear when station is powered on";
     panel.innerHTML =
-      '<div style="background:#fafaf4;border:1.5px solid #c8c870;border-radius:12px;padding:8px 14px;margin:10px 18px 0;font-size:12px;color:#606040;">' +
-      '<span style="font-weight:700;">📡 On-Property Weather Station</span> — ' +
-      '<span style="color:#999;">' + msg + '</span>' +
+      '<div class="garden-hero-offline">' +
+        '<span class="src-tag src-tag-station">📡 On-property</span> ' +
+        '<span style="margin-left:6px;color:#7a7a5a;">' + escapeHtml(msg) + '</span>' +
       '</div>';
     return;
   }
-  const ts = d.date ? new Date(d.date).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : "–";
-  const windDir  = d.winddir    != null ? degreesToCompass(d.winddir) : "–";
-  const dewPt    = d.dewPoint   != null ? Math.round(d.dewPoint) + "°F" : null;
-  const pressure = d.baromrelin != null ? d.baromrelin.toFixed(2) + " inHg" : "–";
-  const solarRad = d.solarradiation != null ? d.solarradiation + " W/m²" : null;
-  const uv       = d.uv    != null ? d.uv : null;
-  const indoorTemp = d.tempinf    != null ? Math.round(d.tempinf) + "°F" : null;
-  const indoorHum  = d.humidityin != null ? d.humidityin + "%" : null;
 
-  let chips = '';
-  const chip = (label) => '<span style="background:#d4f5e2;padding:3px 8px;border-radius:10px;font-weight:500;">' + label + '</span>';
-  if (d.tempf     != null) chips += chip(Math.round(d.tempf) + '°F');
-  if (d.feelsLike != null) chips += chip('Feels ' + Math.round(d.feelsLike) + '°F');
-  if (d.humidity  != null) chips += chip('Humidity: ' + d.humidity + '%');
-  if (dewPt)               chips += chip('Dew pt: ' + dewPt);
-  if (d.windspeedmph != null) chips += chip('Wind: ' + Math.round(d.windspeedmph) + ' mph ' + windDir);
-  if (d.windgustmph  != null) chips += chip('Gusts: ' + Math.round(d.windgustmph) + ' mph');
-  if (d.dailyrainin  != null) chips += chip('Rain today: ' + d.dailyrainin.toFixed(2) + '"');
-  if (d.hourlyrainin != null) chips += chip('Rate: ' + d.hourlyrainin.toFixed(2) + '"/hr');
-  chips += chip('Pressure: ' + pressure);
-  if (solarRad) chips += chip('☀️ Solar: ' + solarRad);
-  if (uv != null)  chips += chip('UV: ' + uv);
-  if (indoorTemp) chips += '<span style="background:#edf8ef;padding:3px 8px;border-radius:10px;font-size:11px;color:#407050;font-weight:500;">Indoor: ' + indoorTemp + (indoorHum ? ' · ' + indoorHum : '') + '</span>';
+  const ts = d.date ? new Date(d.date).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : "–";
+  const temp     = d.tempf     != null ? Math.round(d.tempf)     : null;
+  const feels    = d.feelsLike != null ? Math.round(d.feelsLike) : null;
+  const dpRaw    = d.dewPoint  != null ? Math.round(d.dewPoint)  : null;
+  const dpLabel  = dewPointComfort(d.dewPoint);
+  const hum      = d.humidity != null ? d.humidity : null;
+  const windMph  = d.windspeedmph != null ? Math.round(d.windspeedmph) : null;
+  const windAdj  = windAdjective(d.windspeedmph);
+  const windDir  = d.winddir != null ? degreesToCompass(d.winddir) : "";
+  const gust     = d.windgustmph != null ? Math.round(d.windgustmph) : null;
+  const rainDay  = d.dailyrainin != null ? d.dailyrainin.toFixed(2) : null;
+  const rainRate = d.hourlyrainin != null ? d.hourlyrainin.toFixed(2) : null;
+  const pressure = d.baromrelin != null ? d.baromrelin.toFixed(2) : null;
+  const solarRad = d.solarradiation != null ? Math.round(d.solarradiation) : null;
+  const uv       = d.uv != null ? d.uv : null;
+  const indoorTemp = d.tempinf    != null ? Math.round(d.tempinf) : null;
+  const indoorHum  = d.humidityin != null ? d.humidityin : null;
+  const indoorDP   = d.dewPointin != null ? Math.round(d.dewPointin) : null;
+  const battLow    = d.battout === 0;
+
+  // Build the headline sentence — only include facts we have
+  const parts = [];
+  if (temp != null)  parts.push('<span class="garden-hero-temp">' + temp + '°F</span>');
+  if (feels != null && Math.abs(feels - (temp ?? feels)) >= 2) parts.push("feels " + feels + "°");
+  if (hum != null)   parts.push(hum + "% humidity");
+  if (windMph != null) {
+    const w = windMph === 0 ? windAdj : (windAdj + " · " + windMph + " mph" + (windDir ? " " + windDir : ""));
+    parts.push(w);
+    if (gust != null && gust > windMph + 5) parts.push("gusts " + gust);
+  }
+  if (rainDay != null && parseFloat(rainDay) > 0) {
+    parts.push(rainDay + '" today' + (rainRate && parseFloat(rainRate) > 0 ? " · " + rainRate + '"/hr' : ""));
+  }
+  const headline = parts.join(" · ");
+
+  // Comfort line — dew point + secondary readings
+  const comfortBits = [];
+  if (dpRaw != null && dpLabel) comfortBits.push("Dew point " + dpRaw + "° (" + dpLabel + ")");
+  if (pressure) comfortBits.push("pressure " + pressure + " inHg");
+  if (solarRad != null) comfortBits.push("☀️ " + solarRad + " W/m²");
+  if (uv != null) comfortBits.push("UV " + uv);
+  const comfortLine = comfortBits.length ? '<div class="garden-hero-comfort">' + comfortBits.join(" · ") + '</div>' : "";
+
+  // Indoor line
+  const indoorParts = [];
+  if (indoorTemp != null) indoorParts.push(indoorTemp + "°F");
+  if (indoorHum  != null) indoorParts.push(indoorHum + "% humidity");
+  if (indoorDP   != null) indoorParts.push("dew " + indoorDP + "°");
+  const indoorLine = indoorParts.length
+    ? '<div class="garden-hero-indoor">🏡 Inside: ' + indoorParts.join(" · ") + '</div>'
+    : "";
+
+  // Battery low warning (subtle)
+  const battTag = battLow ? '<span class="src-tag" style="background:#fff5e0;border-color:#d08828;color:#a06820;margin-left:6px;">🔋 Low battery</span>' : "";
 
   panel.innerHTML =
-    '<div style="background:#f0fff6;border:1.5px solid #5cb87a;border-radius:12px;padding:10px 14px;margin:10px 18px 0;font-size:12px;color:#1a4028;">' +
-    '<div style="font-size:11px;font-weight:700;color:#1d6035;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px;">' +
-    '📡 On-Property Station · Updated ' + ts +
-    '</div>' +
-    '<div style="display:flex;flex-wrap:wrap;gap:6px;">' + chips + '</div>' +
+    '<div class="garden-hero">' +
+      '<div class="garden-hero-header">' +
+        '<span class="src-tag src-tag-station">📡 On-property</span>' + battTag +
+        '<span class="garden-hero-updated">Updated ' + ts + '</span>' +
+      '</div>' +
+      '<div class="garden-hero-line">' + headline + '</div>' +
+      comfortLine +
+      indoorLine +
     '</div>';
 }
 
@@ -2219,11 +2358,11 @@ function renderRainfallPanel() {
   const period = ph ? ph.period : '2001–2025';
 
   container.innerHTML =
-    '<div class="rain-ctx-panel">' +
-    '<div class="rain-ctx-header">' +
-    '<span class="rain-ctx-title">🌧 Rainfall</span>' +
-    '<span class="rain-ctx-compare">vs. same dates ' + period + ' · ERA5</span>' +
+    '<div class="src-section-header" style="margin-top:14px;">' +
+      '<span class="src-section-title">Rainfall</span>' +
+      '<span class="src-tag src-tag-reference">📊 vs. ' + period + ' (ERA5)</span>' +
     '</div>' +
+    '<div class="rain-ctx-panel">' +
     '<div class="rain-ctx-cols">' +
     colHtml('Past 30 Days',   rp.rolling30.toFixed(2),    v30,  pct30)  +
     colHtml('Past 7 Days',    rp.past7total.toFixed(2),   v7,   pct7)   +
@@ -2231,7 +2370,7 @@ function renderRainfallPanel() {
     '</div>' +
     '</div>';
 
-  // Station rain gauge strip (shows when Ambient station is live)
+  // Station rain gauge strip (shows when Ambient station is live) — clearly tagged on-property
   const sr = WEATHER_DATA.stationRain;
   if (sr && WEATHER_DATA.stationOnline) {
     const gaugeItems = [];
@@ -2242,7 +2381,7 @@ function renderRainfallPanel() {
     if (gaugeItems.length > 0) {
       const gaugeDiv = document.createElement("div");
       gaugeDiv.className = "rain-gauge-strip";
-      gaugeDiv.innerHTML = '<span class="rain-gauge-label">📡 Property Gauge</span>' + gaugeItems.join('');
+      gaugeDiv.innerHTML = '<span class="src-tag src-tag-station" style="margin-right:6px;">📡 Property gauge</span>' + gaugeItems.join('');
       container.querySelector('.rain-ctx-panel').appendChild(gaugeDiv);
     }
   }
@@ -2270,18 +2409,34 @@ function renderWeather() {
   const cur = WEATHER_DATA.current;
   const daily = WEATHER_DATA.daily;
   const wIcon = WEATHER_CODES[cur.weatherCode] || "❓";
+  const stationOnline = WEATHER_DATA.stationOnline;
 
-  let html = '<div class="weather-current-row">';
-  html += '<div class="weather-icon-big">' + wIcon + '</div>';
-  html += '<div class="weather-condition-block">';
-  html += '<div class="weather-condition">' + escapeHtml(cur.condition) + ' · feels like ' + cur.feelsLike + '°F</div>';
-  html += '<div class="weather-detail">Humidity ' + cur.humidity + '% · Wind ' + cur.windSpeed + ' mph ' + cur.windDirection;
-  if (cur.windGusts && cur.windGusts > cur.windSpeed + 5) html += ' (gusts ' + cur.windGusts + ')';
-  html += '</div></div>';
-  html += '<div class="weather-temp">' + cur.temperature + '°</div>';
+  let html = "";
+
+  // Placeholder for the on-property hero (filled by renderAmbientStationPanel)
+  html += '<div id="ambient-station-panel"></div>';
+
+  // Forecast condition + 7-day — clearly tagged as forecast
+  html += '<div class="src-section-header">';
+  html += '<span class="src-section-title">Forecast</span>';
+  html += '<span class="src-tag src-tag-forecast">☁️ Open-Meteo</span>';
   html += '</div>';
 
-  // 7-day forecast
+  html += '<div class="weather-current-row">';
+  html += '<div class="weather-icon-big">' + wIcon + '</div>';
+  html += '<div class="weather-condition-block">';
+  html += '<div class="weather-condition">' + escapeHtml(cur.condition) + (stationOnline ? "" : " · feels like " + cur.feelsLike + "°F") + '</div>';
+  if (daily[0]) {
+    html += '<div class="weather-detail">High ' + daily[0].high + '° · Low ' + daily[0].low + '°';
+    if (daily[0].precipChance >= 20) html += ' · ' + daily[0].precipChance + '% rain chance';
+    html += '</div>';
+  }
+  html += '</div>';
+  // Only show the big temperature reading when station is offline (otherwise the hero owns it)
+  if (!stationOnline) html += '<div class="weather-temp">' + cur.temperature + '°</div>';
+  html += '</div>';
+
+  // 7-day forecast strip
   html += '<div class="forecast-strip">';
   daily.forEach((d, i) => {
     const todayCls = i === 0 ? " today" : "";
@@ -2297,11 +2452,15 @@ function renderWeather() {
   });
   html += '</div>';
 
-  // Rainfall context panel placeholder (filled async by renderRainfallPanel)
+  // Rainfall context panel placeholder (filled async by renderRainfallPanel) — has its own internal source tags
   html += '<div id="rainfall-panel"></div>';
 
-  // Alerts
+  // Alerts (forecast-driven)
   const alerts = generateAlerts();
+  html += '<div class="src-section-header" style="margin-top:14px;">';
+  html += '<span class="src-section-title">Things to note</span>';
+  html += '<span class="src-tag src-tag-forecast">☁️ Forecast-based</span>';
+  html += '</div>';
   html += '<div class="alerts-block">';
   if (alerts.length === 0) {
     html += '<div class="alerts-empty">✓ No active alerts. Conditions look unremarkable.</div>';
