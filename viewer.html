@@ -432,6 +432,27 @@
     padding-top: 7px;
     border-top: 1px dashed #a8d8b8;
   }
+  .garden-insight {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 13.5px;
+    font-style: italic;
+    color: #2a4a2a;
+    line-height: 1.45;
+    padding: 2px 0 9px;
+    border-bottom: 1px solid #c8e8d8;
+    margin-bottom: 9px;
+  }
+  .garden-insight-label {
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #5a7a5a;
+    margin-right: 7px;
+    vertical-align: 1px;
+  }
   .garden-hero-trends {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -439,6 +460,63 @@
     margin-top: 9px;
     padding-top: 8px;
     border-top: 1px dashed #a8d8b8;
+  }
+  .garden-hero-rain {
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px dashed #a8d8b8;
+  }
+  .garden-hero-rain-hdr {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .garden-hero-rain-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #4a7a6a;
+  }
+  .garden-hero-rain-summary {
+    font-size: 11.5px;
+    color: #2a4a2a;
+    font-style: italic;
+  }
+  .garden-hero-rain-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .rain-cell {
+    background: #fff;
+    border: 1px solid #c8e8d8;
+    border-radius: 8px;
+    padding: 5px 4px 4px;
+    text-align: center;
+    min-width: 0;
+  }
+  .rain-cell-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #5a7a6a;
+  }
+  .rain-cell-value {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #1a4028;
+    line-height: 1.2;
+    margin-top: 1px;
+  }
+  .rain-cell.rain-active { background: #e8f4fc; border-color: #8ab4d8; }
+  .rain-cell.rain-active .rain-cell-value { color: #1f4870; }
+  @media (max-width: 480px) {
+    .garden-hero-rain-grid { grid-template-columns: repeat(3, 1fr); }
   }
   .trend {
     display: flex;
@@ -2132,6 +2210,45 @@ async function fetchAmbientWeather() {
   }
 }
 
+// Property rain gauge — featured on-property data block: rate, today, event, week, month
+function renderPropertyGaugeBlock(d) {
+  if (!d) return "";
+  const rate    = d.hourlyrainin != null ? d.hourlyrainin.toFixed(2) : "0.00";
+  const today   = d.dailyrainin  != null ? d.dailyrainin.toFixed(2)  : "0.00";
+  const event   = d.eventrainin  != null ? d.eventrainin.toFixed(2)  : null;
+  const week    = d.weeklyrainin != null ? d.weeklyrainin.toFixed(2) : "0.00";
+  const month   = d.monthlyrainin != null ? d.monthlyrainin.toFixed(2) : "0.00";
+  const ratePos = d.hourlyrainin != null && d.hourlyrainin > 0;
+  const eventPos = event != null && parseFloat(event) > 0;
+
+  // Summary status: actively raining / recently rained / dry
+  let summary = "";
+  if (ratePos) summary = "Raining now · " + rate + '"/hr';
+  else if (parseFloat(today) > 0.05) summary = "Rained today · " + today + '" total';
+  else if (parseFloat(week) > 0.5) summary = "Recent rain · " + week + '" this week';
+  else summary = "Dry stretch — " + month + '" this month';
+
+  const cell = (label, value, active) =>
+    '<div class="rain-cell' + (active ? " rain-active" : "") + '">' +
+      '<div class="rain-cell-label">' + label + '</div>' +
+      '<div class="rain-cell-value">' + value + (label === "Now" ? '"/hr' : '"') + '</div>' +
+    '</div>';
+
+  return '<div class="garden-hero-rain">' +
+    '<div class="garden-hero-rain-hdr">' +
+      '<span class="garden-hero-rain-label">🌧 Rain — Kirschenbauer gauge</span>' +
+      '<span class="garden-hero-rain-summary">' + summary + '</span>' +
+    '</div>' +
+    '<div class="garden-hero-rain-grid">' +
+      cell("Now",       rate,  ratePos) +
+      cell("Today",     today, parseFloat(today) > 0) +
+      (event != null ? cell("Event", event, eventPos) : cell("Event", "0.00", false)) +
+      cell("Week",      week,  false) +
+      cell("Month",     month, false) +
+    '</div>' +
+  '</div>';
+}
+
 // Sparkline — minimal SVG polyline, fills its container width
 function renderSparkline(values, opts) {
   opts = opts || {};
@@ -2196,6 +2313,112 @@ function renderTrendStrip(history) {
       '<div class="trend-range ' + pTrendCls + '">' + (pDelta >= 0 ? '+' : '') + pDelta.toFixed(2) + ' inHg / 24h</div>' +
     '</div>' +
   '</div>';
+}
+
+// Garden insight — synthesizes station readings + forecast into a single
+// "today at the cabin" observation + optional action. Rule-based, ordered by
+// urgency. Returns null when there's no station data to anchor on.
+function generateGardenerInsight() {
+  const station = WEATHER_DATA.stationData;
+  if (!station) return null;
+  const today    = (WEATHER_DATA.daily || [])[0] || {};
+  const tomorrow = (WEATHER_DATA.daily || [])[1] || {};
+  const history  = WEATHER_DATA.stationHistory;
+
+  const temp     = station.tempf;
+  const dewPt    = station.dewPoint;
+  const humidity = station.humidity;
+  const wind     = station.windspeedmph != null ? station.windspeedmph : 0;
+  const rainToday = station.dailyrainin || 0;
+  const rainRate  = station.hourlyrainin || 0;
+  const todayHigh   = today.high;
+  const tonightLow  = today.low;
+  const tomorrowHigh   = tomorrow.high;
+  const tomorrowPrecipChance = tomorrow.precipChance || 0;
+  const todayPrecipChance    = today.precipChance || 0;
+
+  // Pressure delta over last ~6 hours
+  let pressureDelta6h = 0;
+  if (Array.isArray(history) && history.length > 36) {
+    const sorted = history.slice().sort((a, b) => (a.dateutc || 0) - (b.dateutc || 0));
+    const press = sorted.map(r => r.baromrelin).filter(v => v != null);
+    if (press.length > 36) {
+      const slice6h = press.slice(-72); // 72 records ≈ 6h at 5-min cadence
+      pressureDelta6h = slice6h[slice6h.length - 1] - slice6h[0];
+    }
+  }
+
+  const hour = new Date().getHours();
+  const partOfDay = hour < 6 ? "early morning" : hour < 11 ? "morning" : hour < 14 ? "midday" : hour < 18 ? "afternoon" : "evening";
+  const monthName = MONTHS[currentMonth];
+
+  // Storm imminent
+  if (pressureDelta6h < -0.08 && todayPrecipChance > 50) {
+    return {
+      observation: "Pressure dropping fast — storms likely within hours.",
+      action: "Finish outdoor work soon; secure anything loose."
+    };
+  }
+  // Active rain
+  if (rainRate > 0.05) {
+    return {
+      observation: "Rain in progress (" + rainRate.toFixed(2) + '"/hr) — ' + rainToday.toFixed(2) + '" today so far.',
+      action: rainRate > 0.3 ? "Heavy rain — watch low beds for standing water." : "Plants getting watered naturally; skip irrigation."
+    };
+  }
+  // Frost / freeze
+  if (tonightLow != null && tonightLow < 38) {
+    return {
+      observation: tonightLow < 33 ? "Hard freeze tonight (low " + tonightLow + "°F)." : "Frost possible tonight (low " + tonightLow + "°F).",
+      action: "Cover frost-tender plants by sunset; mulch tender shrubs."
+    };
+  }
+  // Heat
+  if (todayHigh != null && todayHigh > 88) {
+    return {
+      observation: "Hot day ahead — high " + todayHigh + "°F, currently " + Math.round(temp) + "°F.",
+      action: "Water deeply at dawn; check stressed plants by midday."
+    };
+  }
+  // Saturated soil
+  if (rainToday > 0.5 && rainRate < 0.02) {
+    return {
+      observation: rainToday.toFixed(2) + '" of rain today — soils saturated.',
+      action: "Let beds drain a day before working low areas."
+    };
+  }
+  // Muggy / fungal pressure
+  if (humidity > 85 && dewPt > 65 && temp > 65) {
+    return {
+      observation: "Muggy " + partOfDay + " — " + Math.round(temp) + "°F, dew point " + Math.round(dewPt) + "°.",
+      action: "Fungal pressure high — water at the base, not foliage."
+    };
+  }
+  // Ideal garden window
+  if (temp >= 58 && temp <= 80 && wind < 12 && todayPrecipChance < 30 && dewPt < 60) {
+    const dryTomorrow = tomorrowPrecipChance < 30 && tomorrowHigh >= 60 && tomorrowHigh <= 85;
+    return {
+      observation: "Comfortable " + monthName + " " + partOfDay + " — " + Math.round(temp) + "°F, light winds.",
+      action: dryTomorrow
+        ? "Excellent garden window — looks similar tomorrow, good for planting."
+        : "Excellent garden window for planting, transplanting, or mowing."
+    };
+  }
+  // Cool damp morning
+  if (humidity > 80 && temp < 60 && hour < 10) {
+    return {
+      observation: "Cool damp morning — " + Math.round(temp) + "°F at " + humidity + "% humidity.",
+      action: "Let surfaces dry before working in beds."
+    };
+  }
+
+  // Generic descriptor — no action
+  const dpWord = dewPointComfort(dewPt) || "comfortable";
+  const tempWord = temp < 45 ? "Cold" : temp < 60 ? "Cool" : temp < 75 ? "Mild" : temp < 85 ? "Warm" : "Hot";
+  return {
+    observation: tempWord + " " + dpWord + " " + partOfDay + " — " + Math.round(temp) + "°F at the property.",
+    action: null
+  };
 }
 
 // Comfort labels — single-glance descriptors built from station data
@@ -2297,15 +2520,30 @@ function renderAmbientStationPanel(d, errMsg) {
   // 24-hour trend sparklines (temp, humidity, pressure) — uses cached station history
   const trendStrip = renderTrendStrip(WEATHER_DATA.stationHistory);
 
+  // Featured rain detail — physical gauge readings (rate, today, event, week, month)
+  const rainBlock = renderPropertyGaugeBlock(d);
+
+  // Garden insight — synthesized "today at the cabin" leading prose
+  const insight = generateGardenerInsight();
+  const insightHtml = insight
+    ? '<div class="garden-insight">' +
+        '<span class="garden-insight-label">Today</span>' +
+        escapeHtml(insight.observation) +
+        (insight.action ? " " + escapeHtml(insight.action) : "") +
+      '</div>'
+    : "";
+
   panel.innerHTML =
     '<div class="garden-hero">' +
       '<div class="garden-hero-header">' +
-        '<span class="src-tag src-tag-station">📡 On-property</span>' + battTag +
+        '<span class="src-tag src-tag-station">📡 Kirschenbauer Station</span>' + battTag +
         '<span class="garden-hero-updated">Updated ' + ts + '</span>' +
       '</div>' +
+      insightHtml +
       '<div class="garden-hero-line">' + headline + '</div>' +
       comfortLine +
       indoorLine +
+      rainBlock +
       trendStrip +
     '</div>';
 }
@@ -2492,21 +2730,8 @@ function renderRainfallPanel() {
     '</div>' +
     '</div>';
 
-  // Station rain gauge strip (shows when Ambient station is live) — clearly tagged on-property
-  const sr = WEATHER_DATA.stationRain;
-  if (sr && WEATHER_DATA.stationOnline) {
-    const gaugeItems = [];
-    if (sr.hourly  != null) gaugeItems.push('<span class="rain-gauge-chip">Rate: ' + sr.hourly.toFixed(2)  + '"/hr</span>');
-    if (sr.daily   != null) gaugeItems.push('<span class="rain-gauge-chip">Today: ' + sr.daily.toFixed(2)  + '"</span>');
-    if (sr.weekly  != null) gaugeItems.push('<span class="rain-gauge-chip">This week: ' + sr.weekly.toFixed(2)  + '"</span>');
-    if (sr.monthly != null) gaugeItems.push('<span class="rain-gauge-chip">This month: ' + sr.monthly.toFixed(2) + '"</span>');
-    if (gaugeItems.length > 0) {
-      const gaugeDiv = document.createElement("div");
-      gaugeDiv.className = "rain-gauge-strip";
-      gaugeDiv.innerHTML = '<span class="src-tag src-tag-station" style="margin-right:6px;">📡 Property gauge</span>' + gaugeItems.join('');
-      container.querySelector('.rain-ctx-panel').appendChild(gaugeDiv);
-    }
-  }
+  // Note: the property gauge data has moved up into the on-property hero block,
+  // so this rainfall panel now contains ONLY the regional historical context (ERA5).
 }
 
 // =========================
