@@ -89,13 +89,8 @@ Cards expand/collapse via `.expanded` class toggled on `.main-card` when its `.m
 
 ## Next steps
 
-### Fishing card — temperature/verdict contradiction
-The "worth fishing" verdict (`calMonth.worthFishing`) comes from a monthly calendar boolean in `fishing.json`. The temperature phase label (`phase.label`) comes from `estimateLakeTemp()`. In shoulder seasons these contradict — e.g. May says "Worth Fishing" while the estimated lake temp of 48°F puts the phase at "Dead of Winter." Both are displayed on the same line with no reconciliation (`renderFishing()` line ~2614).
-
-Three improvements to address this:
-1. **Temperature override** — When `lakeTemp < hwtMonth.low_F` (already fetched as `hwtMonth`), downgrade or qualify the verdict with context: "lake still warming — 48°F vs. typical 55–65°F for May." Data is already available, just not connected.
-2. **Verdict steps down with temp** — If temp is below the monthly historical floor, automatically step the verdict down one tier (good → marginal, marginal → not yet) rather than letting the calendar month win unconditionally.
-3. **Within-month progression for shoulder seasons** — May especially: show early/mid/late month estimates as the lake warms. `estimateLakeTemp()` already uses a lag formula; extend it to project +1 and +2 week estimates.
+### ~~Fishing card — temperature/verdict contradiction~~ ✓ Done
+Verdict now steps down when `lakeTemp < hwtMonth.low_F`. A context note and Early/Mid/Late month progression strip appear in shoulder seasons. See `projectLakeTempProgression()` and the `belowHistFloor` logic in `renderFishing()`.
 
 ### Icon/emoji audit — collisions and poor fits
 Several icons clash or don't represent their subject well. Goal: every icon should be the most semantically precise choice for its context — doesn't need to be cheerful, just accurate.
