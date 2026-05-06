@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Property Tracker</title>
+<title>Tate Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
@@ -625,13 +625,23 @@
     border-radius: 12px;
     padding: 12px 14px 10px;
   }
+  .rain-ctx-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
   .rain-ctx-title {
     font-size: 10.5px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #3a6a8a;
-    margin-bottom: 10px;
+  }
+  .rain-ctx-compare {
+    font-size: 9px;
+    color: #7aaabb;
+    font-style: italic;
   }
   .rain-ctx-cols {
     display: grid;
@@ -658,72 +668,48 @@
     font-weight: 600;
     color: #1a3a5a;
     line-height: 1;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
-  .rain-ctx-sub {
-    font-size: 10px;
-    color: #6a8aaa;
-    line-height: 1.4;
-  }
-  .rain-ctx-bar-wrap {
-    margin: 5px 0 3px;
-    height: 5px;
-    background: #ddeef8;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .rain-ctx-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #3a8abf, #2a6a9a);
-    border-radius: 3px;
-    transition: width 0.6s ease;
-  }
-  .rain-ctx-bar-fill.over { background: linear-gradient(90deg, #1a5a9a, #0a3a7a); }
-  .rain-ctx-pct {
+  .rv-badge {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 2px 9px;
+    border-radius: 9px;
     font-size: 10px;
     font-weight: 700;
-    color: #2a5a7a;
   }
-  .rain-micro-bars {
+  .rv-very-dry { background: #fde8e8; color: #8b1a1a; }
+  .rv-dry      { background: #fdf0e0; color: #7a4010; }
+  .rv-normal   { background: #e8f5e0; color: #2a5a20; }
+  .rv-moist    { background: #ddeeff; color: #1a4070; }
+  .rv-very-wet { background: #d0e8ff; color: #0a2a5a; }
+  .rv-pct      { font-size: 9.5px; color: #7a9aaa; margin-top: 2px; }
+  .rv-loading  { font-size: 10px; color: #aaa; font-style: italic; margin-top: 5px; }
+  .rain-gauge-strip {
     display: flex;
-    align-items: flex-end;
-    gap: 2px;
-    height: 28px;
-    margin: 5px 0 3px;
-  }
-  .rain-micro-bar-wrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    height: 100%;
-    justify-content: flex-end;
-    gap: 2px;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid #c0daf0;
   }
-  .rain-micro-bar {
-    width: 100%;
-    background: linear-gradient(180deg, #3a8abf, #2a6a9a);
-    border-radius: 2px 2px 0 0;
-    min-height: 2px;
+  .rain-gauge-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #1d6035;
+    margin-right: 2px;
   }
-  .rain-micro-label {
-    font-size: 7.5px;
-    color: #7aaabb;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .rain-ctx-verdict {
-    display: inline-block;
-    margin-top: 4px;
-    padding: 1.5px 7px;
-    border-radius: 8px;
-    font-size: 9.5px;
+  .rain-gauge-chip {
+    font-size: 11.5px;
     font-weight: 600;
+    background: #d4f5e2;
+    color: #1a4028;
+    padding: 2px 8px;
+    border-radius: 10px;
   }
-  .rain-verdict-dry    { background: #fff3e0; color: #a06020; }
-  .rain-verdict-normal { background: #e8f5e0; color: #3a6a2a; }
-  .rain-verdict-wet    { background: #e0eeff; color: #2a4a8a; }
-  .rain-verdict-flood  { background: #ffe0e0; color: #8a2020; }
 
   /* === PLANT CALENDAR CARD === */
   .main-card-icon.calendar { background: linear-gradient(135deg, #d4e8c8, #a8c8a0); }
@@ -755,7 +741,7 @@
     border-radius: 8px;
   }
   .cal-legend-item { display: inline-flex; align-items: center; gap: 4px; }
-  .cal-legend-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .cal-legend-icon { font-size: 13px; line-height: 1; }
 
   /* === LAYOUT A: 3-month timeline === */
   .cal-timeline {
@@ -800,7 +786,7 @@
     border-radius: 7px;
     padding: 5px 7px;
     font-size: 11px;
-    border-left: 3px solid;
+    border-left: 3px solid #3a7a50;
     border-top: 1px solid #e8f0e0;
     border-right: 1px solid #e8f0e0;
     border-bottom: 1px solid #e8f0e0;
@@ -815,19 +801,10 @@
     margin-bottom: 1px;
   }
   .tl-task-actions {
-    display: block;
-    font-size: 10px;
-    color: #5a7a5a;
-    font-weight: 500;
-  }
-  .tl-task-action-word {
-    display: inline-block;
-    margin-right: 4px;
-  }
-  .tl-task-action-word + .tl-task-action-word::before {
-    content: "·";
-    margin-right: 4px;
-    color: #b0c4a8;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
   }
   .tl-empty { font-size: 11px; color: #aac0a0; font-style: italic; text-align: center; padding: 12px 4px; }
 
@@ -863,7 +840,6 @@
     display: flex; align-items: center; gap: 5px;
     border-right: 1px solid #e4f0d8;
   }
-  .hm-plant-emoji { font-size: 14px; }
   .hm-cell {
     min-height: 26px;
     border-radius: 5px;
@@ -876,9 +852,13 @@
   }
   .hm-cell.has-tasks { background: #f0f8e8; }
   .hm-cell.current-month { border: 2px solid #3a8a58; box-shadow: inset 0 0 0 1px #fff; }
-  .hm-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
+  .hm-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    font-size: 11px;
     flex-shrink: 0;
   }
   .hm-empty-cell { color: #d0e0c8; }
@@ -891,7 +871,6 @@
     .hm-plant-name { font-size: 10.5px; padding: 4px 4px; }
     .hm-plant-emoji { font-size: 12px; }
     .hm-cell { min-height: 22px; padding: 2px; }
-    .hm-dot { width: 5.5px; height: 5.5px; }
   }
 
 
@@ -1165,6 +1144,218 @@
   }
   .cel-empty { padding: 20px 16px; font-size: 13px; color: #8090b0; text-align: center; }
 
+  /* === DASHBOARD STRIP === */
+  .dash-strip {
+    background: linear-gradient(135deg, #f4faf0, #edf7e6);
+    border-bottom: 1.5px solid #d0e8c0;
+    padding: 10px 12px;
+  }
+  .dash-strip-inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .dash-cell {
+    background: #fff;
+    border: 1px solid #d8eacc;
+    border-radius: 12px;
+    padding: 10px 11px 9px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s;
+  }
+  .dash-cell:active { background: #f4fbf0; }
+  .dash-cell-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #7a9a7a;
+    margin-bottom: 3px;
+  }
+  .dash-cell-value {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a3a1a;
+    line-height: 1.15;
+  }
+  .dash-cell-sub {
+    font-size: 10px;
+    color: #6a8a6a;
+    margin-top: 3px;
+    line-height: 1.35;
+  }
+  .dash-alert-pill {
+    display: inline-block;
+    background: #fff3e0;
+    border: 1px solid #f0b050;
+    color: #9a5010;
+    border-radius: 7px;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    margin-top: 3px;
+  }
+  .dash-alert-pill.severe { background: #fdebe7; border-color: #c04030; color: #a02020; }
+  .dash-all-clear { font-size: 10px; color: #3a8a3a; font-weight: 600; margin-top: 3px; display: block; }
+
+  /* === TIER DIVIDER === */
+  .tier-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 2px 6px;
+  }
+  .tier-divider-line { flex: 1; height: 1px; background: #d8eacc; }
+  .tier-divider-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    color: #9aba9a;
+  }
+  .main-card.tier2 {
+    border-color: #e0edd4;
+    box-shadow: 0 1px 8px rgba(30,60,20,0.04);
+  }
+  .main-card.tier2 .main-card-title { font-size: 17px; color: #2a4a2a; }
+  .main-card.tier2 .main-card-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 9px; }
+
+  /* === PLANT VIEW TABS === */
+  .plant-view-tabs {
+    display: flex;
+    background: #f8fcf5;
+    border-bottom: 1px solid #e4f0d8;
+    padding: 0 10px;
+  }
+  .plant-view-tab {
+    background: none; border: none;
+    padding: 10px 12px;
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    color: #7a9a7a; cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.15s; white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .plant-view-tab.active { font-weight: 700; color: #183524; border-bottom-color: #2a6040; }
+
+  /* === THIS MONTH PLANTS VIEW === */
+  .plant-this-month-wrap { padding: 10px 12px 16px; }
+  .plant-all-clear {
+    padding: 22px 16px; text-align: center;
+    color: #3a7a3a; font-size: 13.5px;
+    font-family: "Crimson Text", Georgia, serif; line-height: 1.6;
+  }
+  .plant-all-clear-check { font-size: 26px; margin-bottom: 5px; }
+  .plant-action-group {
+    border: 1.5px solid #e0ecd8; border-radius: 12px;
+    overflow: hidden; margin-bottom: 10px;
+  }
+  .plant-action-group-hdr {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #f8fcf5;
+    border-bottom: 1px solid #eaf2e0;
+  }
+
+
+  /* Expandable plant item in This Month view */
+  .plant-action-item {
+    border-bottom: 1px solid #f2f8ec;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .plant-action-item:last-child { border-bottom: none; }
+  .plant-action-hdr {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .plant-action-hdr:active { background: #f4fbf0; }
+  .plant-action-left { flex: 1; min-width: 0; }
+  .plant-action-name {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14.5px; font-weight: 600; color: #1a3a1a;
+  }
+  .plant-action-summary {
+    font-size: 11px; color: #6a8a6a; margin-top: 2px;
+    line-height: 1.35; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .plant-action-chevron {
+    font-size: 10px; color: #9bbf9b; flex-shrink: 0;
+    transition: transform 0.18s;
+  }
+  .plant-action-item.open .plant-action-chevron { transform: rotate(180deg); }
+  .plant-action-detail {
+    padding: 0 14px 12px;
+    border-top: 1px solid #eef8e6;
+    background: #fafcf8;
+  }
+  .plant-detail-sub {
+    padding: 9px 0 6px;
+    border-bottom: 1px dashed #e4f0d8;
+  }
+  .plant-detail-sub:last-child { border-bottom: none; padding-bottom: 0; }
+  .plant-detail-sub-hdr {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 5px; flex-wrap: wrap;
+  }
+  .plant-detail-sub-name {
+    font-size: 12px; font-weight: 700;
+  }
+  .plant-action-peak {
+    display: inline-block; margin: 3px 0;
+    font-size: 10.5px; color: #7a5a00;
+    background: #fff8e6; border: 1px solid #e8c860;
+    border-radius: 6px; padding: 1px 7px;
+  }
+  .plant-action-desc {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 13px; color: #3a5a3a;
+    line-height: 1.6; margin-top: 4px;
+  }
+  .plant-detail-season-tip {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 12.5px; color: #2a6040; line-height: 1.55;
+    background: #f0fae8; border-left: 3px solid #4a9e6b;
+    padding: 6px 10px; border-radius: 0 8px 8px 0;
+    margin-top: 8px;
+  }
+
+  /* === WILDLIFE (UNIFIED BIRDS + AMPHIBIANS) CARD === */
+  .main-card-icon.wildlife { background: linear-gradient(135deg, #c8e8d0, #5aaa90); }
+  .wildlife-tabs {
+    display: flex; background: #f8fcf5;
+    border-bottom: 1px solid #e4f0d8;
+    padding: 0 12px;
+  }
+  .wildlife-tab {
+    background: none; border: none;
+    padding: 10px 18px;
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    color: #7a9a7a; cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.15s; white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wildlife-tab.active { font-weight: 700; color: #183524; border-bottom-color: #2a6040; }
+
+  /* Species rows: remove emoji icon, use left border for status/type */
+  .bio-species-row { border-left: 3px solid #d8eacc; }
+  .bio-species-row.status-resident { border-left-color: #5aaa70; }
+  .bio-species-row.status-summer   { border-left-color: #d0a030; }
+  .bio-species-row.status-winter   { border-left-color: #4a80c0; }
+  .bio-species-row.status-migrant  { border-left-color: #9060c0; }
+  .bio-species-row.type-frog       { border-left-color: #3aaa80; }
+  .bio-species-row.type-toad       { border-left-color: #a07840; }
+  .bio-species-row.type-treefrog   { border-left-color: #5aaa40; }
+  .bio-species-row.type-salamander { border-left-color: #7050c0; }
+
 </style>
 </head>
 <body>
@@ -1172,11 +1363,31 @@
 <div class="header">
   <div class="header-inner">
     <div class="header-date" id="header-date"></div>
-    <h1>Property Tracker</h1>
+    <h1>Tate Tracker</h1>
     <div class="header-address">
-      282 Church Mountain Road<br>
-      Jasper, GA 30143
-      <div><span class="header-zone">USDA Zone 6b · ~2,959 ft · Blue Ridge</span></div>
+      282 Church Mountain Road · Jasper, GA 30143
+      <div><span class="header-zone">USDA Zone 6b · 2,959 ft · Blue Ridge</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD STRIP -->
+<div class="dash-strip">
+  <div class="dash-strip-inner">
+    <div class="dash-cell" onclick="expandCard('card-weather')">
+      <div class="dash-cell-label">Weather</div>
+      <div class="dash-cell-value" id="dash-weather-val">—</div>
+      <div class="dash-cell-sub" id="dash-weather-sub">Loading…</div>
+    </div>
+    <div class="dash-cell" onclick="expandCard('card-plants')">
+      <div class="dash-cell-label">Plants</div>
+      <div class="dash-cell-value" id="dash-plants-val">—</div>
+      <div class="dash-cell-sub" id="dash-plants-sub"></div>
+    </div>
+    <div class="dash-cell" onclick="expandCard('card-wildlife')">
+      <div class="dash-cell-label">Wildlife</div>
+      <div class="dash-cell-value" id="dash-wildlife-val">—</div>
+      <div class="dash-cell-sub" id="dash-wildlife-sub"></div>
     </div>
   </div>
 </div>
@@ -1217,29 +1428,7 @@
   </div>
 
 
-  <!-- PLANT CALENDAR CARD -->
-  <div class="main-card" id="card-calendar">
-    <div class="main-card-header" data-toggle="calendar">
-      <div class="main-card-icon calendar">📅</div>
-      <div class="main-card-meta">
-        <div class="main-card-title">Plant Calendar</div>
-        <div class="main-card-summary" id="calendar-summary">—</div>
-      </div>
-      <span class="main-card-chevron">▼</span>
-    </div>
-    <div class="main-card-body">
-      <div class="cal-tabs" role="tablist">
-        <button class="cal-tab active" data-cal-view="timeline">Timeline · 3 months</button>
-        <button class="cal-tab" data-cal-view="heatmap">Heat map · full year</button>
-      </div>
-      <div class="cal-body">
-        <div class="cal-legend" id="cal-legend"></div>
-        <div id="cal-content"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PLANTS CARD -->
+  <!-- PLANTS CARD (unified: This Month / By Species / Year View) -->
   <div class="main-card" id="card-plants">
     <div class="main-card-header" data-toggle="plants">
       <div class="main-card-icon plants">🌿</div>
@@ -1250,18 +1439,60 @@
       <span class="main-card-chevron">▼</span>
     </div>
     <div class="main-card-body">
-      <div class="filters">
-        <div class="filters-inner" id="filters"></div>
+      <div class="plant-view-tabs" id="plant-view-tabs">
+        <button class="plant-view-tab active" data-plant-view="this-month">This Month</button>
+        <button class="plant-view-tab" data-plant-view="by-species">By Species</button>
+        <button class="plant-view-tab" data-plant-view="timeline">3 Month</button>
+        <button class="plant-view-tab" data-plant-view="full-year">Full Year</button>
       </div>
-      <div class="plants-list">
-        <div id="banner"></div>
-        <div id="plant-list"></div>
+      <div id="plant-this-month-content"></div>
+      <div id="plant-by-species-content" style="display:none;">
+        <div class="filters">
+          <div class="filters-inner" id="filters"></div>
+        </div>
+        <div class="plants-list">
+          <div id="banner"></div>
+          <div id="plant-list"></div>
+        </div>
+      </div>
+      <div id="plant-timeline-content" style="display:none;"></div>
+      <div id="plant-full-year-content" style="display:none;">
+        <div class="cal-body">
+          <div class="cal-legend" id="cal-legend"></div>
+          <div id="cal-content"></div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- WILDLIFE CARD (Birds + Amphibians unified) -->
+  <div class="main-card" id="card-wildlife">
+    <div class="main-card-header" data-toggle="wildlife">
+      <div class="main-card-icon wildlife">🐾</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">Wildlife</div>
+        <div class="main-card-summary" id="wildlife-summary">—</div>
+      </div>
+      <span class="main-card-chevron">▼</span>
+    </div>
+    <div class="main-card-body">
+      <div class="wildlife-tabs">
+        <button class="wildlife-tab active" data-wildlife-tab="birds">Birds</button>
+        <button class="wildlife-tab" data-wildlife-tab="amphibians">Amphibians &amp; Pond</button>
+      </div>
+      <div id="wildlife-tab-content"></div>
+    </div>
+  </div>
+
+  <!-- TIER 2 DIVIDER -->
+  <div class="tier-divider">
+    <div class="tier-divider-line"></div>
+    <div class="tier-divider-label">Reference</div>
+    <div class="tier-divider-line"></div>
+  </div>
+
   <!-- FISHING CARD -->
-  <div class="main-card" id="card-fishing">
+  <div class="main-card tier2" id="card-fishing">
     <div class="main-card-header" data-toggle="fishing">
       <div class="main-card-icon fishing">🎣</div>
       <div class="main-card-meta">
@@ -1273,9 +1504,8 @@
     <div class="main-card-body" id="fishing-content"></div>
   </div>
 
-
   <!-- CELESTIAL / SKY CARD -->
-  <div class="main-card" id="card-celestial">
+  <div class="main-card tier2" id="card-celestial">
     <div class="main-card-header" data-toggle="celestial">
       <div class="main-card-icon celestial">🔭</div>
       <div class="main-card-meta">
@@ -1287,34 +1517,8 @@
     <div class="main-card-body" id="celestial-content"></div>
   </div>
 
-  <!-- BIRDS CARD -->
-  <div class="main-card" id="card-birds">
-    <div class="main-card-header" data-toggle="birds">
-      <div class="main-card-icon birds">🐦</div>
-      <div class="main-card-meta">
-        <div class="main-card-title">Birds</div>
-        <div class="main-card-summary" id="birds-summary">—</div>
-      </div>
-      <span class="main-card-chevron">▼</span>
-    </div>
-    <div class="main-card-body" id="birds-content"></div>
-  </div>
-
-  <!-- AMPHIBIANS CARD -->
-  <div class="main-card" id="card-amphibians">
-    <div class="main-card-header" data-toggle="amphibians">
-      <div class="main-card-icon amphibians">🐸</div>
-      <div class="main-card-meta">
-        <div class="main-card-title">Amphibians &amp; Pond</div>
-        <div class="main-card-summary" id="amphibians-summary">—</div>
-      </div>
-      <span class="main-card-chevron">▼</span>
-    </div>
-    <div class="main-card-body" id="amphibians-content"></div>
-  </div>
-
   <!-- PROPERTY CARD -->
-  <div class="main-card" id="card-property">
+  <div class="main-card tier2" id="card-property">
     <div class="main-card-header" data-toggle="property">
       <div class="main-card-icon property">🏔️</div>
       <div class="main-card-meta">
@@ -1327,17 +1531,17 @@
   </div>
 
   <!-- VEHICLES CARD -->
-  <div class="main-card" id="card-vehicles">
+  <div class="main-card tier2" id="card-vehicles">
     <div class="main-card-header" data-toggle="vehicles">
       <div class="main-card-icon vehicles">🚗</div>
       <div class="main-card-meta">
-        <div class="main-card-title">Vehicles & Equipment</div>
+        <div class="main-card-title">Vehicles &amp; Equipment</div>
         <div class="main-card-summary" id="vehicles-summary">—</div>
       </div>
       <span class="main-card-chevron">▼</span>
     </div>
     <div class="main-card-body">
-      <div class="placeholder-banner">ⓘ Read-only fleet list for now. Per-vehicle maintenance logs and alerts coming next.</div>
+      <div class="placeholder-banner">Read-only fleet list. Per-vehicle maintenance logs and alerts coming next.</div>
       <div class="vehicles-list" id="vehicles-list"></div>
     </div>
   </div>
@@ -1345,7 +1549,7 @@
 </div>
 
 <script>
-const PLANTS_DATA = {"_meta": {"location": "282 Church Mountain Road, Jasper, GA 30143", "zone": "USDA 6b (elevation-adjusted); 7b official county zone", "region": "Blue Ridge, Pickens County, GA", "elevation_ft": 2959, "lastFrost_50pct": "May 3", "lastFrost_90pctSafe": "May 24", "firstFrost_50pct": "October 17", "soilSeries": ["Hayesville", "Cecil", "Pacolet"], "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec", "schemaVersion": 3, "schemaNotes": "v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect confirmed 2,959 ft (1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.", "dataSources": ["NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for confirmed 1,424 ft above station", "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)", "USDA NRCS Official Series Descriptions: Hayesville, Cecil, Pacolet", "USDA Plant Hardiness Zone Map 2023", "UGA Cooperative Extension North Georgia gardening and pest management resources"]}, "plants": [{"id": "white-pine", "name": "White Pine", "scientificName": "Pinus strobus", "emoji": "🌲", "guide": "Eastern white pines thrive in Jasper's climate — they prefer well-drained acidic soil and full sun to partial shade. Established trees are drought-tolerant but young plantings need consistent water for the first two years. Watch for white pine weevil on leaders in late spring and white pine blister rust on lower branches.", "currentSeasonNote": "Late April: prime time to inspect for white pine weevil — look for wilting or browning leaders and prune off any infested terminals immediately. Also the start of the candle-pinching window if you want to control size.", "soilNotes": "Thrives in Hayesville/Cecil/Pacolet soils — acidic sandy loam to loam (pH 4.5–5.5) is ideal. Excellent drainage on slopes is critical; on flat or low-lying areas at Church Mountain Road, the clay Bt argillic subsoil can impede drainage and white pine roots are very susceptible to waterlogging. Best performance on well-drained mid-slope positions.", "aspectPreference": "Full sun. South to east-facing slopes are best. Avoid exposed northwest ridgelines where winter desiccating winds cause significant foliage damage. East-facing mid-slope positions are ideal — good sun, some wind protection.", "frostSensitivity": "Hardy to Zone 3; no frost survivability concerns at Church Mountain Road. New spring candles emerging in May are frost-tender — a late frost after May 10 at ~1,750 ft elevation can kill the emerging candles and set aesthetics back a season. No action needed; trees recover fully.", "care": {"prune": {"subcategories": [{"id": "structural", "label": "Structural pruning", "months": [1, 2, 11], "peakWindow": "Feb 1–20 before sap surge begins", "narrow": false, "description": "Late winter (Feb–early Mar) is structural pruning — the tree is dormant, sap flow is minimal, and branch architecture is clearly visible. Cuts heal cleanly before spring growth. December is the secondary window for removing dead, damaged, or crossing branches; cold weather discourages pitch flow and pest entry. Avoid pruning in spring/summer when sap flow is heavy and bark beetles are active — fresh wounds attract them."}, {"id": "candles", "label": "Candle pruning", "months": [4, 5], "peakWindow": "May 10–25 at ~1,750 ft — candles elongated but needles still tightly furled", "narrow": true, "description": "Mid-to-late spring (May–early June) when the new candles have elongated but the needles are still tightly furled. Pinch or cut candles by 1/2 to 2/3 of their length to control size and create denser, more compact growth. Use fingers (preferred) or sharp scissors; never cut into woody tissue. At Church Mountain Road elevation (~1,750 ft), candles typically emerge 7–10 days later than in Jasper valley — don't rush it."}]}, "propagate": {"months": [], "peakWindow": null, "narrow": false, "description": "White pines are essentially never propagated by home gardeners. They're grown commercially from seed (cones collected in fall, stratified over winter, sown in spring) and the process takes 2+ years to produce a small seedling. Cuttings rarely root. If you want more white pines, buy nursery stock."}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5 before bud break", "narrow": false, "description": "Early spring (Mar–Apr) before active growth begins. Use a slow-release acidic fertilizer formulated for evergreens. Church Mountain Road soils are naturally acidic and reasonably fertile — established trees in good soil rarely need fertilizing. Only feed if growth is poor or needles are pale. Over-fertilizing causes weak growth that attracts pests."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Critical during the hot dry stretch from June through September, especially for trees under 3 years old or during drought. Deep watering once a week beats daily sprinkles — aim for 1 inch of water reaching the root zone. Church Mountain Road typically receives 60–65 inches of annual rainfall (orographic lift adds 5–15% above valley totals), so established mature pines rarely need supplemental water except in drought years."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable — white pines are landscape trees, not container plants."}, "inspect": {"subcategories": [{"id": "pest-weevil", "label": "White pine weevil", "months": [3, 4, 5], "peakWindow": "Apr 20–May 15 at ~1,750 ft — weevil egg-laying window; inspect leaders weekly", "narrow": true, "description": "Apr–Jun: adult weevils lay eggs in the previous year's terminal leader; larvae kill the leader, causing the classic 'shepherd's crook' wilted top. At Church Mountain Road elevation, adult emergence is roughly 7–10 days later than in the Jasper valley — inspect leaders weekly from late April through mid-May. Prune out any infested terminals immediately, cutting well below the damage and burning or bagging the prunings."}, {"id": "disease-rust", "label": "Blister rust", "months": [8, 9], "peakWindow": null, "narrow": false, "description": "Sep–Oct: white pine blister rust window. Look for orange spore-producing cankers on lower branches and yellow-orange swellings on the bark of trunks and branches. Prune affected branches well below the canker. Currants and gooseberries are alternate hosts — keep them away from white pines."}]}}}, {"id": "azalea", "name": "Azalea", "scientificName": "Rhododendron spp.", "emoji": "🌸", "guide": "Azaleas love Jasper's acidic mountain soil and dappled shade — morning sun with afternoon protection is ideal. Mulch 2–3 inches with pine bark or pine straw to keep roots cool and acidic. Shallow-rooted, so they need consistent moisture but never soggy feet.", "currentSeasonNote": "Late April: enjoy peak bloom now at Church Mountain Road elevation. Wait until immediately after flowering finishes to do any pruning — pruning later removes next year's flower buds. At ~1,750 ft, bloom typically peaks about a week later than in Jasper valley.", "soilNotes": "Ideal match for Church Mountain Road native soils. Hayesville/Cecil/Pacolet series naturally runs pH 4.5–5.5 — azaleas need exactly 4.5–5.5 and typically require no acidification here. Shallow feeder roots (top 6 inches) need consistent organic matter; 2–3 inch pine bark or pine straw mulch is essential. Well-drained mid-slope positions are perfect; avoid low spots with seasonal wet soil or heavy clay subsoil.", "aspectPreference": "North-facing or east-facing slopes at Church Mountain Road are ideal — morning sun with afternoon protection from hot SW summer sun. Classic Appalachian azalea habitat is north-facing mid-slope woodland edges, which is exactly what Church Mountain offers. Avoid south or west exposure where afternoon heat causes leaf scorch and accelerates soil moisture loss.", "frostSensitivity": "Hardy to Zone 4–5 depending on species. Flower buds set in summer are frost-sensitive — a hard freeze in early winter can kill flower buds while leaving the plant unharmed, resulting in a bloomless spring. Most native azaleas and southern Encore types handle Church Mountain Road winters without issue. At elevation, extended cold spells in Zone 6b frost pockets can damage marginally-hardy cultivars.", "care": {"prune": {"months": [4, 5], "peakWindow": "May 15–Jun 5 at ~1,750 ft — immediately after last flowers drop", "narrow": true, "description": "Single tight window: immediately after flowering ends (at Church Mountain Road elevation, typically mid-May to early June, about a week later than valley plants). Azaleas set next year's flower buds in summer on the current year's growth, so pruning anytime after July removes next spring's blooms. Use this window to shape the plant, remove crossing branches, and rejuvenate older stems. Light tip-pruning is fine; heavy renovation should be done in stages over 2–3 years."}, "propagate": {"subcategories": [{"id": "cuttings", "label": "Softwood cuttings", "months": [5, 6], "peakWindow": "Jun 10–Jul 5", "narrow": false, "description": "Late spring/early summer (Jun–Jul) when new growth has firmed slightly but is still flexible. Take 4–6 inch cuttings, strip lower leaves, dip in rooting hormone, and stick in a peat/perlite mix. Keep humid and shaded; rooting takes 6–10 weeks. Most reliable method for azaleas."}, {"id": "layering", "label": "Layering", "months": [3, 4, 8, 9], "peakWindow": null, "narrow": false, "description": "Spring or fall: bend a low flexible branch to the ground, wound the underside lightly with a knife, dust with rooting hormone, and pin it down with a U-pin or rock. Cover the wounded section with soil, leaving the tip exposed. Roots typically form in 6–12 months; sever from the parent the following spring or fall."}]}, "fertilize": {"months": [2, 4, 6], "peakWindow": null, "narrow": false, "description": "Three light feedings beat one heavy one. Early spring (Mar) wakes them up; right after bloom (late May at elevation) supports next year's bud set; mid-summer (Jul) keeps them strong through heat. Use an acidic fertilizer (Holly-tone or similar) — Church Mountain Road soils don't need acidification but do benefit from the micronutrients in organic acid fertilizers. Stop fertilizing by August — late feeding pushes tender growth that won't harden before winter."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Shallow roots = consistent moisture is essential. June through September is the danger zone — hot afternoons can wilt them quickly. Mulch heavily with pine straw to keep roots cool. Deep watering once or twice a week rather than light daily watering. Church Mountain Road's orographic rainfall helps, but dry stretches still occur in July–August."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable for landscape azaleas."}, "inspect": {"subcategories": [{"id": "pest-lacebug", "label": "Lace bugs", "months": [3, 4, 5, 6], "peakWindow": null, "narrow": false, "description": "Apr–Jul: the most common and damaging azalea pest in Georgia. Look for silvery stippling on leaf upper surfaces and black tar-spot droppings on undersides. Easiest to see on plants in too much sun — azaleas on south-facing exposures at Church Mountain Road are most vulnerable. Treat with horticultural oil or insecticidal soap on leaf undersides; multiple applications usually needed."}, {"id": "pest-mites", "label": "Spider mites", "months": [6, 7], "peakWindow": null, "narrow": false, "description": "Jul–Aug during hot dry stretches. Fine stippling on leaves, sometimes with webbing. Tap a leaf over white paper — moving specks confirm mites. Hose off undersides forcefully; treat with horticultural oil or miticide if severe."}, {"id": "disease-rootrot", "label": "Root rot", "months": [8, 9], "peakWindow": null, "narrow": false, "description": "Sep–Oct check for phytophthora root rot in any spots that hold water — especially flat areas at Church Mountain Road where the clay Bt argillic subsoil impedes drainage. Yellowing leaves, stunted growth, and branch dieback are warning signs. No good cure — prevention via excellent drainage is everything. Replace lost plants in better-drained spots."}]}}}, {"id": "hydrangea", "name": "Hydrangea", "scientificName": "Hydrangea spp.", "emoji": "💠", "guide": "Hydrangeas do beautifully in Jasper with morning sun and afternoon shade. Bigleaf (macrophylla) types bloom on old wood — prune only after flowering. Panicle and smooth (Annabelle-type) bloom on new wood — prune in late winter. Soil pH controls bigleaf color: acidic = blue, alkaline = pink.", "currentSeasonNote": "Late April: leaves pushing out at Church Mountain Road. Apply a slow-release acidic fertilizer now and prune off any winter dieback. At elevation, bud break runs about a week behind valley plants.", "soilNotes": "Well-suited to Church Mountain Road's acidic sandy loam soils (pH 4.5–5.5). Bigleaf hydrangeas at pH below 5.5 will naturally produce blue flowers without acidification — this is the default at Church Mountain Road. For pink flowers, you'd need to raise pH to 6.5+ — a constant uphill battle against the native soil chemistry. Add compost annually — organic matter is the single highest-return amendment for hydrangea success on mountain slopes.", "aspectPreference": "East-facing slopes are ideal at Church Mountain Road — morning sun drives strong flowering, afternoon shade prevents wilting and leaf scorch. Avoid south and west exposures where afternoon summer temperatures can exceed 90°F and humidity combined with sun stresses bigleaf types severely. North-facing positions work but expect 20–30% fewer flowers.", "frostSensitivity": "Variable by type. Bigleaf (macrophylla): flower buds form on old wood in summer; a late frost after Apr 20 at Church Mountain Road elevation can kill those buds without killing the plant — resulting in no blooms that year. This is common at elevation in late frost years. Panicle and Annabelle types bloom on new wood — fully frost-safe since they push new buds each spring. Endless Summer reblooming bigleaf types partially mitigate the frost-bud-kill problem.", "care": {"prune": {"subcategories": [{"id": "new-wood", "label": "New-wood types (panicle, Annabelle)", "months": [1, 2], "peakWindow": "Feb 15–Mar 5 before bud break", "narrow": false, "description": "Late winter (Feb–early Mar) for hydrangeas that bloom on the current season's growth — paniculata (Limelight, etc.) and arborescens (Annabelle, smooth hydrangea). Cut hard — back to a strong framework or even down to 1–2 feet — to promote vigorous flowering stems. The harder you cut, the bigger the flower heads (but fewer of them)."}, {"id": "old-wood", "label": "Old-wood types (bigleaf, oakleaf)", "months": [6, 7], "peakWindow": "Jul 10–Aug 1 at ~1,750 ft — immediately after last flowers fade", "narrow": true, "description": "Mid-summer (Jul–Aug) IMMEDIATELY after flowering for hydrangeas that bloom on previous year's growth — macrophylla (bigleaf, mophead, lacecap) and quercifolia (oakleaf). At Church Mountain Road elevation, peak bloom runs about a week later than valley plants, so the pruning window is typically mid-July to early August. Pruning later or in winter removes next year's flower buds. Light shaping only — remove spent flowers, dead wood, and crossing branches."}]}, "propagate": {"subcategories": [{"id": "cuttings", "label": "Softwood cuttings", "months": [5, 6], "peakWindow": "Jun 15–Jul 10", "narrow": false, "description": "Jun–Jul: take 4–6 inch tip cuttings from non-flowering stems, strip lower leaves, dip in rooting hormone, stick in moist potting mix. Cover with a clear bag or dome to keep humid. Roots in 3–4 weeks. Hydrangeas are among the easiest shrubs to propagate this way."}, {"id": "layering", "label": "Ground layering", "months": [3, 4, 5, 6, 7], "peakWindow": null, "narrow": false, "description": "The lazy gardener's method: bend a low branch to the ground, scrape the bark on the underside, pin it to the soil, cover with a thin layer of dirt and a rock to keep it down. Walk away. By the next spring it'll have roots and you can sever it from the parent. Near 100% success rate."}]}, "fertilize": {"months": [3, 5], "peakWindow": null, "narrow": false, "description": "Early spring (Apr) with a balanced slow-release. A second feeding in early June supports strong blooming. Soil pH controls bigleaf color — at Church Mountain Road's native pH 4.5–5.5, expect blue by default. To push pink, add lime (alkalizes) — an ongoing effort given the naturally acidic soil. White hydrangeas don't change color regardless of pH."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Their name literally means 'water vessel.' June–September is when they wilt dramatically in afternoon heat — usually a temporary water-stress wilt that recovers overnight. Deep weekly watering is much better than daily sprinkles. Mulch heavily. Church Mountain Road's mountain rainfall (60–65 in/yr estimated) helps but doesn't eliminate the need for deep watering during hot dry stretches."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable for landscape hydrangeas. Container hydrangeas should be repotted every 2–3 years in early spring."}, "inspect": {"subcategories": [{"id": "disease-mildew", "label": "Powdery mildew", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug humid stretches: white powdery coating on leaves, especially bigleaf types in poor air circulation. Jasper's high summer humidity (70–90% RH) makes this worse than in lowland areas. Mostly cosmetic. Improve air flow by selective pruning, avoid overhead watering, treat with horticultural oil if severe."}, {"id": "pest-aphids", "label": "Aphids on new growth", "months": [4, 5, 6], "peakWindow": null, "narrow": false, "description": "May–Jul: clusters of small green or black insects on tender new growth and flower buds, often with sticky honeydew below. Hose off forcefully, or treat with insecticidal soap if heavy. Ladybugs handle most outbreaks naturally."}]}}}, {"id": "dogwood", "name": "Dogwood", "scientificName": "Cornus florida", "emoji": "🌼", "guide": "Native flowering dogwoods are perfectly suited to Jasper's understory conditions — they want morning sun, afternoon shade, and well-drained acidic soil rich in organic matter. Avoid planting too deep and never let mulch touch the trunk. Susceptible to dogwood anthracnose in cool wet springs and powdery mildew in humid summers.", "currentSeasonNote": "Late April: bloom period winding down at Church Mountain Road. Inspect bark at the base for borer entry holes and frass, and watch for early anthracnose spots on leaves as temperatures warm and humidity rises.", "soilNotes": "Native to Appalachian woodland understories — your Hayesville/Cecil soil profile is its natural home. Wants well-drained acidic soil rich in organic matter (pH 5.0–6.0). Critical: never plant deeper than the nursery rootball and never pile soil or mulch against the trunk. Church Mountain Road slope positions with natural leaf litter accumulation are ideal; avoid compacted flat areas or low-lying spots with clay subsoil and wet soils.", "aspectPreference": "East-facing mid-slope is the ideal Church Mountain Road position — mirrors its native understory habitat. Afternoon shade prevents the stress that makes trees susceptible to borer attack. Direct south exposure significantly increases borer risk through heat stress. North-facing positions work but reduce flowering. Woodland edge positions with dappled canopy overhead are excellent.", "frostSensitivity": "Hardy to Zone 5. Flower buds are moderately frost-sensitive — a late freeze in April can brown open blossoms without harming the tree. At ~1,750 ft, the adjusted last frost of Apr 30 means late blooms (typically Apr 5–25 in the valley) may be partially frosted in average years. This is normal cosmetic damage; the tree recovers.", "care": {"prune": {"months": [11, 0, 1], "peakWindow": "Dec 15–Feb 15 while fully dormant", "narrow": false, "description": "Late fall through late winter (Nov–Feb) when fully dormant. Dogwoods 'bleed' heavily if pruned during active sap flow, and open wounds invite the dogwood borer — the most serious dogwood pest in the Southeast. Dormant pruning lets cuts callus over before borer season begins in May at Church Mountain Road elevation. Remove dead, damaged, and crossing branches; never top a dogwood. Light hand only — dogwoods don't need or want heavy pruning."}, "propagate": {"subcategories": [{"id": "cuttings", "label": "Semi-hardwood cuttings", "months": [5, 6], "peakWindow": "Jun 20–Jul 15", "narrow": false, "description": "Jun–Jul: 4-6 inch semi-hardwood cuttings, hormone, well-drained mix, kept humid. Moderately difficult — expect 30–50% success. Wound the base lightly with a knife to expose more cambium for rooting."}, {"id": "seed", "label": "Seed (volunteers)", "months": [9, 10], "peakWindow": "Oct 1–Nov 1 berry collection", "narrow": false, "description": "Easiest method: collect berries in fall when fully ripe (red), clean off pulp, plant directly in a nursery bed where they get cold winter exposure. Germination in spring; seedlings reach plantable size in 2 years. Or just transplant volunteer seedlings from under existing trees — Church Mountain Road likely has naturally seeded volunteers in woodland areas."}]}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5", "narrow": false, "description": "Light feeding in early spring (Mar–Apr) with an acidic slow-release. Avoid high-nitrogen lawn fertilizers — they push weak growth that attracts borers. Mature dogwoods in good soil on Church Mountain Road rarely need supplemental fertilizer — the naturally acidic Hayesville soil and leaf litter mulch provide a good native nutrient cycle."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Critical Jun–Sep, especially for trees under 5 years old. Dogwoods are notoriously drought-sensitive — chronic drought stress is the #1 reason yard dogwoods decline. Church Mountain Road's mountain rainfall (60–65 in/yr) helps, but mid-summer dry stretches still occur. Deep weekly watering and a generous mulch ring (kept off the trunk) prevents most problems."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable."}, "inspect": {"subcategories": [{"id": "disease-anthracnose", "label": "Dogwood anthracnose", "months": [3, 4, 5], "peakWindow": null, "narrow": false, "description": "Apr–Jun: most likely in cool wet springs. Look for purple-edged tan leaf spots, lower branch dieback, and water-soaked lesions on twigs. Most serious dogwood disease in the Southeast — can kill trees over several years. Improve air circulation, rake fallen leaves, water at base only. Church Mountain Road's high humidity (70–90% RH in summer) elevates risk. Fungicide treatment is preventive only and rarely worth it on landscape trees."}, {"id": "pest-borer", "label": "Dogwood borer", "months": [4, 5, 6, 7], "peakWindow": "May 5–20 at ~1,750 ft — peak adult flight; inspect base of trunk for frass weekly", "narrow": true, "description": "May–Aug: the #1 dogwood killer. Look for sawdust-like frass at the base of the trunk, peeling or sunken bark, branch dieback, and small holes in the trunk. At Church Mountain Road elevation, adult flight peaks in early-to-mid May (roughly a week later than valley). Borers enter through wounds — keep mulch off the trunk, never weed-whack against the bark, and prune only in winter. Established infestations are very hard to treat; prevention is everything."}, {"id": "disease-mildew", "label": "Powdery mildew", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug humid stretches: white powdery coating on leaves. Mostly cosmetic on established trees. Some cultivars (e.g. Cherokee Brave) are mildew-resistant — consider them for replanting on Church Mountain Road."}]}}}, {"id": "boxwood", "name": "Boxwood", "scientificName": "Buxus spp.", "emoji": "🟢", "guide": "Boxwoods need well-drained soil and decent air circulation — Jasper's humidity makes boxwood blight a real risk. Prefer partial shade in hot summers. Shallow roots demand consistent moisture and a thick mulch layer, kept off the trunk. Inspect interior for dead leaves regularly and clean them out for airflow.", "currentSeasonNote": "Late April: shape any new growth lightly now. Watch closely for boxwood leafminer adults (tiny orange flies) and any early signs of blight (dark leaf spots, black stem streaks) — humidity is climbing at Church Mountain Road.", "soilNotes": "Boxwoods prefer slightly less acidic soil than Church Mountain Road's native 4.5–5.5 range — aim for 6.0–6.5 for best performance. You'll likely need to apply dolomitic limestone to raise pH in planting beds. The clay Bt argillic subsoil in flat areas creates drainage problems that are fatal to boxwoods — use bermed or raised bed positions on any flat ground. Excellent drainage is non-negotiable.", "aspectPreference": "East or north-facing positions reduce blight risk at Church Mountain Road. Partial afternoon shade is strongly preferred — the property's humid summers combined with direct afternoon sun stress boxwoods and worsen blight incidence. Avoid low-lying frost pocket areas where prolonged cold and ice damage evergreen foliage and increases winter desiccation.", "frostSensitivity": "Hardy to Zone 5–6 depending on species. Winter bronzing (temporary orange-brown discoloration) is common in exposed positions at Church Mountain Road elevation — an anti-desiccant spray in December reduces this. New growth pushed by spring fertilization is frost-sensitive — a late frost after May 1 at ~1,750 ft can burn tender growth, though plants recover.", "care": {"prune": {"subcategories": [{"id": "shearing", "label": "Shearing (formal hedge)", "months": [3, 4, 5], "peakWindow": "Apr 20–May 20 — after first flush partially hardened", "narrow": false, "description": "Spring through early summer (Apr–Jun) for formal hedges and topiary. Wait until after the first flush of new growth has emerged and partially hardened — at Church Mountain Road elevation, this typically falls late April through May. Use sharp shears for clean cuts. Avoid shearing into late summer or fall — late cuts push tender growth that won't harden before winter."}, {"id": "selective", "label": "Selective / cloud pruning", "months": [3, 4, 5, 6], "peakWindow": null, "narrow": false, "description": "Apr–Jul: hand-prune individual branches with sharp bypass pruners for a more natural form, better airflow, and blight prevention. Reach inside the plant and remove crossing, dead, and weak interior branches to open up the canopy. Critical for blight resistance — the dense interior of sheared boxwoods stays wet in Jasper's humid summers and breeds disease."}, {"id": "interior-cleaning", "label": "Interior cleanout", "months": [10, 11, 0, 1], "peakWindow": null, "narrow": false, "description": "Winter (Nov–Feb): reach inside the plant and remove accumulated dead leaves trapped in the interior. These are the primary source of boxwood blight inoculum the following spring. This is not 'pruning' in the traditional sense — it's housekeeping that dramatically reduces disease pressure. Especially important at Church Mountain Road given the high-humidity climate."}]}, "propagate": {"months": [6, 7, 8], "peakWindow": "Jul 15–Aug 15", "narrow": false, "description": "Easy from semi-hardwood cuttings in mid-to-late summer (Jul–Sep) when new growth has firmed up. 4-inch cuttings, hormone, peat/perlite mix, kept humid. Rooting takes 6–10 weeks. Boxwoods grown from cuttings retain the parent's exact form and growth rate."}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5", "narrow": false, "description": "Early spring (Mar–Apr) with a slow-release balanced fertilizer or one formulated for evergreens. Boxwoods are light feeders — over-fertilizing promotes weak growth that's more susceptible to blight and leafminer. Note that Church Mountain Road's native soil pH may need liming before fertilizer is effective — test pH first."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Shallow roots demand consistent moisture Jun–Sep. Mulch heavily with pine bark, kept off the trunk. Watering at the base (not overhead) is critical — wet foliage is how boxwood blight spreads. Church Mountain Road's humidity means even well-drained beds can stay moist, but direct irrigation is still needed during dry stretches."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Container boxwoods every 2–3 years in early spring. Topiary boxwoods need annual root pruning to stay in scale."}, "inspect": {"subcategories": [{"id": "pest-leafminer", "label": "Boxwood leafminer", "months": [3, 4], "peakWindow": "Apr 20–May 10 at ~1,750 ft — adult emergence window; narrow window to catch and treat", "narrow": true, "description": "Apr–May: adults emerge as tiny orange flies and lay eggs in leaves. Larvae feed inside leaves causing blistered, mottled appearance. At Church Mountain Road elevation, adult emergence is typically 7–10 days later than valley plants — watch for the orange flies in late April through early May. Treat with systemic insecticide at adult emergence or prune off heavily infested branches. Timing this correctly is critical; the window is short."}, {"id": "pest-mites", "label": "Spider mites", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug hot dry weather: bronze stippling, fine webbing. Hose off forcefully or treat with horticultural oil."}, {"id": "disease-blight", "label": "Boxwood blight", "months": [4, 5, 7, 8], "peakWindow": "May 15–Jun 10 at ~1,750 ft — first high-risk humid stretch; inspect every 10 days", "narrow": true, "description": "May–Jun and Aug–Sep cool humid stretches: dark circular leaf spots, black streaks on stems, rapid defoliation from the bottom up. The existential threat to boxwoods — and Church Mountain Road's 70–90% summer RH makes this a high-priority concern. Clean tools between plants with bleach, remove and bag (don't compost) infected material immediately, never work on wet plants. No effective cure once established. The peak risk window at elevation is mid-May through early June — inspect every 10 days during this stretch."}]}}}, {"id": "holly", "name": "Holly", "scientificName": "Ilex spp.", "emoji": "🎄", "guide": "Hollies are tough and well-suited to Jasper — full sun for best berry production, partial shade tolerated. Acidic well-drained soil. Most species need both male and female plants for berries. Established hollies are quite drought-tolerant. Watch for leaf miner and scale insects.", "currentSeasonNote": "Late April: new growth flush starting at Church Mountain Road. Hold off on heavy pruning until that flush hardens off in early summer — pruning now would remove flower buds.", "soilNotes": "Well-matched to Hayesville/Cecil/Pacolet soils (pH 4.5–6.0). Most hollies thrive in the 5.5–6.5 range — you may need light dolomitic lime applications on more acidic spots at Church Mountain Road. Both Ilex opaca (American holly, native) and Ilex cornuta (Chinese holly) perform excellently here. Established plants tolerate clay subsoil reasonably well — better drainage tolerance than most landscape shrubs.", "aspectPreference": "Full sun for maximum berry production. East-facing slopes at Church Mountain Road are excellent — good sun exposure without the desiccating northwest winter winds that affect exposed ridgeline positions. Berry-bearing female plants need a male holly within about 50 feet (within pollinator range) — plan your male/female planting accordingly.", "frostSensitivity": "Very hardy — most Ilex species are Zone 5 or colder. Flowers (and therefore berries) can be lost to a late frost in late April; at Church Mountain Road elevation (~1,750 ft), the bloom window (late April–May) slightly overlaps the last frost probability window. Mature berries persist through winter and easily tolerate Zone 7b low temperatures.", "care": {"prune": {"subcategories": [{"id": "shaping", "label": "Shaping", "months": [5, 6], "peakWindow": "Jun 20–Jul 10 at ~1,750 ft — after spring flush hardened, before late-summer bud set", "narrow": true, "description": "Early-to-mid summer (Jun–Jul) after the spring growth flush has hardened. At Church Mountain Road elevation, this window lands about a week later than valley plants — typically late June through early July. Pruning earlier removes flowers (= no berries this year). Pruning later interferes with bud set for next year's berries. For berry-producing female plants, prune lightly to preserve flowering branches."}, {"id": "renovation", "label": "Hard renovation", "months": [1, 2], "peakWindow": "Feb 15–Mar 5", "narrow": false, "description": "Late winter (Feb–early Mar) for severely overgrown hollies that need to be cut hard. Hollies tolerate hard pruning well, even down to bare wood — they regenerate from old wood, which is unusual among broadleaf evergreens. Sacrifices berries for one season but restores shape. Use only when needed; not part of normal annual care."}]}, "propagate": {"months": [6, 7, 8], "peakWindow": "Jul 15–Sep 1", "narrow": false, "description": "Semi-hardwood cuttings in mid-to-late summer (Jul–Sep). 4-6 inch cuttings, hormone, well-drained mix. Rooting takes 8–12 weeks. Hollies are dioecious — you'll need both male and female plants for berries, so propagate accordingly. Seed propagation is slow (often 2-year germination) and seedlings have unknown sex until flowering."}, "fertilize": {"months": [2, 4], "peakWindow": null, "narrow": false, "description": "Two feedings: early spring (Mar) before bud break, and again after flowering (May at elevation) to support berry development. Use an acidic fertilizer formulated for evergreens. Yellow leaves often indicate iron chlorosis from soil pH that's drifted too alkaline — soil test before assuming nutrient deficiency."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Established hollies are quite drought-tolerant, but young plants and any holly trying to set a heavy berry crop need consistent water Jun–Sep. Deep weekly watering during dry stretches."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable for landscape hollies."}, "inspect": {"subcategories": [{"id": "pest-leafminer", "label": "Leaf miner", "months": [4], "peakWindow": "May 1–20", "narrow": false, "description": "May: squiggly trails or blotches inside leaves. Mostly cosmetic on established hollies. Prune off heavily affected leaves and destroy them; treat with systemic if severe."}, {"id": "pest-scale", "label": "Scale insects", "months": [5, 6], "peakWindow": null, "narrow": false, "description": "Jun–Jul: small bumpy growths on stems and leaf undersides; sticky honeydew below the plant; black sooty mold on lower leaves. Treat with horticultural oil during dormancy or systemic insecticide during the active growing season."}, {"id": "pest-mites", "label": "Spider mites", "months": [7, 8], "peakWindow": null, "narrow": false, "description": "Aug–Sep hot dry stretches: bronze stippling, fine webbing on leaf undersides. Hose off forcefully or treat with miticide if severe."}]}}}, {"id": "mountain-laurel", "name": "Mountain Laurel", "scientificName": "Kalmia latifolia", "emoji": "🌺", "guide": "Mountain laurel is a Blue Ridge native — your land is in its sweet spot. Wants acidic well-drained soil, partial shade, and good air circulation. Avoid wet feet at all costs. Slow-growing and long-lived. Deadhead spent blooms to channel energy into next year's flowering. All parts are toxic to livestock and pets.", "currentSeasonNote": "Late April: flower buds swelling for May–June bloom at Church Mountain Road elevation. Don't prune now — wait until just after flowering finishes. This is one of the most spectacular spring plants on the property.", "soilNotes": "Native Blue Ridge species — Church Mountain Road is in its core Appalachian habitat and the Hayesville/Cecil/Pacolet soils are its native medium. Thrives at pH 4.5–5.5 without any amendment. The native leaf litter of the property's wooded areas is the ideal mulch. Critical weakness: waterlogged roots — the well-drained slopes of Church Mountain Road are ideal, but any flat spot with clay Bt subsoil is high-risk. Test drainage in suspect areas before planting.", "aspectPreference": "North-facing and east-facing mid-slope woodland edges are perfect at Church Mountain Road — exactly where mountain laurel occurs naturally. South-facing direct-sun exposures are too hot and dry for it even at elevation. The property's native woodland with dappled canopy is prime mountain laurel habitat; the plants already established there are in their optimal zone.", "frostSensitivity": "Hardy to Zone 4. Very cold-tolerant at Church Mountain Road elevation. Flower buds are frost-sensitive in spring — a late freeze after bud swell in late April or early May can kill developing flowers without harming the plant. At ~1,750 ft, the May 1–15 window is the critical frost-risk period for buds. Established plants at this elevation are fully winter-hardy.", "care": {"prune": {"months": [5, 6], "peakWindow": "Jun 15–Jul 5 at ~1,750 ft — immediately after last flowers drop", "narrow": true, "description": "Single window: immediately after flowering ends. At Church Mountain Road elevation, blooms peak in late May–early June, about a week later than valley plants — the pruning window opens in mid-June and closes by early July. Like azaleas, mountain laurel sets next year's buds on summer growth, so pruning later removes next year's flowers. Deadheading spent blooms is the most useful task — it prevents seed formation and channels energy into bud set. Heavy renovation should be done in stages over 2–3 years; mountain laurel is slow to recover from hard cuts."}, "propagate": {"subcategories": [{"id": "layering", "label": "Layering", "months": [3, 4, 8, 9], "peakWindow": null, "narrow": false, "description": "Best home propagation method but slow — 1–2 years for usable roots. Bend a low branch to the ground, wound the underside, dust with rooting hormone, pin and cover with soil. Patience required. Spring or fall are both good start times."}, {"id": "cuttings", "label": "Cuttings (low success)", "months": [6, 7], "peakWindow": "Jul 10–Aug 5", "narrow": false, "description": "Jul–Aug semi-hardwood cuttings. Honestly difficult — under 20% success even with bottom heat and mist. Most home gardeners give up after one attempt. If you want more mountain laurel, buy nursery stock or do layering."}]}, "fertilize": {"months": [2, 4], "peakWindow": null, "narrow": false, "description": "Light hand. Early spring (Mar) and after flowering (late June at elevation) with an acidic fertilizer. Mountain laurel evolved on lean rocky mountain soils — Church Mountain Road's native soil actually mimics its natural conditions. Over-fertilizing causes more harm than under-fertilizing. If your plant is established in good acidic soil with leaf litter mulch, it may need no supplemental feeding at all."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Surprisingly drought-tolerant once established, but they hate wet feet. Apr–Jul is the most critical window — they're flowering and setting next year's buds. Deep occasional watering beats frequent shallow watering. Avoid overhead watering — wet foliage promotes leaf spot diseases. Church Mountain Road's orographic rainfall (estimated 60–65 in/yr) means established plants rarely need irrigation except in drought years."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable."}, "inspect": {"subcategories": [{"id": "disease-leafspot", "label": "Leaf spot", "months": [3, 4, 5], "peakWindow": null, "narrow": false, "description": "Apr–Jun in cool wet springs: brown or purple spots on leaves. Usually cosmetic. Improve air circulation, avoid overhead watering, rake fallen leaves. Church Mountain Road's cool spring temperatures and high humidity make this more common than at lower elevations."}, {"id": "pest-lacebug", "label": "Lace bugs", "months": [5, 6], "peakWindow": null, "narrow": false, "description": "Jun–Jul: silvery stippling on upper leaf surfaces, similar to azalea damage. Look for the bugs themselves on undersides. More common on plants in too much sun — another reason to site mountain laurel in shaded woodland positions. Treat with insecticidal soap or horticultural oil."}, {"id": "disease-rootrot", "label": "Root rot (phytophthora)", "months": [6, 7], "peakWindow": null, "narrow": false, "description": "Jul–Aug: any wilting that doesn't recover overnight is typically phytophthora root rot. Often fatal and caused by poor drainage. At Church Mountain Road, any plant placed in a flat area with clay Bt subsoil is at risk. Improve drainage if possible; replace lost plants in better-drained spots — a well-drained mid-slope position at Church Mountain Road will almost never see this disease."}]}}}, {"id": "japanese-maple", "name": "Japanese Maple", "scientificName": "Acer palmatum", "emoji": "🍁", "guide": "Japanese maples thrive in Jasper with afternoon shade — direct hot summer sun scorches leaves, especially on dissectum (laceleaf) varieties. Want well-drained acidic soil rich in organic matter. Shallow roots demand consistent moisture and mulch. Pruning is best in late winter or summer — avoid spring when sap flows heavily.", "currentSeasonNote": "Late April: leaves fully out at Church Mountain Road. Avoid pruning now — sap flow is at its peak. Mulch thoroughly before summer heat arrives and watch for aphids on new growth. This is the most frost-vulnerable growth stage for Japanese maples at elevation.", "soilNotes": "Excellent match for Church Mountain Road soils. Hayesville sandy loam surface horizon provides excellent drainage while retaining adequate moisture when amended with compost. Native pH 4.5–5.5 is in the ideal range for Japanese maples (5.0–6.0). Annual leaf mulch at 2–3 inches is the most valuable single amendment — it moderates soil temperature, retains moisture, and feeds beneficial fungi. Avoid clay subsoil flat areas where drainage is poor and root rot risk increases.", "aspectPreference": "East-facing mid-slope is the ideal Church Mountain Road position. Afternoon shade is essential — the property's east-facing slopes provide natural afternoon shade from the mountain. South-facing slopes at this elevation consistently cause leaf scorch on dissectum types even with irrigation. North-facing positions reduce fall color intensity. The thermal belt mid-slope positions are safest against late spring frosts that can damage the early leaf flush.", "frostSensitivity": "Hardy to Zone 5b. New spring growth is very frost-sensitive — a late freeze after leaf flush (at Church Mountain Road: watch the May 1–21 window) can kill or brown the entire first flush of leaves. Trees recover but lose a season of growth. Dissectum (laceleaf) types push leaves earlier than upright types and are more frost-exposed at elevation. Site away from frost pockets — thermal belt mid-slope positions at Church Mountain Road are significantly safer than any hollow or valley bottom.", "care": {"prune": {"subcategories": [{"id": "structural", "label": "Structural pruning", "months": [0, 1], "peakWindow": "Jan 15–Feb 10 before sap surge — hard cutoff at mid-February", "narrow": true, "description": "Late winter (Jan–Feb) while fully dormant — branch architecture is visible and sap flow is minimal. Remove dead, damaged, crossing, and inward-growing branches. Establish the long-term framework. CRITICAL cutoff: stop by mid-February. Pruning in early spring (Mar–Apr) hits peak sap flow; cuts will bleed heavily and may not heal cleanly. At Church Mountain Road elevation bud break occurs slightly later than the valley, giving you a small extended window — but mid-February remains the safe cutoff."}, {"id": "refinement", "label": "Summer refinement", "months": [6, 7], "peakWindow": "Jul 15–Aug 10 at ~1,750 ft — sap at seasonal low", "narrow": false, "description": "Mid-to-late summer (Jul–Aug) sap flow has slowed. Best window for refinement work — thinning the canopy for light penetration, removing water sprouts, improving silhouette. Cuts heal quickly. You can see the full leaf canopy and shape it precisely. At Church Mountain Road, Jul 15–Aug 10 is ideal. Never prune in fall — wounds invite winter dieback."}]}, "propagate": {"months": [], "peakWindow": null, "narrow": false, "description": "Most cultivars (named varieties like 'Bloodgood' or any laceleaf type) are grafted onto seedling rootstock and won't come true from cuttings or seed — propagation is for specialists. Species Acer palmatum can be grown from seed (collect samaras in fall, cold-stratify, sow in spring), but seedlings are highly variable. If you want more of a specific cultivar, it's nursery stock only."}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5", "narrow": false, "description": "Early spring (Mar–Apr) with a slow-release acidic fertilizer, light hand. Japanese maples are slow growers and over-fertilizing produces weak floppy growth. Most established trees in Church Mountain Road's naturally acidic organic-matter-rich soil need little or no fertilizer — yellow or pale leaves usually indicate pH issues, not nutrient deficiency. Test soil pH before fertilizing."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Shallow-rooted and very drought-sensitive. Jun–Sep is critical, especially during hot dry stretches. Afternoon shade is more important than supplemental water — direct hot afternoon sun causes leaf scorch even in well-watered trees, especially for laceleaf varieties. Site these on east-facing slopes at Church Mountain Road where natural afternoon shade is available. Deep mulch and consistent moisture prevent most problems."}, "repot": {"months": [1], "peakWindow": "Feb 10–28 before bud break", "narrow": false, "description": "Container Japanese maples should be repotted every 2–3 years in late winter (Feb), with light root pruning to maintain scale."}, "inspect": {"subcategories": [{"id": "pest-aphids", "label": "Aphids", "months": [3, 4], "peakWindow": "Apr 15–May 10 at ~1,750 ft — peak aphid flush on new growth", "narrow": false, "description": "Apr–May on tender new growth: clusters of green or black insects, sticky honeydew below. At Church Mountain Road elevation, the peak flush of tender new growth occurs about a week later than valley plants. Hose off forcefully; insecticidal soap if heavy. Ladybugs and parasitic wasps handle most infestations naturally — avoid broad-spectrum pesticides that kill beneficial insects."}, {"id": "stress-scorch", "label": "Leaf scorch (heat/sun)", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug: browning leaf margins from sun and heat stress, especially in trees with too much afternoon exposure. Worst on laceleaf varieties. Mostly cosmetic — won't kill the tree but indicates a siting problem. Increase mulch, ensure consistent water, consider transplanting to a more shaded east-facing position in fall."}, {"id": "disease-verticillium", "label": "Verticillium wilt", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug: sudden branch dieback, dark streaks visible in cut wood. Often fatal — soil-borne fungus, no cure. Remove affected branches well below symptoms; sterilize tools. If the whole tree dies, don't replant another Japanese maple in the same spot — the fungus persists in soil for many years."}]}}}]};
+const PLANTS_DATA = {"_meta": {"location": "282 Church Mountain Road, Jasper, GA 30143", "zone": "USDA 6b (elevation-adjusted); 7b official county zone", "region": "Blue Ridge, Pickens County, GA", "elevation_ft": 2959, "lastFrost_50pct": "May 3", "lastFrost_90pctSafe": "May 24", "firstFrost_50pct": "October 17", "soilSeries": ["Hayesville", "Cecil", "Pacolet"], "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec", "schemaVersion": 3, "schemaNotes": "v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect confirmed 2,959 ft (1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.", "dataSources": ["NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for confirmed 1,424 ft above station", "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)", "USDA NRCS Official Series Descriptions: Hayesville, Cecil, Pacolet", "USDA Plant Hardiness Zone Map 2023", "UGA Cooperative Extension North Georgia gardening and pest management resources"]}, "plants": [{"id": "white-pine", "name": "White Pine", "scientificName": "Pinus strobus", "emoji": "🌲", "guide": "Eastern white pines thrive in Jasper's climate — they prefer well-drained acidic soil and full sun to partial shade. Established trees are drought-tolerant but young plantings need consistent water for the first two years. Watch for white pine weevil on leaders in late spring and white pine blister rust on lower branches.", "currentSeasonNote": "Late April: prime time to inspect for white pine weevil — look for wilting or browning leaders and prune off any infested terminals immediately. Also the start of the candle-pinching window if you want to control size.", "soilNotes": "Thrives in Hayesville/Cecil/Pacolet soils — acidic sandy loam to loam (pH 4.5–5.5) is ideal. Excellent drainage on slopes is critical; on flat or low-lying areas at Church Mountain Road, the clay Bt argillic subsoil can impede drainage and white pine roots are very susceptible to waterlogging. Best performance on well-drained mid-slope positions.", "aspectPreference": "Full sun. South to east-facing slopes are best. Avoid exposed northwest ridgelines where winter desiccating winds cause significant foliage damage. East-facing mid-slope positions are ideal — good sun, some wind protection.", "frostSensitivity": "Hardy to Zone 3; no frost survivability concerns at Church Mountain Road. New spring candles emerging in May are frost-tender — a late frost after May 10 at ~2,959 ft elevation can kill the emerging candles and set aesthetics back a season. No action needed; trees recover fully.", "care": {"prune": {"subcategories": [{"id": "structural", "label": "Structural pruning", "months": [1, 2, 11], "peakWindow": "Feb 1–20 before sap surge begins", "narrow": false, "description": "Late winter (Feb–early Mar) is structural pruning — the tree is dormant, sap flow is minimal, and branch architecture is clearly visible. Cuts heal cleanly before spring growth. December is the secondary window for removing dead, damaged, or crossing branches; cold weather discourages pitch flow and pest entry. Avoid pruning in spring/summer when sap flow is heavy and bark beetles are active — fresh wounds attract them."}, {"id": "candles", "label": "Candle pruning", "months": [4, 5], "peakWindow": "May 10–25 at ~2,959 ft — candles elongated but needles still tightly furled", "narrow": true, "description": "Mid-to-late spring (May–early June) when the new candles have elongated but the needles are still tightly furled. Pinch or cut candles by 1/2 to 2/3 of their length to control size and create denser, more compact growth. Use fingers (preferred) or sharp scissors; never cut into woody tissue. At Church Mountain Road elevation (~2,959 ft), candles typically emerge 7–10 days later than in Jasper valley — don't rush it."}]}, "propagate": {"months": [], "peakWindow": null, "narrow": false, "description": "White pines are essentially never propagated by home gardeners. They're grown commercially from seed (cones collected in fall, stratified over winter, sown in spring) and the process takes 2+ years to produce a small seedling. Cuttings rarely root. If you want more white pines, buy nursery stock."}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5 before bud break", "narrow": false, "description": "Early spring (Mar–Apr) before active growth begins. Use a slow-release acidic fertilizer formulated for evergreens. Church Mountain Road soils are naturally acidic and reasonably fertile — established trees in good soil rarely need fertilizing. Only feed if growth is poor or needles are pale. Over-fertilizing causes weak growth that attracts pests."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Critical during the hot dry stretch from June through September, especially for trees under 3 years old or during drought. Deep watering once a week beats daily sprinkles — aim for 1 inch of water reaching the root zone. Church Mountain Road typically receives 60–65 inches of annual rainfall (orographic lift adds 5–15% above valley totals), so established mature pines rarely need supplemental water except in drought years."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable — white pines are landscape trees, not container plants."}, "inspect": {"subcategories": [{"id": "pest-weevil", "label": "White pine weevil", "months": [3, 4, 5], "peakWindow": "Apr 20–May 15 at ~2,959 ft — weevil egg-laying window; inspect leaders weekly", "narrow": true, "description": "Apr–Jun: adult weevils lay eggs in the previous year's terminal leader; larvae kill the leader, causing the classic 'shepherd's crook' wilted top. At Church Mountain Road elevation, adult emergence is roughly 7–10 days later than in the Jasper valley — inspect leaders weekly from late April through mid-May. Prune out any infested terminals immediately, cutting well below the damage and burning or bagging the prunings."}, {"id": "disease-rust", "label": "Blister rust", "months": [8, 9], "peakWindow": null, "narrow": false, "description": "Sep–Oct: white pine blister rust window. Look for orange spore-producing cankers on lower branches and yellow-orange swellings on the bark of trunks and branches. Prune affected branches well below the canker. Currants and gooseberries are alternate hosts — keep them away from white pines."}]}}}, {"id": "azalea", "name": "Azalea", "scientificName": "Rhododendron spp.", "emoji": "🌸", "guide": "Azaleas love Jasper's acidic mountain soil and dappled shade — morning sun with afternoon protection is ideal. Mulch 2–3 inches with pine bark or pine straw to keep roots cool and acidic. Shallow-rooted, so they need consistent moisture but never soggy feet.", "currentSeasonNote": "Late April: enjoy peak bloom now at Church Mountain Road elevation. Wait until immediately after flowering finishes to do any pruning — pruning later removes next year's flower buds. At ~2,959 ft, bloom typically peaks about a week later than in Jasper valley.", "soilNotes": "Ideal match for Church Mountain Road native soils. Hayesville/Cecil/Pacolet series naturally runs pH 4.5–5.5 — azaleas need exactly 4.5–5.5 and typically require no acidification here. Shallow feeder roots (top 6 inches) need consistent organic matter; 2–3 inch pine bark or pine straw mulch is essential. Well-drained mid-slope positions are perfect; avoid low spots with seasonal wet soil or heavy clay subsoil.", "aspectPreference": "North-facing or east-facing slopes at Church Mountain Road are ideal — morning sun with afternoon protection from hot SW summer sun. Classic Appalachian azalea habitat is north-facing mid-slope woodland edges, which is exactly what Church Mountain offers. Avoid south or west exposure where afternoon heat causes leaf scorch and accelerates soil moisture loss.", "frostSensitivity": "Hardy to Zone 4–5 depending on species. Flower buds set in summer are frost-sensitive — a hard freeze in early winter can kill flower buds while leaving the plant unharmed, resulting in a bloomless spring. Most native azaleas and southern Encore types handle Church Mountain Road winters without issue. At elevation, extended cold spells in Zone 6b frost pockets can damage marginally-hardy cultivars.", "care": {"prune": {"months": [4, 5], "peakWindow": "May 15–Jun 5 at ~2,959 ft — immediately after last flowers drop", "narrow": true, "description": "Single tight window: immediately after flowering ends (at Church Mountain Road elevation, typically mid-May to early June, about a week later than valley plants). Azaleas set next year's flower buds in summer on the current year's growth, so pruning anytime after July removes next spring's blooms. Use this window to shape the plant, remove crossing branches, and rejuvenate older stems. Light tip-pruning is fine; heavy renovation should be done in stages over 2–3 years."}, "propagate": {"subcategories": [{"id": "cuttings", "label": "Softwood cuttings", "months": [5, 6], "peakWindow": "Jun 10–Jul 5", "narrow": false, "description": "Late spring/early summer (Jun–Jul) when new growth has firmed slightly but is still flexible. Take 4–6 inch cuttings, strip lower leaves, dip in rooting hormone, and stick in a peat/perlite mix. Keep humid and shaded; rooting takes 6–10 weeks. Most reliable method for azaleas."}, {"id": "layering", "label": "Layering", "months": [3, 4, 8, 9], "peakWindow": null, "narrow": false, "description": "Spring or fall: bend a low flexible branch to the ground, wound the underside lightly with a knife, dust with rooting hormone, and pin it down with a U-pin or rock. Cover the wounded section with soil, leaving the tip exposed. Roots typically form in 6–12 months; sever from the parent the following spring or fall."}]}, "fertilize": {"months": [2, 4, 6], "peakWindow": null, "narrow": false, "description": "Three light feedings beat one heavy one. Early spring (Mar) wakes them up; right after bloom (late May at elevation) supports next year's bud set; mid-summer (Jul) keeps them strong through heat. Use an acidic fertilizer (Holly-tone or similar) — Church Mountain Road soils don't need acidification but do benefit from the micronutrients in organic acid fertilizers. Stop fertilizing by August — late feeding pushes tender growth that won't harden before winter."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Shallow roots = consistent moisture is essential. June through September is the danger zone — hot afternoons can wilt them quickly. Mulch heavily with pine straw to keep roots cool. Deep watering once or twice a week rather than light daily watering. Church Mountain Road's orographic rainfall helps, but dry stretches still occur in July–August."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable for landscape azaleas."}, "inspect": {"subcategories": [{"id": "pest-lacebug", "label": "Lace bugs", "months": [3, 4, 5, 6], "peakWindow": null, "narrow": false, "description": "Apr–Jul: the most common and damaging azalea pest in Georgia. Look for silvery stippling on leaf upper surfaces and black tar-spot droppings on undersides. Easiest to see on plants in too much sun — azaleas on south-facing exposures at Church Mountain Road are most vulnerable. Treat with horticultural oil or insecticidal soap on leaf undersides; multiple applications usually needed."}, {"id": "pest-mites", "label": "Spider mites", "months": [6, 7], "peakWindow": null, "narrow": false, "description": "Jul–Aug during hot dry stretches. Fine stippling on leaves, sometimes with webbing. Tap a leaf over white paper — moving specks confirm mites. Hose off undersides forcefully; treat with horticultural oil or miticide if severe."}, {"id": "disease-rootrot", "label": "Root rot", "months": [8, 9], "peakWindow": null, "narrow": false, "description": "Sep–Oct check for phytophthora root rot in any spots that hold water — especially flat areas at Church Mountain Road where the clay Bt argillic subsoil impedes drainage. Yellowing leaves, stunted growth, and branch dieback are warning signs. No good cure — prevention via excellent drainage is everything. Replace lost plants in better-drained spots."}]}}}, {"id": "hydrangea", "name": "Hydrangea", "scientificName": "Hydrangea spp.", "emoji": "💠", "guide": "Hydrangeas do beautifully in Jasper with morning sun and afternoon shade. Bigleaf (macrophylla) types bloom on old wood — prune only after flowering. Panicle and smooth (Annabelle-type) bloom on new wood — prune in late winter. Soil pH controls bigleaf color: acidic = blue, alkaline = pink.", "currentSeasonNote": "Late April: leaves pushing out at Church Mountain Road. Apply a slow-release acidic fertilizer now and prune off any winter dieback. At elevation, bud break runs about a week behind valley plants.", "soilNotes": "Well-suited to Church Mountain Road's acidic sandy loam soils (pH 4.5–5.5). Bigleaf hydrangeas at pH below 5.5 will naturally produce blue flowers without acidification — this is the default at Church Mountain Road. For pink flowers, you'd need to raise pH to 6.5+ — a constant uphill battle against the native soil chemistry. Add compost annually — organic matter is the single highest-return amendment for hydrangea success on mountain slopes.", "aspectPreference": "East-facing slopes are ideal at Church Mountain Road — morning sun drives strong flowering, afternoon shade prevents wilting and leaf scorch. Avoid south and west exposures where afternoon summer temperatures can exceed 90°F and humidity combined with sun stresses bigleaf types severely. North-facing positions work but expect 20–30% fewer flowers.", "frostSensitivity": "Variable by type. Bigleaf (macrophylla): flower buds form on old wood in summer; a late frost after Apr 20 at Church Mountain Road elevation can kill those buds without killing the plant — resulting in no blooms that year. This is common at elevation in late frost years. Panicle and Annabelle types bloom on new wood — fully frost-safe since they push new buds each spring. Endless Summer reblooming bigleaf types partially mitigate the frost-bud-kill problem.", "care": {"prune": {"subcategories": [{"id": "new-wood", "label": "New-wood types (panicle, Annabelle)", "months": [1, 2], "peakWindow": "Feb 15–Mar 5 before bud break", "narrow": false, "description": "Late winter (Feb–early Mar) for hydrangeas that bloom on the current season's growth — paniculata (Limelight, etc.) and arborescens (Annabelle, smooth hydrangea). Cut hard — back to a strong framework or even down to 1–2 feet — to promote vigorous flowering stems. The harder you cut, the bigger the flower heads (but fewer of them)."}, {"id": "old-wood", "label": "Old-wood types (bigleaf, oakleaf)", "months": [6, 7], "peakWindow": "Jul 10–Aug 1 at ~2,959 ft — immediately after last flowers fade", "narrow": true, "description": "Mid-summer (Jul–Aug) IMMEDIATELY after flowering for hydrangeas that bloom on previous year's growth — macrophylla (bigleaf, mophead, lacecap) and quercifolia (oakleaf). At Church Mountain Road elevation, peak bloom runs about a week later than valley plants, so the pruning window is typically mid-July to early August. Pruning later or in winter removes next year's flower buds. Light shaping only — remove spent flowers, dead wood, and crossing branches."}]}, "propagate": {"subcategories": [{"id": "cuttings", "label": "Softwood cuttings", "months": [5, 6], "peakWindow": "Jun 15–Jul 10", "narrow": false, "description": "Jun–Jul: take 4–6 inch tip cuttings from non-flowering stems, strip lower leaves, dip in rooting hormone, stick in moist potting mix. Cover with a clear bag or dome to keep humid. Roots in 3–4 weeks. Hydrangeas are among the easiest shrubs to propagate this way."}, {"id": "layering", "label": "Ground layering", "months": [3, 4, 5, 6, 7], "peakWindow": null, "narrow": false, "description": "The lazy gardener's method: bend a low branch to the ground, scrape the bark on the underside, pin it to the soil, cover with a thin layer of dirt and a rock to keep it down. Walk away. By the next spring it'll have roots and you can sever it from the parent. Near 100% success rate."}]}, "fertilize": {"months": [3, 5], "peakWindow": null, "narrow": false, "description": "Early spring (Apr) with a balanced slow-release. A second feeding in early June supports strong blooming. Soil pH controls bigleaf color — at Church Mountain Road's native pH 4.5–5.5, expect blue by default. To push pink, add lime (alkalizes) — an ongoing effort given the naturally acidic soil. White hydrangeas don't change color regardless of pH."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Their name literally means 'water vessel.' June–September is when they wilt dramatically in afternoon heat — usually a temporary water-stress wilt that recovers overnight. Deep weekly watering is much better than daily sprinkles. Mulch heavily. Church Mountain Road's mountain rainfall (60–65 in/yr estimated) helps but doesn't eliminate the need for deep watering during hot dry stretches."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable for landscape hydrangeas. Container hydrangeas should be repotted every 2–3 years in early spring."}, "inspect": {"subcategories": [{"id": "disease-mildew", "label": "Powdery mildew", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug humid stretches: white powdery coating on leaves, especially bigleaf types in poor air circulation. Jasper's high summer humidity (70–90% RH) makes this worse than in lowland areas. Mostly cosmetic. Improve air flow by selective pruning, avoid overhead watering, treat with horticultural oil if severe."}, {"id": "pest-aphids", "label": "Aphids on new growth", "months": [4, 5, 6], "peakWindow": null, "narrow": false, "description": "May–Jul: clusters of small green or black insects on tender new growth and flower buds, often with sticky honeydew below. Hose off forcefully, or treat with insecticidal soap if heavy. Ladybugs handle most outbreaks naturally."}]}}}, {"id": "dogwood", "name": "Dogwood", "scientificName": "Cornus florida", "emoji": "🌼", "guide": "Native flowering dogwoods are perfectly suited to Jasper's understory conditions — they want morning sun, afternoon shade, and well-drained acidic soil rich in organic matter. Avoid planting too deep and never let mulch touch the trunk. Susceptible to dogwood anthracnose in cool wet springs and powdery mildew in humid summers.", "currentSeasonNote": "Late April: bloom period winding down at Church Mountain Road. Inspect bark at the base for borer entry holes and frass, and watch for early anthracnose spots on leaves as temperatures warm and humidity rises.", "soilNotes": "Native to Appalachian woodland understories — your Hayesville/Cecil soil profile is its natural home. Wants well-drained acidic soil rich in organic matter (pH 5.0–6.0). Critical: never plant deeper than the nursery rootball and never pile soil or mulch against the trunk. Church Mountain Road slope positions with natural leaf litter accumulation are ideal; avoid compacted flat areas or low-lying spots with clay subsoil and wet soils.", "aspectPreference": "East-facing mid-slope is the ideal Church Mountain Road position — mirrors its native understory habitat. Afternoon shade prevents the stress that makes trees susceptible to borer attack. Direct south exposure significantly increases borer risk through heat stress. North-facing positions work but reduce flowering. Woodland edge positions with dappled canopy overhead are excellent.", "frostSensitivity": "Hardy to Zone 5. Flower buds are moderately frost-sensitive — a late freeze in April can brown open blossoms without harming the tree. At ~2,959 ft, the adjusted last frost of Apr 30 means late blooms (typically Apr 5–25 in the valley) may be partially frosted in average years. This is normal cosmetic damage; the tree recovers.", "care": {"prune": {"months": [11, 0, 1], "peakWindow": "Dec 15–Feb 15 while fully dormant", "narrow": false, "description": "Late fall through late winter (Nov–Feb) when fully dormant. Dogwoods 'bleed' heavily if pruned during active sap flow, and open wounds invite the dogwood borer — the most serious dogwood pest in the Southeast. Dormant pruning lets cuts callus over before borer season begins in May at Church Mountain Road elevation. Remove dead, damaged, and crossing branches; never top a dogwood. Light hand only — dogwoods don't need or want heavy pruning."}, "propagate": {"subcategories": [{"id": "cuttings", "label": "Semi-hardwood cuttings", "months": [5, 6], "peakWindow": "Jun 20–Jul 15", "narrow": false, "description": "Jun–Jul: 4-6 inch semi-hardwood cuttings, hormone, well-drained mix, kept humid. Moderately difficult — expect 30–50% success. Wound the base lightly with a knife to expose more cambium for rooting."}, {"id": "seed", "label": "Seed (volunteers)", "months": [9, 10], "peakWindow": "Oct 1–Nov 1 berry collection", "narrow": false, "description": "Easiest method: collect berries in fall when fully ripe (red), clean off pulp, plant directly in a nursery bed where they get cold winter exposure. Germination in spring; seedlings reach plantable size in 2 years. Or just transplant volunteer seedlings from under existing trees — Church Mountain Road likely has naturally seeded volunteers in woodland areas."}]}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5", "narrow": false, "description": "Light feeding in early spring (Mar–Apr) with an acidic slow-release. Avoid high-nitrogen lawn fertilizers — they push weak growth that attracts borers. Mature dogwoods in good soil on Church Mountain Road rarely need supplemental fertilizer — the naturally acidic Hayesville soil and leaf litter mulch provide a good native nutrient cycle."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Critical Jun–Sep, especially for trees under 5 years old. Dogwoods are notoriously drought-sensitive — chronic drought stress is the #1 reason yard dogwoods decline. Church Mountain Road's mountain rainfall (60–65 in/yr) helps, but mid-summer dry stretches still occur. Deep weekly watering and a generous mulch ring (kept off the trunk) prevents most problems."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable."}, "inspect": {"subcategories": [{"id": "disease-anthracnose", "label": "Dogwood anthracnose", "months": [3, 4, 5], "peakWindow": null, "narrow": false, "description": "Apr–Jun: most likely in cool wet springs. Look for purple-edged tan leaf spots, lower branch dieback, and water-soaked lesions on twigs. Most serious dogwood disease in the Southeast — can kill trees over several years. Improve air circulation, rake fallen leaves, water at base only. Church Mountain Road's high humidity (70–90% RH in summer) elevates risk. Fungicide treatment is preventive only and rarely worth it on landscape trees."}, {"id": "pest-borer", "label": "Dogwood borer", "months": [4, 5, 6, 7], "peakWindow": "May 5–20 at ~2,959 ft — peak adult flight; inspect base of trunk for frass weekly", "narrow": true, "description": "May–Aug: the #1 dogwood killer. Look for sawdust-like frass at the base of the trunk, peeling or sunken bark, branch dieback, and small holes in the trunk. At Church Mountain Road elevation, adult flight peaks in early-to-mid May (roughly a week later than valley). Borers enter through wounds — keep mulch off the trunk, never weed-whack against the bark, and prune only in winter. Established infestations are very hard to treat; prevention is everything."}, {"id": "disease-mildew", "label": "Powdery mildew", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug humid stretches: white powdery coating on leaves. Mostly cosmetic on established trees. Some cultivars (e.g. Cherokee Brave) are mildew-resistant — consider them for replanting on Church Mountain Road."}]}}}, {"id": "boxwood", "name": "Boxwood", "scientificName": "Buxus spp.", "emoji": "🟢", "guide": "Boxwoods need well-drained soil and decent air circulation — Jasper's humidity makes boxwood blight a real risk. Prefer partial shade in hot summers. Shallow roots demand consistent moisture and a thick mulch layer, kept off the trunk. Inspect interior for dead leaves regularly and clean them out for airflow.", "currentSeasonNote": "Late April: shape any new growth lightly now. Watch closely for boxwood leafminer adults (tiny orange flies) and any early signs of blight (dark leaf spots, black stem streaks) — humidity is climbing at Church Mountain Road.", "soilNotes": "Boxwoods prefer slightly less acidic soil than Church Mountain Road's native 4.5–5.5 range — aim for 6.0–6.5 for best performance. You'll likely need to apply dolomitic limestone to raise pH in planting beds. The clay Bt argillic subsoil in flat areas creates drainage problems that are fatal to boxwoods — use bermed or raised bed positions on any flat ground. Excellent drainage is non-negotiable.", "aspectPreference": "East or north-facing positions reduce blight risk at Church Mountain Road. Partial afternoon shade is strongly preferred — the property's humid summers combined with direct afternoon sun stress boxwoods and worsen blight incidence. Avoid low-lying frost pocket areas where prolonged cold and ice damage evergreen foliage and increases winter desiccation.", "frostSensitivity": "Hardy to Zone 5–6 depending on species. Winter bronzing (temporary orange-brown discoloration) is common in exposed positions at Church Mountain Road elevation — an anti-desiccant spray in December reduces this. New growth pushed by spring fertilization is frost-sensitive — a late frost after May 1 at ~2,959 ft can burn tender growth, though plants recover.", "care": {"prune": {"subcategories": [{"id": "shearing", "label": "Shearing (formal hedge)", "months": [3, 4, 5], "peakWindow": "Apr 20–May 20 — after first flush partially hardened", "narrow": false, "description": "Spring through early summer (Apr–Jun) for formal hedges and topiary. Wait until after the first flush of new growth has emerged and partially hardened — at Church Mountain Road elevation, this typically falls late April through May. Use sharp shears for clean cuts. Avoid shearing into late summer or fall — late cuts push tender growth that won't harden before winter."}, {"id": "selective", "label": "Selective / cloud pruning", "months": [3, 4, 5, 6], "peakWindow": null, "narrow": false, "description": "Apr–Jul: hand-prune individual branches with sharp bypass pruners for a more natural form, better airflow, and blight prevention. Reach inside the plant and remove crossing, dead, and weak interior branches to open up the canopy. Critical for blight resistance — the dense interior of sheared boxwoods stays wet in Jasper's humid summers and breeds disease."}, {"id": "interior-cleaning", "label": "Interior cleanout", "months": [10, 11, 0, 1], "peakWindow": null, "narrow": false, "description": "Winter (Nov–Feb): reach inside the plant and remove accumulated dead leaves trapped in the interior. These are the primary source of boxwood blight inoculum the following spring. This is not 'pruning' in the traditional sense — it's housekeeping that dramatically reduces disease pressure. Especially important at Church Mountain Road given the high-humidity climate."}]}, "propagate": {"months": [6, 7, 8], "peakWindow": "Jul 15–Aug 15", "narrow": false, "description": "Easy from semi-hardwood cuttings in mid-to-late summer (Jul–Sep) when new growth has firmed up. 4-inch cuttings, hormone, peat/perlite mix, kept humid. Rooting takes 6–10 weeks. Boxwoods grown from cuttings retain the parent's exact form and growth rate."}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5", "narrow": false, "description": "Early spring (Mar–Apr) with a slow-release balanced fertilizer or one formulated for evergreens. Boxwoods are light feeders — over-fertilizing promotes weak growth that's more susceptible to blight and leafminer. Note that Church Mountain Road's native soil pH may need liming before fertilizer is effective — test pH first."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Shallow roots demand consistent moisture Jun–Sep. Mulch heavily with pine bark, kept off the trunk. Watering at the base (not overhead) is critical — wet foliage is how boxwood blight spreads. Church Mountain Road's humidity means even well-drained beds can stay moist, but direct irrigation is still needed during dry stretches."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Container boxwoods every 2–3 years in early spring. Topiary boxwoods need annual root pruning to stay in scale."}, "inspect": {"subcategories": [{"id": "pest-leafminer", "label": "Boxwood leafminer", "months": [3, 4], "peakWindow": "Apr 20–May 10 at ~2,959 ft — adult emergence window; narrow window to catch and treat", "narrow": true, "description": "Apr–May: adults emerge as tiny orange flies and lay eggs in leaves. Larvae feed inside leaves causing blistered, mottled appearance. At Church Mountain Road elevation, adult emergence is typically 7–10 days later than valley plants — watch for the orange flies in late April through early May. Treat with systemic insecticide at adult emergence or prune off heavily infested branches. Timing this correctly is critical; the window is short."}, {"id": "pest-mites", "label": "Spider mites", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug hot dry weather: bronze stippling, fine webbing. Hose off forcefully or treat with horticultural oil."}, {"id": "disease-blight", "label": "Boxwood blight", "months": [4, 5, 7, 8], "peakWindow": "May 15–Jun 10 at ~2,959 ft — first high-risk humid stretch; inspect every 10 days", "narrow": true, "description": "May–Jun and Aug–Sep cool humid stretches: dark circular leaf spots, black streaks on stems, rapid defoliation from the bottom up. The existential threat to boxwoods — and Church Mountain Road's 70–90% summer RH makes this a high-priority concern. Clean tools between plants with bleach, remove and bag (don't compost) infected material immediately, never work on wet plants. No effective cure once established. The peak risk window at elevation is mid-May through early June — inspect every 10 days during this stretch."}]}}}, {"id": "holly", "name": "Holly", "scientificName": "Ilex spp.", "emoji": "🎄", "guide": "Hollies are tough and well-suited to Jasper — full sun for best berry production, partial shade tolerated. Acidic well-drained soil. Most species need both male and female plants for berries. Established hollies are quite drought-tolerant. Watch for leaf miner and scale insects.", "currentSeasonNote": "Late April: new growth flush starting at Church Mountain Road. Hold off on heavy pruning until that flush hardens off in early summer — pruning now would remove flower buds.", "soilNotes": "Well-matched to Hayesville/Cecil/Pacolet soils (pH 4.5–6.0). Most hollies thrive in the 5.5–6.5 range — you may need light dolomitic lime applications on more acidic spots at Church Mountain Road. Both Ilex opaca (American holly, native) and Ilex cornuta (Chinese holly) perform excellently here. Established plants tolerate clay subsoil reasonably well — better drainage tolerance than most landscape shrubs.", "aspectPreference": "Full sun for maximum berry production. East-facing slopes at Church Mountain Road are excellent — good sun exposure without the desiccating northwest winter winds that affect exposed ridgeline positions. Berry-bearing female plants need a male holly within about 50 feet (within pollinator range) — plan your male/female planting accordingly.", "frostSensitivity": "Very hardy — most Ilex species are Zone 5 or colder. Flowers (and therefore berries) can be lost to a late frost in late April; at Church Mountain Road elevation (~2,959 ft), the bloom window (late April–May) slightly overlaps the last frost probability window. Mature berries persist through winter and easily tolerate Zone 7b low temperatures.", "care": {"prune": {"subcategories": [{"id": "shaping", "label": "Shaping", "months": [5, 6], "peakWindow": "Jun 20–Jul 10 at ~2,959 ft — after spring flush hardened, before late-summer bud set", "narrow": true, "description": "Early-to-mid summer (Jun–Jul) after the spring growth flush has hardened. At Church Mountain Road elevation, this window lands about a week later than valley plants — typically late June through early July. Pruning earlier removes flowers (= no berries this year). Pruning later interferes with bud set for next year's berries. For berry-producing female plants, prune lightly to preserve flowering branches."}, {"id": "renovation", "label": "Hard renovation", "months": [1, 2], "peakWindow": "Feb 15–Mar 5", "narrow": false, "description": "Late winter (Feb–early Mar) for severely overgrown hollies that need to be cut hard. Hollies tolerate hard pruning well, even down to bare wood — they regenerate from old wood, which is unusual among broadleaf evergreens. Sacrifices berries for one season but restores shape. Use only when needed; not part of normal annual care."}]}, "propagate": {"months": [6, 7, 8], "peakWindow": "Jul 15–Sep 1", "narrow": false, "description": "Semi-hardwood cuttings in mid-to-late summer (Jul–Sep). 4-6 inch cuttings, hormone, well-drained mix. Rooting takes 8–12 weeks. Hollies are dioecious — you'll need both male and female plants for berries, so propagate accordingly. Seed propagation is slow (often 2-year germination) and seedlings have unknown sex until flowering."}, "fertilize": {"months": [2, 4], "peakWindow": null, "narrow": false, "description": "Two feedings: early spring (Mar) before bud break, and again after flowering (May at elevation) to support berry development. Use an acidic fertilizer formulated for evergreens. Yellow leaves often indicate iron chlorosis from soil pH that's drifted too alkaline — soil test before assuming nutrient deficiency."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Established hollies are quite drought-tolerant, but young plants and any holly trying to set a heavy berry crop need consistent water Jun–Sep. Deep weekly watering during dry stretches."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable for landscape hollies."}, "inspect": {"subcategories": [{"id": "pest-leafminer", "label": "Leaf miner", "months": [4], "peakWindow": "May 1–20", "narrow": false, "description": "May: squiggly trails or blotches inside leaves. Mostly cosmetic on established hollies. Prune off heavily affected leaves and destroy them; treat with systemic if severe."}, {"id": "pest-scale", "label": "Scale insects", "months": [5, 6], "peakWindow": null, "narrow": false, "description": "Jun–Jul: small bumpy growths on stems and leaf undersides; sticky honeydew below the plant; black sooty mold on lower leaves. Treat with horticultural oil during dormancy or systemic insecticide during the active growing season."}, {"id": "pest-mites", "label": "Spider mites", "months": [7, 8], "peakWindow": null, "narrow": false, "description": "Aug–Sep hot dry stretches: bronze stippling, fine webbing on leaf undersides. Hose off forcefully or treat with miticide if severe."}]}}}, {"id": "mountain-laurel", "name": "Mountain Laurel", "scientificName": "Kalmia latifolia", "emoji": "🌺", "guide": "Mountain laurel is a Blue Ridge native — your land is in its sweet spot. Wants acidic well-drained soil, partial shade, and good air circulation. Avoid wet feet at all costs. Slow-growing and long-lived. Deadhead spent blooms to channel energy into next year's flowering. All parts are toxic to livestock and pets.", "currentSeasonNote": "Late April: flower buds swelling for May–June bloom at Church Mountain Road elevation. Don't prune now — wait until just after flowering finishes. This is one of the most spectacular spring plants on the property.", "soilNotes": "Native Blue Ridge species — Church Mountain Road is in its core Appalachian habitat and the Hayesville/Cecil/Pacolet soils are its native medium. Thrives at pH 4.5–5.5 without any amendment. The native leaf litter of the property's wooded areas is the ideal mulch. Critical weakness: waterlogged roots — the well-drained slopes of Church Mountain Road are ideal, but any flat spot with clay Bt subsoil is high-risk. Test drainage in suspect areas before planting.", "aspectPreference": "North-facing and east-facing mid-slope woodland edges are perfect at Church Mountain Road — exactly where mountain laurel occurs naturally. South-facing direct-sun exposures are too hot and dry for it even at elevation. The property's native woodland with dappled canopy is prime mountain laurel habitat; the plants already established there are in their optimal zone.", "frostSensitivity": "Hardy to Zone 4. Very cold-tolerant at Church Mountain Road elevation. Flower buds are frost-sensitive in spring — a late freeze after bud swell in late April or early May can kill developing flowers without harming the plant. At ~2,959 ft, the May 1–15 window is the critical frost-risk period for buds. Established plants at this elevation are fully winter-hardy.", "care": {"prune": {"months": [5, 6], "peakWindow": "Jun 15–Jul 5 at ~2,959 ft — immediately after last flowers drop", "narrow": true, "description": "Single window: immediately after flowering ends. At Church Mountain Road elevation, blooms peak in late May–early June, about a week later than valley plants — the pruning window opens in mid-June and closes by early July. Like azaleas, mountain laurel sets next year's buds on summer growth, so pruning later removes next year's flowers. Deadheading spent blooms is the most useful task — it prevents seed formation and channels energy into bud set. Heavy renovation should be done in stages over 2–3 years; mountain laurel is slow to recover from hard cuts."}, "propagate": {"subcategories": [{"id": "layering", "label": "Layering", "months": [3, 4, 8, 9], "peakWindow": null, "narrow": false, "description": "Best home propagation method but slow — 1–2 years for usable roots. Bend a low branch to the ground, wound the underside, dust with rooting hormone, pin and cover with soil. Patience required. Spring or fall are both good start times."}, {"id": "cuttings", "label": "Cuttings (low success)", "months": [6, 7], "peakWindow": "Jul 10–Aug 5", "narrow": false, "description": "Jul–Aug semi-hardwood cuttings. Honestly difficult — under 20% success even with bottom heat and mist. Most home gardeners give up after one attempt. If you want more mountain laurel, buy nursery stock or do layering."}]}, "fertilize": {"months": [2, 4], "peakWindow": null, "narrow": false, "description": "Light hand. Early spring (Mar) and after flowering (late June at elevation) with an acidic fertilizer. Mountain laurel evolved on lean rocky mountain soils — Church Mountain Road's native soil actually mimics its natural conditions. Over-fertilizing causes more harm than under-fertilizing. If your plant is established in good acidic soil with leaf litter mulch, it may need no supplemental feeding at all."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Surprisingly drought-tolerant once established, but they hate wet feet. Apr–Jul is the most critical window — they're flowering and setting next year's buds. Deep occasional watering beats frequent shallow watering. Avoid overhead watering — wet foliage promotes leaf spot diseases. Church Mountain Road's orographic rainfall (estimated 60–65 in/yr) means established plants rarely need irrigation except in drought years."}, "repot": {"months": [], "peakWindow": null, "narrow": false, "description": "Not applicable."}, "inspect": {"subcategories": [{"id": "disease-leafspot", "label": "Leaf spot", "months": [3, 4, 5], "peakWindow": null, "narrow": false, "description": "Apr–Jun in cool wet springs: brown or purple spots on leaves. Usually cosmetic. Improve air circulation, avoid overhead watering, rake fallen leaves. Church Mountain Road's cool spring temperatures and high humidity make this more common than at lower elevations."}, {"id": "pest-lacebug", "label": "Lace bugs", "months": [5, 6], "peakWindow": null, "narrow": false, "description": "Jun–Jul: silvery stippling on upper leaf surfaces, similar to azalea damage. Look for the bugs themselves on undersides. More common on plants in too much sun — another reason to site mountain laurel in shaded woodland positions. Treat with insecticidal soap or horticultural oil."}, {"id": "disease-rootrot", "label": "Root rot (phytophthora)", "months": [6, 7], "peakWindow": null, "narrow": false, "description": "Jul–Aug: any wilting that doesn't recover overnight is typically phytophthora root rot. Often fatal and caused by poor drainage. At Church Mountain Road, any plant placed in a flat area with clay Bt subsoil is at risk. Improve drainage if possible; replace lost plants in better-drained spots — a well-drained mid-slope position at Church Mountain Road will almost never see this disease."}]}}}, {"id": "japanese-maple", "name": "Japanese Maple", "scientificName": "Acer palmatum", "emoji": "🍁", "guide": "Japanese maples thrive in Jasper with afternoon shade — direct hot summer sun scorches leaves, especially on dissectum (laceleaf) varieties. Want well-drained acidic soil rich in organic matter. Shallow roots demand consistent moisture and mulch. Pruning is best in late winter or summer — avoid spring when sap flows heavily.", "currentSeasonNote": "Late April: leaves fully out at Church Mountain Road. Avoid pruning now — sap flow is at its peak. Mulch thoroughly before summer heat arrives and watch for aphids on new growth. This is the most frost-vulnerable growth stage for Japanese maples at elevation.", "soilNotes": "Excellent match for Church Mountain Road soils. Hayesville sandy loam surface horizon provides excellent drainage while retaining adequate moisture when amended with compost. Native pH 4.5–5.5 is in the ideal range for Japanese maples (5.0–6.0). Annual leaf mulch at 2–3 inches is the most valuable single amendment — it moderates soil temperature, retains moisture, and feeds beneficial fungi. Avoid clay subsoil flat areas where drainage is poor and root rot risk increases.", "aspectPreference": "East-facing mid-slope is the ideal Church Mountain Road position. Afternoon shade is essential — the property's east-facing slopes provide natural afternoon shade from the mountain. South-facing slopes at this elevation consistently cause leaf scorch on dissectum types even with irrigation. North-facing positions reduce fall color intensity. The thermal belt mid-slope positions are safest against late spring frosts that can damage the early leaf flush.", "frostSensitivity": "Hardy to Zone 5b. New spring growth is very frost-sensitive — a late freeze after leaf flush (at Church Mountain Road: watch the May 1–21 window) can kill or brown the entire first flush of leaves. Trees recover but lose a season of growth. Dissectum (laceleaf) types push leaves earlier than upright types and are more frost-exposed at elevation. Site away from frost pockets — thermal belt mid-slope positions at Church Mountain Road are significantly safer than any hollow or valley bottom.", "care": {"prune": {"subcategories": [{"id": "structural", "label": "Structural pruning", "months": [0, 1], "peakWindow": "Jan 15–Feb 10 before sap surge — hard cutoff at mid-February", "narrow": true, "description": "Late winter (Jan–Feb) while fully dormant — branch architecture is visible and sap flow is minimal. Remove dead, damaged, crossing, and inward-growing branches. Establish the long-term framework. CRITICAL cutoff: stop by mid-February. Pruning in early spring (Mar–Apr) hits peak sap flow; cuts will bleed heavily and may not heal cleanly. At Church Mountain Road elevation bud break occurs slightly later than the valley, giving you a small extended window — but mid-February remains the safe cutoff."}, {"id": "refinement", "label": "Summer refinement", "months": [6, 7], "peakWindow": "Jul 15–Aug 10 at ~2,959 ft — sap at seasonal low", "narrow": false, "description": "Mid-to-late summer (Jul–Aug) sap flow has slowed. Best window for refinement work — thinning the canopy for light penetration, removing water sprouts, improving silhouette. Cuts heal quickly. You can see the full leaf canopy and shape it precisely. At Church Mountain Road, Jul 15–Aug 10 is ideal. Never prune in fall — wounds invite winter dieback."}]}, "propagate": {"months": [], "peakWindow": null, "narrow": false, "description": "Most cultivars (named varieties like 'Bloodgood' or any laceleaf type) are grafted onto seedling rootstock and won't come true from cuttings or seed — propagation is for specialists. Species Acer palmatum can be grown from seed (collect samaras in fall, cold-stratify, sow in spring), but seedlings are highly variable. If you want more of a specific cultivar, it's nursery stock only."}, "fertilize": {"months": [2, 3], "peakWindow": "Mar 15–Apr 5", "narrow": false, "description": "Early spring (Mar–Apr) with a slow-release acidic fertilizer, light hand. Japanese maples are slow growers and over-fertilizing produces weak floppy growth. Most established trees in Church Mountain Road's naturally acidic organic-matter-rich soil need little or no fertilizer — yellow or pale leaves usually indicate pH issues, not nutrient deficiency. Test soil pH before fertilizing."}, "water": {"months": [5, 6, 7, 8], "peakWindow": null, "narrow": false, "description": "Shallow-rooted and very drought-sensitive. Jun–Sep is critical, especially during hot dry stretches. Afternoon shade is more important than supplemental water — direct hot afternoon sun causes leaf scorch even in well-watered trees, especially for laceleaf varieties. Site these on east-facing slopes at Church Mountain Road where natural afternoon shade is available. Deep mulch and consistent moisture prevent most problems."}, "repot": {"months": [1], "peakWindow": "Feb 10–28 before bud break", "narrow": false, "description": "Container Japanese maples should be repotted every 2–3 years in late winter (Feb), with light root pruning to maintain scale."}, "inspect": {"subcategories": [{"id": "pest-aphids", "label": "Aphids", "months": [3, 4], "peakWindow": "Apr 15–May 10 at ~2,959 ft — peak aphid flush on new growth", "narrow": false, "description": "Apr–May on tender new growth: clusters of green or black insects, sticky honeydew below. At Church Mountain Road elevation, the peak flush of tender new growth occurs about a week later than valley plants. Hose off forcefully; insecticidal soap if heavy. Ladybugs and parasitic wasps handle most infestations naturally — avoid broad-spectrum pesticides that kill beneficial insects."}, {"id": "stress-scorch", "label": "Leaf scorch (heat/sun)", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug: browning leaf margins from sun and heat stress, especially in trees with too much afternoon exposure. Worst on laceleaf varieties. Mostly cosmetic — won't kill the tree but indicates a siting problem. Increase mulch, ensure consistent water, consider transplanting to a more shaded east-facing position in fall."}, {"id": "disease-verticillium", "label": "Verticillium wilt", "months": [5, 6, 7], "peakWindow": null, "narrow": false, "description": "Jun–Aug: sudden branch dieback, dark streaks visible in cut wood. Often fatal — soil-borne fungus, no cure. Remove affected branches well below symptoms; sterilize tools. If the whole tree dies, don't replant another Japanese maple in the same spot — the fungus persists in soil for many years."}]}}}]};
 let WEATHER_DATA = {"_meta": {"isPlaceholder": true, "fetchedAt": "2026-04-27T06:33:00-04:00", "source": "FOX Weather (manually captured for placeholder)", "todoNote": "Replace with live API when CORS/sandbox issues are resolved. Schema below should be a stable contract."}, "current": {"temperature": 57, "feelsLike": 55, "condition": "Partly Cloudy", "weatherCode": 2, "humidity": 86, "windSpeed": 11, "windDirection": "ESE", "windGusts": 14, "isDay": true, "pressure_hpa": 1015}, "daily": [{"date": "2026-04-27", "dayLabel": "Mon", "dayName": "Monday", "high": 74, "low": 55, "weatherCode": 2, "condition": "Partly cloudy", "precipChance": 3, "precipAmount": 0.0, "windSpeed": 14, "windDirection": "ESE", "windGusts": 22, "summary": "Sunshine and clouds mixed. High 74\u00b0F. Winds ESE at 10 to 20 mph.", "sunrise": "06:51", "sunset": "20:18", "uvIndex": 9, "humidity": 65}, {"date": "2026-04-28", "dayLabel": "Tue", "dayName": "Tuesday", "high": 71, "low": 54, "weatherCode": 63, "condition": "Rain", "precipChance": 80, "precipAmount": 0.25, "windSpeed": 9, "windDirection": "SSE", "windGusts": 14, "summary": "Cloudy. Periods of rain early. High 71\u00b0F. Chance of rain 80%, near a quarter inch.", "sunrise": "06:50", "sunset": "20:19", "uvIndex": 4, "humidity": 83}, {"date": "2026-04-29", "dayLabel": "Wed", "dayName": "Wednesday", "high": 75, "low": 59, "weatherCode": 95, "condition": "Thunderstorms", "precipChance": 87, "precipAmount": 0.6, "windSpeed": 12, "windDirection": "W", "windGusts": 22, "summary": "Rain and thunder. Highs in the mid 70s and lows in the low 50s.", "sunrise": "06:49", "sunset": "20:20", "uvIndex": 7, "humidity": 86}, {"date": "2026-04-30", "dayLabel": "Thu", "dayName": "Thursday", "high": 69, "low": 52, "weatherCode": 2, "condition": "Mix of sun and clouds", "precipChance": 6, "precipAmount": 0.0, "windSpeed": 9, "windDirection": "NNW", "windGusts": 14, "summary": "Mix of sun and clouds. Highs in the upper 60s and lows in the low 50s.", "sunrise": "06:48", "sunset": "20:21", "uvIndex": 8, "humidity": 57}, {"date": "2026-05-01", "dayLabel": "Fri", "dayName": "Friday", "high": 67, "low": 50, "weatherCode": 80, "condition": "Scattered showers", "precipChance": 45, "precipAmount": 0.1, "windSpeed": 7, "windDirection": "N", "windGusts": 12, "summary": "Chance of afternoon showers. Highs in the upper 60s and lows in the upper 40s.", "sunrise": "06:47", "sunset": "20:22", "uvIndex": 7, "humidity": 59}, {"date": "2026-05-02", "dayLabel": "Sat", "dayName": "Saturday", "high": 66, "low": 47, "weatherCode": 80, "condition": "Morning showers", "precipChance": 56, "precipAmount": 0.15, "windSpeed": 10, "windDirection": "NNW", "windGusts": 16, "summary": "Morning showers. Highs in the mid 60s and lows in the low 40s.", "sunrise": "06:46", "sunset": "20:22", "uvIndex": 7, "humidity": 61}, {"date": "2026-05-03", "dayLabel": "Sun", "dayName": "Sunday", "high": 69, "low": 42, "weatherCode": 1, "condition": "Mostly sunny", "precipChance": 3, "precipAmount": 0.0, "windSpeed": 7, "windDirection": "NW", "windGusts": 11, "summary": "Mostly sunny. Highs in the upper 60s and lows in the mid 40s.", "sunrise": "06:45", "sunset": "20:23", "uvIndex": 9, "humidity": 52}]};
 const VEHICLES_DATA = {"_meta":{"schemaVersion":2,"notes":"Full vehicle fleet with decoded VINs, engine specs, and maintenance status."},"vehicles":[{"id":"gti-2016","name":"2016 VW GTI","trim":"MK7 Autobahn","emoji":"🚗","engine":"EA888 Gen 3 2.0T, APR Stage 1 tuned","category":"daily-driver","status":"Active — coolant leak diagnosis ongoing","specs":{"displacement":"1,984 cc turbocharged inline-4","power":"~230 hp (APR Stage 1 tune)","transmission":"6-speed DSG (DQ250)","drivetrain":"FWD"},"notes":"APR Stage 1 software tune on stock hardware. Coolant leak source under investigation — check thermostat housing and expansion tank cap first."},{"id":"tiguan-2018","name":"2018 VW Tiguan","trim":"S","emoji":"🚙","engine":"EA888 Gen 3B 2.0T","category":"daily-driver","status":"Active","specs":{"displacement":"1,984 cc turbocharged inline-4","power":"184 hp @ 4,400–6,000 rpm","transmission":"8-speed automatic (8A)","drivetrain":"FWD (base trim)"}},{"id":"f150-2006","name":"2006 Ford F-150","trim":"","emoji":"🛻","engine":"4.2L Essex V6","category":"truck","status":"Active","specs":{"displacement":"4,196 cc OHV V6","power":"202 hp @ 4,250 rpm","torque":"260 lb-ft @ 3,500 rpm","transmission":"4-speed automatic (4R70W)","payload":"~1,400 lb"}},{"id":"bronco-1989","name":"1989 Ford Bronco","trim":"Eddie Bauer","emoji":"🟢","engine":"5.8L 351W Windsor V8","category":"classic","status":"Restoration in progress","specs":{"displacement":"5,766 cc OHV V8","power":"210 hp @ 3,800 rpm (stock)","torque":"315 lb-ft @ 2,800 rpm","transmission":"AOD 4-speed automatic","transfer_case":"Borg Warner 1356","drivetrain":"4WD"},"notes":"Eddie Bauer edition — two-tone paint, upgraded interior. Full restoration underway."},{"id":"dr200s-2017","name":"2017 Suzuki DR200S","trim":"","emoji":"🏍️","category":"motorcycle","status":"Active","vin":"JS1SH42A4H2••••••","vinDecode":{"JS1":"Suzuki — manufactured in Japan","SH42":"DR200S model code","A":"check character","4":"check digit","H":"model year 2017 (17th letter in VIN year cycle)","2":"Hamamatsu factory","101809":"production sequence number"},"specs":{"displacement":"199 cc","engineType":"Single-cylinder 4-stroke, air-cooled, SOHC","bore_stroke":"66.0 × 58.0 mm","compression":"9.5:1","carburetor":"Mikuni BST31","power":"~17 hp","transmission":"5-speed manual","clutch":"Wet multi-plate","frameType":"Tubular steel semi-double cradle","frontSuspension":"Telescopic fork, 6.9 in travel","rearSuspension":"Link-type with coil-over shock, 7.3 in travel","frontBrake":"Single disc","rearBrake":"Drum","frontTire":"3.00-21 51P","rearTire":"4.10-18 59P","seatHeight":"33.3 in","groundClearance":"11.4 in","fuelCapacity":"3.3 gal","fuelEconomy":"~88 mpg","weight_curb":"278 lbs","starter":"Electric + kick"},"notes":"Label on frame reads: MOTORCYCLE DR200S MADE IN JAPAN. Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain."},{"id":"drz400s-2001","name":"2001 Suzuki DR-Z400S","trim":"","emoji":"🏍️","category":"motorcycle","status":"Active","vin":"JS1SK43A212••••••","vinDecode":{"JS1":"Suzuki — manufactured in Japan","SK43":"DR-Z400S model code","A":"check character","2":"Hamamatsu factory","1":"model year 2001","100941":"production sequence number"},"specs":{"displacement":"398 cc","engineType":"Single-cylinder 4-stroke, liquid-cooled, DOHC","bore_stroke":"90.0 × 62.6 mm","compression":"11.3:1","carburetor":"Mikuni BSR36","power":"39 hp @ 8,400 rpm","torque":"18 lb-ft (24 Nm) @ 5,800 rpm","transmission":"5-speed manual","clutch":"Wet multi-plate","frameType":"Chrome-moly steel double cradle","frontSuspension":"KYB inverted telescopic fork, 11.0 in travel","rearSuspension":"KYB link-type shock, 11.0 in travel","frontBrake":"Single disc, 250 mm","rearBrake":"Single disc, 220 mm","frontTire":"80/100-21","rearTire":"120/90-18","seatHeight":"37.4 in","groundClearance":"11.8 in","fuelCapacity":"2.6 gal","weight_dry":"291 lbs","starter":"Electric + kick"},"notes":"VIN position 10 = '1' confirms 2001 model year (previously catalogued as 2002 — corrected from VIN photo). Dual-sport — street-legal with headlight, tail light, and mirrors."},{"id":"g22a-2005","name":"2005 Yamaha G22A Golf Cart","trim":"8.5KW","emoji":"🛺","category":"utility","status":"Stock M12×1.5 drain plug stripped — repair plug identified","specs":{"motor":"8.5 kW DC electric","voltage":"48V","batteries":"6× 8V deep-cycle","payload":"~800 lb","topSpeed":"~19 mph"},"notes":"Use an M12×1.5 → 1/2\" NPT repair drain plug to fix the stripped oil drain on the rear axle/transaxle."},{"id":"husqvarna-mower","name":"Husqvarna Riding Mower","trim":"","emoji":"🚜","category":"equipment","status":"Active"},{"id":"chainsaw-ms290","name":"Stihl MS 290 Farm Boss","trim":"","emoji":"🪚","category":"equipment","status":"Active","specs":{"displacement":"56.5 cc","engineType":"Single-cylinder 2-stroke, air-cooled","power":"3.8 hp (2.8 kW) @ 7,400 rpm","idleSpeed":"2,800 rpm","maxSpeed":"12,500 rpm","weight":"13.2 lbs (6.0 kg) without bar/chain","fuelCapacity":"18.9 fl oz (560 mL)","oilCapacity":"11.2 fl oz (330 mL)","fuelMix":"50:1 (2.6 fl oz 2-stroke oil per gallon)","recommendedBar":"16\"–20\" (18\" Farm Boss standard)","chainPitch":"3/8\" (0.325\" available)","chainGauge":"0.050\"","antivibration":"4-point AV system","produced":"2000–2012"},"notes":"The 'Farm Boss' — Stihl's iconic mid-range saw for landowners and farmers. Well-suited for firewood, storm cleanup, and land clearing. Parts widely available even post-production. Mix 50:1 with quality 2-stroke oil; never use E15+ ethanol fuel."},{"id":"chainsaw-cs352","name":"Echo CS-352 Chainsaw","trim":"i-30 Starter","emoji":"🪚","category":"equipment","status":"Active","specs":{"displacement":"34.4 cc","engineType":"Single-cylinder 2-stroke, air-cooled","power":"~1.7 hp","weight":"8.8 lbs dry (without bar/chain)","fuelCapacity":"8.5 fl oz","oilCapacity":"8.8 fl oz","fuelMix":"50:1","recommendedBar":"14\"–16\"","chainPitch":"3/8\" LP (low-profile)","chainGauge":"0.050\"","starter":"i-30 reduced-effort starter (30% less pull force)","features":"Automatic chain oiler, tool-free chain tensioner, 2-year consumer warranty"},"notes":"Lighter-duty saw — ideal for limbing, brush clearing, and smaller diameter wood (up to ~12\" logs). The i-30 reduced-effort starter makes cold starts much easier. Good complement to the heavier MS 290 for smaller tasks."}]};
 
@@ -1362,7 +1566,7 @@ const CELESTIAL_DATA = {
     bortleEstimate: 3,
     bortleLabel: "Rural Sky",
     sqmEstimate: "21.5–21.8",
-    atlasNote: "Pickens County sits ~60 miles north of Atlanta's light dome. On nights with good transparency, naked-eye limiting magnitude ~6.0–6.3 and the Milky Way is visible Jun–Sep. Elevation at 1,750 ft reduces the atmospheric column by ~6%, improving planetary detail and transparency vs. the Atlanta metro.",
+    atlasNote: "Pickens County sits ~60 miles north of Atlanta's light dome. On nights with good transparency, naked-eye limiting magnitude ~6.0–6.3 and the Milky Way is visible Jun–Sep. Elevation at 2,959 ft reduces the atmospheric column by ~6%, improving planetary detail and transparency vs. the Atlanta metro.",
     milkyWayMonths: [5, 6, 7, 8, 9],
     bestSpots: "South and west-facing open ridgelines on the property. South horizon unobstructed — ideal for planetary and ecliptic objects. North/northeast may have treeline at low altitudes."
   },
@@ -1720,6 +1924,7 @@ async function fetchLiveWeather() {
     renderFishing();
     renderCelestialSummary();
     renderCelestial();
+    renderDashboardStrip();
     fetchRecentPrecip();
 
     const ts = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
@@ -1792,6 +1997,112 @@ async function fetchNearbyPWS() {
 }
 
 // =========================
+// AMBIENT WEATHER STATION (on-property)
+// =========================
+const AMBIENT_APP_KEY = "18bddad32ee64161962476f115eb8ededbd71d2cea74439397ef85f278d064bc";
+const AMBIENT_API_KEY = "3123e9a73a6a4d549fc8801b19ecd902c5806dcadeb44dc5a96765614991a964";
+const AMBIENT_MAC     = "FC%3A2B%3AB2%3A5F%3AA7%3A31";
+
+async function fetchAmbientWeather() {
+  const url = "https://api.ambientweather.net/v1/devices/" + AMBIENT_MAC +
+    "?applicationKey=" + AMBIENT_APP_KEY + "&apiKey=" + AMBIENT_API_KEY + "&limit=1";
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    // API returns an array of device data arrays; each element is an observation
+    // When called with limit=1 on a specific device, data[0] is the latest observation
+    const d = Array.isArray(data) && data.length > 0 ? data[0] : null;
+    if (!d || Object.keys(d).length === 0 || d.tempf == null) {
+      // Station registered but hardware not yet reporting
+      WEATHER_DATA.stationOnline = false;
+      renderAmbientStationPanel(null);
+      return;
+    }
+    WEATHER_DATA.stationOnline = true;
+    WEATHER_DATA.stationData = d;
+    // Override current conditions with on-property station readings
+    WEATHER_DATA.current.temperature = Math.round(d.tempf);
+    if (d.feelsLike != null) WEATHER_DATA.current.feelsLike = Math.round(d.feelsLike);
+    if (d.humidity  != null) WEATHER_DATA.current.humidity  = d.humidity;
+    if (d.windspeedmph != null) {
+      WEATHER_DATA.current.windSpeed    = Math.round(d.windspeedmph);
+      WEATHER_DATA.current.windGusts    = d.windgustmph != null ? Math.round(d.windgustmph) : WEATHER_DATA.current.windGusts;
+      WEATHER_DATA.current.windDirection = d.winddir != null ? degreesToCompass(d.winddir) : WEATHER_DATA.current.windDirection;
+    }
+    if (d.baromrelin != null) WEATHER_DATA.current.pressure_hpa = Math.round(d.baromrelin * 33.8639);
+    // Store rain gauge readings (physical gauge on property — more accurate than grid model)
+    WEATHER_DATA.stationRain = {
+      hourly:  d.hourlyrainin  != null ? Math.round(d.hourlyrainin  * 100) / 100 : null,
+      daily:   d.dailyrainin   != null ? Math.round(d.dailyrainin   * 100) / 100 : null,
+      weekly:  d.weeklyrainin  != null ? Math.round(d.weeklyrainin  * 100) / 100 : null,
+      monthly: d.monthlyrainin != null ? Math.round(d.monthlyrainin * 100) / 100 : null
+    };
+    renderWeatherSummary();
+    renderWeather();
+    renderDashboardStrip();
+    renderRainfallPanel();
+    renderAmbientStationPanel(d);
+  } catch (err) {
+    console.warn("Ambient Weather fetch failed:", err);
+    WEATHER_DATA.stationOnline = false;
+    renderAmbientStationPanel(null, err.message);
+  }
+}
+
+function renderAmbientStationPanel(d, errMsg) {
+  const panelId = "ambient-station-panel";
+  let panel = document.getElementById(panelId);
+  if (!panel) {
+    const weatherContent = document.getElementById("weather-content");
+    if (!weatherContent) return;
+    panel = document.createElement("div");
+    panel.id = panelId;
+    weatherContent.insertAdjacentElement("afterbegin", panel);
+  }
+  if (!d) {
+    const msg = errMsg ? "Error: " + errMsg : "Hardware not yet online — data will appear when station is powered on";
+    panel.innerHTML =
+      '<div style="background:#fafaf4;border:1.5px solid #c8c870;border-radius:12px;padding:8px 14px;margin:10px 18px 0;font-size:12px;color:#606040;">' +
+      '<span style="font-weight:700;">📡 On-Property Weather Station</span> — ' +
+      '<span style="color:#999;">' + msg + '</span>' +
+      '</div>';
+    return;
+  }
+  const ts = d.date ? new Date(d.date).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : "–";
+  const windDir  = d.winddir    != null ? degreesToCompass(d.winddir) : "–";
+  const dewPt    = d.dewPoint   != null ? Math.round(d.dewPoint) + "°F" : null;
+  const pressure = d.baromrelin != null ? d.baromrelin.toFixed(2) + " inHg" : "–";
+  const solarRad = d.solarradiation != null ? d.solarradiation + " W/m²" : null;
+  const uv       = d.uv    != null ? d.uv : null;
+  const indoorTemp = d.tempinf    != null ? Math.round(d.tempinf) + "°F" : null;
+  const indoorHum  = d.humidityin != null ? d.humidityin + "%" : null;
+
+  let chips = '';
+  const chip = (label) => '<span style="background:#d4f5e2;padding:3px 8px;border-radius:10px;font-weight:500;">' + label + '</span>';
+  if (d.tempf     != null) chips += chip(Math.round(d.tempf) + '°F');
+  if (d.feelsLike != null) chips += chip('Feels ' + Math.round(d.feelsLike) + '°F');
+  if (d.humidity  != null) chips += chip('Humidity: ' + d.humidity + '%');
+  if (dewPt)               chips += chip('Dew pt: ' + dewPt);
+  if (d.windspeedmph != null) chips += chip('Wind: ' + Math.round(d.windspeedmph) + ' mph ' + windDir);
+  if (d.windgustmph  != null) chips += chip('Gusts: ' + Math.round(d.windgustmph) + ' mph');
+  if (d.dailyrainin  != null) chips += chip('Rain today: ' + d.dailyrainin.toFixed(2) + '"');
+  if (d.hourlyrainin != null) chips += chip('Rate: ' + d.hourlyrainin.toFixed(2) + '"/hr');
+  chips += chip('Pressure: ' + pressure);
+  if (solarRad) chips += chip('☀️ Solar: ' + solarRad);
+  if (uv != null)  chips += chip('UV: ' + uv);
+  if (indoorTemp) chips += '<span style="background:#edf8ef;padding:3px 8px;border-radius:10px;font-size:11px;color:#407050;font-weight:500;">Indoor: ' + indoorTemp + (indoorHum ? ' · ' + indoorHum : '') + '</span>';
+
+  panel.innerHTML =
+    '<div style="background:#f0fff6;border:1.5px solid #5cb87a;border-radius:12px;padding:10px 14px;margin:10px 18px 0;font-size:12px;color:#1a4028;">' +
+    '<div style="font-size:11px;font-weight:700;color:#1d6035;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px;">' +
+    '📡 On-Property Station · Updated ' + ts +
+    '</div>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:6px;">' + chips + '</div>' +
+    '</div>';
+}
+
+// =========================
 // RECENT PRECIP HISTORY
 // =========================
 async function fetchRecentPrecip() {
@@ -1827,7 +2138,7 @@ async function fetchRecentPrecip() {
       past7.push({ date: times[i], label: ["Su","Mo","Tu","We","Th","Fr","Sa"][dt.getDay()], precip: Math.round((precips[i] || 0) * 100) / 100 });
     }
 
-    // Rolling 30 complete days (todayIdx-30 through todayIdx-1)
+    // Rolling 30 complete days before today
     let rolling30 = 0;
     for (let i = Math.max(0, todayIdx - 30); i < todayIdx; i++) {
       rolling30 += precips[i] || 0;
@@ -1835,15 +2146,94 @@ async function fetchRecentPrecip() {
     rolling30 = Math.round(rolling30 * 100) / 100;
 
     WEATHER_DATA.recentPrecip = {
-      past7days:    past7,
-      past7total:   Math.round(past7.reduce((s, d) => s + d.precip, 0) * 100) / 100,
-      rolling30:    rolling30,
-      fetchedAt:    new Date().toISOString()
+      past7days:  past7,
+      past7total: Math.round(past7.reduce((s, d) => s + d.precip, 0) * 100) / 100,
+      rolling30:  rolling30,
+      fetchedAt:  new Date().toISOString()
     };
     renderRainfallPanel();
   } catch (err) {
     console.warn("fetchRecentPrecip failed:", err);
   }
+}
+
+// =========================
+// PRECIP HISTORY (percentile comparison vs 2001–2025)
+// =========================
+async function fetchPrecipHistory() {
+  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
+  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const url = 'https://archive-api.open-meteo.com/v1/archive' +
+    '?latitude=' + lat + '&longitude=' + lon +
+    '&start_date=2001-01-01&end_date=2025-12-31' +
+    '&daily=precipitation_sum' +
+    '&precipitation_unit=inch&timezone=America%2FNew_York';
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const times   = data.daily.time;
+    const precips = data.daily.precipitation_sum;
+
+    // Build date-string → precip lookup
+    const byDate = {};
+    times.forEach((d, i) => { byDate[d] = (precips[i] != null ? precips[i] : 0); });
+
+    // Generate the current calendar-window date strings for each offset
+    const todayMs = new Date().getTime();
+    const ds = (ms) => new Date(ms).toISOString().slice(0, 10);
+
+    // offsets: positive = days before today, negative = days from today (forecast)
+    const win30  = Array.from({length: 30}, (_, i) => 30 - i);   // 30,29,...,1 days ago
+    const win7   = Array.from({length: 7},  (_, i) => 7  - i);   // 7,6,...,1 days ago
+    const winFct = Array.from({length: 7},  (_, i) => -i);        // 0,1,...,6 days ahead
+
+    const hist30 = [], hist7 = [], histFct = [];
+
+    for (let yr = 2001; yr <= 2025; yr++) {
+      let s30 = 0, s7 = 0, sFct = 0;
+      win30.forEach(offset => {
+        const cur = ds(todayMs - offset * 86400000);
+        s30 += byDate[yr + cur.slice(4)] || 0;
+      });
+      win7.forEach(offset => {
+        const cur = ds(todayMs - offset * 86400000);
+        s7 += byDate[yr + cur.slice(4)] || 0;
+      });
+      winFct.forEach(offset => {
+        const cur = ds(todayMs + offset * 86400000);
+        sFct += byDate[yr + cur.slice(4)] || 0;
+      });
+      hist30.push(Math.round(s30  * 100) / 100);
+      hist7.push( Math.round(s7   * 100) / 100);
+      histFct.push(Math.round(sFct * 100) / 100);
+    }
+
+    WEATHER_DATA.precipHistory = {
+      hist30:  [...hist30].sort((a, b) => a - b),
+      hist7:   [...hist7].sort((a, b) => a - b),
+      histFct: [...histFct].sort((a, b) => a - b),
+      period:  '2001–2025'
+    };
+    renderRainfallPanel();
+  } catch (err) {
+    console.warn('fetchPrecipHistory failed:', err);
+  }
+}
+
+function getPrecipPct(value, sortedHist) {
+  if (!sortedHist || !sortedHist.length) return null;
+  const below = sortedHist.filter(v => v < value).length;
+  return Math.round((below / sortedHist.length) * 100);
+}
+
+function precipVerdict(pct) {
+  if (pct === null) return null;
+  if (pct < 15) return { label: 'Very Dry', cls: 'rv-very-dry' };
+  if (pct < 30) return { label: 'Dry',      cls: 'rv-dry'      };
+  if (pct < 70) return { label: 'Normal',   cls: 'rv-normal'   };
+  if (pct < 85) return { label: 'Moist',    cls: 'rv-moist'    };
+  return              { label: 'Very Wet', cls: 'rv-very-wet'  };
 }
 
 function renderRainfallPanel() {
@@ -1852,101 +2242,63 @@ function renderRainfallPanel() {
   const rp = WEATHER_DATA.recentPrecip;
   if (!rp) { container.innerHTML = ''; return; }
 
-  const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  const today = new Date();
-  const mo    = today.getMonth();
-  const dayOfMonth = today.getDate();
-  const moName = MONTH_NAMES[mo];
-  const moShort = moName.slice(0, 3);
-
-  // Monthly normal from ERA5 (loaded async — may or may not be ready)
-  let monthNormal = null;
-  if (PROPERTY_DATA.climate && PROPERTY_DATA.climate.monthlyNormals) {
-    const mn = PROPERTY_DATA.climate.monthlyNormals[mo];
-    if (mn && mn.precip != null) monthNormal = Math.round(mn.precip * 100) / 100;
-  }
-
-  // 7-day forecast total
+  const ph = WEATHER_DATA.precipHistory || null;
   const forecastTotal = Math.round(WEATHER_DATA.daily.reduce((s, d) => s + (d.precipAmount || 0), 0) * 100) / 100;
 
-  // ── Column 1: Past 7 days ──
-  const maxBar = Math.max(0.1, ...rp.past7days.map(d => d.precip));
-  const past7total = rp.past7total;
-  let verdict7 = '';
-  if (past7total < 0.25)     verdict7 = '<span class="rain-ctx-verdict rain-verdict-dry">Dry stretch</span>';
-  else if (past7total < 1.5)  verdict7 = '<span class="rain-ctx-verdict rain-verdict-normal">Normal</span>';
-  else if (past7total < 4.0)  verdict7 = '<span class="rain-ctx-verdict rain-verdict-wet">Wet stretch</span>';
-  else                        verdict7 = '<span class="rain-ctx-verdict rain-verdict-flood">Very wet</span>';
+  const pct30  = ph ? getPrecipPct(rp.rolling30,    ph.hist30)  : null;
+  const pct7   = ph ? getPrecipPct(rp.past7total,   ph.hist7)   : null;
+  const pctFct = ph ? getPrecipPct(forecastTotal,   ph.histFct) : null;
 
-  let microBars = '<div class="rain-micro-bars">';
-  rp.past7days.forEach(d => {
-    const h = Math.round((d.precip / maxBar) * 24);
-    microBars += '<div class="rain-micro-bar-wrap">' +
-      '<div class="rain-micro-bar" style="height:' + Math.max(2, h) + 'px"></div>' +
-      '<div class="rain-micro-label">' + d.label + '</div>' +
+  const v30   = precipVerdict(pct30);
+  const v7    = precipVerdict(pct7);
+  const vFct  = precipVerdict(pctFct);
+
+  const ordinal = (n) => {
+    if (n === null) return '';
+    const s = ['th','st','nd','rd'], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]) + ' percentile';
+  };
+
+  const colHtml = (label, inches, v, pct) =>
+    '<div class="rain-ctx-col">' +
+    '<div class="rain-ctx-col-label">' + label + '</div>' +
+    '<div class="rain-ctx-amount">' + inches + '"</div>' +
+    (v
+      ? '<div><span class="rv-badge ' + v.cls + '">' + v.label + '</span></div>' +
+        '<div class="rv-pct">' + ordinal(pct) + '</div>'
+      : '<div class="rv-loading">comparing…</div>') +
     '</div>';
-  });
-  microBars += '</div>';
 
-  // ── Column 2: Rolling 30 days vs monthly normal ──
-  let mtdBar = '', mtdSub = '', mtdPct = '';
-  const rolling30 = rp.rolling30 || 0;
-  if (monthNormal && monthNormal > 0) {
-    const pct = Math.min(200, Math.round((rolling30 / monthNormal) * 100));
-    const fillPct = Math.min(100, pct);
-    const overClass = pct > 100 ? ' over' : '';
-    mtdBar = '<div class="rain-ctx-bar-wrap"><div class="rain-ctx-bar-fill' + overClass + '" style="width:' + fillPct + '%"></div></div>';
-    mtdPct = '<span class="rain-ctx-pct">' + pct + '% of ' + moShort + ' normal</span>';
-    mtdSub = moShort + ' avg: ' + monthNormal + '"';
-  } else {
-    mtdSub = 'ERA5 normals loading…';
-  }
-
-  // ── Column 3: 7-day forecast vs normal ──
-  let fctBar = '', fctSub = '', fctVerdict = '';
-  if (monthNormal && monthNormal > 0) {
-    const fctPct = Math.min(200, Math.round((forecastTotal / monthNormal) * 100));
-    const fillPct = Math.min(100, fctPct);
-    const overClass = fctPct > 100 ? ' over' : '';
-    fctBar = '<div class="rain-ctx-bar-wrap"><div class="rain-ctx-bar-fill' + overClass + '" style="width:' + fillPct + '%"></div></div>';
-    fctSub = fctPct + '% of ' + moShort + "'s normal";
-    if (fctPct < 15)        fctVerdict = '<span class="rain-ctx-verdict rain-verdict-dry">Dry week</span>';
-    else if (fctPct < 60)   fctVerdict = '<span class="rain-ctx-verdict rain-verdict-normal">Below avg</span>';
-    else if (fctPct < 120)  fctVerdict = '<span class="rain-ctx-verdict rain-verdict-normal">Near normal</span>';
-    else if (fctPct < 200)  fctVerdict = '<span class="rain-ctx-verdict rain-verdict-wet">Above normal</span>';
-    else                    fctVerdict = '<span class="rain-ctx-verdict rain-verdict-flood">Exceptionally wet</span>';
-  } else {
-    fctSub = 'vs normal: loading…';
-  }
+  const period = ph ? ph.period : '2001–2025';
 
   container.innerHTML =
     '<div class="rain-ctx-panel">' +
-    '<div class="rain-ctx-title">🌧 Rainfall Context</div>' +
+    '<div class="rain-ctx-header">' +
+    '<span class="rain-ctx-title">🌧 Rainfall</span>' +
+    '<span class="rain-ctx-compare">vs. same dates ' + period + ' · ERA5</span>' +
+    '</div>' +
     '<div class="rain-ctx-cols">' +
-
-    // Col 1
-    '<div class="rain-ctx-col">' +
-    '<div class="rain-ctx-col-label">Past 7 Days</div>' +
-    '<div class="rain-ctx-amount">' + past7total.toFixed(2) + '"</div>' +
-    microBars + verdict7 +
-    '</div>' +
-
-    // Col 2
-    '<div class="rain-ctx-col">' +
-    '<div class="rain-ctx-col-label">Last 30 Days</div>' +
-    '<div class="rain-ctx-amount">' + rolling30.toFixed(2) + '"</div>' +
-    mtdBar + mtdPct + '<br><span class="rain-ctx-sub">' + mtdSub + '</span>' +
-    '</div>' +
-
-    // Col 3
-    '<div class="rain-ctx-col">' +
-    '<div class="rain-ctx-col-label">7-Day Forecast</div>' +
-    '<div class="rain-ctx-amount">' + forecastTotal.toFixed(2) + '"</div>' +
-    fctBar + fctVerdict + '<br><span class="rain-ctx-sub">' + fctSub + '</span>' +
-    '</div>' +
-
+    colHtml('Past 30 Days',   rp.rolling30.toFixed(2),    v30,  pct30)  +
+    colHtml('Past 7 Days',    rp.past7total.toFixed(2),   v7,   pct7)   +
+    colHtml('7-Day Forecast', forecastTotal.toFixed(2),   vFct, pctFct) +
     '</div>' +
     '</div>';
+
+  // Station rain gauge strip (shows when Ambient station is live)
+  const sr = WEATHER_DATA.stationRain;
+  if (sr && WEATHER_DATA.stationOnline) {
+    const gaugeItems = [];
+    if (sr.hourly  != null) gaugeItems.push('<span class="rain-gauge-chip">Rate: ' + sr.hourly.toFixed(2)  + '"/hr</span>');
+    if (sr.daily   != null) gaugeItems.push('<span class="rain-gauge-chip">Today: ' + sr.daily.toFixed(2)  + '"</span>');
+    if (sr.weekly  != null) gaugeItems.push('<span class="rain-gauge-chip">This week: ' + sr.weekly.toFixed(2)  + '"</span>');
+    if (sr.monthly != null) gaugeItems.push('<span class="rain-gauge-chip">This month: ' + sr.monthly.toFixed(2) + '"</span>');
+    if (gaugeItems.length > 0) {
+      const gaugeDiv = document.createElement("div");
+      gaugeDiv.className = "rain-gauge-strip";
+      gaugeDiv.innerHTML = '<span class="rain-gauge-label">📡 Property Gauge</span>' + gaugeItems.join('');
+      container.querySelector('.rain-ctx-panel').appendChild(gaugeDiv);
+    }
+  }
 }
 
 // =========================
@@ -1955,12 +2307,16 @@ function renderRainfallPanel() {
 
 function renderWeatherSummary() {
   const cur = WEATHER_DATA.current;
-  const todayDay = WEATHER_DATA.daily[0];
+  const today = WEATHER_DATA.daily[0];
   const alerts = generateAlerts();
-  const alertsCount = alerts.length;
-  const alertSuffix = alertsCount > 0 ? ` · ${alertsCount} alert${alertsCount === 1 ? "" : "s"}` : "";
-  document.getElementById("weather-summary").textContent =
-    `${WEATHER_CODES[cur.weatherCode] || ""} ${cur.temperature}°F · ${cur.condition} · H ${todayDay.high}°/L ${todayDay.low}°${alertSuffix}`;
+  const icon = WEATHER_CODES[cur.weatherCode] || "";
+  let summary = icon + " " + cur.temperature + "°F · " + cur.condition;
+  if (today) summary += " · H " + today.high + "° / L " + today.low + "°";
+  if (alerts.length > 0) {
+    const worst = alerts.find(a => a.severity === "severe") || alerts[0];
+    summary += " · " + worst.title;
+  }
+  document.getElementById("weather-summary").textContent = summary;
 }
 
 function renderWeather() {
@@ -2080,10 +2436,10 @@ function generateAlerts() {
       let rainCtx = "";
       const normals = PROPERTY_DATA.climate && PROPERTY_DATA.climate.monthlyNormals;
       const curMoNorm = normals && normals[new Date().getMonth()];
-      if (curMoNorm && curMoNorm.precip > 0) {
-        const pct = Math.round((daily[i].precipAmount / curMoNorm.precip) * 100);
+      if (curMoNorm && curMoNorm.avgPrecip_in > 0) {
+        const pct = Math.round((daily[i].precipAmount / curMoNorm.avgPrecip_in) * 100);
         const moName = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][new Date().getMonth()];
-        if (pct >= 10) rainCtx = " (" + daily[i].precipAmount + "\" expected — " + pct + "% of " + moName + "'s monthly normal of " + curMoNorm.precip.toFixed(1) + "\")";
+        if (pct >= 10) rainCtx = " (" + daily[i].precipAmount + "\" expected — " + pct + "% of " + moName + "'s monthly normal of " + curMoNorm.avgPrecip_in.toFixed(1) + "\")";
       } else if (daily[i].precipAmount > 0) {
         rainCtx = " (" + daily[i].precipAmount + "\" forecast)";
       }
@@ -2492,12 +2848,15 @@ function plantsNeedingCare(careType) {
 
 function renderPlantsSummary() {
   const total = PLANTS_DATA.plants.length;
-  // Count distinct active care types this month across all plants
   const activeTypes = Object.keys(CARE_TYPES).filter(t => plantsNeedingCare(t).length > 0);
-  const typeText = activeTypes.length === 0
-    ? "no actions due"
-    : activeTypes.length + " care action" + (activeTypes.length === 1 ? "" : "s") + " due this month";
-  document.getElementById("plants-summary").textContent = total + " tracked · " + typeText;
+  let summary;
+  if (activeTypes.length === 0) {
+    summary = total + " plants · Nothing due in " + MONTHS[currentMonth];
+  } else {
+    const actionStr = activeTypes.map(t => CARE_TYPES[t].label).join(" · ");
+    summary = MONTHS[currentMonth] + ": " + actionStr;
+  }
+  document.getElementById("plants-summary").textContent = summary;
 }
 
 function renderFilters() {
@@ -2555,7 +2914,7 @@ function toggleCareBlock(el) {
 function renderCareBlock(type, careEntry) {
   const cfg = CARE_TYPES[type];
   if (careEntry.subcategories) {
-    const parentBadge = '<span class="parent-badge bg-' + type + '">' + cfg.icon + ' ' + cfg.label + '</span>';
+    const parentBadge = '<span class="tag t-' + type + '">' + cfg.icon + ' ' + cfg.label + '</span>';
     const subs = careEntry.subcategories.map(sub => {
       const monthRow = sub.months && sub.months.length > 0
         ? '<div class="month-grid">' + renderMonthCells(sub.months, type) + '</div>'
@@ -2587,7 +2946,7 @@ function renderCareBlock(type, careEntry) {
   const bodyHtml = '<div class="care-row" style="padding-top:4px">' + narrowBadgeSingle + monthRow + '</div>' + peakChipSingle + descHtml;
   return '<div class="care-block-parent">' +
     '<div class="care-block-toggle" onclick="toggleCareBlock(this)">' +
-      '<span class="care-label c-' + type + '">' + cfg.icon + ' ' + cfg.label + '</span>' +
+      '<span class="tag t-' + type + '">' + cfg.icon + ' ' + cfg.label + '</span>' +
       '<span class="care-chevron">▼</span>' +
     '</div>' +
     '<div class="care-block-body">' + bodyHtml + '</div>' +
@@ -2617,7 +2976,6 @@ function renderPlantCard(plant) {
 
   return '<div class="plant" data-id="' + plant.id + '">' +
     '<div class="plant-head">' +
-      '<div class="plant-icon">' + plant.emoji + '</div>' +
       '<div class="plant-meta">' +
         '<span class="plant-name">' + escapeHtml(plant.name) + '</span>' + sciHtml +
         tagsHtml +
@@ -2723,21 +3081,22 @@ function plantsActiveInMonth(monthIndex) {
 }
 
 function renderCalendarSummary() {
+  // calendar-summary was removed when Plant Calendar merged into the Plants card;
+  // this function is kept for the cal-tab wiring below and is otherwise a no-op.
+  const el = document.getElementById("calendar-summary");
+  if (!el) return;
   const thisMonthCount = plantsActiveInMonth(currentMonth).length;
   const nextMonthIdx = (currentMonth + 1) % 12;
   const nextMonthCount = plantsActiveInMonth(nextMonthIdx).length;
   const nextMonthName = MONTHS[nextMonthIdx];
-  document.getElementById("calendar-summary").textContent =
+  el.textContent =
     thisMonthCount + " plant" + (thisMonthCount === 1 ? "" : "s") + " active this month · " +
     nextMonthCount + " coming in " + nextMonthName;
 }
 
 function renderCalendarLegend() {
   const items = Object.entries(CARE_TYPES).map(([type, cfg]) =>
-    '<span class="cal-legend-item">' +
-      '<span class="cal-legend-dot" style="background:' + CARE_COLORS[type] + ';"></span>' +
-      cfg.label +
-    '</span>'
+    '<span class="tag t-' + type + '">' + cfg.icon + ' ' + cfg.label + '</span>'
   ).join("");
   document.getElementById("cal-legend").innerHTML = items;
 }
@@ -2781,14 +3140,10 @@ function renderTimeline() {
     const tasksHtml = active.length === 0
       ? '<div class="tl-empty">No tasks</div>'
       : '<div class="tl-tasks">' + active.map(({ plant, types }) => {
-          const primary = types[0];
-          const borderColor = CARE_COLORS[primary];
           const actionsHtml = types.map(t =>
-            '<span class="tl-task-action-word" style="color:' + CARE_COLORS[t] + ';">' +
-              escapeHtml(CARE_TYPES[t].label) +
-            '</span>'
+            '<span class="tag t-' + t + '">' + CARE_TYPES[t].icon + ' ' + escapeHtml(CARE_TYPES[t].label) + '</span>'
           ).join("");
-          return '<div class="tl-task" style="border-left-color:' + borderColor + ';">' +
+          return '<div class="tl-task">' +
             '<span class="tl-task-plant">' + escapeHtml(plantShortName(plant)) + '</span>' +
             '<span class="tl-task-actions">' + actionsHtml + '</span>' +
           '</div>';
@@ -2817,7 +3172,7 @@ function renderHeatmap() {
   // Plant rows
   for (const plant of PLANTS_DATA.plants) {
     html += '<div class="hm-plant-row">';
-    html += '<div class="hm-plant-name"><span class="hm-plant-emoji">' + plant.emoji + '</span>' + escapeHtml(plant.name) + '</div>';
+    html += '<div class="hm-plant-name">' + escapeHtml(plant.name) + '</div>';
     for (let m = 0; m < 12; m++) {
       const types = tasksForPlantInMonth(plant, m);
       let cellCls = "hm-cell";
@@ -2825,7 +3180,7 @@ function renderHeatmap() {
       if (m === currentMonth) cellCls += " current-month";
 
       const dots = types.length > 0
-        ? types.map(t => '<span class="hm-dot" style="background:' + CARE_COLORS[t] + ';"></span>').join("")
+        ? types.map(t => '<span class="hm-chip" style="background:' + CARE_COLORS[t] + '18;border:1px solid ' + CARE_COLORS[t] + '55;">' + CARE_TYPES[t].icon + '</span>').join("")
         : '<span class="hm-empty-cell">·</span>';
 
       const labels = types.map(t => CARE_TYPES[t].label).join(", ");
@@ -2841,28 +3196,12 @@ function renderHeatmap() {
   return html;
 }
 
-let currentCalView = "timeline";
-
 function renderCalendarBody() {
   const content = document.getElementById("cal-content");
-  if (currentCalView === "timeline") {
-    content.innerHTML = renderTimeline();
-  } else {
-    content.innerHTML = renderHeatmap();
-  }
+  if (content) content.innerHTML = renderHeatmap();
 }
 
-document.querySelectorAll(".cal-tab").forEach(btn => {
-  btn.addEventListener("click", () => {
-    currentCalView = btn.dataset.calView;
-    document.querySelectorAll(".cal-tab").forEach(b => b.classList.toggle("active", b === btn));
-    renderCalendarBody();
-  });
-});
-
 renderCalendarSummary();
-renderCalendarLegend();
-renderCalendarBody();
 
 
 // =========================
@@ -3699,7 +4038,7 @@ async function fetchClimateNormals() {
     PROPERTY_DATA.climate.monthlyNormals = normals;
     PROPERTY_DATA.climate.era5Source = 'ERA5-Land via Open-Meteo archive API (1991–2020 · 34.5496°N, 84.3674°W)';
 
-    // Update just the climate inner panel — no full card re-render needed
+    // Update the climate inner panel and re-render the rainfall panel now that normals are available
     const inner = document.getElementById('prop-climate-inner');
     if (inner) inner.innerHTML = renderClimateInner(PROPERTY_DATA.climate);
     if (badge) badge.innerHTML = '🟢 ERA5 actual · 1991–2020 · 34.5496°N, 84.3674°W';
@@ -3773,9 +4112,9 @@ function renderBirds() {
   const renderSpeciesCard = (sp) => {
     const isActiveMonth = (sp.monthsPresent || []).includes(mo);
     const badgeCls = sp.status === 'resident' ? 'resident' : sp.status === 'winter' ? 'winter' : 'summer';
-    let card = `<div class="bio-species-row${isActiveMonth ? '' : ''}" id="bio-sp-${sp.id}" onclick="toggleBioSpecies('${sp.id}')">`;
+    const statusBorderCls = 'status-' + (sp.status || 'resident');
+    let card = `<div class="bio-species-row ${statusBorderCls}" id="bio-sp-${sp.id}" onclick="toggleBioSpecies('${sp.id}')">`;
     card += '<div class="bio-species-hdr">';
-    card += `<div class="bio-species-icon">${sp.emoji}</div>`;
     card += '<div class="bio-species-info">';
     card += `<div class="bio-species-name">${escapeHtml(sp.name)}</div>`;
     card += `<div class="bio-species-sci">${escapeHtml(sp.scientificName)}</div>`;
@@ -3830,7 +4169,8 @@ function renderBirds() {
   h += '<div class="bio-data-note">Species data compiled from eBird (Cornell Lab), Georgia Ornithological Society, and Breeding Bird Atlas of Georgia — Pickens County records. Timing adjusted for confirmed 2,959 ft elevation.</div>';
   h += '</div>'; // bio-section
 
-  document.getElementById('birds-content').innerHTML = h;
+  const target = document.getElementById('wildlife-tab-content') || document.getElementById('birds-content');
+  if (target) target.innerHTML = h;
 }
 
 // =========================
@@ -3907,9 +4247,8 @@ function renderAmphibians() {
   // Species render helper
   const renderAmpCard = (sp) => {
     const typeCls = sp.type || 'frog';
-    let card = `<div class="bio-species-row" id="amp-sp-${sp.id}" onclick="toggleAmpSpecies('${sp.id}')">`;
+    let card = `<div class="bio-species-row type-${typeCls}" id="amp-sp-${sp.id}" onclick="toggleAmpSpecies('${sp.id}')">`;
     card += '<div class="bio-species-hdr">';
-    card += `<div class="bio-species-icon">${sp.emoji}</div>`;
     card += '<div class="bio-species-info">';
     card += `<div class="bio-species-name">${escapeHtml(sp.name)}</div>`;
     card += `<div class="bio-species-sci">${escapeHtml(sp.scientificName)}</div>`;
@@ -3956,8 +4295,238 @@ function renderAmphibians() {
   h += '<div class="bio-data-note">Species data compiled from Georgia Reptile Society herp atlas (Pickens County), iNaturalist observations, and Amphibians and Reptiles of Georgia (Jensen et al.). Timing adjusted for 2,959 ft elevation.</div>';
   h += '</div>';
 
-  document.getElementById('amphibians-content').innerHTML = h;
+  const target = document.getElementById('wildlife-tab-content') || document.getElementById('amphibians-content');
+  if (target) target.innerHTML = h;
 }
+
+// =========================
+// DASHBOARD STRIP
+// =========================
+
+function expandCard(id) {
+  const card = document.getElementById(id);
+  if (!card) return;
+  card.classList.add("expanded");
+  setTimeout(() => card.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+}
+
+function renderDashboardStrip() {
+  const cur   = WEATHER_DATA.current;
+  const daily = WEATHER_DATA.daily;
+  const alerts = generateAlerts();
+
+  // Weather cell
+  const wIcon = WEATHER_CODES[cur.weatherCode] || "";
+  const wValEl = document.getElementById("dash-weather-val");
+  const wSubEl = document.getElementById("dash-weather-sub");
+  if (wValEl) wValEl.textContent = cur.temperature + "°F";
+  if (wSubEl) {
+    if (alerts.length > 0) {
+      const worst = alerts.find(a => a.severity === "severe") || alerts[0];
+      const cls = worst.severity === "severe" ? " severe" : "";
+      wSubEl.innerHTML = '<span class="dash-alert-pill' + cls + '">' +
+        alerts.length + " alert" + (alerts.length > 1 ? "s" : "") + "</span><br>" +
+        escapeHtml(worst.title);
+    } else {
+      const todayHigh = daily[0] ? " · H " + daily[0].high + "°" : "";
+      wSubEl.textContent = (wIcon + " " + cur.condition + todayHigh).trim();
+    }
+  }
+
+  // Plants cell
+  const activeTypes = Object.keys(CARE_TYPES).filter(t => plantsNeedingCare(t).length > 0);
+  const pValEl = document.getElementById("dash-plants-val");
+  const pSubEl = document.getElementById("dash-plants-sub");
+  if (pValEl) {
+    if (activeTypes.length === 0) {
+      pValEl.textContent = "All clear";
+      if (pSubEl) pSubEl.innerHTML = '<span class="dash-all-clear">Nothing due in ' + MONTHS[currentMonth] + "</span>";
+    } else {
+      const total = activeTypes.reduce((s, t) => s + plantsNeedingCare(t).length, 0);
+      pValEl.textContent = total + " action" + (total > 1 ? "s" : "") + " due";
+      if (pSubEl) pSubEl.textContent = activeTypes.map(t => CARE_TYPES[t].label).join(" · ");
+    }
+  }
+
+  // Wildlife cell
+  const wldValEl = document.getElementById("dash-wildlife-val");
+  const wldSubEl = document.getElementById("dash-wildlife-sub");
+  if (wldValEl && typeof BIRDS_DATA !== "undefined" && typeof AMPHIBIANS_DATA !== "undefined") {
+    const birdsNow = BIRDS_DATA.species.filter(s => (s.monthsPresent || []).includes(currentMonth)).length;
+    const ampsNow  = AMPHIBIANS_DATA.species.filter(s => (s.monthsActive || []).includes(currentMonth)).length;
+    wldValEl.textContent = birdsNow + " birds · " + ampsNow + " amphibians";
+    const mn = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][currentMonth];
+    const birdCal = BIRDS_DATA.seasonalCalendar && BIRDS_DATA.seasonalCalendar[mn];
+    if (wldSubEl && birdCal && birdCal.watchFor) {
+      const watchStr = birdCal.watchFor.split(".")[0];
+      wldSubEl.textContent = watchStr.length > 60 ? watchStr.slice(0, 57) + "…" : watchStr;
+    }
+  }
+}
+
+// =========================
+// PLANT VIEW TABS
+// =========================
+
+let currentPlantView = "this-month";
+
+function switchPlantView(view) {
+  currentPlantView = view;
+  document.querySelectorAll(".plant-view-tab").forEach(b =>
+    b.classList.toggle("active", b.dataset.plantView === view));
+  document.getElementById("plant-this-month-content").style.display  = view === "this-month" ? "" : "none";
+  document.getElementById("plant-by-species-content").style.display  = view === "by-species" ? "" : "none";
+  document.getElementById("plant-timeline-content").style.display    = view === "timeline"   ? "" : "none";
+  document.getElementById("plant-full-year-content").style.display   = view === "full-year"  ? "" : "none";
+  if (view === "timeline")  document.getElementById("plant-timeline-content").innerHTML = renderTimeline();
+  if (view === "full-year") { renderCalendarBody(); renderCalendarLegend(); }
+}
+
+function togglePlantDetail(id) {
+  const item = document.getElementById(id);
+  if (!item) return;
+  const detail = item.querySelector('.plant-action-detail');
+  const isOpen = detail.style.display !== 'none';
+  detail.style.display = isOpen ? 'none' : '';
+  item.classList.toggle('open', !isOpen);
+}
+
+function buildPlantDetailHtml(plant, type) {
+  const entry = plant.care && plant.care[type];
+  if (!entry) return '';
+  let h = '';
+
+  if (entry.subcategories) {
+    const activeSubs = entry.subcategories.filter(sub => (sub.months || []).includes(currentMonth));
+    activeSubs.forEach(sub => {
+      h += '<div class="plant-detail-sub">';
+      h += '<div class="plant-detail-sub-hdr">';
+      h += '<span class="plant-detail-sub-name c-' + type + '">' + escapeHtml(sub.label) + '</span>';
+      if (sub.narrow) h += '<span class="narrow-badge">⏱ Narrow window</span>';
+      h += '</div>';
+      if (sub.peakWindow) h += '<div class="plant-action-peak">📅 Peak: ' + escapeHtml(sub.peakWindow) + '</div>';
+      if (sub.description) h += '<div class="plant-action-desc">' + escapeHtml(sub.description) + '</div>';
+      h += '</div>';
+    });
+  } else {
+    h += '<div class="plant-detail-sub">';
+    if (entry.narrow || entry.peakWindow) {
+      h += '<div class="plant-detail-sub-hdr">';
+      if (entry.narrow) h += '<span class="narrow-badge">⏱ Narrow window</span> ';
+      h += '</div>';
+    }
+    if (entry.peakWindow) h += '<div class="plant-action-peak">📅 Peak: ' + escapeHtml(entry.peakWindow) + '</div>';
+    if (entry.description) h += '<div class="plant-action-desc">' + escapeHtml(entry.description) + '</div>';
+    h += '</div>';
+  }
+
+  // Append season tip once per plant (only if first care type being shown)
+  return h;
+}
+
+function renderThisMonthPlants() {
+  const activeTypes = Object.keys(CARE_TYPES).filter(t => plantsNeedingCare(t).length > 0);
+  const wrap = document.getElementById("plant-this-month-content");
+  if (!wrap) return;
+
+  if (activeTypes.length === 0) {
+    wrap.innerHTML =
+      '<div class="plant-all-clear">' +
+        '<div class="plant-all-clear-check">✓</div>' +
+        'No actions due in <strong>' + MONTHS[currentMonth] + '</strong>.<br>' +
+        '<span style="font-size:12px;color:#6a8a6a;">Browse By Species or Year View to plan ahead.</span>' +
+      '</div>';
+    return;
+  }
+
+  // Track which plants have already shown their season tip
+  const tipShown = new Set();
+
+  let h = '<div class="plant-this-month-wrap">';
+
+  activeTypes.forEach(type => {
+    const plants = plantsNeedingCare(type);
+    const cfg = CARE_TYPES[type];
+
+    h += '<div class="plant-action-group">';
+    h += '<div class="plant-action-group-hdr">';
+    h += '<span class="tag t-' + type + '">' + cfg.icon + ' ' + cfg.label + '</span>';
+    h += '</div>';
+
+    plants.forEach(plant => {
+      const entry = plant.care && plant.care[type];
+      const itemId = 'tma-' + type + '-' + plant.id;
+
+      // Collapsed summary line: sub-labels or peak window
+      let summaryLine = '';
+      if (entry && entry.subcategories) {
+        const activeSubs = entry.subcategories.filter(s => (s.months || []).includes(currentMonth));
+        summaryLine = activeSubs.map(s => s.label).join(' · ');
+      } else if (entry && entry.peakWindow) {
+        summaryLine = entry.peakWindow.length > 50 ? entry.peakWindow.slice(0, 47) + '…' : entry.peakWindow;
+      }
+
+      // Detail HTML (subcategories + optional season tip)
+      let detailHtml = buildPlantDetailHtml(plant, type);
+      if (plant.currentSeasonNote && !tipShown.has(plant.id)) {
+        detailHtml += '<div class="plant-detail-season-tip">💡 ' + escapeHtml(plant.currentSeasonNote) + '</div>';
+        tipShown.add(plant.id);
+      }
+
+      h += '<div class="plant-action-item" id="' + itemId + '" onclick="togglePlantDetail(\'' + itemId + '\')">';
+      h += '<div class="plant-action-hdr">';
+      h += '<div class="plant-action-left">';
+      h += '<div class="plant-action-name">' + escapeHtml(plant.name) + '</div>';
+      if (summaryLine) h += '<div class="plant-action-summary">' + escapeHtml(summaryLine) + '</div>';
+      h += '</div>';
+      h += '<span class="plant-action-chevron">▼</span>';
+      h += '</div>';
+      h += '<div class="plant-action-detail" style="display:none;">' + detailHtml + '</div>';
+      h += '</div>';
+    });
+
+    h += '</div>'; // .plant-action-group
+  });
+
+  h += '</div>';
+  wrap.innerHTML = h;
+}
+
+// =========================
+// WILDLIFE UNIFIED CARD
+// =========================
+
+let currentWildlifeTab = "birds";
+
+function switchWildlifeTab(tab) {
+  currentWildlifeTab = tab;
+  document.querySelectorAll(".wildlife-tab").forEach(b =>
+    b.classList.toggle("active", b.dataset.wildlifeTab === tab));
+  if (tab === "birds") renderBirds();
+  else renderAmphibians();
+}
+
+function renderWildlifeSummary() {
+  const birdsNow = BIRDS_DATA.species.filter(s => (s.monthsPresent || []).includes(currentMonth));
+  const ampsNow  = AMPHIBIANS_DATA.species.filter(s => (s.monthsActive  || []).includes(currentMonth));
+  const parts = [];
+  const res = birdsNow.filter(s => s.status === "resident").length;
+  const sum = birdsNow.filter(s => s.status === "summer").length;
+  const win = birdsNow.filter(s => s.status === "winter").length;
+  if (res) parts.push(res + " resident" + (res > 1 ? "s" : ""));
+  if (sum) parts.push(sum + " summer visitor" + (sum > 1 ? "s" : ""));
+  if (win) parts.push(win + " winter visitor" + (win > 1 ? "s" : ""));
+  if (ampsNow.length) parts.push(ampsNow.length + " amphibian" + (ampsNow.length > 1 ? "s" : "") + " active");
+  document.getElementById("wildlife-summary").textContent = parts.join(" · ") || "Birds · Amphibians · Pond";
+}
+
+// Wire plant view tabs
+document.getElementById("plant-view-tabs").querySelectorAll(".plant-view-tab").forEach(btn =>
+  btn.addEventListener("click", () => switchPlantView(btn.dataset.plantView)));
+
+// Wire wildlife tabs
+document.querySelectorAll(".wildlife-tab").forEach(btn =>
+  btn.addEventListener("click", () => switchWildlifeTab(btn.dataset.wildlifeTab)));
 
 // =========================
 // INIT
@@ -3967,19 +4536,24 @@ renderWeather();
 renderPlantsSummary();
 renderFilters();
 renderBanner();
+renderThisMonthPlants();
 renderPlantList();
+renderCalendarSummary();
+renderCalendarLegend();
+renderCalendarBody();
 renderFishing();
 renderCelestialSummary();
 renderCelestial();
-renderBirdsSummary();
+renderWildlifeSummary();
 renderBirds();
-renderAmphibiansSummary();
-renderAmphibians();
 renderProperty();
 renderVehiclesSummary();
 renderVehicles();
+renderDashboardStrip();
 fetchLiveWeather();
+fetchAmbientWeather();
 fetchClimateNormals();
+fetchPrecipHistory();
 </script>
 
 </body>
