@@ -7,7 +7,11 @@
     "lastFrost_50pct": "April 30",
     "lastFrost_90pctSafe": "May 21",
     "firstFrost_50pct": "October 20",
-    "soilSeries": ["Hayesville", "Cecil", "Pacolet"],
+    "soilSeries": [
+      "Hayesville",
+      "Cecil",
+      "Pacolet"
+    ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
     "schemaVersion": 3,
     "schemaNotes": "v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~1,750 ft (~280 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.",
@@ -36,7 +40,11 @@
             {
               "id": "structural",
               "label": "Structural pruning",
-              "months": [1, 2, 11],
+              "months": [
+                1,
+                2,
+                11
+              ],
               "peakWindow": "Feb 1–20 before sap surge begins",
               "narrow": false,
               "description": "Late winter (Feb–early Mar) is structural pruning — the tree is dormant, sap flow is minimal, and branch architecture is clearly visible. Cuts heal cleanly before spring growth. December is the secondary window for removing dead, damaged, or crossing branches; cold weather discourages pitch flow and pest entry. Avoid pruning in spring/summer when sap flow is heavy and bark beetles are active — fresh wounds attract them."
@@ -44,7 +52,10 @@
             {
               "id": "candles",
               "label": "Candle pruning",
-              "months": [4, 5],
+              "months": [
+                4,
+                5
+              ],
               "peakWindow": "May 10–25 at ~1,750 ft — candles elongated but needles still tightly furled",
               "narrow": true,
               "description": "Mid-to-late spring (May–early June) when the new candles have elongated but the needles are still tightly furled. Pinch or cut candles by 1/2 to 2/3 of their length to control size and create denser, more compact growth. Use fingers (preferred) or sharp scissors; never cut into woody tissue. At Church Mountain Road elevation (~1,750 ft), candles typically emerge 7–10 days later than in Jasper valley — don't rush it."
@@ -58,13 +69,21 @@
           "description": "White pines are essentially never propagated by home gardeners. They're grown commercially from seed (cones collected in fall, stratified over winter, sown in spring) and the process takes 2+ years to produce a small seedling. Cuttings rarely root. If you want more white pines, buy nursery stock."
         },
         "fertilize": {
-          "months": [2, 3],
+          "months": [
+            2,
+            3
+          ],
           "peakWindow": "Mar 15–Apr 5 before bud break",
           "narrow": false,
           "description": "Early spring (Mar–Apr) before active growth begins. Use a slow-release acidic fertilizer formulated for evergreens. Church Mountain Road soils are naturally acidic and reasonably fertile — established trees in good soil rarely need fertilizing. Only feed if growth is poor or needles are pale. Over-fertilizing causes weak growth that attracts pests."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Critical during the hot dry stretch from June through September, especially for trees under 3 years old or during drought. Deep watering once a week beats daily sprinkles — aim for 1 inch of water reaching the root zone. Church Mountain Road typically receives 60–65 inches of annual rainfall (orographic lift adds 5–15% above valley totals), so established mature pines rarely need supplemental water except in drought years."
@@ -80,7 +99,11 @@
             {
               "id": "pest-weevil",
               "label": "White pine weevil",
-              "months": [3, 4, 5],
+              "months": [
+                3,
+                4,
+                5
+              ],
               "peakWindow": "Apr 20–May 15 at ~1,750 ft — weevil egg-laying window; inspect leaders weekly",
               "narrow": true,
               "description": "Apr–Jun: adult weevils lay eggs in the previous year's terminal leader; larvae kill the leader, causing the classic 'shepherd's crook' wilted top. At Church Mountain Road elevation, adult emergence is roughly 7–10 days later than in the Jasper valley — inspect leaders weekly from late April through mid-May. Prune out any infested terminals immediately, cutting well below the damage and burning or bagging the prunings."
@@ -88,7 +111,10 @@
             {
               "id": "disease-rust",
               "label": "Blister rust",
-              "months": [8, 9],
+              "months": [
+                8,
+                9
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Sep–Oct: white pine blister rust window. Look for orange spore-producing cankers on lower branches and yellow-orange swellings on the bark of trunks and branches. Prune affected branches well below the canker. Currants and gooseberries are alternate hosts — keep them away from white pines."
@@ -109,7 +135,10 @@
       "frostSensitivity": "Hardy to Zone 4–5 depending on species. Flower buds set in summer are frost-sensitive — a hard freeze in early winter can kill flower buds while leaving the plant unharmed, resulting in a bloomless spring. Most native azaleas and southern Encore types handle Church Mountain Road winters without issue. At elevation, extended cold spells in Zone 6b frost pockets can damage marginally-hardy cultivars.",
       "care": {
         "prune": {
-          "months": [4, 5],
+          "months": [
+            4,
+            5
+          ],
           "peakWindow": "May 15–Jun 5 at ~1,750 ft — immediately after last flowers drop",
           "narrow": true,
           "description": "Single tight window: immediately after flowering ends (at Church Mountain Road elevation, typically mid-May to early June, about a week later than valley plants). Azaleas set next year's flower buds in summer on the current year's growth, so pruning anytime after July removes next spring's blooms. Use this window to shape the plant, remove crossing branches, and rejuvenate older stems. Light tip-pruning is fine; heavy renovation should be done in stages over 2–3 years."
@@ -119,7 +148,10 @@
             {
               "id": "cuttings",
               "label": "Softwood cuttings",
-              "months": [5, 6],
+              "months": [
+                5,
+                6
+              ],
               "peakWindow": "Jun 10–Jul 5",
               "narrow": false,
               "description": "Late spring/early summer (Jun–Jul) when new growth has firmed slightly but is still flexible. Take 4–6 inch cuttings, strip lower leaves, dip in rooting hormone, and stick in a peat/perlite mix. Keep humid and shaded; rooting takes 6–10 weeks. Most reliable method for azaleas."
@@ -127,7 +159,12 @@
             {
               "id": "layering",
               "label": "Layering",
-              "months": [3, 4, 8, 9],
+              "months": [
+                3,
+                4,
+                8,
+                9
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Spring or fall: bend a low flexible branch to the ground, wound the underside lightly with a knife, dust with rooting hormone, and pin it down with a U-pin or rock. Cover the wounded section with soil, leaving the tip exposed. Roots typically form in 6–12 months; sever from the parent the following spring or fall."
@@ -135,13 +172,22 @@
           ]
         },
         "fertilize": {
-          "months": [2, 4, 6],
+          "months": [
+            2,
+            4,
+            6
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Three light feedings beat one heavy one. Early spring (Mar) wakes them up; right after bloom (late May at elevation) supports next year's bud set; mid-summer (Jul) keeps them strong through heat. Use an acidic fertilizer (Holly-tone or similar) — Church Mountain Road soils don't need acidification but do benefit from the micronutrients in organic acid fertilizers. Stop fertilizing by August — late feeding pushes tender growth that won't harden before winter."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Shallow roots = consistent moisture is essential. June through September is the danger zone — hot afternoons can wilt them quickly. Mulch heavily with pine straw to keep roots cool. Deep watering once or twice a week rather than light daily watering. Church Mountain Road's orographic rainfall helps, but dry stretches still occur in July–August."
@@ -157,7 +203,12 @@
             {
               "id": "pest-lacebug",
               "label": "Lace bugs",
-              "months": [3, 4, 5, 6],
+              "months": [
+                3,
+                4,
+                5,
+                6
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Apr–Jul: the most common and damaging azalea pest in Georgia. Look for silvery stippling on leaf upper surfaces and black tar-spot droppings on undersides. Easiest to see on plants in too much sun — azaleas on south-facing exposures at Church Mountain Road are most vulnerable. Treat with horticultural oil or insecticidal soap on leaf undersides; multiple applications usually needed."
@@ -165,7 +216,10 @@
             {
               "id": "pest-mites",
               "label": "Spider mites",
-              "months": [6, 7],
+              "months": [
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jul–Aug during hot dry stretches. Fine stippling on leaves, sometimes with webbing. Tap a leaf over white paper — moving specks confirm mites. Hose off undersides forcefully; treat with horticultural oil or miticide if severe."
@@ -173,7 +227,10 @@
             {
               "id": "disease-rootrot",
               "label": "Root rot",
-              "months": [8, 9],
+              "months": [
+                8,
+                9
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Sep–Oct check for phytophthora root rot in any spots that hold water — especially flat areas at Church Mountain Road where the clay Bt argillic subsoil impedes drainage. Yellowing leaves, stunted growth, and branch dieback are warning signs. No good cure — prevention via excellent drainage is everything. Replace lost plants in better-drained spots."
@@ -198,7 +255,10 @@
             {
               "id": "new-wood",
               "label": "New-wood types (panicle, Annabelle)",
-              "months": [1, 2],
+              "months": [
+                1,
+                2
+              ],
               "peakWindow": "Feb 15–Mar 5 before bud break",
               "narrow": false,
               "description": "Late winter (Feb–early Mar) for hydrangeas that bloom on the current season's growth — paniculata (Limelight, etc.) and arborescens (Annabelle, smooth hydrangea). Cut hard — back to a strong framework or even down to 1–2 feet — to promote vigorous flowering stems. The harder you cut, the bigger the flower heads (but fewer of them)."
@@ -206,7 +266,10 @@
             {
               "id": "old-wood",
               "label": "Old-wood types (bigleaf, oakleaf)",
-              "months": [6, 7],
+              "months": [
+                6,
+                7
+              ],
               "peakWindow": "Jul 10–Aug 1 at ~1,750 ft — immediately after last flowers fade",
               "narrow": true,
               "description": "Mid-summer (Jul–Aug) IMMEDIATELY after flowering for hydrangeas that bloom on previous year's growth — macrophylla (bigleaf, mophead, lacecap) and quercifolia (oakleaf). At Church Mountain Road elevation, peak bloom runs about a week later than valley plants, so the pruning window is typically mid-July to early August. Pruning later or in winter removes next year's flower buds. Light shaping only — remove spent flowers, dead wood, and crossing branches."
@@ -218,7 +281,10 @@
             {
               "id": "cuttings",
               "label": "Softwood cuttings",
-              "months": [5, 6],
+              "months": [
+                5,
+                6
+              ],
               "peakWindow": "Jun 15–Jul 10",
               "narrow": false,
               "description": "Jun–Jul: take 4–6 inch tip cuttings from non-flowering stems, strip lower leaves, dip in rooting hormone, stick in moist potting mix. Cover with a clear bag or dome to keep humid. Roots in 3–4 weeks. Hydrangeas are among the easiest shrubs to propagate this way."
@@ -226,7 +292,13 @@
             {
               "id": "layering",
               "label": "Ground layering",
-              "months": [3, 4, 5, 6, 7],
+              "months": [
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "The lazy gardener's method: bend a low branch to the ground, scrape the bark on the underside, pin it to the soil, cover with a thin layer of dirt and a rock to keep it down. Walk away. By the next spring it'll have roots and you can sever it from the parent. Near 100% success rate."
@@ -234,13 +306,21 @@
           ]
         },
         "fertilize": {
-          "months": [3, 5],
+          "months": [
+            3,
+            5
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Early spring (Apr) with a balanced slow-release. A second feeding in early June supports strong blooming. Soil pH controls bigleaf color — at Church Mountain Road's native pH 4.5–5.5, expect blue by default. To push pink, add lime (alkalizes) — an ongoing effort given the naturally acidic soil. White hydrangeas don't change color regardless of pH."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Their name literally means 'water vessel.' June–September is when they wilt dramatically in afternoon heat — usually a temporary water-stress wilt that recovers overnight. Deep weekly watering is much better than daily sprinkles. Mulch heavily. Church Mountain Road's mountain rainfall (60–65 in/yr estimated) helps but doesn't eliminate the need for deep watering during hot dry stretches."
@@ -256,7 +336,11 @@
             {
               "id": "disease-mildew",
               "label": "Powdery mildew",
-              "months": [5, 6, 7],
+              "months": [
+                5,
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jun–Aug humid stretches: white powdery coating on leaves, especially bigleaf types in poor air circulation. Jasper's high summer humidity (70–90% RH) makes this worse than in lowland areas. Mostly cosmetic. Improve air flow by selective pruning, avoid overhead watering, treat with horticultural oil if severe."
@@ -264,7 +348,11 @@
             {
               "id": "pest-aphids",
               "label": "Aphids on new growth",
-              "months": [4, 5, 6],
+              "months": [
+                4,
+                5,
+                6
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "May–Jul: clusters of small green or black insects on tender new growth and flower buds, often with sticky honeydew below. Hose off forcefully, or treat with insecticidal soap if heavy. Ladybugs handle most outbreaks naturally."
@@ -285,7 +373,11 @@
       "frostSensitivity": "Hardy to Zone 5. Flower buds are moderately frost-sensitive — a late freeze in April can brown open blossoms without harming the tree. At ~1,750 ft, the adjusted last frost of Apr 30 means late blooms (typically Apr 5–25 in the valley) may be partially frosted in average years. This is normal cosmetic damage; the tree recovers.",
       "care": {
         "prune": {
-          "months": [11, 0, 1],
+          "months": [
+            11,
+            0,
+            1
+          ],
           "peakWindow": "Dec 15–Feb 15 while fully dormant",
           "narrow": false,
           "description": "Late fall through late winter (Nov–Feb) when fully dormant. Dogwoods 'bleed' heavily if pruned during active sap flow, and open wounds invite the dogwood borer — the most serious dogwood pest in the Southeast. Dormant pruning lets cuts callus over before borer season begins in May at Church Mountain Road elevation. Remove dead, damaged, and crossing branches; never top a dogwood. Light hand only — dogwoods don't need or want heavy pruning."
@@ -295,7 +387,10 @@
             {
               "id": "cuttings",
               "label": "Semi-hardwood cuttings",
-              "months": [5, 6],
+              "months": [
+                5,
+                6
+              ],
               "peakWindow": "Jun 20–Jul 15",
               "narrow": false,
               "description": "Jun–Jul: 4-6 inch semi-hardwood cuttings, hormone, well-drained mix, kept humid. Moderately difficult — expect 30–50% success. Wound the base lightly with a knife to expose more cambium for rooting."
@@ -303,7 +398,10 @@
             {
               "id": "seed",
               "label": "Seed (volunteers)",
-              "months": [9, 10],
+              "months": [
+                9,
+                10
+              ],
               "peakWindow": "Oct 1–Nov 1 berry collection",
               "narrow": false,
               "description": "Easiest method: collect berries in fall when fully ripe (red), clean off pulp, plant directly in a nursery bed where they get cold winter exposure. Germination in spring; seedlings reach plantable size in 2 years. Or just transplant volunteer seedlings from under existing trees — Church Mountain Road likely has naturally seeded volunteers in woodland areas."
@@ -311,13 +409,21 @@
           ]
         },
         "fertilize": {
-          "months": [2, 3],
+          "months": [
+            2,
+            3
+          ],
           "peakWindow": "Mar 15–Apr 5",
           "narrow": false,
           "description": "Light feeding in early spring (Mar–Apr) with an acidic slow-release. Avoid high-nitrogen lawn fertilizers — they push weak growth that attracts borers. Mature dogwoods in good soil on Church Mountain Road rarely need supplemental fertilizer — the naturally acidic Hayesville soil and leaf litter mulch provide a good native nutrient cycle."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Critical Jun–Sep, especially for trees under 5 years old. Dogwoods are notoriously drought-sensitive — chronic drought stress is the #1 reason yard dogwoods decline. Church Mountain Road's mountain rainfall (60–65 in/yr) helps, but mid-summer dry stretches still occur. Deep weekly watering and a generous mulch ring (kept off the trunk) prevents most problems."
@@ -333,7 +439,11 @@
             {
               "id": "disease-anthracnose",
               "label": "Dogwood anthracnose",
-              "months": [3, 4, 5],
+              "months": [
+                3,
+                4,
+                5
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Apr–Jun: most likely in cool wet springs. Look for purple-edged tan leaf spots, lower branch dieback, and water-soaked lesions on twigs. Most serious dogwood disease in the Southeast — can kill trees over several years. Improve air circulation, rake fallen leaves, water at base only. Church Mountain Road's high humidity (70–90% RH in summer) elevates risk. Fungicide treatment is preventive only and rarely worth it on landscape trees."
@@ -341,7 +451,12 @@
             {
               "id": "pest-borer",
               "label": "Dogwood borer",
-              "months": [4, 5, 6, 7],
+              "months": [
+                4,
+                5,
+                6,
+                7
+              ],
               "peakWindow": "May 5–20 at ~1,750 ft — peak adult flight; inspect base of trunk for frass weekly",
               "narrow": true,
               "description": "May–Aug: the #1 dogwood killer. Look for sawdust-like frass at the base of the trunk, peeling or sunken bark, branch dieback, and small holes in the trunk. At Church Mountain Road elevation, adult flight peaks in early-to-mid May (roughly a week later than valley). Borers enter through wounds — keep mulch off the trunk, never weed-whack against the bark, and prune only in winter. Established infestations are very hard to treat; prevention is everything."
@@ -349,7 +464,11 @@
             {
               "id": "disease-mildew",
               "label": "Powdery mildew",
-              "months": [5, 6, 7],
+              "months": [
+                5,
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jun–Aug humid stretches: white powdery coating on leaves. Mostly cosmetic on established trees. Some cultivars (e.g. Cherokee Brave) are mildew-resistant — consider them for replanting on Church Mountain Road."
@@ -374,7 +493,11 @@
             {
               "id": "shearing",
               "label": "Shearing (formal hedge)",
-              "months": [3, 4, 5],
+              "months": [
+                3,
+                4,
+                5
+              ],
               "peakWindow": "Apr 20–May 20 — after first flush partially hardened",
               "narrow": false,
               "description": "Spring through early summer (Apr–Jun) for formal hedges and topiary. Wait until after the first flush of new growth has emerged and partially hardened — at Church Mountain Road elevation, this typically falls late April through May. Use sharp shears for clean cuts. Avoid shearing into late summer or fall — late cuts push tender growth that won't harden before winter."
@@ -382,7 +505,12 @@
             {
               "id": "selective",
               "label": "Selective / cloud pruning",
-              "months": [3, 4, 5, 6],
+              "months": [
+                3,
+                4,
+                5,
+                6
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Apr–Jul: hand-prune individual branches with sharp bypass pruners for a more natural form, better airflow, and blight prevention. Reach inside the plant and remove crossing, dead, and weak interior branches to open up the canopy. Critical for blight resistance — the dense interior of sheared boxwoods stays wet in Jasper's humid summers and breeds disease."
@@ -390,7 +518,12 @@
             {
               "id": "interior-cleaning",
               "label": "Interior cleanout",
-              "months": [10, 11, 0, 1],
+              "months": [
+                10,
+                11,
+                0,
+                1
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Winter (Nov–Feb): reach inside the plant and remove accumulated dead leaves trapped in the interior. These are the primary source of boxwood blight inoculum the following spring. This is not 'pruning' in the traditional sense — it's housekeeping that dramatically reduces disease pressure. Especially important at Church Mountain Road given the high-humidity climate."
@@ -398,19 +531,31 @@
           ]
         },
         "propagate": {
-          "months": [6, 7, 8],
+          "months": [
+            6,
+            7,
+            8
+          ],
           "peakWindow": "Jul 15–Aug 15",
           "narrow": false,
           "description": "Easy from semi-hardwood cuttings in mid-to-late summer (Jul–Sep) when new growth has firmed up. 4-inch cuttings, hormone, peat/perlite mix, kept humid. Rooting takes 6–10 weeks. Boxwoods grown from cuttings retain the parent's exact form and growth rate."
         },
         "fertilize": {
-          "months": [2, 3],
+          "months": [
+            2,
+            3
+          ],
           "peakWindow": "Mar 15–Apr 5",
           "narrow": false,
           "description": "Early spring (Mar–Apr) with a slow-release balanced fertilizer or one formulated for evergreens. Boxwoods are light feeders — over-fertilizing promotes weak growth that's more susceptible to blight and leafminer. Note that Church Mountain Road's native soil pH may need liming before fertilizer is effective — test pH first."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Shallow roots demand consistent moisture Jun–Sep. Mulch heavily with pine bark, kept off the trunk. Watering at the base (not overhead) is critical — wet foliage is how boxwood blight spreads. Church Mountain Road's humidity means even well-drained beds can stay moist, but direct irrigation is still needed during dry stretches."
@@ -426,7 +571,10 @@
             {
               "id": "pest-leafminer",
               "label": "Boxwood leafminer",
-              "months": [3, 4],
+              "months": [
+                3,
+                4
+              ],
               "peakWindow": "Apr 20–May 10 at ~1,750 ft — adult emergence window; narrow window to catch and treat",
               "narrow": true,
               "description": "Apr–May: adults emerge as tiny orange flies and lay eggs in leaves. Larvae feed inside leaves causing blistered, mottled appearance. At Church Mountain Road elevation, adult emergence is typically 7–10 days later than valley plants — watch for the orange flies in late April through early May. Treat with systemic insecticide at adult emergence or prune off heavily infested branches. Timing this correctly is critical; the window is short."
@@ -434,7 +582,11 @@
             {
               "id": "pest-mites",
               "label": "Spider mites",
-              "months": [5, 6, 7],
+              "months": [
+                5,
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jun–Aug hot dry weather: bronze stippling, fine webbing. Hose off forcefully or treat with horticultural oil."
@@ -442,7 +594,12 @@
             {
               "id": "disease-blight",
               "label": "Boxwood blight",
-              "months": [4, 5, 7, 8],
+              "months": [
+                4,
+                5,
+                7,
+                8
+              ],
               "peakWindow": "May 15–Jun 10 at ~1,750 ft — first high-risk humid stretch; inspect every 10 days",
               "narrow": true,
               "description": "May–Jun and Aug–Sep cool humid stretches: dark circular leaf spots, black streaks on stems, rapid defoliation from the bottom up. The existential threat to boxwoods — and Church Mountain Road's 70–90% summer RH makes this a high-priority concern. Clean tools between plants with bleach, remove and bag (don't compost) infected material immediately, never work on wet plants. No effective cure once established. The peak risk window at elevation is mid-May through early June — inspect every 10 days during this stretch."
@@ -467,7 +624,10 @@
             {
               "id": "shaping",
               "label": "Shaping",
-              "months": [5, 6],
+              "months": [
+                5,
+                6
+              ],
               "peakWindow": "Jun 20–Jul 10 at ~1,750 ft — after spring flush hardened, before late-summer bud set",
               "narrow": true,
               "description": "Early-to-mid summer (Jun–Jul) after the spring growth flush has hardened. At Church Mountain Road elevation, this window lands about a week later than valley plants — typically late June through early July. Pruning earlier removes flowers (= no berries this year). Pruning later interferes with bud set for next year's berries. For berry-producing female plants, prune lightly to preserve flowering branches."
@@ -475,7 +635,10 @@
             {
               "id": "renovation",
               "label": "Hard renovation",
-              "months": [1, 2],
+              "months": [
+                1,
+                2
+              ],
               "peakWindow": "Feb 15–Mar 5",
               "narrow": false,
               "description": "Late winter (Feb–early Mar) for severely overgrown hollies that need to be cut hard. Hollies tolerate hard pruning well, even down to bare wood — they regenerate from old wood, which is unusual among broadleaf evergreens. Sacrifices berries for one season but restores shape. Use only when needed; not part of normal annual care."
@@ -483,19 +646,31 @@
           ]
         },
         "propagate": {
-          "months": [6, 7, 8],
+          "months": [
+            6,
+            7,
+            8
+          ],
           "peakWindow": "Jul 15–Sep 1",
           "narrow": false,
           "description": "Semi-hardwood cuttings in mid-to-late summer (Jul–Sep). 4-6 inch cuttings, hormone, well-drained mix. Rooting takes 8–12 weeks. Hollies are dioecious — you'll need both male and female plants for berries, so propagate accordingly. Seed propagation is slow (often 2-year germination) and seedlings have unknown sex until flowering."
         },
         "fertilize": {
-          "months": [2, 4],
+          "months": [
+            2,
+            4
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Two feedings: early spring (Mar) before bud break, and again after flowering (May at elevation) to support berry development. Use an acidic fertilizer formulated for evergreens. Yellow leaves often indicate iron chlorosis from soil pH that's drifted too alkaline — soil test before assuming nutrient deficiency."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Established hollies are quite drought-tolerant, but young plants and any holly trying to set a heavy berry crop need consistent water Jun–Sep. Deep weekly watering during dry stretches."
@@ -511,7 +686,9 @@
             {
               "id": "pest-leafminer",
               "label": "Leaf miner",
-              "months": [4],
+              "months": [
+                4
+              ],
               "peakWindow": "May 1–20",
               "narrow": false,
               "description": "May: squiggly trails or blotches inside leaves. Mostly cosmetic on established hollies. Prune off heavily affected leaves and destroy them; treat with systemic if severe."
@@ -519,7 +696,10 @@
             {
               "id": "pest-scale",
               "label": "Scale insects",
-              "months": [5, 6],
+              "months": [
+                5,
+                6
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jun–Jul: small bumpy growths on stems and leaf undersides; sticky honeydew below the plant; black sooty mold on lower leaves. Treat with horticultural oil during dormancy or systemic insecticide during the active growing season."
@@ -527,7 +707,10 @@
             {
               "id": "pest-mites",
               "label": "Spider mites",
-              "months": [7, 8],
+              "months": [
+                7,
+                8
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Aug–Sep hot dry stretches: bronze stippling, fine webbing on leaf undersides. Hose off forcefully or treat with miticide if severe."
@@ -548,7 +731,10 @@
       "frostSensitivity": "Hardy to Zone 4. Very cold-tolerant at Church Mountain Road elevation. Flower buds are frost-sensitive in spring — a late freeze after bud swell in late April or early May can kill developing flowers without harming the plant. At ~1,750 ft, the May 1–15 window is the critical frost-risk period for buds. Established plants at this elevation are fully winter-hardy.",
       "care": {
         "prune": {
-          "months": [5, 6],
+          "months": [
+            5,
+            6
+          ],
           "peakWindow": "Jun 15–Jul 5 at ~1,750 ft — immediately after last flowers drop",
           "narrow": true,
           "description": "Single window: immediately after flowering ends. At Church Mountain Road elevation, blooms peak in late May–early June, about a week later than valley plants — the pruning window opens in mid-June and closes by early July. Like azaleas, mountain laurel sets next year's buds on summer growth, so pruning later removes next year's flowers. Deadheading spent blooms is the most useful task — it prevents seed formation and channels energy into bud set. Heavy renovation should be done in stages over 2–3 years; mountain laurel is slow to recover from hard cuts."
@@ -558,7 +744,12 @@
             {
               "id": "layering",
               "label": "Layering",
-              "months": [3, 4, 8, 9],
+              "months": [
+                3,
+                4,
+                8,
+                9
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Best home propagation method but slow — 1–2 years for usable roots. Bend a low branch to the ground, wound the underside, dust with rooting hormone, pin and cover with soil. Patience required. Spring or fall are both good start times."
@@ -566,7 +757,10 @@
             {
               "id": "cuttings",
               "label": "Cuttings (low success)",
-              "months": [6, 7],
+              "months": [
+                6,
+                7
+              ],
               "peakWindow": "Jul 10–Aug 5",
               "narrow": false,
               "description": "Jul–Aug semi-hardwood cuttings. Honestly difficult — under 20% success even with bottom heat and mist. Most home gardeners give up after one attempt. If you want more mountain laurel, buy nursery stock or do layering."
@@ -574,13 +768,21 @@
           ]
         },
         "fertilize": {
-          "months": [2, 4],
+          "months": [
+            2,
+            4
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Light hand. Early spring (Mar) and after flowering (late June at elevation) with an acidic fertilizer. Mountain laurel evolved on lean rocky mountain soils — Church Mountain Road's native soil actually mimics its natural conditions. Over-fertilizing causes more harm than under-fertilizing. If your plant is established in good acidic soil with leaf litter mulch, it may need no supplemental feeding at all."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Surprisingly drought-tolerant once established, but they hate wet feet. Apr–Jul is the most critical window — they're flowering and setting next year's buds. Deep occasional watering beats frequent shallow watering. Avoid overhead watering — wet foliage promotes leaf spot diseases. Church Mountain Road's orographic rainfall (estimated 60–65 in/yr) means established plants rarely need irrigation except in drought years."
@@ -596,7 +798,11 @@
             {
               "id": "disease-leafspot",
               "label": "Leaf spot",
-              "months": [3, 4, 5],
+              "months": [
+                3,
+                4,
+                5
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Apr–Jun in cool wet springs: brown or purple spots on leaves. Usually cosmetic. Improve air circulation, avoid overhead watering, rake fallen leaves. Church Mountain Road's cool spring temperatures and high humidity make this more common than at lower elevations."
@@ -604,7 +810,10 @@
             {
               "id": "pest-lacebug",
               "label": "Lace bugs",
-              "months": [5, 6],
+              "months": [
+                5,
+                6
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jun–Jul: silvery stippling on upper leaf surfaces, similar to azalea damage. Look for the bugs themselves on undersides. More common on plants in too much sun — another reason to site mountain laurel in shaded woodland positions. Treat with insecticidal soap or horticultural oil."
@@ -612,7 +821,10 @@
             {
               "id": "disease-rootrot",
               "label": "Root rot (phytophthora)",
-              "months": [6, 7],
+              "months": [
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jul–Aug: any wilting that doesn't recover overnight is typically phytophthora root rot. Often fatal and caused by poor drainage. At Church Mountain Road, any plant placed in a flat area with clay Bt subsoil is at risk. Improve drainage if possible; replace lost plants in better-drained spots — a well-drained mid-slope position at Church Mountain Road will almost never see this disease."
@@ -637,7 +849,10 @@
             {
               "id": "structural",
               "label": "Structural pruning",
-              "months": [0, 1],
+              "months": [
+                0,
+                1
+              ],
               "peakWindow": "Jan 15–Feb 10 before sap surge — hard cutoff at mid-February",
               "narrow": true,
               "description": "Late winter (Jan–Feb) while fully dormant — branch architecture is visible and sap flow is minimal. Remove dead, damaged, crossing, and inward-growing branches. Establish the long-term framework. CRITICAL cutoff: stop by mid-February. Pruning in early spring (Mar–Apr) hits peak sap flow; cuts will bleed heavily and may not heal cleanly. At Church Mountain Road elevation bud break occurs slightly later than the valley, giving you a small extended window — but mid-February remains the safe cutoff."
@@ -645,7 +860,10 @@
             {
               "id": "refinement",
               "label": "Summer refinement",
-              "months": [6, 7],
+              "months": [
+                6,
+                7
+              ],
               "peakWindow": "Jul 15–Aug 10 at ~1,750 ft — sap at seasonal low",
               "narrow": false,
               "description": "Mid-to-late summer (Jul–Aug) sap flow has slowed. Best window for refinement work — thinning the canopy for light penetration, removing water sprouts, improving silhouette. Cuts heal quickly. You can see the full leaf canopy and shape it precisely. At Church Mountain Road, Jul 15–Aug 10 is ideal. Never prune in fall — wounds invite winter dieback."
@@ -659,19 +877,29 @@
           "description": "Most cultivars (named varieties like 'Bloodgood' or any laceleaf type) are grafted onto seedling rootstock and won't come true from cuttings or seed — propagation is for specialists. Species Acer palmatum can be grown from seed (collect samaras in fall, cold-stratify, sow in spring), but seedlings are highly variable. If you want more of a specific cultivar, it's nursery stock only."
         },
         "fertilize": {
-          "months": [2, 3],
+          "months": [
+            2,
+            3
+          ],
           "peakWindow": "Mar 15–Apr 5",
           "narrow": false,
           "description": "Early spring (Mar–Apr) with a slow-release acidic fertilizer, light hand. Japanese maples are slow growers and over-fertilizing produces weak floppy growth. Most established trees in Church Mountain Road's naturally acidic organic-matter-rich soil need little or no fertilizer — yellow or pale leaves usually indicate pH issues, not nutrient deficiency. Test soil pH before fertilizing."
         },
         "water": {
-          "months": [5, 6, 7, 8],
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
           "peakWindow": null,
           "narrow": false,
           "description": "Shallow-rooted and very drought-sensitive. Jun–Sep is critical, especially during hot dry stretches. Afternoon shade is more important than supplemental water — direct hot afternoon sun causes leaf scorch even in well-watered trees, especially for laceleaf varieties. Site these on east-facing slopes at Church Mountain Road where natural afternoon shade is available. Deep mulch and consistent moisture prevent most problems."
         },
         "repot": {
-          "months": [1],
+          "months": [
+            1
+          ],
           "peakWindow": "Feb 10–28 before bud break",
           "narrow": false,
           "description": "Container Japanese maples should be repotted every 2–3 years in late winter (Feb), with light root pruning to maintain scale."
@@ -681,7 +909,10 @@
             {
               "id": "pest-aphids",
               "label": "Aphids",
-              "months": [3, 4],
+              "months": [
+                3,
+                4
+              ],
               "peakWindow": "Apr 15–May 10 at ~1,750 ft — peak aphid flush on new growth",
               "narrow": false,
               "description": "Apr–May on tender new growth: clusters of green or black insects, sticky honeydew below. At Church Mountain Road elevation, the peak flush of tender new growth occurs about a week later than valley plants. Hose off forcefully; insecticidal soap if heavy. Ladybugs and parasitic wasps handle most infestations naturally — avoid broad-spectrum pesticides that kill beneficial insects."
@@ -689,7 +920,11 @@
             {
               "id": "stress-scorch",
               "label": "Leaf scorch (heat/sun)",
-              "months": [5, 6, 7],
+              "months": [
+                5,
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jun–Aug: browning leaf margins from sun and heat stress, especially in trees with too much afternoon exposure. Worst on laceleaf varieties. Mostly cosmetic — won't kill the tree but indicates a siting problem. Increase mulch, ensure consistent water, consider transplanting to a more shaded east-facing position in fall."
@@ -697,10 +932,478 @@
             {
               "id": "disease-verticillium",
               "label": "Verticillium wilt",
-              "months": [5, 6, 7],
+              "months": [
+                5,
+                6,
+                7
+              ],
               "peakWindow": null,
               "narrow": false,
               "description": "Jun–Aug: sudden branch dieback, dark streaks visible in cut wood. Often fatal — soil-borne fungus, no cure. Remove affected branches well below symptoms; sterilize tools. If the whole tree dies, don't replant another Japanese maple in the same spot — the fungus persists in soil for many years."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "pyracomeles-berry-box",
+      "name": "Pyracomeles (Berry Box)",
+      "scientificName": "×Pyracomeles 'NCXP1' (Berry Box®, USPP35913)",
+      "emoji": "🌳",
+      "guide": "Berry Box® is a compact intergeneric evergreen — a hybrid of pyracantha and osteomeles bred for fine boxwood-like foliage, white spring flowers, and red berries that hold from fall through winter. Stays naturally tight at 2–3 ft tall and wide with no shearing required. Tolerant of full sun to part shade and most well-drained soils. Drought-tolerant once established. Low maintenance — much of the appeal is that it gives the boxwood look without boxwood blight risk.",
+      "currentSeasonNote": "Early May: white flower clusters peak now or just finished. Once bloom is over, light shaping is fine. Watch for aphids on new growth — soft spring tips are their favorite landing zone.",
+      "soilNotes": "Tolerant of Hayesville/Cecil/Pacolet soils as long as drainage is good. Slightly acidic to neutral pH (5.5–7.0) preferred. The clay Bt subsoil at Church Mountain Road is fine for Pyracomeles — it has deeper roots than boxwood and handles transitional drainage. Avoid permanently wet low spots.",
+      "aspectPreference": "Full sun to light shade. South, east, and west exposures all work. North-facing positions reduce flower and berry display by 30–50%. Best berry production on south or east-facing slopes with morning-to-midday sun.",
+      "frostSensitivity": "Hardy USDA Zone 6–9. Solidly within range at Church Mountain Road's elevation-adjusted Zone 6b. No winter protection needed for established plants. Late frosts (post-May 10) can damage open flowers but rarely hurt the plant itself.",
+      "care": {
+        "prune": {
+          "months": [
+            4,
+            5
+          ],
+          "peakWindow": "May 15–June 5 — once spring flowers finish, before berries set",
+          "narrow": false,
+          "description": "Light shaping after flowering. Tip-prune any stray shoots; never shear the way you would a boxwood — Berry Box has a naturally rounded form and shearing creates twiggy interior dead zones. Avoid pruning after July: that removes the developing berries which are the best feature of the plant. If hard renewal is needed (rare), do it in late winter (Feb)."
+        },
+        "propagate": {
+          "months": [
+            7,
+            8
+          ],
+          "peakWindow": "Aug 1–20 — semi-hardwood stage",
+          "narrow": false,
+          "description": "Berry Box is patented (USPP35913) — propagation for sale is prohibited. For personal use, semi-hardwood cuttings in late summer root reasonably well in 50/50 perlite and peat with bottom heat. Most home gardeners simply buy additional plants from the nursery."
+        },
+        "fertilize": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Mar 15–Apr 5 before bud break",
+          "narrow": false,
+          "description": "Early spring with a balanced slow-release fertilizer (e.g. Espoma Plant-tone 5-3-3). Acidic soil amendments not required. Established plants in good soil rarely need more than a single spring feed. Over-fertilizing produces lush growth at the expense of berry display."
+        },
+        "water": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Weekly deep watering for the first two summers after planting (May–Sep). Established plants are drought-tolerant and rarely need supplemental water at Church Mountain Road's 60–65 in/yr rainfall. During extended summer drought, water deeply once every 10–14 days."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape shrub, not a container plant."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "aphids-spring",
+              "label": "Spring aphids",
+              "months": [
+                3,
+                4,
+                5
+              ],
+              "peakWindow": "Apr 15–May 20 on new growth",
+              "narrow": false,
+              "description": "Look for clusters of small green or black aphids on new shoot tips. Strong jet of water knocks most populations off. Severe infestations: insecticidal soap or neem in early evening. Avoid systemic neonicotinoids — they kill pollinators visiting the flowers."
+            },
+            {
+              "id": "spider-mites-summer",
+              "label": "Spider mites",
+              "months": [
+                6,
+                7,
+                8
+              ],
+              "peakWindow": "Jul 10–Aug 20 in dry hot stretches",
+              "narrow": false,
+              "description": "Hot dry July–August conditions favor spider mites. Symptoms: stippled yellowish foliage and fine webbing on undersides of leaves. Hose down foliage every few days during hot dry weeks to suppress populations. Severe cases: horticultural oil spray in cool morning."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "deutzia-yuki-cherry-blossom",
+      "name": "Yuki Cherry Blossom Deutzia",
+      "scientificName": "Deutzia 'NCDX2' (Yuki Cherry Blossom®)",
+      "emoji": "🌸",
+      "guide": "A petite spreading deutzia bred for compact (12–24 inch) habit and abundant pink spring flowers. Excellent for borders, edges of beds, and ground-cover-style massing. Burgundy fall foliage. Easy to grow in average soils. Deer browse occasionally — usually skipped if other choices are available.",
+      "currentSeasonNote": "Early May: peak bloom or just finishing at Church Mountain Road's elevation. Wait until bloom completely finishes before any pruning — deutzias bloom on previous-year wood, so summer or fall pruning sacrifices next spring's flowers.",
+      "soilNotes": "Tolerant of Hayesville/Cecil/Pacolet soils. Prefers slightly acidic (5.5–6.5), moist, well-drained loam. The native pH range at Church Mountain Road is ideal. Mulch 2 inches with shredded hardwood or pine straw to keep roots cool through summer. Heavy clay at the Bt subsoil layer is acceptable as long as the surface drains.",
+      "aspectPreference": "Best in 4–6 hours of sun (part to full sun). South-east and east-facing slopes are ideal — morning sun with afternoon shade keeps the pink flowers from fading prematurely. Full afternoon sun in west/south positions works but bloom color may pale.",
+      "frostSensitivity": "Hardy USDA Zone 5–8 (down to −20°F). Solid for Church Mountain Road. New growth emerging in April–May is frost-sensitive — a hard late-April freeze can blacken the leaf tips. Plant recovers fully; no intervention needed.",
+      "care": {
+        "prune": {
+          "months": [
+            4,
+            5
+          ],
+          "peakWindow": "May 20–June 10 — directly after bloom finishes",
+          "narrow": true,
+          "description": "Critical timing: Yuki Cherry Blossom blooms on previous-year wood. Prune ONLY after flowers have completely finished, before mid-June. Light renewal — remove the oldest 1/3 of stems at the base every 2–3 years to keep the plant vigorous. Any pruning after July removes next spring's flower buds. The plant 'seldom needs pruning' per Proven Winners — it stays naturally compact."
+        },
+        "propagate": {
+          "months": [
+            5,
+            6
+          ],
+          "peakWindow": "Jun 1–20 — softwood cuttings",
+          "narrow": false,
+          "description": "Patented cultivar (Deutzia 'NCDX2') — commercial propagation prohibited. For personal use: softwood cuttings in early summer root readily in moist perlite-peat mix under intermittent mist. Most gardeners simply purchase additional plants for additional plantings."
+        },
+        "fertilize": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Mar 15–Apr 5 before bud break",
+          "narrow": false,
+          "description": "Early spring with a balanced slow-release fertilizer (Espoma Plant-tone or similar). Established plants in good soil rarely need more than annual feeding. Skip if growth is already vigorous — over-fertilizing produces lush foliage at the expense of next year's flowers."
+        },
+        "water": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Weekly during the first two summers after planting. Established plants are moderately drought-tolerant but appreciate a deep weekly soak during July–August dry spells. The shallow root system benefits from consistent moisture and 2-inch mulch."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape shrub. Could be grown in large containers but not typical."
+        },
+        "inspect": {
+          "months": [
+            4,
+            5,
+            6
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Generally pest- and disease-free. Watch new spring growth for occasional aphid clusters; hose off if found. Deer browse occasionally — Proven Winners rates deer resistance as 'low,' meaning deer may sample but typically don't decimate. If deer pressure is heavy, repellent spray in early spring helps establish 'avoid' association."
+        }
+      }
+    },
+    {
+      "id": "clematis",
+      "name": "Clematis (large-flowered hybrid)",
+      "scientificName": "Clematis sp. (Group 2 — likely 'Nelly Moser' or 'Dr. Ruppel')",
+      "emoji": "🌺",
+      "guide": "A vining perennial that climbs by twisting leaf petioles around any thin support — wire, twine, branches. Pink-and-magenta bicolor flowers with a darker bar down each tepal. Group 2 clematis bloom twice: once in late May–June on previous year's wood, then a smaller second flush in August on new wood. The classic gardener's wisdom: 'cool feet, warm head' — keep the roots shaded and cool with mulch or low plantings, let the vine itself climb into sun.",
+      "currentSeasonNote": "Early May: vines should be actively growing and approaching bloom. First flowers typically open mid- to late-May at Church Mountain Road's elevation. If buds look swollen, peak bloom is 1–2 weeks out. Now is a fine time to apply mulch and check that the support trellis is firmly anchored before flower weight piles on.",
+      "soilNotes": "Prefers neutral to slightly alkaline soil (pH 6.5–7.5). Church Mountain Road's native acidic Hayesville soils are below that range — top-dress with a small handful of garden lime around the base each spring (no more than 1 cup per plant). Heavy mulch (3 inches) over the root zone is essential to keep roots cool. Avoid letting bark or organic mulch touch the stem directly — leave a 2-inch gap.",
+      "aspectPreference": "Vine in full to part sun (6+ hours). Roots in shade. The east-facing deck cable-rail trellis location is excellent — morning sun for blooms, afternoon shade for the soil. Avoid hot south or west positions where roots overheat.",
+      "frostSensitivity": "Hardy USDA Zone 4–9. Solid for Church Mountain Road. The vine dies back partially in winter but the woody base survives. Late spring frosts can blacken emerging shoots; the plant pushes new growth from lower nodes within a few weeks.",
+      "care": {
+        "prune": {
+          "subcategories": [
+            {
+              "id": "group2-spring",
+              "label": "Light spring pruning (Group 2)",
+              "months": [
+                1,
+                2
+              ],
+              "peakWindow": "Feb 20–Mar 10 before bud swell",
+              "narrow": false,
+              "description": "Group 2 clematis (large-flowered, twice-blooming hybrids like 'Nelly Moser' / 'Dr. Ruppel') need only LIGHT pruning. Late winter, before bud swell: remove dead and weak stems at the base; shorten remaining stems back to the strongest pair of fat green buds. Don't cut hard to the ground — that sacrifices the May–June bloom which comes from old wood."
+            },
+            {
+              "id": "deadhead-summer",
+              "label": "Deadhead after first bloom",
+              "months": [
+                5,
+                6
+              ],
+              "peakWindow": "Jun 15–Jul 5 — when first flush finishes",
+              "narrow": false,
+              "description": "After the May–June bloom finishes, snip off spent flowers down to the next strong leaf pair. This encourages the August second flush on new wood. Optional but improves the secondary display."
+            }
+          ]
+        },
+        "propagate": {
+          "months": [
+            4,
+            5,
+            6
+          ],
+          "peakWindow": "May 25–Jun 20 — soft layering or stem cuttings",
+          "narrow": false,
+          "description": "Easy to propagate by ground layering: in late spring, bend a low pliable stem to the soil, nick the underside, pin it down with a u-shaped wire, and cover with 2 inches of soil. By the following spring it will have rooted; sever and transplant. Stem cuttings (2-node sections) in early summer also work in moist perlite under shade."
+        },
+        "fertilize": {
+          "subcategories": [
+            {
+              "id": "spring-feed",
+              "label": "Spring feed",
+              "months": [
+                2,
+                3
+              ],
+              "peakWindow": "Mar 15–Apr 5",
+              "narrow": false,
+              "description": "Balanced slow-release fertilizer in early spring (e.g. Espoma Tomato-tone or Plant-tone). Top-dress with composted manure or finished compost around the root zone."
+            },
+            {
+              "id": "summer-feed",
+              "label": "After first bloom",
+              "months": [
+                5,
+                6
+              ],
+              "peakWindow": "Jun 15–Jul 5",
+              "narrow": false,
+              "description": "Light second feeding after the May–June bloom finishes — supports the August re-bloom. Liquid feed (kelp, fish emulsion) applied at half strength is gentler than another granular dose."
+            }
+          ]
+        },
+        "water": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Deep weekly water during the growing season. Clematis is shallow-rooted (top 12 inches) and sensitive to drought stress — a wilted vine in mid-summer often loses its second bloom flush. Water at the base; avoid wetting foliage in the evening to reduce powdery mildew risk."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable for in-ground plantings. Container clematis (rare) would refresh top-third of soil annually in early spring."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "clematis-wilt",
+              "label": "Clematis wilt",
+              "months": [
+                4,
+                5,
+                6
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Sudden collapse of one or more stems mid-spring is the classic clematis wilt — a fungal infection (Phoma clematidina) that enters at soil level. Cut affected stems all the way to the ground and dispose (don't compost). The crown almost always survives and re-sprouts from below ground. Mature plants outgrow susceptibility; younger plants are most at risk."
+            },
+            {
+              "id": "powdery-mildew",
+              "label": "Powdery mildew",
+              "months": [
+                6,
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Whitish powder on leaves in humid summer weather. Improve air circulation around the trellis. Avoid overhead watering. Severe cases: a milk-water spray (1:9) or potassium bicarbonate fungicide. Cosmetic, rarely fatal."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hosta",
+      "name": "Hosta (mixed cultivars)",
+      "scientificName": "Hosta sp. (multiple cultivars in the bed)",
+      "emoji": "🌿",
+      "guide": "Foliage perennial of the shade garden. Dies completely to ground each winter; emerges as tightly furled spear-shaped 'pips' in late April–May at this elevation. Once unfurled, the leaves stay until first frost. Lavender or white late-summer flower scapes. Multiple cultivars in this bed — blue-grey corrugated heart-leaf type (likely H. sieboldiana family), white-margined variegated forms (Patriot/Francee family), and chartreuse types (Sum and Substance family). All share the same care.",
+      "currentSeasonNote": "Early May: pips have emerged and leaves are unfurling. This is the prime window for slug-baiting BEFORE serious damage starts — by the time leaves are fully open, slugs have already found them. Apply iron-phosphate slug bait (Sluggo or Escar-Go, pet-safe) around the base now.",
+      "soilNotes": "Prefers moist, fertile, well-drained loam with high organic matter. Hayesville/Cecil/Pacolet native soils benefit from annual compost top-dressing. Slightly acidic (5.5–6.5) is ideal. Tolerant of clay if surface drainage is decent. The stone-walled bed location is excellent — the wall provides cool root run and the bed accumulates organic matter from leaf litter.",
+      "aspectPreference": "Shade to morning sun. East and north-facing positions are ideal at Church Mountain Road. Blue-leaf cultivars retain their waxy bloom best in full shade — direct sun causes them to fade to dusty green. Variegated forms tolerate more sun but burn at edges in afternoon heat. Chartreuse forms color best with 2–4 hours of dappled sun.",
+      "frostSensitivity": "Hardy USDA Zone 3–9. Bulletproof for Church Mountain Road. Late frosts AFTER pips emerge can blacken the new leaves — a hard freeze post-May 10 can damage the season's display. If a late frost is forecast, drape with old sheets or upturned buckets overnight; remove in the morning.",
+      "care": {
+        "prune": {
+          "months": [
+            10,
+            11,
+            0,
+            1
+          ],
+          "peakWindow": "Nov 1–20 after first hard frost flattens the foliage",
+          "narrow": false,
+          "description": "Cut back blackened foliage after the first hard frost (typically late October–early November at this elevation). Or wait until early spring before pips emerge (Feb–early March). Composting the spent leaves is fine if no slug eggs are visible underneath. Some gardeners leave the foliage as winter cover for the crowns; either approach works."
+        },
+        "propagate": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Mar 20–Apr 10 — before pips fully emerge",
+          "narrow": true,
+          "description": "Divide every 4–5 years in EARLY spring, before the leaves unfurl — once leaves are open, division causes a season of stress. Lift the entire clump with a fork; separate by hand or with a sharp spade into chunks each carrying 2–3 pips and a section of root. Replant immediately, water in. Narrow window — don't rush past it."
+        },
+        "fertilize": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Apr 1–25 at emergence",
+          "narrow": false,
+          "description": "Light feeding at emergence with a balanced slow-release fertilizer (10-10-10 or Plant-tone). Top-dress with 1 inch of compost around (not on) the crown. Hostas are not heavy feeders — over-fertilizing produces floppy leaves susceptible to wind tear."
+        },
+        "water": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Deep weekly water through the growing season — hostas wilt visibly when dry and recover slowly. Apply 2–3 inches of mulch (shredded hardwood or pine straw) to retain moisture. The stone-walled bed will dry faster than open ground; check more frequently during July–August dry spells."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable for in-ground plantings. Container hostas (sometimes used for accent) would refresh soil and divide every 2–3 years in early spring."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "slugs",
+              "label": "Slug damage",
+              "months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "peakWindow": "May 1–Jun 30 — emerging leaves are slug magnets",
+              "narrow": false,
+              "description": "The single biggest hosta problem at Church Mountain Road's humid climate. Symptoms: irregular holes chewed in the leaves, especially overnight. Bait with iron-phosphate pellets (Sluggo, Escar-Go) at emergence and re-apply after each heavy rain. Beer traps work but need refilling. Avoid thick mulch right against the crown — it shelters slugs."
+            },
+            {
+              "id": "deer",
+              "label": "Deer browsing",
+              "months": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Hostas are notorious deer candy. At Church Mountain Road, deer pressure is significant. Repellent spray (Liquid Fence or homemade egg-and-garlic) every 2–3 weeks during the growing season is the most reliable defense. Physical fencing or cages around prized cultivars in heavy-pressure years."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "iris-pond",
+      "name": "Pond Iris (Blue Flag)",
+      "scientificName": "Iris virginica or I. versicolor (Southern or Northern Blue Flag)",
+      "emoji": "💜",
+      "guide": "Native or near-native wetland iris growing in shallow water at the pond edge. Strap-like sword-shaped foliage emerges from rhizomes anchored in mud. Deep purple/violet falls and standards with a yellow-and-white signal patch. Spreads gradually by rhizome extension — clumps double in size every 3–5 years. Very low maintenance once established; the pond does most of the work.",
+      "currentSeasonNote": "Early May: bloom stalks emerging or about to. Peak bloom typically May 20–June 10 at Church Mountain Road's elevation. Now is a fine time to thin out any decaying winter foliage from the previous year that's still in the water — it adds organic load as it breaks down.",
+      "soilNotes": "Lives in pond mud and shallow water (0–4 inches over the rhizome). The pond's accumulated organic sediment provides all nutrition needed. No amendment required. Tolerant of seasonal water-level fluctuation as long as the rhizome stays consistently moist.",
+      "aspectPreference": "Full sun for best bloom. Tolerates light shade but flower count drops 30–50%. The pond location with open sky exposure is ideal. North-bank plantings get more sun (south-facing aspect into the pond); south-bank plantings get less.",
+      "frostSensitivity": "Hardy USDA Zone 3–9. Bulletproof. Native species; built for North Georgia winters. Foliage dies back to the rhizome after first hard frost; new shoots emerge in April.",
+      "care": {
+        "prune": {
+          "subcategories": [
+            {
+              "id": "deadhead",
+              "label": "Remove spent bloom stalks",
+              "months": [
+                5,
+                6
+              ],
+              "peakWindow": "Jun 5–25 after flowering finishes",
+              "narrow": false,
+              "description": "Snip spent flower stalks at the base after each bloom. Prevents seed-pod formation, which redirects energy back to the rhizome. Especially important in pond settings where mass seeding can crowd the planting."
+            },
+            {
+              "id": "fall-cleanup",
+              "label": "Cut back foliage in late fall",
+              "months": [
+                10,
+                11
+              ],
+              "peakWindow": "After first hard frost flattens leaves",
+              "narrow": false,
+              "description": "Cut foliage to about 6 inches above the water surface after frost has killed back the leaves. Removing the dead foliage from the water reduces decomposition load on the pond and limits overwintering iris borer eggs (their preferred winter habitat is in old leaf debris)."
+            }
+          ]
+        },
+        "propagate": {
+          "months": [
+            7,
+            8
+          ],
+          "peakWindow": "Aug 10–Sep 5 — post-bloom, before fall dormancy",
+          "narrow": false,
+          "description": "Divide rhizomes every 3–5 years to prevent overcrowding. Lift the clump with a fork (or pull from the mud), wash off muck to expose the rhizome network, cut into sections each with a healthy fan of leaves and several inches of root. Replant immediately at the same depth as before — rhizome top barely covered, leaf bases above water. August–early September timing avoids stressing during peak summer heat and gives roots time to re-establish before winter."
+        },
+        "fertilize": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Light feeding only. Pond iris in established ponds rarely need fertilizer — the pond's organic load supplies plenty. If bloom is poor, slow-release aquatic fertilizer tablets (e.g. Pondtabbs) pushed into the mud around the rhizome in early spring help. Excessive fertilizer causes lush leaves at the expense of bloom and can drive pond algae blooms."
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — lives in the pond. No supplemental irrigation needed."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable for pond-edge plantings. Container-grown specimens (rare for Blue Flag) would refresh aquatic potting mix every 2–3 years in early spring."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "iris-borer",
+              "label": "Iris borer",
+              "months": [
+                4,
+                5,
+                6
+              ],
+              "peakWindow": "May 10–Jun 15 — larvae feed inside leaf bases",
+              "narrow": true,
+              "description": "The most serious iris pest. Adult moths lay eggs on dead foliage in fall; larvae hatch in spring and tunnel down through new leaves into the rhizome where they cause soft rot. Symptoms: water-soaked or 'bleeding' streaks on leaves; ragged chewed leaf edges; foul-smelling rhizomes. Control: remove and destroy ALL old foliage in late fall (eliminates overwintering eggs). If borers found in spring, squash them inside the leaf channel or remove the affected fan entirely. Iron-phosphate slug bait near the base in early spring can disrupt hatching. Severe infestations may require dividing and replanting only clean rhizome sections."
+            },
+            {
+              "id": "leaf-spot",
+              "label": "Bacterial leaf spot",
+              "months": [
+                6,
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Brown or yellow spots on leaves during humid summer weather. Cosmetic only — rarely affects rhizome health. Improve air circulation by thinning crowded clumps. Severe: copper-based fungicide if needed."
             }
           ]
         }

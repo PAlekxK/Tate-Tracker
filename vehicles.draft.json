@@ -1,0 +1,480 @@
+{
+  "_meta": {
+    "schemaVersion": 3,
+    "status": "DRAFT — full v3 staging. Maintenance blocks backfilled for all carried-over v2 items. Two Homelite items still TBD (waiting on photos).",
+    "changesFromV2": [
+      "Added 'group' field per item: 'vehicle' or 'equipment' (UI can render as two collapsibles).",
+      "Added 'maintenance' block per item — designed for at-a-store reference: fuel, oil, sparkPlug, filters, consumables.",
+      "Confidence convention: each maintenance value tagged 'verified' (manufacturer spec / OEM doc / on-unit sticker), 'inferred' (typical for product line — double-check before ordering), or 'tbd'."
+    ]
+  },
+  "items": [
+    {
+      "id": "gti-2016",
+      "group": "vehicle",
+      "name": "2016 VW GTI",
+      "trim": "MK7 Autobahn",
+      "emoji": "🚗",
+      "engine": "EA888 Gen 3 2.0T, APR Stage 1 tuned",
+      "category": "daily-driver",
+      "status": "Active — coolant leak diagnosis ongoing",
+      "specs": {
+        "displacement": "1,984 cc turbocharged inline-4",
+        "power": "~230 hp (APR Stage 1 tune)",
+        "transmission": "6-speed DSG (DQ250)",
+        "drivetrain": "FWD"
+      },
+      "maintenance": {
+        "fuel": { "value": "91+ octane premium unleaded REQUIRED (APR Stage 1 needs 91-93 octane). Top Tier preferred.", "confidence": "verified" },
+        "oil": { "value": "5W-40 meeting VW 502.00 spec (e.g. Liqui Moly Top Tec 4200, Castrol Edge Pro). Capacity 5.3 qt (5L) with filter.", "confidence": "verified" },
+        "oilFilter": { "value": "VW OEM cartridge — 06L 115 562 / 06L 115 562 B (EA888 Gen 3)", "confidence": "verified" },
+        "airFilter": { "value": "VW OEM 5Q0 129 620 B", "confidence": "verified" },
+        "cabinFilter": { "value": "VW OEM 5Q0 819 644 A (combination filter w/ activated carbon)", "confidence": "verified" },
+        "sparkPlugs": { "value": "NGK PFR7S8EG — gap 0.028\" (factory; tuned cars sometimes drop to 0.024–0.026\"). Replace every 40k mi on Stage 1.", "confidence": "verified" },
+        "coolant": { "value": "VW G13 (pink) — never mix with G11 or G12. Active leak under diagnosis: check thermostat housing + expansion tank cap first.", "confidence": "verified" },
+        "brakeFluid": { "value": "DOT 4 LV (VW G 060 157)", "confidence": "verified" },
+        "transmissionFluid": { "value": "DSG service fluid VW G 052 182 A2 — service every 40k mi", "confidence": "verified" }
+      },
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation."
+    },
+    {
+      "id": "tiguan-2018",
+      "group": "vehicle",
+      "name": "2018 VW Tiguan",
+      "trim": "S",
+      "emoji": "🚙",
+      "engine": "EA888 Gen 3B 2.0T",
+      "category": "daily-driver",
+      "status": "Active",
+      "specs": {
+        "displacement": "1,984 cc turbocharged inline-4",
+        "power": "184 hp @ 4,400–6,000 rpm",
+        "transmission": "8-speed automatic (8A)",
+        "drivetrain": "FWD (base trim)"
+      },
+      "maintenance": {
+        "fuel": { "value": "87 octane minimum (premium recommended for performance, not required)", "confidence": "verified" },
+        "oil": { "value": "0W-20 meeting VW 508.00 / 509.00 spec. Capacity ~5.3 qt with filter.", "confidence": "verified" },
+        "oilFilter": { "value": "VW OEM 06L 115 562 (EA888 Gen 3B cartridge)", "confidence": "verified" },
+        "airFilter": { "value": "VW OEM (verify P/N at dealer for Gen 3B)", "confidence": "inferred" },
+        "sparkPlugs": { "value": "NGK / Denso OEM — replace every 60k mi (typical NGK PLZKBR7B-8DG or similar)", "confidence": "inferred" },
+        "coolant": { "value": "VW G13 (pink)", "confidence": "verified" },
+        "brakeFluid": { "value": "DOT 4 LV", "confidence": "verified" },
+        "transmissionFluid": { "value": "8-speed AQ250 — typically lifetime fill but service at 80k mi recommended", "confidence": "inferred" }
+      }
+    },
+    {
+      "id": "f150-2006",
+      "group": "vehicle",
+      "name": "2006 Ford F-150",
+      "trim": "",
+      "emoji": "🛻",
+      "engine": "4.2L Essex V6",
+      "category": "truck",
+      "status": "Active",
+      "specs": {
+        "displacement": "4,196 cc OHV V6",
+        "power": "202 hp @ 4,250 rpm",
+        "torque": "260 lb-ft @ 3,500 rpm",
+        "transmission": "4-speed automatic (4R70W)",
+        "payload": "~1,400 lb"
+      },
+      "maintenance": {
+        "fuel": { "value": "87 octane regular unleaded", "confidence": "verified" },
+        "oil": { "value": "5W-20 SAE — Motorcraft Synthetic Blend or equivalent. Capacity 5 qt with filter.", "confidence": "verified" },
+        "oilFilter": { "value": "Motorcraft FL-820S", "confidence": "verified" },
+        "airFilter": { "value": "Motorcraft FA-1632", "confidence": "verified" },
+        "sparkPlugs": { "value": "Motorcraft SP-417 (6 needed) — gap 0.054\"", "confidence": "verified" },
+        "coolant": { "value": "Motorcraft Premium Gold (G-05) — yellow/gold pre-mix", "confidence": "verified" },
+        "transmissionFluid": { "value": "MERCON V (4R70W). Total fill ~13.9 qt; pan service ~5 qt.", "confidence": "verified" },
+        "brakeFluid": { "value": "DOT 3", "confidence": "verified" },
+        "tirePressure": { "value": "35 psi front/rear typical (check door placard)", "confidence": "inferred" }
+      }
+    },
+    {
+      "id": "bronco-1989",
+      "group": "vehicle",
+      "name": "1989 Ford Bronco",
+      "trim": "Eddie Bauer",
+      "emoji": "🟢",
+      "engine": "5.8L 351W Windsor V8",
+      "category": "classic",
+      "status": "Restoration in progress",
+      "specs": {
+        "displacement": "5,766 cc OHV V8",
+        "power": "210 hp @ 3,800 rpm (stock)",
+        "torque": "315 lb-ft @ 2,800 rpm",
+        "transmission": "AOD 4-speed automatic",
+        "transfer_case": "Borg Warner 1356",
+        "drivetrain": "4WD"
+      },
+      "maintenance": {
+        "fuel": { "value": "87 octane regular unleaded (older engine, no premium needed)", "confidence": "verified" },
+        "oil": { "value": "5W-30 or 10W-30 conventional. Capacity 5 qt with filter.", "confidence": "verified" },
+        "oilFilter": { "value": "Motorcraft FL-1A (classic small-block Ford filter)", "confidence": "verified" },
+        "airFilter": { "value": "Round element — Motorcraft FA-46 or equivalent (verify by carb/EFI configuration)", "confidence": "inferred" },
+        "sparkPlugs": { "value": "Motorcraft ASF-42C / Autolite 25 / NGK XR4 (8 needed) — gap 0.044\"", "confidence": "inferred" },
+        "coolant": { "value": "Traditional green IAT (ethylene glycol 50/50) — appropriate for era", "confidence": "verified" },
+        "transmissionFluid": { "value": "AOD: MERCON (NOT MERCON V — wrong friction modifier for AOD)", "confidence": "verified" },
+        "transferCaseFluid": { "value": "BW1356: Mercon ATF", "confidence": "verified" },
+        "differentialFluid": { "value": "75W-90 or 80W-90 GL-5 gear oil (front + rear axles)", "confidence": "verified" },
+        "brakeFluid": { "value": "DOT 3", "confidence": "verified" },
+        "fuelSystem": { "value": "5.8L in '89 could be carbureted or EFI depending on build — verify from your unit before tune-up parts.", "confidence": "tbd" }
+      },
+      "notes": "Eddie Bauer edition — two-tone paint, upgraded interior. Full restoration underway."
+    },
+    {
+      "id": "dr200s-2017",
+      "group": "vehicle",
+      "name": "2017 Suzuki DR200S",
+      "trim": "",
+      "emoji": "🏍️",
+      "category": "motorcycle",
+      "status": "Active",
+      "vin": "JS1SH42A4H2••••••",
+      "vinDecode": {
+        "JS1": "Suzuki — manufactured in Japan",
+        "SH42": "DR200S model code",
+        "A": "check character",
+        "4": "check digit",
+        "H": "model year 2017 (17th letter in VIN year cycle)",
+        "2": "Hamamatsu factory",
+        "101809": "production sequence number"
+      },
+      "specs": {
+        "displacement": "199 cc",
+        "engineType": "Single-cylinder 4-stroke, air-cooled, SOHC",
+        "bore_stroke": "66.0 × 58.0 mm",
+        "compression": "9.5:1",
+        "carburetor": "Mikuni BST31",
+        "power": "~17 hp",
+        "transmission": "5-speed manual",
+        "frontTire": "3.00-21 51P",
+        "rearTire": "4.10-18 59P",
+        "fuelCapacity": "3.3 gal",
+        "fuelEconomy": "~88 mpg",
+        "weight_curb": "278 lbs"
+      },
+      "maintenance": {
+        "fuel": { "value": "87 octane unleaded, mid-grade OK", "confidence": "verified" },
+        "oil": { "value": "10W-40 motorcycle-specific (JASO MA/MA2 wet-clutch rated). Capacity 1.0 qt with filter change.", "confidence": "verified" },
+        "oilFilter": { "value": "Suzuki 16510-37450 or HiFlo HF138", "confidence": "verified" },
+        "airFilter": { "value": "Suzuki OEM (foam element) or K&N SU-2092", "confidence": "verified" },
+        "sparkPlug": { "value": "NGK DR8EA — gap 0.024–0.028\" (0.6–0.7 mm)", "confidence": "verified" },
+        "driveChain": { "value": "428 pitch — clean and lube every 300–500 mi or after wet rides", "confidence": "verified" },
+        "tirePressure": { "value": "Front 18 psi / Rear 21 psi (typical solo street)", "confidence": "inferred" }
+      },
+      "notes": "Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain."
+    },
+    {
+      "id": "drz400s-2001",
+      "group": "vehicle",
+      "name": "2001 Suzuki DR-Z400S",
+      "trim": "",
+      "emoji": "🏍️",
+      "category": "motorcycle",
+      "status": "Active",
+      "vin": "JS1SK43A212••••••",
+      "vinDecode": {
+        "JS1": "Suzuki — manufactured in Japan",
+        "SK43": "DR-Z400S model code",
+        "A": "check character",
+        "2": "check digit",
+        "1": "model year 2001",
+        "2": "Hamamatsu factory",
+        "100941": "production sequence number"
+      },
+      "specs": {
+        "displacement": "398 cc",
+        "engineType": "Single-cylinder 4-stroke, liquid-cooled, DOHC",
+        "bore_stroke": "90.0 × 62.6 mm",
+        "compression": "11.3:1",
+        "carburetor": "Mikuni BSR36",
+        "power": "39 hp @ 8,400 rpm",
+        "torque": "18 lb-ft @ 5,800 rpm",
+        "transmission": "5-speed manual",
+        "frontTire": "80/100-21",
+        "rearTire": "120/90-18",
+        "fuelCapacity": "2.6 gal",
+        "weight_dry": "291 lbs"
+      },
+      "maintenance": {
+        "fuel": { "value": "91+ octane premium recommended (high 11.3:1 compression). 87 OK in pinch.", "confidence": "verified" },
+        "oil": { "value": "10W-40 motorcycle-specific (JASO MA/MA2). Capacity ~1.4 qt with filter change.", "confidence": "verified" },
+        "oilFilter": { "value": "Suzuki 16510-29F00 or HiFlo HF139", "confidence": "verified" },
+        "airFilter": { "value": "Suzuki OEM (foam element) or K&N SU-4001", "confidence": "verified" },
+        "sparkPlug": { "value": "NGK CR8E — gap 0.024–0.028\"", "confidence": "verified" },
+        "coolant": { "value": "Ethylene glycol 50/50 (motorcycle-specific or auto OK if silicate-free)", "confidence": "verified" },
+        "driveChain": { "value": "520 pitch — clean and lube every 300 mi", "confidence": "verified" },
+        "valveAdjust": { "value": "Check at 600 mi initial then every 7,500 mi (shim-under-bucket)", "confidence": "verified" }
+      },
+      "notes": "Dual-sport — street-legal with headlight, tail light, and mirrors. VIN position 10 = '1' confirms 2001 model year."
+    },
+    {
+      "id": "g22a-2005",
+      "group": "vehicle",
+      "name": "2005 Yamaha G22A Golf Cart",
+      "trim": "8.5KW Electric",
+      "emoji": "🛺",
+      "category": "utility",
+      "status": "Stock M12×1.5 drain plug stripped — repair plug identified",
+      "specs": {
+        "motor": "8.5 kW DC electric",
+        "voltage": "48V",
+        "batteries": "6× 8V deep-cycle",
+        "payload": "~800 lb",
+        "topSpeed": "~19 mph"
+      },
+      "maintenance": {
+        "fuel": { "value": "n/a — battery electric", "confidence": "verified" },
+        "engineOil": { "value": "n/a — electric motor", "confidence": "verified" },
+        "transaxleOil": { "value": "SAE 30 non-detergent motor oil — drain plug currently stripped (repair plug pending)", "confidence": "verified" },
+        "drainPlugRepair": { "value": "M12×1.5 → 1/2\" NPT self-tapping repair plug (already identified)", "confidence": "verified" },
+        "batteries": { "value": "6× Trojan T-875 (8V, 170 Ah) or equivalent. Replace as a full set every 5–7 yr.", "confidence": "inferred" },
+        "batteryWater": { "value": "Distilled water only — check monthly during use season; never let plates go dry. Top off after charging, not before.", "confidence": "verified" },
+        "charger": { "value": "Yamaha OEM 48V charger — leave plugged in between uses (modern chargers auto-maintain)", "confidence": "inferred" },
+        "brakeFluid": { "value": "DOT 3 (verify on master cylinder cap)", "confidence": "inferred" },
+        "tirePressure": { "value": "18–22 psi typical", "confidence": "inferred" }
+      },
+      "notes": "Use an M12×1.5 → 1/2\" NPT repair drain plug to fix the stripped oil drain on the rear axle/transaxle."
+    },
+    {
+      "id": "kobalt-km2040x-06",
+      "group": "equipment",
+      "name": "Kobalt KM2040X-06 Cordless Mower",
+      "trim": "Double Cut Dual Blade",
+      "emoji": "🌱",
+      "category": "lawn-care",
+      "status": "Active",
+      "specs": {
+        "deckSize": "20\" / 50 cm",
+        "batterySystem": "40V Max Lithium-Ion (takes 2 batteries simultaneously)",
+        "blades": "Dual blade (Double Cut)",
+        "itemNumber": "506586",
+        "serialNumber": "KBS3290431",
+        "manufactureDate": "2013-11-25",
+        "madeIn": "China"
+      },
+      "maintenance": {
+        "fuel": { "value": "n/a — battery electric", "confidence": "verified" },
+        "oil": { "value": "n/a — no engine oil", "confidence": "verified" },
+        "blade": { "value": "OEM Kobalt 20\" dual-blade replacement set — confirm P/N at Lowe's by Item #506586", "confidence": "tbd" },
+        "battery": { "value": "Kobalt 40V Max Li-Ion (typically 4.0 Ah or 5.0 Ah). Mower runs on two batteries at once.", "confidence": "inferred" },
+        "batteryStorage": { "value": "Off-season: store at ~40–60% charge in cool, dry place. Avoid leaving fully discharged.", "confidence": "inferred" },
+        "general": { "value": "Clean underside of deck after each use. Sharpen or replace blades 1–2× per season depending on use.", "confidence": "inferred" }
+      }
+    },
+    {
+      "id": "echo-pb7910t",
+      "group": "equipment",
+      "name": "Echo PB-7910T Backpack Blower",
+      "trim": "X Series — tube-mounted throttle",
+      "emoji": "🍃",
+      "category": "lawn-care",
+      "status": "Active",
+      "specs": {
+        "displacement": "79.9 cc",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "airVolume_cfm": 1110,
+        "airSpeed_mph": 220,
+        "fuelCapacity": "88.5 fl oz",
+        "weight": "26.5 lbs",
+        "throttleType": "Tube-mounted (T)"
+      },
+      "maintenance": {
+        "fuel": { "value": "50:1 mix — 89+ octane unleaded, E10 max (no E15+). Use Echo Power Blend or equivalent ISO-L-EGD 2-stroke oil.", "confidence": "verified" },
+        "oil": { "value": "n/a — 2-stroke (mixed with fuel)", "confidence": "verified" },
+        "sparkPlug": { "value": "NGK BPMR8Y — gap 0.025\" (verify at first service)", "confidence": "inferred" },
+        "airFilter": { "value": "Echo OEM — confirm P/N at dealer (typical Echo handheld: A226000352-class element)", "confidence": "inferred" },
+        "fuelFilter": { "value": "Echo OEM — replace annually", "confidence": "inferred" },
+        "general": { "value": "Drain fuel before long-term storage; ethanol-free fuel strongly preferred.", "confidence": "verified" }
+      }
+    },
+    {
+      "id": "homelite-blower-vac",
+      "group": "equipment",
+      "name": "Homelite Gas Blower/Vac",
+      "trim": "Likely UT09521 family — 26cc 2-cycle (no model sticker found)",
+      "emoji": "🍃",
+      "category": "lawn-care",
+      "status": "Active",
+      "specs": {
+        "displacement": "26 cc (inferred — same Homelite consumer 2-stroke family as the UT33650A trimmer)",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "engineFamily_likely": "HHCPS.0264AT",
+        "configuration": "Handheld blower with vacuum/mulch conversion kit"
+      },
+      "maintenance": {
+        "fuel": { "value": "50:1 mix — 89+ octane unleaded, E10 max. Same fuel/oil mix as the Homelite trimmer; can share a fuel jug.", "confidence": "verified" },
+        "oil": { "value": "n/a — 2-stroke", "confidence": "verified" },
+        "sparkPlug": { "value": "Champion RCJ-6Y or NGK BPMR7A — gap 0.025\" (standard for the HHCPS.0264AT family)", "confidence": "inferred" },
+        "airFilter": { "value": "Homelite/Ryobi 308054003 (foam element, common across the 26cc family)", "confidence": "inferred" },
+        "fuelFilter": { "value": "Homelite 530095646 (in-tank)", "confidence": "inferred" },
+        "general": { "value": "Drain fuel before long-term storage. Clean impeller + vacuum bag after vacuum use to prevent jams.", "confidence": "verified" },
+        "support": { "value": "1-800-242-4672 (Homelite) per starting decal", "confidence": "verified" }
+      },
+      "photoEvidence": "Photographed multiple angles. No model sticker found on the unit — Homelite consumer items in this era often had only the EPA label, sometimes worn off. Best bet: UT09521 / UT09565 family based on body shape (handheld with vac tube + collection bag).",
+      "researchNeeded": [
+        "Optional: a serial number sticker may be hidden under a removable cover — not blocking, since we have all maintenance specs from the engine family."
+      ]
+    },
+    {
+      "id": "echo-pb250ln",
+      "group": "equipment",
+      "name": "Echo PB-250LN Handheld Blower",
+      "trim": "Low Noise (~65 dB)",
+      "emoji": "🍃",
+      "category": "lawn-care",
+      "status": "Active",
+      "specs": {
+        "displacement": "25.4 cc",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "airVolume_cfm": 391,
+        "airSpeed_mph": 130,
+        "fuelCapacity": "16.9 fl oz",
+        "noiseLevel": "~65 dB at 50 ft",
+        "discontinued": "Replaced by PB-2520 in newer Echo lineup; parts still widely available."
+      },
+      "maintenance": {
+        "fuel": { "value": "50:1 mix — 89+ octane unleaded, E10 max. Echo Power Blend or equivalent ISO-L-EGD 2-stroke oil.", "confidence": "verified" },
+        "oil": { "value": "n/a — 2-stroke", "confidence": "verified" },
+        "sparkPlug": { "value": "NGK BPMR8Y — gap 0.025\"", "confidence": "inferred" },
+        "airFilter": { "value": "Echo OEM — A226000352 (verify at dealer)", "confidence": "inferred" },
+        "fuelFilter": { "value": "Echo OEM 13120507320 (verify)", "confidence": "inferred" },
+        "general": { "value": "Designed for noise-restricted areas. Drain fuel before long-term storage.", "confidence": "verified" }
+      }
+    },
+    {
+      "id": "homelite-trimmer",
+      "group": "equipment",
+      "name": "Homelite UT33650A String Trimmer",
+      "trim": "26cc 2-cycle (straight or curved shaft — confirm)",
+      "emoji": "🌾",
+      "category": "lawn-care",
+      "status": "Active",
+      "specs": {
+        "displacement": "26 cc",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "engineFamily": "HHCPS.0264AT (Homelite consumer 26cc 2-stroke family)",
+        "modelYear": 2017,
+        "manufactureDate": "2017-09-07",
+        "manufactureNumber": "EU17280D041242",
+        "serialNumber": "0903300014",
+        "madeIn": "China",
+        "complianceHours": "50 hours — Moderate"
+      },
+      "maintenance": {
+        "fuel": { "value": "50:1 mix — 89+ octane unleaded, E10 max. Use TruFuel 50:1 or quality TCW-3 spec 2-cycle oil.", "confidence": "verified" },
+        "oil": { "value": "n/a — 2-stroke (mixed with fuel)", "confidence": "verified" },
+        "sparkPlug": { "value": "Champion RCJ-6Y or NGK BPMR7A — gap 0.025\"", "confidence": "verified" },
+        "airFilter": { "value": "Homelite/Ryobi 308054003 (foam element, common across HHCPS.0264AT family)", "confidence": "inferred" },
+        "fuelFilter": { "value": "Homelite 530095646 (in-tank)", "confidence": "inferred" },
+        "trimmerLine": { "value": "0.080\" diameter standard for 26cc trimmers; 0.095\" max", "confidence": "verified" },
+        "general": { "value": "Drain fuel before long-term storage. Clean air filter every 5–10 hours of use.", "confidence": "verified" }
+      },
+      "researchNeeded": [
+        "Confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker slightly ambiguous between 5 and 6"
+      ]
+    },
+    {
+      "id": "husqvarna-mower",
+      "group": "equipment",
+      "name": "Husqvarna Riding Mower (54\")",
+      "trim": "Kawasaki FR691V — exact Husqvarna model number TBD",
+      "emoji": "🚜",
+      "category": "lawn-care",
+      "status": "Active",
+      "specs": {
+        "deckSize": "54\"",
+        "bladeCount": 3,
+        "engine": "Kawasaki FR691V",
+        "engineType": "4-stroke OHV V-twin, air-cooled",
+        "displacement": "726 cc",
+        "powerEstimate": "~22–23 HP gross"
+      },
+      "maintenance": {
+        "fuel": { "value": "87+ octane unleaded, E10 max (no E15+)", "confidence": "verified" },
+        "oil": { "value": "SAE 10W-30 — 64 fl oz (1.9 L) capacity with filter change", "confidence": "verified" },
+        "sparkPlug": { "value": "NGK BPR4ES — gap 0.030\"", "confidence": "verified" },
+        "airFilter": { "value": "Kawasaki 11013-7043", "confidence": "verified" },
+        "fuelFilter": { "value": "Kawasaki 49019-0031", "confidence": "verified" },
+        "oilFilter": { "value": "Kawasaki 49065-7807", "confidence": "verified" },
+        "blades_hiLift": { "value": "Husqvarna 582 76 05-02 — 54\" Hi-Lift, 3-blade set", "confidence": "verified" },
+        "blades_mulch": { "value": "Husqvarna 532 18 72-65 — 54\" Mulch, 3-blade set", "confidence": "verified" },
+        "primaryMowerBelt": { "value": "Husqvarna 532 95 18-09 (sticker partially worn — verify before ordering)", "confidence": "inferred" },
+        "groundDriveBelt": { "value": "Husqvarna 539 11 04-11", "confidence": "verified" },
+        "replacementKeys": { "value": "Husqvarna 532 41 19-33", "confidence": "verified" },
+        "schedule": { "value": "Engine oil + filter every 50 hours or annually. Air filter check every 25 hours, replace annually. Sharpen/replace blades 1–2× per season. Fuel filter annual.", "confidence": "inferred" },
+        "support": { "value": "1-800-849-1297 (Husqvarna)", "confidence": "verified" }
+      },
+      "researchNeeded": [
+        "Husqvarna model number (sticker typically under seat or on rear fender)",
+        "Confirm primary mower belt P/N — first digits illegible on worn sticker"
+      ]
+    },
+    {
+      "id": "chainsaw-ms290",
+      "group": "equipment",
+      "name": "Stihl MS 290 Farm Boss",
+      "trim": "",
+      "emoji": "🪚",
+      "category": "equipment",
+      "status": "Active",
+      "specs": {
+        "displacement": "56.5 cc",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "power": "3.8 hp (2.8 kW) @ 7,400 rpm",
+        "weight": "13.2 lbs (6.0 kg) without bar/chain",
+        "fuelCapacity": "18.9 fl oz (560 mL)",
+        "barOilCapacity": "11.2 fl oz (330 mL)",
+        "produced": "2000–2012"
+      },
+      "maintenance": {
+        "fuel": { "value": "50:1 mix (2.6 fl oz 2-stroke oil per gallon). 89+ octane, E10 max — never E15+.", "confidence": "verified" },
+        "oil": { "value": "n/a engine oil; bar/chain oil = Stihl Platinum or equivalent SAE 30 weight", "confidence": "verified" },
+        "sparkPlug": { "value": "NGK BPMR7A or Stihl OEM — gap 0.020\"", "confidence": "verified" },
+        "airFilter": { "value": "Stihl HD2 1127 120 1620 (or equivalent)", "confidence": "verified" },
+        "fuelFilter": { "value": "Stihl 0000 350 3502 (in-tank)", "confidence": "verified" },
+        "bar": { "value": "16\"–20\" — 18\" Farm Boss standard. 3/8\" pitch, 0.050\" gauge.", "confidence": "verified" },
+        "chain": { "value": "3/8\" pitch × 0.050\" gauge — Stihl 33RS, Oregon 72LPX, or equivalent", "confidence": "verified" },
+        "schedule": { "value": "Clean air filter after each tank. Sharpen chain when shavings turn to dust. Replace fuel/air filter annually.", "confidence": "verified" }
+      },
+      "notes": "The 'Farm Boss' — Stihl's iconic mid-range saw for landowners and farmers. Well-suited for firewood, storm cleanup, and land clearing."
+    },
+    {
+      "id": "chainsaw-cs352",
+      "group": "equipment",
+      "name": "Echo CS-352 Chainsaw",
+      "trim": "i-30 Starter",
+      "emoji": "🪚",
+      "category": "equipment",
+      "status": "Active",
+      "specs": {
+        "displacement": "34.4 cc",
+        "engineType": "Single-cylinder 2-stroke, air-cooled",
+        "power": "~1.7 hp",
+        "weight": "8.8 lbs dry (without bar/chain)",
+        "fuelCapacity": "8.5 fl oz",
+        "barOilCapacity": "8.8 fl oz",
+        "starter": "i-30 reduced-effort starter (30% less pull force)",
+        "warranty": "2-year consumer"
+      },
+      "maintenance": {
+        "fuel": { "value": "50:1 mix — Echo Power Blend or equivalent ISO-L-EGD 2-stroke oil. 89+ octane, E10 max.", "confidence": "verified" },
+        "oil": { "value": "n/a engine oil; bar/chain oil = Echo or any SAE 30 bar oil", "confidence": "verified" },
+        "sparkPlug": { "value": "NGK BPMR7A — gap 0.025\"", "confidence": "verified" },
+        "airFilter": { "value": "Echo OEM A226000371 (verify)", "confidence": "inferred" },
+        "fuelFilter": { "value": "Echo OEM 13120507320 (verify)", "confidence": "inferred" },
+        "bar": { "value": "14\"–16\"", "confidence": "verified" },
+        "chain": { "value": "3/8\" LP (low-profile) × 0.050\" gauge — Oregon 91PX or equivalent", "confidence": "verified" },
+        "features": { "value": "Automatic chain oiler, tool-free chain tensioner", "confidence": "verified" }
+      },
+      "notes": "Lighter-duty saw — ideal for limbing, brush clearing, and smaller diameter wood (up to ~12\" logs). i-30 reduced-effort starter makes cold starts much easier."
+    }
+  ],
+  "openQuestions": [
+    "Homelite blower/vac: clearer photo of the EPA emissions sticker.",
+    "Homelite weed eater: a photo of the unit, ideally including any model sticker.",
+    "Husqvarna model sticker (under seat or rear fender)."
+  ]
+}
