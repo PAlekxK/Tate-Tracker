@@ -1939,66 +1939,6 @@ async function fetchLiveWeather() {
     console.warn("Weather fetch failed, keeping placeholder:", err);
     if (badge) badge.innerHTML = '<span class="weather-error-badge">⚠️ Live weather unavailable — showing cached data (' + err.message + ')</span>';
   }
-  // Also fetch nearby PWS (no API key needed for current obs JSON)
-  fetchNearbyPWS();
-}
-
-// =========================
-// NEARBY PWS  (KGAJASPE279 — Weather Underground public JSON)
-// =========================
-async function fetchNearbyPWS() {
-  // Weather Underground public observation endpoint — no key required for current conditions
-  const url = "https://api.weather.com/v2/pws/observations/current?stationId=KGAJASPE279&format=json&units=e&numericPrecision=decimal";
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
-    const obs = data && data.observations && data.observations[0];
-    if (!obs) throw new Error("No observation data");
-    const imperial = obs.imperial || {};
-    const ts = obs.obsTimeLocal ? obs.obsTimeLocal.split(" ")[1] : "–";
-
-    // Build the PWS panel HTML and inject it into the weather card
-    const panelId = "pws-panel";
-    let existing = document.getElementById(panelId);
-    if (!existing) {
-      const weatherContent = document.getElementById("weather-content");
-      if (weatherContent) {
-        const div = document.createElement("div");
-        div.id = panelId;
-        weatherContent.insertAdjacentElement("afterbegin", div);
-        existing = div;
-      }
-    }
-    if (!existing) return;
-
-    const windDir = obs.winddir != null ? degreesToCompass(obs.winddir) : "–";
-    const precip1hr = imperial.precipRate != null ? imperial.precipRate.toFixed(2) + '"/ hr' : "–";
-    const precipDay = imperial.precipTotal != null ? imperial.precipTotal.toFixed(2) + '"' : "–";
-    const uvIndex  = obs.uv != null ? obs.uv : "–";
-    const solarRad = obs.solarRadiation != null ? obs.solarRadiation + ' W/m²' : null;
-
-    existing.innerHTML =
-      '<div style="background:#f0f8ff;border:1.5px solid #a0c8e0;border-radius:12px;padding:10px 14px;margin:10px 18px 0;font-size:12px;color:#204060;">' +
-      '<div style="font-size:11px;font-weight:700;color:#305880;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px;">' +
-      '📡 Nearby Station: KGAJASPE279 · Updated ' + ts + '</div>' +
-      '<div style="display:flex;flex-wrap:wrap;gap:6px;">' +
-      '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;font-weight:600;">' + (imperial.temp != null ? Math.round(imperial.temp) + '°F' : '–') + '</span>' +
-      '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">Humidity: ' + (obs.humidity != null ? obs.humidity + '%' : '–') + '</span>' +
-      '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">Wind: ' + (imperial.windSpeed != null ? Math.round(imperial.windSpeed) + ' mph ' + windDir : '–') + '</span>' +
-      '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">Gusts: ' + (imperial.windGust != null ? Math.round(imperial.windGust) + ' mph' : '–') + '</span>' +
-      '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">Rain today: ' + precipDay + '</span>' +
-      '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">Rain rate: ' + precip1hr + '</span>' +
-      (imperial.pressure != null ? '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">Pressure: ' + imperial.pressure.toFixed(2) + ' inHg</span>' : '') +
-      (solarRad ? '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">☀️ Solar: ' + solarRad + '</span>' : '') +
-      '<span style="background:#e0f0ff;padding:3px 8px;border-radius:10px;">UV: ' + uvIndex + '</span>' +
-      '</div>' +
-      '<div style="font-size:10.5px;color:#6090b0;margin-top:5px;">Nearest Personal Weather Station · <a href="https://www.wunderground.com/dashboard/pws/KGAJASPE279" target="_blank" style="color:#3070a0;">View on Wunderground ↗</a></div>' +
-      '</div>';
-  } catch (err) {
-    console.warn("PWS fetch failed:", err);
-    // Silently fail — the main Open-Meteo data is still shown
-  }
 }
 
 // =========================

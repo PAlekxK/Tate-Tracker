@@ -166,7 +166,7 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 | Field | Value |
 |---|---|
 | Address | 282 Church Mountain Road, Jasper, GA 30143 |
-| Coordinates | 34.52°N, 84.46°W |
+| Coordinates | 34.5496°N, 84.3674°W (confirmed via Google Maps + Open-Meteo elevation API, May 2026; previous 34.52, -84.46 pointed near Jasper town center and was wrong) |
 | Elevation | 2,959 ft (confirmed; 1,424 ft above KJZP baseline) |
 | USDA Zone | 6b (elevation-adjusted); 7b official county |
 | Last frost 50% | May 3 |
