@@ -630,7 +630,19 @@
     border-left: 3px solid;
   }
   .alert-icon { font-size: 15px; line-height: 1.2; flex-shrink: 0; margin-top: 1px; }
-  .alert-body { flex: 1; }
+  .alert-body { flex: 1; min-width: 0; }
+  .alert-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+  .alert-source {
+    font-size: 8.5px;
+    padding: 1px 5px;
+    flex-shrink: 0;
+  }
   .alert-title { font-weight: 700; font-size: 11.5px; margin-bottom: 2px; letter-spacing: 0.2px; }
   .alert-text { color: #2a4a2a; font-family: "Crimson Text", Georgia, serif; font-size: 13px; }
   .alert.severe   { background: #fdebe7; border-color: #c04030; }
@@ -2875,21 +2887,37 @@ function renderWeather() {
 
   // === THINGS TO NOTE block (Open-Meteo, alerts derived from forecast) ===
   const alerts = generateAlerts();
+  // Source mix in Things to Note: forecast-derived + station-realtime alerts; per-alert chips clarify
+  const stationAlertCount = alerts.filter(a => a.source === "station").length;
+  const forecastAlertCount = alerts.filter(a => a.source !== "station").length;
+  let alertSubtitle;
+  if (stationAlertCount && forecastAlertCount) {
+    alertSubtitle = stationAlertCount + " from your station · " + forecastAlertCount + " from forecast";
+  } else if (stationAlertCount) {
+    alertSubtitle = "All from your station";
+  } else if (forecastAlertCount) {
+    alertSubtitle = "Forecast-derived" + (omIsPlaceholder ? " · awaiting live data" : "");
+  } else {
+    alertSubtitle = "Forecast and on-property readings";
+  }
   html += '<div class="wblock wblock-forecast">';
   html +=   '<div class="wblock-header">';
   html +=     '<span class="wblock-title">Things to note</span>';
-  html +=     '<span class="src-tag src-tag-forecast">☁️ Open-Meteo</span>';
+  html +=     '<span class="src-tag src-tag-forecast">☁️ Forecast + 📡 Station</span>';
   html +=   '</div>';
-  html +=   '<div class="wblock-status" style="margin-bottom:6px;">Derived from forecast — ' + (omIsPlaceholder ? 'awaiting live data' : 'updated with each forecast refresh') + '</div>';
+  html +=   '<div class="wblock-status" style="margin-bottom:6px;">' + alertSubtitle + '</div>';
   html +=   '<div class="alerts-block">';
   if (alerts.length === 0) {
     html += '<div class="alerts-empty">✓ Nothing notable. Conditions look unremarkable.</div>';
   } else {
     alerts.forEach(a => {
+      const sourceTag = a.source === "station"
+        ? '<span class="alert-source src-tag src-tag-station">📡 Station</span>'
+        : '<span class="alert-source src-tag src-tag-forecast">☁️ Forecast</span>';
       html += '<div class="alert ' + a.severity + '">';
       html +=   '<div class="alert-icon">' + a.icon + '</div>';
       html +=   '<div class="alert-body">';
-      html +=     '<div class="alert-title">' + escapeHtml(a.title) + '</div>';
+      html +=     '<div class="alert-title-row"><div class="alert-title">' + escapeHtml(a.title) + '</div>' + sourceTag + '</div>';
       html +=     '<div class="alert-text">' + escapeHtml(a.text) + '</div>';
       html +=   '</div>';
       html += '</div>';
@@ -2915,18 +2943,110 @@ function generateAlerts() {
   const alerts = [];
   const cur = WEATHER_DATA.current;
   const daily = WEATHER_DATA.daily;
+  const station = WEATHER_DATA.stationData;
+  const history = WEATHER_DATA.stationHistory;
+  const stationCovers = { rain: false, heat: false, cold: false, wind: false };
+
+  // === STATION-DRIVEN ALERTS (real-time, take priority over forecast) ===
+  if (station) {
+    // Active rain — graded by intensity
+    const rate = station.hourlyrainin || 0;
+    const todayTotal = station.dailyrainin || 0;
+    if (rate > 0.3) {
+      alerts.push({ severity: "severe", source: "station", icon: "⛈️",
+        title: "Heavy Rain In Progress",
+        text: 'Property gauge: ' + rate.toFixed(2) + '"/hr now — ' + todayTotal.toFixed(2) + '" today. Watch low-lying beds for standing water.'
+      });
+      stationCovers.rain = true;
+    } else if (rate > 0.10) {
+      alerts.push({ severity: "warning", source: "station", icon: "🌧️",
+        title: "Steady Rain In Progress",
+        text: 'Property gauge: ' + rate.toFixed(2) + '"/hr — ' + todayTotal.toFixed(2) + '" today so far.'
+      });
+      stationCovers.rain = true;
+    } else if (rate > 0.02) {
+      alerts.push({ severity: "opportunity", source: "station", icon: "💧",
+        title: "Light Rain — Natural Watering",
+        text: 'Property gauge: ' + rate.toFixed(2) + '"/hr. Plants getting a gentle drink; skip irrigation today.'
+      });
+      stationCovers.rain = true;
+    }
+
+    // Saturated soil (heavy rain already today)
+    if (todayTotal > 0.75 && rate < 0.02) {
+      alerts.push({ severity: "warning", source: "station", icon: "💦",
+        title: "Saturated Soils — " + todayTotal.toFixed(2) + '" Today',
+        text: "Property gauge total today. Hold off on planting or working low areas; root rot risk for boxwoods, mountain laurel, dogwoods."
+      });
+      stationCovers.rain = true;
+    }
+
+    // Hot now (real measurement)
+    if (station.tempf != null && station.tempf > 88) {
+      alerts.push({ severity: "warning", source: "station", icon: "🥵",
+        title: "Hot Right Now: " + Math.round(station.tempf) + "°F",
+        text: "Property reading. Hydrangeas and azaleas in sun stress fast above 88°F. Deep-water now; check shaded plants for wilting."
+      });
+      stationCovers.heat = true;
+    }
+
+    // Freezing now (only meaningful in cooler months)
+    if (station.tempf != null && station.tempf < 33 && (currentMonth >= 9 || currentMonth <= 4)) {
+      alerts.push({ severity: "severe", source: "station", icon: "🥶",
+        title: "Freezing Right Now: " + Math.round(station.tempf) + "°F",
+        text: "Property reading. Drain hoses, disconnect spigots if not already done. Cover any tender new growth."
+      });
+      stationCovers.cold = true;
+    }
+
+    // High wind gusts now
+    if (station.windgustmph != null && station.windgustmph > 40) {
+      alerts.push({ severity: "warning", source: "station", icon: "💨",
+        title: "High Gusts Now: " + Math.round(station.windgustmph) + " mph",
+        text: "Station gust reading. Postpone tree work, ladder work, or anything involving tarps."
+      });
+      stationCovers.wind = true;
+    }
+
+    // Pressure dropping fast — storm warning earlier than forecast
+    if (Array.isArray(history) && history.length > 36) {
+      const sorted = history.slice().sort((a, b) => (a.dateutc || 0) - (b.dateutc || 0));
+      const press = sorted.map(r => r.baromrelin).filter(v => v != null);
+      if (press.length > 36) {
+        const slice6h = press.slice(-72);
+        const delta = slice6h[slice6h.length - 1] - slice6h[0];
+        if (delta < -0.10) {
+          alerts.push({ severity: "warning", source: "station", icon: "📉",
+            title: "Pressure Dropping Fast",
+            text: 'Pressure dropped ' + delta.toFixed(2) + '" inHg in the last 6 hours. Storms often follow within hours — finish outdoor work soon.'
+          });
+        }
+      }
+    }
+
+    // Battery low (info)
+    if (station.battout === 0) {
+      alerts.push({ severity: "opportunity", source: "station", icon: "🔋",
+        title: "Station Battery Low",
+        text: "Outdoor sensor battery is reporting low. Replace soon — readings will go offline once it dies."
+      });
+    }
+  }
+
+  // === FORECAST-DRIVEN ALERTS ===
 
   // Freeze
   for (let i = 0; i < daily.length; i++) {
+    if (stationCovers.cold && i === 0) break; // station already covering tonight
     const low = daily[i].low;
     if (low <= 28) {
-      alerts.push({ severity: "severe", icon: "🥶",
+      alerts.push({ severity: "severe", source: "forecast", icon: "🥶",
         title: "Hard Freeze " + (i === 0 ? "Tonight" : "in " + i + " Day" + (i>1?"s":"")),
         text: "Low of " + low + "°F expected. Cover or move tender plants. Drain hoses, disconnect spigots, protect outdoor faucets. Japanese maples already leafed out are vulnerable; consider draping with frost cloth."
       });
       break;
     } else if (low <= 32) {
-      alerts.push({ severity: "warning", icon: "❄️", title: "Freeze Warning",
+      alerts.push({ severity: "warning", source: "forecast", icon: "❄️", title: "Freeze Warning",
         text: "Low of " + low + "°F " + (i === 0 ? "tonight" : "in " + i + " day" + (i>1?"s":"")) + ". Tender new growth on hydrangeas, Japanese maples, and recently-planted azaleas at risk. Cover with sheets or frost cloth in the evening."
       });
       break;
@@ -2939,8 +3059,8 @@ function generateAlerts() {
     if (daily[i].high >= 92) heatDays++;
     else break;
   }
-  if (heatDays >= 3) {
-    alerts.push({ severity: "warning", icon: "🥵", title: "Heat Stretch Ahead (" + heatDays + " Days)",
+  if (heatDays >= 3 && !stationCovers.heat) {
+    alerts.push({ severity: "warning", source: "forecast", icon: "🥵", title: "Heat Stretch Ahead (" + heatDays + " Days)",
       text: "Highs above 92°F for the next " + heatDays + " days. Hydrangeas will wilt visibly in the afternoons; deep-water before the heat hits. Japanese maples and azaleas in too much sun will scorch."
     });
   }
@@ -2954,17 +3074,18 @@ function generateAlerts() {
       rainTotal += d.precipAmount;
     }
   }
-  if (rainDays.length > 0 && rainTotal >= 0.4) {
+  if (rainDays.length > 0 && rainTotal >= 0.4 && !stationCovers.rain) {
     const first = rainDays[0];
     const idx = daily.indexOf(first);
     const whenText = idx === 0 ? "today" : (idx === 1 ? "tomorrow" : "by " + first.dayName);
-    alerts.push({ severity: "opportunity", icon: "🌱", title: "Good Window for Seeding / Planting",
+    alerts.push({ severity: "opportunity", source: "forecast", icon: "🌱", title: "Good Window for Seeding / Planting",
       text: "Rain expected " + whenText + " (~" + rainTotal.toFixed(1) + '" total over ' + rainDays.length + " day" + (rainDays.length>1?"s":"") + "). Excellent window to overseed lawns, broadcast fertilizer, or set in new transplants — they'll get watered in naturally."
     });
   }
 
-  // Heavy rain warning
+  // Heavy rain warning — skip if station already firing an in-progress rain alert
   for (let i = 0; i < daily.length; i++) {
+    if (i === 0 && stationCovers.rain) break; // station has the realtime story
     if (daily[i].precipAmount >= 1.0 || (daily[i].precipChance >= 80 && daily[i].weatherCode >= 95)) {
       const when = i === 0 ? "today" : (i === 1 ? "tomorrow" : "on " + daily[i].dayName);
       let rainCtx = "";
@@ -2977,24 +3098,26 @@ function generateAlerts() {
       } else if (daily[i].precipAmount > 0) {
         rainCtx = " (" + daily[i].precipAmount + "\" forecast)";
       }
-      alerts.push({ severity: "warning", icon: "⛈️", title: "Heavy Rain / Storms " + (i === 0 ? "Today" : "Coming"),
+      alerts.push({ severity: "warning", source: "forecast", icon: "⛈️", title: "Heavy Rain / Storms " + (i === 0 ? "Today" : "Coming"),
         text: "Significant rain expected " + when + rainCtx + ". Watch low-lying beds for standing water — boxwoods, mountain laurel, and dogwoods are especially susceptible to root rot in saturated soil."
       });
       break;
     }
   }
 
-  // High wind
-  let maxGust = 0, maxGustDay = -1;
-  daily.forEach((d, i) => { if (d.windGusts > maxGust) { maxGust = d.windGusts; maxGustDay = i; } });
-  if (maxGust >= 50) {
-    alerts.push({ severity: "severe", icon: "💨", title: "Damaging Wind Gusts",
-      text: "Gusts to " + maxGust + " mph expected " + (maxGustDay === 0 ? "today" : "on " + daily[maxGustDay].dayName) + ". Secure loose items, postpone tree work, inspect large trees for weak limbs."
-    });
-  } else if (maxGust >= 35) {
-    alerts.push({ severity: "warning", icon: "💨", title: "Gusty Winds Coming",
-      text: "Gusts to " + maxGust + " mph " + (maxGustDay === 0 ? "today" : "on " + daily[maxGustDay].dayName) + ". Not ideal for spraying, painting, or any work involving tarps or ladders."
-    });
+  // High wind — skip if station already firing realtime gust alert
+  if (!stationCovers.wind) {
+    let maxGust = 0, maxGustDay = -1;
+    daily.forEach((d, i) => { if (d.windGusts > maxGust) { maxGust = d.windGusts; maxGustDay = i; } });
+    if (maxGust >= 50) {
+      alerts.push({ severity: "severe", source: "forecast", icon: "💨", title: "Damaging Wind Gusts",
+        text: "Gusts to " + maxGust + " mph expected " + (maxGustDay === 0 ? "today" : "on " + daily[maxGustDay].dayName) + ". Secure loose items, postpone tree work, inspect large trees for weak limbs."
+      });
+    } else if (maxGust >= 35) {
+      alerts.push({ severity: "warning", source: "forecast", icon: "💨", title: "Gusty Winds Coming",
+        text: "Gusts to " + maxGust + " mph " + (maxGustDay === 0 ? "today" : "on " + daily[maxGustDay].dayName) + ". Not ideal for spraying, painting, or any work involving tarps or ladders."
+      });
+    }
   }
 
   // Excellent outdoor work day
@@ -3002,13 +3125,22 @@ function generateAlerts() {
     const d = daily[i];
     if (d.high >= 60 && d.high <= 80 && d.low >= 40 && d.precipAmount < 0.05 && d.precipChance < 30 && d.windGusts < 20) {
       const when = i === 0 ? "Today" : (i === 1 ? "Tomorrow" : d.dayName);
-      alerts.push({ severity: "opportunity", icon: "👍", title: "Excellent Outdoor Work Day: " + when,
+      alerts.push({ severity: "opportunity", source: "forecast", icon: "👍", title: "Excellent Outdoor Work Day: " + when,
         text: "High " + d.high + "°F, light winds, dry. Great window for mowing, mulching, splitting firewood, riding the dirt bikes, working on the Bronco, or any project that needs steady weather."
       });
       break;
     }
   }
 
+  // Order: severe → warning → opportunity. Within group, station alerts first (more immediate).
+  const order = { severe: 0, warning: 1, opportunity: 2 };
+  alerts.sort((a, b) => {
+    const so = (order[a.severity] ?? 3) - (order[b.severity] ?? 3);
+    if (so !== 0) return so;
+    if (a.source === "station" && b.source !== "station") return -1;
+    if (b.source === "station" && a.source !== "station") return 1;
+    return 0;
+  });
   return alerts;
 }
 
