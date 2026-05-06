@@ -102,6 +102,30 @@ Verdict now steps down when `lakeTemp < hwtMonth.low_F`. A context note and Earl
 ### ~~Tone audit — urgency language~~ ✓ Mostly done
 Replaced: "17 actions due" → month-name + per-care-type teaser; "3 alerts" → quiet alert teaser rows; "3 need attention" / "items in fleet" → "Specifications and maintenance". Remaining strings to scan: any internal weather alert titles that read "Warning" / "Severe" — those are arguably right when the conditions are dangerous (freeze, damaging wind), so probably leave them as-is.
 
+### ~~Ambient Weather integration — full sensor data~~ ✓ Done
+Switched the configured AMBIENT_MAC to the active reporting station (`D8:F1:5B:15:28:B8`, "Tate"). The on-property hero now populates with all 25 sensor fields including indoor temp/humidity, solar radiation, UV, and the physical rain gauge. Removed the Weather Underground PWS fetch (CORS-blocked, redundant with Ambient).
+
+### ~~Weather card UI overhaul — source-grouped blocks + live indicators~~ ✓ Done
+Each weather subsection is now a tinted bordered `.wblock` container (one source per block). Three variants:
+- `.wblock-station` (green) → 📡 Kirschenbauer Station — on-property hero, rain gauge, 24h trends
+- `.wblock-forecast` (blue) → ☁️ Open-Meteo — current condition, 7-day strip, alerts
+- `.wblock-historical` (gray) → 📊 ERA5 — rainfall percentile context
+
+Each block carries a `wblock-status` line with a `liveIndicator(timestamp, freshMin, staleMin)` showing a pulsing green dot when data is fresh, yellow when stale, red when offline.
+
+### ~~Phase 4 — gardener insight line~~ ✓ Done
+The on-property hero leads with a synthesized italic "Today" callout (Crimson Text serif). Rule-based: storm imminent / active rain / frost / heat / saturated soil / muggy / ideal window / generic mild. Each rule returns observation + optional action sentence.
+
+### ~~Phase 5 — station-aware alert engine~~ ✓ Done (uncommitted)
+`generateAlerts()` now produces both station-driven and forecast-driven alerts. New station alerts: heavy/steady/light rain in progress, saturated soils, hot now, freezing now, high gusts now, pressure dropping fast, station battery low. Forecast alerts get tagged `source: "forecast"`. Each alert renders a per-alert source chip (📡 Station / ☁️ Forecast). Dedup logic: forecast "Heavy Rain Today" suppressed when station already firing in-progress rain alert; forecast wind suppressed when station gust alert active; etc. **Status:** edits are local, not yet committed. User will visually verify on return.
+
+### Phase 6 — long-term archive — foundation built ✓ (data accumulating)
+- New `weather-history.json` at repo root holds daily rollups (min/max/avg for temp, humidity, wind, rain, pressure, solar, UV, indoor sensors).
+- New `tools/record-daily-rollup.mjs` — Node 18+ script (zero deps) that fetches Ambient Weather, builds a daily rollup, and merges it into `weather-history.json`. Idempotent — re-running on a day already recorded replaces it. See `tools/README.md` for usage.
+- Already backfilled: 5 days (May 2 partial, May 3, May 4, May 5, May 6 partial).
+- **Next step:** scheduling. Run manually for now; later wire up either launchd (local) or a GitHub Action (cloud-based, fully hands-off — preferred long-term).
+- **Viewer integration is not done yet.** Once the file has ~30+ days, the rainfall block can switch from ERA5 grid baselines to property-recorded comparisons ("wettest May on our 14-month record"). For now the file is just accumulating.
+
 ### Icon/emoji audit — collisions and poor fits
 Several icons clash or don't represent their subject well. Goal: every icon should be the most semantically precise choice for its context — doesn't need to be cheerful, just accurate.
 
@@ -148,6 +172,13 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 
 - **`vehicles.draft.json`** (schema v3, 15 items) — proposes splitting flat array into `group: "vehicle" | "equipment"` and adds a per-item `maintenance` block (fuel, oil, sparkPlug, filters, consumables) with `confidence: verified | inferred | tbd` tags. New equipment added: Kobalt KM2040X-06 mower, Echo PB-7910T backpack blower, Echo PB-250LN handheld blower, Homelite UT33650A trimmer, Homelite gas blower/vac (model not stickered — likely UT09521 family). Husqvarna riding mower fully fleshed out from the on-unit replacement-parts sticker (Kawasaki FR691V, 54" deck, all part numbers verified). Husqvarna model number itself still TBD (sticker not yet found).
 - **`plants.draft.json`** — five new plants identified: Berry Box® Pyracomeles (USPP35913, verified by Pike Nursery tag), Yuki Cherry Blossom® Deutzia (NCDX2, verified by tag), Clematis (genus high; cultivar uncertain), Hostas (genus high; cultivars uncertain), pond Iris (genus high; species likely Blue Flag). Each entry needs a Zone 7b care calendar before promotion. Also tracks `qualityPhotosForFutureIntegration` — quality reference photos flagged for the future "real photos in the dashboard" enhancement.
+
+## Uncommitted work in progress
+
+These edits are local-only — not yet committed or pushed:
+
+- **Phase 5 station-aware alerts** in `viewer.html` — generateAlerts() refactored, per-alert source chips, dedup. Pending visual verification + commit.
+- **Phase 6 archive scaffolding**: `weather-history.json` (5 days seeded) and `tools/record-daily-rollup.mjs` + `tools/README.md`. Pending decision on scheduling approach (launchd vs GitHub Action).
 
 ## Outstanding asks for Paul
 
