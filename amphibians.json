@@ -84,6 +84,13 @@
         "author": "USGS",
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:H_crucifer_USGS.jpg"
+      },
+      "sound": "sounds/frogs/spring-peeper.ogg",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "Don Becker",
+        "license": "CC0",
+        "url": "https://commons.wikimedia.org/wiki/File:Spring_Peeper_(Pseudacris_crucifer).ogg"
       }
     },
     {
@@ -114,6 +121,13 @@
         "author": "MH Herpetology",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Upland_chorus_frog_(Pseudacris_feriarum).jpg"
+      },
+      "sound": "sounds/frogs/upland-chorus-frog.ogg",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "James Shelton32",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Upland_Chorus_Frog_-_Pseudacris_feriarum.ogg"
       }
     },
     {
@@ -150,6 +164,13 @@
         "author": "Cephas",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Bufo_americanus_PJC1.jpg"
+      },
+      "sound": "sounds/frogs/american-toad.wav",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "SwampVids",
+        "license": "CC BY 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Anaxyrus_americanus_-_American_Toad_Vocalization.wav"
       }
     },
     {
@@ -294,6 +315,13 @@
         "author": "Randidawn",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Gray_tree_frog_in_arboreal_forest_habitat,_MA.jpg"
+      },
+      "sound": "sounds/frogs/gray-treefrog.mp3",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "llap",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Gray_Tree_Frog_(Hyla_versicolor),_Peoria,_Illinois_XC135285.mp3"
       }
     },
     {
