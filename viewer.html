@@ -1501,7 +1501,7 @@
     max-width: 660px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
   .dash-cell {
@@ -1530,7 +1530,10 @@
   .dash-cell.dash-small { padding: 8px 11px 8px; }
   .dash-cell.dash-small .dash-cell-label { margin-bottom: 1px; }
   .dash-cell.dash-small .dash-cell-sub { font-size: 11px; color: #5a7a5a; margin-top: 2px; line-height: 1.45; }
-  .dash-tier-b { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 8px; }
+  .dash-tier-b { margin-top: 8px; }
+  @media (max-width: 480px) {
+    .dash-strip-inner { grid-template-columns: 1fr; }
+  }
   .dash-section-header {
     max-width: 660px;
     margin: 0 auto 8px;
@@ -1763,7 +1766,6 @@
 <!-- DASHBOARD STRIP -->
 <div class="dash-strip">
   <div class="dash-section-header">
-    <div class="dash-section-title">Today on the property</div>
     <div class="dash-section-cta">Tap any tile for more details</div>
   </div>
   <div class="dash-strip-inner">
@@ -2809,6 +2811,7 @@ async function fetchRecentPrecip() {
       fetchedAt:  new Date().toISOString()
     };
     renderRainfallPanel();
+    renderDashboardStrip();
   } catch (err) {
     console.warn("fetchRecentPrecip failed:", err);
   }
@@ -5320,6 +5323,28 @@ function renderDashboardStrip() {
       '<span class="dash-tease-icon">' + wIcon + '</span>' +
       '<span class="dash-tease-body">' + escapeHtml(cur.condition) + hl + '</span>' +
     '</div>';
+
+    // Rainfall summary: past 7 days (Open-Meteo recentPrecip) + next 7 days (forecast)
+    const past7 = WEATHER_DATA.recentPrecip ? WEATHER_DATA.recentPrecip.past7total : null;
+    let next7 = 0, next7Counted = 0;
+    for (let i = 0; i < Math.min(7, daily.length); i++) {
+      if (daily[i] && daily[i].precipAmount != null) {
+        next7 += daily[i].precipAmount;
+        next7Counted++;
+      }
+    }
+    next7 = Math.round(next7 * 100) / 100;
+    if (past7 != null || next7Counted > 0) {
+      const pastStr = past7 != null ? past7.toFixed(2) + '" past 7d' : '— past 7d';
+      const nextStr = next7Counted > 0 ? next7.toFixed(2) + '" next 7d' : '— next 7d';
+      html += '<div class="dash-tease-row">' +
+        '<span class="dash-tease-icon">💧</span>' +
+        '<span class="dash-tease-body"><span class="dash-tease-action">Rain</span> · ' +
+          '<span class="dash-tease-names">' + pastStr + ' / ' + nextStr + '</span>' +
+        '</span>' +
+      '</div>';
+    }
+
     if (alerts.length > 0) {
       const max = 3;
       const shown = alerts.slice(0, max);
