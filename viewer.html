@@ -1510,10 +1510,47 @@
     border-radius: 12px;
     padding: 10px 11px 9px;
     cursor: pointer;
+    position: relative;
     -webkit-tap-highlight-color: transparent;
-    transition: background 0.12s;
+    transition: background 0.12s, transform 0.12s, box-shadow 0.12s, border-color 0.12s;
   }
   .dash-cell:active { background: #f4fbf0; }
+  @media (hover: hover) {
+    .dash-cell:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(80,120,60,0.12); border-color: #c0dca0; }
+  }
+  .dash-cell-chevron {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 11px;
+    color: #b8cca8;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .dash-cell.dash-small { padding: 8px 11px 8px; }
+  .dash-cell.dash-small .dash-cell-label { margin-bottom: 1px; }
+  .dash-cell.dash-small .dash-cell-sub { font-size: 11px; color: #5a7a5a; margin-top: 2px; line-height: 1.45; }
+  .dash-tier-b { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 8px; }
+  .dash-section-header {
+    max-width: 660px;
+    margin: 0 auto 8px;
+    padding: 0 4px;
+  }
+  .dash-section-title {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a3a1a;
+    line-height: 1.2;
+    letter-spacing: 0.1px;
+  }
+  .dash-section-cta {
+    font-size: 10.5px;
+    color: #6a8a6a;
+    font-style: italic;
+    margin-top: 1px;
+    letter-spacing: 0.2px;
+  }
   .dash-cell-label {
     font-size: 9px;
     font-weight: 700;
@@ -1719,33 +1756,49 @@
     <h1>Tate Tracker</h1>
     <div class="header-address">
       282 Church Mountain Road · Jasper, GA 30143
-      <div><span class="header-zone">USDA Zone 6b · 2,959 ft · Blue Ridge</span></div>
     </div>
   </div>
 </div>
 
 <!-- DASHBOARD STRIP -->
 <div class="dash-strip">
+  <div class="dash-section-header">
+    <div class="dash-section-title">Today on the property</div>
+    <div class="dash-section-cta">Tap any tile for more details</div>
+  </div>
   <div class="dash-strip-inner">
     <div class="dash-cell" onclick="expandCard('card-weather')">
+      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Weather</div>
       <div class="dash-cell-value" id="dash-weather-val">—</div>
       <div class="dash-cell-sub" id="dash-weather-sub">Loading…</div>
     </div>
     <div class="dash-cell" onclick="expandCard('card-plants')">
+      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Plants</div>
-      <div class="dash-cell-value" id="dash-plants-val">—</div>
       <div class="dash-cell-sub" id="dash-plants-sub"></div>
     </div>
     <div class="dash-cell" onclick="expandCard('card-wildlife')">
+      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Wildlife</div>
-      <div class="dash-cell-value" id="dash-wildlife-val">—</div>
       <div class="dash-cell-sub" id="dash-wildlife-sub"></div>
     </div>
-    <div class="dash-cell" onclick="expandCard('card-vehicles')">
+    <div class="dash-cell" onclick="expandCard('card-celestial')">
+      <span class="dash-cell-chevron">▾</span>
+      <div class="dash-cell-label">Astronomy</div>
+      <div class="dash-cell-sub" id="dash-astronomy-sub">Loading…</div>
+    </div>
+  </div>
+  <div class="dash-strip-inner dash-tier-b">
+    <div class="dash-cell dash-small" onclick="expandCard('card-vehicles')">
+      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Vehicles &amp; Equipment</div>
-      <div class="dash-cell-value">Reference</div>
-      <div class="dash-cell-sub">Specifications &amp; maintenance for the fleet and yard equipment.</div>
+      <div class="dash-cell-sub">Detailed specifications and parts numbers</div>
+    </div>
+    <div class="dash-cell dash-small" onclick="expandCard('card-property')">
+      <span class="dash-cell-chevron">▾</span>
+      <div class="dash-cell-label">Property Profile</div>
+      <div class="dash-cell-sub" id="dash-property-sub">USDA Zone 6b · 2,959 ft · Bortle 3</div>
     </div>
   </div>
 </div>
@@ -1840,13 +1893,6 @@
       </div>
       <div id="wildlife-tab-content"></div>
     </div>
-  </div>
-
-  <!-- TIER 2 DIVIDER -->
-  <div class="tier-divider">
-    <div class="tier-divider-line"></div>
-    <div class="tier-divider-label">Reference</div>
-    <div class="tier-divider-line"></div>
   </div>
 
   <!-- CELESTIAL / SKY CARD -->
@@ -5260,16 +5306,24 @@ function renderDashboardStrip() {
   const daily = WEATHER_DATA.daily;
   const alerts = generateAlerts();
 
-  // Weather cell — show alert teasers (icon + brief title), no orange pill
+  // Weather cell — big °F value, always-on summary line, alerts append
   const wIcon = WEATHER_CODES[cur.weatherCode] || "";
   const wValEl = document.getElementById("dash-weather-val");
   const wSubEl = document.getElementById("dash-weather-sub");
   if (wValEl) wValEl.textContent = cur.temperature + "°F";
   if (wSubEl) {
+    const today = daily[0] || {};
+    const hl = (today.high != null && today.low != null)
+      ? " · H " + today.high + "° / L " + today.low + "°"
+      : "";
+    let html = '<div class="dash-tease-row">' +
+      '<span class="dash-tease-icon">' + wIcon + '</span>' +
+      '<span class="dash-tease-body">' + escapeHtml(cur.condition) + hl + '</span>' +
+    '</div>';
     if (alerts.length > 0) {
       const max = 3;
       const shown = alerts.slice(0, max);
-      let html = shown.map(a =>
+      html += shown.map(a =>
         '<div class="dash-tease-row">' +
           '<span class="dash-tease-icon">' + a.icon + '</span>' +
           '<span class="dash-tease-body">' + escapeHtml(a.title) + '</span>' +
@@ -5278,23 +5332,17 @@ function renderDashboardStrip() {
       if (alerts.length > max) {
         html += '<div class="dash-tease-more">+' + (alerts.length - max) + ' more</div>';
       }
-      wSubEl.innerHTML = html;
-    } else {
-      const todayHigh = daily[0] ? " · H " + daily[0].high + "°" : "";
-      wSubEl.textContent = (wIcon + " " + cur.condition + todayHigh).trim();
     }
+    wSubEl.innerHTML = html;
   }
 
-  // Plants cell — show per-care-type rows: icon + label + plant names teaser
+  // Plants cell — per-care-type teaser rows; no value slot
   const activeTypes = Object.keys(CARE_TYPES).filter(t => plantsNeedingCare(t).length > 0);
-  const pValEl = document.getElementById("dash-plants-val");
   const pSubEl = document.getElementById("dash-plants-sub");
-  if (pValEl) {
+  if (pSubEl) {
     if (activeTypes.length === 0) {
-      pValEl.textContent = MONTHS[currentMonth];
-      if (pSubEl) pSubEl.innerHTML = '<span class="dash-all-clear">Quiet month — nothing scheduled</span>';
+      pSubEl.innerHTML = '<span class="dash-all-clear">Quiet month — nothing scheduled</span>';
     } else {
-      pValEl.textContent = MONTHS[currentMonth];
       const maxPlantsPerRow = 3;
       const rows = activeTypes.map(t => {
         const plants = plantsNeedingCare(t);
@@ -5308,15 +5356,13 @@ function renderDashboardStrip() {
           '</span>' +
         '</div>';
       }).join("");
-      if (pSubEl) pSubEl.innerHTML = rows;
+      pSubEl.innerHTML = rows;
     }
   }
 
-  // Wildlife cell — three teaser rows: birds, amphibians, fishing
-  const wldValEl = document.getElementById("dash-wildlife-val");
+  // Wildlife cell — birds / amphibians / fishing teaser rows; no value slot
   const wldSubEl = document.getElementById("dash-wildlife-sub");
-  if (wldValEl && typeof BIRDS_DATA !== "undefined" && typeof AMPHIBIANS_DATA !== "undefined") {
-    wldValEl.textContent = MONTHS[currentMonth];
+  if (wldSubEl && typeof BIRDS_DATA !== "undefined" && typeof AMPHIBIANS_DATA !== "undefined") {
     const maxNames = 3;
     const birdsNow = BIRDS_DATA.species.filter(s => (s.monthsPresent || []).includes(currentMonth));
     const ampsNow  = AMPHIBIANS_DATA.species.filter(s => (s.monthsActive  || []).includes(currentMonth));
@@ -5337,7 +5383,6 @@ function renderDashboardStrip() {
     if (birdsNow.length) html += teaseRow("🐦", "Birds", birdsNow.map(b => b.name), birdsNow.length);
     if (ampsNow.length)  html += teaseRow("🐸", "Amphibians", ampsNow.map(a => a.name), ampsNow.length);
 
-    // Fishing row — pull lake temp + phase live
     if (typeof FISHING_DATA !== "undefined" && typeof estimateLakeTemp === "function") {
       const lakeTemp = estimateLakeTemp();
       const phase = getCurrentFishingPhase(lakeTemp);
@@ -5350,7 +5395,60 @@ function renderDashboardStrip() {
       '</div>';
     }
 
-    if (wldSubEl) wldSubEl.innerHTML = html;
+    wldSubEl.innerHTML = html;
+  }
+
+  // Astronomy cell — moon phase, sunset, next event (or Bortle fallback)
+  const aSubEl = document.getElementById("dash-astronomy-sub");
+  if (aSubEl && typeof calcMoonAge === "function") {
+    const now = new Date();
+    const moonAge = calcMoonAge(now);
+    const moonInfo = moonPhaseLabel(moonAge);
+    const illuminPct = Math.round((1 - Math.cos(moonAge / 29.53058867 * 2 * Math.PI)) / 2 * 100);
+    const sunset = (daily[0] || {}).sunset || null;
+
+    let html = '<div class="dash-tease-row">' +
+      '<span class="dash-tease-icon">' + moonInfo.emoji + '</span>' +
+      '<span class="dash-tease-body">' +
+        '<span class="dash-tease-action">Moon</span> · ' +
+        '<span class="dash-tease-names">' + escapeHtml(moonInfo.label) + ' · ' + illuminPct + '%</span>' +
+      '</span>' +
+    '</div>';
+    if (sunset) {
+      html += '<div class="dash-tease-row">' +
+        '<span class="dash-tease-icon">🌅</span>' +
+        '<span class="dash-tease-body">' +
+          '<span class="dash-tease-action">Sunset</span> · ' +
+          '<span class="dash-tease-names">' + escapeHtml(sunset) + '</span>' +
+        '</span>' +
+      '</div>';
+    }
+    let nextLine = null;
+    if (typeof CELESTIAL_DATA !== "undefined" && typeof daysUntil === "function") {
+      const upcoming = (CELESTIAL_DATA.events || [])
+        .filter(e => daysUntil(e.date) >= 0 && daysUntil(e.date) <= 21)
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+      const next = upcoming[0];
+      if (next) {
+        const d = Math.max(0, daysUntil(next.date));
+        const label = d === 0 ? "tonight" : d === 1 ? "tomorrow" : "in " + d + "d";
+        nextLine = '<div class="dash-tease-row">' +
+          '<span class="dash-tease-icon">✨</span>' +
+          '<span class="dash-tease-body">' +
+            '<span class="dash-tease-action">Next</span> · ' +
+            '<span class="dash-tease-names">' + escapeHtml(next.shortName || next.name || "event") + ' ' + label + '</span>' +
+          '</span>' +
+        '</div>';
+      }
+    }
+    if (!nextLine) {
+      nextLine = '<div class="dash-tease-row">' +
+        '<span class="dash-tease-icon">⭐</span>' +
+        '<span class="dash-tease-body"><span class="dash-tease-names">Bortle 3 — exceptional dark sky</span></span>' +
+      '</div>';
+    }
+    html += nextLine;
+    aSubEl.innerHTML = html;
   }
 }
 
