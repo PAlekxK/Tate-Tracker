@@ -155,7 +155,7 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:RosebreastedGrosbeak08.jpg"
       },
-      "sound": "sounds/birds/rose-breasted-grosbeak.ogg",
+      "sound": "sounds/birds/rose-breasted-grosbeak.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "Jonathon Jongsma",
@@ -198,7 +198,7 @@
         "license": "CC BY-SA 2.0",
         "url": "https://commons.wikimedia.org/wiki/File:Indigo_Bunting_by_Dan_Pancamo_4.jpg"
       },
-      "sound": "sounds/birds/indigo-bunting.ogg",
+      "sound": "sounds/birds/indigo-bunting.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "Jonathon Jongsma",
@@ -382,7 +382,7 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Junco_hyemalis_hyemalis_CT1_(cropped).jpg"
       },
-      "sound": "sounds/birds/dark-eyed-junco.ogg",
+      "sound": "sounds/birds/dark-eyed-junco.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "Jonathon Jongsma",
@@ -431,7 +431,7 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:20241004_eastern_towhee_pleasant_valley_PD207764.jpg"
       },
-      "sound": "sounds/birds/eastern-towhee.ogg",
+      "sound": "sounds/birds/eastern-towhee.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "Jonathon Jongsma",
@@ -476,7 +476,7 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:20260428_tom_wild_turkey_matthaei_botanical_gardens_PD08952.jpg"
       },
-      "sound": "sounds/birds/wild-turkey.ogg",
+      "sound": "sounds/birds/wild-turkey.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "Jonathon Jongsma",
@@ -569,7 +569,7 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:BeltedKingfisherJG_Male.jpg"
       },
-      "sound": "sounds/birds/belted-kingfisher.ogg",
+      "sound": "sounds/birds/belted-kingfisher.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "Jonathon Jongsma",
@@ -658,7 +658,7 @@
         "license": "CC BY-SA 2.0",
         "url": "https://commons.wikimedia.org/wiki/File:Carolina_Chickadee1_by_Dan_Pancamo.jpg"
       },
-      "sound": "sounds/birds/carolina-chickadee.ogg",
+      "sound": "sounds/birds/carolina-chickadee.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "G. McGrane",
@@ -707,7 +707,7 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:GreatBlueHeronInARiver.jpg"
       },
-      "sound": "sounds/birds/great-blue-heron.ogg",
+      "sound": "sounds/birds/great-blue-heron.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "G. McGrane",

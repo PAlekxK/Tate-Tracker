@@ -233,7 +233,7 @@ Vocal species render a small ▶ play button next to their thumbnail in the spec
 
 **Coverage gaps (Wikimedia Commons doesn't have proper recordings under tried scientific names):** American Bullfrog, Green Frog, Fowler's Toad. Skipped silently — same treatment as salamanders. Not high-priority since the Spring Peeper / American Toad / Gray Treefrog chorus dominates the property soundscape anyway. To upgrade later, register a xeno-canto v3 API key (free) and extend `tools/fetch-sounds.py` to fall back to xeno-canto for these three.
 
-**Browser support caveat:** Some bird recordings are Ogg Vorbis (Commons doesn't always store an MP3). Ogg plays in Chrome / Firefox / Edge but **not Safari/iOS**. If iOS support becomes a need, add an ffmpeg transcode step to `fetch-sounds.py` to convert all downloads to MP3.
+**Browser support:** All recordings play in Safari/iOS. Commons-sourced Ogg Vorbis files are auto-transcoded to M4A AAC on download by `fetch-sounds.py` using macOS-native `afconvert` (no ffmpeg / brew needed). On non-macOS hosts, transcoding is skipped and the original .ogg is kept — those won't play in Safari/iOS but still work in Chrome/Firefox/Edge. Final mix on disk: 8 .mp3, 8 .m4a (transcoded), 1 .wav, all iOS-friendly.
 
 Each item has a `sound` field (relative path) and `soundAttribution` object on the source JSON, written by `tools/wire-sounds.py`. License filter accepts CC-BY, CC-BY-SA, CC0, and Public Domain (this is a personal dashboard — NC-restricted licenses would also be fine if needed).
 
