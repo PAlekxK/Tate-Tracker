@@ -106,6 +106,47 @@ The top strip is the **main menu**. Two tiers:
 
 ---
 
+### 3. Weather card — restructure from "by source" to "by topic" 🟡
+
+**Macro framing (agreed):**
+The current source-grouped layout (green station block / blue forecast block / gray historical block) was useful scaffolding for understanding how the data flows. Now that the flow is understood, readers care about *topics* — "how much rain?" — not which API delivered the answer. The blocks force the reader to assemble across sources.
+
+**Proposed three-zone structure:**
+
+**Zone 1 — Source status header (compact, top of card):**
+  - 📡 Kirschenbauer Station · live indicator
+  - ☁ Open-Meteo API · live indicator (rename from "Open-Meteo" → make the API designation explicit)
+  - Two short rows total, just confirmation the sources are live.
+
+**Zone 2 — Topic-grouped content:** each section pulls from whichever source is relevant. Candidate ordering:
+  1. Right Now — current temp, condition, synthesized "Today" gardener callout
+  2. Today — H/L, sunrise/sunset, hourly outlook
+  3. Rainfall — past 7d, next 7d, 30-day rolling, ERA5 percentile (this is the canonical example of why topic > source)
+  4. Wind & Pressure — current + gusts + pressure trend
+  5. 7-Day Forecast strip
+  6. Indoor (station-exclusive sensors that don't pair)
+  7. Alerts (when present — derived from multiple sources)
+
+**Zone 3 — Methodology footer:** per-measurement explainers, expandable.
+
+**Per-data-point freshness (resolved):** consultant initially suggested small inline source tags (📡/☁) next to each topic-section header to preserve per-measurement freshness. Paul pushed back — there are only two live sources, both indicated at the top, and downstream data simply vanishes when a source dies. The absence of data is a clearer signal than a small tag, and tags would reintroduce source-thinking through the back door. **Drop the per-section tags.** Two top-level indicators do all the freshness work.
+
+**Final order (locked 🟢):**
+1. Source status header (2 indicators: 📡 Station live · ☁ Open-Meteo API live)
+2. **Alerts (only when present, top of card)** — attention-grabbing position
+3. Today (synthesized gardener callout)
+4. Right Now & Today's Forecast (current readings + Open-Meteo "overcast" word + 7-day strip + sparklines)
+5. Rainfall (station gauge + past 7d + next 7d + rolling 30d + ERA5 percentile, all together)
+6. Wind & Pressure
+7. Inside (indoor sensors)
+8. Methodology footer (expandable)
+
+**Visual change:** no more green/blue/gray colored blocks. Plain section structure. Sources blend by topic.
+
+**Status:** ready to implement.
+
+---
+
 ## SCRATCH (consultant working notes)
 
 **What's actually below the main strip today (the cards being teased):**

@@ -439,16 +439,17 @@
     text-transform: uppercase;
   }
 
-  /* === WEATHER BLOCKS — one block per source; chip lives inside the block at top-right === */
+  /* === WEATHER SECTIONS — topic-grouped, neutral styling (no source-coded colors) === */
   .wblock {
-    border: 1.5px solid;
-    border-radius: 14px;
+    background: #fff;
+    border: 1px solid #e4ecdc;
+    border-radius: 12px;
     padding: 12px 14px;
-    margin: 0 18px 12px;
+    margin: 0 18px 10px;
   }
-  .wblock-station    { background: linear-gradient(135deg, #f0fff6, #e6f8ec); border-color: #5cb87a; }
-  .wblock-forecast   { background: linear-gradient(135deg, #f3f8fd, #e8f1fa); border-color: #8ab4d8; }
-  .wblock-historical { background: linear-gradient(135deg, #f6f6f3, #f0f0ec); border-color: #b0b0a4; }
+  /* Variant classes kept for backwards compat but visually unified. Source identity is conveyed
+     by the top-of-card status bar plus per-section topic title — not by color. */
+  .wblock-station, .wblock-forecast, .wblock-historical { background: #fff; border-color: #e4ecdc; }
   .wblock-header {
     display: flex;
     align-items: center;
@@ -457,26 +458,68 @@
     margin-bottom: 4px;
   }
   .wblock-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: #2a4a4a;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    color: #1a3a1a;
+    text-transform: none;
   }
-  .wblock-station    .wblock-title { color: #1d6035; }
-  .wblock-forecast   .wblock-title { color: #2a5078; }
-  .wblock-historical .wblock-title { color: #555048; }
+  .wblock-station    .wblock-title,
+  .wblock-forecast   .wblock-title,
+  .wblock-historical .wblock-title { color: #1a3a1a; }
   .wblock-status {
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 10.5px;
-    color: #4a7a5a;
+    color: #6a8a6a;
     margin-bottom: 8px;
     font-weight: 500;
   }
-  .wblock-forecast   .wblock-status { color: #4a6a8a; }
-  .wblock-historical .wblock-status { color: #6a685a; }
+
+  /* === SOURCE STATUS BAR (top of weather card) === */
+  .weather-status-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 18px 10px;
+    margin: 0;
+    border-bottom: 1px solid #e4ecdc;
+  }
+  .weather-status-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    color: #2a4a2a;
+    font-weight: 500;
+  }
+  .weather-status-item .live-dot { margin-left: 2px; }
+  .weather-status-item .src-tag { font-size: 11px; }
+
+  /* Methodology footer — expandable */
+  .weather-methodology { margin: 6px 18px 0; }
+  .weather-methodology summary {
+    cursor: pointer;
+    font-size: 11.5px;
+    color: #5a7a5a;
+    padding: 8px 2px;
+    list-style: none;
+    font-style: italic;
+  }
+  .weather-methodology summary::marker { display: none; }
+  .weather-methodology summary::-webkit-details-marker { display: none; }
+  .weather-methodology[open] summary { color: #2a4a2a; }
+  .weather-methodology-body {
+    font-size: 11px;
+    color: #5a7a5a;
+    line-height: 1.6;
+    padding: 4px 4px 12px;
+  }
+  .weather-methodology-body p { margin: 0 0 6px; }
+  .weather-methodology-body strong { color: #2a4a2a; font-weight: 600; }
+  .rain-divider { height: 1px; background: #e4ecdc; margin: 12px 0 0; }
   .live-dot {
     width: 7px;
     height: 7px;
@@ -2651,26 +2694,15 @@ function windAdjective(mph) {
 }
 
 function renderAmbientStationPanel(d, errMsg) {
-  const panelId = "ambient-station-panel";
-  let panel = document.getElementById(panelId);
-  if (!panel) {
-    const weatherContent = document.getElementById("weather-content");
-    if (!weatherContent) return;
-    panel = document.createElement("div");
-    panel.id = panelId;
-    weatherContent.insertAdjacentElement("afterbegin", panel);
-  }
+  // Targets: panel inside Right Now (headline + comfort + trend), Inside section (indoor)
+  const panel = document.getElementById("ambient-station-panel");
+  if (!panel) return;
 
   if (!d) {
     const msg = errMsg ? "Error: " + errMsg : "Hardware not yet online — data will appear when station is powered on";
-    panel.innerHTML =
-      '<div class="wblock wblock-station">' +
-        '<div class="wblock-header">' +
-          '<span class="wblock-title">On-property</span>' +
-          '<span class="src-tag src-tag-station">📡 Kirschenbauer Station</span>' +
-        '</div>' +
-        '<div class="wblock-status"><span class="live-dot error"></span> ' + escapeHtml(msg) + '</div>' +
-      '</div>';
+    panel.innerHTML = '<div class="wblock-status"><span class="live-dot error"></span> ' + escapeHtml(msg) + '</div>';
+    const insideHost = document.getElementById("wsec-inside");
+    if (insideHost) insideHost.style.display = "none";
     return;
   }
 
@@ -2732,33 +2764,28 @@ function renderAmbientStationPanel(d, errMsg) {
   // 24-hour trend sparklines (temp, humidity, pressure) — uses cached station history
   const trendStrip = renderTrendStrip(WEATHER_DATA.stationHistory);
 
-  // Featured rain detail — physical gauge readings (rate, today, event, week, month)
-  const rainBlock = renderPropertyGaugeBlock(d);
-
-  // Garden insight — synthesized "today at the cabin" leading prose
-  const insight = generateGardenerInsight();
-  const insightHtml = insight
-    ? '<div class="garden-insight">' +
-        '<span class="garden-insight-label">Today</span>' +
-        escapeHtml(insight.observation) +
-        (insight.action ? " " + escapeHtml(insight.action) : "") +
-      '</div>'
-    : "";
-
+  // Right Now slot — station-driven current readings (no insight, no rain block; those live elsewhere)
   panel.innerHTML =
-    '<div class="wblock wblock-station">' +
-      '<div class="wblock-header">' +
-        '<span class="wblock-title">On-property</span>' +
-        '<span class="src-tag src-tag-station">📡 Kirschenbauer Station</span>' + battTag +
-      '</div>' +
-      '<div class="wblock-status">' + liveIndicator(ts, 10, 30) + '</div>' +
-      insightHtml +
-      '<div class="garden-hero-line">' + headline + '</div>' +
-      comfortLine +
-      indoorLine +
-      rainBlock +
-      trendStrip +
-    '</div>';
+    '<div class="garden-hero-line">' + headline + battTag + '</div>' +
+    comfortLine +
+    trendStrip;
+
+  // Inside slot — indoor sensors live in their own topic section
+  const insideContent = document.getElementById("wsec-inside-content");
+  const insideHost = document.getElementById("wsec-inside");
+  if (insideContent) {
+    if (indoorParts.length > 0) {
+      insideContent.innerHTML =
+        '<div class="garden-hero-line" style="font-size:14px;">' +
+          (indoorTemp != null ? indoorTemp + '°F' : '—') +
+          (indoorHum  != null ? ' · ' + indoorHum + '% humidity' : '') +
+          (indoorDP   != null ? ' · dew ' + indoorDP + '°' : '') +
+        '</div>';
+      if (insideHost) insideHost.style.display = "";
+    } else {
+      if (insideHost) insideHost.style.display = "none";
+    }
+  }
 }
 
 // =========================
@@ -2900,50 +2927,60 @@ function renderRainfallPanel() {
   const container = document.getElementById("rainfall-panel");
   if (!container) return;
   const rp = WEATHER_DATA.recentPrecip;
-  if (!rp) { container.innerHTML = ''; return; }
+  const station = WEATHER_DATA.stationData;
 
-  const ph = WEATHER_DATA.precipHistory || null;
-  const forecastTotal = Math.round(WEATHER_DATA.daily.reduce((s, d) => s + (d.precipAmount || 0), 0) * 100) / 100;
+  // If we have neither station gauge data nor recent precip data, don't render the section
+  if (!rp && !station) { container.innerHTML = ''; return; }
 
-  const pct30  = ph ? getPrecipPct(rp.rolling30,    ph.hist30)  : null;
-  const pct7   = ph ? getPrecipPct(rp.past7total,   ph.hist7)   : null;
-  const pctFct = ph ? getPrecipPct(forecastTotal,   ph.histFct) : null;
+  // ── Station gauge block (now/today/event/week/month) ──
+  const gaugeBlock = station ? renderPropertyGaugeBlock(station) : '';
 
-  const v30   = precipVerdict(pct30);
-  const v7    = precipVerdict(pct7);
-  const vFct  = precipVerdict(pctFct);
+  // ── Recent precip + forecast totals + percentile chips ──
+  let contextBlock = '';
+  if (rp) {
+    const ph = WEATHER_DATA.precipHistory || null;
+    const forecastTotal = Math.round(WEATHER_DATA.daily.reduce((s, d) => s + (d.precipAmount || 0), 0) * 100) / 100;
 
-  const ordinal = (n) => {
-    if (n === null) return '';
-    const s = ['th','st','nd','rd'], v = n % 100;
-    return n + (s[(v - 20) % 10] || s[v] || s[0]) + ' percentile';
-  };
+    const pct30  = ph ? getPrecipPct(rp.rolling30,    ph.hist30)  : null;
+    const pct7   = ph ? getPrecipPct(rp.past7total,   ph.hist7)   : null;
+    const pctFct = ph ? getPrecipPct(forecastTotal,   ph.histFct) : null;
 
-  const colHtml = (label, inches, v, pct) =>
-    '<div class="rain-ctx-col">' +
-    '<div class="rain-ctx-col-label">' + label + '</div>' +
-    '<div class="rain-ctx-amount">' + inches + '"</div>' +
-    (v
-      ? '<div><span class="rv-badge ' + v.cls + '">' + v.label + '</span></div>' +
-        '<div class="rv-pct">' + ordinal(pct) + '</div>'
-      : '<div class="rv-loading">comparing…</div>') +
-    '</div>';
+    const v30   = precipVerdict(pct30);
+    const v7    = precipVerdict(pct7);
+    const vFct  = precipVerdict(pctFct);
 
-  const period = ph ? ph.period : '2001–2025';
+    const ordinal = (n) => {
+      if (n === null) return '';
+      const s = ['th','st','nd','rd'], v = n % 100;
+      return n + (s[(v - 20) % 10] || s[v] || s[0]) + ' percentile';
+    };
 
-  container.innerHTML =
-    '<div class="wblock wblock-historical">' +
-      '<div class="wblock-header">' +
-        '<span class="wblock-title">Rainfall context</span>' +
-        '<span class="src-tag src-tag-reference">📊 ERA5 ' + period + '</span>' +
-      '</div>' +
-      '<div class="wblock-status">Regional rainfall vs. 25-year historical normal for these dates</div>' +
+    const colHtml = (label, inches, v, pct) =>
+      '<div class="rain-ctx-col">' +
+      '<div class="rain-ctx-col-label">' + label + '</div>' +
+      '<div class="rain-ctx-amount">' + inches + '"</div>' +
+      (v
+        ? '<div><span class="rv-badge ' + v.cls + '">' + v.label + '</span></div>' +
+          '<div class="rv-pct">' + ordinal(pct) + '</div>'
+        : '<div class="rv-loading">comparing…</div>') +
+      '</div>';
+
+    const period = ph ? ph.period : '2001–2025';
+    contextBlock =
+      (gaugeBlock ? '<div class="rain-divider"></div>' : '') +
+      '<div class="wblock-status" style="margin-top:8px;">Regional rainfall vs. 25-year historical normal for these dates</div>' +
       '<div class="rain-ctx-cols">' +
         colHtml('Past 30 Days',   rp.rolling30.toFixed(2),    v30,  pct30)  +
         colHtml('Past 7 Days',    rp.past7total.toFixed(2),   v7,   pct7)   +
         colHtml('7-Day Forecast', forecastTotal.toFixed(2),   vFct, pctFct) +
-      '</div>' +
-      '<div class="wblock-attribution">Inches: Open-Meteo grid-measured (past) and forecast · Percentile vs. ERA5 ' + period + '. For on-property gauge readings, see the green block above.</div>' +
+      '</div>';
+  }
+
+  container.innerHTML =
+    '<div class="wblock">' +
+      '<div class="wblock-header"><span class="wblock-title">Rainfall</span></div>' +
+      gaugeBlock +
+      contextBlock +
     '</div>';
 }
 
@@ -2969,40 +3006,79 @@ function renderWeather() {
   const cur = WEATHER_DATA.current;
   const daily = WEATHER_DATA.daily;
   const wIcon = WEATHER_CODES[cur.weatherCode] || "❓";
-  const stationOnline = WEATHER_DATA.stationOnline;
 
-  // Open-Meteo freshness for the forecast block live indicator
+  // Open-Meteo freshness for the source-status bar
   const meta = WEATHER_DATA._meta || {};
   const omFetchedAt = meta.fetchedAt ? new Date(meta.fetchedAt).getTime() : null;
   const omIsPlaceholder = meta.isPlaceholder === true;
-  const forecastStatus = omIsPlaceholder
-    ? '<span class="live-dot stale"></span> Loading live forecast…'
+  const omIndicator = omIsPlaceholder
+    ? '<span class="live-dot stale"></span> Loading…'
     : liveIndicator(omFetchedAt, 90, 360);
+
+  // Station freshness — from cached station data if present
+  const station = WEATHER_DATA.stationData;
+  const stationTs = station && (station.dateutc || (station.date ? new Date(station.date).getTime() : null));
+  const stationIndicator = station
+    ? liveIndicator(stationTs, 10, 30)
+    : '<span class="live-dot error"></span> Not online';
 
   let html = "";
 
-  // === ON-PROPERTY block (placeholder filled by renderAmbientStationPanel) ===
-  html += '<div id="ambient-station-panel"></div>';
+  // === SOURCE STATUS BAR (top — confirms both feeds are alive) ===
+  html += '<div class="weather-status-bar">';
+  html +=   '<div class="weather-status-item">📡 Kirschenbauer Station ' + stationIndicator + '</div>';
+  html +=   '<div class="weather-status-item">☁️ Open-Meteo API ' + omIndicator + '</div>';
+  html += '</div>';
 
-  // === FORECAST block (Open-Meteo) ===
-  html += '<div class="wblock wblock-forecast">';
-  html +=   '<div class="wblock-header">';
-  html +=     '<span class="wblock-title">Forecast</span>';
-  html +=     '<span class="src-tag src-tag-forecast">☁️ Open-Meteo</span>';
-  html +=   '</div>';
-  html +=   '<div class="wblock-status">' + forecastStatus + '</div>';
-  html +=   '<div class="weather-current-row">';
+  // === ALERTS (top, only when present) ===
+  const alerts = generateAlerts();
+  if (alerts.length > 0) {
+    html += '<div class="wblock">';
+    html +=   '<div class="wblock-header"><span class="wblock-title">⚠ Heads up</span></div>';
+    html +=   '<div class="alerts-block">';
+    alerts.forEach(a => {
+      html += '<div class="alert ' + a.severity + '">';
+      html +=   '<div class="alert-icon">' + a.icon + '</div>';
+      html +=   '<div class="alert-body">';
+      html +=     '<div class="alert-title-row"><div class="alert-title">' + escapeHtml(a.title) + '</div></div>';
+      html +=     '<div class="alert-text">' + escapeHtml(a.text) + '</div>';
+      html +=   '</div>';
+      html += '</div>';
+    });
+    html +=   '</div>';
+    html += '</div>';
+  }
+
+  // === TODAY (synthesized gardener insight, lifted out of the station block) ===
+  const insight = generateGardenerInsight();
+  if (insight) {
+    html += '<div class="wblock">';
+    html +=   '<div class="wblock-header"><span class="wblock-title">Today</span></div>';
+    html +=   '<div class="garden-insight" style="background:transparent;border-left:none;padding:0;">';
+    html +=     escapeHtml(insight.observation);
+    if (insight.action) html += ' ' + escapeHtml(insight.action);
+    html +=   '</div>';
+    html += '</div>';
+  }
+
+  // === RIGHT NOW (station readings + Open-Meteo condition word + 7-day strip + sparklines) ===
+  // Station-driven hero is filled by renderAmbientStationPanel; condition + forecast strip rendered here.
+  html += '<div class="wblock" id="wsec-rightnow">';
+  html +=   '<div class="wblock-header"><span class="wblock-title">Right now</span></div>';
+  html +=   '<div id="ambient-station-panel"></div>';
+  // Open-Meteo condition + H/L (always visible — woven in alongside station readings)
+  html +=   '<div class="weather-current-row" style="margin-top:10px;">';
   html +=     '<div class="weather-icon-big">' + wIcon + '</div>';
   html +=     '<div class="weather-condition-block">';
-  html +=       '<div class="weather-condition">' + escapeHtml(cur.condition) + (stationOnline ? "" : " · feels like " + cur.feelsLike + "°F") + '</div>';
+  html +=       '<div class="weather-condition">' + escapeHtml(cur.condition) + '</div>';
   if (daily[0]) {
     html +=     '<div class="weather-detail">High ' + daily[0].high + '° · Low ' + daily[0].low + '°';
     if (daily[0].precipChance >= 20) html += ' · ' + daily[0].precipChance + '% rain chance';
     html +=     '</div>';
   }
   html +=     '</div>';
-  if (!stationOnline) html += '<div class="weather-temp">' + cur.temperature + '°</div>';
   html +=   '</div>';
+  // 7-day forecast strip
   html +=   '<div class="forecast-strip">';
   daily.forEach((d, i) => {
     const todayCls = i === 0 ? " today" : "";
@@ -3019,58 +3095,33 @@ function renderWeather() {
   html +=   '</div>';
   html += '</div>';
 
-  // === RAINFALL block (Open-Meteo grid + ERA5 percentile) ===
-  // Filled by renderRainfallPanel; we provide the wrapping wblock here so chip placement is consistent.
+  // === RAINFALL (unified — gauge + recent + forecast + ERA5 percentile, filled by renderRainfallPanel) ===
   html += '<div id="rainfall-panel"></div>';
 
-  // === THINGS TO NOTE block (Open-Meteo, alerts derived from forecast) ===
-  const alerts = generateAlerts();
-  // Source mix in Things to Note: forecast-derived + station-realtime alerts; per-alert chips clarify
-  const stationAlertCount = alerts.filter(a => a.source === "station").length;
-  const forecastAlertCount = alerts.filter(a => a.source !== "station").length;
-  let alertSubtitle;
-  if (stationAlertCount && forecastAlertCount) {
-    alertSubtitle = stationAlertCount + " from your station · " + forecastAlertCount + " from forecast";
-  } else if (stationAlertCount) {
-    alertSubtitle = "All from your station";
-  } else if (forecastAlertCount) {
-    alertSubtitle = "Forecast-derived" + (omIsPlaceholder ? " · awaiting live data" : "");
-  } else {
-    alertSubtitle = "Forecast and on-property readings";
-  }
-  html += '<div class="wblock wblock-forecast">';
-  html +=   '<div class="wblock-header">';
-  html +=     '<span class="wblock-title">Things to note</span>';
-  html +=     '<span class="src-tag src-tag-forecast">☁️ Forecast + 📡 Station</span>';
-  html +=   '</div>';
-  html +=   '<div class="wblock-status" style="margin-bottom:6px;">' + alertSubtitle + '</div>';
-  html +=   '<div class="alerts-block">';
-  if (alerts.length === 0) {
-    html += '<div class="alerts-empty">✓ Nothing notable. Conditions look unremarkable.</div>';
-  } else {
-    alerts.forEach(a => {
-      const sourceTag = a.source === "station"
-        ? '<span class="alert-source src-tag src-tag-station">📡 Station</span>'
-        : '<span class="alert-source src-tag src-tag-forecast">☁️ Forecast</span>';
-      html += '<div class="alert ' + a.severity + '">';
-      html +=   '<div class="alert-icon">' + a.icon + '</div>';
-      html +=   '<div class="alert-body">';
-      html +=     '<div class="alert-title-row"><div class="alert-title">' + escapeHtml(a.title) + '</div>' + sourceTag + '</div>';
-      html +=     '<div class="alert-text">' + escapeHtml(a.text) + '</div>';
-      html +=   '</div>';
-      html += '</div>';
-    });
-  }
-  html +=   '</div>';
+  // === INSIDE (station-only indoor sensors) ===
+  html += '<div class="wblock" id="wsec-inside" style="display:none;">';
+  html +=   '<div class="wblock-header"><span class="wblock-title">Inside</span></div>';
+  html +=   '<div id="wsec-inside-content"></div>';
   html += '</div>';
+
+  // === METHODOLOGY (expandable footer) ===
+  html += '<details class="weather-methodology">';
+  html +=   '<summary>Where does this data come from?</summary>';
+  html +=   '<div class="weather-methodology-body">';
+  html +=     '<p><strong>Kirschenbauer Station (📡)</strong> — Ambient Weather PWS on the property. Provides the live current readings, indoor sensors, and the on-property rain gauge totals.</p>';
+  html +=     '<p><strong>Open-Meteo API (☁️)</strong> — forecast model. Provides the condition word, 7-day outlook, and gridded precipitation for the past-7-day and rolling-30-day rainfall context.</p>';
+  html +=     '<p><strong>ERA5 (📊)</strong> — Open-Meteo\'s archived reanalysis (2001–2025). Used to compute the percentile chips that show how rainfall compares to the 25-year norm for these dates.</p>';
+  html +=     '<p>If a source goes offline, the dependent sections will simply be missing — the indicators at the top of the card show which feeds are live.</p>';
+  html +=   '</div>';
+  html += '</details>';
 
   document.getElementById("weather-content").innerHTML = html;
 
-  // If station data has already arrived, re-populate the on-property hero placeholder
-  // (renderWeather can be called multiple times — e.g. when Open-Meteo finishes after Ambient)
+  // Re-fill placeholders if data has already arrived
   if (WEATHER_DATA.stationData) {
     renderAmbientStationPanel(WEATHER_DATA.stationData);
   }
+  renderRainfallPanel();
 }
 
 // =========================
