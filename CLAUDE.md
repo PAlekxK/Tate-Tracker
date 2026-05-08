@@ -146,8 +146,82 @@ Goal: make the page as dynamically informed as possible at load time — beyond 
 **Dynamic AI summarization (higher complexity, worth exploring):**
 Once multiple live data streams are available, explore using the Claude API to synthesize them into a natural-language "conditions brief" at the top of the dashboard — something like: *"Cool overcast May morning — good window for garden work, lake still warming toward bass territory, mountain laurel likely opening this week."* This would synthesize weather + fishing + plant calendar + wildlife activity into a single grounded, property-specific read. Implementation would require a lightweight backend or serverless function to proxy the Claude API call (can't call Anthropic directly from the browser without exposing a key).
 
-### Wildlife photos — birds & amphibians (lower priority)
-Explore adding actual photographs for each bird and amphibian species rather than emoji icons. Species are well-defined (all are North Georgia mountain species present on the property), so sourcing accurate photos is feasible — Wikimedia Commons and iNaturalist have permissively licensed images for all of them. Implementation consideration: photos would need to be either hosted externally (URL references in the JSON) or base64-inlined to keep the single-file constraint. Thumbnail treatment within the expandable species rows is the natural insertion point. Lower priority due to implementation complexity.
+✓ **Researched May 2026** — every source above (and many more) is verified with endpoints, CORS status, and integration ideas in `research-resources.md`. Prioritized backlog in the next section.
+
+### Research-derived integration backlog
+
+A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verified resources across UGA Extension, native plants, wildlife, watershed, fishing, climate/dark sky/homesteading). Top-priority integrations, ordered roughly by signal-to-effort:
+
+**Surface-fact callouts (low effort, high signal):**
+- Property card → "On Cherokee land" subsection. Pickens Co was Cherokee Nation territory 1793–1838; Talking Rock Creek (~6 mi) was a settlement. Link to EBCI Natural Resources + the USFS × EBCI culturally-significant-plants research.
+- Property card → "Tate Mountain Estates" historical note. Lake Sequoyah at Tate Mountain Estates (~6.2 mi from the property) was built by Col. Sam Tate around 1929 — gives "Tate Tracker" a real local-historical anchor.
+- Wildlife card → "Endemic fish of the Etowah" subtitle. Etowah Darter and Cherokee Darter are federally listed and exist *only* in this watershed. Tennessee Aquarium Conservation Institute does propagation work.
+- Property card → "Bortle 3 — Stephen C. Foster SP (Bortle 2) is GA's only IDA-certified site" reference for sky-quality calibration.
+- Plants card → keystone genera for Blue Ridge ecoregion (oak ~400+ Lepidoptera, willow, cherry, blueberry, goldenrod) sourced from NWF Keystone Plants by Ecoregion.
+- Property card → seasonally-conditional burn-ban banner (May 1–Sep 30 = state ban active; rest of year = permit required via gatrees.org).
+
+**Live data integrations (CORS-enabled, no key):**
+- **USGS NWIS streamflow + water temp** at Etowah gauge 02389150 (near Dawsonville). Endpoint: `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=02389150&parameterCd=00060,00065,00010`. Trout-relevant if temp param is reported at this site; otherwise find nearest gauge with 00010.
+- **USGS earthquake events** (200km radius). Endpoint: `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=34.5496&longitude=-84.3674&maxradiuskm=200&minmagnitude=2.5&orderby=time&limit=1`.
+- **NWS api.weather.gov skyCover** for celestial subsection. Flow: `GET /points/34.5496,-84.3674` → follow `properties.forecastGridData` → read `properties.skyCover.values[]`.
+- **NASA SVS Dial-a-Moon** hourly image. Pattern: `https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005415/frames/730x730_1x1_30p/moon.NNNN.jpg` where NNNN = hour-of-year.
+- **Open-Meteo expansion** — add `cloud_cover_low/mid/high`, `visibility` to existing request for a stargazing score chip.
+
+**Live data integrations (need server proxy — not CORS):**
+- AirNow AQI chip for Weather card (free key, server proxy needed).
+- US Drought Monitor pill (FIPS 13227 = Pickens GA, server proxy).
+- NOAA NCEI 1991–2020 normals for "May normal high/low" subtitle (free token, server proxy, monthly cache OK).
+
+**Citizen-science enrollment callouts (Wildlife card):**
+- FrogWatch USA (Auburn chapter) — Amphibians monthsActive via frog calls Feb–Aug evenings.
+- SE Bumble Bee Atlas (Xerces × GA DNR) — adopt a grid cell, May–Sep field season.
+- NestWatch (Cornell) — seasonally surface during Birds-tab nesting windows.
+- Project FeederWatch — winter Birds tab mode (Nov–Apr).
+- iNaturalist Pickens County — link from each Amphibians species to local observation page.
+- Hummingbirds at Home — surface seasonally when Ruby-throated arrives mid-April.
+
+**Per-species deep-dive links (no integration burden, just URL fields):**
+- Birds tab → eBird Pickens County bar chart per species (`ebird.org/species/[code]/US-GA-227`).
+- Amphibians tab → SREL Herpetology species accounts (`srelherp.uga.edu/...`).
+- Plants > Hydrangea card → Mt. Cuba wild hydrangea trial top-performers PDF.
+
+**Programs/certifications worth pursuing (one-time actions, surface in Property card):**
+- Homegrown National Park map registration (free) — adds property to national biodiversity map.
+- GA Forestry free Forest Stewardship Plan (custom multi-resource plan via 1-800-GA-TREES).
+- USFWS Partners for Fish and Wildlife site visit (free habitat-planning consult).
+- Birds Georgia Wildlife Sanctuary certification ($110, 5-yr cert, mailable yard sign).
+- NRCS EQIP / CSP cost-share (Pickens Co eligible).
+- Conservation easement options (Mountain Conservation Trust GA — most aligned mandate).
+- Appalachian Beginning Forest Farmer Coalition — strongest fit for shade-grown native NTFPs (ramps, ginseng, sochan, goldenseal) given the property's mature forest.
+
+**Notes & caveats:**
+- Lake Sequoyah is in Pickens Co at Tate Mountain Estates (NOT Habersham Co); 38 acres, ~2,800 ft, built ~1929. Likely HOA/private — verify before publishing fishing-regulation content.
+- AmericanMeteor / IMO meteor shower data: no API. Manually transcribe ~10 major showers per year into static JSON, refresh annually.
+- GA DNR weekly trout stocking: no public JSON API. Either scrape weekly into static cache or link as deep-dive only.
+- Time and Date API ($99+): explicitly NOT recommended; compute sun/moon times locally instead.
+- March 3, 2026 total lunar eclipse is visible from Georgia — featured-event candidate for the celestial card.
+
+### Photos — birds, amphibians, fishing, plants (✓ Done; vehicles pending Paul's photos)
+All four wildlife/plant categories render with a 44×44 thumbnail in the always-visible card header AND a hero photo (~500px) at the top of the expanded body, plus a small italic credit line linking back to Wikimedia Commons.
+
+- **Birds:** 16 species, `images/birds/{id}.jpg`
+- **Amphibians:** 12 species, `images/amphibians/{id}.jpg`
+- **Fishing (Lake Sequoyah):** 3 species, `images/fishing/{id}.jpg`. Hero only (no thumbnail — fishing uses a tabbed species switcher rather than a row list)
+- **Plants:** 13 plants, `images/plants/{id}.jpg`. **Caveat:** several entries are trademarked cultivars (Berry Box® Pyracomeles, Yuki Cherry Blossom® Deutzia, named Clematis hybrids, mixed Hosta, pond Iris). For those, the photo is a genus-level proxy from Commons — see `images/README.md` for the proxy mapping. The `plants.draft.json:qualityPhotosForFutureIntegration` tracker is the place to upgrade these to actual photos of the specimens in the garden.
+
+Each item has a `photo` field (relative path) and `attribution` object (`source`, `author`, `license`, `url`) on the source JSON. Source images are 800px-wide JPEGs (looks sharp at the ~500px hero display on retina, also fine for the 44×44 thumb).
+
+Tooling (unified across all categories):
+- `tools/fetch-photos.py --category {birds|amphibians|fishing|plants}` — pulls lead images from Wikipedia/Commons API, writes `images/{cat}/_attribution.json`. Pass `--force` to refresh, or specific ids to refetch a subset. Per-category `PAGE_OVERRIDES` (Wikipedia title) and `FILE_OVERRIDES` (Commons file name) live in the `CATEGORIES` dict at the top of the script.
+- `tools/wire-photos.py --category {…}` — merges attribution into the source JSON and re-inlines the corresponding `{CATEGORY}_DATA` constant in `viewer.html`. **Important:** these constants are the live runtime source (no JSON fetch for any of them), so the inline must be kept in sync.
+
+The legacy `tools/fetch-bird-photos.py` and `tools/wire-bird-photos.py` scripts have been superseded — they still work, but new photo work should use the unified scripts.
+
+CSS: `.bio-species-thumb` (44×44, rounded, `object-fit: cover`), `.bio-species-photo` (hero, max-width 500px, natural aspect), `.bio-photo-credit` (small gray italic, right-aligned under hero), and `.plant-thumb` (parallel to bio-species-thumb but in plant-card markup) live near the other relevant CSS rules. Photo `<img>` tags use `loading="lazy"` and `onerror="this.remove()"` for graceful degradation when a file is missing.
+
+Single-file constraint: not violated — the repo already has `tools/`, `weather-history.json`, etc. outside `viewer.html`. The principle is *no build step*, which still holds.
+
+**Next (when Paul provides photos):** vehicles renderer at `viewer.html:3836` currently shows `v.emoji` in `.vehicle-icon`; conditional swap to `<img>` is a one-liner. Drop locally-shot JPEGs into `images/vehicles/{id}.jpg`, no attribution needed.
 
 ## Pending design improvements (prioritized)
 

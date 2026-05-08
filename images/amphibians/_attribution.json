@@ -1,0 +1,98 @@
+{
+  "american-bullfrog": {
+    "author": "Carl D. Howe",
+    "credit": "Carl D. Howe, Stow, MA USA",
+    "file": "File:North-American-bullfrog1.jpg",
+    "license": "CC BY-SA 2.5",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source_url": "https://commons.wikimedia.org/wiki/File:North-American-bullfrog1.jpg"
+  },
+  "american-toad": {
+    "author": "Cephas",
+    "credit": "Own work",
+    "file": "File:Bufo_americanus_PJC1.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Bufo_americanus_PJC1.jpg"
+  },
+  "fowlers-toad": {
+    "author": "Rstanton13",
+    "credit": "Own work",
+    "file": "File:Anaxyrus_fowleri_Stanton_2_(cropped).jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Anaxyrus_fowleri_Stanton_2_(cropped).jpg"
+  },
+  "gray-treefrog": {
+    "author": "Randidawn",
+    "credit": "Own work",
+    "file": "File:Gray_tree_frog_in_arboreal_forest_habitat,_MA.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Gray_tree_frog_in_arboreal_forest_habitat,_MA.jpg"
+  },
+  "green-frog": {
+    "author": "Contrabaroness",
+    "credit": "Own work",
+    "file": "File:Male_Green_Frog_-_Hunterdon_County,_NJ.jpg",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Male_Green_Frog_-_Hunterdon_County,_NJ.jpg"
+  },
+  "marbled-salamander": {
+    "author": "Brian Gratwicke from DC, USA",
+    "credit": "Marbled salamander",
+    "file": "File:Marbled_salamander_(14367751333).jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Marbled_salamander_(14367751333).jpg"
+  },
+  "red-backed-salamander": {
+    "author": "Alex Karasoulos",
+    "credit": "Own work",
+    "file": "File:Adult_Female_Plethodon_cinereus.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Adult_Female_Plethodon_cinereus.jpg"
+  },
+  "slimy-salamander": {
+    "author": "Caudatejake",
+    "credit": "Own work",
+    "file": "File:Plethodon_glutonosus.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Plethodon_glutonosus.jpg"
+  },
+  "spotted-salamander": {
+    "author": "D. Gordon E. Robertson",
+    "credit": "Own work",
+    "file": "File:Spotted_Salamander,_Cantley,_Quebec.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Spotted_Salamander,_Cantley,_Quebec.jpg"
+  },
+  "spring-peeper": {
+    "author": "USGS",
+    "credit": "http://cars.er.usgs.gov/herps/Frogs_and_Toads/P_crucifer/p_crucifer.html",
+    "file": "File:H_crucifer_USGS.jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:H_crucifer_USGS.jpg"
+  },
+  "two-lined-salamander": {
+    "author": "Brian Gratwicke",
+    "credit": "Northern Two-lined Salamander  Eurycea bislineata",
+    "file": "File:Northern_Two-lined_Salamander_Eurycea_bislineata.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Northern_Two-lined_Salamander_Eurycea_bislineata.jpg"
+  },
+  "upland-chorus-frog": {
+    "author": "MH Herpetology",
+    "credit": "Own work",
+    "file": "File:Upland_chorus_frog_(Pseudacris_feriarum).jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Upland_chorus_frog_(Pseudacris_feriarum).jpg"
+  }
+}

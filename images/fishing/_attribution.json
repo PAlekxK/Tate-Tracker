@@ -1,0 +1,26 @@
+{
+  "bluegill": {
+    "author": "Paleo1954",
+    "credit": "Own work",
+    "file": "File:Bluegill_(cropped).jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Bluegill_(cropped).jpg"
+  },
+  "crappie": {
+    "author": "Robert W. Hines, U.S. Fish and Wildlife Service",
+    "credit": "http://www.public-domain-image.com/public-domain-images-pictures-free-stock-photos/fauna-animals-public-domain-images-pictures/fishes-public-domain-images-pictures/black-crappie-and-white-crappie-fish.jpg",
+    "file": "File:Black_crappie_and_white_crappie_fish.jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Black_crappie_and_white_crappie_fish.jpg"
+  },
+  "largemouth-bass": {
+    "author": "USFWS Mountain Prairie",
+    "credit": "https://www.flickr.com/photos/51986662@N05/53118577329/",
+    "file": "File:Largemouth_Bass_(Micropterus_salmoides)_June_2023_(cropped).jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Largemouth_Bass_(Micropterus_salmoides)_June_2023_(cropped).jpg"
+  }
+}
