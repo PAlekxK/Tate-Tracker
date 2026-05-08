@@ -42,15 +42,34 @@
       "emoji": "🐦",
       "status": "summer",
       "statusLabel": "Summer resident",
-      "monthsPresent": [3, 4, 5, 6, 7, 8],
-      "peakMonths": [4, 5, 6, 7],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7
+      ],
       "arrivalWindow": "Late April – early May",
       "departureWindow": "Late September – October",
       "habitat": "Woodland edges, clearings, gardens with flowers",
       "voice": "High-pitched chipping; wings produce distinctive hum",
       "notes": "The most eagerly anticipated arrival of spring. Males arrive 1–2 weeks before females — expect the first male by late April at Church Mountain Road elevation. Hang feeders May 1. By July you may have 3–6 birds competing. The south-facing fairway with flower plantings is ideal foraging habitat. All depart by mid-October — take feeders in after a week of no activity.",
       "feeder": "1:4 sugar-water in red feeder, clean every 3–5 days",
-      "funFact": "The only hummingbird species that nests in eastern North America. Males perform a distinctive U-shaped dive display."
+      "funFact": "The only hummingbird species that nests in eastern North America. Males perform a distinctive U-shaped dive display.",
+      "photo": "images/birds/ruby-throated-hummingbird.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "jeffreyw",
+        "license": "CC BY 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Archilochus_colubris_-flying_-male-8.jpg"
+      }
     },
     {
       "id": "scarlet-tanager",
@@ -59,15 +78,33 @@
       "emoji": "🔴",
       "status": "summer",
       "statusLabel": "Summer resident",
-      "monthsPresent": [3, 4, 5, 6, 7, 8],
-      "peakMonths": [4, 5, 6],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6
+      ],
       "arrivalWindow": "Late April – early May",
       "departureWindow": "September",
       "habitat": "Mature deciduous forest, especially oak-dominated forest interior",
       "voice": "Robin-like song but burrier: 'queery-queery-queery.' Distinctive chip-burr call.",
       "notes": "One of North America's most striking birds — flaming red body with jet black wings. Almost exclusively in mature forest canopy, which makes it easy to hear and hard to see. At Church Mountain Road, look along the forested edges of the fairway and into the mature mixed forest. The 'chip-burr' call is the giveaway once you learn it. Males become olive-green in fall before departing.",
       "feeder": "Occasionally visits berry bushes; not a typical feeder bird",
-      "funFact": "Often the most colorful songbird in the eastern forest, yet it spends most of its time in the treetops where its brilliant color blends with sun-dappled leaves."
+      "funFact": "Often the most colorful songbird in the eastern forest, yet it spends most of its time in the treetops where its brilliant color blends with sun-dappled leaves.",
+      "photo": "images/birds/scarlet-tanager.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Rhododendrites",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Scarlet_tanager_in_GWC_(50867).jpg"
+      }
     },
     {
       "id": "rose-breasted-grosbeak",
@@ -76,15 +113,34 @@
       "emoji": "⬛",
       "status": "summer",
       "statusLabel": "Summer resident / migrant",
-      "monthsPresent": [3, 4, 5, 6, 7, 8],
-      "peakMonths": [4, 5, 6, 7],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7
+      ],
       "arrivalWindow": "Late April – May",
       "departureWindow": "September – October",
       "habitat": "Forest edges, woodland clearings, mixed hardwood forest",
       "voice": "Rich, melodious song — like a robin who had voice lessons. Sharp 'peek' call.",
       "notes": "Males are unmistakable: black and white with a brilliant rose-red triangle on the chest. Church Mountain Road's forest-edge habitat at elevation is prime territory. They're conspicuous at feeders during spring migration (May) and can be present as breeders through summer. The male's rich musical song is one of the highlights of a May morning on the property.",
       "feeder": "Enthusiastic feeder visitor — loves black-oil sunflower seeds. Platform or hopper feeder.",
-      "funFact": "Both male and female sing, and the male shares incubation duties — unusual for a colorful songbird."
+      "funFact": "Both male and female sing, and the male shares incubation duties — unusual for a colorful songbird.",
+      "photo": "images/birds/rose-breasted-grosbeak.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "John Harrison at https://www.flickr.com/photos/15512543@N04/",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:RosebreastedGrosbeak08.jpg"
+      }
     },
     {
       "id": "indigo-bunting",
@@ -93,15 +149,34 @@
       "emoji": "💙",
       "status": "summer",
       "statusLabel": "Summer resident",
-      "monthsPresent": [3, 4, 5, 6, 7, 8],
-      "peakMonths": [4, 5, 6, 7],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7
+      ],
       "arrivalWindow": "Late April – May",
       "departureWindow": "September – October",
       "habitat": "Shrubby edges, briars, forest clearings, roadsides",
       "voice": "High, paired musical phrases — 'fire-fire, where-where, here-here.' Males sing persistently from treetops even at midday in summer.",
       "notes": "Males are dazzling electric blue — one of the most brilliant birds in North America. The south-facing fairway edge at Church Mountain Road is exactly the shrubby-edge habitat they prefer. Males sing persistently from utility lines and treetop perches. Females are plain brownish — easy to overlook. One of the most reliable summer breeders at this elevation.",
       "feeder": "Nyjer (thistle) seed and millet. May visit during migration.",
-      "funFact": "Males navigate migration by the stars — young males memorize the rotation of the night sky in their first summer to use as a compass."
+      "funFact": "Males navigate migration by the stars — young males memorize the rotation of the night sky in their first summer to use as a compass.",
+      "photo": "images/birds/indigo-bunting.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Dan Pancamo",
+        "license": "CC BY-SA 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Indigo_Bunting_by_Dan_Pancamo_4.jpg"
+      }
     },
     {
       "id": "wood-thrush",
@@ -110,15 +185,32 @@
       "emoji": "🎵",
       "status": "summer",
       "statusLabel": "Summer resident",
-      "monthsPresent": [3, 4, 5, 6, 7],
-      "peakMonths": [4, 5, 6],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6
+      ],
       "arrivalWindow": "Late April – May",
       "departureWindow": "August – September",
       "habitat": "Moist mature deciduous forest with closed canopy and leaf litter",
       "voice": "Considered by many the most beautiful birdsong in North America: flute-like 'ee-o-lay' spiraling phrases, often heard at dawn and dusk. Can produce two notes simultaneously.",
       "notes": "The voice of the Blue Ridge forest in summer. Most active at dawn and dusk — the 'ee-o-lay' call from the deep woods is an iconic Church Mountain Road sound on May mornings. Nests in moist forest understory, foraging for worms in deep leaf litter. A species of conservation concern — forest fragmentation and cowbird parasitism have reduced populations significantly. Church Mountain Road's intact forest is high-quality breeding habitat.",
       "feeder": "Does not visit feeders — forages exclusively on the forest floor",
-      "funFact": "Can produce two independent notes simultaneously, creating its ethereal sound. Listed as a species of high conservation concern — every intact mountain forest acre matters."
+      "funFact": "Can produce two independent notes simultaneously, creating its ethereal sound. Listed as a species of high conservation concern — every intact mountain forest acre matters.",
+      "photo": "images/birds/wood-thrush.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Charles J. Sharp",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Wood_thrush_(Hylocichla_mustelina)_Peten.jpg"
+      }
     },
     {
       "id": "pileated-woodpecker",
@@ -127,13 +219,39 @@
       "emoji": "🪓",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [0, 1, 2, 10, 11],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        0,
+        1,
+        2,
+        10,
+        11
+      ],
       "habitat": "Mature forest with large dead snags — essential for excavating carpenter ants",
       "voice": "Loud, crow-like laughing call: 'wuk-wuk-wuk-wuk.' Distinctive slow, resonant drumming.",
       "notes": "The largest woodpecker in North America — crow-sized, jet black with a flaming red crest. An unmistakable presence in any mature forest. Look for the distinctive rectangular excavation holes in standing dead trees — these are the calling card of the Pileated. The powerful blows while excavating for carpenter ants carry far through the woods. Church Mountain Road's mature mixed forest with standing dead snags is prime habitat. Once you hear its loud laughing call, you'll never forget it.",
       "feeder": "Suet feeders — especially cylinder suet cakes or suet logs hung vertically",
-      "funFact": "Pileated woodpeckers excavate cavities large enough for Wood Ducks and other large cavity-nesters — they're keystone species for the forest ecosystem."
+      "funFact": "Pileated woodpeckers excavate cavities large enough for Wood Ducks and other large cavity-nesters — they're keystone species for the forest ecosystem.",
+      "photo": "images/birds/pileated-woodpecker.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Joshlaymon",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:PileatedWoodpeckerFeedingonTree,_crop.jpg"
+      }
     },
     {
       "id": "barred-owl",
@@ -142,13 +260,37 @@
       "emoji": "🦉",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [0, 1, 11],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        0,
+        1,
+        11
+      ],
       "habitat": "Mature forest with large trees; often near water",
       "voice": "The classic 'who cooks for you, who cooks for you-all' — one of the most recognizable owl calls. Calling peaks in late winter (Jan–Mar) during courtship. Pairs will duet.",
       "notes": "The most common owl in the North Georgia mountains. Church Mountain Road's mature forest near Lake Sequoyah is ideal territory — Barred Owls prefer large trees near water. Most vocal Jan–Mar during breeding season. Calling often begins at dusk and may continue through the night. On quiet evenings, step outside and listen — you'll often hear them calling from the tree line. Occasionally calls during daylight hours, especially on overcast days.",
       "feeder": "Does not visit feeders — hunts small mammals, frogs, crayfish",
-      "funFact": "Will respond to imitations of their call — carefully 'hooting' their pattern can sometimes bring them in close. They have no ear tufts (unlike Great Horned Owls) and their dark eyes distinguish them from most other owls."
+      "funFact": "Will respond to imitations of their call — carefully 'hooting' their pattern can sometimes bring them in close. They have no ear tufts (unlike Great Horned Owls) and their dark eyes distinguish them from most other owls.",
+      "photo": "images/birds/barred-owl.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Mdf",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Strix-varia-005.jpg"
+      }
     },
     {
       "id": "dark-eyed-junco",
@@ -157,13 +299,40 @@
       "emoji": "⚫",
       "status": "resident",
       "statusLabel": "Year-round resident (breeding at elevation)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [9, 10, 11, 0, 1, 2],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        9,
+        10,
+        11,
+        0,
+        1,
+        2
+      ],
       "habitat": "Forest edges, clearings, shrubby areas — widespread at elevation",
       "voice": "Simple musical trill. Smacking 'tick' call notes in flocks.",
       "notes": "The quintessential Blue Ridge mountain bird. While lowland Georgians see Juncos only in winter, Church Mountain Road at ~2,959 ft has breeding Juncos year-round. In winter the resident flock is joined by birds from higher elevations — you may have 20–40 birds scratching under feeders. The 'snowbird' is unmistakable: dark gray above, white below, with white outer tail feathers flashing in flight. One of the most consistent feeder birds on the property.",
       "feeder": "Scatter white millet and mixed seed on the ground or low platform feeder — they prefer to forage on the ground",
-      "funFact": "One of the most studied songbirds in North America. At Church Mountain Road's elevation, these are year-round breeding residents — a privilege not available at lower elevations where they're winter-only visitors."
+      "funFact": "One of the most studied songbirds in North America. At Church Mountain Road's elevation, these are year-round breeding residents — a privilege not available at lower elevations where they're winter-only visitors.",
+      "photo": "images/birds/dark-eyed-junco.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Cephas",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Junco_hyemalis_hyemalis_CT1_(cropped).jpg"
+      }
     },
     {
       "id": "eastern-towhee",
@@ -172,13 +341,40 @@
       "emoji": "🟠",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [2, 3, 4, 5, 6, 7],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
       "habitat": "Dense shrubby undergrowth, briars, forest edges with thick ground cover",
       "voice": "Classic 'drink-your-tea' song. 'Chewink' call — often you hear them before you see them scratching in leaf litter.",
       "notes": "A large, bold sparrow-relative with a striking black hood, rufous sides, and white belly. Almost exclusively in dense shrubby undergrowth — the briars and thick growth along the fairway edge are prime habitat. Males scratch noisily in leaf litter (kicking back with both feet simultaneously) and sing persistently from low perches. The 'drink-your-tea' phrase is one of the most characteristic sounds of a Carolina mountain spring morning.",
       "feeder": "Scratch mixed millet on the ground or low platform. Often forages directly under elevated feeders.",
-      "funFact": "Their distinctive two-legged backward scratch in leaf litter is called 'double-scratching' — a technique for uncovering insects and seeds invisible to a single-foot scraper."
+      "funFact": "Their distinctive two-legged backward scratch in leaf litter is called 'double-scratching' — a technique for uncovering insects and seeds invisible to a single-foot scraper.",
+      "photo": "images/birds/eastern-towhee.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Paul Danese",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:20241004_eastern_towhee_pleasant_valley_PD207764.jpg"
+      }
     },
     {
       "id": "wild-turkey",
@@ -187,13 +383,36 @@
       "emoji": "🦃",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [2, 3],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        2,
+        3
+      ],
       "habitat": "Mixed forest and open areas, forest edges — flocks forage broadly",
       "voice": "Males gobble loudly in spring. Hens cluck and yelp. Year-round soft clucking contact calls.",
       "notes": "Church Mountain Road and the surrounding Tate Mountain Estates area has excellent turkey habitat. Flocks of 5–20 birds regularly move across the property, especially in early morning and late afternoon. Spring (Mar–May) is peak activity as males gobble and display from the fairway. A tom in full strut on the fairway clearing in April is a spectacular sight. Hens nest in the forest understory — if you encounter a hen alone in May or June, she may be leading you away from a nest.",
       "feeder": "Cracked corn scattered on the ground. They will also forage under elevated feeders.",
-      "funFact": "Wild Turkeys can run 25 mph and fly up to 55 mph in short bursts — they're far more agile than the domesticated birds suggest. Males can have a beard up to 12 inches long."
+      "funFact": "Wild Turkeys can run 25 mph and fly up to 55 mph in short bursts — they're far more agile than the domesticated birds suggest. Males can have a beard up to 12 inches long.",
+      "photo": "images/birds/wild-turkey.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Paul Danese",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:20260428_tom_wild_turkey_matthaei_botanical_gardens_PD08952.jpg"
+      }
     },
     {
       "id": "broad-winged-hawk",
@@ -202,15 +421,35 @@
       "emoji": "🦅",
       "status": "summer",
       "statusLabel": "Summer resident / spectacular migrant",
-      "monthsPresent": [3, 4, 5, 6, 7, 8],
-      "peakMonths": [4, 5, 6, 7, 8],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
       "arrivalWindow": "Late April – May",
       "departureWindow": "Mid-September",
       "habitat": "Mature forest interior for breeding; ridgetops during fall migration",
       "voice": "Thin, high-pitched whistle: 'peeeee.' Easy to overlook — forest interior bird when breeding.",
       "notes": "A quiet forest hawk in summer that becomes one of the great spectacles of North American birding in fall. Broad-wingeds are the smallest and most numerous Buteo — they summer in the Blue Ridge forest and then in mid-September, on northwest winds after a cold front, they stream south in spectacular 'kettles' of hundreds or thousands of birds. Church Mountain Ridge is a natural concentration point. Watch the sky on Sep 12–20 from the fairway on NW wind days.",
       "feeder": "Does not visit feeders",
-      "funFact": "The September Broad-winged Hawk migration is one of the great wildlife spectacles of eastern North America. On peak days at Blue Ridge ridgetop watch sites, counts can exceed 10,000 birds in a single day."
+      "funFact": "The September Broad-winged Hawk migration is one of the great wildlife spectacles of eastern North America. On peak days at Blue Ridge ridgetop watch sites, counts can exceed 10,000 birds in a single day.",
+      "photo": "images/birds/broad-winged-hawk.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Original uploader was JulieFromVT (Julie Waters) at en.wikipedia",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Julie_Waters_broad_winged_hawk.JPG"
+      }
     },
     {
       "id": "belted-kingfisher",
@@ -219,13 +458,40 @@
       "emoji": "💙",
       "status": "resident",
       "statusLabel": "Year-round (Lake Sequoyah)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [4, 5, 6, 7, 8, 9],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
       "habitat": "Lake and stream edges — perches on branches or utility lines over water to dive-hunt",
       "voice": "Loud, rattling machine-gun call — unmistakable. Often heard before seen.",
       "notes": "Lake Sequoyah at 0.3 miles is the primary draw. The rattling call of a Kingfisher along the lake shore is a year-round sound. They perch on overhanging branches or any elevated spot over water, diving headfirst to catch fish. Females are more colorful than males (unusual for birds) — females have a rust-colored belly band in addition to the blue. Worth stopping at the lake specifically to watch them hunt.",
       "feeder": "Does not visit feeders — fish only",
-      "funFact": "Unusually for birds, the female Belted Kingfisher is more colorful than the male, with a rust-colored belly band the male lacks."
+      "funFact": "Unusually for birds, the female Belted Kingfisher is more colorful than the male, with a rust-colored belly band the male lacks.",
+      "photo": "images/birds/belted-kingfisher.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "JeffreyGammon",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:BeltedKingfisherJG_Male.jpg"
+      }
     },
     {
       "id": "ovenbird",
@@ -234,15 +500,32 @@
       "emoji": "🎤",
       "status": "summer",
       "statusLabel": "Summer resident",
-      "monthsPresent": [3, 4, 5, 6, 7],
-      "peakMonths": [4, 5, 6],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6
+      ],
       "arrivalWindow": "Late April – May",
       "departureWindow": "August – September",
       "habitat": "Mature deciduous forest floor with deep leaf litter",
       "voice": "Emphatic, escalating 'TEACHER-teacher-teacher-teacher-teacher' — one of the loudest and most distinctive calls of the summer forest.",
       "notes": "You'll hear this bird constantly on Church Mountain Road in May–June but rarely see it — it walks quietly on the forest floor under the leaf litter while its outsized voice rings through the woods. Named for the dome-shaped leaf-litter nest that resembles an outdoor oven. Church Mountain Road's mature deciduous forest is prime habitat. A warbler by classification, but behaves more like a thrush — walks rather than hops.",
       "feeder": "Does not visit feeders",
-      "funFact": "The Ovenbird builds its nest entirely on the forest floor, covered by a dome of leaves that makes it nearly invisible — the entrance faces away from the most likely disturbance direction."
+      "funFact": "The Ovenbird builds its nest entirely on the forest floor, covered by a dome of leaves that makes it nearly invisible — the entrance faces away from the most likely disturbance direction.",
+      "photo": "images/birds/ovenbird.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Rhododendrites",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Ovenbird_(90497).jpg"
+      }
     },
     {
       "id": "carolina-chickadee",
@@ -251,13 +534,39 @@
       "emoji": "⚫",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [0, 1, 2, 10, 11],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        0,
+        1,
+        2,
+        10,
+        11
+      ],
       "habitat": "Forest edges, woodland, gardens — one of the most adaptable species",
       "voice": "Clear whistled 'fee-bee-fee-bay' song. Distinctive 'chick-a-dee-dee-dee' call (more 'dee' notes = more alarm).",
       "notes": "The anchor species of any North Georgia feeder — the first bird to find a new feeder and the last to leave. Carolina Chickadees are central to mixed foraging flocks in fall and winter, often leading Tufted Titmice, Nuthatches, and Downy Woodpeckers through the forest. They cache seeds individually for winter retrieval. Cavity nesters — a small nest box (1.25 inch entrance hole) placed in a shrubby forest edge may attract breeding pairs.",
       "feeder": "Black-oil sunflower seeds. Will use any style of feeder.",
-      "funFact": "The 'dee-dee-dee' call encodes real-time threat information — the more 'dee' notes, the more dangerous the predator. A small, agile predator like a Pygmy Owl gets far more 'dee' notes than a large, slow Red-tailed Hawk."
+      "funFact": "The 'dee-dee-dee' call encodes real-time threat information — the more 'dee' notes, the more dangerous the predator. A small, agile predator like a Pygmy Owl gets far more 'dee' notes than a large, slow Red-tailed Hawk.",
+      "photo": "images/birds/carolina-chickadee.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Dan Pancamo",
+        "license": "CC BY-SA 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Carolina_Chickadee1_by_Dan_Pancamo.jpg"
+      }
     },
     {
       "id": "great-blue-heron",
@@ -266,13 +575,40 @@
       "emoji": "🦢",
       "status": "resident",
       "statusLabel": "Year-round (Lake Sequoyah)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [4, 5, 6, 7, 8, 9],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
       "habitat": "Lake shores, stream edges, any shallow water",
       "voice": "Loud, prehistoric squawk when flushed. Silent when fishing.",
       "notes": "A regular presence at Lake Sequoyah. These large, slow-moving waders stand motionless in the shallows waiting for fish, then strike with lightning speed. Often seen flying between fishing spots — the slow, flap-flap-glide with neck kinked back is unmistakable. Will occasionally appear in any wet or boggy area near the property. Best observed from the Lake Sequoyah shoreline in early morning.",
       "feeder": "Does not visit feeders",
-      "funFact": "Despite its large size (up to 4.5 ft tall), the Great Blue Heron weighs only 5–6 pounds — its massive size is mostly feathers, hollow bones, and wingspan."
+      "funFact": "Despite its large size (up to 4.5 ft tall), the Great Blue Heron weighs only 5–6 pounds — its massive size is mostly feathers, hollow bones, and wingspan.",
+      "photo": "images/birds/great-blue-heron.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "DallasPenner",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:GreatBlueHeronInARiver.jpg"
+      }
     },
     {
       "id": "white-throated-sparrow",
@@ -281,29 +617,140 @@
       "emoji": "🐦",
       "status": "winter",
       "statusLabel": "Winter visitor",
-      "monthsPresent": [8, 9, 10, 11, 0, 1, 2, 3],
-      "peakMonths": [9, 10, 11, 0, 1, 2],
+      "monthsPresent": [
+        8,
+        9,
+        10,
+        11,
+        0,
+        1,
+        2,
+        3
+      ],
+      "peakMonths": [
+        9,
+        10,
+        11,
+        0,
+        1,
+        2
+      ],
       "arrivalWindow": "October",
       "departureWindow": "Late April – May",
       "habitat": "Dense shrubby areas, brush piles, forest edges — forages on the ground",
       "voice": "Pure whistled 'Old Sam Peabody Peabody Peabody' (or 'Oh sweet Canada Canada Canada') — one of the clearest, most beautiful winter bird songs.",
       "notes": "Common winter visitor to Church Mountain Road, often in loose flocks with Dark-eyed Juncos and Eastern Towhees scratching under feeders. Listen in winter for their clear, plaintive whistle from the brush piles and forest edges. They often begin singing on mild winter days in late February — a harbinger of spring approaching. Most depart for northern breeding grounds by late April.",
       "feeder": "Mixed millet and white millet scattered on the ground or low platform",
-      "funFact": "White-throated Sparrows come in two color morphs — white-striped and tan-striped — and they almost always pair with the opposite morph. The reason this genetic polymorphism persists is one of ornithology's interesting puzzles."
+      "funFact": "White-throated Sparrows come in two color morphs — white-striped and tan-striped — and they almost always pair with the opposite morph. The reason this genetic polymorphism persists is one of ornithology's interesting puzzles.",
+      "photo": "images/birds/white-throated-sparrow.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Cephas",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Zonotrichia_albicollis_CT1.jpg"
+      }
     }
   ],
   "seasonalCalendar": {
-    "Jan":  { "highlights": ["Barred Owl calling", "Juncos abundant", "Winter sparrow flocks", "Woodpeckers active at suet"], "watchFor": "Barred Owls vocal on mild nights. Winter finch irruptions possible." },
-    "Feb":  { "highlights": ["Great Horned Owl nesting", "Juncos", "White-throated Sparrow singing", "First Bluebirds"], "watchFor": "First Eastern Bluebirds begin scouting nest boxes. Barred Owl pairs duetting." },
-    "Mar":  { "highlights": ["Turkey gobbling", "Woodcocks display", "Eastern Phoebe arrives", "Goldfinch brightening"], "watchFor": "American Woodcock evening sky-dance display in clearing at dusk (first 30 min after sunset). Wild Turkey toms beginning to strut." },
-    "Apr":  { "highlights": ["Warblers arriving", "Hummingbirds late April", "Tanager and Grosbeak", "Broad-wings passing"], "watchFor": "Hang hummingbird feeders Apr 25. First wave of spring warblers in early April. Rose-breasted Grosbeak and Scarlet Tanager often arrive together in late April." },
-    "May":  { "highlights": ["Peak migration week 1–15", "All summer residents on territory", "Wood Thrush singing at dawn", "Ovenbird TEACHER calls"], "watchFor": "Best birding month of the year. Walk the forest edge at dawn May 5–15. Indigo Bunting singing from treetops. Turkey hens likely nesting." },
-    "Jun":  { "highlights": ["Summer residents breeding", "Hummingbirds peak", "Bluegill-fishing and heron at lake"], "watchFor": "Hummingbirds at peak. Wood Thrush and Ovenbird consistently audible at dawn. Ruby-throated males begin showing juveniles to feeders by late June." },
-    "Jul":  { "highlights": ["Hummingbird numbers peak", "Summer tanagers and buntings"], "watchFor": "Multiple hummingbirds competing at feeders. Young Pileated Woodpeckers begging from parents. Young Wild Turkeys with hens in clearing." },
-    "Aug":  { "highlights": ["Fall migration begins late Aug", "Shorebirds at lake", "Hummingbirds fattening up"], "watchFor": "Hummingbird activity peaks mid-August as birds fatten for migration. Early fall warblers passing through by late August. Broad-winged Hawks begin gathering." },
-    "Sep":  { "highlights": ["Broad-winged Hawk migration Sep 12–20", "Hummingbirds depart", "Fall warblers"], "watchFor": "HIGHLIGHT: Sep 12–20 on NW wind after cold front — watch the sky from the clearing for Broad-winged Hawk kettles. Ruby-throated Hummingbird last sightings by late September." },
-    "Oct":  { "highlights": ["Fall sparrow flocks arrive", "White-throated Sparrows", "Winter finches possible"], "watchFor": "White-throated Sparrows return. Dark-eyed Juncos flock to feeders. Yellow-rumped Warblers moving through forest edges in large numbers." },
-    "Nov":  { "highlights": ["Juncos established", "Wild Turkey hunting season (license required)", "Cedar Waxwings on berry shrubs"], "watchFor": "Cedar Waxwing flocks in fruiting trees (dogwood, holly). Hermit Thrush arrives." },
-    "Dec":  { "highlights": ["Christmas Bird Count", "Juncos and sparrows at feeders", "Woodpeckers at suet"], "watchFor": "Barred Owls increasingly vocal. Pileated Woodpecker excavations visible in bare trees. Good time for owl listening on calm clear nights." }
+    "Jan": {
+      "highlights": [
+        "Barred Owl calling",
+        "Juncos abundant",
+        "Winter sparrow flocks",
+        "Woodpeckers active at suet"
+      ],
+      "watchFor": "Barred Owls vocal on mild nights. Winter finch irruptions possible."
+    },
+    "Feb": {
+      "highlights": [
+        "Great Horned Owl nesting",
+        "Juncos",
+        "White-throated Sparrow singing",
+        "First Bluebirds"
+      ],
+      "watchFor": "First Eastern Bluebirds begin scouting nest boxes. Barred Owl pairs duetting."
+    },
+    "Mar": {
+      "highlights": [
+        "Turkey gobbling",
+        "Woodcocks display",
+        "Eastern Phoebe arrives",
+        "Goldfinch brightening"
+      ],
+      "watchFor": "American Woodcock evening sky-dance display in clearing at dusk (first 30 min after sunset). Wild Turkey toms beginning to strut."
+    },
+    "Apr": {
+      "highlights": [
+        "Warblers arriving",
+        "Hummingbirds late April",
+        "Tanager and Grosbeak",
+        "Broad-wings passing"
+      ],
+      "watchFor": "Hang hummingbird feeders Apr 25. First wave of spring warblers in early April. Rose-breasted Grosbeak and Scarlet Tanager often arrive together in late April."
+    },
+    "May": {
+      "highlights": [
+        "Peak migration week 1–15",
+        "All summer residents on territory",
+        "Wood Thrush singing at dawn",
+        "Ovenbird TEACHER calls"
+      ],
+      "watchFor": "Best birding month of the year. Walk the forest edge at dawn May 5–15. Indigo Bunting singing from treetops. Turkey hens likely nesting."
+    },
+    "Jun": {
+      "highlights": [
+        "Summer residents breeding",
+        "Hummingbirds peak",
+        "Bluegill-fishing and heron at lake"
+      ],
+      "watchFor": "Hummingbirds at peak. Wood Thrush and Ovenbird consistently audible at dawn. Ruby-throated males begin showing juveniles to feeders by late June."
+    },
+    "Jul": {
+      "highlights": [
+        "Hummingbird numbers peak",
+        "Summer tanagers and buntings"
+      ],
+      "watchFor": "Multiple hummingbirds competing at feeders. Young Pileated Woodpeckers begging from parents. Young Wild Turkeys with hens in clearing."
+    },
+    "Aug": {
+      "highlights": [
+        "Fall migration begins late Aug",
+        "Shorebirds at lake",
+        "Hummingbirds fattening up"
+      ],
+      "watchFor": "Hummingbird activity peaks mid-August as birds fatten for migration. Early fall warblers passing through by late August. Broad-winged Hawks begin gathering."
+    },
+    "Sep": {
+      "highlights": [
+        "Broad-winged Hawk migration Sep 12–20",
+        "Hummingbirds depart",
+        "Fall warblers"
+      ],
+      "watchFor": "HIGHLIGHT: Sep 12–20 on NW wind after cold front — watch the sky from the clearing for Broad-winged Hawk kettles. Ruby-throated Hummingbird last sightings by late September."
+    },
+    "Oct": {
+      "highlights": [
+        "Fall sparrow flocks arrive",
+        "White-throated Sparrows",
+        "Winter finches possible"
+      ],
+      "watchFor": "White-throated Sparrows return. Dark-eyed Juncos flock to feeders. Yellow-rumped Warblers moving through forest edges in large numbers."
+    },
+    "Nov": {
+      "highlights": [
+        "Juncos established",
+        "Wild Turkey hunting season (license required)",
+        "Cedar Waxwings on berry shrubs"
+      ],
+      "watchFor": "Cedar Waxwing flocks in fruiting trees (dogwood, holly). Hermit Thrush arrives."
+    },
+    "Dec": {
+      "highlights": [
+        "Christmas Bird Count",
+        "Juncos and sparrows at feeders",
+        "Woodpeckers at suet"
+      ],
+      "watchFor": "Barred Owls increasingly vocal. Pileated Woodpecker excavations visible in bare trees. Good time for owl listening on calm clear nights."
+    }
   }
 }

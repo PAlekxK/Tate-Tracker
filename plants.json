@@ -121,6 +121,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/white-pine.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "US FWS",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Pinus_strobus_trees.jpg"
       }
     },
     {
@@ -237,6 +244,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/azalea.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Prayushk",
+        "license": "CC BY 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Rhododendron_flower_(Ghorepani,_Nepal).jpg"
       }
     },
     {
@@ -359,6 +373,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/hydrangea.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Jacob Malcom",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_139866012.jpg"
       }
     },
     {
@@ -475,6 +496,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/dogwood.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Eric Hunt",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
       }
     },
     {
@@ -606,6 +634,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/boxwood.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "No machine-readable author provided. MPF assumed (based on copyright claims).",
+        "license": "CC BY 2.5",
+        "url": "https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg"
       }
     },
     {
@@ -717,6 +752,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/holly.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Jürgen Howaldt",
+        "license": "CC BY-SA 2.0 de",
+        "url": "https://commons.wikimedia.org/wiki/File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg"
       }
     },
     {
@@ -831,6 +873,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/mountain-laurel.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Arx Fortis at English Wikipedia",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg"
       }
     },
     {
@@ -943,6 +992,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/japanese-maple.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Kurt Stüber [1]",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Acer_palmatum0.jpg"
       }
     },
     {
@@ -1028,6 +1084,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/pyracomeles-berry-box.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Laitr Keiows",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Red_pommes_of_Firethorn_(Pyracantha).jpg"
       }
     },
     {
@@ -1095,6 +1158,13 @@
           "narrow": false,
           "description": "Generally pest- and disease-free. Watch new spring growth for occasional aphid clusters; hose off if found. Deer browse occasionally — Proven Winners rates deer resistance as 'low,' meaning deer may sample but typically don't decimate. If deer pressure is heavy, repellent spray in early spring helps establish 'avoid' association."
         }
+      },
+      "photo": "images/plants/deutzia-yuki-cherry-blossom.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Unknown",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Deutzia_gracilis.jpg"
       }
     },
     {
@@ -1215,6 +1285,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/clematis.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Jolly Janner",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Clematis_%27Nelly_Moser%27.JPG"
       }
     },
     {
@@ -1310,6 +1387,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/hosta.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Unknown",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Hosta_Bressingham_Blue.JPG"
       }
     },
     {
@@ -1407,6 +1491,13 @@
             }
           ]
         }
+      },
+      "photo": "images/plants/iris-pond.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "D. Gordon E. Robertson",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
       }
     }
   ]

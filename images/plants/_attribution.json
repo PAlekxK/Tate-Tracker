@@ -1,0 +1,106 @@
+{
+  "azalea": {
+    "author": "Prayushk",
+    "credit": "Own work",
+    "file": "File:Rhododendron_flower_(Ghorepani,_Nepal).jpg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Rhododendron_flower_(Ghorepani,_Nepal).jpg"
+  },
+  "boxwood": {
+    "author": "No machine-readable author provided. MPF assumed (based on copyright claims).",
+    "credit": "No machine-readable source provided. Own work assumed (based on copyright claims).",
+    "file": "File:Buxus_sempervirens.jpg",
+    "license": "CC BY 2.5",
+    "license_url": "https://creativecommons.org/licenses/by/2.5",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg"
+  },
+  "clematis": {
+    "author": "Jolly Janner",
+    "credit": "Own work",
+    "file": "File:Clematis_'Nelly_Moser'.JPG",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Clematis_%27Nelly_Moser%27.JPG"
+  },
+  "deutzia-yuki-cherry-blossom": {
+    "author": "Unknown",
+    "credit": "",
+    "file": "File:Deutzia_gracilis.jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Deutzia_gracilis.jpg"
+  },
+  "dogwood": {
+    "author": "Eric Hunt",
+    "credit": "Own work",
+    "file": "File:Cornus_florida_Arkansas.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
+  },
+  "holly": {
+    "author": "J\u00fcrgen Howaldt",
+    "credit": "Self-photographed",
+    "file": "File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg",
+    "license": "CC BY-SA 2.0 de",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg"
+  },
+  "hosta": {
+    "author": "Unknown",
+    "credit": "",
+    "file": "File:Hosta_Bressingham_Blue.JPG",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Hosta_Bressingham_Blue.JPG"
+  },
+  "hydrangea": {
+    "author": "Jacob Malcom",
+    "credit": "https://www.inaturalist.org/photos/139866012",
+    "file": "File:Hydrangea_arborescens_139866012.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_139866012.jpg"
+  },
+  "iris-pond": {
+    "author": "D. Gordon E. Robertson",
+    "credit": "Own work",
+    "file": "File:Blue_Flag,_Ottawa.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
+  },
+  "japanese-maple": {
+    "author": "Kurt St\u00fcber [1]",
+    "credit": "caliban.mpiz-koeln.mpg.de/mavica/index.html part of www.biolib.de",
+    "file": "File:Acer_palmatum0.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Acer_palmatum0.jpg"
+  },
+  "mountain-laurel": {
+    "author": "Arx Fortis at English Wikipedia",
+    "credit": "Own work by the original uploader",
+    "file": "File:Kalmia_Latifolia.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg"
+  },
+  "pyracomeles-berry-box": {
+    "author": "Laitr Keiows",
+    "credit": "Own work",
+    "file": "File:Red_pommes_of_Firethorn_(Pyracantha).jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Red_pommes_of_Firethorn_(Pyracantha).jpg"
+  },
+  "white-pine": {
+    "author": "US FWS",
+    "credit": "https://web.archive.org/web/20080123082719/http://www.fws.gov/midwest/Sherburne/plantpics/PIST1.HTM",
+    "file": "File:Pinus_strobus_trees.jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Pinus_strobus_trees.jpg"
+  }
+}

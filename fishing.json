@@ -204,7 +204,14 @@
         "Stump fields and submerged timber (remnants of the original Clear Creek valley) are key structure.",
         "Morning topwater in June and July will produce even through summer — the cooler water keeps bass surface-feeding longer into the day than lowland lakes.",
         "The dam face and any rocky riprap are worth working in all seasons — shad and crayfish concentrate there."
-      ]
+      ],
+      "photo": "images/fishing/largemouth-bass.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "USFWS Mountain Prairie",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Largemouth_Bass_(Micropterus_salmoides)_June_2023_(cropped).jpg"
+      }
     },
     {
       "id": "crappie",
@@ -254,7 +261,14 @@
         "At 2,800 ft expect spawn 4–6 weeks later than lowland GA — late May to mid-June vs. April in Atlanta.",
         "Crappie at elevation tend to be smaller but very concentrated in structure. Find the brush, find the fish.",
         "A slip float rig with a live minnow 3–4 ft deep is the most consistently productive method for all seasons."
-      ]
+      ],
+      "photo": "images/fishing/crappie.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Robert W. Hines, U.S. Fish and Wildlife Service",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Black_crappie_and_white_crappie_fish.jpg"
+      }
     },
     {
       "id": "bluegill",
@@ -298,7 +312,14 @@
         "Fly fishing for bluegill on beds (June–July) is genuinely world-class fun on a small mountain lake — 5 or 6 weight rod, small poppers.",
         "At 2,800 ft the spawn runs late — don't expect beds until early-to-mid June, about 4 weeks after lowland GA.",
         "Crickets from any local bait shop are the single most reliable bluegill bait for all seasons."
-      ]
+      ],
+      "photo": "images/fishing/bluegill.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Paleo1954",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Bluegill_(cropped).jpg"
+      }
     }
   ],
   "seasonalCalendar": {
