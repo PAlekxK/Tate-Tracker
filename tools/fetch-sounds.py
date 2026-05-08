@@ -18,6 +18,9 @@ Salamanders are skipped automatically — they don't vocalize.
 import argparse
 import json
 import os
+import shutil
+import subprocess
+import tempfile
 import time
 import urllib.parse
 import urllib.request
@@ -184,6 +187,34 @@ def find_audio(item, cfg):
     return pick_best(candidates)
 
 
+def transcode_ogg_to_m4a(ogg_bytes):
+    """Convert Ogg Vorbis bytes to M4A (AAC) bytes via macOS afconvert.
+
+    iOS Safari doesn't support Ogg Vorbis but plays M4A AAC natively.
+    Returns m4a bytes on success, None on failure.
+    Requires macOS (afconvert is built in). On other platforms, returns None
+    and the caller falls back to keeping the original .ogg file.
+    """
+    if not shutil.which("afconvert"):
+        return None
+    with tempfile.TemporaryDirectory() as td:
+        in_path = os.path.join(td, "in.ogg")
+        out_path = os.path.join(td, "out.m4a")
+        with open(in_path, "wb") as f:
+            f.write(ogg_bytes)
+        try:
+            subprocess.run(
+                ["afconvert", "-f", "m4af", "-d", "aac", in_path, out_path],
+                check=True, capture_output=True,
+            )
+        except subprocess.CalledProcessError:
+            return None
+        if not os.path.exists(out_path):
+            return None
+        with open(out_path, "rb") as f:
+            return f.read()
+
+
 def file_extension(meta):
     # The URL extension is authoritative — Commons sometimes returns a MIME
     # that doesn't match the actual file format (e.g. audio/mpeg on an .ogg).
@@ -250,12 +281,22 @@ def main():
                 print(f"  ! no usable recording found")
                 continue
             ext = file_extension(meta)
-            out = os.path.join(sound_dir, f"{sid}.{ext}")
             print(f"  file: {file_title}")
             print(f"  artist: {meta['artist'][:60]}")
             print(f"  license: {meta['license']}")
             print(f"  size: {meta['size']:,} bytes ({ext})")
             audio_bytes = fetch_bytes(meta["url"])
+            # Transcode OGG → M4A so iOS Safari can play it. Falls back to
+            # writing the original .ogg if the conversion isn't available.
+            if ext == "ogg":
+                m4a = transcode_ogg_to_m4a(audio_bytes)
+                if m4a:
+                    audio_bytes = m4a
+                    ext = "m4a"
+                    print(f"  transcoded: ogg → m4a ({len(audio_bytes):,} bytes)")
+                else:
+                    print(f"  ! afconvert not available — keeping .ogg (won't play in Safari/iOS)")
+            out = os.path.join(sound_dir, f"{sid}.{ext}")
             with open(out, "wb") as f:
                 f.write(audio_bytes)
             attribution[sid] = {

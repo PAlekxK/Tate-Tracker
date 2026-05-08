@@ -85,7 +85,7 @@
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:H_crucifer_USGS.jpg"
       },
-      "sound": "sounds/frogs/spring-peeper.ogg",
+      "sound": "sounds/frogs/spring-peeper.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "Don Becker",
@@ -122,7 +122,7 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Upland_chorus_frog_(Pseudacris_feriarum).jpg"
       },
-      "sound": "sounds/frogs/upland-chorus-frog.ogg",
+      "sound": "sounds/frogs/upland-chorus-frog.m4a",
       "soundAttribution": {
         "source": "Wikimedia Commons",
         "author": "James Shelton32",
