@@ -223,6 +223,27 @@ Single-file constraint: not violated — the repo already has `tools/`, `weather
 
 **Next (when Paul provides photos):** vehicles renderer at `viewer.html:3836` currently shows `v.emoji` in `.vehicle-icon`; conditional swap to `<img>` is a one-liner. Drop locally-shot JPEGs into `images/vehicles/{id}.jpg`, no attribution needed.
 
+### Sounds — bird and frog calls (✓ Done)
+Vocal species render a small ▶ play button next to their thumbnail in the species row. Clicking plays a single-instance audio (one species at a time — clicking another stops the first). The expanded body shows an audio attribution credit below the photo credit.
+
+- **Birds:** 16/16 species. Files in `sounds/birds/{id}.{mp3|ogg}` — mix of formats depending on what Commons stored.
+- **Frogs/toads:** 4 species — Spring Peeper, Upland Chorus Frog, American Toad, Gray Treefrog. Files in `sounds/frogs/{id}.{ogg|wav|mp3}`.
+- **Salamanders:** silent — no sound button rendered (correct behavior, not a coverage gap).
+- **Amphibians "calling now" badge:** frogs/toads with `monthsActive` including the current month show a small green pill next to their name. Surfaces seasonal context without urgency.
+
+**Coverage gaps (Wikimedia Commons doesn't have proper recordings under tried scientific names):** American Bullfrog, Green Frog, Fowler's Toad. Skipped silently — same treatment as salamanders. Not high-priority since the Spring Peeper / American Toad / Gray Treefrog chorus dominates the property soundscape anyway. To upgrade later, register a xeno-canto v3 API key (free) and extend `tools/fetch-sounds.py` to fall back to xeno-canto for these three.
+
+**Browser support caveat:** Some bird recordings are Ogg Vorbis (Commons doesn't always store an MP3). Ogg plays in Chrome / Firefox / Edge but **not Safari/iOS**. If iOS support becomes a need, add an ffmpeg transcode step to `fetch-sounds.py` to convert all downloads to MP3.
+
+Each item has a `sound` field (relative path) and `soundAttribution` object on the source JSON, written by `tools/wire-sounds.py`. License filter accepts CC-BY, CC-BY-SA, CC0, and Public Domain (this is a personal dashboard — NC-restricted licenses would also be fine if needed).
+
+Tooling:
+- `tools/fetch-sounds.py --category {birds|frogs}` — Commons audio search by scientific name, license-filtered, size-bounded (50KB–8MB to skip both snippets and field tapes), URL-derived extension. Re-runnable; passes `--force` to refresh, or specific ids.
+- `tools/wire-sounds.py --category {birds|frogs}` — merges into JSON, re-inlines `BIRDS_DATA` / `AMPHIBIANS_DATA` const, prints a sanity-check sound-field count after re-inlining.
+
+CSS: `.bio-sound-btn` (30px circular, green when playing), `.bio-calling-now` (small badge), `.bio-sound-credit` (parallel to `.bio-photo-credit`).
+JS: single global `SoundPlayer` IIFE coordinates a single `Audio` instance — clicking another button stops the first. Audio uses `preload="none"` so the file isn't fetched until playback.
+
 ## Pending design improvements (prioritized)
 
 1. ~~**Mobile dashboard strip** — 3-column grid wraps awkwardly at 390px~~ ✓ Done.

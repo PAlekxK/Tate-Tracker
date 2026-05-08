@@ -1,0 +1,130 @@
+{
+  "barred-owl": {
+    "author": "Rob Porter",
+    "ext": "mp3",
+    "file": "File:Strix varia - Barred Owl XC457078.mp3",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Strix_varia_-_Barred_Owl_XC457078.mp3"
+  },
+  "belted-kingfisher": {
+    "author": "Jonathon Jongsma",
+    "ext": "ogg",
+    "file": "File:Megaceryle alcyon - Belted Kingfisher XC132872.ogg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Megaceryle_alcyon_-_Belted_Kingfisher_XC132872.ogg"
+  },
+  "broad-winged-hawk": {
+    "author": "Jonathon Jongsma",
+    "ext": "mp3",
+    "file": "File:Buteo platypterus - Broad-winged Hawk XC178041.mp3",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Buteo_platypterus_-_Broad-winged_Hawk_XC178041.mp3"
+  },
+  "carolina-chickadee": {
+    "author": "G. McGrane",
+    "ext": "ogg",
+    "file": "File:Carolina Chickadee.ogg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Carolina_Chickadee.ogg"
+  },
+  "dark-eyed-junco": {
+    "author": "Jonathon Jongsma",
+    "ext": "ogg",
+    "file": "File:Junco hyemalis hyemalis - Dark-eyed Junco - XC97211.ogg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Junco_hyemalis_hyemalis_-_Dark-eyed_Junco_-_XC97211.ogg"
+  },
+  "eastern-towhee": {
+    "author": "Jonathon Jongsma",
+    "ext": "ogg",
+    "file": "File:Pipilo erythrophthalmus - Eastern Towhee - XC81297.ogg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Pipilo_erythrophthalmus_-_Eastern_Towhee_-_XC81297.ogg"
+  },
+  "great-blue-heron": {
+    "author": "G. McGrane",
+    "ext": "ogg",
+    "file": "File:Great Blue Heron1.ogg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Great_Blue_Heron1.ogg"
+  },
+  "indigo-bunting": {
+    "author": "Jonathon Jongsma",
+    "ext": "ogg",
+    "file": "File:Passerina cyanea - Indigo Bunting - XC82757.ogg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Passerina_cyanea_-_Indigo_Bunting_-_XC82757.ogg"
+  },
+  "ovenbird": {
+    "author": "Jonathon Jongsma",
+    "ext": "mp3",
+    "file": "File:Seiurus aurocapilla - Ovenbird XC77882.mp3",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Seiurus_aurocapilla_-_Ovenbird_XC77882.mp3"
+  },
+  "pileated-woodpecker": {
+    "author": "Jonathon Jongsma",
+    "ext": "mp3",
+    "file": "File:Dryocopus pileatus - Pileated Woodpecker XC61518.mp3",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Dryocopus_pileatus_-_Pileated_Woodpecker_XC61518.mp3"
+  },
+  "rose-breasted-grosbeak": {
+    "author": "Jonathon Jongsma",
+    "ext": "ogg",
+    "file": "File:Pheucticus ludovicianus - Rose-breasted Grosbeak - XC79967.ogg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Pheucticus_ludovicianus_-_Rose-breasted_Grosbeak_-_XC79967.ogg"
+  },
+  "ruby-throated-hummingbird": {
+    "author": "Jonathon Jongsma",
+    "ext": "mp3",
+    "file": "File:Archilochus colubris - Ruby-throated Hummingbird XC109597.mp3",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Archilochus_colubris_-_Ruby-throated_Hummingbird_XC109597.mp3"
+  },
+  "scarlet-tanager": {
+    "author": "Jonathon Jongsma",
+    "ext": "mp3",
+    "file": "File:Piranga olivacea - Scarlet Tanager XC241113.mp3",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Piranga_olivacea_-_Scarlet_Tanager_XC241113.mp3"
+  },
+  "white-throated-sparrow": {
+    "author": "Doug Hynes",
+    "ext": "mp3",
+    "file": "File:Zonotrichia albicollis - White-throated Sparrow XC569523.mp3",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Zonotrichia_albicollis_-_White-throated_Sparrow_XC569523.mp3"
+  },
+  "wild-turkey": {
+    "author": "Jonathon Jongsma",
+    "ext": "ogg",
+    "file": "File:Meleagris gallopavo - Wild Turkey XC134744.ogg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Meleagris_gallopavo_-_Wild_Turkey_XC134744.ogg"
+  },
+  "wood-thrush": {
+    "author": "Jonathon Jongsma",
+    "ext": "mp3",
+    "file": "File:Hylocichla mustelina - Wood Thrush XC178045.mp3",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Hylocichla_mustelina_-_Wood_Thrush_XC178045.mp3"
+  }
+}
