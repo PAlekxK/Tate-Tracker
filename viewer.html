@@ -330,12 +330,12 @@
     text-decoration: none;
   }
   .prop-warning {
-    background: #fff8e8;
-    border: 1px solid #e8d090;
+    background: #f8faf6;
+    border: 1px solid #d8eacc;
     border-radius: 8px;
     padding: 9px 12px;
     font-size: 12px;
-    color: #7a6020;
+    color: #3a5a3a;
     line-height: 1.5;
     margin-bottom: 8px;
   }
@@ -344,6 +344,7 @@
   .main-card-meta { flex: 1; min-width: 0; }
   .main-card-title { font-family: "Crimson Text", Georgia, serif; font-size: 19px; font-weight: 600; color: #1a3a1a; line-height: 1.2; }
   .main-card-summary { font-size: 12.5px; color: #6a8a6a; margin-top: 2px; line-height: 1.4; }
+  .summary-loading { font-family: "Crimson Text", Georgia, serif; font-style: italic; color: #8aaa8a; }
   .main-card-chevron { color: #9bbf9b; font-size: 14px; flex-shrink: 0; transition: transform 0.2s; }
   .main-card.expanded .main-card-chevron { transform: rotate(180deg); }
   /* Card body — animated expand/collapse via max-height + opacity.
@@ -712,6 +713,33 @@
   .forecast-day.today .fday-low { color: rgba(255,255,255,0.7); }
   .fday-precip { font-size: 10px; color: #2e7aaa; margin-top: 3px; font-weight: 600; }
   .forecast-day.today .fday-precip { color: #c8e0f0; }
+
+  .hourly-label {
+    font-size: 10.5px;
+    font-style: italic;
+    color: #6a8a6a;
+    margin: 0 2px 6px;
+    font-family: "Crimson Text", Georgia, serif;
+  }
+  .hourly-strip {
+    display: flex; gap: 5px;
+    overflow-x: auto; padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 14px;
+  }
+  .hourly-cell {
+    flex-shrink: 0; min-width: 46px;
+    background: #f8fcf5; border: 1px solid #e4f0d8;
+    border-radius: 9px; padding: 6px 4px; text-align: center;
+    position: relative;
+  }
+  .hourly-cell.now { background: #eaf6e0; border-color: #b8d8a8; }
+  .hourly-cell.day-break { border-left: 2px solid #b8d8a8; margin-left: 4px; }
+  .hour-time { font-size: 9.5px; font-weight: 600; color: #5a7a5a; letter-spacing: 0.2px; }
+  .hourly-cell.now .hour-time { color: #1a3a1a; font-weight: 700; }
+  .hour-icon { font-size: 15px; margin: 2px 0; line-height: 1; }
+  .hour-temp { font-size: 11px; font-weight: 700; color: #1a3a1a; }
+  .hour-precip { font-size: 9px; color: #2e7aaa; margin-top: 1px; font-weight: 600; }
 
   .alerts-block { display: flex; flex-direction: column; gap: 7px; }
   .alert {
@@ -1508,6 +1536,11 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .cel-event-meta { font-size: 10.5px; color: #6a7aaa; margin-top: 2px; }
+  .cel-vis-star { color: #d4b96a; letter-spacing: -1px; }
+  .cel-vis-excellent .cel-vis-star { color: #d4b96a; }
+  .cel-vis-good     .cel-vis-star { color: #b8a06a; opacity: 0.85; }
+  .cel-vis-fair     .cel-vis-star { color: #9a8a6a; opacity: 0.7; }
+  .cel-vis-none     { color: #8a98aa; font-style: italic; }
 
   .cel-event-detail {
     display: none; padding: 8px 16px 12px;
@@ -1561,15 +1594,6 @@
   @media (hover: hover) {
     .dash-cell:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(80,120,60,0.12); border-color: #c0dca0; }
   }
-  .dash-cell-chevron {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    font-size: 11px;
-    color: #b8cca8;
-    line-height: 1;
-    pointer-events: none;
-  }
   .dash-cell.dash-small { padding: 8px 11px 8px; }
   .dash-cell.dash-small .dash-cell-label { margin-bottom: 1px; }
   .dash-cell.dash-small .dash-cell-sub { font-size: 11px; color: #5a7a5a; margin-top: 2px; line-height: 1.45; }
@@ -1577,33 +1601,13 @@
   @media (max-width: 480px) {
     .dash-strip-inner { grid-template-columns: 1fr; }
   }
-  .dash-section-header {
-    max-width: 660px;
-    margin: 0 auto 8px;
-    padding: 0 4px;
-  }
-  .dash-section-title {
-    font-family: "Crimson Text", Georgia, serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a3a1a;
-    line-height: 1.2;
-    letter-spacing: 0.1px;
-  }
-  .dash-section-cta {
-    font-size: 10.5px;
-    color: #6a8a6a;
-    font-style: italic;
-    margin-top: 1px;
-    letter-spacing: 0.2px;
-  }
   .dash-cell-label {
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: #7a9a7a;
-    margin-bottom: 3px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3a5a3a;
+    letter-spacing: 0;
+    margin-bottom: 4px;
   }
   .dash-cell-value {
     font-family: "Crimson Text", Georgia, serif;
@@ -1669,7 +1673,7 @@
   }
   .plant-view-tab {
     background: none; border: none;
-    padding: 10px 12px;
+    padding: 14px 12px;
     font-family: inherit; font-size: 12px; font-weight: 500;
     color: #7a9a7a; cursor: pointer;
     border-bottom: 2.5px solid transparent;
@@ -1772,7 +1776,7 @@
   }
   .wildlife-tab {
     background: none; border: none;
-    padding: 10px 18px;
+    padding: 14px 18px;
     font-family: inherit; font-size: 12px; font-weight: 500;
     color: #7a9a7a; cursor: pointer;
     border-bottom: 2.5px solid transparent;
@@ -1808,42 +1812,32 @@
 
 <!-- DASHBOARD STRIP -->
 <div class="dash-strip">
-  <div class="dash-section-header">
-    <div class="dash-section-cta">Tap any tile for more details</div>
-  </div>
   <div class="dash-strip-inner">
     <div class="dash-cell" onclick="expandCard('card-weather')">
-      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Weather</div>
-      <div class="dash-cell-value" id="dash-weather-val">—</div>
-      <div class="dash-cell-sub" id="dash-weather-sub">Loading…</div>
+      <div class="dash-cell-sub" id="dash-weather-sub"><span class="summary-loading">Listening for the station…</span></div>
     </div>
     <div class="dash-cell" onclick="expandCard('card-plants')">
-      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Plants</div>
       <div class="dash-cell-sub" id="dash-plants-sub"></div>
     </div>
     <div class="dash-cell" onclick="expandCard('card-wildlife')">
-      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Wildlife</div>
       <div class="dash-cell-sub" id="dash-wildlife-sub"></div>
     </div>
     <div class="dash-cell" onclick="expandCard('card-celestial')">
-      <span class="dash-cell-chevron">▾</span>
-      <div class="dash-cell-label">Astronomy</div>
-      <div class="dash-cell-sub" id="dash-astronomy-sub">Loading…</div>
+      <div class="dash-cell-label">Sky &amp; Stars</div>
+      <div class="dash-cell-sub" id="dash-astronomy-sub"><span class="summary-loading">Checking the sky…</span></div>
     </div>
   </div>
   <div class="dash-strip-inner dash-tier-b">
     <div class="dash-cell dash-small" onclick="expandCard('card-vehicles')">
-      <span class="dash-cell-chevron">▾</span>
       <div class="dash-cell-label">Vehicles &amp; Equipment</div>
-      <div class="dash-cell-sub">Detailed specifications and parts numbers</div>
+      <div class="dash-cell-sub">The fleet — what each one is and how to keep it running</div>
     </div>
     <div class="dash-cell dash-small" onclick="expandCard('card-property')">
-      <span class="dash-cell-chevron">▾</span>
-      <div class="dash-cell-label">Property Profile</div>
-      <div class="dash-cell-sub" id="dash-property-sub">USDA Zone 6b · 2,959 ft · Bortle 3</div>
+      <div class="dash-cell-label">The Place Itself</div>
+      <div class="dash-cell-sub" id="dash-property-sub">On Cherokee land · Blue Ridge thermal belt</div>
     </div>
   </div>
 </div>
@@ -1853,10 +1847,10 @@
   <!-- WEATHER CARD -->
   <div class="main-card" id="card-weather">
     <div class="main-card-header" data-toggle="weather">
-      <div class="main-card-icon weather">⛅</div>
+      <div class="main-card-icon weather" id="weather-card-icon"></div>
       <div class="main-card-meta">
         <div class="main-card-title">Weather</div>
-        <div class="main-card-summary" id="weather-summary">—</div>
+        <div class="main-card-summary" id="weather-summary"><span class="summary-loading">Listening for the station…</span></div>
       </div>
       <span class="main-card-chevron">▼</span>
     </div>
@@ -1889,7 +1883,7 @@
       <div class="main-card-icon plants">🌿</div>
       <div class="main-card-meta">
         <div class="main-card-title">Plants</div>
-        <div class="main-card-summary" id="plants-summary">—</div>
+        <div class="main-card-summary" id="plants-summary"><span class="summary-loading">Looking at the month…</span></div>
       </div>
       <span class="main-card-chevron">▼</span>
     </div>
@@ -1926,7 +1920,7 @@
       <div class="main-card-icon wildlife">🐾</div>
       <div class="main-card-meta">
         <div class="main-card-title">Wildlife</div>
-        <div class="main-card-summary" id="wildlife-summary">—</div>
+        <div class="main-card-summary" id="wildlife-summary"><span class="summary-loading">Listening for what's calling…</span></div>
       </div>
       <span class="main-card-chevron">▼</span>
     </div>
@@ -1940,13 +1934,20 @@
     </div>
   </div>
 
+  <!-- TIER DIVIDER — separates living surfaces from reference shelf -->
+  <div class="tier-divider">
+    <div class="tier-divider-line"></div>
+    <div class="tier-divider-label">Reference</div>
+    <div class="tier-divider-line"></div>
+  </div>
+
   <!-- CELESTIAL / SKY CARD -->
   <div class="main-card tier2" id="card-celestial">
     <div class="main-card-header" data-toggle="celestial">
       <div class="main-card-icon celestial">🔭</div>
       <div class="main-card-meta">
         <div class="main-card-title">Sky &amp; Stars</div>
-        <div class="main-card-summary" id="celestial-summary">—</div>
+        <div class="main-card-summary" id="celestial-summary"><span class="summary-loading">Checking the sky…</span></div>
       </div>
       <span class="main-card-chevron">▼</span>
     </div>
@@ -1958,7 +1959,7 @@
     <div class="main-card-header" data-toggle="property">
       <div class="main-card-icon property">🏔️</div>
       <div class="main-card-meta">
-        <div class="main-card-title">Property Profile</div>
+        <div class="main-card-title">The Place Itself</div>
         <div class="main-card-summary" id="property-summary">Elevation · Microclimate · Soils</div>
       </div>
       <span class="main-card-chevron">▼</span>
@@ -2285,6 +2286,12 @@ function degreesToCompass(deg) {
   const dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
   return dirs[Math.round(deg / 22.5) % 16];
 }
+function hourLabel(hr) {
+  if (hr === 0) return "12a";
+  if (hr === 12) return "noon";
+  if (hr < 12) return hr + "a";
+  return (hr - 12) + "p";
+}
 
 async function fetchLiveWeather() {
   const lat = PROPERTY_DATA.location.coordinates.approximateLat;
@@ -2293,7 +2300,7 @@ async function fetchLiveWeather() {
     "?latitude=" + lat + "&longitude=" + lon +
     "&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day,surface_pressure" +
     "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,sunrise,sunset,uv_index_max,relative_humidity_2m_mean" +
-    "&hourly=surface_pressure&past_hours=6&forecast_hours=0" +
+    "&hourly=surface_pressure,temperature_2m,precipitation_probability,precipitation,weather_code&past_hours=6&forecast_hours=48" +
     "&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=7";
 
   try {
@@ -2356,7 +2363,30 @@ async function fetchLiveWeather() {
         };
       })
     };
-    WEATHER_DATA.hourlyPressure = (data.hourly && data.hourly.surface_pressure) ? data.hourly.surface_pressure : null;
+    // Split hourly into past (for pressure trend) and future (for hourly forecast strip).
+    if (data.hourly && Array.isArray(data.hourly.time)) {
+      const nowMs = Date.now();
+      const times = data.hourly.time;
+      let splitIdx = times.findIndex(t => new Date(t).getTime() >= nowMs);
+      if (splitIdx === -1) splitIdx = times.length;
+      const press = data.hourly.surface_pressure || [];
+      WEATHER_DATA.hourlyPressure = press.slice(0, splitIdx);
+      const futTime = times.slice(splitIdx);
+      const futTemp = (data.hourly.temperature_2m || []).slice(splitIdx);
+      const futPop  = (data.hourly.precipitation_probability || []).slice(splitIdx);
+      const futPrec = (data.hourly.precipitation || []).slice(splitIdx);
+      const futCode = (data.hourly.weather_code || []).slice(splitIdx);
+      WEATHER_DATA.hourly = futTime.slice(0, 48).map((t, i) => ({
+        time:         t,
+        temperature:  futTemp[i] != null ? Math.round(futTemp[i]) : null,
+        precipChance: futPop[i] != null ? futPop[i] : 0,
+        precipAmount: futPrec[i] != null ? Math.round(futPrec[i] * 100) / 100 : 0,
+        weatherCode:  futCode[i]
+      }));
+    } else {
+      WEATHER_DATA.hourlyPressure = null;
+      WEATHER_DATA.hourly = [];
+    }
 
     // If the on-property station already reported, re-apply its overrides — the
     // wholesale WEATHER_DATA reassignment above wiped them.
@@ -2571,27 +2601,34 @@ function renderTrendStrip(history) {
 // "today at the cabin" observation + optional action. Rule-based, ordered by
 // urgency. Returns null when there's no station data to anchor on.
 function generateGardenerInsight() {
-  const station = WEATHER_DATA.stationData;
-  if (!station) return null;
+  const station  = WEATHER_DATA.stationData;
+  const current  = WEATHER_DATA.current || {};
   const today    = (WEATHER_DATA.daily || [])[0] || {};
   const tomorrow = (WEATHER_DATA.daily || [])[1] || {};
   const history  = WEATHER_DATA.stationHistory;
+  const hasStation = !!station;
 
-  const temp     = station.tempf;
-  const dewPt    = station.dewPoint;
-  const humidity = station.humidity;
-  const wind     = station.windspeedmph != null ? station.windspeedmph : 0;
-  const rainToday = station.dailyrainin || 0;
-  const rainRate  = station.hourlyrainin || 0;
+  // Prefer station readings; fall back to Open-Meteo current. Some fields (dewPt,
+  // rainRate, daily-rain) are station-only — null when station is offline.
+  const temp     = hasStation ? station.tempf : (current.temperature != null ? current.temperature : null);
+  const humidity = hasStation ? station.humidity : (current.humidity != null ? current.humidity : null);
+  const wind     = hasStation ? (station.windspeedmph != null ? station.windspeedmph : 0)
+                              : (current.windSpeed != null ? current.windSpeed : 0);
+  const dewPt    = hasStation ? station.dewPoint : null;
+  const rainToday = hasStation ? (station.dailyrainin || 0) : null;
+  const rainRate  = hasStation ? (station.hourlyrainin || 0) : null;
   const todayHigh   = today.high;
   const tonightLow  = today.low;
   const tomorrowHigh   = tomorrow.high;
   const tomorrowPrecipChance = tomorrow.precipChance || 0;
   const todayPrecipChance    = today.precipChance || 0;
+  const todayPrecipAmount    = today.precipAmount;
 
-  // Pressure delta over last ~6 hours
+  if (temp == null && todayHigh == null) return null;
+
+  // Pressure trend — station-only
   let pressureDelta6h = 0;
-  if (Array.isArray(history) && history.length > 36) {
+  if (hasStation && Array.isArray(history) && history.length > 36) {
     const sorted = history.slice().sort((a, b) => (a.dateutc || 0) - (b.dateutc || 0));
     const press = sorted.map(r => r.baromrelin).filter(v => v != null);
     if (press.length > 36) {
@@ -2604,20 +2641,39 @@ function generateGardenerInsight() {
   const partOfDay = hour < 6 ? "early morning" : hour < 11 ? "morning" : hour < 14 ? "midday" : hour < 18 ? "afternoon" : "evening";
   const monthName = MONTHS[currentMonth];
 
-  // Storm imminent
-  if (pressureDelta6h < -0.08 && todayPrecipChance > 50) {
-    return {
-      observation: "Pressure dropping fast — storms likely within hours.",
-      action: "Finish outdoor work soon; secure anything loose."
-    };
+  // === STATION-DEPENDENT URGENT RULES ===
+  if (hasStation) {
+    // Storm imminent (pressure trend + forecast)
+    if (pressureDelta6h < -0.08 && todayPrecipChance > 50) {
+      return {
+        observation: "Pressure dropping fast — storms likely within hours.",
+        action: "Finish outdoor work soon; secure anything loose."
+      };
+    }
+    // Active rain (live rain rate)
+    if (rainRate > 0.05) {
+      return {
+        observation: "Rain in progress (" + rainRate.toFixed(2) + '"/hr) — ' + rainToday.toFixed(2) + '" today so far.',
+        action: rainRate > 0.3 ? "Heavy rain — watch low beds for standing water." : "Plants getting watered naturally; skip irrigation."
+      };
+    }
+    // Saturated soil (cumulative daily rain)
+    if (rainToday > 0.5 && rainRate < 0.02) {
+      return {
+        observation: rainToday.toFixed(2) + '" of rain today — soils saturated.',
+        action: "Let beds drain a day before working low areas."
+      };
+    }
+    // Muggy / fungal pressure (needs station dew point)
+    if (humidity != null && humidity > 85 && dewPt != null && dewPt > 65 && temp != null && temp > 65) {
+      return {
+        observation: "Muggy " + partOfDay + " — " + Math.round(temp) + "°F, dew point " + Math.round(dewPt) + "°.",
+        action: "Fungal pressure high — water at the base, not foliage."
+      };
+    }
   }
-  // Active rain
-  if (rainRate > 0.05) {
-    return {
-      observation: "Rain in progress (" + rainRate.toFixed(2) + '"/hr) — ' + rainToday.toFixed(2) + '" today so far.',
-      action: rainRate > 0.3 ? "Heavy rain — watch low beds for standing water." : "Plants getting watered naturally; skip irrigation."
-    };
-  }
+
+  // === FORECAST-DRIVEN RULES (work with or without station) ===
   // Frost / freeze
   if (tonightLow != null && tonightLow < 38) {
     return {
@@ -2627,50 +2683,71 @@ function generateGardenerInsight() {
   }
   // Heat
   if (todayHigh != null && todayHigh > 88) {
+    const tail = (temp != null) ? ", currently " + Math.round(temp) + "°F." : ".";
     return {
-      observation: "Hot day ahead — high " + todayHigh + "°F, currently " + Math.round(temp) + "°F.",
+      observation: "Hot day ahead — high " + todayHigh + "°F" + tail,
       action: "Water deeply at dawn; check stressed plants by midday."
     };
   }
-  // Saturated soil
-  if (rainToday > 0.5 && rainRate < 0.02) {
+  // Rain coming today (forecast-only, fires when station not actively raining)
+  if (todayPrecipChance >= 70 || (todayPrecipAmount != null && todayPrecipAmount > 0.25)) {
+    const amt = (todayPrecipAmount != null && todayPrecipAmount > 0) ? " (~" + todayPrecipAmount.toFixed(2) + '"' + ")" : "";
     return {
-      observation: rainToday.toFixed(2) + '" of rain today — soils saturated.',
-      action: "Let beds drain a day before working low areas."
+      observation: "Rain likely today" + amt + " — " + todayPrecipChance + "% chance.",
+      action: "Hold off on watering; bring sensitive containers under cover if storms come."
     };
   }
-  // Muggy / fungal pressure
-  if (humidity > 85 && dewPt > 65 && temp > 65) {
+  // Rain coming tomorrow
+  if (tomorrowPrecipChance >= 70) {
     return {
-      observation: "Muggy " + partOfDay + " — " + Math.round(temp) + "°F, dew point " + Math.round(dewPt) + "°.",
-      action: "Fungal pressure high — water at the base, not foliage."
+      observation: "Rain moving in tomorrow — " + tomorrowPrecipChance + "% chance.",
+      action: "Good day to finish outdoor jobs; ground will be wet by evening tomorrow."
     };
   }
-  // Ideal garden window
-  if (temp >= 58 && temp <= 80 && wind < 12 && todayPrecipChance < 30 && dewPt < 60) {
-    const dryTomorrow = tomorrowPrecipChance < 30 && tomorrowHigh >= 60 && tomorrowHigh <= 85;
-    return {
-      observation: "Comfortable " + monthName + " " + partOfDay + " — " + Math.round(temp) + "°F, light winds.",
-      action: dryTomorrow
-        ? "Excellent garden window — looks similar tomorrow, good for planting."
-        : "Excellent garden window for planting, transplanting, or mowing."
-    };
-  }
-  // Cool damp morning
-  if (humidity > 80 && temp < 60 && hour < 10) {
+
+  // === COMFORT WINDOW RULES (use whatever data is available) ===
+  // Cool damp morning — needs station humidity to fire confidently
+  if (hasStation && humidity != null && humidity > 80 && temp != null && temp < 60 && hour < 10) {
     return {
       observation: "Cool damp morning — " + Math.round(temp) + "°F at " + humidity + "% humidity.",
       action: "Let surfaces dry before working in beds."
     };
   }
+  // Ideal garden window — temp-and-wind threshold; dewPt check only when station present
+  const tempForWindow = temp != null ? temp : todayHigh;
+  const windowTempOk = tempForWindow != null && tempForWindow >= 58 && tempForWindow <= 82;
+  const dewPtOk = !hasStation || (dewPt == null) || dewPt < 60;
+  if (windowTempOk && wind < 12 && todayPrecipChance < 30 && dewPtOk) {
+    const dryTomorrow = tomorrowPrecipChance < 30 && tomorrowHigh != null && tomorrowHigh >= 60 && tomorrowHigh <= 85;
+    const lead = (temp != null)
+      ? "Comfortable " + monthName + " " + partOfDay + " — " + Math.round(temp) + "°F, light winds."
+      : "Forecast looks comfortable today — high near " + todayHigh + "°F, light winds.";
+    return {
+      observation: lead,
+      action: dryTomorrow
+        ? "Excellent garden window — looks similar tomorrow, good for planting."
+        : "Excellent garden window for planting, transplanting, or mowing."
+    };
+  }
 
-  // Generic descriptor — no action
-  const dpWord = dewPointComfort(dewPt) || "comfortable";
-  const tempWord = temp < 45 ? "Cold" : temp < 60 ? "Cool" : temp < 75 ? "Mild" : temp < 85 ? "Warm" : "Hot";
-  return {
-    observation: tempWord + " " + dpWord + " " + partOfDay + " — " + Math.round(temp) + "°F at the property.",
-    action: null
-  };
+  // === GENERIC DESCRIPTOR (no specific rule matched) ===
+  if (temp != null) {
+    const dpWord = dewPointComfort(dewPt) || "comfortable";
+    const tempWord = temp < 45 ? "Cold" : temp < 60 ? "Cool" : temp < 75 ? "Mild" : temp < 85 ? "Warm" : "Hot";
+    const suffix = hasStation ? " at the property." : ".";
+    return {
+      observation: tempWord + " " + dpWord + " " + partOfDay + " — " + Math.round(temp) + "°F" + suffix,
+      action: null
+    };
+  }
+  if (todayHigh != null) {
+    const tempWord = todayHigh < 50 ? "Cold" : todayHigh < 65 ? "Cool" : todayHigh < 78 ? "Mild" : todayHigh < 88 ? "Warm" : "Hot";
+    return {
+      observation: tempWord + " " + monthName + " day on the forecast — high near " + todayHigh + "°F.",
+      action: null
+    };
+  }
+  return null;
 }
 
 // Comfort labels — single-glance descriptors built from station data
@@ -2990,11 +3067,8 @@ function renderRainfallPanel() {
 
 function renderWeatherSummary() {
   const cur = WEATHER_DATA.current;
-  const today = WEATHER_DATA.daily[0];
   const alerts = generateAlerts();
-  const icon = WEATHER_CODES[cur.weatherCode] || "";
-  let summary = icon + " " + cur.temperature + "°F · " + cur.condition;
-  if (today) summary += " · H " + today.high + "° / L " + today.low + "°";
+  let summary = cur.temperature + "° and " + cur.condition.toLowerCase();
   if (alerts.length > 0) {
     const worst = alerts.find(a => a.severity === "severe") || alerts[0];
     summary += " · " + worst.title;
@@ -3034,7 +3108,7 @@ function renderWeather() {
   const alerts = generateAlerts();
   if (alerts.length > 0) {
     html += '<div class="wblock">';
-    html +=   '<div class="wblock-header"><span class="wblock-title">⚠ Heads up</span></div>';
+    html +=   '<div class="wblock-header"><span class="wblock-title">Worth knowing</span></div>';
     html +=   '<div class="alerts-block">';
     alerts.forEach(a => {
       html += '<div class="alert ' + a.severity + '">';
@@ -3093,6 +3167,38 @@ function renderWeather() {
     html +=    '</div>';
   });
   html +=   '</div>';
+
+  // Hourly forecast strip — next ~48 hours, scrolls horizontally
+  const hourly = WEATHER_DATA.hourly || [];
+  if (hourly.length > 0) {
+    html += '<div class="hourly-label">Next two days · hour by hour</div>';
+    html += '<div class="hourly-strip">';
+    let lastDay = -1;
+    hourly.forEach((h, i) => {
+      const dt = new Date(h.time);
+      const hr = dt.getHours();
+      const day = dt.getDate();
+      const isDayBreak = i > 0 && day !== lastDay;
+      lastDay = day;
+      const timeLabel = i === 0
+        ? "Now"
+        : (isDayBreak
+            ? dt.toLocaleDateString("en-US", { weekday: "short" }) + " " + hourLabel(hr)
+            : hourLabel(hr));
+      const cls = "hourly-cell"
+        + (i === 0 ? " now" : "")
+        + (isDayBreak ? " day-break" : "");
+      const icon = WEATHER_CODES[h.weatherCode] || "❓";
+      html += '<div class="' + cls + '">';
+      html +=   '<div class="hour-time">' + timeLabel + '</div>';
+      html +=   '<div class="hour-icon">' + icon + '</div>';
+      html +=   '<div class="hour-temp">' + (h.temperature != null ? h.temperature + '°' : '—') + '</div>';
+      if (h.precipChance >= 20) html += '<div class="hour-precip">' + h.precipChance + '%</div>';
+      else html +=                     '<div class="hour-precip" style="visibility:hidden;">·</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
   html += '</div>';
 
   // === RAINFALL (unified — gauge + recent + forecast + ERA5 percentile, filled by renderRainfallPanel) ===
@@ -3660,7 +3766,7 @@ function renderProperty() {
 
   // ── Location & Elevation ──
   html += '<div class="prop-panel">';
-  html += '<div class="prop-panel-title">📍 Location &amp; Elevation</div>';
+  html += '<div class="prop-panel-title">Location &amp; Elevation</div>';
   html += '<div class="prop-row"><span class="prop-label">Address</span><span class="prop-value">282 Church Mountain Rd</span></div>';
   html += '<div class="prop-row"><span class="prop-label">County</span><span class="prop-value">Pickens Co., GA</span></div>';
   html += '<div class="prop-row"><span class="prop-label">Region</span><span class="prop-value">Blue Ridge</span></div>';
@@ -3671,21 +3777,21 @@ function renderProperty() {
 
   // ── Frost Dates ──
   html += '<div class="prop-panel">';
-  html += '<div class="prop-panel-title">🌡️ Frost Dates at Your Elevation</div>';
+  html += '<div class="prop-panel-title">Frost Dates at Your Elevation</div>';
   html += '<div class="prop-frost-bar">';
   html += '<div class="prop-frost-item"><div class="prop-frost-label">Last Spring Frost (50%)</div><div class="prop-frost-val">' + fd.lastSpring_50pct + '</div><div class="prop-frost-sub">Valley floor: ' + fdv.lastSpring_50pct + '</div></div>';
   html += '<div class="prop-frost-item"><div class="prop-frost-label">Last Spring Frost (90% safe)</div><div class="prop-frost-val">' + fd.lastSpring_90pctSafe + '</div><div class="prop-frost-sub">Valley floor: ' + fdv.lastSpring_90pctSafe + '</div></div>';
   html += '<div class="prop-frost-item"><div class="prop-frost-label">First Fall Frost (50%)</div><div class="prop-frost-val">' + fd.firstFall_50pct + '</div><div class="prop-frost-sub">Valley floor: ' + fdv.firstFall_50pct + '</div></div>';
   html += '<div class="prop-frost-item"><div class="prop-frost-label">Growing Season</div><div class="prop-frost-val">~' + fd.growingSeason_days + ' days</div><div class="prop-frost-sub">Valley floor: ' + fdv.growingSeason_days + ' days</div></div>';
   html += '</div>';
-  html += '<div class="prop-note" style="margin-top:8px;">⚠️ ' + p.frostDates.frostPocketWarning + '</div>';
+  html += '<div class="prop-note" style="margin-top:8px;">' + p.frostDates.frostPocketWarning + '</div>';
   html += '</div>';
 
   // ── Microclimate ──
   html += '<div class="prop-panel full-width">';
-  html += '<div class="prop-panel-title">🌄 Microclimate Factors</div>';
-  html += '<div class="prop-warning">🏔️ <strong>Thermal Belt:</strong> ' + mc.thermalBelt + '</div>';
-  html += '<div class="prop-warning" style="background:#fff0f0;border-color:#e0a0a0;color:#8a2020;">❄️ <strong>Frost Pockets:</strong> ' + mc.frostPockets + '</div>';
+  html += '<div class="prop-panel-title">Microclimate Factors</div>';
+  html += '<div class="prop-warning"><strong>Thermal Belt:</strong> ' + mc.thermalBelt + '</div>';
+  html += '<div class="prop-warning"><strong>Frost Pockets:</strong> ' + mc.frostPockets + '</div>';
 
   const ae = mc.aspectEffects;
   html += '<div class="prop-aspect-grid">';
@@ -3700,7 +3806,7 @@ function renderProperty() {
     html += '<div class="prop-aspect-dir">' + escapeHtml(label) + '</div>';
     html += '<div class="prop-aspect-char">' + escapeHtml(d.character) + '</div>';
     html += '<div class="prop-aspect-best">Best for: ' + escapeHtml(d.bestFor) + '</div>';
-    if (d.caution) html += '<div class="prop-aspect-best" style="color:#c09020;">⚠ ' + escapeHtml(d.caution) + '</div>';
+    if (d.caution) html += '<div class="prop-aspect-best">' + escapeHtml(d.caution) + '</div>';
     html += '</div>';
   });
   html += '</div>';
@@ -3708,7 +3814,7 @@ function renderProperty() {
 
   // ── Soils ──
   html += '<div class="prop-panel">';
-  html += '<div class="prop-panel-title">🪨 Soils</div>';
+  html += '<div class="prop-panel-title">Soils</div>';
   html += '<div class="prop-soil-row"><div class="prop-soil-label">Likely Series</div><div class="prop-soil-val">' + escapeHtml(soil.likelySeries.join(', ')) + '</div></div>';
   html += '<div class="prop-soil-row"><div class="prop-soil-label">Parent Material</div><div class="prop-soil-val">' + escapeHtml(soil.parentMaterial) + '</div></div>';
   html += '<div class="prop-soil-row"><div class="prop-soil-label">Native pH</div><div class="prop-soil-val">' + escapeHtml(soil.pH.nativeRange) + '</div></div>';
@@ -3719,13 +3825,13 @@ function renderProperty() {
 
   // ── Climate ──
   html += '<div class="prop-panel full-width" id="prop-climate-panel">';
-  html += '<div class="prop-panel-title">☁️ Climate <span id="climate-data-badge" style="font-size:10px;font-weight:400;color:#8aa080;margin-left:6px;">⏳ Loading ERA5 actuals…</span></div>';
+  html += '<div class="prop-panel-title">Climate <span id="climate-data-badge" style="font-size:10px;font-weight:400;color:#8aa080;margin-left:6px;">Loading ERA5 actuals…</span></div>';
   html += '<div id="prop-climate-inner">' + renderClimateInner(climate) + '</div>';
   html += '</div>';
 
   // ── Resources ──
   html += '<div class="prop-panel full-width">';
-  html += '<div class="prop-panel-title">📞 Local Resources</div>';
+  html += '<div class="prop-panel-title">Local Resources</div>';
   const ext = p.resources.localExtension;
   html += '<div class="prop-row"><span class="prop-label">UGA Extension (Pickens Co.)</span><span class="prop-value">' + escapeHtml(ext.phone) + '</span></div>';
   html += '<div class="prop-row"><span class="prop-label">Soil Test</span><span class="prop-value">$9 · 1–2 weeks turnaround</span></div>';
@@ -3815,11 +3921,11 @@ function toggleSitePanel(el) {
 
 function renderPeakWindowChip(entry) {
   if (!entry.peakWindow) return '';
-  return '<div><span class="peak-window-chip">📅 Peak: ' + escapeHtml(entry.peakWindow) + '</span></div>';
+  return '<div><span class="peak-window-chip">Peak: ' + escapeHtml(entry.peakWindow) + '</span></div>';
 }
 function renderNarrowBadge(entry) {
   if (!entry.narrow) return '';
-  return '<span class="narrow-badge">⏱ Narrow window</span> ';
+  return '<span class="narrow-badge">Narrow window</span> ';
 }
 
 function toggleCareBlock(el) {
@@ -3879,15 +3985,15 @@ function renderPlantCard(plant) {
     const entry = plant.care && plant.care[type];
     return entry ? renderCareBlock(type, entry) : "";
   }).join("");
-  const tipHtml = plant.currentSeasonNote ? '<div class="season-tip">💡 ' + escapeHtml(plant.currentSeasonNote) + '</div>' : '';
+  const tipHtml = plant.currentSeasonNote ? '<div class="season-tip">' + escapeHtml(plant.currentSeasonNote) + '</div>' : '';
   const sciHtml = plant.scientificName ? '<span class="plant-sci">' + escapeHtml(plant.scientificName) + '</span>' : '';
 
   // Site-specific info (soilNotes, aspectPreference, frostSensitivity)
   let siteRowsHtml = '';
-  if (plant.soilNotes) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">🌱 Soil</div><div class="plant-site-val">' + escapeHtml(plant.soilNotes) + '</div></div>';
-  if (plant.aspectPreference) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">🧭 Aspect & Siting</div><div class="plant-site-val">' + escapeHtml(plant.aspectPreference) + '</div></div>';
-  if (plant.frostSensitivity) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">❄️ Frost</div><div class="plant-site-val">' + escapeHtml(plant.frostSensitivity) + '</div></div>';
-  const siteHtml = siteRowsHtml ? '<div class="plant-site-section" data-site-id="' + plant.id + '"><div class="plant-site-toggle section-label" onclick="toggleSitePanel(this)">🏔 Site Notes for Church Mountain Road <span class="site-chevron">▼</span></div><div class="plant-site-panel">' + siteRowsHtml + '</div></div>' : '';
+  if (plant.soilNotes) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">Soil</div><div class="plant-site-val">' + escapeHtml(plant.soilNotes) + '</div></div>';
+  if (plant.aspectPreference) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">Aspect &amp; Siting</div><div class="plant-site-val">' + escapeHtml(plant.aspectPreference) + '</div></div>';
+  if (plant.frostSensitivity) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">Frost</div><div class="plant-site-val">' + escapeHtml(plant.frostSensitivity) + '</div></div>';
+  const siteHtml = siteRowsHtml ? '<div class="plant-site-section" data-site-id="' + plant.id + '"><div class="plant-site-toggle section-label" onclick="toggleSitePanel(this)">Site Notes for Church Mountain Road <span class="site-chevron">▼</span></div><div class="plant-site-panel">' + siteRowsHtml + '</div></div>' : '';
 
   const thumbHtml = plant.photo
     ? '<img class="plant-thumb" src="' + plant.photo + '" alt="' + escapeHtml(plant.name) + '" loading="lazy" onerror="this.remove()">'
@@ -4653,7 +4759,7 @@ function renderFishingForecast(waterTemp, phase) {
   h += '</div></div>';
 
   // Conditions tip
-  h += '<div class="fish-forecast-tip"><strong>💡 Conditions:</strong> ' + escapeHtml(pres.detail) + '</div>';
+  h += '<div class="fish-forecast-tip"><strong>Conditions:</strong> ' + escapeHtml(pres.detail) + '</div>';
 
   h += '</div>'; // fish-forecast-panel
 
@@ -4813,7 +4919,7 @@ function renderCelestial() {
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   h += '<div class="cel-events-section">';
-  h += '<div class="cel-events-hdr">📅 Upcoming Events · Rated for 34.5°N Rural Sky</div>';
+  h += '<div class="cel-events-hdr">Upcoming Events · Rated for 34.5°N Rural Sky</div>';
 
   const typeMap = {
     "meteor":        { label: "Meteor Shower", cls: "type-meteor" },
@@ -4823,10 +4929,10 @@ function renderCelestial() {
     "conjunction":   { label: "Conjunction",    cls: "type-conj"   }
   };
   const visMap = {
-    "excellent":   { emoji: "🟢", label: "Excellent from property" },
-    "good":        { emoji: "🟡", label: "Good from property"      },
-    "fair":        { emoji: "🟠", label: "Fair from property"      },
-    "not-visible": { emoji: "🔴", label: "Not visible"             }
+    "excellent":   { emoji: '<span class="cel-vis-star">★★★</span>', label: "Excellent from property", cls: "cel-vis-excellent" },
+    "good":        { emoji: '<span class="cel-vis-star">★★</span>',  label: "Good from property",      cls: "cel-vis-good"      },
+    "fair":        { emoji: '<span class="cel-vis-star">★</span>',   label: "Fair from property",      cls: "cel-vis-fair"      },
+    "not-visible": { emoji: '',                                       label: "Not visible from property", cls: "cel-vis-none"    }
   };
 
   events.forEach(ev => {
@@ -4841,7 +4947,7 @@ function renderCelestial() {
     const evIllum = Math.round((1 - Math.cos(evAge / 29.53058867 * 2 * Math.PI)) / 2 * 100);
     const moon    = moonInterfereLabel(evIllum, ev.type);
     const tc      = typeMap[ev.type] || { label: ev.type, cls: "type-other" };
-    const vc      = visMap[ev.georgiaVisibility] || { emoji: "⚪", label: "Unknown" };
+    const vc      = visMap[ev.georgiaVisibility] || { emoji: "", label: "Unknown visibility", cls: "" };
 
     h += '<div class="cel-event-row" id="cel-ev-' + ev.id + '">';
     h += '<div class="cel-event-hdr" onclick="toggleCelEvent(\'' + ev.id + '\')">';
@@ -4858,7 +4964,7 @@ function renderCelestial() {
     // Center: name + meta
     h += '<div class="cel-event-center">';
     h += '<div class="cel-event-name">' + escapeHtml(ev.emoji + ' ' + ev.name) + '</div>';
-    h += '<div class="cel-event-meta">' + vc.emoji + ' ' + vc.label +
+    h += '<div class="cel-event-meta ' + (vc.cls || '') + '">' + (vc.emoji ? vc.emoji + ' ' : '') + vc.label +
          ' · ' + moon.emoji + ' ' + moon.label +
          (ev.rate ? ' · ' + ev.rate : '') + '</div>';
     h += '</div>';
@@ -5165,7 +5271,7 @@ function renderBirds() {
     card += `<div class="bio-species-note">${escapeHtml(sp.notes)}</div>`;
     if (sp.voice) card += `<div class="bio-species-fun">🎵 <strong>Voice:</strong> ${escapeHtml(sp.voice)}</div>`;
     if (sp.feeder) card += `<div class="bio-species-fun">🌰 <strong>Feeder:</strong> ${escapeHtml(sp.feeder)}</div>`;
-    if (sp.funFact) card += `<div class="bio-species-fun">💡 ${escapeHtml(sp.funFact)}</div>`;
+    if (sp.funFact) card += `<div class="bio-species-fun">${escapeHtml(sp.funFact)}</div>`;
     card += '</div>'; // body
     card += '</div>'; // row
     return card;
@@ -5260,14 +5366,14 @@ function renderAmphibians() {
     return true;
   });
   if (upcomingEvents.length) {
-    h += '<div class="bio-season-hdr" style="margin-top:14px;">📅 Key Annual Events</div>';
+    h += '<div class="bio-season-hdr" style="margin-top:14px;">Key Annual Events</div>';
     h += '<div class="amp-event-list">';
     upcomingEvents.forEach(ev => {
       h += '<div class="amp-event-card">';
       h += `<div class="amp-event-name">✨ ${escapeHtml(ev.name)}</div>`;
       h += `<div class="amp-event-window">⏰ ${escapeHtml(ev.window)}</div>`;
       h += `<div class="amp-event-desc">${escapeHtml(ev.description)}</div>`;
-      if (ev.elevation_note) h += `<div class="amp-event-desc" style="color:#3a7868;margin-top:3px;">🏔 ${escapeHtml(ev.elevation_note)}</div>`;
+      if (ev.elevation_note) h += `<div class="amp-event-desc" style="color:#3a7868;margin-top:3px;">${escapeHtml(ev.elevation_note)}</div>`;
       h += '</div>';
     });
     h += '</div>';
@@ -5360,11 +5466,11 @@ function renderDashboardStrip() {
   const daily = WEATHER_DATA.daily;
   const alerts = generateAlerts();
 
-  // Weather cell — big °F value, always-on summary line, alerts append
+  // Weather cell — body rows only (no big crown value); temperature appears inline
   const wIcon = WEATHER_CODES[cur.weatherCode] || "";
-  const wValEl = document.getElementById("dash-weather-val");
   const wSubEl = document.getElementById("dash-weather-sub");
-  if (wValEl) wValEl.textContent = cur.temperature + "°F";
+  const wCardIconEl = document.getElementById("weather-card-icon");
+  if (wCardIconEl) wCardIconEl.textContent = wIcon;
   if (wSubEl) {
     const today = daily[0] || {};
     const hl = (today.high != null && today.low != null)
@@ -5372,7 +5478,7 @@ function renderDashboardStrip() {
       : "";
     let html = '<div class="dash-tease-row">' +
       '<span class="dash-tease-icon">' + wIcon + '</span>' +
-      '<span class="dash-tease-body">' + escapeHtml(cur.condition) + hl + '</span>' +
+      '<span class="dash-tease-body">' + cur.temperature + '°F · ' + escapeHtml(cur.condition) + hl + '</span>' +
     '</div>';
 
     // Rainfall summary: past 7 days (Open-Meteo recentPrecip) + next 7 days (forecast)
@@ -5422,7 +5528,7 @@ function renderDashboardStrip() {
       const maxPlantsPerRow = 3;
       const rows = activeTypes.map(t => {
         const plants = plantsNeedingCare(t);
-        const shown = plants.slice(0, maxPlantsPerRow).map(p => p.name.toLowerCase());
+        const shown = plants.slice(0, maxPlantsPerRow).map(p => p.name);
         const tail = plants.length > maxPlantsPerRow ? ", +" + (plants.length - maxPlantsPerRow) : "";
         return '<div class="dash-tease-row">' +
           '<span class="dash-tease-icon">' + CARE_TYPES[t].icon + '</span>' +
@@ -5444,7 +5550,7 @@ function renderDashboardStrip() {
     const ampsNow  = AMPHIBIANS_DATA.species.filter(s => (s.monthsActive  || []).includes(currentMonth));
 
     function teaseRow(icon, label, names, totalCount) {
-      const shown = names.slice(0, maxNames).map(n => n.toLowerCase());
+      const shown = names.slice(0, maxNames);
       const tail = totalCount > maxNames ? ", +" + (totalCount - maxNames) : "";
       return '<div class="dash-tease-row">' +
         '<span class="dash-tease-icon">' + icon + '</span>' +
@@ -5492,7 +5598,6 @@ function renderDashboardStrip() {
     '</div>';
     if (sunset) {
       html += '<div class="dash-tease-row">' +
-        '<span class="dash-tease-icon">🌅</span>' +
         '<span class="dash-tease-body">' +
           '<span class="dash-tease-action">Sunset</span> · ' +
           '<span class="dash-tease-names">' + escapeHtml(sunset) + '</span>' +
@@ -5517,13 +5622,7 @@ function renderDashboardStrip() {
         '</div>';
       }
     }
-    if (!nextLine) {
-      nextLine = '<div class="dash-tease-row">' +
-        '<span class="dash-tease-icon">⭐</span>' +
-        '<span class="dash-tease-body"><span class="dash-tease-names">Bortle 3 — exceptional dark sky</span></span>' +
-      '</div>';
-    }
-    html += nextLine;
+    if (nextLine) html += nextLine;
     aSubEl.innerHTML = html;
   }
 }
@@ -5566,9 +5665,9 @@ function buildPlantDetailHtml(plant, type) {
       h += '<div class="plant-detail-sub">';
       h += '<div class="plant-detail-sub-hdr">';
       h += '<span class="plant-detail-sub-name c-' + type + '">' + escapeHtml(sub.label) + '</span>';
-      if (sub.narrow) h += '<span class="narrow-badge">⏱ Narrow window</span>';
+      if (sub.narrow) h += '<span class="narrow-badge">Narrow window</span>';
       h += '</div>';
-      if (sub.peakWindow) h += '<div class="plant-action-peak">📅 Peak: ' + escapeHtml(sub.peakWindow) + '</div>';
+      if (sub.peakWindow) h += '<div class="plant-action-peak">Peak: ' + escapeHtml(sub.peakWindow) + '</div>';
       if (sub.description) h += '<div class="plant-action-desc">' + escapeHtml(sub.description) + '</div>';
       h += '</div>';
     });
@@ -5576,10 +5675,10 @@ function buildPlantDetailHtml(plant, type) {
     h += '<div class="plant-detail-sub">';
     if (entry.narrow || entry.peakWindow) {
       h += '<div class="plant-detail-sub-hdr">';
-      if (entry.narrow) h += '<span class="narrow-badge">⏱ Narrow window</span> ';
+      if (entry.narrow) h += '<span class="narrow-badge">Narrow window</span> ';
       h += '</div>';
     }
-    if (entry.peakWindow) h += '<div class="plant-action-peak">📅 Peak: ' + escapeHtml(entry.peakWindow) + '</div>';
+    if (entry.peakWindow) h += '<div class="plant-action-peak">Peak: ' + escapeHtml(entry.peakWindow) + '</div>';
     if (entry.description) h += '<div class="plant-action-desc">' + escapeHtml(entry.description) + '</div>';
     h += '</div>';
   }
@@ -5633,7 +5732,7 @@ function renderThisMonthPlants() {
       // Detail HTML (subcategories + optional season tip)
       let detailHtml = buildPlantDetailHtml(plant, type);
       if (plant.currentSeasonNote && !tipShown.has(plant.id)) {
-        detailHtml += '<div class="plant-detail-season-tip">💡 ' + escapeHtml(plant.currentSeasonNote) + '</div>';
+        detailHtml += '<div class="plant-detail-season-tip">' + escapeHtml(plant.currentSeasonNote) + '</div>';
         tipShown.add(plant.id);
       }
 

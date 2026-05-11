@@ -1,0 +1,195 @@
+{
+  "review_id": "ux-2026-05-11-iconography",
+  "project": "tate-tracker",
+  "subject": "System-pattern review: every icon, emoji, badge glyph, and chevron across the surface. Lenses: truth-divergence, decorative noise, inconsistency, readability-at-glance.",
+  "review_date": "2026-05-11",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Mom (make-or-break) — joint primary with Paul",
+    "core_jobs_to_be_done": [
+      "Leisure-read something interesting about her place, in bed at half-engagement",
+      "Soft preview of tomorrow at the property without feeling task-list-ed",
+      "Trust the dashboard to be telling her something true right now"
+    ],
+    "context_of_use": "Off-property, phone, one-handed, reclined, half-awake (morning coffee or evening wind-down). At 1.5-second glance she should be able to read the surface; she will not decode glyphs.",
+    "assumptions_made": [
+      "Mom's bed/coffee context tagged [inferred] in persona.",
+      "Mobile viewport ~390-430px. At this width emoji glyphs render at 11-22px depending on slot — small enough that a wrong emoji choice mostly registers as a smudge of color, not a parsed symbol."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "Ornament earns its place (cross-project.md) — the load-bearing principle this review",
+    "Static visuals lie on dynamic surfaces (cross-project.md) — directly invoked by Paul's framing",
+    "Typographic hierarchy by value (cross-project.md) — applies because icons are part of visual weight, not just decoration",
+    "Tone-coherence across all chrome (tate-tracker.md) — applies because icon choice IS chrome",
+    "Make every surface read at half-engagement (tate-tracker.md)",
+    "Caution as noticing, not warning (tate-tracker.md) — applies to ⚠ / ❄ / red-coded glyphs",
+    "Nielsen — Consistency and standards",
+    "Nielsen — Visibility of system status (state must be truthfully communicated)",
+    "Norman — Signifier-actual-state mapping"
+  ],
+  "findings": [
+    {
+      "id": "I1",
+      "area": "feedback",
+      "severity": "critical",
+      "failure_mode": "truth-divergence",
+      "observation": "The Weather card header icon at viewer.html:1856 is hard-coded — `<div class=\"main-card-icon weather\">⛅</div>` — always renders ⛅ (partly cloudy) regardless of actual current conditions. The dashboard tile and the Right-now block inside the card both DO use dynamic icons from WEATHER_CODES[cur.weatherCode], so when conditions are thunderstorms ⛈, the dashboard correctly shows ⛈ but the card header right next to it shows ⛅. Two icons within ~80px of each other, contradicting each other.",
+      "user_impact": "This is exactly the failure Paul described. At half-engagement, Mom may only see the card header chip — she sees ⛅ and walks away thinking 'oh, partly cloudy today.' During an actual storm or freeze that's a false read. Worse, it teaches her that the iconography is decorative rather than informative, which weakens every other icon on the page. Static visuals lying on dynamic surfaces erode trust in the whole surface.",
+      "principle_invoked": "Static visuals lie on dynamic surfaces (cross-project). Norman — signifier must map to state. Nielsen — Visibility of system status.",
+      "recommendation": "Three options, in order of preference. (a) Make the weather card header icon dynamic — same source as the dashboard tile and the 7-day strip. One line of JS at render time. (b) Drop the per-condition emoji from the card header entirely and let the gradient-square `.main-card-icon.weather` carry identity through color/shape alone (the blue gradient already reads 'weather'). (c) Replace the per-condition emoji with a genuinely neutral identity glyph like 🌡 that doesn't claim to show conditions. (a) is the truthful fix; (b) is the restraint-aligned fix. Either solves the lie. (c) is acceptable but adds a glyph that doesn't earn much. Recommend (b) — it deletes the lie and saves a glyph from having to be true.",
+      "effort": "low"
+    },
+    {
+      "id": "I2",
+      "area": "affordance",
+      "severity": "important",
+      "failure_mode": "truth-divergence",
+      "observation": "Every dash-cell on the strip carries a `▾` chevron in the top-right (viewer.html:1816, 1822, 1827, 1832, 1839, 1844). The chevron is a signifier for 'tap to expand.' But (a) the dash-cells don't expand — they call `expandCard(id)` which opens the corresponding `.main-card` below and scrolls to it, and (b) `expandCard()` is one-way (adds `.expanded`, never toggles off), so re-tapping the tile does nothing visible. The chevron's promise — 'this tile opens / closes' — is false. It opens something else (the card below), and once opened, the chevron still claims expandability that no longer applies. None of `.dash-cell-chevron` rotates on `.main-card.expanded`, so the state of the chevron also lies — it says 'closed, tap to open' even when the target card is open just below it.",
+      "user_impact": "Mom taps a tile, gets scrolled to a card below, returns to the strip, sees the same chevron, taps again expecting either close-and-collapse or a state confirmation, and gets nothing. The affordance signifier doesn't match the action's behavior. This is the same Norman mismatch as I1, just in chrome rather than data. At half-engagement, mismatch reads as 'broken,' not as 'I'm reading it wrong.'",
+      "principle_invoked": "Norman — Signifier-actual-state mapping. Nielsen — Visibility of system status. Friction kills — it just works (cross-project).",
+      "recommendation": "Cut the `▾` chevrons from the dash-cells entirely. The tile itself with hover/active styling (already present at viewer.html:1561-1563) is the affordance — the chevron is doing nothing the visual treatment isn't already doing, and it's actively lying about reversibility. This also retires the F3 zoom-out finding (two chevron glyphs ▾ and ▼ across the same scroll). One chevron system — the `▼` on main-card-headers, which DOES rotate truthfully.",
+      "effort": "low"
+    },
+    {
+      "id": "I3",
+      "area": "consistency",
+      "severity": "important",
+      "failure_mode": "decorative noise + tone-leak",
+      "observation": "Property card panel titles each have a leading emoji that adds no information the heading word doesn't already carry: 📍 Location & Elevation (3663), 🌡 Frost Dates (3674), 🌄 Microclimate Factors (3686), 🪨 Soils (3711), ☁ Climate (3722), 📞 Local Resources (3728). Six panels, six different decorative glyphs in the same card. Each glyph adds visual weight that the heading word already carries — the user reads 'Soils' from the word, not from the rock emoji.",
+      "user_impact": "At half-engagement, this reads as scrapbook-decoration noise — an emoji on every section title is admin/CMS-template chrome, not field-journal voice. (Compare with a field guide, which leads sections with typography, not glyphs.) Each unnecessary glyph also pulls attention from the icon glyphs that ARE doing real work (the dynamic care-type icons, the moon phase, the alert glyphs). When everything has an icon, no icon means anything.",
+      "principle_invoked": "Ornament earns its place. Tone-coherence across all chrome (tate-tracker). Refactoring UI — color/icon restraint.",
+      "recommendation": "Strip the leading emoji from all six panel titles. Let the Crimson Text serif headings ('Location & Elevation', 'Frost Dates', 'Microclimate', 'Soils', 'Climate', 'Local Resources') carry the meaning. If panel separation needs more weight after the emoji come out, give the titles slightly more breathing room above (margin-top) and a hair more weight (600 → 700, or up 1px), and use a subtle bottom-rule. Typography over chrome.",
+      "effort": "low"
+    },
+    {
+      "id": "I4",
+      "area": "consistency",
+      "severity": "important",
+      "failure_mode": "decorative noise + tone-leak",
+      "observation": "The Plants card carries the same pattern at a smaller scale: 📅 Peak chips (3818, 5571, 5582), ⏱ Narrow window badges (3822, 5569, 5579), 💡 Season tip and Fun fact (3882, 5168, 5636, 4656), 🌱 Soil (3887), ❄ Frost (3889), 🏔 Site Notes (3890), and the Care-type icons themselves (✂ ️Prune, 🌱 Propagate, 🌾 Fertilize, 💧 Water, 🪴 Repot, 🔍 Inspect) which DO earn their place (they're the unifying lexicon across four plant views and the dashboard teaser). But the meta-glyphs around them (📅, ⏱, 💡, 🌱, ❄, 🏔) repeat the calendar/clock/lightbulb/seed/snowflake/mountain idioms that the labeled words already say.",
+      "user_impact": "The Care-type icons (✂, 🌱, 🌾, 💧, 🪴, 🔍) are doing genuine work — they're the visual key that says 'this is the Prune row' at a glance, they're consistent across the dashboard teaser and inside the card, they're paired with a color in the CARE_COLORS map. Those earn their place by carrying lexical identity across surfaces. The meta-glyphs around them are tax: 📅 next to the word 'Peak,' ⏱ next to 'Narrow window,' 💡 next to 'season tip' — each pairs a word with the literal emoji of that word. Mom reads the word; the glyph is noise. At 10-11px on her phone, the glyph is also too small to be readable; it's just a colored speck.",
+      "principle_invoked": "Ornament earns its place. Tone-coherence across all chrome.",
+      "recommendation": "Keep the Care-type icon system intact — it earns its place by carrying identity across surfaces and pairing with color. Cut the meta-glyphs: drop 📅 from peak chips (3818, 5571, 5582), drop ⏱ from narrow-window badges (3822, 5569, 5579) — let the orange-bordered pill style carry the 'narrow' meaning, drop 💡 from season tips (3882, 5168, 5636, 4656) and fish forecast (4656), drop 🌱/❄/🏔 from plant-site rows (3887, 3889, 3890). If any single one needs to stay to keep a layout balanced, the Site Notes 🏔 is the most defensible since 'Site Notes for Church Mountain Road' is the lead on a noticing block — but only one, and the rest go.",
+      "effort": "low"
+    },
+    {
+      "id": "I5",
+      "area": "feedback",
+      "severity": "important",
+      "failure_mode": "tone-leak (warning-as-noticing already canonized)",
+      "observation": "Property card body still ships warning-coded glyphs that survived the zoom-out tone audit (this is the F5 surface, re-examined here at the glyph level): ⚠ next to frost-pocket warning text (3681), ❄ leading the Frost Pockets heading on a red-tinted .prop-warning block (3688), 🏔 leading the Thermal Belt heading (3687), ⚠ on aspect-cell caution lines (3703). The Heads-up wblock title uses ⚠ Heads up (3037). Alert objects in generateAlerts() pull ⛈/🌧/💧/💨/❄/🌱 at lines 3145, 3151, 3157, 3193, 3238, 3270, 3290, 3302, 3306 — these icons are dynamic-and-truthful (they map to alert kind) BUT they all live inside the same 'Heads up' block whose title still uses ⚠ as if this were an ops dashboard.",
+      "user_impact": "Mom at leisure, half-engaged, scans the Property card and her eye lands on red ⚠/❄/🏔 alarms in the same scroll as Cherokee land / Bortle 3 / Blue Ridge thermal belt. The 'Caution as noticing, not warning' principle from this morning's zoom-out is being undermined by glyph choice alone, even where the prose has been quieted. The Heads-up wblock title is the worst offender — ⚠ + 'Heads up' is doubly alert-coded.",
+      "principle_invoked": "Caution as noticing, not warning (tate-tracker). Tone-coherence across all chrome. Confidence cuts both ways.",
+      "recommendation": "Strip ⚠ from prop-note (3681), frost-pocket heading prefix ❄ (3688), thermal-belt prefix 🏔 (3687), and aspect-cell caution prefix ⚠ (3703). Replace the 'Heads up' wblock title from '⚠ Heads up' to just 'Worth knowing' (3037) — no leading glyph; let the wblock-title typography do the work. The per-alert icons inside the block can stay (they ARE dynamic and they ARE the most informative part) but they should not all be in the warning lexicon — consider mapping severity to a single shape family (a quieter dot or a tiny weather glyph) rather than the current mix of weather emoji and ❄. The shift is small but it cuts the ops-dashboard feel substantially.",
+      "effort": "medium"
+    },
+    {
+      "id": "I6",
+      "area": "consistency",
+      "severity": "important",
+      "failure_mode": "inconsistency",
+      "observation": "Five different chevron glyphs are in use across the same surface: dash-cell uses `▾` (small open triangle, 1816+), main-card-header uses `▼` (1861, 1894, 1931, 1951, 1964, 1977), cel-expand-chevron uses `▼` (4866), plant-action-chevron uses `▼` (5646), plant-site-toggle site-chevron uses `▼` (3890), the plant.expanded .chevron uses generic `.chevron` (783 — not surveyed but likely `▼`). All but the dash-cell rotate on expand. The dash-cell `▾` neither rotates nor toggles — see I2.",
+      "user_impact": "Two different downward-pointing triangle shapes (`▾` and `▼`) within the same scroll signal 'these do different things' when they actually do similar things. Half-engagement, this reads as inconsistency rather than as a deliberate distinction. F3 from the zoom-out already noted this; this finding ties it to the truth-divergence in I2 as a single system fix.",
+      "principle_invoked": "Nielsen — Consistency and standards. Norman — same affordance = same signifier.",
+      "recommendation": "If I2 lands (cut the dash-cell chevrons entirely), this resolves automatically — only `▼` remains and only on rotating headers. If the dash-cell chevrons stay for some reason, replace `▾` with `▼` and either make them rotate on target-card-open (requires watching the target card's class change) or accept that they're decorative-only and lose their state-claim. Recommend the cut.",
+      "effort": "low"
+    },
+    {
+      "id": "I7",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "failure_mode": "inconsistency + tone-leak",
+      "observation": "The celestial 'Upcoming Events' visibility lexicon uses traffic-light dot emoji: 🟢 Excellent, 🟡 Good, 🟠 Fair, 🔴 Not visible (visMap at viewer.html:4825-4830). The dots are coded as ops-dashboard signal — green/yellow/orange/red — on a card whose framing in the zoom-out was 'Sky & Stars,' field-journal voice. The Bortle-3 'exceptional dark sky' framing of the property is positive-coded, but Not-visible coming up as red ⨯ '🔴' on a celestial-event row reads as 'something went wrong' when actually it just means 'this event isn't above the horizon from 34.5°N.'",
+      "user_impact": "Lower severity because these dots are inside an expanded card (not on the always-visible strip) and they DO carry information. But the red/yellow/green grammar is borrowed from monitoring dashboards. Mom at leisure reading about a meteor shower coming up in 14 days sees a red dot on a row and her stomach does the 'something is wrong' read for a beat before the word resolves. Each ops-coded glyph is a small tone-leak.",
+      "principle_invoked": "Caution as noticing, not warning. Tone-coherence across all chrome. Ornament earns its place (color-as-coding has to earn its severity claim).",
+      "recommendation": "Replace the traffic-light dots with a single in-palette glyph + a phrase: e.g., one star ★ for excellent, half-filled or smaller star for good/fair, the row dims to gray italic for not-visible. The information is still carried, but in a celestial-noticing register rather than a SLA-monitoring one. Worth flagging as a smaller fix than the Property warning cleanup but the same principle.",
+      "effort": "low"
+    },
+    {
+      "id": "I8",
+      "area": "feedback",
+      "severity": "nice-to-have",
+      "failure_mode": "decorative noise",
+      "observation": "The Sunset row in the dashboard Astronomy tile always renders a 🌅 glyph (5495), regardless of time of day. At 8am with morning coffee, Mom sees 'Sunset · 8:43pm' with a sunset-painted-sky emoji that isn't true at the moment she's reading. The glyph isn't wrong information (sunset really is at 8:43pm) but the glyph itself depicts a state — sun-at-horizon — that is not currently true. Same shape of problem as I1 but lower stakes since sunset is also a label.",
+      "user_impact": "Smaller version of I1. The glyph reads 'sunset is happening' for the first millisecond of half-engaged glance. Then the word resolves. Each small truth-divergence is a small deposit against the surface being trustworthy.",
+      "principle_invoked": "Static visuals lie on dynamic surfaces — milder case.",
+      "recommendation": "Either swap 🌅 for a neutral 'time' glyph (a tiny clock 🕓 or just drop the glyph and let 'Sunset' be the lead label) or pair the sunset row with a sunrise row in the morning (sunrise 🌅 in AM, sunset 🌆 in PM — those emoji ARE distinct). The cleanest fix: drop the glyph. The word 'Sunset' is doing the work.",
+      "effort": "low"
+    },
+    {
+      "id": "I9",
+      "area": "feedback",
+      "severity": "nice-to-have",
+      "failure_mode": "decorative noise",
+      "observation": "The dashboard Astronomy tile fallback row uses ⭐ + 'Bortle 3 — exceptional dark sky' (5522). The star emoji here is decorative — it's not depicting a current state (there isn't a specific star that's bright now), it's just signaling 'sky/celestial.' But the celestial main-card-icon (1946) is 🔭 telescope, the Sky & Stars sub-card uses ⭐ (4799) for the Bortle-3 cell, the dash-cell-fallback uses ⭐ again (5522), the Clear-sky fishing condition uses ✨ sparkles (4677), Upcoming events Next uses ✨ (5512), event row Direction Bortle fallback uses ⭐ (4844), the cel-events-hdr uses 📅 (4816). Five star-like glyphs (⭐, ✨, 🌟 not seen but typical, 🔭, 🌑/🌒/...) doing celestial-coded work, with no clear lexicon distinguishing them.",
+      "user_impact": "Low-stakes — celestial-themed glyphs don't carry a heavy truth claim. But the lack of a single lexicon means the user can't form a model of 'when do I see a star icon vs a sparkle vs a telescope.' At half-engagement, each variant adds tiny cognitive load.",
+      "principle_invoked": "Nielsen — Consistency and standards. Ornament earns its place.",
+      "recommendation": "Pick one lexicon and stick with it. Suggested: 🔭 for celestial card identity (already established), moon-phase glyphs for moon (already established), ⭐ for site-quality / Bortle (established), ✨ for events/highlights (established but used twice). Cut ⭐ from the dashboard fallback row (5522) — it's redundant with the celestial 🔭 identity icon on the card it leads to. Let the row be text-only when there's no specific event to surface.",
+      "effort": "low"
+    },
+    {
+      "id": "I10",
+      "area": "consistency",
+      "severity": "important",
+      "failure_mode": "readability-at-glance",
+      "observation": "Dashboard tease-icons all render at `font-size: 11px` (.dash-tease-icon at 1632). At that size, emoji glyphs degrade to colored shapes — at 11px on a 390px viewport (effectively ~11px on retina), a ⛅ vs ☁ vs 🌤 vs ⛈ distinction is mostly invisible. Mom can't tell from the icon whether the weather row says partly-cloudy, cloudy, mostly-clear, or thunderstorm. The text next to it carries the meaning. The icon is decorative at 11px.",
+      "user_impact": "If the icon's job is to add a useful glanceable signal, at 11px it fails — it's too small to be a recognizable glyph and just adds visual color. Mom reads the text. The icon spends real estate without earning it. This compounds in cells like Weather where four tease-rows stack (current condition + Rain + up to 3 alert rows) and each has an 11px emoji.",
+      "principle_invoked": "Ornament earns its place. Make every surface read at half-engagement (tate-tracker). Refactoring UI — icons need enough size to be glyphs, not pixels.",
+      "recommendation": "Two options. (a) Bump tease-icons to 14-16px so they're actually readable as glyphs — this makes them earn their space — and audit which rows need them vs which don't. (b) Cut tease-icons entirely from the dashboard strip and let the action word ('Rain', 'Birds', 'Moon', 'Sunset', 'Lake Sequoyah') do the work. The current 11px compromise is the worst of both: too small to read, too present to delete. Recommend (b) for the strip — let typography carry the strip — and reserve glyphs for INSIDE the expanded cards where they have room to be 16-22px and be properly recognizable.",
+      "effort": "medium"
+    },
+    {
+      "id": "I11",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "failure_mode": "inconsistency",
+      "observation": "The wildlife tease-row uses 🐦 for Birds and 🐸 for Amphibians (5459, 5460) — both representative single-species glyphs that stand in for a whole category. 🐦 is a generic bird, but the wildlife card itself uses 🐾 paws (1926) as its identity glyph, and Birds tab is mostly songbirds + raptors (no generic-bird species). 🐸 is a frog, but the Amphibians tab includes salamanders too. Each pictogram makes a small category-claim it can't fully back up.",
+      "user_impact": "Very small. But it's the same shape as I1: a glyph implying one thing when the underlying data is broader. The dashboard label says 'Amphibians' — if Mom expanded thinking 'just frogs,' she might be surprised by salamanders, or vice versa. Low-stakes because the label word carries the meaning; flagging because it's the same family of error pattern.",
+      "principle_invoked": "Norman — signifier consistency. Static visuals lie on dynamic surfaces (mild case).",
+      "recommendation": "Either accept the pictogram-as-category convention (it's idiomatic) and move on, or rotate the glyph dynamically based on what's calling-now (e.g., 🐸 in spring peeper season, salamander glyph during salamander activity windows). The first is fine; the second is over-engineering. Recommend keeping these AS-IS for now but logging this as the lower-stakes example of the same pattern as I1.",
+      "effort": "low"
+    },
+    {
+      "id": "I12",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "failure_mode": "decorative noise",
+      "observation": "The 'Tap any tile for more details' caption (1812, already flagged in zoom-out F3) sits above six tiles whose chevrons (I2) and hover states already invite tap. The caption is text not an icon, but it occupies the role icons sometimes occupy — telling the user 'this is interactive.' Mentioning here only because the fix for I2 (cut the dash-cell chevrons) and the fix for F3 (cut the caption) are the SAME move: remove redundant signifiers; let the tile-as-button carry the affordance.",
+      "user_impact": "Already covered in F3. Adding here to bundle the affordance-cleanup fixes — chevron, caption, and tile-hover-state belong to one decision: how does the tile signal tappable. The answer should be one signifier (the hover/active styling), not three (chevron + caption + hover).",
+      "principle_invoked": "Friction kills — it just works. Nielsen — minimalist design.",
+      "recommendation": "Bundle with I2 and F3 fixes. Cut the chevrons (I2), cut the caption (F3), keep the hover/active treatment, and if any further affordance signal is needed, lean into a slightly stronger card-shadow or subtle right-aligned `›` arrow that DOES rotate / fade when the linked card is open. One signifier. One truth.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "On I1 — Paul's strong preference between (a) make the weather card header icon dynamic vs (b) drop the per-condition emoji from the card header and let the gradient square carry identity? (b) is more aligned with 'icons earn their place' restraint; (a) is more aligned with 'show useful real-time information.' Either solves the lie.",
+    "On I3 / I4 — appetite for stripping the meta-glyphs (📍, 🌡, 🌄, 🪨, ☁, 📞 on Property; 📅, ⏱, 💡, 🌱, ❄, 🏔 on Plants)? This is the biggest visual change in the review and the most likely to feel 'flatter' even though that's the principle in action. Worth a gut-check before pulling.",
+    "On I7 — traffic-light visibility dots on celestial events — is this a 'leave it, low-stakes' or 'fix it for tone-consistency'? It's a smaller-scale version of the Property warning chrome.",
+    "On I10 — bump strip tease-icons to 14-16px so they earn their place, or cut them entirely from the strip? My recommendation is cut, but Paul may have a feel for whether they add a visual rhythm that text alone wouldn't."
+  ],
+  "follow_up_research_suggested": [
+    "When Mom is shown the current dashboard alongside an icon-stripped version of the same data, which does she find easier to read at a glance? Worth a 10-minute side-by-side.",
+    "Specifically test the weather-card-header lie (I1): show Mom the dashboard on a day when the dash-tile says ⛈ thunderstorm and the card header says ⛅ — does she notice? Does it bother her, or does she filter it out? Behavioral validation of whether truth-divergence on chrome actually erodes trust here."
+  ],
+  "principles_to_propose": [],
+  "principles_canonized": [
+    {
+      "principle": "Icons earn their place — true AND useful",
+      "scope": "cross-project",
+      "canonized_to": "~/.claude/design-principles/cross-project.md",
+      "canonized_date": "2026-05-11",
+      "grounded_in_findings": ["I1", "I3", "I4", "I8", "I9"],
+      "notes": "Sits alongside 'Ornament earns its place' (general decoration rule) and 'Static visuals lie on dynamic surfaces' (trust-erosion rule), sharpening both for the icon case. Two-test framing: (1) true right now, (2) adds information the label doesn't already carry. Fail either → remove. The first test catches I1 (weather header divergence) and I8 (always-on sunset glyph). The second catches I3 (decorative panel-title emoji on Property), I4 (meta-glyphs duplicating labels on Plants — 📅 Peak, ⏱ Narrow, 💡 Tip), and I9 (redundant celestial glyphs). Evidence tagging applied throughout the canonized Why. [validated]"
+    },
+    {
+      "principle": "Glyphs follow the journal voice, not the dashboard voice",
+      "scope": "tate-tracker",
+      "canonized_to": "~/.claude/design-principles/tate-tracker.md",
+      "canonized_date": "2026-05-11",
+      "grounded_in_findings": ["I3", "I4", "I5", "I7"],
+      "notes": "Standalone, not folded into 'Tone-coherence across all chrome.' Catches failures the cross-project icon rule misses — specifically, glyphs that ARE true and DO add information but import the wrong register (e.g., traffic-light dots 🟢🟡🔴 for celestial visibility from I7 — true, useful, still wrong). Includes explicit 'avoid' cluster naming ops-dashboard / monitoring / task-manager glyphs (🟢🟡🔴, ⚠, 📅, ⏱, 💡), and a 'prefer' clause keeping identity-carrying lexicons (Plant Care-type icon system per I4, moon phases) and quiet textual descriptors. Examples: the I7 visibility dots and the I5 'Heads up' wblock title. Evidence tagging applied. [validated]"
+    }
+  ]
+}

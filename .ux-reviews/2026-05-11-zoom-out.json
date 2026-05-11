@@ -1,0 +1,212 @@
+{
+  "review_id": "ux-2026-05-11-zoom-out",
+  "project": "tate-tracker",
+  "subject": "Zoom-out: dashboard strip, weather/plants/wildlife/vehicles/property cards, expand-collapse system, field-journal vs. task-manager gestalt",
+  "review_date": "2026-05-11",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Mom (make-or-break) — joint primary with Paul",
+    "core_jobs_to_be_done": [
+      "Invest finite time well on a place that matters (joint stewardship + appreciation)",
+      "Leisure-read something interesting that's about her place, in bed with morning coffee or evening wind-down",
+      "Soft preview of tomorrow at the property (what's worth doing, what's blooming, weather) without it feeling like a task list"
+    ],
+    "context_of_use": "Off-property, phone, one-handed, reclined in bed, half-engaged (waking up or winding down). Mobile-first. Possibly slow signal. Cognitive load must stay low. Tone must read as field journal, not task manager.",
+    "assumptions_made": [
+      "Mom's bed/coffee context tagged [inferred] in persona — not yet behaviorally validated. Findings tied to that context should be treated as hypotheses, not declarations.",
+      "Mobile viewport assumed at ~390–430px (typical iPhone). At <=480px the dashboard strip stacks to 1 column.",
+      "Mom recognizes property-specific facts (Cherokee land, Etowah darters, Bortle 3) as 'interesting,' not just trivia."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "Field journal, not task manager (content-principles/tate-tracker.md, applied to UX surfaces)",
+    "Confidence cuts both ways (user-research/tate-tracker.md)",
+    "Ornament earns its place (design-principles/cross-project.md)",
+    "Meet the user at the action (design-principles/cross-project.md)",
+    "Friction kills — it just works (design-principles/cross-project.md)",
+    "Typographic hierarchy by value — seeded candidate, this review is its first validating test",
+    "Nielsen — Consistency and standards",
+    "Nielsen — Visibility of system status",
+    "Norman — Affordance / signifier consistency",
+    "Rosenfeld & Morville — Perceivable IA structure"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "Only the Weather tile has a big serif numeric value (.dash-cell-value, 20px Crimson Text). Plants, Wildlife, Astronomy, Vehicles, and Property tiles have no equivalent value slot — they show a tiny 9px uppercase label and 10.5px tease rows. The result on Mom's phone (6 tiles stacked) is that Weather feels like THE headline and the other five feel like footnotes, even though Plants and Wildlife are exactly the surfaces meant to do the field-journal work.",
+      "user_impact": "In bed, low-attention, Mom's eye lands on the only big number on the page — a temperature — and gets a weather-app gestalt. The 'this is a journal of our place' frame is undercut at first glance. The thing she most wants — what's blooming, what's calling now — is rendered as the smaller / quieter content.",
+      "principle_invoked": "Typographic hierarchy by value (working candidate) — type size and weight must encode informational value, not template position. Also Nielsen — Match between system and the real world.",
+      "recommendation": "Either (a) give Plants and Wildlife a comparable 'headline value' slot — e.g., 'May' in Crimson serif on Plants, 'Spring chorus' or '11 calling' on Wildlife — or (b) demote the Weather temperature to the same compact tease-row treatment the other tiles use. Option (b) is the more field-journal move; option (a) is the more legible one. Recommend (a): the field journal benefits from each tile having a single evocative lead word/phrase in the same serif weight, and from cutting the 20px temperature down to share the row with the icon.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Vehicles tile sub-copy is hard-coded as 'Detailed specifications and parts numbers.' Property tile is data-dense ('USDA Zone 6b · 2,959 ft · Bortle 3'). Weather/Plants/Wildlife/Astronomy tiles use a warmer 'tease row' pattern with verbs and species names. Three different voices on six tiles.",
+      "user_impact": "Mom in leisure-reading mode is given a clean field-journal pull on four tiles and then hits a parts-catalog sentence on Vehicles. It's a tone whiplash that confirms the suspicion that the app is two things in one — a field journal AND a maintenance system. That suspicion is exactly what the project doctrine is trying to avoid.",
+      "principle_invoked": "Field journal, not task manager. Also Nielsen — Consistency and standards.",
+      "recommendation": "Replace the Vehicles sub with something seasonal/quiet that still gestures at what's there: e.g., 'The fleet — what each one is and how to keep it running' or just 'Five vehicles, ten pieces of equipment.' For Property, lead with one evocative anchor before the spec dump: e.g., 'On Cherokee land · Blue Ridge thermal belt' — let the zone/elevation/Bortle be revealed inside the card.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "discoverability",
+      "severity": "nice-to-have",
+      "observation": "The dashboard strip prefaces six tiles with a small italic caption: 'Tap any tile for more details.' Each tile also has a ▾ chevron in the top-right corner, and each card header has its own ▼ chevron.",
+      "user_impact": "The instructional caption is a smell — when an interface needs to explain its own affordance, the affordance is doing the work poorly. Mom doesn't read instructional copy in leisure mode. Two different chevrons doing similar 'expand' jobs in the same scroll also introduces low-level visual noise.",
+      "principle_invoked": "Friction kills — it just works. Also Norman — signifier consistency.",
+      "recommendation": "Cut the 'Tap any tile for more details' caption. The chevron + tile look already invites tap. If the affordance test fails without the caption, the tile design itself needs strengthening (subtle drop shadow on press, slight elevation on tiles). Unify the two chevron glyphs (pick one: ▾ or ▼) and use the same on tiles and card headers.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The dashboard tile is labeled 'Astronomy' (9px uppercase). The card it expands to is titled 'Sky & Stars.' Same surface, two different names.",
+      "user_impact": "Tiny but cumulative — Mom learns to distrust the labels because they don't match. In a half-engaged scroll, the name mismatch reads as a glitch and erodes the sense that someone cared about the details.",
+      "principle_invoked": "Nielsen — Consistency and standards.",
+      "recommendation": "Pick one. 'Sky & Stars' is the more field-journal name and matches Paul's stated tone; 'Astronomy' is more clinical. Recommend 'Sky & Stars' on both surfaces.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Property card body uses task-manager warning glyphs and red backgrounds: '⚠️ Thermal Belt', '❄️ Frost Pockets' (red-tinted .prop-warning), '⚠ caution' chips on each aspect cell, '⏳ Loading ERA5 actuals…' badge. These exist for real informational reasons (real frost-pocket risk exists), but the *visual treatment* is alert-language even when the *prose* tries to inform.",
+      "user_impact": "Mom in bed in leisure mode lands on the Property card expecting a quiet read about her place — Cherokee land, watershed, dark sky — and instead sees yellow/red warning bars. Confidence-erodes-both-ways: by warning her at leisure time, the app teaches her that opening it is risky/effortful, and she stops opening it. Paul's own evidence ('don't wanna be so gun shy that we don't do things') reinforces this — caution-language costs as much as carelessness.",
+      "principle_invoked": "Confidence cuts both ways. Field journal, not task manager. Also Ornament earns its place (decorative warning emoji that the prose already conveys).",
+      "recommendation": "Strip warning chrome from the Property card entirely. Replace red-tinted .prop-warning with a quiet inset note in the same green-on-cream palette. Cut the ⚠️ and ❄️ leading emoji — the headings 'Thermal Belt' and 'Frost Pockets' carry the meaning. Reframe the frost-pocket text from caution to noticing: 'Cold air settles in low draws on still mornings — worth knowing when siting tender plants' rather than a warning.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The Weather card's collapsed header summary is a single dense line: '⛅ 64°F · Partly cloudy · H 78° / L 52° · Saturated soils' — five chunks of equal visual weight separated by middots. There is no lead, no shape, no rhythm. Compare with the gardener insight slot *inside* the expanded card, which uses italic Crimson Text serif and lands like a sentence.",
+      "user_impact": "The collapsed-state weather summary is the line Mom reads most often (the card is closed by default and may stay closed). Reading it at low attention requires parsing five equally-weighted chunks — high cognitive load for a glance. She gets data, not a feel.",
+      "principle_invoked": "Typographic hierarchy by value (working candidate). Field journal, not task manager.",
+      "recommendation": "Rebuild the summary line as one short evocative sentence with a single lead. Example: '64° and partly cloudy · Saturated ground from yesterday' — drop the H/L from the closed line (it's in the daily strip inside) and let one fact lead. Or surface the same Crimson-italic gardener-insight line in the collapsed header, swapping the data line.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The dashboard strip's CSS (.tier-divider, .tier-divider-label) is defined but never rendered in the DOM. The tier-2 cards (Sky & Stars, Property, Vehicles) sit in the same vertical flow as the tier-1 cards with only a slightly lighter border color and reduced shadow. There is no perceivable IA break that says 'living surfaces above, reference shelf below.'",
+      "user_impact": "Mom scrolling past Weather/Plants/Wildlife into Sky & Stars / Property / Vehicles has no structural cue that the rhythm has changed from 'what's happening now' to 'background facts about the place.' She treats them as equivalent, which makes Vehicles especially feel like a misfit ('why is my fleet maintenance schedule in my field journal?').",
+      "principle_invoked": "Rosenfeld & Morville — perceivable IA structure. Also Ornament earns its place (CSS that exists but isn't used is a smell — either remove or use).",
+      "recommendation": "Either (a) render the tier-divider — it's already designed, with the italic Crimson 'REFERENCE' label and gradient lines — between Wildlife and Sky & Stars, or (b) remove it entirely and find another break (a short italic Crimson section header above the tier-2 group: 'Reference shelf' or 'The place itself'). Recommend (a) — the asset exists and was already approved per CLAUDE.md.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "All six dashboard tile labels are 9px uppercase tracked +0.8px ('WEATHER', 'PLANTS', 'WILDLIFE', 'ASTRONOMY', 'VEHICLES & EQUIPMENT', 'PROPERTY PROFILE'). The treatment is generic data-product caps-label, not field-journal voice.",
+      "user_impact": "Subtle, but in aggregate the labels read as a CMS/admin chrome more than a journal. At 9px on Mom's phone the uppercase + letter-spacing is also less legible at half-engagement than mixed-case would be.",
+      "principle_invoked": "Typographic hierarchy by value (working candidate). Field journal, not task manager.",
+      "recommendation": "Try mixed-case labels in the same Crimson Text serif used in card titles — 'Weather,' 'Plants,' 'Wildlife,' 'Sky & Stars,' 'Vehicles & Equipment,' 'The Place Itself.' Slightly larger (11–12px), no all-caps. Lets the small serif do the field-journal work that the uppercase is currently fighting against.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "empty-state",
+      "severity": "nice-to-have",
+      "observation": "On first paint, Weather tile shows '—' / 'Loading…', Astronomy shows 'Loading…', but Plants/Wildlife show no placeholder content. The card-summary lines on each card header all show '—' initially. There's no skeleton state, no shimmer, no narrative bridge.",
+      "user_impact": "If Mom opens the app in bed with weak signal (rural mountain area, this is plausible), the page paints with broken-looking emptiness and asynchronous '—' marks resolving one at a time. First impression is 'something's wrong,' not 'something's loading.' This is one of the higher-risk first-encounter moments for a make-or-break user.",
+      "principle_invoked": "Nielsen — Visibility of system status.",
+      "recommendation": "Either (a) inline a soft placeholder sentence in each tile that matches voice ('Listening for the station…' / 'Looking at the month…') in the same italic Crimson used elsewhere, or (b) precompute and inline a 'last-known' value rendered on page load before fetches complete, so the page is never blank. (b) is more work but materially better for the bed-in-poor-signal case.",
+      "effort": "medium"
+    },
+    {
+      "id": "F10",
+      "area": "affordance",
+      "severity": "nice-to-have",
+      "observation": "Plant view tabs and Wildlife tabs use 10px padding × 12px font, ~32px tall. iOS Human Interface Guidelines recommend 44pt minimum tap targets; Android recommends 48dp. These tabs are reachable but tight, particularly for a one-handed reclined-in-bed grip on a phone where thumb accuracy is lower.",
+      "user_impact": "Mom mis-tapping a tab and landing on a different view increases friction every time. Each mis-tap is a small 'this app is hard to use' deposit.",
+      "principle_invoked": "Nielsen — Error prevention. Norman — affordance scaled to body.",
+      "recommendation": "Bump plant-view-tab and wildlife-tab padding to 12px vertical × 14px horizontal; aim for 44px touch height. Worth validating in DevTools mobile mode before/after.",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "Plant names in the dashboard Plants tile teaser are forced to lowercase via .toLowerCase() ('Prune · hydrangea, deutzia, river birch'). Plant names inside the Plants card itself are rendered in proper case. Bird and amphibian common names in the Wildlife teaser are also forced to lowercase.",
+      "user_impact": "Reads as a deliberate quiet/journal touch, but it's inconsistent with the rest of the app and with how Mom would name plants in her own head ('the Hydrangea' rather than 'the hydrangea'). At a glance it can also slightly impair scanning — proper-case nouns are eye-magnets.",
+      "principle_invoked": "Nielsen — Consistency and standards.",
+      "recommendation": "Drop the .toLowerCase() in renderDashboardStrip. Let plant names and bird names render in the same case the rest of the app uses. If Paul wants a quieter visual treatment, do it through color (the dash-tease-names already use #6a8a6a — keep that) not through case-mangling.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "area": "flow",
+      "severity": "nice-to-have",
+      "observation": "All cards are collapsed by default. On the mobile single-column dashboard strip, that's six tiles (~6 × 80–140px each = ~600px) before the first actual card header is visible. Adding the header (~140px) and the Tate Tracker branding bar pushes the first openable card header well below the fold on a typical phone.",
+      "user_impact": "For Mom in leisure-reading mode, the dashboard strip IS the experience — she may never scroll past it. For Mom in soft-preview-tomorrow mode (the joint context that surfaced this session), the dashboard is enough. So this isn't strictly broken. But for any deliberate at-property lookup, the strip is friction stacked between her and the answer. And the dashboard strip and the cards underneath are largely redundant — the tile teasers preview the same content the cards reveal.",
+      "principle_invoked": "Meet the user at the action.",
+      "recommendation": "Worth a question rather than a prescription: is the dashboard strip the destination, or the preview? If it's the destination (which the bed/coffee context strongly suggests), each tile should be *richer* than it is now and the cards underneath can collapse to a quieter 'go deeper' role — fewer, smaller. If it's a preview, tiles should be thinner and the cards underneath should be the surface area. Currently the strip is doing both jobs, and competing with itself. Flagging as open question — see open_questions_for_user.",
+      "effort": "high"
+    }
+  ],
+  "open_questions_for_user": [
+    "Dashboard strip role — preview-of-cards or destination-in-itself? The mom-in-bed context surfaced today reframes this. Paul's call.",
+    "On Property card warnings — confirm the field-journal-tone treatment (F5) is right for Mom. The frost-pocket caution exists for a real reason (real plant loss risk); reframing it from caution to noticing changes the safety surface, not just the look. Worth a 'would you put this in a journal entry?' gut check before redesigning.",
+    "Weather summary line (F6) — is the single-sentence rewrite enough, or should the closed Weather card surface the gardener-insight line in place of the data line?",
+    "On the case-mangling of plant/bird names (F11) — was the lowercase deliberate journal-voice, or is it incidental? If deliberate, recommend keep + add it to principles; if incidental, recommend cut."
+  ],
+  "follow_up_research_suggested": [
+    "A 30-minute Mom-Test conversation: what does she actually do with her phone in bed in the morning? What apps does she reach for? What is the very first thing she opens? Would Tate Tracker survive that competition?",
+    "Once Mom has the app on her phone, two weeks of unprompted-open tracking — does she open it without Paul nudging? If yes, from where? If no, what intervention helped?",
+    "A switching-moment interview about the last time Mom looked something up about the property (gardening book, bird app, calendar reminder). What was the trigger, what tool did she reach for, what would have made Tate Tracker the obvious reach instead?",
+    "A behavioral validation of the Property card warning-tone (F5) — does Mom read the current red/yellow warnings as 'helpful caution' or as 'this app is bossy'?"
+  ],
+  "principles_to_propose": [],
+  "principles_canonized": [
+    {
+      "principle": "Typographic hierarchy by value",
+      "scope": "cross-project",
+      "canonized_to": "~/.claude/design-principles/cross-project.md",
+      "canonized_date": "2026-05-11",
+      "status": "promoted from seeded candidate; the Tate Tracker zoom-out review was its validating test",
+      "grounded_in_findings": ["F1", "F6", "F8"],
+      "rationale": "Seeded as a candidate before this review. Validating evidence is now in hand on multiple findings (F1 — only Weather tile has a serif value; F6 — collapsed Weather summary is five chunks of equal weight; F8 — uppercase 9px labels do not carry field-journal voice). Pattern: every text element on screen should have a weight, size, and family that encodes its informational value relative to neighbors — never inherit weight from the template or from formatting habit."
+    },
+    {
+      "principle": "Tone-coherence across all chrome",
+      "scope": "tate-tracker",
+      "canonized_to": "~/.claude/design-principles/tate-tracker.md",
+      "canonized_date": "2026-05-11",
+      "grounded_in_findings": ["F2", "F4", "F5", "F8"],
+      "rationale": "Surfaced across F2 (Vehicles tile sub-copy), F4 (Astronomy vs Sky & Stars name mismatch), F5 (warning glyphs in Property card), F8 (uppercase 9px tile labels). The field-journal tone has been enforced in prose and feature naming (per CLAUDE.md) but is leaking on every secondary surface — micro-copy, glyph choice, label case, alert styling. Pattern: tone is not a copy review item; it is enforced through every UI surface — color, icon, case, weight, microcopy, glyph — or it doesn't hold."
+    },
+    {
+      "principle": "Make every surface read at half-engagement",
+      "scope": "tate-tracker",
+      "canonized_to": "~/.claude/design-principles/tate-tracker.md",
+      "canonized_date": "2026-05-11",
+      "grounded_in_findings": ["F3", "F6", "F9"],
+      "rationale": "Surfaced from the Mom-in-bed-with-coffee context confirmed this session. Pattern: every screen must read at low attention, one-handed, on phone, reclined. No surface should require focused parsing of multiple data chunks (F6), should rely on instructional copy to explain its affordances (F3), or should show empty placeholders that look like errors at first paint (F9). The bar is what the page communicates in 1.5 seconds of half-engaged glance, not what it eventually reveals to a focused reader."
+    },
+    {
+      "principle": "Caution as noticing, not warning",
+      "scope": "tate-tracker",
+      "canonized_to": "~/.claude/design-principles/tate-tracker.md",
+      "canonized_date": "2026-05-11",
+      "grounded_in_findings": ["F5"],
+      "rationale": "Surfaced from F5 (Property card warnings) and reinforced by Paul's own 2026-05-11 evidence ('we don't wanna be so gun shy that we don't do things'). Pattern: this app sometimes needs to point at risk (frost pockets, freezing temps, drought) — but the design treatment should be 'something worth knowing about your place' (quiet, in-palette, with a noticing-frame), never 'something is wrong / alert / warning' (red, ⚠️, badge). Cuts the other direction from the anti-urgency rule already in CLAUDE.md — same idea, broader scope."
+    },
+    {
+      "principle": "Strip teases, card holds",
+      "scope": "tate-tracker",
+      "canonized_to": "~/.claude/design-principles/tate-tracker.md",
+      "canonized_date": "2026-05-11",
+      "grounded_in_findings": ["F12"],
+      "rationale": "Derived from Paul's 2026-05-11 answer to the F12 open question. The dashboard strip IS the destination/menu; the tiles are clickable previews that lead to the larger cards. Duplication between strip and card is by design — the strip must show the most relevant lead (which is what makes someone click in), and the expanded card must be self-contained so the user never has to scroll back up to the strip to find a piece of information. Working title 'Strip teases, card holds' chosen for memorability; principle reframes what looked like a competing-redundancy problem into a contract."
+    }
+  ]
+}

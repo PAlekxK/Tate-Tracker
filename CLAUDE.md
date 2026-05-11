@@ -126,6 +126,20 @@ The on-property hero leads with a synthesized italic "Today" callout (Crimson Te
 - **Scheduling plan documented in `tools/SCHEDULING.md`** — concrete YAML for a GitHub Action running every 6h + a midnight finalize, plus alternative launchd plist for local-only. Recommend GitHub Action long-term so accumulation doesn't depend on the laptop being awake. Setup needs: `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` as repo secrets, then drop in the workflow file. Schema-extension ideas (rain event timing, GDD, solar hours, predominant wind direction) are in the same doc.
 - **Viewer integration is not done yet.** Once the file has ~30+ days, the rainfall block can switch from ERA5 grid baselines to property-recorded comparisons ("wettest May on our 14-month record"). For now the file is just accumulating.
 
+### ~~Hourly forecast strip — next 48h under the daily tiles~~ ✓ Done (2026-05-11)
+- Extended `fetchLiveWeather()`'s Open-Meteo request with `temperature_2m,precipitation_probability,precipitation,weather_code` and `forecast_hours=48`.
+- Hourly payload is split at "now": past hours feed the existing `WEATHER_DATA.hourlyPressure` (used by `pressureTrend()` for fishing forecast — unchanged behavior); future hours populate the new `WEATHER_DATA.hourly[]` (up to 48 entries).
+- `renderWeather()` renders a horizontally-scrollable `.hourly-strip` directly below the 7-day `.forecast-strip`, with an italic-Crimson label "Next two days · hour by hour".
+- Each cell: short time label (`Now` / `3p` / `noon` / `12a` / `Tue 12a` at day-breaks), weather glyph from `WEATHER_CODES`, temperature, precip % when ≥20%. Day rollover gets a subtle left-border separator + weekday prefix in the time label.
+- Helper `hourLabel(hr)` formats 0–23 as `12a / 1a … noon … 11p`.
+- New CSS classes: `.hourly-strip`, `.hourly-cell`, `.hourly-cell.now` (highlighted), `.hourly-cell.day-break` (separator), `.hour-time`, `.hour-icon`, `.hour-temp`, `.hour-precip`.
+
+### ~~Gardener insight — station outage fallback~~ ✓ Done (2026-05-11)
+- `generateGardenerInsight()` no longer bails when `WEATHER_DATA.stationData` is missing. Variables fall back to `WEATHER_DATA.current` (Open-Meteo) when station is offline.
+- Station-only rules (storm-by-pressure, active rain, saturated soil, muggy/dew-point, cool damp morning) are guarded by `hasStation` and silently skipped when the station is down.
+- Forecast-driven rules work either way: frost tonight, hot day ahead, **rain coming today** (new — fires at ≥70% chance or >0.25" expected), **rain coming tomorrow** (new), ideal garden window, generic comfort descriptor.
+- Prose adjusts honestly: with station, observation says "at the property"; without, no observational claim. Ideal-window lead reads either "Comfortable May afternoon — 66°F, light winds" (station) or "Forecast looks comfortable today — high near 66°F" (forecast-only).
+
 ### ~~Icon/emoji audit — collisions and poor fits~~ ✓ Done
 - Vehicles & Equipment card: 🚗 → 🛻 (better fits the actual fleet)
 - Propagate: 🌿 → 🌱 (resolved the Plants-card collision)
@@ -166,6 +180,7 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 - **NWS api.weather.gov skyCover** for celestial subsection. Flow: `GET /points/34.5496,-84.3674` → follow `properties.forecastGridData` → read `properties.skyCover.values[]`.
 - **NASA SVS Dial-a-Moon** hourly image. Pattern: `https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005415/frames/730x730_1x1_30p/moon.NNNN.jpg` where NNNN = hour-of-year.
 - **Open-Meteo expansion** — add `cloud_cover_low/mid/high`, `visibility` to existing request for a stargazing score chip.
+- ~~**Open-Meteo hourly forecast (with rain)**~~ ✓ Done (2026-05-11) — shipped as the 48-hour hourly strip under the daily forecast tiles. See "Hourly forecast strip" below.
 
 **Live data integrations (need server proxy — not CORS):**
 - AirNow AQI chip for Weather card (free key, server proxy needed).
