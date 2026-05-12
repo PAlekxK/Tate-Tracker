@@ -68,7 +68,7 @@ def merge_attribution(cfg):
         ext = a.get("ext", "mp3")
         item["sound"] = f"{sound_dir_rel}/{sid}.{ext}"
         item["soundAttribution"] = {
-            "source": "Wikimedia Commons",
+            "source": a.get("source", "Wikimedia Commons"),
             "author": a["author"],
             "license": a["license"],
             "url": a["source_url"],

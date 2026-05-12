@@ -1,0 +1,98 @@
+{
+  "black-racer": {
+    "author": "(c) Deana Tempest Thomas, some rights reserved (CC BY)",
+    "credit": "https://www.inaturalist.org/photos/370142239",
+    "file": "File:Coluber_constrictor_ssp._constrictor,_United_States_imported_from_iNaturalist_photo_370142239.jpg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Coluber_constrictor_ssp._constrictor,_United_States_imported_from_iNaturalist_photo_370142239.jpg"
+  },
+  "copperhead": {
+    "author": "Unknown",
+    "credit": "",
+    "file": "File:Agkistrodon_contortrix_contortrix_CDC-a.png",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Agkistrodon_contortrix_contortrix_CDC-a.png"
+  },
+  "dekays-brown-snake": {
+    "author": "Benjamin Genter",
+    "credit": "https://www.flickr.com/photos/bengenter/53829508338/",
+    "file": "File:Dekay's_Brownsnake_(Storeria_dekayi).jpg",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Dekay%27s_Brownsnake_(Storeria_dekayi).jpg"
+  },
+  "eastern-garter-snake": {
+    "author": "Wilson44691",
+    "credit": "Own work",
+    "file": "File:Thamnophis_sirtalis_sirtalis_Wooster.jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Thamnophis_sirtalis_sirtalis_Wooster.jpg"
+  },
+  "eastern-hognose-snake": {
+    "author": "Bladerunner8u",
+    "credit": "Own work",
+    "file": "File:Eastern_Hognose_Snake.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Eastern_Hognose_Snake.jpg"
+  },
+  "eastern-kingsnake": {
+    "author": "MH Herpetology",
+    "credit": "Own work",
+    "file": "File:Eastern_kingsnake_(Lampropeltis_getula).jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Eastern_kingsnake_(Lampropeltis_getula).jpg"
+  },
+  "eastern-rat-snake": {
+    "author": "Will Brown",
+    "credit": "Gray Ratsnake (Pantherophis spiloides)",
+    "file": "File:Gray_Ratsnake_(Pantherophis_spiloides)_(43567652625)_(cropped).jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Gray_Ratsnake_(Pantherophis_spiloides)_(43567652625)_(cropped).jpg"
+  },
+  "northern-water-snake": {
+    "author": "Patrick Coin (Patrick Coin)",
+    "credit": "Photograph taken by Patrick Coin",
+    "file": "File:Nerodia_sipedonPCSL02111B1.jpg",
+    "license": "CC BY-SA 2.5",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Nerodia_sipedonPCSL02111B1.jpg"
+  },
+  "ringneck-snake": {
+    "author": "Benjamin Genter",
+    "credit": "https://www.flickr.com/photos/188108764@N06/54318952174/",
+    "file": "File:Ring-necked_Snake_(Diadophis_punctatus).jpg",
+    "license": "Public domain",
+    "license_url": "",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Ring-necked_Snake_(Diadophis_punctatus).jpg"
+  },
+  "rough-green-snake": {
+    "author": "MH Herpetology",
+    "credit": "Own work",
+    "file": "File:Rough_green_snake_(Opheodrys_aestivus)_Madden_Haag.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Rough_green_snake_(Opheodrys_aestivus)_Madden_Haag.jpg"
+  },
+  "timber-rattlesnake": {
+    "author": "Peter Paplanus from St. Louis, Missouri",
+    "credit": "Timber Rattlesnake (Crotalus horridus)",
+    "file": "File:Timber_Rattlesnake_(Crotalus_horridus)_-_Flickr_-_2ndPeter.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Timber_Rattlesnake_(Crotalus_horridus)_-_Flickr_-_2ndPeter.jpg"
+  },
+  "worm-snake": {
+    "author": "Greg Schechter",
+    "credit": "Flickr: Eastern Worm Snake (Carphophis amoenus amoenus)",
+    "file": "File:Carphophis_amoenus_amoenus.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Carphophis_amoenus_amoenus.jpg"
+  }
+}

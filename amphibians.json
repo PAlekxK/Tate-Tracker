@@ -205,6 +205,13 @@
         "author": "Rstanton13",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Anaxyrus_fowleri_Stanton_2_(cropped).jpg"
+      },
+      "sound": "sounds/frogs/fowlers-toad.mp3",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Chris Harrison",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/4737342"
       }
     },
     {
@@ -244,6 +251,13 @@
         "author": "Contrabaroness",
         "license": "CC0",
         "url": "https://commons.wikimedia.org/wiki/File:Male_Green_Frog_-_Hunterdon_County,_NJ.jpg"
+      },
+      "sound": "sounds/frogs/green-frog.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Pete Zani (born @ 325 ppm)",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/175987491"
       }
     },
     {
@@ -279,6 +293,13 @@
         "author": "Carl D. Howe",
         "license": "CC BY-SA 2.5",
         "url": "https://commons.wikimedia.org/wiki/File:North-American-bullfrog1.jpg"
+      },
+      "sound": "sounds/frogs/american-bullfrog.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Ty Smith",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/97524274"
       }
     },
     {

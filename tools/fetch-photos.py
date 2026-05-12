@@ -79,6 +79,32 @@ CATEGORIES = {
         },
         "file_overrides": {},
     },
+    "snakes": {
+        "json_file": "snakes.json",
+        "species_path": "species",
+        "image_dir": "images/snakes",
+        "prefer": "sci",  # snake common names disambiguate poorly (e.g., "rat snake")
+        "page_overrides": {
+            # Eastern Rat Snake's accepted Wikipedia title uses the older binomial in some indexings
+            "eastern-rat-snake": "Pantherophis_alleghaniensis",
+            # Ringneck Snake article is under hyphenated form
+            "ringneck-snake": "Ring-necked_snake",
+            # Dekay's brown snake hyphenation matters on WP
+            "dekays-brown-snake": "Storeria_dekayi",
+        },
+        "file_overrides": {},
+    },
+    "lizards": {
+        "json_file": "lizards.json",
+        "species_path": "species",
+        "image_dir": "images/lizards",
+        "prefer": "sci",
+        "page_overrides": {},
+        "file_overrides": {
+            # WP article lead is a hand-held shot; this is a naturalistic in-situ photo by 2ndPeter (Flickr → Commons)
+            "ground-skink": "File:Ground Skink (Scincella lateralis) - Flickr - 2ndPeter.jpg",
+        },
+    },
 }
 
 
