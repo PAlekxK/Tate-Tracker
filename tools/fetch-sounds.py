@@ -33,6 +33,10 @@ MIN_BYTES = 50_000      # skip tiny snippets
 MAX_BYTES = 8_000_000   # skip huge field tapes — dashboard wants short reference clips
 ACCEPTED_LICENSE_PREFIXES = ("CC", "Public domain", "PDM")
 
+# iNaturalist sound-level license codes we accept. NC is fine for this personal,
+# non-commercial dashboard (per CLAUDE.md).
+INAT_ACCEPTED_LICENSES = ("cc0", "cc-by", "cc-by-sa", "cc-by-nc", "cc-by-nc-sa")
+
 # When the species' Latin binomial doesn't surface a usable recording, try these
 # Wikipedia-page-style fallbacks. Most species don't need overrides.
 SPECIES_OVERRIDES = {
@@ -134,8 +138,41 @@ def license_ok(lic):
     return any(lic.startswith(p) for p in ACCEPTED_LICENSE_PREFIXES) or "Public domain" in lic
 
 
-def pick_best(meta_candidates):
-    """Pick the first CC-licensed candidate within size bounds."""
+def title_matches_species(file_title, item):
+    """Heuristic: reject Commons audio files whose title shows no taxonomic match.
+
+    Commons search returns false positives — old commercial music ("Bull Frog
+    Blues" 1916), LinguaLibre spoken-word files, similarly named foreign species
+    ("Green and Golden Bell Frog" matched a Green Frog query). Real call
+    recordings nearly always carry the genus or species epithet in the file title.
+    Common-name matching is too noisy ("green", "frog", "toad") so we don't fall
+    back to it — if the binomial isn't in the title, push to iNaturalist instead.
+    """
+    fname = file_title.lower()
+    # Hard-reject known non-call sources
+    if "ll-q" in fname or "lingualibre" in fname:
+        return False
+    # All overrides — include any extra scientific names tried for this id
+    sci_candidates = [item.get("scientificName", "")] + SPECIES_OVERRIDES.get(item["id"], [])
+    for sci in sci_candidates:
+        parts = [p.rstrip(".,;:") for p in sci.lower().split()]
+        if len(parts) < 2:
+            continue
+        genus, species_epithet = parts[0], parts[1]
+        # Trim to first 6 chars to handle gender-variant endings (-us/-a/-um, -ianus/-iana)
+        epithet_stem = species_epithet[:6]
+        if species_epithet and species_epithet in fname:
+            return True
+        if epithet_stem and len(epithet_stem) >= 5 and epithet_stem in fname:
+            return True
+        if genus and genus in fname:
+            return True
+    return False
+
+
+def pick_best(meta_candidates, item=None):
+    """Pick the first CC-licensed candidate within size bounds that taxonomically matches."""
+    # First pass: license + size bounds + title match
     for title, meta in meta_candidates:
         if not meta:
             continue
@@ -143,11 +180,16 @@ def pick_best(meta_candidates):
             continue
         if meta["size"] < MIN_BYTES or meta["size"] > MAX_BYTES:
             continue
+        if item and not title_matches_species(title, item):
+            continue
         return title, meta
-    # Fallback: same constraints minus the size cap (still license-filtered).
+    # Second pass: license + title match only (drop size cap)
     for title, meta in meta_candidates:
-        if meta and license_ok(meta["license"]):
-            return title, meta
+        if not meta or not license_ok(meta["license"]):
+            continue
+        if item and not title_matches_species(title, item):
+            continue
+        return title, meta
     return None, None
 
 
@@ -181,10 +223,70 @@ def find_audio(item, cfg):
             candidates.append((t, meta))
             time.sleep(0.15)
         # Try to short-circuit early if the binomial query already gave usable hits
-        title, meta = pick_best(candidates)
+        title, meta = pick_best(candidates, item)
         if title:
             return title, meta
-    return pick_best(candidates)
+    return pick_best(candidates, item)
+
+
+def find_audio_inaturalist(item):
+    """Fallback: search iNaturalist for research-grade observations with CC-licensed audio.
+
+    No API key required. Filters at the sound level (not the observation level) since
+    those can differ — an observation may be CC-BY while its attached sound is CC-BY-NC.
+    Returns a dict shaped like the Commons meta so the rest of the pipeline is unchanged.
+    """
+    sci = item.get("scientificName", "")
+    if not sci:
+        return None, None
+    q = urllib.parse.quote(sci)
+    url = (
+        f"https://api.inaturalist.org/v1/observations?taxon_name={q}"
+        f"&sounds=true&quality_grade=research&per_page=30&order_by=votes"
+    )
+    try:
+        data = fetch_json(url)
+    except Exception as e:
+        print(f"  ! iNaturalist search error: {e}")
+        return None, None
+
+    for obs in data.get("results", []):
+        for sound in obs.get("sounds", []):
+            slic = (sound.get("license_code") or "").lower()
+            if slic not in INAT_ACCEPTED_LICENSES:
+                continue
+            file_url = sound.get("file_url")
+            if not file_url:
+                continue
+            # Map iNaturalist license codes to readable labels
+            license_label_map = {
+                "cc0": "CC0 1.0",
+                "cc-by": "CC BY 4.0",
+                "cc-by-sa": "CC BY-SA 4.0",
+                "cc-by-nc": "CC BY-NC 4.0",
+                "cc-by-nc-sa": "CC BY-NC-SA 4.0",
+            }
+            license_url_map = {
+                "cc0": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "cc-by": "https://creativecommons.org/licenses/by/4.0/",
+                "cc-by-sa": "https://creativecommons.org/licenses/by-sa/4.0/",
+                "cc-by-nc": "https://creativecommons.org/licenses/by-nc/4.0/",
+                "cc-by-nc-sa": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            }
+            user = obs.get("user", {}).get("name") or obs.get("user", {}).get("login") or "iNaturalist user"
+            obs_url = f"https://www.inaturalist.org/observations/{obs.get('id')}"
+            file_title = f"iNaturalist observation {obs.get('id')}"
+            meta = {
+                "url": file_url,
+                "descurl": obs_url,
+                "size": 0,  # iNaturalist doesn't expose size in this endpoint; size bounds skipped for fallback
+                "mime": sound.get("file_content_type", ""),
+                "artist": user,
+                "license": license_label_map.get(slic, slic.upper()),
+                "license_url": license_url_map.get(slic, ""),
+            }
+            return file_title, meta
+    return None, None
 
 
 def transcode_ogg_to_m4a(ogg_bytes):
@@ -220,10 +322,12 @@ def file_extension(meta):
     # that doesn't match the actual file format (e.g. audio/mpeg on an .ogg).
     # Strip query string before matching: API URLs come with ?utm_source=...
     url = (meta or {}).get("url", "").lower().split("?", 1)[0]
-    for ext in ("mp3", "ogg", "wav", "flac", "oga", "opus"):
+    for ext in ("mp3", "m4a", "ogg", "wav", "flac", "oga", "opus"):
         if url.endswith("." + ext):
-            return "ogg" if ext in ("oga",) else ext
+            return "ogg" if ext == "oga" else ext
     mime = (meta or {}).get("mime", "")
+    if "mp4" in mime or "aac" in mime:
+        return "m4a"
     if "ogg" in mime:
         return "ogg"
     if "mpeg" in mime or "mp3" in mime:
@@ -277,14 +381,23 @@ def main():
         try:
             print(f"[fetch] {sid} — {item['name']}")
             file_title, meta = find_audio(item, cfg)
+            source = "commons"
             if not file_title or not meta:
-                print(f"  ! no usable recording found")
+                print(f"  ! no Commons recording — trying iNaturalist fallback")
+                file_title, meta = find_audio_inaturalist(item)
+                source = "inaturalist"
+            if not file_title or not meta:
+                print(f"  ! no usable recording found in any source")
                 continue
             ext = file_extension(meta)
+            print(f"  source: {source}")
             print(f"  file: {file_title}")
             print(f"  artist: {meta['artist'][:60]}")
             print(f"  license: {meta['license']}")
-            print(f"  size: {meta['size']:,} bytes ({ext})")
+            if meta.get("size"):
+                print(f"  size: {meta['size']:,} bytes ({ext})")
+            else:
+                print(f"  ext: {ext}")
             audio_bytes = fetch_bytes(meta["url"])
             # Transcode OGG → M4A so iOS Safari can play it. Falls back to
             # writing the original .ogg if the conversion isn't available.
@@ -299,6 +412,7 @@ def main():
             out = os.path.join(sound_dir, f"{sid}.{ext}")
             with open(out, "wb") as f:
                 f.write(audio_bytes)
+            source_label = "iNaturalist" if source == "inaturalist" else "Wikimedia Commons"
             attribution[sid] = {
                 "file": file_title,
                 "ext": ext,
@@ -306,6 +420,7 @@ def main():
                 "license": meta["license"],
                 "license_url": meta["license_url"],
                 "source_url": meta["descurl"],
+                "source": source_label,
             }
             time.sleep(0.5)
         except Exception as e:

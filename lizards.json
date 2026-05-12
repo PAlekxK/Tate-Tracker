@@ -1,0 +1,308 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "lastUpdated": "2026-05-11",
+    "location": "282 Church Mountain Road, Jasper, GA 30143",
+    "elevation_ft": 2959,
+    "coordinates": "34.5496°N, 84.3674°W",
+    "region": "Blue Ridge, Pickens County, GA",
+    "habitatContext": "North Georgia is at the northern range edge for several southern lizards and the southern edge for a few northern species, producing modest lizard diversity at 2,959 ft. The property's mix of sun-warmed rock walls, fallen logs, wood piles, leaf litter, and forest edges supports a small but rewarding cast of native lizards. None are venomous and all are harmless. Skinks are the dominant family — fast, glossy, often blue-tailed as juveniles.",
+    "dataSources": [
+      "Amphibians and Reptiles of Georgia (Jensen, Camp, Gibbons, Elliott)",
+      "Savannah River Ecology Lab (SREL) Herpetology — UGA",
+      "Georgia DNR Wildlife Resources Division",
+      "iNaturalist Pickens County observation records",
+      "USGS NAS Database"
+    ],
+    "notes": "All native eastern US lizards are harmless. The 'blue-tailed' lizards Paul has seen are almost certainly juvenile Five-lined or Broad-headed Skinks — both species sport vivid blue tails as juveniles and lose the color with maturity. Lizards are diurnal and strongly tied to sun and warm surfaces, so peak activity is mid-morning to mid-afternoon April through September. Most retreat to leaf litter, rotting logs, or rock crevices by October and remain dormant through winter."
+  },
+  "propertyHighlights": {
+    "whatToExpect": "Five-lined Skinks are the most commonly seen lizard — basking on log piles, stone walls, and the sunny side of outbuildings. Eastern Fence Lizards prefer rough vertical surfaces (the namesake fence posts, dead-standing pines, granite outcrops). Ground Skinks are easy to miss because they slip through leaf litter looking like tiny snakes. Broad-headed Skinks (much larger) are more arboreal and often spotted in oak trees. Six-lined Racerunners need open sun-baked sand or gravel and are at the property's elevation limit — possible but not guaranteed.",
+    "blueTailedNote": "Paul's 'blue-tailed skink' is the juvenile of either the Five-lined Skink (most likely — common, widespread) or the larger Broad-headed Skink. Both species have brilliant electric-blue tails as juveniles that fade to gray-brown as they mature. The blue color is thought to draw predator attacks toward the detachable tail rather than the head — a survival trade-off where the lizard escapes with a stub and regrows a duller replacement.",
+    "identificationTips": [
+      "If it's tiny, slim, and moves through leaf litter like a worm with legs — Ground Skink.",
+      "If it has a wedge-shaped head and rough spiny scales, often on bark or fence rails — Eastern Fence Lizard (males flash iridescent blue belly patches in spring).",
+      "If it's glossy with stripes and a blue tail (juvenile) or a uniform brown-bronze body (adult), 4–8 inches — Five-lined Skink.",
+      "Same pattern as Five-lined but noticeably larger and often high in a tree, with an orange-red head on adult males — Broad-headed Skink.",
+      "If it has bright yellow longitudinal stripes on dark background and runs astonishingly fast in open sandy areas — Six-lined Racerunner (uncommon at this elevation)."
+    ]
+  },
+  "species": [
+    {
+      "id": "five-lined-skink",
+      "name": "Five-lined Skink",
+      "scientificName": "Plestiodon fasciatus",
+      "emoji": "🦎",
+      "type": "lizard",
+      "venomous": false,
+      "statusLabel": "Common resident",
+      "monthsActive": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "habitat": "Logs, stumps, wood piles, rock walls, foundations, mulched garden edges. Anywhere with cover near sun.",
+      "size_in": "5–8.5",
+      "appearance": "Juveniles: glossy black with five cream-yellow longitudinal stripes and an unmistakable bright electric-blue tail. Adult females: stripes fade to bronze, tail goes blue-gray. Adult males: stripes nearly invisible, body turns olive-brown, and the head flushes orange-red during spring breeding season. Smooth shiny scales (skinks look 'polished' compared to fence lizards).",
+      "notes": "The classic 'blue-tailed skink' of southern yards. Extremely fast — usually spotted as a streak across a log followed by stillness against tree bark. The blue tail is detachable: if a predator grabs it, the tail breaks off and wriggles violently while the lizard escapes; a duller replacement regrows over weeks but never matches the original. Females coil around their eggs in rotting logs and defend them against beetles and ants — unusual maternal behavior for a lizard. Diet: insects, spiders, small invertebrates. Will bite if handled but the jaws can't break adult human skin.",
+      "conservation": "Common",
+      "photo": "images/lizards/five-lined-skink.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Patrick Coin",
+        "license": "CC BY-SA 2.5",
+        "url": "https://commons.wikimedia.org/wiki/File:Eumeces_fasciatusPCCA20040425-1563A.jpg"
+      }
+    },
+    {
+      "id": "broad-headed-skink",
+      "name": "Broad-headed Skink",
+      "scientificName": "Plestiodon laticeps",
+      "emoji": "🦎",
+      "type": "lizard",
+      "venomous": false,
+      "statusLabel": "Resident — more arboreal",
+      "monthsActive": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "habitat": "Mature oak and other hardwood trees, especially with hollow cavities or dead standing wood. Will use the same cover as Five-lined Skink but climbs much more.",
+      "size_in": "6–13",
+      "appearance": "Same general body pattern as Five-lined Skink but substantially larger. Juveniles have the same blue tail. Adult males develop a dramatically broad, swollen orange-red head during breeding season (April–June) — looks almost like a different species. Females retain faded stripes throughout life. Best distinguished from Five-lined Skink by size (much larger) and scale-count details around the lip (5 supralabial scales before the eye vs. 4 in Five-lined).",
+      "notes": "The big skink of mature oak forests. Often spotted high in trees rather than on the ground. Males in breeding condition with their swollen orange heads are unmistakable. Important predator of cicadas, large beetles, and spiders. Will bite hard if handled — the jaws are strong enough to draw blood from an adult. Found around rotting hardwood snags and tree cavities; old hollow oaks at Church Mountain Road are prime habitat.",
+      "conservation": "Common but less abundant than Five-lined",
+      "photo": "images/lizards/broad-headed-skink.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Ryan Somma",
+        "license": "CC BY-SA 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Eumeces_laticeps_(male).jpg"
+      }
+    },
+    {
+      "id": "eastern-fence-lizard",
+      "name": "Eastern Fence Lizard",
+      "scientificName": "Sceloporus undulatus",
+      "emoji": "🦎",
+      "type": "lizard",
+      "venomous": false,
+      "statusLabel": "Common resident",
+      "monthsActive": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "habitat": "Fence posts, wood piles, dead standing pines, granite outcrops, sunny edges of mixed pine-hardwood forest. Prefers vertical rough surfaces for basking and quick escape.",
+      "size_in": "4–7.5",
+      "appearance": "Gray to brown with wavy dark crossbands on the back. Strongly keeled (spiny) scales give a rough sandpapery look — unlike the smooth gloss of skinks. Males have iridescent blue patches on the throat and along the belly, edged with black; visible when the lizard does 'push-up' territorial displays from a fence post or log. Females duller, often greenish with subtle barring.",
+      "notes": "The 'push-up lizard.' Males do conspicuous head-bobs and push-ups from prominent perches to defend territory — a charming and watchable behavior in spring. When approached, freezes against bark trusting camouflage; if pushed, sprints around the back side of the trunk. More cold-tolerant than other Georgia lizards — active earlier in spring and later into fall. Diet: insects and spiders. Studies in fire ant zones show fence lizards in the southeast have evolved longer legs as an escape adaptation — a real-time evolution story.",
+      "conservation": "Common",
+      "photo": "images/lizards/eastern-fence-lizard.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "SchloughM",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Eastern_Fence_Lizard_03-20-08.png"
+      }
+    },
+    {
+      "id": "ground-skink",
+      "name": "Ground Skink",
+      "scientificName": "Scincella lateralis",
+      "emoji": "🦎",
+      "type": "lizard",
+      "venomous": false,
+      "statusLabel": "Common but cryptic",
+      "monthsActive": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "habitat": "Leaf litter on the forest floor, under fallen bark, around stumps, in moist mulched beds. Almost never climbs.",
+      "size_in": "3–5.75",
+      "appearance": "Tiny and slender. Coppery-brown to bronze above with a clean dark brown stripe along each side from snout through eye to tail. Belly white or yellow. Looks more like a small snake than a typical lizard because the legs are very short relative to body length.",
+      "notes": "One of the smallest lizards in North America and easy to mistake for a snake when it slips through leaf litter. Lives essentially its entire life in the top inch of forest floor litter. Diet: small insects, spider, springtails, mites. Detachable tail (regrows shorter). Lays 1–7 tiny eggs in soil under cover objects. Probably much more abundant on the property than sightings would suggest — flip enough damp leaf piles and bark slabs and you'll find them.",
+      "conservation": "Common",
+      "photo": "images/lizards/ground-skink.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Peter Paplanus from St. Louis, Missouri",
+        "license": "CC BY 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Ground_Skink_(Scincella_lateralis)_-_Flickr_-_2ndPeter.jpg"
+      }
+    },
+    {
+      "id": "six-lined-racerunner",
+      "name": "Six-lined Racerunner",
+      "scientificName": "Aspidoscelis sexlineatus",
+      "emoji": "🦎",
+      "type": "lizard",
+      "venomous": false,
+      "statusLabel": "Uncommon — elevation limit",
+      "monthsActive": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        5,
+        6,
+        7
+      ],
+      "habitat": "Open sunny sandy or rocky areas with sparse vegetation — roadside cuts, gravel drives, granite outcrops, old fields. Avoids dense forest.",
+      "size_in": "6–10.5",
+      "appearance": "Slender with a very long tail (most of total length). Dark brown to black background with six bright yellow-green longitudinal stripes from neck to tail. Belly white in females, often pale blue-green in males. Males may show throat color in summer.",
+      "notes": "Among the fastest lizards in North America — can hit nearly 18 mph in short bursts. Active only on the hottest sunny days; retreats to burrows by mid-afternoon if cloudy. At 2,959 ft the species is near its elevation limit in Georgia — more common in the Piedmont and on warm low-elevation south-facing slopes. May occur in disturbed open areas of the property but not guaranteed. If you spot one, it'll be the fastest small thing you've seen all year.",
+      "conservation": "Common range-wide; locally limited by habitat at this elevation",
+      "photo": "images/lizards/six-lined-racerunner.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "MH Herpetology",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Six-lined_racerunner_(Aspidoscelis_sexlineatus)_Madden_Haag.jpg"
+      }
+    }
+  ],
+  "seasonalCalendar": {
+    "Jan": {
+      "active": [],
+      "highlights": "All lizards dormant in soil, leaf litter, or rock crevices."
+    },
+    "Feb": {
+      "active": [],
+      "highlights": "Still dormant. First emergence usually waits for sustained warm afternoons in mid-March."
+    },
+    "Mar": {
+      "active": [
+        "eastern-fence-lizard",
+        "five-lined-skink (late month)",
+        "ground-skink (late month)"
+      ],
+      "highlights": "First emergence on warm sunny days. Fence Lizards earliest — already basking on south-facing surfaces."
+    },
+    "Apr": {
+      "active": [
+        "five-lined-skink",
+        "eastern-fence-lizard",
+        "ground-skink",
+        "broad-headed-skink"
+      ],
+      "highlights": "Spring emergence in full swing. Male skinks beginning to flush orange-red. Fence lizard territorial push-up displays."
+    },
+    "May": {
+      "active": [
+        "five-lined-skink",
+        "broad-headed-skink",
+        "eastern-fence-lizard",
+        "ground-skink",
+        "six-lined-racerunner (warm days)"
+      ],
+      "highlights": "Peak breeding. Male skinks brilliantly colored. Egg-laying begins late month. Watch log piles and rock walls for displaying males."
+    },
+    "Jun": {
+      "active": [
+        "five-lined-skink",
+        "broad-headed-skink",
+        "eastern-fence-lizard",
+        "ground-skink",
+        "six-lined-racerunner"
+      ],
+      "highlights": "Females guarding nests in rotting logs and soil. All species active. Hottest direct-sun perches occupied throughout midday."
+    },
+    "Jul": {
+      "active": [
+        "five-lined-skink",
+        "broad-headed-skink",
+        "eastern-fence-lizard",
+        "ground-skink",
+        "six-lined-racerunner"
+      ],
+      "highlights": "Hatchlings emerging — first appearance of new generation blue-tailed juvenile skinks late month."
+    },
+    "Aug": {
+      "active": [
+        "five-lined-skink (juveniles)",
+        "broad-headed-skink (juveniles)",
+        "eastern-fence-lizard",
+        "ground-skink",
+        "six-lined-racerunner"
+      ],
+      "highlights": "Juvenile skinks abundant — peak month for spotting electric-blue tails. Watch around log piles and stone walls."
+    },
+    "Sep": {
+      "active": [
+        "five-lined-skink",
+        "eastern-fence-lizard",
+        "ground-skink",
+        "six-lined-racerunner (early month)"
+      ],
+      "highlights": "Cooler nights — lizards basking longer in morning sun. Last activity month for racerunners."
+    },
+    "Oct": {
+      "active": [
+        "eastern-fence-lizard",
+        "five-lined-skink",
+        "ground-skink"
+      ],
+      "highlights": "Fall retreat to overwintering cover. Fence lizards latest active. By month end most have settled into leaf litter or root cavities."
+    },
+    "Nov": {
+      "active": [],
+      "highlights": "All lizards in winter retreat."
+    },
+    "Dec": {
+      "active": [],
+      "highlights": "Dormant. Look for them again in mid-to-late March."
+    }
+  }
+}
