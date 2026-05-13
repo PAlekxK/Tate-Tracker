@@ -116,14 +116,14 @@ Each block carries a `wblock-status` line with a `liveIndicator(timestamp, fresh
 ### ~~Phase 4 — gardener insight line~~ ✓ Done
 The on-property hero leads with a synthesized italic "Today" callout (Crimson Text serif). Rule-based: storm imminent / active rain / frost / heat / saturated soil / muggy / ideal window / generic mild. Each rule returns observation + optional action sentence.
 
-### ~~Phase 5 — station-aware alert engine~~ ✓ Done (uncommitted)
-`generateAlerts()` now produces both station-driven and forecast-driven alerts. New station alerts: heavy/steady/light rain in progress, saturated soils, hot now, freezing now, high gusts now, pressure dropping fast, station battery low. Forecast alerts get tagged `source: "forecast"`. Each alert renders a per-alert source chip (📡 Station / ☁️ Forecast). Dedup logic: forecast "Heavy Rain Today" suppressed when station already firing in-progress rain alert; forecast wind suppressed when station gust alert active; etc. **Status:** edits are local, not yet committed. User will visually verify on return.
+### ~~Phase 5 — station-aware alert engine~~ ✓ Done (live)
+`generateAlerts()` produces both station-driven and forecast-driven alerts. Station alerts: heavy/steady/light rain in progress, saturated soils, hot now, freezing now, high gusts now, pressure dropping fast, station battery low. Forecast alerts: freeze tonight, hard freeze, heat stretch, good seeding window, heavy rain/storms coming, damaging/gusty winds, excellent outdoor work day. Each alert renders a per-alert source chip (📡 Station / ☁️ Forecast) — green for station, blue for forecast. Dedup logic via `stationCovers.{cold,heat,rain,wind}` flags: forecast "Heavy Rain Today" suppressed when station's already firing an in-progress rain alert; forecast wind suppressed when station gust alert active; same pattern for cold/heat. Sort: severity tier first, station before forecast within tier. Source-chip render path completed and live 2026-05-13.
 
-### Phase 6 — long-term archive — foundation built ✓ (data accumulating)
+### Phase 6 — long-term archive — foundation built ✓ (workflow live, awaiting secrets)
 - New `weather-history.json` at repo root holds daily rollups (min/max/avg for temp, humidity, wind, rain, pressure, solar, UV, indoor sensors).
 - New `tools/record-daily-rollup.mjs` — Node 18+ script (zero deps) that fetches Ambient Weather, builds a daily rollup, and merges it into `weather-history.json`. Idempotent — re-running on a day already recorded replaces it. See `tools/README.md` for usage.
 - Already backfilled: 5 days (May 2 partial, May 3, May 4, May 5, May 6 partial).
-- **Scheduling plan documented in `tools/SCHEDULING.md`** — concrete YAML for a GitHub Action running every 6h + a midnight finalize, plus alternative launchd plist for local-only. Recommend GitHub Action long-term so accumulation doesn't depend on the laptop being awake. Setup needs: `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` as repo secrets, then drop in the workflow file. Schema-extension ideas (rain event timing, GDD, solar hours, predominant wind direction) are in the same doc.
+- **GitHub Action workflow shipped 2026-05-13** at `.github/workflows/record-weather.yml` — runs every 6 hours plus a "finalize previous day" pass. Bot commits any updates back to `main`, which triggers a Pages redeploy automatically. **Awaiting two repo secrets** (Paul to add via GitHub Settings → Secrets and variables → Actions): `AMBIENT_APP_KEY` and `AMBIENT_API_KEY`. Until those exist the scheduled runs will fail; once set the workflow will accumulate on its own. The local launchd alternative is documented in `tools/SCHEDULING.md` but the GitHub Action is the chosen path.
 - **Viewer integration is not done yet.** Once the file has ~30+ days, the rainfall block can switch from ERA5 grid baselines to property-recorded comparisons ("wettest May on our 14-month record"). For now the file is just accumulating.
 
 ### ~~Hourly forecast strip — next 48h under the daily tiles~~ ✓ Done (2026-05-11)
@@ -278,10 +278,7 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 
 ## Uncommitted work in progress
 
-These edits are local-only — not yet committed or pushed:
-
-- **Phase 5 station-aware alerts** in `viewer.html` — generateAlerts() refactored, per-alert source chips, dedup. Pending visual verification + commit.
-- **Phase 6 archive scaffolding**: `weather-history.json` (5 days seeded) and `tools/record-daily-rollup.mjs` + `tools/README.md`. Pending decision on scheduling approach (launchd vs GitHub Action).
+(None — all sections currently in sync with the remote.)
 
 ## Outstanding asks for Paul
 
@@ -289,6 +286,7 @@ These edits are local-only — not yet committed or pushed:
 2. **Homelite trimmer:** confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker is slightly ambiguous.
 3. **Homelite blower/vac:** no model sticker found on the unit. Maintenance specs are inferred from the trimmer's engine family (HHCPS.0264AT). Acceptable for at-a-store reference.
 4. **Annual: NASA SVS Dial-a-Moon visualization ID** — when SVS publishes the 2027 visualization (usually Dec/Jan), update the `DIAL_A_MOON_VIZ` constant in viewer.html (`year`, `parent` bucket, `id`). Find the new ID at svs.gsfc.nasa.gov/gallery/moonphase. Until refreshed, the moon hero hides cleanly once the year flips.
+5. **GitHub repo secrets for the weather-history workflow** (one-time): GitHub repo Settings → Secrets and variables → Actions → New repository secret. Add `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` (same values as in `viewer.html` for the live Ambient Weather fetch). Until both exist, the scheduled `.github/workflows/record-weather.yml` runs will fail — but no data corrupts; once secrets are set the next run picks up automatically.
 
 ## Next steps after the drafts go live
 
