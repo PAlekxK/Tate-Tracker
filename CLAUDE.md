@@ -119,11 +119,11 @@ The on-property hero leads with a synthesized italic "Today" callout (Crimson Te
 ### ~~Phase 5 — station-aware alert engine~~ ✓ Done (live)
 `generateAlerts()` produces both station-driven and forecast-driven alerts. Station alerts: heavy/steady/light rain in progress, saturated soils, hot now, freezing now, high gusts now, pressure dropping fast, station battery low. Forecast alerts: freeze tonight, hard freeze, heat stretch, good seeding window, heavy rain/storms coming, damaging/gusty winds, excellent outdoor work day. Each alert renders a per-alert source chip (📡 Station / ☁️ Forecast) — green for station, blue for forecast. Dedup logic via `stationCovers.{cold,heat,rain,wind}` flags: forecast "Heavy Rain Today" suppressed when station's already firing an in-progress rain alert; forecast wind suppressed when station gust alert active; same pattern for cold/heat. Sort: severity tier first, station before forecast within tier. Source-chip render path completed and live 2026-05-13.
 
-### Phase 6 — long-term archive — foundation built ✓ (workflow live, awaiting secrets)
+### Phase 6 — long-term archive — fully wired ✓ (accumulating)
 - New `weather-history.json` at repo root holds daily rollups (min/max/avg for temp, humidity, wind, rain, pressure, solar, UV, indoor sensors).
 - New `tools/record-daily-rollup.mjs` — Node 18+ script (zero deps) that fetches Ambient Weather, builds a daily rollup, and merges it into `weather-history.json`. Idempotent — re-running on a day already recorded replaces it. See `tools/README.md` for usage.
 - Already backfilled: 5 days (May 2 partial, May 3, May 4, May 5, May 6 partial).
-- **GitHub Action workflow shipped 2026-05-13** at `.github/workflows/record-weather.yml` — runs every 6 hours plus a "finalize previous day" pass. Bot commits any updates back to `main`, which triggers a Pages redeploy automatically. **Awaiting two repo secrets** (Paul to add via GitHub Settings → Secrets and variables → Actions): `AMBIENT_APP_KEY` and `AMBIENT_API_KEY`. Until those exist the scheduled runs will fail; once set the workflow will accumulate on its own. The local launchd alternative is documented in `tools/SCHEDULING.md` but the GitHub Action is the chosen path.
+- **GitHub Action live as of 2026-05-13** at `.github/workflows/record-weather.yml` — runs every 6 hours plus a "finalize previous day" pass. Bot commits any updates back to `main`, which triggers a Pages redeploy automatically. Both required secrets (`AMBIENT_APP_KEY`, `AMBIENT_API_KEY`) are configured in repo settings. The local launchd alternative is documented in `tools/SCHEDULING.md` but the GitHub Action is the chosen path.
 - **Viewer integration is not done yet.** Once the file has ~30+ days, the rainfall block can switch from ERA5 grid baselines to property-recorded comparisons ("wettest May on our 14-month record"). For now the file is just accumulating.
 
 ### ~~Hourly forecast strip — next 48h under the daily tiles~~ ✓ Done (2026-05-11)
@@ -298,9 +298,7 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 2. **Homelite trimmer:** confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker is slightly ambiguous.
 3. **Homelite blower/vac:** no model sticker found on the unit. Maintenance specs are inferred from the trimmer's engine family (HHCPS.0264AT). Acceptable for at-a-store reference.
 4. **Annual: NASA SVS Dial-a-Moon visualization ID** — when SVS publishes the 2027 visualization (usually Dec/Jan), update the `DIAL_A_MOON_VIZ` constant in viewer.html (`year`, `parent` bucket, `id`). Find the new ID at svs.gsfc.nasa.gov/gallery/moonphase. Until refreshed, the moon hero hides cleanly once the year flips.
-5. **Push the weather-history GitHub Action workflow + add repo secrets** (one-time):
-   - **5a.** The workflow file is staged locally at `.github/workflows/record-weather.yml` but the current auth token doesn't have `workflow` scope, so the file is **unpushed**. Either: (i) update Paul's GitHub PAT to include the `workflow` scope and push from the local repo, **or** (ii) create the file manually in the GitHub web UI by copying from the local copy (Repo → Actions → set up workflow → paste contents).
-   - **5b.** After the workflow file is on `main`: GitHub repo Settings → Secrets and variables → Actions → New repository secret. Add `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` (same values used in `viewer.html`'s live Ambient fetch). Until both exist, scheduled runs will fail — no data corrupts; once secrets are set, the next run picks up automatically.
+5. ~~**Push the weather-history GitHub Action workflow + add repo secrets**~~ ✓ Done 2026-05-13. Workflow live at `.github/workflows/record-weather.yml`; both `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` configured as repo secrets. First scheduled run will fire at the next 6-hour cron mark (UTC 18:00 / 00:00 / 06:00 / 12:00).
 
 ## Next steps after the drafts go live
 
