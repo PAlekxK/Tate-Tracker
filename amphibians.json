@@ -421,8 +421,8 @@
     },
     {
       "id": "red-backed-salamander",
-      "name": "Red-backed Salamander",
-      "scientificName": "Plethodon cinereus",
+      "name": "Woodland Salamander (Plethodon sp.)",
+      "scientificName": "Plethodon sp.",
       "emoji": "🔴",
       "type": "salamander",
       "statusLabel": "Year-round resident",
@@ -451,16 +451,18 @@
       "habitat": "Moist woodland floor — lives entirely in the forest under logs, rocks, and leaf litter. Never needs water.",
       "call": "Silent",
       "size_in": "2.5–5",
-      "appearance": "Slender salamander with either a red or gray stripe down the back (two color morphs). Yellow-orange flecked underside.",
-      "notes": "The most abundant vertebrate on the Church Mountain Road forest floor — far more numerous than any mammal or bird. Entirely lungless, breathing through their moist skin. Completely terrestrial — never enters water even to breed, laying eggs in moist soil or under logs. Flip any log or flat rock in the moist forest and you're likely to find one. Important ecological role: they consume enormous quantities of insects and other invertebrates in the forest floor. Most active in cool moist weather — spring and fall. In summer heat, they retreat deep into the soil.",
-      "conservation": "Very common — the most abundant land vertebrate in many eastern forests",
+      "appearance": "Slender Plethodon-style salamander, 2.5–5 in long, often with a red or gray dorsal stripe (two color morphs are common across the genus). Yellow-orange flecked underside. Species-level ID requires a specimen in hand — multiple Plethodon look near-identical in the field.",
+      "notes": "Small lungless woodland salamanders in the Plethodon genus are typically the most abundant vertebrates on the forest floor at this elevation — easily outnumbering any mammal or bird. Entirely terrestrial; never enters water even to breed, laying eggs in moist soil or under logs. Most active in cool moist weather (spring and fall); retreats deep into soil during summer heat. Flip any log or flat rock in moist forest and one is likely underneath. The Blue Ridge / North GA Plethodon community includes several candidate species at this elevation — see taxonomic note below.",
+      "conservation": "Genus-level common — Plethodon salamanders dominate Appalachian forest-floor biomass. Individual species status varies.",
       "photo": "images/amphibians/red-backed-salamander.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "Alex Karasoulos",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Adult_Female_Plethodon_cinereus.jpg"
-      }
+      },
+      "taxonomicNote": "Likely candidates at Church Mountain Road (~2,959 ft, Pickens Co., GA): Plethodon serratus (Southern Red-backed) is the most plausible Blue Ridge species at this elevation; P. cinereus (Northern Red-backed) is at the far southwestern edge of its range and unlikely here; the Southern Appalachian Salamander complex (P. teyahalee / P. metcalfi) is also possible. Hand-capture and consult Jensen et al., Amphibians and Reptiles of Georgia, for definitive ID.",
+      "srelUrl": "https://srelherp.uga.edu/salamanders/"
     },
     {
       "id": "slimy-salamander",
