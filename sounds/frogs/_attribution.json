@@ -1,61 +1,61 @@
 {
-  "american-bullfrog": {
-    "author": "Ty Smith",
-    "ext": "m4a",
-    "file": "iNaturalist observation 97524274",
-    "license": "CC BY-NC 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
-    "source": "iNaturalist",
-    "source_url": "https://www.inaturalist.org/observations/97524274"
-  },
-  "american-toad": {
-    "author": "SwampVids",
-    "ext": "wav",
-    "file": "File:Anaxyrus americanus - American Toad Vocalization.wav",
-    "license": "CC BY 4.0",
-    "license_url": "https://creativecommons.org/licenses/by/4.0",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Anaxyrus_americanus_-_American_Toad_Vocalization.wav"
-  },
-  "fowlers-toad": {
-    "author": "Chris Harrison",
-    "ext": "mp3",
-    "file": "iNaturalist observation 4737342",
-    "license": "CC BY-NC 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
-    "source": "iNaturalist",
-    "source_url": "https://www.inaturalist.org/observations/4737342"
-  },
-  "gray-treefrog": {
-    "author": "llap",
-    "ext": "mp3",
-    "file": "File:Gray Tree Frog (Hyla versicolor), Peoria, Illinois XC135285.mp3",
-    "license": "CC BY-SA 3.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Gray_Tree_Frog_(Hyla_versicolor),_Peoria,_Illinois_XC135285.mp3"
-  },
-  "green-frog": {
-    "author": "Pete Zani (born @ 325 ppm)",
-    "ext": "m4a",
-    "file": "iNaturalist observation 175987491",
-    "license": "CC BY-NC 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
-    "source": "iNaturalist",
-    "source_url": "https://www.inaturalist.org/observations/175987491"
-  },
-  "spring-peeper": {
-    "author": "Don Becker",
-    "ext": "m4a",
-    "file": "File:Spring Peeper (Pseudacris crucifer).ogg",
-    "license": "CC0",
-    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Spring_Peeper_(Pseudacris_crucifer).ogg"
-  },
-  "upland-chorus-frog": {
-    "author": "James Shelton32",
-    "ext": "m4a",
-    "file": "File:Upland Chorus Frog - Pseudacris feriarum.ogg",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Upland_Chorus_Frog_-_Pseudacris_feriarum.ogg"
-  }
+    "american-bullfrog": {
+        "author": "Jerry",
+        "ext": "m4a",
+        "file": "iNaturalist observation 119370327 (San Joaquin Marsh, CA; trimmed from 33s WAV → 22s AAC, skipped first 11s of mic-setup quiet)",
+        "license": "CC BY-NC 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "source": "iNaturalist",
+        "source_url": "https://www.inaturalist.org/observations/119370327"
+    },
+    "american-toad": {
+        "author": "SwampVids",
+        "ext": "wav",
+        "file": "File:Anaxyrus americanus - American Toad Vocalization.wav",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Anaxyrus_americanus_-_American_Toad_Vocalization.wav"
+    },
+    "fowlers-toad": {
+        "author": "Chris Harrison",
+        "ext": "mp3",
+        "file": "iNaturalist observation 4737342",
+        "license": "CC BY-NC 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "source": "iNaturalist",
+        "source_url": "https://www.inaturalist.org/observations/4737342"
+    },
+    "gray-treefrog": {
+        "author": "llap",
+        "ext": "mp3",
+        "file": "File:Gray Tree Frog (Hyla versicolor), Peoria, Illinois XC135285.mp3",
+        "license": "CC BY-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Gray_Tree_Frog_(Hyla_versicolor),_Peoria,_Illinois_XC135285.mp3"
+    },
+    "green-frog": {
+        "author": "Pete Zani (born @ 325 ppm)",
+        "ext": "m4a",
+        "file": "iNaturalist observation 175987491",
+        "license": "CC BY-NC 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "source": "iNaturalist",
+        "source_url": "https://www.inaturalist.org/observations/175987491"
+    },
+    "spring-peeper": {
+        "author": "Don Becker",
+        "ext": "m4a",
+        "file": "File:Spring Peeper (Pseudacris crucifer).ogg",
+        "license": "CC0",
+        "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Spring_Peeper_(Pseudacris_crucifer).ogg"
+    },
+    "upland-chorus-frog": {
+        "author": "James Shelton32",
+        "ext": "m4a",
+        "file": "File:Upland Chorus Frog - Pseudacris feriarum.ogg",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Upland_Chorus_Frog_-_Pseudacris_feriarum.ogg"
+    }
 }
