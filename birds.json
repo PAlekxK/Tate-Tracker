@@ -76,7 +76,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Archilochus_colubris_-_Ruby-throated_Hummingbird_XC109597.mp3"
-      }
+      },
+      "ebirdCode": "rthhum"
     },
     {
       "id": "scarlet-tanager",
@@ -118,7 +119,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Piranga_olivacea_-_Scarlet_Tanager_XC241113.mp3"
-      }
+      },
+      "ebirdCode": "scatan"
     },
     {
       "id": "rose-breasted-grosbeak",
@@ -161,7 +163,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Pheucticus_ludovicianus_-_Rose-breasted_Grosbeak_-_XC79967.ogg"
-      }
+      },
+      "ebirdCode": "robgro"
     },
     {
       "id": "indigo-bunting",
@@ -204,7 +207,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Passerina_cyanea_-_Indigo_Bunting_-_XC82757.ogg"
-      }
+      },
+      "ebirdCode": "indbun"
     },
     {
       "id": "wood-thrush",
@@ -245,7 +249,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hylocichla_mustelina_-_Wood_Thrush_XC178045.mp3"
-      }
+      },
+      "ebirdCode": "woothr"
     },
     {
       "id": "pileated-woodpecker",
@@ -293,7 +298,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Dryocopus_pileatus_-_Pileated_Woodpecker_XC61518.mp3"
-      }
+      },
+      "ebirdCode": "pilwoo"
     },
     {
       "id": "barred-owl",
@@ -339,7 +345,8 @@
         "author": "Rob Porter",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Strix_varia_-_Barred_Owl_XC457078.mp3"
-      }
+      },
+      "ebirdCode": "brdowl"
     },
     {
       "id": "dark-eyed-junco",
@@ -388,7 +395,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Junco_hyemalis_hyemalis_-_Dark-eyed_Junco_-_XC97211.ogg"
-      }
+      },
+      "ebirdCode": "daejun"
     },
     {
       "id": "eastern-towhee",
@@ -437,7 +445,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Pipilo_erythrophthalmus_-_Eastern_Towhee_-_XC81297.ogg"
-      }
+      },
+      "ebirdCode": "eastow"
     },
     {
       "id": "wild-turkey",
@@ -482,7 +491,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Meleagris_gallopavo_-_Wild_Turkey_XC134744.ogg"
-      }
+      },
+      "ebirdCode": "wiltur"
     },
     {
       "id": "broad-winged-hawk",
@@ -526,7 +536,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Buteo_platypterus_-_Broad-winged_Hawk_XC178041.mp3"
-      }
+      },
+      "ebirdCode": "brwhaw"
     },
     {
       "id": "belted-kingfisher",
@@ -575,7 +586,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Megaceryle_alcyon_-_Belted_Kingfisher_XC132872.ogg"
-      }
+      },
+      "ebirdCode": "belkin1"
     },
     {
       "id": "ovenbird",
@@ -616,7 +628,8 @@
         "author": "Jonathon Jongsma",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Seiurus_aurocapilla_-_Ovenbird_XC77882.mp3"
-      }
+      },
+      "ebirdCode": "ovenbi1"
     },
     {
       "id": "carolina-chickadee",
@@ -664,7 +677,8 @@
         "author": "G. McGrane",
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Carolina_Chickadee.ogg"
-      }
+      },
+      "ebirdCode": "carchi"
     },
     {
       "id": "great-blue-heron",
@@ -713,7 +727,8 @@
         "author": "G. McGrane",
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Great_Blue_Heron1.ogg"
-      }
+      },
+      "ebirdCode": "grbher3"
     },
     {
       "id": "white-throated-sparrow",
@@ -760,7 +775,8 @@
         "author": "Doug Hynes",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Zonotrichia_albicollis_-_White-throated_Sparrow_XC569523.mp3"
-      }
+      },
+      "ebirdCode": "whtspa"
     }
   ],
   "seasonalCalendar": {
@@ -864,5 +880,63 @@
       ],
       "watchFor": "Barred Owls increasingly vocal. Pileated Woodpecker excavations visible in bare trees. Good time for owl listening on calm clear nights."
     }
-  }
+  },
+  "citizenScience": [
+    {
+      "id": "nestwatch",
+      "name": "NestWatch",
+      "org": "Cornell Lab of Ornithology",
+      "url": "https://nestwatch.org/",
+      "emoji": "🪺",
+      "description": "Monitor active nests at the property and submit weekly observations. Helps track regional nesting success.",
+      "monthsActive": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "seasonNote": "Active during nesting season (Apr–Aug at Church Mountain Road elevation)"
+    },
+    {
+      "id": "feederwatch",
+      "name": "Project FeederWatch",
+      "org": "Cornell Lab of Ornithology",
+      "url": "https://feederwatch.org/",
+      "emoji": "🌻",
+      "description": "Two-day counts of birds at your feeders, November through April. Small annual fee covers materials and supports research.",
+      "monthsActive": [
+        11,
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "seasonNote": "Winter counting season (Nov–Apr)"
+    },
+    {
+      "id": "inaturalist",
+      "name": "iNaturalist · Pickens County",
+      "org": "iNaturalist",
+      "url": "https://www.inaturalist.org/places/pickens-county-ga",
+      "emoji": "📸",
+      "description": "Post photos of anything you see — birds, mammals, plants, insects. Verified observations feed into research-grade data for the county.",
+      "monthsActive": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "seasonNote": "Year-round"
+    }
+  ]
 }

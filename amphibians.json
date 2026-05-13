@@ -91,7 +91,8 @@
         "author": "Don Becker",
         "license": "CC0",
         "url": "https://commons.wikimedia.org/wiki/File:Spring_Peeper_(Pseudacris_crucifer).ogg"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/spring-peeper/"
     },
     {
       "id": "upland-chorus-frog",
@@ -128,7 +129,8 @@
         "author": "James Shelton32",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Upland_Chorus_Frog_-_Pseudacris_feriarum.ogg"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/upland-chorus-frog/"
     },
     {
       "id": "american-toad",
@@ -171,7 +173,8 @@
         "author": "SwampVids",
         "license": "CC BY 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Anaxyrus_americanus_-_American_Toad_Vocalization.wav"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/american-toad/"
     },
     {
       "id": "fowlers-toad",
@@ -212,7 +215,8 @@
         "author": "Chris Harrison",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/4737342"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/fowlers-toad/"
     },
     {
       "id": "green-frog",
@@ -258,7 +262,8 @@
         "author": "Pete Zani (born @ 325 ppm)",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/175987491"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/green-bronze-frog/"
     },
     {
       "id": "american-bullfrog",
@@ -300,7 +305,8 @@
         "author": "Ty Smith",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/97524274"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/bullfrog/"
     },
     {
       "id": "gray-treefrog",
@@ -343,7 +349,8 @@
         "author": "llap",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Gray_Tree_Frog_(Hyla_versicolor),_Peoria,_Illinois_XC135285.mp3"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/gray-treefrog/"
     },
     {
       "id": "spotted-salamander",
@@ -374,7 +381,8 @@
         "author": "D. Gordon E. Robertson",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Spotted_Salamander,_Cantley,_Quebec.jpg"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/salamanders/spotted-salamander/"
     },
     {
       "id": "marbled-salamander",
@@ -408,7 +416,8 @@
         "author": "Brian Gratwicke from DC, USA",
         "license": "CC BY 2.0",
         "url": "https://commons.wikimedia.org/wiki/File:Marbled_salamander_(14367751333).jpg"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/salamanders/marbled-salamander/"
     },
     {
       "id": "red-backed-salamander",
@@ -493,7 +502,8 @@
         "author": "Caudatejake",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Plethodon_glutonosus.jpg"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/salamanders/slimy-salamander/"
     },
     {
       "id": "two-lined-salamander",
@@ -534,7 +544,8 @@
         "author": "Brian Gratwicke",
         "license": "CC BY 2.0",
         "url": "https://commons.wikimedia.org/wiki/File:Northern_Two-lined_Salamander_Eurycea_bislineata.jpg"
-      }
+      },
+      "srelUrl": "https://srelherp.uga.edu/salamanders/southern-two-lined-salamander/"
     }
   ],
   "seasonalCalendar": {
@@ -638,5 +649,48 @@
       ],
       "highlights": "Nearly all frogs and toads dormant. Two-lined Salamanders remain active in cold streams year-round. Red-backed Salamanders active on mild days above 40°F."
     }
-  }
+  },
+  "citizenScience": [
+    {
+      "id": "frogwatch-usa",
+      "name": "FrogWatch USA",
+      "org": "Association of Zoos and Aquariums",
+      "url": "https://www.aza.org/frogwatch",
+      "emoji": "🐸",
+      "description": "Listen for frog and toad calls on warm evenings and log what you hear. Free training, 3-minute survey windows.",
+      "monthsActive": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "seasonNote": "Evening call surveys, February through August"
+    },
+    {
+      "id": "inaturalist",
+      "name": "iNaturalist · Pickens County",
+      "org": "iNaturalist",
+      "url": "https://www.inaturalist.org/places/pickens-county-ga",
+      "emoji": "📸",
+      "description": "Submit observations of any species — frogs, salamanders, snakes. Salamander migration nights (first warm March rain) are prime documentation moments.",
+      "monthsActive": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "seasonNote": "Year-round"
+    }
+  ]
 }

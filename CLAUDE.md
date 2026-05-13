@@ -188,16 +188,18 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 - NOAA NCEI 1991–2020 normals for "May normal high/low" subtitle (free token, server proxy, monthly cache OK).
 
 **Citizen-science enrollment callouts (Wildlife card):**
-- FrogWatch USA (Auburn chapter) — Amphibians monthsActive via frog calls Feb–Aug evenings.
-- SE Bumble Bee Atlas (Xerces × GA DNR) — adopt a grid cell, May–Sep field season.
-- NestWatch (Cornell) — seasonally surface during Birds-tab nesting windows.
-- Project FeederWatch — winter Birds tab mode (Nov–Apr).
-- iNaturalist Pickens County — link from each Amphibians species to local observation page.
-- Hummingbirds at Home — surface seasonally when Ruby-throated arrives mid-April.
+- ~~FrogWatch USA~~ ✓ Shipped 2026-05-13 on Amphibians tab. Active Feb–Aug.
+- ~~NestWatch (Cornell)~~ ✓ Shipped 2026-05-13 on Birds tab. Active Apr–Aug.
+- ~~Project FeederWatch~~ ✓ Shipped 2026-05-13 on Birds tab. Active Nov–Apr (currently off-season).
+- ~~iNaturalist Pickens County~~ ✓ Shipped 2026-05-13 on both Birds and Amphibians tabs. Year-round.
+- **Hummingbirds at Home — dropped from MVP.** The original Audubon program appears to have been deprecated; all variants of the URL return 404 as of 2026-05-13. iNaturalist now serves as the general hummingbird-tracking platform. If a successor program emerges, surface it on the Birds tab seasonally.
+- **SE Bumble Bee Atlas — deferred.** Belongs on the Plants card (pollinator section) rather than Wildlife. Surface when the keystone-genera callout from Surface-fact backlog is built. URL: https://www.bumblebeeatlas.org/southeast.html (200 OK; active program).
+
+Implementation: `citizenScience` array added to top of each data file; `renderCitizenSciencePanel()` renders a "🤝 Take Part" panel at the bottom of each tab. Each program card shows an Active now / Off-season pill computed from the current month vs. the program's `monthsActive` window.
 
 **Per-species deep-dive links (no integration burden, just URL fields):**
-- Birds tab → eBird Pickens County bar chart per species (`ebird.org/species/[code]/US-GA-227`).
-- Amphibians tab → SREL Herpetology species accounts (`srelherp.uga.edu/...`).
+- ~~Birds tab → eBird Pickens County bar chart per species~~ ✓ Done 2026-05-13. `ebirdCode` field added to all 16 birds.json species; renderer surfaces a `📊 eBird · Pickens Co.` chip on each species detail. Codes validated against the eBird taxonomy API.
+- ~~Amphibians tab → SREL Herpetology species accounts~~ ✓ Done 2026-05-13. `srelUrl` field added to 11 of 12 amphibians.json species; renderer surfaces a `📚 SREL Herpetology` chip when present. The slug pattern is WordPress-style (`/frogs-and-toads/{slug}/` or `/salamanders/{slug}/`) and SREL's slug doesn't always match the common-name kebab-case (e.g., Green Frog → `green-bronze-frog`, American Bullfrog → `bullfrog`). **Red-backed Salamander has no SREL page** — see Outstanding asks #7 for species-ID question.
 - Plants > Hydrangea card → Mt. Cuba wild hydrangea trial top-performers PDF.
 
 **Programs/certifications worth pursuing (one-time actions, surface in Property card):**
@@ -300,6 +302,7 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 4. **Annual: NASA SVS Dial-a-Moon visualization ID** — when SVS publishes the 2027 visualization (usually Dec/Jan), update the `DIAL_A_MOON_VIZ` constant in viewer.html (`year`, `parent` bucket, `id`). Find the new ID at svs.gsfc.nasa.gov/gallery/moonphase. Until refreshed, the moon hero hides cleanly once the year flips.
 5. ~~**Push the weather-history GitHub Action workflow + add repo secrets**~~ ✓ Done 2026-05-13. Workflow live at `.github/workflows/record-weather.yml`; both `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` configured as repo secrets. First scheduled run will fire at the next 6-hour cron mark (UTC 18:00 / 00:00 / 06:00 / 12:00).
 6. ~~**Rotate the GitHub fine-grained PAT used 2026-05-13.**~~ ✓ Done 2026-05-13. Old token regenerated, new value saved in password manager, old value confirmed dead (HTTP 401).
+7. **Verify the red-backed salamander species identification.** `amphibians.json` lists `Plethodon cinereus` (Northern Red-backed Salamander) at the property, but SREL Herpetology has no page for this species — its range typically stops well north of Georgia. The Southern Red-backed Salamander (Plethodon serratus) is the more likely Blue Ridge / North GA species, and there are other Plethodon plausibly on the property (P. cylindraceus, P. serratus). Same pattern as the Etowah-darter calibration: research-derived range claim that may not match property reality. If you can ID one in person (color of the cheek patch, dorsal stripe, body size), update the scientificName + commonName and re-link to the correct SREL page. If unsure, drop the entry or relabel as `Plethodon sp.` until verified.
 
 ## Next steps after the drafts go live
 
