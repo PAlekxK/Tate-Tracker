@@ -285,7 +285,7 @@ Cleanup completed 2026-05-13 across `plants.json`, viewer.html's inlined `PLANTS
 
 These files are staging areas. Do **not** wire them to the viewer until the user says go.
 
-- **`vehicles.draft.json`** (schema v3, 15 items) — proposes splitting flat array into `group: "vehicle" | "equipment"` and adds a per-item `maintenance` block (fuel, oil, sparkPlug, filters, consumables) with `confidence: verified | inferred | tbd` tags. New equipment added: Kobalt KM2040X-06 mower, Echo PB-7910T backpack blower, Echo PB-250LN handheld blower, Homelite UT33650A trimmer, Homelite gas blower/vac (model not stickered — likely UT09521 family). Husqvarna riding mower fully fleshed out from the on-unit replacement-parts sticker (Kawasaki FR691V, 54" deck, all part numbers verified). Husqvarna model number itself still TBD (sticker not yet found).
+- ~~**`vehicles.draft.json`**~~ **Promotion complete 2026-05-13.** v3 schema (group split + per-item maintenance blocks) is fully live in `vehicles.json` and the inlined `VEHICLES_DATA` in viewer.html. Renderer at `renderVehicles()` filters into Vehicles (7) and Equipment (8) headers with counts; each item renders a maintenance toggle showing `value` + `confidence` chip (`verified` | `inferred` | `tbd`). The draft file itself is now a working-doc archive — `openQuestions` (Husqvarna SKU, Homelite trimmer model, Homelite blower/vac model) still tracked there and in "Outstanding asks for Paul" below.
 - ~~**`plants.draft.json`**~~ **Promotion complete 2026-05-13.** All 5 plants (Berry Box® Pyracomeles, Yuki Cherry Blossom® Deutzia, Clematis, Hostas, pond Iris) are live in `plants.json.plants[]` and inlined in viewer.html's `PLANTS_DATA` constant. Verified renders: 13 plants total. The `plantsForPromotion` and `promotionChecklist` blocks have been removed from the draft; `qualityPhotosForFutureIntegration` remains as the active tracking list for upgrading proxy photos to in-garden specimen shots.
 
 ## Uncommitted work in progress
@@ -304,9 +304,11 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 
 ## Next steps after the drafts go live
 
-- Viewer needs updating to render the new `vehicles.json` v3 with the `group` split (vehicle vs equipment) — likely two collapsible sub-sections inside the Vehicles & Equipment card, or two tabs.
-- Viewer needs updating to render the new plants once their care calendars are filled in.
-- Backfill maintenance blocks have already been written for all carried-over v2 items in the draft.
+Both drafts (plants + vehicles) have been promoted to live data as of 2026-05-13. Viewer renderers were already group-split-aware for vehicles and schema-compatible for plants — no further renderer work needed for these promotions.
+
+Remaining draft-related follow-ups:
+- Resolve the 3 vehicles "Outstanding asks for Paul" entries (Husqvarna sticker, Homelite trimmer model digit, Homelite blower/vac model) — currently `confidence: tbd` in maintenance blocks; once resolved, update `vehicles.json` + re-inline `VEHICLES_DATA`.
+- `plants.draft.json.qualityPhotosForFutureIntegration` tracks specimen photos to swap in for the genus-level proxies on the 5 newly promoted plants.
 
 ## Location constants
 
