@@ -187,15 +187,16 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 - US Drought Monitor pill (FIPS 13227 = Pickens GA, server proxy).
 - NOAA NCEI 1991–2020 normals for "May normal high/low" subtitle (free token, server proxy, monthly cache OK).
 
-**Citizen-science enrollment callouts (Wildlife card):**
-- ~~FrogWatch USA~~ ✓ Shipped 2026-05-13 on Amphibians tab. Active Feb–Aug.
-- ~~NestWatch (Cornell)~~ ✓ Shipped 2026-05-13 on Birds tab. Active Apr–Aug.
-- ~~Project FeederWatch~~ ✓ Shipped 2026-05-13 on Birds tab. Active Nov–Apr (currently off-season).
-- ~~iNaturalist Pickens County~~ ✓ Shipped 2026-05-13 on both Birds and Amphibians tabs. Year-round.
-- **Hummingbirds at Home — dropped from MVP.** The original Audubon program appears to have been deprecated; all variants of the URL return 404 as of 2026-05-13. iNaturalist now serves as the general hummingbird-tracking platform. If a successor program emerges, surface it on the Birds tab seasonally.
-- **SE Bumble Bee Atlas — deferred.** Belongs on the Plants card (pollinator section) rather than Wildlife. Surface when the keystone-genera callout from Surface-fact backlog is built. URL: https://www.bumblebeeatlas.org/southeast.html (200 OK; active program).
+**Citizen-science enrollment callouts (Wildlife card) — shipped then deactivated 2026-05-13.**
 
-Implementation: `citizenScience` array added to top of each data file; `renderCitizenSciencePanel()` renders a "🤝 Take Part" panel at the bottom of each tab. Each program card shows an Active now / Off-season pill computed from the current month vs. the program's `monthsActive` window.
+Original shipment included FrogWatch USA (Amphibians, Feb–Aug), NestWatch (Birds, Apr–Aug), Project FeederWatch (Birds, Nov–Apr), and iNaturalist Pickens County (both tabs, year-round). Hummingbirds at Home was dropped from MVP (Audubon program deprecated). SE Bumble Bee Atlas was deferred to the Plants card.
+
+**Deactivated same-day** at Paul's request — pending review of whether to surface programs that involve uploading observations to external services. The implementation is preserved as dormant scaffolding:
+- `citizenScience` arrays remain in `birds.json` and `amphibians.json`
+- `renderCitizenSciencePanel()` function and `.bio-take-part-*` CSS classes remain in `viewer.html`
+- The two render calls in `renderBirds()` and `renderAmphibians()` are commented out with a clear marker
+
+Re-enabling later is a two-line uncomment. If the decision is to drop permanently, delete the CSS / function / data arrays then.
 
 **Per-species deep-dive links (no integration burden, just URL fields):**
 - ~~Birds tab → eBird Pickens County bar chart per species~~ ✓ Done 2026-05-13. `ebirdCode` field added to all 16 birds.json species; renderer surfaces a `📊 eBird · Pickens Co.` chip on each species detail. Codes validated against the eBird taxonomy API.
