@@ -317,6 +317,32 @@
   .prop-soil-row { margin-bottom: 8px; }
   .prop-soil-label { font-size: 11px; font-weight: 700; color: #4a7a4a; margin-bottom: 2px; }
   .prop-soil-val { font-size: 12px; color: #1a3a1a; line-height: 1.45; }
+  .prop-seismic-row {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid #d8eacc; border-radius: 8px;
+    padding: 8px 12px;
+  }
+  .prop-seismic-mag {
+    flex-shrink: 0; font-size: 13px; font-weight: 700;
+    background: #e8f4e8; color: #2a6040; border: 1px solid #b8d8b8;
+    border-radius: 6px; padding: 4px 8px; min-width: 44px; text-align: center;
+  }
+  .prop-seismic-mag.light    { background: #fdf3d8; color: #8a6020; border-color: #e8c878; }
+  .prop-seismic-mag.moderate { background: #fde4cc; color: #8a4020; border-color: #e8a878; }
+  .prop-seismic-mag.strong   { background: #fdcccc; color: #a82020; border-color: #e87878; }
+  .prop-seismic-body { flex: 1; min-width: 0; }
+  .prop-seismic-place { font-size: 12.5px; font-weight: 600; color: #1a3a1a; line-height: 1.3; }
+  .prop-seismic-meta  { font-size: 11px; color: #6a8a6a; margin-top: 2px; }
+  .prop-seismic-empty { font-size: 12px; color: #6a8a6a; padding: 4px 0; }
+  .prop-stream-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+  }
+  .prop-stream-cell {
+    background: #fff; border: 1px solid #d8eacc; border-radius: 8px;
+    padding: 8px 10px; text-align: center;
+  }
+  .prop-stream-val { font-size: 14px; font-weight: 700; color: #1a3a1a; line-height: 1.2; }
+  .prop-stream-key { font-size: 10px; font-weight: 700; color: #4a7a4a; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
   .prop-action-chip {
     display: inline-block;
     background: #e8f4e8;
@@ -1456,6 +1482,28 @@
 
 
   /* === CELESTIAL CARD === */
+  .cel-moon-hero {
+    background: radial-gradient(circle at 50% 40%, #1a2050 0%, #0a0a1a 80%);
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid #2a3060;
+    text-align: center;
+  }
+  .cel-moon-hero-img {
+    display: block; margin: 0 auto;
+    width: 220px; height: 220px; max-width: 80%;
+    border-radius: 50%;
+    box-shadow: 0 0 22px rgba(180, 200, 255, 0.18);
+    background: #000;
+  }
+  .cel-moon-hero-cap {
+    font-size: 11.5px; color: #a8b8f0; margin-top: 8px; font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .cel-moon-hero-credit {
+    font-size: 9.5px; color: #5c6890; margin-top: 2px;
+  }
+  .cel-moon-hero-credit a { color: #7080b8; text-decoration: none; }
+  .cel-moon-hero-credit a:hover { text-decoration: underline; }
   .cel-tonight-panel {
     background: linear-gradient(160deg, #10102a 0%, #1a2050 100%);
     padding: 14px 16px 12px;
@@ -1487,6 +1535,15 @@
     padding: 6px 10px; border: 1px solid rgba(255,255,255,0.07);
   }
   .cel-property-note strong { color: #a0b0e0; }
+  .cel-nws-strip {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; padding: 7px 10px; margin-bottom: 8px;
+    background: rgba(80,120,255,0.06); border: 1px solid rgba(120,160,255,0.14);
+    border-radius: 7px; font-size: 10.5px; color: #8898c0;
+  }
+  .cel-nws-strip-label { color: #a8b8f0; font-weight: 600; }
+  .cel-nws-strip-val   { color: #e0e8ff; font-weight: 600; }
+  .cel-nws-strip-sub   { color: #6878a0; font-size: 10px; }
 
   .cel-events-section { padding: 12px 0 4px; }
   .cel-events-hdr {
@@ -2345,7 +2402,7 @@ async function fetchLiveWeather() {
   const lon = PROPERTY_DATA.location.coordinates.approximateLon;
   const url = "https://api.open-meteo.com/v1/forecast" +
     "?latitude=" + lat + "&longitude=" + lon +
-    "&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day,surface_pressure" +
+    "&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day,surface_pressure,cloud_cover_low,cloud_cover_mid,cloud_cover_high,visibility" +
     "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,sunrise,sunset,uv_index_max,relative_humidity_2m_mean" +
     "&hourly=surface_pressure,temperature_2m,precipitation_probability,precipitation,weather_code&past_hours=6&forecast_hours=48" +
     "&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=7";
@@ -2378,7 +2435,11 @@ async function fetchLiveWeather() {
         windDirection: degreesToCompass(c.wind_direction_10m),
         windGusts:    Math.round(c.wind_gusts_10m),
         isDay:        c.is_day === 1,
-        pressure_hpa: c.surface_pressure ? Math.round(c.surface_pressure) : null
+        pressure_hpa: c.surface_pressure ? Math.round(c.surface_pressure) : null,
+        cloudLow:     (c.cloud_cover_low  != null) ? Math.round(c.cloud_cover_low)  : null,
+        cloudMid:     (c.cloud_cover_mid  != null) ? Math.round(c.cloud_cover_mid)  : null,
+        cloudHigh:    (c.cloud_cover_high != null) ? Math.round(c.cloud_cover_high) : null,
+        visibilityKm: (c.visibility != null) ? Math.round(c.visibility / 1000) : null
       },
       daily: d.time.map((date, i) => {
         const dt   = new Date(date + "T12:00:00");
@@ -3859,6 +3920,55 @@ function renderProperty() {
   html += '</div>';
   html += '</div>';
 
+  // ── Seismic activity (USGS, 300 km / M2.0+) ──
+  html += '<div class="prop-panel">';
+  html += '<div class="prop-panel-title">Seismic Activity</div>';
+  const sz = WEATHER_DATA.seismic;
+  if (sz && !sz.empty && sz.mag != null) {
+    const mag = sz.mag;
+    let magCls = "";
+    if      (mag >= 5)   magCls = "strong";
+    else if (mag >= 4)   magCls = "moderate";
+    else if (mag >= 2.5) magCls = "light";
+    html += '<div class="prop-seismic-row">';
+    html += '<div class="prop-seismic-mag ' + magCls + '">M' + mag.toFixed(1) + '</div>';
+    html += '<div class="prop-seismic-body">';
+    html += '<div class="prop-seismic-place">' + escapeHtml(sz.place || "Unknown location") + '</div>';
+    html += '<div class="prop-seismic-meta">' + formatTimeAgo(sz.time);
+    if (sz.miles != null) html += ' · ~' + sz.miles + ' mi from property';
+    if (sz.depthKm != null) html += ' · depth ' + Math.round(sz.depthKm) + ' km';
+    html += '</div>';
+    html += '</div></div>';
+    if (sz.url) html += '<a class="prop-action-chip" href="' + escapeHtml(sz.url) + '" target="_blank" rel="noopener">USGS event detail ↗</a>';
+  } else if (sz && sz.empty) {
+    html += '<div class="prop-seismic-empty">No recent activity within ' + SEISMIC_RADIUS_KM + ' km at M' + SEISMIC_MIN_MAG.toFixed(1) + '+.</div>';
+    html += '<a class="prop-action-chip" href="https://earthquake.usgs.gov/earthquakes/map/?extent=33.0,-86.5&extent=36.0,-82.0" target="_blank" rel="noopener">USGS regional map ↗</a>';
+  } else {
+    html += '<div class="prop-seismic-empty">Checking USGS…</div>';
+  }
+  html += '<div class="prop-note">Closest active feature: Eastern Tennessee Seismic Zone.</div>';
+  html += '</div>';
+
+  // ── Watershed (USGS Etowah gauge 02389150) ──
+  html += '<div class="prop-panel">';
+  html += '<div class="prop-panel-title">Watershed — Etowah River</div>';
+  const sf = WEATHER_DATA.streamflow;
+  if (sf && !sf.empty) {
+    html += '<div class="prop-stream-grid">';
+    html += '<div class="prop-stream-cell"><div class="prop-stream-val">' + (sf.flow_cfs != null ? sf.flow_cfs.toLocaleString() : '—') + '</div><div class="prop-stream-key">ft³/s</div></div>';
+    html += '<div class="prop-stream-cell"><div class="prop-stream-val">' + (sf.gage_ft != null ? sf.gage_ft.toFixed(2) : '—') + '</div><div class="prop-stream-key">Gage (ft)</div></div>';
+    html += '<div class="prop-stream-cell"><div class="prop-stream-val">' + (sf.waterTemp_F != null ? sf.waterTemp_F + '°F' : '—') + '</div><div class="prop-stream-key">Water</div></div>';
+    html += '</div>';
+    html += '<a class="prop-action-chip" href="https://waterdata.usgs.gov/monitoring-location/' + USGS_ETOWAH_SITE + '/" target="_blank" rel="noopener">USGS live data ↗</a>';
+  } else if (sf && sf.empty) {
+    html += '<div class="prop-seismic-empty">Gauge offline.</div>';
+    html += '<a class="prop-action-chip" href="https://waterdata.usgs.gov/monitoring-location/' + USGS_ETOWAH_SITE + '/" target="_blank" rel="noopener">USGS site page ↗</a>';
+  } else {
+    html += '<div class="prop-seismic-empty">Checking USGS…</div>';
+  }
+  html += '<div class="prop-note">Gauge near Dawsonville (~30 mi) — same watershed that drains the property. Home to the federally listed Etowah Darter and Cherokee Darter, found nowhere else.</div>';
+  html += '</div>';
+
   // ── Soils ──
   html += '<div class="prop-panel">';
   html += '<div class="prop-panel-title">Soils</div>';
@@ -4826,6 +4936,211 @@ function renderFishingForecast(waterTemp, phase) {
 // CELESTIAL / SKY & STARS
 // =========================
 
+// Distance between two lat/lon points in miles (haversine, mean earth radius).
+function haversineMiles(lat1, lon1, lat2, lon2) {
+  const R = 3958.8;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2) ** 2 +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2) ** 2;
+  return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+}
+
+// Coarse relative-time formatter — field-journal voice, no precise seconds.
+function formatTimeAgo(ms) {
+  const diff = Date.now() - ms;
+  if (diff < 0) return "just now";
+  const m = Math.floor(diff / 60000);
+  if (m < 60)        return m + " min ago";
+  const h = Math.floor(m / 60);
+  if (h < 24)        return h + (h === 1 ? " hour ago" : " hours ago");
+  const d = Math.floor(h / 24);
+  if (d < 14)        return d + (d === 1 ? " day ago"  : " days ago");
+  const w = Math.floor(d / 7);
+  if (w < 9)         return w + (w === 1 ? " week ago" : " weeks ago");
+  const mo = Math.floor(d / 30);
+  if (mo < 18)       return mo + (mo === 1 ? " month ago" : " months ago");
+  const y = Math.floor(d / 365);
+  return y + (y === 1 ? " year ago" : " years ago");
+}
+
+// USGS NWIS streamflow at Etowah River gauge 02389150 (near Dawsonville, ~30 mi from
+// the property — the nearest active gauge on the Etowah). All three parameters reported:
+// 00060 streamflow ft³/s, 00065 gage height ft, 00010 water temperature °C → converted to °F.
+const USGS_ETOWAH_SITE = "02389150";
+async function fetchUSGSStreamflow() {
+  const url = "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=" + USGS_ETOWAH_SITE +
+    "&parameterCd=00060,00065,00010";
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    const tsList = data?.value?.timeSeries || [];
+    const out = { site: USGS_ETOWAH_SITE, observedAt: null };
+    tsList.forEach(ts => {
+      const code = ts?.variable?.variableCode?.[0]?.value;
+      const vals = ts?.values?.[0]?.value || [];
+      const latest = vals[vals.length - 1];
+      if (!latest) return;
+      const num = parseFloat(latest.value);
+      if (isNaN(num) || num === -999999) return;
+      if (!out.observedAt) out.observedAt = latest.dateTime;
+      if      (code === "00060") out.flow_cfs       = Math.round(num);
+      else if (code === "00065") out.gage_ft        = Math.round(num * 100) / 100;
+      else if (code === "00010") out.waterTemp_F    = Math.round(num * 9 / 5 + 32);
+    });
+    WEATHER_DATA.streamflow = (out.flow_cfs != null || out.gage_ft != null || out.waterTemp_F != null) ? out : { empty: true };
+    if (typeof renderProperty === "function") renderProperty();
+  } catch (err) {
+    console.warn("USGS streamflow fetch failed:", err);
+  }
+}
+
+// USGS recent earthquakes (FDSN event service). 300km / M2.0+ captures the
+// Eastern Tennessee Seismic Zone, which is the only realistic source of felt
+// shaking at this property. Stored on WEATHER_DATA.seismic for the property card.
+const SEISMIC_RADIUS_KM = 300;
+const SEISMIC_MIN_MAG   = 2.0;
+async function fetchUSGSEarthquakes() {
+  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
+  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson" +
+    "&latitude=" + lat + "&longitude=" + lon +
+    "&maxradiuskm=" + SEISMIC_RADIUS_KM +
+    "&minmagnitude=" + SEISMIC_MIN_MAG +
+    "&orderby=time&limit=1";
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    const f = (data.features || [])[0];
+    if (f) {
+      const p = f.properties || {};
+      const g = f.geometry || {};
+      const coords = g.coordinates || [];
+      WEATHER_DATA.seismic = {
+        mag: p.mag,
+        place: p.place,
+        time: p.time,
+        url: p.url,
+        depthKm: coords[2],
+        miles: (coords.length >= 2) ? haversineMiles(lat, lon, coords[1], coords[0]) : null
+      };
+    } else {
+      WEATHER_DATA.seismic = { empty: true };
+    }
+    if (typeof renderProperty === "function") renderProperty();
+  } catch (err) {
+    console.warn("USGS earthquakes fetch failed:", err);
+  }
+}
+
+// NWS skyCover — two-step fetch (/points → /gridpoints) for an astronomy-trusted cloud forecast.
+// Cached on WEATHER_DATA.nwsSkyCover as an array of { start: Date, percent: number }.
+async function fetchNWSSkyCover() {
+  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
+  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  try {
+    const pointsRes = await fetch("https://api.weather.gov/points/" + lat + "," + lon);
+    if (!pointsRes.ok) throw new Error("points HTTP " + pointsRes.status);
+    const points = await pointsRes.json();
+    const gridUrl = points?.properties?.forecastGridData;
+    if (!gridUrl) throw new Error("no forecastGridData");
+    const gridRes = await fetch(gridUrl);
+    if (!gridRes.ok) throw new Error("grid HTTP " + gridRes.status);
+    const grid = await gridRes.json();
+    const raw = grid?.properties?.skyCover?.values || [];
+    // validTime is ISO8601 interval like "2026-05-13T10:00:00+00:00/PT1H".
+    // Expand into hourly samples covering each interval.
+    const samples = [];
+    raw.forEach(v => {
+      const [startIso, dur] = (v.validTime || "").split("/");
+      const start = new Date(startIso);
+      if (isNaN(start.getTime())) return;
+      const hoursMatch = /PT(\d+)H/.exec(dur || "PT1H");
+      const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 1;
+      for (let i = 0; i < hours; i++) {
+        samples.push({ start: new Date(start.getTime() + i * 3600000), percent: v.value });
+      }
+    });
+    WEATHER_DATA.nwsSkyCover = samples;
+    if (typeof renderCelestial === "function" && document.getElementById("celestial-content")) {
+      renderCelestial();
+    }
+  } catch (err) {
+    console.warn("NWS skyCover fetch failed:", err);
+  }
+}
+
+// Summarize NWS skyCover across tonight's dark window (sun >18° below horizon).
+// Returns { avg, min, max, count } or null if data missing.
+function nwsSkyCoverForDarkWindow(date) {
+  const samples = WEATHER_DATA.nwsSkyCover;
+  if (!Array.isArray(samples) || samples.length === 0) return null;
+  if (!window.SunCalc) return null;
+  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
+  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const times = SunCalc.getTimes(date, lat, lon);
+  const start = times.night, end = times.nightEnd;
+  if (!start || !end || isNaN(start) || isNaN(end)) return null;
+  // night is tonight; nightEnd is tomorrow before sunrise — handle the crossover.
+  const startMs = start.getTime();
+  const endMs = end.getTime() > startMs ? end.getTime() : end.getTime() + 86400000;
+  const inWindow = samples.filter(s => {
+    const t = s.start.getTime();
+    return t >= startMs && t <= endMs && s.percent != null;
+  });
+  if (inWindow.length === 0) return null;
+  const vals = inWindow.map(s => s.percent);
+  return {
+    avg: Math.round(vals.reduce((a, b) => a + b, 0) / vals.length),
+    min: Math.round(Math.min(...vals)),
+    max: Math.round(Math.max(...vals)),
+    count: vals.length
+  };
+}
+
+// NASA SVS Dial-a-Moon — hourly image of the moon's actual face (libration, terminator, phase).
+// Frame index is hour-of-year in UTC, 1-indexed, zero-padded to 4 digits.
+// Each calendar year has its own visualization ID — refresh DIAL_A_MOON_VIZ annually
+// when SVS publishes the next year. Returns null if the date is outside the viz's year,
+// so the celestial card can hide the hero rather than show a wrong-year moon.
+const DIAL_A_MOON_VIZ = { year: 2026, parent: "a005500", id: "a005587" };
+function dialAMoonUrl(date) {
+  const d = date || new Date();
+  if (d.getUTCFullYear() !== DIAL_A_MOON_VIZ.year) return null;
+  const yearStart = Date.UTC(d.getUTCFullYear(), 0, 1, 0, 0, 0);
+  const hourOfYear = Math.floor((d.getTime() - yearStart) / 3600000) + 1;
+  const padded = String(hourOfYear).padStart(4, "0");
+  return "https://svs.gsfc.nasa.gov/vis/a000000/" + DIAL_A_MOON_VIZ.parent +
+         "/" + DIAL_A_MOON_VIZ.id + "/frames/730x730_1x1_30p/moon." + padded + ".jpg";
+}
+
+// Astronomy stargazing score from Open-Meteo cloud-layer + visibility.
+// Low clouds block the sky outright; mid clouds heavy; high cirrus least.
+// Returns the same shape as skyFromWMO so renderCelestial can swap it in.
+function stargazingFromClouds(cur) {
+  if (cur == null) return null;
+  const { cloudLow, cloudMid, cloudHigh, visibilityKm } = cur;
+  if (cloudLow == null && cloudMid == null && cloudHigh == null) return null;
+  const lo = cloudLow  || 0;
+  const mi = cloudMid  || 0;
+  const hi = cloudHigh || 0;
+  let effective = Math.min(100, lo * 1.0 + mi * 0.7 + hi * 0.4);
+  if (visibilityKm != null && visibilityKm < 10) effective = Math.min(100, effective + 15);
+  let label, emoji, score, cls;
+  if      (effective < 15) { label = "Excellent";   emoji = "✨"; score = 5; cls = "excellent"; }
+  else if (effective < 30) { label = "Very good";   emoji = "🌟"; score = 4; cls = "excellent"; }
+  else if (effective < 50) { label = "Good";        emoji = "🌤️"; score = 3; cls = "good"; }
+  else if (effective < 70) { label = "Fair";        emoji = "⛅"; score = 2; cls = "fair"; }
+  else if (effective < 85) { label = "Poor";        emoji = "☁️"; score = 1; cls = "poor"; }
+  else                     { label = "Closed out";  emoji = "🌫️"; score = 0; cls = "closed"; }
+  const breakdown = "Clouds: " + lo + "% lo / " + mi + "% mid / " + hi + "% hi" +
+    (visibilityKm != null ? " · " + visibilityKm + " km vis" : "");
+  return { label, emoji, score, cls, breakdown };
+}
+
 function skyFromWMO(code) {
   if (code === 0 || code === 1) return { label: "Clear",        emoji: "✨", score: 5, cls: "excellent" };
   if (code === 2)               return { label: "Partly cloudy",emoji: "⛅", score: 3, cls: "good" };
@@ -4893,7 +5208,7 @@ function updateCelestialSkyDetails(date) {
 }
 
 function renderCelestialSummary() {
-  const sky     = skyFromWMO(WEATHER_DATA.current.weatherCode);
+  const sky     = stargazingFromClouds(WEATHER_DATA.current) || skyFromWMO(WEATHER_DATA.current.weatherCode);
   const moonAge = calcMoonAge(new Date());
   const info    = moonPhaseLabel(moonAge);
   const upcoming = CELESTIAL_DATA.events
@@ -4913,22 +5228,36 @@ function renderCelestial() {
   const moonAge = calcMoonAge(now);
   const info    = moonPhaseLabel(moonAge);
   const illuminPct = Math.round((1 - Math.cos(moonAge / 29.53058867 * 2 * Math.PI)) / 2 * 100);
-  const sky     = skyFromWMO(wd.current.weatherCode);
+  const stargaze = stargazingFromClouds(wd.current);
+  const sky     = stargaze || skyFromWMO(wd.current.weatherCode);
   const prop    = CELESTIAL_DATA.property;
 
   let h = "";
+
+  // ── Moon hero (NASA SVS Dial-a-Moon) ───────────────────────────────────────
+  const moonUrl = dialAMoonUrl(now);
+  if (moonUrl) {
+    h += '<div class="cel-moon-hero">';
+    h += '<img class="cel-moon-hero-img" src="' + moonUrl + '" alt="Moon tonight" loading="lazy" ' +
+         'onerror="this.closest(\'.cel-moon-hero\').style.display=\'none\';">';
+    h += '<div class="cel-moon-hero-cap">' + escapeHtml(info.label) + ' · ' + illuminPct + '% illuminated</div>';
+    h += '<div class="cel-moon-hero-credit">Hourly image · <a href="https://svs.gsfc.nasa.gov/' +
+         DIAL_A_MOON_VIZ.id.replace(/^a0*/, "") + '" target="_blank" rel="noopener">NASA SVS Dial-a-Moon</a></div>';
+    h += '</div>';
+  }
 
   // ── Tonight's Sky ──────────────────────────────────────────────────────────
   h += '<div class="cel-tonight-panel">';
   h += '<div class="cel-tonight-hdr">🌌 Tonight\'s Sky — Church Mountain Road</div>';
   h += '<div class="cel-sky-grid">';
 
-  // Transparency
+  // Stargazing (cloud-layer + visibility) — falls back to WMO sky when live cloud data unavailable
   h += '<div class="cel-sky-cell">';
   h += '<div class="cel-sky-icon">' + sky.emoji + '</div>';
   h += '<div class="cel-sky-val cel-sky-' + sky.cls + '">' + sky.label + '</div>';
-  h += '<div class="cel-sky-key">Transparency</div>';
-  h += '<div class="cel-sky-sub">' + (sky.score >= 4 ? "Excellent viewing" : sky.score >= 2 ? "Partial viewing" : "Closed out tonight") + '</div>';
+  h += '<div class="cel-sky-key">' + (stargaze ? "Stargazing" : "Transparency") + '</div>';
+  h += '<div class="cel-sky-sub">' + (stargaze ? escapeHtml(stargaze.breakdown) :
+        (sky.score >= 4 ? "Excellent viewing" : sky.score >= 2 ? "Partial viewing" : "Closed out tonight")) + '</div>';
   h += '</div>';
 
   // Moon
@@ -4956,6 +5285,16 @@ function renderCelestial() {
   h += '</div>';
 
   h += '</div>'; // cel-sky-grid
+
+  // NWS skyCover footer — cross-source astronomy cloud forecast for tonight's dark window
+  const nws = nwsSkyCoverForDarkWindow(now);
+  if (nws) {
+    h += '<div class="cel-nws-strip">';
+    h += '<span><span class="cel-nws-strip-label">🛰️ NWS dark-window cloud</span> · ' +
+         '<span class="cel-nws-strip-val">' + nws.avg + '% avg</span></span>';
+    h += '<span class="cel-nws-strip-sub">' + nws.min + '–' + nws.max + '% range · ' + nws.count + 'h</span>';
+    h += '</div>';
+  }
 
   h += '<div class="cel-property-note"><strong>Your skies:</strong> ' + escapeHtml(prop.atlasNote) + '</div>';
   h += '</div>'; // cel-tonight-panel
@@ -6051,6 +6390,9 @@ fetchLiveWeather();
 fetchAmbientWeather();
 fetchClimateNormals();
 fetchPrecipHistory();
+fetchNWSSkyCover();
+fetchUSGSEarthquakes();
+fetchUSGSStreamflow();
 </script>
 
 </body>

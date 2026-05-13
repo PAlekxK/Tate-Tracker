@@ -175,11 +175,11 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 - Property card → seasonally-conditional burn-ban banner (May 1–Sep 30 = state ban active; rest of year = permit required via gatrees.org).
 
 **Live data integrations (CORS-enabled, no key):**
-- **USGS NWIS streamflow + water temp** at Etowah gauge 02389150 (near Dawsonville). Endpoint: `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=02389150&parameterCd=00060,00065,00010`. Trout-relevant if temp param is reported at this site; otherwise find nearest gauge with 00010.
-- **USGS earthquake events** (200km radius). Endpoint: `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=34.5496&longitude=-84.3674&maxradiuskm=200&minmagnitude=2.5&orderby=time&limit=1`.
-- **NWS api.weather.gov skyCover** for celestial subsection. Flow: `GET /points/34.5496,-84.3674` → follow `properties.forecastGridData` → read `properties.skyCover.values[]`.
-- **NASA SVS Dial-a-Moon** hourly image. Pattern: `https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005415/frames/730x730_1x1_30p/moon.NNNN.jpg` where NNNN = hour-of-year.
-- **Open-Meteo expansion** — add `cloud_cover_low/mid/high`, `visibility` to existing request for a stargazing score chip.
+- ~~**USGS NWIS streamflow + water temp**~~ ✓ Done (2026-05-13) — gauge 02389150 reports all three params (00060/00065/00010). Surfaced as a "Watershed — Etowah River" panel on the property card with ft³/s, gage, and water temp in °F, plus the Etowah Darter context note.
+- ~~**USGS earthquake events**~~ ✓ Done (2026-05-13) — surfaced as a "Seismic Activity" panel on the property card. Threshold widened to **300 km / M2.0+** because 200 km / M2.5 returned nothing — East TN Seismic Zone activity is mostly small. Shows magnitude badge, place, time-ago, distance, depth, and USGS event link.
+- ~~**NWS api.weather.gov skyCover**~~ ✓ Done (2026-05-13) — two-step fetch (`/points` → `/gridpoints/FFC/49,122`), expanded to hourly samples, averaged across tonight's dark window (SunCalc). Renders as a footer strip under the Tonight's Sky grid: "🛰️ NWS dark-window cloud · X% avg · min–max range · Nh".
+- ~~**NASA SVS Dial-a-Moon**~~ ✓ Done (2026-05-13) — hero moon image (220px circle) at the top of the celestial card body, hour-of-year indexed in UTC. **Visualization ID must be refreshed annually** when SVS publishes the next year — see `DIAL_A_MOON_VIZ` constant in viewer.html. Currently set to 2026 (`a005587`). A year-guard hides the hero cleanly if the date drifts out of sync.
+- ~~**Open-Meteo expansion**~~ ✓ Done (2026-05-13) — added `cloud_cover_low/mid/high,visibility` to `&current=` in `fetchLiveWeather`. New `stargazingFromClouds(cur)` helper weights low cloud 1.0 / mid 0.7 / high 0.4 with a sub-10 km visibility penalty. The Tonight's Sky "Transparency" cell becomes "Stargazing" when live cloud data is present, with the breakdown ("Clouds: X% lo / Y% mid / Z% hi · N km vis") as the sub line; falls back to the old WMO-derived label otherwise.
 - ~~**Open-Meteo hourly forecast (with rain)**~~ ✓ Done (2026-05-11) — shipped as the 48-hour hourly strip under the daily forecast tiles. See "Hourly forecast strip" below.
 
 **Live data integrations (need server proxy — not CORS):**
@@ -288,6 +288,7 @@ These edits are local-only — not yet committed or pushed:
 1. **Husqvarna riding mower:** model sticker (under seat or rear fender) — need the specific Husqvarna SKU like TS354XD / YTH24K54 / GTH54LS.
 2. **Homelite trimmer:** confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker is slightly ambiguous.
 3. **Homelite blower/vac:** no model sticker found on the unit. Maintenance specs are inferred from the trimmer's engine family (HHCPS.0264AT). Acceptable for at-a-store reference.
+4. **Annual: NASA SVS Dial-a-Moon visualization ID** — when SVS publishes the 2027 visualization (usually Dec/Jan), update the `DIAL_A_MOON_VIZ` constant in viewer.html (`year`, `parent` bucket, `id`). Find the new ID at svs.gsfc.nasa.gov/gallery/moonphase. Until refreshed, the moon hero hides cleanly once the year flips.
 
 ## Next steps after the drafts go live
 
