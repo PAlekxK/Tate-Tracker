@@ -5765,7 +5765,10 @@ function renderBirds() {
     h += '</div>';
   }
 
-  h += renderCitizenSciencePanel(bd.citizenScience, 'birds');
+  // "Take Part" citizen-science panel deactivated 2026-05-13 — pending review
+  // of whether to surface programs that send observations to external services.
+  // Re-enable by uncommenting; function, CSS, and bd.citizenScience data remain.
+  // h += renderCitizenSciencePanel(bd.citizenScience, 'birds');
 
   // Feeder panel
   const fr = bd.propertyHighlights.feederRecommendations;
@@ -5918,7 +5921,9 @@ function renderAmphibians() {
     h += '</div>';
   }
 
-  h += renderCitizenSciencePanel(ad.citizenScience, 'amphibians');
+  // "Take Part" citizen-science panel deactivated 2026-05-13 — see comment
+  // in renderBirds(). Re-enable by uncommenting; data/function/CSS preserved.
+  // h += renderCitizenSciencePanel(ad.citizenScience, 'amphibians');
 
   // Pond management note
   h += '<div class="bio-feeder-panel" style="border-color:#a8d8c8;background:#f0f9f6;">';
