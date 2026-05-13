@@ -1,12 +1,12 @@
 {
   "_meta": {
     "location": "282 Church Mountain Road, Jasper, GA 30143",
-    "zone": "USDA 7b (official); 7a adjusted at ~1,750 ft elevation",
+    "zone": "USDA 7b (official); 6b adjusted at ~2,959 ft elevation",
     "region": "Blue Ridge Foothills, Pickens County, GA",
-    "elevation_ft": 1750,
-    "lastFrost_50pct": "April 30",
-    "lastFrost_90pctSafe": "May 21",
-    "firstFrost_50pct": "October 20",
+    "elevation_ft": 2959,
+    "lastFrost_50pct": "May 3",
+    "lastFrost_90pctSafe": "May 24",
+    "firstFrost_50pct": "October 17",
     "soilSeries": [
       "Hayesville",
       "Cecil",
@@ -14,9 +14,9 @@
     ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
     "schemaVersion": 3,
-    "schemaNotes": "v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~1,750 ft (~280 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.",
+    "schemaNotes": "v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.",
     "dataSources": [
-      "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +7 days spring / -7 days fall for ~280 ft above station",
+      "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for ~1,424 ft above station",
       "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)",
       "USDA NRCS Official Series Descriptions: Hayesville, Cecil, Pacolet",
       "USDA Plant Hardiness Zone Map 2023",
@@ -30,10 +30,10 @@
       "scientificName": "Pinus strobus",
       "emoji": "🌲",
       "guide": "Eastern white pines thrive in Jasper's climate — they prefer well-drained acidic soil and full sun to partial shade. Established trees are drought-tolerant but young plantings need consistent water for the first two years. Watch for white pine weevil on leaders in late spring and white pine blister rust on lower branches.",
-      "currentSeasonNote": "Late April: prime time to inspect for white pine weevil — look for wilting or browning leaders and prune off any infested terminals immediately. Also the start of the candle-pinching window if you want to control size.",
+      "currentSeasonNote": "Early May: prime time to inspect for white pine weevil — look for wilting or browning leaders and prune off any infested terminals immediately. Also the start of the candle-pinching window if you want to control size.",
       "soilNotes": "Thrives in Hayesville/Cecil/Pacolet soils — acidic sandy loam to loam (pH 4.5–5.5) is ideal. Excellent drainage on slopes is critical; on flat or low-lying areas at Church Mountain Road, the clay Bt argillic subsoil can impede drainage and white pine roots are very susceptible to waterlogging. Best performance on well-drained mid-slope positions.",
       "aspectPreference": "Full sun. South to east-facing slopes are best. Avoid exposed northwest ridgelines where winter desiccating winds cause significant foliage damage. East-facing mid-slope positions are ideal — good sun, some wind protection.",
-      "frostSensitivity": "Hardy to Zone 3; no frost survivability concerns at Church Mountain Road. New spring candles emerging in May are frost-tender — a late frost after May 10 at ~1,750 ft elevation can kill the emerging candles and set aesthetics back a season. No action needed; trees recover fully.",
+      "frostSensitivity": "Hardy to Zone 3; no frost survivability concerns at Church Mountain Road. New spring candles emerging in May are frost-tender — a late frost after May 10 at ~2,959 ft elevation can kill the emerging candles and set aesthetics back a season. No action needed; trees recover fully.",
       "care": {
         "prune": {
           "subcategories": [
@@ -45,7 +45,7 @@
                 2,
                 11
               ],
-              "peakWindow": "Feb 1–20 before sap surge begins",
+              "peakWindow": "Feb 4–20 before sap surge begins",
               "narrow": false,
               "description": "Late winter (Feb–early Mar) is structural pruning — the tree is dormant, sap flow is minimal, and branch architecture is clearly visible. Cuts heal cleanly before spring growth. December is the secondary window for removing dead, damaged, or crossing branches; cold weather discourages pitch flow and pest entry. Avoid pruning in spring/summer when sap flow is heavy and bark beetles are active — fresh wounds attract them."
             },
@@ -56,9 +56,9 @@
                 4,
                 5
               ],
-              "peakWindow": "May 10–25 at ~1,750 ft — candles elongated but needles still tightly furled",
+              "peakWindow": "May 13–25 at ~2,959 ft — candles elongated but needles still tightly furled",
               "narrow": true,
-              "description": "Mid-to-late spring (May–early June) when the new candles have elongated but the needles are still tightly furled. Pinch or cut candles by 1/2 to 2/3 of their length to control size and create denser, more compact growth. Use fingers (preferred) or sharp scissors; never cut into woody tissue. At Church Mountain Road elevation (~1,750 ft), candles typically emerge 7–10 days later than in Jasper valley — don't rush it."
+              "description": "Mid-to-late spring (May–early June) when the new candles have elongated but the needles are still tightly furled. Pinch or cut candles by 1/2 to 2/3 of their length to control size and create denser, more compact growth. Use fingers (preferred) or sharp scissors; never cut into woody tissue. At Church Mountain Road elevation (~2,959 ft), candles typically emerge 7–10 days later than in Jasper valley — don't rush it."
             }
           ]
         },
@@ -73,7 +73,7 @@
             2,
             3
           ],
-          "peakWindow": "Mar 15–Apr 5 before bud break",
+          "peakWindow": "Mar 18–Apr 8 before bud break",
           "narrow": false,
           "description": "Early spring (Mar–Apr) before active growth begins. Use a slow-release acidic fertilizer formulated for evergreens. Church Mountain Road soils are naturally acidic and reasonably fertile — established trees in good soil rarely need fertilizing. Only feed if growth is poor or needles are pale. Over-fertilizing causes weak growth that attracts pests."
         },
@@ -104,7 +104,7 @@
                 4,
                 5
               ],
-              "peakWindow": "Apr 20–May 15 at ~1,750 ft — weevil egg-laying window; inspect leaders weekly",
+              "peakWindow": "Apr 23–May 18 at ~2,959 ft — weevil egg-laying window; inspect leaders weekly",
               "narrow": true,
               "description": "Apr–Jun: adult weevils lay eggs in the previous year's terminal leader; larvae kill the leader, causing the classic 'shepherd's crook' wilted top. At Church Mountain Road elevation, adult emergence is roughly 7–10 days later than in the Jasper valley — inspect leaders weekly from late April through mid-May. Prune out any infested terminals immediately, cutting well below the damage and burning or bagging the prunings."
             },
@@ -136,7 +136,7 @@
       "scientificName": "Rhododendron spp.",
       "emoji": "🌸",
       "guide": "Azaleas love Jasper's acidic mountain soil and dappled shade — morning sun with afternoon protection is ideal. Mulch 2–3 inches with pine bark or pine straw to keep roots cool and acidic. Shallow-rooted, so they need consistent moisture but never soggy feet.",
-      "currentSeasonNote": "Late April: enjoy peak bloom now at Church Mountain Road elevation. Wait until immediately after flowering finishes to do any pruning — pruning later removes next year's flower buds. At ~1,750 ft, bloom typically peaks about a week later than in Jasper valley.",
+      "currentSeasonNote": "Early May: enjoy peak bloom now at Church Mountain Road elevation. Wait until immediately after flowering finishes to do any pruning — pruning later removes next year's flower buds. At ~2,959 ft, bloom typically peaks about a week later than in Jasper valley.",
       "soilNotes": "Ideal match for Church Mountain Road native soils. Hayesville/Cecil/Pacolet series naturally runs pH 4.5–5.5 — azaleas need exactly 4.5–5.5 and typically require no acidification here. Shallow feeder roots (top 6 inches) need consistent organic matter; 2–3 inch pine bark or pine straw mulch is essential. Well-drained mid-slope positions are perfect; avoid low spots with seasonal wet soil or heavy clay subsoil.",
       "aspectPreference": "North-facing or east-facing slopes at Church Mountain Road are ideal — morning sun with afternoon protection from hot SW summer sun. Classic Appalachian azalea habitat is north-facing mid-slope woodland edges, which is exactly what Church Mountain offers. Avoid south or west exposure where afternoon heat causes leaf scorch and accelerates soil moisture loss.",
       "frostSensitivity": "Hardy to Zone 4–5 depending on species. Flower buds set in summer are frost-sensitive — a hard freeze in early winter can kill flower buds while leaving the plant unharmed, resulting in a bloomless spring. Most native azaleas and southern Encore types handle Church Mountain Road winters without issue. At elevation, extended cold spells in Zone 6b frost pockets can damage marginally-hardy cultivars.",
@@ -146,7 +146,7 @@
             4,
             5
           ],
-          "peakWindow": "May 15–Jun 5 at ~1,750 ft — immediately after last flowers drop",
+          "peakWindow": "May 18–Jun 8 at ~2,959 ft — immediately after last flowers drop",
           "narrow": true,
           "description": "Single tight window: immediately after flowering ends (at Church Mountain Road elevation, typically mid-May to early June, about a week later than valley plants). Azaleas set next year's flower buds in summer on the current year's growth, so pruning anytime after July removes next spring's blooms. Use this window to shape the plant, remove crossing branches, and rejuvenate older stems. Light tip-pruning is fine; heavy renovation should be done in stages over 2–3 years."
         },
@@ -159,7 +159,7 @@
                 5,
                 6
               ],
-              "peakWindow": "Jun 10–Jul 5",
+              "peakWindow": "Jun 13–Jul 8",
               "narrow": false,
               "description": "Late spring/early summer (Jun–Jul) when new growth has firmed slightly but is still flexible. Take 4–6 inch cuttings, strip lower leaves, dip in rooting hormone, and stick in a peat/perlite mix. Keep humid and shaded; rooting takes 6–10 weeks. Most reliable method for azaleas."
             },
@@ -259,7 +259,7 @@
       "scientificName": "Hydrangea spp.",
       "emoji": "💠",
       "guide": "Hydrangeas do beautifully in Jasper with morning sun and afternoon shade. Bigleaf (macrophylla) types bloom on old wood — prune only after flowering. Panicle and smooth (Annabelle-type) bloom on new wood — prune in late winter. Soil pH controls bigleaf color: acidic = blue, alkaline = pink.",
-      "currentSeasonNote": "Late April: leaves pushing out at Church Mountain Road. Apply a slow-release acidic fertilizer now and prune off any winter dieback. At elevation, bud break runs about a week behind valley plants.",
+      "currentSeasonNote": "Early May: leaves pushing out at Church Mountain Road. Apply a slow-release acidic fertilizer now and prune off any winter dieback. At elevation, bud break runs about a week behind valley plants.",
       "soilNotes": "Well-suited to Church Mountain Road's acidic sandy loam soils (pH 4.5–5.5). Bigleaf hydrangeas at pH below 5.5 will naturally produce blue flowers without acidification — this is the default at Church Mountain Road. For pink flowers, you'd need to raise pH to 6.5+ — a constant uphill battle against the native soil chemistry. Add compost annually — organic matter is the single highest-return amendment for hydrangea success on mountain slopes.",
       "aspectPreference": "East-facing slopes are ideal at Church Mountain Road — morning sun drives strong flowering, afternoon shade prevents wilting and leaf scorch. Avoid south and west exposures where afternoon summer temperatures can exceed 90°F and humidity combined with sun stresses bigleaf types severely. North-facing positions work but expect 20–30% fewer flowers.",
       "frostSensitivity": "Variable by type. Bigleaf (macrophylla): flower buds form on old wood in summer; a late frost after Apr 20 at Church Mountain Road elevation can kill those buds without killing the plant — resulting in no blooms that year. This is common at elevation in late frost years. Panicle and Annabelle types bloom on new wood — fully frost-safe since they push new buds each spring. Endless Summer reblooming bigleaf types partially mitigate the frost-bud-kill problem.",
@@ -273,7 +273,7 @@
                 1,
                 2
               ],
-              "peakWindow": "Feb 15–Mar 5 before bud break",
+              "peakWindow": "Feb 18–Mar 8 before bud break",
               "narrow": false,
               "description": "Late winter (Feb–early Mar) for hydrangeas that bloom on the current season's growth — paniculata (Limelight, etc.) and arborescens (Annabelle, smooth hydrangea). Cut hard — back to a strong framework or even down to 1–2 feet — to promote vigorous flowering stems. The harder you cut, the bigger the flower heads (but fewer of them)."
             },
@@ -284,7 +284,7 @@
                 6,
                 7
               ],
-              "peakWindow": "Jul 10–Aug 1 at ~1,750 ft — immediately after last flowers fade",
+              "peakWindow": "Jul 13–Jul 29 at ~2,959 ft — immediately after last flowers fade",
               "narrow": true,
               "description": "Mid-summer (Jul–Aug) IMMEDIATELY after flowering for hydrangeas that bloom on previous year's growth — macrophylla (bigleaf, mophead, lacecap) and quercifolia (oakleaf). At Church Mountain Road elevation, peak bloom runs about a week later than valley plants, so the pruning window is typically mid-July to early August. Pruning later or in winter removes next year's flower buds. Light shaping only — remove spent flowers, dead wood, and crossing branches."
             }
@@ -299,7 +299,7 @@
                 5,
                 6
               ],
-              "peakWindow": "Jun 15–Jul 10",
+              "peakWindow": "Jun 18–Jul 13",
               "narrow": false,
               "description": "Jun–Jul: take 4–6 inch tip cuttings from non-flowering stems, strip lower leaves, dip in rooting hormone, stick in moist potting mix. Cover with a clear bag or dome to keep humid. Roots in 3–4 weeks. Hydrangeas are among the easiest shrubs to propagate this way."
             },
@@ -388,10 +388,10 @@
       "scientificName": "Cornus florida",
       "emoji": "🌼",
       "guide": "Native flowering dogwoods are perfectly suited to Jasper's understory conditions — they want morning sun, afternoon shade, and well-drained acidic soil rich in organic matter. Avoid planting too deep and never let mulch touch the trunk. Susceptible to dogwood anthracnose in cool wet springs and powdery mildew in humid summers.",
-      "currentSeasonNote": "Late April: bloom period winding down at Church Mountain Road. Inspect bark at the base for borer entry holes and frass, and watch for early anthracnose spots on leaves as temperatures warm and humidity rises.",
+      "currentSeasonNote": "Early May: bloom period winding down at Church Mountain Road. Inspect bark at the base for borer entry holes and frass, and watch for early anthracnose spots on leaves as temperatures warm and humidity rises.",
       "soilNotes": "Native to Appalachian woodland understories — your Hayesville/Cecil soil profile is its natural home. Wants well-drained acidic soil rich in organic matter (pH 5.0–6.0). Critical: never plant deeper than the nursery rootball and never pile soil or mulch against the trunk. Church Mountain Road slope positions with natural leaf litter accumulation are ideal; avoid compacted flat areas or low-lying spots with clay subsoil and wet soils.",
       "aspectPreference": "East-facing mid-slope is the ideal Church Mountain Road position — mirrors its native understory habitat. Afternoon shade prevents the stress that makes trees susceptible to borer attack. Direct south exposure significantly increases borer risk through heat stress. North-facing positions work but reduce flowering. Woodland edge positions with dappled canopy overhead are excellent.",
-      "frostSensitivity": "Hardy to Zone 5. Flower buds are moderately frost-sensitive — a late freeze in April can brown open blossoms without harming the tree. At ~1,750 ft, the adjusted last frost of Apr 30 means late blooms (typically Apr 5–25 in the valley) may be partially frosted in average years. This is normal cosmetic damage; the tree recovers.",
+      "frostSensitivity": "Hardy to Zone 5. Flower buds are moderately frost-sensitive — a late freeze in April can brown open blossoms without harming the tree. At ~2,959 ft, the adjusted last frost of Apr 30 means late blooms (typically Apr 5–25 in the valley) may be partially frosted in average years. This is normal cosmetic damage; the tree recovers.",
       "care": {
         "prune": {
           "months": [
@@ -399,7 +399,7 @@
             0,
             1
           ],
-          "peakWindow": "Dec 15–Feb 15 while fully dormant",
+          "peakWindow": "Dec 12–Feb 18 while fully dormant",
           "narrow": false,
           "description": "Late fall through late winter (Nov–Feb) when fully dormant. Dogwoods 'bleed' heavily if pruned during active sap flow, and open wounds invite the dogwood borer — the most serious dogwood pest in the Southeast. Dormant pruning lets cuts callus over before borer season begins in May at Church Mountain Road elevation. Remove dead, damaged, and crossing branches; never top a dogwood. Light hand only — dogwoods don't need or want heavy pruning."
         },
@@ -412,7 +412,7 @@
                 5,
                 6
               ],
-              "peakWindow": "Jun 20–Jul 15",
+              "peakWindow": "Jun 23–Jul 18",
               "narrow": false,
               "description": "Jun–Jul: 4-6 inch semi-hardwood cuttings, hormone, well-drained mix, kept humid. Moderately difficult — expect 30–50% success. Wound the base lightly with a knife to expose more cambium for rooting."
             },
@@ -423,7 +423,7 @@
                 9,
                 10
               ],
-              "peakWindow": "Oct 1–Nov 1 berry collection",
+              "peakWindow": "Sep 28–Oct 29 berry collection",
               "narrow": false,
               "description": "Easiest method: collect berries in fall when fully ripe (red), clean off pulp, plant directly in a nursery bed where they get cold winter exposure. Germination in spring; seedlings reach plantable size in 2 years. Or just transplant volunteer seedlings from under existing trees — Church Mountain Road likely has naturally seeded volunteers in woodland areas."
             }
@@ -434,7 +434,7 @@
             2,
             3
           ],
-          "peakWindow": "Mar 15–Apr 5",
+          "peakWindow": "Mar 18–Apr 8",
           "narrow": false,
           "description": "Light feeding in early spring (Mar–Apr) with an acidic slow-release. Avoid high-nitrogen lawn fertilizers — they push weak growth that attracts borers. Mature dogwoods in good soil on Church Mountain Road rarely need supplemental fertilizer — the naturally acidic Hayesville soil and leaf litter mulch provide a good native nutrient cycle."
         },
@@ -478,7 +478,7 @@
                 6,
                 7
               ],
-              "peakWindow": "May 5–20 at ~1,750 ft — peak adult flight; inspect base of trunk for frass weekly",
+              "peakWindow": "May 8–20 at ~2,959 ft — peak adult flight; inspect base of trunk for frass weekly",
               "narrow": true,
               "description": "May–Aug: the #1 dogwood killer. Look for sawdust-like frass at the base of the trunk, peeling or sunken bark, branch dieback, and small holes in the trunk. At Church Mountain Road elevation, adult flight peaks in early-to-mid May (roughly a week later than valley). Borers enter through wounds — keep mulch off the trunk, never weed-whack against the bark, and prune only in winter. Established infestations are very hard to treat; prevention is everything."
             },
@@ -511,10 +511,10 @@
       "scientificName": "Buxus spp.",
       "emoji": "🟢",
       "guide": "Boxwoods need well-drained soil and decent air circulation — Jasper's humidity makes boxwood blight a real risk. Prefer partial shade in hot summers. Shallow roots demand consistent moisture and a thick mulch layer, kept off the trunk. Inspect interior for dead leaves regularly and clean them out for airflow.",
-      "currentSeasonNote": "Late April: shape any new growth lightly now. Watch closely for boxwood leafminer adults (tiny orange flies) and any early signs of blight (dark leaf spots, black stem streaks) — humidity is climbing at Church Mountain Road.",
+      "currentSeasonNote": "Early May: shape any new growth lightly now. Watch closely for boxwood leafminer adults (tiny orange flies) and any early signs of blight (dark leaf spots, black stem streaks) — humidity is climbing at Church Mountain Road.",
       "soilNotes": "Boxwoods prefer slightly less acidic soil than Church Mountain Road's native 4.5–5.5 range — aim for 6.0–6.5 for best performance. You'll likely need to apply dolomitic limestone to raise pH in planting beds. The clay Bt argillic subsoil in flat areas creates drainage problems that are fatal to boxwoods — use bermed or raised bed positions on any flat ground. Excellent drainage is non-negotiable.",
       "aspectPreference": "East or north-facing positions reduce blight risk at Church Mountain Road. Partial afternoon shade is strongly preferred — the property's humid summers combined with direct afternoon sun stress boxwoods and worsen blight incidence. Avoid low-lying frost pocket areas where prolonged cold and ice damage evergreen foliage and increases winter desiccation.",
-      "frostSensitivity": "Hardy to Zone 5–6 depending on species. Winter bronzing (temporary orange-brown discoloration) is common in exposed positions at Church Mountain Road elevation — an anti-desiccant spray in December reduces this. New growth pushed by spring fertilization is frost-sensitive — a late frost after May 1 at ~1,750 ft can burn tender growth, though plants recover.",
+      "frostSensitivity": "Hardy to Zone 5–6 depending on species. Winter bronzing (temporary orange-brown discoloration) is common in exposed positions at Church Mountain Road elevation — an anti-desiccant spray in December reduces this. New growth pushed by spring fertilization is frost-sensitive — a late frost after May 1 at ~2,959 ft can burn tender growth, though plants recover.",
       "care": {
         "prune": {
           "subcategories": [
@@ -526,7 +526,7 @@
                 4,
                 5
               ],
-              "peakWindow": "Apr 20–May 20 — after first flush partially hardened",
+              "peakWindow": "Apr 23–May 23 — after first flush partially hardened",
               "narrow": false,
               "description": "Spring through early summer (Apr–Jun) for formal hedges and topiary. Wait until after the first flush of new growth has emerged and partially hardened — at Church Mountain Road elevation, this typically falls late April through May. Use sharp shears for clean cuts. Avoid shearing into late summer or fall — late cuts push tender growth that won't harden before winter."
             },
@@ -564,7 +564,7 @@
             7,
             8
           ],
-          "peakWindow": "Jul 15–Aug 15",
+          "peakWindow": "Jul 18–Aug 12",
           "narrow": false,
           "description": "Easy from semi-hardwood cuttings in mid-to-late summer (Jul–Sep) when new growth has firmed up. 4-inch cuttings, hormone, peat/perlite mix, kept humid. Rooting takes 6–10 weeks. Boxwoods grown from cuttings retain the parent's exact form and growth rate."
         },
@@ -573,7 +573,7 @@
             2,
             3
           ],
-          "peakWindow": "Mar 15–Apr 5",
+          "peakWindow": "Mar 18–Apr 8",
           "narrow": false,
           "description": "Early spring (Mar–Apr) with a slow-release balanced fertilizer or one formulated for evergreens. Boxwoods are light feeders — over-fertilizing promotes weak growth that's more susceptible to blight and leafminer. Note that Church Mountain Road's native soil pH may need liming before fertilizer is effective — test pH first."
         },
@@ -603,7 +603,7 @@
                 3,
                 4
               ],
-              "peakWindow": "Apr 20–May 10 at ~1,750 ft — adult emergence window; narrow window to catch and treat",
+              "peakWindow": "Apr 23–May 13 at ~2,959 ft — adult emergence window; narrow window to catch and treat",
               "narrow": true,
               "description": "Apr–May: adults emerge as tiny orange flies and lay eggs in leaves. Larvae feed inside leaves causing blistered, mottled appearance. At Church Mountain Road elevation, adult emergence is typically 7–10 days later than valley plants — watch for the orange flies in late April through early May. Treat with systemic insecticide at adult emergence or prune off heavily infested branches. Timing this correctly is critical; the window is short."
             },
@@ -628,7 +628,7 @@
                 7,
                 8
               ],
-              "peakWindow": "May 15–Jun 10 at ~1,750 ft — first high-risk humid stretch; inspect every 10 days",
+              "peakWindow": "May 18–Jun 13 at ~2,959 ft — first high-risk humid stretch; inspect every 10 days",
               "narrow": true,
               "description": "May–Jun and Aug–Sep cool humid stretches: dark circular leaf spots, black streaks on stems, rapid defoliation from the bottom up. The existential threat to boxwoods — and Church Mountain Road's 70–90% summer RH makes this a high-priority concern. Clean tools between plants with bleach, remove and bag (don't compost) infected material immediately, never work on wet plants. No effective cure once established. The peak risk window at elevation is mid-May through early June — inspect every 10 days during this stretch."
             }
@@ -649,10 +649,10 @@
       "scientificName": "Ilex spp.",
       "emoji": "🎄",
       "guide": "Hollies are tough and well-suited to Jasper — full sun for best berry production, partial shade tolerated. Acidic well-drained soil. Most species need both male and female plants for berries. Established hollies are quite drought-tolerant. Watch for leaf miner and scale insects.",
-      "currentSeasonNote": "Late April: new growth flush starting at Church Mountain Road. Hold off on heavy pruning until that flush hardens off in early summer — pruning now would remove flower buds.",
+      "currentSeasonNote": "Early May: new growth flush starting at Church Mountain Road. Hold off on heavy pruning until that flush hardens off in early summer — pruning now would remove flower buds.",
       "soilNotes": "Well-matched to Hayesville/Cecil/Pacolet soils (pH 4.5–6.0). Most hollies thrive in the 5.5–6.5 range — you may need light dolomitic lime applications on more acidic spots at Church Mountain Road. Both Ilex opaca (American holly, native) and Ilex cornuta (Chinese holly) perform excellently here. Established plants tolerate clay subsoil reasonably well — better drainage tolerance than most landscape shrubs.",
       "aspectPreference": "Full sun for maximum berry production. East-facing slopes at Church Mountain Road are excellent — good sun exposure without the desiccating northwest winter winds that affect exposed ridgeline positions. Berry-bearing female plants need a male holly within about 50 feet (within pollinator range) — plan your male/female planting accordingly.",
-      "frostSensitivity": "Very hardy — most Ilex species are Zone 5 or colder. Flowers (and therefore berries) can be lost to a late frost in late April; at Church Mountain Road elevation (~1,750 ft), the bloom window (late April–May) slightly overlaps the last frost probability window. Mature berries persist through winter and easily tolerate Zone 7b low temperatures.",
+      "frostSensitivity": "Very hardy — most Ilex species are Zone 5 or colder. Flowers (and therefore berries) can be lost to a late frost in late April; at Church Mountain Road elevation (~2,959 ft), the bloom window (late April–May) slightly overlaps the last frost probability window. Mature berries persist through winter and easily tolerate Zone 7b low temperatures.",
       "care": {
         "prune": {
           "subcategories": [
@@ -663,7 +663,7 @@
                 5,
                 6
               ],
-              "peakWindow": "Jun 20–Jul 10 at ~1,750 ft — after spring flush hardened, before late-summer bud set",
+              "peakWindow": "Jun 23–Jul 13 at ~2,959 ft — after spring flush hardened, before late-summer bud set",
               "narrow": true,
               "description": "Early-to-mid summer (Jun–Jul) after the spring growth flush has hardened. At Church Mountain Road elevation, this window lands about a week later than valley plants — typically late June through early July. Pruning earlier removes flowers (= no berries this year). Pruning later interferes with bud set for next year's berries. For berry-producing female plants, prune lightly to preserve flowering branches."
             },
@@ -674,7 +674,7 @@
                 1,
                 2
               ],
-              "peakWindow": "Feb 15–Mar 5",
+              "peakWindow": "Feb 18–Mar 8",
               "narrow": false,
               "description": "Late winter (Feb–early Mar) for severely overgrown hollies that need to be cut hard. Hollies tolerate hard pruning well, even down to bare wood — they regenerate from old wood, which is unusual among broadleaf evergreens. Sacrifices berries for one season but restores shape. Use only when needed; not part of normal annual care."
             }
@@ -686,7 +686,7 @@
             7,
             8
           ],
-          "peakWindow": "Jul 15–Sep 1",
+          "peakWindow": "Jul 18–Aug 29",
           "narrow": false,
           "description": "Semi-hardwood cuttings in mid-to-late summer (Jul–Sep). 4-6 inch cuttings, hormone, well-drained mix. Rooting takes 8–12 weeks. Hollies are dioecious — you'll need both male and female plants for berries, so propagate accordingly. Seed propagation is slow (often 2-year germination) and seedlings have unknown sex until flowering."
         },
@@ -724,7 +724,7 @@
               "months": [
                 4
               ],
-              "peakWindow": "May 1–20",
+              "peakWindow": "May 4–20",
               "narrow": false,
               "description": "May: squiggly trails or blotches inside leaves. Mostly cosmetic on established hollies. Prune off heavily affected leaves and destroy them; treat with systemic if severe."
             },
@@ -767,17 +767,17 @@
       "scientificName": "Kalmia latifolia",
       "emoji": "🌺",
       "guide": "Mountain laurel is a Blue Ridge native — your land is in its sweet spot. Wants acidic well-drained soil, partial shade, and good air circulation. Avoid wet feet at all costs. Slow-growing and long-lived. Deadhead spent blooms to channel energy into next year's flowering. All parts are toxic to livestock and pets.",
-      "currentSeasonNote": "Late April: flower buds swelling for May–June bloom at Church Mountain Road elevation. Don't prune now — wait until just after flowering finishes. This is one of the most spectacular spring plants on the property.",
+      "currentSeasonNote": "Early May: flower buds swelling for May–June bloom at Church Mountain Road elevation. Don't prune now — wait until just after flowering finishes. This is one of the most spectacular spring plants on the property.",
       "soilNotes": "Native Blue Ridge species — Church Mountain Road is in its core Appalachian habitat and the Hayesville/Cecil/Pacolet soils are its native medium. Thrives at pH 4.5–5.5 without any amendment. The native leaf litter of the property's wooded areas is the ideal mulch. Critical weakness: waterlogged roots — the well-drained slopes of Church Mountain Road are ideal, but any flat spot with clay Bt subsoil is high-risk. Test drainage in suspect areas before planting.",
       "aspectPreference": "North-facing and east-facing mid-slope woodland edges are perfect at Church Mountain Road — exactly where mountain laurel occurs naturally. South-facing direct-sun exposures are too hot and dry for it even at elevation. The property's native woodland with dappled canopy is prime mountain laurel habitat; the plants already established there are in their optimal zone.",
-      "frostSensitivity": "Hardy to Zone 4. Very cold-tolerant at Church Mountain Road elevation. Flower buds are frost-sensitive in spring — a late freeze after bud swell in late April or early May can kill developing flowers without harming the plant. At ~1,750 ft, the May 1–15 window is the critical frost-risk period for buds. Established plants at this elevation are fully winter-hardy.",
+      "frostSensitivity": "Hardy to Zone 4. Very cold-tolerant at Church Mountain Road elevation. Flower buds are frost-sensitive in spring — a late freeze after bud swell in late April or early May can kill developing flowers without harming the plant. At ~2,959 ft, the May 1–15 window is the critical frost-risk period for buds. Established plants at this elevation are fully winter-hardy.",
       "care": {
         "prune": {
           "months": [
             5,
             6
           ],
-          "peakWindow": "Jun 15–Jul 5 at ~1,750 ft — immediately after last flowers drop",
+          "peakWindow": "Jun 18–Jul 8 at ~2,959 ft — immediately after last flowers drop",
           "narrow": true,
           "description": "Single window: immediately after flowering ends. At Church Mountain Road elevation, blooms peak in late May–early June, about a week later than valley plants — the pruning window opens in mid-June and closes by early July. Like azaleas, mountain laurel sets next year's buds on summer growth, so pruning later removes next year's flowers. Deadheading spent blooms is the most useful task — it prevents seed formation and channels energy into bud set. Heavy renovation should be done in stages over 2–3 years; mountain laurel is slow to recover from hard cuts."
         },
@@ -803,7 +803,7 @@
                 6,
                 7
               ],
-              "peakWindow": "Jul 10–Aug 5",
+              "peakWindow": "Jul 13–Aug 2",
               "narrow": false,
               "description": "Jul–Aug semi-hardwood cuttings. Honestly difficult — under 20% success even with bottom heat and mist. Most home gardeners give up after one attempt. If you want more mountain laurel, buy nursery stock or do layering."
             }
@@ -888,7 +888,7 @@
       "scientificName": "Acer palmatum",
       "emoji": "🍁",
       "guide": "Japanese maples thrive in Jasper with afternoon shade — direct hot summer sun scorches leaves, especially on dissectum (laceleaf) varieties. Want well-drained acidic soil rich in organic matter. Shallow roots demand consistent moisture and mulch. Pruning is best in late winter or summer — avoid spring when sap flows heavily.",
-      "currentSeasonNote": "Late April: leaves fully out at Church Mountain Road. Avoid pruning now — sap flow is at its peak. Mulch thoroughly before summer heat arrives and watch for aphids on new growth. This is the most frost-vulnerable growth stage for Japanese maples at elevation.",
+      "currentSeasonNote": "Early May: leaves fully out at Church Mountain Road. Avoid pruning now — sap flow is at its peak. Mulch thoroughly before summer heat arrives and watch for aphids on new growth. This is the most frost-vulnerable growth stage for Japanese maples at elevation.",
       "soilNotes": "Excellent match for Church Mountain Road soils. Hayesville sandy loam surface horizon provides excellent drainage while retaining adequate moisture when amended with compost. Native pH 4.5–5.5 is in the ideal range for Japanese maples (5.0–6.0). Annual leaf mulch at 2–3 inches is the most valuable single amendment — it moderates soil temperature, retains moisture, and feeds beneficial fungi. Avoid clay subsoil flat areas where drainage is poor and root rot risk increases.",
       "aspectPreference": "East-facing mid-slope is the ideal Church Mountain Road position. Afternoon shade is essential — the property's east-facing slopes provide natural afternoon shade from the mountain. South-facing slopes at this elevation consistently cause leaf scorch on dissectum types even with irrigation. North-facing positions reduce fall color intensity. The thermal belt mid-slope positions are safest against late spring frosts that can damage the early leaf flush.",
       "frostSensitivity": "Hardy to Zone 5b. New spring growth is very frost-sensitive — a late freeze after leaf flush (at Church Mountain Road: watch the May 1–21 window) can kill or brown the entire first flush of leaves. Trees recover but lose a season of growth. Dissectum (laceleaf) types push leaves earlier than upright types and are more frost-exposed at elevation. Site away from frost pockets — thermal belt mid-slope positions at Church Mountain Road are significantly safer than any hollow or valley bottom.",
@@ -902,7 +902,7 @@
                 0,
                 1
               ],
-              "peakWindow": "Jan 15–Feb 10 before sap surge — hard cutoff at mid-February",
+              "peakWindow": "Jan 18–Feb 13 before sap surge — hard cutoff at mid-February",
               "narrow": true,
               "description": "Late winter (Jan–Feb) while fully dormant — branch architecture is visible and sap flow is minimal. Remove dead, damaged, crossing, and inward-growing branches. Establish the long-term framework. CRITICAL cutoff: stop by mid-February. Pruning in early spring (Mar–Apr) hits peak sap flow; cuts will bleed heavily and may not heal cleanly. At Church Mountain Road elevation bud break occurs slightly later than the valley, giving you a small extended window — but mid-February remains the safe cutoff."
             },
@@ -913,9 +913,9 @@
                 6,
                 7
               ],
-              "peakWindow": "Jul 15–Aug 10 at ~1,750 ft — sap at seasonal low",
+              "peakWindow": "Jul 18–Aug 7 at ~2,959 ft — sap at seasonal low",
               "narrow": false,
-              "description": "Mid-to-late summer (Jul–Aug) sap flow has slowed. Best window for refinement work — thinning the canopy for light penetration, removing water sprouts, improving silhouette. Cuts heal quickly. You can see the full leaf canopy and shape it precisely. At Church Mountain Road, Jul 15–Aug 10 is ideal. Never prune in fall — wounds invite winter dieback."
+              "description": "Mid-to-late summer (Jul–Aug) sap flow has slowed. Best window for refinement work — thinning the canopy for light penetration, removing water sprouts, improving silhouette. Cuts heal quickly. You can see the full leaf canopy and shape it precisely. At Church Mountain Road, Jul 18–Aug 7 is ideal. Never prune in fall — wounds invite winter dieback."
             }
           ]
         },
@@ -930,7 +930,7 @@
             2,
             3
           ],
-          "peakWindow": "Mar 15–Apr 5",
+          "peakWindow": "Mar 18–Apr 8",
           "narrow": false,
           "description": "Early spring (Mar–Apr) with a slow-release acidic fertilizer, light hand. Japanese maples are slow growers and over-fertilizing produces weak floppy growth. Most established trees in Church Mountain Road's naturally acidic organic-matter-rich soil need little or no fertilizer — yellow or pale leaves usually indicate pH issues, not nutrient deficiency. Test soil pH before fertilizing."
         },
@@ -949,7 +949,7 @@
           "months": [
             1
           ],
-          "peakWindow": "Feb 10–28 before bud break",
+          "peakWindow": "Feb 13–28 before bud break",
           "narrow": false,
           "description": "Container Japanese maples should be repotted every 2–3 years in late winter (Feb), with light root pruning to maintain scale."
         },
@@ -962,7 +962,7 @@
                 3,
                 4
               ],
-              "peakWindow": "Apr 15–May 10 at ~1,750 ft — peak aphid flush on new growth",
+              "peakWindow": "Apr 18–May 13 at ~2,959 ft — peak aphid flush on new growth",
               "narrow": false,
               "description": "Apr–May on tender new growth: clusters of green or black insects, sticky honeydew below. At Church Mountain Road elevation, the peak flush of tender new growth occurs about a week later than valley plants. Hose off forcefully; insecticidal soap if heavy. Ladybugs and parasitic wasps handle most infestations naturally — avoid broad-spectrum pesticides that kill beneficial insects."
             },

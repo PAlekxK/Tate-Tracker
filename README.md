@@ -1,6 +1,6 @@
 # Church Mountain Property Tracker
 
-A self-contained property dashboard for **282 Church Mountain Road, Jasper, GA 30143** (elevation ~1,750 ft, USDA Zone 7b).
+A self-contained property dashboard for **282 Church Mountain Road, Jasper, GA 30143** (elevation 2,959 ft, USDA Zone 6b elevation-adjusted; 7b official).
 
 Open `viewer.html` in any browser — no server, no build step, no account required.
 
