@@ -286,7 +286,9 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 2. **Homelite trimmer:** confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker is slightly ambiguous.
 3. **Homelite blower/vac:** no model sticker found on the unit. Maintenance specs are inferred from the trimmer's engine family (HHCPS.0264AT). Acceptable for at-a-store reference.
 4. **Annual: NASA SVS Dial-a-Moon visualization ID** — when SVS publishes the 2027 visualization (usually Dec/Jan), update the `DIAL_A_MOON_VIZ` constant in viewer.html (`year`, `parent` bucket, `id`). Find the new ID at svs.gsfc.nasa.gov/gallery/moonphase. Until refreshed, the moon hero hides cleanly once the year flips.
-5. **GitHub repo secrets for the weather-history workflow** (one-time): GitHub repo Settings → Secrets and variables → Actions → New repository secret. Add `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` (same values as in `viewer.html` for the live Ambient Weather fetch). Until both exist, the scheduled `.github/workflows/record-weather.yml` runs will fail — but no data corrupts; once secrets are set the next run picks up automatically.
+5. **Push the weather-history GitHub Action workflow + add repo secrets** (one-time):
+   - **5a.** The workflow file is staged locally at `.github/workflows/record-weather.yml` but the current auth token doesn't have `workflow` scope, so the file is **unpushed**. Either: (i) update Paul's GitHub PAT to include the `workflow` scope and push from the local repo, **or** (ii) create the file manually in the GitHub web UI by copying from the local copy (Repo → Actions → set up workflow → paste contents).
+   - **5b.** After the workflow file is on `main`: GitHub repo Settings → Secrets and variables → Actions → New repository secret. Add `AMBIENT_APP_KEY` and `AMBIENT_API_KEY` (same values used in `viewer.html`'s live Ambient fetch). Until both exist, scheduled runs will fail — no data corrupts; once secrets are set, the next run picks up automatically.
 
 ## Next steps after the drafts go live
 
