@@ -13,7 +13,7 @@ Tate Tracker is a **personal property reference dashboard** for 282 Church Mount
 Open `viewer.html` directly in a browser — no build step, no server, no install. For Playwright testing or CORS-sensitive API testing, serve locally:
 
 ```bash
-cd /Users/paulkirschenbauer/Downloads/Tate-Tracker
+cd /Users/paulkirschenbauer/Documents/Claude/Projects/Tate-Tracker
 python3 -m http.server 8765
 # then open http://localhost:8765/viewer.html
 ```

@@ -1499,6 +1499,412 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
       }
+    },
+    {
+      "id": "butterfly-weed",
+      "name": "Butterfly Weed",
+      "scientificName": "Asclepias tuberosa",
+      "emoji": "🦋",
+      "guide": "A native milkweed that thrives in Jasper's well-drained mountain soils. Bright orange flat-topped flower clusters (corymbs) bloom June through August and are magnets for monarchs, swallowtails, and a wide range of native bees. Drought-tolerant once established — it resents wet feet and overwatering. Slow to emerge in spring; do not assume it has died and disturb the root. The deep taproot makes transplanting difficult, so site carefully.",
+      "currentSeasonNote": "May: plants should be actively growing and approaching bloom. CONFIRMED ISSUE at Church Mountain Road (May 2026): aphid infestation with severe distortion and curling of growing tips — small black dots visible on stems and leaves. Avoid systemic insecticides to protect monarch caterpillars and other pollinators. See Inspect section for treatment.",
+      "soilNotes": "Perfectly matched to Hayesville/Cecil/Pacolet native soils — well-drained acidic sandy loam is ideal. Butterfly weed is native to dry rocky/sandy slopes and will rot in poorly drained heavy clay. On flat areas at Church Mountain Road where clay Bt subsoil impedes drainage, raised beds or high spots are strongly preferred. pH 6.0–7.0 is optimal; native soils at ~5.0 may benefit from a light lime amendment.",
+      "aspectPreference": "Full sun — at least 6 hours of direct sun daily. South or west-facing open slopes are best. The species is native to dry open meadows and roadsides; it will decline in shade or with root competition from trees.",
+      "frostSensitivity": "Extremely cold-hardy (Zone 3). No frost concerns at Church Mountain Road. Very late to emerge in spring — do not disturb the crown before late April; emergence at ~2,959 ft elevation can be delayed until mid-May.",
+      "care": {
+        "prune": {
+          "months": [
+            2
+          ],
+          "peakWindow": "Mar 1–20 before emergence",
+          "narrow": true,
+          "description": "Cut back last year's dead stems to ground level in late winter/early spring before new growth emerges. Do not cut back in fall — the dead stems provide winter habitat for native solitary bees. In early spring, check for bright orange-red shoots emerging at soil level before cutting."
+        },
+        "propagate": {
+          "subcategories": [
+            {
+              "id": "seed",
+              "label": "Seed",
+              "months": [
+                9,
+                10
+              ],
+              "peakWindow": "Oct 1–20 — collect pods just as they split",
+              "narrow": true,
+              "description": "Collect seed pods in fall when they begin to split and before the silky floss carries seeds away. Cold stratification (30–60 days at 34–38°F in moist sand or paper towel) dramatically improves germination. Sow outdoors in fall for natural cold stratification, or stratify in the fridge and start indoors in March. Seedlings take 2–3 years to bloom."
+            },
+            {
+              "id": "root-cuttings",
+              "label": "Root cuttings",
+              "months": [
+                2,
+                3
+              ],
+              "peakWindow": "Mar — before growth begins",
+              "narrow": false,
+              "description": "Root cuttings are the most reliable vegetative method. Take 3–4 inch sections of root in late winter/early spring before emergence. Plant horizontally 1–2 inches deep. Roots are thick and brittle — work carefully. Plants grown from root cuttings typically bloom in 1–2 years."
+            }
+          ]
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Do not fertilize. Butterfly weed evolved in poor, dry soils — excess nitrogen produces lush weak foliage that is more aphid-susceptible and fewer flowers. If plants are in good, well-drained soil, no supplemental fertilizer is needed or desirable."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Water weekly during the first year to establish the taproot. Once established (year 2+), butterfly weed is drought-tolerant and performs better with less water. Overwatering or waterlogged conditions will kill the plant. At Church Mountain Road, established plants should need no supplemental watering except during extended summer droughts."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — the deep taproot makes transplanting very difficult. Site carefully from the start."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "aphids",
+              "label": "Aphid infestation",
+              "months": [
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "peakWindow": "May–Jun when new growth is most vulnerable",
+              "narrow": false,
+              "description": "CONFIRMED ISSUE at Church Mountain Road (May 2026): black aphid infestation with severe distortion and curling of growing tips. Small black dots on stems and leaves are the aphids or their frass. Do NOT use systemic insecticides — monarch caterpillars feed on these plants and would be killed. Management: (1) strong blast of water to knock aphids off; (2) insecticidal soap sprayed directly on affected areas; (3) tolerate moderate infestations — lady beetles and parasitic wasps often bring populations under control naturally within 2–3 weeks. Distorted growth will not recover; new growth after control should come in clean."
+            }
+          ]
+        }
+      },
+      "photo": "images/plants/butterfly-weed.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Cbaile19",
+        "license": "CC0 1.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Asclepias_tuberosa_-_Butterfly_weed.jpg"
+      }
+    },
+    {
+      "id": "wisteria-summer-cascade",
+      "name": "Summer Cascade Wisteria",
+      "scientificName": "Wisteria macrostachya 'Betty Matthews'",
+      "emoji": "🌿",
+      "guide": "Summer Cascade is a cultivar of Kentucky wisteria — a native North American species that does not share the invasive habits of Asian wisterias. Long cascading racemes of purple-dark lavender flowers bloom in June and again lightly through summer. Vigorous climber to 15–20 ft — needs a strong pergola, arbor, or trellis. Fragrant and deer-resistant. Unlike Asian wisterias, it blooms reliably without the 7–10 year wait.",
+      "currentSeasonNote": "May: vines are leafing out rapidly. Support training is critical now — tie new shoots to the structure in the direction you want them to grow. First bloom expected in June at ~2,959 ft elevation (a week or two later than valley plants). Do not prune now — wait until after the first bloom flush.",
+      "soilNotes": "Adaptable to Hayesville/Cecil/Pacolet soils across a wide pH range (6.0–8.0). Prefers well-drained soil but tolerates occasional wet periods better than many vines. Avoid wet clay subsoil areas where root rot can occur. Mulch the root zone to retain moisture and moderate soil temperature.",
+      "aspectPreference": "Full sun — minimum 6 hours. South or west-facing fence or pergola is ideal for maximum bloom. Partial shade reduces flowering significantly. At Church Mountain Road, an open south-facing exposure will produce the best bloom.",
+      "frostSensitivity": "Very cold-hardy (Zone 4). No frost concerns at Church Mountain Road. As a native species, it is far better adapted to fluctuating early spring temperatures than Asian wisterias.",
+      "care": {
+        "prune": {
+          "subcategories": [
+            {
+              "id": "summer-trim",
+              "label": "Summer trim (after bloom)",
+              "months": [
+                6,
+                7
+              ],
+              "peakWindow": "Late Jun–Jul — after first bloom flush",
+              "narrow": false,
+              "description": "After the main June bloom flush, cut back long whippy shoots to 5–6 leaves. This controls size, tidies the plant, and encourages secondary flower bud formation for later flushes. Do not cut back into the main framework at this time."
+            },
+            {
+              "id": "winter-prune",
+              "label": "Hard winter pruning",
+              "months": [
+                1,
+                2
+              ],
+              "peakWindow": "Feb 1–20 before bud swell",
+              "narrow": false,
+              "description": "Late winter is the main structural pruning window. Cut back all lateral side shoots to 2–3 buds from the main framework. This concentrates energy into bloom rather than foliage and keeps the plant manageable. Also the time to train new shoots along the support structure."
+            }
+          ]
+        },
+        "propagate": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Apr — before vigorous growth",
+          "narrow": false,
+          "description": "Simple or serpentine layering in spring. Pin a flexible young shoot to the ground, wound the underside lightly, cover with soil. Roots form in 2–4 months; sever from parent the following spring. Most reliable vegetative method for home gardeners."
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Avoid high-nitrogen fertilizers entirely — they promote lush foliage at the expense of flowers. If soil is very poor, a low-nitrogen fertilizer (e.g., 5-10-10) can be applied in late winter/early spring. Church Mountain Road native soils are generally adequate; most established wisterias need no fertilizing."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Water regularly during the first two years to establish a deep root system. Once established, wisteria is reasonably drought-tolerant. Consistent moisture during bloom development (May–June) supports a heavier flower display. Mulch the root zone to retain soil moisture."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape vine."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "support-structure",
+              "label": "Support structure integrity",
+              "months": [
+                2,
+                3,
+                9
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Check support structure in late winter before growth begins and again in fall. A mature wisteria exerts significant weight and leverage on trellises and pergolas. Ensure posts, anchors, and wires are secure. Wooden structures may need periodic reinforcing as the vine matures."
+            },
+            {
+              "id": "scale",
+              "label": "Scale insects",
+              "months": [
+                2,
+                3,
+                6,
+                7
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Look for small bumpy brown or white waxy scales on stems and older wood. Dormant oil spray in late winter/early spring (before bud break) is the most effective control. In summer, look for crawlers on new growth — insecticidal soap or neem oil when crawlers are active."
+            }
+          ]
+        }
+      },
+      "photo": "images/plants/wisteria-summer-cascade.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Daderot",
+        "license": "CC0 1.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Wisteria_macrostachya_-_Minnesota_Landscape_Arboretum_-_DSC05681.JPG"
+      }
+    },
+    {
+      "id": "clematis-elpis",
+      "name": "Elpis Clematis",
+      "scientificName": "Clematis hybrid 'EviGrey154'",
+      "emoji": "💜",
+      "guide": "Elpis is a repeat-blooming large-flowered clematis hybrid that produces stunning blooms all season from spring through fall. Grows 6–8 ft tall by 2–3 ft wide on a trellis or fence — ideal for vertical interest in mixed borders or against structures. Large flowers are a draw for bees and butterflies. Classic rule: 'feet in the shade, head in the sun' — shade the root zone with mulch or low plants while letting the top climb into full light.",
+      "currentSeasonNote": "May: expect early-season blooms developing now. Tie in new shoots gently to the support as they emerge — the stems are brittle and snap easily in wind. At ~2,959 ft elevation, first bloom may be a week later than valley plants.",
+      "soilNotes": "Requires well-drained soil amended with organic matter. Hayesville/Cecil/Pacolet soils are adequate but benefit from generous compost amendment at planting. A slightly higher pH (6.5–7.0) than the native soil's 4.5–5.5 may be beneficial — a light lime application at planting is worthwhile. Avoid waterlogging — clematis wilt is more severe in poorly drained soils.",
+      "aspectPreference": "Full sun to part shade. East-facing positions with morning sun and afternoon shade are ideal at Church Mountain Road — afternoon summer sun can scorch leaves and stress the plant. Keep roots shaded with 2–3 inches of mulch regardless of sun exposure.",
+      "frostSensitivity": "Hardy to Zone 4. No frost concerns at Church Mountain Road. May emerge a bit later than valley plants in spring — do not cut back too early in spring before checking for live buds.",
+      "care": {
+        "prune": {
+          "months": [
+            1,
+            2
+          ],
+          "peakWindow": "Feb–early Mar before bud swell",
+          "narrow": false,
+          "description": "Elpis blooms on both old and new wood (Group 2). Can be left largely unpruned (just clean out dead stems) for early blooms on old wood, or cut back lightly (by 1/3 to 1/2) in early spring for a tidy plant with vigorous bloom. Remove all dead and damaged stems first, then decide how hard to cut back based on amount of live wood. Full renovation cuts in alternate years help maintain vigor."
+        },
+        "propagate": {
+          "months": [
+            5,
+            6
+          ],
+          "peakWindow": "Jun — internode cuttings when stems are semi-ripe",
+          "narrow": false,
+          "description": "Take 3–4 inch internode cuttings (just below a leaf node) in late spring/early summer when stems are semi-ripe. Remove lower leaves, dip in rooting hormone, and root in perlite/peat mix under mist or in a plastic-covered propagator. Keep shaded and humid; rooting takes 4–6 weeks. May be protected by plant patents — check before propagating for distribution."
+        },
+        "fertilize": {
+          "months": [
+            2,
+            3,
+            5,
+            6
+          ],
+          "peakWindow": "Mar — before active growth; Jun — after first bloom flush",
+          "narrow": false,
+          "description": "Clematis are heavy feeders. Apply a balanced slow-release fertilizer (e.g., 10-10-10) in early spring before growth begins, and a potassium-rich liquid fertilizer (e.g., tomato feed) after the first bloom flush to promote continued repeat blooming through summer. Avoid high-nitrogen feeds in late summer — they promote soft growth vulnerable to late-season disease."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Regular, consistent moisture is essential — clematis dislikes both drought and waterlogging. Mulch the root zone heavily (2–3 inches) to keep roots cool and moist. During hot dry spells in summer, deep watering 2–3 times per week may be needed. Drip irrigation or soaker hose at the base is ideal — keep foliage dry to reduce disease risk."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape vine."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "clematis-wilt",
+              "label": "Clematis wilt",
+              "months": [
+                4,
+                5,
+                6,
+                7
+              ],
+              "peakWindow": "May–Jun — most common in cool wet springs",
+              "narrow": false,
+              "description": "Sudden wilting and blackening of stems, often starting at a leaf node and moving rapidly up or down the stem. Cut affected stems back to healthy tissue immediately and discard (do not compost). Disinfect pruners between cuts. Plants almost always recover from below-ground buds — do not assume the plant is dead. Improve air circulation and avoid wetting foliage."
+            },
+            {
+              "id": "powdery-mildew",
+              "label": "Powdery mildew",
+              "months": [
+                7,
+                8,
+                9
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "White powdery coating on foliage during warm humid periods. More cosmetic than damaging at moderate levels. Improve air circulation. Potassium bicarbonate spray or neem oil controls light infestations. Avoid excess nitrogen fertilizing which promotes susceptible soft growth."
+            }
+          ]
+        }
+      },
+      "photo": "images/plants/clematis-elpis.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Acabashi",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Clematis_hybrid_Elpis_in_Jardin_de_Berchigranges.jpg"
+      }
+    },
+    {
+      "id": "hydrangea-dreamcloud",
+      "name": "DreamCloud Reblooming Hydrangea",
+      "scientificName": "Hydrangea macrophylla 'NCHA3'",
+      "emoji": "🤍",
+      "guide": "DreamCloud is part of the Endless Summer® series — a reblooming bigleaf hydrangea producing large, bright white mophead flowers on both old and new wood from early summer through fall. The reblooming habit is the key advantage over traditional bigleafs: even if old-wood buds are lost to a late frost or winter damage, new-wood buds form and bloom through the growing season. Pure white flowers hold their color well in partial shade.",
+      "currentSeasonNote": "May: check for emerging buds on old wood from last season. At ~2,959 ft elevation, first bloom will be later than valley plants — expect late June. If old-wood shoots were frost-damaged in a late freeze, do not panic: new-wood buds will develop and bloom through summer. Keep consistently watered as active growth accelerates in May.",
+      "soilNotes": "Prefers moist, well-drained soil rich in organic matter. Hayesville/Cecil/Pacolet soils at Church Mountain Road are acidic (4.5–5.5) — DreamCloud flowers white regardless of pH, unlike blue/pink bigleafs. Amend planting hole with generous compost. Avoid low spots with standing water or heavy clay subsoil that stays wet in winter.",
+      "aspectPreference": "Part sun to part shade. East-facing positions with morning sun and afternoon shade are ideal at Church Mountain Road — afternoon summer sun can scorch leaves and stress the plant. North-facing exposures also work well. Avoid full hot south or west exposure without supplemental water.",
+      "frostSensitivity": "Hardy to Zone 4 overall, but old-wood flower buds are vulnerable. At ~2,959 ft elevation, late frosts through mid-May can damage or kill buds formed on last year's growth — a real risk at Church Mountain Road. The reblooming genetics mean the plant will still flower on new wood, but the first bloom flush may be delayed. Protect with frost cloth during late spring freeze events if possible.",
+      "care": {
+        "prune": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Mar — after last hard freeze, before bud swell",
+          "narrow": true,
+          "description": "Prune conservatively in late winter — remove only clearly dead wood (brown, dried stems with no live buds). Do not cut back healthy stems as they carry the first bloom buds. After the first bloom flush (late June–July), lightly deadhead spent flowers and remove any weak or crossing stems. Full renovation cuts (to near ground level) can be done in late winter every 3–4 years to rejuvenate old plants, accepting one season of reduced bloom."
+        },
+        "propagate": {
+          "months": [
+            6,
+            7
+          ],
+          "peakWindow": "Jun–Jul — softwood/semi-ripe stem cuttings",
+          "narrow": false,
+          "description": "Take 4–5 inch tip cuttings from non-flowering stems in early summer. Remove lower leaves, dip in rooting hormone, and stick in a perlite/peat mix. Keep shaded and consistently moist. Rooting takes 4–6 weeks. May be protected by plant patents — check before propagating for distribution."
+        },
+        "fertilize": {
+          "months": [
+            2,
+            3,
+            5
+          ],
+          "peakWindow": "Mar — early spring; May — pre-bloom",
+          "narrow": false,
+          "description": "Apply a balanced slow-release fertilizer (e.g., 10-10-10 or azalea/rhododendron fertilizer) in early spring as growth begins. A second light application in May before bloom promotes strong flower development. Avoid fertilizing after July — late-season nitrogen promotes soft growth more susceptible to frost damage."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Bigleaf hydrangeas are among the most moisture-demanding landscape shrubs. Water deeply 2–3 times per week during hot dry stretches. Morning watering is preferred; avoid wetting foliage in the evening. Mulch 2–3 inches around the base to retain moisture and keep roots cool. At Church Mountain Road, the cooler climate and higher rainfall reduce stress compared to valley sites, but supplemental water is still needed during dry stretches."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape shrub."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "powdery-mildew",
+              "label": "Powdery mildew",
+              "months": [
+                7,
+                8,
+                9
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "White powdery coating on leaf surfaces during warm, humid weather — common in late summer at Church Mountain Road. Primarily cosmetic. Improve air circulation around the plant. Potassium bicarbonate or neem oil spray for control if severe. Avoid overhead watering."
+            },
+            {
+              "id": "botrytis",
+              "label": "Botrytis blight",
+              "months": [
+                3,
+                4,
+                9,
+                10
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Gray fuzzy mold on flowers and buds during cool, damp weather — spring and fall are peak windows at this elevation. Remove and dispose of affected flower heads. Improve air circulation. Fungicide treatment rarely needed in landscape settings."
+            },
+            {
+              "id": "frost-bud-damage",
+              "label": "Late frost bud damage",
+              "months": [
+                3,
+                4
+              ],
+              "peakWindow": "Apr–early May — critical watch period at ~2,959 ft elevation",
+              "narrow": true,
+              "description": "Old-wood flower buds are vulnerable to late spring frosts. Check the 10-day forecast in April and early May. When a hard frost (<28°F) is predicted, cover with frost cloth or old bedsheets overnight. Even with bud loss, the reblooming genetics ensure bloom on new wood later in the season."
+            }
+          ]
+        }
+      },
+      "photo": "images/plants/hydrangea-dreamcloud.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Jerzy Opioła",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_JPG01.jpg"
+      }
     }
   ]
 }
