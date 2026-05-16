@@ -109,7 +109,7 @@ If you'd rather not put credentials in GitHub secrets, run it locally. Save as
   <array>
     <string>/bin/bash</string>
     <string>-c</string>
-    <string>cd /Users/paulkirschenbauer/Downloads/Tate-Tracker &amp;&amp; /usr/local/bin/node tools/record-daily-rollup.mjs --today &amp;&amp; git add weather-history.json &amp;&amp; (git diff --cached --quiet || git commit -m "weather rollup" &amp;&amp; git push)</string>
+    <string>cd /Users/paulkirschenbauer/Documents/Claude/Projects/Tate-Tracker &amp;&amp; /usr/local/bin/node tools/record-daily-rollup.mjs --today &amp;&amp; git add weather-history.json &amp;&amp; (git diff --cached --quiet || git commit -m "weather rollup" &amp;&amp; git push)</string>
   </array>
 
   <key>StartCalendarInterval</key>
