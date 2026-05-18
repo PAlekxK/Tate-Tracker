@@ -26,7 +26,7 @@ python3 -m http.server 8765
 
 All domain data is loaded as JS constants from inlined JSON at the top of the script section (~line 1550):
 
-- `PLANTS_DATA` — 8 plants with per-plant care calendars (schema v3). Care entries have `months[]`, `peakWindow`, `narrow` (boolean for timing-critical windows), and optional `subcategories[]`.
+- `PLANTS_DATA` — 17 plants with per-plant care calendars (schema v3). Care entries have `months[]`, `peakWindow`, `narrow` (boolean for timing-critical windows), and optional `subcategories[]`.
 - `FISHING_DATA` — Lake Sequoyah species profiles, scoring weights, seasonal notes.
 - `BIRDS_DATA` / `AMPHIBIANS_DATA` — Species with `monthsPresent`/`monthsActive`, status (resident/summer/winter/migrant).
 - `VEHICLES_DATA` — Fleet registry with status badges.
@@ -225,7 +225,7 @@ All four wildlife/plant categories render with a 44×44 thumbnail in the always-
 - **Birds:** 16 species, `images/birds/{id}.jpg`
 - **Amphibians:** 12 species, `images/amphibians/{id}.jpg`
 - **Fishing (Lake Sequoyah):** 3 species, `images/fishing/{id}.jpg`. Hero only (no thumbnail — fishing uses a tabbed species switcher rather than a row list)
-- **Plants:** 13 plants, `images/plants/{id}.jpg`. **Caveat:** several entries are trademarked cultivars (Berry Box® Pyracomeles, Yuki Cherry Blossom® Deutzia, named Clematis hybrids, mixed Hosta, pond Iris). For those, the photo is a genus-level proxy from Commons — see `images/README.md` for the proxy mapping. The `plants.draft.json:qualityPhotosForFutureIntegration` tracker is the place to upgrade these to actual photos of the specimens in the garden.
+- **Plants:** 17 plants, `images/plants/{id}.jpg`. **Caveat:** several entries are trademarked cultivars (Berry Box® Pyracomeles, Yuki Cherry Blossom® Deutzia, named Clematis hybrids, mixed Hosta, pond Iris, Summer Cascade® Wisteria, Elpis Clematis, DreamCloud® Hydrangea). For those, the photo is a genus-level proxy from Commons — see `images/README.md` for the proxy mapping. The `plants.draft.json:qualityPhotosForFutureIntegration` tracker is the place to upgrade these to actual photos of the specimens in the garden.
 
 Each item has a `photo` field (relative path) and `attribution` object (`source`, `author`, `license`, `url`) on the source JSON. Source images are 800px-wide JPEGs (looks sharp at the ~500px hero display on retina, also fine for the 44×44 thumb).
 
@@ -274,6 +274,20 @@ Cleanup completed 2026-05-13 across `plants.json`, viewer.html's inlined `PLANTS
 
 **Known imprecisions:** the +3/-3 shift relies on lapse-rate math (7 days per 1,000 ft); Paul's direct phenological observation is more authoritative if anything reads obviously off. Some descriptive prose still uses vague phrases ("mid-May to early June," "early summer") that weren't shifted — those are approximate to begin with and should be tightened only if a specific entry reads wrong on the ground.
 
+## Next major pass — holistic UX + copy review
+
+Queued 2026-05-18. Before any further individual polish or feature work, run a structured site-wide review using two subagents and triage their findings into a punch list.
+
+**Scope:** full sweep — dashboard strip + all 5 cards expanded, every tab/view inside each card. Individual card contents, fonts, text sizes, spacing, hierarchy, affordances, mobile behavior, copy voice consistency against the field-journal tone.
+
+**Agents to run (both in review mode):**
+- `ux-expert` — hierarchy, card layout, fonts/sizes/spacing, affordances, mobile, structured JSON findings.
+- `content-steward` — voice/tone consistency against [[project_tate_tracker_tone]] (field journal, not task manager), per-card copy fit, register and audience match.
+
+**Process:** run each agent, collect their structured findings, then triage into a single prioritized punch list before any implementation pass. Don't let either agent jump straight to fixes — capture the whole picture first.
+
+**Why now:** the site has grown a lot of surface area (5 cards, multiple tabs, many live data sources, recently expanded plant set) and the last holistic walkthrough was 2026-05-08 (see `REVIEW_NOTES.md`). A fresh pass with specialist agents will catch consistency drift and tone slips that piecemeal work doesn't.
+
 ## Pending design improvements (prioritized)
 
 1. ~~**Mobile dashboard strip** — 3-column grid wraps awkwardly at 390px~~ ✓ Done.
@@ -289,7 +303,7 @@ Cleanup completed 2026-05-13 across `plants.json`, viewer.html's inlined `PLANTS
 These files are staging areas. Do **not** wire them to the viewer until the user says go.
 
 - ~~**`vehicles.draft.json`**~~ **Promotion complete 2026-05-13.** v3 schema (group split + per-item maintenance blocks) is fully live in `vehicles.json` and the inlined `VEHICLES_DATA` in viewer.html. Renderer at `renderVehicles()` filters into Vehicles (7) and Equipment (8) headers with counts; each item renders a maintenance toggle showing `value` + `confidence` chip (`verified` | `inferred` | `tbd`). The draft file itself is now a working-doc archive — `openQuestions` (Husqvarna SKU, Homelite trimmer model, Homelite blower/vac model) still tracked there and in "Outstanding asks for Paul" below.
-- ~~**`plants.draft.json`**~~ **Promotion complete 2026-05-13.** All 5 plants (Berry Box® Pyracomeles, Yuki Cherry Blossom® Deutzia, Clematis, Hostas, pond Iris) are live in `plants.json.plants[]` and inlined in viewer.html's `PLANTS_DATA` constant. Verified renders: 13 plants total. The `plantsForPromotion` and `promotionChecklist` blocks have been removed from the draft; `qualityPhotosForFutureIntegration` remains as the active tracking list for upgrading proxy photos to in-garden specimen shots.
+- ~~**`plants.draft.json`**~~ **Promotion complete 2026-05-13.** All 5 plants (Berry Box® Pyracomeles, Yuki Cherry Blossom® Deutzia, Clematis, Hostas, pond Iris) are live in `plants.json.plants[]` and inlined in viewer.html's `PLANTS_DATA` constant. Verified renders at that point: 13 plants total. **Subsequent additions (2026-05-16):** butterfly weed, Summer Cascade® wisteria, Elpis clematis, and DreamCloud® hydrangea — bringing live `plants.json` to 17 entries. The `plantsForPromotion` and `promotionChecklist` blocks have been removed from the draft; `qualityPhotosForFutureIntegration` remains as the active tracking list for upgrading proxy photos to in-garden specimen shots.
 
 ## Uncommitted work in progress
 
