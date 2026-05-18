@@ -6,6 +6,20 @@
 
 ---
 
+## ✅ Status update (2026-05-18)
+
+Most of the LOCKED IMPLEMENTATION PLAN below shipped between 2026-05-08 and 2026-05-13. Recap:
+
+- **Menu restructure** ✅ — `Today on the property` header + `Tap any tile for more details` subtitle in place; `USDA ZONE 6B · 2,959 FT · BLUE RIDGE` strip removed from the header; Astronomy tile live (`dash-astronomy-sub` in viewer.html); Property Profile promoted into the menu.
+- **Tile-level decisions** ✅ — Weather always-on summary, dropped bolded "May" on Plants/Wildlife, Vehicles/Property descriptive treatment all shipped.
+- **"REFERENCE" divider removed** ✅.
+
+**Still open from this review session:**
+- **§3 Weather card "topic-grouped" restructure** — locked plan, **not yet shipped.** The `.wblock-station / -forecast / -historical` blocks are still in viewer.html (CSS at ~line 522). The collapse-into-topics work is queued behind the holistic UX + copy review now scheduled in CLAUDE.md.
+- **§1 Property quick-reference strip** — fully resolved by removing the strip; facts moved into the Property Profile tile. No action remaining.
+
+---
+
 ## CONSOLIDATED PUNCH LIST
 
 ### 1. Property quick-reference strip (under address) 🟡
