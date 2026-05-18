@@ -161,47 +161,54 @@ This collapses what was previously framed as Path A vs Path B into a single dire
 
 ## Open questions for you (consolidated from all three reviews)
 
-UX agent's questions:
-- **OQ1** — Was the in-page "Reference" tier-divider kept on purpose, or by mistake? (Affects 1.10 + 3.1)
-- **OQ2** — Were the celestial event star ratings a specific design choice, or path-of-least-resistance after replacing the 🟢🟡🔴 dots? (Affects 1.7)
-- **OQ3** — Plant view tab order — what's Mom's likely second tab after This Month? (Affects 3.2)
-- **OQ4** — Vehicles card intro — write yourself or have content-steward draft? (Affects 2.3)
+### Resolved this session (2026-05-18 walk-through)
 
-Copy agent's questions:
-- **OQ5** — Alert all-caps: load-bearing for NWS convention recognition, or droppable? (Affects 2.1) — copy agent recommends dropping; flags intentionality question
-- **OQ6** — Fishing verdict states: any cases where "Not Worth It" is the actual useful signal you want preserved (dead-of-winter, for example)? (Affects 2.2)
-- **OQ7** — Header subtitle: prefer genre ("field journal"), time ("this week"), or genre-minimal ("Notes from the property")? (Affects 2.6) — copy agent recommends genre
-- **OQ8** — `currentSeasonNote` opener variety — do now or defer? (Affects 2.8)
-- **OQ9** — Mom-test on softened imperatives vs hard-imperative-for-safety — preference?
+| OQ | Decision |
+|---|---|
+| **OQ1** | ✅ **Drop** the in-page "Reference" tier-divider (viewer.html:2087–2092). Goes into Phase 1 cleanup. |
+| **OQ2** | ✅ **Drop** celestial star ratings; use text + color per the principled path. |
+| **OQ3** | ✅ **Keep current plant tab order** (This Month → By Species → 3 Month → Full Year). Paul's gut matches what's already shipped; UX agent's proposed reorder was wrong for how he thinks. |
+| **OQ4** | ✅ **Content-steward to draft** the Vehicles card summary + 1-line intro. Phase 2 work. |
+| **OQ5** | ✅ **Drop alert all-caps.** Sentence-case throughout. |
+| **OQ6** | ✅ **Refined principle:** state the lake's condition plainly; don't grade the user's trip *and* don't assume "worth it" means "catching fish." Sometimes people just go out in the boat. Five working rewrites drafted in this synthesis's chat thread. Phase 2 work. |
+| **OQ7** | ✅ **Header subtitle locked: *"An Appalachian Almanac for 282 Church Mountain Road"*** — Phase 2 work. Genre framing: Appalachian Almanac (form) coexists with field journal (voice). Cultural touchstone: Aldo Leopold's *A Sand County Almanac*. Tone memory updated. |
+| **OQ11** | ✅ **Mammals list curated** to ~17 species Paul actually observes (deer, gray squirrel, chipmunk, raccoon, opossum, cottontail, skunk, red fox, gray fox, coyote, black bear, bobcat, groundhog, river otter, beaver, flying squirrels, bats). Flat list parallel to existing tabs; encounter context in `notes` field, not UI structure. Phase 4.2. |
+| **OQ12** | ✅ **Resolved: depth.** Paul: *"we want to really focus on depth in the sense that it's very specific to the property."* Direction set for Phase 4 expansion. See [[feedback_tate_tracker_depth_filter]]. |
+| **OQ13** | ✅ **Green light on a small server proxy.** Unlocks AirNow AQI, US Drought Monitor, NOAA NCEI normals, and the AI-synthesized "today" line. Phase 4.5. |
+| **OQ15** | ✅ **Audit completed in-session.** Zero deletions across 48 wildlife species. 8 prose softenings applied + Lake Sequoyah distance fix shipped (commit `3c46d7a` on main). |
 
-User-researcher's discovery questions (Mom-Test-style, 17 total in the artifact, summarized):
-- **OQ10** — Q1–Q4: when did you last open the dashboard for yourself? What did you do *just* before opening it? How long did you stay? What did you actually do *with* anything you noticed?
-- **OQ11** — Q5–Q7: which mammals do you actually encounter on the property vs. just know are there? What's your stance on bear/coyote tone? *(Partial direction set 2026-05-18: list curated to "what would Paul realistically hear/see/observe on this property" — see [[feedback_tate_tracker_depth_filter]]. Still need Paul's specific list of what he actually encounters vs. knows-are-there.)*
-- **OQ12** — Q11–Q12: when you open the dashboard yourself, which surfaces do you actually look at? Breadth vs. depth vs. liveness vs. history. *(**Resolved 2026-05-18: depth.** Paul: "we want to really focus on depth in the sense that it's very specific to the property." Direction set for Phase 4 expansion work.)*
-- **OQ13** — Q15: would you be willing to stand up a small server proxy? If yes, the AI today-line + AirNow + USDM + NCEI normals all become much cheaper.
-- **OQ14** — Q14: how much density can the Property card absorb without breaking Mom's leisure-reading posture?
+### Still open
 
-New open question from this session:
-- **OQ15** — Should the depth filter be applied retroactively to existing wildlife tabs (audit current 16 birds, 12 amphibians, snakes, lizards, fishing species for "actually observed on this property" vs. "regional completeness")? Or are the existing lists already curated under this lens?
+- **OQ8** — `currentSeasonNote` opener variety across 17 plants — do now or defer? Cheap (~17 sentences) but optional. Could batch with Phase 2 plant first-sentence anchoring (C1).
+- **OQ9** — Mom-test on softened imperatives vs. hard-imperative-for-safety — preference? Affects how strict the alert-subsystem softening should be.
+- **OQ10** — User-researcher discovery questions about how Paul actually uses the dashboard. Useful but not blocking.
+- **OQ14** — Density tolerance of the Property card. Affects the surface-fact callouts cluster (Phase 4.1).
 
 ---
 
 ## Recommended sequencing
 
-**This week:**
-1. Resolve OQ1, OQ5, OQ7 with quick decisions (low-cost, unblock Phase 1 + 2)
-2. **Ship Phase 1 batch** — mechanical glyph + visual cleanup. One commit per logical group, or one big "polish pass" commit. Most items are 1–3 lines.
-3. Update `REVIEW_NOTES.md` and `CLAUDE.md` to reflect actual shipped state of Weather card restructure + the "Reference" divider divergence
+**Unblockers all cleared 2026-05-18.** OQ1, OQ2, OQ5, OQ7, OQ11, OQ12, OQ13 resolved in-session. Phase 1 + Phase 2 work can now run without further decisions.
 
-**Next week:**
-4. Ship Phase 2 voice rewrites in priority order — alert subsystem first (2.1), then fishing verdict (2.2), then header subtitle (2.6), then empty states (2.5)
-5. Plant `guide` first-sentence anchoring across 17 plants (2.4) — best done as one focused session per Paul-as-writer
+**Next session:**
+1. **Ship Phase 1 batch** — mechanical glyph + visual cleanup. One commit per logical group, or one big "polish pass" commit. Most items are 1–3 lines. Confirmed in scope: drop wildlife traffic-light glyphs, drop celestial stars, drop Reference divider, drop ✓ checkmark, etc.
 
-**After Phase 1 + 2 — Phase 4 strategic work (direction = depth, decided 2026-05-18):**
-6. **Start with 4.1 (surface-fact callouts cluster)** since it pairs naturally with 2.7 (Property card intro) and is the lowest-effort highest-signal depth move. Voice-crafting is the bottleneck.
-7. **Then 4.2 (mammals tab)** with the curated property-observed list. Audio identification pattern (already shipped for birds + frogs) extends naturally to nocturnal mammals.
-8. **Then either 4.3 (year-ribbon / weekly digest) or 4.4 (Paul's own observations)** — depends on whether Paul wants to add a *write* surface (4.4) or stay read-only with a new lens on existing data (4.3). Resolve via OQ11/OQ12 from the user-researcher list.
-9. **4.5 (AI today-line) only when the proxy is being built anyway** — don't carve out separate effort for it.
+**Then:**
+2. **Ship Phase 2 voice rewrites in priority order:**
+   - 2.1 Alert subsystem (drop all-caps, rewrite ~17 NWS-bulletin titles observationally, soften action sentences)
+   - 2.2 Fishing verdict rewrite (5 new descriptive strings drafted in chat thread)
+   - 2.6 Header subtitle — *"An Appalachian Almanac for 282 Church Mountain Road"*
+   - 2.5 Empty-state copy (Plants tile + 3 Month + This Month)
+   - 2.3 Vehicles card summary + intro (content-steward to draft both)
+   - 2.4 Plant `guide` first-sentence anchoring across 17 plants (Paul-as-writer or content-steward draft)
+   - 2.8 `currentSeasonNote` opener variety (optional; can batch with 2.4)
+3. Update `REVIEW_NOTES.md` and `CLAUDE.md` to reflect Weather card restructure + "Reference" divider removal
+
+**Then — Phase 4 strategic work (direction = depth, [[feedback_tate_tracker_depth_filter]]):**
+4. **4.1 Surface-fact callouts cluster** — Cherokee land, Tate Mountain Estates (now 0.3 mi anchor!), Bortle 3, keystone genera, burn-ban banner, Homegrown National Park. Pairs with the Property card lead.
+5. **4.2 Mammals tab** — curated 17-species list (confirmed in-session). Flat list parallel to other wildlife tabs; encounter context in `notes` field. Pattern of audio identification (already shipped for birds + frogs) extends naturally.
+6. **4.3 vs 4.4 fork** — year-ribbon / weekly digest (4.3) vs. Paul's own observations going INTO the journal (4.4). Resolve based on Paul's appetite for adding a *write* surface vs. staying read-only.
+7. **4.5 AI today-line** — pair with whenever the server proxy work happens (OQ13 green-lit; AirNow / Drought Monitor / NCEI normals all become much cheaper once proxy exists).
 
 ---
 
