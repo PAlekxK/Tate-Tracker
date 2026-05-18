@@ -1603,45 +1603,47 @@
   .cel-moon-hero-credit a { color: #7080b8; text-decoration: none; }
   .cel-moon-hero-credit a:hover { text-decoration: underline; }
   .cel-tonight-panel {
-    background: linear-gradient(160deg, #10102a 0%, #1a2050 100%);
+    background: #f8faf6;
     padding: 14px 16px 12px;
-    border-bottom: 1px solid #2a3060;
+    border-bottom: 1px solid #d8eacc;
   }
   .cel-tonight-hdr {
-    font-size: 12.5px; font-weight: 700; color: #a8b8f0;
-    letter-spacing: 0.3px; margin-bottom: 10px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 14px; font-weight: 700; color: #1a3a1a;
+    letter-spacing: 0.1px; margin-bottom: 10px;
   }
   .cel-sky-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px;
   }
   .cel-sky-cell {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    background: #fff; border: 1px solid #d8eacc;
     border-radius: 9px; padding: 8px 10px;
   }
   .cel-sky-icon { font-size: 15px; margin-bottom: 2px; line-height: 1.2; }
-  .cel-sky-val  { font-size: 12.5px; font-weight: 700; color: #e0e8ff; line-height: 1.2; }
-  .cel-sky-key  { font-size: 10px; font-weight: 600; color: #7080b0; text-transform: uppercase; letter-spacing: 0.4px; margin: 2px 0 1px; }
-  .cel-sky-sub  { font-size: 10.5px; color: #8898c0; }
-  .cel-sky-excellent { color: #80f080 !important; }
-  .cel-sky-good      { color: #c0e080 !important; }
-  .cel-sky-fair      { color: #e0c060 !important; }
-  .cel-sky-poor      { color: #e08060 !important; }
-  .cel-sky-closed    { color: #c06060 !important; }
+  .cel-sky-val  { font-size: 12.5px; font-weight: 700; color: #1a3a1a; line-height: 1.2; }
+  .cel-sky-key  { font-size: 10px; font-weight: 600; color: #4a7a4a; text-transform: uppercase; letter-spacing: 0.4px; margin: 2px 0 1px; }
+  .cel-sky-sub  { font-size: 10.5px; color: #6a8a6a; }
+  .cel-sky-excellent { color: #2a8a40 !important; }
+  .cel-sky-good      { color: #5a8030 !important; }
+  .cel-sky-fair      { color: #a8763a !important; }
+  .cel-sky-poor      { color: #a05030 !important; }
+  .cel-sky-closed    { color: #7a4a40 !important; }
   .cel-property-note {
-    font-size: 11px; color: #7888b8; line-height: 1.5;
-    background: rgba(255,255,255,0.04); border-radius: 7px;
-    padding: 6px 10px; border: 1px solid rgba(255,255,255,0.07);
+    font-size: 11px; color: #3a5a3a; line-height: 1.5;
+    background: #fafbf5; border-radius: 7px;
+    padding: 6px 10px; border: 1px solid #d8eacc;
   }
-  .cel-property-note strong { color: #a0b0e0; }
+  .cel-property-note strong { color: #1a3a1a; }
   .cel-nws-strip {
     display: flex; align-items: center; justify-content: space-between;
     gap: 8px; padding: 7px 10px; margin-bottom: 8px;
-    background: rgba(80,120,255,0.06); border: 1px solid rgba(120,160,255,0.14);
-    border-radius: 7px; font-size: 10.5px; color: #8898c0;
+    background: #f0f6ec; border: 1px solid #c8e0a8;
+    border-radius: 7px; font-size: 10.5px; color: #4a6a4a;
   }
-  .cel-nws-strip-label { color: #a8b8f0; font-weight: 600; }
-  .cel-nws-strip-val   { color: #e0e8ff; font-weight: 600; }
-  .cel-nws-strip-sub   { color: #6878a0; font-size: 10px; }
+  .cel-nws-strip-label { color: #2a6040; font-weight: 600; }
+  .cel-nws-strip-val   { color: #1a3a1a; font-weight: 600; }
+  .cel-nws-strip-sub   { color: #6a8a6a; font-size: 10px; }
 
   .cel-events-section { padding: 12px 0 4px; }
   .cel-events-hdr {
@@ -1748,10 +1750,17 @@
   @media (hover: hover) {
     .dash-cell:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(80,120,60,0.12); border-color: #c0dca0; }
   }
-  .dash-cell.dash-small { padding: 8px 11px 8px; }
-  .dash-cell.dash-small .dash-cell-label { margin-bottom: 1px; }
-  .dash-cell.dash-small .dash-cell-sub { font-size: 11px; color: #5a7a5a; margin-top: 2px; line-height: 1.45; }
-  .dash-tier-b { margin-top: 8px; }
+  /* Tier B — visually smaller than Tier A so the size delta carries the
+     live-vs-reference distinction (Phase 3.1, 2026-05-18). */
+  .dash-cell.dash-small {
+    background: #fafbf5;
+    border-color: #e0eccd;
+    border-radius: 9px;
+    padding: 6px 10px 6px;
+  }
+  .dash-cell.dash-small .dash-cell-label { font-size: 11px; margin-bottom: 1px; }
+  .dash-cell.dash-small .dash-cell-sub { font-size: 10px; color: #6a8a6a; margin-top: 2px; line-height: 1.4; }
+  .dash-tier-b { margin-top: 10px; gap: 6px; }
   @media (max-width: 480px) {
     .dash-strip-inner { grid-template-columns: 1fr; }
   }
@@ -1794,12 +1803,6 @@
   .dash-tease-more { font-style: italic; color: #8a9a8a; font-size: 10px; margin-top: 3px; }
   .dash-all-clear { font-size: 10px; color: #3a8a3a; font-weight: 600; margin-top: 3px; display: block; }
 
-  .main-card.tier2 {
-    border-color: #e0edd4;
-    box-shadow: 0 1px 8px rgba(30,60,20,0.04);
-  }
-  .main-card.tier2 .main-card-title { font-size: 17px; color: #2a4a2a; }
-  .main-card.tier2 .main-card-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 9px; }
 
   /* === PLANT VIEW TABS === */
   .plant-view-tabs {
@@ -2118,7 +2121,7 @@
   </div>
 
   <!-- CELESTIAL / SKY CARD -->
-  <div class="main-card tier2" id="card-celestial">
+  <div class="main-card" id="card-celestial">
     <div class="main-card-header" data-toggle="celestial">
       <div class="main-card-icon celestial">🔭</div>
       <div class="main-card-meta">
@@ -2131,7 +2134,7 @@
   </div>
 
   <!-- PROPERTY CARD -->
-  <div class="main-card tier2" id="card-property">
+  <div class="main-card" id="card-property">
     <div class="main-card-header" data-toggle="property">
       <div class="main-card-icon property">🏔️</div>
       <div class="main-card-meta">
@@ -2144,7 +2147,7 @@
   </div>
 
   <!-- VEHICLES CARD -->
-  <div class="main-card tier2" id="card-vehicles">
+  <div class="main-card" id="card-vehicles">
     <div class="main-card-header" data-toggle="vehicles">
       <div class="main-card-icon vehicles">🛻</div>
       <div class="main-card-meta">
@@ -3317,8 +3320,7 @@ function renderWeather() {
     html += '</div>';
   }
 
-  // === RIGHT NOW (station readings + Open-Meteo condition word + 7-day strip + sparklines) ===
-  // Station-driven hero is filled by renderAmbientStationPanel; condition + forecast strip rendered here.
+  // === RIGHT NOW (station hero + current condition word — *literally* right now) ===
   html += '<div class="wblock" id="wsec-rightnow">';
   html +=   '<div class="wblock-header"><span class="wblock-title">Right now</span></div>';
   html +=   '<div id="ambient-station-panel"></div>';
@@ -3334,7 +3336,11 @@ function renderWeather() {
   }
   html +=     '</div>';
   html +=   '</div>';
-  // 7-day forecast strip
+  html += '</div>';
+
+  // === NEXT 7 DAYS (daily forecast strip) ===
+  html += '<div class="wblock" id="wsec-7day">';
+  html +=   '<div class="wblock-header"><span class="wblock-title">Next 7 days</span></div>';
   html +=   '<div class="forecast-strip">';
   daily.forEach((d, i) => {
     const todayCls = i === 0 ? " today" : "";
@@ -3349,12 +3355,14 @@ function renderWeather() {
     html +=    '</div>';
   });
   html +=   '</div>';
+  html += '</div>';
 
-  // Hourly forecast strip — next ~48 hours, scrolls horizontally
+  // === HOUR BY HOUR (next ~48 hours, scrolls horizontally) ===
   const hourly = WEATHER_DATA.hourly || [];
   if (hourly.length > 0) {
-    html += '<div class="hourly-label">Next two days · hour by hour</div>';
-    html += '<div class="hourly-strip">';
+    html += '<div class="wblock" id="wsec-hourly">';
+    html +=   '<div class="wblock-header"><span class="wblock-title">Hour by hour</span></div>';
+    html +=   '<div class="hourly-strip">';
     let lastDay = -1;
     hourly.forEach((h, i) => {
       const dt = new Date(h.time);
@@ -3379,9 +3387,9 @@ function renderWeather() {
       else html +=                     '<div class="hour-precip" style="visibility:hidden;">·</div>';
       html += '</div>';
     });
+    html +=   '</div>';
     html += '</div>';
   }
-  html += '</div>';
 
   // === RAINFALL (unified — gauge + recent + forecast + ERA5 percentile, filled by renderRainfallPanel) ===
   html += '<div id="rainfall-panel"></div>';
