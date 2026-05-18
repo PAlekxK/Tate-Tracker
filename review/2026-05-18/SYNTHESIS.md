@@ -157,6 +157,29 @@ This collapses what was previously framed as Path A vs Path B into a single dire
 - Citizen-science panels (dormant scaffolding) — still pending the external-uploads decision, separate from this filter
 - "Sounds of the night" as a cross-cutting view — possible *later overlay*, not the organizing principle. The lens of "what would Paul hear at night" feeds *which* mammals get added to 4.2; it doesn't justify a new structural feature now.
 
+### Phase 4.6 — Sub-monthly temporal granularity (added 2026-05-18 evening)
+
+**The proposition:** move the dashboard's default temporal lens from monthly ("what's happening in May") → sub-monthly ("late May at the property") wherever the underlying biology/phenology actually supports that precision. Surfaced by Paul as "a big decision with a lot of downstream implications."
+
+**Where this pays off most clearly:**
+- **Plant care** — peak prune/propagate/inspect windows are weeks, not months. The schema partially supports this (`peakWindow: "May 13–25"`); the rendering layer treats it as a chip but doesn't drive temporal urgency from it.
+- **Bird arrivals/departures** — hummingbird *late April*, broad-winged kettles *Sep 12–20*, scarlet tanagers *first week of May*. Some species notes already weave week-level cues; others default to month.
+- **Amphibian breeding** — spotted salamander migrations are *first warm rainy nights of late February*, not "February."
+- **Mammal markers** — fawning *late May / early June*, bear denning entry *late November*, antler shed *January*.
+- **Fishing windows** — pre-spawn at Sequoyah is *late April through mid-May*; the within-month progression projection (Early/Mid/Late) already handles shoulder seasons by week.
+- **Future wildflowers card** (if/when added) — trillium *first week of April*, mountain laurel peak *third week of May*. Wildflower phenology is *inherently* week-level.
+
+**Downstream implications:**
+1. **Schema work across data files** — every species/plant needs an audit for week-level information. Some have it; most default to monthly.
+2. **A "what week is it" helper** in the render layer. Header gains week context (*"Late May at the property"*). Currently `header-date` shows the full date but doesn't drive any callout logic.
+3. **`currentSeasonNote` per plant becomes week-specific** where possible (the opener-variety rotation we just shipped — "Right now —", "Early May —", "In May at Church Mountain —", "Looking at the month —" — partially gestures at this).
+4. **Possibly a "this week" view** in the dashboard menu or as a tab inside Plants/Wildlife.
+5. **Sand County Almanac fit:** Leopold's "April: Sky Dance" essay pinpoints woodcock display to late March / early April very specifically. The almanac *form* supports week-level entries naturally; that's the right register for this work.
+
+**Calibration (depth filter applied to precision):** don't force week-level claims where the data doesn't earn it. Some species don't have meaningful week-level patterns at this property's elevation. *"Late May"* is honest; *"May 22–28"* might overclaim. Where there's no signal, monthly granularity stays the right answer.
+
+**Scope:** this is bigger than a single phase item — it touches every data file and most rendering surfaces. Probably a "Phase 5" arc (or its own working pass) rather than a quick add. Worth weighing against 4.4 (Paul's own observations) and 4.3 (year-on-a-ribbon) as the *next major direction* — there's substantial overlap with both (4.3 would render week-level data if it exists; 4.4's journal entries would naturally be week-anchored).
+
 ---
 
 ## Open questions for you (consolidated from all three reviews)
