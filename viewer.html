@@ -398,7 +398,7 @@
     margin: 2px 3px 2px 0;
     text-decoration: none;
   }
-  .prop-warning {
+  .prop-micro-note {
     background: #f8faf6;
     border: 1px solid #d8eacc;
     border-radius: 8px;
@@ -408,7 +408,7 @@
     line-height: 1.5;
     margin-bottom: 8px;
   }
-  .prop-warning:last-child { margin-bottom: 0; }
+  .prop-micro-note:last-child { margin-bottom: 0; }
 
   .main-card-meta { flex: 1; min-width: 0; }
   .main-card-title { font-family: "Crimson Text", Georgia, serif; font-size: 19px; font-weight: 600; color: #1a3a1a; line-height: 1.2; }
@@ -942,7 +942,7 @@
   .care-block-body { display: none; padding-top: 6px; }
   .care-block-parent.open .care-block-body { display: block; }
   /* === PEAK WINDOW & NARROW BADGE === */
-  .peak-window-chip { display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; margin-bottom: 2px; padding: 3px 9px; background: #fff8e6; border: 1px solid #e8c860; border-radius: 8px; font-size: 11px; color: #7a5a00; font-weight: 600; }
+  .peak-window-chip { display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; margin-bottom: 2px; padding: 3px 9px; background: #f0fae8; border: 1px solid #c8e0a8; border-radius: 8px; font-size: 11px; color: #2a6040; font-weight: 600; }
   .narrow-badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; background: #fff0e0; border: 1px solid #f0a030; border-radius: 8px; font-size: 10px; font-weight: 700; color: #a04800; letter-spacing: 0.3px; flex-shrink: 0; }
 
   /* === PLANT SITE INFO === */
@@ -1062,7 +1062,7 @@
   }
   .maint-conf-verified { background: #e8f6e8; color: #2a7a3a; border: 1px solid #a8d4a8; }
   .maint-conf-inferred { background: #fdf3d8; color: #8a6020; border: 1px solid #d8c080; }
-  .maint-conf-tbd      { background: #fde8e0; color: #a04830; border: 1px solid #d8a890; }
+  .maint-conf-tbd      { background: #f0f0ec; color: #6a6a60; border: 1px solid #d0d0c8; }
   .vehicle-group-header {
     display: flex;
     align-items: baseline;
@@ -1643,10 +1643,9 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .cel-event-meta { font-size: 10.5px; color: #6a7aaa; margin-top: 2px; }
-  .cel-vis-star { color: #d4b96a; letter-spacing: -1px; }
-  .cel-vis-excellent .cel-vis-star { color: #d4b96a; }
-  .cel-vis-good     .cel-vis-star { color: #b8a06a; opacity: 0.85; }
-  .cel-vis-fair     .cel-vis-star { color: #9a8a6a; opacity: 0.7; }
+  .cel-vis-excellent { color: #c8a050; font-weight: 600; }
+  .cel-vis-good     { color: #a89060; }
+  .cel-vis-fair     { color: #8a8070; opacity: 0.85; }
   .cel-vis-none     { color: #8a98aa; font-style: italic; }
 
   .cel-event-detail {
@@ -1747,23 +1746,6 @@
   .dash-tease-more { font-style: italic; color: #8a9a8a; font-size: 10px; margin-top: 3px; }
   .dash-all-clear { font-size: 10px; color: #3a8a3a; font-weight: 600; margin-top: 3px; display: block; }
 
-  /* === TIER DIVIDER === */
-  .tier-divider {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 18px 4px 14px;
-  }
-  .tier-divider-line { flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, #b8d8b0 30%, #b8d8b0 70%, transparent); }
-  .tier-divider-label {
-    font-family: "Crimson Text", Georgia, serif;
-    font-size: 12px;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: 0.5px;
-    color: #6a8a6a;
-    text-transform: none;
-  }
   .main-card.tier2 {
     border-color: #e0edd4;
     box-shadow: 0 1px 8px rgba(30,60,20,0.04);
@@ -1796,7 +1778,6 @@
     color: #3a7a3a; font-size: 13.5px;
     font-family: "Crimson Text", Georgia, serif; line-height: 1.6;
   }
-  .plant-all-clear-check { font-size: 26px; margin-bottom: 5px; }
   .plant-action-group {
     border: 1.5px solid #e0ecd8; border-radius: 12px;
     overflow: hidden; margin-bottom: 10px;
@@ -1857,8 +1838,8 @@
   }
   .plant-action-peak {
     display: inline-block; margin: 3px 0;
-    font-size: 10.5px; color: #7a5a00;
-    background: #fff8e6; border: 1px solid #e8c860;
+    font-size: 10.5px; color: #2a6040;
+    background: #f0fae8; border: 1px solid #c8e0a8;
     border-radius: 6px; padding: 1px 7px;
   }
   .plant-action-desc {
@@ -1927,12 +1908,12 @@
     background: #fbf6ed; border: 1px solid #e8d8b8;
     border-radius: 10px;
   }
-  .herp-info-panel.safety { background: #fbf0e8; border-color: #e8c8a8; }
+  .herp-info-panel.safety { background: #faf6ec; border-color: #e0d8c0; }
   .herp-info-panel-title {
     font-family: 'Crimson Text', serif; font-style: italic;
     font-size: 14px; color: #6a4828; margin-bottom: 5px;
   }
-  .herp-info-panel.safety .herp-info-panel-title { color: #8a3818; }
+  .herp-info-panel.safety .herp-info-panel-title { color: #6a5028; }
   .herp-info-panel-body { font-size: 12.5px; color: #3a2818; line-height: 1.55; }
   .herp-info-panel-body ul { margin: 6px 0 0 0; padding-left: 18px; }
   .herp-info-panel-body li { margin-bottom: 3px; }
@@ -2082,13 +2063,6 @@
       </div>
       <div id="wildlife-tab-content"></div>
     </div>
-  </div>
-
-  <!-- TIER DIVIDER — separates living surfaces from reference shelf -->
-  <div class="tier-divider">
-    <div class="tier-divider-line"></div>
-    <div class="tier-divider-label">Reference</div>
-    <div class="tier-divider-line"></div>
   </div>
 
   <!-- CELESTIAL / SKY CARD -->
@@ -3727,8 +3701,8 @@ function renderFishing() {
 
   const worthClass = effectiveWorth === true ? (phase.fishing === "excellent" ? "excellent" : "good") :
                      effectiveWorth === "marginal" ? "fair" : "poor";
-  const worthIcon = effectiveWorth === true ? (phase.fishing === "excellent" ? "🎣 Excellent" : "👍 Worth Fishing") :
-                    effectiveWorth === "marginal" ? (belowHistFloor ? "🌡️ Still Warming" : "🤷 Marginal") : "❌ Not Worth It";
+  const worthIcon = effectiveWorth === true ? (phase.fishing === "excellent" ? "Excellent" : "Worth fishing") :
+                    effectiveWorth === "marginal" ? (belowHistFloor ? "Still warming" : "Marginal") : "Slow";
 
   let html = "";
   html += renderFishingForecast(lakeTemp, phase);
@@ -3945,8 +3919,8 @@ function renderProperty() {
   // ── Microclimate ──
   html += '<div class="prop-panel full-width">';
   html += '<div class="prop-panel-title">Microclimate Factors</div>';
-  html += '<div class="prop-warning"><strong>Thermal Belt:</strong> ' + mc.thermalBelt + '</div>';
-  html += '<div class="prop-warning"><strong>Frost Pockets:</strong> ' + mc.frostPockets + '</div>';
+  html += '<div class="prop-micro-note"><strong>Thermal Belt:</strong> ' + mc.thermalBelt + '</div>';
+  html += '<div class="prop-micro-note"><strong>Frost Pockets:</strong> ' + mc.frostPockets + '</div>';
 
   const ae = mc.aspectEffects;
   html += '<div class="prop-aspect-grid">';
@@ -4887,7 +4861,7 @@ function renderFishingForecast(waterTemp, phase) {
 
   // Header
   h += '<div class="fish-forecast-hdr">';
-  h += '<span class="fish-forecast-title">📊 Today’s Fishing Forecast</span>';
+  h += '<span class="fish-forecast-title">Today’s Fishing Forecast</span>';
   h += '<span class="fish-forecast-subtitle">' +
        now.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }) +
        ' · Lake Sequoyah</span>';
@@ -4941,7 +4915,7 @@ function renderFishingForecast(waterTemp, phase) {
 
   // Best windows today
   h += '<div class="fish-windows-wrap">';
-  h += '<div class="fish-windows-hdr">⏰ Best windows today</div>';
+  h += '<div class="fish-windows-hdr">Best windows today</div>';
   h += '<div class="fish-windows-list" id="fish-windows-list">';
   h += '<span class="fish-window-chip dawn">🌅 Dawn ' + dawnStart + '–' + dawnEnd + '</span>';
   h += '<span class="fish-window-chip loading" id="solunar-loading-chip">Calculating solunar…</span>';
@@ -5317,7 +5291,6 @@ function renderCelestial() {
 
   // Astronomical dark window
   h += '<div class="cel-sky-cell">';
-  h += '<div class="cel-sky-icon">🌑</div>';
   h += '<div class="cel-sky-val" id="cel-dark-window">Loading…</div>';
   h += '<div class="cel-sky-key">True Dark Window</div>';
   h += '<div class="cel-sky-sub">Sun 18° below horizon — sky fully dark</div>';
@@ -5325,7 +5298,6 @@ function renderCelestial() {
 
   // Site quality
   h += '<div class="cel-sky-cell">';
-  h += '<div class="cel-sky-icon">⭐</div>';
   h += '<div class="cel-sky-val">Bortle ' + prop.bortleEstimate + ' — ' + prop.bortleLabel + '</div>';
   h += '<div class="cel-sky-key">Sky Darkness</div>';
   h += '<div class="cel-sky-sub">~' + prop.sqmEstimate + ' mag/arcsec² · Milky Way visible May–Sep</div>';
@@ -5362,10 +5334,10 @@ function renderCelestial() {
     "conjunction":   { label: "Conjunction",    cls: "type-conj"   }
   };
   const visMap = {
-    "excellent":   { emoji: '<span class="cel-vis-star">★★★</span>', label: "Excellent from property", cls: "cel-vis-excellent" },
-    "good":        { emoji: '<span class="cel-vis-star">★★</span>',  label: "Good from property",      cls: "cel-vis-good"      },
-    "fair":        { emoji: '<span class="cel-vis-star">★</span>',   label: "Fair from property",      cls: "cel-vis-fair"      },
-    "not-visible": { emoji: '',                                       label: "Not visible from property", cls: "cel-vis-none"    }
+    "excellent":   { emoji: '', label: "Excellent from property",   cls: "cel-vis-excellent" },
+    "good":        { emoji: '', label: "Good from property",        cls: "cel-vis-good"      },
+    "fair":        { emoji: '', label: "Fair from property",        cls: "cel-vis-fair"      },
+    "not-visible": { emoji: '', label: "Not visible from property", cls: "cel-vis-none"      }
   };
 
   events.forEach(ev => {
@@ -5633,7 +5605,7 @@ function renderCitizenSciencePanel(programs, tabName) {
     ? 'Contribute observations to research programs that study the wetlands you live around.'
     : 'Contribute observations to research programs that track the birds you live with.';
   let h = '<div class="bio-take-part-panel">';
-  h += '<div class="bio-take-part-title">🤝 Take Part</div>';
+  h += '<div class="bio-take-part-title">Take Part</div>';
   h += '<div class="bio-take-part-sub">' + escapeHtml(sub) + '</div>';
   h += '<div class="bio-take-part-grid">';
   programs.forEach(p => {
@@ -5686,7 +5658,7 @@ function renderBirds() {
   const calEntry = bd.seasonalCalendar[MONTH_NAME];
   if (calEntry) {
     h += '<div class="bio-month-highlight">';
-    h += `<div class="bio-month-title">🗓 ${MONTH_NAME} — What to watch for</div>`;
+    h += `<div class="bio-month-title">${MONTH_NAME} — What to watch for</div>`;
     h += `<div style="font-size:12.5px;color:#3a4a30;line-height:1.55;margin-bottom:6px;">${escapeHtml(calEntry.watchFor)}</div>`;
     h += '<div class="bio-active-chips">';
     (calEntry.highlights || []).forEach(hl => {
@@ -5730,16 +5702,16 @@ function renderBirds() {
     card += '<div style="font-size:10px;color:#8aa080;margin:2px 0 6px;">▪ Active &nbsp; ◼ Peak months</div>';
     // Meta chips
     card += '<div class="bio-species-meta">';
-    if (sp.arrivalWindow)   card += `<span class="bio-meta-item">↑ Arrives: ${escapeHtml(sp.arrivalWindow)}</span>`;
-    if (sp.departureWindow) card += `<span class="bio-meta-item">↓ Departs: ${escapeHtml(sp.departureWindow)}</span>`;
-    if (sp.habitat)         card += `<span class="bio-meta-item">🌲 ${escapeHtml(sp.habitat)}</span>`;
+    if (sp.arrivalWindow)   card += `<span class="bio-meta-item">Arrives: ${escapeHtml(sp.arrivalWindow)}</span>`;
+    if (sp.departureWindow) card += `<span class="bio-meta-item">Departs: ${escapeHtml(sp.departureWindow)}</span>`;
+    if (sp.habitat)         card += `<span class="bio-meta-item">${escapeHtml(sp.habitat)}</span>`;
     card += '</div>';
     card += `<div class="bio-species-note">${escapeHtml(sp.notes)}</div>`;
-    if (sp.voice) card += `<div class="bio-species-fun">🎵 <strong>Voice:</strong> ${escapeHtml(sp.voice)}</div>`;
-    if (sp.feeder) card += `<div class="bio-species-fun">🌰 <strong>Feeder:</strong> ${escapeHtml(sp.feeder)}</div>`;
+    if (sp.voice) card += `<div class="bio-species-fun"><strong>Voice:</strong> ${escapeHtml(sp.voice)}</div>`;
+    if (sp.feeder) card += `<div class="bio-species-fun"><strong>Feeder:</strong> ${escapeHtml(sp.feeder)}</div>`;
     if (sp.funFact) card += `<div class="bio-species-fun">${escapeHtml(sp.funFact)}</div>`;
     if (sp.ebirdCode) {
-      card += `<a class="bio-deep-dive-chip" href="https://ebird.org/species/${escapeHtml(sp.ebirdCode)}/US-GA-227" target="_blank" rel="noopener">📊 eBird · Pickens Co. ↗</a>`;
+      card += `<a class="bio-deep-dive-chip" href="https://ebird.org/species/${escapeHtml(sp.ebirdCode)}/US-GA-227" target="_blank" rel="noopener">eBird · Pickens Co. ↗</a>`;
     }
     card += '</div>'; // body
     card += '</div>'; // row
@@ -5747,13 +5719,13 @@ function renderBirds() {
   };
 
   if (activeNow.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:14px;">🟢 Currently Active (${MONTH_NAME})</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:14px;">Currently Active (${MONTH_NAME})</div>`;
     h += '<div class="bio-species-list">';
     activeNow.forEach(sp => { h += renderSpeciesCard(sp); });
     h += '</div>';
   }
   if (notActive.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:16px;">⬜ Out of Season</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:16px;">Out of Season</div>`;
     h += '<div class="bio-species-list">';
     notActive.forEach(sp => { h += renderSpeciesCard(sp); });
     h += '</div>';
@@ -5767,7 +5739,7 @@ function renderBirds() {
   // Feeder panel
   const fr = bd.propertyHighlights.feederRecommendations;
   h += '<div class="bio-feeder-panel">';
-  h += '<div class="bio-feeder-title">🌰 Feeder Guide for Church Mountain Road</div>';
+  h += '<div class="bio-feeder-title">Feeder Guide for Church Mountain Road</div>';
   h += `<div class="bio-feeder-row"><span class="bio-feeder-label">Hummingbird: </span>${escapeHtml(fr.hummingbird)}</div>`;
   h += `<div class="bio-feeder-row"><span class="bio-feeder-label">Sunflower: </span>${escapeHtml(fr.blackOilSunflower)}</div>`;
   h += `<div class="bio-feeder-row"><span class="bio-feeder-label">Nyjer/Thistle: </span>${escapeHtml(fr.nyjer)}</div>`;
@@ -5818,7 +5790,7 @@ function renderAmphibians() {
   const calEntry = ad.seasonalCalendar[MONTH_NAME];
   if (calEntry && calEntry.active && calEntry.active.length) {
     h += '<div class="bio-month-highlight" style="border-color:#a8d8c8;">';
-    h += `<div class="bio-month-title" style="color:#1a7060;">🗓 ${MONTH_NAME} — Pond &amp; Forest Activity</div>`;
+    h += `<div class="bio-month-title" style="color:#1a7060;">${MONTH_NAME} — Pond &amp; Forest Activity</div>`;
     h += `<div style="font-size:12.5px;color:#2a4438;line-height:1.55;margin-bottom:6px;">${escapeHtml(calEntry.highlights)}</div>`;
     h += '<div class="bio-active-chips">';
     calEntry.active.forEach(a => {
@@ -5844,8 +5816,8 @@ function renderAmphibians() {
     h += '<div class="amp-event-list">';
     upcomingEvents.forEach(ev => {
       h += '<div class="amp-event-card">';
-      h += `<div class="amp-event-name">✨ ${escapeHtml(ev.name)}</div>`;
-      h += `<div class="amp-event-window">⏰ ${escapeHtml(ev.window)}</div>`;
+      h += `<div class="amp-event-name">${escapeHtml(ev.name)}</div>`;
+      h += `<div class="amp-event-window">${escapeHtml(ev.window)}</div>`;
       h += `<div class="amp-event-desc">${escapeHtml(ev.description)}</div>`;
       if (ev.elevation_note) h += `<div class="amp-event-desc" style="color:#3a7868;margin-top:3px;">${escapeHtml(ev.elevation_note)}</div>`;
       h += '</div>';
@@ -5886,16 +5858,16 @@ function renderAmphibians() {
     card += '<div class="bio-months-bar">' + renderMonthsBar(sp.monthsActive, sp.peakMonths) + '</div>';
     card += '<div style="font-size:10px;color:#8aa080;margin:2px 0 6px;">▪ Active &nbsp; ◼ Peak months</div>';
     card += '<div class="bio-species-meta">';
-    if (sp.size_in)    card += `<span class="bio-meta-item">📏 ${escapeHtml(sp.size_in)}"</span>`;
-    if (sp.habitat)    card += `<span class="bio-meta-item">🌿 ${escapeHtml(sp.habitat)}</span>`;
+    if (sp.size_in)    card += `<span class="bio-meta-item">${escapeHtml(sp.size_in)}"</span>`;
+    if (sp.habitat)    card += `<span class="bio-meta-item">${escapeHtml(sp.habitat)}</span>`;
     card += '</div>';
     card += `<div class="bio-species-note">${escapeHtml(sp.notes)}</div>`;
-    if (sp.call && sp.call !== 'Silent') card += `<div class="bio-species-fun">🔊 <strong>Call:</strong> ${escapeHtml(sp.call)}</div>`;
-    if (sp.appearance) card += `<div class="bio-species-fun">👁 <strong>ID:</strong> ${escapeHtml(sp.appearance)}</div>`;
-    if (sp.conservation) card += `<div class="bio-species-fun">🌿 <strong>Status:</strong> ${escapeHtml(sp.conservation)}</div>`;
-    if (sp.taxonomicNote) card += `<div class="bio-species-fun">🔬 <strong>Taxonomy:</strong> ${escapeHtml(sp.taxonomicNote)}</div>`;
+    if (sp.call && sp.call !== 'Silent') card += `<div class="bio-species-fun"><strong>Call:</strong> ${escapeHtml(sp.call)}</div>`;
+    if (sp.appearance) card += `<div class="bio-species-fun"><strong>ID:</strong> ${escapeHtml(sp.appearance)}</div>`;
+    if (sp.conservation) card += `<div class="bio-species-fun"><strong>Status:</strong> ${escapeHtml(sp.conservation)}</div>`;
+    if (sp.taxonomicNote) card += `<div class="bio-species-fun"><strong>Taxonomy:</strong> ${escapeHtml(sp.taxonomicNote)}</div>`;
     if (sp.srelUrl) {
-      card += `<a class="bio-deep-dive-chip" href="${escapeHtml(sp.srelUrl)}" target="_blank" rel="noopener">📚 SREL Herpetology ↗</a>`;
+      card += `<a class="bio-deep-dive-chip" href="${escapeHtml(sp.srelUrl)}" target="_blank" rel="noopener">SREL Herpetology ↗</a>`;
     }
     card += '</div>';
     card += '</div>';
@@ -5903,13 +5875,13 @@ function renderAmphibians() {
   };
 
   if (activeNow.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:14px;">🟢 Currently Active (${MONTH_NAME})</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:14px;">Currently Active (${MONTH_NAME})</div>`;
     h += '<div class="bio-species-list">';
     activeNow.forEach(sp => { h += renderAmpCard(sp); });
     h += '</div>';
   }
   if (notActive.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:16px;">⬜ Out of Season</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:16px;">Out of Season</div>`;
     h += '<div class="bio-species-list">';
     notActive.forEach(sp => { h += renderAmpCard(sp); });
     h += '</div>';
@@ -5921,7 +5893,7 @@ function renderAmphibians() {
 
   // Pond management note
   h += '<div class="bio-feeder-panel" style="border-color:#a8d8c8;background:#f0f9f6;">';
-  h += '<div class="bio-feeder-title" style="color:#1a7060;">💧 Pond Stewardship Notes</div>';
+  h += '<div class="bio-feeder-title" style="color:#1a7060;">Pond Stewardship Notes</div>';
   h += `<div class="bio-feeder-row" style="border-color:#c8eae0;">${escapeHtml(ad.propertyHighlights.pondManagementNotes)}</div>`;
   h += '</div>';
 
@@ -6177,7 +6149,6 @@ function renderThisMonthPlants() {
   if (activeTypes.length === 0) {
     wrap.innerHTML =
       '<div class="plant-all-clear">' +
-        '<div class="plant-all-clear-check">✓</div>' +
         'Nothing scheduled in <strong>' + MONTHS[currentMonth] + '</strong>.<br>' +
         '<span style="font-size:12px;color:#6a8a6a;">Browse By Species or Year View to plan ahead.</span>' +
       '</div>';
@@ -6285,12 +6256,12 @@ function renderHerpCard(sp, prefix) {
   card += '<div class="bio-months-bar">' + renderMonthsBar(sp.monthsActive, sp.peakMonths) + '</div>';
   card += '<div style="font-size:10px;color:#8aa080;margin:2px 0 6px;">▪ Active &nbsp; ◼ Peak months</div>';
   card += '<div class="bio-species-meta">';
-  if (sp.size_in) card += `<span class="bio-meta-item">📏 ${escapeHtml(sp.size_in)}"</span>`;
-  if (sp.habitat) card += `<span class="bio-meta-item">🌿 ${escapeHtml(sp.habitat)}</span>`;
+  if (sp.size_in) card += `<span class="bio-meta-item">${escapeHtml(sp.size_in)}"</span>`;
+  if (sp.habitat) card += `<span class="bio-meta-item">${escapeHtml(sp.habitat)}</span>`;
   card += '</div>';
   card += `<div class="bio-species-note">${escapeHtml(sp.notes)}</div>`;
-  if (sp.appearance)   card += `<div class="bio-species-fun">👁 <strong>ID:</strong> ${escapeHtml(sp.appearance)}</div>`;
-  if (sp.conservation) card += `<div class="bio-species-fun">🌿 <strong>Status:</strong> ${escapeHtml(sp.conservation)}</div>`;
+  if (sp.appearance)   card += `<div class="bio-species-fun"><strong>ID:</strong> ${escapeHtml(sp.appearance)}</div>`;
+  if (sp.conservation) card += `<div class="bio-species-fun"><strong>Status:</strong> ${escapeHtml(sp.conservation)}</div>`;
   card += '</div>';
   card += '</div>';
   return card;
@@ -6315,7 +6286,7 @@ function renderSnakes() {
   const calEntry = sd.seasonalCalendar && sd.seasonalCalendar[MONTH_NAME];
   if (calEntry && calEntry.highlights) {
     h += '<div class="bio-month-highlight" style="border-color:#d8c8a8;">';
-    h += `<div class="bio-month-title" style="color:#7a5828;">🗓 ${MONTH_NAME} — Snake Activity</div>`;
+    h += `<div class="bio-month-title" style="color:#7a5828;">${MONTH_NAME} — Snake Activity</div>`;
     h += `<div style="font-size:12.5px;color:#3a2818;line-height:1.55;">${escapeHtml(calEntry.highlights)}</div>`;
     h += '</div>';
   }
@@ -6323,20 +6294,20 @@ function renderSnakes() {
   // Safety panel (always visible — informational, not alarmist)
   if (sd.propertyHighlights && sd.propertyHighlights.safetyNotes) {
     h += '<div class="herp-info-panel safety">';
-    h += '<div class="herp-info-panel-title">⚠ Encountering a venomous snake</div>';
+    h += '<div class="herp-info-panel-title">Meeting a venomous snake</div>';
     h += `<div class="herp-info-panel-body">${escapeHtml(sd.propertyHighlights.safetyNotes)}</div>`;
     h += '</div>';
   }
 
   // Species list grouped by active/out-of-season
   if (activeNow.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:14px;">🟢 Likely Active (${MONTH_NAME})</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:14px;">Likely Active (${MONTH_NAME})</div>`;
     h += '<div class="bio-species-list">';
     activeNow.forEach(sp => { h += renderHerpCard(sp, 'snake'); });
     h += '</div>';
   }
   if (notActive.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:16px;">⬜ Brumation / Out of Season</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:16px;">Brumation / Out of Season</div>`;
     h += '<div class="bio-species-list">';
     notActive.forEach(sp => { h += renderHerpCard(sp, 'snake'); });
     h += '</div>';
@@ -6381,7 +6352,7 @@ function renderLizards() {
   const calEntry = ld.seasonalCalendar && ld.seasonalCalendar[MONTH_NAME];
   if (calEntry && calEntry.highlights) {
     h += '<div class="bio-month-highlight" style="border-color:#c8d8a8;">';
-    h += `<div class="bio-month-title" style="color:#4a6020;">🗓 ${MONTH_NAME} — Lizard Activity</div>`;
+    h += `<div class="bio-month-title" style="color:#4a6020;">${MONTH_NAME} — Lizard Activity</div>`;
     h += `<div style="font-size:12.5px;color:#2a3818;line-height:1.55;">${escapeHtml(calEntry.highlights)}</div>`;
     h += '</div>';
   }
@@ -6395,13 +6366,13 @@ function renderLizards() {
   }
 
   if (activeNow.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:14px;">🟢 Likely Active (${MONTH_NAME})</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:14px;">Likely Active (${MONTH_NAME})</div>`;
     h += '<div class="bio-species-list">';
     activeNow.forEach(sp => { h += renderHerpCard(sp, 'lizard'); });
     h += '</div>';
   }
   if (notActive.length) {
-    h += `<div class="bio-season-hdr" style="margin-top:16px;">⬜ Out of Season</div>`;
+    h += `<div class="bio-season-hdr" style="margin-top:16px;">Out of Season</div>`;
     h += '<div class="bio-species-list">';
     notActive.forEach(sp => { h += renderHerpCard(sp, 'lizard'); });
     h += '</div>';
