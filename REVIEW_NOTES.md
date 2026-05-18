@@ -6,17 +6,24 @@
 
 ---
 
-## ✅ Status update (2026-05-18)
+## ✅ Status update (2026-05-18 evening)
 
-Most of the LOCKED IMPLEMENTATION PLAN below shipped between 2026-05-08 and 2026-05-13. Recap:
+Everything locked in this review file has shipped. **This file is now historical.**
 
-- **Menu restructure** ✅ — `Today on the property` header + `Tap any tile for more details` subtitle in place; `USDA ZONE 6B · 2,959 FT · BLUE RIDGE` strip removed from the header; Astronomy tile live (`dash-astronomy-sub` in viewer.html); Property Profile promoted into the menu.
-- **Tile-level decisions** ✅ — Weather always-on summary, dropped bolded "May" on Plants/Wildlife, Vehicles/Property descriptive treatment all shipped.
-- **"REFERENCE" divider removed** ✅.
+**From the 2026-05-08 locked plan:**
+- **Menu restructure** ✅ — `Today on the property` header + tap-cue subtitle, "USDA ZONE 6B" strip removed, Astronomy tile live, Property Profile promoted.
+- **Tile-level decisions** ✅ — Weather always-on summary, dropped bolded "May" on Plants/Wildlife, Vehicles/Property descriptive treatment.
+- **"REFERENCE" divider removed** ✅ — finally dropped 2026-05-18 in Phase 1 cleanup (commit `cad6821`).
+- **§3 Weather card "topic-grouped" restructure** ✅ — already shipped before 2026-05-18 (sections: Worth knowing / Today / Right now / Rainfall / Inside / Where does this data come from?). My earlier status note mistakenly said this was queued; the UX agent caught the divergence during the 2026-05-18 review.
+- **§1 Property quick-reference strip** ✅ — strip removed; facts moved into Property Profile tile.
 
-**Still open from this review session:**
-- **§3 Weather card "topic-grouped" restructure** — locked plan, **not yet shipped.** The `.wblock-station / -forecast / -historical` blocks are still in viewer.html (CSS at ~line 522). The collapse-into-topics work is queued behind the holistic UX + copy review now scheduled in CLAUDE.md.
-- **§1 Property quick-reference strip** — fully resolved by removing the strip; facts moved into the Property Profile tile. No action remaining.
+**From the 2026-05-18 holistic review (UX + copy + expansion pass):**
+- **Phase 1 mechanical cleanup** ✅ — commit `cad6821`. Dropped wildlife traffic-light glyphs, ~20 meta-chip emojis, Sky & Stars decorative glyphs, celestial star ratings, fishing verdict emojis, plants empty ✓, snake safety ⚠, Reference divider, palette fixes on `tbd` chip and peak-window chip, soft alert chrome.
+- **Phase 2 voice rewrites** ✅ — commits `9557bc9` + `a2d4554`. Alert subsystem (~17 titles + body softening), fishing verdict text ("Lake is sluggish"), header subtitle ("An Appalachian Almanac for 282 Church Mountain Road"), empty states across 4 surfaces, Vehicles card summary + Crimson-italic intro, all 17 plant `guide` first sentences anchored in the property, `currentSeasonNote` opener variety across 13 plants.
+- **Phase 4.1 Property card lead + surface-fact callouts** ✅ — Crimson-italic Sand County Almanac-register lead + six callouts (Tate Mountain Estates, On Cherokee land, A Bortle 3 sky, Keystone plants, Outdoor burning, Homegrown National Park).
+- **Existing wildlife audit** ✅ — 48-species pass, zero deletions, 8 prose softenings + Lake Sequoyah distance fix (`3c46d7a`).
+
+**Future direction** is now tracked in `review/2026-05-18/SYNTHESIS.md` — see Phase 3 (deferred structural items) and Phase 4 (mammals tab, year-ribbon/digest fork, Paul's own observations, AI today-line).
 
 ---
 

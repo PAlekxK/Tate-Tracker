@@ -274,19 +274,21 @@ Cleanup completed 2026-05-13 across `plants.json`, viewer.html's inlined `PLANTS
 
 **Known imprecisions:** the +3/-3 shift relies on lapse-rate math (7 days per 1,000 ft); Paul's direct phenological observation is more authoritative if anything reads obviously off. Some descriptive prose still uses vague phrases ("mid-May to early June," "early summer") that weren't shifted — those are approximate to begin with and should be tightened only if a specific entry reads wrong on the ground.
 
-## Next major pass — holistic UX + copy review
+## ~~Next major pass — holistic UX + copy review~~ ✓ Done 2026-05-18
 
-Queued 2026-05-18. Before any further individual polish or feature work, run a structured site-wide review using two subagents and triage their findings into a punch list.
+The holistic review ran on 2026-05-18 with three parallel agents (ux-expert, content-steward, user-researcher). Artifacts at `review/2026-05-18/` — `ux-findings.md`, `copy-findings.md`, `future-ideas.md`, `existing-wildlife-audit.md`, `property-card-content.md`, `plant-guide-drafts.md`, and `SYNTHESIS.md` (the consolidated punch list with phase plan and resolved-questions log).
 
-**Scope:** full sweep — dashboard strip + all 5 cards expanded, every tab/view inside each card. Individual card contents, fonts, text sizes, spacing, hierarchy, affordances, mobile behavior, copy voice consistency against the field-journal tone.
+**Shipped on 2026-05-18:**
+- **Wildlife audit** — 48 species through the depth filter, zero deletions, 8 prose softenings + Lake Sequoyah distance fix (~6.2 mi misread → 0.3 mi corrected; property is effectively *in* Tate Mountain Estates).
+- **Phase 1 mechanical cleanup** (12 items) — dropped wildlife traffic-light glyphs, ~20 meta-chip emojis, Sky & Stars decorative glyphs, celestial star ratings, fishing verdict emojis, ✓ checkmark on Plants empty state, ⚠ on snake safety panel, in-page "Reference" divider; recolored `.maint-conf-tbd` (red → gray) and peak-window chips (yellow → green); softened `.alert.severe` chrome (red → warm amber).
+- **Phase 2 voice rewrites** (6 items) — alert subsystem (~17 NWS-bulletin titles → observational + body softening + dropped all-caps), fishing verdict text ("Lake is sluggish — fish all deep, cold, and slow"), header subtitle (*"An Appalachian Almanac for 282 Church Mountain Road"* — Sand County Almanac touchstone), 4 empty-state copy rewrites, Vehicles card summary + Crimson-italic intro, all 17 plant `guide` first sentences anchored in this property, `currentSeasonNote` opener variety across 13 plants.
+- **Phase 4.1 Property card upgrade** — Crimson-italic Sand County Almanac-register lead paragraph at top, plus six surface-fact callouts (Tate Mountain Estates, On Cherokee land, A Bortle 3 sky, Keystone plants, Outdoor burning, Homegrown National Park).
+- **Phase 4.2 Mammals tab** — new tab in the Wildlife card with 17 curated species (white-tailed deer, eastern gray squirrel, chipmunk, cottontail, groundhog, raccoon, opossum, striped skunk, red fox, gray fox, coyote, black bear, bobcat, river otter, beaver, southern flying squirrel, bats). Schema mirrors `birds.json`. Renderer parallels existing wildlife tabs.
 
-**Agents to run (both in review mode):**
-- `ux-expert` — hierarchy, card layout, fonts/sizes/spacing, affordances, mobile, structured JSON findings.
-- `content-steward` — voice/tone consistency against [[project_tate_tracker_tone]] (field journal, not task manager), per-card copy fit, register and audience match.
-
-**Process:** run each agent, collect their structured findings, then triage into a single prioritized punch list before any implementation pass. Don't let either agent jump straight to fixes — capture the whole picture first.
-
-**Why now:** the site has grown a lot of surface area (5 cards, multiple tabs, many live data sources, recently expanded plant set) and the last holistic walkthrough was 2026-05-08 (see `REVIEW_NOTES.md`). A fresh pass with specialist agents will catch consistency drift and tone slips that piecemeal work doesn't.
+**Decisions locked from the 2026-05-18 walk-through** (full table in SYNTHESIS.md):
+- Dual-frame identity: voice = field journal; form = Appalachian Almanac. Touchstone = Aldo Leopold's *A Sand County Almanac*. See [[project_tate_tracker_tone]].
+- Depth filter for all coverage decisions: only what Paul realistically observes on this property. See [[feedback_tate_tracker_depth_filter]].
+- Server proxy: green-lit (unlocks AirNow / Drought Monitor / NCEI normals / AI today-line).
 
 ## Pending design improvements (prioritized)
 
