@@ -62,7 +62,7 @@
           1
         ],
         "fishing": "poor",
-        "summary": "All species sluggish. Bass suspended at deepest water. Not worth targeting unless mild spell brings surface to 50°F+."
+        "summary": "All species sluggish. Bass suspended at deepest water. Worth coming back when a mild spell brings surface temps above 50°F."
       },
       {
         "label": "Early Spring Stir",
@@ -354,7 +354,7 @@
       },
       "May": {
         "worthFishing": true,
-        "conditions": "Best month of the year. Pre-spawn bass at peak aggression. Crappie spawn begins late May. Bluegill warming up. DO NOT MISS THIS WINDOW.",
+        "conditions": "Best month of the year. Pre-spawn bass at peak aggression. Crappie spawn begins late May. Bluegill warming up. Worth being on the water this month.",
         "species": [
           "bass",
           "crappie",
