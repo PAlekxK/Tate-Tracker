@@ -265,3 +265,85 @@ All five are well-supported by the findings and would be load-bearing for future
 ---
 
 *— Synthesis · 2026-05-18*
+
+---
+
+## Phase 4 — locked sequence (2026-05-18 evening)
+
+After today's Phase 1 + 2 + 3 + partial 4 (4.1 Property card lead/callouts + 4.2 Mammals tab) shipped, Paul locked the remaining Phase 4 work into this engineering-logical sequence. Key constraint: **no significant existing observation data to seed from — observations will accumulate over time.** Reframed the earlier 4.3 vs 4.4 fork: they're not competing, they're sequential.
+
+### Phase A — Make existing week-level data first-class
+
+**Goal:** the dashboard speaks week-tier where the data already supports it.
+
+**Why first:** smallest cost, fastest payoff, reframes everything downstream. Zero new data needed — surfaces what's already in `peakWindow` strings, `arrivalWindow`/`departureWindow` fields, frost dates, fishing pre-spawn window, astronomy events.
+
+**Work:**
+- New `weekOfMonth()` render-layer helper
+- Header context line under "Tate Tracker" or in the address area: *"Late May at Church Mountain"* / *"Early June"* / *"Mid-July"*
+- Small "this week" callouts on Plants and Wildlife dashboard tiles when a plant is in `peakWindow` or a species is in its `arrivalWindow`/`departureWindow` *this specific week*
+- No data file changes
+
+**Effort:** 1 session.
+
+### Phase B — Build 4.4: observations write surface
+
+**Goal:** Paul becomes the journal's writer; observations accumulate as the property's week-level phenology record.
+
+**Why next:** without this, week-level data only comes from research sources (regional averages). With this, the dashboard records *this property's* week-level facts as Paul lives the year. Empty journal at day 1; pays dividends from observation 1 onward.
+
+**The key reframe:** 4.4 is **the data-collection mechanism for 4.6.** Your "mountain laurel peak May 22, 2026" entry IS the property-anchored week-level data the dashboard will eventually surface. The journal *generates* the almanac over time.
+
+**Work:**
+- Schema for observations (date, category, species/topic, body, optional photo path)
+- Mobile-friendly form (you'll capture observations on your phone outside)
+- List view of past observations
+- "Recent observations" panel on Plants / Wildlife / Property cards where the observation references that surface
+- Decision: local storage only (privacy-friendly, no sync) vs. lightweight backend (cross-device)
+
+**Effort:** 1–2 sessions.
+
+### Phase C — Server proxy + 4.5 AI today-line (parallel-able)
+
+**Goal:** infrastructure that unlocks AI synthesis + 3 new data integrations.
+
+**Why parallel-able:** independent track. Can happen any time after Phase A.
+
+**Work:**
+- Small serverless proxy (Cloudflare Workers / Vercel / similar) — handles API keys, CORS, rate limiting
+- Claude API integration for daily prose synthesis ("today" line) — upgrades the rule-based `generateGardenerInsight()`
+- AirNow AQI feed (needs key, server proxy)
+- US Drought Monitor pill (FIPS 13227 = Pickens GA)
+- NOAA NCEI 1991–2020 normals (free token, monthly cache OK)
+
+**Effort:** 1 session proxy + 1 session AI line + 1 session for the 3 data integrations.
+
+### Phase D — 4.6 full schema audit
+
+**Goal:** every data file's week-level information is complete where biology supports it.
+
+**Why fourth:** needs Phase B to have accumulated some property observations (so the audit can integrate them with research-derived facts), and unblocks Phase E (no point rendering a year-ribbon without good week-level data).
+
+**Work:**
+- Audit every data file: `plants.json`, `birds.json`, `amphibians.json`, `snakes.json`, `lizards.json`, `mammals.json`, `fishing.json`
+- Add week-level fields where biology supports it (some species have meaningful week patterns; many don't — apply the depth filter to precision)
+- Integrate accumulated observations from the journal
+- Research-source week-level facts from authoritative regional naturalist materials
+
+**Effort:** multi-session, data-heavy. Probably 3–5 sessions depending on depth.
+
+### Phase E — 4.3 year-on-a-ribbon (visual capstone)
+
+**Goal:** the year on this land as a single image.
+
+**Why last:** only worth building once Phase D has populated the data layer. Before that, it'd be a glorified monthly bar chart.
+
+**Work:** design + build. Visual concept needs UX pass first.
+
+**Effort:** 1–2 sessions design, 1–2 sessions build.
+
+---
+
+### Recommendation for next session
+
+**Start with Phase A.** Smallest, fastest, highest impact-per-effort ratio. Reframes the whole dashboard's temporal feel in one session with zero new data work. Then decide whether B or C comes next.
