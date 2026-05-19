@@ -948,6 +948,30 @@
   .alert.info     .alert-title { color: #275a82; }
   .alerts-empty { font-size: 12px; color: #8aa48a; font-style: italic; padding: 6px 2px; }
 
+  .burn-status {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; border-radius: 10px;
+    border-left: 3px solid;
+    font-size: 13px; line-height: 1.5;
+  }
+  .burn-status-icon { font-size: 18px; line-height: 1.1; flex-shrink: 0; margin-top: 1px; }
+  .burn-status-body { flex: 1; min-width: 0; }
+  .burn-status-title {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 14.5px;
+    margin-bottom: 2px;
+  }
+  .burn-status-sub { font-size: 12.5px; color: #3a4a3a; }
+  .burn-status-sources { font-size: 10px; color: #88a07a; letter-spacing: 0.3px; margin-top: 3px; }
+  .burn-status.normal   { background: #f3f7ec; border-color: #7a9a5e; }
+  .burn-status.normal   .burn-status-title { color: #2d4a2a; }
+  .burn-status.elevated { background: #fbf6ea; border-color: #c8a058; }
+  .burn-status.elevated .burn-status-title { color: #7a5828; }
+  .burn-status.severe   { background: #f8e8de; border-color: #c4602a; }
+  .burn-status.severe   .burn-status-title { color: #7a3818; }
+
   /* === PLANTS === */
   .filters { background: #f8fcf5; border-bottom: 1px solid #e4f0d8; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .filters-inner { display: flex; padding: 0 8px; }
@@ -4101,6 +4125,22 @@ function renderWeather() {
       html +=   '</div>';
       html += '</div>';
     });
+    html +=   '</div>';
+    html += '</div>';
+  }
+
+  // === BURN STATUS (NWS fire-weather alerts + seasonal ban + drought + days-since-rain) ===
+  const burn = computeBurnStatus();
+  if (burn) {
+    html += '<div class="wblock">';
+    html +=   '<div class="wblock-header"><span class="wblock-title">Burn status</span></div>';
+    html +=   '<div class="burn-status ' + burn.level + '">';
+    html +=     '<div class="burn-status-icon">' + burn.icon + '</div>';
+    html +=     '<div class="burn-status-body">';
+    html +=       '<div class="burn-status-title">' + escapeHtml(burn.title) + '</div>';
+    html +=       '<div class="burn-status-sub">' + escapeHtml(burn.sub) + '</div>';
+    if (burn.sources) html += '<div class="burn-status-sources">' + escapeHtml(burn.sources) + '</div>';
+    html +=     '</div>';
     html +=   '</div>';
     html += '</div>';
   }
@@ -7619,6 +7659,9 @@ async function fetchDroughtStatus() {
       if (!isNaN(v) && v > 0) { category = k; pct = v; break; }
     }
     const date = latest.MapDate ? new Date(latest.MapDate).toLocaleDateString("en-US", { month: "long", day: "numeric" }) : "the latest update";
+    // Cache for burn-status synthesizer (needs the category, not just the rendered text).
+    WEATHER_DATA.drought = { category, pct, date };
+    if (typeof renderWeather === "function") renderWeather();
     const body = category === "None"
       ? `Pickens County is out of drought conditions as of ${date} — the US Drought Monitor shows the whole county clear.`
       : `Pickens County sits at <strong>${escapeHtml(dLabel[category])}</strong> (${pct.toFixed(0)}% of the county) as of ${date}, per the US Drought Monitor.`;
@@ -7705,8 +7748,109 @@ async function fetchTodayLine() {
   }
 }
 
+// ---- Fire-weather alerts (NWS active-alerts at property point — CORS-enabled, no key) ----
+async function fetchFireWeatherAlerts() {
+  try {
+    const url = "https://api.weather.gov/alerts/active?point=34.5496,-84.3674";
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    const features = data.features || [];
+    const fireAlerts = features
+      .filter(f => /fire|red flag/i.test((f.properties && f.properties.event) || ""))
+      .map(f => ({
+        event: f.properties.event,
+        headline: f.properties.headline,
+        severity: f.properties.severity,
+        ends: f.properties.ends,
+      }));
+    WEATHER_DATA.fireWeather = { alerts: fireAlerts, fetchedAt: new Date().toISOString() };
+    if (typeof renderWeather === "function") renderWeather();
+  } catch (e) {
+    console.warn("Fire-weather alerts fetch failed:", e.message);
+    WEATHER_DATA.fireWeather = { alerts: [], fetchedAt: new Date().toISOString(), error: true };
+  }
+}
+
+// ---- Burn-status synthesizer (NWS alerts + seasonal ban + drought + days-since-rain) ----
+function daysSinceMeaningfulRain() {
+  const past7 = (WEATHER_DATA.recentPrecip && WEATHER_DATA.recentPrecip.past7days) || [];
+  if (!past7.length) return null;
+  for (let i = past7.length - 1; i >= 0; i--) {
+    if ((past7[i].precip || 0) >= 0.10) return (past7.length - 1) - i;
+  }
+  // No meaningful rain in past 7 days
+  return past7.length;
+}
+
+function computeBurnStatus() {
+  const m = today.getMonth(); // 0-indexed
+  const inSeasonalBan = (m >= 4 && m <= 8); // May (4) through September (8)
+  const fwAlerts = (WEATHER_DATA.fireWeather && WEATHER_DATA.fireWeather.alerts) || [];
+
+  // Tier 1 — active NWS fire-weather alert (Red Flag or Fire Weather Watch)
+  if (fwAlerts.length > 0) {
+    const top = fwAlerts[0];
+    return {
+      level: "severe",
+      icon: "🔥",
+      title: top.event,
+      sub: top.headline || "Active fire-weather alert from the National Weather Service.",
+      sources: "NWS · GA EPD",
+      url: "https://gatrees.org/burn-permits-and-notifications/",
+    };
+  }
+
+  // Drought severity (from cached USDM result)
+  const drought = WEATHER_DATA.drought;
+  const droughtCat = drought ? drought.category : null;
+  const droughtLabels = { D0: "Abnormally dry", D1: "Moderate drought", D2: "Severe drought", D3: "Extreme drought", D4: "Exceptional drought" };
+  const droughty = droughtCat && droughtCat !== "None" && ["D1", "D2", "D3", "D4"].includes(droughtCat);
+  const elevated = droughtCat && ["D2", "D3", "D4"].includes(droughtCat);
+
+  // Days since meaningful rain (≥0.10")
+  const daysDry = daysSinceMeaningfulRain();
+  const veryDry = daysDry != null && daysDry >= 10;
+
+  // Tier 2 — elevated risk context (drought D2+ or 10+ days dry)
+  let level = "normal";
+  if (elevated || veryDry) level = "elevated";
+
+  // Regulatory layer
+  const regTitle = inSeasonalBan
+    ? "State outdoor-burning ban active"
+    : "Burn permit required";
+  const regBody = inSeasonalBan
+    ? "Georgia's statewide ban (May 1 – Sep 30) blocks open burning of yard debris."
+    : "Burns require a Georgia Forestry Commission permit at gatrees.org.";
+
+  // Context line — only include signal worth stating (skip "no drought" when normal)
+  const ctx = [];
+  if (droughtCat && droughtCat !== "None") {
+    ctx.push(droughtLabels[droughtCat] || droughtCat);
+  }
+  if (daysDry != null) {
+    if (daysDry === 0) ctx.push("rain today");
+    else if (daysDry === 1) ctx.push("rain yesterday");
+    else if (daysDry >= 7) ctx.push("no meaningful rain in the past week");
+    else ctx.push(daysDry + " days since last meaningful rain");
+  }
+  // Capitalize the first context chunk so it reads as a sentence continuation
+  if (ctx.length) ctx[0] = ctx[0].charAt(0).toUpperCase() + ctx[0].slice(1);
+
+  return {
+    level,
+    icon: level === "elevated" ? "⚠️" : (inSeasonalBan ? "🚫" : "🪵"),
+    title: regTitle,
+    sub: regBody + (ctx.length ? " " + ctx.join(" · ") + "." : ""),
+    sources: "GA EPD · USDM" + (drought && drought.date ? " · " + drought.date : ""),
+    url: "https://gatrees.org/burn-permits-and-notifications/",
+  };
+}
+
 fetchAirNowAQI();
 fetchDroughtStatus();
+fetchFireWeatherAlerts();
 fetchTodayLine();
 
 // =========================
