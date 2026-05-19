@@ -284,6 +284,7 @@ The holistic review ran on 2026-05-18 with three parallel agents (ux-expert, con
 - **Phase 2 voice rewrites** (6 items) — alert subsystem (~17 NWS-bulletin titles → observational + body softening + dropped all-caps), fishing verdict text ("Lake is sluggish — fish all deep, cold, and slow"), header subtitle (*"An Appalachian Almanac for 282 Church Mountain Road"* — Sand County Almanac touchstone), 4 empty-state copy rewrites, Vehicles card summary + Crimson-italic intro, all 17 plant `guide` first sentences anchored in this property, `currentSeasonNote` opener variety across 13 plants.
 - **Phase 4.1 Property card upgrade** — Crimson-italic Sand County Almanac-register lead paragraph at top, plus six surface-fact callouts (Tate Mountain Estates, On Cherokee land, A Bortle 3 sky, Keystone plants, Outdoor burning, Homegrown National Park).
 - **Phase 4.2 Mammals tab** — new tab in the Wildlife card with 17 curated species (white-tailed deer, eastern gray squirrel, chipmunk, cottontail, groundhog, raccoon, opossum, striped skunk, red fox, gray fox, coyote, black bear, bobcat, river otter, beaver, southern flying squirrel, bats). Schema mirrors `birds.json`. Renderer parallels existing wildlife tabs.
+- **Phase A week-tier surfacing** (locked-sequence start) — header date softened from uppercase letter-spaced productivity chrome to journal-voice serif italic with week-tier prefix ("Mid May · Monday, May 18"). Plants dash tile gets a "Peak this week" callout for plants whose any `peakWindow` contains today; Wildlife dash tile gets "Arriving this week" / "Leaving this week" callouts derived from bird `arrivalWindow` / `departureWindow` (matched against the first/last edge token only, so a Late-April arrival doesn't keep saying "arriving" in mid-May). Render-layer helpers (`weekTier`, `parseShortDateRange`, `parseSeasonalEdge`) live near the top of the script block.
 
 **Decisions locked from the 2026-05-18 walk-through** (full table in SYNTHESIS.md):
 - Dual-frame identity: voice = field journal; form = Appalachian Almanac. Touchstone = Aldo Leopold's *A Sand County Almanac*. See [[project_tate_tracker_tone]].
@@ -295,7 +296,7 @@ The holistic review ran on 2026-05-18 with three parallel agents (ux-expert, con
 1. ~~**Mobile dashboard strip** — 3-column grid wraps awkwardly at 390px~~ ✓ Done.
 2. ~~**Body background** — subtle grain/noise texture~~ ✓ Done — layered SVG fractalNoise over the gradient.
 3. ~~**Extend Crimson Text** — Card titles use serif~~ ✓ Done (was already in place; verified).
-4. **Card expand animation** — Currently hard-toggles. Add CSS `grid-template-rows: 0fr → 1fr` or max-height transition.
+4. ~~**Card expand animation**~~ ✓ Done — `.main-card-body` uses a max-height + opacity transition with cubic-bezier(0.4, 0, 0.2, 1). Sub-card expanders (`.bio-species-body`, `.plant-body`, `.care-block-body`) still hard-toggle; left as-is — they sit inside an already-animating parent and a second nested animation read worse in testing.
 5. ~~**"REFERENCE" section divider** — needed more visual weight~~ ✓ Done — serif italic Crimson Text label, fade-to-clear gradient lines.
 6. ~~**Dashboard strip stat hierarchy** — values needed more visual weight~~ ✓ Done — 17px → 20px, weight 600 → 700, darker color.
 7. ~~**Header breathing room** — 22px → 32px padding, h1 30px~~ ✓ Done.

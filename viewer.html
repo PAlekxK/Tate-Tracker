@@ -32,7 +32,15 @@
   .header::before { top: -40px; right: -30px; width: 200px; height: 200px; }
   .header::after { bottom: -60px; left: -40px; width: 160px; height: 160px; }
   .header-inner { position: relative; max-width: 660px; margin: 0 auto; }
-  .header-date { font-size: 11px; color: rgba(255,255,255,0.78); letter-spacing: 0.8px; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; }
+  .header-date {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.84);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .header-date .header-tier { font-weight: 600; font-style: normal; letter-spacing: 0.2px; }
   .header h1 { font-family: "Crimson Text", Georgia, serif; font-size: 30px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 4px; margin-top: 4px; line-height: 1.2; }
   .header-subtitle {
     font-family: "Crimson Text", Georgia, serif;
@@ -1802,6 +1810,9 @@
   .dash-tease-names { color: #6a8a6a; }
   .dash-tease-more { font-style: italic; color: #8a9a8a; font-size: 10px; margin-top: 3px; }
   .dash-all-clear { font-size: 10px; color: #3a8a3a; font-weight: 600; margin-top: 3px; display: block; }
+  /* Week-tier callout: serif italic to match the almanac register */
+  .dash-tease-week { margin-top: 6px; padding-top: 5px; border-top: 1px dashed #d4e4c8; }
+  .dash-tease-week .dash-tease-action { font-family: "Crimson Text", Georgia, serif; font-style: italic; font-weight: 600; color: #3a6a3a; }
 
 
   /* === PLANT VIEW TABS === */
@@ -2426,8 +2437,88 @@ const today = new Date();
 const currentMonth = today.getMonth();
 let activeFilter = "all";
 
-document.getElementById("header-date").textContent =
-  today.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+// =========================
+// WEEK-TIER HELPERS (Phase A)
+// =========================
+// "Early" = days 1–10, "Mid" = 11–20, "Late" = 21+
+function weekTier(d) {
+  const day = d.getDate();
+  if (day <= 10) return "Early";
+  if (day <= 20) return "Mid";
+  return "Late";
+}
+const MONTH_NAMES_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTH_NAMES_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+// Parse "Mon DD–DD" or "Mon DD–Mon DD" (en dash or hyphen) at the start of a peakWindow string.
+// Returns {start: Date, end: Date} in the current year, or null.
+function parseShortDateRange(str) {
+  if (!str) return null;
+  const m1 = str.match(/^([A-Z][a-z]{2})\s+(\d{1,2})\s*[–-]\s*(\d{1,2})\b/);
+  if (m1) {
+    const mi = MONTH_NAMES_SHORT.indexOf(m1[1]);
+    if (mi < 0) return null;
+    const y = today.getFullYear();
+    return { start: new Date(y, mi, +m1[2]), end: new Date(y, mi, +m1[3]) };
+  }
+  const m2 = str.match(/^([A-Z][a-z]{2})\s+(\d{1,2})\s*[–-]\s*([A-Z][a-z]{2})\s+(\d{1,2})\b/);
+  if (m2) {
+    const mi1 = MONTH_NAMES_SHORT.indexOf(m2[1]);
+    const mi2 = MONTH_NAMES_SHORT.indexOf(m2[3]);
+    if (mi1 < 0 || mi2 < 0) return null;
+    const y = today.getFullYear();
+    return { start: new Date(y, mi1, +m2[2]), end: new Date(y, mi2, +m2[4]) };
+  }
+  return null;
+}
+// Parse looser "Early/Mid/Late MonthName" or bare "MonthName" tokens, used for arrival/departure windows.
+// Returns {start: Date, end: Date} in the current year, or null.
+function parseTieredMonthToken(tok) {
+  const t = tok.trim();
+  const m = t.match(/^(Early|early|Mid|mid|Late|late)?\s*([A-Z][a-z]+)$/);
+  if (!m) return null;
+  const mi = MONTH_NAMES_FULL.indexOf(m[2]);
+  if (mi < 0) return null;
+  const y = today.getFullYear();
+  const tier = (m[1] || "").toLowerCase();
+  const lastDay = new Date(y, mi + 1, 0).getDate();
+  if (tier === "early") return { start: new Date(y, mi, 1),  end: new Date(y, mi, 10) };
+  if (tier === "mid")   return { start: new Date(y, mi, 11), end: new Date(y, mi, 20) };
+  if (tier === "late")  return { start: new Date(y, mi, 21), end: new Date(y, mi, lastDay) };
+  return { start: new Date(y, mi, 1), end: new Date(y, mi, lastDay) };
+}
+// Arrival = the *opening* edge of the season; only show "arriving" while we're inside that edge.
+// Departure = the *closing* edge; only show "leaving" while we're inside that edge.
+// This keeps birds out of "arriving this week" three weeks after they actually showed up.
+function parseSeasonalEdge(str, edge) {
+  if (!str) return null;
+  const norm = str.replace(/(Early|Mid|Late)-/g, "$1 ");
+  const parts = norm.split(/\s*[–-]\s*/);
+  const tok = edge === "first" ? parts[0] : parts[parts.length - 1];
+  return parseTieredMonthToken(tok);
+}
+function dateInRange(d, r) {
+  if (!r) return false;
+  return d >= r.start && d <= r.end;
+}
+// Walk every peakWindow in a plant's care tree; return true if any range contains today.
+function plantPeakActiveThisWeek(plant) {
+  const care = plant.care || {};
+  for (const ct of Object.keys(care)) {
+    const block = care[ct];
+    if (!block) continue;
+    if (block.peakWindow && dateInRange(today, parseShortDateRange(block.peakWindow))) return true;
+    if (block.subcategories) {
+      for (const sub of block.subcategories) {
+        if (sub.peakWindow && dateInRange(today, parseShortDateRange(sub.peakWindow))) return true;
+      }
+    }
+  }
+  return false;
+}
+
+document.getElementById("header-date").innerHTML =
+  '<span class="header-tier">' + escapeHtml(weekTier(today) + " " + MONTH_NAMES_FULL[currentMonth]) + '</span>' +
+  ' · ' + escapeHtml(today.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }));
 
 function escapeHtml(str) {
   if (!str) return "";
@@ -6113,7 +6204,24 @@ function renderDashboardStrip() {
           '</span>' +
         '</div>';
       }).join("");
-      pSubEl.innerHTML = rows;
+
+      // Week-tier callout (Phase A): plants with any peakWindow that contains today.
+      let peakRow = "";
+      if (typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) {
+        const peakNow = PLANTS_DATA.plants.filter(p => plantPeakActiveThisWeek(p));
+        if (peakNow.length) {
+          const maxNames = 3;
+          const shown = peakNow.slice(0, maxNames).map(p => p.name);
+          const tail = peakNow.length > maxNames ? ", +" + (peakNow.length - maxNames) : "";
+          peakRow = '<div class="dash-tease-row dash-tease-week">' +
+            '<span class="dash-tease-body">' +
+              '<span class="dash-tease-action">Peak this week</span> · ' +
+              '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
+            '</span>' +
+          '</div>';
+        }
+      }
+      pSubEl.innerHTML = rows + peakRow;
     }
   }
 
@@ -6139,6 +6247,30 @@ function renderDashboardStrip() {
     let html = "";
     if (birdsNow.length) html += teaseRow("🐦", "Birds", birdsNow.map(b => b.name), birdsNow.length);
     if (ampsNow.length)  html += teaseRow("🐸", "Amphibians", ampsNow.map(a => a.name), ampsNow.length);
+
+    // Week-tier callout (Phase A): birds arriving/departing this specific week.
+    const arrivingNow = BIRDS_DATA.species.filter(s => s.arrivalWindow && dateInRange(today, parseSeasonalEdge(s.arrivalWindow, "first")));
+    const leavingNow  = BIRDS_DATA.species.filter(s => s.departureWindow && dateInRange(today, parseSeasonalEdge(s.departureWindow, "last")));
+    if (arrivingNow.length) {
+      const shown = arrivingNow.slice(0, maxNames).map(b => b.name);
+      const tail = arrivingNow.length > maxNames ? ", +" + (arrivingNow.length - maxNames) : "";
+      html += '<div class="dash-tease-row dash-tease-week">' +
+        '<span class="dash-tease-body">' +
+          '<span class="dash-tease-action">Arriving this week</span> · ' +
+          '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
+        '</span>' +
+      '</div>';
+    }
+    if (leavingNow.length) {
+      const shown = leavingNow.slice(0, maxNames).map(b => b.name);
+      const tail = leavingNow.length > maxNames ? ", +" + (leavingNow.length - maxNames) : "";
+      html += '<div class="dash-tease-row dash-tease-week">' +
+        '<span class="dash-tease-body">' +
+          '<span class="dash-tease-action">Leaving this week</span> · ' +
+          '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
+        '</span>' +
+      '</div>';
+    }
 
     if (typeof FISHING_DATA !== "undefined" && typeof estimateLakeTemp === "function") {
       const lakeTemp = estimateLakeTemp();
