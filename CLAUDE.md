@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project purpose & tone
 
-Tate Tracker is a **personal property reference dashboard** for 282 Church Mountain Road, Jasper, GA 30143 — a rural mountain property at 2,959 ft elevation in the Blue Ridge. It is hyper-personalized, not a generic app.
+Fernwood is a **personal property reference dashboard** for 282 Church Mountain Road, Jasper, GA 30143 — a rural mountain property at 2,959 ft elevation in the Blue Ridge, within Tate Mountain Estates. "Fernwood" is the property's name; "Tate Mountain Estates" is the surrounding 1920s mountain development, separate from the nearby town of Tate. It is hyper-personalized, not a generic app.
+
+**Project rename history:** Originally "Tate Tracker" (named for Col. Sam Tate / Tate Mountain Estates); renamed to "Fernwood" on 2026-05-19 to name the actual property rather than the surrounding development. Repo path, GitHub repo, Worker URL, localStorage keys, and most internal var names retain `tate-tracker` / `tateTracker` for now — those are infrastructure-level identifiers, not user-facing, and renaming them carries data-migration risk (existing observations). Rename them only if a clear reason emerges.
 
 **Tone is everything here.** This is a fun, evocative reference tool — a field journal, not a task manager. Language like "17 actions due" or "3 alerts" is wrong for this project. Prefer "What's happening in May" or "Worth checking this month." The dashboard should feel like looking out at the land, not a to-do list with deadlines.
 
@@ -168,7 +170,7 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 
 **Surface-fact callouts (low effort, high signal):**
 - Property card → "On Cherokee land" subsection. Pickens Co was Cherokee Nation territory 1793–1838; Talking Rock Creek (~6 mi) was a settlement. Link to EBCI Natural Resources + the USFS × EBCI culturally-significant-plants research.
-- Property card → "Tate Mountain Estates" historical note. Lake Sequoyah at Tate Mountain Estates (~0.3 mi from the property — the property is effectively *in* Tate Mountain Estates) was built by Col. Sam Tate around 1929 — gives "Tate Tracker" a real local-historical anchor. **Distance correction logged 2026-05-18:** prior `~6.2 mi from the property` figure was a misread of research-resources.md's "6.2 mi from Jasper [town]" — the property's Jasper mailing address is rural and the property sits adjacent to the lake.
+- Property card → "Tate Mountain Estates" historical note. Lake Sequoyah at Tate Mountain Estates (~0.3 mi from Fernwood — the property is effectively *in* Tate Mountain Estates) was built by Col. Sam Tate around 1929. **Distance correction logged 2026-05-18:** prior `~6.2 mi from the property` figure was a misread of research-resources.md's "6.2 mi from Jasper [town]" — the property's Jasper mailing address is rural and the property sits adjacent to the lake.
 - ~~Wildlife card → "Endemic fish of the Etowah" subtitle~~ **Deferred / probably drop (2026-05-13).** Paul's ground-truth: he has spent significant time in the streams on the property and has never observed these species. Habitat is downstream of the property's 2,959 ft headwater elevation — mainstem Etowah near Dawsonville and larger named tributaries (Long Swamp, Talking Rock). Saying they're on or near the property over-implies proximity; the data was "in the watershed somewhere," not "in the streams you walk." Keep the species in the research file as regional context; don't promote to a dashboard callout without clearer property relevance.
 - Property card → "Bortle 3 — Stephen C. Foster SP (Bortle 2) is GA's only IDA-certified site" reference for sky-quality calibration.
 - Plants card → keystone genera for Blue Ridge ecoregion (oak ~400+ Lepidoptera, willow, cherry, blueberry, goldenrod) sourced from NWF Keystone Plants by Ecoregion.
