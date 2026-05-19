@@ -161,9 +161,18 @@ If MVP holds, the next session is tool-use + observation write-back. If MVP does
 
 ---
 
+## Adjacent thread — observations as a knowledge layer (Phase G)
+
+Raised by Paul on 2026-05-19 right after the capture-surface promotion: field notes shouldn't just be a log, they should feed back into the rest of the dashboard's surfaces and sharpen recommendations over time. ("You noted the laurel opening April 25 last year — watch for it now.")
+
+This is a strict superset of what Q3 and Q6 already cover for the assistant — but it extends to non-chat surfaces (Plants peak, today-line, burn status, Wildlife). It is NOT the same as Phase E. Don't build it until E lands and the observation set is rich enough (~50+ entries) to be useful.
+
+Design Phase E's context layer so it doesn't fight this future. Specifically: store observations in a shape that's queryable by other render functions later, not just by the assistant. The existing `observations.json` flat array is fine for now; if it needs indexing later, that's a separate phase.
+
 ## Related docs
 
 - `STACK_TOUR.md` — the full stack reference (where the Worker lives, KV, auth model, etc.).
-- `CLAUDE.md → Forward direction` — the original Phase D/E/F brief.
+- `CLAUDE.md → Forward direction` — the Phase D/E/F brief + Phase G observations-as-knowledge-layer thread.
 - Memory: `project_tate_tracker_tone.md` — field-journal voice rules.
 - Memory: `feedback_tate_tracker_depth_filter.md` — only the property's actual scope, never regional completeness.
+- Memory: `project_tate_tracker_observations_feedback_loop.md` — the Phase G thread captured in full.
