@@ -174,6 +174,58 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 - Plants card → keystone genera for Blue Ridge ecoregion (oak ~400+ Lepidoptera, willow, cherry, blueberry, goldenrod) sourced from NWF Keystone Plants by Ecoregion.
 - Property card → seasonally-conditional burn-ban banner (May 1–Sep 30 = state ban active; rest of year = permit required via gatrees.org).
 
+**History & cultural heritage callouts (Cat 7, added 2026-05-19):**
+- Property card → "Original Appalachian Trail southern terminus (1937-1958)" callout for Mount Oglethorpe (3,288 ft, Pickens Co. high point, in the same range as the property). Sam Tate engineered the AT routing to bring foot traffic to Tate Mountain Estates. Link Eagles Rest Park (eaglesrestpark.org). One of the most striking layered-history moments in the area.
+- Property card → "Pro-Union county" historical note. Union flag flew over the Pickens courthouse for ~1 month after Georgia seceded; pre-cotton-line geography (no plantations, few enslaved people); county raised Company D of the 1st GA Infantry Battalion *for the Union Army*; Pickens militia cavalry guided Sherman around Confederate fortifications during the Atlanta Campaign. Source: NGE Civil War Dissent article.
+- Property card → "On Cherokee land" deepening (replaces / expands the existing Cherokee callout). Cite Sanderstown (Cherokee-led first community on Talking Rock Creek), Taloney/Carmel Mission (1819-1838) day school, Fort Newman removal stockade (same site, 1838). Cherokee settlements clustered along Talking Rock Creek, Talona Creek, and Long Swamp Creek — all within ~10 mi. Federal Road crossed at "Talking Rock Ford" — the present-day Hwy 136 bridge. Andrew Jackson and James Monroe both traveled this road through the county.
+- Property card → "Lake Sequoyah" naming context. Lake completed April 1930, named for Cherokee silversmith Sequoyah (ca. 1770-1843) who created the 85-character syllabary that gave the Cherokee one of the first written indigenous languages in N. America. He never lived in Pickens County; the naming was a 1929 developer gesture, 92 years after Cherokee removal from these specific creeks.
+- Property card → "Tate Mountain Estates timeline" anniversary chip rotation. Surface a date-matching moment from: groundbreaking week of July 5, 1928; Sequoyah Lake & dam complete April 1930; Connahaynee Lodge complete late 1930; Tate Mt. Estates Inc. bankruptcy Nov 1934; lodge fire March 1946 (electrical wires, caretaker Fuller Forrest). The lodge was 30 rooms, marble baths, American Chestnut logs, fieldstone, atop Burnt Mountain at ~3,300 ft.
+- Property card → "Native marble heritage" footnote. Native peoples worked Georgia marble as far back as ~800 AD; deposit is 5-7 mi long, up to 2,000 ft deep; Henry Fitzsimmons opened first quarries in the 1830s; Tate family organized the Georgia Marble Company 1884. ~60% of DC monuments use Pickens marble.
+
+**Rare & restorative plants callouts (Cat 2 expansion, added 2026-05-19):**
+- Property card → "Natural community" subtitle. Identify the property's slope as a Mesic (Cove) Forest / Montane Oak Forest mosaic at ~2,959 ft, sourcing the typology from Natural Communities of Georgia (naturalcommunitiesofgeorgia.com). This is the foundation for any "what should grow here" question.
+- Plants card → "Rare species watchlist." Pull from the GA DNR Natural Communities thumbnail PDF, filtered to the property's community types. Rich-cove special-concern plants for the watchlist: cucumber-root, galax, trailing arbutus, partridge-berry, round-leaved violet. Rich-cove seepages: umbrella leaf, turk's-cap lily, bee balm, Canadian wood nettle, several orchids (incl. Pink Lady's Slipper *Cypripedium acaule*). Frame as "look for these, protect them if you find them" — not action items.
+- Plants card → "Restoration target species" section. Two big landowner-participation species: American chestnut (TACF Restoration Chestnut 1.0, released 2005) and eastern + Carolina hemlock (HRI + GFC HWA program). Both accept direct landowner involvement (TACF chapter, hemlock treatment protocols).
+- Property card → "Eligible for GNPS Habitat Certification (Silver/Gold)" alongside existing Birds Georgia Wildlife Sanctuary mention. Two complementary certifications, $40 GNPS / $110 Birds Georgia.
+- Property card → conditional "Hemlock check-in" reminder during HWA peak treatment windows (imidacloprid/dinotefuran soil drench; year-round if soil isn't frozen or saturated).
+- Plants card → "Did you know? This slope was once chestnut canopy" historical-ecology callout. American chestnut was a dominant canopy species at this elevation until the blight (introduced 1904) killed virtually all mature trees by 1950.
+- Plants card → "Sourcing" footer linking the UGA SBG + GNPI recommended-nurseries list (June 2025). Surface upcoming GNPS Native Plant Sale and Birds Georgia native plant sale dates on Plants > This Month when those data feeds get wired in.
+
+**Places to visit nearby (Cat 7 day-trips seed list, added 2026-05-19):**
+- **Georgia Marble Company / Village of Tate marker** (Georgia Historical Society, 1999) at Tate Cemetery on GA-53 — primary-source historical marker ~5 min from the property.
+- **Tate House** — Col. Sam Tate's 1921-1926 marble residence, now operating as a wedding venue.
+- **Eagles Rest Park / Mount Oglethorpe summit** — original AT southern terminus.
+- **Pickens Historical Society sites** (Jasper): Old Jail (1906), Mountain Heritage Cabin, Nelson-Simmons-Trippe House.
+- **Hwy 136 bridge at Talking Rock Ford** — Federal Road crossing site near the Sanderstown / Carmel Mission / Fort Newman area.
+- **Pickens County Courthouse** (Jasper, 1949) — built with Tate marble; site of the famous "Union flag" episode.
+
+### Local events / day-trips calendar integration (Cat 8, scoped 2026-05-19)
+
+**Scope:** Recurring annual events within ~45 min drive of the property — Pickens (Jasper, Tate, Talking Rock), Gilmer (Ellijay), Fannin (Blue Ridge), Lumpkin (Dahlonega). ~15-20 confirmed events spanning festivals, markets, holiday events, rodeo, outdoor adventures.
+
+**Feed availability verdict (probed 2026-05-19):**
+- No source within day-trip distance publishes an iCal/ICS/RSS feed.
+- Visit Pickens GA's community calendar uses the QEM (Quick Event Manager) WordPress plugin — no iCal endpoint by default. Confirmed via probes of `/events/?ical=1` (404) and `/community-calendar/?ical=1` (HTML).
+- Explore Georgia's state calendar is bot-protected (HTTP 403 on automated fetches).
+- Facebook Events no longer reliably expose public iCal.
+- Individual event sites (Marble Festival, Apple Festival, JeepFest, Bear on the Square, etc.) are single-event static pages.
+
+**Architecture decision:** Manually-curated `events.json` at the project root. Annual review cadence; spot-check 30 days before each event for date confirmation. The trade-off vs. live feeds: lower freshness, but full editorial control over which events surface and how they're framed.
+
+**Schema (initial draft in `events.json`):**
+- `_meta`: `lastUpdated`, `scope`, `refreshCadence`
+- `events[]`: `id`, `name`, `location`, `county`, `driveMin`, `dates` (specific YYYY-MM-DD range when known), `pattern` (e.g., "First weekend of October" — fallback for years when dates aren't yet confirmed), `type` (tags), `url`, `notes` (1-2 sentences in field-journal voice)
+
+**Dashboard integration plan (deferred, not built yet):**
+- Add an Events card to viewer.html, between Wildlife and Plants.
+- Renderer sorts by upcoming `dates`; falls back to `pattern` when `dates` is in the past or missing.
+- Surface the 3 next upcoming events on the Property card as a chip strip ("Next nearby — Marble Festival Oct 3-4 · Heritage Days Oct 17-18 · Apple Festival Oct 10-11").
+- "Why it matters here" links from history-anchored events (Marble Festival, Heritage Days, Tate Day) back to the Cat 7 Property card historical content.
+
+**Annual maintenance ritual:**
+- Each January, refresh the `dates` field for the upcoming year by visiting each event's primary URL (listed in Cat 8 of research-resources.md).
+- Mid-year: spot-check any event 30 days out for cancellation/date-shift.
+
 **Live data integrations (CORS-enabled, no key):**
 - ~~**USGS NWIS streamflow + water temp**~~ ✓ Done (2026-05-13) — gauge 02389150 reports all three params (00060/00065/00010). Surfaced as a "Watershed — Etowah River" panel on the property card with ft³/s, gage, and water temp in °F. (Originally shipped with an Etowah Darter context note; removed 2026-05-13 after Paul flagged that the fish live in downstream river reaches, not in headwater streams at the property's 2,959 ft elevation — see deferred Wildlife-card callout note below.)
 - ~~**USGS earthquake events**~~ ✓ Done (2026-05-13) — surfaced as a "Seismic Activity" panel on the property card. Threshold widened to **300 km / M2.0+** because 200 km / M2.5 returned nothing — East TN Seismic Zone activity is mostly small. Shows magnitude badge, place, time-ago, distance, depth, and USGS event link.
