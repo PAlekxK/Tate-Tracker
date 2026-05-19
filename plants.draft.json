@@ -10,27 +10,73 @@
     "promotionStatus": "completed 2026-05-13 \u2014 5 plants live in plants.json and viewer.html PLANTS_DATA inline. Remaining draft purpose: tracking quality-photo upgrades for the in-garden specimens (see qualityPhotosForFutureIntegration)."
   },
   "qualityPhotosForFutureIntegration": {
-    "purpose": "Track high-quality reference photos to be integrated into the dashboard later (per CLAUDE.md 'Wildlife photos' task \u2014 extending to plants too). Storage approach TBD: external URL refs in JSON, or base64-inline to keep single-file constraint.",
+    "purpose": "Track in-garden specimen photos to take and integrate into the dashboard, replacing the genus-level Wikimedia proxies. Storage approach TBD: external URL refs in JSON, or base64-inline to keep single-file constraint.",
     "photos": [
       {
         "imageRef": "Image #32",
         "subject": "Mountain laurel in full bloom",
-        "useFor": "plants.json mountain-laurel hero photo"
+        "useFor": "plants.json mountain-laurel hero photo",
+        "currentProxy": "in-habitat Kalmia latifolia from Commons"
       },
       {
         "imageRef": "Image #34",
         "subject": "Clematis on deck trellis",
-        "useFor": "plants.json clematis hero photo"
+        "useFor": "plants.json clematis hero photo",
+        "currentProxy": "Clematis 'Nelly Moser' from Commons"
       },
       {
         "imageRef": "Image #35",
         "subject": "Hosta collection in stone-walled bed",
-        "useFor": "plants.json hosta hero photo"
+        "useFor": "plants.json hosta hero photo",
+        "currentProxy": "Hosta 'Bressingham Blue' from Commons"
       },
       {
         "imageRef": "Image #41",
         "subject": "Pond iris at water's edge with reflections",
-        "useFor": "plants.json iris hero photo"
+        "useFor": "plants.json iris-pond hero photo",
+        "currentProxy": "Iris versicolor (Northern Blue Flag) from Commons"
+      },
+      {
+        "imageRef": null,
+        "subject": "Summer Cascade Wisteria on the property in bloom (lavender chains)",
+        "useFor": "plants.json wisteria-summer-cascade hero photo",
+        "currentProxy": "generic Wisteria macrostachya from Commons"
+      },
+      {
+        "imageRef": null,
+        "subject": "Elpis Clematis on the deck in bloom (double white/pink)",
+        "useFor": "plants.json clematis-elpis hero photo",
+        "currentProxy": "Clematis macropetala from Commons"
+      },
+      {
+        "imageRef": null,
+        "subject": "DreamCloud Hydrangea in bloom (large white mopheads)",
+        "useFor": "plants.json hydrangea-dreamcloud hero photo",
+        "currentProxy": "generic white Hydrangea macrophylla from Commons"
+      },
+      {
+        "imageRef": null,
+        "subject": "Azaleas on the property in peak bloom",
+        "useFor": "plants.json azalea hero photo",
+        "currentProxy": "Rhododendron flower (genus) from Commons"
+      },
+      {
+        "imageRef": null,
+        "subject": "Yuki Cherry Blossom Deutzia in bloom (pink-tipped white)",
+        "useFor": "plants.json deutzia-yuki-cherry-blossom hero photo",
+        "currentProxy": "generic Deutzia gracilis from Commons"
+      },
+      {
+        "imageRef": null,
+        "subject": "Pyracomeles Berry Box specimen with berries",
+        "useFor": "plants.json pyracomeles-berry-box hero photo",
+        "currentProxy": "Pyracantha berries from Commons (\u00d7Pyracomeles has no dedicated photos)"
+      },
+      {
+        "imageRef": null,
+        "subject": "Endless Summer / DreamCloud-era Hydrangea on the property",
+        "useFor": "plants.json hydrangea hero photo",
+        "currentProxy": "Hydrangea arborescens from Commons"
       }
     ]
   }

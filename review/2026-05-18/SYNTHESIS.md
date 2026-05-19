@@ -286,7 +286,7 @@ After today's Phase 1 + 2 + 3 + partial 4 (4.1 Property card lead/callouts + 4.2
 
 **Effort:** 1 session.
 
-### Phase B — Build 4.4: observations write surface
+### ~~Phase B — Build 4.4: observations write surface~~ ✓ MVP shipped 2026-05-18
 
 **Goal:** Paul becomes the journal's writer; observations accumulate as the property's week-level phenology record.
 
