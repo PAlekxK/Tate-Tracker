@@ -1987,6 +1987,274 @@
     font-weight: 600; font-size: 12px; color: #6a4828; margin-bottom: 2px;
   }
 
+  /* === FIELD NOTES (Phase B — observations write surface) === */
+  .main-card-icon.fieldnotes {
+    background: linear-gradient(135deg, #ede1cc, #c9a878);
+  }
+  .fn-body { padding: 14px 16px 18px; }
+  .fn-intro {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #5a6a4a;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .fn-write-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: linear-gradient(135deg, #6a8a4a, #5a7a3a);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .fn-write-btn:active { transform: scale(0.98); background: linear-gradient(135deg, #5a7a3a, #4a6a2a); }
+  .fn-write-btn .fn-write-icon { font-size: 17px; }
+  .fn-empty {
+    margin-top: 16px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #8a9a7a;
+    line-height: 1.5;
+    text-align: center;
+    padding: 18px 12px;
+    border: 1px dashed #d4e0c8;
+    border-radius: 8px;
+    background: #fafcf6;
+  }
+  .fn-list { margin-top: 14px; }
+  .fn-entry {
+    border-top: 1px solid #e8efd8;
+    padding: 12px 0 11px;
+  }
+  .fn-entry:first-child { border-top: none; padding-top: 6px; }
+  .fn-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .fn-entry-when {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: #6a8a6a;
+  }
+  .fn-entry-category {
+    font-size: 10.5px;
+    text-transform: lowercase;
+    letter-spacing: 0.3px;
+    color: #8a7a4a;
+    background: #f4ecd8;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .fn-entry-species {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3a4a2a;
+    margin-bottom: 3px;
+  }
+  .fn-entry-body {
+    font-size: 13.5px;
+    color: #2a3a2a;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .fn-entry-actions {
+    margin-top: 6px;
+    text-align: right;
+  }
+  .fn-entry-delete {
+    background: none;
+    border: none;
+    color: #aa6a4a;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 2px 6px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fn-entry-delete:active { color: #884a2a; }
+
+  /* === FIELD NOTES MODAL === */
+  .fn-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(40, 60, 30, 0.55);
+    display: none;
+    z-index: 1000;
+    overflow-y: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fn-modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .fn-modal-sheet {
+    background: #fafcf6;
+    width: 100%;
+    max-width: 540px;
+    margin: 40px 12px;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(20, 40, 10, 0.35);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width: 540px) {
+    .fn-modal-sheet { margin: 0; border-radius: 0; min-height: 100vh; }
+    .fn-modal-overlay.open { align-items: stretch; }
+  }
+  .fn-modal-header {
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid #e0eccd;
+    background: linear-gradient(135deg, #f4faf0, #edf7e6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fn-modal-title {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: #1a3a1a;
+  }
+  .fn-modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #6a8a6a;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fn-modal-body { padding: 14px 18px 18px; }
+  .fn-field { margin-bottom: 14px; }
+  .fn-field-label {
+    display: block;
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: #5a6a4a;
+    margin-bottom: 6px;
+  }
+  .fn-field input[type="date"],
+  .fn-field select,
+  .fn-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #d0dcb8;
+    border-radius: 8px;
+    padding: 9px 11px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #2a3a2a;
+    -webkit-appearance: none;
+  }
+  .fn-field input[type="date"]:focus,
+  .fn-field select:focus,
+  .fn-field textarea:focus {
+    outline: none;
+    border-color: #8aaa6a;
+    box-shadow: 0 0 0 3px rgba(138, 170, 106, 0.18);
+  }
+  .fn-field textarea {
+    min-height: 110px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  .fn-body-row {
+    position: relative;
+  }
+  .fn-mic-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 38px;
+    height: 38px;
+    border-radius: 19px;
+    background: #fff;
+    border: 1px solid #d0dcb8;
+    color: #5a7a3a;
+    font-size: 17px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(40, 60, 30, 0.12);
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  }
+  .fn-mic-btn:active { transform: scale(0.94); }
+  .fn-mic-btn.recording {
+    background: #d8534a;
+    color: #fff;
+    border-color: #b03a30;
+    animation: fn-mic-pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes fn-mic-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(216, 83, 74, 0.6); }
+    50%      { box-shadow: 0 0 0 8px rgba(216, 83, 74, 0); }
+  }
+  .fn-mic-hint {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 11.5px;
+    color: #8a9a7a;
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+  .fn-mic-hint.error { color: #aa5a4a; font-style: normal; }
+  .fn-modal-footer {
+    display: flex;
+    gap: 10px;
+    padding: 12px 18px 16px;
+    border-top: 1px solid #e0eccd;
+    background: #fafcf6;
+  }
+  .fn-btn-secondary,
+  .fn-btn-primary {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .fn-btn-secondary {
+    background: #fff;
+    border: 1px solid #c8d4b4;
+    color: #4a5a3a;
+  }
+  .fn-btn-secondary:active { background: #f0f4e8; }
+  .fn-btn-primary {
+    background: linear-gradient(135deg, #6a8a4a, #5a7a3a);
+    border: 1px solid #5a7a3a;
+    color: #fff;
+  }
+  .fn-btn-primary:disabled {
+    background: #c0c8b4;
+    border-color: #b0b8a4;
+    cursor: not-allowed;
+  }
+  .fn-btn-primary:not(:disabled):active { transform: scale(0.98); }
+
 </style>
 </head>
 <body>
@@ -2157,6 +2425,21 @@
     <div class="main-card-body" id="property-content"></div>
   </div>
 
+  <!-- FIELD NOTES CARD (Phase B — observations write surface) -->
+  <div class="main-card" id="card-fieldnotes">
+    <div class="main-card-header" data-toggle="fieldnotes">
+      <div class="main-card-icon fieldnotes">📓</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">Field Notes</div>
+        <div class="main-card-summary" id="fieldnotes-summary">The journal you keep about this place</div>
+      </div>
+      <span class="main-card-chevron">▼</span>
+    </div>
+    <div class="main-card-body">
+      <div class="fn-body" id="fieldnotes-body"></div>
+    </div>
+  </div>
+
   <!-- VEHICLES CARD -->
   <div class="main-card" id="card-vehicles">
     <div class="main-card-header" data-toggle="vehicles">
@@ -2172,6 +2455,55 @@
     </div>
   </div>
 
+</div>
+
+<!-- FIELD NOTES MODAL (Phase B) -->
+<div class="fn-modal-overlay" id="fn-modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="fn-modal-title">
+  <div class="fn-modal-sheet">
+    <div class="fn-modal-header">
+      <div class="fn-modal-title" id="fn-modal-title">New entry</div>
+      <button class="fn-modal-close" type="button" id="fn-modal-close" aria-label="Close">×</button>
+    </div>
+    <div class="fn-modal-body">
+      <div class="fn-field">
+        <label class="fn-field-label" for="fn-date">When</label>
+        <input type="date" id="fn-date">
+      </div>
+      <div class="fn-field">
+        <label class="fn-field-label" for="fn-category">What it's about</label>
+        <select id="fn-category">
+          <option value="plants">Plants</option>
+          <option value="birds">Birds</option>
+          <option value="mammals">Mammals</option>
+          <option value="amphibians">Amphibians &amp; pond</option>
+          <option value="snakes">Snakes</option>
+          <option value="lizards">Lizards</option>
+          <option value="fishing">Fishing</option>
+          <option value="weather">Weather</option>
+          <option value="property">The place itself</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="fn-field" id="fn-species-field">
+        <label class="fn-field-label" for="fn-species">Species (optional)</label>
+        <select id="fn-species">
+          <option value="">— none / general —</option>
+        </select>
+      </div>
+      <div class="fn-field">
+        <label class="fn-field-label" for="fn-body">What you observed</label>
+        <div class="fn-body-row">
+          <textarea id="fn-body" placeholder="Saw the first hummingbird at the feeder this morning…"></textarea>
+          <button class="fn-mic-btn" type="button" id="fn-mic-btn" aria-label="Voice dictation" title="Tap to dictate">🎤</button>
+        </div>
+        <div class="fn-mic-hint" id="fn-mic-hint">Tap the mic to dictate. Tap again to stop.</div>
+      </div>
+    </div>
+    <div class="fn-modal-footer">
+      <button class="fn-btn-secondary" type="button" id="fn-cancel">Cancel</button>
+      <button class="fn-btn-primary" type="button" id="fn-save">Save entry</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -6808,6 +7140,345 @@ fetchPrecipHistory();
 fetchNWSSkyCover();
 fetchUSGSEarthquakes();
 fetchUSGSStreamflow();
+
+// =========================
+// FIELD NOTES (Phase B — observations write surface)
+// =========================
+const FN_STORAGE_KEY = "tateTracker.observations.v1";
+const FN_CATEGORY_LABEL = {
+  plants: "Plants",
+  birds: "Birds",
+  mammals: "Mammals",
+  amphibians: "Amphibians",
+  snakes: "Snakes",
+  lizards: "Lizards",
+  fishing: "Fishing",
+  weather: "Weather",
+  property: "The place",
+  other: "Other",
+};
+
+function fnLoadAll() {
+  try {
+    const raw = localStorage.getItem(FN_STORAGE_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) {
+    console.warn("Field Notes — load failed:", e);
+    return [];
+  }
+}
+function fnSaveAll(arr) {
+  try {
+    localStorage.setItem(FN_STORAGE_KEY, JSON.stringify(arr));
+    return true;
+  } catch (e) {
+    console.warn("Field Notes — save failed:", e);
+    alert("Could not save the entry — local storage may be full or blocked.");
+    return false;
+  }
+}
+function fnNewId() {
+  return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7);
+}
+function fnSpeciesOptionsFor(category) {
+  const map = {
+    plants: typeof PLANTS_DATA !== "undefined" ? (PLANTS_DATA.plants || []) : [],
+    birds: typeof BIRDS_DATA !== "undefined" ? (BIRDS_DATA.species || []) : [],
+    mammals: typeof MAMMALS_DATA !== "undefined" ? (MAMMALS_DATA.species || []) : [],
+    amphibians: typeof AMPHIBIANS_DATA !== "undefined" ? (AMPHIBIANS_DATA.species || []) : [],
+    snakes: typeof SNAKES_DATA !== "undefined" ? (SNAKES_DATA.species || []) : [],
+    lizards: typeof LIZARDS_DATA !== "undefined" ? (LIZARDS_DATA.species || []) : [],
+    fishing: typeof FISHING_DATA !== "undefined" ? (FISHING_DATA.species || []) : [],
+  };
+  return (map[category] || []).map(s => ({ id: s.id, name: s.name }));
+}
+function fnFormatWhen(isoDate) {
+  // ISO YYYY-MM-DD → "May 18" if same year, "May 18, 2025" otherwise.
+  if (!isoDate) return "";
+  const parts = isoDate.split("-").map(n => +n);
+  if (parts.length !== 3) return isoDate;
+  const d = new Date(parts[0], parts[1] - 1, parts[2]);
+  if (isNaN(d.getTime())) return isoDate;
+  const opts = d.getFullYear() === today.getFullYear()
+    ? { month: "long", day: "numeric" }
+    : { month: "long", day: "numeric", year: "numeric" };
+  return d.toLocaleDateString("en-US", opts);
+}
+
+function renderFieldNotes() {
+  const body = document.getElementById("fieldnotes-body");
+  const summary = document.getElementById("fieldnotes-summary");
+  if (!body || !summary) return;
+  const entries = fnLoadAll().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+  if (entries.length === 0) {
+    summary.textContent = "The journal you keep about this place";
+  } else {
+    const newest = entries[0];
+    const lbl = FN_CATEGORY_LABEL[newest.category] || newest.category;
+    summary.textContent = entries.length + " entr" + (entries.length === 1 ? "y" : "ies") +
+      " · latest from " + fnFormatWhen(newest.date) + " (" + lbl.toLowerCase() + ")";
+  }
+
+  let html = '<div class="fn-intro">A place to set down what you saw this week — the first hummingbird at the feeder, the night the chorus started, the morning the laurel opened. The journal generates the almanac.</div>';
+  html += '<button class="fn-write-btn" type="button" id="fn-write-btn"><span class="fn-write-icon">✍️</span>Write a new entry</button>';
+
+  if (entries.length === 0) {
+    html += '<div class="fn-empty">No entries yet. The first observation goes here.</div>';
+  } else {
+    html += '<div class="fn-list">';
+    for (const e of entries) {
+      const lbl = FN_CATEGORY_LABEL[e.category] || e.category;
+      html += '<div class="fn-entry" data-id="' + escapeHtml(e.id) + '">';
+      html += '<div class="fn-entry-header">';
+      html += '<span class="fn-entry-when">' + escapeHtml(fnFormatWhen(e.date)) + '</span>';
+      html += '<span class="fn-entry-category">' + escapeHtml(lbl) + '</span>';
+      html += '</div>';
+      if (e.speciesName) {
+        html += '<div class="fn-entry-species">' + escapeHtml(e.speciesName) + '</div>';
+      }
+      html += '<div class="fn-entry-body">' + escapeHtml(e.body) + '</div>';
+      html += '<div class="fn-entry-actions"><button class="fn-entry-delete" type="button" data-id="' + escapeHtml(e.id) + '">Delete</button></div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  body.innerHTML = html;
+
+  const writeBtn = document.getElementById("fn-write-btn");
+  if (writeBtn) writeBtn.addEventListener("click", () => fnOpenModal());
+  body.querySelectorAll(".fn-entry-delete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-id");
+      if (!id) return;
+      if (!confirm("Delete this entry?")) return;
+      const remaining = fnLoadAll().filter(e => e.id !== id);
+      fnSaveAll(remaining);
+      renderFieldNotes();
+    });
+  });
+}
+
+// ---- Modal controller ----
+function fnPopulateSpecies(category) {
+  const sel = document.getElementById("fn-species");
+  const field = document.getElementById("fn-species-field");
+  if (!sel || !field) return;
+  const opts = fnSpeciesOptionsFor(category);
+  sel.innerHTML = '<option value="">— none / general —</option>' +
+    opts.map(o => '<option value="' + escapeHtml(o.id) + '">' + escapeHtml(o.name) + '</option>').join("");
+  field.style.display = opts.length ? "" : "none";
+}
+function fnOpenModal() {
+  const overlay = document.getElementById("fn-modal-overlay");
+  const dateEl = document.getElementById("fn-date");
+  const catEl = document.getElementById("fn-category");
+  const bodyEl = document.getElementById("fn-body");
+  if (!overlay || !dateEl || !catEl || !bodyEl) return;
+  // Defaults: today's date, plants category, empty body.
+  const isoToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    .toISOString().slice(0, 10);
+  dateEl.value = isoToday;
+  catEl.value = "plants";
+  bodyEl.value = "";
+  fnPopulateSpecies("plants");
+  document.getElementById("fn-species").value = "";
+  overlay.classList.add("open");
+  overlay.setAttribute("aria-hidden", "false");
+  // Don't autofocus on iOS — it pops the keyboard and obscures the date picker.
+}
+function fnCloseModal() {
+  const overlay = document.getElementById("fn-modal-overlay");
+  if (!overlay) return;
+  overlay.classList.remove("open");
+  overlay.setAttribute("aria-hidden", "true");
+  if (VoiceCapture.isRecording()) VoiceCapture.stop();
+}
+function fnSaveEntry() {
+  const dateEl = document.getElementById("fn-date");
+  const catEl = document.getElementById("fn-category");
+  const speciesEl = document.getElementById("fn-species");
+  const bodyEl = document.getElementById("fn-body");
+  if (!dateEl || !catEl || !bodyEl) return;
+  const body = (bodyEl.value || "").trim();
+  if (!body) {
+    alert("Add what you observed before saving.");
+    bodyEl.focus();
+    return;
+  }
+  const category = catEl.value;
+  const speciesId = speciesEl ? (speciesEl.value || null) : null;
+  let speciesName = null;
+  if (speciesId) {
+    const opt = speciesEl.options[speciesEl.selectedIndex];
+    speciesName = opt ? opt.textContent : null;
+  }
+  const entry = {
+    id: fnNewId(),
+    date: dateEl.value || new Date().toISOString().slice(0, 10),
+    createdAt: new Date().toISOString(),
+    category,
+    speciesId,
+    speciesName,
+    body,
+  };
+  const all = fnLoadAll();
+  all.push(entry);
+  if (fnSaveAll(all)) {
+    fnCloseModal();
+    renderFieldNotes();
+    // Make sure the card is expanded so the new entry is visible.
+    const card = document.getElementById("card-fieldnotes");
+    if (card && !card.classList.contains("expanded")) card.classList.add("expanded");
+  }
+}
+
+// ---- Voice dictation controller (Web Speech API) ----
+const VoiceCapture = (function () {
+  const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let rec = null;
+  let active = false;
+  let finalBuffer = "";   // committed transcript since session start
+  let interimBuffer = ""; // current interim guess
+  let userStopped = false;
+
+  function isSupported() { return !!Rec; }
+  function isRecording() { return active; }
+
+  function setHint(msg, isError) {
+    const hint = document.getElementById("fn-mic-hint");
+    if (!hint) return;
+    hint.textContent = msg;
+    hint.classList.toggle("error", !!isError);
+  }
+  function setButtonState(recording) {
+    const btn = document.getElementById("fn-mic-btn");
+    if (!btn) return;
+    btn.classList.toggle("recording", recording);
+    btn.textContent = recording ? "■" : "🎤";
+    btn.setAttribute("aria-label", recording ? "Stop dictation" : "Voice dictation");
+  }
+  function buildAndShow() {
+    const bodyEl = document.getElementById("fn-body");
+    if (!bodyEl) return;
+    // Combine pre-session text, committed transcript, and current interim.
+    const base = bodyEl.dataset.fnBaseline || "";
+    const sep1 = (base && finalBuffer) ? (base.endsWith(" ") || base.endsWith("\n") ? "" : " ") : "";
+    const sep2 = (finalBuffer && interimBuffer) ? " " : "";
+    bodyEl.value = base + sep1 + finalBuffer + sep2 + interimBuffer;
+  }
+
+  function start() {
+    if (!isSupported()) {
+      setHint("Voice dictation isn't supported in this browser. Try Safari on iOS or Chrome.", true);
+      return;
+    }
+    if (active) return;
+    const bodyEl = document.getElementById("fn-body");
+    if (!bodyEl) return;
+    rec = new Rec();
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.lang = navigator.language || "en-US";
+    finalBuffer = "";
+    interimBuffer = "";
+    userStopped = false;
+    // Snapshot whatever's already in the textarea so dictation appends.
+    bodyEl.dataset.fnBaseline = bodyEl.value || "";
+
+    rec.onstart = function () {
+      active = true;
+      setButtonState(true);
+      setHint("Listening — tap the square to stop.", false);
+    };
+    rec.onresult = function (event) {
+      interimBuffer = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const r = event.results[i];
+        const text = r[0].transcript;
+        if (r.isFinal) {
+          finalBuffer += (finalBuffer ? " " : "") + text.trim();
+        } else {
+          interimBuffer += text;
+        }
+      }
+      buildAndShow();
+    };
+    rec.onerror = function (event) {
+      const msg = event.error === "not-allowed"
+        ? "Microphone access was denied — enable it in browser settings."
+        : event.error === "no-speech"
+          ? "Didn't catch anything. Tap the mic again to retry."
+          : "Voice dictation hit an error (" + event.error + "). Tap the mic to retry.";
+      setHint(msg, true);
+    };
+    rec.onend = function () {
+      // iOS Safari ends sessions aggressively; if the user hasn't pressed stop, restart.
+      if (!userStopped && active) {
+        try { rec.start(); return; } catch (e) { /* fall through to stop */ }
+      }
+      active = false;
+      setButtonState(false);
+      // Commit whatever interim text is left.
+      if (interimBuffer) {
+        finalBuffer += (finalBuffer ? " " : "") + interimBuffer.trim();
+        interimBuffer = "";
+        buildAndShow();
+      }
+      if (!userStopped) setHint("Stopped — tap the mic to dictate again.", false);
+    };
+    try {
+      rec.start();
+    } catch (e) {
+      setHint("Could not start dictation: " + e.message, true);
+      active = false;
+      setButtonState(false);
+    }
+  }
+  function stop() {
+    if (!active || !rec) return;
+    userStopped = true;
+    try { rec.stop(); } catch (e) { /* ignore */ }
+    active = false;
+    setButtonState(false);
+    setHint("Stopped. Edit as needed, then save.", false);
+  }
+  function toggle() { active ? stop() : start(); }
+
+  return { start, stop, toggle, isSupported, isRecording };
+})();
+
+// ---- Wire modal controls ----
+(function wireFieldNotes() {
+  const catEl = document.getElementById("fn-category");
+  if (catEl) catEl.addEventListener("change", () => {
+    fnPopulateSpecies(catEl.value);
+    document.getElementById("fn-species").value = "";
+  });
+  const closeBtn = document.getElementById("fn-modal-close");
+  if (closeBtn) closeBtn.addEventListener("click", fnCloseModal);
+  const cancelBtn = document.getElementById("fn-cancel");
+  if (cancelBtn) cancelBtn.addEventListener("click", fnCloseModal);
+  const saveBtn = document.getElementById("fn-save");
+  if (saveBtn) saveBtn.addEventListener("click", fnSaveEntry);
+  const overlay = document.getElementById("fn-modal-overlay");
+  if (overlay) overlay.addEventListener("click", e => { if (e.target === overlay) fnCloseModal(); });
+  const micBtn = document.getElementById("fn-mic-btn");
+  if (micBtn) {
+    micBtn.addEventListener("click", () => VoiceCapture.toggle());
+    if (!VoiceCapture.isSupported()) {
+      micBtn.style.display = "none";
+      const hint = document.getElementById("fn-mic-hint");
+      if (hint) {
+        hint.textContent = "Voice dictation isn't supported in this browser. Try Safari (iOS) or Chrome.";
+      }
+    }
+  }
+})();
+
+renderFieldNotes();
 </script>
 
 </body>
