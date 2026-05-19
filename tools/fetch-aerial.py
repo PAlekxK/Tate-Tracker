@@ -29,6 +29,9 @@ TILE_SIZE = 256
 SOURCES = {
     "ESRI": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     "USGS": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}",
+    "USGSTOPO": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}",
+    "USGSSHADED": "https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/tile/{z}/{y}/{x}",
+    "OSM": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
 }
 
 HEADERS = {"User-Agent": "Fernwood-Dashboard/1.0 (paul.kirschenbauer@gmail.com) tile-fetch"}
