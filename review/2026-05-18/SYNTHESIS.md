@@ -272,7 +272,7 @@ All five are well-supported by the findings and would be load-bearing for future
 
 After today's Phase 1 + 2 + 3 + partial 4 (4.1 Property card lead/callouts + 4.2 Mammals tab) shipped, Paul locked the remaining Phase 4 work into this engineering-logical sequence. Key constraint: **no significant existing observation data to seed from — observations will accumulate over time.** Reframed the earlier 4.3 vs 4.4 fork: they're not competing, they're sequential.
 
-### Phase A — Make existing week-level data first-class
+### ~~Phase A — Make existing week-level data first-class~~ ✓ Shipped 2026-05-18
 
 **Goal:** the dashboard speaks week-tier where the data already supports it.
 
