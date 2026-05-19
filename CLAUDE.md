@@ -391,6 +391,8 @@ This is a real product shift. The current Field Notes UI (form modal with catego
 - Field-journal voice in both directions — the assistant doesn't lapse into "Here are 5 tips for caring for your Azalea." It speaks as someone who knows *this* azalea on *this* property.
 - All API costs flow through the existing Worker with the existing `X-Tate-Token` auth. Per-call cost matters because conversations are multi-turn; consider Haiku for routine turns and reserve Sonnet/Opus for image-vision or long-context queries.
 
+**Phase G — observations as a knowledge layer (direction raised 2026-05-19):** Field notes shouldn't just live as a structured log; they should feed back into other dashboard surfaces and sharpen recommendations over time. Concrete examples: Plants card "You noted the laurel opening April 25 last year — watch for it now"; Wildlife "Your first hummingbird last spring was April 18"; today-line grounded in recent observations not just live state; conversational assistant (Phase E) referencing past notes every turn. Don't build until Phase E lands and the observation set is rich enough (~50+ entries) to be useful. Voice rule: when a callout cites a past observation, it should sound like memory ("you noted X last year") not like a database row. See memory `project_tate_tracker_observations_feedback_loop.md` for the full thread.
+
 ## Deferred for Paul
 
 ~~**Code & logic walkthrough.**~~ ✓ Done 2026-05-19. `STACK_TOUR.md` at repo root covers the entire stack (GitHub Pages, viewer.html single-file pattern, JSON inline pattern, Cloudflare Worker + KV + secrets, dashboard ↔ Worker auth, localStorage cache+fallback, Web Speech API, weather-history GitHub Action, deployment paths, cost summary, glossary). Survives chat scrollback.
