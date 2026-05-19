@@ -92,17 +92,21 @@ Genus-level references where the actual cultivar is trademarked or hybrid (see c
 |---|---|---|---|
 | Azalea (Rhododendron genus) | Prayushk | CC BY 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Rhododendron_flower_(Ghorepani,_Nepal).jpg) |
 | Boxwood | MPF | CC BY 2.5 | [Commons](https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg) |
+| Butterfly Weed (Asclepias tuberosa) | Derek Ramsey (Ram-Man) | GFDL 1.2 | [Commons](https://commons.wikimedia.org/wiki/File:Butterfly_Weed_Asclepias_tuberosa_Umbel.jpg) |
 | Clematis (Nelly Moser proxy) | Jolly Janner | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Clematis_%27Nelly_Moser%27.JPG) |
+| Elpis Clematis (Clematis macropetala proxy) | Wilrooij | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Clematis_macropetala_02.jpg) |
 | Yuki Cherry Blossom Deutzia (Deutzia gracilis proxy) | — | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Deutzia_gracilis.jpg) |
 | Dogwood (Cornus florida) | Eric Hunt | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg) |
 | Holly (Ilex aquifolium) | Jürgen Howaldt | CC BY-SA 2.0 de | [Commons](https://commons.wikimedia.org/wiki/File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg) |
 | Hosta (mixed cultivars proxy) | — | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hosta_Bressingham_Blue.JPG) |
 | Hydrangea | Jacob Malcom | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_139866012.jpg) |
+| DreamCloud Hydrangea (H. macrophylla white proxy) | Sasipriya Narayanaswamy | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_white_flower.jpg) |
 | Pond Iris (Iris versicolor) | D. Gordon E. Robertson | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg) |
 | Japanese Maple | Kurt Stüber | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Acer_palmatum0.jpg) |
 | Mountain Laurel | Arx Fortis | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg) |
 | Pyracomeles (Berry Box → Pyracantha proxy) | Laitr Keiows | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Red_pommes_of_Firethorn_(Pyracantha).jpg) |
 | White Pine | US FWS | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Pinus_strobus_trees.jpg) |
+| Summer Cascade Wisteria (W. macrostachya proxy) | Jaknouse | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Wisterria_macrostachya_flowers1.jpg) |
 
 ## Replacing a photo
 
