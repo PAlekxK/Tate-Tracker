@@ -393,6 +393,23 @@ This is a real product shift. The current Field Notes UI (form modal with catego
 
 **Phase G — observations as a knowledge layer (direction raised 2026-05-19):** Field notes shouldn't just live as a structured log; they should feed back into other dashboard surfaces and sharpen recommendations over time. Concrete examples: Plants card "You noted the laurel opening April 25 last year — watch for it now"; Wildlife "Your first hummingbird last spring was April 18"; today-line grounded in recent observations not just live state; conversational assistant (Phase E) referencing past notes every turn. Don't build until Phase E lands and the observation set is rich enough (~50+ entries) to be useful. Voice rule: when a callout cites a past observation, it should sound like memory ("you noted X last year") not like a database row. See memory `project_tate_tracker_observations_feedback_loop.md` for the full thread.
 
+**Property map view (direction raised 2026-05-19):** A spatial surface — currently everything is by-time (calendars, peak windows, months). Paul wants a map of the property with sections/numbers/icons showing roughly where plants live. Explicit scope note from him: *doesn't need to be down to exact coordinates, but at least groups of plants in different little areas of the property.* Zone-level granularity is enough.
+
+This is structurally different from existing surfaces because it introduces a spatial axis. It connects to several existing threads but doesn't depend on any of them:
+- Microclimate aspects (south-southwest / north-northeast / east / west) on the Property card already imply zones — those could be the seed zone vocabulary.
+- Each plant could gain a `location` or `zoneId` field on `plants.json` pointing to one of the named zones.
+- Wildlife habitat zones could overlay later (fairway edge, forest interior, pond, near-spring) — the `habitatContext` field in `mammals.json` and `birds.json` already names some of these informally.
+- Field-note observations could carry an optional zone in Phase G, turning the map into "where on the property has X been seen."
+
+Open questions for when the thread becomes active:
+- **Zone vocabulary** — what zones does Paul actually think in? Candidates: front fairway, pond edge, north-side slope, east-side plantings, the house perimeter, the spring drainage, deep woods. Needs his naming pass before any code.
+- **Map base** — aerial photo from Google Earth (photographic), hand-drawn diagram (Sand County Almanac aesthetic, but commissioning art), or stylized SVG zones with no base image (lightest). Probably the SVG-zone path for v1; revisit later.
+- **Interaction model** — click a zone → list the plants in it (and later, wildlife seen + observations made there); click a plant → highlight its zone; hover for preview.
+- **Where it lives** — new tab in the Plants card, or new main card, or appended to Property card. Map view feels heavyweight enough for its own card.
+- **Scope of overlays** — plants only (v1), or plants + wildlife habitat + observations from the start?
+
+Don't start building until Paul has done a zone-naming pass. The hardest part of this thread isn't the SVG or the renderer — it's deciding what zones the property has and how they correspond to where plants actually live.
+
 ## Deferred for Paul
 
 ~~**Code & logic walkthrough.**~~ ✓ Done 2026-05-19. `STACK_TOUR.md` at repo root covers the entire stack (GitHub Pages, viewer.html single-file pattern, JSON inline pattern, Cloudflare Worker + KV + secrets, dashboard ↔ Worker auth, localStorage cache+fallback, Web Speech API, weather-history GitHub Action, deployment paths, cost summary, glossary). Survives chat scrollback.
