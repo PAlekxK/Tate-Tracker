@@ -7,6 +7,8 @@ This directory holds user-research artifacts for Tate Tracker. They are written 
 - **`persona-mom.md`** — Proto-persona for Mom. Make-or-break user. Joint primary alongside Paul.
 - **`persona-paul-co-steward.md`** — Proto-persona for Paul as co-steward / builder-user. Names the structural risk of the builder being one of the users.
 - **`jtbd-invest-time-well.md`** — Jobs-to-be-Done card for the underlying joint job ("invest finite time well on a place that matters"), with four forces (push / pull / anxiety / habit). Performed by both personas.
+- **`jtbd-talk-to-the-property.md`** — JTBD card for the *inner* job Phase E introduces ("collapse the gap between noticing and knowing"). Sits inside the parent invest-time-well job, doesn't replace it. Three performers: Paul-mobile, Paul-desktop, Mom.
+- **`journey-unified-field-assistant.md`** — Journey map across the three Phase E performers at the unified field-assistant surface. Names where the journeys overlap (one surface, voice rules, depth filter) and where they diverge (latency tolerance, reply shape, cost of failure).
 
 ## Who this is for
 
