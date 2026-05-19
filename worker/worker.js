@@ -116,7 +116,10 @@ async function handleAirNow(request, env, url) {
   try {
     const data = await withCache(env, key, 900 /* 15 min */, async () => {
       const apiKey = (env.AIRNOW_API_KEY || "").trim();
-      const upstream = `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${lat}&longitude=${lon}&distance=25&API_KEY=${encodeURIComponent(apiKey)}`;
+      // 75-mile radius — Pickens County is rural and the nearest AirNow stations
+      // are in metro Atlanta / Chattanooga; smoke and ozone events that affect
+      // the property generally show up on those regional monitors first.
+      const upstream = `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${lat}&longitude=${lon}&distance=75&API_KEY=${encodeURIComponent(apiKey)}`;
       const res = await fetch(upstream);
       const text = await res.text();
       if (!res.ok) throw new Error(`AirNow HTTP ${res.status}: ${text.slice(0, 200)}`);
