@@ -7862,14 +7862,57 @@ async function fetchFireWeatherAlerts() {
 }
 
 // ---- Burn-status synthesizer (NWS alerts + seasonal ban + drought + days-since-rain) ----
+// Returns { days, source, cap }:
+//   days = days since the most recent day with ≥0.10" rain
+//   source = "station" (weather-history.json) or "era5" (recentPrecip)
+//   cap = true if the lookback window ran out before finding rain
+// Prefer the station history (longer lookback + closer to ground truth at the property);
+// fall back to ERA5 past7days when station history isn't loaded yet.
 function daysSinceMeaningfulRain() {
+  const todayISO = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    .toISOString().slice(0, 10);
+  const history = (WEATHER_DATA.history && WEATHER_DATA.history.days) || [];
+  if (history.length) {
+    // weather-history.json is chronological — find latest day with rain.
+    let countedDays = 0;
+    let foundIdx = -1;
+    // Walk backwards from latest. Skip today if it's the last entry (today's rollup is a partial day).
+    let start = history.length - 1;
+    if (history[start].date === todayISO) start -= 1;
+    for (let i = start; i >= 0; i--) {
+      countedDays += 1;
+      if ((history[i].rainTotal || 0) >= 0.10) { foundIdx = i; break; }
+    }
+    if (foundIdx >= 0) {
+      // Days between the rain day and today.
+      const rainDate = new Date(history[foundIdx].date + "T00:00:00");
+      const delta = Math.round((today - rainDate) / (1000 * 60 * 60 * 24));
+      return { days: delta, source: "station", cap: false };
+    }
+    return { days: countedDays, source: "station", cap: true };
+  }
   const past7 = (WEATHER_DATA.recentPrecip && WEATHER_DATA.recentPrecip.past7days) || [];
   if (!past7.length) return null;
   for (let i = past7.length - 1; i >= 0; i--) {
-    if ((past7[i].precip || 0) >= 0.10) return (past7.length - 1) - i;
+    if ((past7[i].precip || 0) >= 0.10) {
+      return { days: (past7.length - 1) - i, source: "era5", cap: false };
+    }
   }
-  // No meaningful rain in past 7 days
-  return past7.length;
+  return { days: past7.length, source: "era5", cap: true };
+}
+
+// Fetch weather-history.json once at load, surface a renderWeather() after.
+async function fetchWeatherHistory() {
+  try {
+    const res = await fetch("./weather-history.json");
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data || !Array.isArray(data.days)) return;
+    WEATHER_DATA.history = data;
+    if (typeof renderWeather === "function") renderWeather();
+  } catch (e) {
+    console.warn("weather-history fetch failed:", e.message);
+  }
 }
 
 function computeBurnStatus() {
@@ -7897,8 +7940,10 @@ function computeBurnStatus() {
   const droughty = droughtCat && droughtCat !== "None" && ["D1", "D2", "D3", "D4"].includes(droughtCat);
   const elevated = droughtCat && ["D2", "D3", "D4"].includes(droughtCat);
 
-  // Days since meaningful rain (≥0.10")
-  const daysDry = daysSinceMeaningfulRain();
+  // Days since meaningful rain (≥0.10") — returns { days, source, cap }
+  const dryInfo = daysSinceMeaningfulRain();
+  const daysDry = dryInfo ? dryInfo.days : null;
+  const dryCap = dryInfo ? dryInfo.cap : false;
   const veryDry = daysDry != null && daysDry >= 10;
 
   // Tier 2 — elevated risk context (drought D2+ or 10+ days dry)
@@ -7921,7 +7966,7 @@ function computeBurnStatus() {
   if (daysDry != null) {
     if (daysDry === 0) ctx.push("rain today");
     else if (daysDry === 1) ctx.push("rain yesterday");
-    else if (daysDry >= 7) ctx.push("no meaningful rain in the past week");
+    else if (dryCap) ctx.push("no meaningful rain in the past " + daysDry + " days (on record)");
     else ctx.push(daysDry + " days since last meaningful rain");
   }
   // Capitalize the first context chunk so it reads as a sentence continuation
@@ -7940,6 +7985,7 @@ function computeBurnStatus() {
 fetchAirNowAQI();
 fetchDroughtStatus();
 fetchFireWeatherAlerts();
+fetchWeatherHistory();
 fetchTodayLine();
 
 // =========================
