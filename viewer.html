@@ -2255,6 +2255,105 @@
   }
   .fn-btn-primary:not(:disabled):active { transform: scale(0.98); }
 
+  /* === FIELD NOTES — SYNC STATUS (Phase C1) === */
+  /* Pill in the card header summary line */
+  #fieldnotes-summary { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .fn-summary-text { flex: 1; min-width: 0; }
+  .fn-sync-pill {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .fn-sync-pill.fn-sync-synced     { background: #e0f0d4; color: #3a6a2a; border: 1px solid #c0dca0; }
+  .fn-sync-pill.fn-sync-local-only { background: #faf0d8; color: #8a6a2a; border: 1px solid #e8d4a0; }
+  .fn-sync-pill.fn-sync-error      { background: #f4e0d4; color: #aa4a2a; border: 1px solid #e0b4a0; }
+
+  /* In-body banner */
+  .fn-sync-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .fn-sync-banner-synced     { background: #f0f8e8; border: 1px solid #d4e8c0; color: #4a6a3a; }
+  .fn-sync-banner-local-only { background: #fdf6e4; border: 1px solid #e8dcb4; color: #6a5a2a; }
+  .fn-sync-banner-error      { background: #faece0; border: 1px solid #e4c0a8; color: #8a4a2a; }
+  .fn-sync-banner-text { flex: 1; min-width: 0; }
+  .fn-sync-btn {
+    background: #fff;
+    border: 1px solid #c8d4b4;
+    color: #4a5a3a;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11.5px;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .fn-sync-btn:active { background: #f0f4e8; }
+
+  /* Sync settings modal — inherits .fn-modal-* styles, plus its own intro + result */
+  .fn-sync-intro {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #5a6a4a;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .fn-sync-intro code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-style: normal;
+    background: #f0f4e8;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 11.5px;
+  }
+  .fn-sync-result {
+    margin-top: 4px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    min-height: 1.2em;
+    color: #5a6a4a;
+  }
+  .fn-sync-result.success { color: #3a6a2a; }
+  .fn-sync-result.error   { color: #aa4a2a; }
+  .fn-field input[type="url"],
+  .fn-field input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #d0dcb8;
+    border-radius: 8px;
+    padding: 9px 11px;
+    font-size: 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    color: #2a3a2a;
+    -webkit-appearance: none;
+  }
+  .fn-field input[type="url"]:focus,
+  .fn-field input[type="password"]:focus {
+    outline: none;
+    border-color: #8aaa6a;
+    box-shadow: 0 0 0 3px rgba(138, 170, 106, 0.18);
+  }
+
 </style>
 </head>
 <body>
@@ -2502,6 +2601,34 @@
     <div class="fn-modal-footer">
       <button class="fn-btn-secondary" type="button" id="fn-cancel">Cancel</button>
       <button class="fn-btn-primary" type="button" id="fn-save">Save entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- FIELD NOTES — SYNC SETTINGS MODAL (Phase C1) -->
+<div class="fn-modal-overlay" id="fn-sync-overlay" aria-hidden="true" role="dialog" aria-labelledby="fn-sync-title">
+  <div class="fn-modal-sheet">
+    <div class="fn-modal-header">
+      <div class="fn-modal-title" id="fn-sync-title">Sync settings</div>
+      <button class="fn-modal-close" type="button" id="fn-sync-close" aria-label="Close">×</button>
+    </div>
+    <div class="fn-modal-body">
+      <div class="fn-sync-intro">
+        Connect this device to your Tate Tracker Worker so entries follow you between phone, tablet, and laptop. One-time setup per device — paste the same Worker URL and shared token everywhere you want to sync. Deploy instructions live in the repo's <code>worker/README.md</code>.
+      </div>
+      <div class="fn-field">
+        <label class="fn-field-label" for="fn-sync-url">Worker URL</label>
+        <input type="url" id="fn-sync-url" placeholder="https://tate-tracker.your-subdomain.workers.dev">
+      </div>
+      <div class="fn-field">
+        <label class="fn-field-label" for="fn-sync-token">Shared token</label>
+        <input type="password" id="fn-sync-token" placeholder="paste the SHARED_TOKEN value">
+      </div>
+      <div class="fn-sync-result" id="fn-sync-result"></div>
+    </div>
+    <div class="fn-modal-footer">
+      <button class="fn-btn-secondary" type="button" id="fn-sync-cancel">Cancel</button>
+      <button class="fn-btn-primary" type="button" id="fn-sync-save">Save &amp; test</button>
     </div>
   </div>
 </div>
@@ -7142,9 +7269,11 @@ fetchUSGSEarthquakes();
 fetchUSGSStreamflow();
 
 // =========================
-// FIELD NOTES (Phase B — observations write surface)
+// FIELD NOTES (Phase B — observations write surface, Phase C1 — cross-device sync)
 // =========================
 const FN_STORAGE_KEY = "tateTracker.observations.v1";
+const FN_SYNC_CONFIG_KEY = "tateTracker.sync.v1";
+const FN_LAST_SYNC_KEY = "tateTracker.lastSync.v1";
 const FN_CATEGORY_LABEL = {
   plants: "Plants",
   birds: "Birds",
@@ -7158,6 +7287,7 @@ const FN_CATEGORY_LABEL = {
   other: "Other",
 };
 
+// ---- Cache (localStorage) ----
 function fnLoadAll() {
   try {
     const raw = localStorage.getItem(FN_STORAGE_KEY);
@@ -7178,6 +7308,151 @@ function fnSaveAll(arr) {
     alert("Could not save the entry — local storage may be full or blocked.");
     return false;
   }
+}
+
+// ---- ObservationStore: tries the Worker, falls back to localStorage ----
+const ObservationStore = (function () {
+  let lastError = null;
+  let refreshing = false;
+  const listeners = [];
+
+  function getConfig() {
+    try {
+      const raw = localStorage.getItem(FN_SYNC_CONFIG_KEY);
+      if (!raw) return null;
+      const cfg = JSON.parse(raw);
+      if (!cfg || !cfg.workerUrl || !cfg.token) return null;
+      return cfg;
+    } catch (e) { return null; }
+  }
+  function setConfig(workerUrl, token) {
+    if (!workerUrl || !token) {
+      localStorage.removeItem(FN_SYNC_CONFIG_KEY);
+      return;
+    }
+    const cleaned = workerUrl.replace(/\/+$/, "");
+    localStorage.setItem(FN_SYNC_CONFIG_KEY, JSON.stringify({ workerUrl: cleaned, token }));
+  }
+  function isConfigured() { return !!getConfig(); }
+  function getLastSyncedAt() { return localStorage.getItem(FN_LAST_SYNC_KEY) || null; }
+  function markSynced() { localStorage.setItem(FN_LAST_SYNC_KEY, new Date().toISOString()); }
+
+  function getStatus() {
+    if (!isConfigured()) return { mode: "local-only", message: "Local only — set up Sync to follow you between devices." };
+    if (lastError) return { mode: "error", message: lastError };
+    const last = getLastSyncedAt();
+    return { mode: "synced", message: last ? "Synced · " + relativeTime(last) : "Synced" };
+  }
+
+  function onChange(cb) { listeners.push(cb); }
+  function emit() { listeners.forEach(cb => { try { cb(); } catch (e) { console.warn(e); } }); }
+
+  async function callWorker(method, path, body) {
+    const cfg = getConfig();
+    if (!cfg) throw new Error("not-configured");
+    const headers = { "X-Tate-Token": cfg.token };
+    if (body !== undefined) headers["Content-Type"] = "application/json";
+    const res = await fetch(cfg.workerUrl + path, {
+      method,
+      headers,
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    });
+    if (!res.ok) {
+      const txt = await res.text().catch(() => "");
+      throw new Error("HTTP " + res.status + " " + txt.slice(0, 120));
+    }
+    return res.json();
+  }
+
+  // Sync: pull from worker, push any local-only entries up, write merged result to cache.
+  async function refresh() {
+    if (!isConfigured()) {
+      lastError = null;
+      emit();
+      return fnLoadAll();
+    }
+    if (refreshing) return fnLoadAll();
+    refreshing = true;
+    try {
+      const data = await callWorker("GET", "/api/observations");
+      const workerById = new Map((data.observations || []).map(o => [o.id, o]));
+      const local = fnLoadAll();
+      const localOnly = local.filter(o => !workerById.has(o.id));
+      for (const entry of localOnly) {
+        try { await callWorker("POST", "/api/observations", entry); }
+        catch (e) { console.warn("Push of local-only entry failed:", entry.id, e); }
+      }
+      const merged = [...(data.observations || []), ...localOnly];
+      fnSaveAll(merged);
+      lastError = null;
+      markSynced();
+      emit();
+      return merged;
+    } catch (e) {
+      lastError = describeSyncError(e);
+      emit();
+      return fnLoadAll();
+    } finally {
+      refreshing = false;
+    }
+  }
+
+  async function save(entry) {
+    // Optimistic local write so the UI feels instant.
+    const all = fnLoadAll();
+    const idx = all.findIndex(o => o.id === entry.id);
+    if (idx >= 0) all[idx] = entry; else all.push(entry);
+    fnSaveAll(all);
+    if (isConfigured()) {
+      try { await callWorker("POST", "/api/observations", entry); lastError = null; markSynced(); }
+      catch (e) { lastError = describeSyncError(e); }
+      emit();
+    }
+    return true;
+  }
+
+  async function remove(id) {
+    const all = fnLoadAll().filter(o => o.id !== id);
+    fnSaveAll(all);
+    if (isConfigured()) {
+      try { await callWorker("DELETE", "/api/observations/" + encodeURIComponent(id)); lastError = null; markSynced(); }
+      catch (e) { lastError = describeSyncError(e); }
+      emit();
+    }
+    return true;
+  }
+
+  async function testConnection(workerUrl, token) {
+    const cleaned = workerUrl.replace(/\/+$/, "");
+    // /health requires no auth.
+    const h = await fetch(cleaned + "/health");
+    if (!h.ok) throw new Error("Worker health check failed: HTTP " + h.status);
+    // /api/observations does require the token; this confirms auth.
+    const a = await fetch(cleaned + "/api/observations", { headers: { "X-Tate-Token": token } });
+    if (a.status === 401) throw new Error("The token wasn't accepted — double-check it matches the secret you put on the Worker.");
+    if (!a.ok) throw new Error("Observations endpoint check failed: HTTP " + a.status);
+    return true;
+  }
+
+  function describeSyncError(e) {
+    const msg = (e && e.message) || String(e);
+    if (msg === "not-configured") return "Sync not configured.";
+    if (msg.startsWith("HTTP 401")) return "Sync token rejected — re-paste it in Sync settings.";
+    if (msg.startsWith("HTTP")) return "Sync error: " + msg;
+    return "Sync unreachable — saved locally and will retry.";
+  }
+
+  return { getConfig, setConfig, isConfigured, getStatus, refresh, save, remove, testConnection, onChange };
+})();
+
+function relativeTime(iso) {
+  const then = new Date(iso).getTime();
+  if (isNaN(then)) return iso;
+  const delta = Math.floor((Date.now() - then) / 1000);
+  if (delta < 60) return "just now";
+  if (delta < 3600) return Math.floor(delta / 60) + "m ago";
+  if (delta < 86400) return Math.floor(delta / 3600) + "h ago";
+  return Math.floor(delta / 86400) + "d ago";
 }
 function fnNewId() {
   return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7);
@@ -7212,17 +7487,33 @@ function renderFieldNotes() {
   const summary = document.getElementById("fieldnotes-summary");
   if (!body || !summary) return;
   const entries = fnLoadAll().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  const status = ObservationStore.getStatus();
 
+  // Summary line: entry count + latest, with sync status pill on the right.
+  const pillClass = "fn-sync-pill fn-sync-" + status.mode;
+  const pillLabel = status.mode === "synced" ? "Synced"
+                  : status.mode === "local-only" ? "Local only"
+                  : "Sync error";
+  let summaryText;
   if (entries.length === 0) {
-    summary.textContent = "The journal you keep about this place";
+    summaryText = "The journal you keep about this place";
   } else {
     const newest = entries[0];
     const lbl = FN_CATEGORY_LABEL[newest.category] || newest.category;
-    summary.textContent = entries.length + " entr" + (entries.length === 1 ? "y" : "ies") +
+    summaryText = entries.length + " entr" + (entries.length === 1 ? "y" : "ies") +
       " · latest from " + fnFormatWhen(newest.date) + " (" + lbl.toLowerCase() + ")";
   }
+  summary.innerHTML = '<span class="fn-summary-text">' + escapeHtml(summaryText) + '</span>' +
+    '<span class="' + pillClass + '" title="' + escapeHtml(status.message) + '">' + escapeHtml(pillLabel) + '</span>';
 
   let html = '<div class="fn-intro">A place to set down what you saw this week — the first hummingbird at the feeder, the night the chorus started, the morning the laurel opened. The journal generates the almanac.</div>';
+
+  // Sync status banner inside the card body.
+  html += '<div class="fn-sync-banner fn-sync-banner-' + status.mode + '">';
+  html += '<span class="fn-sync-banner-text">' + escapeHtml(status.message) + '</span>';
+  html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + (status.mode === "local-only" ? "Set up sync" : "Sync settings") + '</button>';
+  html += '</div>';
+
   html += '<button class="fn-write-btn" type="button" id="fn-write-btn"><span class="fn-write-icon">✍️</span>Write a new entry</button>';
 
   if (entries.length === 0) {
@@ -7249,13 +7540,14 @@ function renderFieldNotes() {
 
   const writeBtn = document.getElementById("fn-write-btn");
   if (writeBtn) writeBtn.addEventListener("click", () => fnOpenModal());
+  const syncBtn = document.getElementById("fn-sync-btn");
+  if (syncBtn) syncBtn.addEventListener("click", () => fnOpenSyncModal());
   body.querySelectorAll(".fn-entry-delete").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       const id = btn.getAttribute("data-id");
       if (!id) return;
       if (!confirm("Delete this entry?")) return;
-      const remaining = fnLoadAll().filter(e => e.id !== id);
-      fnSaveAll(remaining);
+      await ObservationStore.remove(id);
       renderFieldNotes();
     });
   });
@@ -7324,14 +7616,63 @@ function fnSaveEntry() {
     speciesName,
     body,
   };
-  const all = fnLoadAll();
-  all.push(entry);
-  if (fnSaveAll(all)) {
-    fnCloseModal();
+  // Go through the store so the entry is cached locally AND pushed to the Worker.
+  ObservationStore.save(entry).then(() => renderFieldNotes());
+  fnCloseModal();
+  // Make sure the card is expanded so the new entry is visible.
+  const card = document.getElementById("card-fieldnotes");
+  if (card && !card.classList.contains("expanded")) card.classList.add("expanded");
+  renderFieldNotes();
+}
+
+// ---- Sync settings modal ----
+function fnOpenSyncModal() {
+  const overlay = document.getElementById("fn-sync-overlay");
+  if (!overlay) return;
+  const cfg = ObservationStore.getConfig();
+  document.getElementById("fn-sync-url").value = cfg ? cfg.workerUrl : "";
+  document.getElementById("fn-sync-token").value = cfg ? cfg.token : "";
+  document.getElementById("fn-sync-result").textContent = "";
+  document.getElementById("fn-sync-result").className = "fn-sync-result";
+  overlay.classList.add("open");
+  overlay.setAttribute("aria-hidden", "false");
+}
+function fnCloseSyncModal() {
+  const overlay = document.getElementById("fn-sync-overlay");
+  if (!overlay) return;
+  overlay.classList.remove("open");
+  overlay.setAttribute("aria-hidden", "true");
+}
+async function fnSaveSyncSettings() {
+  const url = (document.getElementById("fn-sync-url").value || "").trim();
+  const token = (document.getElementById("fn-sync-token").value || "").trim();
+  const resultEl = document.getElementById("fn-sync-result");
+  if (!url && !token) {
+    ObservationStore.setConfig(null, null);
+    resultEl.className = "fn-sync-result";
+    resultEl.textContent = "Sync turned off — entries stay on this device only.";
+    fnCloseSyncModal();
     renderFieldNotes();
-    // Make sure the card is expanded so the new entry is visible.
-    const card = document.getElementById("card-fieldnotes");
-    if (card && !card.classList.contains("expanded")) card.classList.add("expanded");
+    return;
+  }
+  if (!url || !token) {
+    resultEl.className = "fn-sync-result error";
+    resultEl.textContent = "Both the Worker URL and the token are needed.";
+    return;
+  }
+  resultEl.className = "fn-sync-result";
+  resultEl.textContent = "Testing the connection…";
+  try {
+    await ObservationStore.testConnection(url, token);
+    ObservationStore.setConfig(url, token);
+    resultEl.className = "fn-sync-result success";
+    resultEl.textContent = "Connected. Syncing now…";
+    await ObservationStore.refresh();
+    fnCloseSyncModal();
+    renderFieldNotes();
+  } catch (e) {
+    resultEl.className = "fn-sync-result error";
+    resultEl.textContent = (e && e.message) || String(e);
   }
 }
 
@@ -7476,9 +7817,23 @@ const VoiceCapture = (function () {
       }
     }
   }
+  // Sync settings modal wiring.
+  const syncClose = document.getElementById("fn-sync-close");
+  if (syncClose) syncClose.addEventListener("click", fnCloseSyncModal);
+  const syncCancel = document.getElementById("fn-sync-cancel");
+  if (syncCancel) syncCancel.addEventListener("click", fnCloseSyncModal);
+  const syncSave = document.getElementById("fn-sync-save");
+  if (syncSave) syncSave.addEventListener("click", fnSaveSyncSettings);
+  const syncOverlay = document.getElementById("fn-sync-overlay");
+  if (syncOverlay) syncOverlay.addEventListener("click", e => { if (e.target === syncOverlay) fnCloseSyncModal(); });
 })();
 
+// Initial render, then fire off a sync refresh that will re-render when it lands.
+ObservationStore.onChange(() => renderFieldNotes());
 renderFieldNotes();
+if (ObservationStore.isConfigured()) {
+  ObservationStore.refresh().then(() => renderFieldNotes());
+}
 </script>
 
 </body>

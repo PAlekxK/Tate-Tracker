@@ -1,0 +1,13 @@
+name = "tate-tracker"
+main = "worker.js"
+compatibility_date = "2026-05-01"
+
+# Replace the id below with the KV namespace id printed by:
+#   wrangler kv namespace create OBSERVATIONS
+[[kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# SHARED_TOKEN is set via:
+#   wrangler secret put SHARED_TOKEN
+# (do NOT commit the actual token here — it's read from Worker secrets at runtime)
