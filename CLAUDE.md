@@ -176,22 +176,22 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 - Plants card → keystone genera for Blue Ridge ecoregion (oak ~400+ Lepidoptera, willow, cherry, blueberry, goldenrod) sourced from NWF Keystone Plants by Ecoregion.
 - Property card → seasonally-conditional burn-ban banner (May 1–Sep 30 = state ban active; rest of year = permit required via gatrees.org).
 
-**History & cultural heritage callouts (Cat 7, added 2026-05-19):**
-- Property card → "Original Appalachian Trail southern terminus (1937-1958)" callout for Mount Oglethorpe (3,288 ft, Pickens Co. high point, in the same range as the property). Sam Tate engineered the AT routing to bring foot traffic to Tate Mountain Estates. Link Eagles Rest Park (eaglesrestpark.org). One of the most striking layered-history moments in the area.
-- Property card → "Pro-Union county" historical note. Union flag flew over the Pickens courthouse for ~1 month after Georgia seceded; pre-cotton-line geography (no plantations, few enslaved people); county raised Company D of the 1st GA Infantry Battalion *for the Union Army*; Pickens militia cavalry guided Sherman around Confederate fortifications during the Atlanta Campaign. Source: NGE Civil War Dissent article.
-- Property card → "On Cherokee land" deepening (replaces / expands the existing Cherokee callout). Cite Sanderstown (Cherokee-led first community on Talking Rock Creek), Taloney/Carmel Mission (1819-1838) day school, Fort Newman removal stockade (same site, 1838). Cherokee settlements clustered along Talking Rock Creek, Talona Creek, and Long Swamp Creek — all within ~10 mi. Federal Road crossed at "Talking Rock Ford" — the present-day Hwy 136 bridge. Andrew Jackson and James Monroe both traveled this road through the county.
-- Property card → "Lake Sequoyah" naming context. Lake completed April 1930, named for Cherokee silversmith Sequoyah (ca. 1770-1843) who created the 85-character syllabary that gave the Cherokee one of the first written indigenous languages in N. America. He never lived in Pickens County; the naming was a 1929 developer gesture, 92 years after Cherokee removal from these specific creeks.
-- Property card → "Tate Mountain Estates timeline" anniversary chip rotation. Surface a date-matching moment from: groundbreaking week of July 5, 1928; Sequoyah Lake & dam complete April 1930; Connahaynee Lodge complete late 1930; Tate Mt. Estates Inc. bankruptcy Nov 1934; lodge fire March 1946 (electrical wires, caretaker Fuller Forrest). The lodge was 30 rooms, marble baths, American Chestnut logs, fieldstone, atop Burnt Mountain at ~3,300 ft.
-- Property card → "Native marble heritage" footnote. Native peoples worked Georgia marble as far back as ~800 AD; deposit is 5-7 mi long, up to 2,000 ft deep; Henry Fitzsimmons opened first quarries in the 1830s; Tate family organized the Georgia Marble Company 1884. ~60% of DC monuments use Pickens marble.
+**History & cultural heritage callouts (Cat 7) — ✓ Shipped 2026-05-19.**
+- Property card → "The original Appalachian Trail" callout (Mount Oglethorpe terminus 1937-1958) ✓
+- Property card → "A Unionist county" callout (Union flag over Pickens courthouse, Company D of 1st GA Infantry to Union Army) ✓
+- Property card → "On Cherokee land" callout expanded with Sanderstown, Taloney/Carmel Mission, Federal Road ford, Fort Newman stockade ✓
+- Property card → "Tate Mountain Estates" callout expanded to fold in Lake Sequoyah naming + Connahaynee Lodge timeline + bankruptcy + 1946 fire ✓
+- Property card → "Worked marble, eight hundred AD" callout (Native marble workings + Georgia Marble Co. + ~60% of DC monuments) ✓
 
-**Rare & restorative plants callouts (Cat 2 expansion, added 2026-05-19):**
-- Property card → "Natural community" subtitle. Identify the property's slope as a Mesic (Cove) Forest / Montane Oak Forest mosaic at ~2,959 ft, sourcing the typology from Natural Communities of Georgia (naturalcommunitiesofgeorgia.com). This is the foundation for any "what should grow here" question.
-- Plants card → "Rare species watchlist." Pull from the GA DNR Natural Communities thumbnail PDF, filtered to the property's community types. Rich-cove special-concern plants for the watchlist: cucumber-root, galax, trailing arbutus, partridge-berry, round-leaved violet. Rich-cove seepages: umbrella leaf, turk's-cap lily, bee balm, Canadian wood nettle, several orchids (incl. Pink Lady's Slipper *Cypripedium acaule*). Frame as "look for these, protect them if you find them" — not action items.
-- Plants card → "Restoration target species" section. Two big landowner-participation species: American chestnut (TACF Restoration Chestnut 1.0, released 2005) and eastern + Carolina hemlock (HRI + GFC HWA program). Both accept direct landowner involvement (TACF chapter, hemlock treatment protocols).
-- Property card → "Eligible for GNPS Habitat Certification (Silver/Gold)" alongside existing Birds Georgia Wildlife Sanctuary mention. Two complementary certifications, $40 GNPS / $110 Birds Georgia.
-- Property card → conditional "Hemlock check-in" reminder during HWA peak treatment windows (imidacloprid/dinotefuran soil drench; year-round if soil isn't frozen or saturated).
-- Plants card → "Did you know? This slope was once chestnut canopy" historical-ecology callout. American chestnut was a dominant canopy species at this elevation until the blight (introduced 1904) killed virtually all mature trees by 1950.
-- Plants card → "Sourcing" footer linking the UGA SBG + GNPI recommended-nurseries list (June 2025). Surface upcoming GNPS Native Plant Sale and Birds Georgia native plant sale dates on Plants > This Month when those data feeds get wired in.
+**Rare & restorative plants callouts (Cat 2) — ✓ Shipped 2026-05-19.**
+- Property card → "Natural Community" row in Location & Elevation panel: "Mesic Cove / Montane Oak mosaic" ✓
+- Property card → Habitat certifications mini-list in Local Resources panel (Birds Georgia / GNPS / Homegrown National Park) ✓
+- Plants card → "On this slope" section appended below tab views with four callouts:
+  - "Rare species worth looking for" (rich-cove special-concern species) ✓
+  - "This slope was once chestnut canopy" (historical-ecology + TACF Restoration Chestnut 1.0) ✓
+  - "Hemlocks at this elevation" (HWA threat + treatment protocol + survival data) ✓
+  - "Sourcing" (ethical-provenance nurseries + UGA SBG/GNPI recommended-nurseries PDF) ✓
+- Conditional "Hemlock check-in" reminder during HWA peak windows — **still pending** (deferred; needs conditional-rendering plumbing). The educational content lives in the "Hemlocks at this elevation" callout for now.
 
 **Places to visit nearby (Cat 7 day-trips seed list, added 2026-05-19):**
 - **Georgia Marble Company / Village of Tate marker** (Georgia Historical Society, 1999) at Tate Cemetery on GA-53 — primary-source historical marker ~5 min from the property.
@@ -380,22 +380,20 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 
 This is a real product shift. The current Field Notes UI (form modal with category/species pickers) is a stepping stone, not the destination. The path:
 
-| Phase | Scope | Effort |
+| Phase | Scope | Status |
 |---|---|---|
-| **D — Capture UX rebuild** | Replace the Field Notes modal with a single always-visible text box + mic at the top of the card (or top of page). Drop the category and species pickers from the user-facing form entirely. Timestamp captured automatically. A `POST /api/classify` Claude call assigns category/speciesId behind the scenes after save, so the data structure stays intact for downstream surfacing. | 1 session |
-| **E — Conversational layer** | Multi-turn chat with the full property context as the system prompt — `plants.json`, `birds.json`, `mammals.json`, `amphibians.json`, `snakes.json`, `lizards.json`, `fishing.json`, `property.json`, the active observations, and the current weather state. Use Claude tool-use so the model can look up specific records on demand rather than stuffing everything into context every turn. | 2–3 sessions |
-| **F — Image input** | Photo upload on the chat surface (mobile-first — camera roll + capture). Use Claude's vision endpoint. Decide whether images persist with their associated entry (visual journal) or are transient Q&A inputs only. | 1–2 sessions |
+| **D — Capture UX rebuild** | Replace the Field Notes modal with a single always-visible text box + mic at the top of the card. Drop the category and species pickers from the user-facing form entirely. Timestamp captured automatically. A `POST /api/classify` Claude call assigns category/speciesId behind the scenes after save. | ✓ Shipped 2026-05-19 (commit 783e72c). Worker `/api/classify` endpoint live; inline composer + async classify wired; fuzzy species matching against curated *_DATA. |
+| **E — Conversational layer** | Multi-turn chat with the full property context as the system prompt — `plants.json`, `birds.json`, `mammals.json`, `amphibians.json`, `snakes.json`, `lizards.json`, `fishing.json`, `property.json`, the active observations, and the current weather state. Use Claude tool-use so the model can look up specific records on demand rather than stuffing everything into context every turn. | Scoping doc at `PHASE_E_DESIGN.md` (2026-05-19) — open questions surfaced, no implementation yet. |
+| **F — Image input** | Photo upload on the chat surface (mobile-first — camera roll + capture). Use Claude's vision endpoint. Decide whether images persist with their associated entry (visual journal) or are transient Q&A inputs only. | Not started. |
 
 **Constraints to honor:**
 - The depth filter still applies: the assistant references only the property's actual scope (the 17 curated plants, 17 mammals, etc.), not regional completeness.
 - Field-journal voice in both directions — the assistant doesn't lapse into "Here are 5 tips for caring for your Azalea." It speaks as someone who knows *this* azalea on *this* property.
 - All API costs flow through the existing Worker with the existing `X-Tate-Token` auth. Per-call cost matters because conversations are multi-turn; consider Haiku for routine turns and reserve Sonnet/Opus for image-vision or long-context queries.
 
-**Order:** D first (the capture rewrite makes E meaningful — without it, the user's still writing journal entries in a structured form), then E, then F. Don't pursue all three before validating D doesn't change the answer for E.
-
 ## Deferred for Paul
 
-**Code & logic walkthrough.** When Paul has bandwidth, do a guided tour of the full stack so he understands what each piece does — what wrangler is (the build/deploy CLI for Cloudflare Workers), what a Cloudflare Worker actually is (serverless function on the edge), what KV is (a key-value store), how the dashboard talks to the Worker (`fetch` with the `X-Tate-Token` header), how localStorage caches and falls back when the Worker is unreachable, how the Web Speech API powers voice dictation, the data-file structure (`plants.json` / `birds.json` / `mammals.json`) and how viewer.html inlines those as `*_DATA` constants at script start, the GitHub Pages auto-deploy from main, and the weather-history GitHub Action. Output: a `STACK_TOUR.md` reference doc in the repo so it survives chat scrollback.
+~~**Code & logic walkthrough.**~~ ✓ Done 2026-05-19. `STACK_TOUR.md` at repo root covers the entire stack (GitHub Pages, viewer.html single-file pattern, JSON inline pattern, Cloudflare Worker + KV + secrets, dashboard ↔ Worker auth, localStorage cache+fallback, Web Speech API, weather-history GitHub Action, deployment paths, cost summary, glossary). Survives chat scrollback.
 
 ## Outstanding asks for Paul
 
