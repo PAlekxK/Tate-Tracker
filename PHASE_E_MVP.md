@@ -19,7 +19,7 @@ This is intentionally smaller than the synthesis recommended. The expert review 
 ### Two surfaces, separate purposes
 
 1. **Quick Capture** (existing, unchanged) — top of page, textarea + mic + "Save entry" button. Observation capture via Phase D. Untouched.
-2. **Garden Guru** (NEW) — bottom of page, below the main cards. Small text input that expands on use. Submit triggers a Claude call. Answer renders below the input. Up to 5 follow-ups; explicit "Start fresh" button at the end.
+2. **Garden Guru** (NEW) — between dashboard strip and main cards, sits below Quick Capture (discrete, smaller footprint — the secondary surface in that band). Small text input that expands on use. Submit triggers a Claude call. Answer renders below the input. Up to 5 follow-ups; explicit "Start fresh" button at the end. **Page order in v1:** Header → Today-line → Dashboard strip → Quick Capture → **Garden Guru** → Main cards.
 
 ### Garden Guru surface — visual states
 
@@ -232,13 +232,14 @@ One direct conversation with Mom, past-behavior-only. *"Have you used Garden Gur
 
 ---
 
-## Open questions for Paul before build
+## Decisions locked (from Paul, 2026-05-19)
 
-1. **Placement** — bottom of page (below all main cards) as proposed, OR between dashboard strip and main cards? Spec defaults to bottom.
-2. **Follow-up cap** — 5 per conversation as proposed, OR no hard cap with soft "start fresh?" prompt every 5 turns, OR keep your original 2?
-3. **Storage scope** — store conversations on the Worker as proposed, OR localStorage-only for v1 (simpler, no Worker change for storage)?
-4. **The "Garden Guru" name** — confirmed, or want content-steward to pressure-test against "The Slope" / "Almanac" / other field-journal-fluent alternatives before locking?
-5. **"You" usage** — per content-steward's recommendation, allow "you" sparingly for actions only ("you'll want to check the underside of a leaf"), never for experience ("you'll love how it looks"). Confirm or veto.
+1. **Placement** — between dashboard strip and main cards, below Quick Capture. Discrete. ✓
+2. **Follow-up cap** — 5 follow-ups per conversation (default). Soft prompt to start fresh after; explicit "Start a new question" button at cap. Easy to dial up or down after seeing real use.
+3. **Storage scope** — Worker KV. All conversations captured. Persistence enables Phase G feedback loop. ✓
+4. **Cost monitoring** — Day-one telemetry to Worker KV (`cost-log` key). Append `apiData.usage` on every call. Review after 2 weeks. ✓
+5. **"Garden Guru" name** — confirmed (Paul named it). Locked.
+6. **"You" usage** — per content-steward's recommendation: allow sparingly for listener's *action* ("you'll want to check the underside of a leaf"), never for listener's *experience* ("you'll love how it looks"). Locked into system prompt.
 
 ---
 
