@@ -11,7 +11,7 @@ Starting-point imagery for the eventual property map view at 34.5496°N, 84.3674
 | `aerial-esri-z19.jpg` | ESRI World Imagery | z19, ~620 ft across, 0.8 ft/px | Close-in: house + driveway |
 | `aerial-esri-z18.jpg` | ESRI World Imagery | z18, ~1,240 ft across, 1.6 ft/px | Working scale: house, fairway, forest edge |
 | `aerial-esri-z17.jpg` | ESRI World Imagery | z17, ~4,100 ft across, 3.2 ft/px | Wide context: property in relation to Lake Sequoyah and neighbors |
-| `gep-2015-03-leafoff.png` | Google Earth Pro (user-supplied) | Mar 6, 2015 | **True leaf-off winter capture.** The most useful single image we have for seeing property structure — bare deciduous trees show fairway pattern + forest density clearly. *(Manually copied into this directory by Paul after sandbox prevented auto-copy from Desktop.)* |
+| `gep-2015-03-leafoff.png` | Google Earth Pro (user-supplied) | Mar 6, 2015 | **True leaf-off winter capture, canonical base layer for the eventual map view.** Bare deciduous trees show fairway pattern, driveway, and forest density clearly. House labeled "282 Church Mountain Rd" with pin. |
 
 ### NAIP historical time-lapse (`naip/`)
 
@@ -91,9 +91,7 @@ python3 tools/build-naip-composite.py
 - Single gravel driveway approaching from the southwest
 - ~0.3 mi north of Lake Sequoyah at ~2,960 ft elevation (matches `property.json`)
 
-**Naming question worth verifying:**
-- OSM labels the area near the dam as "Burnt Mountain Estates"
-- USGS topo labels the broader area "Tate Mountain Estates"
-- Could be (a) two sub-developments within the historical Tate property, (b) a modern rebrand, or (c) OSM imprecision. CLAUDE.md research is anchored to "Tate Mountain Estates"; worth a sanity check.
+**Naming question resolved (Paul, 2026-05-19):**
+- "Burnt Mountain Estates" and "Tate Mountain Estates" are different names for the same development at different points in time. OSM's modern label and USGS's historic label both refer to the same Tate-era development that the property sits inside. CLAUDE.md callouts remain anchored to the historic "Tate Mountain Estates" naming since that's the layered-history register the prose is in. If anything contradicts this read in future research, flag it.
 
 **Property boundary** — not in any of these images. Paul doesn't have a clear boundary file yet; can add later from county GIS or deed plat.
