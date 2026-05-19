@@ -2,7 +2,7 @@
 
 This Worker is the dashboard's tiny backend. It exists for one reason: Field Notes observations need to follow you between devices. When you dictate "first hummingbird at the feeder" on your phone in the field, it should be there when you open the dashboard on your laptop later.
 
-The Worker also reserves the same endpoint shape for the Phase C2 data proxies (AirNow / Drought / NCEI) and the AI today-line — those will land in a follow-up commit.
+The Worker also handles the Phase C2 data proxies (AirNow current AQI, US Drought Monitor) and the AI today-line that synthesizes the day's state into one journal-voice sentence via Claude Haiku.
 
 **Cost**: $0/month at expected volume. Workers free tier is 100K requests/day; KV free tier is 1K writes / 100K reads / 1GB storage.
 
