@@ -2088,25 +2088,64 @@
     line-height: 1.55;
     margin-bottom: 14px;
   }
-  .fn-write-btn {
+  .fn-capture {
+    background: #fafcf6;
+    border: 1px solid #d8eacc;
+    border-radius: 12px;
+    padding: 12px 14px 10px;
+    margin-bottom: 14px;
+  }
+  .fn-capture-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .fn-capture-textarea {
+    flex: 1;
+    min-height: 64px;
+    max-height: 220px;
+    border: 1px solid #d4e0c8;
+    border-radius: 8px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.55;
+    padding: 9px 11px;
+    resize: vertical;
+    color: #2a3a2a;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fn-capture-textarea:focus { outline: none; border-color: #7a9a5a; box-shadow: 0 0 0 2px #e0eccd; }
+  .fn-capture-textarea::placeholder { color: #aab4a0; font-style: italic; }
+  .fn-capture-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .fn-capture-actions .fn-mic-hint { font-size: 11.5px; }
+  .fn-capture-save {
     background: linear-gradient(135deg, #6a8a4a, #5a7a3a);
     color: #fff;
     border: none;
-    border-radius: 10px;
-    padding: 12px 16px;
+    border-radius: 8px;
+    padding: 8px 16px;
     font-family: "Crimson Text", Georgia, serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: background 0.15s, transform 0.1s;
+    transition: background 0.15s, transform 0.1s, opacity 0.15s;
   }
-  .fn-write-btn:active { transform: scale(0.98); background: linear-gradient(135deg, #5a7a3a, #4a6a2a); }
-  .fn-write-btn .fn-write-icon { font-size: 17px; }
+  .fn-capture-save:active { transform: scale(0.98); background: linear-gradient(135deg, #5a7a3a, #4a6a2a); }
+  .fn-capture-save:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .fn-entry-pending {
+    font-size: 10.5px;
+    color: #aaa090;
+    font-style: italic;
+    margin-left: 8px;
+  }
   .fn-empty {
     margin-top: 16px;
     font-family: "Crimson Text", Georgia, serif;
@@ -2643,55 +2682,6 @@
     </div>
   </div>
 
-</div>
-
-<!-- FIELD NOTES MODAL (Phase B) -->
-<div class="fn-modal-overlay" id="fn-modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="fn-modal-title">
-  <div class="fn-modal-sheet">
-    <div class="fn-modal-header">
-      <div class="fn-modal-title" id="fn-modal-title">New entry</div>
-      <button class="fn-modal-close" type="button" id="fn-modal-close" aria-label="Close">×</button>
-    </div>
-    <div class="fn-modal-body">
-      <div class="fn-field">
-        <label class="fn-field-label" for="fn-date">When</label>
-        <input type="date" id="fn-date">
-      </div>
-      <div class="fn-field">
-        <label class="fn-field-label" for="fn-category">What it's about</label>
-        <select id="fn-category">
-          <option value="plants">Plants</option>
-          <option value="birds">Birds</option>
-          <option value="mammals">Mammals</option>
-          <option value="amphibians">Amphibians &amp; pond</option>
-          <option value="snakes">Snakes</option>
-          <option value="lizards">Lizards</option>
-          <option value="fishing">Fishing</option>
-          <option value="weather">Weather</option>
-          <option value="property">The place itself</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="fn-field" id="fn-species-field">
-        <label class="fn-field-label" for="fn-species">Species (optional)</label>
-        <select id="fn-species">
-          <option value="">— none / general —</option>
-        </select>
-      </div>
-      <div class="fn-field">
-        <label class="fn-field-label" for="fn-body">What you observed</label>
-        <div class="fn-body-row">
-          <textarea id="fn-body" placeholder="Saw the first hummingbird at the feeder this morning…"></textarea>
-          <button class="fn-mic-btn" type="button" id="fn-mic-btn" aria-label="Voice dictation" title="Tap to dictate">🎤</button>
-        </div>
-        <div class="fn-mic-hint" id="fn-mic-hint">Tap the mic to dictate. Tap again to stop.</div>
-      </div>
-    </div>
-    <div class="fn-modal-footer">
-      <button class="fn-btn-secondary" type="button" id="fn-cancel">Cancel</button>
-      <button class="fn-btn-primary" type="button" id="fn-save">Save entry</button>
-    </div>
-  </div>
 </div>
 
 <!-- FIELD NOTES — SYNC SETTINGS MODAL (Phase C1) -->
@@ -8042,6 +8032,52 @@ function relativeTime(iso) {
 function fnNewId() {
   return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7);
 }
+// Fuzzy-match a free-text species name from the classifier against the
+// curated species list for the given category. Returns { speciesId, speciesName }
+// when a confident match is found, or { speciesId: null, speciesName: guess }
+// when not (so the guess still surfaces, just without a structured ID).
+function fnMatchSpecies(category, guess) {
+  if (!guess) return { speciesId: null, speciesName: null };
+  const norm = s => (s || "").toLowerCase().replace(/[^a-z0-9 ]+/g, "").replace(/\s+/g, " ").trim();
+  const g = norm(guess);
+  if (!g) return { speciesId: null, speciesName: guess };
+  const opts = fnSpeciesOptionsFor(category);
+  if (!opts.length) return { speciesId: null, speciesName: guess };
+  // Exact normalized match
+  let hit = opts.find(o => norm(o.name) === g);
+  // Contains in either direction
+  if (!hit) hit = opts.find(o => g.includes(norm(o.name)) || norm(o.name).includes(g));
+  // Token-overlap fallback — at least 2 shared tokens of ≥4 chars
+  if (!hit) {
+    const tokens = g.split(" ").filter(t => t.length >= 4);
+    if (tokens.length >= 2) {
+      hit = opts.find(o => {
+        const otokens = norm(o.name).split(" ");
+        const shared = tokens.filter(t => otokens.includes(t));
+        return shared.length >= 2;
+      });
+    }
+  }
+  if (hit) return { speciesId: hit.id, speciesName: hit.name };
+  return { speciesId: null, speciesName: guess };
+}
+
+// Classify a journal entry via the Worker. Returns { category, speciesId, speciesName }
+// or null when the Worker isn't configured / the call fails. Designed to be called
+// async after save — failures are silent.
+async function classifyEntry(entryBody, isoDate) {
+  if (!WorkerAPI.isConfigured()) return null;
+  try {
+    const data = await WorkerAPI.call("POST", "/api/classify", { body: entryBody, date: isoDate });
+    if (!data || !data.category) return null;
+    const match = fnMatchSpecies(data.category, data.species_guess);
+    return { category: data.category, speciesId: match.speciesId, speciesName: match.speciesName };
+  } catch (e) {
+    if (!e.notConfigured) console.warn("classify failed:", e.message);
+    return null;
+  }
+}
+
 function fnSpeciesOptionsFor(category) {
   const map = {
     plants: typeof PLANTS_DATA !== "undefined" ? (PLANTS_DATA.plants || []) : [],
@@ -8099,18 +8135,32 @@ function renderFieldNotes() {
   html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + (status.mode === "local-only" ? "Set up sync" : "Sync settings") + '</button>';
   html += '</div>';
 
-  html += '<button class="fn-write-btn" type="button" id="fn-write-btn"><span class="fn-write-icon">✍️</span>Write a new entry</button>';
+  // === Inline capture surface (Phase D) — always-visible textarea + mic + Save ===
+  html += '<div class="fn-capture">';
+  html +=   '<div class="fn-capture-row">';
+  html +=     '<textarea id="fn-capture-textarea" class="fn-capture-textarea" placeholder="What did you see today?" rows="3"></textarea>';
+  html +=     '<button id="fn-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>';
+  html +=   '</div>';
+  html +=   '<div class="fn-capture-actions">';
+  html +=     '<span id="fn-mic-hint" class="fn-mic-hint"></span>';
+  html +=     '<button id="fn-capture-save" class="fn-capture-save" type="button" disabled>Save entry</button>';
+  html +=   '</div>';
+  html += '</div>';
 
   if (entries.length === 0) {
     html += '<div class="fn-empty">No entries yet. The first observation goes here.</div>';
   } else {
     html += '<div class="fn-list">';
     for (const e of entries) {
-      const lbl = FN_CATEGORY_LABEL[e.category] || e.category;
+      const lbl = e.category ? (FN_CATEGORY_LABEL[e.category] || e.category) : null;
       html += '<div class="fn-entry" data-id="' + escapeHtml(e.id) + '">';
       html += '<div class="fn-entry-header">';
       html += '<span class="fn-entry-when">' + escapeHtml(fnFormatWhen(e.date)) + '</span>';
-      html += '<span class="fn-entry-category">' + escapeHtml(lbl) + '</span>';
+      if (lbl) {
+        html += '<span class="fn-entry-category">' + escapeHtml(lbl) + '</span>';
+      } else if (e.classifyPending) {
+        html += '<span class="fn-entry-pending">classifying…</span>';
+      }
       html += '</div>';
       if (e.speciesName) {
         html += '<div class="fn-entry-species">' + escapeHtml(e.speciesName) + '</div>';
@@ -8123,8 +8173,25 @@ function renderFieldNotes() {
   }
   body.innerHTML = html;
 
-  const writeBtn = document.getElementById("fn-write-btn");
-  if (writeBtn) writeBtn.addEventListener("click", () => fnOpenModal());
+  // === Inline capture event wiring ===
+  const ta = document.getElementById("fn-capture-textarea");
+  const saveBtn = document.getElementById("fn-capture-save");
+  if (ta && saveBtn) {
+    const refreshDisabled = () => { saveBtn.disabled = !ta.value.trim(); };
+    ta.addEventListener("input", refreshDisabled);
+    saveBtn.addEventListener("click", () => fnSaveInlineEntry());
+    refreshDisabled();
+  }
+  const micBtn = document.getElementById("fn-mic-btn");
+  if (micBtn) {
+    micBtn.addEventListener("click", () => VoiceCapture.toggle());
+    if (!VoiceCapture.isSupported()) {
+      micBtn.style.display = "none";
+      const hint = document.getElementById("fn-mic-hint");
+      if (hint) hint.textContent = "Voice dictation isn't supported in this browser. Try Safari (iOS) or Chrome.";
+    }
+  }
+
   const syncBtn = document.getElementById("fn-sync-btn");
   if (syncBtn) syncBtn.addEventListener("click", () => fnOpenSyncModal());
   body.querySelectorAll(".fn-entry-delete").forEach(btn => {
@@ -8138,76 +8205,51 @@ function renderFieldNotes() {
   });
 }
 
-// ---- Modal controller ----
-function fnPopulateSpecies(category) {
-  const sel = document.getElementById("fn-species");
-  const field = document.getElementById("fn-species-field");
-  if (!sel || !field) return;
-  const opts = fnSpeciesOptionsFor(category);
-  sel.innerHTML = '<option value="">— none / general —</option>' +
-    opts.map(o => '<option value="' + escapeHtml(o.id) + '">' + escapeHtml(o.name) + '</option>').join("");
-  field.style.display = opts.length ? "" : "none";
-}
-function fnOpenModal() {
-  const overlay = document.getElementById("fn-modal-overlay");
-  const dateEl = document.getElementById("fn-date");
-  const catEl = document.getElementById("fn-category");
-  const bodyEl = document.getElementById("fn-body");
-  if (!overlay || !dateEl || !catEl || !bodyEl) return;
-  // Defaults: today's date, plants category, empty body.
+// ---- Inline capture save (Phase D) ----
+// Saves immediately with category=null + classifyPending=true so the entry shows up
+// in the list right away. Fires /api/classify in the background; when it returns,
+// the entry is re-saved with the inferred category/speciesId/speciesName.
+async function fnSaveInlineEntry() {
+  const ta = document.getElementById("fn-capture-textarea");
+  if (!ta) return;
+  const body = (ta.value || "").trim();
+  if (!body) return;
   const isoToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
     .toISOString().slice(0, 10);
-  dateEl.value = isoToday;
-  catEl.value = "plants";
-  bodyEl.value = "";
-  fnPopulateSpecies("plants");
-  document.getElementById("fn-species").value = "";
-  overlay.classList.add("open");
-  overlay.setAttribute("aria-hidden", "false");
-  // Don't autofocus on iOS — it pops the keyboard and obscures the date picker.
-}
-function fnCloseModal() {
-  const overlay = document.getElementById("fn-modal-overlay");
-  if (!overlay) return;
-  overlay.classList.remove("open");
-  overlay.setAttribute("aria-hidden", "true");
-  if (VoiceCapture.isRecording()) VoiceCapture.stop();
-}
-function fnSaveEntry() {
-  const dateEl = document.getElementById("fn-date");
-  const catEl = document.getElementById("fn-category");
-  const speciesEl = document.getElementById("fn-species");
-  const bodyEl = document.getElementById("fn-body");
-  if (!dateEl || !catEl || !bodyEl) return;
-  const body = (bodyEl.value || "").trim();
-  if (!body) {
-    alert("Add what you observed before saving.");
-    bodyEl.focus();
-    return;
-  }
-  const category = catEl.value;
-  const speciesId = speciesEl ? (speciesEl.value || null) : null;
-  let speciesName = null;
-  if (speciesId) {
-    const opt = speciesEl.options[speciesEl.selectedIndex];
-    speciesName = opt ? opt.textContent : null;
-  }
   const entry = {
     id: fnNewId(),
-    date: dateEl.value || new Date().toISOString().slice(0, 10),
+    date: isoToday,
     createdAt: new Date().toISOString(),
-    category,
-    speciesId,
-    speciesName,
+    category: null,
+    speciesId: null,
+    speciesName: null,
     body,
+    classifyPending: WorkerAPI.isConfigured(),
   };
-  // Go through the store so the entry is cached locally AND pushed to the Worker.
-  ObservationStore.save(entry).then(() => renderFieldNotes());
-  fnCloseModal();
-  // Make sure the card is expanded so the new entry is visible.
+  // 1. Save instantly through the store (local + Worker upsert).
+  await ObservationStore.save(entry);
+  // 2. Clear the composer and re-render so the entry appears immediately.
+  ta.value = "";
+  const saveBtn = document.getElementById("fn-capture-save");
+  if (saveBtn) saveBtn.disabled = true;
+  if (VoiceCapture.isRecording()) VoiceCapture.stop();
+  // 3. Make sure the Field Notes card is expanded so the entry is visible.
   const card = document.getElementById("card-fieldnotes");
   if (card && !card.classList.contains("expanded")) card.classList.add("expanded");
   renderFieldNotes();
+  // 4. Fire classification in the background — failures are silent.
+  if (entry.classifyPending) {
+    classifyEntry(body, isoToday).then(async result => {
+      const updated = { ...entry, classifyPending: false };
+      if (result) {
+        updated.category = result.category;
+        updated.speciesId = result.speciesId;
+        updated.speciesName = result.speciesName;
+      }
+      await ObservationStore.save(updated);
+      renderFieldNotes();
+    });
+  }
 }
 
 // ---- Sync settings modal ----
@@ -8287,7 +8329,7 @@ const VoiceCapture = (function () {
     btn.setAttribute("aria-label", recording ? "Stop dictation" : "Voice dictation");
   }
   function buildAndShow() {
-    const bodyEl = document.getElementById("fn-body");
+    const bodyEl = document.getElementById("fn-capture-textarea");
     if (!bodyEl) return;
     // Combine pre-session text, committed transcript, and current interim.
     const base = bodyEl.dataset.fnBaseline || "";
@@ -8302,7 +8344,7 @@ const VoiceCapture = (function () {
       return;
     }
     if (active) return;
-    const bodyEl = document.getElementById("fn-body");
+    const bodyEl = document.getElementById("fn-capture-textarea");
     if (!bodyEl) return;
     rec = new Rec();
     rec.continuous = true;
@@ -8376,33 +8418,11 @@ const VoiceCapture = (function () {
   return { start, stop, toggle, isSupported, isRecording };
 })();
 
-// ---- Wire modal controls ----
+// ---- Wire Field Notes controls ----
 (function wireFieldNotes() {
-  const catEl = document.getElementById("fn-category");
-  if (catEl) catEl.addEventListener("change", () => {
-    fnPopulateSpecies(catEl.value);
-    document.getElementById("fn-species").value = "";
-  });
-  const closeBtn = document.getElementById("fn-modal-close");
-  if (closeBtn) closeBtn.addEventListener("click", fnCloseModal);
-  const cancelBtn = document.getElementById("fn-cancel");
-  if (cancelBtn) cancelBtn.addEventListener("click", fnCloseModal);
-  const saveBtn = document.getElementById("fn-save");
-  if (saveBtn) saveBtn.addEventListener("click", fnSaveEntry);
-  const overlay = document.getElementById("fn-modal-overlay");
-  if (overlay) overlay.addEventListener("click", e => { if (e.target === overlay) fnCloseModal(); });
-  const micBtn = document.getElementById("fn-mic-btn");
-  if (micBtn) {
-    micBtn.addEventListener("click", () => VoiceCapture.toggle());
-    if (!VoiceCapture.isSupported()) {
-      micBtn.style.display = "none";
-      const hint = document.getElementById("fn-mic-hint");
-      if (hint) {
-        hint.textContent = "Voice dictation isn't supported in this browser. Try Safari (iOS) or Chrome.";
-      }
-    }
-  }
-  // Sync settings modal wiring.
+  // Inline-composer mic + save handlers are wired inside renderFieldNotes() because
+  // those elements are re-created on every render. This block handles the always-present
+  // sync-settings modal only.
   const syncClose = document.getElementById("fn-sync-close");
   if (syncClose) syncClose.addEventListener("click", fnCloseSyncModal);
   const syncCancel = document.getElementById("fn-sync-cancel");

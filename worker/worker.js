@@ -1,5 +1,5 @@
 /**
- * Tate Tracker Cloudflare Worker
+ * Fernwood (Tate Tracker) Cloudflare Worker
  *
  * Endpoints (all under X-Tate-Token auth except /health):
  *   GET    /api/observations              list observations
@@ -8,11 +8,12 @@
  *   GET    /api/airnow?lat=&lon=          AirNow current AQI (proxied, 15-min KV cache)
  *   GET    /api/drought?fips=             US Drought Monitor severity (proxied, 6-hr cache)
  *   POST   /api/today-line                Claude API synthesis of the day (24-hr KV cache by date)
+ *   POST   /api/classify                  Claude API classification of a field-journal entry (no cache)
  *
  * Secrets (configured via `npx wrangler secret put NAME`):
  *   SHARED_TOKEN          — required, gates /api/*
  *   AIRNOW_API_KEY        — required for /api/airnow (free at airnowapi.org)
- *   ANTHROPIC_API_KEY     — required for /api/today-line (from console.anthropic.com)
+ *   ANTHROPIC_API_KEY     — required for /api/today-line and /api/classify (from console.anthropic.com)
  *
  * Storage: single KV namespace OBSERVATIONS holds both the observations array
  * (key "observations") and cached responses for the upstream proxies
@@ -230,6 +231,76 @@ async function handleTodayLine(request, env) {
   return json({ ...payload, cached: false });
 }
 
+// ---- Classify: Claude inference of category + species_guess for a field-journal entry ----
+// Body shape: { body: "<the observation text>", date?: "YYYY-MM-DD" }
+// Returns: { category, species_guess, model, fetchedAt }
+// Categories: plants | birds | mammals | amphibians | snakes | lizards | fishing | weather | property | other
+// No cache — each entry is unique.
+
+const CLASSIFY_SYSTEM = `You classify a single field-journal observation written about a 2,959 ft Blue Ridge property in north Georgia.
+
+Return strict JSON only — no preface, no markdown, no trailing commentary. The JSON has exactly two fields:
+- "category": one of "plants", "birds", "mammals", "amphibians", "snakes", "lizards", "fishing", "weather", "property", "other".
+- "species_guess": the common name of the specific species mentioned (e.g. "Ruby-throated Hummingbird", "White Pine", "Eastern Box Turtle") if one is identifiable from the text. Use null if no specific species is named or implied.
+
+Categorization rules:
+- "plants" = anything about flora on the property (trees, shrubs, flowers, ferns, vegetables, fungi).
+- "birds" = anything about birds (sightings, calls, nesting, feeders).
+- "mammals" = anything about mammals (deer, fox, coyote, bear, raccoon, bats, etc.).
+- "amphibians" = frogs, toads, salamanders.
+- "snakes" = snakes specifically.
+- "lizards" = lizards / skinks specifically.
+- "fishing" = anything about Lake Sequoyah, fishing, the lake's water temperature or species.
+- "weather" = observations of weather, sky, clouds, rain, frost, lightning, temperature.
+- "property" = ground conditions, soil, water sources, equipment, structures, paths, fences — anything about the place itself that isn't living.
+- "other" = anything that doesn't cleanly fit (e.g. visitor notes, decisions, plans, reminders).
+
+Be decisive — return one category, not multiple. If a species is named but unclear which kind (e.g. "the bird at the feeder"), still pick the right category but set species_guess to null.`;
+
+async function handleClassify(request, env) {
+  if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
+  let payload;
+  try { payload = await request.json(); }
+  catch (e) { return json({ error: "bad-json" }, 400); }
+  const body = (payload && payload.body) || "";
+  const date = (payload && payload.date) || new Date().toISOString().slice(0, 10);
+  if (!body.trim()) return json({ error: "missing-body" }, 400);
+  const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": env.ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 120,
+      system: CLASSIFY_SYSTEM,
+      messages: [
+        { role: "user", content: `Date: ${date}\nObservation:\n${body}` },
+      ],
+    }),
+  });
+  if (!apiRes.ok) {
+    const txt = await apiRes.text().catch(() => "");
+    return json({ error: `anthropic HTTP ${apiRes.status}`, detail: txt.slice(0, 300) }, 502);
+  }
+  const apiData = await apiRes.json();
+  const raw = (apiData.content || []).filter(c => c.type === "text").map(c => c.text).join("").trim();
+  let parsed;
+  try {
+    // Sometimes the model adds stray text — extract the first {...} block.
+    const m = raw.match(/\{[\s\S]*\}/);
+    parsed = JSON.parse(m ? m[0] : raw);
+  } catch (e) {
+    return json({ error: "parse-failed", raw: raw.slice(0, 300) }, 502);
+  }
+  const ALLOWED = ["plants","birds","mammals","amphibians","snakes","lizards","fishing","weather","property","other"];
+  const category = ALLOWED.includes(parsed.category) ? parsed.category : "other";
+  const speciesGuess = (typeof parsed.species_guess === "string" && parsed.species_guess.trim()) ? parsed.species_guess.trim() : null;
+  return json({ category, species_guess: speciesGuess, model: apiData.model, fetchedAt: new Date().toISOString() });
+}
+
 // ---- Router ----
 
 export default {
@@ -244,7 +315,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -259,6 +330,7 @@ export default {
     if (url.pathname === "/api/airnow")     return handleAirNow(request, env, url);
     if (url.pathname === "/api/drought")    return handleDrought(request, env, url);
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env);
+    if (url.pathname === "/api/classify")   return handleClassify(request, env);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
