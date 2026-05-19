@@ -2,6 +2,43 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Pickup point — last session ended 2026-05-19
+
+**Phase E MVP (Garden Guru) shipped end-to-end and pushed (commit `3c8236c`).** Worker has `/api/chat` deployed; client has the Garden Guru surface between Quick Capture and the main cards; conversation persistence + cost logging both wired to KV. Paul has not yet done the live browser-side E2E test with his auth token — that's the immediate next action.
+
+**What Paul should do next session:**
+
+1. **Browser-side E2E smoke test of Garden Guru.** Hard-refresh the dashboard. Scroll past Quick Capture to the tan Garden Guru box. Ask 3-5 representative questions, including:
+   - A "plants in peak" question (tests in-context data retrieval)
+   - An outside-scope question like *"is there poison ivy on the property?"* (tests honest-uncertainty register)
+   - A statement that *sounds* like an observation (tests that Garden Guru doesn't try to save it — that's Quick Capture's job)
+   - A vague description (tests the named-field-mark uncertainty pattern)
+   - A follow-up to test the 5-cap + reset flow
+2. **Report voice drift, hallucination, mode confusion, latency issues, anything off.** The system prompt is load-bearing — iterating on `GARDEN_GURU_SYSTEM` in `worker/worker.js` is the first response to any voice issues. Rebuild + redeploy: `cd worker && npx wrangler deploy`.
+3. **Check telemetry after a couple weeks.** Cost log lives at KV key `cost-log:YYYY-MM-DD` (one per day). Conversations live at `conversation:<uuid>`. Use those to verify cost stays under ~$10/month and to review conversation quality.
+
+**Open Phase E iterations (not yet done):**
+- **Conversation browse UI.** KV has all conversations; no UI to browse them yet. v2.
+- **Streaming responses.** Non-streaming v1; add streaming (~30 lines client) if turns feel laggy on LTE.
+- **Tool-use migration.** System-prompt stuffing of the ~57K-token digest is fine until digest >80K OR Phase G observations >50 entries.
+- **Naming pass on the "Property card"** — open thread from content-steward (see `project_tate_tracker_tone.md` memory). The card has grown beyond "real-estate property" framing; a Sand-County-Almanac-fluent name might fit better.
+
+**Where the design trail lives** (for any next-session expert review):
+- `PHASE_E_BRIEF.md` — full feature brief (the input to the 5-expert review)
+- `PHASE_E_SYNTHESIS.md` — synthesized findings from the 5 experts
+- `PHASE_E_MVP.md` — locked decisions + implementation spec
+- `PHASE_E_DESIGN.md` — original 9 design questions (Q1 + others resolved through walkthrough)
+- `.ux-reviews/2026-05-19-phase-e-unified-field-assistant.json`
+- `.engineering/2026-05-19-path-phase-e-architecture.md`
+- `.user-research/jtbd-talk-to-the-property.md` + `journey-unified-field-assistant.md`
+
+**Other open threads on the backlog** (from the punch list earlier this session):
+- Citizen-science decision — dormant scaffolding in viewer.html; re-enable, drop, or leave dormant is Paul's call
+- Property map view — paused; imagery + 7 zones + prototype committed; pickup whenever
+- Phase G observations as knowledge layer — defer until Phase E proves itself + observation set is rich (>50 entries)
+- Phase F image input — depends on E
+- Mt. Cuba reference / native-cultivar trials — captured in `plants-to-consider.md`; revisit when planning new plantings
+
 ## Project purpose & tone
 
 Fernwood is a **personal property reference dashboard** for 282 Church Mountain Road, Jasper, GA 30143 — a rural mountain property at 2,959 ft elevation in the Blue Ridge, within Tate Mountain Estates. "Fernwood" is the property's name; "Tate Mountain Estates" is the surrounding 1920s mountain development, separate from the nearby town of Tate. It is hyper-personalized, not a generic app.
@@ -383,7 +420,7 @@ This is a real product shift. The current Field Notes UI (form modal with catego
 | Phase | Scope | Status |
 |---|---|---|
 | **D — Capture UX rebuild** | Replace the Field Notes modal with a single always-visible text box + mic at the top of the card. Drop the category and species pickers from the user-facing form entirely. Timestamp captured automatically. A `POST /api/classify` Claude call assigns category/speciesId behind the scenes after save. | ✓ Shipped 2026-05-19 (commit 783e72c). Worker `/api/classify` endpoint live; inline composer + async classify wired; fuzzy species matching against curated *_DATA. |
-| **E — Conversational layer** | Multi-turn chat with the full property context as the system prompt — `plants.json`, `birds.json`, `mammals.json`, `amphibians.json`, `snakes.json`, `lizards.json`, `fishing.json`, `property.json`, the active observations, and the current weather state. Use Claude tool-use so the model can look up specific records on demand rather than stuffing everything into context every turn. | Scoping doc at `PHASE_E_DESIGN.md` (2026-05-19) — open questions surfaced, no implementation yet. |
+| **E — Conversational layer** | Multi-turn chat with the full property context as the system prompt — plants/birds/mammals/amphibians/snakes/lizards/fishing/property + active observations + current weather. | ✓ MVP shipped 2026-05-19 (commit 3c8236c) as **Garden Guru**. Paul opted for a simpler shape than the synthesis recommended: explicit "Ask Garden Guru" button on a separate surface (not a unified intent-routing surface with Quick Capture). 5 follow-ups per conversation. ~57K-token digest stuffed into system prompt; cache_control breakpoints for cost. Conversations + cost log persisted to KV. Next: live browser E2E with Paul's auth token, then iterate on the system prompt based on real replies. Tool-use deferred per migration triggers. |
 | **F — Image input** | Photo upload on the chat surface (mobile-first — camera roll + capture). Use Claude's vision endpoint. Decide whether images persist with their associated entry (visual journal) or are transient Q&A inputs only. | Not started. |
 
 **Constraints to honor:**
