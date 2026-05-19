@@ -181,7 +181,7 @@ async function handleDrought(request, env, url) {
 // Body shape: { date: "YYYY-MM-DD", state: { weather, plants, wildlife, fishing, sky } }
 // Caches by date so we call Claude at most once per day.
 
-const TODAY_LINE_SYSTEM = `You write a one- or two-sentence "today line" for a hyperlocal Appalachian property dashboard ("Tate Tracker" — 282 Church Mountain Road, Jasper, GA, 2,959 ft on the Blue Ridge).
+const TODAY_LINE_SYSTEM = `You write a one- or two-sentence "today line" for a hyperlocal Appalachian property dashboard for Fernwood — 282 Church Mountain Road, Jasper, GA, 2,959 ft on the Blue Ridge, within Tate Mountain Estates.
 
 The voice is a field journal in the spirit of Aldo Leopold's A Sand County Almanac — observational, slow, place-anchored, never directive. Describe what *is* at this place today; don't grade the day, don't tell the reader what to do.
 
