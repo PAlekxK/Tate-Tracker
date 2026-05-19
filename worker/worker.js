@@ -9,16 +9,26 @@
  *   GET    /api/drought?fips=             US Drought Monitor severity (proxied, 6-hr cache)
  *   POST   /api/today-line                Claude API synthesis of the day (24-hr KV cache by date)
  *   POST   /api/classify                  Claude API classification of a field-journal entry (no cache)
+ *   POST   /api/chat                      Garden Guru — conversational answer in field-journal voice,
+ *                                          with property digest as cached system-prompt context (Phase E)
  *
  * Secrets (configured via `npx wrangler secret put NAME`):
  *   SHARED_TOKEN          — required, gates /api/*
  *   AIRNOW_API_KEY        — required for /api/airnow (free at airnowapi.org)
- *   ANTHROPIC_API_KEY     — required for /api/today-line and /api/classify (from console.anthropic.com)
+ *   ANTHROPIC_API_KEY     — required for /api/today-line, /api/classify, /api/chat
  *
- * Storage: single KV namespace OBSERVATIONS holds both the observations array
- * (key "observations") and cached responses for the upstream proxies
- * (keys "cache:airnow:<lat>:<lon>", "cache:drought:<fips>", etc.).
+ * Storage: single KV namespace OBSERVATIONS holds:
+ *   - observations array (key "observations")
+ *   - per-conversation Garden Guru sessions (keys "conversation:<uuid>")
+ *   - per-day cost log of Anthropic API usage (keys "cost-log:<YYYY-MM-DD>")
+ *   - cached responses for upstream proxies (keys "cache:airnow:<lat>:<lon>", etc.)
+ *
+ * The property digest (curated context for Garden Guru) is bundled at deploy
+ * time from worker/digest.json. Rebuild with `python3 tools/build-digest.py`
+ * at the repo root, then `npx wrangler deploy` to ship the updated context.
  */
+
+import propertyDigest from "./digest.json" with { type: "json" };
 
 const OBS_KEY = "observations";
 
@@ -301,6 +311,163 @@ async function handleClassify(request, env) {
   return json({ category, species_guess: speciesGuess, model: apiData.model, fetchedAt: new Date().toISOString() });
 }
 
+// ---- Garden Guru (Phase E): conversational property assistant ----
+// Body shape: { conversation_id, turns: [{role, content}, ...], live_state: {...} }
+// Returns: { reply, conversation_id, usage, model, fetchedAt }
+//
+// Voice rules: field-journal register (Sand County Almanac), see content-steward's
+// review in PHASE_E_SYNTHESIS.md for the diagnosis. The cached digest provides the
+// property context; the system prompt enforces voice + scope + uncertainty handling.
+
+const GARDEN_GURU_SYSTEM = `You are Garden Guru — a field assistant for Fernwood, a property at 282 Church Mountain Road in Jasper, GA, at 2,959 feet on the Blue Ridge inside Tate Mountain Estates. You speak with the voice of a field journal kept by someone who knows this place — observational, slow, place-anchored. The literary register is Aldo Leopold's A Sand County Almanac: careful observation, quiet restraint, names of things over generalities.
+
+WHAT YOU KNOW
+You know what the property digest below tells you: the seventeen plants we tend, the birds and mammals and amphibians and snakes and lizards we track, the lake's species and conditions, the soils, the elevation, the frost dates, the microclimate. You also know whatever live state (current weather, today's date, plants in peak, recent observations) is included with this turn. You do not know anything else about this property. Do not invent.
+
+VOICE — fixed every turn
+- Anchor in this property. The laurels by the porch, the white pines on the slope, the Etowah headwaters, Lake Sequoyah a quarter-mile down the hill. Use names of specific things over category words.
+- Describe what is. Don't grade the day, don't tell the reader what their trip or afternoon is worth, don't pre-frame their experience.
+- Soften suggestions. "Worth doing X," "good time for X," "the X will want Y" in place of "Do X" or "You should X." Reserve plain imperatives for genuine safety items only.
+- No productivity-app language: no "tasks," "due," "overdue," "alert," "reminder," "action items," no exclamation points, no count-down framing.
+- No chatbot scaffolding: no "Great question!", no "I'd be happy to help," no "Here are 5 tips," no numbered tip lists, no emojis, no markdown headers in replies. Prose, one or two short paragraphs.
+
+TONE — flexes by the question
+- Match the question's weight. A four-word question gets a one-sentence answer or a short fragment. A substantive question gets a real paragraph. Never pad a small turn to look thorough.
+- Second-person "you" is allowed sparingly — only for the listener's ACTION, never the listener's EXPERIENCE. "You'll want to check the underside of a leaf" is fine. "You'll love how it looks in May" is not.
+- First-person "I" is rare. Use it only to mark the edge of what's known: "I'd want to see the underside of a leaf to be sure."
+
+SCOPE (depth filter — non-negotiable)
+- Reference only species and features that appear in the property digest.
+- Do not invent. If a plant or species is not in the digest, say so plainly: "Not one of the seventeen we tend." Never extrapolate to regional completeness ("there are also other species in Pickens County that…").
+
+UNCERTAINTY
+When you don't know something specifically about this property, name the uncertainty as a careful observer would — not as a chatbot apologizing.
+- "Hard to say from the description — [what you'd need to see]."
+- "Could be [A] or [B] — [the distinguishing feature]."
+- "Not something the journal tracks yet."
+- "Worth a closer look at [specific thing] before calling it."
+Patterns to avoid: "I'm sorry, I don't know." / "I don't have information about that." / "As an AI, I can't…" Never apologize for the shape of what you know.
+
+NEVER
+- Never invent a plant, species, or observation that isn't in the digest.
+- Never recommend a treatment, fertilizer, or product without referencing the plant's existing care calendar in the digest.
+- Never give "tips" or "best practices" framed for any garden. Everything is about this slope.
+- Never grade the user's day or trip.
+
+OUTPUT
+Plain prose. One to two short paragraphs typically — shorter for fragmentary questions. No JSON, no markdown, no headers, no bullet lists, no numbered lists, no emojis.`;
+
+async function logChatCost(env, conversationId, apiData) {
+  const date = new Date().toISOString().slice(0, 10);
+  const key = `cost-log:${date}`;
+  const usage = apiData.usage || {};
+  const entry = {
+    ts: new Date().toISOString(),
+    conversation_id: conversationId,
+    model: apiData.model,
+    usage: {
+      input_tokens: usage.input_tokens || 0,
+      cache_creation_input_tokens: usage.cache_creation_input_tokens || 0,
+      cache_read_input_tokens: usage.cache_read_input_tokens || 0,
+      output_tokens: usage.output_tokens || 0,
+    },
+  };
+  const existing = await env.OBSERVATIONS.get(key);
+  let arr = [];
+  if (existing) {
+    try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; }
+  }
+  arr.push(entry);
+  await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+}
+
+async function persistConversation(env, conversationId, turns) {
+  const key = `conversation:${conversationId}`;
+  const existing = await env.OBSERVATIONS.get(key);
+  let session;
+  if (existing) {
+    try { session = JSON.parse(existing); } catch (e) { session = null; }
+  }
+  if (!session) {
+    session = {
+      id: conversationId,
+      startedAt: new Date().toISOString(),
+      turns: [],
+    };
+  }
+  // Replace the turns array with the latest from the client (the source of truth
+  // within a session is the client's turn list; the Worker just persists snapshots).
+  session.turns = turns.map(t => ({
+    role: t.role,
+    content: t.content,
+    ts: t.ts || new Date().toISOString(),
+  }));
+  session.updatedAt = new Date().toISOString();
+  await env.OBSERVATIONS.put(key, JSON.stringify(session));
+}
+
+async function handleChat(request, env) {
+  if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
+  let body;
+  try { body = await request.json(); }
+  catch (e) { return json({ error: "bad-json" }, 400); }
+  const conversationId = body && body.conversation_id;
+  const turns = (body && Array.isArray(body.turns)) ? body.turns : null;
+  const liveState = (body && body.live_state) || {};
+  if (!conversationId || !turns || !turns.length) {
+    return json({ error: "missing-required-fields", required: ["conversation_id", "turns"] }, 400);
+  }
+  // Sanity-cap turns at 20 so the message array stays bounded even if a client drifts.
+  // Front-end enforces the 5-follow-up cap; this is just defense in depth.
+  if (turns.length > 20) {
+    return json({ error: "too-many-turns", limit: 20 }, 400);
+  }
+
+  // Three-block system prompt: voice rules (cached) + digest (cached, large) + live state (uncached).
+  // The cache_control on the digest block is the big cost saver — within a 5-minute window
+  // across turns or sessions, the ~57K-token digest is read at 10% of base rate.
+  const liveStateText = "CURRENT STATE (today):\n" + JSON.stringify(liveState);
+  const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": env.ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 600,
+      system: [
+        { type: "text", text: GARDEN_GURU_SYSTEM, cache_control: { type: "ephemeral" } },
+        { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(propertyDigest), cache_control: { type: "ephemeral" } },
+        { type: "text", text: liveStateText },
+      ],
+      messages: turns.map(t => ({ role: t.role, content: t.content })),
+    }),
+  });
+  if (!apiRes.ok) {
+    const txt = await apiRes.text().catch(() => "");
+    return json({ error: `anthropic HTTP ${apiRes.status}`, detail: txt.slice(0, 300) }, 502);
+  }
+  const apiData = await apiRes.json();
+  const reply = (apiData.content || []).filter(c => c.type === "text").map(c => c.text).join("").trim();
+
+  // Append assistant turn to the conversation, then persist + log cost.
+  const updatedTurns = [...turns, { role: "assistant", content: reply, ts: new Date().toISOString() }];
+  try { await persistConversation(env, conversationId, updatedTurns); }
+  catch (e) { console.warn("conversation persist failed:", e); }
+  try { await logChatCost(env, conversationId, apiData); }
+  catch (e) { console.warn("cost log failed:", e); }
+
+  return json({
+    reply,
+    conversation_id: conversationId,
+    usage: apiData.usage,
+    model: apiData.model,
+    fetchedAt: new Date().toISOString(),
+  });
+}
+
 // ---- Router ----
 
 export default {
@@ -315,7 +482,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -331,6 +498,7 @@ export default {
     if (url.pathname === "/api/drought")    return handleDrought(request, env, url);
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env);
     if (url.pathname === "/api/classify")   return handleClassify(request, env);
+    if (url.pathname === "/api/chat")       return handleChat(request, env);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
