@@ -8309,9 +8309,9 @@ function renderFieldNotes() {
     summaryText = "The journal you keep about this place";
   } else {
     const newest = entries[0];
-    const lbl = FN_CATEGORY_LABEL[newest.category] || newest.category;
+    const lbl = newest.category ? (FN_CATEGORY_LABEL[newest.category] || newest.category) : null;
     summaryText = entries.length + " entr" + (entries.length === 1 ? "y" : "ies") +
-      " · latest from " + fnFormatWhen(newest.date) + " (" + lbl.toLowerCase() + ")";
+      " · latest from " + fnFormatWhen(newest.date) + (lbl ? " (" + lbl.toLowerCase() + ")" : "");
   }
   summary.innerHTML = '<span class="fn-summary-text">' + escapeHtml(summaryText) + '</span>' +
     '<span class="' + pillClass + '" title="' + escapeHtml(status.message) + '">' + escapeHtml(pillLabel) + '</span>';
@@ -8622,6 +8622,28 @@ renderFieldNotes();
 if (ObservationStore.isConfigured()) {
   ObservationStore.refresh().then(() => renderFieldNotes());
 }
+
+// Retry classification for any entries that got orphaned with classifyPending=true
+// (e.g. from a session where the page crashed before classify could complete).
+function fnRetryPendingClassifications() {
+  if (!WorkerAPI.isConfigured()) return;
+  const pending = fnLoadAll().filter(e => e.classifyPending === true && !e.category);
+  if (!pending.length) return;
+  console.log("Retrying classification for", pending.length, "orphaned entr" + (pending.length === 1 ? "y" : "ies"));
+  for (const entry of pending) {
+    classifyEntry(entry.body, entry.date).then(async result => {
+      const updated = { ...entry, classifyPending: false };
+      if (result) {
+        updated.category = result.category;
+        updated.speciesId = result.speciesId;
+        updated.speciesName = result.speciesName;
+      }
+      await ObservationStore.save(updated);
+      renderFieldNotes();
+    });
+  }
+}
+fnRetryPendingClassifications();
 </script>
 
 </body>
