@@ -12,10 +12,11 @@ These will eventually become `zoneId` values on plants in `plants.json`, and SVG
 
 ## Zone types
 
-Two flavors are showing up:
+Three flavors are showing up:
 
 - **`planted`** — gardening beds with specific plants. The plants in `plants.json` will eventually carry a `zoneId` pointing to one of these.
-- **`turf`** — broad managed-ground zones that get watering / seeding / mowing rather than per-plant care. Tracked at the area level, not the plant level.
+- **`turf`** — actively-managed grass / lawn. Watering on a schedule, seeding bare spots, mowing regularly. Tracked at the area level, not the plant level.
+- **`meadow`** — low-management mixed-grass / open ground. Occasional mowing, no active watering or reseeding. Distinct from `turf` because the care pattern is much lighter.
 
 (Future zones might add `restoration` for chestnut/hemlock work, `wildland` for unmanaged forest interior, etc. Add types as they come up.)
 
@@ -31,7 +32,8 @@ Two flavors are showing up:
 | `western-patio` | Western patio area | `planted` | West side of the house | Garden area around the western patio — afternoon sun and heat, driveway-side approach |
 | `pond-area` | Pond area | `planted` | South of the house, between house and fairway | Garden area around the pond and the tree that covers it — moist, partially shaded |
 | `fairway-edge-west` | Western fairway edge | `planted` | Where the fairway clearing meets the forest on the west / "greener" side | The most active fairway-edge planting band — plants set along the edge between cleared turf and forest |
-| `fairway` | The fairway | `turf` | The main south-facing clearing south/southeast of the house | The lawn / fairway itself — needs watering, seeding, and general turf care. Not a per-plant zone but a managed-ground zone tracked at the area level. |
+| `front-lawn` | Front lawn | `turf` | Directly south of the house — the active-care portion of the fairway | True managed turf — watering on a schedule, reseeding bare spots, regular mowing. The part of the fairway right in front of the house that gets active care. |
+| `fairway-meadow` | Fairway meadow | `meadow` | The rest of the south-facing clearing beyond the front lawn | Low-management meadow — occasional mowing, no active watering or reseeding. The bulk of the fairway extending out from the front lawn. |
 | `forest-interior` | Forest interior (placeholder) | `planted` | Wraps the property on west, north, east | Scattered plantings throughout — Paul will build this out with specific data points later; left as a placeholder for now so plants can be tagged here without a richer schema |
 
 ---
