@@ -15,6 +15,14 @@
     "license_url": "https://creativecommons.org/licenses/by/2.5",
     "source_url": "https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg"
   },
+  "butterfly-weed": {
+    "author": "Photo by and (c)2009 Derek Ramsey (Ram-Man)",
+    "credit": "Self-photographed",
+    "file": "File:Butterfly Weed Asclepias tuberosa Umbel.jpg",
+    "license": "GFDL 1.2",
+    "license_url": "http://www.gnu.org/licenses/old-licenses/fdl-1.2.html",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Butterfly_Weed_Asclepias_tuberosa_Umbel.jpg"
+  },
   "clematis": {
     "author": "Jolly Janner",
     "credit": "Own work",
@@ -22,6 +30,14 @@
     "license": "Public domain",
     "license_url": "",
     "source_url": "https://commons.wikimedia.org/wiki/File:Clematis_%27Nelly_Moser%27.JPG"
+  },
+  "clematis-elpis": {
+    "author": "Wilrooij",
+    "credit": "Own work",
+    "file": "File:Clematis macropetala 02.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Clematis_macropetala_02.jpg"
   },
   "deutzia-yuki-cherry-blossom": {
     "author": "Unknown",
@@ -40,7 +56,7 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
   },
   "holly": {
-    "author": "J\u00fcrgen Howaldt",
+    "author": "Jürgen Howaldt",
     "credit": "Self-photographed",
     "file": "File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg",
     "license": "CC BY-SA 2.0 de",
@@ -63,6 +79,14 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "source_url": "https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_139866012.jpg"
   },
+  "hydrangea-dreamcloud": {
+    "author": "Sasipriya Narayanaswamy",
+    "credit": "Own work",
+    "file": "File:Hydrangea macrophylla white flower.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_white_flower.jpg"
+  },
   "iris-pond": {
     "author": "D. Gordon E. Robertson",
     "credit": "Own work",
@@ -72,7 +96,7 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
   },
   "japanese-maple": {
-    "author": "Kurt St\u00fcber [1]",
+    "author": "Kurt Stüber [1]",
     "credit": "caliban.mpiz-koeln.mpg.de/mavica/index.html part of www.biolib.de",
     "file": "File:Acer_palmatum0.jpg",
     "license": "CC BY-SA 3.0",
@@ -102,5 +126,13 @@
     "license": "Public domain",
     "license_url": "",
     "source_url": "https://commons.wikimedia.org/wiki/File:Pinus_strobus_trees.jpg"
+  },
+  "wisteria-summer-cascade": {
+    "author": "Jaknouse",
+    "credit": "Own work",
+    "file": "File:Wisterria macrostachya flowers1.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Wisterria_macrostachya_flowers1.jpg"
   }
 }
