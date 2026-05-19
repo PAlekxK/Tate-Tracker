@@ -185,7 +185,7 @@ A wide research pass on 2026-05-06 produced `research-resources.md` (~85 verifie
 **Live data integrations (need server proxy — not CORS):**
 - AirNow AQI chip for Weather card (free key, server proxy needed).
 - US Drought Monitor pill (FIPS 13227 = Pickens GA, server proxy).
-- NOAA NCEI 1991–2020 normals for "May normal high/low" subtitle (free token, server proxy, monthly cache OK).
+- ~~NOAA NCEI 1991–2020 normals for "May normal high/low" subtitle~~ **Dropped 2026-05-18.** `fetchClimateNormals()` already computes 30-year normals from Open-Meteo's archive API client-side (no token needed) — covers the same use case at the property coordinates without the NCEI signup or proxy hop.
 
 **Citizen-science enrollment callouts (Wildlife card) — shipped then deactivated 2026-05-13.**
 
@@ -297,7 +297,7 @@ The holistic review ran on 2026-05-18 with three parallel agents (ux-expert, con
 **Decisions locked from the 2026-05-18 walk-through** (full table in SYNTHESIS.md):
 - Dual-frame identity: voice = field journal; form = Appalachian Almanac. Touchstone = Aldo Leopold's *A Sand County Almanac*. See [[project_tate_tracker_tone]].
 - Depth filter for all coverage decisions: only what Paul realistically observes on this property. See [[feedback_tate_tracker_depth_filter]].
-- Server proxy: green-lit (unlocks AirNow / Drought Monitor / NCEI normals / AI today-line).
+- Server proxy: green-lit and shipped (Cloudflare Worker handles AirNow / Drought Monitor / AI today-line; NCEI normals dropped — Open-Meteo archive covers that client-side).
 
 ## Pending design improvements (prioritized)
 
@@ -319,6 +319,25 @@ These files are staging areas. Do **not** wire them to the viewer until the user
 ## Uncommitted work in progress
 
 (None — all sections currently in sync with the remote.)
+
+## Forward direction — toward a field assistant (Phases D / E / F)
+
+**Raised by Paul mid-C2 on 2026-05-18.** The Field Notes card I built in Phase B is a structured log. What Paul actually wants is a *field assistant* — a conversational interface that already knows this property in depth (every plant, every species, every past observation, the soils, the elevation, the frost dates, the lake) and that he can talk to in plain language, including photo input ("here's a picture of my Azalea. What's wrong with it?"). The structured journal becomes a side effect of the conversation, not the primary surface.
+
+This is a real product shift. The current Field Notes UI (form modal with category/species pickers) is a stepping stone, not the destination. The path:
+
+| Phase | Scope | Effort |
+|---|---|---|
+| **D — Capture UX rebuild** | Replace the Field Notes modal with a single always-visible text box + mic at the top of the card (or top of page). Drop the category and species pickers from the user-facing form entirely. Timestamp captured automatically. A `POST /api/classify` Claude call assigns category/speciesId behind the scenes after save, so the data structure stays intact for downstream surfacing. | 1 session |
+| **E — Conversational layer** | Multi-turn chat with the full property context as the system prompt — `plants.json`, `birds.json`, `mammals.json`, `amphibians.json`, `snakes.json`, `lizards.json`, `fishing.json`, `property.json`, the active observations, and the current weather state. Use Claude tool-use so the model can look up specific records on demand rather than stuffing everything into context every turn. | 2–3 sessions |
+| **F — Image input** | Photo upload on the chat surface (mobile-first — camera roll + capture). Use Claude's vision endpoint. Decide whether images persist with their associated entry (visual journal) or are transient Q&A inputs only. | 1–2 sessions |
+
+**Constraints to honor:**
+- The depth filter still applies: the assistant references only the property's actual scope (the 17 curated plants, 17 mammals, etc.), not regional completeness.
+- Field-journal voice in both directions — the assistant doesn't lapse into "Here are 5 tips for caring for your Azalea." It speaks as someone who knows *this* azalea on *this* property.
+- All API costs flow through the existing Worker with the existing `X-Tate-Token` auth. Per-call cost matters because conversations are multi-turn; consider Haiku for routine turns and reserve Sonnet/Opus for image-vision or long-context queries.
+
+**Order:** D first (the capture rewrite makes E meaningful — without it, the user's still writing journal entries in a structured form), then E, then F. Don't pursue all three before validating D doesn't change the answer for E.
 
 ## Deferred for Paul
 
