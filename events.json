@@ -232,6 +232,54 @@
       "type": ["holiday", "family"],
       "url": "https://downtownellijay.com/annual-events/",
       "notes": "Drive-through light display with light maze and Santa visits. Multi-week run."
+    },
+    {
+      "id": "ellijay-christmas-market-sand-street",
+      "name": "Christmas Market on Sand Street",
+      "location": "Sand Street, Downtown Ellijay",
+      "county": "Gilmer",
+      "driveMin": 30,
+      "dates": null,
+      "pattern": "Early December (one Saturday)",
+      "type": ["holiday", "market", "family"],
+      "url": "https://downtownellijay.com/annual-events/",
+      "notes": "Outdoor holiday market along Sand Street with crafts, food, and seasonal vendors. Pair with Light Up Ellijay if the dates line up."
+    },
+    {
+      "id": "ellijay-mountain-trail-fest",
+      "name": "Georgia Mountain Trail Fest",
+      "location": "Ellijay / Cartecay area",
+      "county": "Gilmer",
+      "driveMin": 30,
+      "dates": null,
+      "pattern": "Spring (date varies)",
+      "type": ["outdoor", "family"],
+      "url": "https://downtownellijay.com/annual-events/",
+      "notes": "Multi-trail running/hiking event through the Cartecay-area trail system. Date set annually; check Downtown Ellijay events for the current year's posting."
+    },
+    {
+      "id": "dahlonega-old-fashioned-christmas",
+      "name": "Old Fashioned Christmas (Dahlonega)",
+      "location": "Town Square, Dahlonega",
+      "county": "Lumpkin",
+      "driveMin": 45,
+      "dates": null,
+      "pattern": "Saturdays in December",
+      "type": ["holiday", "family"],
+      "url": "https://www.dahlonega.org/events/festivals-and-annual-events/",
+      "notes": "Multi-Saturday holiday celebration on the Dahlonega town square — carolers, Santa, horse-drawn carriages, tree lighting. The Appalachian-foothills small-town Christmas you go to see if you didn't grow up with one."
+    },
+    {
+      "id": "tate-day",
+      "name": "Tate Day",
+      "location": "Village of Tate / Tate House grounds",
+      "county": "Pickens",
+      "driveMin": 5,
+      "dates": null,
+      "pattern": "Periodic — announced via Pickens Past blog",
+      "type": ["history", "family"],
+      "url": "https://www.pickenspast.com/",
+      "notes": "Local-history event commemorating Col. Sam Tate and the Village of Tate. The most property-anchored event in the area — Tate Mountain Estates begins ~0.3 mi from the front door. Sporadic schedule; watch Pickens Past for announcements."
     }
   ]
 }

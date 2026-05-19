@@ -387,6 +387,39 @@
   .prop-callout-body a {
     color: #3a6a3a; text-decoration: underline; text-decoration-color: #b8d8b0;
   }
+  .prop-coming-section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #d8eacc; }
+  .prop-coming-label {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #2a4a2a;
+    margin-bottom: 10px;
+  }
+  .prop-coming-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .prop-coming-chip {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 12px;
+    background: #fafbf5;
+    border: 1px solid #e0eccd;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    flex: 1 1 220px;
+    min-width: 200px;
+    transition: background 120ms ease, border-color 120ms ease;
+  }
+  .prop-coming-chip:hover { background: #f0f5e6; border-color: #c8dab4; }
+  .prop-coming-chip-name { font-size: 13.5px; font-weight: 600; color: #2a4a2a; line-height: 1.3; }
+  .prop-coming-chip-when { font-size: 11.5px; color: #5a7a52; line-height: 1.4; }
+  .prop-coming-chip-when .ongoing-dot { color: #4a8a3a; }
+  .prop-coming-chip-meta { font-size: 10.5px; color: #88a07a; }
   .prop-panel {
     background: #f8faf6;
     border: 1.5px solid #d8eacc;
@@ -2903,6 +2936,8 @@ const CELESTIAL_DATA = {
 
 const PROPERTY_DATA = {"_meta":{"schemaVersion":1,"lastUpdated":"2026-05-05","dataSources":["NOAA 1991–2020 Climate Normals, KJZP Pickens County Airport","Almanac.com frost dates for Jasper GA (NOAA normals)","USDA Web Soil Survey — Pickens County GA (Hayesville, Cecil, Pacolet series)","Appalachian lapse rate research: Springer Nature 2025","Cold-air drainage research: GeoJournal thermal belt studies","USDA Plant Hardiness Zone Map 2023","UGA Cooperative Extension North Georgia resources"]},"property":{"name":"Church Mountain Road Property","address":"282 Church Mountain Road","city":"Jasper","state":"GA","zip":"30143","county":"Pickens County","region":"Blue Ridge, North Georgia","owner":"Paul"},"location":{"coordinates":{"latitude":34.5496,"longitude":-84.3674,"approximateLat":34.5496,"approximateLon":-84.3674,"note":"Confirmed via Google Maps May 2026."},"elevation":{"estimated_ft":2959,"elevation_m":902,"range_ft":[2800,3100],"confidence":"confirmed","basis":"Confirmed at 902 m / 2,959 ft via Open-Meteo elevation API at 34.5496N, 84.3674W (May 2026). Consistent with Tate Mountain Estates area — Lake Sequoyah nearby at ~2,769 ft.","valleyFloorRef_ft":1467,"airportRef_ft":1535,"elevationAboveKJZP_ft":1424}},"hardiness":{"officialZone":"7b","officialZoneMinTemp_F":5,"elevationAdjustedZone":"6b to 7a (mid-slope and open); 6a in frost pockets","elevationAdjustedMinTemp_F":-5,"explanation":"Official Zone 7b for Pickens County. At confirmed 2,959 ft — 1,424 ft above KJZP — the lapse rate implies 5–8°F colder winter minimums, putting the property solidly in Zone 6b on open mid-slope positions. Frost pockets may briefly reach Zone 6a.","lapseRate_F_per_1000ft":3.5,"coldAirDrainageEffect_F":"8–15°F colder in hollows vs. mid-slope on calm clear nights"},"frostDates":{"source":"NOAA 1991–2020 Climate Normals, Jasper GA, elevation-adjusted","valleyFloor_KJZP":{"lastSpring_50pct":"April 23","lastSpring_90pctSafe":"May 14","firstFall_50pct":"October 27","firstFallRiskBegins":"October 9","growingSeason_days":187},"atPropertyElevation":{"note":"Adjusted ~10 days for confirmed 1,424 ft above KJZP. Applies to open mid-slope positions.","lastSpring_50pct":"May 3","lastSpring_90pctSafe":"May 24","firstFall_50pct":"October 17","firstFallRiskBegins":"September 29","growingSeason_days":167},"frostPocketWarning":"Hollows and low-lying areas can experience frost 1–4 weeks earlier in fall and later in spring than mid-slope estimates."},"climate":{"annualPrecipitation_in":57,"precipitationNotes":"Valley station reads 57 in/yr. Orographic lift on mountain slopes likely adds 5–15% — property may receive 60–65 in/yr. Well-distributed year-round; afternoon thunderstorms common Jun–Aug.","temperature":{"annualRange_F":[33,87],"janAvgHigh_F":47.1,"janAvgLow_F":31.5,"julAvgHigh_F":87.6,"julAvgLow_F":65.8},"humidity":"High Jun–Sep (70–90% RH). Prioritize air circulation in plantings — prime conditions for fungal disease.","wind":{"iceStormRisk":"Moderate — cold-air damming from Appalachians; 1–3 ice events per winter","snowfall_in_avg":"5–10 in/yr on average; individual storms can bring 6–12 in but most winters see modest accumulation. NOAA 1991–2020 normals show Blairsville (1,900 ft) at 3.1 in — the property at 2,959 ft gets somewhat more but North Georgia elevations remain well below Appalachian snowbelt averages."}},"soils":{"likelySeries":["Hayesville","Cecil","Pacolet"],"parentMaterial":"Mica gneiss, mica schist, granodiorite — typical Blue Ridge metamorphic/igneous residuum","texture":"Sandy loam to loam surface; red clayey subsoil (argillic Bt horizon)","pH":{"nativeRange":"4.5–5.5 (extremely to moderately acid, unlimed)","acidLovers":"4.5–5.5 — azaleas, rhododendrons, mountain laurel, blueberries — native soil ideal","generalPlants":"5.5–6.5 — dogwood, hydrangea, boxwood, holly, Japanese maple — may need light liming","vegetables":"6.0–6.8 — likely needs liming for veggie beds","soilTestNote":"UGA Extension soil test $9 via Pickens County Extension (706-253-8840) — test each area separately before amending"},"drainage":"Well-drained on slopes; check flat/low areas for perched water above clay subsoil","organicMatter":"Low on slopes; annual compost/leaf mulch additions are highest-return investment","rockContent":"Moderate to high — mica schist parent rock; expect rocks during digging"},"microclimate":{"overview":"Elevation, aspect, and slope position can create 15–20°F temperature differences across a single property on a calm clear night.","thermalBelt":"Mid-slope positions (~100–400 ft above valley) are frost-safest — cold air drains past them into the valley. Best beds for borderline-hardy plants.","frostPockets":"Hollows and draws can be 8–15°F colder than mid-slope on calm clear nights.","aspectEffects":{"south_southwest":{"character":"Warmest & driest","bestFor":"Heat-loving vegetables, fruit trees","caution":"Japanese maple/azalea scorch risk higher"},"north_northeast":{"character":"Coolest & moistest","bestFor":"Azaleas, rhododendrons, mountain laurel, ferns","caution":"Frost lingers later; fungal disease elevated"},"east":{"character":"Morning sun, afternoon shade — optimal balance","bestFor":"Hydrangeas, dogwoods — broadest plant compatibility","caution":"None significant"},"west":{"character":"Afternoon sun & heat","bestFor":"Drought-tolerant natives","caution":"Higher water stress; wind exposure"}}},"resources":{"localExtension":{"name":"UGA Cooperative Extension — Pickens County","phone":"706-253-8840","services":"Soil testing ($9), plant disease ID, pest ID, variety recommendations"},"nearestWeatherStation":{"id":"KJZP","name":"Pickens County Airport","elevation_ft":1535,"noteOnElevDiff":"Property is ~1,424 ft above this station — expect 5–8°F colder winters and heavier precipitation","nwsForecastUrl":"https://forecast.weather.gov/MapClick.php?zoneid=GAZ013"}}};
 
+const EVENTS_DATA = {"_meta":{"lastUpdated":"2026-05-19","scope":"Recurring annual events within ~45 min drive of the property — Pickens, Gilmer, Fannin, Lumpkin counties. Manually curated; not a live feed (see CLAUDE.md for the feed-availability scoping that justified this).","refreshCadence":"Annual review each January; spot-check 30 days before each event.","schema":{"id":"Kebab-case slug, stable across years.","name":"Event display name.","location":"Specific venue or street, including town.","county":"Pickens | Gilmer | Fannin | Lumpkin | etc.","driveMin":"Approx drive time from the property, in minutes. Update if route changes.","dates":"Specific date or YYYY-MM-DD..YYYY-MM-DD range for the next confirmed occurrence. Null if the next year's dates aren't yet posted.","pattern":"Human-readable recurrence rule (e.g., 'First weekend of October'). Used to render fallback text when dates is null.","type":"Tags — festival | market | music | food | outdoor | history | family | holiday | rodeo | art","url":"Primary URL for the event (official site preferred over aggregator).","notes":"1-2 sentences in field-journal voice. What this event actually is, plus any property-anchored connection."}},"events":[{"id":"marble-festival","name":"Georgia Marble Festival","location":"Lee Newton Park, 500 Veterans Memorial Blvd, Jasper","county":"Pickens","driveMin":15,"dates":"2026-10-03..2026-10-04","pattern":"First weekend of October","type":["festival","art","music","family","history"],"url":"https://www.pickenschamber.com/marble-festival/","notes":"44th annual in 2026. About 120 exhibitors, 9,000 attendees. Quarry tours, marble-sculpting and chainsaw-carving demos, 5K and parade. The closest thing Pickens County has to a hometown festival — directly anchored in the marble heritage that explains why Tate exists at all."},{"id":"talking-rock-heritage-days","name":"Talking Rock Heritage Days","location":"Town of Talking Rock (along Talking Rock Creek)","county":"Pickens","driveMin":15,"dates":null,"pattern":"Third weekend of October","type":["festival","art","music","history","family"],"url":"https://talkingrockga.com/heritagedaysfestival.html","notes":"Two-day arts/crafts/music festival in the tiny incorporated town of Talking Rock, on the banks of the creek that the Cherokee called Nunyu-gunwaniski. Free admission and parking. Pair with a stop at the Hwy 136 bridge — the old Federal Road's Talking Rock Ford crossing."},{"id":"sheriffs-jeepfest","name":"Sheriff's JeepFest","location":"8795 Hwy 53 East, Jasper","county":"Pickens","driveMin":15,"dates":"2026-08-29..2026-08-31","pattern":"Last full weekend of August","type":["festival","music","family","outdoor"],"url":"https://www.sheriffsjeepfest.com/","notes":"Three-day Jeep festival: trails, obstacles, mud, concerts, food. Spectators free. Benefits Georgia Sheriffs' Youth Homes, Pickens Special Olympics, Boys & Girls Club, Jasper Youth Sports."},{"id":"jasper-pro-rodeo","name":"Jasper Pro Rodeo (Pickens County Stampede)","location":"Jasper","county":"Pickens","driveMin":15,"dates":null,"pattern":"Second weekend of May","type":["rodeo","family"],"url":"https://www.rodeoticket.com/jasper-pro-rodeo-pickens-county-stampeded/rodeo-information","notes":"Annual PRCA rodeo. Single-evening attendance option."},{"id":"georgia-apple-festival","name":"Georgia Apple Festival","location":"Ellijay Lions Club Fairgrounds, Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-10-10..2026-10-11","pattern":"Second and third weekends of October","type":["festival","food","art","family"],"url":"https://www.georgiaapplefestival.org/","notes":"Largest annual event in Gilmer County. Hundreds of vendors, on-site demos, live music, fair food. $10 admission, kids under 12 free. Note the two-weekend schedule — Oct 10-11 AND Oct 17-18 in 2026."},{"id":"georgia-apple-festival-week-2","name":"Georgia Apple Festival — Weekend 2","location":"Ellijay Lions Club Fairgrounds, Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-10-17..2026-10-18","pattern":"Third weekend of October (second of two Apple Festival weekends)","type":["festival","food","art","family"],"url":"https://www.georgiaapplefestival.org/","notes":"Second weekend of the Apple Festival run."},{"id":"ellijay-farmers-market","name":"Ellijay Farmers & Artisans Market","location":"Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-05-02..2026-09-26","pattern":"Saturdays, 8:30 AM – 12:30 PM, May through September","type":["market","food","family"],"url":"https://www.facebook.com/ellijayfarmers/","notes":"50+ vendors weekly through the growing season. Recurring — render as a weekly chip when active, not a single-date callout."},{"id":"blue-ridge-trout-festival","name":"Blue Ridge Trout & Outdoor Adventures Festival","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-04-25","pattern":"Last Saturday of April","type":["festival","outdoor","food","family"],"url":"https://blueridgetroutfest.com/","notes":"Cast, bike, paddle, hike, fish, climb, ride — plus live music, craft beer, outdoor art. Honors the trout streams of Fannin County."},{"id":"blue-ridge-spring-arts-park","name":"Spring Arts in the Park (Blue Ridge)","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Memorial Day weekend","type":["festival","art","food"],"url":"https://www.blueridgemountains.com/events/annual-events/spring-arts-in-the-park/","notes":"200+ juried fine arts exhibitors plus crafts, food, artist demos. The bigger of Blue Ridge's two Arts in the Park weekends."},{"id":"blue-ridge-fall-arts-park","name":"Fall Arts in the Park (Blue Ridge)","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-10-10..2026-10-11","pattern":"Second weekend of October","type":["festival","art","food"],"url":"https://www.blueridgemountains.com/events/annual-events/spring-arts-in-the-park/","notes":"Fall counterpart to Spring Arts in the Park. Conflicts with Apple Festival weekend 1 — pick one or split the day."},{"id":"blue-ridge-blues-bbq","name":"Blue Ridge Blues & BBQ Festival","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-09-19","pattern":"Third Saturday of September","type":["festival","music","food"],"url":"https://blueridgebluesandbbq.com/","notes":"15th annual in 2026. 11:30 AM – 9 PM. 15+ BBQ pitmasters, blues acts, local vendors."},{"id":"blue-ridge-st-patricks-parade","name":"Blue Ridge St. Patrick's Day Parade","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Saturday closest to March 17","type":["holiday","family"],"url":"https://www.blueridgemountains.com/events/","notes":"Small-town St. Patrick's parade with local businesses and community groups."},{"id":"blue-ridge-fire-ice-chili","name":"Fire and Ice Chili Cook-Off (Blue Ridge)","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Presidents' Day weekend (mid-February)","type":["festival","food","family"],"url":"https://www.blueridgemountains.com/events/","notes":"Winter chili festival with ice sculptures. One of the few mid-winter local festivals worth the drive."},{"id":"bear-on-the-square","name":"Bear on the Square Mountain Festival","location":"Hancock Park / Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":"2026-04-17..2026-04-19","pattern":"Third weekend of April","type":["festival","music","art","family"],"url":"https://bearonthesquare.org/","notes":"28th annual in 2026. Friday ticketed concert (Lonesome River Band, 2026); Saturday and Sunday free. Juried mountain crafts, storytelling, music workshops, Sunday Gospel Jam. The marquee Appalachian-tradition festival in the area."},{"id":"dahlonega-arts-wine","name":"Dahlonega Arts & Wine Festival","location":"Hancock Park, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Mid-May, single weekend","type":["festival","art","food"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Wine from area wineries plus arts, crafts, live jazz. Dahlonega is Georgia's wine country anchor."},{"id":"dahlonega-gold-rush-days","name":"Gold Rush Days (Dahlonega)","location":"Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Third weekend of October","type":["festival","art","history","family"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Commemorates Georgia's 1828 gold rush (Dahlonega, not the famous 1849 California one). Crafts, panning demonstrations, parade."},{"id":"ellijay-light-up","name":"Light Up Ellijay","location":"Historic Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":null,"pattern":"First weekend of December","type":["holiday","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Tree lighting, Santa, parade, live entertainment, seasonal vendors. The local holiday-season opener."},{"id":"ellijay-holiday-lights","name":"Holiday Lights of Ellijay","location":"Ellijay Lions Club Fairgrounds","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Late November through December","type":["holiday","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Drive-through light display with light maze and Santa visits. Multi-week run."},{"id":"ellijay-christmas-market-sand-street","name":"Christmas Market on Sand Street","location":"Sand Street, Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Early December (one Saturday)","type":["holiday","market","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Outdoor holiday market along Sand Street with crafts, food, and seasonal vendors. Pair with Light Up Ellijay if the dates line up."},{"id":"ellijay-mountain-trail-fest","name":"Georgia Mountain Trail Fest","location":"Ellijay / Cartecay area","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Spring (date varies)","type":["outdoor","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Multi-trail running/hiking event through the Cartecay-area trail system. Date set annually; check Downtown Ellijay events for the current year's posting."},{"id":"dahlonega-old-fashioned-christmas","name":"Old Fashioned Christmas (Dahlonega)","location":"Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Saturdays in December","type":["holiday","family"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Multi-Saturday holiday celebration on the Dahlonega town square — carolers, Santa, horse-drawn carriages, tree lighting. The Appalachian-foothills small-town Christmas you go to see if you didn't grow up with one."},{"id":"tate-day","name":"Tate Day","location":"Village of Tate / Tate House grounds","county":"Pickens","driveMin":5,"dates":null,"pattern":"Periodic — announced via Pickens Past blog","type":["history","family"],"url":"https://www.pickenspast.com/","notes":"Local-history event commemorating Col. Sam Tate and the Village of Tate. The most property-anchored event in the area — Tate Mountain Estates begins ~0.3 mi from the front door. Sporadic schedule; watch Pickens Past for announcements."}]};
+
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 const CARE_TYPES = {
@@ -3005,6 +3040,186 @@ function plantPeakActiveThisWeek(plant) {
     }
   }
   return false;
+}
+
+// =========================
+// EVENTS — date helpers + upcoming-events scheduler
+// =========================
+const EVENTS_MONTH_TOKENS = {
+  january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+  july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
+  jan: 0, feb: 1, mar: 2, apr: 3, jun: 5, jul: 6, aug: 7,
+  sep: 8, sept: 8, oct: 9, nov: 10, dec: 11
+};
+const EVENTS_ORDINAL_TOKENS = { first: 0, second: 1, third: 2, fourth: 3, last: -1 };
+const EVENTS_WEEKDAY_TOKENS = { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 };
+
+function parseEventDateField(dates) {
+  if (!dates) return null;
+  const parts = dates.split("..");
+  const start = new Date(parts[0] + "T00:00:00");
+  const end = parts.length > 1 ? new Date(parts[1] + "T00:00:00") : new Date(parts[0] + "T00:00:00");
+  if (isNaN(start) || isNaN(end)) return null;
+  return { start, end };
+}
+
+function nthWeekdayOfMonth(year, month, weekday, n) {
+  // n: 0=first, 1=second, 2=third, 3=fourth, -1=last
+  if (n === -1) {
+    const last = new Date(year, month + 1, 0);
+    const diff = (last.getDay() - weekday + 7) % 7;
+    last.setDate(last.getDate() - diff);
+    return last;
+  }
+  const first = new Date(year, month, 1);
+  const offset = (weekday - first.getDay() + 7) % 7;
+  return new Date(year, month, 1 + offset + 7 * n);
+}
+
+function patternToNextDate(pattern, fromDate) {
+  if (!pattern) return null;
+  const lc = pattern.toLowerCase();
+  if (lc.startsWith("periodic")) return null;
+  const yearNow = fromDate.getFullYear();
+  const tryYears = (fn) => {
+    for (const y of [yearNow, yearNow + 1]) {
+      const d = fn(y);
+      if (d && !isNaN(d) && d >= fromDate) return d;
+    }
+    return null;
+  };
+  // "Nth (full) weekend of MONTH"
+  let m = lc.match(/^(first|second|third|fourth|last) (?:full )?weekend of (\w+)/);
+  if (m) {
+    const n = EVENTS_ORDINAL_TOKENS[m[1]];
+    const month = EVENTS_MONTH_TOKENS[m[2]];
+    if (n !== undefined && month !== undefined) {
+      return tryYears(y => nthWeekdayOfMonth(y, month, 6, n));
+    }
+  }
+  // "Last/Nth WEEKDAY of MONTH"
+  m = lc.match(/^(first|second|third|fourth|last) (sunday|monday|tuesday|wednesday|thursday|friday|saturday) of (\w+)/);
+  if (m) {
+    const n = EVENTS_ORDINAL_TOKENS[m[1]];
+    const wd = EVENTS_WEEKDAY_TOKENS[m[2]];
+    const month = EVENTS_MONTH_TOKENS[m[3]];
+    if (n !== undefined && wd !== undefined && month !== undefined) {
+      return tryYears(y => nthWeekdayOfMonth(y, month, wd, n));
+    }
+  }
+  // "Memorial Day weekend" — last Monday of May, shifted to the Saturday before
+  if (lc.includes("memorial day")) {
+    return tryYears(y => {
+      const mon = nthWeekdayOfMonth(y, 4, 1, -1);
+      mon.setDate(mon.getDate() - 2);
+      return mon;
+    });
+  }
+  // "Presidents' Day weekend" — 3rd Monday of February, shift to Saturday before
+  if (lc.includes("presidents")) {
+    return tryYears(y => {
+      const mon = nthWeekdayOfMonth(y, 1, 1, 2);
+      mon.setDate(mon.getDate() - 2);
+      return mon;
+    });
+  }
+  // "Saturday closest to MONTH DAY"
+  m = lc.match(/saturday closest to (\w+) (\d+)/);
+  if (m) {
+    const month = EVENTS_MONTH_TOKENS[m[1]];
+    const day = parseInt(m[2], 10);
+    if (month !== undefined) {
+      return tryYears(y => {
+        const anchor = new Date(y, month, day);
+        let diff = 6 - anchor.getDay();
+        if (diff > 3) diff -= 7;
+        anchor.setDate(anchor.getDate() + diff);
+        return anchor;
+      });
+    }
+  }
+  // "Saturdays in MONTH"
+  m = lc.match(/^saturdays? in (\w+)/);
+  if (m) {
+    const month = EVENTS_MONTH_TOKENS[m[1]];
+    if (month !== undefined) return tryYears(y => nthWeekdayOfMonth(y, month, 6, 0));
+  }
+  // "Saturdays, ... MONTH through MONTH" → anchor first Saturday of start month
+  m = lc.match(/saturdays.*?(january|february|march|april|may|june|july|august|september|october|november|december) through (january|february|march|april|may|june|july|august|september|october|november|december)/);
+  if (m) {
+    const startMonth = EVENTS_MONTH_TOKENS[m[1]];
+    if (startMonth !== undefined) return tryYears(y => nthWeekdayOfMonth(y, startMonth, 6, 0));
+  }
+  // "Mid-MONTH" / "Mid MONTH"
+  m = lc.match(/mid[- ](\w+)/);
+  if (m) {
+    const month = EVENTS_MONTH_TOKENS[m[1]];
+    if (month !== undefined) return tryYears(y => new Date(y, month, 15));
+  }
+  // "Early MONTH"
+  m = lc.match(/early (\w+)/);
+  if (m) {
+    const month = EVENTS_MONTH_TOKENS[m[1]];
+    if (month !== undefined) return tryYears(y => new Date(y, month, 5));
+  }
+  // "Late MONTH" or "Late MONTH through MONTH" — anchor late in first month
+  m = lc.match(/late (\w+)/);
+  if (m) {
+    const month = EVENTS_MONTH_TOKENS[m[1]];
+    if (month !== undefined) return tryYears(y => new Date(y, month, 25));
+  }
+  // Season tokens — vague anchors
+  if (lc.startsWith("spring")) return tryYears(y => new Date(y, 3, 20));
+  if (lc.startsWith("summer")) return tryYears(y => new Date(y, 5, 21));
+  if (lc.startsWith("fall") || lc.startsWith("autumn")) return tryYears(y => new Date(y, 8, 22));
+  if (lc.startsWith("winter")) return tryYears(y => new Date(y, 11, 21));
+  return null;
+}
+
+function eventEffectiveDate(event, fromDate) {
+  const parsed = parseEventDateField(event.dates);
+  if (parsed) {
+    if (fromDate < parsed.start) return { date: parsed.start, end: parsed.end, status: "upcoming" };
+    if (fromDate <= parsed.end) return { date: parsed.start, end: parsed.end, status: "ongoing" };
+    // both bounds in the past — fall through to pattern
+  }
+  const next = patternToNextDate(event.pattern, fromDate);
+  if (next) return { date: next, end: null, status: "pattern" };
+  return { date: null, end: null, status: "unscheduled" };
+}
+
+function upcomingEvents(fromDate, n) {
+  const order = { ongoing: 0, upcoming: 1, pattern: 2, unscheduled: 3 };
+  const enriched = EVENTS_DATA.events.map(e => ({ event: e, ...eventEffectiveDate(e, fromDate) }));
+  enriched.sort((a, b) => {
+    if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
+    if (a.date && b.date) return a.date - b.date;
+    if (a.date && !b.date) return -1;
+    if (!a.date && b.date) return 1;
+    return 0;
+  });
+  return enriched.filter(e => e.status !== "unscheduled").slice(0, n);
+}
+
+const EVENTS_MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function fmtEventDate(d) {
+  return EVENTS_MONTH_SHORT[d.getMonth()] + " " + d.getDate();
+}
+function fmtEventWhen(entry) {
+  const { event, date, end, status } = entry;
+  if (status === "pattern") return event.pattern;
+  if (status === "ongoing") {
+    const today2 = new Date(); today2.setHours(0,0,0,0);
+    const span = (end - today2) / (1000 * 60 * 60 * 24);
+    if (span > 14) {
+      return '<span class="ongoing-dot">●</span> Running through ' + fmtEventDate(end);
+    }
+    return '<span class="ongoing-dot">●</span> Through ' + fmtEventDate(end);
+  }
+  // upcoming
+  if (!end || end.getTime() === date.getTime()) return fmtEventDate(date);
+  if (end.getMonth() === date.getMonth()) return EVENTS_MONTH_SHORT[date.getMonth()] + " " + date.getDate() + "–" + end.getDate();
+  return fmtEventDate(date) + " – " + fmtEventDate(end);
 }
 
 document.getElementById("header-date").innerHTML =
@@ -4721,6 +4936,28 @@ function renderProperty() {
   '</div>';
 
   html += '</div>'; // close prop-callouts-section
+
+  // ── Coming up nearby — events chip strip ──
+  const upcoming = upcomingEvents(today, 3);
+  if (upcoming.length > 0) {
+    html += '<div class="prop-coming-section">';
+    html += '<div class="prop-coming-label">Coming up nearby</div>';
+    html += '<div class="prop-coming-strip">';
+    upcoming.forEach(entry => {
+      const e = entry.event;
+      const when = fmtEventWhen(entry);
+      const driveStr = e.driveMin ? (e.driveMin + " min away") : "";
+      const hrefAttr = e.url ? ' href="' + escapeHtml(e.url) + '" target="_blank" rel="noopener"' : '';
+      const tag = e.url ? 'a' : 'div';
+      html += '<' + tag + ' class="prop-coming-chip"' + hrefAttr + '>';
+      html += '<span class="prop-coming-chip-name">' + escapeHtml(e.name) + '</span>';
+      html += '<span class="prop-coming-chip-when">' + when + '</span>';
+      if (driveStr) html += '<span class="prop-coming-chip-meta">' + escapeHtml(driveStr) + '</span>';
+      html += '</' + tag + '>';
+    });
+    html += '</div>';
+    html += '</div>';
+  }
 
   document.getElementById("property-content").innerHTML = html;
 }
