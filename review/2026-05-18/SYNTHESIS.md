@@ -303,7 +303,7 @@ After today's Phase 1 + 2 + 3 + partial 4 (4.1 Property card lead/callouts + 4.2
 
 **Effort:** 1–2 sessions.
 
-### Phase C — Server proxy + 4.5 AI today-line (parallel-able) — C1 shipped 2026-05-18; C2 pending
+### ~~Phase C — Server proxy + 4.5 AI today-line (parallel-able)~~ ✓ Shipped 2026-05-18 (C1 + C2)
 
 **Goal:** infrastructure that unlocks AI synthesis + 3 new data integrations.
 

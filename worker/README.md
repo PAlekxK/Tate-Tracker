@@ -14,8 +14,21 @@ The Worker also reserves the same endpoint shape for the Phase C2 data proxies (
 | `/api/observations` | GET | List all Field Notes entries |
 | `/api/observations` | POST | Save one entry (replaces by `id` if exists) |
 | `/api/observations/:id` | DELETE | Remove one entry |
+| `/api/airnow?lat=&lon=` | GET | AirNow current AQI (15-min KV cache) |
+| `/api/drought?fips=` | GET | US Drought Monitor severity for a county (6-hr cache) |
+| `/api/today-line` | POST | Claude API one-sentence synthesis of the day (24-hr cache by date) |
 
 All `/api/*` endpoints require an `X-Tate-Token` header matching the `SHARED_TOKEN` secret. The dashboard prompts you to enter this token once per device, stores it in localStorage, and includes it on every Worker call.
+
+## Secrets
+
+| Secret | Where to get it | Used by |
+|---|---|---|
+| `SHARED_TOKEN` | `openssl rand -hex 32` | Gates all `/api/*` |
+| `AIRNOW_API_KEY` | [airnowapi.org](https://docs.airnowapi.org/) — free signup | `/api/airnow` |
+| `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com/) | `/api/today-line` |
+
+Each endpoint returns `503 not-configured` if its secret is missing — the dashboard treats that as "feature not available" and silently hides the corresponding UI, so the dashboard keeps working even if you've only set up a subset.
 
 ## Deploy — one-time setup
 
