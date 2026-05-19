@@ -113,34 +113,64 @@ async function handleAirNow(request, env, url) {
   const lon = url.searchParams.get("lon");
   if (!lat || !lon) return json({ error: "missing-lat-lon" }, 400);
   const key = `cache:airnow:${lat}:${lon}`;
-  const data = await withCache(env, key, 900 /* 15 min */, async () => {
-    const upstream = `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${lat}&longitude=${lon}&distance=25&API_KEY=${env.AIRNOW_API_KEY}`;
-    const res = await fetch(upstream);
-    if (!res.ok) throw new Error(`AirNow HTTP ${res.status}`);
-    const arr = await res.json();
-    return { observations: Array.isArray(arr) ? arr : [], fetchedAt: new Date().toISOString() };
-  });
-  return json(data);
+  try {
+    const data = await withCache(env, key, 900 /* 15 min */, async () => {
+      const apiKey = (env.AIRNOW_API_KEY || "").trim();
+      const upstream = `https://www.airnowapi.org/aq/observation/latLong/current/?format=application/json&latitude=${lat}&longitude=${lon}&distance=25&API_KEY=${encodeURIComponent(apiKey)}`;
+      const res = await fetch(upstream);
+      const text = await res.text();
+      if (!res.ok) throw new Error(`AirNow HTTP ${res.status}: ${text.slice(0, 200)}`);
+      let arr;
+      try { arr = JSON.parse(text); }
+      catch (e) { throw new Error(`AirNow non-JSON response: ${text.slice(0, 200)}`); }
+      return { observations: Array.isArray(arr) ? arr : [], fetchedAt: new Date().toISOString() };
+    });
+    return json(data);
+  } catch (e) {
+    return json({ error: "airnow-fetch-failed", detail: String(e.message || e) }, 502);
+  }
 }
 
 // ---- US Drought Monitor proxy ----
-// Source: USDM JSON endpoint by FIPS county code.
+// Source: USDM endpoint by FIPS county code. The endpoint returns CSV by default
+// even though the API surface looks JSON-ish — so we parse the CSV ourselves.
 // Pickens County, GA = 13227.
+
+function parseUSDMCsv(csv) {
+  const lines = csv.split(/\r?\n/).filter(l => l.trim().length);
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(",").map(s => s.trim());
+  return lines.slice(1).map(line => {
+    const cells = line.split(",");
+    const row = {};
+    headers.forEach((h, i) => { row[h] = cells[i]; });
+    return row;
+  });
+}
 
 async function handleDrought(request, env, url) {
   const fips = url.searchParams.get("fips") || "13227";
   const key = `cache:drought:${fips}`;
-  const data = await withCache(env, key, 6 * 3600 /* 6 hr */, async () => {
-    const upstream = `https://usdmdataservices.unl.edu/api/CountyStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=${fips}&startdate=1/1/2024&enddate=12/31/2099&statisticsType=1`;
-    const res = await fetch(upstream);
-    if (!res.ok) throw new Error(`USDM HTTP ${res.status}`);
-    const arr = await res.json();
-    // The endpoint returns weekly snapshots. Pick the most recent.
-    const sorted = Array.isArray(arr) ? arr.slice().sort((a, b) => (b.MapDate || "").localeCompare(a.MapDate || "")) : [];
-    const latest = sorted[0] || null;
-    return { latest, fips, fetchedAt: new Date().toISOString() };
-  });
-  return json(data);
+  try {
+    const data = await withCache(env, key, 6 * 3600 /* 6 hr */, async () => {
+      const upstream = `https://usdmdataservices.unl.edu/api/CountyStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=${fips}&startdate=1/1/2024&enddate=12/31/2099&statisticsType=1`;
+      const res = await fetch(upstream);
+      const text = await res.text();
+      if (!res.ok) throw new Error(`USDM HTTP ${res.status}: ${text.slice(0, 200)}`);
+      const rows = parseUSDMCsv(text);
+      // Sort weekly snapshots, newest first. MapDate is YYYYMMDD numeric.
+      rows.sort((a, b) => (b.MapDate || "").localeCompare(a.MapDate || ""));
+      const latest = rows[0] || null;
+      // Normalize MapDate from YYYYMMDD to YYYY-MM-DD for consumer convenience.
+      if (latest && latest.MapDate && /^\d{8}$/.test(latest.MapDate)) {
+        latest.MapDate = latest.MapDate.slice(0, 4) + "-" + latest.MapDate.slice(4, 6) + "-" + latest.MapDate.slice(6, 8);
+      }
+      return { latest, fips, fetchedAt: new Date().toISOString() };
+    });
+    return json(data);
+  } catch (e) {
+    return json({ error: "drought-fetch-failed", detail: String(e.message || e) }, 502);
+  }
 }
 
 // ---- Today-line: Claude synthesis ----
