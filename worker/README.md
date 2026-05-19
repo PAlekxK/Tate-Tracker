@@ -1,8 +1,8 @@
-# Tate Tracker — Cloudflare Worker
+# Fernwood (Tate Tracker) — Cloudflare Worker
 
 This Worker is the dashboard's tiny backend. It exists for one reason: Field Notes observations need to follow you between devices. When you dictate "first hummingbird at the feeder" on your phone in the field, it should be there when you open the dashboard on your laptop later.
 
-The Worker also handles the Phase C2 data proxies (AirNow current AQI, US Drought Monitor) and the AI today-line that synthesizes the day's state into one journal-voice sentence via Claude Haiku.
+The Worker also handles the Phase C2 data proxies (AirNow current AQI, US Drought Monitor), the AI today-line that synthesizes the day's state into one journal-voice sentence, and the Phase D classifier that infers category + species for new Field Notes entries — all via Claude Haiku 4.5.
 
 **Cost**: $0/month at expected volume. Workers free tier is 100K requests/day; KV free tier is 1K writes / 100K reads / 1GB storage.
 
@@ -16,7 +16,8 @@ The Worker also handles the Phase C2 data proxies (AirNow current AQI, US Drough
 | `/api/observations/:id` | DELETE | Remove one entry |
 | `/api/airnow?lat=&lon=` | GET | AirNow current AQI (15-min KV cache) |
 | `/api/drought?fips=` | GET | US Drought Monitor severity for a county (6-hr cache) |
-| `/api/today-line` | POST | Claude API one-sentence synthesis of the day (24-hr cache by date) |
+| `/api/today-line` | POST | Claude Haiku one-sentence synthesis of the day (24-hr cache by date) |
+| `/api/classify` | POST | Claude Haiku classification of a Field Notes entry → `{category, species_guess}` (no cache; each entry unique) |
 
 All `/api/*` endpoints require an `X-Tate-Token` header matching the `SHARED_TOKEN` secret. The dashboard prompts you to enter this token once per device, stores it in localStorage, and includes it on every Worker call.
 
@@ -26,7 +27,7 @@ All `/api/*` endpoints require an `X-Tate-Token` header matching the `SHARED_TOK
 |---|---|---|
 | `SHARED_TOKEN` | `openssl rand -hex 32` | Gates all `/api/*` |
 | `AIRNOW_API_KEY` | [airnowapi.org](https://docs.airnowapi.org/) — free signup | `/api/airnow` |
-| `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com/) | `/api/today-line` |
+| `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com/) | `/api/today-line`, `/api/classify` |
 
 Each endpoint returns `503 not-configured` if its secret is missing — the dashboard treats that as "feature not available" and silently hides the corresponding UI, so the dashboard keeps working even if you've only set up a subset.
 
