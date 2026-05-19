@@ -2132,6 +2132,37 @@
     line-height: 1.55;
     margin-bottom: 14px;
   }
+  .quick-capture {
+    background: linear-gradient(135deg, #f7fbf2, #f0f7e8);
+    border: 1px solid #c8d8b0;
+    border-radius: 14px;
+    padding: 14px 16px 12px;
+    margin: 0 0 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .quick-capture-label {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3a5a3a;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+  }
+  .quick-capture-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .quick-capture-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .quick-capture-actions .fn-mic-hint { font-size: 11.5px; }
+
   .fn-capture {
     background: #fafcf6;
     border: 1px solid #d8eacc;
@@ -2576,6 +2607,19 @@
 </div>
 
 <div class="content-wrap">
+
+  <!-- QUICK CAPTURE — always-visible Field Notes write surface (Phase D, promoted 2026-05-19) -->
+  <section class="quick-capture" id="quick-capture" aria-label="Quick field note">
+    <div class="quick-capture-label">Field Notes</div>
+    <div class="quick-capture-row">
+      <textarea id="fn-capture-textarea" class="fn-capture-textarea" placeholder="What did you see today?" rows="2"></textarea>
+      <button id="fn-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>
+    </div>
+    <div class="quick-capture-actions">
+      <span id="fn-mic-hint" class="fn-mic-hint"></span>
+      <button id="fn-capture-save" class="fn-capture-save" type="button" disabled>Save entry</button>
+    </div>
+  </section>
 
   <!-- WEATHER CARD -->
   <div class="main-card" id="card-weather">
@@ -8280,17 +8324,9 @@ function renderFieldNotes() {
   html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + (status.mode === "local-only" ? "Set up sync" : "Sync settings") + '</button>';
   html += '</div>';
 
-  // === Inline capture surface (Phase D) — always-visible textarea + mic + Save ===
-  html += '<div class="fn-capture">';
-  html +=   '<div class="fn-capture-row">';
-  html +=     '<textarea id="fn-capture-textarea" class="fn-capture-textarea" placeholder="What did you see today?" rows="3"></textarea>';
-  html +=     '<button id="fn-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>';
-  html +=   '</div>';
-  html +=   '<div class="fn-capture-actions">';
-  html +=     '<span id="fn-mic-hint" class="fn-mic-hint"></span>';
-  html +=     '<button id="fn-capture-save" class="fn-capture-save" type="button" disabled>Save entry</button>';
-  html +=   '</div>';
-  html += '</div>';
+  // The capture surface (textarea + mic + Save) lives at the top of the page now,
+  // in #quick-capture above the dashboard's main cards. This card holds the
+  // browsable history of past entries only.
 
   if (entries.length === 0) {
     html += '<div class="fn-empty">No entries yet. The first observation goes here.</div>';
@@ -8318,24 +8354,8 @@ function renderFieldNotes() {
   }
   body.innerHTML = html;
 
-  // === Inline capture event wiring ===
-  const ta = document.getElementById("fn-capture-textarea");
-  const saveBtn = document.getElementById("fn-capture-save");
-  if (ta && saveBtn) {
-    const refreshDisabled = () => { saveBtn.disabled = !ta.value.trim(); };
-    ta.addEventListener("input", refreshDisabled);
-    saveBtn.addEventListener("click", () => fnSaveInlineEntry());
-    refreshDisabled();
-  }
-  const micBtn = document.getElementById("fn-mic-btn");
-  if (micBtn) {
-    micBtn.addEventListener("click", () => VoiceCapture.toggle());
-    if (!VoiceCapture.isSupported()) {
-      micBtn.style.display = "none";
-      const hint = document.getElementById("fn-mic-hint");
-      if (hint) hint.textContent = "Voice dictation isn't supported in this browser. Try Safari (iOS) or Chrome.";
-    }
-  }
+  // Capture surface wiring lives in wireFieldNotes() — the textarea/mic/save
+  // are now in the static #quick-capture section that exists once at page load.
 
   const syncBtn = document.getElementById("fn-sync-btn");
   if (syncBtn) syncBtn.addEventListener("click", () => fnOpenSyncModal());
@@ -8565,9 +8585,27 @@ const VoiceCapture = (function () {
 
 // ---- Wire Field Notes controls ----
 (function wireFieldNotes() {
-  // Inline-composer mic + save handlers are wired inside renderFieldNotes() because
-  // those elements are re-created on every render. This block handles the always-present
-  // sync-settings modal only.
+  // Capture surface (textarea + mic + Save) lives in the static #quick-capture
+  // section above the cards — it's not re-rendered, so wire once at page load.
+  const ta = document.getElementById("fn-capture-textarea");
+  const saveBtn = document.getElementById("fn-capture-save");
+  if (ta && saveBtn) {
+    const refreshDisabled = () => { saveBtn.disabled = !ta.value.trim(); };
+    ta.addEventListener("input", refreshDisabled);
+    saveBtn.addEventListener("click", () => fnSaveInlineEntry());
+    refreshDisabled();
+  }
+  const micBtn = document.getElementById("fn-mic-btn");
+  if (micBtn) {
+    micBtn.addEventListener("click", () => VoiceCapture.toggle());
+    if (!VoiceCapture.isSupported()) {
+      micBtn.style.display = "none";
+      const hint = document.getElementById("fn-mic-hint");
+      if (hint) hint.textContent = "Voice dictation isn't supported in this browser. Try Safari (iOS) or Chrome.";
+    }
+  }
+
+  // Sync settings modal wiring.
   const syncClose = document.getElementById("fn-sync-close");
   if (syncClose) syncClose.addEventListener("click", fnCloseSyncModal);
   const syncCancel = document.getElementById("fn-sync-cancel");
