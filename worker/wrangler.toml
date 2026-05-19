@@ -6,7 +6,7 @@ compatibility_date = "2026-05-01"
 #   wrangler kv namespace create OBSERVATIONS
 [[kv_namespaces]]
 binding = "OBSERVATIONS"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "100f2b95e4be4c088a0000f917cf987b"
 
 # SHARED_TOKEN is set via:
 #   wrangler secret put SHARED_TOKEN

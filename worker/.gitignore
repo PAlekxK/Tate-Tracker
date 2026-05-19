@@ -1,0 +1,4 @@
+# Wrangler local-only files — never commit
+.dev.vars
+.wrangler/
+node_modules/
