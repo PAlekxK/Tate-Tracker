@@ -25,6 +25,16 @@ A few discoveries worth highlighting before the categorized list:
 
 6. **You're inside the textbook habitat for shade-grown native NTFPs** (ramps, ginseng, ginseng, sochan, goldenseal). The Appalachian Beginning Forest Farmer Coalition exists exactly to support this.
 
+7. **Your property is on the slopes of the original southern terminus of the Appalachian Trail.** Mount Oglethorpe (3,288 ft, the highest point in Pickens County and the high point of the Tate Mountain range) was the AT's southern terminus from 1937 to 1958. Sam Tate donated money and routed the trail through his private land specifically to bring foot traffic to Tate Mountain Estates. The terminus moved 13 mi NE to Springer Mountain in 1958 after logging operations, chicken ranches, and a gravel road brought vandalism. Eagles Rest Park preserves the original terminus today.
+
+8. **Pickens County's Union flag flew over the courthouse for almost a month after Georgia seceded.** The county was north of the cotton line — no plantations, few enslaved people — and pro-Union sentiment was strong enough that the state government eventually had to demand the flag's removal. Pickens sent six companies to the Confederacy *and* raised Company D of the 1st Georgia Infantry Battalion *for the Union Army*. A Pickens militia cavalry unit guided Sherman around fortified positions during the Atlanta Campaign.
+
+9. **Lake Sequoyah (April 1930) is named for the Cherokee silversmith who created the 85-character syllabary — one of the first written indigenous languages in North America.** The naming was a romantic gesture by the 1929 developers; Sequoyah himself never lived in Pickens County. Layered with the displacement of actual Cherokee from these exact creeks 92 years earlier, it's a name that rewards a second look.
+
+10. **Native peoples worked Georgia marble as far back as ~800 AD.** The 5-7 mile, ≤2,000 ft deep Pickens marble deposit was a known resource centuries before Henry Fitzsimmons opened the first quarry in the 1830s and centuries before the Tates organized the Georgia Marble Company in 1884.
+
+11. **The Connahaynee Lodge — Tate Mountain Estates' 30-room, marble-bathed, American Chestnut log centerpiece atop Burnt Mountain at ~3,300 ft — burned in March 1946.** Built by Col. Sam Tate (1929-1931) as part of his $1M resort vision (~$17M today) for wealthy Atlantans. Site was Pickens County's premier weekend destination through the 1930s despite the Depression and county-wide Prohibition. Caretaker Fuller Forrest spotted electrical wires overheating in the basement; the fire took the building.
+
 ---
 
 ## Quick reference — live data sources (CORS-enabled, no key)
@@ -271,9 +281,9 @@ Concrete one-time actions, ordered by friction:
 
 ### Atlanta Botanical Garden — Southeastern Center for Conservation
 **URL:** https://atlantabg.org/conservation-research/southeastern-center-for-conservation/
-**What it is:** ABG's research center for imperiled Southeastern species, with active North Georgia mountain projects on rare orchids, magnolias, oaks.
-**Why it's relevant here:** Their North Georgia fieldwork is geographically next door; species lists for at-risk natives are a candidate filter when adding plants.
-**Dashboard integration idea:** Property profile deep-link: "Conservation work happening in our mountains."
+**What it is:** ABG's research center for imperiled Southeastern species, with active North Georgia mountain projects on rare orchids, magnolias, oaks. Operates the Micropropagation Lab (seed germination and propagation, especially orchids) and the Safeguarding Nursery — the largest of its kind in the Southeast — housing pitcher plants, native orchids, and other threatened species. ABG is a core GPCA partner, with seed-banking expertise alongside the State Botanical Garden of Georgia and the Chattahoochee Nature Center.
+**Why it's relevant here:** Their North Georgia fieldwork is geographically next door; species lists for at-risk natives are a candidate filter when adding plants. For any rare-species restoration thread, ABG is the propagation-and-safeguarding partner.
+**Dashboard integration idea:** Property profile deep-link: "Conservation work happening in our mountains." Plants card → Safeguarding Nursery as a sourcing partner for rare species.
 **Depth tier:** Deep-dive link.
 
 ### Lady Bird Johnson Wildflower Center — Native Plant Database
@@ -296,6 +306,55 @@ Concrete one-time actions, ordered by friction:
 **Why it's relevant here:** State-level, free, tonally aligned with the field-journal voice — practical guidance like "mow less, ditch chemicals, plant natives" rather than urgent action lists.
 **Dashboard integration idea:** Anchor link from Wildlife card. Source for one-liners like "Brush piles and standing dead trees are habitat features, not eyesores."
 **Depth tier:** Card subtitle + deep-dive link.
+
+### Georgia Plant Conservation Alliance (GPCA)
+**URL:** https://botgarden.uga.edu/georgia-plant-conservation-alliance/ ; FWS partner page: https://www.fws.gov/partner/georgia-plant-conservation-alliance
+**What it is:** Network of 54 public gardens, government agencies, academic institutions, utility companies, and environmental organizations preserving Georgia's endangered flora. Member organizations are actively engaged in recovery projects for 112 plant species (29 federally listed). Georgia has ~4,000 native plant species; ~20% are rare, threatened, or endangered. Coordinates a rare-plant safeguarding program (genetic-diversity preservation + propagation + outplanting in suitable natural habitat). Coordinated by the State Botanical Garden's Mimsie Lanier Center.
+**Why it's relevant here:** Statewide infrastructure for any "rare plant we'd want to support on this property" path — they can connect a landowner to propagation material, restoration partners, and the right safeguarding contact for any state-listed species.
+**Dashboard integration idea:** Plants card → footer "Rare-plant partner network" link. When a future Plants > Rare-or-restorative tab is added, surface GPCA as the source.
+**Depth tier:** Foundation source for any restoration thread.
+
+### Natural Communities of Georgia (UGA Press companion site)
+**URL:** https://www.naturalcommunitiesofgeorgia.com/ ; Blue Ridge overview: https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html
+**What it is:** Companion website to the UGA Press book of the same name (Edwards, Ambrose & Kirkman). Authoritative typology of Georgia's natural plant communities by ecoregion. Blue Ridge community types at the property's elevation include: Mesic (Cove) Forests, Montane Oak Forests, Low- to Mid-Elevation Oak Forests, Mountain Bogs. Each community page lists characteristic and rare species.
+**Why it's relevant here:** The single best reference for "what natural community is this slope, and what species should be in it?" — the foundation for any restorative planting decision at this property.
+**Dashboard integration idea:** Property card → "Natural community" subtitle (e.g., "Mesic Cove Forest / Montane Oak Forest, ~2,959 ft"). Plants card → community-type filter as the organizing principle.
+**Depth tier:** Foundation source.
+
+### GA DNR — "Georgia's Natural Communities and Associated Rare Plant and Animal Species" (PDF)
+**URL:** https://georgiawildlife.com/sites/default/files/wrd/pdf/rare-data/natural_communities_thumbnail_accounts.pdf
+**What it is:** Free GA DNR PDF with thumbnail accounts of each natural community type and the rare plant/animal species associated with it. Rich-cove special-concern plants: cucumber-root, galax, trailing arbutus, partridge-berry, round-leaved violet. Seepages in rich coves: umbrella leaf, turk's-cap lily, bee balm, Canadian wood nettle, and several orchids (including Pink Lady's Slipper, *Cypripedium acaule*).
+**Why it's relevant here:** Direct list of "species worth looking for on this property, or supporting if found" matched to the property's actual community types.
+**Dashboard integration idea:** Plants card → "Rare species watchlist" generated from the community types matching the property. Quiet observation prompt rather than action item, in the field-journal tone.
+**Depth tier:** Property-card reference.
+
+### GNPS Native Plant Habitat Certification (Silver / Gold)
+**URL:** https://gnps.org/habitat/ ; Application PDF: https://gnps.org/wp-content/uploads/2018/10/GNPS-Habitat-Certification-Application-2018_distributed.pdf
+**What it is:** Georgia Native Plant Society certification program for properties planted/managed with natives. Two tiers (Silver, Gold); $40 fee plus GNPS membership; requires natives in 4 categories (trees, shrubs, ferns, grasses, perennials, annuals, vines, mosses/lichens, water/bog plants) and 5/10 sustainable practices. Disqualifying: actively cultivating any Category 1 or 2 invasive plants on the GA-EPPC list.
+**Why it's relevant here:** A second certification track alongside Birds Georgia Wildlife Sanctuary. The two are complementary — Audubon emphasizes bird-habitat plants; GNPS emphasizes native-only composition.
+**Dashboard integration idea:** Property card → "Eligible for GNPS Habitat Certification (Silver/Gold)" alongside the existing Birds Georgia certification mention.
+**Depth tier:** Surface-fact subtitle + deep-dive link.
+
+### American Chestnut Foundation (TACF)
+**URL:** https://tacf.org/ ; Georgia chapter directory: https://tacf.org/about-us/tacf-chapters/
+**What it is:** Nonprofit running the 40+ year program to restore the American chestnut (*Castanea dentata*) to its native range. Released "Restoration Chestnuts 1.0" in 2005 after 6-7 generations of back-crossing with blight-resistant Chinese chestnut; a parallel transgenic line uses a single wheat gene that inactivates the fungal toxin. Active test plantings in the Pisgah, Cherokee, Nantahala, George Washington, Jefferson, Allegheny, and Green Mountain national forests. Restoration partnership includes USDA Forest Service Southern Region & Southern Research Station, UGA, Penn State, and Virginia Tech.
+**Why it's relevant here:** American chestnut was once a dominant canopy species at this elevation in the southern Appalachians. The blight (introduced 1904) killed virtually all mature trees from Maine to Georgia by 1950. This is one of the two big landowner-participation restoration species (the other being eastern hemlock). TACF chapters connect landowners to restoration plantings and seed sources.
+**Dashboard integration idea:** Plants card → "Restoration target species" section, starting with American chestnut. "Did you know? This slope was once chestnut canopy" as a property-card historical-ecology callout.
+**Depth tier:** Property-card callout + deep-dive link.
+
+### Hemlock Restoration — HRI + Georgia Forestry Commission HWA Program
+**URL:** Hemlock Restoration Initiative (NC): https://savehemlocksnc.org/ ; GFC HWA in Georgia: https://gatrees.org/hemlock-woolly-adelgid-hwa-in-georgia/ ; Carolina hemlock species page: https://savehemlocksnc.org/hemlocks-hwa/carolina-hemlock/
+**What it is:** Two complementary resources for hemlock restoration. HRI (Asheville-based) is the regional convener for eastern (*Tsuga canadensis*) and Carolina (*Tsuga caroliniana*) hemlock conservation. GFC documents Hemlock Woolly Adelgid (HWA, arrived in GA 2003, statewide by 2012) and treatment protocols — imidacloprid and dinotefuran soil drench at root flare, year-round application as long as ground isn't frozen or saturated. A 2015 multi-state HWA-resistant clone trial showed 96% survival of resistant hemlocks at 4 years vs. 48% of susceptible trees. Carolina hemlock is under ESA review as of 2023; eastern hemlock occurs in 14 north Georgia counties.
+**Why it's relevant here:** If hemlocks exist on the property (very likely at 2,959 ft in cool drainages), there's a direct, recurring, landowner-driven treatment protocol that keeps them alive — and no other native conifer fills hemlock's ecological role.
+**Dashboard integration idea:** Property card → conditional "Hemlock check-in" reminder during HWA peak treatment windows. Plants card → restoration partner link.
+**Depth tier:** Property-card actionable + deep-dive link.
+
+### Native plant nurseries — North Georgia / Southeast sourcing
+**URL:** Gardens of the Blue Ridge (NC): https://gardensoftheblueridge.com/ ; Nearly Native Nursery (Fayetteville, GA): http://www.nearlynativenursery.com/ ; North Georgia Native Plant Nursery: https://www.northgeorgianatives.com/ ; Plant Delights Nursery (Raleigh, NC): https://www.plantdelights.com/ ; Recommended-nurseries list (UGA SBG + GNPI, June 2025): https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1.pdf
+**What it is:** Curated nurseries for ethical-provenance native plants relevant to the property. Gardens of the Blue Ridge specializes in hard-to-find Appalachian wildflowers (lady's slippers, trilliums, native azaleas). Nearly Native (Fayetteville, GA) is the closest specialty native nursery. North Georgia Native Plant Nursery sources within the region. Plant Delights carries ethically-propagated rare GA natives (with restrictions for some species). UGA State Botanical Garden + GNPS publish a vetted recommended-nurseries list (updated June 2025).
+**Why it's relevant here:** Sourcing matters for restorative work — wild-collection drives some natives toward extinction. Ethical-propagation nurseries are the only acceptable path for rare species.
+**Dashboard integration idea:** Plants card → "Sourcing" footer with the recommended-nurseries PDF link. Surface upcoming GNPS Native Plant Sale and Birds Georgia native plant sale dates on Plants > This Month.
+**Depth tier:** Reference / sourcing.
 
 ---
 
@@ -863,12 +922,111 @@ Concrete one-time actions, ordered by friction:
 **Dashboard integration idea:** Property card → "Stewardship reading" link. Particularly the open-access Ecology & Society paper on wasdi/ramps research.
 **Depth tier:** Deep-dive link (high-value).
 
-### Pickens County, GA Cherokee history references
-**URL:** New Georgia Encyclopedia — Cherokee Removal: https://www.georgiaencyclopedia.org/articles/history-archaeology/cherokee-removal/ ; Pickens Historical Society: https://pickenshistoricalsociety.org/our-history/
-**What it is:** Authoritative historical context for the property's location: Cherokee Nation 1793–1838, with settlements along Talking Rock Creek, Talona Creek, Long Swamp Creek (all near Jasper). Removal forts were built in this area in 1838.
-**Why it's relevant here:** Specific local heritage rather than generic Cherokee context. Talking Rock is ~6 miles from the property; this was densely-settled Cherokee land.
-**Dashboard integration idea:** Property card → "On Cherokee land" subsection → short field-journal-tone paragraph with reference link.
-**Depth tier:** Surface fact + deep-dive link.
+---
+
+## Category 7: History & cultural heritage (local & regional)
+
+The property sits in a layered historical landscape: Mississippian-era resource use (~800 AD marble), Cherokee Nation territory (1793-1838) with named settlements on Talking Rock Creek and Federal Road traffic past the front door, Civil War-era Unionist resistance, the Tate family's marble empire (1830s-present), the Tate Mountain Estates resort experiment (1928-1946), and 70 years of quieter time since. The resources below are the verified primary and secondary sources for that history.
+
+### Pickens County, Georgia (New Georgia Encyclopedia)
+**URL:** https://www.georgiaencyclopedia.org/articles/counties-cities-neighborhoods/pickens-county/
+**What it is:** Authoritative encyclopedia article on Pickens County: formation December 5, 1853 from Gilmer and Cherokee counties; named for Revolutionary War general Andrew Pickens; Cherokee era, Federal Road (1805), Taloney Mission (1819), Fort Newman removal stockade (1838), Civil War divisions, marble industry, modern era through GA-515 expansion (post-1990 growth from 8,855 in 1950 → 33,216 in 2020).
+**Why it's relevant here:** The single most reliable secondary source for the property's county-level historical context. Use as the anchor citation when sourcing any Pickens history claim on the Property card.
+**Dashboard integration idea:** "On this land" history layering on Property card: Mississippian → Cherokee → 1838 removal → 1853 county formation → marble industry → Tate Mountain Estates (1928-46) → today.
+**Depth tier:** Foundation source.
+
+### Marble (New Georgia Encyclopedia)
+**URL:** https://www.georgiaencyclopedia.org/articles/business-economy/marble/
+**What it is:** Statewide overview of Georgia's marble industry, anchored in the 5-7 mile Pickens deposit (up to 2,000 ft deep), Native American use as far back as ~800 AD, Henry Fitzsimmons's first 1830s quarries, the 1883 Marietta & North Georgia Railroad arrival, and Georgia Marble Company's national footprint (Lincoln Memorial, US Capitol east-front columns, Buckingham Fountain).
+**Why it's relevant here:** Frames why the property's host town exists. "Tate" is literally a marble-industry company town.
+**Depth tier:** Foundation source.
+
+### Georgia Marble Company (New Georgia Encyclopedia)
+**URL:** https://www.georgiaencyclopedia.org/articles/business-economy/marble/georgia-marble-company_002/
+**What it is:** Detailed article on the company organized 1884 by the Tate family. Col. Sam Tate (1860-1938) ran it as president 1905-1938; by the 1930s the company employed 1,030. Tate paid for the town's schools (segregated white and black), churches, roads, electrical service, and a hospital. Pickens marble appears in ~60% of DC monuments.
+**Why it's relevant here:** Col. Sam Tate is the same person who built Tate Mountain Estates — the development the property sits within. Reading this article makes the property feel intentional, not incidental.
+**Depth tier:** Deep-dive link.
+
+### "Tate and Foremen" — Marble Varieties (New Georgia Encyclopedia)
+**URL:** https://www.georgiaencyclopedia.org/articles/business-economy/marble/tate-and-foremen_001/
+**What it is:** Encyclopedia article on the two principal Georgia marble varieties quarried from the property's local geology: "Tate" (white) and "Foremen" (etched gray-white-pink).
+**Why it's relevant here:** When pointing out the marble in the Tate House (now a wedding venue), the Connahaynee Lodge's baths, the Tate Cemetery monuments, or the Pickens County Courthouse — you can name the variety.
+**Depth tier:** Curiosity / footnote.
+
+### Georgia Historical Society Marker — "Georgia Marble Company and the Village of Tate"
+**URL:** https://www.georgiahistory.com/ghmi_marker_updated/georgia-marble-company-and-the-village-of-tate/
+**What it is:** Primary-source historical marker erected 1999 at Tate Cemetery on GA-53. Records founding (1884), Col. Sam Tate's tenure (1905-1938), national marble destinations, and Tate as "the first electrified town in the area." Sponsored by GHS, Marble Valley Friends, Tate Community Association, Amicalola Garden Club, and Pickens County Government.
+**Why it's relevant here:** A physical, visit-able primary source ~5 minutes from the property. Photograph and link from Property card.
+**Depth tier:** Property-card callout candidate.
+
+### Talking Rock (New Georgia Encyclopedia)
+**URL:** https://www.georgiaencyclopedia.org/articles/counties-cities-neighborhoods/talking-rock/
+**What it is:** Authoritative article on the Cherokee settlement at Talking Rock Creek (~6 mi from property). The Cherokee name "Nunyu-gunwaniski" (rock that talks); Sanderstown — the first community, established by the Cherokee Sanders brothers; the Taloney Mission (1819, later Carmel Mission) day school; Federal Road crossing at "Talking Rock Ford" (modern Hwy 136 bridge); Fort Newman stockade holding Cherokees before forced removal in 1838.
+**Why it's relevant here:** This is the most specific, named Cherokee place adjacent to the property. The "indigenous land" framing in the dashboard rests on the Sanderstown / Carmel Mission / Fort Newman triad, not abstract "Cherokee Nation" territory. Cherokee settlements clustered along Talking Rock Creek, Talona Creek, and Long Swamp Creek — all within ~10 mi of the property.
+**Dashboard integration idea:** Property card "On Cherokee land" subsection → cite Sanderstown, Carmel Mission (1819-1838), Fort Newman by name, with linked map to the Hwy 136 bridge ford crossing.
+**Depth tier:** Property-card anchor source.
+
+### Civil War Dissent (New Georgia Encyclopedia)
+**URL:** https://www.georgiaencyclopedia.org/articles/history-archaeology/civil-war-dissent/
+**What it is:** Encyclopedia article on Georgia's Unionist counties — Pickens prominent among them. Geography (north of the cotton line, few enslaved people, no plantations) drove the political posture.
+**Why it's relevant here:** The "Union flag at the courthouse for a month after secession" story is one of the property's most distinctive regional facts.
+**Dashboard integration idea:** Property card historical thread → "Pro-Union county" callout with the courthouse flag detail and the Sherman-cavalry guide story.
+**Depth tier:** Foundation source.
+
+### Sequoyah (New Georgia Encyclopedia)
+**URL:** https://www.georgiaencyclopedia.org/articles/history-archaeology/sequoyah-ca-1770-ca-1840/
+**What it is:** Biography of Sequoyah (ca. 1770-ca. 1843), Cherokee silversmith who created the Cherokee syllabary (1820s, 85 characters). Within 25 years, the Cherokee Nation's literacy rate surpassed surrounding white settlers'.
+**Why it's relevant here:** The lake adjacent to the property bears his name. Knowing what he actually did — and that he never lived here — sharpens both the Property card naming story and the cultural-context disclaimer.
+**Depth tier:** Property-card callout source.
+
+### Pickens Historical Society (formerly Marble Valley Historical Society)
+**URL:** https://pickenshistoricalsociety.org/
+**What it is:** Local nonprofit founded December 4, 1980 (as Marble Valley Historical Society). Maintains the Old Pickens County Jail (1906), Mountain Heritage Cabin, and Nelson-Simmons-Trippe House. Produces a walking tour of historic downtown Jasper. PO Box 815, Jasper GA 30143; (770) 597-6052.
+**Why it's relevant here:** Three visit-able historical sites within ~20 min of the property; primary archive for Pickens County materials.
+**Dashboard integration idea:** Day-trips / local-events feed (when built) — surface PHS event schedule. For now, Property card "places to visit nearby" list.
+**Depth tier:** Place to visit + research archive.
+
+### Mount Oglethorpe Foundation / Eagles Rest Park
+**URL:** https://www.eaglesrestpark.org/
+**What it is:** Foundation preserving Mount Oglethorpe (3,288 ft, Pickens County high point) and the legacy of its 1937-1958 tenure as the southern terminus of the Appalachian Trail. Operates Eagles Rest Park at the summit. Sam Tate's role in routing the AT through his land — donating money for trail structures and granting passage through his property to bring through-hiker traffic to Tate Mountain Estates — is documented here and in Wikipedia's Mount Oglethorpe article.
+**Why it's relevant here:** The property sits on the same range. This is one of the most striking layered-history moments in the area: a 21-year period when through-hikers ended (or began) their 2,200-mile journey on a mountain the Cherokee had settled since the 1700s, on land bought by the marble baron who also developed Tate Mountain Estates. The terminus moved 13 mi NE to Springer Mountain in 1958 after logging operations, chicken ranches, and a gravel road brought vandalism.
+**Dashboard integration idea:** Property card → "Original AT terminus, 1937-1958" callout linking to Eagles Rest Park. Day-trips list when built.
+**Depth tier:** Property-card callout source.
+
+### "The Connahaynee Lodge (1930-1946)" — North Georgia History
+**URL:** https://www.northgeorgiahistory.com/post/the-connahaynee-lodge-1930-1946
+**What it is:** Long-form historical account of Tate Mountain Estates' centerpiece resort — built 1929-1931 atop Mount Burrell (now Burnt Mountain) at ~3,300 ft, 30 rooms, marble baths, American Chestnut logs, fieldstone construction. Operated through the Depression and Pickens County's Prohibition era, sold 1940 to former El Comodoro Hotel (Miami) owner Joe Adams, burned March 1946 from overheated basement wiring noticed by caretaker Fuller Forrest.
+**Why it's relevant here:** The most specific, vivid period-detail source on what Tate Mountain Estates actually was when it was new. Multiple Property-card anecdotes come from here.
+**Depth tier:** Property-card storytelling source.
+
+### Tate Mountain Estates — Pickens Past
+**URL:** https://www.pickenspast.com/blog/categories/tate_mountain_estates
+**What it is:** Pickens Past blog category aggregating posts on Tate Mountain Estates — the development the property sits within. Construction began the week of July 5, 1928; Sequoyah Lake (51 acres) and dam completed April 1930; Tate Mountain Estates Inc. filed bankruptcy November 1934; properties were sold off gradually. The Tates eventually owned the entire mountain community including Burnt Mountain, Grassy Knob (now Oglethorpe Mountain), and Sassafras Mountain.
+**Why it's relevant here:** The longest-running local-history blog focused specifically on this development.
+**Depth tier:** Deep-dive link.
+
+### "Placenames, Gone but not Forgotten" — Don & Diane Wells, Mountain Stewards
+**URL:** https://mountainstewards.org/wp-content/uploads/2020/02/Placenames-Gone-But-not-Forgotten-web-version.pdf
+**What it is:** Free PDF compendium of north Georgia place names by Mountain Stewards researchers — Cherokee, settler-era, and 20th century. Covers Burnt Mountain, Grassy Knob/Oglethorpe Mountain, Sassafras Mountain, Lake Sequoyah, Tate Mountain Estates, etc.
+**Why it's relevant here:** Primary place-name reference for the small geography immediately around the property.
+**Depth tier:** Reference / deep-dive.
+
+### Old Federal Road — Phase I Historical Context Study (GDOT)
+**URL:** https://www.dot.ga.gov/InvestSmart/Environment/CulturalResources/Documents/Project%20Documents/Old%20Federal%20Road/Context%20Study-Part%20I.pdf
+**What it is:** Georgia DOT-commissioned academic historical context study of the Old Federal Road (built 1803-1805, formalized as "Federal Road" 1819). The road ran from Ringgold to Athens through Cherokee territory, crossing Pickens via the Tate-Jasper-Talking Rock corridor; more of the original unpaved route remains in Pickens than in any other Georgia county.
+**Why it's relevant here:** Authoritative academic source for the Federal Road's specific Pickens routing. Andrew Jackson and James Monroe both traveled this road through what is now the property's county.
+**Depth tier:** Deep-dive academic reference.
+
+### Native American History of Pickens County (Access Genealogy)
+**URL:** https://accessgenealogy.com/georgia/native-american-history-of-pickens-county-georgia.htm
+**What it is:** Compiled genealogy/history article covering Cherokee presence in Pickens County. Useful complement to the New Georgia Encyclopedia for primary-source Cherokee references and family lines.
+**Depth tier:** Reference.
+
+### "Black History in Pickens" — Pickens Progress
+**URL:** https://pickensprogress.com/black-history-in-pickens-part-ii-workers-at-the-georgia-marble-company-and-jasper/
+**What it is:** Local newspaper series on Black workers at the Georgia Marble Company and the Black community in Tate and Jasper. Documents the segregated-but-funded schools Col. Sam Tate built and the lives of the workers behind the marble.
+**Why it's relevant here:** Counters a Sam-Tate-centric reading of the marble story with the laborers' perspective. The "first electrified town" was electrified for and by them too.
+**Depth tier:** Cultural-context source.
 
 ### USGS Indigenous Knowledge / Tribal Climate Resources
 **URL:** https://www.usgs.gov/programs/climate-adaptation-science-centers/science/incorporating-indigenous-knowledges-federal-1 ; NPS TEK: https://www.nps.gov/subjects/tek/index.htm
@@ -876,6 +1034,88 @@ Concrete one-time actions, ordered by friction:
 **Why it's relevant here:** Honest framing for a non-Cherokee owner: how to learn from and credit Indigenous Knowledges respectfully rather than appropriating. Case-study library includes Southern Appalachian examples.
 **Dashboard integration idea:** Property card → footer reference. Quiet placement; not a featured tile.
 **Depth tier:** Deep-dive link.
+
+---
+
+## Category 8: Local events & day trips (within ~45 min)
+
+Sources for the recurring annual events worth surfacing on the dashboard. The scoping verdict (2026-05-19): no source within day-trip distance publishes an iCal/ICS/RSS feed. Visit Pickens GA uses the QEM (Quick Event Manager) WordPress plugin, which doesn't expose an iCal endpoint by default. Explore Georgia's state calendar is bot-protected. Facebook Events no longer reliably expose public iCal. **Conclusion:** the dashboard's event surfacing will be powered by a manually-curated `events.json` (annual review cadence; spot-check 30 days before each event), not a live feed. The entries below are the primary sources for that curation work.
+
+### Visit Pickens GA — Community Calendar
+**URL:** https://visitpickensga.com/community-calendar/ ; festivals page: https://visitpickensga.com/festivals/
+**What it is:** Pickens County Chamber of Commerce-run community calendar. ~150 events spanning library programs, farmers markets, brewery open mic nights, cooking classes, and the county's major festivals. Powered by the Quick Event Manager WordPress plugin.
+**Why it's relevant here:** The single most complete aggregator of Pickens County events. Where to look first when refreshing `events.json` annually or spot-checking dates.
+**Calendar feed status:** No public iCal/ICS/RSS feed exposed. Confirmed via probe of `/events/?ical=1` (404) and `/community-calendar/?ical=1` (HTML page).
+**Dashboard integration idea:** Source for the Pickens portion of `events.json`. Manual curation; annual review.
+**Depth tier:** Aggregator source.
+
+### Know Pickens — Events Calendar
+**URL:** https://www.knowpickens.com/calendar/
+**What it is:** Second Pickens County events aggregator covering Jasper, Talking Rock, Nelson, Tate, Marble Hill, Ludville, Hinton. Cross-promotes the chamber calendar; useful for cross-checking event dates.
+**Why it's relevant here:** Backup verification source for Pickens County dates.
+**Calendar feed status:** Custom PHP URL pattern (`evd.php?id=...`); no apparent feed.
+**Depth tier:** Aggregator backup.
+
+### Explore Georgia — State Calendar of Events
+**URL:** https://exploregeorgia.org/calendar-of-events ; Blue Ridge filter: filterable by city; Ellijay filter: https://exploregeorgia.org/ellijay/events
+**What it is:** Georgia's official state tourism calendar, Drupal-powered. Filterable by city and event type. Most large regional festivals are listed.
+**Why it's relevant here:** State-level cross-check for any event that draws regional attention; useful for picking up events outside Pickens (Ellijay, Blue Ridge, Dahlonega).
+**Calendar feed status:** Bot-protected (HTTP 403 on automated fetches); no public API or feed documented. Manual reference only.
+**Depth tier:** Cross-check / regional source.
+
+### Pickens County Chamber of Commerce — Events & Marble Festival
+**URL:** Events list: http://pickenscountychamber.chambermaster.com/events/ ; Marble Festival: https://www.pickenschamber.com/marble-festival/
+**What it is:** Chamber-run business/civic events plus the official Georgia Marble Festival site. The Marble Festival is the county's flagship annual event: first weekend of October, 44th annual in 2026 (Oct 3-4), Lee Newton Park, ~120 exhibitors, ~9,000 attendees. Quarry tours, marble-sculpting demos, chainsaw carving, 5K, parade. Directly anchored in the property's local history (Cat 7).
+**Why it's relevant here:** Official site for the marquee annual Pickens event. Anchored in the property's local-history thread.
+**Depth tier:** Primary event source.
+
+### Sheriff's JeepFest
+**URL:** https://www.sheriffsjeepfest.com/
+**What it is:** Three-day annual Jeep festival at 8795 Hwy 53 East, Jasper. Late August (2026: registration closes Aug 28, event Aug 29-31). Jeep trails, obstacles, mud, concerts, food. Free for spectators. Benefits the Georgia Sheriffs' Youth Homes, Pickens Special Olympics, Boys & Girls Club, and Jasper Youth Sports Association.
+**Why it's relevant here:** Largest Pickens summer event aside from JeepFest's flagship sub-events. Has its own community draw.
+**Depth tier:** Primary event source.
+
+### Talking Rock Heritage Days
+**URL:** https://talkingrockga.com/heritagedaysfestival.html
+**What it is:** Two-day arts/crafts/music festival in Talking Rock town, third weekend of October. Free admission and parking. Vendors line the streets and Talking Rock Creek park. Anchored in the same Cherokee/Federal Road history thread covered in Cat 7.
+**Why it's relevant here:** Walk-distance scale from the Talking Rock Cherokee history (Cat 7's Sanderstown / Carmel Mission / Fort Newman triad). Combine with a Federal Road / Hwy 136 bridge visit.
+**Depth tier:** Primary event source.
+
+### Jasper Pro Rodeo — Pickens County Stampede
+**URL:** https://www.rodeoticket.com/jasper-pro-rodeo-pickens-county-stampeded/rodeo-information
+**What it is:** Annual PRCA rodeo in Jasper, mid-May (2026 was May 9).
+**Why it's relevant here:** Brief, single-evening attendance option in May.
+**Depth tier:** Secondary event source.
+
+### Georgia Apple Festival (Ellijay)
+**URL:** https://www.georgiaapplefestival.org/
+**What it is:** Largest annual event in Gilmer County. Ellijay Lions Club Fairgrounds. 2026: second and third weekends of October (Oct 10-11 and 17-18). $10 admission; children under 12 free. Hundreds of vendors, on-site demonstrations, live music, fair food.
+**Why it's relevant here:** Ellijay is ~30 min from the property; the Apple Festival overlaps with peak fall color and Marble Festival/Heritage Days.
+**Depth tier:** Primary event source.
+
+### Downtown Ellijay & Gilmer Chamber — Events
+**URL:** Downtown Ellijay events: https://downtownellijay.com/annual-events/ ; Gilmer Chamber: https://www.gilmerchamber.com/calendar-content/festivals-events/
+**What it is:** Ellijay's recurring events beyond the Apple Festival: Ellijay Farmers & Artisans Market (Saturdays, May 2 - Sept 26 2026, 8:30am-12:30pm, 50+ vendors), Light Up Ellijay (December), Holiday Lights of Ellijay (Lions Club Fairgrounds), Christmas Market on Sand Street, Bigfoot gatherings, Georgia Mountain Trail Fest.
+**Why it's relevant here:** Adds recurring weekly market data and winter holiday events to the calendar.
+**Depth tier:** Aggregator source.
+
+### Blue Ridge Mountains EDA — Events Calendar
+**URL:** https://www.blueridgemountains.com/events/
+**What it is:** Blue Ridge (Fannin County, ~45 min from property) tourism events page. Confirmed 2026 events: Blue Ridge Trout & Outdoor Adventures Festival (April 25), Spring Arts in the Park (Memorial Day weekend), Fall Arts in the Park (Oct 10-11), Blue Ridge Blues & BBQ Festival (Sept 19), St. Patrick's Day Parade (March), Fire and Ice Chili Cook-Off (Presidents' Day weekend, Feb).
+**Why it's relevant here:** Strongest single-county events list for Fannin. Blue Ridge edges the day-trip radius but the Blue Ridge Scenic Railway anchor + festival density make it worth the drive.
+**Depth tier:** Aggregator source.
+
+### Discover Dahlonega — Festivals
+**URL:** https://www.dahlonega.org/events/festivals-and-annual-events/
+**What it is:** Lumpkin County (Dahlonega, ~45 min from property) festival list. Bear on the Square Mountain Festival (April 17-19, 2026, 28th annual — Friday ticketed concert, free weekend events; juried mountain crafts, storytelling, music workshops, gospel jam), Dahlonega Arts & Wine Festival (May), Gold Rush Days (October), Old Fashioned Christmas (December).
+**Why it's relevant here:** Dahlonega is GA wine country; Bear on the Square is a marquee Appalachian-tradition festival.
+**Depth tier:** Aggregator source.
+
+### Pickens Past — Tate Day & Local History Events
+**URL:** https://www.pickenspast.com/
+**What it is:** Local history blog that periodically announces and recaps historical events like Tate Day. No formal calendar; events surface via blog posts.
+**Why it's relevant here:** Source for "Tate Day" and other history-society-driven events that the chamber calendar may not pick up.
+**Depth tier:** Specialty source.
 
 ---
 
