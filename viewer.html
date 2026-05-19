@@ -2163,6 +2163,145 @@
   }
   .quick-capture-actions .fn-mic-hint { font-size: 11.5px; }
 
+  /* === GARDEN GURU — conversational ask surface (Phase E) === */
+  .garden-guru {
+    background: #fbfaf3;
+    border: 1px solid #d8d0b8;
+    border-radius: 12px;
+    padding: 11px 14px 10px;
+    margin: 0 0 18px;
+  }
+  .gg-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    gap: 10px;
+  }
+  .gg-label {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6a5828;
+    letter-spacing: 0.2px;
+  }
+  .gg-counter {
+    font-size: 11px;
+    color: #9a8868;
+    font-style: italic;
+  }
+  .gg-conversation {
+    max-height: 360px;
+    overflow-y: auto;
+    margin-bottom: 9px;
+    padding: 4px 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .gg-turn {
+    font-size: 13.5px;
+    line-height: 1.55;
+    padding: 7px 11px;
+    border-radius: 8px;
+  }
+  .gg-turn-user {
+    background: #f4f0e0;
+    color: #4a3a1a;
+    align-self: flex-end;
+    max-width: 90%;
+    font-weight: 500;
+  }
+  .gg-turn-assistant {
+    background: #fff;
+    color: #2a3a2a;
+    border: 1px solid #e8e0c8;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14.5px;
+    line-height: 1.55;
+    align-self: flex-start;
+    max-width: 95%;
+    white-space: pre-wrap;
+  }
+  .gg-turn-error {
+    background: #f8e8de;
+    border-color: #c4602a;
+    color: #7a3818;
+    font-family: inherit;
+    font-size: 13px;
+    font-style: italic;
+  }
+  .gg-turn-thinking {
+    color: #9a8868;
+    font-style: italic;
+    font-size: 12.5px;
+    align-self: flex-start;
+    padding: 4px 11px;
+  }
+  .gg-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .gg-textarea {
+    flex: 1;
+    min-height: 40px;
+    max-height: 200px;
+    border: 1px solid #d4cca8;
+    border-radius: 8px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 8px 11px;
+    resize: vertical;
+    color: #2a3a2a;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .gg-textarea:focus { outline: none; border-color: #b08838; box-shadow: 0 0 0 2px #f0e6c8; }
+  .gg-textarea::placeholder { color: #b0a880; font-style: italic; }
+  .gg-textarea:disabled { background: #f0ede0; color: #8a8270; }
+  .gg-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .gg-actions .fn-mic-hint {
+    font-size: 11.5px;
+    flex: 1;
+    text-align: left;
+  }
+  .gg-ask-btn {
+    background: linear-gradient(135deg, #b08838, #8a6828);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s, transform 0.1s, opacity 0.15s;
+  }
+  .gg-ask-btn:active { transform: scale(0.98); background: linear-gradient(135deg, #8a6828, #6a5018); }
+  .gg-ask-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .gg-reset-btn {
+    background: transparent;
+    color: #8a7848;
+    border: 1px solid #d4cca8;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-family: inherit;
+    font-size: 12.5px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .gg-reset-btn:active { background: #f4f0e0; }
+
   .fn-capture {
     background: #fafcf6;
     border: 1px solid #d8eacc;
@@ -2616,6 +2755,24 @@
     <div class="quick-capture-actions">
       <span id="fn-mic-hint" class="fn-mic-hint"></span>
       <button id="fn-capture-save" class="fn-capture-save" type="button" disabled>Save entry</button>
+    </div>
+  </section>
+
+  <!-- GARDEN GURU — conversational ask surface (Phase E, MVP) -->
+  <section class="garden-guru" id="garden-guru" aria-label="Garden Guru — ask about the property">
+    <div class="gg-header">
+      <span class="gg-label">Garden Guru</span>
+      <span class="gg-counter" id="gg-counter" hidden></span>
+    </div>
+    <div class="gg-conversation" id="gg-conversation" hidden></div>
+    <div class="gg-input-row">
+      <textarea id="gg-textarea" class="gg-textarea" placeholder="Ask the slope a question" rows="1"></textarea>
+      <button id="gg-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>
+    </div>
+    <div class="gg-actions">
+      <span id="gg-mic-hint" class="fn-mic-hint"></span>
+      <button id="gg-reset-btn" class="gg-reset-btn" type="button" hidden>Start fresh</button>
+      <button id="gg-ask-btn" class="gg-ask-btn" type="button" disabled>Ask Garden Guru</button>
     </div>
   </section>
 
@@ -8467,38 +8624,41 @@ async function fnSaveSyncSettings() {
 }
 
 // ---- Voice dictation controller (Web Speech API) ----
-const VoiceCapture = (function () {
+// Factory so we can spin up an instance per text surface (Quick Capture + Garden Guru).
+// Each instance is independent; the browser's SpeechRecognition will sort out audio focus
+// if both try to record simultaneously (rare in practice — different surfaces, different intents).
+function createVoiceCapture(ids) {
   const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
   let rec = null;
   let active = false;
-  let finalBuffer = "";   // committed transcript since session start
-  let interimBuffer = ""; // current interim guess
+  let finalBuffer = "";
+  let interimBuffer = "";
   let userStopped = false;
 
   function isSupported() { return !!Rec; }
   function isRecording() { return active; }
 
   function setHint(msg, isError) {
-    const hint = document.getElementById("fn-mic-hint");
+    const hint = document.getElementById(ids.hintId);
     if (!hint) return;
     hint.textContent = msg;
     hint.classList.toggle("error", !!isError);
   }
   function setButtonState(recording) {
-    const btn = document.getElementById("fn-mic-btn");
+    const btn = document.getElementById(ids.micBtnId);
     if (!btn) return;
     btn.classList.toggle("recording", recording);
     btn.textContent = recording ? "■" : "🎤";
     btn.setAttribute("aria-label", recording ? "Stop dictation" : "Voice dictation");
   }
   function buildAndShow() {
-    const bodyEl = document.getElementById("fn-capture-textarea");
+    const bodyEl = document.getElementById(ids.textareaId);
     if (!bodyEl) return;
-    // Combine pre-session text, committed transcript, and current interim.
     const base = bodyEl.dataset.fnBaseline || "";
     const sep1 = (base && finalBuffer) ? (base.endsWith(" ") || base.endsWith("\n") ? "" : " ") : "";
     const sep2 = (finalBuffer && interimBuffer) ? " " : "";
     bodyEl.value = base + sep1 + finalBuffer + sep2 + interimBuffer;
+    bodyEl.dispatchEvent(new Event("input", { bubbles: true }));
   }
 
   function start() {
@@ -8507,7 +8667,7 @@ const VoiceCapture = (function () {
       return;
     }
     if (active) return;
-    const bodyEl = document.getElementById("fn-capture-textarea");
+    const bodyEl = document.getElementById(ids.textareaId);
     if (!bodyEl) return;
     rec = new Rec();
     rec.continuous = true;
@@ -8516,7 +8676,6 @@ const VoiceCapture = (function () {
     finalBuffer = "";
     interimBuffer = "";
     userStopped = false;
-    // Snapshot whatever's already in the textarea so dictation appends.
     bodyEl.dataset.fnBaseline = bodyEl.value || "";
 
     rec.onstart = function () {
@@ -8546,13 +8705,11 @@ const VoiceCapture = (function () {
       setHint(msg, true);
     };
     rec.onend = function () {
-      // iOS Safari ends sessions aggressively; if the user hasn't pressed stop, restart.
       if (!userStopped && active) {
-        try { rec.start(); return; } catch (e) { /* fall through to stop */ }
+        try { rec.start(); return; } catch (e) { /* fall through */ }
       }
       active = false;
       setButtonState(false);
-      // Commit whatever interim text is left.
       if (interimBuffer) {
         finalBuffer += (finalBuffer ? " " : "") + interimBuffer.trim();
         interimBuffer = "";
@@ -8579,7 +8736,19 @@ const VoiceCapture = (function () {
   function toggle() { active ? stop() : start(); }
 
   return { start, stop, toggle, isSupported, isRecording };
-})();
+}
+
+const VoiceCapture = createVoiceCapture({
+  textareaId: "fn-capture-textarea",
+  micBtnId: "fn-mic-btn",
+  hintId: "fn-mic-hint",
+});
+
+const GuruVoice = createVoiceCapture({
+  textareaId: "gg-textarea",
+  micBtnId: "gg-mic-btn",
+  hintId: "gg-mic-hint",
+});
 
 // ---- Wire Field Notes controls ----
 (function wireFieldNotes() {
@@ -8642,6 +8811,208 @@ function fnRetryPendingClassifications() {
   }
 }
 fnRetryPendingClassifications();
+
+// =========================
+// GARDEN GURU (Phase E — conversational property assistant)
+// =========================
+const GG_MAX_USER_TURNS = 6; // 1 question + 5 follow-ups; 6th submission caps the conversation
+
+const GardenGuru = (function () {
+  let conversationId = null;
+  let turns = []; // [{role, content, ts}]
+  let isWaiting = false;
+  const listeners = [];
+
+  function newId() {
+    return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7);
+  }
+
+  function userTurnCount() {
+    return turns.filter(t => t.role === "user").length;
+  }
+  function capReached() {
+    return userTurnCount() >= GG_MAX_USER_TURNS;
+  }
+
+  async function ask(text) {
+    text = (text || "").trim();
+    if (!text || isWaiting || capReached()) return;
+    if (!conversationId) conversationId = newId();
+    turns.push({ role: "user", content: text, ts: new Date().toISOString() });
+    isWaiting = true;
+    emit();
+    try {
+      const result = await WorkerAPI.call("POST", "/api/chat", {
+        conversation_id: conversationId,
+        turns: turns.map(t => ({ role: t.role, content: t.content, ts: t.ts })),
+        live_state: gatherGuruLiveState(),
+      });
+      const reply = (result && result.reply) || "[no reply]";
+      turns.push({ role: "assistant", content: reply, ts: new Date().toISOString() });
+    } catch (e) {
+      const errMsg = e.notConfigured
+        ? "Garden Guru isn't configured yet. Open Sync settings in Field Notes to connect to the Worker."
+        : "The journal can't reach the network just now — try again in a moment.";
+      turns.push({ role: "assistant", content: errMsg, ts: new Date().toISOString(), isError: true });
+    }
+    isWaiting = false;
+    emit();
+  }
+
+  function reset() {
+    conversationId = null;
+    turns = [];
+    isWaiting = false;
+    emit();
+  }
+
+  function onChange(cb) { listeners.push(cb); }
+  function emit() { listeners.forEach(cb => { try { cb(); } catch (e) { console.warn(e); } }); }
+
+  function getState() {
+    return {
+      turns: [...turns],
+      isWaiting,
+      capReached: capReached(),
+      userTurnCount: userTurnCount(),
+      followupsRemaining: Math.max(0, GG_MAX_USER_TURNS - userTurnCount()),
+      maxUserTurns: GG_MAX_USER_TURNS,
+    };
+  }
+
+  return { ask, reset, onChange, getState };
+})();
+
+function gatherGuruLiveState() {
+  const state = {
+    date: today.toISOString().slice(0, 10),
+    weekTier: weekTier(today) + " " + MONTH_NAMES_FULL[currentMonth],
+  };
+  try {
+    const cur = WEATHER_DATA && WEATHER_DATA.current;
+    if (cur) state.weather = {
+      tempF: cur.temperature,
+      condition: cur.condition,
+      humidity: cur.humidity,
+      windMph: cur.windSpeed,
+    };
+  } catch (e) {}
+  try {
+    if (PLANTS_DATA && PLANTS_DATA.plants) {
+      state.plantsInPeak = PLANTS_DATA.plants
+        .filter(p => plantPeakActiveThisWeek(p))
+        .map(p => p.name)
+        .slice(0, 8);
+    }
+  } catch (e) {}
+  try {
+    const obs = fnLoadAll().sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
+    state.recentObservations = obs.slice(0, 15).map(o => ({
+      date: o.date,
+      category: o.category,
+      species: o.speciesName,
+      body: o.body,
+    }));
+  } catch (e) {}
+  try {
+    const drought = WEATHER_DATA && WEATHER_DATA.drought;
+    if (drought) state.drought = { category: drought.category, date: drought.date };
+  } catch (e) {}
+  return state;
+}
+
+function renderGardenGuru() {
+  const section = document.getElementById("garden-guru");
+  if (!section) return;
+  const state = GardenGuru.getState();
+
+  // Counter
+  const counter = document.getElementById("gg-counter");
+  if (counter) {
+    if (state.turns.length === 0) {
+      counter.hidden = true;
+      counter.textContent = "";
+    } else if (state.capReached) {
+      counter.hidden = false;
+      counter.textContent = "Conversation full — start fresh to ask more";
+    } else {
+      counter.hidden = false;
+      const n = state.followupsRemaining;
+      counter.textContent = n === 1 ? "1 follow-up left" : n + " follow-ups left";
+    }
+  }
+
+  // Conversation history
+  const convoEl = document.getElementById("gg-conversation");
+  if (convoEl) {
+    if (state.turns.length === 0 && !state.isWaiting) {
+      convoEl.hidden = true;
+      convoEl.innerHTML = "";
+    } else {
+      convoEl.hidden = false;
+      let html = "";
+      for (const t of state.turns) {
+        const baseCls = t.role === "user" ? "gg-turn gg-turn-user" : "gg-turn gg-turn-assistant";
+        const fullCls = t.isError ? baseCls + " gg-turn-error" : baseCls;
+        html += '<div class="' + fullCls + '">' + escapeHtml(t.content) + '</div>';
+      }
+      if (state.isWaiting) {
+        html += '<div class="gg-turn-thinking">Garden Guru is thinking…</div>';
+      }
+      convoEl.innerHTML = html;
+      convoEl.scrollTop = convoEl.scrollHeight;
+    }
+  }
+
+  // Input + buttons
+  const ta = document.getElementById("gg-textarea");
+  const askBtn = document.getElementById("gg-ask-btn");
+  const resetBtn = document.getElementById("gg-reset-btn");
+  const micBtn = document.getElementById("gg-mic-btn");
+  const disabled = state.isWaiting || state.capReached;
+  if (ta) ta.disabled = disabled;
+  if (micBtn) micBtn.disabled = disabled;
+  if (askBtn) {
+    askBtn.disabled = disabled || !ta || !ta.value.trim();
+    askBtn.textContent = state.turns.length === 0 ? "Ask Garden Guru" : "Ask follow-up";
+  }
+  if (resetBtn) resetBtn.hidden = state.turns.length === 0;
+}
+
+// Wire Garden Guru events (static markup, so one-time wiring)
+(function wireGardenGuru() {
+  const ta = document.getElementById("gg-textarea");
+  const askBtn = document.getElementById("gg-ask-btn");
+  const resetBtn = document.getElementById("gg-reset-btn");
+  const micBtn = document.getElementById("gg-mic-btn");
+  if (!ta || !askBtn) return;
+
+  ta.addEventListener("input", renderGardenGuru);
+  askBtn.addEventListener("click", () => {
+    const text = (ta.value || "").trim();
+    if (!text) return;
+    ta.value = "";
+    GardenGuru.ask(text);
+  });
+  if (resetBtn) resetBtn.addEventListener("click", () => GardenGuru.reset());
+  if (micBtn) {
+    micBtn.addEventListener("click", () => GuruVoice.toggle());
+    if (!GuruVoice.isSupported()) {
+      micBtn.style.display = "none";
+    }
+  }
+
+  // Enter to submit (Shift+Enter for newline)
+  ta.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      askBtn.click();
+    }
+  });
+})();
+
+GardenGuru.onChange(renderGardenGuru);
+renderGardenGuru();
 </script>
 
 </body>
