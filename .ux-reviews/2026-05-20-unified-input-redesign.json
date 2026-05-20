@@ -1,0 +1,221 @@
+{
+  "review_id": "ux-2026-05-20-unified-input-redesign",
+  "project": "fernwood",
+  "subject": "Path-evaluation of the proposed unified-input UX redesign (single textbox + two explicit-route buttons, discrete, positioned beneath the 6 main cards). Replaces the as-shipped two-card layout (Field Notes quick-capture card above the 6 cards + Garden Guru card below it).",
+  "review_date": "2026-05-20",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (with one flow-level finding about position-in-IA)",
+  "user_context": {
+    "primary_user": "Mom (make-or-break) and Paul-mobile (on the property, phone in hand) jointly; Paul-desktop is a secondary performer.",
+    "core_jobs_to_be_done": [
+      "Outer job: invest finite time well on a place that matters (jtbd-invest-time-well).",
+      "Inner job: collapse the gap between noticing/wondering and knowing/remembering — ask the property in plain language, or just speak something once and have the journal hold it (jtbd-talk-to-the-property).",
+      "Mom-specific: enjoy and steward the property without the act of stewarding becoming work she resents. Dashboard engagement is the load-bearing success metric (Q11); Guru engagement is gradient."
+    ],
+    "context_of_use": "Mobile-first. Mom: bed/coffee morning or evening wind-down, one-handed reclined, half-engaged. Paul-mobile: on the property, one hand occupied, voice-primary, outdoor sunlight legibility matters. Paul-desktop: at his desk in Atlanta, planning/researching. All three share one surface.",
+    "assumptions_made": [
+      "The proposed surface sits beneath all 6 main cards (Paul Q10 verbatim) — confirmed in the brief. This review treats that position as a load-bearing constraint to be evaluated, not changed.",
+      "Field Notes as a standalone visible card above the cards is being deleted in this redesign; the saved-entries history view of Field Notes (the .main-card #card-fieldnotes between Property and Vehicles) remains as the place where saved observations land. The brief does not explicitly say this — assumption based on the design logic.",
+      "Phase F (image input) remains benched for this surface in v1. Adding image input changes the surface materially and is out of scope for this path-eval.",
+      "Voice dictation (mic) stays as an input mode in some form; the proposal doesn't address it explicitly but Paul-mobile's voice-primary use mode is in the journey doc."
+    ],
+    "user_context_confidence": "medium — strong on personas and JTBDs (those are validated/inline-tagged in the recent research), lower on whether Mom will actually engage a Guru surface at all (Q11 makes that explicitly gradient, not a target)."
+  },
+  "principles_applied": [
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "Caution as noticing, not warning (fernwood.md)",
+    "Strip teases, card holds (fernwood.md) — used in inverse as a precedent for the position-in-IA finding",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Friction kills — it just works (cross-project.md)",
+    "Meet the user at the action (cross-project.md)",
+    "Ornament earns its place (cross-project.md)",
+    "Typographic hierarchy by value (cross-project.md)",
+    "Field journal, not task manager (content-principles/fernwood.md)",
+    "Acknowledge the shared work — for uncertain readers (content-principles/fernwood.md, 2026-05-20)",
+    "Personalized, never generic (content-principles/fernwood.md)",
+    "Nielsen 1 — Visibility of system status (used for the pending/save-success finding)",
+    "Nielsen 6 — Recognition rather than recall (used for the seeded-prompts finding)",
+    "Nielsen 7 — Flexibility and efficiency of use (collapsed default for Mom, fast for Paul)",
+    "Norman — Signifiers and feedback (button affordance + state communication)"
+  ],
+  "top_level_recommendation": "Build the redesign, but lock five specific design decisions before code starts — each one is a place the surface can silently break Mom adoption or shave the wedge. Most consequential: (1) The collapsed default state must look like a piece of the dashboard, not like a dormant input field — the journal-pull aesthetic, not a textarea-with-placeholder. (2) Seeded example prompts ARE required, in voice — without them the surface is a blank wall for Mom and the Q4 wedge over Claude is invisible. (3) Position-beneath-the-6-cards is correct for Mom but creates a save-success scroll problem for Paul-mobile that the proposal currently doesn't solve. (4) The two buttons must be co-equal in visual weight and copy register — asymmetric weight (Ask Garden Guru = primary, Record an observation = secondary) accidentally re-introduces the same surface-routing-burden the proposal removes. (5) The expand-on-engagement transition is where this design either feels alive or feels janky — recommend focus-triggered expansion with a single soft cubic-bezier height transition, not auto-expand on hover and not a separate tap-to-open affordance.",
+  "findings": [
+    {
+      "id": "F1",
+      "area": "hierarchy",
+      "severity": "critical",
+      "observation": "The collapsed default state is where this surface lives 95% of the time it's on screen. Paul's frame — 'discrete by default, can expand if someone wants to interact with it, but I do not see it as kind of the main feature' — risks producing a dormant-input-field look (a thin rectangle with a placeholder and two pale buttons) that reads as inert dashboard chrome rather than as an inviting surface. That look is the default failure mode for 'discrete' textbox designs: they recede into looking *broken* rather than *quiet*. For Mom at half-engagement in bed [validated half-engagement context, persona-mom + fernwood.md], an inert-looking textbox is a surface she scrolls past for life.",
+      "user_impact": "Mom never engages the surface even when she would have if it felt like part of the dashboard. The Q4 wedge (property-aware Claude-with-context) is invisible to her because the surface looks like work, not like reading. This is the silent failure mode for the make-or-break user.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md) — the surface has to communicate its essential read in 1.5s of one-handed reclined glance, not what it reveals to a focused user. Combined with Field journal, not task manager (content-principles/fernwood.md) — a dormant input field reads as task-manager idiom.",
+      "recommendation": "Treat the collapsed state as a journal pull, not a dormant input. Concrete spec: (a) Background matches the dashboard's cream-on-green palette, not a contrasting white textarea look. Suggested background `#fbfaf3` (the existing Garden Guru tan, which already passes tone-coherence) or `#f7fbf2` (the existing Quick Capture green) — pick one consistent with where it sits in the visual flow. (b) No visible textarea border in collapsed state — instead, a single italic Crimson Text prompt line in the journal voice (`'Worth a question, or worth a note?'` is a candidate — content-steward calls the final). The prompt LOOKS like text on a card, not like form-field affordance. (c) The two buttons render as quiet rounded pills (no gradient fill in collapsed state — only on hover/focus they pick up the warm-tan gradient already used on `.gg-ask-btn`). (d) Padding tuned so the whole surface is no taller than a single card-header strip (~64-80px) — it earns its room visually rather than commanding it. (e) When expanded, the textarea reveals itself with a proper border and white background — the journal-pull collapses into a functional input. The two states are visually distinct, which is the affordance.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "The two buttons are the load-bearing affordance — they say what this surface IS and what it does. Two design risks: (i) if 'Record an observation' is visually demoted relative to 'Ask Garden Guru', the user reads the surface as a Guru-input-that-also-saves, which re-introduces the surface-routing burden the proposal removes (and biases toward the AI path); (ii) if both buttons are present with no other context, they may read as a chatbot suggestion-chip pattern (the thing Claude/ChatGPT does), which carries the wrong register baggage — both Mom and Paul have ChatGPT-anxiety surfaced in the JTBD doc.",
+      "user_impact": "Asymmetric button weight: Paul-mobile reaches for Guru when he meant to log, or vice versa, and one of the two paths starves. Chatbot-chip register: surface borrows from the wrong design grammar (productivity-AI) and Mom's voice-must-hold expectation is broken before the first turn.",
+      "principle_invoked": "Glyphs follow the journal voice, not the dashboard voice (fernwood.md) — the same logic applies to button styling, not just glyphs. Combined with Friction kills — it just works (cross-project.md) — the choice between the two paths has to be self-evident.",
+      "recommendation": "Two co-equal buttons, same visual weight, same register. Specifically: (a) Both buttons use the same fill (collapsed-state quiet, hover/focus warm), same radius, same font-family (Crimson Text italic to match the field-journal label register, OR DM Sans regular to match the existing `.gg-ask-btn` — pick one and apply to both; my recommendation: Crimson Text italic for both, because it pulls the surface deeper into journal-voice and away from chatbot-chip register). (b) Order matters — put the capture path FIRST (left/top), because Paul Q10 mentioned it first, because the journal-form is the load-bearing identity of the project, and because the capture path is the one that doesn't depend on Guru working perfectly (lower-risk default). (c) Button copy: see Finding F4 — both buttons need different register tuning per the voice charter. (d) When the user starts typing, the two buttons brighten (visual feedback that they're now actionable) but neither pre-selects — the user always picks. (e) NEVER auto-route based on input shape — that violates the no-AI-on-capture principle Paul ratified.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "empty-state",
+      "severity": "critical",
+      "observation": "A blank textbox with no scaffolding is the explicit Mom-disengagement risk surfaced in journey-unified-field-assistant.md and persona-mom.md ('Not knowing what to say' — assumption-tagged but the most-cited Mom failure mode in the research). The current Garden Guru ships with `'Ask the slope a question'` as placeholder — voice-fluent and beautiful, but it's still a blank input. The journey doc opportunity #1 is explicit: seeded prompts as scaffolding for the bed-with-coffee user who has curiosity but no formed question.",
+      "user_impact": "Mom opens the dashboard, sees the unified surface, doesn't have a question pre-formed, and the surface offers her nothing to read or react to. She continues to the dashboard cards (acceptable per Q11 — dashboard-only is still success) but Guru never enters her habit loop. Worse, if seeded prompts arrive in a later iteration after she's already pattern-matched the surface as not-for-her, it's harder to recover.",
+      "principle_invoked": "Nielsen 6 — Recognition rather than recall — the surface should offer something to react to, not something to compose from scratch. Combined with Meet the user at the action (cross-project.md) — the empty state should offer paths forward, not just an open input.",
+      "recommendation": "Seed 2-3 example prompts in the expanded state (NOT in the collapsed state — that would over-decorate the discrete surface). When the user taps to expand, three quiet italic Crimson Text lines appear *below* the textarea, each tappable, each populating the textarea on tap. They must be in voice and they must rotate over time (not the same three forever — that becomes wallpaper). Initial seed candidates: `'What's the laurel doing this week?'` / `'Is it too late to prune the hydrangea?'` / `'What's calling at the pond tonight?'`. Voice-charter notes: (a) Always property-anchored (no generic 'What plants need pruning?' — fail Personalized, never generic). (b) Vary register across the three: one observation-question, one stewardship-with-trepidation question (gives the Acknowledge-the-shared-work flex something to bite on), one wildlife-listening question (engages Mom's coffee-morning sensibility). (c) Tap a seeded prompt → populates textarea + auto-focuses 'Ask Garden Guru' button (subtle visual highlight, NOT auto-send — preserves the explicit-route principle). Implementation note for engineering-partner path-eval: the seed list lives in JSON, rotates daily based on date-modulo so the user sees a different set without it feeling random.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "empty-state",
+      "severity": "important",
+      "observation": "The two buttons need different register handling per the voice charter. 'Record an observation' is a capture-path verb — it should be matter-of-fact, observational, in field-journal voice. 'Ask Garden Guru' is the AI path — it surfaces the mentor-voice register from the Acknowledge-the-shared-work principle (2026-05-20). Paul's verbatim button copy was a working draft; the final needs voice-charter calibration. Also: 'Garden Guru' as a proper noun in the button is the right anchor (Anchored naming beats field-journal-fluent naming, 2026-05-20) but 'Record' has light task-manager drift (compare to 'log,' 'capture,' 'note,' 'mark') — worth content-steward's eye.",
+      "user_impact": "Off-key button copy is the kind of small voice-drift that doesn't fail any single principle but accumulates against the dual-frame identity. Mom registers it before the rest of the surface even renders.",
+      "principle_invoked": "Field journal, not task manager (content-principles/fernwood.md). Tone-coherence across all chrome (fernwood.md). Anchored naming beats field-journal-fluent naming (content-principles/fernwood.md).",
+      "recommendation": "Hand to content-steward for the final copy pass. Candidate phrasings to put in front of Paul (not for me to lock):\n- Capture-path button candidates: `'Note this in the journal'` / `'Add a field note'` / `'Mark this down'` / `'Just log it'` / `'Save to Field Notes'`\n- Ask-path button candidates: `'Ask Garden Guru'` (Paul's original — anchor-true) / `'Ask the property'` (more anchored to JTBD framing) / `'Talk to Garden Guru'`\nMy lean: `'Note this in the journal'` paired with `'Ask Garden Guru'` — capture-path uses the field-journal noun, ask-path uses the proper-noun anchor. Both pass the could-be-anyone test. Content-steward gets final call.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "flow",
+      "severity": "critical",
+      "observation": "Position-beneath-the-6-cards is correct for the proposal's intent (deliberately backgrounded, not main feature) and correct for Mom (the dashboard cards are her load-bearing surface — Q11). But it creates a save-success problem for Paul-mobile that the current Field-Notes-above design solves: when Paul taps 'Note this in the journal', the entry saves and lands in the Field Notes card *between Property and Vehicles* — which is now SEVEN scroll-screens UP from where he just typed. He has zero confirmation that the save landed without scrolling. The journey doc flags this as 'the save-success gap' and calls it the most acute mobile friction. The current shipped Field Notes card design has the input ADJACENT to the entries history; this redesign physically separates them by the entire dashboard.",
+      "user_impact": "Paul-mobile types an observation on the trail. Taps Note. Sees… nothing? An inline confirmation? Has to scroll up seven cards to verify? If the confirmation is unclear, he doesn't trust the save, and either (a) re-enters it (data duplication), (b) verifies-by-scrolling (kills the mobile flow), or (c) loses confidence in the surface (long-term silent failure).",
+      "principle_invoked": "Nielsen 1 — Visibility of system status. Combined with Friction kills — it just works (cross-project.md). Also tied to Meet the user at the action — the next action after saving is either 'keep going' or 'see what landed,' both of which need to be served at the surface, not seven cards away.",
+      "recommendation": "Three-part solution: (a) An inline save-success affordance lives WITH the surface — a small Crimson Text italic line appears just below the surface for ~6 seconds: `'Noted. May 20 — added to Field Notes ↓'` where ↓ is a tappable jump-to-card affordance (smooth-scroll to #card-fieldnotes with the card auto-expanded). After 6 seconds it fades. (b) The textarea clears, the surface collapses back to discrete state, and the surface visually 'pulses' once (subtle scale + fade) to signal the cycle completed. (c) On Garden Guru replies (the ask path), the reply renders IN-PLACE below the input (existing gg-conversation pattern continues to work) — this is fine because asks aren't separated from their replies the way captures are separated from the Field Notes history card. See F6 for the conversation-persistence question. Note for engineering-partner: this requires the surface to actually own a region for the save-success affordance, not just the textarea+buttons. Plan ~24px of vertical room for the inline confirmation slot, or animate it appearing as needed.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Where does the conversation live once started? The current Garden Guru renders turns in a `.gg-conversation` pane above the input, growing downward as the conversation continues. In the unified design, asks render inline in the surface — fine for one-shot questions, but multi-turn (Paul-desktop research mode) means the surface starts visually competing with the 6 cards above it as the conversation grows. Per the journey doc: 'If chat history clutters the surface for the next observation, Paul has to clear it or scroll past.' Also: per Phase E MVP, conversation persistence is session-only (refresh = gone). For Paul-desktop's research mode, the journey doc flags this as 'may be too strict.'",
+      "user_impact": "Paul-mobile after 3 turns: the chat pane is now taking up more screen real estate than the surface was designed to occupy, and the next observation (capture path) feels awkward because there's a conversation already in view. Mom one-and-done: irrelevant in practice. Paul-desktop multi-turn: the surface works, but on refresh his thread evaporates.",
+      "principle_invoked": "Strip teases, card holds (fernwood.md) inversed — the unified surface needs to know when to NOT hold. Combined with Friction kills.",
+      "recommendation": "Lean into the existing 'Start fresh' reset affordance from current Garden Guru — keep it. Specific spec: (a) Conversation turns render below the input row, capped at a scrollable max-height (current ~360px is reasonable on mobile). (b) When a conversation is active, the 'Start fresh' button appears next to 'Ask Garden Guru' — same Crimson Text italic register, quiet. (c) When the user taps the capture-path button while a conversation is open, prompt them softly: `'Your conversation will be saved here while you note this'` — a tiny inline reassurance, then the conversation pane collapses behind a `'Resume conversation'` link until they return. (d) Session persistence stays session-only for v1 — don't expand scope. Flag for v2: optional 'pin this conversation' for Paul-desktop research mode. Implementation-light option: collapse the conversation pane (hide but keep in DOM) when capture-path is taken, so the user doesn't lose the chain visually but the surface returns to single-input mode.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The expand-on-engagement transition is where this design either feels alive or feels janky. Three options Paul listed plus a fourth: (a) buttons appear immediately on focus; (b) buttons appear after typing starts; (c) both buttons always visible just quiet; (d) tap-to-expand revealing input + buttons together. Each has tradeoffs. Option (a) tap-to-focus is the iOS-Safari-native pattern Mom and Paul both already know; works one-handed. Option (b) typing-triggered creates a moment where the user types and then... wait, what do I do? — the buttons appeared but the user's eyes were on the keyboard. Option (c) always-visible quiet is the most forgiving but means the surface is always taller. Option (d) tap-to-expand is the most discrete but requires an extra tap which violates Friction kills.",
+      "user_impact": "Wrong choice = the surface either feels noisy at rest (option c, if not handled carefully) or unresponsive (option d, the tap-to-open adds a beat) or surprising (option b, buttons materialize while you're typing).",
+      "principle_invoked": "Friction kills — it just works (cross-project.md). Norman — signifiers and feedback. Nielsen 7 — Flexibility and efficiency of use.",
+      "recommendation": "Hybrid of (c) + (a) — both buttons always visible in the collapsed state at quiet weight, focus on the textarea (tap) triggers a soft height expansion (~200ms cubic-bezier) and the buttons brighten to their full active styling. This means: (i) the affordance is obvious at rest — Mom can SEE what this surface does without engaging it; (ii) tapping in just sharpens what was already there, no surprise; (iii) the discrete-by-default constraint holds because the at-rest state is visually quiet even with buttons visible. NEVER auto-send on either path — explicit click required, preserves Paul's no-AI-on-capture intent and matches journey doc's lean-toward-explicit-control on the question path too. Collapse-back behavior: textarea blur with empty content → surface returns to discrete state after a 500ms delay (long enough that accidentally-tapped-elsewhere doesn't snap collapse mid-thought).",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "Voice dictation (mic) is in both current surfaces but isn't addressed in Paul's Q10 proposal. Paul-mobile's primary input mode is voice [journey doc]. Mom may or may not use voice — likely not in bed-with-coffee mode (talking to a phone is more performative than tapping). Brother (occasional user, not in research artifacts but a known third user) is voice-friendly per Paul's general framing. Dropping the mic in v1 would be a regression for Paul; keeping it means it has to live somewhere on this minimalist surface without breaking the 'two buttons' clarity.",
+      "user_impact": "If mic disappears: Paul-mobile loses his primary input mode and either reverts to typing (slower, harder one-handed) or doesn't capture. If mic is awkwardly placed: visual clutter on a surface meant to be discrete.",
+      "principle_invoked": "Ornament earns its place (cross-project.md) — the mic earns its space because it serves a real use mode. Tone-coherence across all chrome (fernwood.md) — its placement and styling must match the surface's quiet register.",
+      "recommendation": "Mic stays — placed inside the textarea on the right edge (the iOS-native pattern users already know). Sized 30-32px, muted gray at rest, pulses warm-tan on active recording (the existing `.fn-mic-btn.recording` animation pattern is good — reuse it, don't reinvent). Critically: the mic is part of the INPUT, not part of the BUTTONS. The two buttons remain the route-choice; mic just changes how the textarea fills. The mic button is `aria-label`'d clearly; no decorative emoji-as-glyph register-leak risk because the mic glyph is functionally true (Icons earn their place — true AND useful, cross-project).",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "Latency-during-Ask is a danger zone the journey doc explicitly flags: '~1-3 seconds for classification or reply… without a clear pending state, Paul wonders if it worked.' The current Garden Guru renders `'Garden Guru is thinking…'` as a gg-turn-thinking pill. For the unified surface, the pending state needs to be MORE prominent because the buttons-then-wait-then-reply pattern is new and the user has just exited the discrete state. On Paul-mobile in outdoor sunlight, a subtle italic line at standard contrast is invisible.",
+      "user_impact": "Paul-mobile asks, sees nothing for 3 seconds (LTE + 57K-token system prompt), wonders if he tapped wrong, taps Ask again — produces a duplicate query. Worst case: he gives up before the first reply lands and reverts to Claude-on-his-phone (silent failure, Mom's-equivalent for Paul-mobile).",
+      "principle_invoked": "Nielsen 1 — Visibility of system status. Make every surface read at half-engagement (fernwood.md) — outdoor-sunlight legibility is the F9-from-the-zoom-out review specifically named example.",
+      "recommendation": "Pending state spec: (a) Immediately on tap, the button text changes to `'Asking…'` and the button styling shifts to a soft warm pulse (1.4s cycle, mid-saturation tan, NOT red/yellow/green which would violate Glyphs follow the journal voice). (b) The textarea content stays visible (don't clear it — the user can re-read their question while waiting). (c) Below the surface, the gg-conversation pane reveals with a single thinking line: `'Listening…'` (in voice — this surface is the property listening, not 'Garden Guru is thinking'). (d) At ~5s elapsed with no reply, append `'…still listening, this is a long question.'` (e) At ~10s, surface the error state honestly: `'The signal is slow today. Worth trying again in a moment.'` This is the alert-as-noticing principle in action — never 'ERROR' or 'TIMEOUT' or red chrome. Capture-path pending state is much simpler — it's optimistic-local, save lands in <100ms; the inline confirmation from F5 covers it.",
+      "effort": "medium"
+    },
+    {
+      "id": "F10",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Position-below-cards risks a sub-issue: the surface is below the 'On this slope' / 'Plants context' callouts inside the Plants card (which themselves sit at the bottom of an expanded card), below the Mammals/Wildlife tabs, below the Property card's seven callouts, below the Vehicles list. The user has to scroll past a LOT of dashboard content before they see the unified surface. On first paint, the surface is below the fold by default. Mom's bed-with-coffee scroll depth may not reach it.",
+      "user_impact": "If Mom's typical session length is 'scroll 2-3 cards in and close', the unified surface is functionally invisible to her even when she opens the dashboard daily. The surface exists but doesn't enter her habit loop because she physically doesn't reach it.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md) — the surface has to be findable, not just well-designed. Also Friction kills.",
+      "recommendation": "Two-pronged mitigation. (a) Don't move the surface back above the cards — that contradicts Paul's stated intent and is wrong for the dashboard-engagement = success criterion. (b) Add ONE quiet affordance in the dashboard strip (the 6-tile teaser at the top): the existing strip already has 4 tiles + Property = 5 visible; consider a 6th tile that's a small italic Crimson Text 'Ask or note' tile (NOT a button-styled tile) that, when tapped, smooth-scrolls to the unified surface and auto-focuses the textarea. This creates the affordance discovery path without the surface itself being above-cards. Alternative (lighter): a hover-state tooltip on the existing dashboard surface that mentions 'note or ask' is available — but this fails Friction kills (tooltips compensating for missing affordance). My recommendation is the discreet strip-tile, BUT defer the call to Paul; this is a real design decision and not obvious from the brief.",
+      "effort": "medium"
+    },
+    {
+      "id": "F11",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The surface's visual identity vs. the dashboard cards. Current Garden Guru uses `#fbfaf3` warm-tan background + `#d8d0b8` border + warm-tan ask button (gradient `#b08838 → #8a6828`). Current Quick Capture uses `#f7fbf2` cool-green background + `#c8d8b0` border + cool-green save button. Two different palettes. The unified surface needs to pick one — and the palette choice carries semantic weight. Warm-tan reads as 'speaking/reading' (paper, parchment, the Almanac form), cool-green reads as 'noticing/recording' (the journal, the property). Whichever you choose, the buttons must align to that palette OR each button can carry a hint of its register (capture = green, ask = tan — but this risks visual noise on a surface designed for restraint).",
+      "user_impact": "Visual identity is part of the surface's voice. The wrong palette pushes the surface toward chatbot or productivity-app register; the right palette makes it feel like one more piece of the dashboard.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood.md). Ornament earns its place (cross-project.md).",
+      "recommendation": "Single palette for the surface — warm-tan (`#fbfaf3` / `#d8d0b8`). Reasons: (a) The Garden Guru identity is the louder of the two surfaces being merged, and the surface now hosts both paths so it should default to the more conversational register. (b) Warm-tan reads as Almanac-form (the dual-frame identity's structural-content side), which matches the surface's both-functions nature. (c) Cool-green stays as the palette of the Field Notes CARD (the entry-history view between Property and Vehicles) — visual continuity for users who tap through to see what they saved. The buttons themselves: same warm-tan family for both, differentiated by CONTENT not COLOR. Don't paint one button green and one tan — that re-introduces the surface-routing burden visually after removing it from the architecture.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "Three error states need handling: (a) user taps Ask with empty textarea, (b) user taps Note with empty textarea, (c) sync-down state (Worker is unreachable, ObservationStore can save locally but Guru can't respond). Currently (a) is handled by `.gg-ask-btn:disabled` and (b) by `.fn-capture-save:disabled`. (c) shows in the sync-pill on the Field Notes card header, which under the new design is far away from where the user is operating.",
+      "user_impact": "Empty-input cases are handled fine — disabled buttons are clear enough. The sync-down case is where the surface can quietly fail: Paul taps Ask, the surface tries to reach the Worker, fails, and the only place the failure surfaces is in a pill on a card seven scrolls up.",
+      "principle_invoked": "Nielsen 1 — Visibility of system status. Nielsen 9 — Help users recognize, diagnose, and recover from errors (in journal voice, not error-page voice).",
+      "recommendation": "Sync state mirrors itself in two places when the unified surface is in view: the existing Field Notes card pill (don't change) and a small italic line beneath the unified surface when sync is degraded — `'Garden Guru is offline — notes still save locally and sync when the signal returns.'` Quiet, in voice, honest about state. For the capture path the sync-down case is benign (local save is fine); for the ask path, surface that gracefully — the Ask button stays enabled but the response (when tapped) is the same in-voice error line, not a spinner-to-failure.",
+      "effort": "low"
+    }
+  ],
+  "highest_stakes_design_decisions": [
+    {
+      "decision": "Collapsed-state visual identity — journal pull vs. dormant input field",
+      "stake": "Mom adoption. If this looks like a textbox, she scrolls past for life. If it looks like a piece of the dashboard with a quiet invitation, she may engage.",
+      "my_call": "Journal pull. See F1. Italic Crimson Text prompt line on a warm-tan background, both buttons visible as quiet pills, no visible textarea border until focus. The whole surface reads as one more piece of the dashboard's voice."
+    },
+    {
+      "decision": "Seeded prompts — in or out of v1",
+      "stake": "Whether Mom has any path into the surface at all on a low-attention day. The 'not knowing what to say' assumption is the most-flagged Mom risk in the research.",
+      "my_call": "IN — but in the expanded state, not the collapsed state (don't over-decorate the discrete surface). Three rotating prompts in voice, tappable to populate the textarea. See F3."
+    },
+    {
+      "decision": "Position beneath the 6 cards — keep as proposed, or revisit",
+      "stake": "Mom's Q11 success criterion (dashboard engagement) vs. Paul-mobile's save-success scroll problem.",
+      "my_call": "KEEP the position — it's right for Mom, and the dashboard-engagement metric is load-bearing per Q11. But solve the Paul-mobile scroll problem with the inline save-success affordance (F5) plus optionally a discreet strip-tile entry point (F10). The position is correct; the consequences need design solutions."
+    },
+    {
+      "decision": "Button visual weight — symmetric or asymmetric",
+      "stake": "Whether the surface accidentally re-introduces the surface-routing burden it removed by visually privileging one path.",
+      "my_call": "SYMMETRIC. Same fill, same weight, same register, same font. Capture-path button positioned first (left/top). See F2. Asymmetry would betray Paul's intent — explicit user choice means user-equal choice."
+    },
+    {
+      "decision": "Expand-on-engagement transition mechanics",
+      "stake": "Whether the surface feels alive or janky. Wrong mechanics produces either a surface that's always noisy or a surface that's surprising/unresponsive.",
+      "my_call": "Both buttons always visible at quiet weight in collapsed state; focus on textarea triggers a soft 200ms cubic-bezier height expansion + button styling brightens to active. No auto-send on either path. See F7."
+    }
+  ],
+  "open_questions_for_user": [
+    "Does the Field Notes card (the saved-entries history view between Property and Vehicles) remain as-is, or does it move/disappear in this redesign? My read is it stays — but it's not explicitly addressed in your Q10 frame and the answer affects F5 (save-success scroll) significantly.",
+    "What's your read on the strip-tile entry point (F10)? Discreet 'Ask or note' tile in the dashboard strip that scrolls-and-focuses the unified surface — useful affordance, or over-engineering against the discreet-by-default principle? My lean is yes-include-it but it's a real call.",
+    "Voice charter question for content-steward: is the capture-path button label closer to 'Note this in the journal' (anchor-noun-based) or 'Just log it' (verb-based, lighter touch)? I have a lean (the first) but you and content-steward should land it.",
+    "Phase F bench-status: this path-eval assumes images are out for v1. If you're revisiting Phase F post-rubric (the rubric explicitly surfaces this), the unified surface design changes — a third button or an inline camera affordance changes the affordance hierarchy. Worth a separate path-eval if you reopen.",
+    "Q4 wedge calibration: Mom is already a Claude+photos power-user. Without Phase F, the unified surface's pull-for-Mom is *deeper property context* + *persistent personal library* + *Fernwood-specific UI tied to the cards she reads anyway*. Does the surface design need to MAKE THAT WEDGE VISIBLE somehow — e.g., a single italic line beneath the empty state that signals 'this knows the property'? Tension with discreet-by-default. Worth a content-steward thought-pass."
+  ],
+  "follow_up_research_suggested": [
+    "Mom-direct conversation post-launch (already in the rubric's close-the-loop column): show her the unified surface in three states (collapsed-empty, expanded-empty-with-seeded-prompts, expanded-with-typed-question). Ask which she'd engage with. This is the lowest-cost validation move for the F1+F3 calls and converts both findings from inferred to validated.",
+    "Engagement instrumentation: per the rubric's Q11 reframe, the load-bearing signal is dashboard-opens — but the unified surface's engagement (vs. dashboard-only) is the gradient signal that tells us the surface is doing its job. The metrics-capture punch-list item (already scoped 2026-05-20) needs to log: surface-expanded events, capture-path submits, ask-path submits, per-session per-device. Otherwise this design ships and we have no idea if it landed.",
+    "Voice-mode usage instrumentation: how often does Paul-mobile actually use voice on this surface vs. typing? The current mic stays under F8 but if real usage data shows <5% mic invocations at 90 days, the affordance can simplify in a future iteration. Useful data, not blocking."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Discreet ≠ dormant — quiet surfaces still earn engagement through voice and visual identity",
+      "scope": "cross-project",
+      "rationale": "F1 is the canonical version of this: a 'minimalist' design instinct collapses easily into a dormant-input-field look that reads as broken rather than quiet. The fix is to give the at-rest state journal-pull aesthetics (warm palette, italic Crimson Text prompt, quiet pill buttons visible at the edges of their work) rather than a placeholder-in-a-bordered-box. This pattern shows up on the Bolo Boys site too — restrained doesn't mean dormant. Worth testing across both projects before promoting to canon, but the seed is clear from this review."
+    },
+    {
+      "principle": "Explicit user-routing requires symmetric affordance weight",
+      "scope": "cross-project",
+      "rationale": "F2 articulates this: when a UI gives the user an explicit choice between two paths (vs. AI-classifying their intent), the two paths must be co-equal in visual weight, register, and copy. Asymmetric weight silently re-introduces the surface-routing burden the explicit-choice design removed. This generalizes wherever a system asks the user 'which of these two things do you want?' — Bolo Boys booking forms, future financial-dashboard filters, etc. Worth promoting after one confirming case from another project."
+    },
+    {
+      "principle": "Save-success at the surface, not at the destination",
+      "scope": "cross-project",
+      "rationale": "F5 is the load-bearing case. When the data lands somewhere FAR from where the user entered it, the affordance for 'it landed' has to live AT THE INPUT, not at the destination. The Field Notes card showing the entry isn't sufficient feedback when the input is seven scrolls away. This generalizes to any form that posts to a list elsewhere on the page. Worth testing on Bolo Boys email-signup or future Fernwood project surfaces before promotion."
+    }
+  ]
+}
