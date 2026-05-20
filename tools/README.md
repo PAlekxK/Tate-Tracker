@@ -1,6 +1,6 @@
 # Tools
 
-Helper scripts for maintaining Tate Tracker data files outside of the browser.
+Helper scripts for maintaining Fernwood data files outside of the browser.
 
 ## `record-daily-rollup.mjs` — accumulate property weather history
 

@@ -1,4 +1,4 @@
-# Tate Tracker — Review Session
+# Fernwood — Review Session
 
 **Date:** 2026-05-08
 **Format:** Live walkthrough. Paul directs, consultant takes notes.

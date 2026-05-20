@@ -1,6 +1,6 @@
-# Tate Tracker — User Research
+# Fernwood — User Research
 
-This directory holds user-research artifacts for Tate Tracker. They are written by the `user-researcher` agent (`~/.claude/agents/user-researcher.md`) and consumed by other agents — especially the `ux-expert`, which pulls from here to ground its reviews in audience.
+This directory holds user-research artifacts for Fernwood. They are written by the `user-researcher` agent (`~/.claude/agents/user-researcher.md`) and consumed by other agents — especially the `ux-expert`, which pulls from here to ground its reviews in audience.
 
 ## What's here
 

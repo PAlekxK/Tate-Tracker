@@ -1,4 +1,4 @@
-# Tate Tracker — Research Resources
+# Fernwood — Research Resources
 
 A curated library of publications, organizations, and live data sources relevant to **282 Church Mountain Road, Jasper, GA** — assembled for the dashboard's "support local wildlife and plants, especially indigenous" goal.
 
@@ -13,7 +13,7 @@ Each entry includes:
 
 A few discoveries worth highlighting before the categorized list:
 
-1. **The property's namesake history is real and rich.** Lake Sequoyah is in Pickens County at Tate Mountain Estates (~6.2 miles from Jasper town center; **~0.3 mi from the property** — the property sits effectively *in* Tate Mountain Estates), 38 acres, built around 1929 by Col. Sam Tate. The property's "Tate Tracker" name maps directly onto a piece of local history — there is genuine narrative material here for the Property card.
+1. **The property sits in genuinely rich local history.** Lake Sequoyah is in Pickens County at Tate Mountain Estates (~6.2 miles from Jasper town center; **~0.3 mi from the property** — the property sits effectively *in* Tate Mountain Estates), 38 acres, built around 1929 by Col. Sam Tate. There is genuine narrative material here for the Property card.
 
 2. **You're on Cherokee land.** Pickens County was Cherokee Nation territory from 1793 until the 1838 Indian Removal. Talking Rock Creek (~6 miles from the property) was a major Cherokee settlement. The "indigenous plants" language in your stated goal hits differently with this context — and the EBCI's modern Center for Cherokee Plants gives you a direct, non-appropriative way to engage the heritage.
 
@@ -620,7 +620,7 @@ Concrete one-time actions, ordered by friction:
 
 ## Category 5: Fishing & aquatic (Lake Sequoyah / regional)
 
-> **Note on Lake Sequoyah identity:** Confirmed — Sequoyah Lake is a 38-acre reservoir at Tate Mountain Estates in Pickens County (~6.2 mi from Jasper town center; **~0.3 mi from the property**, ~2,800 ft elevation), built by Col. Sam Tate around 1929. The property's "Tate Tracker" name has a real local-historical anchor here. Public-access status is unclear; appears HOA/private — confirm before publishing fishing-regulation content.
+> **Note on Lake Sequoyah identity:** Confirmed — Sequoyah Lake is a 38-acre reservoir at Tate Mountain Estates in Pickens County (~6.2 mi from Jasper town center; **~0.3 mi from the property**, ~2,800 ft elevation), built by Col. Sam Tate around 1929. The property has a real local-historical anchor here. Public-access status is unclear; appears HOA/private — confirm before publishing fishing-regulation content.
 
 ### Georgia DNR WRD — Trout Fishing & Stocking
 **URL:** https://georgiawildlife.com/Fishing/Trout
