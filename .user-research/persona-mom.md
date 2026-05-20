@@ -42,7 +42,7 @@ The user whose adoption decides whether Tate Tracker is worth building at all. J
 
 ## Definition of success
 
-`[inferred]` — "I open it when I want to, and I'm glad I did." Concretely: she finds herself reaching for it unprompted — to check what's happening this month, to identify a bird, to remember which plant gets pruned when — and it pays off without making her feel managed.
+`[validated, inline]` — "I open the **dashboard** when I want to, and I'm glad I did." The bar is dashboard engagement — she finds herself reaching for it unprompted (to check what's happening this month, to identify a bird, to remember which plant gets pruned when) and it pays off without making her feel managed. **Garden Guru engagement is upside, not the bar**; she doesn't need to use the assistant surface for the project to be working for her. The outcome ladder is: dashboard-opened-regularly (pass) → Guru-tried-once (gradient up) → Guru-becomes-pattern (gradient up further). Failure is dashboard-not-opened, full stop. (Source: Paul direct 2026-05-20, Garden Guru rubric interview Q11: *"if she uses the dashboard but doesn't use the guru, that's still a success. And it's a failure either way if she doesn't open the dashboard."*)
 
 ## Anti-persona
 
@@ -53,6 +53,8 @@ The user whose adoption decides whether Tate Tracker is worth building at all. J
 - `2026-05-11: [inferred] — Paul direct — Mom likely uses the app in bed with morning coffee (waking up) or at night (winding down), looking for "something interesting to read." First concrete when/where for her solo use. Off-property, phone, leisure mode, low-attention.`
 - `2026-05-11: [inferred] — Paul direct — A simple, memorable password is acceptable; low-friction auth is the real constraint. (Supersedes earlier "no password / Mom stops" assumption — contradicted by Paul this session.)`
 - `2026-05-11: [inferred] — Paul direct — Mom is not gun shy about tech.` *(Re-sourced: the literal phrase "not gun shy" was Paul's, used in reference to plants/pruning. The Mom-and-tech read is the user-researcher's synthesis from Paul's broader framing of Mom as a real user, not a technophobe.)*
+- `2026-05-20: [validated, inline] — Paul direct, Garden Guru rubric interview Q11 — dashboard engagement is the load-bearing success metric; Garden Guru engagement is gradient, not gate. Mom-uses-dashboard-without-Guru = success; Mom-stops-opening-dashboard = failure regardless of Guru usage.`
+- `2026-05-20: [validated, inline] — Paul direct, Garden Guru rubric interview Q4 — Mom is already a Claude power-user with the photos-for-ID workflow. She has named "building up an understanding with Claude of the context specific to where our home is and the wildlife and weather there" as the difference maker. This makes Garden Guru a competitor to a tool she's already happy with, not a tool she's reaching for unprompted.`
 - `2026-05-08: [validated] — Paul direct, project CLAUDE.md, foundation — Mom is the make-or-break user; if she doesn't adopt, the project fails.`
 - `2026-05-08: [validated] — Paul direct, project CLAUDE.md — Tone must be field-journal, not task-manager; urgency language ("17 actions due," "3 alerts," "overdue") is wrong for this project.`
 - `2026-05-07: [validated] — Paul direct — Photo aesthetic is naturalistic in-habitat shots; museum-specimen white-background photos are wrong.`

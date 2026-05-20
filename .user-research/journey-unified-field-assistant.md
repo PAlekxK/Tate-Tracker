@@ -101,6 +101,7 @@ The most open journey of the three. **Whether Mom uses the assistant at all (vs.
 ### Pain points (Mom)
 - `[inferred]` — **The empty state is the whole game.** For Paul, the empty-state copy is microcopy; for Mom it's the gate. If she doesn't read the empty state as an invitation in her language, she never becomes a user of this surface. Brief explicitly flags microcopy in content-steward's section.
 - `[inferred]` — **Voice and tone matter more here than functionality.** Mom is unlikely to push the assistant on accuracy or stress-test it. She'll engage if it feels like the rest of the dashboard, and disengage quietly if it doesn't. The failure mode is silent.
+- `[validated, inline]` — **Cold/clinical voice on an uncertain-Mom question.** This is a distinct failure from generic voice drift. Even when the assistant stays in field-journal register, a purely observational reply lands as detached when Mom's question carries trepidation about doing right by the property. The fix is a tonal flex toward acknowledgment of shared stewardship — not reassurance, not chatbot-cute warmth, but recognition that the reader is figuring this out alongside the journal. (Source: Paul direct 2026-05-20, Garden Guru rubric interview Q6: *"a mentor that also cares about the well-being and beauty of all the plants and everything else we have at the property and even our equipment is what will make a real difference of connection."*)
 - `[inferred]` — **No prompts, no follow-ups, no "did this help?" affordances.** The bed/coffee context is leisure mode. Any UI that asks her to engage further pushes against the pull. The assistant should be sticky only on her initiative.
 - `[assumption]` — **Not knowing what to say.** A natural-language input box presupposes the user has a formed question. For a bed-with-coffee glance, the user may have *curiosity* but no formed question. Affordance opportunity: see Opportunities below.
 
@@ -111,6 +112,8 @@ The most open journey of the three. **Whether Mom uses the assistant at all (vs.
 
 ### Emotional curve summary (Mom)
 Mostly flat-positive (the existing dashboard pattern). The assistant adds a possible spike up (great answer in voice) or a possible quiet drop-out (off-voice answer means she stops trying, doesn't tell anyone). The asymmetry of upside vs. downside is the key research signal.
+
+**Reframed 2026-05-20 (Q11):** the journey's outcome ladder is **dashboard-opened-regularly (pass) → Guru-tried-once (gradient up) → Guru-becomes-pattern (gradient up further)**. *Failure is dashboard-not-opened, full stop.* Mom never engaging the assistant but continuing to open the dashboard is success, not gradient failure. The journey above should not be read as binary pass/fail on Mom-engages-Guru.
 
 ---
 
