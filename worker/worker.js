@@ -470,6 +470,73 @@ async function handleChat(request, env) {
   });
 }
 
+// ---- Metrics — engagement event capture ----
+// POST /api/metrics — append a batch of events to today's (UTC) daily key.
+// GET  /api/metrics?start=YYYY-MM-DD&end=YYYY-MM-DD — read batches in range.
+//
+// Privacy: stores only structural events (type + ids + timestamps + device class).
+// Never accepts observation bodies or conversation content; the client is the
+// source of truth for what it sends. Keys mirror the cost-log:YYYY-MM-DD shape.
+
+async function handleMetrics(request, env, url) {
+  if (request.method === "POST") {
+    let body;
+    try { body = await request.json(); }
+    catch (e) { return json({ error: "bad-json" }, 400); }
+    const events = (body && Array.isArray(body.events)) ? body.events : null;
+    const device = (body && body.device && typeof body.device === "object") ? body.device : null;
+    if (!events || !events.length) return json({ error: "missing-events" }, 400);
+    if (events.length > 200) return json({ error: "too-many-events", limit: 200 }, 400);
+
+    const today = new Date().toISOString().slice(0, 10);
+    const key = `metrics:${today}`;
+    const batch = {
+      receivedAt: new Date().toISOString(),
+      device,
+      events,
+    };
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = [];
+    if (existing) {
+      try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; }
+      catch (e) { arr = []; }
+    }
+    arr.push(batch);
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+    return json({ stored: events.length, total: arr.length });
+  }
+
+  if (request.method === "GET") {
+    const start = url.searchParams.get("start");
+    const end = url.searchParams.get("end");
+    if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end)) {
+      return json({ error: "bad-date-format" }, 400);
+    }
+    const startMs = Date.parse(start + "T00:00:00Z");
+    const endMs = Date.parse(end + "T00:00:00Z");
+    if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) {
+      return json({ error: "bad-date-range" }, 400);
+    }
+    const dates = [];
+    for (let t = startMs; t <= endMs; t += 86400000) {
+      dates.push(new Date(t).toISOString().slice(0, 10));
+    }
+    if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
+    const days = {};
+    for (const date of dates) {
+      const raw = await env.OBSERVATIONS.get(`metrics:${date}`);
+      if (raw) {
+        try { days[date] = JSON.parse(raw); }
+        catch (e) { /* skip malformed */ }
+      }
+    }
+    return json({ range: { start, end }, days });
+  }
+
+  return json({ error: "method-not-allowed" }, 405);
+}
+
 // ---- Router ----
 
 export default {
@@ -484,7 +551,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -501,6 +568,7 @@ export default {
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env);
     if (url.pathname === "/api/classify")   return handleClassify(request, env);
     if (url.pathname === "/api/chat")       return handleChat(request, env);
+    if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },

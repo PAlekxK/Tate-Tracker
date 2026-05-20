@@ -3524,7 +3524,13 @@ function escapeHtml(str) {
 // CARD COLLAPSE/EXPAND
 // =========================
 document.querySelectorAll(".main-card-header").forEach(h => {
-  h.addEventListener("click", () => h.parentElement.classList.toggle("expanded"));
+  h.addEventListener("click", () => {
+    const card = h.parentElement;
+    card.classList.toggle("expanded");
+    if (card.classList.contains("expanded") && typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("card_expanded", { cardId: card.id || "" });
+    }
+  });
 });
 
 // =========================
@@ -7904,6 +7910,127 @@ const WorkerAPI = (function () {
   return { call, isConfigured };
 })();
 
+// =========================
+// METRICS — engagement event capture (2026-05-20)
+// =========================
+// Buffers structural events to localStorage; flushes to /api/metrics on
+// session boundaries (visibilitychange→hidden, beforeunload, 60s timer).
+// Privacy: structural events only — no field-note bodies or conversation
+// content. See feedback_no_ai_on_capture.md in auto-memory.
+
+const MetricsCollector = (function () {
+  const STORAGE_KEY = "tateTracker.metrics.v1";
+  const EXCLUDE_KEY = "tateTracker.metricsExclude";
+  const FLUSH_INTERVAL_MS = 60 * 1000;
+  const MAX_BUFFER = 200;
+  const sessionId = "s-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36);
+  const sessionStartMs = Date.now();
+  let flushing = false;
+  let sessionEndFired = false;
+
+  function isExcluded() {
+    try { return localStorage.getItem(EXCLUDE_KEY) === "1"; }
+    catch (e) { return false; }
+  }
+  function deviceClass() {
+    const ua = navigator.userAgent || "";
+    if (/iPad/.test(ua)) return "tablet";
+    if (/Android/.test(ua) && !/Mobile/.test(ua)) return "tablet";
+    if (/iPhone|Android|Mobile/.test(ua)) return "mobile";
+    return "desktop";
+  }
+  function deviceBlock() {
+    return {
+      ua: navigator.userAgent || "",
+      deviceClass: deviceClass(),
+      viewport: window.innerWidth + "x" + window.innerHeight,
+      language: navigator.language || "",
+      tzOffset: new Date().getTimezoneOffset(),
+    };
+  }
+  function loadBuffer() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
+  }
+  function saveBuffer(arr) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+    catch (e) { /* quota / privacy mode — skip silently */ }
+  }
+  function track(eventType, fields) {
+    if (isExcluded() || !eventType) return;
+    const event = Object.assign(
+      { type: eventType, ts: new Date().toISOString(), sessionId },
+      fields || {}
+    );
+    const buf = loadBuffer();
+    buf.push(event);
+    if (buf.length > MAX_BUFFER) buf.splice(0, buf.length - MAX_BUFFER);
+    saveBuffer(buf);
+  }
+  async function flush() {
+    if (flushing || isExcluded() || !WorkerAPI.isConfigured()) return;
+    const buf = loadBuffer();
+    if (!buf.length) return;
+    flushing = true;
+    const sending = buf.slice();
+    try {
+      await WorkerAPI.call("POST", "/api/metrics", { events: sending, device: deviceBlock() });
+      // Drop only what we sent — any events queued during the in-flight call stay.
+      const after = loadBuffer();
+      saveBuffer(after.slice(sending.length));
+    } catch (e) { /* silent — events stay buffered for next attempt */ }
+    flushing = false;
+  }
+  function flushSync() {
+    // Best-effort flush during page unload. keepalive lets the request complete
+    // after the page goes away. Optimistically clear buffer; accept rare loss.
+    if (isExcluded()) return;
+    let cfg;
+    try { cfg = JSON.parse(localStorage.getItem("tateTracker.sync.v1") || "{}"); }
+    catch (e) { return; }
+    if (!cfg.workerUrl || !cfg.token) return;
+    const buf = loadBuffer();
+    if (!buf.length) return;
+    try {
+      fetch(cfg.workerUrl + "/api/metrics", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Tate-Token": cfg.token },
+        body: JSON.stringify({ events: buf, device: deviceBlock() }),
+        keepalive: true,
+      }).catch(() => {});
+      saveBuffer([]);
+    } catch (e) { /* skip */ }
+  }
+  function fireSessionEnd() {
+    if (sessionEndFired) return;
+    sessionEndFired = true;
+    const duration = Math.round((Date.now() - sessionStartMs) / 1000);
+    track("session_end", { durationSec: duration });
+    flushSync();
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      // Opportunistic flush; session_end fires on beforeunload (or via this path
+      // if beforeunload doesn't get to run — iOS Safari).
+      flushSync();
+    }
+  });
+  window.addEventListener("beforeunload", fireSessionEnd);
+  window.addEventListener("pagehide", fireSessionEnd);
+
+  setInterval(flush, FLUSH_INTERVAL_MS);
+  // Drain anything from a prior session before firing this session's first event.
+  flush();
+  track("session_start", {});
+
+  return { track };
+})();
+
 // ---- AirNow AQI chip (Phase C2) ----
 async function fetchAirNowAQI() {
   if (!WorkerAPI.isConfigured()) return;
@@ -8544,10 +8671,14 @@ async function fnSaveInlineEntry() {
     speciesId: null,
     speciesName: null,
     body,
-    classifyPending: WorkerAPI.isConfigured(),
+    classifyPending: false,
   };
   // 1. Save instantly through the store (local + Worker upsert).
   await ObservationStore.save(entry);
+  if (typeof MetricsCollector !== "undefined") {
+    const wasVoice = (typeof VoiceCapture !== "undefined" && VoiceCapture.isRecording());
+    MetricsCollector.track("field_note_saved", { inputMode: wasVoice ? "voice" : "text" });
+  }
   // 2. Clear the composer and re-render so the entry appears immediately.
   ta.value = "";
   const saveBtn = document.getElementById("fn-capture-save");
@@ -8557,19 +8688,9 @@ async function fnSaveInlineEntry() {
   const card = document.getElementById("card-fieldnotes");
   if (card && !card.classList.contains("expanded")) card.classList.add("expanded");
   renderFieldNotes();
-  // 4. Fire classification in the background — failures are silent.
-  if (entry.classifyPending) {
-    classifyEntry(body, isoToday).then(async result => {
-      const updated = { ...entry, classifyPending: false };
-      if (result) {
-        updated.category = result.category;
-        updated.speciesId = result.speciesId;
-        updated.speciesName = result.speciesName;
-      }
-      await ObservationStore.save(updated);
-      renderFieldNotes();
-    });
-  }
+  // Background classify call removed 2026-05-20 per no-AI-on-capture principle.
+  // Worker /api/classify endpoint + classifyEntry() function kept dormant for
+  // possible reuse by future batch roll-up (Phase G). See feedback_no_ai_on_capture.md.
 }
 
 // ---- Sync settings modal ----
@@ -8836,9 +8957,25 @@ const GardenGuru = (function () {
 
   async function ask(text) {
     text = (text || "").trim();
-    if (!text || isWaiting || capReached()) return;
+    if (!text || isWaiting) return;
+    if (capReached()) {
+      if (typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track("conversation_capped", { conversationId });
+      }
+      return;
+    }
+    const isFirstTurn = !conversationId;
     if (!conversationId) conversationId = newId();
+    if (isFirstTurn && typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("conversation_started", { conversationId });
+    }
     turns.push({ role: "user", content: text, ts: new Date().toISOString() });
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("conversation_turn", {
+        conversationId,
+        turnIndex: userTurnCount() - 1,
+      });
+    }
     isWaiting = true;
     emit();
     try {
