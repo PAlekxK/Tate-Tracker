@@ -21,7 +21,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Conversation browse UI.** KV has all conversations; no UI to browse them yet. v2.
 - **Streaming responses.** Non-streaming v1; add streaming (~30 lines client) if turns feel laggy on LTE.
 - **Tool-use migration.** System-prompt stuffing of the ~57K-token digest is fine until digest >80K OR Phase G observations >50 entries.
-- **Naming pass on the "Property card"** — open thread from content-steward (see `project_tate_tracker_tone.md` memory). The card has grown beyond "real-estate property" framing; a Sand-County-Almanac-fluent name might fit better.
+- ~~**Naming pass on the "Property card"**~~ ✓ Done 2026-05-20. Card renamed "The Place Itself" → "Fernwood" (dashboard strip tile + main card title). The 2026-05-19 property rename gets its UI payoff in the card that holds the property's identity content (history, ecology, sky, watershed). The Fernwood-names-the-app + Fernwood-names-the-card collision was taken as a feature, not a confusion — the card *is* the property identity layer. Icon (🏔️) and subtitle ("Elevation · Microclimate · Soils") left as-is; both worth a follow-up pass when the next surface review runs, since the card's content now sprawls past elevation/microclimate/soils into Cherokee land, marble heritage, watershed, sky, etc.
 
 **Where the design trail lives** (for any next-session expert review):
 - `PHASE_E_BRIEF.md` — full feature brief (the input to the 5-expert review)
