@@ -8065,11 +8065,23 @@ function renderWildlifeSummary() {
 
 // Wire plant view tabs
 document.getElementById("plant-view-tabs").querySelectorAll(".plant-view-tab").forEach(btn =>
-  btn.addEventListener("click", () => switchPlantView(btn.dataset.plantView)));
+  btn.addEventListener("click", () => {
+    const view = btn.dataset.plantView;
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("subtab_switched", { card: "plants", subtab: view });
+    }
+    switchPlantView(view);
+  }));
 
 // Wire wildlife tabs
 document.querySelectorAll(".wildlife-tab").forEach(btn =>
-  btn.addEventListener("click", () => switchWildlifeTab(btn.dataset.wildlifeTab)));
+  btn.addEventListener("click", () => {
+    const tab = btn.dataset.wildlifeTab;
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("subtab_switched", { card: "wildlife", subtab: tab });
+    }
+    switchWildlifeTab(tab);
+  }));
 
 // =========================
 // INIT
@@ -8150,6 +8162,7 @@ const WorkerAPI = (function () {
 const MetricsCollector = (function () {
   const STORAGE_KEY = "tateTracker.metrics.v1";
   const EXCLUDE_KEY = "tateTracker.metricsExclude";
+  const DEVICE_ID_KEY = "tateTracker.deviceId";
   const FLUSH_INTERVAL_MS = 60 * 1000;
   const MAX_BUFFER = 200;
   const sessionId = "s-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36);
@@ -8161,6 +8174,21 @@ const MetricsCollector = (function () {
     try { return localStorage.getItem(EXCLUDE_KEY) === "1"; }
     catch (e) { return false; }
   }
+  // Stable per-device ID — generated once per browser localStorage; survives
+  // UA churn across browser updates. Enables clean retrospective per-device
+  // clustering when Paul builds the lookup table later.
+  function deviceId() {
+    try {
+      let id = localStorage.getItem(DEVICE_ID_KEY);
+      if (!id) {
+        id = "d-" + Math.random().toString(36).slice(2, 10) + "-" +
+             Math.random().toString(36).slice(2, 10) + "-" +
+             Date.now().toString(36);
+        localStorage.setItem(DEVICE_ID_KEY, id);
+      }
+      return id;
+    } catch (e) { return "d-unknown"; }
+  }
   function deviceClass() {
     const ua = navigator.userAgent || "";
     if (/iPad/.test(ua)) return "tablet";
@@ -8170,6 +8198,7 @@ const MetricsCollector = (function () {
   }
   function deviceBlock() {
     return {
+      deviceId: deviceId(),
       ua: navigator.userAgent || "",
       deviceClass: deviceClass(),
       viewport: window.innerWidth + "x" + window.innerHeight,
@@ -8910,8 +8939,12 @@ function renderFieldNotes() {
   body.querySelectorAll(".fn-filter-chip").forEach(chip => {
     chip.addEventListener("click", () => {
       const filter = chip.getAttribute("data-filter");
-      if (filter) {
+      if (filter && filter !== fnFilter) {
+        const previous = fnFilter;
         fnFilter = filter;
+        if (typeof MetricsCollector !== "undefined") {
+          MetricsCollector.track("filter_changed", { from: previous, to: filter, surface: "almanac" });
+        }
         renderFieldNotes();
       }
     });
@@ -8922,8 +8955,15 @@ function renderFieldNotes() {
       if (!id) return;
       const target = allEntries.find(e => e.id === id);
       if (!target) return;
-      const updated = Object.assign({}, target, { isStarred: !target.isStarred });
+      const newStarred = !target.isStarred;
+      const updated = Object.assign({}, target, { isStarred: newStarred });
       await ObservationStore.save(updated);
+      if (typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track(newStarred ? "entry_starred" : "entry_unstarred", {
+          entryId: id,
+          kind: target.kind || "note",
+        });
+      }
       renderFieldNotes();
     });
   });
@@ -9456,6 +9496,9 @@ const UnifiedInput = (function () {
         if (prompt) {
           ta.value = prompt;
           ta.focus();
+          if (typeof MetricsCollector !== "undefined") {
+            MetricsCollector.track("seeded_prompt_used", { prompt });
+          }
           updateState();
         }
       });
