@@ -382,7 +382,9 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Spotted_Salamander,_Cantley,_Quebec.jpg"
       },
-      "srelUrl": "https://srelherp.uga.edu/salamanders/spotted-salamander/"
+      "srelUrl": "https://srelherp.uga.edu/salamanders/spotted-salamander/",
+      "noVocalization": true,
+      "voiceNote": "Silent — salamanders do not vocalize."
     },
     {
       "id": "marbled-salamander",
@@ -417,7 +419,9 @@
         "license": "CC BY 2.0",
         "url": "https://commons.wikimedia.org/wiki/File:Marbled_salamander_(14367751333).jpg"
       },
-      "srelUrl": "https://srelherp.uga.edu/salamanders/marbled-salamander/"
+      "srelUrl": "https://srelherp.uga.edu/salamanders/marbled-salamander/",
+      "noVocalization": true,
+      "voiceNote": "Silent — salamanders do not vocalize."
     },
     {
       "id": "red-backed-salamander",
@@ -462,7 +466,9 @@
         "url": "https://commons.wikimedia.org/wiki/File:Adult_Female_Plethodon_cinereus.jpg"
       },
       "taxonomicNote": "Likely candidates at Church Mountain Road (~2,959 ft, Pickens Co., GA): Plethodon serratus (Southern Red-backed) is the most plausible Blue Ridge species at this elevation; P. cinereus (Northern Red-backed) is at the far southwestern edge of its range and unlikely here; the Southern Appalachian Salamander complex (P. teyahalee / P. metcalfi) is also possible. Hand-capture and consult Jensen et al., Amphibians and Reptiles of Georgia, for definitive ID.",
-      "srelUrl": "https://srelherp.uga.edu/salamanders/"
+      "srelUrl": "https://srelherp.uga.edu/salamanders/",
+      "noVocalization": true,
+      "voiceNote": "Silent — salamanders do not vocalize."
     },
     {
       "id": "slimy-salamander",
@@ -505,7 +511,9 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Plethodon_glutonosus.jpg"
       },
-      "srelUrl": "https://srelherp.uga.edu/salamanders/slimy-salamander/"
+      "srelUrl": "https://srelherp.uga.edu/salamanders/slimy-salamander/",
+      "noVocalization": true,
+      "voiceNote": "Silent — salamanders do not vocalize."
     },
     {
       "id": "two-lined-salamander",
@@ -547,7 +555,9 @@
         "license": "CC BY 2.0",
         "url": "https://commons.wikimedia.org/wiki/File:Northern_Two-lined_Salamander_Eurycea_bislineata.jpg"
       },
-      "srelUrl": "https://srelherp.uga.edu/salamanders/southern-two-lined-salamander/"
+      "srelUrl": "https://srelherp.uga.edu/salamanders/southern-two-lined-salamander/",
+      "noVocalization": true,
+      "voiceNote": "Silent — salamanders do not vocalize."
     }
   ],
   "seasonalCalendar": {
