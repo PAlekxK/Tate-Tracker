@@ -1905,6 +1905,126 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_white_flower.jpg"
       }
+    },
+    {
+      "id": "endless-summer-pop-star-hydrangea",
+      "name": "Pop Star Endless Summer Reblooming Hydrangea",
+      "scientificName": "Hydrangea macrophylla 'NCHA3'",
+      "emoji": "🌸",
+      "guide": "The Pop Star hydrangea is a compact reblooming bigleaf that produces abundant lacey blue or pink mophead flowers on both old and new wood from early summer through fall. The reblooming habit is the defining trait — even if a late spring frost damages old-wood flower buds, new buds develop and bloom through the growing season. Flower color is soil pH dependent: acidic soils (4.5–5.5) yield blue; alkaline soils (above 7.0) yield pink. At Church Mountain Road's native pH, expect blue flowers without amendment. Low-maintenance, pollinator magnet, electric color in the landscape.",
+      "currentSeasonNote": "Late May at Church Mountain Road — the plant is leafed out and flower buds are swelling. First bloom should emerge in 2–3 weeks (early-to-mid June at ~2,959 ft elevation, about a week later than valley plants). Check for emerging buds on old wood from last season. If any shoots show frost damage from a late freeze, do not cut them back — new buds will develop and bloom on new wood through summer. Keep consistently watered as active growth accelerates.",
+      "soilNotes": "Thrives in Hayesville/Cecil/Pacolet soils at Church Mountain Road. The native acidic pH (4.5–5.5) is ideal for blue flowers — no lime amendment needed. Bigleaf hydrangeas demand moist, well-drained soil rich in organic matter. Amend the planting hole generously with compost at establishment. Avoid low spots with standing water or heavy clay subsoil that stays wet in winter — root rot is the enemy. On flat areas at the property where clay Bt argillic subsoil impedes drainage, use a raised or bermed bed position.",
+      "aspectPreference": "Part sun to part shade. East-facing positions with morning sun and afternoon shade are ideal at Church Mountain Road — afternoon summer sun can scorch leaves and stress the plant, reducing bloom. North-facing exposures work but may reduce flowering by 20–30%. Avoid hot south or west exposures without supplemental irrigation during July–September dry stretches. The property's east-facing mid-slope positions are textbook hydrangea habitat.",
+      "frostSensitivity": "Hardy to Zone 4 overall, but old-wood flower buds are vulnerable to late spring frosts. At ~2,959 ft elevation, the May 1–21 window is the critical frost-risk period for buds on last year's growth — a real concern at Church Mountain Road. The reblooming genetics mean the plant will still flower on new wood even if old-wood buds are lost, but the first bloom flush may be delayed or reduced. Protect with frost cloth during late spring freeze events if possible, or site in the thermal belt mid-slope position where frost risk is slightly lower than in hollows.",
+      "care": {
+        "prune": {
+          "months": [
+            1,
+            2
+          ],
+          "peakWindow": "Mar — after last hard freeze, before bud swell",
+          "narrow": true,
+          "description": "Prune conservatively in late winter (Feb–early Mar, before bud swell). Remove only clearly dead wood (brown, dried stems with no live buds). Do not cut back healthy stems as they carry the first bloom buds. At Church Mountain Road elevation, last hard freeze typically occurs around mid-April, so hold off major pruning until late February to March to avoid hitting it. After the first bloom flush (late June–July), lightly deadhead spent flower clusters and remove any weak or crossing stems. Full renovation cuts (to near ground level) can be done in late winter every 3–4 years to rejuvenate old plants, accepting one season of reduced bloom."
+        },
+        "propagate": {
+          "months": [
+            5,
+            6
+          ],
+          "peakWindow": "Jun–Jul — softwood / semi-ripe stem cuttings",
+          "narrow": false,
+          "description": "Take 4–5 inch tip cuttings from non-flowering stems in early summer (Jun–Jul). Remove lower leaves, dip in rooting hormone, and stick in a perlite/peat mix. Keep shaded and consistently moist. Rooting takes 4–6 weeks. The Pop Star cultivar may be protected by plant patents — check before propagating for distribution."
+        },
+        "fertilize": {
+          "months": [
+            2,
+            3,
+            5
+          ],
+          "peakWindow": "Mar — early spring; May — pre-bloom",
+          "narrow": false,
+          "description": "Apply a balanced slow-release fertilizer (e.g., 10-10-10 or azalea/rhododendron formulation) in early spring (Mar) as growth begins. A second lighter application in May before bloom promotes strong flower development. Avoid fertilizing after July — late-season nitrogen promotes soft growth more susceptible to frost damage. At Church Mountain Road's native soil pH, the azalea-specific formulations are ideal as they include micronutrients suited to acidic mountain soils."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Bigleaf hydrangeas are among the most moisture-demanding landscape shrubs. Water deeply 2–3 times per week during hot dry stretches (June–September). Morning watering is preferred; avoid wetting foliage in the evening. Mulch 2–3 inches around the base to retain moisture and keep roots cool. At Church Mountain Road, the cooler mountain climate and higher rainfall (estimated 62–68 in/yr at elevation) reduce stress compared to lowland sites, but supplemental water is still critical during the July–August dry window when afternoon thunderstorms can be sporadic."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — landscape shrub."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "powdery-mildew-summer",
+              "label": "Powdery mildew",
+              "months": [
+                6,
+                7,
+                8,
+                9
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "White powdery coating on leaf surfaces during warm humid weather — common in late summer at Church Mountain Road when RH climbs to 70–90%. Primarily cosmetic but worth managing. Improve air circulation around the plant. Potassium bicarbonate or neem oil spray for control if severe. Avoid overhead watering — wet foliage in evening promotes the disease."
+            },
+            {
+              "id": "botrytis-blight",
+              "label": "Botrytis blight",
+              "months": [
+                3,
+                4,
+                9,
+                10
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Gray fuzzy mold on flowers and buds during cool, damp weather — spring (March–April) and fall (September–October) are peak windows at this elevation. Remove and dispose of affected flower heads. Improve air circulation. Fungicide treatment rarely needed in landscape settings."
+            },
+            {
+              "id": "late-frost-bud-damage",
+              "label": "Late frost old-wood bud damage",
+              "months": [
+                3,
+                4,
+                5
+              ],
+              "peakWindow": "Apr–early May — critical watch period at ~2,959 ft elevation",
+              "narrow": true,
+              "description": "Old-wood flower buds are vulnerable to late spring frosts. At Church Mountain Road, check the 10-day forecast in April and early May. When a hard frost (<28°F) is predicted, consider covering with frost cloth or old bedsheets overnight. Even with old-wood bud loss, the reblooming genetics ensure strong bloom on new wood later in the season — this is the insurance policy built into the variety."
+            }
+          ]
+        }
+      },
+      "photo": "images/plants/endless-summer-pop-star-hydrangea.jpg",
+      "attribution": {
+        "source": "Phase F submission",
+        "author": "user",
+        "license": "Property record",
+        "url": null,
+        "submittedAt": "2026-05-21T18:45:30.525Z"
+      },
+      "_phaseF": {
+        "promotedAt": "2026-05-21T18:45:30.525Z",
+        "conversationId": "mpfub4ee-w0aq1",
+        "deviceId": null,
+        "confidence": "high",
+        "elevationFit": "Excellent fit at 2,959 ft. Reblooming genetics mean late frost loss of old-wood buds won't prevent blooming. Cooler summer temps at elevation extend bloom season compared to lowland GA.",
+        "habitatHint": "East-facing mid-slope with morning sun and afternoon shade. Avoid full south/west exposure without supplemental water.",
+        "fromCommonName": "Endless Summer Pop Star Reblooming Hydrangea",
+        "fromScientificName": "Hydrangea macrophylla 'NCHA3' (Pop Star cultivar)"
+      }
     }
   ]
 }
