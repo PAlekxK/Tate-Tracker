@@ -8944,7 +8944,19 @@ function fnOpenSyncModal() {
   document.getElementById("fn-sync-token").value = cfg ? cfg.token : "";
   document.getElementById("fn-sync-result").textContent = "";
   document.getElementById("fn-sync-result").className = "fn-sync-result";
-  const did = localStorage.getItem("tateTracker.deviceId") || "(not yet assigned)";
+  // Ensure a stable per-device id exists so the modal can display it.
+  // MetricsCollector also generates this lazily on first flush; we generate
+  // here too so the user sees a real id the moment they open the modal.
+  let did;
+  try {
+    did = localStorage.getItem("tateTracker.deviceId");
+    if (!did) {
+      did = "d-" + Math.random().toString(36).slice(2, 10) + "-" +
+            Math.random().toString(36).slice(2, 10) + "-" +
+            Date.now().toString(36);
+      localStorage.setItem("tateTracker.deviceId", did);
+    }
+  } catch (e) { did = "(localStorage unavailable)"; }
   document.getElementById("fn-sync-device-id").textContent = did;
   overlay.classList.add("open");
   overlay.setAttribute("aria-hidden", "false");

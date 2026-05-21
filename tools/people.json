@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "purpose": "Optional deviceId → person mapping read by tools/analyze-fernwood.py. If this file is absent, the device table shows raw deviceIds.",
+    "lastUpdated": "2026-05-21"
+  },
+  "people": [
+    {
+      "name": "paul",
+      "deviceIds": [
+        "d-avslqpyd-m72qxt1s-mpeuqnyg",
+        "d-fxeb35uh-389ga8h6-mpflc4zl"
+      ],
+      "notes": "laptop (Mac, ttys session); iPhone Safari. An older iPhone id 'd-14nyhnjz-5lh0160…' appeared in 2026-05-21 metrics — probably this same iPhone before a Safari data clear, but unconfirmed; left unmapped until it either re-appears (still active) or stays silent (closed chapter)."
+    }
+  ]
+}
