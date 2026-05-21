@@ -8961,15 +8961,16 @@ function renderFieldNotes() {
       }
       html += '<div class="fn-entry-body">' + escapeHtml(e.body) + '</div>';
       if (e.kind === "conversation" && e.conversation && Array.isArray(e.conversation.turns) && e.conversation.turns.length > 1) {
-        html += '<details class="fn-entry-conversation">';
-        html += '<summary>' + (e.conversation.turns.length - 1) + ' more turn' + (e.conversation.turns.length === 2 ? "" : "s") + '</summary>';
-        // Skip the first user turn (already shown as body); render the rest
+        // Render the rest of the conversation inline (no disclosure — Paul's call
+        // 2026-05-20: when the Field Notes card is open, past conversations should
+        // be fully visible, not behind another tap).
+        html += '<div class="fn-entry-conversation">';
         for (let i = 1; i < e.conversation.turns.length; i++) {
           const t = e.conversation.turns[i];
           const cls = t.role === "user" ? "fn-entry-turn-user" : "fn-entry-turn-assistant";
           html += '<div class="fn-entry-turn ' + cls + '">' + escapeHtml(t.content) + '</div>';
         }
-        html += '</details>';
+        html += '</div>';
       }
       html += '<div class="fn-entry-actions"><button class="fn-entry-delete" type="button" data-id="' + escapeHtml(e.id) + '">Delete</button></div>';
       html += '</div>';
