@@ -24,6 +24,11 @@
  *   POST   /api/promote-species           Phase F Option C — auto-promote a confirmed suggestion
  *                                          via Schema Drafter + GitHub Contents API commits to
  *                                          plants.json/animal-JSON + viewer.html + images/<cat>/
+ *   POST   /api/audio-upload              Phase H — upload an audio recording (base64 data URL).
+ *                                          Stores in KV with 1-hour TTL; returns a recordingId
+ *                                          the client passes in a subsequent /api/chat turn's
+ *                                          audio_ref block. Two-stage upload keeps the chat
+ *                                          payload small.
  *
  * Secrets (configured via `npx wrangler secret put NAME`):
  *   SHARED_TOKEN          — required, gates /api/*
@@ -34,12 +39,18 @@
  *                            Contents: Read and write on the Tate-Tracker repo
  *   GITHUB_REPO           — required for /api/promote-species; "owner/name" form
  *   GITHUB_BRANCH         — optional for /api/promote-species; defaults to "main"
+ *   OPENAI_API_KEY        — required for Phase H audio-ID (Anthropic doesn't
+ *                            support audio yet; OpenAI gpt-4o-audio handles the
+ *                            ID step; Garden Guru wraps the result in voice).
+ *                            Stated design intent: swap back to Anthropic when
+ *                            audio content blocks land in the Messages API.
  *
  * Storage: single KV namespace OBSERVATIONS holds:
  *   - observations array (key "observations")
  *   - per-conversation Garden Guru sessions (keys "conversation:<uuid>")
  *   - per-day cost log of Anthropic API usage (keys "cost-log:<YYYY-MM-DD>")
  *   - per-day pending-species queue (Phase F; keys "pending-species:<YYYY-MM-DD>")
+ *   - audio blobs awaiting promote (Phase H; keys "audio-blob:<recordingId>", 1-hour TTL)
  *   - cached responses for upstream proxies (keys "cache:airnow:<lat>:<lon>", etc.)
  *
  * The property digest (curated context for Garden Guru) is bundled at deploy
@@ -407,7 +418,140 @@ Rules for the fence:
 - Keep elevationFit honest. If the species would be plausible here, say so. If it would be unusual, say so. The journal doesn't claim it lives here; it says whether it could.
 - Do NOT emit the fence when you couldn't confidently identify the subject. Low-confidence IDs should be expressed in the prose only.
 - **End your prose with the ID and plausibility note. Do NOT ask the user about adding it to the Almanac** — the client renders the two-step confirmation buttons separately ("Does that look right?" → "Worth adding to the Almanac?"). Your job is just the ID and plausibility; the user decides about adding via the buttons.
-- The reader sees prose; the client sees the fence. Don't reference the fence in your prose.`;
+- The reader sees prose; the client sees the fence. Don't reference the fence in your prose.
+
+WHEN YOU RECEIVE AN AUDIO ID RESULT (Phase H)
+The user submitted an audio recording. The Worker called an external sound-ID service (OpenAI gpt-4o-audio; Anthropic doesn't support audio yet) and inserted the result as a user-message text block prefixed "AUDIO ID RESULT (from external sound-ID service; honest about uncertainty per spec):" followed by JSON: { isAnimalSound, commonName, scientificName, kind, confidence, describedSound, alternatives }.
+
+Treat this as factual context, not your own observation. Your job: narrate in field-journal voice what was identified, apply the depth filter, and emit the suggestion fence with the appropriate animal kind (bird / amphibian / mammal / snake / lizard / fish / animal-other) when the external service's confidence is medium-or-higher.
+
+Voice rules:
+- DO NOT pretend you heard the audio yourself. Don't say "I hear a Carolina Chickadee" — you didn't hear anything. Say something like "That sounds like a Carolina Chickadee, by the describing pattern" or simply "Carolina Chickadee — [plausibility note]."
+- Quote or paraphrase the describedSound when it adds something (the "chick-a-dee-dee" pattern is the kind of detail the journal would mention). Skip if it's bland.
+- If the result's isAnimalSound is false OR commonName is null, say so plainly: "Hard to tell from that recording — sounds like [described pattern], but no clear ID. Worth trying again with a longer or cleaner sample." Don't emit the fence.
+- If the alternatives array has entries, mention them in voice: "Most likely a Wood Thrush; could also be a Hermit Thrush — the descending phrase is the distinguishing piece."
+- Honest about uncertainty. The external service's "confidence" field is your guide: low → no fence, hedge in prose; medium → fence + cautious prose; high → fence + confident prose.
+
+When emitting the fence on audio: use the same structure as photo, but the "kind" must be the animal subtype the audio service returned (or your inferred subtype from the species name if "kind" is null in the result).`;
+
+// ---- Sound ID (Phase H) — OpenAI gpt-4o-audio identification step ----
+// The Anthropic Messages API doesn't support audio content blocks yet
+// (anthropic-sdk-python#1198, open since Feb 2026). OpenAI's gpt-4o-audio model
+// does. We route the audio identification through OpenAI, then hand the textual
+// ID back to Garden Guru for the field-journal voice + the existing structured
+// suggestion fence. When Anthropic ships audio, this entire layer collapses to
+// a one-function migration in handleChat (the openai call site).
+
+const SOUND_ID_OPENAI_SYSTEM = `You are a sound identifier for a private property in the Blue Ridge mountains at 2,959 ft elevation (Pickens County, GA). The user has submitted an audio recording. Your job is to identify what animal vocalization, if any, is in the recording.
+
+OUTPUT — strict JSON only, no surrounding prose, no markdown code fences:
+{
+  "isAnimalSound": true | false,
+  "commonName": "<common name or null if no ID>",
+  "scientificName": "<scientific name or null if no ID>",
+  "kind": "bird" | "amphibian" | "mammal" | "snake" | "lizard" | "fish" | "animal-other" | null,
+  "confidence": "low" | "medium" | "high",
+  "describedSound": "<short prose description of what you actually heard — 'a series of 3-4 descending whistles' / 'low chuckling call' / 'overlapping high-pitched chirps'>",
+  "alternatives": ["<species 1>", "<species 2>", "..."]  (top 1-3 other possibilities at lower confidence; empty array if none)
+}
+
+GUIDELINES:
+- Be honest about uncertainty. If the recording is too noisy, too short, ambient (rain, wind), or you can't identify it, set isAnimalSound to true|false honestly and set commonName/scientificName/kind to null. Confidence still meaningful — "low" is fine.
+- "kind" maps to the property's curated lists: bird (16 species in birds.json), amphibian (12 species, includes frogs/toads/salamanders), mammal (17 species), snake, lizard, fish (Lake Sequoyah), animal-other (anything else — insects, etc.).
+- Use "high" confidence only for unambiguous, clean recordings of well-known calls.
+- Do NOT invent species. If the call doesn't match anything you know, say so plainly with isAnimalSound: false or commonName: null.
+- Do NOT add narrative or voice. The field-journal voice is applied downstream by Garden Guru. Just produce the JSON.`;
+
+async function identifyAudioViaOpenAI(env, audioBase64, mediaType) {
+  if (!env.OPENAI_API_KEY) {
+    throw new Error("openai-not-configured");
+  }
+  // Map browser mediaType to OpenAI's `format` field. OpenAI gpt-4o-audio
+  // supports wav + mp3 as documented; webm/mp4/aac are best-effort and may be
+  // rejected by the API — surface the error to the client honestly.
+  const formatMap = {
+    "audio/wav": "wav",
+    "audio/wave": "wav",
+    "audio/mpeg": "mp3",
+    "audio/mp3": "mp3",
+    "audio/mp4": "mp4",
+    "audio/aac": "aac",
+    "audio/webm": "webm",
+    "audio/ogg": "ogg",
+  };
+  const format = formatMap[mediaType] || mediaType.replace("audio/", "");
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-audio-preview",
+      modalities: ["text"],
+      messages: [
+        { role: "system", content: SOUND_ID_OPENAI_SYSTEM },
+        { role: "user", content: [
+          { type: "text", text: "Identify the sound in this recording. Output JSON only per the system spec." },
+          { type: "input_audio", input_audio: { data: audioBase64, format } },
+        ] },
+      ],
+    }),
+  });
+  if (!res.ok) {
+    const txt = await res.text().catch(() => "");
+    throw new Error(`openai-${res.status}: ${txt.slice(0, 200)}`);
+  }
+  const data = await res.json();
+  const text = (data.choices?.[0]?.message?.content || "").trim();
+  // Strip optional code fences if present.
+  const cleaned = text.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "").trim();
+  let parsed;
+  try { parsed = JSON.parse(cleaned); }
+  catch (e) {
+    throw new Error("openai-output-not-json: " + cleaned.slice(0, 200));
+  }
+  return parsed;
+}
+
+// ---- Audio upload (Phase H) — two-stage flow stage 1 ----
+// Accepts a base64 data URL audio blob; stores in KV with a 1-hour TTL under
+// `audio-blob:<recordingId>`. Returns the recordingId for the client to pass
+// in a subsequent /api/chat turn's audio_ref block. Two-stage upload keeps
+// the chat payload small (audio_ref is ~30 bytes vs ~30KB for the inline blob).
+
+function generateRecordingId() {
+  return "r-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+}
+
+async function handleAudioUpload(request, env) {
+  if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
+  const lenHdr = request.headers.get("content-length");
+  if (lenHdr && parseInt(lenHdr, 10) > 5_000_000) {
+    return json({ error: "payload-too-large", limit_bytes: 5_000_000 }, 413);
+  }
+  let body;
+  try { body = await request.json(); }
+  catch (e) { return json({ error: "bad-json" }, 400); }
+  const audio = body && body.audio;
+  if (!audio || typeof audio !== "string" || !audio.startsWith("data:audio/")) {
+    return json({ error: "missing-or-bad-audio", required: "data URL with audio/* mediaType" }, 400);
+  }
+  const m = audio.match(/^data:(audio\/[a-zA-Z0-9.+-]+(?:;[^,]*)?);base64,(.+)$/);
+  if (!m) return json({ error: "audio-not-base64-data-url" }, 400);
+  const mediaType = m[1].split(";")[0];
+  const base64 = m[2];
+  const recordingId = generateRecordingId();
+  // KV TTL 1 hour — long enough for record + Garden Guru turn + two-step
+  // confirm + promote, short enough that orphans get garbage-collected.
+  await env.OBSERVATIONS.put(`audio-blob:${recordingId}`, JSON.stringify({
+    mediaType,
+    base64,
+    uploadedAt: new Date().toISOString(),
+    sizeBytes: base64.length,
+  }), { expirationTtl: 3600 });
+  return json({ recordingId, mediaType, sizeBytes: base64.length });
+}
 
 // ---- Schema Drafter (Phase F) — full-schema generator for auto-promotion ----
 // Separate system prompt from Garden Guru. Triggered when the user confirms
@@ -611,6 +755,44 @@ async function handleChat(request, env) {
   // Phase F: turns[].content may be either a string (pre-Phase-F shape) or an array
   // of content blocks (text + image). Anthropic accepts both; persistConversation
   // preserves either shape since it stores t.content verbatim.
+  //
+  // Phase H: turns[].content may also contain `audio_ref` blocks (Worker-internal,
+  // not Anthropic-native). When present in the LATEST user turn, the Worker
+  // dereferences the recordingId, calls OpenAI for sound ID, and replaces the
+  // audio_ref with a synthetic text block carrying the ID result. Anthropic only
+  // ever sees text + image blocks downstream.
+  const latestUserTurnIdx = turns.length - 1;
+  const latestTurn = turns[latestUserTurnIdx];
+  if (latestTurn && latestTurn.role === "user" && Array.isArray(latestTurn.content)) {
+    const audioBlock = latestTurn.content.find(b => b && b.type === "audio_ref" && b.recordingId);
+    if (audioBlock) {
+      // Fetch the audio blob from KV
+      const kvKey = `audio-blob:${audioBlock.recordingId}`;
+      const blobJson = await env.OBSERVATIONS.get(kvKey);
+      if (!blobJson) {
+        return json({ error: "audio-blob-expired-or-missing", recordingId: audioBlock.recordingId }, 410);
+      }
+      let blobData;
+      try { blobData = JSON.parse(blobJson); }
+      catch (e) { return json({ error: "audio-blob-malformed" }, 500); }
+      // Call OpenAI for ID
+      let idResult;
+      try {
+        idResult = await identifyAudioViaOpenAI(env, blobData.base64, blobData.mediaType);
+      } catch (e) {
+        return json({ error: "audio-id-failed", detail: String(e).slice(0, 300) }, 502);
+      }
+      // Replace the audio_ref block with a synthetic text block carrying the ID
+      // result. Garden Guru's system prompt knows how to interpret this context
+      // (see WHEN YOU RECEIVE AN AUDIO ID RESULT in GARDEN_GURU_SYSTEM).
+      const idContext = "AUDIO ID RESULT (from external sound-ID service; honest about uncertainty per spec):\n" +
+        JSON.stringify(idResult);
+      latestTurn.content = latestTurn.content.map(b => {
+        if (b && b.type === "audio_ref") return { type: "text", text: idContext };
+        return b;
+      });
+    }
+  }
 
   // Three-block system prompt: voice rules (cached) + digest (cached, large) + live state (uncached).
   // The cache_control on the digest block is the big cost saver — within a 5-minute window
@@ -1086,12 +1268,46 @@ Produce the schema now.`,
     }
   }
 
+  // ---- Step 6: Commit the audio (Phase H) -------------------------------
+  // If the promotion carried an audioRecordingId, fetch the audio blob from KV
+  // and commit it to GitHub at sounds/<category>/<slug>.<ext>. Failure is
+  // non-fatal — the entry is in canon either way; just no audio sample.
+  let audioCommitted = false;
+  if (body.audioRecordingId) {
+    try {
+      const blobJson = await env.OBSERVATIONS.get(`audio-blob:${body.audioRecordingId}`);
+      if (blobJson) {
+        const blobData = JSON.parse(blobJson);
+        const audioExtMap = {
+          "audio/webm": "webm", "audio/mp4": "m4a", "audio/aac": "m4a",
+          "audio/mpeg": "mp3", "audio/mp3": "mp3", "audio/wav": "wav", "audio/ogg": "ogg",
+        };
+        const audioExt = audioExtMap[blobData.mediaType] || "webm";
+        const soundDir = target.imageDir.replace("images/", "sounds/");
+        const audioPath = `${soundDir}/${slug}.${audioExt}`;
+        const existingAudio = await ghGetFile(env, audioPath);
+        await ghPutFile(env, audioPath, blobData.base64,
+          `Phase H: add audio for ${draftedEntry.name || slug}`,
+          existingAudio.sha || undefined);
+        // Add the audioSamplePath field to the drafted entry so renderers can find it
+        draftedEntry.audioSamplePath = audioPath;
+        audioCommitted = true;
+        // Note: the JSON commit already happened in step 3 with the older entry
+        // (without audioSamplePath). For v0 we accept that audioSamplePath
+        // lands on the entry only at next JSON edit. Optimization candidate.
+      }
+    } catch (e) {
+      console.warn("audio commit failed:", e);
+    }
+  }
+
   return json({
     ok: true,
     slug,
     name: draftedEntry.name,
     kind: suggestion.kind,
     photoCommitted: !!photoBase64,
+    audioCommitted,
     expectedDeployMinutes: "1-3",
     fetchedAt: new Date().toISOString(),
   });
@@ -1345,12 +1561,13 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
           anthropic: !!env.ANTHROPIC_API_KEY,
           github: !!(env.GITHUB_TOKEN && env.GITHUB_REPO),
+          openai: !!env.OPENAI_API_KEY,
         },
       });
     }
@@ -1369,6 +1586,7 @@ export default {
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
+    if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },

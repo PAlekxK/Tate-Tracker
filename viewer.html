@@ -9478,6 +9478,57 @@ const GardenGuru = (function () {
     return sendTurn(text, "text");
   }
 
+  // Phase H — submit an audio recording for sound ID. Two-stage flow:
+  //   (1) POST the audio blob to /api/audio-upload → recordingId
+  //   (2) Send a chat turn with an audio_ref block + accompanying text;
+  //       Worker dereferences the ref, routes through OpenAI for ID, then
+  //       hands the textual ID back to Garden Guru for the field-journal
+  //       narrative + structured suggestion fence
+  // On promote (confirmAdd), the recordingId rides along so the Worker can
+  // fetch the original audio from KV and commit it to GitHub at
+  // sounds/<category>/<slug>.<ext>.
+  async function askWithAudio(text, dataUrl) {
+    if (!dataUrl || typeof dataUrl !== "string" || !dataUrl.startsWith("data:")) return;
+    const match = dataUrl.match(/^data:(audio\/[a-zA-Z0-9.+-]+(?:;[^,]*)?);base64,(.+)$/);
+    if (!match) return;
+    const mediaType = match[1].split(";")[0];  // strip codec params for storage shape
+    const accompanyingText = (text || "").trim() || "What sound is this?";
+    // Stage 1: upload audio blob; get back a recordingId.
+    let recordingId = null;
+    try {
+      const uploadResult = await WorkerAPI.call("POST", "/api/audio-upload", {
+        audio: dataUrl,
+        mediaType,
+      });
+      recordingId = uploadResult && uploadResult.recordingId;
+      if (!recordingId) throw new Error("upload returned no recordingId");
+    } catch (e) {
+      const errMsg = e && e.notConfigured
+        ? "The Listen feature isn't configured yet. Open Sync settings in the Almanac to connect to the Worker."
+        : "The journal couldn't upload your recording — try again in a moment.";
+      const isFirst = !conversationId;
+      if (isFirst) conversationId = newId();
+      turns.push({ role: "user", content: [{ type: "audio_ref", recordingId: null, mediaType }, { type: "text", text: accompanyingText }], ts: new Date().toISOString(), contentType: "audio", audioFailed: true });
+      turns.push({ role: "assistant", content: errMsg, ts: new Date().toISOString(), isError: true });
+      emit();
+      return;
+    }
+    // Stage 2: chat turn — audio_ref first, then the accompanying text.
+    const userContent = [
+      { type: "audio_ref", recordingId, mediaType },
+      { type: "text", text: accompanyingText },
+    ];
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("audio_attached", {
+        conversationId,
+        mediaType,
+        recordingId,
+        hasAccompanyingText: !!(text && text.trim()),
+      });
+    }
+    return sendTurn(userContent, "audio");
+  }
+
   // Phase F — submit a photo (data URL) along with optional accompanying text.
   // The data URL is split into media type + base64 for the Anthropic image content
   // block. Default question text gets the model into ID mode if the user didn't add
@@ -9552,7 +9603,9 @@ const GardenGuru = (function () {
 
   // Confirm Add — the load-bearing call. Runs the drafter + GitHub commit
   // sequence via /api/promote-species. Only fires after Step A + Step B both Yes.
-  async function confirmAdd(turnIndex, thumbnailDataUrl) {
+  // thumbnailDataUrl is for Phase F (photo); audioRecordingId is for Phase H
+  // (audio) — only one will be set per call depending on the suggestion source.
+  async function confirmAdd(turnIndex, thumbnailDataUrl, audioRecordingId) {
     const turn = turns[turnIndex];
     if (!turn || !turn.suggestion) return { ok: false, error: "no-suggestion" };
     if (turn.suggestionStatus !== "id-confirmed") return { ok: false, error: "id-not-confirmed" };
@@ -9561,6 +9614,7 @@ const GardenGuru = (function () {
     const payload = {
       suggestion: turn.suggestion,
       thumbnail: thumbnailDataUrl || null,
+      audioRecordingId: audioRecordingId || null,
       conversationId,
       deviceId: (typeof getDeviceId === "function") ? getDeviceId() : null,
     };
@@ -9672,7 +9726,7 @@ const GardenGuru = (function () {
     };
   }
 
-  return { ask, askWithImage, confirmId, declineId, confirmAdd, declineAdd, reset, onChange, getState };
+  return { ask, askWithImage, askWithAudio, confirmId, declineId, confirmAdd, declineAdd, reset, onChange, getState };
 })();
 
 // ---- Voice dictation controller (Web Speech API) ----
@@ -9802,6 +9856,135 @@ const UnifiedVoice = createVoiceCapture({
   hintId: "ui-mic-hint",
 });
 
+// ---- Audio capture for sound ID (Phase H, 2026-05-21) ----
+// Uses MediaRecorder. Encodes WebM/Opus mono ~24kbps when supported; falls
+// back through audio/mp4 / audio/wav for iOS Safari quirks. 30-second cap.
+// Output payload: { dataUrl, mediaType, sizeBytes, durationMs }. The
+// UnifiedInput consumer attaches the payload to GardenGuru.askWithAudio
+// when the user taps submit.
+function createAudioCapture(ids) {
+  let mediaRecorder = null;
+  let chunks = [];
+  let stream = null;
+  let startedAtMs = null;
+  let durationTimer = null;
+  let active = false;
+  const MAX_DURATION_MS = 30000;
+
+  function isSupported() {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  }
+  function isRecording() { return active; }
+
+  function pickMimeType() {
+    const candidates = [
+      "audio/webm;codecs=opus",
+      "audio/webm",
+      "audio/mp4;codecs=mp4a.40.2",
+      "audio/mp4",
+      "audio/wav",
+    ];
+    for (const m of candidates) {
+      try { if (MediaRecorder.isTypeSupported(m)) return m; }
+      catch (e) {}
+    }
+    return "";
+  }
+
+  function setButtonState(recording, elapsedSec) {
+    const btn = document.getElementById(ids.btnId);
+    if (!btn) return;
+    btn.classList.toggle("recording", recording);
+    const emoji = btn.querySelector(".icon-emoji");
+    const label = btn.querySelector(".icon-label");
+    if (emoji) emoji.textContent = recording ? "■" : "👂";
+    if (label) {
+      if (recording) {
+        const mm = Math.floor(elapsedSec / 60);
+        const ss = elapsedSec % 60;
+        label.textContent = mm + ":" + (ss < 10 ? "0" : "") + ss;
+      } else {
+        label.textContent = "Listen";
+      }
+    }
+    btn.setAttribute("aria-label", recording ? "Stop recording" : "Record audio for identification (beta)");
+  }
+
+  async function start() {
+    if (!isSupported() || active) return null;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      console.warn("audio permission denied or unavailable:", e);
+      return null;
+    }
+    const mimeType = pickMimeType();
+    chunks = [];
+    try {
+      mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType, audioBitsPerSecond: 24000 } : { audioBitsPerSecond: 24000 });
+    } catch (e) {
+      console.warn("MediaRecorder construction failed:", e);
+      if (stream) stream.getTracks().forEach(t => t.stop());
+      stream = null;
+      return null;
+    }
+    mediaRecorder.ondataavailable = (e) => { if (e.data && e.data.size > 0) chunks.push(e.data); };
+    active = true;
+    startedAtMs = Date.now();
+    mediaRecorder.start();
+    setButtonState(true, 0);
+    // Tick the elapsed-time label once per second; auto-stop at MAX.
+    const tick = () => {
+      if (!active) return;
+      const elapsed = Math.floor((Date.now() - startedAtMs) / 1000);
+      setButtonState(true, elapsed);
+      if ((Date.now() - startedAtMs) >= MAX_DURATION_MS) {
+        if (typeof ids.onAutoStop === "function") ids.onAutoStop();
+      } else {
+        durationTimer = setTimeout(tick, 1000);
+      }
+    };
+    durationTimer = setTimeout(tick, 1000);
+    return true;
+  }
+
+  function stop() {
+    return new Promise((resolve) => {
+      if (!active || !mediaRecorder) { resolve(null); return; }
+      const recordedMimeType = mediaRecorder.mimeType;
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: recordedMimeType });
+        const reader = new FileReader();
+        reader.onload = () => {
+          resolve({
+            dataUrl: reader.result,
+            mediaType: recordedMimeType,
+            sizeBytes: blob.size,
+            durationMs: Date.now() - startedAtMs,
+          });
+        };
+        reader.onerror = () => resolve(null);
+        reader.readAsDataURL(blob);
+      };
+      try { mediaRecorder.stop(); } catch (e) { resolve(null); }
+      if (durationTimer) { clearTimeout(durationTimer); durationTimer = null; }
+      if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+      active = false;
+      setButtonState(false, 0);
+    });
+  }
+
+  function toggle() {
+    return active ? stop() : start();
+  }
+
+  return { start, stop, toggle, isSupported, isRecording };
+}
+
+const UnifiedAudio = createAudioCapture({
+  btnId: "ui-audio-btn",
+});
+
 // =========================
 // UNIFIED INPUT — note or ask (2026-05-20)
 // =========================
@@ -9814,6 +9997,9 @@ const UnifiedVoice = createVoiceCapture({
 const UnifiedInput = (function () {
   // Image attach state — set when a photo is picked, cleared on submit or remove.
   let attachedImage = null;  // { dataUrl, mediaType, width, height, sizeBytes }
+  // Audio attach state (Phase H) — set when a recording is captured, cleared on
+  // submit or remove. Mutually exclusive with attachedImage on the same submit.
+  let attachedAudio = null;  // { dataUrl, mediaType, sizeBytes, durationMs }
 
   function init() {
     wireUI();
@@ -9859,6 +10045,11 @@ const UnifiedInput = (function () {
     const imagePreview = document.getElementById("ui-image-preview");
     const imageThumb = document.getElementById("ui-image-preview-thumb");
     const imageRemove = document.getElementById("ui-image-remove");
+    const audioBtn = document.getElementById("ui-audio-btn");
+    const audioPreview = document.getElementById("ui-audio-preview");
+    const audioPlayer = document.getElementById("ui-audio-preview-player");
+    const audioMeta = document.getElementById("ui-audio-preview-meta");
+    const audioRemove = document.getElementById("ui-audio-remove");
     if (!ta || !submitBtn) return;
 
     function setAttachedImage(payload) {
@@ -9867,9 +10058,33 @@ const UnifiedInput = (function () {
         if (payload) {
           imageThumb.src = payload.dataUrl;
           imagePreview.hidden = false;
+          // Photo + audio are mutually exclusive — if a photo lands, clear any audio.
+          if (attachedAudio) setAttachedAudio(null);
         } else {
           imageThumb.removeAttribute("src");
           imagePreview.hidden = true;
+        }
+      }
+      updateState();
+    }
+
+    function setAttachedAudio(payload) {
+      attachedAudio = payload;
+      if (audioPreview && audioPlayer && audioMeta) {
+        if (payload) {
+          audioPlayer.src = payload.dataUrl;
+          const sec = Math.round((payload.durationMs || 0) / 1000);
+          const mm = Math.floor(sec / 60);
+          const ss = sec % 60;
+          const sizeKb = Math.round((payload.sizeBytes || 0) / 1024);
+          audioMeta.textContent = mm + ":" + (ss < 10 ? "0" : "") + ss + " · " + sizeKb + " KB";
+          audioPreview.hidden = false;
+          // Photo + audio are mutually exclusive — if audio lands, clear any photo.
+          if (attachedImage) setAttachedImage(null);
+        } else {
+          audioPlayer.removeAttribute("src");
+          audioMeta.textContent = "";
+          audioPreview.hidden = true;
         }
       }
       updateState();
@@ -9879,16 +10094,20 @@ const UnifiedInput = (function () {
       const text = (ta.value || "").trim();
       const state = GardenGuru.getState();
       const hasImg = !!attachedImage;
-      // Submit is enabled when there's text OR a photo (photo with empty text
-      // gets a "What is this?" default in askWithImage).
-      submitBtn.disabled = (!text && !hasImg) || (hasImg && state.capReached);
-      submitBtn.classList.toggle("photo-mode", hasImg);
-      // Label per content-steward 2026-05-21 copy memo:
+      const hasAud = !!attachedAudio;
+      // Submit is enabled when there's text OR a photo OR an audio recording.
+      // Photo/audio with empty text get a "What is this?" / "What sound is this?"
+      // default in askWithImage / askWithAudio.
+      submitBtn.disabled = (!text && !hasImg && !hasAud) || ((hasImg || hasAud) && state.capReached);
+      submitBtn.classList.toggle("photo-mode", hasImg || hasAud);
+      // Label per content-steward 2026-05-21 copy memo + Phase H parallel:
       //   default → "Add to the journal"
       //   photo attached → "Have Garden Guru take a look"
+      //   audio attached → "Have Garden Guru take a listen"
       //   text-only follow-up to an existing conversation → "Ask follow-up"
       let label = "Add to the journal";
-      if (hasImg) label = "Have Garden Guru take a look";
+      if (hasAud) label = "Have Garden Guru take a listen";
+      else if (hasImg) label = "Have Garden Guru take a look";
       else if (state.userTurnCount > 0 && text) label = "Ask follow-up";
       submitBtn.textContent = label;
 
@@ -9924,8 +10143,12 @@ const UnifiedInput = (function () {
             const textBlock = t.content.find(b => b && b.type === "text");
             userText = textBlock ? (textBlock.text || "") : "";
             const hasImg = t.content.some(b => b && b.type === "image");
+            const hasAud = t.content.some(b => b && b.type === "audio_ref");
             if (hasImg) {
               html += '<div class="ui-turn-user-photo">📷 photo attached</div>';
+            }
+            if (hasAud) {
+              html += '<div class="ui-turn-user-photo">👂 audio attached</div>';
             }
           }
           if (userText) html += '<div class="ui-turn-user">' + escapeHtml(userText) + '</div>';
@@ -9997,10 +10220,11 @@ const UnifiedInput = (function () {
             } else if (action === "add-no") {
               GardenGuru.declineAdd(turnIdx);
             } else if (action === "add-yes") {
-              // Find the thumbnail from the user turn whose image preceded this
-              // assistant turn — same shape as before, but now feeding the
-              // direct-to-Git promote endpoint rather than the pending queue.
+              // Find the thumbnail (Phase F) or audio recordingId (Phase H) from
+              // the user turn whose photo/audio preceded this assistant turn —
+              // feed whichever exists into confirmAdd for the promote-species call.
               let thumb = null;
+              let audioRecordingId = null;
               for (let i = turnIdx - 1; i >= 0; i--) {
                 const prev = state.turns[i];
                 if (prev.role !== "user") continue;
@@ -10009,10 +10233,14 @@ const UnifiedInput = (function () {
                   if (imgBlock && imgBlock.source && imgBlock.source.data) {
                     thumb = "data:" + imgBlock.source.media_type + ";base64," + imgBlock.source.data;
                   }
+                  const audioBlock = prev.content.find(b => b && b.type === "audio_ref");
+                  if (audioBlock && audioBlock.recordingId) {
+                    audioRecordingId = audioBlock.recordingId;
+                  }
                 }
                 break;
               }
-              await GardenGuru.confirmAdd(turnIdx, thumb);
+              await GardenGuru.confirmAdd(turnIdx, thumb, audioRecordingId);
               startPromoteTicker();
             }
           });
@@ -10083,18 +10311,24 @@ const UnifiedInput = (function () {
     submitBtn.addEventListener("click", async () => {
       const text = (ta.value || "").trim();
       const hasImg = !!attachedImage;
-      if (!text && !hasImg) return;
+      const hasAud = !!attachedAudio;
+      if (!text && !hasImg && !hasAud) return;
       actionTakenSinceFocus = true;
       if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
       const wasVoice = UnifiedVoice.isRecording();
       if (wasVoice) UnifiedVoice.stop();
-      // Route by content per Phase F P2:
-      // - photo attached → GardenGuru.askWithImage (AI turn, ID + plausibility flow)
+      // Route by content per Phase F P2 + Phase H:
+      // - audio attached → GardenGuru.askWithAudio (Phase H: OpenAI ID → Garden Guru voice)
+      // - photo attached → GardenGuru.askWithImage (Phase F)
       // - text only → fnSaveInlineEntry (no AI call, honors no-AI-on-capture)
-      if (hasImg) {
+      if (hasAud) {
+        const audPayload = attachedAudio;
+        const submitText = text;
+        ta.value = "";
+        setAttachedAudio(null);
+        await GardenGuru.askWithAudio(submitText, audPayload.dataUrl);
+      } else if (hasImg) {
         const imgPayload = attachedImage;
-        // Clear input + image state immediately so the UI feels responsive while
-        // the network call is in flight.
         const submitText = text;
         ta.value = "";
         setAttachedImage(null);
@@ -10106,6 +10340,32 @@ const UnifiedInput = (function () {
       }
       updateState();
     });
+
+    // Audio capture button — Phase H. Toggles MediaRecorder via UnifiedAudio.
+    // On stop, attaches the captured payload so submit routes through
+    // GardenGuru.askWithAudio.
+    if (audioBtn) {
+      audioBtn.addEventListener("click", async () => {
+        if (!UnifiedAudio.isSupported()) {
+          console.warn("audio capture not supported in this browser");
+          return;
+        }
+        if (UnifiedAudio.isRecording()) {
+          const payload = await UnifiedAudio.stop();
+          if (payload) setAttachedAudio(payload);
+        } else {
+          // Mutual exclusion: if voice-to-text is active, stop it first
+          if (UnifiedVoice.isRecording()) UnifiedVoice.stop();
+          await UnifiedAudio.start();
+        }
+      });
+    }
+    if (audioRemove) {
+      audioRemove.addEventListener("click", () => {
+        if (UnifiedAudio.isRecording()) UnifiedAudio.stop();
+        setAttachedAudio(null);
+      });
+    }
 
     // Image attach handler — file picked → canvas-downsample → store + render preview
     if (imageBtn && imageFile && imagePreview) {
