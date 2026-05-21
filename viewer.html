@@ -2266,22 +2266,73 @@
   .ui-submit-btn.photo-mode:active { transform: scale(0.98); background: linear-gradient(135deg, #8a6828, #6a5018); }
   .ui-submit-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
 
-  /* Image attach affordance — paperclip/camera button + thumbnail preview */
-  .ui-image-btn {
+  /* Icon row — voice / photo / listen, sits below the textarea. Each icon
+     is a labeled stacked button so Mom can read what each does without
+     learning the icon vocabulary. Beta tag on Listen signals "new feature,
+     may misfire" without front-loading the worry. */
+  .ui-icon-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+    align-items: stretch;
+  }
+  .ui-icon-btn {
     flex-shrink: 0;
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    min-width: 56px;
+    padding: 6px 8px 4px;
+    border-radius: 10px;
     border: 1px solid #d4cca8;
     background: #fff;
     cursor: pointer;
+    color: #5a4a20;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s, border-color 0.12s, transform 0.1s;
+    position: relative;
+  }
+  .ui-icon-btn:hover, .ui-icon-btn:active { background: #f4ecd6; transform: scale(0.97); }
+  .ui-icon-btn .icon-emoji {
     font-size: 18px;
     line-height: 1;
-    color: #6a5a30;
-    transition: background 0.12s;
-    -webkit-tap-highlight-color: transparent;
   }
-  .ui-image-btn:hover, .ui-image-btn:active { background: #f4ecd6; }
+  .ui-icon-btn .icon-label {
+    font-size: 10px;
+    line-height: 1.1;
+    font-weight: 600;
+    color: #6a5a30;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .ui-icon-btn .icon-beta {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 7px;
+    font-weight: 700;
+    color: #aa5a30;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+  /* Recording state — applies to whichever icon is currently capturing
+     audio (mic for voice-to-text, audio button for sound ID). The
+     red-pulse keyframe is shared from the older .fn-mic-btn.recording
+     rule below. */
+  .ui-icon-btn.recording {
+    background: #d8534a;
+    border-color: #b03a30;
+  }
+  .ui-icon-btn.recording .icon-emoji { color: #fff; }
+  .ui-icon-btn.recording .icon-label { color: #fff; }
+
+  /* Backward-compatibility shim: the old .ui-image-btn rule is preserved
+     as a no-op so any DOM still selecting on it doesn't break. */
+  .ui-image-btn { /* see .ui-icon-btn for current rules */ }
   /* Offscreen-but-interactable file input — iOS Safari blocks .click() on
      display:none inputs in some versions. Absolute-positioning + opacity:0
      keeps the input in the layout flow so the programmatic click from the
@@ -2327,6 +2378,42 @@
     -webkit-tap-highlight-color: transparent;
   }
   .ui-image-remove:hover, .ui-image-remove:active { background: #f4ecd6; }
+
+  /* Audio preview — parallels image preview structure; shows native
+     <audio controls> with a small meta line + remove × button. */
+  .ui-audio-preview:not([hidden]) {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .ui-audio-preview-player {
+    flex: 1;
+    min-width: 0;
+    max-width: 320px;
+    height: 36px;
+  }
+  .ui-audio-preview-meta {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: #6a5a30;
+  }
+  .ui-audio-remove {
+    background: #fff;
+    border: 1px solid #d4cca8;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    line-height: 1;
+    color: #6a5a30;
+    cursor: pointer;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ui-audio-remove:hover, .ui-audio-remove:active { background: #f4ecd6; }
 
   /* Garden Guru suggestion actions — yes/no chips after a photo-ID response */
   .gg-suggest-actions {
@@ -2954,13 +3041,31 @@
   <section class="unified-input" id="unified-input" aria-label="Note or ask Garden Guru">
     <div class="ui-input-row">
       <textarea id="ui-textarea" class="ui-textarea" placeholder="What did you see, or what would you like to know?" rows="2"></textarea>
-      <button id="ui-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>
-      <button id="ui-image-btn" class="ui-image-btn" type="button" aria-label="Attach a photo">📷</button>
+    </div>
+    <div class="ui-icon-row">
+      <button id="ui-mic-btn" class="ui-icon-btn ui-mic-btn" type="button" aria-label="Voice dictation">
+        <span class="icon-emoji">🎤</span>
+        <span class="icon-label">Voice</span>
+      </button>
+      <button id="ui-image-btn" class="ui-icon-btn" type="button" aria-label="Attach a photo for identification">
+        <span class="icon-emoji">📷</span>
+        <span class="icon-label">Photo</span>
+      </button>
+      <button id="ui-audio-btn" class="ui-icon-btn" type="button" aria-label="Record audio for identification (beta)">
+        <span class="icon-emoji">👂</span>
+        <span class="icon-label">Listen</span>
+        <span class="icon-beta">BETA</span>
+      </button>
       <input id="ui-image-file" class="ui-image-file" type="file" accept="image/*">
     </div>
     <div class="ui-image-preview" id="ui-image-preview" hidden>
       <img class="ui-image-preview-thumb" id="ui-image-preview-thumb" alt="Attached photo preview">
       <button class="ui-image-remove" id="ui-image-remove" type="button" aria-label="Remove attached photo">×</button>
+    </div>
+    <div class="ui-audio-preview" id="ui-audio-preview" hidden>
+      <audio class="ui-audio-preview-player" id="ui-audio-preview-player" controls preload="metadata"></audio>
+      <span class="ui-audio-preview-meta" id="ui-audio-preview-meta"></span>
+      <button class="ui-audio-remove" id="ui-audio-remove" type="button" aria-label="Remove attached audio">×</button>
     </div>
     <div class="ui-input-helper">Record an observation, ask a question, suggest an improvement, or attach a photo for ID.</div>
     <div class="ui-conversation" id="ui-conversation" hidden></div>
@@ -9592,7 +9697,16 @@ function createVoiceCapture(ids) {
     const btn = document.getElementById(ids.micBtnId);
     if (!btn) return;
     btn.classList.toggle("recording", recording);
-    btn.textContent = recording ? "■" : "🎤";
+    // Phase H restructure (2026-05-21): mic button now has icon-emoji + icon-label
+    // child elements rather than plain text content. Target the .icon-emoji span
+    // specifically so we don't wipe the label. Fallback to textContent if the
+    // child span isn't present (defensive — in case the markup ever reverts).
+    const emojiSpan = btn.querySelector(".icon-emoji");
+    if (emojiSpan) {
+      emojiSpan.textContent = recording ? "■" : "🎤";
+    } else {
+      btn.textContent = recording ? "■" : "🎤";
+    }
     btn.setAttribute("aria-label", recording ? "Stop dictation" : "Voice dictation");
   }
   function buildAndShow() {
