@@ -2,28 +2,38 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Pickup point — last session ended 2026-05-19
+## Pickup point — last session ended 2026-05-21 (evening)
 
-**Phase E MVP (Garden Guru) shipped end-to-end and pushed (commit `3c8236c`).** Worker has `/api/chat` deployed; client has the Garden Guru surface between Quick Capture and the main cards; conversation persistence + cost logging both wired to KV. Paul has not yet done the live browser-side E2E test with his auth token — that's the immediate next action.
+**Phase F shipped end-to-end and pushed.** All four Phase F commits + Option C extension live on `main`:
+- `fb417fd` Session 1 — Worker (image content support + suggested-species fence + pending-species queue)
+- `0b58aba` Session 2 — Client UI (single button "Add to the journal", 📷 image attach, canvas downsample, content-routed submit, suggestion chips)
+- `bfea0d2` Session 3 — `tools/review-pending-species.py` CLI gatekeeper
+- `bab7cf7` Option C — two-step confirm + auto-promote to Git canon
+
+**Status:** Worker deployed at version `75bffec5-19f5-4ba5-8c1e-c8d8196da84b`; `/health` shows `configured.github: true` (Paul set the three GitHub secrets — `GITHUB_TOKEN`, `GITHUB_REPO`, `GITHUB_BRANCH`); 7 commits pushed to `origin/main`; GH Pages deploys ~1–3 min later. Mom now has the full photo → ID → two-step confirm → auto-promote loop on her phone.
+
+**Architecture pivot (2026-05-21 evening):** Phase F was built first as Option A (Mom suggests → Paul reviews via CLI → Paul promotes manually). Mid-session Paul pivoted to Option C: Mom has full promotion rights; two-step confirm gates the cost (drafter + GitHub commits only after both Yeses); direct-to-Git writes (Worker commits the AI-drafted full v3 schema entry + viewer.html re-inline + photo file via GitHub Contents API). The Option A pending-species queue + CLI tool remain as the **fallback path** when GitHub commits fail. This explicitly softens `feedback_tate_tracker_depth_filter` — the canon now grows from "what Paul observes" to "what someone at the property has photographed *and* confirmed twice." Trade-off accepted; the SCHEMA_DRAFTER prompt nudges toward elevation-aware drafting; flagged for iteration if quality is poor.
 
 **What Paul should do next session:**
 
-1. **Browser-side E2E smoke test of Garden Guru.** Hard-refresh the dashboard. Scroll past Quick Capture to the tan Garden Guru box. Ask 3-5 representative questions, including:
-   - A "plants in peak" question (tests in-context data retrieval)
-   - An outside-scope question like *"is there poison ivy on the property?"* (tests honest-uncertainty register)
-   - A statement that *sounds* like an observation (tests that Garden Guru doesn't try to save it — that's Quick Capture's job)
-   - A vague description (tests the named-field-mark uncertainty pattern)
-   - A follow-up to test the 5-cap + reset flow
-2. **Report voice drift, hallucination, mode confusion, latency issues, anything off.** The system prompt is load-bearing — iterating on `GARDEN_GURU_SYSTEM` in `worker/worker.js` is the first response to any voice issues. Rebuild + redeploy: `cd worker && npx wrangler deploy`.
-3. **Check telemetry after a couple weeks.** Cost log lives at KV key `cost-log:YYYY-MM-DD` (one per day). Conversations live at `conversation:<uuid>`. Use those to verify cost stays under ~$10/month and to review conversation quality.
+1. **Phase F Option C smoke test** (load-bearing — gates everything else). Hard-refresh `palekxk.github.io/Tate-Tracker/` (wait ~1–3 min after the push). Tap 📷, pick a photo of a plant or animal that's NOT in the curated 17/etc., walk through Step A + Step B, watch the auto-promote (drafter call + 3 commits to `PAlekxK/Tate-Tracker`) + the live timer count up. Verify:
+   - Garden Guru reply is in field-journal voice; ends with the ID + plausibility (NOT with "want to add?")
+   - Step A chip: "Does that look right?" (Yes / Not quite)
+   - Step B chip after Yes: "Worth adding to the Almanac?" (Yes, add it / Skip this one)
+   - "Drafting the entry…" → ~3–7 sec → "[Name] added. Elapsed: 0:14" with live timer
+   - GH commits appear in `https://github.com/PAlekxK/Tate-Tracker/commits/main` — three per promotion (JSON, viewer.html, photo)
+   - After 1–3 min, refresh dashboard → new entry visible in the right tab
+2. **Watch for AI-drafted schema quality issues.** The SCHEMA_DRAFTER prompt is load-bearing for canon quality. If the drafted entries have regional rather than 2,959-ft-specific phenology, iterate the prompt at `worker/worker.js` `SCHEMA_DRAFTER_SYSTEM` and redeploy. Cost per promotion: ~$0.04 (vision call + drafter call).
+3. **Garden Guru E2E smoke test still open** (queued from Phase E ship 2026-05-19). 5 representative questions covering in-context retrieval, honest-uncertainty register, vague descriptions, 5-turn cap + reset flow.
+4. **Check telemetry after a couple weeks.** `cost-log:YYYY-MM-DD` accumulates per-call spend; `pending-species:YYYY-MM-DD` only fills on Option-A fallback. Run `analyze-fernwood.py` for the rollup; `review-pending-species.py --list` for the (hopefully empty) fallback queue.
 
-**Open Phase E iterations (not yet done):**
-- **Conversation browse UI.** KV has all conversations; no UI to browse them yet. v2.
-- **Streaming responses.** Non-streaming v1; add streaming (~30 lines client) if turns feel laggy on LTE.
-- **Tool-use migration.** System-prompt stuffing of the ~57K-token digest is fine until digest >80K OR Phase G observations >50 entries.
-- ~~**Naming pass on the "Property card"**~~ ✓ Done 2026-05-20. Card renamed "The Place Itself" → "Fernwood" (dashboard strip tile + main card title). The 2026-05-19 property rename gets its UI payoff in the card that holds the property's identity content (history, ecology, sky, watershed). The Fernwood-names-the-app + Fernwood-names-the-card collision was taken as a feature, not a confusion — the card *is* the property identity layer. Icon (🏔️) and subtitle ("Elevation · Microclimate · Soils") left as-is; both worth a follow-up pass when the next surface review runs, since the card's content now sprawls past elevation/microclimate/soils into Cherokee land, marble heritage, watershed, sky, etc.
+**Where the Phase F design trail lives:**
+- `.engineering/2026-05-21-path-phase-f-image-input.md` — engineering-partner path-eval that locked Option A's shape
+- `review/2026-05-21-phase-f-input-copy.md` — content-steward voice/copy memo (button label, helper text)
+- `~/Documents/Claude/handoff/master-plan-2026-05-21.md` W2.5 section — P1–P8 (Option A) + C1–C3 (Option C) decisions
+- `[[master-plan-2026-05-21]]` — master plan memory pointer
 
-**Where the design trail lives** (for any next-session expert review):
+**Where the Phase E design trail lives** (still active for any next-session expert review):
 - `PHASE_E_BRIEF.md` — full feature brief (the input to the 5-expert review)
 - `PHASE_E_SYNTHESIS.md` — synthesized findings from the 5 experts
 - `PHASE_E_MVP.md` — locked decisions + implementation spec
@@ -31,6 +41,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `.ux-reviews/2026-05-19-phase-e-unified-field-assistant.json`
 - `.engineering/2026-05-19-path-phase-e-architecture.md`
 - `.user-research/jtbd-talk-to-the-property.md` + `journey-unified-field-assistant.md`
+
+**Open Phase E iterations (still not yet done):**
+- **Conversation browse UI.** KV has all conversations; no UI to browse them yet. v2.
+- **Streaming responses.** Non-streaming v1; add streaming (~30 lines client) if turns feel laggy on LTE.
+- **Tool-use migration.** System-prompt stuffing of the ~57K-token digest is fine until digest >80K OR Phase G observations >50 entries.
 
 **Other open threads on the backlog** (from the punch list earlier this session):
 - Citizen-science decision — dormant scaffolding in viewer.html; re-enable, drop, or leave dormant is Paul's call
