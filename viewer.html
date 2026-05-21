@@ -2339,6 +2339,39 @@
     color: #6a5a30;
     margin-top: 6px;
   }
+  /* Phase F Option C — two-step confirm + promotion status */
+  .gg-suggest-prompt {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: #5a5030;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+  .gg-suggest-status.gg-promoted {
+    background: #f0f7e0;
+    border-left: 2px solid #6a8a4a;
+    padding: 8px 11px;
+    border-radius: 6px;
+    color: #3a4a2a;
+    font-style: normal;
+  }
+  .gg-suggest-status.gg-promoted .gg-suggest-timer {
+    display: inline-block;
+    margin-top: 4px;
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 12px;
+    color: #6a7a4a;
+    letter-spacing: 0.02em;
+  }
+  .gg-suggest-status.gg-error {
+    background: #faf0e8;
+    border-left: 2px solid #aa5a4a;
+    padding: 8px 11px;
+    border-radius: 6px;
+    color: #6a3a2a;
+    font-style: normal;
+  }
 
   /* Almanac star + filter */
   .fn-filter-row {
@@ -9349,50 +9382,92 @@ const GardenGuru = (function () {
     return sendTurn(userContent, "image");
   }
 
-  // Phase F — POST a suggestion (the parsed fence + the thumbnail used to identify
-  // it) to the pending-species KV queue on the Worker. Paul reviews + promotes later
-  // via tools/review-pending-species.py.
-  async function submitSuggestion(turnIndex, thumbnailDataUrl) {
+  // Phase F Option C — two-step confirmation flow + auto-promote to GitHub.
+  //
+  // State machine on `turn.suggestionStatus`:
+  //   undefined                → Step A buttons rendered ("Does that look right?")
+  //   "id-confirmed"           → Step B buttons rendered ("Worth adding to the Almanac?")
+  //   "id-declined"            → terminal ("Set aside" — ID was wrong)
+  //   "add-declined"           → terminal ("Not adding" — ID was right but Mom said no)
+  //   "promoting"              → in-flight (worker is drafting + committing)
+  //   "promoted"               → terminal-with-timer (entry committed; GH Pages deploying)
+  //   "promote-error"          → terminal-with-retry-message
+  //
+  // The drafter + GitHub commits only run after BOTH Step A and Step B Yes
+  // (per Paul 2026-05-21: "only changes are pushed to the GitHub after the
+  // double confirmation").
+
+  function confirmId(turnIndex) {
     const turn = turns[turnIndex];
-    if (!turn || turn.role !== "assistant" || !turn.suggestion) return { ok: false, error: "no-suggestion" };
-    if (turn.suggestionStatus) return { ok: false, error: "already-submitted", status: turn.suggestionStatus };
-    turn.suggestionStatus = "submitting";
+    if (!turn || !turn.suggestion || turn.suggestionStatus) return;
+    turn.suggestionStatus = "id-confirmed";
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("species_id_confirmed", { conversationId, kind: turn.suggestion.kind });
+    }
+    emit();
+  }
+
+  function declineId(turnIndex) {
+    const turn = turns[turnIndex];
+    if (!turn || !turn.suggestion || turn.suggestionStatus) return;
+    turn.suggestionStatus = "id-declined";
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("species_id_declined", { conversationId, kind: turn.suggestion.kind });
+    }
+    emit();
+  }
+
+  function declineAdd(turnIndex) {
+    const turn = turns[turnIndex];
+    if (!turn || !turn.suggestion || turn.suggestionStatus !== "id-confirmed") return;
+    turn.suggestionStatus = "add-declined";
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("species_add_declined", { conversationId, kind: turn.suggestion.kind });
+    }
+    emit();
+  }
+
+  // Confirm Add — the load-bearing call. Runs the drafter + GitHub commit
+  // sequence via /api/promote-species. Only fires after Step A + Step B both Yes.
+  async function confirmAdd(turnIndex, thumbnailDataUrl) {
+    const turn = turns[turnIndex];
+    if (!turn || !turn.suggestion) return { ok: false, error: "no-suggestion" };
+    if (turn.suggestionStatus !== "id-confirmed") return { ok: false, error: "id-not-confirmed" };
+    turn.suggestionStatus = "promoting";
     emit();
     const payload = {
-      ...turn.suggestion,
+      suggestion: turn.suggestion,
       thumbnail: thumbnailDataUrl || null,
       conversationId,
       deviceId: (typeof getDeviceId === "function") ? getDeviceId() : null,
     };
     try {
-      const result = await WorkerAPI.call("POST", "/api/pending-species", payload);
-      turn.suggestionStatus = "submitted";
-      turn.suggestionId = result && result.id;
-      if (typeof MetricsCollector !== "undefined") {
-        MetricsCollector.track("species_suggested", {
-          conversationId,
-          id: turn.suggestionId,
-          kind: turn.suggestion.kind,
-          confidence: turn.suggestion.confidence,
-        });
+      const result = await WorkerAPI.call("POST", "/api/promote-species", payload);
+      if (result && result.ok) {
+        turn.suggestionStatus = "promoted";
+        turn.promotedAtMs = Date.now();
+        turn.promotedSlug = result.slug;
+        turn.promotedName = result.name;
+        if (typeof MetricsCollector !== "undefined") {
+          MetricsCollector.track("species_promoted", {
+            conversationId,
+            slug: result.slug,
+            kind: turn.suggestion.kind,
+            confidence: turn.suggestion.confidence,
+          });
+        }
+      } else {
+        turn.suggestionStatus = "promote-error";
+        turn.promoteError = (result && result.error) || "unknown";
       }
       emit();
-      return { ok: true, id: turn.suggestionId };
+      return { ok: !!(result && result.ok), result };
     } catch (e) {
-      turn.suggestionStatus = "error";
+      turn.suggestionStatus = "promote-error";
+      turn.promoteError = (e && e.message) || "promote-failed";
       emit();
-      return { ok: false, error: (e && e.message) || "submit-failed" };
+      return { ok: false, error: turn.promoteError };
     }
-  }
-
-  function dismissSuggestion(turnIndex) {
-    const turn = turns[turnIndex];
-    if (!turn || !turn.suggestion) return;
-    turn.suggestionStatus = "dismissed";
-    if (typeof MetricsCollector !== "undefined") {
-      MetricsCollector.track("species_dismissed", { conversationId, kind: turn.suggestion.kind });
-    }
-    emit();
   }
 
   function reset() {
@@ -9474,7 +9549,7 @@ const GardenGuru = (function () {
     };
   }
 
-  return { ask, askWithImage, submitSuggestion, dismissSuggestion, reset, onChange, getState };
+  return { ask, askWithImage, confirmId, declineId, confirmAdd, declineAdd, reset, onChange, getState };
 })();
 
 // ---- Voice dictation controller (Web Speech API) ----
@@ -9727,19 +9802,47 @@ const UnifiedInput = (function () {
           html += '<div class="' + cls + '">' + escapeHtml(t.content) + '</div>';
           if (t.suggestion) {
             const status = t.suggestionStatus;
+            // Phase F Option C — two-step confirm + auto-promote.
+            // Step A (no status yet) → "Does that look right?"
+            // Step B (id-confirmed) → "Worth adding to the Almanac?"
+            // Then promote → drafter + GitHub commits → live timer for GH Pages deploy.
             if (!status) {
-              html += '<div class="gg-suggest-actions" data-turn-idx="' + idx + '">';
-              html += '<button class="gg-suggest-btn-yes" data-action="yes" type="button">Yes, suggest it</button>';
-              html += '<button class="gg-suggest-btn-no" data-action="no" type="button">Not now</button>';
+              html += '<div class="gg-suggest-prompt">Does that look right?</div>';
+              html += '<div class="gg-suggest-actions" data-turn-idx="' + idx + '" data-step="a">';
+              html += '<button class="gg-suggest-btn-yes" data-action="id-yes" type="button">Yes, that\'s it</button>';
+              html += '<button class="gg-suggest-btn-no" data-action="id-no" type="button">Not quite</button>';
               html += '</div>';
-            } else if (status === "submitting") {
-              html += '<div class="gg-suggest-status">Sending suggestion…</div>';
-            } else if (status === "submitted") {
-              html += '<div class="gg-suggest-status">Suggested. Paul will review.</div>';
-            } else if (status === "dismissed") {
-              html += '<div class="gg-suggest-status">Set aside.</div>';
-            } else if (status === "error") {
-              html += '<div class="gg-suggest-status">Couldn\'t reach the queue — try again later.</div>';
+            } else if (status === "id-confirmed") {
+              html += '<div class="gg-suggest-prompt">Worth adding to the Almanac?</div>';
+              html += '<div class="gg-suggest-actions" data-turn-idx="' + idx + '" data-step="b">';
+              html += '<button class="gg-suggest-btn-yes" data-action="add-yes" type="button">Yes, add it</button>';
+              html += '<button class="gg-suggest-btn-no" data-action="add-no" type="button">Skip this one</button>';
+              html += '</div>';
+            } else if (status === "id-declined") {
+              html += '<div class="gg-suggest-status">Set aside — not the right ID.</div>';
+            } else if (status === "add-declined") {
+              html += '<div class="gg-suggest-status">Set aside — not adding this one.</div>';
+            } else if (status === "promoting") {
+              html += '<div class="gg-suggest-status">Drafting the entry and adding it to the journal…</div>';
+            } else if (status === "promoted") {
+              const elapsedMs = Date.now() - (t.promotedAtMs || Date.now());
+              const elapsedSec = Math.floor(elapsedMs / 1000);
+              const mm = Math.floor(elapsedSec / 60);
+              const ss = elapsedSec % 60;
+              const elapsedStr = mm + ":" + (ss < 10 ? "0" : "") + ss;
+              const overTime = elapsedMs > 5 * 60 * 1000;
+              const name = t.promotedName || (t.suggestion && t.suggestion.commonName) || "the entry";
+              if (overTime) {
+                html += '<div class="gg-suggest-status">' + escapeHtml(name) + ' is in the Almanac. Refresh the dashboard to see it.</div>';
+              } else {
+                html += '<div class="gg-suggest-status gg-promoted">';
+                html += escapeHtml(name) + ' added. GitHub Pages takes about 1–3 minutes to refresh — keep an eye out, or refresh the dashboard then.';
+                html += '<br><span class="gg-suggest-timer">Elapsed: ' + elapsedStr + '</span>';
+                html += '</div>';
+              }
+            } else if (status === "promote-error") {
+              const errMsg = t.promoteError ? (": " + t.promoteError) : "";
+              html += '<div class="gg-suggest-status gg-error">Hit a snag adding to the journal' + escapeHtml(errMsg) + '. Try the photo again, or check the Worker setup.</div>';
             }
           }
         }
@@ -9749,15 +9852,22 @@ const UnifiedInput = (function () {
       }
       conversation.innerHTML = html;
 
-      // Wire suggestion action handlers (delegated)
+      // Wire two-step suggestion action handlers (delegated)
       conversation.querySelectorAll(".gg-suggest-actions").forEach(group => {
         const turnIdx = parseInt(group.getAttribute("data-turn-idx"), 10);
         group.querySelectorAll("button[data-action]").forEach(btn => {
           btn.addEventListener("click", async () => {
             const action = btn.getAttribute("data-action");
-            if (action === "yes") {
-              // Find the user turn whose image preceded this assistant turn — use
-              // the most recent prior user turn's image as the thumbnail to ride along.
+            if (action === "id-yes") {
+              GardenGuru.confirmId(turnIdx);
+            } else if (action === "id-no") {
+              GardenGuru.declineId(turnIdx);
+            } else if (action === "add-no") {
+              GardenGuru.declineAdd(turnIdx);
+            } else if (action === "add-yes") {
+              // Find the thumbnail from the user turn whose image preceded this
+              // assistant turn — same shape as before, but now feeding the
+              // direct-to-Git promote endpoint rather than the pending queue.
               let thumb = null;
               for (let i = turnIdx - 1; i >= 0; i--) {
                 const prev = state.turns[i];
@@ -9770,13 +9880,33 @@ const UnifiedInput = (function () {
                 }
                 break;
               }
-              await GardenGuru.submitSuggestion(turnIdx, thumb);
-            } else {
-              GardenGuru.dismissSuggestion(turnIdx);
+              await GardenGuru.confirmAdd(turnIdx, thumb);
+              startPromoteTicker();
             }
           });
         });
       });
+    }
+
+    // Phase F Option C — live timer for the "promoted" status. Re-renders the
+    // conversation once a second so the elapsed-time counter ticks while
+    // GitHub Pages deploys the new entry. Stops after 5 minutes.
+    let promoteTickerInterval = null;
+    function startPromoteTicker() {
+      if (promoteTickerInterval) return;
+      promoteTickerInterval = setInterval(() => {
+        const state = GardenGuru.getState();
+        const livePromote = state.turns.find(t =>
+          t.suggestionStatus === "promoted" &&
+          (Date.now() - (t.promotedAtMs || 0)) < 5 * 60 * 1000
+        );
+        if (livePromote) {
+          renderConversation();
+        } else {
+          clearInterval(promoteTickerInterval);
+          promoteTickerInterval = null;
+        }
+      }, 1000);
     }
 
     ta.addEventListener("input", updateState);

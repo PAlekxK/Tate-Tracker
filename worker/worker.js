@@ -18,14 +18,22 @@
  *   POST   /api/feedback                  Append a feedback record (sentiment + note)
  *   GET    /api/feedback?start=&end=      Read feedback records in a date range
  *   POST   /api/pending-species           Phase F — append a Mom/Paul-photo plant/animal suggestion
- *                                          to today's pending-species queue (writes only)
+ *                                          to today's pending-species queue (writes only; fallback path)
  *   GET    /api/pending-species?start=&end=  Read pending suggestions in a date range
  *   DELETE /api/pending-species/<id>      Remove a specific suggestion (id = "YYYY-MM-DD:<nanos>")
+ *   POST   /api/promote-species           Phase F Option C — auto-promote a confirmed suggestion
+ *                                          via Schema Drafter + GitHub Contents API commits to
+ *                                          plants.json/animal-JSON + viewer.html + images/<cat>/
  *
  * Secrets (configured via `npx wrangler secret put NAME`):
  *   SHARED_TOKEN          — required, gates /api/*
  *   AIRNOW_API_KEY        — required for /api/airnow (free at airnowapi.org)
- *   ANTHROPIC_API_KEY     — required for /api/today-line, /api/classify, /api/chat
+ *   ANTHROPIC_API_KEY     — required for /api/today-line, /api/classify, /api/chat,
+ *                            /api/promote-species (schema drafter call)
+ *   GITHUB_TOKEN          — required for /api/promote-species; fine-grained PAT with
+ *                            Contents: Read and write on the Tate-Tracker repo
+ *   GITHUB_REPO           — required for /api/promote-species; "owner/name" form
+ *   GITHUB_BRANCH         — optional for /api/promote-species; defaults to "main"
  *
  * Storage: single KV namespace OBSERVATIONS holds:
  *   - observations array (key "observations")
@@ -382,7 +390,7 @@ When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fenc
 
 <!--suggest-species
 {
-  "kind": "plant" | "animal",
+  "kind": "plant" | "mammal" | "bird" | "amphibian" | "snake" | "lizard" | "fish" | "animal-other",
   "commonName": "...",
   "scientificName": "...",
   "confidence": "medium" | "high",
@@ -395,11 +403,135 @@ When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fenc
 Rules for the fence:
 - Emit it ONLY when confidence is medium or higher AND the photo is clearly of a plant or animal (not a landscape, not the sky, not a piece of equipment, not a vehicle).
 - Set "inCanon": true if the species is one of the property's curated lists (the seventeen plants in the digest, or any species listed under the mammals/birds/amphibians/snakes/lizards/fish sections). False otherwise.
-- Set "kind": "plant" for any plant; "animal" for any mammal/bird/amphibian/reptile/fish/insect.
+- Set "kind" to the most-specific category: "plant" for plants; "mammal", "bird", "amphibian", "snake", "lizard", "fish" for the corresponding animal groups; "animal-other" for invertebrates or unusual edge cases that don't fit the existing animal JSONs.
 - Keep elevationFit honest. If the species would be plausible here, say so. If it would be unusual, say so. The journal doesn't claim it lives here; it says whether it could.
 - Do NOT emit the fence when you couldn't confidently identify the subject. Low-confidence IDs should be expressed in the prose only.
-- In your prose reply, after identifying the species and noting plausibility, ask the user: "Want me to suggest it for the Almanac?" or a natural variation. This single question covers both the plausibility check and the add-to-canon prompt; the user's yes/no is the action.
+- **End your prose with the ID and plausibility note. Do NOT ask the user about adding it to the Almanac** — the client renders the two-step confirmation buttons separately ("Does that look right?" → "Worth adding to the Almanac?"). Your job is just the ID and plausibility; the user decides about adding via the buttons.
 - The reader sees prose; the client sees the fence. Don't reference the fence in your prose.`;
+
+// ---- Schema Drafter (Phase F) — full-schema generator for auto-promotion ----
+// Separate system prompt from Garden Guru. Triggered when the user confirms
+// "Worth adding to the Almanac?" → client POSTs /api/promote-species, which
+// calls this drafter to produce a full plants.json (or animal-JSON) entry,
+// then commits it to GitHub. This prompt does NOT use Garden Guru's voice —
+// it's a structured-output prompt focused on schema generation.
+
+const SCHEMA_DRAFTER_SYSTEM = `You are a Fernwood Schema Drafter. Your job is to produce a complete JSON entry for a newly identified plant or animal at 282 Church Mountain Road, Jasper, GA — 2,959 ft elevation on the Blue Ridge inside Tate Mountain Estates.
+
+PROPERTY CONTEXT
+- Elevation 2,959 ft (1,424 ft above KJZP baseline)
+- USDA Hardiness Zone 6b (elevation-adjusted); 7b official
+- Last frost 50%: May 3; Last frost 90% safe: May 24; First frost: October 17
+- Soils: Hayesville, Cecil, Pacolet series (acidic sandy loam to loam, pH 4.5–5.5, clay Bt argillic subsoil)
+- Region: Blue Ridge Foothills, Pickens County, GA — Mesic Cove and Montane Oak Forest mosaic
+- The property digest in your context lists the existing curated species (plants + all animal categories); reference it to maintain consistency
+
+VOICE FOR PROSE FIELDS
+- Field-journal voice — Aldo Leopold's *A Sand County Almanac* register. Observational, slow, place-anchored.
+- Anchor in the property: 2,959 ft, the Blue Ridge, Hayesville/Cecil/Pacolet soils, the specific frost-date offsets, the Mesic Cove / Montane Oak mosaic. Use these when they're load-bearing for the field.
+- Honest about elevation effects. When the species' general phenology would shift at 2,959 ft vs the broader regional pattern, say so. ("At ~2,959 ft, candles typically emerge 7–10 days later than in valley locations.")
+- No marketing adjectives ("exceptional", "stunning", "beautiful"). No "Great", "Wonderful", "Amazing".
+- No chatbot scaffolding. No "Here's the schema for...", no preamble, no markdown headers.
+
+NO INVENTION
+- Don't fabricate property-specific observation details ("the cluster near the porch", "the one by the spring"). Speak in general terms about the species and how it behaves at this kind of habitat/elevation.
+- Don't fabricate exact dates ("blooms May 12–19"). Use elevation-aware date approximations consistent with other entries in the digest. Round to week-ish windows ("mid-May to early June").
+- For care fields: only include subcategories when the species has truly distinct care actions (e.g., structural vs candle pruning for pines). Most plants do not.
+- For animals: monthsPresent must reflect actual presence (resident species = all 12 months); peakMonths is when the species is most visible/audible/active.
+
+SCHEMA REFERENCES
+
+For PLANTS (kind="plant") — match plants.json v3 shape:
+{
+  "id": "<kebab-case-slug>",
+  "name": "<Common Name>",
+  "scientificName": "<Genus species>",
+  "emoji": "<single emoji>",
+  "guide": "<one paragraph — what this plant is and what it needs in this climate>",
+  "currentSeasonNote": "<one paragraph anchored in current month; if unsure of date, write a calendar-neutral note>",
+  "soilNotes": "<one paragraph — how it relates to Hayesville/Cecil/Pacolet>",
+  "aspectPreference": "<one paragraph — sun/wind/slope preferences>",
+  "frostSensitivity": "<one paragraph — frost behavior at 2,959 ft>",
+  "care": {
+    "prune":     { "months": [0..11], "peakWindow": "<string or null>", "narrow": <bool>, "description": "<paragraph>" },
+    "propagate": { ... same shape ... },
+    "fertilize": { ... },
+    "water":     { ... },
+    "repot":     { ... },
+    "inspect":   { ... }
+  }
+}
+
+For MAMMALS (kind="mammal") — match mammals.json shape:
+{
+  "id": "<slug>", "name": "...", "scientificName": "...", "emoji": "...",
+  "status": "resident" | "summer" | "winter" | "migrant",
+  "statusLabel": "<short prose label like 'Year-round resident'>",
+  "monthsPresent": [array of 0..11],
+  "peakMonths": [array of 0..11 — when most active/visible],
+  "habitat": "<paragraph — habitat at the property>",
+  "voice": "<paragraph — vocalizations; 'Mostly silent.' if none>",
+  "notes": "<paragraph — practical notes for noticing this species at the property>",
+  "funFact": "<one sentence — one specific honest detail>"
+}
+
+For BIRDS (kind="bird") — match birds.json shape:
+{
+  "id": "<slug>", "name": "...", "scientificName": "...", "emoji": "...",
+  "status": "resident" | "summer" | "winter" | "migrant",
+  "statusLabel": "<short prose>",
+  "monthsPresent": [array of 0..11],
+  "peakMonths": [array of 0..11],
+  "habitat": "<paragraph>",
+  "voice": "<paragraph — call/song description>",
+  "feeder": "<short — 'Common at feeders' / 'Not a feeder species' / 'Occasionally at suet'>",
+  "arrivalWindow": "<short e.g. 'Late April' or null for resident>",
+  "departureWindow": "<short e.g. 'Mid October' or null for resident>",
+  "notes": "<paragraph>",
+  "funFact": "<one sentence>"
+}
+
+For AMPHIBIANS (kind="amphibian") — match amphibians.json shape:
+{
+  "id": "<slug>", "name": "...", "scientificName": "...", "emoji": "...",
+  "type": "frog" | "toad" | "treefrog" | "salamander",
+  "statusLabel": "<short prose>",
+  "monthsActive": [array of 0..11],
+  "peakMonths": [array of 0..11],
+  "habitat": "<paragraph>",
+  "appearance": "<paragraph — physical description>",
+  "call": "<paragraph — vocalization description; for salamanders, set noVocalization:true and write 'Silent — salamanders do not vocalize.'>",
+  "noVocalization": <bool>,
+  "voiceNote": "<string or omit>",
+  "size_in": "<string like '2-3' or '4-7'>",
+  "conservation": "<short prose>",
+  "notes": "<paragraph>"
+}
+
+For SNAKES (kind="snake") — match snakes.json shape:
+{
+  "id": "<slug>", "name": "...", "scientificName": "...", "emoji": "...",
+  "type": "snake",
+  "statusLabel": "<short prose>",
+  "monthsActive": [array of 0..11],
+  "peakMonths": [array of 0..11],
+  "habitat": "<paragraph>",
+  "appearance": "<paragraph>",
+  "venomous": <bool>,
+  "size_in": "<string>",
+  "conservation": "<short prose>",
+  "notes": "<paragraph>"
+}
+
+For LIZARDS (kind="lizard") — match lizards.json shape:
+(same as snakes but type="lizard")
+
+For ANIMAL-OTHER (kind="animal-other") — use the mammals schema as a default; flag explicitly in 'notes' that this doesn't fit an existing animal JSON.
+
+OUTPUT FORMAT
+- Output ONE valid JSON object only. No surrounding prose. No markdown code fences. No commentary.
+- The JSON must parse with JSON.parse() directly.
+- If you're given a photo, use it to constrain the schema where it helps (e.g., observed coloration in 'appearance', species-specific habitat clues). If no photo, draft from species knowledge.`;
 
 async function logChatCost(env, conversationId, apiData) {
   const date = new Date().toISOString().slice(0, 10);
@@ -525,6 +657,95 @@ async function handleChat(request, env) {
   });
 }
 
+// ---- GitHub Contents API helpers (Phase F Option C) ----
+// Used by /api/promote-species to commit Mom's confirmed additions directly to
+// the Tate-Tracker repo on GitHub. Required secrets:
+//   GITHUB_TOKEN    — fine-grained PAT with Contents: Read and write on the repo
+//   GITHUB_REPO     — "owner/name" form, e.g., "palekxk/Tate-Tracker"
+//   GITHUB_BRANCH   — usually "main"
+//
+// Each promotion makes three commits (kept separate for legible git history):
+//   1) updated source JSON (plants.json, mammals.json, etc.)
+//   2) updated viewer.html with the re-inlined *_DATA const
+//   3) new photo file at images/<category>/<slug>.<ext>
+// GitHub Pages auto-rebuilds on push to main; entry appears in the dashboard
+// 1–3 minutes after step 3 commits.
+
+const GH_API = "https://api.github.com";
+const GH_USER_AGENT = "TateTracker-Worker/1.0";
+
+function ghHeaders(env) {
+  return {
+    "Accept": "application/vnd.github+json",
+    "Authorization": `Bearer ${env.GITHUB_TOKEN}`,
+    "X-GitHub-Api-Version": "2022-11-28",
+    "User-Agent": GH_USER_AGENT,
+  };
+}
+
+async function ghGetFile(env, path) {
+  const url = `${GH_API}/repos/${env.GITHUB_REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}?ref=${encodeURIComponent(env.GITHUB_BRANCH || "main")}`;
+  const res = await fetch(url, { headers: ghHeaders(env) });
+  if (res.status === 404) return { exists: false, sha: null, contentText: null };
+  if (!res.ok) {
+    const txt = await res.text().catch(() => "");
+    throw new Error(`github-get-${res.status}: ${txt.slice(0, 200)}`);
+  }
+  const data = await res.json();
+  // GitHub returns content base64-encoded with newlines; decode as binary then UTF-8.
+  const b64 = (data.content || "").replace(/\n/g, "");
+  const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  const contentText = new TextDecoder("utf-8").decode(bytes);
+  return { exists: true, sha: data.sha, contentText };
+}
+
+async function ghPutFile(env, path, contentBase64, message, sha) {
+  const url = `${GH_API}/repos/${env.GITHUB_REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}`;
+  const body = {
+    message,
+    content: contentBase64,
+    branch: env.GITHUB_BRANCH || "main",
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch(url, { method: "PUT", headers: { ...ghHeaders(env), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  if (!res.ok) {
+    const txt = await res.text().catch(() => "");
+    throw new Error(`github-put-${res.status} on ${path}: ${txt.slice(0, 200)}`);
+  }
+  return res.json();
+}
+
+// Encode a UTF-8 string as base64 (Worker runtime has btoa for binary strings only;
+// we round-trip through TextEncoder + chunked-fromCharCode to be safe on large files).
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = "";
+  const CHUNK = 0x8000;
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+  }
+  return btoa(bin);
+}
+
+// Map a Phase F suggestion `kind` to the source JSON + inlined DATA const + image dir.
+const KIND_TARGETS = {
+  "plant":     { jsonFile: "plants.json",     dataConst: "PLANTS_DATA",     speciesPath: "plants",   imageDir: "images/plants" },
+  "mammal":    { jsonFile: "mammals.json",    dataConst: "MAMMALS_DATA",    speciesPath: "species",  imageDir: "images/mammals" },
+  "bird":      { jsonFile: "birds.json",      dataConst: "BIRDS_DATA",      speciesPath: "species",  imageDir: "images/birds" },
+  "amphibian": { jsonFile: "amphibians.json", dataConst: "AMPHIBIANS_DATA", speciesPath: "species",  imageDir: "images/amphibians" },
+  "snake":     { jsonFile: "snakes.json",     dataConst: "SNAKES_DATA",     speciesPath: "species",  imageDir: "images/snakes" },
+  "lizard":    { jsonFile: "lizards.json",    dataConst: "LIZARDS_DATA",    speciesPath: "species",  imageDir: "images/lizards" },
+  "fish":      { jsonFile: "fishing.json",    dataConst: "FISHING_DATA",    speciesPath: "species",  imageDir: "images/fishing" },
+};
+
+function slugify(name) {
+  return String(name || "").toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "") || "unnamed";
+}
+
 // ---- Pending species — Phase F suggested-additions queue ----
 // POST   /api/pending-species              — append a suggestion to today's daily key
 // GET    /api/pending-species?start=&end=  — read suggestions in date range
@@ -557,8 +778,9 @@ async function handleSuggestSpecies(request, env, url) {
         return json({ error: "missing-or-empty-field", field: k }, 400);
       }
     }
-    if (body.kind !== "plant" && body.kind !== "animal") {
-      return json({ error: "bad-kind", allowed: ["plant", "animal"] }, 400);
+    const KINDS = ["plant", "mammal", "bird", "amphibian", "snake", "lizard", "fish", "animal-other"];
+    if (!KINDS.includes(body.kind)) {
+      return json({ error: "bad-kind", allowed: KINDS }, 400);
     }
 
     const today = new Date().toISOString().slice(0, 10);
@@ -647,6 +869,232 @@ async function handleSuggestSpecies(request, env, url) {
   }
 
   return json({ error: "method-not-allowed" }, 405);
+}
+
+// ---- Promote species — Phase F Option C auto-promotion to canon ----
+// POST /api/promote-species  — confirmed-twice add-to-Almanac flow
+//
+// Triggered only after Mom (or Paul) clicks Yes on BOTH confirmation steps in
+// the client (Step A: "Does that look right?" + Step B: "Worth adding to the
+// Almanac?"). Sequence:
+//   1) Call Schema Drafter (Claude) to produce a full plants.json-v3 / animal-JSON
+//      shape entry, using the property digest as cached context + the photo
+//   2) GET the source JSON from GitHub, parse, append the new entry, encode + PUT
+//   3) GET viewer.html, replace the inlined *_DATA const, encode + PUT
+//   4) PUT the photo as a new file at images/<category>/<slug>.<ext>
+//   5) Return success with the slug + the 3 commit SHAs
+//
+// Body shape:
+//   { suggestion: {kind, commonName, scientificName, confidence, elevationFit, habitatHint, inCanon},
+//     thumbnail: "data:image/jpeg;base64,..." (or null),
+//     conversationId: "...",
+//     deviceId: "..." }
+//
+// Failure modes:
+// - Drafter call fails: returns 502 with the upstream error; nothing committed
+// - GitHub auth missing: returns 503 (caller falls back to /api/pending-species)
+// - SHA mismatch (race condition): returns 409; client retries once
+// - Any commit step fails after a partial commit: returns 502 with detail;
+//   manual cleanup possible via the original CLI (Tate-Tracker is git-versioned)
+
+async function handlePromoteSpecies(request, env) {
+  if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
+  if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
+  if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {
+    return json({ error: "github-not-configured", hint: "set GITHUB_TOKEN and GITHUB_REPO worker secrets" }, 503);
+  }
+
+  // 5MB body ceiling (thumbnail + metadata)
+  const lenHdr = request.headers.get("content-length");
+  if (lenHdr && parseInt(lenHdr, 10) > 5_000_000) {
+    return json({ error: "payload-too-large", limit_bytes: 5_000_000 }, 413);
+  }
+
+  let body;
+  try { body = await request.json(); }
+  catch (e) { return json({ error: "bad-json" }, 400); }
+  const suggestion = body && body.suggestion;
+  if (!suggestion || !suggestion.kind || !suggestion.commonName || !suggestion.scientificName) {
+    return json({ error: "missing-suggestion-fields", required: ["suggestion.kind", "suggestion.commonName", "suggestion.scientificName"] }, 400);
+  }
+  const target = KIND_TARGETS[suggestion.kind];
+  if (!target) {
+    return json({ error: "unsupported-kind", kind: suggestion.kind, supported: Object.keys(KIND_TARGETS) }, 400);
+  }
+
+  // ---- Step 1: Schema drafter call --------------------------------------
+  const drafterUserContent = [];
+  // Embed the photo if we have one
+  const thumbnail = body.thumbnail || null;
+  if (thumbnail && typeof thumbnail === "string" && thumbnail.startsWith("data:")) {
+    const m = thumbnail.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/);
+    if (m) {
+      drafterUserContent.push({ type: "image", source: { type: "base64", media_type: m[1], data: m[2] } });
+    }
+  }
+  // The drafter user-message names the species + kind + reminds it which schema to produce
+  const todayIso = new Date().toISOString().slice(0, 10);
+  drafterUserContent.push({
+    type: "text",
+    text: `Draft a complete schema entry for this species, in the JSON shape specified for kind="${suggestion.kind}". Output JSON only, no surrounding prose.
+
+Species: ${suggestion.commonName} (${suggestion.scientificName})
+Kind: ${suggestion.kind}
+Confidence at ID: ${suggestion.confidence || "medium"}
+Elevation fit (per Garden Guru's plausibility note): ${suggestion.elevationFit || "(not specified)"}
+Habitat hint: ${suggestion.habitatHint || "(not specified)"}
+Today: ${todayIso}
+
+Produce the schema now.`,
+  });
+
+  const drafterRes = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": env.ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 2000,
+      system: [
+        { type: "text", text: SCHEMA_DRAFTER_SYSTEM, cache_control: { type: "ephemeral" } },
+        { type: "text", text: "PROPERTY DIGEST (for reference, voice, and species-overlap consistency):\n" + JSON.stringify(propertyDigest), cache_control: { type: "ephemeral" } },
+      ],
+      messages: [{ role: "user", content: drafterUserContent }],
+    }),
+  });
+  if (!drafterRes.ok) {
+    const txt = await drafterRes.text().catch(() => "");
+    return json({ error: `drafter-anthropic-${drafterRes.status}`, detail: txt.slice(0, 300) }, 502);
+  }
+  const drafterData = await drafterRes.json();
+  const drafterText = (drafterData.content || []).filter(c => c.type === "text").map(c => c.text).join("").trim();
+  // Strip code fences if the model wrapped JSON in ```json ... ```
+  const cleaned = drafterText.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "").trim();
+  let draftedEntry;
+  try { draftedEntry = JSON.parse(cleaned); }
+  catch (e) {
+    return json({ error: "drafter-output-not-json", excerpt: cleaned.slice(0, 300) }, 502);
+  }
+
+  // Log cost for this drafter call (mirrors logChatCost pattern)
+  try { await logChatCost(env, "promote-" + (body.conversationId || "anon"), drafterData); }
+  catch (e) { console.warn("drafter cost log failed:", e); }
+
+  // ---- Step 2: Apply Fernwood-canonical fields (slug, attribution, photo path)
+  const slug = slugify(draftedEntry.id || suggestion.commonName);
+  draftedEntry.id = slug;
+  // Determine photo extension from the data URL
+  let photoExt = "jpg";
+  let photoBase64 = null;
+  if (thumbnail) {
+    const m = thumbnail.match(/^data:image\/([a-zA-Z0-9.+-]+);base64,(.+)$/);
+    if (m) {
+      photoExt = m[1] === "jpeg" ? "jpg" : m[1].toLowerCase();
+      photoBase64 = m[2];
+    }
+  }
+  if (photoBase64) {
+    draftedEntry.photo = `${target.imageDir}/${slug}.${photoExt}`;
+    draftedEntry.attribution = {
+      source: "Phase F submission",
+      author: body.deviceId || "user",
+      license: "Property record",
+      url: null,
+      submittedAt: new Date().toISOString(),
+    };
+  }
+  // Provenance — preserve the Phase F trail on every promoted entry
+  draftedEntry._phaseF = {
+    promotedAt: new Date().toISOString(),
+    conversationId: body.conversationId || null,
+    deviceId: body.deviceId || null,
+    confidence: suggestion.confidence || null,
+    elevationFit: suggestion.elevationFit || null,
+    habitatHint: suggestion.habitatHint || null,
+    fromCommonName: suggestion.commonName,
+    fromScientificName: suggestion.scientificName,
+  };
+
+  // ---- Step 3: Commit updated source JSON --------------------------------
+  let jsonFile, viewerFile;
+  try {
+    jsonFile = await ghGetFile(env, target.jsonFile);
+    if (!jsonFile.exists) {
+      return json({ error: "source-json-missing", path: target.jsonFile }, 502);
+    }
+    const jsonData = JSON.parse(jsonFile.contentText);
+    // Walk into the species path
+    let container = jsonData;
+    for (const part of target.speciesPath.split(".")) container = container[part];
+    if (!Array.isArray(container)) {
+      return json({ error: "species-path-not-list", path: target.speciesPath }, 500);
+    }
+    // Reject duplicate ids
+    if (container.some(s => s && s.id === slug)) {
+      return json({ error: "duplicate-id", id: slug, hint: "this species id already exists in the source JSON; pick a different one" }, 409);
+    }
+    container.push(draftedEntry);
+    const updatedJson = JSON.stringify(jsonData, null, 2) + "\n";
+    await ghPutFile(env, target.jsonFile, utf8ToBase64(updatedJson),
+      `Phase F: add ${draftedEntry.name || slug} to ${target.jsonFile}`,
+      jsonFile.sha);
+  } catch (e) {
+    return json({ error: "json-commit-failed", detail: String(e).slice(0, 300) }, 502);
+  }
+
+  // ---- Step 4: Re-inline *_DATA const in viewer.html ---------------------
+  try {
+    viewerFile = await ghGetFile(env, "viewer.html");
+    if (!viewerFile.exists) {
+      return json({ error: "viewer-html-missing" }, 502);
+    }
+    const dataConst = target.dataConst;
+    // Re-fetch the just-updated JSON (avoid re-parsing what we already had — use the updated value)
+    const jsonData = JSON.parse(jsonFile.contentText);
+    let container = jsonData;
+    for (const part of target.speciesPath.split(".")) container = container[part];
+    container.push(draftedEntry);
+    const inlinedJson = JSON.stringify(jsonData);
+    const constRegex = new RegExp(`const ${dataConst} = \\{[\\s\\S]*?\\};`);
+    const newConst = `const ${dataConst} = ${inlinedJson};`;
+    if (!constRegex.test(viewerFile.contentText)) {
+      return json({ error: "viewer-const-not-found", dataConst }, 502);
+    }
+    const newViewer = viewerFile.contentText.replace(constRegex, newConst);
+    await ghPutFile(env, "viewer.html", utf8ToBase64(newViewer),
+      `Phase F: re-inline ${dataConst} for ${draftedEntry.name || slug}`,
+      viewerFile.sha);
+  } catch (e) {
+    return json({ error: "viewer-commit-failed", detail: String(e).slice(0, 300) }, 502);
+  }
+
+  // ---- Step 5: Commit the photo ------------------------------------------
+  if (photoBase64) {
+    try {
+      const photoPath = `${target.imageDir}/${slug}.${photoExt}`;
+      // Check if a file already exists at this path (rare; mostly for re-runs)
+      const existing = await ghGetFile(env, photoPath);
+      await ghPutFile(env, photoPath, photoBase64,
+        `Phase F: add photo for ${draftedEntry.name || slug}`,
+        existing.sha || undefined);
+    } catch (e) {
+      // Photo commit failure is non-fatal — the entry is in canon, just no image
+      console.warn("photo commit failed:", e);
+    }
+  }
+
+  return json({
+    ok: true,
+    slug,
+    name: draftedEntry.name,
+    kind: suggestion.kind,
+    photoCommitted: !!photoBase64,
+    expectedDeployMinutes: "1-3",
+    fetchedAt: new Date().toISOString(),
+  });
 }
 
 // ---- Metrics — engagement event capture ----
@@ -897,11 +1345,12 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
           anthropic: !!env.ANTHROPIC_API_KEY,
+          github: !!(env.GITHUB_TOKEN && env.GITHUB_REPO),
         },
       });
     }
@@ -919,6 +1368,7 @@ export default {
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
+    if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
