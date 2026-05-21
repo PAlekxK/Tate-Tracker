@@ -11,6 +11,12 @@
  *   POST   /api/classify                  Claude API classification of a field-journal entry (no cache)
  *   POST   /api/chat                      Garden Guru — conversational answer in field-journal voice,
  *                                          with property digest as cached system-prompt context (Phase E)
+ *   POST   /api/metrics                   Append engagement events to today's daily key (writes only)
+ *   GET    /api/metrics?start=&end=       Read metrics batches in a date range
+ *   GET    /api/cost-log?start=&end=      Read per-day Anthropic API cost entries (write happens via /api/chat)
+ *   GET    /api/conversations?start=&end= List conversation metadata in range (no turn content)
+ *   POST   /api/feedback                  Append a feedback record (sentiment + note)
+ *   GET    /api/feedback?start=&end=      Read feedback records in a date range
  *
  * Secrets (configured via `npx wrangler secret put NAME`):
  *   SHARED_TOKEN          — required, gates /api/*
@@ -537,6 +543,173 @@ async function handleMetrics(request, env, url) {
   return json({ error: "method-not-allowed" }, 405);
 }
 
+// ---- Cost-log read — Anthropic API spend by day ----
+// GET /api/cost-log?start=YYYY-MM-DD&end=YYYY-MM-DD — read cost entries in range.
+// Writes happen inside handleChat via logChatCost(); no POST endpoint.
+
+async function handleCostLog(request, env, url) {
+  if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
+  const start = url.searchParams.get("start");
+  const end = url.searchParams.get("end");
+  if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end)) {
+    return json({ error: "bad-date-format" }, 400);
+  }
+  const startMs = Date.parse(start + "T00:00:00Z");
+  const endMs = Date.parse(end + "T00:00:00Z");
+  if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) {
+    return json({ error: "bad-date-range" }, 400);
+  }
+  const dates = [];
+  for (let t = startMs; t <= endMs; t += 86400000) {
+    dates.push(new Date(t).toISOString().slice(0, 10));
+  }
+  if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
+  const days = {};
+  for (const date of dates) {
+    const raw = await env.OBSERVATIONS.get(`cost-log:${date}`);
+    if (raw) {
+      try { days[date] = JSON.parse(raw); }
+      catch (e) { /* skip malformed */ }
+    }
+  }
+  return json({ range: { start, end }, days });
+}
+
+// ---- Conversations read — Garden Guru session metadata ----
+// GET /api/conversations?start=YYYY-MM-DD&end=YYYY-MM-DD — list conversation
+// metadata (no turn content) where startedAt or updatedAt falls in range.
+//
+// Privacy: returns only structural metadata { id, startedAt, updatedAt, turnCount }.
+// Conversation content (prompts + replies) stays behind the per-uuid key and is
+// not exposed by this endpoint.
+
+async function handleConversations(request, env, url) {
+  if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
+  const start = url.searchParams.get("start");
+  const end = url.searchParams.get("end");
+  if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end)) {
+    return json({ error: "bad-date-format" }, 400);
+  }
+  const startMs = Date.parse(start + "T00:00:00Z");
+  const endMs = Date.parse(end + "T23:59:59.999Z");
+  if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) {
+    return json({ error: "bad-date-range" }, 400);
+  }
+
+  const keys = [];
+  let cursor = undefined;
+  // Paginate the list call. At family scale this completes in 1 page; the loop
+  // is defense for the future and matches the KV contract (1000 keys per call).
+  while (true) {
+    const result = await env.OBSERVATIONS.list({ prefix: "conversation:", cursor });
+    for (const k of result.keys) keys.push(k.name);
+    if (result.list_complete) break;
+    cursor = result.cursor;
+    if (!cursor) break;
+  }
+
+  const conversations = [];
+  for (const key of keys) {
+    const raw = await env.OBSERVATIONS.get(key);
+    if (!raw) continue;
+    let session;
+    try { session = JSON.parse(raw); }
+    catch (e) { continue; }
+    if (!session || typeof session !== "object") continue;
+    const startedMs = Date.parse(session.startedAt || "");
+    const updatedMs = Date.parse(session.updatedAt || session.startedAt || "");
+    if (isNaN(startedMs) && isNaN(updatedMs)) continue;
+    // In range if either started OR ended inside the window (covers conversations
+    // that span the boundary either direction).
+    const inRange =
+      (!isNaN(startedMs) && startedMs >= startMs && startedMs <= endMs) ||
+      (!isNaN(updatedMs) && updatedMs >= startMs && updatedMs <= endMs);
+    if (!inRange) continue;
+    conversations.push({
+      id: session.id,
+      startedAt: session.startedAt,
+      updatedAt: session.updatedAt || session.startedAt,
+      turnCount: Array.isArray(session.turns) ? session.turns.length : 0,
+    });
+  }
+  // Sort newest-first by startedAt for stable output.
+  conversations.sort((a, b) => (b.startedAt || "").localeCompare(a.startedAt || ""));
+  return json({ range: { start, end }, conversations });
+}
+
+// ---- Feedback — user reactions to Garden Guru replies + general feedback ----
+// POST /api/feedback — append a feedback record to today's (UTC) daily key.
+// GET  /api/feedback?start=YYYY-MM-DD&end=YYYY-MM-DD — read records in range.
+//
+// Privacy: feedback contains user-authored note text — same boundary as
+// observation bodies. Stored in KV under feedback:YYYY-MM-DD, mirroring the
+// cost-log + metrics shape. Never auto-injected into AI context until Phase 2.
+
+async function handleFeedback(request, env, url) {
+  if (request.method === "POST") {
+    let body;
+    try { body = await request.json(); }
+    catch (e) { return json({ error: "bad-json" }, 400); }
+    if (!body || typeof body !== "object") return json({ error: "bad-body" }, 400);
+    const sentiment = body.sentiment;
+    if (!["landed", "so_so", "missed"].includes(sentiment)) {
+      return json({ error: "bad-sentiment" }, 400);
+    }
+    const record = {
+      id: body.id || ("fb-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36)),
+      ts: body.ts || new Date().toISOString(),
+      sessionId: body.sessionId || null,
+      deviceId: body.deviceId || null,
+      context: body.context && typeof body.context === "object" ? body.context : { type: "general" },
+      sentiment,
+      note: typeof body.note === "string" ? body.note.slice(0, 2000) : "",
+    };
+    const today = new Date().toISOString().slice(0, 10);
+    const key = `feedback:${today}`;
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = [];
+    if (existing) {
+      try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; }
+      catch (e) { arr = []; }
+    }
+    arr.push(record);
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+    return json({ stored: 1, total: arr.length, id: record.id });
+  }
+
+  if (request.method === "GET") {
+    const start = url.searchParams.get("start");
+    const end = url.searchParams.get("end");
+    if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end)) {
+      return json({ error: "bad-date-format" }, 400);
+    }
+    const startMs = Date.parse(start + "T00:00:00Z");
+    const endMs = Date.parse(end + "T00:00:00Z");
+    if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) {
+      return json({ error: "bad-date-range" }, 400);
+    }
+    const dates = [];
+    for (let t = startMs; t <= endMs; t += 86400000) {
+      dates.push(new Date(t).toISOString().slice(0, 10));
+    }
+    if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
+    const days = {};
+    for (const date of dates) {
+      const raw = await env.OBSERVATIONS.get(`feedback:${date}`);
+      if (raw) {
+        try { days[date] = JSON.parse(raw); }
+        catch (e) { /* skip malformed */ }
+      }
+    }
+    return json({ range: { start, end }, days });
+  }
+
+  return json({ error: "method-not-allowed" }, 405);
+}
+
 // ---- Router ----
 
 export default {
@@ -551,7 +724,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -569,6 +742,9 @@ export default {
     if (url.pathname === "/api/classify")   return handleClassify(request, env);
     if (url.pathname === "/api/chat")       return handleChat(request, env);
     if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url);
+    if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
+    if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
+    if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },

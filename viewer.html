@@ -113,6 +113,7 @@
   .main-card-icon.weather  { background: linear-gradient(135deg, #b8d8e8, #8eb8d4); }
   .main-card-icon.plants   { background: linear-gradient(135deg, #c8e8d0, #9eceb0); }
   .main-card-icon.vehicles { background: linear-gradient(135deg, #d8d0e0, #b0a0c4); }
+  .main-card-icon.references { background: linear-gradient(135deg, #e8e0d0, #b8a888); }
   .main-card-icon.property { background: linear-gradient(135deg, #e8d8b8, #c4a870); }
   .main-card-icon.fishing  { background: linear-gradient(135deg, #b8d4e8, #6090b8); }
   .main-card-icon.celestial { background: linear-gradient(135deg, #1a1a4a, #2a4090); }
@@ -2132,181 +2133,7 @@
     line-height: 1.55;
     margin-bottom: 14px;
   }
-  .quick-capture {
-    background: linear-gradient(135deg, #f7fbf2, #f0f7e8);
-    border: 1px solid #c8d8b0;
-    border-radius: 14px;
-    padding: 14px 16px 12px;
-    margin: 0 0 18px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  }
-  .quick-capture-label {
-    font-family: "Crimson Text", Georgia, serif;
-    font-style: italic;
-    font-size: 14px;
-    font-weight: 600;
-    color: #3a5a3a;
-    margin-bottom: 8px;
-    letter-spacing: 0.2px;
-  }
-  .quick-capture-row {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-  }
-  .quick-capture-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 8px;
-  }
-  .quick-capture-actions .fn-mic-hint { font-size: 11.5px; }
-
-  /* === GARDEN GURU — conversational ask surface (Phase E) === */
-  .garden-guru {
-    background: #fbfaf3;
-    border: 1px solid #d8d0b8;
-    border-radius: 12px;
-    padding: 11px 14px 10px;
-    margin: 0 0 18px;
-  }
-  .gg-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 7px;
-    gap: 10px;
-  }
-  .gg-label {
-    font-family: "Crimson Text", Georgia, serif;
-    font-style: italic;
-    font-size: 14px;
-    font-weight: 600;
-    color: #6a5828;
-    letter-spacing: 0.2px;
-  }
-  .gg-counter {
-    font-size: 11px;
-    color: #9a8868;
-    font-style: italic;
-  }
-  .gg-conversation {
-    max-height: 360px;
-    overflow-y: auto;
-    margin-bottom: 9px;
-    padding: 4px 2px;
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-  }
-  .gg-turn {
-    font-size: 13.5px;
-    line-height: 1.55;
-    padding: 7px 11px;
-    border-radius: 8px;
-  }
-  .gg-turn-user {
-    background: #f4f0e0;
-    color: #4a3a1a;
-    align-self: flex-end;
-    max-width: 90%;
-    font-weight: 500;
-  }
-  .gg-turn-assistant {
-    background: #fff;
-    color: #2a3a2a;
-    border: 1px solid #e8e0c8;
-    font-family: "Crimson Text", Georgia, serif;
-    font-size: 14.5px;
-    line-height: 1.55;
-    align-self: flex-start;
-    max-width: 95%;
-    white-space: pre-wrap;
-  }
-  .gg-turn-error {
-    background: #f8e8de;
-    border-color: #c4602a;
-    color: #7a3818;
-    font-family: inherit;
-    font-size: 13px;
-    font-style: italic;
-  }
-  .gg-turn-thinking {
-    color: #9a8868;
-    font-style: italic;
-    font-size: 12.5px;
-    align-self: flex-start;
-    padding: 4px 11px;
-  }
-  .gg-input-row {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-  }
-  .gg-textarea {
-    flex: 1;
-    min-height: 40px;
-    max-height: 200px;
-    border: 1px solid #d4cca8;
-    border-radius: 8px;
-    background: #fff;
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 8px 11px;
-    resize: vertical;
-    color: #2a3a2a;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .gg-textarea:focus { outline: none; border-color: #b08838; box-shadow: 0 0 0 2px #f0e6c8; }
-  .gg-textarea::placeholder { color: #b0a880; font-style: italic; }
-  .gg-textarea:disabled { background: #f0ede0; color: #8a8270; }
-  .gg-actions {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 8px;
-  }
-  .gg-actions .fn-mic-hint {
-    font-size: 11.5px;
-    flex: 1;
-    text-align: left;
-  }
-  .gg-ask-btn {
-    background: linear-gradient(135deg, #b08838, #8a6828);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-family: "Crimson Text", Georgia, serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    transition: background 0.15s, transform 0.1s, opacity 0.15s;
-  }
-  .gg-ask-btn:active { transform: scale(0.98); background: linear-gradient(135deg, #8a6828, #6a5018); }
-  .gg-ask-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
-  .gg-reset-btn {
-    background: transparent;
-    color: #8a7848;
-    border: 1px solid #d4cca8;
-    border-radius: 8px;
-    padding: 7px 12px;
-    font-family: inherit;
-    font-size: 12.5px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .gg-reset-btn:active { background: #f4f0e0; }
-
-  /* UNIFIED INPUT — locked 2026-05-20; feature-flag tateTracker.ui.unifiedInput.v1 */
-  .unified-input { display: none; }
-  body.ui-unified .unified-input { display: block; }
-  body.ui-unified #quick-capture { display: none; }
-  body.ui-unified #garden-guru { display: none; }
+  /* UNIFIED INPUT — locked 2026-05-20 */
   .unified-input {
     background: linear-gradient(180deg, #faf7ed 0%, #f4eed8 100%);
     border: 1px solid #d8cda0;
@@ -2420,6 +2247,7 @@
     flex: 1;
     text-align: left;
   }
+  .ui-actions .ui-mic-hint.error { color: #aa5a4a; }
   .ui-counter {
     font-size: 11.5px;
     color: #8a7848;
@@ -2509,64 +2337,6 @@
   .fn-entry-turn-user { color: #4a5a3a; }
   .fn-entry-turn-assistant { color: #6a7a5a; font-style: italic; padding-left: 12px; }
 
-  .fn-capture {
-    background: #fafcf6;
-    border: 1px solid #d8eacc;
-    border-radius: 12px;
-    padding: 12px 14px 10px;
-    margin-bottom: 14px;
-  }
-  .fn-capture-row {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-  }
-  .fn-capture-textarea {
-    flex: 1;
-    min-height: 64px;
-    max-height: 220px;
-    border: 1px solid #d4e0c8;
-    border-radius: 8px;
-    background: #fff;
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.55;
-    padding: 9px 11px;
-    resize: vertical;
-    color: #2a3a2a;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .fn-capture-textarea:focus { outline: none; border-color: #7a9a5a; box-shadow: 0 0 0 2px #e0eccd; }
-  .fn-capture-textarea::placeholder { color: #aab4a0; font-style: italic; }
-  .fn-capture-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 8px;
-  }
-  .fn-capture-actions .fn-mic-hint { font-size: 11.5px; }
-  .fn-capture-save {
-    background: linear-gradient(135deg, #6a8a4a, #5a7a3a);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-family: "Crimson Text", Georgia, serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    transition: background 0.15s, transform 0.1s, opacity 0.15s;
-  }
-  .fn-capture-save:active { transform: scale(0.98); background: linear-gradient(135deg, #5a7a3a, #4a6a2a); }
-  .fn-capture-save:disabled { opacity: 0.4; cursor: default; transform: none; }
-  .fn-entry-pending {
-    font-size: 10.5px;
-    color: #aaa090;
-    font-style: italic;
-    margin-left: 8px;
-  }
   .fn-empty {
     margin-top: 16px;
     font-family: "Crimson Text", Georgia, serif;
@@ -2755,15 +2525,6 @@
     0%, 100% { box-shadow: 0 0 0 0 rgba(216, 83, 74, 0.6); }
     50%      { box-shadow: 0 0 0 8px rgba(216, 83, 74, 0); }
   }
-  .fn-mic-hint {
-    font-family: "Crimson Text", Georgia, serif;
-    font-style: italic;
-    font-size: 11.5px;
-    color: #8a9a7a;
-    margin-top: 5px;
-    line-height: 1.4;
-  }
-  .fn-mic-hint.error { color: #aa5a4a; font-style: normal; }
   .fn-modal-footer {
     display: flex;
     gap: 10px;
@@ -2855,6 +2616,31 @@
   .fn-sync-btn:active { background: #f0f4e8; }
 
   /* Sync settings modal — inherits .fn-modal-* styles, plus its own intro + result */
+  .fn-sync-device-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    background: #f6f3e6;
+    border: 1px solid #e0d8c0;
+    border-radius: 6px;
+  }
+  .fn-sync-device-label {
+    font-size: 11px;
+    color: #8a8270;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .fn-sync-device-id {
+    font-family: "SF Mono", "Menlo", monospace;
+    font-size: 11.5px;
+    color: #3a3a2a;
+    word-break: break-all;
+    user-select: all;
+    -webkit-user-select: all;
+  }
   .fn-sync-intro {
     font-family: "Crimson Text", Georgia, serif;
     font-style: italic;
@@ -2898,6 +2684,70 @@
     outline: none;
     border-color: #8aaa6a;
     box-shadow: 0 0 0 3px rgba(138, 170, 106, 0.18);
+  }
+
+  /* Sources card — appendix-voice reference shelf */
+  .references-list {
+    display: flex;
+    flex-direction: column;
+    padding: 2px 0;
+  }
+  .ref-category {
+    border-top: 1px solid #ebe4d2;
+  }
+  .ref-category:first-child { border-top: none; }
+  .ref-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 11px 4px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ref-category-header:hover { background: #faf6e8; }
+  .ref-category-title {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #3a4a3a;
+  }
+  .ref-chevron {
+    font-size: 11px;
+    color: #8a8270;
+    transition: transform 0.18s ease;
+    margin-left: 8px;
+  }
+  .ref-category-header[aria-expanded="true"] .ref-chevron {
+    transform: rotate(180deg);
+  }
+  .ref-category-body {
+    padding: 4px 4px 14px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+  .ref-entry { line-height: 1.45; }
+  .ref-title {
+    display: block;
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #2a4a6a;
+    text-decoration: none;
+  }
+  .ref-title:hover { text-decoration: underline; }
+  .ref-framing {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #6a7a6a;
+    margin-top: 2px;
   }
 
 </style>
@@ -2952,38 +2802,7 @@
 
 <div class="content-wrap">
 
-  <!-- QUICK CAPTURE — always-visible Field Notes write surface (Phase D, promoted 2026-05-19) -->
-  <section class="quick-capture" id="quick-capture" aria-label="Quick field note">
-    <div class="quick-capture-label">Field Notes</div>
-    <div class="quick-capture-row">
-      <textarea id="fn-capture-textarea" class="fn-capture-textarea" placeholder="What did you see today?" rows="2"></textarea>
-      <button id="fn-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>
-    </div>
-    <div class="quick-capture-actions">
-      <span id="fn-mic-hint" class="fn-mic-hint"></span>
-      <button id="fn-capture-save" class="fn-capture-save" type="button" disabled>Save entry</button>
-    </div>
-  </section>
-
-  <!-- GARDEN GURU — conversational ask surface (Phase E, MVP) -->
-  <section class="garden-guru" id="garden-guru" aria-label="Garden Guru — ask about the property">
-    <div class="gg-header">
-      <span class="gg-label">Garden Guru</span>
-      <span class="gg-counter" id="gg-counter" hidden></span>
-    </div>
-    <div class="gg-conversation" id="gg-conversation" hidden></div>
-    <div class="gg-input-row">
-      <textarea id="gg-textarea" class="gg-textarea" placeholder="Ask the slope a question" rows="1"></textarea>
-      <button id="gg-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>
-    </div>
-    <div class="gg-actions">
-      <span id="gg-mic-hint" class="fn-mic-hint"></span>
-      <button id="gg-reset-btn" class="gg-reset-btn" type="button" hidden>Start fresh</button>
-      <button id="gg-ask-btn" class="gg-ask-btn" type="button" disabled>Ask Garden Guru</button>
-    </div>
-  </section>
-
-  <!-- UNIFIED INPUT — note or ask, locked 2026-05-20 (feature-flag tateTracker.ui.unifiedInput.v1) -->
+  <!-- UNIFIED INPUT — note or ask, locked 2026-05-20 -->
   <section class="unified-input" id="unified-input" aria-label="Note or ask Garden Guru">
     <div class="ui-input-label">Note or ask the slope</div>
     <div class="ui-input-row">
@@ -3161,8 +2980,8 @@
     <div class="main-card-header" data-toggle="fieldnotes">
       <div class="main-card-icon fieldnotes">📓</div>
       <div class="main-card-meta">
-        <div class="main-card-title">Field Notes</div>
-        <div class="main-card-summary" id="fieldnotes-summary">The journal you keep about this place</div>
+        <div class="main-card-title">The Almanac</div>
+        <div class="main-card-summary" id="fieldnotes-summary">Notes on the estate</div>
       </div>
       <span class="main-card-chevron">▼</span>
     </div>
@@ -3186,6 +3005,20 @@
     </div>
   </div>
 
+  <!-- SOURCES CARD — reference shelf (the appendix at the back of the almanac) -->
+  <div class="main-card" id="card-references">
+    <div class="main-card-header" data-toggle="references">
+      <div class="main-card-icon references">📚</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">Sources</div>
+      </div>
+      <span class="main-card-chevron">▼</span>
+    </div>
+    <div class="main-card-body">
+      <div class="references-list" id="references-body"></div>
+    </div>
+  </div>
+
 </div>
 
 <!-- FIELD NOTES — SYNC SETTINGS MODAL (Phase C1) -->
@@ -3198,6 +3031,10 @@
     <div class="fn-modal-body">
       <div class="fn-sync-intro">
         Connect this device to your Fernwood Worker so entries follow you between phone, tablet, and laptop. One-time setup per device — paste the same Worker URL and shared token everywhere you want to sync. Deploy instructions live in the repo's <code>worker/README.md</code>.
+      </div>
+      <div class="fn-sync-device-row">
+        <span class="fn-sync-device-label">This device</span>
+        <code class="fn-sync-device-id" id="fn-sync-device-id">—</code>
       </div>
       <div class="fn-field">
         <label class="fn-field-label" for="fn-sync-url">Worker URL</label>
@@ -3455,6 +3292,8 @@ const CELESTIAL_DATA = {
 const PROPERTY_DATA = {"_meta":{"schemaVersion":1,"lastUpdated":"2026-05-05","dataSources":["NOAA 1991–2020 Climate Normals, KJZP Pickens County Airport","Almanac.com frost dates for Jasper GA (NOAA normals)","USDA Web Soil Survey — Pickens County GA (Hayesville, Cecil, Pacolet series)","Appalachian lapse rate research: Springer Nature 2025","Cold-air drainage research: GeoJournal thermal belt studies","USDA Plant Hardiness Zone Map 2023","UGA Cooperative Extension North Georgia resources"]},"property":{"name":"Church Mountain Road Property","address":"282 Church Mountain Road","city":"Jasper","state":"GA","zip":"30143","county":"Pickens County","region":"Blue Ridge, North Georgia","owner":"Paul"},"location":{"coordinates":{"latitude":34.5496,"longitude":-84.3674,"approximateLat":34.5496,"approximateLon":-84.3674,"note":"Confirmed via Google Maps May 2026."},"elevation":{"estimated_ft":2959,"elevation_m":902,"range_ft":[2800,3100],"confidence":"confirmed","basis":"Confirmed at 902 m / 2,959 ft via Open-Meteo elevation API at 34.5496N, 84.3674W (May 2026). Consistent with Tate Mountain Estates area — Lake Sequoyah nearby at ~2,769 ft.","valleyFloorRef_ft":1467,"airportRef_ft":1535,"elevationAboveKJZP_ft":1424}},"hardiness":{"officialZone":"7b","officialZoneMinTemp_F":5,"elevationAdjustedZone":"6b to 7a (mid-slope and open); 6a in frost pockets","elevationAdjustedMinTemp_F":-5,"explanation":"Official Zone 7b for Pickens County. At confirmed 2,959 ft — 1,424 ft above KJZP — the lapse rate implies 5–8°F colder winter minimums, putting the property solidly in Zone 6b on open mid-slope positions. Frost pockets may briefly reach Zone 6a.","lapseRate_F_per_1000ft":3.5,"coldAirDrainageEffect_F":"8–15°F colder in hollows vs. mid-slope on calm clear nights"},"frostDates":{"source":"NOAA 1991–2020 Climate Normals, Jasper GA, elevation-adjusted","valleyFloor_KJZP":{"lastSpring_50pct":"April 23","lastSpring_90pctSafe":"May 14","firstFall_50pct":"October 27","firstFallRiskBegins":"October 9","growingSeason_days":187},"atPropertyElevation":{"note":"Adjusted ~10 days for confirmed 1,424 ft above KJZP. Applies to open mid-slope positions.","lastSpring_50pct":"May 3","lastSpring_90pctSafe":"May 24","firstFall_50pct":"October 17","firstFallRiskBegins":"September 29","growingSeason_days":167},"frostPocketWarning":"Hollows and low-lying areas can experience frost 1–4 weeks earlier in fall and later in spring than mid-slope estimates."},"climate":{"annualPrecipitation_in":57,"precipitationNotes":"Valley station reads 57 in/yr. Orographic lift on mountain slopes likely adds 5–15% — property may receive 60–65 in/yr. Well-distributed year-round; afternoon thunderstorms common Jun–Aug.","temperature":{"annualRange_F":[33,87],"janAvgHigh_F":47.1,"janAvgLow_F":31.5,"julAvgHigh_F":87.6,"julAvgLow_F":65.8},"humidity":"High Jun–Sep (70–90% RH). Prioritize air circulation in plantings — prime conditions for fungal disease.","wind":{"iceStormRisk":"Moderate — cold-air damming from Appalachians; 1–3 ice events per winter","snowfall_in_avg":"5–10 in/yr on average; individual storms can bring 6–12 in but most winters see modest accumulation. NOAA 1991–2020 normals show Blairsville (1,900 ft) at 3.1 in — the property at 2,959 ft gets somewhat more but North Georgia elevations remain well below Appalachian snowbelt averages."}},"soils":{"likelySeries":["Hayesville","Cecil","Pacolet"],"parentMaterial":"Mica gneiss, mica schist, granodiorite — typical Blue Ridge metamorphic/igneous residuum","texture":"Sandy loam to loam surface; red clayey subsoil (argillic Bt horizon)","pH":{"nativeRange":"4.5–5.5 (extremely to moderately acid, unlimed)","acidLovers":"4.5–5.5 — azaleas, rhododendrons, mountain laurel, blueberries — native soil ideal","generalPlants":"5.5–6.5 — dogwood, hydrangea, boxwood, holly, Japanese maple — may need light liming","vegetables":"6.0–6.8 — likely needs liming for veggie beds","soilTestNote":"UGA Extension soil test $9 via Pickens County Extension (706-253-8840) — test each area separately before amending"},"drainage":"Well-drained on slopes; check flat/low areas for perched water above clay subsoil","organicMatter":"Low on slopes; annual compost/leaf mulch additions are highest-return investment","rockContent":"Moderate to high — mica schist parent rock; expect rocks during digging"},"microclimate":{"overview":"Elevation, aspect, and slope position can create 15–20°F temperature differences across a single property on a calm clear night.","thermalBelt":"Mid-slope positions (~100–400 ft above valley) are frost-safest — cold air drains past them into the valley. Best beds for borderline-hardy plants.","frostPockets":"Hollows and draws can be 8–15°F colder than mid-slope on calm clear nights.","aspectEffects":{"south_southwest":{"character":"Warmest & driest","bestFor":"Heat-loving vegetables, fruit trees","caution":"Japanese maple/azalea scorch risk higher"},"north_northeast":{"character":"Coolest & moistest","bestFor":"Azaleas, rhododendrons, mountain laurel, ferns","caution":"Frost lingers later; fungal disease elevated"},"east":{"character":"Morning sun, afternoon shade — optimal balance","bestFor":"Hydrangeas, dogwoods — broadest plant compatibility","caution":"None significant"},"west":{"character":"Afternoon sun & heat","bestFor":"Drought-tolerant natives","caution":"Higher water stress; wind exposure"}}},"resources":{"localExtension":{"name":"UGA Cooperative Extension — Pickens County","phone":"706-253-8840","services":"Soil testing ($9), plant disease ID, pest ID, variety recommendations"},"nearestWeatherStation":{"id":"KJZP","name":"Pickens County Airport","elevation_ft":1535,"noteOnElevDiff":"Property is ~1,424 ft above this station — expect 5–8°F colder winters and heavier precipitation","nwsForecastUrl":"https://forecast.weather.gov/MapClick.php?zoneid=GAZ013"}}};
 
 const EVENTS_DATA = {"_meta":{"lastUpdated":"2026-05-19","scope":"Recurring annual events within ~45 min drive of the property — Pickens, Gilmer, Fannin, Lumpkin counties. Manually curated; not a live feed (see CLAUDE.md for the feed-availability scoping that justified this).","refreshCadence":"Annual review each January; spot-check 30 days before each event.","schema":{"id":"Kebab-case slug, stable across years.","name":"Event display name.","location":"Specific venue or street, including town.","county":"Pickens | Gilmer | Fannin | Lumpkin | etc.","driveMin":"Approx drive time from the property, in minutes. Update if route changes.","dates":"Specific date or YYYY-MM-DD..YYYY-MM-DD range for the next confirmed occurrence. Null if the next year's dates aren't yet posted.","pattern":"Human-readable recurrence rule (e.g., 'First weekend of October'). Used to render fallback text when dates is null.","type":"Tags — festival | market | music | food | outdoor | history | family | holiday | rodeo | art","url":"Primary URL for the event (official site preferred over aggregator).","notes":"1-2 sentences in field-journal voice. What this event actually is, plus any property-anchored connection."}},"events":[{"id":"marble-festival","name":"Georgia Marble Festival","location":"Lee Newton Park, 500 Veterans Memorial Blvd, Jasper","county":"Pickens","driveMin":15,"dates":"2026-10-03..2026-10-04","pattern":"First weekend of October","type":["festival","art","music","family","history"],"url":"https://www.pickenschamber.com/marble-festival/","notes":"44th annual in 2026. About 120 exhibitors, 9,000 attendees. Quarry tours, marble-sculpting and chainsaw-carving demos, 5K and parade. The closest thing Pickens County has to a hometown festival — directly anchored in the marble heritage that explains why Tate exists at all."},{"id":"talking-rock-heritage-days","name":"Talking Rock Heritage Days","location":"Town of Talking Rock (along Talking Rock Creek)","county":"Pickens","driveMin":15,"dates":null,"pattern":"Third weekend of October","type":["festival","art","music","history","family"],"url":"https://talkingrockga.com/heritagedaysfestival.html","notes":"Two-day arts/crafts/music festival in the tiny incorporated town of Talking Rock, on the banks of the creek that the Cherokee called Nunyu-gunwaniski. Free admission and parking. Pair with a stop at the Hwy 136 bridge — the old Federal Road's Talking Rock Ford crossing."},{"id":"sheriffs-jeepfest","name":"Sheriff's JeepFest","location":"8795 Hwy 53 East, Jasper","county":"Pickens","driveMin":15,"dates":"2026-08-29..2026-08-31","pattern":"Last full weekend of August","type":["festival","music","family","outdoor"],"url":"https://www.sheriffsjeepfest.com/","notes":"Three-day Jeep festival: trails, obstacles, mud, concerts, food. Spectators free. Benefits Georgia Sheriffs' Youth Homes, Pickens Special Olympics, Boys & Girls Club, Jasper Youth Sports."},{"id":"jasper-pro-rodeo","name":"Jasper Pro Rodeo (Pickens County Stampede)","location":"Jasper","county":"Pickens","driveMin":15,"dates":null,"pattern":"Second weekend of May","type":["rodeo","family"],"url":"https://www.rodeoticket.com/jasper-pro-rodeo-pickens-county-stampeded/rodeo-information","notes":"Annual PRCA rodeo. Single-evening attendance option."},{"id":"georgia-apple-festival","name":"Georgia Apple Festival","location":"Ellijay Lions Club Fairgrounds, Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-10-10..2026-10-11","pattern":"Second and third weekends of October","type":["festival","food","art","family"],"url":"https://www.georgiaapplefestival.org/","notes":"Largest annual event in Gilmer County. Hundreds of vendors, on-site demos, live music, fair food. $10 admission, kids under 12 free. Note the two-weekend schedule — Oct 10-11 AND Oct 17-18 in 2026."},{"id":"georgia-apple-festival-week-2","name":"Georgia Apple Festival — Weekend 2","location":"Ellijay Lions Club Fairgrounds, Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-10-17..2026-10-18","pattern":"Third weekend of October (second of two Apple Festival weekends)","type":["festival","food","art","family"],"url":"https://www.georgiaapplefestival.org/","notes":"Second weekend of the Apple Festival run."},{"id":"ellijay-farmers-market","name":"Ellijay Farmers & Artisans Market","location":"Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-05-02..2026-09-26","pattern":"Saturdays, 8:30 AM – 12:30 PM, May through September","type":["market","food","family"],"url":"https://www.facebook.com/ellijayfarmers/","notes":"50+ vendors weekly through the growing season. Recurring — render as a weekly chip when active, not a single-date callout."},{"id":"blue-ridge-trout-festival","name":"Blue Ridge Trout & Outdoor Adventures Festival","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-04-25","pattern":"Last Saturday of April","type":["festival","outdoor","food","family"],"url":"https://blueridgetroutfest.com/","notes":"Cast, bike, paddle, hike, fish, climb, ride — plus live music, craft beer, outdoor art. Honors the trout streams of Fannin County."},{"id":"blue-ridge-spring-arts-park","name":"Spring Arts in the Park (Blue Ridge)","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Memorial Day weekend","type":["festival","art","food"],"url":"https://www.blueridgemountains.com/events/annual-events/spring-arts-in-the-park/","notes":"200+ juried fine arts exhibitors plus crafts, food, artist demos. The bigger of Blue Ridge's two Arts in the Park weekends."},{"id":"blue-ridge-fall-arts-park","name":"Fall Arts in the Park (Blue Ridge)","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-10-10..2026-10-11","pattern":"Second weekend of October","type":["festival","art","food"],"url":"https://www.blueridgemountains.com/events/annual-events/spring-arts-in-the-park/","notes":"Fall counterpart to Spring Arts in the Park. Conflicts with Apple Festival weekend 1 — pick one or split the day."},{"id":"blue-ridge-blues-bbq","name":"Blue Ridge Blues & BBQ Festival","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-09-19","pattern":"Third Saturday of September","type":["festival","music","food"],"url":"https://blueridgebluesandbbq.com/","notes":"15th annual in 2026. 11:30 AM – 9 PM. 15+ BBQ pitmasters, blues acts, local vendors."},{"id":"blue-ridge-st-patricks-parade","name":"Blue Ridge St. Patrick's Day Parade","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Saturday closest to March 17","type":["holiday","family"],"url":"https://www.blueridgemountains.com/events/","notes":"Small-town St. Patrick's parade with local businesses and community groups."},{"id":"blue-ridge-fire-ice-chili","name":"Fire and Ice Chili Cook-Off (Blue Ridge)","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Presidents' Day weekend (mid-February)","type":["festival","food","family"],"url":"https://www.blueridgemountains.com/events/","notes":"Winter chili festival with ice sculptures. One of the few mid-winter local festivals worth the drive."},{"id":"bear-on-the-square","name":"Bear on the Square Mountain Festival","location":"Hancock Park / Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":"2026-04-17..2026-04-19","pattern":"Third weekend of April","type":["festival","music","art","family"],"url":"https://bearonthesquare.org/","notes":"28th annual in 2026. Friday ticketed concert (Lonesome River Band, 2026); Saturday and Sunday free. Juried mountain crafts, storytelling, music workshops, Sunday Gospel Jam. The marquee Appalachian-tradition festival in the area."},{"id":"dahlonega-arts-wine","name":"Dahlonega Arts & Wine Festival","location":"Hancock Park, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Mid-May, single weekend","type":["festival","art","food"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Wine from area wineries plus arts, crafts, live jazz. Dahlonega is Georgia's wine country anchor."},{"id":"dahlonega-gold-rush-days","name":"Gold Rush Days (Dahlonega)","location":"Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Third weekend of October","type":["festival","art","history","family"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Commemorates Georgia's 1828 gold rush (Dahlonega, not the famous 1849 California one). Crafts, panning demonstrations, parade."},{"id":"ellijay-light-up","name":"Light Up Ellijay","location":"Historic Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":null,"pattern":"First weekend of December","type":["holiday","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Tree lighting, Santa, parade, live entertainment, seasonal vendors. The local holiday-season opener."},{"id":"ellijay-holiday-lights","name":"Holiday Lights of Ellijay","location":"Ellijay Lions Club Fairgrounds","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Late November through December","type":["holiday","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Drive-through light display with light maze and Santa visits. Multi-week run."},{"id":"ellijay-christmas-market-sand-street","name":"Christmas Market on Sand Street","location":"Sand Street, Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Early December (one Saturday)","type":["holiday","market","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Outdoor holiday market along Sand Street with crafts, food, and seasonal vendors. Pair with Light Up Ellijay if the dates line up."},{"id":"ellijay-mountain-trail-fest","name":"Georgia Mountain Trail Fest","location":"Ellijay / Cartecay area","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Spring (date varies)","type":["outdoor","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Multi-trail running/hiking event through the Cartecay-area trail system. Date set annually; check Downtown Ellijay events for the current year's posting."},{"id":"dahlonega-old-fashioned-christmas","name":"Old Fashioned Christmas (Dahlonega)","location":"Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Saturdays in December","type":["holiday","family"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Multi-Saturday holiday celebration on the Dahlonega town square — carolers, Santa, horse-drawn carriages, tree lighting. The Appalachian-foothills small-town Christmas you go to see if you didn't grow up with one."},{"id":"tate-day","name":"Tate Day","location":"Village of Tate / Tate House grounds","county":"Pickens","driveMin":5,"dates":null,"pattern":"Periodic — announced via Pickens Past blog","type":["history","family"],"url":"https://www.pickenspast.com/","notes":"Local-history event commemorating Col. Sam Tate and the Village of Tate. The most property-anchored event in the area — Tate Mountain Estates begins ~0.3 mi from the front door. Sporadic schedule; watch Pickens Past for announcements."}]};
+
+const REFERENCES_DATA = {"_meta":{"lastBuilt":"2026-05-21","source":"research-resources.md","totalEntries":145,"categoryCount":8},"categories":[{"id":"extension-and-academia","label":"Extension and academia","entries":[{"title":"Native Plants of North Georgia: A Photo Guide for Plant Enthusiasts (UGA Extension B 1339)","url":"https://extension.uga.edu/publications/detail.html?number=B1339","framing":"The single most geographically-targeted Extension publication for the property — assumes the elevation, slope, and zone 7b/6b conditions of Pickens County. Far more useful than statewide guides."},{"title":"Native Plants for Georgia, Part I: Trees, Shrubs, and Woody Vines (UGA Extension B 987)","url":"https://extension.uga.edu/publications/detail.html?number=B987","framing":"Directly covers most woody species already tracked — White Pine, native azaleas, dogwood, mountain laurel, oakleaf hydrangea, holly — with native-status notes and culture requirements."},{"title":"Native Plants for Georgia, Part III: Wildflowers (UGA Extension B 987-3)","url":"https://extension.uga.edu/publications/detail.html?number=B987-3","framing":"Spec sheet for siting native ornamentals as the dashboard expands. The \"shaded woodland adjacent to streams\" framing matches the wooded ridge/cove conditions on Church Mountain Road."},{"title":"Native Plants for Georgia, Part II: Ferns (UGA Extension B 987-2)","url":"https://extension.uga.edu/publications/detail.html?number=B987-2","framing":"Shaded north-facing slopes at 2,959 ft routinely host Christmas fern, New York fern, and rattlesnake fern — natural additions to a habitat-focused dashboard."},{"title":"UGA Extension — Pickens County Office","url":"https://extension.uga.edu/county-offices/pickens.html","framing":"The actual front door for ground-truthing the property — soil samples and pest IDs go through here."},{"title":"Pollinator Garden Design Guide (UGA Extension B 1570-1)","url":"https://extension.uga.edu/publications/detail.html?number=B1570-1","framing":"Translates the \"support local wildlife\" goal into actionable plant combinations vetted for Georgia."},{"title":"Selecting Trees and Shrubs as Resources for Pollinators (UGA Extension B 1483)","url":"https://extension.uga.edu/publications/detail.html?number=B1483","framing":"Bridges the dashboard's woody-plant focus (azalea, hydrangea, mountain laurel, holly, dogwood) with the pollinator goal."},{"title":"Beyond Butterflies: Gardening for Native Pollinators (UGA Extension B 1349)","url":"https://secure.caes.uga.edu/extension/publications/files/pdf/B%201349_1.PDF","framing":"\"Indigenous wildlife\" extends to native bees and other invertebrates that don't show up in glossier guides."},{"title":"Eco-Friendly Garden: Attracting Pollinators, Beneficial Insects, and Other Natural Predators (UGA Extension B 1456)","url":"https://extension.uga.edu/publications/detail.html?number=B1456","framing":"Speaks to a \"field journal, low-intervention\" management philosophy — habitat structure over sprays."},{"title":"Connect to Protect — UGA State Botanical Garden of Georgia","url":"https://botgarden.uga.edu/connect-to-protect/","framing":"Direct sourcing path for Georgia-genotype native plant material."},{"title":"Mimsie Lanier Center for Native Plant Studies (UGA SBG)","url":"https://botgarden.uga.edu/conservation-science/mimsie-lanier-center-native-plant-studies/","framing":"The serious end of \"indigenous-first\" — ecotype-correct seed and rare-plant propagation."},{"title":"Native Trees of Georgia (Georgia Forestry Commission)","url":"https://gatrees.org/wp-content/uploads/2020/10/Native-Trees-of-GA-2013-Web-Version.pdf","framing":"Self-contained tree ID reference at PDF scale — great offline companion for walking the woods. Covers the cove hardwood mix typical of 2,500–3,000 ft Blue Ridge."},{"title":"Georgia Forestry Commission — Forest Stewardship Program","url":"https://gatrees.org/forest-management-conservation/forest-stewardship-program/","framing":"Genuinely tailored guidance for a wooded mountain parcel — far more property-specific than any publication. Plans include wildlife and indigenous-species objectives."},{"title":"Warnell School of Forestry & Natural Resources — Outreach Publications","url":"https://www.warnelloutreach.org/publications.cfm","framing":"Deepest Georgia-specific coverage of forest health, prescribed fire in Appalachian hardwoods, and wildlife habitat structure."},{"title":"NC State Extension Gardener Handbook","url":"https://content.ces.ncsu.edu/extension-gardener-handbook","framing":"NC State's mountain-region material is often more directly applicable than UGA's Piedmont-leaning guidance, especially for cool-night/elevated sites."},{"title":"Clemson HGIC — Native Plants for Wildlife Resources","url":"https://hgic.clemson.edu/native-plants-for-wildlife-resources-for-home-gardeners/","framing":"Upstate SC shares southern Appalachian flora with Pickens County GA. Filtering by wildlife outcome matches this dashboard's framing."}]},{"id":"native-plants-and-habitat","label":"Native plants and habitat","entries":[{"title":"North Georgia Mountains Chapter — Georgia Native Plant Society","url":"https://gnps.org/north-georgia-mountains/","framing":"The most ecologically aligned native-plant community for the property — Pickens is just south of the chapter's stated counties; species, soils, elevations are nearly identical."},{"title":"Georgia Native Plant Society — Plant of the Year","url":"https://gnps.org/","framing":"A curated yearly nudge toward an indigenous species worth adding — a low-pressure recommendation engine that fits the field-journal tone."},{"title":"Audubon Plants for Birds (zip 30143)","url":"https://www.audubon.org/plantsforbirds","framing":"Directly bridges the Plants card and Wildlife > Birds tab — for 30143, returns plants ranked by bird value."},{"title":"Native Plant Finder (NWF / Tallamy / Shropshire) — zip 30143","url":"https://nativeplantfinder.nwf.org/","framing":"Defensible, science-based answer to \"which natives matter most for indigenous wildlife at 30143\" — for north Georgia, dominated by oaks (~400+ Lepidoptera), willows, cherries, blueberries."},{"title":"Homegrown National Park (Doug Tallamy)","url":"https://homegrownnationalpark.org/","framing":"Philosophical anchor for the entire dashboard — \"support local wildlife and plants, especially indigenous\" is essentially the Homegrown National Park thesis."},{"title":"Keystone Plants by Ecoregion — National Wildlife Federation","url":"https://www.nwf.org/Native-Plant-Habitats/Plant-Native/Why-Native/Keystone-Plants-by-Ecoregion","framing":"The \"if you only plant five things\" answer for this specific ecoregion."},{"title":"Mt. Cuba Center — Trial Garden Reports","url":"https://mtcubacenter.org/research/trial-garden/","framing":"The Wild Hydrangea report (2022) is directly applicable to the Hydrangea entries — currently ambiguous between native (H. arborescens, H. quercifolia) and non-native (H. macrophylla)."},{"title":"Mt. Cuba Wild Hydrangea Top Performers (PDF)","url":"https://mtcubacenter.org/wp-content/uploads/2023/11/23034a-Trial-Garden-Top-Performers-Hydrangea-1.pdf","framing":"Direct, citable content for the existing Hydrangea entry — far more rigorous than nursery marketing."},{"title":"Xerces Society — Pollinator Conservation Resources: Southeast Region","url":"https://xerces.org/pollinator-resource-center/southeast","framing":"Best-in-class invertebrate-focused source. Their Southeast plant list explicitly accounts for Appalachian conditions."},{"title":"Xerces Society — Pollinator Plants of the Southeast Region (PDF)","url":"https://xerces.org/sites/default/files/2018-05/17-053_03_XercesSoc_PollinatorPlants_Southeast-Region_web-3page.pdf","framing":"Compact enough to live as a printed companion at the homestead; tuned to the species pool the property can host."},{"title":"Georgia Botanical Society (BotSoc)","url":"https://www.gabotsoc.org/","framing":"Trips routinely visit Blue Ridge, Cohutta, and Chattahoochee NF — landscapes ecologically continuous with the property. Tipularia's southern Appalachian articles match the field-journal depth this dashboard wants."},{"title":"Georgia Botanical Society — 2026 Field Trips","url":"https://www.gabotsoc.org/field-trips-2/2026-field-trips/","framing":"Concrete dated events within an hour of Jasper."},{"title":"Atlanta Botanical Garden — Southeastern Center for Conservation","url":"https://atlantabg.org/conservation-research/southeastern-center-for-conservation/","framing":"Their North Georgia fieldwork is geographically next door; species lists for at-risk natives are a candidate filter when adding plants. For any rare-species restoration thread, ABG is the propagation-and-safeguarding partner."},{"title":"Lady Bird Johnson Wildflower Center — Native Plant Database","url":"https://www.wildflower.org/plants/","framing":"Often the cleanest single reference page per species."},{"title":"Birds Georgia (formerly Georgia Audubon) — Plants for Birds & Wildlife Sanctuary Certification","url":"https://www.birdsgeorgia.org/plants-for-birds.html","framing":"Cleanest path to a meaningful, low-cost certification recognizing native plantings on Church Mountain Road — and a sourcing channel for hard-to-find Georgia natives."},{"title":"Georgia DNR — Create Backyard Habitat","url":"https://georgiawildlife.com/create-backyard-habitat","framing":"State-level, free, tonally aligned with the field-journal voice — practical guidance like \"mow less, ditch chemicals, plant natives\" rather than urgent action lists."},{"title":"Georgia Plant Conservation Alliance (GPCA)","url":"https://botgarden.uga.edu/georgia-plant-conservation-alliance/","framing":"Statewide infrastructure for any \"rare plant we'd want to support on this property\" path — they can connect a landowner to propagation material, restoration partners, and the right safeguarding contact for any state-listed species."},{"title":"Natural Communities of Georgia (UGA Press companion site)","url":"https://www.naturalcommunitiesofgeorgia.com/","framing":"The single best reference for \"what natural community is this slope, and what species should be in it?\" — the foundation for any restorative planting decision at this property."},{"title":"GA DNR — \"Georgia's Natural Communities and Associated Rare Plant and Animal Species\" (PDF)","url":"https://georgiawildlife.com/sites/default/files/wrd/pdf/rare-data/natural_communities_thumbnail_accounts.pdf","framing":"Direct list of \"species worth looking for on this property, or supporting if found\" matched to the property's actual community types."},{"title":"GNPS Native Plant Habitat Certification (Silver / Gold)","url":"https://gnps.org/habitat/","framing":"A second certification track alongside Birds Georgia Wildlife Sanctuary. The two are complementary — Audubon emphasizes bird-habitat plants; GNPS emphasizes native-only composition."},{"title":"American Chestnut Foundation (TACF)","url":"https://tacf.org/","framing":"American chestnut was once a dominant canopy species at this elevation in the southern Appalachians. The blight (introduced 1904) killed virtually all mature trees from Maine to Georgia by 1950. This is one of the two big landowner-participation restoration species (the other being eastern hemlock). TACF chapters connect landowners to restoration plantings and seed sources."},{"title":"Hemlock Restoration — HRI + Georgia Forestry Commission HWA Program","url":"https://savehemlocksnc.org/","framing":"If hemlocks exist on the property (very likely at 2,959 ft in cool drainages), there's a direct, recurring, landowner-driven treatment protocol that keeps them alive — and no other native conifer fills hemlock's ecological role."},{"title":"Native plant nurseries — North Georgia / Southeast sourcing","url":"https://gardensoftheblueridge.com/","framing":"Sourcing matters for restorative work — wild-collection drives some natives toward extinction. Ethical-propagation nurseries are the only acceptable path for rare species."}]},{"id":"wildlife-state-and-federal","label":"Wildlife — state and federal","entries":[{"title":"Georgia DNR — State Wildlife Action Plan 2025 (Blue Ridge Ecoregion)","url":"https://georgiawildlife.com/WildGeorgiaSWAP","framing":"The property is in the Blue Ridge ecoregion at 2,959 ft — the SWAP Blue Ridge story map flags the exact mountain-specific SGCN species (salamanders, high-elevation breeding warblers, native trout) the dashboard should care about."},{"title":"eBird — Pickens County, GA (Cornell Lab)","url":"https://ebird.org/region/US-GA-227","framing":"Single best data source for the Birds tab's monthsPresent and status fields — eBird bar charts visualize exactly that. Free, public."},{"title":"USFWS IPaC — Information for Planning and Consultation","url":"https://ipac.ecosphere.fws.gov/","framing":"Authoritative federal species list for the exact 282 Church Mountain Rd parcel — most defensible source for any \"federally listed species on or near this property\" claim."},{"title":"Birds Georgia — Wildlife Sanctuary Program","url":"https://www.birdsgeorgia.org/wildlife-sanctuary-program.html","framing":"Directly maps to \"support indigenous wildlife and plants\" — most concrete Georgia-specific certification with a mailable yard sign."},{"title":"Audubon — Survival by Degrees Climate Visualizer","url":"https://www.audubon.org/climate/survivalbydegrees","framing":"The property's 2,959 ft elevation is exactly the kind of high-elevation refuge where climate-stressed Appalachian breeders may persist longest."},{"title":"iNaturalist — Pickens County, GA","url":"https://www.inaturalist.org/places/pickens-county","framing":"Best single source for amphibians and pollinators (eBird doesn't cover them). GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species."},{"title":"Southeast Bumble Bee Atlas (Xerces + GA DNR)","url":"https://www.bumblebeeatlas.org/pages/southeast","framing":"North Georgia mountain populations of native bumble bees (incl. potentially the at-risk American bumble bee, Bombus pensylvanicus) are under-surveyed; the property could adopt a nearby grid cell directly tied to the \"support indigenous\" goal."},{"title":"USFWS Partners for Fish and Wildlife — Georgia Program","url":"https://www.fws.gov/project/georgia-partners-fish-and-wildlife","framing":"Private land in a high-priority Blue Ridge habitat zone — eligible for free expert site visits and potential cost-share for stream/riparian restoration, native plantings, pollinator meadows."},{"title":"USDA Forest Service — Chattahoochee-Oconee NF Fire & Wildlife Management","url":"https://www.fs.usda.gov/r08/chattahoochee-oconee/fire/management","framing":"Property is near/borders the Chattahoochee NF; prescribed-burn smoke days, post-burn songbird responses, and fire-dependent oak/pine ecology directly affect the property's wildlife calendar and outdoor planning."},{"title":"NestWatch (Cornell Lab)","url":"https://nestwatch.org/","framing":"Mix of forest edge and likely hummingbird/bluebird/wren nest opportunities is ideal NestWatch habitat; natural extension of the Birds tab into breeding-season detail."},{"title":"Project FeederWatch (Cornell Lab + Birds Canada)","url":"https://feederwatch.org/","framing":"Property's elevation puts it in Junco/Purple Finch/White-throated Sparrow winter territory — Pickens County is right at the southern edge of some northern-finch irruption zones."},{"title":"Merlin Bird ID (Cornell Lab)","url":"https://merlin.allaboutbirds.org/","framing":"The property is dense forest where most birds are heard before seen — Merlin Sound ID is the fastest way to validate the Birds tab's species list."},{"title":"FrogWatch USA (AZA)","url":"https://www.aza.org/frogwatch","framing":"Property's elevation and likely seeps/streams are prime habitat for spring peeper, gray treefrog, American toad, and possibly mountain chorus frog — all detected by call. Directly populates Amphibians tab monthsActive."},{"title":"SREL Herpetology — UGA Savannah River Ecology Lab","url":"https://srelherp.uga.edu/","framing":"Has dedicated species accounts for the Blue Ridge salamanders/frogs likely on the property (Blue Ridge Two-lined Salamander, Spring Peeper, Gray Treefrog) — better than AmphibiaWeb for GA-specific natural history."},{"title":"Bat Conservation International — Build a Bat House","url":"https://www.batcon.org/about-bats/bat-gardens-houses/","framing":"North Georgia caves/hollows host species hit hard by WNS; a BCI-spec bat house at the property gives displaced colonies a clean alternative."},{"title":"Georgia Biodiversity Portal (GA DNR Natural Heritage)","url":"https://georgiabiodiversity.org/","framing":"State-level companion to USFWS IPaC — surfaces state-listed species (not just federally listed) that may occur in Pickens County."},{"title":"Bumble Bees of the Eastern United States (Colla, Richardson & Williams — USFS)","url":"https://www.pollinator.org/pollinator.org/assets/generalFiles/BumbleBeeGuide2011.pdf","framing":"Standard ID reference paired with the SE Bumble Bee Atlas — at 2,959 ft the property is in range of mountain-affiliated species like B. vagans and possibly B. fervidus."},{"title":"Hummingbirds at Home (National Audubon)","url":"https://www.audubon.org/conservation/about-hummingbirds-home","framing":"Ruby-throated Hummingbird is the only eastern US breeder and definitely uses the property (typical arrival mid-Apr in north GA mountains, departure early Oct)."}]},{"id":"land-soil-water","label":"Land, soil, water","entries":[{"title":"USDA NRCS Web Soil Survey","url":"https://websoilsurvey.nrcs.usda.gov/app/","framing":"The 282 Church Mountain Road property sits on Blue Ridge mountain soils — likely Edneyville, Ashe, Chestnut, or Junaluska series typical of Pickens County's steep forested slopes."},{"title":"USDA NRCS Soil Data Access (SDA) Web Services","url":"https://sdmdataaccess.nrcs.usda.gov/","framing":"Programmatic alternative to WSS — pulls the soil component for the exact property coordinates instead of manually exporting a report."},{"title":"USGS NWIS Water Services API (Instantaneous Values)","url":"https://waterservices.usgs.gov/","framing":"The obvious \"live USGS stream gauge\" data source. Etowah River gauges upstream and downstream of the property anchor the watershed health story."},{"title":"USGS Monitoring Locations — Etowah River near Dawsonville (02389150) & Canton (02392000)","url":"https://waterdata.usgs.gov/monitoring-location/USGS-02389150/","framing":"02389150 is the most representative for \"headwaters near my property.\" 02392000 gives long-term flow context downstream."},{"title":"USGS StreamStats — Georgia","url":"https://streamstats.usgs.gov/ss/","framing":"The unnamed creek behind 282 Church Mountain Road is almost certainly ungauged. StreamStats can produce a property-specific watershed area, mean annual flow estimate, and flood frequency."},{"title":"USGS Earthquake Hazards — GeoJSON Feeds & FDSN Event API","url":"https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php","framing":"Southern Appalachians are seismically quiet but not silent — the 2018 Decatur, TN M4.4 was felt across north Georgia. A field-journal cue noting recent regional quakes adds character without being alarmist."},{"title":"Georgia EPD Watershed Protection Branch — TMDLs and 303(d) Listings","url":"https://epd.georgia.gov/watershed-protection-branch/watershed-planning-and-monitoring-program/total-maximum-daily-loadings","framing":"Tells you whether your specific Etowah headwater tributary or downstream Lake Sequoyah is listed as impaired (sediment, fecal coliform, biota), directly informing the \"support local wildlife and plants\" goal."},{"title":"USDA NRCS EQIP — Georgia","url":"https://www.nrcs.usda.gov/programs-initiatives/environmental-quality-incentives-program/georgia/environmental-quality","framing":"\"Support local wildlife and plants, especially indigenous\" maps directly to EQIP forestry practices. Pickens County is fully eligible; sign-ups continuous, with annual ranking cutoffs."},{"title":"USDA NRCS Conservation Stewardship Program (CSP) — Georgia","url":"https://www.nrcs.usda.gov/programs-initiatives/conservation-stewardship-program/georgia/conservation-stewardship-program","framing":"Complements EQIP — pays for ongoing stewardship rather than one-time installation, fitting an owner managing the property long-term for wildlife."},{"title":"USDA NRCS Plants Database","url":"https://plants.usda.gov/","framing":"Direct way to confirm which species are documented as native to Pickens County — exactly what \"indigenous\" needs."},{"title":"Coosa River Basin Initiative (CRBI)","url":"https://coosa.org/","framing":"The property drains directly into Etowah headwaters → Coosa basin. CRBI publishes the Etowah River User's Guide and runs Adopt-A-Stream and pollution litigation work locally."},{"title":"Upper Etowah River Alliance (UERA)","url":"https://www.etowahriver.org/","framing":"Most geographically specific watershed group for the property. Pickens County is one of UERA's five core counties; the upper Etowah's 92 native fish species and 5 endemics are core to the conservation story."},{"title":"Mountain Conservation Trust of Georgia (MCT)","url":"https://mctga.org/","framing":"MCT's geographic mandate is precisely the property's region. The most directly aligned land trust if a conservation easement on Church Mountain Road ever makes sense."},{"title":"Georgia Forestry Commission — Forest Stewardship Program","url":"https://gatrees.org/forest-management-conservation/forest-stewardship-program/","framing":"The free management plan is the practical entry point to most other programs (EQIP cost-share, Tree Farm certification, property tax conservation use). Pickens County is served."},{"title":"USDA Climate Hubs — Southeast Region","url":"https://www.climatehubs.usda.gov/hubs/southeast","framing":"The Southern Appalachian forest section of the SE Hub's Vulnerability Assessment is directly applicable to a 2,959 ft Blue Ridge property thinking about long-term species shifts."},{"title":"Georgia-Alabama Land Trust (GALT)","url":"https://www.galandtrust.org/","framing":"Alternative or complement to MCT for conservation easements. Larger geographic reach but less North-Georgia-specific than MCT."},{"title":"MountainTrue","url":"https://mountaintrue.org/","framing":"Less directly aligned (Pickens not yet in MountainTrue's GA service area), but the most relevant Southern Blue Ridge regional voice on Nantahala-Pisgah and broader forest policy that affects upstream conditions."},{"title":"The Nature Conservancy — Upper Coosa River Basin (Georgia)","url":"https://www.nature.org/en-us/get-involved/how-to-help/places-we-protect/upper-coosa-river-basin/","framing":"Frames the property within the Upper Coosa biodiversity story; the Etowah and Conasauga are sister sub-basins of the same system."}]},{"id":"fishing-and-the-lake","label":"Fishing and the lake","entries":[{"title":"Georgia DNR WRD — Trout Fishing & Stocking","url":"https://georgiawildlife.com/Fishing/Trout","framing":"Pickens County borders the seasonal trout zone, and Chattahoochee NF streams within ~30 minutes of the property (Amicalola, Cartecay, Mountaintown Creek, Rock Creek) are stocked. Drives \"best months\" timing for trout."},{"title":"Georgia DNR WRD — Fisheries Management","url":"https://georgiawildlife.com/fishing/angler-resources","framing":"Source of truth for bass/crappie/bluegill/catfish regulations. Lake Sequoyah is small and likely private — verify whether GA fishing license rules apply or whether HOA-regulated."},{"title":"Georgia Fishing Regulations (eRegulations)","url":"https://www.eregulations.com/georgia/fishing","framing":"Lake Sequoyah's species list maps directly to specific GA creel/length rules."},{"title":"USFWS Chattahoochee Forest National Fish Hatchery","url":"https://www.fws.gov/fish-hatchery/chattahoochee-forest","framing":"Closest-fact \"where do the trout come from\" anchor for the field-journal voice."},{"title":"Blue Ridge Mountain Trout Unlimited (Chapter 696)","url":"https://blueridgetu.com/","framing":"Closest TU chapter to Pickens County / Jasper. The Georgia Foothills chapter is further east despite its name."},{"title":"USGS NWIS Water Services API — Stream Temperature & Flow for Trout Habitat","url":"https://waterservices.usgs.gov/","framing":"The Fishing tab can pull live water temp from the nearest gauge with that parameter. Water-temp percentile rounds out the field-journal feel."},{"title":"Tennessee Aquarium Conservation Institute (TNACI) — Freshwater Information Network","url":"https://tnaqua.org/conservation/","framing":"**The Etowah and Cherokee Darters are *only* found in the Etowah system that drains the property — federally listed and a marquee biodiversity story** for the Wildlife card. TNACI does the propagation work."},{"title":"Conasauga River Alliance","url":"https://www.murraycountyga.org/362/Conasauga-River-Alliance","framing":"Sister Coosa-basin watershed one ridge west; useful regional context, not the property's direct watershed."},{"title":"Southeastern Fishes Council (SFC)","url":"https://sfc8.wildapricot.org/","framing":"Primary scholarly venue for Etowah/Coosa endemic-fish research."},{"title":"North American Native Fishes Association (NANFA)","url":"https://www.nanfa.org/","framing":"Hobbyist-friendly entry point to the same darter/minnow biodiversity story TNACI works on professionally; good for the field-journal personal-naturalist tone."},{"title":"USGS BioData — Aquatic Bioassessment","url":"https://aquatic.biodata.usgs.gov/clearCriteria.action","framing":"Source for actual fish-community survey data in the Etowah basin — \"what species have actually been caught here\" beyond stocking lists. **Caveat:** retrieval site has had recurring availability issues — verify before depending on it."},{"title":"USFWS Partnership for the Upper Coosa","url":"https://www.fws.gov/project/partnership-upper-coosa","framing":"Federal-side counterpart to state and nonprofit Coosa-basin work; useful for ESA-listed species framing."},{"title":"Georgia Rivers (formerly Georgia River Network)","url":"https://garivers.org/coosa-river/","framing":"Single jumping-off point for Georgia watershed groups; their Coosa River page is a clean basin summary."}]},{"id":"climate-dark-sky-homesteading","label":"Climate, dark sky, homesteading","entries":[{"title":"NOAA NCEI Climate Data Online (CDO)","url":"https://www.ncei.noaa.gov/cdo-web/","framing":"Authoritative long-term context for the Ambient Weather station's live readings — what's a \"normal\" May at this elevation, and how is the current month tracking?"},{"title":"NOAA NWS API (api.weather.gov)","url":"https://api.weather.gov","framing":"Bortle 3 site; sky cover forecast is the single most useful astronomy variable. Open-Meteo gives a model blend; NWS gives the official forecaster's grid."},{"title":"PRISM Climate Group (Oregon State)","url":"https://prism.oregonstate.edu","framing":"At 2,959 ft on a Blue Ridge ridge, the closest NWS station (likely valley-floor Jasper or Blairsville) doesn't represent your microclimate. PRISM's 800m grid actually captures the elevation gradient."},{"title":"Southeast Regional Climate Center (SERCC)","url":"https://sercc.com","framing":"Best one-stop shop for \"is this May unusually wet/dry/cool for north Georgia?\" The SERCC Climate Perspectives tool (https://sercc.oasis.unc.edu/) compares the current period to climatology."},{"title":"Southeast Climate Adaptation Science Center (USGS)","url":"https://secasc.ncsu.edu","framing":"Goes beyond historical normals into \"what's coming\" — projections for Southern Appalachian temperature, precip regime shifts, forest-ecosystem response. Directly relevant to the \"support local wildlife and plants\" goal under shifting conditions."},{"title":"NOAA Climate Resilience Toolkit Climate Explorer","url":"https://toolkit.climate.gov/tools/climate-explorer","framing":"Pickens County has its own page — temperature/precipitation projections through end of century are pre-rendered. Most accessible \"what does Pickens County look like in 2050?\" view."},{"title":"US Drought Monitor / Drought.gov","url":"https://droughtmonitor.unl.edu","framing":"Pickens County drought status directly affects watering decisions, fire risk, and what wildlife is pressuring water sources on the property."},{"title":"DarkSky International","url":"https://darksky.org","framing":"Property at Bortle 3 — exceptional for the Eastern US. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset."},{"title":"Stephen C. Foster State Park (Georgia's only IDA Dark Sky Park)","url":"https://darksky.org/places/stephen-c-foster-state-park-dark-sky-park/","framing":"Useful Bortle reference point (\"Stephen C. Foster is Bortle 2; here at Church Mountain Road we're Bortle 3\"). A calibrated \"darker than here\" destination."},{"title":"Atlanta Astronomy Club (and Deerlick Astronomy Village)","url":"https://atlantaastronomy.org","framing":"Nearest organized astronomy community for a Pickens County stargazer."},{"title":"NASA Scientific Visualization Studio — Moon Phase & Eclipse Pages","url":"https://svs.gsfc.nasa.gov/5612/","framing":"Highest-quality public-domain Moon imagery. **The March 3, 2026 total lunar eclipse is visible from Georgia** — featured-event candidate."},{"title":"International Meteor Organization (IMO) Meteor Shower Calendar","url":"https://www.imo.net/resources/calendar/","framing":"Bortle 3 is genuinely good meteor-watching territory — you can actually see the showers. The 2026 calendar with Moon phase correlation is exactly what the celestial card should highlight."},{"title":"American Meteor Society","url":"https://www.amsmeteors.org/meteor-showers/meteor-shower-calendar/","framing":"Cross-reference for IMO data; sometimes phrased better for journal-tone copy."},{"title":"Stellarium Web","url":"https://stellarium-web.org","framing":"When a meteor shower or planetary conjunction shows up on the dashboard, the user wants to know \"where do I look?\" Stellarium answers for any lat/lon and time."},{"title":"Open-Meteo cloud cover (already integrated)","url":"https://open-meteo.com","framing":"No key, free, CORS-enabled. Pair with NWS skyCover for redundancy/cross-check."},{"title":"Time and Date AS — sun/moon reference","url":"https://www.timeanddate.com","framing":"Best free human-readable cross-check. Skip the API; reference link only."},{"title":"AirNow API","url":"https://docs.airnowapi.org","framing":"Southern Appalachians get smoke from prescribed burns and from western US wildfires that drift east. AirNow tells you when it's a \"stay inside\" day vs. fine."},{"title":"Georgia Forestry Commission — Burn Permits & Interactive Map","url":"https://gatrees.org/burn-permits-and-notifications/","framing":"**Pickens County has a state summer open burning ban May 1 – Sep 30** (Georgia EPD rule). Outside that window, permit required for most burns."},{"title":"Southern Fire Exchange","url":"https://southernfireexchange.org","framing":"If the owner ever considers prescribed fire (a real management option in Southern Appalachian forests for wildlife and oak regeneration), SFE is the science source."},{"title":"ATTRA Sustainable Agriculture (NCAT) — Appalachian publications","url":"https://attra.ncat.org","framing":"Highest-signal, lowest-fluff source on this list for practical Southern Appalachian land management — written for working ground at this elevation and ecosystem. Free PDFs."},{"title":"Southern SARE","url":"https://southern.sare.org","framing":"Funding pathway if the property's wildlife/native-plant goals scale to a research-worthy project. Free online learning library (cover crops, agroforestry, pollinators)."},{"title":"Appalachian Sustainable Development (ASD)","url":"https://asdevelop.org","framing":"Shade-grown, native-forest agroforestry is exactly the model for a wooded mountain property aiming to \"support local wildlife and plants, especially indigenous.\" Pawpaw, elderberry, ramps, ginseng all native to your forest type."},{"title":"Appalachian Beginning Forest Farmer Coalition","url":"https://www.appalachianforestfarmers.org","framing":"**Single most aligned organization with the property's stated values.** Bortle 3 + 2,959 ft + Blue Ridge mature forest = textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network."},{"title":"Carolina Farm Stewardship Association","url":"https://carolinafarmstewards.org","framing":"Closest regional analog organization to GA. North Georgia mountains share more growing-condition DNA with western NC than south Georgia."},{"title":"Appalachian Beekeepers Association of Georgia (Pickens-area chapter)","url":"http://www.pickensbeekeepers.com","framing":"**A Pickens County resource — the most directly local org on this entire list.** Bees integral to \"supporting local plants\" because pollinator health drives native plant reproduction."},{"title":"UGA Bee Program","url":"https://bees.caes.uga.edu","framing":"State-level technical backstop. Useful for variety selection (Italian vs. Russian for north GA winters), Varroa management timing tied to local nectar flows."},{"title":"Eastern Band of Cherokee Indians — Natural Resources & Center for Cherokee Plants","url":"https://www.ebci.gov","framing":"**Pickens County was Cherokee Nation territory from 1793–1838 (Trail of Tears removal).** The plants the Cherokee cultivated and tended for 6,000+ years — white oak, ramps (wasdi), sochan, ginseng, river cane — are still the native plants of this property. The single most authentic frame for \"indigenous plants\" on this land."},{"title":"USDA Forest Service × EBCI — Culturally Significant Plants Research","url":"https://research.fs.usda.gov/treesearch/64968","framing":"Pickens County sits at the southern end of this same forest ecosystem. The same plant-management principles apply on Church Mountain Road. A real-world model of indigenous-led land stewardship."}]},{"id":"history-and-cultural-heritage","label":"History and cultural heritage","entries":[{"title":"Pickens County, Georgia (New Georgia Encyclopedia)","url":"https://www.georgiaencyclopedia.org/articles/counties-cities-neighborhoods/pickens-county/","framing":"The single most reliable secondary source for the property's county-level historical context. Use as the anchor citation when sourcing any Pickens history claim on the Property card."},{"title":"Marble (New Georgia Encyclopedia)","url":"https://www.georgiaencyclopedia.org/articles/business-economy/marble/","framing":"Frames why the property's host town exists. \"Tate\" is literally a marble-industry company town."},{"title":"Georgia Marble Company (New Georgia Encyclopedia)","url":"https://www.georgiaencyclopedia.org/articles/business-economy/marble/georgia-marble-company_002/","framing":"Col. Sam Tate is the same person who built Tate Mountain Estates — the development the property sits within. Reading this article makes the property feel intentional, not incidental."},{"title":"\"Tate and Foremen\" — Marble Varieties (New Georgia Encyclopedia)","url":"https://www.georgiaencyclopedia.org/articles/business-economy/marble/tate-and-foremen_001/","framing":"When pointing out the marble in the Tate House (now a wedding venue), the Connahaynee Lodge's baths, the Tate Cemetery monuments, or the Pickens County Courthouse — you can name the variety."},{"title":"Georgia Historical Society Marker — \"Georgia Marble Company and the Village of Tate\"","url":"https://www.georgiahistory.com/ghmi_marker_updated/georgia-marble-company-and-the-village-of-tate/","framing":"A physical, visit-able primary source ~5 minutes from the property. Photograph and link from Property card."},{"title":"Talking Rock (New Georgia Encyclopedia)","url":"https://www.georgiaencyclopedia.org/articles/counties-cities-neighborhoods/talking-rock/","framing":"This is the most specific, named Cherokee place adjacent to the property. The \"indigenous land\" framing in the dashboard rests on the Sanderstown / Carmel Mission / Fort Newman triad, not abstract \"Cherokee Nation\" territory. Cherokee settlements clustered along Talking Rock Creek, Talona Creek, and Long Swamp Creek — all within ~10 mi of the property."},{"title":"Civil War Dissent (New Georgia Encyclopedia)","url":"https://www.georgiaencyclopedia.org/articles/history-archaeology/civil-war-dissent/","framing":"The \"Union flag at the courthouse for a month after secession\" story is one of the property's most distinctive regional facts."},{"title":"Sequoyah (New Georgia Encyclopedia)","url":"https://www.georgiaencyclopedia.org/articles/history-archaeology/sequoyah-ca-1770-ca-1840/","framing":"The lake adjacent to the property bears his name. Knowing what he actually did — and that he never lived here — sharpens both the Property card naming story and the cultural-context disclaimer."},{"title":"Pickens Historical Society (formerly Marble Valley Historical Society)","url":"https://pickenshistoricalsociety.org/","framing":"Three visit-able historical sites within ~20 min of the property; primary archive for Pickens County materials."},{"title":"Mount Oglethorpe Foundation / Eagles Rest Park","url":"https://www.eaglesrestpark.org/","framing":"The property sits on the same range. This is one of the most striking layered-history moments in the area: a 21-year period when through-hikers ended (or began) their 2,200-mile journey on a mountain the Cherokee had settled since the 1700s, on land bought by the marble baron who also developed Tate Mountain Estates. The terminus moved 13 mi NE to Springer Mountain in 1958 after logging operations, chicken ranches, and a gravel road brought vandalism."},{"title":"\"The Connahaynee Lodge (1930-1946)\" — North Georgia History","url":"https://www.northgeorgiahistory.com/post/the-connahaynee-lodge-1930-1946","framing":"The most specific, vivid period-detail source on what Tate Mountain Estates actually was when it was new. Multiple Property-card anecdotes come from here."},{"title":"Tate Mountain Estates — Pickens Past","url":"https://www.pickenspast.com/blog/categories/tate_mountain_estates","framing":"The longest-running local-history blog focused specifically on this development."},{"title":"\"Placenames, Gone but not Forgotten\" — Don & Diane Wells, Mountain Stewards","url":"https://mountainstewards.org/wp-content/uploads/2020/02/Placenames-Gone-But-not-Forgotten-web-version.pdf","framing":"Primary place-name reference for the small geography immediately around the property."},{"title":"Old Federal Road — Phase I Historical Context Study (GDOT)","url":"https://www.dot.ga.gov/InvestSmart/Environment/CulturalResources/Documents/Project%20Documents/Old%20Federal%20Road/Context%20Study-Part%20I.pdf","framing":"Authoritative academic source for the Federal Road's specific Pickens routing. Andrew Jackson and James Monroe both traveled this road through what is now the property's county."},{"title":"Native American History of Pickens County (Access Genealogy)","url":"https://accessgenealogy.com/georgia/native-american-history-of-pickens-county-georgia.htm","framing":"Compiled genealogy/history article covering Cherokee presence in Pickens County. Useful complement to the New Georgia Encyclopedia for primary-source Cherokee references and family lines."},{"title":"\"Black History in Pickens\" — Pickens Progress","url":"https://pickensprogress.com/black-history-in-pickens-part-ii-workers-at-the-georgia-marble-company-and-jasper/","framing":"Counters a Sam-Tate-centric reading of the marble story with the laborers' perspective. The \"first electrified town\" was electrified for and by them too."},{"title":"USGS Indigenous Knowledge / Tribal Climate Resources","url":"https://www.usgs.gov/programs/climate-adaptation-science-centers/science/incorporating-indigenous-knowledges-federal-1","framing":"Honest framing for a non-Cherokee owner: how to learn from and credit Indigenous Knowledges respectfully rather than appropriating. Case-study library includes Southern Appalachian examples."}]},{"id":"events-and-day-trips-nearby","label":"Events and day trips nearby","entries":[{"title":"Visit Pickens GA — Community Calendar","url":"https://visitpickensga.com/community-calendar/","framing":"The single most complete aggregator of Pickens County events. Where to look first when refreshing `events.json` annually or spot-checking dates."},{"title":"Know Pickens — Events Calendar","url":"https://www.knowpickens.com/calendar/","framing":"Backup verification source for Pickens County dates."},{"title":"Explore Georgia — State Calendar of Events","url":"https://exploregeorgia.org/calendar-of-events","framing":"State-level cross-check for any event that draws regional attention; useful for picking up events outside Pickens (Ellijay, Blue Ridge, Dahlonega)."},{"title":"Pickens County Chamber of Commerce — Events & Marble Festival","url":"http://pickenscountychamber.chambermaster.com/events/","framing":"Official site for the marquee annual Pickens event. Anchored in the property's local-history thread."},{"title":"Sheriff's JeepFest","url":"https://www.sheriffsjeepfest.com/","framing":"Largest Pickens summer event aside from JeepFest's flagship sub-events. Has its own community draw."},{"title":"Talking Rock Heritage Days","url":"https://talkingrockga.com/heritagedaysfestival.html","framing":"Walk-distance scale from the Talking Rock Cherokee history (Cat 7's Sanderstown / Carmel Mission / Fort Newman triad). Combine with a Federal Road / Hwy 136 bridge visit."},{"title":"Jasper Pro Rodeo — Pickens County Stampede","url":"https://www.rodeoticket.com/jasper-pro-rodeo-pickens-county-stampeded/rodeo-information","framing":"Brief, single-evening attendance option in May."},{"title":"Georgia Apple Festival (Ellijay)","url":"https://www.georgiaapplefestival.org/","framing":"Ellijay is ~30 min from the property; the Apple Festival overlaps with peak fall color and Marble Festival/Heritage Days."},{"title":"Downtown Ellijay & Gilmer Chamber — Events","url":"https://downtownellijay.com/annual-events/","framing":"Adds recurring weekly market data and winter holiday events to the calendar."},{"title":"Blue Ridge Mountains EDA — Events Calendar","url":"https://www.blueridgemountains.com/events/","framing":"Strongest single-county events list for Fannin. Blue Ridge edges the day-trip radius but the Blue Ridge Scenic Railway anchor + festival density make it worth the drive."},{"title":"Discover Dahlonega — Festivals","url":"https://www.dahlonega.org/events/festivals-and-annual-events/","framing":"Dahlonega is GA wine country; Bear on the Square is a marquee Appalachian-tradition festival."},{"title":"Pickens Past — Tate Day & Local History Events","url":"https://www.pickenspast.com/","framing":"Source for \"Tate Day\" and other history-society-driven events that the chamber calendar may not pick up."}]}]};
 
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
@@ -5799,6 +5638,50 @@ function renderVehicles() {
 
 
 // =========================
+// SOURCES — appendix reference shelf
+// =========================
+
+function renderReferences() {
+  const body = document.getElementById("references-body");
+  if (!body) return;
+  const cats = (REFERENCES_DATA && REFERENCES_DATA.categories) || [];
+  let html = "";
+  for (const cat of cats) {
+    html += '<div class="ref-category" data-cat="' + escapeHtml(cat.id) + '">';
+    html += '<button class="ref-category-header" type="button" aria-expanded="false">';
+    html += '<span class="ref-category-title">' + escapeHtml(cat.label) + '</span>';
+    html += '<span class="ref-chevron">▾</span>';
+    html += '</button>';
+    html += '<div class="ref-category-body" hidden>';
+    for (const e of cat.entries || []) {
+      html += '<div class="ref-entry">';
+      if (e.url) {
+        html += '<a href="' + escapeHtml(e.url) + '" target="_blank" rel="noopener" class="ref-title">' + escapeHtml(e.title) + '</a>';
+      } else {
+        html += '<div class="ref-title">' + escapeHtml(e.title) + '</div>';
+      }
+      if (e.framing) {
+        html += '<div class="ref-framing">' + escapeHtml(e.framing) + '</div>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
+  }
+  body.innerHTML = html;
+
+  body.querySelectorAll(".ref-category-header").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!expanded));
+      const inner = btn.nextElementSibling;
+      if (inner) inner.hidden = expanded;
+    });
+  });
+}
+
+
+// =========================
 // PLANT CALENDAR
 // =========================
 
@@ -8103,6 +7986,7 @@ renderBirds();
 renderProperty();
 renderVehiclesSummary();
 renderVehicles();
+renderReferences();
 renderDashboardStrip();
 fetchLiveWeather();
 fetchAmbientWeather();
@@ -8652,7 +8536,7 @@ function fnLoadAll() {
     const arr = JSON.parse(raw);
     return Array.isArray(arr) ? arr : [];
   } catch (e) {
-    console.warn("Field Notes — load failed:", e);
+    console.warn("Almanac — load failed:", e);
     return [];
   }
 }
@@ -8661,7 +8545,7 @@ function fnSaveAll(arr) {
     localStorage.setItem(FN_STORAGE_KEY, JSON.stringify(arr));
     return true;
   } catch (e) {
-    console.warn("Field Notes — save failed:", e);
+    console.warn("Almanac — save failed:", e);
     alert("Could not save the entry — local storage may be full or blocked.");
     return false;
   }
@@ -8907,7 +8791,7 @@ function renderFieldNotes() {
                   : "Sync error";
   let summaryText;
   if (allEntries.length === 0) {
-    summaryText = "The journal you keep about this place";
+    summaryText = "Notes on the estate";
   } else {
     const newest = allEntries[0];
     summaryText = allEntries.length + " entr" + (allEntries.length === 1 ? "y" : "ies") +
@@ -8962,7 +8846,7 @@ function renderFieldNotes() {
       html += '<div class="fn-entry-body">' + escapeHtml(e.body) + '</div>';
       if (e.kind === "conversation" && e.conversation && Array.isArray(e.conversation.turns) && e.conversation.turns.length > 1) {
         // Render the rest of the conversation inline (no disclosure — Paul's call
-        // 2026-05-20: when the Field Notes card is open, past conversations should
+        // 2026-05-20: when the Almanac card is open, past conversations should
         // be fully visible, not behind another tap).
         html += '<div class="fn-entry-conversation">';
         for (let i = 1; i < e.conversation.turns.length; i++) {
@@ -9026,14 +8910,8 @@ function renderFieldNotes() {
   }
 }
 
-// ---- Inline capture save (Phase D) ----
-// Saves immediately with category=null + classifyPending=true so the entry shows up
-// in the list right away. Fires /api/classify in the background; when it returns,
-// the entry is re-saved with the inferred category/speciesId/speciesName.
-async function fnSaveInlineEntry() {
-  const ta = document.getElementById("fn-capture-textarea");
-  if (!ta) return;
-  const body = (ta.value || "").trim();
+async function fnSaveInlineEntry(text, opts) {
+  const body = (text || "").trim();
   if (!body) return;
   const isoToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
     .toISOString().slice(0, 10);
@@ -9047,24 +8925,14 @@ async function fnSaveInlineEntry() {
     body,
     classifyPending: false,
   };
-  // 1. Save instantly through the store (local + Worker upsert).
   await ObservationStore.save(entry);
   if (typeof MetricsCollector !== "undefined") {
-    const wasVoice = (typeof VoiceCapture !== "undefined" && VoiceCapture.isRecording());
-    MetricsCollector.track("field_note_saved", { inputMode: wasVoice ? "voice" : "text" });
+    const inputMode = (opts && opts.inputMode) || "text";
+    MetricsCollector.track("field_note_saved", { inputMode });
   }
-  // 2. Clear the composer and re-render so the entry appears immediately.
-  ta.value = "";
-  const saveBtn = document.getElementById("fn-capture-save");
-  if (saveBtn) saveBtn.disabled = true;
-  if (VoiceCapture.isRecording()) VoiceCapture.stop();
-  // 3. Make sure the Field Notes card is expanded so the entry is visible.
   const card = document.getElementById("card-fieldnotes");
   if (card && !card.classList.contains("expanded")) card.classList.add("expanded");
   renderFieldNotes();
-  // Background classify call removed 2026-05-20 per no-AI-on-capture principle.
-  // Worker /api/classify endpoint + classifyEntry() function kept dormant for
-  // possible reuse by future batch roll-up (Phase G). See feedback_no_ai_on_capture.md.
 }
 
 // ---- Sync settings modal ----
@@ -9076,6 +8944,8 @@ function fnOpenSyncModal() {
   document.getElementById("fn-sync-token").value = cfg ? cfg.token : "";
   document.getElementById("fn-sync-result").textContent = "";
   document.getElementById("fn-sync-result").className = "fn-sync-result";
+  const did = localStorage.getItem("tateTracker.deviceId") || "(not yet assigned)";
+  document.getElementById("fn-sync-device-id").textContent = did;
   overlay.classList.add("open");
   overlay.setAttribute("aria-hidden", "false");
 }
@@ -9118,156 +8988,8 @@ async function fnSaveSyncSettings() {
   }
 }
 
-// ---- Voice dictation controller (Web Speech API) ----
-// Factory so we can spin up an instance per text surface (Quick Capture + Garden Guru).
-// Each instance is independent; the browser's SpeechRecognition will sort out audio focus
-// if both try to record simultaneously (rare in practice — different surfaces, different intents).
-function createVoiceCapture(ids) {
-  const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
-  let rec = null;
-  let active = false;
-  let finalBuffer = "";
-  let interimBuffer = "";
-  let userStopped = false;
-
-  function isSupported() { return !!Rec; }
-  function isRecording() { return active; }
-
-  function setHint(msg, isError) {
-    const hint = document.getElementById(ids.hintId);
-    if (!hint) return;
-    hint.textContent = msg;
-    hint.classList.toggle("error", !!isError);
-  }
-  function setButtonState(recording) {
-    const btn = document.getElementById(ids.micBtnId);
-    if (!btn) return;
-    btn.classList.toggle("recording", recording);
-    btn.textContent = recording ? "■" : "🎤";
-    btn.setAttribute("aria-label", recording ? "Stop dictation" : "Voice dictation");
-  }
-  function buildAndShow() {
-    const bodyEl = document.getElementById(ids.textareaId);
-    if (!bodyEl) return;
-    const base = bodyEl.dataset.fnBaseline || "";
-    const sep1 = (base && finalBuffer) ? (base.endsWith(" ") || base.endsWith("\n") ? "" : " ") : "";
-    const sep2 = (finalBuffer && interimBuffer) ? " " : "";
-    bodyEl.value = base + sep1 + finalBuffer + sep2 + interimBuffer;
-    bodyEl.dispatchEvent(new Event("input", { bubbles: true }));
-  }
-
-  function start() {
-    if (!isSupported()) {
-      setHint("Voice dictation isn't supported in this browser. Try Safari on iOS or Chrome.", true);
-      return;
-    }
-    if (active) return;
-    const bodyEl = document.getElementById(ids.textareaId);
-    if (!bodyEl) return;
-    rec = new Rec();
-    rec.continuous = true;
-    rec.interimResults = true;
-    rec.lang = navigator.language || "en-US";
-    finalBuffer = "";
-    interimBuffer = "";
-    userStopped = false;
-    bodyEl.dataset.fnBaseline = bodyEl.value || "";
-
-    rec.onstart = function () {
-      active = true;
-      setButtonState(true);
-      setHint("Listening — tap the square to stop.", false);
-    };
-    rec.onresult = function (event) {
-      interimBuffer = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const r = event.results[i];
-        const text = r[0].transcript;
-        if (r.isFinal) {
-          finalBuffer += (finalBuffer ? " " : "") + text.trim();
-        } else {
-          interimBuffer += text;
-        }
-      }
-      buildAndShow();
-    };
-    rec.onerror = function (event) {
-      const msg = event.error === "not-allowed"
-        ? "Microphone access was denied — enable it in browser settings."
-        : event.error === "no-speech"
-          ? "Didn't catch anything. Tap the mic again to retry."
-          : "Voice dictation hit an error (" + event.error + "). Tap the mic to retry.";
-      setHint(msg, true);
-    };
-    rec.onend = function () {
-      if (!userStopped && active) {
-        try { rec.start(); return; } catch (e) { /* fall through */ }
-      }
-      active = false;
-      setButtonState(false);
-      if (interimBuffer) {
-        finalBuffer += (finalBuffer ? " " : "") + interimBuffer.trim();
-        interimBuffer = "";
-        buildAndShow();
-      }
-      if (!userStopped) setHint("Stopped — tap the mic to dictate again.", false);
-    };
-    try {
-      rec.start();
-    } catch (e) {
-      setHint("Could not start dictation: " + e.message, true);
-      active = false;
-      setButtonState(false);
-    }
-  }
-  function stop() {
-    if (!active || !rec) return;
-    userStopped = true;
-    try { rec.stop(); } catch (e) { /* ignore */ }
-    active = false;
-    setButtonState(false);
-    setHint("Stopped. Edit as needed, then save.", false);
-  }
-  function toggle() { active ? stop() : start(); }
-
-  return { start, stop, toggle, isSupported, isRecording };
-}
-
-const VoiceCapture = createVoiceCapture({
-  textareaId: "fn-capture-textarea",
-  micBtnId: "fn-mic-btn",
-  hintId: "fn-mic-hint",
-});
-
-const GuruVoice = createVoiceCapture({
-  textareaId: "gg-textarea",
-  micBtnId: "gg-mic-btn",
-  hintId: "gg-mic-hint",
-});
-
-// ---- Wire Field Notes controls ----
-(function wireFieldNotes() {
-  // Capture surface (textarea + mic + Save) lives in the static #quick-capture
-  // section above the cards — it's not re-rendered, so wire once at page load.
-  const ta = document.getElementById("fn-capture-textarea");
-  const saveBtn = document.getElementById("fn-capture-save");
-  if (ta && saveBtn) {
-    const refreshDisabled = () => { saveBtn.disabled = !ta.value.trim(); };
-    ta.addEventListener("input", refreshDisabled);
-    saveBtn.addEventListener("click", () => fnSaveInlineEntry());
-    refreshDisabled();
-  }
-  const micBtn = document.getElementById("fn-mic-btn");
-  if (micBtn) {
-    micBtn.addEventListener("click", () => VoiceCapture.toggle());
-    if (!VoiceCapture.isSupported()) {
-      micBtn.style.display = "none";
-      const hint = document.getElementById("fn-mic-hint");
-      if (hint) hint.textContent = "Voice dictation isn't supported in this browser. Try Safari (iOS) or Chrome.";
-    }
-  }
-
-  // Sync settings modal wiring.
+// ---- Wire Field Notes sync-settings modal ----
+(function wireFieldNotesSyncModal() {
   const syncClose = document.getElementById("fn-sync-close");
   if (syncClose) syncClose.addEventListener("click", fnCloseSyncModal);
   const syncCancel = document.getElementById("fn-sync-cancel");
@@ -9383,7 +9105,7 @@ const GardenGuru = (function () {
       lastReplyMs = Date.now();  // start dwell timer for conversation_reply_dwell
     } catch (e) {
       const errMsg = e.notConfigured
-        ? "Garden Guru isn't configured yet. Open Sync settings in Field Notes to connect to the Worker."
+        ? "Garden Guru isn't configured yet. Open Sync settings in the Almanac to connect to the Worker."
         : "The journal can't reach the network just now — try again in a moment.";
       turns.push({ role: "assistant", content: errMsg, ts: new Date().toISOString(), isError: true });
     }
@@ -9460,23 +9182,133 @@ const GardenGuru = (function () {
   return { ask, reset, onChange, getState };
 })();
 
+// ---- Voice dictation controller (Web Speech API) ----
+function createVoiceCapture(ids) {
+  const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let rec = null;
+  let active = false;
+  let finalBuffer = "";
+  let interimBuffer = "";
+  let userStopped = false;
+
+  function isSupported() { return !!Rec; }
+  function isRecording() { return active; }
+
+  function setHint(msg, isError) {
+    const hint = document.getElementById(ids.hintId);
+    if (!hint) return;
+    hint.textContent = msg;
+    hint.classList.toggle("error", !!isError);
+  }
+  function setButtonState(recording) {
+    const btn = document.getElementById(ids.micBtnId);
+    if (!btn) return;
+    btn.classList.toggle("recording", recording);
+    btn.textContent = recording ? "■" : "🎤";
+    btn.setAttribute("aria-label", recording ? "Stop dictation" : "Voice dictation");
+  }
+  function buildAndShow() {
+    const bodyEl = document.getElementById(ids.textareaId);
+    if (!bodyEl) return;
+    const base = bodyEl.dataset.fnBaseline || "";
+    const sep1 = (base && finalBuffer) ? (base.endsWith(" ") || base.endsWith("\n") ? "" : " ") : "";
+    const sep2 = (finalBuffer && interimBuffer) ? " " : "";
+    bodyEl.value = base + sep1 + finalBuffer + sep2 + interimBuffer;
+    bodyEl.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+
+  function start() {
+    if (!isSupported()) {
+      setHint("Voice dictation isn't supported in this browser. Try Safari on iOS or Chrome.", true);
+      return;
+    }
+    if (active) return;
+    const bodyEl = document.getElementById(ids.textareaId);
+    if (!bodyEl) return;
+    rec = new Rec();
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.lang = navigator.language || "en-US";
+    finalBuffer = "";
+    interimBuffer = "";
+    userStopped = false;
+    bodyEl.dataset.fnBaseline = bodyEl.value || "";
+
+    rec.onstart = function () {
+      active = true;
+      setButtonState(true);
+      setHint("Listening — tap the square to stop.", false);
+    };
+    rec.onresult = function (event) {
+      interimBuffer = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const r = event.results[i];
+        const text = r[0].transcript;
+        if (r.isFinal) {
+          finalBuffer += (finalBuffer ? " " : "") + text.trim();
+        } else {
+          interimBuffer += text;
+        }
+      }
+      buildAndShow();
+    };
+    rec.onerror = function (event) {
+      const msg = event.error === "not-allowed"
+        ? "Microphone access was denied — enable it in browser settings."
+        : event.error === "no-speech"
+          ? "Didn't catch anything. Tap the mic again to retry."
+          : "Voice dictation hit an error (" + event.error + "). Tap the mic to retry.";
+      setHint(msg, true);
+    };
+    rec.onend = function () {
+      if (!userStopped && active) {
+        try { rec.start(); return; } catch (e) { /* fall through */ }
+      }
+      active = false;
+      setButtonState(false);
+      if (interimBuffer) {
+        finalBuffer += (finalBuffer ? " " : "") + interimBuffer.trim();
+        interimBuffer = "";
+        buildAndShow();
+      }
+      if (!userStopped) setHint("Stopped — tap the mic to dictate again.", false);
+    };
+    try {
+      rec.start();
+    } catch (e) {
+      setHint("Could not start dictation: " + e.message, true);
+      active = false;
+      setButtonState(false);
+    }
+  }
+  function stop() {
+    if (!active || !rec) return;
+    userStopped = true;
+    try { rec.stop(); } catch (e) { /* ignore */ }
+    active = false;
+    setButtonState(false);
+    setHint("Stopped. Edit as needed, then save.", false);
+  }
+  function toggle() { active ? stop() : start(); }
+
+  return { start, stop, toggle, isSupported, isRecording };
+}
+
+const UnifiedVoice = createVoiceCapture({
+  textareaId: "ui-textarea",
+  micBtnId: "ui-mic-btn",
+  hintId: "ui-mic-hint",
+});
+
 // =========================
 // UNIFIED INPUT — note or ask (2026-05-20)
 // =========================
 // Unified surface that consolidates Field Notes capture + Garden Guru into
 // one textbox with two action buttons (Save / Ask Garden Guru). Routes to
-// existing fnSaveInlineEntry and GardenGuru.ask under the hood; preserves
-// no-AI-on-capture (Save button never invokes AI).
-//
-// 2026-05-20 evening: feature flag removed — everyone on the same version.
-// The legacy `#quick-capture` and `#garden-guru` sections are now always
-// hidden via CSS (body.ui-unified is added unconditionally at init).
-// Old markup left in place for safe rollback if needed; future cleanup pass
-// can delete it once the new shape is settled.
+// fnSaveInlineEntry and GardenGuru.ask; Save path never invokes AI.
 
 const UnifiedInput = (function () {
   function init() {
-    document.body.classList.add("ui-unified");
     wireUI();
   }
 
@@ -9581,13 +9413,11 @@ const UnifiedInput = (function () {
       if (!text) return;
       actionTakenSinceFocus = true;
       if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
-      // Route through fnSaveInlineEntry by mirroring text into the legacy textarea.
-      const legacyTa = document.getElementById("fn-capture-textarea");
-      if (legacyTa) legacyTa.value = text;
-      try { await fnSaveInlineEntry(); }
+      const wasVoice = UnifiedVoice.isRecording();
+      if (wasVoice) UnifiedVoice.stop();
+      try { await fnSaveInlineEntry(text, { inputMode: wasVoice ? "voice" : "text" }); }
       catch (e) { console.warn("save failed:", e); }
       ta.value = "";
-      if (legacyTa) legacyTa.value = "";
       updateState();
     });
 
@@ -9596,10 +9426,21 @@ const UnifiedInput = (function () {
       if (!text) return;
       actionTakenSinceFocus = true;
       if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
+      if (UnifiedVoice.isRecording()) UnifiedVoice.stop();
       ta.value = "";
       await GardenGuru.ask(text);
       updateState();
     });
+
+    const micBtn = document.getElementById("ui-mic-btn");
+    if (micBtn) {
+      micBtn.addEventListener("click", () => UnifiedVoice.toggle());
+      if (!UnifiedVoice.isSupported()) {
+        micBtn.style.display = "none";
+        const hint = document.getElementById("ui-mic-hint");
+        if (hint) hint.textContent = "Voice dictation isn't supported in this browser. Try Safari (iOS) or Chrome.";
+      }
+    }
 
     if (resetBtn) {
       resetBtn.addEventListener("click", () => GardenGuru.reset());
@@ -9676,99 +9517,6 @@ function gatherGuruLiveState() {
   } catch (e) {}
   return state;
 }
-
-function renderGardenGuru() {
-  const section = document.getElementById("garden-guru");
-  if (!section) return;
-  const state = GardenGuru.getState();
-
-  // Counter
-  const counter = document.getElementById("gg-counter");
-  if (counter) {
-    if (state.turns.length === 0) {
-      counter.hidden = true;
-      counter.textContent = "";
-    } else if (state.capReached) {
-      counter.hidden = false;
-      counter.textContent = "Conversation full — start fresh to ask more";
-    } else {
-      counter.hidden = false;
-      const n = state.followupsRemaining;
-      counter.textContent = n === 1 ? "1 follow-up left" : n + " follow-ups left";
-    }
-  }
-
-  // Conversation history
-  const convoEl = document.getElementById("gg-conversation");
-  if (convoEl) {
-    if (state.turns.length === 0 && !state.isWaiting) {
-      convoEl.hidden = true;
-      convoEl.innerHTML = "";
-    } else {
-      convoEl.hidden = false;
-      let html = "";
-      for (const t of state.turns) {
-        const baseCls = t.role === "user" ? "gg-turn gg-turn-user" : "gg-turn gg-turn-assistant";
-        const fullCls = t.isError ? baseCls + " gg-turn-error" : baseCls;
-        html += '<div class="' + fullCls + '">' + escapeHtml(t.content) + '</div>';
-      }
-      if (state.isWaiting) {
-        html += '<div class="gg-turn-thinking">Garden Guru is thinking…</div>';
-      }
-      convoEl.innerHTML = html;
-      convoEl.scrollTop = convoEl.scrollHeight;
-    }
-  }
-
-  // Input + buttons
-  const ta = document.getElementById("gg-textarea");
-  const askBtn = document.getElementById("gg-ask-btn");
-  const resetBtn = document.getElementById("gg-reset-btn");
-  const micBtn = document.getElementById("gg-mic-btn");
-  const disabled = state.isWaiting || state.capReached;
-  if (ta) ta.disabled = disabled;
-  if (micBtn) micBtn.disabled = disabled;
-  if (askBtn) {
-    askBtn.disabled = disabled || !ta || !ta.value.trim();
-    askBtn.textContent = state.turns.length === 0 ? "Ask Garden Guru" : "Ask follow-up";
-  }
-  if (resetBtn) resetBtn.hidden = state.turns.length === 0;
-}
-
-// Wire Garden Guru events (static markup, so one-time wiring)
-(function wireGardenGuru() {
-  const ta = document.getElementById("gg-textarea");
-  const askBtn = document.getElementById("gg-ask-btn");
-  const resetBtn = document.getElementById("gg-reset-btn");
-  const micBtn = document.getElementById("gg-mic-btn");
-  if (!ta || !askBtn) return;
-
-  ta.addEventListener("input", renderGardenGuru);
-  askBtn.addEventListener("click", () => {
-    const text = (ta.value || "").trim();
-    if (!text) return;
-    ta.value = "";
-    GardenGuru.ask(text);
-  });
-  if (resetBtn) resetBtn.addEventListener("click", () => GardenGuru.reset());
-  if (micBtn) {
-    micBtn.addEventListener("click", () => GuruVoice.toggle());
-    if (!GuruVoice.isSupported()) {
-      micBtn.style.display = "none";
-    }
-  }
-
-  // Enter to submit (Shift+Enter for newline)
-  ta.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      askBtn.click();
-    }
-  });
-})();
-
-GardenGuru.onChange(renderGardenGuru);
-renderGardenGuru();
 
 // Unified input — always active as of 2026-05-20 evening (feature flag removed).
 UnifiedInput.init();
