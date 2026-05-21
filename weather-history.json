@@ -5,7 +5,7 @@
     "rollupCadence": "daily",
     "rollupTimezone": "America/New_York",
     "firstDay": "2026-05-05",
-    "lastUpdated": "2026-05-20T20:15:38.303Z",
+    "lastUpdated": "2026-05-21T03:43:27.351Z",
     "notes": "Daily rollups computed from 5-minute Ambient Weather observations. After ~30 days of accumulation, the viewer should switch from ERA5 grid baselines to property-recorded comparisons (\"wettest May on our 14-month record\"). Maintained by tools/record-daily-rollup.mjs.",
     "fields": {
       "date": "ISO date (YYYY-MM-DD), local TZ rollup boundary",
@@ -321,7 +321,7 @@
       "date": "2026-05-20",
       "tempMin": 65.5,
       "tempMax": 81.9,
-      "tempAvg": 70.3,
+      "tempAvg": 70.6,
       "humidityMin": 63,
       "humidityMax": 91,
       "humidityAvg": 79,
@@ -329,15 +329,15 @@
       "windSpeedAvg": 0,
       "windGustMax": 4.5,
       "rainTotal": 0,
-      "pressureMin": 29.853,
+      "pressureMin": 29.814,
       "pressureMax": 29.953,
-      "pressureDelta": -0.073,
+      "pressureDelta": -0.101,
       "solarMax": 775,
       "uvMax": 7,
       "indoorTempMin": 71.2,
       "indoorTempMax": 74.8,
-      "indoorHumidityAvg": 58,
-      "recordCount": 239
+      "indoorHumidityAvg": 57,
+      "recordCount": 282
     }
   ]
 }
