@@ -2302,6 +2302,213 @@
   }
   .gg-reset-btn:active { background: #f4f0e0; }
 
+  /* UNIFIED INPUT — locked 2026-05-20; feature-flag tateTracker.ui.unifiedInput.v1 */
+  .unified-input { display: none; }
+  body.ui-unified .unified-input { display: block; }
+  body.ui-unified #quick-capture { display: none; }
+  body.ui-unified #garden-guru { display: none; }
+  .unified-input {
+    background: linear-gradient(180deg, #faf7ed 0%, #f4eed8 100%);
+    border: 1px solid #d8cda0;
+    border-radius: 14px;
+    padding: 12px 14px 10px;
+    margin-bottom: 14px;
+  }
+  .ui-input-label {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: #6a5a30;
+    margin-bottom: 8px;
+  }
+  .ui-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .ui-textarea {
+    flex: 1;
+    min-height: 48px;
+    max-height: 220px;
+    border: 1px solid #d4cca8;
+    border-radius: 8px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.55;
+    padding: 9px 11px;
+    resize: vertical;
+    color: #2a3a2a;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ui-textarea:focus { outline: none; border-color: #b08838; box-shadow: 0 0 0 2px #f0e6c8; }
+  .ui-textarea::placeholder { color: #b0a880; font-style: italic; }
+  .ui-textarea:disabled { background: #f0ede0; color: #8a8270; }
+  .ui-seeded-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .ui-prompt-chip {
+    background: rgba(255, 255, 255, 0.55);
+    color: #6a5a30;
+    border: 1px solid #d8cda0;
+    border-radius: 14px;
+    padding: 4px 10px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 12.5px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s;
+  }
+  .ui-prompt-chip:hover, .ui-prompt-chip:active { background: rgba(255, 255, 255, 0.95); }
+  .ui-conversation {
+    margin-top: 10px;
+    padding: 10px 0 4px;
+    border-top: 1px dashed #d8cda0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ui-turn-user {
+    background: #ede4c8;
+    color: #3a2a18;
+    padding: 6px 11px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    align-self: flex-end;
+    max-width: 85%;
+  }
+  .ui-turn-assistant {
+    background: #fff;
+    color: #2a3a2a;
+    border: 1px solid #d8cda0;
+    padding: 8px 11px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.55;
+    font-family: "Crimson Text", Georgia, serif;
+    align-self: flex-start;
+    max-width: 95%;
+  }
+  .ui-turn-error {
+    color: #7a3818;
+    font-size: 13px;
+    font-style: italic;
+    padding: 4px 11px;
+  }
+  .ui-turn-thinking {
+    color: #9a8868;
+    font-style: italic;
+    font-size: 12.5px;
+    align-self: flex-start;
+    padding: 4px 11px;
+  }
+  .ui-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .ui-actions .ui-mic-hint {
+    font-size: 11.5px;
+    color: #8a8270;
+    flex: 1;
+    text-align: left;
+  }
+  .ui-counter {
+    font-size: 11.5px;
+    color: #8a7848;
+    font-style: italic;
+    margin-right: 4px;
+  }
+  .ui-reset-btn {
+    background: transparent;
+    color: #8a7848;
+    border: 1px solid #d4cca8;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-family: inherit;
+    font-size: 12.5px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ui-reset-btn:active { background: #f4f0e0; }
+  .ui-save-btn, .ui-ask-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s, transform 0.1s, opacity 0.15s;
+  }
+  .ui-save-btn { background: linear-gradient(135deg, #6a8a4a, #5a7a3a); }
+  .ui-save-btn:active { transform: scale(0.98); background: linear-gradient(135deg, #5a7a3a, #4a6a2a); }
+  .ui-ask-btn { background: linear-gradient(135deg, #b08838, #8a6828); }
+  .ui-ask-btn:active { transform: scale(0.98); background: linear-gradient(135deg, #8a6828, #6a5018); }
+  .ui-save-btn:disabled, .ui-ask-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+  /* Almanac star + filter */
+  .fn-filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .fn-filter-chip {
+    background: transparent;
+    color: #6a7a5a;
+    border: 1px solid #c4d4b4;
+    border-radius: 14px;
+    padding: 4px 12px;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fn-filter-chip.active {
+    background: #6a8a4a;
+    color: #fff;
+    border-color: #6a8a4a;
+  }
+  .fn-star-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 16px;
+    color: #c4b478;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fn-star-btn.starred { color: #d4a838; }
+  .fn-star-btn:active { transform: scale(1.15); }
+  .fn-entry-header { display: flex; align-items: center; gap: 8px; }
+  .fn-entry-header .fn-entry-when { flex: 1; }
+  .fn-entry-kind {
+    font-size: 10.5px;
+    color: #8a7848;
+    font-style: italic;
+    text-transform: lowercase;
+  }
+  .fn-entry-conversation {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #d4e0c8;
+    font-size: 13px;
+  }
+  .fn-entry-turn { margin-bottom: 4px; }
+  .fn-entry-turn-user { color: #4a5a3a; }
+  .fn-entry-turn-assistant { color: #6a7a5a; font-style: italic; padding-left: 12px; }
+
   .fn-capture {
     background: #fafcf6;
     border: 1px solid #d8eacc;
@@ -2773,6 +2980,28 @@
       <span id="gg-mic-hint" class="fn-mic-hint"></span>
       <button id="gg-reset-btn" class="gg-reset-btn" type="button" hidden>Start fresh</button>
       <button id="gg-ask-btn" class="gg-ask-btn" type="button" disabled>Ask Garden Guru</button>
+    </div>
+  </section>
+
+  <!-- UNIFIED INPUT — note or ask, locked 2026-05-20 (feature-flag tateTracker.ui.unifiedInput.v1) -->
+  <section class="unified-input" id="unified-input" aria-label="Note or ask Garden Guru">
+    <div class="ui-input-label">Note or ask the slope</div>
+    <div class="ui-input-row">
+      <textarea id="ui-textarea" class="ui-textarea" placeholder="What did you see, or what would you like to know?" rows="2"></textarea>
+      <button id="ui-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>
+    </div>
+    <div class="ui-seeded-prompts" id="ui-seeded-prompts" hidden>
+      <button class="ui-prompt-chip" type="button" data-prompt="What's blooming this week?">What's blooming this week?</button>
+      <button class="ui-prompt-chip" type="button" data-prompt="What bird is most likely calling now?">What bird is most likely calling now?</button>
+      <button class="ui-prompt-chip" type="button" data-prompt="What should I be watching for?">What should I be watching for?</button>
+    </div>
+    <div class="ui-conversation" id="ui-conversation" hidden></div>
+    <div class="ui-actions">
+      <span id="ui-mic-hint" class="ui-mic-hint"></span>
+      <span class="ui-counter" id="ui-counter" hidden></span>
+      <button id="ui-reset-btn" class="ui-reset-btn" type="button" hidden>Start fresh</button>
+      <button id="ui-save-btn" class="ui-save-btn" type="button" disabled>Save</button>
+      <button id="ui-ask-btn" class="ui-ask-btn" type="button" disabled>Ask Garden Guru</button>
     </div>
   </section>
 
@@ -8574,11 +8803,19 @@ function fnFormatWhen(isoDate) {
   return d.toLocaleDateString("en-US", opts);
 }
 
+// Star filter state (almanac view) — "all" or "starred". Module-level; persists
+// during the session but resets on reload (intentional — user re-chooses each visit).
+let fnFilter = "all";
+
 function renderFieldNotes() {
   const body = document.getElementById("fieldnotes-body");
   const summary = document.getElementById("fieldnotes-summary");
   if (!body || !summary) return;
-  const entries = fnLoadAll().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  const allEntries = fnLoadAll().sort((a, b) =>
+    (b.createdAt || b.date || "").localeCompare(a.createdAt || a.date || "")
+  );
+  const entries = fnFilter === "starred" ? allEntries.filter(e => e.isStarred) : allEntries;
+  const starredCount = allEntries.filter(e => e.isStarred).length;
   const status = ObservationStore.getStatus();
 
   // Summary line: entry count + latest, with sync status pill on the right.
@@ -8587,13 +8824,13 @@ function renderFieldNotes() {
                   : status.mode === "local-only" ? "Local only"
                   : "Sync error";
   let summaryText;
-  if (entries.length === 0) {
+  if (allEntries.length === 0) {
     summaryText = "The journal you keep about this place";
   } else {
-    const newest = entries[0];
-    const lbl = newest.category ? (FN_CATEGORY_LABEL[newest.category] || newest.category) : null;
-    summaryText = entries.length + " entr" + (entries.length === 1 ? "y" : "ies") +
-      " · latest from " + fnFormatWhen(newest.date) + (lbl ? " (" + lbl.toLowerCase() + ")" : "");
+    const newest = allEntries[0];
+    summaryText = allEntries.length + " entr" + (allEntries.length === 1 ? "y" : "ies") +
+      " · latest from " + fnFormatWhen(newest.date) +
+      (starredCount > 0 ? " · " + starredCount + " starred" : "");
   }
   summary.innerHTML = '<span class="fn-summary-text">' + escapeHtml(summaryText) + '</span>' +
     '<span class="' + pillClass + '" title="' + escapeHtml(status.message) + '">' + escapeHtml(pillLabel) + '</span>';
@@ -8606,38 +8843,58 @@ function renderFieldNotes() {
   html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + (status.mode === "local-only" ? "Set up sync" : "Sync settings") + '</button>';
   html += '</div>';
 
-  // The capture surface (textarea + mic + Save) lives at the top of the page now,
-  // in #quick-capture above the dashboard's main cards. This card holds the
-  // browsable history of past entries only.
+  // Filter chips — show only when there are starred entries to filter on
+  if (starredCount > 0) {
+    html += '<div class="fn-filter-row">';
+    html += '<button class="fn-filter-chip ' + (fnFilter === "all" ? "active" : "") + '" type="button" data-filter="all">All (' + allEntries.length + ')</button>';
+    html += '<button class="fn-filter-chip ' + (fnFilter === "starred" ? "active" : "") + '" type="button" data-filter="starred">★ Starred (' + starredCount + ')</button>';
+    html += '</div>';
+  }
 
   if (entries.length === 0) {
-    html += '<div class="fn-empty">No entries yet. The first observation goes here.</div>';
+    if (allEntries.length === 0) {
+      html += '<div class="fn-empty">No entries yet. The first observation goes here.</div>';
+    } else {
+      html += '<div class="fn-empty">No starred entries yet. Tap the star on an entry to mark it as one that matters.</div>';
+    }
   } else {
     html += '<div class="fn-list">';
     for (const e of entries) {
       const lbl = e.category ? (FN_CATEGORY_LABEL[e.category] || e.category) : null;
+      const isStarred = !!e.isStarred;
+      const kindLabel = e.kind === "conversation" ? "conversation" : null;
       html += '<div class="fn-entry" data-id="' + escapeHtml(e.id) + '">';
       html += '<div class="fn-entry-header">';
       html += '<span class="fn-entry-when">' + escapeHtml(fnFormatWhen(e.date)) + '</span>';
+      if (kindLabel) {
+        html += '<span class="fn-entry-kind">· ' + escapeHtml(kindLabel) + '</span>';
+      }
       if (lbl) {
         html += '<span class="fn-entry-category">' + escapeHtml(lbl) + '</span>';
-      } else if (e.classifyPending) {
-        html += '<span class="fn-entry-pending">classifying…</span>';
       }
+      html += '<button class="fn-star-btn ' + (isStarred ? "starred" : "") + '" type="button" data-id="' + escapeHtml(e.id) + '" aria-label="' + (isStarred ? "Remove star" : "Mark this matters") + '" title="' + (isStarred ? "Starred" : "Mark this matters") + '">' + (isStarred ? "★" : "☆") + '</button>';
       html += '</div>';
       if (e.speciesName) {
         html += '<div class="fn-entry-species">' + escapeHtml(e.speciesName) + '</div>';
       }
       html += '<div class="fn-entry-body">' + escapeHtml(e.body) + '</div>';
+      if (e.kind === "conversation" && e.conversation && Array.isArray(e.conversation.turns) && e.conversation.turns.length > 1) {
+        html += '<details class="fn-entry-conversation">';
+        html += '<summary>' + (e.conversation.turns.length - 1) + ' more turn' + (e.conversation.turns.length === 2 ? "" : "s") + '</summary>';
+        // Skip the first user turn (already shown as body); render the rest
+        for (let i = 1; i < e.conversation.turns.length; i++) {
+          const t = e.conversation.turns[i];
+          const cls = t.role === "user" ? "fn-entry-turn-user" : "fn-entry-turn-assistant";
+          html += '<div class="fn-entry-turn ' + cls + '">' + escapeHtml(t.content) + '</div>';
+        }
+        html += '</details>';
+      }
       html += '<div class="fn-entry-actions"><button class="fn-entry-delete" type="button" data-id="' + escapeHtml(e.id) + '">Delete</button></div>';
       html += '</div>';
     }
     html += '</div>';
   }
   body.innerHTML = html;
-
-  // Capture surface wiring lives in wireFieldNotes() — the textarea/mic/save
-  // are now in the static #quick-capture section that exists once at page load.
 
   const syncBtn = document.getElementById("fn-sync-btn");
   if (syncBtn) syncBtn.addEventListener("click", () => fnOpenSyncModal());
@@ -8647,6 +8904,26 @@ function renderFieldNotes() {
       if (!id) return;
       if (!confirm("Delete this entry?")) return;
       await ObservationStore.remove(id);
+      renderFieldNotes();
+    });
+  });
+  body.querySelectorAll(".fn-filter-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const filter = chip.getAttribute("data-filter");
+      if (filter) {
+        fnFilter = filter;
+        renderFieldNotes();
+      }
+    });
+  });
+  body.querySelectorAll(".fn-star-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.getAttribute("data-id");
+      if (!id) return;
+      const target = allEntries.find(e => e.id === id);
+      if (!target) return;
+      const updated = Object.assign({}, target, { isStarred: !target.isStarred });
+      await ObservationStore.save(updated);
       renderFieldNotes();
     });
   });
@@ -8962,6 +9239,7 @@ const GardenGuru = (function () {
       if (typeof MetricsCollector !== "undefined") {
         MetricsCollector.track("conversation_capped", { conversationId });
       }
+      saveCurrentConversation();
       return;
     }
     const isFirstTurn = !conversationId;
@@ -8997,11 +9275,51 @@ const GardenGuru = (function () {
   }
 
   function reset() {
+    saveCurrentConversation();
     conversationId = null;
     turns = [];
     isWaiting = false;
     emit();
   }
+
+  // Auto-save the current conversation to the almanac (per 2026-05-20 design lock).
+  // Fires on reset, cap hit, and session end. Idempotent — only saves once per
+  // conversationId (tracked via savedConversationIds).
+  const savedConversationIds = new Set();
+  function saveCurrentConversation() {
+    if (!conversationId || savedConversationIds.has(conversationId)) return;
+    if (turns.filter(t => t.role === "user").length === 0) return;
+    const cid = conversationId;
+    savedConversationIds.add(cid);
+    const isoToday = new Date().toISOString().slice(0, 10);
+    const firstUserTurn = turns.find(t => t.role === "user");
+    const entry = {
+      id: "c-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
+      date: isoToday,
+      createdAt: new Date().toISOString(),
+      category: null,
+      speciesId: null,
+      speciesName: null,
+      body: firstUserTurn ? firstUserTurn.content : "",
+      classifyPending: false,
+      kind: "conversation",
+      isStarred: false,
+      conversation: {
+        conversationId: cid,
+        turns: turns.map(t => ({ role: t.role, content: t.content, ts: t.ts })),
+      },
+    };
+    // Fire-and-forget; failures are silent (local save is synchronous within store).
+    ObservationStore.save(entry).then(() => {
+      if (typeof renderFieldNotes === "function") renderFieldNotes();
+    }).catch(e => console.warn("auto-save conversation failed:", e));
+  }
+
+  // Best-effort save on session end.
+  window.addEventListener("pagehide", saveCurrentConversation);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") saveCurrentConversation();
+  });
 
   function onChange(cb) { listeners.push(cb); }
   function emit() { listeners.forEach(cb => { try { cb(); } catch (e) { console.warn(e); } }); }
@@ -9018,6 +9336,143 @@ const GardenGuru = (function () {
   }
 
   return { ask, reset, onChange, getState };
+})();
+
+// =========================
+// UNIFIED INPUT — note or ask (2026-05-20)
+// =========================
+// Feature-flagged unified surface that consolidates Field Notes capture +
+// Garden Guru into one textbox with two action buttons (Save / Ask Garden
+// Guru). Routes to existing fnSaveInlineEntry and GardenGuru.ask under the
+// hood; preserves no-AI-on-capture (Save button never invokes AI).
+// Enable: localStorage.setItem("tateTracker.ui.unifiedInput.v1", "1") + reload.
+
+const UnifiedInput = (function () {
+  const FLAG_KEY = "tateTracker.ui.unifiedInput.v1";
+  function isEnabled() {
+    try { return localStorage.getItem(FLAG_KEY) === "1"; }
+    catch (e) { return false; }
+  }
+
+  function init() {
+    if (!isEnabled()) return;
+    document.body.classList.add("ui-unified");
+    wireUI();
+  }
+
+  function wireUI() {
+    const ta = document.getElementById("ui-textarea");
+    const saveBtn = document.getElementById("ui-save-btn");
+    const askBtn = document.getElementById("ui-ask-btn");
+    const resetBtn = document.getElementById("ui-reset-btn");
+    const seededPrompts = document.getElementById("ui-seeded-prompts");
+    const conversation = document.getElementById("ui-conversation");
+    const counter = document.getElementById("ui-counter");
+    if (!ta || !saveBtn || !askBtn) return;
+
+    function updateState() {
+      const text = (ta.value || "").trim();
+      const state = GardenGuru.getState();
+      saveBtn.disabled = !text;
+      askBtn.disabled = !text || state.capReached;
+      askBtn.textContent = state.userTurnCount > 0 ? "Ask follow-up" : "Ask Garden Guru";
+
+      if (seededPrompts) {
+        const shouldShow = !text && state.turns.length === 0;
+        seededPrompts.hidden = !shouldShow;
+      }
+      if (resetBtn) resetBtn.hidden = state.turns.length === 0;
+      if (counter) {
+        if (state.turns.length > 0) {
+          counter.hidden = false;
+          counter.textContent = state.followupsRemaining + " follow-up" +
+            (state.followupsRemaining === 1 ? "" : "s") + " left";
+        } else {
+          counter.hidden = true;
+        }
+      }
+    }
+
+    function renderConversation() {
+      if (!conversation) return;
+      const state = GardenGuru.getState();
+      if (state.turns.length === 0) {
+        conversation.hidden = true;
+        conversation.innerHTML = "";
+        return;
+      }
+      conversation.hidden = false;
+      let html = "";
+      for (const t of state.turns) {
+        if (t.role === "user") {
+          html += '<div class="ui-turn-user">' + escapeHtml(t.content) + '</div>';
+        } else {
+          const cls = t.isError ? "ui-turn-error" : "ui-turn-assistant";
+          html += '<div class="' + cls + '">' + escapeHtml(t.content) + '</div>';
+        }
+      }
+      if (state.isWaiting) {
+        html += '<div class="ui-turn-thinking">The journal is thinking…</div>';
+      }
+      conversation.innerHTML = html;
+    }
+
+    ta.addEventListener("input", updateState);
+
+    saveBtn.addEventListener("click", async () => {
+      const text = (ta.value || "").trim();
+      if (!text) return;
+      // Route through fnSaveInlineEntry by mirroring text into the legacy textarea.
+      const legacyTa = document.getElementById("fn-capture-textarea");
+      if (legacyTa) legacyTa.value = text;
+      try { await fnSaveInlineEntry(); }
+      catch (e) { console.warn("save failed:", e); }
+      ta.value = "";
+      if (legacyTa) legacyTa.value = "";
+      updateState();
+    });
+
+    askBtn.addEventListener("click", async () => {
+      const text = (ta.value || "").trim();
+      if (!text) return;
+      ta.value = "";
+      await GardenGuru.ask(text);
+      updateState();
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => GardenGuru.reset());
+    }
+
+    ta.addEventListener("keydown", e => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        if (e.metaKey || e.ctrlKey) saveBtn.click();
+        else askBtn.click();
+      }
+    });
+
+    document.querySelectorAll(".ui-prompt-chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const prompt = chip.getAttribute("data-prompt");
+        if (prompt) {
+          ta.value = prompt;
+          ta.focus();
+          updateState();
+        }
+      });
+    });
+
+    GardenGuru.onChange(() => {
+      updateState();
+      renderConversation();
+    });
+
+    updateState();
+    renderConversation();
+  }
+
+  return { init, isEnabled };
 })();
 
 function gatherGuruLiveState() {
@@ -9150,6 +9605,9 @@ function renderGardenGuru() {
 
 GardenGuru.onChange(renderGardenGuru);
 renderGardenGuru();
+
+// Unified input — activates when localStorage.tateTracker.ui.unifiedInput.v1 === "1"
+UnifiedInput.init();
 </script>
 
 </body>
