@@ -17,6 +17,10 @@
  *   GET    /api/conversations?start=&end= List conversation metadata in range (no turn content)
  *   POST   /api/feedback                  Append a feedback record (sentiment + note)
  *   GET    /api/feedback?start=&end=      Read feedback records in a date range
+ *   POST   /api/pending-species           Phase F — append a Mom/Paul-photo plant/animal suggestion
+ *                                          to today's pending-species queue (writes only)
+ *   GET    /api/pending-species?start=&end=  Read pending suggestions in a date range
+ *   DELETE /api/pending-species/<id>      Remove a specific suggestion (id = "YYYY-MM-DD:<nanos>")
  *
  * Secrets (configured via `npx wrangler secret put NAME`):
  *   SHARED_TOKEN          — required, gates /api/*
@@ -27,6 +31,7 @@
  *   - observations array (key "observations")
  *   - per-conversation Garden Guru sessions (keys "conversation:<uuid>")
  *   - per-day cost log of Anthropic API usage (keys "cost-log:<YYYY-MM-DD>")
+ *   - per-day pending-species queue (Phase F; keys "pending-species:<YYYY-MM-DD>")
  *   - cached responses for upstream proxies (keys "cache:airnow:<lat>:<lon>", etc.)
  *
  * The property digest (curated context for Garden Guru) is bundled at deploy
@@ -363,7 +368,38 @@ NEVER
 - Never grade the user's day or trip.
 
 OUTPUT
-Plain prose. One to two short paragraphs typically — shorter for fragmentary questions. No JSON, no markdown, no headers, no bullet lists, no numbered lists, no emojis.`;
+Plain prose. One to two short paragraphs typically — shorter for fragmentary questions. No JSON, no markdown, no headers, no bullet lists, no numbered lists, no emojis.
+
+WHEN AN IMAGE IS ATTACHED (Phase F)
+The user has submitted a photo, likely of a plant or animal at the property. Identify what you see.
+
+- Identify honestly. Common name + scientific name when you have medium-or-higher confidence. If you're not sure, say so plainly ("Hard to be certain from this angle — could be A or B; [the distinguishing feature].") and ask what would resolve it (a leaf underside, a closer view of the bark, etc.).
+- The voice rules above still hold. No "Great photo!" No "Let me help you with that!" No "Here's what I see:" prefixes. Talk about the thing in the photo the way the journal would talk about it — observational, anchored, restrained.
+- Apply the depth filter honestly. If what you see is one of the seventeen plants we tend or one of the species in the digest, name it as one we know. If it's outside the digest, say so plainly: "Not one of the seventeen we tend" or "Not a species the journal tracks yet."
+- Note plausibility for the property. The Blue Ridge at 2,959 feet is a specific habitat — Mesic Cove / Montane Oak mosaic, acidic mountain soil, USDA zone 6b (elevation-adjusted). Some species fit comfortably here (Cardinal Flower in damp edges, Trillium in rich coves); some would be unusual (anything obligate-coastal, anything desert-adapted). Mention fit when you have confidence on the ID.
+
+When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fence at the very end of your reply, on its own line, exactly in this form (HTML comment so the client can strip it from the displayed text):
+
+<!--suggest-species
+{
+  "kind": "plant" | "animal",
+  "commonName": "...",
+  "scientificName": "...",
+  "confidence": "medium" | "high",
+  "elevationFit": "short narrative — 'plausible at 2,959 ft in damp edges' or 'unusual for this elevation; would be a notable record'",
+  "habitatHint": "short hint — 'rich-cove understory' or 'forest edges at dusk' (optional, omit if unsure)",
+  "inCanon": true | false
+}
+-->
+
+Rules for the fence:
+- Emit it ONLY when confidence is medium or higher AND the photo is clearly of a plant or animal (not a landscape, not the sky, not a piece of equipment, not a vehicle).
+- Set "inCanon": true if the species is one of the property's curated lists (the seventeen plants in the digest, or any species listed under the mammals/birds/amphibians/snakes/lizards/fish sections). False otherwise.
+- Set "kind": "plant" for any plant; "animal" for any mammal/bird/amphibian/reptile/fish/insect.
+- Keep elevationFit honest. If the species would be plausible here, say so. If it would be unusual, say so. The journal doesn't claim it lives here; it says whether it could.
+- Do NOT emit the fence when you couldn't confidently identify the subject. Low-confidence IDs should be expressed in the prose only.
+- In your prose reply, after identifying the species and noting plausibility, ask the user: "Want me to suggest it for the Almanac?" or a natural variation. This single question covers both the plausibility check and the add-to-canon prompt; the user's yes/no is the action.
+- The reader sees prose; the client sees the fence. Don't reference the fence in your prose.`;
 
 async function logChatCost(env, conversationId, apiData) {
   const date = new Date().toISOString().slice(0, 10);
@@ -416,6 +452,16 @@ async function persistConversation(env, conversationId, turns) {
 
 async function handleChat(request, env) {
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
+
+  // Phase F: turns may carry image content blocks. A 1568px JPEG@0.85 base64-encodes
+  // to ~1.2MB; a 5MB ceiling absorbs a multi-turn conversation with a couple of images
+  // without letting a runaway client OOM the Worker. Anthropic's own per-image limit
+  // (5MB encoded) sets the same ceiling on the upstream call.
+  const contentLengthHeader = request.headers.get("content-length");
+  if (contentLengthHeader && parseInt(contentLengthHeader, 10) > 5_000_000) {
+    return json({ error: "payload-too-large", limit_bytes: 5_000_000 }, 413);
+  }
+
   let body;
   try { body = await request.json(); }
   catch (e) { return json({ error: "bad-json" }, 400); }
@@ -430,6 +476,9 @@ async function handleChat(request, env) {
   if (turns.length > 20) {
     return json({ error: "too-many-turns", limit: 20 }, 400);
   }
+  // Phase F: turns[].content may be either a string (pre-Phase-F shape) or an array
+  // of content blocks (text + image). Anthropic accepts both; persistConversation
+  // preserves either shape since it stores t.content verbatim.
 
   // Three-block system prompt: voice rules (cached) + digest (cached, large) + live state (uncached).
   // The cache_control on the digest block is the big cost saver — within a 5-minute window
@@ -474,6 +523,130 @@ async function handleChat(request, env) {
     model: apiData.model,
     fetchedAt: new Date().toISOString(),
   });
+}
+
+// ---- Pending species — Phase F suggested-additions queue ----
+// POST   /api/pending-species              — append a suggestion to today's daily key
+// GET    /api/pending-species?start=&end=  — read suggestions in date range
+// DELETE /api/pending-species/<id>         — remove a specific suggestion (id = "YYYY-MM-DD:nanos")
+//
+// KV shape mirrors cost-log:YYYY-MM-DD / metrics:YYYY-MM-DD. Records are appended in arrival
+// order; ID is `<date>:<unix_ms>-<rand4>` so the DELETE handler knows which day-key to load.
+// The thumbnail is base64 (~30KB at 1568px JPEG@0.85); Mom's ~4×/week usage with a few
+// suggestion-taps puts annual storage in the low single MBs — well under KV's 25MB/value cap.
+
+function generateSuggestionId(dateStr) {
+  const rand = Math.floor(Math.random() * 65536).toString(16).padStart(4, "0");
+  return `${dateStr}:${Date.now()}-${rand}`;
+}
+
+async function handleSuggestSpecies(request, env, url) {
+  if (request.method === "POST") {
+    // 5MB body ceiling — same as /api/chat, since thumbnail+metadata can be ~1MB
+    const lenHdr = request.headers.get("content-length");
+    if (lenHdr && parseInt(lenHdr, 10) > 5_000_000) {
+      return json({ error: "payload-too-large", limit_bytes: 5_000_000 }, 413);
+    }
+    let body;
+    try { body = await request.json(); }
+    catch (e) { return json({ error: "bad-json" }, 400); }
+
+    const required = ["kind", "commonName", "scientificName"];
+    for (const k of required) {
+      if (!body || typeof body[k] !== "string" || !body[k].trim()) {
+        return json({ error: "missing-or-empty-field", field: k }, 400);
+      }
+    }
+    if (body.kind !== "plant" && body.kind !== "animal") {
+      return json({ error: "bad-kind", allowed: ["plant", "animal"] }, 400);
+    }
+
+    const today = new Date().toISOString().slice(0, 10);
+    const id = generateSuggestionId(today);
+    const record = {
+      id,
+      kind: body.kind,
+      commonName: String(body.commonName).slice(0, 200),
+      scientificName: String(body.scientificName).slice(0, 200),
+      confidence: ["low", "medium", "high"].includes(body.confidence) ? body.confidence : "medium",
+      elevationFit: typeof body.elevationFit === "string" ? body.elevationFit.slice(0, 500) : null,
+      habitatHint: typeof body.habitatHint === "string" ? body.habitatHint.slice(0, 500) : null,
+      inCanon: body.inCanon === true,
+      thumbnail: typeof body.thumbnail === "string" ? body.thumbnail : null,
+      conversationId: typeof body.conversationId === "string" ? body.conversationId : null,
+      deviceId: typeof body.deviceId === "string" ? body.deviceId : null,
+      submittedAt: new Date().toISOString(),
+      status: "pending",
+    };
+
+    const key = `pending-species:${today}`;
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = [];
+    if (existing) {
+      try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; }
+      catch (e) { arr = []; }
+    }
+    arr.push(record);
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+    return json({ stored: 1, id, total_today: arr.length });
+  }
+
+  if (request.method === "GET") {
+    const start = url.searchParams.get("start");
+    const end = url.searchParams.get("end");
+    if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end)) {
+      return json({ error: "bad-date-format" }, 400);
+    }
+    const startMs = Date.parse(start + "T00:00:00Z");
+    const endMs = Date.parse(end + "T00:00:00Z");
+    if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) {
+      return json({ error: "bad-date-range" }, 400);
+    }
+    const dates = [];
+    for (let t = startMs; t <= endMs; t += 86400000) {
+      dates.push(new Date(t).toISOString().slice(0, 10));
+    }
+    if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
+
+    const days = {};
+    for (const date of dates) {
+      const raw = await env.OBSERVATIONS.get(`pending-species:${date}`);
+      if (raw) {
+        try { days[date] = JSON.parse(raw); }
+        catch (e) { /* skip malformed */ }
+      }
+    }
+    return json({ range: { start, end }, days });
+  }
+
+  if (request.method === "DELETE") {
+    // Path: /api/pending-species/<id>  where id = "YYYY-MM-DD:<nanos>-<rand4>"
+    const parts = url.pathname.split("/").filter(Boolean);
+    const id = parts[parts.length - 1];
+    if (!id || !/^\d{4}-\d{2}-\d{2}:\d+-[0-9a-f]+$/i.test(id)) {
+      return json({ error: "bad-or-missing-id" }, 400);
+    }
+    const date = id.split(":")[0];
+    const key = `pending-species:${date}`;
+    const raw = await env.OBSERVATIONS.get(key);
+    if (!raw) return json({ error: "not-found", id }, 404);
+    let arr;
+    try { arr = JSON.parse(raw); }
+    catch (e) { return json({ error: "stored-data-malformed" }, 500); }
+    if (!Array.isArray(arr)) return json({ error: "stored-data-malformed" }, 500);
+    const before = arr.length;
+    const filtered = arr.filter(r => r && r.id !== id);
+    if (filtered.length === before) return json({ error: "not-found", id }, 404);
+    if (filtered.length === 0) {
+      await env.OBSERVATIONS.delete(key);
+    } else {
+      await env.OBSERVATIONS.put(key, JSON.stringify(filtered));
+    }
+    return json({ deleted: 1, id, remaining_on_date: filtered.length });
+  }
+
+  return json({ error: "method-not-allowed" }, 405);
 }
 
 // ---- Metrics — engagement event capture ----
@@ -724,7 +897,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -745,6 +918,7 @@ export default {
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
+    if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
