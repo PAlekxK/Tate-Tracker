@@ -230,6 +230,11 @@ These map to specific failure modes the experts flagged. Failures here trigger a
 
 One direct conversation with Mom, past-behavior-only. *"Have you used Garden Guru? Tell me about a time you did."* If the answer is "no" or "I didn't notice it," that's data — the surface is visible but not landing for her. Drives v2 decisions (might suggest unifying, might suggest dropping for her use case).
 
+**Add at T+30 (meta-feedback channel validation, locked 2026-05-20):**
+*"Have you ever typed something into Fernwood that was about the app itself, not the property? What did you do with it?"*
+
+Validation gate for whether to ever build a 🚩 "flag for Paul" affordance. If she's typing meta-feedback into the app: build the flag (Path C). If she's texting Paul instead: don't (Path E holds). If she never has meta-feedback: also don't (no signal, no build). See [[project_fernwood_almanac_save_model]] → Meta-feedback channel section + [[feedback_defer_affordances_pending_signal]].
+
 ---
 
 ## Decisions locked (from Paul, 2026-05-19)

@@ -1,0 +1,173 @@
+{
+  "review_id": "ux-2026-05-21-reference-card",
+  "project": "Fernwood",
+  "subject": "Reference / Further Reading card — placement, collapsed-state, interaction model, per-entry display, growth handling, live-vs-passive distinction, scope discipline",
+  "review_date": "2026-05-21",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (new surface design)",
+  "user_context": {
+    "primary_user": "Paul as curator of the property's reference library (he is the one who 'consults or pulled from' these sources, and he is the one who knows which ones earned their place). Mom as occasional reader — half-engaged morning-coffee glance, unlikely to click out to a UGA Extension PDF, but should still get something from the surface.",
+    "core_jobs_to_be_done": [
+      "(Paul) Have a single place that names every source the dashboard has drawn from, so he can re-find a citation, vet a draft callout, or trace where a piece of property knowledge came from.",
+      "(Paul) See the property's intellectual provenance at a glance — the dashboard is the front-of-the-almanac; this is the appendix that tells you the almanac stands on something.",
+      "(Mom) Glance at the appendix while flipping through the almanac and absorb 'this place sits in a real body of knowledge' without needing to read any of it."
+    ],
+    "context_of_use": "Personal property dashboard, two users, no production polish required. Always opened in a hand-held reading posture (bed-with-coffee for Mom; sometimes on-property mobile for Paul; sometimes laptop for Paul-as-curator). The card is reference, not action — nobody opens Fernwood to look something up in the reference card; they encounter it while reading.",
+    "assumptions_made": [
+      "Paul will be the one to maintain `references.json` (or equivalent) when he adds new research. No write UI is required in v1.",
+      "Mom's behavior with appendix-style content is the same as her behavior with the Fernwood card's Cherokee/marble/Connahaynee callouts: she reads the framing line, occasionally reads a body, almost never clicks out.",
+      "The ~85 sources in research-resources.md is roughly the right population — some pruning may happen, but order-of-magnitude is fixed. The card does not scale to 500+."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "Strip teases, card holds (fernwood.md) — drove placement and collapsed-state recommendations",
+    "Make every surface read at half-engagement (fernwood.md) — drove the rotating-spotlight collapsed state and the framing-sentence-per-entry recommendation",
+    "Tone-coherence across all chrome (fernwood.md) — drove the 'almanac appendix' framing over 'References' / 'Sources' / 'Bibliography'",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md) — drove the 'no live/passive status-chip' recommendation",
+    "Ornament earns its place (cross-project.md) — drove the no-emoji-per-category framing and the 'don't add a chip just because we can distinguish' recommendation",
+    "Typographic hierarchy by value (cross-project.md) — drove the per-entry display (title leads, framing line dims, link is quiet)",
+    "Meet the user at the action (cross-project.md) — drove acknowledgement that for a reference card, the 'action' is read, not do; the surface should reward reading, not push outbound clicks",
+    "Depth filter (memory: feedback_tate_tracker_depth_filter) — drove the scope discipline: only what informed this dashboard, not regional completeness",
+    "Defer affordances pending signal (memory: feedback_defer_affordances_pending_signal) — drove the v1-out-of-scope list (search, filter, 'recently added')",
+    "Dual-frame identity: voice = field journal, form = Appalachian Almanac (memory: project_tate_tracker_tone) — drove the appendix framing"
+  ],
+  "decision_summary": {
+    "name": "Sources (or 'Further Reading' — see naming note)",
+    "placement": "New main card, appended at the bottom of the card stack, after Vehicles & Equipment.",
+    "collapsed_state": "Title + appendix-voice subtitle + rotating-spotlight framing line. No counts, no live/passive chip, no badges.",
+    "interaction_model": "Stacked accordions — one per category, all collapsed by default. Tap a category to expand its entries. No tab switcher.",
+    "per_entry_display": "Title (link) as the lead, on its own line, in DM Sans. One Crimson-italic framing line below it (1 sentence — Paul's own voice, why this source is in the library). No description dump from research-resources.md. No domain chips.",
+    "growth_handling": "Implicit. No 'recently added' affordance in v1.",
+    "live_vs_passive_distinction": "Do not distinguish in v1. (Argued against Paul's instinct below — I land in the same place but want him to see the trade-off cleanly.)",
+    "out_of_scope_v1": [
+      "Search across entries",
+      "Filter / faceting (by depth-tier, by category, by 'cited where')",
+      "'Recently added' hint or badge",
+      "Live-vs-passive chip on entries",
+      "Per-entry expand for the full research-resources.md body text",
+      "Cross-links from dashboard callouts ('Where did this come from? → opens Sources at this entry')",
+      "Write/edit UI"
+    ]
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Three placement options exist: (a) standalone main card appended to the stack, (b) section appended inside the Fernwood property card, (c) somewhere else. (b) is tempting because Fernwood-card is where most of the citations are currently embedded as inline callouts (Cherokee land, marble, Connahaynee, TACF, etc.), and there's a real narrative argument for 'the property's references live with the property.' But (b) buries the reference card inside an already-sprawling Fernwood card (which CLAUDE.md itself flags as content-sprawling past its subtitle), and it makes the references a *property* thing — when in fact the bibliography spans weather, plants, wildlife, sky, fishing, history. Sources are a dashboard-level concern, not a property-card-level concern.",
+      "user_impact": "Burying in Fernwood (option b) makes the bibliography invisible to Mom (she'd never find it) and makes it harder for Paul to use it as a curator (he has to dig through Fernwood to add an entry). A standalone main card (option a) at the bottom of the stack mirrors the place where an almanac actually puts its appendix — last, separate, by-design quieter than the body — which is the form-frame the project committed to.",
+      "principle_invoked": "Strip teases, card holds (fernwood.md) + dual-frame identity (form = Appalachian Almanac, memory: project_tate_tracker_tone)",
+      "recommendation": "Place as a new standalone main card at the bottom of the card stack, after Vehicles & Equipment. Argument against the alternatives, in order of how close they came: (1) Inside Fernwood card — rejected because sources span more than property identity; Fernwood card is already sprawling per CLAUDE.md, and adding the bibliography there would worsen that. (2) Inside The Almanac (Field Notes) card — rejected because that card is Paul's *own* observations; bibliography is third-party sources; conflating those would muddy what The Almanac means. (3) Section appended to Property card *and* a tile in the dashboard strip — rejected because the strip is teaser-for-action surface (per 'Strip teases, card holds'), and references-tile would never have a teaser worth showing. The bottom-of-stack placement is right because almanacs put the appendix last, and Mom encountering it after the body is the right reading order. **Trade-off Paul should see:** appending a new card to the strip means the dashboard strip stays at 4 tiles (the 4 it currently has — Weather, Plants, Wildlife, Vehicles) and the references card is *not* teased on the strip. That's the right call — there's no good teaser for a references card, and bloating the strip would dilute the actual leads.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "Collapsed-state strategy: what shows on the closed card. Three options surfaced — (a) just title + subtitle, (b) category count ('8 categories · 85 sources'), (c) rotating spotlight (one source's framing line, rotated per session or per day). Option (b) is a productivity-app idiom (numbers, totals, counts) — wrong register for an almanac appendix. Option (a) is fine but flat. Option (c) is the only one that gives Mom at half-engagement something to absorb without expanding.",
+      "user_impact": "Mom-in-bed-with-coffee may never expand the references card. If the collapsed state is just 'Sources · 85 references' she has been given chrome. If the collapsed state is 'Worth reading · *Natural Communities of Georgia* — Edwards, Ambrose & Kirkman. The typology of plant communities for any Blue Ridge slope.' she has been given a piece of the appendix, in voice, that rewards the glance. That is the entire half-engagement bar.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md) + Tone-coherence across all chrome (fernwood.md)",
+      "recommendation": "Collapsed state shows: title + appendix-voice subtitle + a rotating spotlight framing line drawn from the entries themselves. Concrete shape:\n\n  **Sources**\n  *Books, papers, and live feeds the almanac stands on*\n  ❧ Worth reading · *Natural Communities of Georgia* (Edwards, Ambrose & Kirkman) — the typology of plant communities for any Blue Ridge slope.\n\nRotation rule: rotate per day (deterministic, not random — so the same source spotlight holds for a Mom-morning-coffee session, doesn't shuffle on refresh). Pick from a small curated subset of 'spotlight-worthy' sources — not every entry needs to be eligible (a USGS gauge endpoint is not a 'worth reading' spotlight; *Sand County Almanac* or the Mt. Cuba Trial Report is). Mark a `spotlight: true` flag in references.json for the eligible subset; rotate among those. **Reject the count.** No '85 references' or '8 categories' chip — that's productivity-app voice on an almanac appendix.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "Interaction model when expanded — four options to choose from: (1) tabs across the top (like Wildlife card's birds/mammals/amphibians/fishing), (2) stacked accordions one-per-category, (3) flat sectioned list (all eight category headers visible, all entries below each), (4) cards-within-cards. Each maps to a different read pattern, and the right answer follows from how this card will actually be used.",
+      "user_impact": "Tabs (option 1) work well when the user knows which category they want and wants quick switching — that's how the Wildlife card behaves because the user comes in knowing 'I want birds.' Sources doesn't work that way. Paul-as-curator browsing his own bibliography is closer to flipping pages than to selecting a tab; Mom is *definitely* flipping, not querying. Tabs would also force a 'which tab is the default?' decision that doesn't have a clean answer (none of UGA Extension, Wildlife, Climate, etc. is more important than the others). A flat sectioned list (option 3) is appendix-faithful — that's literally how a book index reads — but it dumps ~85 entries on first paint and the half-engagement bar collapses. Stacked accordions (option 2) gives the appendix shape (all 8 category headers visible at a glance, with their own framing subtitle) without dumping every entry. Tap a category to expand. This is the right answer.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md) + Friction kills — it just works (cross-project.md)",
+      "recommendation": "Stacked accordions, one per category, all collapsed by default. Each category header shows the category name (Crimson Text italic — appendix-section voice), a one-line framing in DM Sans gray ('Where the plant and habitat reading comes from'), and an entry count (this is the one place a count earns its place — telling the user 'tapping this opens 14 entries' is genuine affordance information). Tap to expand. Multiple categories can be open at once. **Reject tabs** — they impose a 'which is the default tab?' decision the appendix shouldn't have to make, and they hide categories behind chrome rather than letting all 8 sit visible. **Reject flat list** — dumps too much on first paint, fails the half-engagement bar.\n\nCategory header model (each row, ~3 lines):\n  *Extension & academia*  (Crimson italic, ~17px)\n  Where the Georgia-specific plant and pollinator reading comes from. · 17 entries  (DM Sans, ~12px, gray, the count is small and quiet)\n  [chevron, rotates on expand]",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "Per-entry display. research-resources.md has, per entry: title, URL, 'What it is' (1-2 sentence factual description), 'Why it's relevant here' (1-3 sentences in Paul's reasoning voice), 'Dashboard integration idea' (where it surfaces in the app), 'Depth tier' (Surface fact / Card subtitle / Deep-dive link / Live data source). Rendering all four fields per entry would crush the appendix into a wall of text — 85 entries × 4 fields = unreadable. Calibrating to Mom-half-engaged: she reads the title (maybe), reads one line below (probably), does not click out (almost certainly).",
+      "user_impact": "If every entry is 4 lines deep, the appendix becomes a textbook and Mom bounces out of it. If every entry is just a title and link, Paul-as-curator can re-find a citation but neither user gets any feel for *why* the source earned its place — the bibliography becomes mechanical. The framing line is what makes it an almanac appendix rather than a list of URLs. The 'Why it's relevant here' field in research-resources.md is already that line, written in Paul's reasoning voice — it just needs trimming to one sentence per entry.",
+      "principle_invoked": "Typographic hierarchy by value (cross-project.md) + Make every surface read at half-engagement (fernwood.md)",
+      "recommendation": "Per-entry shape — 2 lines:\n\n  **Native Plants of North Georgia** (UGA Extension B 1339) ↗  (DM Sans, ~14px, link — the ↗ is the outbound-link signifier, kept small)\n  *The single most geographically-targeted Extension publication for this property.*  (Crimson italic, ~12px, slightly grayed — Paul's reasoning voice, 1 sentence)\n\nNo description from the 'What it is' field. No 'Dashboard integration idea' field exposed (that's internal — it tells Paul where he wired it, not the reader anything). No depth-tier chip. No domain. Just title + Paul's framing line. **The framing line is the load-bearing copy work.** Each one is 8-15 words in Paul's voice, distilled from the 'Why it's relevant here' field in research-resources.md. This is a separate content-steward pass once Paul approves the structure — not work that can be auto-generated mechanically from research-resources.md, because the 'Why' field there is often 2-3 sentences and the right framing sentence is sometimes a tighter version, sometimes a different angle. Treat the framing line as the editorial pass that converts a research notes file into an almanac appendix.",
+      "effort": "medium (the framing-line pass is real editorial work — content-steward territory)"
+    },
+    {
+      "id": "F5",
+      "area": "discoverability",
+      "severity": "nice-to-have",
+      "observation": "Paul flagged the 'running list' aspect explicitly — he expects this grows over time. The question is whether the surface marks growth (a 'recently added' affordance, a 'new' chip, a timestamp) or just lets it grow silently.",
+      "user_impact": "For Paul-as-curator, knowing 'what did I add in the last week' has some value when he's working a research sprint and wants to confirm a citation landed. For Mom, 'recently added' is noise — she has no relationship with the rate at which Paul adds sources, and a chip claiming novelty on an item she's never seen before is meaningless. The two-user audience here strongly favors no growth-marking — the curator's need is better served by Paul looking at the git log on `references.json` than by a UI affordance that costs Mom attention.",
+      "principle_invoked": "Defer affordances pending signal (memory: feedback_defer_affordances_pending_signal) + Ornament earns its place (cross-project.md)",
+      "recommendation": "No 'recently added' affordance in v1. Growth is implicit. The surface doesn't need to mark it. If, after 6 months, Paul has added 40+ new sources and finds himself wishing he could see them grouped, that's the signal — promote the affordance then. Defer until the underlying need is observed.",
+      "effort": "low (this is a not-build decision)"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Paul's question: should the card distinguish live integrations (USGS streamflow, NWS skyCover, Open-Meteo, NASA Dial-a-Moon, Ambient Weather) from passive references (UGA Extension, GNPS, TACF, Sand County Almanac mention)? Paul's instinct: don't distinguish, it's a reference card not a system-status card. He invited argument.\n\nI was tempted to argue back. Here's why I almost did: live integrations are *different* in kind from passive references — they're code, they have endpoints, they have failure modes, they earn their place on the dashboard daily rather than once-as-a-citation. A chip or a sub-section could honestly carry that. And there's a small Paul-as-curator value to seeing 'these 6 things are wired, these 79 are reading material.'\n\nHere's why I land where Paul does: the reader isn't looking at this card to know what's wired. The card is the appendix to the almanac — its job is to name the sources, not to report on the data layer. The live-integration status *is* visible elsewhere (the wblock status indicators on the Weather card, the moon hero on the celestial card — every live source has its own first-class surface). Adding a 'Live' chip on the references card is solving a problem that doesn't exist for the reader, and it imports an ops-dashboard register the fernwood glyph rule explicitly rejects ('Glyphs follow the journal voice, not the dashboard voice'). The Mom-glances-here cost of a green-dot chip is real and the curator-benefit is small (Paul knows which sources he wired — he wrote the code).",
+      "user_impact": "If live-vs-passive distinction is added, every viewer pays the cost (visual noise, register-leak toward ops-dashboard, a 'Live' chip that means nothing to Mom) for a tiny curator benefit Paul gets for free elsewhere. If it's not added, the appendix reads cleanly and uniformly — sources are sources, the dashboard happens to consult some of them in real time, that's incidental to the bibliography's job.",
+      "principle_invoked": "Glyphs follow the journal voice, not the dashboard voice (fernwood.md) + Ornament earns its place (cross-project.md) + Strip teases, card holds (fernwood.md — live status is the live-card's job, not the references card's)",
+      "recommendation": "Don't distinguish in v1. Paul's instinct lands. The one editorial accommodation worth making: when writing the framing line for a live-data source, the framing line itself can carry the 'we read this all day' implication in plain language without needing a chip. Example for the USGS NWIS entry: *'Live streamflow for the Etowah at GA-9. Every load of the property card reads from this.'* — the framing line tells the reader the source is live, in voice, without any chip. That's the appendix-faithful version of distinguishing live from passive: do it in the prose, not the chrome.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "Naming the card. 'References' is correct in genre but reads as 'tech doc' or 'academic paper' — the wrong register for an almanac appendix. 'Sources' is closer but bare. 'Further Reading' is too prescriptive ('you should read more!' — task-manager-y). 'Bibliography' is too academic-formal. 'Appendix' is too book-genre-on-the-nose. The right name has the appendix function but the field-journal voice.",
+      "user_impact": "Card title is a register-setter — Mom reads it before anything else, and it tells her what kind of thing she's about to scan. 'References' lands her in JIRA documentation. 'Sources' lands her in a citation list. The right name lands her at the back of an almanac.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood.md) + dual-frame identity (memory: project_tate_tracker_tone)",
+      "recommendation": "Working candidates ranked: (1) **Sources** — best balance. Short, factual, doesn't import the wrong register. Carries the appendix function plainly. (2) **Further Reading** — close second; slightly prescriptive but warmer than 'Sources.' (3) **The Library** — appendix-fluent in voice (like 'The Almanac' for Field Notes), but possibly oversells what is in fact a list of links rather than a curated collection. Worth Paul's call. Pair the title with an appendix-voice subtitle ('Books, papers, and live feeds the almanac stands on' — works for any of the three title options). **This is a naming decision for Paul; content-steward should probably do its own pass before locking.** I'm flagging the question, not picking the name.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "flow",
+      "severity": "nice-to-have",
+      "observation": "Where references.json should live as a data file. Options: (a) inline as a JS const in viewer.html (current pattern for FISHING_DATA, PROPERTY_DATA, etc.), (b) external JSON fetched at load with inline fallback (current pattern for plants.json, fishing.json), (c) auto-extracted from research-resources.md at view-time (no manual sync). Option (c) is tempting because research-resources.md is the existing source of truth and adding a parallel references.json risks the 'No parallel .md + .json snapshots' rule from memory (feedback_single_source_of_truth). But (c) means parsing markdown at view-time, which is fragile, and it means the framing-line editorial pass has to live inside the markdown file (as a new field), which makes research-resources.md uglier.",
+      "user_impact": "This is a not-quite-UX question but it affects whether the references card stays in sync with reality. The risk: research-resources.md is updated, references.json drifts, the appendix shows stale framing or missing entries. Paul-the-curator pays this cost in confusion.",
+      "principle_invoked": "Single source of truth per concept (memory: feedback_single_source_of_truth)",
+      "recommendation": "Stage 1 (v1): manually-curated `references.json` at repo root. Schema: `categories[]` with `id`, `name` (display), `framingLine` (appendix-voice intro), `entries[]` where each entry has `id`, `title`, `url`, `framingLine` (Paul's 1-sentence framing — the editorial pass), `spotlight` (boolean, eligible for collapsed-state rotation). Inline as `REFERENCES_DATA` in viewer.html mirroring the existing pattern. **The trade-off Paul should see explicitly:** research-resources.md remains the long-form research file (full 'What it is' + 'Why it's relevant here' + 'Dashboard integration idea' + 'Depth tier' — that's a research notebook). references.json becomes the curated subset surfaced on the dashboard with the editorial framing line. The two have *different jobs* — research-resources.md is Paul's notebook; references.json is the almanac's published appendix. That's not a parallel snapshot of the same concept (which the rule forbids); it's two different artifacts with one upstream relationship (every entry in references.json must exist in research-resources.md, but not every entry in research-resources.md ends up in references.json — pruning is the editorial work). If that distinction holds for Paul, the duplication is honest. Stage 2 (someday): if the curation becomes mechanical enough, a build-step script could auto-generate references.json from a `_appendixFraming:` field in research-resources.md — but that's a build-step the project doesn't have today and isn't worth adding for v1.",
+      "effort": "low for v1; the auto-generation question can wait"
+    },
+    {
+      "id": "F9",
+      "area": "discoverability",
+      "severity": "nice-to-have",
+      "observation": "Cross-linking from dashboard callouts into the references card was a tempting v1 feature — e.g., the 'On Cherokee land' callout on the Fernwood card linking to the EBCI / Talking Rock Creek sources in the references card; the 'Tate Mountain Estates' callout linking to the Connahaynee Lodge / Sam Tate sources. This would let a reader follow a thread from a dashboard claim back to its source — the academic 'footnote' shape. It's also the thing Paul-as-curator would value most.",
+      "user_impact": "For Mom, near-zero value — she doesn't click footnotes. For Paul-as-curator, real value but small in v1 (he wrote the callouts; he knows the sources). The cost: every callout that gains a footnote affordance needs a `referenceId` field in its data, and the references entries need to be addressable by ID (already implied by the schema above). That's not huge, but it's coupling that hardens before any actual reader has demonstrated the desire to trace a claim to a source.",
+      "principle_invoked": "Defer affordances pending signal (memory: feedback_defer_affordances_pending_signal)",
+      "recommendation": "Out of scope for v1. Build the references card flat — categories and entries, no cross-references in either direction. Revisit if/when Paul finds himself in the cross-link need (likely a future research sprint where he wants to trace 'this callout came from where?'). If revisited, the right shape is probably: dashboard callouts gain a small ↗ link that scrolls the references card open at the entry. The references card itself shouldn't carry 'cited at' chips on entries — that's reverse-direction noise that costs the appendix-feel and helps nobody.",
+      "effort": "low (this is a not-build decision)"
+    }
+  ],
+  "open_questions_for_user": [
+    "Card name: 'Sources' (favored), 'Further Reading', 'The Library', or something else? — content-steward probably gets a pass here before locking.",
+    "Subtitle on the card header: 'Books, papers, and live feeds the almanac stands on' is a draft. Pair this with the naming question.",
+    "Spotlight eligibility — does Paul want to mark which sources are 'worth-spotlighting' (Sand County Almanac, Natural Communities of Georgia, Mt. Cuba Trial Reports, TACF, Cherokee history primary sources, etc.) or should rotation pick from all entries? I recommend a curated subset (~10-15 spotlight-eligible), but the call is Paul's.",
+    "How much of the research-resources.md notebook actually makes it into references.json? The 8 categories × ~10 entries each gives ~80 sources, which is roughly the full file. Is there a pruning pass first (drop sources Paul has decided not to use)?",
+    "Framing-line editorial pass — does Paul want to write the 80 framing lines himself, or hand it to content-steward to draft and approve? My recommendation is the latter for first draft, with Paul editing — content-steward has the voice rules and can move faster than Paul on a bulk editorial pass."
+  ],
+  "follow_up_research_suggested": [
+    "Once the references card has been live for ~30 days and Paul + Mom have both encountered it, observe (via metrics or self-report): does Mom expand the card at all? does Paul use it as a curator (i.e., does he add to references.json, does he click out to a source)? The answers inform whether the v2 cross-link affordance from F9 is worth building.",
+    "If metrics show Mom never expands the card, the question becomes 'is the collapsed-state spotlight doing enough work, or is the references card structurally not for her?' — both answers are honest. The card can still earn its place as Paul's curator surface."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Appendix surfaces are last and quiet by form",
+      "scope": "fernwood",
+      "rationale": "This review surfaces a class of card the project hasn't built before — the reference appendix. The placement-at-bottom + no-strip-tile + uniform-treatment decisions all rhyme with how almanacs handle their back matter. If a similar surface comes up (e.g., a 'methodology' card for how the dashboard computes lapse-rate-shifted frost dates; a 'changelog' card for how the project has evolved), the same form-discipline applies: bottom of the stack, no strip presence, uniform treatment, no badges. Worth proposing as a Fernwood-scoped rule because the form follows from the dual-frame Almanac identity. Don't promote to cross-project — Bolo Boys doesn't have this shape."
+    },
+    {
+      "principle": "The notebook is not the publication",
+      "scope": "cross-project",
+      "rationale": "Surfaced in F8: research-resources.md is Paul's long-form research notebook (full descriptions, relevance rationales, integration ideas, depth tiers — internal). references.json would be the dashboard's curated appendix (titles + one editorial framing line per entry — published). They share an upstream relationship but have different jobs, and conflating them either uglifies the notebook (by jamming display fields into a research file) or starves the publication (by dumping notebook text on the reader). This pattern likely recurs across Paul's content projects — the financial-viewer pipeline already has a version of it (raw data files vs published digest), and Bolo Boys may grow a version of it (private booker notes vs public site copy). Plausible candidate for cross-project promotion if a second occurrence confirms; flag as candidate now."
+    },
+    {
+      "principle": "Editorial framing line as the appendix work",
+      "scope": "fernwood",
+      "rationale": "F4 surfaced something subtle — for a reference card to feel like an almanac appendix rather than a list of URLs, the per-entry framing sentence does the entire heavy lift. Not the title, not the link, not a depth chip. The framing line. This generalizes within Fernwood: any time a list-of-things surface is added (sources, day-trip locations, plants-to-consider, etc.), the per-item framing sentence is the load-bearing work and is what makes the surface feel field-journal rather than data-table. Worth a Fernwood rule. Cross-project promotion only if Bolo Boys or another project produces a similar list-surface in voice."
+    }
+  ]
+}
