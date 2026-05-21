@@ -29,6 +29,7 @@ CATEGORIES = {
     "plants":     {"json_file": "plants.json",     "data_const": "PLANTS_DATA",     "species_path": "plants",  "image_dir": "images/plants"},
     "snakes":     {"json_file": "snakes.json",     "data_const": "SNAKES_DATA",     "species_path": "species", "image_dir": "images/snakes"},
     "lizards":    {"json_file": "lizards.json",    "data_const": "LIZARDS_DATA",    "species_path": "species", "image_dir": "images/lizards"},
+    "mammals":    {"json_file": "mammals.json",    "data_const": "MAMMALS_DATA",    "species_path": "species", "image_dir": "images/mammals"},
 }
 
 

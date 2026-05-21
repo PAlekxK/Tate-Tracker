@@ -1,0 +1,47 @@
+{
+  "black-bear": {
+    "author": "Joanne Siderius",
+    "ext": "wav",
+    "file": "iNaturalist observation 223209405",
+    "license": "CC BY-NC 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "source": "iNaturalist",
+    "source_url": "https://www.inaturalist.org/observations/223209405"
+  },
+  "coyote": {
+    "author": "Robert G. Buckert",
+    "ext": "wav",
+    "file": "iNaturalist observation 145728437",
+    "license": "CC BY-NC-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "source": "iNaturalist",
+    "source_url": "https://www.inaturalist.org/observations/145728437"
+  },
+  "raccoon": {
+    "author": "V. R.",
+    "ext": "m4a",
+    "file": "iNaturalist observation 167557235",
+    "license": "CC BY-NC-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "source": "iNaturalist",
+    "source_url": "https://www.inaturalist.org/observations/167557235"
+  },
+  "red-fox": {
+    "author": "Unknown",
+    "ext": "m4a",
+    "file": "File:Red Fox (Vulpes vulpes) (W1CDR0001529 BD12).ogg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "Wikimedia Commons",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Red_Fox_(Vulpes_vulpes)_(W1CDR0001529_BD12).ogg"
+  },
+  "white-tailed-deer": {
+    "author": "Joseph Aubert",
+    "ext": "wav",
+    "file": "iNaturalist observation 187746289",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "source": "iNaturalist",
+    "source_url": "https://www.inaturalist.org/observations/187746289"
+  }
+}

@@ -105,6 +105,17 @@ CATEGORIES = {
             "ground-skink": "File:Ground Skink (Scincella lateralis) - Flickr - 2ndPeter.jpg",
         },
     },
+    "mammals": {
+        "json_file": "mammals.json",
+        "species_path": "species",
+        "image_dir": "images/mammals",
+        "prefer": "sci",  # scientific names unambiguous; common names mostly fine too but sci is the safer default
+        "page_overrides": {
+            # "bats" is order-level (species unconfirmed at property); use the WP article on Bats
+            "bats": "Bat",
+        },
+        "file_overrides": {},
+    },
 }
 
 
@@ -194,6 +205,7 @@ def find_commons_file(item, cfg):
             fname = urllib.parse.unquote(img_url.split("/")[-1])
             if img_url.startswith("https://upload.wikimedia.org/wikipedia/commons/thumb/"):
                 fname = urllib.parse.unquote(img_url.split("/")[-2])
+            fname = fname.split("?")[0]  # strip query strings (utm_source etc.) Wikipedia now appends to lead-image URLs
             return f"File:{fname}"
         except Exception as e:
             last_err = e

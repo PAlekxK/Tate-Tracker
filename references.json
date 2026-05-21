@@ -73,12 +73,12 @@
         {
           "title": "Georgia Forestry Commission — Forest Stewardship Program",
           "url": "https://gatrees.org/forest-management-conservation/forest-stewardship-program/",
-          "framing": "Genuinely tailored guidance for a wooded mountain parcel — far more property-specific than any publication. Plans include wildlife and indigenous-species objectives."
+          "framing": "A free, custom-written management plan for the property's specific acreage, slope, and forest type — Pickens County is in the served region. Plans include wildlife and indigenous-species objectives."
         },
         {
           "title": "Warnell School of Forestry & Natural Resources — Outreach Publications",
           "url": "https://www.warnelloutreach.org/publications.cfm",
-          "framing": "Deepest Georgia-specific coverage of forest health, prescribed fire in Appalachian hardwoods, and wildlife habitat structure."
+          "framing": "Georgia-specific publications on forest health, prescribed fire in Appalachian hardwoods, and wildlife habitat structure — all directly applicable to a wooded Blue Ridge parcel at 2,959 ft."
         },
         {
           "title": "NC State Extension Gardener Handbook",
@@ -139,7 +139,7 @@
         {
           "title": "Xerces Society — Pollinator Conservation Resources: Southeast Region",
           "url": "https://xerces.org/pollinator-resource-center/southeast",
-          "framing": "Best-in-class invertebrate-focused source. Their Southeast plant list explicitly accounts for Appalachian conditions."
+          "framing": "Invertebrate-focused conservation source whose Southeast plant list explicitly accounts for Appalachian conditions — relevant to the pollinators and native bees on this property."
         },
         {
           "title": "Xerces Society — Pollinator Plants of the Southeast Region (PDF)",
@@ -164,7 +164,7 @@
         {
           "title": "Lady Bird Johnson Wildflower Center — Native Plant Database",
           "url": "https://www.wildflower.org/plants/",
-          "framing": "Often the cleanest single reference page per species."
+          "framing": "Single-page species references useful when checking a plant already on the property — habitat, range, and propagation notes in one place."
         },
         {
           "title": "Birds Georgia (formerly Georgia Audubon) — Plants for Birds & Wildlife Sanctuary Certification",
@@ -245,7 +245,7 @@
         {
           "title": "iNaturalist — Pickens County, GA",
           "url": "https://www.inaturalist.org/places/pickens-county",
-          "framing": "Best single source for amphibians and pollinators (eBird doesn't cover them). GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species."
+          "framing": "Pickens County observation records for the taxa eBird doesn't cover — amphibians and pollinators in particular. GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species."
         },
         {
           "title": "Southeast Bumble Bee Atlas (Xerces + GA DNR)",
@@ -518,7 +518,7 @@
         {
           "title": "DarkSky International",
           "url": "https://darksky.org",
-          "framing": "Property at Bortle 3 — exceptional for the Eastern US. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset."
+          "framing": "The property reads Bortle 3 — dark enough that the Milky Way is visible most clear nights. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset."
         },
         {
           "title": "Stephen C. Foster State Park (Georgia's only IDA Dark Sky Park)",
@@ -533,7 +533,7 @@
         {
           "title": "NASA Scientific Visualization Studio — Moon Phase & Eclipse Pages",
           "url": "https://svs.gsfc.nasa.gov/5612/",
-          "framing": "Highest-quality public-domain Moon imagery. **The March 3, 2026 total lunar eclipse is visible from Georgia** — featured-event candidate."
+          "framing": "Public-domain Moon imagery and visualizations tied to specific dates — what to point at on the celestial card when a phase, eclipse, or libration is worth surfacing. **The March 3, 2026 total lunar eclipse is visible from Georgia** — featured-event candidate."
         },
         {
           "title": "International Meteor Organization (IMO) Meteor Shower Calendar",
@@ -558,7 +558,7 @@
         {
           "title": "Time and Date AS — sun/moon reference",
           "url": "https://www.timeanddate.com",
-          "framing": "Best free human-readable cross-check. Skip the API; reference link only."
+          "framing": "Human-readable sunrise / sunset / moonrise / moonphase reference for any lat-lon — useful for cross-checking the dashboard's celestial numbers. Skip the API; reference link only."
         },
         {
           "title": "AirNow API",

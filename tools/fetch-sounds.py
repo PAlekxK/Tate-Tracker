@@ -59,6 +59,17 @@ CATEGORIES = {
         "sound_dir": "sounds/frogs",
         "is_vocal": lambda item: "salamander" not in item["name"].lower(),
     },
+    "mammals": {
+        # Curated subset only — most mammals are quiet most of the time.
+        # Restricting to the 5 species with distinctive recognizable vocalizations
+        # likely to be heard on-property: coyote, foxes, bear, raccoon, deer.
+        "json_file": "mammals.json",
+        "species_path": "species",
+        "sound_dir": "sounds/mammals",
+        "is_vocal": lambda item: item.get("id") in {
+            "coyote", "red-fox", "black-bear", "raccoon", "white-tailed-deer",
+        },
+    },
 }
 
 

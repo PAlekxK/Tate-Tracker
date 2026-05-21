@@ -36,12 +36,44 @@
       "emoji": "🦌",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [9, 10, 4, 5],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        9,
+        10,
+        4,
+        5
+      ],
       "habitat": "Forest edges, clearings, mixed hardwood forest — heavy use of fairway margins at dawn and dusk",
       "voice": "Mostly silent. Snorts and blows when alarmed. Bucks grunt during the November rut; fawns bleat for does.",
       "notes": "The fairway clearing is exactly the kind of edge habitat white-tails work daily — they step out from the forest at dawn and dusk to browse along the margins, then drift back into cover. November is the rut at this elevation; bucks chase does across openings and rub young saplings to mark territory. Look for trails through the forest understory and scrapes in the leaf litter under low branches. Spotted fawns appear in May and June and lie hidden in deep grass while does feed nearby — leave them alone if you find one.",
-      "funFact": "White-tails can clear an 8-foot fence from a standing start. The white-tail flag flashed when running is both an alarm signal to other deer and a 'follow me' cue for fawns."
+      "funFact": "White-tails can clear an 8-foot fence from a standing start. The white-tail flag flashed when running is both an alarm signal to other deer and a 'follow me' cue for fawns.",
+      "photo": "images/mammals/white-tailed-deer.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "USDA photo by Scott Bauer",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:White-tailed_deer.jpg"
+      },
+      "sound": "sounds/mammals/white-tailed-deer.wav",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Joseph Aubert",
+        "license": "CC BY 4.0",
+        "url": "https://www.inaturalist.org/observations/187746289"
+      }
     },
     {
       "id": "eastern-gray-squirrel",
@@ -50,12 +82,37 @@
       "emoji": "🐿️",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [9, 10, 11, 0],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        9,
+        10,
+        11,
+        0
+      ],
       "habitat": "Mature mixed hardwood-pine forest, especially oak-hickory; uses the whole property",
       "voice": "Sharp chittering scolds and tail-flicking when alarmed. Soft 'kuk' calls between squirrels. Surprisingly loud for the size of the animal.",
       "notes": "The most constantly visible mammal on the property — gray squirrels work the oaks and hickories from first light through afternoon. Fall is peak activity: they spend October and November caching acorns and hickory nuts in shallow holes across the forest floor, most of which they'll relocate by smell through winter. The forgotten caches grow into the next generation of oaks. Listen for the rasping scrape of teeth on hickory shells at the base of trees in fall.",
-      "funFact": "A single gray squirrel may cache several thousand nuts in a season and recover most of them by spatial memory and scent — the misses are a major mechanism of oak regeneration in eastern forests."
+      "funFact": "A single gray squirrel may cache several thousand nuts in a season and recover most of them by spatial memory and scent — the misses are a major mechanism of oak regeneration in eastern forests.",
+      "photo": "images/mammals/eastern-gray-squirrel.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "JeffreyGammon",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:EasternGraySquirrel_GAm.jpg"
+      }
     },
     {
       "id": "eastern-chipmunk",
@@ -64,12 +121,39 @@
       "emoji": "🐿️",
       "status": "resident",
       "statusLabel": "Year-round resident (less active in deep winter)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [3, 4, 5, 8, 9, 10],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
       "habitat": "Forest floor with stone walls, log piles, and downed wood; common at the forest-clearing edge",
       "voice": "Sharp, repeated 'chip-chip-chip' that can carry for surprising distances and continue for minutes. Lower 'chuck' notes when annoyed.",
       "notes": "Chipmunks work the forest floor in short, quick bursts — a flash of striped brown between the leaves and then nothing. The fairway edges and any stone walls or log piles on the property are prime denning territory. They retreat to underground burrows in the coldest weeks of winter but don't fully hibernate; on a mild January day you may still see one out briefly. Late summer through early fall is the busiest season as they stockpile seeds in their cheek pouches.",
-      "funFact": "A chipmunk's cheek pouches can hold up to three times the size of its head in seeds. Burrow systems can run 20 to 30 feet underground with separate chambers for nesting, food storage, and waste."
+      "funFact": "A chipmunk's cheek pouches can hold up to three times the size of its head in seeds. Burrow systems can run 20 to 30 feet underground with separate chambers for nesting, food storage, and waste.",
+      "photo": "images/mammals/eastern-chipmunk.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Rhododendrites",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Chipmunk_with_stuffed_cheeks_in_Prospect_Park_(05980).jpg"
+      }
     },
     {
       "id": "eastern-cottontail",
@@ -78,12 +162,38 @@
       "emoji": "🐇",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [3, 4, 5, 6, 7],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
       "habitat": "Brushy edges, fairway clearing margins, thickets near cover",
       "voice": "Usually silent. A piercing, almost child-like scream when caught by a predator. Soft grunts between rabbits.",
       "notes": "Cottontails are at home along the fairway edge where short grass meets brushy cover — they feed in the open at dawn and dusk and stay within a few quick bounds of a thicket. Nests are shallow scrapes in the grass lined with fur and dry grass, hidden in plain sight; if you find a nest with young, leave it alone and check from a distance — the doe only returns at dawn and dusk to nurse. Predator pressure on this property is real: foxes, coyotes, bobcat, owls, and the occasional hawk all hunt rabbits.",
-      "funFact": "A doe can have three to four litters per summer of four to five young each, and most cottontails do not survive their first year — the high reproductive rate is the species' answer to heavy predation."
+      "funFact": "A doe can have three to four litters per summer of four to five young each, and most cottontails do not survive their first year — the high reproductive rate is the species' answer to heavy predation.",
+      "photo": "images/mammals/eastern-cottontail.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "StBlueD",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Eastern_cottontail_(Sylvilagus_floridanus)_foraging_on_ground_vegetation.jpg"
+      }
     },
     {
       "id": "groundhog",
@@ -92,12 +202,39 @@
       "emoji": "🦫",
       "status": "resident",
       "statusLabel": "Year-round resident (true hibernator Nov–Feb)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [3, 4, 5, 6, 7, 8],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
       "habitat": "Forest edges, clearings, slopes with well-drained soil for burrows",
       "voice": "Shrill whistle alarm call (the source of the name 'whistle-pig'). Teeth-chattering when threatened. Otherwise silent.",
       "notes": "Groundhogs are one of the few true hibernators on this list — they vanish into deep burrows around early November and don't reappear until late February or March, when males begin moving above ground to check territory. The fairway edges and well-drained slopes near the property are good burrow habitat. Look for the large entrance holes (6 to 10 inches across) with a fan of excavated dirt out front. They feed in mid-morning and late afternoon, sitting up periodically to scan for hawks and foxes.",
-      "funFact": "Groundhog body temperature drops from about 99°F to under 40°F during hibernation, and the heart rate slows from about 80 beats per minute to four or five. They are the largest member of the squirrel family in this region."
+      "funFact": "Groundhog body temperature drops from about 99°F to under 40°F during hibernation, and the heart rate slows from about 80 beats per minute to four or five. They are the largest member of the squirrel family in this region.",
+      "photo": "images/mammals/groundhog.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Cephas",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Marmota_monax_UL_04.jpg"
+      }
     },
     {
       "id": "raccoon",
@@ -106,12 +243,46 @@
       "emoji": "🦝",
       "status": "resident",
       "statusLabel": "Year-round resident (mostly nocturnal)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [4, 5, 6, 7, 8, 9],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
       "habitat": "Forest, forest edge, pond and stream margins, any structure with cavities",
       "voice": "An unusually wide vocal range — chittering, growling, hissing, whining, and the unmistakable high-pitched screams during mating season and territorial disputes. The screams sound startlingly like a person in trouble.",
       "notes": "Raccoons are a regular part of the night soundscape here. They work the property after dark — pond edges for crayfish and frogs, forest floor for grubs and acorns, anything they can pry open. The screaming and chittering that carries through the woods on humid summer nights is almost always raccoons sorting out territory or mates, not anything in distress. Tracks in soft mud near the pond show the unmistakable five-fingered handprint of the front paw. Females may den in tree cavities or under outbuildings to raise kits in May and June.",
-      "funFact": "The Latin name *lotor* means 'washer' — the dipping-and-handling behavior that looks like washing is actually a way of using extremely sensitive paws to identify food by touch, and the wet paws are more sensitive than dry ones."
+      "funFact": "The Latin name *lotor* means 'washer' — the dipping-and-handling behavior that looks like washing is actually a way of using extremely sensitive paws to identify food by touch, and the wet paws are more sensitive than dry ones.",
+      "photo": "images/mammals/raccoon.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Rhododendrites",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Raccoon_in_Central_Park_(35264).jpg"
+      },
+      "sound": "sounds/mammals/raccoon.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "V. R.",
+        "license": "CC BY-NC-SA 4.0",
+        "url": "https://www.inaturalist.org/observations/167557235"
+      }
     },
     {
       "id": "opossum",
@@ -120,12 +291,41 @@
       "emoji": "🐀",
       "status": "resident",
       "statusLabel": "Year-round resident (nocturnal)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [3, 4, 5, 6, 7, 8, 9, 10],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
       "habitat": "Forest, forest edge, brush piles, any cover near food",
       "voice": "Mostly quiet. Hisses and growls when cornered, with the open-mouthed display showing 50 sharp teeth — the most of any North American land mammal. Young opossums make soft sneezing sounds.",
       "notes": "The opossum is the quiet half of the night-shift on this property — where raccoons announce themselves vocally, an opossum just trundles past in the headlights and disappears. They forage slowly along forest edges and any food source, eating almost anything: insects, grubs, fruit, carrion, ticks. North America's only marsupial. They don't truly play dead by choice — extreme stress triggers an involuntary catatonic state that can last minutes to hours, complete with foul-smelling secretions.",
-      "funFact": "Opossums have remarkably low body temperatures (94–97°F) which makes them resistant to rabies — they almost never carry it. They also consume large numbers of ticks during grooming."
+      "funFact": "Opossums have remarkably low body temperatures (94–97°F) which makes them resistant to rabies — they almost never carry it. They also consume large numbers of ticks during grooming.",
+      "photo": "images/mammals/opossum.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Cody Pope",
+        "license": "CC BY-SA 2.5",
+        "url": "https://commons.wikimedia.org/wiki/File:Opossum_2.jpg"
+      }
     },
     {
       "id": "striped-skunk",
@@ -134,12 +334,39 @@
       "emoji": "🦨",
       "status": "resident",
       "statusLabel": "Year-round resident (nocturnal)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [1, 2, 3, 4, 8, 9],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        9
+      ],
       "habitat": "Forest edges, brush, pastures, any cover near food; dens in burrows, hollow logs, under outbuildings",
       "voice": "Mostly silent. Foot-stomping and tail-raising as warning displays before spraying. Soft growls and whines.",
       "notes": "Skunks are nocturnal and methodical — they work the forest edge and clearing margins at night, digging shallow conical holes for grubs and insects. February is breeding season and you may smell skunk on the air on calm winter nights well before you see one. The strong, distinctive scent on the wind is often the only sign one passed through. Striped skunks give plenty of warning before spraying (stomping, hissing, tail-up display); a slow retreat is the right response.",
-      "funFact": "Skunks can spray up to about 10 feet with reasonable accuracy. Great horned owls are one of the few predators that regularly take skunks — owls have a poor sense of smell."
+      "funFact": "Skunks can spray up to about 10 feet with reasonable accuracy. Great horned owls are one of the few predators that regularly take skunks — owls have a poor sense of smell.",
+      "photo": "images/mammals/striped-skunk.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Wallace Keck",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Skunk_about_to_spray.jpg"
+      }
     },
     {
       "id": "red-fox",
@@ -148,12 +375,44 @@
       "emoji": "🦊",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [0, 1, 2, 11],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        0,
+        1,
+        2,
+        11
+      ],
       "habitat": "Forest edges, clearings, open ground with cover; prefers more open habitat than the gray fox",
       "voice": "A wide vocal repertoire including yips, barks, and a startling raspy scream sometimes heard on winter nights during the January–February breeding season.",
       "notes": "Red foxes use more open habitat than gray foxes — the fairway clearing margins are exactly where you might see one trotting at dawn or dusk. They hunt small mammals by sound, leaping in a high arc and pinning prey through snow or deep grass with the front paws. Winter is the most vocal season as breeding pairs establish territory; the scream is unsettling the first time you hear it. Kits emerge from natal dens in April and May, and family groups may be visible briefly in early summer.",
-      "funFact": "Red foxes use the earth's magnetic field to calibrate hunting leaps — studies show they're more successful when pouncing toward the northeast, which suggests they line up prey by sound and magnetic bearing simultaneously."
+      "funFact": "Red foxes use the earth's magnetic field to calibrate hunting leaps — studies show they're more successful when pouncing toward the northeast, which suggests they line up prey by sound and magnetic bearing simultaneously.",
+      "photo": "images/mammals/red-fox.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "ClaudiaTen",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Portrait_of_a_red_fox_in_Rautas_fj%C3%A4llurskog_(cropped).jpg"
+      },
+      "sound": "sounds/mammals/red-fox.m4a",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "Unknown",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Red_Fox_(Vulpes_vulpes)_(W1CDR0001529_BD12).ogg"
+      }
     },
     {
       "id": "gray-fox",
@@ -162,12 +421,37 @@
       "emoji": "🦊",
       "status": "resident",
       "statusLabel": "Year-round resident (more nocturnal than red fox)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [0, 1, 2, 11],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        0,
+        1,
+        2,
+        11
+      ],
       "habitat": "Mature mixed hardwood forest, brushy edges, slopes with cover; prefers more closed forest than the red fox",
       "voice": "Yips, sharp barks, and a hoarse rasping cry during the January–February breeding season. Quieter overall than red fox.",
       "notes": "Gray foxes are the more forest-loving of the two foxes here — they prefer the closed mixed hardwood interior and brushy edges over the open fairway. They are the only canid in North America that climbs trees, using semi-retractable claws to escape predators or hunt nesting birds. More nocturnal than red foxes, so encounters are rare; tracks and scat (often deposited on prominent stumps or rocks as scent marks) are easier to find than the fox itself. The black-tipped tail and salt-and-pepper gray back distinguish them from red fox.",
-      "funFact": "The gray fox is the only member of the dog family in the Western Hemisphere that routinely climbs trees, and one of only two canids worldwide with this ability. It can climb branchless vertical trunks to more than 50 feet."
+      "funFact": "The gray fox is the only member of the dog family in the Western Hemisphere that routinely climbs trees, and one of only two canids worldwide with this ability. It can climb branchless vertical trunks to more than 50 feet.",
+      "photo": "images/mammals/gray-fox.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "VJAnderson",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Gray_fox.jpg"
+      }
     },
     {
       "id": "coyote",
@@ -176,12 +460,45 @@
       "emoji": "🐺",
       "status": "resident",
       "statusLabel": "Year-round resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [0, 1, 8, 9, 10],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        0,
+        1,
+        8,
+        9,
+        10
+      ],
       "habitat": "Forest, forest edge, clearings — uses nearly all habitat types on the property",
       "voice": "Highly vocal — yips, barks, and the group yip-howl that can make two or three coyotes sound like a dozen. Most vocal in fall as pups learn to howl and in winter during the breeding season.",
       "notes": "Coyotes are well-established across the Blue Ridge — every county in Georgia has them now, and the forested ridges around Church Mountain Road are typical habitat. They hunt mostly at night, working forest edges and clearings for rabbits, small mammals, fawns, and carrion. The group yip-howl is one of the most striking sounds of an Appalachian night — a family group's chorus can carry for miles on a calm evening. Fall is the most vocal season as that year's pups practice howling alongside adults.",
-      "funFact": "Eastern coyotes are slightly larger than their western counterparts because of historical hybridization with wolves as the species expanded eastward across the Great Lakes region — they carry a small but measurable percentage of wolf and dog DNA."
+      "funFact": "Eastern coyotes are slightly larger than their western counterparts because of historical hybridization with wolves as the species expanded eastward across the Great Lakes region — they carry a small but measurable percentage of wolf and dog DNA.",
+      "photo": "images/mammals/coyote.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Yathin S Krishnappa",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:2009-Coyote-Yosemite.jpg"
+      },
+      "sound": "sounds/mammals/coyote.wav",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Robert G. Buckert",
+        "license": "CC BY-NC-SA 4.0",
+        "url": "https://www.inaturalist.org/observations/145728437"
+      }
     },
     {
       "id": "black-bear",
@@ -190,12 +507,45 @@
       "emoji": "🐻",
       "status": "resident",
       "statusLabel": "Year-round resident (largely denning Dec–Feb)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [4, 5, 8, 9, 10],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
       "habitat": "Large blocks of mature forest with mast (acorns, hickory nuts, berries); a wide-ranging species, not pinned to any single spot",
       "voice": "Mostly silent. Huffs, jaw-pops, and tongue-clicks as warnings. Cubs make sharp 'whimpering' calls. Adults can produce moaning and bellowing during stress or near food.",
       "notes": "Black bears are part of the Blue Ridge but rarely seen on any single property — their home ranges are large and they move widely with the seasons. On this property the signs are what to watch for: claw-marked trees, overturned logs, scat full of berry seeds or acorn hulls, and the distinctive 'bear-trail' where a bear has stepped repeatedly in the same depressions over months or years. Spring (April–May) and fall (August–October) are the most active seasons; bears den from late November through February. Keep trash secured and bird feeders pulled in April through November to avoid drawing them close to buildings.",
-      "funFact": "Black bears don't truly hibernate — they enter a state called torpor where body temperature drops only slightly and they can wake quickly if disturbed. Females give birth in the den in January and nurse cubs through the winter while fasting."
+      "funFact": "Black bears don't truly hibernate — they enter a state called torpor where body temperature drops only slightly and they can wake quickly if disturbed. Females give birth in the den in January and nurse cubs through the winter while fasting.",
+      "photo": "images/mammals/black-bear.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Diginatur",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:01_Schwarzb%C3%A4r.jpg"
+      },
+      "sound": "sounds/mammals/black-bear.wav",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Joanne Siderius",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/223209405"
+      }
     },
     {
       "id": "bobcat",
@@ -204,12 +554,37 @@
       "emoji": "🐈",
       "status": "resident",
       "statusLabel": "Year-round resident (rarely seen)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [1, 2, 9, 10],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        1,
+        2,
+        9,
+        10
+      ],
       "habitat": "Mixed forest with dense cover and early successional edges; uses 5–10+ square miles of home range",
       "voice": "Usually silent. During the winter breeding season, produces hair-raising yowls, screams, and caterwauling that can sound deeply alarming the first time you hear one.",
       "notes": "Bobcats are the most elusive resident on this list — present but rarely glimpsed. They are crepuscular, moving most at dawn and dusk, and a single bobcat may patrol a home range of 5 to 10 square miles, which means any one stretch of forest sees them only occasionally. Signs are what to look for: round, claw-less tracks (about 2 inches across), scat on prominent rocks or stumps, and scrapes in the leaf litter at territorial markers. The winter breeding season (January–February) produces the most likely chance to hear one — the screams carry far on cold nights.",
-      "funFact": "Bobcats can leap horizontally up to 12 feet to take down prey. Their retractable claws don't show in tracks, which is one of the cleanest ways to distinguish bobcat tracks from those of a dog or coyote."
+      "funFact": "Bobcats can leap horizontally up to 12 feet to take down prey. Their retractable claws don't show in tracks, which is one of the cleanest ways to distinguish bobcat tracks from those of a dog or coyote.",
+      "photo": "images/mammals/bobcat.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Becker1999 (Paul and Cathy)",
+        "license": "CC BY 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Bobcat_at_Columbus_Zoo_Boo.jpg"
+      }
     },
     {
       "id": "river-otter",
@@ -218,12 +593,38 @@
       "emoji": "🦦",
       "status": "resident",
       "statusLabel": "Lake Sequoyah resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [3, 4, 5, 9, 10],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
       "habitat": "Lake Sequoyah and connected waterways — not the property itself, but the lake at 0.3 mi",
       "voice": "Whistles, chirps, and growls between family members. A sharp 'huff' alarm call. Generally not loud, but social and vocal when together.",
       "notes": "River otters are present in Georgia waters throughout the state and are at home in the kind of lake-edge-with-cover habitat that Lake Sequoyah provides. They are unusual among water mammals in being mostly diurnal — daytime visits to the lake shore are the best chance of an encounter. Look for slide marks on muddy banks where they enter and exit the water, and for piles of crayfish shells (their summer staple in Georgia) at favorite latrines. Otters often den in abandoned beaver lodges, so the two species often share the same water.",
-      "funFact": "An otter can hold its breath underwater for up to 8 minutes and close its ears and nostrils against water entry. The dense fur is up to a million hairs per square inch — the densest fur of any mammal."
+      "funFact": "An otter can hold its breath underwater for up to 8 minutes and close its ears and nostrils against water entry. The dense fur is up to a million hairs per square inch — the densest fur of any mammal.",
+      "photo": "images/mammals/river-otter.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "USFWS Mountain-Prairie",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Northern_River_Otter_on_Seedskadee_NWR_(22802102984).jpg"
+      }
     },
     {
       "id": "american-beaver",
@@ -232,12 +633,39 @@
       "emoji": "🦫",
       "status": "resident",
       "statusLabel": "Lake Sequoyah resident",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [3, 4, 5, 9, 10, 11],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
       "habitat": "Lake Sequoyah edges and connected streams — not the property pond",
       "voice": "Mostly silent. The dramatic tail-slap on water as an alarm signal is more often heard than any vocalization. Soft mewing between family members at the lodge.",
       "notes": "Beavers are well-established across the southern Appalachians and the Lake Sequoyah area provides the slow water and woody vegetation they need. They are largely nocturnal — dawn and dusk visits to the lake are the best opportunity to see one. Look for the unmistakable signs: gnawed stumps with their characteristic pencil-pointed cone, peeled sticks and branches at the water's edge, and well-worn slides between water and the nearest hardwoods. The startling crack of a tail-slap on the lake surface is an alarm signal and a reliable announcement that you are being noticed.",
-      "funFact": "Beavers are the second-largest rodent in the world after the capybara. Their continuously-growing incisors are reinforced with iron, giving them their distinctive orange color and the hardness needed to fell hardwood trees."
+      "funFact": "Beavers are the second-largest rodent in the world after the capybara. Their continuously-growing incisors are reinforced with iron, giving them their distinctive orange color and the hardness needed to fell hardwood trees.",
+      "photo": "images/mammals/american-beaver.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Steve from Washington, DC, USA",
+        "license": "CC BY-SA 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:American_Beaver.jpg"
+      }
     },
     {
       "id": "southern-flying-squirrel",
@@ -246,12 +674,39 @@
       "emoji": "🐿️",
       "status": "resident",
       "statusLabel": "Year-round resident (strictly nocturnal)",
-      "monthsPresent": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "peakMonths": [4, 5, 6, 7, 8, 9],
+      "monthsPresent": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
       "habitat": "Mature hardwood and mixed forest with nesting cavities — uses the whole forested portion of the property",
       "voice": "High-pitched chirps, trills, and bird-like whistles, much of it ultrasonic and inaudible to humans. The audible portion sounds more like a small bird than a squirrel.",
       "notes": "Flying squirrels are likely more common on this property than the daytime gray squirrels — they're simply invisible because they are strictly nocturnal. They glide between trees rather than fly, using a furred membrane (the patagium) stretched between front and back legs to cover up to 150 feet between launches. The Bortle 3 dark sky makes silhouette spotting more practical here than in most places: on warm humid summer nights, watch the night sky between large trees from the fairway edge. A red flashlight beam (which they don't react to) on a known den tree is the most reliable way to see one.",
-      "funFact": "Most southern flying squirrel vocalizations are ultrasonic, above the range of human hearing. Their large dark eyes — proportionally enormous — gather every available scrap of starlight for night gliding."
+      "funFact": "Most southern flying squirrel vocalizations are ultrasonic, above the range of human hearing. Their large dark eyes — proportionally enormous — gather every available scrap of starlight for night gliding.",
+      "photo": "images/mammals/southern-flying-squirrel.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Judy Gallagher",
+        "license": "CC BY 2.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Southern_Flying_Squirrel_-_Glaucomys_volans,_Arlington,_Virginia,_December_22,_2020_(53406816432).jpg"
+      }
     },
     {
       "id": "bats",
@@ -260,12 +715,33 @@
       "emoji": "🦇",
       "status": "resident",
       "statusLabel": "Active April–October (species TBD)",
-      "monthsPresent": [3, 4, 5, 6, 7, 8, 9],
-      "peakMonths": [4, 5, 6, 7, 8],
+      "monthsPresent": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
       "habitat": "Aerial — foraging over the fairway clearing, pond, and forest canopy edge at dusk",
       "voice": "Echolocation calls are ultrasonic and inaudible to humans without a bat detector. The audible sound at a property is the soft flutter of wings and the occasional faint chitter near roost sites.",
       "notes": "Bats are reliably present here in warm months but the specific species mix is not confirmed on the property. North Georgia hosts a number of species — big brown bat, eastern red bat, hoary bat, tri-colored bat, and several others — and the most likely visitors at this elevation and habitat are generalists working the airspace over the clearing and pond at dusk. The Bortle 3 dark sky makes them easier to spot than most places: stand at the fairway edge in the first 30 minutes after sunset between May and August, and watch the airspace 10 to 50 feet up for fluttering silhouettes against the still-lit sky. White-nose syndrome has devastated cave-hibernating species across the Southeast since 2010 — any healthy bat population here matters.",
-      "funFact": "A single bat may eat 600–1,000 mosquito-sized insects in an hour. To identify species at a property usually requires either a bat detector (which translates ultrasonic calls into audible frequencies) or careful daytime photos of roosting individuals."
+      "funFact": "A single bat may eat 600–1,000 mosquito-sized insects in an hour. To identify species at a property usually requires either a bat detector (which translates ultrasonic calls into audible frequencies) or careful daytime photos of roosting individuals.",
+      "photo": "images/mammals/bats.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "PD-USGov, exact author unknown",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Big-eared-townsend-fledermaus.jpg"
+      }
     }
   ],
   "seasonalCalendar": {

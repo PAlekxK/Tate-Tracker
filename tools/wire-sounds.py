@@ -39,6 +39,12 @@ CATEGORIES = {
         "species_path": "species",
         "sound_dir": "sounds/frogs",
     },
+    "mammals": {
+        "json_file": "mammals.json",
+        "data_const": "MAMMALS_DATA",
+        "species_path": "species",
+        "sound_dir": "sounds/mammals",
+    },
 }
 
 
