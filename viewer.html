@@ -10168,7 +10168,15 @@ const UnifiedInput = (function () {
             // Step A (no status yet) → "Does that look right?"
             // Step B (id-confirmed) → "Worth adding to the Almanac?"
             // Then promote → drafter + GitHub commits → live timer for GH Pages deploy.
-            if (!status) {
+            //
+            // Special case: if inCanon is true, the species is already in the
+            // curated canon. No add-to-Almanac flow needed (would 409 on duplicate
+            // id at the worker anyway). Show a quiet "already tracked" status;
+            // the conversation still auto-saves as an Almanac observation on
+            // reset/cap/session-end via the existing saveCurrentConversation flow.
+            if (t.suggestion.inCanon === true && !status) {
+              html += '<div class="gg-suggest-status">Already in the Almanac. The conversation will save as an observation.</div>';
+            } else if (!status) {
               html += '<div class="gg-suggest-prompt">Does that look right?</div>';
               html += '<div class="gg-suggest-actions" data-turn-idx="' + idx + '" data-step="a">';
               html += '<button class="gg-suggest-btn-yes" data-action="id-yes" type="button">Yes, that\'s it</button>';
