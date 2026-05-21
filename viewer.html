@@ -2282,7 +2282,25 @@
     -webkit-tap-highlight-color: transparent;
   }
   .ui-image-btn:hover, .ui-image-btn:active { background: #f4ecd6; }
-  .ui-image-preview {
+  /* Offscreen-but-interactable file input — iOS Safari blocks .click() on
+     display:none inputs in some versions. Absolute-positioning + opacity:0
+     keeps the input in the layout flow so the programmatic click from the
+     visible 📷 button propagates. iOS treats this as a real picker tap.
+     `capture="environment"` removed so iOS shows the full picker (camera +
+     photo library) rather than forcing camera-only mode. */
+  .ui-image-file {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* The HTML5 `hidden` attribute sets display:none via the user-agent
+     stylesheet, but explicit `display` rules (like the flex below) override
+     it. The not([hidden]) selector makes the rule conditional so an empty
+     preview box doesn't render its remove (×) button. */
+  .ui-image-preview:not([hidden]) {
     margin-top: 8px;
     display: flex;
     align-items: flex-start;
@@ -2938,7 +2956,7 @@
       <textarea id="ui-textarea" class="ui-textarea" placeholder="What did you see, or what would you like to know?" rows="2"></textarea>
       <button id="ui-mic-btn" class="fn-mic-btn" type="button" aria-label="Voice dictation">🎤</button>
       <button id="ui-image-btn" class="ui-image-btn" type="button" aria-label="Attach a photo">📷</button>
-      <input id="ui-image-file" type="file" accept="image/*" capture="environment" hidden>
+      <input id="ui-image-file" class="ui-image-file" type="file" accept="image/*">
     </div>
     <div class="ui-image-preview" id="ui-image-preview" hidden>
       <img class="ui-image-preview-thumb" id="ui-image-preview-thumb" alt="Attached photo preview">
