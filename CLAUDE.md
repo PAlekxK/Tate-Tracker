@@ -47,15 +47,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Streaming responses.** Non-streaming v1; add streaming (~30 lines client) if turns feel laggy on LTE.
 - **Tool-use migration.** System-prompt stuffing of the ~57K-token digest is fine until digest >80K OR Phase G observations >50 entries.
 
-**Phase H — Audio identification (idea captured 2026-05-21):** Same direction as Phase F image input, but for sounds — bird calls, frog choruses, distinctive mammal vocalizations. Mom or Paul records a snippet; Garden Guru identifies the species and (per the Option C flow) offers to add it to the right canon (birds.json / amphibians.json / mammals.json) with the captured audio attached.
+**Phase H — Audio identification (TABLED 2026-05-21 evening):** Built end-to-end then tabled the same day pending a free / single-vendor audio-ID path. Full decision trail at `.engineering/2026-05-21-phase-h-tabled.md`. TL;DR:
 
-The load-bearing UX question is how this differentiates from the existing voice-to-text 🎤 button on the unified input. Current mic → transcribes user speech into the textarea. An audio-ID feature → captures ambient sound for Claude API audio analysis. Same hardware, different intent. Options to weigh when this becomes active:
-- **Separate icons.** 🎤 stays voice-to-text; 👂 (or a similar audio-listening icon) for audio-ID. Two buttons next to each other.
-- **Mode toggle on the mic.** Tap to dictate (default); long-press to switch to "listen for a call" mode. Discoverability cost.
-- **Context-based.** When textarea is empty, tap mic prompts "Voice typing or audio ID?" — explicit mode pick. Slower but unambiguous.
-- **In Garden Guru only.** Audio capture lives ONLY inside Garden Guru conversation context (like the photo path); voice-to-text stays on the unified input.
-
-Defer the choice until Phase F has shipped real usage signal — Mom's photo flow is the precedent for the conversational-add-to-canon pattern. The Claude API audio support exists (audio content blocks similar to image content blocks). Cost model would mirror Phase F. Pending implementation; no path-eval yet.
+- **What got built:** Worker `/api/audio-upload` endpoint, audio_ref dereferencing in `handleChat`, OpenAI gpt-4o-audio integration (`identifyAudioViaOpenAI` + `SOUND_ID_OPENAI_SYSTEM`), audio commit in `handlePromoteSpecies`, `GARDEN_GURU_SYSTEM` extension for audio-ID-result context, client-side `createAudioCapture` + `UnifiedAudio` + `GardenGuru.askWithAudio`, 👂 Listen button in the unified-input icon row.
+- **What's hidden:** The 👂 button is `hidden` in HTML (`viewer.html:3054`). Mom sees Voice + Photo only. All underlying code preserved.
+- **Why tabled:** (1) Anthropic doesn't support audio yet; (2) OpenAI works but adds vendor diversification overhead for a feature Mom hasn't yet asked for; (3) free paths exist (BirdNET self-host, Hugging Face Inference API, Cornell's iOS browser-TFJS when shipped) but none mature/zero-effort today; (4) `feedback_defer_affordances_pending_signal` says wait for actual Mom-usage signal from Phase F before speculative-building Phase H.
+- **How to re-enable:** Remove the `hidden` attribute on `#ui-audio-btn` in viewer.html. Set `OPENAI_API_KEY` Worker secret (if staying with OpenAI) OR rewrite `identifyAudioViaOpenAI` for whichever audio-ID backend you pick. Verify `/health` shows `configured.openai: true` (or the new vendor's flag).
+- **Watch for:** BirdNET-Live iOS support (Cornell), Anthropic audio Messages API (SDK #1198), Hugging Face inference quality for bird ID (~30 min landscape pass when revisited).
 
 **Other open threads on the backlog** (from the punch list earlier this session):
 - Citizen-science decision — dormant scaffolding in viewer.html; re-enable, drop, or leave dormant is Paul's call

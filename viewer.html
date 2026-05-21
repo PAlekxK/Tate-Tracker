@@ -3051,7 +3051,14 @@
         <span class="icon-emoji">📷</span>
         <span class="icon-label">Photo</span>
       </button>
-      <button id="ui-audio-btn" class="ui-icon-btn" type="button" aria-label="Record audio for identification (beta)">
+      <!-- Phase H — Listen button (audio ID). TABLED 2026-05-21 evening
+           pending a free audio-ID path. Hidden but preserved in markup so
+           re-enabling later is a one-attribute removal. The Worker side
+           (/api/audio-upload, audio_ref handling, OpenAI integration) is
+           also preserved but inactive without OPENAI_API_KEY set. See
+           .engineering/2026-05-21-phase-h-tabled.md for the full decision
+           trail. -->
+      <button id="ui-audio-btn" class="ui-icon-btn" type="button" aria-label="Record audio for identification (beta)" hidden>
         <span class="icon-emoji">👂</span>
         <span class="icon-label">Listen</span>
         <span class="icon-beta">BETA</span>
