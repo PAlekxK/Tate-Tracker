@@ -9341,21 +9341,19 @@ const GardenGuru = (function () {
 // =========================
 // UNIFIED INPUT — note or ask (2026-05-20)
 // =========================
-// Feature-flagged unified surface that consolidates Field Notes capture +
-// Garden Guru into one textbox with two action buttons (Save / Ask Garden
-// Guru). Routes to existing fnSaveInlineEntry and GardenGuru.ask under the
-// hood; preserves no-AI-on-capture (Save button never invokes AI).
-// Enable: localStorage.setItem("tateTracker.ui.unifiedInput.v1", "1") + reload.
+// Unified surface that consolidates Field Notes capture + Garden Guru into
+// one textbox with two action buttons (Save / Ask Garden Guru). Routes to
+// existing fnSaveInlineEntry and GardenGuru.ask under the hood; preserves
+// no-AI-on-capture (Save button never invokes AI).
+//
+// 2026-05-20 evening: feature flag removed — everyone on the same version.
+// The legacy `#quick-capture` and `#garden-guru` sections are now always
+// hidden via CSS (body.ui-unified is added unconditionally at init).
+// Old markup left in place for safe rollback if needed; future cleanup pass
+// can delete it once the new shape is settled.
 
 const UnifiedInput = (function () {
-  const FLAG_KEY = "tateTracker.ui.unifiedInput.v1";
-  function isEnabled() {
-    try { return localStorage.getItem(FLAG_KEY) === "1"; }
-    catch (e) { return false; }
-  }
-
   function init() {
-    if (!isEnabled()) return;
     document.body.classList.add("ui-unified");
     wireUI();
   }
@@ -9472,7 +9470,7 @@ const UnifiedInput = (function () {
     renderConversation();
   }
 
-  return { init, isEnabled };
+  return { init };
 })();
 
 function gatherGuruLiveState() {
@@ -9606,7 +9604,7 @@ function renderGardenGuru() {
 GardenGuru.onChange(renderGardenGuru);
 renderGardenGuru();
 
-// Unified input — activates when localStorage.tateTracker.ui.unifiedInput.v1 === "1"
+// Unified input — always active as of 2026-05-20 evening (feature flag removed).
 UnifiedInput.init();
 </script>
 
