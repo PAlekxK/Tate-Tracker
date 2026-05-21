@@ -8286,7 +8286,60 @@ const MetricsCollector = (function () {
   flush();
   track("session_start", {});
 
-  return { track };
+  return { track, sessionStartMs: sessionStartMs };
+})();
+
+// =========================
+// METRICS VIEW OBSERVER — card_section_viewed + entry_revisited (2026-05-20)
+// =========================
+// IntersectionObserver-based "did the user actually see this?" signals.
+// Throttled to one event per (cardId|entryId) per session.
+
+const MetricsViewObserver = (function () {
+  const viewedCards = new Set();
+  const viewedEntries = new Set();
+
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.5) return;
+      const cardId = entry.target.id;
+      if (!cardId || viewedCards.has(cardId)) return;
+      viewedCards.add(cardId);
+      if (typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track("card_section_viewed", { cardId });
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const entryObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.5) return;
+      const entryEl = entry.target;
+      const entryId = entryEl.getAttribute("data-id");
+      if (!entryId || viewedEntries.has(entryId)) return;
+      const createdAt = entryEl.getAttribute("data-created-at");
+      if (!createdAt) return;
+      const createdMs = new Date(createdAt).getTime();
+      // entry_revisited fires only when the entry was created BEFORE this session
+      // (>1 hour ago — coarse session-boundary proxy; tight enough at family scale)
+      const sessionStart = (typeof MetricsCollector !== "undefined" && MetricsCollector.sessionStartMs) || Date.now();
+      if (createdMs < sessionStart - 3600000) {
+        viewedEntries.add(entryId);
+        if (typeof MetricsCollector !== "undefined") {
+          MetricsCollector.track("entry_revisited", { entryId });
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+
+  function observeCards() {
+    document.querySelectorAll(".main-card").forEach(c => cardObserver.observe(c));
+  }
+  function observeEntries() {
+    document.querySelectorAll("#fieldnotes-body .fn-entry").forEach(e => entryObserver.observe(e));
+  }
+
+  return { observeCards, observeEntries };
 })();
 
 // ---- AirNow AQI chip (Phase C2) ----
@@ -8892,7 +8945,7 @@ function renderFieldNotes() {
       const lbl = e.category ? (FN_CATEGORY_LABEL[e.category] || e.category) : null;
       const isStarred = !!e.isStarred;
       const kindLabel = e.kind === "conversation" ? "conversation" : null;
-      html += '<div class="fn-entry" data-id="' + escapeHtml(e.id) + '">';
+      html += '<div class="fn-entry" data-id="' + escapeHtml(e.id) + '" data-created-at="' + escapeHtml(e.createdAt || "") + '">';
       html += '<div class="fn-entry-header">';
       html += '<span class="fn-entry-when">' + escapeHtml(fnFormatWhen(e.date)) + '</span>';
       if (kindLabel) {
@@ -8967,6 +9020,9 @@ function renderFieldNotes() {
       renderFieldNotes();
     });
   });
+  if (typeof MetricsViewObserver !== "undefined") {
+    MetricsViewObserver.observeEntries();
+  }
 }
 
 // ---- Inline capture save (Phase D) ----
@@ -9272,6 +9328,21 @@ const GardenGuru = (function () {
     return userTurnCount() >= GG_MAX_USER_TURNS;
   }
 
+  // Tracks the timestamp of the last assistant reply for dwell measurement.
+  let lastReplyMs = null;
+  function fireReplyDwell(nextAction) {
+    if (lastReplyMs === null) return;
+    const dwellSec = Math.round((Date.now() - lastReplyMs) / 1000);
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("conversation_reply_dwell", {
+        conversationId,
+        dwellSec,
+        nextAction,
+      });
+    }
+    lastReplyMs = null;
+  }
+
   async function ask(text) {
     text = (text || "").trim();
     if (!text || isWaiting) return;
@@ -9279,6 +9350,7 @@ const GardenGuru = (function () {
       if (typeof MetricsCollector !== "undefined") {
         MetricsCollector.track("conversation_capped", { conversationId });
       }
+      fireReplyDwell("capped");
       saveCurrentConversation();
       return;
     }
@@ -9287,6 +9359,9 @@ const GardenGuru = (function () {
     if (isFirstTurn && typeof MetricsCollector !== "undefined") {
       MetricsCollector.track("conversation_started", { conversationId });
     }
+    // Reply-dwell fires here (before pushing the next user turn) when this is
+    // a follow-up turn after a reply.
+    if (!isFirstTurn) fireReplyDwell("follow_up");
     turns.push({ role: "user", content: text, ts: new Date().toISOString() });
     if (typeof MetricsCollector !== "undefined") {
       MetricsCollector.track("conversation_turn", {
@@ -9304,6 +9379,7 @@ const GardenGuru = (function () {
       });
       const reply = (result && result.reply) || "[no reply]";
       turns.push({ role: "assistant", content: reply, ts: new Date().toISOString() });
+      lastReplyMs = Date.now();  // start dwell timer for conversation_reply_dwell
     } catch (e) {
       const errMsg = e.notConfigured
         ? "Garden Guru isn't configured yet. Open Sync settings in Field Notes to connect to the Worker."
@@ -9315,6 +9391,7 @@ const GardenGuru = (function () {
   }
 
   function reset() {
+    fireReplyDwell("reset");
     saveCurrentConversation();
     conversationId = null;
     turns = [];
@@ -9355,10 +9432,14 @@ const GardenGuru = (function () {
     }).catch(e => console.warn("auto-save conversation failed:", e));
   }
 
-  // Best-effort save on session end.
-  window.addEventListener("pagehide", saveCurrentConversation);
+  // Best-effort save on session end. Also fire reply-dwell with session_end action.
+  function onSessionEnd() {
+    fireReplyDwell("session_end");
+    saveCurrentConversation();
+  }
+  window.addEventListener("pagehide", onSessionEnd);
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") saveCurrentConversation();
+    if (document.visibilityState === "hidden") onSessionEnd();
   });
 
   function onChange(cb) { listeners.push(cb); }
@@ -9457,9 +9538,48 @@ const UnifiedInput = (function () {
 
     ta.addEventListener("input", updateState);
 
+    // Focus/abandon tracking — captures "started typing but didn't submit"
+    let focusedAtMs = null;
+    let actionTakenSinceFocus = false;
+    let abandonTimer = null;
+
+    ta.addEventListener("focus", () => {
+      focusedAtMs = Date.now();
+      actionTakenSinceFocus = false;
+      if (typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track("input_focused", {});
+      }
+    });
+    ta.addEventListener("blur", () => {
+      if (focusedAtMs === null) return;
+      const chars = (ta.value || "").length;
+      const focusStart = focusedAtMs;
+      focusedAtMs = null;
+      // Only treat as abandoned if user had real content + didn't take an action.
+      // Wait 60s — user might come back. If they refocus or act, the timer is cancelled.
+      if (chars > 20 && !actionTakenSinceFocus) {
+        if (abandonTimer) clearTimeout(abandonTimer);
+        abandonTimer = setTimeout(() => {
+          if (actionTakenSinceFocus || document.activeElement === ta) return;
+          const finalChars = (ta.value || "").length;
+          if (finalChars === 0) return;  // they cleared it
+          const bucket = finalChars <= 100 ? "short" : finalChars <= 500 ? "medium" : "long";
+          if (typeof MetricsCollector !== "undefined") {
+            MetricsCollector.track("input_abandoned", {
+              charBucket: bucket,
+              secondsBeforeAbandon: Math.round((Date.now() - focusStart) / 1000),
+            });
+          }
+          abandonTimer = null;
+        }, 60000);
+      }
+    });
+
     saveBtn.addEventListener("click", async () => {
       const text = (ta.value || "").trim();
       if (!text) return;
+      actionTakenSinceFocus = true;
+      if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
       // Route through fnSaveInlineEntry by mirroring text into the legacy textarea.
       const legacyTa = document.getElementById("fn-capture-textarea");
       if (legacyTa) legacyTa.value = text;
@@ -9473,6 +9593,8 @@ const UnifiedInput = (function () {
     askBtn.addEventListener("click", async () => {
       const text = (ta.value || "").trim();
       if (!text) return;
+      actionTakenSinceFocus = true;
+      if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
       ta.value = "";
       await GardenGuru.ask(text);
       updateState();
@@ -9649,6 +9771,11 @@ renderGardenGuru();
 
 // Unified input — always active as of 2026-05-20 evening (feature flag removed).
 UnifiedInput.init();
+
+// Wire IntersectionObservers for card_section_viewed + entry_revisited.
+if (typeof MetricsViewObserver !== "undefined") {
+  MetricsViewObserver.observeCards();
+}
 </script>
 
 </body>
