@@ -47,6 +47,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Streaming responses.** Non-streaming v1; add streaming (~30 lines client) if turns feel laggy on LTE.
 - **Tool-use migration.** System-prompt stuffing of the ~57K-token digest is fine until digest >80K OR Phase G observations >50 entries.
 
+**Phase H — Audio identification (idea captured 2026-05-21):** Same direction as Phase F image input, but for sounds — bird calls, frog choruses, distinctive mammal vocalizations. Mom or Paul records a snippet; Garden Guru identifies the species and (per the Option C flow) offers to add it to the right canon (birds.json / amphibians.json / mammals.json) with the captured audio attached.
+
+The load-bearing UX question is how this differentiates from the existing voice-to-text 🎤 button on the unified input. Current mic → transcribes user speech into the textarea. An audio-ID feature → captures ambient sound for Claude API audio analysis. Same hardware, different intent. Options to weigh when this becomes active:
+- **Separate icons.** 🎤 stays voice-to-text; 👂 (or a similar audio-listening icon) for audio-ID. Two buttons next to each other.
+- **Mode toggle on the mic.** Tap to dictate (default); long-press to switch to "listen for a call" mode. Discoverability cost.
+- **Context-based.** When textarea is empty, tap mic prompts "Voice typing or audio ID?" — explicit mode pick. Slower but unambiguous.
+- **In Garden Guru only.** Audio capture lives ONLY inside Garden Guru conversation context (like the photo path); voice-to-text stays on the unified input.
+
+Defer the choice until Phase F has shipped real usage signal — Mom's photo flow is the precedent for the conversational-add-to-canon pattern. The Claude API audio support exists (audio content blocks similar to image content blocks). Cost model would mirror Phase F. Pending implementation; no path-eval yet.
+
 **Other open threads on the backlog** (from the punch list earlier this session):
 - Citizen-science decision — dormant scaffolding in viewer.html; re-enable, drop, or leave dormant is Paul's call
 - Property map view — paused; imagery + 7 zones + prototype committed; pickup whenever
