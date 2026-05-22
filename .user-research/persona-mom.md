@@ -2,7 +2,7 @@
 type: persona
 project: tate-tracker
 person_id: mom
-last_updated: 2026-05-11
+last_updated: 2026-05-22
 evidence_level: inferred
 sources:
   - Paul direct (multiple sessions, 2026-05 series)
@@ -39,6 +39,7 @@ The user whose adoption decides whether Tate Tracker is worth building at all. J
 - `[inferred]` — Mobile-first realistically. She'll open this from a phone on the porch or in the kitchen, not at a desk.
 - `[assumption]` — Time and attention are scarce; she's not going to read long blocks of text or work through multi-step interactions.
 - `[inferred]` — **Low-attention reading posture is a real use mode.** Bed, one-handed, reclined, half-engaged (waking up or winding down). Design has to read well at half-engagement — scannable, light cognitive load, no multi-step interactions, no tiny tap targets. (Source: Paul direct 2026-05-11.)
+- `[validated]` — **Mom has a hard time reading and may not have reading glasses on when using the app.** Implication: small body copy, faint helper text, and meaning carried by text labels alone are accessibility failures here, not stylistic preferences. UX needs to work for someone who can see shape, color, and layout but cannot reliably parse small text. Icon + size + color need to carry intent independently of fine print. (Source: Paul direct 2026-05-22.)
 
 ## Definition of success
 
@@ -50,6 +51,7 @@ The user whose adoption decides whether Tate Tracker is worth building at all. J
 
 ## Evidence log
 
+- `2026-05-22: [validated] — Paul direct — Mom has a hard time reading; may use the app without reading glasses on. UX needs accessibility-first treatment: large legible type, high contrast, icons/shape/color carrying meaning independently of label text. Surfaced when text-only Garden Guru questions got silently logged as Almanac entries — the routing decision was invisible to her because she couldn't read the button label change.`
 - `2026-05-11: [inferred] — Paul direct — Mom likely uses the app in bed with morning coffee (waking up) or at night (winding down), looking for "something interesting to read." First concrete when/where for her solo use. Off-property, phone, leisure mode, low-attention.`
 - `2026-05-11: [inferred] — Paul direct — A simple, memorable password is acceptable; low-friction auth is the real constraint. (Supersedes earlier "no password / Mom stops" assumption — contradicted by Paul this session.)`
 - `2026-05-11: [inferred] — Paul direct — Mom is not gun shy about tech.` *(Re-sourced: the literal phrase "not gun shy" was Paul's, used in reference to plants/pruning. The Mom-and-tech read is the user-researcher's synthesis from Paul's broader framing of Mom as a real user, not a technophobe.)*

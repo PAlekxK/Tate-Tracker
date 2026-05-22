@@ -2247,24 +2247,49 @@
     -webkit-tap-highlight-color: transparent;
   }
   .ui-reset-btn:active { background: #f4f0e0; }
-  .ui-submit-btn {
+  /* Two-button routing (2026-05-22 pivot, per ux-expert F1):
+     - Save: deep forest green + notebook glyph — routes text to Almanac, no AI call.
+     - Ask:  warm gold + leaf glyph — routes to Garden Guru.
+     Distinct hue families (forest vs gold, not olive vs olive-gold) so the routing
+     decision is readable for users who can't reliably parse fine text — including
+     Mom without reading glasses. Tap location declares the route; no heuristic. */
+  .ui-action-row {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+  }
+  .ui-action-btn {
+    flex: 1;
     border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
+    border-radius: 10px;
+    padding: 12px 14px;
     font-family: "Crimson Text", Georgia, serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: #fff;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: background 0.15s, transform 0.1s, opacity 0.15s;
-    background: linear-gradient(135deg, #6a8a4a, #5a7a3a);
+    transition: background 0.15s ease, transform 0.1s, opacity 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    min-width: 140px;
   }
-  .ui-submit-btn:active { transform: scale(0.98); background: linear-gradient(135deg, #5a7a3a, #4a6a2a); }
-  /* When a photo is attached, button shifts to gold to signal Garden Guru engagement */
-  .ui-submit-btn.photo-mode { background: linear-gradient(135deg, #b08838, #8a6828); }
-  .ui-submit-btn.photo-mode:active { transform: scale(0.98); background: linear-gradient(135deg, #8a6828, #6a5018); }
-  .ui-submit-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .ui-action-btn .ui-action-icon { font-size: 24px; line-height: 1; }
+  .ui-action-btn:active { transform: scale(0.98); }
+  .ui-action-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
+  .ui-save-btn {
+    background: linear-gradient(135deg, #2f5a3a, #1f4528);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
+  }
+  .ui-save-btn:active { background: linear-gradient(135deg, #1f4528, #143018); }
+  .ui-ask-btn {
+    background: linear-gradient(135deg, #d49538, #a87018);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
+  }
+  .ui-ask-btn:active { background: linear-gradient(135deg, #a87018, #805510); }
 
   /* Icon row — voice / photo / listen, sits below the textarea. Each icon
      is a labeled stacked button so Mom can read what each does without
@@ -2422,21 +2447,46 @@
     margin: 8px 0 4px;
     flex-wrap: wrap;
   }
+  /* Yes/No confirm buttons (per ux-expert F4, 2026-05-22):
+     Yes = filled green pill with ✓ glyph. No = outlined neutral pill with × glyph.
+     Glyph + fill state carries the decision independent of label legibility. Critical
+     path for the photo-ID flow — Mom's primary use case. Position is Yes-left, No-right
+     across both confirm steps so muscle memory builds. */
   .gg-suggest-btn-yes, .gg-suggest-btn-no {
-    border: 1px solid #d4cca8;
-    border-radius: 14px;
-    padding: 5px 12px;
+    border-radius: 22px;
+    padding: 8px 16px 8px 12px;
     font-family: "Crimson Text", Georgia, serif;
-    font-size: 13px;
-    font-style: italic;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: background 0.12s;
+    transition: background 0.12s, border-color 0.12s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    line-height: 1;
   }
-  .gg-suggest-btn-yes { background: #e6efd8; color: #3a4a2a; }
-  .gg-suggest-btn-yes:hover, .gg-suggest-btn-yes:active { background: #d2e2c0; }
-  .gg-suggest-btn-no { background: #fff; color: #7a6a4a; }
-  .gg-suggest-btn-no:hover, .gg-suggest-btn-no:active { background: #f4ecd6; }
+  .gg-suggest-btn-yes::before, .gg-suggest-btn-no::before {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    display: inline-block;
+  }
+  .gg-suggest-btn-yes {
+    background: #3a6a3a;
+    color: #fff;
+    border: 2px solid #3a6a3a;
+  }
+  .gg-suggest-btn-yes::before { content: "\2713"; color: #fff; }
+  .gg-suggest-btn-yes:hover, .gg-suggest-btn-yes:active { background: #2a5a2a; border-color: #2a5a2a; }
+  .gg-suggest-btn-no {
+    background: #fff;
+    color: #6a5a4a;
+    border: 2px solid #b8a878;
+  }
+  .gg-suggest-btn-no::before { content: "\00d7"; color: #8a7a4a; font-size: 24px; }
+  .gg-suggest-btn-no:hover, .gg-suggest-btn-no:active { background: #f4ecd6; border-color: #8a7a4a; }
   .gg-suggest-status {
     font-family: "Crimson Text", Georgia, serif;
     font-style: italic;
@@ -2501,15 +2551,21 @@
     color: #fff;
     border-color: #6a8a4a;
   }
+  /* Star = the "this matters" curation affordance. Shape carries the state (☆ vs ★);
+     color is the secondary reinforcement (neutral gray for unstarred, warm gold for
+     starred — distinct hue families so the swap is readable without literal-color
+     comparison). Per ux-expert F13, 2026-05-22. */
   .fn-star-btn {
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 2px 6px;
-    font-size: 16px;
-    color: #c4b478;
+    padding: 6px 8px;
+    font-size: 20px;
+    color: #9a9a8a;
     line-height: 1;
     -webkit-tap-highlight-color: transparent;
+    min-width: 36px;
+    min-height: 36px;
   }
   .fn-star-btn.starred { color: #d4a838; }
   .fn-star-btn:active { transform: scale(1.15); }
@@ -3080,7 +3136,16 @@
       <span id="ui-mic-hint" class="ui-mic-hint"></span>
       <span class="ui-counter" id="ui-counter" hidden></span>
       <button id="ui-reset-btn" class="ui-reset-btn" type="button" hidden>Start fresh</button>
-      <button id="ui-submit-btn" class="ui-submit-btn" type="button" disabled>Add to the journal</button>
+      <div class="ui-action-row">
+        <button id="ui-save-btn" class="ui-action-btn ui-save-btn" type="button" disabled>
+          <span class="ui-action-icon" aria-hidden="true">📓</span>
+          <span class="ui-action-label">Save to journal</span>
+        </button>
+        <button id="ui-ask-btn" class="ui-action-btn ui-ask-btn" type="button" disabled>
+          <span class="ui-action-icon" aria-hidden="true">🌿</span>
+          <span class="ui-action-label">Ask Garden Guru</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -10043,7 +10108,8 @@ const UnifiedInput = (function () {
 
   function wireUI() {
     const ta = document.getElementById("ui-textarea");
-    const submitBtn = document.getElementById("ui-submit-btn");
+    const saveBtn = document.getElementById("ui-save-btn");
+    const askBtn = document.getElementById("ui-ask-btn");
     const resetBtn = document.getElementById("ui-reset-btn");
     const conversation = document.getElementById("ui-conversation");
     const counter = document.getElementById("ui-counter");
@@ -10057,7 +10123,7 @@ const UnifiedInput = (function () {
     const audioPlayer = document.getElementById("ui-audio-preview-player");
     const audioMeta = document.getElementById("ui-audio-preview-meta");
     const audioRemove = document.getElementById("ui-audio-remove");
-    if (!ta || !submitBtn) return;
+    if (!ta || !saveBtn || !askBtn) return;
 
     function setAttachedImage(payload) {
       attachedImage = payload;
@@ -10102,21 +10168,15 @@ const UnifiedInput = (function () {
       const state = GardenGuru.getState();
       const hasImg = !!attachedImage;
       const hasAud = !!attachedAudio;
-      // Submit is enabled when there's text OR a photo OR an audio recording.
-      // Photo/audio with empty text get a "What is this?" / "What sound is this?"
-      // default in askWithImage / askWithAudio.
-      submitBtn.disabled = (!text && !hasImg && !hasAud) || ((hasImg || hasAud) && state.capReached);
-      submitBtn.classList.toggle("photo-mode", hasImg || hasAud);
-      // Label per content-steward 2026-05-21 copy memo + Phase H parallel:
-      //   default → "Add to the journal"
-      //   photo attached → "Have Garden Guru take a look"
-      //   audio attached → "Have Garden Guru take a listen"
-      //   text-only follow-up to an existing conversation → "Ask follow-up"
-      let label = "Add to the journal";
-      if (hasAud) label = "Have Garden Guru take a listen";
-      else if (hasImg) label = "Have Garden Guru take a look";
-      else if (state.userTurnCount > 0 && text) label = "Ask follow-up";
-      submitBtn.textContent = label;
+      const capReached = state.capReached;
+
+      // Save button is only relevant for text-only content. Photos and audio always
+      // route to Garden Guru — saving a photo as a quiet log entry isn't a thing.
+      saveBtn.disabled = !text || hasImg || hasAud;
+
+      // Ask button is enabled when there's text OR a photo OR an audio recording,
+      // unless the conversation cap is reached on a new turn that would use AI.
+      askBtn.disabled = (!text && !hasImg && !hasAud) || ((hasImg || hasAud || text) && capReached);
 
       if (resetBtn) resetBtn.hidden = state.turns.length === 0;
       if (counter) {
@@ -10323,19 +10383,30 @@ const UnifiedInput = (function () {
       }
     });
 
-    submitBtn.addEventListener("click", async () => {
+    // Two-button routing (2026-05-22 per ux-expert F1): the user's tap location
+    // declares the route. No heuristic, no auto-detect. Photo/audio always route
+    // to Garden Guru (saving a photo as a silent log isn't a meaningful state).
+    saveBtn.addEventListener("click", async () => {
+      const text = (ta.value || "").trim();
+      if (!text || attachedImage || attachedAudio) return;
+      actionTakenSinceFocus = true;
+      if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
+      const wasVoice = UnifiedVoice.isRecording();
+      if (wasVoice) UnifiedVoice.stop();
+      ta.value = "";
+      try { await fnSaveInlineEntry(text, { inputMode: wasVoice ? "voice" : "text" }); }
+      catch (e) { console.warn("save failed:", e); }
+      updateState();
+    });
+
+    askBtn.addEventListener("click", async () => {
       const text = (ta.value || "").trim();
       const hasImg = !!attachedImage;
       const hasAud = !!attachedAudio;
       if (!text && !hasImg && !hasAud) return;
       actionTakenSinceFocus = true;
       if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
-      const wasVoice = UnifiedVoice.isRecording();
-      if (wasVoice) UnifiedVoice.stop();
-      // Route by content per Phase F P2 + Phase H:
-      // - audio attached → GardenGuru.askWithAudio (Phase H: OpenAI ID → Garden Guru voice)
-      // - photo attached → GardenGuru.askWithImage (Phase F)
-      // - text only → fnSaveInlineEntry (no AI call, honors no-AI-on-capture)
+      if (UnifiedVoice.isRecording()) UnifiedVoice.stop();
       if (hasAud) {
         const audPayload = attachedAudio;
         const submitText = text;
@@ -10349,9 +10420,8 @@ const UnifiedInput = (function () {
         setAttachedImage(null);
         await GardenGuru.askWithImage(submitText, imgPayload.dataUrl);
       } else {
-        try { await fnSaveInlineEntry(text, { inputMode: wasVoice ? "voice" : "text" }); }
-        catch (e) { console.warn("save failed:", e); }
         ta.value = "";
+        await GardenGuru.ask(text);
       }
       updateState();
     });
@@ -10420,10 +10490,21 @@ const UnifiedInput = (function () {
       resetBtn.addEventListener("click", () => GardenGuru.reset());
     }
 
+    // Keyboard shortcuts on the textarea (post two-button split, 2026-05-22):
+    //   Enter         → Save (default fast path: typed observations log to the journal)
+    //   Cmd/Ctrl+Enter → Ask Garden Guru (deliberate AI invocation)
+    //   Shift+Enter   → newline (default textarea behavior)
+    // If a photo or audio is attached, the only sensible action is Ask, so Enter alone
+    // routes there. This matches the rule: the user's deliberate signal (attach a photo,
+    // hold a modifier) declares the route; no heuristic on the text itself.
     ta.addEventListener("keydown", e => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        submitBtn.click();
+      if (e.key !== "Enter" || e.shiftKey) return;
+      e.preventDefault();
+      const hasAttachment = !!attachedImage || !!attachedAudio;
+      if (e.metaKey || e.ctrlKey || hasAttachment) {
+        askBtn.click();
+      } else {
+        saveBtn.click();
       }
     });
 
