@@ -1,0 +1,239 @@
+{
+  "review_id": "ux-2026-05-22-mom-no-glasses-a11y",
+  "project": "fernwood",
+  "subject": "Accessibility audit of viewer.html under the validated 'Mom-without-glasses' constraint",
+  "review_date": "2026-05-22",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (cross-surface, single lens)",
+  "user_context": {
+    "primary_user": "Mom — make-or-break user for Fernwood. Lives at the property; uses the dashboard in bed with morning coffee and evening wind-down (low-attention reclined posture). [validated]",
+    "core_jobs_to_be_done": [
+      "Open the dashboard when she wants to, and have it pay off as something interesting to read about her place — 'leisure-stewardship reading' [inferred]",
+      "Identify a bird/plant/sound she's noticing on the property — photo-for-ID is the killer Garden Guru use case [validated, Q4 rubric]",
+      "Glance at the current state of the property (weather, what's blooming, what's calling) without parsing fine print [inferred]"
+    ],
+    "context_of_use": "Phone, one-handed, reclined, half-engaged (waking or winding down). MAY NOT HAVE READING GLASSES ON. Can see shape, color, layout, large text — cannot reliably parse small body copy, faint helper text, or fine-print label changes. [validated, 2026-05-22]",
+    "assumptions_made": [
+      "Tested visually by reading CSS font-sizes and color values; not by physical squint-test on a phone. Several 'major' findings could be 'critical' under actual no-glasses conditions and vice versa — Paul should pressure-test against Mom's lived experience.",
+      "Heuristic for 'too small without glasses' set at 12px body / 10.5px label / sub-44px tap target — calibrated from WCAG + iOS HIG, not from Mom's specific visual acuity."
+    ],
+    "user_context_confidence": "high (constraint validated 2026-05-22 by Paul direct; canonical failure pattern named explicitly)"
+  },
+  "principles_applied": [
+    "Make every surface read at half-engagement (fernwood.md) — the no-glasses constraint is the strict version of the half-engagement bar",
+    "Typographic hierarchy by value (cross-project.md) — fine-print labels carrying critical routing meaning fail this directly",
+    "Explicit user-routing requires symmetric affordance weight (cross-project.md, candidate) — applies to the suggestion-confirm step",
+    "Friction kills — it just works (cross-project.md) — small label changes that compensate for ambiguous affordance are the failure pattern Paul named today",
+    "Icons earn their place — true AND useful (cross-project.md) — and the inverse: when the icon CAN carry the meaning, the label alone must NOT be load-bearing",
+    "Don Norman — signifiers and feedback: a state change must be telegraphed by a visible signifier the user can perceive without literacy effort"
+  ],
+  "triage_summary": "The canonical failure Paul named today (button label silently changes between four routes) was already partially mitigated in the codebase 2026-05-22 — `detectTextIntent()` now also swaps icon (📓 → 🌿) and color (olive-green → olive-gold). That's a good first move but it is NOT enough: (1) the two color states are both warm earth-tones that read identical at low engagement, (2) the icon swap is too small (22px emoji glyphs differ in fine detail), (3) the heuristic is brittle (statements without '?' silently log — exactly the failure Paul hit), and (4) the affordance is still ONE button doing FOUR jobs. The first-priority fix isn't a polish pass — it's a structural change: split the button into two persistent, visually-distinct buttons (Save vs Ask). Everything else in this audit (small body copy, faint helper text, sub-44px taps) is real but secondary to that decision.",
+  "findings": [
+    {
+      "id": "F1",
+      "area": "affordance",
+      "surface": "Unified input — submit button (#ui-submit-btn, viewer.html:3093)",
+      "severity": "critical",
+      "observation": "ONE button with FOUR possible labels swapping between 'Add to the journal' / 'Ask follow-up' / 'Ask Garden Guru' / 'Have Garden Guru take a look' / 'Have Garden Guru take a listen'. The 2026-05-22 patch added an icon swap (📓 ↔ 🌿) and a color swap (olive-green ↔ olive-gold gradient) — but both states are warm earth-tones in the same family (#6a8a4a vs #b08838), the emoji glyphs differ only in fine internal detail at 22px, and the button's position/shape/size are identical across all four states. For Mom without glasses: the button reads as 'the green-gold action button' regardless of what it will do. The routing decision is still functionally invisible.",
+      "user_impact": "This is the exact failure Paul lived today (2026-05-22): two text-only questions silently logged to the Almanac. The downstream cost is structural — Mom asks a question expecting Garden Guru, gets no reply, concludes 'Garden Guru is broken,' and stops using it. Worse, her question becomes a journal entry she doesn't want and didn't intend. This jeopardizes the make-or-break success metric ('I open the dashboard when I want to, and I'm glad I did') because the silent-misroute teaches her not to trust the surface.",
+      "principle_invoked": "Explicit user-routing requires symmetric affordance weight (cross-project candidate) + Don Norman's signifier principle — the affordance must telegraph what will happen before the action, perceivable at the user's actual reading capability",
+      "recommendation": "STRUCTURAL FIX (recommended first): split into two persistent buttons, both visible at all times. One bookish/green button labeled 'Save to journal' (📓 large, distinct shape) on the left. One leafy/gold button labeled 'Ask Garden Guru' (🌿 large, distinct shape) on the right. Both 48px+ tall, both with the SAME visual weight (per the candidate principle — symmetric routing). The user's tap location declares the route; no heuristic, no silent fallback. This honors the 'scope is communicated by where you tap, not auto-detected' candidate principle and the canonical Paul-2026-05-22 lesson. If two-button is rejected: at minimum, make the two color states maximally distinguishable (e.g., journal = deep forest green, ask = warm coral or amber, NOT two warm earth tones), bump the icon to 28px+, and add a non-fine-print signifier (an outline or border style change — outlined for save, filled for ask, or vice versa).",
+      "effort": "medium (HTML + ~20 lines JS to split routing; CSS for two persistent buttons)"
+    },
+    {
+      "id": "F2",
+      "area": "discoverability / feedback",
+      "surface": "Unified input — detectTextIntent heuristic (viewer.html:10020)",
+      "severity": "critical",
+      "observation": "The heuristic flips to 'ask' only if text ends with '?' OR starts with a question word from ASK_STARTERS. A user typing 'tell me about the laurel' triggers ask-mode (good); 'the laurel looks weird' does not (silently saves); 'laurel by the porch is half open' does not (silently saves) — even though Mom may have intended either to be a question. The comment in the code even acknowledges this: 'False negatives ... silently log to the Almanac — same failure mode as before this change.' This is the exact mode that failed Paul today and the heuristic merely narrows it, doesn't close it.",
+      "user_impact": "Same as F1 — silent misroute with no user-visible signal. The heuristic raises the floor but the failure mode is identical when it misses. Mom is precisely the kind of user who phrases observations as questions and questions as observations (the field-journal voice the app trains her into actively softens question/imperative markers).",
+      "principle_invoked": "Friction kills — it just works. An auto-detection layer that fails interestingly is worse than an explicit user-routing surface, especially for the make-or-break user.",
+      "recommendation": "Tied to F1. If F1 (two-button split) ships, this heuristic gets deleted — there's no auto-detection to be wrong. If F1 is rejected, the heuristic needs (a) a visible 'will route to Garden Guru' / 'will save to journal' signpost ABOVE the button in plain text the user can confirm before tapping, and (b) a post-action save-success affordance at the input surface (per cross-project candidate 'Save-success at the surface, not at the destination') showing 'Saved to the Almanac' or 'Asked Garden Guru' so Mom can catch the miss in 1-2 seconds.",
+      "effort": "low (if F1 ships, this is just a deletion) / medium (if F1 rejected, needs UI signpost + save-success affordance)"
+    },
+    {
+      "id": "F3",
+      "area": "feedback",
+      "surface": "Unified input — helper text (viewer.html:3077)",
+      "severity": "major",
+      "observation": "Helper text 'Record an observation, ask a question, suggest an improvement, or attach a photo for ID.' is 12.5px italic Crimson Text in #8a7c4a on a #faf7ed background. The italic serif at 12.5px in a muted ochre on cream is the literal definition of 'faint helper text' Mom can't parse. This text is doing the heavy lifting of explaining what the input does — but the user who most needs that explanation is the one who can't read it.",
+      "user_impact": "If F1 (two persistent buttons) ships, this helper line largely becomes redundant — the buttons themselves declare what the surface does. If not, this is the line carrying the meaning that the button labels can't, and it fails the accessibility constraint.",
+      "principle_invoked": "Make every surface read at half-engagement; Friction kills — it just works (helper text that compensates for an ambiguous affordance is the symptom)",
+      "recommendation": "Delete it after F1 ships (buttons carry the meaning). If F1 doesn't ship: rewrite shorter ('Note or question?') and bump to 14px non-italic, OR replace with two tiny inline labels above each button. Faint italic ochre is the wrong register for a load-bearing instruction.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "affordance / feedback",
+      "surface": "Garden Guru suggestion-confirm flow — Yes/No buttons (viewer.html:2435, 10219-10226)",
+      "severity": "critical",
+      "observation": "The two-step confirm buttons ('Yes, that's it' / 'Not quite' → 'Yes, add it' / 'Skip this one') are styled .gg-suggest-btn-yes / .gg-suggest-btn-no at 13px italic serif, 5px×12px padding, border-radius 14px. Yes-button background #e6efd8 (pale sage green), No-button background #fff (white) with #d4cca8 border. The visual distinction between Yes and No is a faint sage-vs-white background swap on identically-shaped pills with identical italic typography. Tap targets are well under 44px. This is the CRITICAL path of Mom's killer use case — she takes a photo, gets an ID, and her single decision is Yes/No twice.",
+      "user_impact": "Mom photographs a bird. The chat replies with the ID. She wants to confirm. Without glasses, she sees two near-identical italic pills and has to guess which is which by position (left=Yes). If she taps the wrong one, the species gets set aside or — worse — an incorrect ID promotes into canon via the auto-promote pipeline (Option C). This is a hands-on-mistake-prone-decision in a small-target, low-contrast UI.",
+      "principle_invoked": "Don Norman's signifier + feedback principles; Make every surface read at half-engagement; Explicit user-routing requires symmetric affordance weight (it does want symmetric Yes vs No, but they need to be DISTINGUISHABLE — symmetric doesn't mean indistinguishable)",
+      "recommendation": "Make Yes/No visually unambiguous WITHOUT requiring label reading: Yes = filled green pill with check glyph (✓) at 20px, No = outlined neutral pill with X glyph (×) at 20px. 44px min height. Keep position (Yes-left, No-right) consistent across both steps so muscle memory builds. Bump font to 14px non-italic. The journal voice in the labels is fine — but the glyph + fill state has to carry the decision independent of label legibility.",
+      "effort": "low (CSS-only change to .gg-suggest-btn-yes / .gg-suggest-btn-no)"
+    },
+    {
+      "id": "F5",
+      "area": "tap target",
+      "surface": "Unified input — voice/photo icon row (.ui-icon-btn, viewer.html:2280)",
+      "severity": "major",
+      "observation": "The icon buttons have min-width 56px and padding 6px 8px 4px, with a 10px UPPERCASE label below an 18px emoji. Min-height isn't explicitly set; the column likely lands ~46-52px tall. The 10px uppercase 'VOICE'/'PHOTO' label is below the accessibility threshold without glasses — it's the same '9-10px uppercase tracked label' pattern flagged in the 2026-05-11 review (F8) as reading like CMS-chrome rather than journal voice.",
+      "user_impact": "Mom probably finds these by shape (the emoji is big enough) and remembers position. The labels do nothing for her. If she ever forgets which is which, the 10px uppercase label can't help her. Tap targets are borderline (likely just over 44px in total click area, but tight).",
+      "principle_invoked": "Glyphs follow the journal voice, not the dashboard voice (Fernwood) — the 10px uppercase 'VOICE' / 'PHOTO' is dashboard-voice; Typographic hierarchy by value (cross-project)",
+      "recommendation": "Bump the label to 12px sentence case ('Voice', 'Photo') in DM Sans. Increase min-height to 52px so the touch target is comfortable. The 18px emoji is fine as the primary recognition signal. Consider the label being optional — but if it's there, make it readable.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "tap target",
+      "surface": "Photo/audio attachment remove × button (.ui-image-remove / .ui-audio-remove, viewer.html:2377, 2413)",
+      "severity": "major",
+      "observation": "22px × 22px circular button with a 14px '×'. Below the 44px iOS minimum, and the visual size is approximately one fingertip-width — Mom will mis-tap.",
+      "user_impact": "When Mom changes her mind about a photo (or accidentally attached the wrong one), she needs to confidently remove it. A 22px target with no surrounding hit-buffer means she'll tap somewhere near it, the tap will register on the photo thumb or empty space, and the photo stays attached. She doesn't realize the photo is still attached, taps submit, and the photo gets sent to Garden Guru anyway.",
+      "principle_invoked": "Apple HIG / Material Design minimum 44px tap target; Don Norman feedback — actions must be confident",
+      "recommendation": "Bump to 32px visible + 12px transparent padding (44px effective hit area). Or move the remove affordance to a 'Remove photo' text button below the preview thumb rather than a tiny × on the corner.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "hierarchy / discoverability",
+      "surface": "Dashboard strip — Tier B tiles (Vehicles & Equipment / Fernwood) (viewer.html:1879-1886, 3026-3034)",
+      "severity": "major",
+      "observation": "Tier B uses dash-small: 11px label, 10px sub. Two of the six dashboard tiles are at this smaller tier, intentionally demoted (per 2026-05-18 'live-vs-reference distinction'). For a glasses-on user the size delta reads as 'reference, not live.' For a no-glasses user, 11px/10px text is below the legibility threshold — Mom can see two small white-ish rectangles but not read what they ARE.",
+      "user_impact": "Two of six dashboard entry points are illegible. The 'Fernwood' tile (the property identity card) and 'Vehicles & Equipment' are tiles she may want — she taps them by position-memory if she remembers there are tiles there. If she doesn't, they're effectively invisible.",
+      "principle_invoked": "Make every surface read at half-engagement; Typographic hierarchy by value",
+      "recommendation": "Keep the visual demotion (the live-vs-reference distinction is good UX intent) but achieve it through means OTHER than shrinking the text below legibility — e.g., a paler background, narrower padding, dashed border, lower-contrast border color, but text at the same 12px+/10.5px+ size as Tier A. Visual demotion ≠ text demotion when text demotion crosses the legibility line.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "hierarchy",
+      "surface": "Dashboard strip — tease rows (.dash-tease-row, viewer.html:1913-1928)",
+      "severity": "major",
+      "observation": "The 'what's worth checking on each tile' tease lines (the lead that pulls Mom to tap into a card per the 'Strip teases, card holds' Fernwood principle) render at 10.5px DM Sans. The 'more' italic disclosure is 10px. The 'all clear' affirmation is 10px. These are the LEAD lines the principle says have to earn Mom's glance.",
+      "user_impact": "If Mom can't read the tease, the entire strip becomes 'six tiles with category names' and she has no way to tell which one has something new or notable. She'll either tap-everything (high friction) or skip the strip entirely (worse outcome — the strip is the landing surface). This directly attacks the success metric.",
+      "principle_invoked": "Strip teases, card holds (Fernwood) — the principle is invalidated if the tease is illegible; Make every surface read at half-engagement; Typographic hierarchy by value (this is the LEAD content — it cannot be the smallest text on screen)",
+      "recommendation": "Bump .dash-tease-row to 12.5-13px. Bump .dash-tease-more and .dash-all-clear to 11.5-12px. Tease text IS the lead — give it weight that matches its informational value. If horizontal space becomes a problem, truncate gracefully or stack rather than shrink.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "hierarchy",
+      "surface": "Card headers (.main-card-summary, viewer.html:559)",
+      "severity": "major",
+      "observation": "The summary line below each card title ('weather-summary', 'plants-summary', 'wildlife-summary', etc.) is 12.5px in #6a8a6a — a low-contrast sage green on white. This is the half-engagement read for each collapsed card (the contract Mom encounters before tapping in). The title above it is 19px Crimson Text (big and readable), but the SUMMARY — the actual content that makes her decide whether to tap in — is at the smallest readable threshold AND in low-contrast color.",
+      "user_impact": "Mom sees: a big card title she can read ('Weather', 'Plants', 'Wildlife', 'Fernwood') and a faint smaller line below it she can't. She either taps based on the title alone (no information about what's inside, just the category) or skips. The summary line is doing the half-engagement work and failing.",
+      "principle_invoked": "Make every surface read at half-engagement; Typographic hierarchy by value (the summary IS the value-carrying lead — promote its weight to match)",
+      "recommendation": "Bump .main-card-summary to 14px (matches header-subtitle, weather-condition). Darken color from #6a8a6a to ~#3a5a3a for contrast ratio adequate at no-glasses. This is the canonical 'meet the user at the action' line for each card — it deserves typographic respect.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "area": "hierarchy / consistency",
+      "surface": "Section labels across cards (.section-label, .plant-site-label, .bio-month-title, .bio-feeder-title, .bio-season-hdr, .fish-gear-title, .cel-event-meta, etc.)",
+      "severity": "major",
+      "observation": "Pervasive pattern of 9.5-11px UPPERCASE tracked labels across every card body. The 2026-05-11 zoom-out review (F8) already flagged this as reading like 'CMS-admin chrome.' For Mom without glasses: uppercase tracked text below 12px is essentially noise — she sees the shape of a divider but not what it labels. The information architecture relies on these section headers and Mom can't parse them.",
+      "user_impact": "Inside any expanded card, the sections become an undifferentiated wall — she can read the prose (13-14px) but not the section labels that tell her what kind of prose this is. Navigation within a card collapses.",
+      "principle_invoked": "Typographic hierarchy by value; Make every surface read at half-engagement; previously flagged as 2026-05-11 F8 — still unresolved across the file",
+      "recommendation": "Systematic pass: convert these to sentence-case 12-13px DM Sans medium-weight in a non-muted color (e.g., #3a5a3a or #2a4a2a). Drop letter-spacing. Keep them quiet through font-weight (500 medium) and color, not through size and case. This is a known-pattern cleanup — do it once across the file via search-replace of .section-label / similar utility classes.",
+      "effort": "medium (touches multiple CSS rules + visual regression review across cards)"
+    },
+    {
+      "id": "F11",
+      "area": "feedback",
+      "surface": "Loading states (.summary-loading, viewer.html:560 + multiple inline)",
+      "severity": "nice-to-have",
+      "observation": "Loading placeholders render as 'Listening for the station…' / 'Checking the sky…' / 'Looking at the month…' in italic Crimson Text #8aaa8a — same color/weight family as 'no data' empty states. For a no-glasses user on poor signal, the faint italic text reads as 'something is wrong / empty' rather than 'something is loading.'",
+      "user_impact": "Mom opens the dashboard on LTE, sees three faint lines, taps a card, sees more faint lines, concludes 'it's not working today.' The 2026-05-11 F9 flagged this same first-paint emptiness pattern; the issue resurfaces here under the legibility lens.",
+      "principle_invoked": "Make every surface read at half-engagement; Don Norman feedback principle",
+      "recommendation": "Loading states should pulse or move (subtle opacity animation 1.5s ease-in-out infinite) so the difference between 'loading' and 'empty' is motion, not literacy. Bump text to 13px for legibility. This was flagged 2026-05-11; the legibility lens makes it more urgent for Mom specifically.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "area": "consistency / state-communication",
+      "surface": "Garden Guru suggestion-status messages (gg-suggest-status, viewer.html:2450)",
+      "severity": "major",
+      "observation": "After Mom answers Yes/No, the result renders as 13px italic serif #6a5a30 ('Set aside — not the right ID.' / 'Drafting the entry and adding it to the journal…' / etc.) — and on success, gets a green border-left tint (.gg-promoted). The success state is differentiated by color but the various intermediate states (declined, drafting, error) are all the same italic ochre text. For a no-glasses user, post-confirmation feedback is 'a line of italic text I can't read' — she doesn't know if her tap registered, if the photo is being added, or if something went wrong.",
+      "user_impact": "After the Yes/No tap, Mom needs to know what happened — and the feedback is in the same fine-print register that caused F1. Worst case: the auto-promote pipeline is doing 3 GitHub commits behind a 'Drafting the entry…' line she can't read; she taps away thinking nothing happened, then later sees the entry appear and is confused about where it came from.",
+      "principle_invoked": "Don Norman feedback principle — action consequence must be perceivable; Make every surface read at half-engagement",
+      "recommendation": "Bump status messages to 14px non-italic. Use color + small icon to differentiate states (drafting = animated dot pulse; promoted = filled green checkmark; declined = neutral gray; error = orange triangle — but per Fernwood 'Caution as noticing' principle, gentle palette). The promoted state should be the loudest because it confirms 'your photo got added.' Currently it's the same italic register as all the others.",
+      "effort": "low-medium"
+    },
+    {
+      "id": "F13",
+      "area": "discoverability",
+      "surface": "Almanac card — star button + delete button (.fn-star-btn / .fn-entry-delete, viewer.html:2514, 2604)",
+      "severity": "nice-to-have",
+      "observation": "Star button is a 16px ★ glyph in a 2px×6px padding container. Delete is plain text 'Delete' at 11px in a muted brown #aa6a4a. The star's selected vs unselected state is color-only (#c4b478 unselected, #d4a838 starred) — both are warm yellows, indistinguishable without glasses. Delete is 11px text — below threshold.",
+      "user_impact": "The 'this matters' star is the load-bearing curation affordance shipped 2026-05-20. If Mom can't tell whether she's already starred an entry or not, the affordance becomes noise. Delete being illegible is actually somewhat protective (harder to delete by accident) but still bad UX.",
+      "principle_invoked": "Don Norman — state must be perceivable; Make every surface read at half-engagement",
+      "recommendation": "Star: unselected = outline ☆ glyph in neutral gray (#9a9a8a), selected = filled ★ in warm gold (#d4a838). Shape change carries the state without color literacy. Bump to 18-20px. Delete: 13px DM Sans, kept low-contrast as a quiet affordance (delete shouldn't be loud), but at a readable size.",
+      "effort": "low"
+    },
+    {
+      "id": "F14",
+      "area": "discoverability",
+      "surface": "Plant action tags (.tag, viewer.html:1052) and dashboard tease icons",
+      "severity": "nice-to-have",
+      "observation": "Care-type action pills ('Prune', 'Propagate', 'Fertilize', etc.) render at 10.5px font-weight 700, 2-8px padding. The dashboard strip tease icons (.dash-tease-icon) are 11px. The Fernwood Plants design system has a strong color+icon lexicon for care types (per CLAUDE.md, well-earned per the 2026-05-11 iconography review) — but the LABELS attached to that lexicon are 10.5px. The lexicon does most of the work visually, but the labels (which name the action) are tiny.",
+      "user_impact": "For Mom-already-fluent-in-the-color-lexicon, this is fine (the colors carry meaning). For Mom-still-learning or Mom-with-uncertain-recall, the label is illegible and she has to memorize that orange = prune, blue = water, etc. The lexicon is strong enough that this isn't critical, but it does add cognitive load.",
+      "principle_invoked": "Glyphs follow the journal voice, not the dashboard voice (Fernwood — the care-type system is the canonical example that earns its place); Typographic hierarchy by value",
+      "recommendation": "Bump .tag to 11.5-12px. The colored pill is doing the work; the label is the supporting explainer. At 10.5px the label is too small to be the secondary signal it should be. The care-type lexicon is the strongest part of the design system — let it scale.",
+      "effort": "low"
+    },
+    {
+      "id": "F15",
+      "area": "hierarchy / consistency",
+      "surface": "Weather card — collapsed summary + condition detail (.weather-condition #14px, .weather-detail #11.5px)",
+      "severity": "major",
+      "observation": "Weather is the most-tapped card per Paul's 2026-05-11 framing. The collapsed-state summary (rendered into #weather-summary) is the lead. The condition string is 14px (readable) but the supplementary detail line is 11.5px in #6a8a6a — the same problem as F9 but on the highest-traffic card.",
+      "user_impact": "Mom opens the dashboard primarily to see weather. Half of the weather summary information is at the legibility floor. The big 42px temperature inside the expanded card is fine, but if she's reading from the collapsed strip + summary alone (the most common case), she's missing context.",
+      "principle_invoked": "Make every surface read at half-engagement; Strip teases, card holds (the collapsed surface has to read alone); Typographic hierarchy by value",
+      "recommendation": "Bump .weather-detail to 13px and darken the color slightly. Same prescription as F9; the weather card is the canonical instance.",
+      "effort": "low"
+    },
+    {
+      "id": "F16",
+      "area": "consistency",
+      "surface": "Sources card — entry titles + framing (viewer.html:2980-2985)",
+      "severity": "nice-to-have",
+      "observation": "Sources card entries: link title 13.5px DM Sans #2a4a6a, framing line 13px Crimson italic #6a7a6a. The 13px italic framing line is borderline for the no-glasses constraint. Sources card is appendix material — lower priority for Mom — so this is less urgent than the action surfaces.",
+      "user_impact": "Mom may never deeply read this card. If she does, she'll bounce off the framing italics.",
+      "principle_invoked": "Make every surface read at half-engagement (downscaled — this is appendix content)",
+      "recommendation": "Defer until other surfaces fixed. If touched, bump both to 14px non-italic for body, italic only for the framing line — and 13.5-14px instead of 13px.",
+      "effort": "low"
+    }
+  ],
+  "prioritization_for_paul": {
+    "ship_this_week": ["F1 (button split — the canonical failure)", "F2 (deletes itself when F1 ships)", "F4 (Yes/No buttons — critical-path photo flow)"],
+    "ship_with_F1_polish_pass": ["F3 (helper text)", "F12 (Garden Guru status messages)"],
+    "ship_as_a_systematic_pass": ["F8 (dashboard tease rows — the lead surface)", "F9 (card summaries — half-engagement)", "F10 (section labels — file-wide)", "F15 (weather detail)"],
+    "low_effort_quick_wins": ["F5 (icon row labels)", "F6 (× remove buttons)", "F7 (Tier B dashboard tiles)", "F11 (loading state motion)", "F13 (star state-by-shape)", "F14 (action pill size)"],
+    "deferrable": ["F16 (Sources card)"]
+  },
+  "open_questions_for_user": [
+    "Two-button split vs. enhanced single-button with stronger color/icon contrast (F1)? My strong recommendation is the split — it eliminates the routing problem entirely rather than working around it — but Paul resisted that shape in the 2026-05-20 redesign. Worth a fresh look given today's validated failure.",
+    "Is Mom willing to do a quick visual pressure-test? E.g., Paul shows her the dashboard at arm's length without glasses, asks her to point to 'where you would tap to ask a question' vs 'where you would tap to save a note.' That single test would calibrate whether F1's structural fix is worth the change cost. Recommend before shipping.",
+    "Does Mom prefer larger text site-wide via OS-level Dynamic Type, or is the implicit assumption that she's using default system settings? If she's already running iOS Dynamic Type at Large or XL, some of these findings are already partially mitigated and could move down in priority.",
+    "The 2026-05-22 partial fix (icon + color swap on the submit button) — was this a quick mitigation in response to today's failure, or considered enough? Asking because the audit reads it as 'good first move but not sufficient'; want to confirm Paul views it the same way."
+  ],
+  "follow_up_research_suggested": [
+    "Quick squint-test session: Paul shows Mom the dashboard live without glasses, narrates what she can/can't see at the unified input + key cards. Validates the prioritization in this audit against her actual visual acuity, not WCAG-derived thresholds.",
+    "Telemetry signal: does the 'metrics:YYYY-MM-DD' KV log show silent-misroute incidents — instances where Mom typed text-only and the entry landed in the Almanac (vs Garden Guru) within the same session window where she was probably asking? If so, the rate quantifies F1's actual cost.",
+    "Worth a content-steward check on whether splitting the button into 'Save to journal' / 'Ask Garden Guru' (F1 recommendation) damages the field-journal tone — my read is it doesn't, because both labels are voice-aligned, but content-steward owns the call."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Critical state changes must be telegraphed by signifiers the user can perceive at their actual reading capability — not the design's idealized reader.",
+      "scope": "fernwood (initially) — Mom's no-glasses constraint is the project-specific calibration; could promote cross-project once a second project surfaces a similar constraint",
+      "rationale": "The 2026-05-22 failure (silent routing via label-only signifier) is the canonical case. The current Fernwood principles cover tone-coherence and half-engagement reading, but neither directly addresses the accessibility-as-design-constraint dimension that's now load-bearing for the make-or-break user. This principle would name it explicitly so future reviews catch this class of failure at design time, not after deployment."
+    },
+    {
+      "principle": "If a route choice is non-reversible or has downstream side effects (writes to canon, sends to AI, posts to a destination card), the affordance must be EXPLICIT not auto-detected — and the explicit affordance must be visually distinguishable at the user's reading capability.",
+      "scope": "cross-project candidate (already partially covered by 'Scope is communicated by where you tap, not auto-detected' from houseplants pre-UI review — this is the second occurrence that would validate that candidate)",
+      "rationale": "The same 'scope is communicated by where you tap' pattern from houseplants now applies to Fernwood — silent routing failed for the same structural reason. Validates the candidate as a real cross-project principle, not a houseplants-specific concern."
+    }
+  ]
+}
