@@ -2025,6 +2025,97 @@
         "fromCommonName": "Endless Summer Pop Star Reblooming Hydrangea",
         "fromScientificName": "Hydrangea macrophylla 'NCHA3' (Pop Star cultivar)"
       }
+    },
+    {
+      "id": "spiderwort",
+      "name": "Spiderwort",
+      "scientificName": "Tradescantia virginiana",
+      "emoji": "🟣",
+      "guide": "The spiderwort on the property is a native eastern wildflower at home in moist woodland edges and dappled shade — exactly the habitat Church Mountain Road offers. The three-petaled purple-blue flowers open in morning and close by afternoon, but the plant produces new buds continuously through late spring and early summer. Extremely low-maintenance once established; spreads by self-seeding and underground rhizomes. Totally harmless to wildlife and pets. The common name references the spidery quality of the stamens and the thread-like leaf bases.",
+      "currentSeasonNote": "Late May at Church Mountain Road — peak bloom time. The plant flowers most prolifically in cool moist spring weather; as temperatures rise and daylength increases through June, bloom slows (the flowers are sensitive to heat and bright afternoon sun). Right now is prime time to enjoy the display. Deadheading spent flowers extends bloom, but spiderwort self-seeds readily if you leave flowers to mature — both approaches work.",
+      "soilNotes": "Ideally suited to Church Mountain Road's Hayesville/Cecil/Pacolet soils. Prefers moist, well-drained loam rich in organic matter at pH 5.5–7.0 — the native slightly acidic (4.5–5.5) mountain soils are acceptable, especially when amended with compost or leaf mulch. Tolerates seasonal wet feet better than many woodland plants but despises permanently waterlogged clay subsoil. Established plants are reasonably drought-tolerant once their rhizomes are deep, but spring through early summer moisture (when actively flowering and setting seed) is critical for the best display.",
+      "aspectPreference": "Partial shade to dappled sun — north and east-facing woodland edges are ideal at Church Mountain Road. Morning sun with afternoon shade from the forest canopy is the sweet spot. Too much afternoon heat and bright sun causes the flowers to wilt and close early in the day. Full shade reduces flowering significantly. The moist woodland edge habitat at this elevation is perfect — the plant does not thrive in hot, dry, full-sun locations even with irrigation.",
+      "frostSensitivity": "Hardy USDA Zone 3 — extremely cold-tolerant. No frost concerns at Church Mountain Road elevation. The foliage emerges in late April at ~2,959 ft (about 1–2 weeks later than lowland Georgia) and can handle a late frost without damage. The emerging shoots are soft and bright green but recover quickly from frost. Established rhizomes are completely frost-proof and persist through winter.",
+      "care": {
+        "prune": {
+          "months": [
+            4,
+            5,
+            6
+          ],
+          "peakWindow": "May 20–Jun 15 — as first flush of flowers begins to fade",
+          "narrow": false,
+          "description": "Deadheading extends bloom significantly — remove spent flowers just below the flower head on the stem to prevent seed formation and redirect energy into new bud development. At Church Mountain Road elevation, deadheading through early June maintains peak flowering. After late June as temperatures rise and daylength peaks, deadheading becomes less critical and the plant's energy naturally shifts toward seed production and vegetative growth. Optional: cut back the entire plant (stems and foliage) to 6 inches after the main bloom window ends in mid-to-late June — this encourages fresh new growth and sometimes produces a secondary lighter bloom flush in late summer or early fall."
+        },
+        "propagate": {
+          "months": [
+            3,
+            4,
+            8,
+            9
+          ],
+          "peakWindow": "Sep–Oct seed collection; early spring division",
+          "narrow": false,
+          "description": "Two methods: (1) Division — in early spring (Mar–Apr) before active growth or in fall (Aug–Sep) after bloom, carefully dig and separate the rhizome-connected plantlets. Each piece with roots and a fan of leaves will establish quickly if replanted immediately at the same depth and kept consistently moist for the first season. (2) Seed — let mature seedpods dry on the plant through summer; collect in September–October and direct-sow in a prepared bed or cold frame. Seed germinates readily without stratification if given moisture and cool nights (fall sowing is most reliable). Seedlings appear in spring and reach flowering size in 1–2 years. The property's native soil supports self-seeding naturally — volunteers often appear nearby if you leave flowers unmulched."
+        },
+        "fertilize": {
+          "months": [
+            2,
+            3,
+            5
+          ],
+          "peakWindow": "Mar–Apr before active growth; May–early Jun before peak bloom",
+          "narrow": false,
+          "description": "Light hand. Early spring (Mar–Apr) with a balanced slow-release fertilizer (e.g., Plant-tone or 10-10-10) awakens the plant after dormancy. A second light application in late April–early May supports robust flowering. Church Mountain Road's naturally organic-matter-rich soil and annual leaf mulch additions usually provide sufficient nutrition — over-fertilizing produces lush foliage at the expense of flowers and promotes weak growth susceptible to fungal disease in humid conditions. If plants are yellowing or obviously stunted, a soil test through UGA Extension is worth the $9."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Critical April through early July when actively flowering and setting seed. Deep soaking once a week beats daily light watering — the goal is moist but not waterlogged soil. At Church Mountain Road's estimated 62–68 in/yr precipitation (valley baseline 57 in plus 5–15% orographic lift), established plants in good drainage rarely need supplemental summer water except during drought stretches. Spring through early June is the priority window — consistent moisture at this time ensures peak bloom and good seed set. Apply 2–3 inches of leaf-litter mulch year-round to retain moisture and moderate soil temperature."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — spiderwort is a landscape perennial, not a container plant."
+        },
+        "inspect": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Generally pest- and disease-free. In very humid summers (Church Mountain Road's 70–90% summer RH), watch for leaf spot diseases or occasional powdery mildew on lower foliage — mostly cosmetic. Improve air circulation by removing lower spent leaves and avoiding overhead watering. The plant is rarely bothered by insects. If slugs damage the emerging foliage in spring, apply iron-phosphate bait (Sluggo) around the base in April."
+        }
+      },
+      "photo": "images/plants/spiderwort.jpg",
+      "attribution": {
+        "source": "Phase F submission",
+        "author": "user",
+        "license": "Property record",
+        "url": null,
+        "submittedAt": "2026-05-22T20:39:10.044Z"
+      },
+      "_phaseF": {
+        "promotedAt": "2026-05-22T20:39:10.044Z",
+        "conversationId": "mphdtjyn-ppknh",
+        "deviceId": null,
+        "confidence": "high",
+        "elevationFit": "Native to eastern deciduous forest; very plausible at 2,959 ft in moist woodland edges",
+        "habitatHint": "Moist woodland edges, part shade, self-seeding",
+        "fromCommonName": "Spiderwort",
+        "fromScientificName": "Tradescantia virginiana"
+      }
     }
   ]
 }
