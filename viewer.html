@@ -125,7 +125,7 @@
   .bio-section { padding: 14px 18px; }
   .bio-intro { font-size: 13px; color: #3a5030; line-height: 1.55; margin-bottom: 12px; padding: 10px 12px; background: #f4fbf0; border-left: 3px solid #7ab870; border-radius: 0 8px 8px 0; }
   .bio-month-highlight { background: #f0f8ec; border: 1.5px solid #c0dca8; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
-  .bio-month-title { font-size: 11px; font-weight: 700; color: #5a8050; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+  .bio-month-title { font-size: 12.5px; font-weight: 600; color: #2a5a2a; margin-bottom: 6px; }
   .bio-active-chips { display: flex; flex-wrap: wrap; gap: 5px; }
   .bio-chip { font-size: 11.5px; padding: 3px 9px; border-radius: 20px; font-weight: 600; }
   .bio-chip.resident  { background: #e4f4dc; color: #3a6830; border: 1px solid #b8dca8; }
@@ -216,12 +216,12 @@
   .bio-month-cell.active { background: #6ab860; }
   .bio-month-cell.peak   { background: #3a9020; }
   .bio-season-cal { margin-top: 14px; }
-  .bio-season-hdr { font-size: 11px; font-weight: 700; color: #5a8050; text-transform: uppercase; letter-spacing: 0.6px; padding: 0 0 6px 0; border-bottom: 1px solid #d8eacc; margin-bottom: 8px; }
+  .bio-season-hdr { font-size: 12.5px; font-weight: 600; color: #2a5a2a; padding: 0 0 6px 0; border-bottom: 1px solid #d8eacc; margin-bottom: 8px; }
   .bio-season-row { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f0f8e8; align-items: flex-start; }
   .bio-season-month { font-size: 11px; font-weight: 700; color: #5a8050; width: 28px; flex-shrink: 0; padding-top: 1px; }
   .bio-season-text { font-size: 12px; color: #3a4a30; line-height: 1.5; flex: 1; }
   .bio-feeder-panel { background: #f4fbf0; border: 1.5px solid #c8e8b8; border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
-  .bio-feeder-title { font-size: 11px; font-weight: 700; color: #5a8050; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+  .bio-feeder-title { font-size: 12.5px; font-weight: 600; color: #2a5a2a; margin-bottom: 8px; }
   .bio-feeder-row { font-size: 12px; color: #3a4a30; line-height: 1.55; padding: 4px 0; border-bottom: 1px solid #e0f0d4; }
   .bio-feeder-row:last-child { border-bottom: none; }
   .bio-feeder-label { font-weight: 600; color: #2a5020; }
@@ -316,7 +316,7 @@
   .fish-tips-list li { font-size: 12px; color: #3a5a3a; padding-left: 16px; position: relative; line-height: 1.5; }
   .fish-tips-list li::before { content: "→"; position: absolute; left: 0; color: #4a9a6a; font-weight: 700; }
   .fish-gear-block { background: #f0f8f4; border: 1.5px solid #c0dcc8; border-radius: 10px; padding: 10px 12px; }
-  .fish-gear-title { font-size: 11px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: #2a6a4a; margin-bottom: 6px; }
+  .fish-gear-title { font-size: 12.5px; font-weight: 600; color: #1a5a3a; margin-bottom: 6px; }
   .fish-gear-row { font-size: 12px; color: #1a3a1a; margin-bottom: 3px; }
   .fish-gear-label { font-weight: 600; color: #2a5a3a; }
   .fish-lure-chip {
@@ -556,7 +556,10 @@
 
   .main-card-meta { flex: 1; min-width: 0; }
   .main-card-title { font-family: "Crimson Text", Georgia, serif; font-size: 19px; font-weight: 600; color: #1a3a1a; line-height: 1.2; }
-  .main-card-summary { font-size: 12.5px; color: #6a8a6a; margin-top: 2px; line-height: 1.4; }
+  /* Half-engagement read for each collapsed card. Bumped from 12.5px → 14px
+     and darkened sage to darker green (ux-expert F9, 2026-05-22) so the summary
+     line that decides whether Mom taps in is legible without glasses. */
+  .main-card-summary { font-size: 14px; color: #3a5a3a; margin-top: 3px; line-height: 1.45; }
   .summary-loading { font-family: "Crimson Text", Georgia, serif; font-style: italic; color: #8aaa8a; }
   .main-card-chevron { color: #9bbf9b; font-size: 14px; flex-shrink: 0; transition: transform 0.2s; }
   .main-card.expanded .main-card-chevron { transform: rotate(180deg); }
@@ -618,7 +621,8 @@
   .weather-temp { font-family: "Crimson Text", serif; font-size: 42px; font-weight: 600; color: #183524; line-height: 1; }
   .weather-condition-block { flex: 1; }
   .weather-condition { font-size: 14px; font-weight: 600; color: #2a4a2a; }
-  .weather-detail { font-size: 11.5px; color: #6a8a6a; margin-top: 2px; line-height: 1.5; }
+  /* Weather detail line — highest-traffic card, same prescription as F9 (ux-expert F15). */
+  .weather-detail { font-size: 13px; color: #3a5a3a; margin-top: 3px; line-height: 1.5; }
   .weather-icon-big { font-size: 36px; }
 
   /* === DATA SOURCE TAGS — make it clear what's live on-property vs forecast vs reference === */
@@ -916,10 +920,10 @@
     border-radius: 11px; padding: 8px 6px; text-align: center;
   }
   .forecast-day.today { background: linear-gradient(135deg, #2a6040, #3d8a5e); border-color: #2a6040; color: #fff; }
-  .fday-name { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #5a7a5a; margin-bottom: 4px; }
+  .fday-name { font-size: 12px; font-weight: 700; color: #3a5a3a; margin-bottom: 4px; }
   .forecast-day.today .fday-name { color: rgba(255,255,255,0.85); }
   .fday-icon { font-size: 20px; margin: 2px 0; line-height: 1; }
-  .fday-temps { font-size: 11.5px; margin-top: 4px; }
+  .fday-temps { font-size: 13px; margin-top: 4px; }
   .fday-high { font-weight: 700; color: #1a3a1a; }
   .forecast-day.today .fday-high { color: #fff; }
   .fday-low { color: #6a8a6a; margin-left: 3px; }
@@ -1049,7 +1053,7 @@
   .plant-name { font-size: 16px; font-weight: 600; color: #1a3a1a; font-family: "Crimson Text", Georgia, serif; }
   .plant-sci { font-size: 11.5px; color: #7a9a7a; font-style: italic; font-family: "Crimson Text", serif; margin-left: 6px; }
   .plant-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
-  .tag { border-radius: 20px; padding: 2px 8px; font-size: 10.5px; font-weight: 700; }
+  .tag { border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
   .plant-empty { font-size: 11px; color: #a0b8a0; margin-top: 5px; }
   .chevron { color: #b0c8a8; font-size: 12px; margin-top: 4px; flex-shrink: 0; transition: transform 0.2s; }
   .plant.expanded .chevron { transform: rotate(180deg); }
@@ -1057,7 +1061,10 @@
   .plant-body { display: none; border-top: 1px solid #e4f0d8; padding: 14px 15px 16px; }
   .plant.expanded .plant-body { display: block; }
   .plant-guide { font-size: 13.5px; line-height: 1.65; color: #2a4a2a; font-family: "Crimson Text", Georgia, serif; margin-bottom: 14px; }
-  .section-label { font-size: 10.5px; font-weight: 700; color: #5a8a5a; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 9px; }
+  /* Section label — was 10.5px UPPERCASE tracked, illegible without glasses.
+     Sentence case + medium weight + non-muted color keeps the "quiet header" feel
+     without breaking the legibility floor (ux-expert F10, 2026-05-22). */
+  .section-label { font-size: 12.5px; font-weight: 600; color: #2a5a2a; margin-bottom: 9px; }
 
   .care-block-parent { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed #e4f0d8; }
   .care-block-parent:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
@@ -1118,7 +1125,7 @@
   .plant-site-panel { background: #f7fbf2; border-radius: 9px; padding: 11px 13px; margin-top: 7px; }
   .plant-site-row { margin-bottom: 8px; }
   .plant-site-row:last-child { margin-bottom: 0; }
-  .plant-site-label { font-size: 10px; font-weight: 700; color: #5a8a5a; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+  .plant-site-label { font-size: 12px; font-weight: 600; color: #2a5a2a; margin-bottom: 2px; }
   .plant-site-val { font-size: 12.5px; color: #2a4a2a; font-family: "Crimson Text", Georgia, serif; line-height: 1.55; }
   .plant-site-toggle { cursor: pointer; user-select: none; display: flex; align-items: center; gap: 5px; }
   .plant-site-toggle .site-chevron { font-size: 9px; color: #8ab08a; transition: transform 0.2s; }
@@ -1816,7 +1823,7 @@
     font-size: 12.5px; font-weight: 700; color: #1a2a6a;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .cel-event-meta { font-size: 10.5px; color: #6a7aaa; margin-top: 2px; }
+  .cel-event-meta { font-size: 12px; color: #4a5a8a; margin-top: 3px; }
   .cel-vis-excellent { color: #c8a050; font-weight: 600; }
   .cel-vis-good     { color: #a89060; }
   .cel-vis-fair     { color: #8a8070; opacity: 0.85; }
@@ -1882,8 +1889,11 @@
     border-radius: 9px;
     padding: 6px 10px 6px;
   }
-  .dash-cell.dash-small .dash-cell-label { font-size: 11px; margin-bottom: 1px; }
-  .dash-cell.dash-small .dash-cell-sub { font-size: 10px; color: #6a8a6a; margin-top: 2px; line-height: 1.4; }
+  /* Tier B keeps the visual demotion via background, border, and tighter padding —
+     but text stays at Tier-A size so the labels remain readable without glasses
+     (per ux-expert F7, 2026-05-22). */
+  .dash-cell.dash-small .dash-cell-label { font-size: 12px; margin-bottom: 2px; }
+  .dash-cell.dash-small .dash-cell-sub { font-size: 11.5px; color: #3a5a3a; margin-top: 3px; line-height: 1.4; }
   .dash-tier-b { margin-top: 10px; gap: 6px; }
   @media (max-width: 480px) {
     .dash-strip-inner { grid-template-columns: 1fr; }
@@ -1905,27 +1915,30 @@
     letter-spacing: -0.2px;
   }
   .dash-cell-sub {
-    font-size: 10px;
-    color: #6a8a6a;
+    font-size: 11.5px;
+    color: #3a5a3a;
     margin-top: 4px;
     line-height: 1.4;
   }
+  /* Dashboard tease — the lead that earns Mom's glance into a card.
+     Bumped from 10.5px → 12.5px (ux-expert F8, 2026-05-22) so the line that
+     actually does the pulling-in work is legible without glasses. */
   .dash-tease-row {
     display: flex;
     align-items: flex-start;
-    gap: 5px;
-    margin-top: 4px;
-    font-size: 10.5px;
-    line-height: 1.35;
-    color: #2a4a2a;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: #1a3a1a;
   }
-  .dash-tease-row:first-child { margin-top: 5px; }
-  .dash-tease-icon { flex-shrink: 0; font-size: 11px; }
+  .dash-tease-row:first-child { margin-top: 6px; }
+  .dash-tease-icon { flex-shrink: 0; font-size: 14px; }
   .dash-tease-body { min-width: 0; }
-  .dash-tease-action { font-weight: 700; color: #1a3a1a; }
-  .dash-tease-names { color: #6a8a6a; }
-  .dash-tease-more { font-style: italic; color: #8a9a8a; font-size: 10px; margin-top: 3px; }
-  .dash-all-clear { font-size: 10px; color: #3a8a3a; font-weight: 600; margin-top: 3px; display: block; }
+  .dash-tease-action { font-weight: 700; color: #102810; }
+  .dash-tease-names { color: #3a5a3a; }
+  .dash-tease-more { font-style: italic; color: #6a7a6a; font-size: 11.5px; margin-top: 4px; }
+  .dash-all-clear { font-size: 11.5px; color: #2a6a2a; font-weight: 600; margin-top: 4px; display: block; }
   /* Week-tier callout: serif italic to match the almanac register */
   .dash-tease-week { margin-top: 6px; padding-top: 5px; border-top: 1px dashed #d4e4c8; }
   .dash-tease-week .dash-tease-action { font-family: "Crimson Text", Georgia, serif; font-style: italic; font-weight: 600; color: #3a6a3a; }
@@ -2142,13 +2155,6 @@
     padding: 12px 14px 10px;
     margin-bottom: 14px;
   }
-  .ui-input-helper {
-    font-family: "Crimson Text", Georgia, serif;
-    font-style: italic;
-    font-size: 12.5px;
-    color: #8a7c4a;
-    margin-top: 6px;
-  }
   .ui-input-row {
     display: flex;
     gap: 8px;
@@ -2308,9 +2314,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1px;
-    min-width: 56px;
-    padding: 6px 8px 4px;
+    gap: 3px;
+    min-width: 64px;
+    min-height: 52px;
+    padding: 8px 10px;
     border-radius: 10px;
     border: 1px solid #d4cca8;
     background: #fff;
@@ -2323,16 +2330,16 @@
   }
   .ui-icon-btn:hover, .ui-icon-btn:active { background: #f4ecd6; transform: scale(0.97); }
   .ui-icon-btn .icon-emoji {
-    font-size: 18px;
+    font-size: 22px;
     line-height: 1;
   }
   .ui-icon-btn .icon-label {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.1;
     font-weight: 600;
-    color: #6a5a30;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    color: #3a4a2a;
+    letter-spacing: 0;
+    text-transform: none;
   }
   .ui-icon-btn .icon-beta {
     position: absolute;
@@ -2487,45 +2494,88 @@
   }
   .gg-suggest-btn-no::before { content: "\00d7"; color: #8a7a4a; font-size: 24px; }
   .gg-suggest-btn-no:hover, .gg-suggest-btn-no:active { background: #f4ecd6; border-color: #8a7a4a; }
+  /* Garden Guru post-confirm status (ux-expert F12, 2026-05-22).
+     Up from 13px italic ochre to 14px non-italic. Differentiated state-by-state
+     via color + leading glyph so a user who can't reliably parse fine print still
+     knows: drafting (waiting), promoted (success), declined (set aside), error. */
   .gg-suggest-status {
     font-family: "Crimson Text", Georgia, serif;
-    font-style: italic;
-    font-size: 13px;
-    color: #6a5a30;
-    margin-top: 6px;
+    font-size: 14px;
+    color: #4a5030;
+    margin-top: 8px;
+    padding-left: 22px;
+    position: relative;
+    line-height: 1.5;
   }
-  /* Phase F Option C — two-step confirm + promotion status */
+  .gg-suggest-status::before {
+    content: "·";
+    position: absolute;
+    left: 6px;
+    top: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #8a8270;
+  }
   .gg-suggest-prompt {
     font-family: "Crimson Text", Georgia, serif;
-    font-style: italic;
-    font-size: 13.5px;
-    color: #5a5030;
-    margin-top: 8px;
-    margin-bottom: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2a3a1a;
+    margin-top: 10px;
+    margin-bottom: 4px;
   }
+  /* Drafting / waiting — uses a tail of dots to signal progress */
+  .gg-suggest-status.gg-drafting::before {
+    content: "\2026"; /* … */
+    color: #7a8a3a;
+    font-weight: 700;
+  }
+  /* Promoted = success. Loud-ish (success deserves to be the loudest of the four). */
   .gg-suggest-status.gg-promoted {
-    background: #f0f7e0;
-    border-left: 2px solid #6a8a4a;
-    padding: 8px 11px;
+    background: #ecf5d8;
+    border-left: 4px solid #4a7a2a;
+    padding: 10px 12px 10px 32px;
     border-radius: 6px;
-    color: #3a4a2a;
-    font-style: normal;
+    color: #1a3a0a;
+  }
+  .gg-suggest-status.gg-promoted::before {
+    content: "\2713"; /* ✓ */
+    left: 12px;
+    color: #2a6a1a;
+    font-weight: 700;
+    font-size: 18px;
+    top: 8px;
   }
   .gg-suggest-status.gg-promoted .gg-suggest-timer {
     display: inline-block;
-    margin-top: 4px;
+    margin-top: 6px;
     font-family: "DM Sans", system-ui, sans-serif;
-    font-size: 12px;
-    color: #6a7a4a;
+    font-size: 12.5px;
+    color: #4a6a2a;
     letter-spacing: 0.02em;
   }
+  /* Declined / set aside = neutral. Quiet acknowledgement. */
+  .gg-suggest-status.gg-declined {
+    color: #5a5a4a;
+  }
+  .gg-suggest-status.gg-declined::before {
+    content: "\2014"; /* — em-dash */
+    color: #8a8a7a;
+  }
+  /* Error = caution. Uses gentle palette per Fernwood tone. */
   .gg-suggest-status.gg-error {
-    background: #faf0e8;
-    border-left: 2px solid #aa5a4a;
-    padding: 8px 11px;
+    background: #f8ece4;
+    border-left: 4px solid #b86038;
+    padding: 10px 12px 10px 32px;
     border-radius: 6px;
-    color: #6a3a2a;
-    font-style: normal;
+    color: #5a2a1a;
+  }
+  .gg-suggest-status.gg-error::before {
+    content: "\26A0"; /* ⚠ */
+    left: 10px;
+    color: #b86038;
+    font-size: 16px;
+    top: 9px;
   }
 
   /* Almanac star + filter */
@@ -3130,7 +3180,6 @@
       <span class="ui-audio-preview-meta" id="ui-audio-preview-meta"></span>
       <button class="ui-audio-remove" id="ui-audio-remove" type="button" aria-label="Remove attached audio">×</button>
     </div>
-    <div class="ui-input-helper">Record an observation, ask a question, suggest an improvement, or attach a photo for ID.</div>
     <div class="ui-conversation" id="ui-conversation" hidden></div>
     <div class="ui-actions">
       <span id="ui-mic-hint" class="ui-mic-hint"></span>
@@ -10249,11 +10298,11 @@ const UnifiedInput = (function () {
               html += '<button class="gg-suggest-btn-no" data-action="add-no" type="button">Skip this one</button>';
               html += '</div>';
             } else if (status === "id-declined") {
-              html += '<div class="gg-suggest-status">Set aside — not the right ID.</div>';
+              html += '<div class="gg-suggest-status gg-declined">Set aside — not the right ID.</div>';
             } else if (status === "add-declined") {
-              html += '<div class="gg-suggest-status">Set aside — not adding this one.</div>';
+              html += '<div class="gg-suggest-status gg-declined">Set aside — not adding this one.</div>';
             } else if (status === "promoting") {
-              html += '<div class="gg-suggest-status">Drafting the entry and adding it to the journal…</div>';
+              html += '<div class="gg-suggest-status gg-drafting">Drafting the entry and adding it to the journal…</div>';
             } else if (status === "promoted") {
               const elapsedMs = Date.now() - (t.promotedAtMs || Date.now());
               const elapsedSec = Math.floor(elapsedMs / 1000);
