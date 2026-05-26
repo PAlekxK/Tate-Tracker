@@ -102,6 +102,59 @@ async function saveObservations(env, arr) {
   await env.OBSERVATIONS.put(OBS_KEY, JSON.stringify(arr));
 }
 
+// One-time cleanup endpoint: walks observations:all and strips base64
+// image/audio blobs from conversation.turns[].content arrays. Returns
+// before/after byte counts so we can confirm the win. Idempotent — entries
+// already lean pass through unchanged. Auth-gated (SHARED_TOKEN required).
+function sanitizeEntryForKV(entry) {
+  if (!entry || typeof entry !== "object") return entry;
+  const conv = entry.conversation;
+  if (!conv || !Array.isArray(conv.turns)) return entry;
+  let touched = false;
+  const leanTurns = conv.turns.map(t => {
+    if (!t || typeof t !== "object") return t;
+    if (!Array.isArray(t.content)) return t;
+    touched = true;
+    const text = t.content.filter(b => b && b.type === "text").map(b => b.text || "").join(" ").trim();
+    return {
+      role: t.role,
+      content: text,
+      ts: t.ts,
+      suggestion: t.suggestion,
+      suggestionStatus: t.suggestionStatus,
+      hasPhoto: t.content.some(b => b && b.type === "image"),
+      hasAudio: t.content.some(b => b && b.type === "input_audio"),
+    };
+  });
+  if (!touched) return entry;
+  return {
+    ...entry,
+    hasPhoto: entry.hasPhoto || leanTurns.some(t => t && t.hasPhoto),
+    conversation: { ...conv, turns: leanTurns },
+  };
+}
+
+async function handleAdminCleanObservations(request, env) {
+  if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
+  const arr = await loadObservations(env);
+  const beforeBytes = JSON.stringify(arr).length;
+  let touchedCount = 0;
+  const cleaned = arr.map(e => {
+    const sanitized = sanitizeEntryForKV(e);
+    if (sanitized !== e) touchedCount++;
+    return sanitized;
+  });
+  await saveObservations(env, cleaned);
+  const afterBytes = JSON.stringify(cleaned).length;
+  return json({
+    total: arr.length,
+    touched: touchedCount,
+    beforeBytes,
+    afterBytes,
+    savedBytes: beforeBytes - afterBytes,
+  });
+}
+
 async function handleObservations(request, env, url) {
   const segments = url.pathname.split("/").filter(Boolean);
   const id = segments[2] || null;
@@ -1583,7 +1636,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -1609,6 +1662,7 @@ export default {
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
     if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
+    if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
