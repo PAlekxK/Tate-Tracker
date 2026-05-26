@@ -4,7 +4,11 @@ Plants worth thinking about adding to Fernwood, especially natives, protected sp
 
 **Direction set by Paul (2026-05-19):** "We should think about eventually having a piece of, or collection of information curated around plants to try to plant, especially focusing on what's native, things that are protected that we can try to foster, especially if we can try to support the local ecology."
 
-This file is intentionally light right now — it's a placeholder so the thread isn't lost, and a hook to grow into a structured collection later.
+**Thread activated 2026-05-26.** Win-state locked: operational + reference (start with 3-5 candidates plantable fall 2026 / spring 2027, structured so the same artifact grows into the durable reference). Surface: dashboard "Candidates" card with structured JSON. Sourcing: programs + named nurseries + freshness tags.
+
+**Discovery pass complete.** Full landscape, four-tier mental model, candidate categories, schema proposal, card design directions, and open questions live at [`.research/2026-05-26-plants-to-consider-discovery.md`](.research/2026-05-26-plants-to-consider-discovery.md). The sections below are the seed material the discovery pass built on.
+
+**Imminent flag:** GNPS North Georgia Mountains chapter sale Saturday May 30, 2026, Union County Farmers Market, Blairsville (~45 min from Fernwood). Most ecologically-aligned single sourcing event of the year.
 
 ---
 
@@ -53,10 +57,16 @@ Full list with habitat associations: [GA DNR Natural Communities thumbnail PDF](
 
 ---
 
-## To do when the thread becomes active
+## Next steps (post-discovery, 2026-05-26)
 
-1. Decide on a structured schema (similar to plants.json but with "considering" status) vs keeping this as a free-form markdown reference.
-2. Pull more concrete candidates from research-resources.md Cat 2 — the existing research already covers a lot.
-3. Add zone-affinity hints once the map zones are stable.
-4. Cross-reference with anything Paul finds in the field (observations + Phase G).
-5. Add Birds Georgia & GNPS native plant sale calendars when those data feeds get scoped.
+1. **Session 2 — schema design.** Lock the `candidates.json` + `sources.json` shapes; freshness convention; promotion path (candidate → planted). Discovery doc has a starting draft.
+2. **Session 3 — card design.** Engage ux-expert + content-steward for the Candidates card. Voice, naming, Mom-mode considerations.
+3. **Session 4 — build.** Implement JSON + card render. Populate first operational batch (3-5 candidates Paul plants fall 2026 / spring 2027).
+4. **Parallel — chase the gaps surfaced in discovery:**
+   - UGA SBG/GNPI 2025 nursery list PDF is 404; contact jceska@uga.edu for current URL.
+   - TACF GA chapter — confirm landowner participation pathway.
+   - HRI — current resistant-hemlock-stock sourcing path.
+   - GFC 2026-2027 seedling species catalog (publishes ~July 1).
+   - Mt. Cuba current top picks for hydrangea, monarda, baptisia, echinacea, coreopsis.
+5. **Parallel — zone-naming pass.** The map view is paused awaiting Paul's zone vocabulary. Candidates `zoneAffinity` depends on it. ~30-min conversation.
+6. **Cross-reference with field observations.** When Paul or Mom spot a candidate species already present (galax, trailing arbutus, lady's slipper), promote it from "consider sourcing" to "foster what's here."
