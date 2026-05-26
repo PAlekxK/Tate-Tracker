@@ -1,0 +1,138 @@
+{
+  "_meta": {
+    "lastBuilt": "2026-05-26",
+    "purpose": "Plants we might bring back to Fernwood. Distinct from plants.json — that file tracks what is on the property; this file tracks what could be. Per the depth filter, every candidate has to fit Fernwood's actual reality: 2,959 ft Blue Ridge, zone 6b, Cove Forest + Low-to-Mid Elevation Oak Forest mosaic with potential Seepage Wetlands in the spring drainage.",
+    "communityReference": "Natural Communities of Blue Ridge Ecoregion (GNPS, adapted from Edwards, Ambrose, Kirkman 2013 UGA Press)",
+    "categories": {
+      "restoration": "Multi-decade canopy / regional restoration species. Slow, relational (TACF, HRI). Most ecologically meaningful.",
+      "keystone": "Tallamy-defined keystone genera for Blue Ridge ecoregion — species that support disproportionate caterpillar / Lepidoptera diversity (oaks 400+, cherries 450+, willows 380+).",
+      "rich-cove": "Special-concern flora of the rich cove community. Look-don't-pick if found on the property; if planting, only ethical-propagation sources.",
+      "cultivar-trial": "Native genus with a published Mt. Cuba Center trial; the trial winner is the defensible cultivar pick.",
+      "bird-pollinator": "Strong wildlife value — Audubon Plants for Birds + Xerces Southeast pollinator list + NWF Native Plant Finder zip 30143.",
+      "native-grass": "Native bunchgrasses and graminoids for understory, forest edge, or seepage zones."
+    }
+  },
+  "candidates": [
+    {
+      "id": "autumn-bentgrass",
+      "name": "Autumn bentgrass",
+      "scientificName": "Agrostis perennans",
+      "emoji": "🌾",
+      "status": "considering",
+      "category": "native-grass",
+      "rationale": "Native perennial bunchgrass, partial shade, mesic to wet soils. Fits the spring drainage seepage zone and forest-edge mesic spots. Soft fine-textured groundcover with late-season inflorescences. Flagged for inclusion by Mom.",
+      "communityFit": ["Cove Forest", "Seepage Wetland", "Mesic forest edge"],
+      "sourceIds": ["sbg-connect-to-protect", "rock-spring-restorations", "gnps-ngm-sale"],
+      "flaggedBy": "Mom",
+      "notes": "Not in the GNPS Blue Ridge landscaping matrix, but iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm the species' habitat (mesic to dry forests, seepage swamps, depressions) matches the property. Bunchgrass habit, no rhizomes or stolons — gentle in a planted setting. 8-31 inches tall."
+    },
+    {
+      "id": "american-chestnut",
+      "name": "American chestnut",
+      "scientificName": "Castanea dentata",
+      "emoji": "🌰",
+      "status": "considering",
+      "category": "restoration",
+      "rationale": "Once a dominant canopy species at this elevation in the southern Appalachians. The blight (introduced 1904) killed virtually all mature trees from Maine to Georgia by 1950. One of the two big landowner-participation restoration species. This slope was once chestnut canopy.",
+      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest"],
+      "sourceIds": ["tacf-ga-chapter"],
+      "notes": "Restoration Chestnut 1.0 released 2005 after 6-7 generations of back-crossing with blight-resistant Chinese chestnut. Active test plantings in Cherokee, Chattahoochee, and other regional national forests. Enrollment is cohort-based — patient timeline, but the most ecologically meaningful single candidate on this list."
+    },
+    {
+      "id": "eastern-hemlock",
+      "name": "Eastern hemlock",
+      "scientificName": "Tsuga canadensis",
+      "emoji": "🌲",
+      "status": "considering",
+      "category": "restoration",
+      "rationale": "Cool-drainage native, occurs in acidic Cove Forest sites. Likely already present on the property in the spring drainage. Threatened by Hemlock Woolly Adelgid (HWA) since 2003 in Georgia; statewide by 2012. No other native conifer fills hemlock's ecological role.",
+      "communityFit": ["Cove Forest (acidic)", "Spray Cliffs / Seepage edges"],
+      "sourceIds": ["hri-hwa-program", "gfc-seedling-sale"],
+      "notes": "Step 1: check existing hemlocks on the property for HWA and treat (imidacloprid + dinotefuran soil drench at root flare). Step 2: consider resistant-stock plantings via HRI network for long-term replacement. A 2015 multi-state trial showed 96% survival of resistant hemlocks at 4 years vs 48% of susceptible trees."
+    },
+    {
+      "id": "flame-azalea",
+      "name": "Flame azalea",
+      "scientificName": "Rhododendron calendulaceum",
+      "emoji": "🔥",
+      "status": "considering",
+      "category": "bird-pollinator",
+      "rationale": "Signature North Georgia mountain native — the Cohutta and Smokies range is centered on this species. Brilliant May-June bloom. Confirmed in GNPS Blue Ridge landscaping list for both Montane Oak and Cove Forest understory.",
+      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest"],
+      "sourceIds": ["gnps-ngm-sale", "gardens-of-the-blue-ridge", "native-forest-nursery"],
+      "notes": "If sourcing from Gardens of the Blue Ridge: they specialize in native azaleas including hard-to-find color forms. Drainage matters — happiest on sloped, well-drained, acidic soil."
+    },
+    {
+      "id": "white-oak",
+      "name": "White oak",
+      "scientificName": "Quercus alba",
+      "emoji": "🌳",
+      "status": "considering",
+      "category": "keystone",
+      "rationale": "The keystone genus per Tallamy. Each oak supports 400+ Lepidoptera species — the foundation for nearly every songbird's nesting season. Confirmed in Low-to-Mid Elevation Oak Forest community at this elevation.",
+      "communityFit": ["Low-to-Mid Elevation Oak Forest", "Cove Forest (fertile sites)"],
+      "sourceIds": ["gfc-seedling-sale", "native-forest-nursery"],
+      "notes": "GFC seedling sale typically offers multiple oak species at landowner-scale quantities and prices. December-March planting. If choosing one keystone tree to plant first, this is the answer."
+    },
+    {
+      "id": "wild-hydrangea",
+      "name": "Smooth (wild) hydrangea",
+      "scientificName": "Hydrangea arborescens",
+      "emoji": "🌸",
+      "status": "considering",
+      "category": "cultivar-trial",
+      "rationale": "Native to Georgia coves, including this elevation. Mt. Cuba Center's wild hydrangea trial (2022) found 'Haas' Halo' the top performer in the Mid-Atlantic — directly applicable to the property. Sits cleanly alongside the existing hydrangea entries on plants.json.",
+      "communityFit": ["Cove Forest", "Spray Cliffs"],
+      "sourceIds": ["beech-hollow-farms", "gnps-ngm-sale", "native-forest-nursery"],
+      "notes": "The existing plants.json hydrangea entries are mixed natives + Hydrangea macrophylla (non-native). Adding 'Haas' Halo' is a clean way to deepen the native component without removing what's planted. Mt. Cuba's full trial report: mtcubacenter.org/research-publications/"
+    },
+    {
+      "id": "pink-ladys-slipper",
+      "name": "Pink lady's slipper",
+      "scientificName": "Cypripedium acaule",
+      "emoji": "🌷",
+      "status": "considering",
+      "category": "rich-cove",
+      "rationale": "Native orchid; rich-cove special-concern species. Confirmed in GNPS Blue Ridge Cove Forest list. If found on the property, leave alone and support — do not transplant. If planting, only from ethical-propagation sources (never wild-collected).",
+      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest (acidic shaded)"],
+      "sourceIds": ["abg-safeguarding-nursery", "gardens-of-the-blue-ridge"],
+      "notes": "Mycorrhizal-dependent — moves poorly. ABG Safeguarding Nursery is the propagation partner for any rare-species restoration thread. Worth walking the north-facing slopes in May to look for the existing colony before considering sourcing."
+    },
+    {
+      "id": "cardinal-flower",
+      "name": "Cardinal flower",
+      "scientificName": "Lobelia cardinalis",
+      "emoji": "❤️",
+      "status": "considering",
+      "category": "bird-pollinator",
+      "rationale": "Pond-edge and seepage native; the strongest hummingbird-attractor in eastern North America. Confirmed in GNPS Blue Ridge Seepage Wetland list. Direct fit for the pond area and the spring drainage.",
+      "communityFit": ["Seepage Wetland", "Pond / wet edge"],
+      "sourceIds": ["beech-hollow-farms", "gnps-ngm-sale", "sbg-connect-to-protect"],
+      "notes": "Short-lived perennial but self-sows freely in suitable conditions. Pair with great blue lobelia (Lobelia siphilitica) for blue + red pollinator bed."
+    },
+    {
+      "id": "christmas-fern",
+      "name": "Christmas fern",
+      "scientificName": "Polystichum acrostichoides",
+      "emoji": "🌿",
+      "status": "considering",
+      "category": "bird-pollinator",
+      "rationale": "Year-round evergreen native fern — confirmed in GNPS Blue Ridge Low-to-Mid Oak Forest list. Excellent winter texture in the woodland understory; hosts insects that overwinter and feed early-spring birds.",
+      "communityFit": ["Low-to-Mid Elevation Oak Forest", "Cove Forest"],
+      "sourceIds": ["native-forest-nursery", "beech-hollow-farms", "baker-environmental-nursery"],
+      "notes": "One of the easiest natives to establish under existing tree canopy. UGA Extension B 987-2 (Ferns) is the deep reference."
+    },
+    {
+      "id": "common-witchhazel",
+      "name": "Common witchhazel",
+      "scientificName": "Hamamelis virginiana",
+      "emoji": "🍂",
+      "status": "considering",
+      "category": "bird-pollinator",
+      "rationale": "Native understory shrub / small tree. Yellow-strap-petaled flowers in October-November when virtually nothing else is blooming — important late-season pollinator resource. Confirmed in GNPS Blue Ridge list across Cove, Low-Mid Oak, and Seepage communities.",
+      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest", "Seepage Wetland"],
+      "sourceIds": ["native-forest-nursery", "gnps-ngm-sale", "gfc-seedling-sale"],
+      "notes": "Distinct from the spring-blooming Asian witch hazels common in nursery trade. The late-season bloom is the diagnostic feature. Slow to establish but very long-lived."
+    }
+  ]
+}

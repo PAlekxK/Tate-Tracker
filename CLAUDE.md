@@ -2,7 +2,83 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Pickup point — last session ended 2026-05-21 (evening)
+## Pickup point — last session ended 2026-05-26 (afternoon + evening)
+
+**Two work streams landed today:**
+
+### 1. Storage-quota incident + fix (afternoon)
+
+Mom hit `Could not save the entry — local storage may be full or blocked` in the field; Paul reproduced same-day. Two commits on `main`:
+
+- `c040862` — strip base64 from local conversation saves, graceful quota failure, Rebuild local from cloud affordance in Sync settings, Worker `persistConversation` strips blobs from `conversation:<id>` KV
+- `c7e2781` — defensive `sanitizeEntryForStorage` at `fnSaveAll` boundary (idempotent, catches legacy fat data from any source), new `POST /api/admin/clean-observations` worker endpoint (auth-gated, idempotent)
+
+**Worker status:** Version `77b520bc-31dd-4e75-a0b4-17a578b0c07e` deployed. `/health` confirms KV + Anthropic + GitHub configured.
+
+**One-time KV cleanup ran 2026-05-26.** Hit `/api/admin/clean-observations` with the SHARED_TOKEN: 15 observations total, 4 fat (photo conversations), `observations:all` shrank 4,109,859 bytes → 13,027 bytes (4 MB saved). Idempotent re-run confirmed.
+
+**Confirmed working on Paul's iPhone same-day.** Mom's unblock path when Paul next sees her phone: Sync settings → Rebuild local from cloud. The cloud copy is now 13 KB so the local write fits comfortably.
+
+**Storage shape now in production** (see [[fernwood-almanac-save-model]] storage-shape section):
+- localStorage (`tateTracker.observations.v1`) — text-only conversation snapshots + per-turn `hasPhoto`/`hasAudio` flags
+- Worker `conversation:<id>` KV — lean (placeholders for image/audio blocks)
+- Worker `observations:all` KV — lean
+- Rich content's only homes: in-memory `GardenGuru.turns` during a session, and Phase F-promoted Git canon (the species' photo file in the repo + inlined `IMAGE_DATA`)
+
+**The defensive principle Paul should keep applying:** sanitize at the storage boundary (lowest write helper), not only at the source. The first fix stripped only at `saveCurrentConversation`; the boundary-level `sanitizeEntryForStorage` at `fnSaveAll` is the bulletproof layer that catches sync-refresh, rebuild, and any future writer. See [[feedback_sanitize_at_storage_boundary]].
+
+**Token-rotation thought (optional):** Paul pasted the SHARED_TOKEN into chat to run the cleanup. Low-risk to leave (token only authenticates to personal Fernwood Worker; worst case is Anthropic bill / journal tampering), but if cleaning up: pick new random value, `wrangler secret put SHARED_TOKEN` from `worker/`, re-paste into Sync settings on each device.
+
+### 2. "Worth Considering" candidates card (evening)
+
+Activated the long-dormant plants-to-consider thread. Discovery → schema → build, all in one session per Paul's "go ahead and implement" call.
+
+**Decisions locked (4-question interview):**
+- Win-state: operational + reference (start with 3-5 plantable fall 2026 / spring 2027, structured to grow into the durable reference)
+- Surface: dashboard "Worth considering" card (heaviest option from the menu) with structured JSON
+- Sourcing depth: programs + named nurseries + freshness tags (last-verified per entry)
+- Approach: discovery pass first → schema + build in same session (sessions 2+3 collapsed)
+
+**Discovery doc:** `.research/2026-05-26-plants-to-consider-discovery.md` (gitignored — working notes, not production). Surfaced the four-tier landscape (rationale × property-fit × sourcing × certification), the GNPS Blue Ridge Communities matrix as the property-fit canonical reference (corrected my earlier "Mesic Cove + Montane Oak" mental model — at 2,959 ft the property is **Cove Forest + Low-to-Mid Elevation Oak Forest** with potential **Seepage Wetlands** in the spring drainage; Montane Oak Forest is typically above 3,500 ft), and the 5-question Paul-interview that locked scope.
+
+**Built and shipped on `main`:**
+- `candidates.json` — 10 candidates across 6 categories (restoration, keystone, rich-cove, cultivar-trial, bird-pollinator, native-grass). Schema mirrors plants.json fields enough that promotion ("considering" → "planted") is clean.
+- `sources.json` — 7 programs + 6 nurseries with `lastVerified` freshness fields. Freshness convention: < 6 mo green, 6-12 mo amber, > 12 mo faded.
+- `viewer.html` — new "Worth considering" card between Vehicles and Sources. CSS uses Crimson serif for plant names (matches reference card pattern), light-green community-fit chips, source rows with freshness dots, amber "next event" callout for time-sensitive sales. Mom-no-glasses readable (19px plant names, generous line height). Tap-to-expand entry rows.
+- `plants-to-consider.md` — updated to point at the discovery doc + refreshed next-steps.
+- Init wiring: `renderCandidates()` called alongside `renderReferences()` at page init.
+
+**First batch — 10 candidates:**
+- **Restoration:** American chestnut, Eastern hemlock
+- **Keystone:** White oak
+- **Rich-cove:** Pink lady's slipper
+- **Mt. Cuba cultivar trial:** Smooth (wild) hydrangea ('Haas' Halo' is the trial winner)
+- **Birds + pollinators:** Flame azalea, Cardinal flower, Christmas fern, Common witchhazel
+- **Native grasses:** Autumn bentgrass (*Agrostis perennans*) — **flagged as Mom's pick**
+
+**Mom's pick:** Autumn bentgrass came from Mom; renders with a purple "Mom's pick" badge. The species is property-appropriate (native perennial bunchgrass, partial shade, mesic to wet soils — fits the spring drainage seepage zone). iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm the habitat match.
+
+**Imminent flag:** **GNPS North GA Mountains chapter native plant sale — Saturday May 30, 2026, 8am-1pm, Union County Farmers Market, Blairsville, ~45 min from Fernwood.** Cash/check only. Captured in `sources.json` as the `gnps-ngm-sale` program with the May 30 date in the `next` field; the card renders this as an amber-bordered callout under each candidate that references it (flame azalea, cardinal flower, witch hazel, etc.). Most ecologically-aligned single sourcing event of the year.
+
+**Known gaps to chase later:**
+- UGA SBG/GNPI 2025 nursery list PDF is 404 at source — fell back to 2019 list for 4 nurseries (Native Forest Nursery, Baker Environmental, Rock Spring Restorations are marked "2019 SBG/GNPI list — needs 2026 confirmation"). Contact `jceska@uga.edu` for current URL.
+- TACF GA chapter — confirm current landowner participation pathway.
+- HRI — current resistant-hemlock-stock sourcing path.
+- GFC 2026-2027 seedling species catalog (publishes ~July 1).
+- Mt. Cuba current top picks for genera beyond hydrangea (monarda, baptisia, echinacea, coreopsis) — would extend the cultivar-trial category.
+
+**What Paul should do next session:**
+
+1. **Check Mom's phone** the next time he sees her: Sync settings → Rebuild local from cloud. Confirm her Garden Guru conversations come back from KV.
+2. **Walk through the new "Worth considering" card** with Mom in mind — anything missing, anything off-tone, candidates to add or drop. Mom's bent grass pick is in there.
+3. **Zone-naming pass** for the map view (still paused). The candidates card has no `zoneAffinity` yet — once zones lock, populate per candidate so Phase E can answer "what could I plant near the pond?"
+4. **Phase F Option C smoke test still open** from prior session (load-bearing). Hard-refresh `palekxk.github.io/Tate-Tracker/`, tap 📷, walk through Step A + Step B for a photo of a plant/animal NOT in the curated set.
+5. **Garden Guru E2E smoke test still open** (queued from Phase E ship). 5 representative questions covering in-context retrieval, honest-uncertainty register, vague descriptions, 5-turn cap + reset flow.
+6. **Telemetry rollup** — `tools/analyze-fernwood.py` shipped 2026-05-21, never been run; ~6 days of metrics accumulated.
+
+---
+
+## Prior pickup — last session ended 2026-05-21 (evening)
 
 **Phase F shipped end-to-end and pushed.** All four Phase F commits + Option C extension live on `main`:
 - `fb417fd` Session 1 — Worker (image content support + suggested-species fence + pending-species queue)
