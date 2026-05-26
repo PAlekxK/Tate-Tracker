@@ -9111,12 +9111,47 @@ function fnLoadAll() {
     return [];
   }
 }
+// Reduce a single observation to its lean local shape. Idempotent — entries
+// already lean pass through unchanged. Defensive against legacy fat data
+// (pre-2026-05-26 saves and cloud sync pulls that still carry base64
+// image/audio blobs inside conversation.turns[].content arrays).
+function sanitizeEntryForStorage(entry) {
+  if (!entry || typeof entry !== "object") return entry;
+  const conv = entry.conversation;
+  if (!conv || !Array.isArray(conv.turns)) return entry;
+  let touched = false;
+  const leanTurns = conv.turns.map(t => {
+    if (!t || typeof t !== "object") return t;
+    if (!Array.isArray(t.content)) return t; // already a string — already lean
+    touched = true;
+    const text = t.content.filter(b => b && b.type === "text").map(b => b.text || "").join(" ").trim();
+    return {
+      role: t.role,
+      content: text,
+      ts: t.ts,
+      suggestion: t.suggestion,
+      suggestionStatus: t.suggestionStatus,
+      hasPhoto: t.content.some(b => b && b.type === "image"),
+      hasAudio: t.content.some(b => b && b.type === "input_audio"),
+    };
+  });
+  if (!touched) return entry;
+  return {
+    ...entry,
+    hasPhoto: entry.hasPhoto || leanTurns.some(t => t && t.hasPhoto),
+    conversation: { ...conv, turns: leanTurns },
+  };
+}
+
 // Best-effort write to localStorage. Returns true on success, false on
 // quota/blocked failure. The caller is responsible for surfacing the failure
 // — most callers fall through to the Worker so the entry isn't actually lost.
+// Sanitizes every entry on the way in so legacy fat data (cloud sync pulls
+// that still carry base64 blobs) can't blow past the iOS Safari ~5MB cap.
 function fnSaveAll(arr) {
   try {
-    localStorage.setItem(FN_STORAGE_KEY, JSON.stringify(arr));
+    const lean = Array.isArray(arr) ? arr.map(sanitizeEntryForStorage) : arr;
+    localStorage.setItem(FN_STORAGE_KEY, JSON.stringify(lean));
     return true;
   } catch (e) {
     const name = e && e.name;
