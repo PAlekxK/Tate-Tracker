@@ -2915,6 +2915,7 @@
   }
   .fn-sync-pill.fn-sync-synced     { background: #e0f0d4; color: #3a6a2a; border: 1px solid #c0dca0; }
   .fn-sync-pill.fn-sync-local-only { background: #faf0d8; color: #8a6a2a; border: 1px solid #e8d4a0; }
+  .fn-sync-pill.fn-sync-local-full { background: #f4e0d4; color: #aa4a2a; border: 1px solid #e0b4a0; }
   .fn-sync-pill.fn-sync-error      { background: #f4e0d4; color: #aa4a2a; border: 1px solid #e0b4a0; }
 
   /* In-body banner */
@@ -2933,6 +2934,7 @@
   }
   .fn-sync-banner-synced     { background: #f0f8e8; border: 1px solid #d4e8c0; color: #4a6a3a; }
   .fn-sync-banner-local-only { background: #fdf6e4; border: 1px solid #e8dcb4; color: #6a5a2a; }
+  .fn-sync-banner-local-full { background: #faece0; border: 1px solid #e4c0a8; color: #8a4a2a; }
   .fn-sync-banner-error      { background: #faece0; border: 1px solid #e4c0a8; color: #8a4a2a; }
   .fn-sync-banner-text { flex: 1; min-width: 0; }
   .fn-sync-btn {
@@ -3003,6 +3005,32 @@
   }
   .fn-sync-result.success { color: #3a6a2a; }
   .fn-sync-result.error   { color: #aa4a2a; }
+  .fn-sync-maint {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed #d8eacc;
+  }
+  .fn-sync-maint-label {
+    font-weight: 600;
+    font-size: 12.5px;
+    color: #3a4a2a;
+    margin-bottom: 4px;
+  }
+  .fn-sync-maint-help {
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: #6a7a5a;
+    margin-bottom: 8px;
+  }
+  .fn-sync-rebuild-result {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.45;
+    min-height: 1.1em;
+    color: #5a6a4a;
+  }
+  .fn-sync-rebuild-result.success { color: #3a6a2a; }
+  .fn-sync-rebuild-result.error   { color: #aa4a2a; }
   .fn-field input[type="url"],
   .fn-field input[type="password"] {
     width: 100%;
@@ -3542,6 +3570,12 @@
         <input type="password" id="fn-sync-token" placeholder="paste the SHARED_TOKEN value">
       </div>
       <div class="fn-sync-result" id="fn-sync-result"></div>
+      <div class="fn-sync-maint">
+        <div class="fn-sync-maint-label">Rebuild this device from the cloud</div>
+        <div class="fn-sync-maint-help">If this phone's journal fills up (older photo conversations can do that), wipe the local cache and re-pull entries from the Worker. The cloud copy is the source of truth, so nothing here is lost.</div>
+        <button class="fn-btn-secondary" type="button" id="fn-sync-rebuild">Rebuild local from cloud</button>
+        <div class="fn-sync-rebuild-result" id="fn-sync-rebuild-result"></div>
+      </div>
     </div>
     <div class="fn-modal-footer">
       <button class="fn-btn-secondary" type="button" id="fn-sync-cancel">Cancel</button>
@@ -9077,13 +9111,17 @@ function fnLoadAll() {
     return [];
   }
 }
+// Best-effort write to localStorage. Returns true on success, false on
+// quota/blocked failure. The caller is responsible for surfacing the failure
+// — most callers fall through to the Worker so the entry isn't actually lost.
 function fnSaveAll(arr) {
   try {
     localStorage.setItem(FN_STORAGE_KEY, JSON.stringify(arr));
     return true;
   } catch (e) {
-    console.warn("Almanac — save failed:", e);
-    alert("Could not save the entry — local storage may be full or blocked.");
+    const name = e && e.name;
+    const isQuota = name === "QuotaExceededError" || name === "NS_ERROR_DOM_QUOTA_REACHED";
+    console.warn("Almanac — local save failed (" + (isQuota ? "quota" : (name || "unknown")) + "):", e);
     return false;
   }
 }
@@ -9092,6 +9130,10 @@ function fnSaveAll(arr) {
 const ObservationStore = (function () {
   let lastError = null;
   let refreshing = false;
+  // Sticky flag: set when a local write fails (typically iOS Safari quota).
+  // Cleared when a subsequent local write succeeds OR after rebuildFromCloud.
+  // Surfaces in getStatus() so the UI can prompt for recovery.
+  let localFull = false;
   const listeners = [];
 
   function getConfig() {
@@ -9116,6 +9158,14 @@ const ObservationStore = (function () {
   function markSynced() { localStorage.setItem(FN_LAST_SYNC_KEY, new Date().toISOString()); }
 
   function getStatus() {
+    if (localFull) {
+      return {
+        mode: "local-full",
+        message: isConfigured()
+          ? "Local journal is full — entries are still saving to the cloud. Open Sync settings to rebuild this device."
+          : "Local journal is full — entries can't be saved. Set up Sync to keep entries in the cloud, then rebuild this device.",
+      };
+    }
     if (!isConfigured()) return { mode: "local-only", message: "Local only — set up Sync to follow you between devices." };
     if (lastError) return { mode: "error", message: lastError };
     const last = getLastSyncedAt();
@@ -9161,7 +9211,8 @@ const ObservationStore = (function () {
         catch (e) { console.warn("Push of local-only entry failed:", entry.id, e); }
       }
       const merged = [...(data.observations || []), ...localOnly];
-      fnSaveAll(merged);
+      const ok = fnSaveAll(merged);
+      if (!ok) localFull = true; else if (localFull) localFull = false;
       lastError = null;
       markSynced();
       emit();
@@ -9176,14 +9227,20 @@ const ObservationStore = (function () {
   }
 
   async function save(entry) {
-    // Optimistic local write so the UI feels instant.
+    // Optimistic local write so the UI feels instant. If local fails (typically
+    // iOS Safari quota), we still push to the Worker — the entry isn't lost,
+    // it just won't appear in this device's local cache until rebuildFromCloud().
     const all = fnLoadAll();
     const idx = all.findIndex(o => o.id === entry.id);
     if (idx >= 0) all[idx] = entry; else all.push(entry);
-    fnSaveAll(all);
+    const localOk = fnSaveAll(all);
+    if (!localOk) localFull = true; else if (localFull) localFull = false;
     if (isConfigured()) {
       try { await callWorker("POST", "/api/observations", entry); lastError = null; markSynced(); }
       catch (e) { lastError = describeSyncError(e); }
+      emit();
+    } else if (!localOk) {
+      // Unconfigured AND local full — surface so the UI updates immediately.
       emit();
     }
     return true;
@@ -9191,13 +9248,41 @@ const ObservationStore = (function () {
 
   async function remove(id) {
     const all = fnLoadAll().filter(o => o.id !== id);
-    fnSaveAll(all);
+    const localOk = fnSaveAll(all);
+    if (!localOk) localFull = true; else if (localFull) localFull = false;
     if (isConfigured()) {
       try { await callWorker("DELETE", "/api/observations/" + encodeURIComponent(id)); lastError = null; markSynced(); }
       catch (e) { lastError = describeSyncError(e); }
       emit();
+    } else if (!localOk) {
+      emit();
     }
     return true;
+  }
+
+  // Wipe the local cache and re-pull from the Worker. Use when localStorage
+  // has filled up — typically because old conversations carried base64 image
+  // blobs (pre-stripping fix). The Worker holds the canonical observations
+  // and conversation snapshots, so this round-trip is lossless for anything
+  // that ever reached the cloud.
+  async function rebuildFromCloud() {
+    if (!isConfigured()) throw new Error("not-configured");
+    try { localStorage.removeItem(FN_STORAGE_KEY); } catch (e) { /* ignored — we're about to write a tiny payload */ }
+    localFull = false;
+    const data = await callWorker("GET", "/api/observations");
+    const fresh = (data.observations || []);
+    // Try the lean write directly; if even an empty pull won't fit, something
+    // else in localStorage is full and the user needs to clear site data.
+    const ok = fnSaveAll(fresh);
+    if (!ok) {
+      localFull = true;
+      emit();
+      throw new Error("rebuild-failed-local-write");
+    }
+    lastError = null;
+    markSynced();
+    emit();
+    return fresh;
   }
 
   async function testConnection(workerUrl, token) {
@@ -9220,7 +9305,7 @@ const ObservationStore = (function () {
     return "Sync unreachable — saved locally and will retry.";
   }
 
-  return { getConfig, setConfig, isConfigured, getStatus, refresh, save, remove, testConnection, onChange };
+  return { getConfig, setConfig, isConfigured, getStatus, refresh, save, remove, testConnection, onChange, rebuildFromCloud };
 })();
 
 function relativeTime(iso) {
@@ -9325,6 +9410,7 @@ function renderFieldNotes() {
   const pillClass = "fn-sync-pill fn-sync-" + status.mode;
   const pillLabel = status.mode === "synced" ? "Synced"
                   : status.mode === "local-only" ? "Local only"
+                  : status.mode === "local-full" ? "Local full"
                   : "Sync error";
   let summaryText;
   if (allEntries.length === 0) {
@@ -9343,7 +9429,10 @@ function renderFieldNotes() {
   // Sync status banner inside the card body.
   html += '<div class="fn-sync-banner fn-sync-banner-' + status.mode + '">';
   html += '<span class="fn-sync-banner-text">' + escapeHtml(status.message) + '</span>';
-  html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + (status.mode === "local-only" ? "Set up sync" : "Sync settings") + '</button>';
+  const syncBtnLabel = status.mode === "local-only" ? "Set up sync"
+                     : status.mode === "local-full" ? "Open Sync settings"
+                     : "Sync settings";
+  html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + syncBtnLabel + '</button>';
   html += '</div>';
 
   // Filter chips — show only when there are starred entries to filter on
@@ -9481,6 +9570,8 @@ function fnOpenSyncModal() {
   document.getElementById("fn-sync-token").value = cfg ? cfg.token : "";
   document.getElementById("fn-sync-result").textContent = "";
   document.getElementById("fn-sync-result").className = "fn-sync-result";
+  const rebuildOut = document.getElementById("fn-sync-rebuild-result");
+  if (rebuildOut) { rebuildOut.textContent = ""; rebuildOut.className = "fn-sync-rebuild-result"; }
   // Ensure a stable per-device id exists so the modal can display it.
   // MetricsCollector also generates this lazily on first flush; we generate
   // here too so the user sees a real id the moment they open the modal.
@@ -9545,6 +9636,38 @@ async function fnSaveSyncSettings() {
   if (syncCancel) syncCancel.addEventListener("click", fnCloseSyncModal);
   const syncSave = document.getElementById("fn-sync-save");
   if (syncSave) syncSave.addEventListener("click", fnSaveSyncSettings);
+  const syncRebuild = document.getElementById("fn-sync-rebuild");
+  if (syncRebuild) syncRebuild.addEventListener("click", async () => {
+    const out = document.getElementById("fn-sync-rebuild-result");
+    if (!ObservationStore.isConfigured()) {
+      if (out) { out.className = "fn-sync-rebuild-result error"; out.textContent = "Sync isn't set up yet — paste the Worker URL and token above first."; }
+      return;
+    }
+    if (!confirm("Wipe this device's local journal cache and re-pull from the cloud?")) return;
+    syncRebuild.disabled = true;
+    const originalLabel = syncRebuild.textContent;
+    syncRebuild.textContent = "Rebuilding…";
+    if (out) { out.className = "fn-sync-rebuild-result"; out.textContent = "Pulling entries from the Worker…"; }
+    try {
+      const fresh = await ObservationStore.rebuildFromCloud();
+      if (out) {
+        out.className = "fn-sync-rebuild-result success";
+        out.textContent = "Rebuilt — " + fresh.length + " entr" + (fresh.length === 1 ? "y" : "ies") + " back on this device.";
+      }
+      renderFieldNotes();
+    } catch (e) {
+      if (out) {
+        out.className = "fn-sync-rebuild-result error";
+        const msg = (e && e.message) || String(e);
+        out.textContent = msg === "rebuild-failed-local-write"
+          ? "Rebuild fetched cloud entries, but this device's local storage still won't write. Clear site data in Safari → Settings → Advanced → Website Data and try again."
+          : "Rebuild failed: " + msg;
+      }
+    } finally {
+      syncRebuild.disabled = false;
+      syncRebuild.textContent = originalLabel;
+    }
+  });
   const syncOverlay = document.getElementById("fn-sync-overlay");
   if (syncOverlay) syncOverlay.addEventListener("click", e => { if (e.target === syncOverlay) fnCloseSyncModal(); });
 })();
@@ -9900,6 +10023,24 @@ const GardenGuru = (function () {
   function hasImageContent(content) {
     return Array.isArray(content) && content.some(b => b && b.type === "image");
   }
+  // Lean-content shape for the local almanac copy: keep the text, drop the
+  // base64 image/audio blobs. iOS Safari caps localStorage at ~5MB; a handful
+  // of photo conversations will blow past that if we persist raw turn content.
+  // The full conversation (with blobs) stays in Worker KV under conversation:<id>.
+  // Per-turn hasPhoto/hasAudio flags preserve the "this turn had a photo"
+  // signal without the payload.
+  function leanTurnForStorage(t) {
+    const isArr = Array.isArray(t.content);
+    return {
+      role: t.role,
+      content: isArr ? textFromContent(t.content) : (t.content || ""),
+      ts: t.ts,
+      suggestion: t.suggestion,
+      suggestionStatus: t.suggestionStatus,
+      hasPhoto: isArr && t.content.some(b => b && b.type === "image"),
+      hasAudio: isArr && t.content.some(b => b && b.type === "input_audio"),
+    };
+  }
   function saveCurrentConversation() {
     if (!conversationId || savedConversationIds.has(conversationId)) return;
     if (turns.filter(t => t.role === "user").length === 0) return;
@@ -9922,7 +10063,7 @@ const GardenGuru = (function () {
       hasPhoto: !!(firstUserTurn && hasImageContent(firstUserTurn.content)),
       conversation: {
         conversationId: cid,
-        turns: turns.map(t => ({ role: t.role, content: t.content, ts: t.ts, suggestion: t.suggestion, suggestionStatus: t.suggestionStatus })),
+        turns: turns.map(leanTurnForStorage),
       },
     };
     // Fire-and-forget; failures are silent (local save is synchronous within store).
