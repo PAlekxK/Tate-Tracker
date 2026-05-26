@@ -702,6 +702,27 @@ async function logChatCost(env, conversationId, apiData) {
   await env.OBSERVATIONS.put(key, JSON.stringify(arr));
 }
 
+// Strip base64 image/audio blobs from a turn's content before KV persistence.
+// The vision/audio call has already happened by the time we persist — the AI
+// has already "seen" the photo. The semantic value of holding ~50–200 KB of
+// base64 per image in a conversation snapshot is low, and it bloats KV
+// (1 GB cap) plus inflates any future restore back to the client. Photos
+// that matter are preserved via Phase F Option C (committed to Git canon).
+function leanTurnContent(content) {
+  if (typeof content === "string") return content;
+  if (!Array.isArray(content)) return content;
+  return content.map(b => {
+    if (!b || typeof b !== "object") return b;
+    if (b.type === "image") {
+      return { type: "image_placeholder", media_type: (b.source && b.source.media_type) || null };
+    }
+    if (b.type === "input_audio") {
+      return { type: "audio_placeholder", media_type: (b.input_audio && b.input_audio.format) || null };
+    }
+    return b;
+  });
+}
+
 async function persistConversation(env, conversationId, turns) {
   const key = `conversation:${conversationId}`;
   const existing = await env.OBSERVATIONS.get(key);
@@ -720,7 +741,7 @@ async function persistConversation(env, conversationId, turns) {
   // within a session is the client's turn list; the Worker just persists snapshots).
   session.turns = turns.map(t => ({
     role: t.role,
-    content: t.content,
+    content: leanTurnContent(t.content),
     ts: t.ts || new Date().toISOString(),
   }));
   session.updatedAt = new Date().toISOString();
