@@ -2322,6 +2322,35 @@
   .dash-cell.dash-small .dash-cell-label { font-size: 12px; margin-bottom: 2px; }
   .dash-cell.dash-small .dash-cell-sub { font-size: 11.5px; color: #3a5a3a; margin-top: 3px; line-height: 1.4; }
   .dash-tier-b { margin-top: 10px; gap: 6px; }
+  /* Imagery-led tile — aerial photo as the background tease (per ux-expert
+     2026-05-27: absorb the Property card with a visual lead so Mom can SEE
+     the surface before tapping). Dark gradient at the bottom carries the
+     title + sub text. */
+  .dash-cell.dash-imagery {
+    background-image:
+      linear-gradient(to bottom,
+        rgba(20, 20, 14, 0.0) 0%,
+        rgba(20, 20, 14, 0.20) 45%,
+        rgba(20, 20, 14, 0.78) 100%),
+      url("images/property-map/gep-2015-03-leafoff.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-color: #4a6a3a;
+    min-height: 76px;
+    padding: 36px 12px 10px;
+    color: #fff;
+  }
+  .dash-cell.dash-imagery .dash-cell-label,
+  .dash-cell.dash-imagery .dash-cell-sub {
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  }
+  .dash-cell.dash-imagery .dash-cell-label {
+    font-size: 14px;
+    font-style: italic;
+  }
+  body.text-lg .dash-cell.dash-imagery .dash-cell-label { font-size: 17px; }
   @media (max-width: 480px) {
     .dash-strip-inner { grid-template-columns: 1fr; }
   }
@@ -3817,7 +3846,7 @@
       <div class="dash-cell-label">Vehicles &amp; Equipment</div>
       <div class="dash-cell-sub">The fleet — what each one is and how to keep it running</div>
     </div>
-    <div class="dash-cell dash-small" onclick="expandCard('card-property')">
+    <div class="dash-cell dash-small dash-imagery" onclick="expandCard('card-property')">
       <div class="dash-cell-label">Fernwood</div>
       <div class="dash-cell-sub" id="dash-property-sub">On Cherokee land · Blue Ridge thermal belt</div>
     </div>
