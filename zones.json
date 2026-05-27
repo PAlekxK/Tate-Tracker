@@ -8,7 +8,64 @@
     "schemaVersion": 1,
     "schemaNotes": "v1 (2026-05-27): initial. Each zone: id (kebab-case), name (human-readable), type (planted|turf|meadow|forest|water|structure), color (RGB array — decorative; renderer may override), vertices ([[x,y]]), status (draft|confirmed|flagged), createdAt/createdBy/updatedAt/lastEditedBy timestamps, history [{at, by, action, details?}]. The browser draft tool writes the same shape via Worker → GitHub Contents API → zones.json + re-inlined ZONES_DATA, mirroring the Phase F Option C pattern."
   },
-  "zones": [],
+  "zones": [
+    {
+      "id": "pond-area-2",
+      "name": "Pond Area",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          0.3446207888479844,
+          0.40691066702836315
+        ],
+        [
+          0.3900154481474855,
+          0.3994787738482355
+        ],
+        [
+          0.395450020035454,
+          0.35117146817740474
+        ],
+        [
+          0.36603939570056593,
+          0.32701781534198954
+        ],
+        [
+          0.334391006470632,
+          0.3381656551121812
+        ],
+        [
+          0.3295957959812481,
+          0.36557076121390253
+        ],
+        [
+          0.4878377421309176,
+          0.4816940921533995
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-27T20:24:23.625Z",
+      "createdBy": "device",
+      "updatedAt": "2026-05-27T20:24:23.625Z",
+      "lastEditedBy": "device",
+      "history": [
+        {
+          "at": "2026-05-27T20:24:23.625Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Pond Area",
+            "vertexCount": 7
+          }
+        }
+      ]
+    }
+  ],
   "_deleted": [
     {
       "id": "test-2",
