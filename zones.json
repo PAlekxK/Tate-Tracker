@@ -209,7 +209,7 @@
       "status": "confirmed",
       "createdAt": "2026-05-27T17:00:00Z",
       "createdBy": "paul",
-      "updatedAt": "2026-05-27T19:43:42.150Z",
+      "updatedAt": "2026-05-27T20:04:07.550Z",
       "lastEditedBy": "device",
       "history": [
         {
@@ -253,6 +253,48 @@
           "by": "device",
           "action": "confirmed",
           "details": null
+        },
+        {
+          "at": "2026-05-27T19:47:57.604Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:47:59.688Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:48:23.660Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:58:14.841Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:58:16.489Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:59:18.996Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T20:04:07.550Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
         }
       ]
     },
@@ -287,16 +329,34 @@
           0.4
         ]
       ],
-      "status": "draft",
+      "status": "confirmed",
       "createdAt": "2026-05-27T17:00:00Z",
       "createdBy": "paul",
-      "updatedAt": "2026-05-27T17:00:00Z",
-      "lastEditedBy": "paul",
+      "updatedAt": "2026-05-27T20:04:13.986Z",
+      "lastEditedBy": "device",
       "history": [
         {
           "at": "2026-05-27T17:00:00Z",
           "by": "paul",
           "action": "seeded",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:48:15.019Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:48:16.782Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T20:04:13.986Z",
+          "by": "device",
+          "action": "confirmed",
           "details": null
         }
       ]
@@ -339,7 +399,7 @@
       "status": "confirmed",
       "createdAt": "2026-05-27T19:25:00.623Z",
       "createdBy": "device",
-      "updatedAt": "2026-05-27T19:37:18.899Z",
+      "updatedAt": "2026-05-27T20:04:09.600Z",
       "lastEditedBy": "device",
       "history": [
         {
@@ -353,6 +413,24 @@
         },
         {
           "at": "2026-05-27T19:37:18.899Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:58:18.024Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:59:20.945Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T20:04:09.600Z",
           "by": "device",
           "action": "confirmed",
           "details": null
@@ -386,10 +464,10 @@
           0.8704148860398867
         ]
       ],
-      "status": "draft",
+      "status": "confirmed",
       "createdAt": "2026-05-27T19:34:01.170Z",
       "createdBy": "device",
-      "updatedAt": "2026-05-27T19:34:01.170Z",
+      "updatedAt": "2026-05-27T19:44:46.894Z",
       "lastEditedBy": "device",
       "history": [
         {
@@ -400,6 +478,12 @@
             "name": "Test",
             "vertexCount": 4
           }
+        },
+        {
+          "at": "2026-05-27T19:44:46.894Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
         }
       ]
     }
