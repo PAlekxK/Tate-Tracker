@@ -1,0 +1,263 @@
+{
+  "_meta": {
+    "lastBuilt": "2026-05-27",
+    "purpose": "Named zones on the property. Each zone carries vertices (fractional 0-1 coords of the base image), a status (draft / confirmed / flagged), and a history log of changes. Observations and plants reference zones via the zoneId field. The browse view is itself a thinking tool — looking at the whole property from above helps Mom form mental models of where things are.",
+    "baseImage": "images/property-map/gep-2015-03-leafoff.webp",
+    "baseImageFallbackPng": "images/property-map/gep-2015-03-leafoff.png",
+    "coordinateSystem": "Fractional (0-1) of the base image. Vertices [x, y] where x = column fraction, y = row fraction.",
+    "schemaVersion": 1,
+    "schemaNotes": "v1 (2026-05-27): initial. Each zone: id (kebab-case), name (human-readable), type (planted|turf|meadow|forest|water|structure), color (RGB array — decorative; renderer may override), vertices ([[x,y]]), status (draft|confirmed|flagged), createdAt/createdBy/updatedAt/lastEditedBy timestamps, history [{at, by, action, details?}]. The browser draft tool writes the same shape via Worker → GitHub Contents API → zones.json + re-inlined ZONES_DATA, mirroring the Phase F Option C pattern."
+  },
+  "zones": [
+    {
+      "id": "western-patio",
+      "name": "Western patio",
+      "type": "planted",
+      "color": [
+        200,
+        100,
+        220
+      ],
+      "vertices": [
+        [
+          0.36,
+          0.18
+        ],
+        [
+          0.42,
+          0.18
+        ],
+        [
+          0.42,
+          0.26
+        ],
+        [
+          0.36,
+          0.26
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-27T17:00:00Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-05-27T17:00:00Z",
+      "lastEditedBy": "paul",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded",
+          "details": "Initial polygon ported from tools/draw-zones.py first-pass prototype. Marked draft pending Paul's correction pass + Mom's validation."
+        }
+      ]
+    },
+    {
+      "id": "eastern-patio",
+      "name": "Eastern patio",
+      "type": "planted",
+      "color": [
+        240,
+        130,
+        80
+      ],
+      "vertices": [
+        [
+          0.51,
+          0.18
+        ],
+        [
+          0.57,
+          0.18
+        ],
+        [
+          0.57,
+          0.26
+        ],
+        [
+          0.51,
+          0.26
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-27T17:00:00Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-05-27T17:00:00Z",
+      "lastEditedBy": "paul",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded",
+          "details": "Initial polygon ported from tools/draw-zones.py first-pass prototype. Marked draft pending Paul's correction pass + Mom's validation."
+        }
+      ]
+    },
+    {
+      "id": "pond-area",
+      "name": "Pond area",
+      "type": "planted",
+      "color": [
+        60,
+        130,
+        200
+      ],
+      "vertices": [
+        [
+          0.42,
+          0.27
+        ],
+        [
+          0.51,
+          0.27
+        ],
+        [
+          0.51,
+          0.36
+        ],
+        [
+          0.42,
+          0.36
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-27T17:00:00Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-05-27T17:00:00Z",
+      "lastEditedBy": "paul",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded",
+          "details": "Initial polygon ported from tools/draw-zones.py first-pass prototype. Marked draft pending Paul's correction pass + Mom's validation."
+        }
+      ]
+    },
+    {
+      "id": "front-lawn",
+      "name": "Front lawn",
+      "type": "turf",
+      "color": [
+        90,
+        200,
+        110
+      ],
+      "vertices": [
+        [
+          0.34,
+          0.36
+        ],
+        [
+          0.58,
+          0.36
+        ],
+        [
+          0.62,
+          0.5
+        ],
+        [
+          0.3,
+          0.5
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-27T17:00:00Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-05-27T17:00:00Z",
+      "lastEditedBy": "paul",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded",
+          "details": "Initial polygon ported from tools/draw-zones.py first-pass prototype. Marked draft pending Paul's correction pass + Mom's validation."
+        }
+      ]
+    },
+    {
+      "id": "fairway-meadow",
+      "name": "Fairway meadow",
+      "type": "meadow",
+      "color": [
+        220,
+        200,
+        80
+      ],
+      "vertices": [
+        [
+          0.25,
+          0.5
+        ],
+        [
+          0.65,
+          0.5
+        ],
+        [
+          0.75,
+          0.85
+        ],
+        [
+          0.2,
+          0.92
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-27T17:00:00Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-05-27T17:00:00Z",
+      "lastEditedBy": "paul",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded",
+          "details": "Initial polygon ported from tools/draw-zones.py first-pass prototype. Marked draft pending Paul's correction pass + Mom's validation."
+        }
+      ]
+    },
+    {
+      "id": "fairway-edge-west",
+      "name": "Western fairway edge",
+      "type": "planted",
+      "color": [
+        50,
+        160,
+        90
+      ],
+      "vertices": [
+        [
+          0.13,
+          0.32
+        ],
+        [
+          0.25,
+          0.5
+        ],
+        [
+          0.2,
+          0.92
+        ],
+        [
+          0.05,
+          0.92
+        ],
+        [
+          0.05,
+          0.4
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-27T17:00:00Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-05-27T17:00:00Z",
+      "lastEditedBy": "paul",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded",
+          "details": "Initial polygon ported from tools/draw-zones.py first-pass prototype. Marked draft pending Paul's correction pass + Mom's validation."
+        }
+      ]
+    }
+  ]
+}
