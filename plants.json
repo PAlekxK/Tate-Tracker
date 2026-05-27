@@ -13,8 +13,8 @@
       "Pacolet"
     ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
-    "schemaVersion": 3,
-    "schemaNotes": "v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.",
+    "schemaVersion": 4,
+    "schemaNotes": "v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for ~1,424 ft above station",
       "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)",
@@ -128,7 +128,8 @@
         "author": "US FWS",
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Pinus_strobus_trees.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "azalea",
@@ -251,7 +252,8 @@
         "author": "Prayushk",
         "license": "CC BY 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Rhododendron_flower_(Ghorepani,_Nepal).jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "hydrangea",
@@ -380,7 +382,8 @@
         "author": "Jacob Malcom",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_139866012.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "dogwood",
@@ -503,7 +506,8 @@
         "author": "Eric Hunt",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "boxwood",
@@ -641,7 +645,8 @@
         "author": "No machine-readable author provided. MPF assumed (based on copyright claims).",
         "license": "CC BY 2.5",
         "url": "https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "holly",
@@ -759,7 +764,8 @@
         "author": "Jürgen Howaldt",
         "license": "CC BY-SA 2.0 de",
         "url": "https://commons.wikimedia.org/wiki/File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "mountain-laurel",
@@ -880,7 +886,8 @@
         "author": "Arx Fortis at English Wikipedia",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "japanese-maple",
@@ -999,7 +1006,8 @@
         "author": "Kurt Stüber [1]",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Acer_palmatum0.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "pyracomeles-berry-box",
@@ -1091,7 +1099,8 @@
         "author": "Laitr Keiows",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Red_pommes_of_Firethorn_(Pyracantha).jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "deutzia-yuki-cherry-blossom",
@@ -1165,7 +1174,8 @@
         "author": "Unknown",
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Deutzia_gracilis.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "clematis",
@@ -1292,7 +1302,8 @@
         "author": "Jolly Janner",
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Clematis_%27Nelly_Moser%27.JPG"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "hosta",
@@ -1394,7 +1405,8 @@
         "author": "Unknown",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hosta_Bressingham_Blue.JPG"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "iris-pond",
@@ -1498,7 +1510,8 @@
         "author": "D. Gordon E. Robertson",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "butterfly-weed",
@@ -1592,7 +1605,8 @@
         "author": "Photo by and (c)2009 Derek Ramsey (Ram-Man)",
         "license": "GFDL 1.2",
         "url": "https://commons.wikimedia.org/wiki/File:Butterfly_Weed_Asclepias_tuberosa_Umbel.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "wisteria-summer-cascade",
@@ -1700,7 +1714,8 @@
         "author": "Jaknouse",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Wisterria_macrostachya_flowers1.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "clematis-elpis",
@@ -1797,7 +1812,8 @@
         "author": "Wilrooij",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Clematis_macropetala_02.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "hydrangea-dreamcloud",
@@ -1904,7 +1920,8 @@
         "author": "Sasipriya Narayanaswamy",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_white_flower.jpg"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "endless-summer-pop-star-hydrangea",
@@ -2024,7 +2041,8 @@
         "habitatHint": "East-facing mid-slope with morning sun and afternoon shade. Avoid full south/west exposure without supplemental water.",
         "fromCommonName": "Endless Summer Pop Star Reblooming Hydrangea",
         "fromScientificName": "Hydrangea macrophylla 'NCHA3' (Pop Star cultivar)"
-      }
+      },
+      "zoneId": null
     },
     {
       "id": "spiderwort",
@@ -2115,7 +2133,8 @@
         "habitatHint": "Moist woodland edges, part shade, self-seeding",
         "fromCommonName": "Spiderwort",
         "fromScientificName": "Tradescantia virginiana"
-      }
+      },
+      "zoneId": null
     }
   ]
 }
