@@ -82,7 +82,7 @@ Concrete one-time actions, ordered by friction:
 ### Native Plants of North Georgia: A Photo Guide for Plant Enthusiasts (UGA Extension B 1339)
 **URL:** https://extension.uga.edu/publications/detail.html?number=B1339 (PDF: https://fieldreport.caes.uga.edu/wp-content/uploads/2025/05/B-1339_4-1.pdf)
 **What it is:** Free UGA Cooperative Extension photo-keyed bulletin covering native plants found specifically in North Georgia.
-**Why it's relevant here:** The single most geographically-targeted Extension publication for the property — assumes the elevation, slope, and zone 7b/6b conditions of Pickens County. Far more useful than statewide guides.
+**Why it's relevant here:** Written for the elevation, slope, and zone conditions of Pickens County — closer to this slope than any statewide guide.
 **Dashboard integration idea:** Canonical "is it native to this property" reference. Link from any Plants > By Species detail card; use to vet draft additions before they leave staging.
 **Depth tier:** Deep-dive link.
 
@@ -198,7 +198,7 @@ Concrete one-time actions, ordered by friction:
 ### North Georgia Mountains Chapter — Georgia Native Plant Society
 **URL:** https://gnps.org/north-georgia-mountains/
 **What it is:** GNPS's mountain chapter (formed 2021) covering Lumpkin, Towns, Union, White, Rabun counties; meetings at Union County Public Library in Blairsville, plus field trips, plant rescues, habitat certifications.
-**Why it's relevant here:** The most ecologically aligned native-plant community for the property — Pickens is just south of the chapter's stated counties; species, soils, elevations are nearly identical.
+**Why it's relevant here:** Pickens sits just south of the chapter's stated counties — same species, same soils, same elevations as this slope.
 **Dashboard integration idea:** Link as "Local chapter" on Property profile. Pull monthly meetings and native plant sale dates into Plants > This Month as soft prompts.
 **Depth tier:** Card subtitle + deep-dive link.
 
@@ -317,7 +317,7 @@ Concrete one-time actions, ordered by friction:
 ### Natural Communities of Georgia (UGA Press companion site)
 **URL:** https://www.naturalcommunitiesofgeorgia.com/ ; Blue Ridge overview: https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html
 **What it is:** Companion website to the UGA Press book of the same name (Edwards, Ambrose & Kirkman). Authoritative typology of Georgia's natural plant communities by ecoregion. Blue Ridge community types at the property's elevation include: Mesic (Cove) Forests, Montane Oak Forests, Low- to Mid-Elevation Oak Forests, Mountain Bogs. Each community page lists characteristic and rare species.
-**Why it's relevant here:** The single best reference for "what natural community is this slope, and what species should be in it?" — the foundation for any restorative planting decision at this property.
+**Why it's relevant here:** The reference that answers "what natural community is this slope, and what species belong in it?" Foundation for any restorative planting decision here.
 **Dashboard integration idea:** Property card → "Natural community" subtitle (e.g., "Mesic Cove Forest / Montane Oak Forest, ~2,959 ft"). Plants card → community-type filter as the organizing principle.
 **Depth tier:** Foundation source.
 
@@ -370,7 +370,7 @@ Concrete one-time actions, ordered by friction:
 ### eBird — Pickens County, GA (Cornell Lab)
 **URL:** https://ebird.org/region/US-GA-227
 **What it is:** Cornell's birding database with a dedicated Pickens County page showing recent sightings, hotspots, monthsPresent bar charts, and an illustrated checklist generated from real observations.
-**Why it's relevant here:** Single best data source for the Birds tab's monthsPresent and status fields — eBird bar charts visualize exactly that. Free, public.
+**Why it's relevant here:** Where the Birds tab's monthsPresent and status fields come from. Pickens County bar charts visualize the same data. Free, public.
 **Dashboard integration idea:** Link each Birds-tab species name to its eBird Pickens County bar chart (`ebird.org/species/[code]/US-GA-227`); "Recent sightings near you" subtitle linking to the county page. Use eBird abundance bars as source of truth for monthsPresent.
 **Depth tier:** Surface fact + deep-dive link per species.
 
@@ -507,7 +507,7 @@ Concrete one-time actions, ordered by friction:
 ### USGS NWIS Water Services API (Instantaneous Values)
 **URL:** https://waterservices.usgs.gov/ (docs: https://waterservices.usgs.gov/docs/instantaneous-values/instantaneous-values-details/)
 **What it is:** REST API returning JSON/XML/RDB for current and historical streamflow, gage height, water temperature, and other parameters. Free, no auth.
-**Why it's relevant here:** The obvious "live USGS stream gauge" data source. Etowah River gauges upstream and downstream of the property anchor the watershed health story.
+**Why it's relevant here:** Live stream-gauge data from USGS. The Etowah gauges upstream and downstream of the property carry the watershed-health story.
 **Dashboard integration idea:** Property/Weather card → live "Etowah at GA-9 near Dawsonville" discharge (cfs) and gage height. Endpoint: `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=02389150&parameterCd=00060,00065&siteStatus=all`. **CORS enabled** — direct browser fetch works.
 **Depth tier:** **Live data source** (CORS-enabled JSON).
 
@@ -577,7 +577,7 @@ Concrete one-time actions, ordered by friction:
 ### Mountain Conservation Trust of Georgia (MCT)
 **URL:** https://mctga.org/
 **What it is:** Accredited land trust focused exclusively on the North Georgia foothills and mountains; 7,500+ acres permanently protected via easements, fee acquisition, stewardship agreements.
-**Why it's relevant here:** MCT's geographic mandate is precisely the property's region. The most directly aligned land trust if a conservation easement on Church Mountain Road ever makes sense.
+**Why it's relevant here:** MCT's geographic mandate covers this region exactly. The closest-aligned land trust if a conservation easement on Church Mountain Road ever makes sense.
 **Dashboard integration idea:** Stewardship/Property deep-dive: "Conservation easement options." Link to mctga.org/conserving-your-land/conservation-options/.
 **Depth tier:** Deep-dive link.
 
@@ -605,7 +605,7 @@ Concrete one-time actions, ordered by friction:
 ### MountainTrue
 **URL:** https://mountaintrue.org/
 **What it is:** Southern Blue Ridge regional advocacy nonprofit, historically focused on Western North Carolina but now formally working in Towns and Union counties, GA after the Hiwassee River Watershed Coalition merger.
-**Why it's relevant here:** Less directly aligned (Pickens not yet in MountainTrue's GA service area), but the most relevant Southern Blue Ridge regional voice on Nantahala-Pisgah and broader forest policy that affects upstream conditions.
+**Why it's relevant here:** Pickens isn't yet in MountainTrue's GA service area, but their Southern Blue Ridge work on Nantahala-Pisgah and forest policy affects upstream conditions here.
 **Dashboard integration idea:** Optional regional context link.
 **Depth tier:** Surface fact / optional deep-dive.
 
@@ -722,14 +722,14 @@ Concrete one-time actions, ordered by friction:
 ### NOAA NCEI Climate Data Online (CDO)
 **URL:** https://www.ncei.noaa.gov/cdo-web/
 **What it is:** Federal archive of historical weather/climate data with free programmatic access to daily summaries, hourly observations, and 1991-2020 U.S. Climate Normals.
-**Why it's relevant here:** Authoritative long-term context for the Ambient Weather station's live readings — what's a "normal" May at this elevation, and how is the current month tracking?
+**Why it's relevant here:** Long-term context for the Ambient Weather station's live readings. What does a "normal" May look like at this elevation, and how is the current month tracking?
 **Dashboard integration idea:** Weather card subtitle: "May normal high 73°F, low 51°F (1991-2020)." Pull at month boundaries from `https://www.ncei.noaa.gov/access/services/data/v1`. Token required (free); CORS not officially supported — proxy server-side.
 **Depth tier:** **Live data source** (cached monthly).
 
 ### NOAA NWS API (api.weather.gov)
 **URL:** https://api.weather.gov ; docs at https://www.weather.gov/documentation/services-web-api
 **What it is:** Free, no-key, CORS-enabled JSON forecast API. Gridpoint endpoint exposes `skyCover` as a percentage time series.
-**Why it's relevant here:** Bortle 3 site; sky cover forecast is the single most useful astronomy variable. Open-Meteo gives a model blend; NWS gives the official forecaster's grid.
+**Why it's relevant here:** Bortle 3 here — sky-cover forecast is the astronomy variable that matters most. Open-Meteo gives a model blend; NWS gives the official forecaster's grid.
 **Dashboard integration idea:** Weather card celestial subsection — render a 24-hour sky-cover sparkline. Flow: `GET /points/34.5496,-84.3674` → follow `properties.forecastGridData` → read `properties.skyCover.values[]`. CORS works in-browser.
 **Depth tier:** **Live data source** (CORS-enabled, no key).
 
@@ -882,7 +882,7 @@ Concrete one-time actions, ordered by friction:
 ### Appalachian Beginning Forest Farmer Coalition
 **URL:** https://www.appalachianforestfarmers.org and https://www.appalachianforestfarmers.org/ntfps
 **What it is:** USDA-funded coalition focused on cultivating native non-timber forest products (ginseng, ramps, goldenseal, black cohosh) under existing forest canopy rather than clearing land.
-**Why it's relevant here:** **Single most aligned organization with the property's stated values.** Bortle 3 + 2,959 ft + Blue Ridge mature forest = textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network.
+**Why it's relevant here:** Bortle 3, 2,959 ft, Blue Ridge mature forest — textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network.
 **Dashboard integration idea:** Property card → featured "indigenous plant cultivation" link. Strong tie-in with Cherokee plant heritage.
 **Depth tier:** Deep-dive link (high-value).
 
@@ -896,7 +896,7 @@ Concrete one-time actions, ordered by friction:
 ### Appalachian Beekeepers Association of Georgia (Pickens-area chapter)
 **URL:** http://www.pickensbeekeepers.com
 **What it is:** Local beekeeping association serving Pickens and surrounding north Georgia counties; monthly meetings, on-site field training, mentorship.
-**Why it's relevant here:** **A Pickens County resource — the most directly local org on this entire list.** Bees integral to "supporting local plants" because pollinator health drives native plant reproduction.
+**Why it's relevant here:** A Pickens County beekeepers' chapter — closer to the property than anything else on this shelf. Bees do the work of pollinating the natives we tend.
 **Dashboard integration idea:** Property card → "Pollinator notes" subsection → direct link.
 **Depth tier:** Deep-dive link.
 
@@ -1044,7 +1044,7 @@ Sources for the recurring annual events worth surfacing on the dashboard. The sc
 ### Visit Pickens GA — Community Calendar
 **URL:** https://visitpickensga.com/community-calendar/ ; festivals page: https://visitpickensga.com/festivals/
 **What it is:** Pickens County Chamber of Commerce-run community calendar. ~150 events spanning library programs, farmers markets, brewery open mic nights, cooking classes, and the county's major festivals. Powered by the Quick Event Manager WordPress plugin.
-**Why it's relevant here:** The single most complete aggregator of Pickens County events. Where to look first when refreshing `events.json` annually or spot-checking dates.
+**Why it's relevant here:** Pickens County's events aggregator. First stop when refreshing `events.json` or spot-checking a date.
 **Calendar feed status:** No public iCal/ICS/RSS feed exposed. Confirmed via probe of `/events/?ical=1` (404) and `/community-calendar/?ical=1` (HTML page).
 **Dashboard integration idea:** Source for the Pickens portion of `events.json`. Manual curation; annual review.
 **Depth tier:** Aggregator source.

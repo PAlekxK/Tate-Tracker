@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastBuilt": "2026-05-21",
+    "lastBuilt": "2026-05-27",
     "source": "research-resources.md",
     "totalEntries": 145,
     "categoryCount": 8
@@ -13,7 +13,7 @@
         {
           "title": "Native Plants of North Georgia: A Photo Guide for Plant Enthusiasts (UGA Extension B 1339)",
           "url": "https://extension.uga.edu/publications/detail.html?number=B1339",
-          "framing": "The single most geographically-targeted Extension publication for the property — assumes the elevation, slope, and zone 7b/6b conditions of Pickens County. Far more useful than statewide guides."
+          "framing": "Written for the elevation, slope, and zone conditions of Pickens County — closer to this slope than any statewide guide."
         },
         {
           "title": "Native Plants for Georgia, Part I: Trees, Shrubs, and Woody Vines (UGA Extension B 987)",
@@ -73,12 +73,12 @@
         {
           "title": "Georgia Forestry Commission — Forest Stewardship Program",
           "url": "https://gatrees.org/forest-management-conservation/forest-stewardship-program/",
-          "framing": "A free, custom-written management plan for the property's specific acreage, slope, and forest type — Pickens County is in the served region. Plans include wildlife and indigenous-species objectives."
+          "framing": "Genuinely tailored guidance for a wooded mountain parcel — far more property-specific than any publication. Plans include wildlife and indigenous-species objectives."
         },
         {
           "title": "Warnell School of Forestry & Natural Resources — Outreach Publications",
           "url": "https://www.warnelloutreach.org/publications.cfm",
-          "framing": "Georgia-specific publications on forest health, prescribed fire in Appalachian hardwoods, and wildlife habitat structure — all directly applicable to a wooded Blue Ridge parcel at 2,959 ft."
+          "framing": "Deepest Georgia-specific coverage of forest health, prescribed fire in Appalachian hardwoods, and wildlife habitat structure."
         },
         {
           "title": "NC State Extension Gardener Handbook",
@@ -99,7 +99,7 @@
         {
           "title": "North Georgia Mountains Chapter — Georgia Native Plant Society",
           "url": "https://gnps.org/north-georgia-mountains/",
-          "framing": "The most ecologically aligned native-plant community for the property — Pickens is just south of the chapter's stated counties; species, soils, elevations are nearly identical."
+          "framing": "Pickens sits just south of the chapter's stated counties — same species, same soils, same elevations as this slope."
         },
         {
           "title": "Georgia Native Plant Society — Plant of the Year",
@@ -139,7 +139,7 @@
         {
           "title": "Xerces Society — Pollinator Conservation Resources: Southeast Region",
           "url": "https://xerces.org/pollinator-resource-center/southeast",
-          "framing": "Invertebrate-focused conservation source whose Southeast plant list explicitly accounts for Appalachian conditions — relevant to the pollinators and native bees on this property."
+          "framing": "Best-in-class invertebrate-focused source. Their Southeast plant list explicitly accounts for Appalachian conditions."
         },
         {
           "title": "Xerces Society — Pollinator Plants of the Southeast Region (PDF)",
@@ -164,7 +164,7 @@
         {
           "title": "Lady Bird Johnson Wildflower Center — Native Plant Database",
           "url": "https://www.wildflower.org/plants/",
-          "framing": "Single-page species references useful when checking a plant already on the property — habitat, range, and propagation notes in one place."
+          "framing": "Often the cleanest single reference page per species."
         },
         {
           "title": "Birds Georgia (formerly Georgia Audubon) — Plants for Birds & Wildlife Sanctuary Certification",
@@ -184,7 +184,7 @@
         {
           "title": "Natural Communities of Georgia (UGA Press companion site)",
           "url": "https://www.naturalcommunitiesofgeorgia.com/",
-          "framing": "The single best reference for \"what natural community is this slope, and what species should be in it?\" — the foundation for any restorative planting decision at this property."
+          "framing": "The reference that answers \"what natural community is this slope, and what species belong in it?\" Foundation for any restorative planting decision here."
         },
         {
           "title": "GA DNR — \"Georgia's Natural Communities and Associated Rare Plant and Animal Species\" (PDF)",
@@ -225,7 +225,7 @@
         {
           "title": "eBird — Pickens County, GA (Cornell Lab)",
           "url": "https://ebird.org/region/US-GA-227",
-          "framing": "Single best data source for the Birds tab's monthsPresent and status fields — eBird bar charts visualize exactly that. Free, public."
+          "framing": "Where the Birds tab's monthsPresent and status fields come from. Pickens County bar charts visualize the same data. Free, public."
         },
         {
           "title": "USFWS IPaC — Information for Planning and Consultation",
@@ -245,7 +245,7 @@
         {
           "title": "iNaturalist — Pickens County, GA",
           "url": "https://www.inaturalist.org/places/pickens-county",
-          "framing": "Pickens County observation records for the taxa eBird doesn't cover — amphibians and pollinators in particular. GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species."
+          "framing": "Best single source for amphibians and pollinators (eBird doesn't cover them). GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species."
         },
         {
           "title": "Southeast Bumble Bee Atlas (Xerces + GA DNR)",
@@ -326,7 +326,7 @@
         {
           "title": "USGS NWIS Water Services API (Instantaneous Values)",
           "url": "https://waterservices.usgs.gov/",
-          "framing": "The obvious \"live USGS stream gauge\" data source. Etowah River gauges upstream and downstream of the property anchor the watershed health story."
+          "framing": "Live stream-gauge data from USGS. The Etowah gauges upstream and downstream of the property carry the watershed-health story."
         },
         {
           "title": "USGS Monitoring Locations — Etowah River near Dawsonville (02389150) & Canton (02392000)",
@@ -376,7 +376,7 @@
         {
           "title": "Mountain Conservation Trust of Georgia (MCT)",
           "url": "https://mctga.org/",
-          "framing": "MCT's geographic mandate is precisely the property's region. The most directly aligned land trust if a conservation easement on Church Mountain Road ever makes sense."
+          "framing": "MCT's geographic mandate covers this region exactly. The closest-aligned land trust if a conservation easement on Church Mountain Road ever makes sense."
         },
         {
           "title": "Georgia Forestry Commission — Forest Stewardship Program",
@@ -396,7 +396,7 @@
         {
           "title": "MountainTrue",
           "url": "https://mountaintrue.org/",
-          "framing": "Less directly aligned (Pickens not yet in MountainTrue's GA service area), but the most relevant Southern Blue Ridge regional voice on Nantahala-Pisgah and broader forest policy that affects upstream conditions."
+          "framing": "Pickens isn't yet in MountainTrue's GA service area, but their Southern Blue Ridge work on Nantahala-Pisgah and forest policy affects upstream conditions here."
         },
         {
           "title": "The Nature Conservancy — Upper Coosa River Basin (Georgia)",
@@ -483,12 +483,12 @@
         {
           "title": "NOAA NCEI Climate Data Online (CDO)",
           "url": "https://www.ncei.noaa.gov/cdo-web/",
-          "framing": "Authoritative long-term context for the Ambient Weather station's live readings — what's a \"normal\" May at this elevation, and how is the current month tracking?"
+          "framing": "Long-term context for the Ambient Weather station's live readings. What does a \"normal\" May look like at this elevation, and how is the current month tracking?"
         },
         {
           "title": "NOAA NWS API (api.weather.gov)",
           "url": "https://api.weather.gov",
-          "framing": "Bortle 3 site; sky cover forecast is the single most useful astronomy variable. Open-Meteo gives a model blend; NWS gives the official forecaster's grid."
+          "framing": "Bortle 3 here — sky-cover forecast is the astronomy variable that matters most. Open-Meteo gives a model blend; NWS gives the official forecaster's grid."
         },
         {
           "title": "PRISM Climate Group (Oregon State)",
@@ -518,7 +518,7 @@
         {
           "title": "DarkSky International",
           "url": "https://darksky.org",
-          "framing": "The property reads Bortle 3 — dark enough that the Milky Way is visible most clear nights. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset."
+          "framing": "Property at Bortle 3 — exceptional for the Eastern US. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset."
         },
         {
           "title": "Stephen C. Foster State Park (Georgia's only IDA Dark Sky Park)",
@@ -533,7 +533,7 @@
         {
           "title": "NASA Scientific Visualization Studio — Moon Phase & Eclipse Pages",
           "url": "https://svs.gsfc.nasa.gov/5612/",
-          "framing": "Public-domain Moon imagery and visualizations tied to specific dates — what to point at on the celestial card when a phase, eclipse, or libration is worth surfacing. **The March 3, 2026 total lunar eclipse is visible from Georgia** — featured-event candidate."
+          "framing": "Highest-quality public-domain Moon imagery. **The March 3, 2026 total lunar eclipse is visible from Georgia** — featured-event candidate."
         },
         {
           "title": "International Meteor Organization (IMO) Meteor Shower Calendar",
@@ -558,7 +558,7 @@
         {
           "title": "Time and Date AS — sun/moon reference",
           "url": "https://www.timeanddate.com",
-          "framing": "Human-readable sunrise / sunset / moonrise / moonphase reference for any lat-lon — useful for cross-checking the dashboard's celestial numbers. Skip the API; reference link only."
+          "framing": "Best free human-readable cross-check. Skip the API; reference link only."
         },
         {
           "title": "AirNow API",
@@ -593,7 +593,7 @@
         {
           "title": "Appalachian Beginning Forest Farmer Coalition",
           "url": "https://www.appalachianforestfarmers.org",
-          "framing": "**Single most aligned organization with the property's stated values.** Bortle 3 + 2,959 ft + Blue Ridge mature forest = textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network."
+          "framing": "Bortle 3, 2,959 ft, Blue Ridge mature forest — textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network."
         },
         {
           "title": "Carolina Farm Stewardship Association",
@@ -603,7 +603,7 @@
         {
           "title": "Appalachian Beekeepers Association of Georgia (Pickens-area chapter)",
           "url": "http://www.pickensbeekeepers.com",
-          "framing": "**A Pickens County resource — the most directly local org on this entire list.** Bees integral to \"supporting local plants\" because pollinator health drives native plant reproduction."
+          "framing": "A Pickens County beekeepers' chapter — closer to the property than anything else on this shelf. Bees do the work of pollinating the natives we tend."
         },
         {
           "title": "UGA Bee Program",
@@ -720,7 +720,7 @@
         {
           "title": "Visit Pickens GA — Community Calendar",
           "url": "https://visitpickensga.com/community-calendar/",
-          "framing": "The single most complete aggregator of Pickens County events. Where to look first when refreshing `events.json` annually or spot-checking dates."
+          "framing": "Pickens County's events aggregator. First stop when refreshing `events.json` or spot-checking a date."
         },
         {
           "title": "Know Pickens — Events Calendar",

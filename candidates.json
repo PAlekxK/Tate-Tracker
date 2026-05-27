@@ -20,7 +20,7 @@
       "emoji": "🌾",
       "status": "considering",
       "category": "native-grass",
-      "rationale": "Native perennial bunchgrass, partial shade, mesic to wet soils. Fits the spring drainage seepage zone and forest-edge mesic spots. Soft fine-textured groundcover with late-season inflorescences. Flagged for inclusion by Mom.",
+      "rationale": "A native perennial bunchgrass that takes partial shade and mesic-to-wet soils — the kind of grass that would belong in the spring drainage and along the mesic forest edges.",
       "communityFit": [
         "Cove Forest",
         "Seepage Wetland",
@@ -32,7 +32,8 @@
         "gnps-ngm-sale"
       ],
       "flaggedBy": "Mom",
-      "notes": "Not in the GNPS Blue Ridge landscaping matrix, but iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm the species' habitat (mesic to dry forests, seepage swamps, depressions) matches the property. Bunchgrass habit, no rhizomes or stolons — gentle in a planted setting. 8-31 inches tall.",
+      "notes": "Bunchgrass habit — no rhizomes, no stolons — gentle in a planted setting. Eight to thirty-one inches tall, with airy late-season inflorescences.",
+      "curationNotes": "Not in the GNPS Blue Ridge landscaping matrix, but iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm the habitat (mesic to dry forests, seepage swamps, depressions) matches the property.",
       "photo": "images/candidates/autumn-bentgrass.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
@@ -148,7 +149,7 @@
       "emoji": "🌸",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "Native to Georgia coves, including this elevation. Mt. Cuba Center's wild hydrangea trial (2022) found 'Haas' Halo' the top performer in the Mid-Atlantic — directly applicable to the property. Sits cleanly alongside the existing hydrangea entries on plants.json.",
+      "rationale": "A native of the cove forests at this elevation — the wild cousin to the hydrangeas already by the porch. The 'Haas' Halo' selection is the defensible pick: Mt. Cuba Center's 2022 trial named it the strongest in the Mid-Atlantic.",
       "communityFit": [
         "Cove Forest",
         "Spray Cliffs"
@@ -174,7 +175,7 @@
       "emoji": "🐝",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "M. fistulosa is widely native including the north Georgia mountains. Mt. Cuba Center's monarda trial (40 selections, 3 years) named 'Claire Grace' the clear winner — 3-week floral display, 130+ butterfly and moth visits over the trial, strong powdery-mildew resistance. The defensible monarda pick.",
+      "rationale": "Wild bergamot is native to the north Georgia mountains and would fit a sunny edge of the fairway. 'Claire Grace' is the defensible cultivar — Mt. Cuba's 40-selection trial named it the clear winner: three-week floral display, 130+ butterfly and moth visits over the trial, strong powdery-mildew resistance.",
       "communityFit": [
         "Forest edge",
         "Sunny meadow",
@@ -201,7 +202,7 @@
       "emoji": "💛",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "Top performer in Mt. Cuba Center's baptisia trial (46 selections, 2012-2015). Long-lived perennial with a deep taproot, drought-tolerant once established. Bright yellow spring spikes.",
+      "rationale": "A long-lived perennial with a deep taproot, drought-tolerant once established — would suit a full-sun bed at the fairway edge or a patio corner. 'Screamin' Yellow' is the trial-tested cultivar pick: Mt. Cuba's baptisia trial (46 selections, 2012-2015) named it the top performer. Bright yellow spring spikes.",
       "communityFit": [
         "Sunny meadow",
         "Fairway edge",
@@ -211,7 +212,7 @@
         "beech-hollow-farms",
         "north-georgia-native-plant-nursery"
       ],
-      "notes": "Range honesty: B. sphaerocarpa is south-central US native, not strictly a Blue Ridge mountain species. If a regional-native is preferred over the trial winner, the same Mt. Cuba trial's 'Purple Smoke' (a hybrid of B. australis × B. alba) hits the same garden function and B. australis IS native to the southern Appalachians. Either way: full sun, well-drained — not for the forest interior.",
+      "notes": "Worth flagging — B. sphaerocarpa is a south-central species, not a Blue Ridge native. For a more local fit, the same Mt. Cuba trial's 'Purple Smoke' (a hybrid involving B. australis, which IS native to the southern Appalachians) does the same garden work. Either way: full sun, well-drained — not for the forest interior.",
       "photo": "images/candidates/screamin-yellow-baptisia.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
@@ -227,7 +228,7 @@
       "emoji": "🌼",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "E. purpurea is native to the eastern US including north Georgia woodland edges and open glades. Mt. Cuba Center's coneflower trial (75 selections, 2018-2020) named 'Pica Bella' the top performer; 'Fragrant Angel' averaged the most butterfly visits.",
+      "rationale": "Purple coneflower is native to woodland edges and open glades across the eastern US, north Georgia included — a fit for a sunny edge along the fairway or patio bed. 'Pica Bella' is the defensible cultivar: Mt. Cuba's 75-selection trial (2018-2020) named it the top performer; 'Fragrant Angel' averaged the most butterfly visits.",
       "communityFit": [
         "Woodland edge",
         "Sunny meadow",
@@ -254,7 +255,7 @@
       "emoji": "🌻",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "Top performer in Mt. Cuba Center's coreopsis trial (94 selections) — disease-resistant foliage, late-season floral display. The defensible coreopsis pick from the published trial.",
+      "rationale": "A wet-meadow native that would suit the pond's edge or the spring drainage seepage. 'Summer Sunshine' is the trial-tested pick: Mt. Cuba's coreopsis trial (94 selections) named it the top performer for disease-resistant foliage and late-season bloom.",
       "communityFit": [
         "Wet meadow",
         "Pond edge",
@@ -264,7 +265,7 @@
         "beech-hollow-farms",
         "north-georgia-native-plant-nursery"
       ],
-      "notes": "Range honesty: C. palustris is a coastal-plain wetland species, not native to the Blue Ridge mountains. The pond and spring drainage could host it if the trial winner is preferred. For a Fernwood-region-native alternative, C. verticillata 'Zagreb' (threadleaf coreopsis) IS Blue Ridge native and was also a Mt. Cuba top performer — better fit for dry sunny spots.",
+      "notes": "Worth flagging — C. palustris is a coastal-plain wetland species, not a Blue Ridge native. The pond and spring drainage could host it if the trial winner is the priority. For a Blue Ridge native alternative, 'Zagreb' threadleaf coreopsis (C. verticillata 'Zagreb') was also a top performer in the same trial — and a better fit for dry sunny spots than for the pond's edge.",
       "photo": "images/candidates/summer-sunshine-coreopsis.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
