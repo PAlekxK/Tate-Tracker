@@ -461,6 +461,134 @@
     gap: 4px;
     z-index: 2;
   }
+  /* "Add a place" button + two-path popover. Visible at rest;
+     opens to offer Tap-on-the-map (draw) or Describe-it (voice). */
+  .pmap-add-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(106, 138, 74, 0.94);
+    color: #fff;
+    border: 1.5px solid #5a7a3a;
+    border-radius: 22px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+    -webkit-tap-highlight-color: transparent;
+    min-height: 36px;
+  }
+  .pmap-add-btn:active { transform: scale(0.96); }
+  body.text-lg .pmap-add-btn { font-size: 16px; padding: 10px 18px; min-height: 44px; }
+  .pmap-add-popover {
+    position: absolute;
+    bottom: 56px;
+    left: 10px;
+    z-index: 3;
+    display: none;
+    background: #fff;
+    border: 1.5px solid #c4d4b4;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+    min-width: 220px;
+  }
+  .pmap-add-popover.open {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .pmap-add-popover-btn {
+    padding: 12px 14px;
+    background: #f4f8ee;
+    border: 1.5px solid #c4d4b4;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #2a4a2a;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pmap-add-popover-btn:active { background: #e8efe0; }
+  .pmap-add-popover-emoji { font-size: 20px; line-height: 1; }
+  body.text-lg .pmap-add-popover-btn { font-size: 16px; min-height: 52px; }
+
+  /* Draw mode — stage gets a hint banner + vertex markers + done/cancel */
+  .pmap-stage.drawing { cursor: crosshair; }
+  .pmap-draw-hint {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 20, 14, 0.85);
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-style: italic;
+    z-index: 3;
+    pointer-events: none;
+    text-align: center;
+    max-width: 86%;
+  }
+  body.text-lg .pmap-draw-hint { font-size: 15px; }
+  .pmap-draw-actions {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+  }
+  .pmap-draw-action {
+    background: #fff;
+    border: 1.5px solid #c4d4b4;
+    color: #2a4a2a;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 44px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  }
+  .pmap-draw-action.primary {
+    background: #6a8a4a;
+    color: #fff;
+    border-color: #5a7a3a;
+  }
+  .pmap-draw-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  body.text-lg .pmap-draw-action { font-size: 16px; min-height: 48px; }
+  /* Draft polygon + vertex markers drawn into the SVG overlay during drawing */
+  .pmap-draw-edge {
+    fill: rgba(106, 138, 74, 0.18);
+    stroke: #6a8a4a;
+    stroke-width: 2.5;
+    stroke-dasharray: 8 6;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+  }
+  .pmap-draw-vertex {
+    fill: #6a8a4a;
+    stroke: #fff;
+    stroke-width: 3;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+  }
   .pmap-ctrl-btn {
     background: rgba(255, 255, 255, 0.92);
     border: 1px solid #b4c8a4;
@@ -6139,6 +6267,15 @@ function renderPropertyMap() {
                '<button class="pmap-ctrl-btn" id="pmap-zoom-in" type="button" aria-label="Zoom in">+</button>' +
                '<button class="pmap-ctrl-btn" id="pmap-reset" type="button" aria-label="Reset view">⟲</button>' +
              '</div>' +
+             '<button class="pmap-add-btn" id="pmap-add-btn" type="button">+ Add a place</button>' +
+             '<div class="pmap-add-popover" id="pmap-add-popover">' +
+               '<button class="pmap-add-popover-btn" id="pmap-add-tap" type="button">' +
+                 '<span class="pmap-add-popover-emoji">📍</span><span>Tap on the map</span>' +
+               '</button>' +
+               '<button class="pmap-add-popover-btn" id="pmap-add-voice" type="button">' +
+                 '<span class="pmap-add-popover-emoji">🎤</span><span>Describe it</span>' +
+               '</button>' +
+             '</div>' +
            '</div>' +
          '</div>';
 }
@@ -6174,13 +6311,43 @@ function wirePropertyMap() {
     ty = Math.max(minTy, Math.min(maxTy, ty));
   }
 
+  // Draw-mode state — when active, taps add vertices instead of starting a pan.
+  let drawMode = false;
+  let drawVertices = [];  // [[fx, fy], ...] in fractional (0-1) coords
+
+  // Convert a pointer event's screen position to fractional image coords,
+  // accounting for the canvas's current pan+zoom transform.
+  function eventToFractional(e) {
+    const rect = stage.getBoundingClientRect();
+    const xStage = e.clientX - rect.left;
+    const yStage = e.clientY - rect.top;
+    const xCanvas = (xStage - tx) / scale;
+    const yCanvas = (yStage - ty) / scale;
+    const fx = xCanvas / stage.clientWidth;
+    const fy = yCanvas / stage.clientHeight;
+    return [
+      Math.max(0, Math.min(1, fx)),
+      Math.max(0, Math.min(1, fy)),
+    ];
+  }
+
   // Pointer-driven pan (one finger on touch, mouse drag on desktop).
   let dragging = false;
   let lastX = 0, lastY = 0;
   let pointerCount = 0;
+  let downX = 0, downY = 0;  // for click-vs-drag detection in draw mode
   stage.addEventListener("pointerdown", (e) => {
     pointerCount++;
     if (pointerCount > 1) return; // pinch handled by gesture* on iOS
+    downX = e.clientX;
+    downY = e.clientY;
+    if (drawMode) {
+      // In draw mode the pointerdown captures the position; vertex commits
+      // on pointerup IF the tap didn't move (so accidental drags don't add
+      // crooked vertices). Don't start a pan-drag.
+      e.preventDefault();
+      return;
+    }
     dragging = true;
     lastX = e.clientX;
     lastY = e.clientY;
@@ -6188,7 +6355,7 @@ function wirePropertyMap() {
     e.preventDefault();
   });
   stage.addEventListener("pointermove", (e) => {
-    if (!dragging) return;
+    if (drawMode || !dragging) return;
     tx += e.clientX - lastX;
     ty += e.clientY - lastY;
     lastX = e.clientX;
@@ -6198,11 +6365,150 @@ function wirePropertyMap() {
   });
   function endDrag(e) {
     pointerCount = Math.max(0, pointerCount - 1);
+    if (drawMode) {
+      // Treat as a vertex tap if the pointer didn't travel far.
+      const dx = e.clientX - downX;
+      const dy = e.clientY - downY;
+      if (Math.sqrt(dx * dx + dy * dy) < 8) {
+        const v = eventToFractional(e);
+        drawVertices.push(v);
+        redrawDraftPolygon();
+        const doneBtn = document.getElementById("pmap-draw-done");
+        if (doneBtn) doneBtn.disabled = drawVertices.length < 3;
+        const undoBtn = document.getElementById("pmap-draw-undo");
+        if (undoBtn) undoBtn.disabled = drawVertices.length === 0;
+        updateDrawHint();
+      }
+      try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+      return;
+    }
     if (pointerCount === 0) dragging = false;
     try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
   }
   stage.addEventListener("pointerup", endDrag);
   stage.addEventListener("pointercancel", endDrag);
+
+  // Add a place — popover toggle, then route to draw or describe.
+  const addBtn = document.getElementById("pmap-add-btn");
+  const popover = document.getElementById("pmap-add-popover");
+  function togglePopover(open) {
+    if (typeof open !== "boolean") open = !popover.classList.contains("open");
+    popover.classList.toggle("open", open);
+  }
+  if (addBtn) {
+    addBtn.addEventListener("click", (e) => { e.stopPropagation(); togglePopover(); });
+  }
+  // Click outside popover closes it.
+  document.addEventListener("click", (e) => {
+    if (!popover) return;
+    if (popover.classList.contains("open") && !popover.contains(e.target) && e.target !== addBtn) {
+      togglePopover(false);
+    }
+  });
+  const tapBtn = document.getElementById("pmap-add-tap");
+  const voiceBtn = document.getElementById("pmap-add-voice");
+  if (tapBtn) {
+    tapBtn.addEventListener("click", () => {
+      togglePopover(false);
+      enterDrawMode();
+    });
+  }
+  if (voiceBtn) {
+    voiceBtn.addEventListener("click", () => {
+      togglePopover(false);
+      ZonePanel.openDescribeMode();
+    });
+  }
+
+  // Draw mode lifecycle — hint banner, action bar, vertex overlay.
+  function enterDrawMode() {
+    drawMode = true;
+    drawVertices = [];
+    stage.classList.add("drawing");
+    // Hint banner
+    const hint = document.createElement("div");
+    hint.className = "pmap-draw-hint";
+    hint.id = "pmap-draw-hint";
+    stage.appendChild(hint);
+    // Action bar
+    const actions = document.createElement("div");
+    actions.className = "pmap-draw-actions";
+    actions.id = "pmap-draw-actions";
+    actions.innerHTML =
+      '<button class="pmap-draw-action" id="pmap-draw-cancel" type="button">Cancel</button>' +
+      '<button class="pmap-draw-action" id="pmap-draw-undo" type="button" disabled>Undo</button>' +
+      '<button class="pmap-draw-action primary" id="pmap-draw-done" type="button" disabled>Done</button>';
+    stage.appendChild(actions);
+    document.getElementById("pmap-draw-cancel").addEventListener("click", exitDrawMode);
+    document.getElementById("pmap-draw-undo").addEventListener("click", () => {
+      drawVertices.pop();
+      redrawDraftPolygon();
+      const doneBtn = document.getElementById("pmap-draw-done");
+      if (doneBtn) doneBtn.disabled = drawVertices.length < 3;
+      const undoBtn = document.getElementById("pmap-draw-undo");
+      if (undoBtn) undoBtn.disabled = drawVertices.length === 0;
+      updateDrawHint();
+    });
+    document.getElementById("pmap-draw-done").addEventListener("click", () => {
+      if (drawVertices.length < 3) return;
+      // Hand the vertices to the panel for naming. exitDrawMode runs after
+      // the panel saves so the SVG stays clean until commit.
+      const vertsCopy = drawVertices.slice();
+      exitDrawMode({ keepVertices: true });
+      ZonePanel.openNewZone(vertsCopy);
+    });
+    updateDrawHint();
+  }
+
+  function exitDrawMode(opts) {
+    drawMode = false;
+    drawVertices = [];
+    stage.classList.remove("drawing");
+    // Clear draft polygon from the overlay
+    const overlay = document.querySelector(".pmap-overlay");
+    if (overlay) {
+      overlay.querySelectorAll(".pmap-draw-edge, .pmap-draw-vertex").forEach(n => n.remove());
+    }
+    const hint = document.getElementById("pmap-draw-hint");
+    if (hint) hint.remove();
+    const actions = document.getElementById("pmap-draw-actions");
+    if (actions) actions.remove();
+  }
+
+  function updateDrawHint() {
+    const hint = document.getElementById("pmap-draw-hint");
+    if (!hint) return;
+    const n = drawVertices.length;
+    if (n === 0) hint.textContent = "Tap each corner of the place — at least 3 points.";
+    else if (n < 3) hint.textContent = "Tap " + (3 - n) + " more corner" + (3 - n === 1 ? "" : "s") + " to outline the shape.";
+    else hint.textContent = n + " corners — tap Done when the outline looks right.";
+  }
+
+  function redrawDraftPolygon() {
+    const overlay = document.querySelector(".pmap-overlay");
+    if (!overlay) return;
+    overlay.querySelectorAll(".pmap-draw-edge, .pmap-draw-vertex").forEach(n => n.remove());
+    if (drawVertices.length === 0) return;
+    const IMG_W = 1600, IMG_H = 1103;
+    if (drawVertices.length >= 2) {
+      const points = drawVertices.map(v => (v[0] * IMG_W).toFixed(1) + "," + (v[1] * IMG_H).toFixed(1)).join(" ");
+      const elName = drawVertices.length >= 3 ? "polygon" : "polyline";
+      const shape = document.createElementNS("http://www.w3.org/2000/svg", elName);
+      shape.setAttribute("class", "pmap-draw-edge");
+      shape.setAttribute("points", points);
+      if (elName === "polyline") shape.setAttribute("fill", "none");
+      overlay.appendChild(shape);
+    }
+    // Vertex markers (drawn last so they sit on top of edges)
+    for (const v of drawVertices) {
+      const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      c.setAttribute("class", "pmap-draw-vertex");
+      c.setAttribute("cx", (v[0] * IMG_W).toFixed(1));
+      c.setAttribute("cy", (v[1] * IMG_H).toFixed(1));
+      c.setAttribute("r", "16");
+      overlay.appendChild(c);
+    }
+  }
 
   // iOS Safari pinch-zoom via gesture* events (non-standard but reliable on iOS).
   let gestureStartScale = 1;
@@ -6533,8 +6839,161 @@ const ZonePanel = (function () {
     close();
   }
 
-  return { open, close };
+  // Open the panel in "new zone" mode — vertices are already drawn; the panel
+  // collects a name (text + voice) and creates the zone on save.
+  let pendingNewVertices = null;
+  function openNewZone(vertices) {
+    if (!Array.isArray(vertices) || vertices.length < 3) return;
+    ensureMounted();
+    pendingNewVertices = vertices.slice();
+    activeZoneId = null;
+    document.getElementById("pmap-panel-name").textContent = "Name this place";
+    document.getElementById("pmap-panel-status").textContent = "· new";
+    document.getElementById("pmap-panel-actions").style.display = "none";
+    document.getElementById("pmap-panel-rename").classList.add("open");
+    const input = document.getElementById("pmap-panel-rename-input");
+    input.value = "";
+    input.placeholder = "What do you call this place?";
+    setTimeout(() => input.focus(), 100);
+    setRenameHint("");
+    backdrop.classList.add("open");
+    requestAnimationFrame(() => panel.classList.add("open"));
+  }
+
+  // Open in "describe a place" mode — voice/text capture; no polygon. Logs
+  // to a localStorage feedback queue for Paul to draft later.
+  function openDescribeMode() {
+    ensureMounted();
+    pendingNewVertices = null;
+    activeZoneId = "__describe__";
+    document.getElementById("pmap-panel-name").textContent = "Describe a place";
+    document.getElementById("pmap-panel-status").textContent = "· for Paul";
+    document.getElementById("pmap-panel-actions").style.display = "none";
+    document.getElementById("pmap-panel-rename").classList.add("open");
+    const input = document.getElementById("pmap-panel-rename-input");
+    input.value = "";
+    input.placeholder = "The spot by the spring with the rhododendrons…";
+    setTimeout(() => input.focus(), 100);
+    setRenameHint("Say or type where this place is — Paul will draw it later.");
+    backdrop.classList.add("open");
+    requestAnimationFrame(() => panel.classList.add("open"));
+  }
+
+  // Override saveRename to branch by mode: existing-zone rename, new-zone
+  // creation, or describe-mode feedback log.
+  const originalSaveRename = saveRename;
+  function _saveRenameBranched() {
+    const input = document.getElementById("pmap-panel-rename-input");
+    const text = (input.value || "").trim();
+
+    if (activeZoneId === "__describe__") {
+      // Describe-mode: log to feedback queue, no polygon yet.
+      if (!text) { setRenameHint("Tell me a bit about the place.", true); return; }
+      saveZoneFeedback(text);
+      if (typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track("zone_suggested", { textLength: text.length });
+      }
+      close();
+      return;
+    }
+
+    if (pendingNewVertices) {
+      // New-zone mode: create the zone with the captured vertices + this name.
+      if (!text) { setRenameHint("This place needs a name.", true); return; }
+      const newZone = {
+        id: makeZoneId(text),
+        name: text,
+        type: "planted",  // default; can be adjusted in zones.json directly later
+        color: [122, 149, 104],
+        vertices: pendingNewVertices,
+        status: "draft",
+        createdAt: nowIso(),
+        createdBy: whoAmI(),
+        updatedAt: nowIso(),
+        lastEditedBy: whoAmI(),
+        history: [
+          { at: nowIso(), by: whoAmI(), action: "created", details: { name: text, vertexCount: pendingNewVertices.length } }
+        ]
+      };
+      if (!Array.isArray(ZONES_DATA.zones)) ZONES_DATA.zones = [];
+      ZONES_DATA.zones.push(newZone);
+      pendingNewVertices = null;
+      persistAndRerender();
+      if (typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track("zone_created", { zoneId: newZone.id, vertexCount: newZone.vertices.length });
+      }
+      close();
+      return;
+    }
+
+    // Default — existing-zone rename (delegated to the original)
+    originalSaveRename();
+  }
+  // Rebind the panel's save button to the branched handler. ensureMounted
+  // wires the original; we swap after mount in case the panel was already up.
+  function rebindSaveButton() {
+    const saveBtn = document.getElementById("pmap-panel-rename-save");
+    if (!saveBtn) return;
+    const fresh = saveBtn.cloneNode(true);
+    saveBtn.parentNode.replaceChild(fresh, saveBtn);
+    fresh.addEventListener("click", _saveRenameBranched);
+    const input = document.getElementById("pmap-panel-rename-input");
+    if (input) {
+      const freshInput = input.cloneNode(true);
+      input.parentNode.replaceChild(freshInput, input);
+      freshInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") _saveRenameBranched();
+      });
+    }
+  }
+  // Patch ensureMounted to rebind after the original wiring
+  const originalEnsureMounted = ensureMounted;
+  ensureMounted = function () {
+    const wasMounted = !!panel;
+    originalEnsureMounted();
+    if (!wasMounted) rebindSaveButton();
+  };
+
+  return { open, openNewZone, openDescribeMode, close };
 })();
+
+// Slug-from-name for new zone IDs.
+function makeZoneId(name) {
+  const base = (name || "place").toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 40) || "place";
+  // Ensure uniqueness against existing zones + tombstones.
+  const existing = new Set([
+    ...((ZONES_DATA && ZONES_DATA.zones) || []).map(z => z.id),
+    ...((ZONES_DATA && ZONES_DATA._deleted) || []).map(d => d.id),
+  ]);
+  if (!existing.has(base)) return base;
+  let i = 2;
+  while (existing.has(base + "-" + i)) i++;
+  return base + "-" + i;
+}
+
+// Voice/text "describe a place" feedback queue. Lives in localStorage until
+// step 7's Worker sync moves it to canon (where Paul reads + drafts polygons).
+const ZONE_FEEDBACK_KEY = "tateTracker.zoneFeedback.v1";
+function saveZoneFeedback(text) {
+  try {
+    const raw = localStorage.getItem(ZONE_FEEDBACK_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(list)) return;
+    list.push({
+      id: "fb-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6),
+      text,
+      createdAt: new Date().toISOString(),
+      by: "device",
+      status: "pending",
+    });
+    localStorage.setItem(ZONE_FEEDBACK_KEY, JSON.stringify(list));
+  } catch (e) { /* quota / blocked — best effort */ }
+}
 
 // ---- Local zone persistence — saves ZONES_DATA.zones overlay to localStorage
 //      so client-side edits survive page reload. Worker sync (step 7) will
