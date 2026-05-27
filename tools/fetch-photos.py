@@ -116,6 +116,25 @@ CATEGORIES = {
         },
         "file_overrides": {},
     },
+    "candidates": {
+        "json_file": "candidates.json",
+        "species_path": "candidates",
+        "image_dir": "images/candidates",
+        "prefer": "sci",  # botanical names disambiguate cleanly
+        "page_overrides": {
+            # Mt. Cuba cultivar-trial winners: scientific name includes the cultivar in quotes;
+            # fall back to the species page so the photo represents the plant accurately.
+            "claire-grace-bee-balm": "Monarda_fistulosa",
+            "screamin-yellow-baptisia": "Baptisia_sphaerocarpa",
+            "pica-bella-coneflower": "Echinacea_purpurea",
+            "summer-sunshine-coreopsis": "Coreopsis_palustris",
+            # Hydrangea arborescens 'Haas' Halo' — the cultivar isn't in WP; species page is the right photo.
+            "wild-hydrangea": "Hydrangea_arborescens",
+            # Autumn bentgrass — species page may not exist; fall back to genus.
+            "autumn-bentgrass": "Agrostis",
+        },
+        "file_overrides": {},
+    },
 }
 
 
