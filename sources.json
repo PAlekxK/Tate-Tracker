@@ -2,7 +2,8 @@
   "_meta": {
     "lastBuilt": "2026-05-26",
     "purpose": "Sourcing reference for the Candidates card. Programs are durable; nurseries decay (lastVerified field tracks freshness).",
-    "freshnessConvention": "Green: verified within 6 months. Amber: 6-12 months. Faded: > 12 months."
+    "freshnessConvention": "Green: verified within 6 months. Amber: 6-12 months. Faded: > 12 months.",
+    "ugaNurseryListPdf": "https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1-1-1.pdf"
   },
   "programs": [
     {
@@ -51,16 +52,16 @@
     {
       "id": "tacf-ga-chapter",
       "name": "The American Chestnut Foundation — Georgia Chapter",
-      "url": "https://tacf.org/about-us/tacf-chapters/",
-      "what": "Restoration Chestnut 1.0 — landowner participation in test plantings. Multi-year cohort cycle; relational rather than catalog. The two big landowner-participation restoration species in the southern Appalachians are chestnut + hemlock.",
-      "frictionTier": "medium",
+      "url": "https://tacf.org/ga/about-us/",
+      "what": "Restoration Chestnut 1.0 — landowner participation in test plantings. Process: TACF national membership → Potential Orchard Steward form → develop stewardship plan with GA Science Coordinator → germplasm agreement → plant. Smaller path: pure American chestnut seedlings at the annual spring sale. Chapter explicitly recommends a few years of membership + volunteering before planting. Multi-year commitment; survival not guaranteed (\"many trees today may not carry sufficient disease resistance\"). Contact: gachapter@tacf.org, (828) 281-0047. Landowner intro: https://tacf.org/ga-news/so-you-want-to-plant-some-chestnuts/",
+      "frictionTier": "high",
       "lastVerified": "2026-05-26"
     },
     {
       "id": "hri-hwa-program",
       "name": "Hemlock Restoration Initiative + GFC HWA Program",
       "url": "https://savehemlocksnc.org/",
-      "what": "Hemlock Woolly Adelgid treatment protocols (imidacloprid + dinotefuran soil drench) for existing hemlocks. Conservation network for resistant stock when planting. GFC HWA: https://gatrees.org/hemlock-woolly-adelgid-hwa-in-georgia/",
+      "what": "HWA treatment protocols (imidacloprid + dinotefuran soil drench) for existing hemlocks — DIY-friendly with care, instructions at savehemlocksnc.org/info-for-landowners/landowner-treatment/. Resistant-stock plantings for forest restoration are NOT yet available to landowners (early-stage research). Two ornamental landscape cultivars ('Traveler', 'Crossroads') coming \"in the near future\" but not yet released. Contact for availability inquiries: 828-252-4783, info@savehemlocksnc.org. GFC HWA: https://gatrees.org/hemlock-woolly-adelgid-hwa-in-georgia/",
       "frictionTier": "medium",
       "lastVerified": "2026-05-26"
     }
@@ -72,10 +73,32 @@
       "location": "Chatsworth, GA",
       "distanceFromFernwood_mi": 30,
       "url": "https://nativeforestnursery.com/",
-      "specialty": "Native trees and shrubs. Closest specialty native nursery to Fernwood.",
+      "specialty": "Native trees and shrubs. Closest specialty native nursery to Fernwood. 706-483-3397, ashley@nativeforestnursery.com.",
       "orderMode": "pickup-primary",
       "frictionTier": "low",
-      "lastVerified": "2019 SBG/GNPI list — needs 2026 confirmation"
+      "lastVerified": "2026-05-26 (confirmed on UGA SBG/GNPI June 2025 list)"
+    },
+    {
+      "id": "herb-crib",
+      "name": "The Herb Crib",
+      "location": "Blairsville, GA",
+      "distanceFromFernwood_mi": 45,
+      "url": "https://herbcrib.com/",
+      "specialty": "Retail native plant nursery in Blairsville — same town as Saturday's GNPS sale (Track Rock Church Road, ~2 mi from the Union County Farmers Market sale site). Worth pairing as a same-day stop. 706-781-6465, bern@windstream.net.",
+      "orderMode": "pickup-primary",
+      "frictionTier": "medium",
+      "lastVerified": "2026-05-26 (confirmed on UGA SBG/GNPI June 2025 list)"
+    },
+    {
+      "id": "north-georgia-native-plant-nursery",
+      "name": "North Georgia Native Plant Nursery",
+      "location": "Canton, GA",
+      "distanceFromFernwood_mi": 45,
+      "url": "https://www.northgeorgianatives.com/",
+      "specialty": "North-Georgia-focused native plant specialist. Open by appointment, select Saturdays, and during events. 678-899-3253, northganatives@gmail.com.",
+      "orderMode": "pickup-primary",
+      "frictionTier": "medium",
+      "lastVerified": "2026-05-26 (confirmed on UGA SBG/GNPI June 2025 list)"
     },
     {
       "id": "beech-hollow-farms",
@@ -83,10 +106,10 @@
       "location": "Lexington, GA (also Scottdale intown)",
       "distanceFromFernwood_mi": 120,
       "url": "https://beechhollowfarms.com/",
-      "specialty": "Wildflowers, pollinator natives. Partner for Birds Georgia spring + fall plant sales.",
+      "specialty": "Wildflowers, pollinator natives. Partner for Birds Georgia spring + fall plant sales. 706-623-2020, pandra@beechhollowfarms.com.",
       "orderMode": "both",
       "frictionTier": "low",
-      "lastVerified": "2026-05-26"
+      "lastVerified": "2026-05-26 (confirmed on UGA SBG/GNPI June 2025 list)"
     },
     {
       "id": "baker-environmental-nursery",
@@ -94,10 +117,10 @@
       "location": "Hoschton, GA",
       "distanceFromFernwood_mi": 70,
       "url": "https://www.bakerenvironmentalnursery.com/",
-      "specialty": "Native trees, shrubs, perennials. Wholesale + retail.",
+      "specialty": "Native trees, shrubs, perennials. Wholesale + retail. 706-654-9072, sales@bakerenvironmentalnursery.com.",
       "orderMode": "both",
       "frictionTier": "low",
-      "lastVerified": "2019 SBG/GNPI list — needs 2026 confirmation"
+      "lastVerified": "2026-05-26 (confirmed on UGA SBG/GNPI June 2025 list)"
     },
     {
       "id": "rock-spring-restorations",
@@ -108,7 +131,7 @@
       "specialty": "Georgia restoration. Walter Bland's expertise on Georgia clay soils and eroded lands. Has Georgia-provenance seeds.",
       "orderMode": "pickup-primary",
       "frictionTier": "medium",
-      "lastVerified": "2019 SBG/GNPI list — needs 2026 confirmation"
+      "lastVerified": "2026-05-26 — NOT on UGA SBG/GNPI 2025 list (was on 2019); verify directly before relying on"
     },
     {
       "id": "gardens-of-the-blue-ridge",

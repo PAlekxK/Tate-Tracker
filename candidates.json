@@ -36,7 +36,7 @@
       "rationale": "Once a dominant canopy species at this elevation in the southern Appalachians. The blight (introduced 1904) killed virtually all mature trees from Maine to Georgia by 1950. One of the two big landowner-participation restoration species. This slope was once chestnut canopy.",
       "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest"],
       "sourceIds": ["tacf-ga-chapter"],
-      "notes": "Restoration Chestnut 1.0 released 2005 after 6-7 generations of back-crossing with blight-resistant Chinese chestnut. Active test plantings in Cherokee, Chattahoochee, and other regional national forests. Enrollment is cohort-based — patient timeline, but the most ecologically meaningful single candidate on this list."
+      "notes": "This is a multi-year commitment, not a sale-stand purchase. TACF GA's own framing: \"Many trees today may not carry sufficient disease resistance, so most likely will not live to become the 'mighty giants' we all hope and dream about.\" Path is national membership → Potential Orchard Steward form → stewardship plan with GA Science Coordinator → germplasm agreement. They recommend a few years of membership + volunteering before planting. Smaller path: pure American chestnut seedlings at the annual spring sale. Most ecologically meaningful candidate on this list; also the slowest and least guaranteed."
     },
     {
       "id": "eastern-hemlock",
@@ -48,7 +48,7 @@
       "rationale": "Cool-drainage native, occurs in acidic Cove Forest sites. Likely already present on the property in the spring drainage. Threatened by Hemlock Woolly Adelgid (HWA) since 2003 in Georgia; statewide by 2012. No other native conifer fills hemlock's ecological role.",
       "communityFit": ["Cove Forest (acidic)", "Spray Cliffs / Seepage edges"],
       "sourceIds": ["hri-hwa-program", "gfc-seedling-sale"],
-      "notes": "Step 1: check existing hemlocks on the property for HWA and treat (imidacloprid + dinotefuran soil drench at root flare). Step 2: consider resistant-stock plantings via HRI network for long-term replacement. A 2015 multi-state trial showed 96% survival of resistant hemlocks at 4 years vs 48% of susceptible trees."
+      "notes": "ACTIONABLE NOW: check existing hemlocks on the property for HWA and treat (imidacloprid + dinotefuran soil drench at root flare). HRI has DIY landowner instructions. FUTURE / NOT YET AVAILABLE: resistant-stock plantings for forest restoration — HRI's genetic-resistance work is still early-stage and there is no current sourcing pathway for landowners. Two ornamental landscape cultivars ('Traveler', 'Crossroads') are expected to be released for purchase \"in the near future\" but are explicitly landscape-only, not forest restoration stock. Step 1 is the only step worth taking this year."
     },
     {
       "id": "flame-azalea",
@@ -84,7 +84,55 @@
       "rationale": "Native to Georgia coves, including this elevation. Mt. Cuba Center's wild hydrangea trial (2022) found 'Haas' Halo' the top performer in the Mid-Atlantic — directly applicable to the property. Sits cleanly alongside the existing hydrangea entries on plants.json.",
       "communityFit": ["Cove Forest", "Spray Cliffs"],
       "sourceIds": ["beech-hollow-farms", "gnps-ngm-sale", "native-forest-nursery"],
-      "notes": "The existing plants.json hydrangea entries are mixed natives + Hydrangea macrophylla (non-native). Adding 'Haas' Halo' is a clean way to deepen the native component without removing what's planted. Mt. Cuba's full trial report: mtcubacenter.org/research-publications/"
+      "notes": "The existing plants.json hydrangea entries are mixed natives + Hydrangea macrophylla (non-native). Adding 'Haas' Halo' is a clean way to deepen the native component without removing what's planted. Mt. Cuba's full trial report: mtcubacenter.org/trials/hydrangea/"
+    },
+    {
+      "id": "claire-grace-bee-balm",
+      "name": "'Claire Grace' wild bergamot",
+      "scientificName": "Monarda fistulosa 'Claire Grace'",
+      "emoji": "🐝",
+      "status": "considering",
+      "category": "cultivar-trial",
+      "rationale": "M. fistulosa is widely native including the north Georgia mountains. Mt. Cuba Center's monarda trial (40 selections, 3 years) named 'Claire Grace' the clear winner — 3-week floral display, 130+ butterfly and moth visits over the trial, strong powdery-mildew resistance. The defensible monarda pick.",
+      "communityFit": ["Forest edge", "Sunny meadow", "Fairway edge"],
+      "sourceIds": ["gnps-ngm-sale", "beech-hollow-farms", "north-georgia-native-plant-nursery"],
+      "notes": "Pollinator workhorse for a sunny-to-part-shade bed. Pairs naturally with cardinal flower for a hummingbird + butterfly combination. Mt. Cuba report: mtcubacenter.org/trials/monarda/"
+    },
+    {
+      "id": "screamin-yellow-baptisia",
+      "name": "'Screamin' Yellow' yellow wild indigo",
+      "scientificName": "Baptisia sphaerocarpa 'Screamin' Yellow'",
+      "emoji": "💛",
+      "status": "considering",
+      "category": "cultivar-trial",
+      "rationale": "Top performer in Mt. Cuba Center's baptisia trial (46 selections, 2012-2015). Long-lived perennial with a deep taproot, drought-tolerant once established. Bright yellow spring spikes.",
+      "communityFit": ["Sunny meadow", "Fairway edge", "Patio bed (full sun)"],
+      "sourceIds": ["beech-hollow-farms", "north-georgia-native-plant-nursery"],
+      "notes": "Range honesty: B. sphaerocarpa is south-central US native, not strictly a Blue Ridge mountain species. If a regional-native is preferred over the trial winner, the same Mt. Cuba trial's 'Purple Smoke' (a hybrid of B. australis × B. alba) hits the same garden function and B. australis IS native to the southern Appalachians. Either way: full sun, well-drained — not for the forest interior."
+    },
+    {
+      "id": "pica-bella-coneflower",
+      "name": "'Pica Bella' purple coneflower",
+      "scientificName": "Echinacea purpurea 'Pica Bella'",
+      "emoji": "🌼",
+      "status": "considering",
+      "category": "cultivar-trial",
+      "rationale": "E. purpurea is native to the eastern US including north Georgia woodland edges and open glades. Mt. Cuba Center's coneflower trial (75 selections, 2018-2020) named 'Pica Bella' the top performer; 'Fragrant Angel' averaged the most butterfly visits.",
+      "communityFit": ["Woodland edge", "Sunny meadow", "Patio bed"],
+      "sourceIds": ["gnps-ngm-sale", "beech-hollow-farms", "north-georgia-native-plant-nursery"],
+      "notes": "12 cultivars rated outstanding (4.3+/5) — defensible alternatives if 'Pica Bella' isn't available. Avoid the heavily-bred doubles and orange/yellow color novelties; Mt. Cuba's trial showed they underperform on both vigor and pollinator visits. Mt. Cuba report: mtcubacenter.org/trials/echinacea-mid-atlantic-region/"
+    },
+    {
+      "id": "summer-sunshine-coreopsis",
+      "name": "'Summer Sunshine' swamp coreopsis",
+      "scientificName": "Coreopsis palustris 'Summer Sunshine'",
+      "emoji": "🌻",
+      "status": "considering",
+      "category": "cultivar-trial",
+      "rationale": "Top performer in Mt. Cuba Center's coreopsis trial (94 selections) — disease-resistant foliage, late-season floral display. The defensible coreopsis pick from the published trial.",
+      "communityFit": ["Wet meadow", "Pond edge", "Seepage Wetland"],
+      "sourceIds": ["beech-hollow-farms", "north-georgia-native-plant-nursery"],
+      "notes": "Range honesty: C. palustris is a coastal-plain wetland species, not native to the Blue Ridge mountains. The pond and spring drainage could host it if the trial winner is preferred. For a Fernwood-region-native alternative, C. verticillata 'Zagreb' (threadleaf coreopsis) IS Blue Ridge native and was also a Mt. Cuba top performer — better fit for dry sunny spots."
     },
     {
       "id": "pink-ladys-slipper",
