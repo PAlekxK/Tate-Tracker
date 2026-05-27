@@ -62,11 +62,11 @@ Full list with habitat associations: [GA DNR Natural Communities thumbnail PDF](
 1. **Session 2 — schema design.** Lock the `candidates.json` + `sources.json` shapes; freshness convention; promotion path (candidate → planted). Discovery doc has a starting draft.
 2. **Session 3 — card design.** Engage ux-expert + content-steward for the Candidates card. Voice, naming, Mom-mode considerations.
 3. **Session 4 — build.** Implement JSON + card render. Populate first operational batch (3-5 candidates Paul plants fall 2026 / spring 2027).
-4. **Parallel — chase the gaps surfaced in discovery:**
-   - UGA SBG/GNPI 2025 nursery list PDF is 404; contact jceska@uga.edu for current URL.
-   - TACF GA chapter — confirm landowner participation pathway.
-   - HRI — current resistant-hemlock-stock sourcing path.
-   - GFC 2026-2027 seedling species catalog (publishes ~July 1).
-   - Mt. Cuba current top picks for hydrangea, monarda, baptisia, echinacea, coreopsis.
+4. **Parallel — chase the gaps surfaced in discovery:** *(updated 2026-05-26 after the gap-chase pass)*
+   - ~~UGA SBG/GNPI 2025 nursery list PDF is 404~~ ✓ **Resolved** — real URL has `-1-1-1` suffix, not `-1`. Working URL captured in `sources.json._meta.ugaNurseryListPdf`. Cross-referenced: Native Forest Nursery + Baker Environmental + Beech Hollow confirmed on 2025 list; Rock Spring Restorations dropped from 2025 list (flagged in `lastVerified`); two new nurseries added — The Herb Crib (Blairsville, same town as the May 30 GNPS sale) + North Georgia Native Plant Nursery (Canton).
+   - ~~TACF GA chapter — landowner pathway~~ ✓ **Resolved** — pathway is national membership → Potential Orchard Steward form → stewardship plan with GA Science Coordinator → germplasm agreement. Multi-year commitment; chapter's own framing is that survival is not guaranteed. `frictionTier` raised to `high` in `sources.json`; chestnut candidate `notes` rewritten with the honest framing. Contact: gachapter@tacf.org, (828) 281-0047. Landowner intro: https://tacf.org/ga-news/so-you-want-to-plant-some-chestnuts/
+   - ~~HRI — resistant-hemlock-stock sourcing~~ ✓ **Resolved** — resistant stock NOT yet available to landowners. Only actionable step is HWA treatment of existing hemlocks (imidacloprid + dinotefuran soil drench, DIY-friendly). Two ornamental hybrids ('Traveler', 'Crossroads') coming "in the near future" but landscape-only, not forest restoration. Hemlock candidate `notes` rewritten to split ACTIONABLE NOW vs FUTURE / NOT YET AVAILABLE. Contact for waitlist: 828-252-4783, info@savehemlocksnc.org.
+   - GFC 2026-2027 seedling species catalog (publishes ~July 1, 2026) — still pending; set a reminder.
+   - ~~Mt. Cuba current top picks for monarda, baptisia, echinacea, coreopsis~~ ✓ **Resolved** — added 4 new cultivar-trial candidates: 'Claire Grace' wild bergamot (clean native fit), 'Screamin' Yellow' baptisia (with 'Purple Smoke' alternative noted for stricter regional-native), 'Pica Bella' purple coneflower (clean native fit), 'Summer Sunshine' coreopsis (with 'Zagreb' alternative noted — C. palustris is coastal plain, not Blue Ridge). Cultivar-trial category now has 5 entries.
 5. **Parallel — zone-naming pass.** The map view is paused awaiting Paul's zone vocabulary. Candidates `zoneAffinity` depends on it. ~30-min conversation.
 6. **Cross-reference with field observations.** When Paul or Mom spot a candidate species already present (galax, trailing arbutus, lady's slipper), promote it from "consider sourcing" to "foster what's here."
