@@ -7132,7 +7132,7 @@ function saveZoneFeedback(text) {
 
   // Fire-and-forget POST. Failures are silent; the localStorage copy is the
   // backup. Paul can read his queue from KV (canon) — Worker is authoritative.
-  if (window.WorkerAPI && WorkerAPI.isConfigured()) {
+  if (typeof WorkerAPI !== "undefined" && WorkerAPI.isConfigured()) {
     WorkerAPI.call("POST", "/api/zone-feedback", { text }).catch(e => {
       console.warn("[zone-feedback] post failed:", e && e.message ? e.message : e);
     });
@@ -7308,7 +7308,11 @@ const ZoneSyncStatus = (function () {
 })();
 
 function scheduleZoneSync() {
-  if (!window.WorkerAPI || !WorkerAPI.isConfigured()) {
+  // `WorkerAPI` is a top-level const in this regular (non-module) script —
+  // it lives in lexical scope, NOT on the window object. `window.WorkerAPI`
+  // is therefore always undefined here even though `WorkerAPI` works fine.
+  // Use `typeof WorkerAPI === "undefined"` for the defensive existence check.
+  if (typeof WorkerAPI === "undefined" || !WorkerAPI.isConfigured()) {
     ZoneSyncStatus.set("failed", "Sync isn't configured on this device — open Sync settings.");
     return;
   }
@@ -7405,7 +7409,7 @@ setTimeout(function () {
     if (!stored || !stored.savedAt) return;
     const lastSynced = localStorage.getItem(ZONE_LAST_SYNCED_KEY);
     if (lastSynced && stored.savedAt <= lastSynced) return;  // canon caught up
-    if (typeof window.WorkerAPI === "undefined" || !window.WorkerAPI.isConfigured()) {
+    if (typeof WorkerAPI === "undefined" || !WorkerAPI.isConfigured()) {
       ZoneSyncStatus.set("failed", "Local edits haven't synced yet — Sync settings on this device aren't configured.");
       return;
     }
