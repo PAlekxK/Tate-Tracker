@@ -482,6 +482,175 @@
   }
   body.text-lg .pmap-zone-label { font-size: 19px; }
 
+  /* Tap-a-zone panel — bottom-sheet pattern. Familiar mobile interaction,
+     respects one-handed leisure-reading posture, and the four actions are
+     binary taps Mom already knows from the Step A chip pattern. */
+  .pmap-panel-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 20, 14, 0.42);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease-out;
+  }
+  .pmap-panel-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .pmap-panel {
+    position: fixed;
+    left: 0; right: 0;
+    bottom: 0;
+    z-index: 101;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 18px 18px max(20px, env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
+    transform: translateY(100%);
+    transition: transform 0.25s ease-out;
+    max-width: 660px;
+    margin: 0 auto;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .pmap-panel.open { transform: translateY(0); }
+  .pmap-panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 12px;
+  }
+  .pmap-panel-zone-name {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 22px;
+    color: #2a4a2a;
+    font-weight: 600;
+    flex: 1;
+    word-break: break-word;
+  }
+  .pmap-panel-status {
+    font-size: 11px;
+    font-style: italic;
+    color: #6a7a5a;
+    text-transform: lowercase;
+    letter-spacing: 0.3px;
+  }
+  .pmap-panel-close {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: #6a7a5a;
+    cursor: pointer;
+    width: 36px; height: 36px;
+    line-height: 1;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .pmap-panel-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pmap-panel-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: #f4f8ee;
+    border: 1.5px solid #c4d4b4;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 16px;
+    color: #2a4a2a;
+    cursor: pointer;
+    min-height: 52px;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pmap-panel-btn:active { background: #e8efe0; transform: scale(0.98); }
+  .pmap-panel-btn .pmap-btn-emoji { font-size: 22px; line-height: 1; }
+  .pmap-panel-btn .pmap-btn-label { flex: 1; }
+  .pmap-panel-btn.danger { color: #8a3020; border-color: #d4b8a8; background: #f8eee8; }
+  body.text-lg .pmap-panel-zone-name { font-size: 26px; }
+  body.text-lg .pmap-panel-btn { font-size: 18px; min-height: 56px; }
+
+  /* Rename submode — replaces the four-button list with a name input + mic */
+  .pmap-panel-rename {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pmap-panel-rename.open { display: flex; }
+  .pmap-panel-rename-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .pmap-panel-rename-input {
+    flex: 1;
+    padding: 12px 14px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #2a4a2a;
+    background: #fafbf6;
+    border: 1.5px solid #c4d4b4;
+    border-radius: 10px;
+    min-height: 48px;
+  }
+  .pmap-panel-rename-input:focus {
+    outline: none;
+    border-color: #6a8a4a;
+  }
+  body.text-lg .pmap-panel-rename-input { font-size: 21px; }
+  .pmap-panel-rename-mic {
+    background: #f4f8ee;
+    border: 1.5px solid #c4d4b4;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    min-width: 48px;
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pmap-panel-rename-mic.recording {
+    background: #c4d4b4;
+    color: #fff;
+  }
+  .pmap-panel-rename-hint {
+    font-size: 12px;
+    font-style: italic;
+    color: #6a7a5a;
+    min-height: 16px;
+  }
+  .pmap-panel-rename-hint.error { color: #8a3020; }
+  .pmap-panel-rename-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .pmap-panel-rename-btn {
+    flex: 1;
+    padding: 12px 14px;
+    background: #6a8a4a;
+    color: #fff;
+    border: 1.5px solid #6a8a4a;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 48px;
+  }
+  .pmap-panel-rename-btn.secondary {
+    background: transparent;
+    color: #6a7a5a;
+    border-color: #c4d4b4;
+  }
+  body.text-lg .pmap-panel-rename-btn { font-size: 17px; }
+
   .prop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 18px 18px; }
   @media (max-width: 480px) { .prop-grid { grid-template-columns: 1fr; } }
   .prop-lead {
@@ -6088,8 +6257,327 @@ function wirePropertyMap() {
     applyTransform();
   });
 
+  // Zone tap handlers — each polygon opens the action panel for its zone.
+  // Stop propagation so the tap doesn't also start a pan-drag on the stage.
+  document.querySelectorAll(".pmap-zone").forEach(poly => {
+    poly.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const zoneId = poly.getAttribute("data-zone-id");
+      if (!zoneId) return;
+      ZonePanel.open(zoneId);
+    });
+  });
+
   applyTransform();
 }
+
+// ---- Zone action panel — bottom-sheet pattern, four binary actions
+//      (✓ Looks right / Different name / Not quite / Delete). Mounts a
+//      singleton DOM node on first use; subsequent opens reuse it. Local
+//      persistence to localStorage; Worker sync is step 7.
+const ZONE_STORE_KEY = "tateTracker.zones.v1";
+
+const ZonePanel = (function () {
+  let panel = null;
+  let backdrop = null;
+  let activeZoneId = null;
+  let voiceRec = null;
+  let voiceActive = false;
+
+  function ensureMounted() {
+    if (panel) return;
+    backdrop = document.createElement("div");
+    backdrop.className = "pmap-panel-backdrop";
+    backdrop.addEventListener("click", close);
+    document.body.appendChild(backdrop);
+
+    panel = document.createElement("div");
+    panel.className = "pmap-panel";
+    panel.innerHTML =
+      '<div class="pmap-panel-header">' +
+        '<div class="pmap-panel-zone-name" id="pmap-panel-name"></div>' +
+        '<span class="pmap-panel-status" id="pmap-panel-status"></span>' +
+        '<button class="pmap-panel-close" id="pmap-panel-close" type="button" aria-label="Close">✕</button>' +
+      '</div>' +
+      '<div class="pmap-panel-actions" id="pmap-panel-actions">' +
+        '<button class="pmap-panel-btn" data-action="confirm" type="button">' +
+          '<span class="pmap-btn-emoji">✓</span><span class="pmap-btn-label">Looks right</span>' +
+        '</button>' +
+        '<button class="pmap-panel-btn" data-action="rename" type="button">' +
+          '<span class="pmap-btn-emoji">✎</span><span class="pmap-btn-label">Different name</span>' +
+        '</button>' +
+        '<button class="pmap-panel-btn" data-action="flag" type="button">' +
+          '<span class="pmap-btn-emoji">🚩</span><span class="pmap-btn-label">Not quite right</span>' +
+        '</button>' +
+        '<button class="pmap-panel-btn danger" data-action="delete" type="button">' +
+          '<span class="pmap-btn-emoji">🗑</span><span class="pmap-btn-label">Delete this place</span>' +
+        '</button>' +
+      '</div>' +
+      '<div class="pmap-panel-rename" id="pmap-panel-rename">' +
+        '<div class="pmap-panel-rename-row">' +
+          '<input class="pmap-panel-rename-input" id="pmap-panel-rename-input" type="text" placeholder="What do you call it?" />' +
+          '<button class="pmap-panel-rename-mic" id="pmap-panel-rename-mic" type="button" aria-label="Voice rename">🎤</button>' +
+        '</div>' +
+        '<div class="pmap-panel-rename-hint" id="pmap-panel-rename-hint"></div>' +
+        '<div class="pmap-panel-rename-actions">' +
+          '<button class="pmap-panel-rename-btn secondary" id="pmap-panel-rename-cancel" type="button">Cancel</button>' +
+          '<button class="pmap-panel-rename-btn" id="pmap-panel-rename-save" type="button">Save name</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(panel);
+
+    document.getElementById("pmap-panel-close").addEventListener("click", close);
+    document.getElementById("pmap-panel-actions").addEventListener("click", onActionClick);
+    document.getElementById("pmap-panel-rename-mic").addEventListener("click", toggleRenameVoice);
+    document.getElementById("pmap-panel-rename-cancel").addEventListener("click", exitRenameMode);
+    document.getElementById("pmap-panel-rename-save").addEventListener("click", saveRename);
+    document.getElementById("pmap-panel-rename-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") saveRename();
+    });
+  }
+
+  function open(zoneId) {
+    ensureMounted();
+    const zone = findZone(zoneId);
+    if (!zone) return;
+    activeZoneId = zoneId;
+    document.getElementById("pmap-panel-name").textContent = zone.name;
+    const statusLabel = zone.status === "confirmed" ? "confirmed"
+                     : zone.status === "flagged"   ? "flagged for review"
+                     : "draft";
+    document.getElementById("pmap-panel-status").textContent = "· " + statusLabel;
+    exitRenameMode();
+    backdrop.classList.add("open");
+    requestAnimationFrame(() => panel.classList.add("open"));
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("zone_tapped", { zoneId, status: zone.status });
+    }
+  }
+
+  function close() {
+    if (!panel) return;
+    panel.classList.remove("open");
+    backdrop.classList.remove("open");
+    stopRenameVoice();
+    activeZoneId = null;
+  }
+
+  function findZone(zoneId) {
+    return (ZONES_DATA && ZONES_DATA.zones || []).find(z => z.id === zoneId);
+  }
+
+  function onActionClick(e) {
+    const btn = e.target.closest("[data-action]");
+    if (!btn) return;
+    const action = btn.getAttribute("data-action");
+    const zone = findZone(activeZoneId);
+    if (!zone) return;
+    if (action === "confirm") confirmZone(zone);
+    else if (action === "rename") enterRenameMode(zone);
+    else if (action === "flag") flagZone(zone);
+    else if (action === "delete") deleteZone(zone);
+  }
+
+  function nowIso() { return new Date().toISOString(); }
+  function whoAmI() {
+    // No identity layer in v1 — every edit is anonymous. attribution future
+    // work; for now the history log just records the change happened.
+    return "device";
+  }
+
+  function recordHistory(zone, action, details) {
+    if (!Array.isArray(zone.history)) zone.history = [];
+    zone.history.push({ at: nowIso(), by: whoAmI(), action, details: details || null });
+    zone.updatedAt = nowIso();
+    zone.lastEditedBy = whoAmI();
+  }
+
+  function confirmZone(zone) {
+    zone.status = "confirmed";
+    recordHistory(zone, "confirmed");
+    persistAndRerender();
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("zone_confirmed", { zoneId: zone.id });
+    }
+    close();
+  }
+
+  function flagZone(zone) {
+    zone.status = "flagged";
+    recordHistory(zone, "flagged");
+    persistAndRerender();
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("zone_flagged", { zoneId: zone.id });
+    }
+    close();
+  }
+
+  function deleteZone(zone) {
+    if (!confirm('Delete the place named "' + zone.name + '"? You can re-draw it later.')) return;
+    const idx = ZONES_DATA.zones.indexOf(zone);
+    if (idx === -1) return;
+    // Soft-delete: record history then splice. localStorage keeps a tombstone
+    // so Phase G can still join old observations referencing this zoneId.
+    recordHistory(zone, "deleted", { lastName: zone.name });
+    saveDeletedTombstone(zone);
+    ZONES_DATA.zones.splice(idx, 1);
+    persistAndRerender();
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("zone_deleted", { zoneId: zone.id });
+    }
+    close();
+  }
+
+  function enterRenameMode(zone) {
+    document.getElementById("pmap-panel-actions").style.display = "none";
+    const renameEl = document.getElementById("pmap-panel-rename");
+    renameEl.classList.add("open");
+    const input = document.getElementById("pmap-panel-rename-input");
+    input.value = zone.name;
+    input.focus();
+    input.setSelectionRange(0, input.value.length);
+    setRenameHint("");
+  }
+
+  function exitRenameMode() {
+    if (!panel) return;
+    stopRenameVoice();
+    document.getElementById("pmap-panel-actions").style.display = "flex";
+    document.getElementById("pmap-panel-rename").classList.remove("open");
+    setRenameHint("");
+  }
+
+  function setRenameHint(msg, isError) {
+    const hint = document.getElementById("pmap-panel-rename-hint");
+    if (!hint) return;
+    hint.textContent = msg || "";
+    hint.classList.toggle("error", !!isError);
+  }
+
+  function toggleRenameVoice() {
+    if (voiceActive) { stopRenameVoice(); return; }
+    startRenameVoice();
+  }
+
+  function startRenameVoice() {
+    const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Rec) {
+      setRenameHint("Voice isn't supported here — type the name instead.", true);
+      return;
+    }
+    const input = document.getElementById("pmap-panel-rename-input");
+    const micBtn = document.getElementById("pmap-panel-rename-mic");
+    voiceRec = new Rec();
+    voiceRec.continuous = false;
+    voiceRec.interimResults = true;
+    voiceRec.lang = navigator.language || "en-US";
+    let userStopped = false;
+    voiceRec.onstart = () => {
+      voiceActive = true;
+      micBtn.classList.add("recording");
+      micBtn.textContent = "■";
+      setRenameHint("Listening — say the name. Tap the square to stop.");
+    };
+    voiceRec.onresult = (event) => {
+      let text = "";
+      for (let i = 0; i < event.results.length; i++) {
+        text += event.results[i][0].transcript;
+      }
+      // Title-case the spoken result so "spring drainage" → "Spring Drainage".
+      input.value = text.trim().replace(/\b\w/g, c => c.toUpperCase());
+    };
+    voiceRec.onerror = (event) => {
+      const msg = event.error === "not-allowed"
+        ? "Microphone access denied — enable it in browser settings."
+        : event.error === "no-speech"
+          ? "Didn't catch anything — tap the mic to retry."
+          : "Voice hit an error (" + event.error + "). Tap the mic to retry.";
+      setRenameHint(msg, true);
+    };
+    voiceRec.onend = () => {
+      voiceActive = false;
+      micBtn.classList.remove("recording");
+      micBtn.textContent = "🎤";
+      if (!userStopped) setRenameHint("Stopped — edit as needed, then Save.");
+    };
+    micBtn.onclick = () => { userStopped = true; toggleRenameVoice(); };
+    try { voiceRec.start(); }
+    catch (e) { setRenameHint("Could not start voice: " + e.message, true); }
+  }
+
+  function stopRenameVoice() {
+    if (voiceRec && voiceActive) {
+      try { voiceRec.stop(); } catch (_) {}
+    }
+    voiceActive = false;
+    if (panel) {
+      const micBtn = document.getElementById("pmap-panel-rename-mic");
+      if (micBtn) { micBtn.classList.remove("recording"); micBtn.textContent = "🎤"; }
+    }
+  }
+
+  function saveRename() {
+    const input = document.getElementById("pmap-panel-rename-input");
+    const newName = (input.value || "").trim();
+    if (!newName) { setRenameHint("Name can't be empty.", true); return; }
+    const zone = findZone(activeZoneId);
+    if (!zone) return;
+    if (newName === zone.name) { exitRenameMode(); return; }
+    const oldName = zone.name;
+    zone.name = newName;
+    recordHistory(zone, "renamed", { from: oldName, to: newName });
+    persistAndRerender();
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("zone_renamed", { zoneId: zone.id });
+    }
+    close();
+  }
+
+  return { open, close };
+})();
+
+// ---- Local zone persistence — saves ZONES_DATA.zones overlay to localStorage
+//      so client-side edits survive page reload. Worker sync (step 7) will
+//      promote these to the canonical zones.json + re-inlined ZONES_DATA.
+function loadZoneOverrides() {
+  try {
+    const raw = localStorage.getItem(ZONE_STORE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return;
+    if (!Array.isArray(parsed.zones)) return;
+    // Replace ZONES_DATA.zones wholesale — the localStorage copy is authoritative
+    // for this device until Worker sync writes the canonical version back into
+    // the inlined const at deploy time.
+    ZONES_DATA.zones = parsed.zones;
+    if (parsed.deleted) ZONES_DATA._deleted = parsed.deleted;
+  } catch (e) { /* corrupt — ignore */ }
+}
+
+function saveDeletedTombstone(zone) {
+  if (!ZONES_DATA._deleted) ZONES_DATA._deleted = [];
+  ZONES_DATA._deleted.push({
+    id: zone.id,
+    lastName: zone.name,
+    history: zone.history || [],
+    deletedAt: new Date().toISOString(),
+  });
+}
+
+function persistAndRerender() {
+  try {
+    localStorage.setItem(ZONE_STORE_KEY, JSON.stringify({
+      zones: ZONES_DATA.zones,
+      deleted: ZONES_DATA._deleted || [],
+      savedAt: new Date().toISOString(),
+    }));
+  } catch (e) { /* quota / blocked — best-effort */ }
+  // Re-render the property card so the map reflects the change.
+  if (typeof renderProperty === "function") renderProperty();
+}
+
+// Apply overrides at load — must run before the first renderProperty().
+loadZoneOverrides();
 
 function renderProperty() {
   const p = PROPERTY_DATA;
