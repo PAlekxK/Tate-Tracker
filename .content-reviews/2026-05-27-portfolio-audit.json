@@ -1,0 +1,189 @@
+{
+  "review_id": "content-2026-05-27-fernwood-portfolio-audit",
+  "project": "Fernwood",
+  "subject": "Cross-surface voice audit: new Worth Considering card, Sources card editorial drift, Garden Guru system prompt + seeded prompts, The Almanac, header intro, plus voice implications of adding more research content",
+  "surface": "dashboard (multiple cards)",
+  "audience": "Paul (curator); Mom (make-or-break reader, daily-dogfood validated)",
+  "voice_charter_applied": "fernwood.md + cross-project.md",
+  "tone_register": "mixed — observational across cards; sourcing/reference register inside Worth Considering and Sources; mentor-flex inside Garden Guru",
+  "review_date": "2026-05-27",
+  "reviewer_mode": "review",
+  "could_be_anyone_test": "fail",
+  "anchor_check": "fail",
+  "summary_verdict": {
+    "worth_considering_card": "Mixed. The intro paragraph and a handful of entries (American chestnut, eastern hemlock, white oak, flame azalea, cardinal flower, pink lady's slipper) land in voice. Roughly half the entries — autumn bentgrass, the four Mt. Cuba cultivar-trial picks, the wild hydrangea — read like nursery-catalog copy with research footnotes. The 'Mom's pick' badge is in voice; the 'flagged for inclusion by Mom' phrasing inside the rationale is not.",
+    "sources_card": "Editorial drift is real but contained. ~10-12 entries open with research-pass superlatives ('the single most,' 'the most,' 'authoritative,' 'cleanest,' 'defensible') where an observational opening would carry the same weight without ranking on the reader's behalf. Pattern matches what F4 flagged on 2026-05-21.",
+    "garden_guru": "System prompt is on-charter and load-bearing — recent additions (shared-stewardship, visual-feature-consistency-check, audio-result voice) are good. One stale fact: the prompt still says 'Mesic Cove / Montane Oak mosaic' (line 452), which CLAUDE.md explicitly corrects to 'Cove Forest + Low-to-Mid Elevation Oak Forest' at 2,959 ft. The 3 seeded prompts I expected to find in the collapsed-empty state of the unified input appear to have been deferred / not yet shipped — not present in viewer.html.",
+    "the_almanac": "Title and subtitle are locked and in voice. The intro line ('The journal generates the almanac') is load-bearing and earning its slot. Empty state ('No entries yet. The first observation goes here.') is in voice. Starred-empty state ('No starred entries yet. Tap the star on an entry to mark it as one that matters.') is fine but verges on app-copy register.",
+    "cross_surface_coherence": "One real fracture. Same sources are described in three different voices: research-pass adjectives in references.json ('Authoritative,' 'The single most'), procurement-grade prose in sources.json ('Retail native plant nursery,' 'Wholesale + retail'), and observational voice in plants.json. A reader walking from Worth Considering → Sources → Plants experiences three authors writing about the same shelf of resources."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "area": "voice",
+      "severity": "critical",
+      "surface": "Garden Guru system prompt (worker/worker.js line ~452)",
+      "observation": "The system prompt still describes the property's natural community as 'Mesic Cove / Montane Oak mosaic, acidic mountain soil, USDA zone 6b (elevation-adjusted).' CLAUDE.md (5/26 candidates section) explicitly corrects this: at 2,959 ft the property is Cove Forest + Low-to-Mid Elevation Oak Forest with potential Seepage Wetlands; Montane Oak Forest is typically above 3,500 ft. The candidates.json _meta.purpose field uses the corrected naming. The Garden Guru prompt is now the only surface still carrying the stale model.",
+      "voice_principle_invoked": "Ground-truth research-derived 'this is near you' claims (auto-memory feedback_ground_truth_research_claims). The community-type framing the assistant uses to judge plausibility on photo IDs must match the property's actual community.",
+      "recommendation": "Change the WHEN AN IMAGE IS ATTACHED block's 'Note plausibility for the property' line from 'Mesic Cove / Montane Oak mosaic' to 'Cove Forest + Low-to-Mid Elevation Oak Forest mosaic with seepage wetland pockets in the spring drainage.' Re-deploy the Worker. This affects every photo-ID plausibility note Garden Guru emits.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F2",
+      "area": "voice",
+      "severity": "important",
+      "surface": "candidates.json — autumn bentgrass rationale + notes (the 'Mom's pick' entry)",
+      "observation": "The rationale reads: 'Native perennial bunchgrass, partial shade, mesic to wet soils. Fits the spring drainage seepage zone and forest-edge mesic spots. Soft fine-textured groundcover with late-season inflorescences. **Flagged for inclusion by Mom.**' The notes start: 'Not in the GNPS Blue Ridge landscaping matrix, but iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm the species' habitat...' The 'Mom's pick' badge already carries the human attribution; the prose then restates it in operator/working-doc register ('Flagged for inclusion by Mom'). The second sentence of the rationale ('Soft fine-textured groundcover with late-season inflorescences') is nursery-catalog phrasing — describing a plant's marketable qualities for a buyer rather than how it would behave on this slope.",
+      "voice_principle_invoked": "Personalized, never generic (Fernwood charter); could-be-anyone test (cross-project).",
+      "recommendation": "Drop the 'Flagged for inclusion by Mom' sentence — the badge does that job. Rewrite the catalog-register sentence to describe where it would go on the property.",
+      "alternative_drafts": [
+        "Rationale: 'A native perennial bunchgrass that takes partial shade and mesic-to-wet soils — the kind of grass that would belong in the spring drainage and along the mesic forest edges. Bunchgrass habit (no rhizomes, no stolons), 8 to 31 inches tall, with airy late-season inflorescences.'",
+        "Move the 'iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm' line out of the rendered notes and into a hidden curation field. The reader doesn't need the audit trail; the badge plus the observational case is enough."
+      ]
+    },
+    {
+      "id": "F3",
+      "area": "voice",
+      "severity": "important",
+      "surface": "candidates.json — Mt. Cuba cultivar-trial entries (wild hydrangea, Claire Grace bee balm, Screamin' Yellow baptisia, Pica Bella coneflower, Summer Sunshine coreopsis)",
+      "observation": "Five of ten candidates open with 'Top performer in Mt. Cuba Center's [genus] trial (X selections, Y years)...' — research-pass register inherited straight from the discovery doc. Compare to the white oak entry ('The keystone genus per Tallamy. Each oak supports 400+ Lepidoptera species — the foundation for nearly every songbird's nesting season') or the cardinal flower entry ('Pond-edge and seepage native; the strongest hummingbird-attractor in eastern North America') — both lead with what the species does at the property, then bring the citation in second. The cultivar-trial entries lead with the trial credential and bring the property in second (if at all). The 'Range honesty' notes (Screamin' Yellow, Summer Sunshine) are operator-mode prose — Paul talking to Paul about a sourcing decision — that doesn't belong on a reader-facing card.",
+      "voice_principle_invoked": "Anchor the first sentence; let the rest be encyclopedic if it must (Fernwood charter, 2026-05-18). The first sentence has to imply this specific place; subsequent sentences can carry the trial citation.",
+      "recommendation": "Re-sequence each cultivar-trial entry's rationale: open with what the plant does on this slope, then cite the trial as the reason for picking the specific cultivar.",
+      "alternative_drafts": [
+        "Wild hydrangea — Fail: 'Native to Georgia coves, including this elevation. Mt. Cuba Center's wild hydrangea trial (2022) found Haas Halo the top performer in the Mid-Atlantic — directly applicable to the property.' Pass: 'A native of the cove forests at this elevation — the wild cousin to the hydrangeas already by the porch. The Haas Halo selection is the defensible pick: Mt. Cuba Center's 2022 trial named it the strongest in the Mid-Atlantic.'",
+        "Bee balm — Pass: 'Wild bergamot is native to the north Georgia mountains and would fit a sunny edge of the fairway. Claire Grace is the defensible cultivar — Mt. Cuba's 40-selection trial named it the clear winner, with a three-week bloom and strong powdery-mildew resistance.'",
+        "Move 'Range honesty' content from rendered notes into a curator-only field, OR rewrite as in-voice: e.g., 'Worth flagging — this is a south-central species, not a Blue Ridge mountain native. If a more local fit is preferred, Mt. Cuba's trial winner Purple Smoke (a hybrid involving B. australis, which IS native to the southern Appalachians) does the same garden work.'"
+      ]
+    },
+    {
+      "id": "F4",
+      "area": "voice",
+      "severity": "important",
+      "surface": "candidates.json — _meta.purpose field and category descriptions",
+      "observation": "The _meta block opens: 'Plants we might bring back to Fernwood. Distinct from plants.json — that file tracks what is on the property; this file tracks what could be.' This is fine for a data-file header. But the category descriptions immediately following ('Multi-decade canopy / regional restoration species. Slow, relational (TACF, HRI). Most ecologically meaningful,' 'Tallamy-defined keystone genera for Blue Ridge ecoregion — species that support disproportionate caterpillar / Lepidoptera diversity (oaks 400+, cherries 450+, willows 380+)') are research-pass register. They aren't rendered on the card, but if anything from this block leaks into the card subtitle, summary, or filter labels, it'll read as off-charter.",
+      "voice_principle_invoked": "Single source of truth per concept (auto-memory feedback_single_source_of_truth) — the data file should be the rendered truth; if categories ever surface to the reader, they need a voice pass.",
+      "recommendation": "Leave _meta as is for the data file (operator audience). If/when categories become reader-facing (filter chips, section headers), rewrite each to a plain reader-form label per the Sources F3 pattern: 'restoration' → 'Forest restoration,' 'keystone' → 'Keystone trees,' 'rich-cove' → 'Rich-cove specialists,' 'cultivar-trial' → 'Trial-tested cultivars,' 'bird-pollinator' → 'For birds and pollinators,' 'native-grass' → 'Native grasses.' Currently no leak — flag is preventive.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "important",
+      "surface": "candidates.json — the candidates-card intro line vs. the candidates' own descriptions",
+      "observation": "The card intro (viewer.html line 3743) reads: 'Plants we might bring back to this slope. Natives that fit the cove forest and oak forest mosaic at 2,959 ft, the seepage in the spring drainage, and the wildlife the property already supports. Distinct from what's planted (that lives in the Plants card) — this is what could grow here.' This is in voice — anchored, observational, no marketing-adjective slips. It's the best copy on the card. But it then hands the reader to entry prose that's mostly NOT in this register. The intro promises a field-journal posture; half the entries deliver a nursery catalog. Same author / different surface mismatch.",
+      "voice_principle_invoked": "Cross-surface coherence (this review); anchor-the-first-sentence (Fernwood charter).",
+      "recommendation": "Treat the intro line as the calibration target for the entries. Either bring the entries up to match (F2, F3) or relax the intro (which would weaken the card). Recommend F2 + F3 over relaxing the intro.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F6",
+      "area": "voice",
+      "severity": "important",
+      "surface": "references.json — 10-12 'Why it's relevant' first sentences leaning on research-pass superlatives",
+      "observation": "The pattern flagged in the 2026-05-21 reference card voice review (F4) holds, with specific cases. Each below is verbatim from references.json, with the issue and a proposed rewrite tied to the anchor-the-first-sentence pattern.",
+      "voice_principle_invoked": "Anchor the first sentence (Fernwood charter); describe, don't grade (cross-project) — the superlative ('the single most,' 'authoritative,' 'cleanest') grades on the reader's behalf rather than describing the source's relation to the property.",
+      "recommendation": "Light pass, ~10-12 entries, replacing superlatives with property-anchored observation.",
+      "alternative_drafts": [
+        "UGA Extension B 1339 — Current: 'The single most geographically-targeted Extension publication for the property — assumes the elevation, slope, and zone 7b/6b conditions of Pickens County. Far more useful than statewide guides.' Proposed: 'Written for the elevation, slope, and zone conditions of Pickens County — closer to this slope than any statewide guide.'",
+        "GNPS North GA Mountains — Current: 'The most ecologically aligned native-plant community for the property — Pickens is just south of the chapter's stated counties; species, soils, elevations are nearly identical.' Proposed: 'Pickens sits just south of the chapter's stated counties — same species, same soils, same elevations as this slope.'",
+        "Natural Communities of Georgia — Current: 'The single best reference for what natural community is this slope, and what species should be in it? — the foundation for any restorative planting decision at this property.' Proposed: 'The reference that answers what natural community is this slope, and what species belong in it. Foundation for any restorative planting decision here.'",
+        "eBird Pickens County — Current: 'Single best data source for the Birds tab's monthsPresent and status fields — eBird bar charts visualize exactly that. Free, public.' Proposed: 'Where the Birds tab's monthsPresent and status fields come from. Pickens County bar charts visualize the same data. Free, public.'",
+        "USGS NWIS Water Services — Current: 'The obvious live USGS stream gauge data source. Etowah River gauges upstream and downstream of the property anchor the watershed health story.' Proposed: 'Live stream-gauge data from USGS. The Etowah gauges upstream and downstream of the property carry the watershed-health story.'",
+        "MCT — Current: 'MCT's geographic mandate is precisely the property's region. The most directly aligned land trust if a conservation easement on Church Mountain Road ever makes sense.' Proposed: 'MCT's geographic mandate covers this region exactly. The closest-aligned land trust if a conservation easement on Church Mountain Road ever makes sense.'",
+        "MountainTrue — Current: 'Less directly aligned (Pickens not yet in MountainTrue's GA service area), but the most relevant Southern Blue Ridge regional voice on Nantahala-Pisgah and broader forest policy that affects upstream conditions.' Proposed: 'Pickens isn't yet in MountainTrue's GA service area, but their Southern Blue Ridge work on Nantahala-Pisgah and forest policy affects upstream conditions here.'",
+        "NOAA NCEI CDO — Current: 'Authoritative long-term context for the Ambient Weather station's live readings — what's a normal May at this elevation, and how is the current month tracking?' Proposed: 'Long-term context for the Ambient Weather station's live readings. What does a normal May look like at this elevation, and how is the current month tracking?'",
+        "NOAA NWS API — Current: 'Bortle 3 site; sky cover forecast is the single most useful astronomy variable. Open-Meteo gives a model blend; NWS gives the official forecaster's grid.' Proposed: 'Bortle 3 here — sky-cover forecast is the astronomy variable that matters most. Open-Meteo gives a model blend; NWS gives the official forecaster's grid.'",
+        "Appalachian Beginning Forest Farmer Coalition — Current: '**Single most aligned organization with the property's stated values.** Bortle 3 + 2,959 ft + Blue Ridge mature forest = textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network.' Proposed: 'Bortle 3, 2,959 ft, Blue Ridge mature forest — textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network.'",
+        "Pickens Beekeepers — Current: '**A Pickens County resource — the most directly local org on this entire list.** Bees integral to supporting local plants because pollinator health drives native plant reproduction.' Proposed: 'A Pickens County beekeepers' chapter — closer to the property than anything else on this shelf. Bees do the work of pollinating the natives we tend.'",
+        "Visit Pickens GA — Current: 'The single most complete aggregator of Pickens County events. Where to look first when refreshing events.json annually or spot-checking dates.' Proposed: 'Pickens County's events aggregator. First stop when refreshing events.json or spot-checking a date.'",
+        "DarkSky International — Current: 'The property reads Bortle 3 — dark enough that the Milky Way is visible most clear nights. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset.' Verdict: this one is already in voice (anchored, observational); leave alone. Cited because Paul's memo flagged 'exceptional for the Eastern US' — that phrase is not in the current shipped copy. Possible the memo was written against a prior draft."
+      ]
+    },
+    {
+      "id": "F7",
+      "area": "consistency",
+      "severity": "important",
+      "surface": "Cross-surface — same sources described in three different voices across references.json, sources.json, and the Worth Considering rendered card",
+      "observation": "GNPS appears in all three: references.json describes the chapter as 'The most ecologically aligned native-plant community for the property — Pickens is just south of the chapter's stated counties...' (research-pass). sources.json describes the GNPS plant sale as 'Annual native plant sale, late May. Stock specifically appropriate to the North Georgia Mountains region. Cash or check only.' (procurement register). The candidates.json wild-hydrangea entry references sourceIds including gnps-ngm-sale (no prose). A reader expanding the wild-hydrangea entry, then opening Sources, then opening the same GNPS entry in the Library will encounter three different voices about the same organization. Same for Mt. Cuba (research-pass in references.json; cultivar-citation only in candidates.json), Native Forest Nursery, Beech Hollow Farms, and TACF / HRI.",
+      "voice_principle_invoked": "Cross-surface coherence (could-be-anyone test applied across surfaces) — if a single author wrote all three voices, would they pass the test? No: the author of sources.json reads as a procurement manager; the author of references.json reads as a research analyst.",
+      "recommendation": "Decide the canonical voice for cross-referenced sources. Recommendation: sources.json should be the procurement-truth surface (the operator-mode register is appropriate — it tells the buyer where to go, when, how, distance, friction). references.json should be the curator-shelf surface (light pass per F6 brings it into voice). The Worth Considering card should not need to re-narrate either; it surfaces the structured payloads from each. The mismatch reads less jarring once references.json's superlatives are softened, because the procurement register in sources.json is a *legitimate* register-flex (different audience: someone deciding to drive 45 min on Saturday) rather than a voice break.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F8",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "surface": "The Almanac — starred-empty state copy",
+      "observation": "Current: 'No starred entries yet. Tap the star on an entry to mark it as one that matters.' (viewer.html line 9842). The first sentence is in voice; the second is task-manager register — instructing the user on UI mechanics. Compare to the field-journal-fluent loading states already established ('Listening for the station...,' 'Looking at the month...,' 'Checking the sky...').",
+      "voice_principle_invoked": "Field journal, not task manager (Fernwood charter); action sentences soften toward 'worth doing X,' not 'do this' (Fernwood charter).",
+      "recommendation": "Soften the instructional second sentence into observational/invitational register.",
+      "alternative_drafts": [
+        "'No starred entries yet. The star marks entries worth coming back to.'",
+        "'No starred entries yet — the star is there for the entries worth returning to.'",
+        "Or, defer the affordance per defer-affordances-pending-signal — the telemetry rollup found 0 stars used across 6 days / 104 entry-revisits. If the star is staying, this copy can wait until use materializes; if it's coming out, the empty state goes with it."
+      ]
+    },
+    {
+      "id": "F9",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "surface": "Garden Guru system prompt — line 414 'shared stewardship' framing vs. line 405 voice statement",
+      "observation": "The system prompt is well-structured. One small calibration: line 414 says 'This is shared stewardship, not instruction from above. The journal voice belongs to someone tending this place alongside the reader.' The 'someone tending this place alongside the reader' frame is good. But the next sentence — 'When you reference the laurels by the porch or the white pines on the slope, that we tend them is implicit — never make it explicit (we love these plants!)' — buries the load-bearing rule (don't say 'we love these plants') inside a parenthetical example. The new shared-stewardship principle from the 2026-05-20 charter addition ('Acknowledge the shared work — for uncertain readers') is the moment when 'we' is *allowed* to surface explicitly. The current prompt makes 'we' sound forbidden, but the charter says it's deployed deliberately when the question signals worry.",
+      "voice_principle_invoked": "Acknowledge the shared work — for uncertain readers (Fernwood charter, 2026-05-20).",
+      "recommendation": "Reorder lines 414–422 so the default register (observer, 'we' implicit) is stated first, then the trepidation-flex (when 'we' surfaces) is stated as the deliberate exception. This is what the charter does; the prompt currently inverts the emphasis.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F10",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "surface": "The Almanac — fn-intro line",
+      "observation": "Current: 'A place to set down what you saw this week — the first hummingbird at the feeder, the night the chorus started, the morning the laurel opened. The journal generates the almanac.' (viewer.html line 9819). This is the best single line of copy in the whole dashboard — anchored, observational, teaches the dual-frame voice/form in seven words. The only soft note: 'A place to set down what you saw this week' uses second-person 'you saw,' which the Garden Guru prompt explicitly limits to action ('you'll want to check') not experience ('you saw'). Marginal. Mom would not notice. If Paul ever does a polish pass, the swap is straightforward.",
+      "voice_principle_invoked": "Garden Guru system prompt tone-flex rule (line 420 — 'second-person you is allowed sparingly — only for the listener's ACTION, never the listener's EXPERIENCE').",
+      "recommendation": "Leave as is unless Paul does a polish pass; this is below the threshold of important. If polishing: 'A place to set down what the week brought — the first hummingbird at the feeder, the night the chorus started, the morning the laurel opened. The journal generates the almanac.' Trade-off: 'the week brought' is slightly more passive than 'what you saw this week.' Live with it or revert.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F11",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "surface": "Seeded prompts in unified-input collapsed-empty state",
+      "observation": "Brief mentioned '3 seeded in-voice prompts in the collapsed-empty state per the unified-input model.' I could not locate them in viewer.html — no const named SEEDED_PROMPTS / UI_PROMPTS / SUGGESTED_PROMPTS / equivalents, and no prompt-pill / ui-prompt class. The CLAUDE.md telemetry rollup notes 'seeded_prompt_used' as an instrumented event but the May 26 rollup doesn't report a count. Either the seeded prompts shipped under different naming I couldn't grep for, or they were deferred in the unified-input redesign and the brief reflects the spec, not the shipped state.",
+      "voice_principle_invoked": "n/a — confirming what shipped before reviewing it.",
+      "recommendation": "Surface for Paul: are the 3 seeded prompts shipped? If so, where in viewer.html? I can review them on confirmation. If deferred, they are a real candidate for sample copy work — three short observational prompts that prime the field-journal register (e.g., 'The laurel by the porch — when did it open?' / 'Heard at dusk: ' / 'A bird at the feeder I didn't know — '). Worth drafting if/when they re-activate.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F12",
+      "area": "voice",
+      "severity": "important",
+      "surface": "Editorial principles for 'incorporating more info' (Paul's parallel ai-advisor question)",
+      "observation": "Question Paul asked: as the dashboard accumulates more research/info, where's the line between 'more research deepens the journal' and 'more content turns it into a content site'? The 2026-05-21 reference card review and the May 26 candidates ship both made the same trade-off implicitly: structured data files (sources.json, candidates.json, references.json) for the research truth; voice-fluent intro + selective rendering for the reader-facing wrap. The pattern that's worked: research lives one layer deeper than the reader sees, and the card title + intro + Mom-readable summary are the only voice-load-bearing copy. When research has leaked up — the cultivar-trial citations in candidates entries (F3), the superlatives in references.json (F6) — the surface drifts into content-site register. The pattern that's failing: lifting entries' first sentences verbatim from research notebooks. The pattern that's working: writing the intro + summary in voice, then surfacing the structured payload below it (lists of plants, sources, references with clean labels).",
+      "voice_principle_invoked": "Voice anchor vs. form anchor (Fernwood charter candidate principle, 2026-05-18). The almanac form-anchor honors structured reference content; the field-journal voice-anchor governs the prose wrapping it. The line is the prose layer, not the data layer.",
+      "recommendation": "Propose a new Fernwood charter principle: 'Research deepens the data layer, voice governs the wrap.' Add more sources, more candidates, more references — those grow the almanac honestly. But the rendered prose around them (intros, first sentences of descriptions, summaries, helper lines) is always voice-load-bearing and must be in field-journal register. Concretely: a new sourcebook entry can be added to references.json with a one-line 'what it is' (encyclopedic), but the 'why it's relevant' must be anchored to this property in its first sentence. The same rule applies to candidates, plant guides, future surfaces. This is the line between 'deepening the journal' and 'turning into a content site.'",
+      "alternative_drafts": [
+        "Draft principle statement: 'A new piece of content earns its slot in Fernwood by having a property-anchored first sentence. The encyclopedic body of the entry can be encyclopedic — that's the almanac form. But the wrap — the first sentence, the card summary, the intro — has to imply this specific slope. If the wrap could have been written by someone who hasn't been here, the content shouldn't ship until the wrap is rewritten. This is true regardless of how much research went into the body.'"
+      ]
+    }
+  ],
+  "open_questions_for_paul": [
+    "Are the 3 seeded prompts shipped on the unified-input collapsed-empty state, or were they deferred? If shipped, point me to them — couldn't locate them in viewer.html via grep on candidate names.",
+    "On F1 (Garden Guru system prompt stale community name): re-deploy worker is required to land this fix. Flag for Paul to schedule.",
+    "On F4 (candidates _meta.purpose and category descriptions): currently operator-only. Surface for Paul's awareness so he can flag if/when category labels become reader-facing.",
+    "On F7 (cross-surface coherence): does Paul accept the proposed division — sources.json = procurement register (legitimate flex), references.json = curator-shelf register (light pass per F6) — or does he want both surfaces brought into a single voice?",
+    "On F8 (starred-empty state): is the star affordance staying or coming out? The telemetry rollup found 0 stars used across 6 days. If coming out, the copy goes with it; if staying, light rewrite recommended.",
+    "On F12 (proposed new principle): does the 'wrap vs. body' framing capture the line Paul was drawing? If so, propose for the Fernwood charter."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Research deepens the data layer; voice governs the wrap",
+      "scope": "Fernwood (initially) — candidate for cross-project once a second project's surface confirms",
+      "rationale": "Direct answer to Paul's parallel question about adding more content. The pattern observed across the 2026-05-21 Sources work and the 2026-05-26 Candidates work: structured data files can hold any depth of research (citations, trial winners, ecological notes) provided the rendered prose around them stays anchored in property-voice. The line between 'deepening the journal' and 'turning into a content site' lives in the prose wrap (intros, first sentences, summaries), not in the data depth."
+    },
+    {
+      "principle": "Operator-register flex is legitimate for procurement / friction / decision-shape content; mark it explicitly",
+      "scope": "Fernwood (initially)",
+      "rationale": "From the cross-surface coherence read (F7). sources.json is in a procurement register that's appropriate to its job (telling the buyer where to go on Saturday, what the friction is, how far the drive). That's not a voice break — it's a legitimate register-flex for content whose job is helping make a decision. The mistake would be applying the field-journal voice rule literally to a content type whose function is operational. Paral operator's voice (when Paul is in the inbox) has the same status. Worth naming so future reviews don't false-positive on these surfaces."
+    }
+  ]
+}

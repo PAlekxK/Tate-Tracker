@@ -1,0 +1,202 @@
+{
+  "review_id": "ux-2026-05-27-portfolio-audit",
+  "project": "fernwood",
+  "subject": "Portfolio-level audit anchored on real telemetry (6 days, d-14nyhnjz = Mom): Worth Considering card landing, ⭐ star verdict, unified input post-adoption, Sources card legibility, information-density risk, surfaces for richer content.",
+  "review_date": "2026-05-27",
+  "reviewer_mode": "review",
+  "review_level": "zoom-out (whole-app, post-adoption signal)",
+  "user_context": {
+    "primary_user": "Mom — make-or-break user [validated 2026-05-08, reinforced 2026-05-22]. Telemetry now provides behavioral confirmation: device d-14nyhnjz has 27 sessions / 341 events in 6 days, including 12 text_size_changed events (only device to use the A/A+ toggle Paul shipped 5/22 for the no-glasses constraint). Adoption is real. The no-glasses constraint is now behaviorally-validated, not just self-reported.",
+    "core_jobs_to_be_done": [
+      "Leisure-stewardship reading in bed with coffee or wind-down — the dashboard pays off as something interesting about her place [validated by 27 sessions / 6 days, 60 card-plants views, 60 card-weather views]",
+      "Identify a plant/animal she's noticing — photo-for-ID via Garden Guru is the killer use case [validated, 2 conversations + 1 species promoted from her device]",
+      "Re-visit specific saved entries (the Almanac) — 55 entry_revisits from her device vs 4 field_note_saved means revisits are 13x saves on her device alone [validated by telemetry]"
+    ],
+    "context_of_use": "Phone, one-handed, reclined, half-engaged. May not have reading glasses on [validated 2026-05-22 + reinforced by the heavy A/A+ usage in telemetry]. iPhone 393x793 viewport. iOS Safari (session_end rarely fires — 1/27, so visibilitychange is not catching backgrounded sessions).",
+    "assumptions_made": [
+      "Treating d-14nyhnjz as Mom based on the strong A/A+ signal — not yet manually confirmed (Paul's open follow-up from the rollup). If the device turns out to be someone else, the whole behavioral profile shifts.",
+      "The card-candidates 4/5 expand-rate (the only 'high engagement' signal on the new card) is being treated as inconclusive at n=5 — likely Paul himself exploring his own ship, not Mom-validation."
+    ],
+    "user_context_confidence": "high (real telemetry + validated persona + validated no-glasses constraint; only assumption is the Mom-is-d-14nyhnjz mapping)"
+  },
+  "principles_applied": [
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "Strip teases, card holds (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Caution as noticing, not warning (fernwood.md)",
+    "Typographic hierarchy by value (cross-project.md)",
+    "Meet the user at the action (cross-project.md)",
+    "Friction kills — it just works (cross-project.md)",
+    "Defer affordances pending signal (memory: feedback_defer_affordances_pending_signal) — load-bearing for the star verdict",
+    "Don Norman — signifiers / feedback / mapping"
+  ],
+  "triage_summary": "The telemetry has changed what 'review' means for Fernwood. Mom-as-d-14nyhnjz is opening the app daily; the dashboard-opened-regularly success metric is passing. So this audit is not 'will Mom adopt' anymore — it's 'what's earning her time vs. what's stacking but invisible to her.' The biggest finding is structural: Worth Considering was shipped at the bottom of the card stack with NO dashboard-strip tile, into a stack where card-candidates got 5 views vs 60 for plants/weather. It's a Paul-facing reference card today — fine if that's intended, a near-invisible card if it's intended to land for Mom. The star verdict is now backed by signal: 0 stars across 6 days vs 104 revisits — revisit-frequency IS the implicit 'this matters' signal, and the star should retire or change shape. Seeded prompts: zero usage AND I can't find the implementation in viewer.html, so this may already be a dead affordance — confirm before deciding. Sources card is appendix material and Mom probably never reads it (28 views, 2 expands) — the small italic framing line is fine as-is. The growth risk is real: 9 cards already, more JSON sources coming, and the dashboard strip only reaches 6 of them. Mom's mental model is a 6-tile dashboard; everything beneath is 'scroll territory' that's about to silently drift further down.",
+  "findings": [
+    {
+      "id": "F1",
+      "area": "discoverability",
+      "surface": "Worth Considering card (#card-candidates, viewer.html:3733) — no dashboard-strip tile, sits between Recent Updates and Sources at the bottom of a 9-card stack",
+      "severity": "important",
+      "observation": "Shipped 5/26. Telemetry through 5/27: 5 card-section_viewed, 4 card_expanded. Compare card-plants (60 viewed) and card-fieldnotes (43 viewed, 18 expanded). The 4/5 expand-rate looks impressive at first glance but at n=5 it's almost certainly Paul exploring his own ship, not Mom-validation. The dashboard strip has 6 entry points (Weather, Plants, Wildlife, Sky & Stars, Vehicles, Fernwood) — Worth Considering is not among them. To reach the card, Mom has to scroll past 7 other cards.",
+      "user_impact": "If this card is intended to land for Mom (Mom's bent-grass pick is in there with a 'Mom's pick' badge — suggesting intent that she sees it), she is not seeing it. If it's Paul-facing only (planning/reference), the current placement is fine. The card exists in two possible product roles right now and the design hasn't picked one. The bent-grass badge especially is a Mom-acknowledgment affordance and it's currently rendering to nobody but Paul.",
+      "principle_invoked": "Strip teases, card holds (Fernwood) — the strip IS the destination/menu; cards without strip presence are off the menu. Defer affordances pending signal — the inverse holds too: if no signal exists yet for this card's audience, the design hasn't been validated.",
+      "recommendation": "Paul-decision required first: is Worth Considering for Mom (browsing, seeing her bent-grass pick, sparking conversation about what to plant) OR Paul (the operating-table for next-planting-season research)? If for Mom: it needs a 7th tile on the dashboard strip (probably Tier B alongside Vehicles + Fernwood — reference/planning rather than live state), and the card-summary should carry an evocative one-line tease per Strip teases / Mom-glance pattern (e.g., 'Mom picked a soft autumn grass · 13 more native fits'). If Paul-only: leave placement, but the 'Mom's pick' badge is misleading framing and should rename to a Paul-internal label, OR move that specific candidate into a different surface where Mom would actually see it being acknowledged. Telemetry-validation gate: re-check at 2-week mark whether card-candidates views climb after a strip tile vs. stay flat.",
+      "effort": "low (add tile) + medium (decide which role this card plays, and refactor if Mom-facing)"
+    },
+    {
+      "id": "F2",
+      "area": "affordance / discoverability",
+      "surface": "⭐ 'this matters' star (.fn-star-btn, viewer.html:2645 + render at :9859)",
+      "severity": "important",
+      "observation": "6 days of telemetry: entry_starred 0, entry_unstarred 0, across all devices including Mom-likely. Meanwhile entry_revisited is 104. The CSS+JS is already at the post-F13-fix state (shape change ☆→★, gold-on-gray contrast, 36px tap target) — so the visual implementation isn't the bottleneck. The behavior the star tries to capture ('mark this one as one that matters') simply isn't a Mom behavior. The revisit-frequency IS the implicit 'this matters' signal, at a 13:1 revisit-to-save ratio on Mom's device alone.",
+      "user_impact": "Today the star is screen noise — a glyph in every entry header carrying a verb she doesn't do. It's also a small ongoing tax on the Almanac entry layout (gold ★ pulling attention next to the timestamp), violating Ornament-earns-its-place because the action it gates isn't happening. Worse: the star-filter chip at the top of the Almanac ('★ Starred (0)') is a permanent zero-state — Mom sees an affordance she's not been using and can't be sure if she's done something wrong.",
+      "principle_invoked": "Defer affordances pending signal (memory pattern) — the convergent ux-expert + engineering-partner pattern Paul has named explicitly. Six days of behavior is a strong signal. Also: Ornament earns its place (cross-project) — the star is decoration if no one taps it. Also: Meet the user at the action — the action isn't curation, the action is return-reading.",
+      "recommendation": "**Retire the star v1.** Not 'reposition' — the behavior doesn't exist at this base rate. Concrete steps: (a) remove the ☆ button from the entry header; (b) remove the '★ Starred (n)' filter chip; (c) keep the underlying `isStarred` field on observations for backward compat with already-saved entries, but no UI reads it. **What replaces it (optional):** an implicit 'often-revisited' surface — a small italic Crimson note at the top of the Almanac when n revisits accumulate ('You've come back to your hummingbird notes 4 times'). Drives from existing telemetry. Same JTBD (this-matters surfacing), different mechanism (system-noticed, not user-curated). DO NOT BUILD until a second pattern in telemetry confirms the revisit-pattern is interesting enough to surface; this is just the affordance shape if/when it ships. Until then: just retire and let the Almanac breathe. **Validation gate:** after retirement, re-check at 2-week mark that entry_revisited stays flat or grows — confirms users were never relying on stars to navigate.",
+      "effort": "low (deletion + filter-chip removal)"
+    },
+    {
+      "id": "F3",
+      "area": "affordance / discoverability",
+      "surface": "Seeded prompts (`seeded_prompt_used: 0`) — design intent referenced in CLAUDE.md + journey-unified-field-assistant.md but I cannot find the implementation in viewer.html",
+      "severity": "important",
+      "observation": "CLAUDE.md (line 148) says '3 seeded in-voice prompts in collapsed-empty state' shipped 5/20. The metric `seeded_prompt_used` is instrumented (cross-referenced in the rollup) and at 0 across all devices for 6 days. But I grep'd the file for SEED_PROMPTS, seedPrompts, prompt-chip, prompt-btn, ui-suggest, etc., and find no implementation. Either (a) the prompts were removed in the 2026-05-21 legacy-cleanup that stripped the Garden Guru section (CLAUDE.md line 148 documents that cleanup), and the metric is dead-code, OR (b) they exist under a name I haven't searched for. **Confirm before any design call.**",
+      "user_impact": "If the prompts exist and Mom isn't using them: same shape as the star — affordance for a behavior she doesn't have. Telemetry strongly suggests her ask-mode is photo-first, not type-a-prompt-first (4 image-attached conversations vs 6 text-only; 2 conversations on her device, both 2-turn, both presumably initiated by typing or photo, not by tapping a seed). If the prompts DON'T exist anymore (were swept in cleanup): the metric is noise and the design memo is stale.",
+      "principle_invoked": "Friction kills — it just works (helper affordances that no one taps are dead weight). Defer affordances pending signal. Truth-of-state (cross-project icons rule, generalized): a design memo that says X exists when it doesn't is a tone-of-trust leak in the documentation, not the UI.",
+      "recommendation": "**Step 1 — confirm presence.** Paul grep the file for the actual prompt rendering. If present: retire them (same justification as star). If absent: remove the `seeded_prompt_used` metric and update CLAUDE.md line 148 to reflect the actual ship state. Either way the end state is: the unified input surface is two buttons and a textarea, no seeded prompts, and the design memo agrees with the code. **What might replace the seeded-prompt role:** if Paul wants an ask-mode pull for Mom, the better signal is that her ask-mode is photo-first — invest there (a 'Photo' button affordance that's more prominent than the current 56px-min-width icon column) instead of typed-prompt scaffolding she hasn't used.",
+      "effort": "low (confirm + retire OR confirm + update memo)"
+    },
+    {
+      "id": "F4",
+      "area": "flow / consistency",
+      "surface": "Unified input — Save to journal / Ask Garden Guru buttons (viewer.html:3524 + 3528)",
+      "severity": "nice-to-have",
+      "observation": "The 5/22 two-button split shipped per the a11y review's F1 recommendation and the data validates the call: 6 field_note_saved + 10 conversation_started, no telemetry signal of mis-route confusion that I can detect in the rollup. Adoption is happening on both paths. The current button shapes are: Save = forest-green gradient with 📓, Ask = olive-gold gradient with 🌿, equal height, both with icon + label. Mom is using both. **The remaining refinement opportunity is not the buttons themselves but what happens AFTER Save** — per the cross-project candidate principle 'Save-success at the surface, not at the destination,' the Almanac card is below the input on a long-scrolling page, so save-success currently lives at the destination not at the input.",
+      "user_impact": "On Mom's device: 4 field_note_saved, 55 entry_revisited. She's clearly returning to her notes — but the loop from save → see-it-saved happens by her scrolling down to the Almanac card (or coming back later). Inline post-save feedback at the input itself ('Noted. May 27 — added to your Almanac ↓') would compress that loop. Not urgent because adoption is working, but the candidate principle has a real Fernwood instance now.",
+      "principle_invoked": "Save-success at the surface, not at the destination (cross-project candidate — this would be its second-occurrence validation moment, promoting it to a full principle). Meet the user at the action.",
+      "recommendation": "Add a 2-second inline confirmation at the input surface after Save fires: italic Crimson, single line, 14px, '`Noted — May 27. In your Almanac ↓`' with the ↓ tappable to scroll-to-card. Auto-dismiss after 4-5 seconds. **Validation gate:** confirms or refutes the cross-project candidate principle on second occurrence. If Paul rejects the inline confirmation (says it's noisy), the candidate stays a candidate. Either outcome moves the principles library forward. **Do not** add a similar affordance for Ask Garden Guru — that path's response IS the in-surface confirmation already.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "hierarchy / information-density",
+      "surface": "Whole dashboard — card stack growth pattern (9 cards visible today, more JSON sources slated)",
+      "severity": "important",
+      "observation": "Today the dashboard renders 9 cards in this order: unified input → Weather → Plants → Wildlife → Sky & Stars → Property → Almanac → Vehicles → Recent updates → Worth considering → Sources. The dashboard strip carries the first 6 (Weather, Plants, Wildlife, Sky & Stars, Vehicles, Fernwood/Property). That leaves 3 cards — Almanac, Recent updates, Worth considering, Sources — reachable only by scroll. Add the planned map view + Phase G observation-feedback surfaces, and the strip's tile-to-card ratio gets worse. Mom's mental model is the strip (60+45+47+60+42+45 = strip-tile-corresponding card views). Below-the-strip cards either get found by scroll (Almanac, 43 views) or basically don't (Sources, 28 views; Recent updates, 30; Candidates, 5).",
+      "user_impact": "The current pattern is starting to drift: the strip teases what Mom sees first; new content is being shipped without a strip seat because the strip is full. Without a deliberate growth pattern, the dashboard will silently become 'the 6 cards Mom uses + a tail of things she'll never find.' Almanac is doing better than expected (43 views) because Paul wired it to the unified input directly, but Worth Considering is the first card to ship without either a strip tile OR an in-surface bridge.",
+      "principle_invoked": "Strip teases, card holds (Fernwood) — the principle defines the strip as the menu/destination. New cards without menu seats are off-menu. Make every surface read at half-engagement.",
+      "recommendation": "**Before shipping any more cards, lock the strip growth pattern.** Two viable shapes — Paul picks one as portfolio policy: (A) **Tiered strip — live tiles + reference tiles.** Keep Tier-A live (Weather, Plants, Wildlife, Sky) at the top; expand Tier-B reference (Vehicles, Fernwood) to include Worth Considering, Almanac, Sources as separate Tier-C visually-quieter rows. Strip becomes 3-tier but every card has a tile. (B) **Strip as Mom-priority hierarchy.** Strip is exactly what Mom needs to see; everything below is research/admin space for Paul or for cross-referencing. Worth Considering is currently in (B) by accident; if (B) is the rule, the 'Mom's pick' badge and intro language need to move to a card that's actually Mom-facing. **Validation gate:** the candidates card's 6-week view count post-strip-tile (if A) vs. continued silence (if B without a tile) tells the story. **Whichever shape:** name the policy in CLAUDE.md so the next card you ship knows where it goes.",
+      "effort": "medium (policy decision is small; strip refactor if A is medium)"
+    },
+    {
+      "id": "F6",
+      "area": "consistency / tone-coherence",
+      "surface": "Worth Considering card — 'Mom's pick' purple chip on autumn-bentgrass entry (.cand-flag, viewer.html:3185)",
+      "severity": "nice-to-have",
+      "observation": "The chip renders as purple (#6a4a8a on #f0e8f4) at 11px font-weight 600, 'Mom's pick' text. No other Fernwood surface uses purple as a callout color (the dashboard palette is greens, warm cream, olive-gold, brown). Purple is a recognition-color borrowed from product / SaaS chrome (the Apple-style 'New' / 'Pro' / 'Premium' chip family). It's also the only place a person's name appears as a visible label.",
+      "user_impact": "Two issues. Register-leak first: purple-on-pale-purple is a register Fernwood doesn't speak elsewhere; it pulls toward task-manager/product-feature-flag chrome and away from field-journal voice. Glyphs-follow-the-journal-voice catches this same shape. Second issue: if F1 lands and Worth Considering becomes Mom-facing via a strip tile, 'Mom's pick' is the kind of personal-acknowledgment that lands warmly for her — but at 11px on a card she doesn't know she's the subject of, the warmth is muted. If F1 lands the other way (Paul-only), 'Mom's pick' is a Paul-internal label and the chip is an over-design for what could be plain italic prose ('Picked by Mom — fits the spring drainage seepage zone' as the rationale lead).",
+      "principle_invoked": "Tone-coherence across all chrome (Fernwood) — chip register doesn't match the field-journal voice. Glyphs follow the journal voice (Fernwood) — generalizes to chips. Ornament earns its place.",
+      "recommendation": "Tied to F1. If F1 lands Mom-facing: replace the purple chip with an in-prose acknowledgment in the entry's rationale line ('Mom's pick — fits the spring drainage…'). Same recognition, journal voice, no chrome chip. If F1 lands Paul-internal: kill the chip entirely and use Crimson italic '· Picked by Mom' inline. Either way: no purple. Per Tone-coherence the color family for any future named-credit chip should be in-palette (e.g., a soft olive #c8d2a8 fill with #4a5a3a text), not borrowed-purple.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "consistency / discoverability",
+      "surface": "Worth Considering card — depth-tradeoff inside the card (collapsed teaser → expand for full details, viewer.html:3140-3292 + render :6427)",
+      "severity": "nice-to-have",
+      "observation": "Each candidate renders in two layers: a collapsed teaser (name + scientific + rationale + community-fit chips, all visible at rest) and an expanded details panel (photo + sourcing rows + notes + freshness dots) on tap. The teaser is dense — name 19px Crimson serif, scientific 14px italic, rationale 14px, community-fit chips at 11px. The expanded panel adds another ~150-300px of detail. **Sourcing detail is where the depth lives** — distance-from-Fernwood, freshness dots, named nurseries, next-sale-date callouts.",
+      "user_impact": "For Paul-mode (planning what to source where): the depth is the value. For Mom-mode (browsing what could grow here): the sourcing detail is operator-information she doesn't act on, and the freshness dots + 'Verified 2026-05-26' tooltips are dashboard-voice (registration-state coding) inside a card titled with field-journal voice. The collapsed teaser is the right shape for Mom; the expanded panel is the right shape for Paul. The card is currently serving both roles in one interaction but the depth isn't gated by who's looking.",
+      "principle_invoked": "Tone-coherence across all chrome — freshness dots are dashboard-state coding inside a journal-voice card. Strip teases, card holds — the principle's edge: the card has to read alone, but it doesn't have to read at full depth for every user. Half-engagement.",
+      "recommendation": "Two paths — pick by F1 decision. (A) If Mom-facing: collapsed teaser is the surface; the expanded sourcing detail can stay where it is but the freshness dots / 'verified date' / 'friction tier' should be visually quieter (smaller, paler, or moved into an inset 'Sourcing' subsection with a Crimson serif 'Sourcing' header so the field-journal voice resumes at the dot-coded section instead of competing with it). (B) If Paul-only: leave it. **Either way:** the 'next sale' amber callout (.cand-source-next) is the strongest single piece of operational value here and reads well; don't touch it.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "consistency / tone-coherence",
+      "surface": "Sources card — legibility within the appendix context (#card-references, viewer.html:3748)",
+      "severity": "nice-to-have",
+      "observation": "Telemetry: 28 card-section_viewed, 2 expanded. This is appendix material per Paul's 5/21 framing and the engagement matches — almost nobody opens it. The card uses 13.5px DM Sans titles, 13px Crimson italic framing — the 5/22 a11y review flagged this as borderline (F16) but deferred. Telemetry now suggests the deferral was right: Mom isn't reading this card. Bumping legibility would be polish into a surface no one reaches.",
+      "user_impact": "Negligible. The Sources card is fulfilling its 'appendix at the back of the almanac' role. The case for legibility-investment here is weak. The case AGAINST investment: it would pull the visual weight of the Sources card up, making it feel more present in the stack — which is the opposite of what 'appendix material' calls for.",
+      "principle_invoked": "Meet the user at the action — Sources is read-when-needed, not lead-content. Typographic hierarchy by value — the values here are low; weights should match. Defer affordances pending signal — applies to type-weight investments too, not just affordances.",
+      "recommendation": "**Leave Sources legibility alone.** This is a deliberate non-action recommendation. Revisit only if (a) Paul wants to surface specific sources into Mom-facing context (e.g., Lady Bird Wildflower link surfaces inline on a candidate entry), or (b) telemetry shows Mom organically visiting the card more than ~10 times. The 5/22 F16 deferral was correct and the data now supports it as a permanent leave-alone, not a temporary one.",
+      "effort": "zero"
+    },
+    {
+      "id": "F9",
+      "area": "discoverability / flow",
+      "surface": "Garden Guru — vague-description handling (CLAUDE.md pickup #5; observed 5/20 brown-bird-at-feeder conversation)",
+      "severity": "important",
+      "observation": "Out of UX scope strictly, but it surfaces at the UX surface as an asymmetry Mom may feel. Per the pickup line: the rubric says Guru should ASK clarifying questions on vague descriptions; observed behavior is Guru GUESSES with hedges. From Mom's leisure-reading posture, a confident guess (even hedged) feels closer to the field-journal mentor voice than a back-and-forth Q&A that drags her through 5 turns to land an ID. **The telemetry agrees with the drift** — all 10 conversations are 2-turn, meaning the rubric's expected pattern (Guru asks, Mom answers, Guru replies, Mom replies) is not what's actually working. Two turns is the natural rhythm; the asking-clarifying pattern produces longer conversations Mom isn't producing.",
+      "user_impact": "If the rubric is enforced — Guru starts asking clarifying questions — Mom's 2-turn rhythm becomes 4+ turns and the cap mechanism (currently zero firings) might actually fire. That may reduce her engagement from 'one question, satisfying answer' to 'one question, follow-up I have to engage with.' If the drift is accepted (Guru guesses), the design honesty issue is the rubric needs to be updated to match the validated pattern.",
+      "principle_invoked": "Don Norman conceptual model — the system's behavior and the documented behavior should agree, OR the documentation should change. Friction kills — multi-turn clarification IS friction for Mom's leisure-read posture.",
+      "recommendation": "Paul-judgment call (you flagged this). UX leans: **accept the guess-with-hedges drift; update the rubric to match.** Reasoning: (a) 2-turn is the validated rhythm; (b) Mom's posture rewards confident-mentor over questioning-coach; (c) the rubric was written before behavior was observed and the behavior is now ground truth. The system-prompt change is to lean into hedged-confident-identification, not toward asking-clarifying-questions. **If the drift IS the bug** (Paul thinks the guesses are wrong often enough to matter): then the fix is system-prompt iteration, not UX. Either way, write the call back into the Garden Guru rubric so future agents (ai-advisor, content-steward) work from the same picture.",
+      "effort": "low (rubric update + optional system-prompt iteration)"
+    },
+    {
+      "id": "F10",
+      "area": "discoverability",
+      "surface": "Forward direction — surfaces that could carry richer content without breaking field-journal voice or no-glasses floor",
+      "severity": "nice-to-have",
+      "observation": "Paul asked: what shapes could carry richer content? Anchoring on observed Mom-behavior (60 plants views, 60 weather, 55 entry-revisits, 12 A/A+ adjustments, 4 photo-attached IDs, 2 conversations, 0 stars, 0 seeded prompts), three surface-shapes are warranted by signal and three are NOT.",
+      "user_impact": "n/a — this is forward-direction not a current-issue finding",
+      "principle_invoked": "Defer affordances pending signal; Meet the user at the action; Strip teases / card holds.",
+      "recommendation": "**Shapes with signal — invest:** (1) **Within-card depth on Plants and Weather** — these are the two cards Mom actually opens. A 'last year on the property' inline note inside the Plants card (e.g., 'The dogwood opened April 18 last year — watch for it' driven by saved observations) feeds Phase G observation-feedback into a surface she'll see. Lives inside the card, not as a new card. (2) **Photo-ID surface enrichment** — Mom's killer use case is photo. The current Garden Guru photo flow is text-reply-with-suggestion-confirm; a richer reply could include a small 'others like this on the property' carousel pulling from plants.json/birds.json/mammals.json (3-4 thumbnails, 1 line each). Same surface, richer content, no new card. (3) **Almanac entry context** — saved entries currently render body + species name. Pulling in the relevant weather/phenology context for the date the entry was made ('Saved May 18 — laurels were peak that week') adds depth to a surface with 55 revisits. **Shapes WITHOUT signal — don't invest:** (a) A new dedicated 'research notes' or 'long-form essay' card — no behavior suggests Mom wants long-form here. (b) An AI-summary or AI-digest surface on the dashboard — adds another affordance for a behavior (read curated AI-output) Mom hasn't shown. (c) Notification or 'something new since you last visited' surface — anti-persona territory per persona-mom.md. **The pattern:** richer content goes INSIDE existing high-engagement cards as inline depth, not as new cards. The card-as-surface unit is at its growth limit per F5.",
+      "effort": "varies — Phase G observation-feedback is medium-large; photo-reply carousel is medium; weather-context-on-Almanac-entries is low-medium"
+    }
+  ],
+  "prioritization_for_paul": {
+    "decide_now": [
+      "F1 — Worth Considering: pick Mom-facing OR Paul-only and act accordingly (strip tile if Mom-facing, rename badge if Paul-only)",
+      "F2 — ⭐ star: retire v1 (the rollup signal is decisive; retire and re-evaluate the revisit-pattern-surface idea later)",
+      "F3 — seeded prompts: confirm presence/absence in code, then retire or update memo",
+      "F5 — lock the strip-growth policy before shipping any more cards (A: tiered strip with all-cards-get-tiles, OR B: strip-is-Mom-priority and tail is operator-space)"
+    ],
+    "ship_when_F1_lands": [
+      "F6 — purple 'Mom's pick' chip: replace with in-prose acknowledgment",
+      "F7 — quiet the freshness-dot dashboard-voice inside the journal-voice card"
+    ],
+    "small_ship_now": [
+      "F4 — inline save-success at unified input (also validates the cross-project candidate principle)"
+    ],
+    "leave_alone": [
+      "F8 — Sources card legibility (deferred 5/22, data now confirms permanent leave-alone)"
+    ],
+    "system_prompt_call_not_ux": [
+      "F9 — Garden Guru ask-vs-guess: Paul call; update rubric either way"
+    ],
+    "forward_direction": [
+      "F10 — invest in within-card depth on Plants / Weather / Almanac; do not invest in new dedicated long-form/AI-summary/notification cards"
+    ]
+  },
+  "open_questions_for_user": [
+    "F1 binary: is Worth Considering for Mom (her bent-grass pick gets seen) or for Paul (planning surface)? The card's current design says both; the placement says Paul-only. Pick one.",
+    "F2 confirm: any reason to keep the star alive that the rollup didn't see? E.g., did anyone tell you in person they were planning to start using it once they figured it out?",
+    "F3 confirm: are the 3 seeded prompts actually rendering on the live dashboard? My grep didn't find them in viewer.html — but I may be searching for the wrong identifier. A quick visual check of the unified-input surface settles it.",
+    "F5 binary: tiered-strip-with-tiles (A) OR strip-is-Mom-priority-and-tail-is-operator-space (B)? This is the next-shipping-decision lock — picks the shape every future card has to negotiate.",
+    "F9 binary: accept the guess-with-hedges drift (update rubric) OR enforce the ask-clarifying pattern (iterate system prompt)? UX leans accept; you have the read.",
+    "Mom-is-d-14nyhnjz: still unconfirmed. Get the confirmation before treating any of these findings as Mom-validated rather than likely-Mom."
+  ],
+  "follow_up_research_suggested": [
+    "After F2 ships (star retired), watch entry_revisited and field_note_saved for 2 weeks. If revisits stay strong, the implicit-signal hypothesis is validated and the path opens for an 'often-revisited' system-surface (F2 recommendation note).",
+    "After F4 ships (inline save-success), watch whether Mom's field_note_saved count grows. If it does, second-occurrence validation for the cross-project Save-success-at-the-surface candidate principle. Promote to canon.",
+    "After F1 decision (Worth Considering placement), watch card-candidates view count at 2-week and 4-week marks. The strip-tile-vs-no-tile delta is a clean A/B for the Strip teases principle's behavioral force.",
+    "Worth a Mom-direct conversation on photo-ID workflow: which is she using more — Garden Guru or her existing Claude+photos pattern? (Q4 rubric question; her telemetry shows 2 GG conversations with 1 photo, but baseline behavior outside the app isn't captured.) Affects F10 prioritization on the photo-ID surface."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Telemetry-validated null = retire, not reposition",
+      "scope": "cross-project candidate (Fernwood is first instance — would apply to houseplants once it has its own behavioral signal, and to financial-viewer if it grows interactive surfaces)",
+      "rationale": "The star + seeded prompts patterns surfaced the same shape: a feature shipped with a behavior hypothesis, instrumented, then sitting at zero usage for the full observation window. The instinct on first review is 'reposition / make more discoverable.' The cleaner call is 'retire and let the surface breathe.' This sharpens 'Defer affordances pending signal' on the back-end: not just 'don't ship before signal' but 'retire after a null signal' too. Names the symmetry. Second occurrence for full validation: when Paul retires the star and the dashboard doesn't degrade, the pattern is real."
+    },
+    {
+      "principle": "New cards need a strip-tile seat, or they need a different surface-shape",
+      "scope": "fernwood (Strip teases extension); promotable to cross-project once a second project surfaces with a similar landing-surface pattern (Bolo Boys doesn't have one; houseplants and financial-viewer might)",
+      "rationale": "Worth Considering was shipped as a card without a strip tile and the telemetry now shows what happens: 5 views vs 60 for cards with tiles. The Strip teases, card holds principle gave the strip = menu framing; this principle is the natural successor: the menu has finite seats, and new content that doesn't earn a seat needs to live somewhere other than 'one more card at the bottom of the stack.' Forces the question every new ship: does this card belong in the strip? If yes, give it a tile; if no, it lives somewhere else (inline depth in an existing card, a slot in the Sources appendix, a Paul-only ops surface, etc.). Second occurrence: when the next card after Worth Considering is sized against the menu before being built."
+    },
+    {
+      "principle": "Validate cross-project candidates by acting on them in the second project that surfaces them, not just naming them",
+      "scope": "meta-principle for the ux-expert role — about how the principles library evolves",
+      "rationale": "Three candidates in cross-project.md are sitting at 1-occurrence (Discreet ≠ dormant, Explicit user-routing requires symmetric affordance weight, Save-success at the surface not at the destination) — all from the same 5/20 Fernwood review. F4 in this audit is the second-occurrence validation moment for one of them (Save-success). If Paul ships F4 and it lands, the principle promotes. The pattern: candidates can sit too long without confronting a real implementation. This meta-principle gives the agent permission to recommend acting on candidates as a way to validate them, not just waiting for them to surface organically — provided the recommendation is the right call on its own merits, not just principle-validation for its own sake."
+    }
+  ]
+}
