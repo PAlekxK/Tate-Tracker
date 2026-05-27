@@ -374,82 +374,6 @@
       ]
     },
     {
-      "id": "test-2",
-      "name": "Test 2",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [
-        [
-          0.6555191702108426,
-          0.37700412930616733
-        ],
-        [
-          0.6698154498686157,
-          0.46855643619972503
-        ],
-        [
-          0.7328249787306528,
-          0.4570162294484362
-        ],
-        [
-          0.7365314216048902,
-          0.3639252283213732
-        ],
-        [
-          0.678816811134621,
-          0.2777583512450834
-        ],
-        [
-          0.644929333427307,
-          0.5931906691136444
-        ]
-      ],
-      "status": "confirmed",
-      "createdAt": "2026-05-27T19:25:00.623Z",
-      "createdBy": "device",
-      "updatedAt": "2026-05-27T20:04:09.600Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-27T19:25:00.623Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Test 2",
-            "vertexCount": 6
-          }
-        },
-        {
-          "at": "2026-05-27T19:37:18.899Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        },
-        {
-          "at": "2026-05-27T19:58:18.024Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        },
-        {
-          "at": "2026-05-27T19:59:20.945Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        },
-        {
-          "at": "2026-05-27T20:04:09.600Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        }
-      ]
-    },
-    {
       "id": "test",
       "name": "Test",
       "type": "planted",
@@ -498,6 +422,45 @@
           "details": null
         }
       ]
+    }
+  ],
+  "_deleted": [
+    {
+      "id": "test-2",
+      "lastName": "Test 2",
+      "history": [
+        {
+          "at": "2026-05-27T19:25:00.623Z",
+          "by": "device",
+          "action": "created"
+        },
+        {
+          "at": "2026-05-27T19:37:18.899Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T19:58:18.024Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T19:59:20.945Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T20:04:09.600Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T20:23:37.922Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-27T20:23:37.922Z"
     }
   ]
 }
