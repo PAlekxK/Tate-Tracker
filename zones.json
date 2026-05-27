@@ -8,291 +8,7 @@
     "schemaVersion": 1,
     "schemaNotes": "v1 (2026-05-27): initial. Each zone: id (kebab-case), name (human-readable), type (planted|turf|meadow|forest|water|structure), color (RGB array — decorative; renderer may override), vertices ([[x,y]]), status (draft|confirmed|flagged), createdAt/createdBy/updatedAt/lastEditedBy timestamps, history [{at, by, action, details?}]. The browser draft tool writes the same shape via Worker → GitHub Contents API → zones.json + re-inlined ZONES_DATA, mirroring the Phase F Option C pattern."
   },
-  "zones": [
-    {
-      "id": "western-patio",
-      "name": "Western patio",
-      "type": "planted",
-      "color": [
-        200,
-        100,
-        220
-      ],
-      "vertices": [
-        [
-          0.36,
-          0.18
-        ],
-        [
-          0.42,
-          0.18
-        ],
-        [
-          0.42,
-          0.26
-        ],
-        [
-          0.36,
-          0.26
-        ]
-      ],
-      "status": "draft",
-      "createdAt": "2026-05-27T17:00:00Z",
-      "createdBy": "paul",
-      "updatedAt": "2026-05-27T17:00:00Z",
-      "lastEditedBy": "paul",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded",
-          "details": null
-        }
-      ]
-    },
-    {
-      "id": "eastern-patio",
-      "name": "Eastern patio",
-      "type": "planted",
-      "color": [
-        240,
-        130,
-        80
-      ],
-      "vertices": [
-        [
-          0.51,
-          0.18
-        ],
-        [
-          0.57,
-          0.18
-        ],
-        [
-          0.57,
-          0.26
-        ],
-        [
-          0.51,
-          0.26
-        ]
-      ],
-      "status": "draft",
-      "createdAt": "2026-05-27T17:00:00Z",
-      "createdBy": "paul",
-      "updatedAt": "2026-05-27T17:00:00Z",
-      "lastEditedBy": "paul",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded",
-          "details": null
-        }
-      ]
-    },
-    {
-      "id": "pond-area",
-      "name": "Pond area",
-      "type": "planted",
-      "color": [
-        60,
-        130,
-        200
-      ],
-      "vertices": [
-        [
-          0.42,
-          0.27
-        ],
-        [
-          0.51,
-          0.27
-        ],
-        [
-          0.51,
-          0.36
-        ],
-        [
-          0.42,
-          0.36
-        ]
-      ],
-      "status": "draft",
-      "createdAt": "2026-05-27T17:00:00Z",
-      "createdBy": "paul",
-      "updatedAt": "2026-05-27T17:00:00Z",
-      "lastEditedBy": "paul",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded",
-          "details": null
-        }
-      ]
-    },
-    {
-      "id": "front-lawn",
-      "name": "Front lawn",
-      "type": "turf",
-      "color": [
-        90,
-        200,
-        110
-      ],
-      "vertices": [
-        [
-          0.34,
-          0.36
-        ],
-        [
-          0.58,
-          0.36
-        ],
-        [
-          0.62,
-          0.5
-        ],
-        [
-          0.3,
-          0.5
-        ]
-      ],
-      "status": "confirmed",
-      "createdAt": "2026-05-27T17:00:00Z",
-      "createdBy": "paul",
-      "updatedAt": "2026-05-27T19:27:58.835Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded",
-          "details": null
-        },
-        {
-          "at": "2026-05-27T19:27:58.835Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        }
-      ]
-    },
-    {
-      "id": "fairway-edge-west",
-      "name": "Western fairway edge",
-      "type": "planted",
-      "color": [
-        50,
-        160,
-        90
-      ],
-      "vertices": [
-        [
-          0.13,
-          0.32
-        ],
-        [
-          0.25,
-          0.5
-        ],
-        [
-          0.2,
-          0.92
-        ],
-        [
-          0.05,
-          0.92
-        ],
-        [
-          0.05,
-          0.4
-        ]
-      ],
-      "status": "confirmed",
-      "createdAt": "2026-05-27T17:00:00Z",
-      "createdBy": "paul",
-      "updatedAt": "2026-05-27T20:04:13.986Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded",
-          "details": null
-        },
-        {
-          "at": "2026-05-27T19:48:15.019Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        },
-        {
-          "at": "2026-05-27T19:48:16.782Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        },
-        {
-          "at": "2026-05-27T20:04:13.986Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        }
-      ]
-    },
-    {
-      "id": "test",
-      "name": "Test",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [
-        [
-          0.1774662990196078,
-          0.1795316951566945
-        ],
-        [
-          0.24903492647058822,
-          0.27212428774928743
-        ],
-        [
-          0.10393688725490195,
-          0.26927528490028424
-        ],
-        [
-          0.8000153186274509,
-          0.8704148860398867
-        ]
-      ],
-      "status": "confirmed",
-      "createdAt": "2026-05-27T19:34:01.170Z",
-      "createdBy": "device",
-      "updatedAt": "2026-05-27T19:44:46.894Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-27T19:34:01.170Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Test",
-            "vertexCount": 4
-          }
-        },
-        {
-          "at": "2026-05-27T19:44:46.894Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        }
-      ]
-    }
-  ],
+  "zones": [],
   "_deleted": [
     {
       "id": "test-2",
@@ -422,6 +138,133 @@
         }
       ],
       "deletedAt": "2026-05-27T20:23:46.143Z"
+    },
+    {
+      "id": "fairway-edge-west",
+      "lastName": "Western fairway edge",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded"
+        },
+        {
+          "at": "2026-05-27T19:48:15.019Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T19:48:16.782Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T20:04:13.986Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T20:23:49.663Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-27T20:23:49.663Z"
+    },
+    {
+      "id": "test",
+      "lastName": "Test",
+      "history": [
+        {
+          "at": "2026-05-27T19:34:01.170Z",
+          "by": "device",
+          "action": "created"
+        },
+        {
+          "at": "2026-05-27T19:44:46.894Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T20:23:51.813Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-27T20:23:51.813Z"
+    },
+    {
+      "id": "front-lawn",
+      "lastName": "Front lawn",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded"
+        },
+        {
+          "at": "2026-05-27T19:27:58.835Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-27T20:23:54.247Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-27T20:23:54.247Z"
+    },
+    {
+      "id": "pond-area",
+      "lastName": "Pond area",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded"
+        },
+        {
+          "at": "2026-05-27T20:23:56.817Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-27T20:23:56.817Z"
+    },
+    {
+      "id": "western-patio",
+      "lastName": "Western patio",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded"
+        },
+        {
+          "at": "2026-05-27T20:23:59.369Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-27T20:23:59.369Z"
+    },
+    {
+      "id": "eastern-patio",
+      "lastName": "Eastern patio",
+      "history": [
+        {
+          "at": "2026-05-27T17:00:00Z",
+          "by": "paul",
+          "action": "seeded"
+        },
+        {
+          "at": "2026-05-27T20:24:01.537Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-27T20:24:01.537Z"
     }
   ]
 }
