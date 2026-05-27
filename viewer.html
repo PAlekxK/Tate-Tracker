@@ -461,6 +461,86 @@
     gap: 4px;
     z-index: 2;
   }
+  /* Sync status chip — small, top-right; hidden when idle (clean default).
+     Tappable when failed → expands to show error + manual Sync-now button. */
+  .pmap-sync {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid #c4d4b4;
+    border-radius: 14px;
+    padding: 4px 10px;
+    font-family: inherit;
+    color: #4a6a3a;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 24px;
+    line-height: 1.4;
+  }
+  .pmap-sync.synced { color: #4a6a3a; }
+  .pmap-sync.pending,
+  .pmap-sync.syncing { color: #6a7a5a; font-style: italic; }
+  .pmap-sync.failed {
+    color: #8a3020;
+    border-color: #d4b8a8;
+    background: rgba(248, 238, 232, 0.96);
+    font-weight: 600;
+  }
+  .pmap-sync.hidden { display: none; }
+  body.text-lg .pmap-sync { font-size: 14px; padding: 6px 12px; }
+  .pmap-sync-details {
+    position: absolute;
+    top: 44px;
+    right: 10px;
+    z-index: 3;
+    background: #fff;
+    border: 1.5px solid #c4d4b4;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+    max-width: 280px;
+    display: none;
+    font-size: 12px;
+    color: #2a4a2a;
+  }
+  .pmap-sync-details.open { display: block; }
+  .pmap-sync-details strong { display: block; margin-bottom: 4px; }
+  .pmap-sync-error {
+    font-size: 12px;
+    color: #8a3020;
+    margin: 6px 0;
+    padding: 6px 8px;
+    background: #faeae4;
+    border-radius: 6px;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+  .pmap-sync-time {
+    font-size: 11px;
+    color: #6a7a5a;
+    font-style: italic;
+    margin-top: 4px;
+  }
+  .pmap-sync-action-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #6a8a4a;
+    color: #fff;
+    border: 1.5px solid #5a7a3a;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 38px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pmap-sync-action-btn:active { transform: scale(0.97); }
   /* "Add a place" button + two-path popover. Visible at rest;
      opens to offer Tap-on-the-map (draw) or Describe-it (voice). */
   .pmap-add-btn {
@@ -6305,6 +6385,8 @@ function renderPropertyMap() {
                  '<span class="pmap-add-popover-emoji">🎤</span><span>Describe it</span>' +
                '</button>' +
              '</div>' +
+             '<div class="pmap-sync hidden" id="pmap-sync" role="status" aria-live="polite"></div>' +
+             '<div class="pmap-sync-details" id="pmap-sync-details"></div>' +
            '</div>' +
          '</div>';
 }
@@ -6602,6 +6684,10 @@ function wirePropertyMap() {
       ZonePanel.open(zoneId);
     });
   });
+
+  // Attach the sync chip — wires the click handler + initial render. Safe
+  // to call every render since onclick is reassigned each time.
+  if (typeof ZoneSyncStatus !== "undefined") ZoneSyncStatus.attachChip();
 
   applyTransform();
 }
@@ -7086,37 +7172,162 @@ let zoneSyncTimer = null;
 let zoneSyncInFlight = false;
 let zoneSyncPending = false;
 const ZONE_SYNC_DEBOUNCE_MS = 2500;
+const ZONE_LAST_SYNCED_KEY = "tateTracker.zones.lastSyncedAt.v1";
+
+// Visible sync state — chip on the map renders this. States:
+//   "idle"     — no pending changes, no error (default; chip hidden)
+//   "pending"  — local edits exist, debounce timer is running
+//   "syncing"  — POST in flight
+//   "synced"   — last POST succeeded (chip shows briefly then fades to idle)
+//   "failed"   — last POST returned error (chip stays + tappable for details)
+const ZoneSyncStatus = (function () {
+  let state = "idle";
+  let lastError = null;
+  let lastSyncedAt = null;
+  let syncedFadeTimer = null;
+  try {
+    lastSyncedAt = localStorage.getItem(ZONE_LAST_SYNCED_KEY) || null;
+  } catch (e) { /* skip */ }
+
+  function set(next, errorMsg) {
+    state = next;
+    if (next === "failed") lastError = errorMsg || "unknown";
+    if (next === "synced") {
+      lastError = null;
+      lastSyncedAt = new Date().toISOString();
+      try { localStorage.setItem(ZONE_LAST_SYNCED_KEY, lastSyncedAt); } catch (e) {}
+      // Synced is a transient state — fade to idle after a moment so the
+      // chip doesn't sit permanently. Failed sticks around until retry.
+      if (syncedFadeTimer) clearTimeout(syncedFadeTimer);
+      syncedFadeTimer = setTimeout(() => {
+        if (state === "synced") { state = "idle"; render(); }
+      }, 4000);
+    }
+    render();
+  }
+  function render() {
+    const chip = document.getElementById("pmap-sync");
+    if (!chip) return;
+    chip.className = "pmap-sync " + state + (state === "idle" ? " hidden" : "");
+    const labels = {
+      idle: "",
+      pending: "· pending",
+      syncing: "syncing…",
+      synced: "✓ synced",
+      failed: "⚠ sync failed",
+    };
+    chip.textContent = labels[state] || "";
+    chip.title = state === "failed" ? "Tap for details" : "";
+    // Re-render details if currently open
+    const details = document.getElementById("pmap-sync-details");
+    if (details && details.classList.contains("open")) renderDetails();
+  }
+  function renderDetails() {
+    const details = document.getElementById("pmap-sync-details");
+    if (!details) return;
+    let html = "<strong>Sync: " + state + "</strong>";
+    if (state === "failed" && lastError) {
+      html += '<div class="pmap-sync-error">' + escapeHtml(String(lastError)) + '</div>';
+    }
+    if (lastSyncedAt) {
+      const dt = new Date(lastSyncedAt);
+      const isToday = dt.toDateString() === new Date().toDateString();
+      const when = isToday ? dt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+                           : dt.toLocaleDateString() + " " + dt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      html += '<div class="pmap-sync-time">Last synced ' + when + '</div>';
+    } else {
+      html += '<div class="pmap-sync-time">Never synced from this device.</div>';
+    }
+    html += '<button class="pmap-sync-action-btn" id="pmap-sync-now-btn" type="button">Sync now</button>';
+    details.innerHTML = html;
+    const btn = document.getElementById("pmap-sync-now-btn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        const details = document.getElementById("pmap-sync-details");
+        if (details) details.classList.remove("open");
+        // Cancel the debounce + fire immediately
+        if (zoneSyncTimer) { clearTimeout(zoneSyncTimer); zoneSyncTimer = null; }
+        syncZonesNow();
+      });
+    }
+  }
+  function toggleDetails() {
+    const details = document.getElementById("pmap-sync-details");
+    if (!details) return;
+    if (details.classList.contains("open")) {
+      details.classList.remove("open");
+    } else {
+      renderDetails();
+      details.classList.add("open");
+    }
+  }
+  function attachChip() {
+    const chip = document.getElementById("pmap-sync");
+    if (chip) {
+      chip.onclick = (e) => { e.stopPropagation(); toggleDetails(); };
+    }
+    render();
+  }
+  function getState() { return state; }
+  return { set, render, toggleDetails, attachChip, getState };
+})();
 
 function scheduleZoneSync() {
-  if (!window.WorkerAPI || !WorkerAPI.isConfigured()) return;
+  if (!window.WorkerAPI || !WorkerAPI.isConfigured()) {
+    ZoneSyncStatus.set("failed", "Sync isn't configured on this device — open Sync settings.");
+    return;
+  }
   if (zoneSyncTimer) clearTimeout(zoneSyncTimer);
   zoneSyncPending = true;
+  ZoneSyncStatus.set("pending");
   zoneSyncTimer = setTimeout(syncZonesNow, ZONE_SYNC_DEBOUNCE_MS);
 }
 
 async function syncZonesNow() {
   zoneSyncTimer = null;
   if (zoneSyncInFlight) { zoneSyncPending = true; return; }
-  if (!WorkerAPI.isConfigured()) return;
+  // Direct fetch (not WorkerAPI.call) so we can capture the response body
+  // for diagnostics — WorkerAPI.call throws "HTTP <status>" without details.
+  let cfg = null;
+  try {
+    const raw = localStorage.getItem("tateTracker.sync.v1");
+    if (raw) cfg = JSON.parse(raw);
+  } catch (e) { /* fall through */ }
+  if (!cfg || !cfg.workerUrl || !cfg.token) {
+    ZoneSyncStatus.set("failed", "Sync isn't configured on this device — open Sync settings.");
+    return;
+  }
   zoneSyncInFlight = true;
   zoneSyncPending = false;
+  ZoneSyncStatus.set("syncing");
   try {
     const payload = {
       zones: ZONES_DATA.zones || [],
       _deleted: ZONES_DATA._deleted || [],
     };
-    await WorkerAPI.call("POST", "/api/zone-save", payload);
+    const res = await fetch(cfg.workerUrl + "/api/zone-save", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Tate-Token": cfg.token },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      let bodyText = "";
+      try { bodyText = await res.text(); } catch (_) {}
+      const bodyExcerpt = bodyText ? bodyText.slice(0, 300) : "";
+      throw new Error("HTTP " + res.status + (bodyExcerpt ? ": " + bodyExcerpt : ""));
+    }
+    const result = await res.json().catch(() => ({}));
+    ZoneSyncStatus.set("synced");
     if (typeof MetricsCollector !== "undefined") {
       MetricsCollector.track("zone_synced", { zoneCount: payload.zones.length });
     }
+    console.log("[zone-sync] ok:", result);
   } catch (e) {
-    // Sync failed — leave the local copy in place. The next edit re-arms the
-    // debounce; on reload, loadZoneOverrides applies local state and the
-    // first edit there will retry the sync.
-    console.warn("[zone-sync] failed:", e && e.message ? e.message : e);
+    const msg = e && e.message ? e.message : String(e);
+    ZoneSyncStatus.set("failed", msg);
+    console.warn("[zone-sync] failed:", msg);
   } finally {
     zoneSyncInFlight = false;
-    // Another edit landed while we were syncing — re-arm.
     if (zoneSyncPending) scheduleZoneSync();
   }
 }
@@ -7146,6 +7357,28 @@ window.addEventListener("beforeunload", syncZonesOnUnload);
 
 // Apply overrides at load — must run before the first renderProperty().
 loadZoneOverrides();
+
+// If localStorage has zone edits newer than the last successful sync, kick
+// a sync after the page settles. This recovers the case where a prior page
+// session edited zones but never reached canon (sync code missing, worker
+// down, no token at edit time, etc.). Runs after WorkerAPI is defined.
+setTimeout(function () {
+  try {
+    const raw = localStorage.getItem(ZONE_STORE_KEY);
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    if (!stored || !stored.savedAt) return;
+    const lastSynced = localStorage.getItem(ZONE_LAST_SYNCED_KEY);
+    if (lastSynced && stored.savedAt <= lastSynced) return;  // canon caught up
+    if (typeof window.WorkerAPI === "undefined" || !window.WorkerAPI.isConfigured()) {
+      ZoneSyncStatus.set("failed", "Local edits haven't synced yet — Sync settings on this device aren't configured.");
+      return;
+    }
+    // Trigger a sync of the current zones. ZONES_DATA already has the
+    // overrides applied (loadZoneOverrides ran above).
+    scheduleZoneSync();
+  } catch (e) { /* swallow */ }
+}, 1500);
 
 function renderProperty() {
   const p = PROPERTY_DATA;
