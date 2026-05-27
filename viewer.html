@@ -6976,23 +6976,34 @@ function makeZoneId(name) {
   return base + "-" + i;
 }
 
-// Voice/text "describe a place" feedback queue. Lives in localStorage until
-// step 7's Worker sync moves it to canon (where Paul reads + drafts polygons).
+// Voice/text "describe a place" feedback queue. Mirrors localStorage AND
+// posts to Worker /api/zone-feedback which appends to KV zone-feedback:YYYY-MM-DD.
+// Paul reads the canonical queue; localStorage is the offline-safe fallback.
 const ZONE_FEEDBACK_KEY = "tateTracker.zoneFeedback.v1";
 function saveZoneFeedback(text) {
+  const record = {
+    id: "fb-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6),
+    text,
+    createdAt: new Date().toISOString(),
+    by: "device",
+    status: "pending",
+  };
   try {
     const raw = localStorage.getItem(ZONE_FEEDBACK_KEY);
     const list = raw ? JSON.parse(raw) : [];
-    if (!Array.isArray(list)) return;
-    list.push({
-      id: "fb-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6),
-      text,
-      createdAt: new Date().toISOString(),
-      by: "device",
-      status: "pending",
-    });
-    localStorage.setItem(ZONE_FEEDBACK_KEY, JSON.stringify(list));
+    if (Array.isArray(list)) {
+      list.push(record);
+      localStorage.setItem(ZONE_FEEDBACK_KEY, JSON.stringify(list));
+    }
   } catch (e) { /* quota / blocked — best effort */ }
+
+  // Fire-and-forget POST. Failures are silent; the localStorage copy is the
+  // backup. Paul can read his queue from KV (canon) — Worker is authoritative.
+  if (window.WorkerAPI && WorkerAPI.isConfigured()) {
+    WorkerAPI.call("POST", "/api/zone-feedback", { text }).catch(e => {
+      console.warn("[zone-feedback] post failed:", e && e.message ? e.message : e);
+    });
+  }
 }
 
 // ---- Local zone persistence — saves ZONES_DATA.zones overlay to localStorage
@@ -7033,7 +7044,76 @@ function persistAndRerender() {
   } catch (e) { /* quota / blocked — best-effort */ }
   // Re-render the property card so the map reflects the change.
   if (typeof renderProperty === "function") renderProperty();
+  // Schedule a debounced sync to canon — multiple edits in a session land
+  // as one Worker call → one git commit pair.
+  scheduleZoneSync();
 }
+
+// ---- Zone sync — debounced POST to Worker /api/zone-save which writes
+//      canonical zones.json + re-inlines ZONES_DATA in viewer.html via
+//      GitHub Contents API (mirrors Phase F Option C). 2.5s debounce
+//      bundles a session of edits into one round-trip.
+let zoneSyncTimer = null;
+let zoneSyncInFlight = false;
+let zoneSyncPending = false;
+const ZONE_SYNC_DEBOUNCE_MS = 2500;
+
+function scheduleZoneSync() {
+  if (!window.WorkerAPI || !WorkerAPI.isConfigured()) return;
+  if (zoneSyncTimer) clearTimeout(zoneSyncTimer);
+  zoneSyncPending = true;
+  zoneSyncTimer = setTimeout(syncZonesNow, ZONE_SYNC_DEBOUNCE_MS);
+}
+
+async function syncZonesNow() {
+  zoneSyncTimer = null;
+  if (zoneSyncInFlight) { zoneSyncPending = true; return; }
+  if (!WorkerAPI.isConfigured()) return;
+  zoneSyncInFlight = true;
+  zoneSyncPending = false;
+  try {
+    const payload = {
+      zones: ZONES_DATA.zones || [],
+      _deleted: ZONES_DATA._deleted || [],
+    };
+    await WorkerAPI.call("POST", "/api/zone-save", payload);
+    if (typeof MetricsCollector !== "undefined") {
+      MetricsCollector.track("zone_synced", { zoneCount: payload.zones.length });
+    }
+  } catch (e) {
+    // Sync failed — leave the local copy in place. The next edit re-arms the
+    // debounce; on reload, loadZoneOverrides applies local state and the
+    // first edit there will retry the sync.
+    console.warn("[zone-sync] failed:", e && e.message ? e.message : e);
+  } finally {
+    zoneSyncInFlight = false;
+    // Another edit landed while we were syncing — re-arm.
+    if (zoneSyncPending) scheduleZoneSync();
+  }
+}
+
+// On page unload, best-effort flush of any pending zone changes. Same shape
+// as the metrics flushSync — keepalive lets it complete after the page goes
+// away. Worth doing because a user could draft + close a tab before debounce.
+function syncZonesOnUnload() {
+  if (!zoneSyncTimer && !zoneSyncPending) return;
+  if (!WorkerAPI.isConfigured()) return;
+  try {
+    const cfg = JSON.parse(localStorage.getItem("tateTracker.sync.v1") || "{}");
+    if (!cfg.workerUrl || !cfg.token) return;
+    fetch(cfg.workerUrl + "/api/zone-save", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Tate-Token": cfg.token },
+      body: JSON.stringify({
+        zones: ZONES_DATA.zones || [],
+        _deleted: ZONES_DATA._deleted || [],
+      }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch (e) { /* skip */ }
+}
+window.addEventListener("pagehide", syncZonesOnUnload);
+window.addEventListener("beforeunload", syncZonesOnUnload);
 
 // Apply overrides at load — must run before the first renderProperty().
 loadZoneOverrides();

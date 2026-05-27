@@ -1645,7 +1645,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -1672,7 +1672,224 @@ export default {
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
     if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
     if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
+    if (url.pathname === "/api/zone-save") return handleZoneSave(request, env);
+    if (url.pathname === "/api/zone-feedback") return handleZoneFeedback(request, env, url);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
 };
+
+// ---- Zone canon sync (Phase Z) ----
+// POST /api/zone-save — accepts the full zones array (+ tombstones) from the
+// client, sanitizes at the boundary, writes zones.json + re-inlines ZONES_DATA
+// in viewer.html via the GitHub Contents API. Mirrors the Phase F Option C
+// pattern (handlePromoteSpecies) — single Worker call → 2 GitHub commits →
+// GH Pages rebuild 1-3 min later.
+//
+// POST /api/zone-feedback — appends a "describe a place" entry to today's
+// zone-feedback:YYYY-MM-DD KV key. Paul reads the queue and drafts the
+// polygon manually. Mirrors pending-species KV pattern.
+// GET  /api/zone-feedback?start=YYYY-MM-DD&end=YYYY-MM-DD — reads entries
+// across a date range, sorted by createdAt.
+
+function clamp01(n) {
+  const x = Number(n);
+  if (!isFinite(x)) return 0;
+  return Math.max(0, Math.min(1, x));
+}
+
+function sanitizeZone(z) {
+  if (!z || typeof z !== "object") return null;
+  if (typeof z.id !== "string" || !z.id.trim()) return null;
+  if (typeof z.name !== "string" || !z.name.trim()) return null;
+  if (!Array.isArray(z.vertices) || z.vertices.length < 3) return null;
+
+  const verts = z.vertices
+    .map(v => Array.isArray(v) && v.length === 2 ? [clamp01(v[0]), clamp01(v[1])] : null)
+    .filter(Boolean);
+  if (verts.length < 3) return null;
+
+  const validStatuses = ["draft", "confirmed", "flagged"];
+
+  const history = Array.isArray(z.history) ? z.history.slice(-100).map(h => {
+    if (!h || typeof h !== "object") return null;
+    return {
+      at: typeof h.at === "string" ? h.at.slice(0, 40) : new Date().toISOString(),
+      by: typeof h.by === "string" ? h.by.slice(0, 40) : "device",
+      action: typeof h.action === "string" ? h.action.slice(0, 40) : "edit",
+      details: h.details && typeof h.details === "object" ? sanitizeShallowObject(h.details, 8, 200) : null,
+    };
+  }).filter(Boolean) : [];
+
+  const color = Array.isArray(z.color) && z.color.length === 3
+    ? z.color.map(c => Math.max(0, Math.min(255, Math.round(Number(c) || 0))))
+    : [122, 149, 104];
+
+  return {
+    id: z.id.slice(0, 80).toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, ""),
+    name: z.name.slice(0, 200),
+    type: typeof z.type === "string" ? z.type.slice(0, 40) : "planted",
+    color,
+    vertices: verts,
+    status: validStatuses.includes(z.status) ? z.status : "draft",
+    createdAt: typeof z.createdAt === "string" ? z.createdAt.slice(0, 40) : new Date().toISOString(),
+    createdBy: typeof z.createdBy === "string" ? z.createdBy.slice(0, 40) : "device",
+    updatedAt: typeof z.updatedAt === "string" ? z.updatedAt.slice(0, 40) : new Date().toISOString(),
+    lastEditedBy: typeof z.lastEditedBy === "string" ? z.lastEditedBy.slice(0, 40) : "device",
+    history,
+  };
+}
+
+function sanitizeShallowObject(obj, maxKeys, maxValueLen) {
+  const out = {};
+  let keys = 0;
+  for (const k of Object.keys(obj)) {
+    if (keys++ >= maxKeys) break;
+    const v = obj[k];
+    if (typeof v === "string") out[k] = v.slice(0, maxValueLen);
+    else if (typeof v === "number" && isFinite(v)) out[k] = v;
+    else if (typeof v === "boolean") out[k] = v;
+    else if (v === null) out[k] = null;
+    // skip nested objects / arrays — keep history details flat
+  }
+  return out;
+}
+
+function sanitizeTombstone(t) {
+  if (!t || typeof t !== "object") return null;
+  if (typeof t.id !== "string" || !t.id.trim()) return null;
+  return {
+    id: t.id.slice(0, 80),
+    lastName: typeof t.lastName === "string" ? t.lastName.slice(0, 200) : "",
+    history: Array.isArray(t.history) ? t.history.slice(-50).map(h => h && typeof h === "object" ? {
+      at: typeof h.at === "string" ? h.at.slice(0, 40) : "",
+      by: typeof h.by === "string" ? h.by.slice(0, 40) : "device",
+      action: typeof h.action === "string" ? h.action.slice(0, 40) : "edit",
+    } : null).filter(Boolean) : [],
+    deletedAt: typeof t.deletedAt === "string" ? t.deletedAt.slice(0, 40) : new Date().toISOString(),
+  };
+}
+
+async function handleZoneSave(request, env) {
+  if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
+  if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {
+    return json({ error: "github-not-configured" }, 503);
+  }
+
+  let body;
+  try { body = await request.json(); }
+  catch (e) { return json({ error: "bad-json" }, 400); }
+
+  if (!Array.isArray(body.zones)) {
+    return json({ error: "missing-zones-array" }, 400);
+  }
+
+  // Sanitize at the boundary (per feedback_sanitize_at_storage_boundary).
+  const zones = body.zones.map(sanitizeZone).filter(Boolean);
+  const tombstones = Array.isArray(body._deleted)
+    ? body._deleted.slice(0, 200).map(sanitizeTombstone).filter(Boolean)
+    : [];
+
+  // Fetch existing zones.json — preserve _meta if the client didn't send one,
+  // and grab the sha for the Contents API update.
+  const existingZones = await ghGetFile(env, "zones.json");
+  let existingData = {};
+  if (existingZones.exists) {
+    try { existingData = JSON.parse(existingZones.contentText || "{}"); }
+    catch (e) { existingData = {}; }
+  }
+
+  const meta = (body._meta && typeof body._meta === "object") ? body._meta
+             : (existingData._meta || {});
+  meta.lastBuilt = new Date().toISOString().slice(0, 10);
+
+  const fullData = { _meta: meta, zones };
+  if (tombstones.length) fullData._deleted = tombstones;
+
+  // Commit 1 — zones.json
+  const jsonContent = JSON.stringify(fullData, null, 2) + "\n";
+  const commitMsg = `Zone update — ${zones.length} zone${zones.length === 1 ? "" : "s"}${tombstones.length ? ", " + tombstones.length + " tombstone" + (tombstones.length === 1 ? "" : "s") : ""}`;
+  await ghPutFile(env, "zones.json", utf8ToBase64(jsonContent), commitMsg, existingZones.sha);
+
+  // Commit 2 — re-inline ZONES_DATA in viewer.html
+  const viewerFile = await ghGetFile(env, "viewer.html");
+  if (!viewerFile.exists) {
+    return json({ error: "viewer-html-missing" }, 500);
+  }
+  const dataConstPattern = /const ZONES_DATA = \{[\s\S]*?\};/;
+  // Inline form matches the existing build pattern (one line, ensure_ascii=False).
+  const inlinedConst = "const ZONES_DATA = " + JSON.stringify(fullData) + ";";
+  const newViewer = viewerFile.contentText.replace(dataConstPattern, inlinedConst);
+  if (newViewer === viewerFile.contentText) {
+    return json({ error: "zones-const-not-found-in-viewer" }, 500);
+  }
+  await ghPutFile(env, "viewer.html", utf8ToBase64(newViewer),
+                  `Re-inline ZONES_DATA — ${zones.length} zone${zones.length === 1 ? "" : "s"}`,
+                  viewerFile.sha);
+
+  return json({
+    ok: true,
+    zoneCount: zones.length,
+    tombstoneCount: tombstones.length,
+    lastBuilt: meta.lastBuilt,
+  });
+}
+
+async function handleZoneFeedback(request, env, url) {
+  if (request.method === "POST") {
+    let body;
+    try { body = await request.json(); }
+    catch (e) { return json({ error: "bad-json" }, 400); }
+
+    const text = typeof body.text === "string" ? body.text.trim() : "";
+    if (!text) return json({ error: "missing-text" }, 400);
+
+    const today = new Date().toISOString().slice(0, 10);
+    const rand = Math.floor(Math.random() * 65536).toString(16).padStart(4, "0");
+    const record = {
+      id: `${today}:${Date.now()}-${rand}`,
+      text: text.slice(0, 2000),
+      createdAt: new Date().toISOString(),
+      by: typeof body.by === "string" ? body.by.slice(0, 40) : "device",
+      deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
+      status: "pending",
+    };
+
+    const key = `zone-feedback:${today}`;
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = [];
+    if (existing) {
+      try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; }
+      catch (e) { arr = []; }
+    }
+    arr.push(record);
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+    return json({ stored: 1, id: record.id, total_today: arr.length });
+  }
+
+  if (request.method === "GET") {
+    const start = url.searchParams.get("start");
+    const end = url.searchParams.get("end");
+    if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+    const days = [];
+    const d0 = new Date(start + "T00:00:00Z");
+    const d1 = new Date(end + "T00:00:00Z");
+    if (isNaN(d0) || isNaN(d1) || d1 < d0) return json({ error: "bad-dates" }, 400);
+    const MAX_DAYS = 90;
+    for (let d = new Date(d0); d <= d1 && days.length < MAX_DAYS; d.setUTCDate(d.getUTCDate() + 1)) {
+      days.push(d.toISOString().slice(0, 10));
+    }
+    const all = [];
+    for (const day of days) {
+      const raw = await env.OBSERVATIONS.get(`zone-feedback:${day}`);
+      if (!raw) continue;
+      try {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) all.push(...arr);
+      } catch (e) { /* skip */ }
+    }
+    return json({ entries: all, days_scanned: days.length });
+  }
+
+  return json({ error: "method-not-allowed" }, 405);
+}
