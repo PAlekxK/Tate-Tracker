@@ -1,0 +1,192 @@
+{
+  "review_id": "review-2026-05-27-portfolio-audit",
+  "project": "fernwood",
+  "subject": "Engineering portfolio audit — viewer.html carry-cost, storage architecture, Worker review, Phase F branch coverage, iOS session_end, Phase G architectural ceiling",
+  "review_date": "2026-05-27",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Paul + Mom (joint primary); brother secondary. Family-only.",
+    "core_jobs_to_be_done": [
+      "Stewardship — maintain house and grounds with confidence",
+      "Appreciation — enjoy the place; field journal feel",
+      "Talk to the property (Garden Guru) — ask a question, get an answer in voice"
+    ],
+    "context_of_use": "Mom on iPhone Safari (likely d-14nyhnjz, viewport 393x793); Paul on laptop + iPhone. Family-internal, not discoverable. Telemetry confirms 27 sessions / 341 events / 6 days on Mom's likely device; star/seeded-prompts dead-on-arrival; revisit-vs-save ratio 17:1 validates curation hypothesis.",
+    "sources": [
+      ".user-research/persona-mom.md",
+      ".user-research/persona-paul-co-steward.md",
+      ".user-research/jtbd-talk-to-the-property.md",
+      ".user-research/journey-unified-field-assistant.md",
+      ".audit/2026-05-26-telemetry-rollup.md",
+      "auto-memory project_fernwood_mom_reading_accessibility.md",
+      "auto-memory project_fernwood_almanac_save_model.md"
+    ],
+    "assumptions_made": [
+      "d-14nyhnjz is Mom (text-size toggle exclusive + viewport + UA pattern)",
+      "Trickle traffic continues — family-only, no public discovery"
+    ],
+    "user_context_confidence": "high"
+  },
+  "code_context": {
+    "purpose": "Family field-journal dashboard for 282 Church Mountain Road. Hyper-personalized; single-property; tone is load-bearing.",
+    "stack": "Single-file HTML/CSS/JS (viewer.html, 11,294 lines) hosted on GitHub Pages + Cloudflare Worker (worker.js, 1,669 lines) backed by a single KV namespace OBSERVATIONS. JSON files at repo root are canon; viewer.html re-inlines them as DATA constants. Phase F Option C round-trips through GitHub Contents API to grow canon from photo confirmations.",
+    "conventions_observed": [
+      "No build step, no module bundler, no framework runtime",
+      "Inlined JSON DATA constants in viewer.html (lines 3802-4046) re-inlined on every canon change",
+      "IIFE modules for pseudo-namespacing (WorkerAPI, MetricsCollector, ObservationStore, GardenGuru, UnifiedInput, MetricsViewObserver)",
+      "Daily-key KV pattern for accumulating streams (cost-log / metrics / feedback / pending-species per YYYY-MM-DD)",
+      "Sanitize at storage boundary — sanitizeEntryForStorage in fnSaveAll (client) + sanitizeEntryForKV in handleAdminCleanObservations (worker)",
+      "Capture path stays pure; AI seam is one named subcommand (Garden Guru ask path; Schema Drafter on promote-species)",
+      "Loud failure beats silent fallback for sync errors (lastError surfaces in getStatus)",
+      "No TTL on cost-log, metrics, feedback, pending-species, conversation:<id> keys (only cache:* and audio-blob:* expire)"
+    ],
+    "deployment_context": "hobby (mom-ready for the journal capture / Garden Guru ask paths)",
+    "robustness_level": "shippable (working with telemetry validation; the 5/26 incident exposed and patched the one known correctness hole)",
+    "assumptions_made": [
+      "viewer.html 11.3K lines is the same single-file pattern Paul carried from Bolo Boys; the storage-quota incident and the rolling weather-history commits don't add architectural pressure to split"
+    ],
+    "code_context_confidence": "high"
+  },
+  "tooling_signals": {
+    "type_check": "n/a",
+    "linter": "not-run",
+    "tests": "n/a (Playwright + Claude on-demand per Paul's testing posture; no saved suite)",
+    "notes": "viewer.html opened in browser is the smoke-test surface; Playwright via MCP is used for deliberate flows; the 5/26 incident was caught by Mom in the field, not by automated coverage."
+  },
+  "principles_applied": [
+    "Don't over-engineer small projects (cross-project) — calibrated severity down on viewer.html size + KV unbounded growth",
+    "Capture path stays pure; AI seam is one named subcommand (cross-project + fernwood) — observed in handleChat / handlePromoteSpecies separation; confirmed propagation principle",
+    "Sanitize at the storage boundary (cross-project, auto-memory) — applied to the storage-shape review; identified one place the principle should propagate (audio commit ordering)",
+    "Storage mirrors existing shape; analysis lives in tools/ (fernwood) — applied to Phase G architectural ceiling reasoning",
+    "Defer affordances pending signal (cross-project, auto-memory) — applied to Phase F Step A 'Not quite' / Step B 'Skip this one' branch coverage decision",
+    "Loud failure beats silent fallback in personal-stakes pipelines (cross-project) — applied to parseSuggestionFence kind mismatch finding"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "intent": "issue",
+      "area": "code-quality",
+      "severity": "important",
+      "location": "viewer.html:10148-10149 (parseSuggestionFence)",
+      "observation": "The client-side fence parser accepts only `parsed.kind === \"plant\" || parsed.kind === \"animal\"` — but the Garden Guru system prompt (worker.js:457-462) instructs the model to emit specific kinds: `plant | mammal | bird | amphibian | snake | lizard | fish | animal-other`. The Worker's KIND_TARGETS map (worker.js:988-996) also expects the specific kinds. The legacy two-value gate is drift from the original Phase F Session 2 spec (commit b69f87b 'kind ∈ {plant, animal}') that was never updated when Phase F Option C / Schema Drafter introduced the per-category kinds.",
+      "risk_or_impact": "Any animal photo Mom submits where the model emits `kind: \"mammal\"` / `bird` / etc. has its suggestion fence dropped silently. The Step A confirmation buttons never appear; Mom sees only prose and assumes Garden Guru declined to suggest. The telemetry pattern is consistent with this: 4 image_attached events but only 3 species_id_confirmed — one image (likely the Black Bear conversation per CLAUDE.md) produced a reply with no confirmation UI. CLAUDE.md interpreted this as 'correctly skipped because already canonical' but the dedup fence (inCanon=true) is a server-side check that only runs AFTER the client parses the fence. If the client drops the fence, neither the canon-already-present path nor the add-flow runs. This is the load-bearing reason Step A 'Not quite' branch hasn't been exercised — animal photos that would test it are getting silently filtered out client-side.",
+      "principle_invoked": "Loud failure beats silent fallback in personal-stakes pipelines (cross-project)",
+      "the_why": "The fence is a structured AI-to-client contract. When the contract diverges (sender emits 7 kinds, receiver accepts 2), silent drop is the worst failure mode — Paul reads telemetry and concludes 'working as intended' when it's actually 'failing invisibly.' The right shape: accept the full kind set the Worker validates against (the KINDS array on worker.js:1038), and `console.warn` (or track a metric) on unrecognized kinds so future drift is loud, not silent.",
+      "recommendation": "Replace the kind check at viewer.html:10149 with the full set: `const VALID_KINDS = [\"plant\",\"mammal\",\"bird\",\"amphibian\",\"snake\",\"lizard\",\"fish\",\"animal-other\"]; if (parsed && typeof parsed.commonName === \"string\" && typeof parsed.scientificName === \"string\" && VALID_KINDS.includes(parsed.kind)) { suggestion = parsed; }`. Also add `else if (parsed && parsed.kind) { console.warn(\"suggest-species: unknown kind\", parsed.kind); MetricsCollector?.track(\"suggest_fence_unknown_kind\", { kind: parsed.kind }); }` so future drift surfaces in telemetry. Single source of truth for the kind list is the Worker's KINDS array — consider exposing it via /health or duplicating with a comment that flags the coupling. After fix, the unobserved Step A / Step B branches will start getting exercised naturally as soon as Mom or Paul photographs a mammal, bird, etc.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "important",
+      "location": "viewer.html:8974-9102 (MetricsCollector) + 10472-10475 (GardenGuru session-end)",
+      "observation": "iOS Safari does not reliably fire `beforeunload`. The telemetry rollup confirms: device d-14nyhnjz (likely Mom) shows 27 session_start vs 1 session_end across 6 days. The `visibilitychange→hidden` handler at viewer.html:8086-8092 only calls `flushSync()` (drains buffered events) — it does NOT call `fireSessionEnd()`. So duration data is lost for every iOS Safari session that backgrounds without a true unload. GardenGuru has its own visibilitychange listener (10473-10475) that does the right thing — it calls `onSessionEnd → saveCurrentConversation`. The MetricsCollector pattern is inconsistent with the in-file precedent.",
+      "risk_or_impact": "Two real consequences. (1) Session duration / engagement-depth analysis is biased toward the few sessions that fire session_end — likely under-representing Mom's actual usage in any duration-based read. (2) Any future event hung off session_end (rollup signals, end-of-session conversation auto-save heuristics, etc.) would not fire on iOS. Low-stakes today because the rollup keys off session_start counts and event volume, but worth fixing before any analysis depends on duration.",
+      "principle_invoked": "Match in-file precedent + iOS Safari unload reality",
+      "the_why": "iOS Safari has historically delivered `pagehide` as the most-reliable unload-style signal, but it skips it when an app is suspended via the home button. `visibilitychange→hidden` is the only event that fires across both home-button and tab-switch on iOS. The web-dev community converged on it as the right end-of-session trigger years ago (see Ilya Grigorik 'Beacon API + Page Lifecycle' work). The fix is one-line + an idempotence guard (which already exists via `sessionEndFired`).",
+      "recommendation": "In MetricsCollector's visibilitychange handler (viewer.html:8086-8092), add a `fireSessionEnd()` call after the existing `flushSync()`: `if (document.visibilityState === \"hidden\") { flushSync(); fireSessionEnd(); }`. `sessionEndFired` already guards against double-fire on a subsequent beforeunload/pagehide. Verify on Mom's phone next sighting: open dashboard, background it via home button, foreground again, run wrangler kv key get metrics:<today>, look for a session_end event.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "intent": "praise",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "viewer.html (whole file) + worker.js (whole file)",
+      "observation": "The single-file viewer.html at 11,294 lines is well within carry-cost for this project. Three structural reasons: (a) clear top-down section banners (the `// =========================` block comments) make navigation trivial in any editor with text search; (b) the IIFE-module pattern (WorkerAPI / MetricsCollector / ObservationStore / GardenGuru / UnifiedInput / MetricsViewObserver) gives Claude clean entry points without bringing in a bundler; (c) inlined DATA constants live in a known band (lines 3802-4046) so 'find the data' and 'find the code' are still distinguishable. The code-as-reading-material posture works here.",
+      "risk_or_impact": "Positive — confirms the single-file decision was right for this project's stakes. Splitting would introduce a build step, an import graph, deployment friction (GitHub Pages without a build is the path of least resistance), and would not improve future-Paul-with-Claude maintainability. Claude navigates a single 11K file faster than a 12-file project; the search affordance is better and the cross-references are visible without jumping.",
+      "principle_invoked": "Don't migrate working infrastructure without a functional reason (cross-project); future-Paul-with-Claude maintainability (foundation)",
+      "the_why": "The single-file pattern is the same one Bolo Boys uses. The carry-cost question is not 'is 11K lines a lot' (it is, by old-web standards) but 'does it cost Paul more to keep one file or to split it.' One file means: no build step, no import paths, no merge conflicts across files, no 'where did that move' searches, no module-system decisions. The cost is editor lag on full-file open (negligible on modern hardware) and harder cherry-picking of diffs (not currently a Paul problem). The benefit is portability and zero-deployment-friction. Hold the line.",
+      "recommendation": "No split. If a section ever genuinely needs isolation (e.g., a future Phase G query layer that handles 50+ observations with non-trivial logic), extract that section into its own JS file loaded as a separate `<script>` tag — preserving the no-build-step posture. The watch-flag is when one IIFE module crosses ~1,500 lines or two IIFE modules want to share helpers that don't naturally fit either — those are the real signals to split, not raw line count. None of the current modules are there yet (the biggest, UnifiedInput, is ~450 lines including HTML-string building).",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "intent": "suggestion",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "viewer.html:9508 (fnSaveAll) + worker.js:1346-1377 (photo+audio commit ordering)",
+      "observation": "The sanitize-at-the-boundary pattern is correctly applied at the two write surfaces that mattered for the 5/26 incident (fnSaveAll for localStorage, sanitizeEntryForKV for the cleanup endpoint). One place the same defensive posture has not propagated: in handlePromoteSpecies step 6 (worker.js:1346-1377), the audio commit happens AFTER the JSON commit has already gone through with an entry that lacks `audioSamplePath`. The code itself flags this (line 1370-1372): 'audioSamplePath lands on the entry only at next JSON edit. Optimization candidate.' This is the architectural shape of the 5/26 lesson — the audio fact gets written to one place (GitHub photo dir) but not the other (JSON entry), and the system depends on a 'fix it next time' loop to converge.",
+      "risk_or_impact": "Low-stakes today because Phase H is tabled and audioRecordingId is rarely set. If Phase H ever un-tables, the discrepancy will mean Mom can promote a bird call, the audio file lands in sounds/birds/<slug>.webm, but the species JSON entry has no audioSamplePath field — so the dashboard won't know to render a play button. Silent miss; the worst kind. Same class of failure as the 5/26 base64-not-stripped pattern: data is in storage but the read path can't find it / use it.",
+      "principle_invoked": "Sanitize at the storage boundary (cross-project) — generalized to 'commit the complete state at the storage boundary'",
+      "the_why": "The pattern from the 5/26 incident is: when data state has multiple co-dependent fields (entry text + photo, entry + audio metadata, entry + index), write the complete final state in one operation OR re-write the dependent surface after the dependent fact is known. Half-states left for a future write to repair are how silent drift happens. Order the commits so the JSON write follows the photo + audio writes, OR re-write the JSON after the audio step. The current ordering (JSON first, audio appended later) makes the JSON-only path the success-with-silent-loss case.",
+      "recommendation": "Restructure handlePromoteSpecies so the order is: (1) drafter call, (2) photo commit (if photoBase64), (3) audio commit (if audioRecordingId), (4) THEN the JSON commit with the now-complete draftedEntry (with photo path + audioSamplePath both set), (5) THEN the viewer.html re-inline. The trade-off: a photo+audio commit followed by JSON failure leaves orphan media files in the repo, but those are recoverable (Paul can re-promote or hand-clean) and don't cause a silent read-side miss. The current ordering's failure mode (silent missing field) is worse than orphan media. When Phase H un-tables, do this restructure before re-enabling the 👂 button.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "intent": "question",
+      "area": "performance",
+      "severity": "nice-to-have",
+      "location": "worker.js — observations:all key write pattern + unbounded daily keys",
+      "observation": "Two scale-shape patterns worth naming. (1) `observations:all` is a single KV value that holds every observation; every save does read-all → push → write-all. The 5/26 incident showed it can hit 4MB pre-cleanup (now 13KB post-cleanup). KV single-value cap is 25MB; that gives a practical ceiling of roughly 3,000-5,000 lean observations before the read/write round-trip becomes uncomfortable. (2) Daily keys (cost-log, metrics, feedback, pending-species, conversation:<id>) have NO TTL set. They grow forever. Cost-log + metrics at 100 events/day = ~36K/year of small KV values; conversation:<id> grows by 1 key per Garden Guru session.",
+      "risk_or_impact": "Zero risk at family-trickle scale. Mom's pace is ~2-4 events/day useful + automated bookkeeping. At 30 saved observations / 6 days observed, full saturation of `observations:all` (~5,000 entries) is ~3 years out at current pace. Daily keys are even slower-growing. The reason to name the ceiling is for Phase G planning — if observations-as-queryable-knowledge-layer ever wants to scan-all-observations to enrich card recommendations, the single-value shape becomes the read pattern's bottleneck before its write pattern. KV-list-by-prefix is the modern shape; `observations:all` was the right v1 simplification, but it's worth knowing the door it forecloses.",
+      "principle_invoked": "Audience profile dictates infrastructure tier (cross-project candidate) — and its corollary: knowing the door each shape forecloses",
+      "the_why": "Hobby-scale projects pay carry-cost for any speculative scaling. The right shape today is 'single value, full rewrite' because Paul can read the whole list in one network call, render it, save it without merge logic. The cost is paid silently in the future when the read pattern wants to be 'scan and filter' instead of 'load all.' Worth surfacing now so Phase G's design conversation knows the constraint up front, not when the rewrite is in flight.",
+      "recommendation": "No change today. When designing Phase G (observations as queryable knowledge layer), include a 30-min architectural conversation that names this trade-off explicitly: keep observations:all for the dashboard load (cheap, simple), and use per-observation keys `observation:<id>` if Phase G's queries want filterable per-record access. That's a dual-write pattern (write to both observations:all AND observation:<id>) — defensible at this scale, awkward at any larger scale, but the right v1 for Phase G. Add TTLs on cost-log / metrics / feedback if you want bounded retention (e.g., 365 days) — not urgent, but cleaner than 'they grow forever.'",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "intent": "suggestion",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "worker.js:1318-1323 (viewer.html re-inline regex)",
+      "observation": "The viewer.html re-inline uses a non-greedy regex `const ${dataConst} = \\{[\\s\\S]*?\\};` to find and replace the inlined DATA constant. Two fragilities. (a) Non-greedy `*?` stops at the FIRST `};` after the const declaration. JSON strings shouldn't contain `};` (since `}` and `;` in strings are valid characters but `;` outside strings only ends a JS statement) — but the inlined data is just JSON.stringify output, so the only `};` in the matched region is the end of the const. Today this works. (b) If a future const has a more complex literal (e.g., includes a function expression, or if Paul ever hand-edits the viewer.html and adds something with `};` inside the data region), the regex would silently truncate. The error path (line 1320) catches 'const not found' but not 'matched-but-wrong-extent.'",
+      "risk_or_impact": "Low. The Worker is the only writer that mutates the inlined const, and it always writes from JSON.stringify output. The risk would materialize if Paul ever uses tools/build-references.py or a similar script to write a DATA const that wasn't pure JSON. Watch-flag, not a fix-now item.",
+      "principle_invoked": "Loud failure beats silent fallback (cross-project)",
+      "the_why": "Regex-based code mutation is famously fragile. The current shape is acceptable because the inputs are tightly constrained (Worker is the only writer, writes are JSON.stringify output). The right defensive add is a sanity check after the replace: parse the resulting viewer.html with a regex that finds the DATA const, JSON.parse what's between `=` and `};`, and verify the new entry appears. If parse fails, abort the commit. The cost is ~10 lines; the benefit is that a future malformed write produces a 502 (Paul investigates) rather than a viewer.html that loads to a JS parse error (Mom sees blank dashboard).",
+      "recommendation": "Add a post-replace sanity check in step 4 of handlePromoteSpecies (worker.js:1322): after `newViewer = ... .replace(constRegex, newConst)`, run a second regex on `newViewer` to extract the const, JSON.parse it, and verify `container.some(s => s.id === slug)`. If anything fails, return 502 'viewer-reinline-verification-failed' before the GitHub PUT. Doesn't change happy path; turns silent breakage into loud failure when a future edit form drifts.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "intent": "question",
+      "area": "testing",
+      "severity": "nice-to-have",
+      "location": "Phase F Option C — Step A 'Not quite' branch + Step B 'Skip this one' branch",
+      "observation": "Per CLAUDE.md pickup-line #4, Step A 'Not quite' and Step B 'Skip this one' are still untested in real usage. The validated branches (Yes/Yes for Pop Star Hydrangea + Spiderwort) cover the happy path. The dedup branch (inCanon=true skip) is validated by Butterfly Weed. The Step A No branch and the Step B No branch are pure-client state transitions (viewer.html:10328-10346, declineId + declineAdd) — no network call, no canon mutation, no Worker code path involved. They just set turn.suggestionStatus and re-render.",
+      "risk_or_impact": "Low. These branches do strictly less work than the happy path — they're terminal status updates with no side effects. The risk surface is rendering correctness (do the terminal status messages display correctly) and that's directly inspectable in DevTools by setting turn.suggestionStatus manually and re-rendering. No load-bearing logic is unverified.",
+      "principle_invoked": "Defer affordances pending signal (cross-project, foundation)",
+      "the_why": "The signal that would trigger testing these branches is a hard-fail log (.engineering/garden-guru-hard-fails.md does not yet exist) showing a real-world regression. Deliberate testing of pure-client state-machine branches that do less work than the validated branches buys very little. The cost is small (10 min Playwright run), the benefit is smaller (proves what code inspection already shows). The honest answer: 'wait for the hard-fail log to surface a regression' is the right posture for these two branches specifically. NOT the right posture for the parseSuggestionFence kind-drift bug (F1) — that's an issue, not a hypothetical regression, and the validation gap there explains why animal-photo flows haven't surfaced. After fixing F1, the Step A 'Not quite' branch will get exercised naturally the first time the model emits a wrong-ID confidence-medium fence for an animal.",
+      "recommendation": "No action on these two branches specifically. Hold the 'wait for hard-fail signal' posture. After F1 is fixed, the natural rate of animal photos will drive coverage of these branches without deliberate testing.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "intent": "question",
+      "area": "performance",
+      "severity": "nice-to-have",
+      "location": "Phase G architectural ceiling — observations as queryable knowledge layer",
+      "observation": "Phase G is queued for after the observation set is rich enough (~50+ entries). Two architectural pre-decisions worth surfacing now so Phase G's design conversation can start there. (1) Storage shape: the existing observations:all (single value, ~13 KB) is the dashboard-load shape, not the query shape. Phase G wants 'find observations where speciesId = X' / 'find observations in month Y' — those scale poorly against a single-blob read at any size. Dual-write to `observations:all` (for load) AND `obs:<id>` (for per-record lookup) is the minimal shape that preserves the load path while enabling per-record access. Don't do this until Phase G actually needs it. (2) Source-of-truth direction: observations live in KV (canonical) and localStorage (cache). Phase G recommendations would be derived data (e.g., 'last year you noted the laurel opening April 25'). Derived data should NOT be written back to KV — it should be computed at render time from the canonical observations. Phase F's promote-species pattern (which writes to Git canon) is the exception, not the default.",
+      "risk_or_impact": "These are pre-Phase-G decisions, not current bugs. Surfacing them now keeps the Phase G design conversation from re-litigating ground that's already settled in this audit.",
+      "principle_invoked": "Storage mirrors existing shape; analysis lives in tools/ (fernwood)",
+      "the_why": "The fernwood principles file already names the 'symmetric mental model' rule — new streams mirror existing daily-key shapes. Phase G complicates that because per-record query access is a different read pattern than daily-key rollup. The right shape is to acknowledge the dual nature: observations:all stays the dashboard-load surface; obs:<id> becomes the Phase G surface; analysis stays in tools/ for one-off questions (Paul + Claude in chat), not in a separate UI. Phase G isn't 'a new dashboard for the dashboard' — it's enrichment of existing cards with observation-derived callouts ('you noted the laurel opening April 25 last year — watch for it now').",
+      "recommendation": "Two notes for the Phase G design conversation when it opens: (a) dual-write to observations:all + obs:<id>, with observations:all remaining the dashboard-load read; (b) derived recommendations are computed at render time from observations.all (already loaded), not pre-computed and stored. Engineering-partner path-eval before any code is written; expect the path-eval to also surface what level of Phase G is worth shipping at 50 observations vs 200 (today's pace puts 50 observations 30-60 days out per the rollup's 6 saved entries / 6 days).",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "F1 (suggest-species kind drift) — confirm Black Bear conversation didn't render Step A buttons before I file this as the explanation. Wrangler-pull conversation:<id> for any 5/22 mammal conversation and inspect the assistant turn — if the prose includes a Black Bear ID but no fence-shaped HTML comment, that's the dropped fence. If the fence IS in the prose with kind:'mammal', the client dropped it (confirmation). If the fence ISN'T in the prose at all, the model didn't emit one (different bug — system prompt drift).",
+    "F2 (iOS session_end) — willing to ship the visibilitychange→hidden + fireSessionEnd fix this session or batch it with other low-risk telemetry tweaks?",
+    "F4 (audio commit ordering) — Phase H is tabled, so this fix can wait until un-tabling. Note in PHASE_H decision trail when you re-open?",
+    "F5 (Phase G architectural ceiling) — does the dual-write pattern (observations:all + obs:<id>) match your intuition for Phase G, or would you prefer to push the decision to the path-eval and let it argue from a clean slate?"
+  ],
+  "follow_up_research_suggested": [
+    "When Phase H un-tables: 5-min landscape pass on BirdNET-Live iOS support (Cornell roadmap), Hugging Face Inference quality for bird-call ID, Anthropic audio API status. The fence kind-list will need 'bird' coverage validated then.",
+    "When Phase G opens: 30-min review of how single-property nature journaling apps handle observation-derived recommendations. iNaturalist, eBird, Seek — particularly their on-device recommendation loops. The depth filter constraint (only this property's 17 plants etc.) is unusual enough that the engineering shape may be Paul-original rather than borrowed."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Structured AI-to-client contracts need a single source of truth for the validated value set, or drift goes silent",
+      "scope": "cross-project",
+      "rationale": "F1 is the textbook instance — Worker prompt instructs 7 kinds, Worker validator accepts 8 kinds (incl. animal-other), Client validator accepts 2 kinds. Three sources of truth, two drift events away from each other. The pattern likely recurs anywhere AI emits structured tags (career scanner triage tags, financial-viewer anchor categories, future digest classifications). Promote on second occurrence."
+    },
+    {
+      "principle": "Pure-client state machine branches don't need deliberate testing if happy path + dedup branch are validated",
+      "scope": "cross-project",
+      "rationale": "F7's reasoning generalizes. Branches that do strictly less than the validated branch (terminal status updates, decline/skip paths, no network) are inspection-verifiable. Deliberate testing buys little when the diff between validated and unvalidated is removing a code path. Specific to AI-mediated flows where the validation cost is high (real API calls, real time) and the unvalidated branches are cheap pure state."
+    }
+  ]
+}

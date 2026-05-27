@@ -2,57 +2,83 @@
 type: persona
 project: tate-tracker
 person_id: mom
-last_updated: 2026-05-22
-evidence_level: inferred
+last_updated: 2026-05-27
+evidence_level: validated
 sources:
   - Paul direct (multiple sessions, 2026-05 series)
   - Tate Tracker CLAUDE.md (project tone + user notes)
   - ~/.claude/agent-foundations/_about-paul.md (Tate Tracker user context)
+  - .audit/2026-05-26-telemetry-rollup.md (first real-usage telemetry, 6-day window 2026-05-20..2026-05-27, likely-Mom device d-14nyhnjz-...)
 ---
 
 # Mom — Make-or-break user
 
-The user whose adoption decides whether Tate Tracker is worth building at all. Joint primary user with Paul. Not technophobic, but the adoption hurdle is real: anything the app asks of her has to feel earned, not imposed.
+The user whose adoption decides whether Fernwood is worth building at all. Joint primary user with Paul. Not technophobic, but the adoption hurdle is real: anything the app asks of her has to feel earned, not imposed.
+
+**Status update 2026-05-27 (telemetry):** Adoption is no longer hypothetical. The `d-14nyhnjz-...` device — viewport 393x793 (iPhone Pro), 27 sessions / 341 events over 6 days, the only device that touched the A/A+ text-size toggle (12 events) — is best read as Mom's. Confirmation step is still Paul-sights-her-phone, but every behavioral signal lines up. The persona below now distinguishes what telemetry *validates*, what it *demotes*, and what it *flags* as newly unknown.
 
 ## Situation
 
 `[inferred]` — Lives the property day-to-day in a way Paul (Atlanta-based) doesn't. Notices what's blooming, what's broken, what needs attention — but currently holds that knowledge in her head and her memory of past seasons, not in any shared system. The app is being introduced into an already-working life, not filling a desperate gap. That asymmetry matters: she doesn't *need* it; it has to earn its place.
 
-`[inferred]` — Use is likely off-property too, not only at-property. Phone in bed with morning coffee or at night winding down — a leisure-mode reading session, not a deliberate stewardship task at a desk. The dashboard is competing with whatever else she'd reach for on her phone in those moments. (Source: Paul direct 2026-05-11.)
+`[validated — 2026-05-27]` — **Use is daily and recurring**, not occasional. 27 sessions over 6 days = ~4.5 sessions/day on the likely-Mom device. The "the app has to earn its place" framing held — and the app has earned it, at least at the open-the-thing level. Source: `.audit/2026-05-26-telemetry-rollup.md` engagement-by-device table.
+
+`[inferred — partially validated 2026-05-27]` — Use is likely off-property too, not only at-property. Phone in bed with morning coffee or at night winding down — a leisure-mode reading session, not a deliberate stewardship task at a desk. The dashboard is competing with whatever else she'd reach for on her phone in those moments. (Source: Paul direct 2026-05-11.) **2026-05-27 update:** telemetry confirms phone-as-surface (iPhone Pro viewport, mobile device class) and confirms daily cadence consistent with morning/evening pull-ups, but does NOT yet validate the specific bed-and-coffee posture — that requires direct conversation with Mom. Session times per event would help if Paul wants to look at the hour-of-day distribution.
 
 ## Job-to-be-done
 
 `[inferred]` — Enjoy and steward the property well, without the act of stewarding becoming work she resents. Wants to feel confident — knowing what's happening this month, what's coming, what each plant needs — and wants the noticing of the place (birds at the feeders, frogs at the pond, the seasons turning) to feel rewarding rather than instrumentalized.
 
+`[validated — 2026-05-27]` — **The dashboard's at-a-glance cards carry most of the job.** Per telemetry: Plants and Weather tied for most-viewed (60 views each on likely-Mom device); Wildlife at 54; Celestial 47; Property 45. Card-section-viewed dominates the event mix (194 of 341 events ≈ 57%). She is scanning the cards, not deep-diving. The "lay out the place at a glance" job is the one Fernwood currently serves best. Source: `.audit/2026-05-26-telemetry-rollup.md` card-popularity table.
+
+`[validated — 2026-05-27]` — **She returns to saved entries at scale.** 55 `entry_revisited` events on her device alone (104 across all devices) vs. 0 stars. Revisit-as-curation is the actual behavior; the star affordance is not part of how she uses the app. The "this matters" interaction exists — it's just expressed as "I come back to this entry," not as "I tap a star." See updated open questions below.
+
 ## Triggers
 
-`[inferred]` — **Morning coffee, in bed, waking up.** Phone-in-hand, low-attention. Looking for something interesting to read while the day starts — *and* potentially previewing the day ahead: what's worth doing on the property, what's blooming, what the weather looks like. Soft stewardship-flavored, not deliberate task-checking. (Source: Paul direct 2026-05-11.)
+`[inferred]` — **Morning coffee, in bed, waking up.** Phone-in-hand, low-attention. Looking for something interesting to read while the day starts — *and* potentially previewing the day ahead: what's worth doing on the property, what's blooming, what the weather looks like. Soft stewardship-flavored, not deliberate task-checking. (Source: Paul direct 2026-05-11.) Still `inferred` — telemetry shows daily phone use but doesn't tag time-of-day to the bed/coffee posture specifically.
 
 `[inferred]` — **Evening wind-down, in bed, powering down.** Same posture, same low-attention mode. Leisure-reading *and* a low-commitment glance at what's coming tomorrow on the property. End of day, forward-look without obligation. (Source: Paul direct 2026-05-11.)
 
 `[inferred]` — Other likely entry points: noticing something on the grounds and wanting to know more (a bird she doesn't recognize, a plant past its best moment); a seasonal shift ("what should I be doing now that it's May?"); Paul mentioning something he's added or updated. Anti-trigger: a notification telling her something is "due" or "overdue." That kind of nudge will close the app, not open it.
 
+`[inferred — strengthened 2026-05-27]` — **The "what's new" / "what got promoted" pull is real.** Two image-bearing Garden Guru conversations on her device led to 1 `species_id_confirmed` and 1 `species_promoted` (Spiderwort, 5/22). She's not just reading — she has put species into the canon. Source: `.audit/2026-05-26-telemetry-rollup.md` event-types table.
+
 ## Constraints
 
 - `[inferred]` — A simple, easy-to-remember password is acceptable. Low-friction authentication is the real constraint; password-free is not required. (Original "no password / Mom stops" hypothesis was contradicted by Paul on 2026-05-11: *"We could have a password. I don't think there's anything wrong with that. It would just need to be very easy to remember. I don't think there's a lot of confidential information there."*)
-- `[inferred]` — Not gun shy about tech, but won't pursue a tool that has friction relative to the value she gets from it. The bar is "compelling enough to open" — not "tolerable to use once open."
-- `[inferred]` — Mobile-first realistically. She'll open this from a phone on the porch or in the kitchen, not at a desk.
+- `[inferred]` — Not gun shy about tech, but won't pursue a tool that has friction relative to the value she gets from it. The bar is "compelling enough to open" — not "tolerable to use once open." **Strengthened 2026-05-27:** the bar has been cleared. The compelling-enough-to-open question is answered by 27 sessions in 6 days.
+- `[validated — 2026-05-27]` — **Mobile-only realistically.** Telemetry shows zero desktop activity from her device pool; viewport 393x793 (iPhone Pro). The earlier "porch or kitchen, not at a desk" reading was correct. Promoted from `inferred` to `validated`.
 - `[assumption]` — Time and attention are scarce; she's not going to read long blocks of text or work through multi-step interactions.
-- `[inferred]` — **Low-attention reading posture is a real use mode.** Bed, one-handed, reclined, half-engaged (waking up or winding down). Design has to read well at half-engagement — scannable, light cognitive load, no multi-step interactions, no tiny tap targets. (Source: Paul direct 2026-05-11.)
-- `[validated]` — **Mom has a hard time reading and may not have reading glasses on when using the app.** Implication: small body copy, faint helper text, and meaning carried by text labels alone are accessibility failures here, not stylistic preferences. UX needs to work for someone who can see shape, color, and layout but cannot reliably parse small text. Icon + size + color need to carry intent independently of fine print. (Source: Paul direct 2026-05-22.)
+- `[inferred]` — **Low-attention reading posture is a real use mode.** Bed, one-handed, reclined, half-engaged (waking up or winding down). Design has to read well at half-engagement — scannable, light cognitive load, no multi-step interactions, no tiny tap targets. (Source: Paul direct 2026-05-11.) **2026-05-27:** the 2-turn ceiling on all 10 Garden Guru conversations is consistent with low-attention posture — she's not getting drawn into multi-turn exchanges. (Could also mean the assistant isn't pulling her in — see open questions.)
+- `[validated — 2026-05-27, promoted from validated-inline]` — **Mom has a hard time reading and may not use the app with reading glasses on.** Now backed by direct usage: 12 `text_size_changed` events on her device — the *only* device that touched the A/A+ toggle Paul shipped 5/22 for exactly this reason. The accessibility constraint isn't just a stated preference; she is actively reaching for the affordance designed for it. Implication unchanged: small body copy, faint helper text, and meaning carried by text labels alone are accessibility failures here. Icon + size + color must carry intent independently of fine print. (Original source: Paul direct 2026-05-22. Behavioral confirmation: `.audit/2026-05-26-telemetry-rollup.md`.)
 
 ## Definition of success
 
-`[validated, inline]` — "I open the **dashboard** when I want to, and I'm glad I did." The bar is dashboard engagement — she finds herself reaching for it unprompted (to check what's happening this month, to identify a bird, to remember which plant gets pruned when) and it pays off without making her feel managed. **Garden Guru engagement is upside, not the bar**; she doesn't need to use the assistant surface for the project to be working for her. The outcome ladder is: dashboard-opened-regularly (pass) → Guru-tried-once (gradient up) → Guru-becomes-pattern (gradient up further). Failure is dashboard-not-opened, full stop. (Source: Paul direct 2026-05-20, Garden Guru rubric interview Q11: *"if she uses the dashboard but doesn't use the guru, that's still a success. And it's a failure either way if she doesn't open the dashboard."*)
+`[validated — strengthened 2026-05-27]` — "I open the dashboard when I want to, and I'm glad I did." The bar is dashboard engagement — she finds herself reaching for it unprompted (to check what's happening this month, to identify a bird, to remember which plant gets pruned when) and it pays off without making her feel managed. **Garden Guru engagement is upside, not the bar**; she doesn't need to use the assistant surface for the project to be working for her. The outcome ladder is: dashboard-opened-regularly (pass) → Guru-tried-once (gradient up) → Guru-becomes-pattern (gradient up further). Failure is dashboard-not-opened, full stop. (Source: Paul direct 2026-05-20, Garden Guru rubric interview Q11.)
+
+**2026-05-27 status:**
+- Dashboard-opened-regularly: ✅ PASS — 27 sessions / 6 days.
+- Guru-tried-once: ✅ PASS — 2 conversations, both with images, 1 species promoted to canon.
+- Guru-becomes-pattern: ❌ NOT YET — 2 conversations over 6 days isn't a pattern; both happened on or before 5/22; nothing in the last 3 days of the window.
+
+The headline: the project is succeeding at its load-bearing metric. Garden Guru is alive but not yet habit.
 
 ## Anti-persona
 
 `[inferred]` — The productivity-app user who wants checklists, streaks, completion percentages, and reminder pings. Mom is not that user, and designing for that user breaks this one. Also not the casual visitor who's just curious about the property — Mom has a real stake in it, and the app should treat her as someone whose knowledge of the place exceeds what's in the app, not the other way around.
 
+`[inferred — added 2026-05-27]` — Also not the "power-user conversationalist" who chains 8 follow-ups with the AI. Telemetry: every conversation she's had with Garden Guru is exactly 2 turns. She asks; she gets an answer; she's done. Designing affordances that assume multi-turn engagement (conversation-history browsers, "continue where you left off" cards) probably misses her.
+
 ## Evidence log
 
-- `2026-05-22: [validated] — Paul direct, real-user observation — Mom asked a question of Garden Guru via the new two-button surface (shipped same day, commit 5de6e1b). The exact failure mode from earlier that day (text-only questions silently logged to the Almanac under the auto-routing single button) did not reproduce. She found and used the ASK GARDEN GURU button without difficulty. Validates F1 (two-button split) and the broader "tap location declares route, not heuristic" principle. First real-user signal on the post-revamp surface.`
-- `2026-05-22: [validated] — Paul direct — Mom has a hard time reading; may use the app without reading glasses on. UX needs accessibility-first treatment: large legible type, high contrast, icons/shape/color carrying meaning independently of label text. Surfaced when text-only Garden Guru questions got silently logged as Almanac entries — the routing decision was invisible to her because she couldn't read the button label change.`
+- `2026-05-27: [validated] — Telemetry rollup (.audit/2026-05-26-telemetry-rollup.md) — likely-Mom device d-14nyhnjz-... shows 27 sessions / 341 events over 6 days. Adoption is real. The single strongest validation event since project start.`
+- `2026-05-27: [validated] — Telemetry rollup — 12 text_size_changed events on her device (only device that used the A/A+ toggle). The no-reading-glasses constraint is now behaviorally validated, not just stated.`
+- `2026-05-27: [validated] — Telemetry rollup — All 2 of her Garden Guru conversations are 2-turn. Multi-turn engagement is not part of her pattern (yet).`
+- `2026-05-27: [validated] — Telemetry rollup — 0 stars in 55 entry_revisited events on her device (0 across 104 revisits all-devices). The star affordance is not part of how she uses the app. Revisit-as-curation IS the behavior; tapping a star is not.`
+- `2026-05-27: [inferred — instrumentation gap] — Telemetry rollup — 27 session_starts vs 1 session_end on her device. iOS Safari is not reliably firing the unload-style handler; retention/engagement metrics derived from session_end will undercount her. Not a behavioral signal about her — a measurement gap.`
+- `2026-05-27: [validated] — Telemetry rollup — Plants (60) and Weather (60) are most-viewed cards on her device. Wildlife (54), Celestial (47), Property (45). Field-notes is 43 views with 18 expands (highest expand-rate) — when she opens field-notes, she opens deeply.`
+- `2026-05-22: [validated] — Paul direct, real-user observation — Mom asked a question of Garden Guru via the new two-button surface (shipped same day, commit 5de6e1b). The exact failure mode from earlier that day (text-only questions silently logged to the Almanac under the auto-routing single button) did not reproduce.`
+- `2026-05-22: [validated] — Paul direct — Mom has a hard time reading; may use the app without reading glasses on. UX needs accessibility-first treatment: large legible type, high contrast, icons/shape/color carrying meaning independently of label text.` *(Now behaviorally validated by 2026-05-27 telemetry — see above.)*
 - `2026-05-11: [inferred] — Paul direct — Mom likely uses the app in bed with morning coffee (waking up) or at night (winding down), looking for "something interesting to read." First concrete when/where for her solo use. Off-property, phone, leisure mode, low-attention.`
 - `2026-05-11: [inferred] — Paul direct — A simple, memorable password is acceptable; low-friction auth is the real constraint. (Supersedes earlier "no password / Mom stops" assumption — contradicted by Paul this session.)`
 - `2026-05-11: [inferred] — Paul direct — Mom is not gun shy about tech.` *(Re-sourced: the literal phrase "not gun shy" was Paul's, used in reference to plants/pruning. The Mom-and-tech read is the user-researcher's synthesis from Paul's broader framing of Mom as a real user, not a technophobe.)*
@@ -62,9 +88,34 @@ The user whose adoption decides whether Tate Tracker is worth building at all. J
 - `2026-05-08: [validated] — Paul direct, project CLAUDE.md — Tone must be field-journal, not task-manager; urgency language ("17 actions due," "3 alerts," "overdue") is wrong for this project.`
 - `2026-05-07: [validated] — Paul direct — Photo aesthetic is naturalistic in-habitat shots; museum-specimen white-background photos are wrong.`
 
-## Open questions (real-user validation pending)
+## Open questions
 
-- Behavioral: in the first 30 days after launch, does Mom open the app unprompted? How often? From where?
+Updated 2026-05-27. Items that telemetry closed are removed; items it opened are added.
+
+### Closed by telemetry (was open at 2026-05-22)
+- ~~Behavioral: in the first 30 days after launch, does Mom open the app unprompted? How often?~~ → **YES, ~4.5 sessions/day on the likely-Mom device. Closed.**
+- ~~Mobile vs. desktop split: is the porch-and-kitchen mobile model correct?~~ → **Mobile-only confirmed. Closed.**
+
+### Still open from prior sessions
 - Auth: what does "easy to remember" mean for her specifically — a family word, a shared phrase, a 4-digit code? Worth a single direct conversation before implementing.
-- Mobile vs. desktop split: is the porch-and-kitchen mobile model correct, or does she sometimes use it more deliberately at a desk?
-- Which triggers actually fire: is it noticing-something-on-the-grounds (the field-journal motive) or seasonal-orientation ("what should I be doing in May") that pulls her in first?
+- Which triggers actually fire first: is it noticing-something-on-the-grounds (the field-journal motive) or seasonal-orientation ("what should I be doing in May") that pulls her in first? Per-event timestamps could partially answer this (time-of-day distribution), but the cleanest answer is still asking her.
+
+### New questions opened by 2026-05-27 telemetry
+- **Why zero stars in 55 revisits?** Three candidate explanations:
+  1. *Star is invisible.* The affordance is there but she doesn't see it (size, color, position fail). Implies a UX iteration.
+  2. *Entries aren't experienced as discrete things to mark.* She reads them but doesn't think of them as objects-to-curate. Implies the star is conceptually wrong, not visually wrong.
+  3. *Revisit IS her curation.* She comes back to entries she values; tapping a star to also say "I value this" is redundant. Implies the star should be killed or replaced with a passive "you came back to this 4 times" surfacing.
+  
+  These three look different in implication. Distinguishing them needs either a Mom conversation or instrumentation that captures *where her eyes go* on an entry card (not feasible without screen recording, which would be invasive). T+30 interview is the realistic path. Priority: high.
+
+- **Why all 2-turn Garden Guru conversations?** Two candidates:
+  1. *Two turns are enough.* The answers are good enough that she doesn't need to follow up. Implies Guru is working as intended for her use mode.
+  2. *Two turns are all she has patience for.* The follow-up affordance isn't compelling, or she doesn't realize multi-turn is possible. Implies a discoverability issue OR a use-mode mismatch (her job-to-be-done with Guru is one-shot Q&A, not conversation).
+  
+  Distinguishable in a T+30 interview by asking about a specific recent question and what she did with the answer. Priority: medium.
+
+- **What happens in the 4 days between her last Guru conversation (5/22) and the end of the window (5/27)?** She's using the dashboard daily but not Guru. Has the novelty worn off? Is the use case (photo ID) seasonal and she just hasn't seen something unfamiliar this week? Or is there something about the affordance that isn't pulling her back? Priority: medium — wait for a longer window before reading too much into 4 days.
+
+- **The `session_end` instrumentation gap.** 27 starts vs 1 end on iOS Safari. Mostly an engineering issue (consider `visibilitychange` instead of `unload`), but worth knowing it distorts any retention metric that depends on session_end firing. Flagged here so the user-research artifacts don't accidentally cite "session length" as if it's reliable for her device. Priority: low (engineering decision).
+
+- **Did she notice the "Worth Considering" card that shipped 5/26 (4 expands on 5 views across all devices, including her pick — autumn bentgrass)?** Card popularity table shows 5 views / 4 expands but doesn't split by device in the published rollup. If she's expanding it and has touched the bentgrass entry that's labeled her pick, that's a strong signal of co-authorship she'll respond to. Worth a check next rollup. Priority: medium.
