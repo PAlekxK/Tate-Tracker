@@ -9085,9 +9085,10 @@ const MetricsCollector = (function () {
 
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") {
-      // Opportunistic flush; session_end fires on beforeunload (or via this path
-      // if beforeunload doesn't get to run — iOS Safari).
-      flushSync();
+      // iOS Safari rarely fires beforeunload; visibilitychange→hidden is the
+      // load-bearing session-end signal. fireSessionEnd is idempotent
+      // (sessionEndFired guard) so this stays safe with beforeunload/pagehide.
+      fireSessionEnd();
     }
   });
   window.addEventListener("beforeunload", fireSessionEnd);
@@ -10137,6 +10138,11 @@ const GardenGuru = (function () {
   //   <!--suggest-species
   //   { ...json... }
   //   -->
+  // Must match the `kind` enum in worker.js GARDEN_GURU_SYSTEM photo-fence spec.
+  const SUGGEST_FENCE_KINDS = new Set([
+    "plant", "mammal", "bird", "amphibian", "snake", "lizard", "fish", "animal-other",
+    "animal", // legacy — kept for back-compat with pre-Phase-F-extension conversations
+  ]);
   function parseSuggestionFence(reply) {
     if (!reply || typeof reply !== "string") return { displayText: reply, suggestion: null };
     const m = reply.match(/<!--\s*suggest-species\s*([\s\S]*?)\s*-->\s*$/);
@@ -10144,10 +10150,11 @@ const GardenGuru = (function () {
     let suggestion = null;
     try {
       const parsed = JSON.parse(m[1]);
-      // Light schema check — bail if required fields are missing or kind is off-contract.
       if (parsed && typeof parsed.commonName === "string" && typeof parsed.scientificName === "string"
-          && (parsed.kind === "plant" || parsed.kind === "animal")) {
+          && SUGGEST_FENCE_KINDS.has(parsed.kind)) {
         suggestion = parsed;
+      } else if (parsed && parsed.kind && !SUGGEST_FENCE_KINDS.has(parsed.kind)) {
+        console.warn("[suggest-species] dropping fence — off-contract kind:", parsed.kind, parsed);
       }
     } catch (e) { /* malformed fence — drop silently */ }
     const displayText = reply.slice(0, m.index).trim();
