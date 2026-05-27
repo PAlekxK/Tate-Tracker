@@ -209,7 +209,7 @@
       "status": "confirmed",
       "createdAt": "2026-05-27T17:00:00Z",
       "createdBy": "paul",
-      "updatedAt": "2026-05-27T19:35:17.121Z",
+      "updatedAt": "2026-05-27T19:37:12.046Z",
       "lastEditedBy": "device",
       "history": [
         {
@@ -232,6 +232,12 @@
         },
         {
           "at": "2026-05-27T19:35:17.121Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-05-27T19:37:12.046Z",
           "by": "device",
           "action": "confirmed",
           "details": null
