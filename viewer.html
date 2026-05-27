@@ -541,6 +541,24 @@
     -webkit-tap-highlight-color: transparent;
   }
   .pmap-sync-action-btn:active { transform: scale(0.97); }
+  .pmap-sync-diag {
+    margin-top: 8px;
+    padding: 6px 8px;
+    background: #f4f7ee;
+    border-radius: 6px;
+    border: 1px solid #d8eacc;
+    font-size: 11px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    color: #4a6a3a;
+  }
+  .pmap-sync-diag-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 1px 0;
+  }
+  .pmap-sync-diag-row > span:first-child { color: #6a7a5a; }
+  .pmap-sync-diag-row > span:last-child { word-break: break-all; text-align: right; max-width: 60%; }
   /* "Add a place" button + two-path popover. Visible at rest;
      opens to offer Tap-on-the-map (draw) or Describe-it (voice). */
   .pmap-add-btn {
@@ -7238,6 +7256,23 @@ const ZoneSyncStatus = (function () {
     } else {
       html += '<div class="pmap-sync-time">Never synced from this device.</div>';
     }
+    // Diagnostic block — shows what the code actually sees in localStorage.
+    // Token is partially redacted. Helps disambiguate "modal looks fine but
+    // sync says not configured" cases.
+    let cfgRaw = null;
+    try { cfgRaw = localStorage.getItem("tateTracker.sync.v1"); } catch (e) {}
+    let cfgParsed = null;
+    try { cfgParsed = cfgRaw ? JSON.parse(cfgRaw) : null; } catch (e) {}
+    const hasUrl = !!(cfgParsed && cfgParsed.workerUrl);
+    const hasTok = !!(cfgParsed && cfgParsed.token);
+    const tokPreview = hasTok ? (cfgParsed.token.slice(0, 4) + "…" + cfgParsed.token.slice(-2)) : "—";
+    const urlPreview = hasUrl ? cfgParsed.workerUrl : "—";
+    html += '<div class="pmap-sync-diag">' +
+              '<div class="pmap-sync-diag-row"><span>sync.v1 key</span><span>' + (cfgRaw ? "present (" + cfgRaw.length + " chars)" : "missing") + '</span></div>' +
+              '<div class="pmap-sync-diag-row"><span>workerUrl</span><span>' + escapeHtml(urlPreview) + '</span></div>' +
+              '<div class="pmap-sync-diag-row"><span>token</span><span>' + escapeHtml(tokPreview) + '</span></div>' +
+              '<div class="pmap-sync-diag-row"><span>isConfigured()</span><span>' + (typeof WorkerAPI !== "undefined" && WorkerAPI.isConfigured()) + '</span></div>' +
+            '</div>';
     html += '<button class="pmap-sync-action-btn" id="pmap-sync-now-btn" type="button">Sync now</button>';
     details.innerHTML = html;
     const btn = document.getElementById("pmap-sync-now-btn");
