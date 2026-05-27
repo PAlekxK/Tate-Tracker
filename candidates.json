@@ -21,10 +21,25 @@
       "status": "considering",
       "category": "native-grass",
       "rationale": "Native perennial bunchgrass, partial shade, mesic to wet soils. Fits the spring drainage seepage zone and forest-edge mesic spots. Soft fine-textured groundcover with late-season inflorescences. Flagged for inclusion by Mom.",
-      "communityFit": ["Cove Forest", "Seepage Wetland", "Mesic forest edge"],
-      "sourceIds": ["sbg-connect-to-protect", "rock-spring-restorations", "gnps-ngm-sale"],
+      "communityFit": [
+        "Cove Forest",
+        "Seepage Wetland",
+        "Mesic forest edge"
+      ],
+      "sourceIds": [
+        "sbg-connect-to-protect",
+        "rock-spring-restorations",
+        "gnps-ngm-sale"
+      ],
       "flaggedBy": "Mom",
-      "notes": "Not in the GNPS Blue Ridge landscaping matrix, but iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm the species' habitat (mesic to dry forests, seepage swamps, depressions) matches the property. Bunchgrass habit, no rhizomes or stolons — gentle in a planted setting. 8-31 inches tall."
+      "notes": "Not in the GNPS Blue Ridge landscaping matrix, but iNaturalist + Native Plant Trust + Lady Bird Johnson Wildflower Center all confirm the species' habitat (mesic to dry forests, seepage swamps, depressions) matches the property. Bunchgrass habit, no rhizomes or stolons — gentle in a planted setting. 8-31 inches tall.",
+      "photo": "images/candidates/autumn-bentgrass.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Rasbak",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Gewoon_struisgras_Agrostis_tenuis.jpg"
+      }
     },
     {
       "id": "american-chestnut",
@@ -34,9 +49,21 @@
       "status": "considering",
       "category": "restoration",
       "rationale": "Once a dominant canopy species at this elevation in the southern Appalachians. The blight (introduced 1904) killed virtually all mature trees from Maine to Georgia by 1950. One of the two big landowner-participation restoration species. This slope was once chestnut canopy.",
-      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest"],
-      "sourceIds": ["tacf-ga-chapter"],
-      "notes": "This is a multi-year commitment, not a sale-stand purchase. TACF GA's own framing: \"Many trees today may not carry sufficient disease resistance, so most likely will not live to become the 'mighty giants' we all hope and dream about.\" Path is national membership → Potential Orchard Steward form → stewardship plan with GA Science Coordinator → germplasm agreement. They recommend a few years of membership + volunteering before planting. Smaller path: pure American chestnut seedlings at the annual spring sale. Most ecologically meaningful candidate on this list; also the slowest and least guaranteed."
+      "communityFit": [
+        "Cove Forest",
+        "Low-to-Mid Elevation Oak Forest"
+      ],
+      "sourceIds": [
+        "tacf-ga-chapter"
+      ],
+      "notes": "This is a multi-year commitment, not a sale-stand purchase. TACF GA's own framing: \"Many trees today may not carry sufficient disease resistance, so most likely will not live to become the 'mighty giants' we all hope and dream about.\" Path is national membership → Potential Orchard Steward form → stewardship plan with GA Science Coordinator → germplasm agreement. They recommend a few years of membership + volunteering before planting. Smaller path: pure American chestnut seedlings at the annual spring sale. Most ecologically meaningful candidate on this list; also the slowest and least guaranteed.",
+      "photo": "images/candidates/american-chestnut.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "The original uploader was Peatcher at German Wikipedia.",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:American_Chestnut.JPG"
+      }
     },
     {
       "id": "eastern-hemlock",
@@ -46,9 +73,22 @@
       "status": "considering",
       "category": "restoration",
       "rationale": "Cool-drainage native, occurs in acidic Cove Forest sites. Likely already present on the property in the spring drainage. Threatened by Hemlock Woolly Adelgid (HWA) since 2003 in Georgia; statewide by 2012. No other native conifer fills hemlock's ecological role.",
-      "communityFit": ["Cove Forest (acidic)", "Spray Cliffs / Seepage edges"],
-      "sourceIds": ["hri-hwa-program", "gfc-seedling-sale"],
-      "notes": "ACTIONABLE NOW: check existing hemlocks on the property for HWA and treat (imidacloprid + dinotefuran soil drench at root flare). HRI has DIY landowner instructions. FUTURE / NOT YET AVAILABLE: resistant-stock plantings for forest restoration — HRI's genetic-resistance work is still early-stage and there is no current sourcing pathway for landowners. Two ornamental landscape cultivars ('Traveler', 'Crossroads') are expected to be released for purchase \"in the near future\" but are explicitly landscape-only, not forest restoration stock. Step 1 is the only step worth taking this year."
+      "communityFit": [
+        "Cove Forest (acidic)",
+        "Spray Cliffs / Seepage edges"
+      ],
+      "sourceIds": [
+        "hri-hwa-program",
+        "gfc-seedling-sale"
+      ],
+      "notes": "ACTIONABLE NOW: check existing hemlocks on the property for HWA and treat (imidacloprid + dinotefuran soil drench at root flare). HRI has DIY landowner instructions. FUTURE / NOT YET AVAILABLE: resistant-stock plantings for forest restoration — HRI's genetic-resistance work is still early-stage and there is no current sourcing pathway for landowners. Two ornamental landscape cultivars ('Traveler', 'Crossroads') are expected to be released for purchase \"in the near future\" but are explicitly landscape-only, not forest restoration stock. Step 1 is the only step worth taking this year.",
+      "photo": "images/candidates/eastern-hemlock.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Bruce Marlin",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Tsuga_canadensis_morton.jpg"
+      }
     },
     {
       "id": "flame-azalea",
@@ -58,9 +98,23 @@
       "status": "considering",
       "category": "bird-pollinator",
       "rationale": "Signature North Georgia mountain native — the Cohutta and Smokies range is centered on this species. Brilliant May-June bloom. Confirmed in GNPS Blue Ridge landscaping list for both Montane Oak and Cove Forest understory.",
-      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest"],
-      "sourceIds": ["gnps-ngm-sale", "gardens-of-the-blue-ridge", "native-forest-nursery"],
-      "notes": "If sourcing from Gardens of the Blue Ridge: they specialize in native azaleas including hard-to-find color forms. Drainage matters — happiest on sloped, well-drained, acidic soil."
+      "communityFit": [
+        "Cove Forest",
+        "Low-to-Mid Elevation Oak Forest"
+      ],
+      "sourceIds": [
+        "gnps-ngm-sale",
+        "gardens-of-the-blue-ridge",
+        "native-forest-nursery"
+      ],
+      "notes": "If sourcing from Gardens of the Blue Ridge: they specialize in native azaleas including hard-to-find color forms. Drainage matters — happiest on sloped, well-drained, acidic soil.",
+      "photo": "images/candidates/flame-azalea.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "User:Arx Fortis",
+        "license": "CC BY 2.5",
+        "url": "https://commons.wikimedia.org/wiki/File:Rhododendron_calendulaceum.jpg"
+      }
     },
     {
       "id": "white-oak",
@@ -70,9 +124,22 @@
       "status": "considering",
       "category": "keystone",
       "rationale": "The keystone genus per Tallamy. Each oak supports 400+ Lepidoptera species — the foundation for nearly every songbird's nesting season. Confirmed in Low-to-Mid Elevation Oak Forest community at this elevation.",
-      "communityFit": ["Low-to-Mid Elevation Oak Forest", "Cove Forest (fertile sites)"],
-      "sourceIds": ["gfc-seedling-sale", "native-forest-nursery"],
-      "notes": "GFC seedling sale typically offers multiple oak species at landowner-scale quantities and prices. December-March planting. If choosing one keystone tree to plant first, this is the answer."
+      "communityFit": [
+        "Low-to-Mid Elevation Oak Forest",
+        "Cove Forest (fertile sites)"
+      ],
+      "sourceIds": [
+        "gfc-seedling-sale",
+        "native-forest-nursery"
+      ],
+      "notes": "GFC seedling sale typically offers multiple oak species at landowner-scale quantities and prices. December-March planting. If choosing one keystone tree to plant first, this is the answer.",
+      "photo": "images/candidates/white-oak.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Marty Aligata at English Wikipedia",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Keeler_Oak_Tree_-_distance_photo,_May_2013.jpg"
+      }
     },
     {
       "id": "wild-hydrangea",
@@ -82,9 +149,23 @@
       "status": "considering",
       "category": "cultivar-trial",
       "rationale": "Native to Georgia coves, including this elevation. Mt. Cuba Center's wild hydrangea trial (2022) found 'Haas' Halo' the top performer in the Mid-Atlantic — directly applicable to the property. Sits cleanly alongside the existing hydrangea entries on plants.json.",
-      "communityFit": ["Cove Forest", "Spray Cliffs"],
-      "sourceIds": ["beech-hollow-farms", "gnps-ngm-sale", "native-forest-nursery"],
-      "notes": "The existing plants.json hydrangea entries are mixed natives + Hydrangea macrophylla (non-native). Adding 'Haas' Halo' is a clean way to deepen the native component without removing what's planted. Mt. Cuba's full trial report: mtcubacenter.org/trials/hydrangea/"
+      "communityFit": [
+        "Cove Forest",
+        "Spray Cliffs"
+      ],
+      "sourceIds": [
+        "beech-hollow-farms",
+        "gnps-ngm-sale",
+        "native-forest-nursery"
+      ],
+      "notes": "The existing plants.json hydrangea entries are mixed natives + Hydrangea macrophylla (non-native). Adding 'Haas' Halo' is a clean way to deepen the native component without removing what's planted. Mt. Cuba's full trial report: mtcubacenter.org/trials/hydrangea/",
+      "photo": "images/candidates/wild-hydrangea.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "H. Zell",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_001.JPG"
+      }
     },
     {
       "id": "claire-grace-bee-balm",
@@ -94,9 +175,24 @@
       "status": "considering",
       "category": "cultivar-trial",
       "rationale": "M. fistulosa is widely native including the north Georgia mountains. Mt. Cuba Center's monarda trial (40 selections, 3 years) named 'Claire Grace' the clear winner — 3-week floral display, 130+ butterfly and moth visits over the trial, strong powdery-mildew resistance. The defensible monarda pick.",
-      "communityFit": ["Forest edge", "Sunny meadow", "Fairway edge"],
-      "sourceIds": ["gnps-ngm-sale", "beech-hollow-farms", "north-georgia-native-plant-nursery"],
-      "notes": "Pollinator workhorse for a sunny-to-part-shade bed. Pairs naturally with cardinal flower for a hummingbird + butterfly combination. Mt. Cuba report: mtcubacenter.org/trials/monarda/"
+      "communityFit": [
+        "Forest edge",
+        "Sunny meadow",
+        "Fairway edge"
+      ],
+      "sourceIds": [
+        "gnps-ngm-sale",
+        "beech-hollow-farms",
+        "north-georgia-native-plant-nursery"
+      ],
+      "notes": "Pollinator workhorse for a sunny-to-part-shade bed. Pairs naturally with cardinal flower for a hummingbird + butterfly combination. Mt. Cuba report: mtcubacenter.org/trials/monarda/",
+      "photo": "images/candidates/claire-grace-bee-balm.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Eric Hunt",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Monarda_fistulosa_Arkansas.jpg"
+      }
     },
     {
       "id": "screamin-yellow-baptisia",
@@ -106,9 +202,23 @@
       "status": "considering",
       "category": "cultivar-trial",
       "rationale": "Top performer in Mt. Cuba Center's baptisia trial (46 selections, 2012-2015). Long-lived perennial with a deep taproot, drought-tolerant once established. Bright yellow spring spikes.",
-      "communityFit": ["Sunny meadow", "Fairway edge", "Patio bed (full sun)"],
-      "sourceIds": ["beech-hollow-farms", "north-georgia-native-plant-nursery"],
-      "notes": "Range honesty: B. sphaerocarpa is south-central US native, not strictly a Blue Ridge mountain species. If a regional-native is preferred over the trial winner, the same Mt. Cuba trial's 'Purple Smoke' (a hybrid of B. australis × B. alba) hits the same garden function and B. australis IS native to the southern Appalachians. Either way: full sun, well-drained — not for the forest interior."
+      "communityFit": [
+        "Sunny meadow",
+        "Fairway edge",
+        "Patio bed (full sun)"
+      ],
+      "sourceIds": [
+        "beech-hollow-farms",
+        "north-georgia-native-plant-nursery"
+      ],
+      "notes": "Range honesty: B. sphaerocarpa is south-central US native, not strictly a Blue Ridge mountain species. If a regional-native is preferred over the trial winner, the same Mt. Cuba trial's 'Purple Smoke' (a hybrid of B. australis × B. alba) hits the same garden function and B. australis IS native to the southern Appalachians. Either way: full sun, well-drained — not for the forest interior.",
+      "photo": "images/candidates/screamin-yellow-baptisia.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Photo by and (c)2014 Derek Ramsey (Ram-Man)",
+        "license": "GFDL 1.2",
+        "url": "https://commons.wikimedia.org/wiki/File:Baptisia_%27Screaming_Yellow%27_Flowers.JPG"
+      }
     },
     {
       "id": "pica-bella-coneflower",
@@ -118,9 +228,24 @@
       "status": "considering",
       "category": "cultivar-trial",
       "rationale": "E. purpurea is native to the eastern US including north Georgia woodland edges and open glades. Mt. Cuba Center's coneflower trial (75 selections, 2018-2020) named 'Pica Bella' the top performer; 'Fragrant Angel' averaged the most butterfly visits.",
-      "communityFit": ["Woodland edge", "Sunny meadow", "Patio bed"],
-      "sourceIds": ["gnps-ngm-sale", "beech-hollow-farms", "north-georgia-native-plant-nursery"],
-      "notes": "12 cultivars rated outstanding (4.3+/5) — defensible alternatives if 'Pica Bella' isn't available. Avoid the heavily-bred doubles and orange/yellow color novelties; Mt. Cuba's trial showed they underperform on both vigor and pollinator visits. Mt. Cuba report: mtcubacenter.org/trials/echinacea-mid-atlantic-region/"
+      "communityFit": [
+        "Woodland edge",
+        "Sunny meadow",
+        "Patio bed"
+      ],
+      "sourceIds": [
+        "gnps-ngm-sale",
+        "beech-hollow-farms",
+        "north-georgia-native-plant-nursery"
+      ],
+      "notes": "12 cultivars rated outstanding (4.3+/5) — defensible alternatives if 'Pica Bella' isn't available. Avoid the heavily-bred doubles and orange/yellow color novelties; Mt. Cuba's trial showed they underperform on both vigor and pollinator visits. Mt. Cuba report: mtcubacenter.org/trials/echinacea-mid-atlantic-region/",
+      "photo": "images/candidates/pica-bella-coneflower.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Eric Hunt",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Echinacea_purpurea_Grandview_Prairie.jpg"
+      }
     },
     {
       "id": "summer-sunshine-coreopsis",
@@ -130,9 +255,23 @@
       "status": "considering",
       "category": "cultivar-trial",
       "rationale": "Top performer in Mt. Cuba Center's coreopsis trial (94 selections) — disease-resistant foliage, late-season floral display. The defensible coreopsis pick from the published trial.",
-      "communityFit": ["Wet meadow", "Pond edge", "Seepage Wetland"],
-      "sourceIds": ["beech-hollow-farms", "north-georgia-native-plant-nursery"],
-      "notes": "Range honesty: C. palustris is a coastal-plain wetland species, not native to the Blue Ridge mountains. The pond and spring drainage could host it if the trial winner is preferred. For a Fernwood-region-native alternative, C. verticillata 'Zagreb' (threadleaf coreopsis) IS Blue Ridge native and was also a Mt. Cuba top performer — better fit for dry sunny spots."
+      "communityFit": [
+        "Wet meadow",
+        "Pond edge",
+        "Seepage Wetland"
+      ],
+      "sourceIds": [
+        "beech-hollow-farms",
+        "north-georgia-native-plant-nursery"
+      ],
+      "notes": "Range honesty: C. palustris is a coastal-plain wetland species, not native to the Blue Ridge mountains. The pond and spring drainage could host it if the trial winner is preferred. For a Fernwood-region-native alternative, C. verticillata 'Zagreb' (threadleaf coreopsis) IS Blue Ridge native and was also a Mt. Cuba top performer — better fit for dry sunny spots.",
+      "photo": "images/candidates/summer-sunshine-coreopsis.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "no rights reserved",
+        "license": "CC0",
+        "url": "https://commons.wikimedia.org/wiki/File:Coreopsis_palustris_imported_from_iNaturalist_photo_100776846_on_18_October_2024.jpg"
+      }
     },
     {
       "id": "pink-ladys-slipper",
@@ -142,9 +281,22 @@
       "status": "considering",
       "category": "rich-cove",
       "rationale": "Native orchid; rich-cove special-concern species. Confirmed in GNPS Blue Ridge Cove Forest list. If found on the property, leave alone and support — do not transplant. If planting, only from ethical-propagation sources (never wild-collected).",
-      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest (acidic shaded)"],
-      "sourceIds": ["abg-safeguarding-nursery", "gardens-of-the-blue-ridge"],
-      "notes": "Mycorrhizal-dependent — moves poorly. ABG Safeguarding Nursery is the propagation partner for any rare-species restoration thread. Worth walking the north-facing slopes in May to look for the existing colony before considering sourcing."
+      "communityFit": [
+        "Cove Forest",
+        "Low-to-Mid Elevation Oak Forest (acidic shaded)"
+      ],
+      "sourceIds": [
+        "abg-safeguarding-nursery",
+        "gardens-of-the-blue-ridge"
+      ],
+      "notes": "Mycorrhizal-dependent — moves poorly. ABG Safeguarding Nursery is the propagation partner for any rare-species restoration thread. Worth walking the north-facing slopes in May to look for the existing colony before considering sourcing.",
+      "photo": "images/candidates/pink-ladys-slipper.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Sasata (edited by Noodle snacks",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Cypripedium_acaule_-_Sasata_edit1.jpg"
+      }
     },
     {
       "id": "cardinal-flower",
@@ -154,9 +306,23 @@
       "status": "considering",
       "category": "bird-pollinator",
       "rationale": "Pond-edge and seepage native; the strongest hummingbird-attractor in eastern North America. Confirmed in GNPS Blue Ridge Seepage Wetland list. Direct fit for the pond area and the spring drainage.",
-      "communityFit": ["Seepage Wetland", "Pond / wet edge"],
-      "sourceIds": ["beech-hollow-farms", "gnps-ngm-sale", "sbg-connect-to-protect"],
-      "notes": "Short-lived perennial but self-sows freely in suitable conditions. Pair with great blue lobelia (Lobelia siphilitica) for blue + red pollinator bed."
+      "communityFit": [
+        "Seepage Wetland",
+        "Pond / wet edge"
+      ],
+      "sourceIds": [
+        "beech-hollow-farms",
+        "gnps-ngm-sale",
+        "sbg-connect-to-protect"
+      ],
+      "notes": "Short-lived perennial but self-sows freely in suitable conditions. Pair with great blue lobelia (Lobelia siphilitica) for blue + red pollinator bed.",
+      "photo": "images/candidates/cardinal-flower.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Barnes, Dr. Thomas G.",
+        "license": "Public domain",
+        "url": "https://commons.wikimedia.org/wiki/File:Lobelia_cardinalis_-_Cardinal_Flower.jpg"
+      }
     },
     {
       "id": "christmas-fern",
@@ -166,9 +332,23 @@
       "status": "considering",
       "category": "bird-pollinator",
       "rationale": "Year-round evergreen native fern — confirmed in GNPS Blue Ridge Low-to-Mid Oak Forest list. Excellent winter texture in the woodland understory; hosts insects that overwinter and feed early-spring birds.",
-      "communityFit": ["Low-to-Mid Elevation Oak Forest", "Cove Forest"],
-      "sourceIds": ["native-forest-nursery", "beech-hollow-farms", "baker-environmental-nursery"],
-      "notes": "One of the easiest natives to establish under existing tree canopy. UGA Extension B 987-2 (Ferns) is the deep reference."
+      "communityFit": [
+        "Low-to-Mid Elevation Oak Forest",
+        "Cove Forest"
+      ],
+      "sourceIds": [
+        "native-forest-nursery",
+        "beech-hollow-farms",
+        "baker-environmental-nursery"
+      ],
+      "notes": "One of the easiest natives to establish under existing tree canopy. UGA Extension B 987-2 (Ferns) is the deep reference.",
+      "photo": "images/candidates/christmas-fern.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Wasp32",
+        "license": "CC BY 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Christmas_fern.jpg"
+      }
     },
     {
       "id": "common-witchhazel",
@@ -178,9 +358,24 @@
       "status": "considering",
       "category": "bird-pollinator",
       "rationale": "Native understory shrub / small tree. Yellow-strap-petaled flowers in October-November when virtually nothing else is blooming — important late-season pollinator resource. Confirmed in GNPS Blue Ridge list across Cove, Low-Mid Oak, and Seepage communities.",
-      "communityFit": ["Cove Forest", "Low-to-Mid Elevation Oak Forest", "Seepage Wetland"],
-      "sourceIds": ["native-forest-nursery", "gnps-ngm-sale", "gfc-seedling-sale"],
-      "notes": "Distinct from the spring-blooming Asian witch hazels common in nursery trade. The late-season bloom is the diagnostic feature. Slow to establish but very long-lived."
+      "communityFit": [
+        "Cove Forest",
+        "Low-to-Mid Elevation Oak Forest",
+        "Seepage Wetland"
+      ],
+      "sourceIds": [
+        "native-forest-nursery",
+        "gnps-ngm-sale",
+        "gfc-seedling-sale"
+      ],
+      "notes": "Distinct from the spring-blooming Asian witch hazels common in nursery trade. The late-season bloom is the diagnostic feature. Slow to establish but very long-lived.",
+      "photo": "images/candidates/common-witchhazel.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Unknown",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Hamamelis_virginiana_FlowersLeaves_BotGardBln0906.JPG"
+      }
     }
   ]
 }
