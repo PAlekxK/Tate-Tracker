@@ -389,6 +389,99 @@
   .fish-cal-dot { font-size: 10px; }
 
   /* === PROPERTY CARD === */
+
+  /* Property map — aerial photo + SVG zone overlay. Looking at the whole
+     property from above is itself a thinking tool (per ux-expert concept review
+     2026-05-27); the affordances on top are secondary. Mom-no-glasses floor:
+     polygon stroke must read at default zoom; labels must be legible without
+     pan/zoom. */
+  .pmap-section {
+    margin: 4px 12px 18px;
+    padding: 0;
+  }
+  .pmap-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1600 / 1103;  /* matches the WebP base */
+    overflow: hidden;
+    border-radius: 12px;
+    background: #1a1a14;  /* dark fallback while image loads */
+    touch-action: none;   /* lets pointermove drive pan instead of page scroll */
+    -webkit-user-select: none;
+    user-select: none;
+    border: 1px solid #d8eacc;
+  }
+  .pmap-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+  .pmap-base {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: block;
+    pointer-events: none;  /* events go to stage; image is visual only */
+    -webkit-user-drag: none;
+  }
+  .pmap-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .pmap-zone {
+    fill: rgba(122, 149, 104, 0.18);   /* sage, quiet but visible against forest */
+    stroke: #2a4a1a;                   /* deep forest-green for contrast on the aerial */
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke; /* stroke stays consistent under zoom */
+    pointer-events: auto;              /* future: tap handlers in step 5 */
+    cursor: pointer;
+  }
+  .pmap-zone-label {
+    font-family: "Crimson Text", Georgia, serif;
+    font-style: italic;
+    fill: #fff;
+    stroke: #1a1a14;
+    stroke-width: 4;                   /* in viewBox units (image-pixel space) */
+    paint-order: stroke;               /* draw the dark stroke behind, light fill on top */
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+    /* font-size set per-element as SVG attribute so it lives in viewBox units */
+  }
+  .pmap-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+  }
+  .pmap-ctrl-btn {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #b4c8a4;
+    color: #2a4a2a;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  }
+  .pmap-ctrl-btn:active {
+    background: #e8efe0;
+    transform: scale(0.96);
+  }
+  body.text-lg .pmap-zone-label { font-size: 19px; }
+
   .prop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 18px 18px; }
   @media (max-width: 480px) { .prop-grid { grid-template-columns: 1fr; } }
   .prop-lead {
@@ -5831,6 +5924,173 @@ function renderFishSpecies(speciesId, lakeTemp) {
 // PROPERTY CARD
 // =========================
 
+// ---- Property map (Phase Z — looking at the whole property is the value;
+//      affordances on top come later). Renders the aerial WebP base + an SVG
+//      zone overlay reading from ZONES_DATA. Pan + pinch-zoom on iOS Safari.
+function renderPropertyMap() {
+  const meta = (ZONES_DATA && ZONES_DATA._meta) || {};
+  const zones = (ZONES_DATA && ZONES_DATA.zones) || [];
+  const baseSrc = meta.baseImage || "images/property-map/gep-2015-03-leafoff.webp";
+  const fallbackSrc = meta.baseImageFallbackPng || "images/property-map/gep-2015-03-leafoff.png";
+
+  // SVG viewBox matches the base image's natural pixel dimensions. This keeps
+  // the polygon + text rendering uniform (preserveAspectRatio defaults to
+  // xMidYMid meet, and since the stage's aspect-ratio matches the image's
+  // aspect-ratio, the SVG fits exactly with no letterboxing). Fractional zone
+  // vertices are multiplied to image-pixel space at render time.
+  const IMG_W = 1600;
+  const IMG_H = 1103;
+  let svg = '<svg class="pmap-overlay" viewBox="0 0 ' + IMG_W + ' ' + IMG_H + '">';
+  for (const z of zones) {
+    if (!z || !Array.isArray(z.vertices) || z.vertices.length < 3) continue;
+    const points = z.vertices.map(v => (v[0] * IMG_W).toFixed(1) + "," + (v[1] * IMG_H).toFixed(1)).join(" ");
+    svg += '<polygon class="pmap-zone" data-zone-id="' + escapeHtml(z.id) + '" points="' + points + '" />';
+  }
+  // Labels in a second pass so they render above all polygons.
+  for (const z of zones) {
+    if (!z || !Array.isArray(z.vertices) || z.vertices.length < 3) continue;
+    const cx = (z.vertices.reduce((s, v) => s + v[0], 0) / z.vertices.length) * IMG_W;
+    const cy = (z.vertices.reduce((s, v) => s + v[1], 0) / z.vertices.length) * IMG_H;
+    svg += '<text class="pmap-zone-label" x="' + cx.toFixed(1) + '" y="' + cy.toFixed(1) + '" font-size="36">' + escapeHtml(z.name) + '</text>';
+  }
+  svg += '</svg>';
+
+  // Picture element with WebP + PNG fallback for older browsers.
+  return '<div class="pmap-section">' +
+           '<div class="pmap-stage" id="pmap-stage">' +
+             '<div class="pmap-canvas" id="pmap-canvas">' +
+               '<picture>' +
+                 '<source srcset="' + escapeHtml(baseSrc) + '" type="image/webp">' +
+                 '<img class="pmap-base" src="' + escapeHtml(fallbackSrc) + '" alt="Aerial view of Fernwood, leaf-off" loading="lazy">' +
+               '</picture>' +
+               svg +
+             '</div>' +
+             '<div class="pmap-controls">' +
+               '<button class="pmap-ctrl-btn" id="pmap-zoom-out" type="button" aria-label="Zoom out">−</button>' +
+               '<button class="pmap-ctrl-btn" id="pmap-zoom-in" type="button" aria-label="Zoom in">+</button>' +
+               '<button class="pmap-ctrl-btn" id="pmap-reset" type="button" aria-label="Reset view">⟲</button>' +
+             '</div>' +
+           '</div>' +
+         '</div>';
+}
+
+// Pan + zoom interaction on the property map stage. Pointer Events for
+// drag/pan (one finger), gesture* events for pinch on iOS Safari, +/− buttons
+// for tap-to-zoom. Reset returns to scale=1, no translation.
+function wirePropertyMap() {
+  const stage = document.getElementById("pmap-stage");
+  const canvas = document.getElementById("pmap-canvas");
+  if (!stage || !canvas) return;
+
+  let scale = 1;
+  let tx = 0, ty = 0;
+  const MIN_SCALE = 1;
+  const MAX_SCALE = 6;
+
+  function applyTransform() {
+    canvas.style.transform = "translate(" + tx + "px, " + ty + "px) scale(" + scale + ")";
+  }
+
+  // Clamp pan so the canvas can't drift entirely off-stage.
+  function clampPan() {
+    const sw = stage.clientWidth;
+    const sh = stage.clientHeight;
+    const cw = sw * scale;
+    const ch = sh * scale;
+    const maxTx = 0;
+    const minTx = Math.min(0, sw - cw);
+    const maxTy = 0;
+    const minTy = Math.min(0, sh - ch);
+    tx = Math.max(minTx, Math.min(maxTx, tx));
+    ty = Math.max(minTy, Math.min(maxTy, ty));
+  }
+
+  // Pointer-driven pan (one finger on touch, mouse drag on desktop).
+  let dragging = false;
+  let lastX = 0, lastY = 0;
+  let pointerCount = 0;
+  stage.addEventListener("pointerdown", (e) => {
+    pointerCount++;
+    if (pointerCount > 1) return; // pinch handled by gesture* on iOS
+    dragging = true;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    stage.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  stage.addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    tx += e.clientX - lastX;
+    ty += e.clientY - lastY;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    clampPan();
+    applyTransform();
+  });
+  function endDrag(e) {
+    pointerCount = Math.max(0, pointerCount - 1);
+    if (pointerCount === 0) dragging = false;
+    try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+  }
+  stage.addEventListener("pointerup", endDrag);
+  stage.addEventListener("pointercancel", endDrag);
+
+  // iOS Safari pinch-zoom via gesture* events (non-standard but reliable on iOS).
+  let gestureStartScale = 1;
+  stage.addEventListener("gesturestart", (e) => {
+    e.preventDefault();
+    gestureStartScale = scale;
+  });
+  stage.addEventListener("gesturechange", (e) => {
+    e.preventDefault();
+    const next = Math.max(MIN_SCALE, Math.min(MAX_SCALE, gestureStartScale * e.scale));
+    scale = next;
+    clampPan();
+    applyTransform();
+  });
+  stage.addEventListener("gestureend", (e) => { e.preventDefault(); });
+
+  // Desktop mouse wheel zoom — centers on the cursor.
+  stage.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const rect = stage.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+    const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
+    const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * factor));
+    // Keep the point under the cursor stationary across the zoom.
+    const ratio = newScale / scale;
+    tx = px - (px - tx) * ratio;
+    ty = py - (py - ty) * ratio;
+    scale = newScale;
+    clampPan();
+    applyTransform();
+  }, { passive: false });
+
+  // Buttons.
+  function bumpZoom(factor, originX, originY) {
+    const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * factor));
+    const ratio = newScale / scale;
+    tx = originX - (originX - tx) * ratio;
+    ty = originY - (originY - ty) * ratio;
+    scale = newScale;
+    clampPan();
+    applyTransform();
+  }
+  document.getElementById("pmap-zoom-in").addEventListener("click", () => {
+    bumpZoom(1.5, stage.clientWidth / 2, stage.clientHeight / 2);
+  });
+  document.getElementById("pmap-zoom-out").addEventListener("click", () => {
+    bumpZoom(1 / 1.5, stage.clientWidth / 2, stage.clientHeight / 2);
+  });
+  document.getElementById("pmap-reset").addEventListener("click", () => {
+    scale = 1; tx = 0; ty = 0;
+    applyTransform();
+  });
+
+  applyTransform();
+}
+
 function renderProperty() {
   const p = PROPERTY_DATA;
   const loc = p.location;
@@ -5844,8 +6104,12 @@ function renderProperty() {
   const elev = loc.elevation;
   const elevConf = elev.confidence === "confirmed" ? "" : " <span style='color:#c09020;font-weight:normal;font-size:10.5px'>(estimated — verify on-site)</span>";
 
+  // Property map opens the card — looking at the whole place is itself the
+  // thinking tool. Prose follows.
+  let html = renderPropertyMap();
+
   // Lead paragraph — the almanac's opening page.
-  let html = '<div class="prop-lead">' +
+  html += '<div class="prop-lead">' +
     'The house sits at 2,959 feet on a south-facing shoulder of the Blue Ridge in Pickens County — land that was Cherokee Nation until 1838 and that became Tate Mountain Estates a century later, when Col. Sam Tate raised Lake Sequoyah a quarter-mile down the hill. The soil is Hayesville and Cecil and Pacolet — the red-clay subsoil and mica-flecked loam that this part of the Appalachians has been weathering out of gneiss and schist for a long time. Rain that falls on the fairway drains east into the headwaters of the Etowah; on clear nights the sky reads Bortle 3, one tier shy of the darkest in Georgia. It is a small piece of a large place, and the almanac that follows is an attempt to keep track of it.' +
     '</div>';
 
@@ -5859,7 +6123,7 @@ function renderProperty() {
   html += '<div class="prop-row"><span class="prop-label">Region</span><span class="prop-value">Blue Ridge</span></div>';
   html += '<div class="prop-row"><span class="prop-label">Elevation</span><span class="prop-value">~' + elev.estimated_ft.toLocaleString() + ' ft' + elevConf + '</span></div>';
   html += '<div class="prop-row"><span class="prop-label">USDA Zone</span><span class="prop-value">' + hard.officialZone + ' (official) · ' + hard.elevationAdjustedZone.split('(')[0].trim() + ' (at elevation)</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">Mesic Cove / Montane Oak mosaic</span></div>';
+  html += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">Cove Forest + Low-to-Mid Elevation Oak Forest</span></div>';
   html += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (Jasper city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (KJZP). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
   html += '</div>';
 
@@ -6071,6 +6335,7 @@ function renderProperty() {
   }
 
   document.getElementById("property-content").innerHTML = html;
+  wirePropertyMap();
 }
 
 // =========================
