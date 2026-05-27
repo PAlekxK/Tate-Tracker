@@ -48,10 +48,10 @@
           0.4816940921533995
         ]
       ],
-      "status": "draft",
+      "status": "confirmed",
       "createdAt": "2026-05-27T20:24:23.625Z",
       "createdBy": "device",
-      "updatedAt": "2026-05-27T20:24:23.625Z",
+      "updatedAt": "2026-05-27T20:32:11.226Z",
       "lastEditedBy": "device",
       "history": [
         {
@@ -62,6 +62,12 @@
             "name": "Pond Area",
             "vertexCount": 7
           }
+        },
+        {
+          "at": "2026-05-27T20:32:11.226Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
         }
       ]
     }
