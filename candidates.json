@@ -9,7 +9,8 @@
       "rich-cove": "Special-concern flora of the rich cove community. Look-don't-pick if found on the property; if planting, only ethical-propagation sources.",
       "cultivar-trial": "Native genus with a published Mt. Cuba Center trial; the trial winner is the defensible cultivar pick.",
       "bird-pollinator": "Strong wildlife value — Audubon Plants for Birds + Xerces Southeast pollinator list + NWF Native Plant Finder zip 30143.",
-      "native-grass": "Native bunchgrasses and graminoids for understory, forest edge, or seepage zones."
+      "native-grass": "Native bunchgrasses and graminoids for understory, forest edge, or seepage zones.",
+      "turf": "Grasses and lawn alternatives for the managed fairway turf — the practical tall fescue alongside lower-input and native-leaning options worth trialing as the lawn leans toward the natural approach."
     }
   },
   "candidates": [
@@ -377,6 +378,152 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hamamelis_virginiana_FlowersLeaves_BotGardBln0906.JPG"
       }
+    },
+    {
+      "id": "little-bluestem",
+      "name": "Little bluestem",
+      "scientificName": "Schizachyrium scoparium",
+      "emoji": "🌾",
+      "status": "considering",
+      "category": "native-grass",
+      "rationale": "The signature warm-season bunchgrass of southern Appalachian uplands — blue-green through summer, copper-red after frost. The backbone of the fairway-fringe meadow on dry, sunny ground.",
+      "communityFit": [
+        "Low-to-Mid Elevation Oak Forest edge",
+        "Sunny meadow",
+        "Dry upland"
+      ],
+      "sourceIds": [
+        "roundstone-native-seed",
+        "ernst-seeds",
+        "rock-spring-restorations",
+        "gnps-ngm-sale"
+      ],
+      "notes": "Host plant for several skipper butterflies and a seed source for sparrows. Tough, drought-tolerant, and clump-forming — it won't run. Sow a regionally-adapted (eastern) ecotype, not generic Midwest stock."
+    },
+    {
+      "id": "big-bluestem",
+      "name": "Big bluestem",
+      "scientificName": "Andropogon gerardii",
+      "emoji": "🌾",
+      "status": "considering",
+      "category": "native-grass",
+      "rationale": "The tall companion to little bluestem — four to six feet, with the forked “turkeyfoot” seedhead. Adds height and structure to the meadow on deeper, moister ground.",
+      "communityFit": [
+        "Sunny meadow",
+        "Moist meadow"
+      ],
+      "sourceIds": [
+        "roundstone-native-seed",
+        "ernst-seeds",
+        "rock-spring-restorations"
+      ],
+      "notes": "Native across Georgia. Best where the soil holds a little more moisture than little bluestem prefers — the lower fairway fringe toward the spring drainage."
+    },
+    {
+      "id": "indiangrass",
+      "name": "Indiangrass",
+      "scientificName": "Sorghastrum nutans",
+      "emoji": "🌾",
+      "status": "considering",
+      "category": "native-grass",
+      "rationale": "Golden, plume-headed warm-season native that completes the classic bluestem–indiangrass meadow trio. Tall, upright, and luminous in low autumn light.",
+      "communityFit": [
+        "Sunny meadow",
+        "Dry-to-mesic upland"
+      ],
+      "sourceIds": [
+        "roundstone-native-seed",
+        "ernst-seeds",
+        "rock-spring-restorations"
+      ],
+      "notes": "Pairs naturally with the bluestems and the meadow wildflowers. Warm-season — greens late and holds gold structure through winter until the late-February cut."
+    },
+    {
+      "id": "switchgrass",
+      "name": "Switchgrass",
+      "scientificName": "Panicum virgatum",
+      "emoji": "🌾",
+      "status": "considering",
+      "category": "native-grass",
+      "rationale": "The most adaptable of the warm-season natives — takes everything from dry to seasonally wet, which suits the damp lower edge of the fairway fringe toward the spring drainage.",
+      "communityFit": [
+        "Sunny meadow",
+        "Pond edge",
+        "Seepage Wetland edge"
+      ],
+      "sourceIds": [
+        "roundstone-native-seed",
+        "ernst-seeds",
+        "rock-spring-restorations"
+      ],
+      "notes": "Roundstone offers a Georgia-ecotype switchgrass — the right provenance for this slope. Good cover and seed for birds; airy panicles catch the light."
+    },
+    {
+      "id": "purpletop",
+      "name": "Purpletop",
+      "scientificName": "Tridens flavus",
+      "emoji": "🌾",
+      "status": "considering",
+      "category": "native-grass",
+      "rationale": "The native grass that already shows up on its own in unmowed North Georgia fairway edges and old fields — purple-tinged seedheads in late summer. Recognizing it is half the meadow work.",
+      "communityFit": [
+        "Fairway edge",
+        "Old-field / sunny meadow"
+      ],
+      "sourceIds": [
+        "rock-spring-restorations"
+      ],
+      "notes": "Often arrives without planting once the mowing eases off, so the first move in the fringe may simply be to stop mowing and see what's already there. Larval host for several skippers. Sometimes called grease grass for the sheen on its seedheads."
+    },
+    {
+      "id": "turf-type-tall-fescue",
+      "name": "Turf-type tall fescue",
+      "scientificName": "Festuca arundinacea (turf-type)",
+      "emoji": "🌱",
+      "status": "considering",
+      "category": "turf",
+      "rationale": "The grass already running the fairway, listed here for the choice that matters when overseeding: a quality turf-type blend, not old pasture-grade “Kentucky 31.” UGA's standard cool-season lawn grass for the North Georgia mountains.",
+      "communityFit": [
+        "Managed turf — full sun"
+      ],
+      "sourceIds": [],
+      "notes": "Non-native (Eurasian) — the one practical exception to the native-first thinking on this list, earned by being the realistic choice for a lush mowed turf at this elevation. Turf-type blends are darker, finer, denser, and more shade- and heat-tolerant than Kentucky 31. Sold as seed at local feed-and-seed and garden centers; overseed thin spots every September.",
+      "curationNotes": "Kept honest: tracked in plants.json as the Fairway Turf the property already grows. It lives here in Candidates only for the cultivar / seed decision when refreshing the stand."
+    },
+    {
+      "id": "fine-fescue-no-mow",
+      "name": "Fine-fescue no-mow blend",
+      "scientificName": "Festuca rubra / F. ovina group",
+      "emoji": "🌱",
+      "status": "considering",
+      "category": "turf",
+      "rationale": "The lower-input bridge between manicured turf and meadow — a blend of fine fescues (creeping red, chewings, hard, sheep) that grows soft, fine, and low, asking far less mowing, water, and fertilizer than tall fescue.",
+      "communityFit": [
+        "Low-input lawn — sun to part shade"
+      ],
+      "sourceIds": [],
+      "notes": "Fine fescues struggle in the hot, humid Piedmont but are far more viable up here, where summers run 10–15°F cooler. Worth trialing on a turf area you're willing to let read softer and looser than the main fairway — mow occasionally to ~3″, or let it flop into a no-mow carpet. A genuine step toward the natural approach short of full meadow.",
+      "curationNotes": "Non-native cool-season turf, like tall fescue, but a meaningfully lower-input option. Seed from turf-seed specialists (no-mow / eco-lawn blends); not a native-nursery item."
+    },
+    {
+      "id": "pennsylvania-sedge",
+      "name": "Pennsylvania sedge",
+      "scientificName": "Carex pensylvanica",
+      "emoji": "🌿",
+      "status": "considering",
+      "category": "turf",
+      "rationale": "A native sedge that works as a no-mow lawn alternative in the shadier ground a fescue lawn struggles with — fine, soft, flopping to about six inches and spreading slowly into a green carpet under trees.",
+      "communityFit": [
+        "Shaded lawn alternative",
+        "Woodland edge"
+      ],
+      "sourceIds": [
+        "beech-hollow-farms",
+        "north-georgia-native-plant-nursery",
+        "gnps-ngm-sale"
+      ],
+      "notes": "The native answer for the shaded lawn edges, not the open sunny fairway — honestly, a sunny native turf-grass that takes regular mowing and foot traffic the way tall fescue does largely doesn't exist for the Southeast yet. Plant as plugs; needs little once established and tolerates light foot traffic.",
+      "curationNotes": "Native, and the “don't limit our thinking” entry: a real native lawn alternative, scoped to where it actually works (shade), with the sunny-turf limitation stated plainly."
     }
   ]
 }
