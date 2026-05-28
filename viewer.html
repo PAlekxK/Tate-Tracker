@@ -10101,33 +10101,28 @@ function renderDashboardStrip() {
       '</div>';
     }
 
-    let html = "";
-    if (birdsNow.length) html += teaseRow("🐦", "Birds", birdsNow.map(b => b.name), birdsNow.length);
-    if (ampsNow.length)  html += teaseRow("🐸", "Amphibians", ampsNow.map(a => a.name), ampsNow.length);
-
     // Week-tier callout (Phase A): birds arriving/departing this specific week.
     const arrivingNow = BIRDS_DATA.species.filter(s => s.arrivalWindow && dateInRange(today, parseSeasonalEdge(s.arrivalWindow, "first")));
     const leavingNow  = BIRDS_DATA.species.filter(s => s.departureWindow && dateInRange(today, parseSeasonalEdge(s.departureWindow, "last")));
-    if (arrivingNow.length) {
-      const shown = arrivingNow.slice(0, maxNames).map(b => b.name);
-      const tail = arrivingNow.length > maxNames ? ", +" + (arrivingNow.length - maxNames) : "";
-      html += '<div class="dash-tease-row dash-tease-week">' +
+
+    function weekRow(label, names) {
+      const shown = names.slice(0, maxNames);
+      const tail = names.length > maxNames ? ", +" + (names.length - maxNames) : "";
+      return '<div class="dash-tease-row dash-tease-week">' +
+        '<span class="dash-tease-icon">🐦</span>' +
         '<span class="dash-tease-body">' +
-          '<span class="dash-tease-action">Arriving this week</span> · ' +
+          '<span class="dash-tease-action">' + label + '</span> · ' +
           '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
         '</span>' +
       '</div>';
     }
-    if (leavingNow.length) {
-      const shown = leavingNow.slice(0, maxNames).map(b => b.name);
-      const tail = leavingNow.length > maxNames ? ", +" + (leavingNow.length - maxNames) : "";
-      html += '<div class="dash-tease-row dash-tease-week">' +
-        '<span class="dash-tease-body">' +
-          '<span class="dash-tease-action">Leaving this week</span> · ' +
-          '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
-        '</span>' +
-      '</div>';
-    }
+
+    let html = "";
+    // Birds first, with the migration callouts grouped directly beneath them — not floating above the fishing row.
+    if (birdsNow.length)    html += teaseRow("🐦", "Birds", birdsNow.map(b => b.name), birdsNow.length);
+    if (arrivingNow.length) html += weekRow("Arriving this week", arrivingNow.map(b => b.name));
+    if (leavingNow.length)  html += weekRow("Leaving this week", leavingNow.map(b => b.name));
+    if (ampsNow.length)     html += teaseRow("🐸", "Amphibians", ampsNow.map(a => a.name), ampsNow.length);
 
     if (typeof FISHING_DATA !== "undefined" && typeof estimateLakeTemp === "function") {
       const lakeTemp = estimateLakeTemp();
