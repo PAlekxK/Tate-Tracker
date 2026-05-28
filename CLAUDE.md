@@ -2,9 +2,41 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Pickup point — last session ended 2026-05-26 (afternoon + evening)
+## Pickup point — last session ended 2026-05-28
 
-**Two work streams landed today:**
+**Three work streams landed:**
+
+### 1. Phone zone sync bug — fully closed
+
+Diagnosed and shipped end-to-end. Phone had no live cloud read path for zones; it relied entirely on inlined `ZONES_DATA` (deploy-tail stale) + localStorage (wholesale-shadowing). Three commits:
+
+- `61c1001` — minimal fix: `refreshZonesFromCloud()` in viewer.html fetches `zones.json` from GH Pages on boot with cache-bust; reconciles against localStorage's unsynced-edits buffer.
+- `92c882e` — path-eval §2 + §3: Worker writes `zones:all` KV on save; new `GET /api/zones` (KV-direct read with git fallback, stamps per-device lastSeen); new `GET /api/zones-sync-status` (canon + devices). Client prefers KV-via-Worker; falls back to GH Pages. Chip gets new `live` state — polls `/api/zones-sync-status` after save, flips to "live everywhere" when canon + all known devices match. Audience-mode toggle in Sync settings (quiet for Mom-default; verbose for Paul-style diagnostic visibility).
+- Worker deployed twice (versions `c2800508` then `c87827d5`).
+
+**iOS Safari PWA cache note:** Paul had to kill Safari once per viewer.html push to bust the app-shell cache. The cloud-read fix solved the *data* freshness problem; *viewer.html itself* still rides the iOS HTTP cache. Different bug — not in scope.
+
+Path-eval doc lives at `review/2026-05-27-path-cross-device-sync-architecture.md`. Phone zone sync bug memory deleted from auto-memory (resolved).
+
+### 2. Sources card editorial pass — F4 patches
+
+`7e95d3a` shipped four marketing-adjective slip patches in `research-resources.md` (rebuilt `references.json`). Per content-steward review at `review/2026-05-21-reference-card-voice.md` — the F4 finding ("anchor the first sentence, strip ad-copy register"). Patches: Warnell Outreach, Lady Bird Wildflower Center, NASA SVS Moon, ATTRA Sustainable Agriculture. Four borderline cases left as-is (anchor was doing legitimate work despite superlative form).
+
+### 3. Mom discovery interview package — drafted, Gmail draft queued
+
+Reframe Paul locked: this is honest *discovery* (how is the app useful today, how to prioritize next), NOT validation. Paul's model of Mom-as-user has been built from his side of the conversation; the interview surfaces hers.
+
+Four artifacts at `.user-research/2026-05-28-*`: `mom-discovery-interview-guide.md` (research design), `mom-moderator-prompt.md` (Claude voice-mode system prompt), `mom-email-draft.md` (Mom-facing wrapper with prompt inlined), `reading-the-output.md` (synthesis playbook for after transcript returns). Two edits applied post-draft: cut Scenario D (Job 10 was Paul-want, leading the witness); softened meta-feedback closing question from research-jargon to plain language.
+
+**Gmail draft created** (id `r-1313109526214713698`) in Paul's Drafts folder. To: placeholder set to `paul.kirschenbauer@gmail.com` — must be swapped to Mom's address. Also queued: 60-second sanity check on claude.ai voice mode setup steps.
+
+**Awaiting Paul's send-to-Mom action** before any downstream Phase E / Path E gate decisions. See [[project_fernwood_mom_interview_format]].
+
+---
+
+## Prior pickup — last session ended 2026-05-26 (afternoon + evening)
+
+**Two work streams landed:**
 
 ### 1. Storage-quota incident + fix (afternoon)
 
