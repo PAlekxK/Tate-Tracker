@@ -139,7 +139,7 @@
         {
           "title": "Xerces Society — Pollinator Conservation Resources: Southeast Region",
           "url": "https://xerces.org/pollinator-resource-center/southeast",
-          "framing": "Best-in-class invertebrate-focused source. Their Southeast plant list explicitly accounts for Appalachian conditions."
+          "framing": "Their Southeast plant list lands at the property's elevation — the invertebrate-conservation source written for Appalachian conditions."
         },
         {
           "title": "Xerces Society — Pollinator Plants of the Southeast Region (PDF)",
@@ -245,7 +245,7 @@
         {
           "title": "iNaturalist — Pickens County, GA",
           "url": "https://www.inaturalist.org/places/pickens-county",
-          "framing": "Best single source for amphibians and pollinators (eBird doesn't cover them). GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species."
+          "framing": "Covers the amphibians and pollinators eBird doesn't. GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species."
         },
         {
           "title": "Southeast Bumble Bee Atlas (Xerces + GA DNR)",
@@ -498,7 +498,7 @@
         {
           "title": "Southeast Regional Climate Center (SERCC)",
           "url": "https://sercc.com",
-          "framing": "Best one-stop shop for \"is this May unusually wet/dry/cool for north Georgia?\" The SERCC Climate Perspectives tool (https://sercc.oasis.unc.edu/) compares the current period to climatology."
+          "framing": "Answers \"is this May unusually wet/dry/cool for north Georgia?\" against the historical record. The SERCC Climate Perspectives tool (https://sercc.oasis.unc.edu/) compares the current period to climatology."
         },
         {
           "title": "Southeast Climate Adaptation Science Center (USGS)",
@@ -518,7 +518,7 @@
         {
           "title": "DarkSky International",
           "url": "https://darksky.org",
-          "framing": "Property at Bortle 3 — exceptional for the Eastern US. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset."
+          "framing": "Property at Bortle 3 — a top tier this far east. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset."
         },
         {
           "title": "Stephen C. Foster State Park (Georgia's only IDA Dark Sky Park)",
@@ -558,7 +558,7 @@
         {
           "title": "Time and Date AS — sun/moon reference",
           "url": "https://www.timeanddate.com",
-          "framing": "Best free human-readable cross-check. Skip the API; reference link only."
+          "framing": "Free, human-readable cross-check. Skip the API; reference link only."
         },
         {
           "title": "AirNow API",
