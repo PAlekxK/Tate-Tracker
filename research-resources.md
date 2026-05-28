@@ -254,7 +254,7 @@ Concrete one-time actions, ordered by friction:
 ### Xerces Society — Pollinator Conservation Resources: Southeast Region
 **URL:** https://xerces.org/pollinator-resource-center/southeast
 **What it is:** Curated hub: Southeast pollinator plant lists, native bee guides, nesting habitat instructions, monarch corridor materials, regional native plant nursery directory.
-**Why it's relevant here:** Best-in-class invertebrate-focused source. Their Southeast plant list explicitly accounts for Appalachian conditions.
+**Why it's relevant here:** Their Southeast plant list lands at the property's elevation — the invertebrate-conservation source written for Appalachian conditions.
 **Dashboard integration idea:** Anchor link for any Pollinators tab. Surface fact for Wildlife card: "~70% of native bees nest in the ground — leave bare patches."
 **Depth tier:** Card subtitle + deep-dive link.
 
@@ -398,7 +398,7 @@ Concrete one-time actions, ordered by friction:
 ### iNaturalist — Pickens County, GA
 **URL:** https://www.inaturalist.org/places/pickens-county
 **What it is:** Crowd-sourced research-grade biodiversity database with a Pickens County page showing all observed taxa, observer counts, monthly activity charts.
-**Why it's relevant here:** Best single source for amphibians and pollinators (eBird doesn't cover them). GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species.
+**Why it's relevant here:** Covers the amphibians and pollinators eBird doesn't. GA DNR's Wildlife Conservation Section uses iNaturalist data to time surveys for tracked species.
 **Dashboard integration idea:** Amphibians tab — each species links to its Pickens County observation page (`inaturalist.org/observations?place_id=...&taxon_id=...`) so monthsActive can be verified against real local sightings. "Log this sighting on iNaturalist" CTA.
 **Depth tier:** Card subtitle + deep-dive link per species.
 
@@ -743,7 +743,7 @@ Concrete one-time actions, ordered by friction:
 ### Southeast Regional Climate Center (SERCC)
 **URL:** https://sercc.com
 **What it is:** UNC-Chapel Hill-housed NOAA-affiliated center serving GA + 7 other Southeast states. Provides NOWData, historical climate summaries, monthly perspectives, PRISM map products tailored to the Southeast.
-**Why it's relevant here:** Best one-stop shop for "is this May unusually wet/dry/cool for north Georgia?" The SERCC Climate Perspectives tool (https://sercc.oasis.unc.edu/) compares the current period to climatology.
+**Why it's relevant here:** Answers "is this May unusually wet/dry/cool for north Georgia?" against the historical record. The SERCC Climate Perspectives tool (https://sercc.oasis.unc.edu/) compares the current period to climatology.
 **Dashboard integration idea:** Deep-dive from Weather card footer: "How does this month compare? → SERCC Perspectives."
 **Depth tier:** Deep-dive link.
 
@@ -773,7 +773,7 @@ Concrete one-time actions, ordered by friction:
 ### DarkSky International
 **URL:** https://darksky.org
 **What it is:** Formerly the International Dark-Sky Association; the global authority on light pollution, lighting ordinances, the International Dark Sky Places certification program. Publishes Bortle scale references and model lighting codes.
-**Why it's relevant here:** Property at Bortle 3 — exceptional for the Eastern US. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset.
+**Why it's relevant here:** Property at Bortle 3 — a top tier this far east. Establishes vocabulary, certification context, lighting principles a homesteader could voluntarily adopt to preserve the asset.
 **Dashboard integration idea:** Weather card celestial subsection: "Sky here: Bortle 3 (rural)" with deep-dive link to the Bortle scale page.
 **Depth tier:** Surface fact + deep-dive link.
 
@@ -829,7 +829,7 @@ Concrete one-time actions, ordered by friction:
 ### Time and Date AS — sun/moon reference
 **URL:** https://www.timeanddate.com
 **What it is:** Comprehensive sun/moon calculation reference. The free public web pages are excellent; the API costs $99+ with a 3-month trial only.
-**Why it's relevant here:** Best free human-readable cross-check. Skip the API; reference link only.
+**Why it's relevant here:** Free, human-readable cross-check. Skip the API; reference link only.
 **Dashboard integration idea:** Footer reference link. Compute sun/moon times locally (NOAA solar calculator algorithm or any astronomy library). The API is **not** worth $99 for this use case.
 **Depth tier:** Deep-dive link. (API explicitly **not** recommended.)
 
