@@ -2,7 +2,7 @@
   "_meta": {
     "lastBuilt": "2026-05-28",
     "source": "research-resources.md",
-    "totalEntries": 145,
+    "totalEntries": 151,
     "categoryCount": 8
   },
   "categories": [
@@ -89,6 +89,16 @@
           "title": "Clemson HGIC — Native Plants for Wildlife Resources",
           "url": "https://hgic.clemson.edu/native-plants-for-wildlife-resources-for-home-gardeners/",
           "framing": "Upstate SC shares southern Appalachian flora with Pickens County GA. Filtering by wildlife outcome matches this dashboard's framing."
+        },
+        {
+          "title": "Lawns in Georgia: Selection and Species (UGA Extension B 1533)",
+          "url": "https://extension.uga.edu/publications/detail.html?number=B1533-1",
+          "framing": "The defensible basis for running the fairway as turf-type tall fescue at 2,959 ft, where summers are too cool for Bermuda and far too humid for the creeping bentgrass a golf green would use."
+        },
+        {
+          "title": "Plant Tall Fescue Lawns Now in North Georgia (UGA CAES)",
+          "url": "https://fieldreport.caes.uga.edu/news/plant-tall-fescue-lawns-now-in-north-georgia/",
+          "framing": "Tall fescue is a bunchgrass — it won't knit over bare spots on its own — so the fairway stays full only by overseeding every fall; this anchors the September window in the turf calendar."
         }
       ]
     },
@@ -210,6 +220,26 @@
           "title": "Native plant nurseries — North Georgia / Southeast sourcing",
           "url": "https://gardensoftheblueridge.com/",
           "framing": "Sourcing matters for restorative work — wild-collection drives some natives toward extinction. Ethical-propagation nurseries are the only acceptable path for rare species."
+        },
+        {
+          "title": "Native warm-season grass and meadow seed — Roundstone & Ernst",
+          "url": "https://www.roundstoneseed.com/",
+          "framing": "The native meadow regime in the fairway fringe is a seed project, not a plant-by-plant one. Regionally-adapted ecotype seed (not generic Midwest stock) is the right provenance for a 2,959 ft Blue Ridge slope."
+        },
+        {
+          "title": "Rewild Your Lawn (UGA CAES)",
+          "url": "https://cultivate.caes.uga.edu/rewild-your-lawn/",
+          "framing": "The through-line for running the fairway fringe as meadow rather than turf — UGA's own voice supporting the natural approach, which lands more easily than an advocacy site would."
+        },
+        {
+          "title": "Plant a Wildflower Meadow (Lady Bird Johnson Wildflower Center)",
+          "url": "https://www.wildflower.org/learn/plant-wildflower-meadow",
+          "framing": "The practical playbook for the meadow regime — site prep, sowing, and the first-year mow-every-4-to-6-weeks rhythm that holds back weeds while the slow natives root in."
+        },
+        {
+          "title": "Establishing Pollinator Meadows from Seed (Xerces Society)",
+          "url": "https://xerces.org/sites/default/files/2018-05/15-020_02_XercesSoc_Establishing-Pollinator-Meadows-from-Seed_web.pdf",
+          "framing": "The meadow's point is the grasses-plus-wildflowers mix that feeds pollinators, not grass alone. This is the seed-and-establishment reference for getting that mix to take in the fairway fringe."
         }
       ]
     },

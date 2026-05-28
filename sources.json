@@ -154,6 +154,28 @@
       "orderMode": "sale-only",
       "frictionTier": "high",
       "lastVerified": "2026-05-26"
+    },
+    {
+      "id": "roundstone-native-seed",
+      "name": "Roundstone Native Seed",
+      "location": "Upton, KY (ships)",
+      "distanceFromFernwood_mi": null,
+      "url": "https://www.roundstoneseed.com/",
+      "specialty": "Regionally-adapted eastern-US native grass and wildflower seed, including a Georgia-ecotype switchgrass plus little bluestem, big bluestem, and indiangrass. Sold by the packet up to acreage mixes.",
+      "orderMode": "mail-order",
+      "frictionTier": "medium",
+      "lastVerified": "2026-05-28"
+    },
+    {
+      "id": "ernst-seeds",
+      "name": "Ernst Conservation Seeds",
+      "location": "Meadville, PA (ships)",
+      "distanceFromFernwood_mi": null,
+      "url": "https://www.ernstseed.com/",
+      "specialty": "Large native-seed grower; warm-season grass mixes and straight species for meadow and pollinator seedings. Best value at larger scale.",
+      "orderMode": "mail-order",
+      "frictionTier": "medium",
+      "lastVerified": "2026-05-28"
     }
   ]
 }

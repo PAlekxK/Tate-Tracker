@@ -191,6 +191,20 @@ Concrete one-time actions, ordered by friction:
 **Dashboard integration idea:** Cross-reference for the Wildlife card; "what supports what" lookup when populating bird/butterfly relationships per plant.
 **Depth tier:** Deep-dive link.
 
+### Lawns in Georgia: Selection and Species (UGA Extension B 1533)
+**URL:** https://extension.uga.edu/publications/detail.html?number=B1533-1
+**What it is:** UGA Extension's turfgrass-selection bulletin — which lawn grasses suit which part of Georgia, with tall fescue treated as the cool-season choice for the northern mountains and Piedmont.
+**Why it's relevant here:** The defensible basis for running the fairway as turf-type tall fescue at 2,959 ft, where summers are too cool for Bermuda and far too humid for the creeping bentgrass a golf green would use.
+**Dashboard integration idea:** Sources card → reference behind the Fairway Turf entry's care calendar.
+**Depth tier:** Deep-dive link.
+
+### Plant Tall Fescue Lawns Now in North Georgia (UGA CAES)
+**URL:** https://fieldreport.caes.uga.edu/news/plant-tall-fescue-lawns-now-in-north-georgia/
+**What it is:** A UGA CAES seasonal piece on establishing and overseeding tall fescue, making the case that a September planting far outperforms a spring one.
+**Why it's relevant here:** Tall fescue is a bunchgrass — it won't knit over bare spots on its own — so the fairway stays full only by overseeding every fall; this anchors the September window in the turf calendar.
+**Dashboard integration idea:** Plants > This Month → the September overseed prompt links here.
+**Depth tier:** Deep-dive link.
+
 ---
 
 ## Category 2: Native plants & habitat
@@ -355,6 +369,34 @@ Concrete one-time actions, ordered by friction:
 **Why it's relevant here:** Sourcing matters for restorative work — wild-collection drives some natives toward extinction. Ethical-propagation nurseries are the only acceptable path for rare species.
 **Dashboard integration idea:** Plants card → "Sourcing" footer with the recommended-nurseries PDF link. Surface upcoming GNPS Native Plant Sale and Birds Georgia native plant sale dates on Plants > This Month.
 **Depth tier:** Reference / sourcing.
+
+### Native warm-season grass and meadow seed — Roundstone & Ernst
+**URL:** Roundstone Native Seed (Upton, KY): https://www.roundstoneseed.com/ ; Ernst Conservation Seeds (Meadville, PA): https://www.ernstseed.com/
+**What it is:** Two of the major regional native-seed growers serving the eastern US. Roundstone sells regionally-adapted ecotypes — including a Georgia-ecotype switchgrass — and the rest of the warm-season palette (little bluestem, big bluestem, indiangrass) by the packet up to acreage mixes. Ernst is the large-scale meadow-mix grower.
+**Why it's relevant here:** The native meadow regime in the fairway fringe is a seed project, not a plant-by-plant one. Regionally-adapted ecotype seed (not generic Midwest stock) is the right provenance for a 2,959 ft Blue Ridge slope.
+**Dashboard integration idea:** Worth considering card → sourcing behind the native warm-season grasses.
+**Depth tier:** Reference / sourcing.
+
+### Rewild Your Lawn (UGA CAES)
+**URL:** https://cultivate.caes.uga.edu/rewild-your-lawn/
+**What it is:** A UGA CAES feature making the ecological and practical case for converting mowed lawn into lower-input, native-leaning ground — meadow, no-mow, and reduced-turf approaches.
+**Why it's relevant here:** The through-line for running the fairway fringe as meadow rather than turf — UGA's own voice supporting the natural approach, which lands more easily than an advocacy site would.
+**Dashboard integration idea:** Sources card → reference behind the Fairway Meadow entry.
+**Depth tier:** Card subtitle + deep-dive link.
+
+### Plant a Wildflower Meadow (Lady Bird Johnson Wildflower Center)
+**URL:** https://www.wildflower.org/learn/plant-wildflower-meadow
+**What it is:** A step-by-step how-to for establishing a wildflower-and-native-grass meadow, from site prep through the first few years of management.
+**Why it's relevant here:** The practical playbook for the meadow regime — site prep, sowing, and the first-year mow-every-4-to-6-weeks rhythm that holds back weeds while the slow natives root in.
+**Dashboard integration idea:** Worth considering card → reference behind the native warm-season grasses.
+**Depth tier:** Deep-dive link.
+
+### Establishing Pollinator Meadows from Seed (Xerces Society)
+**URL:** https://xerces.org/sites/default/files/2018-05/15-020_02_XercesSoc_Establishing-Pollinator-Meadows-from-Seed_web.pdf
+**What it is:** Xerces Society's field guide to building a pollinator meadow from seed — site preparation, seeding rates and timing, and multi-year management.
+**Why it's relevant here:** The meadow's point is the grasses-plus-wildflowers mix that feeds pollinators, not grass alone. This is the seed-and-establishment reference for getting that mix to take in the fairway fringe.
+**Dashboard integration idea:** Worth considering card → reference behind the meadow grasses and wildflower candidates.
+**Depth tier:** Deep-dive link.
 
 ---
 
