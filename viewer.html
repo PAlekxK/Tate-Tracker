@@ -4297,6 +4297,14 @@
         <button class="fn-btn-secondary" type="button" id="fn-sync-rebuild">Rebuild local from cloud</button>
         <div class="fn-sync-rebuild-result" id="fn-sync-rebuild-result"></div>
       </div>
+      <div class="fn-sync-maint">
+        <div class="fn-sync-maint-label">Sync chip detail</div>
+        <div class="fn-sync-maint-help">By default the map's sync chip stays hidden unless something goes wrong. Turn this on to also see "saving," "saved to cloud," and "live everywhere" as edits propagate — useful when diagnosing cross-device freshness.</div>
+        <label class="fn-sync-audience-row" style="display:flex;align-items:center;gap:8px;font-size:14px;color:#3a4a30;cursor:pointer;">
+          <input type="checkbox" id="fn-sync-audience-toggle" style="width:16px;height:16px;">
+          <span>Show all sync phases on this device</span>
+        </label>
+      </div>
     </div>
     <div class="fn-modal-footer">
       <button class="fn-btn-secondary" type="button" id="fn-sync-cancel">Cancel</button>
@@ -7250,47 +7258,108 @@ let zoneSyncInFlight = false;
 let zoneSyncPending = false;
 const ZONE_SYNC_DEBOUNCE_MS = 2500;
 const ZONE_LAST_SYNCED_KEY = "tateTracker.zones.lastSyncedAt.v1";
+// Audience mode for the sync chip (path-eval §3). "quiet" = Mom-style
+// (chip hidden unless failed); "verbose" = Paul-style (chip shows all
+// non-idle phases). Toggle lives in Sync settings.
+const ZONE_AUDIENCE_KEY = "tateTracker.sync.audience.v1";
+function getZoneAudienceMode() {
+  try { return localStorage.getItem(ZONE_AUDIENCE_KEY) === "verbose" ? "verbose" : "quiet"; }
+  catch (e) { return "quiet"; }
+}
 
-// Visible sync state — chip on the map renders this. States:
+// Visible sync state — chip on the map renders this. States (path-eval §3):
 //   "idle"     — no pending changes, no error (default; chip hidden)
 //   "pending"  — local edits exist, debounce timer is running
 //   "syncing"  — POST in flight
-//   "synced"   — last POST succeeded (chip shows briefly then fades to idle)
+//   "synced"   — Worker accepted the write (commits live on git + KV). Honest
+//                replacement for the prior "synced" lie ("✓ saved").
+//   "live"     — canon caught up across all known devices. Editing device polls
+//                /api/zones-sync-status after "synced" to reach this.
 //   "failed"   — last POST returned error (chip stays + tappable for details)
+//
+// Audience: in "quiet" mode (default — Mom-style), the chip stays hidden in
+// every state except "failed". In "verbose" mode (Paul-style), it shows every
+// non-idle state. Toggle in Sync settings.
 const ZoneSyncStatus = (function () {
   let state = "idle";
   let lastError = null;
   let lastSyncedAt = null;
-  let syncedFadeTimer = null;
+  let liveFadeTimer = null;
+  let livePollTimer = null;
+  let livePollAttempts = 0;
+  let lastSavedCanonVersion = null;
   try {
     lastSyncedAt = localStorage.getItem(ZONE_LAST_SYNCED_KEY) || null;
   } catch (e) { /* skip */ }
 
-  function set(next, errorMsg) {
+  function set(next, errorMsg, opts) {
     state = next;
     if (next === "failed") lastError = errorMsg || "unknown";
     if (next === "synced") {
       lastError = null;
       lastSyncedAt = new Date().toISOString();
       try { localStorage.setItem(ZONE_LAST_SYNCED_KEY, lastSyncedAt); } catch (e) {}
-      // Synced is a transient state — fade to idle after a moment so the
-      // chip doesn't sit permanently. Failed sticks around until retry.
-      if (syncedFadeTimer) clearTimeout(syncedFadeTimer);
-      syncedFadeTimer = setTimeout(() => {
-        if (state === "synced") { state = "idle"; render(); }
-      }, 4000);
+      // The Worker returns lastBuilt in its response — when we have it, kick
+      // off the live-status poll. Without it, skip straight to fade (the chip
+      // stays honest — "saved to cloud" not "live everywhere").
+      lastSavedCanonVersion = (opts && opts.canonVersion) || null;
+      stopLivePoll();
+      if (lastSavedCanonVersion && typeof WorkerAPI !== "undefined" && WorkerAPI.isConfigured()) {
+        startLivePoll();
+      } else {
+        scheduleFadeToIdle("synced");
+      }
+    }
+    if (next === "live") {
+      stopLivePoll();
+      scheduleFadeToIdle("live");
     }
     render();
+  }
+  function scheduleFadeToIdle(fromState) {
+    if (liveFadeTimer) clearTimeout(liveFadeTimer);
+    liveFadeTimer = setTimeout(() => {
+      if (state === fromState) { state = "idle"; render(); }
+    }, 6000);
+  }
+  function startLivePoll() {
+    livePollAttempts = 0;
+    livePollTimer = setTimeout(pollLiveOnce, 4000);
+  }
+  function stopLivePoll() {
+    if (livePollTimer) { clearTimeout(livePollTimer); livePollTimer = null; }
+    livePollAttempts = 0;
+  }
+  async function pollLiveOnce() {
+    livePollTimer = null;
+    // Cancel if user has moved on (started editing again, etc.)
+    if (state !== "synced") return;
+    livePollAttempts += 1;
+    try {
+      const status = await WorkerAPI.call("GET", "/api/zones-sync-status");
+      if (state === "synced" && status && status.canon === lastSavedCanonVersion && status.allCaughtUp) {
+        set("live");
+        return;
+      }
+    } catch (e) { /* keep polling — network blip, etc. */ }
+    // Cap at 15 attempts × 20s ≈ 5 min. Beyond that, fade to idle quietly —
+    // Mom may simply not have opened her phone yet. Not a failure.
+    if (livePollAttempts >= 15) { scheduleFadeToIdle("synced"); return; }
+    livePollTimer = setTimeout(pollLiveOnce, 20000);
   }
   function render() {
     const chip = document.getElementById("pmap-sync");
     if (!chip) return;
-    chip.className = "pmap-sync " + state + (state === "idle" ? " hidden" : "");
+    const audience = getZoneAudienceMode();
+    // Quiet mode (Mom-style): hide everything except failed.
+    const hidden = state === "idle" || (audience === "quiet" && state !== "failed");
+    chip.className = "pmap-sync " + state + (hidden ? " hidden" : "");
     const labels = {
       idle: "",
-      pending: "· pending",
-      syncing: "syncing…",
-      synced: "✓ synced",
+      pending: "· editing",
+      syncing: "saving…",
+      synced: "✓ saved to cloud",
+      live: "✓ live everywhere",
       failed: "⚠ sync failed",
     };
     chip.textContent = labels[state] || "";
@@ -7399,9 +7468,12 @@ async function syncZonesNow() {
   zoneSyncPending = false;
   ZoneSyncStatus.set("syncing");
   try {
+    let editingDeviceId = "";
+    try { editingDeviceId = localStorage.getItem("tateTracker.deviceId") || ""; } catch (_) {}
     const payload = {
       zones: ZONES_DATA.zones || [],
       _deleted: ZONES_DATA._deleted || [],
+      deviceId: editingDeviceId || undefined,
     };
     const res = await fetch(cfg.workerUrl + "/api/zone-save", {
       method: "POST",
@@ -7415,7 +7487,9 @@ async function syncZonesNow() {
       throw new Error("HTTP " + res.status + (bodyExcerpt ? ": " + bodyExcerpt : ""));
     }
     const result = await res.json().catch(() => ({}));
-    ZoneSyncStatus.set("synced");
+    // The Worker's response carries lastBuiltAt (canon version) — passing it
+    // into the chip lets it poll /api/zones-sync-status to reach "live".
+    ZoneSyncStatus.set("synced", null, { canonVersion: result.lastBuiltAt || result.lastBuilt });
     if (typeof MetricsCollector !== "undefined") {
       MetricsCollector.track("zone_synced", { zoneCount: payload.zones.length });
     }
@@ -7469,12 +7543,27 @@ loadZoneOverrides();
 // scheduleZoneSync retry at boot will push them to canon when reachable.
 async function refreshZonesFromCloud() {
   try {
-    // Cache-bust query + no-cache header — iOS Safari HTTP cache is the
-    // exact bug we're working around. The viewer.html itself is the one
-    // file iOS will keep stale; zones.json must be requested fresh.
-    const res = await fetch("zones.json?_=" + Date.now(), { cache: "no-cache" });
-    if (!res.ok) return;
-    const cloud = await res.json();
+    // Path-eval §2: prefer KV-via-Worker (no GH Pages deploy tail). Falls
+    // back to zones.json from GH Pages if the Worker isn't configured on
+    // this device, or if the GET fails. The Worker also stamps this device
+    // as having seen the current canon version — feeds the sync-status chip.
+    let cloud = null;
+    if (typeof WorkerAPI !== "undefined" && WorkerAPI.isConfigured()) {
+      try {
+        let did = "";
+        try { did = localStorage.getItem("tateTracker.deviceId") || ""; } catch (_) {}
+        const path = "/api/zones" + (did ? "?d=" + encodeURIComponent(did) : "");
+        cloud = await WorkerAPI.call("GET", path);
+      } catch (e) { /* fall through to GH Pages */ }
+    }
+    if (!cloud || !Array.isArray(cloud.zones)) {
+      // Cache-bust query + no-cache header — iOS Safari HTTP cache is the
+      // exact bug we're working around. The viewer.html itself is the one
+      // file iOS will keep stale; zones.json must be requested fresh.
+      const res = await fetch("zones.json?_=" + Date.now(), { cache: "no-cache" });
+      if (!res.ok) return;
+      cloud = await res.json();
+    }
     if (!cloud || !Array.isArray(cloud.zones)) return;
 
     // Skip if localStorage has unsynced edits — let scheduleZoneSync win.
@@ -11589,6 +11678,9 @@ function fnOpenSyncModal() {
     }
   } catch (e) { did = "(localStorage unavailable)"; }
   document.getElementById("fn-sync-device-id").textContent = did;
+  // Reflect current audience-mode preference on modal open.
+  const audToggle = document.getElementById("fn-sync-audience-toggle");
+  if (audToggle) audToggle.checked = getZoneAudienceMode() === "verbose";
   overlay.classList.add("open");
   overlay.setAttribute("aria-hidden", "false");
 }
@@ -11639,6 +11731,16 @@ async function fnSaveSyncSettings() {
   if (syncCancel) syncCancel.addEventListener("click", fnCloseSyncModal);
   const syncSave = document.getElementById("fn-sync-save");
   if (syncSave) syncSave.addEventListener("click", fnSaveSyncSettings);
+  const audienceToggle = document.getElementById("fn-sync-audience-toggle");
+  if (audienceToggle) {
+    audienceToggle.addEventListener("change", () => {
+      try {
+        localStorage.setItem(ZONE_AUDIENCE_KEY, audienceToggle.checked ? "verbose" : "quiet");
+      } catch (e) { /* localStorage blocked — toggle still wins for this session */ }
+      // Re-render the chip immediately so the change is visible.
+      if (typeof ZoneSyncStatus !== "undefined") ZoneSyncStatus.render();
+    });
+  }
   const syncRebuild = document.getElementById("fn-sync-rebuild");
   if (syncRebuild) syncRebuild.addEventListener("click", async () => {
     const out = document.getElementById("fn-sync-rebuild-result");
@@ -12908,7 +13010,7 @@ if (typeof MetricsViewObserver !== "undefined") {
 }
 </script>
 
-<div class="version-chip" id="version-chip">build 2026-05-28 — phone cloud-read</div>
+<div class="version-chip" id="version-chip">build 2026-05-28 — KV-direct + honest chip</div>
 
 </body>
 </html>
