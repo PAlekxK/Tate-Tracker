@@ -14,7 +14,7 @@
     ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
     "schemaVersion": 4,
-    "schemaNotes": "v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical.",
+    "schemaNotes": "v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for ~1,424 ft above station",
       "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)",
@@ -2135,6 +2135,157 @@
         "fromScientificName": "Tradescantia virginiana"
       },
       "zoneId": null
+    },
+    {
+      "id": "fairway-turf",
+      "name": "Fairway Turf",
+      "scientificName": "Festuca arundinacea — turf-type tall fescue",
+      "emoji": "🌱",
+      "guide": "The mowed fairway below the house is the one piece of ground here run as turf rather than meadow — kept green, even, and close-cut. Turf-type tall fescue is the grass for it: a cool-season bunchgrass that's the standard choice for North Georgia lawns and an even better fit at this elevation, where the summers run too cool for Bermuda and far too humid for the creeping bentgrass a golf course would use. (The “autumn bentgrass” Mom flagged is a different plant entirely — a native meadow grass, not a turf.) Fescue grows in clumps rather than running, so it never knits over bare spots on its own; the fairway stays lush because the thin places get overseeded every fall, not because any one season is allowed to slide.",
+      "currentSeasonNote": "Right now — late spring is peak fescue growth. Mow tall and often (3–3.5″) and leave the clippings. Hold the nitrogen: feeding now drives soft blades straight into summer brown-patch weather. Mark the thin or bare spots you notice — September is the month to fix them.",
+      "soilNotes": "Native ground here is acidic (pH 4.5–5.5); fescue wants 6.0–6.5, so a fall application of dolomitic lime — sized to a UGA soil test, not guessed — is the single biggest lever on turf color. The Hayesville/Cecil/Pacolet loams drain well on the slope. Retest every three years.",
+      "aspectPreference": "Full sun on the open, south-facing clearing — ideal light for fescue. The same exposure that melts frost and greens the fairway first in spring also dries it fastest in a summer drought, so summer water lands here before anywhere else on the property.",
+      "frostSensitivity": "Cool-season grass: greens up early, holds color late, and shrugs off light frost and snow. Its hard season is summer, not winter — deep heat and humidity, not cold, are what stress it. Hardy well past the property's Zone 6b winters.",
+      "care": {
+        "mow": {
+          "months": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "peakWindow": "Apr–Jun & Sep–Oct — keep it at 3–3.5″",
+          "narrow": false,
+          "description": "Mow high — 3 to 3.5 inches — and never take off more than a third of the blade in one pass. Tall fescue holds color and crowds out weeds when it's cut tall; scalp it and you invite crabgrass and disease. Raise the deck to 3.5–4″ through the June–August heat so the longer blades shade the roots and slow brown patch. Leave the clippings — they return free nitrogen. Keep the mower blade sharp; a torn tip browns and stresses the plant."
+        },
+        "propagate": {
+          "months": [
+            8
+          ],
+          "peakWindow": "Sep 1–25 — the one window that matters",
+          "narrow": true,
+          "description": "Tall fescue is a bunchgrass — it grows in clumps and won't spread to fill bare spots on its own, so the fairway stays full only if you overseed thin areas every fall. September beats spring by far: the seed roots through two cool seasons before it ever faces summer. Rake or scratch the soil, sow turf-type tall fescue seed (about 5–6 lb per 1,000 sq ft on bare ground, 3–4 to thicken existing turf), and keep the top inch moist until it germinates in one to two weeks. Avoid spring seeding — young fescue rarely survives its first mountain summer."
+        },
+        "fertilize": {
+          "subcategories": [
+            {
+              "id": "fall-feeding",
+              "label": "Fall feeding",
+              "months": [
+                8,
+                10
+              ],
+              "peakWindow": "Sep 15 & again early Nov",
+              "narrow": false,
+              "description": "Fall is when fescue does its real growing, and where almost all the year's nitrogen belongs. Feed once in mid-September as it wakes from summer, and again in early November to build roots for winter. A UGA soil test sizes the rate; in general, a slow-release lawn fertilizer at the label rate. Never push heavy nitrogen in spring or summer — it forces soft growth straight into brown-patch weather."
+            },
+            {
+              "id": "lime",
+              "label": "Lime (soil-test driven)",
+              "months": [
+                9,
+                10
+              ],
+              "peakWindow": "Oct–Nov, by soil test",
+              "narrow": false,
+              "description": "Native ground here runs acidic (pH 4.5–5.5); fescue wants 6.0–6.5. Dolomitic lime is slow to react, so a fall application gets the whole winter to work. Size it to a UGA Extension soil test (Pickens County, 706-253-8840, ~$9) rather than guessing — over-liming is as bad as none. Retest every three years."
+            },
+            {
+              "id": "spring-greenup",
+              "label": "Light spring green-up",
+              "months": [
+                2
+              ],
+              "peakWindow": "Mar — light only",
+              "narrow": false,
+              "description": "At most a light feeding in March to green it up. Keep it modest — the fall feedings do the heavy lifting, and spring nitrogen mostly fuels disease and extra mowing."
+            }
+          ]
+        },
+        "water": {
+          "subcategories": [
+            {
+              "id": "summer-survival",
+              "label": "Summer survival",
+              "months": [
+                5,
+                6,
+                7,
+                8
+              ],
+              "peakWindow": "Jun–Aug — ~1″/week",
+              "narrow": false,
+              "description": "In a dry mountain summer, water deeply and infrequently — about one inch a week including rain, in the early morning so the blades dry before night and dodge disease. The open south-facing fairway dries fastest of any ground on the property. Established fescue can also be left to go semi-dormant and brown in drought; it greens back up with the fall rains."
+            },
+            {
+              "id": "new-seeding",
+              "label": "New-seeding establishment",
+              "months": [
+                8,
+                9
+              ],
+              "peakWindow": "Sep–Oct, until rooted",
+              "narrow": false,
+              "description": "Fresh September seed is the exception to deep-and-infrequent: keep the top inch of soil moist with short, frequent waterings until the seedlings are up and rooted — roughly two to three weeks — then taper back to the normal weekly soak."
+            }
+          ]
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "brown-patch",
+              "label": "Brown patch watch",
+              "months": [
+                5,
+                6,
+                7
+              ],
+              "peakWindow": "Jun–Aug, humid heat",
+              "narrow": false,
+              "description": "Brown patch is fescue's main trouble here — roughly circular patches of tan, collapsed blades that appear in hot, humid stretches, worst where the lawn stays wet overnight. Manage it culturally first: water in the morning not the evening, raise the mowing height, hold off nitrogen, and improve airflow. Reach for a fungicide only if an outbreak is severe and spreading."
+            },
+            {
+              "id": "weeds",
+              "label": "Weeds",
+              "months": [
+                1,
+                2
+              ],
+              "peakWindow": "Late Feb–Mar — crabgrass pre-emergent",
+              "narrow": false,
+              "description": "The key pre-emergent timing is for crabgrass — put it down before the soil warms through the mid-50s°F, which at this elevation runs late February into March (about when the forsythia blooms). Spot-treat broadleaf weeds in fall, when they're easiest to knock back and the fescue is growing strongly enough to fill in behind them."
+            }
+          ]
+        }
+      },
+      "zoneId": "fairway"
+    },
+    {
+      "id": "fairway-meadow",
+      "name": "Fairway Meadow",
+      "scientificName": "Schizachyrium, Panicum, Sorghastrum spp. & wildflowers",
+      "emoji": "🌾",
+      "guide": "Beyond the mowed turf, the rest of the clearing is run the opposite way — as meadow. It's cut back hard just once a year and otherwise left to grow tall and loose. This is where the native warm-season bunchgrasses belong: little bluestem, switchgrass, indiangrass, and the autumn bentgrass Mom flagged for the property, threaded through with wildflowers. The contrast is the whole point — a crisp, close-mown fairway reading against a tall, seed-headed, pollinator-fed meadow. It also asks almost nothing in return: no lime, no fertilizer, no weekly mowing.",
+      "currentSeasonNote": "Right now — the meadow is coming up for the season. Leave it be: the warm-season grasses and wildflowers do their work straight through summer and into fall, feeding pollinators and setting seed. The only cut that matters comes next February.",
+      "soilNotes": "Leave it acidic and unlimed — the native grasses and wildflowers are adapted to the property's natural pH (4.5–5.5). No fertilizer: feeding a meadow favors weeds and floppy, lodging growth over the wildflowers you actually want.",
+      "aspectPreference": "Full sun, the same south-facing clearing as the turf — warm-season natives thrive in it. Drier upland spots suit little bluestem and indiangrass; the damp lower edge toward the spring drainage suits switchgrass and the autumn bentgrass.",
+      "frostSensitivity": "Warm-season grasses — they green late in spring and go dormant gold after fall frost, which is exactly the look you want. The standing dead growth gives winter structure and cover until the late-winter cut.",
+      "care": {
+        "mow": {
+          "months": [
+            1
+          ],
+          "peakWindow": "Late Feb — one cut, before green-up",
+          "narrow": true,
+          "description": "Mow once a year in late winter, down to about 4–6 inches — never lower — to clear the previous season's dead growth before the new one starts and before ground-nesting birds get going. That single cut is the whole maintenance rhythm. The exception is establishment: in the first year of a newly seeded meadow, mow every 4–6 weeks at that same height through the season to hold back annual weeds while the slow native perennials root in, then drop to the once-a-year cut from year two on."
+        }
+      },
+      "zoneId": "fairway-fringe"
     }
   ]
 }

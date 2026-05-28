@@ -12,7 +12,7 @@
     {
       "id": "fairway",
       "name": "Fairway",
-      "type": "planted",
+      "type": "turf",
       "color": [
         122,
         149,
@@ -452,7 +452,7 @@
     {
       "id": "fairway-fringe",
       "name": "Fairway Fringe",
-      "type": "planted",
+      "type": "meadow",
       "color": [
         122,
         149,
