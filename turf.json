@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "lastBuilt": "2026-05-28",
+    "purpose": "Deep-dive reference for the fairway turf + meadow. The Plants card carries the month-by-month care calendar (Fairway Turf, Fairway Meadow entries); the Worth considering card carries the grass options with sourcing; this card is the synthesis — the why behind both regimes, pulled into one place. The grass list renders live from CANDIDATES_DATA (native-grass + turf categories) so it never drifts from Worth considering."
+  },
+  "summary": "Two regimes on the open clearing — kept turf and natural meadow",
+  "intro": "The open south-facing clearing below the house is the property's defining ground — and it's run as two different things at once. The part nearest the house is kept as lush turf, mowed regularly. The rest is let go as meadow, cut back hard just once a year and otherwise left to grow tall, loose, and full of wildflowers. The contrast is deliberate: a crisp green fairway reading against a seed-headed, pollinator-fed meadow.",
+  "regimes": [
+    {
+      "id": "turf",
+      "label": "The lush turf",
+      "grass": "Turf-type tall fescue",
+      "zoneId": "fairway",
+      "summary": "For a lush, mowed turf at 2,959 ft the grass is turf-type tall fescue — a cool-season bunchgrass, and UGA's standard answer for the North Georgia mountains. The summers here run too cool for Bermuda and far too humid for the creeping bentgrass a golf green would use; that bentgrass is a maintenance trap for a home lawn — disease-prone in the humidity, near-daily mowing, heavy fungicide. (And the autumn bentgrass Mom flagged is a different plant entirely — a native meadow grass, not a turf.) Fescue grows in clumps rather than running, so it never knits over bare spots on its own: the fairway stays full by overseeding thin areas every fall.",
+      "essentials": [
+        "Mow high — 3 to 3.5 inches — and raise to 3.5–4″ through the June–August heat. Never take more than a third of the blade at once, and leave the clippings.",
+        "Overseed thin spots every September — the one window that matters. Fall seeding roots through two cool seasons before it faces summer; spring seeding rarely survives.",
+        "Lime to bring the acidic native soil (pH 4.5–5.5) toward 6.0–6.5. Size it to a UGA soil test and apply in fall — the single biggest lever on turf color.",
+        "Water deeply, about 1″ a week in summer drought, early in the morning. The open south face dries faster than anywhere else on the property.",
+        "Watch for brown patch in humid heat — answer it with morning watering, a higher cut, and no summer nitrogen before reaching for a fungicide."
+      ],
+      "calendarRef": "Fairway Turf"
+    },
+    {
+      "id": "meadow",
+      "label": "The meadow",
+      "grass": "Native warm-season grasses & wildflowers",
+      "zoneId": "fairway-fringe",
+      "summary": "Beyond the turf, the rest of the clearing is run the natural way — as meadow. This is where the native warm-season bunchgrasses belong: little bluestem, big bluestem, indiangrass, switchgrass, and the autumn bentgrass Mom flagged, threaded through with wildflowers. It asks almost nothing — no lime, no fertilizer, no weekly mowing — and gives back cover and seed for birds and a long pollinator season.",
+      "essentials": [
+        "Mow once a year in late winter (late February), down to 4–6 inches — never lower — to clear last year's growth before the new season and before ground-nesting birds get going.",
+        "In the first year of a new seeding, mow every 4–6 weeks at that height to hold back annual weeds while the slow native perennials root in, then drop to the once-a-year cut.",
+        "Leave the soil acidic and unfed — feeding a meadow favors weeds and floppy growth over the wildflowers you want.",
+        "The first move in the fringe may simply be to stop mowing and see what native grass (like purpletop) is already there."
+      ],
+      "calendarRef": "Fairway Meadow"
+    }
+  ],
+  "grassesIntro": "The full spectrum — from the practical turf grass to the native meadow bunchgrasses — lives in the Worth considering card, each with where to source it. In brief:",
+  "sourcesIntro": "Where to source the seed, and what to read on the natural approach:",
+  "sources": [
+    { "kind": "seed", "name": "Roundstone Native Seed", "url": "https://www.roundstoneseed.com/", "note": "Regionally-adapted native grass and meadow seed, including a Georgia-ecotype switchgrass." },
+    { "kind": "seed", "name": "Ernst Conservation Seeds", "url": "https://www.ernstseed.com/", "note": "Large-scale warm-season grass and meadow mixes." },
+    { "kind": "read", "name": "UGA — Rewild Your Lawn", "url": "https://cultivate.caes.uga.edu/rewild-your-lawn/", "note": "UGA's own case for lower-input, native-leaning ground." },
+    { "kind": "read", "name": "Lady Bird Johnson — Plant a Wildflower Meadow", "url": "https://www.wildflower.org/learn/plant-wildflower-meadow", "note": "Step-by-step meadow establishment." },
+    { "kind": "read", "name": "Xerces — Establishing Pollinator Meadows from Seed", "url": "https://xerces.org/sites/default/files/2018-05/15-020_02_XercesSoc_Establishing-Pollinator-Meadows-from-Seed_web.pdf", "note": "Getting the grass-and-wildflower mix to take." },
+    { "kind": "read", "name": "UGA — Lawns in Georgia: Selection & Species", "url": "https://extension.uga.edu/publications/detail.html?number=B1533-1", "note": "The turfgrass-selection basis for tall fescue." }
+  ]
+}

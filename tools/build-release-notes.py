@@ -49,7 +49,9 @@ def parse_release_notes(path: Path):
 def reinline(viewer_path: Path, entries):
     html = viewer_path.read_text(encoding="utf-8")
     payload = "const RELEASE_NOTES_DATA = " + json.dumps(entries, ensure_ascii=False) + ";"
-    existing = re.search(r"const RELEASE_NOTES_DATA = .*?;", html, re.DOTALL)
+    # Match the array literal up to its closing `];`, not the first stray `;`
+    # (a bullet string can contain one, e.g. "...model call; photos route...").
+    existing = re.search(r"const RELEASE_NOTES_DATA = \[.*?\];", html, re.DOTALL)
     if existing:
         new_html = html[: existing.start()] + payload + html[existing.end():]
     else:
