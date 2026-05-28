@@ -152,10 +152,10 @@
           0.31828461423444976
         ]
       ],
-      "status": "draft",
+      "status": "confirmed",
       "createdAt": "2026-05-28T02:55:10.014Z",
       "createdBy": "device",
-      "updatedAt": "2026-05-28T02:55:10.014Z",
+      "updatedAt": "2026-05-28T03:12:54.245Z",
       "lastEditedBy": "device",
       "history": [
         {
@@ -166,6 +166,12 @@
             "name": "Fairway",
             "vertexCount": 33
           }
+        },
+        {
+          "at": "2026-05-28T03:12:54.245Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
         }
       ]
     },
