@@ -7456,6 +7456,56 @@ window.addEventListener("beforeunload", syncZonesOnUnload);
 // Apply overrides at load — must run before the first renderProperty().
 loadZoneOverrides();
 
+// Fetch the canonical zones.json from GH Pages and reconcile against the
+// inlined ZONES_DATA + localStorage overlay. This is the read path that was
+// previously missing: edits on one device were committed to git and served
+// by Pages, but other devices only ever read the inlined const (deploy-tail
+// stale) + their own localStorage (wholesale-shadowing). With this in place,
+// any device opening a non-cached viewer.html catches up to current canon
+// within the deploy-tail (1–3 min typical for GH Pages).
+//
+// Safety: if localStorage has unsynced edits (savedAt > lastSyncedAt), we
+// LEAVE THEM ALONE. That preserves offline-edit buffering. The existing
+// scheduleZoneSync retry at boot will push them to canon when reachable.
+async function refreshZonesFromCloud() {
+  try {
+    // Cache-bust query + no-cache header — iOS Safari HTTP cache is the
+    // exact bug we're working around. The viewer.html itself is the one
+    // file iOS will keep stale; zones.json must be requested fresh.
+    const res = await fetch("zones.json?_=" + Date.now(), { cache: "no-cache" });
+    if (!res.ok) return;
+    const cloud = await res.json();
+    if (!cloud || !Array.isArray(cloud.zones)) return;
+
+    // Skip if localStorage has unsynced edits — let scheduleZoneSync win.
+    try {
+      const raw = localStorage.getItem(ZONE_STORE_KEY);
+      if (raw) {
+        const stored = JSON.parse(raw);
+        const lastSynced = localStorage.getItem(ZONE_LAST_SYNCED_KEY);
+        if (stored && stored.savedAt && (!lastSynced || stored.savedAt > lastSynced)) {
+          return;
+        }
+      }
+    } catch (_) { /* fall through — adopt cloud */ }
+
+    // No-op if cloud matches what we already have rendered.
+    const cur = JSON.stringify({ z: ZONES_DATA.zones || [], d: ZONES_DATA._deleted || [] });
+    const next = JSON.stringify({ z: cloud.zones, d: cloud._deleted || [] });
+    if (cur === next) return;
+
+    ZONES_DATA.zones = cloud.zones;
+    ZONES_DATA._deleted = cloud._deleted || [];
+    // Clear the stale localStorage overlay — its savedAt is older than the
+    // cloud's lastBuiltAt and a future page load would otherwise re-shadow.
+    try { localStorage.removeItem(ZONE_STORE_KEY); } catch (_) {}
+    if (typeof renderProperty === "function") renderProperty();
+  } catch (e) {
+    // Network/parse failure — keep inlined + localStorage as-is.
+  }
+}
+refreshZonesFromCloud();
+
 // If localStorage has zone edits newer than the last successful sync, kick
 // a sync after the page settles. This recovers the case where a prior page
 // session edited zones but never reached canon (sync code missing, worker
@@ -12858,7 +12908,7 @@ if (typeof MetricsViewObserver !== "undefined") {
 }
 </script>
 
-<div class="version-chip" id="version-chip">build 2026-05-27 23:12 ET</div>
+<div class="version-chip" id="version-chip">build 2026-05-28 — phone cloud-read</div>
 
 </body>
 </html>
