@@ -1801,7 +1801,9 @@ async function handleZoneSave(request, env) {
 
   const meta = (body._meta && typeof body._meta === "object") ? body._meta
              : (existingData._meta || {});
-  meta.lastBuilt = new Date().toISOString().slice(0, 10);
+  const nowIso = new Date().toISOString();
+  meta.lastBuilt = nowIso.slice(0, 10);
+  meta.lastBuiltAt = nowIso;
 
   const fullData = { _meta: meta, zones };
   if (tombstones.length) fullData._deleted = tombstones;
