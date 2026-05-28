@@ -3897,6 +3897,19 @@
   body.text-lg .ref-title                 { font-size: 16px; }
   body.text-lg .ref-framing               { font-size: 15.5px; }
 
+  /* Version chip — discreet build marker so a stale-cache page is
+     distinguishable from a fresh one. Bumped on every push. */
+  .version-chip {
+    text-align: center;
+    font-size: 11px;
+    color: #9aa896;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    letter-spacing: 0.02em;
+    padding: 18px 0 24px;
+    opacity: 0.7;
+    user-select: text;
+  }
+
 </style>
 </head>
 <body>
@@ -12825,6 +12838,8 @@ if (typeof MetricsViewObserver !== "undefined") {
   MetricsViewObserver.observeCards();
 }
 </script>
+
+<div class="version-chip" id="version-chip">v a56ccaa · 2026-05-27</div>
 
 </body>
 </html>
