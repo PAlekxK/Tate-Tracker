@@ -10,68 +10,6 @@
   },
   "zones": [
     {
-      "id": "pond-area-2",
-      "name": "Pond Area",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [
-        [
-          0.3446207888479844,
-          0.40691066702836315
-        ],
-        [
-          0.3900154481474855,
-          0.3994787738482355
-        ],
-        [
-          0.395450020035454,
-          0.35117146817740474
-        ],
-        [
-          0.36603939570056593,
-          0.32701781534198954
-        ],
-        [
-          0.334391006470632,
-          0.3381656551121812
-        ],
-        [
-          0.3295957959812481,
-          0.36557076121390253
-        ],
-        [
-          0.4878377421309176,
-          0.4816940921533995
-        ]
-      ],
-      "status": "confirmed",
-      "createdAt": "2026-05-27T20:24:23.625Z",
-      "createdBy": "device",
-      "updatedAt": "2026-05-27T20:32:11.226Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-27T20:24:23.625Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Pond Area",
-            "vertexCount": 7
-          }
-        },
-        {
-          "at": "2026-05-27T20:32:11.226Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        }
-      ]
-    },
-    {
       "id": "fairway",
       "name": "Fairway",
       "type": "planted",
@@ -488,6 +426,28 @@
         }
       ],
       "deletedAt": "2026-05-27T20:24:01.537Z"
+    },
+    {
+      "id": "pond-area-2",
+      "lastName": "Pond Area",
+      "history": [
+        {
+          "at": "2026-05-27T20:24:23.625Z",
+          "by": "device",
+          "action": "created"
+        },
+        {
+          "at": "2026-05-27T20:32:11.226Z",
+          "by": "device",
+          "action": "confirmed"
+        },
+        {
+          "at": "2026-05-28T02:55:18.449Z",
+          "by": "device",
+          "action": "deleted"
+        }
+      ],
+      "deletedAt": "2026-05-28T02:55:18.449Z"
     }
   ]
 }
