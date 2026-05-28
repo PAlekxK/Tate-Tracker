@@ -1645,7 +1645,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -1674,6 +1674,8 @@ export default {
     if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
     if (url.pathname === "/api/zone-save") return handleZoneSave(request, env);
     if (url.pathname === "/api/zone-feedback") return handleZoneFeedback(request, env, url);
+    if (url.pathname === "/api/zones") return handleZonesGet(request, env, url);
+    if (url.pathname === "/api/zones-sync-status") return handleZonesSyncStatus(request, env, url);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
@@ -1808,6 +1810,32 @@ async function handleZoneSave(request, env) {
   const fullData = { _meta: meta, zones };
   if (tombstones.length) fullData._deleted = tombstones;
 
+  // KV write — primary read path (path-eval §2). Devices fetch zones from
+  // GET /api/zones which reads this key, bypassing the GH Pages deploy tail.
+  // Git commits below remain as long-term canon + cold-start fallback (via
+  // inlined ZONES_DATA in viewer.html). Writing KV first because it's the
+  // freshness path; if git commits fail later, KV still has the new data.
+  try {
+    await env.OBSERVATIONS.put("zones:all", JSON.stringify(fullData));
+  } catch (e) {
+    // KV write failure is non-fatal — git is still canon. Log for diagnostics.
+    console.warn("[zone-save] KV write failed:", e && e.message);
+  }
+
+  // Stamp the editing device as having seen this canon version. Without this,
+  // the chip's "live everywhere" poll would never resolve — the editing device
+  // would still be tracked at the previous canon version until next page load.
+  const editingDeviceId = typeof body.deviceId === "string" ? body.deviceId : null;
+  if (editingDeviceId && /^[a-z0-9.\-_]{1,80}$/i.test(editingDeviceId)) {
+    try {
+      await env.OBSERVATIONS.put(
+        "zones-last-seen:" + editingDeviceId,
+        JSON.stringify({ version: nowIso, at: nowIso }),
+        { expirationTtl: 30 * 24 * 60 * 60 }
+      );
+    } catch (e) { /* non-fatal */ }
+  }
+
   // Commit 1 — zones.json
   const jsonContent = JSON.stringify(fullData, null, 2) + "\n";
   const commitMsg = `Zone update — ${zones.length} zone${zones.length === 1 ? "" : "s"}${tombstones.length ? ", " + tombstones.length + " tombstone" + (tombstones.length === 1 ? "" : "s") : ""}`;
@@ -1834,6 +1862,7 @@ async function handleZoneSave(request, env) {
     zoneCount: zones.length,
     tombstoneCount: tombstones.length,
     lastBuilt: meta.lastBuilt,
+    lastBuiltAt: meta.lastBuiltAt,
   });
 }
 
@@ -1894,4 +1923,87 @@ async function handleZoneFeedback(request, env, url) {
   }
 
   return json({ error: "method-not-allowed" }, 405);
+}
+
+// GET /api/zones — primary read path for warm devices (path-eval §2).
+// Bypasses the GH Pages deploy tail by reading from KV. Stamps the caller's
+// device as having seen the current canon version, so /api/zones-sync-status
+// can report whether known devices have all caught up. Falls back to the
+// git copy of zones.json if KV is empty (Worker just deployed, no edits yet).
+async function handleZonesGet(request, env, url) {
+  if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
+
+  let data = null;
+  try {
+    const raw = await env.OBSERVATIONS.get("zones:all");
+    if (raw) data = JSON.parse(raw);
+  } catch (e) { /* fall through to git fallback */ }
+
+  // Fallback: KV cold-start. Read from git so the read path is never broken
+  // just because KV hasn't been written yet (first deploy after this change).
+  if (!data || !Array.isArray(data.zones)) {
+    if (env.GITHUB_TOKEN && env.GITHUB_REPO) {
+      const file = await ghGetFile(env, "zones.json");
+      if (file.exists) {
+        try { data = JSON.parse(file.contentText || "{}"); }
+        catch (e) { data = null; }
+      }
+    }
+  }
+  if (!data || !Array.isArray(data.zones)) data = { _meta: {}, zones: [] };
+
+  // Per-device last-seen stamp — enables sync-status to answer "is everyone
+  // caught up?" Path-eval §3. TTL 30 days so stale devices age out cleanly.
+  const deviceId = url.searchParams.get("d");
+  const canonVersion = (data._meta && data._meta.lastBuiltAt) || (data._meta && data._meta.lastBuilt) || null;
+  if (deviceId && /^[a-z0-9.\-_]{1,80}$/i.test(deviceId) && canonVersion) {
+    try {
+      await env.OBSERVATIONS.put(
+        "zones-last-seen:" + deviceId,
+        JSON.stringify({ version: canonVersion, at: new Date().toISOString() }),
+        { expirationTtl: 30 * 24 * 60 * 60 }
+      );
+    } catch (e) { /* non-fatal */ }
+  }
+
+  return json(data);
+}
+
+// GET /api/zones-sync-status — returns the canon version + which known devices
+// have caught up to it. Editing device polls this after a save to update the
+// chip from "saved to cloud" → "live everywhere" (path-eval §3). Devices age
+// out after 30 days of inactivity.
+async function handleZonesSyncStatus(request, env, url) {
+  if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
+
+  let canonVersion = null;
+  try {
+    const raw = await env.OBSERVATIONS.get("zones:all");
+    if (raw) {
+      const data = JSON.parse(raw);
+      canonVersion = (data._meta && data._meta.lastBuiltAt) || (data._meta && data._meta.lastBuilt) || null;
+    }
+  } catch (e) { /* fall through */ }
+
+  const devices = [];
+  try {
+    const listing = await env.OBSERVATIONS.list({ prefix: "zones-last-seen:" });
+    for (const k of (listing.keys || [])) {
+      const did = k.name.slice("zones-last-seen:".length);
+      try {
+        const raw = await env.OBSERVATIONS.get(k.name);
+        if (!raw) continue;
+        const parsed = JSON.parse(raw);
+        devices.push({ deviceId: did, version: parsed.version, at: parsed.at });
+      } catch (e) { /* skip corrupt entry */ }
+    }
+  } catch (e) { /* return what we have */ }
+
+  // allCaughtUp is true only if there's at least one tracked device and all
+  // of them match canon. Editing device polls this; "live everywhere" lights
+  // up when this flips true (path-eval §3).
+  const allCaughtUp = canonVersion !== null && devices.length > 0 &&
+                      devices.every(d => d.version === canonVersion);
+
+  return json({ canon: canonVersion, devices, allCaughtUp });
 }
