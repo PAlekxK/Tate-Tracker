@@ -173,7 +173,7 @@ Concrete one-time actions, ordered by friction:
 ### Warnell School of Forestry & Natural Resources — Outreach Publications
 **URL:** https://www.warnelloutreach.org/publications.cfm
 **What it is:** Free downloadable Warnell publications on forest management, wildlife habitat, urban forestry.
-**Why it's relevant here:** Deepest Georgia-specific coverage of forest health, prescribed fire in Appalachian hardwoods, and wildlife habitat structure.
+**Why it's relevant here:** Georgia-specific coverage of forest health, prescribed fire in Appalachian hardwoods, and wildlife habitat structure — written for the cove hardwood mix that grows here.
 **Dashboard integration idea:** Resource link on Property profile or a hidden "Forestry" sub-section.
 **Depth tier:** Deep-dive link.
 
@@ -289,7 +289,7 @@ Concrete one-time actions, ordered by friction:
 ### Lady Bird Johnson Wildflower Center — Native Plant Database
 **URL:** https://www.wildflower.org/plants/
 **What it is:** Searchable database of 9,000+ North American native plants with state Recommended Species lists; filterable by light, soil, growth habit, bloom.
-**Why it's relevant here:** Often the cleanest single reference page per species.
+**Why it's relevant here:** A reliable per-species page when no UGA bulletin covers what's growing here.
 **Dashboard integration idea:** "More info" link on every Plant detail card (default outbound link if no UGA bulletin exists).
 **Depth tier:** Deep-dive link.
 
@@ -794,7 +794,7 @@ Concrete one-time actions, ordered by friction:
 ### NASA Scientific Visualization Studio — Moon Phase & Eclipse Pages
 **URL:** Daily moon: https://svs.gsfc.nasa.gov/5612/ ; 2026 libration: https://svs.gsfc.nasa.gov/5587 ; March 3 2026 lunar eclipse: https://svs.gsfc.nasa.gov/5606
 **What it is:** Daily-updated rendered Moon images (Dial-a-Moon) and authoritative eclipse visualizations from NASA Goddard. Hourly Moon imagery for any moment of the year.
-**Why it's relevant here:** Highest-quality public-domain Moon imagery. **The March 3, 2026 total lunar eclipse is visible from Georgia** — featured-event candidate.
+**Why it's relevant here:** Public-domain Moon imagery, refreshed hourly. **The March 3, 2026 total lunar eclipse is visible from Georgia** — featured-event candidate.
 **Dashboard integration idea:** Weather card celestial → Moon phase tile uses the Dial-a-Moon image. URL pattern: `https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005415/frames/730x730_1x1_30p/moon.NNNN.jpg` (NNNN = hour-of-year, 1–8760). Compute current hour-of-year, fetch directly. Public-domain, no key. CORS allowed for static assets.
 **Depth tier:** **Live data source** (image URL by hour).
 
@@ -861,7 +861,7 @@ Concrete one-time actions, ordered by friction:
 ### ATTRA Sustainable Agriculture (NCAT) — Appalachian publications
 **URL:** https://attra.ncat.org ; regional landing: https://attra.ncat.org/about/regions/
 **What it is:** NCAT's free sustainable agriculture publication library — 300+ topic guides, several specifically titled "Central and Southern Appalachian Region" (Climate-Smart Farming, Tree and Shrub Establishment, Alley Cropping, Upland Wildlife Habitat Management).
-**Why it's relevant here:** Highest-signal, lowest-fluff source on this list for practical Southern Appalachian land management — written for working ground at this elevation and ecosystem. Free PDFs.
+**Why it's relevant here:** Written for working ground at this elevation and ecosystem — practical Southern Appalachian land management. Free PDFs.
 **Dashboard integration idea:** Property card → "Field references" link list. Highlight Climate-Smart Farming in C&S Appalachia and the Upland Wildlife Habitat Management guide.
 **Depth tier:** Deep-dive link (high-value).
 
