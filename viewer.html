@@ -6466,6 +6466,18 @@ function wirePropertyMap() {
   let pointerCount = 0;
   let downX = 0, downY = 0;  // for click-vs-drag detection in draw mode
   stage.addEventListener("pointerdown", (e) => {
+    // If the pointerdown landed on an interactive child (button, sync chip,
+    // or a zone polygon when not drawing), bail before we preventDefault or
+    // capture. On mouse pointers, preventDefault on pointerdown suppresses
+    // mousedown → which suppresses click, so the child's click handler
+    // never fires. This was breaking every button inside the stage on
+    // desktop (Add a place, popover, zoom, draw Done/Cancel/Undo, sync,
+    // zones). Touch generates click through a different path and was fine.
+    const t = e.target;
+    if (t && t.closest) {
+      if (t.closest("button, .pmap-sync, .pmap-sync-details")) return;
+      if (!drawMode && t.closest(".pmap-zone")) return;
+    }
     pointerCount++;
     if (pointerCount > 1) return; // pinch handled by gesture* on iOS
     downX = e.clientX;
