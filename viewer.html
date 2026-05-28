@@ -6474,6 +6474,10 @@ function wirePropertyMap() {
       // In draw mode the pointerdown captures the position; vertex commits
       // on pointerup IF the tap didn't move (so accidental drags don't add
       // crooked vertices). Don't start a pan-drag.
+      // Capture so pointerup always fires on stage even if the cursor
+      // drifts off-stage during the click — otherwise pointerCount stays
+      // stuck above 0 and the next pointerdown silently early-returns.
+      try { stage.setPointerCapture(e.pointerId); } catch (_) {}
       e.preventDefault();
       return;
     }
@@ -6502,7 +6506,9 @@ function wirePropertyMap() {
       // Done/Cancel/Undo bubble here and would otherwise commit a vertex at
       // the button's position before the click handler runs.
       const onDrawChrome = e.target && e.target.closest && e.target.closest(".pmap-draw-actions, .pmap-draw-hint");
-      if (!onDrawChrome && Math.sqrt(dx * dx + dy * dy) < 8) {
+      // 12px threshold instead of 8: trackpad clicks can drift more than
+      // touch taps without it feeling like an intentional drag.
+      if (!onDrawChrome && Math.sqrt(dx * dx + dy * dy) < 12) {
         const v = eventToFractional(e);
         drawVertices.push(v);
         redrawDraftPolygon();
@@ -6557,6 +6563,11 @@ function wirePropertyMap() {
   function enterDrawMode() {
     drawMode = true;
     drawVertices = [];
+    // Reset pointer-tracking state so any prior pan gesture that didn't
+    // cleanly release (cursor left the stage mid-drag, etc.) doesn't
+    // leave pointerCount stuck > 0 and block the first vertex tap.
+    pointerCount = 0;
+    dragging = false;
     stage.classList.add("drawing");
     // Hint banner
     const hint = document.createElement("div");
