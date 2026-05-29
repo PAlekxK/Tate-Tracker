@@ -2,7 +2,9 @@
 type: email-draft
 project: fernwood
 draft_id: 2026-05-28-mom-email
-last_updated: 2026-05-28
+last_updated: 2026-05-29
+changelog: |
+  2026-05-29 — Regenerated. Added the Phase 1 Garden Guru story-probe, Scenario D (find + react to The Fairway turf/meadow card), and a dedicated Fairway findings header. A NEW Gmail draft was created from this version (the MCP can't edit an existing draft); the 2026-05-28 draft 19e6ed935970d98c should be deleted, and the new draft's To: swapped to Mom before sending.
 audience: Mom
 sender: Paul
 purpose: Wrapper for the moderator-prompt + setup instructions for the self-serve discovery interview
@@ -101,6 +103,7 @@ Find out how she actually uses Fernwood, in her own words, before you ask her to
 - *"What were you hoping to find?"*
 - *"Tell me more about what you did next."*
 - *"Walk me through a different time you opened it recently — maybe yesterday or this morning."*
+- *"Tell me about a time you asked Fernwood a question — what happened? What did you do after it answered?"* (Don't name any feature — just follow her story. The "what did you do after it answered" part is the one to dwell on.)
 
 **Then widen to pattern:**
 - *"If you think about the last week or two, when do you find yourself reaching for Fernwood?"*
@@ -114,6 +117,7 @@ Find out how she actually uses Fernwood, in her own words, before you ask her to
 - Which parts of the app she names without prompting.
 - Whether she narrates by what she sees on screen, or by what she was wondering about.
 - Anything she says about reading the screen, text size, or glasses.
+- Whether she's ever *asked* Fernwood a question (the conversational feature) — and if so, whether the answer felt complete, or she'd have liked to keep going.
 
 ### Phase 2 — Observation (roughly 8–10 minutes)
 
@@ -146,7 +150,7 @@ Now ask her to open Fernwood on her phone and walk through it as she normally wo
 
 ### Phase 3 — Scenarios (roughly 5–8 minutes)
 
-Lightweight prompted tasks. Pick **two or three** that haven't already come up. Do not run all of them. **Critical rule:** if she gets stuck, do not help. Ask "what's happening right now?" and let her keep working, give up, or try something different. The give-up moment is data.
+Lightweight prompted tasks. **Always run Scenario D** (the person who built Fernwood specifically wants her reaction to the new section). Then pick **one or two** of A–C that haven't already come up. Do not run all of A–C. **Critical rule:** if she gets stuck, do not help. Ask "what's happening right now?" and let her keep working, give up, or try something different. The give-up moment is data.
 
 **Scenario A — revisit something familiar:**
 > *"Think about something you read in Fernwood recently — an entry, a plant, a wildlife note — that you found interesting. Can you find it again?"*
@@ -156,6 +160,13 @@ Lightweight prompted tasks. Pick **two or three** that haven't already come up. 
 
 **Scenario C — what's coming up:**
 > *"If you wanted to know what to look for at Fernwood this week — what's blooming, what birds are around — how would you find out?"*
+
+**Scenario D — react to a new section (always run this one):**
+> *"The person who built Fernwood recently added a new section about the fairway — the open grassy clearing below the house, kept partly as mowed lawn and partly as meadow. See if you can find it on your phone."*
+
+Once she's found it (or made a genuine attempt): *"Take a look and tell me what you make of it — what's useful, what's confusing, anything you'd want it to say that it doesn't."*
+
+This is the one place you may name a section before she does — it's a guided task, not discovery. But still **do not help her navigate to it.** If she can't find it after a real try, that's a finding: ask *"where would you expect something like that to live?"* before, only then, telling her it's a card called "The Fairway." Let the search itself be data.
 
 ### Phase 4 — Forward-look (roughly 5–7 minutes)
 
@@ -198,6 +209,7 @@ When the conversation ends, produce two artifacts in the same response, clearly 
 - **Things she tried that didn't work** — anything she attempted and either gave up on or worked around.
 - **Surprising quotes** — anything she said that seems important, unexpected, or worth Paul's attention. Direct quotes.
 - **Forward-looking wishes** — what she said she'd want next, or what she said was missing.
+- **Reaction to the new Fairway section** — what she said when asked to find and react to the fairway/meadow section (Scenario D). Direct quotes. Note whether she found it easily, fumbled, or couldn't find it.
 - **Meta-feedback answer** — verbatim her answer to the closing question about feedback on the app itself.
 - **Things she did not mention** — features or parts of the app you'd have expected to come up that didn't. (You won't know all of these — list what feels conspicuously absent based on her narration.)
 
