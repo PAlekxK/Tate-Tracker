@@ -28,9 +28,9 @@ Reframe Paul locked: this is honest *discovery* (how is the app useful today, ho
 
 Four artifacts at `.user-research/2026-05-28-*`: `mom-discovery-interview-guide.md` (research design), `mom-moderator-prompt.md` (Claude voice-mode system prompt), `mom-email-draft.md` (Mom-facing wrapper with prompt inlined), `reading-the-output.md` (synthesis playbook for after transcript returns). Two edits applied post-draft: cut Scenario D (Job 10 was Paul-want, leading the witness); softened meta-feedback closing question from research-jargon to plain language.
 
-**Gmail draft created** (id `r-1313109526214713698`) in Paul's Drafts folder. To: placeholder set to `paul.kirschenbauer@gmail.com` — must be swapped to Mom's address. Also queued: 60-second sanity check on claude.ai voice mode setup steps.
+**SENT to Mom 2026-05-29.** The package was regenerated before sending (commit `e359d06`): added (1) a Phase 1 Garden Guru story-probe ("tell me about a time you asked Fernwood a question… what did you do after it answered") to surface the 2-turn-ceiling signal; (2) **Scenario D** — a guided "find + react to The Fairway card" task (Paul's call to get Mom's live first-reaction to the new turf/meadow section, accepting the lighter discovery value); (3) a dedicated "Reaction to the new Fairway section" findings header. A fresh Gmail draft (`r153055942713180127`) was created from the regenerated version (MCP can't edit an existing draft); the stale 2026-05-28 draft `19e6ed935970d98c` is Paul's to delete.
 
-**Awaiting Paul's send-to-Mom action** before any downstream Phase E / Path E gate decisions. See [[project_fernwood_mom_interview_format]].
+**Now awaiting Mom's transcript** (self-serve, no deadline — comes back when she has a quiet half hour). When it lands, run it through `reading-the-output.md`. This unblocks the downstream Phase E / Path E gate decisions: the star-affordance call (meta-feedback Q + zero-usage telemetry), Fernwood prioritization (which unserved jobs are real; is the 2-turn Guru pattern a ceiling), and the first read on whether The Fairway lands. See [[project_fernwood_mom_interview_format]].
 
 ---
 
