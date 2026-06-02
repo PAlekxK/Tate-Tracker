@@ -168,8 +168,10 @@
       "id": "bronco-1989",
       "group": "vehicle",
       "name": "1989 Ford Bronco",
+      "nickname": "Bolores",
       "trim": "Eddie Bauer",
       "emoji": "🟢",
+      "image": "images/vehicles/bronco-1989.jpg",
       "engine": "5.8L 351W Windsor V8",
       "category": "classic",
       "status": "Restoration in progress",
@@ -179,7 +181,11 @@
         "torque": "315 lb-ft @ 2,800 rpm",
         "transmission": "AOD 4-speed automatic",
         "transfer_case": "Borg Warner 1356",
-        "drivetrain": "4WD"
+        "drivetrain": "4WD",
+        "suspension": "Lifted — aftermarket suspension lift to clear 35\" tires (red coil springs up front on the Dana 44 TTB)",
+        "tires": "Pro Comp Xtreme M/T 2 — 35X12.50R15LT, Load Range C (mud-terrain)",
+        "wheels": "15\" aftermarket alloy, 5×5.5\" bolt pattern; WARN manual locking hubs on the front axle",
+        "spare": "Mickey Thompson Baja mud-terrain on the rear swing-out tire carrier"
       },
       "maintenance": {
         "fuel": {
@@ -222,12 +228,24 @@
           "value": "DOT 3",
           "confidence": "verified"
         },
+        "tires": {
+          "value": "Pro Comp Xtreme M/T 2 — 35X12.50R15LT, Load Range C. Replacement size 35×12.50R15. Measured ~34.6\" diameter, ~12.1\" section width, ~601 revs/mi, 20/32\" tread when new.",
+          "confidence": "verified"
+        },
+        "tirePressure": {
+          "value": "Sidewall max 35 psi (max load 2,535 lb each). On a half-ton Bronco these big LT tires ride well below the sidewall max — typical street range ~18–26 psi; tune by ride, wear pattern, and load.",
+          "confidence": "inferred"
+        },
+        "lockingHubs": {
+          "value": "WARN manual locking front hubs. Lock both to drive the front axle in 4WD; leave unlocked in 2WD to spare the front driveline. Confirm fitment for the 1980–1996 Dana 44 TTB 5-lug before ordering rebuild/service parts.",
+          "confidence": "inferred"
+        },
         "fuelSystem": {
           "value": "5.8L in '89 could be carbureted or EFI depending on build — verify from your unit before tune-up parts.",
           "confidence": "tbd"
         }
       },
-      "notes": "Eddie Bauer edition — two-tone paint, upgraded interior. Full restoration underway."
+      "notes": "\"Bolores\" — the Eddie Bauer edition: two-tone maroon over tan, upgraded interior. Lifted and riding on 35\" Pro Comp mud-terrains over 15\" alloys with WARN locking hubs; Mickey Thompson Baja spare on the rear carrier. Full restoration underway."
     },
     {
       "id": "dr200s-2017",

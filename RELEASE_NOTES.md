@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-06-02 — Bolores gets her portrait
+
+- The 1989 Bronco now has a photo on its card in Vehicles & Equipment — lifted, two-tone maroon, parked up at the property — and a name to go with it: *Bolores*.
+- Her specs caught up with the build: 35-inch Pro Comp Xtreme M/T 2 mud-terrains (35X12.50R15LT) on 15-inch alloys, WARN locking hubs up front, and a Mickey Thompson Baja riding the rear carrier as the spare.
+- The maintenance shelf gained tire size, running pressures, and a note on the locking hubs — the at-a-store details for when she needs new rubber.
+
+---
+
 ## 2026-05-28 — The fairway, turf, and a meadow
 
 - The mowed fairway and the meadow beyond it are now their own entries in the Plants card — each with a season-by-season care calendar, the same treatment the seventeen plants get. Turf-type tall fescue for the lush turf; native bunchgrasses and wildflowers for the meadow.
