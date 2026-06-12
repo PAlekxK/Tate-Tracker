@@ -99,7 +99,16 @@
           "status": "planned",
           "detail": "Both are common softening/failure points on tuned MK7s. Cheap to inspect while it's at this visit."
         }
-      ]
+      ],
+      "vin": "3VW547AU0GM••••••",
+      "vinDecode": {
+        "3VW": "Volkswagen de México — passenger car (Puebla)",
+        "547AU": "Golf GTI 4-door, 2.0T — body & restraint codes",
+        "0": "check digit",
+        "G": "model year 2016",
+        "M": "Puebla, Mexico assembly",
+        "051619": "production sequence"
+      }
     },
     {
       "id": "tiguan-2018",
@@ -149,6 +158,15 @@
           "value": "8-speed AQ250 — typically lifetime fill but service at 80k mi recommended",
           "confidence": "inferred"
         }
+      },
+      "vin": "3VV1B7AX1JM••••••",
+      "vinDecode": {
+        "3VV": "Volkswagen de México — SUV line (Puebla plant family)",
+        "1B7AX": "Tiguan, 2.0L TSI — body & restraint codes",
+        "1": "check digit",
+        "J": "model year 2018",
+        "M": "Puebla, Mexico assembly",
+        "015240": "production sequence"
       }
     },
     {
@@ -204,6 +222,16 @@
           "value": "35 psi front/rear typical (check door placard)",
           "confidence": "inferred"
         }
+      },
+      "vin": "1FTRF12206N••••••",
+      "vinDecode": {
+        "1FT": "Ford — USA-built truck line",
+        "RF12": "F-150, 4x2, half-ton — body/GVWR class",
+        "2": "engine code 2 = 4.2L Essex V6 (confirms engine on file)",
+        "0": "check digit",
+        "6": "model year 2006",
+        "N": "Norfolk, VA assembly plant",
+        "B54701": "production sequence"
       }
     },
     {
@@ -339,7 +367,17 @@
           "status": "long-term",
           "detail": "The audio build — farthest out, and deliberately last. Blocked until the door panels are solid: a rattling panel kills the point of a sub. Soundproofing first makes it sing."
         }
-      ]
+      ],
+      "vin": "1FMEU15H5KL••••••",
+      "vinDecode": {
+        "1FM": "Ford — USA-built MPV/SUV",
+        "EU15": "full-size Bronco, U15 — 4x4 half-ton",
+        "H": "engine code H = 5.8L (351W) V8 (confirms engine on file)",
+        "5": "check digit",
+        "K": "model year 1989",
+        "L": "Louisville, KY assembly plant",
+        "A20935": "production sequence"
+      }
     },
     {
       "id": "dr200s-2017",
