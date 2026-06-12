@@ -2,6 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Pickup point — last session ended 2026-06-12
+
+**Vehicle & Equipment card — major enrichment pass + a privacy hardening.**
+
+- **New `restoration` "what she needs" running-list** per vehicle (`vehicles.json` → ordered array of `{item, status, detail}`, rendered as a collapsible panel with status chips: sourcing / diagnosing / ready / due-soon / planned / quoting / down-the-road / long-term — ordered most-critical → farthest out; field-journal tone, no alert language). Built for **Bronco "Bolores"** (10 items — door panel/lock/bezel, fluids, clear coat, seat, headliner, soundproofing, amp+subs gated on the door panels), **GTI** (8-item 90k shop list; coolant leak = known EA888 Gen3 water-pump/thermostat), **DR200S** (recommission + first oil + bent handlebars→replace), **DR-Z400S** (recommission + electrical-fault diagnosis + speedo rebuild), **golf cart**.
+- **Golf cart corrected electric→gas** — `g22a-2005` was modeled as 48V electric; it's the gas G22A (357cc OHV, 11.4 hp = 8.5 kW misread as a motor rating). Verified specs: NGK BPR4ES, air filter JN6-E4450-00, no spin-on oil filter (internal screen), 10W-30 ~1.16 qt.
+- **VINs added** to Tiguan/GTI/F-150/Bronco (decodes confirmed the F-150 4.2 Essex V6 + Bronco 5.8 351W).
+- **PII hardening — the repo is PUBLIC (GH Pages):** VINs masked to the decodable head on the cards (last-6 production serial hidden); license tags + State Farm policy #s live only in gitignored `.private/vehicle-records.md`; **full VINs purged from ALL git history** via `git filter-repo` + force-push (verified 0 remaining; backup bundle deleted). Never put full VINs/plates/policy#s in vehicles.json/viewer.html again.
+- **Weather bot demystified:** the `weather-recorder[bot]` commits are a scheduled GitHub Action (`.github/workflows/record-weather.yml`), **NOT drift**. Operating ritual (`git pull --rebase` first) + a safe history-rewrite runbook are documented in `tools/SCHEDULING.md`.
+
+**Parked:** fleet profile-review enhancement — add per-vehicle **mileage/hours + last-service anchors** (needs Paul's odometer/service readings; everything else turned out well-specced). Also: confirm the cart's actual spark plug / air-filter P/N against the parts when next up at the property.
+
+**Still awaiting Mom's transcript** from the 2026-05-28 discovery interview (below) — unchanged; comes back when she has a quiet half hour.
+
+---
+
 ## Pickup point — last session ended 2026-05-28
 
 **Three work streams landed:**
