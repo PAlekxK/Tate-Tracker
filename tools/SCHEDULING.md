@@ -203,3 +203,44 @@ options:
 - Move to a separate hosted dataset and fetch on demand.
 
 Defer until the file is >2MB.
+
+---
+
+## Operating alongside the weather bot (this is NOT drift)
+
+`record-weather.yml` pushes a `weather-history.json` rollup to `main` ~4×/day as
+`weather-recorder[bot]`, **from GitHub's servers** (fresh `actions/checkout` each
+run — there is no local clone to fall out of sync, and it can never reintroduce
+purged history). Consequences for anyone working locally:
+
+- **Your local `main` will routinely be a few commits behind `origin/main`.**
+  That is the bot working as designed — not drift, not a problem.
+- **Start every Tate-Tracker session with `git pull --rebase origin main`,** and
+  rebase again right before you push. The bot only ever touches
+  `weather-history.json`; manual work touches other files — so rebases are
+  conflict-free by construction.
+- **Don't hand-edit `weather-history.json`.** It's the bot's file; schema changes
+  go through `tools/record-daily-rollup.mjs`.
+
+A push rejected with "remote contains work you do not have" just means the bot
+pushed since your last pull → `git pull --rebase && git push`. Expected, benign.
+
+## Doing a git history rewrite safely (with the bot running)
+
+A force-push (e.g. purging leaked data with `git filter-repo`) races the bot: if
+it pushes between your rewrite and your force-push you'll clobber that rollup or
+hit a non-fast-forward. The bot can't reintroduce purged blobs (fresh checkout),
+but do this to keep it clean:
+
+1. **Disable the workflow** — Actions tab → "Record property weather" → ⋯ →
+   *Disable workflow*. (No `gh` CLI on this machine; alternatively comment out the
+   `schedule:` block and commit.)
+2. **Backup:** `git bundle create ../Tate-Tracker-backup-$(date -u +%Y%m%d-%H%M).bundle --all`
+3. **Rewrite:** `python3 -m git_filter_repo --replace-text <replacements> --force`
+   (`pip install --user git-filter-repo` if missing).
+4. **Re-add origin** (filter-repo drops it) and **force-push:**
+   `git remote add origin git@github.com:PAlekxK/Tate-Tracker.git`
+   `git push --force --all && git push --force --tags`
+5. **Verify:** `git log --all -S "<secret>" | wc -l` → must be 0.
+6. **Re-enable the workflow.** Its next run checks out the rewritten history; a
+   single skipped rollup just regenerates (the recorder is idempotent).
