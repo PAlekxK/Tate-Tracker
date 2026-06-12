@@ -7,8 +7,8 @@ What's changed at Fernwood lately. Newest first.
 ## 2026-06-12 — The cart's a gas engine, and two bikes woke up
 
 - The **golf cart** was on the card as electric — it isn't. The G22A is the *gas* model, and its 11.4 hp engine (rated 8.5 kW) had been mistaken for an electric motor. Corrected to a 357cc gas cart, with the spring service logged: oil, new plug, a piggyback fix for the stripped drain plug (no more leak), and a fresh air filter + airbox cover. We opened the intake with a few vent holes to clear a sputter — runs clean now.
-- The **DR200** and the **DR-Z400** both came back to life after sitting — drained carbs, stored batteries, fresh ethanol-free gas, and they fired right up. The DR200 just needs its first oil change.
-- The **DR-Z400** picked up an electrical gremlin on its first ride out: lean it and turn the bars and all power drops. Its card now carries the symptom and a ranked, cheapest-first list of suspects and how to chase them down.
+- The **DR200** and the **DR-Z400** both came back to life after sitting — drained carbs, stored batteries, fresh ethanol-free gas, and they fired right up. The DR200 needs its first oil change and has bent handlebars to sort (replacement recommended over re-straightening).
+- The **DR-Z400** picked up an electrical gremlin on its first ride out: lean it and turn the bars and all power drops. Its card now carries the symptom and a ranked, cheapest-first list of suspects and how to chase them down — and notes its water-damaged speedometer, currently removed and mid-rebuild.
 
 ---
 
