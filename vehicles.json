@@ -107,7 +107,7 @@
         "0": "check digit",
         "G": "model year 2016",
         "M": "Puebla, Mexico assembly",
-        "051619": "production sequence"
+        "••••••": "production sequence — masked here; full VIN in private records"
       }
     },
     {
@@ -166,7 +166,7 @@
         "1": "check digit",
         "J": "model year 2018",
         "M": "Puebla, Mexico assembly",
-        "015240": "production sequence"
+        "••••••": "production sequence — masked here; full VIN in private records"
       }
     },
     {
@@ -231,7 +231,7 @@
         "0": "check digit",
         "6": "model year 2006",
         "N": "Norfolk, VA assembly plant",
-        "B54701": "production sequence"
+        "••••••": "production sequence — masked here; full VIN in private records"
       }
     },
     {
@@ -376,7 +376,7 @@
         "5": "check digit",
         "K": "model year 1989",
         "L": "Louisville, KY assembly plant",
-        "A20935": "production sequence"
+        "••••••": "production sequence — masked here; full VIN in private records"
       }
     },
     {
@@ -395,7 +395,7 @@
         "4": "check digit",
         "H": "model year 2017 (17th letter in VIN year cycle)",
         "2": "Hamamatsu factory",
-        "101809": "production sequence number"
+        "••••••": "production sequence — masked here; full VIN in private records"
       },
       "specs": {
         "displacement": "199 cc",
@@ -470,7 +470,7 @@
         "A": "check character",
         "2": "Hamamatsu factory",
         "1": "model year 2001",
-        "100941": "production sequence number"
+        "••••••": "production sequence — masked here; full VIN in private records"
       },
       "specs": {
         "displacement": "398 cc",
