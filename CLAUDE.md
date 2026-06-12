@@ -14,6 +14,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Parked:** fleet profile-review enhancement — add per-vehicle **mileage/hours + last-service anchors** (needs Paul's odometer/service readings; everything else turned out well-specced). Also: confirm the cart's actual spark plug / air-filter P/N against the parts when next up at the property.
 
+**GTI service — vetted shop plan ready** (`.research/2026-06-12-gti-vw-service-shops.md`, local working notes). For the 90k + coolant leak: **FREED Performance (Cumming)** = top tune-friendly pick on the Jasper corridor; **Lewis Motorwerks / Eurofed (Decatur)** intown; **Precision (Canton)** closest to property; **Jim Ellis VW Kennesaw** for the free recall check (16V647 EVAP likely applies). Paul's next: run the VIN at nhtsa.gov/recalls + phone-vet the top 2 + book.
+
 **Still awaiting Mom's transcript** from the 2026-05-28 discovery interview (below) — unchanged; comes back when she has a quiet half hour.
 
 ---
