@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-06-12 — A running list for the fleet
+
+- Both vehicles picked up a **"what she needs"** list on their cards — tap to open it. Each line carries where it stands and what's next, ordered most-urgent first out to the far-off projects, so the to-do list lives on the card instead of in your head.
+- *Bolores* has ten items lined up: oil and coolant, the driver-door lock and the dash bezel, then the cracked door panel, the seat, the clear coat, and the long-term audio build — which waits on the door panels, because a rattling panel is no place for a sub.
+- The **GTI** list captures the 90k-mile shop visit: the coolant leak to diagnose (the known water-pump/thermostat job), the overdue DSG service, brake fluid, plugs, and a few things to have the shop scope.
+
+---
+
 ## 2026-06-02 — Bolores gets her portrait
 
 - The 1989 Bronco now has a photo on its card in Vehicles & Equipment — lifted, two-tone maroon, parked up at the property — and a name to go with it: *Bolores*.
