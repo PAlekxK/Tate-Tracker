@@ -524,7 +524,7 @@
           "confidence": "verified"
         },
         "engineOil": {
-          "value": "SAE 10W-30 — capacity ~1.16 qt (1.1 L) with filter",
+          "value": "SAE 10W-30 — capacity ~1.16 qt (1.1 L). No spin-on filter to change.",
           "confidence": "verified"
         },
         "oilDrainPlug": {
@@ -532,16 +532,16 @@
           "confidence": "verified"
         },
         "sparkPlug": {
-          "value": "NGK BPR4ES typical for Yamaha G-series gas — verify the plug you fitted in the spring service",
-          "confidence": "inferred"
+          "value": "NGK BPR4ES — gap ~0.030\" (0.8 mm). Standard across Yamaha G14/G16/G21/G22/G29 gas.",
+          "confidence": "verified"
         },
         "airFilter": {
-          "value": "Yamaha OEM element — verify P/N (the old airbox cover broke off and was replaced)",
-          "confidence": "tbd"
+          "value": "Yamaha OEM JN6-E4450-00 (alt -01), 357cc 4-cycle engine — plus a foam pre-filter.",
+          "confidence": "verified"
         },
         "oilFilter": {
-          "value": "Yamaha G22 gas spin-on/screen — verify P/N",
-          "confidence": "tbd"
+          "value": "None — Yamaha gas-cart engines use an internal oil screen/strainer, not a replaceable spin-on filter. Clean the screen at oil changes.",
+          "confidence": "verified"
         },
         "brakeFluid": {
           "value": "DOT 3 (verify on master cylinder cap)",
@@ -549,6 +549,10 @@
         },
         "tirePressure": {
           "value": "18–22 psi typical",
+          "confidence": "inferred"
+        },
+        "fuelFilter": {
+          "value": "Inline fuel filter — replace at tune-up (verify P/N; common in Yamaha gas tune-up kits).",
           "confidence": "inferred"
         }
       },
