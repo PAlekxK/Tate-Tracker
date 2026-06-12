@@ -403,7 +403,14 @@
           "confidence": "inferred"
         }
       },
-      "notes": "Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain."
+      "notes": "Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain. Recommissioned ~June 2026 after sitting: the tank and carb had been drained and the battery stored off the bike. Charged the battery, filled with ethanol-free gas, primed the carb, reconnected — fired right up nicely. Oil change still pending.",
+      "restoration": [
+        {
+          "item": "Oil change",
+          "status": "ready",
+          "detail": "First oil after sitting — not done since recommissioning. 10W-40 motorcycle-specific (JASO MA/MA2), ~1.0 qt with filter; filter Suzuki 16510-37450 / HiFlo HF138 (see maintenance). Do it now that she's running again."
+        }
+      ]
     },
     {
       "id": "drz400s-2001",
@@ -412,7 +419,7 @@
       "trim": "",
       "emoji": "🏍️",
       "category": "motorcycle",
-      "status": "Active",
+      "status": "Running — intermittent total power loss when steering (diagnosing)",
       "vin": "JS1SK43A212••••••",
       "vinDecode": {
         "JS1": "Suzuki — manufactured in Japan",
@@ -470,51 +477,61 @@
           "confidence": "verified"
         }
       },
-      "notes": "Dual-sport — street-legal with headlight, tail light, and mirrors. VIN position 10 = '1' confirms 2001 model year."
+      "notes": "Dual-sport — street-legal with headlight, tail light, and mirrors. VIN position 10 = '1' confirms 2001 model year. Recommissioned ~June 2026 the same way as the DR200: ethanol-free gas in, primed the carb, fully charged battery back on — fired right up. On the first test ride it developed an electrical fault (see the list).",
+      "restoration": [
+        {
+          "item": "Electrical fault — total power loss when steering",
+          "status": "diagnosing",
+          "detail": "Symptom (first test ride, June 2026): leaned the bike and turned the bars and ALL power died at once — headlight cut out instantly, then no response to the ignition on/off. Total power loss + dead headlight = a main power-feed interruption (battery feed, main ground, or the ignition-switch main circuit), not just the engine-kill circuit. Trigger being handlebar movement points to a connection that flexes with steering. The carbureted DR-Z400S has no tip-over/lean sensor, so the lean itself didn't cut it — the wiring moved. Suspects, cheapest-first (DR-Z forums echo all of these): (1) Battery terminals + main ground to frame/engine — loose/corroded after sitting; a corroded connector behind the battery is a known DRZ cause of sudden death. Clean + torque first. (2) Main fuse + fuse holder — a corroded holder drops all power with vibration. (3) Main harness pinched/chafed at the steering head — wires get pinched between the frame turn-stops and triple clamps (worse with bar risers); turn the bars lock-to-lock with the headlight cowl off and watch. Best match for 'died when I turned the bars.' (4) Ignition switch + its connector — sticky/corroded switch or a connector that flexes with steering. (5) A wire shorting behind the speedo (known to pop the fuse). Diagnose: key + headlight ON, wiggle the ignition connector and flex the harness at the steering head while watching the light — wherever it flickers/dies is the fault. Cross-check: test the horn + brake light (same power-feed circuit) — if they're dead too, the fault is upstream in the power feed."
+        },
+        {
+          "item": "Post-storage oil change",
+          "status": "ready",
+          "detail": "Recommended after sitting — 10W-40 JASO MA/MA2, ~1.4 qt with filter; filter Suzuki 16510-29F00 / HiFlo HF139 (see maintenance). Pair it with the electrical diagnosis when you're up there."
+        }
+      ]
     },
     {
       "id": "g22a-2005",
       "group": "vehicle",
       "name": "2005 Yamaha G22A Golf Cart",
-      "trim": "8.5KW Electric",
+      "trim": "357cc Gas — 11.4 hp",
       "emoji": "🛺",
       "category": "utility",
-      "status": "Stock M12×1.5 drain plug stripped — repair plug identified",
+      "status": "Spring service done — drain plug repaired, no longer leaking",
       "specs": {
-        "motor": "8.5 kW DC electric",
-        "voltage": "48V",
-        "batteries": "6× 8V deep-cycle",
+        "engine": "Yamaha 357cc OHV single-cylinder 4-stroke, air-cooled",
+        "displacement": "357 cc",
+        "bore_stroke": "85 × 63 mm",
+        "power": "11.4 hp (8.5 kW)",
+        "transmission": "CVT, forward/reverse",
         "payload": "~800 lb",
         "topSpeed": "~19 mph"
       },
       "maintenance": {
         "fuel": {
-          "value": "n/a — battery electric",
+          "value": "87 octane regular unleaded",
           "confidence": "verified"
         },
         "engineOil": {
-          "value": "n/a — electric motor",
+          "value": "SAE 10W-30 — capacity ~1.16 qt (1.1 L) with filter",
           "confidence": "verified"
         },
-        "transaxleOil": {
-          "value": "SAE 30 non-detergent motor oil — drain plug currently stripped (repair plug pending)",
+        "oilDrainPlug": {
+          "value": "Stock M12×1.5 drain plug was stripped; repaired spring 2026 with a correctly-sized oversize piggyback self-tapping repair plug — no longer leaking.",
           "confidence": "verified"
         },
-        "drainPlugRepair": {
-          "value": "M12×1.5 → 1/2\" NPT self-tapping repair plug (already identified)",
-          "confidence": "verified"
-        },
-        "batteries": {
-          "value": "6× Trojan T-875 (8V, 170 Ah) or equivalent. Replace as a full set every 5–7 yr.",
+        "sparkPlug": {
+          "value": "NGK BPR4ES typical for Yamaha G-series gas — verify the plug you fitted in the spring service",
           "confidence": "inferred"
         },
-        "batteryWater": {
-          "value": "Distilled water only — check monthly during use season; never let plates go dry. Top off after charging, not before.",
-          "confidence": "verified"
+        "airFilter": {
+          "value": "Yamaha OEM element — verify P/N (the old airbox cover broke off and was replaced)",
+          "confidence": "tbd"
         },
-        "charger": {
-          "value": "Yamaha OEM 48V charger — leave plugged in between uses (modern chargers auto-maintain)",
-          "confidence": "inferred"
+        "oilFilter": {
+          "value": "Yamaha G22 gas spin-on/screen — verify P/N",
+          "confidence": "tbd"
         },
         "brakeFluid": {
           "value": "DOT 3 (verify on master cylinder cap)",
@@ -525,7 +542,14 @@
           "confidence": "inferred"
         }
       },
-      "notes": "Use an M12×1.5 → 1/2\" NPT repair drain plug to fix the stripped oil drain on the rear axle/transaxle."
+      "notes": "Gas cart (Yamaha's G22A = the gas model; the 11.4 hp engine is rated 8.5 kW, which an earlier note mis-read as an electric motor). Spring 2026 service: oil change, new spark plug, and fixed the stripped oil drain plug with a piggyback repair plug — no longer leaking. Replaced the air filter and a broken-off airbox cover; it sputtered afterward, so we opened the intake with a few added vent holes — that cleared the sputter and woke it up a touch, back to a clean baseline.",
+      "restoration": [
+        {
+          "item": "Air-intake tuning (optional)",
+          "status": "planned",
+          "detail": "Added a few vent holes to the airbox to cure a post-filter-swap sputter — runs clean now. May open it up a little more to experiment with airflow; watch that it doesn't lean out or pull in dust."
+        }
+      ]
     },
     {
       "id": "kobalt-km2040x-06",
