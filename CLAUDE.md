@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Pickup point — last session ended 2026-06-13
+
+**DR-Z400S electrical fault — diagnosed end-to-end with Paul wrenching at the property; located, pending splice.**
+
+Real-world field-diagnosis session over chat: the 2001 Suzuki DR-Z400S's "total power loss when steering" fault was traced to a **broken/fatigued conductor in the steering-head harness** (the bundle that flexes when the bars turn). The trail, done with a multimeter (Gardner Bender GMT-312, analog — set to DCV 50): battery good (12.7V) → main fuse good (the live one of the two 20A blade fuses reads 12.7V on both ends; the other is Suzuki's unwired spare) → red feed wire hot (12.7V) at the green 2-pin connector up by the bars → **wiggling the steering-head harness flickers the headlight on/off = a make-and-break in a conductor right at the flex point.** Matches the original symptom; the water that killed the speedo points to the same area.
+
+- **Logged in `vehicles.json` → `drz400s-2001`:** the restoration item "Electrical fault" moved `diagnosing` → `ready`, with the full diagnosis trail + splice/test next steps baked into the detail; the vehicle `status` now reads "fault traced to a broken wire in the steering-head harness (located, pending splice)." Committed `1b79c27`, pushed (rebased over a weather-bot update; live as `3cc5d38`/later).
+- **Next steps (in the record):** disconnect battery neg → pinpoint the exact inch (single-wire wiggle → binary-search pinch) → cut back to bright copper + splice with solder + adhesive heat-shrink, leave slack, route clear of the turn-stops → clean the green connector pins → test (continuity → key-on headlight → lock-to-lock → horn/brake). Once power's solid, the **speedo rebuild** (still `planned`) moves back to the top.
+- **Status:** owner is Paul (physical splice at the property). When he confirms it runs clean through full steering, flip the electrical item to resolved and bump the speedo.
+
+---
+
 ## Pickup point — last session ended 2026-06-12
 
 **Vehicle & Equipment card — major enrichment pass + a privacy hardening.**
