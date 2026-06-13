@@ -108,6 +108,21 @@
         "G": "model year 2016",
         "M": "Puebla, Mexico assembly",
         "••••••": "production sequence — masked here; full VIN in private records"
+      },
+      "paint": {
+        "exterior": {
+          "code": null,
+          "name": null,
+          "type": null,
+          "location": "VW data sticker — spare-wheel well (trunk floor); also driver B-pillar",
+          "status": "to-confirm"
+        },
+        "interior": {
+          "code": null,
+          "name": null,
+          "location": "VW data sticker — interior code (same sticker grid)",
+          "status": "to-confirm"
+        }
       }
     },
     {
@@ -167,6 +182,21 @@
         "J": "model year 2018",
         "M": "Puebla, Mexico assembly",
         "••••••": "production sequence — masked here; full VIN in private records"
+      },
+      "paint": {
+        "exterior": {
+          "code": null,
+          "name": null,
+          "type": null,
+          "location": "VW data sticker — spare-wheel well (trunk floor); also driver door jamb",
+          "status": "to-confirm"
+        },
+        "interior": {
+          "code": null,
+          "name": null,
+          "location": "VW data sticker — interior code (same sticker grid)",
+          "status": "to-confirm"
+        }
       }
     },
     {
@@ -232,6 +262,21 @@
         "6": "model year 2006",
         "N": "Norfolk, VA assembly plant",
         "••••••": "production sequence — masked here; full VIN in private records"
+      },
+      "paint": {
+        "exterior": {
+          "code": null,
+          "name": null,
+          "type": null,
+          "location": "Driver door-jamb Safety Compliance Certification Label",
+          "status": "to-confirm"
+        },
+        "interior": {
+          "code": null,
+          "name": null,
+          "location": "Driver door-jamb cert label — interior trim (TR) code",
+          "status": "to-confirm"
+        }
       }
     },
     {
@@ -377,6 +422,21 @@
         "K": "model year 1989",
         "L": "Louisville, KY assembly plant",
         "••••••": "production sequence — masked here; full VIN in private records"
+      },
+      "paint": {
+        "exterior": {
+          "code": null,
+          "name": "Cabernet Red (upper) / Chestnut (lower)",
+          "type": "two-tone",
+          "location": "Driver-door Vehicle Certification Label — EXT PNT (two codes for the two-tone)",
+          "status": "name-confirmed"
+        },
+        "interior": {
+          "code": null,
+          "name": "Chestnut",
+          "location": "Driver-door Vehicle Certification Label — INT TR",
+          "status": "name-confirmed"
+        }
       }
     },
     {
