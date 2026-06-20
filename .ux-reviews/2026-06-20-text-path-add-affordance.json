@@ -1,0 +1,122 @@
+{
+  "review_id": "ux-2026-06-20-text-path-add-affordance",
+  "project": "Fernwood",
+  "subject": "Should Garden Guru's text/conversation path (no photo) offer 'add this to the Almanac', and if so, how should the affordance work?",
+  "review_date": "2026-06-20",
+  "reviewer_mode": "review",
+  "review_level": "screen-component / interaction (the Garden Guru conversation surface + its confirm chips)",
+  "methods_used": [
+    "Heuristic evaluation against the Fernwood + cross-project principles libraries",
+    "Cognitive walkthrough as Mom completing the JTBD 'I asked about a plant in plain text; now what?'",
+    "Code archaeology: traced the suggestion-fence trigger from viewer.html parseSuggestionFence() through worker.js GARDEN_GURU_SYSTEM to establish whether a text-path add is even possible today"
+  ],
+  "user_context": {
+    "primary_user": "Mom — most-active device (d-14nyhnjz), the only device that uses the A/A+ text-size toggle; reads with difficulty, no-glasses use mode; leisure-reading register, not task-completion.",
+    "core_jobs_to_be_done": [
+      "Ask Garden Guru a plain-language question about a plant on the property and get a grounded, in-voice answer (validated: 2 conversations on her device, all 2-turn).",
+      "(Hypothesized, NOT validated) After getting an answer, capture the plant into the Almanac/plant tracker so it becomes part of the property's record."
+    ],
+    "context_of_use": "One-handed, half-engaged, on an iPhone PWA, likely reclined / morning-coffee or evening-wind-down. iOS Safari background-suspend (27 session_starts vs 1 session_end on her device) implies she opens, glances, leaves — short visits.",
+    "assumptions_made": [
+      "ASSUMPTION: that Mom wants to add plants to the tracker at all via conversation. There is zero behavioral evidence of a text-path add desire. The only add-events in telemetry (species_promoted: 2) both came from the PHOTO path. This is a Paul-want surfacing as a feature, not a Mom-signal — flagged per feedback_agent_proposals_not_validated and the live discovery interview that has not yet returned.",
+      "ASSUMPTION: the 2-turn ceiling reflects satisfaction/sufficiency rather than a UI dead-end. Could also be that nothing invites a next move. Unresolved until the Mom transcript returns.",
+      "INFERRED (from telemetry headline 2): d-14nyhnjz is Mom. High-confidence but not yet ground-truthed against her phone."
+    ],
+    "user_context_confidence": "low"
+  },
+  "principles_applied": [
+    "Defer affordances pending signal (cross-project / Fernwood operating rule) — ship the simplest thing; promote a NEW affordance only when observed behavior shows the underlying interaction pattern exists.",
+    "Meet the user at the action (cross-project.md) — information is not the deliverable; the next action is.",
+    "Make every surface read at half-engagement (fernwood.md) — the essential read in 1.5s of one-handed, reclined glance.",
+    "Mom reads with difficulty — routing/meaning carried by icon+size+color+position, not small/faint label text (memory: project_fernwood_mom_reading_accessibility).",
+    "Friction kills — it just works (cross-project.md) — if a moment needs explaining, redesign the moment.",
+    "Tone-coherence across all chrome + Caution as noticing, not warning (fernwood.md) — field-journal register, no task-manager idiom.",
+    "Save-success at the surface, not at the destination (cross-project candidate) — surface the save where the user acted."
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "The text-path add affordance does not exist today, and standing it up is NOT a UI change — it's a prompt-behavior change. The two-step confirm chips ('Does that look right?' -> 'Worth adding to the Almanac?') are driven entirely by the presence of a `<!-- suggest-species -->` fence in the model's reply (viewer.html parseSuggestionFence, line 12025; the parser is content-type agnostic). But worker.js GARDEN_GURU_SYSTEM explicitly gates the fence to the photo path: 'Emit it ONLY when confidence is medium or higher AND the PHOTO is clearly of a plant or animal' (worker.js:478), and the text-description block (worker.js:436-443) deliberately steers toward asking a clarifying question rather than a confident named ID, and emits no fence. So 'enable the text path' means: change the prompt to emit the fence on confident text IDs. That is a meaningfully larger, riskier change than wiring a button.",
+      "user_impact": "Paul is reasoning about this as a UI affordance ('add an Add button to the conversation') when the real lever is the AI behavior contract. The risk lives in the prompt, not the chip: a text description is far more likely than a photo to produce a wrong-but-confident ID ('a yellow flower in the drainage' -> the model names a specific species), and a wrong ID that auto-promotes to Git canon corrupts the property record Mom is being taught to trust.",
+      "principle_invoked": "Friction kills — it just works (the moment that needs redesigning is the ID-confidence moment, not the button); Sanitize at the storage boundary (the canon is the thing being protected).",
+      "recommendation": "Recognize this as a prompt-contract decision first, UI second. Do not frame it to yourself as 'add a button.' If it proceeds, the gating question is: at what text-description confidence is the model allowed to emit a fence? The photo path has a visual-feature consistency check (worker.js:460) as its guardrail; text has no equivalent guardrail and the existing text rule (worker.js:437-441) explicitly distrusts confident text IDs. Hand this to ai-advisor before any UI work — the architecture (when does the fence fire on text) must be settled before the surface is designed.",
+      "effort": "high"
+    },
+    {
+      "id": "F2",
+      "area": "other",
+      "severity": "critical",
+      "observation": "There is no behavioral signal that Mom wants to add plants via conversation. Telemetry over 6 days: species_promoted: 2, both from the PHOTO path (Pop Star Hydrangea, Spiderwort). All 10 conversations are exactly 2-turn — ask, answer, leave. Two prior affordances built on hypothesized-but-unobserved interaction patterns are dead on arrival: seeded prompts (seeded_prompt_used: 0) and the 'this matters' star (entry_starred: 0 across 104 revisits). A text-path add affordance is the same shape of bet: building UI for an interaction we hope exists rather than one we've watched happen.",
+      "user_impact": "If the pattern isn't there, the affordance is clutter on a surface Mom reads at half-engagement — and worse than neutral clutter, because it sits at the END of a 2-turn conversation she is structurally about to leave. It repeats the exact failure mode of the star and the seeds: a correct-on-paper affordance the user never reaches for.",
+      "principle_invoked": "Defer affordances pending signal — promote a new affordance only when observed behavior shows the underlying interaction pattern exists. The seeds and the star are the cautionary precedents.",
+      "recommendation": "NOT YET. Do not build the text-path add affordance now. The photo path already serves the actual observed add-behavior (2/2 promotions were photo). The signal to WAIT FOR is specific and cheap to detect, because the instrumentation already exists: a text-only conversation where Mom (or Paul) types something like 'is that the same as X' / 'should I add that' / 'what was that called' — i.e., language that reveals she wants to capture the named thing but has no path. Until a real conversation shows a reach for capture-after-text, the absence of the affordance is not a gap. Secondary signal: the pending Mom discovery-interview transcript (the Phase-1 Garden Guru story-probe was designed to surface exactly the 2-turn-ceiling question). Gate this build on the transcript.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The 2-turn ceiling is being read ambiguously, and the add affordance is being proposed as if it resolves the ambiguity. Two readings: (a) the conversation is COMPLETE at 2 turns — Mom got her answer and is satisfied; or (b) the conversation DEAD-ENDS at 2 turns — nothing invites a next move. These have opposite design implications. If (a), an add affordance is an interruption of a satisfying close. If (b), an add affordance might be one good next-action — but so might a dozen others, and we'd be guessing which.",
+      "user_impact": "Designing the add affordance now bakes in reading (b) without evidence. If reading (a) is true, we've added a task-manager-flavored 'now do something' prompt to a leisure surface that was working precisely because it let her leave — directly against the field-journal frame and the anti-urgency rule.",
+      "principle_invoked": "Make every surface read at half-engagement; Caution as noticing, not warning (the close of a conversation shouldn't acquire a 'next task' obligation).",
+      "recommendation": "Resolve the ceiling reading before designing the surface — this is a user-researcher question, not a UX one. The Mom transcript is the instrument. If the answer is 'I got what I needed and stopped,' the add affordance is anti-feature and the right move is to do nothing. Kick the 'what does the 2-turn ceiling mean' question to user-researcher as the gating dependency.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "IF (and only if) F2/F3 signal arrives and this is built, the photo path's two-step confirm does NOT transfer cleanly to text. Step A on the photo path ('Does that look right?') asks Mom to confirm an ID she can VERIFY by comparing the named species against the photo in front of her. On the text path there is no photo to verify against — Step A would be asking her to confirm an ID of a thing she described from memory and may not be looking at. 'Does that look right?' has no referent. She is being asked to vouch for the model's guess about her own vague words, which she is the worst-positioned person to adjudicate.",
+      "user_impact": "The two-step confirm's whole safety value on the photo path is that the human can check the machine against ground truth (the image). Remove the image and Step A degrades from a real verification into a rubber-stamp — Mom taps Yes because the chip asks her to, and a wrong ID promotes to canon. The confirmation theater looks like a safeguard while providing none.",
+      "principle_invoked": "Friction kills (a confirm step that can't actually confirm anything is friction without function); Ornament earns its place (a safeguard that doesn't safeguard is ornament wearing a safety costume).",
+      "recommendation": "If built, the text-path confirmation must change shape, not just relabel. Two viable directions: (1) Collapse to a single, honestly-hedged step that names the uncertainty in the chip itself — e.g., the prose carries the hedge ('Sounds like cardinal flower, though a description can't be certain') and the chip reads 'Add cardinal flower to the Almanac' with the understanding that text-derived entries are tentative. (2) Better: route the text path's add toward the PHOTO path — when the model reaches a confident-enough text ID and Mom shows capture intent, the right next move is 'Snap a photo and I'll confirm it' rather than promoting on words alone. This reuses the path that already works AND already has the visual-feature guardrail. Direction (2) is the recommendation: don't build a weaker parallel confirm; funnel into the stronger existing one.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "IF built, the question of WHERE/WHEN the offer appears runs straight into the Mom-no-glasses constraint and the seeded-prompt/star graveyard. A small inline chip or faint helper line at the end of the conversation is exactly the treatment that produced zero usage on the seeds and star. Routing for Mom must be carried by size+color+position, not by a discreet text affordance she can't see at half-engagement.",
+      "user_impact": "A correctly-placed-on-paper but visually-quiet add chip will be invisible to the actual primary user in her actual use mode — reproducing the seed/star null result. We'd ship a third dead affordance and conclude (wrongly) that 'Mom doesn't want to add plants,' when what we'd actually have tested is 'Mom can't see a faint chip.'",
+      "principle_invoked": "Mom reads with difficulty — routing carried by icon+size+color+position; Make every surface read at half-engagement; Defer affordances pending signal (don't re-run a known-failing affordance treatment).",
+      "recommendation": "If built: the offer appears ONLY when the model has emitted a confident fence (never speculatively on every turn), it renders at the SAME visual weight as the existing photo-path confirm chips (which are the one add-treatment with non-zero usage — reuse that exact component, don't invent a quieter one), and it sits immediately under the reply where her eye already is, not below the fold. Do NOT add a persistent 'add' button to the at-rest input surface — that's the seeded-prompt mistake (an always-present affordance with no triggering context). The offer must be contextual (only when there's a real species to add) and weighty (matching the proven chip), never ambient and faint.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "Mom-specific failure modes compound on the text path. (a) Mis-promotion: a wrong text ID auto-commits to Git canon (the species file + viewer.html re-inline), and Mom has no visible un-add / undo path in the conversation surface to reverse it. (b) Over-promotion: text is cheap to produce, so the floor for 'I described a plant' is far lower than 'I photographed a plant' — the canon could fill with tentative, text-only guesses, diluting the trustworthiness of the record. (c) The iOS background-suspend pattern (27 starts / 1 end) means Mom often leaves mid-flow; a half-completed add (Step A yes, app backgrounded before Step B) needs a defined resting state.",
+      "user_impact": "Mom is the make-or-break user on the stewardship JTBD. If the Almanac accumulates wrong or tentative entries she can see but can't fix, the app teaches her that her record is unreliable — the precise trust-erosion that Static-visuals-lie and the field-journal frame exist to prevent. A canon she distrusts is worse than no canon.",
+      "principle_invoked": "Static visuals lie on dynamic surfaces (trust erosion at the surface level); Caution as noticing, not warning (don't make adding feel risky, but DO make it reversible); Sanitize at the storage boundary.",
+      "recommendation": "Pre-conditions before any text-path add ships: (1) a visible, in-voice undo on a just-added entry ('Set aside' / 'Remove from the Almanac') reachable from where she added it — not buried in an edit screen; (2) a confidence floor in the prompt that is STRICTER for text than for photo (the model already distrusts text IDs per worker.js:437 — keep that; don't loosen it to enable the feature); (3) consider that text-derived entries enter as a distinct, clearly-marked tentative state rather than full canon, promotable to full only when a photo confirms — which again points back to F4's recommendation: text intent should funnel to the photo path, not bypass it.",
+      "effort": "high"
+    }
+  ],
+  "bottom_line": "Recommendation: NOT YET. (1) The text-path add does not exist today and enabling it is a prompt-contract change, not a button (F1). (2) There is zero behavioral signal Mom wants it — both observed adds were photo, all conversations are 2-turn, and the two prior hypothesized-pattern affordances (seeds, star) are dead (F2). (3) The 2-turn ceiling's meaning is unresolved and the affordance presumes the dead-end reading without evidence (F3). (4) Even if built, the photo path's two-step confirm cannot honestly transfer to text — Step A has no referent to verify against (F4). The cleanest forward design, if signal ever arrives, is not a parallel text-confirm but a funnel: when a confident text ID meets capture intent, offer 'snap a photo and I'll confirm it,' reusing the path that already works and already has a visual guardrail. The signal to wait for is specific and already instrumented: a real conversation showing a reach-for-capture-after-text, or the pending Mom discovery transcript.",
+  "open_questions_for_user": [
+    "Is the 2-turn ceiling 'I got what I needed and stopped' (satisfaction) or 'nothing invited a next move' (dead-end)? This flips the entire recommendation and is answerable from the Mom transcript.",
+    "Has any real conversation (Mom's or yours) shown a reach to capture a text-described plant — language like 'should I add that' / 'what was it called'? If yes, that's the green light; if no, the absence of the affordance is not a gap.",
+    "Do you actually want text-only entries in the canon at all, or is the canon meant to be photo-grounded? This determines whether text-path add should funnel to photo (F4/F6 recommendation) or stand alone.",
+    "Confirm d-14nyhnjz is Mom against her phone — the whole user model rests on this inference."
+  ],
+  "follow_up_research_suggested": [
+    "Gate this build on the pending Mom discovery-interview transcript — the Phase-1 Garden Guru story-probe ('tell me about a time you asked Fernwood a question... what did you do after it answered') was designed to surface exactly the 2-turn-ceiling meaning and any latent capture intent.",
+    "Kick to user-researcher: 'what does the 2-turn ceiling mean' as the gating dependency for this feature.",
+    "Kick to ai-advisor: if this proceeds, the prompt-contract question 'at what text-description confidence may the fence fire, and with what guardrail equivalent to the photo path's visual-feature consistency check' must be settled before UI design."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Confirmation needs a referent — a confirm step is only a safeguard if the user can check the claim against something they can see.",
+      "scope": "cross-project",
+      "rationale": "Surfaced sharply here (F4): the photo-path 'Does that look right?' works because Mom verifies the named species against the image; ported to the text path the same chip has nothing to verify against and degrades into a rubber-stamp that LOOKS like a safeguard while providing none. This generalizes well beyond Fernwood — any 'are you sure?' / 'confirm this' step that the user can't actually adjudicate is friction wearing a safety costume. Candidate for cross-project; propose after a second occurrence confirms it isn't Fernwood-specific."
+    },
+    {
+      "principle": "Don't re-run a known-failing affordance treatment to test a different hypothesis — you'll only re-learn that the treatment fails.",
+      "scope": "Fernwood",
+      "rationale": "From F5. The seeds and star both died as quiet, low-weight, ambient affordances on a half-engagement Mom surface. Shipping a third quiet add-chip and reading its zero-usage as 'Mom doesn't want to add' would be a confound — we'd actually be re-testing 'can Mom see a faint chip,' to which we already know the answer is no. When testing a new interaction hypothesis for Mom, use the ONE add-treatment with non-zero usage (the photo-path confirm chips) at its proven weight, so a null result means something."
+    }
+  ]
+}
