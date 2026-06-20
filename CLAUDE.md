@@ -2,6 +2,31 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Pickup point — last session ended 2026-06-20
+
+**Bolores restoration logging, a creeping fig add, and a Mom-interview refresh around "can Mom add a plant herself."** All committed + pushed (Tate-Tracker HEAD `89d7f8c`).
+
+### Bolores — `vehicles.json` → `bronco-1989`
+- **Dash bezel → `done`.** The rear-window/defrost switch screw-bosses had cracked; Paul rebuilt them with heat-shrink tubing as a form + JB Weld. Logged as a reusable `techniques` entry ("Screw-boss rebuild"). First `done` restoration item — added a calm `done` chip style in viewer.html.
+- **New "Rear window & tailgate operation" item → `testing`.** Motor replaced + wiring patched; window runs when the switch is pressed by hand. Open: verify the switches now that they're seated solid, and tune the tailgate angle (on a slope its weight pulls the glass out of the channel — the strikers are adjustable, needs playing with). Added a `testing` chip style.
+- **Driver door panel → `planned`** (repair-in-place, was "source a replacement"). Plan: back-reinforce cracks with heat-formed ABS, flexible-fill + color-match the front, rebuild broken clip pockets. Full guide at **`guides/bolores-door-panel-repair.md`** (materials list + the load-bearing **ABS-vs-PP material check** that decides the adhesives). Shopping-list email drafted to Paul (Gmail draft). **Paul's stated next big project.**
+- **Paint codes researched** (`vehicles.json` → `paint`, flagged `researched-pending-label`): upper = Medium Cabernet Red **2H / M6156**, lower = Light Chestnut **9T / 6190**; interior Chestnut is a TRIM code, not a paint M-code. ⚠️ **Outstanding (Paul):** photos of the driver-door cert label (EXT PNT + INT TR) to confirm → flip to `verified`. Now item #5 in "Outstanding for Paul".
+
+### Plants — creeping fig added
+- `plants.json` + re-inlined `PLANTS_DATA` (`check-data-inline.py` clean, 22 plants). *Ficus pumila*, grown **outdoor/tender** at 2,959 ft (Paul confirmed) — entry leads with the frost story (not winter-hardy in 6b) + an overwinter-via-cuttings calendar. **`photo: null`** (emoji fallback renders fine) — a real photo is a TODO (an AI task; `fetch-photos.py` + re-inline). Release note added (2026-06-20) + card rebuilt.
+
+### Mom — "can Mom add a plant herself?" (the text/conversation path)
+- **Three-expert review** (ux-expert, engineering-partner, user-researcher) at `.engineering/2026-06-20-path-text-path-add.md` + `.ux-reviews/2026-06-20-text-path-add-affordance.json`. **Convergent verdict: don't ship yet.** Photo-add is *validated*; text-add is an *assumption* (a Paul-want, no Mom-signal — the star + seeded prompts are the 0-usage precedent). Eng surprise: the promote pipeline is already photo-agnostic; one Worker system-prompt section (`worker.js` ~454–484) gates the "add" fence to photos. If ever built, the right shape is a **funnel back to the photo path** ("snap a photo and I'll add it"), triggered on *unknown-species-identified*, NOT a standing text→canon button. **This is a proposal gated on Mom's transcript — NOT a locked decision** (see `feedback_agent_proposals_not_validated`).
+- **Interview refreshed to test it:** split the add-impulse question by path (photo vs words) in both the guide (`.user-research/2026-05-28-mom-discovery-interview-guide.md` — Scenario B follow-up + paired Phase-4 Qs + research Q8 / H7) and the operational moderator prompt (`2026-05-28-mom-moderator-prompt.md`, synced).
+- **Progress-note email drafted** — `.user-research/2026-06-20-mom-progress-note.md` + Gmail draft **`r-7367943961009632534`**. Warm "what's new + interview refreshed + do it if/when you want," re-includes the full updated paste-prompt. ⚠️ **Owner: Paul** — adjust, swap `To:` to Mom, send. Held per review-before-send.
+
+### Backlog / direction
+- Reviewed the Fernwood backlog. **A comprehensive UI/UX overhaul was considered but is ON HOLD** — the right move is to let Mom's discovery transcript *commission* a targeted, evidence-led UX pass rather than a speculative overhaul (the 0-usage star + seeded prompts are the precedent). Un-gated high-value items: property-map **zone-naming pass** (Paul-input), creeping fig photo (AI), GFC seedling catalog opens **~July 1**.
+
+**Still awaiting Mom's discovery transcript** (sent 2026-05-29, refreshed 2026-06-20) — unblocks the text-add decision, the star / seeded-prompt fates, and Fernwood prioritization.
+
+---
+
 ## Pickup point — last session ended 2026-06-13
 
 **DR-Z400S electrical fault — diagnosed end-to-end with Paul wrenching at the property; located, pending splice.**
