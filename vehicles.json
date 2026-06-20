@@ -378,14 +378,9 @@
           "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. Same teardown as the door panel — do them together."
         },
         {
-          "item": "Dash bezel — rear window & defrost",
-          "status": "ready",
-          "detail": "Buttons work; the plastic screw bosses (mount points) snapped off over time. Structural plastic repair — rebuild the bosses with Plastex or epoxy and re-drill pilots. No color match, nothing to source. The quick win you can do this week."
-        },
-        {
           "item": "Driver door panel",
-          "status": "sourcing",
-          "detail": "Chestnut plastic, cracked through — likely a replace, not a repair. Hunt an '87–91 Bronco/F-series panel (color match is the hard part). Long lead, so start the hunt now. Gates the audio build — a loose panel rattles and ruins subs. Same teardown as the lock."
+          "status": "planned",
+          "detail": "Cracked through with broken clip mounts. Plan is repair-in-place, not replace: back-reinforce the cracks with heat-formed ABS sheet, flexible-fill + color-match the show face, and rebuild the broken clip pockets from ABS. Full materials list + step-by-step at guides/bolores-door-panel-repair.md. Gate: confirm the panel's plastic type (ABS vs PP) before buying adhesives — it changes the chemistry. Same teardown as the door lock (do them together). Gates the audio build — a loose panel rattles and ruins subs. Fallback if the repair doesn't hold: source an '87–91 Bronco/F-series chestnut panel (long lead)."
         },
         {
           "item": "Driver seat upholstery",
@@ -411,6 +406,17 @@
           "item": "Amp + subwoofers",
           "status": "long-term",
           "detail": "The audio build — farthest out, and deliberately last. Blocked until the door panels are solid: a rattling panel kills the point of a sub. Soundproofing first makes it sing."
+        },
+        {
+          "item": "Rear window & tailgate operation",
+          "status": "testing",
+          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job."
+        },
+        {
+          "item": "Dash bezel — rear window & defrost",
+          "status": "done",
+          "detail": "The plastic screw bosses that hold the rear-window up/down and rear-defrost switches into the trim (lower-left of the steering column) had cracked through over time, leaving the switches loose. Rebuilt the bosses using heat-shrink tubing as a sleeve/form and JB Weld to recreate threadable mounting posts. Switches now mount solidly — arguably more durable than the original brittle plastic. See technique: \"Screw-boss rebuild.\"",
+          "completed": "2026-06-20"
         }
       ],
       "vin": "1FMEU15H5KL••••••",
@@ -425,19 +431,41 @@
       },
       "paint": {
         "exterior": {
-          "code": null,
-          "name": "Cabernet Red (upper) / Chestnut (lower)",
           "type": "two-tone",
-          "location": "Driver-door Vehicle Certification Label — EXT PNT (two codes for the two-tone)",
-          "status": "name-confirmed"
+          "summary": "Medium Cabernet Red (upper) over Light Chestnut (lower)",
+          "upper": {
+            "name": "Cabernet Red / Medium Cabernet Red",
+            "fordCode": "2H",
+            "mixCode": "M6156 (6156)",
+            "finish": "metallic (per paint-supplier catalogs; some factory lists call Cabernet a solid — confirm by code)",
+            "confidence": "researched — 2H/6156 was Ford's 1987–89 Cabernet code; CONFIRM against the door EXT PNT field"
+          },
+          "lower": {
+            "name": "Light Chestnut",
+            "fordCode": "9T",
+            "mixCode": "6190",
+            "finish": "metallic (per paint supplier; one factory list calls it solid — confirm)",
+            "alt": "Dark Chestnut is the other 1989 chestnut (metallic) — verify which one is on the truck",
+            "confidence": "researched — candidate; CONFIRM against the door EXT PNT field"
+          },
+          "location": "Driver-door Vehicle Certification Label — EXT PNT carries two codes for the two-tone",
+          "status": "researched-pending-label"
         },
         "interior": {
-          "code": null,
           "name": "Chestnut",
+          "trimNote": "Interior is a TRIM code (INT TR on the door label), NOT a body-paint M-code — interiors use a separate coding system. To refinish/dye, match a chestnut interior vinyl-&-plastic dye (e.g. SEM Color Coat), not a body-paint code.",
           "location": "Driver-door Vehicle Certification Label — INT TR",
           "status": "name-confirmed"
         }
-      }
+      },
+      "techniques": [
+        {
+          "name": "Screw-boss rebuild",
+          "method": "Slip heat-shrink tubing over/around the broken screw boss to act as a sleeve and form, then fill and bond with JB Weld to recreate a threadable mounting post. Re-drill a pilot if needed.",
+          "provenAt": "Dash bezel — rear-window/defrost switches (2026-06-20)",
+          "appliesTo": "Any cracked screw boss or snapped mounting tab in interior trim"
+        }
+      ]
     },
     {
       "id": "dr200s-2017",

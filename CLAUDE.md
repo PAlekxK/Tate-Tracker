@@ -357,6 +357,7 @@ Don't start building until Paul has done a zone-naming pass. The hardest part of
 2. **Homelite trimmer:** confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker is slightly ambiguous.
 3. **Homelite blower/vac:** no model sticker found on the unit. Maintenance specs are inferred from the trimmer's engine family (HHCPS.0264AT). Acceptable for at-a-store reference.
 4. **Annual: NASA SVS Dial-a-Moon visualization ID** — when SVS publishes the 2027 visualization (usually Dec/Jan), update the `DIAL_A_MOON_VIZ` constant in viewer.html (`year`, `parent` bucket, `id`). Find the new ID at svs.gsfc.nasa.gov/gallery/moonphase. Until refreshed, the moon hero hides cleanly once the year flips.
+5. **Bolores paint codes — door-label photos:** Paul to send pics of the driver-door Vehicle Certification Label (EXT PNT + INT TR fields) to confirm the two-tone + interior codes. Researched candidates already in `vehicles.json` flagged `researched-pending-label`: upper = Medium Cabernet Red **2H / M6156**, lower = Light Chestnut **9T / 6190** (rule out Dark Chestnut); interior Chestnut is a TRIM code, not a paint M-code. Flip to `verified` once the label is read.
 
 ## Location constants
 
