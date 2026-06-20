@@ -1,25 +1,58 @@
 ---
-type: moderator-prompt
+type: email-draft
 project: fernwood
-prompt_id: 2026-05-28-mom-moderator
+draft_id: 2026-06-20-mom-progress-note
 last_updated: 2026-06-20
-changelog: |
-  2026-06-20 — Split the "finding a new plant" question by path: a Scenario B follow-up ("then what — anything you'd want to do with it?") plus two paired Phase-4 past-behavior questions (photo path vs. words path), and a new "Finding a new plant — what she'd do with it" findings header. Tests whether the add-impulse is real and which path it rides in on (photo-add is observed; words-add is not). Mirrors the guide's 2026-06-20 revision.
-  2026-05-29 — Added (1) a Phase 1 Garden Guru story-probe ("tell me about a time you asked Fernwood a question… what did you do after it answered") to surface the 2-turn-ceiling signal that previously hinged only on Scenario B; (2) Scenario D — a guided "find + react to The Fairway card" task (Paul's call to get Mom's live first-reaction to the new turf/meadow section, accepting the lighter discovery value); (3) a dedicated "Reaction to the new Fairway section" findings header so that signal isn't buried.
-target: claude.ai voice mode (running on Mom's laptop)
-participant: Mom (Paul's mother)
-artifact_under_study: Fernwood — a personal property reference app, running on Mom's phone at palekxk.github.io/Tate-Tracker/
-session_length: roughly 30 minutes
+audience: Mom
+sender: Paul
+purpose: Warm progress note + a nudge that the discovery interview has been refreshed (add-impulse split). Re-sends the updated paste-prompt so Mom runs the current version. Low-pressure — "when and if you want."
 companion_artifacts:
-  - .user-research/2026-05-28-mom-discovery-interview-guide.md (the underlying research design)
-  - .user-research/2026-05-28-mom-email-draft.md (the wrapper Mom receives)
+  - .user-research/2026-05-28-mom-discovery-interview-guide.md (Paul-facing research design; revised 2026-06-20)
+  - .user-research/2026-05-28-mom-moderator-prompt.md (the prompt inlined below; synced 2026-06-20)
+  - .user-research/2026-05-28-mom-email-draft.md (the original invite, sent 2026-05-29)
 notes_for_paul: |
-  This prompt is what Mom pastes into claude.ai voice mode to start the session. It is intentionally self-contained — it does not reference any project file, any URL, or any internal terminology. Mom sees this; treat it as a Mom-facing artifact even though Claude is the addressee. It's also what gets archived for re-use; future sessions can fork this with adjusted focus per the pencils-down handoff plan.
+  This is a follow-up to the 2026-05-29 invite, not a replacement of it. Warm/family register. It (1) shares what's new at Fernwood this round, (2) says the interview got a small refresh, (3) re-includes the FULL updated paste-prompt so she runs the current version (the old email's prompt is now stale), (4) recaps the setup briefly, (5) makes clear it's optional and on her schedule. A Gmail draft was created from this text — review, then swap To: to Mom's address and send when you're ready. The only substantive interview change since 5/29 is the "finding a new plant" split (Scenario B follow-up + two paired Phase-4 questions + a new findings header).
 ---
 
-# Moderator prompt — paste this into Claude voice mode
+# Mom-facing email — warm progress note (draft)
 
-Copy everything between the START and END markers below into claude.ai (voice mode) to start the session.
+**Subject:** A few new things at Fernwood — and the interview, whenever you like
+
+---
+
+Hi Mom,
+
+A little Fernwood update from this round, and a gentle nudge on that interview — no pressure on either.
+
+**What's new since we last talked:**
+
+- There's a new plant on the dashboard — **creeping fig**, that little climbing fig. I added it with a note that it won't make it through winter up on the mountain, so its card is mostly about enjoying it through the summer and taking cuttings before the first frost if we want to keep it going.
+- **Bolores** (the old Bronco) had a good stretch — I rebuilt the cracked mounts behind the rear-window switches so they sit solid again, got the rear window itself working, and lined up a real plan for fixing the driver door panel. Even tracked down her original factory paint colors.
+- And here's the one that connects to you: I've been thinking hard about **letting you add a plant to Fernwood yourself** — so that when you come across something and figure out what it is, you could just put it into the app. I don't want to guess at how that should work, though. Which is exactly what the interview is for.
+
+**On the interview** — I gave it a small refresh. I added a couple of questions about how you go about finding out what a plant is, and what (if anything) you'd want to do once you know. Everything else is the same as before. Because I changed a little, I'm pasting the **updated version** below, so you've got the current one in one place.
+
+There's genuinely **no rush** — do it when and if you want, whenever you have a quiet half hour. If you'd rather not, that's completely fine too.
+
+## A quick refresher on the setup
+
+**1. On your laptop**, open a browser and go to **claude.ai**. Sign in if needed.
+
+**2. Start a new conversation and turn on voice mode** (the microphone / wave-form icon near the chat box). If you can't find it, just reply and I'll send a screenshot.
+
+**3. Paste the whole block below** — from `START` to `END` — as a single message, and hit send.
+
+**4. Claude will greet you and ask about the last time you opened Fernwood.** That's your cue — you're off.
+
+**5. On your phone**, have Fernwood open at **palekxk.github.io/Tate-Tracker/** so it's ready when Claude asks you to walk through it.
+
+**6. When you're done**, Claude will produce a transcript and a short summary — just email both back to me at paul.kirschenbauer@gmail.com.
+
+Take breaks whenever. If the tech fights you, close it and text me — not worth the struggle.
+
+## The prompt to paste (updated)
+
+Everything between the lines below, including the `START` and `END` markers, as a single message.
 
 ---
 
@@ -209,3 +242,17 @@ Before starting the interview, say aloud:
 That's the kickoff. Begin the interview.
 
 `========== END ==========`
+
+---
+
+A couple of reminders, same as before:
+
+- **There's no right way to do this.** Talk like you're talking to me.
+- **The Claude-interviewer is a little stiff on purpose** — it won't help you or fill silences. That's by design.
+- **Describing your phone out loud feels odd at first.** Don't worry about it, just talk.
+- **If the tech breaks, close it and text me.** We'll sort it out.
+
+Thanks, Mom. Truly no rush on this — but whenever you do it, it's the most useful thing I could get. Everything I've been guessing at, this sharpens.
+
+Love,
+Paul
