@@ -4,6 +4,15 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-06-20 — A tender newcomer, and progress on Bolores
+
+- **Creeping fig** joins the Plants card — a small-leaved climbing fig grown here on borrowed time. It isn't winter-hardy on the mountain, so its card leads with the frost story: enjoy the summer flush, then take cuttings or bring a pot indoors before the October frost if you want to keep it going. (No photo yet — it shows its leaf icon for now.)
+- The dash **bezel** that holds *Bolores'* rear-window switches is fixed and marked done — the cracked screw mounts were rebuilt so the switches sit solid again.
+- A new line tracks the **rear window** itself: the motor's replaced and the wiring patched, so it runs by hand — what's left is testing the switches in place and tuning the tailgate so the glass doesn't bind on a slope.
+- The **driver door panel** plan firmed up from "find a replacement" to "repair it" — back it with shaped ABS, fill and color-match the front, rebuild the broken clips — with a full materials guide ready to work from. We also turned up her factory colors: Cabernet Red over Light Chestnut, codes noted, pending a look at the door label.
+
+---
+
 ## 2026-06-12 — The cart's a gas engine, and two bikes woke up
 
 - The **golf cart** was on the card as electric — it isn't. The G22A is the *gas* model, and its 11.4 hp engine (rated 8.5 kW) had been mistaken for an electric motor. Corrected to a 357cc gas cart, with the spring service logged: oil, new plug, a piggyback fix for the stripped drain plug (no more leak), and a fresh air filter + airbox cover. We opened the intake with a few vent holes to clear a sputter — runs clean now.
