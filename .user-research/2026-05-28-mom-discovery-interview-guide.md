@@ -2,7 +2,7 @@
 type: interview-guide
 project: fernwood
 guide_id: 2026-05-28-mom-discovery
-last_updated: 2026-05-28
+last_updated: 2026-06-20
 participant: Mom (likely device d-14nyhnjz, 27 sessions over 6 days through 2026-05-27)
 moderator: Claude voice mode (claude.ai), running on Mom's laptop
 artifact_under_study: Fernwood (palekxk.github.io/Tate-Tracker/), used on Mom's phone
@@ -125,6 +125,7 @@ Only after discovery and observation. Scenarios test her ability to do specific 
 **Scenario B — encounter the unknown:**
 - *"Imagine you just walked past something on the property — a plant or a bird — and you don't know what it is. Show me what you'd do."*
 - Listen for: does she reach for Garden Guru? Does she reach for Claude (her existing workflow per Q4 of the eval rubric)? Does she look for a photo affordance? What does she expect to happen next?
+- **Split follow-up (only if she reaches a likely-identification) — does the add-impulse appear, and on which path?** *"Say it tells you what it is. Then what — is there anything you'd want to do with that, or are you just glad to know?"* Stay quiet and let her answer; do NOT suggest "add it" or name any affordance. If she narrates a "show it a photo" reach, that's the **photo path** (already validated). If she narrates "ask it in words," that's the **text path** (the open question). The thing we're listening for is whether *"and put it in my app/the record"* is a move she reaches for **unprompted** — on either path.
 
 **Scenario C — what's coming up:**
 - *"If you wanted to know what to look for at Fernwood this week — what's blooming, what birds are around — how would you find out?"*
@@ -140,6 +141,12 @@ Last, not first — because forward-look questions are most reliable when they'r
 - *"Think about the last time you wanted something from Fernwood and didn't find it. What were you looking for?"*
 - *"Is there anything you've found yourself wishing the app did, that it doesn't?"*
 - *"Is there anything Paul has told you about that you haven't tried, or that you tried once and didn't come back to?"*
+
+**Past-behavior probe — the add-impulse, split by path (only if it didn't already surface in Scenario B):**
+These two are deliberately *paired and separate*. Photo-add is already something Mom has done (it's in the telemetry); words-add has never been observed. Asking them apart keeps us from hearing a "sure" to one and crediting it to the other. Both are past-behavior, both non-leading — ask, then wait.
+- *(photo path — the known one)* *"Tell me about a time you took a photo of something on the property to figure out what it was. Once you knew what it was, what did you do next?"*
+- *(text path — the open one)* *"Now tell me about a time you just asked — in words, no picture — about a plant, and it turned out to be something not already in your app. Did you want to do anything with it, or were you happy just knowing the answer?"*
+- Listen for whether *"put it in the app / make it part of the record"* shows up on its own, and crucially **which path it rides in on.** A "I just wanted to know" on the text path is as useful a finding as a "yes" — it would tell us the words-add affordance isn't wanted, and save building it.
 
 **Closing question (load-bearing — this is the meta-feedback validation gate from PHASE_E_MVP):**
 - *"When you've been using Fernwood and something didn't feel right — the app itself, not the property — what have you done with that? Mentioned it to Paul? Let it go? Something else?"*
@@ -160,6 +167,7 @@ These are the questions Paul will read the transcript looking for answers to. Th
 5. **Where is the friction?** Walk-through and scenarios surface the moments she fumbles. Each one is a design opportunity.
 6. **Does she experience the app as field journal, or as something else?** The dual-frame identity is load-bearing for the project. Hearing her in her own voice tells us whether the tonal work is landing.
 7. **Has she ever wanted to send Paul meta-feedback through the app?** The validation gate for the 🚩 affordance decision. A "no, I just text him" answer is itself a useful finding.
+8. **Does the add-impulse exist for her — and on which path?** The 2026-06-20 three-expert review (`.engineering/2026-06-20-path-text-path-add.md`, `.ux-reviews/2026-06-20-text-path-add-affordance.json`) found photo-add `validated` but text-add an `assumption` (a Paul-want, no Mom-signal). Scenario B's split follow-up and the Phase-4 paired questions test whether "add it to the record" is a move she reaches for unprompted, and whether it rides in on a *photo* (known) or *words* (open). A clean "I just wanted to know" on the words path falsifies the text-add hypothesis and saves a build.
 
 ## Things the moderator should explicitly NOT do
 
@@ -182,6 +190,7 @@ The moderator should not enter the session with hypotheses to confirm — Mom-Te
 - **H4:** Photo-ID is the killer Garden Guru use case. Distinguishing signal: when scenario B (encounter the unknown) lands, does she reach for Garden Guru, or for her existing Claude workflow?
 - **H5:** Forward-looking ("what should I look for this week") is an unserved job (Job 7). Distinguishing signal: she narrates a moment of "I wish I'd known X was about to bloom" or similar.
 - **H6:** Year-over-year memory is a Mom-want, not just a Paul-want (Job 8). Distinguishing signal: she narrates wondering when something happened last year.
+- **H7:** The add-impulse is photo-anchored, not conversational. Distinguishing signal: on the Phase-4 paired questions, "add it to the record" surfaces on the *photo* story but not the *words* story — or doesn't surface at all. A words-path "yes" (unprompted) would be the first signal the text-add affordance is wanted; a words-path "I just wanted to know" falsifies it.
 
 ## Session protocol — operational
 
@@ -203,6 +212,7 @@ If we don't get those, the issue is most likely the moderator missed a probe; it
 
 ## Evidence log
 
+- `2026-06-20: [revised] — Split the add-impulse question into paired photo-path / text-path past-behavior probes (Scenario B follow-up + Phase 4), added research Q8 + H7. Driven by the three-expert review of a proposed text-path plant-add affordance (.engineering/2026-06-20-path-text-path-add.md, .ux-reviews/2026-06-20-text-path-add-affordance.json): photo-add validated, text-add an assumption. The interview is the gate before building.`
 - `2026-05-28: [planned] — Interview guide drafted by user-researcher agent. To be operationalized via moderator prompt and Mom-facing email.`
 - `2026-05-27: [validated] — .audit/2026-05-26-telemetry-rollup.md — first real-usage telemetry that grounds this interview. Hypotheses H1–H6 derive from this rollup.`
 - `2026-05-27: [validated] — jtbd-2026-05-27.md — six jobs validated by telemetry, four unserved jobs inferred. This interview tests the inferred jobs.`
