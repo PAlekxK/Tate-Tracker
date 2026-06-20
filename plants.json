@@ -2137,6 +2137,106 @@
       "zoneId": null
     },
     {
+      "id": "creeping-fig",
+      "name": "Creeping Fig",
+      "scientificName": "Ficus pumila",
+      "emoji": "🌿",
+      "guide": "Creeping fig is a tender evergreen climbing fig — small, leathery heart-shaped leaves on wiry stems that cling to walls and supports by aerial rootlets. In its warm native range it's an aggressive evergreen climber, but at 2,959 ft it lives here on borrowed time: it is not winter-hardy on this mountain and is grown as a tender seasonal. Give it a sheltered, part-shade spot and steady moisture through the warm months and it will flush happily — then expect the first hard frost to cut it down. To carry it over, take cuttings (they root easily) or keep it in a pot you can lift indoors before frost.",
+      "currentSeasonNote": "June: in full warm-season growth. This is the good stretch — keep it evenly watered and let it run. Remember it's tender here: plan now to take cuttings in late summer, or move a potted plant indoors before the October frost, if you want to keep it going past this year.",
+      "soilNotes": "Wants moist, humus-rich, well-drained soil and does NOT like to dry out — the opposite of the property's drought-tolerant natives like the butterfly weed. The native Hayesville/Cecil/Pacolet acidic loams suit it fine as long as moisture stays steady; mulch to hold water. In a container, use a rich potting mix that still drains freely.",
+      "aspectPreference": "Part shade to filtered sun. Protect it from harsh afternoon sun and drying wind — a sheltered east-facing wall or a spot under high shade gives it the best summer. Deep shade slows it; blazing exposure scorches the thin leaves.",
+      "frostSensitivity": "TENDER — this is the whole story for creeping fig here. Reliably hardy only to about Zone 8 (foliage damaged in the upper 20s°F, killed outright by a hard freeze). At 2,959 ft in Zone 6b it will NOT survive winter outdoors. Don't set it out until after the May 24 (90%-safe) frost date, and expect the first autumn frost (~Oct 17, often earlier at elevation) to end it. Treat it as a tender seasonal: accept it as an annual, OR take late-summer cuttings, OR grow it in a pot you bring indoors before frost.",
+      "care": {
+        "prune": {
+          "months": [
+            4,
+            5,
+            6
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Pinch and trim during active warm-season growth to encourage branching and keep it tidy on its support. It's vigorous when warm, so light, frequent tip-pinching beats one hard cut. No winter pruning — it won't be alive outdoors here in the cold months."
+        },
+        "propagate": {
+          "subcategories": [
+            {
+              "id": "cuttings",
+              "label": "Stem cuttings (overwintering)",
+              "months": [
+                6,
+                7
+              ],
+              "peakWindow": "Aug–early Sep, well before first frost",
+              "narrow": true,
+              "description": "This is the key move for keeping creeping fig year to year at this elevation. Take 3–5 inch stem cuttings in late summer, before frost. They root very easily — in water or a moist, free-draining mix. Pot up the rooted cuttings and overwinter them on a bright indoor windowsill, then set out again after the May frost date."
+            }
+          ]
+        },
+        "fertilize": {
+          "months": [
+            4,
+            5,
+            6
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Light feeding during the active warm season supports the summer flush — a balanced liquid feed every few weeks is plenty. Ease off by late summer so you're not pushing soft growth right as you take cuttings. No feeding outdoors in the cold months."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Keep evenly moist all through the warm season — creeping fig does not tolerate drying out, and the thin leaves wilt fast in heat. Water more in hot, dry spells and mulch around the roots to hold moisture. Container plants dry out quickest — check them often."
+        },
+        "repot": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Only relevant if you're growing it in a pot to lift in and out. Refresh or step up the pot in early spring as the overwintered plant comes back into growth, before setting it outside after the frost date."
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "frost-watch",
+              "label": "Frost watch",
+              "months": [
+                8,
+                9
+              ],
+              "peakWindow": "late Sep–mid Oct — the first frost ends it",
+              "narrow": false,
+              "description": "The headline risk here isn't a pest, it's the cold. Watch the forecast from late September: the first hard frost will blacken and kill outdoor foliage. Make sure cuttings are rooted, or the pot is moved indoors, BEFORE that night — not after."
+            },
+            {
+              "id": "indoor-pests",
+              "label": "Indoor pests (if overwintered)",
+              "months": [
+                10,
+                11,
+                0,
+                1
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "If you carry it over indoors, creeping fig is prone to the usual dry-air houseplant pests — scale, mealybug, and especially spider mites in heated rooms. Keep humidity up, check leaf undersides, and treat early with insecticidal soap."
+            }
+          ]
+        }
+      },
+      "photo": null,
+      "attribution": null,
+      "zoneId": null
+    },
+    {
       "id": "fairway-turf",
       "name": "Fairway Turf",
       "scientificName": "Festuca arundinacea — turf-type tall fescue",
