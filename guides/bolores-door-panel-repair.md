@@ -12,6 +12,8 @@ The goal: structurally sound panel that mounts solidly (no rattle — this is wh
 
 **Everything downstream depends on what the panel is actually made of.** The chemicals that bond ABS will *not* bond polypropylene, and vice-versa. Don't buy the adhesive system until you've confirmed the substrate.
 
+> **What the research says (2026-06-20):** these '87–91 Bronco/F-series panels are a one-piece molded **rigid thermoplastic**, and they're almost certainly **ABS** — every reproduction panel (DashSkin, LMC, Classic Industries) is vacuum-formed ABS, and the failure you've got (rigid plastic cracked through + snapped clip tabs) is the classic ABS-panel failure mode. Nobody has confirmed a recycling stamp on an *original* panel, though, so still run the test below before you bond — if acetone does nothing, it's PP and the adhesive column changes. *(Note: the mesh-weld / hot-stapler reinforcement in Step 2 works on ABS **or** PP — it's mechanical, not adhesive — so that part is material-agnostic.)*
+
 **Find the recycling stamp** — a small triangle with letters, molded into the **back** of the panel:
 
 | Stamp | Material | Bonds easily? |
@@ -33,14 +35,17 @@ The goal: structurally sound panel that mounts solidly (no rattle — this is wh
 ## STEP 1 — Materials & shopping list
 
 ### Buy now (needed regardless of substrate)
-- [ ] **ABS sheet stock** — 1/16" (0.06") for contoured backing patches, plus a little 1/8" for rebuilding clip mounts. Black is fine (it's all hidden). *(Even if the panel turns out to be PP, ABS sheet is still the backing material — you just change the adhesive.)*
+- [ ] **ABS sheet stock** — 1/16" (0.06") for contoured backing patches, plus a little 1/8" for rebuilding clip mounts. Black is fine (it's all hidden). [Cut-to-size at TAP Plastics](https://www.tapplastics.com/product/plastics/cut_to_size_plastic/abs_sheets/524) (small pieces, both thicknesses — verified in stock; don't buy a 4×8 sheet). *(Even if the panel turns out to be PP, ABS sheet is still the backing material — you just change the adhesive.)*
 - [ ] **Heat gun** — to form the ABS backing to the panel's contour. *(You have one.)*
+- [ ] **Plastic welder / hot-stapler** *(for the mesh-weld method + rebuilding clip tabs — see Step 2)* — [ATOLS hot-stapler kit](https://www.amazon.com/ATOLS-Plastic-Welding-Machine-Stapler/dp/B091T368MK) (~$20, verified) or [Harbor Freight 70770](https://www.harborfreight.com/hot-stapler-kit-70770.html) (~$30, verified). A plain soldering iron also works for melting mesh in.
+- [ ] **Stainless reinforcing mesh** *(rebar for plastic — best for clip tabs + any crack reaching a panel edge)* — [Polyvance 2045-10](https://www.polyvance.com/Reinforcing-Mesh-1/2045-10/) (industry standard) or a [cheaper generic 5-pack](https://www.amazon.com/Welding-Plastic-Reinforcing-Stainless-Thermoplastic/dp/B08XK52T29). Skip if you go solid-sheet-backing only.
 - [ ] **Plastic trim / door-panel removal tools** — the forked nylon pry tools, so you pull the panel without snapping *more* clips.
-- [ ] **Door-panel retainer clip kit** — Bronco / F-series ('87–91) push-in panel clips. Cheap; replace them all while you're in there.
+- [ ] **Door-panel retainer clip kit** — correct Ford part #s (N801925-S / N802900-S): [Icyhaws 50-pc](https://www.amazon.com/Icyhaws-Retainer-Compatible-N801925-S-N802900-S/dp/B0FC2SVY5D) (~$8, verified). Replace them all while you're in there.
+- [ ] **(Optional — easiest snapped-post fix) Mounting-post repair kit** — [Blue Truck Parts `DPPRK87`](https://bluetruckparts.com/products/dpprk87) (~$34), brackets engineered for the '87–91 Bronco/F-series panel that bond on to recreate broken mounting posts + color-matched screw-hole caps. *(Found via research — stock not independently verified.)*
 - [ ] **Degreaser** — isopropyl alcohol (90%+) and/or acetone, plus clean rags. *Non-negotiable: nothing bonds to years of skin oil + Armor-All.*
 - [ ] **Sandpaper** — 80/120/220 grit (scuff for adhesion + knock down repairs) and 320/400 for finish.
 - [ ] **Nitrile gloves, mixing sticks, plastic spreaders, painter's tape, clamps / spring clamps.**
-- [ ] **Flexible filler for the show face** — automotive flexible plastic repair (e.g., 3M Flexible Parts Repair, or SEM Bumper/Flexible filler). *Not* rigid Bondo on a flexing panel.
+- [ ] **Flexible filler for the show face** — [3M EZ Sand 35887 / 05887](https://www.autobodytoolmart.com/product/3m-ez-sand-multi-purpose-repair-material-35887/automotive-adhesive) (verified in stock). *Not* rigid Bondo on a flexing panel. ⚠️ The older 3M **05895** is sold out everywhere now — 35887/05887 is the same flexible-filler family and is the in-stock substitute.
 
 ### Buy AFTER the Step 0 material check (substrate-specific bonding)
 
@@ -61,7 +66,11 @@ The goal: structurally sound panel that mounts solidly (no rattle — this is wh
 2. **Fix the lock wiring while it's off.** (See the power-lock restoration item — meter switch → actuator, suspect the jamb-boot wiring.) Easiest with the panel out of the way.
 3. **Degrease everything.** Both faces, every bond area. Isopropyl/acetone until the rag comes away clean. Let it flash off.
 4. **Scuff the bond areas** with 80–120 grit so the adhesive has tooth. Wipe again.
-5. **Back-reinforce the cracks.** Cut ABS sheet to span each crack with overlap. Warm it with the heat gun and press it to the panel's contour — *keep the gun moving* so it conforms without bubbling/scorching; hold until cool or it springs back. Bond per the Step-1 table for your substrate.
+5. **Stop the cracks, then reinforce from the back — two methods, pick per spot.** First, **drill a tiny hole at each crack's *end*** so it can't keep splitting, and tape/align the crack from the *front*. Then reinforce the back one of two ways:
+   - **(a) Mesh-reinforced weld** — *strongest*; use it on stressed spots, clip tabs, and any crack that runs to a panel edge. Lightly V-groove the crack, run a bead of melted ABS (rod or acetone slurry) to fuse it, lay the stainless mesh over it and **iron/weld it down until it sinks flush into the softened plastic**, then skim a thin layer of melted ABS over the mesh to bury it. The mesh is rebar — it only works *embedded in molten plastic*, **never dry-trapped under a glued sheet**.
+   - **(b) Solid ABS backing patch** — *simpler*; great for cracks in the flat field. Cut ABS sheet to span the crack with overlap, heat-form it to the contour (*keep the gun moving* so it doesn't bubble; hold till cool or it springs back), and bond it per your Step-0/1 substrate (acetone-weld or ABS cement if ABS; promoter + flexible adhesive if PP). Here the *sheet itself* is the reinforcement — no mesh needed.
+
+   You can **stack both** on a high-stress spot (mesh-weld the crack, then patch a sheet over the zone). But don't rely on dry mesh sandwiched under a glued sheet — pick mesh-*embedded* **or** solid-sheet as the spanning method. Match weld **rod to the plastic** (ABS rod on ABS), and **ventilate** — melting ABS smells.
 6. **Rebuild the clip mounts** (Step 4).
 7. **Fill the front face** with flexible filler, sand 220 → 320 → 400, then **color-match** the chestnut.
 8. **Reinstall** with the new clip kit. Confirm it sits tight with no rattle — that's the bar that unblocks soundproofing + subs.
@@ -75,7 +84,8 @@ The goal: structurally sound panel that mounts solidly (no rattle — this is wh
 These are **not** the dash bezel's screw bosses — different geometry, different load — so we're not reusing that exact heat-shrink trick. A panel clip pocket is a flat slotted/"doghouse" mount that a push-in clip snaps *through*, and it sees a pull-out load when you tug the panel off. Approaches to try (decide hands-on once you see what's left of each pocket):
 
 - **If only the clip is broken, not the panel pocket** → just use the new clip kit. Done.
-- **If the pocket/tab is torn off the panel** → fabricate a replacement mount from the 1/8" ABS: cut a backing plate with a correctly-sized slot/hole for the clip, then bond it to the panel (substrate-appropriate adhesive from the Step-1 table) so the new plate carries the pull-out load across a wide glued area, not a single weak point. A fender washer behind the slot can spread the load further.
+- **Easiest for snapped posts** → the **Blue Truck Parts `DPPRK87`** mounting-post kit (Step 1) — brackets bond on to recreate the posts, purpose-built for this exact panel.
+- **If the pocket/tab is torn off the panel** → two strong DIY options: **(i) mesh-weld a new tab** — shape it from stainless mesh and melt it into the panel (the strongest fix, and mesh can form a tab a flat sheet can't); or **(ii) fabricate a mount from 1/8" ABS** — cut a backing plate with a correctly-sized slot/hole for the clip, then bond it to the panel (substrate-appropriate adhesive) so the plate carries the pull-out load across a wide glued area, not a single weak point. A fender washer behind the slot spreads the load further.
 - **If a whole section of edge is gone** → back it with a heat-formed ABS strip first (Step 2.5), then build the new pocket onto *that*, so you're mounting to fresh material.
 
 The principle: spread the load over a **large bonded area** of fresh ABS rather than trusting the original cracked plastic at a point.
