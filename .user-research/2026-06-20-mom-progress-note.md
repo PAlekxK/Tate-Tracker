@@ -2,7 +2,7 @@
 type: email-draft
 project: fernwood
 draft_id: 2026-06-20-mom-progress-note
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 audience: Mom
 sender: Paul
 purpose: Warm progress note + a nudge that the discovery interview has been refreshed (add-impulse split). Re-sends the updated paste-prompt so Mom runs the current version. Low-pressure — "when and if you want."
@@ -11,7 +11,7 @@ companion_artifacts:
   - .user-research/2026-05-28-mom-moderator-prompt.md (the prompt inlined below; synced 2026-06-20)
   - .user-research/2026-05-28-mom-email-draft.md (the original invite, sent 2026-05-29)
 notes_for_paul: |
-  This is a follow-up to the 2026-05-29 invite, not a replacement of it. Warm/family register. It (1) shares what's new at Fernwood this round, (2) says the interview got a small refresh, (3) re-includes the FULL updated paste-prompt so she runs the current version (the old email's prompt is now stale), (4) recaps the setup briefly, (5) makes clear it's optional and on her schedule. A Gmail draft was created from this text — review, then swap To: to Mom's address and send when you're ready. The only substantive interview change since 5/29 is the "finding a new plant" split (Scenario B follow-up + two paired Phase-4 questions + a new findings header).
+  This is a follow-up to the 2026-05-29 invite, not a replacement of it. Warm/family register. It (1) shares what's new at Fernwood this round, (2) says the interview got a small refresh, (3) re-includes the FULL updated paste-prompt so she runs the current version (the old email's prompt is now stale), (4) recaps the setup briefly, (5) makes clear it's optional and on her schedule. A Gmail draft was created from this text — review, then swap To: to Mom's address and send when you're ready. The only substantive interview change since 5/29 is the "finding a new plant" split (Scenario B follow-up + two paired Phase-4 questions + a new findings header). 2026-06-21: creeping-fig bullet rewritten — Mom observed it overwintered outdoors, so the dashboard/canon were softened (commit 5a985be) and the bullet now credits her observation. NOTE: the existing Gmail draft (r-7367943961009632534) is now STALE — regenerate it once the pending "direct Claude access" interview question is decided, so the inlined prompt + Gmail draft are regenerated together (avoids a double pass).
 ---
 
 # Mom-facing email — warm progress note (draft)
@@ -26,7 +26,7 @@ A little Fernwood update from this round, and a gentle nudge on that interview �
 
 **What's new since we last talked:**
 
-- There's a new plant on the dashboard — **creeping fig**, that little climbing fig. I added it with a note that it won't make it through winter up on the mountain, so its card is mostly about enjoying it through the summer and taking cuttings before the first frost if we want to keep it going.
+- You were right about the **creeping fig** — it came through the winter outdoors after all. I'd first added its card with a note that it wouldn't survive the cold up on the mountain, but you noticed it leafing back out this spring, so I've softened all of that. Its card now treats it as a keeper and shows how to help it through next winter — a deep mulch over the roots, a cover on the coldest nights — instead of bracing to lose it. I even noted right in the app that ours has proven it survives here, straight from what you saw.
 - **Bolores** (the old Bronco) had a good stretch — I rebuilt the cracked mounts behind the rear-window switches so they sit solid again, got the rear window itself working, and lined up a real plan for fixing the driver door panel. Even tracked down her original factory paint colors.
 - And here's the one that connects to you: I've been thinking hard about **letting you add a plant to Fernwood yourself** — so that when you come across something and figure out what it is, you could just put it into the app. I don't want to guess at how that should work, though. Which is exactly what the interview is for.
 
