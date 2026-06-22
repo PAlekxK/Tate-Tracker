@@ -2,6 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Pickup point — last session ended 2026-06-21
+
+**Creeping fig reframed from "tender seasonal that dies" → overwintering keeper (Mom's field observation), plus a Mom-interview probe-add about direct Claude access.** All committed + pushed (Tate-Tracker HEAD `e22ac0a`).
+
+### Creeping fig — softened + winter tips + observation baked in (`5a985be`)
+- Mom observed (spring 2026) the property's creeping fig came through the previous winter **outdoors** and leafed back out. Per the observations-as-knowledge-layer principle (and "Paul's/Mom's direct phenology outranks book hardiness"), reframed the whole `plants.json` entry: guide / currentSeasonNote / frostSensitivity now lead with "it wintered over here," **winter-protection guidance added** (deep mulch 4–6 in over roots+crown before hard cold, frost cloth/sheet/cardboard on the coldest nights, sheltered out-of-wind siting). Cuttings demoted from "the only way to keep it" → optional insurance. The `inspect` "frost-watch" subcategory renamed **"Winter protection"** (months → Oct/Nov), action is protect-and-help-through not watch-it-die. `prune` no longer says "won't be alive outdoors." `indoor-pests` scoped to the optional cuttings backup only.
+- `PLANTS_DATA` re-inlined via `wire-photos.py --category plants`; `check-data-inline.py` clean. Release note added (2026-06-21, newest-first) + the 2026-06-20 note's "isn't winter-hardy" claim softened; `build-release-notes.py` re-run.
+- **New durable rule (memory `feedback_fernwood_outdoor_by_default`):** Fernwood plants are **outdoor by default** — no indoor plants on the property; only frame a plant around indoor life if it specifically is one. Indoor mentions OK only as an explicit optional backup (cuttings on a windowsill). Scanned all 22 plants — nothing wrongly defaults to indoor.
+
+### Mom — progress-note email corrected + "Garden Guru vs. claude.ai" interview probes added
+- **Email (`c70d648`):** the progress-note's creeping-fig bullet now credits Mom's observation ("You were right…"). `.user-research/2026-06-20-mom-progress-note.md`.
+- **Interview probe-add (`e22ac0a`)** — Paul raised: should Mom get direct/"unlimited" Claude *via Fernwood*, and what would that enable vs. claude.ai (website) vs. his terminal (Claude Code)? Reframe given to Paul: she **already has** unlimited Claude (claude.ai); the real variable is *where the property-context lives* (capped Garden Guru she leaves for claude.ai vs. a fuller in-Fernwood assistant) and that website-Claude can converse but **can't change the app** (that's terminal-only; Phase F add-species is the one narrow write-path). user-researcher drafted, main session mirrored + exact-match-verified into all three files (guide + moderator prompt + email inlined block): Phase-1 follow-on ("was that the end of it / where did you go?"), a **GATED** Phase-4 block (laptop-story + same-thing-or-two-things perception probe) that only runs if she narrates asking Fernwood questions at all (per telemetry: 5-turn cap has NEVER fired — find out if Guru is even in her repertoire first), a NOT-do "never reveal Guru and laptop-Claude are the same thing" rule, and a new "Garden Guru vs. claude.ai — the boundary she lives" findings header. Email "On the interview" line kept deliberately vague to avoid priming her mental model.
+- **⚠️ Owner: Paul (send).** Fresh Gmail draft **`r-6058242175176791653`** (addressed to Paul — swap `To:` → Mom, review, send). Prior draft `r-7367943961009632534` was **deleted by Paul unsent** — nothing to clean up. Held per review-before-send.
+
+**Still awaiting Mom's discovery transcript** (sent 2026-05-29, refreshed 2026-06-20 + 2026-06-21) — now also unblocks the "direct Claude access / where the property-context lives" question; the gated probe finds out first whether Garden Guru is even in her repertoire.
+
 ## Pickup point — last session ended 2026-06-20
 
 **Bolores restoration logging, a creeping fig add, and a Mom-interview refresh around "can Mom add a plant herself."** All committed + pushed (Tate-Tracker HEAD `89d7f8c`).
