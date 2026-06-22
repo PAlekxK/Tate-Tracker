@@ -2,7 +2,7 @@
 type: interview-guide
 project: fernwood
 guide_id: 2026-05-28-mom-discovery
-last_updated: 2026-06-20
+last_updated: 2026-06-21
 participant: Mom (likely device d-14nyhnjz, 27 sessions over 6 days through 2026-05-27)
 moderator: Claude voice mode (claude.ai), running on Mom's laptop
 artifact_under_study: Fernwood (palekxk.github.io/Tate-Tracker/), used on Mom's phone
@@ -64,6 +64,11 @@ The most important phase. Surface how she actually uses Fernwood today, before t
 - *"Was that a typical time, or was it different from how you usually open it?"*
 - *"Walk me through a different time you opened it recently — maybe yesterday or this morning."*
 
+**Garden Guru story-probe (the gate for the boundary thread — see Phase 4):**
+- *"Tell me about a time you asked Fernwood a question — what did you do after it answered?"* (Don't name any feature — follow her story. Dwell on "what did you do after it answered.")
+- *(follow-on, only if she narrates having asked Fernwood something)* *"Was that the end of it, or did you want to keep going? If you kept going — where did you go?"*
+- **[inferred] Gating logic:** This probe establishes whether asking-Fernwood-a-question is even in her repertoire. Telemetry says every real Garden Guru conversation is 2 turns and the 5-turn cap has never fired — so if she doesn't narrate *any* in-app asking here, the Phase-4 boundary questions ("Guru unlimited vs. capped specialist") are polishing an unused feature, and the real finding becomes *why she reaches for claude.ai instead.* Don't force the Phase-4 boundary probes if asking-inside-Fernwood isn't something she does; let what she reaches for instead be the headline. **Where she said she "went" after the answer is the seed of the boundary thread** — if she names going somewhere else (her laptop, "the regular Claude," a search), that is the boundary surfacing on its own.
+
 **Then widen to pattern:**
 - *"If you think about the last week or two, when do you find yourself reaching for Fernwood?"*
 - *"Are there times of day when you tend to open it?"*
@@ -76,6 +81,7 @@ The most important phase. Surface how she actually uses Fernwood today, before t
 - Specific cards she names unprompted (Plants, Weather, Wildlife, Celestial, Property, Almanac, Worth Considering, Sources).
 - Whether she narrates by card or by question ("I opened it because I wondered…") — tells us whether the IA is by-layout or by-question in her head.
 - Whether she names anything about reading, glasses, text size, contrast — surfacing the accessibility constraint via her own framing.
+- **Whether asking-Fernwood-a-question is in her repertoire at all** (the gate for the boundary thread), and **where she said she went after the answer** — if she names leaving for something else (laptop, "regular Claude," a search), that's the boundary between her two tools surfacing on its own.
 
 **Don'ts:**
 - Don't ask "do you use Garden Guru?" — surfaces a feature she may not remember by name. Wait for her to name it.
@@ -148,6 +154,13 @@ These two are deliberately *paired and separate*. Photo-add is already something
 - *(text path — the open one)* *"Now tell me about a time you just asked — in words, no picture — about a plant, and it turned out to be something not already in your app. Did you want to do anything with it, or were you happy just knowing the answer?"*
 - Listen for whether *"put it in the app / make it part of the record"* shows up on its own, and crucially **which path it rides in on.** A "I just wanted to know" on the text path is as useful a finding as a "yes" — it would tell us the words-add affordance isn't wanted, and save building it.
 
+**The boundary she already lives — Garden Guru vs. claude.ai (GATED — only run if the Phase-1 Garden Guru story-probe showed she asks Fernwood questions at all):**
+The research goal here is to surface the line Mom already lives between her *two existing tools* — the in-Fernwood question feature, and the claude.ai she already uses on her laptop for photo plant-ID — through behavior she's lived, never through a hypothetical or a pitch. **[inferred]** The unique thing Fernwood adds is curated property context plus field-journal tone, *not* a more-capable model — she already has unlimited Claude on her laptop. The decision this informs (should the in-Fernwood feature become a fuller Claude, or stay a capped specialist she leaves for claude.ai?) must NOT be named to her. Ask, then wait.
+- *(other-tool probe — past behavior)* *"Tell me about the last time you used Claude on your laptop on its own — not inside Fernwood. What were you asking about?"* … then, only after she's told that story: *"Could you have asked Fernwood that, do you think? What made you use the laptop one instead?"*
+- *(perception probe)* *"When you ask a question inside Fernwood, and when you use Claude on your laptop — do those feel like the same kind of thing to you, or two different things?"*
+- **CRITICAL — do not reveal that Garden Guru *is* Claude.** If she experiences the two as unrelated, *that is the headline finding* — the moderator must let her mental model emerge and never teach her "they're both Claude," which would lead her. Listen for: does she frame them as one tool with two doorways, or two separate tools? When does she choose the laptop over Fernwood, and why — in her own words (capability? habit? not knowing she *could* ask Fernwood? trusting the laptop more)?
+- **Findings header (mirrored into the moderator prompt's output schema):** *"Garden Guru vs. claude.ai — the boundary she lives"* — captures whether she asks Fernwood questions at all, where she goes when she wants more, why claude.ai wins the moments it wins, and whether she perceives the two as one tool or two. A "she doesn't really ask Fernwood, she just looks at it" answer is a complete and useful finding for this header.
+
 **Closing question (load-bearing — this is the meta-feedback validation gate from PHASE_E_MVP):**
 - *"When you've been using Fernwood and something didn't feel right — the app itself, not the property — what have you done with that? Mentioned it to Paul? Let it go? Something else?"*
 - Phrased to capture the behavior wherever it happens (in-app, text, in-person) without leading her toward a "yes, I'd type it into the app" answer. The transcript will distinguish in-app vs out-of-band on its own.
@@ -168,6 +181,7 @@ These are the questions Paul will read the transcript looking for answers to. Th
 6. **Does she experience the app as field journal, or as something else?** The dual-frame identity is load-bearing for the project. Hearing her in her own voice tells us whether the tonal work is landing.
 7. **Has she ever wanted to send Paul meta-feedback through the app?** The validation gate for the 🚩 affordance decision. A "no, I just text him" answer is itself a useful finding.
 8. **Does the add-impulse exist for her — and on which path?** The 2026-06-20 three-expert review (`.engineering/2026-06-20-path-text-path-add.md`, `.ux-reviews/2026-06-20-text-path-add-affordance.json`) found photo-add `validated` but text-add an `assumption` (a Paul-want, no Mom-signal). Scenario B's split follow-up and the Phase-4 paired questions test whether "add it to the record" is a move she reaches for unprompted, and whether it rides in on a *photo* (known) or *words* (open). A clean "I just wanted to know" on the words path falsifies the text-add hypothesis and saves a build.
+9. **Where's the boundary between Garden Guru and claude.ai for her — and does she even know it's a boundary?** **[assumption]** The decision behind this: should the in-Fernwood question feature become a fuller/"unlimited" Claude, or stay a capped specialist she leaves for claude.ai when she needs more? But the real, prior questions the transcript should answer are: (a) **does she ask Fernwood questions at all** (the gate — telemetry says 2-turn conversations only, cap never fired, so the cap may be irrelevant); (b) **when she leaves for claude.ai, why** — capability, habit, trust, or not knowing she *could* have asked Fernwood; (c) **does she perceive the two as the same tool or two different things.** If she experiences Garden Guru and claude.ai as unrelated — not knowing Garden Guru *is* Claude — that is itself the headline finding, and "make Guru unlimited" may be solving the wrong problem (the right one being *why claude.ai wins the moments it wins*). The moderator must never reveal they're the same model.
 
 ## Things the moderator should explicitly NOT do
 
@@ -179,6 +193,7 @@ These are the questions Paul will read the transcript looking for answers to. Th
 - Treat any phrase as final ("got it, moving on") — instead probe one layer deeper with "tell me more."
 - Race through phases. If she's still in Phase 1 at 20 minutes and the signal is rich, stay there.
 - Pretend to know what's on her phone. The moderator has no eyes on the screen.
+- **Reveal that Garden Guru (asking Fernwood a question) *is* Claude — the same thing as the Claude she uses on her laptop.** This is the single most important do-not-do for the boundary thread. If she treats them as unrelated, that is the finding; teaching her they're the same erases it and leads her. Never say "they're both Claude," never imply it, never correct her if she assumes they're different.
 
 ## Telemetry-informed hypotheses (Paul-facing, NOT in the moderator prompt)
 
@@ -191,6 +206,7 @@ The moderator should not enter the session with hypotheses to confirm — Mom-Te
 - **H5:** Forward-looking ("what should I look for this week") is an unserved job (Job 7). Distinguishing signal: she narrates a moment of "I wish I'd known X was about to bloom" or similar.
 - **H6:** Year-over-year memory is a Mom-want, not just a Paul-want (Job 8). Distinguishing signal: she narrates wondering when something happened last year.
 - **H7:** The add-impulse is photo-anchored, not conversational. Distinguishing signal: on the Phase-4 paired questions, "add it to the record" surfaces on the *photo* story but not the *words* story — or doesn't surface at all. A words-path "yes" (unprompted) would be the first signal the text-add affordance is wanted; a words-path "I just wanted to know" falsifies it.
+- **H8:** Mom experiences Garden Guru and claude.ai as two different things, not one model behind two doorways. Distinguishing signal: on the perception probe she frames them as separate tools; on the other-tool probe she chooses the laptop for reasons that aren't really capability (habit, trust, "didn't think to ask Fernwood"). If true, "make Guru unlimited" is the wrong lever — the boundary is mental-model and trust, not model ceiling. Counter-signal: she describes one tool with two entry points and leaves Fernwood only when she hits a real limit, which would *support* a fuller-Claude direction. **Gate first:** if the Phase-1 Garden Guru probe shows she rarely or never asks Fernwood questions, H8 is moot and the finding collapses to "claude.ai is her tool; Fernwood is for looking, not asking."
 
 ## Session protocol — operational
 
@@ -212,6 +228,7 @@ If we don't get those, the issue is most likely the moderator missed a probe; it
 
 ## Evidence log
 
+- `2026-06-21: [revised] — Added the "Garden Guru vs. claude.ai — the boundary she lives" thread: extended the Phase-1 Garden Guru story-probe with "was that the end of it, or did you want to keep going / where did you go?"; added a GATED Phase-4 block (other-tool probe + perception probe) that only runs if she asks Fernwood questions at all; added research Q9 + H8 + a do-not-reveal-they're-both-Claude caution. Driven by Paul's reframe: Mom already has unlimited Claude (claude.ai for photo plant-ID); Fernwood's unique value is curated property context + field-journal tone, not the model. The decision it informs (make Guru a fuller Claude vs. keep it a capped specialist) is gated on telemetry showing the 5-turn cap has NEVER fired and all conversations are 2-turn — so the prior question is whether asking-in-Fernwood is even in her repertoire, and if not, why claude.ai wins is the real finding.`
 - `2026-06-20: [revised] — Split the add-impulse question into paired photo-path / text-path past-behavior probes (Scenario B follow-up + Phase 4), added research Q8 + H7. Driven by the three-expert review of a proposed text-path plant-add affordance (.engineering/2026-06-20-path-text-path-add.md, .ux-reviews/2026-06-20-text-path-add-affordance.json): photo-add validated, text-add an assumption. The interview is the gate before building.`
 - `2026-05-28: [planned] — Interview guide drafted by user-researcher agent. To be operationalized via moderator prompt and Mom-facing email.`
 - `2026-05-27: [validated] — .audit/2026-05-26-telemetry-rollup.md — first real-usage telemetry that grounds this interview. Hypotheses H1–H6 derive from this rollup.`
