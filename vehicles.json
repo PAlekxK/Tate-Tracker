@@ -370,52 +370,72 @@
         {
           "item": "Oil change",
           "status": "due soon",
-          "detail": "5 qt 5W-30 + Motorcraft FL-1A — see the maintenance reference above. ~30-minute job on shelf parts. Engine protection doesn't wait on the cosmetics, so it's first."
+          "detail": "5 qt 5W-30 + Motorcraft FL-1A — see the maintenance reference above. ~30-minute job on shelf parts. Engine protection doesn't wait on the cosmetics, so it's first. (Refinish sequence — Phase 0: independent of the paint project, do anytime.)"
         },
         {
           "item": "Coolant flush",
           "status": "planned",
-          "detail": "Drain, flush, refill with green 50/50 IAT (era-correct) — see the maintenance reference. A free-afternoon job; not urgent unless it comes out rusty."
-        },
-        {
-          "item": "Driver door power lock",
-          "status": "diagnosing",
-          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. Same teardown as the door panel — do them together."
-        },
-        {
-          "item": "Driver door panel",
-          "status": "planned",
-          "detail": "Cracked through with broken clip mounts. Plan is repair-in-place, not replace: back-reinforce the cracks with heat-formed ABS sheet, flexible-fill + color-match the show face, and rebuild the broken clip pockets from ABS. Full materials list + step-by-step at guides/bolores-door-panel-repair.md. Gate: confirm the panel's plastic type (ABS vs PP) before buying adhesives — it changes the chemistry. Same teardown as the door lock (do them together). Gates the audio build — a loose panel rattles and ruins subs. Fallback if the repair doesn't hold: source an '87–91 Bronco/F-series chestnut panel (long lead)."
-        },
-        {
-          "item": "Driver seat upholstery",
-          "status": "quoting",
-          "detail": "Front driver seat needs an upholstery repair — find a local auto-upholstery / trim shop and get a quote. Match the chestnut interior."
-        },
-        {
-          "item": "Clear coat",
-          "status": "quoting",
-          "detail": "Failing clear coat — outsource to a body shop. Get 2–3 quotes; scheduling has a long lead, so start the calls early even though the work lands later."
-        },
-        {
-          "item": "Headliner",
-          "status": "down the road",
-          "detail": "Replacement headliner — down the road. Common to re-do with the rest of the interior; can pair with the upholstery shop visit."
-        },
-        {
-          "item": "Soundproofing",
-          "status": "long-term",
-          "detail": "Sound-deadening (floors, doors, roof) — long-term comfort upgrade. Best done with panels off, so it pairs naturally with the door-panel and headliner work."
-        },
-        {
-          "item": "Amp + subwoofers",
-          "status": "long-term",
-          "detail": "The audio build — farthest out, and deliberately last. Blocked until the door panels are solid: a rattling panel kills the point of a sub. Soundproofing first makes it sing."
+          "detail": "Drain, flush, refill with green 50/50 IAT (era-correct) — see the maintenance reference. A free-afternoon job; not urgent unless it comes out rusty. (Phase 0: independent of paint.)"
         },
         {
           "item": "Rear window & tailgate operation",
           "status": "testing",
-          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job."
+          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job. (Phase 0: independent of paint.)"
+        },
+        {
+          "item": "Bodywork — rust & dents (pre-paint scope)",
+          "status": "planned",
+          "detail": "Refinish sequence — Phase 1: the gate before anything comes apart. Operating rule (Paul): assume WE handle it ourselves, work each spot DIY as far as our skill+tools reach, escalate only when genuinely beyond us. The full repaint is the enabler — no need to preserve/blend old paint, so grind-fill-sand-prime is just prep. Larry's prep+prime is the safety net for anything marginal. Known so far: small rust around the wheel wells + a few minor dents (plus the bed/tailgate spot — separate item). Full DIY ladder + the hand-off line + wheel-arch bubble learnings + bed-corner section all in guides/bolores-bodywork-rust-dents.md. KEY: a wheel-arch bubble is the tip, not the extent — rust spreads under good-looking paint, so scope off what you find once a bubble's ground back to metal, not off the surface. NEXT ACTION — full walk-around (guides/bolores-walkaround.md), log each spot with a Rung # (1 cleanup / 2 patch / 3 weld-or-hand-off). Gates the repaint."
+        },
+        {
+          "item": "Bed rust — tailgate corner (water leak)",
+          "status": "diagnosing",
+          "detail": "Small but significant rust in the bed near the tailgate where water got in (Paul flagged 2026-06-22). Textbook full-size Bronco failure: the tailgate leaks (glass sweep + failed access-panel barrier) and rots the rear bed corners. TWO jobs, order matters: (1) fix the leak source first — tailgate weatherstrip, esp. the corner pieces, + redo the access-panel barrier — or new metal just rots again; (2) repair the metal: open it up to find the true extent, then Rung 1 (clean+convert+prime) if it's only scale, or Rung 2 (cut back + bonded 3M patch, or weld) if it's perforated. Bed floor isn't frame-structural, so a bonded-and-rustproofed patch is legit. Likely ours to handle. AWAITING Paul: photos + detail (size, gone-through?, how far the wet spread). Method in guides/bolores-bodywork-rust-dents.md."
+        },
+        {
+          "item": "Full repaint — exterior + interior",
+          "status": "planned",
+          "detail": "Supersedes the old 'failing clear coat' plan — instead of correcting the clear coat, doing a full refinish. Larry cleans, preps and primes at his place; his buddy's shop sprays. Scope locked (2026-06-22): exterior + interior together — matching a fresh body to a tired interior would mean redoing it, so converging is better for value and means only one teardown. Colors: original factory two-tone — Cabernet Red (upper) over Light Chestnut (lower), per the paint block below; staying factory protects resale value. Interior panels sprayed a fresh, consistent chestnut — this also removes the hard 'match a faded panel' problem from the door-panel repair. Hand the shop the door cert-label codes, or confirm they spectro-scan off the truck. Gated on the bodywork scope (Phase 1). No deadline — paint lands after all the teardown-window work is done. Full sequence in guides/bolores-door-panel-repair.md."
+        },
+        {
+          "item": "Driver door power lock",
+          "status": "diagnosing",
+          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. (Refinish sequence — Phase 2: the door teardown. Do it in one door-open session alongside the panel repair, the handle-mount check, and door sound-deadening.)"
+        },
+        {
+          "item": "Driver door panel",
+          "status": "planned",
+          "detail": "Cracked through with broken clip mounts. Plan is repair-in-place, not replace: back-reinforce the cracks with heat-formed ABS sheet, rebuild the broken clip pockets from ABS, then flexible-fill the show face (3M EZ Sand 35887 — verified the right product, sold on Amazon too) and SAND TO PRIMER-READY. No more self color-matching — the paint shop sprays the chestnut as part of the interior refinish, which kills the hardest part of this job. Full materials list + step-by-step at guides/bolores-door-panel-repair.md. Gate: confirm the panel's plastic type (ABS vs PP) before buying adhesives. Phase-2 door teardown — done together with the lock, the handle-mount check, and door deadening. Still gates the audio build — a loose panel rattles and ruins subs. Fallback if the repair doesn't hold: source an '87–91 Bronco/F-series chestnut panel (long lead)."
+        },
+        {
+          "item": "Door-handle reinforcement plates",
+          "status": "diagnosing",
+          "detail": "Check first: does either INSIDE door handle feel loose/floppy or fail to pull the latch? On '80–'97 OBS Fords the sheet metal behind the inside handle fatigues and cracks — the classic 'roll the window down to get out' failure. If present (likely on an '89), the proven fix is a 14-ga steel reinforcement plate that rivets onto the inner door metal — no welding, rivets included; strong forum track record (Solo Motorsports / OBS Solutions / Bronco Graveyard, also generic on eBay/Amazon). Sold as a driver+passenger pair, so do both doors while they're open in Phase 2. Adds zero extra teardown."
+        },
+        {
+          "item": "Dashboard vinyl tear",
+          "status": "planned",
+          "detail": "Small tear in the dash pad's vinyl/leather — Paul wants it repaired. Full step-by-step (clean → trim → sub-patch → thin-layer flexible compound → grain-set → color) in guides/bolores-dash-vinyl-repair.md. Color converges with the interior refinish: repair the substrate now, let the chestnut spray/dye pass color it with the rest. Grain-matching is the make-or-break for invisibility; use FLEXIBLE compound (the dash flexes + bakes) never rigid filler. OPEN QUESTION: is the dash pad going to the booth, getting dyed in place, or capped? Decide with the interior piece-list. (If the pad turns out cracked across a large area, the durable fix is a dash cap, not many small repairs.)"
+        },
+        {
+          "item": "Driver seat upholstery",
+          "status": "quoting",
+          "detail": "Front driver seat needs an upholstery repair — find a local auto-upholstery / trim shop and get a quote. Match the chestnut interior. Runs in parallel at the trim shop during the paint window; reinstall during reassembly."
+        },
+        {
+          "item": "Headliner",
+          "status": "planned",
+          "detail": "Replacement headliner — installs during reassembly (Phase 4), right after the roof sound-deadening goes in: the headliner is down anyway for the deadener, so they're one job. Can also pair with the upholstery shop visit."
+        },
+        {
+          "item": "Soundproofing",
+          "status": "planned",
+          "detail": "Sound-deadening (doors, floor, roof). The key realization (2026-06-22): this is NOT a separate project — it's the first step of reassembly after paint, and nearly free in teardown terms because every surface it needs is already exposed by work you're already doing: door shells (panels off), floor pans (carpet up, seats out at the trim shop), roof (headliner down). Goes on after the body's painted, before panels/carpet/headliner go back. Refinish sequence — Phase 4."
+        },
+        {
+          "item": "Amp + subwoofers",
+          "status": "long-term",
+          "detail": "The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown."
         },
         {
           "item": "Dash bezel — rear window & defrost",

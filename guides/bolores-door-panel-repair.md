@@ -2,9 +2,24 @@
 
 *1989 Ford Bronco Eddie Bauer · chestnut interior · driver-side door panel, cracked through with broken clip mounts*
 
-The goal: structurally sound panel that mounts solidly (no rattle — this is what gates the audio build), with the visible face cleaned up and color-matched. Repair-in-place is the plan; sourcing a replacement panel is the fallback if the repair doesn't hold.
+The goal: structurally sound panel that mounts solidly (no rattle — this is what gates the audio build), with the visible face filled and sanded **ready for primer**. Repair-in-place is the plan; sourcing a replacement panel is the fallback if the repair doesn't hold.
 
-> **One teardown, three jobs.** Pulling this panel is also when you (1) diagnose the driver door **power lock** — meter the switch → actuator, prime suspect is the door-jamb boot wiring — and (2) prep for eventual **soundproofing + subs**. Do them as one session so you only open the door once.
+> **As of 2026-06-22 this job lives inside a bigger project — a full repaint (exterior + interior) with Larry prepping/priming and his buddy's shop spraying.** That changes two things here: (1) you no longer color-match the panel yourself — fill and sand it to primer-ready and the shop sprays the chestnut with everything else (kills the hardest part of this job); (2) the door has to come off for paint *anyway*, so every door job converges into one teardown. See **"The refinish & reassembly sequence"** below for where this fits.
+
+> **One teardown, four jobs.** Pulling this panel is also when you (1) diagnose the driver door **power lock** — meter the switch → actuator, prime suspect is the door-jamb boot wiring; (2) **check the inside door-handle mount** and rivet in a reinforcement plate if the metal's cracked (see the new section below); and (3) lay **door sound-deadening** on the bare shell. Do them as one session so you only open the door once.
+
+---
+
+## The refinish & reassembly sequence (the big picture)
+
+The repaint is the pivot event — a quality exterior + interior refinish forces the truck substantially apart, so the smart play is to make **every "apart-state" job happen inside that one window.** Order:
+
+- **Phase 0 — now, no teardown:** oil change, coolant flush, finish the rear-window/tailgate check. Keeps her healthy while the cosmetic project takes its time.
+- **Phase 1 — scope the bodywork (the gate):** walk the truck with Larry/the shop, scope the wheel-well rust + dents, decide who does the metalwork. Nothing comes apart until this is known. (See `guides/bolores-walkaround.md`.)
+- **Phase 2 — the big teardown (do everything apart-state here):** pull interior panels, headliner, seats (→ upholstery), carpet; strip exterior trim/lights/mirrors/handles. **Per door:** power-lock fix → handle-reinforcement plate if cracked → panel crack repair + fill + **sand to primer-ready** (this guide's Steps 0–4 + clip rebuild). Do the metal bodywork. **Pre-run the audio wiring now**, even though the build is last — this is the one move that saves a future teardown.
+- **Phase 3 — paint (the shop):** factory two-tone exterior + interior panels sprayed a fresh, consistent chestnut. Seats reupholstered in parallel.
+- **Phase 4 — reassembly = the soundproofing window:** sound-deadener goes on the now-exposed door shells / floor / roof (nearly free in labor — every surface is already open), *then* new headliner over the roof deadener, *then* reinstall the freshly-sprayed panels + carpet + seats, *then* exterior trim/glass.
+- **Phase 5 — audio, last:** amp + subs + speakers on the pre-run wiring. Panels are solid and deadened, so it sings.
 
 ---
 
@@ -72,8 +87,8 @@ The goal: structurally sound panel that mounts solidly (no rattle — this is wh
 
    You can **stack both** on a high-stress spot (mesh-weld the crack, then patch a sheet over the zone). But don't rely on dry mesh sandwiched under a glued sheet — pick mesh-*embedded* **or** solid-sheet as the spanning method. Match weld **rod to the plastic** (ABS rod on ABS), and **ventilate** — melting ABS smells.
 6. **Rebuild the clip mounts** (Step 4).
-7. **Fill the front face** with flexible filler, sand 220 → 320 → 400, then **color-match** the chestnut.
-8. **Reinstall** with the new clip kit. Confirm it sits tight with no rattle — that's the bar that unblocks soundproofing + subs.
+7. **Fill the front face** with flexible filler (3M EZ Sand 35887), sand 220 → 320 → 400 to **primer-ready**. **Stop here — don't color-match.** Under the full-repaint plan the panel goes to the booth and gets sprayed chestnut with the rest of the interior, so your job is a smooth, sound substrate. (Only color-match yourself if the repaint plan falls through.)
+8. **Hand the panel off for paint, then reinstall** with the new clip kit during reassembly. Confirm it sits tight with no rattle — that's the bar that unblocks soundproofing + subs.
 
 ---
 
@@ -89,6 +104,21 @@ These are **not** the dash bezel's screw bosses — different geometry, differen
 - **If a whole section of edge is gone** → back it with a heat-formed ABS strip first (Step 2.5), then build the new pocket onto *that*, so you're mounting to fresh material.
 
 The principle: spread the load over a **large bonded area** of fresh ABS rather than trusting the original cracked plastic at a point.
+
+---
+
+## STEP 5 — Inside door-handle mount (while the panel's off)
+
+**Different failure, same teardown.** This is *not* the plastic panel and *not* the clip pockets — it's the **sheet metal of the door shell** behind the **inside release handle**. On '80–'97 OBS Ford trucks/Broncos this metal fatigues and cracks, so the handle flexes and eventually won't pull the latch — the classic "roll the window down and get out from the outside handle." It's one of the most common failures on these trucks.
+
+**Check it with the panel off:** wiggle the inside handle and look at the metal it bolts to. Loose / flexing / visibly cracked = needs the fix.
+
+**The fix — a reinforcement plate (no welding):**
+- A **14-gauge steel plate** that sits over the handle area and **rivets onto the inner door metal**, giving the handle a solid anchor even on a severely cracked door. Rivets are included with most kits; a cheap rivet gun does it.
+- Well-proven — sold by **Solo Motorsports, OBS Solutions, Bronco Graveyard, LMR**, plus generic pairs on eBay/Amazon. Forum consensus (FullSizeBronco, Ford Truck Enthusiasts) is "stupid easy" and that it fully solves the flex. The name-brand plates have the longest track record; if buying a generic, glance at the seller's feedback first.
+- Sold as a **driver + passenger pair** — and the failure is symmetric, so do **both doors** while everything's open.
+
+Install: remove panel + handle → set the plate → drill for rivets → rivet on → reattach the handle. Do it in the same Phase-2 door session as the panel repair and the power-lock diagnosis.
 
 ---
 
