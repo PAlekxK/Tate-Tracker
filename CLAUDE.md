@@ -18,6 +18,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Still awaiting Mom's discovery transcript** (sent 2026-05-29, refreshed 2026-06-20 + 2026-06-21) — now also unblocks the "direct Claude access / where the property-context lives" question; the gated probe finds out first whether Garden Guru is even in her repertoire.
 
+### GTI — spare-key plan added + Marketplace-key verified + consolidated service email (`4a012a6`)
+- **New `vehicles.json` restoration item** on `gti-2016`: "Spare key — source + program" (status `sourcing`). Car has ONE working KESSY flip key → cheap "add-a-key" job, not all-keys-lost. Spec: `5K0 837 202 AK` family / FCC `NBG010206T` / 315 MHz US / HU66 / 4-button flip-key-WITH-KESSY. `VEHICLES_DATA` re-inlined. Full strategy in `.research/2026-06-12-gti-vw-service-shops.md` (gitignored).
+- **Verified the Facebook Marketplace keys** Paul photographed (`Desktop/Claude/612260695…jpg`): both read `5K0 837 202 AK` / FCC `NBG010206T` (date codes 21/12, 28/13). Correct type + KESSY variant + frequency + blade → hardware very likely compatible. **Decisive catch: they're USED + MK7 is MQB** → key registration needs dealer FAZIT (online) or an MQB-capable locksmith, and a used fob still married to another VIN can refuse to program. Decision rule: only buy if seller confirms virgin/resettable AND a locksmith/dealer will program used MQB keys; else a new aftermarket fob (~$35–80) programs clean. Programming (~$60–150) is the gated cost either way. ⚠️ Paul to verify his own key's part-number/suffix/frequency.
+- **Consolidated GTI email** — Paul DELETED the prior GTI-service draft; replaced with ONE brief (Gmail draft **`r-4523879000825113833`**, addressed to Paul): fewest-trips shape + service plan (leak + 90k items) + shop shortlist (FREED/Lewis/Eurofed/Precision + 6 phone-vet Qs) + recalls (16V647 etc., dealer/free, VIN-first) + spare-key verdict + next-actions checklist. Owner: Paul (read/act).
+
 ## Pickup point — last session ended 2026-06-20
 
 **Bolores restoration logging, a creeping fig add, and a Mom-interview refresh around "can Mom add a plant herself."** All committed + pushed (Tate-Tracker HEAD `89d7f8c`).
