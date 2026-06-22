@@ -4,9 +4,15 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-06-21 — The creeping fig is a keeper
+
+- Good news from the garden: the **creeping fig** came through last winter outdoors and leafed back out this spring — Mom spotted it returning. Its card used to warn it wouldn't survive the cold up here; we've softened all of that. It's still a little tender by the book, so the card now shows how to *help* it through winter instead — a deep mulch over the roots and a cover on the hardest nights — and taking a few cuttings in late summer is now just backup insurance, not the only way to keep it going.
+
+---
+
 ## 2026-06-20 — A tender newcomer, and progress on Bolores
 
-- **Creeping fig** joins the Plants card — a small-leaved climbing fig grown here on borrowed time. It isn't winter-hardy on the mountain, so its card leads with the frost story: enjoy the summer flush, then take cuttings or bring a pot indoors before the October frost if you want to keep it going. (No photo yet — it shows its leaf icon for now.)
+- **Creeping fig** joins the Plants card — a small-leaved climbing fig once thought too tender to make it through a winter on the mountain. (As of 6/21 it's proven otherwise — see the note above.) No photo yet — it shows its leaf icon for now.
 - The dash **bezel** that holds *Bolores'* rear-window switches is fixed and marked done — the cracked screw mounts were rebuilt so the switches sit solid again.
 - A new line tracks the **rear window** itself: the motor's replaced and the wiring patched, so it runs by hand — what's left is testing the switches in place and tuning the tailgate so the glass doesn't bind on a slope.
 - The **driver door panel** plan firmed up from "find a replacement" to "repair it" — back it with shaped ABS, fill and color-match the front, rebuild the broken clips — with a full materials guide ready to work from. We also turned up her factory colors: Cabernet Red over Light Chestnut, codes noted, pending a look at the door label.
