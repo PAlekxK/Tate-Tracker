@@ -80,6 +80,11 @@
           "detail": "NGK PFR7S8EG, gap ~0.028\" — replace every 40k on the Stage 1 tune. Likely due around now depending on the last change."
         },
         {
+          "item": "Spare key — source + program",
+          "status": "sourcing",
+          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY type (part-number family 5K0 837 202 AK, FCC NBG010206T, 315 MHz US, HU66 blade — confirm by reading the label on your own key). Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or the VW dealer (Jim Ellis Kennesaw — OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket 5K0 837 202 AK fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150)."
+        },
+        {
           "item": "Air & cabin filters",
           "status": "planned",
           "detail": "Engine air filter is due at 60k / 6 yr — almost certainly due. Swap the cabin filter while it's apart."
