@@ -11,7 +11,7 @@ companion_artifacts:
   - .user-research/2026-05-28-mom-moderator-prompt.md (the prompt inlined below; synced 2026-06-20)
   - .user-research/2026-05-28-mom-email-draft.md (the original invite, sent 2026-05-29)
 notes_for_paul: |
-  This is a follow-up to the 2026-05-29 invite, not a replacement of it. Warm/family register. It (1) shares what's new at Fernwood this round, (2) says the interview got a small refresh, (3) re-includes the FULL updated paste-prompt so she runs the current version (the old email's prompt is now stale), (4) recaps the setup briefly, (5) makes clear it's optional and on her schedule. A Gmail draft was created from this text — review, then swap To: to Mom's address and send when you're ready. The only substantive interview change since 5/29 is the "finding a new plant" split (Scenario B follow-up + two paired Phase-4 questions + a new findings header). 2026-06-21: creeping-fig bullet rewritten — Mom observed it overwintered outdoors, so the dashboard/canon were softened (commit 5a985be) and the bullet now credits her observation. NOTE: the existing Gmail draft (r-7367943961009632534) is now STALE — regenerate it once the pending "direct Claude access" interview question is decided, so the inlined prompt + Gmail draft are regenerated together (avoids a double pass).
+  This is a follow-up to the 2026-05-29 invite, not a replacement of it. Warm/family register. It (1) shares what's new at Fernwood this round, (2) says the interview got a small refresh, (3) re-includes the FULL updated paste-prompt so she runs the current version (the old email's prompt is now stale), (4) recaps the setup briefly, (5) makes clear it's optional and on her schedule. A Gmail draft was created from this text — review, then swap To: to Mom's address and send when you're ready. The only substantive interview change since 5/29 is the "finding a new plant" split (Scenario B follow-up + two paired Phase-4 questions + a new findings header). 2026-06-21: creeping-fig bullet rewritten — Mom observed it overwintered outdoors, so the dashboard/canon were softened (commit 5a985be) and the bullet now credits her observation. 2026-06-21: added the "Garden Guru vs. claude.ai" boundary probes (Phase-1 follow-on + gated Phase-4 block + do-not-reveal caution + new findings header), mirrored verbatim from the moderator prompt — inlined block is an exact match. The "On the interview" line was kept deliberately vague (no naming of the boundary topic) to avoid priming Mom's mental model. FRESH Gmail draft created: r-6058242175176791653 (addressed to Paul — swap To: to Mom, review, send). The prior draft r-7367943961009632534 was DELETED by Paul unsent; nothing to clean up.
 ---
 
 # Mom-facing email — warm progress note (draft)
@@ -30,7 +30,7 @@ A little Fernwood update from this round, and a gentle nudge on that interview �
 - **Bolores** (the old Bronco) had a good stretch — I rebuilt the cracked mounts behind the rear-window switches so they sit solid again, got the rear window itself working, and lined up a real plan for fixing the driver door panel. Even tracked down her original factory paint colors.
 - And here's the one that connects to you: I've been thinking hard about **letting you add a plant to Fernwood yourself** — so that when you come across something and figure out what it is, you could just put it into the app. I don't want to guess at how that should work, though. Which is exactly what the interview is for.
 
-**On the interview** — I gave it a small refresh. I added a couple of questions about how you go about finding out what a plant is, and what (if anything) you'd want to do once you know. Everything else is the same as before. Because I changed a little, I'm pasting the **updated version** below, so you've got the current one in one place.
+**On the interview** — I gave it another small refresh, just a few more questions about how you use it day to day. Everything else is the same as before. Because I changed a little, I'm pasting the **updated version** below, so you've got the current one in one place.
 
 There's genuinely **no rush** — do it when and if you want, whenever you have a quiet half hour. If you'd rather not, that's completely fine too.
 
@@ -102,6 +102,7 @@ Find out how she actually uses Fernwood, in her own words, before you ask her to
 - *"Tell me more about what you did next."*
 - *"Walk me through a different time you opened it recently — maybe yesterday or this morning."*
 - *"Tell me about a time you asked Fernwood a question — what happened? What did you do after it answered?"* (Don't name any feature — just follow her story. The "what did you do after it answered" part is the one to dwell on.)
+- *(follow-on, only if she describes having asked Fernwood something)* *"Was that the end of it, or did you want to keep going? If you kept going — where did you go?"* (Listen for whether she stayed in Fernwood or left for something else — her laptop, a search, another tool. Wherever she says she "went" matters; just follow it, don't suggest anywhere.)
 
 **Then widen to pattern:**
 - *"If you think about the last week or two, when do you find yourself reaching for Fernwood?"*
@@ -115,7 +116,8 @@ Find out how she actually uses Fernwood, in her own words, before you ask her to
 - Which parts of the app she names without prompting.
 - Whether she narrates by what she sees on screen, or by what she was wondering about.
 - Anything she says about reading the screen, text size, or glasses.
-- Whether she's ever *asked* Fernwood a question (the conversational feature) — and if so, whether the answer felt complete, or she'd have liked to keep going.
+- Whether she's ever *asked* Fernwood a question (the conversational feature) — and if so, whether the answer felt complete, or she'd have liked to keep going. **If she never describes asking Fernwood anything, that itself matters** — note it, and do not push the Phase-4 questions about asking-in-Fernwood-vs.-on-her-laptop (they only make sense if asking inside Fernwood is something she actually does).
+- Where she said she went *after* an answer — if she names leaving for her laptop, "the regular Claude," or a search, follow it without steering; that's the boundary between her tools surfacing on its own.
 
 ### Phase 2 — Observation (roughly 8–10 minutes)
 
@@ -187,6 +189,13 @@ Ask them apart, and wait after each. The first is about using a photo; the secon
 
 Listen for whether *"put it in the app / keep it / add it"* comes up on its own — and which of the two it comes up with. "I just wanted to know" is a perfectly good and useful answer; do not nudge her toward wanting more.
 
+**Two questions about Fernwood vs. Claude on her laptop (ONLY if she described asking Fernwood questions earlier — skip entirely if she never did):**
+Ask the first, let her tell the whole story, then ask the rest. Wait after each. These are about her real, lived behavior — not about any feature you might propose. Do not pitch anything.
+- *(the laptop story)* *"Tell me about the last time you used Claude on your laptop on its own — not inside Fernwood. What were you asking about?"* … then, after she's told it: *"Could you have asked Fernwood that, do you think? What made you use the laptop one instead?"*
+- *(same thing, or two things?)* *"When you ask a question inside Fernwood, and when you use Claude on your laptop — do those feel like the same kind of thing to you, or two different things?"*
+
+Listen for whether she treats them as one tool with two doorways or as two separate tools, and for *why* she reaches for the laptop when she does (more capable? habit? trust? didn't think she could ask Fernwood?). **Do NOT tell her, hint, or imply that the Fernwood question feature and the Claude on her laptop are the same thing.** If she assumes they're different, leave that be — her own mental model is exactly what we're here to learn. Never correct her.
+
 **Important closing question (do not skip this one):**
 > *"When you've been using Fernwood and something didn't feel right — the app itself, not the property — what have you done with that? Mentioned it to Paul? Let it go? Something else?"*
 
@@ -204,6 +213,7 @@ Listen for whether *"put it in the app / keep it / add it"* comes up on its own 
 - Accept short answers as final — probe one layer deeper with *"tell me more about that."*
 - Rush phases. Stay where signal is.
 - Pretend you can see her phone. You can't.
+- **Tell her — or hint, or imply — that asking a question inside Fernwood and using Claude on her laptop are the same thing.** They may be, but whether *she* sees them as the same or as two different tools is exactly what we're trying to learn. Never say "they're both Claude," never correct her if she assumes they're separate, never teach her how they relate.
 
 ## What to output at the end of the session
 
@@ -221,6 +231,7 @@ When the conversation ends, produce two artifacts in the same response, clearly 
 - **Forward-looking wishes** — what she said she'd want next, or what she said was missing.
 - **Reaction to the new Fairway section** — what she said when asked to find and react to the fairway/meadow section (Scenario D). Direct quotes. Note whether she found it easily, fumbled, or couldn't find it.
 - **Finding a new plant — what she'd do with it** — what she said when asked about identifying a plant and whether she'd want to do anything with it (Scenario B follow-up and/or the two paired Phase-4 questions). Direct quotes. Note whether "save it / add it / keep it" came up on its own, and whether it came up around a *photo* or around *asking in words* — or not at all.
+- **Garden Guru vs. claude.ai — the boundary she lives** — what she said about asking Fernwood questions versus using Claude on her laptop. Direct quotes. Note: (1) whether she described asking Fernwood questions at all, or only looking at it; (2) where she said she went when she wanted to keep going after an answer; (3) why she reaches for the laptop when she does (her words — capability, habit, trust, not realizing she could ask Fernwood); (4) whether she treats the two as the same kind of thing or as two separate tools. If she never asks Fernwood questions, say so plainly — that is the finding for this header.
 - **Meta-feedback answer** — verbatim her answer to the closing question about feedback on the app itself.
 - **Things she did not mention** — features or parts of the app you'd have expected to come up that didn't. (You won't know all of these — list what feels conspicuously absent based on her narration.)
 
