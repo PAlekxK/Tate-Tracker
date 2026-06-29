@@ -2,6 +2,23 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Pickup point — last session ended 2026-06-28
+
+**Vehicles card — per-step service contacts (tap-to-call) + GTI cost/scope reconcile.** All committed + pushed (Tate-Tracker HEAD `3b58d3e`).
+
+### New feature — "who to call," right on each restoration step
+- New per-vehicle **`serviceContacts`** array on `vehicles.json` + a per-item **`contactId`** (string OR array) on restoration items. `renderRestoContact()` in viewer.html renders a calm, tappable contact (name + `tel:` phone + address · hours) on each shop-bound step so Paul can pull up the step and call to book. The **role line shows only on multi-vendor steps** (e.g. the 3-dealer spare-key step); single-shop steps stay lean. New `.resto-contact*` CSS (forest-green tappable link, field-journal tone, not a CTA button).
+- Restoration items can now also carry an **`image`** (tap-to-enlarge thumbnail; `.resto-photo` CSS). Two wired in: **Bolores audio** (`images/vehicles/bolores-audio-ref-infinity-kappa63xf.png` — Infinity Kappa 63XF 6.5" two-way door speakers, logged on the renamed **"Amp, speakers + subwoofers"** item; amp+subs still to source), and the **Tiguan paint** conditions (`tiguan-paint-application-conditions.png` — new **"Paint touch-up"** item, weather-gated: <50% humidity, shade, >50°F brush/>70°F spray).
+
+### GTI — Autobahn wired in + cost/scope catch-up
+- **Autobahn Performance** set as the service contact on all shop-bound GTI steps — vetted this session: APR/Dinan/IE-certified indie, 4.9★ (250+ reviews), 2yr/24k warranty, (770) 409-8288, 6476 Buford Hwy NE. (It's where Paul's Stage 1 tune was done.) Spare-key step offers **three VW dealers**: Jim Ellis Chamblee (470) 410-3552 (by Autobahn), Jim Ellis Kennesaw (770) 370-3615, Volkswagen of Marietta (770) 955-6565 (both on the Jasper run).
+- **Spark plugs → `done`** (Paul replaced within ~last 1k mi, correct NGK PFR7S8EG, ~81k). **Air & cabin filters → Paul DIY** (off Autobahn; part #s in the detail). **GTI mileage anchored ~81k** (was assuming ~90k) — "past due" softened to "due."
+- **Cost estimate** researched + saved to gitignored **`.research/2026-06-28-gti-autobahn-cost-estimate.md`**. Full Autobahn visit **~$1,400–2,600** (up to ~$3,500 if it needs motor mounts / walnut-blast carbon); a dealer runs **~40–60% more** on the must-dos. The **coolant-leak step** carries the expected cost + a **two-wave** phasing plan (teardown-sharing jobs — PCV, chain read, walnut — ride Wave 1 with the water pump; DSG/brake flush/mounts = Wave 2). The **spare-key step** notes the dealer free-inspection verdict (skip the inspection-as-shopping-list; grab the free recall check + a written estimate as a price benchmark).
+
+**Owner: Paul** — the four new outstanding items below (confirm exact mileage, Tiguan paint code, GTI key part #, verify Marietta dealer name). Nothing AI-blocked.
+
+---
+
 ## Pickup point — last session ended 2026-06-21
 
 **Creeping fig reframed from "tender seasonal that dies" → overwintering keeper (Mom's field observation), plus a Mom-interview probe-add about direct Claude access.** All committed + pushed (Tate-Tracker HEAD `e22ac0a`).
@@ -404,6 +421,10 @@ Don't start building until Paul has done a zone-naming pass. The hardest part of
 3. **Homelite blower/vac:** no model sticker found on the unit. Maintenance specs are inferred from the trimmer's engine family (HHCPS.0264AT). Acceptable for at-a-store reference.
 4. **Annual: NASA SVS Dial-a-Moon visualization ID** — when SVS publishes the 2027 visualization (usually Dec/Jan), update the `DIAL_A_MOON_VIZ` constant in viewer.html (`year`, `parent` bucket, `id`). Find the new ID at svs.gsfc.nasa.gov/gallery/moonphase. Until refreshed, the moon hero hides cleanly once the year flips.
 5. **Bolores paint codes — door-label photos:** Paul to send pics of the driver-door Vehicle Certification Label (EXT PNT + INT TR fields) to confirm the two-tone + interior codes. Researched candidates already in `vehicles.json` flagged `researched-pending-label`: upper = Medium Cabernet Red **2H / M6156**, lower = Light Chestnut **9T / 6190** (rule out Dark Chestnut); interior Chestnut is a TRIM code, not a paint M-code. Flip to `verified` once the label is read.
+6. **GTI — confirm exact mileage:** anchored at ~81k from Paul's estimate (2026-06-28). Read the odometer next drive and update `gti-2016` `mileage` + the spark-plug/DSG/carbon framing if it's off.
+7. **Tiguan paint color code:** read the VW data sticker (spare-wheel well under the trunk floor, or driver door jamb) before buying touch-up paint for the new "Paint touch-up" step — the touch-up has to match.
+8. **GTI spare key — own-key spec:** read the part-number/suffix/frequency off Paul's own working key before sourcing a fob (confirm `5K0 837 202 AK` / `NBG010206T` / 315 MHz).
+9. **Marietta dealer name:** verify it's still "Volkswagen of Marietta" when calling — the old "Jim Ellis VW Marietta" listing reads closed (possible rebrand/ownership change). Recorded under the current name in `gti-2016` `serviceContacts`.
 
 ## Location constants
 
