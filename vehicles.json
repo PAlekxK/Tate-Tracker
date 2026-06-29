@@ -57,52 +57,63 @@
           "confidence": "verified"
         }
       },
-      "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation.",
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation. Odometer ~81k (approx, 2026-06-28) — confirm exact next drive.",
       "restoration": [
         {
           "item": "Coolant leak — water pump & thermostat housing",
           "status": "diagnosing",
-          "detail": "Taking it in for diagnosis. This is the EA888 Gen 3's signature failure — the plastic water pump + thermostat housing assembly leaks at the seals. Ask the shop to confirm and quote the combined job, and to fit an upgraded metal-impeller water pump (INA/OEM kit) instead of another plastic one — same labor, longer life. Brace for ~$1.5–2k at a dealer; a good indie is less."
+          "detail": "Taking it in for diagnosis. This is the EA888 Gen 3's signature failure — the plastic water pump + thermostat housing assembly leaks at the seals. Ask the shop to confirm and quote the combined job, and to fit an upgraded metal-impeller water pump (INA/OEM kit) instead of another plastic one — same labor, longer life. EXPECTED COST: ~$820–1,295 at a good indie like Autobahn; ~$1,500–2,200 at a dealer (40–60% more — higher labor + genuine-parts markup), so this stays at Autobahn. The leak diagnosis (~$75–180) is often credited toward the repair — ask. WHOLE-VISIT picture: the must-dos (this + DSG + brake flush + diag) run ~$1,300–2,100; figure ~$1,400–2,600 once you add the cheap inspect-first items, up to ~$3,500 if it needs motor mounts or walnut-blast carbon cleaning. Full breakdown in .research/2026-06-28-gti-autobahn-cost-estimate.md. TWO-WAVE option: this teardown (intake off) is the forcing event, so do the items that SHARE it in the same Wave-1 visit — PCV, chain-stretch read, and walnut-if-the-scope-shows-it; leave DSG, brake flush, and motor mounts for a later Wave 2 (they don't need the intake off), so you're not paying the teardown labor twice.",
+          "contactId": "autobahn"
         },
         {
           "item": "DSG transmission service",
           "status": "due soon",
-          "detail": "Fluid + filter. Interval is 40k / 80k miles — at ~90k it's past due. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2."
+          "detail": "Fluid + filter. Interval is 40k / 80k miles — at ~81k it's right at the 80k interval — due now. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2.",
+          "contactId": "autobahn"
         },
         {
           "item": "Brake fluid flush",
           "status": "due soon",
-          "detail": "Time-based — every 2 years. Confirm when it was last done; if you can't remember, it's due. DOT 4 LV (VW G 060 157)."
+          "detail": "Time-based — every 2 years. Confirm when it was last done; if you can't remember, it's due. DOT 4 LV (VW G 060 157).",
+          "contactId": "autobahn"
         },
         {
           "item": "Spark plugs",
-          "status": "due soon",
-          "detail": "NGK PFR7S8EG, gap ~0.028\" — replace every 40k on the Stage 1 tune. Likely due around now depending on the last change."
+          "status": "done",
+          "detail": "Done — replaced within the last ~1,000 miles (around ~81k) with the correct NGK PFR7S8EG plugs (the ones it's supposed to have). Next due ~40k from now on the Stage 1 tune. Exact mileage to confirm next drive."
         },
         {
           "item": "Spare key — source + program",
           "status": "sourcing",
-          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY type (part-number family 5K0 837 202 AK, FCC NBG010206T, 315 MHz US, HU66 blade — confirm by reading the label on your own key). Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or the VW dealer (Jim Ellis Kennesaw — OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket 5K0 837 202 AK fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150)."
+          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY type (part-number family 5K0 837 202 AK, FCC NBG010206T, 315 MHz US, HU66 blade — confirm by reading the label on your own key). Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or a VW dealer (either Jim Ellis Chamblee — right by Autobahn, so you can do it the same trip as the GTI service — or Jim Ellis Kennesaw, which is on the way to the property; OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket 5K0 837 202 AK fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150). On the dealer trip: skip any \"free multi-point inspection\" as a to-do list (dealer pricing + upsell, and you trust Autobahn for the real diagnosis) — but DO grab the dealer-only freebies: the free recall check + any recall work (16V647 EVAP etc.), and optionally a free written estimate to use as a price benchmark against Autobahn.",
+          "contactId": [
+            "jim-ellis-chamblee",
+            "jim-ellis-kennesaw",
+            "vw-marietta"
+          ]
         },
         {
           "item": "Air & cabin filters",
           "status": "planned",
-          "detail": "Engine air filter is due at 60k / 6 yr — almost certainly due. Swap the cabin filter while it's apart."
+          "detail": "Paul does these himself (DIY) — not an Autobahn job. Engine air filter: VW OEM 5Q0 129 620 B. Cabin filter: VW OEM 5Q0 819 644 A (activated-carbon combination filter). Both are easy at-home swaps; pick them up and do them at the property."
         },
         {
           "item": "Carbon cleaning — intake valves",
           "status": "planned",
-          "detail": "Direct injection builds carbon on the intake valves; 80–100k is the window to inspect and walnut-blast. Have the shop scope it and tell you how bad it is before you commit to the job."
+          "detail": "Direct injection builds carbon on the intake valves; 80–100k is the window to inspect and walnut-blast — at ~81k you're just at the front edge, so it may well not be needed yet. Have the shop scope it and tell you how bad it is before you commit to the job.",
+          "contactId": "autobahn"
         },
         {
           "item": "Timing chain stretch check",
           "status": "planned",
-          "detail": "No fixed interval; stretch usually needs action at 120–150k. A quick VCDS / OBDeleven read now gives a baseline — worth it on a tuned car."
+          "detail": "No fixed interval; stretch usually needs action at 120–150k. A quick VCDS / OBDeleven read now gives a baseline — worth it on a tuned car.",
+          "contactId": "autobahn"
         },
         {
           "item": "PCV valve & motor mounts",
           "status": "planned",
-          "detail": "Both are common softening/failure points on tuned MK7s. Cheap to inspect while it's at this visit."
+          "detail": "Both are common softening/failure points on tuned MK7s. Cheap to inspect while it's at this visit.",
+          "contactId": "autobahn"
         }
       ],
       "vin": "3VW547AU0GM••••••",
@@ -128,7 +139,50 @@
           "location": "VW data sticker — interior code (same sticker grid)",
           "status": "to-confirm"
         }
-      }
+      },
+      "serviceContacts": [
+        {
+          "id": "autobahn",
+          "name": "Autobahn Performance",
+          "role": "Independent VW/Audi specialist — where the APR Stage 1 tune was done; primary shop for the 90k service + coolant leak",
+          "phone": "(770) 409-8288",
+          "address": "6476 Buford Hwy NE, Atlanta, GA 30340",
+          "hours": "Mon–Fri 9–6 (closed weekends)",
+          "url": "https://autobahn-performance.com",
+          "notes": "German specialist since 1993; APR/Dinan/IE-certified tuning (they did your tune), 4.9★ across Yelp/CARFAX/Birdeye (250+ reviews), 2yr/24k-mi warranty. When you book, phone-vet the specific jobs: water-pump/thermostat with a metal-impeller pump, DSG fluid+filter, walnut-blast carbon, VCDS chain-stretch read."
+        },
+        {
+          "id": "jim-ellis-chamblee",
+          "name": "Jim Ellis VW of Chamblee",
+          "role": "VW dealer — spare-key option near Autobahn (been here before)",
+          "phone": "(470) 410-3552",
+          "address": "5855 Peachtree Blvd, Atlanta, GA 30341",
+          "hours": "Mon–Sat 7:30–7 (closed Sun)",
+          "url": "https://www.jimellisvwatlanta.com",
+          "notes": "Convenient to pair with an Autobahn service visit. Ask Parts/Service to cut + program a spare KESSY flip key (5K0 837 202 AK); they can also run the free 16V647 recall check by VIN."
+        },
+        {
+          "id": "jim-ellis-kennesaw",
+          "name": "Jim Ellis VW of Kennesaw",
+          "role": "VW dealer — spare-key option off the highway on the way to Tate/Fernwood",
+          "phone": "(770) 370-3615",
+          "address": "950 Ernest W Barrett Pkwy NW, Kennesaw, GA 30144",
+          "hours": "Mon–Sat 7:30–7 (Service/Parts (770) 370-3615 · Sales (770) 370-3620)",
+          "url": "https://www.jimellisvolkswagenkennesaw.com",
+          "notes": "Right off the I-575/I-75 split on the Jasper run — convenient to do the spare key on the way to the property. Same key spec + free recall check by VIN."
+        },
+        {
+          "id": "vw-marietta",
+          "name": "Volkswagen of Marietta",
+          "role": "VW dealer — spare-key option, also on the way (you called it Jim Ellis Marietta)",
+          "phone": "(770) 955-6565",
+          "address": "1860 Cobb Pkwy S, Marietta, GA 30060",
+          "hours": "Service Mon–Fri 7:30–7, Sat 8–4 (closed Sun)",
+          "url": "https://www.volkswagenofmarietta.com",
+          "notes": "On the I-75/Cobb Pkwy corridor toward Jasper. Heads-up: public listings now show this as 'Volkswagen of Marietta' — the old Jim Ellis VW Marietta listing reads closed, so it looks like a rebrand/ownership change. Confirm the name when you call. Same key spec + recall check by VIN."
+        }
+      ],
+      "mileage": "~81,000 mi (approx — Paul to confirm exact next drive)"
     },
     {
       "id": "tiguan-2018",
@@ -202,7 +256,15 @@
           "location": "VW data sticker — interior code (same sticker grid)",
           "status": "to-confirm"
         }
-      }
+      },
+      "restoration": [
+        {
+          "item": "Paint touch-up",
+          "status": "planned",
+          "detail": "A little paint touch-up, DIY with a touch-up kit — no rush. Two gates before it happens: (1) confirm the exact paint color code off the VW data sticker (spare-wheel well under the trunk floor, or the driver door jamb) so the touch-up matches; (2) wait for the right weather — this is weather-dependent. Per the application-conditions reference: low humidity (under 50%), work in shade, and warm enough — brush or paint-pen needs above 50°F, spray needs above 70°F. So it waits for a dry, mild, low-humidity day.",
+          "image": "images/vehicles/tiguan-paint-application-conditions.png"
+        }
+      ]
     },
     {
       "id": "f150-2006",
@@ -433,9 +495,10 @@
           "detail": "Sound-deadening (doors, floor, roof). The key realization (2026-06-22): this is NOT a separate project — it's the first step of reassembly after paint, and nearly free in teardown terms because every surface it needs is already exposed by work you're already doing: door shells (panels off), floor pans (carpet up, seats out at the trim shop), roof (headliner down). Goes on after the body's painted, before panels/carpet/headliner go back. Refinish sequence — Phase 4."
         },
         {
-          "item": "Amp + subwoofers",
+          "item": "Amp, speakers + subwoofers",
           "status": "long-term",
-          "detail": "The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown."
+          "detail": "Door speakers acquired: a pair of Infinity Kappa 63XF — 6.5\" (165 mm) two-way coaxials (open-box; MSRP $249.95). These are the door speakers; the amp + subwoofers are still to source. The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown. Now that the door speaker size is known (6.5\" round), plan the door baffles/mounts around it when you pre-run the wiring in Phase 2.",
+          "image": "images/vehicles/bolores-audio-ref-infinity-kappa63xf.png"
         },
         {
           "item": "Dash bezel — rear window & defrost",
