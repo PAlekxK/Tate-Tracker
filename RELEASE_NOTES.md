@@ -4,6 +4,15 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-06-28 — Who to call, right on the step
+
+- The fleet's to-do steps now carry **who to call** for the jobs that go to a shop — the name, the phone (tap it to dial), and the address and hours. On a phone you can pull up a step and call to book the appointment without leaving the card.
+- The **GTI's** service steps point to **Autobahn Performance** (the German specialist that did the tune), and the spare-key step lists three convenient **VW dealers** — Jim Ellis Chamblee (by Autobahn), Jim Ellis Kennesaw, and Volkswagen of Marietta (both on the way to the property) — so you can pick whichever is easiest.
+- Two steps now carry a **reference photo** you can tap to enlarge: the speakers picked up for *Bolores* (Infinity Kappa 6.5" door speakers) under her audio build, and the paint-application conditions for the **Tiguan's** touch-up (it waits for a dry, mild, low-humidity day).
+- The **GTI's** record caught up: the **spark plugs** are marked done (fresh NGK plugs, ~81k), the air + cabin filters are noted as your own DIY job, and the coolant-leak step now carries an **expected cost** (~$1,300–2,600 for the visit at Autobahn) and a two-visit plan so the labor-sharing jobs ride together.
+
+---
+
 ## 2026-06-21 — The creeping fig is a keeper
 
 - Good news from the garden: the **creeping fig** came through last winter outdoors and leafed back out this spring — Mom spotted it returning. Its card used to warn it wouldn't survive the cold up here; we've softened all of that. It's still a little tender by the book, so the card now shows how to *help* it through winter instead — a deep mulch over the roots and a cover on the hardest nights — and taking a few cuttings in late summer is now just backup insurance, not the only way to keep it going.
