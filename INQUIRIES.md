@@ -25,3 +25,32 @@ regardless.
 sound) whose one weakness was *assuming the lilies are potted* — exactly the gap a
 property-aware assistant would close. Noted as a small signal for the open
 "where property-context lives — Garden Guru vs. in-Fernwood Claude" thread.
+
+### Update 2026-07-02 — reviewed Paul's photos (largely resolved)
+
+Paul sent three photos this session (IMG_8447–8449: wide pond, a close-up of the pad
+cluster, and the shadier marginal edge). Direct look confirms the working read.
+
+- **Q2 (species) — answered (vision read):** true water lilies, **_Nymphaea_** — pads
+  show the classic rounded leaf with the V-notch/sinus, not the upright oval of
+  spatterdock/*Nuphar*. Flagged as a model-read ID per the verification rule; leaf
+  shape is unambiguous but a Paul/Mom glance-confirm closes it.
+- **Q3 (sun) — answered:** the pond is **partly shaded** — heavy tree canopy reflected
+  across the surface and the lily cluster is crowded by tall marginals (rush/iris/fern)
+  leaning over it. This is the real limiting factor; *Nymphaea* wants 6+ hrs direct sun,
+  more than anything else in the pond.
+- **Q1 (potted vs rooted) — still open**, but moot for now: newer pads are healthy
+  green, so no feeding/repotting is indicated regardless.
+- **Diagnosis:** predominantly normal older-pad senescence + sun/shade mottling. Full
+  life cycle visible at once (healthy green new pads → yellow-mottled → brown crispy
+  margins → gray-translucent spent pads decomposing on the surface). **No pest crisis**
+  visible — a few notched edges read as decay, not infestation; no aphid colonies seen.
+
+**Care given to Paul:**
+1. Prune the spent pads — cut each yellow/brown/decomposing pad's stem down near the
+   crown and pull it out of the water (don't let it sink). Same decomposition-load logic
+   as the pond-iris care notes. Safe anytime.
+2. Higher-leverage: get them more light — trim overhanging branches / thin the tall
+   marginals crowding the lily cluster toward 6+ hrs sun.
+3. Hold on fertilizer tabs / repotting — only revisit if next season's pads come in
+   generally small and pale (not just old ones yellowing).
