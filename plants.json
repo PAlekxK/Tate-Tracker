@@ -2386,6 +2386,88 @@
         }
       },
       "zoneId": "fairway-fringe"
+    },
+    {
+      "id": "lizards-tail",
+      "name": "Lizard's Tail",
+      "scientificName": "Saururus cernuus",
+      "emoji": "🌿",
+      "guide": "Lizard's Tail is a native wetland perennial of the southeastern US, typically found in shallow water or moist soil at pond and stream margins. The plant produces heart-shaped leaves and distinctive nodding white flower spikes that give it the common name. At Church Mountain Road, it is planted in soil adjacent to the pond rather than in standing water — a drier siting than its native habitat, though the proximity to the water table keeps it consistently moist.",
+      "currentSeasonNote": "July 2026: the plant is actively growing and spreading in its pond-adjacent location. Flower spikes likely emerging or recently emerged given the timing. The first full season at this site means phenology here is still being established — check again next July to confirm bloom timing at ~2,959 ft elevation.",
+      "soilNotes": "Saururus cernuus is native to swamp margins and shallow water but thrives in moist soil away from standing water. Church Mountain Road's Hayesville/Cecil soils in the pond-adjacent bed — acidic sandy loam to loam at pH 4.5–5.5 — are well-matched if the soil stays consistently moist through summer. The plant's shallow root system demands organic matter; mulch 2–3 inches with leaf litter or compost. Avoid any spot where drainage is so perfect the soil dries in summer heat.",
+      "aspectPreference": "Part shade to full shade. Saururus is native to the dappled understory of bottomland hardwood forests — the pond-margin setting here, especially if it receives morning light and afternoon shade from surrounding trees, is ideal. Direct hot afternoon sun will stress the plant unless soil moisture is absolutely consistent.",
+      "frostSensitivity": "Hardy to Zone 4. No frost concerns at Church Mountain Road elevation. The above-ground foliage dies completely to the ground after first hard frost (typically October–November at ~2,959 ft); the rhizome survives dormant in the soil and re-sprouts in spring.",
+      "care": {
+        "prune": {
+          "months": [
+            10,
+            11,
+            0,
+            1
+          ],
+          "peakWindow": "Nov–Feb after foliage blackens",
+          "narrow": false,
+          "description": "Cut back dead foliage after the first hard frost flattens the leaves. At Church Mountain Road elevation, this runs late October through November. Remove all above-ground growth down to the crown to tidy the pond edge and reduce overwintering pest habitat. Spring cleanup is also fine — either approach works. Do not cut back in fall and leave the dead stems; the plant prefers a clean cut-back."
+        },
+        "propagate": {
+          "months": [
+            2,
+            3,
+            4
+          ],
+          "peakWindow": "Mar–Apr before active growth",
+          "narrow": false,
+          "description": "Divide rhizomes in early spring (March–April) just as new shoots begin to emerge. Lift the entire clump, separate by hand into sections carrying 2–3 emerging buds and healthy roots, and replant immediately in moist soil. Alternatively, allow the plant to spread naturally — the rhizomes will creep through moist soil and fill the area over 2–3 seasons. This plant is self-spreading by rhizome in the right conditions."
+        },
+        "fertilize": {
+          "months": [
+            3,
+            4,
+            5
+          ],
+          "peakWindow": "Apr before active growth",
+          "narrow": false,
+          "description": "Light feeding in early spring (April) with a balanced slow-release fertilizer. Saururus evolved in rich organic bottomland soils — annual compost top-dressing (1–2 inches) is more valuable than synthetic fertilizer. Most established plants in consistently moist soil with decent organic matter need no supplemental feeding."
+        },
+        "water": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Consistent moisture is non-negotiable. At Church Mountain Road's pond-adjacent siting, the proximity to the water table likely keeps the plant satisfied through summer, but watch for any prolonged dry spell — if rainfall is light, deep watering once weekly in July–August is prudent. The shallow rhizome system dries quickly in full sun; afternoon shade helps reduce water stress."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — Saururus is a landscape perennial, not a container plant."
+        },
+        "inspect": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Monitor for signs of stress if any extended dry period occurs mid-summer. Wilting or yellowing foliage in July–August (when the plant should be vigorous) signals inadequate moisture. Check for slugs or other defoliating insects in damp pond-edge habitat — they are attracted to the moist soil. Lizard's Tail itself is quite pest-resistant; problems are usually cultural (drought or waterlogging)."
+        }
+      },
+      "_phaseF": {
+        "promotedAt": "2026-07-03T12:27:36.746Z",
+        "conversationId": "mr4wnduo-0sdzb",
+        "deviceId": null,
+        "confidence": null,
+        "elevationFit": null,
+        "habitatHint": null,
+        "fromCommonName": "Lizard's Tail",
+        "fromScientificName": "Saururus cernuus"
+      }
     }
   ]
 }
