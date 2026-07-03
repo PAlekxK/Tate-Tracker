@@ -2,6 +2,32 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Pickup point — last session ended 2026-07-02
+
+**Garden Guru conversational redesign — Phases 1–3 built, verified, and DEPLOYED LIVE.** Worker deployed (version `123ea421` @ tate-tracker.paul-kirschenbauer.workers.dev); viewer pushed to GH Pages (Tate-Tracker HEAD `23ac94f`). Commits: analysis+plan `508010c`, Phase 1 `c8fb1a1`, Phase 2 `a3130ef`, Phase 3 `7d8eba2`.
+
+### What drove it (evidence, not inference)
+Pulled all 16 real Garden Guru conversations from KV (through 2026-07-02) → `.user-research/2026-07-02-garden-guru-conversation-analysis.md`. Ran the full expert panel (ux / eng / ai-advisor / user-researcher) + got Mom's direct answers to 4 verification questions. Findings: follow-ups were blocked by a **missing affordance, not missing demand** (15/16 conversations one-turn; the telemetry's "no follow-up demand" was backwards); Mom (`d-14nyhnjz`, confirmed via her answers = the active daily user) is a **satisfied one-shot user whose real gap is logging-with-confidence** ("I hoped it was logged but wasn't sure"); two capture intents (log-on-known vs add-new). Full settled plan: `.engineering/2026-07-02-garden-guru-redesign-plan.md`.
+
+### What shipped
+- **Phase 1** — re-anchored the conversation UI to the universal chat model (compose area drops beneath the latest reply via CSS flex-order); follow-up photos work; one calm **suggested-follow-up chip** (pull, not push — a `suggest-followup` fence, never a question in Guru's prose); turn-continuity in `GARDEN_GURU_SYSTEM`.
+- **Phase 2** — **log-an-observation** on a known plant: a `suggest-log` fence → deterministic "Note this on the [plant]" affordance → writes the reader's **verbatim words** (never Guru's diagnosis) to the AI-free ObservationStore, with an unmissable "Noted ✓" confirmation. Closes the recurring "became Paul's manual INQUIRIES.md entry" loop.
+- **Phase 3** — **add ⇄ remove a plant** from conversation. Add: seeding interview → `suggest-add` fence carrying the reader's facts as `userNotes` (the authoritative superseding layer) → double-confirm → `/api/promote-species` drafter (extended to honor user-supersede + draft honest-and-thin). Remove: `suggest-remove` → double-confirm → new `/api/remove-species` (removes from plants.json + re-inlines `_DATA` + commits; reversible via git + the add flow).
+
+### Cross-cutting rules baked in
+Capture stays deterministic (fence carries routing metadata only; the record is the reader's words) · user notes supersede book/generic · house-voice honesty ("by the book X, but here Y") · pull-not-push · every new affordance instrumented (followup/log/add/remove `_offered`/`_used`).
+
+### ⚠️ Owner: Paul — verification the mocks couldn't do (now that it's live)
+1. **Test the four flows on your phone** — confirms Guru actually emits the right fences + the drafter honors user-supersede (the one gap browser-mocks can't close).
+2. **First real plant-add: use a disposable plant** — that flow writes canon to live plants.json via GitHub; add a throwaway, confirm it reads honest-and-thin in the house voice, then remove it, before it matters.
+
+### Backlog (panel-surfaced, not yet done)
+- Correct `tools/people.json` — mark `d-14nyhnjz` as Mom (currently guessed "Paul's old iPhone"; behavior refutes that).
+- Durable photo-in-note (stripped for the iOS localStorage quota; likely path = mirror the audio_ref server-blob pattern) — needs its own scoping.
+- Write up the durable principles the panel proposed (ux: "a correct 'no' still owes a next move," "conversational surfaces inherit the universal chat spatial model"; ai-advisor: "the fence is the bridge"; eng: "log the human's words not the model's") into the principle libraries.
+
+---
+
 ## Pickup point — last session ended 2026-06-28
 
 **Vehicles card — per-step service contacts (tap-to-call) + GTI cost/scope reconcile.** All committed + pushed (Tate-Tracker HEAD `3b58d3e`).
