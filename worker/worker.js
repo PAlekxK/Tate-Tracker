@@ -540,7 +540,45 @@ Rules for the log fence:
 - Emit ONLY when the subject is already in the digest (one of the plants or features we tend) AND the reader is genuinely recording something about it — not merely asking a general question with no observation in it.
 - Use the plant's name as it appears in the digest so the client can resolve it. If the plant is NOT in the digest, do NOT emit this fence — a plant not yet in the journal is a different flow (adding it), not a log.
 - Never reference the fence in your prose. Never ask "want me to log this?" — the client surfaces the option quietly; your prose stays a statement.
-- Independent of the other fences.`;
+- Independent of the other fences.
+
+WHEN THE READER WANTS TO ADD A NEW PLANT (one not yet in the journal)
+Sometimes the reader tells you they've planted, or want to add, something the journal doesn't yet tend: "I put in a creeping fig by the wall," "add the serviceberry we planted by the drive." You can't speak to its care from the property's experience yet, and you must NOT invent a season of local phenology it hasn't lived here — but the reader's intent to record it is exactly the ground-truth the journal is built from. So help them add it, honestly.
+
+First, if you don't already have them from the conversation, gather a FEW grounding facts — ask ONE at a time, in the journal's voice, never as a form or a list:
+- where on the property it's planted (which bed, what aspect — sun, shade, the wet edge),
+- what they've noticed so far (how it's taking, anything already happening),
+- anything specific they're trying (training it up a wall, and so on).
+Two or three of these is plenty. A couple of natural turns — don't interrogate.
+
+When you have enough, append an add fence at the very end, after your prose:
+
+<!--suggest-add
+{
+  "kind": "plant",
+  "commonName": "<common name>",
+  "scientificName": "<scientific name, best effort>",
+  "userNotes": "<the reader's OWN stated facts — where it's planted, aspect, what they've observed, what they're attempting — preserved faithfully, in their words as much as you can>"
+}
+-->
+
+Rules for the add fence:
+- Emit ONLY for a plant NOT already in the digest, and only once you have the reader's grounding facts. If it's already in the digest, don't add it — offer to log an observation instead.
+- userNotes carries the reader's facts; they become the authoritative, superseding layer of the drafted entry. Preserve what they actually said; don't embellish.
+- Never say "I've added it." The client shows a confirm step; the entry is drafted and committed only after the reader says yes. Your prose stays a statement.
+- kind is "plant". (Wildlife additions still go through the photo-ID flow.)
+
+WHEN THE READER WANTS TO REMOVE A PLANT (one in the journal but no longer on the property)
+If the reader says a plant is gone — it died, was pulled, didn't take ("the creeping fig didn't make it," "we took out the azalea by the drive") — offer to remove it from the journal. Name it plainly; don't eulogize.
+
+<!--suggest-remove
+{ "kind": "plant", "name": "<the plant's name as the journal knows it>" }
+-->
+
+Rules for the remove fence:
+- Emit ONLY for a plant that IS in the digest.
+- Never say "I've removed it." The client shows a confirm step; removal happens only after the reader confirms.
+- Use the plant's name as the digest knows it so the client can resolve it.`;
 
 // ---- Sound ID (Phase H) — OpenAI gpt-4o-audio identification step ----
 // The Anthropic Messages API doesn't support audio content blocks yet
@@ -1259,6 +1297,20 @@ Today: ${todayIso}
 Produce the schema now.`,
   });
 
+  // Phase 3 (2026-07-02) — conversation-add: the reader's own stated facts about this
+  // plant are the AUTHORITATIVE, superseding layer. Inject them so the drafted entry is
+  // born honest-and-thin (no fabricated season of local phenology) with the reader's
+  // facts on top, in the house voice.
+  if (suggestion.userNotes && typeof suggestion.userNotes === "string" && suggestion.userNotes.trim()) {
+    drafterUserContent.push({
+      type: "text",
+      text: `THE READER'S OWN NOTES ON THIS PLANT (authoritative — these SUPERSEDE book/generic knowledge wherever they touch):
+${suggestion.userNotes.trim()}
+
+This plant was just added by the reader and has NOT been observed here across a full season. Draft the entry HONEST AND THIN, in the field-journal house voice: ground care in the location + horticultural data as usual, but wherever the reader's notes speak to how it behaves or is sited HERE, those win — and say so plainly ("by the book X, but per the reader's note, here Y"). Do NOT fabricate local phenology the property hasn't witnessed. It is fine for the entry to be modest; it will fatten as real observations accumulate.`,
+    });
+  }
+
   const drafterRes = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -1440,6 +1492,60 @@ Produce the schema now.`,
     expectedDeployMinutes: "1-3",
     fetchedAt: new Date().toISOString(),
   });
+}
+
+// ---- Remove species — Phase 3 (2026-07-02) reader-confirmed removal from canon ----
+// POST /api/remove-species  — body { kind, id }
+// Removes the entry from the source JSON, re-inlines the *_DATA const in viewer.html,
+// and commits both. Reversible via git history (and re-addable via the add flow), which
+// is what makes offering removal safe. Confirmed twice on the client before it fires.
+async function handleRemoveSpecies(request, env) {
+  if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
+  if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {
+    return json({ error: "github-not-configured", hint: "set GITHUB_TOKEN and GITHUB_REPO worker secrets" }, 503);
+  }
+  let body;
+  try { body = await request.json(); }
+  catch (e) { return json({ error: "bad-json" }, 400); }
+  const kind = body && body.kind;
+  const id = body && body.id;
+  if (!kind || !id) return json({ error: "missing-fields", required: ["kind", "id"] }, 400);
+  const target = KIND_TARGETS[kind];
+  if (!target) return json({ error: "unsupported-kind", kind, supported: Object.keys(KIND_TARGETS) }, 400);
+
+  let jsonData, removedName = null;
+  // ---- Remove from source JSON + commit ----
+  try {
+    const jsonFile = await ghGetFile(env, target.jsonFile);
+    if (!jsonFile.exists) return json({ error: "source-json-missing", path: target.jsonFile }, 502);
+    jsonData = JSON.parse(jsonFile.contentText);
+    let container = jsonData;
+    for (const part of target.speciesPath.split(".")) container = container[part];
+    if (!Array.isArray(container)) return json({ error: "species-path-not-list", path: target.speciesPath }, 500);
+    const idx = container.findIndex(s => s && s.id === id);
+    if (idx < 0) return json({ error: "not-found", id }, 404);
+    removedName = container[idx].name || container[idx].commonName || id;
+    container.splice(idx, 1);
+    const updatedJson = JSON.stringify(jsonData, null, 2) + "\n";
+    await ghPutFile(env, target.jsonFile, utf8ToBase64(updatedJson),
+      `Remove ${removedName} from ${target.jsonFile} (reader-confirmed)`, jsonFile.sha);
+  } catch (e) {
+    return json({ error: "json-commit-failed", detail: String(e).slice(0, 300) }, 502);
+  }
+  // ---- Re-inline *_DATA const in viewer.html + commit ----
+  try {
+    const viewerFile = await ghGetFile(env, "viewer.html");
+    if (!viewerFile.exists) return json({ error: "viewer-html-missing" }, 502);
+    const dataConst = target.dataConst;
+    const constRegex = new RegExp(`const ${dataConst} = \\{[\\s\\S]*?\\};`);
+    if (!constRegex.test(viewerFile.contentText)) return json({ error: "viewer-const-not-found", dataConst }, 502);
+    const newViewer = viewerFile.contentText.replace(constRegex, `const ${dataConst} = ${JSON.stringify(jsonData)};`);
+    await ghPutFile(env, "viewer.html", utf8ToBase64(newViewer),
+      `Re-inline ${dataConst} after removing ${removedName}`, viewerFile.sha);
+  } catch (e) {
+    return json({ error: "viewer-commit-failed", detail: String(e).slice(0, 300) }, 502);
+  }
+  return json({ ok: true, removed: id, name: removedName, expectedDeployMinutes: "1-3", fetchedAt: new Date().toISOString() });
 }
 
 // ---- Metrics — engagement event capture ----
@@ -1715,6 +1821,7 @@ export default {
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
+    if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);
     if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
     if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
     if (url.pathname === "/api/zone-save") return handleZoneSave(request, env);

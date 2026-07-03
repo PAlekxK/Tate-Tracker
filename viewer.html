@@ -3144,6 +3144,31 @@
   .gg-log-saved { color: #35502f; }
   .gg-log-error { color: #8a4a2a; }
 
+  /* Add / remove a canon plant (Phase 3, 2026-07-02) — a calm confirm box beneath the
+     reply; reuses the proven two-step confirm chips (gg-suggest-btn-*). */
+  .gg-actionbox {
+    margin: 10px 0 2px;
+    padding: 10px 12px;
+    background: #fbf8ee;
+    border: 1px solid #ddd2a8;
+    border-radius: 12px;
+  }
+  .gg-action-title {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #2a3a2a;
+  }
+  .gg-add-sci { font-weight: 400; font-style: italic; color: #7a7250; }
+  .gg-action-note {
+    margin-top: 4px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 13.5px;
+    font-style: italic;
+    color: #5a5238;
+    line-height: 1.45;
+  }
+
   /* Garden Guru suggestion actions — yes/no chips after a photo-ID response */
   .gg-suggest-actions {
     display: flex;
@@ -12271,6 +12296,43 @@ const GardenGuru = (function () {
     return { text, log };
   }
 
+  // Phase 3 (2026-07-02) — parse the add-a-plant fence (reader is adding a plant not yet
+  // in the journal; userNotes = the reader's superseding facts). Shape per GARDEN_GURU_SYSTEM
+  // "WHEN THE READER WANTS TO ADD A NEW PLANT".
+  function parseAddFence(reply) {
+    if (!reply || typeof reply !== "string") return { text: reply, add: null };
+    const m = reply.match(/<!--\s*suggest-add\s*([\s\S]*?)\s*-->/);
+    if (!m) return { text: reply, add: null };
+    let add = null;
+    try {
+      const p = JSON.parse(m[1]);
+      if (p && p.kind === "plant" && typeof p.commonName === "string" && p.commonName.trim()) {
+        add = {
+          kind: "plant",
+          commonName: p.commonName.trim(),
+          scientificName: (typeof p.scientificName === "string" ? p.scientificName.trim() : ""),
+          userNotes: (typeof p.userNotes === "string" ? p.userNotes.trim() : ""),
+        };
+      }
+    } catch (e) { /* malformed — drop */ }
+    return { text: (reply.slice(0, m.index) + reply.slice(m.index + m[0].length)).trim(), add };
+  }
+
+  // Phase 3 — parse the remove-a-plant fence.
+  function parseRemoveFence(reply) {
+    if (!reply || typeof reply !== "string") return { text: reply, remove: null };
+    const m = reply.match(/<!--\s*suggest-remove\s*([\s\S]*?)\s*-->/);
+    if (!m) return { text: reply, remove: null };
+    let remove = null;
+    try {
+      const p = JSON.parse(m[1]);
+      if (p && p.kind === "plant" && typeof p.name === "string" && p.name.trim()) {
+        remove = { kind: "plant", name: p.name.trim() };
+      }
+    } catch (e) { /* malformed — drop */ }
+    return { text: (reply.slice(0, m.index) + reply.slice(m.index + m[0].length)).trim(), remove };
+  }
+
   // Shared body for ask() and askWithImage(): pushes the user turn (string or array
   // content), POSTs to /api/chat, parses reply for suggestion fence, pushes assistant.
   async function sendTurn(userContent, contentType) {
@@ -12310,7 +12372,9 @@ const GardenGuru = (function () {
       // Strip the log fence and the follow-up fence (each matches anywhere), then parse
       // the species fence off the tail of what remains.
       const afterLog = parseLogFence(rawReply);
-      const afterFollowup = parseFollowupFence(afterLog.text);
+      const afterAdd = parseAddFence(afterLog.text);
+      const afterRemove = parseRemoveFence(afterAdd.text);
+      const afterFollowup = parseFollowupFence(afterRemove.text);
       const { displayText, suggestion } = parseSuggestionFence(afterFollowup.text);
       const assistantTurn = {
         role: "assistant",
@@ -12324,6 +12388,15 @@ const GardenGuru = (function () {
         if (typeof MetricsCollector !== "undefined") {
           MetricsCollector.track("log_offered", { conversationId });
         }
+      }
+      // Add / remove a canon plant (Phase 3) — offered on this turn, committed on confirm.
+      if (afterAdd.add) {
+        assistantTurn.addSuggestion = afterAdd.add;
+        if (typeof MetricsCollector !== "undefined") MetricsCollector.track("add_offered", { conversationId });
+      }
+      if (afterRemove.remove) {
+        assistantTurn.removeSuggestion = afterRemove.remove;
+        if (typeof MetricsCollector !== "undefined") MetricsCollector.track("remove_offered", { conversationId });
       }
       // Attach a suggested follow-up only if the reader can still ask one (cap not
       // yet reached). The chip renders under the latest reply; count it as shown here
@@ -12540,6 +12613,14 @@ const GardenGuru = (function () {
     emit();
   }
 
+  // Phase 3 — general turn-state patch (used for add/remove confirm state machines).
+  function patchTurn(turnIndex, patch) {
+    const turn = turns[turnIndex];
+    if (!turn || !patch) return;
+    Object.assign(turn, patch);
+    emit();
+  }
+
   function reset() {
     fireReplyDwell("reset");
     saveCurrentConversation();
@@ -12639,7 +12720,7 @@ const GardenGuru = (function () {
     };
   }
 
-  return { ask, askWithImage, askWithAudio, confirmId, declineId, confirmAdd, declineAdd, markLog, reset, onChange, getState };
+  return { ask, askWithImage, askWithAudio, confirmId, declineId, confirmAdd, declineAdd, markLog, patchTurn, reset, onChange, getState };
 })();
 
 // ---- Voice dictation controller (Web Speech API) ----
@@ -13150,6 +13231,54 @@ const UnifiedInput = (function () {
             + '<span class="gg-log-glyph" aria-hidden="true">📓</span> Try again</button></div>';
         }
       }
+      // Phase 3 — add a new plant to canon (two-step confirm, then GitHub commit).
+      if (!state.isWaiting && lastTurn && lastTurn.role === "assistant" && lastTurn.addSuggestion) {
+        const a = lastTurn.addSuggestion, ast = lastTurn.addStatus;
+        const cn = escapeHtml(a.commonName);
+        const sci = a.scientificName ? ' <span class="gg-add-sci">' + escapeHtml(a.scientificName) + '</span>' : '';
+        if (!ast) {
+          html += '<div class="gg-actionbox"><div class="gg-action-title">' + cn + sci + '</div>';
+          if (a.userNotes) html += '<div class="gg-action-note">“' + escapeHtml(a.userNotes) + '”</div>';
+          html += '<div class="gg-suggest-prompt">Add this to the journal, with your notes?</div>'
+            + '<div class="gg-suggest-actions"><button class="gg-suggest-btn-yes" data-gg-add="review" type="button">Looks right</button>'
+            + '<button class="gg-suggest-btn-no" data-gg-add="decline" type="button">Not quite</button></div></div>';
+        } else if (ast === "reviewed") {
+          html += '<div class="gg-actionbox"><div class="gg-suggest-prompt">Draft the entry and add ' + cn + ' to the journal?</div>'
+            + '<div class="gg-suggest-actions"><button class="gg-suggest-btn-yes" data-gg-add="commit" type="button">Yes, add it</button>'
+            + '<button class="gg-suggest-btn-no" data-gg-add="decline" type="button">Not now</button></div></div>';
+        } else if (ast === "drafting") {
+          html += '<div class="gg-suggest-status gg-drafting">Drafting the entry from your notes and adding it…</div>';
+        } else if (ast === "added") {
+          html += '<div class="gg-suggest-status gg-promoted">' + escapeHtml(lastTurn.addedName || a.commonName) + ' added to the journal. GitHub Pages takes about 1–3 minutes — refresh the dashboard then.</div>';
+        } else if (ast === "declined") {
+          html += '<div class="gg-suggest-status gg-declined">Set aside — not adding it.</div>';
+        } else if (ast === "error") {
+          html += '<div class="gg-suggest-status gg-error">Couldn’t add it just now' + (lastTurn.addError ? ' (' + escapeHtml(lastTurn.addError) + ')' : '') + '.</div>'
+            + '<div class="gg-suggest-actions"><button class="gg-suggest-btn-yes" data-gg-add="commit" type="button">Try again</button></div>';
+        }
+      }
+      // Phase 3 — remove a plant from canon (two-step confirm, then GitHub commit).
+      if (!state.isWaiting && lastTurn && lastTurn.role === "assistant" && lastTurn.removeSuggestion) {
+        const rnm = escapeHtml(lastTurn.removeSuggestion.name), rst = lastTurn.removeStatus;
+        if (!rst) {
+          html += '<div class="gg-actionbox"><div class="gg-suggest-prompt">Remove ' + rnm + ' from the journal?</div>'
+            + '<div class="gg-suggest-actions"><button class="gg-suggest-btn-no" data-gg-remove="confirm" type="button">Remove it</button>'
+            + '<button class="gg-suggest-btn-yes" data-gg-remove="decline" type="button">Keep it</button></div></div>';
+        } else if (rst === "confirm") {
+          html += '<div class="gg-actionbox"><div class="gg-suggest-prompt">Take ' + rnm + ' out of the journal? It can be added back later.</div>'
+            + '<div class="gg-suggest-actions"><button class="gg-suggest-btn-no" data-gg-remove="commit" type="button">Yes, remove</button>'
+            + '<button class="gg-suggest-btn-yes" data-gg-remove="decline" type="button">Cancel</button></div></div>';
+        } else if (rst === "removing") {
+          html += '<div class="gg-suggest-status gg-drafting">Removing ' + rnm + '…</div>';
+        } else if (rst === "removed") {
+          html += '<div class="gg-suggest-status gg-promoted">' + rnm + ' removed from the journal. Refresh in 1–3 minutes.</div>';
+        } else if (rst === "declined") {
+          html += '<div class="gg-suggest-status gg-declined">Kept — nothing removed.</div>';
+        } else if (rst === "error") {
+          html += '<div class="gg-suggest-status gg-error">Couldn’t remove it just now' + (lastTurn.removeError ? ' (' + escapeHtml(lastTurn.removeError) + ')' : '') + '.</div>'
+            + '<div class="gg-suggest-actions"><button class="gg-suggest-btn-no" data-gg-remove="commit" type="button">Try again</button></div>';
+        }
+      }
       // Phase 1 — one calm follow-up chip beneath the LATEST reply.
       if (!state.isWaiting && lastTurn && lastTurn.role === "assistant"
           && lastTurn.followup && !state.capReached) {
@@ -13207,6 +13336,54 @@ const UnifiedInput = (function () {
           }
         });
       }
+
+      // Wire add-a-plant confirm (Phase 3) — two-step, then POST /api/promote-species.
+      conversation.querySelectorAll("[data-gg-add]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const idx = state.turns.length - 1;
+          const a = lastTurn && lastTurn.addSuggestion;
+          if (!a) return;
+          const act = btn.getAttribute("data-gg-add");
+          if (act === "review") { GardenGuru.patchTurn(idx, { addStatus: "reviewed" }); return; }
+          if (act === "decline") { GardenGuru.patchTurn(idx, { addStatus: "declined" }); return; }
+          if (act === "commit") {
+            GardenGuru.patchTurn(idx, { addStatus: "drafting" });
+            if (typeof MetricsCollector !== "undefined") MetricsCollector.track("add_confirmed", { conversationId: state.conversationId });
+            try {
+              const result = await WorkerAPI.call("POST", "/api/promote-species", {
+                suggestion: { kind: "plant", commonName: a.commonName, scientificName: a.scientificName, userNotes: a.userNotes, source: "conversation" },
+                conversationId: state.conversationId,
+                deviceId: (typeof getDeviceId === "function") ? getDeviceId() : null,
+              });
+              if (result && result.ok) GardenGuru.patchTurn(idx, { addStatus: "added", addedName: result.name });
+              else GardenGuru.patchTurn(idx, { addStatus: "error", addError: (result && result.error) || "unknown" });
+            } catch (e) { GardenGuru.patchTurn(idx, { addStatus: "error", addError: (e && e.message) || "failed" }); }
+          }
+        });
+      });
+
+      // Wire remove-a-plant confirm (Phase 3) — two-step, then POST /api/remove-species.
+      conversation.querySelectorAll("[data-gg-remove]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const idx = state.turns.length - 1;
+          const r = lastTurn && lastTurn.removeSuggestion;
+          if (!r) return;
+          const act = btn.getAttribute("data-gg-remove");
+          if (act === "decline") { GardenGuru.patchTurn(idx, { removeStatus: "declined" }); return; }
+          if (act === "confirm") { GardenGuru.patchTurn(idx, { removeStatus: "confirm" }); return; }
+          if (act === "commit") {
+            const resolved = resolvePlantByName(r.name);
+            if (!resolved) { GardenGuru.patchTurn(idx, { removeStatus: "error", removeError: "couldn’t find that plant in the journal" }); return; }
+            GardenGuru.patchTurn(idx, { removeStatus: "removing" });
+            if (typeof MetricsCollector !== "undefined") MetricsCollector.track("remove_confirmed", { conversationId: state.conversationId });
+            try {
+              const result = await WorkerAPI.call("POST", "/api/remove-species", { kind: "plant", id: resolved.speciesId });
+              if (result && result.ok) GardenGuru.patchTurn(idx, { removeStatus: "removed" });
+              else GardenGuru.patchTurn(idx, { removeStatus: "error", removeError: (result && result.error) || "unknown" });
+            } catch (e) { GardenGuru.patchTurn(idx, { removeStatus: "error", removeError: (e && e.message) || "failed" }); }
+          }
+        });
+      });
 
       // Wire two-step suggestion action handlers (delegated)
       conversation.querySelectorAll(".gg-suggest-actions").forEach(group => {
