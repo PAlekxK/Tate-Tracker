@@ -2835,6 +2835,21 @@
     align-self: flex-start;
     padding: 4px 11px;
   }
+  /* Conversation active — re-anchor to the universal chat model (2026-07-02, redesign F1):
+     when a thread is live, the conversation sits on top and the compose area
+     (textarea → Voice/Photo → preview → Save/Ask) drops directly beneath the latest
+     reply, where the eye already is. Fixes the one-turn dead-end (input sat ABOVE the
+     thread, Ask button BELOW it — 15/16 conversations died at one turn). Pure flex-order,
+     no DOM moves, so the promote/confirm handlers are untouched. Only engages when a
+     conversation exists; the at-rest first-run layout is unchanged. */
+  .unified-input.conversation-active { display: flex; flex-direction: column; }
+  .unified-input.conversation-active .ui-conversation {
+    order: -3; margin-top: 0; padding-top: 0; border-top: none;
+  }
+  .unified-input.conversation-active .ui-input-row {
+    order: -2; margin-top: 10px; padding-top: 12px; border-top: 1px dashed #d8cda0;
+  }
+  .unified-input.conversation-active .ui-icon-row { order: -1; }
   .ui-actions {
     display: flex;
     align-items: center;
@@ -3061,6 +3076,36 @@
     -webkit-tap-highlight-color: transparent;
   }
   .ui-audio-remove:hover, .ui-audio-remove:active { background: #f4ecd6; }
+
+  /* Follow-up suggestion chip (Phase 1, 2026-07-02) — one calm, ignorable pull
+     beneath the latest reply. Legible tap target (Mom, no-glasses use mode), but
+     lighter than the green confirm pill: this is a suggestion, not a decision.
+     Journal palette; the ↳ glyph reads "continue," not "action item." */
+  .gg-followup { margin: 10px 0 2px; }
+  .gg-followup-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    border: 1px solid #cdbf90;
+    background: #fbf7ea;
+    color: #5a4a1f;
+    border-radius: 22px;
+    padding: 9px 15px;
+    min-height: 44px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .gg-followup-chip:hover, .gg-followup-chip:active {
+    background: #f3ead0;
+    border-color: #b08838;
+  }
+  .gg-followup-arrow { color: #b08838; font-size: 16px; line-height: 1; flex: 0 0 auto; }
+  .gg-followup-text { line-height: 1.3; }
 
   /* Garden Guru suggestion actions — yes/no chips after a photo-ID response */
   .gg-suggest-actions {
@@ -12099,6 +12144,30 @@ const GardenGuru = (function () {
     return { displayText, suggestion };
   }
 
+  // Phase 1 (2026-07-02) — parse the follow-up suggestion fence. Separate from the
+  // species fence (a turn may carry both, one, or neither). Matches anywhere (not
+  // anchored to end) so it can be stripped before the species fence is parsed off
+  // the tail. Shape per worker GARDEN_GURU_SYSTEM "OFFERING A NEXT QUESTION":
+  //   <!--suggest-followup
+  //   { "prompt": "..." }
+  //   -->
+  // Returns { text, followup } — text has the fence removed; followup is the
+  // reader's-next-question string, or null when absent/malformed.
+  function parseFollowupFence(reply) {
+    if (!reply || typeof reply !== "string") return { text: reply, followup: null };
+    const m = reply.match(/<!--\s*suggest-followup\s*([\s\S]*?)\s*-->/);
+    if (!m) return { text: reply, followup: null };
+    let followup = null;
+    try {
+      const parsed = JSON.parse(m[1]);
+      if (parsed && typeof parsed.prompt === "string" && parsed.prompt.trim()) {
+        followup = parsed.prompt.trim();
+      }
+    } catch (e) { /* malformed fence — drop silently */ }
+    const text = (reply.slice(0, m.index) + reply.slice(m.index + m[0].length)).trim();
+    return { text, followup };
+  }
+
   // Shared body for ask() and askWithImage(): pushes the user turn (string or array
   // content), POSTs to /api/chat, parses reply for suggestion fence, pushes assistant.
   async function sendTurn(userContent, contentType) {
@@ -12135,13 +12204,25 @@ const GardenGuru = (function () {
         live_state: gatherGuruLiveState(),
       });
       const rawReply = (result && result.reply) || "[no reply]";
-      const { displayText, suggestion } = parseSuggestionFence(rawReply);
+      // Strip the follow-up fence first (matches anywhere), then parse the species
+      // fence off the tail of what remains.
+      const afterFollowup = parseFollowupFence(rawReply);
+      const { displayText, suggestion } = parseSuggestionFence(afterFollowup.text);
       const assistantTurn = {
         role: "assistant",
-        content: displayText || rawReply,
+        content: displayText || afterFollowup.text,
         ts: new Date().toISOString(),
       };
       if (suggestion) assistantTurn.suggestion = suggestion;
+      // Attach a suggested follow-up only if the reader can still ask one (cap not
+      // yet reached). The chip renders under the latest reply; count it as shown here
+      // so a null result reads as "saw it, passed," not "never saw it."
+      if (afterFollowup.followup && !capReached()) {
+        assistantTurn.followup = afterFollowup.followup;
+        if (typeof MetricsCollector !== "undefined") {
+          MetricsCollector.track("followup_suggestion_shown", { conversationId });
+        }
+      }
       turns.push(assistantTurn);
       lastReplyMs = Date.now();
       if (contentType === "image" && typeof MetricsCollector !== "undefined") {
@@ -12426,6 +12507,7 @@ const GardenGuru = (function () {
   function getState() {
     return {
       turns: [...turns],
+      conversationId,
       isWaiting,
       capReached: capReached(),
       userTurnCount: userTurnCount(),
@@ -12748,7 +12830,10 @@ const UnifiedInput = (function () {
     const askBtn = document.getElementById("ui-ask-btn");
     const resetBtn = document.getElementById("ui-reset-btn");
     const conversation = document.getElementById("ui-conversation");
+    const unifiedInput = document.getElementById("unified-input");
     const counter = document.getElementById("ui-counter");
+    const TA_PLACEHOLDER_REST = "What did you see, or what would you like to know?";
+    const TA_PLACEHOLDER_FOLLOWUP = "Ask a follow-up, or add another photo…";
     const imageBtn = document.getElementById("ui-image-btn");
     const imageFile = document.getElementById("ui-image-file");
     const imagePreview = document.getElementById("ui-image-preview");
@@ -12813,6 +12898,12 @@ const UnifiedInput = (function () {
       // Ask button is enabled when there's text OR a photo OR an audio recording,
       // unless the conversation cap is reached on a new turn that would use AI.
       askBtn.disabled = (!text && !hasImg && !hasAud) || ((hasImg || hasAud || text) && capReached);
+
+      // Re-anchor the compose area beneath the thread once a conversation exists,
+      // and shift the placeholder so a live box never reads as a cold restart (F1).
+      const conversationActive = state.turns.length > 0;
+      if (unifiedInput) unifiedInput.classList.toggle("conversation-active", conversationActive);
+      ta.placeholder = conversationActive ? TA_PLACEHOLDER_FOLLOWUP : TA_PLACEHOLDER_REST;
 
       if (resetBtn) resetBtn.hidden = state.turns.length === 0;
       if (counter) {
@@ -12913,10 +13004,36 @@ const UnifiedInput = (function () {
           }
         }
       });
+      // Phase 1 (2026-07-02) — one calm follow-up chip beneath the LATEST reply.
+      // Pull, not push: the suggestion lives in the UI chrome, never in Guru's prose.
+      // Only the newest assistant turn shows it, and only while a follow-up is still
+      // allowed — older turns and a capped conversation stay clean.
+      const lastTurn = state.turns[state.turns.length - 1];
+      if (!state.isWaiting && lastTurn && lastTurn.role === "assistant"
+          && lastTurn.followup && !state.capReached) {
+        html += '<div class="gg-followup">'
+          + '<button class="gg-followup-chip" type="button">'
+          + '<span class="gg-followup-arrow" aria-hidden="true">↳</span>'
+          + '<span class="gg-followup-text">' + escapeHtml(lastTurn.followup) + '</span>'
+          + '</button></div>';
+      }
       if (state.isWaiting) {
         html += '<div class="ui-turn-thinking">The journal is thinking…</div>';
       }
       conversation.innerHTML = html;
+
+      // Wire the follow-up chip — tapping sends it as the next user turn.
+      const followupBtn = conversation.querySelector(".gg-followup-chip");
+      if (followupBtn) {
+        followupBtn.addEventListener("click", () => {
+          const prompt = lastTurn && lastTurn.followup;
+          if (!prompt) return;
+          if (typeof MetricsCollector !== "undefined") {
+            MetricsCollector.track("followup_suggestion_used", { conversationId: state.conversationId });
+          }
+          GardenGuru.ask(prompt);
+        });
+      }
 
       // Wire two-step suggestion action handlers (delegated)
       conversation.querySelectorAll(".gg-suggest-actions").forEach(group => {
