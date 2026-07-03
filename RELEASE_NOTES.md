@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-03 — Fleet check-in: the 400 lives
+
+- The **DR-Z400S's** power-loss gremlin is **worked out** — the bike powers up cleanly again, and its card reflects that. Next on it is putting the **speedometer** back together and reconnecting it to see if it reads.
+- The **DR200S** card gained a **cold-start how-to** (choke on, throttle closed, short 5-second starter bursts — never longer, or you cook the starter) plus a tap-through link to the **owner's manual**.
+- The **golf cart** is noted as **running well, no known issues**.
+
+---
+
 ## 2026-07-03 — A wet pocket of the mountain
 
 - The Rainfall section now includes a small note about **how our own weather station's rain gauge compares to the regional average**. Right now it's running about a quarter wetter here than the surrounding area — this corner of the mountain holds more water than the valley below. The number keeps itself current as the station records more days.
