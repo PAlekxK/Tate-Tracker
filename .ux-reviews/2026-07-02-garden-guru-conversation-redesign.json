@@ -1,0 +1,131 @@
+{
+  "review_id": "ux-2026-07-02-garden-guru-conversation-redesign",
+  "project": "Fernwood",
+  "subject": "Garden Guru conversational redesign — (a) continue-the-conversation affordance for Mom, (b) photo-in-thread + the two capture intents (log-on-known vs. identify-new), (c) add-from-conversation without a dead-end. Commissioned off the 2026-07-02 KV conversation analysis.",
+  "review_date": "2026-07-02",
+  "reviewer_mode": "review",
+  "review_level": "flow / interaction (the Garden Guru conversation surface across turns) with screen-component detail on the continue affordance",
+  "methods_used": [
+    "Heuristic evaluation against cross-project + Fernwood principle libraries and the Garden Guru eval rubric (Mom = Performer 3)",
+    "Cognitive walkthrough as Mom completing three JTBDs across turns: ask-then-follow-up, log-a-field-observation-on-a-known-plant (the 7/02 lily-pad transcript), and capture-intent-to-try-a-new-plant (the 5/28 creeping-fig transcript)",
+    "Code archaeology: traced the unified-input DOM order (viewer.html 4076-4129) and the GardenGuru render layer (renderConversation, 12829-12960) to locate the exact mechanism of the one-turn dead-end, and confirmed askWithImage()/followupsRemaining already exist on every turn"
+  ],
+  "user_context": {
+    "primary_user": "Mom — device d-14nyhnjz, active 27 of the last ~40 days through today, by far the heaviest user (1,045 events) and the ONLY device that uses the A/A+ text-size toggle (22 events). Reads with difficulty / no-glasses use mode; warm, possessive register ('our lily pads', 'our garden'). Leisure-read stewardship, not task completion. Paul-mobile (Performer 1) is the secondary user for the same surfaces.",
+    "core_jobs_to_be_done": [
+      "Ask the property a plain-language question and, when the answer opens a door, ask a follow-up — with or without a photo (VERIFIED demand: the one 2-turn conversation in the corpus was substantive; the eval rubric predicted the Q5 stewardship wedge).",
+      "Log a seasonal field observation about an ALREADY-KNOWN plant, with a photo, so it enters the property's record — distinct from identifying a new species (VERIFIED: the 7/02 lily-pad transcript; became Paul's manual INQUIRIES.md entry).",
+      "Capture the intent to TRY a plant that isn't on the property yet, without asking Guru to fabricate property knowledge it correctly won't invent (VERIFIED: the 5/28 creeping-fig transcript; became Paul's manual plants.json entry three weeks later)."
+    ],
+    "context_of_use": "iPhone PWA (393x793), half-engagement, one-handed, reclined — bed-with-coffee / porch / kitchen. iOS background-suspend means short glancing visits (the corpus-wide 27-starts-per-1-end pattern). Voice-to-text is often the input method.",
+    "assumptions_made": [
+      "INFERRED (strong): d-14nyhnjz is Mom — 27 sustained days through today + exclusive accessibility-toggle use. Still not ground-truthed against her phone, but the behavioral case is now far stronger than the prior tools/people.json guess ('probably Paul's old iPhone').",
+      "ASSUMPTION-NOW-RELEASED: my 2026-06-20 review gated add-from-conversation on the pending Mom discovery transcript. Per the analysis, 'her behavior is the transcript' — the follow-up demand, the add demand, and her committed-daily-user status are all now VERIFIED from real turn content, not inferred. This review treats the transcript gate as substantially released, while preserving the design cautions that gate produced (see principles_applied).",
+      "The one open question the behavior does NOT resolve: whether the 15/16 one-turn pattern is 'satisfied and stopped' vs. 'couldn't find how to continue.' The code (input control split around the conversation, see F1) plus Paul's lived experience make dead-end the strong reading — but a direct Mom debrief remains the clean confirmation."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "Meet the user at the action (cross-project.md) — the Guru reply is information; the deliverable is the next move (follow up / log / set aside to check back). Twice in the corpus the next move fell to Paul's offline chore because the surface offered none.",
+    "Friction kills — it just works (cross-project.md) — the continue path exists in the plumbing but requires rediscovery; a moment that needs rediscovering is the moment to redesign.",
+    "Make every surface read at half-engagement (fernwood.md) — the continuation cues (empty textarea reset to a fresh-start placeholder, quiet 'N follow-ups left' counter) are invisible at a one-handed reclined glance.",
+    "Mom reads with difficulty — routing carried by icon+size+position, not faint helper text (memory: project_fernwood_mom_reading_accessibility) — the current continuation cues are exactly the faint-text treatment she can't parse.",
+    "Caution as noticing, not warning + Tone-coherence across all chrome (fernwood.md) — new capture affordances must stay field-journal calm; no task-manager 'log now' urgency.",
+    "Defer affordances pending signal (cross-project/fernwood) — now RELEASED for these three affordances by verified behavior; the rule's own release condition ('promote when observed behavior shows the pattern exists') is met.",
+    "Confirmation needs a referent (my 2026-06-20 candidate) — the two NEW capture affordances (b, c) are DESIGNED to sidestep this landmine: neither promotes a model-guessed ID to authoritative canon, so there is no unverifiable 'does that look right?' to rubber-stamp.",
+    "Don't re-run a known-failing affordance treatment (my 2026-06-20 Fernwood candidate) — reuse the proven two-step confirm-chip weight (the one add-treatment with non-zero usage); do NOT invent a third quiet ambient chip like the dead seeds/star.",
+    "AI on the ask path; capture stays AI-free (global CLAUDE.md + memory feedback_no_ai_on_capture) — logging an observation and setting-aside-an-intent are CAPTURE actions and stay deterministic; the AI answers the diagnostic question but does not gate what gets recorded.",
+    "Norman — conceptual model / mapping; Nielsen #2 (match the real world) — every chat UI on earth anchors the input to the conversation; Fernwood inverts it (F1)."
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "flow",
+      "severity": "critical",
+      "observation": "The one-turn dead-end is a SPATIAL-MODEL failure, not a missing control. The input control is physically split around the conversation. DOM order in the unified-input surface (viewer.html 4076-4129): textarea (top) -> icon row Voice/Photo -> image/audio previews -> #ui-conversation (the reply renders HERE, 12829) -> #ui-actions containing the counter, 'Start fresh', and the Save/Ask buttons (bottom). So after a reply, the user's question and Guru's answer sit SANDWICHED between the textarea (above) and the 'Ask Garden Guru' button (below). To follow up she must scroll UP to a textarea that has been cleared back to its generic first-run placeholder ('What did you see, or what would you like to know?'), type, then scroll DOWN past her own reply to find the Ask button. Nothing about that reads as 'continue the conversation' — it reads as 'start over.' Every chat interface she has ever used anchors the input to the bottom of a growing thread; this one contradicts that learned model. 15 of 16 conversations in the whole corpus are exactly one turn.",
+      "user_impact": "Mom cannot complete the follow-up JTBD — not because the capability is absent (askWithImage and followupsRemaining work on every turn) but because the surface gives her no legible, in-place way to take the next move. The reply is a conversational opening ('Worth logging the observation'; the creeping-fig 'if you're working with one elsewhere') that leads nowhere she can see. This is the single dominant behavioral failure in the data and it maps to a fixable UI cause.",
+      "principle_invoked": "Meet the user at the action; Friction kills; Norman conceptual model / Nielsen #2 (match the real world).",
+      "recommendation": "Re-anchor the surface to the universal chat model when a conversation is active: the conversation thread grows, and the input + a WEIGHTY continue affordance live directly BENEATH the latest reply, where her eye already is. Lowest-effort version that still fixes it (no full re-architecture): render a legible continue control immediately under the newest assistant turn — a tappable 'Ask a follow-up' input row plus the Photo action inline, at the SAME visual weight as the proven confirm chips, not the ambient top-anchored textarea. Move / mirror the Ask affordance below the reply so type-here and submit-here are co-located. The empty top textarea's placeholder should also shift when a thread is live (e.g. 'Ask about this' rather than the cold first-run prompt) so it never reads as start-over.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "empty-state",
+      "severity": "important",
+      "observation": "The continue state has no scaffolding for the blank-question moment, and there's a real tension to resolve. The eval rubric names 'a blank-textbox empty state with no scaffolding' as a Mom miss-signal (bed-with-coffee mode rarely has a formed question) — AND names in-conversation follow-up PROMPTS from Guru as push behavior that's wrong for her ('pull, not push'). The dead seeded prompts (0 usage) died as quiet ambient chips. So the continuation can't be a blank box, but it also can't be Guru's voice nudging 'want to know more about X?'.",
+      "user_impact": "Without scaffolding, Mom facing a live-but-empty follow-up box in half-engagement does what she does today: nothing. With the WRONG scaffolding (Guru pushing her to keep going), the surface acquires the task-manager 'now do something' pressure the whole field-journal frame exists to avoid — and she disengages the other way.",
+      "principle_invoked": "Make every surface read at half-engagement; Mom reads with difficulty; Caution as noticing not warning (no push).",
+      "recommendation": "Resolve the tension by putting scaffolding in the UI CHROME (pull), never in Guru's prose (push). The continue affordance can offer at most ONE quiet, grounded continuation drawn from the reply's own content — surfaced as a neutral tap-target she can ignore, in field-journal voice, NOT as Guru asking her a question. Example after the lily-pad diagnosis: a single calm chip 'More about the pond in July' — present if wanted, silent if not. Keep it to one; a row of suggestion chips re-runs the seeded-prompt failure. The Guru reply itself must NOT end with a question or a 'you could also ask' — that's the push line the rubric forbids for her.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The photo affordance is orphaned from the thread. The Photo button (📷) lives in the top icon row next to Voice — spatially divorced from where a reply lands. askWithImage() works on any turn, so a follow-up photo is fully supported by the plumbing, but to attach one mid-conversation the user must return to the top-of-surface icon row, disconnected from the reply she's responding to. Four of sixteen conversations already carried an image on turn one; the follow-up-with-photo case (dig deeper on the same plant with a second angle) has the same top-anchored discoverability problem as F1.",
+      "user_impact": "The photo is Mom's strongest, most-used input mode (she is already a Claude-plus-photos power user per the eval — Garden Guru without fluent photo-in-thread is 'strictly worse than what she has'). Burying the mid-thread photo action at the top keeps the surface behind her existing tool exactly where it should be ahead of it.",
+      "principle_invoked": "Meet the user at the action; Mom reads with difficulty (routing by position); Friction kills.",
+      "recommendation": "Co-locate a Photo action with the continue affordance beneath the latest reply (F1), so 'add another photo' is reachable where the eye is, not only at the top. Same field-journal weight as the inline continue control. This is a placement/mirroring change, not new capability — the top icon-row Photo button can stay for the first turn.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "flow",
+      "severity": "critical",
+      "observation": "The UI conflates two genuinely different capture intents onto one photo pipeline, and the more common one has no completion path. The current photo flow is hardwired to SPECIES-PROMOTION: photo -> askWithImage -> worker emits the suggest-species fence -> two-step confirm -> new species committed to canon. That serves 'identify & maybe add a NEW thing.' But the 7/02 lily-pad case is the OTHER intent: the plant is already known (water lily is in canon), and the user wants to LOG A SEASONAL FIELD OBSERVATION on it ('wanted to log that... populate our field notes') plus get a diagnosis. When the photographed plant is already in canon, the render shows only a passive fallback line ('Already in the Almanac. The conversation will save as an observation.', 12873-12874) — there is no active, legible affordance to attach THIS dated observation + photo to THAT plant's record. So the observation went nowhere in-app and became Paul's manual INQUIRIES.md entry (commit b0d728f, same day). Second time in the corpus a real capture-and-log intent hit a wall and fell to Paul.",
+      "user_impact": "Mom asked, in one breath, to log + diagnose + get advice about a known plant, with a photo. Guru diagnosed beautifully but could only talk. The log — the part she explicitly wanted ('log it', 'populate our field') — is the job she could NOT complete. The passive 'will save as an observation' fallback is invisible at half-engagement and, per the forensic note, the saved KV record even dropped the image block. She has no reason to believe her observation landed anywhere.",
+      "principle_invoked": "Meet the user at the action; AI on the ask path, capture stays AI-free (the diagnosis is the ask; the log is deterministic capture); Save-success at the surface not the destination (my 2026-05-20 candidate).",
+      "recommendation": "Distinguish the two intents by CONTEXT, not by a mode-picker (no task-manager toggle — that breaks tone). The signal already exists: known-species (inCanon true) vs. unknown-species drives two different offers. Unknown + photo keeps today's 'identify & maybe add' fence. Known + photo (or known + observation-shaped text) surfaces a DETERMINISTIC, calm log affordance beneath the reply — 'Add this to the lily pads' notes' / 'Note this on the water lily' — that commits the user's own words + the photo as a dated field observation on that plant's record. Deterministic is the point: the user's language IS the log content; the AI answered the question but does not adjudicate what gets recorded (honors no-AI-on-capture). This ALSO sidesteps the confirmation-needs-a-referent landmine from my 6/20 review — nothing is being promoted to a model-guessed canon ID, so there's no unverifiable 'does that look right?' to rubber-stamp. Reuse the confirm-chip visual weight, change the verb. Fix the image-drop bug so the photo actually persists with the note (engineering handoff).",
+      "effort": "high"
+    },
+    {
+      "id": "F5",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "A correct refusal still dead-ends the user. In the 5/28 creeping-fig thread Guru correctly declined twice — it won't fabricate property knowledge for a plant not yet observed here ('Creeping fig would need to be planted, observed through a full season or two'). The stance is RIGHT under the depth-filter / observations-as-knowledge rules. But the flow offers no next move that honors the constraint, so the user's real intent ('please add creeping fig, I'm attempting to make it climb a masonry wall') evaporated — and Paul added it by hand three weeks later. The failure isn't the refusal; it's that honest-decline and dead-end were collapsed into the same moment.",
+      "user_impact": "The user did the exact right thing — told the property what she's trying — and got nothing back she could act on. The app taught her that expressing intent to Guru is futile, which suppresses precisely the stewardship signal the project most wants. And the work still had to happen; it just moved offline onto Paul.",
+      "principle_invoked": "Meet the user at the action; Caution as noticing not warning (decline calmly, then offer the honest next move); Defer affordances pending signal (released — the demand is verified twice over).",
+      "recommendation": "When Guru correctly declines to speak to a plant not on the property BUT the user has expressed try-it/planting intent, offer a deterministic CAPTURE-THE-INTENT affordance that honors the depth filter instead of violating it: 'Note that you're trying creeping fig on the masonry wall — I'll set it aside to check back on after a season.' This writes a lightweight, explicitly-TENTATIVE record (species + what she's attempting + a check-back-after-a-season flag) — NOT full observed canon (which still requires the season of observation the refusal correctly demands). This maps cleanly onto the existing 'Worth considering' candidates card as a 'trying it / watching' state, an on-ramp that graduates to canon once observed (which is exactly what happened to creeping fig). Field-journal voice, no urgency. Like F4, it stays on the right side of no-AI-on-capture: the user's words are the record; the AI didn't invent anything.",
+      "effort": "high"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Three new affordances risk repeating the seeds/star graveyard if built quiet, and risk tone-leak if built loud. The dead seeded prompts (0 usage) and the dead 'this matters' star (0 uses / 104 revisits) both died as low-weight ambient chips on a half-engagement surface. The ONE add-treatment with non-zero usage is the two-step confirm chip (2 promotions). Meanwhile the whole surface must stay field-journal — no 'LOG NOW' buttons, no alert chrome, no push.",
+      "user_impact": "If the continue/log/set-aside affordances render as faint helper text, Mom (no-glasses, half-engaged) won't see them and we'll wrongly conclude 'she doesn't want to follow up / log / capture,' when we'll actually have tested 'can Mom see a faint chip' — to which the answer is already no. If they render as task-manager CTAs, they fracture the frame the eval says is load-bearing for her.",
+      "principle_invoked": "Don't re-run a known-failing affordance treatment (my 6/20 Fernwood candidate); Tone-coherence across all chrome; Glyphs follow the journal voice not the dashboard voice (fernwood.md).",
+      "recommendation": "Build all three new affordances (continue, log-on-known, set-aside-intent) from the SAME component family as the proven confirm chips — that visual weight, that position (directly under the reply), that in-palette calm — never a new quieter treatment and never a louder CTA. They must be contextual (appear only when there's a real next move: a live thread, a known-plant photo, an expressed intent), never ambient/persistent on the at-rest input surface (that was the seeded-prompt mistake). Verb and tone stay journal ('Note this on the water lily', 'Set aside to check back'), never ops ('Log observation', 'Save record').",
+      "effort": "medium"
+    }
+  ],
+  "open_questions_for_user": [
+    "Confirm d-14nyhnjz is Mom against her actual phone and update tools/people.json — the whole user model still rests on this (now strong) inference.",
+    "One direct Mom debrief still worth getting: on a one-question visit, did she have a follow-up in mind and not find where, or was she done? F1 makes 'couldn't find how' the strong reading, but her word closes it.",
+    "For the lily-pad log: did she believe it got logged? What did she expect 'log it / populate our field notes' to DO? This calibrates how loud the log-success confirmation needs to be (F4).",
+    "Do you want the 'trying it / watching' intent-capture (F5) to land in the existing 'Worth considering' card as a new state, or in a distinct lightweight place? It graduates to plants.json canon on observation either way.",
+    "Does the observation she logs on a known plant attach to that PLANT's record specifically, or to the general Almanac/Field Notes stream? F4 assumes plant-scoped; confirm the destination you want."
+  ],
+  "follow_up_research_suggested": [
+    "Engineering handoff (not UX): the forensic note in the analysis — the 7/02 lily-pad KV record stored text-only and dropped the image block despite image_attached firing (leanTurnForStorage stripping the blob, or conversationId:null race). The log-on-known affordance (F4) is worthless if the photo doesn't persist with the note. Confirm whether that strip is intended lean-storage or a bug before F4 ships.",
+    "ai-advisor: F4 and F5 both introduce deterministic capture affordances triggered off Guru's turn. Confirm the trigger contract — known-vs-unknown species routing for F4, decline-plus-expressed-intent detection for F5 — so the surface offers the right affordance without the AI over-reaching onto the capture path.",
+    "Post-ship: instrument the new continue/log/set-aside affordances the same way the confirm chips are instrumented, so a null result means 'she saw it and didn't want it' rather than 'she couldn't see it' (the seeds/star confound)."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "A correct 'no' still owes the user a next move — capture the intent. When the system rightly declines to act (honesty, a depth/scope guardrail, missing data), it must still offer a next step that HONORS the constraint — set-aside, note-it, check-back-later — rather than collapsing 'honest decline' and 'dead-end' into one moment. A refusal that leaves the user nowhere silently exports the work to the operator.",
+      "scope": "cross-project",
+      "rationale": "Sharpest here from F5 (creeping fig) and F4 (lily-pad): Guru was RIGHT to refuse to fabricate property knowledge / right to only diagnose — but both correct behaviors dead-ended a real intent that then became Paul's manual chore, TWICE in a 16-conversation corpus. This is a distinct rule from 'Meet the user at the action' because it specifically governs the refusal/decline moment, where the temptation is to treat correctness as sufficient. It generalizes hard beyond Fernwood — the financial viewer's 'we can't verify this claim yet' and any Bolo 'we don't have that' should capture the intent, not end the thread. Propose to cross-project; strong candidate given two independent occurrences in one review."
+    },
+    {
+      "principle": "Conversational surfaces inherit the universal chat spatial model — input anchored to the bottom of the thread, continuation where the last reply lands. Don't invent a novel layout for a chat; the learned model (thread grows, input hugs the newest turn) is a mapping users arrive with, and breaking it imposes a rediscovery tax that reads as a dead-end.",
+      "scope": "cross-project",
+      "rationale": "From F1 — the single highest-leverage finding. Fernwood split the input control ABOVE the conversation and its submit button BELOW it, contradicting every chat UI the user knows, and 15/16 conversations died at one turn as a result. This is Norman conceptual-model + Nielsen #2 (match the real world) applied specifically to conversational UI, which is a growing surface class across Paul's projects (Garden Guru, potential financial-viewer Q&A, houseplants ask). Propose to cross-project; holds at one strong occurrence, promote on a second."
+    },
+    {
+      "principle": "Two capture intents, two destinations, declared by context not by a mode-picker: identify-a-NEW-thing (promote to canon, ID must be verified) vs. log-an-observation-on-a-KNOWN-thing (deterministic, no ID to verify) are different jobs and must not share one pipeline. Route them by the context the system already knows (is this thing already in the record?), never by asking the user to pick a mode.",
+      "scope": "Fernwood",
+      "rationale": "From F4. The photo pipeline was hardwired to species-promotion and silently failed the more common log-on-known intent, which is also the one that keeps the field-journal alive. Routing by inCanon (known vs unknown) keeps the tone calm (no toggle) and, as a bonus, keeps the log intent on the deterministic capture path while only the promote intent touches AI-adjudicated canon. Fernwood-specific for now; watch whether houseplants surfaces the same split (per 'Patterns port, defaults don't')."
+    }
+  ]
+}

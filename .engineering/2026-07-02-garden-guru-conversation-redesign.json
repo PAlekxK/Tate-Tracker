@@ -1,0 +1,200 @@
+{
+  "review_id": "review-2026-07-02-garden-guru-conversation-redesign",
+  "project": "fernwood",
+  "subject": "Garden Guru conversational redesign — (a) follow-ups + photo-in-thread, (b) log-an-observation on an existing plant, (c) add-a-new-plant-from-conversation. Path-eval + feasibility off the 2026-07-02 behavioral analysis.",
+  "review_date": "2026-07-02",
+  "reviewer_mode": "path-evaluation",
+  "user_context": {
+    "primary_user": "Mom (device d-14nyhnjz, iPhone) — active 27 of last ~40 days through today, the make-or-break daily user; + Paul as second field user + operator.",
+    "core_jobs_to_be_done": [
+      "Ask the property a stewardship question and be able to keep the thread going (follow up).",
+      "Attach a photo mid-conversation (already used for ID; now wanted for 'log an observation on a plant we already have').",
+      "Log a seasonal field observation on an EXISTING plant (the lily-pad dieback) so it lands in the field notes, distinct from adding a new species.",
+      "Register a NEW plant they're trying (the creeping-fig-on-the-masonry-wall) without the flow dead-ending."
+    ],
+    "context_of_use": "Family-internal property dashboard on a phone, in the field, often read with difficulty (no-glasses mode). Tone is load-bearing (field journal, not task manager).",
+    "sources": [
+      ".user-research/2026-07-02-garden-guru-conversation-analysis.md",
+      ".engineering/2026-06-20-path-text-path-add.md",
+      "CLAUDE.md pickup notes 2026-05-20 through 2026-06-28",
+      "memory: feedback_no_ai_on_capture (3-layer model), feedback_agent_proposals_not_validated, feedback_tate_tracker_depth_filter, feedback_fernwood_mom_reading_accessibility"
+    ],
+    "assumptions_made": [
+      "The 2026-05-28 creeping-fig 'please add it' conversation is a real user; the analysis does not definitively attribute the device to Mom vs the 2nd field device (d-szqlt0h7). Treated as 'a real user asked' — demand is real; who-is-Mom precision left open.",
+      "'Lily pads' are NOT a distinct canon plant (no nymphaea/lily id in plants.json; iris-pond is the nearest pond entry). The observation may need to attach to the pond generally or a new lily entry — minor open question."
+    ],
+    "user_context_confidence": "high"
+  },
+  "code_context": {
+    "purpose": "Single-file static dashboard (viewer.html) + Cloudflare Worker (worker.js) providing Garden Guru, a multi-turn multimodal field assistant, plus a deterministic AI-free capture path (ObservationStore) and a photo-to-canon species-promotion pipeline (Phase F Option C).",
+    "stack": "Vanilla HTML/CSS/JS single file on GitHub Pages, no build step; Cloudflare Worker + KV (OBSERVATIONS namespace); Anthropic Haiku 4.5 for chat + schema-draft; GitHub Contents API for canon commits.",
+    "conventions_observed": [
+      "Multi-turn state lives in GardenGuru module (turns[], sendTurn, askWithImage, followupsRemaining, GG_MAX_USER_TURNS=6).",
+      "Capture path is deterministic and AI-free: fnSaveInlineEntry -> ObservationStore.save -> KV observations:all + localStorage; the 'Save to journal' button never calls AI.",
+      "Storage is deliberately lean: leanTurnContent (worker KV) and leanTurnForStorage/sanitizeEntryForStorage (client) strip base64 image/audio blobs after the model call; only Phase F Git canon keeps a durable photo.",
+      "AI affordances are born in the system prompt as a fence (suggest-species), stripped client-side, gated by a two-step human confirm before any canon write.",
+      "Observation entry schema already carries category/speciesId/speciesName/zoneId fields — currently written null by fnSaveInlineEntry."
+    ],
+    "deployment_context": "mom-ready",
+    "robustness_level": "shippable",
+    "assumptions_made": [
+      "In-memory turns[] retains the full base64 image for the session, which is why confirmAdd can still find the photo to promote even though KV/localStorage persist a placeholder. Promotion is always in-session, so lean-storage is not a promotion bug."
+    ],
+    "code_context_confidence": "high"
+  },
+  "tooling_signals": {
+    "type_check": "n/a",
+    "linter": "not-run",
+    "tests": "none",
+    "notes": "Static single-file app, no build/test harness. Analysis is by code reading + the behavioral KV pull. Any ship should get a Playwright smoke of the new follow-up affordance + the deterministic log write."
+  },
+  "principles_applied": [
+    "Capture path stays pure; batch and amortize (fernwood.md)",
+    "Storage mirrors existing shape; analysis lives in tools/ (fernwood.md)",
+    "Find the seam before building the pipeline (proposed cross-project, 2026-06-20)",
+    "Gate the affordance on the signal, in the prompt (proposed fernwood, 2026-06-20)",
+    "feedback_no_ai_on_capture — 3-layer model: capture=deterministic, characterize=flagged inference, ask=AI judgment",
+    "feedback_agent_proposals_not_validated",
+    "feedback_tate_tracker_depth_filter"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "intent": "issue",
+      "area": "framework-idiom",
+      "severity": "important",
+      "location": "viewer.html:4077-4129 (unified-input DOM order) + 12829-12960 (renderConversation)",
+      "observation": "Ask (a) is view-layer only. The input textarea + Ask button are a permanent part of the DOM; the multi-turn plumbing (turns[], sendTurn, followupsRemaining, GG_MAX_USER_TURNS) all exists and askWithImage works on any turn, so photo-in-thread is ALSO already functional. The real gap: the conversation thread (#ui-conversation) renders BETWEEN the textarea (above) and the action buttons (below). After a reply, the textarea is cleared and sits above a growing thread, so on a phone the reply pushes the continue-affordance out of view, and the placeholder 'What did you see, or what would you like to know?' reads like a fresh start, not a continue-the-thread invitation. Nothing after the reply says 'you can keep going.' That is the dead-end the data shows (15 of 16 conversations are exactly one user turn).",
+      "risk_or_impact": "The single most-proven demand in the corpus (people want to follow up; the one time a second turn was possible it was used substantively) is blocked by a surfacing gap, not a missing capability. Building anything backend for follow-ups would be wasted effort.",
+      "principle_invoked": "Find the seam before building the pipeline",
+      "the_why": "The right shape is to re-present the input (or a clear 'ask a follow-up' continue-affordance) AFTER the thread, and make the counter/placeholder invite continuation. This is a re-layout + copy change, not new state. The exact affordance shape (continue-button vs sticky input vs invite-line) is a ux-expert call — hand that off; my finding is only that it is genuinely view-layer with zero backend gaps.",
+      "recommendation": "Ship a view-layer re-presentation of the continue-affordance below the reply thread (and confirm photo-in-thread works by attaching a photo on turn 2). No worker, no persistence, no state changes. Collaborate with ux-expert on the affordance shape and with content-steward on the continue-copy (keep it field-journal, e.g. an inviting placeholder rather than a 'Reply' button).",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "intent": "question",
+      "area": "safety-to-deploy",
+      "severity": "nice-to-have",
+      "location": "worker.js:773-786 (leanTurnContent) + viewer.html:12369-12380 (leanTurnForStorage) + 11452-11478 (sanitizeEntryForStorage)",
+      "observation": "Forensic note resolved: the dropped image block is INTENDED lean-storage, not a bug. The photo is stripped in THREE deliberate places after the vision call — worker KV (image -> image_placeholder), client localStorage (leanTurnForStorage), and the defensive boundary sanitizer. This was the 2026-05-26 storage-quota incident fix. The in-memory turns[] keeps the full image for the session, so the model saw it (correct) and confirmAdd can still promote it (correct). Nothing is broken.",
+      "risk_or_impact": "It IS load-bearing for ask (b): if Mom logs a photo-bearing observation on the lily pads and expects the photo to live in her field notes, the current stores will drop it. That is a design fork for Phase 2, not a bug to fix here.",
+      "principle_invoked": "Capture path stays pure; batch and amortize",
+      "the_why": "The lean-storage discipline is correct and should be preserved. The question is only whether an observation photo deserves a durable home — and that is a genuine new build (an observation-photo store), which should be gated, not smuggled into the capture path.",
+      "recommendation": "Confirm to Paul this is by-design. For Phase 2 v1, log observations text-only + a hasPhoto flag (honest, zero new infra). Treat durable observation-photo storage as a separate gated build (Phase-G-adjacent).",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "intent": "issue",
+      "area": "code-quality",
+      "severity": "important",
+      "location": "NEW deterministic affordance off renderConversation (viewer.html ~12861) writing via fnSaveInlineEntry (11856) / ObservationStore.save",
+      "observation": "Ask (b), the lily-pad case, is a THREE-intent utterance: capture/log + diagnose + care-advice, on an already-known plant. Only the capture intent is unserved in-app, and today it falls to Paul's manual INQUIRIES.md edit. The observation entry schema already has the exact fields needed (category/speciesId/speciesName/zoneId/body) — fnSaveInlineEntry just writes them null today.",
+      "risk_or_impact": "This is the second real capture-and-log intent in the corpus to hit a wall and become Paul's offline chore. It is Mom's most complete redesign-in-one-utterance signal. Closing it removes a recurring manual burden and makes her 'populate our field notes' request actually true.",
+      "principle_invoked": "feedback_no_ai_on_capture (3-layer model) — capture stays deterministic",
+      "the_why": "The right shape: after a Guru reply about an existing plant, offer a deterministic 'Log this to the Almanac / Add to the [lily pads'] notes' affordance that writes the USER'S VERBATIM WORDS + timestamp + speciesId as a field-note observation via the existing ObservationStore path — AI-FREE. The AI may PROPOSE the log and suggest the target plant (ask-path proposal, fine), the human confirms, but the WRITTEN RECORD is her words, never Guru's diagnosis. This keeps the log on the capture side of the 3-layer line while the diagnosis stays on the ask side (and auto-saves separately as kind:'conversation'). This mirrors the suggest-species two-step confirm, but WITHOUT the AI re-draft step that promote-species uses — because re-drafting an observation would fabricate/launder inference into a knowledge surface.",
+      "recommendation": "Add a small deterministic 'note to the Almanac' write from conversation: verbatim user text + speciesId (from a confirmed target plant) + category + timestamp, through fnSaveInlineEntry/ObservationStore (no /api/promote-species, no GitHub, no SCHEMA_DRAFTER). Photo preservation deferred per F2. The plant-target can be proposed by Guru via a lightweight fence and human-confirmed, or picked from a short list — keep the WRITE deterministic either way.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "intent": "issue",
+      "area": "security",
+      "severity": "important",
+      "location": "capture-path boundary — the F3 write must not persist AI-authored content as fact",
+      "observation": "The load-bearing risk in the whole redesign: if the 'log an observation' write records Guru's diagnosis ('thickening canopy + shifted July sun angle reducing pond light') into the field-note record, it (1) violates no-AI-on-capture and (2) promotes model inference to a durable knowledge surface where later reads will treat it as an observed property fact.",
+      "risk_or_impact": "Fernwood's field notes are meant to become a knowledge layer (Phase G) that feeds recommendations back. Laundering a Haiku diagnosis into that layer as a captured observation would poison the exact feedback loop the project is building toward, and it's invisible until it bites.",
+      "principle_invoked": "feedback_no_ai_on_capture + Model-read values are hypotheses until verified (global)",
+      "the_why": "The captured record must be what the human observed and typed ('seeing dieback of our lily pads'), timestamped, tied to the plant. The diagnosis is inference — it belongs in the conversation transcript (already auto-saved as kind:'conversation'), clearly separable from the observation. If a diagnosis is ever surfaced on a plant card later, it must read as 'Garden Guru suggested…' (flagged inference), never as 'noted on the property.'",
+      "recommendation": "Hard rule for Phase 2: the observation body = verbatim user text only. Never concatenate or summarize the AI reply into the observation. Keep the conversation entry (with the diagnosis) as a distinct record type. This is the single most important guardrail in the redesign — encode it as a Fernwood principle (see principles_to_propose).",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "intent": "suggestion",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "Ask (c) — reuses F3 deterministic-note machinery; full canon path = 2026-06-20 Path A (worker.js GARDEN_GURU_SYSTEM 436-443)",
+      "observation": "Ask (c), the creeping-fig case, splits into two flavors. (i) 'I'm trying creeping fig on the masonry wall, add it' = intent-capture for a plant NOT yet established at the property. (ii) 'fully track this new species now' = the existing photo-agnostic promote-species pipeline, which per the 2026-06-20 eval is gated shut by one prompt section. The analysis is explicit that Guru's refusal was principled under the depth filter — the failure was dead-ending instead of CAPTURING THE INTENT.",
+      "risk_or_impact": "Immediately AI-drafting a full calibrated canon entry (soil series, elevation phenology, a season of care calendar) for a plant that's been in the ground a week fabricates property knowledge that hasn't been observed — the exact depth-filter violation. And letting Guru silently grow canon is an agent proposal, not a Paul-validated decision.",
+      "principle_invoked": "feedback_tate_tracker_depth_filter + feedback_agent_proposals_not_validated + Gate the affordance on the signal",
+      "the_why": "The depth-filter-respecting v1 for a NAMED-but-unestablished plant is capture-intent — a deterministic 'worth documenting after a season' note (reuses F3's machinery: verbatim words, no AI re-draft, no canon commit). Full text->canon promotion stays the 2026-06-20 Path A (stricter text fence, idSource:'text' provenance, emoji-only entry, two-step confirm) and stays gated until Paul explicitly wants it. This also naturally connects to the existing 'Worth considering' candidates.json surface as a possible home for 'trialing' plants — offer it, don't mandate it.",
+      "recommendation": "Phase 3 v1 = capture-intent via the F3 deterministic note (creeping fig lands as a documented intent/observation, not a fabricated canon entry). Hold full text->canon promotion (2026-06-20 Path A) behind an explicit Paul go. Do not let Guru auto-expand canon; every add is human-confirmed.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "intent": "praise",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "worker.js + viewer.html capture/lean-storage architecture",
+      "observation": "The existing seams make this redesign cheap: the observation schema already carries speciesId/category/zoneId; the capture path (fnSaveInlineEntry -> ObservationStore) is already the deterministic AI-free primitive; the suggest-species two-step confirm is a clean model to imitate for the log-proposal; and the lean-storage discipline is applied at three layers including a defensive boundary sanitizer.",
+      "risk_or_impact": "Positive — most of the three asks are surfacing + one small deterministic write, not new pipelines. This is the payoff of the earlier architectural discipline.",
+      "principle_invoked": "Sanitize at the storage boundary + Find the seam before building the pipeline",
+      "the_why": "Worth naming so the instinct is reinforced: the schema-ahead-of-need (speciesId already on every entry) and the single deterministic write helper are exactly why (b) and (c)-v1 are low effort.",
+      "recommendation": "Keep imitating the two-step-confirm-then-deterministic-write shape; resist adding a parallel write path for observations.",
+      "effort": "low"
+    }
+  ],
+  "recommended_phasing": [
+    {
+      "phase": 1,
+      "title": "Follow-ups + photo-in-thread (ask a)",
+      "scope": "View-layer re-presentation of the continue-affordance below the reply thread; confirm photo-in-thread on turn 2. No backend, no persistence changes.",
+      "value": "highest (most-proven demand)",
+      "risk": "lowest",
+      "effort": "low",
+      "gated": false
+    },
+    {
+      "phase": 2,
+      "title": "Log-an-observation on an existing plant (ask b, the lily-pad case)",
+      "scope": "Deterministic 'note to the Almanac' write from conversation: verbatim user words + confirmed speciesId + category + timestamp, via ObservationStore. AI may propose the log + target plant; write stays AI-free. Photo text-only + hasPhoto flag in v1.",
+      "value": "high (closes a recurring manual INQUIRIES.md loop)",
+      "risk": "medium — the capture-path boundary (F4) is the thing to get right",
+      "effort": "low-medium",
+      "gated": false
+    },
+    {
+      "phase": 3,
+      "title": "Add-a-new-plant-from-conversation (ask c, creeping-fig)",
+      "scope": "v1 = capture-intent, reusing Phase 2's deterministic note ('trying creeping fig on the masonry wall, worth documenting after a season'). Full text->canon promotion (2026-06-20 Path A: stricter text fence, idSource provenance, emoji-only entry, two-step confirm) held behind explicit Paul go.",
+      "value": "real but weakest signal + highest depth-filter risk",
+      "risk": "medium-high on the full-canon variant; low on capture-intent v1",
+      "effort": "medium",
+      "gated": true
+    },
+    {
+      "phase": "gated/deferred",
+      "title": "Durable observation-photo storage",
+      "scope": "A deterministic home for photos attached to observations (not species). Genuine build; Phase-G-adjacent. Only if Mom's signal shows the photo-in-field-notes matters beyond the flag.",
+      "value": "unproven",
+      "risk": "n/a",
+      "effort": "high",
+      "gated": true
+    }
+  ],
+  "open_questions_for_user": [
+    "F3/target: 'lily pads' are not a distinct canon plant (nearest is iris-pond). Do you want a lily/waterlily entry added, or should pond observations attach to the pond generally / iris-pond for now?",
+    "F2/F4: confirm you're fine with Phase 2 v1 logging observations text-only (words + hasPhoto flag, photo not retained). Durable observation-photo storage is a separate gated build — worth it now, or wait for Mom's signal?",
+    "F5: for creeping-fig and future named-but-unestablished plants, do you want capture-intent-only (a documented note), or do you want to open the full text->canon promotion (2026-06-20 Path A) now that a real user has asked twice?",
+    "Device attribution: the creeping-fig 'please add it' conversation isn't definitively Mom vs the 2nd field device. Does that matter for how much weight you put on it as a validation signal?"
+  ],
+  "follow_up_research_suggested": [
+    "The Mom interview probes still open (did she believe the lily-pad ask got logged? what did she expect 'log it' to do? does she experience 'tell the journal' and 'ask the guru' as one action or two?) directly bear on whether the F3 log affordance should live inline in the ask flow or as a distinct step — worth landing before Phase 2 UX is finalized.",
+    "Playwright smoke of the Phase 1 follow-up affordance + the Phase 2 deterministic log write (assert the observation body == verbatim user text, not the AI reply)."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Log the human's words, not the model's. When a capture (field note/observation) is triggered from an ask-path conversation, the persisted record is the user's verbatim input + timestamp + deterministic metadata. The AI may PROPOSE the log and suggest metadata (target plant), and the human confirms, but the written observation never contains AI-authored diagnosis/summary. The AI's reasoning lives in the separately-stored conversation transcript, flagged as inference.",
+      "scope": "fernwood",
+      "rationale": "The lily-pad case sits exactly on the 3-layer capture/characterize/ask boundary. Fernwood is building field notes into a knowledge layer (Phase G) that feeds recommendations back; laundering a Haiku diagnosis into that layer as a captured fact poisons the loop invisibly. This is the sharpest, most reusable statement of feedback_no_ai_on_capture for the conversation-to-capture flows now being built."
+    },
+    {
+      "principle": "Capture-intent before canon for unestablished subjects. When a user asks to 'add' a plant/species not yet established or observed at the property, default to a deterministic intent/observation note ('worth documenting after a season'), not an immediate AI-drafted full canon entry. Reserve full canon promotion for confirmed, established, double-confirmed additions.",
+      "scope": "fernwood",
+      "rationale": "Reconciles the creeping-fig demand with the depth filter and feedback_agent_proposals_not_validated. A one-week-old plant can't have a season of calibrated phenology drafted honestly; capturing the intent serves the user without fabricating property knowledge or silently growing canon."
+    }
+  ]
+}
