@@ -1,0 +1,40 @@
+name: Analyze weather bias
+
+# Recurring, deterministic (AI-free) analysis: compares the on-site Ambient
+# Weather station against the ERA5 regional grid and refreshes weather-bias.json.
+# The weather card reads that artifact; a sudden shift in a metric (e.g. wind)
+# is a station-drift signal. Counterpart to record-weather.yml.
+
+on:
+  schedule:
+    # Weekly, Sundays 08:10 UTC (a few min offset from the weather recorder).
+    - cron: "10 8 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Refresh weather-bias.json
+        run: node tools/analyze-weather-bias.mjs
+
+      - name: Commit if changed
+        run: |
+          if [[ -n $(git status --porcelain weather-bias.json) ]]; then
+            git config user.name "weather-recorder[bot]"
+            git config user.email "weather-recorder@users.noreply.github.com"
+            git add weather-bias.json
+            git commit -m "weather-bias: analysis refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          else
+            echo "No change to weather-bias.json."
+          fi

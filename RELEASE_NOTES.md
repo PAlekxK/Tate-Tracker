@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-03 — A wet pocket of the mountain
+
+- The Rainfall section now includes a small note about **how our own weather station's rain gauge compares to the regional average**. Right now it's running about a quarter wetter here than the surrounding area — this corner of the mountain holds more water than the valley below. The number keeps itself current as the station records more days.
+
+---
+
 ## 2026-06-28 — Who to call, right on the step
 
 - The fleet's to-do steps now carry **who to call** for the jobs that go to a shop — the name, the phone (tap it to dial), and the address and hours. On a phone you can pull up a step and call to book the appointment without leaving the card.
