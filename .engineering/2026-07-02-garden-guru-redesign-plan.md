@@ -90,6 +90,65 @@ for the build; the agent artifacts hold the detailed reasoning.
   model," "log the human's words not the model's," "capture-intent before canon,"
   "the fence is the bridge (ask-path AI proposes a capture without performing it)."
 
+## AUTONOMOUS EXECUTION PLAN (Phases 2 & 3) — added 2026-07-02
+
+Paul authorized autonomous execution of Phases 2 + 3 (no per-boundary check-in). Build
+locally, verify each phase end-to-end via mocked-worker browser drive, commit locally,
+hold deploy. Resolved open-questions (my defaults, noted per consultant mode):
+- **Observation destination:** plant-scoped — write an observation with `speciesId`/
+  `speciesName` set to the target; it lands in the one field-notes store (tagged to the
+  plant). No separate stream.
+- **Body = the reader's verbatim words**, taken from the reader's own turn(s), NEVER
+  Guru's diagnosis (the capture-path guard). Guru's diagnosis stays in the conversation.
+- **Lily pads specifically** aren't in canon (no waterlily entry), so logging on them is
+  a Phase-3 add-then-log, or a zone note. Phase 2 mechanism is verified against an
+  in-canon plant; adding a real waterlily entry is a nice-to-have, not a blocker.
+
+### Phase 2 — log-an-observation  (files: worker/worker.js, viewer.html)
+**Worker:**
+1. New `GARDEN_GURU_SYSTEM` section "WHEN THE READER WANTS TO LOG AN OBSERVATION": if the
+   reader is recording something noticed about an IN-DIGEST plant/feature, answer in prose,
+   then emit a `suggest-log` fence — never say "I've logged it," never author the note body.
+2. Fence: `<!--suggest-log\n{ "noteType":"observation", "target":{ "speciesId":"…","name":"…" } }\n-->`
+   Rules: emit only for a known (in-digest) target; speciesId must exist in the digest;
+   if the plant isn't in canon, do NOT emit (that's Phase 3's add path).
+**Client:**
+3. Extend fence parsing: `parseLogFence()` → `assistantTurn.logSuggestion = {noteType, target}`
+   (strip before species-fence parse, same as follow-up).
+4. Under the reply, render a calm deterministic affordance "Note this on the [name]"
+   (confirm-chip weight; NO "does that look right" — the user's words + a known target need
+   no ID adjudication). On tap → `fnSaveObservationFromConversation(readerText, speciesId,
+   speciesName)` (clone of fnSaveInlineEntry with those fields set; body = the reader's most
+   recent user-turn text). Then swap to "Noted on the [name] ✓ — it's in the field notes."
+5. Instrument `log_offered` (on render) + `log_saved` (on tap).
+**Acceptance:** mock reply w/ suggest-log → chip renders, fence stripped; tap writes an
+ObservationStore entry with speciesId set + body = reader's words (verified not Guru's);
+confirmation shows; metrics fire.
+
+### Phase 3 — add ⇄ remove a plant  (files: worker/worker.js, viewer.html)
+**Add (seeding interview → canon draft, double-confirm → GitHub):**
+1. Worker system-prompt section "WHEN THE READER WANTS TO ADD A NEW PLANT (not in digest)":
+   run a SHORT seeding interview across turns (multi-turn now works) — where planted /
+   aspect / what they've already seen. When enough, emit `suggest-add` with a drafted entry
+   grounded in location+horticultural data in house-voice ("by the book X, but per your note
+   Y"), reader's seeding answers as the SUPERSEDING top layer.
+2. Fence: `<!--suggest-add\n{ draft plants.json entry incl. provenance + seedingAnswers }\n-->`.
+3. Client double-confirm (reuse the two-step confirm-chip weight) → POST to promote path
+   (reuse `/api/promote-species` drafter+commit machinery, text-driven variant) → commits
+   to plants.json on GitHub. Honest-thin entry; fattens as observations land.
+**Remove (symmetric, Paul's addition):**
+4. Worker `suggest-remove` fence when the reader asks to remove an IN-CANON plant →
+   client double-confirm → new `/api/remove-species` (mirror promote: remove entry from
+   plants.json + commit). Reversibility lowers the cost of a premature add.
+5. Instrument add_offered/add_confirmed, remove_offered/remove_confirmed.
+**Acceptance:** mock the add fence → seeding chips + double-confirm render; promote payload
+carries the drafted entry + seeding answers as top provenance; remove fence → double-confirm
+→ remove payload targets the right speciesId. (Verify with mocks; do NOT commit test plants
+to the real repo.) House-voice honesty + user-supersedes rules hold in the drafted entry.
+
+### Observation entry shape (reference, from fnSaveInlineEntry)
+`{ id, date:"YYYY-MM-DD", createdAt:ISO, category, speciesId, speciesName, zoneId, body, classifyPending:false }`
+
 ## Guardrails on shipping
 - Build + verify **locally**; hold the **deploy/push** of the public repo for Paul's
   explicit go (Bolo-style hard rule; this repo is public GH Pages).

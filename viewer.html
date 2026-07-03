@@ -3107,6 +3107,43 @@
   .gg-followup-arrow { color: #b08838; font-size: 16px; line-height: 1; flex: 0 0 auto; }
   .gg-followup-text { line-height: 1.3; }
 
+  /* Log-observation affordance (Phase 2, 2026-07-02) — a calm, deterministic
+     "note this on the [plant]" action beneath a reply about a known plant. Slightly
+     more present than the follow-up chip (it's an action, not a suggestion) but still
+     journal-calm — the 📓 glyph, not a task-manager CTA. The saved state is a quiet,
+     legible confirmation (answers Mom's "I hoped it was logged but wasn't sure"). */
+  .gg-logsuggest { margin: 10px 0 2px; }
+  .gg-log-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    border: 1px solid #b7c9a8;
+    background: #eef4e6;
+    color: #35502f;
+    border-radius: 22px;
+    padding: 10px 16px;
+    min-height: 44px;
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .gg-log-btn:hover, .gg-log-btn:active { background: #e3edd6; border-color: #6f9a5a; }
+  .gg-log-glyph { font-size: 15px; line-height: 1; flex: 0 0 auto; }
+  .gg-log-status {
+    margin: 9px 0 2px;
+    font-size: 13.5px;
+    font-family: "Crimson Text", Georgia, serif;
+    line-height: 1.4;
+  }
+  .gg-log-saving { color: #8a8270; font-style: italic; }
+  .gg-log-saved { color: #35502f; }
+  .gg-log-error { color: #8a4a2a; }
+
   /* Garden Guru suggestion actions — yes/no chips after a photo-ID response */
   .gg-suggest-actions {
     display: flex;
@@ -11924,6 +11961,49 @@ async function fnSaveInlineEntry(text, opts) {
   renderFieldNotes();
 }
 
+// Phase 2 (2026-07-02) — resolve a plant name (as Garden Guru named it) to a canon
+// speciesId deterministically against the inlined PLANTS_DATA. Exact name, then
+// scientific name, then a loose contains-match. Returns null if not resolvable — the
+// caller still logs the note, tagged by name only. This is a characterize step
+// (name → id); the reader's confirm tap is what clears it (AI flags, never clears).
+function resolvePlantByName(name) {
+  if (!name || typeof PLANTS_DATA === "undefined" || !Array.isArray(PLANTS_DATA.plants)) return null;
+  const n = String(name).trim().toLowerCase();
+  if (!n) return null;
+  const plants = PLANTS_DATA.plants;
+  const p = plants.find(pl => (pl.name || "").toLowerCase() === n)
+        || plants.find(pl => (pl.scientificName || "").toLowerCase() === n)
+        || plants.find(pl => { const nm = (pl.name || "").toLowerCase(); return nm && (nm.includes(n) || n.includes(nm)); });
+  return p ? { speciesId: p.id, speciesName: p.name } : null;
+}
+
+// Phase 2 — write a field observation attached to a known plant. Deterministic capture:
+// body is the reader's VERBATIM words (never Guru's diagnosis), tagged with the resolved
+// speciesId/speciesName. Same entry shape + store as fnSaveInlineEntry (AI-free path).
+async function fnSaveObservationOnPlant(text, speciesId, speciesName) {
+  const body = (text || "").trim();
+  if (!body) return false;
+  const isoToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    .toISOString().slice(0, 10);
+  const entry = {
+    id: fnNewId(),
+    date: isoToday,
+    createdAt: new Date().toISOString(),
+    category: null,
+    speciesId: speciesId || null,
+    speciesName: speciesName || null,
+    zoneId: null,
+    body,
+    classifyPending: false,
+    source: "guru-log",
+  };
+  const ok = await ObservationStore.save(entry);
+  const card = document.getElementById("card-fieldnotes");
+  if (card && !card.classList.contains("expanded")) card.classList.add("expanded");
+  renderFieldNotes();
+  return ok !== false;
+}
+
 // ---- Sync settings modal ----
 function fnOpenSyncModal() {
   const overlay = document.getElementById("fn-sync-overlay");
@@ -12168,6 +12248,29 @@ const GardenGuru = (function () {
     return { text, followup };
   }
 
+  // Phase 2 (2026-07-02) — parse the log-observation fence. The reader is recording
+  // something about a plant already in the journal; the worker proposes the log, the
+  // client performs it deterministically from the reader's OWN words (never Guru's
+  // diagnosis). Shape per GARDEN_GURU_SYSTEM "WHEN THE READER WANTS TO LOG AN OBSERVATION":
+  //   <!--suggest-log
+  //   { "noteType": "observation", "target": { "name": "..." } }
+  //   -->
+  function parseLogFence(reply) {
+    if (!reply || typeof reply !== "string") return { text: reply, log: null };
+    const m = reply.match(/<!--\s*suggest-log\s*([\s\S]*?)\s*-->/);
+    if (!m) return { text: reply, log: null };
+    let log = null;
+    try {
+      const parsed = JSON.parse(m[1]);
+      if (parsed && parsed.noteType === "observation"
+          && parsed.target && typeof parsed.target.name === "string" && parsed.target.name.trim()) {
+        log = { noteType: "observation", targetName: parsed.target.name.trim() };
+      }
+    } catch (e) { /* malformed — drop silently */ }
+    const text = (reply.slice(0, m.index) + reply.slice(m.index + m[0].length)).trim();
+    return { text, log };
+  }
+
   // Shared body for ask() and askWithImage(): pushes the user turn (string or array
   // content), POSTs to /api/chat, parses reply for suggestion fence, pushes assistant.
   async function sendTurn(userContent, contentType) {
@@ -12204,9 +12307,10 @@ const GardenGuru = (function () {
         live_state: gatherGuruLiveState(),
       });
       const rawReply = (result && result.reply) || "[no reply]";
-      // Strip the follow-up fence first (matches anywhere), then parse the species
-      // fence off the tail of what remains.
-      const afterFollowup = parseFollowupFence(rawReply);
+      // Strip the log fence and the follow-up fence (each matches anywhere), then parse
+      // the species fence off the tail of what remains.
+      const afterLog = parseLogFence(rawReply);
+      const afterFollowup = parseFollowupFence(afterLog.text);
       const { displayText, suggestion } = parseSuggestionFence(afterFollowup.text);
       const assistantTurn = {
         role: "assistant",
@@ -12214,6 +12318,13 @@ const GardenGuru = (function () {
         ts: new Date().toISOString(),
       };
       if (suggestion) assistantTurn.suggestion = suggestion;
+      // A log affordance offered on this turn (deterministic capture on confirm).
+      if (afterLog.log) {
+        assistantTurn.logSuggestion = afterLog.log;
+        if (typeof MetricsCollector !== "undefined") {
+          MetricsCollector.track("log_offered", { conversationId });
+        }
+      }
       // Attach a suggested follow-up only if the reader can still ask one (cap not
       // yet reached). The chip renders under the latest reply; count it as shown here
       // so a null result reads as "saw it, passed," not "never saw it."
@@ -12417,6 +12528,18 @@ const GardenGuru = (function () {
     }
   }
 
+  // Phase 2 — record the log-affordance status on a turn and re-render. The write
+  // itself is done deterministically in the view layer (ObservationStore); this just
+  // tracks the affordance state (undefined → "saving" → "saved" | "error") so the
+  // "Noted ✓" confirmation persists across renders.
+  function markLog(turnIndex, status, extra) {
+    const turn = turns[turnIndex];
+    if (!turn) return;
+    turn.logStatus = status;
+    if (extra) Object.assign(turn, extra);
+    emit();
+  }
+
   function reset() {
     fireReplyDwell("reset");
     saveCurrentConversation();
@@ -12516,7 +12639,7 @@ const GardenGuru = (function () {
     };
   }
 
-  return { ask, askWithImage, askWithAudio, confirmId, declineId, confirmAdd, declineAdd, reset, onChange, getState };
+  return { ask, askWithImage, askWithAudio, confirmId, declineId, confirmAdd, declineAdd, markLog, reset, onChange, getState };
 })();
 
 // ---- Voice dictation controller (Web Speech API) ----
@@ -13009,6 +13132,25 @@ const UnifiedInput = (function () {
       // Only the newest assistant turn shows it, and only while a follow-up is still
       // allowed — older turns and a capped conversation stay clean.
       const lastTurn = state.turns[state.turns.length - 1];
+      // Phase 2 — the log-observation affordance (deterministic capture on tap). Shown
+      // under the latest reply when the worker proposed a log on a known plant.
+      if (!state.isWaiting && lastTurn && lastTurn.role === "assistant" && lastTurn.logSuggestion) {
+        const st = lastTurn.logStatus;
+        const nm = escapeHtml(lastTurn.logTargetName || lastTurn.logSuggestion.targetName);
+        if (!st) {
+          html += '<div class="gg-logsuggest"><button class="gg-log-btn" type="button">'
+            + '<span class="gg-log-glyph" aria-hidden="true">📓</span> Note this on the ' + nm + '</button></div>';
+        } else if (st === "saving") {
+          html += '<div class="gg-log-status gg-log-saving">Saving to the field notes…</div>';
+        } else if (st === "saved") {
+          html += '<div class="gg-log-status gg-log-saved">Noted on the ' + nm + ' ✓ — it’s in the field notes.</div>';
+        } else if (st === "error") {
+          html += '<div class="gg-log-status gg-log-error">Couldn’t save that just now.</div>'
+            + '<div class="gg-logsuggest"><button class="gg-log-btn" type="button">'
+            + '<span class="gg-log-glyph" aria-hidden="true">📓</span> Try again</button></div>';
+        }
+      }
+      // Phase 1 — one calm follow-up chip beneath the LATEST reply.
       if (!state.isWaiting && lastTurn && lastTurn.role === "assistant"
           && lastTurn.followup && !state.capReached) {
         html += '<div class="gg-followup">'
@@ -13032,6 +13174,37 @@ const UnifiedInput = (function () {
             MetricsCollector.track("followup_suggestion_used", { conversationId: state.conversationId });
           }
           GardenGuru.ask(prompt);
+        });
+      }
+
+      // Wire the log affordance — writes the reader's OWN words as a dated observation
+      // on the resolved plant. Deterministic capture; Guru's diagnosis is never logged.
+      const logBtn = conversation.querySelector(".gg-log-btn");
+      if (logBtn && lastTurn && lastTurn.logSuggestion) {
+        logBtn.addEventListener("click", async () => {
+          const lastIdx = state.turns.length - 1;
+          // The reader's verbatim words = the most recent user turn before this reply.
+          let readerText = "";
+          for (let i = lastIdx - 1; i >= 0; i--) {
+            const t = state.turns[i];
+            if (t.role === "user") {
+              readerText = (typeof t.content === "string") ? t.content
+                : (Array.isArray(t.content) ? ((t.content.find(b => b && b.type === "text") || {}).text || "") : "");
+              break;
+            }
+          }
+          const resolved = resolvePlantByName(lastTurn.logSuggestion.targetName);
+          const nm = (resolved && resolved.speciesName) || lastTurn.logSuggestion.targetName;
+          GardenGuru.markLog(lastIdx, "saving");
+          const ok = await fnSaveObservationOnPlant(readerText, resolved && resolved.speciesId, nm);
+          if (ok) {
+            if (typeof MetricsCollector !== "undefined") {
+              MetricsCollector.track("log_saved", { conversationId: state.conversationId, resolved: !!resolved });
+            }
+            GardenGuru.markLog(lastIdx, "saved", { logTargetName: nm });
+          } else {
+            GardenGuru.markLog(lastIdx, "error");
+          }
         });
       }
 
