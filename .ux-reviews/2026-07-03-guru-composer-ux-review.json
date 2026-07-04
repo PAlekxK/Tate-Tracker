@@ -1,0 +1,171 @@
+{
+  "review_id": "ux-2026-07-03-guru-composer-ux-review",
+  "project": "fernwood",
+  "subject": "Garden Guru input/composer surface (viewer.html ~4199-4251): textarea + labeled-emoji icon row (Voice/Photo) + twin commit buttons (Save to journal / Ask Garden Guru). Scoped to making the composer feel familiar/native by borrowing established AI-chat + iPhone-native composer conventions, WITHOUT collapsing the protected two-intent Save/Ask split.",
+  "review_date": "2026-07-03",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (the composer only; not the whole Guru flow)",
+  "user_context": {
+    "primary_user": "Mom (make-or-break daily user, device d-14nyhnjz, 27/~40 active days). Paul-mobile is the secondary performer (on-property, voice-friendly, weak signal).",
+    "core_jobs_to_be_done": [
+      "Ask the property a plain-language question and feel confident it was heard (Mom's mental model = ASK, not log).",
+      "Log something noticed, deterministically, and be sure it was kept ('I hoped it was logged but wasn't sure').",
+      "Do both from a one-handed, reclined, half-engaged glance in ~1.5s, at no-glasses text size, on possibly-weak rural signal."
+    ],
+    "context_of_use": "iPhone 393x793. Mom: bed/coffee or evening wind-down, one hand, half-attended, A/A+ large-type user, ChatGPT-anxiety. Paul-mobile: on the property, one hand occupied, voice-primary, outdoor legibility, Bortle-3 weak connectivity.",
+    "assumptions_made": [
+      "The composer's job, position (beneath the latest reply per Phase 1), warm-tan field-journal skin, and the protected symmetric two-intent commit are all settled inputs from the fact base — not relitigated here.",
+      "This review redesigns the composer's control grammar (icon row, mic, glyphs, commit affordance shape), not the conversation flow, the fences, or the persistence model.",
+      "The exact 'photo shows a different picture' bug (F4 in the fact base) is unreproduced; treated here as most-likely the decorative-emoji-render issue, pending Paul's device description."
+    ],
+    "user_context_confidence": "medium-high — personas + JTBDs are validated in prior research; this specific composer control redesign is inferred from those, not yet Mom-tested."
+  },
+  "conventionsSurvey": {
+    "note": "Durable conventions extracted from current (2026) iPhone-native and AI-chat composers. Web-search-confirmed the current landscape (iOS 26 Messages, ChatGPT/Claude/Gemini iOS 2026); the composer grammar itself has been stable for years and is described from established design conventions, not invented.",
+    "iphone_native": {
+      "surveyed": "Messages/iMessage, Notes, Mail composers.",
+      "durable_patterns": [
+        "FIELD IS THE HERO. One rounded text field dominates; controls are subordinate to it, tucked at its edges or in a thin toolbar above the keyboard. There is no row of labeled utility buttons under the field.",
+        "ATTACH LIVES LEFT / OUTSIDE. iMessage consolidated its attachment affordances into a single '+' to the LEFT of the field (camera/photos/apps behind it). Notes/Mail put camera+attachment in a quiet toolbar above the keyboard. Attachment is one small monochrome glyph, never a big colored labeled button.",
+        "SEND LIVES RIGHT / INLINE, AND ACTIVATES ON CONTENT. A single glyph (up-arrow, circled arrow) sits at the field's right edge; it is dimmed/absent when the field is empty and colors/appears once there's text. Emptiness disables it — the state IS the affordance.",
+        "DICTATION IS A KEYBOARD AFFORDANCE, NOT AN APP CONTROL. The mic key next to the spacebar is the native dictation entry point on every text field. Users already have it 'for free'; apps rarely reimplement it. (iOS 26 improved dictation further — spell-out-names, studio-quality capture.)",
+        "GLYPHS ARE MONOCHROME SF-SYMBOL-STYLE, UNLABELED. No emoji, no text labels on inline controls. The register is quiet-utility, not toolbar."
+      ]
+    },
+    "ai_chat": {
+      "surveyed": "ChatGPT, Claude, Gemini iOS apps (2026).",
+      "durable_patterns": [
+        "ONE ROUNDED COMPOSER, field-as-hero, same as native.",
+        "ATTACHMENT = LEFT '+' / PAPERCLIP (photos, camera, files behind one glyph). ChatGPT consolidated to a single '+'; iOS photo capture/upload was made 'faster and smoother' in 2026.",
+        "RIGHT EDGE HOLDS VOICE **AND** SEND, STATE-SWITCHED. Empty field: the right side shows voice affordances (a dictation waveform + a separate full 'voice mode' button). Once text is typed, a send arrow appears/replaces. Send turns into a STOP square during generation.",
+        "TWO DISTINCT VOICE THINGS. (a) dictation = speech-to-text into the field (mic glyph); (b) voice mode = a live spoken conversation (waveform/headphone glyph). They are not the same control.",
+        "'THINKING' IS SHOWN IN-THREAD WHERE THE ANSWER WILL APPEAR — a shimmer / pulsing dots / streaming text at the reply location, plus the send-to-stop swap. The button alone is not the only signal.",
+        "MONOCHROME GLYPHS, NO EMOJI, NO LABELS on the composer controls."
+      ]
+    },
+    "cross_world_durables": [
+      "One field is the hero; controls are subordinate and live at its edges.",
+      "Attachment = left; commit/send = right. This spatial mapping is rock-solid across both worlds.",
+      "The commit control activates on content and is dimmed/absent when empty — state carries the affordance.",
+      "Inline controls are monochrome, unlabeled, ignorable — NOT a labeled utility toolbar. (The current build's labeled '🎤 Voice / 📷 Photo' row is precisely the toolbar register both worlds have moved away from.)",
+      "Dictation is a mic glyph users already recognize — and on native iOS it's a more reliable keyboard affordance the app doesn't need to rebuild.",
+      "Progress/thinking renders in-thread at the answer's location, not only on the button."
+    ],
+    "the_one_convention_fernwood_must_decline": "Both worlds converge on a SINGLE send/commit control. Fernwood's protected two-intent split (Save=no-AI vs Ask=AI, symmetric, never auto-routed) cannot adopt single-send without breaking the capture principle. So the play is: borrow the native FIELD grammar wholesale, and decline single-send at the COMMIT — substituting a two-action button row, which is itself a native iOS idiom (Mail's send row, two-button alert dialogs, share-sheet actions), so familiarity survives the one departure."
+  },
+  "layoutOptions": [
+    {
+      "id": "A",
+      "name": "Native field + twin commit row (RECOMMENDED)",
+      "wireframe": "+-------------------------------------------+\n|  What did you see, or want to know?        |   <- hero field, warm-tan, no hard border at rest\n|                                            |\n|  [camera]                        [mic]     |   <- monochrome line glyphs at the field's edges: attach LEFT, mic RIGHT (both inline, unlabeled, quiet)\n+-------------------------------------------+\n+---------------------+ +-------------------+\n|   Save to journal   | |   Ask the Guru    |   <- two co-equal WORD-LED commit buttons, symmetric weight\n+---------------------+ +-------------------+",
+      "borrows": "iMessage/Notes field-as-hero; attach-left + control-right inline glyph placement; monochrome SF-Symbol-style glyphs replacing labeled emoji; mic inside the field's right edge (the exact iOS-native pattern, also the unfulfilled unified-input F8 spec).",
+      "keeps_save_ask_legible": "The two intents stay as two co-equal, word-led buttons below the field — symmetric weight (cross-project candidate), routing carried by TEXT+size+position (Mom no-glasses constraint), never color, never a hidden mode, never auto-routed. The twin-button commit row reads as native because two-action rows are a familiar iOS idiom.",
+      "tradeoffs": "Slightly taller than a pure single-send composer (the commit row costs one row of height). Declines the single-send convention on purpose — but substitutes a natively-familiar two-action row, so it doesn't read as invented UI.",
+      "reads_for_mom": "The field looks like Notes/iMessage — familiar, unthreatening, not a chatbot. Two large legible buttons she can read at no-glasses size; the choice is WORDS, not icons or color. Camera + mic are small, optional, ignorable — they don't compete for the glance. Passes the 1.5s half-engagement read.",
+      "recommended": true
+    },
+    {
+      "id": "B",
+      "name": "Intent-tab + single send (native segmented control)",
+      "wireframe": "+-- Note --+-- Ask ---+                          <- iOS segmented control declares intent BEFORE sending\n+-------------------------------------------+\n|  What did you see?         [camera] [mic] |   <- single field, attach + mic inline\n|                                       [>] |   <- ONE send glyph, right edge, activates on text\n+-------------------------------------------+",
+      "borrows": "The single-composer convention harder (true single send-arrow, right edge, activates on content); iOS segmented control (a native primitive) to declare Save-vs-Ask.",
+      "keeps_save_ask_legible": "The split moves UP-FRONT: the tab you're on declares the intent before you send. Send stays one glyph.",
+      "tradeoffs": "Introduces MODE. The input's meaning now depends on which tab is active — a hidden-state risk (Nielsen #1 visibility of system status). This is exactly the 'which tab is active / auto-detection fragility' the Houseplants candidate 'Scope is communicated by where you tap' warns against. For Mom at half-engagement: she types a note with the tab silently on 'Ask', accidentally spends an AI call / gets a chatbot reply she didn't want. A mode she must notice-and-set before typing is arguably WORSE than the two-button choice-at-commit, and it edges toward routing-by-mode rather than routing-by-explicit-tap. NOT recommended.",
+      "reads_for_mom": "Risk of silent wrong-mode. The segmented control is small and sits away from her focus (the field); she may never register which side is lit. Fails the half-engagement bar precisely because the consequential state is the quietest element.",
+      "recommended": false
+    },
+    {
+      "id": "C",
+      "name": "Twin send-glyphs at the right edge (max-native, wrong for Mom)",
+      "wireframe": "+-------------------------------------------+\n|  What did you see, or want to know?        |\n|                                            |\n|  [camera]                    [book] [leaf] |   <- TWO commit glyphs at the right edge; both = 'send', differ by destination\n+-------------------------------------------+",
+      "borrows": "Maximally native: inline-send-on-the-right, most compact, no separate button row.",
+      "keeps_save_ask_legible": "It does NOT, for this user. The entire Save/Ask distinction now rides on two small unlabeled glyphs.",
+      "tradeoffs": "Fails Mom's no-glasses constraint hard: memory 'Mom reads with difficulty' requires routing carried by icon+size+color+position AND ideally text; two tiny unlabeled glyphs as the sole commit affordance is the exact 'routing-by-icon-alone' accessibility failure. Also collapses the symmetric WORD-LED button model the fact base protects. Presented only as the 'most native but wrong here' pole.",
+      "reads_for_mom": "Two indistinguishable specks. She can't tell Save from Ask without leaning in — the failure mode the whole large-type program exists to prevent.",
+      "recommended": false
+    }
+  ],
+  "principles_applied": [
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "Icons earn their place — true AND useful (cross-project.md)",
+    "Ornament earns its place (cross-project.md)",
+    "Friction kills — it just works (cross-project.md)",
+    "Discreet != dormant (cross-project.md candidate)",
+    "Explicit user-routing requires symmetric affordance weight (cross-project.md candidate)",
+    "Scope is communicated by where you tap, not auto-detected (cross-project.md candidate)",
+    "Mom reads with difficulty — routing carried by icon+size+color+position, not label text alone (memory: project_fernwood_mom_reading_accessibility)",
+    "No AI on capture; CHARACTERIZE (transcription) is an acceptable flagged middle layer (memory: feedback_no_ai_on_capture)",
+    "Defer affordances pending signal (memory: feedback_defer_affordances_pending_signal)",
+    "Nielsen 1 — Visibility of system status",
+    "Norman — Signifiers and feedback"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The current icon row is two LABELED EMOJI buttons ('🎤 Voice', '📷 Photo') sitting under the field as a utility toolbar. This is the exact register both native iOS and AI-chat composers have moved AWAY from — both worlds tuck attachment/mic as small monochrome unlabeled glyphs at the field's edges, not as a labeled button row beneath it. The labeled-emoji-row is also what makes the surface read as a mini productivity app rather than a journal composer.",
+      "user_impact": "The labeled toolbar adds visual weight and a 'this is a tool with functions' register that undercuts the field-journal feel and the discreet-by-default intent. The emoji also render inconsistently across iOS versions (the likely root of Paul's 'different picture' report). For Mom, it's more chrome to parse at half-engagement.",
+      "principle_invoked": "field-as-hero / attach-left inline (conventions survey); Ornament earns its place + Icons earn their place (cross-project); Glyphs follow the journal voice (fernwood).",
+      "recommendation": "Adopt Layout A. Dissolve the labeled icon row: move CAMERA to a single monochrome line-glyph at the field's LEFT edge, MIC (if kept — see F2) to a monochrome glyph at the field's RIGHT edge. Drop the word-labels on both (native inline controls are unlabeled). The two commit buttons below the field become the only labeled, word-led controls — which is correct, because they carry the load-bearing routing.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "Voice rides browser webkitSpeechRecognition with a continuous-restart hack (createVoiceCapture ~12790). It's unreliable on iOS Safari and streams audio to Apple's servers — fragile on the property's weak rural signal. Meanwhile, the single most native fact: on iOS, dictation is already a KEYBOARD affordance (the mic key by the spacebar) that Mom has on every text field, backed by the OS's own (2026-improved) dictation. The app's custom 🎤 Voice button is a strictly-worse reimplementation of something the platform already gives her more reliably. And per the fact base, Mom likely won't talk to her phone in bed anyway; voice-primary is Paul-mobile's mode.",
+      "user_impact": "Keeping a prominent, fragile app-mic sets Mom up for a broken-feeling experience she didn't need (the keyboard mic would have worked), and it's the probable source of Paul's 'transcription problems.' It also fails Icons-earn-their-place test 2 on iOS (it duplicates a better native control).",
+      "principle_invoked": "Dictation-is-a-keyboard-affordance (conventions survey); Icons earn their place — true AND useful (cross-project); Defer affordances pending signal (memory). Note: transcription itself is the acceptable 'characterize' layer on the capture path (memory feedback_no_ai_on_capture), so voice-into-Save is fine in principle — the issue is the PRIMITIVE, not the intent.",
+      "recommendation": "De-emphasize, keep-graceful. (a) Remove the labeled 🎤 Voice button. (b) Let Mom's native keyboard mic carry her rare voice need — it's more reliable and she already knows it. (c) If a mic is kept for Paul-mobile, render it as a small monochrome glyph inside the field's right edge (native pattern), and make failure honest in journal voice ('The signal's slow up here — you can type it instead'), never a raw error string. (d) Do NOT build record→upload→server-transcribe now — it's out of scope and defer-pending-signal applies. Flag it as the RIGHT future architecture IF voice proves used (it removes cloud-streaming-during-capture and reuses the already-built Phase-H audio_ref blob pattern). Instrument: if mic use <5% at 90 days, cut the app-mic entirely and rely on the keyboard mic.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The two commit buttons currently lead with decorative emoji (📓 Save to journal, 🌿 Ask Garden Guru). '📓' is redundant with the word 'journal' (fails Icons-earn-their-place test 2). '🌿' is closer to an IDENTITY glyph for the Guru (the same exemption that lets the plant care-type icon lexicon stay per the fernwood glyph rule).",
+      "user_impact": "Minor register-leak; the book emoji is pure tax. But the commit buttons are also where Mom's routing MUST stay word-led and large — so this is a 'refine, don't strip' case, not a 'go glyph-only' case.",
+      "principle_invoked": "Icons earn their place (cross-project); Glyphs follow the journal voice (fernwood); Mom-reads-with-difficulty (memory).",
+      "recommendation": "Keep both commit buttons WORD-LED at no-glasses size (the words carry the routing). Drop the '📓' (the word 'journal' is the icon). Optionally keep a single quiet monochrome leaf/sprout as the Guru's identity mark — but as a line-glyph, not a color emoji, to hold the journal register. Never reduce these two to glyph-only (that's Layout C's failure).",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "feedback",
+      "severity": "nice-to-have",
+      "observation": "Both surveyed worlds signal 'thinking' IN-THREAD at the answer's location (shimmer/dots/streaming) and swap send→stop during generation. The prior unified-input review (F9) already specced an in-voice pending line ('Listening…'). This is convention-aligned and worth honoring when the Ask path fires from the new composer, given weak-signal latency.",
+      "user_impact": "On weak rural signal, an Ask with no visible pending state invites a double-tap (duplicate query) or abandonment. The native convention (in-thread shimmer + button state change) is what users now expect.",
+      "principle_invoked": "'Thinking' renders in-thread (conventions survey); Nielsen 1; Caution-as-noticing (fernwood — no red/spinner-to-error, journal-voice failure).",
+      "recommendation": "When Ask fires: the Ask button shifts to a soft warm pulse / 'Asking…' state, and the reply location shows an in-voice thinking line (existing 'Listening…' spec). Keep it in journal voice, never a raw spinner or error. This is confirmation/polish, not a blocker — flagged so the composer redesign carries the pending-state forward rather than dropping it.",
+      "effort": "low"
+    }
+  ],
+  "specific_calls": {
+    "voice_affordance": "De-emphasize as an app control; lean on the native iOS keyboard mic (more reliable, already Mom's). If kept for Paul-mobile, an inline right-edge monochrome mic glyph with honest journal-voice failure. Do NOT build record→upload→server-transcribe now (out of scope + defer-pending-signal), but note it as the correct future architecture if voice proves used (reuses the Phase-H audio_ref blob pattern, removes cloud-streaming-during-capture). Instrument <5%-at-90-days → cut the app-mic.",
+    "emoji_to_glyphs": "Replace the labeled 🎤/📷 icon row with monochrome SF-Symbol-style LINE glyphs tucked at the field's edges (camera left, mic right), unlabeled. Counter-intuitively this REDUCES the productivity-app feel: that feel comes from loud, colored, LABELED utility buttons in a row (what's there now); native composers are quiet monochrome edge-glyphs. For the two COMMIT buttons, keep WORDS leading (Mom's no-glasses routing); drop the redundant 📓; at most a single quiet identity line-glyph on the Guru button.",
+    "two_button_vs_single_composer": "Yes — borrow the single-composer familiarity for the FIELD (hero field, inline attach-left, inline mic-right, monochrome glyphs, warm-tan skin) and decline single-send only at the COMMIT, substituting a two-action word-led button row (itself a native iOS idiom). This preserves the protected Save/Ask split as two co-equal WORD-LED buttons — symmetric weight, routing by text+position not color or hidden mode, never auto-routed. Reject single-send (Layout C collapses the split into unreadable glyphs) and reject the intent-tab/mode (Layout B hides consequential state from a half-engaged Mom)."
+  },
+  "open_questions_for_user": [
+    "The 'photo shows a different picture' bug (fact base F4) is still unreproduced. Best guess is the decorative-emoji render — which Layout A fixes by switching to monochrome glyphs. If it's actually the iOS library-vs-camera picker or a wrong preview thumbnail, that's a separate functional bug; a one-line description or a device screenshot would settle it.",
+    "Confirm the app-mic should be kept at all for Paul-mobile, vs. fully delegating dictation to the native keyboard mic for everyone in v1 (lightest, most reliable). My lean: delegate to keyboard mic for v1, instrument, and only revive an app-mic if signal shows real use."
+  ],
+  "follow_up_research_suggested": [
+    "Mom-direct: show her the Layout-A composer (field + camera/mic edge glyphs + two word-led buttons) and confirm the Save/Ask choice reads at a glance without leaning in. Lowest-cost validation of F1/F3.",
+    "Instrument app-mic invocation rate (already on record from the prior review) — the <5%-at-90-days trigger decides whether the app-mic survives at all."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Borrow the native composer's field grammar; decline only the single-send convention where a protected intent-split lives",
+      "scope": "fernwood",
+      "rationale": "This composer surfaces a reusable move: when a familiar single-composer pattern (native or chat) conflicts with a project-protected two-intent commit, borrow the FIELD wholesale (hero field, inline edge-glyphs, monochrome controls, project skin) and substitute a two-action word-led button row for the single send — because a two-action row is itself a native idiom, so familiarity survives the one deliberate departure. Candidate; hold at one occurrence. May generalize to Houseplants' per-plant vs cross-collection ask, so worth watching for a second occurrence before proposing promotion to cross-project."
+    },
+    {
+      "principle": "Prefer the platform's native control over an app reimplementation of the same affordance — especially on the capture path",
+      "scope": "cross-project",
+      "rationale": "The app-mic (webkitSpeechRecognition) is a fragile reimplementation of the iOS keyboard mic Mom already has more reliably. Sharpens 'Icons earn their place — true AND useful' with a platform-delegation test: if the OS gives the user a more reliable version of this control on every field, the app's custom version usually fails test 2. Candidate; surfaced once here — watch for a second occurrence (e.g., a custom share/download control that duplicates the native share sheet) before promoting."
+    }
+  ]
+}
