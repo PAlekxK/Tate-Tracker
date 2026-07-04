@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-04 — A cleaner, more familiar note box
+
+- The box where you write to the journal (and ask Garden Guru) now looks and feels like the message field you already know from your phone — one calm rounded field, with a small camera on the left to attach a photo and a microphone on the right to dictate. The old row of labeled picture-buttons is gone.
+- **Save to journal** and **Ask Garden Guru** stay as two clear, separate buttons — nothing about how you save a note or ask a question has changed.
+
+---
+
 ## 2026-07-03 — Fleet check-in: the 400 lives
 
 - The **DR-Z400S's** power-loss gremlin is **worked out** — the bike powers up cleanly again, and its card reflects that. Next on it is putting the **speedometer** back together and reconnecting it to see if it reads.
