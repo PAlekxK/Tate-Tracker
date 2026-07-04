@@ -85,6 +85,63 @@ def digest_fishing(d):
     return out
 
 
+def _trim(s, n=240):
+    s = (s or "").strip()
+    if len(s) <= n:
+        return s
+    return s[:n].rsplit(" ", 1)[0] + "…"
+
+
+def digest_vehicles(d):
+    """Compact vehicle/equipment reference for the assistant's practical (non-
+    field-journal) register. Keeps specs + maintenance values + status + the
+    'what she needs' list + manual link + who-to-call; trims the long
+    restoration essays (the full detail lives on the Vehicles card). Non-verified
+    maintenance values are flagged so the assistant hedges rather than asserts."""
+    out = {"_meta": digest_meta(d.get("_meta", {}))}
+    vehicles = []
+    for v in d.get("vehicles", []):
+        item = {}
+        for k in ("id", "name", "nickname", "group", "category", "trim", "engine", "status"):
+            if v.get(k):
+                item[k] = v[k]
+        if isinstance(v.get("specs"), dict):
+            item["specs"] = v["specs"]
+        maint = {}
+        for k, m in (v.get("maintenance") or {}).items():
+            if isinstance(m, dict) and "value" in m:
+                val = m["value"]
+                if m.get("confidence") in ("inferred", "tbd"):
+                    val = val + " [unconfirmed — verify before buying]"
+                maint[k] = val
+            else:
+                maint[k] = m
+        if maint:
+            item["maintenance"] = maint
+        needs = []
+        for r in (v.get("restoration") or []):
+            entry = {"item": r.get("item"), "status": r.get("status")}
+            if r.get("detail"):
+                entry["detail"] = _trim(r["detail"], 240)
+            needs.append(entry)
+        if needs:
+            item["needs"] = needs
+        if v.get("notes"):
+            item["notes"] = _trim(v["notes"], 400)
+        if isinstance(v.get("manual"), dict):
+            item["manual"] = v["manual"]
+        contacts = []
+        for c in (v.get("serviceContacts") or []):
+            cc = {kk: c[kk] for kk in ("name", "phone", "role", "address", "hours") if c.get(kk)}
+            if cc:
+                contacts.append(cc)
+        if contacts:
+            item["serviceContacts"] = contacts
+        vehicles.append(item)
+    out["vehicles"] = vehicles
+    return out
+
+
 def digest_property(d):
     """Property.json is already fairly lean. Keep structurally, drop _meta sources."""
     out = {}
@@ -118,6 +175,7 @@ def main():
         "lizards": digest_wildlife(load("lizards.json")),
         "fishing": digest_fishing(load("fishing.json")),
         "property": digest_property(load("property.json")),
+        "vehicles": digest_vehicles(load("vehicles.json")),
     }
 
     import datetime
@@ -131,7 +189,8 @@ def main():
     raw_total = sum(
         os.path.getsize(p)
         for p in ("plants.json", "birds.json", "mammals.json", "amphibians.json",
-                  "snakes.json", "lizards.json", "fishing.json", "property.json")
+                  "snakes.json", "lizards.json", "fishing.json", "property.json",
+                  "vehicles.json")
     )
     digest_size = os.path.getsize(out_path)
     # Rough char→token estimate: ~4 chars/token for JSON
