@@ -2,6 +2,25 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Session-start check — is the dashboard showing all of canon? (run at every Fernwood pickup)
+
+**Run this first thing when picking up Fernwood, before other work:**
+
+```bash
+python3 tools/check-data-inline.py
+```
+
+It compares the source JSON (`plants.json`, `mammals.json`, `birds.json`, …) against the inlined `*_DATA` constants in `viewer.html`. Exit 0 = in sync (say nothing, move on). Exit 1 = **drift** — surface it.
+
+The drift that matters most is **canon-ahead**: a species present in the JSON but *missing from the inlined data*. That almost always means **Garden Guru added it to canon but the re-inline step didn't land**, so a real, confirmed addition is sitting invisible on the dashboard. This is exactly how **Lizard's Tail** hid unnoticed until 2026-07-05.
+
+When drift shows, don't auto-fix — the point is a **human signal that the addition is legit**:
+1. Surface the specific species to Paul, framed as "added to canon (likely via Garden Guru) but not yet on the dashboard — legit?"
+2. Get Paul's confirm that it's a real addition (his call, not an automatic one).
+3. Only then `python3 tools/check-data-inline.py --fix`, verify clean, add a release note, commit.
+
+(Root-cause fix still open: make Guru's promote flow verify its own re-inline commit landed, so this drift can't open silently in the first place.)
+
 ## Pickup point — last session ended 2026-07-02
 
 **Garden Guru conversational redesign — Phases 1–3 built, verified, and DEPLOYED LIVE.** Worker deployed (version `123ea421` @ tate-tracker.paul-kirschenbauer.workers.dev); viewer pushed to GH Pages (Tate-Tracker HEAD `23ac94f`). Commits: analysis+plan `508010c`, Phase 1 `c8fb1a1`, Phase 2 `a3130ef`, Phase 3 `7d8eba2`.
