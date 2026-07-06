@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-06 — Fishing gets its own card
+
+- **Fishing is now its own card**, right below Wildlife — no longer tucked in a tab. There's a **Fishing tile** on the dashboard too, with a one-line read on the next window worth fishing and how good it is.
+- Open the card and it reads top-down the way you'd actually decide: **right now** (is it worth going, and the live pressure/wind/rain from the station down by the lake) → **today's** dawn and dusk windows → a **look ahead** across the week showing only the windows worth the trip → a quiet line on the **season** → what to **bring** and where to fish → then the full reference (each species' year, the season chart, the regs).
+- The season/phase read is now consistent throughout: the "now" marker in the species table matches the call at the top, so a summer lake reads as summer everywhere.
+
+---
+
 ## 2026-07-05 — Peak this week, front and center
 
 - The **Plants** tile now leads with **what's at its peak this week** — the plants in their best window right now — instead of the long monthly care list. A quiet "This [month]" line underneath keeps the monthly rhythm in view; the full per-type detail still lives inside the Plants card's "This Month" view.
