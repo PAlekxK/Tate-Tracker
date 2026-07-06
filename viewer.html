@@ -6424,6 +6424,178 @@ function generateAlerts() {
 }
 
 // =========================
+// LOOK-FOR GENERATOR (Concept A, 2026-07-05)
+// A pure, deterministic function of the inlined data + today's date. NO network,
+// NO AI, NO parsing of peakWindow prose (it's free text — display it, never read
+// it). Produces the calm "what's worth noticing this week" glance. Voice is
+// non-negotiable: noticing invitations, never chores. Copy comes ONLY from the
+// template bank below — do not freelance new lines.
+// =========================
+
+// The only sanctioned inspect hint (plan §5.3). Observational inspect
+// subcategories map to a humble hint; pest/disease inspects are deliberately
+// NOT surfaced (naming a pest to watch for reads as alert/chore language).
+const LOOKFOR_INSPECT_HINTS = {
+  "winter protection": "how it's coming through the cold",
+};
+
+// Plant display name, humbled for mid-sentence use: strip any parenthetical,
+// lowercase each word except proper nouns and trademarked cultivars (kept by an
+// internal capital, e.g. DreamCloud, or an explicit whitelist).
+function lookforHumbleName(name) {
+  if (!name) return "";
+  const s = name.replace(/\s*\([^)]*\)\s*/g, " ").trim();
+  const PROPER = new Set(["japanese", "yuki", "elpis", "pop", "star", "endless", "summer", "dreamcloud"]);
+  return s.split(/\s+/).map(w => {
+    if (/[A-Z]/.test(w.slice(1))) return w;               // internal capital → a brand, keep as-is
+    const lw = w.toLowerCase();
+    if (PROPER.has(lw)) return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    return lw;
+  }).join(" ");
+}
+
+// Build the look-for text for a plant candidate. Returns null to SKIP (no clean
+// template for this care type / label) — a skipped candidate never takes a slot.
+function lookforPlantText(careType, humbled, label, peakWindow, narrow) {
+  const peak = peakWindow ? " — " + peakWindow : "";
+  switch (careType) {
+    case "prune":     return "A good stretch to prune the " + humbled + peak + ".";
+    case "fertilize": return "The " + humbled + " would take feeding about now, if you're inclined.";
+    case "water":     return "Worth checking whether the " + humbled + " is staying moist through this stretch.";
+    case "propagate": return "If you've thought about cuttings from the " + humbled + ", this is the window.";
+    case "mow":       return "The fairway's due a pass when the weather gives you a dry day.";
+    case "inspect": {
+      const hint = label ? LOOKFOR_INSPECT_HINTS[label.toLowerCase()] : null;
+      if (hint) return "The " + humbled + " is worth a look this week — " + hint + ".";
+      return null; // pest/disease inspects are not noticing invitations — skip
+    }
+    default: {
+      // repot / anything else: only as a genuinely-short window with a window to name
+      if (narrow && peakWindow) {
+        const careLabel = label || ((typeof CARE_TYPES !== "undefined" && CARE_TYPES[careType] && CARE_TYPES[careType].label) || careType);
+        return "The " + humbled + "'s " + careLabel.toLowerCase() + " window is short this year — " + peakWindow + ".";
+      }
+      return null;
+    }
+  }
+}
+
+// The deterministic engine. `now` is a Date (local device time = Eastern for
+// these users). Returns an array of ≤4 look-for objects, or a single fallback
+// item when nothing qualifies. Never throws on odd data.
+function computeLookFors(now) {
+  const m = now.getMonth();               // 0-indexed, matches the data
+  const prevM = (m + 11) % 12;
+  const nextM = (m + 1) % 12;
+  const dayOfMonth = now.getDate();
+  const raw = [];
+
+  // ---- Plants: walk every care entry and every subcategory ----
+  const plants = (typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || [];
+  for (const p of plants) {
+    if (!p || !p.care) continue;
+    const humbled = lookforHumbleName(p.name);
+    for (const [careType, val] of Object.entries(p.care)) {
+      if (!val) continue;
+      const entries = Array.isArray(val.subcategories) && val.subcategories.length ? val.subcategories : [val];
+      for (const e of entries) {
+        if (!e || !Array.isArray(e.months) || !e.months.length) continue;
+        const activeNow = e.months.includes(m);
+        if (!activeNow) continue;
+        const label = e.label || null;
+        const peakWindow = e.peakWindow || null;
+        const narrow = e.narrow === true;
+        const opening = !e.months.includes(prevM) && dayOfMonth <= 14;
+        let priority;
+        if (narrow) priority = 1;                       // P1 — narrow window active now
+        else if (opening) priority = 2;                 // P2 — window opening this month
+        else if (peakWindow) priority = 4;              // P4 — peak-window mention active
+        else continue;                                  // a long-open, no-peak window is wallpaper
+        const text = lookforPlantText(careType, humbled, label, peakWindow, narrow);
+        if (!text) continue;
+        raw.push({
+          priority,
+          careType,
+          icon: (typeof CARE_TYPES !== "undefined" && CARE_TYPES[careType] && CARE_TYPES[careType].icon) || "🌿",
+          speciesId: "plant:" + (p.id || p.name),
+          speciesName: p.name,
+          text,
+          starter: "Checked the " + humbled + " — ",
+        });
+      }
+    }
+  }
+
+  // ---- Birds: arrivals & departures (residents self-exclude — their months
+  //      include every month, so the prev/next test is always false) ----
+  const birds = (typeof BIRDS_DATA !== "undefined" && BIRDS_DATA.species) || [];
+  for (const b of birds) {
+    if (!b || !Array.isArray(b.monthsPresent) || !b.monthsPresent.includes(m)) continue;
+    const arriving = !b.monthsPresent.includes(prevM);
+    const departing = !b.monthsPresent.includes(nextM);
+    if (!arriving && !departing) continue;
+    const kind = arriving ? "arriving" : "departing";   // arriving wins if somehow both
+    const text = arriving
+      ? b.name + "s should be arriving any day — the feeders will say so first."
+      : "The " + b.name + "s won't be here much longer — worth a last look.";
+    raw.push({
+      priority: 3,
+      careType: "bird",
+      icon: b.emoji || "🐦",
+      speciesId: "bird:" + (b.id || b.name) + ":" + kind,
+      speciesName: b.name,
+      text,
+      starter: "Saw a " + b.name.toLowerCase() + " — ",
+    });
+  }
+  // NOTE: AMPHIBIANS_DATA (monthsActive) is intentionally NOT harvested — the
+  // template bank has no calm line for a resident frog "arriving"/"departing",
+  // and forcing the bird templates onto it would misdescribe it. Add a template
+  // first if amphibians should surface.
+
+  if (!raw.length) {
+    return [{ key: "quiet", fallback: true, text: "A quiet stretch on the land — the place is just growing." }];
+  }
+
+  // ---- Dedup: at most one look-for per species per day (keep best priority) ----
+  const bySpecies = new Map();
+  for (const c of raw) {
+    const prev = bySpecies.get(c.speciesId);
+    if (!prev || c.priority < prev.priority) bySpecies.set(c.speciesId, c);
+  }
+  // ---- Dedup identical text (e.g. turf & meadow both yield the mow line) ----
+  const byText = new Map();
+  for (const c of bySpecies.values()) {
+    const prev = byText.get(c.text);
+    if (!prev || c.priority < prev.priority) byText.set(c.text, c);
+  }
+  let items = [...byText.values()];
+
+  // ---- Deterministic order, then daily rotation so the glance isn't static ----
+  items.sort((a, b) => a.priority - b.priority || a.speciesName.localeCompare(b.speciesName));
+  if (items.length > 4) {
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const dayOfYear = Math.floor((now - startOfYear) / 86400000);
+    const offset = ((dayOfYear % items.length) + items.length) % items.length;
+    const rotated = [];
+    for (let i = 0; i < 4; i++) rotated.push(items[(offset + i) % items.length]);
+    items = rotated;
+  }
+  items = items.slice(0, 4);
+
+  // ---- Stamp a stable key for metrics ----
+  return items.map(c => ({
+    key: c.speciesId + "|" + c.careType,
+    careType: c.careType,
+    icon: c.icon,
+    text: c.text,
+    speciesId: c.speciesId,
+    speciesName: c.speciesName,
+    starter: c.starter,
+  }));
+}
+
+// =========================
 // FISHING CARD
 // =========================
 
