@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-05 — Lizard's Tail joins the Plants card
+
+- **Lizard's Tail** — a native wetland perennial that likes the pond and spring-drainage edges — now shows in the Plants card. It had been added through Garden Guru a while back but wasn't yet appearing on the dashboard; now it's here.
+
+---
+
 ## 2026-07-05 — A short read on the week, and a tidier shelf
 
 - The dashboard now opens with **Today at Fernwood** — a short read on what's worth noticing this week, drawn from where the plants and birds are in their year. Tap one to tell the Guru what you find; the note box fills in the first few words for you.
