@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "lastUpdated": "2026-04-28",
     "dataSources": [
       "Lake Sequoyah history: Pickens Past / North Georgia History — Tate Mountain Estates records",
@@ -12,7 +12,8 @@
       "Georgia DNR statewide freshwater regulations: eRegulations.com / gadnr.org",
       "Appalachian water temperature lapse research applied from property.json elevation data"
     ],
-    "notes": "Water temperature estimates for Lake Sequoyah are derived from seasonal air temperature patterns adjusted for 2,800 ft elevation. Actual lake temperature varies — a $15 fishing thermometer on a line is the most reliable tool. Regulations should be verified annually at georgiawildlife.com before each season."
+    "notes": "Water temperature estimates for Lake Sequoyah are derived from seasonal air temperature patterns adjusted for 2,800 ft elevation. Actual lake temperature varies — a $15 fishing thermometer on a line is the most reliable tool. Regulations should be verified annually at georgiawildlife.com before each season.",
+    "modelVersion": "2026-07-06"
   },
   "lake": {
     "name": "Lake Sequoyah",
@@ -168,35 +169,75 @@
           "waterTemp_F": "< 50°F",
           "behavior": "Suspended near deepest water, metabolism near zero, almost no feeding. Not worth targeting.",
           "depth": "Deepest available basin — 15+ ft",
-          "bestApproach": "If you must fish: 3/8 oz football jig dragged extremely slowly along bottom. Expect few bites."
+          "bestApproach": "If you must fish: 3/8 oz football jig dragged extremely slowly along bottom. Expect few bites.",
+          "months": [
+            11,
+            0,
+            1
+          ],
+          "tempLow_F": 32,
+          "tempHigh_F": 50,
+          "biteScore": 5
         },
         {
           "phase": "Pre-spawn (best of year)",
           "waterTemp_F": "55–65°F",
           "behavior": "Feeding aggressively to fuel the spawn. Staging near points, secondary channel edges, and structure adjacent to spawning flats. Largest females are most catchable in this window.",
           "depth": "5–12 ft on staging structure",
-          "bestApproach": "Squarebill crankbait along rocky points. Swimbait on a jighead along channel edges. Texas-rigged Senko or creature bait worked slowly. Spinnerbait in stained water or overcast days."
+          "bestApproach": "Squarebill crankbait along rocky points. Swimbait on a jighead along channel edges. Texas-rigged Senko or creature bait worked slowly. Spinnerbait in stained water or overcast days.",
+          "months": [
+            2,
+            3,
+            4
+          ],
+          "tempLow_F": 52,
+          "tempHigh_F": 65,
+          "biteScore": 30
         },
         {
           "phase": "Spawn",
           "waterTemp_F": "65–72°F",
           "behavior": "Males fanning beds in 2–6 ft on hard bottom near cover (stumps, rocks, laydowns). Females nearby, less aggressive. Highly visible — polarized sunglasses essential.",
           "depth": "2–6 ft, hard bottom",
-          "bestApproach": "Finesse ned rig or drop shot worked on or near beds. Topwater popper early morning. Consider C&R for bedding fish."
+          "bestApproach": "Finesse ned rig or drop shot worked on or near beds. Topwater popper early morning. Consider C&R for bedding fish.",
+          "months": [
+            4,
+            5
+          ],
+          "tempLow_F": 65,
+          "tempHigh_F": 72,
+          "biteScore": 22
         },
         {
           "phase": "Post-spawn / summer",
           "waterTemp_F": "70–80°F",
           "behavior": "Males guarding fry in shallows. Females recovering near first deep structure. At Sequoyah's elevation summer temps stay manageable — bass don't go as deep or shut down as hard as in lowland lakes.",
           "depth": "8–15 ft near structure",
-          "bestApproach": "Topwater (Whopper Plopper, popper) at dawn and dusk. Wacky-rigged Senko around any submerged stumps or wood. Ned rig on rocky points. Spinnerbait along weedline edges."
+          "bestApproach": "Topwater (Whopper Plopper, popper) at dawn and dusk. Wacky-rigged Senko around any submerged stumps or wood. Ned rig on rocky points. Spinnerbait along weedline edges.",
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "tempLow_F": 70,
+          "tempHigh_F": 82,
+          "biteScore": 18
         },
         {
           "phase": "Fall feed",
           "waterTemp_F": "55–70°F",
           "behavior": "Most aggressive feeding of the year. Chasing shad and other baitfish in open water and over shallow flats. Fast-moving baits very effective. Often visibly blowing up on baitfish near the surface.",
           "depth": "Variable — follow the baitfish",
-          "bestApproach": "Topwater and medium-running crankbait. Chatterbait or vibrating jig. Lipless crankbait (Red Eye Shad). Follow shad activity — bass won't be far."
+          "bestApproach": "Topwater and medium-running crankbait. Chatterbait or vibrating jig. Lipless crankbait (Red Eye Shad). Follow shad activity — bass won't be far.",
+          "months": [
+            8,
+            9,
+            10
+          ],
+          "tempLow_F": 55,
+          "tempHigh_F": 70,
+          "biteScore": 27
         }
       ],
       "localTips": [
@@ -225,35 +266,75 @@
           "waterTemp_F": "< 50°F",
           "behavior": "Suspended in deep water (10–20 ft) near brush piles or channel edges. Slow, but catchable with vertical jigging.",
           "depth": "10–20 ft",
-          "bestApproach": "Drop a 1/32 oz jig or live minnow straight down into known brush. Virtually no lateral movement — dead still or barely twitching."
+          "bestApproach": "Drop a 1/32 oz jig or live minnow straight down into known brush. Virtually no lateral movement — dead still or barely twitching.",
+          "months": [
+            11,
+            0,
+            1
+          ],
+          "tempLow_F": 32,
+          "tempHigh_F": 50,
+          "biteScore": 6
         },
         {
           "phase": "Pre-spawn",
           "waterTemp_F": "55–62°F",
           "behavior": "Moving from deep brush toward shallower staging areas. Feeding actively. One of the best consistent crappie windows.",
           "depth": "6–12 ft on brush and secondary structure",
-          "bestApproach": "1/16–1/8 oz tube jig or curly tail grub in chartreuse, white, or pink. Slow horizontal retrieve near brush edges. Live minnow under a slip float is deadly."
+          "bestApproach": "1/16–1/8 oz tube jig or curly tail grub in chartreuse, white, or pink. Slow horizontal retrieve near brush edges. Live minnow under a slip float is deadly.",
+          "months": [
+            2,
+            3,
+            4
+          ],
+          "tempLow_F": 50,
+          "tempHigh_F": 62,
+          "biteScore": 27
         },
         {
           "phase": "Spawn",
           "waterTemp_F": "62–68°F",
           "behavior": "Moves into shallow water (2–6 ft) near stumps, brush, and submerged wood to spawn. Very catchable — highly aggressive defenders.",
           "depth": "2–6 ft near cover",
-          "bestApproach": "Small tube jig or split-tail grub pitched to cover. Spider rig with multiple poles covering different depths. Live minnow is the most reliable spawn bait. This window at Sequoyah runs approximately late May to mid-June."
+          "bestApproach": "Small tube jig or split-tail grub pitched to cover. Spider rig with multiple poles covering different depths. Live minnow is the most reliable spawn bait. This window at Sequoyah runs approximately late May to mid-June.",
+          "months": [
+            4,
+            5
+          ],
+          "tempLow_F": 62,
+          "tempHigh_F": 68,
+          "biteScore": 30
         },
         {
           "phase": "Summer",
           "waterTemp_F": "68–78°F",
           "behavior": "Moving to deeper, cooler water or suspending under shade near structure. Dawn and dusk feeding windows. Not absent — just harder to locate.",
           "depth": "8–15 ft; dawn/dusk shallower",
-          "bestApproach": "Vertical jigging near deep brush. Night fishing can be excellent — crappie attracted to lights. 1/16 oz jig in white or chartreuse."
+          "bestApproach": "Vertical jigging near deep brush. Night fishing can be excellent — crappie attracted to lights. 1/16 oz jig in white or chartreuse.",
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "tempLow_F": 68,
+          "tempHigh_F": 80,
+          "biteScore": 14
         },
         {
           "phase": "Fall",
           "waterTemp_F": "55–68°F",
           "behavior": "Returns to shallower brush as temps cool. Feeding aggressively on shad. Often schooled up — if you catch one, there are more nearby.",
           "depth": "4–12 ft near brush and structure",
-          "bestApproach": "Jig in natural shad colors — silver, white, grey. Live minnow under a bobber over brush. Casting and counting down to depth before retrieve."
+          "bestApproach": "Jig in natural shad colors — silver, white, grey. Live minnow under a bobber over brush. Casting and counting down to depth before retrieve.",
+          "months": [
+            8,
+            9,
+            10
+          ],
+          "tempLow_F": 55,
+          "tempHigh_F": 68,
+          "biteScore": 22
         }
       ],
       "localTips": [
@@ -282,14 +363,30 @@
           "waterTemp_F": "< 55°F",
           "behavior": "Schooled tight in deeper, warmer water. Low activity. Can be caught but not worth targeting specifically.",
           "depth": "8–15 ft",
-          "bestApproach": "Small jig or cricket on a drop shot near the bottom."
+          "bestApproach": "Small jig or cricket on a drop shot near the bottom.",
+          "months": [
+            11,
+            0,
+            1,
+            2
+          ],
+          "tempLow_F": 32,
+          "tempHigh_F": 55,
+          "biteScore": 5
         },
         {
           "phase": "Spring warm-up",
           "waterTemp_F": "58–68°F",
           "behavior": "Moving shallower as temps rise. Appetite increasing. Edges of weed beds, rocky shallows, and dock areas.",
           "depth": "3–8 ft",
-          "bestApproach": "Small in-line spinner (Rooster Tail). Live cricket or worm under a small bobber 2–3 ft deep. Light jig in chartreuse or white."
+          "bestApproach": "Small in-line spinner (Rooster Tail). Live cricket or worm under a small bobber 2–3 ft deep. Light jig in chartreuse or white.",
+          "months": [
+            3,
+            4
+          ],
+          "tempLow_F": 55,
+          "tempHigh_F": 68,
+          "biteScore": 18
         },
         {
           "phase": "Spawn (peak season)",
@@ -297,14 +394,31 @@
           "behavior": "Colonies of males fanning visible circular beds in gravel or sandy shallows, 1–4 ft deep. Extremely aggressive — will strike almost anything near the bed. Multiple spawn batches run through summer.",
           "depth": "1–4 ft, visible beds",
           "bestApproach": "Small popper on ultralight spinning or fly rod — one of the most fun freshwater experiences available. Live cricket or wax worm is also deadly. Small rubber spider fly or foam beetle. This window at Sequoyah runs June through early August.",
-          "note": "Bluegill spawn multiple times per season when temps are right — you may catch this window 2–3 times from June through August."
+          "note": "Bluegill spawn multiple times per season when temps are right — you may catch this window 2–3 times from June through August.",
+          "months": [
+            5,
+            6,
+            7
+          ],
+          "tempLow_F": 68,
+          "tempHigh_F": 84,
+          "biteScore": 30
         },
         {
           "phase": "Late Summer / Fall",
           "waterTemp_F": "62–72°F",
           "behavior": "Post-spawn fish scattered but still very active. Schooling near weed edges and structure, chasing small insects and nymphs.",
           "depth": "3–10 ft",
-          "bestApproach": "Small soft plastic grub. Fly fishing with wooly bugger or small streamer. Worm under a bobber."
+          "bestApproach": "Small soft plastic grub. Fly fishing with wooly bugger or small streamer. Worm under a bobber.",
+          "months": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "tempLow_F": 60,
+          "tempHigh_F": 73,
+          "biteScore": 22
         }
       ],
       "localTips": [
@@ -522,6 +636,54 @@
         "low_F": 38,
         "high_F": 49
       }
+    }
+  },
+  "conditionsModel": {
+    "modelVersion": "2026-07-06",
+    "note": "Deterministic, AI-free bite model. Each signal is weighted by the strength of its evidence. Water temperature/season is the master driver; barometric pressure is a strong secondary read from the on-site station (~0.3 mi from the lake); solunar is weak and intentionally down-weighted. All outputs are guidance, not measurement.",
+    "signals": {
+      "waterTempSeason": {
+        "maxScore": 30,
+        "evidence": "strong",
+        "why": "2023 peer-reviewed study found ambient temperature was the only variable significantly correlated with catch; the spawn cycle drives all species behavior.",
+        "source": "Springer 10.1007/s42452-023-05379-8"
+      },
+      "pressureTrend": {
+        "maxScore": 25,
+        "evidence": "consensus",
+        "why": "Falling barometer ahead of a front = feeding window; post-front high = tough. Mechanism: fish swim-bladder pressure sensitivity. Read from the on-site station.",
+        "source": "Wired2Fish; BassResource"
+      },
+      "rainRunoff": {
+        "maxScore": 12,
+        "evidence": "condition-dependent",
+        "why": "Rising, lightly-stained water after rain = good (nutrient/insect influx, less-wary fish, mud/clear edges). Blown-out muddy or crested-and-receding = tough.",
+        "source": "BassResource 'After the Rain'; Panfish Nation"
+      },
+      "wind": {
+        "maxScore": 10,
+        "evidence": "consensus",
+        "why": "Light chop (2-10 mph) concentrates baitfish and breaks up light; calm neutral; strong tough.",
+        "source": "angling consensus"
+      },
+      "sky": {
+        "maxScore": 5,
+        "evidence": "consensus",
+        "why": "Overcast lowers fish wariness; bright bluebird post-front tough; storms suppress.",
+        "source": "angling consensus"
+      },
+      "solunar": {
+        "maxScore": 6,
+        "evidence": "weak-traditional",
+        "why": "2023 study found solunar tables show NO correlation with catch. Kept only as a light nod to traditional dawn/dusk-adjacent timing, never as a predictor.",
+        "source": "Springer 10.1007/s42452-023-05379-8"
+      }
+    },
+    "ratingThresholds": {
+      "excellent": 70,
+      "veryGood": 57,
+      "good": 44,
+      "fair": 30
     }
   }
 }

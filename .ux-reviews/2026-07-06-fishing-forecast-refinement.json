@@ -1,0 +1,151 @@
+{
+  "review_id": "ux-2026-07-06-fishing-forecast-refinement",
+  "project": "fernwood",
+  "subject": "Fishing view — Today's Fishing Forecast panel (renderFishingForecast) and its host renderFishing(), plus the scoring engine, for Lake Sequoyah",
+  "review_date": "2026-07-06",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (the forecast panel), with one flow/IA finding on the whole Fishing view stack",
+  "user_context": {
+    "primary_user": "Paul, as an angler planning a Lake Sequoyah trip — deciding whether it's worth going and, if so, which window today. Mom (the make-or-break daily reader, reads at half-engagement / sometimes no glasses) is NOT the planner here, but she sets the legibility floor for anything that renders on the shared dashboard.",
+    "core_jobs_to_be_done": [
+      "Decide: is it worth fishing Lake Sequoyah at all today? (go / no-go)",
+      "If yes: when today — which window is best?",
+      "Secondary: what's biting / how to fish it right now (per-species tactics)"
+    ],
+    "context_of_use": "A planning read, usually before heading out — at the house or on the property, ~0.3 mi from the on-site weather station whose data drives the estimate. Sometimes a quick mid-day glance. One-handed, often half-attended. Rural signal is weak (async data may be missing on first paint).",
+    "assumptions_made": [
+      "Paul is the primary/only planner for the Fishing view; Mom reads the dashboard but likely does not use Fishing to plan a trip. The no-glasses legibility floor is applied as a shared-surface constraint, not as a claim Mom fishes. If Mom never opens Fishing, the legibility findings soften from 'important' toward 'nice-to-have'; if she does, they harden. Flagged as an open question.",
+      "No .user-research artifact exists for the Fishing JTBD specifically — user model is inferred from CLAUDE.md project tone + the anglers-plan-a-trip framing Paul supplied this session, not from validated fishing-use research.",
+      "The star rating labeled 'overall' is computed from largemouth-bass alone (compositeScore(..., 'largemouth-bass')); the inline comment says 'blended' but the code is not — read as a defect, not intent."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "Typographic hierarchy by value (cross-project.md) — weight/size must encode informational value, not template position; applied here to grid-cell weighting, not just type",
+    "Make every surface read at half-engagement (fernwood.md) — worst-case one-handed no-glasses read sets the bar",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md) — traffic-light 🟢🔴 dots are ops-dashboard register",
+    "Tone-coherence across all chrome (fernwood.md) — tone is enforced on every surface (color, glyph, copy) or it doesn't hold",
+    "Field-journal / anti-urgency voice (Tate-Tracker CLAUDE.md 'Project purpose & tone' + content-principles) — no 'BITING NOW!' register",
+    "Icons earn their place — true AND useful (cross-project.md)",
+    "Meet the user at the action (cross-project.md) — lead with the decision, not a pile of facts",
+    "Model-read values are hypotheses until verified (global CLAUDE.md) — a computed estimate must not be laundered into apparent precision",
+    "Mom no-glasses accessibility (memory project_fernwood_mom_reading_accessibility) — meaning must be carried by size/color/position/icon, and small body copy + faint helper text are failures",
+    "Nielsen #2 match system & real world, #4 consistency & standards, #1 visibility of status, #8 aesthetic-and-minimalist design"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The Fishing view shows TWO top-line verdicts that can disagree. The blue forecast panel leads with a live-conditions star rating (pressure + wind + moon + temp → 'Excellent Fishing'). Immediately below it, renderFishing() prints a second verdict — the '.fish-worth-bar' ('Prime fishing window at Sequoyah — Pre-Spawn Prime: …') — driven by a different engine (calendar worthFishing + historical-water-temp floor, not live conditions). Nothing reconciles them, so on a slow-pressure day the star can read 2/5 'Fair' while the worth bar right beneath it says 'Prime fishing window.'",
+      "user_impact": "Two authoritative-looking verdicts that contradict each other is the fastest way to lose Paul's trust in the whole surface — he can't tell which to believe, so he believes neither and falls back to his own gut, which makes the panel decoration. This is the trust-erosion logic of 'Static visuals lie on dynamic surfaces' applied to competing dynamic verdicts.",
+      "principle_invoked": "Meet the user at the action (cross-project) + Nielsen #4 consistency and standards",
+      "recommendation": "Pick ONE top-line verdict and let the two engines feed it rather than race it. The live-conditions score answers 'is today good' and the calendar/temp engine answers 'is this a good time of year' — fold them into a single lead (season sets the ceiling, today's conditions set where you land under it). Do not render two separate verdict blocks in the same scroll.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The panel leads with a 5-star 'overall' rating that (a) is actually bass-only despite the 'overall' framing, and (b) compresses five differently-trustworthy factors into one number. The two things a planner actually needs — go/no-go in words, and the best window today — are respectively implicit in the stars and buried below the 2×2 grid.",
+      "user_impact": "For a planning read the top-line question is 'worth going, and when?' A single star count is over-precise (implies the model can rank today 4 vs 3 out of 5) and under-explanatory (doesn't say go/no-go or when). Paul has to parse the whole panel to reconstruct the decision the lead should have handed him.",
+      "principle_invoked": "Meet the user at the action (cross-project); Typographic hierarchy by value — the most valuable content (verdict + window) should carry the most weight, not a decorative precision score",
+      "recommendation": "Lead with a plain-language go/no-go verdict and the single best window today ('Worth a morning cast — best light 6:10–7:20'). Keep a star or simple 3-tier badge as a compact glance-cue if Paul likes it, but demote it from headline to supporting. If a star stays, label it honestly (it's a bass read) or make it genuinely blended across the three species.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The 2×2 conditions grid renders water temp / pressure / moon / wind as four co-equal cells (identical size, border, weight). But these are not co-equal evidence: pressure trend and water temp are the strong bite drivers; moon/solunar is weak evidence; instantaneous wind is real but secondary. The grid's equal geometry asserts equal importance. The pressure cell also leaks ops-dashboard register (🟢 Great window / 🔴 Slow bite traffic-light dots).",
+      "user_impact": "Co-equal weighting quietly miseducates the planner — it teaches that a 'Peak lunar window' matters as much as falling pressure, when it doesn't. A user calibrating trust in the tool over time will notice moon 'predictions' miss and discount the whole grid, including the cells that are actually predictive. The traffic-light dots import a monitoring-app grammar that reads as 'alert' for a beat before the words resolve.",
+      "principle_invoked": "Typographic hierarchy by value (cross-project — extended from type weight to cell weight); Glyphs follow the journal voice, not the dashboard voice (fernwood)",
+      "recommendation": "Break the false equivalence. Give pressure + water temp the lead (larger, first, with the 'why'); demote moon + wind to a single quiet secondary line ('Moon: mild influence · Wind: 6 mph, favorable'). Do not give moon a quarter of the visual real estate. Strip the 🟢🔴 dots — carry pressure quality in the word ('falling — best bite window') and, if a cue is wanted, a small in-palette mark, never red/green.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "Water temp is an ESTIMATE (estimateLakeTemp: air 7-day avg minus a 6–10° seasonal lag) but the pipeline launders it into apparent precision. A single '~58°F' picks exactly one phase band (getCurrentFishingPhase / waterTempScore) and that phase then anchors the whole panel (the overall sub-line, the water cell, the species phases). A ±2–3° model error — well within this method's noise — silently flips 'Pre-spawn prime' to 'Staging' and shifts the star count. The tilde is the only honesty signal, and it disappears at the phase/star layer. (Also: on first paint with no pressure history the placeholder still contributes score 12 to a confident-looking star.)",
+      "user_impact": "The estimate is presented as if measured. Paul plans a trip on a phase label that's really a guess dressed as a reading — exactly the 'model-read values are hypotheses until verified' failure the global rule guards against. When the lake doesn't match the label, the tool takes the blame for a certainty it never actually had.",
+      "principle_invoked": "Model-read values are hypotheses until verified (global CLAUDE.md); Nielsen #1 visibility of system status",
+      "recommendation": "Carry the estimate's uncertainty all the way through. Keep the tilde AND add a quiet 'estimated from air temp' signifier on the water cell (not just the lake badge). Where the estimate sits within ~2° of a phase boundary, hedge the phase ('warming toward pre-spawn') rather than asserting one side. Degrade the star honestly when an input is a placeholder (show 'building…' rather than a full rating on missing pressure data). Optional/high-value: sanity-check against the real measured water temp already in the app (USGS Etowah 00010, WEATHER_DATA.streamflow.waterTemp_F) or the on-site station — even shown as 'nearest measured' it grounds the estimate. (That last one is eng/data-layer adjacent — flagging, not designing it.)",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Copy repeatedly breaks the field-journal / anti-urgency register. pressureTrend details: 'intense feeding burst, go now before it hits', 'best time to be on the water', 'toughest conditions of the cycle; go deep, go slow, or go home'. tempTips: 'Most aggressive feeding of the year', 'world-class fun', 'live minnow under a slip float is deadly'. Plus the 🟢🔴 dots in F3. This is fishing-magazine hype and 'BITING NOW!' urgency — the exact register CLAUDE.md's tone section rules out.",
+      "user_impact": "Urgency and hype are the tonal opposite of Fernwood's calm noticing voice; they fracture the gestalt the rest of the app protects. BUT note the real tension: the Fishing view has a different user (Paul-as-keen-angler, an instrumental job) than Mom-in-bed, so it can legitimately run warmer and more specific than the plant prose. The fix is to cut urgency and hype, not to drain the useful tactical specificity — 'squarebill on points, Senko on flats' should stay; 'go now before it hits' should go.",
+      "principle_invoked": "Field-journal / anti-urgency voice (CLAUDE.md); Tone-coherence across all chrome (fernwood). Consider routing the copy pass through content-steward.",
+      "recommendation": "Rewrite the detail/tip strings in a calm keen-angler register: keep the concrete tactics, remove the countdown ('go now before it hits' → 'falling pressure — the most reliable bite of the cycle'), the bravado ('go deep, go slow, or go home' → 'tough, post-front — work deep and slow'), and the ad-copy superlatives ('world-class fun', 'deadly'). Drop the traffic-light glyphs.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "Meaning-bearing text sits below the legibility floor and star meaning is encoded in near-identical golds. Sizes: .fish-fo-sub 11.5px, .fish-cond-sub 11px, .fish-cond-key 10px uppercase, .fish-sp-score-phase 9.5px. The star classes distinguish tiers only by subtle hue (s5 #c89000 amber vs s4 #b09020 vs s3 #7a9840 olive vs s2 #a09040 vs s1 gray) — differences invisible at a glance and meaningless to anyone not colour-parsing. The whole panel is also blue-on-pale-blue (#1a3a6a/#5a7a9a on #e4f0fc), lower contrast than the app's green-on-cream.",
+      "user_impact": "If Mom (or Paul mid-glance without glasses) reads this surface, 9.5–11px carries none of it and the star colour tiers are indistinguishable — meaning collapses to the filled/empty star COUNT alone, so the colour is doing no work while adding visual noise. Per the Mom-accessibility memo, small body copy and faint helper text are outright accessibility failures here.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood); Mom no-glasses accessibility (memory); Typographic hierarchy by value",
+      "recommendation": "Lift anything meaning-bearing off the sub-12px floor (kill 9.5px outright). Let star COUNT carry rating; either drop the per-tier gold micro-variation (one gold for filled) or, if a colour cue is wanted, use one clearly-different colour for 'poor/skip' vs 'good' — not five adjacent ambers. Reconsider the blue panel palette for contrast (see F9).",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "Known defects B + C, confirmed in code. 'Best windows today' renders Dawn (hard-coded first) → [solunar, async] → Dusk (hard-coded last), so order is by TYPE not clock — a 3am moonrise minor still renders after Dawn. The chips are colour-coded by type (dawn=yellow, dusk=orange, major=green, minor=blue) with NO legend, so the colours are unexplained. And no chip carries a bite-quality rank, so a weak-evidence solunar 'minor' looks equal to prime dawn light.",
+      "user_impact": "The one part of the panel that most directly answers 'when today' is the least legible: colours mean nothing without a key, the order doesn't map to the clock a planner reads by, and there's no signal which window is actually best. Paul can't scan it and pick a time.",
+      "principle_invoked": "Nielsen #4 consistency & standards (chronological is the expected order) + #1 visibility of system status; Icons earn their place — true AND useful (cross-project)",
+      "recommendation": "Render windows in true chronological clock order (merge dawn/dusk into the same sorted list as solunar, don't pin them). Rank each by expected quality (dawn/dusk light and falling-pressure overlap = best; solunar minors = weak) via a simple, legible cue — order + a one-word tag ('best' / 'good' / 'slim'), not four unexplained colours. If colour stays, it needs a legend; but a ranked chronological list with words needs no legend, which is the better fix. Weight dawn/dusk over solunar — solunar is the weak-evidence layer (ties to F3).",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "The Fishing view is one very tall dense stack with heavy intra-card duplication. Within a single scroll: water temp appears 4× (forecast cell, lake badge 'Est. now', temp-chart current dot, worth-bar context); phase label appears 4× (overall sub, water cell sub, worth bar, species phases); and the forecast panel's 'By Species' mini star-grid duplicates the species tabs + detail rendered just below it. Note 'Strip teases, card holds' permits strip↔card duplication — but this is all inside one card, so it's just repetition, not that contract.",
+      "user_impact": "Density without hierarchy makes the planning read slower, not richer — the signal (verdict + window) is diluted by the same three facts restated in five styles. For a half-attended glance the panel reads as 'a lot' rather than 'here's your answer.'",
+      "principle_invoked": "Nielsen #8 aesthetic-and-minimalist design; Meet the user at the action (cross-project)",
+      "recommendation": "Reorder to decision-first: (1) verdict + best window, (2) the two strong drivers with their 'why' (temp + pressure), (3) quiet secondary line (moon + wind), (4) per-species detail on demand. Collapse the forecast panel's species mini-grid into the existing species tabs below (one home for per-species, not two). Let the temp chart own the 'water temp' story so the other three restatements can shrink to a single lead.",
+      "effort": "medium"
+    },
+    {
+      "id": "F9",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The entire forecast panel is a blue weather-widget skin (linear-gradient #eef6ff→#e4f0fc, blue borders, blue text) dropped inside a green-on-cream field-journal app. It reads as an embedded ops/weather dashboard, not as a page of the journal.",
+      "user_impact": "Register-leak at the container level: before any copy is read, the blue widget signals 'app chrome / dashboard' rather than 'field notes on this lake,' undercutting the frame the rest of Fernwood works to hold. Compounds the glyph/tone leaks in F3 and F5.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood); Glyphs follow the journal voice, not the dashboard voice (fernwood)",
+      "recommendation": "Bring the panel into the Fernwood palette (warm cream/green, the app's card treatment) so the Fishing forecast reads as a page of the journal about the lake, not a bolted-on weather app. Water/lake can still get a cool accent, but as accent, not the whole skin.",
+      "effort": "medium"
+    }
+  ],
+  "open_questions_for_user": [
+    "Does Mom ever open the Fishing view, or is it effectively Paul-only? This sets how hard the no-glasses legibility floor (F6) binds. My working assumption: Paul-only for planning, but it renders on the shared dashboard so the floor still applies as a shared-surface constraint.",
+    "For the single reconciled verdict (F1): do you want season to be a hard ceiling on today's live score, or should a great-conditions day be able to read 'good' even in a mediocre season? (i.e. which engine wins when they disagree, and by how much)",
+    "How warm should the Fishing voice run relative to the plant journal? I'm reading it as 'keen angler's log' — warmer and more tactical than Mom's plant prose, but still no urgency/hype. Confirm that's the register you want (it changes how far F5 goes).",
+    "The estimate-honesty fix (F4) can lean on real measured water temp (USGS Etowah 00010 / on-site station) — do you want that wired in as a calibration/sanity anchor, or is that out of scope for this UX pass?"
+  ],
+  "follow_up_research_suggested": [
+    "No fishing-specific JTBD artifact exists — a short user-researcher pass on how Paul actually decides a Sequoyah trip (what he checks, in what order, from where) would upgrade this review's user_context from medium to high and validate the 'lead with verdict + window' reorder.",
+    "content-steward pass on the pressureTrend detail + tempTip string bank (F5) — the copy rewrite is a voice job, not a UX one."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Weight the surface by evidence strength, not by grid symmetry — a co-equal layout asserts co-equal importance",
+      "scope": "cross-project",
+      "rationale": "The 2×2 grid (F3) gives weak-evidence moon the same size/weight/border as strong-driver pressure. This is the same failure as 'Typographic hierarchy by value' but expressed through CELL geometry rather than type — equal tiles are a claim of equal importance, and when one tile is weak evidence the layout miseducates the user and eventually discredits the trustworthy tiles alongside it. Proposing this as an extension/companion to 'Typographic hierarchy by value': the rule governs not just font weight but any repeated component (tiles, chips, cells, stat rows) whose uniform geometry flattens a real hierarchy of confidence. Watch for a second occurrence (a stat strip, a chip row) before promoting from candidate.",
+      "status": "candidate — 1 occurrence"
+    },
+    {
+      "principle": "One surface, one verdict — don't let two engines race to the same headline",
+      "scope": "cross-project",
+      "rationale": "F1: the Fishing view renders two independent top-line verdicts (live-conditions star vs calendar/temp worth-bar) from two engines with no reconciliation, so they can openly contradict each other in the same scroll. Whenever two computations both produce an authoritative-looking judgment about the same thing, they must be composed into one before they hit the user, not displayed side by side — contradicting verdicts destroy trust faster than either being wrong alone. Plausibly generalizes (financial viewer: a rules-signal vs a model-signal; any dashboard with a 'status' plus a separate 'score'). Holds at one occurrence pending a second.",
+      "status": "candidate — 1 occurrence"
+    }
+  ]
+}
