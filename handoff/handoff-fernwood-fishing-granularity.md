@@ -1,44 +1,53 @@
-# Handoff: fernwood-fishing-granularity
-<!-- generated 2026-07-06 ~2:30 PM ET · sources: Tate-Tracker@d1da306 · RECEIVER: verify shas vs HEAD before trusting any status below -->
+# Handoff: fernwood-fishing-granularity (now Pass 3 — standalone card + IA reorg)
+<!-- generated 2026-07-06 4:15 PM EDT · sources: Tate-Tracker@ac76ba4 (LOCAL, not pushed) · RECEIVER: verify shas vs HEAD before trusting any status below -->
 
 **1. Mission**
-Make Fernwood's fishing view granular + dynamic — time-of-day guidance and a live-conditions signal (e.g. an incoming rain front / pressure trend shifting the bite) — instead of the current static month→water-temp text. Backlog item #2, Paul-raised, **scope still TBD → scope with Paul first, then build.**
+Build **Pass 3**: promote Fishing from a tab inside the Wildlife card to its **own top-level card**, add a **Fishing glance tile** to the dashboard strip, and reorder the card's internals to the approved **A–G information architecture**. Everything is decided — this is a **build-only** handoff. `viewer.html`-only (no data/JSON change, no re-inline).
 
 **2. Read first** (point, don't re-derive)
-- `Tate-Tracker/CLAUDE.md` → `## Backlog — raised 2026-07-05`, the **third** bullet ("Fishing data — make it granular + dynamic") = the ask verbatim; and the `## Pickup point — last session ended 2026-07-05` for what just shipped.
-- `fishing.json` (small, read whole) — esp. `lake.elevationNote` (runs 8–12°F cooler, spring 4–6 wks behind lowland) and `waterTempGuide.ranges` (the seasonal temp cutoffs that "drive all species behavior").
-- `viewer.html:6851` `renderFishing()` and `viewer.html:9675` `renderFishingForecast(waterTemp, phase)` — **there is already a forecast fn keyed on water temp + phase; this thread extends it**, doesn't start from zero. Tab wiring at 5478 / 5540 / 11556; tab button at 4583.
-- **The precedent to mirror (shipped THIS session, browser-verified):** `viewer.html` `computeLookFors()` + `plantsAtPeakThisWeek()` + `mmddRangeActive()` — a *pure, deterministic, AI-free* "what's worth noticing" generator. The fishing forecast should be its aquatic sibling.
-- Live-weather plumbing: `weather-history.json` (bot-pushed ~4×/day by `.github/workflows/record-weather.yml`), `weather.json`, `weather-bias.json`; worker endpoints `/api/today-line`, `/api/airnow`, `/api/drought`. **Inspect weather-history.json's actual fields before promising pressure-trend guidance** (see step 1).
+- `~/.claude/plans/imperative-growing-platypus.md` → section **"Pass 3 — standalone Fishing card + IA reorg (LOCKED spec)"** — the full spec + Paul's locked decisions. *This is the primary source; read it first.*
+- `Tate-Tracker/.ux-reviews/2026-07-06-fishing-section-reorg.json` — the A–G blueprint + the `reconciliation` field (3 refinements: verdict-on-top, measured-vs-modeled legible, prep-above-reference).
+- `Tate-Tracker/CLAUDE.md` → **"## Governing design principle — the glance and the repository"** — the principle this reorg embodies (glance / repository / loop; freshness sets altitude; source-hierarchy drives layout).
+- *(optional context)* `.user-research/2026-07-06-fishing-decision-journey-and-patterns.md` — the customer journey the A–G order follows.
 
 **3. Next steps (ordered)**
-1. **Inventory the live signal that's actually reachable client-side.** Read `weather-history.json`'s record shape + the `/api/today-line` handler in `worker/worker.js`. Determine whether **barometric pressure + a short-term trend** (the "front incoming" fishing signal) is present or fetchable (on-site Ambient station? Open-Meteo, already used for elevation?). This gates what "dynamic" can mean.
-2. **Scope with Paul — present options + a recommendation:** (a) time-of-day peak windows only (dawn/dusk, deterministic from sunrise/sunset — cheap, no new data); (b) **(recommended)** a + a live **pressure-trend bite modifier** (rising/steady/falling → bite up/neutral/down; front-incoming → feeding window), contingent on step 1; (c) full per-species time×conditions matrix (heaviest). Get his pick before building.
-3. **Design the data-layer change:** extend `fishing.json` with time-of-day guidance per species/temp-phase + a **deterministic conditions ruleset**. Keep it a pure function of real data — **not** an AI call (this reference surface stays AI-free; ties the empirical-sources-in-the-data-layer direction).
-4. **Build:** a `computeFishingConditions(now, liveWx)` pure fn mirroring `computeLookFors`; wire into `renderFishing()` / `renderFishingForecast()`; re-inline `FISHING_DATA` via `python3 tools/wire-photos.py --category fishing`; `python3 tools/check-data-inline.py` clean.
-5. **Verify in-browser** (local `python3 -m http.server` + playwright, as the peak work was): 0 JS errors; forecast visibly responds to a simulated pressure trend + time-of-day.
+**3a — structural promotion:**
+1. Add a new `.main-card` to the DOM **right after the Wildlife card**, title **"Fishing"**, subtitle **"Lake Sequoyah · 0.3 mi from the property"**, with its own body container. Mirror an existing card's expand/collapse markup.
+2. Point `renderFishing()` (~`viewer.html:6851`) at the new card body instead of `#wildlife-tab-content`.
+3. Remove the Fishing tab from the Wildlife tab row (button ~`4583`) and the `fishing` branch in `switchWildlifeTab()` (~`11547`, dispatch ~`11556`).
+4. Wire the new card: render-on-first-expand + the weather-refresh re-render hooks (currently re-render fishing when the tab is active at ~`5478` / ~`5540`) now target the new card.
+5. Add a **Fishing tile** to `renderDashboardStrip()`: one-line verdict + best window (e.g. "🎣 Dusk looks good · 8:18 PM" / "Slow today"), taps to the card. Reuse the best-bet/verdict logic already in `renderFishingForecast`.
+**3b — internal A–G reorg + one-engine fix:**
+6. Reorder `renderFishing`/`renderFishingForecast` to: **A NOW** (verdict line on top; live *station* read beneath, pressure-led) → **B TODAY** (best-bet + today's dawn/dusk windows — already built) → **C LOOK AHEAD** (all Good/Prime windows across 2–7d, capped ~5–6, slow days drop out) → **D SEASON** (one quiet context line; fold in est-temp + the season line + the shoulder progression) → **E/F PREP** (kit + "by species today" glance, together, above the species tabs) → **G REFERENCE** (species tabs / full phase arc · annual-rhythm strip + temp chart · regs · lake badge).
+7. **Fix the multiple-"NOW" boxes:** drive `renderFishSpecies`'s phase highlight from `speciesPhaseFor(lakeTemp, speciesId, currentMonth)` (the resolver the top already uses) → exactly ONE phase badged, season-aware, and it agrees with the top verdict. Keep all 5 phases visible as the year's arc.
+8. Delete the now-dead Pass-2 helpers made unused by the window-centric rewrite: `updateSolunarWindows`, `windowRank`, `goWord`, `dayConfidence`, `dayPressureVerdict`, `rainRunoffScoreForDay`, and the fishing `loadSunCalc` call (confirm each is unreferenced first; `loadSunCalc` itself may be used by the Sky section — check).
+9. **Verify in-browser** (local `python3 -m http.server 8765`, Playwright): 0 JS errors; card renders standalone after Wildlife; dashboard tile shows; A–G order; exactly one NOW in the species table matching the top verdict. Then present to Paul (do NOT push).
 
 **4. State & pointers**
-- Repo `Tate-Tracker@d1da306`, **working tree CLEAN, in sync with origin/main** (no uncommitted work to inherit).
-- `FISHING_DATA` inlined at `viewer.html:4761`; source is `fishing.json` (3 species, schemaVersion 1).
-- Re-inline path: `tools/wire-photos.py --category fishing` → then `tools/check-data-inline.py`. **Note: the drift check is shallow (id-set + count only)** — it will report "in sync" even if a new field didn't land; verify the field is actually in the const (lesson from the peak-field work this session).
+- Repo `Tate-Tracker@ac76ba4`, branch `main`, **LOCAL — NOT pushed** (Paul reviews live before GH Pages). Working tree **CLEAN** (this checkpoint committed Pass 1+2 + the principle doc + review artifacts).
+- Principle library committed at `~/.claude@4ab981d` (local): `cross-project.md` (freshness-sets-altitude, source-hierarchy) + memory pointer.
+- Key `viewer.html` symbols: `renderFishing` ~6851, `renderFishingForecast` ~9916, `renderFishSpecies` (grep it), `speciesPhaseFor`/`waterTempScore`/`getCurrentFishingPhase` ~9591–onwards, `renderDashboardStrip` (grep), `switchWildlifeTab` ~11547, wildlife tab button ~4583, weather re-render hooks ~5478/5540. Fishing CSS begins ~`viewer.html:2332` (+ Pass-2 additions after `.fish-forecast-tip`).
+- `fishing.json` is **schemaVersion 2** and **unchanged this pass** — no `wire-photos.py` re-inline needed unless you touch it.
+- Local server + Playwright is how Pass 1/2 were verified; the live Open-Meteo fetch **works under Playwright** (real data returns), so you can verify against real forecast, not just mocks.
 
 **5. Guardrails**
-- **Keep the conditions logic deterministic / AI-free** — a pure fn of real data, mirroring the peak-field pattern. No AI call on this reference surface. ([[feedback_no_ai_on_capture]] + [[feedback_empirical_sources_data_layer]])
-- **Field-journal tone, no alert/urgency language** — calm ("worth a cast at dusk"), never "BITING NOW!". Fernwood tone principle; Mom's no-glasses read applies if it surfaces on a tile.
-- **Water temp is ESTIMATED** (elevation-adjusted air temp), not measured — keep the honest "$15 clip-on thermometer is the real tool" caveat; don't render an estimate as a measurement.
-- **Scope before building.** Paul-raised, TBD scope → options + recommendation → his pick → build. Don't overbuild the per-species matrix on spec.
+- **Deterministic / AI-free**; **field-journal tone** — Fishing is Paul's tactical surface (angler vocabulary OK) but **no hype** (no "BITING NOW!").
+- Keep **measured** signals (station pressure/rain/wind) visually distinct from **modeled** ones (water temp/phase); every estimate stays legibly `~`/"est." at every altitude. **Trust is the load-bearing emotion.**
+- `viewer.html`-only; **do not push** (Paul reviews live); add a `RELEASE_NOTES.md` entry when the card ships (`build-release-notes.py`).
+- Add a release note only when this is user-visible-complete; commit locally, confirm before any push.
 
 **6. Done when**
-Fishing view reflects (at minimum) time-of-day guidance AND responds to a live conditions signal via a deterministic function; scope confirmed with Paul; `FISHING_DATA` re-inlined + verified actually present in the const; verified in-browser with 0 JS errors.
+Fishing is a standalone card placed right after Wildlife, fronted by a dashboard glance tile; internals read A→G (NOW verdict on top, season demoted to one line, reference at bottom); the species phase table shows exactly one season-aware "NOW" that agrees with the top verdict; 0 JS errors in-browser against live data; presented to Paul, nothing pushed.
 
-**7. Un-sealed judgment** (not yet on disk)
-- Strong steer: the right shape is `computeFishingConditions()` as the deterministic aquatic sibling of the `computeLookFors()`/`plantsAtPeakThisWeek()` work just shipped — propose that frame to Paul.
-- **Open question that gates option (b):** is a live barometric-pressure + trend signal actually reachable client-side today? If `weather-history.json` / `today-line` don't carry pressure, front-aware guidance needs a new Open-Meteo field or worker endpoint — resolve before promising it.
-- The backlog item notes this "ties to the empirical-sources-in-the-data-layer direction" — the Ambient station is a candidate own-series; scope whether this thread establishes that ingestion or just consumes `today-line`.
+**7. Un-sealed judgment** (not yet on disk beyond this brief)
+- **Watch-item (deferred, not this pass):** `rainRunoffScore` lets rain totals proxy for BOTH water level AND clarity, which can diverge (dam release = high-but-clear; low creek = still stained). Paul's own "single-proxy conflation" smell, one notch milder. Log it; don't fix unless asked.
+- The "next 4 hours / right now" read is best expressed as **"a window is active now — or here's the next one"**, not a parallel 4h forecast (would fight the window model). `active` is already computed per window.
+- **Calibration note:** in peak summer with a settled week, most dawn/dusk windows genuinely read Prime — that's honest, not a bug. Widen the tier thresholds only if Paul asks for more spread.
+- **Housekeeping:** `MEMORY.md` is ~22.7KB, near the 24.4KB read limit — wants a compaction pass sometime (not this thread).
 
 **8. Trust status (per open item)**
-- Peak-field precedent (`computeLookFors`, `plantsAtPeakThisWeek`, `mmddRangeActive`) — **human-verified this session** (shipped + browser-tested); safe to mirror.
-- `HEAD d1da306` pushed + in sync — **verified this session.**
-- "On-site Ambient station feeds live data" — **model-flagged from memory, NOT verified**; confirm what `record-weather.yml` actually captures before relying on it (step 1).
-- `fishing.json` contents (lake specs, water-temp ranges, regs, dated 2026-04-28) — research/model-sourced; the temp ranges are flagged ESTIMATES, **not human-cleared as measurements**. Not this thread's job to re-verify, but don't promote estimates to measurements.
+- Pass 1+2 (engine + window-centric forecast) — **human-verified**: browser-tested (0 JS errors, live data) AND Paul reviewed it live this session. Safe base to build on.
+- A–G blueprint + the 5 reorg decisions + card name/placement/look-ahead — **Paul-ratified** this session (AskUserQuestion answers).
+- The "glance and the repository" principle — **Paul-ratified + written** to CLAUDE.md + cross-project lib + memory.
+- The journey's JTBD/patterns — **`inferred`, not `validated`** (Paul is builder-and-user; one think-aloud on a real trip would upgrade it). Not blocking the build; don't treat any journey claim as observed fact.
+- Nothing in the build spec is model-flagged-unverified — it's all Paul-decided.
