@@ -1,0 +1,163 @@
+{
+  "review_id": "ux-2026-07-06-fishing-section-reorg",
+  "project": "fernwood",
+  "subject": "Full information-architecture audit + reorganization of the entire Fishing section (renderFishing / renderFishingForecast / renderFishSpecies) in viewer.html",
+  "review_date": "2026-07-06",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA",
+  "user_context": {
+    "primary_user": "Paul — the angler himself (explicitly NOT Mom for this surface; may run tactical/warmer than the plant prose)",
+    "core_jobs_to_be_done": [
+      "Decide whether to go fishing at Lake Sequoyah, and if so WHEN — driven by live/near-term conditions",
+      "Read the freshest, most-local signal (on-site station pressure/rain/wind, ~0.3 mi from the lake) at a glance",
+      "Look ahead across the week for the next worth-going window, excluding times not worth the trip",
+      "Drop into per-species reference depth (phase behavior, gear, regs) when planning a specific outing"
+    ],
+    "context_of_use": "On the property or planning a trip; a keen angler reading a live-conditions surface to time an outing. Field-journal tone: calm, noticing, no 'BITING NOW!' hype.",
+    "assumptions_made": [
+      "The on-site Ambient station pressure/rain feed is the freshest and most local of the four sources (Paul's framing; consistent with the code's station-preferred pressureTrend/rainRunoffScore).",
+      "Paul wants to see the full year's phase arc in reference (keen angler), not just the current phase — assumed from 'keen angler' framing; flagged as a real decision in F6."
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "Static visuals lie on dynamic surfaces (cross-project.md) — extended: the freshest signal must occupy the altitude its freshness earns; live data must read as live",
+    "Typographic hierarchy by value (cross-project.md) — don't let a slow-moving estimate get crowned as the headline metric",
+    "Meet the user at the action (cross-project.md) — the section's deliverable is the go/no-go and the window, not a temperature dump",
+    "Single source of truth per concept (memory: feedback_single_source_of_truth) — the bottom phase table and the top verdict must be driven by one engine and agree",
+    "Ornament earns its place (cross-project.md) — nine separate season signals is tax on the actionable read",
+    "Nielsen #1 visibility of system status; Nielsen #2 match to the real world; Nielsen #4 consistency"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The live, measured, on-site pressure read ('Easing down · N hPa') sits in the CONDITIONS block at the BOTTOM of the forecast panel — beneath the best-bet callout, the full multi-day windows list, and the seasonal kit. The freshest and most-local datum in the whole section (station ~0.3 mi from the lake) is the last thing the eye reaches inside the panel.",
+      "user_impact": "Paul reads the panel top-to-bottom and meets a 7-day window list before he meets the one signal that most changes today's decision (a falling barometer ahead of a front). Buried under multi-day content, the live read is coded — by position — as stale/secondary when it is the opposite.",
+      "principle_invoked": "Static visuals lie on dynamic surfaces (extended: freshness must set altitude)",
+      "recommendation": "Lift live conditions to a NOW block at the very top of the panel, pressure-led, with wind/water/sky secondary. Fuse it with an imminent read (is a window active right now? else the next window: icon, time, hours-out, rating, one-line why). This is also the honest answer to Paul's 'next 4 hours' ask.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "renderFishSpecies determines the 'NOW' badge by parsing each phase's DISPLAY STRING (waterTemp_F, e.g. '55–65°F') and testing lakeTemp against it — ignoring month. The strings overlap (largemouth: Pre-spawn 55–65, Spawn 65–72, Fall feed 55–70), so a single lake temp lights up MULTIPLE phases 'NOW'. Worse: the top of the section already resolves the one correct phase via speciesPhaseFor() (season-first), so the bottom table can flatly contradict the top verdict.",
+      "user_impact": "Paul sees two or three phases claiming 'NOW' at once — visibly wrong, and it undercuts trust in the whole scoring model (his stated problem #1). A 60°F October lake reading 'Pre-spawn' is not just clutter, it is incorrect fishing advice.",
+      "principle_invoked": "Single source of truth per concept; Nielsen #4 consistency",
+      "recommendation": "Repair, don't reinvent: the codebase already has the correct resolver. Compute const nowPhase = speciesPhaseFor(lakeTemp, speciesId, currentMonth) once, then isNow = (ph === nowPhase) (identity match, or match ph.phase). Exactly one NOW, season-aware, and it now AGREES with the top-of-section verdict because both are driven by the same engine. Keep all five phases visible as the year's arc (reference value for a keen angler); only the current one carries the marker and a quiet emphasis.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The 'Windows to fish' list renders every day 0–6, both dawn AND dusk windows each, with full per-window weather comments, INCLUDING Slow/Fair windows (merely muted). Days 2–7 get the same granularity as today. This is the opposite of Paul's target: 'days beyond, less granular, excludes bad times to fish.'",
+      "user_impact": "The look-ahead is a wall of rows where many are 'skip it.' Paul has to scan and reject bad windows himself — the section should have done that. Confidence in a day-6 dusk rating is not the same as a day-0 dusk rating, but they read identically.",
+      "principle_invoked": "Meet the user at the action; honest confidence-by-horizon (the code already has dayConfidence but the panel never shows it)",
+      "recommendation": "Split into TODAY (full granularity: both windows, ranked, with weather comment, active-now) and LOOK AHEAD (days 2–7: only Good/Prime windows, one compact line each — day · window · rating · short tag — no per-window prose, confidence softened with horizon; whole days may be skipped when nothing is worth going).",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Season/phase is signaled in ~9 places in the section: (1) per-day context labels in the windows list, (2) the CONDITIONS temp cell 'phase — the season driver', (3) By-species-today phase, (4) the est-temp badge, (5) the season-context line, (6) the within-month temp progression, (7) Season At A Glance 12-month strip, (8) the water-temp chart, (9) the per-species phase table. Season is the slowest-moving signal in the section yet occupies the most surface area, much of it between the actionable panel and the reference zone.",
+      "user_impact": "The one thing that changes over weeks crowds out the things that change over hours. Paul's actionable read (go/no-go + window) is repeatedly interrupted by restatements of 'what time of year it is.' Dilutes the signal and lengthens the scroll to reference.",
+      "principle_invoked": "Ornament earns its place; Typographic hierarchy by value",
+      "recommendation": "Collapse to: ONE quiet season context line (merge the est-temp badge + season-context line + within-month progression into 'Pre-spawn season · ~62°F, still warming toward the spring peak'), demoted below the actionable blocks. Co-locate the Season At A Glance strip and the water-temp chart together in the bottom reference zone (both are annual rhythm). Keep the per-species phase table (fixed per F2). Keep per-day context labels but quiet. That takes 9 signals to ~4 with clear altitudes.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "The estimated lake temperature is rendered as a prominent badge (fish-temp-val ~62°F) high in the section, at an altitude and weight that read as a headline metric — even though it is an explicit ESTIMATE (air temp + elevation model, 'not measured') and a slow-moving context value.",
+      "user_impact": "A modeled estimate gets visually crowned as the section's lead number, the same failure the Fernwood weather tile had when a temperature accidentally became the field-journal headline. The forecast panel itself already frames temp honestly ('est., not measured'); the high badge competes with and out-weights that honesty.",
+      "principle_invoked": "Typographic hierarchy by value (the weather-tile precedent)",
+      "recommendation": "Demote the temp from a crowned badge to the quiet season-context line (F4), keeping the honest 'est., not measured' framing. Don't let the estimate out-weight the measured live signals above it.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "Two per-species-now surfaces coexist: the 'By species today' star grid (all species, glanceable) inside the top panel, and the per-species 'Seasonal Phases by Water Temp' table (one species, full arc) at the bottom. Both answer 'what's the state for this species now,' at opposite ends of the section.",
+      "user_impact": "Mild redundancy, but they serve different reads (glance vs. deep-dive), so this is a placement question, not a cut. Right now the glance grid sits at the top competing with the go/no-go, and the deep table sits far below with no bridge between them.",
+      "principle_invoked": "Ornament earns its place (placement, not removal)",
+      "recommendation": "Keep both, but demote the 'By species today' grid to sit just above the species tabs as the bridge INTO per-species reference — so the glance grid and the species tabs/table read as one 'by species' zone. Decision noted, not forced.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "affordance",
+      "severity": "nice-to-have",
+      "observation": "The forecast panel uses ●●●/●●○/○○○ tier dots and 🌡/💨/🌧/🌙/🌅/🌇 emoji as data labels. On a Fernwood surface these would trip 'Glyphs follow the journal voice, not the dashboard voice' (traffic-light/ops register) — but this surface is explicitly Paul-tactical, not Mom-no-glasses.",
+      "user_impact": "For Paul reading a conditions surface, a compact rating lexicon (dots) is legible and useful, not a register-leak. Flagging only so the exemption is deliberate, not accidental drift.",
+      "principle_invoked": "Glyphs follow the journal voice (fernwood.md) — deliberately exempted here for the tactical-angler audience",
+      "recommendation": "Accept the dots/emoji as a consistent rating/label lexicon for this Paul-facing surface. Keep the copy calm (it already is — 'front moving in — feeding,' 'slow'). Do NOT let this register bleed back onto Mom-facing surfaces. No change needed; recorded as an intentional exemption.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "Next-4-hours framing: do you want a literal rolling 4-hour forecast strip, or is 'next window (dusk, 3h out, ●●○ Good — falling pressure)' the right expression? (I recommend the next-window framing; a rolling 4h block fights the dawn/dusk window model.)",
+    "Look-ahead cut depth: only the single best window per day, or all Good/Prime windows across days 2–7 (capped ~5–6)? (I recommend all Good/Prime, capped, so whole slow days simply drop out.)",
+    "Phase table reference: keep all five phases visible as the year's arc with one NOW, or show only the current phase expanded and collapse the rest? (I recommend keep-the-arc for a keen angler — but it's a real choice.)",
+    "Annual rhythm: merge the Season At A Glance strip INTO the water-temp chart (overlay worth-fishing months on the temp bars), or just co-locate the two at the bottom? (I recommend co-locate for v1, merge later.)"
+  ],
+  "follow_up_research_suggested": [],
+  "principles_to_propose": [
+    {
+      "principle": "Freshness sets altitude — the most live, most local signal earns the top of the surface; slow-moving context is demoted no matter how 'important' it feels",
+      "scope": "cross-project",
+      "rationale": "This review is the second occurrence of the pattern behind 'Static visuals lie on dynamic surfaces.' There it was stale content sitting where users expect live; here it is genuinely-live content (station pressure) sitting BELOW slower-derived forecast content, so it reads as stale by position. The generalization — order a surface by signal freshness/actionability, not by topical grouping or by how weighty the data feels — is worth naming across projects (financial viewer, weather, fishing all have fast-vs-slow signal stacks). Propose after Paul approves the reorg."
+    },
+    {
+      "principle": "One engine, one verdict — when the same concept is surfaced in two places (a top-line verdict and a reference table), both must be computed by the same resolver so they can never contradict",
+      "scope": "fernwood",
+      "rationale": "The multiple-NOW bug is a single-source-of-truth failure at the render layer: speciesPhaseFor() drives the top, a separate string-parse drives the bottom, and they disagree. This is the render-time twin of the data-layer 'single source of truth per concept' memory. Fernwood has several dual-surface concepts (strip vs card, glance vs deep-dive) where the same rule applies. Propose after the fix lands."
+    }
+  ],
+  "reconciliation": {
+    "date": "2026-07-06",
+    "against": ".user-research/2026-07-06-fishing-decision-journey-and-patterns.md",
+    "verdict": "Blueprint holds — A-G honors the journey's freshness-descending / commitment-ascending spine 1:1. Three refinements adopted from the journey, one latent smell flagged.",
+    "stage_map": {
+      "1 Impulse (station on top)": "A (NOW block, pressure-led)",
+      "2 Go/no-go today": "A (verdict line) + B (best bet) — see adjustment R1",
+      "3 When today": "A (active-now / next window) + B (today's dawn/dusk windows)",
+      "4 Look ahead": "C (days 2-7, Good/Prime only, softened)",
+      "5 Prep": "E (kit) + F (by-species glance) — see adjustment R3",
+      "6 Deep reference": "G (species tabs, full phase arc, annual rhythm, regs)",
+      "season-as-context": "D (one quiet line — the CURRENT phase; the full arc relocates to G)"
+    },
+    "adjustments": [
+      {
+        "id": "R1",
+        "driver": "Journey stage 2 + Paul nudge #7 (decision-first, P1): the go/no-go must be the clear top-line takeaway.",
+        "change": "A must OPEN with an explicit go/no-go verdict line ('Worth a run at dusk' / 'Slow today'), immediately backed by the live station read directly beneath it. Don't open on raw conditions and make Paul infer the verdict. This fuses freshness-first (P3) and decision-first (P1) without conflict — the verdict IS built from the freshest signal, and the station read sits under it as both the why and the freshness proof.",
+        "affects": "F1 (NOW block gains a verdict line as its first element)"
+      },
+      {
+        "id": "R2",
+        "driver": "Journey emotional core: trust is load-bearing; 'a confidently-wrong model is worse than an honestly-unsure one' (P5). Estimates must read as estimates at EVERY altitude.",
+        "change": "Upgrade F5 from 'demote the temp badge' to 'visually distinguish MEASURED station signals (pressure/rain/wind) from MODELED estimates (water temp/phase) wherever they sit adjacent — most critically in the top NOW block, so the estimate can't borrow the measurement's authority.' Keep the ~ + 'est.' marker on every temp figure that renders (per-day labels, season line, chart dot), not just once. Note: journey follow-up #5 (wire USGS 00010 / station water temp as a calibration anchor) would convert 'estimate dressed as reading' into 'estimate honestly anchored' — eng work, flagged as the durable trust fix.",
+        "affects": "F5 (widened from typographic demotion to measured-vs-modeled legibility everywhere)"
+      },
+      {
+        "id": "R3",
+        "driver": "Journey stage 5 (Prep) sits ABOVE stage 6 (Reference). The 'By species today' grid answers 'what's on / what to prep for' = Prep, not reference.",
+        "change": "Override F6's 'demote the grid to a bridge below.' Instead pull the by-species glance grid UP to sit WITH the kit (E) as one unified Prep zone (stage 5). The species TABS + phase table + gear detail remain the repository (G). The grid still sits adjacent to the tabs (bridge preserved) but now reads as Prep, above the glance/repository boundary — which is where the journey puts it.",
+        "affects": "F6 (resolved: grid joins the kit as Prep, does not demote into reference)"
+      },
+      {
+        "id": "R4",
+        "driver": "Coordinator's P8 probe — any OTHER single proxy standing in for two variables?",
+        "change": "Honest answer: no second egregious spring/fall-grade conflation exists; the section's main P8 instance is the one being fixed (temp-alone -> phase, now given a month axis via speciesPhaseFor). One LATENT smell worth logging, not fixing: rainRunoffScore() lets rain totals stand in for BOTH water LEVEL and water CLARITY ('High / stained'), which can diverge (a dam release runs high-but-clear; a low creek can still be stained). Secondary: wind is scored by magnitude only (windScore) while direction is displayed but never scored — magnitude standing in for magnitude+direction. Both low-severity; flag as watch-items, not rework.",
+        "affects": "new watch-items, no finding severity change"
+      }
+    ],
+    "glance_repository_boundary": "The boundary falls after the Prep zone and before the reference tabs — i.e., after F (kit + by-species glance + the one-line CURRENT-season context in D), before G (species tabs, full phase arc, annual-rhythm strip + temp chart, regs). Everything above the line is the curated time-relevant projection ('what do I do about fishing now / this week'); everything below is the durable repository ('what is this fishery, across the year'). Critically: the CURRENT phase is glance (D); the FULL phase ARC is repository (G) — depth relocates, nothing is deleted, which is exactly Paul's 'glance and the repository' umbrella principle expressed within one section."
+  }
+}

@@ -351,6 +351,24 @@ Fernwood is a **personal property reference dashboard** for 282 Church Mountain 
 
 **Tone is everything here.** This is a fun, evocative reference tool — a field journal, not a task manager. Language like "17 actions due" or "3 alerts" is wrong for this project. Prefer "What's happening in May" or "Worth checking this month." The dashboard should feel like looking out at the land, not a to-do list with deadlines.
 
+## Governing design principle — the glance and the repository (2026-07-06)
+
+The single most important structural principle for Fernwood. It came out of the 2026-07-06 fishing-section rework, corroborated independently by a ux-expert audit and a user-researcher journey. Every rich domain (plants, fishing, wildlife, weather, vehicles) must be layered this way, not flattened.
+
+**Three strands:**
+
+1. **The glance (decision layer).** A small, foregrounded, near-horizon read that answers "what's relevant to me *right now*?" — usually decision-shaped, driven by the freshest, most-localized data available. *Worth noticing this week* (plants), *is it a good time to fish today/tomorrow* (fishing). This leads. It is a **curated, time-relevant projection of** the repository, never a competing source.
+
+2. **The repository (reference layer).** The deep, researched backing — care calendars, species phase tables, regs, historical temps, the full body of hyper-local research — held **in the parent card** as an on-demand store. It must exist (it's the credibility, and the depth a keen user drills into) but must **not flood the reader by default.** When a surface feels overwhelming, the answer is **relocate depth, don't delete it**: surface the near-horizon decision, shelve the rest one level down.
+
+3. **The loop (invite + fold back) — the flywheel.** The glance is also the moment to **invite the one input only someone at the property can give.** Pair a fresh localized signal with a calm, timely call-to-action for ground-truth, and **visibly fold that truth back in.** The honest-uncertainty flag is the hook: the place we admit "~65°F, *estimated*" is exactly where we invite "log the real reading." This is the moat — anyone can show a grid forecast; only *this* property's accumulated ground-truth can't be commodity-matched, and it only accrues if the glance keeps inviting it. The virtuous cycle: **fresher local data → better glance → more trust → more input → fresher local data.** (This operationalizes the Phase-G "observations as a knowledge layer" thread with a concrete trigger.)
+
+**Disciplines the loop must respect:** capture stays deterministic / **AI-free** (the invitation is on the ask-path; the logged reading is the user's verbatim ground-truth, see [[feedback_no_ai_on_capture]]); calm, not naggy (a field-journal *"seen it yet?"*, contextual + timely, **never a standing "add data" button** — that's the affordance-without-signal trap, see [[feedback_defer_affordances_pending_signal]]); and **close the loop visibly** (the user must see their reading replace the estimate or move the recommendation, or it feels extractive).
+
+**Two ordering mechanisms** sit underneath this (promoted to `~/.claude/design-principles/cross-project.md`, 2026-07-06): **Freshness sets altitude** (order a surface by how live/local/actionable each signal is; position encodes recency) and **Source-hierarchy drives layout** (rank sources by evidence × freshness × actionability, and let that ranking drive presentation — for Fernwood: on-site station → forecast → season/phase-as-context → invisible research plumbing).
+
+**Trust is the load-bearing emotion** (a confidently-wrong model is worse than an honestly-unsure one): keep *measured* signals visually distinct from *modeled* ones, and estimates legibly estimates at every altitude.
+
 ## How to run
 
 Open `viewer.html` directly in a browser — no build step, no server, no install. For Playwright testing or CORS-sensitive API testing, serve locally:
