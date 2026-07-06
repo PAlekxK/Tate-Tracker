@@ -2682,6 +2682,9 @@
   .dash-tease-week .dash-tease-action { font-family: "Crimson Text", Georgia, serif; font-style: italic; font-weight: 600; color: #3a6a3a; }
   /* Promoted "Peak this week" lead (Concept A) + the demoted monthly breadcrumb */
   .dash-tease-peak .dash-tease-action { font-family: "Crimson Text", Georgia, serif; font-style: italic; font-weight: 600; color: #3a6a3a; }
+  .dash-peak-list { margin-top: 4px; display: flex; flex-direction: column; gap: 3px; }
+  .dash-peak-name { font-family: "Crimson Text", Georgia, serif; font-weight: 600; color: #2a4a2a; }
+  .dash-peak-act { color: #6a8560; }
   .dash-tease-month { color: #5a7250; }
   .dash-tease-month .dash-tease-action { font-weight: 600; color: #5a7250; }
   .dash-tease-sep { margin-top: 5px; padding-top: 5px; border-top: 1px dashed #d4e4c8; }
@@ -10852,28 +10855,38 @@ function lookforTap(item) {
   ta.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
-// Peak this week panel inside the Plants card (Concept A) — richer than the strip
-// teaser: each plant at peak with the care action(s) peaking and the window text.
-// Same coverage caveat as the teaser: bounded by what parseShortDateRange can read.
-function renderPlantPeakPanel() {
-  const el = document.getElementById("plant-peak-panel");
-  if (!el || typeof PLANTS_DATA === "undefined" || !PLANTS_DATA.plants) return;
-
+// Plants at their care peak this week, each with the distinct peaking care
+// type(s). Shared by the dashboard Plants tile and the in-card panel. Coverage
+// is bounded by what parseShortDateRange can read (~40% of peakWindows don't
+// parse yet — structured peak field backlogged 2026-07-05).
+function plantsAtPeakThisWeek() {
   const items = [];
+  if (typeof PLANTS_DATA === "undefined" || !PLANTS_DATA.plants) return items;
   for (const p of PLANTS_DATA.plants) {
     const peaks = [];
+    const seen = new Set();
     for (const ct of Object.keys(p.care || {})) {
       const b = p.care[ct];
       if (!b) continue;
       const entries = b.subcategories ? b.subcategories : [b];
       for (const e of entries) {
-        if (e && e.peakWindow && dateInRange(today, parseShortDateRange(e.peakWindow))) {
+        if (e && e.peakWindow && !seen.has(ct) && dateInRange(today, parseShortDateRange(e.peakWindow))) {
+          seen.add(ct);
           peaks.push({ ct, peakWindow: e.peakWindow });
         }
       }
     }
-    if (peaks.length) items.push({ name: p.name, peaks });
+    if (peaks.length) items.push({ name: p.name, id: p.id, peaks });
   }
+  return items;
+}
+
+// Peak this week panel inside the Plants card (Concept A) — each plant at peak
+// with the care action(s) peaking and the window text.
+function renderPlantPeakPanel() {
+  const el = document.getElementById("plant-peak-panel");
+  if (!el) return;
+  const items = plantsAtPeakThisWeek();
 
   if (!items.length) {
     el.innerHTML = '<div class="plant-peak-title">Peak this week</div>' +
@@ -10883,9 +10896,8 @@ function renderPlantPeakPanel() {
 
   let html = '<div class="plant-peak-title">Peak this week</div>';
   html += items.map(it => {
-    // one pill per distinct peaking care type; the first window carries the timing
-    const seen = new Set();
-    const chips = it.peaks.filter(pk => { if (seen.has(pk.ct)) return false; seen.add(pk.ct); return true; })
+    // one pill per distinct peaking care type (already deduped); first window = timing
+    const chips = it.peaks
       .map(pk => '<span class="tag t-' + pk.ct + '">' +
         ((CARE_TYPES[pk.ct] && CARE_TYPES[pk.ct].icon) || "") + ' ' +
         escapeHtml((CARE_TYPES[pk.ct] && CARE_TYPES[pk.ct].label) || pk.ct) + '</span>').join(" ");
@@ -10968,20 +10980,23 @@ function renderDashboardStrip() {
       // parseShortDateRange() can read — ~40% of windows use formats it can't yet
       // parse (full month names, month-only, prose-only). Refining this needs a
       // structured peak field in the data (backlogged 2026-07-05).
-      const maxNames = 3;
+      // List every plant at peak, each with its action (there's room — Paul, 7/5).
+      const peakItems = plantsAtPeakThisWeek();
       let peakRow = "";
-      if (typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) {
-        const peakNow = PLANTS_DATA.plants.filter(p => plantPeakActiveThisWeek(p));
-        if (peakNow.length) {
-          const shown = peakNow.slice(0, maxNames).map(p => p.name);
-          const tail = peakNow.length > maxNames ? ", +" + (peakNow.length - maxNames) : "";
-          peakRow = '<div class="dash-tease-row dash-tease-peak">' +
-            '<span class="dash-tease-body">' +
-              '<span class="dash-tease-action">Peak this week</span> · ' +
-              '<span class="dash-tease-names">' + escapeHtml(shown.join(", ") + tail) + '</span>' +
-            '</span>' +
+      if (peakItems.length) {
+        const rows = peakItems.map(it => {
+          const actions = it.peaks.map(pk => (CARE_TYPES[pk.ct] && CARE_TYPES[pk.ct].label) || pk.ct).join(" · ");
+          return '<div class="dash-peak-item">' +
+            '<span class="dash-peak-name">' + escapeHtml(it.name) + '</span> · ' +
+            '<span class="dash-peak-act">' + escapeHtml(actions) + '</span>' +
           '</div>';
-        }
+        }).join("");
+        peakRow = '<div class="dash-tease-row dash-tease-peak">' +
+          '<span class="dash-tease-body">' +
+            '<span class="dash-tease-action">Peak this week</span>' +
+            '<div class="dash-peak-list">' + rows + '</div>' +
+          '</span>' +
+        '</div>';
       }
       // Demoted monthly breadcrumb — care-type labels only, no plant-name dump.
       // When nothing's at peak (deep winter), this becomes the lead (no border).
