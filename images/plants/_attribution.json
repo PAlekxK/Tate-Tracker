@@ -39,6 +39,14 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "source_url": "https://commons.wikimedia.org/wiki/File:Clematis_macropetala_02.jpg"
   },
+  "creeping-fig": {
+    "author": "Ixitixel",
+    "credit": "eigene Arbeit, selbst fotografiert",
+    "file": "File:Ficus_pumila_(Leafs).jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Ficus_pumila_(Leafs).jpg"
+  },
   "deutzia-yuki-cherry-blossom": {
     "author": "Unknown",
     "credit": "",
@@ -56,7 +64,7 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
   },
   "holly": {
-    "author": "Jürgen Howaldt",
+    "author": "J\u00fcrgen Howaldt",
     "credit": "Self-photographed",
     "file": "File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg",
     "license": "CC BY-SA 2.0 de",
@@ -96,7 +104,7 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
   },
   "japanese-maple": {
-    "author": "Kurt Stüber [1]",
+    "author": "Kurt St\u00fcber [1]",
     "credit": "caliban.mpiz-koeln.mpg.de/mavica/index.html part of www.biolib.de",
     "file": "File:Acer_palmatum0.jpg",
     "license": "CC BY-SA 3.0",
