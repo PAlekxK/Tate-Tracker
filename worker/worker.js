@@ -1236,6 +1236,8 @@ async function handleSuggestSpecies(request, env, url) {
 //      shape entry, using the property digest as cached context + the photo
 //   2) GET the source JSON from GitHub, parse, append the new entry, encode + PUT
 //   3) GET viewer.html, replace the inlined *_DATA const, encode + PUT
+//   3b) Read viewer.html back and verify the new entry is really in the const
+//       (self-check against the canon-ahead-of-dashboard silent-drift mode)
 //   4) PUT the photo as a new file at images/<category>/<slug>.<ext>
 //   5) Return success with the slug + the 3 commit SHAs
 //
@@ -1438,6 +1440,41 @@ This plant was just added by the reader and has NOT been observed here across a 
       viewerFile.sha);
   } catch (e) {
     return json({ error: "viewer-commit-failed", detail: String(e).slice(0, 300) }, 502);
+  }
+
+  // ---- Step 4b: Verify the re-inline actually landed ---------------------
+  // The promote flow's own drift guard: read the committed viewer.html back and
+  // confirm the new entry is really in the inlined const. Steps 3 and 4 commit
+  // plants.json and viewer.html as SEPARATE commits, so canon can end up ahead
+  // of the dashboard if the re-inline commit silently doesn't stick (a rebase
+  // clobber, an eventual-consistency race, or a future regex regression). That
+  // is exactly how Lizard's Tail hid unnoticed from add-date until 2026-07-05.
+  // Catching it here means the caller learns at promote time, not weeks later.
+  try {
+    const dataConst = target.dataConst;
+    const constRegex = new RegExp(`const ${dataConst} = \\{[\\s\\S]*?\\};`);
+    const verify = await ghGetFile(env, "viewer.html");
+    const m = verify.exists ? verify.contentText.match(constRegex) : null;
+    let landed = false;
+    if (m) {
+      try {
+        const constText = m[0]
+          .replace(new RegExp(`^const ${dataConst} = `), "")
+          .replace(/;$/, "");
+        let vc = JSON.parse(constText);
+        for (const part of target.speciesPath.split(".")) vc = vc[part];
+        landed = Array.isArray(vc) && vc.some(e => e && e.id === slug);
+      } catch (_) { landed = false; }
+    }
+    if (!landed) {
+      return json({
+        error: "reinline-verify-failed",
+        detail: `${dataConst} was committed but ${slug} is not present in the inlined const on read-back — canon is ahead of the dashboard; re-run the re-inline (tools/wire-photos.py --category ${target.jsonFile.replace(/\.json$/, "")}) or check for a clobbered commit`,
+        dataConst, slug,
+      }, 502);
+    }
+  } catch (e) {
+    return json({ error: "reinline-verify-error", detail: String(e).slice(0, 300), slug }, 502);
   }
 
   // ---- Step 5: Commit the photo ------------------------------------------
