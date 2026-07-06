@@ -27,6 +27,26 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - **Refined "Peak this week" — needs a structured peak field (data work).** Audit 2026-07-05: all 23 plants carry peakWindows (88 total), but **~40% (35/88) don't parse** via `parseShortDateRange` — it only reads "Abbrev D–Abbrev D"; it misses full month names ("May 15–June 5"), month-only ("Mar — before growth begins"), prose-only ("After first hard frost flattens leaves"), and multi-window ("Mar …; Jun …"). There's also a year-wrap bug (winter-spanning windows parse to negative spans). Net: the peak-this-week surfaces (tile + card panel) are **under-inclusive** today. Right fix = add a machine-readable peak field to the schema (e.g. `peakStart`/`peakEnd` as MM-DD, keep the prose for display), which removes both the parser fragility and the prose-only cases. Deep winter (Dec–mid-Jan) is legitimately empty — that's fine, it has a calm fallback.
 - **Fishing data — make it granular + dynamic (Paul-raised).** Push `fishing.json` past coarse seasonal notes toward **time-of-day** guidance and **live weather-station-driven** conditions — e.g. how an incoming rain front (read from the on-site Ambient station / Open-Meteo) shifts the bite. Make the fishing view respond to real conditions rather than static month text. Scope TBD; ties to the empirical-sources-in-the-data-layer direction.
 
+## Pickup point — last session ended 2026-07-05
+
+**Concept A ("Today + Reference Drawer") built end-to-end, then iterated with Paul into a leaner IA. All shipped, pushed, LIVE on GH Pages (Tate-Tracker HEAD `630d742`).** Plan + handoff note at `.engineering/2026-07-05-concept-a-today-drawer-plan.md`; design source `.design-research/2026-07-05-journeys-ia-patterns.md`.
+
+### What shipped (9 commits, all pushed)
+- **Concept A Phase 1** (`4e22846`) — reference drawer: 6 living cards (Weather, Plants, The Fairway, Wildlife, Sky & Stars, The Almanac) + 5 durable cards behind one collapsible **"Reference"** shelf.
+- **Phase 2** (`9cc7925`) — `computeLookFors(now)`: pure, deterministic, AI-free "what's worth noticing this week" generator (narrow/opening plant windows + bird arrivals/departures + active peak mentions; deduped, capped 4, day-of-year-rotated; copy only from the §5.3 template bank; amphibians deliberately skipped — no calm template).
+- **Phase 3** (`8c5358f`) — the look-for surface + tap→composer pre-warm (fills an editable starter, never clobbers typed text).
+- **Lizard's Tail re-inlined** (`ec950ef`) — Guru-added to `plants.json` but never re-inlined (22→23); Paul confirmed legit; now shows in the Plants card.
+- **Drift-check wired into pickup** (`7867755`) — the "Session-start check" section above runs `check-data-inline.py`; surfaces canon-ahead drift (the Lizard's-Tail failure mode) for confirm-before-`--fix`.
+- **Peak this week promoted** (`fc54923` + `630d742`) — Plants tile leads with peak (each plant **with its action**) over the monthly dump (demoted to a "This <month>" breadcrumb); new **"Peak this week"** panel inside the Plants card (plant + care pill + window). Shared `plantsAtPeakThisWeek()` helper.
+- **IA reorder** (`f9b6a1f`) — retired the standalone "Today at Fernwood" glance; **Garden Guru composer moved to the TOP** (under header, above tiles); look-fors folded into the Plants card as **"Worth noticing today"** (card kept named "Plants" — Paul's pick over a rename). Final order: header → composer → tiles → cards → drawer.
+
+### ⚠️ Owner: Paul — review live on phone (in progress)
+1. **Tap a look-for → Save**, confirm your words land in the Almanac on the real device (only the phone can close this). Look-fors now live *inside* the Plants card — open it to see/tap them.
+2. Two open UX judgments (flagged, not decided): **(a)** look-fors are now behind a tap (inside Plants) — too buried vs. always-visible? **(b)** "peak this week" now appears in the tile + the in-card panel + "Worth noticing today" — a lot of "this week" in the Plants area; merge/thin?
+
+### Backlog raised this session — see the "## Backlog — raised 2026-07-05" section above
+Save/Ask two-button split (revisit hierarchy vs the capture-path principle) · refined "Peak this week" needs a structured peak field (~40% of peakWindows don't parse — audit done this session) · fishing data granular + dynamic (time-of-day + weather-station-driven) · root-cause: make Guru's promote flow verify its own re-inline landed.
+
 ## Pickup point — last session ended 2026-07-02
 
 **Garden Guru conversational redesign — Phases 1–3 built, verified, and DEPLOYED LIVE.** Worker deployed (version `123ea421` @ tate-tracker.paul-kirschenbauer.workers.dev); viewer pushed to GH Pages (Tate-Tracker HEAD `23ac94f`). Commits: analysis+plan `508010c`, Phase 1 `c8fb1a1`, Phase 2 `a3130ef`, Phase 3 `7d8eba2`.
