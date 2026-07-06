@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-05 — A short read on the week, and a tidier shelf
+
+- The dashboard now opens with **Today at Fernwood** — a short read on what's worth noticing this week, drawn from where the plants and birds are in their year. Tap one to tell the Guru what you find; the note box fills in the first few words for you.
+- The reference material — the fleet, the sources, the property's story — now keeps to its own shelf below the living cards, so the everyday things are the first things you see.
+
+---
+
 ## 2026-07-04 — A cleaner, more familiar note box
 
 - The box where you write to the journal (and ask Garden Guru) now looks and feels like the message field you already know from your phone — one calm rounded field, with a small camera on the left to attach a photo and a microphone on the right to dictate. The old row of labeled picture-buttons is gone.
