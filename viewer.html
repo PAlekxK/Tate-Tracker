@@ -158,6 +158,40 @@
   .main-card-icon.celestial { background: linear-gradient(135deg, #1a1a4a, #2a4090); }
   .main-card-icon.birds     { background: linear-gradient(135deg, #d0e8c4, #7ab870); }
   .main-card-icon.amphibians { background: linear-gradient(135deg, #c4e0d8, #5aaa90); }
+  .main-card-icon.reference { background: linear-gradient(135deg, #e6e2d6, #cdbfa6); }
+
+  /* === REFERENCE DRAWER (Concept A, 2026-07-05) — a shelf, not a sixth living card === */
+  .ref-drawer { margin-bottom: 12px; }
+  .ref-drawer-toggle {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    min-height: 44px;
+    background: #f2f5ec;              /* muted vs. the white living cards — reads as a shelf */
+    border: 1.5px solid #dbe6cf;
+    border-radius: 16px;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+  }
+  .ref-drawer-toggle:active { background: #e9f0e0; }
+  .ref-drawer-toggle .main-card-icon { width: 38px; height: 38px; font-size: 20px; border-radius: 10px; }
+  .ref-drawer-chevron {
+    color: #9bbf9b;
+    font-size: 15px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .ref-drawer-toggle[aria-expanded="true"] .ref-drawer-chevron { transform: rotate(180deg); }
+  .ref-drawer-body { padding-top: 12px; }
+  .ref-drawer-body[hidden] { display: none; }
 
   /* === BIRDS CARD === */
   .bio-section { padding: 14px 18px; }
@@ -4443,20 +4477,7 @@
     <div class="main-card-body" id="celestial-content"></div>
   </div>
 
-  <!-- PROPERTY CARD -->
-  <div class="main-card" id="card-property">
-    <div class="main-card-header" data-toggle="property">
-      <div class="main-card-icon property">🏔️</div>
-      <div class="main-card-meta">
-        <div class="main-card-title">Fernwood</div>
-        <div class="main-card-summary" id="property-summary">Land · Sky · History</div>
-      </div>
-      <span class="main-card-chevron">▼</span>
-    </div>
-    <div class="main-card-body" id="property-content"></div>
-  </div>
-
-  <!-- FIELD NOTES CARD (Phase B — observations write surface) -->
+  <!-- FIELD NOTES CARD (Phase B — observations write surface) — last of the 6 living cards -->
   <div class="main-card" id="card-fieldnotes">
     <div class="main-card-header" data-toggle="fieldnotes">
       <div class="main-card-icon fieldnotes">📓</div>
@@ -4471,6 +4492,34 @@
     </div>
   </div>
 
+  <!-- REFERENCE DRAWER (Concept A, 2026-07-05) — the estate's durable/reference
+       cards behind one shelf, below the 6 living cards. Order (D2): property,
+       vehicles, candidates, references, release-notes. The moved cards are
+       unchanged; only their container is new. -->
+  <div class="ref-drawer" id="ref-drawer">
+    <button class="ref-drawer-toggle" id="ref-drawer-toggle" type="button" aria-expanded="false" aria-controls="ref-drawer-body">
+      <div class="main-card-icon reference">📚</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">Reference</div>
+        <div class="main-card-summary">The estate's back pages — specs, sources, and records</div>
+      </div>
+      <span class="ref-drawer-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="ref-drawer-body" id="ref-drawer-body" hidden>
+
+  <!-- PROPERTY CARD -->
+  <div class="main-card" id="card-property">
+    <div class="main-card-header" data-toggle="property">
+      <div class="main-card-icon property">🏔️</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">Fernwood</div>
+        <div class="main-card-summary" id="property-summary">Land · Sky · History</div>
+      </div>
+      <span class="main-card-chevron">▼</span>
+    </div>
+    <div class="main-card-body" id="property-content"></div>
+  </div>
+
   <!-- VEHICLES CARD -->
   <div class="main-card" id="card-vehicles">
     <div class="main-card-header" data-toggle="vehicles">
@@ -4483,22 +4532,6 @@
     </div>
     <div class="main-card-body">
       <div class="vehicles-list" id="vehicles-list"></div>
-    </div>
-  </div>
-
-  <!-- SOURCES CARD — reference shelf (the appendix at the back of the almanac) -->
-  <!-- RECENT UPDATES CARD — release-notes mini-feed (added 2026-05-21) -->
-  <div class="main-card" id="card-release-notes">
-    <div class="main-card-header" data-toggle="release-notes">
-      <div class="main-card-icon release-notes">🆕</div>
-      <div class="main-card-meta">
-        <div class="main-card-title">Recent updates</div>
-        <div class="main-card-summary" id="release-notes-summary"></div>
-      </div>
-      <span class="main-card-chevron">▼</span>
-    </div>
-    <div class="main-card-body">
-      <div class="release-notes-list" id="release-notes-body"></div>
     </div>
   </div>
 
@@ -4517,6 +4550,7 @@
     </div>
   </div>
 
+  <!-- SOURCES CARD — the appendix at the back of the almanac -->
   <div class="main-card" id="card-references">
     <div class="main-card-header" data-toggle="references">
       <div class="main-card-icon references">📚</div>
@@ -4529,6 +4563,24 @@
       <div class="references-list" id="references-body"></div>
     </div>
   </div>
+
+  <!-- RECENT UPDATES CARD — release-notes mini-feed (added 2026-05-21) -->
+  <div class="main-card" id="card-release-notes">
+    <div class="main-card-header" data-toggle="release-notes">
+      <div class="main-card-icon release-notes">🆕</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">Recent updates</div>
+        <div class="main-card-summary" id="release-notes-summary"></div>
+      </div>
+      <span class="main-card-chevron">▼</span>
+    </div>
+    <div class="main-card-body">
+      <div class="release-notes-list" id="release-notes-body"></div>
+    </div>
+  </div>
+
+    </div><!-- /ref-drawer-body -->
+  </div><!-- /ref-drawer -->
 
 </div>
 
@@ -10397,9 +10449,36 @@ function renderAmphibians() {
 function expandCard(id) {
   const card = document.getElementById(id);
   if (!card) return;
+  // If the target lives inside the Reference drawer and it's shut, open the
+  // drawer first so the strip's tier-B cells (Vehicles, Fernwood) and any other
+  // expandCard caller still land on their card. (Concept A, 2026-07-05.)
+  const drawerBody = document.getElementById("ref-drawer-body");
+  if (drawerBody && drawerBody.hidden && drawerBody.contains(card)) {
+    setRefDrawerOpen(true);
+  }
   card.classList.add("expanded");
   setTimeout(() => card.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
 }
+
+// Reference drawer (Concept A) — open/close the shelf of durable cards.
+function setRefDrawerOpen(open) {
+  const body = document.getElementById("ref-drawer-body");
+  const toggle = document.getElementById("ref-drawer-toggle");
+  if (!body || !toggle) return;
+  body.hidden = !open;
+  toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  if (open && typeof MetricsCollector !== "undefined") {
+    MetricsCollector.track("drawer_opened", {});
+  }
+}
+
+function wireRefDrawer() {
+  const toggle = document.getElementById("ref-drawer-toggle");
+  const body = document.getElementById("ref-drawer-body");
+  if (!toggle || !body) return;
+  toggle.addEventListener("click", () => setRefDrawerOpen(body.hidden));
+}
+wireRefDrawer();
 
 function renderDashboardStrip() {
   const cur   = WEATHER_DATA.current;
