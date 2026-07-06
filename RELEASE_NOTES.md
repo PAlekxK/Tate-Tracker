@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-05 — Peak this week, front and center
+
+- The **Plants** tile now leads with **what's at its peak this week** — the plants in their best window right now — instead of the long monthly care list. A quiet "This [month]" line underneath keeps the monthly rhythm in view; the full per-type detail still lives inside the Plants card's "This Month" view.
+- Open the **Plants card** and there's now a **Peak this week** panel at the top: each plant that's peaking, what it's ready for, and its window.
+
+---
+
 ## 2026-07-05 — Lizard's Tail joins the Plants card
 
 - **Lizard's Tail** — a native wetland perennial that likes the pond and spring-drainage edges — now shows in the Plants card. It had been added through Garden Guru a while back but wasn't yet appearing on the dashboard; now it's here.
