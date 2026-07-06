@@ -17,9 +17,10 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
-## 2026-07-05 — A short read on the week, and a tidier shelf
+## 2026-07-05 — A simpler top, and a tidier shelf
 
-- The dashboard now opens with **Today at Fernwood** — a short read on what's worth noticing this week, drawn from where the plants and birds are in their year. Tap one to tell the Guru what you find; the note box fills in the first few words for you.
+- Fernwood now opens straight to the **note box** — write what you saw, or ask Garden Guru, right at the top above the tiles.
+- **"Worth noticing today"** — a short read on what's worth a look this week, drawn from where the plants and birds are in their year — lives at the top of the **Plants card**. Tap one to tell the Guru; the note box fills in the first few words for you.
 - The reference material — the fleet, the sources, the property's story — now keeps to its own shelf below the living cards, so the everyday things are the first things you see.
 
 ---
