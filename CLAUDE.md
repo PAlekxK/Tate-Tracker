@@ -25,7 +25,26 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 
 - **Save/Ask two-button intent split — revisit (design, Paul-raised).** Paul isn't convinced the app needs both "Save to journal" and "Ask Garden Guru" buttons. *Don't just remove them* — the split is the on-screen form of Paul's own capture-path principle ([[feedback_no_ai_on_capture]]): Save = deterministic, AI-free, logs verbatim words; Ask = the AI path. Collapsing forces either all-capture-through-AI (breaks the principle), intent-guessing on the capture path (what Phase D pivoted away from), or do-both-every-time. The 7/2 Mom evidence ("I hoped it was logged but wasn't sure") argues for a *distinct* Save. Likely resolution is **hierarchy, not removal** — make Save the primary action, Ask the quiet secondary — but confirm what's actually bugging Paul (clutter vs choice-friction vs one-intent-dominates) first. Consider a ux-expert read since this was an evidence-based decision.
 - **Refined "Peak this week" — needs a structured peak field (data work).** Audit 2026-07-05: all 23 plants carry peakWindows (88 total), but **~40% (35/88) don't parse** via `parseShortDateRange` — it only reads "Abbrev D–Abbrev D"; it misses full month names ("May 15–June 5"), month-only ("Mar — before growth begins"), prose-only ("After first hard frost flattens leaves"), and multi-window ("Mar …; Jun …"). There's also a year-wrap bug (winter-spanning windows parse to negative spans). Net: the peak-this-week surfaces (tile + card panel) are **under-inclusive** today. Right fix = add a machine-readable peak field to the schema (e.g. `peakStart`/`peakEnd` as MM-DD, keep the prose for display), which removes both the parser fragility and the prose-only cases. Deep winter (Dec–mid-Jan) is legitimately empty — that's fine, it has a calm fallback.
-- **Fishing data — make it granular + dynamic (Paul-raised).** Push `fishing.json` past coarse seasonal notes toward **time-of-day** guidance and **live weather-station-driven** conditions — e.g. how an incoming rain front (read from the on-site Ambient station / Open-Meteo) shifts the bite. Make the fishing view respond to real conditions rather than static month text. Scope TBD; ties to the empirical-sources-in-the-data-layer direction.
+- ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
+
+## Pickup point — last session ended 2026-07-06
+
+**Fishing granularity Passes 1–3 — shipped end-to-end and LIVE on GH Pages (Tate-Tracker HEAD `128aa74`, pushed).** Plan `~/.claude/plans/imperative-growing-platypus.md`; UX blueprint `.ux-reviews/2026-07-06-fishing-section-reorg.json`; journey `.user-research/2026-07-06-fishing-decision-journey-and-patterns.md`. The governing "glance & the repository" principle was written to CLAUDE.md this arc.
+
+### What shipped (Pass 3, on top of the Pass 1+2 engine)
+- **Fishing promoted to its own top-level card** (`#card-fishing`), right after Wildlife — removed from the Wildlife tab row + `switchWildlifeTab`. Fronted by a **full-width dashboard Fishing tile** (verdict + operative window), driven by the same engine as the card (`buildFishingDays`/`fishingVerdict` — one engine, tile & card can't disagree).
+- **Internals reordered to the A–G IA:** A NOW (verdict on top + live *station* read, pressure-led, measured-vs-modeled legible) → B TODAY → C LOOK AHEAD → D SEASON (one quiet modeled line) → E/F PREP → seam → G REFERENCE (species tabs/phase arc · season strip + temp chart · regs · lake badge).
+- **One-engine fix:** `renderFishSpecies` now drives its "NOW" marker from `speciesPhaseFor()` — exactly one season-aware phase, agreeing with the top verdict (killed the multiple-NOW bug).
+- **Post-ship refinements (this session, with Paul live):** verdict copy rebuilt from the window's tier so words match the ●●● rating ("**Prime window at dusk**", not "worth a run"); **Look Ahead grouped by day** = best 2–3 good windows/day, **capped at the best 4 days**, with a **"Rest of the week"** note giving each unshown day a *why* (weather cause like "heavy rain — blown out" vs. "also good — just below the top days").
+- Deleted dead Pass-2 helpers (`updateSolunarWindows`, `windowRank`, `goWord`, `dayPressureVerdict`, `rainRunoffScoreForDay`). Browser-verified 0 JS errors throughout; release note added.
+
+### Owner: Paul — live review on phone
+Take a look at the Fishing card + tile on the real device. Two knobs if anything reads off: the Look Ahead **day cap is 4** (one-char change to 3), and the day-ranking picks *strongest* days (can look non-consecutive, e.g. skip Fri for Sat — honest but worth an eyeball).
+
+### Watch-items (deferred, not bugs)
+- In-season the air-temp-derived `estimateLakeTemp` can read below the month's climatological floor, tripping "still warming" with a flat progression (placeholder/live-air artifact, pre-existing Pass-1 model — not Pass 3).
+- `rainRunoffScore` proxies rain for both water *level* and *clarity*, which can diverge (logged in the plan; don't fix unless asked).
+- `MEMORY.md` is ~22.7KB, near the 24.4KB read limit — wants a compaction pass sometime.
 
 ## Pickup point — last session ended 2026-07-05
 
