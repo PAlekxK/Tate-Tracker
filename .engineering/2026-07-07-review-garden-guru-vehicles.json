@@ -1,0 +1,130 @@
+{
+  "review_id": "review-2026-07-07-garden-guru-vehicles",
+  "project": "fernwood",
+  "subject": "The 2026-07-03 change (commit 248b5c5) bringing vehicles into Garden Guru's scope: build-digest.py digest_vehicles() + worker.js dual-voice REGISTER. Reviewed for the capture gap, digest freshness/SSOT, spec-verification integrity, and cost/blast-radius.",
+  "review_date": "2026-07-07",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Paul (fleet owner, wrenches at the property) + Mom (make-or-break daily user, reads with difficulty). For vehicles specifically the primary actor is Paul.",
+    "core_jobs_to_be_done": [
+      "ASK Garden Guru practical machine questions (oil weight, plug gap, torque, what a bike needs, who to call) and get a plain shop-hand answer",
+      "LOG/capture what was just done to a machine as a note that lands against that machine — often fused into the same message as the ask (real KV turn 0: report the DRZ electrical fix AND ask about cold-start starter procedure in one breath)",
+      "Have the maintenance record stay a single, trustworthy source that both the Vehicles card and the Guru read from"
+    ],
+    "context_of_use": "Mobile PWA, often at the property mid-job. Voice-dictated, run-on messages that fuse capture + ask.",
+    "sources": [
+      "Coordinator-supplied production KV exchange 2026-07-03 12:42pm ET (turns 0-3, the pre-fix motivating event)",
+      "CLAUDE.md Backlog 'Save/Ask two-button intent split'; governing 'glance & repository' loop principle",
+      "auto-memory: feedback_no_ai_on_capture, project_fernwood_vehicles_card, project_fernwood_glance_repository_principle"
+    ],
+    "assumptions_made": [
+      "The 'backlog of ideas here' the user references in turn 2 = the vehicles.json per-vehicle `restoration` 'what she needs' running-list (that is literally where the DRZ electrical item already lives)",
+      "Routed vehicle-logging demand is real for Paul but NOT yet validated for Mom — no Mom signal, unlike the 7/2 plant suggest-log which had direct evidence"
+    ],
+    "user_context_confidence": "high"
+  },
+  "code_context": {
+    "purpose": "Garden Guru is the AI ask-path (Haiku 4.5, ~73-75K-token cached property digest bundled into the system prompt, max_tokens 600). The 7/3 change folded vehicles.json into that digest and gave the prompt a second register (plain shop-hand for machines) so it stops refusing vehicle questions.",
+    "stack": "Static PWA (single ~1.1MB viewer.html, inlined *_DATA + JSON files as SSOT) on GitHub Pages + a Cloudflare Worker (worker/worker.js). Digest built by tools/build-digest.py -> worker/digest.json, imported by the Worker via `import propertyDigest from './digest.json'` (bundled at deploy).",
+    "conventions_observed": [
+      "AI on the ask path; capture path deterministic/AI-free (Save button writes verbatim words, category/speciesId null)",
+      "Confidence tags on vehicles.json maintenance values (verified/inferred/tbd), 94/30/2 across the fleet",
+      "Drift-check discipline for viewer.html inlines (check-data-inline.py, session-start) — but NOT for digest.json",
+      "Fences (suggest-log / suggest-add) carry routing metadata only; the record is the reader's words"
+    ],
+    "deployment_context": "mom-ready",
+    "robustness_level": "shippable",
+    "assumptions_made": [
+      "digest.json is deployed to the live Worker only via `cd worker && wrangler deploy` (confirmed by the import statement + worker/README 'Re-deploying after code changes')"
+    ],
+    "code_context_confidence": "high"
+  },
+  "tooling_signals": {
+    "type_check": "n/a",
+    "linter": "not-run",
+    "tests": "none",
+    "notes": "Verified by reading + reproducing: rebuilt digest.json from current sources and diffed against the committed/deployed copy (drift confirmed, then restored via git checkout). build-digest.py --verify used for the per-section token budget."
+  },
+  "principles_applied": [
+    "Capture path stays deterministic; AI seam is one named subcommand (cross-project.md + fernwood.md)",
+    "Loud failure beats silent fallback in personal-stakes pipelines (cross-project.md)",
+    "The glance & the repository — the loop must fold ground-truth back in visibly (fernwood, CLAUDE.md governing principle)",
+    "Model-read values are hypotheses until verified (global CLAUDE.md)",
+    "Single source of truth per concept (auto-memory feedback_single_source_of_truth)",
+    "Defer affordances pending signal (auto-memory feedback_defer_affordances_pending_signal)"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "important",
+      "location": "worker/worker.js:531-549 (suggest-log fence spec) + viewer.html:13062-13098 (resolvePlantByName / fnSaveObservationOnPlant) + commit 248b5c5 scope",
+      "observation": "The 7/3 fix closed the ASK half only. It touched exactly three files (build-digest.py, worker/digest.json, worker/worker.js) and within worker.js only the 'WHAT YOU KNOW' + 'REGISTER' blocks. It did NOT touch the capture path. The one affordance that turns an ask into a clean routed capture — the suggest-log fence ('Note this on the [X]') — is still written entirely in plant/feature language: line 532 'a plant or feature the journal already tends', line 536 'a plant or feature that IS in the digest', line 541 target is `{name: <the plant's name>}`, line 547 'If the plant is NOT in the digest, do NOT emit this fence.' Haiku will not reliably emit it for a motorcycle. And even if it did, the client resolver `fnSaveObservationOnPlant` -> `resolvePlantByName` searches PLANTS_DATA ONLY (confirmed: there is no resolveVehicleByName / fnSaveObservationOnVehicle anywhere in viewer.html). So turn-2 in the real KV log — 'log that as an improvement area in the backlog of ideas here' — still has no routed home post-fix. The user's 'here' means the DRZ's restoration/'what she needs' list in vehicles.json; nothing connects a conversation (or even the plain Save button) to vehicles.json.",
+      "risk_or_impact": "The motivating journey is only half-served. Post-fix Guru will now ANSWER the starter question in shop-hand voice (good), but when the user immediately says 'log that against the bike,' the note falls through the routed path. The generic Save button is a partial catch — the words don't vanish, they land as an untagged Almanac note (category:null, speciesId:null) — but that is the wrong shelf: it is not attached to the DRZ, never surfaces on the Vehicles card, and never reaches the vehicles.json backlog the user was pointing at. From the user's standpoint the note still didn't land 'here.' This is the loop half of the governing 'glance & repository' principle left open for machines: ground-truth is invited (the ask now works) but cannot be folded back in.",
+      "principle_invoked": "The glance & the repository — the loop must fold ground-truth back in visibly; capture path stays deterministic",
+      "the_why": "A fix that makes the Guru TALK about vehicles but not RECORD against them re-opens exactly the 'became Paul's manual INQUIRIES.md entry' loop that the 7/2 plant work closed for plants. The right shape mirrors what already exists for plants: a vehicle-aware log fence (target can be a vehicle id/name), a resolveVehicleByName against VEHICLES_DATA, and a deterministic writer that appends the reader's verbatim words as a restoration/backlog item on that vehicle. That keeps capture AI-free (the fence carries routing only; the record is the user's words) and closes the loop into vehicles.json (the SSOT), so the note shows up on the Vehicles card, not orphaned in the Almanac.",
+      "recommendation": "Do NOT reflexively build the full routed-vehicle-log pipeline yet — per defer-affordances-pending-signal, Paul has the demand but Mom doesn't, and this ties into the open 'Save/Ask two-button' backlog decision. Concretely: (1) decide with Paul whether routed vehicle logging is worth building now given only Paul-signal; (2) if yes, the minimum is a vehicle branch on the suggest-log fence + a resolveVehicleByName(VEHICLES_DATA) + a fnSaveObservationOnVehicle that writes to a vehicle's restoration/notes list (deterministic, verbatim); (3) as a near-free interim, at least make Guru's prose, when it declines to log a machine note, tell the user the true fallback ('hit Save and it'll land in the Almanac') so the words are never lost even though they aren't yet routed. Also fold in the latent sub-gap: CLASSIFY_SYSTEM (worker.js:336-349) has no 'vehicles'/'equipment' category — a vehicle note classifies as 'property' or 'other'. It's dormant today (classify-on-save removed 2026-05-20), so this is latent, but if Phase-G batch classify ever wakes, vehicle notes miscategorize.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "important",
+      "location": "worker/worker.js:61 (`import propertyDigest from './digest.json'`) + tools/build-digest.py:17-18 docstring + worker/digest.json (committed 2026-07-03, not rebuilt since)",
+      "observation": "The digest is bundled at deploy time, not fetched — so the Guru's knowledge only updates after THREE manual steps on every data edit: rebuild (build-digest.py), commit digest.json, and `cd worker && wrangler deploy`. None are automated or enforced. Right now the deployed digest is STALE: I rebuilt it from current sources and diffed — plants.json (the 5c19178 'structured peakDates field' work) and fishing.json both changed AFTER the 7/3 digest build (248b5c5), and digest.json was never rebuilt/redeployed. So the live Guru is serving stale plant-peak and fishing knowledge today. Vehicles happen to be in sync only by luck — no vehicle edits landed after the 7/3 build. There is a drift-check for viewer.html's inlined *_DATA (check-data-inline.py, wired into session-start, guards the Lizard's-Tail failure) but NO equivalent for digest.json.",
+      "risk_or_impact": "This is the same silent-drift class as the Lizard's-Tail inline-drift the project already guards against — but worse, because it is server-side and invisible: Paul cannot see it on the dashboard the way he'd eventually notice a missing plant card. Applied to the thing this review is about: edit a maintenance spec in vehicles.json (flip an inferred->verified, or fix a wrong plug gap/torque), and the Guru keeps reciting the OLD value until someone remembers to rebuild + redeploy. Now that the Guru recites specs people ACT on (buy oil, set torque), a stale spec has a real-world cost, and vehicles.json — the SSOT — silently disagrees with what the Guru says.",
+      "principle_invoked": "Loud failure beats silent fallback; single source of truth per concept",
+      "the_why": "Paul's tolerance for 'I'd fix it next week' depends on him NOTICING. A bundled digest with a 3-step manual refresh and no drift alarm guarantees he won't notice — the drift is already here and predates this review. The right shape is to make drift LOUD and the refresh a single ritual: extend the existing session-start check to rebuild-and-diff digest.json against the committed copy (nonzero diff = surface 'the Guru's knowledge is stale vs canon — rebuild + redeploy'), and treat `wrangler deploy` as a non-optional documented step after any source edit, not a thing to remember. The check already exists for inlines; this is a sibling of a proven pattern, not new machinery.",
+      "recommendation": "Add a digest-freshness check to the session-start ritual (rebuild to a temp path, diff against worker/digest.json ignoring rebuiltAt; nonzero = flag). Then rebuild + redeploy now to clear the current plants/fishing staleness. Document the full data-edit ritual in one place: edit source -> build-digest.py -> commit -> `cd worker && wrangler deploy`. Optional stronger version: a tiny GitHub Action that rebuilds the digest on source-file changes and fails if committed digest.json is out of date (mirrors the weather-bot Action pattern already in the repo).",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "intent": "praise",
+      "area": "security",
+      "severity": "nice-to-have",
+      "location": "tools/build-digest.py:110-120 (confidence -> inline marker) + worker/worker.js:439 (prompt hedge instruction)",
+      "observation": "The verification-integrity handling is genuinely well done and deserves calling out. digest_vehicles() preserves the confidence tag by appending '[unconfirmed — verify before buying]' to any value tagged inferred/tbd (32 such markers land in the digest), and the prompt explicitly instructs Haiku (line 439): 'When a maintenance value is flagged unconfirmed in the digest, say so ... don't present an inferred spec as gospel.' This correctly carries Paul's 'model-read values are hypotheses until verified' rule from the data layer all the way to what the user hears. One residual leak path: the hedge is a droppable inline SUFFIX inside the value string, and the shop-hand register is deliberately terse ('state the spec and stop', max_tokens 600). Terse paraphrase is exactly when an LLM is most likely to summarize the value and drop the trailing parenthetical — losing the hedge and stating an inferred torque/gap spec as bare fact.",
+      "risk_or_impact": "Low frequency, but the failure mode is precisely the one Paul's rule exists to prevent: an unverified spec recited as gospel to someone about to act on it (buy the part, set the torque). Only inferred/tbd carry the marker, so the exposure is bounded to those 32 values — but a dropped hedge on any one of them is a silent promotion of inference to fact.",
+      "principle_invoked": "Model-read values are hypotheses until verified (verification flags, never clears)",
+      "the_why": "A structural guarantee beats a cooperative instruction. Leading markers survive summarization far better than trailing parentheticals — an LLM asked to be terse will keep a prefix that reframes the whole value ('UNCONFIRMED: 5W-40...') and drop a tail ('...(unconfirmed)'). Making the marker load-bearing at the front, plus making the hedge explicitly non-optional in the prompt, converts a hope into a near-guarantee at ~zero cost.",
+      "recommendation": "Cheap hardening (only if Paul wants belt-and-suspenders): in digest_vehicles(), move the marker to a LEADING token (e.g. `'UNCONFIRMED — verify before buying: ' + val`) instead of a trailing suffix, and add one prompt line making the hedge mandatory ('if a value carries the unconfirmed marker, the hedge is required in your answer, not optional — never state that value bare'). No schema change, no redeploy risk beyond the normal digest rebuild.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "intent": "question",
+      "area": "performance",
+      "severity": "nice-to-have",
+      "location": "worker/digest.json (per-section budget) + tools/build-digest.py:202-206 (80K guard) + CLAUDE.md tool-use migration trigger",
+      "observation": "Blast radius is small but worth one honest flag. The vehicles section is 29,779 bytes compact (~10% of the 300KB digest); plants dominates at 128KB. Total digest is ~75K tokens by the script's own estimate. The build script's guard flips to 'approaching ceiling' at 80K, and CLAUDE.md's own tool-use-migration trigger is 'digest >80K OR observations >50 entries.' The digest is now within ~5K tokens of that self-declared trigger, and the not-yet-deployed peakDates + any future vehicle detail push it up, not down. On cost: each rebuild+redeploy invalidates the prompt cache, so the first turn after every deploy re-pays the ~$0.06 cache write — trivial at family volume, but it means F2's 'redeploy on every edit' and cache economics are linked.",
+      "risk_or_impact": "No today-problem — vehicles did not blow the budget and cost is negligible at this traffic. But the trendline is up and the 80K tool-use-migration trigger is近. Ignoring it means the decision gets forced reactively (a turn that retrieves poorly) instead of chosen deliberately.",
+      "principle_invoked": "Landscape pass before deep work (know the trigger before you hit it)",
+      "the_why": "The project already wrote down its own migration trigger; the useful engineering move is to watch it approach rather than rediscover it. Plants at 128KB is the real budget hog, not vehicles — so if headroom ever matters, plants' verbose care-calendar prose is where compression pays, not the machines.",
+      "recommendation": "No action now. Just log that the digest sits ~75K/80K and the tool-use-migration trigger is the next architectural fork. If it crosses 80K, the cheapest reclaim is trimming plants' long per-care `description` prose in the digest (it is reference depth the Guru rarely recites verbatim), not touching vehicles.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "Is routed vehicle-logging worth building now on Paul-only signal, or does it wait for the 'Save/Ask two-button' backlog decision + any Mom signal? (F1)",
+    "Should 'log against a vehicle' write to vehicles.json restoration/notes (folds into the Vehicles card SSOT) or just to the Almanac tagged with a vehicle id? The former closes the loop; the latter is lighter. (F1)",
+    "Want the digest-freshness check wired into session-start now, and the current plants/fishing staleness cleared with a rebuild+redeploy? (F2)"
+  ],
+  "follow_up_research_suggested": [
+    "Pull any KV conversations since 7/3 to see whether users have TRIED to log vehicle notes through the Guru post-fix (would upgrade F1 from Paul-want to observed demand)"
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Bundled context needs a drift alarm — a deploy-time-imported artifact (digest.json) can silently disagree with its source files, and unlike a fetched artifact there is no natural moment it self-corrects. Any build-then-bundle context must have (a) a rebuild-and-diff drift check and (b) the redeploy step treated as non-optional, not remembered.",
+      "scope": "fernwood",
+      "rationale": "Surfaced by F2: the digest was already stale (plants/fishing) with no alarm, while the project rigorously drift-checks viewer.html inlines. The bundled-import case is the unguarded twin of a pattern already taken seriously."
+    },
+    {
+      "principle": "Fixing the ask half implies the log half — when you bring a new domain into an ask-path assistant that also has a capture affordance, check whether the capture/routing path was scoped to the old domains only. Answering about X while being unable to record against X re-opens the manual-transcription loop the capture path was built to close.",
+      "scope": "cross-project",
+      "rationale": "Surfaced by F1: the 7/3 fix widened WHAT YOU KNOW + REGISTER but left the suggest-log fence and client resolver plant-only, so the real fused journey (log + ask about a bike, one breath) is still half-served. Generalizes to any ask+capture system gaining a new domain."
+    }
+  ]
+}
