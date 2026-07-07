@@ -40,7 +40,7 @@ Design pass: ux-expert `.ux-reviews/2026-07-07-machine-note-capture-surfacing.js
 - **Mode = ask-then-log** → ship the conversational fence only. **On-card per-vehicle input DEFERRED** (build only if cold-log signal appears).
 - **Machine-capture is Paul-primary** (Mom's machine interest is ask-only).
 
-**BUILT + browser-verified 2026-07-07 — awaiting deploy/push (worker + GH Pages).**
+**✅ SHIPPED 2026-07-07 — Worker `9ff9eeca` + pushed to GH Pages (`9bf3545`). Release note added.**
 - [x] **3b — Fence:** `worker.js` new "WHEN THE READER WANTS TO LOG SOMETHING ABOUT A MACHINE" section emits `suggest-log` with `noteType:"vehicle-note"` + the specific vehicle name; verbatim guarantee mirrored.
 - [x] **3c — Resolver:** `resolveVehicleByName` added — exact id/name/nickname, then contains-scan that *collects all hits* so 2+ reads as ambiguous (returns null/ambiguous, never first-matches). Verified: "Desert Storm"→DR-Z, "DR-Z400S"→unique, "the Suzuki"→no-guess, "spaceship"→null.
 - [x] **3d — Writer:** `fnSaveNoteOnVehicle` + `parseLogFence` extended; entry carries `vehicleId`/`vehicleName`/`source:"guru-vehicle-log"`; save is instant (local+KV), `sanitizeEntryForStorage` spreads it through untouched. logBtn branches on noteType; ambiguous/no-match saves name-only (never lost, never misfiled).
