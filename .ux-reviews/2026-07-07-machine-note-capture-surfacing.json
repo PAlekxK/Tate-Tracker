@@ -1,0 +1,138 @@
+{
+  "review_id": "ux-2026-07-07-machine-note-capture-surfacing",
+  "project": "Fernwood",
+  "subject": "Phase 3 — how machine-note CAPTURE should surface (vehicle backlog capture); parity gap with the plant suggest-log fence",
+  "review_date": "2026-07-07",
+  "reviewer_mode": "review",
+  "review_level": "screen-component + flow (one interaction: machine-note capture entry point → write → fold-back)",
+  "user_context": {
+    "primary_user": "Paul, for machine capture specifically. Mom is a secondary/rare actor here — her machine relationship is ASK-shaped ('what oil does the lawnmower take'), not CAPTURE-shaped. The real 2026-07-03 evidence ('I wanna log that as an improvement area in the backlog') is Paul, and the entire vehicles.json restoration corpus is Paul's wrenching work.",
+    "core_jobs_to_be_done": [
+      "Ask-then-log: while asking Garden Guru about a machine, record a follow-on note/idea onto that machine's backlog without leaving the conversation (the refused 7/3 intent).",
+      "Cold-log-work-done: after finishing physical work at the property, record 'electrical fix resolved' / 'add a subwoofer amp' onto a specific vehicle's backlog with no preceding conversation.",
+      "(Mom, rare) ask a machine question — already served by Phase 0/2; NOT a capture job."
+    ],
+    "context_of_use": "Paul on his phone, often on-property with greasy hands right after wrenching (cold-log mode), or mid-conversation with Garden Guru (ask-then-log mode). Weak rural signal. Mom's machine-ask is leisure/curiosity, not capture.",
+    "assumptions_made": [
+      "Machine CAPTURE is Paul-primary and Mom-rare — inferred from the ask/log split in the brief + the restoration corpus being entirely Paul's; not yet behaviorally confirmed by a Mom transcript.",
+      "Cold-log (no preceding conversation) is Paul's dominant vehicle-capture mode; the 7/3 evidence happened to be conversational only because he was already asking about the bikes. Plausible but not measured.",
+      "The locked destination — the per-vehicle restoration[] list in vehicles.json (public repo canon) — implies a GitHub-commit write with GH Pages 1–3 min latency, mirroring the add/remove-species path (not the instant localStorage ObservationStore the plant log fence uses)."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "A correct 'no' still owes a next move (cross-project, candidate) — the 7/3 refusal was principled but dead-ended; capture is the missing next-move affordance",
+    "Scope is communicated by where you tap, not auto-detected (cross-project, candidate — houseplants) — machine capture needs a declared scope; this is its second, cross-surface occurrence",
+    "Save-success at the surface, not at the destination (cross-project, candidate) — second occurrence; the vehicle backlog lives on a different card than the input",
+    "The glance and the repository / the loop (Fernwood governing) — capture stays AI-free, calm-not-naggy, never a standing 'add data' button, close the loop visibly",
+    "AI on the ask path; capture stays AI-free (CLAUDE.md / feedback_no_ai_on_capture)",
+    "Defer affordances pending signal (memory) — ship simplest first, promote a new affordance on observed pattern",
+    "One engine, one verdict (Fernwood, candidate) — keep one destination for the backlog; don't spawn a parallel notes store the card would have to reconcile",
+    "Caution as noticing, not warning / Glyphs follow the journal voice (Fernwood) — the written item must land in 'what she needs' tone, not task-manager chrome",
+    "Explicit user-routing requires symmetric affordance weight (cross-project candidate) — governs the Save/Ask touch"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "The brief asks whether machine-capture is a Mom feature. On the evidence it is not — it is Paul-primary. Mom's machine relationship is ask-shaped (specs, how-to); Paul is the one who LOGS ('electrical fix resolved', 'log that as an improvement area'). The plant suggest-log fence is genuinely dual-user (both observe plants); the vehicle equivalent is not.",
+      "user_impact": "This reframes the entire prominence/discoverability question and de-risks the 'Mom must find it vs. no naggy button' tension. Because the user who needs machine-capture is Paul — who knows his own app — machine-capture does NOT carry the no-glasses, routing-by-icon-and-size accessibility burden that binds Fernwood's glance surfaces. It can ride a calm, scoped, initially-invisible entry point without failing an accessibility bar, because its user isn't Mom-at-half-engagement.",
+      "principle_invoked": "Fernwood 'Mom reads with difficulty / no-glasses mode' (memory) — establishes the bar; this finding establishes that the bar does not bind here — plus the JTBD-actor discipline (never design for 'users')",
+      "recommendation": "Treat machine-capture as a Paul-primary, low-prominence, scoped affordance. Do not spend a standing Mom-visible slot on it, and do not force it to meet the no-glasses routing standard. Confirm the Paul-primary read with Paul (open question) before locking prominence.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "affordance",
+      "severity": "critical",
+      "observation": "The refused 7/3 intent has NO affordance. The plant side has the suggest-log fence (worker.js ~546–564) → 'Note this on the [plant]' chip (viewer.html ~14279–14294) → deterministic verbatim write. There is no vehicle fence, so a machine note has nowhere to go but the scope-blind top Save button, which dumps it into the Almanac untagged.",
+      "user_impact": "Paul's live intent dead-ends and falls to him as offline manual work (exactly the loop the plant fence was built to close). A principled Guru answer with no continuing capture affordance teaches Paul the surface is a dead end for machines.",
+      "principle_invoked": "A correct 'no' still owes a next move (cross-project candidate) + Norman affordance (a reply with no continuing affordance is a dead end)",
+      "recommendation": "Port the plant suggest-log pattern to vehicles as the v1 entry point: a worker fence (emit only when the reader is recording something about a machine already in the fleet) → a 'Note this on the [DR-Z]' chip beneath the latest Ask reply → a deterministic append of Paul's verbatim words to that vehicle's restoration[] backlog. This is the evidence-grounded, lowest-drift move: it un-refuses the exact 7/3 intent, reuses a shipped-and-working interaction, and is calm/contextual/pull-not-push by construction (no standing button).",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The top-level Save button is scope-blind: it has no signal for WHICH vehicle a note belongs to. Routing a machine note through it forces one of two bad outcomes — auto-detect the target vehicle (AI on the capture path, forbidden) or dump verbatim text into the Almanac untagged (today's broken behavior). Machine capture, unlike plant logging from a named-plant conversation, only has a target when scope is declared.",
+      "user_impact": "If machine capture is wired to the top Save button, Paul either gets his note silently misfiled in the nature journal or the app has to guess the vehicle — both erode trust in capture, the one path that must feel deterministic and reliable.",
+      "principle_invoked": "Scope is communicated by where you tap, not auto-detected (cross-project candidate) + AI-on-ask-path/capture-stays-AI-free (CLAUDE.md)",
+      "recommendation": "Machine capture must derive scope from where the user declares it — the conversation's subject (the worker names the vehicle in the fence) or the vehicle's own card. Explicitly do NOT implement machine capture as 'type in the top box, hit Save.' This is also the Save/Ask answer (see F7).",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "Option (b) — a per-vehicle 'add to what she needs' input on the Vehicles card — is the natural home for the cold-log-work-done mode (no preceding conversation), which is likely Paul's DOMINANT vehicle-capture mode and is scope-blind at the top Save button. But it is also the shape the governing principle warns about (a standing 'add data' input), and the plant side deliberately has NO on-card note input (all plant-note capture is conversational). That symmetry plus the standing-button caution argue for sequencing.",
+      "user_impact": "Ship (b) too eagerly and an empty text field sits in the restoration panel reading as an unfinished task-manager form (tone break). Defer it entirely and Paul's cold-log mode — walk in greasy from fixing the DR-Z, want to record it, not in a conversation — has to route through an AI turn just to reach a capture chip, which is wasteful and slightly against the AI-free-capture grain.",
+      "principle_invoked": "Defer affordances pending signal (memory) + the loop's 'never a standing add-data button' + Scope-communicated-by-tap (an on-card input IS a legitimately-scoped tap, if it lives inside the already-expanded 'what she needs' panel)",
+      "recommendation": "Ship (a) the conversational fence first. Treat (b) as a well-justified FAST-FOLLOW, not a speculative one — its a-priori case is stronger than a typical deferred affordance because vehicle-capture's dominant mode is cold-log + Paul-primary + scope-blind-at-top. Promote (b) on one concrete signal: after (a) ships, does Paul find himself opening Ask just to log (not to ask)? If yes, that's the observed pattern that earns (b). If built, (b) lives INSIDE the expanded restoration panel (contextual, not a dashboard-level standing button) with the new item appearing directly above/below the input (immediate fold-back). Don't build both at once.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "The plant flow's instant 'Noted ✓' works because it writes to localStorage/KV (ObservationStore). The locked machine destination — restoration[] in vehicles.json (public canon) — is a GitHub commit + re-inline with GH Pages 1–3 min latency (same as add/remove-species). A copied 'Noted ✓' would falsely imply the item is already visible on the Vehicles card.",
+      "user_impact": "A false-instant confirmation followed by 'why isn't it on the card?' is the same trust-corrosion the honest add-species copy ('refresh in 1–3 minutes') already avoids. And because the backlog lives on a different card than the conversation, Paul can't see the loop close without navigating.",
+      "principle_invoked": "Save-success at the surface, not at the destination (cross-project candidate — second occurrence) + One engine, one verdict (Fernwood candidate — keep ONE destination) + honest-estimate trust discipline (governing principle)",
+      "recommendation": "Confirm at the input surface (in the conversation), name the destination in plain words ('On the DR-Z's list ✓'), and offer a tap-to-jump to that vehicle's 'what she needs' panel. Be honest about latency the way the add-species flow is — optimistically echo the item in-session, but don't claim it's on the card until it is. Keep ONE destination: append to restoration[]; do NOT stand up a parallel per-vehicle notes store the card would then have to merge (that recreates the two-engine problem 'One engine, one verdict' exists to prevent). The canon-vs-store write mechanism is an engineering call — flag to engineering-partner — but the UX constraint is: one destination, honest confirmation, visible fold-back.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The written backlog item must land in the 'what she needs' register — verbatim item text (Paul's words), no AI-authored detail, and a calm status chip. The existing resto-status lexicon (sourcing / diagnosing / ready / due-soon / planned / quoting / down-the-road / long-term) has no 'just-captured idea' status.",
+      "user_impact": "If the captured note renders with an AI-written 'detail' paragraph or an alert-styled chip, it breaks both the capture-stays-AI-free contract (the record must be the human's words, not the model's) and Fernwood's journal tone on the Vehicles card.",
+      "principle_invoked": "Log the human's words not the model's (capture-path) + Glyphs follow the journal voice / Caution as noticing not warning (Fernwood)",
+      "recommendation": "Add one low-key status to the lexicon — e.g. 'idea' or 'on the list' — with an in-palette chip (reuse the existing .resto-status styling family, no new alert chrome). Store the verbatim words as the item text; leave detail empty until Paul later enriches it. This keeps the captured item visually a note, not a task.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The Save/Ask touch (Q4): closing the machine-capture gap is largely NEUTRAL on the two-button question, leaning mild-support for 'hierarchy, not removal.' Machine capture rides the ASK path's fence (a next-move beneath a Guru reply) — exactly like plant logging — not the top Save button. The one implementation that WOULD entangle with and pre-empt the two-button decision is routing machine capture through the top Save box (see F3), which is also broken.",
+      "user_impact": "If the team quietly makes 'type it up top and Save' the machine-capture path, it both misfiles notes AND silently forecloses Paul's open Save/Ask decision on a scope-blind implementation. Keeping machine capture on scoped entry points leaves that decision fully open for Paul to make on its own merits.",
+      "principle_invoked": "Explicit user-routing requires symmetric affordance weight (candidate) + the entanglement guard in the brief (don't pre-empt the Save/Ask decision)",
+      "recommendation": "State explicitly to Paul: this design does not touch the Save/Ask split because machine capture doesn't use the top Save button at all. It offers one mild data point FOR keeping both — the 7/3 sequence ('ask about the bikes → then log') shows Save-capture emerging as a next-move FROM an Ask, i.e. the two intents are sequential and distinct, not competing, which supports 'hierarchy not removal.' Do NOT let machine capture be the reason the top Save button gets loaded with scope-blind routing.",
+      "effort": "low"
+    }
+  ],
+  "recommended_shape": {
+    "v1": "Conversational vehicle log fence. Worker emits a suggest-log-vehicle fence (target = the fleet vehicle the reader is recording about) only when the reader is genuinely recording, not merely asking. Client renders 'Note this on the [vehicle]' chip beneath the latest reply (mirror of the plant chip). Tap → deterministic append of Paul's verbatim words to that vehicle's restoration[] as a new item with a calm status ('idea'/'on the list'), no AI-authored detail. Confirm in-conversation, name the vehicle + list, tap-to-jump to the Vehicles card, honest about GH Pages latency.",
+    "fast_follow_candidate": "On-card scoped input inside the expanded 'what she needs' panel, for cold-log-work-done. Promote on the signal that Paul opens Ask just to log. Contextual (deep in one vehicle), not a standing dashboard button; item folds back in immediately above/below the input.",
+    "do_not": "Do not route machine capture through the top-level scope-blind Save button. Do not fake an instant 'Noted ✓'. Do not create a parallel notes store beside restoration[]. Do not let an AI-authored 'detail' become the logged record.",
+    "engineering_handoff": "Write-mechanism for the backlog (GitHub-commit-to-vehicles.json canon w/ latency, vs. a lighter store) is an engineering-partner call; the UX constraints are fixed: one destination (restoration[]), verbatim human words, honest+visible fold-back."
+  },
+  "open_questions_for_user": [
+    "Confirm machine-capture is Paul-primary and Mom's machine relationship is ask-only? (Locks the low-prominence, no-Mom-discoverability-burden framing in F1.)",
+    "Which is your dominant vehicle-capture mode — cold-log-work-done (no conversation) or ask-then-log? This gates whether the on-card input (F4) is a near-term fast-follow or a longer defer.",
+    "Are you comfortable with GH Pages 1–3 min latency on a captured backlog item (as with add-species), or does capture-to-visible need to feel instant — which would push toward an optimistic local echo or a lighter store (engineering trade-off in F5)?"
+  ],
+  "follow_up_research_suggested": [
+    "After v1 (a) ships, watch for the tell that promotes (b): Paul opening Garden Guru to LOG rather than to ASK about a machine.",
+    "If/when Mom's discovery transcript lands, check whether she ever narrates wanting to RECORD (not just ask) something about a machine — a negative confirms the Paul-primary framing; a positive would raise the discoverability bar."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Save-success at the surface, not at the destination — PROMOTE from candidate to full principle",
+      "scope": "cross-project",
+      "rationale": "Second confirming occurrence on a different surface. First: 2026-05-20 unified-input (Almanac destination above the input). Now: vehicle backlog capture, where the destination (Vehicles card) is a different card entirely from the conversation input, and the write has real GH Pages latency — sharpening the rule with a latency corollary (confirm honestly at the surface; don't claim the destination reflects the save until it does)."
+    },
+    {
+      "principle": "Scope is communicated by where you tap, not auto-detected — PROMOTE from candidate (houseplants) to full principle",
+      "scope": "cross-project",
+      "rationale": "Second, cross-surface occurrence. Houseplants (per-plant vs cross-collection ask); now Fernwood machine-capture, where the top Save button's scope-blindness makes the principle load-bearing on the CAPTURE path specifically — a scope-blind capture control cannot route deterministically without violating AI-free capture. Adds a capture-path corollary to the existing ask-path framing."
+    },
+    {
+      "principle": "Capture needs a declared scope; a scope-blind capture control can't stay AI-free",
+      "scope": "Fernwood",
+      "rationale": "New Fernwood-specific articulation binding two existing commitments (capture-stays-AI-free + scope-by-tap): whenever a single global capture control (the top Save button) must serve multiple targets (plants, vehicles, the estate), routing to the right target either requires declared scope or forbidden auto-detection. The design consequence: multi-target capture belongs on scoped entry points (conversation subject, the target's own card), never on one scope-blind box. Propose as Fernwood-scoped now; watch for a third occurrence before considering cross-project."
+    }
+  ]
+}
