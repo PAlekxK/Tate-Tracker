@@ -30,6 +30,24 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - **Refined "Peak this week" — needs a structured peak field (data work).** Audit 2026-07-05: all 23 plants carry peakWindows (88 total), but **~40% (35/88) don't parse** via `parseShortDateRange` — it only reads "Abbrev D–Abbrev D"; it misses full month names ("May 15–June 5"), month-only ("Mar — before growth begins"), prose-only ("After first hard frost flattens leaves"), and multi-window ("Mar …; Jun …"). There's also a year-wrap bug (winter-spanning windows parse to negative spans). Net: the peak-this-week surfaces (tile + card panel) are **under-inclusive** today. Right fix = add a machine-readable peak field to the schema (e.g. `peakStart`/`peakEnd` as MM-DD, keep the prose for display), which removes both the parser fragility and the prose-only cases. Deep winter (Dec–mid-Jan) is legitimately empty — that's fine, it has a calm fallback.
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-07
+
+**Garden Guru brought fully into the machines — ask + capture — shipped end-to-end across 5 phases, live + pushed (Tate-Tracker HEAD `194e18f`; Worker `5ca657a6`).** Plan + full trail: `.plans/2026-07-07-garden-guru-machines.md`. Expert reviews: `.ux-reviews/2026-07-07-*` + `.engineering/2026-07-07-*`. Root cause was a real 7/3 refusal (KV `conversation:mr55wd27-sommb`) that turned Paul away twice — on the ask AND the log.
+
+### What shipped
+- **Phase 0** — cleared a 3-day-stale digest (plants+fishing had drifted, never redeployed); confidence-gate in `build-digest.py` now flags everything `!= "verified"` (was only inferred/tbd — latent bug).
+- **Phase 2** — **specs-vs-know-how**: machine SPECS come only from the digest ("not logged — check the manual"); general KNOW-HOW (cold-start, hold-vs-tap) gets answered plainly. REGISTER reframed "two voices to toggle" → "one caretaker's range." Refusal rule: decline the actual question, never answer an easier adjacent one. **No classifier** (experts unanimous — the fused real message is the argument against routing).
+- **Phase 3** — **log machine notes from the conversation**: "Note this on the [DR-Z]" fence → `resolveVehicleByName` (refuses to guess between the two Suzukis) → `fnSaveNoteOnVehicle` writes the reader's VERBATIM words to the private ObservationStore tagged `vehicleId` (NOT vehicles.json — PII/public-repo). Renders on the vehicle card under **"field notes — to sort"**; Paul promotes keepers into `restoration[]` by hand. "Desert Storm" nickname added to the DR-Z.
+- **Phase 4** — machine answers render distinctly (`<!--register:machine-->` → `.ui-turn-machine` shop-note styling, Mom-legible); unconfirmed-spec hedge moved to a leading non-droppable token; **new `tools/check-digest-fresh.py`** drift alarm wired into the session-start ritual (so the Phase 0 staleness can't recur silently).
+- **Phase 5** — 11 principles distilled into the ux + engineering libraries (in `~/.claude/`, **uncommitted**).
+
+### ⚠️ Owner: Paul
+1. **Phone-verify the loop** (device-only): ask *"hold or tap the starter on a cold start?"* (know-how answer), *"what oil does the lawnmower take?"* (spec or honest "not logged"), then *"log that as a backlog item on the DR-Z"* → lands on the vehicle card under "field notes — to sort."
+2. **Phase 5 principle libraries** are uncommitted in `~/.claude` — commit them? And engineering-partner promoted *"widen the ask → implied the log"* to a **full** cross-project principle despite single-occurrence — demote to candidate, or keep?
+
+### Deferred (in the plan, revisitable)
+On-card per-vehicle input (ask-then-log made it unneeded), a "which one?" disambiguation chip (name-only fallback covers the rare ambiguous case), a notes-lister CLI for un-promoted notes.
+
 ## Pickup point — last session ended 2026-07-06
 
 **Fishing granularity Passes 1–3 — shipped end-to-end and LIVE on GH Pages (Tate-Tracker HEAD `128aa74`, pushed).** Plan `~/.claude/plans/imperative-growing-platypus.md`; UX blueprint `.ux-reviews/2026-07-06-fishing-section-reorg.json`; journey `.user-research/2026-07-06-fishing-decision-journey-and-patterns.md`. The governing "glance & the repository" principle was written to CLAUDE.md this arc.
