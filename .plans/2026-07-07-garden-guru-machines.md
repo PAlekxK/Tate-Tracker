@@ -49,11 +49,11 @@ Design pass: ux-expert `.ux-reviews/2026-07-07-machine-note-capture-surfacing.js
 - [ ] **3g — Verify (owner: Paul, phone):** replay turn 2 ("log that as an improvement area in the backlog") on the live app → lands as a DR-Z field note on the card.
 - Deferred: optional `tools/*.py` lister for un-promoted notes; on-card per-vehicle input (ask-then-log makes it unneeded for now); "which one?" disambiguation chip (name-only fallback covers the rare ambiguous case).
 
-## Phase 4 — Polish & hardening
-- [ ] **4a — Machine-answer visual treatment** (Mom / no-glasses): render specs in a block echoing the Vehicles spec-table, not prose identical to a nature reply.
-- [ ] **4b — Hedge placement:** move "[unconfirmed — verify…]" from a droppable *trailing* suffix to a *leading*, non-optional token.
-- [ ] **4c — Digest drift alarm:** rebuild-and-diff `digest.json` at session-start (there's a drift check for `viewer.html` inlines but none for the digest). Document the rebuild→commit→deploy ritual.
-- [ ] **4d — Token headroom note:** digest ~75K vs. the 80K tool-use-migration trigger (~5K headroom); plants prose is where slack lives if needed. No action now.
+## Phase 4 — Polish & hardening — ✅ BUILT + verified 2026-07-07
+- [x] **4a — Machine-answer visual treatment:** Guru appends `<!--register:machine-->` on a shop-hand reply; client strips it → `.ui-turn-machine` bubble (cool tint, DM Sans not serif, tabular-nums, 🔧 cue, left accent). Degrades gracefully if omitted. Browser-verified (regex + CSS + 0 JS errors).
+- [x] **4b — Hedge placement:** `build-digest.py` now front-loads "[UNCONFIRMED — verify before relying on this]" (leading, non-droppable); prompt firmed to make surfacing it non-optional.
+- [x] **4c — Digest drift alarm:** new `tools/check-digest-fresh.py` (non-mutating rebuild-and-diff, exit 1 on stale) + wired into the CLAUDE.md session-start ritual alongside `check-data-inline.py`. Tested: catches drift, goes green after rebuild.
+- [x] **4d — Token headroom:** noted (~75K vs 80K trigger). No action.
 
 ## Phase 5 — Verify end-to-end + principles
 - [ ] **5a — Replay** the full real transcript (turns 0–3) against the new Guru; both refusals should now resolve.

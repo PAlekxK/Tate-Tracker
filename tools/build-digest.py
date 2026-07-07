@@ -112,7 +112,10 @@ def digest_vehicles(d):
             if isinstance(m, dict) and "value" in m:
                 val = m["value"]
                 if m.get("confidence") != "verified":
-                    val = val + " [unconfirmed — verify before buying]"
+                    # Leading marker, not a trailing suffix: the shop-hand register is
+                    # deliberately terse (600-token cap), and an LLM drops a trailing
+                    # parenthetical first. Front-loading it makes the hedge non-droppable.
+                    val = "[UNCONFIRMED — verify before relying on this] " + val
                 maint[k] = val
             else:
                 maint[k] = m

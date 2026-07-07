@@ -9,6 +9,7 @@ What's changed at Fernwood lately. Newest first.
 - **Garden Guru now talks about the vehicles and equipment**, not just the plants and wildlife. Ask what oil the lawnmower takes or how to cold-start the DR-Z and you'll get a plain, practical answer — the logged spec when we have it, an honest "not logged — check the manual" when we don't.
 - **Log work right from the conversation.** Tell Guru what you did — "got the DR-Z's electrical fault sorted" — and a **"Note this on the [DR-Z]"** button appears. Tap it and your own words are saved to that machine.
 - Those notes show up on the vehicle's card under **"field notes — to sort"** — a holding spot for jottings, separate from the tidy "what she needs" list.
+- A **machine answer now looks different from a nature one** — a plainer, cooler "shop note" style, so a spec or a repair step reads at a glance instead of blending into the field-journal voice.
 
 ---
 

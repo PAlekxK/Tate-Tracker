@@ -4,13 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Session-start check — is the dashboard showing all of canon? (run at every Fernwood pickup)
 
-**Run this first thing when picking up Fernwood, before other work:**
+**Run these first thing when picking up Fernwood, before other work:**
 
 ```bash
-python3 tools/check-data-inline.py
+python3 tools/check-data-inline.py     # viewer.html inlines vs source JSON
+python3 tools/check-digest-fresh.py    # Garden Guru's digest vs source JSON
 ```
 
-It compares the source JSON (`plants.json`, `mammals.json`, `birds.json`, …) against the inlined `*_DATA` constants in `viewer.html`. Exit 0 = in sync (say nothing, move on). Exit 1 = **drift** — surface it.
+`check-data-inline.py` compares the source JSON (`plants.json`, `mammals.json`, `birds.json`, …) against the inlined `*_DATA` constants in `viewer.html`. Exit 0 = in sync (say nothing, move on). Exit 1 = **drift** — surface it.
+
+`check-digest-fresh.py` compares `worker/digest.json` (bundled into the Worker at deploy — Garden Guru's context) against a fresh rebuild from the source JSONs. Exit 0 = fresh; exit 1 = **stale digest**, meaning Guru is serving outdated data because a source changed but the digest wasn't rebuilt + redeployed (this happened 2026-07-07: plants + fishing were stale three days). Fix: `python3 tools/build-digest.py && (cd worker && npx wrangler deploy)`. Non-mutating — it restores the on-disk digest after checking.
 
 The drift that matters most is **canon-ahead**: a species present in the JSON but *missing from the inlined data*. That almost always means **Garden Guru added it to canon but the re-inline step didn't land**, so a real, confirmed addition is sitting invisible on the dashboard. This is exactly how **Lizard's Tail** hid unnoticed until 2026-07-05.
 
