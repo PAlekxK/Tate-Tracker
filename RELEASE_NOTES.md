@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-07 — Ask about the machines, and log what you've done
+
+- **Garden Guru now talks about the vehicles and equipment**, not just the plants and wildlife. Ask what oil the lawnmower takes or how to cold-start the DR-Z and you'll get a plain, practical answer — the logged spec when we have it, an honest "not logged — check the manual" when we don't.
+- **Log work right from the conversation.** Tell Guru what you did — "got the DR-Z's electrical fault sorted" — and a **"Note this on the [DR-Z]"** button appears. Tap it and your own words are saved to that machine.
+- Those notes show up on the vehicle's card under **"field notes — to sort"** — a holding spot for jottings, separate from the tidy "what she needs" list.
+
+---
+
 ## 2026-07-06 — Fishing gets its own card
 
 - **Fishing is now its own card**, right below Wildlife — no longer tucked in a tab. There's a **Fishing tile** on the dashboard too, with a one-line read on the next window worth fishing and how good it is.

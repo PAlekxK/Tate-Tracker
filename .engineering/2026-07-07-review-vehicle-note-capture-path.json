@@ -1,0 +1,156 @@
+{
+  "review_id": "review-2026-07-07-vehicle-note-capture-path",
+  "project": "fernwood",
+  "subject": "Phase 3 deterministic write path — logging a machine note from a Garden Guru conversation to a vehicle's restoration backlog (data model + write mechanism)",
+  "review_date": "2026-07-07",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Paul (the vehicles/restoration domain is Paul-curated; Mom owns plants). A machine note is Paul wrenching at the property and telling the assistant what he just found or still needs.",
+    "core_jobs_to_be_done": [
+      "Capture, in the moment, a ground-truth note about a machine ('electrical fix resolved 7/3', 'still need a spare speedo') without leaving the conversation or opening the terminal",
+      "See that note land somewhere trustworthy so it isn't lost (the 'I hoped it was logged but wasn't sure' gap Mom articulated on the plant side)",
+      "Have it fold back into the vehicle's real backlog when Paul next curates vehicles.json"
+    ],
+    "context_of_use": "Phone, in the field, mid-repair. Low traffic, family-internal.",
+    "sources": [
+      ".user-research/persona-mom.md (read prior arc; vehicles are Paul's domain not Mom's)",
+      "CLAUDE.md governing 'glance & repository / loop' principle",
+      "MEMORY.md project_fernwood_vehicles_card, feedback_no_ai_on_capture, feedback_sanitize_at_storage_boundary, feedback_single_source_of_truth"
+    ],
+    "assumptions_made": [
+      "The note-logger is Paul, not Mom — Mom does not use the vehicles card. If Mom is an intended note author this changes little (same path) but is worth confirming.",
+      "Vehicle notes are Paul's working scratch, not published reference material Mom reads."
+    ],
+    "user_context_confidence": "high"
+  },
+  "code_context": {
+    "purpose": "Add a deterministic, AI-free capture path so a Garden Guru conversation about a machine can log the reader's verbatim words to that vehicle's backlog, mirroring the shipped plant-observation log flow.",
+    "stack": "Single-file viewer.html (no framework) + Cloudflare Worker (worker.js, Haiku). Data JSON at repo root is SSOT; inlined *_DATA in viewer.html is fallback. Repo is PUBLIC (GH Pages).",
+    "conventions_observed": [
+      "Plant log flow: worker emits <!--suggest-log {noteType:'observation', target:{name}}--> (system prompt ~546-564) -> client parseLogFence (viewer.html:13351) -> resolvePlantByName (13062) -> fnSaveObservationOnPlant (13076) writes reader's verbatim words to ObservationStore (localStorage tateTracker.observations.v1 + private KV observations:all) -> 'Noted ✓'. Never writes Guru's diagnosis (system prompt line 549, client grabs the prior USER turn at 14378-14385).",
+      "Promote/remove flow (heavy): handlePromoteSpecies (worker.js:1272) = Haiku drafter call + 3 GitHub Contents-API commits (JSON append, viewer.html re-inline of the whole *_DATA const, photo) + a read-back re-inline-verify step (1460-1493) added specifically because the two-commit split silently hid Lizard's Tail until 2026-07-05.",
+      "Observation entry schema (13081-13092): {id,date,createdAt,category,speciesId,speciesName,zoneId,body,classifyPending,source}. Tag fields are parallel and optional. NO vehicle concept exists — grep vehicleId = 0 hits in viewer.html and worker.js.",
+      "sanitizeEntryForStorage runs at the fnSaveAll boundary (idempotent; strips fat/base64) — the plant path already inherits it.",
+      "restoration[] item shape = {item, status, detail} + optional contactId, image. Statuses in live data: sourcing, diagnosing, ready, 'due soon' (SPACE not hyphen), done, planned, quoting, testing, long-term. Each detail is a Paul-crafted 90-3800 char writeup. renderRestoContact (viewer.html:8902) renders per-item service contacts."
+    ],
+    "deployment_context": "public-facing",
+    "robustness_level": "shippable",
+    "assumptions_made": [
+      "vehicles.json is Paul's most actively hand-edited JSON and the most PII-sensitive (full VINs were purged from ALL git history via filter-repo + force-push on 2026-06-12; plates/policy# live only in gitignored .private/)."
+    ],
+    "code_context_confidence": "high"
+  },
+  "tooling_signals": {
+    "type_check": "n/a",
+    "linter": "not-run",
+    "tests": "none",
+    "notes": "No build step. Verified claims by direct Read/Grep against worker.js and viewer.html rather than tooling."
+  },
+  "principles_applied": [
+    "Capture path stays pure; batch and amortize (fernwood.md)",
+    "No AI on the capture path (MEMORY feedback_no_ai_on_capture / CLAUDE.md design-time default)",
+    "Sanitize at the storage boundary (MEMORY feedback_sanitize_at_storage_boundary)",
+    "Single source of truth per concept (MEMORY feedback_single_source_of_truth)",
+    "The glance & the repository / close the loop visibly (CLAUDE.md governing principle)"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "critical",
+      "location": "worker.js:1272 handlePromoteSpecies pattern applied to vehicles.json; vehicles.json (public repo, VIN-purge history)",
+      "observation": "The prompt asks whether to Git-commit each logged note into vehicles.json the way promote-species commits a species. vehicles.json is the single most PII-sensitive file in the repo — full VINs were purged from ALL git history via filter-repo + force-push on 2026-06-12, and plates/policy# are deliberately kept out in gitignored .private/. A verbatim reader note is free text: it can easily contain a phone number, a plate, a shop address, 'the key's in the barn', etc. Git history is permanent and public; the observation store was designed to keep field notes OUT of the repo precisely for this reason.",
+      "risk_or_impact": "Committing verbatim notes to vehicles.json inverts the exact PII protection Paul paid for with a painful filter-repo. Any leaked detail is permanent in public git history — a second filter-repo + force-push to remove. This is the highest-stakes property of the whole design.",
+      "principle_invoked": "No AI on the capture path + capture path stays pure; PII hardening on a public repo",
+      "the_why": "The plant observation flow keeps notes in localStorage + PRIVATE KV, never Git. A vehicle note is the same kind of artifact (a dated field note), so it belongs in the same private, deterministic store — not in canon. Right shape = capture stays off the public repo entirely.",
+      "recommendation": "Do NOT Git-commit notes on capture. Route vehicle notes into the existing AI-free ObservationStore (localStorage + private KV), tagged with a vehicleId — exactly the plant path. vehicles.json stays 100% Paul-curated canon.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "intent": "issue",
+      "area": "code-quality",
+      "severity": "important",
+      "location": "vehicles.json restoration[] item shape {item, status, detail}",
+      "observation": "A restoration[] item REQUIRES a status (sourcing/diagnosing/ready/planned/...). A verbatim note ('speedo still reads zero after the splice') has no status. Something has to choose one. If the model chooses, that is AI on the capture path (violates the locked principle). If the reader must pick a status chip mid-conversation, that is form-friction the log flow was built to avoid. The alternative — appending the note into an existing item's detail field — means (a) resolving WHICH of up to 15 items it belongs to, and (b) mutating a Paul-crafted 90-3800 char field in place (destructive, ambiguous).",
+      "risk_or_impact": "Neither 'new restoration item' nor 'append to detail' cleanly accepts a status-less verbatim note. Forcing it either breaks the capture-path principle or corrupts curated canon.",
+      "principle_invoked": "No AI on the capture path; single source of truth",
+      "the_why": "restoration[] items are curated WORK ITEMS with a workflow status — a different data type from a raw dated observation. Conflating them is what makes the Git-commit idea feel forced. The clean model keeps raw notes as raw notes and lets Paul promote them into status-bearing items by hand, the same human-in-the-loop shape as the pending-species -> promote gate.",
+      "recommendation": "Model the note as a dated, status-less observation tagged to the vehicle (NOT a restoration item, NOT an append to detail). Paul promotes it into a formal {item,status,detail} entry in the terminal when he next curates vehicles.json.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "important",
+      "location": "worker.js:1434-1493 (two-commit re-inline + verify) applied to VEHICLES_DATA; weather-bot rebase ritual (tools/SCHEDULING.md)",
+      "observation": "If notes Git-commit, each write re-inlines the full ~64KB VEHICLES_DATA const into the ~1.1MB viewer.html as a separate commit from the vehicles.json write — the exact two-commit split that silently hid Lizard's Tail (the re-inline-verify at 1460-1493 was added as a band-aid). Two further blast-radius costs: (1) commit noise + giant diffs per one-line note; (2) merge conflicts, because Paul hand-edits vehicles.json constantly in the terminal AND a weather-bot pushes ~4x/day requiring a git pull --rebase ritual. Phone-side note-commits landing on Paul's most-edited file is a standing conflict generator.",
+      "risk_or_impact": "Silent canon-ahead drift on Paul's most active file, plus recurring merge conflicts between phone captures and terminal curation. High operational cost for a one-line note.",
+      "principle_invoked": "Single source of truth; capture path stays pure",
+      "the_why": "The re-inline drift class is real enough that Paul built a read-back verifier and a session-start drift check for it. Every avoidable Git write is an avoidable instance of that failure mode. The private-KV path has none of it — no re-inline, no viewer.html touch, no conflict against hand-edits.",
+      "recommendation": "Keep the capture path off Git for the reasons in F1 and here. If a note ever needs to become durable public canon, that transition is Paul's manual terminal edit — the one place the re-inline discipline already lives.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "intent": "suggestion",
+      "area": "code-quality",
+      "severity": "important",
+      "location": "NEW resolveVehicleByName() to add; contrast resolvePlantByName (viewer.html:13062-13071)",
+      "observation": "resolveVehicleByName does not exist (confirmed — only resolvePlantByName). resolvePlantByName does loose substring matching (nm.includes(n) || n.includes(nm)) and returns the FIRST hit. That loose logic is unsafe for the fleet: dr200s-2017 and drz400s-2001 are both Suzuki motorcycles ('the DR', 'the Suzuki', 'the dirt bike' all collide; 'DR' is a substring of both). Equipment has more near-dupes: two Echo blowers (PB-7910T / PB-250LN), two Homelites, two chainsaws. Note: the prompt's example nickname 'Desert Storm' does NOT exist in the data — the ONLY nickname is 'Bolores' (bronco-1989).",
+      "risk_or_impact": "A loose first-match resolver would silently log a note against the wrong machine — a quiet data-integrity bug that surfaces only when Paul later reads the note on the wrong vehicle.",
+      "principle_invoked": "Capture must be deterministic and correct; never guess on the write path",
+      "the_why": "On a capture path, a wrong-but-silent resolution is worse than no resolution. The plant set happens to have distinct names so loose matching is tolerable there; the fleet does not. The resolver must be stricter AND must refuse to guess when 2+ candidates match.",
+      "recommendation": "Add resolveVehicleByName(name) matching VEHICLES_DATA.vehicles by: exact id, exact name (case-insensitive), nickname ('Bolores'), then whole-token match (not arbitrary substring). Return one of: {vehicleId, vehicleName} on a single unambiguous hit; {ambiguous:[{id,name},...]} when 2+ match; null when none. On ambiguous, the UI shows a 'Which one — DR200S or DR-Z400S?' chooser chip and never auto-saves. Do NOT copy resolvePlantByName's includes()/first-match logic.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "intent": "suggestion",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "ObservationStore entry schema (viewer.html:13081-13092); fnSaveObservationOnPlant (13076); parseLogFence (13351); render loop-close on the vehicle card",
+      "observation": "The lowest-new-code implementation reuses the entire plant machinery: extend the observation entry with an optional vehicleId/vehicleName (parallel to speciesId/zoneId), add fnSaveNoteOnVehicle mirroring fnSaveObservationOnPlant, extend the existing suggest-log fence with noteType:'vehicle-note' (parseLogFence already discriminates on noteType), and reuse sanitizeEntryForStorage at the boundary (verbatim body already handled). To 'close the loop visibly' (governing principle), render these notes under the restoration panel on the vehicle card ('Field notes — to sort'), reading ObservationStore filtered by vehicleId.",
+      "risk_or_impact": "Reusing the shipped, sanitized, synced path avoids a second KV store, a second endpoint, and a second mental model (the 'storage mirrors existing shape' fernwood principle). Divergence here would be gratuitous.",
+      "principle_invoked": "Storage mirrors existing shape; sanitize at the storage boundary; close the loop visibly",
+      "the_why": "The plant flow already solved capture, sync, quota-sanitize, and verbatim-guarantee. A vehicle note is the same artifact with a different tag field. Adding a parallel tag beats building parallel infrastructure (AHA — the abstraction already exists).",
+      "recommendation": "Extend, don't duplicate: one new tag field, one save fn, one fence noteType, one render pass on the vehicle card. No new KV store, no new Worker endpoint.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "intent": "praise",
+      "area": "other",
+      "severity": "nice-to-have",
+      "location": "system prompt line 549; client 14378-14385",
+      "observation": "The shipped plant-log flow already enforces the verbatim guarantee cleanly: the fence carries only routing metadata (target name), the system prompt forbids 'I've logged it', and the client writes the prior USER turn's text, never the model's reply. This is exactly the guarantee the vehicle path needs — it should be mirrored verbatim, not re-invented.",
+      "risk_or_impact": "Positive: there is a correct, tested pattern to copy for the AI-free guarantee.",
+      "principle_invoked": "No AI on the capture path (the fence offers, the client writes the human's words)",
+      "the_why": "Worth calling out so the vehicle build copies the mechanism (fence=routing-only, body=prior-user-turn) rather than trusting the model to hand back the note text — which would quietly reintroduce AI on the capture path.",
+      "recommendation": "Mirror the plant fence/verbatim mechanism exactly; the fence must carry the vehicle NAME only, never the note body.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "Is the note author only Paul, or could Mom log a machine note too? (Doesn't change the path; changes the resolver/copy tone slightly.)",
+    "Do you want the raw note to surface on the vehicle card ('to sort' sublist) for the loop-close, in the Almanac with the plant notes, or both? Recommend both — vehicle card for the loop, Almanac as the durable home.",
+    "Are you fine promoting notes into formal restoration[] items by hand in the terminal (recommended), or do you want a tiny tools/*.py helper that lists un-promoted vehicle notes the way review-pending-species.py lists the fallback queue?"
+  ],
+  "follow_up_research_suggested": [
+    "None needed — this is Paul's own domain, well-characterized in MEMORY and vehicles.json."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Route field-captured free text to the private observation store, never to public Git canon. Canon (Git-committed JSON) grows only through a deliberate human promote step; in-the-moment verbatim capture lands in localStorage + private KV and is folded into canon by hand.",
+      "scope": "fernwood",
+      "rationale": "Crystallizes why the plant-observation path (KV) and the promote path (Git) are correctly separate, and why a verbatim vehicle note belongs with the former. Directly protects the public-repo PII posture (the VIN filter-repo) and dodges the two-commit re-inline drift class (Lizard's Tail). Came out of the F1/F2/F3 reasoning here."
+    },
+    {
+      "principle": "Resolvers on a capture path must refuse to guess. Match strictly (exact / nickname / whole-token), and when 2+ candidates match, surface a disambiguation choice rather than silently picking the first — a wrong-but-silent write is worse than asking.",
+      "scope": "cross-project",
+      "rationale": "resolvePlantByName's loose includes()/first-match is safe only because plant names are distinct; the fleet's near-duplicate Suzukis and paired Echo/Homelite units make loose matching a silent data-integrity bug. Generalizes beyond Fernwood to any name->id resolution on a write path."
+    }
+  ]
+}

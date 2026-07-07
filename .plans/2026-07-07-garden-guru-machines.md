@@ -32,14 +32,22 @@ Independent of the fork as long as ASK stays in Guru (true for recommendation + 
 - [x] **2d — Refusal rule** added to UNCERTAINTY + NEVER: decline the actual question, never substitute an easier adjacent one as help.
 - [ ] **2e — Verify (owner: Paul, phone):** ask the starter question ("hold or tap on a cold start?") → answered plainly; ask "what oil does the lawnmower use?" → logged spec or honest "not logged."
 
-## Phase 3 — Close the capture loop *(the unshipped half)*
-Destination is the vehicle's `restoration` backlog regardless of fork; entry-point UX depends on 1a.
+## Phase 3 — Close the capture loop *(the unshipped half)* — DESIGN RATIFIED 2026-07-07
+Design pass: ux-expert `.ux-reviews/2026-07-07-machine-note-capture-surfacing.json` + engineering-partner `.engineering/2026-07-07-review-vehicle-note-capture-path.json`.
 
-- [ ] **3a — Interim (near-free, do with Phase 2):** make Guru's prose tell the true fallback so words are never lost ("hit Save and it'll land in the Almanac") until the real writer exists.
-- [ ] **3b — Fence branch:** add a vehicle variant to the `suggest-log` fence (`worker.js` ~L531–549), currently plant-only language.
-- [ ] **3c — Resolver:** add `resolveVehicleByName(VEHICLES_DATA)` in `viewer.html` (none exists today).
-- [ ] **3d — Deterministic writer:** append the note to the vehicle's `restoration` list (AI-free write — capture-path principle holds; the fence *offers*, the client *writes on confirm*).
-- [ ] **3e — Verify:** replay turn 2 ("log that as an improvement area in the backlog") → lands on the DR-Z's backlog, not an untagged Almanac note.
+**Ratified decisions (Paul 2026-07-07):**
+- **Mechanism = private notes store + hand-promote** (NOT Git-commit-to-`vehicles.json`). Note → ObservationStore (local + KV) tagged `vehicleId`, instant save; surfaced on the vehicle card as **"Field notes — to sort"**; Paul promotes keepers into the formal `restoration[]` list by hand in the terminal. Reasons: public-repo PII (VIN-purge inversion), the `restoration[]` status requirement would force AI-on-capture or form-friction, and re-inline/commit drift.
+- **Mode = ask-then-log** → ship the conversational fence only. **On-card per-vehicle input DEFERRED** (build only if cold-log signal appears).
+- **Machine-capture is Paul-primary** (Mom's machine interest is ask-only).
+
+**BUILT + browser-verified 2026-07-07 — awaiting deploy/push (worker + GH Pages).**
+- [x] **3b — Fence:** `worker.js` new "WHEN THE READER WANTS TO LOG SOMETHING ABOUT A MACHINE" section emits `suggest-log` with `noteType:"vehicle-note"` + the specific vehicle name; verbatim guarantee mirrored.
+- [x] **3c — Resolver:** `resolveVehicleByName` added — exact id/name/nickname, then contains-scan that *collects all hits* so 2+ reads as ambiguous (returns null/ambiguous, never first-matches). Verified: "Desert Storm"→DR-Z, "DR-Z400S"→unique, "the Suzuki"→no-guess, "spaceship"→null.
+- [x] **3d — Writer:** `fnSaveNoteOnVehicle` + `parseLogFence` extended; entry carries `vehicleId`/`vehicleName`/`source:"guru-vehicle-log"`; save is instant (local+KV), `sanitizeEntryForStorage` spreads it through untouched. logBtn branches on noteType; ambiguous/no-match saves name-only (never lost, never misfiled).
+- [x] **3e — Card render:** "field notes — to sort" collapsible panel on each vehicle card, reads `fnLoadAll()` by `vehicleId`, newest-first; re-renders on `ObservationStore.onChange` (cross-device). Verified rendering a note end-to-end.
+- [x] **3f — Data fix:** nickname "Desert Storm" added to `drz400s-2001`; `VEHICLES_DATA` re-inlined; digest rebuilt (only `vehicles` changed; "Desert Storm" now in digest).
+- [ ] **3g — Verify (owner: Paul, phone):** replay turn 2 ("log that as an improvement area in the backlog") on the live app → lands as a DR-Z field note on the card.
+- Deferred: optional `tools/*.py` lister for un-promoted notes; on-card per-vehicle input (ask-then-log makes it unneeded for now); "which one?" disambiguation chip (name-only fallback covers the rare ambiguous case).
 
 ## Phase 4 — Polish & hardening
 - [ ] **4a — Machine-answer visual treatment** (Mom / no-glasses): render specs in a block echoing the Vehicles spec-table, not prose identical to a nature reply.
