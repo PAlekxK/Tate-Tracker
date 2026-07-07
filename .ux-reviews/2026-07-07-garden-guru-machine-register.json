@@ -1,0 +1,144 @@
+{
+  "review_id": "ux-2026-07-07-garden-guru-machine-register",
+  "project": "fernwood",
+  "subject": "Garden Guru dual-voice register expansion (2026-07-03) — living-property field-journal voice vs. machine shop-hand voice; the motorcycle log/ask/both journey; capture gap; Mom no-glasses accessibility",
+  "review_date": "2026-07-07",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA (crosses the composer, the reply surface, the Almanac capture path, and the Vehicles card)",
+  "user_context": {
+    "primary_user": "Two distinct primaries with divergent jobs. (1) Paul — on-property, hands-dirty, machine-oriented; the person whose journey triggered this fix. (2) Mom — the make-or-break user; leisure-reader of the LIVING property, reads with difficulty (no-glasses mode: routing/meaning must be carried by icon+size+color+position, not small body text).",
+    "core_jobs_to_be_done": [
+      "Paul (machine): standing under the DR-Z / by the golf cart — (a) LOG a note about a bike, (b) ASK what it needs / how to service it, (c) both in one breath.",
+      "Paul (living): the same field-assistant job Guru was built for — talk to the property about plants/wildlife/lake/weather.",
+      "Mom (living): leisure-read something interesting about her place; the 'oh, that's nice' reaction. Machines are not her job."
+    ],
+    "context_of_use": "PWA on phone. Paul's machine context is outdoor, on-property, one-handed, task-focused, weak rural signal. Mom's context is reclined, half-attended, no-glasses, morning-coffee / evening-wind-down.",
+    "assumptions_made": [
+      "Mom rarely-to-never asks Garden Guru a machine question directly (consistent with her profile as the living-property leisure reader). Her exposure to the shop-hand voice therefore comes mainly from a BLENDED reply — a message that touches both a plant and a machine. This exposure model is inferred, not validated; her discovery transcript has not returned.",
+      "The machine ASK job (free-form question against a vehicle's specs) is real but narrow; the machine REPOSITORY job is already well-served by the Vehicles card (maintenance table + 'what she needs' running list + tap-to-call service contacts).",
+      "Save (fnSaveInlineEntry) mechanically accepts any text including a machine note — verified in code — so capture does not hard-fail; the gap is misrouting, not a floor the note falls through."
+    ],
+    "grounding_transcript": "The Paul-journey side is NO LONGER a reconstruction — grounded in the real pre-fix production KV conversation (2026-07-03 12:42pm ET, 4 turns, fix committed ~10.5h later). All three intents appear FUSED in one conversation: T0 fuses capture ('got the DRZ put back together, electrical gremlins resolved, the 200 runs well') + ask ('is it recommended to hold the starter on a cold start or tap it'). T1 refuses the ask WARMLY (praises the work, then 'I'm a field journal for the property and the plants and wildlife here... not my territory') and REFRAMES the machine into a nature-adjacent concern ('where you park it, what weather it's parked in — those details matter for its longevity'). T2 is a pure capture intent ('I wanna log that as an improvement area in the backlog of ideas here'). T3 refuses the capture too ('not something I'd add to this one... keep a separate log of property improvements... that's entirely sensible'). This is the clean, real evidence for F1/F2/F7 and a textbook corroboration of the 'a correct no owes a next move' candidate — T2 exists ONLY because T1 dead-ended, and T2 got dead-ended in turn.",
+    "user_context_confidence": "medium (high on the Paul machine-journey — now transcript-grounded; medium-low on Mom's exposure — still inferred)"
+  },
+  "principles_applied": [
+    "A correct 'no' still owes a next move (cross-project.md, candidate — this review is a candidate SECOND occurrence)",
+    "Scope is communicated by where you tap, not auto-detected (cross-project.md, candidate)",
+    "Source-hierarchy drives layout (cross-project.md)",
+    "Make every surface read at half-engagement (fernwood.md — no-glasses / half-engagement bar)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "Borrow the native composer's field grammar; decline single-send only where a protected intent-split lives (fernwood.md)",
+    "The glance and the repository + the loop (Tate-Tracker CLAUDE.md governing principle)",
+    "Norman — signifiers & conceptual model; Nielsen #2 (match to the real world), #4 (consistency), #6 (recognition over recall)"
+  ],
+  "whats_working": [
+    "The shop-hand register itself is the RIGHT call. Answering a spark-plug gap in Leopold voice ('the golf cart wants...') would be worse; the prompt's explicit ban on nature-metaphor for machines is correct. Plain 'due/replace/torque/check' language is right for a machine and is correctly exempted from the field-journal lexicon rule.",
+    "The 'never blend two registers in one answer' rule is the right guardrail — it prevents the worst tonal collision.",
+    "The unconfirmed-spec honesty ('that one's unconfirmed — worth checking before you buy') carries the measured-vs-modeled trust discipline into the machine domain. Good.",
+    "For PAUL specifically, one-assistant-two-voices is coherent, not confusing — he knows the property has machines and context-switches naturally. The trenchcoat risk is not with the informed user."
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The 2026-07-02 redesign closed the 'correct no owes a next move' loop for PLANTS — suggest-log (log an observation on a known plant), suggest-add (add a new plant), suggest-remove — but left it entirely OPEN for MACHINES. There is no machine equivalent of any of these fences. A machine 'I don't have that logged' (an unconfirmed or absent spec) is a bare dead-end, and a machine observation the user wants to record has no in-app capture affordance at all. Confirmed in code: parseLogFence/parseAddFence/parseRemoveFence are all kind:'plant' only.",
+      "user_impact": "This re-creates the exact failure the 7/2 analysis named and fixed for plants — the live intent falls to Paul as offline manual work (hand-editing vehicles.json). Paul's OWN triggering journey was log-a-bike-note; the fix expanded the ASK scope but never gave the machine half a next-move affordance. The machine domain is precisely where he hit the wall, and it's the half that stayed unclosed. The real transcript makes this vivid: T2 'I wanna log that as an improvement area in the backlog' is a PURE, unambiguous capture intent, and T3 not only refused it but OFFLOADED him to an undefined external system ('keep a separate log of property improvements' elsewhere). Note the architecture violation underneath: capture is supposed to be the deterministic, AI-free path (Save), but because Paul expressed the capture intent conversationally inside the Ask thread, the AI got to VETO a capture — the one thing the ask-path/capture-path split exists to prevent. Post-fix the veto is gone, but there is still no fence that turns that conversational capture intent into a committed machine note.",
+      "principle_invoked": "A correct 'no' still owes a next move (candidate — this is the second occurrence, machine-side); the loop / fold-back strand of the governing glance-and-repository principle.",
+      "recommendation": "Give the machine path its own capture fence — a suggest-log-to-vehicle that resolves the note to a vehicle in VEHICLES_DATA and writes the reader's verbatim words to that vehicle's 'what she needs' / restoration list (or a per-vehicle observation store), with the same 'Noted' confirmation plants get. Mirror the deterministic capture discipline: the fence carries routing metadata only; the record is the user's words, AI-free.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The capture path misroutes machine notes. Save (fnSaveInlineEntry) writes every note to card-fieldnotes — The Almanac — with category/speciesId null. So a motorcycle note is captured, but it lands in the LIVING-property journal, disconnected from the machine repository (vehicles.json restoration/maintenance/serviceContacts) where machine knowledge actually lives. The Vehicles 'what she needs' list is, from the app, read-only: there is no in-app path to append to it.",
+      "user_impact": "Paul's bike note either (a) goes through Save and orphans in the nature journal — a spec note filed under field observations, findable by nobody looking at the DR-Z card; or (b) goes through Ask and dead-ends per F1. Either way the machine repository — the correct home, and the one he actually maintains — never receives it. Source-hierarchy is inverted: the machine's own running list is the natural altitude for the note, but capture drops it one domain over.",
+      "principle_invoked": "Source-hierarchy drives layout; the glance-and-repository loop (fold ground-truth back into the RIGHT repository); single-source-of-truth (a machine fact belongs in the machine record, not the nature log).",
+      "recommendation": "Route machine capture to the machine repository. Simplest: F1's suggest-log-to-vehicle fence writes to the vehicle record. If you keep a generic Save, tag machine-detected notes with a vehicleId so they can surface on the vehicle card, not only in The Almanac. Do not leave 'capture works' standing in for 'capture lands somewhere useful.'",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "The reply renders as undifferentiated prose regardless of register — a machine answer (part numbers, weights, torque: 'NGK BPR4ES, 10W-30, ~1.16 qt') looks identical on screen to a nature answer. 'Never blend... if a message asks about both, answer each in its own voice, plainly separated' is enforced only in PROSE. There is no visual, structural, or positional signal that a block is machine content vs. living-property content. Confirmed: the reply text is displayed as-is; only plant fences get client treatment.",
+      "user_impact": "For Mom's no-glasses need, 'plainly separated' prose is not plainly separated — two paragraphs of different register with no divider/heading/color/position cue require READING to tell apart, which is exactly the routing-by-body-text failure her accessibility model rules out. And spec-dense machine text is the worst possible content for the half-engagement bar: alphanumeric strings with no evocative lead, the 'five equal-weight chunks' problem with the volume turned up. She meets this mainly via a blended reply, but that's the realistic trigger, and it fails her hard.",
+      "principle_invoked": "Make every surface read at half-engagement; Tone-coherence across all chrome (register is carried by chrome, not just words); Nielsen #4 consistency.",
+      "recommendation": "Carry the register difference STRUCTURALLY, not just in word choice. Render a machine answer in a distinct block that echoes the Vehicles card's existing spec/maintenance treatment (the .vehicle-specs-table + maint-conf chips) rather than free prose — structured rows, monospace-ish figures, the vehicle named as a header. This (a) gives Mom instant visual routing ('this is machine, not nature'), (b) reuses an in-app visual language she's already seen, (c) makes specs scannable instead of buried in a sentence. Note the tension with Fernwood's anti-ops-chrome glyph rules: this is NOT a violation — machine content is legitimately a different register, so a spec-block treatment is form-follows-function, not decoration-leak. The rule to hold is 'no ops-chrome on LIVING-property surfaces,' not 'everything must look like the journal.'",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "discoverability",
+      "severity": "nice-to-have",
+      "observation": "The machine capability is real but unsignified. The surface — a composer named 'Ask the Guru' sitting atop a nature-journal dashboard, on a card called Garden Guru — signals a garden/nature assistant. Nothing tells the user the assistant also spans the fleet. Paul discovered the machine capability by ACCIDENT (asked, got refused, then it was fixed). Mom would have no reason to know she can ask about the golf cart.",
+      "user_impact": "A capability nobody can find is worth little. This is low-severity IF machines are treated as a Paul-only, Paul-knows-it-exists job. It becomes a real gap only if you want machine-ask to be a first-class, discoverable feature — in which case a nature-named composer is the wrong doorway (see F6).",
+      "principle_invoked": "Norman — signifiers; Nielsen #6 recognition over recall (don't require the user to recall that a hidden capability exists).",
+      "recommendation": "Decide intent first. If machine-ask is a genuine feature, its doorway should be where machines live — the Vehicles card (see F6), which makes it self-signifying (you ask about the bike from the bike). If it's a Paul-convenience afterthought, leave it unsignified but accept F1/F2 as the cost.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "Mental-model coherence of 'one assistant, two voices.' For the informed user (Paul) this holds — the hard voice-switch HELPS (a shop answer should sound like a shop hand). The trenchcoat risk lives only at two seams: (a) a machine answer surfacing UNBIDDEN in a living-property reading context, and (b) a blended reply where the register flips mid-answer with no visual seam (which is F3). The 'never blend' rule and the fact that machine answers only appear on machine questions keep the coherence risk low in practice.",
+      "user_impact": "Low for Paul. For Mom, coherence is fine AS LONG AS the shop-hand voice never appears uninvited in her nature reading — which today depends entirely on the model self-selecting voice correctly and never volunteering machine content. That's a soft guarantee resting on prompt discipline.",
+      "principle_invoked": "Conceptual-model coherence (Norman); the dual-frame identity in the voice charter (Voice=field journal / Form=Almanac) — note the machine register is a THIRD frame not in the original identity model.",
+      "recommendation": "Keep the never-blend rule; it's load-bearing. Hold the model to never volunteering machine content into a living-property turn. The cleaner structural fix that dissolves this seam is F6 (give the machine job its own surface), which lets Garden Guru go back to being purely the living-property field assistant it's named and styled to be.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Strategic / framing finding (offered as a proposal, not a verdict). The dual-voice register is itself the tell: a bolted-on register is a symptom of a bolted-on JOB. From a JTBD read, the property owner does not really want to converse with the JOURNAL about spark-plug gaps — that's a different job that already has a home. The Vehicles card is a well-built machine REPOSITORY (maintenance table with confidence chips, 'what she needs' running list, per-step tap-to-call service contacts, manual links). What it can't do is answer a free-form question or take a hands-free field note — which is the narrow, real slice of the machine job that wants conversation.",
+      "user_impact": "Routing the machine job through a nature-named, nature-styled, Leopold-voiced composer forces the register-switch tax on every machine turn, leaves the capability undiscoverable (F4), fails Mom's no-glasses bar when it bleeds (F3), and orphans machine capture in the nature log (F2). Moving the machine ask to a per-vehicle affordance INSIDE the vehicle view would: give the job its own home; let the shop-hand voice live where shop content lives; let a machine note captured there write to THAT vehicle's list (closing F1/F2 naturally); make discovery self-evident (F4); and free Garden Guru to be living-property-only again (F5).",
+      "principle_invoked": "Scope is communicated by where you tap, not auto-detected (candidate — houseplants origin, this is a candidate second occurrence); the glance-and-repository loop (capture folds back into the right repository).",
+      "recommendation": "Consider relocating machine Q&A + capture from the Garden Guru composer to a per-vehicle 'ask / note this bike' affordance inside the Vehicles card, and reverting Garden Guru's scope to the living property only. Weigh against the one real cost: Paul loses cross-domain 'both at once' in a single input. But his own 'both at once' was WITHIN the machine domain (several things about the bikes), which a vehicle-scoped ask handles fine; true plant-and-spark-plug-in-one-sentence is rare and arguably not worth taxing every machine turn. This has architecture implications — recommend an ai-advisor / engineering-partner pass before acting. Framed as a proposal per 'agent proposals are not Paul-validated decisions.'",
+      "effort": "high"
+    },
+    {
+      "id": "F7",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "The refusal REGISTER (Paul's Q2), assessed against the real pre-fix transcript. The refusal was NOT a flat chatbot 'I can't' — it was warm, praised his work ('the methodical approach is exactly right'), stayed in field-journal voice, and REFRAMED the machine question into a nature-adjacent one it could answer ('what I can tell you is... where you park it, what weather it's parked in — those details matter for its longevity'). Warm-but-still-refusing is better than cold-refusing on first read, but it carries two specific costs. (1) A VERBOSITY TAX: a terse mechanical question (hold vs. tap the starter) drew a multi-paragraph warm non-answer — failing the half-engagement bar from the OTHER direction, politeness as friction on a dead-end. (2) The reframe is subtly corrosive: the user asked a specific thing; the assistant substituted an adjacent question HE DIDN'T ASK, framed as 'what I CAN tell you.' That silently renames his intent as out-of-bounds-in-the-journal's-framing rather than simply unanswered — charming once, faintly gaslighting on the second read, because it doesn't meet the intent, it relabels it.",
+      "user_impact": "For trust in a warm field-journal product, the honest, in-voice decline is right — but 'right' has two failure edges. A machine decline should be SHORT and plain (a shop hand doesn't wax lyrical about why he can't help), and it must NOT deflect the user's real question into a substitute one. The deflection is the more damaging: it teaches the user the tool will quietly reinterpret what he wanted rather than say 'not here — try X.' Post-fix the machine ASK is answered so this specific decline is gone, but the SAME warm-reframe-deflect pattern will recur on any in-scope refusal (an unlogged spec, an out-of-digest plant), so the pattern is live, not just historical.",
+      "principle_invoked": "A correct 'no' still owes a next move (candidate); Nielsen #1 visibility of system status + #9 (help users recognize what happened) — a refusal must be legible AS a refusal, not dressed as a partial answer; Make every surface read at half-engagement (a decline shouldn't cost more reading than the answer would have).",
+      "recommendation": "Two rules for how 'I can't help with that' should FEEL here. (1) Match the decline to the register and the question's weight: a machine decline is short and plain ('Not something the journal has a spec for — the manual link on the [vehicle] card, or Autobahn, will have it'); reserve warmth-flex for the LIVING property where the emotional stakes live. (2) Never substitute an adjacent answerable question for the one asked without naming that you're doing it — decline the actual question plainly, THEN offer the real next move (the capture fence from F1, the vehicle card, the service contact). Point somewhere concrete; don't reframe the intent into one the journal happens to be able to serve.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "Is machine-ask meant to be a discoverable first-class feature, or a Paul-only convenience he already knows is there? F4 and F6 hinge on this.",
+    "Has Mom ever asked Garden Guru a machine question, or is a blended reply the only realistic way she'd meet the shop-hand voice? Her transcript (still outstanding) would move F3/F5 confidence from medium to high.",
+    "Do you want machine notes to live in the Vehicles record (F2 recommendation), or is a machine note in The Almanac acceptable as a low-effort catch-all?",
+    "Is the register-switch something you experience as clarifying (right voice for the job) or as jarring? Your read as the daily user is the tie-breaker on F5/F6."
+  ],
+  "follow_up_research_suggested": [
+    "When Mom's discovery transcript returns, check specifically whether machines are anywhere in her Garden Guru repertoire — validates or kills the F3/F5 exposure assumption.",
+    "Instrument: does any machine question ever reach the composer from a device other than Paul's? One line of telemetry answers the F4/F6 'is this a real shared feature' question with data instead of inference."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Promote 'A correct ‘no’ still owes a next move' from candidate to full cross-project principle — this review is a genuine SECOND occurrence (7/2 plants, 7/3+ machines), and the machine side shows the failure mode in its purest form: the loop was closed for one domain and left open for another on the same surface.",
+      "scope": "cross-project",
+      "rationale": "Two independent occurrences on two different domains of the same surface. The machine case sharpens the rule: closing the loop for one content type does not discharge the obligation for the others sharing the surface."
+    },
+    {
+      "principle": "New Fernwood-scoped candidate: 'Register is carried by chrome, not just words — especially for the no-glasses reader.' When a surface hosts two genuinely different registers (journal prose vs. machine specs), the difference must be signalled structurally (block treatment, position, a distinct existing visual language) — because 'plainly separated' in prose is unreadable-apart at half-engagement. Corollary that resolves the apparent conflict with the anti-ops-chrome glyph rules: 'no ops-chrome on LIVING-property surfaces' is the real rule, NOT 'everything must look like the journal' — legitimately different content earns legitimately different chrome.",
+      "scope": "fernwood",
+      "rationale": "Surfaced by F3. Sharpens 'Tone-coherence across all chrome' and 'Make every surface read at half-engagement' for the specific case where two registers must coexist. Hold at one occurrence pending a second."
+    },
+    {
+      "principle": "New candidate (scope TBD — likely cross-project): 'A bolted-on register is a sign of a bolted-on job.' When a single conversational/AI surface has to switch voice registers to serve a request, treat the register-switch as diagnostic evidence that a second JOB has been routed to the wrong surface — and check whether that job wants its own home (per 'scope is communicated by where you tap') before patching the voice.",
+      "scope": "cross-project",
+      "rationale": "Surfaced by F6. This is the meta-lesson of the whole review: the dual-voice was a reasonable patch to a refusal, but the need for it was the signal. One occurrence; watch for a second (e.g., houseplants or financial-viewer growing a second job onto one ask surface) before promoting."
+    },
+    {
+      "principle": "New candidate (cross-project): 'Decline the question asked — don't answer an easier adjacent one.' When an AI surface can't answer what was asked, it must decline the ACTUAL question plainly and point to a next move — never silently substitute a nearby question it CAN answer and present that as help. The substitution reads as charming once and gaslighting twice, because it relabels the user's intent instead of meeting or honestly declining it.",
+      "scope": "cross-project",
+      "rationale": "Surfaced by F7 against the real transcript (the 'where you park it, what weather' reframe of a starter-mechanics question). Distinct from 'a correct no owes a next move' — that one governs the ABSENCE of a next move; this one governs a next move that misdirects. One occurrence; watch for a second before promoting."
+    }
+  ]
+}

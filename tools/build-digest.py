@@ -111,7 +111,7 @@ def digest_vehicles(d):
         for k, m in (v.get("maintenance") or {}).items():
             if isinstance(m, dict) and "value" in m:
                 val = m["value"]
-                if m.get("confidence") in ("inferred", "tbd"):
+                if m.get("confidence") != "verified":
                     val = val + " [unconfirmed — verify before buying]"
                 maint[k] = val
             else:
