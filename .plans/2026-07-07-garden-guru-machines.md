@@ -55,15 +55,12 @@ Design pass: ux-expert `.ux-reviews/2026-07-07-machine-note-capture-surfacing.js
 - [x] **4c — Digest drift alarm:** new `tools/check-digest-fresh.py` (non-mutating rebuild-and-diff, exit 1 on stale) + wired into the CLAUDE.md session-start ritual alongside `check-data-inline.py`. Tested: catches drift, goes green after rebuild.
 - [x] **4d — Token headroom:** noted (~75K vs 80K trigger). No action.
 
-## Phase 5 — Verify end-to-end + principles
-- [ ] **5a — Replay** the full real transcript (turns 0–3) against the new Guru; both refusals should now resolve.
-- [ ] **5b — Principles to confirm + add:**
-  - ux: promote *"A correct 'no' still owes a next move"* to cross-project (2nd occurrence).
-  - ux (Fernwood): *Register is carried by chrome, not just words — esp. for the no-glasses reader.*
-  - ux (cross-project): *Decline the question asked — don't answer an easier adjacent one.*
-  - ux: *A bolted-on register is a sign of a bolted-on job.*
-  - ai-advisor (candidate, needs 2nd occurrence): *Downgrade trust in code at the build/storage boundary; let the model only narrate the downgrade.*
-  - eng: *Bundled context needs a drift alarm* (Fernwood) · *Fixing the ask half implies the log half* (cross-project).
+## Phase 5 — Verify end-to-end + principles — ✅ principles DONE 2026-07-07
+- [ ] **5a — Replay (owner: Paul, phone):** the full real transcript (turns 0–3) against the new Guru; both refusals should now resolve.
+- [x] **5b — Principles added to libraries** (in `~/.claude/`, uncommitted — Paul's config repo):
+  - **ux-expert** (`design-principles/`): promoted 3 to cross-project on genuine 2nd occurrences — *A correct "no" still owes a next move* (+ sibling-content-type clause), *Save-success at the surface not the destination* (+ latency corollary), *Scope is communicated by where you tap, not auto-detected* (+ capture-path corollary). Added 3 candidates — *Decline the question asked* (cross), *A bolted-on register = a bolted-on job* (cross), *Register is carried by chrome* (Fernwood). Merged the scope-declaration one into Fernwood as the local application.
+  - **engineering-partner** (`engineering-principles/`): added 4 — *Field-captured free text → private store, canon by hand* (Fernwood), *Deploy-bundled context needs a rebuild-and-diff drift alarm* (Fernwood), *Capture-path resolvers must refuse to guess* (cross), *Widen the ask half → you've implied the log half* (cross). ⚠️ flagged the last for Paul: promoted to full principle despite single-occurrence — say the word to demote to a candidate.
+  - **ai-advisor**: its candidate (*downgrade trust at the build/storage boundary*) deliberately NOT added — one instance, needs a 2nd.
 
 ## Gates & guardrails
 - Every `wrangler deploy` waits on Paul's explicit go (production, outward).
