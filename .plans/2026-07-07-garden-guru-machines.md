@@ -23,14 +23,14 @@ Blocks the entry-point design in Phase 3, not the plumbing.
 - [x] **1b — Discoverability: YES, design for Mom.** Paul: "Mom may wanna ask questions about the machines, absolutely, and vehicles." → machine-ask is a *discoverable* feature, not a Paul-only convenience. Raises priority of 3-entry-point discoverability + 4a accessibility. *(Clarifying-vs-jarring left open; 2c "one caretaker's range" reframe mitigates it either way.)*
 - [ ] **1c — Confirm principles** the experts want to add (see Phase 5).
 
-## Phase 2 — Core scope fix *(the fix that answers the original question)*
-Independent of the fork as long as ASK stays in Guru (true for recommendation + option A).
+## Phase 2 — Core scope fix *(the fix that answers the original question)* — ✅ DEPLOYED 2026-07-07
+Independent of the fork as long as ASK stays in Guru (true for recommendation + option A). **Deployed: Worker version `337cc4f0-ba74-4710-bf2f-9a80f98ff4e7` (prompt-only; digest already fresh from Phase 0).**
 
-- [ ] **2a — Specs-vs-know-how rule.** Replace the machine SCOPE lines in `worker/worker.js` (~L432–441) with the two-part rule: property-specific **specs** come only from the digest ("not logged — check the manual"; recalled specs are dangerous when the machine is modified — cf. the APR-tuned GTI needing 91+); general **know-how** (cold-start, hold-vs-tap, premix) gets answered plainly.
-- [ ] **2b — Few-shot exemplars** in the REGISTER block: a living answer, a machine spec-*refusal*, a machine know-how *answer*, and a both-in-one-message answer. (Shown register beats described register for Haiku.)
-- [ ] **2c — Reframe REGISTER** from "two voices to toggle / never blend" to "one caretaker's range — match words to the thing." Removes the mode-toggle that invites boundary confusion.
-- [ ] **2d — Refusal rule:** decline the *actual* question plainly + point somewhere concrete; never answer an easier adjacent question as if it were help. (Kills the "where do you park it" misdirect.)
-- [ ] **2e — Verify:** replay turn 0's starter question — Guru should now answer the technique plainly in shop-hand voice.
+- [x] **2a — Specs-vs-know-how rule.** `worker/worker.js` SCOPE + new "MACHINES — specs vs. know-how" block: property-specific **specs** come only from the digest ("not logged — check the manual"; recalled specs dangerous when modified — GTI 91+ because APR-tuned); general **know-how** (cold-start, hold-vs-tap, premix) answered plainly.
+- [x] **2b — Few-shot exemplars** — new "MACHINES — a few worked examples" block: living-for-contrast, spec-logged, spec-NOT-logged, know-how, both-in-one-message.
+- [x] **2c — Reframe REGISTER** to "one caretaker's range — match words to the thing." Dropped "DROP the field-journal voice entirely" + "never blend the two registers."
+- [x] **2d — Refusal rule** added to UNCERTAINTY + NEVER: decline the actual question, never substitute an easier adjacent one as help.
+- [ ] **2e — Verify (owner: Paul, phone):** ask the starter question ("hold or tap on a cold start?") → answered plainly; ask "what oil does the lawnmower use?" → logged spec or honest "not logged."
 
 ## Phase 3 — Close the capture loop *(the unshipped half)*
 Destination is the vehicle's `restoration` backlog regardless of fork; entry-point UX depends on 1a.
