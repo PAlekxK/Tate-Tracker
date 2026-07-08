@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-08 — A second shop on the GTI, and the oil-change coupon plan
+
+- **Express Oil Change is now on the GTI's card** as a tap-to-call contact (Moreland Ave, the regular oil shop) alongside Autobahn — with the live coupon codes, the "confirm they have the right euro oil first" reminder, and the questions to ask baked in.
+- A new **"Oil change + coupon visit" step** lays out the plan: get the oil done on the coupon, stack the free tire rotation and alignment check, and have them take a free look at the coolant leak while it's on the lift.
+- The **coolant-leak step now shows both shops** — Autobahn as the specialist, Express Oil as a candidate to explore for the repair (only if they clear the bar).
+
+---
+
 ## 2026-07-07 — Ask about the machines, and log what you've done
 
 - **Garden Guru now talks about the vehicles and equipment**, not just the plants and wildlife. Ask what oil the lawnmower takes or how to cold-start the DR-Z and you'll get a plain, practical answer — the logged spec when we have it, an honest "not logged — check the manual" when we don't.
