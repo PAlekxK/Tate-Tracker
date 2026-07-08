@@ -57,7 +57,7 @@
           "confidence": "verified"
         }
       },
-      "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation. Odometer ~81k (approx, 2026-06-28) — confirm exact next drive.",
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation. Odometer ~81k (approx, 2026-06-28) — confirm exact next drive. SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump/DSG repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
       "restoration": [
         {
           "item": "Coolant leak — water pump & thermostat housing",
@@ -71,14 +71,17 @@
         {
           "item": "DSG transmission service",
           "status": "due soon",
-          "detail": "Fluid + filter. Interval is 40k / 80k miles — at ~81k it's right at the 80k interval — due now. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2.",
+          "detail": "Fluid + filter. Interval is 40k / 80k miles — at ~81k it's right at the 80k interval — due now. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2. Express Oil can quote it, but the temp-controlled fill wants the specialist — defaults to Autobahn (a quote under ~$250 = probably just a drain-and-fill).",
           "contactId": "autobahn"
         },
         {
           "item": "Brake fluid flush",
           "status": "due soon",
-          "detail": "Time-based — every 2 years. Confirm when it was last done; if you can't remember, it's due. DOT 4 LV (VW G 060 157).",
-          "contactId": "autobahn"
+          "detail": "Time-based — every 2 years; if you can't remember the last one, it's due. Fine to do at Express Oil on the oil-change trip IF they use DOT 4 LV (VW G 060 157) — it shares no labor with the DSG, so it needn't wait for an Autobahn visit. Ask if it falls under the mechanical coupon (MID726, 15%/$50, exp 7/11). Falls back to Autobahn if Express Oil won't use the right fluid.",
+          "contactId": [
+            "expressoil",
+            "autobahn"
+          ]
         },
         {
           "item": "Oil change + coupon visit (Express Oil)",
@@ -163,12 +166,12 @@
         {
           "id": "expressoil",
           "name": "Express Oil Change & Tire Engineers",
-          "role": "Routine oil + coupons (Paul's regular oil shop); ASE-certified full-service — a candidate to EXPLORE for the coolant/DSG/brake work, not yet chosen",
+          "role": "STOP 1 — Paul's regular oil shop, right down the street; go here FIRST. ASE-certified full-service (does European). Front door for oil + coupons + a free coolant-leak estimate; the big repair defaults to Autobahn unless Express Oil earns it.",
           "phone": "(404) 659-6225",
           "address": "230 Moreland Ave SE, Atlanta, GA 30316",
           "hours": "Mon–Fri 8–6, Sat 8–5 (closed Sun)",
           "url": "https://www.expressoil.com/stores/atlanta/ga/0523/",
-          "notes": "4.5★ (CARFAX ~204 reviews), praised as knowledgeable + non-salesy; chain is ASE-certified and services European + transmission work. BEFORE any oil change, phone-confirm they stock VW 502.00 5W-40 (euro full synthetic) + get the out-the-door price with $20-off — the coupon covers standard oil only and voids with customer-supplied oil, so if they can't do 502.00 don't let them put 5W-30 in a Stage 1 GTI. Live coupons: oil $39.99 conv / $59.99 hi-mileage (YID726, thru 7/11) or $20-off (YDCD26, thru 7/31); FREE tire rotation (RTE026) + $15-off alignment (ASR026), both thru 7/31; mechanical 15% max-$50 (MID726) + brake $25/axle (BID726 front, ZID726 rear), thru 7/11. To explore them for the big job: grade the specificity of their capability answers, get a written estimate, apply the coupon, compare to Autobahn. Full plan + phone/counter question list: .research/2026-07-08-gti-express-oil-coupons.md."
+          "notes": "PREP (do before you go): phone 404-659-6225 to confirm they stock VW 502.00 5W-40 (euro full synthetic) + the out-the-door price with $20-off — the coupon is standard-oil-only and voids with your own oil, so if they can't do 502.00, skip the oil here (don't accept a 5W-30 dexos blend) but still go for the free look; have the coupons handy (Gmail: from:expressoil.com). ON THE VISIT (one trip does a lot): oil change + free tire rotation (RTE026) + free alignment check (ASR026); ask them to inspect + pressure-test the coolant leak — G13 pink ONLY, if they don't stock it look only/add nothing — and to QUOTE THE WATER-PUMP JOB IN WRITING; if they use DOT 4 LV, do the brake fluid flush here too. WALK OUT WITH the written leak finding + estimate — that's what decides whether the big job stays at Autobahn. Sense-check the water-pump quote: under ~$650 = likely a plastic pump / no housing; over ~$1,300 = dealer pricing, stay at Autobahn. Coupon clocks: oil $39.99/$59.99 (YID726) + mechanical 15%/$50 (MID726) expire 7/11; free rotation/alignment + $20-off oil (YDCD26) run to 7/31. 4.5★, non-salesy. Full plan + full question list + price table: .research/2026-07-08-gti-express-oil-coupons.md."
         },
         {
           "id": "jim-ellis-chamblee",
