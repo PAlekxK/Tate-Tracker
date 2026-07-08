@@ -62,8 +62,11 @@
         {
           "item": "Coolant leak — water pump & thermostat housing",
           "status": "diagnosing",
-          "detail": "Taking it in for diagnosis. This is the EA888 Gen 3's signature failure — the plastic water pump + thermostat housing assembly leaks at the seals. Ask the shop to confirm and quote the combined job, and to fit an upgraded metal-impeller water pump (INA/OEM kit) instead of another plastic one — same labor, longer life. EXPECTED COST: ~$820–1,295 at a good indie like Autobahn; ~$1,500–2,200 at a dealer (40–60% more — higher labor + genuine-parts markup), so this stays at Autobahn. The leak diagnosis (~$75–180) is often credited toward the repair — ask. WHOLE-VISIT picture: the must-dos (this + DSG + brake flush + diag) run ~$1,300–2,100; figure ~$1,400–2,600 once you add the cheap inspect-first items, up to ~$3,500 if it needs motor mounts or walnut-blast carbon cleaning. Full breakdown in .research/2026-06-28-gti-autobahn-cost-estimate.md. TWO-WAVE option: this teardown (intake off) is the forcing event, so do the items that SHARE it in the same Wave-1 visit — PCV, chain-stretch read, and walnut-if-the-scope-shows-it; leave DSG, brake flush, and motor mounts for a later Wave 2 (they don't need the intake off), so you're not paying the teardown labor twice.",
-          "contactId": "autobahn"
+          "detail": "Taking it in for diagnosis. This is the EA888 Gen 3's signature failure — the plastic water pump + thermostat housing assembly leaks at the seals. Ask the shop to confirm and quote the combined job, and to fit an upgraded metal-impeller water pump (INA/OEM kit) instead of another plastic one — same labor, longer life. EXPECTED COST: ~$820–1,295 at a good indie like Autobahn; ~$1,500–2,200 at a dealer (40–60% more — higher labor + genuine-parts markup), so this stays at Autobahn. The leak diagnosis (~$75–180) is often credited toward the repair — ask. WHOLE-VISIT picture: the must-dos (this + DSG + brake flush + diag) run ~$1,300–2,100; figure ~$1,400–2,600 once you add the cheap inspect-first items, up to ~$3,500 if it needs motor mounts or walnut-blast carbon cleaning. Full breakdown in .research/2026-06-28-gti-autobahn-cost-estimate.md. TWO-WAVE option: this teardown (intake off) is the forcing event, so do the items that SHARE it in the same Wave-1 visit — PCV, chain-stretch read, and walnut-if-the-scope-shows-it; leave DSG, brake flush, and motor mounts for a later Wave 2 (they don't need the intake off), so you're not paying the teardown labor twice. — Getting a FREE second-opinion look at this leak at Express Oil during the oil-change visit (pressure test on the lift, G13 pink only); explore Express Oil for the repair itself only if they clear the bar — metal-impeller pump, VW/VCDS diagnostics, warranty ≥ Autobahn — see the Express Oil contact + .research/2026-07-08-gti-express-oil-coupons.md.",
+          "contactId": [
+            "autobahn",
+            "expressoil"
+          ]
         },
         {
           "item": "DSG transmission service",
@@ -76,6 +79,12 @@
           "status": "due soon",
           "detail": "Time-based — every 2 years. Confirm when it was last done; if you can't remember, it's due. DOT 4 LV (VW G 060 157).",
           "contactId": "autobahn"
+        },
+        {
+          "item": "Oil change + coupon visit (Express Oil)",
+          "status": "due-soon",
+          "detail": "Routine oil at Paul's regular shop (Express Oil, Moreland Ave) on live coupons — and a FREE second-opinion look at the coolant leak while it's on the lift. GATE FIRST (call 404-659-6225): confirm they stock VW 502.00-spec 5W-40 (euro full synthetic) + get the out-the-door price with $20-off — the coupon covers standard oil only and voids with customer-supplied oil, so if they can't do 502.00, don't let them put 5W-30 in a Stage 1 GTI (walk to Autobahn). If oil's a go: stack the FREE tire rotation (RTE026) + $15-off alignment (ASR026), and ask them to inspect + pressure-test the coolant leak (known EA888 failure = plastic water pump + thermostat housing). Coolant is VW G13 (pink) ONLY — if they don't stock it, inspect only, add nothing. Get any leak finding + repair estimate IN WRITING as a benchmark vs Autobahn. Coupons: $39.99 conv / $59.99 hi-mileage (YID726, thru 7/11) or $20-off (YDCD26, thru 7/31); free rotation + alignment thru 7/31. Full question list: .research/2026-07-08-gti-express-oil-coupons.md.",
+          "contactId": "expressoil"
         },
         {
           "item": "Spark plugs",
@@ -150,6 +159,16 @@
           "hours": "Mon–Fri 9–6 (closed weekends)",
           "url": "https://autobahn-performance.com",
           "notes": "German specialist since 1993; APR/Dinan/IE-certified tuning (they did your tune), 4.9★ across Yelp/CARFAX/Birdeye (250+ reviews), 2yr/24k-mi warranty. When you book, phone-vet the specific jobs: water-pump/thermostat with a metal-impeller pump, DSG fluid+filter, walnut-blast carbon, VCDS chain-stretch read."
+        },
+        {
+          "id": "expressoil",
+          "name": "Express Oil Change & Tire Engineers",
+          "role": "Routine oil + coupons (Paul's regular oil shop); ASE-certified full-service — a candidate to EXPLORE for the coolant/DSG/brake work, not yet chosen",
+          "phone": "(404) 659-6225",
+          "address": "230 Moreland Ave SE, Atlanta, GA 30316",
+          "hours": "Mon–Fri 8–6, Sat 8–5 (closed Sun)",
+          "url": "https://www.expressoil.com/stores/atlanta/ga/0523/",
+          "notes": "4.5★ (CARFAX ~204 reviews), praised as knowledgeable + non-salesy; chain is ASE-certified and services European + transmission work. BEFORE any oil change, phone-confirm they stock VW 502.00 5W-40 (euro full synthetic) + get the out-the-door price with $20-off — the coupon covers standard oil only and voids with customer-supplied oil, so if they can't do 502.00 don't let them put 5W-30 in a Stage 1 GTI. Live coupons: oil $39.99 conv / $59.99 hi-mileage (YID726, thru 7/11) or $20-off (YDCD26, thru 7/31); FREE tire rotation (RTE026) + $15-off alignment (ASR026), both thru 7/31; mechanical 15% max-$50 (MID726) + brake $25/axle (BID726 front, ZID726 rear), thru 7/11. To explore them for the big job: grade the specificity of their capability answers, get a written estimate, apply the coupon, compare to Autobahn. Full plan + phone/counter question list: .research/2026-07-08-gti-express-oil-coupons.md."
         },
         {
           "id": "jim-ellis-chamblee",
