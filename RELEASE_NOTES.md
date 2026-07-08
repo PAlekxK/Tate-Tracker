@@ -9,6 +9,7 @@ What's changed at Fernwood lately. Newest first.
 - **Express Oil Change is now on the GTI's card** as a tap-to-call contact (Moreland Ave, the regular oil shop) alongside Autobahn — with the live coupon codes, the "confirm they have the right euro oil first" reminder, and the questions to ask baked in.
 - A new **"Oil change + coupon visit" step** lays out the plan: get the oil done on the coupon, stack the free tire rotation and alignment check, and have them take a free look at the coolant leak while it's on the lift.
 - The **coolant-leak step now shows both shops** — Autobahn as the specialist, Express Oil as a candidate to explore for the repair (only if they clear the bar).
+- The whole GTI service plan now reads as **one journey**: Express Oil first (oil + coupons + a free written water-pump estimate + the brake flush if they use the right fluid), and the big water-pump/DSG repair defaults to Autobahn unless Express Oil earns it. Each step carries the prep to do and how to sense-check a quote.
 
 ---
 
