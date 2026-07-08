@@ -1,0 +1,1732 @@
+X7722271404 / X772000164
+
+PB-250LN
+Power Blower
+
+Operator’s Manual
+The engine exhaust from this product contains chemicals known to the State of California to cause cancer,
+birth defects, or other reproductive harm.
+
+Read and understand all provided literature before use. Failure to do so could result in serious injury.
+
+Specifications, descriptions and illustrative material in this literature are as accurate as known at the time
+of publication, but are subject to change without notice. Illustrations may include optional equipment and
+accessories, and may not include all standard equipment.
+X7501186701
+© 1/2019 ECHO Inc.
+
+TABLE OF CONTENTS
+
+PB-250LN
+
+TABLE OF CONTENTS
+Table Of Contents.............................................................................................................................. 2
+Introduction ........................................................................................................................................ 3
+Servicing information ......................................................................................................................... 3
+Parts/Serial Number..................................................................................................................... 3
+Service ......................................................................................................................................... 3
+ECHO Consumer Product Support .............................................................................................. 3
+Product Registration .................................................................................................................... 3
+Additional Literature ..................................................................................................................... 4
+Safety................................................................................................................................................. 4
+Manual Safety Symbols and Important Information ..................................................................... 4
+International Symbols .................................................................................................................. 5
+Personal Condition and Safety Equipment .................................................................................. 5
+Equipment.................................................................................................................................... 8
+CARB And EPA Emissions Control Information .......................................................................... 9
+Description....................................................................................................................................... 10
+Contents .......................................................................................................................................... 12
+Assembly ......................................................................................................................................... 13
+Install Blower Pipes ................................................................................................................... 13
+Remove Blower Pipes ............................................................................................................... 14
+Operation ......................................................................................................................................... 15
+Fuel ............................................................................................................................................ 15
+Starting Cold Engine .................................................................................................................. 16
+Starting Warm Engine................................................................................................................ 17
+Stopping Engine......................................................................................................................... 18
+Operating Blower ....................................................................................................................... 18
+Maintenance .................................................................................................................................... 20
+Skill Levels ................................................................................................................................. 20
+Maintenance Intervals................................................................................................................ 20
+Air Filter...................................................................................................................................... 21
+Fuel Filter ................................................................................................................................... 21
+Spark Plug ................................................................................................................................. 22
+Cooling System.......................................................................................................................... 22
+Exhaust System ......................................................................................................................... 23
+Carburetor Adjustment............................................................................................................... 24
+Troubleshooting ............................................................................................................................... 26
+Storage ............................................................................................................................................ 27
+Long Term Storage (Over 30 Days)........................................................................................... 27
+Specifications................................................................................................................................... 28
+Warranty Statements ....................................................................................................................... 29
+Product Registration ........................................................................................................................ 31
+Notes ............................................................................................................................................... 33
+
+2
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+INTRODUCTION
+
+INTRODUCTION
+Specifications, descriptions and illustrative material in this literature are as accurate as known at the time of
+publication, but are subject to change without notice. Illustrations may include optional equipment and
+accessories, and may not include all standard equipment.
+Read and understand all provided literature. Literature contains specifications and
+information for safety, operation, maintenance, storage and assembly specific to
+this product. Scan QR codes for more information.
+For additional literature, including safety manuals where applicable, or questions
+regarding terms used in this manual, visit:
+https://www.echo-usa.com/manuals
+OR
+https://www.shindaiwa-usa.com/manuals
+
+SERVICING INFORMATION
+Parts/Serial Number
+Genuine ECHO Parts and Assemblies for your ECHO products are
+available only from an Authorized ECHO Dealer. When you do need
+to buy parts always have the Model Number and Serial Number of the
+unit with you. For future reference write them in the space provided
+below.
+Model No. _______________
+Serial No. _______________
+
+Service
+Service of this product during the warranty period must be performed by an Authorized ECHO Service
+Dealer. For the name and address of the Authorized ECHO Service Dealer nearest you, ask your retailer or
+call:
+1-800-432-ECHO (3246). Dealer information is also available on our Web Site www.echo-usa.com. When
+presenting your unit for Warranty service/repairs, proof of purchase is required.
+
+ECHO Consumer Product Support
+If you require assistance or have questions concerning the application, operation, or maintenance of this
+product, call the ECHO Consumer Product Support Department at 1-800-673-1558 from 8:00 am to 5:00 pm
+(Central Standard Time) Monday through Friday. Before calling, please know the model and serial number of
+your unit.
+
+Product Registration
+Register your ECHO equipment on-line at www.echo-usa.com or by filling out the product registration sheet
+included in this manual. Registering your product confirms warranty coverage and provides a direct link to
+ECHO if we find it necessary to contact you.
+X7501186701
+3
+© 1/2019 ECHO Inc.
+
+SAFETY
+
+PB-250LN
+
+Additional Literature
+In addition to finding information online, information is available from your Authorized ECHO Service Dealer,
+or by contacting ECHO Inc., 400 Oakwood Road, Lake Zurich, IL 60047 (800-673-1558).
+Safety Videos are available from your Authorized ECHO Service Dealer. A $5.00 shipping charge is required
+for each video.
+
+SAFETY
+Manual Safety Symbols and Important Information
+Throughout this manual and on the product itself, you will find safety alerts and helpful, informational
+messages preceded by symbols or key words. The following is an explanation of those symbols and key
+words and what they mean to you.
+
+The safety alert symbol accompanied by the word “DANGER” calls attention to an act or condition which
+WILL lead to serious personal injury or death if not avoided.
+
+The safety alert symbol accompanied by the word “WARNING” calls attention to an act or condition which
+CAN lead to serious personal injury or death if not avoided.
+The safety alert symbol accompanied by the word “CAUTION” calls attention to an act or condition which
+may lead to minor or moderate personal injury if not avoided.
+The enclosed message provides information necessary for the protection of the unit.
+Note: This enclosed message provides tips for use, care and maintenance of the unit.
+CIRCLE AND SLASH SYMBOL
+This symbol means the specific action shown is prohibited. Ignoring these prohibitions can result in
+serious or fatal injury.
+
+4
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+SAFETY
+
+International Symbols
+Symbol
+
+Description
+
+Symbol
+
+Description
+
+Symbol
+
+Description
+
+Symbol
+
+Description
+
+Read and
+understand
+owners manual.
+
+Fuel and oil
+mixture
+
+Carburetor
+Adjustment - Low
+speed mixture
+
+Carburetor
+Adjustment - High
+speed mixture
+
+Wear eye, ear
+and head
+protection
+
+Finger severing
+
+Safety/Alert
+
+Carburetor
+Adjustment - Idle
+speed
+
+Emergency Stop
+
+Hot Surface
+
+Idle Speed
+
+Fast speed
+
+Wear hand
+protection. Use
+two handed
+
+DO NOT smoke
+near fuel
+
+Ignition
+ON / OFF
+
+Primer Bulb
+
+Choke Control
+COLD START
+Position (Choke
+Closed)
+
+Choke Control
+“RUN” Position
+(Choke Open)
+
+DO NOT allow
+flames or sparks
+near fuel
+
+Wear slip
+resistant footwear
+
+Keep bystanders and helpers
+away 15 m (50 ft.).
+
+Beware of Thrown
+Objects
+
+Personal Condition and Safety Equipment
+Cancer and Reproductive Harm
+www.P65Warnings.ca.gov
+
+Users of this product risk injury to themselves and others if the unit is used improperly and/or safety
+precautions are not followed. Proper clothing and safety gear must be worn when operating unit.
+X7501186701
+© 1/2019 ECHO Inc.
+
+5
+
+SAFETY
+
+PB-250LN
+
+Physical Condition
+Your judgment and physical dexterity may not be good:
+• If you are tired or sick.
+• If you are taking medication.
+• If you have taken alcohol or drugs.
+Operate unit only if you are physically and mentally well.
+
+Eye Protection
+
+Eye protection that meets ANSI Z87.1 or CE requirements must be worn whenever you operate
+the unit.
+◆ For additional safety, a full-face shield may be worn over safety glasses or goggles to provide
+protection from sharp branches or flying debris.
+◆
+
+Hand Protection
+Wear sturdy, no-slip, rubber work gloves to improve your grip on the handles. Gloves also provide protection
+against cuts and scratches, cold environments, and reduce the transmission of machine vibration to your
+hands.
+
+Hearing/Ear Protection
+ECHO recommends wearing hearing protection whenever unit is used.
+
+Breathing Protection
+Operators who are sensitive to dust or other common airborne allergens may need to wear a dust mask to
+prevent inhaling these materials while operating unit. Dust masks can provide protection against dust, plant
+debris, and other plant matter such as pollen. Make sure the mask does not impair your vision, and replace
+the mask as needed to prevent air restrictions.
+
+Proper Clothing
+Wear snug-fitting, durable clothing:
+• Pants should have long legs, shirts should have long sleeves.
+• DO NOT WEAR SHORTS.
+• DO NOT WEAR TIES, SCARVES, JEWELRY, or clothing with loose or hanging items that could become
+entangled in moving parts or surrounding growth.
+• Keep clothing buttoned or zipped, and keep shirt tails tucked in.
+Wear sturdy work shoes with nonskid rubber soles:
+• DO NOT WEAR OPEN TOED SHOES.
+• DO NOT OPERATE UNIT BAREFOOTED.
+Keep long hair away from engine and air intake. Retain hair with cap or net.
+Heavy protective clothing can increase operator fatigue, which may lead to heat stroke. Schedule heavy
+work for early morning or late afternoon hours when temperatures are cooler.
+
+6
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+SAFETY
+
+The components of this machine generate an electromagnetic field during operation, which may interfere with some pacemakers. To reduce the risk of serious or fatal injury, persons with pacemakers
+should consult with their physician and the pacemaker manufacturer before operating this machine. In
+the absence of such information, ECHO does not recommend the use of this machine by anyone who has
+a pacemaker.
+Extended Operation / Extreme Conditions
+
+Prolonged exposure to cold and/or vibration may result in injury. Read and follow all safety and operation instructions to minimize risk of injury. Failure to follow instructions may result in painful
+wrist/hand/arm injuries.
+It is believed that a condition called Raynaud’s Phenomenon, which affects the fingers of certain individuals,
+may be brought about by exposure to vibration and cold. Exposure to vibration and cold may cause tingling
+and burning sensations, followed by loss of color and numbness in the fingers. The following precautions are
+strongly recommended, because the minimum exposure, which might trigger the ailment, is unknown.
+• Keep your body warm, especially the head, neck, feet, ankles, hands, and wrists.
+• Maintain good blood circulation by performing vigorous arm exercises during frequent work breaks, and
+also by not smoking.
+• Limit the hours of operation. Try to fill each day with jobs where operating the unit or other hand-held
+power equipment is not required.
+• If you experience discomfort, redness, and swelling of the fingers followed by whitening and loss of feeling,
+consult your physician before further exposing yourself to cold and vibration.
+
+Repetitive Stress Injuries (RSI)
+It is believed that overusing the muscles and tendons of the fingers,
+hands, arms, and shoulders may cause soreness, swelling,
+numbness, weakness, and extreme pain in those areas. Certain
+repetitive hand activities may put you at a high risk for developing a
+Repetitive Stress Injury (RSI). An extreme RSI condition is Carpal
+Tunnel Syndrome (CTS), which could occur when your wrist swells
+and squeezes a vital nerve that runs through the area. Some believe
+that prolonged exposure to vibration may contribute to CTS. CTS can
+cause severe pain for months or even years.
+To reduce the risk of RSI/CTS, do the following:
+• Avoid using your wrist in a bent, extended, or twisted position.
+Instead try to maintain a straight wrist position. Also, when
+grasping, use your whole hand, not just the thumb and index finger.
+• Take periodic breaks to minimize repetition and rest your hands.
+• Reduce the speed and force with which you do the repetitive movement.
+• Do exercise to strengthen the hand and arm muscles.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+7
+
+SAFETY
+
+PB-250LN
+
+• Immediately stop using all power equipment and consult a doctor if you feel tingling, numbness, or pain in
+the fingers, hands, wrists, or arms. The sooner RSI/CTS is diagnosed, the more likely permanent nerve
+and muscle damage can be prevented.
+
+All over head electrical conductors and communications wires can have electricity flow with high voltages.
+This unit is not insulated against electrical current. Never touch wires directly or indirectly, otherwise serious
+injury or death may result.
+
+Do not operate this product indoors or in inadequately ventilated areas. Engine exhaust contains poisonous
+emissions and can cause serious injury or death.
+Read the Manual
+• Provide all users of this equipment with the Operator’s Manual for instructions on Safe Operation.
+
+Clear the Work Area
+• Clear the area of children, bystanders, and pets. At a minimum, keep all children, bystanders, and pets
+outside a 15 m (50 ft) radius; outside the 15 m (50 ft) zone, there is still a risk of injury from thrown objects.
+Bystanders should be encouraged to wear eye protection. If you are approached, stop the engine.
+• Avoid blowing debris towards people, pets, open windows, or vehicles when using unit.
+• Review area to be cleared. Look for potential hazards such as stones or metal objects.
+
+Keep a Firm Grip
+• Hold the handle in one hand, with thumb and fingers encircling the handle.
+
+Keep a Solid Stance
+• Maintain footing and balance at all times. Do not stand on slippery, uneven or unstable surfaces. Do not
+work in odd positions or on ladders. Do not over reach.
+
+Avoid Hot Surfaces
+• Keep exhaust area clear of flammable debris. Avoid contact during
+and immediately after operation.
+
+Equipment
+Use only ECHO attachments. Serious injury may result from the use of a non-approved attachment combination. ECHO, INC. will not be responsible for the failure of cutting devices, attachments or accessories which
+have not been tested and approved by ECHO. Read and comply with all safety instructions listed in this manual.
+• Check unit for loose/missing nuts, bolts, and screws. Tighten and/or replace as needed.
+• Do not use blower if any part is missing or damaged.
+8
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+EMISSION CONTROL
+
+• Have repairs done only by an authorized ECHO Service dealer.
+
+Moving parts can amputate fingers or cause severe injuries. Keep hands, clothing and loose objects away from
+all openings.
+ALWAYS stop engine, disconnect spark plug, and make sure all moving parts have come to a
+complete stop before removing obstructions, clearing debris, or servicing unit.
+◆ DO NOT start or operate unit unless all guards and protective covers are properly assembled to
+unit.
+◆ NEVER reach into any opening while the engine is running. Moving parts may not be visible
+through openings.
+◆
+
+Periodically Check fuel system (fuel lines, vent, grommet, fuel tank, and fuel cap) for leaks especially if the
+unit is dropped. If damage or leaks are found, do not use unit, otherwise serious personal injury or property
+damage may occur. Have unit repaired by an authorized servicing dealer before using.
+
+EMISSION CONTROL (EXHAUST & EVAPORATIVE)
+CARB And EPA Emissions Control Information
+The emission control system for the engine is EM (engine modification)
+and, if the second to last character of the Engine Family on the Emission
+Control Information label (sample below) is “B”, “C”, “K”, or “T”, the
+emission control system is EM and TWC (3-way catalyst). The fuel
+tank/fuel line emission control system is EVAP (evaporative emissions).
+Evaporative emissions for California models are only applicable to fuel
+tanks.
+An Emission Control Label is located on the engine. (This is an
+EXAMPLE ONLY, information on label varies by engine FAMILY).
+
+Product Emission Durability (Emission Compliance Period)
+The 50 or 300 hour emission compliance period is the time span
+selected by the manufacturer certifying the engine emissions output
+meets applicable emissions regulations, provided that approved
+maintenance procedures are followed as listed in the Maintenance Section of this manual.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+9
+
+DESCRIPTION
+
+PB-250LN
+
+DESCRIPTION
+Locate the safety decal(s) on your unit. Make sure the decal(s) is legible and that you understand and follow
+the instructions on it. If a decal cannot be read, a new one can be ordered from your ECHO dealer. Safety
+label is for example only. Your label my appear slightly different.
+
+10
+
+2
+1
+
+1
+
+3
+
+9
+
+13
+12
+
+15
+
+6
+7
+
+14
+
+8
+
+4
+5
+
+10
+
+11
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+DESCRIPTION
+
+1. SAFETY DECAL - Lists important safety precautions.
+2. STOP SWITCH - “SLIDE SWITCH” mounted on top of throttle handle. Push forward to start and run.
+Slide back to stop.
+3. SPARK PLUG - Provides spark to ignite fuel mixture.
+4. FUEL TANK - Contains fuel and fuel filter.
+5. FUEL TANK CAP - Covers and seals fuel tank.
+6. RECOIL STARTER HANDLE - Pull recoil handle slowly until recoil starter engages, then quickly and
+firmly. When engine starts, return handle slowly. DO NOT let handle snap back or damage to unit will
+occur.
+7. CHOKE - The choke control lever is located on the front of the air cleaner case. Move choke lever to
+COLD START (
+) to close the choke for Cold Starting. Move choke lever to RUN (
+) position to
+open choke.
+8. PURGE BULB - Pumping purge bulb before starting engine draws fresh fuel from the fuel tank, purging
+air from the carburetor. Pump purge bulb until fuel is visible and flows freely in the clear fuel tank return
+line. Pump purge bulb an additional 4 or 5 times.
+9. Spark arrestor muffler or spark arrestor muffler with catalyst -The muffler controls exhaust noise and
+emission. The spark arrestor screen prevents hot, glowing particles of carbon from leaving the muffler.
+Keep exhaust area clear of flammable debris.
+10. BLOWER PIPES - Exclusive positive locking system.
+11. SAFETY DECAL - Lists important safety precautions.
+12. SAFETY DECAL - Lists important safety precautions.
+13. THROTTLE POSITION LEVER - Pull back to increase engine speed. Friction washers maintain throttle
+lever setting.
+14. THROTTLE TRIGGER - Spring loaded to return to idle when released. During acceleration, press trigger
+gradually for best operating technique.
+15. AIR CLEANER - Contains replaceable air filter element.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+11
+
+CONTENTS
+
+PB-250LN
+
+CONTENTS
+The ECHO product you purchased has been factory pre-assembled for your convenience. Due to packaging
+restrictions, some assembly may be necessary.
+After opening the carton, check for damage. Immediately notify your retailer or ECHO Dealer of damaged or
+missing parts. Use the contents list to check for missing parts.
+
+____ 1 - Power Head
+____ 1 - Blower Pipe (upper)
+____ 1 - Blower Pipe
+____ 1 - Emission Control Warranty Statement
+____ 1 - Operator's Manual
+
+12
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+ASSEMBLY
+
+ASSEMBLY
+Never perform maintenance or assembly procedures with engine running or serious personal injury may result.
+
+Install Blower Pipes
+1. Stand unit upright on blower base.
+
+2. Align locking ribs (A) on upper blower pipe with recesses (B)
+in fan case. Assure short locking rib (C) faces downward.
+Slide upper blower pipe into fan case until a clicking sound
+is heard.
+
+B
+A
+
+C
+
+3. Align tabs (D) with grooves (E) and slide lower blower pipe
+over upper pipe until there is light resistance. Do not force
+connection.
+4. Hold upper pipe, and turn lower pipe clockwise, engaging
+positive locking channels until connection is firm. Do not
+force connection.
+Note: Blower use will eventually loosen pipe connections.
+Exclusive positive locking system allows pipes to be
+tightened. If loosening occurs, remove lower straight
+pipe, and install according to instructions 3 & 4.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+Blower Pipe Upper
+
+E
+
+D
+
+Blower Pipe Lower
+
+13
+
+ASSEMBLY
+
+PB-250LN
+
+Remove Blower Pipes
+1. Insert screwdriver (F) into hole located near lock symbol (G)
+to release pipe lock.
+
+G
+
+Screwdriver tip may stick out opposite side of locking hole.
+F
+
+2. Pull pipe out of fan case.
+3. Remove screwdriver.
+
+14
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+OPERATION
+
+OPERATION
+Moving parts can amputate fingers or cause severe injuries. Keep hands, clothing and loose objects away from
+all openings. Always stop engine, disconnect spark plug, and make sure all moving parts have come to a complete stop before removing obstructions, clearing debris, or servicing unit. Blower housing may contain shredder blades and other sharp edges that can cause serious injuries if touched, even if engine is off and blades are
+not moving. Wear gloves to protect hands from sharp edges and hot surfaces.
+
+Operation of this equipment may create sparks that can start fires around dry vegitation. This unit is equipped
+with a spark arrestor to prevent discharge of hot particles from the engine. Contact local fire authorities for
+laws or regulations regarding fire prevention requirements.
+
+Fuel
+Diesel fuels and alternative fuels, such as E-15 (15% ethanol), E-85 (85% ethanol) or any fuels not meeting
+ECHO requirements are NOT approved for use in ECHO 2-stroke gasoline engines. Use of diesel or alternative fuels may cause performance problems, loss of power, overheating, fuel vapor lock, and unintended machine operation, including, but not limited to, improper clutch engagement. Diesel or alternative fuels may
+also cause premature deterioration of fuel lines, gaskets, carburetors and other engine components.
+Fuel Requirements
+Gasoline - Use 89 Octane [R+M/2] (mid grade or higher) gasoline known to be good quality. Gasoline may
+contain up to 10% Ethanol (grain alcohol) or 15% MTBE (methyl tertiary-butyl ether). Gasoline containing
+methanol (wood alcohol) is NOT approved. ECHO brand Power FuelTM is 93 octane, ethanol-free fuel
+premixed with ECHO Red ArmorTM engine oil at 50:1 ratio. Use of ECHO Power FuelTM is recommended
+to extend engine life in all air-cooled 2-stroke and 2/4-stroke hybrid engines.
+Two Stroke Oil - A two-stroke engine oil meeting ISO-L-EGD (ISO/CD 13738) and J.A.S.O. FD Standards
+must be used. Echo brand premium Power Blend XTM Universal 2-Stroke Oil meets these standards.
+Engine problems due to inadequate lubrication caused by failure to use an ISO-L-EGD (ISO/CD 13738) and
+J.A.S.O. M345-FD certified oil, such as Echo premium Power Blend XTM, will void the two-stroke engine
+warranty.
+
+Echo premium Power Blend XTM Universal 2-Stroke Oil may be mixed at 50:1 ratio for application in all
+Echo engines sold in the past regardless of ratio specified in those manuals.
+Handling Fuel
+
+Fuel is VERY flammable. Use extreme care when mixing, storing or handling, or serious personal injury may
+result.
+Use an approved fuel container.
+◆ DO NOT smoke near fuel.
+◆ DO NOT allow flames or sparks near fuel.
+◆
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+15
+
+OPERATION
+
+PB-250LN
+
+Fuel tanks/cans may be under pressure. Always loosen fuel caps slowly allowing pressure to
+equalize.
+◆ NEVER refuel a unit when the engine is HOT or RUNNING!
+◆ DO NOT fill fuel tanks indoors. ALWAYS fill fuel tanks outdoors over bare ground.
+◆ DO NOT overfill fuel tank. Wipe up spills immediately.
+◆ Securely tighten fuel tank cap and close fuel container after refueling.
+◆ Inspect for fuel leakage. If fuel leakage is found, do not start or operate unit until leakage is
+repaired.
+◆ Move at least 3 m (10 ft.) from refueling location before starting the engine.
+◆
+
+Mixing Instructions
+1. Fill an approved fuel container with half of the required
+amount of gasoline.
+2. Add the proper amount of 2-stroke oil to gasoline.
+3. Close container and shake to mix oil with gasoline.
+4. Add remaining gasoline, close fuel container, and remix.
+
+Spilled fuel is a leading cause of hydrocarbon emissions. Some
+states may require the use of automatic fuel shut-off containers to
+reduce fuel spillage.
+
+For more information
+scan this QR code.
+
+After use
+• DO NOT store a unit with fuel in its tank. Leaks can occur.
+Return unused fuel to an approved fuel storage container.
+Storage - Fuel storage laws vary by locality. Contact your local government for the laws affecting your area.
+As a precaution, store fuel in an approved, airtight container. Store in a well-ventilated, unoccupied building,
+away from sparks and flames.
+
+Stored fuel ages. Do not mix more fuel than you expect to use in thirty (30) days, ninety (90) days when a fuel
+stabilizer is added.
+Stored two-stroke fuel may separate. ALWAYS shake fuel container thoroughly before each use.
+
+Starting Cold Engine
+1. Stop Switch
+
+16
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+OPERATION
+
+Move stop switch (A) away from the STOP position.
+A
+
+Note: Engine will not run if safety switch is not activated.
+B
+
+2. Throttle Position Lever
+Move throttle position lever (B) midway between idle and full
+throttle positions.
+3. Choke
+Move choke (C) to COLD START (
+
+) (closed) position.
+
+4. Purge Bulb
+Pump purge bulb (D) until fuel is visible and flows freely in the
+clear fuel tank return line.
+
+Recoil starter: Use short pulls - only 1/2 ~ 2/3 of rope for starting.
+Do not allow the rope to snap back in. Always hold the unit firmly.
+D
+
+C
+
+5. Recoil Starter
+Place the unit on a flat, clear area. Firmly grasp throttle handle
+with left hand and rapidly pull recoil starter handle/rope (E)
+until engine fires, or maximum 5 pulls.
+
+E
+
+6. Choke
+Move choke lever (C) to RUN position, and if necessary,
+restart engine.
+Note: If engine does not start with choke in RUN position after 5
+pulls, repeat instructions 3 - 6.
+7. Throttle Trigger
+After engine warm up, gradually depress throttle trigger to increase engine RPM to operating speed.
+Note: Allow engine to warm up 3 minutes before use.
+
+Starting Warm Engine
+The starting procedure is the same as Cold Start except DO
+NOT close the choke.
+1. Stop Switch
+
+A
+B
+
+Move stop switch (A) away from the STOP position.
+2. Throttle Position Lever
+Move throttle position lever (B) midway between idle and full
+throttle positions.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+17
+
+OPERATION
+
+PB-250LN
+
+3. Purge Bulb
+Pump purge bulb (D) until fuel is visible and flows freely in the
+clear fuel tank return line.
+
+D
+
+C
+
+4. Recoil Starter
+Place the unit on a flat, clear area. Firmly grasp throttle handle
+with left hand and rapidly pull recoil starter handle/rope (E)
+until engine fires.
+
+E
+
+Recoil starter: Use short pulls - only 1/2 ~ 2/3 of rope for starting.
+Do not allow the rope to snap back in. Always hold the unit firmly.
+Note: If engine does not start after 5 pulls, use Cold Start
+Procedure.
+
+Stopping Engine
+A
+
+1. Throttle Trigger/Throttle Position Lever
+Release throttle trigger (F). Move throttle position lever (B)
+forward to idle position and allow engine to return to idle
+before shutting off engine.
+
+B
+F
+
+2. Stop Switch
+Move stop switch (A) to STOP position.
+
+If engine does not stop when stop switch is moved to STOP position, close choke - COLD START position to stall engine. Have your ECHO dealer repair stop switch before using unit again.
+
+Operating Blower
+A
+B
+
+Engine exhaust IS HOT, and contains Carbon Monoxide (CO), a
+poison gas. Breathing CO can cause unconsciousness, serious injury, or death. Exhaust can cause serious burns. ALWAYS position unit so that exhaust is directed away from your face and
+body.
+
+18
+
+F
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+OPERATION
+
+Always wear safety glasses, hearing protection and a face filter
+mask or serious personal injury may result. Do not point the
+blower pipe in the direction of people or pets.
+
+Use reduced speed only when performing light-duty tasks or to
+comply with local noise regulations. Continuous low speed operation may allow fuel/oil residue to build-up on the piston and
+cause rapid build-up of carbon on the spark arrestor screen, resulting in overheating and engine damage. To reduce harmful
+build-up, run engine at wide open throttle for at least 5 minutes
+every hour, and inspect/clean the spark arrestor screen after approximately 40 hours of operation.
+Read the Safety Section carefully.
+
+To avoid engine damage due to over-revving, do not block blower pipe.
+
+For more information
+scan this QR code.
+
+1. Use only during appropriate hours.
+2. Allow the engine to warm up at a fast idle for a few minutes.
+3. Control engine speed with throttle trigger (F), or for
+continuous use, set engine speed with throttle position lever
+(B). Rotate throttle position lever forward for lower speed, back for higher speed.
+4. Use lower speed to blow debris from hard surfaces.
+5. Additional speed may be necessary to clean debris, snow, etc. from lawns and flowerbeds.
+Note: Never use a higher speed setting than necessary to perform a task. Remember, the higher the engine
+speed, the louder the blower noise. Minimize dust by using blower at lower speeds. Keep debris on
+your property. Be Smart - be a good neighbor.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+19
+
+MAINTENANCE
+
+PB-250LN
+
+MAINTENANCE
+Moving parts can amputate fingers or cause severe injuries. Keep hands, clothing and loose objects away from
+all openings. Always stop engine, disconnect spark plug, and make sure all moving parts have come to a complete stop before removing obstructions, clearing debris, or servicing unit. Allow unit to cool before performing service. Wear gloves to protect hands from sharp edges and hot surfaces.
+Your ECHO unit is designed to provide many hours of trouble free service. Regular scheduled maintenance
+will help your unit achieve that goal. If you are unsure or are not equipped with the necessary tools, you may
+want to take your unit to an ECHO Service Dealer for maintenance. To help you decide whether you want to
+DO-IT-YOURSELF or have the ECHO Dealer do it, each maintenance task has been graded. If the task is
+not listed, see your ECHO Dealer for repairs.
+
+Skill Levels
+Level 1 = Easy to do. Common tools may be required.
+Level 2 = Moderate difficulty. Some specialized tools may be required.
+ECHO offers REPOWERTM Maintenance Kits and Parts to make your maintenance job easier.
+
+Maintenance Intervals
+COMPONENT/SYSTEM
+
+MAINTENANCE
+PROCEDURE
+
+REQ’D
+SKILL
+LEVEL
+
+DAILY
+OR
+BEFORE
+USE
+
+EVERY
+REFUEL
+
+3
+MONTHS
+
+YEARLY
+
+Air Filter
+
+Inspect/Clean
+
+1
+
+I/C*
+
+Choke Shutter
+
+Inspect/Clean
+
+1
+
+I/C
+
+Fuel Filter
+
+Inspect/Replace
+
+1
+
+I*
+
+I/R*
+
+Fuel Cap Gasket
+
+Inspect/Replace
+
+1
+
+I*
+
+R*
+
+Fuel System
+
+Inspect/Replace
+
+1
+
+Spark Plug
+
+Inspect/Clean/Replace
+
+1
+
+Cooling System
+
+Inspect/Clean
+
+2
+
+Muffler Spark Arrestor
+
+Inspect/Clean/Replace
+
+2
+
+I/C/R*
+
+Cylinder Exhaust Port
+
+Inspect/Clean/Decarbon
+
+2
+
+I/C
+
+Recoil Starter Rope
+
+Inspect/Clean
+
+1
+
+I/C*
+
+Screws/Nuts/Bolts
+
+Inspect/Tighten/Replace
+
+1
+
+I*
+
+I (1) *
+
+R*
+
+I (1) *
+I/C/R*
+
+I/C
+
+MAINTENANCE PROCEDURE LETTER CODES: I = INSPECT, R = REPLACE, C = CLEAN
+IMPORTANT NOTE - Time intervals shown are maximum. Actual use and your experience will determine
+the frequency of required maintenance.
+MAINTENANCE PROCEDURE NOTES:
+(1) Low evaporative fuel tanks DO NOT require regular maintenance to maintain emission integrity.
+* Replacement is recommended based on the finding of damage or wear during inspection.
+
+Air Filter
+Level 1.
+
+20
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+Parts Required:
+
+MAINTENANCE
+Tune Up Kit
+
+1. Close choke (COLD START [
+] position). This prevents
+dirt from entering the carburetor throat when the air filter is
+removed. Brush accumulated dirt from air cleaner area.
+2. Remove air filter cover. Brush dirt from inside cover.
+3. Remove air filter and lightly brush debris from filter. Replace
+filter if it is damaged, fuel soaked, very dirty, or the rubber
+sealing edges are deformed.
+4. If filter can be reused, be certain it:
+• Fits tightly in he air filter cavity.
+• Is installed with the original side out.
+5. Install air filter cover.
+
+Fuel Filter
+Level 1.
+Parts Required:
+
+Tune Up Kit
+
+Fuel is VERY flammable. Use extreme care when mixing, storing or handling, or serious personal injury may result.
+1. Use a clean rag to remove loose dirt from around fuel cap
+and empty fuel tank.
+2. Use the “fuel line hook” to pull the fuel line and filter from the
+tank.
+3. Remove the filter from the line and install the new filter.
+
+Note: Federal EPA regulations require all model year 2012 and
+later gasoline powered engines produced for sale in the
+United States to be equipped with a special low permeation fuel supply hose between the carburetor
+and fuel tank. When servicing model year 2012 and later equipment, only fuel supply hoses certified
+by EPA can be used to replace the original equipment supply hose. Fines up to $37,500 may be
+enforced for using an un-certified replacement part. NOT APPLICABLE IN MEXICO.
+
+Spark Plug
+Level 2.
+Parts Required:
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+Tune Up Kit
+
+21
+
+MAINTENANCE
+
+PB-250LN
+
+Use only NGK BPM-8Y spark plug (BPMR-8Y in Canada) otherwise severe engine damage may occur.
+1. Remove spark plug and check for fouling, worn and rounded
+center electrode.
+2. Clean the plug or replace with a new one. DO NOT sand
+blast to clean. Remaining sand will damage engine.
+3. Adjust spark plug gap by bending outer electrode.
+4. Tighten spark plug to 150-170 kgf • cm (130-150 in • lbf).
+
+0.65 mm
+(0.026 in.)
+
+Cooling System
+Level 2.
+Parts Required:
+
+None if you are careful.
+
+To maintain proper engine operating temperatures, cooling air must pass freely through the cylinder fin area.
+This flow of air carries combustion heat away from the engine.
+Overheating and engine seizure can occur when:
+• Air intakes are blocked, preventing cooling air from reaching
+the cylinder.
+• Dust and grass build up on the outside of the cylinder. This
+build up insulates the engine and prevents the heat from
+leaving.
+
+Removal of cooling passage blockages or cleaning of cooling
+fins is considered “Normal Maintenance.” Any failure
+attributed to lack of maintenance is not warranted.
+
+Cleaning Grill
+1. Brush accumulated debris from crankcase intake grill
+above the fuel tank.
+
+22
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+MAINTENANCE
+
+Cleaning Cylinder Fins
+1. Remove spark plug lead from spark plug, and remove
+engine cover.
+2. Clean cylinder fins to allow cooling air to pass freely.
+3. Reassemble parts in reverse order.
+
+Exhaust System
+Spark Arrestor Screen
+Level 2.
+Parts Required:
+
+Spark Arrestor Screen, Gasket
+
+Carbon deposits in muffler will cause a drop in engine output and overheating. Spark arrestor screen must be
+checked periodically.
+1. Remove spark plug lead from spark plug, and remove
+engine cover.
+2. Remove spark arrestor cover (A), deflector (B), plate (C),
+gasket (D), and spark arrestor screen (E) from muffler.
+Replace screen if plugged with carbon deposits.
+
+E
+
+D
+C
+
+Note: When cleaning carbon deposits, be careful not to
+damage the catalytic element inside muffler.
+
+B
+A
+
+3. Clean carbon deposits from muffler components.
+4. Install spark arrestor screen, gasket, plate, deflector, and
+cover.
+5. Loosely reassemble engine cover.
+6. Tighten all screws securely.
+7. Attach spark plug lead.
+
+Exhaust Port Cleaning
+Level 2.
+
+B
+A
+
+Parts Required:
+
+As needed: Heat Shield
+
+1. Remove spark plug lead from spark plug, and remove
+engine cover.
+2. Place piston at top dead center. Remove muffler (A) and
+heat shield (B).
+3. Use a wood or plastic scraping tool to clean deposits from
+cylinder exhaust port.
+
+Never use a metal tool to scrape carbon from the exhaust port. Do not scratch the cylinder or piston when
+X7501186701
+© 1/2019 ECHO Inc.
+
+23
+
+MAINTENANCE
+
+PB-250LN
+
+cleaning the exhaust port. Do not allow carbon particles to enter the cylinder.
+4. Inspect heat shield, and replace if damaged.
+5. Install heat shield and muffler.
+6. Tighten muffler mounting bolts (or nuts) to 70-80 kgf•cm
+(60-70 in•lbf).
+7. Loosely reassemble engine cover.
+8. Tighten all screws securely.
+9. Attach spark plug lead.
+10. Start engine, and warm to operating temperature.
+11. Stop engine, and re-tighten mounting bolts (or nuts) to
+specifications.
+
+Carburetor Adjustment
+Engine Break-In
+New engines must be operated a minimum duration of two tanks of fuel break-in before carburetor
+adjustments can be made. During the break-in period your engine performance will increase and exhaust
+emissions will stabilize. Idle speed can be adjusted as required.
+
+High Altitude Operation
+This engine has been factory adjusted to maintain satisfactory starting, emission, and durability
+performance up to 1,100 feet above sea level (ASL) (96.0 kPa). To maintain proper engine operation and
+emission compliance above 1,100 feet ASL the carburetor may need to be adjusted by an authorized ECHO
+service dealer.
+
+If the engine is adjusted for operation above 1,100 feet ASL, the carburetor must be re-adjusted when operating
+the engine below 1,100 feet ASL, otherwise severe engine damage may result.
+Level 2.
+Parts Required:
+
+None
+
+Note: Every unit is run at the factory and the carburetor is set in compliance with emission regulations.
+Carburetor adjustments, other than idle speed, must be performed by an authorized ECHO dealer.
+Before adjustment make sure that:
+• Air filter is clean and properly installed.
+• Spark arrestor screen is free of carbon.
+• Blower pipes are installed.
+
+24
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+MAINTENANCE
+
+1. Start engine, run at idle for one minute.
+2. Complete warm up by running at full throttle for 5 minutes,
+operating choke twice to clear air from carburetor chambers.
+3. Check idle speed and reset if necessary. If a tachometer is
+available, idle speed screw (A) should be set to the
+specifications found on “Specifications” Page of this manual.
+Turn idle screw (A) clockwise to increase idle speed; counter
+clockwise to decrease idle speed.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+A
+
+25
+
+TROUBLESHOOTING
+
+PB-250LN
+
+TROUBLESHOOTING
+ENGINE PROBLEM TROUBLESHOOTING CHART
+Problem
+
+Check
+
+Status
+
+Cause
+
+Fuel at carburetor
+
+No fuel at carburetor
+
+Fuel strainer clogged
+Fuel line clogged
+Carburetor
+
+Clean or replace
+Clean or replace
+See your Echo dealer
+
+No fuel at cylinder
+
+Carburetor
+
+See your Echo dealer
+
+Muffler wet with fuel
+
+Fuel Mixture too rich
+
+Open choke
+Clean/replace air filter
+See your Echo dealer
+
+No spark
+
+Stop switch OFF
+Electrical problem
+Interlock switch
+
+Turn switch to ON
+See your Echo dealer
+See your Echo dealer
+
+Spark at plug
+
+No spark
+
+Spark gap incorrect
+Covered with carbon
+Fouled with fuel
+Plug defective
+
+Adjust to 0.65mm
+(0.026 in.)
+Clean or replace
+Clean or replace
+Replace plug
+
+Air filter
+
+Air filter dirty
+
+Normal wear
+
+Clean or replace
+
+Fuel filter
+
+Fuel filter dirty
+
+Contaminants/residues
+in fuel
+
+Replace
+
+Fuel vent
+
+Fuel vent plugged
+
+Contaminants/residues
+in fuel
+
+Clean or replace
+
+Spark Plug
+
+Plug dirty/worn
+
+Normal wear
+
+Clean and adjust or replace
+
+Carburetor
+
+Improper adjustment
+
+Vibration
+
+See Your Echo Dealer
+
+Cooling System
+
+Cooling system
+dirty/plugged
+
+Extended operation in
+dirty/dusty locations
+
+Clean
+
+Spark Arrestor
+Screen
+
+Spark arrestor screen
+plugged
+
+Normal wear
+
+Replace
+
+N/A
+
+N/A
+
+Internal engine problem
+
+See your Echo dealer
+
+Fuel at cylinder
+Engine cranks starts hard/
+Spark at end of
+doesn’t start
+plug wire
+
+Engine runs,
+but dies or
+does not
+accelerate
+properly
+
+Engine does
+not crank
+Engine runs,
+blower doesn't
+work or is
+weak/uneven
+
+Blower pipe
+
+Remedy
+
+Pipe clogged
+
+Build-up of debris
+
+Unclog
+
+Pipe loose
+
+Vibration
+
+Tighten
+
+Pipe damaged
+
+Wear/Misuse
+
+Replace
+
+Fuel vapors are extremely flammable and may cause fire and/or explosion. Never test for ignition spark by
+grounding spark plug near cylinder plug hole, otherwise serious personal injury may result.
+
+26
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+STORAGE
+
+STORAGE
+During operation the muffler or catalytic muffler and surrounding cover become hot. Always keep exhaust
+area clear of flammable debris during transportation or when storing, otherwise serious property damage or
+personal injury may result.
+
+Long Term Storage (Over 30 Days)
+Do not store your unit for a prolonged period of time (30 days or longer) without performing protective
+storage maintenance which includes the following:
+1. Store unit in a dry, dust free place, out of the reach of children.
+
+Do not store in enclosure where fuel fumes may accumulate or reach an open flame or spark.
+2. Place the stop switch in the “OFF” position.
+3. Remove accumulation of grease, oil, dirt and debris from exterior of unit.
+4. Perform all periodic lubrication and services that are required.
+5. Tighten all the screws and nuts.
+6. Drain fuel tank completely. Press purge bulb 6 -7 times to remove remaining fuel from carburetor then
+drain the tank again. Close choke, start and run the engine until it stops due to lack of fuel.
+7. Allow engine to cool then remove the spark plug and pour 7 cc (1/4 oz.) of fresh, clean, two-stroke
+engine oil into the cylinder through the spark plug hole.
+8. Pull the recoil starter handle 2-3 times to distribute the oil inside the engine.
+9. Observe the piston location through the spark plug hole. Pull the recoil handle slowly until the piston
+reaches the top of its travel and leave it there.
+10. Install the spark plug (do not connect ignition cable).
+11. Remove blower pipe assembly from unit.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+27
+
+SPECIFICATIONS
+
+PB-250LN
+
+SPECIFICATIONS
+MODEL
+
+PB-250 LN
+
+Length
+
+230 mm (9.1 in.) ( w/o pipes)
+
+Width
+
+330 mm (13.0 in.)
+
+Height
+
+345 mm (13.6 in.)
+
+Weight (dry)
+
+4.0 kg (8.8 lb.)
+
+Engine Type
+
+Air cooled, two-stroke, single cylinder gasoline engine
+
+Bore
+
+34.0 mm (1.34 in.)
+
+Stroke
+
+28.0 mm (1.1 in.)
+
+Displacement
+
+25.4 cc (1.55 cu. in.)
+
+Exhaust
+
+Spark arrestor muffler or spark arrestor muffler with catalyst
+
+Carburetor
+
+Diaphragm w/purge pump
+
+Ignition System
+
+Flywheel magneto, capacitor discharge ignition type
+
+Spark Plug
+
+NGK BPM-8Y Gap 0.65 mm (0.026 in.)
+
+Fuel
+
+Mixed (Gasoline and Two-stroke Oil)
+
+Fuel/Oil Ratio
+
+50:1
+
+Gasoline
+
+Use 89 Octane unleaded. Do not use fuel containing methyl alcohol, more than 10% ethyl
+alcohol or 15% MTBE. Do not use alternative fuels such as E-15 or E-85.
+
+Oil
+
+ISO-L-EGD (ISO/CD 13738) and J.A.S.O. M345- FD, two-stroke, air-cooled engine oil.
+
+Fuel Tank Capacity
+
+0.47 lit. (15.9 US fl. oz.)
+
+Starter System
+
+Automatic Recoil Starter, centrifugal type
+
+Idle Speed
+
+3,000 RPM
+
+Wide Open Throttle Speed (W.O.T.)
+
+7,100 RPM
+
+Average Air Speed w/pipes (MPH)
+
+61.24 m/sec (137 mph)
+
+Maximum Air Speed w/pipes (MPH)
+
+73.76 m/sec (165 mph)
+
+Air Volume
+
+11.07 m3 /min. (391 cu. ft./min.)
+
+Sound Level at 50 ft. dB(A) scale per
+ANSI B175.2
+
+65 dB(A)
+
+28
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+WARRANTY STATEMENTS
+
+WARRANTY STATEMENTS
+
+ECHO INCORPORATED LIMITED WARRANTY STATEMENT
+Effective For Product Sold Through Home Depot Mexico After 01/01/2010
+ECHO INCORPORATED'S RESPONSIBILITY
+ECHO Incorporated’s (ECHO INC.) Limited Warranty, provides to the original purchaser that this ECHO product is free from
+defects in material and workmanship. Under normal use and maintenance from date of purchase, ECHO INC. agrees to repair
+or replace at ECHO’s discretion, any defective product free of charge at any authorized ECHO servicing dealer within listed
+below application time periods, limitations and exclusions. THIS LIMITED WARRANTY IS ONLY APPLICABLE TO ECHO
+PRODUCTS SOLD BY HOME DEPOT MEXICO. IT IS EXTENDED TO THE ORIGINAL PURCHASER ONLY, AND IS NOT
+TRANSFERABLE TO SUBSEQUENT OWNERS. Repair parts and accessories replaced under this warranty are warranted
+only for the balance of the original unit or accessory warranty period. Any damage caused by improper installation or improper
+maintenance is not covered by this warranty. All parts or products replaced under warranty become the property of ECHO INC.
+The owner shall demonstrate reasonable care and use, and follow preventative maintenance, storage, fuel and oil usage as
+SUHVFULEHGLQWKHRSHUDWRU¶VPDQXDO6KRXOGDSURGXFWGLI¿FXOW\RFFXU\RXPXVWDW\RXUH[SHQVHGHOLYHURUVKLS\RXU(&+2
+unit to an authorized ECHO servicing dealer for warranty repairs (within the applicable warranty period), and arrange for pick-up
+or return of your unit after the repairs have been made.
+PRODUCT WARRANTY PERIOD
+5 YEAR WARRANTY
+• Complete unit will be covered by this limited warranty for ¿YH (5) years from date of purchase.
+EXCEPTIONS:
+• Cutting attachments such as, but not limited to, bars, chains, sprockets, blades, and nylon trimmer heads will be covered
+for failures due to defects in material or workmanship for a period of 60 days from original product purchase date. Any
+misuse from contact with concrete, rocks, or other structures is not covered by this warranty.
+• All SB-Series and PRO ATTACHMENT SERIES Split Shaft attachments carry the same warranty duration as the units
+WKH\DUHGHVLJQHGWR¿W
+
+PURCHASED REPAIR PARTS, SHORT BLOCKS AND ACCESSORIES
+• 90-day warranty
+ATTENTION TWO-STROKE ENGINE POWER PRODUCT OWNERS
+This ECHO two-stroke engine power product is a quality-engineered unit which has been manufactured to exact tolerances to
+provide superior performance. To help ensure the performance of the unit, it is required to use two-stroke oil which meets the
+ISO-L-EGD Standard per ISO/CD 13738 and JASO M345/FC/FD Standards. ECHO Power Blend™ and Red Armor™ TwoStroke Oils DUHSUHPLXPWZRVWURNHRLOVVSHFL¿FDOO\IRUPXODWHGWRPHHW,62/(*' ,62&' DQG-$620)&)'
+Standards. The use of two-stroke oils designed for other applications, such as for outboard motors or lawnmowers can result
+in severe engine damage, and will void your two-stroke engine limited warranty.
+THIS WARRANTY DOES NOT COVER DAMAGE CAUSED BY:
+•
+Damage caused by use of gasohol, containing methanol (wood alcohol), or gasoline containing less than 89 octane. Only
+use gasoline which contains 89 octane or higher. Gasohol which contains a maximum 10% ethanol (grain alcohol) or 15%
+MTBE (methyl/tertiary/butyl/ether) is also approved. The prescribed mixing ratio of gasoline to oil is listed on the ECHO oil
+label and covered in your operator’s manual.
+ (QJLQHGDPDJHFDXVHGE\XVHRIHWKHURUDQ\VWDUWLQJÀXLGV
+ 'DPDJHFDXVHGE\WDPSHULQJZLWKHQJLQHVSHHGJRYHUQRURUHPLVVLRQFRPSRQHQWVRUUXQQLQJHQJLQHVDERYHVSHFL¿HG
+and recommended engine speeds as listed in your operator’s manual.
+ 2SHUDWLRQRIWKHXQLWZLWKLPSURSHUO\PDLQWDLQHGUHPRYHGFXWWLQJVKLHOGRUUHPRYHGGDPDJHGDLU¿OWHU
+•
+Damage caused by dirt, pressure or steam cleaning the unit, salt water, corrosion, rust, varnish, abrasives, and moisture.
+ 'HIHFWVPDOIXQFWLRQVRUIDLOXUHVUHVXOWLQJIURPDEXVHPLVXVHQHJOHFWPRGL¿FDWLRQVDOWHUDWLRQVQRUPDOZHDULPSURSHU
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+29
+
+WARRANTY STATEMENTS
+
+•
+•
+•
+•
+•
+
+•
+•
+
+•
+
+PB-250LN
+
+servicing, or use of unauthorized attachments.
+Incorrect storage procedures, stale fuel, including failure to provide or perform required maintenance services as prescribed
+in the operator's manual. Preventative maintenance as outlined in the operators manual is the customer’s responsibility.
+Failures due to improper set-up, pre-delivery service or repair service by anyone other than authorized ECHO servicing
+dealer during the warranty period.
+Certain parts and other items are not warranted, including but not limited to: lubricants, starter cords, and engine tuneups.
+Use of spark plugs other than those meeting performance and durability requirements of the OEM spark plug listed in the
+Operator's Manuals.
+Overheating or carbon scoring failures due to restricted, clogged exhaust port or combustion chamber, including damage to
+spark arrester screen.
+$GMXVWPHQWVDIWHUWKH¿UVW  WKLUW\GD\VDQGEH\RQGVXFKDVFDUEXUHWRUDGMXVWPHQWDQGWKURWWOHFDEOHDGMXVWPHQW
+Damage to gears or gear cases caused by contaminated grease or oil, use of incorrect type or viscosity of lubricants, and/
+or failure to comply with recommended grease or oil change intervals.
+Damage caused by loading SHRED 'N' VAC® beyond recommended capacity.
+'DPDJHFDXVHGE\SXPSRUVSUD\HUUXQQLQJGU\SXPSLQJRUVSUD\LQJFDXVWLFRUÀDPPDEOHPDWHULDOVRUODFNRIRUEURNHQ
+strainers.
+Additional damage to parts or components due to continued use after operational problem or failure occurs. Should operational
+problem or failure occur, the product should not be used, but delivered as is to an authorized ECHO servicing dealer.
+
+Your receipt of purchase including date, model and serial number must be maintained and presented to an authorized ECHO
+servicing dealer for warranty service. Proof of purchase rests solely with the customer. Some countries may not allow limitations
+on how long an implied warranty lasts, so the above limitations may not apply to you. Some countries may not allow the exclusion
+RUOLPLWDWLRQRILQFLGHQWDORUFRQVHTXHQWLDOGDPDJHVVR\RXPD\DOVRKDYHRWKHUVSHFL¿FOHJDOULJKWVZKLFKYDU\IURPFRXQWU\WR
+country. This warranty is given by ECHO Incorporated, 400 Oakwood Rd., Lake Zurich, IL 60047 USA.
+
+DISCLAIMER OF IMPLIED WARRANTIES
+This limited warranty is in lieu of all other expressed or implied warranties, including any warranty of FITNESS FOR A PARTICULAR
+PURPOSE OR USE and any implied warranty of MERCHANTABILITY otherwise applicable to this product. ECHO INC. and its
+DI¿OLDWHGFRPSDQLHVVKDOOQRWEHOLDEOHIRUDQ\VSHFLDOLQFLGHQWDORUFRQVHTXHQWLDOGDPDJHLQFOXGLQJORVWSUR¿WV7KHUHDUHQR
+ZDUUDQWLHVH[WHQGHGRWKHUWKDQDVSURYLGHGKHUHLQ7KLVOLPLWHGZDUUDQW\PD\EHPRGL¿HGRQO\E\(&+2,1&
+
+SUP22201825
+12/2016
+
+30
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+PRODUCT REGISTRATION
+
+PRODUCT REGISTRATION
+Thank you for choosing ECHO Power Equipment
+Please go to http://www.echo-usa.com/Warranty/Register-Your-ECHO to register your new product on-line.
+It's FAST and EASY! NOTE: your information will never be sold or misused by ECHO, Inc. Registering your
+purchase enables us to contact you in the unlikely event of a service update or product recall, and verifies
+your ownership for warranty consideration.
+If you do not have access to the Internet, you can complete the form below and mail to:
+ECHO Inc., Product Registration, PO Box 1139, Lake Zurich IL 60047.
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+31
+
+PRODUCT REGISTRATION
+
+32
+
+PB-250LN
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+NOTES
+
+NOTES
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+33
+
+NOTES
+
+34
+
+PB-250LN
+
+X7501186701
+© 1/2019 ECHO Inc.
+
+PB-250LN
+
+NOTES
+
+X7501186701
+
+35
+
+© 1/2019 ECHO Inc.
+
+P39926001001 - P39926999999
+
+36
+
+

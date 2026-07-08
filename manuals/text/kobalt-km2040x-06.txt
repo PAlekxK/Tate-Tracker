@@ -1,0 +1,1079 @@
+ITEM #0506586
+
+20 IN., 40 V LITHIUM-ION DUAL BLADE MOWER
+MODEL #KM2040X-06
+Français p. 23
+
+KOBALT® and the K Design® are registered
+trademarks of LF, LLC. All Rights Reserved.
+
+Español p. 45
+
+ATTACH YOUR RECEIPT HERE
+Serial Number
+
+Purchase Date
+
+Questions, problems, missing parts? Before returning to your retailer, call our customer
+service department at 1-888-3KOBALT (1-888-356-2258), 8 a.m. - 8 p.m., EST,
+Monday - Friday.
+kobalttools.com
+
+AB13811C
+1
+
+TABLE OF CONTENTS
+Product Specifications........................................................................................................... 2
+Package Contents................................................................................................................. 3
+Safety Information................................................................................................................. 6
+Preparation ........................................................................................................................... 11
+Assembly Instructions .......................................................................................................... 13
+Operating Instructions .......................................................................................................... 16
+Care and Maintenance ......................................................................................................... 18
+Troubleshooting.....................................................................................................................20
+Warranty................................................................................................................................ 21
+Replacement Parts List ........................................................................................................ 22
+PRODUCT SPECIFICATIONS
+SPECIFICATIONS
+Battery type
+
+40 V Lithium-ion
+
+Charge time
+
+1 hour, for 40 V 73 Wh battery
+2 hours, for 40 V 146 Wh battery
+
+No-load speed
+
+5,000 RPM
+
+Height adjustments
+
+1-3/8- 3-3/8 in. (3.5 - 8.5 cm)
+
+Functions
+
+2-in-1: Mulch or rear bag
+
+Unit weight (without battery)
+
+39.48 lbs. / 17.91 kg
+
+kobalttools.com
+
+2
+
+PACKAGE CONTENTS
+
+C
+
+B
+
+A
+
+E
+D
+
+PART
+A
+B
+C
+D
+E
+
+DESCRIPTION
+Lawn mower
+Mulching plug
+Charger
+Grass catcher bag
+Battery 40 V 2ah
+Battery 40 V 4ah
+
+QUANTITY
+1
+1
+1
+1
+1
+1
+
+kobalttools.com
+
+3
+
+SYMBOLS
+Some of the following symbols may be used on this product. Please study them and learn their meaning.
+Proper interpretation of these symbols will allow you to operate the product better and safer.
+SYMBOLS
+V
+A
+Hz
+W
+Hrs.
+
+DESIGNATION / EXPLANATION
+Volts
+Amperes
+Hertz
+Watts
+Hours
+Precautions that involve your safety.
+To reduce the risk of injury, user must read and understand user’s
+manual before using this product.
+Wear eye protection when operating this equipment.
+Do not expose machine to rain or wet conditions.
+Pay attention that bystanders are not injured through foreign
+objects thrown from the mower.
+Keep all bystanders (especially children and pets) at least 50 ft.
+away from the work area.
+Keep hands and feet away from blade and cutting area.
+Switch off and remove isolator key before adjusting, cleaning and
+before leaving the product unattended for any period.
+Do not operate on inclines greater than 15°. Mow across the face
+of slopes, never up and down.
+Beware of electric shock hazard.
+Wait for all components of machine to have completely stopped
+before touching them.
+The charger is intended for indoor use only.
+
+kobalttools.com
+
+4
+
+SYMBOLS
+Save these Instructions
+The following signal words and meanings are intended to explain the levels of risk associated with this product.
+SYMBOL
+
+SIGNAL
+
+MEANING
+an imminently hazardous situation, which, if not avoided, will
+DANGER Indicates
+result in death or serious injury.
+a potentially hazardous situation, which, if not avoided, could
+WARNING Indicates
+result in death or serious injury.
+a potentially hazardous situation, which, if not avoided, may result
+CAUTION Indicates
+in minor or moderate injury.
+Safety Alert Symbol) Indicates a situation that may result in
+CAUTION (Without
+property damage.
+
+ENVIRONMENTAL PROTECTION
+Waste electrical products should not be disposed of with household waste. Please recycle
+where facilities exist. Check with your local authority or retailer for recycling advice.
+The battery contains material which is hazardous to you and the environment. It must be
+removed and disposed of separately at a facility that accepts lithium-ion batteries.
+
+kobalttools.com
+
+5
+
+SAFETY INFORMATION
+General safety rules
+Read all instructions carefully
+•
+
+WARNING
+This symbol indicates important safety instructions. If these instructions are not followed, it could
+endanger the personal safety and/or property of the operator and others. Read and understand all
+instructions in this manual before attempting to operate the mower. Failure to comply with these
+instructions may result in personal injury.
+
+•
+
+Basic safety precautions should always be followed when using electric lawn mowers, in order to
+reduce the risk of fire, electric shock, and personal injury.
+
+•
+
+Use of this mower should be restricted to individuals who have read and understood and will follow
+the warnings and instructions that are printed in this manual and on the mower.
+
+DANGER
+This mower was built to be operated according to the rules for safe operation that are contained
+in this manual. As with any type of power equipment, carelessness or error on the part of the operator
+can result in serious injury. This mower is capable of amputating body parts and throwing objects.
+Failure to observe the following safety rules could result in serious injury or death.
+
+kobalttools.com
+
+6
+
+SAFETY INFORMATION
+WARNING
+• To avoid serious personal injury, do not attempt to use this product until you have read this
+Owner’s Manual thoroughly and understand it completely. If you do not understand the warnings and
+instructions in this Owner’s Manual, do not use this product. Call 1-888-356-2258 for assistance.
+The operation of any power tool can result in foreign objects being thrown into your eyes,
+which can result in severe eye damage. Before beginning power tool operation, always wear
+safety goggles or safety glasses with side shields and, when needed, a full face shield. We
+recommend a wide vision safety mask for use over eyeglasses or standard safety glasses
+with side shields. Always use eye protection which is marked to comply with ANSI Z87.1.
+WARNING (Proposition 65)
+Some dust created by power sanding, sawing, grinding, drilling and other construction activities
+contains chemicals known to the state of California to cause cancer, birth defects or other
+reproductive harm. Some examples of these chemicals are:
+• Lead from lead-based paints,
+• Crystalline silica from bricks and cement and other masonry products, and
+• Arsenic and chromium from chemically-treated lumber.
+Your risk from these exposures varies, depending on how often you do this type of work. To reduce
+your exposure to these chemical: work in a well ventilated area, and work with approved safety
+equipment, such as those dust masks that are specially designed to filter out microscopic particles.
+SAFETY INFORMATION
+Carefully read all instructions on the mower and in the manual before attempting to assemble and
+operate the mower. Keep this manual in a safe place for future reference, and consult it regularly.
+• Become familiar with all controls and their proper operation. Know how to stop the mower and how
+to disengage the power in an emergency.
+• In order to avoid contact with the blade or injury caused by a thrown object, stay in the operating
+zone behind the handles, and keep children and bystanders at least 50 ft. (15 m) away from the
+mower while it is in operation. Stop the motor immediately if someone enters the mowing area.
+• Thoroughly inspect the area where the mower is to be used. Remove all stones, sticks, wire,
+bones, toys, and other objects that could be tripped over or thrown by the blade. Thrown objects
+can cause serious personal injury.
+• Plan your mowing pattern in such a way as to avoid discharging material toward roads, sidewalks,
+bystanders, etc. Do not discharge material against a wall or obstruction. Doing so may cause the
+discharged material to ricochet back toward the operator.
+• Always wear proper eye protection that complies with ANSI Z87.1 in order to protect your eyes,
+along with hearing protection, while operating or performing any adjustment or repair. Thrown
+objects that ricochet can cause serious eye injury.
+• Always wear a face mask or a dust mask when operating the mower in a dusty environment.
+• Dress properly. Do not wear loose clothing or jewelry that can get caught in moving parts. The
+wearing of protective gloves and safety footwear is recommended.
+kobalttools.com
+
+7
+
+SAFETY INFORMATION
+• Many injuries occur as a result of the mower being pulled over the operator’s foot during a fall
+caused by slipping or tripping. Do not operate this mower in bare feet, or while wearing sandals or
+lightweight (e.g., canvas) shoes. Do not hold on to the mower if you are falling. Release the handle
+immediately.
+• Never pull the mower back toward you while you are walking. If you must back the mower away
+from a wall or an obstruction, first look down and behind in order to avoid tripping, and then follow
+these steps:
+• Step back from the mower in order to fully extend your arms.
+• Be sure that you are well balanced.
+• Pull the mower back slowly.
+• Do not use the mower for any job except that for which it is intended. Do not force the mower.
+• Do not operate the mower while under the influence of alcohol or drugs.
+• Stay Alert: Do not operate the mower when you are tired. Pay attention to what you are doing. Use
+common sense.
+• Do not put hands or feet near rotating parts or under the cutting deck. Contact with the blade can
+amputate hands and feet.
+• Do not attempt to adjust the wheels or the cutting height while the motor is running.
+• Avoid dangerous environments. Do not operate the mower in the rain or in wet or damp grass.
+• Mow only in daylight or in good artificial light. Do not rush a mowing job.
+• Stop the blade when crossing gravel driveways, walkways, or roads.
+• If the mower starts to vibrate excessively, stop the motor, remove the battery and check for the
+cause immediately. Vibration is generally a warning of trouble.
+• Stop the motor and wait until the blade comes to a complete stop before removing the grass
+catcher or unclogging the chute. The cutting blade will continue to rotate for a few seconds after
+the motor is shut off. Do not place any part of your body in the blade area until you are sure that
+the blade has stopped rotating.
+• Never operate mower without a proper trail shield, discharge cover, grass catcher, switch control,
+or other safety device in place and in working order. Do not operate the mower with damaged
+safety devices. Doing so can result in injury.
+• Don’t force lawn mower. It will do the job better and safer at the rate for which it was designed.
+• Store idle lawn mower indoors. When not in use, lawn mower should be stored in an indoor dry
+and locked-up place, out of reach of children.
+• Maintain lawn mower. Keep cutting blades sharp and clean for best and safest performance.
+• If lawn mower strikes a foreign objects follow these steps:
+• Stop lawn mower, release the switch.
+• Remove the battery.
+• Inspect for damage.
+• Repair any damage before restarting and operating the lawn mower.
+• Do not charge the battery in the rain or in wet locations.
+• Remove battery before servicing, cleaning or removing material from lawn mower.
+
+kobalttools.com
+
+8
+
+SAFETY INFORMATION
+Child safety
+Tragic accidents can occur if the operator is not aware of the presence of children.
+• Keep children out of the mowing area and under the watchful care of a responsible adult.
+• Do not allow children under the age of 14 to operate this mower. Children who are 14 years of age
+and older must read and understand the operating instructions and safety rules in this manual, and
+must be trained and supervised by a parent.
+• Stay alert, and turn the mower off if a child or any other person enters the mowing area.
+• Look behind and down for small children before and while moving backwards.
+• Use extreme care when approaching blind corners, doorways, shrubs, trees, or other objects that
+may obscure your view of a child who may run into the path of the mower.
+Battery and charger
+CAUTION
+Use only 40 V Kobalt approved replacement batteries, other batteries may cause injury or damage to
+the mower.
+Battery safety rules
+• Battery tools do not have to be plugged into an electrical outlet; therefore, they are always in
+operating condition. Be aware of possible hazards when not using your battery tool or when
+changing accessories. Following this rule will reduce the risk of electric shock, fire, or serious
+personal injury.
+• Do not place battery tools or their batteries near fire or heat. This will reduce the risk of explosion
+and possibly injury.
+• Do not crush, drop or damage battery. Do not use a battery or charger that has been dropped or
+received a sharp blow. A damaged battery is subject to explosion. Properly dispose of a dropped or
+damaged battery immediately.
+• Do not charge battery in a damp or wet location. Following this rule will reduce the risk of electric
+shock.
+• For best results, your battery should be charged in a location where the temperature is more than
+45°F but less than 104°F. To reduce the risk of serious personal injury, do not store outside or in
+vehicles.
+• Under extreme usage or temperature conditions, battery leakage may occur. If liquid comes in
+contact with your skin, wash immediately with soap and water. If liquid gets into your eyes, flush
+them with clean water for at least 10 minutes, then seek immediate medical attention. Following
+this rule will reduce the risk of serious personal injury.
+• When battery is not in use, keep it away from other metal objects like: paper clips, coins, keys,
+nails, screws, or other small metal objects that can make a connection from one terminal to
+another. Shorting the battery terminals together may cause sparks, burns, or a fire.
+• Always remove battery from your tool when you are assembling parts, making adjustments,
+cleaning, or when not in use. Removing battery will prevent accidental starting that could cause
+serious personal injury.
+• Always remove battery before storing the device. When battery becomes fully charged, unplug the
+charger from the power supply and remove the battery from the charger.
+
+kobalttools.com
+
+9
+
+SAFETY INFORMATION
+• Keep battery dry, clean, and free from oil and grease. Always use a clean cloth when cleaning.
+Never use brake fluids, gasoline, petroleum-based products, or any solvents to clean battery.
+WARNING
+When transporting or servicing unit, always remove the battery.
+Charger safety rules
+• Charge the battery in a dry area that is protected from the weather. Do not expose the mower or
+the charger to rain. Do not charge the battery in a wet location. Operate the battery charger in
+temperatures between 45° and 104°F. In order to reduce the risk of electric shock, use only the
+charger that is provided by the manufacturer to charge the battery.
+• Do not abuse the charger cord. Never carry the charger by the cord. Do not disconnect the
+charger from the outlet by pulling the charger cord.
+• Do not use a damaged charger. Replace the charger cords or the charger immediately.
+• Keep the mower and the charger away from water, heat sources (radiators, heaters, stoves, etc.),
+flames, and chemicals.
+• Make sure the battery is secured in the charger.
+• The battery will become slightly warm to the touch while charging. This is normal and does not
+indicate a problem.
+• Do not place the charger and battery in an area of extreme heat or cold. They will work best at
+normal room temperature.
+• When batteries become fully charged, unplug the charger from the power supply and remove the
+battery.
+SAFETY INFORMATION
+Slope gauge
+WARNING
+Slopes are a major factor related to accidents involving slips and falls, which can result in severe
+injury. Operating the mower on a slope requires extra caution. If you feel uneasy on a slope, do not
+mow it. For your safety, use the slope gauge that is included as part of this manual to measure slopes
+before operating this unit on a sloped or hilly area.
+• Mow across the face of a slope and never up and down. Exercise extreme caution when changing
+direction on a slope.
+• Watch for holes, ruts, rocks, hidden objects, or bumps that may cause a slip or a trip. Tall grass
+can hide obstacles.
+• Always be sure of your footing. If you feel like you are losing your balance, release the bail switch
+immediately. The blade will stop rotating within 3 seconds.
+• Do not mow near drop-offs, ditches, or embankments, because you could lose your footing or
+balance.
+• Do not mow a slope that has an angle of greater than 15°, as determined using the slope gauge.
+• Do not mow wet or damp grass. Unstable footing can cause slipping.
+
+kobalttools.com
+
+10
+
+SAFETY INFORMATION
+SIGHT AND HOLD THIS LEVEL WITH A VERTICAL TREE
+A POWER POLE
+A CORNER OF A BUILDING
+OR A FENCE POST
+FOL
+
+DO
+
+ND
+
+OTT
+
+ED L
+
+INE,
+
+REP
+
+RES
+
+ENT
+
+ING
+
+A 15
+° SL
+
+OPE
+
+WARNING
+Do not mow a slope that has an angle greater than 15° (a rise of approximately 2-1/2 ft. every 10 ft.
+Mow across the face of a slope, and never up and down.
+PREPARATION
+Before beginning assembly of product, make sure all parts are present. Compare parts with package
+contents list and hardware contents list. If any part is missing or damaged, do not attempt to
+assemble the product.
+UNPACKING
+• Carefully remove the product and any accessories from the box. Make sure that all items listed in
+the packing list are included.
+• Inspect the product carefully to make sure no breakage or damage occurred during shipping.
+• Do not discard the packing material until you have carefully inspected and satisfactorily operated
+the product.
+• If any parts are damaged or missing, please call 1-888-356-2258 for assistance.
+Estimated Assembly Time: 5 minutes
+
+kobalttools.com
+
+11
+
+KNOW YOUR MOWER
+L
+
+K
+
+E
+
+G
+F
+
+H
+
+J
+
+N
+M
+
+I
+
+O
+
+PART
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+
+DESCRIPTION
+Upper handle
+Lower handle
+Handle knobs
+Cam locks
+Height adjustment lever
+Battery door
+Start button
+Bail switch
+Lower handle locks
+Rear discharge cover
+Battery release button
+
+QUANTITY
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+kobalttools.com
+
+12
+
+ASSEMBLY INSTRUCTIONS
+WARNING
+• If any parts are damaged or missing do not operate this product until the parts are replaced. Using a
+product with damaged or missing parts could result in serious personal injury.
+• Do not attempt to modify this product or create accessories not recommended for use with this
+product. Any such alteration or modification is misuse and could result in a hazardous condition
+leading to possible serious personal injury.
+• Do not insert battery until assembly is complete and you are ready to mow. Failure to comply could
+result in accidental starting and possible serious personal injury.
+• To prevent accidental starting that could cause serious personal injury, always remove the battery
+from the product when assembling parts.
+• Never operate the mower without the proper safety devices in place and working. Never operate the
+mower with damaged safety devices. Operation of this product with damaged or missing parts could
+result in serious personal injury.
+1. Unfolding and adjusting handle assembly
+a. To raise handle assembly:
+• Open the lower handle locks (M).
+• Pull up and back on the lower handle (F) until it is
+aligned with the slot between the cam locks (M) and
+the mower housing.
+Note: If the lower handle is difficult to move, turn the
+lower cam locks (M) counterclockwise to free the
+handle.
+• To secure the lower handle (F) in place, close the
+lower handle locks (M).
+Note: If the lower handle is loose or does not seat
+completely in the slot, turn the lower cam locks (M)
+clockwise to secure the handle.
+• Open the upper cam locks (H).
+• Pull up and back on the upper handle to raise it into
+operating position. Make sure that the lower handle
+is seated in the grooves at the bottom of the upper
+handle.
+• To secure the upper handle in place, close the
+upper cam locks (H).
+Note: If the upper handle is loose or separated from
+the lower handle, tighten the knobs on the upper
+handle locks by turning them clockwise.
+
+1a
+
+H
+
+F
+
+M
+
+kobalttools.com
+
+13
+
+ASSEMBLY INSTRUCTIONS
+b. To lower the handle assembly:
+• Open the upper cam locks (H).
+Note: If the handle lock is difficult to open, loosen
+the knobs on the upper handle locks by turning them
+counterclockwise.
+• Lower the upper handle.
+• Open the lower handle lock (M).
+• Push outward on each side of the lower handle until it
+is free from the slot. Then, fold the handle to the front
+of the unit. Avoid pinching or trapping any cables.
+
+1b
+
+2. Installing the mulching plug
+(for mulching operation)
+Note: When using the mulching plug (B), do not install
+the grass catcher.
+• Remove battery.
+• Lift and hold the rear discharge door (N).
+• Grasp the mulching plug (B) by its handle and insert it
+at a slight angle.
+• Push the mulching plug (B) securely into place.
+• Lower the rear discharge door.
+• Reinstall battery when you are ready to mow.
+
+2
+
+3. Installing the grass catcher
+(for rear bagging operation)
+
+3
+
+M
+
+N
+
+B
+
+Note: When using the grass catcher (D), do not install
+the mulching plug.
+•
+
+Remove battery.
+
+•
+
+Lift the rear discharge door (N).
+
+•
+
+Lift the grass catcher (D) by its handle and place under
+the rear discharge door (N) so that the hooks on the
+grass catcher are seated onto the slots on the
+mower housing.
+
+•
+
+Release the rear discharge door (N).
+
+•
+
+Reinstall battery when you are ready
+to mow.
+
+N
+
+D
+
+kobalttools.com
+
+14
+
+ASSEMBLY INSTRUCTIONS
+4. To install battery
+WARNING: Always remove battery from your tool
+when you are assembling parts, making adjustments,
+cleaning, or when not in use. Removing battery will
+prevent accidental starting that could cause serious
+personal injury.
+• Raise the battery cover (J).
+• Place the battery in the mower.
+• Align raised ribs on battery with grooves in the
+mower’s battery port.
+• Push down into battery compartment until the battery
+clicks into place.
+• Lower the battery cover.
+
+4
+O
+J
+
+WARNING: Make sure the latch on top of the battery with battery release button snaps in place
+and the battery is fully seated and secure in the mower’s battery port before beginning operation.
+Failure to securely seat the battery could cause the battery to fall out, resulting in serious
+personal injury.
+To remove battery
+• Raise the battery cover.
+• Press the battery release button (O) on the mower. This will cause the battery to raise out of the
+tool slightly.
+• Remove battery from the mower.
+
+kobalttools.com
+
+15
+
+OPERATING INSTRUCTIONS
+1. Starting/stopping the mower
+• Raise the battery cover.
+• Install battery.
+• Lower the battery cover.
+• Press and hold the start button (K). Pull the bail switch (L)
+toward the handle and release the button to start the mower.
+• To stop the mower, release the bail.
+Note: Power save feature automatically adjusts the
+cutting speed of the blades to match the application to
+give the best possible cut while maximizing run time
+and battery life.
+
+1
+
+2. Setting blade height
+When shipped, the wheels on the mower are set to
+a low-cutting position. Before using the mower for
+the first time, raise the cutting position to the height
+best suited for your lawn. The average lawn should
+be between 1-1/2 in. to 2 in. during cool months and
+between 2 in. and 3-1/4 in. during hot months.
+To adjust the blade height:
+• To raise the blade height, grasp the height
+adjustment lever and move it toward the front of the
+mower.
+• To lower the blade height, grasp the height
+adjustment lever and move it toward the back of the
+mower.
+
+2
+
+L
+
+K
+
+Mowing tips
+Note: A sharp blade will greatly enhance the performance of the mower, especially when cutting high
+grass. Be sure to check the blade and to sharpen it at least once per year.
+• Verify that the lawn is free of stones, sticks, wires, and other objects that could damage the blades
+or the motor. These objects could be accidentally thrown by the mower in any direction, and could
+cause serious personal injury to the operator and to others. In order to prevent electric shock, do
+not operate the mower in damp or wet conditions.
+• Do not mow in circles. Travel back and forth across the lawn.
+• When cutting thick grass, reduce walking speed in order to allow for a more effective cut and a
+proper discharge of the clippings.
+• For a healthy lawn, always cut off one-third or less of the total length of the grass. The average
+lawn should be approximately 1-1/2 to 2 in. (3.8 cm to 5 cm) long during cool months, and
+between 2 in. to 3-1/4 in. (5 cm to 8.3 cm) long during hot months. If there is growth, the lawn
+should be cut in the fall.
+
+kobalttools.com
+
+16
+
+OPERATING INSTRUCTIONS
+Mulching tips
+Note: Inspect the area where the mower is to be used and remove all stones, sticks, wire, bones, and
+other debris that might be thrown by the rotating blade.
+• Release the switch to turn the mower OFF when crossing any graveled area (stones can be
+thrown by the blade).
+• Set mower to the highest cutting height when mowing on uneven ground or in tall weeds.
+• For effective mulching, do not cut wet grass because it tends to stick to the underside of the deck,
+preventing proper mulching of grass clippings. New or thick grass may require a narrower cut. The
+ground speed should be adjusted to the condition of the lawn. If mowing has been delayed and the
+grass has been allowed to grow longer than 4 in. (10 cm), mow the lawn twice in order to reduce
+the grass height to a maximum of 3-1/4 in. (8.3 cm).
+• Walk at a steady pace. Overlap the cutting rows. Do not let the grass get too tall. If the grass gets
+too long, start at the highest cutting position and work down to the desired cutting height.
+WARNING
+If you strike a foreign object, stop the motor and remove the battery. Thoroughly inspect the mower
+for any damage. Repair any damage before operating the mower. Excessive vibration of the mower
+during operation is an indication of damage. Thoroughly inspect the mower and repair any damage
+before operating the mower.
+3. Emptying the grass catcher bag
+• Stop the mower and allow blades to completely stop.
+• Lift the rear discharge cover.
+• Lift the grass catcher by its handle to remove from
+mower.
+• Empty grass clippings.
+• Lift the rear discharge cover and reinstall the grass
+catcher as described earlier in this manual.
+Note: When you start the mower, the full bag indicator
+of the grass catcher will lift up. Once the grass catcher
+is full, the full bag indicator will fall. So the grass
+catcher bag needs to be emptied.
+
+3
+
+Full bag
+indicator
+
+Replacing the cutting blade
+WARNING
+Always protect your hands by wearing heavy gloves and/or wrapping the cutting edges with rags or
+other materials when performing any maintenance on the blades. Always remove the battery when
+servicing or transporting the mower.
+
+kobalttools.com
+
+17
+
+CARE AND MAINTENANCE
+Use only KOBALT replacement blades (Item #0535389,
+sold separately).
+•
+
+Stop the motor. Allow blade to come to a complete
+stop.
+
+•
+
+Remove the battery.
+
+•
+
+Turn the mower on its side.
+
+•
+
+Wedge a block of wood between the blade and mower
+deck to prevent the blade from turning.
+
+•
+
+For BLADE I, loosen the blade nut by turning it
+clockwise (as viewed from bottom of mower) using a
+15 mm wrench or socket (not provided). For BLADE II,
+loosen the blade nut by turning it counterclockwise (as
+viewed from bottom of mower) using a 15 mm wrench
+or socket (not provided).
+
+•
+
+Remove the blade nut, spacer, blade insulator, and
+blade.
+Make certain the motor assembly is pushed completely
+against the motor shaft.
+
+•
+•
+
+Place the new blade on the shaft against the motor
+assembly. Ensure blade is properly seated with shaft
+going through center blade hole and the two blade
+posts inserted into their respective holes on the blade.
+Make sure it is installed with the curved ends pointing
+up toward the mower deck and not down toward the
+ground. When seated properly, the blade should be flat
+against the motor assembly.
+
+•
+
+Replace the blade insulator and spacer, then thread
+the blade nut on the shaft and finger tighten.
+Note: Make certain all parts are replaced in the exact
+order in which they were removed.
+
+•
+
+For BLADE I, torque the blade nut down
+counterclockwise using a torque wrench (not provided)
+to ensure the bolt is properly tightened. For BLADE II,
+torque the blade nut down clockwise using a torque
+wrench (not provided) to ensure the bolt is properly
+tightened. The recommended torque for the blade nut
+is 350-400 in. lbs.
+
+Cleaning the mower
+WARNING
+• To reduce the risk of electric shock, do not expose the mower to water.
+• The underside of mower deck should be cleaned after each use as grass clippings, leaves, dirt and
+other debris will accumulate causing rust and corrosion.
+kobalttools.com
+
+18
+
+CARE AND MAINTENANCE
+• Remove any buildup of grass and leaves on or around the motor cover (do not use water). Wipe
+the mower clean with a dry cloth occasionally.
+• If debris builds up on the underside of the unit while in use, stop the motor and disconnect it from
+the power supply. Tilt the mower forward, or on its side, and scrape it clean with an appropriate tool.
+Storing the mower
+The following steps should be taken in order to prepare
+the lawn mower for storage.
+• Clean the mower as described in the previous section.
+• Inspect the blade, and replace it, if required.
+• Store the mower in a dry, clean location. Do not store it
+next to corrosive materials, such as fertilizer or
+rock salt.
+• Store the mower indoors, in a cool, dry place, out of
+the reach of children. Do not cover the lawn mower
+with a solid plastic sheet. Plastic coverings trap
+moisture around the mower, which causes rust and
+corrosion.
+• The handle may be folded away completely for
+storage.
+• Remove the battery, store it in a cool dry location, if
+possible.
+Service
+Servicing requires extreme care and knowledge and should be performed only by a qualified service
+technician. For service, we suggest you return the product to your nearest authorized service center
+for repair. When servicing, use only identical replacement parts.
+•
+
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+WARNING
+When servicing the mower, use only replacement parts that are available from the manufacturer.
+In order to obtain replacement parts, call the toll-free helpline, at 1-888-356-2258. The use of parts
+that do not meet the original equipment specifications may lead to improper performance, and
+may compromise safety.
+Before cleaning, repairing, or inspecting, verify that the blade and all moving parts have come to a
+complete stop. Remove the battery when making any adjustments or when any of the four wheels
+must be lifted off the ground.
+Follow the instructions for changing accessories.
+Keep the handles dry, clean, and free of oil and grease.
+In order to reduce the risk of fire, keep the motor free of grass, leaves, and debris build-up.
+Check the blade and motor mounting bolts for proper tightness frequently. Visually inspect blade
+for damage (e.g., bent, cracked, or worn).
+For best and safest performance, maintain the mower with care. Keep the mower blade sharp
+and clean. Mower blades are sharp, and can cut. Wrap the blades or wear gloves, and use extra
+caution when servicing.
+Keep all nuts, bolts, and screws tight in order to be sure that the equipment is in safe working
+condition.
+Never tamper with safety devices. Check them regularly for proper operation.
+After striking a foreign object, stop the motor. Thoroughly inspect the mower for any damage.
+Repair any damage before operating the mower.
+kobalttools.com
+
+19
+
+CARE AND MAINTENANCE
+•
+
+•
+
+The grass catcher components, discharge cover, and trail shield are subject to wear and damage,
+which could expose moving parts or allow objects to be thrown. As a safety precaution, check
+these components frequently, and immediately replace any parts that show signs of wear, or that
+are cracked or broken. Use original equipment manufacturer’s (OEM) parts only, as listed in this
+manual.
+When it is not in use, store the mower indoors in a dry area, and out of the reach of children.
+
+WARNING
+Always remove battery when servicing or transporting the mower.
+TROUBLESHOOTING
+PROBLEM
+The mower does
+not start.
+
+POSSIBLE CAUSE
+1. The battery is not charged.
+2. The switch is defective.
+3. Grass jammed at blade.
+4. The battery is not inserted all the
+way in.
+5. Battery may require replacement.
+
+CORRECTIVE ACTION
+1. Charge the battery.
+2. Replace the switch (Call 1-888356-2258).
+3. Remove battery check under
+deck for jams.
+4. Press the battery in until it clicks.
+5. Return the battery to the place of
+purchase.
+
+The mower cuts
+1. The lawn is rough or uneven.
+the grass unevenly. 2. The cutting height is not set
+properly.
+
+1. Check the mowing area.
+2. Move the wheels to a higher setting.
+
+The mower does
+1. Wet grass clippings are sticking to
+not mulch properly.
+the underside of the deck.
+2. The mulching plug is missing.
+
+1. Wait until the grass dries before
+mowing.
+2. Install the mulching plug.
+
+The mower is hard
+to push.
+
+1. The grass is too tall, or the cutting
+height is too low.
+2. The rear of the mower housing
+and the blade are dragging in thick
+grass.
+
+1. Raise the cutting height.
+
+The mower is
+excessively noisy
+and vibrates.
+
+1. The motor shaft is bent.
+
+1. Stop the motor, and inspect for
+damage.
+2. Repair before restarting. If
+vibration persists, call the toll free
+helpline (1-888-356-2258)
+
+2. The blade is unbalanced.
+
+2. Empty the grass clippings from
+the grass catcher bag.
+
+The mower speeds 1. This is normal. Power save feature 1. None, this is normal.
+up and slows down
+automatically adjusts the cutting
+while in operation.
+speed of the blades to match the
+application to give the best possible
+cut while maximizing run time and
+battery life.
+
+kobalttools.com
+
+20
+
+LIMITED FIVE-YEAR WARRANTY
+5-YEAR HASSLE-FREE WARRANTY
+This Kobalt 40 V Lithium-Ion Dual Blade Mower is warranted to the original purchaser from the
+original purchase date for five (5) years subject to the warranty coverage described herein.
+This Kobalt 40 V Lithium-Ion Dual Blade Mower is warranted for the original user to be free from
+defects in material and workmanship.
+If you believe that the Kobalt 40 V Lithium-Ion Dual Blade Mower is defective at any time during the
+specified warranty period, simply return the Kobalt 40 V Lithium-Ion Dual Blade Mower along with
+proof of purchase to the place of purchase for a free replacement or refund.
+This warranty is void if: defects in materials or workmanship or damages result from repairs or
+alterations which have been made or attempted by others or the unauthorized use of nonconforming
+parts; the damage is due to normal wear, damage is due to abuse (including overloading of the tool
+beyond capacity), improper maintenance, neglect or accident; or the damage is due to the use of the
+tool after partial failure or use with improper accessories or unauthorized repair or alteration.
+This warranty gives you specific legal rights, and you may also have other rights that vary from state
+to state.
+This warranty excludes replacement blades and grass bag.
+
+kobalttools.com
+
+21
+
+REPLACEMENT PARTS LIST
+For replacement parts, call our customer service department at 1-888-3KOBALT (1-888-356-2258),
+8 a.m. - 8 p.m., EST, Monday - Friday.
+C
+
+E
+
+FF
+
+CC
+EE
+
+DD
+GG
+
+HH
+
+PART
+AA
+BB
+CC
+DD
+EE
+FF
+GG
+HH
+II
+JJ
+
+II
+
+DESCRIPTION
+Battery
+Charger
+Woven Grass Bag
+Bag Upper Cover
+Flap Indicator
+Cam Lever Assembly
+Cam Lever Knob
+Mulch Plug
+Front Wheel
+Rear Wheel
+
+JJ
+
+PART #
+31101825
+29413
+34125486-2
+34130486
+34133486-2
+31102467-4
+341101161
+34141486
+341021163
+341011163
+
+Printed in China
+
+Kobalt® is a registered trademark of LF, LLC. All Rights Reserved.
+
+kobalttools.com
+
+22
+
+

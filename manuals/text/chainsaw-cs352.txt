@@ -1,0 +1,3355 @@
+Operator’s
+Manual
+CS-352
+Chainsaw
+The engine exhaust from this product contains chemicals
+known to the State of California to cause cancer, birth defects,
+or other reproductive harm.
+
+Read and understand all provided literature before
+use. Failure to do so could result in serious injury.
+Note: This product complies with CAN ICES-2/NMB-2.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+TABLE OF CONTENTS
+
+CS-352
+
+TABLE OF CONTENTS
+Introduction................................................................................................................. 3
+Servicing Information.................................................................................................. 4
+Parts and Serial Number.................................................................................... 4
+Service ............................................................................................................... 4
+ECHO Consumer Product Support .................................................................... 4
+Product Registration........................................................................................... 4
+Additional Literature ........................................................................................... 4
+Safety ......................................................................................................................... 5
+Manual Safety Symbols and Important Information ........................................... 5
+International Symbols......................................................................................... 6
+Personal Condition and Safety Equipment ........................................................ 8
+Rules for Safe Operation.................................................................................. 12
+Correct Use of Chain Brake ............................................................................. 13
+Emission Control . (Exhaust & Evaporative) ............................................................ 19
+CARB and EPA Emissions Control Information................................................ 19
+Description ............................................................................................................... 20
+Contents ................................................................................................................... 22
+Assembly.................................................................................................................. 22
+Preparation for Use .......................................................................................... 22
+Operation.................................................................................................................. 26
+Fuel .................................................................................................................. 26
+Chain Lubricant ................................................................................................ 29
+Winter Operation .............................................................................................. 30
+Starting Cold Engine ........................................................................................ 30
+Starting Warm Engine ...................................................................................... 32
+Running............................................................................................................ 34
+Stopping ........................................................................................................... 35
+Checking Chain Tension .................................................................................. 35
+Chain Lubrication Test...................................................................................... 35
+Cutting Instructions .......................................................................................... 36
+Guide Bar and Chain Combination .................................................................. 40
+Kick GuardTM ................................................................................................... 41
+Guide Bar ......................................................................................................... 41
+Saw Chain........................................................................................................ 41
+Maintenance............................................................................................................. 42
+Skill Levels ....................................................................................................... 42
+Maintenance Intervals ...................................................................................... 43
+Carburetor Adjustment ..................................................................................... 44
+Air Filter............................................................................................................ 46
+Spark Plug........................................................................................................ 46
+Check Fuel System .......................................................................................... 46
+Fuel Filter ......................................................................................................... 47
+Oil Filter............................................................................................................ 47
+Guide Bar ......................................................................................................... 48
+Sprocket ........................................................................................................... 48
+Cooling System Cleaning................................................................................. 49
+Spark Arrester Muffler ...................................................................................... 49
+Spark Arrester Screen...................................................................................... 50
+Exhaust Port Cleaning ..................................................................................... 50
+Setting the Saw Chain...................................................................................... 51
+Troubleshooting........................................................................................................ 54
+Storage..................................................................................................................... 56
+Storage After Use............................................................................................. 56
+Specifications ........................................................................................................... 57
+Product Registration................................................................................................. 58
+
+2
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+INTRODUCTION
+
+INTRODUCTION
+Specifications, descriptions, and illustrative material in this literature are as
+accurate as possible. Specifications are subject to change without notice.
+Illustrations might include optional equipment and accessories, and might
+not include all standard equipment. Your equipment might appear slightly
+different than pictured equipment.
+Read and understand all provided literature.
+Literature contains specifications and
+information for safety, operation,
+maintenance, storage, and assembly
+specific to this product. Scan QR codes for
+more information.
+For additional literature, including safety manuals where applicable, or
+questions regarding terms used in this manual, visit:
+
+https://www.echo-usa.com/manuals
+
+OR
+
+https://www.shindaiwa-usa.com/manuals
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+3
+
+SERVICING INFORMATION
+
+CS-352
+
+SERVICING INFORMATION
+Parts and Serial Number
+Genuine ECHO parts and
+assemblies for your ECHO products
+are available only from an
+Authorized ECHO Dealer. When
+you do need to buy parts, always
+have the model number and serial
+number of the unit with you. For
+future reference write them in the
+space provided below.
+
+Model No. _____________________ Serial No. ____________________
+
+Service
+Service of this product during the warranty period must be performed by an
+Authorized ECHO Service Dealer. For the name and address of the
+Authorized ECHO Service Dealer nearest you, ask your retailer or call:
+1-800-432-ECHO (3246). Dealer information is also available on our Web
+Site www.echo-usa.com. When presenting your unit for Warranty service/
+repairs, proof of purchase is required.
+
+ECHO Consumer Product Support
+If you require assistance or have questions concerning the application,
+operation, or maintenance of this product, call the ECHO Consumer
+Product Support Department at 1-800-432-ECHO (3246) from 8:00 a.m. to
+5:00 p.m. (Central Standard Time) Monday through Friday. Before calling,
+please know the model and serial number of your unit.
+
+Product Registration
+Register your ECHO equipment online at www.echo-usa.com or by filling
+out the product registration sheet included in this manual. Registering your
+product confirms warranty coverage and provides a direct link to ECHO if
+we find it necessary to contact you.
+
+Additional Literature
+In addition to finding information online, information is available from your
+Authorized ECHO Service Dealer, or by contacting ECHO Incorporated,
+400 Oakwood Road, Lake Zurich, IL 60047, 1-800-432-ECHO (3246).
+4
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+SAFETY
+
+SAFETY
+Manual Safety Symbols and Important Information
+Throughout this manual and on the product itself, you will find safety alerts
+and helpful, informational messages preceded by symbols or key words.
+The following is an explanation of those symbols and key words and what
+they mean to you.
+
+The safety alert symbol accompanied by the word “DANGER”
+calls attention to an act or condition which WILL lead to serious
+personal injury or death if not avoided.
+
+The safety alert symbol accompanied by the word “WARNING”
+calls attention to an act or condition which CAN lead to serious
+personal injury or death if not avoided.
+
+The safety alert symbol accompanied by the word “CAUTION”
+calls attention to an act or condition which might lead to minor
+or moderate personal injury if not avoided.
+
+The enclosed message provides information necessary for the
+protection of the unit.
+Note: This enclosed message provides tips for use, care and
+maintenance of the unit.
+CIRCLE AND SLASH SYMBOL
+This symbol means the specific action shown is prohibited.
+Ignoring these prohibitions can result in serious or fatal injury.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+5
+
+SAFETY
+
+CS-352
+
+International Symbols
+Symbol
+
+Description
+WARNING!
+Read and follow
+all safety
+precautions in the
+instruction
+manual. Failure to
+follow instructions
+could result in
+serious personal
+injury.
+Wear Eye, Ear,
+and Head
+Protection.
+Tip contact may
+cause the guide
+bar to move
+suddenly upward
+and backward,
+which may cause
+serious injury.
+
+6
+
+Symbol
+
+H
+T
+L
+
+Description
+
+Carburetor
+Adjustment High Speed
+Mixture
+
+Carburetor
+Adjustment - Idle
+Speed
+
+Carburetor
+Adjustment Low Speed
+Mixture
+
+Contact of the
+guide bar tip with
+any object should
+be avoided.
+
+Measured
+maximum
+kickback value,
+without brake,
+for approved bar
+and chain
+combinations.
+
+Both of the
+operator’s hands
+must be used to
+operate the
+chainsaw.
+
+Fuel and Oil
+Mixture
+
+Hot Surface
+
+Chain Oil Fill
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+Symbol
+
+SAFETY
+Description
+
+Symbol
+
+Chain Brake
+Operation
+
+Description
+
+Chain Oiler
+Adjustment
+
+Choke Control “COLD
+START” Position
+(Choke Closed)
+
+Purge Bulb
+
+Choke Control “RUN”
+Position (Choke Open)
+
+STOP
+Decompression
+Device
+
+STOP
+
+STOP /
+Momentary
+STOP Switch
+
+Note: Not all symbols will appear on your unit.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+7
+
+SAFETY
+
+CS-352
+
+Personal Condition and Safety Equipment
+
+Cancer and Reproductive Harm
+www.P65Warnings.ca.gov
+
+The muffler or catalytic muffler and surrounding cover
+may become extremely hot. If unit is equipped with
+muffler, always keep clear of exhaust and muffler area,
+otherwise serious personal injury might occur.
+
+Users of this product risk injury to themselves and others if the
+unit is used improperly and/or safety precautions are not
+followed. Proper clothing and safety gear must be worn when
+operating unit.
+Physical Condition
+Your judgment and physical dexterity may not be good:
+• If you are tired or sick
+• If you are taking medication
+• If you have taken alcohol or drugs
+Operate unit only if you are physically and mentally well.
+
+Eye Protection
+
+ Eye protection that meets ANSI Z87.1 or CE requirements
+
+must be worn whenever you operate the unit.
+ For additional safety, a full-face shield can be worn over
+
+safety glasses or goggles to provide protection from sharp
+branches or flying debris.
+
+8
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+SAFETY
+
+Hand Protection
+Wear sturdy, no-slip, rubber work gloves to improve your grip on the
+handles. Gloves also provide protection against cuts and scratches, cold
+environments, and reduce the transmission of machine vibration to your
+hands.
+
+Hearing and Ear Protection
+ECHO recommends wearing personal protective equipment whenever unit
+is used.
+
+Breathing Protection
+Operators who are sensitive to dust or other common airborne allergens
+may need to wear a dust mask to prevent inhaling these materials while
+operating unit. Dust masks can provide protection against dust, plant debris,
+and other plant matter such as pollen. Make sure the mask does not impair
+your vision, and replace the mask as needed to prevent air restrictions.
+
+Proper Clothing
+Wear snug-fitting, durable clothing:
+• Pants should have long legs, shirts should have long sleeves.
+• DO NOT WEAR SHORTS.
+• DO NOT WEAR TIES, SCARVES, JEWELRY, or clothing with loose or
+hanging items that could become entangled in moving parts or
+surrounding growth.
+• Keep clothing buttoned or zipped, and keep shirt tails tucked in.
+• Wear sturdy work shoes with nonskid rubber soles.
+• DO NOT WEAR OPEN TOED SHOES.
+• DO NOT OPERATE UNIT WITH BARE FEET.
+Keep long hair away from engine and air intake. Retain hair with cap or net.
+Heavy protective clothing can increase operator fatigue, which may lead to
+heat stroke. Schedule heavy work for early morning or late afternoon hours
+when temperatures are cooler.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+9
+
+SAFETY
+
+CS-352
+
+The components of this machine generate an electromagnetic
+field during operation, which can interfere with some
+pacemakers. To reduce the risk of serious or fatal injury,
+persons with pacemakers should consult with their physician
+and the pacemaker manufacturer before operating this
+machine. In the absence of such information, ECHO does not
+recommend the use of this machine by anyone who has a
+pacemaker.
+Extended Operation and Extreme Conditions
+
+Prolonged exposure to cold and/or vibration can result in injury.
+Read and follow all safety and operation instructions to
+minimize risk of injury. Failure to follow instructions can result
+in painful wrist/hand/arm injuries.
+It is believed that a condition called Raynaud’s Phenomenon, which affects
+the fingers of certain individuals, may be brought about by exposure to
+vibration and cold. Exposure to vibration and cold may cause tingling and
+burning sensations, followed by loss of color and numbness in the fingers.
+The following precautions are strongly recommended, because the
+minimum exposure, which might trigger the ailment, is unknown.
+• Keep your body warm, especially the head, neck, feet, ankles, hands, and
+wrists.
+• Maintain good blood circulation by performing vigorous arm exercises
+during frequent work breaks, and also by not smoking.
+• Limit the hours of operation. Try to fill each day with jobs where operating
+the unit or other hand-held power equipment is not required.
+• If you experience discomfort, redness, and swelling of the fingers
+followed by whitening and loss of feeling, consult your physician before
+further exposing yourself to cold and vibration.
+
+10
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+SAFETY
+
+Repetitive Stress Injuries (RSI)
+It is believed that overusing the muscles and tendons of the fingers, hands,
+arms, and shoulders may cause soreness, swelling, numbness, weakness,
+and extreme pain in those areas. Certain repetitive hand activities may put
+you at a high risk for developing a Repetitive Stress Injury (RSI). An
+extreme RSI condition is Carpal Tunnel Syndrome (CTS), which could occur
+when your wrist swells and squeezes a vital nerve that runs through the
+area. Some believe that prolonged exposure to vibration may contribute to
+CTS. CTS can cause severe pain for months or even years.
+To reduce the risk of RSI/CTS, do
+the following
+• Avoid using your wrist in a bent,
+extended, or twisted position.
+Instead try to maintain a straight
+wrist position. Also, when
+grasping, use your whole hand,
+not just the thumb and index
+finger.
+• Take periodic breaks to minimize
+repetition and rest your hands.
+• Reduce the speed and force with
+which you do the repetitive
+movement.
+• Do exercises to strengthen the
+hand and arm muscles.
+• Immediately stop using all power equipment and consult a doctor if you
+feel tingling, numbness, or pain in the fingers, hands, wrists, or arms. The
+sooner RSI/CTS is diagnosed, the more likely permanent nerve and
+muscle damage can be prevented.
+
+All over head electrical conductors and communications wires
+can have electricity flow with high voltages. This unit is not
+insulated against electrical current. Never touch wires directly
+or indirectly, otherwise serious injury or death can result.
+
+Do not operate gas-powered products indoors or in
+inadequately ventilated areas. Engine exhaust contains
+poisonous emissions and can cause serious injury or death.
+X7503275705
+© 05/24 ECHO Incorporated
+
+11
+
+SAFETY
+
+CS-352
+
+Rules for Safe Operation
+Kickback Safety Precautions for Chainsaw Users
+
+KICKBACK may occur when the nose or tip of the guide bar
+touches an object, or when the wood closes in and pinches the
+saw chain in the cut.
+Tip contact in some cases may
+cause a lightning fast reverse
+REACTION, kicking the guide bar
+up and back towards the operator.
+Pinching the saw chain along the
+top of the guide bar may push the
+guide bar rapidly back towards the
+operator. Either of these reactions
+may cause you to lose control of the
+saw which could result in serious
+personal injury.
+The optional Kick GuardTM device is
+not installed on the guide bar when
+you purchase your chainsaw. The
+optional Kick GuardTM can be used
+in a majority of cutting operations,
+and is especially recommended for
+beginners, homeowners, or
+chainsaw novices. Most cutting
+operations can be accomplished
+with the optional Kick GuardTM in
+place.
+
+Rotational kickback
+
+Rotational kickback
+
+Chain moving downward at impact
+
+Do not rely exclusively upon the safety devices built into your saw. As a
+chainsaw user, you should take several steps to keep your cutting jobs free
+from accident or injury.
+1.
+
+12
+
+With a basic understanding of
+kickback, you can reduce or
+eliminate the element of
+surprise. Sudden surprise
+contributes to accidents.
+
+Kickback Danger Zone
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+SAFETY
+
+2.
+
+Keep a good firm grip on the saw with both hands, the right hand on the
+rear handle, and the left hand on the front handle, when the engine is
+running. Use a firm grip with thumbs and fingers encircling the
+chainsaw handles. A firm grip will help you reduce kickback and
+maintain control of the saw. Don’t let go.
+
+3.
+
+Make sure that the area in
+which you are cutting is free
+from obstructions. Do not let
+the nose of the guide bar
+contact a log, branch, or any
+other obstruction which could
+be hit while you are operating
+the saw.
+
+4.
+
+Linear kickback
+
+Pinch
+
+Kickback
+
+Cut at high engine speeds.
+
+5.
+
+Do not overreach or cut above shoulder height.
+
+6.
+
+Follow manufacturer’s sharpening and maintenance instructions for the
+saw chain.
+
+7.
+
+Only use replacement bars and chains specified by the manufacturer or
+the equivalent.
+
+Correct Use of Chain Brake
+Chain Brake Operation
+• Set the lever in the unlocked
+position before starting to cut.
+
+Unlocked
+
+• If the brake is tripped by kickback
+reaction, the chain will stop
+immediately. Release the throttle
+to avoid possible damage to the
+engine or clutch.
+
+• Do not attempt to operate the
+engine with the brake locked.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+Locked
+
+13
+
+SAFETY
+
+CS-352
+
+Testing the Brake
+• Start the engine on a solid level surface and run at a fast idle until warm.
+• Hold the saw firmly by the handles and accelerate the engine to a fast
+idle.
+• Slowly operate the chain brake lever while holding the saw firmly on the
+ground. When the brake lever trips, the chain should stop. Immediately
+release the throttle trigger.
+
+Do not allow the saw to tip forward in order to avoid damage to the
+chain.
+
+If the chain does not stop immediately, return the saw to your
+authorized dealer for repair.
+Note:
+• For practice, while cutting a small tree, push the lever forward to lock
+the brake.
+• Confirm that the brake works properly before each use.
+• If the chain brake is clogged with wood chips, function of the brake may
+deteriorate. Always keep the device clean.
+• Do not increase engine RPM while the chain brake is locked.
+Do not use a bar and chain combination other than those specified in this
+manual.
+For your own safety, do not remove the chain brake system.
+The installation of a chain brake may be mandatory by law or as stipulated
+by insurance regulations in your area of operation. You should inquire
+through local government offices, your employer or your local dealer to
+ensure that your chainsaw conforms to the required safety standard.
+Chain brakes have been designed and tested to comply with international
+safety standards as follows:
+USA: ANSI Standard B175.1 Safety Requirement for chainsaws
+Canada: CSA Standard Z62.1, Z62.3
+
+14
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+ANSI Standard B175.1 and
+CSA Z62.1.3 stipulate that the
+brake shall stop the chain
+0.12 seconds at an engine
+speed of 13,500 RPM. It is the
+responsibility of the owner/
+operator to ensure that the
+brake is serviced, adjusted
+and tested strictly in
+accordance with the
+instructions as detailed here
+in order to ensure that the
+brake performance is
+maintained in compliance with
+the Standards B175.1 and CSA
+Z62.1.3.
+
+SAFETY
+
+35 cm
+(14 in.)
+
+Automatic Chain Brake
+Kickback produced from the tip of the guide bar will trip the automatic chain
+brake. To make sure that the automatic chain brake operates properly,
+follow these steps:
+1.
+
+Stop the engine.
+
+2.
+
+Hold the saw with the guide bar approximately 35 cm (14 in.) above a
+wooden surface. Right hand should hold the rear handle, and left hand
+should hold the front handle.
+
+3.
+
+Release the front handle and drop the end of the guide bar against the
+wooden surface.
+
+4.
+
+The impact should lock the chain brake.
+
+When checking the operation of the automatic chain brake, use a soft
+surface substance like wood to absorb the impact so the chain is not
+damaged.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+15
+
+SAFETY
+
+CS-352
+
+Other Safety Precautions
+1.
+
+Do not operate a chainsaw with one hand! Serious injury to the
+operator, helpers, bystanders, or any combination of these persons
+may result from one-handed operation. A chainsaw is intended for twohanded use.
+
+2.
+
+Do not operate a chainsaw when you are fatigued.
+
+3.
+
+Use safety footwear, snug-fitting clothing and protective gloves. Wear
+eye, hearing, and head protection devices.
+
+4.
+
+Use caution when handling fuel. Mix and pour fuel outdoors where
+there are no sparks and flames. Slowly remove the fuel cap only after
+stopping the engine and allowing the chainsaw to cool. Do not smoke
+while fueling or mixing fuel. Move the chainsaw at least 10 feet (3 m)
+from the fueling point before starting the engine.
+
+5.
+
+Do not allow other persons to be near the chainsaw when starting or
+cutting with the chainsaw. Keep bystanders and animals out of the work
+area.
+
+6.
+
+Do not start cutting until you have a clear work area, secure footing,
+and a planned retreat path from the falling tree.
+
+7.
+
+Keep all parts of your body away from the saw chain when the engine is
+running.
+
+8.
+
+Before you start the engine, make sure that the saw chain is not
+contacting anything.
+
+9.
+
+Carry the chainsaw with the engine stopped, the guide bar and saw
+chain to the rear, and the muffler away from your body.
+
+10. Do not operate a chainsaw that is damaged, improperly adjusted, or not
+completely and securely assembled. Be sure that the saw chain stops
+moving when the throttle control trigger is released.
+11. Shut off the engine before setting the chainsaw down.
+12. Use extreme caution when cutting small size brush and saplings
+because slender material may catch the saw chain and be whipped
+toward you or pull you off balance.
+13. When cutting a limb that is under tension, be alert for spring-back so
+that you will not be struck when the tension in the wood fibers is
+released.
+14. Keep the handles dry, clean, and free of oil or fuel mixture.
+15. Operate the chainsaw only in well ventilated areas.
+16. Do not operate a chainsaw in a tree unless you have been specifically
+trained to do so.
+
+16
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+SAFETY
+
+17. All chainsaw service, other than items listed in the operator’s manual
+maintenance instructions, should be performed by competent service
+personnel. For example, if improper tools are used to remove the
+flywheel or if an improper tool is used to hold the flywheel in order to
+remove the clutch, structural damage to the flywheel could occur and
+could subsequently cause the flywheel to burst.
+18. When transporting your chainsaw, use the appropriate guide bar cover.
+19. A spark arrester muffler approved to SAE Standard J335 is standard on
+this chainsaw to reduce the possibility of forest fires. Do not operate the
+chainsaw with a loose or defective muffler. Do not remove the spark
+arrester screen.
+20. When using a chainsaw a fire extinguisher should be available.
+21. When felling, keep at least two tree lengths between yourself and your
+fellow workers.
+22. Follow instructions in your operator’s manual for starting the chainsaw.
+23. Never adjust the guide bar or saw chain with the engine operating.
+24. When boring with the chainsaw, the initial cut should be introduced with
+the lower part of the nose (tip) until the hole is sufficiently large so as to
+introduce the entire nose (tip) of the guide bar. This technique should
+reduce the danger of kickback.
+25. Allow your chainsaw to cool before refueling, and do not smoke while
+refueling.
+
+Chainsaws shall be used in accordance with the operating
+instructions and safety precautions listed in the operator's
+manual(s). It shall be the responsibility of the owner to see that
+such instructions and precautions are given to every operator
+who uses the saw.
+
+ During operation, the muffler or catalytic muffler and
+
+surrounding cover become hot.
+ Never suspend the saw on a lanyard with the engine
+
+running.
+ Always use the saw from the right-hand side of your body –
+
+NEVER from the left side.
+ Always wear proper safety clothing to protect your lower
+
+body from sharp saw chain and hot muffler.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+17
+
+SAFETY
+
+CS-352
+
+ Always keep exhaust area clear of flammable debris during
+
+transportation or when storing, otherwise serious property
+damage or personal injury may result.
+
+Moving parts can amputate fingers or cause severe injuries.
+Keep hands, clothing and loose objects away from all openings.
+ ALWAYS stop engine, disconnect spark plug, and make
+sure all moving parts have come to a complete stop before
+removing obstructions, clearing debris, or servicing unit.
+ DO NOT start or operate unit unless all guards and
+protective covers are properly assembled to unit.
+ NEVER reach into any opening while the engine is running.
+Moving parts may not be visible through openings.
+
+Using improper replacement components or removing safety
+devices may result in serious or fatal injury.
+Unit includes safety devices that reduce the likelihood of
+kickback:
+ Chain brake - brake actuated by kickback energy, not
+manual activation.
+ Reduced-kickback guide bar - reduced nose radius guide
+bar.
+ Low-kickback saw chain - saw chain that meets ANSI
+kickback performance requirements when configured with
+the bar/chain recommendations in this manual.
+ Front hand guard - a structural barrier between the front
+handle of a chainsaw and the guide bar.
+
+Periodically check fuel system (fuel lines, vent, grommet, fuel
+tank, and fuel cap) for leaks especially if the unit is dropped. If
+damage or leaks are found, do not use unit, otherwise serious
+personal injury or property damage may occur. Have unit
+repaired by an authorized servicing dealer before using.
+
+18
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+EMISSION CONTROL
+
+EMISSION CONTROL (EXHAUST &
+EVAPORATIVE)
+CARB and EPA Emissions Control Information
+The emission control system for
+the engine is EM (engine
+modification) and, if the second to
+last character of the Engine Family
+on the Emission Control
+Information label (sample below) is
+“B”, “C”, “K”, or “T”, the emission
+control system is EM and TWC
+(3-way catalyst). The fuel tank/fuel
+line emission control system is EVAP (evaporative emissions). Evaporative
+emissions for California models are only applicable to fuel tanks and fuel
+feed lines.
+An Emission Control Label is
+located on the engine. (This is an
+EXAMPLE ONLY, information on
+label varies by engine FAMILY).
+
+Product Emission Durability (Emission Compliance Period)
+The 50 or 300 hour emission compliance period is the time span selected by
+the manufacturer certifying the engine emissions output meets applicable
+emissions regulations, provided that approved maintenance procedures are
+followed as listed in the Maintenance Section of this manual.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+19
+
+DESCRIPTION
+
+CS-352
+
+DESCRIPTION
+Locate the safety decal(s) or etching(s) on your unit. Make sure they are
+legible, and that you understand and follow the instructions. If any cannot be
+read, replacements can be ordered from your ECHO dealer. Images shown
+below are for example only. Those on your unit might appear slightly
+different.
+
+4
+3
+2
+
+5
+
+1
+6
+7
+
+10
+9
+
+8
+
+11
+12
+
+13
+
+21
+20
+
+14
+19
+18
+17
+
+20
+
+16
+
+15
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+DESCRIPTION
+
+1.
+
+Rear hand guard
+
+2.
+
+Purge pump
+
+3.
+
+Choke control knob
+
+4.
+
+Chain brake lever/front hand guard
+
+5.
+
+Spark arrester muffler or spark arrester muffler with catalyst
+
+6.
+
+Saw chain
+
+7.
+
+Guide bar
+
+8.
+
+Chain catcher
+
+9.
+
+Chain tension adjuster
+
+10.
+
+Chain brake/sprocket guard
+
+11.
+
+Cylinder cover
+
+12.
+
+Spark plug
+
+13.
+
+Throttle trigger lockout
+
+14.
+
+Rear handle - for the right hand
+
+15.
+
+Throttle trigger
+
+16.
+
+Stop switch
+
+17.
+
+Fuel tank cap
+
+18.
+
+Cylinder cover latch
+
+19.
+
+Starter handle
+
+20.
+
+Front handle - for the left hand
+
+21.
+
+Oil tank cap
+
+CHAINSAW TERMS
+1.
+
+FAST IDLE - Throttle setting that causes engine to operate at a faster
+speed for easier starting.
+
+2.
+
+THROTTLE LATCH - Device that sets idle speed to fast idle when
+choke control is operated.
+
+3.
+
+CHAIN BRAKE - Stops the saw chain.
+
+4.
+
+DRIVE SPROCKET - Drives saw chain.
+
+5.
+
+CLUTCH - Turns drive sprocket when engine rpm is fast enough to
+provide the power needed for cutting.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+21
+
+CONTENTS
+
+CS-352
+
+CONTENTS
+The ECHO product you purchased has been factory pre-assembled for your
+convenience. Due to packaging restrictions, some assembly may be
+necessary.
+After opening the carton, check for damage. Immediately notify your retailer
+or ECHO Dealer of damaged or missing parts. Use the contents list to check
+for missing parts.
+1
+
+Power head
+
+1
+
+Operator's manual
+
+1
+
+Warranty statement
+
+1
+
+Guide bar
+
+1
+
+Guide bar cover
+
+1
+
+Saw chain
+
+ASSEMBLY
+Preparation for Use
+
+Saw chain is sharp! Always wear gloves when handling
+assembly, otherwise serious personal injury may result.
+Note: The machine may be delivered with guide bar, tip guard, and
+saw chain separated. Install guide bar, tip guard, and saw
+chain as follows.
+
+22
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+ASSEMBLY
+
+Instructions to Install Optional Kick GuardTM to Bar
+Tools Needed: Two 11 mm (7/16 in.)
+Wrenches.
+1.
+
+Install bolt (A) in rear hole (B) of
+kick guard and through front
+hole (C) in guide bar.
+
+2.
+
+IMPORTANT: Dimple (D) in tip
+guard must engage recess (E)
+in guide bar.
+
+3.
+
+Securely tighten nut (F) and
+bolt (A).
+
+A
+
+D
+
+B
+E
+
+C
+
+F
+
+Guide Bar and Saw Chain Installation/Removal
+1.
+
+Release the cylinder cover latches, and remove the cylinder cover.
+
+2.
+
+Remove spark plug lead.
+
+3.
+
+Remove sprocket guard nuts
+(A) and remove sprocket guard
+(B).
+
+4.
+
+Remove guide bar and saw
+chain if necessary.
+
+Unlock chain brake
+
+A
+B
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+23
+
+ASSEMBLY
+5.
+
+6.
+
+7.
+
+Unlock the chain brake, and
+mount guide bar on studs (C)
+and slide toward sprocket (E) to
+make saw chain installation
+easier. Install chain with cutters
+on top of guide bar facing
+forward.
+Install the sprocket guard over
+the guide bar studs. Ensure
+chain tension adjuster pin (F)
+fits into the guide bar adjuster
+hole (D). Tighten sprocket
+guard nuts finger tight.
+
+CS-352
+
+E
+
+C
+D
+
+F
+A
+B
+
+Adjust saw chain tension, as
+instructed in “Adjusting Chain
+Tension”.
+
+Adjusting Chain Tension
+
+Always loosen sprocket guard nuts before turning the chain tension
+adjuster, otherwise the sprocket guard and tensioner will be
+damaged.
+1.
+
+Release the cylinder cover
+latches, and remove the
+cylinder cover. Remove spark
+plug lead.
+
+2.
+
+Unlock chain brake and loosen
+sprocket guard nuts.
+
+24
+
+Unlock chain brake
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+3.
+
+ASSEMBLY
+
+Hold the bar nose up, and turn
+the adjuster screw (A)
+clockwise until chain contacts
+underside of the bar.
+
+A
+4.
+
+Tighten nuts with the bar nose
+held up.
+
+5.
+
+Pull the chain around the bar by
+hand. Loosen the adjustment if
+you feel tight spots.
+
+Tighten guide bar nuts to 20-23 N•m (175-200 lbf•in.). DO NOT overtighten nuts. Damage to saw may result.
+6.
+
+Assemble components in reverse order.
+
+7.
+
+Keep chain properly tensioned at all times.
+
+Note: All chains require frequent adjustments.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+25
+
+OPERATION
+
+CS-352
+
+OPERATION
+Fuel
+
+Diesel fuels and alternative fuels, such as E-15 (15% ethanol),
+E-85 (85% ethanol) or any fuels not meeting ECHO requirements
+are NOT approved for use in ECHO 2-stroke gasoline engines.
+Use of diesel or alternative fuels can cause performance
+problems, loss of power, overheating, fuel vapor lock, and
+unintended machine operation, including, but not limited to,
+improper clutch engagement. Diesel or alternative fuels can
+also cause premature deterioration of fuel lines, gaskets,
+carburetors and other engine components.
+Fuel Requirements
+Gasoline - Use fresh (purchased within the last 30 days from the pump) 89
+Octane [R+M/2] (mid grade or higher) gasoline known to be good quality.
+Gasoline may contain up to 10% Ethanol (grain alcohol) or 15% MTBE
+(methyl tertiary-butyl ether). Gasoline containing methanol (wood alcohol) is
+NOT approved. Use of ECHO branded fuel is recommended to extend
+engine life in all air-cooled 2-stroke and 2/4-stroke hybrid engines.
+Two Stroke Oil - A two-stroke engine oil, such as ECHO branded 2-stroke
+oils, meeting ISO-L-EGD (ISO/CD 13738) and J.A.S.O. FD Standards must
+be used. ECHO branded 2-stroke oils meet these standards. Engine
+problems due to inadequate lubrication caused by failure to use an ISO-LEGD (ISO/CD 13738) and J.A.S.O. M345-FD certified oil will void the twostroke engine warranty.
+
+2-Stroke engine oil contains petroleum distillates and other
+additives that may be harmful if swallowed. Heated oil can
+release vapors that can cause flash fire, or ignite with explosive
+force. Read and follow the oil manufacturer’s instructions, and
+observe all safety warnings and precautions for handling
+flammable liquids. For more detailed safety and first aid
+information, visit www.echo-usa.com for a copy of the Material
+Safety Data Sheet.
+ KEEP OUT OF REACH OF CHILDREN.
+26
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+OPERATION
+
+ If swallowed, do not induce vomiting. CALL PHYSICIAN OR
+
+A POISON CONTROL CENTER IMMEDIATELY.
+ WEAR SAFETY GLASSES when mixing or handling.
+ AVOID repeated or prolonged skin contact.
+ AVOID inhaling oil mists or vapors.
+
+ECHO branded 2-stroke oils may be mixed at 50:1 ratio for
+application in all ECHO engines sold in the past regardless of ratio
+specified in those manuals.
+Handling Fuel
+
+Fuel is VERY flammable. Use extreme care when mixing, storing
+or handling, or serious personal injury will result.
+ Use an approved fuel container. Mark fuel containers as
+containing 2-stroke mixture fuel.
+ DO NOT smoke near fuel.
+ DO NOT allow flames or sparks near fuel.
+ Fuel tanks/cans may be under pressure. Always loosen
+fuel caps slowly allowing pressure to equalize.
+ NEVER refuel a unit when the engine is HOT or RUNNING!
+ DO NOT fill fuel tanks indoors. ALWAYS fill fuel tanks
+outdoors over bare ground.
+ DO NOT overfill fuel tank. Wipe up spills immediately.
+ Securely tighten fuel tank cap and close fuel container
+after refueling.
+ Inspect for fuel leakage. If fuel leakage is found, do not
+start or operate unit until leakage is repaired.
+ Use caution when handling fuel. Mix and pour fuel
+outdoors where there are no sparks and flames. Slowly
+remove the fuel cap only after stopping the engine and
+allowing the unit to cool. Do not smoke while fueling or
+mixing fuel. Move the unit at least 10 feet (3 m) from the
+fueling point before starting the engine.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+27
+
+OPERATION
+
+CS-352
+
+Gasoline vapor is heavier than air, and can travel along the
+ground to nearby sources of ignition such as electrical motors,
+pilot lights, and hot or running engines. Vapors ignited by an
+ignition source can flash back to the fuel container, resulting in
+an explosion, fire, serious or fatal injuries, and extensive
+property damage.
+Mixing Instructions
+
+Stored fuel ages. Do not mix more fuel than you expect to use in 30
+days, 90 days when a fuel stabilizer is added.
+1.
+
+Fill an approved fuel container
+with half of the required
+amount of gasoline.
+
+Fuel to Oil Mix – 50:1 Ratio
+US
+
+Metric
+
+2.
+
+Add the proper amount of
+2-stroke oil to gasoline.
+
+Gas
+
+Oil
+
+Gas
+
+Oil
+
+3.
+
+Close container and shake to
+mix oil with gasoline.
+
+gal.
+
+fl.oz.
+
+L
+
+cc
+
+1
+
+2.6
+
+5
+
+100
+
+2
+
+5.2
+
+10
+
+200
+
+5
+
+13
+
+25
+
+500
+
+4.
+
+Add remaining gasoline, close
+fuel container, and remix.
+
+Spilled fuel is a leading cause of hydrocarbon emissions. Some
+locations may require the use of automatic fuel shut-off containers to
+reduce fuel spillage.
+Storage - Fuel storage laws vary by locality. Contact your local government
+for the laws affecting your area. As a precaution, store fuel in an approved,
+airtight container. Store in a well-ventilated, unoccupied building, away from
+sparks and flames.
+• Empty the fuel tank prior to storing the unit. Return unused fuel to an
+approved fuel storage container.
+
+Stored two-stroke fuel can separate. ALWAYS shake fuel container
+thoroughly before each use.
+28
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+OPERATION
+
+Used oil and gasoline, and soiled towels are hazardous waste
+materials. Disposal laws vary by locality.
+
+Chain Lubricant
+Proper lubrication of the chain while in operation reduces friction between
+the chain and the guide bar to a minimum and assures a longer service life.
+
+Note: Cap indication - Fuel and
+oil tanks are indicated by the
+following illustrations
+• Use bar and chain oil of high
+quality for this purpose.
+• Do not use used or reclaimed oil
+to avoid various oiler problems.
+
+Fuel tank cap
+
+Oil tank cap
+
+• Use high quality bar and chain oil.
+• Use bar and chain oil of the following grades:
+• SAE No. 30 in summer.
+• SAE No. 10 in winter or when cutting resinous trees.
+• When refueling, also refill chain oil.
+
+Moving parts can amputate fingers or cause severe injuries.
+Keep hands, clothing and loose objects away from all openings.
+Always stop engine, disconnect spark plug, and make sure all
+moving parts have come to a complete stop before removing
+obstructions, clearing debris, or servicing unit.
+
+Engine exhaust IS HOT, and contains Carbon Monoxide (CO), a
+poison gas. Breathing CO can cause unconsciousness, serious
+injury, or death. Exhaust can cause serious burns. ALWAYS
+position unit so that exhaust is directed away from your face
+and body.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+29
+
+OPERATION
+
+CS-352
+
+Operation of this equipment may create sparks that can start
+fires around dry vegetation. This unit is equipped with a spark
+arrester to prevent discharge of hot particles from the engine.
+Metal cutters can also create sparks if the cutter strikes rocks,
+metal, or other hard objects. Contact local fire authorities for
+laws or regulations regarding fire prevention requirements.
+
+Winter Operation
+Air cleaner cover - Use the winter
+plug (A) to prevent carburetor
+trouble in winter.
+• Remove air cleaner cover.
+Remove plug from warm weather
+position (B), and install into cold
+weather position (C).
+
+A
+
+B
+
+C
+
+Note: For operation at normal
+temperature (5°C [41°F])
+return the plug to its original position. To prevent over heating
+of the engine.
+
+Starting Cold Engine
+
+Make sure the bar and chain are free from any obstruction when
+starting the chainsaw.
+1.
+
+Move chain brake lever fully
+FORWARD to LOCK chain
+brake before starting.
+
+2.
+
+Fill the fuel tank with fuel
+mixture. Do not over fill.
+
+3.
+
+Fill the chain oil tank with
+lubricant. Do not over fill.
+
+30
+
+Chain brake
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+4.
+
+OPERATION
+
+Move stop switch (A) UP to
+“RUN” position.
+
+A
+
+5.
+
+Push purge pump (B) 3 to 4
+times or until fuel is visible in
+purge pump.
+
+6.
+
+Pull choke control knob all the
+way OUT (CLOSED [ ] choke
+position).
+
+B
+
+ After choke control knob is pulled and then knob is
+
+returned to original position, throttle remains slightly open
+(fast idle latch condition).
+ The chain will attempt to move when engine is started with
+fast idle throttle latch engaged.
+ Do not start engine before chain brake is locked.
+7.
+
+Securely hold the chainsaw and pull starter handle several times until
+first starting sound.
+
+8.
+
+Push choke control knob all the
+way IN (OPEN
+choke
+position).
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+31
+
+OPERATION
+9.
+
+CS-352
+
+Pull starter handle to start the
+engine.
+
+Note: Do not pull starter rope
+out to the maximum
+possible position.
+Note: Do not allow recoil handle
+to snap back against the
+casing.
+Note: If engine does not start
+after 5 pulls, repeat
+instructions.
+
+ After starting the engine, immediately squeeze and then
+
+release throttle trigger to release fast idle throttle latch,
+otherwise severe brake damage may occur.
+ Never use fast idle throttle latch for cutting.
+ Use the fast idle throttle latch only in starting.
+Note: Do not increase engine speed while chain brake is locked.
+Severe brake damage will result.
+
+Starting Warm Engine
+
+Make sure the bar and chain are free from any obstruction when
+starting the chainsaw.
+1.
+
+Move chain brake lever fully
+FORWARD to LOCK chain
+brake before starting.
+
+2.
+
+Confirm there is fuel and chain
+oil in the tanks.
+
+32
+
+Chain brake
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+3.
+
+OPERATION
+
+Move stop switch (A) UP to
+“RUN” position.
+
+A
+
+4.
+
+Securely hold the chainsaw as
+shown and pull starter handle.
+
+5.
+
+Choke may be used if
+necessary, but after first starting
+sound, squeeze throttle trigger
+to release choke and return
+engine to idle.
+
+Note: If engine does not start
+after 5 pulls, use cold
+start procedure.
+Note: Do not increase engine
+speed while chain brake
+is locked. Severe brake
+damage will result.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+33
+
+OPERATION
+
+CS-352
+
+Running
+
+The saw chain should not move at idle, otherwise serious
+personal injury may result.
+Note: If saw chain moves adjust carburetor according to
+“Carburetor Adjustment” instructions in this manual, or see
+your dealer.
+1.
+
+After engine starts, allow it to
+return to idle and warm up
+before using.
+
+2.
+
+Move chain brake lever fully
+REARWARD to UNLOCK chain
+brake.
+
+3.
+
+Squeeze throttle trigger (B)
+gradually and increase engine
+speed.
+
+4.
+
+The chain starts running when
+the engine reaches clutch
+engagement speed (see the
+Specifications page).
+
+5.
+
+Confirm proper acceleration
+and lubrication of chain and
+bar.
+
+6.
+
+Do not run the engine at high speed unnecessarily.
+
+7.
+
+Be sure that saw chain stops moving when throttle trigger is released.
+
+34
+
+X7503275705
+
+Unlock Chain brake
+
+B
+
+© 05/24 ECHO Incorporated
+
+CS-352
+
+OPERATION
+
+Stopping
+1.
+
+Release throttle trigger and
+allow engine to idle.
+
+2.
+
+Move stop switch (A) DOWN to
+“STOP” position.
+
+A
+
+Note: If engine does not stop,
+pull choke control knob
+out fully to stop engine.
+Note: Return the unit to your
+authorized dealer to
+check and repair stop
+switch before starting the engine again.
+
+Checking Chain Tension
+Chain tension should be checked
+frequently during work and
+corrected as necessary.
+
+Do not operate with a loose chain.
+
+Chain Lubrication Test
+Hold the chain just above a dry
+surface and open the throttle to half
+speed for 30 seconds.
+A thin line of “thrown” oil should be
+seen on the dry surface.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+35
+
+OPERATION
+
+CS-352
+
+Cutting Instructions
+General
+
+ This chainsaw is designed for cutting wood. Do not cut
+
+metal, plastic or any non-wood material.
+ Wear suitable hearing
+
+protection such as
+earmuffs or earplugs to
+protect against
+objectionable or
+uncomfortable loud
+noises.
+ Do not let the tip of the
+bar touch anything while
+the engine is running. At
+cutting speed the chain is
+moving at a high rate of
+speed. Should the tip
+contact a limb or log while
+the chain is moving, the
+tip will be pushed upward
+with considerable force.
+This is known as kickback. Avoid it!
+
+Kickback
+
+In all circumstances the operation of the chainsaw is a one-man job. It is
+difficult at times to take care for your own safety, so don’t assume the
+responsibility for a helper as well. After you have learned the basic
+techniques of using the saw, your best aid will be your own good common
+sense.
+The accepted way to hold the saw is
+to stand to the left of the saw with
+your left hand on the front handle
+and your right hand on the rear
+handle so you can operate the
+throttle trigger with your right index
+finger. Before attempting to fell a
+tree, cut some small logs or limbs.
+Become thoroughly familiar with the
+controls and the responses of the
+saw.
+
+36
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+OPERATION
+
+Start the engine, see that it is
+running properly. Squeeze the
+trigger to open the throttle wide
+open and start the cut. If the chain is
+properly sharpened, the cutting
+should be relatively effortless. It is
+not necessary to press down hard to
+make the saw cut. Pushing the saw
+too hard will slow the engine and
+cutting will actually be more difficult.
+
+Sap from palm trees may corrode metal parts unless proper saw
+maintenance is performed. Make sure to clean metal parts from palm
+sap immediately after use.
+• Remove sprocket guard. Clean wood chips and sawdust from guard and
+engine crankcase.
+• Never use metal tools for cleaning which can scratch the metal paint and
+allow corrosion to develop.
+• Clean sap accumulation from metal parts with cloth and warm water with
+soap.
+• Rinse with clean water and dry metal surfaces.
+• Apply a light coating of engine or bar and chain oil to metal parts after
+they are cleaned.
+• Install and properly tension guide bar and chain. Run engine for one
+minute alternating engine speed between full throttle for five seconds and
+idle for five seconds to coat metal parts with additional protective chain
+oil.
+
+ Do not run a chainsaw not under cutting load at wide open
+
+throttle longer than five seconds or engine damage can
+occur.
+ Keep chain properly tensioned during operation to prevent
+the chain from jumping out of the guide bar rail slot and
+damaging metal engine parts.
+X7503275705
+© 05/24 ECHO Incorporated
+
+37
+
+OPERATION
+
+CS-352
+
+Felling the Tree
+
+A falling tree can seriously damage anything it may hit - a car, a
+house, a fence, a power line, or another tree. There are ways to
+make a tree fall where you want it, so first decide where that is!
+Before cutting, clear the area
+around the tree. You will need good
+footing while working and you
+should be able to work the saw
+without hitting any obstacles. Next,
+select a path of retreat. When the
+tree begins to fall you should retreat
+away from the direction of fall at a
+45-degree angle and at least 3 m
+(10 feet) from the trunk to avoid the
+trunk kicking back over the stump.
+
+3 m (10 ft.)
+Retreat
+Direction
+of fall
+
+45°
+45°
+
+Retreat
+
+Not this way
+
+Begin the cut on the side to
+which the tree is to fall. Cut a
+Direction of fall
+notch about 1/3 of the way into
+Hinge
+the tree. The position of this
+notch is important since the
+tree will try to fall “into” the
+First cut
+Felling cut
+notch. The felling cut is made
+on the side opposite the notch
+and at a level about 5 cm
+Notch
+(2 in.) above the bottom of the
+notch. Do not try to cut through
+5 cm (2 in.)
+to the notch with the felling cut. Second cut
+The remaining wood between
+the notch cut and felling cut
+about 5 cm (2 in.) will act as a
+One-third tree diameter
+hinge when the tree falls,
+guiding it in the desired
+direction. When the tree starts to fall, kill the engine, place the saw on the
+ground and make your retreat quickly.
+
+38
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+OPERATION
+
+To fell big trees with a diameter
+exceeding twice the bar length, start
+3
+the notching cuts from one side and
+draw the saw through to the other
+1
+side of the notch. Start the back cut
+on one side of the tree, pivoting the
+saw through to form the desired
+2
+hinge on that side. Then remove the
+saw for the second cut. Insert the
+saw in the first cut, very carefully so
+as not to cause kickback. The final
+cut is made by drawing the saw forward in the cut to reach the hinge.
+
+Limbing
+Limbing a fallen tree is much the
+same as bucking. Never stand on
+the tree that you are limbing. When
+limbing, caution is the word. Be
+careful of the tip touching other
+limbs. Always use both hands.
+
+Don’t cut with the saw overhead or
+aligned vertically with your body. If
+the saw should kick back, you may
+not have enough control to prevent
+possible injury.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+39
+
+OPERATION
+
+CS-352
+
+Bucking
+Bucking is the sawing of a log or
+fallen tree into smaller pieces. There
+are a few basic rules which apply to
+all bucking operations.
+
+Uphill Position
+
+• Keep both hands on the handles
+at all times.
+• Support logs if possible.
+• When cutting on a slope or
+hillside, always stand uphill.
+
+Finish cut
+
+First cut
+Support
+Keep in mind that the wood is heavy and that it will bend and pinch the saw
+if improperly supported. The trunk will weaken at the point where you make
+the cut unless the tree is lying on perfectly flat ground or supported as
+shown. If you make the cut with the tree on the ground, don’t let the saw’s
+chain dig into the earth; it is harmful for the saw, and you stand a good
+chance of being struck by flying debris.
+To cut the trunk, use the bucking and two-cut sequence shown. The first cut
+should be no deeper than one-third the trunk diameter.
+
+Guide Bar and Chain Combination
+The following combinations are recommended for model CS-352.
+Guide Bar
+ECHO Part No.
+Length mm (in.)
+Low-kickback
+305 (12)
+12A0CD3745
+356 (14)
+14A0CD3752
+406 (16)
+16A0CD3757
+
+Saw Chain
+Pitch (in.)
+
+Type
+
+Links
+
+3/8
+
+91PX / 91VG
+91PX / 91VG
+91PX / 91VG
+
+45
+52
+57
+
+Use of replacement saw chain and/or guide bar other than that
+specified, or operation without the optional Kick GuardTM in
+place, may cause severe kickback resulting in serious injury.
+40
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+OPERATION
+
+Chain and guide bar gauge size must be identical. Use bar/chain
+combinations shown in the table above.
+
+Kick GuardTM
+(Optional)
+To purchase an optional Kick GuardTM contact your dealer. For the name of
+the ECHO dealer nearest you, call 1-800-432-ECHO (3246) or on the web
+at www.echo-usa.com. For the name of the Shindaiwa dealer nearest you,
+call 1-877-986-7783 or on the web at www.shindaiwa-usa.com.
+
+Guide Bar
+(Low-kickback)
+Replacement guide bars.
+The following guide bars may be considered to have equivalent kickback
+energy.
+• Sprocket nose guide bars of the same length and nose radius, same pitch
+and having the same number of teeth.
+• Hard nose guide bars of the same length and nose radius as a sprocket
+nose bar.
+
+Saw Chain
+(Low-kickback)
+
+Only use saw chain designated as, “LOW-KICKBACK,” that
+meets ANSI B175.1 or CSA Z62.1.3. Standard when tested on the
+representative sample of chainsaws below 3.8 C.I.D., and guide
+bar specified.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+41
+
+MAINTENANCE
+
+CS-352
+
+MAINTENANCE
+
+Moving parts can amputate fingers or cause severe injuries.
+Keep hands, clothing and loose objects away from all openings.
+Always stop unit, disconnect spark plug or remove battery, and
+make sure all moving parts have come to a complete stop
+before removing obstructions, clearing debris, or servicing unit.
+Allow the unit to cool before performing maintenance or
+adjustments. Wear gloves to protect hands from sharp edges
+and hot surfaces.
+
+Operating a poorly maintained unit can result in serious injuries
+to operator or bystanders. Always follow all maintenance
+instructions as written, otherwise serious personal injury can
+result.
+Your unit is designed to provide many hours of trouble free service. Regular
+scheduled maintenance will help your unit achieve that goal. If you are
+unsure or are not equipped with the necessary tools, we recommend that
+you take your unit to a Servicing Dealer for maintenance. To help you
+decide whether you want to do it yourself or have the Dealer do it, each
+maintenance task has been graded. If the task is not listed, see your Dealer
+for repairs.
+
+The use of emission control components other than those specifically
+designed for this unit is a violation of federal law.
+
+Skill Levels
+Level 1 = Easy to do. Common tools may be required.
+Level 2 = Moderate difficulty. Some specialized tools may be required.
+Level 3 = See your dealer.
+Click HERE or go to http://www.echo-usa.com/products/maintenance-kit
+or
+HERE https://www.shindaiwa-usa.com/you-can.aspx
+42
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+MAINTENANCE
+
+Maintenance Intervals
+
+Units equipped with a Momentary STOP Switch automatically
+return to RUN position. Engine can start unintentionally. Always
+remove spark plug lead from spark plug before assembling or
+performing maintenance procedures, otherwise serious
+personal injury can result.
+COMPONENT OR SYSTEM
+
+MAINTENANCE
+PROCEDURE
+
+REQUIRED
+SKILL
+LEVEL
+
+Daily Or Before Use
+Air Filter
+
+Inspect / clean *
+
+1
+
+Automatic Oiler
+
+Inspect / adjust
+
+1
+
+Oil Filter
+
+Inspect
+
+1
+
+Fuel System
+
+Inspect
+
+1
+
+Guide Bar and Sprocket
+Nose
+
+Inspect / clean *
+
+1
+
+Saw Chain
+
+Inspect / sharpen / replace /
+tensioning *
+
+2
+
+Sprocket
+
+Inspect / replace *
+
+2
+
+Cooling System
+
+Inspect / clean
+
+2
+
+Recoil Starter Rope
+
+Inspect / clean *
+
+1
+
+Screws / Nuts / Bolts
+
+Inspect / tighten / replace *
+
+1
+
+Fuel System
+
+Inspect
+
+1
+
+Guide Bar and Sprocket
+Nose
+
+Inspect
+
+1
+
+Air Filter
+
+Replace *
+
+1
+
+Oil Filter
+
+Inspect / replace *
+
+1
+
+Fuel Filter
+
+Inspect *
+
+1
+
+Fuel Cap Gasket
+
+Inspect *
+
+1
+
+Spark Plug
+
+Inspect / clean / replace *
+
+1
+
+Muffler Spark Arrester
+
+Inspect / clean / replace *
+
+2
+
+Every Refuel
+
+3 Months
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+43
+
+MAINTENANCE
+
+CS-352
+MAINTENANCE
+PROCEDURE
+
+COMPONENT OR SYSTEM
+Cylinder Exhaust Port
+
+REQUIRED
+SKILL
+LEVEL
+
+Inspect / clean / de-carbon
+
+2
+
+Fuel Filter
+
+Inspect / replace *
+
+1
+
+Fuel Cap Gasket
+
+Replace *
+
+1
+
+Yearly
+
+IMPORTANT NOTE - Time intervals shown are maximum. Actual use and
+your experience will determine the frequency of required maintenance.
+MAINTENANCE PROCEDURE NOTES:
+* Replacement is recommended based on the finding of damage or wear
+during inspection.
+
+Carburetor Adjustment
+Every unit is run at the factory and
+the carburetor is set in compliance
+with emission regulations. In
+addition, the carburetor is equipped
+with “H” (High Speed) and “L” (Low
+Speed) needle adjustment limiters
+that prevent settings outside
+acceptable limits.
+
+Engine Break-In
+New engines must be operated a
+minimum duration of two tanks of
+fuel break-in before carburetor
+adjustments can be made. During
+the break-in period your engine
+performance will increase and
+exhaust emissions will stabilize. Idle
+speed can be adjusted as required.
+High Altitude Operation
+
+H L T
+
+This engine has been factory
+adjusted to maintain satisfactory
+starting and durability performance
+up to 335 m (1,100 ft.) above sea
+level (ASL) (96.0 kPa). To maintain
+proper engine operation above 335 m (1,100 ft.) ASL the carburetor might
+need to be adjusted by an authorized service dealer.
+44
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+MAINTENANCE
+
+If the engine is adjusted for operation above 335 m (1,100 ft.) ASL,
+the carburetor must be readjusted when operating the engine below
+335 m (1,100 ft.) ASL, otherwise severe engine damage can result.
+1.
+
+Before adjusting carburetor clean or replace air filter and muffler spark
+arrester screen.
+
+2.
+
+Make sure the bar and chain are properly adjusted.
+
+3.
+
+Start engine and run several minutes to bring to operating temperature.
+Flash choke twice during warm-up to clear any air from the fuel system.
+
+4.
+
+Stop engine. Turn “H” High Speed needle counterclockwise (CCW) to
+stop. Turn “L” Low Speed needle midway between full clockwise (CW)
+stop and CCW stop.
+
+5.
+
+Idle Speed Adjustment:
+• Start engine, turn Idle speed adjustment screw “T” CW until the saw
+chain begins to move, then turn screw out CCW until the saw chain
+stops moving. Turn screw out, CCW, an additional 1/4 turn.
+
+When carburetor adjustment is completed, the saw chain
+should not move at idle, otherwise serious personal injury can
+result.
+6.
+
+Accelerate to full throttle for two to three seconds to clear any excess
+fuel in the engine, then return to idle. Accelerate engine to full throttle to
+check for smooth transition from idle to high speed. If engine hesitates
+turn “L” needle CCW 1/8 turn and repeat acceleration. Continue
+adjustment until smooth acceleration results.
+
+7.
+
+Check idle speed and reset if necessary as described in item 5. If a
+tachometer is available idle speed should be set to value listed on
+specifications page.
+
+When starting, idling adjustment speed should be adjusted to
+prevent the saw chain from moving. When you experience
+trouble with the carburetor, contact your dealer.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+45
+
+MAINTENANCE
+
+CS-352
+
+Air Filter
+1.
+
+Check before every use.
+
+2.
+
+CLOSE choke (
+
+3.
+
+Press hand guard FORWARD
+and LOCK chain brake.
+
+4.
+
+Release the cylinder cover
+latches (C) and remove cylinder
+cover (A) and air filter (B).
+
+5.
+
+Lightly brush dust off air filter, or
+clean with compressed air, or
+replace the air filter.
+
+6.
+
+).
+
+A
+
+C
+B
+
+C
+
+Install air filter and cylinder
+cover, engage latches.
+
+Spark Plug
+• Check periodically.
+• The standard spark gap is 0.65
+mm (0.026 in.).
+• Fastening torque: 13-17 N•m
+(110-150 lbf•in).
+1.
+
+Remove cylinder cover and
+remove spark plug.
+
+2.
+
+Correct the spark gap if it is wider or narrower than the standard gap.
+
+0.65 mm (0.026 in.)
+
+Check Fuel System
+• Check before every use.
+• After refueling, make sure fuel does not leak from around fuel pipe, fuel
+grommet or fuel tank cap.
+• In case of fuel leakage there is a danger of fire. Stop using the machine
+immediately and request your dealer to inspect or replace.
+
+46
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+MAINTENANCE
+
+Fuel Filter
+• Check periodically.
+• Do not allow dust to enter fuel
+tank.
+• A clogged filter (A) will cause
+difficulty in starting engine or
+abnormalities in engine
+performance.
+1.
+
+A
+
+Pull Fuel Filter (A) out through gas port, and inspect Fuel Filter.
+
+Do not damage fuel line while removing Fuel Filter (A) from tank.
+2.
+
+3.
+
+When the Fuel Filter (A) is dirty, replace it as follows:
+a.
+
+Do not remove the wire coil clamp to remove the Fuel Filter (A).
+Pinch the Fuel Filter with the fingers on one hand and the fuel line
+with the other hand. Pull and twist slightly to separate.
+
+b.
+
+Install the new Fuel Filter (A) with the reverse action.
+
+When the inside of the fuel tank is dirty, rinse the tank out with gasoline
+to clean it.
+
+Note: Federal EPA regulations require all model year 2012 and
+later gasoline powered engines produced for sale in the
+United States to be equipped with a special low permeation
+fuel supply hose between the carburetor and fuel tank. When
+servicing model year 2012 and later equipment, only fuel
+supply hoses certified by EPA can be used to replace the
+original equipment supply hose. Fines up to $37,500 may be
+enforced for using an un-certified replacement part.
+
+Oil Filter
+• Check periodically.
+• Do not allow dust to enter into oil
+tank.
+• A clogged oil filter (B) will affect
+the normal lubricating system.
+
+B
+
+1.
+
+Pull Oil Filter out through oil
+port, and inspect Oil Filter.
+
+2.
+
+If the Oil Filter (a) is dirty, wash it in gasoline or replace it as follows:
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+47
+
+MAINTENANCE
+
+3.
+
+CS-352
+
+a.
+
+Do not remove the wire coil clamp to remove the Oil Filter. Pinch the
+Oil Filter with the fingers on one hand and the line with the other
+hand. Pull and twist slightly to separate.
+
+b.
+
+Install the new Oil Filter (a) with the reverse action.
+
+When the inside of the tank gets dirty, rinse the tank out with gasoline to
+clean it.
+
+Guide Bar
+1.
+
+Clean before using.
+
+2.
+
+Clean the groove (A) of the
+guide bar with a small
+screwdriver.
+
+3.
+
+Clean oil holes (B) with a wire.
+
+4.
+
+Invert guide bar periodically.
+
+5.
+
+Clean the bar mount area
+before installing of the bar.
+
+B
+
+A
+
+Sprocket
+• A damaged sprocket will cause
+premature damage or wear of
+saw chain.
+
+0.5 mm (0.020 in.)
+
+• When the sprocket has worn
+0.5 mm (0.020 in.) or more,
+replace it.
+• Check sprocket when you install
+new chain. Replace it if worn.
+
+Some tree sap and resins are corrosive. Thoroughly wash the guide
+bar and sprocket areas after each use, then coat metal parts with light
+oil.
+
+48
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+MAINTENANCE
+
+Cooling System Cleaning
+• Check periodically.
+
+Cylinder fins
+
+• Clogged fins will result in poor
+engine cooling.
+1.
+
+Remove cylinder cover and
+starter.
+
+2.
+
+Use compressed air or wooden
+tool to remove dirt and dust
+from between fins to let cooling
+air pass easily.
+
+Spark Arrester Muffler
+• The spark arrester muffler controls the exhaust noise and prevents hot,
+glowing particles of carbon from leaving the muffler.
+• Make sure the spark arrester screen is in good repair and properly seated
+in the muffler.
+• Certain internal combustion engines operated on forest, brush, and/or
+grass-covered areas in the states of Washington, Oregon, Idaho,
+California, Minnesota, New Jersey and Maine, are required to be
+equipped with a spark arrester.
+This requirement also applies to all U.S. Forest Service lands. In some of
+these areas, the spark arrester system must be certified per USDA Forest
+Service Regulation SAE J335.
+Check with your local or state authorities for specific regulations in your
+area. Failure to follow these requirements is a violation of the law.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+49
+
+MAINTENANCE
+
+CS-352
+
+Spark Arrester Screen
+Carbon deposits in muffler will cause drop in engine output and
+overheating. Spark arrester screen must be checked periodically.
+1.
+
+Remove air cleaner cover and
+remove spark plug lead.
+
+2.
+
+Remove spark arrester cover
+(C) and screen (B) from muffler
+(A) body.
+
+3.
+
+Clean carbon deposits from
+muffler components.
+
+4.
+
+Replace screen if it is cracked,
+or has holes burned through.
+
+5.
+
+Assemble components in
+reverse order.
+
+A
+B
+C
+
+Note: When cleaning carbon deposit, be careful not to damage the
+catalytic element inside muffler.
+
+Exhaust Port Cleaning
+Level 2.
+Parts Required:
+
+As needed: Muffler gasket
+
+1.
+
+Remove cylinder cover and
+remove spark plug lead.
+
+2.
+
+Place piston at top dead center.
+
+3.
+
+Remove muffler. Check parts
+for wear or damage, and
+replace if necessary.
+
+Never use a metal tool to scrape carbon from the exhaust port. Do
+not scratch the cylinder or piston when cleaning the exhaust port. Do
+not allow carbon particles to enter the cylinder.
+
+50
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+MAINTENANCE
+
+4.
+
+Use a wood or plastic scraping
+tool to clean deposits from
+cylinder exhaust port.
+
+5.
+
+Install muffler. Tighten muffler
+mounting bolts (or nuts) to
+7 - 9 N•m (60- 80 lbf•in).
+
+6.
+
+Install cylinder cover and attach
+spark plug lead.
+
+7.
+
+Start engine, and allow unit to
+warm up at idle for several
+minutes.
+
+8.
+
+Stop engine, and re-tighten mounting bolts (or nuts) to 7 - 9 N•m
+(60-80 lbf•in).
+
+9.
+
+Install guide bar and chain. Adjust chain tension.
+
+10. Start engine and check for exhaust leaks between muffler and cylinder
+head. Stop engine if leak is found and correct problem before operating
+chainsaw.
+
+Setting the Saw Chain
+Preset Tie Strap
+Drive Link
+
+Left Hand Cutter
+
+Top Plate
+Tie Strap
+Guard
+Link
+
+Side Plate
+Depth
+Gauge
+
+Right Hand Cutter
+
+Important points for proper maintenance of saw chain:
+• Keep the cutters sharp at all times.
+• Keep the left and the right cutters properly aligned.
+• Note that blunt or irregular cutters will result in poor cutting performance,
+increased vibration of chains and premature breakage of the saw chain.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+51
+
+MAINTENANCE
+
+CS-352
+
+• Drive link serves to remove
+sawdust from the groove of the
+guide bar. Keep the lower edge of
+the drive link sharp where
+indicated.
+
+Setting the Saw Chain
+
+Sharpen lower edge
+
+• For setting saw chain, round file
+(5/32 in. diameter) and flat file are
+used.
+• Push file as shown.
+• To keep correct position and
+correct angle, use a file holder.
+
+30°
+Keep this angle
+
+• Hold the file horizontally.
+
+90°
+
+• Place depth gauge tool firmly on
+guide bar so that depth gauge
+protrudes. Then file top of depth
+gauge with the flat file until flat
+with top of the depth gauge tool.
+
+52
+
+Depth Gauge Tool
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+MAINTENANCE
+
+• Be sure 1/5th of the file diameter
+remains above cutter edge.
+1/5th
+
+• Be sure to round off the front edge
+of the depth gauge.
+
+• Properly filed cutters are
+shown in illustration.
+• When setting of the chain is
+finished, soak it in oil and
+wash away filings completely
+before using.
+• When chain has been filed on
+the bar, supply sufficient oil to
+it, move the chain slowly to
+wash away the filings before
+using again.
+
+80°
+
+30°
+Top plate
+filing angle
+
+Side plate angle
+0.64 mm (0.025 in.)
+
+• If the chainsaw is operated
+with filings clogged in the
+groove, the saw chain and the
+guide bar will be damaged
+prematurely.
+• If the saw chain becomes
+soiled with resin, for instance,
+clean it with kerosene and
+soak in it oil.
+
+Parallel depth gauge
+
+To sharpen other chains, follow chain manufacturer’s instructions.
+X7503275705
+© 05/24 ECHO Incorporated
+
+53
+
+TROUBLESHOOTING
+
+CS-352
+
+TROUBLESHOOTING
+ENGINE PROBLEM TROUBLESHOOTING CHART
+Problem
+
+Check
+
+Status
+
+Cause
+
+Remedy
+
+Fuel at
+carburetor
+
+No fuel at
+carburetor
+
+Fuel strainer or
+fuel line
+obstructed
+
+Clean or replace
+
+No fuel at
+cylinder
+
+Carburetor
+
+See your dealer
+
+See your dealer
+
+OPEN choke
+Engine
+starts hard
+
+Fuel at
+cylinder
+
+Muffler wet
+with fuel
+
+Fuel mixture too
+rich
+
+or
+Engine
+does not
+start
+
+Adjust carburetor
+See your dealer
+
+Spark at
+end of plug
+wire
+No spark
+Spark at
+plug
+
+Engine
+runs, but
+dies
+
+Clean or replace
+air filter
+
+STOP switch
+OFF - Electrical
+problem Interlock switch
+
+Turn switch to
+ON
+
+Incorrect gap Covered with
+carbon - Fouled
+with fuel - Plug
+defective
+
+Adjust to
+0.65 mm
+(0.026 in.)
+
+See your dealer
+
+Clean or replace
+plug
+
+Air filter
+
+Air filter dirty Normal wear
+
+Clean or replace
+
+Fuel filter
+
+Fuel filter
+dirty
+
+Contaminants
+Replace filter or
+or residue in fuel replace fuel
+
+Fuel vent
+
+Fuel vent
+plugged
+
+Contaminated
+fuel
+
+or
+Engine
+does not
+accelerate
+properly
+
+54
+
+Clean or replace
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+TROUBLESHOOTING
+ENGINE PROBLEM TROUBLESHOOTING CHART
+
+Problem
+
+Check
+
+Status
+
+Cause
+
+Remedy
+
+Engine
+runs, but
+dies
+
+Spark plug
+
+Plug dirty or
+worn
+
+Normal wear
+
+Clean and adjust
+or replace
+
+Carburetor
+
+Improper
+adjustment
+
+Vibration
+
+Adjust
+
+or
+
+Cooling
+system
+
+Cooling
+system dirty
+or plugged
+
+Extended
+operation in
+dirty or dusty
+locations
+
+Clean
+
+Spark
+arrester
+screen
+
+Spark
+arrester
+screen
+plugged
+
+Normal wear
+
+Replace
+
+Internal engine
+problem
+
+See your dealer
+
+Engine
+does not
+accelerate
+properly
+Engine
+does not
+crank
+
+N/A
+
+Fuel vapors are extremely flammable and can cause fire and/or
+explosion. Never test for ignition spark by grounding spark plug
+near cylinder plug hole, otherwise serious personal injury can
+result.
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+55
+
+STORAGE
+
+CS-352
+
+STORAGE
+Storage After Use
+
+Units equipped with a Momentary STOP Switch automatically
+return to RUN position. Engine can start unintentionally. Always
+remove spark plug lead from spark plug before assembling or
+performing maintenance procedures. Serious personal injury
+can result.
+• Inspect and adjust every part of the chainsaw.
+• Completely clean every part and repair if necessary.
+• Apply thin coating of oil on metal parts to prevent rust.
+• Remove chain and guide bar.
+• Drain fuel tank completely. Press purge bulb six to seven times to remove
+remaining fuel from carburetor then drain the tank again. Close choke,
+start and run the engine until it stops due to lack of fuel.
+• Allow engine to cool. Remove the spark plug lead from the spark plug.
+Remove the spark plug. Pour 7 cc (0.25 oz.) of fresh, clean, two-stroke
+engine oil into the cylinder through the spark plug hole.
+• Store in a dry area, free from dust.
+
+Do not store in an enclosure where fuel fumes may accumulate
+or reach an open flame or spark.
+
+Do not lend or rent your chainsaw without the Operator’s
+Manual.
+Note:
+• For future reference, you should keep this Operator’s Manual.
+• If this Operator’s Manual becomes illegible or is lost, please contact
+your dealer, or go to www.echo-usa.com.
+
+56
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+CS-352
+
+SPECIFICATIONS
+
+SPECIFICATIONS
+Model
+
+CS-352
+
+Length
+
+396 mm (15.6 in.)
+
+Width
+
+232 mm (9.1 in.)
+
+Height
+
+273 mm (10.7 in.)
+
+Dry weight
+
+4.0 kg (8.8 lb.) Without chain and guide bar
+
+Engine
+
+Air-cooled two-stroke single cylinder
+
+Displacement
+
+34.0 mL (2.07 in.3)
+
+Bore
+
+38.0 mm (1.5 in.)
+
+Stroke
+
+30.0 mm (1.18 in.)
+
+Compression ratio
+
+6.8:1
+
+Carburetor
+
+Diaphragm type
+
+Spark plug
+
+NGK BPMR8Y
+Gap 0.65 mm (0.026 in.)
+
+Fuel tank capacity
+
+250 mL (8.5 US. fl. oz.)
+
+Fuel
+
+50:1
+
+Gasoline
+
+Use 89 octane unleaded. Do not use fuel containing
+methyl alcohol, more than 10% ethyl alcohol or 15%
+MTBE. Do not use alternative fuels such as E-15 or
+E-85.
+
+Oil
+
+ISO-L-EGD (ISO/CD 13738) and JASO M345-FD
+two-stroke, air-cooled engine oil.
+
+Oiling system
+
+Automatic oiler
+
+Chain oil capacity
+
+260 mL (8.8 US. fl. oz.)
+
+Starter system
+
+Automatic rewind starter
+
+Clutch
+
+Centrifugal type
+
+Sprocket type
+
+Spur type, 6-tooth, 3/8 in. pitch
+
+Chain brake
+
+Automatic band brake type
+
+Idle speed
+
+3,000 RPM
+
+Clutch engagement speed
+
+4,300 RPM
+
+Wide open throttle speed
+
+12,500 RPM
+
+Chain tensioner
+
+Side access system
+
+Guide bar
+
+12, 14, 16 in
+
+Saw chain
+
+91PX/91VG
+
+Standard features
+
+Front hand guard, Rear hand guard, Anti-vibration
+device, Throttle control lockout, Chain catcher, Spark
+arrester muffler,
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+57
+
+PRODUCT REGISTRATION
+
+CS-352
+
+PRODUCT REGISTRATION
+Thank you for choosing ECHO Power Equipment
+Please go to http://www.echo-usa.com/Warranty/Register-Your-ECHO to
+register your new product on-line. It's FAST and EASY! NOTE: your
+information will never be sold or misused by ECHO, Incorporated.
+Registering your purchase enables us to contact you in the unlikely event of
+a service update or product recall, and verifies your ownership for warranty
+consideration.
+If you do not have access to the Internet, you can complete the form below
+and mail to:
+ECHO Incorporated, Product Registration, PO Box 1139,
+Lake Zurich, IL 60047.
+
+58
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+PRODUCT REGISTRATION
+
+ECHO Incorporated
+
+CS-352
+
+X7503275705
+© 05/24 ECHO Incorporated
+
+59
+
+C68115001001 - C68115999999
+C70415001001 - C70415999999
+
+ECHO INCORPORATED
+400 Oakwood Road
+Lake Zurich, IL 60047
+www.echo-usa.com
+
+

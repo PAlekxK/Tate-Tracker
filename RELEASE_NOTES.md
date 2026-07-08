@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-08 — A manual for every machine
+
+- **Every vehicle and piece of equipment now has a 📖 manual link on its card** — all 15 of them, not just the DR200S. The GTI, Tiguan, F-150, Bronco, both Suzukis, the golf cart, the mowers, blowers, trimmer, and both chainsaws each point to the right owner's or service manual now.
+- Where the exact model wasn't certain, the link goes to the closest reliable doc and says so — the Husqvarna mower points to its **Kawasaki FR691V engine manual** (the model sticker still needs reading), and the Homelite blower/vac links its best-match 26cc manual.
+- Behind the scenes, the full manuals are now kept on hand as reference material, so a future version of Garden Guru could answer straight from the actual manual pages.
+
+---
+
 ## 2026-07-08 — A second shop on the GTI, and the oil-change coupon plan
 
 - **Express Oil Change is now on the GTI's card** as a tap-to-call contact (Moreland Ave, the regular oil shop) alongside Autobahn — with the live coupon codes, the "confirm they have the right euro oil first" reminder, and the questions to ask baked in.

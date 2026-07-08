@@ -1,0 +1,4155 @@
+LIT_19626_16_03 cover.qxd
+
+5/26/04
+
+9:40 AM
+
+Page 1
+
+OWNER'S / OPERATOR’S
+MANUAL
+
+GOLF CAR G22A
+
+Printed in U.S.A
+2004-KCC
+
+YAMAHA MOTOR
+MANUFACTURING CORP.
+OF AMERICA
+1000 HWY 34 East
+Newnan, GA 30265
+770-254-4000
+
+LIT-19626-16-04
+
+JU0-F8199-12
+
+LIT_19626_16_03IFC.qxd
+
+5/26/04
+
+9:42 AM
+
+Page 1
+
+WARNING
+The engine exhaust from this product
+contains chemicals known to the
+State of California to cause cancer, birth
+defects or other reproductive harm.
+YAMAHA
+
+LIT-CALIF-65-01
+
+LIT_19626_16_04.qxd
+
+5/28/04
+
+1:47 PM
+
+Page 1
+
+INTRODUCTION
+Congratulations on your purchase of a
+Yamaha golf car. This manual contains
+information you will need for proper
+operation, maintenance, and care of your
+golf car. A thorough understanding of
+these simple instructions will help you to
+obtain maximum enjoyment from your
+new Yamaha.
+If you have any questions about the
+operation or maintenance of your golf car,
+please consult a Yamaha dealer.
+
+YAMAHA MOTOR MANUFACTURING
+CORP OF AMERICA
+
+G22A
+OWNER’S/OPERATOR’S
+MANUAL
+© 2004 by Yamaha Motor
+Manufacturing Corporation
+of America
+1st edition
+All rights reserved. Any reprinting
+or unauthorized use without the
+written permission of
+Yamaha Motor Manufacturing
+Corporation of America
+is expressly prohibited.
+Printed in U.S.A.
+P/N LIT-19626-16-04
+
+G22A
+
+i
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 2
+
+IMPORTANT MANUAL
+INFORMATION
+Particularly important information is
+distinguished in this manual by the
+following notations:
+
+!
+The Safety Alert Symbol means
+ATTENTION! BE ALERT! YOUR
+SAFETY IS INVOLVED!
+
+WARNING
+Failure to follow WARNING instructions could result in severe injury
+or death to the golf car
+occupants, a bystander, or a
+person inspecting or repairing
+the golf car.
+
+CAUTION
+This message describes special
+precautions that must be taken to
+avoid damage to the golf car.
+
+NOTE:
+Yamaha continually seeks advancements in product design and
+quality; therefore, while this manual
+contains the most current product
+information available at the time of
+printing, there may be minor
+discrepancies between your golf
+car and this manual. If you
+have any questions concerning this
+manual, please consult your
+Yamaha dealer.
+
+●
+
+●
+
+This manual should be considered
+a permanent part of your golf car
+and should remain with the car
+when resold.
+
+WARNING
+Read and understand this manual
+completely before operating your
+golf car.
+
+NOTE:
+This message provides additional key
+information.
+
+ii
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 3
+
+CONTENTS
+WARRANTY
+
+1
+
+IMPORTANT LABELS
+
+2
+
+OPERATOR SAFETY
+
+3
+
+MAINTENANCE SAFETY PROGRAM
+
+4
+
+CONTROLS
+
+5
+
+PRE-OPERATION CHECKS
+
+6
+
+OPERATION
+
+7
+
+MAINTENANCE
+
+8
+1
+
+STORAGE
+
+9
+
+SPECIFICATIONS
+
+10
+
+WIRING
+
+11
+
+G22A
+
+iii
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 4
+
+WARRANTY
+YAMAHA MOTOR MANUFACTURING
+CORPORATION OF AMERICA
+LIMITED 3-YEAR
+GOLF CAR WARRANTY
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+Yamaha Motor Manufacturing of America hereby warrants that any new Yamaha Golf Car (gas and electric
+models) purchased from an authorized Yamaha dealer
+in the United States will be free from defects in material
+and workmanship for THREE years from date of purchase, subject to the stated limitations.
+DURING THE PERIOD OF WARRANTY any authorized Yamaha Golf Car Dealer will, free of charge, repair
+or replace, at Yamaha’s option, any part adjudged
+defective by Yamaha due to faulty workmanship or
+material from the factory. Parts used in warranty repairs
+will be warranted for the balance of the machine’s warranty period. All parts replaced under warranty become
+property of Yamaha Motor Manufacturing Corporation of
+America.
+GENERAL EXCLUSIONS from this warranty shall
+include any failures caused by:
+a. Abnormal strain, neglect, or abuse, including lack of
+proper maintenance, and use contrary to the
+Owner’s/Operator’s Manual instructions.
+b. Accident or collision damage.
+c. Installation of parts or accessories that are not
+original equipment.
+d. Fading, rust, or deterioration due to exposure or
+ordinary wear and tear.
+e. Modifications or alteration that affects the car’s
+condition, operation, performance, or durability, or
+which makes the car serve a purpose other than use
+as a two-person, golf course vehicle.
+f. Damage due to improper transportation.
+g. Acts of God, ie: lightning, hail damage, flooding, fire,
+etc.
+SPECIFIC EXCLUSIONS: The first year of warranty
+shall cover the entire car except for batteries, battery
+chargers, tires and rims, which are warranted by their
+respective manufacturers. Parts excluded from the second year of warranty include the body parts, seats,
+mats, bumper assembly, bag carrier, scorecard holder,
+and the trim. Parts excluded from the third year of warranty include the second year exclusions, the electrical
+system (except electronic speed controller and electric
+motor) and control cables. Other specific exclusions
+from this warranty shall include any parts replaced due
+to normal wear or routine maintenance, including oil, air
+filter elements, brake shoes, spark plugs, starter and
+clutch drive belts. Any charges incurred in transporting
+a golf car to and from an authorized Yamaha Golf Car
+Dealer for service or in performing field service are also
+excluded from this warranty.
+
+1-1
+
+THE CUSTOMER’S RESPONSIBILITY under this warranty shall be to:
+1. Operate and maintain the golf car as specified in the
+appropriate Owner’s/Operator’s Manual;
+2. Give notice to an authorized Yamaha dealer of any
+and all apparent defects within ten (10) days after
+discovery, and make the machine available at that
+time for inspection and repairs by the dealer’s authorized representative.
+WARRANTY TRANSFER: To transfer any remaining
+warranty from the original purchaser to any subsequent
+purchaser, it is imperative that the machine be inspected and registered for warranty by an authorized Yamaha
+Golf Car Dealer. In order for this warranty to remain in
+effect, this inspection and registration must take place
+within ten (10) days after transfer. An inspection and
+registration fee will be charged for this service.
+YAMAHA MOTOR MANUFACTURING CORPORATION OF AMERICA MAKES NO OTHER WARRANTY
+OF ANY KIND, EXPRESSED OR IMPLIED. ALL
+IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS FOR A PARTICULIAR PURPOSE
+WHICH EXCEED THE OBLIGATIONS AND TIME LIMITS STATED IN THIS WARRANTY ARE HEREBY DISCLAIMED BY YAMAHA MOTOR MANUFACTURING
+CORPORATION OF AMERICA AND EXCLUDED
+FROM THIS WARRANTY.
+SOME STATES DO NOT ALLOW LIMITATIONS ON
+HOW LONG AN IMPLIED WARRANTY LASTS, SO
+THE ABOVE LIMITATION MAY NOT APPLY TO YOU.
+ALSO EXCLUDED FROM THIS WARRANTY ARE
+ANY INCIDENTAL OR CONSEQUENTIAL DAMAGES
+INCLUDING LOSS OF USE. SOME STATES DO NOT
+ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE
+ABOVE EXCLUSION MAY NOT APPLY TO YOU.
+THIS WARRANTY GIVES YOU SPECIFIC LEGAL
+RIGHTS, AND YOU MAY ALSO HAVE OTHER
+RIGHTS, WHICH VARY, FROM STATE TO STATE.
+YAMAHA MOTOR MANUFACTURING CORP.,
+NEWNAN, GEORGIA 30265-1320
+EFFECTIVE DATE: 06/01/02
+LIT-13710-03-02
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 5
+
+IMPORTANT LABELS
+SAFETY AND
+INSTRUCTION
+LABELS
+
+1
+4
+
+3
+
+2
+
+1
+2
+
+WARNING
+
+Y-505
+
+Please read the following
+labels carefully before
+operating your golf car,
+and promptly replace any
+labels which become damaged or removed.
+
+3
+4
+
+4
+
+1
+
+5
+
+WARNING
+AVERTISSEMENT
+Do not tamper
+with governor
+to increase
+speed. Operation
+at higher speeds
+can cause loss
+of control that
+can result in
+severe injury or
+death.
+Y-500
+
+YAMAHA
+
+Ne pas toucher au
+régulateur afin
+d’augmenter la
+vitesse. Un
+fonctionnement
+à des vitesses
+supérieures au
+réglage initial
+peut causer une
+perte de contrôle
+qui peut mener
+à une blessure
+grave, voire
+fatale.
+JN3-K8299-10
+
+6
+7
+8
+
+2
+
+9
+10
+Y-502
+
+3
+
+11
+
+G22A
+
+2-1
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 6
+
+IMPORTANT LABELS
+1
+
+GOLF CAR SERIAL
+NUMBER
+The golf car serial number 1 is
+stamped in the location shown.
+
+JU0
+
+1
+2
+3
+
+2
+II
+
+IIII
+
+I III
+I III
+
+III
+II
+I
+
+4
+
+Y-102a
+
+NOTE:
+The first three digits of the serial number are for model identification; the
+remaining digits are the unit production number. Keep a record of these
+numbers for reference when ordering
+parts from a Yamaha dealer.
+The engine serial number 2 is
+affixed in the location shown.
+
+5
+6
+7
+
+SM-03-399
+
+3 Engine Information
+
+3
+
+8
+9
+
+Y-852A
+
+THIS ENGINE MEETS **** - **** CALIFORNIA EMISSION REGULATIONS FOR OFF-ROAD ENGINES.
+THIS ENGINE CONFORMS TO **(*****.******) U.S. EPA REGULATIONS FOR SMALL NONROAD ENGINES.
+
+Y-851
+
+10
+11
+
+2-2
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 7
+
+! OPERATOR SAFETY
+Yamaha golf cars are designed to be
+simple to operate. However, be sure
+to observe the following:
+
+BEFORE OPERATING
+THE GOLF CAR
+
+2
+
+●
+
+Read this Owner’s/Operator’s manual and all safety and instruction
+labels on the golf car before operating.
+
+●
+
+Perform the pre-operation checks
+found in Section 6 of this manual.
+
+●
+
+Only authorized people should
+drive the golf car, from the driver’s
+side only, and only in designated
+areas.
+
+Y-8
+
+1
+
+3
+4
+5
+
+●
+
+Do not allow more than two people
+to ride in the golf car. This golf car is
+restricted to two occupants.
+
+6
+
+●
+
+Do not operate the golf car while
+under the influence of alcohol or
+drugs; their affect on vision and
+judgment make operating a golf car
+dangerous.
+
+7
+
+●
+
+Do not operate the golf car on public streets, roads or highways. Such
+use is prohibited by law, and dangerous. Operation on public roads
+can result in collision with other
+vehicles.
+
+Y-68
+
+8
+9
+10
+
+WHILE OPERATING THE
+GOLF CAR
+●
+
+Keep your entire body inside the
+golf car, remain seated, and hold on
+when the car is in motion.
+
+●
+
+Do not start the golf car until all
+occupants are seated.
+
+Y-67
+
+G22A
+
+3-1
+
+11
+
+LIT_19626_16_04.qxd
+
+3/25/05
+
+1:55 PM
+
+Page 8
+
+! OPERATOR SAFETY
+●
+
+Keep your hands on the steering
+wheel and your eyes on the path
+ahead.
+
+2
+
+●
+
+Use extra care in congested areas
+or when backing up. Always back
+up slowly, and watch carefully.
+
+3
+
+●
+
+Avoid starting or stopping abruptly.
+
+●
+
+Vary the speed of the golf car to
+match the terrain of the course.
+
+●
+
+Avoid turning the steering wheel too
+sharply at higher speeds.
+
+●
+
+Always drive slowly straight up or
+straight down slopes – never at an
+angle.
+
+●
+
+Do not run the engine indoors.
+Exhaust gas is poisonous.
+
+●
+
+Do not make any modification or
+addition which affects capacity or
+safe operation, or make any
+changes not in accordance with the
+owner’s/operator’s manual.
+
+1
+
+4
+5
+6
+Y-10
+
+7
+8
+9
+Y-9
+
+10
+11
+
+Y-69
+
+3-2
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 9
+
+! GOLF COURSE SAFETY PROGRAM
+Like all machines, golf cars can
+cause injury if improperly used or
+maintained. This section contains
+broad safety practices required for
+safe golf car operation. Before golf
+cars are operated, golf course personnel should establish any additional safety practices that may be
+required for safe operation.
+Experience has shown that golf cars
+are safe when operated in accordance with the safety warnings
+affixed to every golf car. This safe
+operation is enhanced when golf cars
+are used according to the safety rules
+and practices established to meet the
+terrain and conditions of the course
+they are used on.
+
+Do Not Operate Golf Cars When
+Under The Influence Of Alcohol Or
+Drugs
+
+GOLF COURSE SAFETY
+SURVEY
+
+2
+
+Perform safety surveys regularly to
+identify hazardous areas where golf
+cars should not be operated.
+
+3
+
+GOLF COURSE HAZARD
+PREVENTION
+
+DRIVER
+QUALIFICATIONS
+
+5
+
+Steep Grades. Where steep
+grades exist, restrict golf cars to
+designated golf car pathways
+where possible. In addition, identify
+steep grades with a suitable warning like:
+
+6
+
+Warning: Steep Grade, Descend
+Slowly With Foot On Brake
+●
+
+Allow only authorized people to operate golf cars. It is recommended that
+only people who possess a valid
+motor vehicle driver’s license be
+allowed to operate golf cars.
+Place operation and safety instructions recommended by the golf car
+manufacturer, along with the golf
+course safety rules, in a conspicuous
+place near the golf car rental area or
+golf car pick-up area. It is also recommended that the following warning
+be posted in a conspicuous location:
+G22A
+
+4
+
+The following golf course hazards
+must be made safe:
+●
+
+The information contained here is
+intended for golf course personnel
+responsible for golf car safety. If you
+are responsible for the operation and
+maintenance of this golf car, we
+encourage you to implement this golf
+car safety program.
+
+1
+
+●
+
+Sharp Turns, Blind Corners,
+Bridge Approaches. Chain or
+rope off these potentially hazardous areas or identify them with
+a suitable warning describing the
+nature of the hazard and the proper precautions to be taken to avoid
+the hazard.
+Wet Areas. Wet grass may cause
+a golf car to lose traction and may
+affect stability. Chain or rope off wet
+areas or identify wet areas with a
+suitable warning.
+
+4-1
+
+7
+8
+9
+10
+11
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 10
+
+! GOLF COURSE SAFETY PROGRAM
+1
+
+●
+
+2
+●
+
+3
+4
+5
+6
+7
+8
+
+Golf Car and Pedestrian Interference. Reroute golf car traffic or
+pedestrian traffic in congested
+areas wherever possible to prevent
+accidents. If it is impractical to
+reroute traffic, erect warning signs
+to warn pedestrians of golf car traffic, and to warn golf car operators to
+drive slowly, use caution, and watch
+for pedestrians.
+
+●
+
+Parts and Materials. Use only
+replacement parts and materials
+recommended by the manufacturer.
+
+●
+
+Ventilation. Properly ventilate all
+maintenance and storage areas in
+accordance with applicable fire
+codes and ordinances to avoid fire
+hazards. Ventilation is required to
+remove flammable vapors and
+fumes from gasoline powered car
+storage areas. Ventilation is also
+required to remove hydrogen gas
+from the car storage areas during
+the battery charging process.
+
+MAINTENANCE
+REQUIRED FOR GOLF
+CAR SAFETY
+Practice the following to help ensure
+the safety of golf car operators:
+●
+
+Preventative Maintenance. Perform all scheduled maintenance in
+accordance with manufacturer’s
+recommendations to provide the
+golfing patron with a safe, properly
+operating golf car.
+
+●
+
+Personnel. Allow only qualified,
+trained, and authorized personnel
+to inspect, adjust, and maintain golf
+cars.
+
+9
+10
+
+Loose Terrain. Loose terrain may
+cause a golf car to lose traction and
+may affect stability. Repair loose
+terrain, chain or rope off these
+areas, or identify loose terrain with
+a suitable warning.
+
+11
+
+4-2
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 11
+
+! GOLF COURSE SAFETY PROGRAM
+SAFETY PRECAUTIONS
+DURING MAINTENANCE
+When performing maintenance, follow all safety instructions contained
+in the manufacturer’s operation and
+service manuals, as well as the following safety procedures:
+
+●
+
+Record all maintenance performed
+in a maintenance record log by
+date, name of person performing
+maintenance, and type of maintenance. Periodically inspect maintenance log to ensure accurate and
+complete entries.
+
+●
+
+Provide operator comment cards to
+assist in identifying non-periodic
+maintenance needs for specific golf
+cars.
+
+●
+
+Properly immobilize golf car before
+beginning any maintenance.
+
+●
+
+Properly block chassis before
+working underneath golf car.
+
+●
+
+●
+
+Before disconnecting any part of
+the fuel system, drain the applicable part of the system to prevent
+fuel leaks.
+
+Maintain in a legible condition all
+nameplates, warnings, and instructions provided by the manufacturer.
+
+●
+
+If new nameplates, warnings, or
+instructions are needed, contact
+your Yamaha dealer.
+
+●
+
+●
+
+●
+
+●
+
+Avoid fire hazards, and have
+appropriate fire protection equipment available.
+Before working on an electric golf
+car, disable the car’s electrical system in accordance with the manufacturer’s instructions.
+Use only properly insulated tools
+when working on electrically powered golf cars or around batteries.
+Maintain all safety devices including brakes, steering mechanisms,
+warning devices, and governors, in
+a safe operating condition. Do not
+modify these safety devices as
+supplied by the manufacturer.
+After each maintenance or repair,
+the car must be driven by a qualified, trained, and authorized person – in an area free of pedestrian
+traffic – to ensure proper operation
+and adjustment.
+
+G22A
+
+2
+3
+4
+5
+6
+
+FUEL HANDLING/
+STORAGE AND
+BATTERY CHARGING
+
+7
+
+Take the following precautions to
+ensure maintenance worker safety:
+
+8
+
+Supervise the storage and handling of liquid fuels in accordance
+with applicable fire and safety
+requirements.
+
+9
+
+●
+
+●
+
+●
+●
+
+1
+
+Only use battery changing and
+charging facilities and procedures
+that are in accordance with applicable ordinances and regulations.
+Periodically inspect fueling and
+charging facilities and procedures
+to be certain that applicable safety
+codes, regulations, and procedures
+are being followed.
+
+4-3
+
+10
+11
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 12
+
+CONTROLS
+FEATURES
+
+1
+
+1
+
+9
+
+8
+
+6
+5
+
+2
+
+4
+P
+
+3
+
+Y-12a
+
+4
+
+10 7
+
+5
+6
+
+Y-506
+
+1 Steering wheel
+2 Seat
+3 Fuel cap
+4 Brake pedal
+5 Parking brake pedal
+6 Accelerator pedal
+7 Drive selector lever
+8 Main switch
+9 Oil warning light
+a Choke knob
+b Front cowl
+c Front tire
+d Front bumper
+e Rear cowl
+f Rear bumper
+g Rear tire
+h Battery
+
+7
+2
+11
+
+8
+
+3
+
+14
+
+9
+
+12
+
+17
+
+10
+15
+
+Y-507
+
+13
+
+11
+
+16
+
+Y-13
+
+5-1
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 13
+
+CONTROLS
+MAIN SWITCH
+
+1
+
+The main switch controls the following items:
+OFF
+Ignition circuit is switched off.
+The key can be removed only in this
+position.
+
+OF
+F
+
+2
+3
+
+ON
+
+4
+Y-15
+
+ON
+Electrical circuits are switched on.
+The golf car can be driven.
+
+OF
+F
+
+5
+6
+
+ON
+
+7
+Y-16
+
+8
+
+OIL WARNING LIGHT
+W AO I L
+RN
+ING
+
+ON
+
+A
+
+When the engine oil level falls below
+an acceptable level, this light comes
+on. If the light comes on, stop the
+engine, check the engine oil level,
+and add oil as necessary. (See
+page 6-3).
+
+OF
+F
+
+Y-17
+
+9
+10
+
+å Oil warning light
+
+11
+
+G22A
+
+5-2
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 14
+
+CONTROLS
+DRIVE SELECT LEVER
+
+1
+
+The drive select lever is used to shift
+the golf car into forward or reverse.
+After coming to a complete stop,
+move the lever to the desired position.
+
+2
+3
+
+Y-18
+
+Lever Position
+
+Car Movement
+
+F
+
+FORWARD
+
+R
+
+REVERSE
+
+4
+NOTE:
+The back-up buzzer will beep when
+the drive select lever is turned to “R.”
+
+5
+6
+Y-19
+
+7
+ACCELERATOR PEDAL
+A
+
+8
+
+The accelerator pedal controls the
+golf car’s speed.
+Action
+
+9
+
+Car Speed
+
+Depress pedal
+
+Increase
+
+Release pedal
+
+Decrease
+
+Y-20A
+
+10
+
+å Accelerator pedal
+
+BRAKE PEDAL
+
+11
+
+Press down on the brake pedal to
+stop the golf car.
+∫ Brake pedal
+B
+Y-21a
+
+5-3
+
+G22A
+
+LIT_19626_16_04.qxd
+
+5/28/04
+
+1:47 PM
+
+Page 15
+
+CONTROLS
+PARKING BRAKE
+PEDAL
+
+1
+
+Press down on the parking brake
+pedal whenever parking the golf car.
+
+2
+
+ç Parking brake pedal
+
+C
+Y-22a
+
+NOTE:
+Release the parking brake by
+depressing the accelerator pedal.
+
+3
+4
+
+WARNING
+The parking brake will automatically
+release when the accelerator pedal
+is depressed. If the main switch is in
+the “ON” position, depressing the
+accelerator may suddenly cause the
+golf car to move.
+
+A
+
+5
+6
+
+Y-23
+
+7
+
+CHOKE KNOB
+Pull and hold out choke knob when
+starting a cold engine. Release the
+knob after the engine starts.
+
+8
+
+å Choke knob
+
+9
+10
+11
+
+G22A
+
+5-4
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 16
+
+PRE-OPERATION CHECKS
+Pre-operation checks should be
+made each time you use your golf
+car. Get in the habit of performing the
+following checks in the same way so
+that they become second nature.
+
+1
+2
+
+WARNING
+
+3
+
+●
+
+4
+
+Be sure the main switch key is
+removed before performing the
+pre-operation checks to prevent
+accidental starting, and apply
+the parking brake to keep the car
+from moving.
+
+5
+
+PRE-OPERATION
+CHECKLIST
+
+6
+
+Before each use check the following:
+✔ Fuel system
+✔ Engine oil level
+✔ Battery
+✔ Tire condition
+✔ Steering system
+✔ Back-up buzzer
+✔ Pedal operation
+✔ Body and chassis
+
+7
+8
+9
+
+SEAT
+10
+
+Open the seat for checking and servicing.
+
+11
+
+Y-512
+
+6-1
+
+G22A
+
+LIT_19626_16_04.qxd
+
+3/23/05
+
+6:14 AM
+
+Page 17
+
+PRE-OPERATION CHECKS
+FUEL SYSTEM
+
+1
+
+Make sure there is sufficient fuel in
+the tank, and check fuel line and connections for leakage.
+
+B
+
+2
+
+å Fuel tank
+∫ Fuel cap
+A
+
+3
+
+Y-513
+
+WARNING
+Gasoline and its vapors are highly
+flammable and explosive.
+● Do not smoke when refueling
+and keep away from sparks,
+flames, or other sources of ignition.
+● Stop engine and allow it to cool
+for several minutes before refueling.
+● Refuel in a well-ventilated area.
+● Take care not to spill gasoline. If
+gasoline spills, wipe it up immediately with dry rags. Always dispose of gasoline-soaked rags
+properly.
+● Tighten the filler cap securely
+after refueling.
+● If you swallow gasoline, inhale a
+lot of gasoline vapor, or get
+gasoline in your eyes, get immediate medical attention.
+● If any gasoline gets on your skin,
+immediately wash with soap and
+water. Change clothing if gasoline spills on it.
+Recommended fuel:
+Unleaded gasoline
+Fuel tank capacity:
+6.1 US gal
+(23.0 L)
+
+G22A
+
+4
+5
+6
+7
+8
+9
+10
+11
+
+CAUTION
+Avoid using gasoline blended with
+methyl alcohol which can damage
+fuel system parts.
+
+6-2
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 18
+
+PRE-OPERATION CHECKS
+ENGINE OIL
+
+1
+
+With the golf car parked on level
+ground, remove the dipstick and
+make sure the engine oil is between
+the MIN and MAX marks (the crosshatched area on the end of the dipstick).
+
+2
+3
+
+Y-514
+
+å Oil level dipstick
+∫ Maximum oil level
+ç Safe operating range
+
+B
+
+4
+MIN
+
+5
+
+If the oil level is below the MIN mark
+on the dipstick, add oil through the oil
+filler hole until the oil level is between
+the MIN and MAX marks.
+
+MAX
+C
+
+A
+Y-28
+
+6
+
+å Oil filler hole
+A
+
+CAUTION
+
+7
+
+Use care not to fill past the MAX
+dipstick mark, and be sure no
+foreign material enters the
+crankcase.
+● Use care not to get oil on the
+starter belt.
+●
+
+8
+Y-515
+
+9
+10
+
+Recommended oil:
+YAMALUBE 4-cycle oil or
+SAE 10W-30
+
+11
+
+Engine oil capacity:
+1.16 US qt
+(1.1 L, 1100 cc)
+Oil change quantity:
+1.0 US qt
+(0.9 L, 900 cc)
+
+6-3
+
+NOTE:
+The distance between the dipstick
+marks represents approx. 1/2 US qt
+(1/2 L) of oil.
+NOTE:
+Recommended engine oil classification: API Service SE, SF, or SG.
+Engine oils labeled “Energy Conserving II” are recommended.
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 19
+
+PRE-OPERATION CHECKS
+Engine Cooling Inlet Duct
+
+1
+
+Check the engine cooling inlet duct for
+debris. Remove any debris present.
+A
+
+2
+
+å Engine cooling inlet duct
+
+BATTERY
+
+G22A1
+
+Check that the battery is held securely in place to prevent the battery from
+being damaged from vibration or jarring. Also check that no battery caps
+are missing to prevent battery acid
+from spilling from the battery. Check
+the battery terminals for corrosion.
+
+TIRE CONDITION
+
+3
+4
+5
+6
+
+Tire Air Pressure
+
+Y-30
+
+Check the tire air pressure before
+operating the golf car.
+
+7
+
+Tire pressure:
+
+8
+
+For G22A: 16 psi
+(110 kPa, 1.1 kgf/cm2)
+
+9
+
+Tire Wear Limit
+
+A
+
+Check the tire surface for damage,
+cracks or embedded objects. When
+tire tread wears down to 0.04 in. (1
+mm), replace the tire.
+
+11
+
+å Wear limit
+Y-31
+
+G22A
+
+10
+
+6-4
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 20
+
+PRE-OPERATION CHECKS
+STEERING SYSTEM
+
+1
+
+Check the steering system for excessive freeplay by:
+
+2
+3
+4
+
+Y-32
+
+5
+
+●
+
+moving the steering wheel up and
+down, and back and forth.
+
+●
+
+turning the steering wheel slightly
+to the right and left.
+
+If you feel excessive freeplay, or hear
+rattling sounds which may indicate
+loose steering components, consult a
+Yamaha dealer.
+
+BACK-UP BUZZER
+Check the back up buzzer by moving
+the drive select lever to “R” for
+reverse. The buzzer should sound.
+
+6
+7
+Y-33
+
+8
+
+PEDAL OPERATION
+
+9
+
+Check the following pedal controls for
+proper operation. If a pedal does not
+work properly, consult a Yamaha
+dealer.
+
+10
+
+Brake Pedal
+
+11
+
+Make sure the brake pedal feels firm
+when pressed and returns to its original position when released.
+∫ Brake pedal
+B
+Y-21a
+
+6-5
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 21
+
+PRE-OPERATION CHECKS
+Parking Brake Pedal
+
+1
+
+Make sure the parking brake pedal
+locks in place with a positive click,
+and releases when the accelerator
+pedal is pressed.
+C
+
+2
+
+ç Parking brake pedal
+Y-22a
+
+NOTE:
+Release the parking brake by
+depressing the accelerator pedal.
+
+Accelerator Pedal
+
+3
+4
+5
+
+WARNING
+Before checking operation of the
+accelerator pedal, be sure the
+main switch is in the “OFF” position.
+
+6
+7
+
+A
+
+Make sure the accelerator pedal
+operates smoothly.
+
+8
+
+å Accelerator pedal
+
+9
+Y-20A
+
+10
+
+BODY AND CHASSIS
+Before each use, visually inspect the
+golf car body and chassis for damage
+and/or missing parts.
+
+G22A
+
+6-6
+
+11
+
+LIT_19626_16_04.qxd
+
+5/28/04
+
+1:47 PM
+
+Page 22
+
+OPERATION
+STARTING
+
+1
+
+1. With the parking brake applied,
+turn the drive select lever to “F”
+for forward, or “R” for reverse.
+
+2
+
+CAUTION
+
+3
+
+Y-18
+
+Do not shift from “F” forward to
+“R” reverse while the golf car is
+moving.
+2. Turn the main switch to “ON.”
+
+4
+
+WARNING
+
+OF
+
+F
+
+Do not depress the accelerator
+pedal when turning on the main
+switch or the golf car may suddenly start moving.
+
+ON
+
+5
+6
+
+Y-16
+
+3. Pull the choke knob out and hold
+it while starting. Release the
+choke knob after the engine
+starts.
+
+7
+8
+
+å Choke knob
+A
+
+9
+
+Y-23
+
+10
+
+NOTE:
+The choke is not required when the
+engine is warm.
+4. Check that your path is clear in
+the direction you plan to go, and
+slowly depress the accelerator
+pedal. The golf car will start to
+move.
+
+A
+
+11
+
+å Accelerator pedal
+Y-20A
+
+7-1
+
+NOTE:
+The parking brake automatically
+releases when the accelerator pedal
+is depressed.
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 23
+
+OPERATION
+STOPPING
+
+1
+
+To stop the golf car, gradually press
+down on the brake pedal.
+
+C
+
+∫ Brake pedal
+
+2
+
+When the car has come to a stop,
+apply the parking brake pedal and
+turn the main switch to “OFF.”
+
+3
+
+ç Parking brake pedal
+
+4
+CAUTION
+B
+
+Y-65a
+
+Do not hold the golf car on an
+incline with the accelerator – use
+the brake.
+
+6
+
+TROUBLESHOOTING
+If the vehicle’s engine won’t start, use
+the following chart:
+
+7
+
+Cause
+
+Remedy
+Fuel System
+No fuel in tank Fill fuel tank
+Clogged fuel
+Clean fuel
+line
+line – Consult
+Yamaha dealer
+Foreign matter Clean fuel
+in fuel filter
+fiter – Consult
+Yamaha dealer
+Clogged
+Clean carburetor
+carburetor
+– Consult
+Yamaha dealer
+Electrical System
+Spark plug dirty Clean carbon
+with carbon, or or wipe spark
+wet
+plug dry
+Faulty ignition
+Consult
+system
+Yamaha
+dealer
+
+G22A
+
+5
+
+8
+9
+10
+11
+
+7-2
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 24
+
+MAINTENANCE
+1
+2
+3
+
+PERIODIC MAINTENANCE CHARTS
+Regular maintenance is required for the best performance and safe operation of your
+golf car.
+
+WARNING
+Be sure to turn off the main switch and apply the parking brake when you perform
+maintenance unless otherwise specified. If the owner is not familiar with machine servicing, this work should be done by a Yamaha dealer or other qualified mechanic.
+FOR G22A
+C - CHECK
+
+4
+5
+6
+
+PreOperation
+
+S - SERVICE
+
+CL - CLEAN AND LUBRICATE
+
+20 Rounds
+20 hours
+100 miles
+160 kms
+(Every
+month)
+
+125 rds
+125 hrs
+600 mls
+1000 kms
+(Every 6
+months)
+
+L - LUBRICATE
+
+250 rds
+250 hrs
+1200 mls
+2000 kms
+(Every
+year)
+
+500 rds
+500 hrs
+2500 mls
+4000 kms
+(Every
+2 years)
+
+1000 rds
+1000 hrs
+5000mls
+8000 kms
+(Every
+4 years)
+
+Page
+
+PRE-
+
+Check engine oil
+
+C
+
+C
+
+C
+
+OPER-
+
+Check air cooling duct
+
+C
+
+C
+
+C
+
+C
+
+C
+
+C
+
+*
+
+ATION
+
+Check fuel lines for leakage
+
+C
+
+C
+
+C
+
+C
+
+C
+
+C
+
+6-2
+
+CHECKS Check fuel level
+
+8
+9
+
+11
+
+R - REPLACE
+
+Remarks
+
+7
+
+10
+
+CA - CHECK AND ADJUST
+
+6-3
+
+C
+
+C
+
+C
+
+C
+
+C
+
+C
+
+6-2
+
+Check for looseness
+and corrosion of battery
+terminals and hold downs
+
+C
+
+C
+
+C
+
+C
+
+C
+
+C
+
+6-4
+
+Check brake pedal freeplay
+and adjust if necessary
+
+C
+
+CA
+
+CA
+
+CA
+
+CA
+
+CA
+
+8-12
+
+Check steering operation
+
+C
+
+C
+
+C
+
+C
+
+C
+
+Check tire pressure, tread
+depth, tire surface for damage
+
+C
+
+CA
+
+CA
+
+CA
+
+CA
+
+CA
+
+Check body and chassis for
+damage
+
+C
+
+C
+
+C
+
+C
+
+C
+
+C
+
+Check tightness of all bolts,
+nuts, and screws
+
+C
+
+C
+
+C
+
+C
+
+C
+
+C
+
+*
+
+Check reverse buzzer
+operation
+
+C
+
+6-5
+
+6-5
+6-4
+6-6
+
+C
+
+C
+
+C
+
+C
+
+C
+
+EVERY
+
+Check fuel filter for clogging
+
+C
+
+C
+
+C
+
+C
+
+C
+
+*
+
+MONTH
+
+Check wear of drive belt
+
+C
+
+C
+
+C
+
+C
+
+C
+
+8-8
+
+Check operation of
+Forward / Reverse shifting
+
+C
+
+C
+
+C
+
+C
+
+C
+
+6-5
+
+Clean / Lube pedal control area
+
+CL
+
+EVERY 6 Wash pre-filter, check air
+MONTHS cleaner element
+
+–
+S
+
+S
+
+S
+
+S
+
+8-7
+
+Check spark plug and plug cap
+condition** / Check compression
+
+C
+
+C
+
+C
+
+C
+
+8-4
+
+Check shock absorbers for oil
+leaks and damaged springs
+
+C
+
+C
+
+C
+
+*
+
+* Items with out a page number reference should be serviced by a Yamaha dealer or other qualified
+
+mechanic. This manual does not contain these procedures. They are contained in the Service Manual.
+**Related to emission control system.
+
+8-1
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 25
+
+MAINTENANCE
+FOR G22A
+C - CHECK
+
+CA - CHECK AND ADJUST
+
+R - REPLACE
+
+Remarks
+
+PreOperation
+
+S - SERVICE
+20 Rounds
+20 hours
+100 miles
+160 kms
+(Every
+month)
+
+CL - CLEAN AND LUBRICATE
+
+125 rds
+125 hrs
+600 mls
+1000 kms
+(Every 6
+months)
+
+L - LUBRICATE
+
+250 rds
+250 hrs
+1200 mls
+2000 kms
+(Every
+year)
+
+500 rds
+500 hrs
+2500 mls
+4000 kms
+(Every
+2 years)
+
+1000 rds
+1000 hrs
+5000mls
+8000 kms
+(Every
+4 years)
+
+Page
+
+2
+
+EVERY
+
+Replace engine oil
+
+R
+
+R
+
+R
+
+8-5
+
+YEAR
+
+Adjust throttle cables,**
+choke cable, check carburetor
+throttle shaft for wear**
+
+CA
+
+CA
+
+CA
+
+*
+
+Check starter V-belt for
+damage and tension
+
+C
+
+C
+
+C
+
+*
+
+Check drive belt for slippage,
+wear or scratches
+
+C
+
+C
+
+C
+
+8-8
+
+Check sliding sheave and
+ramp shoes; Grease secondary
+sheave bearing
+
+CL
+
+CL
+
+CL
+
+*
+
+Grease primary sheave
+
+L
+
+L
+
+L
+
+*
+
+Check operation of speed limiter
+
+C
+
+C
+
+C
+
+*
+
+Apply battery terminal protectant
+
+S
+
+S
+
+S
+
+–
+
+Check wiring connections
+and insulation
+
+C
+
+C
+
+C
+
+–
+
+Check shoe lining thickness
+and rear axle bearing play
+
+C
+
+C
+
+C
+
+*
+
+Check steering knuckle
+bushing freeplay / Adjust
+wheel alignment
+
+CA
+
+CA
+
+CA
+
+*
+
+Check wheel nut tightness,
+front wheel bearing play
+
+C
+
+C
+
+C
+
+*
+
+Check gear box oil level
+and leakage
+
+C
+
+C
+
+C
+
+8-10
+
+Check operation and adjust
+pedal stop if necessary
+
+CA
+
+CA
+
+CA
+
+*
+
+C
+
+S
+
+*
+
+R
+
+*
+
+Check tightness of cylinder
+head / Adjust valves
+
+CA
+
+*
+
+Replace gear box oil
+
+R
+
+*
+
+Check for grease leakage;
+adjust gearbox if necessary
+
+CA
+
+*
+
+EVERY Check brushes for wear and
+2 YEARS commutator for dirt
+EVERY Replace fuel filter and
+4 YEARS fuel hoses
+
+* Items with out a page number reference should be serviced by a Yamaha dealer or other qualified
+
+mechanic. This manual does not contain these procedures. They are contained in the Service Manual.
+**Related to emission control system.
+
+G22A
+
+1
+
+8-2
+
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 26
+
+MAINTENANCE
+1
+
+EXHAUST EMISSION CONTROL SYSTEM
+AND COMPONENTS
+
+2
+
+•
+
+3
+
+•
+•
+
+4
+
+•
+•
+
+Item
+CARB. ASSY., LH., JT.,
+CARBURETOR 2 & JT.,
+CARBURETOR 1
+T.C.I. MAGNETO ASSY. &
+PLUG, SPARK
+CRANKCASE 1 & HEAD,
+CYLINDER 1
+AIR FILTER ASSY.
+MUFF., 2
+
+Acronym
+CARB (Carburetor)
+
+El (Electronic Ignition)
+PCV (Positive Crankcase
+Ventilation)
+ACL (Air Cleaner)
+
+5
+The above items and the corresponding acronyms are provided in accordance with U.S. EPA REGULATIONS
+FOR SMALL NONROAD ENGINES
+and the CALIFORNIA REGULATIONS FOR NEW 1995 AND LATER
+OFF-HIGHWAY RECREATIONAL
+VEHICLES AND ENGINES.
+
+6
+7
+
+The acronyms conform to the latest
+version of the SAE’s recommended
+practice document J1930, “Diagnostic
+Acronyms, Terms, and Definitions For
+Electrical/Electronic System”.
+
+8
+9
+
+It is recommended that these items
+be serviced by a Yamaha dealer or
+other qualified mechanic.
+
+10
+11
+
+8-3
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 27
+
+MAINTENANCE
+Spark Plug Inspection
+
+1
+
+You should periodically remove and
+inspect the spark plug. Dirty or worn
+spark plugs can cause poor performance.
+
+B
+
+A
+
+å Spark plug
+∫ Spark plug cap
+Y-516
+
+1. Check for discoloration and
+remove carbon deposits with a
+spark plug cleaner or wire brush.
+The normal electrode color will
+be tan.
+2. Check the spark plug type, and
+check the spark plug gap with a
+feeler gauge.
+
+2
+3
+4
+5
+
+A
+
+Standard spark plug:
+BPR2ES
+
+Y-37
+
+6
+
+Spark plug gap:
+0.028 ˜ 0.031 in (0.7 ˜ 0.8 mm)
+
+7
+
+å Gap
+3. Clean the gasket and plug surfaces and install the spark plug
+finger tight before tightening to
+the following torque:
+Spark plug torque:
+14.5 ft.lb
+(20 Nm, 2.0 m.kg)
+
+9
+10
+
+WARNING
+When removing or installing the
+spark plug, be careful not to damage the insulator. A damaged insulator could allow external sparks,
+which could lead to explosion or
+fire.
+
+G22A
+
+8
+
+8-4
+
+11
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 28
+
+MAINTENANCE
+Engine Oil Replacement
+
+1
+
+1. Warm up the engine for several
+minutes, place the golf car on a
+level surface, then stop the
+engine.
+
+2
+
+WARNING
+
+3
+
+Use caution not to touch hot
+engine oil or hot engine parts, during the following procedure.
+
+4
+
+2. Place an oil pan under the engine
+drain plug.
+
+5
+
+3. Remove the oil drain plug and let
+the oil drain completely.
+
+6
+
+NOTE:
+Dispose of used oil in an environmentally safe way, such as taking oil to an
+oil collection station.
+
+7
+Y-624
+
+8
+9
+10
+11
+
+Recommended oil:
+YAMALUBE 4-cycle oil or
+SAE 10W-30
+Engine oil capacity:
+1.16 US qt
+(1.1 L, 1100 cc)
+Oil change quantity:
+1.0 US qt
+(0.9 L, 900 cc)
+
+8-5
+
+4. Install the drain plug, along with a
+new drain plug gasket, finger tight
+before tightening to the following
+torque:
+Drain plug torque:
+23 ft.lb
+(31 Nm, 3.1 m.kg)
+5. Add the correct quantity of oil
+through the oil filler hole.
+NOTE:
+Recommended engine oil classification: API Service SE, SF, or SG.
+Engine oils labeled “Energy Conserving II” are recommended.
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 29
+
+MAINTENANCE
+å Oil filler hole
+
+A
+
+1
+
+CAUTION
+
+Y-515
+
+Use care not to fill past the MAX
+dipstick mark, and be sure no foreign material enters the crankcase. After replacing engine oil,
+check for oil leaks around the
+drain plug. If oil leaks are found,
+consult a Yamaha dealer.
+
+2
+3
+4
+
+Air Filter
+To remove the air filter elements:
+
+A
+B
+
+5
+
+A
+
+1. Unlatch the air filter cover clips
+and remove cover.
+
+A
+
+å Air filter cover clips
+∫ Air filter cover
+
+6
+
+2. Lift the air filter and pre-filter out
+of the air filter case.
+
+7
+
+å Air filter
+∫ Pre-filter
+
+8
+
+Y-518
+
+CAUTION
+
+A
+
+Be careful not to drop anything
+into the air inlet.
+
+9
+
+B
+
+10
+
+Y-519
+
+11
+
+G22A
+
+8-6
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 30
+
+MAINTENANCE
+Inspection and cleaning:
+
+1
+A
+
+3. Wash the foam pre-filter in soap
+and water. Allow it to dry.
+
+B
+
+2
+
+å Soap and water
+∫ Foam element
+4. Check the filter element. If damaged or dirty, replace it.
+
+3
+Y-508
+
+CAUTION
+
+4
+
+Do not wring out the foam pre-filter, this could cause it to tear.
+
+5
+
+5. To replace the elements, reverse
+the above steps.
+
+6
+
+CAUTION
+The pre-filter has a notch on one
+side. It will only fit in the case one
+way.
+
+7
+8
+
+Drive Belt
+To remove the drive belt:
+
+9
+
+1. Set the drive select lever halfway
+between forward and reverse.
+
+10
+
+2. Pull up on the drive belt and push
+it outward over the edge of the
+secondary sheave.
+
+11
+
+3. Turn the secondary sheave clockwise and the drive belt will roll off
+the sheave.
+Y-60
+
+8-7
+
+4. Remove the drive belt from the
+primary sheave.
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 31
+
+MAINTENANCE
+Inspection:
+
+1
+
+To inspect the drive belt, check for
+frayed edges or tears, and measure
+drive belt against the following specification. If the belt shows excessive
+wear or damage, replace the belt with
+a new one.
+
+A
+
+B
+
+Y-44
+
+2
+3
+
+å New: 1.22 in. (31.0 mm)
+∫ Replace when belt reaches:
+1.06 in. (27 mm)
+
+4
+
+5. To install the drive belt, reverse
+the above steps, rolling the belt
+back over the secondary sheave.
+
+5
+
+Battery
+6
+
+WARNING
+Battery electrolyte is poisonous
+and dangerous, causing severe
+burns, etc. It contains sulfuric
+acid. Avoid contact with skin,
+eyes, or clothing.
+Antidote:
+EXTERNAL: Flush with water.
+INTERNAL: Drink large quantities
+of water or milk. Follow with milk
+of magnesia, beaten egg, or vegetable oil. Call physician immediately.
+EYES: Flush with water for 15
+minutes and get prompt medical
+attention.
+Batteries
+produce
+explosive
+gases. Keep sparks, flame,
+cigarettes, etc., away.
+Ventilate when charging or using
+in enclosed space. Always shield
+eyes when working near batteries.
+KEEP OUT OF REACH OF CHILDREN.
+
+G22A
+
+8-8
+
+7
+8
+9
+10
+11
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 32
+
+MAINTENANCE
+1
+
+The 12-volt battery that provides starting power to your gas car normally
+doesn’t require the addition of water
+during the one year period provided by
+the battery manufacturer. If the battery loses its charge, have an experienced mechanic charge it.
+
+++
+––
+
+2
+3
+
+Fuse Replacement
+4
+
+Y-45
+
+WARNING
+Be sure to use the specified fuse.
+Using a wrong fuse can cause electrical system damage and create a
+fire hazard.
+
+5
+6
+
+CAUTION
+When replacing a fuse be sure the
+main switch is turned off to prevent
+accidental short circuiting.
+
+7
+
+1. Remove cap screw on cover. Pull
+fuse case cover forward.
+
+A
+
+8
+
+B
+
+å Cap screw
+∫ Fuse case cover
+
+9
+
+NOTE:
+You do not have to remove the cover.
+
+10
+
+Y-522
+
+2. Pull cap off fuse. Pull fuse out and
+replace if necessary.
+
+11
+
+ç Fuse cap
+∂ Fuse
+
+D
+
+8-9
+
+C
+
+Y-523
+
+Replacement Fuse:
+10 Amp, Blade Style
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 33
+
+MAINTENANCE
+Gear Box Oil
+
+1
+
+To check gear box oil level:
+1. Place the golf car on a level surface.
+2. Remove the access panel by
+removing the screws in the two
+lower corners of the panel and
+pulling the panel from the car.
+
+2
+3
+4
+
+Y-48
+
+5
+3. Remove the oil level plug å.
+4. Add gear oil little by little until oil
+flows from the level plug hole ∫.
+
+6
+
+5. Allow excess gear oil to flow out
+until it stops.
+
+7
+
+A
+B
+
+Recommended oil:
+SAE 90 gear oil
+Gearcase capacity:
+G22A: 0.44 US qt
+(415 mL, 415 cc)
+
+Y-520
+
+CAUTION
+Do not allow foreign material to
+enter the gear box.
+
+8
+
+6. Reinstall the oil level plug.
+
+9
+
+NOTE:
+For gear oil replacement, consult a
+Yamaha dealer or other qualified
+mechanic.
+
+10
+11
+
+G22A
+
+8-10
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 34
+
+MAINTENANCE
+CAUTION
+
+1
+
+Before performing wheel or brake
+maintenance, verify that the main
+switch is in the “OFF” position.
+
+2
+
+Wheel Replacement
+
+3
+
+To remove and install a wheel on
+your golf car:
+
+4
+Y-57
+
+5
+
+1. With the wheels blocked to prevent the golf car from moving,
+loosen the wheel nuts.
+2. Elevate the golf car with a jack
+and remove the wheel nuts and
+the wheel.
+
+6
+
+3. Reverse the removal steps when
+installing the wheel.
+
+7
+
+Wheel nut tightening torque:
+58 ft.lb (80 Nm, 8.0 m.kg)
+
+8
+Brake Adjustment
+9
+
+The brakes on your golf car are selfadjusting.
+
+10
+
+Before you operate the car, press
+down on the brake pedal several
+times to make sure the brakes are
+functioning properly.
+
+11
+
+WARNING
+Consult your Yamaha dealer
+before using your golf car if you
+suspect brake problems. Brake
+failure could result in a serious
+accident.
+
+8-11
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 35
+
+MAINTENANCE
+Brake Pedal Free Play
+Adjustment
+CAUTION
+
+1
+2
+
+Before adjusting brake pedal free
+play, pump the brake pedal several
+times to self-adjust the brakes.
+
+3
+
+To adjust the brake pedal free play:
+1. Remove the service lid from the
+floor of the golf car.
+
+4
+5
+
+Y-61a
+
+6
+
+a
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+2. Check the brake pedal free play
+by pressing against the pedal
+with two fingers (using light force)
+and measuring the distance the
+pedal travels before resistance is
+felt.
+
+18
+
+7
+
+7
+8
+
+Brake pedal free play Å:
+20-25 mm (0.79-0.98 in.)
+
+9
+
+Y-62b
+
+3. If the free play distance needs
+adjusting, loosen the lock nut and
+turn the adjusting nut in or out
+until the free play specification is
+met. Then tighten the lock nut in
+place.
+
+WARNING
+Do not overtighten the brake
+cables. The self adjusters may not
+operate properly, reducing braking
+performance.
+Y-63
+
+G22A
+
+8-12
+
+10
+11
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 36
+
+STORAGE
+Perform the following preparations
+when storing your golf car for extended periods of time:
+
+1
+
+NOTE:
+Turn main switch key to “OFF” position, remove key, and store key in a
+safe place.
+
+2
+3
+
+DRAINING FUEL
+WARNING
+
+4
+
+Gasoline and its vapors are highly
+flammable and explosive.
+Do not smoke when draining fuel
+and keep away from sparks,
+flames, or other sources of ignition.
+● Stop engine and allow it to cool
+for several minutes before draining fuel.
+● Drain fuel in a well-ventilated
+area.
+● Take care not to spill gasoline. If
+gasoline spills, wipe it up immediately with dry rags. Always dispose of gasoline-soaked rags
+properly.
+● Tighten the filler cap securely
+after checking fuel level.
+● If you inhale a lot of gasoline
+vapor, or get gasoline in your
+eyes, get immediate medical
+attention.
+● If any gasoline gets on your skin,
+immediately wash with soap and
+water. Change clothing if gasoline spills on it.
+●
+
+5
+6
+7
+8
+9
+10
+11
+
+1. Fill the fuel tank.
+
+A
+
+å Float bowl drain screw
+
+Y-521
+
+9-1
+
+2. Drain the carburetor float bowl into
+a suitable container by turning the
+screw located on the bottom of the
+carburetor.
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 37
+
+STORAGE
+ENGINE PREPARATION
+With the key removed and the spark
+plug lead disconnected, turn the
+clutch by hand until compression is
+felt. This puts the valves in the closed
+position.
+
+CHASSIS
+PREPARATION
+1. Increase the tire pressure to 20
+psi (137 kPa, 1.4 kgf/cm2).
+2. Clean exterior of the golf car and
+apply a rust inhibitor.
+3. Cover the golf car with a breathable cover and store it in a dry,
+well-ventilated area.
+
+BATTERY
+PREPARATION
+
+2. Have the battery recharged every
+60-90 days to keep it fully
+charged. The battery must be
+kept fully charged to avoid damage.
+NOTE:
+Batteries like the one supplied with
+your car normally do not require you
+to check the water level inside the
+battery for the one year warranty
+period provided by the manufacturer.
+3. Clean the top of the battery with
+a solution of baking soda and
+water, as necessary, to remove
+corrosion.
+
+1
+2
+3
+4
+5
+6
+
+CAUTION
+Do not allow cleaning solution to
+enter battery cells.
+
+1. Remove the battery from the golf
+car and store it in a cool, dry
+place that stays between 32˚F
+(0˚C) and 90˚F (30˚C).
+
+7
+8
+9
+10
+11
+
+G22A
+
+9-2
+
+LIT_19626_16_04.qxd
+
+6/1/04
+
+2:13 PM
+
+Page 38
+
+SPECIFICATIONS
+1
+2
+3
+4
+
+GENERAL SPECIFICATIONS
+Items
+Dimensions:
+Overall length
+Overall width
+Overall height (steering height)
+Height of floor
+Wheelbase
+Tread:
+Front
+Rear
+Min. ground clearance
+
+G22A
+93.9 in. (2385 mm)
+47.2 in. (1200 mm)
+46.8 in. (1190 mm)
+11.8 in. (300 mm)
+64.3 in. (1632 mm)
+34.3 in. (870 mm)
+38.6 in. (980 mm)
+3.8 in. (97 mm)
+
+Weight:
+
+5
+
+Dry weight (without battery)
+
+670 lb (304 kg)
+
+Performance:
+
+6
+7
+
+Factory speed setting
+
+12 mph (19 km/h)
+
+Maximum speed
+
+15 mph (24 km/h)
+
+Minimum turning radius
+
+114.2 in. (2.9 m)
+
+Seating capacity
+
+2 persons
+
+Hill climbing ability
+
+27˚ (50% grade)
+on pavement
+
+8
+9
+10
+11
+
+10-1
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 39
+
+SPECIFICATIONS
+ENGINE
+
+1
+Items
+
+Description:
+Engine type
+Number of cylinders
+Displacement
+Bore x stroke
+Compression ratio
+Rated output
+Cooling system
+Starting system
+Ignition system
+Spark plug type
+Spark plug gap
+Lubrication system
+Engine oil type
+Engine oil capacity
+Oil change quantity
+
+G22A
+4-stroke, Gasoline, OHV
+Single
+357 cm3
+3.30 x 2.48 in. (85 x 63 mm)
+8.1:1
+11.4 hp (8.5 kw)/3500 rpm
+Forced air cooled
+Starter
+TCI Magneto
+BPR2ES
+0.028-0.031 in. (0.7-0.8 mm)
+Splash
+YAMALUBE 4 cycle oil or SAE 10W30
+1.16 US qt (1.1 L, 1100 cc)
+1.0 US qt (0.9 L, 900 cc)
+
+TRANSMISSION
+
+2
+3
+4
+5
+6
+7
+
+Items
+
+G22A
+
+Transmission:
+Type
+V-belt width and outer line length
+V-belt wear limit
+
+V-belt automatic centrifugal engagement
+1.22 x 39.76 in. (31 x 1010 mm)
+1.06 in. (27 mm)
+
+Governor:
+Type
+Factory speed setting
+
+9
+
+Oil bath flyweight
+12 mph (19 km/h)
+
+Differential/reduction gear:
+Differential type
+Lubricant/capacity
+
+G22A
+Bevel gear
+SAE 90 gear oil/
+0.44 US qt (415 mL,
+415 cc)
+
+10
+11
+
+BATTERIES
+Items
+
+G22A
+
+Battery:
+
+BCI group 24,
+RC: minimum 75 min
+CCA: minimum 400A
+
+10-2
+
+G22A
+
+95%
+
+8
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 40
+
+SPECIFICATIONS
+1
+
+CHASSIS
+Items
+
+2
+3
+4
+5
+
+Steering system:
+Type
+Steering angle (L.H.)
+Steering angle (R.H.)
+Brakes:
+Brake system
+Type of brake
+Brake pedal freeplay linkage
+adjustment
+(Brake cable end play)
+Parking brake:
+Type
+
+6
+7
+8
+9
+
+Release timing
+(With pedal segment in second
+notch)
+(Bolt heads round parallel to arm)
+Wheel:
+Tire size:
+Front
+Rear
+Rim size:
+Tire pressure:
+
+G22A
+Rack and Pinion
+1.55 turn
+1.55 turn
+Mechanical drum brake on each rear wheel
+with self-adjusters.
+Dual internal expanding shoe.
+Leading/trailing shoes (self-adjusting)
+20-25 mm
+0.004-0.02 in. (0.1-0.5 mm)
+Foot type; parking brake with automatic
+release.
+
+0.000 ~ 0.001 in. (0.0 ~ 0.3 mm)
+
+18 x 8.50–8.00/4 PR
+18 x 8.50–8.00/4 PR
+7.00–I–8.00
+For G16A:
+16 psi (110 kPa, 1.1 kgf/cm2)
+
+10
+11
+
+10-3
+
+G22A
+
+G22A
+
+G
+
+G
+Br
+
+G
+Br
+
+16 Body ground
+
+–
+
+10
+
++
+
+R
+
+R
+
+1
+
+9
+
+RW B
+
+RW B
+
+R/W
+L B
+
+B
+
+B
+
+B
+
+L
+
+R/W
+
+F2
+
+8
+
+L
+
+G
+G
+G
+G
+
+L
+
+R/W
+RW
+R
+R
+
+A1
+
+B
+
+B
+
+2
+
+B
+
+RW
+
+G
+
+B
+
+G
+
+7
+
+B
+
+B
+
+B
+
+6
+
+B
+
+Br
+
+5
+
+Y-509
+
+B..............................Black
+L................................Blue
+G ............................Green
+Y ............................Yellow
+R................................Red
+P ...............................Pink
+Br ...........................Brown
+W ............................White
+B/R...................Black/Red
+Y/B ...............Yellow/Black
+R/Y .................Red/Yellow
+R/W .................Red/White
+
+COLOR CODE
+
+R/W B
+
+L
+
+4
+
+G22A WIRING DIAGRAM
+
+8 Starter generator
+
+1 Engine stop 1relay
+Relay
+Engine stop relay 9 9
+Relay
+2 Engine ground
+Battery
+2 Engine ground a 10
+Battery
+3 Pickup
+b 11
+Pilot
+lamp
+3.4W)
+3 Pickup
+Pilot
+lamp(12V,
+(12V, 3.4W)
+4 Rotor
+c 12
+Main
+switch
+4 Rotor
+Main
+switch
+5 Oil level gauge
+Accelerator
+switch
+5 Oil Level gauge d 13
+Acceleratorstop
+stop switch
+6 Blade fuse (10A)
+e 14
+Back
+switch
+6 Blade Fuse (10A)
+Back switch
+7 Voltage regulator
+f Buzzer
+7 Voltage Regulator 15 Buzzer
+8 Starter generator
+g Body ground
+
+Br
+
+Br
+
+R
+Br
+
+R
+
+Br
+
+Br
+
+Br
+
+Br
+
+R/W
+
+P
+
+RY
+
+R/W
+
+R/W
+
+ON
+
+R/W
+Br
+
+P
+
+R
+
+R
+
+R
+
+P
+
+B
+
+3
+
+12:00 PM
+
+11
+
+R/Y
+Br
+
+OFF
+
+R
+
+B
+
+P
+
+P
+
+B
+
+B
+
+B
+
+B
+
+6/11/04
+
+12
+
+13
+
+REV
+
+14
+
+FWD
+
+15
+
+16
+
+LIT_19626_16_04.qxd
+Page 41
+
+WIRING
+
+11-1
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 42
+
+NOTES
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 43
+
+NOTES
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+G22A
+
+LIT_19626_16_03.qxd
+
+5/26/04
+
+12:42 PM
+
+Page 44
+
+NOTES
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+G22A
+
+LIT_19626_16_03 cover.qxd
+
+5/26/04
+
+9:40 AM
+
+Page 1
+
+OWNER'S / OPERATOR’S
+MANUAL
+
+GOLF CAR G22A
+
+Printed in U.S.A
+2004-KCC
+
+YAMAHA MOTOR
+MANUFACTURING CORP.
+OF AMERICA
+1000 HWY 34 East
+Newnan, GA 30265
+770-254-4000
+
+LIT-19626-16-04
+
+JU0-F8199-12
+
+

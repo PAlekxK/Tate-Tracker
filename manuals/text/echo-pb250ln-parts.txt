@@ -1,0 +1,1333 @@
+PARTS CATALOG
+CATÁLOGO DE PIEZAS
+
+PB-250LN Power Blower
+Soplador de Mano
+25.4cc
+
+99922202070
+
+01/17/2014
+
+S/N: P40212001001 - P40212999999
+
+www.Echo-USA.com
+©2014 ECHO Incorporated. All Rights Resevered. Todas las derechas Resevered
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+S/N: P40212001001 - P40212999999
+
+TABLE OF CONTENTS - CONTENIDO
+Click Any Diagram Description Below To View That Diagram
+Chasque cualquier descripción del diagrama abajo para ver ese diagrama
+Blower Tubes..................................................................................................................................................................3
+Tubos de Soplador
+Fuel System....................................................................................................................................................................4
+Sistema de Combustible
+Starter.............................................................................................................................................................................5
+Arrancador
+Intake..............................................................................................................................................................................6
+Admisión
+Carburetor -- RB-K106...................................................................................................................................................7
+Carburador -- RB-K106
+Engine Cover, Exhaust..................................................................................................................................................9
+Cubierta del Motor, Escape
+Fan Cover, Ignition, Throttle Control..........................................................................................................................10
+Cubierta del Ventilador, Ignición, Control del Acelerador
+Engine, Short Block - SB1104.....................................................................................................................................12
+Motor, Bloque Corto -- SB1104
+Labels...........................................................................................................................................................................13
+Etiquetas
+RePower Kits................................................................................................................................................................14
+Kits RePower
+Part Number Index.......................................................................................................................................................15
+Índice Del Número De Parte
+
+-1-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+S/N: P40212001001 - P40212999999
+
+NOTES -- NOTAS
+
+-2-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+
+E165000170
+E165000320
+
+1
+1
+
+Blower Tubes
+Tubos de Soplador
+
+TUBE, BLOWER - STRAIGHT NOZZLE
+TUBE, BLOWER
+
+-3-
+
+TUBO, SOPLADOR - BOQUILLA RECTO
+TUBO, SOPLADOR
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+22
+
+P021040030
++ 13105156030
++ V107000150
+V804000060
+V152002220
+V420000910
+V805000150
+90060300005
+A350000640
++ 13104528230
+35133520560
+V490001240
+V186000520
+13120507320
+V471003700
+V471003590
+13201049730
+13201204631
+A356000031
+13211546730
+90129BP
+90074
+90074C
+
+1
+1
+1
+2
+1
+1
+2
+2
+1
+2
+2
+3
+1
+1
+1
+1
+1
+1
+1
+1
+
+Fuel System
+Sistema de Combustible
+
+CAP ASSY - ORANGE
+CONNECTOR, CAP
+GASKET, CAP
+SCREW - 4X16
+BRACKET, FUEL TANK
+CUSHION
+SCREW - 5X16
+WASHER - 5
+FUEL TANK ASSY
+SLEEVE
+CUSHION
+CLIP - 6
+CONNECTOR, FUEL PIPE
+FILTER, FUEL
+PIPE - 3X5X130 -- BLACK(1)
+PIPE - 3X5X78 -- BLACK(2)
+PIPE - 3X6X85 -- CLEAR(3)
+PIPE - 3X6X80 -- BLACK(4)
+VENT, FUEL TANK
+GROMMET
+RePower FUEL SYSTEM KIT
+RePower TUNE-UP KIT
+RePower TUNE-UP KIT
+
+CONJUNTO DE TAPA - NARANJA
+CONECTOR, TAPA
+JUNTA, TAPA
+TORNILLO - 4X16
+SOPORTE, TANQUE DE COMBUSTIBLE
+COJÍN
+TORNILLO - 5X16
+ARANDELA - 5
+CONJUNTO DE TANQUE DE COMBUSTIBLE
+MANGUITO
+COJÍN
+GANCHO - 6
+CONECTOR, TUBO DE COMBUSTIBLE
+FILTRO DE COMBUSTIBLE
+TUBO - 3X5X130 -- NEGRO(1)
+TUBO - 3X5X78 -- NEGRO(2)
+TUBO - 3X6X85 -- TRANSPARENTE(3)
+TUBO - 3X6X80 -- NEGRO(4)
+RESPIRADERO, TANQUE DE COMBUSTIBLE
+ANILLO DE GOMA
+KIT DEL SISTEMA DE CARBURANTE
+KIT DE PUESTA A PUNTO
+KIT DE PUESTA A PUNTO
+
+(FOOTNOTE) 1 - RePower BULK OPTION: 90014
+2 - RePower BULK OPTION: N/A
+3 - RePower BULK OPTION: 90017
+4 - RePower BULK OPTION: 90015
+
+(NOTA DEL PIE) 1 - OPCIÓN A GRANEL de la RePower: 90014
+2 - OPCIÓN A GRANEL de la RePower: NO DISPONIBLE
+3 - OPCIÓN A GRANEL de la RePower: 90017
+4 - OPCIÓN A GRANEL de la RePower: 90015
+
+-4-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+
+V804000060
+V152002220
+V420000910
+A051000960
++ 17722806530
++ 17722610120
++ 17723644330
++ P022019690
++ P022019680
++ 17722742030
+90059500008
+A052000280
++ 17721844330
++ 17723412220
+
+4
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+Starter
+Arrancador
+
+SCREW - 4X16
+BRACKET, FUEL TANK
+CUSHION
+STARTER ASSY
+GRIP, STARTER
+ROPE, STARTER - 3X1000(1)
+SCREW
+REEL, ROPE
+SPRING, REWIND
+GUIDE, ROPE
+NUT
+STARTER PAWL ASSY
+PAWL, STARTER - BLACK
+SPRING, RETURN
+
+TORNILLO - 4X16
+SOPORTE, TANQUE DE COMBUSTIBLE
+COJÍN
+CONJUNTO DE ARRANCADOR
+AGARRE, ARRANCADOR
+CUERDA, ARRANCADOR - 3X1000(1)
+TORNILLO
+CARRETE, CUERDA
+RESORTE, REBOBINADO
+GUÍA, CUERDA
+TUERCA
+CONJUNTO DE TRINQUETE DEL ARRANCADOR
+RESORTE, RETORNO
+
+(FOOTNOTE) 1 - RePower BULK OPTION: 99944440000
+
+(NOTA DEL PIE) 1 - OPCIÓN A GRANEL de la RePower: 99944440000
+
+-5-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+15
+
+21041752730
+13031305863
+A226001410
+13031054130
+V805000100
+12901152730
+P021004480
+-----------------V103000400
+V805000220
+A200000960
+V103000540
+V805000120
+V150002400
+90074
+90074C
+
+1
+1
+1
+1
+2
+1
+1
+1
+1
+2
+1
+1
+1
+1
+
+Intake
+Admisión
+
+THUMBSCREW
+COVER, AIR FILTER - BLACK
+FILTER, AIR - DOUBLE LAYER
+FILTER, AIR - SINGLE LAYER(1)
+SCREW - 5X65 -- TORX
+PLATE, PREVENT
+CASE, AIR CLEANER - BLACK
+CARBURETOR(2)
+GASKET, INTAKE
+SCREW - 5X25
+INSULATOR, INTAKE
+GASKET, INTAKE
+SCREW - 5X8 -- TORX
+PLATE
+RePower TUNE-UP KIT
+RePower TUNE-UP KIT
+
+TORNILLO, DE OREJETAS
+COVER, AIR FILTER - BLACK
+FILTRO DE AIRE - CAPA DOBLE
+FILTRO DE AIRE - CAPA ÚNICA(1)
+TORNILLO - 5X65 -- TORX
+PLACA, PRE-RESPIRADERO
+CARCASA, FILTRO DE AIRE - NEGRO
+CARBURADOR(2)
+JUNTA, ADMISIÓN
+TORNILLO - 5X25
+ADMISIÓN, ADMISIÓN
+JUNTA, ADMISIÓN
+TORNILLO - 5X8 -- TORX
+PLACA
+KIT DE PUESTA A PUNTO
+KIT DE PUESTA A PUNTO
+
+(FOOTNOTE) 1 - OPTIONAL
+2 - See Carburetor Diagram For Details
+
+(NOTA DEL PIE) 1 - OPCIONAL
+2 - Vea el diagrama del carburador para los detalles
+
+-6-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+Carburetor -- RB-K106
+Carburador -- RB-K106
+
+-7-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+
+A021003660
++ P005000120
++ P005002030
++ 12534413931
++ P005000190
++ P005002090
++ P005000100
++ P005002000
++ P005000280
++ -----------------+ P005001900
++ P005000250
++ 12538108660
++ P005000270
++ P005001890
++ P005001270
++ P005001260
++ 12534452130
++ 12534252130
++ 12533942030
++ P005002280
++ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ P005002280
++ -----------------+ -----------------+ -----------------+ ------------------
+
+1
+1
+1
+3
+1
+1
+1
+1
+1
+1
+4
+1
+1
+1
+1
+1
+1
+2
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+Carburetor -- RB-K106
+Carburador -- RB-K106
+
+CARBURETOR -- RB-K106
+NUT
+ADJUSTER, CABLE
+SCREW
+RING, RETAINING
+SWIVEL
+SCREW, IDLE ADJUST
+ROTOR COVER ASSY
+O-RING
+BODY, CARBURETOR(1)
+SCREW, PURGE BULB RETAINER
+RETAINER, PURGE BULB
+BULB, PURGE
+SCREW, PURGE BASE
+BASE, PURGE
+PLUG
+NEEDLE - HIGH SPEED
+SCREW
+COVER, METERING
+SCREW, METERING LEVER PIN
+REPAIR KIT
+GUIDE, ROLLER
+GASKET, PUMP
+DIAPHRAGM, PUMP
+STRAINER
+SPRING, METERING LEVER
+VALVE, INLET NEEDLE
+PIN, METERING LEVER
+LEVER, METERING
+GASKET, DIAPHRAGM
+DIAPHRAGM, METERING
+DIAPHRAGM/GASKET KIT
+GASKET, PUMP
+DIAPHRAGM, PUMP
+GASKET, DIAPHRAGM
+DIAPHRAGM, METERING
+
+(FOOTNOTE) 1 - NOT AVAILABLE SEPARATELY
+
+CARBURADOR -- RB-K106
+TUERCA
+AJUSTADOR, CABLE
+TORNILLO
+ANILLO, RETÉN
+PIVOTE
+TORNILLO, AJUSTE DE RALENTÍ
+CONJUNTO DE CUBIERTA DEL ROTOR
+ANILLO O
+CUERPO, CARBURADOR(1)
+TORNILLO, RETÉN DEL BULBO DE LA PURGA
+RETÉN, BULBO DE LA PURGA
+BULBO, PURGA
+TORNILLO, BASE, PURGA
+BASE, PURGA
+TAPÓN
+AGUJA - ALTA VELOCIDAD
+TORNILLO
+CUBIERTA, MEDICIÓN
+TORNILLO, PASADOR DE RETÉN
+KIT DE REPARACIÓN
+GUÍA, RODILLO
+JUNTA, BOMBA
+DIAFRAGMA, BOMBA
+TAMIZ
+RESORTE, PALANCA DE DOSIFICACIÓN
+VÁLVULA DE AGUJA, ADMISIÓN
+PASADOR, PALANCA DE DOSIFICACIÓN
+PALANCA, DOSIFICACIÓN
+JUNTA, DIAFRAGMA
+DIAFRAGMA, DOSIFICACIÓN
+KIT DE DIAFRAGMA/JUNTA
+JUNTA, BOMBA
+DIAFRAGMA, BOMBA
+JUNTA, DIAFRAGMA
+DIAFRAGMA, DOSIFICACIÓN
+(NOTA DEL PIE) 1 - NO DISPONIBLE POR SEPARADO
+
+-8-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+
+15901019830
+A425000000
+V805000010
+A190000861
+V804000030
+A313001790
+A313000840
+P021016930
++ A313001070
++ V104000940
+A310000070
+V203000190
+90060300005
+A300001630
+V104000960
+
+1
+1
+6
+1
+5
+1
+1
+1
+1
+1
+1
+2
+2
+1
+1
+
+Engine Cover, Exhaust
+Cubierta del Motor, Escape
+
+SPARK PLUG -- BPM-8Y
+SPARK PLUG -- BPMR-8Y(1)
+SCREW - 5X20
+COVER, ENGINE
+SCREW - 4X8 -- TORX
+GUIDE, EXHAUST - OUTER
+GUIDE, EXHAUST - INNER
+EXHAUST GUIDE KIT
+GUIDE, EXHAUST
+GASKET, EXHAUST
+SCREEN, SPARK ARRESTER
+BOLT - 5
+WASHER - 5
+MUFFLER
+SHIELD, EXHAUST
+
+BUJÍA -- BPM-8Y
+BUJÍA -- BPMR-8Y(1)
+TORNILLO - 5X20
+CUBIERTA, MOTOR
+TORNILLO - 4X8 -- TORX
+GUÍA, ESCAPE - EXTERIOR
+GUÍA, ESCAPE - INTERIOR
+KIT DE GUÍA, ESCAPE
+GUÍA, ESCAPE
+JUNTA, ESCAPE
+PANTALLA, SUPRESOR DE CHISPAS
+PERNO - 5
+ARANDELA - 5
+SILENCIADOR
+PROTECTOR, ESCAPE
+
+(FOOTNOTE) 1 - CANADA MODELS
+
+(NOTA DEL PIE) 1 - MODELOS DE CANADÁ
+
+-9-
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+Fan Cover, Ignition, Throttle Control
+Cubierta del Ventilador, Ignición, Control del Acelerador
+
+- 10 -
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+34
+35
+36
+37
+38
+38
+
+E104000110
+V805000010
+E103000700
+C662000050
+90010008014
+10014319830
+E100000070
+V805000220
+90056250005
+90060500005
+90060200005
+C453000300
+90060300005
+C450000720
+C454000480
+V431000000
+A440001310
++ 9154503010
++ A444000060
+V486000150
+V805000120
+V485001210
+A160001260
+V804000070
+E103000691
+SB1104
+E101000122
+A409001250
+10014212330
+V485001220
+15211505530
+15901203433
+15901103432
+15901019830
+A425000000
+15611004920
+V804000070
+A411000500
+90074
+90074C
+
+1
+7
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+2
+1
+1
+4
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+2
+1
+
+(FOOTNOTE) 1 - CANADA MODELS
+
+Fan Cover, Ignition, Throttle Control
+Cubierta del Ventilador, Ignición, Control del Acelerador
+
+GRID, BLOWER
+SCREW - 5X20
+COVER, FAN - LEFT
+LOCK, TUBE
+BOLT - 8X14
+WASHER - CUP
+FAN
+SCREW - 5X25
+LOCKNUT - 5
+WASHER - 5 -- SPRING
+WASHER - 5
+LEVER, THROTTLE
+WASHER - 5
+TRIGGER, THROTTLE
+ROD, THROTTLE
+CABLE, THROTTLE
+SWITCH, IGNITION
+SCREW - 3X10
+KNOB, SWITCH - ORANGE
+TERMINAL, LEAD
+SCREW - 5X8 -- TORX
+LEAD
+SHIELD, CYLINDER
+SCREW - 4X20 -- TORX
+COVER, FAN - RIGHT
+SHORT BLOCK
+HUB, FAN
+FLYWHEEL
+KEY
+LEAD - IGNITION
+GROMMET
+CAP, SPARK PLUG
+TERMINAL, SPARK PLUG CAP
+SPARK PLUG -- BPM-8Y
+SPARK PLUG -- BPMR-8Y(1)
+GROMMET
+SCREW - 4X20 -- TORX
+COIL, IGNITION
+RePower TUNE-UP KIT
+RePower TUNE-UP KIT
+
+REJILLA, SOPLADOR
+TORNILLO - 5X20
+CUBIERTA, VENTILADOR - IZQUIERDA
+TRABA, TUBO
+PERNO - 8X14
+ARANDELA - COPA
+VENTILADOR
+TORNILLO - 5X25
+CONTRATUERCA - 5
+ARANDELA - 5
+PALANCA, ACELERADOR
+ARANDELA - 5
+GATILLO, ACELERADOR
+VARILLA, ACELERADOR
+CABLE, ACELERADOR
+INTERRUPTOR, ENCENDIDO
+TORNILLO - 3X10
+PERILLA, INTERRUPTOR - NARANJA
+TERMINAL, CABLE
+TORNILLO - 5X8 -- TORX
+CABLE CONDUCTOR
+PROTECTOR, CILINDRO
+TORNILLO - 4X20 -- TORX
+CUBIERTA, VENTILADOR - DERECHO
+BLOQUE CORTO
+CUBO, VENTILADOR
+VOLANTE
+CHAVETA
+CABLE - IGNICIÓN
+ANILLO DE GOMA
+TAPA, BUJÍA
+TERMINAL, CAPUCHÓN DE BUJÍA
+BUJÍA -- BPM-8Y
+BUJÍA -- BPMR-8Y(1)
+ANILLO DE GOMA
+TORNILLO - 4X20 -- TORX
+BOBINA, IGNICIÓN
+KIT DE PUESTA A PUNTO
+KIT DE PUESTA A PUNTO
+(NOTA DEL PIE) 1 - MODELOS DE CANADÁ
+
+- 11 -
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+
+SB1104
++ 90016205025
++ A130001020
++ V100000190
++ P021017410
++ A101000140
++ V606000000
++ 10001504630
++ 10001411520
++ A011000590
++ V553000010
++ 10014212330
++ P021008231
++ 90016205028
++ 10021242031
++ 90033040080
++ 9403536201
++ 10024242030
++ -----------------+ -----------------+ ------------------
+
+1
+4
+1
+1
+1
+1
+1
+2
+2
+1
+1
+1
+1
+3
+2
+2
+2
+1
+1
+1
+1
+
+Engine, Short Block - SB1104
+Motor, Bloque Corto -- SB1104
+
+SHORT BLOCK
+SCREW - 5X25
+CYLINDER
+GASKET, CYLINDER
+PISTON KIT
+RING, PISTON
+PIN, PISTON
+RING, RETAINING
+SPACER, PISTON
+CRANKSHAFT ASSY
+BEARING, NEEDLE - 8
+KEY
+CRANKCASE KIT
+SCREW - 5X28
+SEAL, OIL
+PIN, LOCATING
+BEARING, BALL - 6201
+GASKET, CRANKCASE
+GASKET, INTAKE(1)
+GASKET, INTAKE(1)
+SHIELD, EXHAUST(1)
+
+(FOOTNOTE) 1 - Included In GASKET KIT
+
+BLOQUE CORTO
+TORNILLO - 5X25
+CILINDRO
+JUNTA, CILINDRO
+KIT DE PISTÓN
+ANILLO, PISTÓN
+PASADOR, PISTÓN
+ANILLO, RETÉN
+ESPACIADOR, PISTÓN
+CONJUNTO DE CIGÜEÑAL
+COJINETE, DE AGUJAS - 8
+CHAVETA
+KIT DE CÁRTER
+TORNILLO - 5X28
+SELLO, ACEITE
+PASADOR DE POSICIONAMIENTO
+COJINETE DE BOLAS
+JUNTA, CÁRTER
+JUNTA, ADMISIÓN(1)
+JUNTA, ADMISIÓN(1)
+PROTECTOR, ESCAPE(1)
+(NOTA DEL PIE) 1 - Incluido en KIT de la JUNTA
+
+- 12 -
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+
+X505002310
+X532000671
+X532000720
+X502000330
+89012152730
+89033252730
+X505002080
+X547002230
+
+1
+1
+1
+1
+1
+1
+1
+1
+
+(FOOTNOTE) 1 - CANADA MODELS
+
+Labels
+Etiquetas
+
+LABEL - HOT SURFACE
+LABEL - SPARK PLUG -- BPM-8Y
+LABEL - SPARK PLUG -- BPMR-8Y(1)
+LABEL - ECHO
+LABEL - CHOKE
+LABEL - CHOKE(1)
+LABEL - CAUTION
+LABEL - MODEL -- PB-250LN
+
+ETIQUETA - SUPERFICIE CALIENTE
+ETIQUETA - BUJÍA -- BPM-8Y
+ETIQUETA - BUJÍA -- BPMR-8Y(1)
+ETIQUETA - ECHO
+ETIQUETA - AHOGADOR
+ETIQUETA - AHOGADOR(1)
+ETIQUETA - PRECAUCIÓN
+ETIQUETA - MODELO -- PB-250
+(NOTA DEL PIE) 1 - MODELOS DE CANADÁ
+
+- 13 -
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+
+90074
++ -----------------+ -----------------+ -----------------90074C
++ -----------------+ -----------------+ -----------------90129BP
++ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ -----------------+ ------------------
+
+1
+1
+1
+1
+1
+1
+1
+1
+1
+3
+1
+1
+1
+1
+1
+1
+1
+1
+
+(FOOTNOTE) 1 - CANADA MODELS
+
+RePower Kits
+Kits RePower
+
+RePower TUNE-UP KIT
+FILTER, AIR - DOUBLE LAYER
+FILTER, FUEL
+SPARK PLUG -- BPM-8Y
+RePower TUNE-UP KIT(1)
+FILTER, AIR - DOUBLE LAYER
+FILTER, FUEL
+SPARK PLUG -- BPMR-8Y
+RePower FUEL SYSTEM KIT
+CLIP - 6
+CONNECTOR, FUEL PIPE
+FILTER, FUEL
+GROMMET
+PIPE - 3X5X78 -- BLACK
+PIPE - 3X5X130 -- BLACK
+PIPE - 3X6X85 -- BLACK
+PIPE - 3X6X80 -- CLEAR
+VENT, FUEL TANK
+
+KIT DE PUESTA A PUNTO
+FILTRO DE AIRE - CAPA DOBLE
+FILTRO DE COMBUSTIBLE
+BUJÍA -- BPM-8Y
+KIT DE PUESTA A PUNTO(1)
+FILTRO DE AIRE - CAPA DOBLE
+FILTRO DE COMBUSTIBLE
+BUJÍA -- BPMR-8Y
+KIT DEL SISTEMA DE CARBURANTE
+GANCHO - 6
+CONECTOR, TUBO DE COMBUSTIBLE
+FILTRO DE COMBUSTIBLE
+ANILLO DE GOMA
+TUBO - 3X5X78 -- NEGRO
+TUBO - 3X5X130 -- NEGRO
+TUBO - 3X6X85 -- NEGRO
+TUBO - 3X6X80 -- TRANSPARENTE
+RESPIRADERO, TANQUE DE COMBUSTIBLE
+(NOTA DEL PIE) 1 - MODELOS DE CANADÁ
+
+- 14 -
+
+PB-250LN POWER BLOWER
+Soplador de Mano
+
+S/N: P40212001001 - P40212999999
+
+PART NUMBER INDEX - ÍNDICE DEL NÚMERO DE PARTE
+Click The Page Number After Any Part Number To View The Diagram Containing That Part
+Chasque la página después de cualquier número de parte para ver el diagrama que contiene esa parte
+
+Part Number
+
+Page
+
+------------------ .............6, 8, 12, 14
+10001411520 ............12
+10001504630 ............12
+10014212330 ............11, 12
+10014319830 ............11
+10021242031 ............12
+10024242030 ............12
+12533942030 ............8
+12534252130 ............8
+12534413931 ............8
+12534452130 ............8
+12538108660 ............8
+12901152730 ............6
+13031054130 ............6
+13031305863 ............6
+13104528230 ............4
+13105156030 ............4
+13120507320 ............4
+13201049730 ............4
+13201204631 ............4
+13211546730 ............4
+15211505530 ............11
+15611004920 ............11
+15901019830 ............9, 11
+15901103432 ............11
+15901203433 ............11
+17721844330 ............5
+17722610120 ............5
+17722742030 ............5
+17722806530 ............5
+17723412220 ............5
+17723644330 ............5
+21041752730 ............6
+35133520560 ............4
+89012152730 ............13
+89033252730 ............13
+90010008014 ............11
+90016205025 ............12
+90016205028 ............12
+90033040080 ............12
+90056250005 ............11
+90059500008 ............5
+90060200005 ............11
+90060300005 ............4, 9, 11
+90060500005 ............11
+90074 ........................4, 6, 11, 14
+90074C ......................4, 6, 11, 14
+90129BP ....................4, 14
+9154503010 ..............11
+9403536201 ..............12
+A011000590 ..............12
+A021003660 ..............8
+A051000960 ..............5
+A052000280 ..............5
+A101000140 ..............12
+A130001020 ..............12
+A160001260 ..............11
+A190000861 ..............9
+A200000960 ..............6
+A226001410 ..............6
+A300001630 ..............9
+A310000070 ..............9
+A313000840 ..............9
+A313001070 ..............9
+A313001790 ..............9
+A350000640 ..............4
+A356000031 ..............4
+A409001250 ..............11
+
+Part Number
+
+Page
+
+A411000500 ..............11
+A425000000 ..............9, 11
+A440001310 ..............11
+A444000060 ..............11
+C450000720 ..............11
+C453000300 ..............11
+C454000480 ..............11
+C662000050 ..............11
+E100000070 ..............11
+E101000122 ..............11
+E103000691 ..............11
+E103000700 ..............11
+E104000110 ..............11
+E165000170 ..............3
+E165000320 ..............3
+P005000100 ..............8
+P005000120 ..............8
+P005000190 ..............8
+P005000250 ..............8
+P005000270 ..............8
+P005000280 ..............8
+P005001260 ..............8
+P005001270 ..............8
+P005001890 ..............8
+P005001900 ..............8
+P005002000 ..............8
+P005002030 ..............8
+P005002090 ..............8
+P005002280 ..............8
+P021004480 ..............6
+P021008231 ..............12
+P021016930 ..............9
+P021017410 ..............12
+P021040030 ..............4
+P022019680 ..............5
+P022019690 ..............5
+SB1104 ......................11, 12
+V100000190 ..............12
+V103000400 ..............6
+V103000540 ..............6
+V104000940 ..............9
+V104000960 ..............9
+V107000150 ..............4
+V150002400 ..............6
+V152002220 ..............4, 5
+V186000520 ..............4
+V203000190 ..............9
+V420000910 ..............4, 5
+V431000000 ..............11
+V471003590 ..............4
+V471003700 ..............4
+V485001210 ..............11
+V485001220 ..............11
+V486000150 ..............11
+V490001240 ..............4
+V553000010 ..............12
+V606000000 ..............12
+V804000030 ..............9
+V804000060 ..............4, 5
+V804000070 ..............11
+V805000010 ..............9, 11
+V805000100 ..............6
+V805000120 ..............6, 11
+V805000150 ..............4
+V805000220 ..............6, 11
+X502000330 ..............13
+X505002080 ..............13
+X505002310 ..............13
+
+Part Number
+
+Page
+
+X532000671 ..............13
+X532000720 ..............13
+X547002230 ..............13
+
+- 15 -
+
+

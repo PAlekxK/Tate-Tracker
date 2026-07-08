@@ -1,0 +1,4402 @@
+MS 290, 310, 390
+
+2 - 42
+
+Instruction Manual
+
+English
+
+30
+31
+32
+33
+34
+35
+36
+37
+38
+
+1
+
+Introduction
+
+Your
+
+Dr. Nikolas Stihl
+
+2
+
+Guide to Using this Manual
+
+This Instruction Manual refers to a STIHL chain
+saw, also called a machine in this Instruction
+Manual.
+
+2.1
+
+Pictograms
+
+Pictograms that appear on the machine are
+explained in this Instruction Manual.
+Depending on the machine and equipment ver‐
+sion, the following pictograms may appear on the
+machine.
+Fuel tank; fuel mixture of gasoline
+and engine oil
+Tank for chain oil; chain oil
+Engage and release chain brake
+
+Printed on chlorine-free paper
+Paper is recyclable.
+
+29
+
+Introduction................................................. 2
+Guide to Using this Manual......................... 2
+Safety Precautions......................................3
+Reactive Forces.......................................... 7
+Working Techniques................................... 8
+Cutting Attachment................................... 15
+Mounting the Bar and Chain..................... 15
+Tensioning the Chain................................ 16
+Checking Chain Tension...........................17
+Fuel........................................................... 17
+Fueling...................................................... 18
+Chain Lubricant.........................................21
+Filling Chain Oil Tank................................ 22
+Checking Chain Lubrication...................... 22
+Chain Brake.............................................. 22
+Winter Operation.......................................23
+Information Before You Start.................... 24
+Starting / Stopping the Engine.................. 25
+Operating Instructions...............................28
+Oil Quantity Control...................................28
+Taking Care of the Guide Bar................... 29
+Air Filter System........................................29
+Cleaning the Air Filter............................... 29
+Adjusting the Carburetor........................... 30
+Spark Arresting Screen in Muffler............. 31
+Spark Plug................................................ 32
+Storing the Machine.................................. 32
+Checking and Replacing the Chain
+Sprocket....................................................33
+Maintaining and Sharpening the Saw Chain
+.................................................................. 34
+Maintenance and Care..............................37
+Minimize Wear and Avoid Damage...........39
+Main Parts.................................................39
+Specifications............................................40
+Ordering Spare Parts................................ 41
+Maintenance and Repairs......................... 41
+Disposal.................................................... 42
+EC Declaration of Conformity................... 42
+Addresses................................................. 42
+
+Original Instruction Manual
+0000000394_031_GB
+
+Contents
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+
+Coasting brake
+Direction of chain travel
+Ematic; chain oil flow adjustment
+Tension saw chain
+Intake air baffle: winter operation
+Intake air baffle: summer operation
+
+Dear Customer,
+
+It has been built using modern production techni‐
+ques and comprehensive quality assurance.
+Every effort has been made to ensure your satis‐
+faction and trouble-free use of the product.
+Please contact your dealer or our sales company
+if you have any queries concerning this product.
+
+2
+
+Handle heating
+Actuate decompression valve
+
+Actuate manual fuel pump
+
+0458-209-0121-B
+
+© ANDREAS STIHL AG & Co. KG 2025
+0458-209-0121-B. VA3.F25.
+
+Thank you for choosing a quality engineered
+STIHL product.
+
+3 Safety Precautions
+
+2.2
+
+Symbols in text
+WARNING
+
+Warning where there is a risk of an accident or
+personal injury or serious damage to property.
+
+NOTICE
+Caution where there is a risk of damaging the
+machine or its individual components.
+
+2.3
+
+Engineering improvements
+
+STIHL's philosophy is to continually improve all
+of its products. For this reason we may modify
+the design, engineering and appearance of our
+products periodically.
+Therefore, some changes, modifications and
+improvements may not be covered in this man‐
+ual.
+
+3
+
+3.1
+
+Safety Precautions
+
+Special safety precautions must be
+observed to reduce the risk of per‐
+sonal injury when working with a
+chain saw because of the very high
+chain speed and very sharp cutters.
+It is important that you read the
+instruction manual before first use
+and keep it in a safe place for future
+reference. Non-observance of the
+instruction manual may result in seri‐
+ous or even fatal injury.
+
+General
+
+Observe all applicable local safety regulations,
+standards and ordinances.
+The use of noise emitting power tools may be
+restricted to certain times by national or local
+regulations.
+If you have not used this model before: Have
+your dealer or other experienced user show you
+how to operate your machine or attend a special
+course in its operation.
+Minors should never be allowed to use a chain
+saw.
+Keep bystanders, especially children, and ani‐
+mals away from the work area.
+The user is responsible for avoiding injury to third
+parties or damage to their property.
+
+English
+understands the information contained in this
+manual.
+To operate a chain saw you must be rested, in
+good physical condition and mental health. If you
+have any condition that might be aggravated by
+strenuous work, check with your doctor before
+operating a chain saw.
+Do not operate the chain saw if you are under
+the influence of any substance (drugs, alcohol)
+which might impair vision, dexterity or judgment.
+To reduce the risk of accidents or injury, put off
+the work in poor weather conditions (rain, snow,
+ice, wind).
+Persons with pacemakers only: The ignition sys‐
+tem of your chain saw produces an electromag‐
+netic field of a very low intensity. This field may
+interfere with some pacemakers. To reduce
+health risks, STIHL recommends that persons
+with pacemakers consult their physician and the
+pacemaker manufacturer before operating this
+power tool.
+
+3.2
+
+Intended use
+
+The machine may only be used to saw wood and
+wooden objects.
+Do not use the machine for any other purpose –
+risk of accidents!
+Do not modify the machine in any way – this may
+increase the risk of personal injury. STIHL
+excludes all liability for personal injury and dam‐
+age to property caused while using unauthorised
+attachments.
+
+3.3
+
+Clothing and Equipment
+
+Wear proper protective clothing and equipment.
+Clothing must be sturdy and snug-fit‐
+ting, but allow complete freedom of
+movement. Wear snug fitting clothing
+with cut-retardant pads – no loose-fit‐
+ting jacket.
+Avoid clothing that could get caught on
+branches, brush or moving parts of the machine.
+Do not wear a scarf, necktie or jewellery. Tie up
+and confine long hair (headscarf, cap, hard hat,
+etc.).
+Wear suitable safety shoes – with cutretardant material, non-slip soles and
+steel toe caps.
+
+Do not lend or rent your chain saw without the
+instruction manual. Be sure that anyone using it
+0458-209-0121-B
+
+3
+
+English
+
+3 Safety Precautions
+
+3.6
+
+WARNING
+To reduce the risk of eye injuries,
+wear tight-fitting safety goggles con‐
+forming to standard EN 166 or a face
+shield. Make sure that the safety gog‐
+gles and the face shield fit correctly.
+Wear "personal" hearing protection – for exam‐
+ple, ear defenders.
+Wear a hard hat wherever there is any risk of
+falling objects.
+Wear sturdy protective gloves made
+of a resistant material (e.g. leather).
+
+STIHL can supply a comprehensive range of per‐
+sonal protective equipment.
+
+3.4
+
+STIHL recommends the use of genuine STIHL
+tools, guide bars, chains, chain sprockets and
+accessories. They are specifically designed to
+match your model and meet your performance
+requirements.
+
+3.7
+
+Transporting
+
+Before any transport – even over short distances
+– switch off the machine, engage the chain brake
+and attach the chain scabbard. This avoids the
+risk of the saw chain starting unintentionally.
+
+Accessories
+
+Only use those tools, guide bars, chains, chain
+sprockets, accessories or technically equivalent
+components that have been approved by STIHL
+for this machine. If you have any questions in
+this respect, consult a servicing dealer. Use only
+high quality tools and accessories. Otherwise,
+there may be a risk of accidents and damage to
+the machine.
+
+Refuelling
+
+Gasoline is an extremely flammable
+fuel – keep clear of naked flames and
+fire – do not spill any fuel – no smok‐
+ing.
+
+Switch off the engine before refuelling.
+Never refuel the machine while the engine is still
+hot – the fuel may spill over – risk of fire!
+
+001BA115 KN
+
+Open the fuel filler cap carefully so that any
+excess pressure is relieved gradually and fuel
+does not splash out.
+
+Always carry the chain saw by the handle – with
+the hot muffler away from your body, the guide
+bar must point to the rear. To avoid serious burn
+injuries, avoid touching hot parts of the machine,
+especially the surface of the muffler.
+In vehicles: Properly secure your saw to prevent
+turnover, fuel spillage and damage.
+
+The machine may only be refuelled in a well ven‐
+tilated place. Clean the machine immediately if
+fuel is spilled. Do not spill fuel over your clothing
+– contaminated clothing must be changed imme‐
+diately.
+The machines can be equipped with the follow‐
+ing filler caps as standard:
+Cliplock filler cap (bayonet-type)
+Place the cliplock filler cap (bayonettype) in position, turn as far as stop
+and fold the cliplock down.
+
+Clean plastic parts with a cloth. Harsh detergents
+can damage the plastic.
+
+This helps reduce the risk of unit vibrations caus‐
+ing an incorrectly tightened filler cap to loosen or
+come off and spill quantities of fuel.
+Look out for leaks! Never start the
+engine if fuel has been spilled or is
+leaking – Fatal burns may result!
+
+Clean the dust and dirt off the machine – do not
+use any grease solvents for this purpose.
+
+3.8
+
+3.5
+
+Cleaning
+
+Clean the ventilation slots if necessary.
+Do not use a high-pressure cleaner to clean the
+machine. The hard jet of water can damage parts
+of the machine.
+4
+
+Before Starting Work
+
+Check that your saw is properly assembled and
+in good condition – refer to appropriate chapters
+in the instruction manual.
+– Check the fuel system for leaks, paying spe‐
+cial attention to visible parts such as the tank
+0458-209-0121-B
+
+cap, hose connections and the manual fuel
+pump (on machines so equipped). If there are
+any leaks or damage, do not start the engine –
+risk of fire. Have your saw repaired by a serv‐
+icing dealer before using it again.
+– Check operation of chain brake, front hand
+guard
+– Correctly mounted guide bar
+– Correctly tensioned chain
+– The trigger and trigger lockout must move
+freely and spring back to the idle position
+when they are released.
+– Master Control lever must move easily to
+STOP, 0 or †
+– Check that the spark plug boot is secure – a
+loose boot may cause arcing that could ignite
+combustible fumes and cause a fire.
+– Never attempt to modify the controls or safety
+devices in any way.
+– Keep the handles dry and clean – free from oil
+and dirt – for safe control of the saw.
+– Make sure there is sufficient fuel and chain oil
+in the tanks.
+To reduce the risk of personal injury, do not
+operate your saw if it is damaged or not properly
+assembled.
+
+3.9
+
+Starting the chain saw
+
+Always work on a level surface. Ensure a firm
+and secure footing. Hold the machine securely –
+the chain must not touch any objects or the floor
+– danger of injury due to the rotating saw chain.
+Your chain saw is a one-person saw. Do not
+allow other persons to be in the working area –
+not even while starting.
+Do not start the chain saw if the chain is in a cut.
+Move at least 3 meters away from the place
+where the machine was refuelled and never start
+the motor in enclosed spaces.
+Lock the chain with the chain brake before start‐
+ing – risk of injury due to rotating chain!
+Do not drop-start the engine – start as described
+in the Instruction Manual.
+
+3.10
+
+During operation
+
+Ensure you always have a firm and safe footing.
+Take special care when the bark is wet – danger
+of slipping!
+
+0458-209-0121-B
+
+English
+
+001BA087 LÄ
+
+3 Safety Precautions
+
+Always hold the chain saw firmly with both
+hands: Right hand on the rear handle – even if
+you are left-handed. To ensure reliable control,
+wrap your thumbs tightly around the handlebar
+and handle.
+In the event of impending danger or in an emer‐
+gency, switch off the engine immediately by mov‐
+ing the Master Control lever / stop switch to
+STOP, 0 or †.
+Never let the machine run unattended.
+Exercise caution with slippery surfaces, water,
+snow, ice, steep slopes, uneven ground or green
+wood that has just been stripped of its bark –
+danger of slipping!
+Use caution with tree stumps, roots, ditches –
+danger of stumbling!
+Do not work alone – keep within calling distance
+of others who are trained in emergency proce‐
+dures and can provide help in an emergency.
+Helpers at the cutting site must also wear protec‐
+tive clothing (helmet!) and stand well clear of the
+branches being cut.
+More care and attention than usual are required
+when wearing ear protection, as warning sounds
+(shouts, beeps, etc.) cannot be heard properly.
+Take a break in good time to avoid tiredness or
+exhaustion – risk of accidents!
+Dust (e. g., sawdust), fumes and smoke pro‐
+duced while using the machine may be hazard‐
+ous to health. If dust is generated, wear a dust
+mask.
+When the engine is running: Note that the saw
+chain continues to rotate for a short period after
+you let go of the throttle trigger – coasting effect.
+No smoking when working with or near the chain
+saw - risk of fire! Combustible fuel vapour may
+escape from the fuel system.
+
+5
+
+English
+Examine the saw chain periodically at short inter‐
+vals and as soon as you note any tangible
+changes:
+– Switch off the engine; wait until the saw chain
+is stationary
+– Check condition and secure fitting
+– Check sharpness
+Never touch the saw chain when the engine is
+running. If the saw chain becomes jammed by an
+object, switch off the engine immediately before
+attempting to remove the object – risk of injury!
+
+3 Safety Precautions
+Ensure proper ventilation when working in
+trenches, hollows or other confined locations –
+risk of fatal injury from breathing toxic fumes!
+If you feel sick, have a headache, vision prob‐
+lems (e. g., your field of vision gets smaller),
+hearing problems, dizziness or inability to con‐
+centrate, stop work immediately. Such symptoms
+may be caused by an excessively high concen‐
+tration of exhaust emissions – risk of accident!
+
+3.11
+
+After finishing work
+
+Always turn off the engine before leaving the
+machine unattended.
+
+Switch off the motor, engage the chain brake and
+attach the chain scabbard.
+
+To change the saw chain, switch off the engine.
+Risk of injury from the motor starting unintention‐
+ally!
+
+3.12
+
+Keep easily combustible materials (e. g., wood
+chips, bark, dry grass, fuel) away from hot
+exhaust gases and hot mufflers – risk of fire!
+Mufflers with catalytic converters can become
+especially hot.
+Never work without chain lubrication – monitor
+the oil level in the oil tank. Stop work immediately
+if the oil level in the oil tank is too low and top up
+with chain oil – see also "Topping up with chain
+oil" and "Check chain lubrication".
+If the machine is subjected to unusually high
+loads for which it was not designed (e. g., heavy
+impact or a fall), always check that it is in good
+condition before continuing work – see also
+"Before starting work".
+Check the fuel system for leaks and make sure
+the safety devices are working properly. Never
+continue using a machine that is not in perfect
+working order. In case of doubt, have the unit
+checked by your servicing dealer.
+Check for correct idling, so that the saw chain
+stops moving when the throttle trigger is
+released. Check the idle setting regularly and
+correct when possible. Have the machine
+repaired by a STIHL servicing dealer if the saw
+chain still continues to move during idling.
+The chain saw produces poisonous
+exhaust gases as soon as the engine
+starts. These gases may be colour‐
+less and odourless and may contain
+unburnt hydrocarbons and benzene.
+Never work with the machine indoors
+or in poorly ventilated areas, even if
+your machine is equipped with a cata‐
+lytic converter.
+
+6
+
+Storage
+
+When the machine is not in use, it should be
+stored in such a way that no-one is endangered.
+Secure the machine against unauthorised use.
+Store the machine in a safe, dry room.
+
+3.13
+
+Vibrations
+
+Prolonged use of the power tool may result in
+vibration-induced circulation problems in the
+hands (whitefinger disease).
+No general recommendation can be given for the
+length of usage because it depends on several
+factors.
+The period of usage is prolonged by:
+– Hand protection (wearing warm gloves)
+– Work breaks
+The period of usage is shortened by:
+– Any personal tendency to suffer from poor cir‐
+culation (symptoms: frequently cold fingers,
+tingling sensations).
+– Low outside temperatures.
+– The force with which the handles are held (a
+tight grip restricts circulation).
+Continual and regular users should monitor
+closely the condition of their hands and fingers. If
+any of the above symptoms appear (e.g. tingling
+sensation in fingers), seek medical advice.
+
+3.14
+
+Maintenance and repairs
+
+Always switch off the engine before any repair,
+cleaning or maintenance work and any work on
+the chain. Risk of injury if the engine starts inad‐
+vertently!
+Exception: adjustment of carburettor and idle
+speed.
+
+0458-209-0121-B
+
+4 Reactive Forces
+The machine must be serviced regularly. Do not
+attempt any maintenance or repair work not
+described in the Instruction Manual. All other
+work should be carried out by a servicing dealer.
+STIHL recommends that maintenance and repair
+work be carried out only by authorised STIHL
+dealers. STIHL dealers receive regular training
+and are supplied with technical information.
+Use only high-quality spare parts. Otherwise,
+there may be a risk of accidents and damage to
+the machine. If you have any questions in this
+respect, consult a servicing dealer.
+Do not modify the machine in any way – this may
+increase the risk of personal injury –risk of acci‐
+dents!
+To reduce the risk of fire due to ignition outside
+the cylinder, move the master control level to
+STOP, 0 or † before turning the engine over on
+the starter when the spark plug boot is removed
+or the spark plug is unscrewed!
+
+English
+Change chain, guide bar and chain sprocket in
+due time.
+Regularly check that the clutch drum is in perfect
+working condition.
+Always store fuel and chain lubricant only in the
+specified type of containers and ensure they are
+correctly labelled. Store in a dry, cool and secure
+place protected against light and sunlight.
+In the event of a chain brake malfunction, switch
+off the machine immediately – risk of injury! Con‐
+sult a servicing dealer – do not use the machine
+until the malfunction has been remedied, see
+"Chain brake".
+
+4
+
+Reactive Forces
+
+The most common reactive forces that occur dur‐
+ing cutting are: kickback, pushback and pull-in.
+
+4.1
+
+Do not service or store the machine near a
+naked flame – risk of fire due to the fuel.
+
+Dangers of kickback
+
+Kickback can result in serious or fatal
+injury.
+
+Check fuel cap regularly for tightness.
+Use only spark plugs that are in perfect condition
+and have been approved by STIHL – see "Speci‐
+fications".
+001BA036 KN
+
+Check ignition lead (insulation in good condition,
+secure connection).
+Check that the muffler is in perfect working con‐
+dition.
+Do not use the machine if the muffler is damaged
+or missing – risk of fire, damage to hearing!
+Never touch a hot muffler – risk of burns!
+The condition of the anti-vibration elements influ‐
+ences vibration behaviour – inspect anti-vibration
+elements periodically.
+
+(Kickback) occurs when the saw is suddenly
+thrown up and back in an uncontrolled arc
+towards the operator.
+
+4.2
+
+Kickback occurs if, e. g.,
+
+Switch off the engine
+– To check the chain tension
+– To retension the chain
+– To replace the chain
+– For remedying malfunctions
+Observe sharpening instructions – for safe and
+proper handling, always keep the chain and
+guide bar in flawless condition. Keep the chain
+properly sharpened, tensioned and well lubrica‐
+ted.
+
+0458-209-0121-B
+
+001BA257 KN
+
+Inspect chain catcher – replace if damaged.
+
+– when the upper quadrant of the bar nose unin‐
+tentionally contacts wood or another solid
+object, e.g. when another limb is touched acci‐
+dentally during limbing.
+7
+
+English
+
+5 Working Techniques
+
+4.3
+
+Quickstop chain brake:
+
+This device reduces the risk of injury in certain
+situations – it cannot prevent kickback. When
+activated, the chain brake stops the saw chain
+within a fraction of a second –
+see the section "Saw chain" in this Instruction
+Manual.
+
+4.4
+
+4.6
+
+Pushback (B)
+
+To reduce the risk of kickback
+
+– Work cautiously and avoid situations which
+could cause kickback.
+– Hold the saw firmly with both hands and main‐
+tain a secure grip.
+– always cut at full throttle.
+– Be aware of the location of the guide bar nose
+at all times.
+– do not cut with the bar nose.
+– Take special care with small, tough limbs, they
+may catch the chain.
+– never cut several limbs at once.
+– do not overreach.
+– never cut above shoulder height.
+– Use extreme caution when re-entering a previ‐
+ous cut.
+– Do not attempt plunge cuts if you are not
+experience in this cutting technique.
+– be alert for shifting of the log or other forces
+that may cause the cut to close and pinch the
+chain.
+– always cut with a correctly sharpened, prop‐
+erly tensioned chain – the depth gauge setting
+must not be too large.
+– Use a low kickback chain and a narrow radius
+guide bar.
+
+4.5
+
+risk, always engage the spiked bumper securely
+in the tree or limb.
+
+Pull-in (A)
+
+B
+
+001BA038 KN
+
+– when the chain at the nose of the guide bar is
+pinched in the cut.
+
+Pushback occurs when the chain on the top of
+the bar is suddenly pinched, caught or encoun‐
+ters a foreign object in the wood. The reaction of
+the chain drives the saw straight back toward the
+operator – to avoid this risk:
+– Be alert to situations that may cause the top of
+the guide bar to be pinched
+– Do not twist the guide bar in the cut
+
+4.7
+
+Exercise extreme caution
+
+– with leaners
+– with trees that have fallen unfavorably
+between other trees and are under strain
+– when working in blowdown areas.
+In these cases, do not use a chain saw – use a
+hoist, winch or drag line instead.
+Pull out exposed and cleared logs. Select clear
+area for cutting.
+Deadwood (dry, decayed or rotted wood) repre‐
+sents a considerable risk that is difficult to
+assess. Identifying the extent of the dangers is
+complicated, if not impossible. Use aids such as
+a cable winch or tractor in such cases.
+
+A
+
+001BA037 KN
+
+When felling in the vicinity of roads, railways,
+power lines, etc., take extra precautions. If nec‐
+essary, inform the police, utility company or rail‐
+way authority.
+
+Pull-in occurs when the chain on the bottom of
+the bar is suddenly pinched, caught or encoun‐
+ters a foreign object in the wood. The reaction of
+the chain pulls the saw forward – to reduce this
+
+8
+
+5
+
+Working Techniques
+
+Sawing and felling work, including all related
+work (plunge cutting, limbing, etc.) may only be
+carried out by persons who have been specially
+trained and instructed. Persons who are not
+experienced chain saw users should not carry
+out any such work – increased risk of accidents!
+Country-specific legislation on felling technique
+must be complied with during felling work.
+0458-209-0121-B
+
+5 Working Techniques
+
+5.1
+
+English
+
+Sawing
+
+Do not operate your saw with the starting throttle
+lock engaged. Engine speed cannot be control‐
+led with the throttle trigger in this position.
+
+that you ask the responsible forestry office about
+the current fire hazard.
+
+Work calmly and carefully – in daylight conditions
+and only when visibility is good. Ensure you do
+not endanger others – stay alert at all times.
+
+001BA082 KN
+
+Use the shortest possible guide bar: The chain,
+guide bar and chain sprocket must match each
+other and your saw.
+
+Position the saw so that your body is clear of the
+cutting attachment.
+Always pull the saw out of the cut with the chain
+running.
+Use your chain saw for cutting only. It is not
+designed for prying or shoveling away limbs,
+roots or other objects.
+Do not underbuck freely hanging limbs.
+Be careful when cutting scrub and young trees.
+Thin shoots can be scooped up by the chain saw
+and hurled towards the user.
+Be careful when cutting splintered wood – Risk of
+injury from ejected pieces of wood!
+Make sure your saw does not touch any foreign
+materials: Stones, nails, etc. may be flung off
+and damage the saw chain. The chain saw may
+kick back unexpectedly – risk of accident!
+If a rotating saw chain hits a stone or another
+hard object, sparks may be generated which may
+ignite easily flammable materials under certain
+conditions. Also dried-out plants and brushwood
+are combustible, above all in hot and dry
+weather. If there is a risk of fire, do not use the
+chain saw in the vicinity of easily combustible
+materials, dry plants or scrub. It is mandatory
+0458-209-0121-B
+
+001BA033 KN
+
+It is advisable for first-time users to practice cut‐
+ting logs on a sawbuck – see "Sawing thin
+wood".
+
+If on a slope, stand on the uphill side of the log.
+Watch out for rolling logs.
+When working at heights:
+– Always use a lift bucket
+– Never use the machine while standing on a
+ladder or in a tree
+– Never work on an insecure support
+– Never work above shoulder height
+– Never use the machine with just one hand
+Begin cutting with the saw at full throttle and
+engage the spiked bumper firmly in the wood,
+and then continue cutting.
+Never work without the spiked bumper because
+the saw may pull you forwards and off balance.
+Always hold the spiked bumper securely against
+the tree or limb.
+At the end of the cut, the chain saw is no longer
+supported by the cutting attachment in the cut.
+The chain saw's weight must be borne by the
+user – risk of loss of control!
+Sawing thin wood:
+– Use a sturdy and stable support – sawhorse.
+– Never hold the log with your leg or foot.
+– never allow another person to hold the log or
+help in any other way.
+Limbing
+– use a low kickback chain.
+– Work with the saw supported wherever possi‐
+ble.
+– do not stand on the log while limbing it.
+– do not cut with the bar nose.
+– watch for limbs which are under tension.
+– never cut several limbs at once.
+Lying or standing logs under tension:
+Always make the cuts in the correct order (first
+compression side (1), then tension side (2)), oth‐
+erwise the cutting attachment may stick in the cut
+or kick back – risk of injury!
+9
+
+English
+
+5 Working Techniques
+
+1
+
+1
+
+1/ 2
+
+21/2
+
+2
+
+► Make relieving cut at the compression side (1)
+► Make bucking cut at the tension side (2)
+Be wary of pushback when making bucking cut
+from the bottom upwards (underbuck).
+
+NOTICE
+Do not cut a lying log at a point where it is touch‐
+ing the ground because the saw chain will other‐
+wise be damaged.
+
+Sawing technique without use of the spiked
+bumper – risk of pull-in – position the guide bar at
+as shallow an angle as possible – be especially
+careful – increased risk of kickback!
+
+5.2
+
+Preparing for felling
+
+Check that there are no other persons in the fell‐
+ing area – other than helpers.
+
+10
+
+Select gap in stand into which you want the tree
+to fall.
+Pay special attention to the following points:
+– The natural inclination of the tree
+– Unusually heavy limb structure, asymmetrical
+growth, damage to tree
+– The wind direction and speed – do not fell in
+high winds
+– Direction of slope
+– Neighboring trees
+– Snow load
+– Take the general condition of the tree into
+account – be especially careful with trunk
+damage or deadwood (brittle, rotten or dead
+wood)
+
+B
+
+001BA189 KN
+
+Ripping:
+
+Determining direction of fall and escape path
+
+B
+
+001BA152 KN
+
+1
+
+Maintain a distance of at least 2 1/2 tree lengths
+from the next felling site.
+
+001BA040 KN
+
+2
+
+001BA151 KN
+
+1
+
+001BA088 LÄ
+
+Make sure no-one is endangered by the falling
+tree – the noise of your engine may drown any
+warning calls.
+
+A Direction of fall
+B Escape path (escape routes)
+– Establish escape paths for each worker –
+approx. 45° diagonally opposite to the direc‐
+tion of fall
+– Clear escape paths, eliminate obstacles
+– Put down tools and equipment at a safe dis‐
+tance – but not on the escape paths
+0458-209-0121-B
+
+5 Working Techniques
+
+English
+
+Preparing work area at base of tree
+– First clear the tree base and work area from
+interfering limbs and brush to provide a secure
+footing.
+– Carefully clear the base of the trunk (e.g., with
+an axe) – sand, stones and other foreign
+objects will blunt the saw chain
+
+Determine direction of fall with gunning sight on
+cover and fan housing
+
+001BA153 KN
+
+– When felling, stand only to the side of the fall‐
+ing trunk and only move back laterally onto the
+escape path
+– Plan escape paths on slopes parallel to the
+slope
+– When walking away along the escape path,
+watch out for falling limbs and watch the top of
+the tree.
+
+Your chainsaw has a gunning sight on the cover
+and fan housing. Use this gunning sight.
+Making the felling notch
+When making a felling notch, align the chainsaw
+so that the notch lies at a right angle to the direc‐
+tion of fall.
+
+5.3
+
+Checking the direction of fall
+
+001BA146 KN
+
+– Remove largest buttresses: first the largest
+buttress – saw first vertically, then horizontally
+– only if the tree is in sound condition
+
+During the procedure, various sequences are
+permitted for making a felling notch with a bottom
+(horizontal) cut and top (angled) cut – comply
+with national legislation regarding felling techni‐
+que.
+► Make a bottom (horizontal) cut
+► Make the top (angled) cut approx. 45°‑ 60° to
+the bottom cut
+
+Felling notch
+
+The felling notch (C) determines the direction of
+fall.
+Important:
+– Make a felling notch at right angle to direction
+of fall
+– Saw as close to the ground as possible
+– Cut to a depth of approx. 1/5 to 1/3 of the
+diameter of the trunk
+
+0458-209-0121-B
+
+001BA153 KN
+
+C
+C
+
+001BA271 KN
+
+Preparing the felling notch
+
+► Insert the chainsaw with guide bar in the bot‐
+tom of the felling notch. The gunning sight
+must point in the planned direction of fall – if
+necessary, correct direction of fall by re-cutting
+the felling notch.
+
+11
+
+English
+
+5.4
+
+5 Working Techniques
+
+Sapwood cuts
+
+– With rotten trunks, leave a wider strip
+
+Sapwood cuts in long-fibered softwood help pre‐
+vent sapwood splintering when the tree falls.
+Make cuts at both sides of the trunk at same
+height as bottom of felling notch to a depth of
+about 1/10 of trunk diameter. On large diameter
+trees, cut to no more than width of guide bar.
+Do not make sapwood cuts if wood is diseased.
+
+5.5
+
+Basic information on felling cut
+
+Basic dimensions
+
+001BA269 KN
+
+001BA150 KN
+
+Plunge cutting
+– For relieving cuts during shortening
+– For wood carving
+
+1.
+
+3.
+2.
+
+► Use a low kickback saw chain and proceed
+with special care
+1. Begin cut by applying the lower portion of the
+guide bar nose – do not use upper portion
+because of risk of kickback. Cut at full
+strength until the depth of the kerf is twice
+the width of the guide bar
+2. Swing the machine slowly into the plunge
+cutting position – risk of kickback and push‐
+back!
+
+C
+C
+
+1/10
+
+Ø
+
+E
+G
+
+001BA259 KN
+
+3. Make the plunge cut very carefully. Risk of
+pushback.
+
+The hinge (D) functions like a real hinge to guide
+the tree to the ground.
+– Width of hinge: approx. 1/10 of the trunk diam‐
+eter
+– Never saw through the hinge while felling –
+otherwise the tree will fall in a direction other
+than the one planned – risk of accident!
+– With rotten trunks, leave a wider hinge
+The tree is felled with the felling cut (E).
+– Cut horizontally
+– 1/10 (at least 3 cm) of tree diameter higher
+than bottom of felling notch (C).
+The holding strap (F) or stabilizing strap (G) sup‐
+ports the tree and helps prevent it from falling
+prematurely.
+– Width of strip: approx. 1/10 to 1/5 of the trunk
+diameter
+– Do not cut into the strip during the felling cut
+12
+
+001BA270 KN
+
+The felling notch (C) determines the direction of
+fall.
+
+Where possible, use a plunge blade. The plunge
+blade and the upper/lower side of the guide bar
+are parallel.
+During plunge cutting, the plunge bar helps to
+keep the hinge parallel in form, i.e. the same
+thickness at all points. To do this, guide the
+plunge bar parallel to the sink chord.
+Felling wedges
+Insert the felling wedge as soon as possible, i.e.
+as soon as no obstruction of saw control is to be
+expected. Position the felling wedge in the felling
+cut and drive in with suitable tools.
+Only use aluminum or plastic wedges – do not
+use steel wedges. Steel wedges can seriously
+0458-209-0121-B
+
+5 Working Techniques
+
+English
+
+damage the saw chain and cause dangerous
+kickback.
+Select suitable felling wedges dependent on the
+trunk diameter and the width of the kerf (ana‐
+logue to felling cut (E)).
+Contact the STIHL dealer for the selection of the
+felling wedge (suitable length, width and height).
+
+5.6
+
+Selecting the appropriate felling
+cut
+
+► Plunge cut the felling cut (E) – plunge the
+guide bar fully in
+► Engage the spiked bumper behind the hinge
+and use this as the rotation point – reposition
+the chainsaw as little as possible
+► Make the felling cut up to the hinge (1)
+– Do not cut into the hinge
+► Make the felling cut up to the stabilizing
+strap (2)
+– Do not cut into the stabilizing strap
+3.
+
+The selection of the appropriate felling cut is
+dependent on the same tree characteristics that
+must be noted when determining the direction of
+fall and the escape paths.
+001BA273 KN
+
+There are various different features of these
+characteristics. This User Manual will only
+describe the two most commonly occurring var‐
+iants:
+► Set the felling wedge (3)
+
+left:
+right:
+
+5.7
+
+Normal tree – vertically upright tree
+with uniform crown
+Leaner tree - crown pointing in direc‐
+tion of fall
+
+Felling cut with stabilizing strap
+(normal tree)
+
+A) Thin trunks
+Implement this felling cut when the trunk diame‐
+ter is smaller than the cutting length of the chain‐
+saw.
+1.
+
+001BA261 KN
+
+2.
+
+Shout a warning before starting the felling cut.
+0458-209-0121-B
+
+B) Thick trunks
+Implement this felling cut when the trunk diame‐
+ter is greater than the cutting length of the
+machine.
+
+4.
+
+1.
+2.
+
+3.
+
+5.
+001BA263 KN
+
+001BA260 KN
+
+Shout a second warning immediately before the
+tree falls.
+► Cut through the stabilizing strap, horizontal
+level with the felling cut, with arms fully exten‐
+ded
+
+Shout a warning before starting the felling cut.
+► Engage the spiked bumper at the height of the
+felling cut and use this as the rotation point –
+reposition the chainsaw as little as possible
+► Tip of the guide bar must penetrate the wood
+before the hinge (1) – guide the chainsaw
+absolutely horizontally and swivel as widely as
+possible
+► Make the felling cut up to the hinge (2)
+– Do not cut into the hinge
+► Make the felling cut up to the stabilizing
+strap (3)
+– Do not cut into the stabilizing strap
+13
+
+English
+
+5 Working Techniques
+
+Ensure that the second cut is at the same level
+as the first cut.
+► Plunge cut the felling cut
+► Make the felling cut up to the hinge (4)
+– Do not cut into the hinge
+► Make the felling cut up to the stabilizing
+strap (5)
+– Do not cut into the stabilizing strap
+6.
+
+001BA266 KN
+
+The felling cut must be continued on the oppo‐
+site side of the trunk.
+
+Shout a second warning immediately before the
+tree falls.
+► With outstretched arms, cut through the hold‐
+ing strap at a downward angle from outside.
+
+► Set the felling wedge (6)
+Shout a second warning immediately before the
+tree falls.
+► Cut through the stabilizing strap, horizontal
+level with the felling cut, with arms fully exten‐
+ded
+
+5.8
+
+Felling Cut with Holding Strap
+(Leaner)
+
+A) Thin trunks
+Implement this felling cut when the trunk diame‐
+ter is smaller than the cutting length of the chain‐
+saw.
+2.
+
+001BA265 KN
+
+1.
+
+► Plunge cut the guide bar into the trunk until it
+exits on the other side
+► Make the felling cut (E) towards the hinge (1)
+– Cut horizontally
+– Do not cut into the hinge
+► Make the felling cut towards the holding strap
+(2)
+– Cut horizontally
+– Do not cut into the holding strap.
+14
+
+1.
+2.
+
+3.
+
+6.
+
+5.
+4.
+
+001BA267 KN
+
+001BA274 KN
+
+B) Thick trunks
+
+Perform this felling cut when the tree diameter is
+greater than the cutting length of the chainsaw.
+► Engage the spiked bumper behind the holding
+strap and use it as a pivot – avoid reposition‐
+ing the chainsaw more than necessary.
+► The guide bar nose enters the wood (1) before
+it reaches the hinge – hold the chainsaw hori‐
+zontally and swing it as far as possible.
+– Do not cut into the holding strap or hinge.
+► Make the felling cut up to the hinge (2)
+– Do not cut into the hinge
+► Make the felling cut up to the holding strap (3)
+– Do not cut into the holding strap.
+The felling cut must be continued on the oppo‐
+site side of the trunk.
+Ensure that the second cut is at the same level
+as the first cut.
+► Engage the spiked bumper behind the hinge
+and use this as the rotation point – reposition
+the chainsaw as little as possible
+► Tip of the guide bar must penetrate the wood
+before the holding strap (4) – guide the chain‐
+saw absolutely horizontally and swivel as
+widely as possible
+► Make the felling cut up to the hinge (5)
+– Do not cut into the hinge
+► Make the felling cut up to the holding strap (6)
+0458-209-0121-B
+
+6 Cutting Attachment
+
+English
+
+– Do not cut into the holding strap.
+
+Your saw comes standard with a chain scabbard
+that matches the cutting attachment.
+
+Shout a second warning immediately before the
+tree falls.
+► With outstretched arms, cut through the hold‐
+ing strap at a downward angle from outside.
+
+6
+
+Cutting Attachment
+
+The length of the matching guide bars is marked
+on the side of the chain scabbard.
+Guide bars longer than 90 cm require one scab‐
+bard extension. Guide bars longer than 120 cm
+require two scabbard extensions.
+Depending on the model, the scabbard exten‐
+sion either comes standard with the saw or is
+available as a special accessory.
+
+6.2
+
+A cutting attachment consists of the saw chain,
+guide bar and chain sprocket.
+
+1
+
+The cutting attachment that comes standard is
+designed to exactly match the chain saw.
+
+1
+
+2
+3
+
+1
+001BA248 KN
+
+a
+
+Fitting Chain Scabbard Exten‐
+sion
+
+– The pitch (t) of the saw chain (1), chain
+sprocket and the nose sprocket of the Rollo‐
+matic guide bar must match.
+– The drive link gauge (2) of the saw chain (1)
+must match the groove width of the guide
+bar (3).
+
+001BA245 KN
+
+001BA268 KN
+
+If guide bars of different lengths are mounted to
+the saw, always use a chain scabbard of the cor‐
+rect length which covers the complete guide bar.
+
+► Push the scabbard extension and chain scab‐
+bard together – the lugs (1) must engage in
+the chain scabbard.
+
+7
+
+Mounting the Bar and
+Chain
+
+7.1
+
+Removing the chain sprocket
+cover
+
+If non-matching components are used, the cut‐
+ting attachment may be damaged beyond repair
+after a short period of operation.
+
+Chain Scabbard
+143BA034 KN
+
+6.1
+
+001BA244 KN
+
+► Unscrew the nuts and take off the chain
+sprocket cover.
+
+0458-209-0121-B
+
+15
+
+English
+
+8 Tensioning the Chain
+
+1
+3
+
+► Turn the screw (1) counterclockwise until the
+tensioner slide (2) butts against the left end of
+the housing slot.
+
+Disengaging the chain brake.
+
+001BA186 KN
+
+7.2
+
+1
+001BA187 KN
+
+2 4
+
+001BA185 KN
+
+2
+
+1
+
+► Fit the guide bar over the studs (1) – the cut‐
+ting edges on the top of the bar must point to
+the right.
+► Engage the peg of the tensioner slide in the
+locating hole (2) –- place the chain over
+sprocket (3) at the same time.
+► Turn the tensioning screw (4)clockwise until
+there is very little chain sag on the underside
+of the bar – and the drive link tangs are
+engaged in the bar groove.
+► Refit the sprocket cover and screw on the nuts
+only fingertight.
+► Go to chapter on "Tensioning the Saw Chain"
+
+8
+
+Tensioning the Chain
+
+► Pull the hand guarad towards the front handle
+until there is an audible click – the chain brake
+is disengaged.
+
+Fitting the chain
+
+143BA003 KN
+
+1
+
+WARNING
+Wear work gloves to protect your hands from the
+sharp cutters.
+► Fit the chain – start at the bar nose.
+
+16
+
+133BA024 KN
+
+7.3
+
+Retensioning during cutting work:
+► Shut off the engine.
+► Loosen the nuts.
+► Hold the bar nose up.
+► Use a screwdriver to turn the tensioning
+screw (1) clockwise until the chain fits snugly
+against the underside of the bar.
+► While still holding the bar nose up, tighten
+down the nuts firmly.
+► Go to "Checking Chain Tension".
+A new chain has to be retensioned more often
+than one that has been in use for some time.
+► Check chain tension frequently – see chapter
+on "Operating Instructions".
+
+0458-209-0121-B
+
+9 Checking Chain Tension
+
+9
+
+English
+
+Checking Chain Tension
+
+10.2
+
+Mixing fuel
+
+143BA007 KN
+
+NOTICE
+
+► Shut off the engine.
+► Wear work gloves to protect your hands.
+► The chain must fit snugly against the under‐
+side of the bar and it must still be possible to
+pull the chain along the bar by hand.
+► If necessary, retension the chain.
+A new chain has to be retensioned more often
+than one that has been in use for some time.
+► Check chain tension frequently – see chapter
+on "Operating Instructions".
+
+10
+
+Fuel
+
+The engine requires a mixture of gasoline and
+engine oil.
+WARNING
+Avoid direct skin contact with fuel and breathing
+in of gasoline fumes.
+
+10.1
+
+STIHL MotoMix
+
+STIHL recommends using STIHL MotoMix. This
+pre-blended fuel is free of benzene and lead, is
+distinguished by a high octane rating, and
+always provides the proper mixing ratio.
+STIHL MotoMix uses STIHL HP Ultra two-stroke
+engine oil for optimum engine life.
+MotoMix is not available in all markets.
+
+Unsuitable fuels or a mixing ratio that deviates
+from the specification can lead to severe engine
+damage. The engine, seals, fuel lines and fuel
+tank may be damaged if low-quality gasoline or
+engine oil is used.
+10.2.1
+
+Gasoline
+
+Use only high-quality gasoline with an octane rat‐
+ing of at least 90 ROC – leaded or unleaded.
+Gasoline with an alcohol component exceeding
+10% can cause impaired engine performance in
+engines with manually adjustable carburetors
+and thus should not be used in these engines.
+Engines with M-Tronic deliver full engine per‐
+formance using gasoline with an alcohol compo‐
+nent of up to 27% (E27).
+10.2.2
+
+Engine oil
+
+If you mix the fuel yourself, use only STIHL twostroke engine oil or another high-performance
+engine oil classified as JASO FB, JASO FC,
+JASO FD, ISO-L-EGB, ISO-L-EGC or ISO-LEGD.
+STIHL specifies STIHL HP Ultra two-stroke
+engine oil or an equivalent high-performance
+engine oil in order to maintain emission limits
+over the machine’s service life.
+10.2.3
+
+Mixing ratio
+
+with STIHL two-stroke engine oil 1:50; 1:50 =
+1 part oil + 50 parts gasoline
+10.2.4
+
+Examples
+
+Quantity of gaso‐ STIHL two-stroke
+line
+engine oil 1:50
+Liters
+Liters
+(ml)
+1
+0.02
+(20)
+5
+0.10
+(100)
+10
+0.20
+(200)
+15
+0.30
+(300)
+20
+0.40
+(400)
+25
+0.50
+(500)
+► Pour oil into an approved safety fuel canister
+first, then add gasoline and mix thoroughly
+
+10.3
+
+Storing fuel mixture
+
+Store in approved safety fuel canisters only in a
+dry, cool and secure place protected against light
+and sunlight.
+
+0458-209-0121-B
+
+17
+
+English
+
+11 Fueling
+
+Fuel mixture deteriorates with age – mix only as
+much as needed for a few weeks. Do not store
+fuel mixture for longer than 30 days. The fuel
+mixture can become unusable more quickly if
+exposed to light, sunlight or low or high tempera‐
+tures.
+001BA240 KN
+
+STIHL MotoMix however can be stored for up to
+5 years without any problems.
+► Shake the canister containing the fuel mixture
+thoroughly before refueling
+left:
+right:
+
+WARNING
+Pressure may have built up in the canister –
+open it carefully.
+► The fuel tank and the canister in which fuel
+mixture is stored should be cleaned thoroughly
+from time to time
+
+Filler cap - without markings
+Filler cap - with markings on cap
+and fuel tank
+
+11.3
+
+Filler cap without marking
+
+11.3.1
+
+To open:
+
+Fueling
+
+11.1
+
+Preparing the machine
+
+► Open bracket until it is vertical
+
+► Before fueling, clean the cap and the area
+around it to ensure that no dirt falls into the
+fuel tank
+► Always position the machine so that the cap is
+facing upwards
+
+11.2
+
+001BA219 KN
+
+001BA229 KN
+
+11
+
+001BA218 KN
+
+Residual fuel and the liquid used for cleaning
+must be disposed of in accordance with regula‐
+tions and without harming the environment!
+
+► Turn the filler cap counterclockwise
+(approx. 1/4 turn)
+
+Different markings on filler caps
+
+Filler caps and fuel tanks can be marked differ‐
+ently.
+001BA224 KN
+
+Depending on the version, filler cap and fuel tank
+may be available with or without markings.
+► Remove the filler cap
+18
+
+0458-209-0121-B
+
+11 Fueling
+11.3.2
+
+English
+11.3.4
+
+Filling with fuel
+
+Checking the lock
+
+Take care not to spill fuel while fueling and do
+not overfill the tank.
+STIHL recommends using the STIHL filling sys‐
+tem for fuel (special accessory).
+► Fill with fuel
+Closing
+
+001BA223 KN
+
+11.3.3
+
+Bracket is in an upright position:
+► Position filler cap – position markings on the
+filler cap and the filler port must be aligned
+with each other.
+► Push the filler cap down as far as it will go
+
+001BA225 KN
+
+001BA220 KN
+
+– The lug on the bracket must engage entirely in
+the recess (arrow)
+
+► Grip the filler cap – if the filler cap cannot be
+moved or removed, then it is closed properly
+
+001BA221 KN
+
+11.3.5
+
+If the filler cap can be moved or
+removed
+
+The base of the filler cap is twisted in relation to
+the upper part.
+
+001BA222 KN
+
+001BA227 KN
+
+► Hold the filler cap down and turn it clockwise
+until it engages
+
+left:
+right:
+
+Base of filler cap twisted
+Base of filler cap correctly posi‐
+tioned
+
+► Fold down the bracket as far as it will go
+
+0458-209-0121-B
+
+19
+
+11 Fueling
+
+001BA226 KN
+
+001BA234 KN
+
+English
+
+11.4
+
+Filler cap with marking
+
+11.4.1
+
+To open:
+
+Markings on filler cap and fuel tank must align
+
+001BA237 KN
+
+► Fit filler cap and turn it counterclockwise until it
+engages in the seat of the filling port
+► Continue to turn the filler cap counterclockwise
+(approx. 1/4 turn) – this will twist the base of
+the cap into the correct position
+► Turn the filler cap clockwise and close it – see
+the section "Closing" and "Checking the lock"
+
+► Remove the filler cap
+11.4.2
+
+Filling with fuel
+
+001BA236 KN
+
+Take care not to spill fuel while fueling and do
+not overfill the tank.
+
+001BA232 KN
+
+20
+
+Closing
+
+001BA234 KN
+
+11.4.3
+
+► Open bracket
+
+► Turn filler cap (approx. 1/4 turn)
+
+STIHL recommends using the STIHL filling sys‐
+tem for fuel (special accessory).
+► Fill with fuel
+
+Bracket is in an upright position:
+► Position filler cap – markings on filler cap and
+fuel tank must align
+► Push the filler cap down as far as it will go
+
+0458-209-0121-B
+
+12 Chain Lubricant
+
+English
+
+1
+
+► Hold the filler cap down and turn it clockwise
+until it engages
+left:
+
+Base of filler cap is twisted – interior
+marking (1) is aligned with the exte‐
+rior marking
+Base of filler cap is in the correct
+position – interior marking is below
+the bracket. It does not align with
+the exterior marking
+
+001BA231 KN
+
+right:
+
+001BA238 KN
+
+001BA233 KN
+
+► Remove the filler cap from the fuel tank and
+look at it from above
+
+001BA235 KN
+
+001BA239 KN
+
+Then the markings on filler cap and fuel tank will
+align
+
+► Close bracket lock
+
+► Fit filler cap and turn it counterclockwise until it
+engages in the seat of the filling port
+► Continue to turn the filler cap counterclockwise
+(approx. 1/4 turn) – this will twist the base of
+the cap into the correct position
+► Turn the filler cap clockwise and close it – see
+section "Closing"
+
+001BA241 KN
+
+12
+
+Chain Lubricant
+
+For automatic and reliable lubrication of the
+chain and guide bar – use only an environmen‐
+tally compatible quality chain and bar lubricant.
+Rapidly biodegradable STIHL BioPlus is recom‐
+mended.
+
+Filler cap is locked
+11.4.4
+
+If the filler cap will not lock onto the
+fuel tank
+
+The base of the filler cap is twisted in relation to
+the upper part.
+0458-209-0121-B
+
+21
+
+English
+
+13 Filling Chain Oil Tank
+
+NOTICE
+Biological chain oil must be resistant to aging
+(e.g. STIHL BioPlus), since it will otherwise
+quickly turn to resin. This results in hard deposits
+that are difficult to remove, especially in the area
+of the chain drive and chain. It may even cause
+the oil pump to seize.
+The service life of the chain and guide bar
+depends on the quality of the lubricant. It is
+therefore essential to use only a specially formu‐
+lated chain lubricant.
+
+STIHL recommends you use the STIHL filler noz‐
+zle for chain oil (special accessory).
+► Close the filler cap.
+There must still be a small amount of oil in the oil
+tank when the fuel tank is empty.
+If the oil level in the tank does not go down, the
+reason may be a fault in the oil supply system:
+Check chain lubrication, clean the oilways, con‐
+tact your dealer for assistance if necessary
+STIHL recommends that you have servicing and
+repair work carried out exclusively by an author‐
+ized STIHL servicing dealer.
+
+14
+
+WARNING
+Do not use waste oil. Renewed contact with
+waste oil can cause skin cancer. Moreover,
+waste oil is environmentally harmful.
+
+Checking Chain Lubrica‐
+tion
+
+NOTICE
+
+Filling Chain Oil Tank
+
+13.1
+
+Preparations
+
+The saw chain must always spin off a small
+amount of oil.
+
+NOTICE
+Never operate your machine without chain lubri‐
+cation. If the saw chain runs dry, the cutting
+attachment may very quickly be damaged
+beyond repair. Before starting work, always
+check the chain lubrication and oil level in the
+tank.
+001BA158 KN
+
+13
+
+► Thoroughly clean the oil filler cap and the area
+around it to ensure that no dirt falls into the
+tank.
+► Position the machine so that the filler cap is
+facing up.
+► Open the filler cap.
+
+13.2
+
+143BA024 KN
+
+Waste oil does not have the necessary lubricat‐
+ing properties and is unsuitable for chain lubrica‐
+tion.
+
+Every new saw chain needs a run-in time of 2 to
+3 minutes.
+After the saw chain has run in, check the tension
+of the chain and correct if necessary – see
+"Checking the chain tension".
+
+15
+
+Chain Brake
+
+Fill up with chain oil.
+
+► Refill the chain oil tank every time you refuel.
+Take care not to spill chain oil while refilling and
+do not overfill the tank.
+
+22
+
+0458-209-0121-B
+
+16 Winter Operation
+
+Saw chain, lock
+
+15.3
+
+143BA011 KN
+
+15.1
+
+English
+
+– in an emergency
+– when starting
+– when idling
+Press the hand guard towards the nose of the
+guide bar with the left hand - or automatically
+due to kickback: Saw chain is blocked - and
+stops running.
+
+Before starting work: Run engine at idle speed,
+engage the chain brake (push hand guard
+towards bar nose) and open the throttle wide for
+(no more than 3 seconds) – the chain must not
+rotate. The hand guard must be free of dirt and
+easily moveable.
+
+15.4
+
+Chain Brake Maintenance
+
+The chain brake is subject to (normal wear). It is
+necessary to have it serviced and maintained
+regularly by trained personnel. STIHL recom‐
+mends that maintenance and repair work be car‐
+ried out only by authorised STIHL dealers. The
+following intervals must be complied with:
+Full-time use:
+Part-time use:
+occasional use:
+
+Disengage the chain brake.
+
+quarterly
+every six months
+annually
+
+16
+
+Winter Operation
+
+16.1
+
+At temperatures below +10 °C
+
+143BA012 KN
+
+15.2
+
+Checking Operation of the
+Chain Brake
+
+139BA016 KN
+
+► Pull the hand guard back towards the front
+handle.
+
+NOTICE
+
+Running the engine at high revs with the chain
+brake engaged (chain locked) will quickly dam‐
+age the engine and chain drive (clutch, chain
+brake).
+The chain brake is also activated by the inertia of
+the front hand guard if the kickback force of the
+saw is high enough: The hand guard is acceler‐
+ated toward the bar nose – even if your left hand
+is not behind the hand guard, e.g. during felling
+cut.
+The chain brake will operate only if the hand
+guard has not been modified in any way.
+
+0458-209-0121-B
+
+► Turn the knob above the rear handle to the left
+– slot vertical
+► Pull off the carburetor box cover toward the
+rear
+
+1
+139BA001 KN
+
+The chain brake must be released before open‐
+ing the throttle (except during functional check‐
+out) and before sawing.
+
+► Lift off the prefilter (1)
+
+23
+
+English
+
+17 Information Before You Start
+
+2
+
+► Unplug the spark plug boot (2) from the spark
+plug
+
+139BA019 KN
+
+139BA002 KN
+
+1
+
+► Insert the prefilter (1) so that the r symbol
+(winter operation) is on top
+► Replace the cover and lock it in place with the
+knob
+Heated air is now drawn in from around the cylin‐
+der and mixed with cold air – this helps prevent
+carburetor icing.
+
+16.2
+
+At temperatures above +20 °C
+
+► Always return the slide and prefilter to the s
+position (summer operation)!
+
+NOTICE
+
+1
+
+24
+
+139BA018 KN
+
+► Pry the slide (3) out of the shroud using a
+screwdriver
+► Turn the slide around by 180° and reinsert it to
+the left next to the spark plug
+► Press the spark plug boot onto the spark plug
+again
+
+17
+
+Information Before You
+Start
+
+17.1
+
+The four positions of the Mas‐
+ter Control lever
+
+STOP
+
+0
+
+001BA140 KN
+
+139BA005 TR
+
+Risk of engine malfunction – overheating!
+
+0458-209-0121-B
+
+18 Starting / Stopping the Engine
+
+English
+18.1.2
+
+Stop 0 – engine off – ignition is switched off
+
+For all versions
+
+Operating position F – engine is running or can
+start
+STOP
+
+Warm start n – this position is for starting the
+warm engine
+Cold start l – this position is for starting the
+cold engine
+
+17.2
+
+0
+
+1
+
+Adjust Master Control lever
+
+The throttle trigger lockout and throttle trigger
+must be pressed simultaneously to adjust the
+Master Control lever from the operating posi‐
+tion F to cold start l.
+
+Changing to warm start n is only possible from
+the cold start l position.
+When the throttle trigger is squeezed, the Master
+Control lever returns from warm start n to the
+operating position F.
+To switch off the engine, set the Master Control
+lever to Stop 0.
+
+Starting / Stopping the
+Engine
+
+18.1
+
+Starting the engine
+
+18.1.1
+
+only versions with decompression
+valve
+
+3
+
+► Observe safety precautions
+► Push the hand guard (1) forwards:
+the saw chain is blocked
+► Simultaneously press the throttle trigger lock‐
+out (2) and throttle trigger (3) – set master
+control lever (4)
+Position cold start l
+– If engine is cold (even if the engine has stalled
+during opening of throttle after starting)
+Position warm start n
+– If engine is warm (once the engine has been
+running for approx. one minute)
+
+209BA014 KN
+
+18
+
+2
+
+4
+
+209BA022 KN
+
+To set the Master Control lever to warm start n,
+first set it to cold start l, then push the Master
+Control lever into the warm start n position.
+
+► press on the grommet in the direction shown
+by the arrow – the decompression valve is
+opened
+It is closed automatically when the engine starts
+for the first time.
+► for this reason, press the decompression valve
+again before each additional starting proce‐
+dure
+
+0458-209-0121-B
+
+25
+
+► Place the chain saw securely on the ground
+and assume a steady stance – the saw chain
+must not touch any objects or the ground
+WARNING
+
+143BA019 KN
+
+18 Starting / Stopping the Engine
+
+143BA018 KN
+
+English
+
+another possibility:
+► Clamp the rear handle between the knees or
+thighs
+► Grip the handlebar firmly with the left hand –
+thumb wrapped around the handlebar
+
+There must not be anyone within the swivel
+range of the saw.
+
+143BA020 KN
+
+► With the left hand on handlebar, press the
+chain saw firmly against the ground – thumb
+wrapped around the handlebar
+► Place your right foot into the rear handle
+
+26
+
+0458-209-0121-B
+
+18 Starting / Stopping the Engine
+
+English
+
+► with the right hand, pull the starter grip slowly
+until you feel it engage – and then give it a
+brisk strong pull – simultaneously press down
+on the handlebar – do not pull the starter rope
+out all the way – risk of breakage! Do not let
+the starter grip snap back – guide it vertically
+back into the housing so that the starter rope
+can rewind properly
+
+NOTICE
+The engine must be switched to idle immediately
+– otherwise, damage to the engine housing and
+chain brake may occur when the chain brake is
+locked.
+
+With a new engine, pull the starter rope several
+times to prime the fuel line.
+
+STOP
+
+0
+
+143BA012 KN
+
+6
+
+5
+
+209BA008 KN
+
+4
+
+when engine begins to fire:
+► press the decompression valve again
+► Move the Master Control lever (4) to the n
+position and continue cranking – once the
+engine runs, immediately blip the throttle trig‐
+ger (5); the Master Control lever (4) jumps to
+run F (6), and the engine begins to idle
+
+► Pull the hand guard toward the handlebar: U
+the chain brake is released –
+the chain saw is ready for use
+
+NOTICE
+Open the throttle only when the chain brake is
+off. Running the engine at high revs with the
+chain brake engaged (chain locked) will quickly
+damage the engine and chain drive (clutch,
+chain brake).
+► first always check chain lubrication
+18.1.3
+At very low temperatures
+► Let the engine warm up briefly with the throttle
+slightly open
+► if necessary, configure for winter operation,
+see "Winter Operation"
+
+18.2
+
+Switching off the engine
+
+► Move the master control lever to the stop posi‐
+tion 0
+
+0458-209-0121-B
+
+27
+
+English
+
+18.3
+
+19 Operating Instructions
+
+When the fuel tank has run
+completely empty and then
+been refueled
+
+► Press the decompression valve
+► Pull the starter rope several times to prime the
+fuel line
+► Restart the engine
+
+18.4
+
+If the engine does not start
+
+The Master Control lever was not returned to its
+"warm start" position n in time when the engine
+turned over the first time and has now flooded.
+► Remove the spark plug, see "Spark plug"
+► Dry the spark plug
+► Crank the engine several times with the starter
+– to clear the combustion chamber
+► Reinstall the spark plug, see "Spark plug"
+► Set the Master Control lever to warm start n
+– even if the engine is cold
+► Press the decompression valve
+► Restart the engine
+
+19
+
+Operating Instructions
+
+19.1
+
+During the break-in period
+
+A factory new machine should not be run at high
+revs (full throttle off load) for the first three tank
+fillings. This avoids unnecessarily high loads dur‐
+ing the break-in period. As all moving parts have
+to bed in during the break-in period, the frictional
+resistances in the shortblock are greater during
+this period. The engine develops its maximum
+power after about 5 to 15 tank fillings.
+
+19.2
+
+During work
+
+NOTICE
+Do not make the mixture leaner to achieve an
+apparent increase in power – this could damage
+the engine – see "Adjusting the Carburetor".
+
+NOTICE
+Open the throttle only when the chain brake is
+off. Running the engine at high revs with the
+chain brake engaged (chain locked) will quickly
+damage the shortblock and chain drive (clutch,
+chain brake).
+19.2.1
+
+Check chain tension frequently
+
+A new saw chain must be retensioned more fre‐
+quently than one that has been in use already for
+an extended period.
+28
+
+19.2.2
+
+Chain cold
+
+Tension is correct when the chain fits snugly
+against the underside of the bar but can still be
+pulled along the bar by hand. Retension if neces‐
+sary – see "Tensioning the Saw Chain".
+19.2.3
+
+Chain at operating temperature
+
+The chain stretches and begins to sag. The drive
+links must not come out of the bar groove on the
+underside of the bar – the chain may otherwise
+jump off the bar. Retension the chain – see "Ten‐
+sioning the Saw Chain".
+
+NOTICE
+The chain contracts as it cools down. If it is not
+slackened off, it can damage the crankshaft and
+bearings.
+19.2.4
+
+After a long period of full-throttle oper‐
+ation
+
+After a long period of full-throttle operation, allow
+engine to run for a while at idle speed so that the
+heat in the engine can be dissipated by flow of
+cooling air. This protects engine-mounted com‐
+ponents (ignition, carburetor) from thermal over‐
+load.
+
+19.3
+
+After finishing work
+
+► Slacken off the chain if you have retensioned it
+at operating temperature during work.
+
+NOTICE
+Always slacken off the chain again after finishing
+work. The chain contracts as it cools down. If it is
+not slackened off, it can damage the crankshaft
+and bearings.
+19.3.1
+
+Short-term storage
+
+Wait for engine to cool down. Keep the machine
+with a full tank of fuel in a dry place, well away
+from sources of ignition, until you need it again.
+19.3.2
+
+Long-term storage
+
+See "Storing the machine"
+
+20
+
+Oil Quantity Control
+
+Adjustable flow oil pump is a special option.
+Different quantities of oil are required for different
+bar lengths, types of wood and cutting techni‐
+ques.
+
+0458-209-0121-B
+
+21 Taking Care of the Guide Bar
+
+English
+Picco
+Rapid
+Rapid
+
+3/8" P
+3/8“; 0.325“
+0.404“
+
+5.0 mm
+6.0 mm
+7.0 mm
+
+001BA157 KN
+
+If groove depth is less than specified:
+► Replace the guide bar
+
+1
+Use the adjusting screw (1) (on underside of
+machine) to vary the oil feed rate as required.
+Ematic position (E), medium oil flow rate –
+► turn the adjusting screw to "E" (Ematic posi‐
+tion).
+
+22
+
+Air Filter System
+
+The air filter system can be adapted to suit differ‐
+ent operating conditions by installing a choice of
+filters. Changing the filter is quick and simple.
+The saw comes standard with either a fabric filter
+or a fleece filter.
+
+22.1
+
+To increase oil feed –
+► turn the adjusting screw clockwise.
+
+Fabric filter
+
+For normal operating conditions and winter oper‐
+ation.
+
+Turn reduce oil feed –
+► turn the adjusting screw counterclockwise.
+
+22.2
+
+NOTICE
+
+Fleece filter
+
+For dry and very dusty work areas.
+
+The chain must always be wetted with a film of
+lubricant.
+
+21
+
+The drive link tangs will otherwise scrape along
+the bottom of the groove – the cutters and tie
+straps will not ride on the bar rails.
+
+Taking Care of the Guide
+Bar
+
+23
+
+Cleaning the Air Filter
+
+23.1
+
+If there is a noticeable loss of
+engine power
+
+► Press the throttle trigger lockout and move the
+Master Control lever to cold start k
+
+2
+
+► Turn the guide bar over – every time you
+sharpen the chain and every time you replace
+the chain – this helps avoid one-sided wear,
+especially at the nose and underside of the
+bar.
+► Regularly clean the oil inlet hole (1), the oil‐
+way (2) and the bar groove (3)
+► Measure the groove depth – with the scale on
+the filing gauge (special accessory) – in the
+area used most for cutting
+Chain type
+
+Chain pitch
+
+Picco
+Rapid
+
+1/4" P
+1/4“
+
+0458-209-0121-B
+
+139BA016 KN
+
+3
+
+143BA026 KN
+
+1
+
+► Turn the knob above the rear handle to the left
+– slot vertical
+► Pull off the carburetor box cover toward the
+rear
+► Clean away loose dirt from around the filter
+Fouled air filters will impair engine performance,
+increase fuel consumption and make the
+machine more difficult to start.
+
+Minimum
+groove
+depth
+4.0 mm
+4.0 mm
+29
+
+English
+
+24 Adjusting the Carburetor
+
+24.3
+
+1
+
+HL
+
+► Pull off the prefilter (1) upward, unscrew slot‐
+ted nut (2) and remove main filter (3)
+► Separate the halves of the filter from one
+another
+► Knock out the filter or blow it clear with com‐
+pressed air from the inside outwards.
+In case of stubborn dirt:
+► Wash the filter in STIHL special-purpose
+cleaner (special accessories) or a clean, nonflammable cleaning liquid (e.g., warm soapy
+water) and dry it.
+
+209BA010 KN
+
+2
+
+139BA017 KN
+
+3
+2
+
+Carburetors with H = 1 and
+L=1
+
+► Carefully screw both adjusting screws down
+onto their seats (clockwise).
+► Turn the high speed screw (H) one full turn
+counterclockwise.
+► Turn the low speed screw (L) one full turn
+counterclockwise.
+
+24.4
+
+Carburetors with H = 3/4 and
+L = 1/4
+
+24
+
+Adjusting the Carburetor
+
+24.1
+
+General Information
+
+209BA009 KN
+
+23.1.1
+Do not clean fleece filters with a brush!
+► Replace damaged filter
+► Reinstall filter
+
+The carburetor comes from the factory with a
+standard setting.
+This setting provides an optimum fuel-air mixture
+under most operating conditions.
+Changing the setting of the high speed screw
+alters the engine's power output and the maxi‐
+mum off-load engine speed.
+
+► Turn high speed screw (H) counterclockwise
+as far as stop (no more than 3/4 turn).
+► Turn the low speed screw (L) carefully clock‐
+wise as far as stop, then turn it back 1/4 turn.
+
+24.2
+
+24.5
+
+Adjusting Idle Speed
+
+► Carry out the standard setting.
+► Start and warm up the engine.
+
+L
+
+LA
+
+30
+
+209BA011 KN
+
+Standard Setting
+
+► Shut off the engine.
+► Check the air filter and clean or replace if nec‐
+essary.
+► Check the spark arresting screen (not in all
+models, country-specific) in the muffler and
+clean or replace if necessary.
+
+0458-209-0121-B
+
+25 Spark Arresting Screen in Muffler
+
+24.5.2
+Saw chain runs while engine is idling
+► Turn the idle speed screw (LA) counterclock‐
+wise until the chain stops moving – then turn it
+another 1/4 turn in the same direction.
+WARNING
+If the chain continues moving when the engine is
+idling, have your saw checked and repaired by
+your servicing dealer.
+24.5.3
+
+Erratic idling behavior, poor accelera‐
+tion (even though standard setting of
+low speed screw is correct)
+
+Idle setting is too lean
+► Turn the low speed screw (L) counterclock‐
+wise, no further than stop on carburetors with
+L = 1/4, until the engine runs and accelerates
+smoothly.
+
+WARNING
+To reduce the risk of fire caused by hot particles
+escaping from the machine, never operate the
+machine without a spark arresting screen, or with
+the spark arresting screen damaged. Do not
+modify the muffler or spark arresting screen. To
+reduce the risk of fire from accumulated debris
+such as pine needles, branches or leaves,
+ensure that the muffler plugs are in place before
+taking up work.
+
+NOTICE
+According to the law or regulations in some
+countries or federal states, certain operations
+may only be carried out if a properly serviced
+spark arresting screen is provided.
+► If the engine is down on power, check the
+spark arresting screen in the muffler
+► Wait for the muffler to cool down
+
+It is usually necessary to change the setting of
+the idle speed screw (LA) after every correction
+to the low speed screw (L).
+24.5.4
+
+1
+1
+
+Fine Tuning for Operation at High Alti‐
+tude
+
+A slight correction of the setting may be neces‐
+sary if engine does not run satisfactorily:
+► Carry out the standard setting.
+► Warm up the engine.
+► Turn high speed screw (H) slightly clockwise
+(leaner) – no further than stop.
+
+139BA020 KN
+
+24.5.1
+Engine stops while idling
+► Turn the idle speed screw (LA) clockwise until
+the chain begins to run – then back it off
+1/4 turn.
+
+English
+
+1
+► Unscrew and remove the nuts (1)
+
+After returning from high altitude, reset the car‐
+buretor to the standard setting.
+If the setting is too lean there is a risk of engine
+damage due to insufficient lubrication and over‐
+heating.
+
+25
+
+Spark Arresting Screen in
+Muffler
+
+In some countries, the muffler is fitted with a
+spark arresting screen.
+
+0458-209-0121-B
+
+3
+
+2
+
+139 BA021 KN
+
+NOTICE
+
+► Remove the cover (2).
+► Remove the spark arresting screen (3)
+► Clean the dirty spark arresting screen, replace
+when damaged or heavily carbonized
+► Refit the spark arresting screen
+► Install the cover
+► If the muffler plugs are missing or damaged,
+install new plugs
+
+31
+
+English
+
+26 Spark Plug
+
+26
+
+Spark Plug
+
+26.1
+
+Removing the spark plug
+
+26.2
+
+Checking the Spark Plug
+
+000BA039 KN
+
+► If the engine is down on power, difficult to start
+or runs poorly at idle speed, first check the
+spark plug.
+► Fit a new spark plug after about 100 operating
+hours – or sooner if the electrodes are badly
+eroded. Install only suppressed spark plugs of
+the type approved by STIHL – see "Specifica‐
+tions".
+
+A
+
+► Move the Master Control lever to 0
+
+139BA016 KN
+
+► Clean dirty spark plug.
+► Check electrode gap (A) and readjust if neces‐
+sary – see "Specifications".
+► Rectify the problems which have caused foul‐
+ing of the spark plug.
+Possible causes are:
+– Too much oil in fuel mix.
+– Dirty air filter.
+– Unfavorable running conditions.
+
+► Turn the knob above the rear handle to the left
+– slot vertical
+► Pull off the carburetor box cover toward the
+rear
+
+000BA045 KN
+
+1
+
+139BA001 KN
+
+1
+
+► Lift off the prefilter (1)
+
+139BA002 KN
+
+32
+
+Arcing may occur if the adapter nut (1) is loose
+or missing. Working in an easily combustible or
+explosive atmosphere may cause a fire or an
+explosion. This can result result in serious inju‐
+ries or damage to property.
+► Use resistor type spark plugs with a properly
+tightened adapter nut.
+
+2
+
+► Unplug spark plug boot (2)
+► Unscrew spark plug
+
+WARNING
+
+26.3
+
+Installing the spark plug
+
+27
+
+Storing the Machine
+
+► Fit the spark plug by hand and screw it in
+► Tighten spark plug with combination wrench
+► Press the spark plug boot firmly onto the spark
+plug
+
+For periods of about 30 days or longer
+► Drain and clean the fuel tank in a well-ventila‐
+ted area.
+► Dispose of fuel properly in accordance with
+local environmental requirements.
+0458-209-0121-B
+
+28 Checking and Replacing the Chain Sprocket
+
+English
+
+► If a manual fuel pump is fitted: Press the man‐
+ual fuel pump at least 5 times.
+► Start the engine and run it at idling speed until
+it stops.
+► Remove saw chain and guide bar; clean and
+spray with protective oil
+► Thoroughly clean the machine - pay special
+attention to the cylinder fins and air filter
+► When using biological chain oil (e.g. STIHL
+BioPlus), fill the lubricant oil tank
+► Store the machine in a dry and secure location
+Keep out of the reach of children and other
+unauthorized persons
+
+6
+
+1
+4
+
+Checking and Replacing
+the Chain Sprocket
+
+3
+
+► Remove chain sprocket cover, saw chain and
+guide bar.
+► Release chain brake – pull hand guard against
+the front handle
+
+6
+
+– after use of two saw chains or earlier
+– if the wear marks (arrows) are deeper than
+0.5 mm – otherwise the service life of the saw
+chain is reduced – use check gauge (special
+accessory) to test
+Using two saw chains in alternation helps pre‐
+serve the chain sprocket.
+STIHL recommends use of original STIHL chain
+sprockets in order to ensure optimal functioning
+of the chain brake.
+
+0458-209-0121-B
+
+2
+1
+
+Fit new chain sprocket
+
+001BA121 KN
+
+28.1
+
+2
+
+001BA122 KN
+
+28
+
+5
+
+► Use a screwdriver to remove the E-clip (1)
+► Remove the washer (2)
+► Remove rim sprocket (3)
+► Inspect transport profile on the clutch drum (4)
+– if there are also heavy signs of wear, also
+replace the clutch drum
+► Remove clutch drum or spur chain
+sprocket (5) including needle cage (6) from the
+crankshaft – with QuickStop Super chain
+brake, press throttle trigger lockout before‐
+hand
+
+28.2
+
+Install spur chain sprocket / rim
+sprocket
+
+► Clean crankshaft stub and needle cage and
+lubricate with STIHL lubricant (special acces‐
+sory)
+► Slide needle cage onto the crankshaft stub
+► After refitting, turn the clutch drum and/or spur
+chain sprocket approx. 1 full turn so that the
+carrier for the oil pump drive engages – with
+QuickStop Super chain brake, press throttle
+trigger lockout beforehand
+► Refit the rim sprocket – cavities toward the
+outside
+► Refit washer and E-clip on the crankshaft
+
+33
+
+29 Maintaining and Sharpening the Saw Chain
+
+Maintaining and Sharpen‐
+ing the Saw Chain
+
+29.1
+
+Sawing effortlessly with a prop‐
+erly sharpened saw chain
+
+A properly sharpened saw chain cuts through
+wood effortlessly even with very little pushing.
+Never use a dull or damaged saw chain – this
+leads to increased physical strain, increased
+vibration load, unsatisfactory cutting results and
+increased wear.
+► Clean the saw chain
+► Check the saw chain for cracks and damaged
+rivets
+► Replace damaged or worn chain components
+and adapt these parts to the remaining parts in
+terms of shape and level of wear – rework
+accordingly
+Carbide-tipped (Duro) saw chains are especially
+wear-resistant. For an optimal sharpening result,
+STIHL recommends STIHL servicing dealers.
+WARNING
+Compliance with the angles and dimensions lis‐
+ted below is absolutely necessary. An improperly
+sharpened saw chain – especially depth gauges
+that are too low – can lead to increased kickback
+tendency of the chain saw – risk of injury!
+
+29.2
+
+Chain pitch
+
+689BA027 KN
+
+34
+
+29.3
+
+Sharpening and side plate
+angles
+
+A
+
+B
+A Sharpening angle
+
+STIHL saw chains are sharpened with a 30°
+sharpening angle. Ripping chains, which are
+sharpened with a 10° sharpening angle, are
+exceptions. Ripping chains have an X in the des‐
+ignation.
+B Side plate angle
+The correct side plate angle results automatically
+when the specified file holder and file diameter
+are used.
+Micro = semi-chisel tooth, e. g.,
+63 PM3, 26 RM3, 36 RM
+Super = full chisel tooth, e. g.,
+63 PS3, 26 RS, 36 RS3
+Ripping chain, e. g., 63 PMX,
+36 RMX
+
+The chain pitch marking (a) is embossed in the
+area of the depth gauge of each cutter.
+7
+1 or 1/4
+6, P or PM
+2 or 325
+3 or 3/8
+4 or 404
+
+The angles of the cutter must be maintained dur‐
+ing resharpening.
+
+Tooth shapes
+
+a
+
+Marking (a)
+
+The diameter of file to be used depends on the
+chain pitch – see table "Sharpening tools".
+
+Chain pitch
+Inches
+mm
+1/4 P
+6.35
+1/4
+6.35
+3/8 P
+9.32
+0.325
+8.25
+3/8
+9.32
+0.404
+10.26
+
+689BA021 KN
+
+29
+
+Angle (°)
+A
+B
+30
+75
+30
+
+60
+
+10
+
+75
+
+The angles must be identical for all cutters in the
+saw chain. Varying angles: Rough, uneven run‐
+ning of the saw chain, increased wear – even to
+the point of saw chain breakage.
+
+29.4
+
+File holder
+
+689BA025 KN
+
+English
+
+0458-209-0121-B
+
+29 Maintaining and Sharpening the Saw Chain
+
+English
+
+► Use a file holder
+Always use a file holder (special accessory, see
+table "Sharpening tools") when sharpening saw
+chains by hand. File holders have markings for
+the sharpening angle.
+
+To check the angles
+
+001BA203 KN
+
+29.5
+
+STIHL filing gauge (special accessory, see table
+"Sharpening tools") – a universal tool for check‐
+ing sharpening and side plate angles, depth
+gauge setting, and tooth length, as well as clean‐
+ing grooves and oil inlet holes.
+
+29.6
+
+689BA043 KN
+
+Use only special saw chain files! Other files are
+unsuitable in terms of shape and type of cutting.
+
+Proper sharpening
+
+All cutters must be equally long.
+With varying cutter lengths, the cutter heights
+also vary and cause rough running of the saw
+chain and chain breakage.
+► All cutters must be filed down equal to the
+length of the shortest cutter – ideally, one
+should have this done by a servicing dealer
+using an electric sharpener
+
+29.7
+
+Depth gauge setting
+
+a
+
+90°
+
+689BA018 KN
+
+689BA023 KN
+
+► Select sharpening tools in accordance with
+chain pitch
+► Clamp guide bar if necessary
+► Block saw chain – push the hand guard for‐
+ward
+► To advance the saw chain, pull the hand
+guard toward the handlebar: The chain brake
+is disengaged. With the Quickstop Super
+chain brake system, additionally press the
+throttle trigger lockout
+► Sharpen frequently, removing little material –
+two or three strokes of the file are usually suffi‐
+cient for simple resharpening
+
+► Guide the file: horizontally (at a right angle to
+the side surface of the guide bar) in accord‐
+ance with the specified angle – according to
+the markings on the file holder – rest the file
+holder on the tooth head and the depth gauge
+► File only from the inside outward
+► The file only sharpens on the forward stroke –
+lift the file on the backstroke
+► Do not file tie straps and drive links
+► Rotate the file a little periodically in order to
+avoid uneven wear
+► To remove file burr, use a piece of hardwood
+► Check angle with file gauge
+
+The depth gauge determines the depth to which
+the cutter penetrates the wood and thus the chip
+thickness.
+a Required distance between depth gauge and
+cutting edge
+When cutting softwood outside of the frost sea‐
+son, the distance can be increased by up to
+0.2 mm (0.008").
+
+0458-209-0121-B
+
+35
+
+English
+
+29 Maintaining and Sharpening the Saw Chain
+
+Inches
+1/4 P
+1/4
+3/8 P
+0.325
+3/8
+0.404
+
+29.8
+
+(mm)
+(6.35)
+(6.35)
+(9.32)
+(8.25)
+(9.32)
+(10.26)
+
+Depth gauge
+Distance (a)
+mm
+(Inches)
+0.45
+(0.018)
+0.65
+(0.026)
+0.65
+(0.026)
+0.65
+(0.026)
+0.65
+(0.026)
+0.80
+(0.031)
+
+689BA044 KN
+
+Chain pitch
+
+Lowering the depth gauges
+
+The depth gauge setting is lowered when the
+cutter is sharpened.
+► Check the depth gauge setting after each
+sharpening
+
+► Afterwards, dress the leading edge of the
+depth gauge parallel to the service mark (see
+arrow) – when doing this, be careful not to fur‐
+ther lower the highest point of the depth gauge
+WARNING
+
+2
+
+► Lay the appropriate file gauge (1) for the chain
+pitch on the saw chain and press it against the
+cutter to be checked – if the depth gauge pro‐
+trudes past the file gauge, the depth gauge
+must be reworked
+Saw chains with humped drive link (2) – upper
+part of the humped drive link (2) (with service
+mark) is lowered at the same time as the depth
+gauge of the cutter.
+WARNING
+
+► Lay the file gauge on the saw chain – the high‐
+est point of the depth gauge must be flush with
+the file gauge
+► After sharpening, clean the saw chain thor‐
+oughly, removing any filings or grinding dust –
+lubricate the saw chain thoroughly
+► In the event of extended periods of disuse,
+store saw chains in cleaned and oiled condi‐
+tion
+
+689BA051 KN
+
+The rest of the humped drive link must not be
+filed; otherwise, this could increase the tendency
+of the chain saw to kick back.
+
+689BA052 KN
+
+689BA061 KN
+
+1
+
+Depth gauges that are too low increase the kick‐
+back tendency of the chain saw.
+
+► Rework the depth gauge so that it is flush with
+the file gauge
+
+36
+
+0458-209-0121-B
+
+30 Maintenance and Care
+
+English
+
+Sharpening tools (special accessories)
+Chain pitch
+Round file Round file
+File holder
+File gauge
+Taper square Sharpening
+file
+^
+set1)
+Inches (mm) mm (Inches Part number Part number Part number Part number Part number
+)
+1/4P
+(6.35) 3.2 (1/8) 5605 771
+5605 750
+0000 893
+0814 252
+5605 007
+3206
+4300
+4005
+3356
+1000
+1/4
+(6.35) 4.0 (5/32) 5605 772 40065605 750 43271110 893 40000814 252 33565605 007
+1027
+3/8 P (9.32) 4.0 (5/32) 5605 772
+5605 750
+1110 893
+0814 252
+5605 007
+4006
+4327
+4000
+3356
+1027
+0.325 (8.25) 4.8 (3/16) 5605 772
+5605 750
+1110 893
+0814 252
+5605 007
+4806
+4328
+4000
+3356
+1028
+3/8
+(9.32) 5.2 (13/64) 5605 772
+5605 750
+1110 893
+0814 252
+5605 007
+5206
+4329
+4000
+3356
+1029
+0.404 (10.26) 5.5 (7/32) 5605 772
+5605 750
+1106 893
+0814 252
+5605 007
+5506
+4330
+4000
+3356
+1030
+1)consisting of file holder with round file, taper square file and file gauge
+
+As required
+
+If damaged
+
+If faulty
+
+Annually
+
+Monthly
+
+X
+
+Visual inspection (condition,
+leaks)
+Clean
+Throttle trigger, throttle trigger Function test
+lockout, choke lever, stop
+switch, master control lever
+(dependent on equipment)
+Chain brake
+Function test
+
+Weekly
+
+Complete machine
+
+Whenever tank is refilled
+
+The following maintenance intervals apply for normal operat‐
+ing conditions only. When working under difficult conditions
+(high accumulation of dust, highly resinous lumber, lumber
+from tropical trees, etc.) or longer than normal each day, the
+specified intervals must be shortened accordingly. If you only
+use the tool occasionally, extend the intervals accordingly.
+
+At the end of work and/or daily
+
+Maintenance and Care
+Before starting work
+
+30
+
+X
+X
+
+X
+
+X
+
+X
+
+X
+
+Have checked by dealer1)
+Manual fuel pump (if present) check
+X
+Have repaired by a specialist
+dealer1)
+Fuel pick-up body / filter in fuel check
+tank
+Clean, replace filter insert
+replace
+Fuel tank
+Clean
+Lubricating oil tank
+Clean
+
+X
+X
+X
+X
+
+X
+X
+
+X
+
+X
+
+X
+X
+
+1) STIHL recommends STIHL servicing dealer
+2) When using professional chainsaws (with a power output of 3.4 kW or more) for the first time,
+tighten the cylinder block screws after 10 to 20 hours of operation
+
+0458-209-0121-B
+
+37
+
+Chain lubrication
+Saw chain
+
+Guide bar
+
+Chain sprocket
+Air filter
+Anti-vibration elements
+
+Air intake on fan housing
+Cylinder fins
+Carburetor
+
+Spark plug
+
+Accessible screws and nuts
+(except adjusting screws)
+Chain catcher
+Safety information label
+
+check
+X
+Check, pay attention to
+X
+sharpness
+Checking the chain tension
+X
+sharpen
+Check (wear, damage)
+X
+Clean and turn over
+Deburr
+replace
+check
+Clean
+replace
+check
+X
+Have replaced by servicing
+dealer1)
+Clean
+Clean
+Check idle adjustment – saw X
+chain must not rotate
+Set the idle speed; if required
+have the chainsaw repaired
+by a specialist dealer1)
+Adjust electrode gap
+Replace after 100 hours of
+operation
+
+X
+X
+X
+X
+X
+X
+
+X
+
+X
+X
+
+X
+X
+
+X
+X
+X
+X
+
+X
+
+X
+X
+
+X
+X
+
+X
+X
+
+X
+
+Tighten2)
+check
+replace
+replace
+
+As required
+
+If damaged
+
+If faulty
+
+Annually
+
+Monthly
+
+Weekly
+
+Whenever tank is refilled
+
+The following maintenance intervals apply for normal operat‐
+ing conditions only. When working under difficult conditions
+(high accumulation of dust, highly resinous lumber, lumber
+from tropical trees, etc.) or longer than normal each day, the
+specified intervals must be shortened accordingly. If you only
+use the tool occasionally, extend the intervals accordingly.
+
+At the end of work and/or daily
+
+30 Maintenance and Care
+Before starting work
+
+English
+
+X
+X
+X
+
+1) STIHL recommends STIHL servicing dealer
+2) When using professional chainsaws (with a power output of 3.4 kW or more) for the first time,
+tighten the cylinder block screws after 10 to 20 hours of operation
+
+38
+
+0458-209-0121-B
+
+31 Minimize Wear and Avoid Damage
+
+Minimize Wear and Avoid
+Damage
+
+Observing the instructions in this manual helps
+reduce the risk of unnecessary wear and dam‐
+age to the power tool.
+The power tool must be operated, maintained
+and stored with the due care and attention
+described in this owner's manual.
+The user is responsible for all damage caused by
+non-observance of the safety precautions, oper‐
+ating and maintenance instructions in this man‐
+ual. This includes in particular:
+– Alterations or modifications to the product not
+approved by STIHL.
+– Using tools or accessories which are neither
+approved or suitable for the product or are of a
+poor quality.
+– Using the product for purposes for which it
+was not designed.
+– Using the product for sports or competitive
+events.
+– Consequential damage caused by continuing
+to use the product with defective components.
+
+31.1
+
+31.2
+
+Parts Subject to Wear and Tear
+
+Some parts of the power tool are subject to nor‐
+mal wear and tear even during regular operation
+in accordance with instructions and, depending
+on the type and duration of use, have to be
+replaced in good time. Among other parts, this
+includes:
+– Saw chain, guide bar
+– Drive components (clutch, clutch drum, chain
+sprocket)
+– Filters (air, oil, fuel)
+– Starter mechanism
+– Spark plug
+– Components of antivibration system
+
+32
+
+Main Parts
+
+3
+1
+
+2
+
+6
+4
+
+Maintenance Work
+
+All the operations described in the "Maintenance
+Chart" must be performed on a regular basis. If
+these maintenance operations cannot be per‐
+formed by the owner, they should be performed
+by a servicing dealer.
+STIHL recommends that you have servicing and
+repair work carried out exclusively by an author‐
+ized STIHL servicing dealer. STIHL dealers are
+regularly given the opportunity to attend training
+courses and are supplied with the necessary
+technical information.
+If these maintenance operations are not carried
+out as specified, the user assumes responsibility
+for any damage that may occur. Among other
+parts, this includes:
+– Damage to the engine due to neglect or defi‐
+cient maintenance (e.g. air and fuel filters),
+incorrect carburetor adjustment or inadequate
+cleaning of cooling air inlets (intake ports, cyl‐
+inder fins).
+– Corrosion and other consequential damage
+resulting from improper storage.
+– Damage to the machine resulting from the use
+of poor quality replacement parts.
+
+9
+7
+
+5
+
+10
+11
+
+8
+
+15
+
+14
+
+16
+17
+13
+
+21
+12
+
+18
+
+22
+20
+
+19
+
+23
+209BA023 KN
+
+31
+
+English
+
+1 Carburetor Box Cover Twist Lock
+2 Carburetor adjusting screws
+3 Spark plug boot
+4 Chain sprocket cover
+5 Chain sprocket
+6 Chain brake
+7 Chain tensioner
+8 Chain catcher
+9 Bumper spike
+10 Guide bar
+11 Oilomatic saw chain
+12 Oil filler cap
+
+0458-209-0121-B
+
+39
+
+English
+
+33 Specifications
+
+33.3
+
+13 Muffler
+14 Front hand guard
+15 Front handle (handlebar)
+16 Decompression valve (depending on equip‐
+ment version)
+17 Starter grip
+
+Fuel system
+
+All-position diaphragm carburetor with integral
+fuel pump
+Fuel tank capacity:
+
+33.4
+
+560 cm3 (0.56 l)
+
+Chain lubrication
+
+Fully automatic, speed-controlled oil pump with
+rotary piston. Additional manual oil flow control
+
+18 Master Control lever
+19 Fuel tank twist lock
+
+Oil tank capacity:
+
+20 Throttle trigger
+
+33.5
+
+21 Throttle lock
+
+330 cm3 (0.33 l)
+
+Weight
+
+dry, without cutting attachment
+MS 290:
+MS 310:
+MS 390:
+
+22 Rear handle
+23 Rear hand guard
+# Serial number
+
+33
+
+Specifications
+
+33.1
+
+Engine
+
+33.6
+
+5.9 kg
+5.9 kg
+5.9 kg
+
+Cutting attachment
+
+The actual cutting length may be less than the
+specified cutting length.
+
+STIHL single-cylinder two-stroke engine
+
+33.6.1
+
+33.1.1
+
+Bar lengths (pitch .325"): 32, 37, 40, 45, 50 cm
+Bar lengths (3/8" pitch): 32, 37, 40, 45, 50,
+63 cm
+Groove width:
+1.6 mm
+
+MS 290
+
+Displacement:
+Cylinder bore:
+Piston stroke:
+Engine power:
+Idle speed:1)
+33.1.2
+
+MS 310
+
+Displacement:
+Cylinder bore:
+Piston stroke:
+Engine power:
+Idle speed:1)
+33.1.3
+
+59.0cm3
+47 mm
+34 mm
+3.2 kW (4.4 hp) at
+9500 rpm
+2800 rpm
+
+MS 390
+
+Displacement:
+Cylinder bore:
+Piston stroke:
+Engine power:
+Idle speed:1)
+
+33.2
+
+56.5cm3
+46 mm
+34 mm
+3.0 kW (4.1 hp) at
+9500 rpm
+2800 rpm
+
+64.1cm3
+49 mm
+34 mm
+3.4 kW (4.6 hp) at
+9500 rpm
+2800 rpm
+
+Ignition system
+
+Electronic magneto ignition
+Spark plug (suppressed): Bosch WSR 6 F,
+NGK BPMR 7 A
+Electrode gap:
+0.5 mm
+
+33.6.2
+
+Rollomatic guide bars
+
+Saw chains .325"
+
+Rapid Micro 3 (26 RM3) Type 3634
+Rapid Micro (26 RM) Type 3629
+Rapid Super (26 RS) Type 3639
+Pitch:
+.325" (8.25 mm)
+Drive link gauge:
+1.6 mm
+33.6.3
+
+3/8" saw chains
+
+Rapid Micro (36 RM) Type 3652
+Rapid Super (36 RS) Type 3621
+Rapid Super 3 (36 RS3) Type 3626
+Pitch:
+3/8" (9.32 mm)
+Drive link gauge:
+1.6 mm
+33.6.4
+
+Chain sprockets
+
+7-tooth for 3/8" (spur chain sprocket)
+Max. chain speed according to
+27.5 m/s
+ISO 11681:
+Chain speed at maximum power: 21.7 m/s
+7-tooth for 3/8" (rim sprocket)
+Max. chain speed according to
+ISO 11681:
+Chain speed at maximum power:
+
+27.5 m/s
+21.7 m/s
+
+7-tooth for .325“ (spur chain sprocket)
+Max. chain speed according to
+27.5 m/s
+ISO 11681:
+Chain speed at maximum power: 21.7 m/s
+
+1) according to ISO 11681 +/- 50 1/min
+
+40
+
+0458-209-0121-B
+
+34 Ordering Spare Parts
+
+English
+
+7-tooth for 325" (rim sprocket)
+Max. chain speed according to
+ISO 11681:
+Chain speed at maximum power:
+
+33.7
+
+27.8 m/s
+22.0 m/s
+
+Noise and vibration values
+
+For further details on compliance with Vibration
+Directive 2002/44/EC, see
+www.stihl.com/vib
+33.7.1
+
+Sound pressure level Lpeq in accord‐
+ance with ISO 22868
+
+MS 290:
+MS 310:
+MS 390:
+33.7.2
+
+102 dB(A)
+102 dB(A)
+102 dB(A)
+Sound power level Lw in accordance
+with ISO 22868
+
+MS 290:
+MS 390:
+33.7.3
+
+116 dB(A)
+116 dB(A)
+Sound power level Lweq in accordance
+with ISO 22868
+
+MS 310:
+33.7.4
+
+114 dB(A)
+Vibration level ahv,eq in accordance
+with ISO 22867
+Handle, left
+
+MS 290:
+MS 310:
+MS 390:
+
+4.6 m/s2
+4.3 m/s2
+5.9 m/s2
+
+Handle,
+right
+5.7 m/s2
+4.7 m/s2
+5.1 m/s2
+
+The K‑factor in accordance with Directive
+2006/42/EC is 2.0 dB(A) for the sound pressure
+level and sound power level; the K‑factor in
+accordance with Directive 2006/42/EC is
+2.0 m/s2 for the vibration level.
+
+33.8
+
+REACH
+
+REACH is an EC regulation and stands for the
+Registration, Evaluation, Authorization and
+Restriction of Chemical substances.
+For information on compliance with the REACH
+regulation (EC) No. 1907/2006 see
+www.stihl.com/reach
+
+33.9
+
+Exhaust Emissions
+
+The CO2 value measured in the EU type appro‐
+val procedure is specified at
+www.stihl.com/co2
+in the product-specific technical data.
+
+0458-209-0121-B
+
+The measured CO2 value was determined on a
+representative engine in accordance with a
+standardized test procedure under laboratory
+conditions and does not represent either an
+explicit or implied guarantee of the performance
+of a specific engine.
+The applicable exhaust emission requirements
+are fulfilled by the intended usage and mainte‐
+nance described in this User Manual. The oper‐
+ating license shall be void if the engine is modi‐
+fied in any way.
+
+34
+
+Ordering Spare Parts
+
+Please enter your saw model, serial number as
+well as the part numbers of the guide bar and
+saw chain in the spaces provided. This will make
+re-ordering simpler.
+The guide bar and saw chain are subject to nor‐
+mal wear and tear. When purchasing these
+parts, always quote the saw model, the part
+numbers and names of the parts.
+Model
+Serial number
+Guide bar part number
+Chain part number
+
+35
+
+Maintenance and Repairs
+
+Users of this machine may only carry out the
+maintenance and service work described in this
+user manual. All other repairs must be carried
+out by a servicing dealer.
+STIHL recommends that you have servicing and
+repair work carried out exclusively by an author‐
+ized STIHL servicing dealer. STIHL dealers are
+regularly given the opportunity to attend training
+courses and are supplied with the necessary
+technical information.
+When repairing the machine, only use replace‐
+ment parts which have been approved by STIHL
+for this power tool or are technically identical.
+Only use high-quality replacement parts in order
+to avoid the risk of accidents and damage to the
+machine.
+STIHL recommends the use of original STIHL
+replacement parts.
+
+41
+
+English
+
+36 Disposal
+
+Original STIHL parts can be identified by the
+STIHL part number, the { logo and the
+STIHL parts symbol K (the symbol may appear
+alone on small parts).
+
+36
+
+Disposal
+
+Contact the local authorities or your STIHL serv‐
+icing dealer for information on disposal.
+Improper disposal can be harmful to health and
+pollute the environment.
+
+Directive 2000/14/EC, Annex V, and standard
+ISO 9207.
+Measured sound power level
+MS 290:
+MS 310:
+MS 390:
+
+116 dB(A)
+115 dB(A)
+116 dB(A)
+
+Guaranteed sound power level
+MS 290:
+MS 310:
+MS 390:
+
+117 dB(A)
+116 dB(A)
+117 dB(A)
+
+The EC type examination was carried out by
+
+000BA073 KN
+
+KWF Services GmbH (NB 0363)
+Spremberger Straße 1
+D‑64823 Groß-Umstadt
+
+► Take STIHL products including packaging to a
+suitable collection point for recycling in accord‐
+ance with local regulations.
+► Do not dispose with domestic waste.
+
+37
+
+EC Declaration of Con‐
+formity
+
+ANDREAS STIHL AG & Co. KG
+Badstr. 115
+D‑71336 Waiblingen
+
+Certification No.
+MS 290:
+MS 310:
+MS 390:
+
+K-EG- 2009/3142
+K-EG- 2022/3091
+K-EG- 2009/3143
+
+Technical documents deposited at:
+ANDREAS STIHL AG & Co. KG
+Produktzulassung
+The year of manufacture and serial number are
+indicated on the power tool.
+Waiblingen, 2023-08-01
+ANDREAS STIHL AG & Co. KG
+pp
+
+Germany
+declares under its sole responsibility that
+Designation:
+Make:
+Series:
+
+Chainsaw
+STIHL
+MS 290
+MS 310
+MS 390
+Serial identification number: 1127
+Displacement
+MS 290:
+56.5 cm3
+MS 310:
+59.0 cm3
+MS 390:
+64.1 cm3
+
+Robert Olma, Vice President, Regulatory Affairs
+& Global Governmental Relations
+
+38
+
+Addresses
+
+www.stihl.com
+
+conforms to the relevant provisions of Directives
+2011/65/EU, 2006/42/EC, 2014/30/EU and
+2000/14/EC and has been developed and manu‐
+factured in compliance with the following stand‐
+ards in the versions valid on the date of produc‐
+tion:
+EN ISO 11681‑1, EN 55012, EN 61000‑6‑1
+The measured and the guaranteed sound power
+level have been determined in accordance with
+42
+
+0458-209-0121-B
+
+38 Addresses
+
+0458-209-0121-B
+
+English
+
+43
+
+0458-209-0121-B
+
+*04582090121B*
+www.stihl.com
+
+*04582090121B*
+0458-209-0121-B
+
+

@@ -204,7 +204,11 @@
           "notes": "On the I-75/Cobb Pkwy corridor toward Jasper. Heads-up: public listings now show this as 'Volkswagen of Marietta' — the old Jim Ellis VW Marietta listing reads closed, so it looks like a rebrand/ownership change. Confirm the name when you call. Same key spec + recall check by VIN."
         }
       ],
-      "mileage": "~81,000 mi (approx — Paul to confirm exact next drive)"
+      "mileage": "~81,000 mi (approx — Paul to confirm exact next drive)",
+      "manual": {
+        "label": "Owner's manual (2016 US edition)",
+        "url": "https://carworklog.com/stuff/Manual/Owners_Manual-Golf-GTI-Golf-R-US-Edition_Model-Year-2016_Edition-07_2015.pdf"
+      }
     },
     {
       "id": "tiguan-2018",
@@ -286,7 +290,11 @@
           "detail": "A little paint touch-up, DIY with a touch-up kit — no rush. Two gates before it happens: (1) confirm the exact paint color code off the VW data sticker (spare-wheel well under the trunk floor, or the driver door jamb) so the touch-up matches; (2) wait for the right weather — this is weather-dependent. Per the application-conditions reference: low humidity (under 50%), work in shade, and warm enough — brush or paint-pen needs above 50°F, spray needs above 70°F. So it waits for a dry, mild, low-humidity day.",
           "image": "images/vehicles/tiguan-paint-application-conditions.png"
         }
-      ]
+      ],
+      "manual": {
+        "label": "Owner's manual (2nd-gen, 2017–18)",
+        "url": "https://www.vwmanuals.org/wp-content/uploads/2022/07/2017-volkswagen-tiguan.pdf"
+      }
     },
     {
       "id": "f150-2006",
@@ -366,6 +374,10 @@
           "location": "Driver door-jamb cert label — interior trim (TR) code",
           "status": "to-confirm"
         }
+      },
+      "manual": {
+        "label": "Owner's guide (2006)",
+        "url": "https://manuals.opinautos.com/published/Ford-F-150_2006_EN-US_US_fd58898a4f.pdf"
       }
     },
     {
@@ -575,7 +587,11 @@
           "provenAt": "Dash bezel — rear-window/defrost switches (2026-06-20)",
           "appliesTo": "Any cracked screw boss or snapped mounting tab in interior trim"
         }
-      ]
+      ],
+      "manual": {
+        "label": "Quick-reference operating guide (1987–91 body)",
+        "url": "https://archive.org/details/ford-bronco-operating-guide-1988"
+      }
     },
     {
       "id": "dr200s-2017",
@@ -744,7 +760,11 @@
           "status": "ready",
           "detail": "Recommended after sitting — 10W-40 JASO MA/MA2, ~1.4 qt with filter; filter Suzuki 16510-29F00 / HiFlo HF139 (see maintenance). Pair it with the electrical diagnosis when you're up there."
         }
-      ]
+      ],
+      "manual": {
+        "label": "Factory service manual (2000–2009 — covers 2001)",
+        "url": "https://archive.org/details/1150301820002009SuzukiDrZ400sDrZ400smServiceRepairManualDownload00010203040506070809"
+      }
     },
     {
       "id": "g22a-2005",
@@ -808,7 +828,11 @@
           "status": "planned",
           "detail": "Added a few vent holes to the airbox to cure a post-filter-swap sputter — runs clean now. May open it up a little more to experiment with airflow; watch that it doesn't lean out or pull in dust."
         }
-      ]
+      ],
+      "manual": {
+        "label": "Owner's manual (G22A gas)",
+        "url": "https://mygolfbuggy.com/maintenance/manuals/yamaha/Yamaha%20G22A%20Petrol%20Owners%20Manual.pdf"
+      }
     },
     {
       "id": "kobalt-km2040x-06",
@@ -852,6 +876,10 @@
           "value": "Clean underside of deck after each use. Sharpen or replace blades 1–2× per season depending on use.",
           "confidence": "inferred"
         }
+      },
+      "manual": {
+        "label": "Use & care guide",
+        "url": "https://pdf.lowes.com/useandcareguides/841821012045_use.pdf"
       }
     },
     {
@@ -896,6 +924,10 @@
           "value": "Drain fuel before long-term storage; ethanol-free fuel strongly preferred.",
           "confidence": "verified"
         }
+      },
+      "manual": {
+        "label": "Operator's manual",
+        "url": "https://www.echo-usa.com/getattachment/c3cfd356-0286-4935-aed2-1d72a4ccb9ce/filev2_"
       }
     },
     {
@@ -945,7 +977,11 @@
       "photoEvidence": "Photographed multiple angles. No model sticker found on the unit — Homelite consumer items in this era often had only the EPA label, sometimes worn off. Best bet: UT09521 / UT09565 family based on body shape (handheld with vac tube + collection bag).",
       "researchNeeded": [
         "Optional: a serial number sticker may be hidden under a removable cover — not blocking, since we have all maintenance specs from the engine family."
-      ]
+      ],
+      "manual": {
+        "label": "Operator's manual (26cc blower/vac)",
+        "url": "https://manuals.ttigroupna.com/system/files/9590/original/UT26HBV_HBVEMC_090155040_047_662_trilingual_05.pdf?2019"
+      }
     },
     {
       "id": "echo-pb250ln",
@@ -989,6 +1025,10 @@
           "value": "Designed for noise-restricted areas. Drain fuel before long-term storage.",
           "confidence": "verified"
         }
+      },
+      "manual": {
+        "label": "Operator's manual",
+        "url": "https://www.echo-usa.com/getattachment/0f5d7527-b62f-4811-8dcf-da1775a4a285/v2_PB-250LN_P39926_HdMx_010919_e.pdf"
       }
     },
     {
@@ -1042,7 +1082,11 @@
       },
       "researchNeeded": [
         "Confirm UT33650A (straight shaft) vs UT33550A (curved shaft) — middle digit on EPA sticker slightly ambiguous between 5 and 6"
-      ]
+      ],
+      "manual": {
+        "label": "Operator's manual (26cc trimmer)",
+        "url": "https://manuals.ttigroupna.com/system/files/7376/original/UT33600_UT33650_trilingual_05.pdf?2017"
+      }
     },
     {
       "id": "husqvarna-mower",
@@ -1117,7 +1161,11 @@
       "researchNeeded": [
         "Husqvarna model number (sticker typically under seat or on rear fender)",
         "Confirm primary mower belt P/N — first digits illegible on worn sticker"
-      ]
+      ],
+      "manual": {
+        "label": "Kawasaki FR691V engine manual (mower model TBD)",
+        "url": "https://images.thdstatic.com/catalog/pdfImages/c5/c5581c61-d6d9-4d4c-9981-6d04d019fe54.pdf"
+      }
     },
     {
       "id": "chainsaw-ms290",
@@ -1170,7 +1218,11 @@
           "confidence": "verified"
         }
       },
-      "notes": "The 'Farm Boss' — Stihl's iconic mid-range saw for landowners and farmers. Well-suited for firewood, storm cleanup, and land clearing."
+      "notes": "The 'Farm Boss' — Stihl's iconic mid-range saw for landowners and farmers. Well-suited for firewood, storm cleanup, and land clearing.",
+      "manual": {
+        "label": "Instruction manual (MS 290/310/390)",
+        "url": "https://ssc.stihl.com/tsa/techdoc-documents/DVS_STIHL/ZBA/ZBA/0458-209-0121-B_ZBA_03_01.pdf"
+      }
     },
     {
       "id": "chainsaw-cs352",
@@ -1224,7 +1276,11 @@
           "confidence": "verified"
         }
       },
-      "notes": "Lighter-duty saw — ideal for limbing, brush clearing, and smaller diameter wood (up to ~12\" logs). i-30 reduced-effort starter makes cold starts much easier."
+      "notes": "Lighter-duty saw — ideal for limbing, brush clearing, and smaller diameter wood (up to ~12\" logs). i-30 reduced-effort starter makes cold starts much easier.",
+      "manual": {
+        "label": "Operator's manual",
+        "url": "https://www.echo-usa.com/getattachment/e7544d8b-7e45-43ee-94d9-f9f8e2d90270/v2_CS-352_15_090420_es.pdf"
+      }
     }
   ]
 }
