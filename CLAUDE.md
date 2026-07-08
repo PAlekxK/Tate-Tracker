@@ -30,6 +30,24 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - **Refined "Peak this week" — needs a structured peak field (data work).** Audit 2026-07-05: all 23 plants carry peakWindows (88 total), but **~40% (35/88) don't parse** via `parseShortDateRange` — it only reads "Abbrev D–Abbrev D"; it misses full month names ("May 15–June 5"), month-only ("Mar — before growth begins"), prose-only ("After first hard frost flattens leaves"), and multi-window ("Mar …; Jun …"). There's also a year-wrap bug (winter-spanning windows parse to negative spans). Net: the peak-this-week surfaces (tile + card panel) are **under-inclusive** today. Right fix = add a machine-readable peak field to the schema (e.g. `peakStart`/`peakEnd` as MM-DD, keep the prose for display), which removes both the parser fragility and the prose-only cases. Deep winter (Dec–mid-Jan) is legitimately empty — that's fine, it has a calm fallback.
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-08
+
+**GTI service plan built out on the Vehicles card — Express Oil is Stop 1, Autobahn is the specialist net.** All committed + pushed (Tate-Tracker HEAD `2d391cf`). Full plan/questions/prep/price-table: `.research/2026-07-08-gti-express-oil-coupons.md` (gitignored); the 4 coupon email PDFs archived at `.research/express-oil-coupons-2026-07/` (gitignored, local-only; originals in Gmail `from:expressoil.com`).
+
+### What shipped (`vehicles.json` → `gti-2016`, re-inlined into viewer.html)
+- **New `expressoil` service contact** = "STOP 1 — go here first" (Paul's regular oil shop, down the street, 404-659-6225, ASE-certified, does European). Carries the prep (phone-ahead **VW 502.00 5W-40** gate + coupons in Gmail), the one-trip visit checklist, the "walk out with a written water-pump estimate" goal, and quote sense-checks (WP under ~$650 = plastic pump/no housing; over ~$1,300 = dealer pricing).
+- **New restoration step "Oil change + coupon visit (Express Oil)"** (due-soon): gate on 502.00 → stack free tire rotation (RTE026) + free alignment check (ASR026) → free coolant-leak look + pressure test (**G13 pink only**) → written estimate.
+- **Coolant-leak step** now lists **both shops** (`["autobahn","expressoil"]`) — free look/estimate at Express Oil, repair defaults to Autobahn unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty).
+- **Brake fluid flush** reassigned → **Express Oil-first** (`["expressoil","autobahn"]`) on the oil trip **if they use DOT 4 LV** (shares no labor with the DSG); Autobahn fallback.
+- **DSG** stays Autobahn (temp-controlled fill wants the specialist; sub-$250 quote = just a drain-and-fill). GTI `notes` carry a one-line plan summary.
+- Garden Guru **digest rebuilt** + release note expanded.
+
+### ⚠️ Owner: Paul
+1. **Phone Express Oil (404-659-6225) before going** — confirm they stock VW 502.00 5W-40 + out-the-door price with $20-off (coupon is standard-oil-only, voids with your own oil). If they can't do 502.00, skip the oil there but still go for the free leak look.
+2. **Coupon clock:** the **$39.99 oil price + mechanical coupon (MID726) expire July 11**; free rotation/alignment + $20-off oil (YDCD26) run to July 31.
+3. **Confirm exact GTI mileage** (anchored ~81k) next drive.
+4. **Redeploy the Worker** so Guru's refreshed digest goes live: `cd worker && npx wrangler deploy` (the classifier blocks the agent from running it in auto mode). The card itself is already live via GH Pages.
+
 ## Pickup point — last session ended 2026-07-07
 
 **Garden Guru brought fully into the machines — ask + capture — shipped end-to-end across 5 phases, live + pushed (Tate-Tracker HEAD `194e18f`; Worker `5ca657a6`).** Plan + full trail: `.plans/2026-07-07-garden-guru-machines.md`. Expert reviews: `.ux-reviews/2026-07-07-*` + `.engineering/2026-07-07-*`. Root cause was a real 7/3 refusal (KV `conversation:mr55wd27-sommb`) that turned Paul away twice — on the ask AND the log.
