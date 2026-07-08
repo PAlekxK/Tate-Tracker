@@ -1,0 +1,3735 @@
+OPERATOR’S MANUAL
+MANUEL D’UTILISATION
+MANUAL DEL OPERADOR
+
+26cc BLOWER/VACUUM
+SOUFFLANTE /ASPIRATEUR
+DE 26 cc
+SOPLADORA /ASPIRADORA
+DE 26 cc
+
+To register your Homelite product, please visit:
+http://register.homelite.com/
+
+UT26HBV/ UT26HBVVNM/
+UT26HBVEMC/
+UT26HBVEMCVNM
+NOTICE
+
+Pour enregistrer votre produit de Homelite, s’il vous plaît
+la visite : http://register.homelite.com/
+Para registrar su producto de Homelite, por favor visita:
+http://register.homelite.com/
+
+AVIS
+
+AVISO
+
+Do not use E15 or E85 fuel in this product. It is a violation of federal law and will damage
+the unit and void your warranty. Only use unleaded gasoline containing up to 10% ethanol.
+Ne pas utiliser d’essence E15 ou E85 dans ce produit. Une telle utilisation représente une
+violation de la loi fédérale et endommagera l’appareil et annulera la garantie. Utiliser seulement de l’essence sans plomb ne
+contenant pas plus de 10 % d’éthanol.
+No utilice combustibles E15 o E85 con este producto. Esto constituye una violación a la ley federal, dañará la unidad y anulará
+la garantía. Utilice únicamente gasolina sin plomo que contiene hasta 10% de etanol.
+
+TABLE OF CONTENTS
+
+TABLE DES MATIÈRES
+
+ÍNDICE DE CONTENIDO
+
+ General Safety Rules............................ 2
+
+ Règles de sécurité générales. .............. 2
+ Règles de sécurité particulières. .......... 3
+ Symboles..............................................4
+ Caractéristiques. .................................. 5
+ Assemblage.......................................5-6
+ Utilisation...........................................6-9
+ Entretien. .......................................10-11
+ Dépannage. ........................................12
+ Commande de pièces /
+réparation. .......................... Páge arrière
+
+ Reglas de seguridad generales............ 2
+
+ Specific Safety Rules............................ 3
+ Symbols................................................4
+ Features................................................5
+ Assembly...........................................5-6
+ Operation...........................................7-9
+ Maintenance..................................10-11
+ Troubleshooting.................................. 12
+ Parts Ordering/Service. ........ Back Page
+
+ Reglas de seguridad específicas.......... 3
+ Símbolos...............................................4
+ Características...................................... 5
+ Armado..............................................5-6
+ Funcionamiento.................................7-9
+ Mantenimiento...............................10-11
+ Corrección de problemas................... 12
+ Pedidos de piezas/
+servicio. ........................... Pág. posterior
+
+risk of injury, the user must read and
+understand the operator’s manual before
+using this product.
+
+AVERTISSEMENT : Pour
+réduire les risques de blessures,
+l’utilisateur doit lire et veiller à bien
+comprendre le manuel d’utilisation avant
+d’employer ce produit.
+
+ADVERTENCIA: Para reducir
+el riesgo de lesiones, el usuario debe leer
+y comprender el manual del operador
+antes de usar este producto.
+
+SAVE THIS MANUAL FOR
+FUTURE REFERENCE
+
+GUARDE ESTE MANUAL
+PARA FUTURAS CONSULTAS
+
+GUARDE ESTE MANUAL
+PARA FUTURAS CONSULTAS
+
+WARNING: To reduce the
+
+See this fold-out section for all of the figures
+­referenced in the operator’s manual.
+Consulter l’encart à volets afin
+d’examiner toutes les figures mentionnées
+dans le manuel d’utilisation.
+Consulte esta sección desplegable para
+ver todas las figuras a las que se hace referencia
+en el manual del operador.
+
+i
+
+Fig. 1
+O
+B
+C
+G
+
+F
+E
+Q
+A
+
+D
+
+N
+
+H
+
+S
+M
+P
+
+R
+
+L
+
+K
+
+T
+J
+
+I
+
+A		- Lower vacuum tube (tube d’aspiration inférieur, tubo inferior de la
+aspiradora)
+B		- Shoulder strap (bandoulière, correa para el hombro)
+C		- Cruise control lever/throttle lock (levier de régulateur de vitesse /
+verrouillage d’accélération, palanca de control de crucero/seguro del
+acelerador)
+D-		 Upper vacuum tube (tube d’aspiration supérieur, tubo superior de la
+aspiradora)
+E		- Vacuum tube screw (vis de tube d’aspiration, tornillo de tubo de la
+aspiradora)
+F		- Vacuum bag (sac à débris, saco de la aspiradora)
+G - Throttle trigger (gâchette d’accélérateur, gatillo del acelerador)
+H		- Stop switch (commutateur d’arrêt, interruptor del apagado)
+I - Vacuum handle (poignée d’aspirateur, mango de la aspiradora )
+J		- Fuel cap (bouchon du réservoir, tapa del tanque de combustible)
+
+K		- Starter grip and rope (poignée du lanceur et corde, mango del
+arrancador y cuerda)
+L		- Primer bulb (poire d’amorçage, bomba de cebado)
+M - Choke lever (levier de volet de départ, palanca del anegador)
+N		- Upper handle (poignée supérieure, mango superior)
+O		- Vacuum bag adaptor (adaptateur de sac à débris, adaptador del
+saco de la aspiradora)
+P		- Muffler (silencieux, silenciador)
+Q		- Raised slot (fente en saillie, ranura realzada)
+R		- Upper blower tube (tube supérieur de soufflante, tubo superior de
+la sopladora)
+S		- Sweeper nozzle (embout éventail, boquilla para barrer)
+T		
+- High velocity nozzle (embout haute vélocité, boquilla de alta
+velocidad opcional)
+
+ii
+
+Fig. 2
+
+Fig. 6
+
+A
+
+Fig. 8
+
+A
+
+A - Flat head screwdriver (tournevis à lame
+plate, destornillador de punta plana)
+
+Fig. 3
+
+B
+
+A
+
+A
+C
+
+D
+
+B
+
+C
+
+A		- Sweeper nozzle (embout éventail, boquilla
+para barrer)
+B - Upper blower tube (tube de soufflante
+supérieur, tubo superior de la sopladora)
+C - Blower housing outlet (sortie du logement
+de la soufflante, salida del armazón de la
+sopladora)
+D		- High velocity nozzle (embout haute vélocité,
+boquilla de alta velocidad)
+
+Fig. 4
+
+A		- Adaptor installed in vacuum bag (adaptateur
+installé dans le sac à débris, adaptador
+instalado en el saco de la aspiradora)
+B		- Raised locking tab (languette de verrouillage
+en saillie, orejeta realzada de aseguramiento)
+C		- Raised slot (fente en saillie, ranura realzada)
+
+Fig. 7
+C
+
+A
+
+B
+B
+
+C
+
+E
+
+D
+
+C
+
+B
+
+A		- Vacuum tube assembly (ensemble de tubes
+d’aspiration, conjunto de los tubos de la
+aspiradora)
+B		- Vacuum inlet door (volet d’entrée d’air,
+puerta de la entrada de la aspiradora)
+C		- Screw (vis, tornillo)
+D - Vacuum opening (ouverture d’aspiration,
+abertura de aspiración)
+E		- Screw mount (trous de vis, agujeros de
+tornillos)
+
+Fig. 9
+
+A
+
+A
+B
+
+A - Upper blower tube (tube de soufflante
+supérieur, tubo superior de la sopladora)
+B - Sweeper nozzle (embout éventail, boquilla
+para barrer)
+C		- High velocity nozzle (embout haute vélocité,
+boquilla de alta velocidad)
+
+Fig. 5
+
+E
+D
+
+B
+
+A
+D
+
+A		- Vacuum bag adaptor (adaptateur de sac à
+débris, adaptador del saco de la aspiradora)
+B		- Vacuum bag (sac à débris, saco de la
+aspiradora)
+
+A		- Vacuum bag assembly (ensemble de sac à
+débris, conjunto del saco de la aspiradora)
+B		- Vacuum inlet door (volet d’entrée d’air,
+puerta de la entrada de la aspiradora)
+C		- Door tab (languette du volet, orejeta de la
+puerta)
+D		- Tab (languette, orejeta)
+
+iii
+
+C
+A - Stop switch (commutateur d’arrêt,
+interruptor del apagado)
+B		- Throttle trigger (gâchette d’accélérateur,
+gatillo del acelerador)
+C - Cruise control lever/throttle lock (levier
+de régulateur de vitesse / verrouillage
+d’accélération, palanca de control de
+crucero/seguro del acelerador)
+D		- Primer bulb (poire d’amorçage, bomba de
+cebado)
+E - Starter grip and rope (poignée du lanceur et
+corde, mango del arrancador y cuerda)
+
+Fig. 12
+
+Fig. 10
+
+Fig. 14
+
+A
+
+PROPER BLOWER OPERATING POSITION
+
+B
+
+POSITION D’UTILISATION ADÉQUATE
+DE LA SOUFFLANTE
+POSICIÓN DE FUNCIONAMIENTO
+CORRECTA DE LA SOPLADORA
+
+B
+A
+
+A		- Cruise control lever (levier de régulateur de
+vitesse, palanca de control de crucero)
+B		- Throttle trigger (gâchette d’accélérateur,
+gatillo del acelerador)
+
+A		- Turn the dial to open and close (tourner
+le cadran pour ouvrir et fermeture, gire el
+selector para abrirla y cerrar )
+B		- Air filter cover (couvercle du filtre à air, tapa
+de la cámara de ventilación)
+
+Fig. 15
+
+Fig. 13
+PROPER VACUUM
+OPERATING POSITION
+
+B
+
+POSITION D’UTILISATION ADÉQUATE
+DE L’ASPIRATEUR
+POSICIÓN DE FUNCIONAMIENTO
+CORRECTA DE LA ASPIRADORA
+
+Fig. 11
+
+A
+A
+
+A
+A		- Air filter cover (couvercle du filtre à air,
+cámara del filtro de aire)
+B - Air filter (filtre à air, filtro de aire)
+
+B
+
+A - Sweeper nozzle (embout éventail, boquilla
+para barrer)
+B		- High velocity nozzle (embout haute vélocité,
+boquilla de alta velocidad)
+
+A - Keep muffler away from the body (garder les
+mains à l’écart des silencieux, mantenga el
+silenciador alejado del cuerpo)
+
+iv
+
+GENERAL SAFETY RULES
+ Before storing, allow the engine to cool.
+
+WARNING:
+READ AND UNDERSTAND ALL INSTRUCTIONS. Failure to follow all instructions listed below may result in
+electric shock, fire and/or serious personal injury.
+
+READ ALL INSTRUCTIONS
+
+ Empty fuel tank into a container approved for gasoline
+and restrain the unit from moving before transporting in
+a vehicle.
+ To reduce the risk of fire and burn injury, handle fuel with
+care. It is highly flammable.
+ Do not smoke while handling fuel.
+
+ Do not allow children or untrained individuals to use this
+unit.
+ Do not start or operate the engine in a confined space,
+building, near open windows, or in other unventilated
+space where dangerous carbon monoxide fumes can
+collect. Carbon monoxide, a colorless, odorless, and
+extremely dangerous gas, can cause unconsciousness
+or death.
+
+ Mix and store fuel in a container approved for gasoline.
+ Mix fuel outdoors where there are no sparks or flames.
+ Select bare ground, stop engine, and allow to cool before
+refueling.
+ Loosen fuel cap slowly to release pressure and to keep
+fuel from escaping around the cap.
+ Tighten the fuel cap securely after refueling.
+
+ Always wear eye protection with side shields marked to
+comply with ANSI Z87.1 along with hearing protection.
+Failure to do so could result in objects being thrown into
+your eyes and other possible serious injuries.
+
+ Wipe spilled fuel from the unit. Move 30 ft. away from
+refueling site before starting engine.
+
+ Keep all bystanders, children, and pets at least 50 ft.
+away.
+
+ Use only recommended or equivalent manufacturer’s
+replacement parts and accessories. Use of any other
+parts may create a hazard or cause product damage.
+
+ Wear heavy long pants, long sleeves, boots, and gloves.
+Do not wear loose fitting clothing, short pants, sandals,
+jewelry of any kind, or go barefoot.
+ To reduce the risk of injury associated with objects being
+drawn into rotating parts, do not wear loose clothing,
+scarves, neck chains, and the like.
+ Secure long hair so it is above shoulder level to prevent
+entanglement in any rotating parts.
+ Do not operate this unit when you are tired, ill, upset, or
+under the influence of alcohol, drugs, or medication.
+ Do not operate in poor lighting.
+ Keep all parts of your body away from any moving parts
+and all hot surfaces of the unit.
+ Wear a face filter mask in dusty conditions to reduce the
+risk of injury associated with the inhalation of dust.
+ Check the work area before each use. Remove all objects
+such as rocks, broken glass, nails, wire, or string which
+can be thrown or become entangled in the machine.
+
+ Never attempt to burn off spilled fuel under any
+circumstances.
+
+ Maintain the unit per maintenance instructions in this
+Operator’s Manual.
+ Inspect the unit before each use for loose fasteners, fuel
+leaks, etc. Replace damaged parts.
+ Do not use on a ladder, rooftop, tree, or other unstable
+support. Stable footing on a solid surface enables better
+control of the blower in unexpected situations.
+ Before cleaning, repairing, or inspecting, shut off the
+engine and make certain all moving parts have stopped.
+Disconnect the spark plug wire, and keep the wire away
+from the plug to prevent starting.
+ We recommend taking your equipment to a qualified
+service center for repair, as service performed by inexperienced or unqualified persons may damage the
+equipment, create unsafe conditions, injury to user and/
+or void your warranty.
+
+ Keep firm footing and balance. Do not overreach.
+Overreaching can result in loss of balance or exposure
+to hot surfaces.
+
+Page 2 — English
+
+SPECIFIC SAFETY RULES
+ Always hold the blower/vacuum in your right hand during
+blower operation. Refer to the Operation instructions later
+in this manual for proper position during vacuum operation and additional information.
+ Never place objects inside the blower tubes.
+ Use only as directed in this operator’s manual.
+ Do not operate vacuum without vacuum bag installed;
+flying debris could cause serious injury. Always close
+vacuum bag completely before operating.
+ Rotating impeller blades can cause severe injury. Stop
+the engine and ensure impeller blades have stopped
+rotating before opening the vacuum door or installing/
+changing tubes. Do not put hands or any other object
+into the vacuum tubes while they are installed on the unit.
+ Never run the unit without the proper equipment attached.
+When used as a blower, always install the blower tubes.
+When used as a vacuum, always install the vacuum
+tubes and vacuum bag. Make sure the vacuum bag is
+completely zipped when the unit is running to avoid flying
+debris.
+ Avoid situations that could catch the vacuum bag on
+fire. Do not operate near an open flame. Do not vacuum
+warm ash from fireplaces, barbecue pits, brush piles, etc.
+Do not vacuum discarded cigars or cigarettes unless the
+cinders are completely cool.
+
+FUELING
+ Fuel is highly flammable. Take precautions when using
+to reduce the chance of serious personal injury.
+ Store fuel in a cool, well-ventilated area, safely away from
+spark and/or flame-producing equipment.
+ Store fuel in containers specifically designed for this
+purpose.
+ Only refuel outdoors and do not smoke while ­refueling.
+ Add fuel before starting the engine. Never remove the cap
+of the fuel tank or add fuel while the engine is running or
+when the engine is hot.
+ Do not smoke while handling fuel.
+ Mix and store fuel in a container approved for gasoline.
+ Mix fuel outdoors where there are no sparks or flames.
+ Loosen fuel cap slowly to release pressure and to keep
+fuel from escaping around the cap.
+ Tighten the fuel cap securely after refueling.
+ Wipe spilled fuel from the unit. Move 30 feet away from
+refueling site before starting engine.
+ Never attempt to burn off spilled fuel under any circumstances.
+ To reduce the risk of fire and burn injury, handle fuel with
+care. It is highly flammable.
+
+ Never place blower on any surface, except a hard, clean
+surface when engine is running. Gravel, sand, and other
+debris can be picked up by the air inlet and thrown at the
+operator or bystanders, causing possible serious injuries.
+
+ If fuel is spilled, do not attempt to start the engine but
+move the machine away from the area of spillage and
+avoid creating any source of ignition until fuel vapors
+have dissipated.
+
+ To reduce the risk of hearing loss associated with sound
+level(s), hearing protection is required.
+
+ Replace all fuel tank and container caps securely.
+
+ To reduce the risk of injury associated with contacting
+rotating parts, stop the engine before installing or
+removing attachments. Always disconnect the spark plug
+before performing maintenance or accessing any movable
+parts.
+ Never use blower near fires, fireplaces, hot ashes,
+barbecue pits, etc., which may cause fire to spread.
+ Do not point the blower nozzle in the direction of people
+or pets.
+
+ Empty fuel tank into a container approved for gasoline
+and restrain the unit from moving before transporting in
+a vehicle.
+ When draining the fuel tank, use an approved fuel storage
+container in a well-ventilated area.
+ Select bare ground, stop engine, and allow to cool before
+refueling.
+ Save these instructions. Refer to them frequently and use
+them to instruct others who may use this tool. If you loan
+someone this tool, loan them these instructions also.
+
+ This product is intended for infrequent use by homeowners and other occasional users for such general applications as blowing leaves and lawn clippings, etc. It is not
+intended for prolonged use. Prolonged periods of operation can cause circulatory problems in the user’s hands
+due to vibration. For such use, it may be appropriate to
+use a product having an anti-vibration feature.
+
+Page 3 — English
+
+SYMBOLS
+The following signal words and meanings are intended to explain the levels of risk associated with this product.
+
+SYMBOL
+
+SIGNAL
+
+MEANING
+
+DANGER:
+
+Indicates a hazardous situation, which, if not avoided, will result in death or
+serious injury.
+
+WARNING:
+
+Indicate a hazardous situation, which, if not avoided, could result in death or
+serious injury.
+
+CAUTION:
+
+Indicates a hazardous situation, that, if not avoided, may result in minor or
+moderate injury.
+
+NOTICE:
+
+(Without Safety Alert Symbol) Indicates information considered important, but
+not related to a potential injury (e.g. messages relating to property damage).
+
+Some of the following symbols may be used on this product. Please study them and learn their meaning. Proper
+interpretation of these symbols will allow you to operate the product better and safer.
+
+SYMBOL
+
+NAME
+
+EXPLANATION
+
+Safety Alert Symbol
+
+Indicates a potential personal injury hazard.
+
+Read Operator’s Manual
+
+To reduce the risk of injury, user must read and understand
+operator’s manual before using this product.
+
+Eye and Hearing Protection
+
+Always wear eye protection with side shields marked to
+comply with ANSI Z87.1 as well as hearing protection when
+operating this equipment.
+
+Keep Bystanders Away
+
+Keep all bystanders at least 50 ft. away.
+
+Ricochet
+
+Thrown objects can ricochet and result in personal injury or
+property damage.
+
+Vacuum Door
+
+Do not run unit while vacuum door is unsecured.
+
+Long Hair
+
+Risk of long hair being drawn into air inlet.
+
+Blower Tubes
+
+Do not run unit without tubes in place.
+
+Loose Clothing
+
+Risk of loose clothing being drawn into air intake.
+
+Gasoline and Lubricant
+
+Use unleaded gasoline intended for motor vehicle use with
+an octane rating of 87 [(R + M) / 2] or higher. This product is
+powered by a 2-cycle engine and requires pre-mixing gasoline
+and 2-cycle lubricant.
+Page 4 — English
+
+FEATURES
+PRODUCT SPECIFICATIONS
+Engine Displacement.......................................................................................................................................................26cc
+Sweeper Nozzle
+
+Blowing Performance (at Nozzle Outlet):
+
+High Velocity Nozzle
+
+*MPH. ...................................................................................... 150. .............................................................200
+*CFM........................................................................................ 400. .............................................................150
+*Rated per ANSI B175.2
+
+KNOW YOUR BLOWER/VACUUM
+See Figure 1.
+The safe use of this product requires an understanding of
+the information on the tool and in this operator’s manual as
+well as a knowledge of the project you are attempting. Before
+use of this product, familiarize yourself with all operating
+features and safety rules.
+
+BLOWER TUBE AND SWEEPER NOZZLE
+The blower tube and sweeper nozzle can be assembled and
+installed on the blower without using any tools.
+
+CRUISE CONTROL LEVER/THROTTLE LOCK
+The cruise control lever/throttle lock feature allows the user
+to operate the blower without holding the throttle trigger.
+To slow the engine, simply push the cruise control lever/
+throttle lock forward.
+
+ENGINE
+The blower has a powerful 26cc engine with sufficient power
+to handle tough blowing and vacuuming jobs.
+
+HIGH VELOCITY NOZZLE
+The high velocity nozzle is great for wet sticky leaves. It allows you to scrape wet leaves or debris from hard surfaces
+while operating the blower.
+
+SWEEPER NOZZLE
+The sweeper nozzle allows for more area to be covered
+during blower operation, making it more effective on larger
+piles of leaves and debris.
+
+THROTTLE TRIGGER
+The blower can be operated at any speed between idle and
+full throttle.
+
+VACUUM/MULCHER
+Converting the blower to a vacuum/mulcher is simple and
+can be done using a flat head screwdriver.
+
+VACUUM BAG
+The vacuum bag attaches to the blower easily by using the
+vacuum bag adaptor.
+
+VACUUM HANDLE
+This feature allows user to perform vacuuming duties
+­comfortably.
+
+VACUUM TUBES
+The vacuum tubes can be installed on the blower using a
+flat head screwdriver.
+
+ASSEMBLY
+UNPACKING
+This product requires assembly.
+ Carefully remove the product and any accessories from
+the box. Make sure that all items listed in the packing list
+are included.
+
+WARNING:
+
+ Inspect the product carefully to make sure no breakage
+or damage occurred during shipping.
+ Do not discard the packing material until you have carefully inspected and satisfactorily operated the product.
+ If any parts are damaged or missing, please call
+1-800-242-4672 for assistance.
+
+PACKING LIST
+
+Do not use this product if any parts in the Packing List
+are already assembled to your product when you unpack
+it. Parts on this list are not assembled to the product by
+the manufacturer and require customer installation. Use
+of a product that may have been improperly assembled
+could result in serious personal injury.
+
+Blower
+Upper Blower Tube
+Sweeper Nozzle
+High Velocity Nozzle
+Upper and Lower Vacuum Tubes
+Vacuum Tube Screws (2)
+Vacuum Bag
+Vacuum Bag Adaptor
+
+Page 5 — English
+
+ASSEMBLY
+PACKING LIST (continued)
+2-Cycle Engine Lubricant
+Operator’s Manual
+NOTE: Read and remove all hang tags and store with your
+Operator’s Manual.
+
+WARNING:
+If any parts are damaged or missing do not operate this
+product until the parts are replaced. Use of the product
+with damaged or missing parts could result in possible
+serious personal injury.
+
+WARNING:
+Do not attempt to modify this product or create accessories not recommended for use with this product. Any
+such alteration or modification is misuse and could result
+in a hazardous condition leading to possible serious
+personal injury.
+
+ To remove the tubes, use a flat head screwdriver to lift the
+locking tab, rotate the tubes to unlock them and remove
+from the blower housing outlet.
+
+INSTALLING THE VACUUM BAG
+
+See Figures 5 - 6.
+ Remove the nozzle and upper blower tube from the
+blower by using a flat head screwdriver to lift the locking
+tab, twisting and removing from blower housing outlet.
+ Unzip the vacuum bag and push the vacuum bag adaptor
+through the opening opposite the zipper as shown. The
+wider end of the adaptor will remain on the inside of the
+vacuum bag when installed properly.
+ Align the raised slots on the vacuum bag adaptor with the
+raised locking tabs on the blower housing outlet. Push
+the vacuum bag adaptor onto the housing and twist to
+lock into place.
+ Rotate the vacuum bag until the shoulder strap is upright.
+ Make sure the vacuum bag is zipped and closed before
+starting the unit.
+
+INSTALLING THE VACUUM TUBES
+See Figures 7 - 8.
+
+WARNING:
+To prevent accidental starting that could cause serious
+personal injury, always disconnect the engine spark plug
+wire from the spark plug when assembling parts.
+
+TOOLS NEEDED
+
+See Figure 2.
+The following tool (not included or drawn to scale) is needed
+for assembly:
+ Flat Head Screwdriver
+
+ASSEMBLING THE BLOWER TUBES
+
+See Figures 3 - 4.
+ Align raised tabs on blower housing outlet to the slots on
+upper blower tube; slide together and tighten securely by
+twisting until the tubes snap into the locked position and
+the lock symbols are aligned. Check tightness after initial
+use and retighten if needed.
+
+NOTICE:
+When correctly assembled, the tubes are difficult to separate. If they can easily be twisted apart, the tubes are not
+locked. Continue twisting together until the tubes snap
+into the locked position. Tubes that are not fully locked
+together can separate during blower operation.
+ Attach sweeper nozzle to upper blower tube by aligning
+raised tabs on upper blower tube; slide together and
+tighten securely by twisting. Check tightness after initial
+use and retighten if needed.
+ If high velocity nozzle use is desired, attach to sweeper
+nozzle by aligning raised tab on high velocity nozzle with
+slot on sweeper nozzle.
+
+WARNING:
+Contact with rotating impeller blades could result in serious personal injury. Always stop the engine and ensure
+impeller blades have stopped rotating before opening
+the vacuum door or installing/changing tubes. Do not put
+hands or any other object into the vacuum tubes while
+they are installed on the unit.
+To install the vacuum tubes:
+ Secure the upper and lower vacuum tubes together by
+aligning the raised locking tabs with the raised slots.
+ Tap tube assembly on ground until the screw holes in
+lower tube are in the raised slot of the upper tube. Secure
+with supplied screws.
+ Depress door tab using a flathead screwdriver and open
+vacuum inlet door.
+ Align screw mounts on vacuum opening with screws on
+vacuum tube assembly.
+ Turning clockwise, tighten screws on upper vacuum tube
+to secure to blower housing.
+To remove the vacuum tubes:
+ Loosen screws of the upper vacuum tube by turning
+counterclockwise.
+ Remove the vacuum tube assembly from the blower
+housing.
+ Close the vacuum inlet cover door securely.
+ Remove the vacuum bag by using a flat head screwdriver
+to lift the locking tab, rotate to unlock the adaptor and
+remove.
+
+Page 6 — English
+
+OPERATION
+APPLICATIONS
+
+WARNING:
+Do not allow familiarity with this product to make you
+careless. Remember that a careless fraction of a second is
+sufficient to inflict serious injury.
+
+You may use this product for the purposes listed below:
+ Clearing leaves and other debris from your lawn
+ Keeping decks and driveways free from leaves and other
+forms of debris
+ Vacuuming leaves from your lawn
+
+WARNING:
+Always wear eye protection with side shields marked to
+comply with ANSI Z87.1, along with hearing protection.
+Failure to do so could result in objects being thrown into
+your eyes and other possible serious injuries.
+
+WARNING:
+Do not use any attachments or accessories not recommended by the manufacturer of this product. The use of
+attachments or accessories not recommended can result
+in serious personal injury.
+
+ETHANOL-BLENDED FUELS
+NOTICE:
+Do not use E15 or E85 fuel in this product. It is a violation of federal law and will damage the unit and void
+your warranty. Only use unleaded gasoline containing
+up to 10% ethanol.
+NOTE: To improve performance when using oxygenated
+fuels, we recommend the use of Ethanol Shield 2-cycle
+lubricant.
+
+FUELING AND REFUELING
+WARNING:
+
+WARNING:
+Verify that all guards and tubes are in place prior to use.
+If the blower is dropped, stop blower and verify that
+no damage has occurred. If any guard, part, or tube is
+damaged or missing, do not use blower until it has been
+repaired or replaced by a qualified service center. Use of
+blower with damaged or missing guards, parts, or tubes
+can result in serious personal injury or further damage
+to the blower.
+
+NOTICE:
+The spark arrestor on this product has not been evaluated by the USDA Forest Service and cannot be used on
+U.S. forest lands. In addition, product users must comply
+with Federal, State, and local fire prevention regulations.
+Check with appropriate authorities. Contact customer
+service or a qualified service center to purchase a replacement spark arrestor.
+
+NOTICE:
+Before each use, inspect the entire product for damaged,
+missing, or loose parts such as screws, nuts, bolts, caps,
+etc. Tighten securely all fasteners and caps and do not
+operate this product until all missing or damaged parts are
+replaced. Please contact customer service or a qualified
+service center for assistance.
+
+Gasoline and its vapors are highly flammable and explosive. To prevent serious personal injury and property
+damage, handle it with care. Keep away from ignition
+sources and open flames, handle outdoors only, do not
+smoke, and wipe up spills immediately.
+FUEL MIXTURE
+This product is powered by a 2-cycle engine and requires
+pre-mixing gasoline and 2-cycle lubricant. Pre-mix unleaded
+gasoline and 2-cycle engine lubricant in a clean container
+approved for gasoline. DO NOT mix quantities larger than
+usable in a 30-day period.
+Recommended fuel: This engine is certified to operate on
+unleaded gasoline intended for automotive use.
+NOTE: We recommend you use Ethanol Shield 2-cycle
+l­ubricant or an equivalent high-quality synthetic 2-cycle
+l­ubricant in this product. Mix at 2.6 oz. per gallon (US).
+Do not use automotive lubricant or 2-cycle outboard
+­lubricant.
+HIGH QUALITY 2-CYCLE ENGINE LUBRICANT
+GASOLINE
+LUBRICANT
+
+Page 7 — English
+
+1.0 gal. (US) (3.8 liter)
+2.5 gal. (US) (9.5 liter)
+
+2.6 oz. (76 ml)
+6.4 oz. (189 ml)
+
+OPERATION
+FILLING THE TANK
+ Clean the surface around the fuel cap to prevent contamination.
+
+ Allow the engine to run for 15 seconds, then set the choke
+lever to the RUN position.
+TO STOP THE ENGINE:
+
+ Pour the fuel mixture carefully into the tank.
+
+ To stop the engine, depress and hold the STOP switch
+to the stop position “ ”.
+
+ Clean and inspect the fuel cap gasket before replacing
+the fuel cap.
+
+HOT RESTART OF THE ENGINE:
+ Set the choke lever to the RUN position.
+
+ Replace the fuel cap and tighten it by turning it clockwise.
+
+ Lock cruise control lever/throttle lock.
+
+ Wipe spilled fuel from the product.
+
+ Pull the starter grip and rope until the engine runs.
+
+ Move at least 30 ft. away from refueling area before starting the product.
+
+IF ASSISTANCE IS REQUIRED STARTING THIS
+PRODUCT:
+
+ Loosen the fuel cap slowly by turning counterclockwise.
+
+NOTE: It is normal for smoke to be emitted from a new
+engine during first use.
+
+WARNING:
+
+Do not return this product to the retail store where it was
+purchased. Please call our Customer Service Department
+for any issues you may have.
+For Help Call: 1-800-242-4672
+
+Check for fuel leaks, which are a fire hazard. Failure
+to do so could result in a fire that could cause serious
+personal injury.
+
+OPERATING THE BLOWER
+See Figures 10 - 11.
+
+WARNING:
+WARNING:
+Always shut off engine before fueling. Never remove fuel
+cap or add fuel to a machine with a running or hot engine.
+Make sure the unit is sitting on a flat, level surface and
+only add fuel outdoors. If the engine is hot, let the unit cool
+for at least five minutes before adding fuel. After fueling,
+immediately replace fuel cap and tighten securely. Move
+at least 30 ft. from refueling site before starting engine. Do
+not smoke and stay away from open flames and sparks!
+Failure to follow these instructions could result in a fire
+and cause serious personal injury.
+
+Never run the unit without the blower tubes installed and
+the vacuum door securely closed. Use of an improperly
+assembled unit could result in serious personal injury.
+
+NOTICE:
+Always operate your product in compliance with all
+applicable laws and ordinances.
+ Start the blower. Refer to Starting and Stopping earlier
+in this manual. Hold the blower with the upper handle in
+your right hand.
+
+STARTING AND STOPPING
+
+WARNING:
+
+See Figure 9.
+Blower should be on a flat, bare surface for starting.
+ Slowly press the primer bulb 10 times.
+NOTE: After the 10th press, fuel should be visible in the
+primer bulb. If it is not, continue to press the primer until
+you see fuel in the bulb.
+
+Always hold the blower away from your body with the
+handle in your right hand when operating as a blower,
+keeping clearance between your body and the product.
+The muffler side of the blower should be away from your
+body. Any contact with the housing can result in burns
+and/or other serious personal injury.
+
+ 		Set the choke lever to the FULL CHOKE position.
+ 		Lock cruise control lever/throttle lock to the full throttle
+position.
+ Pull starter grip and rope sharply until engine attempts to
+run. Do not pull the starter grip and rope more than four
+(4) times.
+ Set the choke lever to the HALF CHOKE position.
+ Pull the starter grip and rope until the engine runs.
+NOTE: If the engine does not start, return to the FULL
+CHOKE position and repeat the steps that follow.
+
+WARNING:
+Do not place blower on top of or near loose debris or
+gravel. Debris may be sucked into blower intake vent
+resulting in possible damage to the unit and could result
+in serious personal injury.
+ To keep from scattering debris, blow around the outer
+edges of a debris pile. Never blow directly into the center
+of a pile.
+
+Page 8 — English
+
+OPERATION
+ Operate power equipment at reasonable hours only — not
+early in the morning or late at night when people might be
+disturbed. Comply with the times listed in local ordinances.
+ To reduce sound levels, limit the number of pieces of
+equipment used at any one time.
+ Conserve water by using power blowers instead of hoses
+for many lawn and garden applications, including areas
+such as gutters, screens, patios, grills, porches, and
+gardens.
+ Operate blower at the lowest possible throttle speed to
+do the job.
+ Check your equipment before operation, especially the
+muffler, air intakes, and air filters.
+ Use rakes and brooms to loosen debris before blowing.
+ In dusty conditions, slightly dampen surfaces when water
+is available.
+ Watch out for children, pets, open windows, or freshly
+washed cars, and blow debris safely away.
+ Hold blower, as shown in Figure 10, so the air stream can
+work close to the ground.
+ After using blowers or other equipment, CLEAN UP!
+Dispose of debris properly.
+ Use the sweeper nozzle for the everyday blowing operation. This nozzle allows for more area to be covered during
+the blowing operation.
+
+CRUISE CONTROL LEVER/THROTTLE LOCK
+See Figure 12.
+The cruise control lever/throttle lock can be used to operate
+the blower without holding the throttle trigger.
+ To engage, pull cruise control lever/throttle lock back
+towards user, and stop at the desired throttle setting.
+ To release, push cruise control lever/throttle lock all the
+way towards the front of unit.
+
+VACUUM OPERATION
+See Figure 13.
+
+WARNING:
+Never run the unit without the vacuum tubes and vacuum
+bag installed. Use of an improperly assembled unit could
+result in serious personal injury.
+
+WARNING:
+Keep the muffler and all hot surfaces of the blower/
+vacuum away from your body. Failure to do so could
+result in possible serious personal injury.
+ Install the vacuum tubes and the bag. Refer to the
+Assembly section earlier in this manual.
+ Start the blower. Refer to Starting and Stopping earlier
+in this manual.
+ Place the vacuum bag strap over your right shoulder.
+Hold the upper handle in your left hand and the vacuum
+handle in your right hand.
+ Move the blower/vacuum from side to side along outer
+edge of the debris. To avoid clogging, do not place the
+vacuum tube directly into the debris pile.
+ Hold the engine higher than the inlet end of the vacuum
+tube.
+ Always point vacuum tube downhill when working on a
+hillside.
+ To avoid serious injury to the operator or damage to the
+unit, do not pick up rocks, metal, broken glass, bottles,
+or other similar objects.
+ If the vacuum tubes should clog, stop the engine , ensure
+impeller blades have stopped spinning, and disconnect
+the spark plug wire before cleaning out the obstruction.
+ Remove the vacuum tubes and clear the debris from the
+blower fan housing. Remove the bag and clear the tube.
+A small rod or stick may be required to clear the entire
+tube length. Ensure that all debris has been cleared before
+reassembling the vacuum tubes.
+
+Page 9 — English
+
+MAINTENANCE
+Normal maintenance, replacement or repair of emission control devices and systems may be performed by any qualified
+repair establishment or individual with original or equivalent
+parts. Warranty and recall repairs must be performed by an
+authorized service center; please contact customer service
+for assistance.
+
+ Rinse filter with clean water.
+ Gently squeeze filter until excess water is removed.
+Replace filter.
+ Place the air filter cover back on the unit. Turn dial clockwise until cover is secure.
+
+CLEANING THE EXHAUST PORT, MUFFLER
+AND SPARK ARRESTOR
+
+WARNING:
+Before inspecting, cleaning, or servicing the machine,
+shut off engine, wait for all moving parts to stop, and
+disconnect spark plug wire and move it away from spark
+plug. Failure to follow these instructions can result in
+serious personal injury or property damage.
+
+WARNING:
+Always wear eye protection with side shields marked to
+comply with ANSI Z87.1, along with hearing protection.
+Failure to do so could result in objects being thrown into
+your eyes and other possible serious injuries.
+
+WARNING:
+When servicing, use only recommended or equivalent
+replacement parts. Use of any other parts could create
+a hazard or cause product damage.
+
+NOTICE:
+Periodically inspect the entire product for damaged,
+missing, or loose parts such as screws, nuts, bolts, caps,
+etc. Tighten securely all fasteners and caps and do not
+operate this product until all missing or damaged parts are
+replaced. Please contact customer service or a qualified
+service center for assistance.
+
+NOTICE:
+The spark arrestor on this product has not been evaluated by the USDA Forest Service and cannot be used on
+U.S. forest lands. In addition, product users must comply
+with Federal, State, and local fire prevention regulations.
+Check with appropriate authorities. Contact customer
+service or a qualified service center to purchase a replacement spark arrestor.
+NOTE: Depending on the type of fuel used, the type and
+amount of lubricant used, and/or your operating conditions, the
+exhaust port, muffler, and/or spark arrestor screen may become blocked with carbon deposits. If you notice a power
+loss with your gas powered tool, you may need to remove
+these deposits to restore performance. We highly recommend
+that only qualified service technicians perform this service.
+The spark arrestor must be cleaned or replaced every 50
+hours or yearly to ensure proper performance of your product. Spark arrestors may be in different locations depending
+on the model purchased. Please contact customer service
+or a qualified service center for assistance.
+
+WARNING:
+Never run the blower without a muffler equipped with a
+spark arrestor in place. Failure to do so could result in a
+fire that could cause serious personal injury.
+
+GENERAL MAINTENANCE
+
+VACUUM BAG
+
+Avoid using solvents when cleaning plastic parts. Most
+plastics are susceptible to damage from various types of
+commercial solvents and may be damaged by their use.
+Use clean cloths to remove dirt, dust, lubricant, grease, etc.
+
+A dirty bag will reduce performance. To clean the bag, turn it
+inside out and shake. Wash the bag in soapy water at least
+once a year. To obtain a replacement bag, see How to Obtain Replacement Parts on the back page of this manual.
+
+FUEL CAP, TANK, AND LINES
+
+WARNING:
+Do not at any time let brake fluids, gasoline, petroleumbased products, penetrating lubricants, etc., come in contact with plastic parts. Chemicals can damage, weaken or
+destroy plastic which could result in serious personal injury.
+
+CLEANING THE AIR FILTER
+See Figures 14 - 15.
+For proper performance and long life, keep air filter clean.
+ Remove the air filter cover by turning the dial counterclockwise while gently pulling on the cover.
+
+WARNING:
+Check for fuel leaks. A leaking fuel cap, tank, or line is a
+fire hazard and must be replaced immediately. If you find
+any leaks, correct the problem before using the product.
+Failure to do so could result in a fire that could cause
+serious personal injury.
+The fuel cap contains a non-serviceable filter and a
+check valve. A clogged fuel filter will cause poor engine
+
+Page 10 — English
+
+MAINTENANCE
+performance. If performance improves when the fuel cap
+is loosened, check valve may be faulty or filter clogged.
+Replace fuel cap if required.
+
+When storing 1 month or longer:
+
+SPARK PLUG REPLACEMENT
+
+HIGH ALTITUDE ENGINE OPERATION
+
+This engine uses a Ryobi AC00160A, Champion RCJ-6Y,
+or equivalent spark plug with .025 in. electrode gap. Use
+a recommended or equivalent replacement and replace
+annually.
+
+Your engine is configured for operation below 2,000 feet
+altitude at the factory. Your engine must be reconfigured for
+operation above 2,000 feet altitude. Operating the engine
+with the wrong engine configuration at a given altitude may
+increase its emissions, decrease fuel efficiency, degrade
+performance, and cause irreversible damage. Engines
+configured for high altitude operation cannot be operated
+in standard altitude conditions. A qualified service center
+should ensure that your engine is properly configured for
+your location.
+
+STORING THE PRODUCT
+ Clean all foreign material from the product. Store idle unit
+indoors in a dry, well-ventilated area that is inaccessible
+to children. Keep away from corrosive agents such as
+garden chemicals and de-icing salts.
+
+ Drain all fuel from tank into a container approved for
+gasoline. Run engine until it stops.
+
+ Abide by all ISO and local regulations for the safe storage
+and handling of gasoline.
+
+THIS PRODUCT WAS MANUFACTURED WITH A CATALYST MUFFLER
+Congratulations! You have made an investment toward protecting the environment. In order to maintain this product’s
+original emission level, please refer to the maintenance section below.
+
+MAINTENANCE SCHEDULE
+Maintenance
+Part
+
+Inspect for
+
+Damage Before
+Each Use
+
+Clean
+
+Every
+5 Hours
+
+Replace
+
+Every 25 Hours
+or Yearly
+
+Replace
+
+Every
+50 Hours
+
+* CATALYTIC MUFFLER ASSEMBLY........................................................................................................................... X
+SPARK SCREEN.........................................................................................................................................................X
+* AIR FILTER ASSY
+includes:
+Filter...........................................................................................X
+* CARBURETOR ASSY
+includes:
+Gaskets. .......................................... X
+* FUEL TANK ASSY
+includes:
+Fuel Lines........................................ X
+Fuel Cap.......................................... X
+Fuel Filter...........................................................................................................................X
+* IGNITION ASSY
+includes:
+Spark Plug.........................................................................................................................X
+* NOTICE: THE USE OF EMISSION CONTROL COMPONENTS OTHER THAN THOSE DESIGNED FOR THIS UNIT 		
+IS A VIOLATION OF FEDERAL LAW.
+
+Page 11 — English
+
+TROUBLESHOOTING
+PROBLEM
+Engine fails to start.
+
+Engine hard to start.
+
+POSSIBLE CAUSE
+
+REMEDY
+
+No fuel in tank.
+
+Fill tank.
+
+Spark plug shorted or fouled.
+
+Replace spark plug.
+
+Spark plug is broken. (cracked
+­porcelain or electrodes broken)
+
+Replace spark plug.
+
+Ignition lead wire shorted, broken, or
+disconnected from spark plug.
+
+Replace lead wire or attach to spark
+plug.
+
+Ignition inoperative.
+
+Contact a qualfied service center.
+
+Water in gasoline or stale fuel mixture. Drain entire system and refill with fresh
+fuel.
+Too much lubricant in fuel mixture.
+
+Drain and refill with correct mixture.
+
+Engine is under or over choked.
+
+Adjust choke as necessary.
+
+Weak spark at spark plug.
+
+Contact a qualfied service center.
+
+Engine lacks power.
+
+Air filter clogged.
+
+Clean air filter. Refer to Cleaning the
+Air Filter earlier in this manual.
+
+Engine overheats.
+
+Insufficient lubricant in fuel mixture.
+
+Mix fuel as described in starting
+­instructions.
+
+If problem persists after trying the above solutions, contact customer service or a qualified service center for assistance.
+
+NOTICE:
+As the equipment owner, you are responsible for the performance of the required maintenance listed in the Maintenance
+section. It is recommended that you retain all receipts covering maintenance on your equipment. Neglecting or failing
+to perform the required maintenance may increase emissions, decrease fuel efficiency, degrade performance, cause
+irreversible engine damage and/or void your warranty.
+
+This product has a Two-year Limited Warranty for personal, family,
+or household use (90 days for business or commercial use).
+For warranty details, visit www.homelite.com
+or call (toll free) 1-800-242-4672.
+
+Page 12 — English
+
+RÈGLES DE SÉCURITÉ GÉNÉRALES
+ Laisser le moteur refroidir avant de remiser l’outil.
+
+AVERTISSEMENT :
+LIRE ET VEILLER À BIEN COMPRENDRE TOUTES
+LES INSTRUCTIONS. Le non respect de toutes les
+instructions ci-dessous peut entraîner un choc électrique,
+un incendie et / ou des blessures graves.
+
+LIRE TOUTES LES INSTRUCTIONS
+ Ne pas laisser des enfants ou personnes n’ayant pas reçu
+une formation adéquate utiliser cet outil.
+ Ne pas démarrer ou faire tourner le moteur dans un
+espace confine, de bâtiment, à proximité des fenêtres
+ouverts, autre ou des zones sans ventilation où des
+vapeurs toxiques de monoxyde de carbone peuvent
+s’accumuler. Le monoxyde de carbone, un gaz incolore,
+inodore et extrêmement toxique peut causer une perte
+de conscience et être mortel.
+
+ Vider le réservoir de carburant dans un contenant
+approuvé pour l’essence et immobiliser l’unité avant de
+la transporter dans un véhicule.
+ Manipuler le carburant avec précaution pour éviter les
+risques d’incendies et de brûlures. Le carburant est
+extrêmement inflammable.
+ Ne pas fumer pendant la manipulation du carburant.
+ Mélanger et conserver le carburant dans un bidon ou
+jerrican approuvé pour l’essence.
+ Mélanger le carburant à l’extérieur, loin de toute flamme
+ou source d’étincelles.
+ Poser la machine sur un sol nu, arrêter le moteur et le
+laisser refroidir avant de faire le plein.
+ Desserrer le bouchon du réservoir lentement pour relâcher
+la pression et éviter que le carburant s’échappe.
+
+ Toujours porter une protection oculaire avec écrans
+latéraux certifiée conforme à la norme ANSI Z87.1, avec
+protection auditive. Si cette précaution n’est pas prise,
+des objets peuvent être projetés dans les yeux et d’autres
+lésions graves.
+
+ Une fois le réservoir plein, remettre le bouchon en place
+et le serrer fermement.
+
+ Garder tous les badauds, enfants et animaux domestiques
+à une distance d’au moins 15 m (50 pi).
+
+ N’essayer en aucun cas de brûler le carburant répandu.
+
+ Porter des pantalons longs, manches longues, des
+chaussures de travail et des gants épais. Ne pas porter
+de vêtements amples, shorts, sandales, bijoux quels qu’ils
+soient et ne pas travailler pieds nus.
+ Pour réduire les risques de happement par les pièces
+en mouvement, ne pas porter de vêtements amples,
+foulards, colliers, etc.
+ Attacher les cheveux longs pour les maintenir au-dessus
+des épaules, afin qu’ils ne se prennent pas dans les pièces
+en rotation.
+ Ne pas utiliser cet outil en état de fatigue, si l’on est
+souffrant ou sous l’influence de l’alcool, de drogues ou
+de médicaments.
+ Ne pas travailler sous un éclairage insuffisant.
+ Garder toutes les parties du corps à l’écart des pièces
+en mouvement et des paries brûlantes de l’outil.
+ Porter un masque facial filtrant dans les milieux
+poussiéreux afin de réduire le risque de lésions lié à
+l’inhalation de poussière.
+ Examiner la zone de travail avant chaque utilisation. La
+débarrasser de tous les objets tels que cailloux, verre
+brisé, clous, fils métalliques, cordes, etc. risquant d’être
+projetés ou de se prendre dans la machine.
+
+ Essuyer tout le carburant éventuellement répandu.
+S’éloigner de 9 m (30 pi) du point d’approvisionnement
+avant de lancer le moteur.
+ Utiliser exclusivement des pièces de rechange et
+accessoire recommandées ou équivalentes. L’usage de
+toute autre pièce pourrait créer une situation dangereuse
+ou endommager l’outil.
+ Entretenir l’outil conformément aux instructions de ce
+manuel d’utilisation.
+ Inspecter l’outil avant chaque utilisation pour s’assurer
+qu’il n’y a pas de pièces desserrées, de fuites ce
+carburant, etc. Remplacer les pièces endommagées.
+ Ne pas utiliser l’unité sur une échelle, un toit, un arbre ou
+un autre support instable. Le fait de se tenir bien campé
+sur une surface solide permet de mieux contrôler la
+soufflante dans des situations inattendues.
+ Avant de nettoyer, réparer ou inspecter, arrêter le moteur
+et vérifier que toutes les pièces en mouvement sont
+immobilisées. Déconnecter le fil de bougie et le garder
+à l’écart de la bougie afin d’empêcher un démarrage
+accidentel.
+ Il est recommandé d’apporter la équipement à un
+centre de réparations qualifié pour la faire réparer pour
+éviter que des réparations effectuées par une personne
+inexpérimentée ou non qualifiée puissent endommager
+la équipement, créer des conditions dangereuses, des
+blessures à l’utilisateur et annuler la garantie.
+
+ Se tenir bien campé et en équilibre. Ne pas travailler
+hors de portée. Le travail hors de portée risque de faire
+perdre l’équilibre ou de causer un contact avec les
+pièces brûlantes.
+
+Page 2 — Français
+
+RÈGLES DE SÉCURITÉ PARTICULIÈRES
+ Toujours tenir la soufflante / aspirateur avec la main
+droite pendant le soufflage. Consulter les instructions
+d’Utilisation présentées ultérieurement dans ce manuel afin
+de connaître la position adéquate pour utiliser l’aspirateur,
+et obtenir des renseignements supplémentaires.
+ Ne jamais rien insérer dans les tubes.
+ Utiliser exclusivement selon les instructions de ce manuel.
+ Ne pas utiliser l’aspirateur sans le sac, car des débris
+pourraient être projetés et infliger des blessures graves.
+Toujours fermer le sac complètement avant d’utiliser
+l’aspirateur.
+ L’aubage de la roue en rotation peut entraîner des
+blessures graves. Arrêter le moteur et s’assurer que
+l’aubage de la roue a cessé de tourner avant d’ouvrir la
+porte de l’aspirateur ou d’installer ou de changer les tuyaux.
+Ne pas mettre les mains ou quelque objet que ce soit dans
+les tubes installés sur la machine.
+ Ne jamais utiliser la soufflante sans les accessoires
+appropriés installés. Les tubes de soufflante doivent
+toujours être installés lorsque la machine est utilisée en
+soufflante. Lorsque la machine est utilisée pour aspirer,
+les tubes d’aspiration et le sac doivent toujours être
+installés. Pour éviter la projection de débris, s’assurer que
+la fermeture à glissière de sac est complètement fermée
+lorsque le moteur tourne.
+ Éviter les situations pouvant mettre le feu au sac. Ne pas
+utiliser la machine à proximité de flammes vives. Ne pas
+aspirer les cendres chaudes de cheminées, barbecues,
+feux de bois, etc. Ne pas aspirer de mégots de cigares
+ou cigarettes dont les cendres ne sont pas complètement
+froides.
+ Ne jamais placer la soufflante en marche sur une surface,
+sauf si celle-ci est dure et propre. Le gravier, le sable et
+les autres débris peuvent être aspirés dans l’entrée d’air
+et projetés en direction de l’utilisateur ou des personnes
+à proximité, ce qui peut entraîner des blessures graves.
+ Pour réduire les risques de perte de l’ouïe causée par le
+niveau sonore, porter une protection auditive.
+ Pour réduire les risques de blessures infligées par des
+pièces en rotation, arrêter le moteur avant d’installer ou
+de retirer des accessoires. Toujours débrancher le fil de
+bougie avant de procéder à un entretien ou d’accéder à
+des pièces en mouvement.
+ Ne jamais utiliser la soufflante à proximité d’un feu, d’un
+poêle, de cendres chaudes, d’un barbecue, etc., sans quoi
+le feu risque de se propager.
+ Ne pas diriger la soufflante vers des personnes ou un
+animaux.
+ Ce produit est conçu pour les personnes qui prévoient
+l’utiliser de manière peu fréquente pour des applications
+générales par exemple, souffler les feuilles et les brins
+d’herbe, etc.; l’outil peut également convenir à d’autres
+utilisateurs occasionnels. Elle n’est pas conçue pour un
+usage prolongé. Les périodes d’utilisation prolongée
+
+peuvent entraîner des problèmes circulatoires dans les
+mains de l’opérateur, causés par les vibrations. Pour ce type
+d’application, il peut être bon d’utiliser une scie équipée
+d’un dispositif anti-vibrations.
+
+APPROVISIONNEMENT EN CARBURANT
+ Le carburant est extrêmement inflammable. Lors de
+l’utilisation, prendre les précautions nécessaires pour
+réduire le risque de blessures graves.
+ Conserver le carburant dans une zone froide bien ventilée
+à l’écart d’étincelles et / ou de matériels produisant des
+flammes.
+ Conserver le carburant dans des jerrycans spécialement
+conçus à cet effet.
+ Toujours faire le plein à l’extérieur et ne pas fumer pendant
+cette opération.
+ Faire l’appoint de carburant avant de lancer le moteur. Ne
+jamais retirer le bouchon du réservoir de carburant ni faire
+l’appoint pendant que le moteur tourne ou est chaud.
+ Ne pas fumer pendant la manipulation du carburant.
+ Mélanger et conserver le carburant dans un bidon ou
+jerrycan approuvé pour l’essence.
+ Mélanger le carburant à l’extérieur, loin de toute flamme
+ou source d’étincelles.
+ Desserrer le bouchon du réservoir lentement pour relâcher
+la pression et éviter que le carburant s’échappe.
+ Une fois le réservoir plein, remettre le bouchon en place
+et le serrer fermement.
+ Essuyer tout le carburant éventuellement répandu.
+S’éloigner de 9 m (30 pi) du point d’approvisionnement
+avant de lancer le moteur.
+ N’essayer en aucun cas de brûler le carburant répandu.
+ Manipuler le carburant avec précaution pour éviter les
+risques d’incendies et de brûlures. Le carburant est
+extrêmement inflammable.
+ Si du carburant est répandu, ne pas essayer de lancer le
+moteur, mais éloigner la machine et éviter de créer une
+source d’inflammation jusqu’à ce que les vapeurs de
+carburant se soient dissipées.
+ Remettre en place les bouchons de jerrycan et de réservoir
+de carburant et les serrer fermement.
+ Vider le réservoir de carburant dans un contenant approuvé
+pour l’essence et empêcher l’unité de bouger avant de le
+transporter dans un véhicule.
+ Lors de la vidange du réservoir de carburant, utiliser
+un bidon ou jerrycan approuvé pour la conservation de
+carburant et procéder dans un endroit bien aéré.
+ Poser la machine sur un sol nu, arrêter le moteur et le laisser
+refroidir avant de faire le plein.
+ Conserver ces instructions. Les consulter fréquemment et
+les utiliser pour instruire les autres utilisateurs éventuels.
+Si cet outil est prêté, il doit être accompagné de ces
+instructions.
+
+Page 3 — Français
+
+SYMBOLES
+Les termes de mise en garde suivants et leur signification ont pour but d’expliquer le degré de risques associé à
+l’utilisation de ce produit.
+
+SYMBOLE
+
+SIGNAL
+
+SIGNIFICATION
+
+DANGER :
+
+Indique une situation dangereuse qui, si elle n’est pas évitée, aura pour
+conséquences des blessures graves ou mortelles.
+
+AVERTISSEMENT :
+
+Indique une situation dangereuse qui, si elle n’est pas évitée, pourrait
+entraîner des blessures graves ou mortelles.
+
+ATTENTION :
+
+Indique une situation dangereuse qui, si elle n’est pas évitée, pourraît
+entraîner des blessures légères ou de gravité modérée.
+
+AVIS :
+
+(Sans symbole d’alerte de sécurité) Indique les informations jugées
+importantes sans toutefois représenter un risque de blessure (ex. :
+messages concernant les dommages matériels).
+
+Certains des symboles ci-dessous peuvent être présents sur la produit. Veiller à les étudier et à apprendre leur
+signification. Une interprétation correcte de ces symboles permettra d’utiliser la produit plus efficacement et de
+réduire les risques.
+
+SYMBOLE
+
+NOM
+
+EXPLICATION
+
+Symbole d’alerte de sécurité
+
+Indique un risque de blessure potentiel.
+
+Lire le manuel d’utilisation
+
+Pour réduire les risques de blessures, l’utilisateur doit lire
+et veiller à bien comprendre le manuel d’utilisation avant
+d’utiliser ce produit.
+
+Protection oculaire et auditive
+
+Toujours porter une protection oculaire avec écrans latéraux
+latéraux certifiée conforme à la norme ANSI Z87.1, ainsi qu’une
+protection auditive et respiration lors de l’utilisation de cet outil.
+
+Ne laisser personne s’approcher
+
+Garder les badauds à une distance de 15 m (50 pi) minimum.
+
+Ricochet
+
+Les objets projetés peuvent ricocher et infliger des blessures
+ou causer des dommages matériels.
+
+Volet d’aspiration
+
+Ne pas actionner lorsque le volet d’aspiration n’est pas
+verrouillé.
+
+Cheveux longs
+
+Risque d’aspiration des cheveux longs dans l’entrée d’air.
+
+Tubes de soufflante
+
+Ne pas utiliser sans les tubes en place.
+
+Vêtements amples
+
+Risque d’aspiration des vêtements amples dans l’entrée d’air.
+
+Essence et lubrifiant
+
+Utiliser de l’essence sans plomb pour automobiles, avec un
+indice d’octane de 87 [(R + M) / 2] ou plus. Cet outil utilise
+un moteur deux temps qui nécessite le mélange d’essence
+et d’lubrifiant 2 temps.
+Page 4 — Français
+
+CARACTÉRISTIQUES
+FICHE TECHNIQUE
+Cylindrée................................................................................................................................................................................... 26 cc
+Performance d’un souffleur (à la sortie de la buse) :
+Embout éventail
+Embout à haut débit
+*M/H.............................................................................................. 150...................................................................200
+*Pi3/min.......................................................................................... 400...................................................................150
+*Évalué par ANSI B175.2
+
+APPRENDRE À CONNAÎTRE LA SOUFFLANTE /
+ASPIRATEUR
+
+Voir la figure 1.
+La sécurité d’utilisation de ce produit exige la compréhension
+des informations apposées sur l’outil et contenues dans ce
+manuel d’utilisation, ainsi que la connaissance du travail à
+exécuter. Avant d’utiliser ce produit, se familiariser avec toutes
+ses fonctions et règles de sécurité.
+
+EMBOUT ÉVENTAIL
+L’embout éventail permet de couvrir une surface plus large,
+afin d’augmenter l’efficacité de soufflage des plus gros amas
+de feuilles et de débris.
+
+GÂCHETTE D’ACCÉLÉRATEUR
+La soufflante peut être utilisée à n’importe quelle vitesse entre
+le ralenti et le régime maximum.
+
+TUBE DE SOUFFLANTE ET EMBOUT ÉVENTAIL
+
+ASPIRATEUR / BROYEUR
+
+Le tube et embout éventail peuvent être installés sur la soufflante
+sans aucun outil.
+
+Il est possible de convertir facilement la soufflante en un
+aspirateur ou un broyeur à l’aide d’un tournevis à tête plate.
+
+LEVIER DE RÉGULATEUR DE VITESSE /
+­VERROUILLAGE D’ACCÉLÉRATION
+
+SAC À DÉBRIS
+
+Le levier de régulateur de vitesse / verrouillage d’accélération
+permet d’utiliser la soufflante sans maintenir le doigt sur la
+gâchette. Pour ralentir le moteur, il suffit de pousser la manette
+de levier de régulateur de vitesse / verrouillage d’accélération
+vers l’avant.
+
+Le sac à débris se monte sur la machine au moyen d’un
+adaptateur.
+
+POIGNÉE D’ASPIRATEUR
+Cette fonction permet de s’acquitter des travaux d’aspiration
+confortablement.
+
+MOTEUR
+
+TUBES D’ASPIRATION
+
+Cette soufflante est équipée d’un moteur de 26 cc, assez
+puissant pour s’acquitter des tâches de soufflage et d’aspiration
+les plus dures.
+
+Il est possible d’installer les tuyaux de l’aspirateur sur la
+soufflante à l’aide d’un tournevis à tête plate.
+
+EMBOUT À HAUT DÉBIT
+L’embout à haute vélocité est excellent pour les feuilles humide
+collantes. Il permet de décoller les feuilles et débris humides
+sur les surfaces dures pendant l’aspiration.
+
+ASSEMBLAGE
+DÉBALLAGE
+Ce produit doit être assemblé.
+ Avec précaution, sortir le produit et les accessoires de la
+boîte. S’assurer que toutes les pièces figurant sur la liste de
+contrôle sont incluses.
+
+AVERTISSEMENT :
+Ne pas utiliser le produit si, en le déballant, vous constatez
+que des éléments figurant dans la Liste des pièces sont
+déjà assemblés. Certaines pièces figurant sur cette liste
+n’ont pas été assemblées par le fabricant et exigent une
+installation. Le fait d’utiliser un produit qui a été assemblé
+de façon inadéquate peut entraîner des blessures.
+
+ Examiner soigneusement le produit pour s’assurer que
+rien n’a été brisé ou endommagé en cours de transport.
+ Ne pas jeter les matériaux d’emballage avant d’avoir
+soigneusement examiné le produit et avoir vérifié qu’il
+fonctionne correctement.
+ Si des pièces sont manquantes ou endommagées,
+appeler le 1-800-242-4672.
+
+LISTE DES PIÈCES
+Soufflante
+Tube supérieur de soufflante
+Embout éventail
+Embout à haut débit
+Tubes d’aspiration supérieur et inférieur
+Vis du tube d’aspiration (2)
+
+Page 5 — Français
+
+ASSEMBLAGE
+LISTE DES PIÈCES (continu)
+Sac à débris
+Adaptateur de sac à débris
+Lubrifiant 2 temps
+Manuel d’utilisation
+NOTE : Lire toutes les étiquettes avant de les retirer et de les
+ranger avec le Manuel d’utilisation.
+
+ Pour utiliser l’embout haute vélocité, fixer l’embout éventail
+en alignant les languettes soulevées de l’embout haute
+vélocité avec la fente de l’embout éventail.
+ Pour enlever les tubes, utiliser un tournevis à tête plate pour
+soulever la languette de verrouillage puis tourner les tubes
+pour les débloquer et les retirer du logement de sortie du
+souffleur.
+
+INSTALLATION DU SAC À DÉBRIS
+AVERTISSEMENT :
+Si des pièces manquent ou sont endommagées, ne pas
+utiliser ce produit avant qu’elles aient été remplacées.
+Le fait d’utiliser ce produit même s’il contient des pièces
+endommagées ou s’il lui manque des pièces peut entraîner
+des blessures graves.
+
+AVERTISSEMENT :
+Ne pas essayer de modifier ce produit ou de créer des
+accessoires non recommandés pour le produit. De telles
+altérations ou modifications sont considérées comme un
+usage abusif et peuvent créer des conditions dangereuses,
+risquant d’entraîner des blessures graves.
+
+Voir les figures 5 et 6.
+ Retirer la buse et le tube supérieur du souffleur en utilisant
+un tournevis à tête plate pour soulever la languette de
+verrouillage puis tourner et retirer du logement de sortie du
+souffleur
+ Ouvrir le sac à débris et pousser l’adaptateur du sac à débris
+dans l’ouverture située du côté opposé de la fermeture à
+glissière, comme illustré. L’extrémité large de l’adaptateur
+demeurera à l’intérieur du sac à débris si l’accessoire est
+correctement installé.
+ Aligner les fentes de l’adaptateur de sac sur les languettes en
+saillie de la sortie d’air de la soufflante. Enfoncer l’adaptateur
+dans son logement et tourner pour l’assujettir en place.
+ Tourner le sac pour orienter la bandoulière vers le haut.
+ S’assurer que la fermeture à glissière du sac à débris est
+bien fermée avant de mettre l’outil en marche.
+
+INSTALLATION DES TUBES D’ASPIRATION
+
+AVERTISSEMENT :
+
+Voir les figures 7 et 8.
+
+Pour empêcher un démarrage accidentel pouvant entraîner
+des blessures graves, toujours déconnecter le fil de la bougie
+avant d’assembler des pièces.
+
+OUTILS NÉCESSAIRES
+
+Voir la figure 2.
+Les accessoires recommandés ci-dessous sont actuellement
+en vente dans les magasins de détail :
+ Tournevis à lame plate
+
+ASSEMBLAGE DES TUBES DE SOUFFLANTE
+
+Voir les figures 3 et 4.
+ Aligner les languettes en saillie du boîtier principal sur les
+fentes du tube supérieur de soufflante, emboîter le tube
+et le serrer fermement en le tournant jusqu’à ce que les
+tubes s’emboîtent dans la position verrouillée et que les
+symboles de verrouillage sont alignées. Vérifier le serrage
+après l’utilisation initiale et resserrer selon le besoin.
+
+AVIS :
+Lorsque les tubes sont assemblés correctement, ils seront
+difficiles à séparer. S’il est facile de les séparer, les tubes
+ne sont pas verrouillés. Continuer à les tourner jusqu’à
+ce que les tubes s’emboîtent dans la position verrouillée.
+Des tubes non verrouillés peuvent se séparer pendant le
+fonctionnement de la soufflante.
+ Fixer la embout éventail (buse à haute puissance ou buse
+de balayeuse) sur le tuyau supérieur de la soufflante
+en s’alignant sur les nervures de ce dernier. Les glisser
+ensemble et les serrer en les tournant. Vérifier leur solidité
+après l’utilisation initiale et les resserrer, au besoin.
+
+AVERTISSEMENT :
+Contact de les pales de ventilateur en rotation peuvent
+causer des blessures graves. Toujours arrêter le moteur et
+s’assurer que l’aubage de la roue a cessé de tourner avant
+d’ouvrir le volet d’aspiration ou d’installer / changer les
+tubes. Ne pas mettre les mains ou quelque objet que ce
+soit dans les tubes installés sur la machine.
+Installation des tubes d’aspiration :
+ Assembler le tube d’aspiration supérieur sur le tube inférieur
+en alignant les languettes en saillie sur les fentes.
+ Taper l’ensemble des tubes sur le sol, jusqu’à ce que les
+trous de vis du tube inférieur soient visibles dans les fentes
+du tube supérieur. Assujettir les tubes avec les vis fournies.
+ Appuyer sur le loquet de la porte à l’aide d’un tournevis à
+tête plate et ouvrir la trappe d’admission de l’aspirateur.
+ Aligner les montures à vis de l’ouverture de l’aspirateur avec
+les vis de l’ensemble tuyau d’aspirateur.
+ Tourner dans droite, resserrer la vis sur le tube d’aspiration
+supérieur pour obtenir au boîtier du souffleur.
+Retrait des tubes d’aspiration :
+ Desserrer les vis du tuyau supérieur de l’aspirateur en les
+tournant dans le sens antihoraire.
+ Retirer les tubes d’aspiration du corps de la soufflante.
+ Refermer soigneusement le volet d’entrée d’air.
+ Retirer le sac de l’aspirateur en utilisant un tournevis à tête
+plate pour soulever la languette de verrouillage puis tourner
+pour déverrouiller l’adaptateur et retirer.
+
+Page 6 — Français
+
+UTILISATION
+APPLICATIONS
+
+AVERTISSEMENT :
+Ne pas laisser la familiarité avec ce produit faire oublier
+la prudence. Ne pas oublier qu’une fraction de seconde
+d’inattention peut entraîner des blessures graves.
+
+AVERTISSEMENT :
+Toujours porter une protection oculaire avec écrans
+latéraux certifiée conforme à la norme ANSI Z87.1 ainsi
+qu’un protection auditive. Si cette précaution n’est pas
+prise, des objets peuvent être projetés dans les yeux et
+causer des lésions graves.
+
+AVERTISSEMENT :
+Ne pas utiliser d’outils ou accessoires non recommandés
+pour cet outil. L’utilisation de pièces et accessoires non
+recommandés peut entraîner des blessures graves.
+
+Ce produit peut être utilisé pour les applications ci‑dessous :
+ Élimination des feuilles et débris des pelouses
+ Élimination des feuilles et autres débris des terrasses
+allées de garage
+ Feuilles nettoyantes à l’aspirateur de votre pelouse
+
+CARBURANTS À BASE D’ÉTHANOL
+AVIS :
+Ne pas utiliser d’essence E15 ou E85 dans ce produit.
+Une telle utilisation représente une violation de la loi
+fédérale et endommagera l’appareil et annulera la
+garantie. Utiliser seulement de l’essence sans plomb
+ne contenant pas plus de 10 % d’éthanol.
+NOTE : Il est recommandé d’utiliser le lubrifiant pour moteur
+2 temps Ethanol Shield pour améliorer la performance avec
+l’utilisation d’essence oxygénée.
+
+APPROVISIONNEMENT EN CARBURANT
+
+AVERTISSEMENT :
+
+AVERTISSEMENT :
+
+S’assurer que tous les protecteurs et tubes sont
+installés correctement avant l’utilisation. Si le souffleur
+est échappé, éteindre le souffleur et s’assurer que ce
+dernier est intact. Si un protecteur, une pièce ou un tube
+est endommagé ou manquant, ne pas utiliser le souffleur
+tant que ce dernier n’est pas réparé ou remplacé par un
+centre de réparations qualifié. L’utilisation d’un souffleur
+comportant des protecteurs, des pièces ou des tubes
+endommagés ou manquants représente un risque de
+blessures graves et d’endommager le souffleur.
+
+AVIS :
+Le pare-étincelles sur ce produit n’a pas été évalué par
+le Service forestier des États-Unis et ne peut pas être
+utilisé sur des terrains forestiers des États-Unis. De
+plus, les utilisateurs du produit doivent respecter les
+réglementations locales et gouvernementales de lutte
+contre l’incendie. Consulter les autorités appropriées.
+Contacter le service à la clientèle ou un centre de
+réparations qualifié pour acheter un pare-étincelles de
+rechange.
+
+AVIS :
+Avant chaque utilisation, inspecter au complet le produit
+afin de s’assurer qu’aucune pièce (vis, écrous, boulons,
+chapeaux, etc.) n’est endommagée, manquante ou
+desserrée. Serrer solidement toutes les pièces de fixation
+et les chapeaux et ne pas utiliser le produit tant que
+toutes les pièces manquantes ou endommagées n’ont
+pas été remplacées. Pour obtenir de l’aide, veuillez
+communiquer avec le service à la clientèle ou un centre
+de réparations qualifié.
+
+L’essence et les vapeurs qu’elle dégage sont extrêmement
+inflammables et explosives. Pour éviter des blessures
+graves et des dommages matériels, manipuler avec
+précaution. Garder le produit à l’écart des sources
+d’inflammation et des flammes vives, l’utiliser uniquement
+à l’extérieur, ne pas fumer, et essuyer rapidement tout
+carburant répandu.
+MÉLANGE DE CARBURANT
+Cet outil utilise un moteur deux temps qui nécessite le
+mélange d’essence et de lubrifiant 2 temps. Mélanger de
+l’essence sans plomb et de le lubrifiant moteur 2 temps
+dans un jerrycan propre homologué pour l’essence. NE PAS
+mélanger plus de carburant qu’il ne sera utilisé dans une
+période de 30 jours.
+Carburant recommandé : Cet outil est certifié pour
+fonctionner avec de l’essence sans plomb pour véhicules
+automobiles.
+NOTE : Nous recommandons l’utilisation de lubrifiant pour
+moteur 2 temps Ethanol Shield ou une lubrifiant synthétique
+de première qualité semblable pour moteur 2 temps dans
+ce produit. Mélanger 76 ml par 3,8 L (2,6 oz par gallon US).
+Ne pas utiliser de lubrifiant automobile ou pour moteur horsbord 2 temps.
+
+Page 7 — Français
+
+LUBRIFIANT 2 TEMPS DE HAUTE QUALITÉ
+ESSENCE
+LUBRIFIANT
+3,8 litre [1,0 gal (US)]
+9,5 litre [2,5 gal (US)]
+
+76 ml (2,6 oz)
+189 ml (6,4 oz)
+
+UTILISATION
+REMPLISSAGE DU RÉSERVOIR
+ Nettoyer le pourtour du bouchon de remplissage pour
+éviter la contamination du carburant.
+ Desserrer le bouchon du réservoir en le tournant
+lentement vers la gauche.
+ Verser le mélange dans le réservoir avec précaution.
+ Avant de remettre le bouchon en place, nettoyer et
+inspecter son joint.
+ Remettre le bouchon en place et le serrer en le tournant
+vers la droite.
+ Essuyer tout le carburant éventuellement répandu sur
+l’outil.
+ S’éloigner d’au moins 9 m (30 pi) du point
+d’approvisionnement avant de lancer le moteur.
+NOTE : Il est normal qu’un moteur neuf dégage de la fumée
+lors de la première utilisation.
+
+AVERTISSEMENT :
+S’assurer de l’absence de fuites de carburant qui sont
+un risque d’incendie. Ne pas prendre cette précaution
+peut causer un incendie, entraînant des blessures graves.
+
+AVERTISSEMENT :
+Toujours arrêter le moteur avant de faire le plein de
+carburant. Ne jamais retirer le bouchon du réservoir
+d’essence lorsque le moteur tourne ou est chaud.
+S’assurer que l’unité repose sur une surface plane, à
+niveau et de remplir seulement à l’extérieur. Si le moteur
+est chaud, laisser refroidir l’unité pendant au moins
+cinq (5) minutes avant d’ajouter de l’essence. Remettre
+immédiatement le bouchon du réservoir d’essence et
+le serrer fermement. S’éloigner d’au moins 9 m (30 pi)
+du point de ravitaillement avant de lancer le moteur. Ne
+pas fumer, et rester à l’écart des flammes vives et des
+étincelles ! Ne pas respecter ces instructions représente
+un risque d’incendie et de blessures graves.
+
+DÉMARRAGE ET ARRÊT
+
+Voir la figure 9.
+Pour le démarrage, le soufflante doit être posé sur un sol
+nu et plat.
+ Appuyer lentement 10 fois sur la poire d’amorçage.
+NOTE : Après la 10e pression, on devrait apercevoir du
+carburant dans la poire d’amorçage. Sinon, continuer à
+presser sur l’amorceur jusqu’à voir du carburant dans
+la poire.
+ Mettre le volet de départ en position d’étranglement FULL
+CHOKE (complètement ouvert).
+ Verrouillez le levier de régulateur de vitesse / verrouillez
+d’accélérateur en la position complètement ouvert
+d’accélérateur.
+
+ Tirer sur le cordon du lanceur jusqu’à ce que le moteur
+essaie de démarrer. Ne pas tirer le poignée du lanceur
+et corde plus de quatre (4) fois.
+ Mettre le volet de départ en position HALF CHOKE (demi
+étranglement).
+ Tirer sur le poignée du lanceur et corde jusqu’à ce que
+le moteur démarre.
+NOTE : Si le moteur ne démarre pas, mettre le levier
+d’étrangleur en position FULL CHOKE (complètement
+ouvert) et répéter les étapes suivantes.
+ Laisser le moteur tourner pendant 15 secondes et mettre
+le levier du volet de départ en position RUN (marche).
+ARRÊT DU MOTEUR :
+ Appuyer sur l’interrupteur d’arrêt « ». et le tenir enfonce
+jusqu’à ce que le moteur s’arrête.
+CHAUD RELANCER DU MOTOR :
+ Mettre le volet de départ en position RUN (marche).
+ Verrouiller le levier de régulateur de vitesse / verrouillage
+d’accélération.
+ Tirer sur le poignée du lanceur et corde jusqu’à ce que
+le moteur démarre.
+EN CAS DE BESOIN D’ASSISTANCE DÉMARRAGE
+AVEC CE PRODUIT :
+Ne pas le retourner au magasin de détail où il a été acheté.
+Pour toute question, appeler notre service après-vente.
+Pour toute assistance, appeler le : 1-800-242-4672
+
+UTILISATION DE LA SOUFFLANTE
+Voir les figures 10 et 11.
+
+AVERTISSEMENT :
+Ne jamais utiliser la soufflante sans les tubes installés et
+le volet d’aspiration bien fermé. Le fait d’utiliser une unité
+qui a été assemblée de façon inadéquate peut entraîner
+des blessures.
+
+AVIS :
+Toujours faire fonctionner le produit conformément à
+toutes lois et tous les règlements en vigueur.
+ Mettre la soufflante en marche. Voir Démarrage et
+arrêt, plus haut dans ce manuel. Tenir la soufflante par
+la poignée supérieure, avec la main droite.
+
+AVERTISSEMENT :
+Toujours garder l’appareil à l’écart de son corps en le
+tenant par la poignée à l’aide de la main droite au moment
+d’utiliser l’outil comme soufflante, en maintenant une
+distance de sécurité entre le corps et l’équipement. Le
+côté du silencieux de la soufflante doit être placé à l’écart
+du corps. Tout contact avec le logement peut entraîner
+des brûlures ou d’autres blessures graves.
+
+Page 8 — Français
+
+UTILISATION
+UTILISATION DE L’ASPIRATEUR
+Voir la figure 13.
+
+AVERTISSEMENT :
+Ne pas placer la soufflante sur des débris ou sur du
+gravier ou à proximité de ceux-ci. Les débris peuvent être
+aspirés dans la prise d’air de la soufflante, ce qui peut
+endommager l’unité et entraîner des blessures graves.
+ Pour éviter d’éparpiller les débris, souffler autour des
+bords d’un tas de débris. Ne jamais souffler directement
+vers le centre d’un tas.
+ N’utiliser les outils motorisés qu’a des heures
+raisonnables — pas très tôt le matin ou très tard le soir,
+afin de ne pas déranger les voisins. Se conformer aux
+heures indiquées dans les réglementations locales.
+ Pour réduire le niveau sonore, limiter le nombre d’outils
+motorisés utilisés en même temps.
+ Conserver l’eau en utilisant une soufflante au lieu de
+tuyaux d’arrosage pour divers travaux de jardin et pelouses,
+tels que le nettoyage des gouttières, moustiquaires,
+patios, grills, porches et massifs de fleurs.
+ Utiliser la soufflante à la vitesse la plus basse permettant
+d’effectuer le travail.
+ Vérifier le matériel avant de l’utiliser, en particulier
+l’échappement, l’entrée d’air et les filtres à air.
+ Utiliser des râteaux et pelles pour séparer les débris avant
+de les souffler.
+ Dans un environnement poussiéreux humidifier
+légèrement les surfaces si de l’eau est disponible.
+ Prêter attention aux enfants, animaux, fenêtres ouvertes
+ou véhicules fraîchement lavés et souffler les débris en
+direction opposée.
+ Tenir la soufflante tel qu’illustré à la figure 10 de façon à
+ce que le courant d’air puisse passer près du sol.
+ Après utilisation de la soufflante ou de tout autre
+équipement, NETTOYER ! Pour jeter les débris
+correctement.
+ Utiliser l’embout éventail pour le nettoyage quotidien. Cet
+embout permet de couvrir une surface plus large.
+
+LEVIER DE RÉGULATEUR DE VITESSE /
+VERROUILLAGE D’ACCÉLÉRATION
+
+AVERTISSEMENT :
+Ne jamais faire fonctionner l’unité si les tubes et le sac
+ne sont pas installés. Le fait d’utiliser un produit qui a été
+assemblé de façon inadéquate peut entraîner des blessures.
+
+AVERTISSEMENT :
+Tenir le silencieux ainsi que toutes les surfaces brûlantes
+de la soufflante ou de l’aspirateur à l’écart des parties du
+corps. L’inobservation de cette règle peut entraîner des
+blessures graves.
+ Installer les tubes d’aspiration et le sac à débris. Voir
+Assemblage, plus haut dans ce manuel.
+ Mettre la soufflante en marche. Voir Démarrage et arrêt,
+plus haut dans ce manuel.
+ Placer la bandoulière du sac sur l’épaule droite. Tenir la
+poignée supérieure avec la main gauche et la poignée
+d’aspirateur, avec la main droite.
+ Utiliser un mouvement de balayage sur le côté des débris.
+Pour éviter l’obturation, ne pas poser l’embouchure du
+tube directement sur les débris.
+ Tenir le moteur plus haut que l’extrémité du tube
+d’aspiration.
+ Lors du travail sur une pente, toujours diriger le tube
+d’aspiration vers le bas de la pente.
+ Pour éviter des blessures graves ou dommages à la unite,
+ne pas aspirer de cailloux, de métal, de verre brisé, de
+bouteilles ou autres objets similaires.
+ En cas d’obstruction du tube d’aspiration, arrêter le moteur,
+s’assurer que l’aubage de la roue a cessé de tourner, et
+débrancher le fil de la bougie avant de débloquer le tube.
+ Retirer les tubes d’aspiration et éliminer les débris du
+boîtier de ventilateur. Retirer le sac à débris et déboucher
+le tube. Il peut être nécessaire d’utiliser une petite tige ou
+un bâton pour dégager complètement le tube. S’assurer
+que tous les débris ont été enlevés avant de réassembler
+les tubes d’aspiration.
+
+Voir la figure 12.
+Le levier de régulateur de vitesse / verrouillage d’accélération
+permet d’utiliser la soufflante sans maintenir le doigt sur la
+gâchette.
+ Pour engager, tirer le levier de régulateur de vitesse /
+verrouillage d’accélération vers soi, jusqu’à ce que le
+régime désiré soit atteint.
+ Pour désengager, pousser son levier de régulateur de
+vitesse / verrouillage d’accélération à fond vers l’avant.
+
+Page 9 — Français
+
+ENTRETIEN
+L’entretien normal, le remplacement ou la réparation des
+dispositifs du système antipollution doit être fait par un
+magasin de réparation ou un technicien qualifié possédant
+les pièces d’origine ou équivalentes. La garantie et les
+rappels pour réparations peuvent être faits par un centre
+de réparations autorisé; pour obtenir de l’aide, veuillez
+communiquer avec le service à la clientèle.
+
+AVERTISSEMENT :
+Avant d’inspecter, nettoyer ou entretenir l’équipement,
+arrêter le moteur, attendre l’arrêt complet de toutes les
+pièces en mouvement, déconnecter le fil de la bougie
+et l’écarter de cette dernière. Le non-respect de ces
+instructions peut entraîner des blessures graves ou des
+dégâts matériels.
+
+AVERTISSEMENT :
+Toujours porter une protection oculaire avec écrans
+latéraux certifiée conforme à la norme ANSI Z87.1, avec
+protection auditive. Si cette précaution n’est pas prise,
+des objets peuvent être projetés dans les yeux et causer
+des lésions graves.
+
+AVERTISSEMENT :
+Utiliser exclusivement des pièces recommandées ou
+équivalentes à celles d’origine pour les réparations.
+L’usage de toute autre pièce pourrait créer une situation
+dangereuse ou endommager l’outil.
+
+AVIS :
+Inspecter périodiquement au complet le produit afin de
+s’assurer qu’aucune pièce (vis, écrous, boulons, chapeaux,
+etc.) n’est endommagée, manquante ou desserrée. Serrer
+solidement toutes les pièces de fixation et les chapeaux et
+ne pas utiliser le produit tant que toutes les pièces manquantes ou endommagées n’ont pas été remplacées. Pour
+obtenir de l’aide, veuillez communiquer avec le Service à
+la clientèle ou un centre de réparations qualifié.
+
+ENTRETIEN GÉNÉRAL
+Éviter d’utiliser des solvants pour le nettoyage des pièces en
+plastique. La plupart des matières plastiques peuvent être
+endommagées par divers types de solvants du commerce.
+Utiliser un chiffon propre pour éliminer la saleté, la poussière,
+l’lubrifiant, la graisse, etc.
+
+NETTOYAGE LE FILTRE À AIR
+
+Voir les figures 14 et 15.
+Pour assurer un fonctionnement correct et une longue vie
+utile, garder le filtre à air propre.
+ Retirer le couvercle du filtre à air en tournant le cadran
+dans le sens antihoraire, tout en tirant légèrement sur le
+couvercle.
+ Rincer le filtre avec de l’eau propre.
+ Presser légèrement sur le filtre jusqu’à ce que l’excédent
+d’eau soit retiré. Replacer le filtre.
+ Remettre le couvercle du filtre à air sur l’unité. Tourner le
+cadran dans le sens horaire jusqu’à ce que le couvercle
+soit fixé solidement.
+
+NETTOYAGE DE L’ORIFICE D’ÉCHAPPEMENT,
+DU SILENCIEUX ET PARE-ÉTINCELLES
+AVIS :
+Le pare-étincelles sur ce produit n’a pas été évalué par
+le Service forestier des États-Unis et ne peut pas être
+utilisé sur des terrains forestiers des États-Unis. De
+plus, les utilisateurs du produit doivent respecter les
+réglementations locales et gouvernementales de lutte
+contre l’incendie. Consulter les autorités appropriées.
+Contacter le service à la clientèle ou un centre de
+réparations qualifié pour acheter un pare-étincelles de
+rechange.
+NOTE : Suivant le type de carburant utilisé, le type et la
+quantité de lubrifiant et / ou les conditions de travail, l’orifice
+d’échappement et le silencieux peuvent se calaminer. Si un
+outil motorisé semble avoir perdu de la puissance, cette
+calamine doit être éliminée pour restaurer le fonctionnement
+normal. Il est vivement recommandé de confier ce travail à
+un technicien qualifié.
+Le pare-étincelles doit être nettoyé ou remplacé toutes les
+50 heures de fonctionnement ou tous les ans pour assurer
+le fonctionnement correct de l’outil. L’emplacement du pareétincelles diffère suivant le modèle. Pour obtenir de l’aide,
+veuillez communiquer avec le service à la clientèle ou un
+centre de réparations qualifié.
+
+AVERTISSEMENT :
+Ne jamais utiliser la soufflante sans un silencieux équipé
+d’un pare-étincelles en place. Ne pas prendre cette
+précaution peut causer un incendie, entraînant des
+blessures graves.
+
+SAC À DÉBRIS
+
+AVERTISSEMENT :
+Ne jamais laisser de liquides tels que le fluide de freins,
+l’essence, les produits à base de pétrole, les lubrifiants
+pénétrantes, etc., entrer en contact avec les pièces en
+plastique. Les produits chimiques peuvent endommager,
+affaiblir ou détruire le plastique, ce qui peut entraîner des
+blessures graves.
+
+Un sac encrassé nuit aux performances. Pour nettoyer le sac,
+le retourner et le secouer. Le laver dans de l’eau savonneuse
+au moins une fois par an. Pour obtenir un sac de rechange,
+consulter Comment obtenir les pièces de remplacement
+qui sont indiquées à la dernière page du présent guide.
+
+Page 10 — Français
+
+ENTRETIEN
+BOUCHON DU CARBURANT, RÉSERVOIR,
+RÉSERVOIR, OU CONDUITES
+
+à l’écart de produits corrosifs, tels que les produits
+chimiques de jardinage et le sel de dégivrage.
+ Se conformer à toutes les réglementations locales
+et gouvernementales concernant la sécurité de la
+manipulation et de l’entreposage de l’essence.
+Remisage 1 mois ou plus :
+ Vider complètement le réservoir de carburant dans un
+bidon ou jerrycan approuvé pour l’essence. Laisser le
+moteur tourner jusqu’à ce qu’il cale.
+
+AVERTISSEMENT :
+S’assurer de l’absence de fuites de carburant. Un
+bouchon de carburant, réservoir, ou conduites con fugas
+qui fuit pose un risque d’incendie et doit être remplacé
+immédiatement. Toutes les fuites doivent être éliminées
+avant d’utiliser le produit. Ne pas prendre cette précaution
+peut causer un incendie, entraînant des blessures graves.
+Le bouchon du réservoir de carburant contient un filtre et
+un clapet antiretour non réparables. Un filtre à carburant
+colmaté nuit au bon fonctionnement du moteur. Si le
+fonctionnement du moteur s’améliore lorsque le bouchon est
+desserré, le clapet antiretour peut être défectueux ou le filtre
+colmaté. Si nécessaire, remplacer le bouchon de carburant.
+
+REMPLACEMENT DE LA BOUGIE
+Ce moteur utilise une bougie Ryobi AC00160A, Champion RCJ6Y ou équivalente avec un écartement d’électrode de 0,63 mm
+(0,025 po). La bougie doit être remplacée annuellement par
+une bougie recommandées ou équivalentes.
+
+REMISAGE LE PRODUIT
+
+FONCTIONNEMENT DU MOTEUR À HAUTE
+ALTITUDE
+Ce moteur est configuré en usine pour fonctionner à une
+altitude inférieure à 609,6 m (2 000 pi). Le moteur doit être
+reconfiguré s’il doit fonctionner à plus de 609,6 m (2 000 pi)
+d’altitude. Faire fonctionner le moteur n’ayant pas la
+configuration requise selon une altitude donnée représente
+un risque d’augmentation des émissions, de diminution de
+la consommation d’essence, d’appauvrir la performance en
+plus de causer des dommages permanents. Les moteurs
+configurés pour fonctionnée à haute altitude ne peuvent pas
+être opérés selon des conditions d’altitudes habituelles. Un
+centre de réparations qualifié devrait pour assurer la bonne
+configuration du moteur selon l’endroit d’utilisation.
+
+ Nettoyer soigneusement le produit. La remiser dans
+un endroit bien aéré, inaccessible aux enfants. La tenir
+
+CE PRODUIT A ÉTÉ ÉQUIPÉ EN USINE D’UN CONVERTISSEUR CATALYTIQUE
+Félicitations ! Vous venez d’investir dans la protection de l’environnement. Pour maintenir le niveau d’émissions original de ce
+produit, voir la section Entretien ci-dessous.
+
+PROGRAMME D’ENTRETIEN
+Pièce
+d’entretien
+
+Inspecter avant
+chaque utilisation
+n’est pas endommagé
+
+Nettoyer toutes
+le 5 heures de
+fonctionnement
+
+Remplacer toutes
+les 25 heures ou
+chaque année
+
+Reemplácelo
+cada
+50 heures
+
+* ENSEMBLE CATALYTIQUE DU SILENCIEUX................................................................................................................................X
+ÉCRAN PARE-ÉTINCELLES. ..........................................................................................................................................................X
+* FILTRE À AIR
+inclut :
+Filtre.........................................................................................................X
+* CARBURATEUR
+inclut :
+Joints........................................................... X
+* RÉSERVOIR DE CARBURANT
+inclut :
+Conduites de carburant............................... X
+Bouchon du réservoir de carburant............. X
+Filtre à carburant. .....................................................................................................................................X
+* ALLUMAGE
+inclut :
+Bougie. .....................................................................................................................................................X
+* AVIS : L’UTILISATION DE DISPOSITIFS ANTIPOLLUTION AUTRES QUE CEUX CONÇUS POUR CET OUTIL REPRÉSENTE UNE VIOLATION
+DE LA LOI FÉDÉRALE.
+
+Page 11 — Français
+
+DÉPANNAGE
+PROBLÈME
+Le moteur ne démarre pas.
+
+CAUSE POSSIBLE
+
+SOLUTION
+
+Pas de carburant dans le réservoir.
+
+Remplir le réservoir.
+
+Bougie encrassée ou noyée.
+
+Remplacer la bougie.
+
+Bougie cassée (porcelaine fendue ou
+électrode brisé).
+
+Remplacer la bougie.
+
+Fil d’allumage court-circuité, brisé ou
+déconnecté de la bougie.
+
+Remplacer le fil d’allumage ou le
+brancher sur la bougie.
+
+Allumage inopérant.
+
+Contacter un centre de réparations
+qualifié.
+
+Eau dans le carburant ou mélange
+défraîchi.
+
+Vidanger et remplir avec du carburant
+frais.
+
+Trop d’lubrifiant dans le mélange.
+
+Vidanger et remplir de mélange
+correct.
+
+Volet de départ trop ou pas assez
+ouvert.
+
+Régler le volet de départ selon le
+besoin.
+
+Bougie humide.
+
+Contacter un centre de réparations
+qualifié.
+
+Le moteur manque de puissance.
+
+Filtre à air colmaté.
+
+Nettoyer le filtre à air. Voir la section
+Nettoyage du filtre à air, plus haut dans
+ce manuel.
+
+Le moteur surchauffe.
+
+Pas assez d’lubrifiant dans le
+­mélange.
+
+Mélanger le carburant comme indiqué
+dans les instructions de démarrage.
+
+Moteur difficile à lancer.
+
+Si le problème persiste après avoir essayé les solutions ci-dessus, communiquer avec le service à la clientèle ou un centre
+de réparations qualifié pour obtenir de l’aide.
+
+AVIS :
+Le propriétaire de cet équipement est tenu d’effectuer les entretiens requis indiqués dans la section Entretien. Il est
+recommandé de conserver tous les reçus d’entretien de votre équipement. La négligence ou l’oubli de procéder à
+l’entretien requis représente un risque d’augmentation des émissions, de diminuer le rendement énergétique, de nuire
+à la performance, créer des bris irréparables du moteur et de annuleront la garantie.
+
+Ce produit est accompagné d’une garantie limitée de deux (2) ans
+pour utilisation personnel, familiales ou domestiques [90 jours
+pour utilisation affaires ou commerciaux]. Pour obtenir les détails
+de la garantie, visiter le site www.homelite.com
+ou appeler (sans frais) au 1-800-242-4672.
+
+Page 12 — Français
+
+REGLAS DE SEGURIDAD GENERALES
+ADVERTENCIA:
+LEA Y COMPRENDA TODAS LAS INSTRUCCIONES.
+El incumplimiento de las instrucciones señaladas abajo
+puede causar descargas eléctricas, incendios y lesiones
+serias.
+
+LEA TODAS LAS INSTRUCCIONES
+ No permita que utilicen esta unidad niños ni personas
+carentes de la debida instrucción para su manejo.
+ No haga arrancar o funcionar el motor en un espacio
+confinado, de edificio, cerca de ventana abiertas, o en
+otro área sin ventilación donde se puedan recolectar las
+emanaciones de monóxido de carbono. El monóxido
+de carbono, un gas incoloro, inodoro y sumamente
+peligroso, puede causar la pérdida de la conciencia o la
+muerte.
+ Siempre póngase la protección ocular con protección
+lateral marcada conforme al ANSI Z87.1 junto con
+protección para los oídos. La inobservancia de esta
+advertencia puede permitir que los objetos lanzados
+hacia los ojos y otros provocarle lesiones graves.
+ Mantenga a todos los circunstantes, niños y animales
+por lo menos a 15 metros (50 pies) de distancia.
+ Póngase pantalones, mangas largas, botas y guantes
+gruesos. No se ponga ropa holgada, pantalones cortos,
+sandales, joyería de ningún tipo ni ande descalzo.
+ Para disminuir el riesgo de lesiones debido a la atracción
+de objetos hacia las piezas rotatorias, evite ponerse ropas
+holgadas, bufandas, cadenas para el cuello, etc.
+ Recójase el cabello largo, de manera que le quede arriba
+del nivel de los hombros para evitar que se enrede en las
+piezas rotatorias.
+ No use esta unidad cuando se encuentre fatigado,
+enfermo o bajo los efectos del alcohol, drogas o
+medicamentos.
+ No utilice este producto si no hay luz suficiente.
+ Mantenga todas las partes del cuerpo alejadas de toda
+pieza móvil y superficie caliente de la unidad.
+ En condiciones polvorientas use una mascarilla de filtro
+para reducir el riesgo de lesiones producidas por la
+aspiración del polvo.
+ Revise el área de trabajo cada vez antes de utilizar esta
+herramienta. Retire todos los objetos como piedras,
+vidrio roto, clavos, alambre o cuerda que puedan salir
+disparados o enredarse en la máquina.
+ Mantenga los pies bien afirmados y el equilibrio. No
+trate de alcanzar demasiado lejos. Al tratar de hacerlo
+puede perder el equilibrio o exponerse al contacto con
+superficies calientes.
+
+ Antes de guardar la unidad, deje que se enfríe el motor.
+ Vacíe el tanque de combustible en un recipiente
+aprobado para gasolina y evite mover la unidad antes
+de transportarla en un vehículo.
+ Para reducir el riesgo de incendio o de lesiones por
+quemadura, maneje con cuidado el combustible. Es
+sumamente inflamable.
+ No fume mientras esté mezclando el combustible o
+reabasteciendo el tanque.
+ Mezcle y guarde el combustible en un recipiente
+aprobado para gasolina.
+ Mezcle el combustible al aire libre, donde no haya chispas
+ni llamas.
+ Busque suelo raso para depositar la unidad, apague el
+motor, y permita que se enfríe antes de reabastecerlo de
+combustible.
+ Afloje la tapa del tanque de combustible para aliviar la
+presión y para evitar que se escape combustible por la
+tapa.
+ Después de reabastecer de combustible la unidad ponga
+la tapa y apriétela firmemente.
+ Limpie todo el combustible que se haya derramado de
+la unidad. Aléjese por lo menos 9 m (30 pies) del sitio
+de reabastecimiento de combustible antes de encender
+el motor.
+ Nunca intente en ninguna circunstancia eliminar el
+combustible derramado quemándolo.
+ Sólo utilice piezas de repuesto recomendados o
+equivalentes y accesorios del fabricante original. El
+empleo de piezas diferentes puede causar un peligro o
+dañar el producto.
+ Mantenga la unidad según las instrucciones de
+mantenimiento señaladas en este manual del operador.
+ Inspeccione cada vez la unidad antes de usarla para
+ver si tiene tornillos flojos, fugas de combustible, etc.
+Reemplace toda pieza dañada.
+ No la use sobre escaleras, techos, árboles u otro soporte
+inestable. Una base estable sobre una superficie sólida
+permite tener un mejor control de la sopladora en
+situaciones inesperadas.
+ Antes de limpiar, reparar o inspeccionar la máquina,
+apague el motor y cerciórese de que se hayan detenido
+todas las partes en movimiento. Desconecte el cable de
+la bujía, y mantenga dicho cable alejado de la bujía para
+evitar el arranque de la unidad.
+ Recomendamos que lleve la équipement a un centro de
+servicio calificado para reparaciones, ya que todo servicio
+realizado por personas sin experiencia o calificación
+puede dañar la équipement, causar lesiones al usuario
+crear condiciones de inseguridad, y anular la garantía.
+
+Página 2 — Español
+
+REGLAS DE SEGURIDAD ESPECÍFICAS
+ Siempre sujete la sopladora/aspiradora con la mano derecha
+mientras esté en funcionamiento. Consulte las instrucciones
+de Functionamiento más adelante en este manual para
+conocer la posición adecuada durante el funcionamiento
+de la aspiradora y obtener información adicional.
+ Nunca coloque objetos dentro de los tubos de la sopladora.
+ Sólo utilice el producto de la forma indicada en este manual.
+ No utilice la aspiradora sin el saco de la misma instalado;
+los desechos lanzados por la herramienta podrían causar
+lesiones serias. Siempre cierre completamente el saco de
+la aspiradora antes de utilizarla.
+ Las hojas impulsoras giratorias pueden ocasionar lesiones
+graves. Detenga el motor y asegúrese de que las hojas
+impulsoras hayan dejado de girar antes de abrir la puerta de
+la aspiradora o de instalar o cambiar los tubos. No ponga la
+manos ni ningún objeto dentro de los tubos de la aspiradora
+mientras los instala en la unidad.
+ Nunca utilice la unidad sin el equipo adecuado instalado.
+Cuando utilice la unidad como sopladora, siempre instale
+los tubos de soplado. Cuando utilice la unidad como
+aspiradora, siempre instale los tubos y el saco de aspiración.
+Asegúrese de que el saco de la aspiradora esté con el cierre
+completamente cerrado cuando esté funcionado la unidad
+para evitar que salgan desechos disparados.
+ Evite situaciones que puedan prender fuego al saco de la
+aspiradora. No utilice la unidad cerca de llamas abiertas. No
+recoja con la aspiradora cenizas calientes de las chimeneas,
+parrillas para asar carne, pilas de broza, etc. No recoja con
+la aspiradora cigarros desechados a menos que las cenizas
+estén completamente apagadas.
+ Nunca coloque el soplador en ninguna superficie, excepto
+que sea una superficie dura y limpia cuando el motor se
+encuentra en funcionamiento. Es posible que la entrada
+de aire recoja grava, arena y otros residuos y los arroje al
+operador o a los espectadores, lo que puede causar lesiones
+serias.
+ Para reducir el riesgo de pérdida de oído causada por niveles
+de ruido elevados, se requiere ponerse protección auditiva.
+ Para reducir el riesgo de lesiones causadas por tocar piezas
+giratorias, detenga el motor antes de montar o desmontar
+accesorios. Siempre desconecte la bujía antes de efectuar
+tareas de mantenimiento o de tocar piezas móviles.
+ Nunca use el soplador cerca de fuego, fogones, cenizas
+calientes, parilla de barbacoa etc. ya que podría causar que
+el fuego se propague.
+ No apunte la boquilla de la sopladora hacia personas
+o mascotas.
+ Este producto está diseñado para uso poco frecuente por
+parte de propietarios y otros usuarios ocasionales para
+aplicaciones generales como soplar hojas y hierba cortada,
+etc. No es para uso prolongado. Los períodos prolongados de
+manejo de la unidad pueden causar problemas circulatorios
+en las manos del operador debido a la vibración. Para tal uso
+puede convenir utilizar una sierra dotada de características
+de antivibración.
+
+ABASTECIMIENTO DE COMBUSTIBLE
+ El combustible es sumamente inflamable. Tenga precaución
+al utilizar la unidad con el fin de disminuir el riesgo de lesiones
+serias.
+ Guarde la unidad en un lugar frío y bien ventilado, a una
+distancia segura de todo equipo generador de chispas o
+llamas.
+ Guarde el combustible en recipientes diseñados
+específicamente para tal fin.
+ Solamente reabastezca de combustible la unidad al aire libre
+y no fume durante el reabastecimiento.
+ Reabastezca de combustible la unidad antes de arrancar el
+motor. Nunca retire la tapa del tanque de combustible ni lo
+reabastezca mientras esté encendida o caliente la unidad.
+ No fume mientras esté mezclando el combustible o
+reabasteciendo el tanque.
+ Mezcle y guarde el combustible en un recipiente aprobado
+para gasolina.
+ Mezcle el combustible al aire libre, donde no haya chispas
+ni llamas.
+ Afloje la tapa del tanque de combustible para aliviar la presión
+y para evitar que se escape combustible por la tapa.
+ Después de reabastecer de combustible la unidad ponga la
+tapa y apriétela firmemente.
+ Limpie todo el combustible que se haya derramado de la
+unidad. Aléjese por lo menos 9 metros (30 pies) del sitio
+de reabastecimiento de combustible antes de encender el
+motor.
+ Nunca intente en ninguna circunstancia eliminar el
+combustible derramado quemándolo.
+ Para reducir el riesgo de incendio o de lesiones por
+quemadura, maneje con cuidado el combustible. Es
+sumamente inflamable.
+ Si se derrama combustible, no intente arrancar el motor;
+aleje la máquina del área del derramamiento y evite causar
+una fuente de ignición hasta que se disipen los vapores del
+combustible.
+ Vuelva a colocar firmemente la tapa del tanque de
+combustible y la del recipiente.
+ Vacíe el tanque de combustible en un contenedor apto para
+gasolina e inmovilice la unidad antes de transportarla en un
+vehículo.
+ Al drenar el tanque de combustible, utilice un recipiente
+aprobado para combustible y hágalo en un lugar bien
+ventilado.
+ Busque suelo raso para depositar la unidad, apague el
+motor, y permita que se enfríe antes de reabastecerlo de
+combustible.
+ Guarde estas instrucciones. Consúltelas con frecuencia y
+empléelas para instruir a otras personas que puedan utilizar
+este producto. Si presta a alguien esta herramienta, facilítele
+también las instrucciones.
+
+Página 3 — Español
+
+SÍMBOLOS
+Las siguientes palabras de señalización y sus significados tienen el objeto de explicar los niveles de riesgo relacionados
+con este producto.
+
+SÍMBOLO
+
+SEÑAL
+
+SIGNIFICADO
+
+PELIGRO:
+
+Indica una situación peligrosa, la cual, si no se evita, causará la muerte
+o lesiones serias.
+
+ADVERTENCIA:
+
+Indica una situación peligrosa, la cual, si no se evita, podría causar la
+muerte o lesiones serias.
+
+PRECAUCIÓN:
+
+Indica una situación peligrosa, la cual, si no se evita, podría causar lesiones
+menores o leves.
+
+AVISO:
+
+(Sin el símbolo de alerta de seguridad) Indica la información que se
+considera importante, pero no relacionada con lesiones potenciales (por
+ej. en relación a daños a la propiedad).
+
+Es posible que se empleen en este producto algunos de los siguientes símbolos. Le suplicamos estudiarlos y aprender
+su significado para mayor seguridad al manejar este producto.
+SÍMBOLO
+
+NOMBRE
+
+EXPLICACIÓN
+
+Símbolo de alerta de seguridad
+
+Precauciones para su seguridad.
+
+Lea el manual del operador
+
+Para reducir el riesgo de lesiones, el usuario debe leer y
+comprender el manual del operador antes de usar este
+­producto.
+
+Protección para los ojos y los
+oídos
+
+Siempre póngase protección ocular con protección lateral con
+la marca de cumplimiento de la norma ANSI Z87.1 junto con
+protección auditiva.
+
+Mantenga alejadas a las personas
+presentes.
+
+Mantenga a los circunstantes a una distancia mínima de 15
+metros (50 pies).
+
+Rebote
+
+Cualquier objeto lanzado puede rebotar y producir lesiones
+personales o daños físicos.
+
+Puerta de aspiración
+
+No utilice la unidad hasta mientras no esté asegurada la
+puerta de aspiración.
+
+Cabello largo
+
+Riesgo de succión del cabello largo en la entrada de aire.
+
+Tubos de la sopladora
+
+No utilice la unidad sin los tubos montados en su lugar.
+
+Ropa holgada
+
+Riesgo de succión de la ropa holgada en la entrada de aire.
+
+Gasolina y lubriciante
+
+Use gasolina sin plomo destinada para vehículos con un
+­octanaje de 87 [(R + M) / 2] o más. Este producto está
+­a ccionado por un motor de dos tiempos y requiere el
+premezclado de gasolina y lubriciante para motor de dos
+tiempos.
+Página 4 — Español
+
+FEATURES
+CARACTERÍSTICAS
+ESPECIFICACIONES DEL PRODUCTO
+Cilindrada del motor. ................................................................................................................................................................ 26 cc
+Desempeño de sopladora (en la salida de la boquilla):
+Boquilla para barrer
+Boquilla de alta velocidad
+*MPH............................................................................................. 150.............................................................. 200
+*Pies cúb./min............................................................................... 400.............................................................. 150
+*Nominal por ANSI B175.2
+
+BOQUILLA DE ALTA VELOCIDAD
+
+FAMILIARÍCESE CON LA SOPLADORA/­
+ASPIRADORA
+
+Vea la figura 1.
+Para usar este producto con la debida seguridad se debe
+comprender la información indicada en la herramienta misma
+y en este manual, y se debe comprender también el trabajo
+que intenta realizar. Antes de usar este producto, familiarícese
+con todas las características de funcionamiento y normas de
+seguridad del mismo.
+
+TUBO SOPLADORA Y DE LA BOQUILLA PARA
+BARRER
+El tubo sopladora y boquilla para barrer pueden montarse sin
+necesidad de ninguna herramienta.
+
+La boquilla de alta velocidad es ideal para hojas húmedas
+pegajosas. Permite levantar hojas o desechos húmedos de
+las superficies duras al utilizar la sopladora.
+
+BOQUILLA PARA BARRER
+La boquilla para barrer permite cubrir más área durante
+la operación de soplado, aumentando su efectividad ante
+montones de hojas y desechos más grandes.
+
+GATILLO DEL ACELERADOR
+La sopladora puede utilizarse a cualquier velocidad entre
+marcha lenta y máxima velocidad.
+
+ASPIRADORA / TRITURADORA
+
+PALANCA DE CONTROL DE CRUCERO/ ­SEGURO
+DEL ACELERADOR
+
+Puede convertir la sopladora en una aspiradora/trituradora
+simplemente con un destornillador de cabeza plana.
+
+La característica de palanca de control de crucero / seguro
+del acelerador permite utilizar la sopladora sin necesidad de
+mantener oprimido el gatillo del acelerador. Para aminorar la
+marcha, simplemente empuje hacia adelante la palanca de
+control de crucero / seguro del acelerador.
+
+SACO DE LA ASPIRADORA
+
+MOTOR
+
+Esta característica permite al usuario efectuar labores de
+limpieza con la aspiradora de cómoda.
+
+La sopladora dispone de un potente motor de 26 cc con
+suficiente potencia para manejar hasta los trabajos de soplado
+y aspiración más pesados.
+
+El saco de la aspiradora se monta fácilmente en la sopladora
+mediante el adaptador correspondiente.
+
+MANGO DE LA ASPIRADORA
+
+TUBOS DE LA ASPIRADORA
+Los tubos de la aspiradora pueden instalarse en la sopladora
+con un destornillador de cabeza plana.
+
+ARMADO
+DESEMPAQUETADO
+Este producto requiere armarse.
+ Extraiga cuidadosamente de la caja la producto y los
+accesorios. Asegúrese de que estén presentes todos los
+artículos enumerados en la lista de empaquetado.
+
+ No deseche el material de empaquetado hasta que haya
+inspeccionado cuidadosamente la producto y la haya
+utilizado satisfactoriamente.
+ Si hay piezas dañadas o faltantes, le suplicamos llamar al
+1-800-242-4672, donde le brindaremos asistencia.
+
+LISTA DE EMPAQUETADO
+
+ADVERTENCIA:
+No utilice este producto si alguna pieza incluida en la Lista
+de empaquetado ya está ensamblada al producto cuando
+lo desempaqueta. El fabricante no ensambla las piezas de
+esta lista en el producto. Éstas deben ser instaladas por
+el usuario. El uso de un producto que puede haber sido
+ensamblado de forma inadecuada podría causar lesiones
+personales graves.
+ Inspeccione cuidadosamente la producto para asegurarse
+de que no haya sufrido ninguna rotura o daño durante el
+transporte.
+
+Sopladora
+Tubo superior de la sopladora
+Boquilla para barrer
+Boquilla de alta velocidad
+Tubos superior e inferior de la aspiradora
+Tornillos del tubo de la aspiradora (2)
+Saco de la aspiradora
+Adaptador del saco de la aspiradora
+Lubriciante para motor de dos tiempos
+Manual del operador
+
+Página 5 — Español
+
+ARMADO
+NOTA: Lea y desprenda todas las etiquetas colgadas y
+guárdelas con el Manual del operador.
+
+ADVERTENCIA:
+Si falta o está dañada alguna pieza, no utilice esta ­producto
+sin haber reemplazado la pieza. Usar este producto con
+partes dañadas o faltantes puede causar lesiones serias
+al operador.
+
+ADVERTENCIA:
+No intente modificar este producto ni hacer accesorios
+no recomendados para la misma. Cualquier alteración o
+modificación constituye maltrato el cual puede causar una
+condición peligrosa, y como consecuencia posibles lesiones
+corporales serias.
+
+ADVERTENCIA:
+Para evitar un arranque accidental que podría causar
+lesiones corporales graves, siempre desconecte el cable de
+la bujía del motor de la bujía misma al ensamblar las piezas.
+
+INSTALACIÓN DEL SACO DE LA ASPIRADORA
+
+Vea las figuras 5 y 6.
+ Quite la boquilla y el tubo superior de la sopladora usando
+un destornillador plano para levantar la orejeta de fijación,
+girándolos y quitándolos de la salida del alojamiento de la
+sopladora.
+ Descorra el cierre del saco de la aspiradora y empuje el
+adaptador del saco de la aspiradora a través de la abertura
+opuesta a la cremallera, como se muestra. El extremo más
+ancho del adaptador permanecerá en el interior del saco de
+la aspiradora si se instala correctamente.
+ Alinee las ranuras realzadas del adaptador del saco con
+las orejetas de aseguramiento de la salida del alojamiento
+de la sopladora. Empuje el adaptador hacia adentro del
+alojamiento y giro asegure la pieza en su lugar.
+ Gire el saco de la aspiradora hasta que quede hacia arriba
+la correa para el hombro.
+ Asegúrese de que esté corrido y cerrado el cierre del saco
+de la aspiradora antes de arrancar la unidad.
+
+INSTALACIÓN DE LOS TUBOS DE LA
+ASPIRADORA
+Vea las figuras 7 y 8.
+
+HERRAMIENTAS NECESARIAS
+
+Vea la figura 2.
+Para armar la unidad necesitan el siguiente herramienta (no
+incluido o dibujado para escalar):
+ Destornillador de punta plana
+
+MONTAJE DE LOS TUBOS DE LA SOPLADORA
+
+Vea las figuras 3 y 4.
+ Alinee las orejetas realzadas del alojamiento principal con
+las ranuras del tubo superior de la sopladora; déjelas bien
+aseguradas únalas con un movimiento de deslizamiento y
+con un movimiento de torsión hasta que los tubos enganchen
+y queden bloqueados y los símbolos de bloqueo queden
+alineados. Verifique el apriete después de una utilización
+inicial y efectúe un apriete adicional si es necesario.
+
+AVISO:
+Cuando están ensamblados de manera correcta, es
+difícil separar los tubos. Si pueden separarse fácilmente
+girándolos, los tubos no están bloqueados. Siga girándolos
+para unirlos hasta que enganchen y queden bloqueados. Los
+tubos que no estén totalmente bloqueados entre sí podrían
+separarse al usar la sopladora.
+ Para conectar la boquilla para barrer al tubo superior de la
+sopladora, alinee las orejetas realzadas del tubo superior
+de la sopladora, luego deslícelas al mismo tiempo y gírelas
+para ajustarlas. Revise el ajuste luego del uso inicial y vuelva
+a ajustar si es necesario.
+ Si se desea usar la boquilla de alta velocidad, conéctela a
+la boquilla para barrer alineando la orejeta realzada de la
+boquilla de alta velocidad con la ranura de la boquilla para
+barrer.
+ Para quitar los tubos, utilice un destornillador plano para levantar la orejeta de fijación, rote los tubos para desbloquearlos y quítelos de la salida del alojamiento de la sopladora.
+
+ADVERTENCIA:
+Contacto de las aspas del propulsor giratorio pueden causar
+lesiones serias. Siempre detenga el motor y garantiza que
+las hojas giratorias han dejado de girar. antes de abrir la
+puerta de la aspiradora o de instalar o cambiar los tubos.
+No ponga la manos ni ningún objeto dentro de los tubos de
+la aspiradora mientras los instala en la unidad.
+Para instalar los tubos de la aspiradora:
+ Asegure los tubos superior e inferior de la aspiradora; para
+ello, alinee las orejetas de aseguramiento con las ranuras
+realzadas.
+ Golpee levemente en el suelo el conjunto de los tubos hasta
+que los agujeros del tubo inferior estén en la ranura realzada
+del tubo superior. Asegúrelos con los tornillos suministrados.
+ Oprima la orejeta de la puerta con un destornillador de
+cabeza plana y abra la puerta de entrada de la aspiradora.
+ Alinee los tornillos montados en la apertura de la aspiradora
+con los tornillos ubicados en el conjunto del tubo de la
+aspiradora.
+ Gire derecho, apriete el tornillo en el tubo superior de la
+aspiradora para asegurar a la caja del soplador.
+Para desmontar los tubos de la aspiradora:
+ Para aflojar los tornillos del tubo superior de la aspiradora,
+gírelos a la izquierda.
+ Retire del alojamiento de la sopladora el conjunto los tubos
+de la aspiradora.
+ Cierre firmemente la puerta de la entrada.
+ Quite el saco de la aspiradora usando un destornillador
+plano para levantar la orejeta de fijación, rote el adaptador
+para desbloquearlo y quítelo.
+
+Página 6 — Español
+
+FUNCIONAMIENTO
+APLICACIONES
+
+ADVERTENCIA:
+No permita que su familarización con este producto lo
+vuelva descuidado. Tenga presente que un descuido de
+un instante es suficiente para causar una lesión grave.
+
+ADVERTENCIA:
+Siempre póngase protección ocular con protección
+lateral con la marca de cumplimiento de la norma ANSI
+Z87.1 junto con protección auditiva. Si no cumple esta
+advertencia, los objetos que salen despedidos pueden
+producirle lesiones serias en los ojos.
+
+ADVERTENCIA:
+No utilice ningún aditamento o accesorio no recomendado
+por el fabricante de este producto. El empleo de
+aditamentos o accesorios no recomendandos podría
+causar lesiones serias.
+
+Este producto puede emplearse para los fines enumerados
+abajo:
+ Recoger hojas y otros desechos del jardín
+ Recoger hojas y otros desechos en terrazas y caminos
+de entrada
+ Hojas que limpian con la aspiradora de su césped
+
+COMBUSTIBLES MEZCLADOS CON ETANOL
+AVISO:
+No utilice combustibles E15 o E85 (ni combustibles
+que contengan más de 10 % de etanol) con este
+producto. Esto constituye una violación a la ley
+federal, dañará la unidad y anulará la garantía.
+NOTA: Para mejorar el rendimiento cuando se utilizan
+combustibles oxigenados, se recomienda el uso del
+lubricante de 2 ciclos Ethanol Shield.
+
+ABASTECIMIENTO Y REABASTECIMIENTO
+DE COMBUSTIBLE
+ADVERTENCIA:
+
+ADVERTENCIA:
+Verifique que todas las protecciones y los tubos estén en
+su lugar ante de usar. Si la sopladora se cae, detenga su
+funcionamiento y verifique que no se hayan producido
+daños. SI alguna protección, pieza o tubo se dañó o falta,
+no use la sopladora hasta que haya sido reparada por
+un centro de servicio calificado. Usar la sopladora con
+protecciones, piezas o tubos dañados o faltantes puede
+causar lesiones personales graves o mayores daños a
+la sopladora.
+
+AVISO:
+El parachispas que acompaña a este producto no ha
+sido evaluado por el Servicio Forestal del Departamento
+de Agricultura de EE. UU. y no se puede usar en terrenos
+forestales de EE. UU. Además, los usuarios del producto
+deben cumplir con los reglamentos de prevención de
+incendios locales, estatales y federales. Consulte a las
+autoridades que correspondan. Póngase en contacto con
+el servicio al cliente o un centro de servicio calificado para
+comprar un parachispas de repuesto.
+
+AVISO:
+
+La gasolina y sus vapores son altamente inflamables y
+explosivos. Maneje con cuidado el producto para evitar
+lesiones personales graves y daños a la propiedad.
+Manténgalo alejado de fuentes de ignición y llamas
+abiertas, utilícelo al aire libre únicamente, no fume y limpie
+los derrames inmediatamente.
+MEZCLA DE COMBUSTIBLE
+Este producto está accionado por un motor de 2 tiempos y
+requiere el premezclado de gasolina y lubricante para motor
+de dos tiempos. Mezcle previamente gasolina sin plomo y
+lubricante para motores de 2 tiempos en un recipiente y de
+uso aprobado para gasolina. NO mezcle más producto del
+que pueda utilizar en un período de 30 días.
+Combustible recomendado: El motor está certificado para
+funcionar con gasolina sin plomo destinada para uso automotor.
+NOTA: Le recomendamos que utilice el lubricante Ethanol
+Shield de primera calidad para motores de 2 tiempos o
+cualquier lubricante sintético de alta calidad para motores
+de 2 tiempos en este producto. Mezcle a razón de 76 ml
+(2,6 oz.) por galón (EE. UU.).
+No use lubricante de uso automotor ni lubricante para
+motores fuera de borda de 2 tiempos.
+
+Antes de cada uso, inspeccione todo el producto para
+detectar partes dañadas, faltantes o sueltas, como
+tornillos, tuercas, pernos, tapas, etc. Apriete firmemente
+todos los sujetadores y las tapas y no accione este
+producto hasta que todas las partes faltantes o dañadas
+sean reemplazadas. Póngase en contacto con el servicio
+al cliente o con un centro de servicio calificado para
+obtener ayuda.
+Página 7 — Español
+
+LUBRICANTE DE ALTA CALIDAD PARA
+MOTOR DE DOS TIEMPOS
+GASOLINA
+LUBRICANTE
+3,8 litro [1,0 galón (US)]
+9,5 litro [2,5 galón (US)]
+
+76 ml (2,6 onzas)
+189 ml (6,4 onzas)
+
+FUNCIONAMIENTO
+LLENADO DEL TANQUE
+ Limpie la superficie situada alrededor de la tapa del
+combustible para evitar la contaminación del mismo.
+ Afloje lentamente la tapa del tanque de combustible
+girándola hacia la izquierda.
+ Vierta la mezcla de combustible en el tanque.
+ Antes de volver a colocar la tapa del tanque de
+combustible, limpie e inspeccione la junta de dicha tapa.
+ Vuelva a colocar la tapa del tanque de la gasolina y
+apriétela firmemente girándola hacia la derecha.
+ Limpie todo el combustible que se haya derramado
+del producto.
+ Aléjese por lo menos 9 metros (30 pies) del sitio de
+reabastecimiento de combustible antes de encender
+la unidad.
+NOTA: Es normal que salga humo de un motor nuevo al
+usarlo por primera vez.
+
+ADVERTENCIA:
+Revise la herramienta para ver si tiene fugas de
+combustible. De lo contrario puede producirse un
+­­
+incendio, con el consiguiente riesgo de lesiones serias.
+
+ Tire dela mango del arrancador y cuerda hasta que
+empiece a funcionar el motor.
+NOTA: Si el motor no arranca, vuelva a la palanca del
+anegador en la posición FULL CHOKE y repita los
+siguientes pasos.
+ Permita que el motor funcione 15 segundos y después
+ponga la palanca del anegador en la posición RUN
+(funcionamiento).
+PARA PARADA EL MOTOR:
+ Presione y sostenga el interruptor de parada “ ” hasta
+que se detenga el motor.
+CALIENTE REINICIA EL MOTOR:
+ Coloque la palanca del anegador en la posición RUN.
+ Bloquee la palanca de control de crucero/seguro del
+acelerador.
+ Tire de la mango del arrancador y cuerda hasta que
+arranque el motor.
+SI NECESITA ASISTENCIA PARA EL ­ARRANQUE ESTE
+PRODUCTO:
+No devuelva este producto a la tienda donde fue adquirido.
+Por favor llame al Departamento de Atención al Cliente para
+todo problema que pueda tener.
+Si necesita asistencia llame al: 1-800-242-4672
+
+ADVERTENCIA:
+Siempre apague el motor antes de llenar el depósito
+de combustible. Nunca agregue combustible a una
+máquina con el motor caliente o en funcionamiento.
+Aléjese al menos 9 metros (30 pies) del sitio de carga
+de combustible antes de poner en marcha el motor. No
+fume y permanezca alejado de las llamas expuestas y
+las chispas. La manipulación insegura del combustible
+puede producir lesiones graves.
+
+ARRANQUE Y APAGADO
+
+MANEJO DE LA SOPLADORA
+Vea las figuras 10 y 11.
+
+ADVERTENCIA:
+Nunca ponga a funcionar la unidad sin tener instalados
+los tubos y cerrada firmemente la puerta de aspiración.
+El uso de una unidad mal armada puede causar lesiones
+personales graves.
+
+AVISO:
+
+Vea la figura 9.
+Para el arranque debe colocarse la sopladora en una
+superficie plana y despejada.
+ Presione lentamente 10 veces la bomba de cebado.
+NOTA: Luego de la 10ª vez que oprima, se debe ver el
+combustible en la bomba de cebado. Si esto no
+sucede, continúe presionando el cebador hasta que vea
+combustible en la bomba.
+ Coloque la palanca del anegador en la posición FULL
+CHOKE (anegación máxima).
+ Asegure la palanca de la control de crucero/seguro del
+acelerador hasta la posición de máxima aceleración.
+ Tire enérgicamente del mango del arrancador y cuerda
+hasta que el motor intente arrancar. No tire de la mango
+del arrancador y cuerda más de cuatro (4) veces.
+
+Siempre opere el producto respetando todas las leyes y
+ordenanzas correspondientes.
+ Encienda la sopladora. Consulte el apartado arranque y
+apagado, más arriba en este manual. Sujete la sopladora
+con el mango superior en la mano derecha.
+
+ADVERTENCIA:
+Manténgase alejado de la sopladora siempre y opérela
+con el mango en la mano derecha cuando la utilice
+como sopladora, manteniendo un espacio libre entre
+su cuerpo y el producto. El lateral del silenciador de la
+sopladora siempre debe estar alejado de su cuerpo.
+Cualquier tipo de contacto con el alojamiento puede
+causar quemaduras u otras lesiones corporales graves.
+
+ Coloque la palanca del anegador en la posición HALF
+CHOKE (anegación media).
+Página 8 — Español
+
+FUNCIONAMIENTO
+MANEJO DE LA ASPIRADORA
+
+ADVERTENCIA:
+
+Vea la figura 13.
+
+No coloque la sopladora sobre residuos o grava suelta.
+Los residuos pueden ser succionados hacia el interior de
+las rejillas de ventilación de la entrada de aire de la unidad
+y pueden provocar daños y lesiones corporales graves.
+ Para evitar la dispersión de los desechos, apunte la
+sopladora hacia los bordes exteriores de un apilamiento
+de desechos. Nunca apunte la sopladora directamente
+al centro de una pila de desechos.
+ Solamente utilice equipo motorizado a horas razonables,
+ni temprano en la mañana ni tarde en la noche, cuando
+podría molestarse a otras personas. Cumpla con los
+horarios establecidos en los reglamentos de la localidad.
+ Para reducir el nivel de ruido, limite a uno el número de
+equipos utilizados a la vez.
+ Conserve agua utilizando sopladores motorizados en
+lugar de mangueras para numerosos usos de jardinería,
+incluso para canalones, pantallas, patios, parrillas, porches
+y jardines.
+ Utilice la sopladora a la velocidad menor posible del
+acelerador requerida para efectuar el trabajo.
+ Revise el equipo antes de utilizarlo, especialmente el
+silenciador, así como las entradas y filtros de aire.
+ Utilice rastrillos y escobas para aflojar los desechos antes
+de utilizar la sopladora.
+ En condiciones polvorientas, cuando haya agua
+disponible, humedezca levemente las superficies.
+ Esté al pendiente de niños, mascotas, ventanas abiertas
+o coches recién lavados, y sople la basura de manera
+segura.
+ Mantenga la sopladora como se muestra en la figura 10
+para que el chorro de aire pueda trabajar cerca del suelo.
+ Después de utilizar sopladores o cualquier otro equipo,
+¡LIMPIE! Deshágase de los desechos correctamente.
+ Utilice la boquilla para barrer de la sopladora para tareas
+diarias de soplado. Esta boquilla permite cubrir más área
+durante la operación de soplado.
+
+PALANCA DE CONTROL DE CRUCERO/
+SEGURO DEL ACELERADOR
+Vea la figura 12.
+El palanca de control de crucero/seguro del acelerador
+permite utilizar la sopladora sin tener oprimido el gatillo del
+acelerador.
+
+ADVERTENCIA:
+Nunca utilice la unidad sin los tubos de la aspiradora, saco
+de la aspiradora y mango de la aspiradora instalados. El
+uso de una unidad mal armada puede causar lesiones
+personales graves.
+
+ADVERTENCIA:
+Mantenga el silenciador y todas las superficies calientes
+de la sopladora/aspiradora alejadas del cuerpo. La
+inobservancia de este punto puede causar lesiones
+graves.
+ Instale los tubos y el saco de la aspiradora. Consulte los
+apartados Armado, más arriba en este manual.
+ Encienda la sopladora. Consulte el apartado Arranque
+y apagado, más arriba en este manual.
+ Colóquese la correa del saco de la aspiradora en el
+hombro derecho. Sujete el mango superior con la mano
+izquierda y el mango de la aspiradora con la mano
+derecha.
+ Mueva la sopladora-aspiradora de un lado a otro a lo
+largo del borde exterior de los desechos. Para evitar
+un taponamiento, no coloque el tubo de la aspiradora
+directamente dentro de la pila de desechos.
+ Mantenga el motor a una altura superior a la del extremo
+de entrada del tubo de la aspiradora.
+ Siempre apunte el tubo de la aspiradora pendiente abajo
+al trabajar en una colina.
+ Para evitar lesiones corporales serias o dañar la unidad,
+no recoja piedras, de metal, vidrio roto, botellas u objetos
+similares.
+ Si se tapan los tubos de la aspiradora, pare el motor,
+s’assurer que l’aubage de la roue a cessé de tourner,
+y desconecte el cable de la bujía antes de despejar la
+obstrucción.
+ Retire de la sopladora los tubos de la aspiradora y retire
+los desechos del alojamiento de la hélice. Retire el saco
+y limpie el tubo. Puede ser necesario una vara pequeña o
+un palo par limpiar el tubo en toda su longitud. Asegúrese
+de habar retirado todos los desechos antes de volver a
+montar los tubos de la aspiradora.
+
+ Para accionar, tire hacia usted de la palanca de control de
+crucero/seguro del acelerador y deténgase en la marca
+deseada del acelerador.
+ Para quitar, empuje palanca de control de crucero/seguro
+del acelerador del mismo totalmente hacia la parte frontal
+de la unidad.
+Página 9 — Español
+
+MANTENIMIENTO
+Cualquier establecimiento o técnico de reparaciones
+calificado puede realizar el mantenimiento normal, el
+reemplazo o la reparación de los dispositivos y sistemas
+de control de emisiones, con repuestos originales o
+equivalentes. Un centro de servicio autorizado deberá
+realizar las reparaciones y el retiro del producto que cubra
+la garantía; póngase en contacto con el servicio al cliente
+para obtener ayuda.
+
+ADVERTENCIA:
+Antes de inspeccionar, limpiar o dar servicio a la máquina,
+apague el motor, espere a que se detengan todas las
+piezas en movimiento, desconecte el cable de la bujía y
+aléjelo de ésta. El incumplimiento de cualquiera de estas
+instrucciones puede causar lesiones serias.
+
+LIMPIEZA LA FILTRO DE AIRE
+
+Vea las figuras 14 y 15.
+Para obtener un desempeño apropiado y una larga vida útil
+de la unidad, mantenga limpio el filtro de aire.
+ Para retirar la tapa del filtro de aire, gire el selector hacia
+la izquierda mientras tira suavemente la tapa.
+ Enjuague el filtro con agua limpia.
+ Oprima suavemente el filtro hasta quitar el exceso de
+agua. Reemplace el filtro.
+ Coloque la tapa del filtro de aire nuevamente en la
+unidad. Gire el selector hacia la izquierda hasta asegurar
+la tapa.
+
+LIMPIEZA DEL ORIFICIO DE ESCAPE, DEL
+SILENCIADOR Y PARACHISPAS
+AVISO:
+
+ADVERTENCIA:
+Siempre póngase protección ocular con la marca
+de cumplimiento de la norma ANSI Z87.1 junto con
+protección para los oídos. La inobservancia de esta
+advertencia puede permitir que los objetos lanzados
+hacia los ojos y otros provocarle lesiones graves.
+
+ADVERTENCIA:
+Al dar servicio a la unidad, sólo utilice piezas de repuesto
+idénticas. El empleo de piezas diferentes podría causar
+un peligro o dañar el producto.
+
+AVISO:
+Inspeccione periódicamente todo el producto para
+detectar partes dañadas, faltantes o sueltas, como
+tornillos, tuercas, pernos, tapas, etc. Apriete firmemente
+todos los sujetadores y las tapas y no accione este
+producto hasta que todas las partes faltantes o dañadas
+sean reemplazadas. Un centro de servicio autorizado
+deberá realizar las reparaciones y el retiro del producto
+que cubra la garantía; póngase en contacto con el
+servicio al cliente para obtener ayuda.
+
+MANTENIMIENTO GENERAL
+Evite el empleo de solventes al limpiar piezas de plástico.
+La mayoría de los plásticos son susceptibles a diferentes
+tipos de solventes comerciales y pueden resultar dañados.
+Utilice paños limpios para eliminar la suciedad, el polvo, el
+lubriciante, la grasa, etc.
+
+ADVERTENCIA:
+No permita en ningún momento que fluidos para frenos,
+gasolina, productos a base de petróleo, lubriciantes
+penetrantes, etc., lleguen a tocar las piezas de plástico.
+Las sustancias químicas pueden dañar, debilitar o destruir
+el plástico, lo cual a su vez puede producir lesiones
+corporales serias.
+
+El parachispas que acompaña a este producto no ha sido
+evaluado por el Servicio Forestal del Departamento de
+Agricultura de EE. UU. y no se puede usar en terrenos
+forestales de EE. UU. Además, los usuarios del producto
+deben cumplir con los reglamentos de prevención de
+incendios locales, estatales y federales. Consulte a las
+autoridades que correspondan. Póngase en contacto con
+el servicio al cliente o un centro de servicio calificado para
+comprar un parachispas de repuesto.
+NOTA: Dependiendo del tipo de combustible utilizado, el
+tipo y la cantidad de lubricante utilizado, o las condiciones
+de funcionamiento en particular, la abertura de escape, el
+silenciador y/o el parachispas pueden resultar obstruidos
+con depósitos de carbón. Si observa alguna pérdida de
+potencia en su herramienta con motor de gasolina, quizá
+sea necesario eliminar dichos depósitos para restaurar
+el rendimiento. Recomendamos enfáticamente que este
+servicio lo realicen únicamente los técnicos de servicio
+calificados.
+Es necesario limpiar o reemplazar el parachispas cada
+50 horas o anualmente para asegurarse del buen funcionamiento de la unidad. Los parachispas pueden estar instalados
+en diferentes posiciones dependiendo del modelo del cual se
+trate. Póngase en contacto con el servicio al cliente o con un
+centro de servicio calificado para obtener ayuda.
+
+ADVERTENCIA:
+Nunca utilice la sopladora sin un silenciador equipado con
+un amortiguador de chispas en el lugar. De lo contrario
+puede producirse un incendio, con el consiguiente riesgo
+de lesiones serias.
+
+SACO DE LA ASPIRADORA
+Si se ensucia el saco se reduce el rendimiento de la unidad.
+Para limpiar el saco, vuélvalo al revés y sacúdalo. Limpie el
+saco en agua jabonosa por lo menos una vez al año. Para
+obtener un saco de repuesto, vea Cómo obtener piezas de
+repuesto en la página posterior de este manual.
+
+Página 10 — Español
+
+MANTENIMIENTO
+TAPA DEL TANQUE DE COMBUSTIBLE, TANQUE
+Y CONDUCTO
+ADVERTENCIA:
+Revise la herramienta para ver si tiene fugas de
+combustible. Una tapa del tanque de combustible, tanque
+y conducto con fugas constituye un riesgo de incendio
+y debe reemplazarse inmediatamente. Si encuentra
+fugas, corrija el problema antes de utilizar la herramienta.
+De lo contrario puede producirse un incendio, con el
+consiguiente riesgo de lesiones serias.
+La tapa del tanque de combustible contiene un filtro que
+no necesita mantenimiento y una válvula de retención. Un
+filtro de combustible obstruido puede causar un desempeño
+deficiente del motor. Si mejora el desempeño al aflojar
+la tapa del tanque de combustible, es posible que esté
+defectuosa la válvula de retención o quizá esté obstruido
+el filtro. Reemplace la tapa del tanque de combustible si es
+necesario.
+
+REEMPLAZO DE LA BUJÍA
+En este motor se emplea una bujía Ryobi AC00160A,
+Champion RCJ-6Y o equivalente con una separación
+interelectródica de 0,63 mm (0,025 pulg.). Utilice un repuesto
+recomendados o equivalentes y cámbielo anualmente.
+
+ALMACENAMIENTO DE LA PRODUCTO
+ Limpie todo material extraño de la producto. Almacene
+la unidad en un espacio bien ventilado inaccesible a los
+niños. Evite que la unidad entre en contacto con agentes
+corrosivos como las sustancias químicas para el jardín y
+las sales para derretir el hielo.
+ Cumpla todos los reglamentos federales y municipales
+para el almacenamiento y manejo seguro de la gasolina.
+Al almacenar 1 mes o más:
+ Drene todo el combustible del tanque en un recipiente
+de uso aprobado para gasolina. Accione el motor hasta
+que se apague.
+
+OPERACIÓN DEL MOTOR A ALTITUDES
+­ELEVADAS
+Su motor está configurado para funcionar por debajo de
+los 609,6 m (2 000 pies) de altitud medidos en la fábrica. Su
+motor se debe volver a configurar para funcionar por sobre
+los 609,6 m (2 000 pies) de altitud. Hacer funcionar el motor
+con la configuración equivocada a determinada altura puede
+aumentar las emisiones, reducir la eficiencia del combustible,
+perjudicar el funcionamiento y provocar daños irreversibles al
+motor. Los motores que estén configurados para funcionar en
+una altitud alta no se pueden utilizar en condiciones de altitud
+estándar. Un centro de servicio calificado debe asegurarle
+que su motor está debidamente configurado para funcionar
+donde usted se encuentre.
+
+ESTE PRODUCTO SE FABRICÓ CON UN SILENCIADOR CATALÍTICO
+¡Felicidades! Acaba de realizar una inversión para proteger el medio ambiente. A fin de conservar el nivel de emisiones original
+de este producto, le suplicamos consultar el apartado sobre mantenimiento que aparece abajo.
+
+PROGRAMA DE MANTENIMIENTO
+Pieza de
+mantenimiento
+
+Inspeccionar
+cada vez antes
+de usar la unidad
+
+Limpiar
+cada 5 horas
+de uso
+
+Reemplazar cada
+25 horas de uso
+o cada año
+
+Reemplácelo
+cada
+50 Horas
+
+* CONJUNTO DE SILENCIADOR CATALÍTICO................................................................................................................................ X
+PANTALLA PARACHISPAS. ............................................................................................................................................................ X
+* CONJUNTO DEL FILTRO DE AIRE
+		 incluye:
+		 Filtro..........................................................................................................X
+* CONJUNTO DEL CARBURADOR
+		 incluye:
+		 Juntas..........................................................X
+* CONJUNTO DEL TANQUE DE COMBUSTIBLE
+		 incluye:
+		 Conductos de combustible. ........................X
+		 Tapa del tanque de combustible. ................X
+		 Filtro de combustible............................................................................................................................ X
+* CONJUNTO DEL ENCENDIDO
+		 incluye:
+		 Bujía...................................................................................................................................................... X
+* AVISO: EL USO DE COMPONENTES DE CONTROL DE EMISIONES QUE NO SEAN LOS DISEÑADO PARA ESTA UNIDAD INFRINGE LA
+LEGISLACIÓN FEDERAL.
+
+Página 11 — Español
+
+CORRECCIÓN DE PROBLEMAS
+PROBLEMA
+El motor no arranca.
+
+CAUSA POSIBLE
+
+SOLUCIÓN
+
+No hay combustible en el tanque.
+
+Llene el tanque.
+
+Falló o tiene corto la bujía.
+
+Reemplace la bujía.
+
+Se rompió la bujía (se rajó la porcelana Reemplace la bujía.
+o se rompieron los electrodos).
+El cable de ignición tiene corto, está Reemplace el cable de ignición o
+roto o desconectado de la bujía.
+conéctelo a la bujía.
+El sistema de ignición no funciona.
+Cuesta trabajo arrancar el motor.
+
+Comuníquese con un centro de servicio
+calificado.
+
+Hay agua en la gasolina o está Drene todo el sistema y reabastézcalo
+descompuesta la mezcla de combustible. de combustible fresco.
+Hay demasiado lubriciante en la mezcla Vacíe el sistema y reabastézcalo de la
+de combustible.
+mezcla correcta.
+El anegador está demasiado abierto Ajuste el anegador según sea necesario.
+o cerrado.
+Está débil la chispa de la bujía.
+
+Comuníquese con un centro de servicio
+calificado.
+
+Le falta potencia al motor
+
+Está tapado el filtro de aire.
+
+Limpie el filtro de aire. Consulte la
+sección Limpieza del filtro de aire
+previamente en este manual.
+
+El motor se recalienta.
+
+No hay suficiente lubriciante en la Mezcle el combustible como se describe
+mezcla de combustible.
+en las instrucciones de arranque.
+
+Si el problema persiste después de probar las soluciones mencionadas arriba, contacto con el servicio al cliente o con
+un centro de servicio calificado para solicitar asistencia.
+
+AVISO:
+Como propietario equipo, usted es responsable de la que realice el mantenimiento obligatorio que se indica en la sección
+Mantenimiento. Le recomendamos que guarde todos los comprobantes relacionados con el mantenimiento de su equipo.
+Negligencia o falta del mantenimiento indicado puede aumentar las emisiones, reducir la eficiencia del combustible,
+perjudicar el funcionamiento, provocar daños irreversibles al motor y anulará su garantía.
+
+Este producto tiene una garantía limitada de dos años para fines
+personales, familiares o domésticos (90 días para usos trabajo
+o comercial). Para obtener detalles sobre la garantía, diríjase a
+www.homelite.com o llame sin cargo al 1-800-242-4672.
+
+Página 12 — Español
+
+NOTES / NOTAS
+
+Page / Página 13
+
+26cc BLOWER/VACUUM
+OPERATOR’S MANUAL
+MANUEL D’UTILISATION
+MANUAL DEL OPERADOR
+
+SOUFFLANTE /ASPIRATEUR DE 26 cc
+SOPLADORA /ASPIRADORA DE 26 cc
+UT26HBV/UT26HBVVNM/
+UT26HBVEMC/ UT26HBVEMCVNM
+
+SERVICE
+For parts or service, contact your Homelite service dealer. Please call ­1-800-242-4672 or visit us online at www.homelite.com
+for assistance. Be sure to provide all relevant information when you call or visit. A replacement parts list is also available online.
+
+REPAIR PARTS
+The item, manufacturing, and serial numbers of this product are found on a plate or label attached to the housing. Please
+record these numbers in the spaces provided below.
+ITEM NO.__________________________________________________________
+MANUFACTURING NO._____________________________________________
+SERIAL NO._ ______________________________________________________
+
+DÉPANNAGE
+Pour tout entretien ou réparation du produit, contacter le centre de réparations Homelite. Pour obtenir de l’aide, téléphoner au
+1-800-242-4672 ou visiter notre site www.homelite.com. Veiller à fournir toutes les informations pertinentes lors de tout appel
+téléphonique ou visite. Une liste des pièces de rechange est également disponible en ligne.
+
+PIÈCES DE RECHANGE
+Le numéro d’article, le numéro de fabrication et le numéro de série se trouve sur une plaquette ou étiquette placée sur le bâti.
+Noter les numéros dans l’espaces ci-dessous.
+NUMÉRO D’ARTICLE_ _____________________________________________
+NUMÉRO DE FABRICATION________________________________________
+NUMÉRO DE SÉRIE________________________________________________
+
+SERVICIO
+Para obtener piezas o servicio, comuníquese con el centro de servicio de Homelite. Para asistencia, le suplicamos llamar al
+1-800-242-4672 o visitar nuestro sitio en la red mundial, en la dirección www.homelite.com. Asegúrese de proporcionar todos
+los datos pertinentes al llamar o al presentarse personalmente. Asegúrese de proporcionar todos los datos pertinentes al
+llamar o al presentarse personalmente.
+
+PIEZAS DE REPUESTO
+El número de artículo, el número de fabricación y el número de serie de este producto se encuentra en una placa o etiqueta
+pegada a la caja del motor. Le recomendamos anotar los números en los espacios suministrado abajo.
+NÚMERO DE ARTÍCULO_ __________________________________________
+NÚMERO DE FABRICACIÓN________________________________________
+NÚMERO DE SERIE________________________________________________
+
+HOMELITE CONSUMER PRODUCTS, INC.
+P.O. Box 1288, Anderson, SC 29622
+1-800-242-4672 • www.homelite.com
+
+991000662
+06-25-19 (REV:05)
+
+

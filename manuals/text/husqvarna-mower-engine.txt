@@ -1,0 +1,6061 @@
+WARNING
+
+Part No. 99920-2289-01
+
+ADVERTENCIA
+
+The engine exhaust from this product
+contains chemicals known to the
+State of California to cause cancer,
+birth defects or other reproductive
+harm.
+
+El escape del motor de este producto
+contiene productos químicos que,
+según el Estado de California,
+provocan
+cáncer,
+defectos
+de
+nacimiento o afectan a la fecundidad.
+
+For repair / warranty assistance please contact
+your local authorized Kawasaki engine dealer
+or equally qualified service facility,
+email: kawpower-website@kmc-usa.com or
+call toll-free 1-877-364-6404
+
+Para realizar reparaciones u obtener asistencia
+con la garantía, póngase en contacto con su
+distribuidor autorizado de motores Kawasaki
+local o instalación de mantenimiento con similar
+cualificación,
+correo electrónico:
+kawpower-website@kmc-usa.com o
+teléfono gratuito 1-877-364-6404
+
+Printed in Japan
+
+FR651V
+FR691V
+FR730V
+
+4-Stroke Air-Cooled V-Twin Gasoline Engine
+Motor gasolina de 4 tiempos, V-gemelo y refrigerado por aire
+
+OWNER’S MANUAL
+MANUAL DEL PROPIETARIO
+
+GB
+
+ES
+
+ENGLISH
+
+General-purpose Engine
+
+Owner’s Manual
+
+Original instructions
+
+j
+
+SAFETY AWARENESS
+Whenever you see the symbols shown below,
+heed their instructions! Always follow safe operating and maintenance practices.
+
+WARNING
+This warning symbol identifies special instructions or procedures which, if not correctly followed, could result in personal
+injury, or loss of life.
+
+CAUTION
+This caution symbol identifies special instructions or procedures which, if not strictly
+observed, could result in damage to, or destruction of equipment.
+
+NOTE
+
+○This note symbol indicates points of particular interest for more efficient and convenient operation.
+
+READ THE OPERATING INSTRUCTIONS OF THE EQUIPMENT THIS ENGINE POWERS.
+© 2016
+2008 Kawasaki Heavy Industries, Ltd.
+
+(1):Sep.
+Dec.2016
+2010.
+(1) (M)
+
+READ THIS FIRST
+For your safety, read this Owner’s Manual and understand it thoroughly before operating this ENGINE.
+
+WARNING
+DO NOT run the engine in a closed area. Exhaust gas contains carbon monoxide, an odorless and
+deadly poison.
+Gasoline is extremely flammable and can be explosive under certain condition.
+Stop engine and allow the engine to cool before refueling.
+DO NOT smoke. Make sure area is well ventilated and free from any source of flame or sparks including
+the pilot lamp of any appliance while refueling, servicing fuel system, draining gasoline and/or adjusting
+carburetor.
+DO NOT fill the tank so the fuel level rises into the filler neck or level surface of level gauge. If the tank is
+overfilled, heat may cause the fuel to expand and overflow through the vents in the tank cap.
+Wipe off any spilled gasoline immediately.
+To prevent fire hazard:
+Keep the engine at least 1 m (3.3 ft) away from buildings, obstructions and other burnable objects.
+DO NOT place flammable objects close to the engine.
+DO NOT explose combustible materials to the engine exhaust.
+DO NOT use the engine on any forest covered, brush covered or grass covered unimproved land unless
+spark arrester is installed on the muffler.
+To avoid getting an electric shock, DO NOT touch spark plugs, plug caps or spark plug leads during
+engine running.
+To avoid a serious burn, DO NOT touch a hot engine or muffler. The engine becomes hot during
+operation. Before you service or remove parts, stop engine and allow the engine to cool.
+DO NOT place hands or feet near moving or rotating parts. Place a protective cover over pulley, V
+belt or coupling.
+DO NOT run engine at excessive speeds. This may result in injury.
+Always remove the spark plug caps from spark plugs when servicing the engine to prevent accidental starting.
+
+Read warning
+warning labels
+labels which
+which are
+are on
+on the
+the engine
+engine and
+and understand
+understand them.
+them. IfIf any
+Read
+any label
+label is
+is missing,
+missing, damaged,
+damaged, or
+or
+worn
+get
+a
+replacement
+from
+your
+authorized
+Kawasaki
+engine
+dealer
+or
+equally
+qualified
+service
+facility and
+worn get a replacement from your Kawasaki engine dealer and install it in the correct position.
+install it in the correct position.
+
+EMISSION CONTROL INFORMATION
+Fuel Information
+THIS ENGINE IS CERTIFIED TO OPERATE ON UNLEADED REGULAR GRADE GASOLINE ONLY.
+A minimum of 87 octane of the antiknock index is recommended. The antiknock index is posted on service
+station pumps in the U.S.A.
+Emission Control Information
+To protect the environment in which we all live, Kawasaki has incorporated an exhaust emission control system in compliance with applicable regulations of the United States Environmental Protection Agency and the
+California Air Resources Board. Also, depending on when your engine was produced, it may have an assigned
+emissions durability period. *See below for the engine emissions durability period that may apply to your engine.
+Exhaust Emission Control System
+The exhaust emission control system applied to this engine consists of a fuel system and an ignition system
+having optimum ignition timing characteristics. The fuel system has been calibrated to provide lean air/fuel
+mixture characteristics and optimum fuel economy with a suitable air cleaner and exhaust system.
+A sealed-type crankcase emission control system is also used to eliminate blow-by gasses. The blow-by
+gasses are led to a breather chamber through the crankcase and from there to the air cleaner.
+Engine Emissions Compliance Period
+California
+Engines Greater Than or Equal To 225 cc
+
+All Other States
+Engines Greater Than or Equal To 225 cc
+
+Model Year – 2008 and later
+
+Model Year – 2011 and later
+
+Durability Period – 250 hours
+
+Durability Period – 250 hours (Category C)
+
+If your engine has an assigned emissions durability period it will be located on the certification label
+attached to the engine (IMPORTANT ENGINE INFORMATION).
+
+High Altitude Performance Adjustment Information
+To improve the EMISSIONS CONTROL PERFORMANCE of engines operated above 1000 meters
+(3300 feet), Kawasaki requires the following Environmental Protection Agency (EPA) and California Air
+Resources Board (CARB) approved modifications. High altitude adjustment requires replacement of carburetor
+main jets. Installation of these optional parts may be performed by an authorized Kawasaki dealer, or the
+High
+Altitude
+Performance
+Adjustment Information
+consumer,
+following
+repair recommendations
+specified in the appropriate Kawasaki Service document or parts
+To improve the EMISSIONS CONTROL PERFORMANCE of engines operated above 1,000 meters (3,300
+catalog.
+feet), Kawasaki recommends the following Environmental Protection Agency (EPA) and the California Air ReOperating
+with
+wrong approved
+configuration
+at an altitude may increase its emission and decrease fuel efficiency and
+sources
+Board
+(CARB)
+modifications.
+performance.
+However, the model with DFI (Digital Fuel Injection system) does not require high altitude performance adjustment.
+NOTE
+NOTE
+○ When properly performed, these specified modifications only are not considered to be emissions system
+“tampering”
+and engine
+performance is
+generally
+unchanged
+a not
+result.
+properly
+performed, these
+specified
+modifications
+onlyasare
+considered to be emissions system
+○When
+"tampering"
+andwith
+engine
+performance
+is require
+generallyhigh
+unchanged
+result. adjustment.
+○ Engine
+models
+fuel injection
+do not
+altitude as a
+performance
+Maintenance
+and Warranty
+Warranty
+Maintenance and
+Proper maintenance is necessary to ensure that your engine will continue to have low emission levels. This
+Proper maintenance is necessary to ensure that your engine will continue to have low emission levels. This
+Owner’s Manual contains those maintenance recommendations for your engine. Those items identified by the
+Owner’s
+Manual contains
+those
+your
+Those
+items identified by the
+Periodic Maintenance
+Chart
+are maintenance
+necessary to recommendations
+ensure compliancefor
+with
+theengine.
+applicable
+standards.
+Periodic
+Maintenance
+Chart
+are
+necessary
+to
+ensure
+compliance
+with
+the
+applicable
+standards.
+As the owner of the engine, you have the responsibility to make sure that the recommended maintenance is
+As theout
+owner
+of the to
+engine,
+you have the
+responsibility
+to make
+recommended maintenance is
+carried
+according
+the instructions
+in this
+Owner’s Manual
+at sure
+your that
+ownthe
+expense.
+carried
+out
+according
+to
+the
+instructions
+in
+this
+Owner’s
+Manual
+at
+your
+own
+expense.
+The Kawasaki
+Kawasaki
+Limited
+Emission
+Control
+System
+Warranty
+requires
+that
+you
+return
+your engine
+to an authoLimited Emission Control System Warranty requires that you return
+your engine
+to an
+The
+Kawasaki
+Limited
+Emission
+Control
+System
+Warranty
+requires
+that you
+return
+your
+engine
+to
+an
+rized
+Kawasaki
+dealer
+for
+remedy
+under
+warranty.
+Please
+read the
+warranty
+carefully,
+and
+keep
+it valid
+by
+authorized
+Kawasaki
+engine
+dealer
+or
+equally
+qualified
+service
+facility
+for
+remedy
+under
+warranty.
+Please
+complying
+thecarefully,
+owner’s
+obligations
+contains.
+read
+the with
+warranty
+and
+keep
+it it
+valid
+by
+complying
+with the
+owner’s
+obligations
+it and
+contains.
+authorized
+Kawasaki
+dealer for
+remedy
+under
+warranty.
+Please
+read the
+warranty
+carefully,
+keep it valid by
+complying with the owner’s obligations it contains.
+Tampering with Emission Control System Prohibited
+Federal law and California State law prohibit the following acts or the causing thereof: (1) the removal or
+rendering inoperative by any person other than for purposes of maintenance, repair, or replacement, of any
+device or element of design incorporated into any new engine for the purposes of emission control prior to its
+sale or delivery to the ultimate purchaser or while it is in use, or (2) the use of the engine after such device or
+element of design has been removed or rendered inoperative by any person.
+
+Among those acts presumed to constitute tampering are the acts listed below:
+Do not tamper with the original emission related parts:
+or DFI system, and their internal parts
+• Carburetor
+Spark
+Plug
+• Magneto or electronic ignition system
+• Fuel filter element
+• Air cleaner elements
+• Crankcase
+• Cylinder heads
+• Breather chamber and internal parts
+• Intake pipe and tube
+• Muffler or any internal portion of the muffler
+•
+
+FOREWORD
+This Owner’s Manual provided to aid you in the safe and reliable operation of your Engine. READ AND
+UNDERSTAND IT THOROUGHLY BEFORE OPERATING YOUR ENGINE.
+READ THE OPERATING INSTRUCTIONS OF THE EQUIPMENT THIS ENGINE POWERS.
+To ensure a long, trouble-free life for your Engine, give it proper care and maintenance in accordance with
+this Owner’s Manual.
+Please note that the photographs and illustrations shown in this manual are made based on Model FR730V
+as a typical example among other similar models.
+All rights reserved. No part of this publication may be reproduced, stored in a retrieval system, or transmitted
+in any form or by any means, electronic mechanical photocopying, recording or otherwise, without the prior
+written permission of Kawasaki Heavy Industries, Ltd., Motorcycle & Engine Company. Although every possible
+care has been taken to make this manual as complete and accurate as possible, Kawasaki cannot guarantee
+against errors and omissions. Due to improvements in design and performance during production, procedures
+and specifications are subject to change without prior notice. Illustrations are provided for general reference
+purposes, and may differ from actual product aspects and components.
+
+TABLE OF CONTENTS
+GENERAL INFORMATION..............................
+Label Location ...............................................
+Parts Location ...............................................
+Tune-up Specifications ..................................
+Engine Oil Capacity.......................................
+FUEL AND OIL RECOMMENDATIONS ..........
+Fuel ...............................................................
+Engine Oil......................................................
+PREPARATION ................................................
+Fuel ...............................................................
+Engine Oil......................................................
+STARTING .......................................................
+Starting the Engine ........................................
+OPERATING ....................................................
+Warming Up...................................................
+Engine Inclination ..........................................
+STOPPING .......................................................
+Stopping the Engine ......................................
+Emergency Stop.........................................
+ADJUSTMENT .................................................
+
+8
+10
+8
+10
+9
+11
+10
+12
+10
+12
+11
+13
+11
+13
+12
+14
+13
+15
+13
+15
+13
+15
+15
+17
+15
+17
+17
+19
+17
+19
+17
+19
+18
+20
+18
+20
+18
+20
+19
+21
+
+Throttle Cable Installation, Adjustment..........
+Choke Cable Installation, Adjustment ...........
+Engine Speed Adjustment.............................
+MAINTENANCE ...............................................
+Periodic Maintenance Chart .........................
+Oil Level Check .............................................
+Oil Change ....................................................
+Oil Filter Change ...........................................
+Air Cleaner Service .......................................
+Paper Element ...........................................
+Spark Plug Service ........................................
+Fuel Filter and Fuel Pump Service ................
+Cooling System Cleaning ..............................
+STORAGE........................................................
+Fuel System Draining ....................................
+TROUBLESHOOTING GUIDE.........................
+ENVIRONMENTAL PROTECTION..................
+SPECIFICATIONS............................................
+WIRING DIAGRAM ..........................................
+Wiring Diagram..............................................
+
+19
+21
+19
+21
+20
+22
+21
+23
+21
+23
+23
+25
+24
+26
+25
+27
+26
+28
+26
+28
+27
+29
+28
+30
+29
+31
+30
+32
+30
+32
+32
+34
+34
+36
+35
+37
+36
+38
+36
+38
+
+10GENERAL
+8
+GENERALINFORMATION
+INFORMATION
+
+GENERAL INFORMATION
+Label Location
+
+1. Warning Label
+2. Important Engine Information Label
+3. Engine Maintenance Label
+4. Engine Serial Number Label
+
+The engine serial number is your only means of
+identifying your particular engine from others of the
+same model type.
+This engine serial number is needed by your
+dealer when ordering parts.
+
+GENERALINFORMATION
+INFORMATION11
+9
+GENERAL
+
+Parts Location
+
+G. Fuel Pump
+H. Fuel Filter
+I. Electric Starter
+A. Air Cleaner
+B. Air Inlet Guard
+C. Oil Drain Plug
+D. Oil Filter
+E. Spark Plugs/Spark Plug Caps
+F. Oil Gauge
+J. Control Panel
+K. Carburetor
+
+12
+10 GENERAL INFORMATION
+
+Tune-up Specifications
+ITEM
+
+Specifications
+
+Ignition Timing
+
+Unadjustable
+
+Spark Plugs:
+Gap
+
+NGK BPR4ES
+0.75 mm (0.030 in)
+
+Low Idle Speed
+
+1 550 r/min (rpm)
+
+High Idle Speed
+
+3 600 r/min (rpm)
+
+Valve Clearance
+
+In 0.10 ∼ 0.15 mm
+(0.004 ∼ 0.006 in)
+Ex 0.10 ∼ 0.15 mm
+(0.004 ∼ 0.006 in)
+
+Other Specifications No other adjustment needed
+
+NOTE
+
+○High and low idle speeds may vary depending on
+
+the equipment on which the engine is used. Refer
+to the equipment specification.
+
+Engine Oil Capacity
+Engine Oil Capacity
+1.8 L (1.9 US·qt)
+FR651V
+[when oil filter is not removed]
+FR691V
+2.1 L (2.2 US·qt)
+FR730V
+[when oil filter is removed]
+
+FUEL
+11
+FUEL AND OIL RECOMMENDATIONS 13
+
+FUEL AND OIL RECOMMENDATIONS
+Fuel
+Use only clean, fresh, unleaded regular grade
+gasoline.
+
+CAUTION
+Do not mix oil with gasoline.
+Octane Rating
+The octane rating of a gasoline is a measure of
+its resistance to “knocking”. Using a minimum of 87
+octane by the antiknock index is recommended. The
+antiknock index is posted on service station pumps
+in the U.S.A.
+Antiknock Index: (RON + MON)/2
+RON = Research Octane Number
+MON = Motor Octane Number
+
+NOTE
+
+○If “knocking or pinging” occurs, use a different
+brand of gasoline or higher octane rating.
+
+Oxygenated Fuel
+Oxygenates (either ethanol or MTBE) are added
+to the gasoline. If you use the oxygenated fuel be
+sure it is unleaded and meets the minimum octane
+rating requirement.
+The following are the EPA approved percentages
+of fuel oxygenates.
+ETHANOL: (Ethyl or Grain Alcohol)
+You may use gasoline containing up to 10%
+ethanol by volume.
+MTBE: (Methyl Tertiary Butyl Ether)
+You may use gasoline containing up to 15% MTBE
+by volume.
+METHANOL: (Methyl or Wood Alcohol) 5% by volume
+You may use gasoline containing up to 5%
+methanol by volume, as long as it also contains
+cosolvents and corrosion inhibitors to protect the
+fuel system. Gasoline containing more than 5%
+methanol by volume may cause starting and/or
+performance problems. It may also damage metal,
+rubber, and plastic parts of your fuel system.
+
+14
+12 FUEL AND
+AND OIL
+OIL RECOMMENDATIONS
+RECOMMENDATIONS
+
+Engine Oil
+Engine Oil
+
+NOTE
+
+The following engine oils are recommended.
+The
+followingClassification:
+engine oils are
+API Service
+SF,recommended.
+SG, SH, SJ or SL.
+API Service Classification : SF, SG, SH, SJ or SL.
+
+Oil Viscosity
+Viscosity
+Choose
+the temperature
+temperature
+Choose the
+the viscosity
+viscosity according
+according to
+to the
+as
+follows:
+as follows:
+-20ºC
+
+-10ºC
+
+0ºC
+
+10ºC
+
+20ºC
+
+30ºC
+
+40ºC
+
+SAE40
+SAE30
+SAE20W-50
+SAE5W-20SAE10W-40
+SAE10W-30
+SAE5W-20
+-4ºF
+
+14ºF
+
+FUEL AND OIL RECOMMENDATIONS 13
+
+32ºF
+
+50ºF
+
+68ºF
+
+86ºF
+
+104ºF
+
+NOTE
+○ Although 10W-40 engine oil is the recommended
+oil for most conditions, the oil viscosity may need
+to be changed to accommodate atmospheric
+conditions. Using 20W-50 oil in higher ambient
+temperatures may reduce oil consumption.
+
+○Using multi grade oils (5W-20, 10W-30, and 10W
+-40) will increase oil consumption. Check oil level
+more frequently when using them.
+
+PREPARATION 15
+13
+
+PREPARATION
+Fuel
+
+Engine Oil
+
+WARNING
+Gasoline is extremely flammable and can be
+explosive under certain conditions.
+Before refueling, turn the engine switch to
+“OFF” position. Do not smoke. Make sure
+the area is well ventilated and free from any
+source of flame or sparks, including any appliances with a pilot lamp.
+Never fill tank so that fuel level rises into
+the filler neck. If tank is overfilled, heat may
+cause fuel to expand and overflow through
+vents in tank cap.
+After refueling make sure tank cap is securely closed.
+If gasoline is spilled, wipe it up immediately.
+
+Check the engine oil daily before starting the engine otherwise shortage of the engine oil may cause
+serious damage to the engine such as seizure.
+Place the engine on level surface. Clean area
+around the oil gauge before removing it.
+Remove the oil gauge (A) and wipe it with a clean
+cloth.
+Pour the oil slowly to “FULL” mark on the oil gauge.
+Insert the oil gauge into tube (B) WITHOUT
+SCREWING IT IN.
+Remove the oil gauge (A) to check the oil level.
+The level should be between “ADD” and “FULL”
+marks. Do not overfill.
+Install and tighten the oil gauge (A).
+
+•
+•
+•
+•
+•
+•
+
+CAUTION
+Do not fill above the “FULL” mark. Excess
+oil will cause a smoking condition, and may
+cause the engine to overheat.
+
+Engine Oil Capacity
+1.8 L (1.9 US·qt)
+FR651V
+[when oil filter is not removed]
+FR691V
+2.1 L (2.2 US·qt)
+FR730V
+[when oil filter is removed]
+
+16
+14 PREPARATION
+
+CAUTION
+The engine is shipped without engine oil.
+
+A. Oil Gauge
+B. Tube
+
+STARTING 17
+15
+
+STARTING
+Starting the Engine
+
+WARNING
+Exhaust gases contain carbon monoxide, a
+colorless, odorless, poisonous gas.
+Do not operate the unit in enclosed areas.
+Provide adequate ventilation at all times.
+
+WARNING
+Engine exhaust may ignite combustible materials and cause a fire.
+Keep the area around the exhaust outlet
+clear. Locate the unit so that the exhaust
+outlet points toward an open area and is
+located at least one meter (3.3 feet) from any
+obstructions.
+
+NOTE
+
+○Be aware of the following in order to start the engine easily in cold weather.
+
+○Use proper oil for expected temperature (See
+
+“FUEL AND OIL RECOMMENDATIONS” chapter).
+Use fresh gasoline.
+Protect the engine or the equipment from direct
+exposure to weather when not in operation.
+
+NOTE
+
+○Follow the operating instructions of the equipment
+this engine powers.
+
+starting the engine, disconnect all possible
+• Before
+external loads.
+
+Open the fuel valve (A) on the equipment.
+Move throttle lever on dash to half throttle position.
+Use full choke when the engine is cold, but in hot
+weather or when the engine is already warm, use
+half choke or leave the choke fully open.
+Put the switch key into the engine switch.
+Turn the switch key to the START position on the
+equipment. Usually engine will start within 3 seconds.
+
+CAUTION
+Do not run the electric starter continuously
+for more than 5 seconds, otherwise the battery may discharge quickly. If the engine
+does not start right away, wait 15 seconds
+and try again.
+
+NOTE
+
+○When the engine is very warm, or when the engine
+
+does not start immediately, DO NOT keep trying
+to start it with the choke closed as this will cause
+flooding and make starting more difficult.
+○Instead, fully open the choke and start the engine.
+
+18
+16 STARTING
+
+CAUTION
+Whenever you start engine, make sure warning lamp is not illuminated after engine
+starts. If warning lamp comes on, stop
+engine immediately and check oil level (If
+equipped).
+starting the engine, gradually return the
+• After
+choke lever to the fully open position.
+
+OPERATING 19
+17
+
+OPERATING
+Warming Up
+
+Engine Inclination
+
+After the engine starts, move the throttle lever (A)
+on the equipment to halfway between “FAST” and
+“SLOW”.
+To warm up the engine, run it for 3 to 5 minutes
+with the throttle lever in the same load position
+(halfway) before putting the equipment under load.
+Then, move the throttle lever (A) on the equipment
+to its “FAST” position.
+
+This engine will operate continuously at angles up
+to 25° in any direction.
+Refer to the operating instructions of the equipment this engine powers. Because of equipment
+design or application, there may be more stringent
+restrictions regarding the angle of operation.
+
+CAUTION
+
+Do not operate this engine continuously at
+angles exceeding 25° in any direction. Engine damage could result from insufficient
+lubrication.
+
+Allow engine to warm up sufficiently (3 to 5
+minutes at idle) before applying a load. This
+will allow oil to reach all engine parts, and
+allow piston clearance to reach design specifications.
+
+CAUTION
+While warming up the engine, make sure the
+warning lamp (oil pressure) on dash is not
+on. The warning lamp must not be illuminated during engine operation (if equipped).
+
+CAUTION
+
+20
+18 STOPPING
+
+STOPPING
+Stopping the Engine
+
+WARNING
+Always remove Engine Key from switch
+when leaving equipment unattended or
+when equipment is not in use.
+Ordinary Stop
+Move the throttle lever (A) to “slow” position.
+Lower the engine speed to the idle speed. Keep
+running at the idle speed for about one minute.
+
+•
+•
+
+CAUTION
+Engine damage can occur from run-on or
+after-burning if engine is stopped suddenly
+from high speed loaded operation. Reduce
+engine speed to idle for one minute before
+shutting engine off.
+the engine switch or the switch key to “OFF”
+• Turn
+position.
+For Control Panel Switch Type, move the throttle
+lever against its low speed end to turn the ignition
+off.
+
+Emergency Stop
+Immediately turn the engine switch or the switch
+key to “OFF” position.
+Close the fuel valve on the equipment.
+For Control Panel Switch Type, move the throttle
+lever on the equipment to its low speed end. Moving
+the lever to its low speed end turns ignition off.
+
+•
+
+ADJUSTMENT 21
+19
+
+ADJUSTMENT
+Throttle Cable Installation, Adjustment
+
+Choke Cable Installation, Adjustment
+
+the throttle cable (G) to the speed control
+• Link
+lever (C) and loosely clamp the throttle cable outer
+
+the choke cable (K) to the choke control lever
+• Link
+(D), and loosely clamp the choke cable outer
+
+housing (F) with the cable clamp bolt (A).
+Move the throttle lever to “FAST” position.
+Pull up the outer housing (F) of the throttle cable
+until the inner wire (G) has almost no slack, and
+tighten the cable clamp bolt (A).
+Move the throttle lever to “SLOW” position. Make
+sure that the carburetor throttle valve (H) is moved
+smoothly.
+
+housing (L) with the cable clamp bolt (B).
+Move the equipment choke control to “OPEN” position. Make sure that the carburetor choke valve
+(I) is fully opened.
+Pull up the outer housing (L) of the choke cable
+until the inner wire (K) has almost no slack, and
+tighten the cable clamp bolt (B).
+Move the equipment choke control to “CHOKE”
+position. Make sure that the carburetor choke
+valve (I) is completely closed.
+Make sure that the choke valve turns from fully
+closed position to fully opened position when actuating the equipment choke control.
+
+22
+20 ADJUSTMENT
+
+Engine Speed Adjustment
+NOTE
+
+○Do not tamper with the governor setting or the car-
+
+buretor setting to increase the engine speed. Every carburetor is adjusted at the factory and a cap
+or stop plate is installed on each mixture screw.
+necessary, it must be peradjustment is necessary,
+○If any adjustment
+formed by your authorized Kawasaki Engine
+engine
+dealer.or equally qualified service facility.
+
+MAINTENANCE 23
+21
+
+MAINTENANCE
+Maintenance, replacement, or repair of the emission control devices and systems may be performed
+by any nonroad engine repair establishment or individual.
+
+Periodic Maintenance Chart
+
+WARNING
+Always remove the spark plug caps from spark plugs when servicing the engine to prevent accidental starting.
+
+NOTE
+
+○The service intervals can be used as a guide. Service more frequently as necessary by operating conditions.
+♦ : Service more frequently under dusty conditions.
+engine dealer or equally qualified service facility.
+K : Service to be performed by an authorized Kawasaki dealer.
+
+MAINTENANCE
+Check and add engine oil.
+Check for loose or lost nuts and
+screws.
+Check for fuel and oil leakage.
+Check battery electrolyte level.
+◆
+♦ Check or clean air inlet screen.
+
+Check or clean air inlet screen.
+
+INTERVAL
+INTERVAL
+Every EveryEvery
+Every Every
+Every
+First Every
+Every Every
+Every Every
+Every
+Daily
+Daily
+100
+200100
+hr.hr. 200
+250 hr.
+hr. 250300
+hr.hr.
+8 hr. 25
+hr.hr.50 hr.
+hr. hr.
+300 hr.500
+500
+
+• ●
+• ●
+• ●
+• ●
+• ●
+
+24 MAINTENANCE
+INTERVAL
+MAINTENANCE
+
+Daily
+
+Every
+100 hr.
+
+◆
+
+Clean air cleaner paper element.
+
+●
+
+◆
+
+Clean dust and dirt from cylinder
+and cylinder head fins.
+
+●
+
+Tighten nuts and screws.
+
+●
+●
+●
+
+Change engine oil.
+Clean and regap spark plugs.
+Change oil filter.
+◆ Replace air cleaner paper
+
+element.
+
+Every
+200 hr.
+
+Every
+250 hr.
+
+Every
+300 hr.
+
+●
+●
+
+Check and adjust valve clearance.
+
+●
+●
+
+Clean and lap valve seating
+surface.
+
+●
+
+Clean combustion chamber.
+
+Every
+500 hr.
+
+MAINTENANCE 25
+23
+
+Oil Level Check
+Check oil level daily and before each time of operation. Be sure oil level is maintained. See “PREPARATION” chapter.
+Engine Oil Capacity
+1.8 L (1.9 US·qt)
+FR651V
+[when oil filter is not removed]
+FR691V
+2.1 L (2.2 US·qt)
+FR730V
+[when oil filter is removed]
+
+24 MAINTENANCE
+26
+24 MAINTENANCE
+
+Oil Change
+Oil Change
+
+Change oil after first 8 hours of operation.ThereChange
+after
+first
+hours
+of operation.Thereoil oil
+every
+100 8
+hours.
+after
+change
+every
+100
+hours.
+after
+change
+oil very
+100 oil.
+hours.
+Run the
+engine
+to warm
+Runsure
+the the
+engine
+to warm
+oil.
+Be
+engine
+(equipment)
+is level.
+Be
+sure
+engine (equipment) is level.
+Stop
+thethe
+engine.
+Stop
+the the
+engine.
+Remove
+oil drain plugs (A) and drain the oil
+Remove
+the oil
+drain plugs
+andisdrain
+the oil
+into
+suitable
+container
+while (A)
+engine
+warm.
+into suitable container while engine is warm.
+
+•
+•
+
+WARNING
+WARNING
+Hot engine oil can cause severe burns.
+
+•
+•
+
+Hot
+engine
+oil can
+cause to
+severe
+burns.hot to
+Allow
+engine
+temperature
+drop from
+Allow level
+engine
+temperature
+drop from
+hotoil.
+to
+warm
+before
+drainingtoand
+handling
+warm level before draining and handling oil.
+Install the oil drain plugs.
+Install
+theoil
+oilgauge
+drain and
+plugs.refill with fresh oil (See
+Remove
+RemoveAND
+oil OIL
+gauge and refill
+with fresh oil chap(See
+“FUEL
+RECOMMENDATIONS”
+“FUEL AND OIL RECOMMENDATIONS” chapter).
+ter).
+Check the oil level (See “PREPARATION” chapter
+Check
+level (See “PREPARATION” chapter
+for
+oil the
+leveloil
+check).
+for oil level check).
+
+A. Oil Drain Plug
+B.
+A. Suitable
+Oil DrainContainer
+Plug
+B. Suitable Container
+
+WARNING
+WARNING
+Engine oil is a toxic substance. Dispose of
+Engine
+is a toxic
+substance.
+Dispose
+of
+used oiloil
+properly.
+Contact
+your local
+authorusedfor
+oil properly.
+local or
+authorities
+approved Contact
+disposalyour
+methods
+posities
+approved disposal methods or possible for
+recycling.
+sible recycling.
+
+MAINTENANCE 27
+25
+
+Oil Filter Change
+
+• Change the oil filter every 200 hours of operation.
+WARNING
+
+Hot engine oil can cause severe burns.
+Allow engine temperature to drop from hot to
+warm level before attempting to remove oil
+filter.
+
+• Drain engine oil into a suitable container (C).
+CAUTION
+
+Before removing the oil filter, place suitable
+pan under filter connection.
+the oil filter (A) counterclockwise to remove
+• Rotate
+it.
+
+Coat a film of clean engine oil on seal of new filter.
+Install new filter rotating it clockwise until seal contacts mounting surface (B). Then rotate filter 3/4
+turn more by hand.
+Supply engine oil as specified.
+Run the engine for about 3 minutes, stop engine,
+and check oil leakage around the filter.
+Add oil to compensate for oil level drop due to oil
+filter capacity (See “PREPARATION” chapter for
+oil level check).
+
+A. Oil Filter
+B. Mounting Surface
+C. Suitable Container
+
+WARNING
+Engine oil is a toxic substance. Dispose of
+used oil properly. Contact your local authorities for approved disposal methods or possible recycling.
+
+28
+26 MAINTENANCE
+
+Air Cleaner Service
+
+CAUTION
+To prevent excessive engine wear, do not run
+the engine with the air cleaner removed.
+
+Paper Element
+Clean the paper element (A) every 100 hours.
+Clean the paper element by tapping gently to remove dust. If very dirty, replace the paper element
+with a new one.
+Replace with a new paper element yearly or 200
+hours. Whichever comes first.
+
+•
+
+NOTE
+
+○Operating in dusty condition may require more frequent maintenance than above.
+CAUTION
+Do not wash paper element.
+Do not oil paper element.
+Do not use pressurized air to clean paper element.
+
+MAINTENANCE 29
+27
+
+Spark Plug Service
+
+WARNING
+Hot engine components can cause severe
+burns.
+Stop engine and allow it to cool before checking spark plugs.
+Clean or replace the spark plugs and reset spark
+plug gap (A) every 100 hours of operation.
+Disconnect the spark plug caps from the spark
+plugs and remove the spark plugs.
+Clean the electrodes (B) by scraping with a wire
+brush to remove carbon deposits.
+Inspect for cracked porcelain or other wear and
+damage. Replace the spark plug with a new one
+if necessary.
+Check the spark plug gap and reset if necessary.
+The gap must be 0.75 mm (0.030 in). To change
+the gap, bend only the side–electrode, using a
+spark plug tool.
+Install and tighten the spark plugs to 22 N·m (2.2
+kgf·m, 16 ft·lb). Connect the spark plug caps.
+
+•
+
+RECOMMENDED SPARK PLUG
+NGK ..................................BPR4ES
+
+A. Spark Plug Gap
+B. Electrodes
+
+30
+28 MAINTENANCE
+
+Fuel Filter and Fuel Pump Service
+
+WARNING
+Improper use of solvents can result in fire or
+an explosion.
+Do not use gasoline or low flash-point solvents to clean the fuel filter and/or the fuel
+pump.
+Clean only in a well ventilated area away from
+sources of sparks or flame, including any appliances with a pilot lamp.
+
+fuel filter can not be disassembled. If the fuel
+• The
+filter gets clogged, replace it with a new one.
+
+The fuel pump can not be disassembled. If the fuel
+pump fails, replace it with a new one.
+
+31
+MAINTENANCE 29
+MAINTENANCE
+
+Cooling System Cleaning
+Before each use, check that the air inlet (rotary)
+screen (inside A) is free from grass and debris and
+clean if necessary. Every 100 hours of operation,
+check and clean the cooling fins and inside of engine shrouds to remove grass, chaff or dirt clogging
+the cooling system and causing overheating. When
+cleaning, remove the air cleaner (inside E) loosen
+the bolts (C), (D), and then, remove the fan housing
+(B).
+
+CAUTION
+Do not run engine before all cooling system
+parts are reinstalled to keep cooling and carburetion as intended.
+
+CAUTION
+Bend the engine shroud (regulator side) [A]
+only within the shown range [B] (70°).
+[Bolts Size, Tightening Torque]
+Bolts Size Length Tightening Torque
+C
+
+M6
+
+16 mm 8.8 N·m (0.9 kgf·m, 78 in·lb)
+
+D
+
+M6
+
+22 mm 8.8 N·m (0.9 kgf·m, 78 in·lb)
+
+[B] = 70°
+
+32
+30 STORAGE
+34 STORAGE
+30 STORAGE
+
+Engine
+Storage
+Procedure
+Fuel
+System
+Draining
+Fuel System Draining
+
+STORAGE
+STORAGE
+STORAGE
+
+When
+operating
+your 30
+Kawasaki
+engine
+more
+Enginesnot
+to be
+stored over
+days should
+be completely
+drained
+of
+fuel
+to
+prevent
+gum
+deposits
+formthan
+30
+days,
+add
+fuel
+stabilizer
+to
+fuel
+tank
+and
+run
+Engines to be stored over 30 days should be coming
+on
+essential
+carburetor
+parts,
+fuel
+filter
+and
+fuel
+engine
+for
+5
+minutes
+then
+drain
+the
+fuel
+tank.
+pletely drained of fuel to prevent gum deposits formtank.
+the fuel
+tank, run
+the fuel
+engine
+low fuel
+idle
+ingAfter
+on drain
+essential
+carburetor
+parts,
+filteratand
+until
+tank.engine stalled.
+
+WARNING
+WARNING
+Gasoline is extremely
+flammable and can be
+
+explosive
+under
+certain
+conditions.
+Gasoline
+is
+extremely
+flammable
+and
+be
+Gasoline
+isbefore
+extremely
+flammable
+and can
+can for
+be
+Drain
+fuel
+storing
+the equipment
+explosive
+under
+certain
+conditions.
+explosive under
+certain conditions.
+extended
+periods.
+Drain fuel before storing the equipment for
+fuel in a
+before
+storing thearea
+equipment
+for
+Drain
+fuel
+well-ventilated
+away from
+extended
+periods.
+extended
+periods.
+any
+source
+of
+flame
+or
+sparks,
+including
+any
+Drain fuel in a well-ventilated area away from
+appliances
+with
+amp.
+Store
+fuel in
+an
+Drain
+gasoline
+ina apilot
+well
+ventilated
+area
+away
+any
+source
+of flame
+or sparks,
+including
+any
+approved
+container
+in safe
+location.
+from
+any source
+flame
+or sparks,
+including
+appliances
+with aofpilot
+lamp.
+Store fuel
+in an
+any
+appliances
+with
+light. Store
+approved
+container
+in a
+safepilot
+location.
+Clean every
+of the engine.
+gasoline
+in part
+an approved
+container in safe
+Be
+sure
+thatpart
+the of
+engine
+switch or switch key is
+Clean
+every
+the engine.
+location.
+positioned
+at “OFF”.
+Be sure that
+the engine switch or switch key is
+Close the at
+fuel
+valve and remove the sediment
+“OFF”.
+● positioned
+Clean every part
+of the engine.
+bowl.
+thethat
+fuelthe
+valve
+and remove
+the sediment
+● Close
+Be
+sure
+keythe
+is
+Put
+a pan under engine
+the fuelswitch
+valveortoswitch
+receive
+bowl.
+positioned
+at and
+“OFF”
+position.
+drained
+fuel,
+open
+the
+fuel
+valve
+to
+drain
+the
+a pan under the fuel valve to receive the
+● Put
+Close
+thefuel
+fueltank
+valve and
+remove the sediment
+fuel
+from
+completely.
+drained
+fuel, and
+open
+the fuel valve to drain the
+bowl.
+fuel from fuel tank completely.
+● Put a pan under the fuel valve to receive the
+drained gasoline and open the fuel valve to drain
+
+•
+•
+
+the sediment
+bowl
+and
+open the fuel valve.
+• Install
+the gasoline
+from fuel
+tank
+completely.
+Install the
+the sediment
+sediment bowl
+bowl.and open the fuel valve.
+••●●Install
+To remove the fuel from the carburetor, run the
+Put
+a
+pan
+under
+the
+carburetor
+and loosen the
+to use upfuel
+thefrom
+fuel
+in
+thecarburetor,
+carburetor.
+To
+remove
+the
+run the
+drain
+screw the
+of the carburetor
+to drain the gasoline
+• engine
+engine
+to
+use
+up
+the
+fuel
+in
+the
+carburetor.
+completely.
+the spark plugs and pour approx. 1 ∼ 2
+•●Remove
+Tighten
+drain
+mL
+(0.06the
+∼ 0.1
+cu.screw.
+in.) ofand
+engine
+through
+the
+Remove
+the
+spark
+plugs
+pour oil
+approx.
+1∼
+2
+• spark
+plug
+holes
+(A)
+and
+then
+screw
+the
+spark
+mL (0.06 ∼ 0.1 cu. in.) of engine oil through the
+plugs
+in after
+turning
+the then
+engine
+a few
+spark plug
+holes
+(A) and
+screw
+the times.
+spark
+Slowly
+turn
+the
+engine
+until
+you
+feel
+compression
+plugs in after turning the engine a few times.
+and
+then
+leave
+it there.until
+Thisyou
+blocks
+air inside
+Slowly
+turn
+the engine
+feel the
+compression
+the
+cylinder
+and
+prevents
+rust
+inside
+the
+engine.
+and then leave it there. This blocks the air
+inside
+Wipe
+the
+body
+with
+oily
+cloth.
+the cylinder and prevents rust inside the engine.
+Wrap
+the body
+engine
+with
+plastic
+Wipe the
+with
+oily
+cloth.sheeting and store it
+in
+a dry
+Wrap
+theplace.
+engine with plastic sheeting and store it
+Change
+engine oil for next use after period of storin a dry place.
+age
+(refer
+to “Oil
+Change”
+section
+in “MAINTEChange engine
+oil for
+next use
+after period
+of storNANCE”
+chapter).
+age (refer to “Oil Change” section in “MAINTEA
+NANCE” chapter).
+
+WARNING
+WARNING
+Gasoline is a toxic
+substance. Dispose of
+
+A.gasoline
+Fuel Drain
+Screw Contact your local authorproperly.
+
+Gasoline is a toxic substance. Dispose of
+ities
+for approved
+disposal
+methods.
+gasoline
+properly.WARNING
+Contact your
+local authorities for approved disposal methods.
+Gasoline is a toxic substance. Dispose of
+gasoline properly. Contact your local
+authorities for approved disposal methods.
+
+STORAGE 33
+31
+
+A. Spark Plug Hole
+
+34
+32 TROUBLESHOOTING GUIDE
+
+TROUBLESHOOTING GUIDE
+If the engine malfunctions, carefully examine the symptoms and the operating conditions, and use the table
+below as a guide to troubleshooting.
+Remedy
+
+Symptom
+
+Probably Cause
+
+Engine won’t
+Insufficient
+start or output is compression
+low
+
+Faulty pistons, cylinders, piston rings, K
+and head gaskets
+Faulty valves
+Loose spark plugs
+
+Tighten properly
+
+Loose cylinder head bolts
+No fuel to
+combustion
+chamber
+
+Spark plugs
+fouled by fuel
+
+No fuel in fuel tank
+
+Fill fuel tank
+
+Fuel valve not in “ON” position
+
+Open fuel valve lever.
+
+Blocked fuel filter or tube
+
+Change fuel filter or fuel tube
+
+Blocked air vent in tank cap
+
+Clean fuel tank cap
+
+Faulty carburetor
+
+K
+
+Over rich fuel/air mixture
+
+Open choke.
+Rotate engine with spark plugs
+removed to discharge excess fuel.
+Clean spark plugs.
+
+Clogged air cleaner
+
+Clean
+
+Faulty carburetor
+
+K
+
+Incorrect grade/type of fuel
+
+Change fuel
+
+Water in fuel
+
+TROUBLESHOOTING GUIDE 35
+33
+Symptom
+No spark or
+weak spark
+
+Low output
+
+Engine
+overheats
+
+Engine speed
+won’t increase
+
+Probably Cause
+
+Remedy
+
+Faulty spark plugs
+
+Replace spark plugs
+
+Faulty ignition coil
+
+K
+
+Engine switch left in “OFF” position
+
+Turn engine switch to “START”
+position (See M)
+
+Clogged air cleaner
+
+Clean
+
+Air inlet screen or cooling air path
+clogged with dirt
+Insufficient engine oil
+
+Replenish or change oil
+
+Carbon build-up in combustion
+chamber
+
+K
+
+Poor ventilation around engine
+
+Select a better location
+
+Faulty governor
+
+K
+
+K: Service to be performed by
+by an
+an authorized
+authorized Kawasaki
+Kawasaki engine
+dealer. dealer or equally qualified service facility.
+M: For Control Panel Switch Type, move the throttle lever on the equipment away from its low speed end
+to turn the engine switch to “START” position.
+
+36
+34 ENVIRONMENTAL PROTECTION
+
+ENVIRONMENTAL PROTECTION
+To protect our environment, properly discard used batteries, engine oil, gasoline, coolant, or other components that you might dispose of in the future.
+Consult your authorized Kawasaki engine dealer or local
+environmental
+waste
+agency
+disequally qualified
+service
+facility
+or for
+localtheir proper
+environmental
+posal
+procedure.
+waste agency
+for their proper disposal procedure.
+
+SPECIFICATIONS 37
+35
+
+SPECIFICATIONS
+FR651V, FR691V, FR730V
+Type
+
+Air-cooled, 4-stroke OHV, V-twin cylinder, gasoline engine
+
+Bore × Stroke
+
+78 × 76 mm (3.07 × 2.99 in.)
+
+Displacement
+
+726 mL (44.3 cu.in)
+
+Ignition System
+
+Solid-state ignition
+
+Direction of Rotation
+
+Counterclockwise facing the PTO Shaft
+Electric starter
+
+Starting System
+Dry Weight : kg (lbs)
+
+40 (88.2)
+
+NOTE
+
+○Specifications are subject to change without notice.
+○Dry weight excludes that of fuel tank and muffler.
+
+38
+36 WIRING DIAGRAM
+
+WIRING DIAGRAM
+Wiring Diagram
+
+NOTE
+
+○Portion Surrounded by hatching Shows Kawasaki
+Procurement Parts.
+
+WARNING
+For electrical safety, always remove cable
+from negative (–) side of battery before attempting any repair or maintenance.
+Battery Capacity Recommended
+Battery Capacity
+12 V 550 CCA Class
+
+ESPAÑOL j
+
+Motor de propósito general
+
+Manual del propietario
+
+Instrucciones originales
+
+PRECAUCIONES DE SEGURIDAD
+Siempre que vea los símbolos que se muestran
+a continuación, preste atención a las instrucciones.
+Siga siempre prácticas seguras de funcionamiento
+y mantenimiento.
+
+ADVERTENCIA
+Este símbolo de advertencia identifica las
+instrucciones o procedimientos especiales
+cuyo incumplimiento podría causar heridas
+graves o la muerte.
+
+PRECAUCIÓN
+Este símbolo de precaución identifica las
+instrucciones o procedimientos especiales
+cuyo incumplimiento podría dañar o destruir
+el equipo.
+
+NOTA
+
+◦ Este símbolo de nota indica puntos de interés de-
+
+terminados para un funcionamiento más eficaz y
+práctico.
+
+LEA LAS INSTRUCCIONES DE FUNCIONAMIENTO DEL EQUIPO EN EL
+QUE SE UTILICE ESTE MOTOR.
+© 2016
+2009 Kawasaki Heavy Industries, Ltd.
+
+Septiembre
+de de
+2016
+(1) (M)
+(1): Julio
+2009
+
+LÉAME PRIMERO
+Por su seguridad, asegúrese de leer y comprender este manual del propietario antes de utilizar este MOTOR.
+
+ADVERTENCIA
+EVITE que el motor funcione en un área cerrada. El gas del tubo de escape contiene monóxido de
+carbono, gas tóxico e inodoro de carácter mortal.
+La gasolina es extremadamente inflamable y puede ocasionar explosiones en determinadas condiciones.
+Pare el motor y deje que se enfríe antes cargar combustible.
+NO fume. Mientras carga el combustible, repara el sistema de combustible, extrae la gasolina o ajusta el
+carburador, asegúrese de que el área esté bien ventilada y no exista riesgo de que se produzcan llamas o
+chispas; esto incluye el piloto de cualquier dispositivo.
+NO rellene el depósito de forma que el nivel de combustible sobrepase la boca de llenado o la superficie
+de nivel del indicador de nivel. Si se sobrepasa, el calor puede hacer que el combustible salga y desborde
+por los orificios de ventilación de la tapa del depósito.
+Limpie inmediatamente la gasolina que se haya derramado.
+Para evitar el riesgo de incendio:
+Separe el motor al menos 1 m (3,3 pies) de cualquier edificio, obstrucción u otro tipo de objeto inflamable.
+NO coloque objetos inflamables cerca del motor.
+NO deje expuesto el tubo de escape del motor a materiales combustibles.
+NO utilice el motor en ningún terreno no construido en el que haya árboles, maleza o pastos, a menos que
+haya instalado un apagachispas en el silenciador.
+
+ADVERTENCIA
+Para evitar el riesgo de descarga eléctrica, NO toque las bujías de encendido, sus capuchones o
+cables cuando el motor esté funcionando.
+Para evitar quemaduras graves, NO toque el motor o el silenciador cuando estén calientes. El motor
+se calienta con el uso. Antes de reparar o extraer piezas, pare el motor y deje que se enfríe.
+NO ponga las manos ni los pies cerca de las piezas que se mueven o giran. Coloque una cubierta
+de protección sobre la polea, la correa trapezoidal o el acoplamiento.
+NO utilice el motor a velocidades excesivas. ya que se podrían causar heridas graves.
+Retire siempre los capuchones de las bujías de encendido al realizar el mantenimiento del motor
+para evitar que éste se encienda por accidente.
+
+deleer
+leery ycomprender
+comprender
+etiquetas
+advertencia
+situadas
+el Si
+motor.
+Si de
+alguna
+ellas
+Asegúrese de
+laslas
+etiquetas
+de de
+advertencia
+situadas
+en el en
+motor.
+alguna
+ellasde
+faltara,
+faltara,
+estuviera
+dañada
+o desgastada,
+solicite
+otraen
+nueva
+su
+distribuidor
+de motores
+Kawasaki
+autorizadoy
+estuviera
+dañada o
+desgastada,
+solicite otra
+nueva
+su en
+distribuidor
+de
+motores
+Kawasaki
+correspondiente
+o
+instalación
+mantenimiento
+colóquela
+ende
+el lugar
+correcto. con similar cualificación y colóquela en el lugar correcto.
+
+INFORMACIÓN SOBRE CONTROL DE EMISIONES
+Información sobre el combustible
+ESTE MOTOR ESTÁ CERTIFICADO PARA FUNCIONAR ÚNICAMENTE CON GASOLINA NORMAL SIN
+PLOMO.
+Se recomienda el uso de un mínimo de 87 octanos del índice antidetonante. El índice antidetonante se
+anuncia en los surtidores de las estaciones de servicio de Estados Unidos.
+Información sobre control de emisiones
+Para proteger el medio ambiente en el que vivimos, Kawasaki ha incorporado un sistema de control de
+emisiones de escape que cumple las normativas vigentes de la Agencia de Protección Ambiental de los Estados
+Unidos y la Junta de Recursos del Aire de California. Asimismo, dependiendo de la fecha de fabricación del
+motor, puede tener asignado un periodo de durabilidad de las emisiones. *Consulte a continuación el periodo de
+durabilidad de las emisiones del motor que puede aplicarse a su motor.
+Sistema de control de emisiones de escape
+El sistema de control de emisiones de escape aplicado a este motor consta de un sistema de combustible
+y un sistema de encendido que dispone de características óptimas de reglaje del encendido. La calibración
+del sistema de combustible permite proporcionar características específicas de mezcla pobre de combustible
+y aire, y un ahorro óptimo de combustible con un filtro de aire y sistema de escape adecuados.
+Con el propósito de eliminar los gases de combustión, también se incorpora un sistema de control de
+emisiones del cárter sellado. Los gases de combustión se dirigen hacia una cámara con respiradero a través
+del cárter y, desde allí, al filtro de aire.
+Periodo de conformidad de las emisiones del motor
+		
+
+California
+
+Resto de estados
+
+		
+
+Motores mayores o iguales que 225 cc
+
+Motores mayores o iguales que 225 cc
+
+Año del modelo: 2008 y posterior
+
+Año del modelo: 2011 y posterior
+
+Periodo de durabilidad: 250 horas
+
+Periodo de durabilidad: 250 horas (Categoría C)
+
+Si su motor tiene asignado un periodo de durabilidad de las emisiones, figurará en la etiqueta de
+certificación fijada en el motor (INFORMACIÓN IMPORTANTE DEL MOTOR).
+
+Información de ajuste del rendimiento a gran altitud
+Para mejorar el RENDIMIENTO DEL CONTROL DE EMISIONES de los motores que funcionan a altitudes
+superiores a 1.000 metros (3.300 pies), Kawasaki requiere las siguientes modificaciones aprobadas por la
+Agencia de Protección Ambiental (EPA) y la Junta de Recursos del Aire de California (CARB). El ajuste para
+gran altitud requiere la sustitución de las toberas principales del carburador. La instalación de estas piezas
+opcionales puede realizarse a través de un distribuidor autorizado de Kawasaki, o el consumidor, siguiendo
+las recomendaciones de reparación que se especifican en el documento de mantenimiento o catálogo de
+piezas correspondiente de Kawasaki.
+El funcionamiento con una configuración incorrecta en altitud puede aumentar la emisión y disminuir la
+eficiencia y rendimiento del combustible.
+NOTA
+Cuando se realizan correctamente, estas modificaciones especificadas no se consideran como una
+"alteración" del sistema de emisiones y, normalmente, el rendimiento no varía.
+Los modelos de motor con inyección de combustible no requieren ajuste del rendimiento a gran altitud.
+Mantenimiento y garantía
+Resulta necesario realizar un mantenimiento adecuado para asegurar que el motor mantenga niveles bajos
+de emisiones. Este Manual del propietario incluye las recomendaciones de mantenimiento para su motor.
+Los elementos identificados por el Gráfico de mantenimiento periódico resultan necesarios para garantizar el
+cumplimiento de las normas aplicables.
+El propietario del motor es responsable de garantizar la realización del mantenimiento recomendado
+de conformidad con las instrucciones indicadas en este Manual del propietario, y asumirá el coste
+correspondiente.
+La Garantía limitada del sistema de control de emisiones de Kawasaki requiere la devolución del motor a
+un distribuidor autorizado de Kawasaki para realizar las medidas de subsanación necesarias bajo la garantía.
+Lea la garantía atentamente y mantenga su validez mediante el cumplimiento de las obligaciones estipuladas
+del propietario.
+
+Alteración prohibida con el sistema de control de emisiones
+La legislación federal prohíben los siguientes actos o la inducción a realizarlos: (1) la retirada o
+desactivación por parte de cualquier persona, excepto que se realice por motivos de mantenimiento,
+reparación o sustitución, de cualquier dispositivo o elemento de diseño incorporado en cualquier motor nuevo
+para fines de control de emisiones antes de su venta o entrega al comprador final o mientras se encuentre en
+uso, o (2) el uso del motor después de que cualquier persona haya retirado o desactivado dicho dispositivo o
+elemento de diseño.
+Entre estos presuntos actos de alteración se incluyen los actos que se enumeran a continuación:
+No alterar las piezas originales relacionadas con las emisiones:
+o sistema DFI y sus piezas internas
+• Carburador
+Bujía
+de
+encendido
+• Sistema de encendido magnético o electrónico
+• Elemento del filtro de combustible
+• Elementos del filtro de aire
+• Cárter
+• Cabezas de cilindros
+• Cámara con respiradero y piezas internas
+• Conducto y tubo de admisión
+• Silenciador o cualquier parte interna del silenciador
+•
+
+PRÓLOGO
+Este Manual del propietario tiene por objeto ayudarle en la operación segura y fiable de su Motor. LÉALO Y
+ENTIÉNDALO A FONDO ANTES DE PONER EN FUNCIONAMIENTO SU MOTOR.
+LEA LAS INSTRUCCIONES DE FUNCIONAMIENTO DEL EQUIPO EN EL QUE SE UTILICE ESTE MOTOR.
+Para garantizar que el motor tenga una vida útil larga y sin averías, aplíquele un cuidado y mantenimiento
+adecuados de conformidad con este manual.
+Tenga en cuenta que las fotografías e ilustraciones de este manual se basan en el modelo FX730V
+FS600V como
+ejemplo habitual entre otros modelos similares.
+Reservados todos los derechos. Ninguna parte de esta publicación podrá reproducirse, almacenarse en un
+sistema de recuperación o transmitirse de cualquier forma o medio, ya sea de forma electrónica, mecánica,
+mediante fotocopia o de otra forma, sin el consentimiento previo por escrito de Kawasaki Heavy Industries,
+Ltd., Consumer Products & Machinery Company. Aunque se ha puesto el máximo cuidado para que este
+manual sea lo más completo y preciso posible, Kawasaki no puede garantizar que no se produzca ningún
+error u omisión. Debido a las mejoras en el diseño y rendimiento durante la producción, los procedimientos y
+especificaciones están sujetos a cambio sin previa notificación. Las ilustraciones se proporcionan únicamente
+como referencia general, y los aspectos y componentes reales del producto podrían variar.
+
+ÍNDICE
+8
+INFORMACIÓN GENERAL...................................11
+9
+Ubicación de
+de las
+las etiquetas
+8
+Ubicación
+etiquetas...................................11
+9
+Ubicación de
+de las
+las piezas.................................
+9
+Ubicación
+piezas..................................... 10
+12
+Especificaciones de
+de puesta
+puesta aa punto..............
+11
+Especificaciones
+punto.................. 13
+Capacidad de
+de aceite
+aceite del
+del motor......................
+11
+Capacidad
+motor.......................... 13
+RECOMENDACIONES DE COMBUSTIBLE Y
+ACEITE ............................................................ 12
+ACEITE.
+14
+Combustible
+Combustible....................................................... 12
+14
+Aceite del
+del motor
+Aceite
+motor................................................. 13
+15
+PREPARACIÓN................................................... 14
+16
+Combustible
+Combustible....................................................... 14
+16
+Aceite del
+del motor
+Aceite
+motor................................................. 14
+16
+ARRANQUE........................................................ 16
+18
+Arranque del
+del motor........................................
+Arranque
+motor............................................ 18
+16
+19
+FUNCIONAMIENTO............................................ 18
+20
+Calentamiento .................................................. 18
+19
+Calentamiento.
+20
+Inclinación del
+del motor
+19
+Inclinación
+motor.......................................... 18
+20
+PARADA.............................................................. 19
+20
+21
+Parada del
+del motor...........................................
+20
+Parada
+motor............................................... 19
+21
+Parada
+20
+Parada de
+de emergencia
+emergencia.................................. 19
+21
+AJUSTE...............................................................
+........................................................... 20
+21
+22
+Instalación yy ajuste
+ajuste del
+del cable
+cable del
+del acelerador.
+21
+Instalación
+acelerador..... 20
+22
+Instalación y ajuste del cable del estrangulador. .. 20
+22
+Ajuste de la velocidad del motor........................ 21
+23
+
+Instalación y ajuste
+del cable del
+MANTENIMIENTO..............................................
+22
+24
+estrangulador
+.............................................
+21
+Gráfico de
+mantenimiento
+periódico.................. 22
+24
+Ajuste
+de la del
+velocidad
+...................... 24
+22
+Comprobación
+niveldel
+demotor
+aceite..
+26
+MANTENIMIENTO
+23
+Cambio
+de aceite............................................... 25
+27
+Gráfico del filtro de
+mantenimiento
+periódico.............. 28
+23
+Cambio
+aceite.................................
+26
+Comprobación del filtro
+nivel de
+de aire.
+aceite
+25
+Mantenimiento
+........................ 29
+28
+Cambio
+de de
+aceite
+.......................................... 30
+26
+Elemento
+papel..........................................
+28
+Cambio
+del filtro
+aceite.............................
+27
+Mantenimiento
+dede
+la bujía de
+encendido........... 30
+29
+Mantenimiento del
+del filtro
+filtro ydelaaire
+..................... 29
+Mantenimiento
+bomba de
+Elemento de espuma
+29
+combustible.................................................... 31
+30
+Elemento
+papel de
+.....................................
+29
+Limpieza
+delde
+sistema
+refrigeración............... 32
+30
+Mantenimiento de la
+bujía de encendido....... 34
+30
+ALMACENAMIENTO...........................................
+32
+Mantenimiento
+del filtro
+bomba de
+Vaciado
+del sistema
+de y la
+combustible.
+................ 34
+32
+combustible
+31
+SOLUCIÓN
+DE ................................................
+AVERÍAS.................................... 36
+34
+Limpieza
+del sistema de
+refrigeración
+32
+PROTECCIÓN
+MEDIOAMBIENTAL.
+.................. 38
+36
+ALMACENAMIENTO
+....................................... 39
+34
+ESPECIFICACIONES..........................................
+37
+Vaciado
+delDE
+sistema de combustible
+34
+DIAGRAMA
+CABLEADO.............................. 40
+38
+SOLUCIÓN
+DEcableado.
+AVERÍAS................................
+36
+Diagrama de
+..................................... 40
+38
+PROTECCIÓN MEDIOAMBIENTAL................ 38
+ESPECIFICACIONES ...................................... 39
+DIAGRAMA DE CABLEADO .......................... 40
+Diagrama de cableado .................................. 40
+
+8 INFORMACIÓN GENERAL
+
+INFORMACIÓN GENERAL 11
+
+INFORMACIÓN GENERAL
+Ubicación de las etiquetas
+
+1. Etiqueta de advertencia
+2. Etiqueta de información importante sobre el
+motor
+3. Etiqueta delmantenimiento
+dedel
+motor
+Número de serie
+motor
+4. Etiqueta del Número de serie del motor
+
+RMACIÓN GENERAL
+
+El número de serie del motor es el único medio
+de identificación de su motor concreto para diferenciarlo de otros motores del mismo tipo de modelo.
+El distribuidor necesitará este número cuando solicite piezas.
+
+El número de serie del motor es el único medio
+de identificación de su motor concreto para diferenciarlo de otros motores del mismo tipo de modelo.
+El distribuidor necesitará este número cuando solicite piezas.
+
+12 INFORMACIÓN GENERAL
+
+INFORMACIÓN GENERAL 9
+
+Ubicación de las piezas
+[Modelo con motor de arranque eléctrico]
+
+A. Filtro de aire
+B. Cubierta protectora de entrada de aire
+A. Filtro de aire (interior de A)
+C. Tapón de drenaje de aceite.
+B. Cubierta protectora de entrada de aire
+D. Filtro de aceite
+C. Tapón de drenaje de aceite.
+E. Capuchones de las bujías de encendido/bujías
+D. Filtro de aceite
+de encendido
+E. Capuchones de las bujías de encendido/bujías
+F. Indicador de nivel
+de encendido
+J. Panel de control
+F. Indicador de nivel/tapón de llenado de aceite
+K. Carburador
+G. Panel de control
+H. Carburador
+
+I.G.Bomba
+Bombade
+decombustible
+combustible
+J.
+H. Filtro
+Filtro de
+de combustible
+combustible
+K.
+I Motor de arranque eléctrico
+L. Regulador de tensión
+M. Tuercas
+
+11
+INFORMACIÓN GENERAL 13
+
+Especificaciones de puesta a punto
+ELEMENTO
+
+Especificaciones
+
+Reglaje del
+encendido
+
+No permite ajuste
+
+Bujías de
+encendido:
+Separación entre
+los electrodos
+
+NGK BPR4ES
+0,75 mm (0,030 pulg.)
+
+Ralentí mínimo
+
+1.550 rpm
+
+Ralentí máximo
+
+3.600 rpm
+
+Holgura de las
+válvulas
+
+Interior 0,10 ~ 0,15 mm
+(0,004 ~ 0,006 pulg.)
+Exterior 0,10 ~ 0,15 mm
+(0,004 ~ 0,006 pulg.)
+
+Otras
+especificaciones
+
+No se necesitan otros
+ajustes
+
+NOTA
+
+◦ El ralentí máximo y mínimo pueden variar en fun-
+
+ción del equipo en el que se utilice el motor. Consulte la especificación del equipo.
+
+Capacidad de aceite del motor
+Capacidad de aceite del motor
+1,8 l
+1,5
+[cuando no se ha retirado el filtro
+FS481V
+FR651V
+de aceite]
+FS541V
+FR691V
+2,1 l
+1,7
+FS600V
+FR730V
+[cuando se ha retirado el filtro de
+aceite]
+
+medido en el laboratorio)
+
+12 RECOMENDACIONES DE COMBUSTIBLE Y ACEITE
+14
+
+NOTA
+
+◦ Si se producen "detonaciones o golpeteo", utilice
+
+RECOMENDACIONES DE COMBUSTIBLE
+Y octanaje
+ACEITE
+otra marca de gasolina o un
+superior.
+
+Compuestos
+oxigenados
+A
+continuación se
+detallan los porcentajes aproba-
+
+12
+RECOMENDACIONES DE COMBUSTIBLE Y ACEITEA la gasolina se le añaden compuestos oxigenaCombustible
+dos por EPA de compuestos oxigenados en el com-
+
+dos
+(etanol o MTBE). Si utiliza combustible oxigebustible.
+RECOMENDACIONES DE COMBUSTIBLE
+Y ACEITE
+cumpla los
+requisitos
+mínimos
+de octanaje.
+pia y sin reciclar.
+ETANOL:
+(Alcohol
+etílico o de
+grano)
+RECOMENDACIONES DE que
+COMBUSTIBLE
+Y
+ACEITE
+A
+continuación
+detallan
+los
+porcentajes
+aprobaPuede
+utilizar se
+gasolina
+que
+contenga
+un volumen
+
+12Utilice
+RECOMENDACIONES
+COMBUSTIBLE
+Y ACEITE
+nado, asegúrese de que no contenga plomo y de
+sólo gasolina de tipoDE
+normal
+sin plomo, lim-
+
+CombustiblePRECAUCIÓN
+
+No mezcle aceite con gasolina.
+Utilice
+sólo gasolina de tipo normal sin plomo, limCombustible
+pia y sin reciclar.
+Octanaje
+Utilice sólo gasolina de tipo normal sin plomo, limEly sin
+octanaje
+deuna
+unagasolina
+gasolina
+medida
+de
+octanaje
+de
+es es
+unauna
+medida
+de sus
+PRECAUCIÓN
+pia
+reciclar.
+resistencia
+ante laante la
+"detonación".
+RON El
+recomienda
+sus
+resistencia
+"detonación".
+índice
+No mezcle aceite con gasolina.
+la utilización derecomienda
+un mínimo deel91
+octanos.
+antidetonante
+uso
+de un mínimo
+PRECAUCIÓN
+deNo
+87mezcle
+octanos.
+El
+índice
+antidetonante
+se anuncia
+aceite con gasolina.
+Octanaje
+en
+los =surtidores
+estaciones
+servicio de
+RON
+Researchde las
+Octane
+Number de
+(Octanaje
+El
+octanaje
+de una
+gasolina es una medida de sus
+medido
+en
+el
+laboratorio)
+Estados
+Unidos.
+resistencia ante la "detonación". RON recomienda
+Octanaje
+la El
+utilización
+de
+dees
+octanos.
+octanaje
+de un
+unamínimo
+gasolina
+una
+medida de sus
+Índice
+antidetonante:
+(RON
++91
+MON)/2
+NOTA
+resistencia ante la "detonación".
+RON recomienda
+RON
+==
+Research
+(Octanaje
+Si se
+producen
+"detonaciones
+ooctanos.
+golpeteo",
+utilice
+◦laRON
+utilización
+de unOctane
+mínimo
+de 91
+Research
+OctaneNumber
+Number
+(Octanaje
+medido
+en
+el
+laboratorio)
+otra
+marca
+de
+gasolina
+o
+un
+octanaje
+superior.
+medido en el laboratorio)
+MON
+Octane
+Number
+(Octanaje
+del
+RON== Motor
+Research
+Octane
+Number
+(Octanaje
+Compuestos
+medido en eloxigenados
+laboratorio)
+motor)
+NOTA compuestos oxigenaA la gasolina se le añaden
+Si se
+producen
+"detonaciones
+golpeteo", oxigeutilice
+dos
+(etanol
+o MTBE). Si
+utiliza o
+combustible
+◦
+NOTA
+otra marca
+de de
+gasolina
+onouncontenga
+octanaje plomo
+superior.
+nado,
+asegúrese
+que
+y de
+que
+cumpla
+los requisitos
+mínimos
+octanaje.
+Si se
+producen
+"detonaciones
+o de
+golpeteo",
+utilice
+◦
+Compuestos
+oxigenados
+otra marca de
+gasolina o un octanaje superior.
+A la gasolina se le añaden compuestos oxigenados
+(etanol o MTBE).
+Si utiliza combustible oxigeCompuestos
+oxigenados
+nado,
+asegúrese
+no contenga
+plomo
+y de
+A
+la gasolina
+sede
+le que
+añaden
+compuestos
+oxigena-
+
+dos por
+compuestos
+de
+hastaEPA
+un de
+10% de
+etanol. oxigenados en el combustible.
+A
+continuación se detallan los porcentajes aprobaMTBE:
+(Metilterbutil
+éter)
+dos
+por EPA
+de compuestos
+oxigenados en el comETANOL:
+(Alcohol
+etílico o
+de grano)
+Puede utilizar
+gasolina
+que
+contenga un volumen
+bustible.
+utilizar
+gasolina
+que contenga un volumen
+dePuede
+hasta un
+15% de
+MTBE.
+de
+hasta un
+10% detílico
+etanol.de grano)
+ETANOL:
+(Alcohol
+METANOL:
+(Alcohol
+de metilo
+madera)
+5%
+Puede
+utilizar
+gasolina
+que o de
+contenga
+un al
+volumen
+MTBE:
+(Metilterbutil
+Puede
+que contenga un volumen
+de
+hasta utilizar
+un 10%gasolina
+de éter)
+etanol.
+utilizar
+gasolina
+que siempre
+contengaque
+un volumen
+dePuede
+hasta un
+5% de
+metanol,
+también
+de
+hasta un
+15%
+de éter)
+MTBE.
+contenga
+codisolventes
+e inhibidores de corrosión
+MTBE:
+(Metilterbutil
+para
+proteger
+el gasolina
+sistema de
+combustible.
+gasoPuede
+utilizar
+que contenga
+un La
+volumen
+METANOL:
+de
+metilo
+o de volumen
+madera) al
+lina
+que contenga
+más
+de
+un 5%
+de5%
+mede
+hasta
+un(Alcohol
+15% de
+MTBE.
+Puede
+utilizar
+gasolina
+que
+contenga
+un o
+volumen
+tanol
+puede
+producir
+problemas
+de
+arranque
+rende
+hasta un
+5%
+de de
+metanol,
+siempre
+quedeal
+también
+dimiento.
+También
+puede
+dañaro las
+piezas
+metal,
+METANOL:
+(Alcohol
+metilo
+de
+madera)
+5%
+contenga
+codisolventes
+eque
+inhibidores
+de
+goma
+y plástico
+del
+sistema
+de
+combustible.
+Puede
+utilizar
+gasolina
+contenga
+uncorrosión
+volumen
+para
+proteger
+el de
+sistema
+de siempre
+combustible.
+gasode
+hasta
+un 5%
+metanol,
+queLa
+también
+lina
+que contenga
+más deeun 5%
+de volumen
+mecontenga
+codisolventes
+inhibidores
+de de
+corrosión
+tanol puede
+producir
+problemas
+de
+arranque
+renpara
+proteger el
+sistema
+de
+combustible.
+La ogasodimiento.
+Tambiénmás
+puede dañar
+dede
+metal,
+lina
+que contenga
+un 5%las
+de piezas
+volumen
+megoma y
+plástico
+del sistema
+de de
+combustible.
+tanol
+puede
+producir
+problemas
+arranque o rendimiento. También puede dañar las piezas de metal,
+goma y plástico del sistema de combustible.
+
+lina que co
+tanol pued
+dimiento.
+goma y pl
+
+RECOMENDACIONES DE COMBUSTIBLE Y ACEITE 15
+13
+RECOMENDACIONES DE NOTA
+COMBUSTIBLE Y ACEITE 13
+A
+pesar
+de
+que
+se recomienda
+utilizar ely
+Con
+aceites
+multigrado
+(5W-20, 10W-30
+◦
+10W-40),
+aumentaráNOTA
+el
+consumo
+Comaceite
+del motor
+10W-40
+para de
+la aceite.
+mayoría
+de
+Se
+recomiendan
+los siguientes aceites para el moAceite del
+motor
+pruebe el
+nivel de
+aceite de
+forma
+más10W-30
+frecuentey
+Con
+aceites
+multigrado
+(5W-20,
+◦
+las
+condiciones,
+puede
+que
+resulte
+necesario
+tor.
+cuando
+loslautilice.
+10W-40),
+aumentará
+el del
+consumo
+de aceite.
+Comcambiar
+viscosidad
+aceite
+según
+las
+del los
+servicio
+API:
+o
+clase
+superior.
+Se
+recomiendan
+siguientes
+aceites
+para
+moClasificación
+servicio
+API:SJ
+SF,
+SG,
+SH,el
+SJ
+o
+pruebe
+el nivel
+de aceite deElforma
+más
+frecuente
+condiciones
+atmosféricas.
+uso
+de
+aceite
+20Wtor.
+SL.
+cuando los utilice.
+Viscosidad del aceite
+50 a temperaturas ambiente más altas puede
+Clasificación del servicio API: SJ o clase superior.
+Seleccione la viscosidad en función de la tempereducir el consumo de aceite.
+ratura,
+segúndel
+se aceite
+explica a continuación:
+Viscosidad
+Seleccione la viscosidad en función de la temperatura, según se explica a continuación:
+
+Aceite del motor
+
+14 PREPARACIÓN
+16
+
+PREPARACIÓN
+Combustible
+
+Aceite del motor
+
+ADVERTENCIA
+La gasolina es extremadamente inflamable y
+puede ocasionar explosiones en determinadas condiciones.
+Antes de repostar combustible, gire la llave
+de contacto del motor hasta la posición
+"OFF" (Apagado). No fume. Asegúrese de
+que el área esté bien ventilada y de que no
+existe riesgo alguno de que se produzcan
+llamas o chispas; esto incluye cualquier
+dispositivo con un piloto.
+Nunca llene el depósito de forma que el nivel de combustible sobrepase la boca de llenado. Si se sobrepasa, el calor puede hacer
+que el combustible salga y desborde por los
+orificios de ventilación de la tapa del depósito.
+Después de cargar el combustible, asegúrese de que la tapa del depósito esté bien cerrada.
+Si se derrama gasolina, límpiela inmediatamente.
+
+Compruebe el nivel del aceite antes de arrancar el
+motor; en caso de que faltara aceite, podrían producirse daños graves en el motor como, por ejemplo,
+su gripado.
+Coloque el motor en una superficie nivelada. Limpie el área que rodea el indicador de aceite antes
+de quitarlo.
+Quite el indicador de aceite (A) y límpielo con un
+paño limpio.
+Vierta el aceite lentamente hasta la marca "FULL"
+(Lleno) del indicador.
+Inserte el indicador de aceite en el tubo (B) SIN
+ENROSCARLO.
+Extraiga de nuevo el indicador de aceite (A) para
+comprobar el nivel. El nivel debe estar entre las
+marcas “ADD” (Añadir) y “FULL” (Lleno). No sobrepase la marca FULL.
+Inserte y apriete el indicador de aceite (A).
+
+•
+•
+•
+•
+•
+•
+
+PRECAUCIÓN
+No llene por encima de la marca “FULL”
+(Lleno). El exceso de aceite provocará humo
+y sobrecalentamiento del motor.
+
+PREPARACIÓN 15
+Capacidad de aceite del motor
+1,8 l
+1,5
+[cuando no se ha retirado el filtro
+FR651V
+FS481V
+de aceite]
+FR691V
+FS541V
+2,1 l
+1,7
+FR730V
+FS600V
+[cuando se ha retirado el filtro de
+aceite]
+
+PREPARACIÓN 17
+15
+Capacidad de aceite del motor
+FS481V
+FS541V
+FS600V
+
+1,5 l
+[cuando no se ha retirado el filtro
+de aceite]
+1,7 l
+[cuando se ha retirado el filtro de
+aceite]
+
+PRECAUCIÓN
+
+PRECAUCIÓN
+
+El motor se entrega sin aceite.
+
+El motor se entrega sin aceite.
+
+PREPARACIÓN 15
+Capacidad de aceite del motor
+FS481V
+FS541V
+FS600V
+
+1,5 l
+[cuando no se ha retirado el filtro
+de aceite]
+1,7 l
+
+[cuando
+A. Indicador de
+nivel se ha retirado el filtro de
+B. Tubo
+aceite]
+
+PRECAUCIÓN
+El motor se entrega sin aceite.
+
+16 ARRANQUE
+16 ARRANQUE
+18
+
+ARRANQUE
+ARRANQUE
+
+Arranque del motor
+Arranque del motor
+
+ADVERTENCIA
+Los gases del tubo de
+escape contienen moADVERTENCIA
+nóxido de carbono, un gas tóxico, incoloro e
+Los gases del tubo de escape contienen moinodoro.
+nóxido de carbono, un gas tóxico, incoloro e
+No utilice la unidad en áreas cerradas. Proinodoro.
+cure que haya ventilación en todo momento.
+No utilice la unidad en áreas cerradas. Procure que haya ventilación en todo momento.
+
+ADVERTENCIA
+El escape del motor puede
+inflamar los mateADVERTENCIA
+
+riales combustibles y provocar un incendio.
+El escape del motor puede inflamar los mateMantenga despejada la zona cercana a la sariales combustibles y provocar un incendio.
+lida de escape. Coloque la unidad de forma
+Mantenga despejada la zona cercana a la saque dicha salida esté orientada hacia un área
+lida de escape. Coloque la unidad de forma
+despejada y en una ubicación con una disque dicha salida esté orientada hacia un área
+tancia de al menos un metro (3,3 pies) de
+despejada y en una ubicación con una discualquier obstrucción.
+tancia de al menos un metro (3,3 pies) de
+cualquier obstrucción.
+
+NOTA
+
+◦ Tenga en cuenta lo siguiente
+NOTA para arrancar el motor sin problemas cuando las temperaturas sean
+en cuenta lo siguiente para arrancar el mo◦ Tenga
+bajas.
+tor sin problemas cuando las temperaturas sean
+bajas.
+
+◦ Utilice el aceite adecuado para la temperatura
+(consulte el capítulo "RECOMENDACIOUtilice el aceite adecuado para la temperatura
+◦ prevista
+NES DE COMBUSTIBLE Y ACEITE").
+
+prevista (consulte el capítulo "RECOMENDACIOUtilice gasolina nueva.
+NES DE COMBUSTIBLE Y ACEITE").
+No deje el motor ni el equipo a la intemperie
+Utilice gasolina nueva.
+cuando no se esté utilizando.
+No deje el motor ni el equipo a la intemperie
+cuando no se esté NOTA
+utilizando.
+Siga
+las
+instrucciones
+de funcionamiento del
+◦
+NOTA
+equipo en el que se utilice este motor.
+◦ Siga las instrucciones de funcionamiento del
+equipode
+en el
+que sel utilice
+motor. todas las
+Antes
+arrancar
+motor,este
+desconecte
+posibles cargas exteriores.
+Antes de arrancar el motor, desconecte todas las
+Abra la válvula de combustible (A) del equipo.
+posibles cargas exteriores.
+Mueva la palanca del acelerador del tablero hasta
+Abra la válvula de combustible (A) del equipo.
+la mitad de la posición del acelerador.
+Mueva la palanca del acelerador del tablero hasta
+Utilice todo el estrangulador cuando el motor esté
+la mitad de la posición del acelerador.
+frío, aunque en climas calientes o cuando el motor
+Utilice todo el estrangulador cuando el motor esté
+ya esté caliente, utilice la mitad del estrangulador
+frío, aunque en climas calientes o cuando el motor
+o deje el estrangulador completamente abierto.
+ya esté caliente, utilice la mitad del estrangulador
+o
+deje el
+estrangulador
+completamente
+abierto.
+[Modelo
+con motor
+de arranque
+eléctrico]
+Introduzca la llave en el contacto del motor.
+[Modelo con motor de arranque eléctrico]
+Gírela hasta la posición START (Arranque) del
+Introduzca la llave en el contacto del motor.
+equipo. Normalmente el motor se arrancará en
+Gírela hasta la posición START (Arranque) del
+un plazo de 3 segundos.
+equipo. Normalmente el motor se arrancará en
+un plazo de 3 segundos.
+
+•
+•
+
+•
+••
+•
+
+ARRANQUE 19
+17
+
+PRECAUCIÓN
+No accione el motor de arranque eléctrico
+de forma continua durante más de 5 segundos ya que, de lo contrario, la batería podría descargarse rápidamente. Si el motor
+no arranca enseguida, espere 15 segundos
+y vuelva a intentarlo.
+
+NOTA
+
+◦ Cuando el motor esté muy caliente o cuando el
+motor no arranque inmediatamente, NO siga intentando arrancarlo con el estrangulador cerrado
+ya que provocará un desbordamiento que hará
+que el arranque sea más difícil.
+◦ En su lugar, abra completamente el estrangulador
+y arranque el motor.
+
+PRECAUCIÓN
+Siempre que arranque el motor, compruebe
+que el piloto de advertencia (si está instalado) no se encienda tras esta operación. Si
+éste fuera el caso, pare el motor inmediatamente y compruebe el nivel de aceite.
+después de arrancar el motor, lleve gradual• Justo
+mente la palanca hasta la posición de apertura
+completa.
+
+FUNCIONAMIENTO 19
+
+20 FUNCIONAMIENTO
+
+FUNCIONAMIENTO
+Calentamiento
+
+Inclinación del motor
+
+Justo después de arrancar el motor, mueva la palanca del acelerador (A) del equipo hasta la posición
+intermedia entre "FAST" (Rápido) y "SLOW" (Lento).
+Para calentar el motor, manténgalo arrancado de
+3 a 5 minutos con la palanca del acelerador en la
+misma posición de aceleración (intermedia) antes
+de utilizar el equipo. A continuación, mueva la palanca del acelerador (A) del equipo hasta su posición "FAST" (Rápido).
+
+Este motor funcionará de forma continuada con
+inclinaciones de hasta 25° en cualquier dirección.
+Lea las instrucciones de funcionamiento del
+equipo en el que se utilice este motor. Debido al
+diseño o a la aplicación de dicho equipo, pueden
+existir restricciones más estrictas respecto al ángulo
+de funcionamiento.
+
+PRECAUCIÓN
+
+No utilice este motor de forma continuada
+con inclinaciones superiores a 25° en cualquier dirección, ya que se podrían producir
+daños en el mismo debido a una falta de lubricación.
+
+Deje que el equipo se caliente lo suficiente
+(de 3 a 5 minutos al ralentí) antes de acelerarlo. De esta forma el aceite llega a todas
+las partes del motor y permite que la holgura
+del pistón alcance las especificaciones de diseño.
+
+PRECAUCIÓN
+Mientras se calienta el motor, asegúrese
+de que el piloto de advertencia (presión de
+aceite) del tablero no esté encendido. Éste
+no debe estar iluminado (si está instalado)
+durante el funcionamiento del motor.
+
+PRECAUCIÓN
+
+20 PARADA
+
+PARADA 21
+
+PARADA
+Parada del motor
+
+ADVERTENCIA
+Quite siempre la llave del contacto cuando
+no se encuentre junto al equipo o cuando no
+lo utilice.
+Parada normal
+Mueva la palanca del acelerador (A) hasta la posición "slow" (Lento).
+Reduzca la velocidad del motor hasta ralentí. Siga
+con el motor en marcha al ralentí durante aproximadamente un minuto.
+
+•
+•
+
+PRECAUCIÓN
+Si el motor se estaba utilizando a alta velocidad y se para de repente, se pueden producir
+daños en el mismo debido al funcionamiento
+en vacío o a la persistencia de la combustión
+durante el periodo de expansión. Reduzca la
+velocidad del motor hasta el ralentí durante
+un minuto antes de pararlo.
+la llave de contacto del motor hasta la posi• Gire
+ción "OFF" (Apagado).
+
+En el modelo con contacto mediante el panel de
+control, mueva la palanca del acelerador hasta la
+posición SLOW (Lento) para detener el motor.
+Parada de emergencia
+Gire inmediatamente la llave de contacto del motor hasta la posición "OFF" (Apagado).
+Cierre la válvula de combustible del equipo.
+En el modelo con contacto mediante el panel de
+control, mueva la palanca del acelerador del equipo
+hasta la posición SLOW (Lento). De esta forma, se
+apaga el motor.
+
+•
+
+AJUSTE 21
+
+22 AJUSTE
+
+AJUSTE
+Instalación y ajuste del cable del
+acelerador
+
+Instalación y ajuste del cable del
+estrangulador
+
+el cable del acelerador (G) a la palanca
+• Conecte
+de control de velocidad (C) y ajuste sin forzarla
+
+el cable del estrangulador (K) a la pa• Conecte
+lanca de control del estrangulador (D) y ajuste sin
+
+la abrazadera sobre el revestimiento exterior del
+cable del acelerador (F) con el tornillo correspondiente (A).
+Mueva la palanca del acelerador hasta la posición
+"FAST" (Rápido).
+Tire del revestimiento externo (F) del cable del
+acelerador hasta que el cable interior (G) casi no
+tenga juego y apriete el tornillo de la abrazadera
+del cable (A).
+Mueva la palanca del acelerador hasta la posición
+"SLOW" (Lento). Asegúrese de que la válvula
+de mariposa del carburador (H) se mueva suavemente.
+
+forzarla la abrazadera sobre el revestimiento exterior del cable del estrangulador (L) con el tornillo
+correspondiente (A).
+Mueva el control del estrangulador del equipo
+hasta la posición "OPEN" (Abierto). Asegúrese
+de que la válvula del estrangulador del carburador
+(I) esté totalmente abierta.
+Tire del revestimiento exterior (L) del cable del estrangulador hasta que el cable interior (K) casi no
+tenga juego y apriete el tornillo de la abrazadera
+del cable (B).
+Mueva el control del estrangulador del equipo
+hasta la posición "CHOKE" (Estrangulador). Asegúrese de que la válvula del estrangulador del
+carburador (I) esté totalmente cerrada.
+Asegúrese de que la válvula del estrangulador
+gire desde la posición de cierre completo hasta
+la de apertura completa cuando accione el control
+de estrangulador del equipo.
+
+22 AJUSTE
+
+AJUSTE 23
+
+Ajuste de la velocidad del motor
+NOTA
+
+◦ No trate de forzar el ajuste del regulador o del
+
+carburador para aumentar la velocidad del motor.
+Los carburadores vienen ajustados de fábrica y
+con un tapón o una placa de tope en cada tornillo
+de mezcla.
+ajuste, éste lo
+◦ Si fuera necesario realizar algún ajuste,
+debe realizar su distribuidor de motores Kawasaki
+autorizado
+autorizado. o instalación de mantenimiento con
+similar cualificación.
+
+MANTENIMIENTO 23
+
+24 MANTENIMIENTO
+
+MANTENIMIENTO
+El mantenimiento, sustitución o reparación de los dispositivos y sistemas de control de emisiones
+pueden realizarse a través de cualquier taller o técnico de motores no diseñados para vehículos.
+
+Gráfico de mantenimiento periódico
+
+ADVERTENCIA
+Retire siempre los capuchones de las bujías de encendido al realizar el mantenimiento del motor
+para evitar que éste se encienda por accidente.
+
+NOTA
+
+◦ Los intervalos de mantenimiento se pueden utilizar como guía. El mantenimiento se deberá realizar con
+mayor frecuencia dependiendo de las condiciones de funcionamiento.
+♦ : Es necesario realizar operaciones de mantenimiento con mayor frecuencia cuando hay mucho polvo.
+K: El mantenimiento
+dede
+unun
+distribuidor
+autorizado
+de de
+Kawasaki.
+mantenimientose
+serealizará
+realizaráa através
+través
+distribuidor
+autorizado
+Kawasaki o instalación de
+mantenimiento con similar cualificación.
+INTERVALO
+INTERVALO
+Las
+MANTENIMIENTO
+Cada
+Cada
+Cada Cada Cada Cada Cada
+MANTENIMIENTO
+Diario primeras Cada
+Cada
+Cada
+Cada
+Cada
+25 h 50 h 100 h 200 h 250 h 300 h 500 h
+Diario
+8 h 100 h
+200 h
+250 h
+300 h
+500 h
+Comprobar yy añadir
+Comprobar
+añadir aceite
+aceite de
+de motor.
+motor.
+●
+Comprobar si hay tuercas o tornillos
+Comprobar
+hay tuercas
+o tornillos
+flojos o faltasialguno
+de estos
+●
+flojos
+o falta alguno de estos elementos.
+elementos.
+Comprobar si hay fugas de
+Comprobar si hay fugas de
+combustible o de aceite.
+●
+combustible o de aceite.
+
+•
+•
+•
+
+MANTENIMIENTO 25
+INTERVALO
+MANTENIMIENTO
+
+Diario
+
+Cada
+100 h
+
+Comprobar el nivel de electrolito de la
+batería.
+
+●
+
+◆
+
+Comprobar o limpiar la rejilla
+filtradora de entrada de aire.
+
+●
+
+◆
+
+Limpiar el elemento de espuma del
+filtro de aire.
+
+●
+
+◆
+
+Limpiar el polvo y la suciedad del cilindro
+y aletas de la cabeza del cilindro.
+
+●
+
+Apretar las tuercas y tornillos.
+
+●
+●
+
+Cambiar el aceite del motor.
+Limpiar y reajustar la separación
+entre los electrodos de las bujías de
+encendido.
+◆
+
+Cada
+200 h
+
+Cada
+250 h
+
+Cada
+300 h
+
+●
+
+Cambiar el filtro de aceite.
+
+●
+
+Sustituir el elemento de papel del
+filtro de aire
+
+●
+
+Limpiar la cámara de combustión.
+
+●
+
+Comprobar y ajustar la holgura de las
+válvulas.
+
+●
+
+Limpiar y rectificar la superficie de
+asiento de la válvula.
+
+●
+
+Cada
+500 h
+
+26 MANTENIMIENTO
+
+Comprobación del nivel de aceite
+Compruebe el nivel de aceite a diario y antes de
+cada uso. Asegúrese de que el nivel de aceite sea
+constante. Consulte el capítulo "PREPARACIÓN".
+Capacidad de aceite del motor
+
+FR651V
+FS481V
+FR691V
+FS541V
+FR730V
+FS600V
+
+1,8 l
+1,5
+[cuando no se ha retirado el filtro
+de aceite]
+2,1 l
+1,7
+[cuando se ha retirado el filtro de
+aceite]
+
+MANTENIMIENTO 25
+
+26 MANTENIMIENTO
+26 MANTENIMIENTO
+
+MANTENIMIENTO 27
+
+Cambio de aceite
+Cambio de aceite
+
+Cambie el aceite después de las primeras 8 horas
+después
+de
+lascada
+primeras
+horas
+cada
+100
+horas.
+deCambie
+uso.A el aceite
+continuación,
+cámbielo
+100 8
+horas.
+de uso.A
+continuación,
+cámbielo
+cadaaceite.
+100 horas.
+Arranque el
+motor para
+calentar el
+Arranque
+motor
+para
+calentar
+el esté
+aceite.
+Asegúreseelde
+que el
+motor
+(equipo)
+nivelado.
+Asegúrese
+de que el motor (equipo) esté nivelado.
+Pare
+el motor.
+Pare
+Quite el
+losmotor.
+tapones de drenaje de aceite (A) y exQuite
+losaceite
+tapones
+de drenaje
+de aceite
+(A) y
+extraiga el
+a un
+contenedor
+adecuado
+mientraiga
+aceite
+a un
+contenedor adecuado mientras
+el el
+motor
+está
+caliente.
+tras el motor está caliente.
+
+•
+•
+
+ADVERTENCIA
+ADVERTENCIA
+El aceite caliente del motor puede provocar
+
+•
+•
+
+El aceite
+caliente
+del motor puede provocar
+quemaduras
+graves.
+quemaduras
+Deje
+que la graves.
+temperatura del motor descienda
+Deje
+que la a templada
+temperaturantes
+del de
+motor
+descienda
+de
+caliente
+extraer
+y made caliente
+a templada antes de extraer y manejar
+el aceite.
+nejar el aceite.
+Instale los tapones de drenaje de aceite.
+Instale
+de de
+drenaje
+aceite.
+Extraigaloseltapones
+indicador
+niveldedel
+aceite y reExtraiga
+indicador
+de nivel
+del el
+aceite y
+rellene
+conel aceite
+nuevo
+(Consulte
+capítulo
+llene con
+aceite nuevo DE
+(Consulte
+el capítulo
+"RECOMENDACIONES
+COMBUSTIBLE
+Y
+"RECOMENDACIONES DE COMBUSTIBLE Y
+ACEITE").
+ACEITE"). el nivel de aceite (consulte el capíCompruebe
+Compruebe
+el nivel depara
+aceite
+(consulte
+capítulo
+"PREPARACIÓN"
+realizar
+esta el
+comprotulo
+"PREPARACIÓN" para realizar esta comprobación).
+bación).
+
+A. Tapón de drenaje de aceite
+B.
+Contenedor
+adecuado
+A. Tapón
+de drenaje
+de aceite
+B. Contenedor adecuado
+
+ADVERTENCIA
+ADVERTENCIA
+El aceite del motor es una sustancia tóxica.
+
+El
+aceite deldel
+motor
+es una
+sustancia
+tóxica.
+Deshágase
+aceite
+usado de
+forma
+adeDeshágase
+del en
+aceite
+usado de
+forma
+adecuada.
+Póngase
+contacto
+con las
+autoricuada. locales
+Póngase
+en obtener
+contacto con
+las autoridades
+para
+información
+sodades
+para
+obtener información
+sobre
+loslocales
+métodos
+autorizados
+de eliminación
+bre los
+métodos
+autorizados
+de eliminación
+de
+residuos
+o el posible
+reciclaje.
+de residuos o el posible reciclaje.
+
+MANTENIMIENTO 27
+
+28 MANTENIMIENTO
+
+Cambio del filtro de aceite
+
+• Cambie el filtro de aceite cada 200 horas de uso.
+ADVERTENCIA
+
+El aceite caliente del motor puede provocar
+quemaduras graves.
+Deje que la temperatura del motor descienda
+de caliente a templada antes de intentar quitar el filtro de aceite.
+
+Añada el aceite del motor según las especificaciones.
+Mantenga el motor en funcionamiento durante
+aproximadamente 3 minutos, párelo y compruebe
+si hay fugas de aceite alrededor del filtro.
+Añada aceite para compensar la bajada del nivel
+debido a la capacidad del filtro de aceite (consulte
+en el capítulo "PREPARACIÓN" para la comprobación del nivel de aceite).
+
+el aceite del motor a un contenedor ade• Extraiga
+cuado (C).
+
+PRECAUCIÓN
+Antes de quitar el filtro de aceite, coloque un
+recipiente adecuado debajo de la conexión
+del filtro.
+el filtro de aceite (A) en el sentido contrario a
+• Gire
+las agujas del reloj para quitarlo.
+
+Cubra con una capa de aceite de motor limpio la
+junta del nuevo filtro.
+Para instalar el nuevo filtro, gírelo en el sentido
+de las agujas del reloj hasta que la junta entre
+en contacto con la superficie de montaje (B). A
+continuación, gire a mano el filtro 3/4 de vuelta más.
+
+A. Filtro de aceite
+B. Superficie de montaje
+C. Contenedor adecuado
+
+MANTENIMIENTO 29
+
+28 MANTENIMIENTO
+
+ADVERTENCIA
+El aceite del motor es una sustancia tóxica.
+Deshágase del aceite usado de forma adecuada. Póngase en contacto con las autoridades locales para obtener información sobre los métodos autorizados de eliminación
+de residuos o el posible reciclaje.
+
+Mantenimiento del filtro de aire
+
+PRECAUCIÓN
+Para evitar el desgaste excesivo del motor,
+evite que el motor funcione sin filtro de aire.
+Elemento de espuma
+Limpie el elemento de espuma (A) cada 25 horas.
+Lávelo con agua y detergente y séquelo completamente.
+
+•
+
+Ele
+Li
+P
+su
+su
+S
+o
+a
+
+•
+
+◦L
+
+se
+yo
+
+N
+N
+es
+N
+m
+
+r,
+e.
+
+ras.
+ple-
+
+30 MANTENIMIENTO
+
+MANTENIMIENTO 29
+
+Elemento de papel
+Limpie el elemento de papel (B) cada 100 horas.
+Para limpiar este elemento de papel, golpéelo
+suavemente para quitar el polvo. Si está muy
+sucio, sustitúyalo por uno nuevo.
+Sustituya el elemento de papel una vez al año
+o cada 200 horas de uso. Lo que se produzca
+antes.
+
+30 MANTENIMIENTO
+
+Mantenimiento de la bujía de encendido
+
+•
+
+NOTA
+
+◦ La utilización con mucho polvo puede hacer que
+
+sea necesario realizar el mantenimiento con mayor frecuencia que la explicada anteriormente.
+
+PRECAUCIÓN
+No lave el elemento de papel.
+No aplique aceite al elemento de papel o de
+espuma.
+No utilice aire a presión para limpiar el elemento de papel.
+
+ADVERTENCIA
+Los componentes calientes del motor pueden provocar quemaduras graves.
+Pare el motor y deje que se enfríe antes de
+comprobar las bujías de encendido.
+Limpie o sustituya las bujías de encendido y reajuste la separación entre los electrodos (A) cada 100
+horas de uso.
+Retire los capuchones de las bujías de encendido
+y extraiga las bujías.
+Para limpiar los electrodos (B), frótelos con un cepillo de alambre a fin de eliminar los depósitos de
+carbonilla.
+Compruebe si la porcelana está agrietada o si alguna otra parte está gastada o dañada. Si es necesario, sustituya la bujía de encendido por una
+nueva.
+Compruebe la separación entre los electrodos de
+la bujía de encendido y reajústela si fuera necesario. La separación debe ser de 0,75 mm (0,030
+pulg.). Para cambiar la separación, doble sólo el
+
+electrod
+para tal
+Instale y
+N·m (2,2
+nes de l
+
+BUJÍA RE
+NGK ....
+
+•
+
+A. Separ
+B. Electr
+
+cendido
+
+or pue-
+
+ntes de
+
+MANTENIMIENTO 31
+electrodo lateral con una herramienta específica
+para tal fin.
+Instale y apriete las bujías de encendido hasta 22
+N·m (2,2 kgf·m, 16 pies·lb). Conecte los capuchones de la bujía de encendido.
+BUJÍA RECOMENDADA
+NGK ..................................BPR4ES
+
+dido y rea) cada 100
+
+encendido
+
+con un cepósitos de
+
+Mantenimiento del filtro y la bomba de
+combustible
+
+ADVERTENCIA
+El uso incorrecto de disolventes puede causar un incendio o una explosión.
+No utilice gasolina ni disolventes con baja
+temperatura de inflamación para limpiar el
+filtro de combustible o la bomba de combustible.
+Realice la limpieza sólo en un lugar bien ventilado alejado de focos de llamas o chispas;
+esto incluye cualquier dispositivo con piloto.
+MANTENIMIENTO 31
+
+da o si alSi es neo por una
+
+Mantenimiento del filtro y la bomba de
+combustible
+
+ctrodos de
+era necemm (0,030
+ble sólo el
+
+A. Separación de los electrodos de la bujía
+B. uso
+Electrodos
+El
+incorrecto de disolventes puede cau-
+
+ADVERTENCIA
+
+sar un incendio o una explosión.
+No utilice gasolina ni disolventes con baja
+temperatura de inflamación para limpiar el
+filtro de combustible o la bomba de combustible.
+Realice la limpieza sólo en un lugar bien ventilado alejado de focos de llamas o chispas;
+esto incluye cualquier dispositivo con piloto.
+
+de combustible no se puede desmontar. Si
+• Elsefiltro
+obstruye, sustitúyalo por uno nuevo.
+La bomba de combustible no se puede desmontar.
+Si ésta falla, sustitúyala por una nueva.
+
+• Es
+
+L
+S
+
+32
+MANTENIMIENTO
+césped ni
+restos y límpiela si fuera necesario. Al
+comprobar o limpiar la rejilla filtradora de entrada de
+MANTENIMIENTO
+aire, afloje los
+tornillos (F) y retire la cubierta proMANTENIMIENTO
+32
+Limpieza
+sistema
+de Cada 100
+refrigeración
+tectora
+de del
+entrada de
+aire (A).
+horas de
+uso, compruebe y limpie las aletas de refrigeración
+Antes
+de cada
+uso,
+compruebe
+que la
+rejilla
+filLimpieza
+dellas
+sistema
+dedel motor
+refrigeración
+y el
+interior
+de
+cubiertas
+para
+elimitradora
+de
+entrada
+de
+aire
+(giratoria)
+(G)
+no
+tenga
+nar el césped, la paja o la suciedad que obstruya el
+césped
+y
+límpiela
+si fuera
+necesario.
+Al
+compruebe
+que la
+rejillasoAntes ni
+derestos
+cada
+uso,
+filsistema
+de
+refrigeración
+y
+que
+puede
+provocar
+comprobar
+limpiar
+la
+rejilla
+filtradora
+de
+entrada
+tradora
+de
+entrada
+dede
+aire
+(giratoria)
+(interior
+de
+A)
+no
+de o
+entrada
+aire
+(giratoria)
+(G)elno
+tenga
+brecalentamiento.
+Cuando
+limpie,
+retire
+filtro
+de
+aire,
+afloje
+los
+tornillos
+(F)
+ysi
+retire
+cubierta
+protenga
+césped
+niE),
+restos
+límpiela
+si la
+fuera
+necesario.
+césped
+ni
+restos
+y
+límpiela
+fuera
+necesario.
+Al
+(dentro
+e
+aflojey
+los
+pernos
+(C),
+(D)
+y
+retire
+tectora
+de o
+entrada
+de
+aire
+(A).
+Cada de
+100
+horas las
+Cada
+100
+horas
+de
+compruebe
+y entrada
+limpie
+comprobar
+limpiar
+lauso,
+rejilla
+filtradora
+de
+la
+carcasa
+del
+ventilador
+(B).
+uso,
+compruebe
+y
+limpie
+lasy
+aletas
+descubierta
+refrigeración
+aletas de
+refrigeración
+y l
+interior
+de la
+cubiertas
+del
+aire,
+afloje
+los
+tornillos
+(F)
+retire
+proymotor
+el
+interior
+las de
+cubiertas
+motor
+para
+elimipara
+eliminar
+el
+césped,
+laCada
+paja
+o
+la
+suciedad
+100
+horas
+de
+tectora
+de de
+entrada
+aire
+(A).del
+PRECAUCIÓN
+nar
+césped,ella y
+paja
+o de
+lalas
+suciedad
+queyobstruya
+el
+que
+obstruya
+sistema
+refrigeración
+que
+puede
+uso,el
+compruebe
+limpie
+aletas
+de
+refrigeración
+Antes de
+de refrigeración
+arrancar el motor
+de nuevo,
+debe
+sistema
+y quedel
+puede
+provocar
+soprovocar
+so-brecalentamiento.
+Cuando
+retire
+y el
+interior de las
+cubiertas
+motorlimpie,
+para
+elimireinstalar
+todas
+las
+piezas
+del
+sistema
+dede
+brecalentamiento.
+Cuando
+limpie,
+retire
+el
+filtro
+el
+aire la
+(dentro
+de
+losque
+pernos
+(C), (D)
+narfiltro
+el de
+césped,
+paja o
+laE), afloje
+suciedad
+obstruya
+el
+frigeración
+para
+que
+tanto
+la
+refrigeración
+aire
+(dentro
+de
+E),
+afloje
+los
+pernos
+(C),
+(D)
+y
+retire
+y
+tire lade
+carcasa
+del
+ventilador
+sistema
+refrigeración
+y
+que (B).
+puede provocar socarburación
+funcionen según lo
+lacomo
+carcasaladel
+ventilador
+(B).
+brecalentamiento.
+Cuando
+limpie, retire el filtro de
+previsto.
+aire (dentro de E), afloje los pernos (C), (D) y retire
+PRECAUCIÓN
+la carcasa del ventilador
+(B).
+Antes de arrancar el motor de nuevo, debe
+PRECAUCIÓN
+reinstalar todas
+las piezas del sistema de
+refrigeración
+para que
+tanto de
+la refrigeración
+Antes de arrancar
+el motor
+nuevo, debe
+como
+carburación
+funcionen
+según de
+lo
+reinstalar todas
+las piezas
+del sistema
+previsto.
+refrigeración para que tanto la refrigeración
+como la carburación funcionen según lo
+previsto.
+
+PRECAUCIÓN
+
+Doble el protector del motor (lado del
+regulador) [A] solamente dentro del margen
+mostrado [B] (70°).
+
+biertas del motor, retire el filtro de aire (dentro de I)
+y el motor de arranque de retroceso (H), afloje los
+[Modelo
+con
+de arranque
+delaretroceso]
+pernos
+(C)
+(D)motor
+y tuercas
+(K), y retire
+carcasa del
+Al
+comprobar
+ventilador
+(B). o limpiar la rejilla filtradora de entrada
+de con
+aire, afloje
+(J)de
+y retire
+el motor
+[Modelo
+motor los
+dey pernos
+arranque
+retroceso]
+[Tamaño
+de tornillos
+par
+deAl
+apriete]
+deAlarranque
+de retroceso
+(H).
+o limcomprobar
+o limpiar la
+rejillacomprobar
+filtradora de
+enTornillos
+Tamaño
+Longitud
+Par
+apriete
+piar
+las
+de
+refrigeración
+y el
+interior
+dellas
+cutrada
+dealetas
+aire,
+afloje los
+pernos
+(J)dey
+retire
+motor
+biertas
+del motor,
+el filtro
+de aire
+(dentroode
+I)
+de
+arranque
+de retire
+retroceso
+(H).
+Al
+comprobar
+lim8,8 N·m
+16
+mm y
+y
+el C
+motor
+deM6
+arranque
+de
+retroceso
+(H), de
+afloje
+los
+piar
+las
+aletas
+de
+refrigeración
+el
+interior
+las
+cu(0,9 kgf·m, 78 pulg·lb)
+pernos del
+(C) motor,
+(D) y tuercas
+retire
+carcasadedel
+biertas
+retire el(K),
+filtroy de
+airela(dentro
+I)
+ventilador
+(B). arranque de 8,8
+N·m (H), afloje los
+y el
+motor
+de
+retroceso
+D
+M6
+22 mm
+(0,9
+kgf·m,
+pulg·lb)
+pernos
+(C)de(D)
+y tuercas
+(K),de
+y
+retire
+la 78
+carcasa
+del
+[Tamaño
+tornillos
+y par
+apriete]
+ventilador (B).
+Tornillos Tamaño Longitud Par de apriete
+[Tamaño de tornillos y par de apriete]
+8,8 N·m
+M6
+mm Par de apriete
+C
+Tornillos
+Tamaño 16
+Longitud
+(0,9 kgf·m, 78 pulg·lb)
+8,8
+8,8 N·m
+N·m
+M6
+16
+C
+D
+M6
+22 mm
+mm (0,9 kgf·m, 78 pulg·lb)
+(0,9 kgf·m, 78 pulg·lb)
+D
+
+M6
+
+22 mm
+
+8,8 N·m
+(0,9 kgf·m, 78 pulg·lb)
+
+MANTENIMIENTO 33
+
+[B] = 70°
+
+un contenedor homologado y en una ubicación segura.
+
+34 ALMACENAMIENTO
+ALMACENAMIENTO
+
+todas las piezas del motor.
+• Limpie
+ALMACENAMIENTO
+Asegúrese de que la llave de contacto del motor
+esté situada en la posición "OFF" (Apagado).
+ALMACENAMIENTO
+Coloque
+recipiente
+debajo dey la
+válvula
+de
+Cierre
+la un
+válvula
+de combustible
+retire
+el comALMACENAMIENTO
+Vaciado del sistema de combustible
+combustibledepara que
+recoja el combustible drepartimento
+sedimentos.
+
+34 ALMACENAMIENTO
+34 ALMACENAMIENTO
+
+Vaciado
+del
+sistema
+dea
+combustible
+Cuando
+no
+utilice
+el
+motor
+Kawasaki
+durante más
+Los
+motores
+que se
+vayan
+guardar
+de
+días,del
+añada
+estabilizador
+de
+combustible
+30 días
+se
+deben
+drenar
+combustible
+comVaciado
+sistema
+de de
+combustible
+motores
+se
+vayan a
+más
+pletamente
+para
+evitar
+la
+formación
+de durante
+depósitos
+de
+al Los
+depósito
+deque
+combustible
+yguardar
+haga
+funcionar
+el
+de
+30 en
+días
+se 5que
+deben
+drenar
+combustible
+comgoma
+piezas
+fundamentales
+carburador,
+el
+filmotor
+durante
+minutos
+y, aadedel
+continuación,
+vacíe
+el
+Los
+motores
+se
+vayan
+guardar
+durante
+más
+pletamente
+para de
+evitar la
+formación
+depósitos
+de
+tro y
+eldías
+depósito
+combustible.
+pósito
+de
+combustible.
+de
+30
+se
+deben
+drenar
+de de
+combustible
+comgoma
+piezas
+fundamentales
+carburador,
+el
+filTrasen
+vaciar
+elevitar
+depósito
+de del
+combustible,
+haga
+pletamente
+para
+la formación
+de depósitos
+de
+ADVERTENCIA
+tro
+y
+elen el
+depósito
+de al
+combustible.
+funcionar
+motor
+ralentí
+mínimo
+hasta que
+el
+goma
+piezas
+fundamentales
+del
+carburador,
+el filmotor
+se
+cale.
+tro
+y
+el
+depósito
+de
+combustible.
+La gasolina es xtremadamente inflamable y
+ADVERTENCIA
+puede ocasionar explosiones en determinaLa
+esADVERTENCIA
+extremadamente inflamable y
+dasgasolina
+condiciones.
+puede
+ocasionar
+explosiones
+determinaExtraiga
+el
+combustible
+antes n
+de
+guardar
+el
+La
+gasolina
+es
+extremadamente
+inflamable
+y
+das
+condiciones.
+equipo
+durante
+prolongados.
+puede
+ocasionarperíodos
+explosiones en
+determinael
+combustibleen
+antes
+guardar
+el
+Extraiga el
+combustible
+un de
+lugar bien
+vendas
+condiciones.
+equipo
+períodos
+prolongados.
+tilado,
+ydurante
+asegúrese
+de que
+el
+equipo
+se enExtraiga
+el combustible
+antes
+de guardar
+el
+Extraiga el
+combustible
+en un
+lugar
+bien
+cuentra
+alejado
+de
+cualquier
+fuente
+devenllaequipo
+durante
+períodos
+prolongados.
+tilado,
+asegúrese
+queun
+ellugar
+equipo
+se
+mas
+o y el
+chispas;
+esto de
+incluye
+cualquier
+dispoExtraiga
+combustible
+en
+bien
+vencuentray
+alejado
+de de
+cualquier
+de
+llasitivo
+con
+piloto.
+Guarde
+combustible
+en
+tilado,
+asegúrese
+queelel fuente
+equipo
+se enmas
+o
+chispas;
+incluye y en
+cualquier
+dispoun
+contenedor
+homologado
+una de
+ubicacuentra
+alejadoesto
+de cualquier
+fuente
+llasitivoo con
+piloto.
+Guarde
+combustible
+en
+ción
+segura.
+mas
+chispas;
+esto
+incluyel cualquier
+dispoun
+contenedor
+homologado
+una ubicasitivo con
+piloto.
+Guarde el y en
+combustible
+en
+Limpie
+todas lashomologado
+piezas del motor.
+ción
+segura.
+un
+contenedor
+y en una ubicaAsegúrese
+de que la llave de contacto del motor
+ción
+segura.
+Limpie
+todasen
+laslapiezas
+del"OFF"
+motor.(Apagado).
+esté
+situada
+posición
+Asegúrese
+de
+quedela
+llave
+de
+contacto
+Cierre
+la
+válvula
+combustible
+retiredelel motor
+comLimpie
+todas
+las
+piezas
+del
+motor.y
+esté
+situadadenque
+la
+posición
+"OFF"
+(Apagado).
+partimento
+sedimentos.
+Asegúrese
+la llave de
+contacto
+del motor
+Cierre la
+válvula
+combustible
+el comesté
+situada
+en lade
+posición
+"OFF" y retire
+(Apagado).
+partimento
+sedimentos.
+Cierre
+la de
+válvula de
+combustible y retire el compartimento de sedimentos.
+
+•
+•
+•
+
+•
+•
+•
+•
+•
+•
+•
+•
+
+Coloque
+un larecipiente
+debajo
+de la
+válvula de
+nado
+y abra
+válvula para
+vaciar
+completamente
+combustible
+que recoja
+combustible
+el
+depósito.
+Coloque
+un para
+recipiente
+debajoel de la
+válvuladrede
+nado
+y abra
+válvula
+vaciar
+completamente
+Coloque
+el la
+compartimento
+de
+y abra
+combustible
+para
+que para
+recoja
+elsedimentos
+combustible
+dreel
+depósito.
+la
+válvula
+dela válvula
+combustible.
+nado
+y
+abra
+para vaciar completamente
+Coloque
+el compartimento de sedimentos y abra
+el
+depósito.
+la
+válvula
+combustible.
+Para
+retirar
+combustible de
+delsedimentos
+carburador,y haga
+Coloque
+eldeel
+compartimento
+abra
+funcionar
+para consumir el combustible
+la válvula el
+demotor
+combustible.
+Para retirar
+el combustible del carburador, haga
+del
+carburador.
+funcionar
+el el
+motor
+para consumir
+el
+combustible
+Para
+retirar
+combustible
+del
+carburador,
+haga
+del
+carburador.
+Retire
+las
+bujías
+depara
+encendido
+y el
+vierta
+aproximafuncionar
+el
+motor
+consumir
+combustible
+damente
+1 ~ 2 ml (0,06 ~ 0,1 pulg. cúbicas) de
+del carburador.
+Retire
+lasmotor
+bujíaspor
+de los
+encendido
+vierta
+aproximaaceite de
+orificios ypara
+las bujías
+(A)
+damente
+~
+2 ml
+(0,06
+~las
+0,1 y
+pulg.
+de
+y, a
+continuación,
+apriete
+bujías
+decúbicas)
+encendido
+Retire
+las1
+bujías
+de
+encendido
+vierta
+aproximaaceite
+de 1
+motor
+porgirar
+los
+orificios
+bujías ve(A)
+después
+de ~
+hacer
+motor
+unaslas
+cuantas
+damente
+2
+ml
+(0,06el~
+0,1 para
+pulg.
+cúbicas)
+de
+y,
+a Gire
+continuación,
+las bujías
+encendido
+ces.
+lentamente
+elorificios
+motor
+hasta
+que
+note
+preaceite
+de motor
+porapriete
+los
+parade
+las bujías
+(A)
+después
+hacer
+girar
+motor
+unas
+cuantas
+vesión
+y, a de
+continuación,
+déjelo
+ahí.
+De
+forma
+y,
+a
+continuación,
+aprietel
+las
+bujías
+de esta
+encendido
+ces.
+Giredeel
+lentamente
+el el
+motor
+hasta
+note yprese
+bloquea
+aire que
+hay
+dentro
+delque
+cilindro
+se
+después
+hacer
+girar
+motor
+unas
+cuantas
+vesión
+a continuación,
+déjelo
+ahí.
+De
+esta
+forma
+evita y,
+que
+se
+oxide el el
+interior
+motor.
+ces.
+Gire
+lentamente
+motordel
+hasta
+que
+note
+prese
+bloquea
+aire
+queun
+hay
+dentro
+cilindro y
+se
+Limpie
+el el
+cuerpo
+con
+paño
+condel
+aceite.
+sión
+y,
+a
+continuación,
+déjelo
+ahí.
+De
+esta
+forma
+evita
+que el
+seelmotor
+oxide
+interior
+del
+motor.
+Envuelva
+conhay
+un
+plásticodel
+y cilindro
+guárdeloy en
+se
+bloquea
+aire el
+que
+dentro
+se
+Limpie
+el se
+cuerpo
+pañodel
+con
+aceite.
+un
+lugar
+seco.
+evita
+que
+oxidecon
+el un
+interior
+motor.
+Envuelva
+elaceite
+motorcon
+con
+plástico
+y próximo
+guárdelouso
+en
+Cambie
+del
+motor
+para
+Limpie elelcuerpo
+unun
+paño
+conel
+aceite.
+un
+lugar de
+seco.
+después
+un
+período
+de plástico
+almacenamiento
+(conEnvuelva
+el
+motor
+con un
+y guárdelo
+en
+Cambie
+aceite del
+motor
+el del
+próximo
+uso
+sulte
+la el
+sección
+"Cambio
+depara
+aceite"
+capítulo
+un
+lugar
+seco.
+después el
+de
+un
+período
+de para el
+almacenamiento
+"MANTENIMIENTO").
+Cambie
+aceite
+del motor
+próximo(conuso
+sulte
+la sección
+"Cambio
+aceite" del capítulo
+después
+de un período
+dede
+almacenamiento
+(con"MANTENIMIENTO").
+sulte la
+sección "Cambio de aceite" del capítulo
+"MANTENIMIENTO").
+
+Limpie e
+Envuelv
+un luga
+Cambie
+despué
+sulte la
+"MANTE
+
+ALMACENAMIENTO 35
+
+ADVERTENCIA
+La gasolina es una sustancia tóxica. Deshágase de ella de la forma adecuada. Póngase
+en contacto con las autoridades locales para
+obtener información sobre los métodos autorizados de eliminación de residuos.
+
+A. Orificio de la bujía de encendido
+
+36 SOLUCIÓN DE AVERÍAS
+
+SOLUCIÓN DE AVERÍAS
+Si el motor no funciona correctamente, compruebe con atención los síntomas y las condiciones de funcionamiento y consulte la siguiente tabla como guía para reparar las averías.
+Probable causa
+Solución
+K
+Los pistones, el cilindro, los
+segmentos del pistón y las juntas de
+culata están defectuosos
+Las válvulas fallan
+Las bujías de encendido están flojas Apriételas correctamente
+Los tornillos de la cabeza del cilindro
+están flojos
+No hay
+No hay combustible en el depósito
+Rellene el depósito
+combustible en La válvula de combustible no está en Abra la palanca de la válvula de
+la cámara de
+la posición "ON"
+combustible.
+combustión
+El filtro o el tubo de combustible
+Cambie el filtro o el tubo de
+están bloqueados
+combustible
+La entrada de aire de la tapa del
+Limpie la tapa del depósito de
+depósito está bloqueada
+combustible
+K
+El carburador falla
+Las bujías
+La mezcla de combustible y aire es Abra el estrangulador.
+de encendido
+demasiado rica
+Extraiga las bujías de encendido
+están llenas de
+y gire el motor para descargar el
+aceite
+combustible que sobra.
+Limpie las bujías de encendido.
+Límpielo
+El filtro de aire está obstruido
+
+Síntoma
+El motor no
+Compresión
+arranca o la
+insuficiente
+potencia es baja
+
+K
+El carburador falla
+Grado/tipo de combustible incorrecto Cambie el combustible
+Agua en el combustible
+
+SOLUCIÓN DE AVERÍAS 37
+SOLUCIÓN DE AVERÍAS 37
+Solución
+Sustitúyalas Solución
+Sustitúyalas
+K
+
+Probable causa
+Síntoma
+Probable
+causa
+Síntoma
+No enciende o Fallan las bujías
+de encendido
+Noencendido
+enciende o
+el
+es Fallan las bujías de encendido
+el
+encendido es Falla la bobina de encendido
+débil
+Falla
+la bobina
+de encendido
+La llave
+de contacto
+del motor se ha K
+Gire la llave de contacto del
+débil
+La
+llave de
+contacto
+del "OFF"
+motor se ha Gire
+llave la
+deposición
+contacto del
+quedado
+en la
+posición
+motorlahasta
+"START"
+quedado en la posición "OFF"
+motor
+hasta la
+posición
+(Arranque)
+(Consulte
+M)"START"
+(Arranque) (Consulte M)
+Límpielo
+Poca potencia El motor se
+El filtro de aire está obstruido
+Poca potencia El motor
+se
+Límpielo
+sobrecalienta
+El
+filtro
+de
+aire
+está
+obstruido
+La rejilla filtradora de entrada de aire
+sobrecalienta
+Laelrejilla
+filtradora
+de entrada
+de está
+aire
+o
+trayecto
+del ire
+refrigerado
+o el
+trayecto
+refrigerado está
+bstruido
+condel aire
+suciedad
+obstruido
+suciedad
+No
+hay con
+suficiente
+aceite
+Rellénelo o cambie el aceite
+No
+hay
+suficiente
+aceite
+Rellénelo o cambie el aceite
+Se ha acumulado carbonilla en la
+K
+Se
+ha de
+acumulado
+carbonilla en la
+cámara
+combustión
+K
+Hay
+unade
+ventilación
+insuficiente
+Seleccione una ubicación más
+cámara
+combustión
+Hay
+una del
+ventilación
+Seleccione una ubicación más
+alrededor
+motor insuficiente
+adecuada
+La velocidad
+alrededor del motor
+adecuada
+Falla el regulador
+La
+velocidad
+del motor
+no
+K
+Falla el regulador
+del
+motor no
+K
+aumenta
+aumenta
+K: El mantenimiento
+realizará
+a a
+través
+de unde un
+distribuidor
+autorizado de
+Kawasaki.
+mantenimientosese
+realizará
+través
+distribuidor
+autorizado
+de motores Kawasaki o
+K: instalación
+El
+mantenimiento
+se
+realizará con
+a
+través
+un de
+distribuidor
+autorizado
+de del
+Kawasaki.
+M:
+en el modelo
+contacto
+mediante
+el de
+panel
+control, aleje
+la palanca
+acelerador del equipo de
+decon
+mantenimiento
+similar
+cualificación.
+M: la
+en el
+modelo
+con contacto
+mediante
+panel
+de hasta
+control,
+la palanca
+del(Arranque).
+acelerador del equipo de
+posición
+SLOW
+(Lento) antes
+de el
+girar la
+llave
+la aleje
+posición
+"START"
+la posición SLOW (Lento) antes de girar la llave hasta la posición "START" (Arranque).
+
+PROTECCIÓN
+PROTECCIÓN
+MEDIOAMBIENTAL
+MEDIOAMBIENTAL
+38 38
+
+PROTECCIÓN
+PROTECCIÓN
+MEDIOAMBIENTAL
+MEDIOAMBIENTAL
+Para Para
+proteger el
+proteger
+medio
+el medio
+ambiente,
+ambiente,
+deshágase
+deshágase
+debidamente
+debidamente
+de las de las
+baterías,
+baterías,
+aceite del
+aceite
+motor,
+del motor,
+gasolina,
+gasolina,
+refri- refrigerante u
+gerante
+otrosu otros
+componentes
+componentes
+usados.
+usados.
+Consulte a
+Consulte
+su
+distribuidor
+distribuidor
+autorizado
+autorizado
+de
+de
+motores
+Kawasaki
+Kawasaki
+agencia
+la de
+agencia
+residuos
+de
+residuos con
+medioambientales
+medioambientales
+un a su
+distribuidor
+autorizado
+demotores
+motores
+Kawasakio
+oa la o a
+instalación
+de
+mantenimiento
+similar
+sobre
+el
+sobre el
+procedimiento
+procedimiento
+que de
+debe
+que
+seguirse
+debe
+seguirse
+para la
+para
+correcta
+la correcta
+eliminación.
+eliminación.
+cualificación
+oa
+la
+agencia
+residuos
+medioambientales
+sobre
+el
+procedimiento que debe seguirse para
+realizar una correcta eliminación.
+
+38 ESPECIFICACIONES
+
+ESPECIFICACIONES 39
+
+ESPECIFICACIONES
+FR651V, FS691V,
+FR691V, FR730V
+FS651V,
+FS730V
+Motor de gasolina de 4 tiempos, válvula en culata,
+cilindro V-gemelo y refrigerado por aire
+
+Tipo
+Diámetro x carrera
+
+78 x 76 mm (3,07 x 2,99 pulg.)
+
+Desplazamiento
+
+726 ml (44,3 pulg. cúbicas)
+
+Sistema de encendido
+
+Encendido de estado sólido
+
+Dirección de rotación
+
+Contraria a las agujas del reloj, mirando al eje de toma de fuerza
+
+Sistema de arranque
+
+Motor de arranque eléctrico
+
+Peso sin combustible: kg (lbs)
+
+NOTA
+
+◦ Especificaciones sujetas a cambio sin previo
+aviso.
+◦ El peso sin combustible no incluye el del depósito
+de combustible ni el del silenciador.
+
+40 (88,2)
+41
+(90,4)
+
+40 DIAGRAMA DE CABLEADO
+
+DIAGRAMA DE CABLEADO
+Diagrama de cableado
+[Modelo con motor de arranque eléctrico]
+
+[Modelo con motor de arranque de retroceso]
+
+NOTA
+
+◦ La parte rodeada por sombreado muestra las piezas que se obtienen de Kawasaki.
+
+ADVERTENCIA
+Por seguridad eléctrica, retire siempre el cable del borne negativo (–) de la batería antes
+de intentar realizar cualquier reparación o labor de mantenimiento.
+Capacidad de batería recomendada
+Capacidad de batería
+Clase 550 CCA de 12 V
+
+WARNING
+
+Part No. 99920-2289-01
+
+ADVERTENCIA
+
+The engine exhaust from this product
+contains chemicals known to the
+State of California to cause cancer,
+birth defects or other reproductive
+harm.
+
+El escape del motor de este producto
+contiene productos químicos que,
+según el Estado de California,
+provocan
+cáncer,
+defectos
+de
+nacimiento o afectan a la fecundidad.
+
+For repair / warranty assistance please contact
+your local authorized Kawasaki engine dealer
+or equally qualified service facility,
+email: kawpower-website@kmc-usa.com or
+call toll-free 1-877-364-6404
+
+Para realizar reparaciones u obtener asistencia
+con la garantía, póngase en contacto con su
+distribuidor autorizado de motores Kawasaki
+local o instalación de mantenimiento con similar
+cualificación,
+correo electrónico:
+kawpower-website@kmc-usa.com o
+teléfono gratuito 1-877-364-6404
+
+Printed in Japan
+
+FR651V
+FR691V
+FR730V
+
+4-Stroke Air-Cooled V-Twin Gasoline Engine
+Motor gasolina de 4 tiempos, V-gemelo y refrigerado por aire
+
+OWNER’S MANUAL
+MANUAL DEL PROPIETARIO
+
+GB
+
+ES
+
+

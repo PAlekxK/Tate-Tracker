@@ -1,0 +1,4006 @@
+26CS
+
+OPERATOR’S MANUAL
+
+UT33600
+
+MANUEL D’UTILISATION
+MANUAL DEL OPERADOR
+
+26SS
+
+26CC STRING TRIMMERS
+
+UT33650
+
+TAILLE-BORDURES À LIGNE
+26 CC
+RECORTADORAS DE HILO
+26 CC
+
+To register your Homelite product, please visit:
+http://register.homelite.com/
+
+ALL VERSIONS
+TOUTES LES VERSIONS
+TODAS LAS VERSIONES
+
+Pour enregistrer votre produit de Homelite, s’il vous
+plaît la visite: http://register.homelite.com/
+Para registrar su producto de Homelite, por favor visita:
+http://register.homelite.com/
+
+NOTICE
+
+AVIS
+
+AVISO
+
+Do not use E15 or E85 fuel (or fuel containing greater than 10% ethanol) in this product. It is a violation of federal law and will damage the unit and void your warranty.
+Ne pas utiliser d’essence E15 ou E85 (ou un carburant contenant plus de 10 % d’éthanol) dans ce
+produit. Une telle utilisation représente une violation de la loi fédérale et endommagera l’appareil et annulera la garantie.
+No utilice combustibles E15 o E85 (ni combustibles que contengan más de 10 % de etanol) con este producto. Esto constituye
+una violación a la ley federal, dañará la unidad y anulará la garantía.
+
+Your string trimmer has been engineered and manufactured to Homelite’s high standard for dependability, ease of operation,
+and operator safety. When properly cared for, it will give you years of rugged, trouble-free performance.
+
+WARNING: To reduce the risk of injury, the user must read and understand the operator’s manual before
+
+using this product.
+
+Thank you for buying a Homelite product.
+
+SAVE THIS MANUAL FOR FUTURE REFERENCE
+Cette taille-bordures à ligne a été conçue et fabriquée conformément
+aux strictes normes de fiabilité, simplicité d’emploi et sécurité
+d’utilisation de Homelite. Correctement entretenue, elle vous
+donnera des années de fonctionnement robuste et sans problème.
+
+Su recortadora de hilo ha sido diseñada y fabricada de
+conformidad con las estrictas normas de Homelite para brindar
+fiabilidad, facilidad de uso y seguridad para el operador. Con el
+debido cuidado, le brindará muchos años de sólido y eficiente
+funcionamiento.
+
+AVERTISSEMENT : Pour réduire les risques de
+blessures, l’utilisateur doit lire et veiller à bien comprendre le
+manuel d’utilisation avant d’employer ce produit.
+
+ADVERTENCIA: Para reducir el riesgo de lesiones,
+el usuario debe leer y comprender el manual del operador antes
+de usar este producto.
+
+Merci d’avoir acheté un produit Homelite.
+
+CONSERVER CE MANUEL POUR
+FUTURE RÉFÉRENCE
+
+Le agradecemos la compra de un producto Homelite.
+
+GUARDE ESTE MANUAL PARA
+FUTURAS CONSULTAS
+
+See this fold-out section for all of the figures
+­referenced in the operator’s manual.
+Consulter l’encart à volets afin d’examiner
+toutes les figures mentionnées dans le manuel
+d’utilisation.
+Consulte esta sección desplegable para ver todas
+las figuras a las que se hace referencia en el
+manual del operador.
+
+ii
+
+Fig. 1
+26CS
+
+D
+
+Fig. 3
+
+H
+
+G
+
+F
+
+J
+
+E
+
+C
+I
+
+C
+
+B
+
+E
+
+C
+I
+
+A
+
+E
+
+J
+
+A
+
+K
+
+B
+
+D
+
+H
+
+G
+
+F
+
+D
+
+L
+K
+
+26SS
+
+A - Wing nut (écrou à oreilles, tuerca de
+mariposa)
+B - Washer (rondelle, arandela)
+C - Bolt (boulon, perno)
+D - Grass deflector (déflecteur d’herbe, deflector
+de pasto)
+E - Bracket (support, soporte)
+
+D
+
+Fig. 4
+
+E
+
+C
+A
+M
+
+B
+
+F
+
+A
+
+B
+
+G
+
+H
+A - Dual line string head (tête de cordon à ligne double, cabezal del hilo doble)
+B - Trimmer shaft (arbre du taille-bordures, eje de la recortadora)
+C - Front handle (poignée avant, mango delantero)
+D - Power head shaft (arbre du bloc moteur, eje del cabezal motor)
+E - Starter grip and rope (poignée du lanceur et corde, mango del arrancador y cuerda)
+F - Muffler (silencieux, silenciador)
+G - Stop switch (commutateur d’arrêt, interruptor del apagado)
+H - Primer bulb (poire d’amorçage, bomba de cebado)
+I - Fuel cap (bouchon de carburant, tapa del tanque)
+J - Choke lever (levier de volet de départ, palanca de arranque)
+K - Throttle trigger (gâchette d’accélérateur, gatillo del acelerador)
+L - Curved shaft grass deflector (déflecteur d’herbe d’arbre courbe, deflector de pasto del eje curvo)
+M- Straight shaft grass deflector (déflecteur d’herbe d’arbre droit, deflector de pasto para eje recto)
+N - Hex key (not shown) (clé hexagonale [non illustré], llave hexagonal [no se muestra])
+
+Fig. 2
+A
+
+A - Front handle (poignée avant, mango delantero)
+B - Washer (rondelle, arandela)
+C - Wing nut (écrou à oreilles, tuerca de mariposa)
+D - Bolt (boulon, perno)
+
+C
+
+B
+
+D
+iii
+
+I
+A - Gear head (carter d’engrenages, cabezal de
+engranajes)
+B - Slot (fente, ranura)
+C - Square tab (languette carrée, orejeta
+cuadrada)
+D - Wing nut (écrou à oreilles, tuerca de
+mariposa)
+E - Mounting bracket (support de montage,
+soporte de montaje)
+F - Trimmer shaft (arbre du taille-bordures, eje
+de la recortadora)
+G - Screw (vis, tornillo)
+H - Pin (axe, pasador)
+I - Grass deflector (déflecteur d’herbe, deflector
+de pasto)
+
+Fig. 7
+
+Fig. 5
+
+Fig. 8
+
+A
+
+PROPER OPERATING
+POSITION
+BONNE POSITION
+DE TRAVAIL
+
+B
+
+POSICIÓN
+CORRECTA PARA
+EL MANEJO DE LA
+HERRAMIENTA
+
+RUN
+
+STA
+
+A
+
+RT
+
+C
+
+G
+
+E
+
+C
+
+F
+
+B
+D
+A
+RUN
+
+A - Trimmer shaft (arbre du taille-bordures,
+eje de la recortadora)
+B - Power head shaft (arbre du bloc moteur,
+eje del cabezal motor)
+C - Hex head screws (boulons à six pans,
+tornillos de cabeza hexagonal)
+D - Indentations (indentations, muescas)
+E - Hex key (clé hexagonale, llave hexagonal)
+F - Tighten (serrer, ajustar)
+G - Loosen (desserrer, aflojar)
+
+Fig. 6
+C
+
+D
+
+STAR
+T
+
+A
+
+C
+
+A - Start position (position de volet de départ
+ouvert, posición de arranque)
+B - Run position (position de marche, posición
+de marcha)
+C - Choke lever (levier de volet de départ,
+palanca de arranque)
+
+Fig. 9
+
+B
+
+26CS
+
+A
+
+26SS
+
+A
+B
+
+B
+E
+D
+A
+A - Throttle trigger (gâchette d’accélérateur,
+gatillo del acelerador)
+B - Starter grip and rope (poignée du lanceur et
+corde, mango del arrancador y cuerda)
+C - Stop switch (commutateur d’arrêt, interruptor
+del apagado)
+D - Primer bulb (poire d’amorçage, bomba de
+cebado)
+E - Choke lever (levier de volet de départ,
+palanca de arranque)
+
+C
+A - Curved shaft trimmer (taille-bordures à
+arbre courbe, recortadora de eje curvo)
+B - Dangerous cutting area (zone de coupe
+dangereuse, área peligrosa de corte)
+C - Best cutting area (zone d’efficacité
+maximum, mejor área de corte)
+D - Direction of rotation (sens de rotation,
+sentido de rotación)
+
+iv
+
+D
+
+C
+
+A - Straight shaft trimmer (taille-bordures à
+arbre droit, recortadora de eje recto)
+B - Dangerous cutting area (zone de coupe
+dangereuse, área peligrosa de corte)
+C - Best cutting area (zone d’efficacité
+maximum, mejor área de corte)
+D - Direction of rotation (sens de rotation,
+sentido de rotación)
+
+Fig. 10
+
+A
+
+Fig. 12
+
+Fig. 15
+B
+
+A
+
+B
+
+A - Eyelet (œillet, ojillo)
+B - Arrow on spool (flèche sur la bobine, flecha
+en el carrete)
+
+Fig. 13
+B
+A - Straight shaft trimmer line cut-off blade
+(lame de sectionnement de ligne du taillebordures à arbre droit, cuchilla de corte de
+hilo de la recortadora de eje recto)
+B - Curved shaft trimmer line cut-off blade
+(lame de sectionnement de ligne du taillebordures à arbre courbe, cuchilla de corte
+de hilo de la recortadora de eje recto)
+
+B
+
+B
+
+A
+A - Idle speed screw (vis de ralenti, tornillo de
+ajuste de la velocidad en vacío)
+B - Air filter cover (couvercle du filtre à air, tapa
+del filtro de aire)
+
+Fig. 16
+A
+A
+
+Fig. 11
+B
+
+A
+
+C
+A - Spool (bobine, carrete)
+B - Eyelets (oeillets, ojillos)
+
+A - Latch (loquet, pestillo)
+B - Air filter cover (couvercle du filtre à air, tapa
+del filtro de aire)
+C - Slots (fentes, ranuras)
+
+Fig. 14
+
+Fig. 17
+
+A - Spool retainer (retenue de bobine, retén del
+carrete)
+
+A
+
+A
+
+A
+B
+D
+
+A - Pull strings (tirer vers l’extérieur, tira del
+hilo)
+
+A
+C
+
+D
+
+A - Latches (loquets, pestillos)
+B - Air filter (filtre à air, filtro de aire)
+C - Air filter cover (couvercle du filtre à air, tapa
+del filtro de aire)
+D - Slots (fentes, ranuras)
+
+v
+
+TABLE OF CONTENTS
+
+TABLE DES MATIÈRES / ÍNDICE DE CONTENIDO
+ Introduction....................................................................................................................................................................... 2
+Introduction / Introducción
+
+ General Safety Rules......................................................................................................................................................... 3
+Règles de sécurité générales / Reglas de seguridad generales. ....................................................................................................... 3-4
+
+ Specific Safety Rules. ....................................................................................................................................................... 4
+Règles de sécurité particulières / Reglas de seguridad específicas
+
+ Symbols. ........................................................................................................................................................................... 5
+Symboles / Símbolos
+
+ Features. ........................................................................................................................................................................... 6
+Caractéristiques / Características
+
+ Assembly........................................................................................................................................................................6-7
+Assemblage / Armado
+
+ Operation. ....................................................................................................................................................................8-10
+Utilisation / Funcionamiento
+
+ Maintenance...............................................................................................................................................................10-12
+Entretien / Mantenimiento. .................................................................................................................................................10-12 / 10-13
+
+ Troubleshooting............................................................................................................................................................... 13
+Dépannage / Corrección de problema......................................................................................................................................... 13 / 14
+
+ Warranty.......................................................................................................................................................................... 14
+Garantie / Garantía. ...................................................................................................................................................................... 14 / 15
+
+ Parts Ordering and Service................................................................................................................................Back Page
+Commande de pièces et réparation / Pedidos de piezas y servicio................................................. Page arrière / Pág. posterio
+
+INTRODUCTION
+
+INTRODUCTION / INTRODUCCIÓN
+This product has many features for making its use more pleasant and enjoyable. Safety, performance, and dependability
+have been given top priority in the design of this product making it easy to maintain and operate.
+***
+Ce produit offre de nombreuses fonctions destinées à rendre son utilisation plus plaisante et satisfaisante. Lors de la
+conception de ce produit, l’accent a été mis sur la sécurité, les performances et la fiabilité, afin d’en faire un outil facile à
+utiliser et à entretenir.
+***
+Este producto ofrece numerosas características para hacer más agradable y placentero su uso. En el diseño de este producto
+se ha conferido prioridad a la seguridad, el desempeño y la fiabilidad, por lo cual se facilita su manejo y mantenimiento.
+
+Page / Página 2
+
+GENERAL SAFETY RULES
+ To avoid hot surfaces, never operate the unit with the
+bottom of the engine above waist level.
+
+WARNING:
+Read and understand all instructions. Failure to follow
+all instructions listed below may result in electric shock,
+fire and/or carbon monoxide poisoning which will cause
+death or serious personal injury.
+
+READ ALL INSTRUCTIONS
+ For safe operation, read and understand all instructions
+before using this product. Follow all safety instructions.
+Failure to follow all safety instructions listed below, can
+result in serious personal injury.
+ Do not allow children or untrained individuals to use this
+unit.
+ Do not start or operate the engine in a confined space,
+building, near open windows, or in other unventilated
+space where dangerous carbon monoxide fumes can
+collect. Carbon monoxide, a colorless, odorless, and
+extremely dangerous gas, can cause unconsciousness
+or death.
+ Clear the work area before each use. Remove all objects
+such as rocks, broken glass, nails, wire, or string which
+can be thrown or become entangled in the cutting line
+or blade.
+ Always wear eye protection with side shields marked to
+comply with ANSI Z87.1, along with hearing protection.
+Failure to do so could result in objects being thrown into
+your eyes and other possible serious injuries.
+ Wear heavy, long pants, long sleeves, boots, and gloves.
+Do not wear loose fitting clothing, short pants, sandals,
+or go barefoot. Do not wear jewelry of any kind.
+ Product users on United States Forest Service land, and
+in some states, must comply with fire prevention regulations. This product is equipped with a spark arrestor;
+however, other user requirements may apply. Check with
+your federal, state, or local authorities.
+ Never operate this unit on the operator’s left side.
+ Secure long hair above shoulder level to prevent entanglement in moving parts.
+ Keep all bystanders, children, and pets at least 50 ft. away.
+Bystanders should be encouraged to wear eye protection.
+ Do not operate this unit when you are tired, ill, upset, or
+under the influence of alcohol, drugs, or medication.
+ Do not operate in poor lighting.
+ Keep firm footing and balance. Do not overreach. Overreaching can result in loss of balance or exposure to hot
+surfaces. Keep cutting attachment below waist.
+
+ Keep all parts of your body away from any moving part.
+ Do not touch area around the muffler or cylinder of the
+unit; these parts get hot from operation.
+ Always stop the engine and remove the spark plug wire
+before making any adjustments or repairs except for
+carburetor adjustments.
+ Inspect the unit before each use for loose fasteners, fuel
+leaks, etc. Replace any damaged parts before use.
+ The string head will rotate during carburetor ­adjustments.
+ It has been reported that vibrations from hand-held tools
+may contribute to a condition called Raynaud’s Syndrome
+in certain individuals. Symptoms may include tingling,
+numbness, and blanching of the fingers, usually apparent
+upon exposure to cold. Hereditary factors, exposure to
+cold and dampness, diet, smoking, and work practices
+are all thought to contribute to the development of these
+symptoms. It is presently unknown what, if any, vibrations
+or extent of exposure may contribute to the condition.
+There are measures that can be taken by the operator to
+possibly reduce the effects of vibration:
+a) Keep your body warm in cold weather. When operating
+the unit wear gloves to keep your hands and wrists
+warm. It is reported that cold weather is a major factor
+contributing to Raynaud’s Syndrome.
+b) After each period of operation, exercise to
+increase blood circulation.
+c) Take frequent work breaks. Limit the amount of
+exposure per day.
+d) Keep the product well maintained, fasteners
+tightened and worn parts replaced.
+If you experience any of the symptoms of this condition,
+immediately discontinue use and see your physician about
+these symptoms.
+ Mix and store fuel in a container approved for gasoline.
+Do not smoke while fueling or mixing fuel.
+ Mix fuel outdoors where there are no sparks or flames.
+Wipe up any fuel spillage. Move 30 ft. away from refueling
+site before starting engine.
+ Stop the engine and allow to cool before refueling or
+storing the unit.
+ Allow the engine to cool; empty the fuel tank into a container approved for gasoline and secure the unit from
+moving before transporting in a vehicle.
+ Wear your protective equipment and observe all safety
+instructions. Be sure the cutting attachment stops turning
+when the engine idles. When the unit is turned off make
+sure the cutting attachment has stopped before the unit
+is set down.
+
+Page 3 — English
+
+SPECIFIC SAFETY RULES
+ Inspect before use. Replace damaged parts. Make sure
+fasteners are in place and secure. Check for fuel leaks.
+ Replace string head if cracked, chipped, or damaged
+in any way. Be sure the string head is properly installed
+and securely fastened. Failure to do so can cause serious
+injury.
+ Make sure all guards, straps, deflectors, and handles are
+properly and securely attached.
+ Never use blades, flailing devices, wire, or rope. Use only
+the manufacturer’s replacement line in the cutting head.
+Do not use any other cutting attachment. To install any
+other brand of cutting head to this string trimmer can
+result in serious personal injury.
+
+ Never operate unit without the grass deflector in place
+and in good condition.
+ Maintain a firm grip on both handles while trimming. Keep
+string head below waist level. Never cut with the string
+head located over 30 in. or more above the ground.
+ This product is intended for infrequent use by homeowners and other occasional users for such general applications as trimming light and heavy vegetation, etc. It is not
+intended for prolonged use. Prolonged periods of operation can cause circulatory problems in the user’s hands
+due to vibration. For such use, it may be appropriate to
+use a product having an anti-vibration feature.
+
+Page 4 — English
+
+SYMBOLS
+The following signal words and meanings are intended to explain the levels of risk associated with this product.
+SYMBOL
+
+SIGNAL
+
+MEANING
+
+DANGER:
+
+Indicates an imminently hazardous situation, which, if not avoided, will result
+in death or serious injury.
+
+WARNING:
+
+Indicates a potentially hazardous situation, which, if not avoided, could result
+in death or serious injury.
+
+CAUTION:
+
+Indicates a potentially hazardous situation, which, if not avoided, may result in
+minor or moderate injury.
+
+NOTICE:
+
+(Without Safety Alert Symbol) Indicates important information not related to an
+injury hazard, such as a situation that may result in property damage.
+
+Some of the following symbols may be used on this product. Please study them and learn their meaning for safe
+operation of this product.
+SYMBOL
+
+NAME
+
+EXPLANATION
+
+Safety Alert
+
+Indicates a potential personal injury hazard.
+
+Read Operator’s Manual
+
+To reduce the risk of injury, user must read and understand operator’s manual before using this product.
+
+Eye and Hearing Protection
+
+Always wear eye protection with side shields marked to
+comply with ANSI Z87.1 along with hearing protection
+when operating this equipment.
+
+Keep Bystanders Away
+
+Keep all bystanders at least 50 ft. away.
+
+Ricochet
+
+Thrown objects can ricochet and result in personal injury
+or property damage.
+
+No Blade
+
+Do not install or use any type of blade on a product displaying this symbol.
+
+Hot Surface
+
+To reduce the risk of injury or damage, avoid contact
+with any hot surface.
+
+Gasoline and Lubricant
+
+Use unleaded gasoline intended for motor vehicle use
+with an octane rating of 87 [(R + M) / 2] or higher. This
+product is powered by a 2-cycle engine and requires
+pre-mixing gasoline and 2-cycle lubricant.
+
+Page 5 — English
+
+FEATURES
+FEATURES
+PRODUCT SPECIFICATIONS
+Weight (dry)
+26CS......................................................................................................................................................................9.5 lbs.
+26SS....................................................................................................................................................................10.5 lbs.
+Cutting width...................................................................................................................................................................17 in.
+Engine displacement........................................................................................................................................................26cc
+Line diameter. ............................................................................................................................................................. .080 in.
+
+KNOW YOUR STRING TRIMMER
+
+REEL-EASY™ TAP ADVANCE SYSTEM
+
+See Figure 1.
+The safe use of this product requires an understanding of
+the information on the tool and in this operator’s manual as
+well as a knowledge of the project you are attempting. Before
+use of this product, familiarize yourself with all operating
+features and safety rules.
+
+The Reel-Easy™ Tap Advance System allows easy line­
+­advance during trimmer operation.
+
+TOP-MOUNTED MOTOR
+The top-mounted motor improves balance and is located
+away from the dust and debris of the cutting area.
+
+GRASS DEFLECTOR
+The trimmer includes a grass deflector that helps protect
+you from flying debris.
+
+ASSEMBLY
+UNPACKING
+
+PACKING LIST (continued)
+
+This product requires assembly.
+n Carefully remove the product and any accessories from
+the box. Make sure that all items listed in the packing list
+are included.
+
+Straight Shaft Grass Deflector – 26SS
+Bottle of 2-Cycle Lubricant
+Operator’s Manual
+
+WARNING:
+
+WARNING:
+Do not use this product if any parts on the Packing List
+are already assembled to your product when you unpack
+it. Parts on this list are not assembled to the product by
+the manufacturer and require customer installation. Use
+of a product that may have been improperly assembled
+could result in serious personal injury.
+n Inspect the product carefully to make sure no breakage
+or damage occurred during shipping.
+n Do not discard the packing material until you have carefully inspected and satisfactorily operated the product.
+n If any parts are damaged or missing, please call
+1-800-242-4672 for assistance.
+
+If any parts are damaged or missing, do not operate this
+product until the parts are replaced. Use of this product
+with damaged or missing parts could result in serious
+personal injury.
+
+WARNING:
+Do not attempt to modify this product or create accessories not recommended for use with this product. Any
+such alteration or modification is misuse and could result
+in a hazardous condition leading to possible serious
+personal injury.
+
+PACKING LIST
+Power Head Shaft
+Trimmer Shaft
+Front Handle
+Hex Key
+Curved Shaft Grass Deflector – 26CS
+
+WARNING:
+Operation of this equipment could create sparks that
+can start fires around dry vegetation. A spark arrestor
+may be required. The operator should contact local fire
+agencies for laws or regulations relating to fire prevention
+requirements.
+Page 6 — English
+
+ASSEMBLY
+TO ATTACH THE STRAIGHT SHAFT GRASS
+DEFLECTOR – 26SS
+
+WARNING:
+To prevent accidental starting that could cause serious
+personal injury, always disconnect the engine spark plug
+wire from the spark plug when assembling parts.
+
+FRONT HANDLE
+See Figure 2.
+ Loosen and remove the wing nut, washer, and bolt from
+the handle.
+ Install the handle on the power head shaft at the location
+indicated by the label on the shaft.
+ Adjust handle up or down, if necessary, to desired operating position.
+ Reinstall the bolt, washer, and wing nut. Tighten wing nut
+to secure.
+ Slightly loosen the wing nut on the handle.
+ Rotate the handle on the drive shaft housing at the location indicated by the label on the shaft.
+ Retighten the wing nut to secure the handle in place.
+
+ATTACHING THE GRASS DEFLECTOR
+WARNING:
+The line cutting blade on the grass deflector is sharp.
+Avoid contact with the blade. Failure to avoid contact
+can result in serious personal injury.
+
+TO ATTACH THE CURVED SHAFT GRASS
+DEFLECTOR – 26CS
+See Figure 3.
+ Remove the bolt, washer, and wing nut from grass
+deflector.
+ Press the grass deflector onto the bottom of the curved
+shaft as shown.
+ Insert the bolt through the grass deflector and the bracket
+on the curved shaft.
+ Place the washer on the bolt.
+ Place the wing nut on the bolt and tighten securely.
+
+See Figure 4.
+ Remove the wing nut and mounting bracket from the grass
+deflector.
+ Assemble straight shaft grass deflector to drive shaft so
+that the pin in the grass deflector fits in the locator hole
+in the lower side of the drive shaft near the gear head.
+ Place the mounting bracket over the drive shaft so the
+square tab on the mounting bracket fits into the slot in
+the straight shaft grass deflector.
+ Rotate the mounting bracket so the screw on the grass
+deflector goes into the slot on the mounting bracket.
+ Reinstall the wing nut and tighten securely.
+
+CONNECTING THE POWER HEAD SHAFT AND
+TRIMMER SHAFT
+See Figure 5.
+ Align the two indentations in the trimmer shaft with the
+screws in the power head shaft. Insert the trimmer shaft
+into the power head shaft.
+ Push the two sections together until the trimmer shaft
+stops.
+ Using a hex key, turn each of the two screws until securely
+tightened.
+
+WARNING:
+Be certain the shafts are locked into place before operating string trimmer; check it periodically for tightness
+during use to avoid possible disconnection of shafts,
+which could result in serious personal injury.
+
+CAUTION:
+Be careful when sliding the two shafts together to avoid
+pinching your hands or fingers.
+
+WARNING:
+This string trimmer is designed to use only the provided
+trimmer shaft and string head. It is not capable of using
+other attachments or cutting heads. Attempting to use
+other attachments or cutting heads could result in serious personal injury.
+
+Page 7 — English
+
+OPERATION
+FUEL MIXTURE
+
+WARNING:
+Do not allow familiarity with this product to make you
+careless. Remember that a careless fraction of a second is
+sufficient to inflict serious injury.
+
+This product is powered by a 2-cycle engine and requires
+pre-mixing gasoline and 2-cycle lubricant. Pre-mix unleaded
+gasoline and 2-cycle engine lubricant in a clean container
+approved for gasoline. DO NOT mix quantities larger than
+usable in a 30-day period.
+Recommended fuel: This engine is certified to operate on
+unleaded gasoline intended for automotive use.
+
+WARNING:
+Always wear eye protection with side shields marked to
+comply with ANSI Z87.1, along with hearing protection.
+Failure to do so could result in objects being thrown into
+your eyes and other possible serious injuries.
+
+WARNING:
+Never use blades, flailing devices, wire, or rope on this product. Do not use any attachments or accessories not recommended by the manufacturer of this product. The use of
+attachments or accessories not recommended can result
+in serious personal injury.
+
+WARNING:
+Operation of this equipment can create sparks that can
+start fires around dry vegetation. A spark arrestor may
+be required. The operator should contact local fire agencies for laws or regulations relating to fire prevention
+requirements.
+
+OXYGENATED FUELS
+NOTICE:
+
+NOTE: We recommend you use Homelite premium 2-cycle
+lubricant or an equivalent high-quality synthetic 2-cycle
+l­ubricant in this product. Mix at 2.6 oz. per gallon (US).
+Do not use automotive lubricant or 2-cycle outboard
+­lubricant.
+HIGH QUALITY 2-CYCLE ENGINE LUBRICANT
+GASOLINE
+LUBRICANT
+1.0 gal. (US) (3.8 liter)
+
+2.6 oz. (76 ml)
+
+FILLING TANK
+
+ Clean surface around fuel cap to prevent contamination.
+ Loosen fuel cap slowly. Rest the cap on a clean surface.
+ Carefully pour fuel into the tank. Avoid spillage.
+ Prior to replacing the fuel cap, clean and inspect the
+gasket.
+ Immediately replace fuel cap and hand tighten. Wipe up
+any fuel spillage.
+NOTE: It is normal for smoke to be emitted from a new
+engine after first use.
+
+WARNING:
+
+Do not use E15 or E85 fuel (or fuel containing greater
+than 10% ethanol) in this product. It is a violation of
+federal law and will damage the unit and void your
+warranty.
+Fuel system damage or performance problems resulting
+from the use of an oxygenated fuel containing more than
+the percentage of oxygenates stated below are not covered
+under warranty.
+
+Always shut off engine before fueling. Never add fuel to a
+machine with a running or hot engine. Move at least 30 ft.
+from refueling site before starting engine. Do not smoke
+and stay away from open flames and sparks. Failure to
+safely handle fuel could result in serious personal injury.
+
+STARTING AND STOPPING
+See Figures 6 - 7.
+
+Ethanol. Gasoline containing up to 10% ethanol by volume
+(commonly referred to as E10) is acceptable. E15 and E85
+are not.
+
+Trimmer should be on a flat, bare surface for starting.
+
+FUELING AND REFUELING THE TRIMMER
+
+ 		Set the choke lever to the START (A) position.
+
+WARNING:
+Gasoline and its vapors are highly flammable and explosive. To prevent serious personal injury and property
+damage, handle it with care. Keep away from ignition
+sources and open flames, handle outdoors only, do not
+smoke and wipe up spills immediately.
+
+To start a cold engine:
+ Slowly press the primer bulb 10 times.
+ Squeeze the throttle trigger fully and pull the starter handle
+until the engine runs. Do not pull the starter grip more
+than six (6) times.
+NOTE: Keep throttle trigger squeezed fully through remaining steps. If the engine does not start, start over at
+the first step with pressing the primer bulb.
+
+Page 8 — English
+
+OPERATION
+ Allow the engine to run for 10 seconds, then set the choke
+lever to the RUN (B) position.
+To restart a warm engine:
+ Slowly press the primer bulb 10 times.
+ Set the choke lever to the RUN (B) position.
+ Squeeze the throttle trigger fully and pull the starter handle
+until the engine runs.
+To stop the engine:
+ To stop the engine, depress the STOP switch to the stop
+position “ ”.
+IF ASSISTANCE IS REQUIRED FOR THIS PRODUCT:
+
+overheating. If grass becomes wrapped around the string
+head, STOP THE ENGINE, disconnect the spark plug wire,
+and remove the grass. Prolonged cutting at partial throttle
+will result in lubricant dripping from the muffler.
+
+WARNING:
+Always hold the string trimmer away from the body keeping clearance between the body and the product. Any
+contact with the housing or string trimmer cutting head
+can result in burns and/or other serious personal injury.
+
+CUTTING TIPS
+
+Do not return this product to the retail store where it was
+purchased. Please call our Customer Service Department
+for any issues you may have.
+
+See Figures 8 - 9.
+ Avoid hot surfaces by always keeping the tool away from
+your body. (Proper operating position shown in figure 8.)
+
+For Help Call: 1-800-242-4672
+
+ Keep the trimmer tilted toward the area being cut; this is
+the best cutting area.
+ The curved shaft trimmer cuts when passing the unit from
+right to left. The straight shaft trimmer cuts when passing
+the unit from left to right. This will avoid throwing debris at
+the operator. Avoid cutting in the dangerous area shown
+in figure 9.
+ Use the tip of line to do the cutting; do not force string
+head into uncut grass.
+ Wire and picket fences cause extra line wear, even breakage. Stone and brick walls, curbs, and wood may wear
+line rapidly.
+ Avoid trees and shrubs. Tree bark, wood moldings, siding,
+and fence posts can easily be damaged by the line.
+
+OPERATING THE TRIMMER
+See Figure 8.
+
+WARNING:
+Engine housing can become hot during trimmer operation. Do not rest or place your arm, hand, or any body
+part against the engine housing during trimmer operation.
+Only hold the trimmer as shown in Figure 8 with all body
+parts clear of engine housing. Extended contact with
+the engine housing can result in burns or other injuries.
+
+WARNING:
+Always position the unit on the operator’s right side. The
+use of the unit on the operator’s left side will expose the
+operator to hot surfaces and can result in possible burn
+injury.
+
+ADVANCING LINE USING THE REEL-EASY™
+TAP ADVANCE SYSTEM
+Line advance is controlled by tapping string head on grass
+while running engine at full throttle.
+ Run engine at full throttle.
+ Tap string head on ground to advance line. Line ­advances
+each time the head is tapped.
+
+WARNING:
+To avoid burns from hot surfaces, never operate unit with
+the bottom of the engine above waist level.
+Hold the trimmer with your right hand on the rear handle
+and your left hand on the front handle. Keep a firm grip with
+both hands while in operation. Trimmer should be held at a
+comfortable position with the rear handle about hip height.
+Always operate trimmer at full throttle. Cut tall grass from the
+top down. This will prevent grass from wrapping around the
+shaft housing and string head which may cause damage from
+
+ Several taps may be required until line strikes the cut off
+blade.
+ Resume trimming.
+NOTE: If the line is worn too short you may not be able to
+advance the line by tapping it on the ground. If so, STOP
+THE ENGINE, disconnect the spark plug wire, and manually
+advance the line.
+
+Page 9 — English
+
+OPERATION
+ADVANCING THE LINE MANUALLY
+With the engine off and the spark plug wire disconnected,
+push the spool retainer down while pulling on line(s) to manually advance the line.
+
+GRASS DEFLECTOR LINE TRIMMING CUT-OFF
+BLADE
+See Figure 10.
+The trimmer is equipped with a line trimming cut-off blade on
+the grass deflector. For best cutting, advance line until it is
+trimmed to length by the cut-off blade. Advance the line whenever you hear the engine running faster than normal, or when
+trimming efficiency diminishes. This will maintain best performance and keep the line long enough to advance properly.
+
+MAINTENANCE
+WARNING:
+When servicing, use only identical replacement parts.
+Use of any other parts could create a hazard or cause
+product damage.
+
+WARNING:
+Always wear eye protection with side shields marked to
+comply with ANSI Z87.1, along with hearing protection.
+Failure to do so could result in objects being thrown into
+your eyes and other possible serious injuries.
+
+WARNING:
+Before inspecting, cleaning, or servicing the machine,
+shut off engine, wait for all moving parts to stop, and
+disconnect spark plug wire and move it away from spark
+plug. Failure to follow these instructions can result in
+serious personal injury or property damage.
+
+GENERAL MAINTENANCE
+Avoid using solvents when cleaning plastic parts. Most
+plastics are susceptible to damage from various types of
+commercial solvents and may be damaged by their use.
+Use clean cloths to remove dirt, dust, lubricant, grease, etc.
+
+WARNING:
+Do not at any time let brake fluids, gasoline, petroleumbased products, penetrating lubricants, etc., come in contact with plastic parts. Chemicals can damage, weaken or
+destroy plastic which could result in serious personal
+injury.
+You can often make adjustments and repairs described here.
+For other repairs, have the trimmer serviced by an authorized
+service dealer.
+
+SPOOL REPLACEMENT
+REEL-EASY™ TAP ­ADVANCE SYSTEM
+
+See Figure 11 - 12.
+If replacing line only, refer to Line Replacement later in this
+manual.
+Use only .080 in. diameter trimmer line.
+ Stop the engine and disconnect the spark plug wire. Hold
+the string head and unscrew the spool retainer.
+To remove the spool retainer:
+Turn the spool retainer counterclockwise for 26CS.
+Turn the spool retainer clockwise for 26SS.
+ Remove the empty spool from the string head.
+NOTE: It is not necessary to remove the string head
+housing from the drive shaft.
+ Insert the new spool into the string head.
+NOTE: Make sure the arrows on the spool are aligned
+with the eyelets in the string head housing. Push down
+and hold the spool and housing together while completing the installation.
+ Reinstall the spool retainer to secure.
+To install the spool retainer:
+Turn the spool retainer clockwise for 26CS.
+Turn the spool retainer counterclockwise for 26SS.
+ Install line as described in Line Replacement.
+
+LINE REPLACEMENT
+See Figures 13 - 14.
+ Stop the engine and disconnect the spark plug wire.
+ Rotate the spool clockwise as necessary to align the
+arrows on the spool with the eyelets in the string head
+housing.
+n Cut one piece of trimmer line 10 ft. long. Insert the line
+into the eyelet on the string trimmer housing. Push until
+the end of the line comes out the other side of the string
+head. Pull the line from the other side until equal amounts
+of line appear on both sides of the spool.
+
+Page 10 — English
+
+MAINTENANCE
+ Rotate the spool clockwise to wind the line on the spool
+until approximately 6 in. of line is showing on each side.
+ Push the spool retainer down while pulling on line(s) to
+manually advance the line and to check for proper assembly of the string head.
+
+CLEANING THE AIR FILTER
+See Figures 16 - 17.
+For proper performance and long life, keep air filter clean.
+
+The spark arrestor must be cleaned or replaced every 50
+hours or yearly to ensure proper performance of your product. Spark arrestors may be in different locations depending
+on the model purchased. Please contact your nearest service
+dealer for the location of the spark arrestor for your model.
+
+ Remove the air filter cover by pushing down on the latches
+while gently pulling off the cover.
+ Remove the air filter.
+ Clean the foam filter element with warm soapy water.
+Rinse and let dry.
+NOTE: If the foam filter element is damaged, it should be
+replaced.
+ Apply a light coat of engine oil to the foam filter element,
+then squeeze it out.
+ Reinstall the air filter.
+NOTE: Make sure the filter is seated properly inside the
+cover. Installing the filter incorrectly will allow dirt to enter
+the engine, causing rapid engine wear.
+ Replace the air filter cover by placing the slots on the air
+filter cover over the latches on the housing, then push
+the cover down until it snaps securely in place.
+
+IDLE SPEED ADJUSTMENT
+
+FUEL CAP, TANK, AND LINES
+
+CLEANING THE EXHAUST PORT, MUFFLER,
+AND SPARK ARRESTOR
+NOTE: Depending on the type of fuel used, the type and
+amount of lubricant used, and/or your operating conditions, the
+exhaust port, muffler, and/or spark arrestor screen may become blocked with carbon deposits. If you notice a power
+loss with your gas powered tool, you may need to remove
+these deposits to restore performance. We highly recommend that only qualified service technicians perform this
+service.
+
+See Figure 15.
+
+WARNING:
+WARNING:
+The cutting head will move when adjusting the idle speed.
+Wear all protective clothing and keep all bystanders,
+children, and pets at least 50 ft. away. Make adjustments
+with the unit supported by hand so that the cutting head
+does not contact the ground or any object. Keep all parts
+of your body away from the cutting head and muffler.
+Failure to follow these instructions could result in serious
+personal injury.
+If the cutting attachment turns at idle, the idle speed screw
+needs adjusting on the engine. Turn the idle speed screw
+counterclockwise to reduce the idle RPM and stop the cutting attachment movement. If the cutting attachment still
+moves at idle speed, contact a service dealer for adjustment
+and discontinue use until the repair is made.
+
+Check for fuel leaks. A leaking fuel cap, tank, or lines
+are a fire hazard and must be replaced immediately. If
+you find any leaks, correct the problem before using the
+product. Failure to do so could result in a fire that could
+cause serious personal injury.
+The fuel cap contains a non-serviceable filter and a check
+valve. A clogged fuel filter will cause poor engine performance. If performance improves when the fuel cap is loosened, check valve may be faulty or filter clogged. Replace
+fuel cap if required.
+
+SPARK PLUG REPLACEMENT
+This engine uses a Champion RCJ-6Y or Torch L7RTC spark
+plug with .025 in. electrode gap. Use an exact replacement
+and replace annually.
+
+NOTICE:
+
+WARNING:
+The cutting attachment should never turn at idle. Turn
+the idle speed screw counterclockwise to reduce the
+idle RPM and stop the cutting attachment, or contact a
+service dealer for adjustment and discontinue use until
+the repair is made. Serious personal injury could result
+from the cutting attachment turning at idle.
+
+Be careful not to cross-thread the spark plug. Crossthreading will seriously damage the product.
+
+Page 11 — English
+
+MAINTENANCE
+STORING THE PRODUCT
+
+HIGH ALTITUDE ENGINE OPERATION
+
+ Clean all foreign material from the product. Store idle unit
+indoors in a dry, well-ventilated area that is inaccessible
+to children. Keep away from corrosive agents such as
+garden chemicals and de-icing salts.
+
+Please have an authorized service center adjust this engine
+if it is to be run above 2000 feet. Failure to do so may result
+in poor engine performance and increased emissions. An
+engine adjusted for high altitudes can not be run at 2000
+feet or lower. In doing so, the engine will overheat and cause
+serious engine damage. Please have an authorized service
+center restore high altitude modified engines to the original
+factory specification before operating below 2000 feet.
+
+ Abide by all ISO and local regulations for the safe storage
+and handling of gasoline.
+When storing 1 month or longer:
+ Drain all fuel from tank into a container approved for
+gasoline. Run engine until it stops.
+
+THIS PRODUCT WAS MANUFACTURED WITH A CATALYST MUFFLER
+Congratulations! You have made an investment toward protecting the environment. In order to maintain this product’s
+original emission level, please refer to the maintenance section below.
+
+MAINTENANCE SCHEDULE
+Maintenance
+Part
+
+Inspect For
+Damage Before
+Each Use
+
+Clean
+Every
+5 Hours
+
+Replace
+Every 25 Hours
+or Yearly
+
+Replace
+Every
+50 Hours
+
+* CATALYTIC MUFFLER ASSEMBLY..................................................................................................................X
+SPARK SCREEN................................................................................................................................................X
+* AIR FILTER ASSY
+includes:
+Filter Screen......................................................................... X
+* CARBURETOR ASSY
+includes:
+Gaskets......................................... X
+* FUEL TANK ASSY
+includes:
+Fuel Lines...................................... X
+Fuel Cap. ...................................... X
+Fuel Filter................................................................................................................... X
+* IGNITION ASSY
+includes:
+Spark Plug. ................................................................................................................ X
+* NOTICE: THE USE OF EMISSION CONTROL COMPONENTS OTHER THAN THOSE DESIGNED FOR THIS UNIT
+IS A VIOLATION OF FEDERAL LAW.
+
+Page 12 — English
+
+TROUBLESHOOTING
+Problem
+Engine will not start
+
+Possible Cause
+1. No spark.
+2. No fuel.
+
+3. Engine is flooded.
+
+Engine does not reach full
+speed and emits excessive
+smoke
+
+1. Incorrect lubricant/fuel mixture.
+2. Air filter is dirty.
+3. Spark arrestor screen is dirty.
+
+Solution
+1. Clean or replace spark plug. Reset spark plug
+gap. Refer to Spark Plug Replacement earlier
+in this manual.
+2. Push primer bulb until bulb is full of fuel. If bulb
+does not fill, primary fuel delivery system is
+blocked. Contact an authorized service dealer. If
+primer bulb fills, engine may be flooded, proceed
+to next item.
+3. Set the CHOKE lever to the START position.
+Squeeze the trigger and pull the rope repeatedly
+until the engine starts and runs.
+NOTE: Depending on the severity of the flooding,
+this may require numerous pulls of the rope.
+1. Use fresh fuel and the correct 2-cycle lubricant
+mix. (50:1).
+2. Clean air filter screen. Refer to Cleaning Air
+Filter earlier in this manual.
+3. Contact an authorized servicing dealer.
+
+4. Spark plug fouled.
+
+4. Clean or replace spark plug. Reset spark plug
+gap. Refer to Spark Plug Replacement earlier
+in this manual.
+
+Engine starts, runs, and
+accelerates but will not idle
+
+1. Idle speed screw on carburetor
+needs adjustment.
+
+1. Turn idle speed screw clockwise to increase idle
+speed. See Figure 15.
+
+Line will not advance
+
+1. Line is welded to itself.
+2. Not enough line on spool.
+
+5. Engine speed is too slow.
+
+1. Lubricate line with silicone spray.
+2. Install more line. Refer to the applicable line
+replacement section in this manual.
+3. Pull lines while alternately pressing down on and
+releasing spool retainer.
+4. Remove line from spool and rewind. Refer to
+the applicable line replacement section in this
+manual.
+5. Advance line at full throttle.
+
+Spool retainer hard to turn
+
+1. Screw threads are dirty or
+damaged.
+
+1. Clean threads and lubricate with grease - if no
+improvement, replace the spool retainer.
+
+Grass wraps around drive
+shaft housing and string
+head
+
+1. Cutting tall grass at ground level.
+
+1. Cut tall grass from the top down to prevent
+wrapping.
+2. Operate trimmer at full throttle.
+
+Engine starts and runs but
+string head does not turn
+
+1. Shafts are incorrectly assembled.
+
+3. Line is worn too short.
+4. Line is tangled on spool.
+
+2. Operating trimmer at part throttle.
+
+Page 13 — English
+
+1. Reassemble shafts. Refer to Connecting the
+Power Head Shaft and Trimmer Shaft in the
+Assembly section of this manual.
+
+WARRANTY
+LIMITED WARRANTY STATEMENT
+Homelite Consumer Products, Inc., (“Homelite”) warrants
+to the original retail purchaser that this HOMELITE brand
+outdoor product is free from defect in material and
+workmanship and agrees to repair or replace, at Homelite’s
+discretion, any defective product free of charge within these
+time periods from the date of purchase.
+ Two years for all models if used for personal, family, or
+household use;
+ 90 days for any unit used for other purposes, such as
+rental or commercial.
+This warranty extends to the original retail purchaser
+only and commences on the date of the original retail
+purchase.
+Any part of the this product manufactured or supplied
+by Homelite and found in the reasonable judgment of
+Homelite to be defective in material or workmanship will
+be repaired or replaced without charge for parts and labor
+by a Homelite authorized service center.
+The product, including any defective part, must be returned
+to an authorized service dealer within the warranty period.
+The expense of delivering the product to the dealer for
+warranty work and the expense of returning it back to the
+owner after repair or replacement will be paid by the owner.
+Homelite’s responsibility in respect to claims is limited to
+making the required repairs or replacements and no claim
+of breach of warranty shall be cause for cancellation or
+rescission of the contract of sale of any HOMELITE brand
+product. Proof of purchase will be required by the dealer
+to substantiate any warranty claim. All warranty work must
+be performed by a Homelite authorized service center.
+This warranty is limited to ninety (90) days from the date of
+original retail purchase for any HOMELITE brand product
+that is used for rental or commercial purposes, or any other
+income-producing purpose.
+This warranty does not cover any HOMELITE brand product
+that has been subject to misuse, neglect, negligence, or
+accident, or that has been operated in any way contrary
+to the operating instructions as specified in this operator’s
+manual. This warranty does not apply to any damage to
+the product that is the result of improper maintenance or
+to any product that has been altered or modified. The
+warranty does not extend to repairs made necessary
+by normal wear or by the use of parts or accessories
+which are either incompatible with the HOMELITE
+brand product or adversely affect its operation,
+performance, or durability. In addition, this warranty does
+not cover:
+A. Tune-ups – Spark Plugs, Carburetor, Carburetor
+Adjustments, Ignition, Filters
+
+B. Wear items – Bump Knobs, Outer Spools, Cutting
+Lines, Inner Reels, Starter Pulleys, Starter Ropes, Drive
+Belts, Tines, Felt Washers, Hitch Pins, Mulching Blades,
+Blower Fans, Blower and Vacuum Tubes, Vacuum Bags
+and Straps, Guide Bars, Saw Chains
+Homelite reserves the right to change or improve
+the design of any HOMELITE brand product without
+assuming any obligation to modify any product previously
+manufactured.
+ALL IMPLIED WARRANTIES ARE LIMITED IN DURATION
+TO THE STATED WARRANTY PERIOD. ACCORDINGLY,
+ANY SUCH IMPLIED WARRANTIES INCLUDING
+MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, OR OTHERWISE, ARE DISCLAIMED IN
+THEIR ENTIRETY AFTER THE EXPIRATION OF THE
+APPROPRIATE TWO-YEAR OR NINETY-DAY WARRANTY
+PERIOD. HOMELITE’S OBLIGATION UNDER THIS
+WARRANTY IS STRICTLY AND EXCLUSIVELY LIMITED
+TO THE REPAIR OR REPLACEMENT OF DEFECTIVE
+PARTS AND HOMELITE DOES NOT ASSUME OR
+AUTHORIZE ANYONE TO ASSUME FOR THEM ANY
+OTHER OBLIGATION. SOME STATES DO NOT ALLOW
+LIMITATIONS ON HOW LONG AN IMPLIED WARRANTY
+LASTS, SO THE ABOVE LIMITATION MAY NOT APPLY
+TO YOU. HOMELITE ASSUMES NO RESPONSIBILITY
+FOR INCIDENTAL, CONSEQUENTIAL, OR OTHER
+DAMAGES INCLUDING, BUT NOT LIMITED TO, EXPENSE
+OF RETURNING THE PRODUCT TO AN AUTHORIZED
+HOMELITE SERVICE CENTER AND EXPENSE OF
+DELIVERING IT BACK TO THE OWNER, MECHANIC’S
+TRAVEL TIME, TELEPHONE OR TELEGRAM CHARGES,
+RENTAL OF A LIKE PRODUCT DURING THE TIME
+WARRANTY SERVICE IS BEING PERFORMED, TRAVEL,
+LOSS OR DAMAGE TO PERSONAL PROPERTY, LOSS
+OF REVENUE, LOSS OF USE OF THE PRODUCT, LOSS
+OF TIME, OR INCONVENIENCE. SOME STATES DO NOT
+ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL
+OR CONSEQUENTIAL DAMAGES, SO THE ABOVE
+LIMITATION OR EXCLUSION MAY NOT APPLY TO YOU.
+This warranty gives you specific legal rights, and you may
+also have other rights which vary from state to state.
+This warranty applies to all HOMELITE brand products
+manufactured by or for Homelite and sold in the United
+States and Canada.
+To locate your nearest Homelite authorized service
+center, dial 1-800-242-4672 or log on to our website at
+www.homelite.com.
+
+Page 14 — English
+
+RÈGLES DE SÉCURITÉ GÉNÉRALES
+AVERTISSEMENT :
+Lire et veiller à bien comprendre toutes les
+instructions. Le non-respect de toutes les instructions
+ci-dessous peut entraîner un choc électrique, un
+incendie et/ou intoxication au monoxyde de carbone qui
+causant des blessures graves ou mortelles.
+
+LIRE TOUTES LES INSTRUCTIONS
+ Pour travailler en toute sécurité, lire et veiller à bien
+comprendre toutes les instructions avant d’utiliser ce
+produit. Respecter toutes les instructions de sécurité.
+Le non respect des instructions de sécurité ci-dessous
+peut entraîner des blessures graves.
+ Ne pas laisser des enfants ou personnes n’ayant pas reçu
+une formation adéquate utiliser cet outil.
+ Ne pas démarrer ou faire tourner le moteur dans un
+espace confine, de bâtiment, à proximité des fenêtres
+ouverts, autre ou des zones sans ventilation où des
+vapeurs toxiques de monoxyde de carbone peuvent
+s’accumuler. Le monoxyde de carbone, un gaz incolore,
+inodore et extrêmement toxique peut causer une perte
+de conscience et être mortel.
+ Déblayer la zone de travail avant chaque utilisation. La
+débarrasser de tous les objets tels que cailloux, verre
+brisé, clous, fils métalliques, cordes, etc. risquant d’être
+projetés ou de se prendre dans la ligne de coupe ou la
+lame.
+ Toujours porter une protection oculaire avec écrans
+latéraux certifiée conforme à la norme ANSI Z87.1 ainsi
+qu’un protection auditive lors de l’utilisation de ce produit.
+ Porter des pantalons longs, manches longues, des
+chaussures de travail et des gants épais. Ne pas porter
+de vêtements amples, bijoux, shorts, sandales et ne pas
+travailler pieds nus. Ne porter aucun bijou.
+ Les produits utilisés sur les territoires des services
+forestiers des États-Unis et de certains états doivent être
+conformes aux réglementations de lutte contre l’incendie.
+Cet outil est doté d’un pare-étincelles, toutefois, d’autres
+dispositifs peuvent être requis. Consulter les autorités
+locales et gouvernementales.
+ Ne jamais utiliser cet outil en le tenant du côté gauche.
+ Attacher les cheveux longs pour les maintenir au-dessus
+des épaules, afin qu’ils ne se prennent pas dans les
+pièces en mouvement.
+ Garder les badauds, enfants et animaux à une distance
+de 15 m (50 pi) minimum. Recommander aux personnes
+présente de porter une protection oculaire.
+ Ne pas utiliser ce taille-bordures en état de fatigue, si l’on
+est souffrant ou sous l’influence de l’alcool, de drogues
+ou de médicaments.
+ Ne pas travailler sous un éclairage insuffisant.
+
+ Se tenir bien campé et en équilibre. Ne pas travailler
+hors de portée. Le travail hors de portée risque de faire
+perdre l’équilibre ou de causer un contact avec les pièces
+brûlantes. Gardez le dispositif de coupe sous la taille.
+ Garder toutes les parties du corps à l’écart des pièces
+en mouvement.
+ Pour éviter le contact avec les parties brûlantes, ne jamais
+travailler avec le bas du moteur au-dessus du niveau de
+la taille.
+ Ne pas utiliser cet outil en état de fatigue, si l’on est
+souffrant ou contrarié ou sous l’influence de l’alcool, de
+drogues ou de médicaments.
+ Toujours arrêter le moteur et débrancher le fil de la bougie
+avant d’effectuer tout entretien ou réglage, à l’exception
+des réglages du carburateur.
+ Inspecter l’outil avant chaque utilisation pour s’assurer
+qu’il n’y a pas de pièces desserrées, de fuites ce
+carburant, etc. Remplacer les pièces endommagées
+avant utilisation.
+ La tête de coupe tourne pendant le réglage du carburateur.
+ Il a été rapporté que, chez certaines personnes, les
+vibrations produites par les outils à main motorisés peuvent
+contribuer au développement d’une affection appelée
+syndrome de Raynaud. Les symptômes peuvent inclure
+des picotements, l’insensibilisation et le blanchissement
+des doigts et sont habituellement provoqués par
+l’exposition au froid. L’hérédité, l’exposition au froid et à
+l’humidité, le régime alimentaire, la fumée et les habitudes
+de travail sont tous des facteurs considérés comme
+contribuant au développement de ces symptômes. Il
+n’existe actuellement aucune preuve qu’un certain type
+de vibration ou le degré d’exposition contribue réellement
+au développement de cette affectation. Certaines
+mesures, susceptibles de réduire les effets des vibrations,
+peuvent être prises par l’opérateur :
+a) Garder le corps au chaud par temps froid. Pendant
+l’utilisation, porter des gants afin de tenir les
+mains et les poignets au chaud. Il a été établi
+que le froid est l’une des principales causes du
+symptôme de Raynaud.
+b) Après chaque période d’utilisation, faire des
+exercices pour accroître la circulation.
+c) Faire des pauses fréquentes. Limiter la durée
+d’exposition quotidienne.
+d) Garder le produit bien entretenu, toutes les pièces
+de boulonnerie serrées et remplacer les pièces
+usées.
+En cas d’apparition de l’un ou plusieurs des symptômes
+décrits ci-dessus, cesser d’utiliser l’outil et consulter un
+médecin.
+
+Page 3 — Français
+
+RÈGLES DE SÉCURITÉ GÉNÉRALES
+ Mélanger et conserver le carburant dans un bidon ou
+jerrycan approuvé pour l’essence. Ne pas fumer pendant
+le ravitaillement en carburant ou de mélange de carburant.
+ Mélanger le carburant à l’extérieur, loin de toute flamme
+ou source d’étincelles. Essuyer tout carburant répandu.
+S’éloigner de 9 m (30 pi) du point d’approvisionnement
+avant de lancer le moteur.
+ Arrêter le moteur et le laisser refroidir avant de faire le
+plein ou de le remiser.
+
+ Pour le transport dans un véhicule, le réservoir doit être
+vidé dans un bidon ou jerrycan approuvé pour l’essence
+et l’outil bien arrimé.
+ Porter un équipement de protection et respecter toutes
+les instructions de sécurité. S’assurer que l’accessoire de
+coupe s’immobilise lorsque le moteur tourne au ralenti.
+Lorsque le moteur est arrêté, s’assurer que l’accessoire
+de coupe est immobilisé avant de poser l’outil.
+
+RÈGLES DE SÉCURITÉ PARTICULIÈRES
+ Inspecter l’outil avant chaque utilisation. Remplacer les
+
+pièces endommagées. S’assurer que toutes les pièces
+de boulonnerie sont en place et bien serrées. S’assurer
+de l’absence de fuites de carburant.
+ Si la tête de coupe est fendue, brisée ou endommagée
+de quelque façon que ce soit, la remplacer. S’assurer que
+la tête de coupe est correctement installée et solidement
+assujettie. S’il ne le sont pas, l’opérateur court des risques
+de blessures graves.
+ S’assurer que tous les dispositifs de protection,
+déflecteurs et poignées sont correctement installés et
+solidement assujettis.
+ Ne jamais utiliser de lames ou de dispositifs à fléau, fil
+et cordes. Utiliser exclusivement des lignes de coupe
+d’origine. Ne pas utiliser d’autres accessoires de coupe.
+L’utilisation d’une tête de coupe d’autre marque sur ce
+taille-bordures peut entraîner des blessures graves.
+
+ Ne jamais utiliser l’outil si le déflecteur d’herbe n’est pas
+en place et en bon état.
+ Tenir fermement les deux poignées pendant le travail.
+Tenir la tête de coupe au-dessous du niveau de la taille.
+Ne jamais tailler avec la tête de coupe à plus de 762 mm
+(30 po) du sol.
+ Ce produit est conçu pour les personnes qui prévoient
+l’utiliser de manière peu fréquente pour des applications
+générales par exemple, tailler la végétation faible et dense
+etc.; l’outil peut également convenir à d’autres utilisateurs
+occasionnels. Elle n’est pas conçue pour un usage
+prolongé. Les périodes d’utilisation prolongée peuvent
+entraîner des problèmes circulatoires dans les mains
+de l’opérateur, causés par les vibrations. Pour ce type
+d’application, il peut être bon d’utiliser une scie équipée
+d’un dispositif anti-vibrations.
+
+Page 4 — Français
+
+SYMBOLES
+Les termes de mise en garde suivants et leur signification ont pour but d’expliquer le degré de risques associé à l’utilisation
+de ce produit.
+
+SYMBOLE
+
+SIGNAL
+
+SIGNIFICATION
+Indique une situation extrêmement dangereuse qui, si elle n’est pas évitée,
+aura pour conséquences des blessures graves ou mortelles.
+
+DANGER :
+
+Indique une situation potentiellement dangereuse qui, si elle n’est pas évitée,
+
+AVERTISSEMENT : pourrait entraîner des blessures graves ou mortelles.
+ATTENTION :
+
+Indique une situation potentiellement dangereuse qui, si elle n’est pas évitée,
+pourraît entraîner des blessures légères ou de gravité modérée.
+
+AVIS :
+
+(Sans symbole d’alerte de sécurité) Indique une information importante
+ne concernant pas un risque de blessure comme une situation pouvant
+occasionner des dommages matériels.
+
+Certains des symboles ci-dessous peuvent être utilisés sur le produit. Veiller à les étudier et apprendre leur ­signification
+pour assurer la sécurité d’utilisation.
+SYMBOLE
+
+NOM
+
+EXPLICATION
+
+Symbole d’alerte de sécurité
+
+Indique un risque de blessure potentiel.
+
+Lire le manuel d’utilisation
+
+Pour réduire les risques de blessures, l’utilisateur doit lire
+et veiller à bien comprendre le manuel d’utilisation avant
+d’utiliser ce produit.
+
+Protection oculaire et ­auditive
+
+Toujours porter une protection oculaire avec écrans
+latéraux certifiée conforme à la norme ANSI Z87.1 ainsi
+qu’un protection auditive.
+
+Ne laisser personne s’approcher
+
+Garder les badauds à une distance de 15 m (50 pi)
+minimum.
+
+Ricochet
+
+Les objets projetés peuvent ricocher et infliger des
+blessures ou causer des dommages matériels.
+
+Ne pas utiliser de lame
+
+Ne jamais utiliser une lame quelconque sur un outil
+portant ce symbole.
+
+Surface chaude
+
+Pour éviter les risques de blessures ou de dommages,
+éviter tout contact avec les surfaces brûlantes.
+
+Essence et lubrifiant
+
+Utiliser de l’essence sans plomb pour automobiles, avec
+un indice d’octane de 87 [(R + M) / 2] ou plus. Ce produit
+utilise un moteur deux temps qui nécessite le mélange
+d’essence et de lubrifiant 2 temps.
+Page 5 — Français
+
+CARACTÉRISTIQUES
+CARACTÉRISTIQUES
+FICHE TECHNIQUE
+Poids (sec)
+26CS. ..................................................................................................................................................................... 4,3 kg (9,5 lb)
+26SS..................................................................................................................................................................... 4,8 kg (10,5 lb)
+Largeur de coupe.......................................................................................................................................................432 mm (17 po)
+Cylindrée....................................................................................................................................................................................26 cc
+Diamètre de coupe.................................................................................................................................................2,0 mm (0,080 po)
+
+APPRENDRE À CONNAÎTRE LE TAILLEBORDURES
+
+Voir la figure 1.
+L’utilisation sûre de ce produit exige une comprehension des
+renseignements figurant sur l’outil et contenus dans le manuel
+d’utilisation, ainsi qu’une bonne connaissance du projet
+entrepris. Avant d’utiliser ce produit, se familiariser avec toutes
+ses caractéristiques et règles de sécurité.
+
+DÉFLECTEUR D’HERBE
+
+AVANCE DE LA LIGNE DE COUPE À CHOC
+REEL-EASY™
+Le système Reel-Easy™ permet d’avancer la ligne facilement
+et tapant la tête de coupe contre le sol.
+
+MOTEUR MONTÉ EN HAUT
+Le moteur est monté en haut de l’outil afin d’assurer un bon
+équilibre de l’outil et de le maintenir loin de la poussière et des
+débris de coupe.
+
+Le taille-bordures est équipé d’un déflecteur d’herbe qui protège
+l’opérateur des débris projetés.
+
+ASSEMBLAGE
+DÉBALLAGE
+Ce produit doit être assemblé.
+n Avec précaution, sortir le produit et les accessoires de la
+boîte. S’assurer que toutes les pièces figurant sur la liste de
+contrôle sont incluses.
+
+AVERTISSEMENT :
+Ne pas utiliser le produit si, en le déballant, vous constatez
+que des éléments figurant dans la liste d’expédition sont
+déjà assemblés. Certaines pièces figurant sur cette liste
+n’ont pas été assemblées par le fabricant et exigent une
+installation. Le fait d’utiliser un produit qui a été assemblé
+de façon inadéquate peut entraîner des blessures.
+n Examiner soigneusement le produit pour s’assurer que rien
+n’a été brisé ou endommagé en cours de transport.
+n Ne pas jeter les matériaux d’emballage avant d’avoir
+soigneusement examiné le produit et avoir vérifié qu’il
+fonctionne correctement.
+n Si des pièces sont manquantes ou endommagées, appeler
+le 1-800-242-4672.
+
+LISTE DE CONTRÔLE D’EXPÉDITION
+Arbre du taille-bordures
+Arbre du bloc moteur
+Poignée avant
+Clé hexagonale
+Déflecteur d’herbe d’arbre courbe – 26CS
+Déflecteur d’herbe d’arbre droit – 26SS
+Flacon d’lubrifant 2 temps
+Manuel d’utilisation
+
+AVERTISSEMENT :
+Si des pièces manquent ou sont endommagées, ne pas
+utiliser ce produit avant qu’elles aient été remplacées.
+Le fait d’utiliser ce produit même s’il contient des pièces
+endommagées ou s’il lui manque des pièces peut entraîner
+des blessures graves.
+
+AVERTISSEMENT :
+Ne pas essayer de modifier ce produit ou de créer des
+accessoires non recommandés pour ce produit. De telles
+altérations ou modifications sont considérées comme un
+usage abusif et peuvent créer des conditions dangereuses,
+risquant d’entraîner des blessures graves.
+
+AVERTISSEMENT :
+L'utilisation de cet équipement peut créer des étincelles
+susceptibles d'enflammer la végétation sèche. Il peut
+être nécessaire d'utiliser un pare-étincelles. L'utilisateur
+doit communiquer avec le service local d'incendie pour
+connaître toutes les lois et tous les règlements portant sur
+les exigences en matière de prévention des incendies.
+
+AVERTISSEMENT :
+Pour empêcher un démarrage accidentel pouvant entraîner
+des blessures graves, toujours déconnecter le fil de bougie
+de moteur de la bougie d’allumage avant d’assembler des
+pièces.
+
+Page 6 — Français
+
+ASSEMBLAGE
+POIGNÉE AVANT
+
+Voir la figure 2.
+ Desserrer et retirer l’écrou à oreilles, la rondelle de frein, la
+rondelle et la ceinture de la poignée.
+ Installez la poignée sur l'arbre du bloc moteur à l'endroit
+indiqué sur l'étiquette située sur l'arbre.
+ Ajuster la poignée vers le haut ou vers le bas, si nécessaire,
+à la position d’opération désirée.
+ Réinstaller la ceinture, la rondelle, la rondelle de frein et
+l’écrou à oreilles.
+ Desserrer légèrement l’écrou à oreilles se trouvant sur la
+poignée.
+ Tourner la poignée dans le logement de l’arbre de transmission
+à l’endroit indiqué sur l’étiquette sur l’arbre de transmission.
+ Resserrer l’écrou à oreilles pour fixer la poignée en place.
+
+INSTALLATION DU DÉFLECTEUR D’HERBE
+AVERTISSEMENT :
+La lame coupe ligne du déflecteur est tranchante. Éviter
+de la toucher. Le contact avec la lame peut causer des
+blessures graves.
+
+INSTALLATION DU DÉFLECTEUR POUR
+ARBRE COURBE – 26CS
+
+n Placer le support de montage sur l’arbre moteur, de manière
+à ce que la languette carrée du support s’engage dans la
+fente du déflecteur.
+n Tourner le support de montage, de façon à ce que la vis du
+déflecteur d’herbe s’engage dans la fente du support de
+montage.
+n Installer l’écrou papillon et le serrer fermement.
+
+CONNEXION DE L'ARBRE DU BLOC MOTEUR
+ET DE L'ARBRE DU TAILLE-BORDURES
+Voir la figure 5.
+
+ Alignez les deux indentations sur l'arbre du taille-bordures
+avec les vis situées sur l'arbre du bloc moteur. Insérez
+l'arbre du taille-bordures dans l'arbre du bloc moteur.
+ Poussez les deux sections ensemble jusqu'à ce que
+l'arbre du taille-bordures soit appuyé.
+ À l'aide d'une clé hexagonale, tournez les deux vis jusqu'à
+ce qu'elle soient serrées fermement.
+
+AVERTISSEMENT :
+Assurez-vous que les arbres sont verrouillés en place
+avant de faire fonctionner le taille-bordures; vérifiez-le
+périodiquement pour éviter le débranchement des arbres,
+ce qui pourrait causer des blessures corporelles graves.
+
+Voir la figure 3.
+
+ Retirer boulon à six pans, la rondelle et l’écrou papillon du
+déflecteur d’herbe.
+ Emboîter le déflecteur d’herbe sur le bas de l’arbre courbe,
+comme illustré.
+ Insérer le boulon à six pans dans le déflecteur d’herbe et le
+support de l’arbre courbe.
+ Installer la rondelle sur le boulon à six pans.
+ Installer l’écrou papillon sur le boulon et le serrer fermement.
+
+INSTALLATION DU DÉFLECTEUR D’HERBE
+POUR ARBRE DROIT – 26SS
+
+Voir la figure 4.
+n Retirer l’écrou papillon et le support de montage du
+déflecteur d’herbe.
+n Installer le déflecteur d’herbe pour arbre droit sur l’arbre
+moteur, de manière à ce que la cheville du déflecteur
+s’engage dans le trou du bas de l’arbre, proche du carter
+d’engrenages.
+
+ATTENTION :
+Soyez prudent lorsque vous glissez les deux arbres
+ensemble pour éviter de vous pincer les mains ou les
+doigts.
+
+AVERTISSEMENT :
+Ce taille-bordures est conçu pour utiliser seulement l'arbre
+et le bloc moteur fournis. Il ne peut recevoir d'autres types
+d'accessoires ou de têtes de coupe. Tenter d'utiliser d'autres
+accessoires ou têtes de coupe pourrait causer des blessures
+corporelles graves.
+
+Page 7 — Français
+
+UTILISATION
+AVERTISSEMENT :
+Ne pas laisser la familiarité avec le produit faire oublier
+la prudence. Ne pas oublier qu’une fraction de seconde
+d’inattention peut entraîner des blessures graves.
+
+AVERTISSEMENT :
+Toujours porter une protection oculaire avec écrans
+latéraux certifiée conforme à la norme ANSI Z87.1 ainsi
+qu’un protection auditive. Si cette précaution n’est pas
+prise, des objets peuvent être projetés dans les yeux et
+d’autres lésions graves.
+
+NOTE : Nous recommandons l’utilisation d’huile Homelite
+Premium pour moteur 2 temps ou une huile synthétique de
+première qualité semblable pour moteur 2 temps dans ce
+produit. Mélanger 76 ml par 3,8 L (2,6 oz par gallon US).
+Ne pas utiliser de lubrifiant automobile ou pour moteur
+hors-bord 2 temps.
+LUBRIFIANT 2 TEMPS DE HAUTE QUALITÉ
+ESSENCE
+LUBRIFIANT
+3,8 litre [1,0 gal (US)]
+
+76 ml (2,6 oz)
+
+CARBURANTS OXYGÉNÉS
+AVIS :
+
+AVERTISSEMENT :
+Ne jamais utiliser de lames ou de dispositifs à fléau, fil et
+cordes sur ce produit. Ne pas utiliser d’outils ou accessoires
+non recommandés par le fabricant de ce produit. L’utilisation
+de pièces et accessoires non recommandés peut entraîner
+des blessures graves.
+
+AVERTISSEMENT :
+L’utilisation de cet équipement peut créer des étincelles
+susceptibles d’enflammer la végétation sèche. Il peut
+être nécessaire d’utiliser un pare-étincelles. L’utilisateur
+doit communiquer avec le service local d’incendie pour
+connaître toutes les lois et tous les règlements portant
+sur les exigences en matière de prévention des incendies.
+
+APPROVISIONNEMENT EN CARBURANT
+AVERTISSEMENT :
+L’essence et les vapeurs qu’elle dégage sont extrêmement
+inflammables et explosives. Pour éviter des blessures
+graves et des dommages matériels, manipuler avec
+précaution. Garder le produit à l’écart des sources
+d’inflammation et des flammes vives, l’utiliser uniquement
+à l’extérieur, ne pas fumer au moment de mélanger
+l’essence et l’huile, et essuyer rapidement tout carburant
+répandu.
+
+Ne pas utiliser d’essence E15 ou E85 (ou un carburant
+contenant plus de 10 % d’éthanol) dans ce produit.
+Une telle utilisation représente une violation de la loi
+fédérale et endommagera l’appareil et annulera la
+garantie.
+Les dommages au circuit de carburant et les problèmes de
+performance résultant de l’utilisation de carburant oxygéné
+contenant des pourcentages de composants oxygénés
+supérieurs à ceux indiqués ci-dessous ne sont pas couverts
+par la garantie.
+Éthanol. L’essence contenant jusqu’à 10 % d’éthanol par
+volume (généralement désignée E10) est acceptable. E15
+et E85 ne sont pas.
+
+REMPLISSAGE DU RÉSERVOIR
+n Nettoyer le pourtour du bouchon de remplissage pour
+éviter la contamination du carburant.
+ Régler le condensateur ajustable sur le côté de sorte que
+la buse pointe vers le haut.
+n Desserrer le bouchon du réservoir de carburant lentement.
+Poser le bouchon sur une surface propre.
+n Verser le mélange dans le réservoir avec précaution. Éviter
+de répandre du carburant.
+n Remettre immédiatement le bouchon en place et le serrer
+à la main. Essuyer tout carburant répandu.
+NOTE : Il est normal qu’un moteur neuf dégage de la fumée
+après la première utilisation.
+
+AVERTISSEMENT :
+
+MÉLANGE DE CARBURANT
+Cet outil utilise un moteur deux temps qui nécessite le
+mélange d’essence et de lubrifiant 2 temps. Mélanger de
+l’essence sans plomb et de le lubrifiant moteur 2 temps
+dans un jerrycan propre homologué pour l’essence. NE PAS
+mélanger plus de carburant qu’il ne sera utilisé dans une
+période de 30 jours.
+Carburant recommandé : Cet outil est certifié pour fonctionner
+avec de l’essence sans plomb pour véhicules automobiles.
+
+Toujours couper le moteur avant de reprendre du carburant.
+Ne jamais remplir le réservoir d’une machine lorsque le
+moteur tourne ou est chaud. S’éloigner d’au moins 9 m
+(30 pi) du point d’approvisionnement avant de lancer le
+moteur. Ne pas fumer et éviter des étincelles nues et des
+flammes. Une mauvaise manipulation de l’essence peut
+entraîner des blessures graves.
+
+Page 8 — Français
+
+UTILISATION
+DÉMARRAGE ET ARRÊT
+
+AVERTISSEMENT :
+
+Voir les figures 6 et 7.
+
+Pour le démarrage, le taille-bordures doit être posé sur un
+sol nu et plat.
+Démarrage du moteur froid :
+ Appuyer lentement 10 fois sur la poire d’amorçage.
+ Mettre le volet de départ en position d’étranglement
+START (A) (démarrage).
+ Appuyer sur le bouton de verrouillage de la gâchette et
+tirer sur le cordon du lanceur jusqu’à ce que le moteur
+démarre. Ne pas tirer le cordon plus de six (6) fois.
+NOTE : Tenir la gâchette enfoncée à fond par les étapes
+restantes. Si le moteur ne démarre pas, recommencer
+depuis la première étape en appuyant sur la poire
+d’amorçage.
+ Laisser le moteur tourner pendant 10 secondes et mettre
+le levier du volet de départ en position RUN (B) (marche).
+Démarrage du moteur chaud :
+ Appuyer lentement 10 fois sur la poire d’amorçage.
+ Mettre le levier du volet de départ en position RUN (B)
+(marche).
+ Appuyer sur le bouton de verrouillage de la gâchette et
+tirer sur le cordon du lanceur jusqu’à ce que le moteur
+démarre.
+Arrêt du moteur :
+ Pour arrêter le moteur, mettre le commutateur STOP dans
+la position d’arrêt « ».
+EN CAS DE BESOIN D’ASSISTANCE AVEC CE PRODUIT :
+
+Pour éviter le contact avec les parties brûlantes, ne jamais
+travailler avec le bas du moteur au-dessus du niveau de
+la taille.
+Tenir le taille-bordures avec la main droite sur la poignée
+arrière et la main gauche sur la poignée avant, le pouce
+et les autres doigts solidement refermés sur les deux
+poignées. Tenir fermement les deux poignées pendant le
+fonctionnement. Le taille-bordures doit être tenu dans une
+position confortable, la poignée arrière se trouvant à peu
+près à hauteur de la taille.
+Toujours utiliser le taille-bordures à plein régime. Couper les
+herbes hautes du haut en bas. Ceci empêchera l’herbe de
+s’enrouler sur le tube de l’arbre moteur et la tête de coupe,
+ce qui pourrait causer des dommages dus à une surchauffe.
+Si l’herbe s’enroule sur la tête de coupe, ARRÊTER LE
+MOTEUR, débrancher le fil de bougie et enlever l’herbe.
+Le travail prolongé à mi-régime causerait l’écoulement
+d’lubrifant par l’échappement.
+
+AVERTISSEMENT :
+Toujours tenir le taille-bordures à l’écart de soi en
+maintenant une distance de sécurité entre le corps et
+l’équipement. Tout contact avec le boîtier ou avec la tête
+de coupe du taille-bordures peut causer des brûlures
+et / ou d’autres blessures graves.
+
+Ne pas le retourner au magasin de détail où il a été acheté. Pour
+toute question, appeler notre service après-vente.
+
+ACONSEILS DE COUPE
+
+Pour toute assistance, appeler le : 1-800-242-4672
+
+ Éviter les surfaces très chaudes en maintenant toujours
+l’outil à l’écart du corps. (Position de travail correcte
+illustrée à la figure 8.)
+ Pour une efficacité maximum, garder le taille-bordures
+incliné vers la zone de coupe.
+ Pour couper avec le taille-bordures à arbre courbe, utiliser
+un mouvement de balayage de droite à gauche. Pour couper
+avec le taille-bordures à arbre droit, utiliser un mouvement
+de balayage de gauche à droite. Ceci évite que les débris
+soient projetés en direction de l’opérateur. Éviter de couper
+dans la zone dangereuse montrée à la figure 9.
+ Couper avec l’extrémité de la ligne; ne pas forcer la tête
+de coupe dans l’herbe non coupée.
+ Les palissades en métal et en bois accélèrent l’usure de la
+ligne et peuvent la faire casser. Les murs en pierre et brique,
+trottoirs et pièces de bois peuvent user la ligne rapidement.
+		Éviter les arbres et buissons. L’écorce des arbres, les
+moulures en bois, le lambrissage et les piquets de
+­
+palissades peuvent être endommagés par la ligne.
+
+UTILISATION DU TAILLE-BORDURES
+Voir la figure 8.
+
+AVERTISSEMENT :
+Le logement du moteur peut devenir chaud pendant
+l’utilisation du taille bordures à fil. Éviter de placer ou
+d’appuyer le bras, la main ou toute autre partie du corps
+contre le logement du moteur pendant l’utilisation du
+taille bordures. Tenir l’outil uniquement dans la position
+illustrée à la figure 8 en s’assurant qu’aucune partie du
+corps ne se trouve à proximité du logement du moteur.
+Un contact prolongé avec le logement du moteur peut
+entraîner des brûlures ou d’autres blessures.
+
+AVERTISSEMENT :
+Toujours tenir l’outil à sa droite. L’utilisation à gauche
+exposerait l’utilisateur aux surfaces chaudes, créant ainsi
+des risques de brûlures.
+
+Voir les figures 8 et 9.
+
+Page 9 — Français
+
+UTILISATION
+AVANCE DE LA LIGNE DE COUPE AVEC LE
+SYSTÈME À CHOC REEL-EASY™
+L’avance de la ligne est obtenue en tapant la tête de coupe
+sur le gazon, le moteur tournant à plein régime.
+n Faire tourner le moteur à plein régime.
+n Taper la tête de coupe sur le sol pour faire avance la
+ligne. La ligne avance chaque fois que la tête de coupe
+est ­frappée sur le sol.
+n Plusieurs frappes peuvent être nécessaires pour que la
+ligne parvienne à la lame coupe ligne
+n Continuer le travail.
+NOTE : Si la ligne devient trop courte, il peut ne pas être
+possible de la faire avancer en tapant la tête de coupe sur
+le sol. Dans ce cas, ARRÊTER LE MOTEUR, débrancher le
+fil de la bougie et tirer la ligne à la main.
+
+AVANCE MANUELLE DE LA LIGNE DE COUPE
+Lorsque le moteur est éteint et le fil de bougie a débranché,
+appuyer sur la retenue de bobine et tirer sur la ligne pour
+sortir la longueur désirée.
+
+LAME DE SECTIONNEMENT DE LIGNE DE
+COUPS DU DÉFLECTEUR D’HERBE
+Voir la figure 10.
+Ce taille-bordures est équipé d’une lame de sectionnement
+de ligne montée sur le déflecteur d’herbe. Pour obtenir une
+coupe optimale, faire avance la ligne jusqu’à ce qu’elle soit
+coupée à la longueur correcte par la lame de sectionnement.
+La ligne doit être avancée chaque fois que le moteur tourne
+à une vitesse supérieure à la normale ou lorsque la coupe
+devient moins efficace. Ceci maintiendra une efficacité
+maximum et gardera la ligne assez longue pour avancer
+correctement.
+
+ENTRETIEN
+AVERTISSEMENT :
+Utiliser exclusivement des pièces d’origine pour les
+réparations. L’usage de toute autre pièce pourrait créer une
+situation dangereuse ou endommager l’outil.
+
+AVERTISSEMENT :
+Toujours porter une protection oculaire certifiée conforme à
+la norme ANSI Z87.1 ainsi qu'un protection auditive. Si cette
+précaution n’est pas prise, des objets peuvent être projetés
+dans les yeux et d'autres lésions graves.
+
+AVERTISSEMENT :
+Avant d’inspecter, nettoyer ou entretenir l’équipement, couper
+le moteur, attendre que toutes les pièces en mouvement
+s’arrêtent, déconnecter le fil de la bougie et l’écarter de la
+bougie. Le non-respect de ces i­nstructions peut entraîner
+des blessures graves ou des dégâts ­matériels.
+
+ENTRETIEN GÉNÉRAL
+Éviter d’utiliser des solvants pour le nettoyage des pièces en
+plastique. La plupart des matières plastiques peuvent être
+endommagées par divers types de solvants du commerce.
+Utiliser un chiffon propre pour éliminer la saleté, la poussière,
+l’lubrifant, la graisse, etc.
+
+AVERTISSEMENT :
+Ne jamais laisser de liquides tels que le fluide de freins,
+l’essence, les produits à base de pétrole, les lubrifants
+pénétrantes, etc., entrer en contact avec les pièces en
+plastique. Les produits chimiques peuvent endommager,
+affaiblir ou détruire le plastique, ce qui peut entraîner des
+blessures graves.
+
+Les réglages et réparations décrits ci-dessous peuvent bien
+souvent être effectués par l’utilisateur. Les autres réparations
+doivent être confiées à un centre de réparations agréé.
+
+REMPLACEMENT DE LA BOBINE
+AVANCE DE LA LIGNE DE COUPE À CHOC
+REEL-EASY™
+
+Voir les figures 11 et 12.
+Si seule la ligne est remplacée, voir Remplacement de la
+ligne, plus loin dans ce manuel.
+Utiliser exclusivement une ligne monofilament de
+2 mm (0,080 po) de diamètre.
+ Arrêter le moteur et débrancher le fil de la bougie. Maintenir
+la tête de coupe et retirer la retenue de bobine.
+Pour retirer la retenue de bobine :
+Sur les modèles 26CS, tourner la retenue de bobine vers la
+gauche.
+Sur les modèles 26SS, tourner la retenue de bobine vers la
+droite.
+ Retirer la bobine vide de la tête de coupe.
+NOTE : Il n’est pas nécessaire de retirer le logement de la
+tête de coupe de l’arbre d’entraînement.
+ Insérer la nouvelle bobine dans la tête de coupe.
+NOTE : S’assurer que les flèches de la bobine sont alignées
+avec les œillets du logement de la tête de coupe. Abaisser et
+maintenir ensemble à cette position la bobine et le logement
+tout en complétant l’installation.
+ Réinstaller la retenue de bobine afin de la fixer solidement.
+Pour installer la retenue de bobine :
+Sur les modèles 26CS, tourner la retenue de bobine vers la
+droite.
+Sur les modèles 26SS, tourner la retenue de bobine vers la
+gauche.
+ Installer le fil tel que décrit à la section intitulée Remplacement
+du ligne.
+
+Page 10 — Français
+
+ENTRETIEN
+REMPLACEMENT DE LIGNE
+
+Voir les figures 13 à 14.
+ Arrêter le moteur et débrancher le fil de la bougie.
+n Au besoin, tourner la bobine dans le sens horaire afin
+d'aligner les flèches de la bobine avec les œillets du
+logement de la tête de coupe.
+n Couper un morceau d’une longueur de 3 m (10 pi) de chaîne
+monofilament. Insérer le fil dans l’œillet du logement du
+taille-bordures. Pousser jusqu’à ce que l’extrémité du fil
+sorte de l’autre côté de la tête de coupe. Tirer sur le fil de
+l’autre côté de façon à laisser deux segments de fil égaux
+de chaque côté de la bobine.
+ Tourner la bobine dans le sens horaire pour enrouler le fil
+autour de celle-ci jusqu’à ce qu’environ 152,4 mm (6 po) de
+fil apparaisse de chaque côté de la bobine.
+ Appuyer sur la retenue de bobine tout en tirant sur la ou les
+ligne(s) pour les avancer manuellement et vérifier le montage
+de la tête de coupe.
+
+NETTOYAGE DE L’ORIFICE D’ÉCHAPPEMENT,
+LE SILENCIEUX ET LE PARE-ÉTINCELLES
+NOTE : Suivant le type de carburant utilisé, le type et la
+quantité de lubrifiant et / ou les conditions de travail, l’orifice
+d’échappement et le silencieux peuvent se calaminer. Si un outil
+motorisé semble avoir perdu de la puissance, cette calamine
+doit être éliminée pour restaurer le fonctionnement normal. Il
+est vivement recommandé de confier ce travail à un technicien
+qualifié.
+Le pare-étincelles doit être nettoyé ou remplacé toutes les
+50 heures de fonctionnement ou tous les ans pour assurer
+le fonctionnement correct de l’outil. L’emplacement du pareétincelles diffère suivant le modèle. Contacter le concessionnaire
+le plus proche pour connaître l’emplacement du pare-étincelles
+sur le modèle utilisé.
+
+RÉGLAGE DU RALENTI
+
+AVERTISSEMENT :
+L’accessoire de coupe ne doit jamais tourner lorsque le
+moteur est au ralenti. Tourner la vis de ralenti dans le sens
+inverse des aiguilles d’une montre pour réduire le régime de
+ralenti et immobiliser l’accessoire de coupe ou confier au
+produit à un centre de réparations, et ne pas l’utiliser tant
+que des réparations n’ont pas été effectuées. La rotation
+de l’accessoire de coupe au ralenti pourrait causer des
+blessures graves.
+
+NETTOYAGE DU FILTRE À AIR
+
+Voir les figures 16 - 17.
+Pour assurer un fonctionnement correct et une longue vie utile,
+garder le filtre à air propre.
+ Retirer le couvercle du filtre à air en appuyant sur les loquets,
+tout en tirant doucement sur le couvercle.
+ Retirer le filtre à air.
+ Si l’élément en mousse du filtre est sale, le retirer du filtre
+à air. Nettoyer l’élément en mousse du filtre avec de l’eau
+chaude savonneuse. Le rincer et le laisser sécher.
+NOTE : Si l’élément en mousse du filtre est endommagé, il
+doit également être remplacé.
+ Appliquer une légère couche d’huile pour moteur sur l’élément
+en mousse du filtre, puis l’extraire en pressant l’élément en
+mousse.
+ Remettre le filtre à air en place.
+NOTE : S’assurer que le filtre est correctement positionné
+dans le couvercle. Une installation incorrecte du filtre laisse
+la saleté entrer dans le moteur, entraînant une usure rapide
+du moteur.
+ Installer le couvercle du filtre à air en plaçant les fentes du
+couvercle du filtre à air sur les loquets du boitier et appuyer
+sur le couvercle jusqu’à ce qu’il s’enclenche correctement
+en place.
+
+BOUCHON DU RÉSERVOIR, RÉSERVOIR, ET
+CONDUITES
+
+Voir la figure 15.
+
+AVERTISSEMENT :
+L’accessoire de coupe tournera lors du réglage du ralenti.
+Porter tous les vêtements de protection et garder les
+badauds, enfants et animaux à une distance de 15 m
+(50 pi). Faire les réglages en supportant l’outil avec les mains
+de manière à ce que l’accessoire de coupe/lame ne touche
+pas le sol ou tout autre objet. Garder toutes les parties du
+corps éloignées de l’accessoire de coupe et du silencieux.
+Le non respect des instructions de sécurité peut entraîner
+des blessures graves.
+Si l’accessoire de coupe tourne lorsque le moteur est au ralenti,
+tourner la vis de ralenti du moteur. Tourner la vis de ralenti
+vers la gauche pour réduire le régime et arrêter la rotation de
+l’accessoire de coupe. Si l’accessoire de coupe continue de
+tourner au ralenti après avoir effectué le réglage, confier au
+produit à un centre de réparations et ne plus l’utiliser tant que
+les réparations n’ont pas été effectuées.
+
+AVERTISSEMENT :
+S’assurer de l’absence de fuites de carburant, réservoir,
+ou conduites qui sont un risque d’incendie. Un bouchon
+de carburant qui fuit pose un risque d’incendie et doit être
+remplacé immédiatement. Toutes les fuites doivent être
+éliminées avant d’utiliser le produit. Ne pas prendre cette
+précaution peut causer un incendie, entraînant des blessures graves.
+Le bouchon du réservoir de carburant contient un filtre et un
+clapet antiretour non réparables. Un filtre à carburant colmaté
+nuit au bon fonctionnement du moteur. Si le fonctionnement
+du moteur s’améliore lorsque le bouchon est desserré, le
+clapet antiretour peut être défectueux ou le filtre colmaté. Si
+nécessaire, remplacer le bouchon de carburant.
+
+Page 11 — Français
+
+ENTRETIEN
+REMPLACEMENT DE LA BOUGIE
+
+Remisage 1 mois ou plus :
+
+Ce moteur utilise une bougie Champion RCJ-6Y ou Torch
+L7RTC avec un écartement d’électrode de 0,63 mm (0,025 po).
+La bougie doit être remplacée annuellement par une bougie
+identique.
+
+ Vider complètement le réservoir de carburant dans un bidon
+ou jerrycan approuvé pour l’essence. Laisser le moteur
+tourner jusqu’à ce qu’il cale.
+
+AVIS:
+Veiller à ne pas fausser le filetage de la bougie. Ceci
+endommagerait sérieusement l’outil.
+
+REMISAGE LE PRODUIT
+ Nettoyer soigneusement le taille-bordures. La remiser dans
+un endroit bien aéré, inaccessible aux enfants. La tenir à
+l’écart de produits corrosifs, tels que les produits chimiques
+de jardinage et le sel de dégivrage.
+ Se conformer à toutes les réglementations locales et
+gouvernementales concernant la sécurité de la manipulation
+et de l’entreposage de l’essence.
+
+FONCTIONNEMENT DU MOTEUR À HAUTE
+ALTITUDE
+Confier le moteur à un centre de réparations agréé si celui-ci doit
+être utilisé à une altitude supérieure à 609,6 m (2 000 pi). Ne pas
+suivre cette directive peut nuire au bon fonctionnement du moteur
+et augmenter les émissions. Un moteur qui a été réglé pour
+fonctionner à haute altitude ne peut être utilisé à 609,9 m (2 000
+pi) ou moins. Ne pas respecter cette directive peut entraîner une
+surchauffe du moteur et l’endommager sérieusement. Veuillez
+confier tout moteur ayant subi des modifications en vue d’être
+utilisé à haute altitude à un centre de réparations agréé, qui
+se chargera de le reconfigurer selon les spécifications d’usine
+d’origine avant qu’il soit utilisé à une altitude inférieure à 609,6 m
+(2 000 pi).
+
+CE PRODUIT A ÉTÉ ÉQUIPÉ EN USINE D’UN CONVERTISSEUR CATALYTIQUE
+Félicitations ! Vous venez d’investir dans la protection de l’environnement. Pour maintenir le niveau d’émissions original
+de ce produit, voir la section Entretien ci-dessous.
+
+PROGRAMME D’ENTRETIEN
+Pièce
+d’entretien
+
+Inspecter avant
+chaque utilisation
+n’est pas endommagé
+
+Nettoyer toutes
+le 5 heures de
+fonctionnement
+
+Remplacer toutes
+les 25 heures ou
+chaque année
+
+Reemplácelo
+cada
+50 heures
+
+* ENSEMBLE CATALYTIQUE DU SILENCIEUX................................................................................................................................X
+ÉCRAN PARE-ÉTINCELLES. ..........................................................................................................................................................X
+* FILTRE À AIR
+inclut :
+Écran filtrant. ...........................................................................................X
+* CARBURATEUR
+inclut :
+Joints........................................................... X
+* RÉSERVOIR DE CARBURANT
+inclut :
+Conduites de carburant............................... X
+Bouchon du réservoir de carburant............. X
+Filtre à carburant. .....................................................................................................................................X
+* ALLUMAGE
+inclut :
+Bougie. .....................................................................................................................................................X
+* AVIS : L’UTILISATION DE DISPOSITIFS ANTIPOLLUTION AUTRES QUE CEUX CONÇUS POUR CET OUTIL REPRÉSENTE UNE VIOLATION
+DE LA LOI FÉDÉRALE.
+
+Page 12 — Français
+
+DÉPANNAGE
+Problem
+Le moteur ne démarre pas
+
+Possible Cause
+1. Pas d’étincelle.
+2. Pas de carburant.
+
+3. Moteur noyé.
+
+Le moteur ne parvient pas
+au régime ma ximum et
+dégage trop de fumée
+
+1. Vérifier le mélange lubrifiant /
+carburant.
+2. Filtre à air écran encrassé.
+3. Écran pare-étincelles encrassé.
+4. Bougie encrassée.
+
+Solution
+1. Nettoyer ou remplacer la bougie. Régler
+l’écartement de l’électrode. Voir Remplacement
+de la bougie plus haut dans ce manuel.
+2. Actionner la poire d’amorçage jusqu’à ce qu’elle
+soit remplie de carburant. Si elle ne se remplit
+pas, le système d’alimentation en carburant
+est obstrué. Contacter un centre approuvés de
+réparations. Si la poire se remplit, il se peut que le
+moteur soit noyé, passer au paragraphe suivant.
+3. M e t t r e l e vo l e t d e d é p a r t e n p o s i t i o n
+d’étranglement START (démarrage). Maintenir
+la gâchette enfoncée et tirer sur le cordon du
+lanceur jusqu’à ce que le moteur démarre.
+NOTE : Selon l’impor tance du noyage,
+plusieurs tractions du cordon peuvent s’avérer
+nécessaires.
+1. Utiliser un mélange de carburant et de lubrifiant
+2 temps correct et frais. (50:1).
+2. Nettoyer le filtre à air écran. Voir la section
+Nettoyage du filtre à air écran, plus haut dans
+ce manuel.
+3. Contacter un centre approuvés de réparations.
+4. Nettoyer ou remplacer la bougie. Régler
+l’écartement de l’électrode. Voir Remplacement
+de la bougie plus haut dans ce manuel.
+
+Le moteur démarre, tourne
+et accélère correctement,
+mais ne tient pas le ralenti
+
+1. La vis de ralenti du carburateur
+doit être réglée.
+
+1. Tourner la vis de ralenti vers la droite, pour
+augmenter le régime de ralenti. Voir la figure 15.
+
+La ligne n’avance pas
+
+1. Ligne soudée sur elle-même.
+2. Pas assez de ligne sur la bobine.
+
+1. Lubrifier avec un produit au silicone.
+2. Installer une nouvelle ligne. Consulter la section
+du présent manuel qui traite du remplacement
+du fil.
+3. Tirer les lignes en appuyant sur la bobine et en
+la relâchant alternativement.
+4. Retirer la ligne de la bobine et la réenrouler.
+Consulter la section du présent manuel qui traite
+du remplacement du fil.
+5. Faire avancer la ligne, le moteur tournant à plein
+régime.
+
+3. Ligne trop courte.
+4. Ligne emmêlée sur la bobine.
+5. Régime moteur insuffisant.
+
+La retenue de bobine est
+difficile à tourner
+
+1. Filetage des vis encrassé ou
+endommagé.
+
+1. Nettoyer les filetages et les graisser – Si cela
+ne donne aucune amélioration, remplacer la
+retenue de bobine.
+
+L’herbe s’enroule sur le tube
+de l’arbre moteur et la tête
+de coupe
+
+1. Coupe de hautes herbes au ras
+du sol.
+2. Utilisation du taille-bordures à
+régime partiel.
+
+1. Couper les herbes hautes du haut en bas pour
+éviter leur enroulement.
+2. Utiliser le taille-bordures à plein régime.
+
+L e m o t e u r d é m a r re e t
+fonctionne, mais la tête de
+coupe ne tourne pas
+
+1. Assemblage incorrect des arbres.
+
+1. Recommencer l'assemblage des arbres.
+Consulter « Raccordement de l'arbre du blocmoteur et de l'arbre du taille-bordures » au chapitre
+« Assemblage » de ce manuel.
+
+Page 13 — Français
+
+GARANTIE
+DÉCLARATION DE GARANTIE LIMITÉE
+Homelite Consumer Products, Inc. (« Homelite ») garantit à
+l’acheteur original au détail que ce produit de plein air de
+marque HOMELITE est exempt de tout vice de matériau ou de
+fabrication et s’engage à réparer ou remplacer, à discrétion,
+tout produit s’avérant défectueux au cours des périodes
+indiquées ci-dessous, à compter de la date d’achat.
+ Deux ans pour tous les modèles utilisés à des fins
+personnelles, familiales ou domestiques ;
+ 90 jours pour toute unité utilisée pour d’autres buts,
+telles que les activités locatives et commerciales.
+Cette garantie n’est offerte qu’à l’acheteur original et entre
+en vigueur à la date de l’achat original.
+Toute pièce de ce produit fabriqué ou fourni par Homelite et
+jugée, après évaluation raisonnable par Homelite, comme
+présentant des vices de matériau ou de fabrication, sera
+réparée ou remplacée par un centre de réparations agréé
+Homelite, sans frais de pièces ou de main-d’œuvre.
+Le produit, y compris toutes les pièces défectueuses,
+devra être retourné à un centre de réparations agréé avant
+expiration de la période de garantie. Les frais d’expédition
+au centre de réparations et de retour au propriétaire du
+produit seront assumés par le propriétaire. En ce qui
+concerne les réclamations en garantie, la responsabilité de
+Homelite se limitera aux réparations ou au remplacement
+des pièces défectueuses et aucune réclamation au titre du
+non-respect de la garantie se pourra causer l’annulation ou
+la résiliation du contrat de vente d’un produit de marque
+HOMELITE quel qu’il soit. Une preuve d’achat sera exigée
+par le centre de réparation, afin de valider toute réclamation
+au titre de la garantie. Toutes les réparations sous garantie
+devront être effectuées par un centre de réparations agréé
+par Homelite.
+La présente garantie sur tout produit Homelite utilisé à des
+fins locatives ou commerciales ou à tout autre usage lucratif
+sera limitée à quatre-vingt-dix (90) jours à compter de la date
+d’achat original au détail.
+Cette garantie ne couvre pas les produits HOMELITE ayant
+fait l’objet d’un usage abusif ou négligent, d’un manque
+d’entretien, ayant été impliqués dans un accident ou employé
+de façon contraire aux instructions de ce manuel d’utilisation.
+Cette garantie ne couvre ni les dommages aux produits
+résultant d’un manque d’entretien, ni les produits qui ont
+été altérés ou modifiés. La garantie exclut les réparations
+rendues nécessaires par l’usure normale ou l’utilisation de
+pièces et accessoires incompatibles avec ce produit de
+marque HOMELITE ou nuisibles à son bon fonctionnement,
+ses performances ou sa durabilité. En outre, la présente
+garantie exclut :
+A. Les réglages – bougies, carburateur, allumage, filtres.
+
+B. Les consommables – boutons d’avance par choc,
+bobines externes, lignes de coupe, bobines internes,
+poulies et cordons de lanceur, courroies d’entraînement,
+dents, rondelles en feutre, axes d’attelage, lames de
+paillage, ventilateurs de soufflante, tubes de soufflage
+et d’aspiration, sacs à débris, guides, chaînes de scie.
+Homelite se réserve le droit d’apporter des modifications
+ou améliorations à tout produit de marque Homelite
+sans obligation de modifier les produits fabriqués
+antérieurement.
+LA DURÉE DE TOUTES GARANTIES IMPLICITES NE
+SAURAIT EN AUCUN CAS EXCÉDER LA PÉRIODE DE
+GARANTIE DÉCLARÉE. PAR CONSÉQUENT, TOUTES LES
+GARANTIES IMPLICITES, Y COMPRIS LES GARANTIES
+DE VALEUR MARCHANDE OU D’ADÉQUATION À UN
+USAGE PARTICULIER OU AUTRES SERONT INVALIDÉES À
+L’EXPIRATION DE LA PÉRIODE DE GARANTIE APPROPRIÉE
+DE DEUX ANS OU QUATRE-VINGT-DIX JOURS. LES
+OBLIGATIONS DE HOMELITE DANS LE CADRE DE
+CETTE GARANTIE SE LIMITENT EXCLUSIVEMENT À LA
+RÉPARATION OU AU REMPLACEMENT DES PIÈCES
+DÉFECTUEUSES ET HOMELITE N’ASSUME, NI AUTORISE
+QUICONQUE À ASSUMER EN SON NOM, QUELQUE
+AUTRE OBLIGATION QUE CE SOIT. CERTAINS ÉTATS ET
+PROVINCES NE PERMETTANT PAS DE LIMITATION DE
+DURÉE DES GARANTIES IMPLICITES, LES RESTRICTIONS
+CI-DESSOUS PEUVENT NE PAS ÊTRE APPLICABLES.
+HOMELITE DÉCLINE TOUTE RESPONSABILITÉ EN CE
+QUI CONCERNE LES DOMMAGES DIRECTS, INDIRECTS
+OU AUTRES, Y COMPRIS, MAIS SANS S’Y LIMITER, LES
+FRAIS DE RETOUR DE CE PRODUIT À UN CENTRE DE
+RÉPARATION AGRÉÉ PAR HOMELITE ET DE RENVOI AU
+PROPRIÉTAIRE, DE DÉPLACEMENT D’UN TECHNICIEN,
+DE TÉLÉPHONE OU TÉLÉGRAMME, DE LOCATION
+D’UN PRODUIT SIMILAIRE PENDANT LA DURÉE DES
+RÉPARATIONS SOUS GARANTIE, DE DÉPLACEMMENT, DE
+PERTES OU DOMMAGES À DES BIENS PERSONNELS, DE
+MANQUE À GAGNER, DE PERTE D’USAGE DU PRODUIT,
+DE PERTE DE TEMPS OU DE DÉRANGEMENT. CERTAINS
+ÉTATS ET PROVINCES NE PERMETTANT L’EXCLUSION OU
+LA LIMITATION DES DOMMAGES DIRECTS OU INDIRECTS,
+LES RESTRICTIONS CI-DESSOUS PEUVENT NE PAS ÊTRE
+APPLICABLES.
+La présente garantie donne au consommateur des droits
+spécifiques, et celui-ci peut bénéficier d’autres droits, qui
+varient selon les états ou provinces.
+Cette garantie couvre tous les produits de marque HOMELITE
+fabriqués par ou pour le compte de HOMELITE et vendus
+aux États-Unis ou au Canada.
+Pour obtenir l’adresse du centre de réparations agréé par
+Homelite le plus proche, appeler le 1-800-242-4672 ou visiter
+notre site Internet à l’adresse www.homelite.com.
+
+Page 14 — Français
+
+REGLAS DE SEGURIDAD GENERALES
+ADVERTENCIA:
+Lea y comprenda todas las instrucciones. El
+incumplimiento de las instrucciones señaladas abajo
+puede causar descargas eléctricas, y intoxicación por
+monóxido de carbono que causará la muerte o lesiones
+serias.
+
+LEA TODAS LAS INSTRUCCIONES
+ Para la operación segura, lea y entienda todas las
+instrucciones antes de usar este producto. Siga todas las
+instrucciones de ­seguridad. La inobservancia de todas
+las instrucciones de ­seguridad señaladas abajo puede
+causar lesiones corporales graves.
+ No permita que utilicen esta unidad niños ni personas
+carentes de la debida instrucción para su manejo.
+ No haga arrancar o funcionar el motor en un espacio
+confinado, de edificio, cerca de ventana abiertas, o en
+otro área sin ventilación donde se puedan recolectar las
+emanaciones de monóxido de carbono. El monóxido
+de carbono, un gas incoloro, inodoro y sumamente
+peligroso, puede causar la pérdida de la conciencia o la
+muerte.
+ Limpie el área de trabajo cada vez antes de usar la unidad.
+­Retire todos los objetos tales como piedras, vidrios rotos,
+clavos, alambre o cuerdas que pudiesen resultar lanzados
+o enredados en el hilo de corte o cuchilla, según sea el
+caso.
+ Siempre utilice protección ocular con protección lateral
+con la marca de cumplimiento de la norma ANSI Z87.1,
+como así también protección auditiva cuando utilice este
+equipo.
+ Póngase pantalones largos de tela gruesa, mangas largas,
+botas y guantes. No se ponga ropa holgada o pantalones
+cortos, sandales ni ande descalzo. No se ponga joyas de
+ninguna clase.
+ Los usuarios del producto en las jurisdicciones del Servicio
+Forestal de los Estados Unidos, y en algunos estados, deben
+cumplir con los reglamentos de prevención de incendios.
+Este producto está equipado de un parachispas; no obstante
+es posible que el usuario deba cumplir otros requisitos.
+Consulte con las autoridades federales, estatales o locales.
+ Nunca utilice esta unidad colocándola al lado izquierdo de
+usted.
+ Recójase el cabello largo arriba del nivel de los hombros
+para evitar que se enrede en las piezas móviles.
+ Mantenga alejados a todos los circunstantes, niños y
+animales a una distancia mínima de 15 m (50 pies). Debe
+exhortarse a los circunstantes a ponerse protección para
+los ojos.
+ No use esta unidad cuando se encuentre fatigado,
+
+enfermo, molesto o bajo los efectos del alcohol, drogas
+o medicamentos.
+
+ No utilice la unidad en condiciones deficientes de
+­iluminación.
+ Mantenga una postura firme y buen equilibrio. No trate de
+­alcanzar objetos fuera de su alcance. Al tratar de hacerlo
+puede perder el equilibrio o exponerse al contacto con
+superficies calientes. Mantenga el accesorio de corte por
+debajo de la cintura.
+ Mantenga todas las partes del cuerpo alejadas de toda pieza
+en movimiento.
+ Para evitar tocar superficies calientes, al utilizar esta unidad
+nunca coloque la parte inferior de la misma arriba del nivel
+de la cintura.
+ No toque las áreas alrededor del silenciador o del
+cilindro de la unidad, estas partes se calientan durante el
+funcionamiento.
+ Siempre apague el motor y retire el cable de la bujía antes
+de realizar cualquier ajuste o reparaciones, excepto para los
+ajustes del carburador.
+ Inspeccione cada vez la unidad antes de usarla para ver si
+tiene tornillos flojos, fugas de combustible, etc. Reemplace
+toda pieza dañada antes de utilizar la unidad.
+ El cabezal del hilo gira durante los ajustes del carburador.
+ Algunos informes médicos indican que, en algunas personas,
+las vibraciones de las herramientas manuales pueden
+contribuir a una afección médica llamada síndrome de
+Raynaud. Entre los posibles síntomas está el hormigueo,
+el entumecimiento y la palidez de los dedos, síntomas
+presentes normalmente con la exposición al frío. Se cree que
+los factores ­hereditarios, la ­exposición al frío y a la humedad,
+la dieta, el fumar y las ­prácticas de trabajo contribuyen al
+desarrollo de estos ­síntomas. ­Actualmente se desconoce
+qué tipo de vibraciones o cuánto tiempo de exposición a las
+mismas, si tal es el caso, pueden contribuir a la mencionada
+afección. Hay medidas de ­precaución que puede tomar
+el operador para reducir ­posiblemente los efectos de la
+vibración:
+
+a) Mantenga caliente el cuerpo en tiempo frío. Al utilizar la
+unidad use guantes para mantener calientes las manos
+y las muñecas. Los informes médicos indican que el
+clima frío es un factor importante que contribuye al
+síndrome de Raynaud.
+b) Después de cada período de utilización de la unidad,
+haga ejercicio para aumentar la circulación de la
+sangre.
+c) Tome descansos frecuentes durante el trabajo. Limite
+la cantidad de exposición al día.
+d) Mantenga la producto bien cuidada, con los
+elementos de sujeción debidamente apretados y
+siempre cambiando las piezas desgastadas.
+Si sufre alguno de los síntomas de esta afección ­médica,
+inmediatamente suspenda el uso de la herramienta
+y consulte a su médico con respecto a estos síntomas.
+ Mezcle y guarde el combustible en un recipiente aprobado
+para gasolina. No fume durante el reabastecimiento o
+mezclarse del combustible.
+
+Página 3 — Español
+
+REGLAS DE SEGURIDAD GENERALES
+ Mezcle el combustible a la intemperie donde no haya
+­chispas ni llamas. Limpie todo derrame de combustible.
+Aléjese por lo ­m enos 9 m (30 pies) del sitio de
+reabastecimiento de ­combustible antes de encender el
+motor.
+ Apague el motor y deje que se enfríe antes del
+reabastecimiento de combustible o de guardar la unidad.
+
+ Póngase equipo de protección y observe todas las
+instrucciones de seguridad. Asegúrese de que el
+accesorio de corte deje de girar al tenerse el motor en
+marcha lenta. Al apagar la unidad, asegúrese de que el
+accesorio de corte se haya detenido antes de dejarla en
+reposo.
+
+ Deje que se enfríe el motor; vacíe el tanque de combustible
+en un recipiente de uso aprobado para gasolina y fije la
+unidad para inmovilizarla antes de transportarla en un
+vehículo.
+
+REGLAS DE SEGURIDAD ESPECÍFICAS
+ Inspeccione el producto cada vez antes usarlo. Reemplace
+toda pieza dañada. Asegúrese de que todos los tornillos
+y demás elementos de unión estén en lugar y bien
+firmes. Revise la herramienta para ver si tiene fugas de
+combustible.
+ Cambie el cabezal del hilo, si está agrietado, desportillado
+o dañado de cualquier forma. Asegúrese de que el
+cabezal del hilo, según sea el caso, esté debidamente
+instalado y firmemente asegurado. La inobservancia de
+esta advertencia puede causar lesiones corporales serias.
+ Asegúrese de que todas las protecciones, correas,
+mangos y deflectores estén acoplados debidamente y
+de manera segura.
+ Nunca use hojas, dispositivos movibles, alambre ni
+cuerdas.En el cabezal de corte use únicamente hilo
+de repuesto del f­abricante original. No use ningún otro
+accesorio de corte. I­nstalar cualquier otra marca de hilo
+de corte en esta recortadora de hilo puede producir
+lesiones corporales serias.
+
+ Nunca utilice la unidad si el deflector de pasto no
+está montado en su lugar y en buenas condiciones de
+funcionamiento.
+ Al usar la recortadora, sujétela firmemente por ambos
+mangos. Mantenga el cabezal del hilo por debajo del
+nivel de la cintura. Nunca corte con el cabezal del hilo a
+más de 762 mm (30 pulg.) del suelo.
+ Este producto está diseñado para uso poco frecuente por
+parte de propietarios y otros usuarios ocasionales para
+aplicaciones generales como cortar vegetación ligera y
+pesada, etc. No es para uso prolongado. Los períodos
+prolongados de manejo de la unidad pueden causar
+problemas circulatorios en las manos del operador debido
+a la vibración. Para tal uso puede convenir utilizar una
+sierra dotada de características de antivibración.
+
+Página 4 — Español
+
+SÍMBOLOS
+Las siguientes palabras de señalización y sus significados tienen el objeto de explicar los niveles de riesgo relacionados
+con este producto.
+
+SÍMBOLO
+
+SEÑAL
+
+SIGNIFICADO
+
+PELIGRO:
+
+Indica una situación peligrosa inminente, la cual, si no se evita, causará la muerte
+o lesiones serias.
+
+ADVERTENCIA:
+
+Indica una situación peligrosa posible, la cual, si no se evita, podría causar la
+muerte o lesiones serias.
+
+PRECAUCIÓN:
+
+Indica una situación potencialmente peligrosa la cual, si no se evita, puede
+causar lesiones leves o moderadas.
+
+AVISO:
+
+(Sin el símbolo de alerta de seguridad) Indica información importante no
+relacionada con ningún peligro de lesiones, como una situación que puede
+ocasionar daños físicos.
+
+Es posible que se empleen en este producto algunos de los siguientes símbolos. Le suplicamos estudiarlos y aprender
+su significado para mayor seguridad al manejar este producto.
+
+SYMBOLO
+
+NOMBRE
+
+EXPLICATIÓN
+
+Símbolo de alerta de seguridad
+
+Indica un peligro posible de lesiones personales.
+
+Lea el manual del operador
+
+Para reducir el riesgo de lesiones, el usuario debe leer y
+comprender el manual del operador antes de usar este
+producto.
+
+Protección para los ojos y los oídos
+
+Siempre utilice protección ocular con protección lateral
+con la marca de cumplimiento de la norma ANSI Z87.1,
+como así también protección auditiva cuando utilice
+este equipo.
+
+Mantenga alejadas a las personas
+presentes
+
+Mantenga alejados a los observadores a un mínimo de
+15 m (50 pies) de distancia.
+
+Rebote
+
+Cualquier objeto lanzado puede rebotar y producir lesiones
+personales o daños físicos.
+
+No instale hoja de corte
+
+No instale ni utilice ningún tipo de hoja de corte en ningún
+producto con este símbolo.
+
+Superficie caliente
+
+Para reducir el riesgo de lesiones corporales o daños
+materiales evite tocar toda superficie caliente.
+
+Gasolina y lubricante
+
+Use gasolina sin plomo destinada para vehículos con un
+octanaje de 87 [(R + M) / 2] o más. Este producto está
+impulsado por un motor de dos tiempos y utiliza una
+mezcla de gasolina y lubricante para motor de dos tiempos.
+Página 5 — Español
+
+CARACTERÍSTICAS
+CARACTERÍSTICAS
+ESPECIFICACIONES DEL PRODUCTO
+Peso (seca)
+26CS. ................................................................................................................................................................. 4,3 kg (9,5 lbs.)
+26SS................................................................................................................................................................. 4,8 kg (10,5 lbs.)
+Anchura del corte..................................................................................................................................................432 mm (17 pulg.)
+Cilindrada del motor. ................................................................................................................................................................ 26 cc
+Diámetro del hilo...............................................................................................................................................2,0 mm (0,080 pulg.)
+
+FAMILIARÍCESE CON SU RECORTADORA
+
+Vea la figura 1.
+Para usar este producto con la debida seguridad se debe
+comprender la información indicada en la herramienta misma
+y en este manual, y se debe comprender también el trabajo
+que intenta realizar. Antes de usar este producto, familiarícese
+con todas las características de funcionamiento y normas de
+seguridad del mismo.
+
+SISTEMA DE AVANCE DE HILO POR GOLPE
+REEL-EASY™
+El sistema de avance de hilo por golpe Reel-Easy™ permite
+avanzar con facilidad el hilo al utilizarse la recortadora.
+
+MOTOR MONTADO EN LA PARTE SUPERIOR
+Con el motor montado en la parte superior se mejora el equilibrio
+y está alejado del polvo y de los desechos del área de corte.
+
+DEFLECTOR DE PASTO
+La recortadora incorpora un deflector de pasto que ayuda
+a proteger al operador de los desechos lanzados por la
+herramienta.
+
+ARMADO
+LISTA DE EMPAQUETADO (continuado)
+
+DESEMPAQUETADO
+Embarcamos este producto completamente armado.
+n Extraiga cuidadosamente de la caja la producto y los
+accesorios. Asegúrese de que estén presentes todos los
+artículos enumerados en la lista de empaquetado.
+
+ADVERTENCIA:
+No utilice este producto si alguna pieza incluida en la lista
+de piezas sueltas (o lista de contenido) ya está ensamblada
+al producto cuando lo desempaqueta. El fabricante no
+ensambla las piezas de esta lista en el producto. Éstas deben
+ser instaladas por el usuario. El uso de un producto que
+puede haber sido ensamblado de forma inadecuada podría
+causar lesiones personales graves.
+
+Deflector de pasto del eje curvo – 26CS
+Deflector de pasto del eje recto – 26SS
+Botella de lubricante para motor de dos tiempos
+Manual del operador
+
+ADVERTENCIA:
+Si falta o está dañada alguna pieza, no utilice este ­producto
+sin haber reemplazado la pieza. Usar este producto con
+partes dañadas o faltantes puede causar lesiones serias
+al operador.
+
+ADVERTENCIA:
+
+n Inspeccione cuidadosamente la producto para asegurarse
+de que no haya sufrido ninguna rotura o daño durante el
+transporte.
+n No deseche el material de empaquetado hasta que haya
+inspeccionado cuidadosamente la producto y la haya
+utilizado satisfactoriamente.
+n Si hay piezas dañadas o faltantes, le suplicamos llamar al
+1-800-242-4672, donde le brindaremos asistencia.
+
+No intente modificar este producto ni hacer accesorios
+no recomendados para la misma. Cualquier alteración o
+modificación constituye maltrato el cual puede causar una
+condición peligrosa, y como consecuencia posibles lesiones
+corporales serias.
+
+LISTA DE EMPAQUETADO
+
+El uso de este equipo puede producir chispas propensas a
+iniciar incendios cerca de vegetación seca. Es posible que
+se necesite un parachispas. El operador debe ponerse en
+contacto con las agencias contra incendios locales para
+conocer las leyes y regulaciones relacionadas con los
+requisitos de prevención de incendios.
+
+Power head shaft
+Trimmer shaft
+Mango delantero
+
+ADVERTENCIA:
+
+Llave hexagonal
+
+Página 6 — Español
+
+ARMADO
+ADVERTENCIA:
+Para evitar un arranque accidental que podría causar
+lesiones corporales graves, siempre desconecte el cable de
+la bujía del motor de la bujía misma al ensamblar las piezas.
+
+MANGO DELANTERO
+
+Vea la figura 2.
+ Afloje y retire la tuerca de mariposa, la arandela de seguridad,
+la arandela y el perno del mango.
+ Instale el mango del eje del cabezal motor en la ubicación
+que indica la etiqueta del eje.
+ Si es necesario, suba o baje el mango para ajustarlo a la
+posición de manejo deseada.
+ Vuelva a colocar el perno, la arandela, la arandela de
+seguridad y la tuerca de mariposa. Apriete firmemente la
+tuerca de mariposa.
+ Afloje ligeramente la tuerca de mariposa del mango.
+ Gire el mango en el alojamiento del eje de impulsión, en el
+lugar que indica la etiqueta en el eje.
+ Vuelva a ajustar la tuerca de mariposa para asegurar el
+mango en su lugar.
+
+MONTAJE DEL DEFLECTOR DE PASTO
+			
+
+ADVERTENCIA:
+
+La cuchilla de cortar el hilo del deflector de pasto está
+afilada. Evite tocar la cuchilla. Si no evita tal contacto puede
+originarse lesiones corporales serias.
+
+PARA MONTAR EL DEFLECTOR DE PASTO DEL
+EJE CURVO – 26CS
+Vea la figura 3.
+
+ Quite tornillo de hexagonal, la arandela y la tuerca de mariposa
+del deflector de pasto.
+ Monte el deflector de pasto en la parte inferior del eje curvo,
+como se muestra.
+ Introduzca el tornillo de hexagonal a través del deflector de
+pasto y del soporte del eje curvo.
+ Coloque la arandela en el tornillo de cabeza hexagonal.
+ Coloque la tuerca de mariposa en el tornillo de cabeza
+hexagonal y apriételos firmemente.
+
+PARA MONTAR EL DEFLECTOR DE PASTO DEL
+EJE RECTO – 26SS
+
+Vea la figura 4.
+n Retire la tuerca de mariposa y la soporte de montaje del
+deflector de pasto.
+n Monte el deflector de pasto del eje recto en el eje de
+impulsión de manera que el primero encaje en el orificio de
+posicionamiento del lado inferior del eje de impulsión, cerca
+del cabezal de engranajes.
+n Coloque el soporte de montaje en el eje de impulsión, de
+manera que la orejeta cuadrada del soporte encaje en la
+ranura del deflector de pasto del eje recto.
+n Gire el soporte de montaje de manera que el deflector de
+pasto entre en la ranura de dicho soporte.
+n Instale la tuerca de mariposa y apriétela firmemente.
+
+CONEXIÓN DEL EJE DEL CABEZAL MOTOR Y
+EL EJE DE LA RECORTADORA
+Vea la figura 5.
+
+ Alinee los dos indicadores del eje de la recortadora con
+los tornillos del eje del cabezal motor. Inserte el eje de la
+recortadora en el eje del cabezal motor.
+ Presione las dos secciones para unirlas, hasta que el eje
+de la recortadora haga tope.
+ Con una llave hexagonal, ajuste los dos tornillos hasta
+que queden firmes.
+
+ADVERTENCIA:
+Asegúrese de que los ejes queden bloqueados en su
+lugar antes de usar la recortadora de hilo; durante el
+uso, verifique periódicamente que los ejes estén bien
+ajustados para evitar la posible desconexión de los ejes,
+que podría causar lesiones personales graves.
+
+PRECAUCIÓN:
+Tenga cuidado al deslizar un eje dentro del otro, porque
+podría pellizcarse las manos o los dedos.
+
+ADVERTENCIA:
+Esta recortadora de hilo está diseñada para usarse
+únicamente con el eje de recortadora y el cabezal de hilo que
+se proveen. No puede usarse con otros accesorios ni con
+otros cabezales de corte. Intentar usar otros accesorios u
+otros cabezales de corte podría causar lesiones personales
+graves.
+
+Página 7 — Español
+
+FUNCIONAMIENTO
+ADVERTENCIA:
+No permita que su familarización con este producto le vuelva
+descuidado. Tenga presente que un descuido de un instante
+es suficiente para infligir una lesión grave.
+
+en este producto. Mezcle a razón de 76 ml (2.6 oz.) por galón
+(EE. UU.).
+No use lubricante de uso automotor ni lubricante para motores
+fuera de borda de 2 tiempos.
+
+LUBRICANTE DE ALTA CALIDAD
+PARA MOTOR DE DOS TIEMPOS
+GASOLINA
+LUBRICANTE
+
+ADVERTENCIA:
+Siempre póngase protección ocular con protección lateral
+con la marca de cumplimiento de la norma ANSI Z87.1. La
+inobservancia de esta advertencia puede permitir que los
+objetos lanzados hacia los ojos y otros provocarle lesiones
+graves.
+
+ADVERTENCIA:
+Nunca use hojas, dispositivos movibles, alambre ni cuerdas.
+en este producto. No utilice ningún aditamento o accesorio
+no recomendado por el fabricante de esta herramienta. El
+empleo de aditamentos o accesorios no recomendandos
+podría causar lesiones serias.
+
+ADVERTENCIA:
+El uso de este equipo puede producir chispas propensas
+a iniciar incendios cerca de vegetación seca. Es posible
+que se necesite un parachispas. El operador debe ponerse
+en contacto con las agencias contra incendios locales
+para conocer las leyes y regulaciones relacionadas con
+los requisitos de prevención de incendios.
+
+ABASTECIMIENTO Y REABASTECIMIENTO DE
+COMBUSTIBLE DE LA RECORTADORA
+ADVERTENCIA:
+La gasolina y sus vapores son altamente inflamables y
+explosivos. Maneje con cuidado el producto para evitar
+lesiones personales graves y daños a la propiedad.
+Manténgalo alejado de fuentes de ignición y llamas
+abiertas, utilícelo al aire libre únicamente, no fume mientras
+mezcle la gasolina y el lubricante y limpie los derrames
+inmediatamente.
+MEZCLA DE COMBUSTIBLE
+Este producto está accionado por un motor de 2 tiempos y
+requiere el premezclado de gasolina y lubricante para motor
+de dos tiempos. Mezcle previamente gasolina sin plomo y
+lubricante para motores de 2 tiempos en un recipiente y de
+uso aprobado para gasolina. NO mezcle más producto del que
+pueda utilizar en un período de 30 días.
+Combustible recomendado: El motor está certificado para
+funcionar con gasolina sin plomo destinada para uso automotor.
+NOTA: Le recomendamos que utilice el lubricante Homelite
+de primera calidad para motores de 2 tiempos o cualquier
+lubricante sintético de alta calidad para motores de 2 tiempos
+
+3,8 litro [1,0 galón (US)]
+
+76 ml (2,6 onzas)
+
+COMBUSTIBLES OXIGENADOS
+AVISO:
+No utilice combustibles E15 o E85 (ni combustibles
+que contengan más de 10 % de etanol) con este
+producto. Esto constituye una violación a la ley
+federal, dañará la unidad y anulará la garantía.
+No están cubiertos en la garantía los problemas de
+desempeño o daños al sistema de combustible producidos
+por el uso de un combustible oxigenado con un contenido
+superior a los porcentajes de alcohol o compuesto de éter
+señalados abajo.
+Etanol. Las gasolinas con un contenido de 10% de
+etanol por volumen (comunmente conocida como E10) es
+aceptables. Las gasolinas E15 y E85 no lo son..
+
+LLENADO DEL TANQUE
+ Limpie la superficie alrededor de la tapa del tanque de
+combustible para evitar toda contaminación.
+ Afloje lentamente la tapa del tanque de combustible.
+Coloque la tapa en una superficie limpia.
+ Vierta cuidadosamente el combustible en el tanque. Evite
+los derrames.
+ Antes de volver a colocar la tapa del tanque de combustible,
+limpie e inspeccione la junta.
+ Vuelva a colocar inmediatamente la tapa del tanque de
+combustible y apriételo con la mano. Limpie todo derrame
+de combustible.
+NOTA: Es normal que salga humo de un motor nuevo
+después de usarlo por primera vez.
+
+ADVERTENCIA:
+Siempre apague el motor antes de abastecer el combustible.
+Nunca agregue combustible a una máquina con el motor
+en marcha o caliente. Aléjese por lo menos 9 metros
+(30 pies) del sitio de reabastecimiento de combustible
+antes de encender el motor. No fume y no evite las llamas
+abiertas y las chispas. Si no manipula el combustible de
+manera segura, puede sufrir lesiones personales graves.
+
+Página 8 — Español
+
+FUNCIONAMIENTO
+ARRANQUE Y APAGADO
+
+Vea las figuras 6 y 7.
+Para el arranque debe colocarse la recortadora en una superficie
+plana y despejada.
+
+Para arrancar con el motor frío:
+ Presione lentamente 10 veces la bomba de cebado.
+ Coloque la palanca del anegador en la posición START
+(A) (arranque).
+ Oprima completamente el gatillo del acelerador y tire del
+mango del arrancador hasta que empiece a funcionar el
+motor. No tire del mango del arrancador más de seis (6)
+veces.
+NOTA: Mantenga completamente oprimido el gatillo con
+pasos restantes. Si el motor no arranca, vuelva a comenzar
+con el primer paso, presionar la bomba de cebado.
+ Permita que el motor funcione 10 segundos y después
+ponga la palanca del anegador en la posición RUN (B)
+(funcionamiento).
+Para arrancar con el motor caliente:
+ Presione lentamente 10 veces la bomba de cebado.
+ Después ponga la palanca del anegador en la posición RUN
+(B) (funcionamiento).
+ Oprima completamente el gatillo del acelerador y tire del
+mango del arrancador hasta que empiece a funcionar el
+motor.
+Para apagar el motor:
+ Para apagar el motor, coloque el interruptor de STOP en la
+posición de apagado “ ”.
+
+SI NECESITA ASISTENCIA PARA UTILIZAR ESTE
+PRODUCTO:
+No devuelva este producto a la tienda donde fue adquirido. Por
+favor llame al Departamento de Atención al Cliente para todo
+problema que pueda tener.
+Si necesita asistencia llame al: 1-800-242-4672
+
+MANEJO DE LA RECORTADORA
+Vea las figuras 8
+
+ADVERTENCIA:
+Es posible que la carcasa del motor se caliente mientras
+la recortadora de hilo esté en uso. No apoye ni coloque el
+brazo, la mano ni ninguna parte del cuerpo contra la carcasa
+del motor mientras la recortadora esté en uso. Sólo sostenga
+la recortadora como se muestra en la figura 8 con todas
+las partes del cuerpo alejadas de la carcasa del motor. El
+contacto prolongado con la carcasa del motor puede causar
+quemaduras u otras lesiones.
+
+ADVERTENCIA:
+Siempre coloque la unidad al lado derecho de usted. Si se
+utiliza la unidad colocándola en el lado izquierdo del cuerpo,
+el usuario expone éste a superficies calientes, lo cual puede
+causar lesiones por quemadura.
+
+ADVERTENCIA:
+Para evitar quemaduras causadas por tocar superficies
+­calientes, al utilizar esta unidad nunca coloque la parte
+inferior de la misma arriba del nivel de la cintura.
+Sujete la recortadora con la mano derecha en el mango ­trasero
+y coloque la mano izquierda en el mango delantero. Sujete
+­firmemente la unidad con ambas manos durante la operación.
+Se recomienda sujetar la recortadora en una posición cómoda,
+con el mango trasero a la altura de la cadera.
+Siempre utilice la recortadora a la máxima aceleración. Corte
+la hierba alta desde la parte superior hacia abajo. Esto ­evitará
+que la hierba se enrolle alrededor del alojamiento del eje y del
+cabezal del hilo que pudiese causar daño por ­calentamiento
+excesivo. Si la hierba se enrolla alrededor del ­cabezal del
+hilo, APAGUE EL MOTOR, desconecte el cable de la bujía y
+desprenda la hierba. El recorte prolongado con el acelerador
+parcialmente abierto produce goteo de lubricante por el
+silenciador.
+
+ADVERTENCIA:
+Siempre sujete la recortadora de hilo lejos del cuerpo,
+manteniendo un espacio entre el cuerpo y la ­herramienta.
+Cualquier contacto del cuerpo con la armazón o el
+­cabezal de corte de la recortadora de hilo puede producir
+quemaduras y/o otras lesiones serias.
+
+CONSEJOS PARA RECORTAR
+Vea las figuras 8 - 9.
+ Evite tocar las superficies calientes de la herramienta; para
+ello, manténgala lejos del cuerpo. (La posición correcta
+de manejo de la herramienta se muestra en la figura 8.)
+ Mantenga la recortadora inclinada hacia el área de corte;
+ésta es la mejor área de corte.
+ La recortadora de eje curvo corta cuando se pasa la unidad
+de derecha a izquierda. La recortadora de eje recto corta
+cuando se pasa la unidad de izquierda a derecha. De
+esta manera se evita el lanzamiento de desechos hacia el
+operador. Evite cortar en el área peligrosa mostrada en la
+figura 9.
+ Use la punta del hilo para efectuar el recorte; no fuerce el
+cabezal del hilo hacia la hierba sin cortar.
+ Las cercas de alambre y de estacas causan desgaste
+­adicional en el hilo, incluso la ruptura del mismo. Los muros
+de piedra y de ladrillo, los cordones y la madera pueden
+gastar rápidamente el hilo.
+ Evite tocar árboles y arbustos. La corteza de los árboles,
+las molduras de madera, los revestimientos de las paredes
+y los postes de las cercas resultar dañados fácilmente por
+el hilo.
+
+Página 9 — Español
+
+FUNCIONAMIENTO
+AVANCE DEL HILO UTILIZANDO EL SISTEMA
+DE AVANCE DE HILO POR GOLPE REELEASY™
+El avance del hilo se controla golpeando levemente el cabezal
+del hilo sobre la hierba mientras el motor funciona a la máxima
+aceleración.
+n Haga funcionar el motor a la máxima aceleración.
+n Golpee levemente el cabezal sobre el suelo para hacer
+avanzar el hilo. El hilo avanza cada vez que se golpea el
+cabezal.
+n Quizá se necesiten varios golpes hasta que el hilo haga
+contacto con la cuchilla de corte.
+n Reanude el recortado.
+NOTA: Si el hilo se gasta hasta quedar muy corto quizá no
+pueda avanzar el hilo tras golpear el cabezal contra el suelo.
+Si así fuese, APAGUE EL MOTOR, desconecte el cable de la
+bujía y avance manualmente el hilo.
+
+AVANCE MANUALMENTE EL HILO
+Con el motor apagado y el cable de la bujía desconectó, empuje
+hacia abajo el retén del carrete mientras tira del hilo, o hilos,
+según sea el caso, para avanzar manualmente el hilo.
+
+CUCHILLA DE CORTE DEL HILO EN EL
+DEFLECTOR DE HIERBA
+Vea la figura 10.
+Esta recortadora está equipada con una cuchilla de corte
+del hilo instalada en el deflector de pasto. Para mejores
+resultados en el recorte, avance el hilo hasta que la cuchilla
+lo corte a la longitud apropiada. Avance el hilo siempre que
+escuche que el motor está funcionando más rápido de lo
+normal, o cuando disminuya la eficiencia del corte. Esto
+mantendrá un mejor desempeño y mantendrá el hilo a la
+suficiente longitud para avanzar apropiadamente.
+
+MANTENIMIENTO
+ADVERTENCIA:
+
+ADVERTENCIA:
+
+Al dar servicio a la unidad, sólo utilice piezas de repuesto
+Homelite idénticas. El empleo de piezas diferentes puede
+causar un peligro o dañar el producto.
+
+ADVERTENCIA:
+Siempre póngase protección ocular con la marca de
+cumplimiento de la norma ANSI Z87.1 junto con protección
+para los oídos. La inobservancia de esta advertencia puede
+permitir que los objetos lanzados hacia los ojos y otros
+provocarle lesiones graves.
+
+No permita en ningún momento que fluidos para f­renos,
+gasolina, productos a base de petróleo, lubricantes
+­penetrantes, etc., lleguen a tocar las piezas de plástico.
+Los productos químicos pueden dañar, debilitar o destruir
+el plástico, lo cual puede causar lesiones serias.
+A menudo, usted puede efectuar los ajustes y r­eparaciones
+descritos aquí. Para otro tipo de reparaciones, lleve la
+­recortadora a un establecimiento de servicio autorizado.
+
+REEMPLAZO DEL CARRETE
+SISTEMA DE AVANCE DE HILO POR GOLPE
+REEL-EASY™
+Vea las figuras 11 y 12.
+
+ADVERTENCIA:
+Antes de inspeccionar, limpiar o dar mantenimiento a la
+máquina, apague el motor, espere hasta que se detengan
+todas las piezas en movimiento, desconecte el cable de
+la bujía y apártelo de la bujía. El incumplimiento de estas
+instrucciones puede provocar lesiones personales graves
+o daños materiales.
+
+MANTENIMIENTO GENERAL
+Evite el empleo de solventes al limpiar piezas de plástico. La mayoría
+de los plásticos son susceptibles a diferentes tipos de solventes
+comerciales y pueden resultar dañados. Utilice paños limpios
+para eliminar la suciedad, el polvo, el lubricante, la grasa, etc.
+
+Si únicamente va a reabastecer el hilo, consulte la sección
+Reabastecimiento del hilo más adelante en este manual.
+Use únicamente hilo monofilar de 2,0 mm (0,080 pulg.) de diámetro.
+n Apague el motor y desconecte el cable de la bujía. Sujete
+el cabezal del hilo y desenrosque el retén del carrete.
+Para retirar el retén del carrete:
+En el caso de la 26CS, gire hacia la izquierda el retén del
+carrete.
+En el caso de la 26SS, gire hacia la derecha el retén del
+carrete.
+n Retire el carrete vacío del cabezal del hilo.
+NOTA: No es necesario quitar el alojamiento del cabezal del
+hilo del eje de impulsión.
+n Inserte el nuevo carrete en el cabezal del hilo.
+
+Página 10 — Español
+
+MANTENIMIENTO
+NOTA: Asegúrese de que las flechas en el carrete estén
+alineadas con los ojillos en el alojamiento del cabezal del
+hilo. Presione hacia abajo y mantenga presionado el carrete
+y el alojamiento al mismo tiempo mientras se completa la
+instalación.
+n Vuelva a colocar el retén del carrete para asegurarlo.
+ Para instalar el retén del carrete:
+En el caso de la 26CS, gire hacia la derecha el retén del
+carrete.
+En el caso de la 26SS, gire hacia la izquierda el retén del
+carrete.
+ Coloque el hilo como se describe en la sección
+Reabastecimiento del hilo.
+
+REABASTECIMIENTO DEL HILO
+Vea las figuras 13 a 14.
+
+n Apague el motor y desconecte el cable de la bujía.
+n Gire el carrete hacia la derecha según sea necesario para
+alinear las flechas del carrete con los ojillos en el alojamiento
+del cabezal del hilo.
+n Corte una pieza de hilo monofilar de 3 m (10 pies) de largo.
+Encuentre la mitad del tramo de hilo. Inserte el hilo en el ojillo
+ubicado en el alojamiento de la recortadora de hilo. Empuje
+hasta que el extremo del hilo salga por el otro lado del cabezal
+del hilo. Tire del hilo del otro lado hasta que obtenga la misma
+cantidad de hilo en ambos lados del carrete.
+n Gire el carrete hacia la derecha para enrollar el hilo en éste
+hasta obtener aproximadamente 152,4 mm (6 pulg.) de hilo
+en cada lado.
+n Presione el retén del carrete a la vez que tira del hilo, o
+hilos, para avanzar manualmente el hilo y para verificar el
+ensamblaje correcto del cabezal del hilo.
+
+LIMPIEZA DEL ORIFICIO DE ESCAPE, EL
+SILENCIADOR Y EL PARACHISPAS
+NOTA: Dependiendo del tipo de combustible utilizado, el
+tipo y la cantidad de lubricante utilizado, o las condiciones
+de funcionamiento en particular, la abertura de escape, el
+silenciador y/o el parachispas pueden resultar obstruidos con
+depósitos de carbón. Si observa alguna pérdida de potencia
+en su herramienta con motor de gasolina, quizá sea necesario
+eliminar dichos depósitos para restaurar el rendimiento.
+Recomendamos enfáticamente que este servicio lo realicen
+únicamente los técnicos de servicio calificados.
+Es necesario limpiar o reemplazar el parachispas cada 50 horas
+o anualmente para asegurarse del buen funcionamiento
+de la unidad. Los parachispas pueden estar instalados en
+diferentes posiciones dependiendo del modelo del cual se
+trate. Comuníquese con el establecimiento de servicio más
+cercano para confirmar la ubicación del parachispas para su
+modelo específico.
+
+AJUSTE DE LA MARCHA LENTA
+Vea la figura 15.
+
+ADVERTENCIA:
+El cabezal de corte se moverán cuando se ajuste la
+velocidad de marcha lenta. Utilice todas las prendas
+de protección y no permita la presencia de personas
+ajenas a la operación, niños ni mascotas a menos de
+15 metros (50 pies) de distancia. Realice los ajustes con
+la unidad apoyada a mano de modo que la cuchilla y/o
+el cabezal de corte no entren en contacto con el piso
+ni con cualquier objeto. Mantenga todas las partes del
+cuerpo alejadas el cabezal de corte y el silenciador. El
+incumplimiento de estas instrucciones podría causar
+lesiones personales de gravedad.
+Si el accesorio del corte avanza estando el motor en marcha
+lenta, se necesita ajustar el tornillo de marcha lenta del
+motor. Gire el tornillo de velocidad de marcha lenta en el
+sentido contrario a las manecillas del reloj para reducir las
+RPM y que se detenga el movimiento del accesorio del corte.
+Si el accesorio del corte aún se mueve al estar el motor
+en marcha lenta, contacte a un representante de servicio
+para el ajuste y suspenda el uso de la misma hasta que se
+efectúe la reparación.
+
+ADVERTENCIA:
+El accesorio del corte nunca debe girar en marcha lenta.
+Gire a la izquierda el tornillo de marcha lenta para reducir
+dicha marcha y así detener el accesorio de corte, o
+comuníquese con un representante de servicio para que
+la ajusten, y suspenda el uso de la unidad hasta que se
+efectúe la reparación. Si el accesorio del corte se mueve
+al estar el motor en marcha lenta, podría resultar lesiones
+corporales serias.
+
+LIMPIEZA DEL FILTRO DE AIRE
+Vea la figura 16 y 17.
+Para obtener un desempeño apropiado y una larga vida útil
+de la unidad, mantenga limpio el filtro de aire.
+ Retire la tapa del filtro de aire ejerciendo presión hacia
+abajo sobre los pestillos mientras la extrae lentamente.
+ Retire el filtro de aire.
+ Si el elemento de filtro de espuma está sucio, retírelo de
+la unidad de filtro de aire. Limpie el elemento de filtro de
+espuma con agua jabonosa tibia. Enjuague y deje que
+seque.
+NOTA: Si el elemento de filtro de espuma está dañado,
+también debe ser reemplazado.
+ Aplique una capa delgada de aceite de motor al elemento
+de filtro de espuma, luego escúrrala.
+ Vuelva a instalar el filtro.
+
+Página 11 — Español
+
+MANTENIMIENTO
+NOTA: Asegúrese de que el filtro esté asentado
+correctamente en el interior de la tapa. Si se instala de
+forma incorrecta el filtro el polvo entra en el motor y causa
+un rápido desgaste del mismo.
+ Reemplace la tapa del filtro de aire colocando las ranuras
+de la tapa del filtro de aire en el los pestillos del alojamiento,
+luego presiona la tapa hasta que quede firmemente
+enganchada.
+
+TAPA DEL TANQUE DE COMBUSTIBLE,
+TANQUE, Y CONDUCTO
+ADVERTENCIA:
+Revise la herramienta para ver si tiene fugas de
+combustible. Una tapa del tanque de combustible,
+tanque o conductos, con fugas constituye un riesgo
+de incendio y debe reemplazarse inmediatamente. Si
+encuentra fugas, corrija el problema antes de utilizar
+la herramienta. De lo contrario puede producirse un
+incendio, con el consiguiente riesgo de lesiones serias.
+La tapa del tanque de combustible contiene un filtro que
+no necesita mantenimiento y una válvula de retención. Un
+filtro de combustible obstruido puede causar un desempeño
+­deficiente del motor. Si mejora el desempeño al aflojar
+la tapa del tanque de combustible, es posible que esté
+defectuosa la válvula de retención o quizá esté obstruido
+el filtro. ­Reemplace la tapa del tanque de combustible si es
+necesario.
+
+REEMPLAZO DE LA BUJÍA
+En este motor se emplea una bujía Champion RCJ-6Y o
+Torch L7RTC con una separación interelectródica de 0,63
+mm (0,025 pulg.). Utilice un repuesto idéntico y cámbielo
+anualmente.
+
+AVISO:
+Tenga cuidado de no estropear la rosca de la bujía. Si
+se estropea la rosca de la bujía, resultará seriamente
+dañado el producto.
+
+ALMACENAMIENTO DE LA PRODUCTO
+ Limpie todo material extraño de la recortadora. Almacene
+la unidad en un espacio bien ventilado inaccesible a los
+niños. Evite que la unidad entre en contacto con agentes
+corrosivos como las sustancias químicas para el jardín y
+las sales para derretir el hielo.
+ Cumpla todos los reglamentos federales y municipales
+para el almacenamiento y manejo seguro de la gasolina.
+Al almacenar 1 mes o más:
+ Drene todo el combustible del tanque en un recipiente
+de uso aprobado para gasolina. Accione el motor hasta
+que se apague.
+
+OPERACIÓN DEL MOTOR A ALTITUDES
+­ELEVADAS
+Lleve este equipo a un centro de servicio técnico autorizado
+para que ajusten este motor en caso de que se lo deba hacer
+funcionar a más de 609,6 metros (2000 pies) de altura. De
+no hacerlo, el rendimiento del motor podría ser deficiente y
+se generaría un mayor nivel de emisiones contaminantes.
+Un motor ajustado para altitudes elevadas no puede
+hacerse funcionar a una altura inferior a los 609,6 metros
+(2000 pies). De hacerlo, el motor se sobrecalentará y sufrirá
+graves daños. Lleve todo motor que haya sido modificado
+para funcionar a altitudes elevadas a un centro de servicio
+técnico autorizado para que restauren las condiciones de
+las especificaciones de fábrica originales antes de hacerlo
+funcionar a menos de 609,6 metros (2000 pies) de altura.
+
+Página 12 — Español
+
+MANTENIMIENTO
+ESTE PRODUCTO SE FABRICÓ CON UN SILENCIADOR CATALÍTICO
+¡Felicidades! Acaba de realizar una inversión para proteger el medio ambiente. A fin de conservar el nivel de emisiones original
+de este producto, le suplicamos consultar el apartado sobre mantenimiento que aparece abajo.
+
+PROGRAMA DE MANTENIMIENTO
+Pieza de
+mantenimiento
+
+Inspeccionar
+cada vez antes
+de usar la unidad
+
+Limpiar
+cada 5 horas
+de uso
+
+Reemplazar cada
+25 horas de uso
+o cada año
+
+Reemplácelo
+cada
+50 Horas
+
+* CONJUNTO DE SILENCIADOR CATALÍTICO................................................................................................................................ X
+PANTALLA PARACHISPAS. ............................................................................................................................................................ X
+* CONJUNTO DEL FILTRO DE AIRE
+		 incluye:
+		 Pantalla del filtro.......................................................................................X
+* CONJUNTO DEL CARBURADOR
+		 incluye:
+		 Juntas..........................................................X
+* CONJUNTO DEL TANQUE DE COMBUSTIBLE
+		 incluye:
+		 Conductos de combustible. ........................X
+		 Tapa del tanque de combustible. ................X
+		 Filtro de combustible............................................................................................................................ X
+* CONJUNTO DEL ENCENDIDO
+		 incluye:
+		 Bujía...................................................................................................................................................... X
+* AVISO: EL USO DE COMPONENTES DE CONTROL DE EMISIONES QUE NO SEAN LOS DISEÑADO PARA ESTA UNIDAD INFRINGE LA
+LEGISLACIÓN FEDERAL.
+
+Página 13 — Español
+
+CORRECCIÓN DE PROBLEMAS
+Problema
+El motor no arranca
+
+Causa Posible
+1. No hay chispa.
+
+2. No hay combustible.
+
+3. Está ahogado el motor.
+
+El motor no alcanza la máxima
+velocidad y emite demasiado
+humo
+
+1. Mezcla de lubricante y combustible
+incorrecta.
+2. Está sucio el filtro de aire pantalla.
+3. Está sucia la pantalla parachispas.
+4. Falló la bujía.
+
+Solución
+1. Limpie o reemplace la bujía, según sea necesario.
+Reajuste la separación interelectródica de la bujía.
+Consulte la sección Reemplazo de la bujía más
+arriba en este manual.
+2. Presione la bomba de cebado hasta que se
+llene de combustible la misma. Si no se llena la
+bomba, significa que está obstruido el sistema de
+conducción de combustible. Comuníquese con un
+establecimiento autorizados de servicio. Si se llena
+la bomba, es posible que esté ahogado el motor,
+prosiga con el siguiente punto.
+3. Coloque la palanca del anegador en la posición
+START (arranque). Oprima el gatillo y tire de la
+cuerda hasta que el motor arranque y funcione.
+NOTA: Dependiendo de la intensidad del
+ahogamiento, pueden requerirse numerosos
+tirones de la cuerda.
+1. Use combustible fresco y la mezcla correcta de
+lubricante para motor de 2 tiempos. (50:1).
+2. Limpie el filtro de aire pantalla. Consulte la sección
+Limpieza del filtro de aire pantalla previamente
+en este manual.
+3. Comuníquese con un establecimiento autorizados
+de servicio.
+4. Limpie o reemplace la bujía, según sea necesario.
+Reajuste la separación interelectródica de la bujía.
+Consulte la sección Reemplazo de la bujía más
+arriba en este manual.
+
+El motor arranca, marcha y
+acelera pero no funciona a
+velocidad de marcha en vacío
+(ralentí)
+
+1. El tornillo de marcha lenta del
+carburador necesita ajuste.
+
+1. Gire a la derecha el tornillo de marcha lenta para
+aumentar la velocidad de marcha en vacío (ralentí).
+Vea la figura 15.
+
+No avanza el hilo
+
+1. El hilo se pegó a sí mismo.
+2. No hay suficiente hilo en el carrete.
+
+1. Lubrique el resorte con rociador de silicón.
+2. Instale más hilo. Consulte la se cción de
+reabastecimiento del hilo correspondiente en
+este manual.
+3. Tire de los hilos a la vez que alternadamente
+presiona y suelta el retén del carrete.
+4. Retire el hilo del carrete y vuelva a enrollarlo.
+Consulte la sección de reabastecimiento del hilo
+correspondiente en este manual.
+5. Avance el hilo a la máxima aceleración.
+
+3. El hilo se gastó hasta quedar muy
+corto.
+4. El hilo está enredado en el carrete.
+5. La velocidad del motor está muy
+lenta.
+
+Es difícil girar el retén del
+carrete
+
+1. La rosca del tornillo está sucia o
+dañada.
+
+1. Limpie las roscas y lubríquelas con grasa - si no
+hay mejoría, reemplace el retén del carrete.
+
+El pasto se enreda alrededor
+del alojamiento del eje de
+impulsión y del cabezal del
+hilo
+
+1. Se está cortando la hierba alta a
+nivel del suelo.
+2. Se está utilizando la recortadora
+con el anegador parcialmente
+abierto.
+
+1. Corte la hierba alta de arriba hacia abajo para
+evitar que se enrede en la unidad.
+2. Accione la recortadora a la máxima aceleración.
+
+El motor arranca y funciona
+pero el cabezal del hilo no gira
+
+1. Los ejes se armaron de forma
+incorrecta.
+
+1. Vuelva a armar los ejes. Consulte Conexión del
+eje del cabezal motor y el eje de la recortadora
+en la sección Armado de este manual.
+
+Página 14 — Español
+
+GARANTÍA
+DECLARACIÓN DE LA GARANTÍA LIMITADA
+Homelite Consumer Products, Inc. garantiza al comprador
+original al menudeo que este producto para uso en el exterior
+HOMELITE carece de defectos en materiales y mano de obra y
+acuerda reparar o reemplazar, a la sola discreción de Homelite,
+cualquier producto defectuoso sin cargo alguno dentro del
+plazo establecido después de la fecha de compra.
+ Dos años para todos los modelos, si se utilizan para fines
+personales, familiares o domésticos;
+ 90 días si el producto se emplea para cualquier otro
+propósito, como el de alquiler o el uso comercial.
+Esta garantía se otorga solamente al comprador original al
+menudeo, y comienza en la fecha de la compra original al
+menudeo.
+Cualquier parte de este producto manufacturado o
+suministrado por HOMELITE que, a juicio razonable de
+HOMELITE, tenga defectos en los materiales o en la mano de
+obra, será reparado o remplazado por un centro de servicio
+autorizado de productos HOMELITE, sin cargo alguno al
+comprador por concepto de piezas y mano de obra.
+El producto, incluida toda pieza defectuosa, debe enviarse a un
+establecimiento de servicio autorizado dentro del período de la
+garantía. El gasto de enviar el producto al establecimiento para
+cualquier trabajo cubierto por la garantía, así como el gasto de
+devolverlo al propietario después de la reparación, correrán
+por cuenta del propietario. La responsabilidad de Homelite
+con respecto a todo reclamo se limita a las reparaciones o
+reemplazo del producto, y ningún reclamo de incumplimiento
+de la garantía será causante de la cancelación o rescisión
+del contrato de venta de ningún producto HOMELITE. En
+el establecimiento se requerirá el recibo de compra para
+respaldar cualquier reclamo al amparo de la garantía. Todo
+trabajo efectuado en cumplimiento de la garantía debe ser
+realizado en un establecimiento de servicio autorizado de
+productos Homelite.
+Esta garantía se limita a noventa (90) días a partir de la fecha
+original de la compra de cualquier producto HOMELITE
+empleado para propósitos comerciales o de alquiler, o
+cualquier otro propósito generador de ingresos.
+Esta garantía no cubre ningún producto HOMELITE que
+haya sido sujeto a un uso indebido, maltrato, negligencia
+o accidente, o que haya sido utilizado de cualquier forma
+contraria a las instrucciones de manejo especificadas en
+el manual del operador. Esta garantía no aplica a los daños
+en el producto que resulten del mantenimiento indebido ni
+a producto alguno que haya sido alterado o modificado.
+La garantía no cubre ninguna reparación necesaria por el
+uso normal ni por el uso de piezas o accesorios que sean
+incompatibles con el producto HOMELITE, o afecten de forma
+desfavorable su funcionamiento, desempeño o durabilidad.
+Además, esta garantía no cubre:
+
+B. Artículos sujetos a desgaste – Perillas de tope, carretes
+exteriores, hilos de corte, carretes interiores, poleas
+del arrancador, cuerdas del arrancador, correas de
+transmisión, aspas, arandelas de fieltro, pasadores de
+enganche, hojas de triturar, ventiladores de sopladoras,
+tubos de sopladoras y de aspiradoras, sacos y correas
+de aspiradoras, barras guía y cadenas de sierras.
+Homelite se reserva el derecho a cambiar o mejorar el diseño de
+cualquier producto HOMELITE sin asumir ninguna obligación
+de modificar ningún producto fabricado previamente.
+TODAS LAS GARANTÍAS IMPLÍCITAS ESTÁN LIMITADAS
+EN DURACIÓN SEGÚN EL PERÍODO DE GARANTÍA
+DECLARADA. POR CONSIGUIENTE, CUALQUIER GARANTÍA
+IMPLÍCITA, INCLUSO LAS DE COMERCIABILIDAD,
+IDONEIDAD PARA UN PROPÓSITO EN PARTICULAR, O DE
+CUALQUIER TIPO, PIERDEN TOTALMENTE SU VALIDEZ
+DESPUÉS DEL VENCIMIENTO DEL PERÍODO DE GARANTÍA
+CORRESPONDIENTE DE DOS AÑOS O NOVENTA DÍAS. LA
+OBLIGACIÓN DE HOMELITE EN VIRTUD DE ESTA GARANTÍA
+SE LIMITA ESTRICTA Y EXCLUSIVAMENTE A LA REPARACIÓN
+O REEMPLAZO DE LAS PIEZAS DEFECTUOSAS, Y
+HOMELITE NO ASUME NI AUTORIZA A NADIE A ASUMIR
+EN SU NOMBRE NINGUNA OTRA OBLIGACIÓN. ALGUNOS
+ESTADOS NO PERMITEN LIMITACIONES EN CUANTO
+A LA DURACIÓN DE UNA GARANTÍA IMPLÍCITA, POR
+LO CUAL ES POSIBLE QUE LA LIMITACIÓN ANTERIOR
+NO SE APLIQUE EN EL CASO DE USTED. HOMELITE
+NO ASUME NINGUNA RESPONSABILIDAD POR DAÑOS
+DIRECTOS, INDIRECTOS O DE NINGÚN OTRO TIPO, COMO
+EL GASTO DE ENVIAR EL PRODUCTO HOMELITE A UN
+ESTABLECIMIENTO HOMELITE DE SERVICIO AUTORIZADO
+Y EL GASTO DE ENVIARLO DE ALLÍ AL PROPIETARIO, EL
+TIEMPO DE VIAJE DEL MECÁNICO, CARGOS TELEFÓNICOS
+O TELEGRÁFICOS, ALQUILER DE UN PRODUCTO
+SUSTITUTO DURANTE EL TIEMPO DE REALIZACIÓN DEL
+SERVICIO DE LA GARANTÍA, VIAJES, PÉRDIDA O DAÑOS
+A OBJETOS DE PROPIEDAD PERSONAL, PÉRDIDA DE
+INGRESOS, PÉRDIDA DEL USO DEL PRODUCTO, PÉRDIDA
+DE TIEMPO O INCONVENIENTES. EN ALGUNOS ESTADOS
+NO SE PERMITE LA EXCLUSIÓN O LIMITACIÓN DE DAÑOS
+DIRECTOS O INDIRECTOS, POR LO CUAL ES POSIBLE QUE
+LA LIMITACIÓN O EXCLUSIÓN DESCRITA ARRIBA NO SE
+APLIQUE EN SU CASO.
+Esta garantía le confiere derechos legales específicos; es
+posible también que usted goce de otros derechos, los cuales
+pueden variar de un estado a otro.
+Esta garantía se aplica a todos los productos HOMELITE
+fabricados por o para Homelite y vendidos en Estados Unidos
+y en Canadá.
+Para localizar el establecimiento de servicio autorizado
+Homelite más cercano, llame al 1-800-242-4672, o visite
+nuestro sitio Web en www.homelite.com.
+
+A. Afinación – Bujías, carburador, ajustes del carburador,
+encendido, filtros
+
+Página 15 — Español
+
+26cc String Trimmers
+TAILLE-BORDURES À LIGNE DE 26cc
+RECORTADORAS DE HILO DE 26cc
+
+OPERATOR’S MANUAL
+
+26CS — UT33600
+26SS — UT33650
+
+MANUEL D’UTILISATION
+MANUAL DEL OPERADOR
+
+ALL VERSIONS / TOUTES LES VERSIONS / TODAS LAS VERSIONES
+
+CALIFORNIA PROPOSITION 65
+
+WARNING:
+This product, its exhaust, and other substances that may become airborne from
+its use may contain chemicals, including
+lead, known to the State of California
+to cause cancer, birth defects, or other
+reproductive harm. Wash hands after
+handling.
+
+PROPOSITION 65 DE L’ÉTAT
+DE CALIFORNIE
+
+AVERTISSEMENT :
+Ce produit, les gaz d’échappement
+qu’il dégage et les autres substances
+rejetées dans l’air à la suite de son
+utilisation peuvent contenir des produits
+chimiques, notamment du plomb qui,
+selon l’État de la Californie, peuvent
+causer le cancer, des anomalies
+congénitales et d’autres dommages au
+système reproducteur. Bien se laver
+les mains après toute manipulation.
+
+SERVICE
+For parts or service, contact your nearest Homelite authorized service dealer.
+Be sure to provide all relevant information when you call or visit. For the location of the authorized service dealer nearest you, please call 1-800-242-4672
+or visit us online at www.homelite.com.
+REPAIR PARTS
+The model number of this product is found on a plate or label attached to the
+housing. Please record the serial number in the space provided below.
+MODEL NO._ ________________________________
+SERIAL NO.__________________________________
+DÉPANNAGE
+Pour tout entretien ou réparation du produit, contacter le centre de réparations
+Homelite agréé le plus proche. Veiller à fournir toutes les informations pertinentes
+lors de tout appel téléphonique ou visite. Pour obtenir l’adresse du centre de
+réparations agréé le plus proche, téléphoner au 1-800-242-4672, ou visiter
+notre site www.homelite.com.
+PIÈCES DE RECHANGE
+Le numéro de modèle se trouve sur une plaquette ou étiquette placée sur le
+bâti. Noter le numéro de série dans l’espace ci-dessous.
+NUMÉRO DE MODÈLE
+
+CALIFORNIA - PROPUESTA
+DE LEY NÚM. 65
+
+ADVERTENCIA:
+Este producto, su escape y otras
+sustancias que puedan llegar a ser
+aerotransportadas por su uso pueden
+contener sustancias químicas (por
+ejemplo, plomo) consideradas por el
+estado de California como causantes de
+cáncer, defectos de nacimiento u otras
+alteraciones reproductivas. Lávese las
+manos después de utilizar el aparato.
+
+NUMÉRO DE SÉRIE__________________________
+SERVICIO
+Para obtener piezas o servicio, comuníquese con el centro de servicio
+autorizado de Homelite más cercano. Asegúrese de proporcionar todos los
+datos pertinentes al llamar o al presentarse personalmente. Para obtener
+información sobre el establecimiento de servicio autorizado más cercano a
+usted, le suplicamos llamar al 1-800-242-4672 o visitar nuestro sitio en la red
+mundial, en la dirección www.homelite.com.
+PIEZAS DE REPUESTO
+El número de modelo de este producto se encuentra en una placa o etiqueta
+pegada a la caja del motor. Le recomendamos anotar el número de serie en
+el espacio suministrado abajo.
+NÚMERO DE MODELO
+NÚMERO DE SERIE__________________________
+
+HOMELITE CONSUMER PRODUCTS, INC.
+990000233
+8-7-13 (REV:05)
+
+1428 Pearman Dairy Road, Anderson, SC 29625
+1-800-242-4672 • www.homelite.com
+A subsidiary of Techtronic Industries Co., Ltd. • OTC: TTNDY
+
+

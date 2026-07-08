@@ -1,0 +1,5924 @@
+FOREWORD
+This manual contains an introductory description on
+SUZUKI DR200SE and procedures for its inspection/service and overhaul of its main components.
+Other information considered as generally known is
+not included.
+Read GENERAL INFORMATION section to familiarize yourself with outline of the vehicle and MAINTENANCE and other sections to use as a guide for
+proper inspection and service.
+This manual will help you know the vehicle better so
+that you can assure your customers of your optimum
+and quick service.
+* This manual has been prepared on the basis
+of the latest specification at the time of publication.
+If modification have been made since then,
+differences may exist between the content of
+this manual and the actual vehicle.
+* Illustrations in this manual are used to show
+the basic principles of operation and work procedures.
+They may not represent the actual vehicle exactly in detail.
+* This manual is intended for those who have
+enough knowledge and skills for servicing
+SUZUKI vehicles. Without such knowledge
+and skills, you should not attempt servicing
+by relying on this manual only.
+Instead, please contact your nearby authorized SUZUKI motorcycle dealer.
+
+GROUP INDEX
+GENERAL INFORMATION
+
+1
+
+PERIODIC MAINTENANCE
+
+2
+
+ENGINE
+
+3
+
+FUEL AND LUBRICATION
+SYSTEM
+
+4
+
+CHASSIS
+
+5
+
+ELECTRICAL SYSTEM
+
+6
+
+SERVICING INFORMATION
+
+7
+
+EMISSION CONTROL
+INFORMATION
+
+8
+
+IMPORTANT
+All street-legal Suzuki motorcycles with engine displacement of 50 cc or greater are subject to Environmental Protection agency emission regulations.
+These regulations set specific standards for exhaust
+emission output levels as well as particular servicing requirements. This manual includes specific information required to properly inspect and service
+DR200SE in accordance with all EPA regulations. It
+is strongly recommended that the chapter on Emission Control, Periodic Servicing and Carburetion be
+thoroughly reviewed before any type of service work
+is performed.
+Further information concerning the EPA emission
+regulations and U.S. Suzuki’s emission control program can be found in the U.S. SUZUKI EMISSION
+CONTROL PROGRAM MANUAL/SERVICE BULLETIN.
+
+c COPYRIGHT SUZUKI MOTOR CORPORATION 1995
+
+03 ENGINE.book Page 105 Tuesday, February 28, 2006 3:03 PM
+
+SUPPLEMENTS
+DR200SEV/W/X/Y/K1/K2/K3
+(’97,'98,'99,'00,'01,'02,'03-MODELS)
+
+9
+
+DR200SEK4/K5 ('04, '05-MODELS)
+
+10
+
+DR200SEK6 ('06-MODEL)
+
+11
+
+DR200SEK7 /K8 ('07 &"08 -MODEL)
+
+12
+
+13
+
+13
+
+DR200SEK9 ('09-MODEL)
+
+9
+
+DR200SEK4 (’04-MODEL)
+
+10-1
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+This chapter describes service specifications and servicing procedurers which differ from those
+of the DR200SEK3 (’03-MODEL).
+
+10
+2
+
+NOTE:
+* Any differences between the DR200SEK3 (’03-MODEL) and DR200SEK4/K5 (’04, ’05-MODELS) in specifications are cleary indicated with an asterisk (*) mark.
+* Please refer to the capters 1 through 9 for details which are not given in this chapter.
+
+4
+CONTENTS
+SPECIFICATIONS ............................................................................. 10- 2
+For E-03, 28, 33 ........................................................................ 10- 2
+For E-06, 24 .............................................................................. 10- 3
+SERVICE DATA ................................................................................ 10- 4
+For E-03, 28, 33 ........................................................................ 10- 4
+For E-06, 24 .............................................................................. 10-11
+TIGHTENING TORQUE ..................................................................... 10-18
+GENERATOR ROTOR NUT .............................................................. 10-19
+
+6
+
+10
+
+10-2 DR200SEK4/K5 (’04, ’05-MODELS)
+
+SPECIFICATIONS
+For E-03, 28, 33
+DIMENSIONS AND DRY MASS
+Overall length ......................................................................................
+Overall width .......................................................................................
+Overall height ......................................................................................
+Wheelbase ..........................................................................................
+Ground clearance................................................................................
+Seat height ..........................................................................................
+Dry mass.............................................................................................
+
+2 150 mm (84.6 in)
+805 mm (31.7 in)
+1 185 mm (46.7 in)
+1 405 mm (55.3 in)
+260 mm (10.2 in)
+810 mm (31.9 in)
+113 kg (249 lbs)
+
+ENGINE
+Type.....................................................................................................
+Number of cylinders ............................................................................
+Bore ....................................................................................................
+Stroke..................................................................................................
+Displacement ......................................................................................
+Compression ratio ...............................................................................
+Carburetor ...........................................................................................
+Air cleaner ...........................................................................................
+Starter system.....................................................................................
+Lubrication system ..............................................................................
+Idle speed ...........................................................................................
+
+Four-stroke, air-cooled, OHC
+1
+66.0 mm (2.60 in)
+58.2 mm (2.29 in)
+199 cm3 (12.1 cu. in)
+9.4 : 1
+MIKUNI BST31SS, single
+Polyurethane foam element
+Electric
+Wet sump
+1 500 ± 100 r/min
+
+DRIVE TRAIN
+Clutch .................................................................................................. Wet multi-plate type
+Transmission ....................................................................................... 5 speed constant mesh
+Gearshift pattern ................................................................................. 1-down, 4-up
+Primary reduction................................................................................ 3.157 (60/19)
+Final reduction .................................................................................... 3.000 (45/15)
+Gear ratios, Low .............................................................................. 3.000 (33/11)
+2nd ............................................................................... 1.933 (29/15)
+3rd................................................................................ 1.437 (23/16)
+4th ................................................................................ 1.095 (23/21)
+Top ............................................................................... 0.913 (21/23)
+Drive chain .......................................................................................... D.I.D. 520VC.5, 112 links
+CHASSIS
+Front suspension.................................................................................
+Rear suspension .................................................................................
+Steering angle .....................................................................................
+Caster .................................................................................................
+Trail......................................................................................................
+Turning radius .....................................................................................
+Front brake ..........................................................................................
+Rear brake ..........................................................................................
+Front tire size ......................................................................................
+Rear tire size .......................................................................................
+
+Telescopic, coil spring, oil damped
+Link type, coil spring, oil damped
+43° (right & left)
+29° 00’
+112 mm (4.4 in)
+2.3 m (7.5 ft)
+Disk brake
+Drum brake
+70/100-21M/C 44P tube type
+100/90-18M/C 56P tube type
+
+ELECTRICAL
+Ignition type.........................................................................................
+Ignition timing ......................................................................................
+Spark plug ...........................................................................................
+Battery.................................................................................................
+Generator ............................................................................................
+Fuse ....................................................................................................
+Headlight .............................................................................................
+Brake light/Taillight ..............................................................................
+Turn signal light ...................................................................................
+Speedometer light ...............................................................................
+Neutral indicator light ..........................................................................
+Turn signal indicator light ....................................................................
+High beam indicator light ....................................................................
+
+Electronic ignition (Transistorized)
+7° B.T.D.C. at 1 500 r/min
+NGK DR8EA or DENSO X24ESR-U
+12V 21.6 kC (6 Ah/10 HR)
+Three-phase A.C. generator
+20A
+12V 60/55W
+12V 21/5W
+12V 21W
+12V 3.4W
+12V 3.4W
+12V 3.4W
+12V 1.7W
+
+CAPACITIES
+Fuel tank, including reserve ..............................................................
+
+Engine oil
+
+reserve ............................................................................
+change.............................................................................
+with filter change .............................................................
+overhaul...........................................................................
+
+12.5 L (3.3/2.7 US/Imp gal) ….. E-33
+13.0 L (3.4/2.9 US/Imp gal) ….. Others
+2.5 L (0.7/0.5 US/Imp gal)
+850 ml (0.9/0.7 US/Imp qt)
+950 ml (1.0/0.8 US/Imp qt)
+1 100 ml (1.2/1.0 US/lmp qt)
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+For E-06, 24
+DIMENSIONS AND DRY MASS
+Overall length .....................................................................................
+Overall width.......................................................................................
+Overall height .....................................................................................
+Wheelbase .........................................................................................
+Ground clearance ...............................................................................
+Seat height .........................................................................................
+Dry mass ............................................................................................
+
+2 220 mm (87.4 in)
+805 mm (31.7 in) ..... E-06
+940 mm (37.0 in) ..... E-24
+1 185 mm (46.6 in)
+1 405 mm (55.3 in)
+260 mm (10.2 in)
+850 mm (33.5 in)
+121 kg (266 lbs) ..... E-06
+120 kg (264 lbs) ..... E-24
+
+ENGINE
+Type ....................................................................................................
+Number of cylinders ...........................................................................
+Bore....................................................................................................
+Stroke .................................................................................................
+Displacement......................................................................................
+Compression ratio ..............................................................................
+Carburetor ..........................................................................................
+Air cleaner ..........................................................................................
+Starter system ....................................................................................
+Lubrication system .............................................................................
+Idle speed ...........................................................................................
+
+Four-stroke, air-cooled, OHC
+1
+66.0 mm (2.598 in)
+58.2 mm (2.291 in)
+199 cm3 (12.1 cu. in)
+9.4 : 1
+MIKUNI BST31SS, single
+Polyurethane foam element
+Electric and kick
+Wet sump
+1 500 ± 100 r/min
+
+DRIVE TRAIN
+Clutch .................................................................................................
+Transmission.......................................................................................
+Gearshift pattern.................................................................................
+Primary reduction ratio .......................................................................
+Final reduction ratio ............................................................................
+Gear ratios, Low..............................................................................
+2nd ..............................................................................
+3rd ...............................................................................
+4th ...............................................................................
+Top...............................................................................
+Drive chain..........................................................................................
+
+Wet multi-plate type
+5 speed constant mesh
+1-down, 4-up
+3.157 (60/19)
+3.916 (47/12)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+DID520V, 112 links
+
+CHASSIS
+Front suspension ................................................................................
+Rear suspension ................................................................................
+Front fork stroke..................................................................................
+Rear wheel travel................................................................................
+Steering angle ....................................................................................
+Caster.................................................................................................
+Trail .....................................................................................................
+Turning radius .....................................................................................
+Front brake .........................................................................................
+Rear brake..........................................................................................
+Front tire size ......................................................................................
+Rear tire size ......................................................................................
+
+Telescopic, coil spring, oil damped
+Link type, coil spring, oil damped
+205 mm (8.1 in)
+205 mm (8.1 in)
+43° (right & left)
+29°
+112 mm (4.4 in)
+2.3 m (7.5 ft)
+Disk brake
+Drum brake
+70/100-21 44M tube type
+90/100-18 54M tube type
+
+ELECTRICAL
+Ignition type ........................................................................................
+Ignition timing .....................................................................................
+Spark plug ..........................................................................................
+Battery ................................................................................................
+Generator ...........................................................................................
+Fuse ...................................................................................................
+Headlight ............................................................................................
+Turn signal light ..................................................................................
+Brake light/Taillight..............................................................................
+Speedometer light ..............................................................................
+Neutral indicator light..........................................................................
+Turn signal indicator light....................................................................
+High beam indicator light ....................................................................
+
+Electronic ignition (C.D.I.)
+7° B.T.D.C. at 1 500 rpm
+NGK DR8EA or DENSO X24ESR-U
+12V 21.6 kC (6 Ah) 10 HR
+Three-phase A.C. generator
+20A
+12V 60/55W
+12V 15W ..... E-06 only
+12V 21/5W
+12V 1.7W
+12V 2W
+12V 2W
+12V 2W
+
+CAPACITIES
+Fuel tank, including reserve ..............................................................
+reserve .............................................................................
+Engine oil, oil change .......................................................................
+with filter change.............................................................
+overhaul ..........................................................................
+
+13.0 L (3.4/2.9 US/Imp gal)
+2.5 L (0.7/0.5 US/Imp gal)
+950 ml (1.0/0.8 US/Imp qt)
+1 050 ml (1.1/0.9 US/Imp qt)
+1 200 ml (1.3/1.1 US/Imp qt)
+
+10-3
+
+10-4 DR200SEK4/K5 (’04, ’05-MODELS)
+
+SERVICE DATA
+For E-03, 28, 33
+VALVE + GUIDE
+
+Unit: mm (in)
+
+ITEM
+Valve diam.
+
+IN.
+EX.
+
+Valve clearance (when cold)
+
+IN. & EX.
+
+Valve guide to valve stem
+clearance
+
+IN.
+EX.
+
+STANDARD
+33
+(1.3)
+28
+(1.1)
+0.08 – 0.13
+(0.003 – 0.005)
+0.010 – 0.037
+(0.0004 – 0.0015)
+0.030 – 0.057
+(0.0012 – 0.0022)
+
+LIMIT
+—
+—
+—
+—
+—
+
+Valve stem deflection
+
+IN. & EX.
+
+—
+
+0.35
+(0.014)
+
+Valve guide I.D.
+
+IN. & EX.
+
+—
+
+Valve stem O.D.
+
+IN.
+EX.
+
+5.500 – 5.512
+(0.2165 – 0.2170)
+5.475 – 5.490
+(0.2146 – 0.2161)
+5.455 – 5.470
+(0.2148 – 0.2154)
+
+Valve stem runout
+
+IN. & EX.
+
+—
+
+Valve head thickness
+
+IN. & EX.
+
+—
+
+Valve stem end length
+
+IN. & EX.
+
+—
+
+0.05
+(0.002)
+0.5
+(0.02)
+2.6
+(0.1)
+
+Valve seat width
+
+IN. & EX.
+
+0.9 – 1.1
+(0.04 – 0.05)
+
+—
+
+Valve head radial runout
+
+IN. & EX.
+
+—
+
+Valve spring free length
+(IN. & EX.)
+
+INNER
+
+—
+
+OUTER
+
+—
+
+0.03
+(0.001)
+35.1
+(1.38)
+40.6
+(1.60)
+
+Valve spring tension
+(IN. & EX.)
+
+INNER
+OUTER
+
+7.1 – 9.2 kgf
+(15.7 – 20.3 lbs)
+at length 32.5 mm (1.28 in)
+17.3 – 21.3 kgf
+(38.1 – 47.0 lbs)
+at length 36.0 mm (1.42 in)
+
+—
+—
+
+—
+—
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+CAMSHAFT + CYLINDER HEAD
+
+Unit: mm (in)
+
+ITEM
+Cam height
+
+STANDARD
+34.174 – 34.218
+(1.3454 – 1.3472)
+33.804 – 33.848
+(1.3309 – 1.3326)
+0.032 – 0.066
+(0.0013 – 0.0026)
+22.012 – 22.025
+(0.8666 – 0.8671)
+21.959 – 21.980
+(0.8645 – 0.8654)
+
+IN.
+EX.
+
+LIMIT
+33.870
+(1.3335)
+33.500
+(1.3189)
+0.150
+(0.0059)
+
+Camshaft journal oil clearance
+
+IN. & EX.
+
+Camshaft journal holder I.D.
+
+IN. & EX.
+
+Camshaft journal O.D.
+
+IN. & EX.
+
+Camshaft runout
+
+IN. & EX.
+
+—
+
+0.10
+(0.004)
+
+Rocker arm I.D.
+
+IN. & EX.
+
+—
+
+Rocker arm shaft O.D.
+
+IN. & EX.
+
+12.000 – 12.018
+(0.4724 – 0.4731)
+11.977 – 11.995
+(0.4715 – 0.4722)
+
+Cylinder head distortion
+
+—
+
+Cylinder head cover distortion
+
+—
+
+ITEM
+Compression pressure
+
+Cylinder bore
+Piston diam.
+
+Piston ring free end gap
+
+Piston ring end gap
+
+1 400 kPa
+(14 kgf/cm2, 199 psi)
+0.040 – 0.050
+(0.0016 – 0.0020)
+66.000 – 66.015
+(2.5984 – 2.5990)
+65.955 – 65.970
+(2.5966 – 2.5972)
+Measure at 15 mm (0.59 in) from the skirt end.
+
+Piston ring to groove clearance
+
+—
+1st
+
+R
+
+Approx. 7.5 (0.30)
+
+2nd
+
+R
+
+Approx. 9.4 (0.37)
+
+2nd
+
+0.10 – 0.25
+(0.004 – 0.010)
+0.10 – 0.25
+(0.004 – 0.010)
+
+1st
+
+—
+
+2nd
+
+—
+
+1st
+
+—
+
+—
+
+Unit: mm (in)
+STANDARD
+
+Cylinder distortion
+
+—
+
+0.05
+(0.002)
+0.05
+(0.002)
+
+CYLINDER + PISTON + PISTON RING
+
+Piston to cylinder clearance
+
+10-5
+
+LIMIT
+980 kPa
+(9.8 kgf/cm2,
+139 psi)
+0.120
+(0.0047)
+66.090
+(2.6020)
+65.880
+(2.5937)
+0.05
+(0.002)
+6.0
+(0.24)
+7.5
+(0.30)
+0.5
+(0.02)
+0.5
+(0.02)
+0.18
+(0.007)
+0.15
+(0.006)
+
+10-6 DR200SEK4/K5 (’04, ’05-MODELS)
+
+ITEM
+Piston ring groove width
+
+1st
+2nd
+Oil
+
+Piston ring thickness
+
+1st
+2nd
+
+Piston pin bore
+Piston pin O.D.
+
+STANDARD
+1.01 – 1.03
+(0.040 – 0.041)
+1.21 – 1.23
+(0.047 – 0.048)
+2.01 – 2.03
+(0.079 – 0.080)
+0.970 – 0.990
+(0.038 – 0.039)
+1.170 – 1.190
+(0.046 – 0.047)
+16.002 – 16.008
+(0.6300 – 0.6302)
+15.996 – 16.000
+(0.6298 – 0.6299)
+
+CONROD + CRANKSHAFT
+ITEM
+Conrod small end I.D.
+
+—
+
+Conrod big end side clearance
+Conrod big end width
+Crank web to web width
+Crankshaft runout
+
+—
+—
+—
+—
+—
+16.030
+(0.6311)
+15.980
+(0.6291)
+Unit: mm (in)
+
+STANDARD
+16.006 – 16.014
+(0.6302 – 0.6305)
+
+Conrod deflection
+
+LIMIT
+
+0.10 – 0.45
+(0.004 – 0.018)
+17.95 – 18.00
+(0.707 – 0.709)
+53.0 ± 0.1
+(2.09 ± 0.004)
+
+LIMIT
+16.040
+(0.6315)
+3.0
+(0.12)
+1.00
+(0.039)
+—
+—
+
+—
+
+0.08
+(0.003)
+
+STANDARD
+2.000 (30/15)
+Above 15 kPa (0.15 kgf/cm2, 2.1 psi)
+Below 35 kPa (0.35 kgf/cm2, 4.9 psi)
+at 3 000 r/min
+
+LIMIT
+—
+
+OIL PUMP
+ITEM
+Oil pump reduction ratio
+Oil pressure (at 60 °C, 140 °F)
+
+CLUTCH
+
+Unit: mm (in)
+
+ITEM
+Clutch lever play
+Clutch release screw
+Clutch plate thickness
+
+—
+
+1 pc
+5 pcs
+
+STANDARD
+10 – 15
+(0.4 – 0.6)
+1/4!turn back
+2.9 – 3.1
+(0.114 – 0.122)
+2.95 – 3.15
+(0.116 – 0.124)
+
+Driven plate distortion
+
+—
+
+Clutch spring free length
+
+—
+
+LIMIT
+—
+—
+2.6
+(0.10)
+0.10
+(0.004)
+31.0
+(1.22)
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+TRANSMISSTION + DRIVE CHAIN
+ITEM
+Primary reduction ratio
+Final reduction ratio
+Gear ratios
+
+Low
+2nd
+3rd
+4th
+Top
+Shift fork to groove clearance
+Shift fork groove width
+
+No.1,2,3
+
+Shift fork thickness
+
+No.1,2,3
+
+Drive chain
+
+Type
+Links
+20-pitch
+length
+
+Drive chain slack
+
+Unit: mm (in) Except ratio
+STANDARD
+3.157 (60/19)
+3.000 (45/15)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+0.10 – 0.30
+(0.004 – 0.012)
+5.0 – 5.1
+(0.20 – 0.21)
+4.8 – 4.9
+(0.18 – 0.19)
+DID 520VC5
+112 links
+
+LIMIT
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+319.4
+(12.57)
+
+—
+25 – 40
+(1.0 – 1.6)
+
+—
+
+CARBURETOR
+ITEM
+Carburetor type
+Bore size
+I.D. No.
+Idle r/min
+Float height
+Main jet
+Jet needle
+Needle jet
+Throttle valve
+Pilot jet
+Starter jet
+Pilot screw
+Throttle cable play
+
+(M.J.)
+(J.N.)
+(N.J.)
+(Th.V.)
+(P.J.)
+(G.S.)
+(P.S.)
+
+10-7
+
+SPECIFICATION
+E-03, 28
+MIKUNI BST31SS
+31 mm
+42AC
+1 500 ± 100 r/min
+13.0 ± 1.0 mm (0.51 ± 0.04 in)
+#
+5D77
+#125
+#
+#25
+PRE-SET
+2 – 4 mm (0.08 – 0.16 in)
+
+E-33
+←
+←
+42AE
+←
+←
+←
+←
+←
+←
+←
+←
+←
+←
+
+10-8 DR200SEK4/K5 (’04, ’05-MODELS)
+
+ELECTRICAL
+
+Unit: mm (in)
+
+ITEM
+Spark plug
+
+Type
+Gap
+
+Spark performance
+Signal coil resitance
+Ignition coil resistance
+
+SPECIFICATION
+DENSO: X24ESR-U
+NGK: CR8EA
+0.6 – 0.7
+(0.024 – 0.028)
+Over 8 mm (0.3) at 1 atm.
+100 – 140 Ω
+
+Primary
+
+2–6Ω
+
+Secondary
+
+20 – 30 kΩ
+
+NOTE
+
+G – Bl
+Terminal –
+Terminal
+Plug cap –
+Terminal
+
+Generator coil resistance
+Charging
+0.1 – 1.5 Ω
+Generator no-load voltage
+More than 60 V (AC) at 5 000 r/min
+Generator Max. output
+150 W at 5 000 r/min
+Regulated voltage
+13.0 – 16.0 V at 5 000 r/min
+Starter relay resistance
+2–6Ω
+Battery
+Type designation
+YTX7L-BS
+Capacity
+12 V 21.6 kC (6 Ah)/10 HR
+Fuse size
+20 A
+
+WATTAGE
+
+Unit: W
+ITEM
+
+Headlight
+
+HI
+LO
+
+Brake light/Taillight
+Turn signal light
+Speedometer light
+Turn signal indicator light
+High beam indicator light
+Neutral indicator light
+
+SPECIFICATION
+60
+55
+21/5
+21
+3.4
+3.4
+1.7
+3.4
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+BRAKE + WHEEL
+
+Unit: mm (in)
+
+ITEM
+Brake lever play
+Rear brake pedal free travel
+Rear brake pedal height
+
+STANDARD
+0.1 – 0.3
+(0.004 – 0.010)
+20 – 30
+(0.8 – 1.2)
+2.5
+(0.10)
+
+LIMIT
+
+130.7
+(5.15)
+1.5
+(0.06)
+3.0
+(0.12)
+0.30
+(0.012)
+
+—
+—
+—
+
+Brake drum I.D.
+
+Rear
+
+—
+
+Brake lining thickness
+
+Rear
+
+—
+
+Brake disc thickness
+
+Front
+
+3.5 ± 0.2
+(0.138 ± 0.008)
+
+Brake disc runout
+
+Front
+
+—
+
+Master cylinder bore
+
+Front
+
+—
+
+Master cylinder piston diam.
+
+Front
+
+Brake caliper cylinder bore
+
+Front
+
+Brake caliper piston diam.
+
+Front
+
+12.700 – 12.743
+(0.5000 – 0.5017)
+12.657 – 12.684
+(0.4983 – 0.4994)
+33.960 – 34.010
+(1.3370 – 1.3390)
+33.878 – 33.928
+(1.3338 – 1.3357)
+
+Wheel rim runout
+
+Axial
+
+—
+
+Radial
+
+—
+
+Front
+
+—
+
+Rear
+
+—
+
+Front
+Rear
+Front
+Rear
+
+J21 × 1.60
+J18 × 2.15
+70/100-21 44P or 70/100-21 M/C 44P
+100/90-18 56P or 100/90-18 M/C 56P
+
+Front
+
+—
+
+Rear
+
+—
+
+2.0
+(0.08)
+2.0
+(0.08)
+0.25
+(0.010)
+0.25
+(0.010)
+—
+—
+—
+—
+3.0
+(0.12)
+3.0
+(0.12)
+
+Wheel axle runout
+
+Wheel rim size
+Tire size
+Tire tread depth
+
+10-9
+
+—
+—
+—
+
+10-10 DR200SEK4/K5 (’04, ’05-MODELS)
+
+SUSPENSION
+
+Unit: mm (in)
+
+ITEM
+Front fork stroke
+
+STANDARD
+205
+(8.1)
+
+LIMIT
+
+—
+
+561
+(22.1)
+
+179.5
+(7.07)
+231
+(9.1)
+205
+(8.1)
+
+—
+
+—
+
+—
+
+0.6
+(0.02)
+
+Front fork spring free length
+Front fork oil level
+Rear shock absorber spring
+pre-set length
+Rear wheel travel
+Swingarm pivot shaft runout
+
+NOTE
+
+—
+
+—
+
+TIRE PRESSUER
+COLD INFLATION
+TIRE PRESSURE
+FRONT
+REAR
+
+kPa
+150
+175
+
+SOLO RIDING
+kgf/cm2
+1.50
+1.75
+
+psi
+22
+25
+
+kPa
+150
+200
+
+DUAL RIDING
+kgf/cm2
+1.50
+2.00
+
+psi
+22
+29
+
+FUEL + OIL
+ITEM
+Fuel type
+
+Fuel tank including
+
+reserve
+
+reserve
+Engine oil type
+Engine oil capacity
+
+Front fork oil type
+Front fork oil capacity (each leg)
+Brake fluid type
+
+SPECIFICATION
+Use only unleaded gasoline of at least 87 pump
+octane (R/2+M/2) or 91 octane or higher rated by
+the research method. Gasoline containing MTBE
+(Methyl Tertiary Butyl Ether), less than 10% ethanol, or less than 5% methanol with appropriate
+cosolvents and corrosion inhibitor is permissible.
+13.0 L
+(3.4/2.9 US/lmp qt)
+12.5 L
+(3.3/2.7 US/lmp qt)
+2.5 L
+(0.7/0.5 US/lmp qt)
+SAE 10W-40, API SF or SG
+850 ml
+Change
+(0.90/0.75 US/lmp qt)
+950 ml
+Filter change
+(1.00/0.84 US/lmp qt)
+1 100 ml
+Overhaul
+(1.2/1.0 US/lmp qt)
+Fork oil #10
+309 ml
+(10.4/10.9 US/lmp oz)
+DOT 4
+
+NOTE
+
+E-03, 28
+E-33
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+For E-06, 24
+VALVE + GUIDE
+
+Unit: mm (in)
+
+ITEM
+Valve diam.
+
+IN.
+EX.
+
+Valve clearance (when cold)
+
+IN. & EX.
+
+Valve guide to valve stem
+clearance
+
+IN.
+EX.
+
+STANDARD
+33
+(1.3)
+28
+(1.1)
+0.08 – 0.13
+(0.003 – 0.005)
+0.010 – 0.037
+(0.0004 – 0.0015)
+0.030 – 0.057
+(0.0012 – 0.0022)
+
+LIMIT
+—
+—
+—
+—
+—
+
+Valve stem deflection
+
+IN. & EX.
+
+—
+
+0.35
+(0.014)
+
+Valve guide I.D.
+
+IN. & EX.
+
+—
+
+Valve stem O.D.
+
+IN.
+EX.
+
+5.500 – 5.512
+(0.2165 – 0.2170)
+5.475 – 5.490
+(0.2146 – 0.2161)
+5.455 – 5.470
+(0.2148 – 0.2154)
+
+Valve stem runout
+
+IN. & EX.
+
+—
+
+Valve head thickness
+
+IN. & EX.
+
+—
+
+Valve stem end length
+
+IN. & EX.
+
+—
+
+0.05
+(0.002)
+0.5
+(0.02)
+2.6
+(0.1)
+
+Valve seat width
+
+IN. & EX.
+
+0.9 – 1.1
+(0.04 – 0.05)
+
+—
+
+Valve head radial runout
+
+IN. & EX.
+
+—
+
+Valve spring free length
+(IN. & EX.)
+
+INNER
+
+—
+
+OUTER
+
+—
+
+0.03
+(0.001)
+35.1
+(1.38)
+40.6
+(1.60)
+
+Valve spring tension
+(IN. & EX.)
+
+10-11
+
+INNER
+OUTER
+
+7.1 – 9.2 kgf
+(15.7 – 20.3 lbs)
+at length 32.5 mm (1.28 in)
+17.3 – 21.3 kgf
+(38.1 – 47.0 lbs)
+at length 36.0 mm (1.42 in)
+
+—
+—
+
+—
+—
+
+10-12 DR200SEK4/K5 (’04, ’05-MODELS)
+
+CAMSHAFT + CYLINDER HEAD
+
+Unit: mm (in)
+
+ITEM
+Cam height
+
+STANDARD
+34.174 – 34.218
+(1.3454 – 1.3472)
+33.804 – 33.848
+(1.3309 – 1.3326)
+0.032 – 0.066
+(0.0013 – 0.0026)
+22.012 – 22.025
+(0.8666 – 0.8671)
+21.959 – 21.980
+(0.8645 – 0.8654)
+
+IN.
+EX.
+
+LIMIT
+33.870
+(1.3335)
+33.500
+(1.3189)
+0.150
+(0.0059)
+
+Camshaft journal oil clearance
+
+IN. & EX.
+
+Camshaft journal holder I.D.
+
+IN. & EX.
+
+Camshaft journal O.D.
+
+IN. & EX.
+
+Camshaft runout
+
+IN. & EX.
+
+—
+
+0.10
+(0.004)
+
+Rocker arm I.D.
+
+IN. & EX.
+
+—
+
+Rocker arm shaft O.D.
+
+IN. & EX.
+
+12.000 – 12.018
+(0.4724 – 0.4731)
+11.977 – 11.995
+(0.4715 – 0.4722)
+
+Cylinder head distortion
+
+—
+
+Cylinder head cover distortion
+
+—
+
+Piston to cylinder clearance
+Cylinder bore
+Piston diam.
+
+Piston ring free end gap
+
+Piston ring end gap
+
+1 400 kPa
+(14 kgf/cm2, 199 psi)
+0.040 – 0.050
+(0.0016 – 0.0020)
+66.000 – 66.015
+(2.5984 – 2.5990)
+65.955 – 65.970
+(2.5966 – 2.5972)
+Measure at 15 mm (0.59 in) from the skirt end.
+
+Piston ring to groove clearance
+
+—
+1st
+
+R
+
+Approx. 7.5 (0.30)
+
+2nd
+
+R
+
+Approx. 9.4 (0.37)
+
+2nd
+
+0.10 – 0.25
+(0.004 – 0.010)
+0.10 – 0.25
+(0.004 – 0.010)
+
+1st
+
+—
+
+2nd
+
+—
+
+1st
+
+—
+
+Unit: mm (in)
+STANDARD
+
+Cylinder distortion
+
+—
+
+0.05
+(0.002)
+0.05
+(0.002)
+
+CYLINDER + PISTON + PISTON RING
+ITEM
+Compression pressure
+
+—
+
+LIMIT
+980 kPa
+(9.8 kgf/cm2,
+139 psi)
+0.120
+(0.0047)
+66.090
+(2.6020)
+65.880
+(2.5937)
+0.05
+(0.002)
+6.0
+(0.24)
+7.5
+(0.30)
+0.5
+(0.02)
+0.5
+(0.02)
+0.18
+(0.007)
+0.15
+(0.006)
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+ITEM
+Piston ring groove width
+
+1st
+2nd
+Oil
+
+Piston ring thickness
+
+1st
+2nd
+
+Piston pin bore
+Piston pin O.D.
+
+STANDARD
+1.01 – 1.03
+(0.040 – 0.041)
+1.21 – 1.23
+(0.047 – 0.048)
+2.01 – 2.03
+(0.079 – 0.080)
+0.970 – 0.990
+(0.038 – 0.039)
+1.170 – 1.190
+(0.046 – 0.047)
+16.002 – 16.008
+(0.6300 – 0.6302)
+15.996 – 16.000
+(0.6298 – 0.6299)
+
+CONROD + CRANKSHAFT
+ITEM
+Conrod small end I.D.
+
+—
+
+Conrod big end side clearance
+Conrod big end width
+Crank web to web width
+Crankshaft runout
+
+LIMIT
+—
+—
+—
+—
+—
+16.030
+(0.6311)
+15.980
+(0.6291)
+Unit: mm (in)
+
+STANDARD
+16.006 – 16.014
+(0.6302 – 0.6305)
+
+Conrod deflection
+
+10-13
+
+0.10 – 0.45
+(0.004 – 0.018)
+17.95 – 18.00
+(0.707 – 0.709)
+53.0 ± 0.1
+(2.09 ± 0.004)
+
+LIMIT
+16.040
+(0.6315)
+3.0
+(0.12)
+1.00
+(0.039)
+—
+—
+
+—
+
+0.08
+(0.003)
+
+STANDARD
+2.000 (30/15)
+Above 15 kPa (0.15 kgf/cm2 , 2.1 psi)
+Below 35 kPa (0.35 kgf/cm2, 4.9 psi)
+at 3 000 r/min
+
+LIMIT
+—
+
+OIL PUMP
+ITEM
+Oil pump reduction ratio
+Oil pressure (at 60 °C, 140 °F)
+
+CLUTCH
+
+Unit: mm (in)
+
+ITEM
+Clutch lever play
+Clutch release screw
+Clutch plate thickness
+
+—
+
+1 pc
+5 pcs
+
+STANDARD
+10 – 15
+(0.4 – 0.6)
+1/4 turn back
+2.9 – 3.1
+(0.114 – 0.122)
+2.95 – 3.15
+(0.116 – 0.124)
+
+Driven plate distortion
+
+—
+
+Clutch spring free length
+
+—
+
+LIMIT
+—
+—
+2.6
+(0.10)
+0.10
+(0.004)
+31.0
+(1.22)
+
+10-14 DR200SEK4/K5 (’04, ’05-MODELS)
+
+TRANSMISSTION + DRIVE CHAIN
+ITEM
+Primary reduction ratio
+Final reduction ratio
+Gear ratios
+
+Low
+2nd
+3rd
+4th
+Top
+Shift fork to groove clearance
+Shift fork groove width
+
+No.1,2,3
+
+Shift fork thickness
+
+No.1,2,3
+
+Drive chain
+
+Type
+Links
+20-pitch
+length
+
+Drive chain slack
+
+Unit: mm (in) Except ratio
+STANDARD
+3.157 (60/19)
+3.916 (47/12)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+0.10 – 0.30
+(0.004 – 0.012)
+5.0 – 5.1
+(0.20 – 0.21)
+4.8 – 4.9
+(0.18 – 0.19)
+DID 520VC5
+112 links, ENDLESS
+—
+25 – 40
+(1.0 – 1.6)
+
+CARBURETOR
+ITEM
+Carburetor type
+Bore size
+I.D. No.
+Idle r/min
+Float height
+Main jet
+Main air jet
+Jet needle
+Needle jet
+Throttle valve
+Pilot jet
+Valve seat
+Starter jet
+Pilot screw
+Throttle cable play
+
+(M.J.)
+(M.A.J)
+(J.N.)
+(N.J.)
+(Th.V.)
+(P.J.)
+(V.S.)
+(G.S.)
+(P.S.)
+
+SPECIFICATION
+MIKUNI BST31SS
+31 mm
+42AA
+1 500 ± 100 r/min
+13.0 ± 1.0 mm (0.51 ± 0.04 in)
+#122.5
+0.8 mm
+5D26-3rd
+P-5
+#125
+#40
+1.5 mm
+#25
+1 and 1/2 turns out
+3 – 6 mm (0.1 – 0.2 in)
+
+LIMIT
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+319.4
+(12.57)
+—
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+ELECTRICAL
+
+10-15
+
+Unit: mm (in)
+
+ITEM
+
+SPECIFICATION
+7°B.T.D.C. Below at 1 500 r/min
+DENSO: X24ESR-U
+Type
+NGK: CR8EA
+0.6 – 0.7
+Gap
+(0.024 – 0.028)
+Over 8 mm (0.3) at 1 atm.
+100 – 140 Ω
+
+Ignition timing
+Spark plug
+
+Spark performance
+Signal coil resitance
+Ignition coil resistance
+
+Primary
+
+0.14 – 0.18 Ω
+
+Secondary
+
+15 – 18 kΩ
+
+Signal coil peak voltage
+
+3.0 – 4.6 V
+
+Ignition coil primary peak voltage
+
+125 – 195 V
+
+Generator coil resistance
+Generator no-load voltage
+Regulated voltage
+Starter relay resistance
+Battery
+Type designation
+Capacity
+Standard
+electrolyte S.G.
+Fuse size
+
+Charging
+0.1 – 1.5 Ω
+More than 70 V (AC) at 5 000 r/min
+13.0 – 16.0 V at 5 000 r/min
+2–6Ω
+YTX7L-BS
+12 V 21.6 kC (6 Ah)/10 HR
+
+NOTE
+
+G – Bl
+Terminal –
+Terminal
+Plug cap –
+Terminal
++ G/W –
+- Bl/Y
+- White –
++ Ground
+—
+
+1.32 at 20 °C (68 °F)
+20 A
+
+WATTAGE
+
+Unit: W
+ITEM
+
+Headlight
+
+HI
+LO
+
+Brake light/Taillight
+Turn signal light
+(For South Africa)
+Speedometer light
+Turn signal indicator light
+(Fpr South Afriaca)
+High beam indicator light
+Neutral indicator light
+
+SPECIFICATION
+60
+55
+21/5
+21
+1.7
+2
+2
+2
+
+10-16 DR200SEK4/K5 (’04, ’05-MODELS)
+
+BRAKE + WHEEL
+
+Unit: mm (in)
+
+ITEM
+Brake lever play
+Rear brake pedal free travel
+Rear brake pedal height
+
+STANDARD
+0.1 – 0.3
+(0.004 – 0.010)
+20 – 30
+(0.8 – 1.2)
+2.5
+(0.10)
+
+LIMIT
+
+130.7
+(5.15)
+1.5
+(0.06)
+3.0
+(0.12)
+0.30
+(0.012)
+
+—
+—
+—
+
+Brake drum I.D.
+
+Rear
+
+—
+
+Brake lining thickness
+
+Rear
+
+—
+
+Brake disc thickness
+
+Front
+
+3.5 ± 0.2
+(0.138 ± 0.008)
+
+Brake disc runout
+
+Front
+
+—
+
+Master cylinder bore
+
+Front
+
+—
+
+Master cylinder piston diam.
+
+Front
+
+Brake caliper cylinder bore
+
+Front
+
+Brake caliper piston diam.
+
+Front
+
+12.700 – 12.743
+(0.5000 – 0.5017)
+12.657 – 12.684
+(0.4983 – 0.4994)
+33.960 – 34.010
+(1.3370 – 1.3390)
+33.878 – 33.928
+(1.3338 – 1.3357)
+
+Wheel rim runout
+
+Axial
+
+—
+
+Radial
+
+—
+
+Front
+
+—
+
+Rear
+
+—
+
+Tire size
+
+Front
+Rear
+
+70/100-21 44M
+90/100-18 54M
+
+Tire tread depth
+
+Front
+
+—
+
+Rear
+
+—
+
+2.0
+(0.08)
+2.0
+(0.08)
+0.25
+(0.010)
+0.25
+(0.010)
+—
+—
+40
+(0.16)
+4.0
+(0.16)
+
+Wheel axle runout
+
+SUSPENSION
+ITEM
+Front fork stroke
+Front fork spring free length
+Front fork oil level
+Rear shock absorber spring
+pre-set length
+Rear wheel travel
+Swingarm pivot shaft runout
+
+—
+—
+—
+
+Unit: mm (in)
+STANDARD
+205
+(8.1)
+
+LIMIT
+
+—
+
+561
+(22.1)
+
+179.5
+(7.07)
+231
+(9.1)
+205
+(8.1)
+
+—
+
+—
+
+—
+
+0.6
+(0.02)
+
+—
+
+—
+
+NOTE
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+TIRE PRESSUER
+E-24
+COLD INFLATION
+TIRE PRESSURE
+FRONT
+REAR
+
+kPa
+100
+100
+
+SOLO RIDING
+kgf/cm2
+1.0
+1.0
+
+kPa
+100
+100
+
+SOLO RIDING
+kgf/cm2
+1.0
+1.0
+
+psi
+15
+15
+
+E-06
+COLD INFLATION
+TIRE PRESSURE
+FRONT
+REAR
+
+psi
+15
+15
+
+kPa
+100
+100
+
+DUAL RIDING
+kgf/cm 2
+1.0
+1.0
+
+psi
+15
+15
+
+FUEL + OIL
+ITEM
+Fuel type
+Fuel tank including
+
+reserve
+reserve
+
+Engine oil type
+Engine oil capacity
+
+Front fork oil type
+Front fork oil capacity (each leg)
+Brake fluid type
+
+SPECIFICATION
+Gasoline used should be graded 85 – 95 octane or
+higher. An unleaded gasoline is recommended.
+13.0 L
+(3.4/2.9 US/lmp qt)
+2.5 L
+(0.7/0.5 US/lmp qt)
+SAE 10W-40, API SF or SG
+950 ml
+Change
+(1.0/0.8 US/lmp qt)
+1 050 ml
+Filter change
+(1.1/0.9 US/lmp qt)
+1 200 ml
+Overhaul
+(1.3/1.1 US/lmp qt)
+Fork oil #10
+309 ml
+(10.4/10.9 US/lmp oz)
+DOT 4
+
+NOTE
+
+10-17
+
+10-18 DR200SEK4/K5 (’04, ’05-MODELS)
+
+TIGHTENING TORQUE
+ENGINE
+ITEM
+Cylinder head cover bolt
+Camshaft sprocket bolt
+Cylinder head nut 8 mm Diam.
+Cylinder head nut 6 mm Diam.
+Cylinder base nut
+Starter clutch securing bolt
+Cam drive chain tension adjuster bolt
+Generator rotor nut
+Crankcase bolt
+Primary drive gear nut
+Clutch cover bolt and generator cover bolt
+Starter motor lead wire connecting bolt
+Starter motor mounting bolt
+Clutch sleeve hub nut
+Gearshift arm stopper
+Engine oil drain plug
+Oil filter cap nut and oil pump filter cap bolt
+Engine sprocket bolt
+Engine mounting bolt (Top side)
+Engine mounting bolt (Front side)
+Engine mounting bolt (Rear side)
+Engine mounting bracket bolt
+Exhaust pipe nut
+Muffler connection bolt
+Muffler mounting bolt (Front side)
+Muffler mounting bolt (Rear side)
+
+N·m
+10
+11
+27
+10
+10
+25
+7
+*80
+11
+50
+10
+25
+10
+50
+19
+28
+7
+25
+41
+88
+10
+41
+23
+23
+23
+44
+
+kgf-m
+1.0
+1.1
+2.7
+1.0
+1.0
+2.5
+0.7
+8.0
+1.1
+5.0
+1.0
+0.25
+1.0
+5.0
+1.9
+2.8
+0.7
+2.5
+4.1
+8.8
+1.0
+4.1
+2.3
+2.3
+2.3
+4.4
+
+lb-ft
+7.0
+8.0
+19.5
+7.0
+7.0
+18.0
+5.0
+58
+8.0
+36.0
+7.0
+1.8
+7.0
+36.0
+13.5
+2.0
+5.0
+18.0
+29.5
+63.5
+7.0
+29.5
+16.5
+16.5
+16.5
+32.0
+
+DR200SEK4/K5 (’04, ’05-MODELS)
+
+GENERATOR ROTOR NUT
+REASSEMBLY
+• Hold the generator rotor using the special tool, and tighten the
+generator rotor nut to the specified torque.
+" 09930-44511: Rotor holder
+# Generator rotor nut A: 80 N·m (8.0 kgf-m, 58.0 lb-ft)
+
+10-19
+
+DR200SEK4 (’04-MODEL)
+
+10-1
+
+DR200SEK6 (’06-MODEL)
+
+This chapter describes service specifications and servicing procedurers which differ from those
+of the DR200SEK4/K5 (’04, ’05-MODELS).
+NOTE:
+* Any differences between the DR200SEK4/K5 (’04, ’05-MODELS) and DR200SEK6 (’06MODEL) in specifications are cleary indicated with an asterisk (*) mark.
+* Please refer to the capters 1 through 10 for details which are not given in this chapter.
+
+2
+
+11
+4
+
+CONTENTS
+SPECIFICATIONS ............................................................................. 11- 2
+For E-03, 28, 33 ........................................................................ 11- 2
+For E-06, 24 .............................................................................. 11- 3
+SERVICE DATA ................................................................................ 11- 4
+For E-03, 28, 33 ........................................................................ 11- 4
+For E-06, 24 .............................................................................. 11-11
+
+6
+
+11
+
+11-2 DR200SEK6 (’06-MODEL)
+
+SPECIFICATIONS
+For E-03, 28, 33
+DIMENSIONS AND DRY MASS
+Overall length ......................................................................................
+Overall width .......................................................................................
+Overall height ......................................................................................
+Wheelbase ..........................................................................................
+Ground clearance................................................................................
+Seat height ..........................................................................................
+Dry mass.............................................................................................
+
+2 150 mm (84.6 in)
+805 mm (31.7 in)
+1 185 mm (46.7 in)
+1 405 mm (55.3 in)
+260 mm (10.2 in)
+810 mm (31.9 in)
+113 kg (249 lbs)
+
+ENGINE
+Type.....................................................................................................
+Number of cylinders ............................................................................
+Bore ....................................................................................................
+Stroke..................................................................................................
+Displacement ......................................................................................
+Compression ratio ...............................................................................
+Carburetor ...........................................................................................
+Air cleaner ...........................................................................................
+Starter system.....................................................................................
+Lubrication system ..............................................................................
+Idle speed ...........................................................................................
+
+Four-stroke, air-cooled, OHC
+1
+66.0 mm (2.60 in)
+58.2 mm (2.29 in)
+199 cm3 (12.1 cu. in)
+9.4 : 1
+MIKUNI BST31SS, single
+Polyurethane foam element
+Electric
+Wet sump
+1 500 ± 100 r/min
+
+DRIVE TRAIN
+Clutch .................................................................................................. Wet multi-plate type
+Transmission ....................................................................................... 5 speed constant mesh
+Gearshift pattern ................................................................................. 1-down, 4-up
+Primary reduction................................................................................ 3.157 (60/19)
+Final reduction .................................................................................... 3.000 (45/15)
+Gear ratios, Low .............................................................................. 3.000 (33/11)
+2nd ............................................................................... 1.933 (29/15)
+3rd................................................................................ 1.437 (23/16)
+4th ................................................................................ 1.095 (23/21)
+Top ............................................................................... 0.913 (21/23)
+Drive chain .......................................................................................... D.I.D. 520VC.5, 112 links
+CHASSIS
+Front suspension.................................................................................
+Rear suspension .................................................................................
+Steering angle .....................................................................................
+Caster .................................................................................................
+Trail......................................................................................................
+Turning radius .....................................................................................
+Front brake ..........................................................................................
+Rear brake ..........................................................................................
+Front tire size ......................................................................................
+Rear tire size .......................................................................................
+
+Telescopic, coil spring, oil damped
+Link type, coil spring, oil damped
+43° (right & left)
+29° 00’
+112 mm (4.4 in)
+2.3 m (7.5 ft)
+Disc brake
+Drum brake
+70/100-21M/C 44P tube type
+100/90-18M/C 56P tube type
+
+ELECTRICAL
+Ignition type......................................................................................... Electronic ignition (Transistorized)
+Ignition timing ...................................................................................... 7° B.T.D.C. at 1 500 r/min
+Spark plug ........................................................................................... NGK DR8EA or DENSO X24ESR-U
+Battery................................................................................................. 12 V 21.6 kC (6 Ah/10 HR)
+Generator ............................................................................................ Three-phase A.C. generator
+Fuse .................................................................................................... 20 A
+Headlight ............................................................................................. 12 V 60/55 W
+Brake light/Taillight .............................................................................. 12 V 21/5 W
+Turn signal light ................................................................................... 12 V 21 W
+Speedometer light ............................................................................... 12 V 3.4 W
+Neutral indicator light .......................................................................... 12 V 3.4 W
+Turn signal indicator light .................................................................... 12 V 3.4 W
+High beam indicator light .................................................................... 12 V 1.7 W
+CAPACITIES
+Fuel tank, including reserve ............................................................
+
+Engine oil
+
+reserve............................................................................
+change ............................................................................
+with filter change.............................................................
+overhaul ..........................................................................
+
+12.5 L (3.3/2.7 US/Imp gal)....... E-33
+13.0 L (3.4/2.9 US/Imp gal)....... Others
+2.5 L (0.7/0.5 US/Imp gal)
+850 ml (0.9/0.7 US/Imp qt)
+950 ml (1.0/0.8 US/Imp qt)
+1 100 ml (1.2/1.0 US/lmp qt)
+
+DR200SEK6 (’06-MODEL)
+
+For E-06, 24
+DIMENSIONS AND DRY MASS
+Overall length .....................................................................................
+Overall width.......................................................................................
+Overall height .....................................................................................
+Wheelbase .........................................................................................
+Ground clearance ...............................................................................
+Seat height .........................................................................................
+Dry mass ............................................................................................
+
+2 220 mm (87.4 in)
+805 mm (31.7 in) ...... E-06
+940 mm (37.0 in) ...... E-24
+1 185 mm (46.6 in)
+1 405 mm (55.3 in)
+260 mm (10.2 in)
+850 mm (33.5 in)
+121 kg (266 lbs) ....... E-06
+120 kg (264 lbs) ....... E-24
+
+ENGINE
+Type ....................................................................................................
+Number of cylinders ...........................................................................
+Bore....................................................................................................
+Stroke .................................................................................................
+Displacement......................................................................................
+Compression ratio ..............................................................................
+Carburetor ..........................................................................................
+Air cleaner ..........................................................................................
+Starter system ....................................................................................
+Lubrication system .............................................................................
+Idle speed ...........................................................................................
+
+Four-stroke, air-cooled, OHC
+1
+66.0 mm (2.598 in)
+58.2 mm (2.291 in)
+199 cm3 (12.1 cu. in)
+9.4 : 1
+MIKUNI BST31SS, single
+Polyurethane foam element
+Electric and kick
+Wet sump
+1 500 ± 100 r/min
+
+DRIVE TRAIN
+Clutch .................................................................................................
+Transmission.......................................................................................
+Gearshift pattern.................................................................................
+Primary reduction ratio .......................................................................
+Final reduction ratio ............................................................................
+Gear ratios, Low..............................................................................
+2nd ..............................................................................
+3rd ...............................................................................
+4th ...............................................................................
+Top...............................................................................
+Drive chain..........................................................................................
+
+Wet multi-plate type
+5 speed constant mesh
+1-down, 4-up
+3.157 (60/19)
+3.916 (47/12)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+DID520V, 112 links
+
+CHASSIS
+Front suspension ................................................................................
+Rear suspension ................................................................................
+Front fork stroke..................................................................................
+Rear wheel travel................................................................................
+Steering angle ....................................................................................
+Caster.................................................................................................
+Trail .....................................................................................................
+Turning radius .....................................................................................
+Front brake .........................................................................................
+Rear brake..........................................................................................
+Front tire size ......................................................................................
+Rear tire size ......................................................................................
+
+Telescopic, coil spring, oil damped
+Link type, coil spring, oil damped
+205 mm (8.1 in)
+205 mm (8.1 in)
+43° (right & left)
+29°
+112 mm (4.4 in)
+2.3 m (7.5 ft)
+Disc brake
+Drum brake
+70/100-21 44M tube type
+90/100-18 54M tube type
+
+ELECTRICAL
+Ignition type ........................................................................................
+Ignition timing .....................................................................................
+Spark plug ..........................................................................................
+Battery ................................................................................................
+Generator ...........................................................................................
+Fuse ...................................................................................................
+Headlight ............................................................................................
+Turn signal light ..................................................................................
+Brake light/Taillight..............................................................................
+Speedometer light ..............................................................................
+Neutral indicator light..........................................................................
+Turn signal indicator light....................................................................
+High beam indicator light ....................................................................
+
+Electronic ignition (C.D.I.)
+7° B.T.D.C. at 1 500 rpm
+NGK DR8EA or DENSO X24ESR-U
+12 V 21.6 kC (6 Ah) 10 HR
+Three-phase A.C. generator
+20 A
+12V 60/55 W
+12 V 15 W ......E-06 only
+12 V 21/5 W
+12 V 1.7 W
+12 V 2 W
+12 V 2 W
+12 V 2 W
+
+CAPACITIES
+Fuel tank, including reserve............................................................
+reserve ...........................................................................
+Engine oil, oil change.......................................................................
+with filter change
+overhaul
+
+13.0 L (3.4/2.9 US/Imp gal)
+2.5 L (0.7/0.5 US/Imp gal)
+950 ml (1.0/0.8 US/Imp qt)
+1 050 ml (1.1/0.9 US/Imp qt)
+1 200 ml (1.3/1.1 US/Imp qt)
+
+11-3
+
+11-4 DR200SEK6 (’06-MODEL)
+
+SERVICE DATA
+For E-03, 28, 33
+VALVE + GUIDE
+
+Unit: mm (in)
+
+ITEM
+Valve diam.
+
+IN.
+EX.
+
+Valve clearance (when cold)
+
+IN. & EX.
+
+Valve guide to valve stem
+clearance
+
+IN.
+EX.
+
+STANDARD
+33
+(1.3)
+28
+(1.1)
+0.08 – 0.13
+(0.003 – 0.005)
+0.010 – 0.037
+(0.0004 – 0.0015)
+0.030 – 0.057
+(0.0012 – 0.0022)
+
+LIMIT
+—
+—
+—
+—
+—
+
+Valve stem deflection
+
+IN. & EX.
+
+—
+
+0.35
+(0.014)
+
+Valve guide I.D.
+
+IN. & EX.
+
+—
+
+Valve stem O.D.
+
+IN.
+EX.
+
+5.500 – 5.512
+(0.2165 – 0.2170)
+5.475 – 5.490
+(0.2146 – 0.2161)
+5.455 – 5.470
+(0.2148 – 0.2154)
+
+Valve stem runout
+
+IN. & EX.
+
+—
+
+Valve head thickness
+
+IN. & EX.
+
+—
+
+Valve stem end length
+
+IN. & EX.
+
+—
+
+0.05
+(0.002)
+0.5
+(0.02)
+2.6
+(0.1)
+
+Valve seat width
+
+IN. & EX.
+
+0.9 – 1.1
+(0.04 – 0.05)
+
+—
+
+Valve head radial runout
+
+IN. & EX.
+
+—
+
+Valve spring free length
+(IN. & EX.)
+
+INNER
+
+—
+
+OUTER
+
+—
+
+0.03
+(0.001)
+35.1
+(1.38)
+40.6
+(1.60)
+
+Valve spring tension
+(IN. & EX.)
+
+INNER
+OUTER
+
+70 – 90 N
+(7.1 – 9.2 kgf, 15.7 – 20.3 lbs)
+at length 32.5 mm (1.28 in)
+170 – 209 N
+(17.3 – 21.3 kgf, 38.1 – 47.0 lbs)
+at length 36.0 mm (1.42 in)
+
+—
+—
+
+—
+—
+
+DR200SEK6 (’06-MODEL)
+
+CAMSHAFT + CYLINDER HEAD
+
+Unit: mm (in)
+
+ITEM
+Cam height
+
+STANDARD
+34.174 – 34.218
+(1.3454 – 1.3472)
+33.804 – 33.848
+(1.3309 – 1.3326)
+0.032 – 0.066
+(0.0013 – 0.0026)
+22.012 – 22.025
+(0.8666 – 0.8671)
+21.959 – 21.980
+(0.8645 – 0.8654)
+
+IN.
+EX.
+
+LIMIT
+33.870
+(1.3335)
+33.500
+(1.3189)
+0.150
+(0.0059)
+
+Camshaft journal oil clearance
+
+IN. & EX.
+
+Camshaft journal holder I.D.
+
+IN. & EX.
+
+Camshaft journal O.D.
+
+IN. & EX.
+
+Camshaft runout
+
+IN. & EX.
+
+—
+
+0.10
+(0.004)
+
+Rocker arm I.D.
+
+IN. & EX.
+
+—
+
+Rocker arm shaft O.D.
+
+IN. & EX.
+
+12.000 – 12.018
+(0.4724 – 0.4731)
+11.977 – 11.995
+(0.4715 – 0.4722)
+
+Cylinder head distortion
+
+—
+
+Cylinder head cover distortion
+
+—
+
+ITEM
+Compression pressure
+
+Cylinder bore
+Piston diam.
+
+Piston ring free end gap
+
+Piston ring end gap
+
+1 400 kPa
+(14 kgf/cm2, 199 psi)
+0.040 – 0.050
+(0.0016 – 0.0020)
+66.000 – 66.015
+(2.5984 – 2.5990)
+65.955 – 65.970
+(2.5966 – 2.5972)
+Measure at 15 mm (0.59 in) from the skirt end.
+
+Piston ring to groove clearance
+
+—
+1st
+
+R
+
+Approx. 7.5 (0.30)
+
+2nd
+
+R
+
+Approx. 9.4 (0.37)
+
+2nd
+
+0.10 – 0.25
+(0.004 – 0.010)
+0.10 – 0.25
+(0.004 – 0.010)
+
+1st
+
+—
+
+2nd
+
+—
+
+1st
+
+—
+
+—
+
+Unit: mm (in)
+STANDARD
+
+Cylinder distortion
+
+—
+
+0.05
+(0.002)
+0.05
+(0.002)
+
+CYLINDER + PISTON + PISTON RING
+
+Piston to cylinder clearance
+
+11-5
+
+LIMIT
+980 kPa
+(9.8 kgf/cm2,
+139 psi)
+0.120
+(0.0047)
+66.090
+(2.6020)
+65.880
+(2.5937)
+0.05
+(0.002)
+6.0
+(0.24)
+7.5
+(0.30)
+0.5
+(0.02)
+0.5
+(0.02)
+0.18
+(0.007)
+0.15
+(0.006)
+
+11-6 DR200SEK6 (’06-MODEL)
+
+ITEM
+Piston ring groove width
+
+1st
+2nd
+Oil
+
+Piston ring thickness
+
+1st
+2nd
+
+Piston pin bore
+Piston pin O.D.
+
+STANDARD
+1.01 – 1.03
+(0.040 – 0.041)
+1.21 – 1.23
+(0.047 – 0.048)
+2.01 – 2.03
+(0.079 – 0.080)
+0.970 – 0.990
+(0.038 – 0.039)
+1.170 – 1.190
+(0.046 – 0.047)
+16.002 – 16.008
+(0.6300 – 0.6302)
+15.996 – 16.000
+(0.6298 – 0.6299)
+
+CONROD + CRANKSHAFT
+ITEM
+Conrod small end I.D.
+
+—
+
+Conrod big end side clearance
+Conrod big end width
+Crank web to web width
+Crankshaft runout
+
+—
+—
+16.030
+(0.6311)
+15.980
+(0.6291)
+Unit: mm (in)
+
+STANDARD
+16.006 – 16.014
+(0.6302 – 0.6305)
+
+Conrod deflection
+
+LIMIT
+
+0.10 – 0.45
+(0.004 – 0.018)
+17.95 – 18.00
+(0.707 – 0.709)
+53.0 ± 0.1
+(2.09 ± 0.004)
+
+LIMIT
+16.040
+(0.6315)
+3.0
+(0.12)
+1.00
+(0.039)
+—
+—
+
+—
+
+0.08
+(0.003)
+
+STANDARD
+2.000 (30/15)
+Above 15 kPa (0.15 kgf/cm2, 2.1 psi)
+Below 35 kPa (0.35 kgf/cm2, 4.9 psi)
+at 3 000 r/min
+
+LIMIT
+—
+
+OIL PUMP
+ITEM
+Oil pump reduction ratio
+Oil pressure (at 60 °C, 140 °F)
+
+CLUTCH
+
+Unit: mm (in)
+
+ITEM
+Clutch lever play
+Clutch release screw
+Clutch plate thickness
+
+—
+
+1 pc.
+5 pcs.
+
+STANDARD
+10 – 15
+(0.4 – 0.6)
+1/4!turn back
+2.9 – 3.1
+(0.114 – 0.122)
+2.95 – 3.15
+(0.116 – 0.124)
+
+Driven plate distortion
+
+—
+
+Clutch spring free length
+
+—
+
+LIMIT
+—
+—
+2.6
+(0.10)
+0.10
+(0.004)
+31.0
+(1.22)
+
+DR200SEK6 (’06-MODEL)
+
+TRANSMISSTION + DRIVE CHAIN
+ITEM
+Primary reduction ratio
+Final reduction ratio
+Gear ratios
+
+Low
+2nd
+3rd
+4th
+Top
+Shift fork to groove clearance
+Shift fork groove width
+
+No.1, 2, 3
+
+Shift fork thickness
+
+No.1, 2, 3
+
+Drive chain
+
+Type
+Links
+20-pitch
+length
+
+Drive chain slack
+
+Unit: mm (in) Except ratio
+STANDARD
+3.157 (60/19)
+3.000 (45/15)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+0.10 – 0.30
+(0.004 – 0.012)
+5.0 – 5.1
+(0.20 – 0.21)
+4.8 – 4.9
+(0.18 – 0.19)
+D.I.D. 520VC5
+112 links
+
+LIMIT
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+319.4
+(12.57)
+
+—
+25 – 40
+(1.0 – 1.6)
+
+—
+
+CARBURETOR
+SPECIFICATION
+
+ITEM
+Carburetor type
+Bore size
+I.D. No.
+Idle r/min
+Float height
+Main jet
+Jet needle
+Needle jet
+Throttle valve
+Pilot jet
+Starter jet
+Pilot screw
+Throttle cable play
+
+(M.J.)
+(J.N.)
+(N.J.)
+(Th.V.)
+(P.J.)
+(G.S.)
+(P.S.)
+
+11-7
+
+E-03, 28
+MIKUNI BST31SS
+31 mm
+42AC
+1 500 ± 100 r/min
+13.0 ± 1.0 mm (0.51 ± 0.04 in)
+#
+5D77
+#125
+#
+#25
+PRE-SET
+2 – 4 mm (0.08 – 0.16 in)
+
+E-33
+←
+←
+42AE
+←
+←
+←
+←
+←
+←
+←
+←
+←
+←
+
+11-8 DR200SEK6 (’06-MODEL)
+
+ELECTRICAL
+
+Unit: mm (in)
+
+ITEM
+Spark plug
+
+Type
+Gap
+
+Spark performance
+Signal coil resitance
+Ignition coil resistance
+
+SPECIFICATION
+DENSO: X24ESR-U
+NGK: CR8EA
+0.6 – 0.7
+(0.024 – 0.028)
+Over 8 mm (0.3) at 1 atm.
+100 – 140 Ω
+
+Primary
+
+2–6Ω
+
+Secondary
+
+20 – 30 kΩ
+
+NOTE
+
+G – Bl
+Terminal –
+Terminal
+Plug cap –
+Terminal
+
+Generator coil resistance
+Charging
+0.1 – 1.5 Ω
+Generator no-load voltage
+More than 60 V (AC) at 5 000 r/min
+Generator Max. output
+150 W at 5 000 r/min
+Regulated voltage
+13.0 – 16.0 V at 5 000 r/min
+Starter relay resistance
+2–6Ω
+Battery
+Type designation
+YTX7L-BS
+Capacity
+12 V 21.6 kC (6 Ah)/10 HR
+Fuse size
+20 A
+
+WATTAGE
+
+Unit: W
+ITEM
+
+Headlight
+
+HI
+LO
+
+Brake light/Taillight
+Turn signal light
+Speedometer light
+Turn signal indicator light
+High beam indicator light
+Neutral indicator light
+
+SPECIFICATION
+60
+55
+21/5
+21
+3.4
+3.4
+1.7
+3.4
+
+DR200SEK6 (’06-MODEL)
+
+BRAKE + WHEEL
+
+Unit: mm (in)
+
+ITEM
+Brake lever play
+Rear brake pedal free travel
+Rear brake pedal height
+
+STANDARD
+0.1 – 0.3
+(0.004 – 0.010)
+20 – 30
+(0.8 – 1.2)
+2.5
+(0.10)
+
+LIMIT
+
+130.7
+(5.15)
+1.5
+(0.06)
+3.0
+(0.12)
+0.30
+(0.012)
+
+—
+—
+—
+
+Brake drum I.D.
+
+Rear
+
+—
+
+Brake lining thickness
+
+Rear
+
+—
+
+Brake disc thickness
+
+Front
+
+3.5 ± 0.2
+(0.138 ± 0.008)
+
+Brake disc runout
+
+Front
+
+—
+
+Master cylinder bore
+
+Front
+
+—
+
+Master cylinder piston diam.
+
+Front
+
+Brake caliper cylinder bore
+
+Front
+
+Brake caliper piston diam.
+
+Front
+
+12.700 – 12.743
+(0.5000 – 0.5017)
+12.657 – 12.684
+(0.4983 – 0.4994)
+33.960 – 34.010
+(1.3370 – 1.3390)
+33.878 – 33.928
+(1.3338 – 1.3357)
+
+Wheel rim runout
+
+Axial
+
+—
+
+Radial
+
+—
+
+Front
+
+—
+
+Rear
+
+—
+
+Front
+Rear
+Front
+Rear
+
+J21 × 1.60
+J18 × 2.15
+70/100-21 M/C 44P
+100/90-18 M/C 56P
+
+Front
+
+—
+
+Rear
+
+—
+
+2.0
+(0.08)
+2.0
+(0.08)
+0.25
+(0.010)
+0.25
+(0.010)
+—
+—
+—
+—
+3.0
+(0.12)
+3.0
+(0.12)
+
+Wheel axle runout
+
+Wheel rim size
+Tire size
+Tire tread depth
+
+11-9
+
+—
+—
+—
+
+11-10 DR200SEK6 (’06-MODEL)
+
+SUSPENSION
+
+Unit: mm (in)
+
+ITEM
+Front fork stroke
+
+STANDARD
+205
+(8.1)
+
+LIMIT
+
+—
+
+561
+(22.1)
+
+179.5
+(7.07)
+231
+(9.1)
+205
+(8.1)
+
+—
+
+—
+
+—
+
+0.6
+(0.02)
+
+Front fork spring free length
+Front fork oil level
+Rear shock absorber spring
+pre-set length
+Rear wheel travel
+Swingarm pivot shaft runout
+
+NOTE
+
+—
+
+—
+
+TIRE PRESSUER
+COLD INFLATION
+TIRE PRESSURE
+FRONT
+REAR
+
+kPa
+150
+175
+
+SOLO RIDING
+kgf/cm2
+1.50
+1.75
+
+psi
+22
+25
+
+kPa
+150
+200
+
+DUAL RIDING
+kgf/cm2
+1.50
+2.00
+
+psi
+22
+29
+
+FUEL + OIL
+ITEM
+Fuel type
+
+Fuel tank capacity
+
+including
+reserve
+
+reserve
+Engine oil type
+Engine oil capacity
+
+Front fork oil type
+Front fork oil capacity (each leg)
+Brake fluid type
+
+SPECIFICATION
+Use only unleaded gasoline of at least 87 pump
+octane (R/2 + M/2) or 91 octane or higher rated by
+the research method. Gasoline containing MTBE
+(Methyl Tertiary Butyl Ether), less than 10% ethanol, or less than 5% methanol with appropriate
+cosolvents and corrosion inhibitor is permissible.
+13.0 L
+(3.4/2.9 US/lmp qt)
+12.5 L
+(3.3/2.7 US/lmp qt)
+2.5 L
+(0.7/0.5 US/lmp qt)
+* SAE 10W-40, API SF/SG or SH/SJ with JASO MA
+850 ml
+Change
+(0.90/0.75 US/lmp qt)
+950 ml
+Filter change
+(1.00/0.84 US/lmp qt)
+1 100 ml
+Overhaul
+(1.2/1.0 US/lmp qt)
+Fork oil #10
+309 ml
+(10.4/10.9 US/lmp oz)
+DOT 4
+
+NOTE
+
+E-03, 28
+E-33
+
+DR200SEK6 (’06-MODEL)
+
+For E-06, 24
+VALVE + GUIDE
+
+Unit: mm (in)
+
+ITEM
+Valve diam.
+
+IN.
+EX.
+
+Valve clearance (when cold)
+
+IN. & EX.
+
+Valve guide to valve stem
+clearance
+
+IN.
+EX.
+
+STANDARD
+33
+(1.3)
+28
+(1.1)
+0.08 – 0.13
+(0.003 – 0.005)
+0.010 – 0.037
+(0.0004 – 0.0015)
+0.030 – 0.057
+(0.0012 – 0.0022)
+
+LIMIT
+—
+—
+—
+—
+—
+
+Valve stem deflection
+
+IN. & EX.
+
+—
+
+0.35
+(0.014)
+
+Valve guide I.D.
+
+IN. & EX.
+
+—
+
+Valve stem O.D.
+
+IN.
+EX.
+
+5.500 – 5.512
+(0.2165 – 0.2170)
+5.475 – 5.490
+(0.2146 – 0.2161)
+5.455 – 5.470
+(0.2148 – 0.2154)
+
+Valve stem runout
+
+IN. & EX.
+
+—
+
+Valve head thickness
+
+IN. & EX.
+
+—
+
+Valve stem end length
+
+IN. & EX.
+
+—
+
+0.05
+(0.002)
+0.5
+(0.02)
+2.6
+(0.1)
+
+Valve seat width
+
+IN. & EX.
+
+0.9 – 1.1
+(0.04 – 0.05)
+
+—
+
+Valve head radial runout
+
+IN. & EX.
+
+—
+
+Valve spring free length
+(IN. & EX.)
+
+INNER
+
+—
+
+OUTER
+
+—
+
+0.03
+(0.001)
+35.1
+(1.38)
+40.6
+(1.60)
+
+Valve spring tension
+(IN. & EX.)
+
+11-11
+
+INNER
+OUTER
+
+70 – 90 N
+(7.1 – 9.2 kgf, 15.7 – 20.3 lbs)
+at length 32.5 mm (1.28 in)
+170 – 209 N
+(17.3 – 21.3 kgf, 38.1 – 47.0 lbs)
+at length 36.0 mm (1.42 in)
+
+—
+—
+
+—
+—
+
+11-12 DR200SEK6 (’06-MODEL)
+
+CAMSHAFT + CYLINDER HEAD
+
+Unit: mm (in)
+
+ITEM
+Cam height
+
+STANDARD
+34.174 – 34.218
+(1.3454 – 1.3472)
+33.804 – 33.848
+(1.3309 – 1.3326)
+0.032 – 0.066
+(0.0013 – 0.0026)
+22.012 – 22.025
+(0.8666 – 0.8671)
+21.959 – 21.980
+(0.8645 – 0.8654)
+
+IN.
+EX.
+
+LIMIT
+33.870
+(1.3335)
+33.500
+(1.3189)
+0.150
+(0.0059)
+
+Camshaft journal oil clearance
+
+IN. & EX.
+
+Camshaft journal holder I.D.
+
+IN. & EX.
+
+Camshaft journal O.D.
+
+IN. & EX.
+
+Camshaft runout
+
+IN. & EX.
+
+—
+
+0.10
+(0.004)
+
+Rocker arm I.D.
+
+IN. & EX.
+
+—
+
+Rocker arm shaft O.D.
+
+IN. & EX.
+
+12.000 – 12.018
+(0.4724 – 0.4731)
+11.977 – 11.995
+(0.4715 – 0.4722)
+
+Cylinder head distortion
+
+—
+
+Cylinder head cover distortion
+
+—
+
+Piston to cylinder clearance
+Cylinder bore
+Piston diam.
+
+Piston ring free end gap
+
+Piston ring end gap
+
+1 400 kPa
+(14 kgf/cm2, 199 psi)
+0.040 – 0.050
+(0.0016 – 0.0020)
+66.000 – 66.015
+(2.5984 – 2.5990)
+65.955 – 65.970
+(2.5966 – 2.5972)
+Measure at 15 mm (0.59 in) from the skirt end.
+
+Piston ring to groove clearance
+
+—
+1st
+
+R
+
+Approx. 7.5 (0.30)
+
+2nd
+
+R
+
+Approx. 9.4 (0.37)
+
+2nd
+
+0.10 – 0.25
+(0.004 – 0.010)
+0.10 – 0.25
+(0.004 – 0.010)
+
+1st
+
+—
+
+2nd
+
+—
+
+1st
+
+—
+
+Unit: mm (in)
+STANDARD
+
+Cylinder distortion
+
+—
+
+0.05
+(0.002)
+0.05
+(0.002)
+
+CYLINDER + PISTON + PISTON RING
+ITEM
+Compression pressure
+
+—
+
+LIMIT
+980 kPa
+(9.8 kgf/cm2,
+139 psi)
+0.120
+(0.0047)
+66.090
+(2.6020)
+65.880
+(2.5937)
+0.05
+(0.002)
+6.0
+(0.24)
+7.5
+(0.30)
+0.5
+(0.02)
+0.5
+(0.02)
+0.18
+(0.007)
+0.15
+(0.006)
+
+DR200SEK6 (’06-MODEL)
+
+ITEM
+Piston ring groove width
+
+1st
+2nd
+Oil
+
+Piston ring thickness
+
+1st
+2nd
+
+Piston pin bore
+Piston pin O.D.
+
+STANDARD
+1.01 – 1.03
+(0.040 – 0.041)
+1.21 – 1.23
+(0.047 – 0.048)
+2.01 – 2.03
+(0.079 – 0.080)
+0.970 – 0.990
+(0.038 – 0.039)
+1.170 – 1.190
+(0.046 – 0.047)
+16.002 – 16.008
+(0.6300 – 0.6302)
+15.996 – 16.000
+(0.6298 – 0.6299)
+
+CONROD + CRANKSHAFT
+ITEM
+Conrod small end I.D.
+
+—
+
+Conrod big end side clearance
+Conrod big end width
+Crank web to web width
+Crankshaft runout
+
+LIMIT
+
+—
+—
+16.030
+(0.6311)
+15.980
+(0.6291)
+Unit: mm (in)
+
+STANDARD
+16.006 – 16.014
+(0.6302 – 0.6305)
+
+Conrod deflection
+
+11-13
+
+0.10 – 0.45
+(0.004 – 0.018)
+17.95 – 18.00
+(0.707 – 0.709)
+53.0 ± 0.1
+(2.09 ± 0.004)
+
+LIMIT
+16.040
+(0.6315)
+3.0
+(0.12)
+1.00
+(0.039)
+—
+—
+
+—
+
+0.08
+(0.003)
+
+STANDARD
+2.000 (30/15)
+Above 15 kPa (0.15 kgf/cm2 , 2.1 psi)
+Below 35 kPa (0.35 kgf/cm2, 4.9 psi)
+at 3 000 r/min
+
+LIMIT
+—
+
+OIL PUMP
+ITEM
+Oil pump reduction ratio
+Oil pressure (at 60 °C, 140 °F)
+
+CLUTCH
+
+Unit: mm (in)
+
+ITEM
+Clutch lever play
+Clutch release screw
+Clutch plate thickness
+
+—
+
+1 pc.
+5 pcs.
+
+STANDARD
+10 – 15
+(0.4 – 0.6)
+1/4 turn back
+2.9 – 3.1
+(0.114 – 0.122)
+2.95 – 3.15
+(0.116 – 0.124)
+
+Driven plate distortion
+
+—
+
+Clutch spring free length
+
+—
+
+LIMIT
+—
+—
+2.6
+(0.10)
+0.10
+(0.004)
+31.0
+(1.22)
+
+11-14 DR200SEK6 (’06-MODEL)
+
+TRANSMISSTION + DRIVE CHAIN
+ITEM
+Primary reduction ratio
+Final reduction ratio
+Gear ratios
+
+Low
+2nd
+3rd
+4th
+Top
+Shift fork to groove clearance
+Shift fork groove width
+
+No.1, 2, 3
+
+Shift fork thickness
+
+No.1, 2, 3
+
+Drive chain
+
+Type
+Links
+20-pitch
+length
+
+Drive chain slack
+
+Unit: mm (in) Except ratio
+STANDARD
+3.157 (60/19)
+3.916 (47/12)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+0.10 – 0.30
+(0.004 – 0.012)
+5.0 – 5.1
+(0.20 – 0.21)
+4.8 – 4.9
+(0.18 – 0.19)
+D.I.D. 520VC5
+112 links, ENDLESS
+—
+25 – 40
+(1.0 – 1.6)
+
+CARBURETOR
+ITEM
+Carburetor type
+Bore size
+I.D. No.
+Idle r/min
+Float height
+Main jet
+Main air jet
+Jet needle
+Needle jet
+Throttle valve
+Pilot jet
+Valve seat
+Starter jet
+Pilot screw
+Throttle cable play
+
+(M.J.)
+(M.A.J)
+(J.N.)
+(N.J.)
+(Th.V.)
+(P.J.)
+(V.S.)
+(G.S.)
+(P.S.)
+
+SPECIFICATION
+MIKUNI BST31SS
+31 mm
+42AA
+1 500 ± 100 r/min
+13.0 ± 1.0 mm (0.51 ± 0.04 in)
+#122.5
+0.8 mm
+5D26-3rd
+P-5
+#125
+#40
+1.5 mm
+#25
+1 and 1/2 turns out
+2 – 4 mm (0.08 – 0.16 in)
+
+LIMIT
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+319.4
+(12.57)
+—
+
+DR200SEK6 (’06-MODEL)
+
+ELECTRICAL
+
+11-15
+
+Unit: mm (in)
+
+ITEM
+
+SPECIFICATION
+7°B.T.D.C. Below at 1 500 r/min
+DENSO: X24ESR-U
+Type
+NGK: CR8EA
+0.6 – 0.7
+Gap
+(0.024 – 0.028)
+Over 8 mm (0.3) at 1 atm.
+100 – 140 Ω
+
+Ignition timing
+Spark plug
+
+Spark performance
+Signal coil resitance
+Ignition coil resistance
+
+Primary
+
+0.14 – 0.18 Ω
+
+Secondary
+
+15 – 18 kΩ
+
+Signal coil peak voltage
+
+3.0 – 4.6 V
+
+Ignition coil primary peak voltage
+
+125 – 195 V
+
+Generator coil resistance
+Generator no-load voltage
+Regulated voltage
+Starter relay resistance
+Battery
+Type designation
+Capacity
+Standard
+electrolyte S.G.
+Fuse size
+
+Charging
+0.1 – 1.5 Ω
+More than 70 V (AC) at 5 000 r/min
+13.0 – 16.0 V at 5 000 r/min
+2–6Ω
+YTX7L-BS
+12 V 21.6 kC (6 Ah)/10 HR
+
+NOTE
+
+G – Bl
+Terminal –
+Terminal
+Plug cap –
+Terminal
++ G/W –
+- Bl/Y
+- White –
++ Ground
+—
+
+1.32 at 20 °C (68 °F)
+20 A
+
+WATTAGE
+
+Unit: W
+ITEM
+
+Headlight
+
+HI
+LO
+
+Brake light/Taillight
+Turn signal light
+(For South Africa)
+Speedometer light
+Turn signal indicator light
+(Fpr South Afriaca)
+High beam indicator light
+Neutral indicator light
+
+SPECIFICATION
+60
+55
+21/5
+21
+1.7
+2
+2
+2
+
+11-16 DR200SEK6 (’06-MODEL)
+
+BRAKE + WHEEL
+
+Unit: mm (in)
+
+ITEM
+Brake lever play
+Rear brake pedal free travel
+Rear brake pedal height
+
+STANDARD
+0.1 – 0.3
+(0.004 – 0.010)
+20 – 30
+(0.8 – 1.2)
+2.5
+(0.10)
+
+LIMIT
+
+130.7
+(5.15)
+1.5
+(0.06)
+3.0
+(0.12)
+0.30
+(0.012)
+
+—
+—
+—
+
+Brake drum I.D.
+
+Rear
+
+—
+
+Brake lining thickness
+
+Rear
+
+—
+
+Brake disc thickness
+
+Front
+
+3.5 ± 0.2
+(0.138 ± 0.008)
+
+Brake disc runout
+
+Front
+
+—
+
+Master cylinder bore
+
+Front
+
+—
+
+Master cylinder piston diam.
+
+Front
+
+Brake caliper cylinder bore
+
+Front
+
+Brake caliper piston diam.
+
+Front
+
+12.700 – 12.743
+(0.5000 – 0.5017)
+12.657 – 12.684
+(0.4983 – 0.4994)
+33.960 – 34.010
+(1.3370 – 1.3390)
+33.878 – 33.928
+(1.3338 – 1.3357)
+
+Wheel rim runout
+
+Axial
+
+—
+
+Radial
+
+—
+
+Front
+
+—
+
+Rear
+
+—
+
+Tire size
+
+Front
+Rear
+
+70/100-21 44M
+90/100-18 54M
+
+Tire tread depth
+
+Front
+
+—
+
+Rear
+
+—
+
+2.0
+(0.08)
+2.0
+(0.08)
+0.25
+(0.010)
+0.25
+(0.010)
+—
+—
+40
+(0.16)
+4.0
+(0.16)
+
+Wheel axle runout
+
+SUSPENSION
+ITEM
+Front fork stroke
+Front fork spring free length
+Front fork oil level
+Rear shock absorber spring
+pre-set length
+Rear wheel travel
+Swingarm pivot shaft runout
+
+—
+—
+—
+
+Unit: mm (in)
+STANDARD
+205
+(8.1)
+
+LIMIT
+
+—
+
+561
+(22.1)
+
+179.5
+(7.07)
+231
+(9.1)
+205
+(8.1)
+
+—
+
+—
+
+—
+
+0.6
+(0.02)
+
+—
+
+—
+
+NOTE
+
+DR200SEK6 (’06-MODEL)
+
+TIRE PRESSUER
+E-24
+COLD INFLATION
+TIRE PRESSURE
+FRONT
+REAR
+
+kPa
+100
+100
+
+SOLO RIDING
+kgf/cm2
+1.0
+1.0
+
+kPa
+100
+100
+
+SOLO RIDING
+kgf/cm2
+1.0
+1.0
+
+psi
+15
+15
+
+E-06
+COLD INFLATION
+TIRE PRESSURE
+FRONT
+REAR
+
+psi
+15
+15
+
+kPa
+100
+100
+
+DUAL RIDING
+kgf/cm 2
+1.0
+1.0
+
+psi
+15
+15
+
+FUEL + OIL
+ITEM
+Fuel type
+Fuel tank capacity
+
+including
+reserve
+reserve
+
+Engine oil type
+Engine oil capacity
+
+Front fork oil type
+Front fork oil capacity (each leg)
+Brake fluid type
+
+SPECIFICATION
+Gasoline used should be graded 85 – 95 octane or
+higher. An unleaded gasoline is recommended.
+13.0 L
+(3.4/2.9 US/lmp qt)
+2.5 L
+(0.7/0.5 US/lmp qt)
+* SAE 10W-40, API SF/SG or SH/SJ with JASO MA
+950 ml
+Change
+(1.0/0.8 US/lmp qt)
+1 050 ml
+Filter change
+(1.1/0.9 US/lmp qt)
+1 200 ml
+Overhaul
+(1.3/1.1 US/lmp qt)
+Fork oil #10
+309 ml
+(10.4/10.9 US/lmp oz)
+DOT 4
+
+NOTE
+
+11-17
+
+DR200SEK4 (’04-MODEL)
+
+10-1
+
+DR200SEK7/K8 ('07&’08-MODELS)
+
+NOTE:
+* Any differences between the DR200SEK6 ('06-MODEL) and DR200SEK ('07-MODEL)
+in specifications are cleary indicated with an asterisk (*) mark.
+* Please refer to the capters 1 through 11 for details which are not given in this chapter.
+For E-06, 24 service data are same as K6 MODEL.
+
+CONTENTS
+
+2
+
+12
+4
+
+SPECIFICATIONS ............................................................................. 12- 2
+For E-03, 28, 33 ........................................................................ 12- 2
+SERVICE DATA ................................................................................ 12- 3
+For E-03, 28, 33 ........................................................................ 12- 3
+
+6
+
+11
+
+12- 2
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+SPECIFICATIONS
+For E-03, 28, 33
+
+DIMENSIONS AND DRY MASS
+Overall length ...................................................................................... 2 150 mm (84.6 in)
+Overall width........................................................................................
+805 mm (31.7 in)
+Overall height ...................................................................................... 1 185 mm (46.7 in)
+Wheelbase .......................................................................................... 1 405 mm (55.3 in)
+Ground clearance................................................................................
+260 mm (10.2 in)
+Seat height ..........................................................................................
+810 mm (31.9 in)
+Dry mass .............................................................................................
+113 kg (249 lbs)
+ENGINE
+Type.....................................................................................................
+Number of cylinders ............................................................................
+Bore.....................................................................................................
+Stroke ..................................................................................................
+Displacement ......................................................................................
+Compression ratio ...............................................................................
+Carburetor ...........................................................................................
+Air cleaner ...........................................................................................
+Starter system .....................................................................................
+Lubrication system ..............................................................................
+Idle speed............................................................................................
+
+Four-stroke, air-cooled, OHC
+1
+66.0 mm (2.60 in)
+58.2 mm (2.29 in)
+199 cm3 (12.1 cu. in)
+9.4 : 1
+MIKUNI BST31SS, single
+Polyurethane foam element
+Electric
+Wet sump
+1 500 ± 100 r/min
+
+DRIVE TRAIN
+Clutch .................................................................................................. Wet multi-plate type
+Transmission ....................................................................................... 5 speed constant mesh
+Gearshift pattern ................................................................................. 1-down, 4-up
+Primary reduction ................................................................................ 3.157 (60/19)
+Final reduction..................................................................................... 3.000 (45/15)
+Gear ratios, Low............................................................................... 3.000 (33/11)
+2nd ............................................................................... 1.933 (29/15)
+3rd ................................................................................ 1.437 (23/16)
+4th ................................................................................ 1.095 (23/21)
+Top ............................................................................... 0.913 (21/23)
+Drive chain ..........................................................................................* D.I.D. 520V, 112 links
+CHASSIS
+Front suspension.................................................................................
+Rear suspension .................................................................................
+Steering angle .....................................................................................
+Caster..................................................................................................
+Trail......................................................................................................
+Turning radius......................................................................................
+Front brake ..........................................................................................
+Rear brake...........................................................................................
+Front tire size.......................................................................................
+Rear tire size .......................................................................................
+
+Telescopic, coil spring, oil damped
+Link type, coil spring, oil damped
+43° (right & left)
+29° 00’
+112 mm (4.4 in)
+2.3 m (7.5 ft)
+Disc brake
+Drum brake
+70/100-21M/C 44P tube type
+100/90-18M/C 56P tube type
+
+ELECTRICAL
+Ignition type .........................................................................................
+Ignition timing ......................................................................................
+Spark plug ...........................................................................................
+Battery.................................................................................................
+Generator ............................................................................................
+Fuse ....................................................................................................
+Headlight .............................................................................................
+Brake light/Taillight ..............................................................................
+Turn signal light ...................................................................................
+Speedometer light ...............................................................................
+Neutral indicator light...........................................................................
+Turn signal indicator light.....................................................................
+High beam indicator light.....................................................................
+
+Electronic ignition (Transistorized)
+7° B.T.D.C. at 1 500 r/min
+NGK DR8EA or DENSO X24ESR-U
+12 V 21.6 kC (6 Ah/10 HR)
+Three-phase A.C. generator
+20 A
+12 V 60/55 W
+12 V 21/5 W
+12 V 21 W
+12 V 3.4 W
+12 V 3.4 W
+12 V 3.4 W
+12 V 1.7 W
+
+CAPACITIES
+Fuel tank, including reserve .............................................................. 12.5 L (3.3/2.7 US/Imp gal)....... E-33
+13.0 L (3.4/2.9 US/Imp gal)....... Others
+reserve .............................................................................
+2.5 L (0.7/0.5 US/Imp gal)
+Engine oil change .............................................................................
+850 ml (0.9/0.7 US/Imp qt)
+with filter change ..............................................................
+950 ml (1.0/0.8 US/Imp qt)
+overhaul............................................................................ 1 100 ml (1.2/1.0 US/lmp qt)
+
+–2–
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+12- 3
+
+SERVICE DATA
+For E-03, 28, 33
+VALVE + GUIDE
+
+Unit: mm (in)
+
+ITEM
+Valve diam.
+
+STANDARD
+33
+(1.3)
+28
+(1.1)
+0.08 – 0.13
+(0.003 – 0.005)
+0.010 – 0.037
+(0.0004 – 0.0015)
+0.030 – 0.057
+(0.0012 – 0.0022)
+
+IN.
+EX.
+
+Valve clearance (when cold)
+
+IN. & EX.
+
+Valve guide to valve stem
+clearance
+
+IN.
+EX.
+
+LIMIT
+—
+—
+—
+—
+—
+
+Valve stem deflection
+
+IN. & EX.
+
+—
+
+0.35
+(0.014)
+
+Valve guide I.D.
+
+IN. & EX.
+
+—
+
+Valve stem O.D.
+
+IN.
+EX.
+
+5.500 – 5.512
+(0.2165 – 0.2170)
+5.475 – 5.490
+(0.2146 – 0.2161)
+5.455 – 5.470
+(0.2148 – 0.2154)
+
+Valve stem runout
+
+IN. & EX.
+
+—
+
+Valve head thickness
+
+IN. & EX.
+
+—
+
+Valve stem end length
+
+IN. & EX.
+
+—
+
+0.05
+(0.002)
+0.5
+(0.02)
+2.6
+(0.1)
+
+Valve seat width
+
+IN. & EX.
+
+0.9 – 1.1
+(0.04 – 0.05)
+
+—
+
+Valve head radial runout
+
+IN. & EX.
+
+—
+
+Valve spring free length
+(IN. & EX.)
+
+INNER
+
+—
+
+OUTER
+
+—
+
+0.03
+(0.001)
+35.1
+(1.38)
+40.6
+(1.60)
+
+Valve spring tension
+(IN. & EX.)
+
+INNER
+OUTER
+
+70 – 90 N
+(7.1 – 9.2 kgf, 15.7 – 20.3 lbs)
+at length 32.5 mm (1.28 in)
+170 – 209 N
+(17.3 – 21.3 kgf, 38.1 – 47.0 lbs)
+at length 36.0 mm (1.42 in)
+
+–3–
+
+—
+—
+
+—
+—
+
+12- 4
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+CAMSHAFT + CYLINDER HEAD
+
+Unit: mm (in)
+
+ITEM
+Cam height
+
+STANDARD
+34.174 – 34.218
+(1.3454 – 1.3472)
+33.804 – 33.848
+(1.3309 – 1.3326)
+0.032 – 0.066
+(0.0013 – 0.0026)
+22.012 – 22.025
+(0.8666 – 0.8671)
+21.959 – 21.980
+(0.8645 – 0.8654)
+
+IN.
+EX.
+
+LIMIT
+33.870
+(1.3335)
+33.500
+(1.3189)
+0.150
+(0.0059)
+
+Camshaft journal oil clearance
+
+IN. & EX.
+
+Camshaft journal holder I.D.
+
+IN. & EX.
+
+Camshaft journal O.D.
+
+IN. & EX.
+
+Camshaft runout
+
+IN. & EX.
+
+—
+
+0.10
+(0.004)
+
+Rocker arm I.D.
+
+IN. & EX.
+
+—
+
+Rocker arm shaft O.D.
+
+IN. & EX.
+
+12.000 – 12.018
+(0.4724 – 0.4731)
+11.977 – 11.995
+(0.4715 – 0.4722)
+
+Cylinder head distortion
+
+—
+
+Cylinder head cover distortion
+
+—
+
+Piston to cylinder clearance
+Cylinder bore
+Piston diam.
+
+STANDARD
+1 400 kPa
+(14 kgf/cm2, 199 psi)
+0.040 – 0.050
+(0.0016 – 0.0020)
+66.000 – 66.015
+(2.5984 – 2.5990)
+65.955 – 65.970
+(2.5966 – 2.5972)
+Measure at 15 mm (0.59 in) from the skirt end.
+
+Cylinder distortion
+Piston ring free end gap
+
+Piston ring end gap
+
+Piston ring to groove clearance
+
+—
+1st
+
+R
+
+Approx. 7.5 (0.30)
+
+2nd
+
+R
+
+Approx. 9.4 (0.37)
+
+2nd
+
+0.10 – 0.25
+(0.004 – 0.010)
+0.10 – 0.25
+(0.004 – 0.010)
+
+1st
+
+—
+
+2nd
+
+—
+
+1st
+
+–4–
+
+—
+
+—
+0.05
+(0.002)
+0.05
+(0.002)
+
+CYLINDER + PISTON + PISTON RING
+ITEM
+Compression pressure
+
+—
+
+Unit: mm (in)
+LIMIT
+980 kPa
+(9.8 kgf/cm2,
+139 psi)
+0.120
+(0.0047)
+66.090
+(2.6020)
+65.880
+(2.5937)
+0.05
+(0.002)
+6.0
+(0.24)
+7.5
+(0.30)
+0.5
+(0.02)
+0.5
+(0.02)
+0.18
+(0.007)
+0.15
+(0.006)
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+ITEM
+Piston ring groove width
+
+1st
+2nd
+Oil
+
+Piston ring thickness
+
+1st
+2nd
+
+Piston pin bore
+Piston pin O.D.
+
+STANDARD
+1.01 – 1.03
+(0.040 – 0.041)
+1.21 – 1.23
+(0.047 – 0.048)
+2.01 – 2.03
+(0.079 – 0.080)
+0.970 – 0.990
+(0.038 – 0.039)
+1.170 – 1.190
+(0.046 – 0.047)
+16.002 – 16.008
+(0.6300 – 0.6302)
+15.996 – 16.000
+(0.6298 – 0.6299)
+
+CONROD + CRANKSHAFT
+ITEM
+Conrod small end I.D.
+Conrod deflection
+
+—
+
+Conrod big end width
+Crank web to web width
+
+LIMIT
+
+—
+—
+16.030
+(0.6311)
+15.980
+(0.6291)
+Unit: mm (in)
+
+STANDARD
+16.006 – 16.014
+(0.6302 – 0.6305)
+
+Conrod big end side clearance
+
+12- 5
+
+0.10 – 0.45
+(0.004 – 0.018)
+17.95 – 18.00
+(0.707 – 0.709)
+53.0 ± 0.1
+(2.09 ± 0.004)
+
+Crankshaft runout
+
+LIMIT
+16.040
+(0.6315)
+3.0
+(0.12)
+1.00
+(0.039)
+—
+—
+
+—
+
+0.08
+(0.003)
+
+STANDARD
+2.000 (30/15)
+Above 15 kPa (0.15 kgf/cm2, 2.1 psi)
+Below 35 kPa (0.35 kgf/cm2, 4.9 psi)
+at 3 000 r/min
+
+LIMIT
+—
+
+OIL PUMP
+ITEM
+Oil pump reduction ratio
+Oil pressure (at 60 °C, 140 °F)
+
+CLUTCH
+
+—
+
+Unit: mm (in)
+
+ITEM
+Clutch lever play
+
+STANDARD
+10 – 15
+(0.4 – 0.6)
+1/4turn back
+2.9 – 3.1
+(0.114 – 0.122)
+2.95 – 3.15
+(0.116 – 0.124)
+
+LIMIT
+
+Driven plate distortion
+
+—
+
+Clutch spring free length
+
+—
+
+0.10
+(0.004)
+31.0
+(1.22)
+
+Clutch release screw
+Clutch plate thickness
+
+1 pc.
+5 pcs.
+
+–5–
+
+—
+—
+2.6
+(0.10)
+
+12- 6
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+TRANSMISSTION + DRIVE CHAIN
+ITEM
+Primary reduction ratio
+Final reduction ratio
+Gear ratios
+
+Low
+2nd
+3rd
+4th
+Top
+Shift fork to groove clearance
+Shift fork groove width
+
+No.1, 2, 3
+
+Shift fork thickness
+
+No.1, 2, 3
+
+Drive chain
+
+Type
+Links
+20-pitch
+length
+
+STANDARD
+3.157 (60/19)
+3.000 (45/15)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+0.10 – 0.30
+(0.004 – 0.012)
+5.0 – 5.1
+(0.20 – 0.21)
+4.8 – 4.9
+(0.18 – 0.19)
+* D.I.D. 520V5
+112 links
+
+Unit: mm (in) Except ratio
+LIMIT
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+319.4
+(12.57)
+
+—
+
+Drive chain slack
+
+25 – 40
+(1.0 – 1.6)
+
+—
+
+CARBURETOR
+SPECIFICATION
+
+ITEM
+Carburetor type
+Bore size
+I.D. No.
+Idle r/min
+Float height
+Main jet
+Jet needle
+Needle jet
+Throttle valve
+Pilot jet
+Starter jet
+Pilot screw
+Throttle cable play
+
+(M.J.)
+(J.N.)
+(N.J.)
+(Th.V.)
+(P.J.)
+(G.S.)
+(P.S.)
+
+E-03, 28
+MIKUNI BST31SS
+31 mm
+42AC
+1 500 ± 100 r/min
+13.0 ± 1.0 mm (0.51 ± 0.04 in)
+#
+5D77
+#125
+#
+#25
+PRE-SET
+2 – 4 mm (0.08 – 0.16 in)
+
+–6–
+
+E-33
+←
+←
+42AE
+←
+←
+←
+←
+←
+←
+←
+←
+←
+←
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+ELECTRICAL
+ITEM
+Spark plug
+
+Type
+Gap
+
+Spark performance
+Signal coil resitance
+Ignition coil resistance
+
+SPECIFICATION
+DENSO: X24ESR-U
+NGK: CR8EA
+0.6 – 0.7
+(0.024 – 0.028)
+Over 8 mm (0.3) at 1 atm.
+100 – 140 Ω
+
+Primary
+
+2–6Ω
+
+Secondary
+
+20 – 30 kΩ
+
+12- 7
+
+Unit: mm (in)
+NOTE
+
+G – Bl
+Terminal –
+Terminal
+Plug cap –
+Terminal
+
+Generator coil resistance
+Charging
+0.1 – 1.5 Ω
+Generator no-load voltage
+More than 60 V (AC) at 5 000 r/min
+Generator Max. output
+150 W at 5 000 r/min
+Regulated voltage
+13.0 – 16.0 V at 5 000 r/min
+Starter relay resistance
+2–6Ω
+Battery
+Type designation
+YTX7L-BS
+Capacity
+12 V 21.6 kC (6 Ah)/10 HR
+Fuse size
+20 A
+
+WATTAGE
+
+Unit: W
+ITEM
+
+Headlight
+
+SPECIFICATION
+60
+55
+21/5
+21
+3.4
+3.4
+1.7
+3.4
+
+HI
+LO
+
+Brake light/Taillight
+Turn signal light
+Speedometer light
+Turn signal indicator light
+High beam indicator light
+Neutral indicator light
+
+–7–
+
+12- 8
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+BRAKE + WHEEL
+
+Unit: mm (in)
+
+ITEM
+Brake lever play
+Rear brake pedal free travel
+Rear brake pedal height
+
+STANDARD
+0.1 – 0.3
+(0.004 – 0.010)
+20 – 30
+(0.8 – 1.2)
+2.5
+(0.10)
+
+LIMIT
+
+130.7
+(5.15)
+1.5
+(0.06)
+3.0
+(0.12)
+0.30
+(0.012)
+
+—
+—
+—
+
+Brake drum I.D.
+
+Rear
+
+—
+
+Brake lining thickness
+
+Rear
+
+—
+
+Brake disc thickness
+
+Front
+
+3.5 ± 0.2
+(0.138 ± 0.008)
+
+Brake disc runout
+
+Front
+
+—
+
+Master cylinder bore
+
+Front
+
+—
+
+Master cylinder piston diam.
+
+Front
+
+Brake caliper cylinder bore
+
+Front
+
+Brake caliper piston diam.
+
+Front
+
+12.700 – 12.743
+(0.5000 – 0.5017)
+12.657 – 12.684
+(0.4983 – 0.4994)
+33.960 – 34.010
+(1.3370 – 1.3390)
+33.878 – 33.928
+(1.3338 – 1.3357)
+
+Wheel rim runout
+
+Axial
+
+—
+
+Radial
+
+—
+
+Front
+
+—
+
+Rear
+
+—
+
+Front
+Rear
+Front
+Rear
+
+J21 × 1.60
+J18 × 2.15
+70/100-21 M/C 44P
+100/90-18 M/C 56P
+
+Front
+
+—
+
+Rear
+
+—
+
+2.0
+(0.08)
+2.0
+(0.08)
+0.25
+(0.010)
+0.25
+(0.010)
+—
+—
+—
+—
+3.0
+(0.12)
+3.0
+(0.12)
+
+Wheel axle runout
+
+Wheel rim size
+Tire size
+Tire tread depth
+
+–8–
+
+—
+—
+—
+
+DR200SEK7/K8 (’07&’08-MODEL)
+
+SUSPENSION
+ITEM
+Front fork stroke
+
+STANDARD
+205
+(8.1)
+
+LIMIT
+
+—
+
+561
+(22.1)
+
+179.5
+(7.07)
+231
+(9.1)
+205
+(8.1)
+
+—
+
+—
+
+—
+
+0.6
+(0.02)
+
+Front fork spring free length
+Front fork oil level
+Rear shock absorber spring
+pre-set length
+Rear wheel travel
+Swingarm pivot shaft runout
+
+Unit: mm (in)
+NOTE
+
+—
+
+—
+
+TIRE PRESSUER
+COLD INFLATION
+TIRE PRESSURE
+FRONT
+REAR
+
+kPa
+150
+175
+
+SOLO RIDING
+kgf/cm2
+1.50
+1.75
+
+psi
+22
+25
+
+kPa
+150
+200
+
+DUAL RIDING
+kgf/cm2
+1.50
+2.00
+
+psi
+22
+29
+
+FUEL + OIL
+ITEM
+Fuel type
+
+Fuel tank capacity
+
+including
+reserve
+
+reserve
+Engine oil type
+Engine oil capacity
+
+Front fork oil type
+Front fork oil capacity (each leg)
+Brake fluid type
+
+SPECIFICATION
+Use only unleaded gasoline of at least 87 pump
+octane (R/2 + M/2) or 91 octane or higher rated by
+the research method. Gasoline containing MTBE
+(Methyl Tertiary Butyl Ether), less than 10% ethanol, or less than 5% methanol with appropriate
+cosolvents and corrosion inhibitor is permissible.
+13.0 L
+(3.4/2.9 US/lmp qt)
+12.5 L
+(3.3/2.7 US/lmp qt)
+2.5 L
+(0.7/0.5 US/lmp qt)
+SAE 10W-40, API SF/SG or SH/SJ with JASO MA
+850 ml
+Change
+(0.90/0.75 US/lmp qt)
+950 ml
+Filter change
+(1.00/0.84 US/lmp qt)
+1 100 ml
+Overhaul
+(1.2/1.0 US/lmp qt)
+Fork oil #10
+309 ml
+(10.4/10.9 US/lmp oz)
+DOT 4
+
+–9–
+
+12- 9
+
+NOTE
+
+E-03, 28
+E-33
+
+DR200SEK9 (’09-MODEL)
+
+13-1
+
+DR200SEK9 (’09-MODEL)
+
+#/.4%.43
+0!'%
+52'%+(+%#6+105 
+%     
+
+13
+NOTE:
+* Differences between K9-MODEL and K8-MODEL specifications are indicated as an asterisk mark (*).
+* The service data are the same as the K8-MODEL.
+
+13-2 DR200SEK9 (’09-MODEL)
+
+SPECIFICATIONS
+(E-03, 28, 33)
+DIMENSIONS AND CURB MASS
+Overall length ...................................................................................... 2 150 mm (84.6 in)
+Overall width........................................................................................
+805 mm (31.7 in)
+Overall height ...................................................................................... 1 185 mm (46.7 in)
+Wheelbase .......................................................................................... 1 405 mm (55.3 in)
+Ground clearance................................................................................
+260 mm (10.2 in)
+Seat height ..........................................................................................
+810 mm (31.9 in)
+* Curb mass ........................................................................................
+126 kg (278 lbs)
+ENGINE
+Type.....................................................................................................
+Number of cylinders ............................................................................
+Bore.....................................................................................................
+Stroke ..................................................................................................
+Displacement ......................................................................................
+Compression ratio ...............................................................................
+Carburetor ...........................................................................................
+Air cleaner ...........................................................................................
+Starter system .....................................................................................
+Lubrication system ..............................................................................
+Idle speed............................................................................................
+
+Four-stroke, air-cooled, OHC
+1
+66.0 mm (2.60 in)
+58.2 mm (2.29 in)
+199 cm3 (12.1 cu. in)
+9.4 : 1
+MIKUNI BST31SS, single
+Polyurethane foam element
+Electric
+Wet sump
+1 500 ± 100 r/min
+
+DRIVE TRAIN
+Clutch ..................................................................................................
+Transmission .......................................................................................
+Gearshift pattern .................................................................................
+Primary reduction ................................................................................
+Final reduction.....................................................................................
+Gear ratios, Low...............................................................................
+2nd ...............................................................................
+3rd ................................................................................
+4th ................................................................................
+Top ...............................................................................
+Drive chain ..........................................................................................
+
+Wet multi-plate type
+5 speed constant mesh
+1-down, 4-up
+3.157 (60/19)
+3.000 (45/15)
+3.000 (33/11)
+1.933 (29/15)
+1.437 (23/16)
+1.095 (23/21)
+0.913 (21/23)
+DID 520V, 112 links
+
+CHASSIS
+Front suspension.................................................................................
+Rear suspension .................................................................................
+Front fork stroke ..................................................................................
+Rear wheel travel ................................................................................
+Caster..................................................................................................
+Trail......................................................................................................
+Steering angle .....................................................................................
+Turning radius......................................................................................
+Front brake ..........................................................................................
+Rear brake...........................................................................................
+Front tire ..............................................................................................
+Rear tire ..............................................................................................
+
+Telescopic, coil spring, oil damped
+Link type, coil spring, oil damped
+205 mm (8.1 in)
+205 mm (8.1 in)
+29°
+112 mm (4.4 in)
+43° (right & left)
+2.3 m (7.5 ft)
+Disc brake
+Drum brake
+70/100-21M/C 44P, tube type
+100/90-18M/C 56P, tube type
+
+ELECTRICAL
+Ignition type .........................................................................................
+Ignition timing ......................................................................................
+Spark plug ...........................................................................................
+Battery.................................................................................................
+Generator ............................................................................................
+Fuse ....................................................................................................
+Headlight .............................................................................................
+Brake light/Taillight ..............................................................................
+Turn signal light ...................................................................................
+Speedometer light ...............................................................................
+Neutral indicator light...........................................................................
+Turn signal indicator light.....................................................................
+High beam indicator light.....................................................................
+
+Electronic ignition (Transistorized)
+7° B.T.D.C. at 1 500 r/min
+NGK DR8EA or DENSO X24ESR-U
+12 V 21.6 kC (6 Ah)/10 HR
+Three-phase A.C. generator
+20 A
+12 V 60/55 W
+12 V 21/5 W
+12 V 21 W
+12 V 3.4 W
+12 V 3.4 W
+12 V 3.4 W
+12 V 1.7 W
+
+CAPACITIES
+Fuel tank, including reserve ..............................................................
+reserve .............................................................................
+Engine oil change .............................................................................
+with filter change ..............................................................
+overhaul............................................................................
+
+12.5 L (3.3/2.7 US/Imp gal)..... E-33
+13.0 L (3.4/2.9 US/Imp gal)..... Others
+2.5 L (0.7/0.5 US/Imp gal)
+850 ml (0.9/0.7 US/Imp qt)
+950 ml (1.0/0.8 US/Imp qt)
+1 100 ml (1.2/1.0 US/lmp qt)
+
+
