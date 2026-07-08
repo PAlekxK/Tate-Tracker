@@ -30,6 +30,22 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - **Refined "Peak this week" — needs a structured peak field (data work).** Audit 2026-07-05: all 23 plants carry peakWindows (88 total), but **~40% (35/88) don't parse** via `parseShortDateRange` — it only reads "Abbrev D–Abbrev D"; it misses full month names ("May 15–June 5"), month-only ("Mar — before growth begins"), prose-only ("After first hard frost flattens leaves"), and multi-window ("Mar …; Jun …"). There's also a year-wrap bug (winter-spanning windows parse to negative spans). Net: the peak-this-week surfaces (tile + card panel) are **under-inclusive** today. Right fix = add a machine-readable peak field to the schema (e.g. `peakStart`/`peakEnd` as MM-DD, keep the prose for display), which removes both the parser fragility and the prose-only cases. Deep winter (Dec–mid-Jan) is legitimately empty — that's fine, it has a calm fallback.
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-08 (manuals corpus)
+
+**Manuals for the whole fleet — research pass + a 📖 link on every card, shipped & pushed (Tate-Tracker HEAD `710b6a6`).** Reference materials for all 15 vehicles/equipment assembled into a new `manuals/` corpus and linked on each card; the links flow to Garden Guru's digest.
+
+### What shipped
+- **18 manuals found, downloaded, and text-extracted** covering all 15 machines (7 vehicles + 8 equipment). New **`manuals/`** dir: `pdf/` (source PDFs — **gitignored**, ~197 MB local-only, since the repo is public) + `text/` (pdftotext extractions — **committed**, ~3.9 MB; the searchable substrate a future Guru retrieval layer would read) + **`INDEX.md`** catalog (source, authority, pages, model-match confidence) + **`download.sh`** reproducer.
+- **`manual: {label, url}` added to all 15 `vehicles.json` entries** (was only the DR200S); re-inlined `VEHICLES_DATA` **by hand** (note: `check-data-inline.py` does NOT track vehicles — the const at `viewer.html:~4989` is a one-line JSON blob, replace it directly); rebuilt the digest. Card shows the 📖 link (browser-verified rendering, incl. equipment); links flow into Guru's digest — **links only, no manual text** (digest is at **~76K of the 80K** tool-use-migration ceiling; folding manual text in would blow past it — this validated the "links only" call).
+- Release note added (2026-07-08 "A manual for every machine").
+
+### Notable resolutions
+- DR200S "owner's manual" was actually the **262-pg factory service manual** (owner's-manual card link stays the readable manua.ls viewer). Swapped a 14-pg DR-Z400S stub for the **full 431-pg service manual** (bike is mid electrical/speedo repair). Trimmer model ambiguity resolved (**UT33550A is not a real Homelite model**). Husqvarna mower anchors on the verified **Kawasaki FR691V engine manual** pending its model sticker; Homelite blower/vac uses a best-match 26cc manual (no sticker on the unit).
+
+### ⚠️ Owner: Paul
+1. **Worker redeploy** — the card links are live on GH Pages, but Guru's *live* digest only updates on `wrangler deploy` (the auto-mode classifier blocked the agent from running it). Paul ran `cd worker && npx wrangler deploy` via `!` at session end — **confirm it landed** so Guru serves the new links (Worker health was OK at deploy time).
+2. The two best-guess links (**Husqvarna** mower, **Homelite** blower/vac) become exact once their model stickers are read — already tracked in "Outstanding for Paul" #1–#3.
+
 ## Pickup point — last session ended 2026-07-08
 
 **GTI service plan built out on the Vehicles card — Express Oil is Stop 1, Autobahn is the specialist net.** All committed + pushed (Tate-Tracker HEAD `2d391cf`). Full plan/questions/prep/price-table: `.research/2026-07-08-gti-express-oil-coupons.md` (gitignored); the 4 coupon email PDFs archived at `.research/express-oil-coupons-2026-07/` (gitignored, local-only; originals in Gmail `from:expressoil.com`).
