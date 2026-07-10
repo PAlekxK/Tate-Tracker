@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "Optional deviceId → person mapping read by tools/analyze-fernwood.py. If this file is absent, the device table shows raw deviceIds.",
-    "lastUpdated": "2026-05-21"
+    "lastUpdated": "2026-07-10"
   },
   "people": [
     {
@@ -10,7 +10,12 @@
         "d-avslqpyd-m72qxt1s-mpeuqnyg",
         "d-fxeb35uh-389ga8h6-mpflc4zl"
       ],
-      "notes": "laptop (Mac, ttys session); iPhone Safari. An older iPhone id 'd-14nyhnjz-5lh0160…' appeared in 2026-05-21 metrics — probably this same iPhone before a Safari data clear, but unconfirmed; left unmapped until it either re-appears (still active) or stays silent (closed chapter)."
+      "notes": "laptop (Mac, ttys session); iPhone Safari."
+    },
+    {
+      "name": "mom",
+      "deviceIds": [],
+      "notes": "CONFIRMED Mom (2026-07-02 discovery interview) = the active daily user, device prefix 'd-14nyhnjz' (only device that used the A/A+ text-size toggle; most-active daily). Fill the EXACT full deviceId from the next `analyze-fernwood.py` run — left empty because this map exact-matches and the full id (d-14nyhnjz-5lh0160…) is truncated in past notes."
     }
   ]
 }
