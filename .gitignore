@@ -7,3 +7,4 @@
 # Manual source PDFs — local-only (public repo; avoid republishing copyrighted manuals + repo bloat).
 # Extracted text in manuals/text/ IS committed as the queryable substrate.
 manuals/pdf/
+REINTEGRATION-BACKLOG-2026-07-09.md
