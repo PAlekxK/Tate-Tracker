@@ -30,6 +30,24 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - **Refined "Peak this week" — needs a structured peak field (data work).** Audit 2026-07-05: all 23 plants carry peakWindows (88 total), but **~40% (35/88) don't parse** via `parseShortDateRange` — it only reads "Abbrev D–Abbrev D"; it misses full month names ("May 15–June 5"), month-only ("Mar — before growth begins"), prose-only ("After first hard frost flattens leaves"), and multi-window ("Mar …; Jun …"). There's also a year-wrap bug (winter-spanning windows parse to negative spans). Net: the peak-this-week surfaces (tile + card panel) are **under-inclusive** today. Right fix = add a machine-readable peak field to the schema (e.g. `peakStart`/`peakEnd` as MM-DD, keep the prose for display), which removes both the parser fragility and the prose-only cases. Deep winter (Dec–mid-Jan) is legitimately empty — that's fine, it has a calm fallback.
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-09 (vehicle service-records pipeline — GTI trial)
+
+**New capability shipped: mine photos of paper service records → onto the vehicle card + a private backup.** Committed + pushed (Tate-Tracker HEAD `30d9f5d`); Worker redeployed (Guru serving the fresh digest, verified `/health` ok). This activates the "future thread" flagged in [[project_fernwood_vehicles_card]] and reuses the Hillyer reader discipline. Full mined detail: `.private/service-records/gti-2016/EXTRACTED.md` (gitignored). Capability memory: [[project_vehicle_service_records]].
+
+### What shipped (`gti-2016`)
+- **New `serviceHistory[]` + a "what she's had done" card panel** — 10 rows, 2021→2026 (date · mileage · shop · summary), provenance chips (`inferred` = OCR read, `verified` = Paul-confirmed), mirrors the "what she needs" restoration panel. Re-inlined `VEHICLES_DATA` by hand (parity verified).
+- **Shop tier repositioned:** Express Oil (stop 1) → **Eurofed (preferred specialist** — new contact; it's the real APR tune shop, holds the history, 4.7★, 24/24 warranty, chain-so-get-it-in-writing caveat) → **Autobahn (alternative** — demoted; the false "where your tune was done" claim removed).
+- **Coolant leak reframed** — open + undiagnosed (Express Oil diagnosing first); 2022 Autohaus water-pump replacement attached as *context*, NOT called a recurrence (Paul's steer). Mileage anchored to verified **79,582 (1/2/26)**; recall step notes the 3/2025 suction-jet-pump recall was already done; light "have Express Oil eyeball the brakes" item.
+- **New tooling:** `tools/service-records/intake.py` (deterministic AI-free intake) + `service-records.manifest.json` (committed PII-free durability catalog). Raw scans + full detail (VIN/address/costs) stay gitignored in `.private/`. Capture from Apple Photos via **osxphotos** (installed via `uv tool`).
+
+### ⚠️ Owner: Paul
+1. **Express Oil tomorrow** — get the coolant leak diagnosed; hand them the "pump already replaced 2022" context now on the card.
+2. **Eyeball the GTI card on the phone** (Safari-kill for the cache) — open "▸ what she's had done."
+3. **DECISION — off-machine backup target (R2 vs Google Drive).** The only unbuilt piece of the durability design; Apple Photos is the interim second copy, the committed manifest makes any loss detectable. Once chosen, wire `backup.sh` — same setup then serves the Bronco's bigger paper pile next.
+
+### Oil-gate feed
+Every Express Oil change on record used **Valvoline 5W-30**, not 502.00 5W-40 — reinforces the open "soften the oil gate to spec-not-viscosity" backlog item (a 502.00-approved oil is the real gate).
+
 ## Pickup point — last session ended 2026-07-08 (manuals corpus)
 
 **Manuals for the whole fleet — research pass + a 📖 link on every card, shipped & pushed (Tate-Tracker HEAD `710b6a6`).** Reference materials for all 15 vehicles/equipment assembled into a new `manuals/` corpus and linked on each card; the links flow to Garden Guru's digest.
