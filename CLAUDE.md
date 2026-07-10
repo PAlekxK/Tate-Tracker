@@ -30,6 +30,19 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - **Refined "Peak this week" — needs a structured peak field (data work).** Audit 2026-07-05: all 23 plants carry peakWindows (88 total), but **~40% (35/88) don't parse** via `parseShortDateRange` — it only reads "Abbrev D–Abbrev D"; it misses full month names ("May 15–June 5"), month-only ("Mar — before growth begins"), prose-only ("After first hard frost flattens leaves"), and multi-window ("Mar …; Jun …"). There's also a year-wrap bug (winter-spanning windows parse to negative spans). Net: the peak-this-week surfaces (tile + card panel) are **under-inclusive** today. Right fix = add a machine-readable peak field to the schema (e.g. `peakStart`/`peakEnd` as MM-DD, keep the prose for display), which removes both the parser fragility and the prose-only cases. Deep winter (Dec–mid-Jan) is legitimately empty — that's fine, it has a calm fallback.
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-10 (GTI oil-gate softening + people.json Mom fix)
+
+**Applied the pre-decided oil-gate softening from the 7/09 reintegration backlog and fixed the telemetry people-map. Committed, pushed, and the Worker redeployed — Garden Guru serves the corrected guidance.** Tate-Tracker HEAD `68727bb` (pushed to GH Pages); Worker version `549ee062` (`/health` ok).
+
+### What shipped
+- **GTI oil gate softened → spec, not viscosity.** Reframed the "requires 5W-40 / don't put 5W-30 in it" language to **gate on VW 502.00 approval**: a 502.00 5W-30 is manual-legal (the owner's manual allows 5W-40 *or* 5W-30), 5W-40 preferred for the Stage-1 tune; the real walk-away is a generic/dexos 5W-30 with **NO** 502.00. Applied in `vehicles.json` → `gti-2016` (oil.value + Express Oil restoration detail + serviceContact notes), the inlined `VEHICLES_DATA` (parity, JSON re-validated), and `.research/2026-07-08-gti-express-oil-coupons.md`. Digest rebuilt + Worker deployed. **Closes reintegration-backlog #1.**
+- **Call guide added to the repo** — `.research/2026-07-09-gti-express-oil-call-guide.md` (gitignored). **Closes reintegration-backlog #2.**
+- **`tools/people.json` corrected** — `d-14nyhnjz` confirmed = Mom (via her 7/02 discovery interview), not the old "probably Paul's old iPhone" guess; added a Mom entry. Exact deviceId left empty (the map exact-matches and the full id is truncated in past notes) — **fill it from the next `analyze-fernwood` run.**
+
+### ⚠️ Owner: Paul (residual)
+- GTI shop booking still open (the 7/08 two-shop plan stands). Coupon clocks: $39.99 oil + MID726 **expired 7/11**; free rotation/alignment + $20-off (YDCD26) run to 7/31.
+- Reintegration-backlog #3 loose ends: the earlier Worker-redeploy question is now moot (redeployed this session ✓); still confirm **exact GTI mileage** next drive.
+
 ## Pickup point — last session ended 2026-07-09 (vehicle service-records pipeline — GTI trial)
 
 **New capability shipped: mine photos of paper service records → onto the vehicle card + a private backup.** Committed + pushed (Tate-Tracker HEAD `30d9f5d`); Worker redeployed (Guru serving the fresh digest, verified `/health` ok). This activates the "future thread" flagged in [[project_fernwood_vehicles_card]] and reuses the Hillyer reader discipline. Full mined detail: `.private/service-records/gti-2016/EXTRACTED.md` (gitignored). Capability memory: [[project_vehicle_service_records]].
