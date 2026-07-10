@@ -60,19 +60,23 @@
       "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation. Odometer ~81k (approx, 2026-06-28) — confirm exact next drive. SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump/DSG repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
       "restoration": [
         {
-          "item": "Coolant leak — water pump & thermostat housing",
+          "item": "Coolant leak — source under diagnosis",
           "status": "diagnosing",
-          "detail": "Taking it in for diagnosis. This is the EA888 Gen 3's signature failure — the plastic water pump + thermostat housing assembly leaks at the seals. Ask the shop to confirm and quote the combined job, and to fit an upgraded metal-impeller water pump (INA/OEM kit) instead of another plastic one — same labor, longer life. EXPECTED COST: ~$820–1,295 at a good indie like Autobahn; ~$1,500–2,200 at a dealer (40–60% more — higher labor + genuine-parts markup), so this stays at Autobahn. The leak diagnosis (~$75–180) is often credited toward the repair — ask. WHOLE-VISIT picture: the must-dos (this + DSG + brake flush + diag) run ~$1,300–2,100; figure ~$1,400–2,600 once you add the cheap inspect-first items, up to ~$3,500 if it needs motor mounts or walnut-blast carbon cleaning. Full breakdown in .research/2026-06-28-gti-autobahn-cost-estimate.md. TWO-WAVE option: this teardown (intake off) is the forcing event, so do the items that SHARE it in the same Wave-1 visit — PCV, chain-stretch read, and walnut-if-the-scope-shows-it; leave DSG, brake flush, and motor mounts for a later Wave 2 (they don't need the intake off), so you're not paying the teardown labor twice. — Getting a FREE second-opinion look at this leak at Express Oil during the oil-change visit (pressure test on the lift, G13 pink only); explore Express Oil for the repair itself only if they clear the bar — metal-impeller pump, VW/VCDS diagnostics, warranty ≥ Autobahn — see the Express Oil contact + .research/2026-07-08-gti-express-oil-coupons.md.",
+          "detail": "Active coolant leak, source not yet pinned down. NEXT STEP: Express Oil is taking a look (free, on the lift) — get their read + a written estimate. Useful context to hand whoever diagnoses it: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so this is NOT the original plastic pump — full part list is in the private service records. If it turns out to be a specialist repair (the pump again, or something else), Eurofed is the preferred shop (your tune shop, holds your history), Autobahn the alternative / second quote. On any pump replacement, ask for a metal-impeller INA/OE kit.",
           "contactId": [
-            "autobahn",
-            "expressoil"
+            "expressoil",
+            "eurofed",
+            "autobahn"
           ]
         },
         {
           "item": "DSG transmission service",
           "status": "due soon",
           "detail": "Fluid + filter. Interval is 40k / 80k miles — at ~81k it's right at the 80k interval — due now. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2. Express Oil can quote it, but the temp-controlled fill wants the specialist — defaults to Autobahn (a quote under ~$250 = probably just a drain-and-fill).",
-          "contactId": "autobahn"
+          "contactId": [
+            "eurofed",
+            "autobahn"
+          ]
         },
         {
           "item": "Brake fluid flush",
@@ -97,7 +101,7 @@
         {
           "item": "Spare key — source + program",
           "status": "sourcing",
-          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY type (part-number family 5K0 837 202 AK, FCC NBG010206T, 315 MHz US, HU66 blade — confirm by reading the label on your own key). Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or a VW dealer (either Jim Ellis Chamblee — right by Autobahn, so you can do it the same trip as the GTI service — or Jim Ellis Kennesaw, which is on the way to the property; OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket 5K0 837 202 AK fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150). On the dealer trip: skip any \"free multi-point inspection\" as a to-do list (dealer pricing + upsell, and you trust Autobahn for the real diagnosis) — but DO grab the dealer-only freebies: the free recall check + any recall work (16V647 EVAP etc.), and optionally a free written estimate to use as a price benchmark against Autobahn.",
+          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY type (part-number family 5K0 837 202 AK, FCC NBG010206T, 315 MHz US, HU66 blade — confirm by reading the label on your own key). Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or a VW dealer (either Jim Ellis Chamblee — right by Autobahn, so you can do it the same trip as the GTI service — or Jim Ellis Kennesaw, which is on the way to the property; OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket 5K0 837 202 AK fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150). On the dealer trip: skip any \"free multi-point inspection\" as a to-do list (dealer pricing + upsell, and you trust Autobahn for the real diagnosis) — but DO grab the dealer-only freebies: the free recall check + any recall work (16V647 EVAP etc.), and optionally a free written estimate to use as a price benchmark against Autobahn. — RECALL NOTE: a suction-jet-pump safety recall was already performed at Jim Ellis 3/2025 (@ ~73.6k); still worth running a fresh free recall check by VIN on the dealer trip in case anything new has been issued.",
           "contactId": [
             "jim-ellis-chamblee",
             "jim-ellis-kennesaw",
@@ -113,19 +117,34 @@
           "item": "Carbon cleaning — intake valves",
           "status": "planned",
           "detail": "Direct injection builds carbon on the intake valves; 80–100k is the window to inspect and walnut-blast — at ~81k you're just at the front edge, so it may well not be needed yet. Have the shop scope it and tell you how bad it is before you commit to the job.",
-          "contactId": "autobahn"
+          "contactId": [
+            "eurofed",
+            "autobahn"
+          ]
         },
         {
           "item": "Timing chain stretch check",
           "status": "planned",
           "detail": "No fixed interval; stretch usually needs action at 120–150k. A quick VCDS / OBDeleven read now gives a baseline — worth it on a tuned car.",
-          "contactId": "autobahn"
+          "contactId": [
+            "eurofed",
+            "autobahn"
+          ]
         },
         {
           "item": "PCV valve & motor mounts",
           "status": "planned",
           "detail": "Both are common softening/failure points on tuned MK7s. Cheap to inspect while it's at this visit.",
-          "contactId": "autobahn"
+          "contactId": [
+            "eurofed",
+            "autobahn"
+          ]
+        },
+        {
+          "item": "Brakes — quick check",
+          "status": "planned",
+          "detail": "You recall the brakes looking OK recently, and the records back that up — front brakes were done in 2022 (Eurofed/Autohaus) and rears at Midas 2022. No action needed; just have Express Oil eyeball pad life on the leak-diagnosis visit to confirm.",
+          "contactId": "expressoil"
         }
       ],
       "vin": "3VW547AU0GM••••••",
@@ -154,16 +173,6 @@
       },
       "serviceContacts": [
         {
-          "id": "autobahn",
-          "name": "Autobahn Performance",
-          "role": "Independent VW/Audi specialist — where the APR Stage 1 tune was done; primary shop for the 90k service + coolant leak",
-          "phone": "(770) 409-8288",
-          "address": "6476 Buford Hwy NE, Atlanta, GA 30340",
-          "hours": "Mon–Fri 9–6 (closed weekends)",
-          "url": "https://autobahn-performance.com",
-          "notes": "German specialist since 1993; APR/Dinan/IE-certified tuning (they did your tune), 4.9★ across Yelp/CARFAX/Birdeye (250+ reviews), 2yr/24k-mi warranty. When you book, phone-vet the specific jobs: water-pump/thermostat with a metal-impeller pump, DSG fluid+filter, walnut-blast carbon, VCDS chain-stretch read."
-        },
-        {
           "id": "expressoil",
           "name": "Express Oil Change & Tire Engineers",
           "role": "STOP 1 — Paul's regular oil shop, right down the street; go here FIRST. ASE-certified full-service (does European). Front door for oil + coupons + a free coolant-leak estimate; the big repair defaults to Autobahn unless Express Oil earns it.",
@@ -172,6 +181,26 @@
           "hours": "Mon–Fri 8–6, Sat 8–5 (closed Sun)",
           "url": "https://www.expressoil.com/stores/atlanta/ga/0523/",
           "notes": "PREP (do before you go): phone 404-659-6225 to confirm they stock VW 502.00 5W-40 (euro full synthetic) + the out-the-door price with $20-off — the coupon is standard-oil-only and voids with your own oil, so if they can't do 502.00, skip the oil here (don't accept a 5W-30 dexos blend) but still go for the free look; have the coupons handy (Gmail: from:expressoil.com). ON THE VISIT (one trip does a lot): oil change + free tire rotation (RTE026) + free alignment check (ASR026); ask them to inspect + pressure-test the coolant leak — G13 pink ONLY, if they don't stock it look only/add nothing — and to QUOTE THE WATER-PUMP JOB IN WRITING; if they use DOT 4 LV, do the brake fluid flush here too. WALK OUT WITH the written leak finding + estimate — that's what decides whether the big job stays at Autobahn. Sense-check the water-pump quote: under ~$650 = likely a plastic pump / no housing; over ~$1,300 = dealer pricing, stay at Autobahn. Coupon clocks: oil $39.99/$59.99 (YID726) + mechanical 15%/$50 (MID726) expire 7/11; free rotation/alignment + $20-off oil (YDCD26) run to 7/31. 4.5★, non-salesy. Full plan + full question list + price table: .research/2026-07-08-gti-express-oil-coupons.md."
+        },
+        {
+          "id": "eurofed",
+          "name": "Eurofed Automotive (Atlanta / Chamblee)",
+          "role": "PREFERRED specialist — your actual APR tune shop (did the Stage 1 in Sep 2022), so they hold your performance history. APR-authorized, ASE + factory-trained, 24mo/24k warranty.",
+          "phone": "(470) 349-8135",
+          "address": "3900 N Peachtree Rd, Atlanta, GA 30341",
+          "hours": "Mon–Fri 8–5 (closed weekends)",
+          "url": "https://eurofedautomotive.com/atlanta/",
+          "notes": "Your tune shop — did the APR Stage 1 (High Torque) + front brakes + tires here 9/2022 @ 54,297 mi. APR-authorized (billed as the largest APR dealer in the Southeast), 4.7★ CARFAX (110 reviews), reputation for fair pricing + no upsell; same 24mo/24k warranty as Autobahn. CAVEAT: multi-location chain, so quality can vary by advisor and there are a few BBB complaints (charged-for-work-not-done, a coolant leak that persisted) — get the diagnosis + quote IN WRITING (as you already do). Real 2022 price anchors here: Stage 1 tune $600, front pads+rotors $760, 4 tires $882, alignment $200. For the current water-pump question, get a Eurofed quote to set against Autobahn's ~$820–1,295 estimate."
+        },
+        {
+          "id": "autobahn",
+          "name": "Autobahn Performance",
+          "role": "ALTERNATIVE specialist + good second quote — independent VW/Audi/German specialist since 1993. (Earlier notes said the APR tune was done here; the service records show it was actually Eurofed — corrected.)",
+          "phone": "(770) 409-8288",
+          "address": "6476 Buford Hwy NE, Atlanta, GA 30340",
+          "hours": "Mon–Fri 9–6 (closed weekends)",
+          "url": "https://autobahn-performance.com",
+          "notes": "German specialist since 1993; APR/Dinan/IE-certified, 4.9★ across Yelp/CARFAX/Birdeye (250+ reviews), 2yr/24k-mi warranty — a strong shop and a useful second quote against Eurofed. When you book, phone-vet the specific jobs: water-pump/thermostat with a metal-impeller pump, DSG fluid+filter, walnut-blast carbon, VCDS chain-stretch read."
         },
         {
           "id": "jim-ellis-chamblee",
@@ -204,11 +233,84 @@
           "notes": "On the I-75/Cobb Pkwy corridor toward Jasper. Heads-up: public listings now show this as 'Volkswagen of Marietta' — the old Jim Ellis VW Marietta listing reads closed, so it looks like a rebrand/ownership change. Confirm the name when you call. Same key spec + recall check by VIN."
         }
       ],
-      "mileage": "~81,000 mi (approx — Paul to confirm exact next drive)",
+      "mileage": "~81,000 mi (est., mid-2026) — last VERIFIED odometer 79,582 on 2026-01-02 (Express Oil). Read the exact figure next drive.",
       "manual": {
         "label": "Owner's manual (2016 US edition)",
         "url": "https://carworklog.com/stuff/Manual/Owners_Manual-Golf-GTI-Golf-R-US-Edition_Model-Year-2016_Edition-07_2015.pdf"
-      }
+      },
+      "serviceHistory": [
+        {
+          "date": "2026-01-02",
+          "mileage": 79582,
+          "shop": "Express Oil",
+          "summary": "4 new tires (Hankook Ventus V2, 225/40R18) + mount/balance + alignment",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2025-03-20",
+          "mileage": 73631,
+          "shop": "Jim Ellis VW",
+          "summary": "Suction-jet-pump safety recall (free) + multipoint inspection",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2025-03-20",
+          "mileage": 73610,
+          "shop": "Express Oil",
+          "summary": "Oil change (Valvoline 5W-30)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2024-05-15",
+          "mileage": 66857,
+          "shop": "Express Oil",
+          "summary": "Full-service oil change (Valvoline 5W-30)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2023-08-26",
+          "mileage": 60652,
+          "shop": "Express Oil",
+          "summary": "Full-service oil change (Valvoline 5W-30)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2022-11-18",
+          "mileage": 55478,
+          "shop": "Express Oil",
+          "summary": "Oil change",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2022-10-21",
+          "mileage": 54844,
+          "shop": "Midas",
+          "summary": "4 tires mount/balance + alignment (a rear-brake line shows on one of two same-day tickets — unconfirmed)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2022-09-22",
+          "mileage": 54297,
+          "shop": "Eurofed",
+          "summary": "APR Stage 1 tune (High Torque) + front brakes (pads & rotors) + 4 tires + alignment",
+          "confidence": "verified"
+        },
+        {
+          "date": "2022-06-24",
+          "mileage": 52665,
+          "shop": "Autohaus Social",
+          "summary": "Water pump + thermostat assembly replaced + cooling-system flush + front brakes",
+          "confidence": "verified"
+        },
+        {
+          "date": "2021-06-18",
+          "mileage": 45671,
+          "shop": "Express Oil",
+          "summary": "First full-service oil change (Valvoline 5W-30)",
+          "confidence": "inferred"
+        }
+      ],
+      "_serviceHistoryNote": "Summarized from scanned paper records (full detail + part numbers + costs held privately). Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed."
     },
     {
       "id": "tiguan-2018",

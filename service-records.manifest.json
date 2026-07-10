@@ -1,0 +1,234 @@
+{
+  "_meta": {
+    "note": "PII-free catalog of private vehicle service scans; the durable index for .private/service-records/",
+    "updatedAt": "2026-07-10T02:40:54.096844+00:00",
+    "count": 25
+  },
+  "records": [
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_103022_IMG_8495.HEIC",
+      "sha256": "d33e0ef91efc50c032fd3dd19b92182ddb923b37a69fa89da6693765d0c113d0",
+      "bytes": 1171298,
+      "photoTakenAt": "2026-07-09T10:30:22",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112702_IMG_8496.HEIC",
+      "sha256": "31b04914d42440290eccb668ec1ec25e872ce4d1871d0e9e6adae7ca014ba793",
+      "bytes": 1841248,
+      "photoTakenAt": "2026-07-09T11:27:02",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112713_IMG_8497.HEIC",
+      "sha256": "9e7cf78b3948e70a8c7758236b11dbf18b43ac7735e367d30f4c02f0140de30a",
+      "bytes": 1871314,
+      "photoTakenAt": "2026-07-09T11:27:13",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112724_IMG_8498.HEIC",
+      "sha256": "15e08cbddfdbdd2e717a505f664927aac34f25f726c910793af81827184684a0",
+      "bytes": 2010265,
+      "photoTakenAt": "2026-07-09T11:27:24",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112731_IMG_8499.HEIC",
+      "sha256": "cbde7f4abeeab70dc1c192c1c683729e624449c42bc5ed1e770cf84ba747ee85",
+      "bytes": 2046639,
+      "photoTakenAt": "2026-07-09T11:27:31",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112736_IMG_8500.HEIC",
+      "sha256": "e02ec3d536ff04c086caac201ed66badba3f0bcce6e614393bc59fdaee0ead7e",
+      "bytes": 2279441,
+      "photoTakenAt": "2026-07-09T11:27:36",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112819_IMG_8501.HEIC",
+      "sha256": "a80b7093621d41ce72423eebb34f800c8e9a28000b55e6ac3cc796c45ae5a8c4",
+      "bytes": 1576232,
+      "photoTakenAt": "2026-07-09T11:28:19",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112826_IMG_8502.HEIC",
+      "sha256": "e20afa5df0612dab2e5b1f993669b4c052bf6d29f0d73481eeda0cd6ffdda1f3",
+      "bytes": 1606856,
+      "photoTakenAt": "2026-07-09T11:28:26",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112833_IMG_8503.HEIC",
+      "sha256": "a03f48572afe1f72507a41e32887b3282c0b4663981ab04fe2560b1f733b1a8f",
+      "bytes": 940588,
+      "photoTakenAt": "2026-07-09T11:28:33",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_112855_IMG_8504.HEIC",
+      "sha256": "4107f5a3bf9e54c4163c010cca80e052e9a09e7bdf458a17555a257af8a1a169",
+      "bytes": 2014509,
+      "photoTakenAt": "2026-07-09T11:28:55",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_113757_IMG_8505.HEIC",
+      "sha256": "6cccfd02050429376fb520731717cdcc3ed43ea2861daab4e7f47c93df0d5eb5",
+      "bytes": 1848857,
+      "photoTakenAt": "2026-07-09T11:37:57",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_113803_IMG_8506.HEIC",
+      "sha256": "64c9956d0a92f4f6a6c7db511150aeec44c3db5e13df5f3761253a3c41f94998",
+      "bytes": 1454738,
+      "photoTakenAt": "2026-07-09T11:38:03",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_113807_IMG_8507.HEIC",
+      "sha256": "7fa9760712653d826b47687cd49df03d3b815247fb4e6b3ba85300fc6684a641",
+      "bytes": 1349084,
+      "photoTakenAt": "2026-07-09T11:38:07",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_113812_IMG_8508.HEIC",
+      "sha256": "9297d86c6e80c4953884cebe645c77f91897eb71d6b04ac71aedb54ba4bd58db",
+      "bytes": 1253725,
+      "photoTakenAt": "2026-07-09T11:38:12",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_113815_IMG_8509.HEIC",
+      "sha256": "cebdd4b259c18bd55660647c3825b19b5c2488f368040125b8540041ceec8cfa",
+      "bytes": 842320,
+      "photoTakenAt": "2026-07-09T11:38:15",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_113818_IMG_8510.HEIC",
+      "sha256": "e36d314fe378de539e06695a88c886f35e1f3b02d23a739f0aae37eed64292c3",
+      "bytes": 835362,
+      "photoTakenAt": "2026-07-09T11:38:18",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_114200_IMG_8511.HEIC",
+      "sha256": "e2e99f177d889a89cced9be28fb9c094b2da9e3c577294b8181cfea2e46224ca",
+      "bytes": 1952269,
+      "photoTakenAt": "2026-07-09T11:42:00",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_114206_IMG_8512.HEIC",
+      "sha256": "a01116d5367e1fba192a0009b43334299f9fcceb5cb066d89e6bbbe888776b00",
+      "bytes": 1951476,
+      "photoTakenAt": "2026-07-09T11:42:06",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_114211_IMG_8513.HEIC",
+      "sha256": "5ea4c04e309450451b5cb65569307c8a34122b5a04a34de5fa163d0cee200c8e",
+      "bytes": 2190842,
+      "photoTakenAt": "2026-07-09T11:42:11",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_114215_IMG_8514.HEIC",
+      "sha256": "af5a8e645eda969adacea94ecac41dd018270bbc85dbb126222504c2ae6ef620",
+      "bytes": 2081819,
+      "photoTakenAt": "2026-07-09T11:42:15",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_114225_IMG_8515.HEIC",
+      "sha256": "c00eeb214a1940856c70cd45d4f03eb0ad952565b83b6e6b0b45c642b9a7d63f",
+      "bytes": 2379814,
+      "photoTakenAt": "2026-07-09T11:42:25",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_114232_IMG_8516.HEIC",
+      "sha256": "5cf8882afaa8e1b8584b5144179eb989f342e31569effb4b9c543ff4ec86920f",
+      "bytes": 2036592,
+      "photoTakenAt": "2026-07-09T11:42:32",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_132721_IMG_8517.PNG",
+      "sha256": "94cbff2176ce8d38cd22ee2cd1014451b491427df6f3d64557d567768e87f036",
+      "bytes": 1958940,
+      "photoTakenAt": "2026-07-09T13:27:21",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_132721_IMG_8517_edited.jpeg",
+      "sha256": "56aba0c97e10068afc3926166e430e176c54d0ce5d8624a0e47bd48f31b911ef",
+      "bytes": 132808,
+      "photoTakenAt": "2026-07-09T13:27:21",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260709_154206_IMG_8518.HEIC",
+      "sha256": "16d24d9ed185081da1d8a6c954cf98d6c0bb8df6e67429fff5d6af6915d4c6da",
+      "bytes": 1468198,
+      "photoTakenAt": "2026-07-09T15:42:06",
+      "stage": "inbox",
+      "class": null
+    }
+  ]
+}
