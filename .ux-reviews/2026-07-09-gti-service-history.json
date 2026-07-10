@@ -1,0 +1,136 @@
+{
+  "review_id": "ux-2026-07-09-gti-service-history",
+  "project": "Fernwood (Tate-Tracker)",
+  "subject": "Verified vehicle service history on the GTI vehicle card — glance summary + drill-in repository, and how a past-completion corrects a forward-looking 'what she needs' item",
+  "review_date": "2026-07-09",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (the Vehicles card's new service-history surface); one flow-level touch where the backward layer feeds the forward layer",
+  "user_context": {
+    "primary_user": "Two readers on one card. Paul (owner) is primary for the history depth — he wants part numbers, dates, mileage anchors, and the full record. Mom is the co-reader who still lands on the Vehicles card and reads with difficulty; the card skews Paul-facing but must not break her half-engagement, meaning-by-icon+size+color+position read.",
+    "core_jobs_to_be_done": [
+      "Paul, at-counter / planning: 'What's already been done to this car (and when, at what mileage) so I don't pay to re-do it, can answer the shop's questions, and can judge what's actually due.'",
+      "Paul, reflective/stewardship: 'Keep the whole documented life of this car in one place — the record so far.'",
+      "Mom, half-engagement: not the audience for the log itself; her read is 'this car is looked after / here's its story,' carried by words, never a table."
+    ],
+    "context_of_use": "Mobile, one-handed. Two modes: (a) Paul at or en route to a shop needing a fact fast, (b) Paul planning at home. The Vehicles card is already dense — specs, maintenance, 'what she needs' restoration list, field-notes, service contacts — so the history layer is being added to an already-full card and must earn its room by relocating depth, not flooding.",
+    "assumptions_made": [
+      "The source records are photos of paper receipts (model reads) — per the global 'model-read values are hypotheses until verified' rule, every mined date/mileage/part-number is inference until Paul confirms against the paper. The one exception is Paul's explicit confirmation that the water pump was replaced in 2022, which is treated as ground truth.",
+      "The full corpus spans ~6 oil/service records from ~45k to ~79k across at least three shops (Autohaus Social/Bosch, Express Oil, Eurofed). I verified two anchor records directly (Invoice #9559 @ 52,665; the Express Oil service-history block 45,671/55,478/60,652); the rest is inferred from the task brief.",
+      "Whether the current 2026 coolant leak is a genuine recurrence of the 2022 water-pump job or a misattribution is a factual question I cannot settle — the design must hold both possibilities open rather than assert either."
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "The glance and the repository — glance (curated time-relevant projection) leads, repository (full record) held in the parent card on demand, relocate depth don't delete it (Tate-Tracker/CLAUDE.md governing principle; vehicles is explicitly named as a domain that must layer this way — this review is a clean application to a new domain)",
+    "Lead with the synthesis, not the rows (cross-project.md) — the glance states the read the log computes, not the rows",
+    "Freshness sets altitude (cross-project.md) — newest service on top; 'last serviced' and current-odometer are the freshest signals",
+    "Source-hierarchy drives layout / measured vs modeled stay visually distinct (cross-project.md + CLAUDE.md 'trust is the load-bearing emotion') — a value transcribed from a receipt photo is an inference until verified and must read as one",
+    "One engine, one verdict [Fernwood candidate] — the 'kept up' synthesis must be computed from the same records the log shows, so glance and detail can't disagree",
+    "Register is carried by chrome, not just words [Fernwood candidate] — machine/record content legitimately earns the Vehicles-card spec-block treatment; the rule is 'no ops-chrome on living-property surfaces,' not 'everything wears the journal skin'",
+    "Caution as noticing, not warning (fernwood.md) — a history/plan conflict is surfaced as a calm noticing line, never a red conflict alarm",
+    "Glyphs follow the journal voice, not the dashboard voice + Icons earn their place (fernwood.md / cross-project.md) — no service-status traffic-lights, no overdue badges",
+    "Make every surface read at half-engagement + Mom-legibility (fernwood.md + memory) — the log is expansion-gated; meaning carried by labels/position/size, not 9px helper text; part numbers and cost never at the glance",
+    "Single source of truth per concept (memory feedback_single_source_of_truth) — a completed job must not live permanently in both the forward and backward lists",
+    "Scope/relation is declared, not auto-detected + capture stays AI-free (cross-project.md + CLAUDE.md) — matching a history entry to a forward item is a curated relation, not an inference the app draws",
+    "Meet the user at the action (cross-project.md) — the history exists to inform the next-service decision, so it must feed the forward 'what she needs' surface, not sit inert"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The brief asks what the glance shows: last service? next-due-by-mileage? a 'kept up' read? Today the card has no backward-looking glance at all — the only forward-looking summary is the 'what she needs' list. A full chronological log dropped onto the card would flood it and fail the half-engagement bar.",
+      "user_impact": "Paul gets a fast orienting read ('this car is documented and current, last touched at ~X miles') without opening anything; Mom gets a warm 'it's looked after' read carried by words, not a table. The wrong move — leading with the log — buries the read Paul actually came for under rows he has to re-assemble himself.",
+      "principle_invoked": "The glance and the repository; Lead with the synthesis, not the rows; Freshness sets altitude",
+      "recommendation": "The service-history GLANCE is three quiet journal-voice lines, not a log: (1) a computed 'kept up' synthesis — e.g. 'Serviced regularly — 6 records, ~45k to ~79k mi' (honest: say 'regularly' only when the cadence supports it; derive it, don't hand-write it); (2) the last-service anchor, the freshest signal, on top — 'Last: oil change - Aug 2023 - 60,652 mi'; (3) the mileage span as the car's odometer story. Deliberately KEEP next-due-by-mileage OUT of the history glance — it is forward-looking and already belongs to 'what she needs' (see F3). Putting a countdown here would (a) re-import task-manager framing the field-journal tone forbids and (b) duplicate the forward list. The history glance answers 'what's been done,' full stop; the forward list answers 'what's due.'",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The repository (full history) needs a structure. Three candidate axes: by date, by system (cooling/brakes/oil), by shop. The source docs come as whole visits (Invoice #9559 = one visit = diag + water pump + cooling flush), and they accrue newest-last on paper but are read newest-first.",
+      "user_impact": "Reverse-chronological, visit-as-unit matches both how Paul scans ('what happened most recently') and how the records actually exist. Grouping primarily by system or shop would fracture the chronology and bury the when/at-what-mileage anchors that are the entire point of the surface.",
+      "principle_invoked": "Freshness sets altitude; The glance and the repository (repository held in the parent card, expansion-gated)",
+      "recommendation": "Structure the repository as a reverse-chronological list of VISITS behind one expansion (mirror the existing '▸ what she needs' collapsed-by-default pattern — call it '▸ what she's had done (N)'). Each visit row = date - mileage - shop - one-line summary of what was done (e.g. 'Jun 2022 - 52,665 mi - Autohaus - water pump + thermostat, cooling flush'). Then a depth ladder INSIDE the row: the summary is always visible; part numbers, full line items, and cost sit behind a further tap (Paul-only depth — Mom must never meet a parts ledger at the row's top level). Do NOT build a system/shop filter now — restraint + defer-affordances-pending-signal say ship the reverse-chron log first and add faceting only if Paul finds himself hunting. If you want a system cross-reference, get it for free via the F4 back-reference (the water-pump forward item citing its 2022 visit), not a standing filter UI.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The new history must coexist with restoration[] ('what she needs') without redundancy. restoration[] is forward (open jobs, most-critical-first); history is backward (done, newest-first). Today the card only has the forward half, so the reader has no backward companion and the two directions aren't visually distinguished.",
+      "user_impact": "Making the backward/forward split structural and legible is what prevents the two lists from feeling like duplicates. Paul (and Mom) read the card as 'here's what she still needs / here's what she's already had' — a complete, self-evident duality — rather than two overlapping to-do-ish lists.",
+      "principle_invoked": "Make every surface read at half-engagement (meaning by label + position); Typographic hierarchy by value; Single source of truth per concept",
+      "recommendation": "Render them as two parallel, similarly-treated panels with time-direction carried by the label and position: 'what she needs' (forward) and 'what she's had done' (backward) — the grammar mirrors deliberately so the pair reads as one idea in two directions. Place the backward panel AFTER the forward one (the decision layer leads; the record supports). The ONLY permitted crossover is the deliberate back-reference in F4 — a forward item citing a past completion. No job appears as an open thing in both. Corollary (single-source-of-truth): decide where a COMPLETED job's durable record lives — see F7. A calm illustration of the split already half-exists: spark plugs sit as 'done' in the forward list today; under the new model that completion's permanent home is the history, not a permanent 'done' chip on the forward list.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "The specific problem, corrected framing: the forward item 'Coolant leak — water pump & thermostat housing' (status 'diagnosing') is a STILL-OPEN, still-undiagnosed job at ~81k — and it stays open. The water pump + thermostat housing WERE replaced in 2022 (Invoice #9559, 2022-06-29, ~52.7k mi; Paul confirmed). That prior replacement does NOT close or invalidate the current item — these EA888 engines commonly need the pump again, so the current leak may well be a recurrence. The history's job here is to ANNOTATE the open item with diagnostic context (it was done before, when, at what mileage, which pump), not to correct it out of existence. The design must avoid two opposite failures: (a) presenting the job as if never done (loses the recurrence/warranty/which-pump context the shop needs), and (b) implying the prior replacement means the job is done (makes a live, unsolved leak vanish).",
+      "user_impact": "Annotated correctly, Paul walks into the shop armed: 'the pump was replaced in 2022 at ~52.7k — this is likely a repeat, here's the part that was fitted, check warranty and let's put a metal-impeller pump in this time.' That prior-replacement date + part is real diagnostic input and may bear on warranty and which pump to fit. Get it wrong in direction (a) and he re-derives history he already has; wrong in direction (b) and the card tells him a still-leaking car is fine.",
+      "principle_invoked": "Meet the user at the action; Caution as noticing, not warning; Scope/relation is declared not auto-detected + capture stays AI-free; Trust is load-bearing (measured vs modeled)",
+      "recommendation": "Annotate the open item with a calm, diagnostic back-reference — the item's status and openness are untouched. On the 'what she needs' coolant-leak item, add one quiet line: 'Replaced once before - 2022 at ~52.7k mi (Autohaus, plastic pump). This leak may be a repeat — tell the shop; check warranty; fit a metal-impeller pump this time.' It reads as context that SHARPENS the open job, not a flag that closes it. Guardrails: (1) NO conflict/alarm chrome — no red, no 'outdated' badge, no warning triangle; journal-voice noticing line (caution-as-noticing). (2) The annotation must not read as a completion — the item keeps its 'diagnosing' chip; the history line sits as supporting context beneath the plan, visibly subordinate. (3) The link from the open item to its past visit is a CURATED relation Paul authors (a field on the restoration item pointing at the history entry, or a shared tag), NOT auto-matched — pairing 'this 2022 job' with 'this open item' is semantic inference, and drawing it automatically would put AI on a surface that must stay deterministic and could mis-link. (4) The rarer CLOSE case (history shows a planned item is genuinely already done and there's no live problem) uses the SAME back-reference mechanism, but there Paul — not the app, not a photo read — flips the item to done or retires it (agent-proposals-are-not-validated; capture stays deterministic). So one mechanism, three outcomes: history can confirm, contextualize (the common case, here), or occasionally close a forward item — and the human, not the app, decides which. This backward-feeds-forward move is the loop applied to vehicles: the record informs the live decision.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "Every history entry is a model read off a paper receipt — an inference until Paul verifies it against the document. The Vehicles card ALREADY has the right primitive for this: the maintenance block tags each value verified / inferred / tbd and renders a confidence chip. The water-pump correction in F4 rests entirely on the 52,665 reading being right, so provenance here is load-bearing, not cosmetic.",
+      "user_impact": "Paul can trust the record exactly as far as it's earned — a confirmed reading reads as fact, a raw photo-transcription reads as provisional. This also feeds the loop: the unverified flag is the natural hook to invite Paul to confirm the reading (the same way the fishing '~65 estimated' flag invites a real reading), and confirming visibly upgrades it. Without it, a mis-transcribed mileage could silently corrupt a shop decision.",
+      "principle_invoked": "Model-read values are hypotheses until verified (global CLAUDE.md); measured vs modeled stay visually distinct (CLAUDE.md); the loop (invite + fold back)",
+      "recommendation": "History entries inherit the existing maintenance confidence convention: a value transcribed from a receipt photo is 'inferred' (or a dedicated 'from-record' tag) until Paul confirms against the paper, then 'verified.' Keep the confidence distinction as PAUL-FACING DEPTH — show the chips inside the expanded log where Paul reads, not on the glance (per-entry chips at the glance would be ops-chrome for Mom). At the glance, honesty is preserved cheaply by keeping mileages approximate ('~45k to ~79k') and precise figures (52,665) down in the log with their tag. Related distinction worth keeping visible in the data model: 'last serviced at 79k [from record]' and 'current odometer ~81k [estimate]' are different values with different provenance — don't let them collapse into one number.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "empty-state",
+      "severity": "important",
+      "observation": "The Vehicles card is Paul-facing but Mom still lands on it. The history's natural form — dates, mileages, part numbers, dollar figures — is the single most 'spreadsheet/ledger' content on the whole dashboard, and the worst possible content for a half-engaged, no-glasses read if it surfaces by default.",
+      "user_impact": "If the record dumps onto the card body, Mom hits a wall of alphanumerics that teaches her the app is an ops tool, not a place to read about the property. Kept behind an expansion and clearly framed as 'the record,' she routes past it visually in under a second and keeps the warm read.",
+      "principle_invoked": "Make every surface read at half-engagement; Register is carried by chrome, not just words; Glyphs follow the journal voice; Mom-legibility (meaning by size/position/color)",
+      "recommendation": "(1) The full log is expansion-gated, collapsed by default, exactly like 'what she needs.' (2) The register here is legitimately 'record,' not 'nature journal' — so the expanded log SHOULD reuse the Vehicles card's existing spec-block visual language (structured rows, the maintenance-table treatment). That's form-follows-function, not a tone violation: the rule is no ops-chrome on living-property surfaces, and a structured record earns structured chrome. What you protect is that Mom can ROUTE past it — it reads unmistakably as 'the record, optional depth,' not as prose she must parse. (3) No ops chrome anywhere: no service-status traffic-light dots, no 'overdue' badges, no warning glyphs; cost figures and part numbers live only in the innermost layer. (4) The 'kept up' glance line (F1) is the one piece Mom may see on the card body — make it a real journal line carried by words, never a 9px caption.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "Once history exists, a completed job could live in two places: as a 'done' chip on the forward 'what she needs' list (the current spark-plugs pattern) AND as a visit in the backward history. That's the parallel-snapshot drift the single-source-of-truth rule warns against.",
+      "user_impact": "Two homes for one completion drift apart invisibly (a corrected mileage in one, stale in the other) and make the two lists feel redundant — the exact redundancy F3 is trying to prevent.",
+      "principle_invoked": "Single source of truth per concept (memory feedback_single_source_of_truth)",
+      "recommendation": "Give a completion ONE durable home: the service history. The forward 'what she needs' list holds not-yet-done items only, plus (optionally) a transient 'just marked done' acknowledgment that fades rather than persisting as a permanent 'done' chip. Where a completion produces a genuine forward consequence (spark plugs done -> 'next due ~40k from now'), that next-due note is forward-looking and belongs on the forward list as its own quiet future item — but the completion FACT itself lives in history. This is a data-model decision, so I'm flagging it as Paul's call, not prescribing the migration; the design principle is 'one record per completion.'",
+      "effort": "medium"
+    }
+  ],
+  "open_questions_for_user": [
+    "The coolant-leak item stays OPEN (active, undiagnosed at ~81k) — the 2022 record annotates it, it doesn't close it. Diagnostic question for the shop, not the app: is this leak a recurrence of the 2022 pump job (common on these engines) or a different source? The F4 annotation hands the shop the 2022 date + part so they can settle that — you don't need the card to decide it.",
+    "For a completed job (F7): do you want the durable record to live only in service history, with the forward list holding open items only? Or do you want to keep a persistent 'done' chip on the forward list too? I recommend the former (single source of truth) but it changes how spark-plugs and any other current 'done' items render.",
+    "The back-reference link in F4 (a forward item citing its past completion) I'm recommending as a curated relation you author, not an auto-match. Confirm you're fine hand-linking the few cases where it matters, rather than the app trying to infer them.",
+    "Confidence tagging (F5): are you willing to confirm the key mined readings (especially the 52,665 water-pump mileage) against the paper so they can read as 'verified'? The correction in F4 leans on that number being right."
+  ],
+  "follow_up_research_suggested": [
+    "None required to proceed. If a system/shop filter is ever considered for the repository (F2), gate it on observed behavior — watch whether Paul actually hunts through the reverse-chron log before building faceting (defer-affordances-pending-signal).",
+    "An engineering-partner pass on the data model would be worth it before build: the serviceHistory[] schema (visit as unit; per-entry confidence; the curated forward<->history link field) and the single-source-of-truth migration of current 'done' items are eng-shaped decisions this review only frames."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "History annotates the plan — the backward record INFORMS a forward item, most often without closing it. When a past completion bears on a still-open planned item, surface it ON the forward item as a calm, subordinate back-reference ('replaced once before — <date> at <mileage>; this may be a repeat — tell the shop'), so it adds diagnostic context without either nagging or implying the job is done. One mechanism, three outcomes: history can CONFIRM, CONTEXTUALIZE (the common case), or occasionally CLOSE a forward item — never as a conflict alarm, and the human (not the app, not a photo read) decides which outcome applies. The relation between the past record and the open item is author-declared, because auto-matching it is semantic inference on a surface that must stay deterministic.",
+      "scope": "fernwood",
+      "rationale": "New pattern surfaced by this review (the GTI water-pump case) that none of the existing principles cover: the backward layer feeding the forward layer. It sits at the intersection of 'Meet the user at the action,' 'Caution as noticing not warning,' and 'Scope is declared not auto-detected,' but the specific move — a backward record contextualizing a still-open forward decision without alarm, without auto-resolution, and without falsely implying completion — is its own thing. Paul flagged that history-informs-a-planned-item recurs across the fleet (confirm/contextualize/close), so it's likely to earn a second occurrence quickly. Proposing as a Fernwood candidate (1 occurrence)."
+    },
+    {
+      "principle": "Transcribed-from-source content wears its provenance at every altitude. A value mined from a photo/scan/receipt is an inference until a deterministic source or the user confirms it, and it must read as provisional wherever it's shown — inheriting the same measured-vs-modeled / verified-vs-inferred visual treatment the surface already uses for live-vs-estimated data. The unverified flag doubles as the invitation to confirm.",
+      "scope": "cross-project",
+      "rationale": "This is arguably just the global 'model-read values are hypotheses' rule plus Fernwood's existing maintenance confidence convention plus fishing's 'measured vs modeled' — but it keeps recurring (OCR in Hillyer, receipt-mining here, weather estimates in fishing) and there isn't yet a single design principle that says 'provenance is a visual property, not just a data flag.' Proposing as a cross-project candidate (1 occurrence as a named design rule; strong prior support). Would fold neatly next to 'Source-hierarchy drives layout.'"
+    },
+    {
+      "principle": "(Confirming evidence, not a new rule) The glance-and-repository governing principle applies cleanly to a new domain — vehicles. Service history layered as glance ('kept up' synthesis + last-service anchor) -> repository (reverse-chron visit log) -> loop (the record re-frames the forward decision + invites confirmation of unverified readings) is a textbook instance. Worth logging as a second-domain validation of the governing principle beyond fishing/plants.",
+      "scope": "fernwood",
+      "rationale": "Not a new principle — evidence that the governing principle generalizes as claimed. Recording it strengthens the canon and gives the vehicles domain an explicit hook to the governing rule."
+    }
+  ]
+}

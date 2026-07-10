@@ -4,6 +4,15 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-09 — The GTI's service history, read off the paper records
+
+- **The GTI card now has a "what she's had done" panel** — a service history back to 2021, read from photos of the actual shop receipts: every oil change, the tune, tires, the water pump — with the mileage each time.
+- **It turns out the APR tune was done at Eurofed, not Autobahn.** Eurofed is now the GTI's preferred specialist (they did the tune and hold the history); Autobahn stays on as a strong alternative and a good second quote.
+- **The water pump was already replaced once (2022)** — so the current coolant leak is marked still-under-diagnosis, with that history attached for whoever looks at it next (Express Oil first).
+- Exact mileage is now anchored (79,582 on 1/2/2026), and the raw records are all backed up privately.
+
+---
+
 ## 2026-07-08 — A manual for every machine
 
 - **Every vehicle and piece of equipment now has a 📖 manual link on its card** — all 15 of them, not just the DR200S. The GTI, Tiguan, F-150, Bronco, both Suzukis, the golf cart, the mowers, blowers, trimmer, and both chainsaws each point to the right owner's or service manual now.
