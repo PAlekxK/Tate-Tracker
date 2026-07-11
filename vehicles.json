@@ -57,12 +57,12 @@
           "confidence": "verified"
         }
       },
-      "notes": "APR Stage 1 software tune on stock hardware. Coolant leak source under investigation. Odometer ~81k (approx, 2026-06-28) — confirm exact next drive. SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump/DSG repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump/DSG repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
       "restoration": [
         {
-          "item": "Coolant leak — source under diagnosis",
-          "status": "diagnosing",
-          "detail": "Active coolant leak, source not yet pinned down. NEXT STEP: Express Oil is taking a look (free, on the lift) — get their read + a written estimate. Useful context to hand whoever diagnoses it: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so this is NOT the original plastic pump — full part list is in the private service records. If it turns out to be a specialist repair (the pump again, or something else), Eurofed is the preferred shop (your tune shop, holds your history), Autobahn the alternative / second quote. On any pump replacement, ask for a metal-impeller INA/OE kit.",
+          "item": "Coolant — verify at next shop visit",
+          "status": "planned",
+          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase. Next time the car's in a shop anyway (e.g. the DSG service), have them verify the coolant system and whether it's actually losing any. Eurofed (holds your history) or Autobahn. On any eventual pump replacement, ask for a metal-impeller INA/OE kit.",
           "contactId": [
             "expressoil",
             "eurofed",
@@ -72,7 +72,7 @@
         {
           "item": "DSG transmission service",
           "status": "due soon",
-          "detail": "Fluid + filter. Interval is 40k / 80k miles — at ~81k it's right at the 80k interval — due now. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2. Express Oil can quote it, but the temp-controlled fill wants the specialist — defaults to Autobahn (a quote under ~$250 = probably just a drain-and-fill).",
+          "detail": "Fluid + filter. Interval is 40k / 80k miles — at 82,698 (verified 7/11/26) it's PAST the 80k interval — overdue. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2. Express Oil can quote it, but the temp-controlled fill wants the specialist — defaults to Autobahn (a quote under ~$250 = probably just a drain-and-fill).",
           "contactId": [
             "eurofed",
             "autobahn"
@@ -80,8 +80,8 @@
         },
         {
           "item": "Brake fluid flush",
-          "status": "due soon",
-          "detail": "Time-based — every 2 years; if you can't remember the last one, it's due. Fine to do at Express Oil on the oil-change trip IF they use DOT 4 LV (VW G 060 157) — it shares no labor with the DSG, so it needn't wait for an Autobahn visit. Ask if it falls under the mechanical coupon (MID726, 15%/$50, exp 7/11). Falls back to Autobahn if Express Oil won't use the right fluid.",
+          "status": "done",
+          "detail": "DONE 2026-07-11 at Express Oil — 'brake-fluid exchange' on today's invoice ($124.99). OPEN QUESTION: the line reads 'brake fluid exchange with friction replacement' — confirm whether any brake pads were actually replaced today, or 'friction' is just the package name (that answer decides the 'Brakes — quick check' item). Fluid spec if ever redone: DOT 4 LV (VW G 060 157), 2-year interval.",
           "contactId": [
             "expressoil",
             "autobahn"
@@ -233,17 +233,46 @@
           "notes": "On the I-75/Cobb Pkwy corridor toward Jasper. Heads-up: public listings now show this as 'Volkswagen of Marietta' — the old Jim Ellis VW Marietta listing reads closed, so it looks like a rebrand/ownership change. Confirm the name when you call. Same key spec + recall check by VIN."
         }
       ],
-      "mileage": "~81,000 mi (est., mid-2026) — last VERIFIED odometer 79,582 on 2026-01-02 (Express Oil). Read the exact figure next drive.",
+      "mileage": "82,698 mi — VERIFIED 2026-07-11 (Express Oil full-service oil change). Prior verified: 79,582 on 2026-01-02.",
+      "registration": {
+        "owner": "Paul",
+        "renewsBy": "June 3 (Paul's birthday)",
+        "county": "Fulton/DeKalb (Atlanta) — emissions county",
+        "emissionsRequired": true,
+        "lastEmissions": "2025-06-30 @ 75,731 — PASS (cert KI936679)",
+        "note": "GA registration renews at midnight on the owner's birthday (June 3). Atlanta is an emissions county, and the 2016 GTI (model years 2002–2023) needs a passing emissions test each year BEFORE the tag can be renewed. ⚠️ As of 2026-07-11 the 2026 renewal (was due 2026-06-03) appears PAST DUE — needs a fresh 2026 emissions test + tag renewal (GA late penalty: 10% of ad-valorem tax + 25% of tag fee). VERIFY current status."
+      },
       "manual": {
         "label": "Owner's manual (2016 US edition)",
         "url": "https://carworklog.com/stuff/Manual/Owners_Manual-Golf-GTI-Golf-R-US-Edition_Model-Year-2016_Edition-07_2015.pdf"
       },
       "serviceHistory": [
         {
+          "date": "2026-07-11",
+          "mileage": 82698,
+          "shop": "Express Oil",
+          "summary": "Full-service oil change (Valvoline 5W-30) + tire rotation + brake-fluid exchange; customer reported possible coolant loss — cooling system pressure-tested, NO active leak found (reservoir at a safe level)",
+          "confidence": "inferred"
+        },
+        {
           "date": "2026-01-02",
           "mileage": 79582,
           "shop": "Express Oil",
           "summary": "4 new tires (Hankook Ventus V2, 225/40R18) + mount/balance + alignment",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2025-09-15",
+          "mileage": 77793,
+          "shop": "Cannon Automotive (Jasper)",
+          "summary": "Oil change (Valvoline 5W-40 European full synthetic). OBSERVATION (single-source read of one invoice line, unverified): note reads coolant reservoir empty prior to service, topped off",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2025-06-30",
+          "mileage": 75731,
+          "shop": "GA Clean Air Force (emissions)",
+          "summary": "Annual emissions test — PASS (0 DTCs, readiness pass, catalytic converter present). Cert KI936679.",
           "confidence": "inferred"
         },
         {
@@ -317,6 +346,13 @@
       "group": "vehicle",
       "name": "2018 VW Tiguan",
       "trim": "S",
+      "registration": {
+        "owner": "Mom",
+        "renewsBy": "September (Mom's birthday — exact day TBD)",
+        "county": "TBD — where Mom registers/garages it",
+        "emissionsRequired": "verify",
+        "note": "Registered in Mom's name → renews on HER birthday (September), not Paul's. Upcoming, not overdue. Emissions: a 2018 would need annual testing ONLY if garaged in a metro-Atlanta emissions county; EXEMPT if registered in a non-emissions county (e.g. Pickens/Jasper). Confirm Mom's county + exact birthday day."
+      },
       "emoji": "🚙",
       "engine": "EA888 Gen 3B 2.0T",
       "category": "daily-driver",
@@ -403,6 +439,13 @@
       "group": "vehicle",
       "name": "2006 Ford F-150",
       "trim": "",
+      "registration": {
+        "owner": "Mom",
+        "renewsBy": "September (Mom's birthday — exact day TBD)",
+        "county": "TBD — where Mom registers/garages it",
+        "emissionsRequired": "verify",
+        "note": "Registered in Mom's name → renews on HER birthday (September), not Paul's. Upcoming, not overdue. Emissions: a 2006 would need annual testing ONLY if garaged in a metro-Atlanta emissions county; EXEMPT if registered in a non-emissions county (e.g. Pickens/Jasper). Confirm Mom's county + exact birthday day."
+      },
       "emoji": "🛻",
       "engine": "4.2L Essex V6",
       "category": "truck",
@@ -487,6 +530,13 @@
       "group": "vehicle",
       "name": "1989 Ford Bronco",
       "nickname": "Bolores",
+      "registration": {
+        "owner": "Paul",
+        "renewsBy": "June 3 (Paul's birthday)",
+        "county": "Fulton/DeKalb (Atlanta)",
+        "emissionsRequired": false,
+        "note": "GA registration renews on the owner's birthday (June 3). GOOD NEWS: as a 1989 (model year 2000 or older) the Bronco is EXEMPT from GA emissions — tag renewal only, no test needed. ⚠️ As of 2026-07-11 the 2026 renewal (was due 2026-06-03) appears PAST DUE if it's currently tagged/driven — VERIFY (a mid-restoration project vehicle may be untagged, or on an antique/historic tag with its own rules)."
+      },
       "trim": "Eddie Bauer",
       "emoji": "🟢",
       "image": "images/vehicles/bronco-1989.jpg",

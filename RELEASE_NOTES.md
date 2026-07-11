@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-11 — The GTI's July check-up, on the record
+
+- **The GTI's latest visit is logged** — the 7/11 oil change, tire rotation, and brake-fluid flush at Express Oil, plus last summer's emissions pass. Mileage is now confirmed at **82,698**.
+- **The coolant question is framed honestly** — two observations sit side by side (a note that the reservoir was found empty last fall, and this month's pressure test finding no active leak) with no conclusion drawn. The plan: just have a shop verify it next time the car's in anyway.
+- Behind the scenes, each vehicle now carries its **registration renewal** details (whose name it's in, whose birthday it renews on, and whether it needs emissions) — the groundwork for a gentle renewal reminder.
+
+---
+
 ## 2026-07-09 — The GTI's service history, read off the paper records
 
 - **The GTI card now has a "what she's had done" panel** — a service history back to 2021, read from photos of the actual shop receipts: every oil change, the tune, tires, the water pump — with the mileage each time.
