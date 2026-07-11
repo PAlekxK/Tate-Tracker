@@ -1,8 +1,8 @@
 {
   "_meta": {
     "note": "PII-free catalog of private vehicle service scans; the durable index for .private/service-records/",
-    "updatedAt": "2026-07-10T02:40:54.096844+00:00",
-    "count": 25
+    "updatedAt": "2026-07-11T21:37:53.586865+00:00",
+    "count": 87
   },
   "records": [
     {
@@ -229,6 +229,564 @@
       "photoTakenAt": "2026-07-09T15:42:06",
       "stage": "inbox",
       "class": null
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171105_IMG_8526.HEIC",
+      "sha256": "e478230ff82705129e4478cc7d1ac76ab5c4ab7813a2a7bf3d686fbc88670ad9",
+      "bytes": 1776188,
+      "photoTakenAt": "2026-07-11T17:11:05",
+      "stage": "triaged",
+      "class": "registration"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171110_IMG_8527.HEIC",
+      "sha256": "0b266497b15110e11cc4ac9dfba64c56aa9ce67750ca7ecaceb803b7e0873704",
+      "bytes": 1706028,
+      "photoTakenAt": "2026-07-11T17:11:10",
+      "stage": "triaged",
+      "class": "gov_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171123_IMG_8528.HEIC",
+      "sha256": "05061d8bd5b46c844f14dc721d5d9ad7ccfc7548363537442c06310fd2caaf71",
+      "bytes": 1929561,
+      "photoTakenAt": "2026-07-11T17:11:23",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171128_IMG_8529.HEIC",
+      "sha256": "165d52d7d1f89802e1f4ff15095d8b3ffcb21acb4b4c31a6b3ba7b354097bcf0",
+      "bytes": 1066853,
+      "photoTakenAt": "2026-07-11T17:11:28",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171151_IMG_8530.HEIC",
+      "sha256": "05c8bafc1678234f2bfec23ff1363247a09abc6ba2d9ca73e4bc035e79cda17a",
+      "bytes": 1141607,
+      "photoTakenAt": "2026-07-11T17:11:51",
+      "stage": "triaged",
+      "class": "title"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171157_IMG_8531.HEIC",
+      "sha256": "7b90c9f477a4f00d69fcbf652508662b7e0465e2f5603e0655112478385102ef",
+      "bytes": 1103226,
+      "photoTakenAt": "2026-07-11T17:11:57",
+      "stage": "triaged",
+      "class": "gov_application"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171204_IMG_8532.HEIC",
+      "sha256": "50a6efe195a6afbf8742917c63e2a9aa8bcce34d1d1d18864ebbbc6d7abb4c44",
+      "bytes": 1231363,
+      "photoTakenAt": "2026-07-11T17:12:04",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171239_IMG_8533.HEIC",
+      "sha256": "7819307cd7e8638915414eda3a727c181dfb24d2ff2d5f67beabe33a8cc369c5",
+      "bytes": 903949,
+      "photoTakenAt": "2026-07-11T17:12:39",
+      "stage": "triaged",
+      "class": "misfiled_other"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171247_IMG_8534.HEIC",
+      "sha256": "2cb0f3696ec4c74fc3ebecfa34296ac7f850507380e571d040abd94f08694f7e",
+      "bytes": 1119121,
+      "photoTakenAt": "2026-07-11T17:12:47",
+      "stage": "triaged",
+      "class": "misfiled_other"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171318_IMG_8535.HEIC",
+      "sha256": "23097d5e3263948f6f643c488c6b840679dfd756123671bc0e376dc94fac1f61",
+      "bytes": 944440,
+      "photoTakenAt": "2026-07-11T17:13:18",
+      "stage": "triaged",
+      "class": "engine_guide"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171323_IMG_8536.HEIC",
+      "sha256": "24c6d9a50888b66bfe3cb97fae3483f382ac98b74befefd779827db5befb1681",
+      "bytes": 969257,
+      "photoTakenAt": "2026-07-11T17:13:23",
+      "stage": "triaged",
+      "class": "illegible"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171329_IMG_8537.HEIC",
+      "sha256": "4835d65654559d54c949190ac08f5e9517e1bd3210fbf21fc93c70ef3b859a21",
+      "bytes": 2051351,
+      "photoTakenAt": "2026-07-11T17:13:29",
+      "stage": "triaged",
+      "class": "engine_guide"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171333_IMG_8538.HEIC",
+      "sha256": "a6c899453a9789c592a753bc2a7d8d3bc1d99dcf2c699c38d0057cf8f5d2ac6f",
+      "bytes": 2235201,
+      "photoTakenAt": "2026-07-11T17:13:33",
+      "stage": "triaged",
+      "class": "engine_guide"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171340_IMG_8539.HEIC",
+      "sha256": "e0c597aa9ed9559137d7bd07b74a51f745fbe9d816d63b300288b23ef679914d",
+      "bytes": 1054977,
+      "photoTakenAt": "2026-07-11T17:13:40",
+      "stage": "triaged",
+      "class": "photo"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171400_IMG_8540.HEIC",
+      "sha256": "f92c9895a9a8ada557523b80ab7d5a2db7b97a06ebdbf0d2222dffeab20ec0f1",
+      "bytes": 1283505,
+      "photoTakenAt": "2026-07-11T17:14:00",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171413_IMG_8541.HEIC",
+      "sha256": "b5fcac94d9f7defdcd18bd957ba9c5744ab43824d1a7a6cc7150dd3cd03c8b53",
+      "bytes": 2089272,
+      "photoTakenAt": "2026-07-11T17:14:13",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171426_IMG_8542.HEIC",
+      "sha256": "66e030646b818207bc49436931f2d0c7eaf69ada2446c2ccf138b6cd8f51f42e",
+      "bytes": 2153294,
+      "photoTakenAt": "2026-07-11T17:14:26",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171438_IMG_8543.HEIC",
+      "sha256": "360908cb26cf660be4e17693333f611c6b31027cdff2fc6a02b57ca16acaee89",
+      "bytes": 2421768,
+      "photoTakenAt": "2026-07-11T17:14:38",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171444_IMG_8544.HEIC",
+      "sha256": "4f6740a21802a0c1d176a44aefb3073b5f50a2b4013e10b8d642a1eacd17c837",
+      "bytes": 1086006,
+      "photoTakenAt": "2026-07-11T17:14:44",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171453_IMG_8545.HEIC",
+      "sha256": "c074cf0c34c7223a7cfdae8aa252ff3c992663ef8e451dc45cf0f5149fd587ba",
+      "bytes": 1888170,
+      "photoTakenAt": "2026-07-11T17:14:53",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171505_IMG_8546.HEIC",
+      "sha256": "5d81a71b00eca288ca7b8a9c9b3d3b238e8f66cc9fb0fcdd766121bc32604410",
+      "bytes": 1478180,
+      "photoTakenAt": "2026-07-11T17:15:05",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171518_IMG_8547.HEIC",
+      "sha256": "58401f71e5f04cb16e4ffb60c0e5f1ad74c27aec1ffa4ecc7e30d399c7987a73",
+      "bytes": 1767399,
+      "photoTakenAt": "2026-07-11T17:15:18",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171523_IMG_8548.HEIC",
+      "sha256": "6816a466f77d98f42c5ac77f9d011fa82479ba9a9131df442407c67c649a2989",
+      "bytes": 1379752,
+      "photoTakenAt": "2026-07-11T17:15:23",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171531_IMG_8549.HEIC",
+      "sha256": "7cc2034a3f41ab95fffccfaae42c9b0d31c31356a40583f3f2a820e0aa384c66",
+      "bytes": 1261170,
+      "photoTakenAt": "2026-07-11T17:15:31",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171542_IMG_8550.HEIC",
+      "sha256": "b41bedd6a8f3a4b0b128abbabe9a3fca24c51a030b05a82a8f39922837210b63",
+      "bytes": 1911829,
+      "photoTakenAt": "2026-07-11T17:15:42",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171548_IMG_8551.HEIC",
+      "sha256": "637fc03e83a36efc58e5dc5d5025524452f432b5bea3621d32826a424b575f40",
+      "bytes": 1733030,
+      "photoTakenAt": "2026-07-11T17:15:48",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171555_IMG_8552.HEIC",
+      "sha256": "9ea8be594549847e702ca32d2a460ee93e91f41c2f493c05fb6c43bfb6c98c52",
+      "bytes": 1045590,
+      "photoTakenAt": "2026-07-11T17:15:55",
+      "stage": "triaged",
+      "class": "illegible"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171601_IMG_8553.HEIC",
+      "sha256": "c3c37d53cbe71d386485970433ebdfacbd1ed0422972882021d1ca2d86ac2192",
+      "bytes": 861268,
+      "photoTakenAt": "2026-07-11T17:16:01",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171606_IMG_8554.HEIC",
+      "sha256": "165d7c3220f560215f200de4b50682a5582e666c05fa5c7115ee530abdd52c26",
+      "bytes": 1108739,
+      "photoTakenAt": "2026-07-11T17:16:06",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171610_IMG_8555.HEIC",
+      "sha256": "7a8267b9c7663c50b7267a1b4de994f9d356cee5b49675bdca528ce8c4b14c01",
+      "bytes": 1826211,
+      "photoTakenAt": "2026-07-11T17:16:10",
+      "stage": "triaged",
+      "class": "parts_receipt"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171716_IMG_8556.HEIC",
+      "sha256": "9fd146e91f3d603e5d4be9481517d762f84f3779414a4d7710e9ab6079701aa3",
+      "bytes": 2432309,
+      "photoTakenAt": "2026-07-11T17:17:16",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171722_IMG_8557.HEIC",
+      "sha256": "162c1f3ec8f1af27e6f3a144c11d561899c8bb6e6f543c26b0baa1829d3bbdd9",
+      "bytes": 1843236,
+      "photoTakenAt": "2026-07-11T17:17:22",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171727_IMG_8558.HEIC",
+      "sha256": "9c682cccd706bca9cd01274282b3d23b743bec900e0f4efd1e4f425b6020ce3e",
+      "bytes": 1846731,
+      "photoTakenAt": "2026-07-11T17:17:27",
+      "stage": "triaged",
+      "class": "reference"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171744_IMG_8559.HEIC",
+      "sha256": "c702bd018bbe47283fbfb6d6a52757a18e6bada7780d077f02140812d6eebec3",
+      "bytes": 1786574,
+      "photoTakenAt": "2026-07-11T17:17:44",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171752_IMG_8560.HEIC",
+      "sha256": "21dc9a6ca409e68291b0c6842883d5dd0120ec66955a66eedc8fc3d36eee02f3",
+      "bytes": 1850270,
+      "photoTakenAt": "2026-07-11T17:17:52",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171800_IMG_8561.HEIC",
+      "sha256": "db73b4bc4d8f3de9b6ddf59d438b015cf57378d78eb62cd723794379d81a50ad",
+      "bytes": 2255234,
+      "photoTakenAt": "2026-07-11T17:18:00",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171806_IMG_8562.HEIC",
+      "sha256": "92db09503536ac12bee26ca02bbe2f3fbb43fda3144bf70d69237e1673b30c19",
+      "bytes": 1793955,
+      "photoTakenAt": "2026-07-11T17:18:06",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171816_IMG_8563.HEIC",
+      "sha256": "e282942d5dfb3d39ee7c9067703fe01f50562de2f9c888018d4456bd916922a5",
+      "bytes": 2514824,
+      "photoTakenAt": "2026-07-11T17:18:16",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171822_IMG_8564.HEIC",
+      "sha256": "d660db44ab709fd01aa59111a1b7ece3530cf92f5151971579b3b67f7f924509",
+      "bytes": 2453444,
+      "photoTakenAt": "2026-07-11T17:18:22",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171846_IMG_8565.HEIC",
+      "sha256": "aad186acc377181ebbe0b9c4267d44ff530ee0ab01bac508832698a57e902359",
+      "bytes": 2034590,
+      "photoTakenAt": "2026-07-11T17:18:46",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171855_IMG_8566.HEIC",
+      "sha256": "23fc6b534fdeb0cd670ad97c8f043069a128939b973f32645a54fec8ff570e63",
+      "bytes": 868946,
+      "photoTakenAt": "2026-07-11T17:18:55",
+      "stage": "triaged",
+      "class": "illegible"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171859_IMG_8567.HEIC",
+      "sha256": "f9fee0aed45a7b3aef0187c67cc3a7414973f89621e7301daa286324ac3b6ce5",
+      "bytes": 984029,
+      "photoTakenAt": "2026-07-11T17:18:59",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171905_IMG_8568.HEIC",
+      "sha256": "eae66e6107b13c8517953dc2a17d5bc36608acde83595ac10f15b9349f57d06b",
+      "bytes": 967240,
+      "photoTakenAt": "2026-07-11T17:19:05",
+      "stage": "triaged",
+      "class": "alignment"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171910_IMG_8569.HEIC",
+      "sha256": "88547c3bf9e74c1fd1f31fdf43a513417b3efd7af334c1169d7fbd6d55663b4a",
+      "bytes": 1879100,
+      "photoTakenAt": "2026-07-11T17:19:10",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171915_IMG_8570.HEIC",
+      "sha256": "9ed1842819149b1d5679daef9e44a8abc3f1e8140ce86ad0d7278bb42a60ea9d",
+      "bytes": 1948138,
+      "photoTakenAt": "2026-07-11T17:19:15",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171921_IMG_8571.HEIC",
+      "sha256": "a7a85727ca502c88a8594bd3488c18addcdd1c542316f94b5d44c9c8c6a3668f",
+      "bytes": 2195250,
+      "photoTakenAt": "2026-07-11T17:19:21",
+      "stage": "triaged",
+      "class": "shop_invoice"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171926_IMG_8572.HEIC",
+      "sha256": "2d8c2a429cb949168791d0745c63eb7590872dcd6942f89cd1309868c6266126",
+      "bytes": 2145771,
+      "photoTakenAt": "2026-07-11T17:19:26",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171951_IMG_8573.HEIC",
+      "sha256": "03fb9274885def605d766923df6b36eb16582edccc5920c2de112e543ce201d5",
+      "bytes": 1818895,
+      "photoTakenAt": "2026-07-11T17:19:51",
+      "stage": "triaged",
+      "class": "registration"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_171958_IMG_8574.HEIC",
+      "sha256": "87154f185d791c081bc7eb18dbc12fd5bfcf31dae83a37299c959c35c211393f",
+      "bytes": 1386251,
+      "photoTakenAt": "2026-07-11T17:19:58",
+      "stage": "triaged",
+      "class": "registration"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172001_IMG_8575.HEIC",
+      "sha256": "94ddd2a34c4600afba767c7ff91d6bb65ff7c0cf58c75eed160ad912b18e5442",
+      "bytes": 1163731,
+      "photoTakenAt": "2026-07-11T17:20:01",
+      "stage": "triaged",
+      "class": "registration"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172015_IMG_8576.HEIC",
+      "sha256": "9ef0752f70689fd239815ef10007395b38efdb66146cd1eea2bd31bc4b10a455",
+      "bytes": 1874378,
+      "photoTakenAt": "2026-07-11T17:20:15",
+      "stage": "triaged",
+      "class": "misfiled_other"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172024_IMG_8577.HEIC",
+      "sha256": "ee336bba2b7de95f9ed0690a45d58d9829ccfb8e61ffeb419c02581398291e28",
+      "bytes": 1031581,
+      "photoTakenAt": "2026-07-11T17:20:24",
+      "stage": "triaged",
+      "class": "reference"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172120_IMG_8578.HEIC",
+      "sha256": "c3a25a50b4f4eae75dbf94cc784d387e7a1aa8f06456904e6968db2a5dbd2114",
+      "bytes": 1004819,
+      "photoTakenAt": "2026-07-11T17:21:20",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172154_IMG_8579.HEIC",
+      "sha256": "737b8e8c27d164fb2aea2ca68c7b244b1f67b538b231c832e1e75370e567a3ab",
+      "bytes": 972128,
+      "photoTakenAt": "2026-07-11T17:21:54",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172201_IMG_8580.HEIC",
+      "sha256": "8c079e86c7ebf7efb8468a8636b63c8e2f0dda608c00e6302f07ca81c6d106eb",
+      "bytes": 992454,
+      "photoTakenAt": "2026-07-11T17:22:01",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172205_IMG_8581.HEIC",
+      "sha256": "16aff5d810bb15b822bdf3f45cd92369ddbbb7ae212a597bc03fcb128c5ebdc2",
+      "bytes": 777789,
+      "photoTakenAt": "2026-07-11T17:22:05",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172211_IMG_8582.HEIC",
+      "sha256": "d27181ce49f950ca895391789807d02bdb0bf26854b04ec9e46a2de8b82d8124",
+      "bytes": 884202,
+      "photoTakenAt": "2026-07-11T17:22:11",
+      "stage": "triaged",
+      "class": "misfiled_other"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172215_IMG_8583.HEIC",
+      "sha256": "81a83b3fdbb8a23b480d2e8a27b955ecad098067cde2403d71b6f33be1ce116b",
+      "bytes": 1010833,
+      "photoTakenAt": "2026-07-11T17:22:15",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172216_IMG_8584.HEIC",
+      "sha256": "32e79dbd4a4f7590e4a8030e9aad429ff1304dcb36c7bd017e8ab4175f6fec55",
+      "bytes": 1112425,
+      "photoTakenAt": "2026-07-11T17:22:16",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172223_IMG_8585.HEIC",
+      "sha256": "d8fc019c2547a626c65611297316cc7de49413cf68bf5453b2b20c05a80f17ac",
+      "bytes": 1137733,
+      "photoTakenAt": "2026-07-11T17:22:23",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172226_IMG_8586.HEIC",
+      "sha256": "7272bf96cd57fe4483270e23769981658291d48215301da65ddbff6bc847d949",
+      "bytes": 994522,
+      "photoTakenAt": "2026-07-11T17:22:26",
+      "stage": "triaged",
+      "class": "handwritten_note"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_inbox/20260711_172235_IMG_8587.HEIC",
+      "sha256": "105851b29b61373b5499c3e2eea12c8dc6e56dd3c9d33c6dec7d7a4a7f054674",
+      "bytes": 913421,
+      "photoTakenAt": "2026-07-11T17:22:35",
+      "stage": "triaged",
+      "class": "part_label"
     }
   ]
 }
