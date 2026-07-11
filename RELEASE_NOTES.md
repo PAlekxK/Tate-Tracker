@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-11 — Bolores comes with a backstory
+
+- **The Bronco now has a "what she's had done" panel** — reconstructed from the folder of paper records that came with the truck. It traces the work back through the previous owner, from a 2016 recommissioning and a reman "factory-fresh" 351, through a custom dual exhaust, an emissions-delete phase, and a big front-end rebuild done while the truck lived in Maine — up to your own first repairs this fall.
+- **One item to eyeball in person** — a prior-owner note mentioned a crack in the frame at the steering box (~2020), with no record of whether it was fixed. It's now a "diagnosing" line on her list so it doesn't get lost: worth a direct look before trusting it.
+- Everything read off the old paper is marked *inferred* until confirmed; the previous owner's personal details are kept private.
+
 ## 2026-07-11 — The GTI's July check-up, on the record
 
 - **The GTI's latest visit is logged** — the 7/11 oil change, tire rotation, and brake-fluid flush at Express Oil, plus last summer's emissions pass. Mileage is now confirmed at **82,698**.
