@@ -624,6 +624,11 @@
       "notes": "\"Bolores\" — the Eddie Bauer edition: two-tone maroon over tan, upgraded interior. Lifted and riding on 35\" Pro Comp mud-terrains over 15\" alloys with WARN locking hubs; Mickey Thompson Baja spare on the rear carrier. Full restoration underway.",
       "restoration": [
         {
+          "item": "Frame — inspect at steering box",
+          "status": "diagnosing",
+          "detail": "A prior-owner handwritten note (~Sept 2020) reported a crack in the frame at the steering box, with a ~$500–1,000 repair figure — but whether it was ever repaired isn't in the paperwork. On a lifted 351 Bronco this is the load-bearing item to eyeball directly before trusting it. Verify the frame at the steering-box mount; if the crack is present/unrepaired, address before further driving."
+        },
+        {
           "item": "Oil change",
           "status": "due soon",
           "detail": "5 qt 5W-30 + Motorcraft FL-1A — see the maintenance reference above. ~30-minute job on shelf parts. Engine protection doesn't wait on the cosmetics, so it's first. (Refinish sequence — Phase 0: independent of the paint project, do anytime.)"
@@ -751,7 +756,79 @@
       "manual": {
         "label": "Quick-reference operating guide (1987–91 body)",
         "url": "https://archive.org/details/ford-bronco-operating-guide-1988"
-      }
+      },
+      "serviceHistory": [
+        {
+          "date": "2025-11-23",
+          "shop": "Weatherstrip Specialists (eBay)",
+          "summary": "Rear tailgate upper window run-channel weatherstrip (Bronco-specific)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2025-11-02",
+          "shop": "Classic Industries (eBay)",
+          "summary": "Tailgate latch assembly (78–96 Bronco)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2025-10-10",
+          "shop": "NAPA (Canton, GA)",
+          "summary": "Wiper blades + battery core",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2025-10-07",
+          "shop": "Georgia MVD (Fulton County)",
+          "summary": "Purchased & titled in Georgia — replacement title, clean, no liens",
+          "confidence": "verified"
+        },
+        {
+          "date": "2021-10",
+          "mileage": 97377,
+          "shop": "VIP Tires & Service (Farmingdale, ME)",
+          "summary": "Front-end & brake rebuild — replacement spindle, front wheel bearings & manual locking hubs, brakes, synthetic oil change (prior owner; the truck was in Maine at the time)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2019-05",
+          "shop": "Southern Off-Road Specialists (Alpharetta, GA)",
+          "summary": "Dual steering stabilizer + sway-bar bushings (prior owner)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2018",
+          "shop": "Prior owner (various)",
+          "summary": "Emissions-delete phase — A/C, smog air pump & EGR removed; new (shorter) serpentine belt; throttle-body swap attempts",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2017-03",
+          "shop": "Cherokee Muffler & Auto Repair (Canton, GA)",
+          "summary": "Custom dual aluminized exhaust + Flowmaster VX mufflers (prior owner)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "~2016–17",
+          "shop": "Tim's Auto (prior owner)",
+          "summary": "Reman “factory-fresh” 351 long-block installed",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2016-07",
+          "mileage": 56631,
+          "shop": "Cherokee Tire Service (Canton, GA)",
+          "summary": "35\" Mickey Thompson tire + lifted-truck alignment (prior owner)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2016-07",
+          "mileage": 56283,
+          "shop": "Hickory Flat Hwy Automotive (Canton, GA)",
+          "summary": "Post-purchase recommissioning — front-end rebuild (ball joints, tie rods, drag link), brakes, wheel bearings, timing cover, window motor, A/C service (prior owner)",
+          "confidence": "inferred"
+        }
+      ],
+      "_serviceHistoryNote": "Reconstructed from the prior owner's paper records that came with the truck (2016–2025); owner PII removed. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Full detail + costs held privately."
     },
     {
       "id": "dr200s-2017",
