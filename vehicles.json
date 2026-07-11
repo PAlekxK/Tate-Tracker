@@ -62,7 +62,7 @@
         {
           "item": "Coolant — verify at next shop visit",
           "status": "planned",
-          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase. Next time the car's in a shop anyway (e.g. the DSG service), have them verify the coolant system and whether it's actually losing any. Eurofed (holds your history) or Autobahn. On any eventual pump replacement, ask for a metal-impeller INA/OE kit.",
+          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase — fold it into a visit that's already happening. Two natural moments: (a) the spare-key dealer trip — grab a free coolant-level eyeball while they do the free recall check (treat any 'recommended services' list as an upsell, not gospel); (b) better for a real read — the overdue DSG service at Autobahn, where they can properly check whether it's losing any (dye/pressure) and glance the brake pads at the same time. Eurofed also holds your history. On any eventual pump replacement, ask for a metal-impeller INA/OE kit.",
           "contactId": [
             "expressoil",
             "eurofed",
@@ -81,7 +81,7 @@
         {
           "item": "Brake fluid flush",
           "status": "done",
-          "detail": "DONE 2026-07-11 at Express Oil — 'brake-fluid exchange' on today's invoice ($124.99). OPEN QUESTION: the line reads 'brake fluid exchange with friction replacement' — confirm whether any brake pads were actually replaced today, or 'friction' is just the package name (that answer decides the 'Brakes — quick check' item). Fluid spec if ever redone: DOT 4 LV (VW G 060 157), 2-year interval.",
+          "detail": "DONE 2026-07-11 at Express Oil — brake fluid exchange ($124.99). Fluid only, no pad work (the invoice's 'with friction replacement' is the fluid-service package wording, not new pads — Paul confirmed). Fluid spec if ever redone: DOT 4 LV (VW G 060 157), 2-year interval.",
           "contactId": [
             "expressoil",
             "autobahn"
@@ -101,7 +101,7 @@
         {
           "item": "Spare key — source + program",
           "status": "sourcing",
-          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY type (part-number family 5K0 837 202 AK, FCC NBG010206T, 315 MHz US, HU66 blade — confirm by reading the label on your own key). Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or a VW dealer (either Jim Ellis Chamblee — right by Autobahn, so you can do it the same trip as the GTI service — or Jim Ellis Kennesaw, which is on the way to the property; OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket 5K0 837 202 AK fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150). On the dealer trip: skip any \"free multi-point inspection\" as a to-do list (dealer pricing + upsell, and you trust Autobahn for the real diagnosis) — but DO grab the dealer-only freebies: the free recall check + any recall work (16V647 EVAP etc.), and optionally a free written estimate to use as a price benchmark against Autobahn. — RECALL NOTE: a suction-jet-pump safety recall was already performed at Jim Ellis 3/2025 (@ ~73.6k); still worth running a fresh free recall check by VIN on the dealer trip in case anything new has been issued.",
+          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY type (part-number family 5K0 837 202 AK, FCC NBG010206T, 315 MHz US, HU66 blade — confirm by reading the label on your own key). Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or a VW dealer (either Jim Ellis Chamblee — right by Autobahn, so you can do it the same trip as the GTI service — or Jim Ellis Kennesaw, which is on the way to the property; OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket 5K0 837 202 AK fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150). On the dealer trip: skip any \"free multi-point inspection\" as a to-do list (dealer pricing + upsell, and you trust Autobahn for the real diagnosis) — but DO grab the dealer-only freebies: the free recall check + any recall work (16V647 EVAP etc.), and optionally a free written estimate to use as a price benchmark against Autobahn. While it's there for the freebies, it costs nothing to have them also eyeball the two open 'verify at next visit' items — the coolant level and the brake-pad thickness — just don't let those turn into an upsell list. — RECALL NOTE: a suction-jet-pump safety recall was already performed at Jim Ellis 3/2025 (@ ~73.6k); still worth running a fresh free recall check by VIN on the dealer trip in case anything new has been issued.",
           "contactId": [
             "jim-ellis-chamblee",
             "jim-ellis-kennesaw",
@@ -143,7 +143,7 @@
         {
           "item": "Brakes — quick check",
           "status": "planned",
-          "detail": "You recall the brakes looking OK recently, and the records back that up — front brakes were done in 2022 (Eurofed/Autohaus) and rears at Midas 2022. No action needed; just have Express Oil eyeball pad life on the leak-diagnosis visit to confirm.",
+          "detail": "You recall the brakes looking OK recently, and the records back that up — front brakes done 2022 (Eurofed/Autohaus), rears at Midas 2022. On 7/11/26 Express gave it an overall look-over and flagged nothing on the brakes — read: no red flags, likely fine. (Caveat: their checklist measures brake FLUID level, not pad thickness, so there's no actual pad number on record yet.) No action needed; just confirm pad thickness at the next shop visit — it rides along for free with the spare-key dealer trip or the overdue DSG/Autobahn visit (see those items). Low priority.",
           "contactId": "expressoil"
         }
       ],
@@ -237,6 +237,8 @@
       "registration": {
         "owner": "Paul",
         "renewsBy": "June 3 (Paul's birthday)",
+        "renewMonth": 6,
+        "renewDay": 3,
         "county": "Fulton/DeKalb (Atlanta) — emissions county",
         "emissionsRequired": true,
         "lastEmissions": "2025-06-30 @ 75,731 — PASS (cert KI936679)",
@@ -348,10 +350,12 @@
       "trim": "S",
       "registration": {
         "owner": "Mom",
-        "renewsBy": "September (Mom's birthday — exact day TBD)",
+        "renewsBy": "September 21 (Mom's birthday)",
+        "renewMonth": 9,
+        "renewDay": 21,
         "county": "TBD — where Mom registers/garages it",
         "emissionsRequired": "verify",
-        "note": "Registered in Mom's name → renews on HER birthday (September), not Paul's. Upcoming, not overdue. Emissions: a 2018 would need annual testing ONLY if garaged in a metro-Atlanta emissions county; EXEMPT if registered in a non-emissions county (e.g. Pickens/Jasper). Confirm Mom's county + exact birthday day."
+        "note": "Registered in Mom's name → renews on HER birthday (September 21), not Paul's. Upcoming (Sept), not overdue. Emissions: a 2018 would need annual testing ONLY if garaged in a metro-Atlanta emissions county; EXEMPT if registered in a non-emissions county (e.g. Pickens/Jasper). Confirm Mom's county."
       },
       "emoji": "🚙",
       "engine": "EA888 Gen 3B 2.0T",
@@ -441,10 +445,12 @@
       "trim": "",
       "registration": {
         "owner": "Mom",
-        "renewsBy": "September (Mom's birthday — exact day TBD)",
+        "renewsBy": "September 21 (Mom's birthday)",
+        "renewMonth": 9,
+        "renewDay": 21,
         "county": "TBD — where Mom registers/garages it",
         "emissionsRequired": "verify",
-        "note": "Registered in Mom's name → renews on HER birthday (September), not Paul's. Upcoming, not overdue. Emissions: a 2006 would need annual testing ONLY if garaged in a metro-Atlanta emissions county; EXEMPT if registered in a non-emissions county (e.g. Pickens/Jasper). Confirm Mom's county + exact birthday day."
+        "note": "Registered in Mom's name → renews on HER birthday (September 21), not Paul's. Upcoming (Sept), not overdue. Emissions: a 2006 would need annual testing ONLY if garaged in a metro-Atlanta emissions county; EXEMPT if registered in a non-emissions county (e.g. Pickens/Jasper). Confirm Mom's county."
       },
       "emoji": "🛻",
       "engine": "4.2L Essex V6",
@@ -533,6 +539,8 @@
       "registration": {
         "owner": "Paul",
         "renewsBy": "June 3 (Paul's birthday)",
+        "renewMonth": 6,
+        "renewDay": 3,
         "county": "Fulton/DeKalb (Atlanta)",
         "emissionsRequired": false,
         "note": "GA registration renews on the owner's birthday (June 3). GOOD NEWS: as a 1989 (model year 2000 or older) the Bronco is EXEMPT from GA emissions — tag renewal only, no test needed. ⚠️ As of 2026-07-11 the 2026 renewal (was due 2026-06-03) appears PAST DUE if it's currently tagged/driven — VERIFY (a mid-restoration project vehicle may be untagged, or on an antique/historic tag with its own rules)."

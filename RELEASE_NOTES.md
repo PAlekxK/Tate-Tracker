@@ -8,7 +8,7 @@ What's changed at Fernwood lately. Newest first.
 
 - **The GTI's latest visit is logged** — the 7/11 oil change, tire rotation, and brake-fluid flush at Express Oil, plus last summer's emissions pass. Mileage is now confirmed at **82,698**.
 - **The coolant question is framed honestly** — two observations sit side by side (a note that the reservoir was found empty last fall, and this month's pressure test finding no active leak) with no conclusion drawn. The plan: just have a shop verify it next time the car's in anyway.
-- Behind the scenes, each vehicle now carries its **registration renewal** details (whose name it's in, whose birthday it renews on, and whether it needs emissions) — the groundwork for a gentle renewal reminder.
+- **A gentle registration-renewal line now sits on each vehicle** — it names when the tag renews (on the owner's birthday) and quietly warms up as that date nears, so a renewal doesn't sneak up on you. The GTI and Bronco (yours, June) currently show a soft "worth handling" note; the Tiguan and F-150 (Mom's, September 21) read calm. It even flags when emissions are needed first.
 
 ---
 
