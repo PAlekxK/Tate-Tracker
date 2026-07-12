@@ -13,8 +13,8 @@
       "Pacolet"
     ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
-    "schemaVersion": 4,
-    "schemaNotes": "v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
+    "schemaVersion": 5,
+    "schemaNotes": "v5 (2026-07-12): added an optional plant-level `bloom` field {window (display prose), dates[] ({start,end} MM-DD, year-wrap-aware via mmddRangeActive), confidence ('verified'=observed on-property / 'inferred'=book), optional note} on flowering plants; foliage/structure plants omit it. Added an optional `roster` array on the Hydrangea hub entry (each {name, note}) naming the specific hydrangeas on the property, which each keep their own card with full care. v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for ~1,424 ft above station",
       "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)",
@@ -300,14 +300,24 @@
         "license": "CC BY 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Rhododendron_flower_(Ghorepani,_Nepal).jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Mid-April into early May",
+        "dates": [
+          {
+            "start": "04-15",
+            "end": "05-10"
+          }
+        ],
+        "confidence": "inferred"
+      }
     },
     {
       "id": "hydrangea",
       "name": "Hydrangea",
       "scientificName": "Hydrangea spp.",
       "emoji": "💠",
-      "guide": "The hydrangeas on the property do well with morning sun and afternoon shade — the east-facing slopes here give them exactly that. Bigleaf (macrophylla) types bloom on old wood — prune only after flowering. Panicle and smooth (Annabelle-type) bloom on new wood — prune in late winter. Soil pH controls bigleaf color: acidic = blue, alkaline = pink.",
+      "guide": "This card is the overview for all the hydrangeas on the property — the roster below names each one, and the reblooming cultivars and the panicle each keep their own card with full care. The shared rules: bigleaf (macrophylla) types bloom on OLD wood — prune only right after flowering. Panicle and smooth (Annabelle-type) bloom on NEW wood — prune in late winter. Soil pH controls bigleaf color: acidic = blue (the default here), alkaline = pink.",
       "currentSeasonNote": "In May at Church Mountain — leaves pushing out at Church Mountain Road. Apply a slow-release acidic fertilizer now and prune off any winter dieback. At elevation, bud break runs about a week behind valley plants.",
       "soilNotes": "Well-suited to Church Mountain Road's acidic sandy loam soils (pH 4.5–5.5). Bigleaf hydrangeas at pH below 5.5 will naturally produce blue flowers without acidification — this is the default at Church Mountain Road. For pink flowers, you'd need to raise pH to 6.5+ — a constant uphill battle against the native soil chemistry. Add compost annually — organic matter is the single highest-return amendment for hydrangea success on mountain slopes.",
       "aspectPreference": "East-facing slopes are ideal at Church Mountain Road — morning sun drives strong flowering, afternoon shade prevents wilting and leaf scorch. Avoid south and west exposures where afternoon summer temperatures can exceed 90°F and humidity combined with sun stresses bigleaf types severely. North-facing positions work but expect 20–30% fewer flowers.",
@@ -454,7 +464,36 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_139866012.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "June through September (across the types)",
+        "dates": [
+          {
+            "start": "06-10",
+            "end": "09-15"
+          }
+        ],
+        "confidence": "verified",
+        "note": "Bigleaf mopheads lead in June–August; the panicle carries into September. Blue & white mopheads and the panicle were all in flower on the property in mid-July 2026."
+      },
+      "roster": [
+        {
+          "name": "Bigleaf mopheads — blue & white",
+          "note": "The classic round-headed types by the porch and wall. Blue by default in the property's acidic soil; white forms stay white. Old-wood bloomers — prune right after flowering."
+        },
+        {
+          "name": "Panicle (Hydrangea paniculata)",
+          "note": "The big shrub with cone-shaped lime-white flowers that age pink. Blooms on new wood, so it's frost-safe — prune hard in late winter. See its own card."
+        },
+        {
+          "name": "DreamCloud — reblooming bigleaf",
+          "note": "Reblooms on old and new wood. See its own card for full care."
+        },
+        {
+          "name": "Pop Star (Endless Summer) — reblooming bigleaf",
+          "note": "Reblooms all season on new wood. See its own card for full care."
+        }
+      ]
     },
     {
       "id": "dogwood",
@@ -612,7 +651,18 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "April",
+        "dates": [
+          {
+            "start": "04-10",
+            "end": "04-30"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "The white bracts are modified leaves, not petals — they hold for weeks."
+      }
     },
     {
       "id": "boxwood",
@@ -1075,7 +1125,17 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Mid-May into June",
+        "dates": [
+          {
+            "start": "05-15",
+            "end": "06-15"
+          }
+        ],
+        "confidence": "inferred"
+      }
     },
     {
       "id": "japanese-maple",
@@ -1354,7 +1414,18 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Red_pommes_of_Firethorn_(Pyracantha).jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Small white flowers in spring, then berries",
+        "dates": [
+          {
+            "start": "04-20",
+            "end": "05-15"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Grown mostly for the berry display that follows."
+      }
     },
     {
       "id": "deutzia-yuki-cherry-blossom",
@@ -1450,7 +1521,17 @@
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Deutzia_gracilis.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Mid-to-late spring",
+        "dates": [
+          {
+            "start": "04-20",
+            "end": "05-20"
+          }
+        ],
+        "confidence": "inferred"
+      }
     },
     {
       "id": "clematis",
@@ -1612,7 +1693,22 @@
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Clematis_%27Nelly_Moser%27.JPG"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Late spring, with a lighter repeat in late summer",
+        "dates": [
+          {
+            "start": "05-10",
+            "end": "06-20"
+          },
+          {
+            "start": "08-01",
+            "end": "08-31"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Group 2 — the big first flush is on old wood, a second lighter flush on new growth."
+      }
     },
     {
       "id": "hosta",
@@ -1875,7 +1971,17 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Mid-May into June",
+        "dates": [
+          {
+            "start": "05-10",
+            "end": "06-10"
+          }
+        ],
+        "confidence": "inferred"
+      }
     },
     {
       "id": "butterfly-weed",
@@ -1997,7 +2103,17 @@
         "license": "GFDL 1.2",
         "url": "https://commons.wikimedia.org/wiki/File:Butterfly_Weed_Asclepias_tuberosa_Umbel.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Mid-June into August",
+        "dates": [
+          {
+            "start": "06-15",
+            "end": "08-15"
+          }
+        ],
+        "confidence": "inferred"
+      }
     },
     {
       "id": "wisteria-summer-cascade",
@@ -2129,7 +2245,22 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Wisterria_macrostachya_flowers1.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Late spring, then repeat flushes through summer",
+        "dates": [
+          {
+            "start": "05-20",
+            "end": "06-20"
+          },
+          {
+            "start": "07-01",
+            "end": "08-15"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "A summer-blooming native wisteria — reblooms after the first flush, unlike the aggressive Asian kinds."
+      }
     },
     {
       "id": "clematis-elpis",
@@ -2258,12 +2389,22 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Clematis_macropetala_02.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Through the summer",
+        "dates": [
+          {
+            "start": "06-01",
+            "end": "09-01"
+          }
+        ],
+        "confidence": "inferred"
+      }
     },
     {
       "id": "hydrangea-dreamcloud",
       "name": "DreamCloud Reblooming Hydrangea",
-      "scientificName": "Hydrangea macrophylla 'NCHA3'",
+      "scientificName": "Hydrangea macrophylla (DreamCloud™ reblooming)",
       "emoji": "🤍",
       "guide": "The DreamCloud® hydrangea on the property is part of the Endless Summer® series — a reblooming bigleaf that puts up large bright white mophead flowers on both old and new wood from early summer through fall. The reblooming habit is the key advantage over traditional bigleafs: even if old-wood buds are lost to a late frost or winter damage, new-wood buds form and bloom through the growing season. Pure white flowers hold their color well in partial shade.",
       "currentSeasonNote": "May: check for emerging buds on old wood from last season. At ~2,959 ft elevation, first bloom will be later than valley plants — expect late June. If old-wood shoots were frost-damaged in a late freeze, do not panic: new-wood buds will develop and bloom through summer. Keep consistently watered as active growth accelerates in May.",
@@ -2398,12 +2539,27 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_white_flower.jpg"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "June–July, reblooming into fall",
+        "dates": [
+          {
+            "start": "06-10",
+            "end": "07-31"
+          },
+          {
+            "start": "09-01",
+            "end": "10-15"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "A reblooming bigleaf — flowers on both old and new wood, so a late frost won't cost the whole show."
+      }
     },
     {
       "id": "endless-summer-pop-star-hydrangea",
       "name": "Pop Star Endless Summer Reblooming Hydrangea",
-      "scientificName": "Hydrangea macrophylla 'NCHA3'",
+      "scientificName": "Hydrangea macrophylla (Endless Summer® 'Pop Star')",
       "emoji": "🌸",
       "guide": "The Pop Star hydrangea is a compact reblooming bigleaf that produces abundant lacey blue or pink mophead flowers on both old and new wood from early summer through fall. The reblooming habit is the defining trait — even if a late spring frost damages old-wood flower buds, new buds develop and bloom through the growing season. Flower color is soil pH dependent: acidic soils (4.5–5.5) yield blue; alkaline soils (above 7.0) yield pink. At Church Mountain Road's native pH, expect blue flowers without amendment. Low-maintenance, pollinator magnet, electric color in the landscape.",
       "currentSeasonNote": "Late May at Church Mountain Road — the plant is leafed out and flower buds are swelling. First bloom should emerge in 2–3 weeks (early-to-mid June at ~2,959 ft elevation, about a week later than valley plants). Check for emerging buds on old wood from last season. If any shoots show frost damage from a late freeze, do not cut them back — new buds will develop and bloom on new wood through summer. Keep consistently watered as active growth accelerates.",
@@ -2551,7 +2707,18 @@
         "fromCommonName": "Endless Summer Pop Star Reblooming Hydrangea",
         "fromScientificName": "Hydrangea macrophylla 'NCHA3' (Pop Star cultivar)"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "June through fall (reblooming all season)",
+        "dates": [
+          {
+            "start": "06-01",
+            "end": "10-01"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Endless Summer type — reblooms continuously on new wood once established."
+      }
     },
     {
       "id": "spiderwort",
@@ -2672,7 +2839,18 @@
         "fromCommonName": "Spiderwort",
         "fromScientificName": "Tradescantia virginiana"
       },
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "Mid-May into July",
+        "dates": [
+          {
+            "start": "05-15",
+            "end": "07-15"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Each flower lasts a morning; the plant opens fresh ones for weeks."
+      }
     },
     {
       "id": "creeping-fig",
@@ -3116,6 +3294,17 @@
         "habitatHint": null,
         "fromCommonName": "Lizard's Tail",
         "fromScientificName": "Saururus cernuus"
+      },
+      "bloom": {
+        "window": "June into July",
+        "dates": [
+          {
+            "start": "06-01",
+            "end": "07-31"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Curved white flower spikes over the pond edge."
       }
     },
     {
@@ -3209,7 +3398,18 @@
       },
       "photo": null,
       "attribution": null,
-      "zoneId": null
+      "zoneId": null,
+      "bloom": {
+        "window": "July into August",
+        "dates": [
+          {
+            "start": "07-01",
+            "end": "08-31"
+          }
+        ],
+        "confidence": "verified",
+        "note": "Seen in full bloom on the property in mid-July 2026."
+      }
     },
     {
       "id": "garden-phlox",
@@ -3318,6 +3518,131 @@
             }
           ]
         }
+      },
+      "photo": null,
+      "attribution": null,
+      "zoneId": null,
+      "bloom": {
+        "window": "July into mid-September",
+        "dates": [
+          {
+            "start": "07-01",
+            "end": "09-15"
+          }
+        ],
+        "confidence": "verified",
+        "note": "Seen blooming on the property in mid-July 2026."
+      }
+    },
+    {
+      "id": "hydrangea-panicle",
+      "name": "Panicle Hydrangea",
+      "scientificName": "Hydrangea paniculata",
+      "emoji": "💠",
+      "guide": "The toughest and most sun-tolerant of the hydrangeas — a big upright shrub carrying elongated cone-shaped flower clusters that open lime-white in mid-summer and age to pink as fall comes on. Because it blooms on NEW wood, it's fully frost-safe and easy: cut it back hard in late winter for bigger heads. The property's specimen is a large, established shrub.",
+      "currentSeasonNote": "Coming into bloom now at Church Mountain Road — the cones are filling out lime-green to white in mid-July. Nothing to do but enjoy it; the color will deepen toward pink into September.",
+      "soilNotes": "The least fussy hydrangea for the property's acidic loam — tolerates a wider range than the bigleaf types. Soil pH does NOT change its color (that's a bigleaf-only trait). Compost annually.",
+      "aspectPreference": "Takes more sun than the bigleaf types — full sun to part shade both work at this elevation, and more sun means more and sturdier flower cones. The east and open exposures suit it well.",
+      "frostSensitivity": "Frost-safe. It blooms on the current season's growth, so it pushes new flower buds every spring regardless of winter cold or late frosts — the dependable bloomer of the group.",
+      "care": {
+        "prune": {
+          "months": [
+            1,
+            2
+          ],
+          "peakWindow": "Feb 18–Mar 8, before bud break",
+          "narrow": false,
+          "description": "Late winter (Feb–early Mar), before growth starts. Cut back hard to a strong low framework — the harder you cut, the bigger the flower heads (though fewer of them). It blooms on new wood, so this won't cost you any flowers.",
+          "peakDates": [
+            {
+              "start": "02-18",
+              "end": "03-08"
+            }
+          ]
+        },
+        "propagate": {
+          "months": [
+            5,
+            6
+          ],
+          "peakWindow": "Jun 18–Jul 13",
+          "narrow": false,
+          "description": "Softwood tip cuttings in early summer root readily under a humidity dome in 3–4 weeks. Ground layering works too — pin a low branch to the soil and walk away.",
+          "peakDates": [
+            {
+              "start": "06-18",
+              "end": "07-13"
+            }
+          ]
+        },
+        "fertilize": {
+          "months": [
+            3,
+            5
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "A balanced slow-release in early spring, optionally a second light feed in early June. Don't overfeed — floppy stems that can't hold the big cones are usually too much nitrogen.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Deep weekly watering through summer, especially while the cones are forming and opening. More drought-tolerant than the bigleaf types once established, but the flowers are better with steady moisture.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a landscape shrub.",
+          "peakDates": []
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "flop",
+              "label": "Flopping / support",
+              "months": [
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Heavy flower cones after summer rain can pull branches down. If it flops, cut for the vase or lightly stake; over time a harder late-winter prune builds sturdier stems.",
+              "peakDates": []
+            },
+            {
+              "id": "disease-mildew",
+              "label": "Powdery mildew",
+              "months": [
+                6,
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Less prone than the bigleaf types, but humid stretches can still bring a light powdery film. Mostly cosmetic; improve airflow if it recurs.",
+              "peakDates": []
+            }
+          ]
+        }
+      },
+      "bloom": {
+        "window": "Mid-July into September",
+        "dates": [
+          {
+            "start": "07-01",
+            "end": "09-15"
+          }
+        ],
+        "confidence": "verified",
+        "note": "Opens lime-white and ages to pink; seen coming into bloom on the property in mid-July 2026."
       },
       "photo": null,
       "attribution": null,
