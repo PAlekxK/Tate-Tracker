@@ -14,8 +14,10 @@
     },
     {
       "name": "mom",
-      "deviceIds": [],
-      "notes": "CONFIRMED Mom (2026-07-02 discovery interview) = the active daily user, device prefix 'd-14nyhnjz' (only device that used the A/A+ text-size toggle; most-active daily). Fill the EXACT full deviceId from the next `analyze-fernwood.py` run — left empty because this map exact-matches and the full id (d-14nyhnjz-5lh0160…) is truncated in past notes."
+      "deviceIds": [
+        "d-14nyhnjz-5lh01604-mpevr35o"
+      ],
+      "notes": "CONFIRMED Mom (2026-07-02 discovery interview) = the active daily user (only device that used the A/A+ text-size toggle; most-active daily). Exact full deviceId sourced 2026-07-11 from .audit/2026-05-26-telemetry-rollup.md (the analyze-fernwood run output)."
     }
   ]
 }
