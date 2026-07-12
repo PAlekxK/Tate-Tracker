@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-12 — Fleet records: a mower's name, tire pressures, a new trimmer
+
+- **The orange zero-turn now goes by its real name** — Husqvarna **Z254F** (54"), read off the deck sticker. It matches the Kawasaki FR691V engine already on file.
+- **The DR200's handlebars are marked replaced** — the bent bar is behind us.
+- **A new machine joined the shed** — the **EGO Power+ 56V cordless string trimmer** (16") is now in the equipment list.
+- **Tire pressures confirmed from the door placards** — GTI 37 psi, Tiguan 38 psi, F-150 35 psi (cold, front & rear), each with its tire size.
+
 ## 2026-07-11 — Bolores comes with a backstory
 
 - **The Bronco now has a "what she's had done" panel** — reconstructed from the folder of paper records that came with the truck. It traces the work back through the previous owner, from a 2016 recommissioning and a reman "factory-fresh" 351, through a custom dual exhaust, an emissions-delete phase, and a big front-end rebuild done while the truck lived in Maine — up to your own first repairs this fall.
