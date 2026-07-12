@@ -55,6 +55,10 @@
         "transmissionFluid": {
           "value": "DSG service fluid VW G 052 182 A2 — service every 40k mi",
           "confidence": "verified"
+        },
+        "tirePressure": {
+          "value": "37 psi (250 kPa) cold, front & rear; spare 60 psi (420 kPa) — per door tire-and-loading placard. Tires 225/40 R18, compact spare 125/70 R18.",
+          "confidence": "verified"
         }
       },
       "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump/DSG repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
@@ -399,6 +403,10 @@
         "transmissionFluid": {
           "value": "8-speed AQ250 — typically lifetime fill but service at 80k mi recommended",
           "confidence": "inferred"
+        },
+        "tirePressure": {
+          "value": "38 psi (260 kPa) cold, front & rear; spare 60 psi (420 kPa) — per door tire-and-loading placard. Tires 215/65 R17, compact spare 145/85 R18.",
+          "confidence": "verified"
         }
       },
       "vin": "3VV1B7AX1JM••••••",
@@ -497,8 +505,8 @@
           "confidence": "verified"
         },
         "tirePressure": {
-          "value": "35 psi front/rear typical (check door placard)",
-          "confidence": "inferred"
+          "value": "35 psi (240 kPa) cold, front & rear — per driver-door certification label (05/06). OE tire P255/65R17, rims 17×7.5J.",
+          "confidence": "verified"
         }
       },
       "vin": "1FTRF12206N••••••",
@@ -904,9 +912,9 @@
           "detail": "First oil after sitting — not done since recommissioning. 10W-40 motorcycle-specific (JASO MA/MA2), ~1.0 qt with filter; filter Suzuki 16510-37450 / HiFlo HF138 (see maintenance). Do it now that she's running again."
         },
         {
-          "item": "Bent handlebars",
-          "status": "planned",
-          "detail": "Bars are bent. Recommendation: replace, don't re-straighten. The DR200S uses 7/8\" (22 mm) bars; stock are steel, which can technically take one mild straightening — but a re-bent bar is permanently weakened, steel bars have been known to snap later, and the bar is a safety-critical control that's cheap to swap (~$30–45). Straighten only as a temporary trail-side fix on a mild steel bend; never re-straighten aluminum. Buy a 7/8\" replacement (e.g. Renthal Rider 7/8\", or an OEM-style steel bar) — pick the bend/pullback to taste."
+          "item": "Handlebars — replaced",
+          "status": "done",
+          "detail": "Replaced with new 7/8\" (22 mm) handlebars. Closes the bent-bar item — per the prior call, a re-bent steel bar is permanently weakened, so replace beats re-straighten. New levers fitted at the same time."
         }
       ],
       "manual": {
@@ -1328,8 +1336,8 @@
     {
       "id": "husqvarna-mower",
       "group": "equipment",
-      "name": "Husqvarna Riding Mower (54\")",
-      "trim": "Kawasaki FR691V — exact Husqvarna model number TBD",
+      "name": "Husqvarna Z254F Zero-Turn Mower (54\")",
+      "trim": "Z254F · Kawasaki FR691V",
       "emoji": "🚜",
       "category": "lawn-care",
       "status": "Active",
@@ -1339,7 +1347,8 @@
         "engine": "Kawasaki FR691V",
         "engineType": "4-stroke OHV V-twin, air-cooled",
         "displacement": "726 cc",
-        "powerEstimate": "~22–23 HP gross"
+        "powerEstimate": "~22–23 HP gross",
+        "model": "Z254F"
       },
       "maintenance": {
         "fuel": {
@@ -1396,11 +1405,10 @@
         }
       },
       "researchNeeded": [
-        "Husqvarna model number (sticker typically under seat or on rear fender)",
         "Confirm primary mower belt P/N — first digits illegible on worn sticker"
       ],
       "manual": {
-        "label": "Kawasaki FR691V engine manual (mower model TBD)",
+        "label": "Kawasaki FR691V engine manual (Husqvarna Z254F)",
         "url": "https://images.thdstatic.com/catalog/pdfImages/c5/c5581c61-d6d9-4d4c-9981-6d04d019fe54.pdf"
       }
     },
@@ -1518,6 +1526,39 @@
         "label": "Operator's manual",
         "url": "https://www.echo-usa.com/getattachment/e7544d8b-7e45-43ee-94d9-f9f8e2d90270/v2_CS-352_15_090420_es.pdf"
       }
+    },
+    {
+      "id": "ego-trimmer",
+      "group": "equipment",
+      "name": "EGO Power+ 56V String Trimmer (16\")",
+      "trim": "ST1620T — cordless electric",
+      "emoji": "🔋",
+      "category": "lawn-care",
+      "status": "Active",
+      "specs": {
+        "type": "Cordless electric string trimmer",
+        "modelNumber": "ST1620T / ST1620T-FC",
+        "voltage": "56V (EGO 56V ARC Lithium platform)",
+        "cuttingWidth": "16 in",
+        "lineType": "0.095 in twisted line"
+      },
+      "maintenance": {
+        "power": {
+          "value": "EGO 56V ARC Lithium battery (interchangeable across the EGO 56V line — blower/mower/etc.). Charge on the EGO 56V charger; for long storage keep cells ~30–70% and indoors.",
+          "confidence": "verified"
+        },
+        "line": {
+          "value": "0.095 in (2.4 mm) twisted trimmer line; the ST1620T Rapid-Reload head takes pre-cut lengths.",
+          "confidence": "inferred"
+        },
+        "general": {
+          "value": "Cordless — no fuel, oil, or spark plug. Clear grass from the head after use; keep battery contacts clean and dry.",
+          "confidence": "verified"
+        }
+      },
+      "researchNeeded": [
+        "Fetch the official EGO ST1620T operator's manual PDF for the manuals corpus + 📖 card link (paper copy is on hand)."
+      ]
     }
   ]
 }
