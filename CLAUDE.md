@@ -30,6 +30,24 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - ~~**Refined "Peak this week" — needs a structured peak field (data work).**~~ ✅ **SHIPPED 2026-07-06** — machine-readable `peakDates` ({start,end} MM-DD) + the year-wrap-aware `mmddRangeActive` helper are live on all 88 windows; the prose stays for display. (Confirmed by the 2026-07-12 bloom-pass engineering review — the new `bloom` field reuses this same proven mechanism.)
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-12 (bloom-time + Hydrangea hub; fleet records from photos)
+
+**A big multi-thread session — all shipped, pushed, and Worker deployed (Tate-Tracker HEAD `eea8e14`).** Photos Paul sent from the property drove two workstreams: a plant Almanac enrichment (bloom-time + a hydrangea reorganization, run through the eng+ux expert panel) and a fleet-records catch-up from sticker/placard photos.
+
+### What shipped
+- **Plants schema v5 — bloom-time + Hydrangea hub-and-roster** (`040d10a`). New plant-level `bloom` field `{window, dates[] (MM-DD via mmddRangeActive), confidence, note}` on 18 flowering plants (foliage/structure omit it); observed-on-property windows tagged `verified`, book `inferred`; flows to Guru's digest. viewer: `renderBloomRow()` — calm "In bloom" card row (warm rose, lights up in-window, Mom text-lg scaled) + `renderRoster()`. The generic Hydrangea entry became an overview **hub** (old-wood/new-wood education + a roster naming each hydrangea); DreamCloud + Pop Star keep their own cards; **new Panicle Hydrangea card**. Fixed the duplicated `'NCHA3'` cultivar code → reliable trade names. Expert path-evals committed (`.engineering/2026-07-12-path-bloom-and-hydrangea.md` + `.ux-reviews/2026-07-12-bloom-and-hydrangea.json`) — **both rejected care-first**; chose hub-and-roster (ux) + bloom-as-plant-state (eng). Browser-verified (26 plants, 18 bloom rows, 11 in-bloom-now on 7/12, no JS errors).
+- **Crocosmia + Garden Phlox** added (`6e1cd75`) — photographed blooming on-property.
+- **Fleet records from photos** (`eb917c8`): Husqvarna **Z254F** (closed Outstanding #1), DR200 handlebars → done, new **EGO 56V string trimmer** (ST1620T), verified tire pressures (GTI 37 / Tiguan 38 / F-150 35 psi) from the door placards. VINs kept out of the public JSON.
+- **`tools/deploy-worker.sh`** (`8850612`) — reusable rebuild-digest → freshness-check → `wrangler deploy` → `/health`; the repeatable fix for the 7/7 stale-digest drift. Deployed twice this session; Guru serves all the new data.
+
+### ⚠️ Owner: Paul (residual)
+1. **Mom ground-check on 2 plant IDs** — crocosmia (may be 'Lucifer') + the white mophead (may be 'Annabelle'); both went in flagged as photo-reads.
+2. **`NCHA3` cultivar codes** — softened to trade names; the plant tags confirm exact codes if precision is wanted.
+3. **Data still to collect** (equipment/vehicles): Homelite trimmer shaft digit, Z254F mower-belt P/N, GTI spare-key spec, Tiguan + Bolores paint codes, EGO manual PDF, and battery/charge specs for the two cordless tools (EGO 56V, Kobalt 40V). Registrations still overdue (GTI + Bolores June 3; GTI needs a 2026 emissions test first).
+
+### Deferred (promote on signal)
+Bloom in the "Worth noticing today" glance (after de-crowding the "Peak this week" area); the "is it open yet?" ground-truth loop; two expert-proposed principles held as candidates ("reuse the mechanism, not the semantics"; match structure to the reader's unit of meaning).
+
 ## Pickup point — last session ended 2026-07-11 (GTI July service record + registration renewal reminder)
 
 **Folded the GTI's 7/11 Express Oil visit into the service record, reframed the coolant thread as observations (no verdict, per Paul), and shipped a new registration-renewal reminder on every vehicle card.** Committed + pushed (Tate-Tracker HEAD `9e98372`); Worker redeployed by Paul (`/health` ok @ 5:23 PM ET — serving the fresh digest).
