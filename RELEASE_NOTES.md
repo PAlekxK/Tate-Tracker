@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-12 — When each plant blooms, and the hydrangeas gathered in one place
+
+- **Every flowering plant now shows when it blooms** — a calm "In bloom" line on its card, lit up when it's flowering right now. Eighteen plants carry a bloom season; today, eleven are in flower.
+- **The hydrangeas are gathered.** The Hydrangea card is now an overview — old-wood vs new-wood, soil-to-color, and a roster naming each one on the property — while the reblooming DreamCloud and Pop Star, plus the big **Panicle hydrangea** (new to the list), each keep their own card with full care.
+- Bloom windows seen in flower on the property this month are marked as observed; the rest are estimates, labeled as such.
+
 ## 2026-07-12 — Two summer bloomers join the plant list
 
 - **Crocosmia** and **garden phlox** are now in the Plants card — both photographed in flower on the property this month, filling in what the mid-summer garden actually looks like.

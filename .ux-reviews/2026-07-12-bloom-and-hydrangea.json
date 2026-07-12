@@ -1,0 +1,128 @@
+{
+  "review_id": "ux-2026-07-12-bloom-and-hydrangea",
+  "project": "fernwood",
+  "subject": "Two design questions: (1) surfacing expected bloom-time on every plant; (2) parent-hydrangea-with-subtypes structure (care-first vs type-first nested). Grounded in renderPlantCard / renderCareBlock / plantsAtPeakThisWeek / 'Worth noticing today' and the generic Hydrangea card + DreamCloud + Pop Star cultivar cards.",
+  "review_date": "2026-07-12",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Mom (device d-14nyhnjz, confirmed via her 2026-07-02 discovery interview as the active daily user). Reads with difficulty — meaning must be carried by icon + size + color + position, not small body copy. Secondary: Paul, at the property, who is the ground-truth provider for the loop.",
+    "core_jobs_to_be_done": [
+      "Leisure-read something interesting/beautiful about her place, half-attended, in bed with coffee or evening wind-down (joint primary JTBD)",
+      "Know what's happening on the property right now — what's in flower, what's about to open (the near-horizon 'noticing' job bloom speaks to most directly)",
+      "Paul: capture the one hyper-local truth only someone standing at the property can give (did it actually open yet?)"
+    ],
+    "context_of_use": "Mobile PWA, one-handed, reclined, often no glasses, weak rural signal at the property; morning/evening leisure windows.",
+    "assumptions_made": [
+      "Bed/coffee leisure context is inferred (not behaviorally validated); Mom-as-daily-user IS validated.",
+      "That bloom is a desired enrichment is Paul's stated want ('enrich the Almanac') — NOT yet Mom-validated; her discovery transcript is still outstanding.",
+      "Mom's mental unit for hydrangeas is 'my white one / my Pop Star / hydrangeas in general' — inferred from the per-plant leisure-read model, not observed."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "The glance and the repository and the loop — governing principle (Tate-Tracker/CLAUDE.md)",
+    "Freshness sets altitude (cross-project.md)",
+    "Source-hierarchy drives layout (cross-project.md)",
+    "One engine, one verdict (fernwood.md)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Icons earn their place — true AND useful (cross-project.md)",
+    "Single source of truth per concept (memory feedback_single_source_of_truth)",
+    "Defer affordances pending signal / ship the simplest thing (memory feedback_defer_affordances_pending_signal)",
+    "Caution as noticing, not warning (fernwood.md)",
+    "Friction kills — it just works (cross-project.md)"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Bloom is nowhere as a first-class field. 'When does this flower' is scattered across four prose surfaces — guide, currentSeasonNote, frostSensitivity, and care peakWindows — with no single home. The care lexicon (prune/propagate/fertilize/water/repot/inspect/mow) covers everything a plant NEEDS but never the thing it DOES that a leisure-reader most wants: flower. For a field journal about a mountain property, that's the most delightful register going unsurfaced.",
+      "user_impact": "Mom, reading for delight, can't find 'what's in flower / about to be' without parsing three paragraphs of small prose — the exact half-engagement failure the app is built to avoid. The information exists but is un-scannable and can't feed any glance.",
+      "principle_invoked": "The repository strand (governing principle) + Single source of truth per concept",
+      "recommendation": "Ship the repository layer FIRST and only this, now: add a structured bloom field to the schema — `bloomWindow` (display prose) + `bloomDates` (machine-readable MM-DD), mirroring the `peakDates` pattern already added 2026-07-06 — and render a calm 'In bloom' reference row inside the expanded plant card, exactly like the existing Site Notes rows (Soil / Aspect / Frost). This de-scatters bloom into one home, is purely additive, and directly serves Paul's stated 'enrich the Almanac.' Resist touching the glance in this first pass.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "The tempting move is to put bloom into 'Peak this week' — but that surface is a CARE-peak lens (it shows prune/propagate peaking, computed from care peakDates), and Paul himself flagged on 2026-07-05 that the Plants card already has too much 'this week' (tile + Peak-this-week panel + 'Worth noticing today'). Folding a bloom projection into 'Peak this week' would conflate two different meanings of 'peak' under one word and compound crowding Paul already wants thinned.",
+      "user_impact": "A bloom-lens crammed into a care-lens panel would blur what 'peak' means for a half-engaged reader and add a fourth 'this week' element to an area already flagged as noisy.",
+      "principle_invoked": "One engine, one verdict + Freshness sets altitude + Defer affordances pending signal",
+      "recommendation": "When bloom does reach the glance, project it into 'Worth noticing today' (computeLookFors) — NOT 'Peak this week.' That surface's whole job is delight-driven noticing (it already pulls opening plant windows and bird arrivals); a 'now in bloom / about to open' look-for is squarely native there. Keep it minimal: a plant enters the glance only in a tight window around first-open (anticipation + peak), not for its full bloom duration. GATE this on first resolving the existing Plants-card crowding question — do not build F1 and F2 in the same pass.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "affordance",
+      "severity": "nice-to-have",
+      "observation": "How a bloom window reads at a glance for Mom is the load-bearing detail. Prose alone ('first flowers typically mid- to late-May') fails the no-glasses read; but a new ops-style severity glyph would violate the anti-dashboard-chrome rule, and warm-red would read as caution.",
+      "user_impact": "If bloom reads as small text, Mom misses it; if it reads as an alert dot, it teaches her the app is an ops surface (the register-leak the glyph rules exist to prevent).",
+      "principle_invoked": "Glyphs follow the journal voice + Icons earn their place + Caution as noticing, not warning",
+      "recommendation": "Carry bloom by position + one identity glyph + warm in-palette color, in that priority order. Position: bloom look-fors LEAD 'Worth noticing today' (a plant opening this week is the freshest, most local event on the surface — freshness sets altitude). Glyph: ONE consistent field-guide blossom mark (a simple filled flower), used as a lexicon exactly like the care-type icons — it passes the register test (a blossom belongs in a field guide, never in PagerDuty). Color: a soft rose/bloom tone distinct from the care palette and unmistakably NOT alert-red. Let the plant name at look-for size + the glyph carry it; escalate no further than that. One glyph, one color, consistent across every surface bloom appears on.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Bloom is the single strongest loop candidate on the property. Every bloom window in the data is MODELED — lapse-rate-shifted from valley dates (+3/-3 day math, explicitly flagged imprecise in CLAUDE.md: 'Paul's direct phenological observation is more authoritative'). So bloom carries a built-in honest-estimate flag, which is precisely the loop's hook.",
+      "user_impact": "The glance can say 'Mountain laurel — likely opening this week (est.)'; the estimate flag invites 'is it open yet?' — a single yes/no ground-truth only someone at the property can give, that folds back to sharpen THIS property's bloom calendar. No grid forecast knows when this laurel on this slope opens. That's the moat.",
+      "principle_invoked": "The loop strand (governing principle) — capture stays AI-free, calm not naggy, contextual, close the loop visibly",
+      "recommendation": "Treat the loop as bloom's best long-term justification for reaching the glance — but build it LAST, after F1 (repository) exists and F2 (glance) has shown signal. When built: the invitation rides the honest-estimate flag only when a bloom is near, capture is deterministic/AI-free (Paul's verbatim 'opened 5/18'), never a standing 'add data' button, and the logged truth must visibly replace the estimate. Do not build the capture-fold-back speculatively.",
+      "effort": "high"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "On the hydrangeas: the care-first build (one card, each care action split by type, cultivars folded in) is organized on a horticultural axis — new-wood vs old-wood vs reblooming — not on the reader's actual plants. DreamCloud and Pop Star ARE specific wood-types, so folding them in makes each named cultivar appear as a sub-row scattered across six separate care actions (a sliver inside Prune, another inside Fertilize, another inside Water) — never as a coherent 'her plant.'",
+      "user_impact": "For Mom, whose unit is 'my white hydrangea,' care-first dissolves the very thing a leisure field-journal reader wants — the per-plant portrait (its photo, its bloom story, its frost risk, all in one place). It optimizes for a care-matrix question the This Month view + Peak-this-week already answer across all plants, at the expense of Fernwood's core 'tell me about my plant' job.",
+      "principle_invoked": "Make every surface read at half-engagement + Meet the user at the action (the leisure read, not a care matrix)",
+      "recommendation": "Do NOT dissolve the cultivars into care-action subcategories. Care-first is the right structure only for the GENERIC/type education (new-wood vs old-wood is genuinely care-by-type and belongs consolidated) — not for the named plants, whose identity must stay coherent.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "The type-first NESTED build (parent card → named subtype children → each child's own collapsible care blocks) adds a third accordion level. Today's depth is already two levels of open/close: a plant card expands, and inside it each care block toggles. Nesting subtype children inside the parent makes it card → subtype → care-block → contents.",
+      "user_impact": "A 3-deep accordion is a genuine orientation hazard for a difficult, half-engaged, no-glasses reader: 'where am I, what did I just open, why does this look empty.' It's the friction-kills failure aimed at exactly the user Fernwood protects most. The nesting — not the type-first intent — is the problem.",
+      "principle_invoked": "Friction kills — it just works + Make every surface read at half-engagement",
+      "recommendation": "Don't build the deep nested renderer. Realize the type-first INTENT (each hydrangea keeps its own coherent full-care portrait) FLAT, not nested — see F7.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Neither pure build is right; the deciding lens is the reader's unit of meaning. 'All in one place' argues for consolidation; 'not sacrificing care specifics' argues each type keeps full care. The resolution is to assign each build to the content it actually fits.",
+      "user_impact": "Gives Mom coherent per-plant portraits (her actual mental unit) AND a single hub to understand hydrangeas in general, without a 3-deep accordion and without fragmenting any one plant across six care actions.",
+      "principle_invoked": "The glance and the repository (parent-as-hub, children-as-repository) + Friction kills",
+      "recommendation": "Keep DreamCloud and Pop Star as their existing flat, top-level cards (coherent portraits — photo, own bloom/frost story, full care). Convert the generic 'Hydrangea' card into a light PARENT/OVERVIEW hub whose job is (1) the shared type education every hydrangea owner needs — the old-wood vs new-wood pruning logic, care-first split by wood-type where that genuinely is care-by-type — and (2) a short roster that NAMES the specific cultivars on the property (a one-line bloom/identity each) so the reader gets 'all the hydrangeas in one place' as a hub-and-roster, not by physically nesting them. Is the nested type-first build worth it? No — its cost lands hardest on the exact reader we protect most, and care-first alone sacrifices the per-plant identity. This flat hub delivers both of Paul's requirements at low-medium effort with zero added accordion depth. Optional (medium effort, and the only new interaction): a tap on a rostered cultivar name that scrolls to + expands its card — the app doesn't do card-to-card jumps today, so treat that as a separate small design, not a prerequisite; the cultivar cards already sit in the same Plants list.",
+      "effort": "medium"
+    }
+  ],
+  "open_questions_for_user": [
+    "Before F2/F3: do you want to first resolve the standing 2026-07-05 question of 'too much this week' in the Plants card (tile + Peak-this-week + Worth-noticing)? Bloom-in-the-glance should ride that cleanup, not add to it.",
+    "For F7: is the reader's real unit 'my specific plants' (DreamCloud, Pop Star) with hydrangea-in-general as reference — or does Mom actually think 'hydrangeas' as one thing? Her discovery transcript would settle this; the flat-hub recommendation assumes the former.",
+    "Do you want bloom surfaced for ALL plants uniformly, or only the flowering ornamentals where bloom is the headline event (laurel, azalea, dogwood, hydrangea, clematis, iris) and quietly omitted for foliage plants (hosta, boxwood, pine)?"
+  ],
+  "follow_up_research_suggested": [
+    "Mom's outstanding discovery transcript would validate/refute (a) that bloom is a desired enrichment and (b) her mental unit for the hydrangeas — both currently assumptions driving these recommendations.",
+    "Once the repository bloom field ships, a light check on how many of the modeled bloom windows Paul can already correct from memory — that scopes the loop's near-term payoff before building the capture."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Assign each content type to the structure its reader-unit fits — don't force one container on mixed content. A category with both a shared-education layer (best consolidated, care-first) and coherent named instances (best kept as flat per-item portraits) should split by that seam: a light parent hub for the shared layer that names/rosters the instances, with the instances staying flat top-level items — never a deep nested accordion that fragments each instance across the shared axis.",
+      "scope": "fernwood",
+      "rationale": "Came out of the hydrangea question (F5/F6/F7). It generalizes the governing glance/repository logic to the 'parent-with-subtypes' case and gives a concrete rule for when to consolidate vs. when to keep flat. Holding as Fernwood-scoped candidate — watch for a second occurrence (e.g., a vehicle 'family' or a wildlife genus) before considering promotion."
+    },
+    {
+      "principle": "A field journal owes the reader what the subject DOES, not only what it needs. Fernwood's care lexicon covers every maintenance action but never the plant's own headline event (flowering) — the most delight-carrying, most glance-worthy, most loop-ready signal a leisure-reader comes for. When a domain's data model tracks only obligations, check whether it has silently dropped the delight register the journal frame promises.",
+      "scope": "fernwood",
+      "rationale": "Came out of the bloom question (F1). Distinct from existing principles — it's about a MISSING content register, not treatment of existing content. Candidate; watch whether the same 'we tracked the chores, not the beauty' gap recurs on another Fernwood domain (e.g., wildlife tracking presence but not the event — a first hatch, a rut) before promoting."
+    }
+  ]
+}
