@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": 1,
-    "generatedAt": "2026-07-05T10:25:43.350Z",
+    "generatedAt": "2026-07-12T09:59:43.383Z",
     "method": "Deterministic (AI-free) comparison of the on-site Ambient Weather station vs. the Open-Meteo ERA5 regional grid, both at the property's 902 m elevation.",
     "station": "Kirschenbauer Ambient Weather Station (D8:F1:5B:15:28:B8)",
     "gridModel": "Open-Meteo ERA5 archive",
@@ -9,55 +9,55 @@
   },
   "window": {
     "start": "2026-05-02",
-    "end": "2026-07-04",
-    "comparedDays": 56
+    "end": "2026-07-11",
+    "comparedDays": 63
   },
   "metrics": {
     "tempHigh": {
-      "station": 76.6,
-      "grid": 73.1,
+      "station": 77.1,
+      "grid": 73.7,
       "delta": 3.5,
-      "n": 56
+      "n": 63
     },
     "tempLow": {
-      "station": 61.7,
-      "grid": 59,
-      "delta": 2.7,
-      "n": 56
+      "station": 62.3,
+      "grid": 59.7,
+      "delta": 2.6,
+      "n": 63
     },
     "tempMean": {
-      "station": 67.2,
-      "grid": 65.6,
+      "station": 67.8,
+      "grid": 66.1,
       "delta": 1.7,
-      "n": 56
+      "n": 63
     },
     "humidity": {
-      "station": 87,
+      "station": 88,
       "grid": 82,
       "delta": 6,
-      "n": 56
+      "n": 63
     },
     "gust": {
-      "station": 4,
-      "grid": 22.4,
-      "delta": -18.5,
-      "n": 56
+      "station": 3.8,
+      "grid": 22.6,
+      "delta": -18.7,
+      "n": 63
     },
     "windAvg": {
       "station": 0,
       "grid": 8.4,
       "delta": -8.4,
-      "n": 56
+      "n": 63
     },
     "precip": {
-      "stationTotal": 16.55,
-      "gridTotal": 11.25,
-      "pctDelta": 47,
-      "n": 56
+      "stationTotal": 19.17,
+      "gridTotal": 12.93,
+      "pctDelta": 48,
+      "n": 63
     }
   },
   "headline": {
-    "precipPctDelta": 47,
+    "precipPctDelta": 48,
     "tempMeanDelta": 1.7,
     "humidityDelta": 6
   },
@@ -83,6 +83,16 @@
       "windowEnd": "2026-07-04",
       "nDays": 56,
       "precipPctDelta": 47,
+      "tempMeanDelta": 1.7,
+      "humidityDelta": 6,
+      "windStation": 0,
+      "windGrid": 8.4
+    },
+    {
+      "date": "2026-07-12",
+      "windowEnd": "2026-07-11",
+      "nDays": 63,
+      "precipPctDelta": 48,
       "tempMeanDelta": 1.7,
       "humidityDelta": 6,
       "windStation": 0,
