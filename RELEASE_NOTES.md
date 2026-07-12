@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-12 — Two summer bloomers join the plant list
+
+- **Crocosmia** and **garden phlox** are now in the Plants card — both photographed in flower on the property this month, filling in what the mid-summer garden actually looks like.
+- Each carries its own care calendar. The phlox entry leads with the powdery-mildew story (spotted on its leaves this year) and how to stay ahead of it; the crocosmia note covers its habit of spreading into drifts.
+- Photos are still to come, and the IDs are read from pictures — worth a second look on the ground (the crocosmia may be the 'Lucifer' variety).
+
 ## 2026-07-12 — Fleet records: a mower's name, tire pressures, a new trimmer
 
 - **The orange zero-turn now goes by its real name** — Husqvarna **Z254F** (54"), read off the deck sticker. It matches the Kawasaki FR691V engine already on file.
