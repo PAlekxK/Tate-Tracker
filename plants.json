@@ -3117,6 +3117,211 @@
         "fromCommonName": "Lizard's Tail",
         "fromScientificName": "Saururus cernuus"
       }
+    },
+    {
+      "id": "crocosmia",
+      "name": "Crocosmia",
+      "scientificName": "Crocosmia × crocosmiiflora (montbretia — possibly 'Lucifer'; confirm on the ground)",
+      "emoji": "🧡",
+      "guide": "A summer torch — arching sprays of red-orange trumpets held over fans of sword-shaped leaves, opening mid-to-late summer just as the hydrangeas wind down. It grows from corms that multiply into clumps and naturalizes readily at this elevation. Hummingbirds work it hard. Wants full sun to light afternoon shade and, above all, well-drained ground.",
+      "currentSeasonNote": "In full bloom now at Church Mountain Road. Nothing to do mid-bloom but enjoy it — and cut a few stems for the vase if you like; they hold well. Keep it watered through a hot dry stretch.",
+      "soilNotes": "Fine in the property's acidic sandy loam, but drainage is the make-or-break: corms rot in soggy winter ground. A raised or sloped, free-draining spot is ideal.",
+      "aspectPreference": "Full sun gives the most flowers; a little afternoon shade is fine at elevation. Deep shade leaves it floppy and shy to bloom.",
+      "frostSensitivity": "Corms are hardy here (roughly to zone 5–6); the top dies back after frost and returns from the corm each spring. In a hard-winter year, a deep mulch over the clump is cheap insurance.",
+      "care": {
+        "prune": {
+          "months": [
+            9,
+            10
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Cut the foliage back once frost blackens it (late Oct–Nov), and tidy spent flower spikes through the season. Leave the corms in the ground.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Divide congested clumps every 3–4 years as growth begins in late winter/early spring: lift the chains of corms, separate, and replant the plump top corms. Near-effortless — this is how a single clump becomes a drift.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "A light feed as shoots emerge in spring is plenty; it's not a hungry plant. Go easy on nitrogen or you'll get leaves at the expense of flowers.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Water through the summer bloom in dry spells. Established clumps are fairly drought-tolerant once the show is over.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable in the ground. Keep an eye that it doesn't overrun neighbors — it spreads.",
+          "peakDates": []
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "spread",
+              "label": "Spread / crowding",
+              "months": [
+                4,
+                5,
+                6
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Crocosmia naturalizes vigorously. If it starts crowding neighbors, lift and thin the corm chains in spring — the same job as dividing.",
+              "peakDates": []
+            },
+            {
+              "id": "spider-mites",
+              "label": "Spider mites",
+              "months": [
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Hot, dry spells can bring spider mites — fine webbing and pale stippling on the blade-leaves. Hose off forcefully; rarely serious.",
+              "peakDates": []
+            }
+          ]
+        }
+      },
+      "photo": null,
+      "attribution": null,
+      "zoneId": null
+    },
+    {
+      "id": "garden-phlox",
+      "name": "Garden Phlox",
+      "scientificName": "Phlox paniculata",
+      "emoji": "💜",
+      "guide": "Tall garden phlox — domed clusters of pink-to-lavender and white flowers on upright stems through mid-to-late summer, sweetly fragrant and a magnet for butterflies and hummingbird moths. A dependable old-garden perennial here. Its one recurring nuisance is powdery mildew in humid stretches, so the whole game is giving it air and watering low.",
+      "currentSeasonNote": "In bloom now — and carrying some powdery mildew this year (the pale, dusty film on the leaves). It's mostly cosmetic: thin any crowded stems for airflow, water at the roots rather than overhead, and deadhead the spent trusses to coax a second flush.",
+      "soilNotes": "Happiest in richer, moisture-retentive soil — work compost in and keep it mulched to hold the roots cool and damp. The property's acidic loam suits it.",
+      "aspectPreference": "Full sun to light shade. Morning sun with good air movement is the mildew-beating combination; avoid still, damp, crowded corners, which is exactly where mildew takes hold.",
+      "frostSensitivity": "Fully hardy here (to about zone 4). It dies to the ground in winter and returns from the crown each spring.",
+      "care": {
+        "prune": {
+          "subcategories": [
+            {
+              "id": "spring-thin",
+              "label": "Spring thinning (for airflow)",
+              "months": [
+                3,
+                4
+              ],
+              "peakWindow": "Late Mar–Apr as shoots reach ~6 in",
+              "narrow": false,
+              "description": "When the clump is a few inches up, remove about a third of the weakest stems at the base. Fewer, better-spaced stems mean far better air movement — the single most effective thing you can do against powdery mildew.",
+              "peakDates": []
+            },
+            {
+              "id": "fall-cutback",
+              "label": "Fall cutback",
+              "months": [
+                10,
+                11
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "After frost, cut the stems to the ground and clear the debris away (don't compost mildewed foliage — it re-seeds the problem next year).",
+              "peakDates": []
+            }
+          ]
+        },
+        "propagate": {
+          "months": [
+            3,
+            4,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Divide the clump every 3–4 years in early spring or early fall to keep it vigorous — lift and split the crown, replant the strong outer pieces. Basal cuttings in spring also root easily.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [
+            3,
+            5
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Feed in early spring with a balanced slow-release and top-dress with compost; a second light feed in June supports the big bloom. Don't overdo nitrogen — soft, lush growth mildews worst.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Water deeply at the base in summer dry spells — steady moisture keeps it un-stressed and less mildew-prone. Never water overhead: wet leaves are how mildew spreads.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a landscape perennial.",
+          "peakDates": []
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "powdery-mildew",
+              "label": "Powdery mildew",
+              "months": [
+                6,
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "The recurring one, worse in Jasper's humid summers: a white powdery film on the leaves, seen on the property this year. Manage culturally first — thin for airflow, water low, deadhead, clear fallen leaves. Horticultural oil or a bicarbonate spray helps if severe; over time, favor mildew-resistant divisions.",
+              "peakDates": []
+            },
+            {
+              "id": "spider-mites",
+              "label": "Spider mites",
+              "months": [
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Hot, dry stretches can bring spider mites (fine webbing, stippled leaves). Hose off; keeping the plant well-watered is the best prevention.",
+              "peakDates": []
+            }
+          ]
+        }
+      },
+      "photo": null,
+      "attribution": null,
+      "zoneId": null
     }
   ]
 }
