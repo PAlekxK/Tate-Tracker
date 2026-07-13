@@ -1,0 +1,190 @@
+{
+  "review_id": "ux-2026-07-13-mom-feedback-queue",
+  "project": "fernwood",
+  "subject": "Design blueprint for Mom's in-app feedback / confirmation queue — a digestible surface for (1) confirming flagged ground-truth questions (plant IDs, 'did it bloom yet'), (2) reacting to shipped changes, (3) leaving general feedback. Grounded in the 'Worth noticing today' look-for surface (computeLookFors/renderTodayGlance/lookforTap), the Garden Guru confirm-chip pattern (gg-suggest-*, gg-log-*), the dormant /api/feedback endpoint, the live zone-feedback capture→Paul-picks-up precedent, and the ObservationStore verbatim-capture discipline.",
+  "review_date": "2026-07-13",
+  "reviewer_mode": "design",
+  "review_level": "surface / placement / interaction model",
+  "user_context": {
+    "primary_user": "Mom (device d-14nyhnjz, confirmed active daily user). Reads with difficulty, often no glasses, one-handed, reclined, in bed with coffee. DOCUMENTED behavior: a satisfied one-shot user who asks a single question and leaves for claude.ai; she does NOT explore affordances (star 0 uses / 104 revisits, seeded prompts 0, 5-turn cap never fired).",
+    "secondary_user": "Paul — authors the questions and picks up her answers later (the 'thesis ratification' asymmetric loop: lightweight capture on her side, deferred read on his).",
+    "core_jobs_to_be_done": [
+      "Mom: open the app, glance, and — with near-zero effort — recognise and answer a specific personal question about HER place ('is the tall orange one Lucifer?'). Recognition, not recall.",
+      "Mom: occasionally react to a change Paul shipped ('does the hydrangea reorg match the property?').",
+      "Paul: collect the one hyper-local ground-truth only someone standing at the property can give, and see it land — the validated flywheel input.",
+      "Both: keep an open door for anything else on her mind, without a standing 'leave feedback' button that nags."
+    ],
+    "context_of_use": "Mobile PWA, top-of-app glance on open, weak rural signal, leisure windows. She reliably meets the header + composer + dash strip; she does NOT reliably expand cards or open drawers.",
+    "assumptions_made": [
+      "The one behavior we have hard evidence for is 'opens app, glances at the top, reads.' Everything requiring navigation/exploration has zero usage. This is the load-bearing assumption behind the placement call.",
+      "A specific, personal, single-tap yes/no is a categorically easier ask than an empty box or a generic seeded prompt — recognition vs. origination. This is the reason the queue is NOT automatically 'the next zero-usage affordance,' but it is unproven for Mom specifically.",
+      "Paul-authored questions is a real recurring backlog (crocosmia='Lucifer'?, white mophead='Annabelle'?, hydrangea reorg) — not a speculative Paul-want."
+    ],
+    "user_context_confidence": "medium — Mom-as-daily-user is validated; her willingness to answer even a recognition-tap is the open question this ships to test."
+  },
+  "principles_applied": [
+    "The glance and the repository and the loop — the invitation rides the one input only someone at the property can give, and the answer must fold back visibly (Tate-Tracker/CLAUDE.md governing principle)",
+    "Calm, not naggy · pull, not push · never a standing 'add data' button (feedback_defer_affordances_pending_signal)",
+    "Capture stays deterministic / AI-free — the logged answer is her verbatim ground-truth (feedback_no_ai_on_capture)",
+    "A correct 'no' still owes a next move (ux principle, 2026-07-02) — 'Not quite' must open the correction path, never dead-end",
+    "Reuse existing chips/pills — never invent a new badge/chip pattern (fernwood.md)",
+    "Freshness sets altitude — a live personal question earns the top of the app; it is the freshest, most-local, most-actionable signal on the surface (cross-project.md)",
+    "Make every surface read at half-engagement + Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Meet the user at the action — the deliverable is a single answerable question, not an inbox",
+    "Nielsen #1 visibility of system status (the loop must visibly close); #6 recognition over recall"
+  ],
+  "recommendation_summary": {
+    "verdict": "SHIP — but only in the top-of-app, one-item-at-a-time, recognition-not-recall, self-silencing shape below. Placement is not a detail here; it IS the bet. The same mechanism inside a card/drawer/tab will be zero-usage exactly like the star. Treat the first real ID-confirm as the validation gate (mirror the Phase-F disposable-plant smoke test) and instrument it so it can be KILLED fast rather than lingering.",
+    "why_not_just_another_zero_usage_affordance": "The star, seeded prompts, and turn-cap all required Mom to ORIGINATE or EXPLORE (recall). A specific personal yes/no about her own plant, placed where she already looks, is RECOGNITION — a fundamentally cheaper ask and the exact input the governing flywheel is built on. That difference is real, but unproven for her; hence: ship the cheap test, place it in the guaranteed-seen zone, and let it self-silence if she doesn't bite.",
+    "surface": "A single calm 'From Paul' item at the very top of the app, folded INTO the unified-input section (above the input row), one question at a time. Not a new card. Not a drawer. Not a tab.",
+    "placement_justification": "The card order (header -> composer -> dash strip -> cards -> Reference drawer) already privileges the composer as the top interactive surface, and it is the one zone Mom reliably meets on open. Putting the question here also converts the composer's open-ended, unused invitation ('What did you see, or what would you like to know?' — 0 seeded-prompt uses) into a specific, single-tap answerable prompt. The overflow interactions ('Not quite' -> correct it; general feedback) flow DOWN into the very composer beneath — one coherent 'talk to the place / answer Paul' zone. It rides the one moment she DOES open the app rather than asking her to navigate."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "area": "placement",
+      "severity": "important",
+      "observation": "The strongest instinct is to give the queue its own card ('Worth confirming' between Plants and Wildlife, or inside the Almanac). Given the telemetry — every affordance that required Mom to expand/navigate/explore has ZERO usage — a card is the failure mode, not the solution. She won't expand it, so it will be the next star.",
+      "user_impact": "A discoverable-only surface guarantees non-use for this specific user. The queue must be in her line of sight on open or it does not exist for her.",
+      "principle_invoked": "Freshness sets altitude + the hard telemetry on discovery behavior",
+      "recommendation": "Home the queue at the TOP of the app, as the first block inside the unified-input section (above #ui-input-row), rendered by a new deterministic render pass modeled on renderTodayGlance(). Reuse the look-for visual language (one calm row, in-palette, tappable) — do not build new card chrome. It appears only when something is outstanding; when empty it collapses to a single quiet line (F5), never an empty bordered card.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "interaction",
+      "severity": "important",
+      "observation": "Three item types need three interaction shapes, but the codebase already has exactly the right confirm-chip pattern (gg-suggest-prompt + gg-suggest-actions + gg-suggest-btn-yes / gg-suggest-btn-no, plus the gg-log 'Note this on the [X]' -> 'Noted ✓' status flow and the two-step confirm). Reuse it; do not invent a new chip pattern.",
+      "user_impact": "Consistency: she has already met (or will meet) these exact chips in Garden Guru. A single confirm lexicon across the app lowers the learning cost for a half-engaged reader.",
+      "principle_invoked": "Reuse existing chips/pills; Nielsen #4 consistency; recognition over recall",
+      "recommendation": "Map each type to the existing chip family, adding at most ONE neutral 'defer' variant in the SAME visual family (a quiet gg-suggest-btn-neutral — not a new pattern, a third sibling):\n\n(1) CONFIRM A QUESTION (plant ID / 'did it bloom yet'): the item reads as one calm line — 'Paul's wondering — is the tall orange one down by the drive Lucifer?' — with three chips: [Looks right] [Not quite] [Not sure]. 'Looks right' logs her verbatim confirm via the ObservationStore discipline tagged to the target entity (plant:crocosmia) AND posts the answer to the pending queue Paul reads; chips replace with 'Thanks — Paul will see that.' 'Not quite' expands a one-line correction (reuse the lookforTap pre-warm: scroll to + pre-fill the composer with 'The orange one is actually — ', her words become the record) — a correct 'no' owes the correction path. 'Not sure' defers penalty-free (rotates to the back, F6).\n\n(2) REACT TO A CHANGE: the item surfaces one shipped change sourced from a release note — 'We grouped the hydrangeas into one overview with a roster. Does that match what's actually out there?' — three chips: [Yes, that's right] [Not quite] [Haven't looked]. Maps under the hood to /api/feedback sentiment landed / so_so / missed. 'Not quite' opens the same one-line correction; 'Haven't looked' defers.\n\n(3) GENERAL FEEDBACK: do NOT build a standing 'leave feedback' box (the affordance-without-signal trap, and the single most likely of the three to be zero-usage). Satisfy the ask two ways: the free-text on any 'Not quite' already captures open feedback, and the EMPTY STATE (F5) carries the soft open invitation that pre-warms the composer routed to Paul's channel. The channel exists but never stands as a nagging button competing with content.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The obvious 'react' UI is emoji reaction faces (👍 / 🤔 / 👎), which literally mirror the dormant /api/feedback landed/so_so/missed. But bare emoji reaction faces read as chat-app / ops register and trip 'Glyphs follow the journal voice, not the dashboard voice.'",
+      "user_impact": "Emoji faces would teach Mom the app is a reaction-farm surface (the register-leak the glyph rules exist to prevent) and read as generic social-app chrome, not a field journal.",
+      "principle_invoked": "Glyphs follow the journal voice; Icons earn their place",
+      "recommendation": "Use WORD chips (in the gg-suggest family), not bare emoji faces, for both confirm and react. If a glyph is wanted, use icon+label the way care pills do (a small in-palette mark beside the word), never a floating 😀/😐/☹. The sentiment mapping to /api/feedback stays under the hood; the reader sees 'Yes, that's right / Not quite / Haven't looked.' (Content-steward owns exact wording; this sets the register.)",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The loop must close VISIBLY or it is extractive — the governing principle's third strand. There are two loops: the INNER loop (she answers -> immediate ack + item leaves) and the OUTER loop (Paul applies her answer -> the app visibly changes -> she sees her truth landed).",
+      "user_impact": "If she taps 'Looks right' and nothing visibly happens, or the same question is still there next open, the mechanism feels like it swallowed her input — the fastest way to train her to ignore it. If, later, she sees 'The orange one you spotted is in as Lucifer now,' the loop feels reciprocal and worth answering again.",
+      "principle_invoked": "The loop strand (fold the truth back visibly); Nielsen #1 visibility of system status",
+      "recommendation": "INNER loop (v1, required): on answer, chips are replaced in place by a warm one-line ack ('Thanks — Paul will see that' / 'Noted — thank you') exactly like gg-log's 'Noted ✓'; the item is marked answered in localStorage so it leaves HER queue immediately (even before Paul removes it from source), and the next outstanding item (if any) slides in — never a pre-counted '2 more.' OUTER loop (v1-light -> v2): when Paul applies an answer (crocosmia confirmed Lucifer, data updated + release note), the resolved item returns ONCE as a closed acknowledgment at the top on her next open — 'That orange one you spotted is in as Lucifer now — thank you' — then retires. This is the bloom-loop 'estimate replaced by ground-truth, visibly' expressed for IDs. Do not ship the queue without at least the inner ack.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "empty-state",
+      "severity": "important",
+      "observation": "The empty state (nothing outstanding) is where task-manager register leaks in ('0 items', 'All caught up ✓', a checkmark). Fernwood already has the correct calm-complete voice elsewhere: 'Nothing at its peak just now — the garden's resting' (peak panel) and 'A quiet stretch on the land — the place is just growing' (look-for fallback).",
+      "user_impact": "An empty inbox that reads as '0 tasks' turns a field journal into a to-do list; a calm complete line reassures without tasking. The empty state is also the ONLY place general feedback should live as a standing invitation.",
+      "principle_invoked": "Tone is everything (not a task manager); calm-not-naggy; fold general feedback into the calm-complete state rather than a standing button",
+      "recommendation": "When nothing is outstanding, collapse the strip to a single quiet line (no border, no chip, no count) in the peak-panel/fallback voice — e.g. 'Nothing needs your eye just now — the place is looked after.' — and carry the soft open door in the same breath: '…If something about the place is on your mind, Paul's always glad to hear it.' with a calm tap that pre-warms the composer routed to Paul's channel. Never a checkmark, never '0', never 'done.' Content-steward finalizes; register is: reassurance, not completion.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "anti-nag",
+      "severity": "important",
+      "observation": "The queue's biggest failure risk beyond placement is becoming standing noise — a permanent 'answer these' banner. Pull-not-push and calm-not-naggy demand strict rationing.",
+      "user_impact": "A list of N questions with a count badge reads as an obligation and will be dismissed wholesale by a one-shot user. One question, no count, self-silencing is the only calm shape.",
+      "principle_invoked": "Pull, not push; calm, not naggy; defer affordances pending signal",
+      "recommendation": "Rules: (a) show exactly ONE item at a time — never a list, never a 'N for you' count. (b) No badge/number anywhere (dash strip, header, card). (c) Rotate by day-of-year like computeLookFors so an unanswered item isn't the same one forever; 'Not sure'/'Haven't looked' send that item to the back. (d) SELF-SILENCE: an item shown/deferred more than a small threshold (~3 opens) without an answer goes quiet and stops surfacing — the mechanism must be willing to give up rather than nag a user who has told us, by silence, she's not engaging. (e) The queue never interrupts, animates aggressively, or pushes a notification — it simply sits at the top when present, calm.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "data-model",
+      "severity": "nice-to-have",
+      "observation": "Two feeds must merge into one queue (Paul-flagged questions + change-reactions), plus general feedback, and Paul must pick answers up later. The codebase already has the exact 'user captures -> Paul reads the pending queue -> Paul drafts the follow-up' pattern in zone-feedback, and a dormant /api/feedback with sentiment+note+context.",
+      "user_impact": "Indirect (Paul-facing authoring + pickup), but it shapes whether new questions are cheap for Paul to add — if authoring is heavy, the backlog never reaches Mom and the surface starves.",
+      "principle_invoked": "Reuse existing infra; source-hierarchy drives layout; Paul authors in the flow he already uses",
+      "recommendation": "(eng owns the final call; UX-relevant shape:) AUTHOR questions in a committed questions.json Paul edits in his normal git flow (same as plants.json) — no new authoring UI — each item {id, type:'confirm'|'react', target:{kind,name,id}, prompt, releaseRef?, createdAt}. The client merges questions.json (inlined like other _DATA) into the queue and hides items it has locally marked answered. CAPTURE her answer via the proven zone-feedback pattern (POST text -> KV pending, status 'pending') for ID-confirms, and via the dormant /api/feedback (sentiment landed/so_so/missed + verbatim note) for change-reactions. Her note body is her VERBATIM words (ObservationStore discipline), never an AI paraphrase. Paul PICKS UP via the GET range on those keys (zone-feedback GET pattern), then removes/marks the question in questions.json — which also fires the F4 outer-loop acknowledgment. One data seam to flag for eng: /api/feedback's sentiment enum (landed/so_so/missed) fits reactions cleanly but not ID yes/no — either add context.type='id-confirm' with the verbatim carrying the resolution, or route ID-confirms through the zone-feedback key instead. Do not force ID answers into the sentiment field.",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "area": "validation",
+      "severity": "important",
+      "observation": "Given the zero-usage history of speculative Mom-affordances, shipping without a kill-criterion repeats the star mistake (it lingered for weeks unused before anyone reckoned with it).",
+      "user_impact": "If the first real questions go unanswered, the honest learning is NOT 'build more app' — it's that this channel belongs in a text thread from Paul, out of scope for the app. We must be able to see that fast.",
+      "principle_invoked": "Defer affordances pending signal; honest 'don't ship that' over enthusiasm",
+      "recommendation": "Instrument the queue on d-14nyhnjz — queue_offered / queue_answered / queue_deferred / queue_note (mirror lookfor_offered/lookfor_tapped). Set an explicit gate: seed 2-3 REAL questions (the crocosmia + white-mophead IDs already exist), and if the first handful surface to her over ~2 weeks with zero answers, do not iterate the UI — conclude the in-app queue is the wrong delivery for her and move the channel to Paul-texts-her. Treat the first answered ID-confirm as the Phase-F-style smoke test that the whole loop (author -> surface -> answer -> capture -> Paul picks up -> outer-loop ack) works end to end.",
+      "effort": "low"
+    }
+  ],
+  "v1_mvp_scope": [
+    "One-item-at-a-time 'From Paul' strip at the top of the unified-input section, rendered deterministically (modeled on renderTodayGlance), appearing only when outstanding.",
+    "Item type 1 (confirm a question / plant ID / bloom) with [Looks right] [Not quite] [Not sure] chips reusing the gg-suggest family; 'Not quite' pre-warms the composer for a verbatim correction.",
+    "Item type 2 (react to a shipped change, sourced from a release note) with [Yes, that's right] [Not quite] [Haven't looked], mapped to /api/feedback landed/so_so/missed.",
+    "Inner loop closed visibly: in-place warm ack, item leaves the queue immediately (localStorage-marked).",
+    "Calm-complete empty state that also carries the soft general-feedback door (composer pre-warm routed to Paul).",
+    "One-at-a-time, no count/badge, day-rotated, self-silencing after ~3 unanswered opens.",
+    "questions.json authoring (git flow) + zone-feedback/-feedback KV capture + GET pickup for Paul.",
+    "Full instrumentation on d-14nyhnjz + an explicit kill-criterion (F8)."
+  ],
+  "explicitly_not_doing": [
+    "NO dedicated 'Feedback' / 'Worth confirming' card, tab, or drawer — discovery-only surfaces are zero-usage for this user; placement in the guaranteed-seen top zone is the whole bet.",
+    "NO standing 'Leave feedback' / 'Add data' button — the affordance-without-signal trap. General feedback lives in 'Not quite' free-text + the empty-state invitation only.",
+    "NO count badge / 'N items for you' / 'items due' anywhere — task-manager register is disqualifying here.",
+    "NO emoji reaction faces (👍/🤔/😐) — word chips in the field-journal voice instead.",
+    "NO list of questions shown at once — exactly one, ever.",
+    "NO AI on the capture path — questions are Paul-authored deterministic, answers are her verbatim words. (AI may help Paul PHRASE a question while authoring, off the queue mechanism — that's fine.)",
+    "NO push notification in v1 — a notification is push, which violates pull-not-push and the calm frame. (If the in-app test fails per F8, the answer is a Paul-to-Mom text thread, not an app notification.)",
+    "NO new chip/badge visual pattern — reuse gg-suggest-* + one neutral sibling variant."
+  ],
+  "decisions_it_hinges_on": [
+    "Placement: top-of-app (inside the unified-input section) vs. a card. This is the load-bearing call — a card is zero-usage for Mom. Everything else is secondary to getting this right.",
+    "One-at-a-time + self-silencing + no count vs. a visible list/inbox. The calm/pull discipline requires the former; a list makes it a to-do list and it dies on register.",
+    "Is a recognition-tap even in Mom's repertoire? Unproven. We ship the cheap test with a kill-criterion (F8) rather than assume yes (star mistake) or assume no (never try the validated flywheel input)."
+  ],
+  "close_the_loop_summary": "Inner (v1, required): answer -> in-place warm ack ('Thanks — Paul will see that') + item leaves the queue immediately. Outer (v1-light -> v2): when Paul applies her answer and the data/release note updates, the resolved item returns ONCE as a closed acknowledgment at the top on her next open ('That orange one you spotted is in as Lucifer now — thank you'), then retires. The outer loop is what keeps the mechanism from feeling extractive over time and is the direct expression of the governing 'fold the truth back visibly' strand.",
+  "anticipated_disagreements": [
+    {
+      "lens": "user-researcher",
+      "disagreement": "Likely the most skeptical — may argue that even a recognition-tap is speculative given Mom's hard one-shot / leaves-for-claude.ai pattern, and that the higher-confidence delivery is Paul reaching her where she already is (a text), not any in-app surface.",
+      "my_position": "Largely converge. The in-app top-zone queue is the right FIRST, CHEAP, self-silencing test precisely because it costs little and fails loudly (F8). If it fails, I agree the learning is 'this belongs in a text thread,' NOT 'build more app.' I only diverge on sequencing: try the pull-native in-app version first (it's near-free and reuses everything), with a hard kill-criterion, before concluding delivery must move off-app."
+    },
+    {
+      "lens": "ai-advisor",
+      "disagreement": "May want AI to generate/route the questions, draft her likely answer, or classify her free-text.",
+      "my_position": "Hold the line: capture stays AI-free; questions are Paul-authored deterministic; her answer is verbatim. AI's only legitimate seat is helping Paul PHRASE a question while authoring (off the capture path). Anything that puts AI between her tap and the stored record breaks feedback_no_ai_on_capture and the trust the loop depends on."
+    },
+    {
+      "lens": "engineering-partner",
+      "disagreement": "May prefer a single KV queue for both authoring and answers over a committed questions.json, and may want to unify ID-confirms + reactions into one /api/feedback call.",
+      "my_position": "Defer the storage mechanics to eng, but from a UX-of-authoring view questions.json (git flow Paul already uses, versioned, no new UI) keeps the backlog cheap to feed — a starved queue is a dead queue. On unification: fine to unify IF the sentiment field isn't forced to carry ID yes/no (F7 seam)."
+    },
+    {
+      "lens": "content-steward",
+      "disagreement": "Expect alignment; owns the exact copy for the prompt lines, chip labels, ack, and empty state.",
+      "my_position": "Converge. I've set the register (personal, calm, 'Paul's wondering —', no '0 items', no checkmarks, word-chips-not-emoji) and defer the final wording. One thing to guard: the chip labels must stay recognition-shaped and reassuring, not imperative ('Looks right,' not 'Confirm')."
+    }
+  ],
+  "open_questions_for_user": [
+    "Placement fine-tuning: the recommendation is INSIDE the unified-input section, above the input row. Alternative is a standalone strip directly under the header, above the composer. Both are in the guaranteed-seen zone; I recommend inside-the-composer-section so the overflow (Not-quite correction, general feedback) flows into the composer as one coherent zone. Your call if you'd rather it read as its own thing under the header.",
+    "Outer-loop acknowledgment (F4): ship the 'your truth landed' return-ack in v1-light, or defer to v2? I recommend at least a minimal version in v1 — it's what makes the loop feel reciprocal and is cheap once questions.json carries an 'applied' flag.",
+    "Self-silence threshold (F6d): ~3 unanswered opens before an item goes quiet — is that the right patience, or looser/tighter? One-char knob.",
+    "Kill-criterion window (F8): ~2 weeks / first handful of questions with zero answers before concluding the channel belongs off-app. Comfortable with that gate?"
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "For a user whose only validated behavior is 'opens and glances,' a new affordance must live where she already looks or it does not exist. Discoverability is not a substitute for line-of-sight: if the evidence says a user never expands/navigates/explores, placing a feature behind any of those is equivalent to not shipping it. Match the affordance's altitude to the user's proven attention, not to the org chart of cards.",
+      "scope": "fernwood",
+      "rationale": "Comes out of the whole placement call (F1) and the accumulated zero-usage evidence (star, seeded prompts, cap). Generalizes 'freshness sets altitude' to 'attention sets altitude' for a specific low-exploration user. Candidate — watch for a second occurrence before promoting."
+    },
+    {
+      "principle": "Convert origination asks into recognition asks. A one-shot / low-exploration user won't fill an empty box or use a generic prompt (recall/origination), but may answer a specific, personal, pre-formed yes/no (recognition). When an affordance has zero usage, before killing it ask whether it was asking the user to CREATE when it could have asked them to CONFIRM.",
+      "scope": "cross-project",
+      "rationale": "This is the core insight distinguishing the confirm-queue from the dead star/seeded-prompts: same user, different cognitive ask. Recognition-over-recall (Nielsen #6) applied specifically to capture affordances. Broadly reusable (any product with a reluctant contributor). Propose after the queue shows signal — or, informatively, after it fails (which would test the boundary of the claim)."
+    }
+  ]
+}
