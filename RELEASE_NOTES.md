@@ -11,6 +11,10 @@ What's changed at Fernwood lately. Newest first.
 - Your answer goes straight to Paul, who folds it into the record — so the plant IDs get confirmed by the person who can actually see them.
 - **And a quiet "something else on your mind?"** sits at the foot — a spot to pass anything along to Paul, whenever the mood strikes.
 
+## 2026-07-12 — Bolores' cabin lights, in warm white
+
+- The Bronco's **overhead dome light, the two map lights beside it, and a few dashboard indicators** are now warm-white LED — logged as finished work on the truck's card. Cooler white bulbs were tried first and sent back; the warm ones stayed, along with a fresh plastic dome cover.
+
 ## 2026-07-12 — When each plant blooms, and the hydrangeas gathered in one place
 
 - **Every flowering plant now shows when it blooms** — a calm "In bloom" line on its card, lit up when it's flowering right now. Eighteen plants carry a bloom season; today, eleven are in flower.

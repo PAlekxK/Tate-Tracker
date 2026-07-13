@@ -30,6 +30,23 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - ~~**Refined "Peak this week" — needs a structured peak field (data work).**~~ ✅ **SHIPPED 2026-07-06** — machine-readable `peakDates` ({start,end} MM-DD) + the year-wrap-aware `mmddRangeActive` helper are live on all 88 windows; the prose stays for display. (Confirmed by the 2026-07-12 bloom-pass engineering review — the new `bloom` field reuses this same proven mechanism.)
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-12 (Bronco Amazon parts + dome-light record)
+
+**A short, focused thread off the vehicle-records work: chased down "what did I buy for the Bronco's dome lights."** Answer wasn't in the 62-frame receipt folder — it was in Paul's **Amazon order history** (10 screenshots he sent). Committed locally (Tate-Tracker HEAD after commit), **UNPUSHED + Worker NOT redeployed** — Paul holds the push/deploy.
+
+### What shipped
+- **New `done` restoration item on Bolores** — *"Interior lighting — dome, map & dash (warm LED)."* Paul re-bulbed the overhead dome + the two flanking map lights + some dash indicators to **warm 2700K (SEALIGHT 194)** after trying and returning the cooler 6000K white sets ("too sterile"), and fitted a new plastic dome cover. `vehicles.json` → re-inlined `VEHICLES_DATA` (parity verified) → digest rebuilt → release note added.
+- **Full Paul-era Amazon parts haul catalogued** into `.private/service-records/bronco-1989/EXTRACTED.md` (gitignored) — a new "Paul-era parts haul" section: Bronco electrical/body/interior/reference parts + a clean NOT-Bronco split. **Screenshot reads = item + date only** (no prices/order#s; titles truncated).
+- **Golf cart parts reconciled** (no card change — its card was already right): spring-2026 service used an **oversize M12×1.5 drain plug** (stock had stripped; several sizes bought+returned; Paul believes M12×1.5 was the keeper). **GTI confirmed has NO aftermarket drain plug.** NGK **#1275** plug is an **on-hand spare, not installed** (cart still runs BPR4ES).
+
+### ⚠️ Owner: Paul
+1. **Deploy to take it live** — `git pull --rebase` (weather bot) → push (GH Pages) → `cd worker && npx wrangler deploy` (Worker deploy is Paul-only; classifier blocks the agent). Then Safari-kill on the phone to see the Bolores card.
+2. **One tiny confirm** — the *"just in the shop, not applied to anything"* item: I read it as the **NGK #1275 spark plug**; confirm it wasn't the **APE fuel filter** (also parked on-hand, unassigned cart/dirt-bike/mower).
+
+### Deferred (agent-can-drive next)
+- **Catalog the *rest* of the Amazon Bronco parts onto the card** — Dorman 742-251 power-window regulator, Dorman 75450 door-lock rod clips, Dorman 38424 tailgate support, fuse kit, dielectric grease, connectors, switches, plastic restorer, Chilton manual — with per-item install status from Paul.
+- **Finish the original ask** — "talk through the proposed jobs / maintenance / service history" for the GTI + Bronco (the verification flags F-1…F-5 / F-A…F-F were surfaced but not walked end-to-end).
+
 ## Pickup point — last session ended 2026-07-12 (bloom-time + Hydrangea hub; fleet records from photos)
 
 **A big multi-thread session — all shipped, pushed, and Worker deployed (Tate-Tracker HEAD `eea8e14`).** Photos Paul sent from the property drove two workstreams: a plant Almanac enrichment (bloom-time + a hydrangea reorganization, run through the eng+ux expert panel) and a fleet-records catch-up from sticker/placard photos.
