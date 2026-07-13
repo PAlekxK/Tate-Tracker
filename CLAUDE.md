@@ -459,7 +459,7 @@ Activated the long-dormant plants-to-consider thread. Discovery → schema → b
 **Where the Phase F design trail lives:**
 - `.engineering/2026-05-21-path-phase-f-image-input.md` — engineering-partner path-eval that locked Option A's shape
 - `review/2026-05-21-phase-f-input-copy.md` — content-steward voice/copy memo (button label, helper text)
-- `~/Documents/Claude/handoff/master-plan-2026-05-21.md` W2.5 section — P1–P8 (Option A) + C1–C3 (Option C) decisions
+- `~/.claude/handoff/master-plan-2026-05-21.md` W2.5 section — P1–P8 (Option A) + C1–C3 (Option C) decisions
 - `[[master-plan-2026-05-21]]` — master plan memory pointer
 
 **Where the Phase E design trail lives** (still active for any next-session expert review):
@@ -531,7 +531,7 @@ The single most important structural principle for Fernwood. It came out of the 
 Open `viewer.html` directly in a browser — no build step, no server, no install. For Playwright testing or CORS-sensitive API testing, serve locally:
 
 ```bash
-cd /Users/paulkirschenbauer/Documents/Claude/Projects/Tate-Tracker
+cd ~/Developer/Tate-Tracker
 python3 -m http.server 8765
 # then open http://localhost:8765/viewer.html
 ```
