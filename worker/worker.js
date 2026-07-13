@@ -1809,9 +1809,15 @@ async function handleFeedback(request, env, url) {
     try { body = await request.json(); }
     catch (e) { return json({ error: "bad-json" }, 400); }
     if (!body || typeof body !== "object") return json({ error: "bad-body" }, 400);
-    const sentiment = body.sentiment;
-    if (!["landed", "so_so", "missed"].includes(sentiment)) {
-      return json({ error: "bad-sentiment" }, 400);
+    // A record must carry at least one signal: a reaction sentiment OR a note.
+    // (Relaxed 2026-07-13 for the Mom-queue: an "open"-kind text-only answer has
+    // no sentiment; a "confirm"/"react" answer maps its tap to the sentiment enum.
+    // Storage keeps the reused landed/so_so/missed vocabulary; the client decides
+    // the display label — e.g. a confirm chip shows Yes / No / Not sure.)
+    const hasSentiment = ["landed", "so_so", "missed"].includes(body.sentiment);
+    const note = typeof body.note === "string" ? body.note.slice(0, 2000) : "";
+    if (!hasSentiment && !note.trim()) {
+      return json({ error: "need-sentiment-or-note" }, 400);
     }
     const record = {
       id: body.id || ("fb-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36)),
@@ -1819,8 +1825,8 @@ async function handleFeedback(request, env, url) {
       sessionId: body.sessionId || null,
       deviceId: body.deviceId || null,
       context: body.context && typeof body.context === "object" ? body.context : { type: "general" },
-      sentiment,
-      note: typeof body.note === "string" ? body.note.slice(0, 2000) : "",
+      sentiment: hasSentiment ? body.sentiment : null,
+      note,
     };
     const today = new Date().toISOString().slice(0, 10);
     const key = `feedback:${today}`;

@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-13 — A quiet place to settle the things only you can see
+
+- **"When you're out there"** — now and then, a calm line appears at the top of the app with something only someone standing on the property can settle: *is that crocosmia really 'Lucifer'? Is the big white hydrangea 'Annabelle'?*
+- **One at a time, no pressure** — answer with *Yes, that's it*, *Not quite* (say what it really is, in your own words), or *Haven't looked yet* to let it wait for your next walk. Nothing to hunt for and no list to work through; it only shows when there's something to ask.
+- Your answer goes straight to Paul, who folds it into the record — so the plant IDs get confirmed by the person who can actually see them.
+
 ## 2026-07-12 — When each plant blooms, and the hydrangeas gathered in one place
 
 - **Every flowering plant now shows when it blooms** — a calm "In bloom" line on its card, lit up when it's flowering right now. Eighteen plants carry a bloom season; today, eleven are in flower.
