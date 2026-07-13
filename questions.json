@@ -1,0 +1,24 @@
+{
+  "_comment": "Outstanding things only someone at the property can settle. Fetched at load by viewer.html (NOT inlined — no _DATA const, so check-data-inline.py does not track it; a failed fetch just means an absent queue, which is the correct calm behavior). Paul authors a row, commits, pushes; on pickup he acts on the answer (edit plants.json, flip confidence inferred->verified) and sets the row active:false (or deletes it). Mom's answers land via POST /api/feedback with context.{type:'mom-queue',questionId,kind}; Paul reads them with tools/read-mom-feedback.py. Schema is forward-compatible: kind = confirm|react|open, answerMode = yesno|sentiment|text. v1 probe (2026-07-13) seeds confirm items only.",
+  "version": 1,
+  "questions": [
+    {
+      "id": "q-crocosmia-lucifer",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The crocosmia that came into bloom this month — we read it off a photo as the variety **'Lucifer,'** but that's a guess from the picture. Does that match the one flowering out there?",
+      "entityRef": { "type": "plant", "id": "crocosmia" },
+      "createdAt": "2026-07-13",
+      "active": true
+    },
+    {
+      "id": "q-white-mophead-annabelle",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The big white mophead hydrangea — from the photo it looks like **'Annabelle,'** the old smooth-hydrangea standby. Right on the ground, or something else?",
+      "entityRef": { "type": "plant", "id": "hydrangea", "note": "the white mophead in the hydrangea roster" },
+      "createdAt": "2026-07-13",
+      "active": true
+    }
+  ]
+}
