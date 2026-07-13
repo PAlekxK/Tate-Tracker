@@ -712,6 +712,12 @@
           "status": "done",
           "detail": "The plastic screw bosses that hold the rear-window up/down and rear-defrost switches into the trim (lower-left of the steering column) had cracked through over time, leaving the switches loose. Rebuilt the bosses using heat-shrink tubing as a sleeve/form and JB Weld to recreate threadable mounting posts. Switches now mount solidly — arguably more durable than the original brittle plastic. See technique: \"Screw-boss rebuild.\"",
           "completed": "2026-06-20"
+        },
+        {
+          "item": "Interior lighting — dome, map & dash (warm LED)",
+          "status": "done",
+          "detail": "Re-bulbed the cabin lighting to warm LED — the overhead dome light and the two smaller map lights on either side of it, plus a few of the dashboard indicator bulbs (the turn-signal indicator and the like). Went warm 2700K (SEALIGHT 194-size LED) after trying the cooler 6000K white sets and sending them back — the white read too sterile. Fitted a new plastic dome cover along with it. Bulb specs are read from order history (inferred); the install is owner-confirmed.",
+          "completed": "2025-10"
         }
       ],
       "vin": "1FMEU15H5KL••••••",
