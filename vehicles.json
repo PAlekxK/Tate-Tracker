@@ -254,6 +254,13 @@
       },
       "serviceHistory": [
         {
+          "date": "2026-07-13",
+          "mileage": 82698,
+          "shop": "DIY (Paul)",
+          "summary": "Rear license-plate lights — traced a bulb-out warning / flickering light to a dirty, loose connector. Cleaned the contacts, reseated the connectors and taped them (same reseat technique used on the DR-Z400S). Warning cleared. Recurrence-watch: taped, not heat-shrinked",
+          "confidence": "verified"
+        },
+        {
           "date": "2026-07-11",
           "mileage": 82698,
           "shop": "Express Oil",

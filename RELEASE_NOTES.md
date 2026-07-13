@@ -4,6 +4,10 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-13 — The GTI's plate lights, sorted
+
+- One of the **rear license-plate lights** had started flickering with a bulb-out warning. Turned out to be a dirty, loose connector — cleaned up, reseated, and taped back together, and the warning's gone. Logged as finished work on the GTI's card, with a note to keep an eye on it in case the tape doesn't hold.
+
 ## 2026-07-13 — A quiet place to settle the things only you can see
 
 - **"When you're out there"** — now and then, a calm line appears at the top of the app with something only someone standing on the property can settle: *is that crocosmia really 'Lucifer'? Is the big white hydrangea 'Annabelle'?*
