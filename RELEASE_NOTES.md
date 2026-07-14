@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-13 — Mama's Perspective — a little corner for your read of the place
+
+- A new spot at the top of the app, **Mama's Perspective**, quietly asks the things only someone standing on the land can settle — like whether that orange crocosmia really is the 'Lucifer' variety. One little card at a time, with arrows to move through them.
+- Three easy answers on each — **Looks right · Not quite · Not sure** — and you can always add a note in your own words if you feel like it. There are no wrong answers, and "not sure" is a perfectly good one.
+- It's your space to record what you see out there; nothing you tap goes anywhere but into the place's record.
+
 ## 2026-07-13 — Bolores: door speakers in, and the door lock points to wiring
 
 - The Bronco's **door speakers (and their baffles) are now installed** — the amp and subwoofers are still to come.
