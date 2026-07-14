@@ -4,6 +4,11 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-14 — A steadier note box, and a clearer button
+
+- The button under the note box now reads **"Save & ask the Almanac"** — a plainer name for what it actually does: it saves your note in your own words first, then asks Garden Guru to weigh in.
+- Fixed a small shuffle: after you logged a note, **Mama's Perspective** used to jump *below* the conversation, and the note box drifted away from its button. Now everything holds its place — Mama's Perspective stays up top, and the note box and its button stay together.
+
 ## 2026-07-13 — One button for the almanac
 
 - The note box at the top now has a **single button — "Log to the Almanac."** Whatever you write is saved to the almanac in your own words the moment you tap it, and then Garden Guru chimes in with a thought and the chance to ask a follow-up.
