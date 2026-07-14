@@ -1,0 +1,127 @@
+{
+  "review_id": "ux-2026-07-14-mom-perspective-loop-close-visibility",
+  "project": "fernwood",
+  "subject": "Mama's Perspective — the VISIBLE 'captured & being worked on' signal, the loop-close-on-the-entity, reseed cadence, and n=2 guardrails",
+  "review_date": "2026-07-14",
+  "reviewer_mode": "review",
+  "review_level": "screen-component + flow (co-scoped from Paul's brief)",
+  "user_context": {
+    "primary_user": "Paul's Mom — the make-or-break daily reader; reads with difficulty (meaning via icon+size+color+position, not dense text); half-engaged, one-handed, often no glasses. Secondary: Paul as builder/operator who folds her reads into canon.",
+    "core_jobs_to_be_done": [
+      "Settle a ground-truth only someone standing on the property can settle (is this crocosmia 'Lucifer'?)",
+      "Feel that her read of the place was received and mattered — SEE her contribution land, or the loop feels extractive",
+      "Paul: harvest her settled reads, fold them into canon by hand, keep the queue calm and non-nagging"
+    ],
+    "context_of_use": "Opening the single-page dashboard at half-attention; the queue is pinned at the top. Capture is deterministic + AI-free. Fold is manual + latent (GH Pages 1-3 min after Paul edits plants.json).",
+    "assumptions_made": [
+      "n=2 real answers so far (crocosmia + white mophead both 'Looks right' 2026-07-13); the panicle-hydrangea confirm + one open foot-line are the only active rows",
+      "Mom's reading-difficulty + half-engagement model is drawn from validated memory, not re-tested this session",
+      "The extractive-if-invisible flywheel claim is Fernwood doctrine (Paul-locked), treated as ground truth here"
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "Close the loop VISIBLY or it feels extractive — she must SEE her read replace the guess (Fernwood doctrine, CLAUDE.md / shared brief)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project.md)",
+    "A modeled/inferred value placed flush with a confirmed one borrows credibility — keep them visibly distinct (fernwood.md)",
+    "Save-success at the surface, not at the destination; don't claim the destination reflects the save until it does (cross-project.md)",
+    "Defer affordances pending signal — the star trap (zero-usage ⭐); n=2 is thin signal, don't over-build (memory + brief)",
+    "Caution/status as noticing, not warning; glyphs follow the journal voice not the dashboard voice (fernwood.md)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Reuse the mechanism, not the semantics — the bloom-row 'estimated' chip is an already-shipped idiom (Fernwood candidate)",
+    "A correct 'no' still owes a next move (cross-project.md) — already honored in the 'Not quite' -> 'What is it, then?' flow"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "The loop closes into a void. Trace the shipped crocosmia flow: Mom taps 'Looks right' -> a 2.6s transient ack ('Noted — your read's in the record. ✓') -> render() advances -> the card is durably dismissed on every device (syncServerAnswers). From her side, her contribution then vanishes with nothing she can ever see changing on the actual plant. On the crocosmia plant card, the variety 'Lucifer' is baked into scientificName as flat settled fact ('Crocosmia \\'Lucifer\\' (montbretia)') — it was NEVER shown as a guess, so after she confirms there is literally nothing to visibly flip. Both halves of the flywheel are missing: the guess never looked like a guess, and the fold is invisible.",
+      "user_impact": "Fernwood's own locked doctrine says the loop must close VISIBLY or it feels extractive — 'she must SEE her reading replace the estimated value or it feels extractive.' At n=2, her FIRST-ever contributions are landing in silence. First impressions set whether she treats the queue as a place her eye on the land matters, or as a form that takes and gives nothing back. If the first two disappear into a void, she learns the surface is extractive and stops — killing the flywheel before it starts.",
+      "principle_invoked": "Close the loop VISIBLY or it feels extractive (Fernwood doctrine); A value's provenance must be shown as honestly as the value itself (cross-project)",
+      "recommendation": "Do NOT build a per-question status pipeline (that is the star trap in new clothes). Instead close the loop on the ENTITY: (1) make the honest-uncertainty visible on the plant card FIRST — the variety read must look like a read ('our read from a photo — not checked on the ground yet'), reusing the exact bloom-row chip idiom (.bloom-est at viewer.html:9663); (2) when Paul folds her confirm, that same chip flips to 'confirmed here · Jul 2026' (or simply disappears). Whenever she next opens the plant, the guess she settled now reads as settled BY her read. One change buys both the seed-hook and the visible loop-close.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The plant card overclaims certainty on exactly the values the queue exists to question. crocosmia.scientificName renders 'Lucifer' as fact; the white mophead's 'Annabelle' identity got a bespoke prose fold ('confirmed on the ground July 2026') buried in a roster note. The bloom ROW carries an 'estimated' chip (confidence-driven), but the VARIETY IDENTITY — the thing the confirm cards actually ask about — carries no provenance marker at all.",
+      "user_impact": "This is a provenance-honesty violation independent of the queue: a photo-guess is presented in the same visual treatment as a directly-confirmed fact, so the reader can't tell what's known-here from what's guessed-from-a-picture. It also removes the hook: the honest-uncertainty flag IS the reason to ask her — if the card already asserts 'Lucifer' with full confidence, the queue looks like it's asking her to rubber-stamp a settled fact rather than settle an open one.",
+      "principle_invoked": "A modeled/inferred value placed flush with a confirmed one borrows credibility — keep them visibly distinct (fernwood); provenance-honesty (cross-project)",
+      "recommendation": "Give the variety identity a small structured confidence (mirror bloom: e.g. variety:{value, confidence} or a varietyConfidence field) so a chip can be driven the same way the bloom chip is. Render it as a quiet in-palette chip on the variety line — NOT a warning color, NOT a dashboard glyph (journal register). Hand the exact wording to content-steward: 'estimated' reads a touch spec-sheet for this surface; something warmer ('our read from a photo' -> 'confirmed on the ground') fits the field-journal voice.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "There is no honest MIDDLE state, and — importantly — there should not be a Mom-facing one. Between 'received' (the transient ack) and 'folded' (the entity flips), the only actor is Paul, working offline. The brief asks whether Mom should see a 'Paul's looking' state.",
+      "user_impact": "A Mom-facing 'Paul is reviewing your answer' state would (a) foreground Paul, breaking the locked Mom<->app-direct framing, and (b) manufacture an obligation/waiting loop ('is it done yet?') — naggy, task-manager register, the opposite of the calm field-journal tone. The honest AND calm model is two visible states only: the transient 'your read's in the record ✓' (received, and correctly it does NOT claim the card changed), then — silently, whenever she next looks — the entity itself now reads confirmed. The fold shows up on the land the way the place changes between visits. Silence to Mom is the honest treatment of the middle state, not a gap.",
+      "principle_invoked": "Never claim the dashboard changed until it has; calm never naggy; Mom<->app-direct framing lock; Save-success at the surface not the destination (cross-project)",
+      "recommendation": "Keep the two-state model: transient received-ack (as shipped, good) + a silent entity-flip on next view. Build NO Mom-facing pending/in-progress tracker. The current ack copy is already correctly honest — it says 'in the record,' not 'on the dashboard.' Leave it.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "Paul's side already has the right pieces and even the right MENTAL MODEL shipped elsewhere. His pending->reviewed surface is tools/read-mom-feedback.py --pickup (calm, silent-when-empty, drafts a ready-to-fold canon edit) + --mark-reviewed watermark. And the zone-edit ZoneSyncStatus state machine (idle->pending->syncing->synced->live->failed) already embodies exactly the honesty this loop needs — it explicitly refuses to say 'live everywhere' until canon has caught up across devices, replacing an earlier '✓ saved' lie.",
+      "user_impact": "Paul doesn't need a new dashboard. He needs the discipline he already wrote for zone edits ('don't claim done before it's done') applied to the fold: her read is 'received' the moment it posts, 'folded' only when plants.json is edited AND GH Pages has served it. A Paul-facing view, if ever built, should reuse that honest vocabulary, not invent a parallel one.",
+      "principle_invoked": "Single source of truth / reuse the mechanism not the semantics; Save-success honesty about latency (cross-project)",
+      "recommendation": "For n=2, the CLI pickup surface is sufficient — do not build a Paul-facing GUI now. Note the ZoneSyncStatus honesty pattern as the reference model for if/when volume justifies one. No build.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "Reseed cadence, not the per-card UI, is the nagging vector. The one-card + ‹ › + dots + IntersectionObserver-funnel mechanics are well-judged and calm. But nothing caps the OUTSTANDING SET. A growing row of dots at the top of a field journal reads as a to-do backlog — the exact task-manager register the tone doctrine forbids. Reseed is Paul-driven (deterministic harvest -> Mom-settleable filter -> Paul approves), so the volume is a design knob, not an accident.",
+      "user_impact": "Three or fewer dots read as 'a couple of little things to glance at.' Seven dots read as 'a chore list someone left for me.' For a half-engaged, reading-difficulty reader, the dot-count is a wordless signal about whether this surface is calm or demanding — and demanding is how you lose her.",
+      "principle_invoked": "Caution/status as noticing not warning; calm never naggy; make every surface read at half-engagement (fernwood)",
+      "recommendation": "Soft-cap the visible outstanding confirms at ~3. Paul seeds more only as she clears them (his approve-gate already makes this natural). Never badge or count ('2 new!'), never push/reorder to force the newest in front of her (pull-not-push). The empty state ('Nothing to settle just now — the place is just growing.') is calm and complete — keep it; it correctly reads as completion, not absence-of-task.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "error-handling",
+      "severity": "nice-to-have",
+      "observation": "'Not sure' snoozes for the day and returns (correct — 'not sure' is first-class ground-truth, not a dodge). But there's no ceiling: a card she keeps saying 'not sure' to comes back every single day, indefinitely.",
+      "user_impact": "An un-settleable card that returns forever crosses from 'gently available' into 'nagging' — the same daily re-ask she can't resolve. That teaches avoidance.",
+      "principle_invoked": "Calm never naggy; a correct 'no' still owes a next move (cross-project)",
+      "recommendation": "At n=2, instrument but don't build: watch how often a card gets repeated 'not sure.' If a pattern emerges, retire the card after ~3 'not sure's (it's genuinely not settleable from the ground — the reseed filter mis-fired) or convert it into the standing open channel. Paul's call at fold-time; flag, don't auto-build.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "feedback",
+      "severity": "nice-to-have",
+      "observation": "The 'missed' (Not quite) ack echoes her verbatim note back inline: 'Got it — noted as \"[her words].\" ✓'. Good — it proves capture at the surface and honors 'a correct no owes a next move' (the flow invites 'What is it, then?').",
+      "user_impact": "This is the one place the loop already closes visibly and well — her exact words are read back to her. Worth preserving as the template for how the confirm-side ack should FEEL once the entity-flip (F1/F2) lands.",
+      "principle_invoked": "Save-success at the surface; a correct 'no' still owes a next move (cross-project)",
+      "recommendation": "Keep. When F1/F2 ship, consider whether the 'landed' ack can gain the same warmth without over-promising — but do NOT let it claim the card changed. The entity-flip on next view is where the confirm-side loop closes, not the ack.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "For the entity-flip (F1/F2): once folded, should the chip read 'confirmed on the ground · Jul 2026' (leaves a warm trace of her read) or simply disappear (cleanest)? My lean: keep a quiet trace — it's the visible proof her read mattered, which is the whole point of the flywheel. Content-steward owns the words.",
+    "Soft-cap number for outstanding confirms — I propose 3. Comfortable, or do you want 2?",
+    "Should the entity-flip trace ever name her ('confirmed by Mom')? My lean: NO — it breaks the Mom<->app-direct framing and personalizes what should read as 'confirmed here on the land.' But it's your call given the family context."
+  ],
+  "follow_up_research_suggested": [
+    "After the entity-flip ships, the funnel (offered->viewed->tapped->answered) plus a new signal — does she RE-OPEN a plant she settled? — would tell you whether the visible loop-close actually registers with her. That's the real test of the flywheel at n=say-5, and it's the metric that would justify (or kill) any further affordance.",
+    "content-steward: the variety-provenance chip wording ('our read from a photo' / 'confirmed on the ground') and whether 'estimated' on the bloom chip should be warmed to match."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Close the loop on the ENTITY, not with a status tracker — the honest-uncertainty marker that seeds the question is the same marker that flips on confirmation",
+      "scope": "fernwood",
+      "rationale": "This review found the cheapest, calmest, most on-doctrine way to make a ground-truth loop close visibly is NOT a per-question pending/in-progress/done pipeline (which is the star-trap: a rich affordance ahead of signal), but a single provenance chip on the settled thing that reads 'our guess' before and 'confirmed here' after. The seed-hook (honest uncertainty) and the loop-close (visible fold) become one artifact. Candidate — 1 occurrence (Mama's Perspective crocosmia/mophead). Watch for a second occurrence (e.g. the fishing NOW read, any weather estimate a reader could settle) before promoting. Pairs with the existing 'reuse the mechanism, not the semantics' candidate — the bloom-row chip is the mechanism being reused."
+    },
+    {
+      "principle": "A ground-truth prompt must not overclaim the value it asks about — the card that asks 'is this Lucifer?' must not elsewhere assert 'Lucifer' as settled fact",
+      "scope": "fernwood",
+      "rationale": "Found a self-contradiction: the queue asks Mom to settle a variety the plant card already presents with full confidence. That both hides the hook (why ask if it looks known?) and violates provenance-honesty. The rule: wherever a confirm-queue item points at a value, that value must render as unsettled on its home surface until she settles it. This is the Fernwood-queue-specific corollary of the cross-project provenance-honesty principle. Candidate — 1 occurrence."
+    }
+  ]
+}
