@@ -66,7 +66,7 @@
         {
           "item": "Coolant — verify at next shop visit",
           "status": "planned",
-          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase — fold it into a visit that's already happening. Two natural moments: (a) the spare-key dealer trip — grab a free coolant-level eyeball while they do the free recall check (treat any 'recommended services' list as an upsell, not gospel); (b) better for a real read — the overdue DSG service at Autobahn, where they can properly check whether it's losing any (dye/pressure) and glance the brake pads at the same time. Eurofed also holds your history. On any eventual pump replacement, ask for a metal-impeller INA/OE kit.",
+          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase — fold it into a visit that's already happening. Two natural moments: (a) the spare-key dealer trip — grab a free coolant-level eyeball while they do the free recall check (treat any 'recommended services' list as an upsell, not gospel); (b) better for a real read — the overdue DSG service at Autobahn, where they can properly check whether it's losing any (dye/pressure) and glance the brake pads at the same time. Eurofed also holds your history. On any eventual pump replacement, ask for a metal-impeller INA/OE kit. (3) 2026-02-02: Paul replaced the coolant expansion/overflow reservoir tank himself (DIY) — a suspect swapped out; predates the clean 7/11 pressure test. Not calling the loss solved, but it's a variable now on record.",
           "contactId": [
             "expressoil",
             "eurofed",
@@ -266,6 +266,12 @@
           "shop": "Express Oil",
           "summary": "Full-service oil change (Valvoline 5W-30) + tire rotation + brake-fluid exchange; customer reported possible coolant loss — cooling system pressure-tested, NO active leak found (reservoir at a safe level)",
           "confidence": "inferred"
+        },
+        {
+          "date": "2026-02-02",
+          "shop": "DIY (Paul)",
+          "summary": "Replaced the coolant expansion / overflow reservoir tank (DIY) — a suspect swapped out during the coolant-loss investigation",
+          "confidence": "verified"
         },
         {
           "date": "2026-01-02",
@@ -656,7 +662,7 @@
         {
           "item": "Rear window & tailgate operation",
           "status": "testing",
-          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job. (Phase 0: independent of paint.)"
+          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job. (Phase 0: independent of paint.) PARTS (DIY, installed): rear-window lift motor = Dorman 742-251; tailgate striker bushing = Dorman 38424 (installed to address the tailgate-angle/alignment). Sourced from the Amazon parts record."
         },
         {
           "item": "Bodywork — rust & dents (pre-paint scope)",
@@ -681,7 +687,7 @@
         {
           "item": "Driver door panel",
           "status": "planned",
-          "detail": "Cracked through with broken clip mounts. Plan is repair-in-place, not replace: back-reinforce the cracks with heat-formed ABS sheet, rebuild the broken clip pockets from ABS, then flexible-fill the show face (3M EZ Sand 35887 — verified the right product, sold on Amazon too) and SAND TO PRIMER-READY. No more self color-matching — the paint shop sprays the chestnut as part of the interior refinish, which kills the hardest part of this job. Full materials list + step-by-step at guides/bolores-door-panel-repair.md. Gate: confirm the panel's plastic type (ABS vs PP) before buying adhesives. Phase-2 door teardown — done together with the lock, the handle-mount check, and door deadening. Still gates the audio build — a loose panel rattles and ruins subs. Fallback if the repair doesn't hold: source an '87–91 Bronco/F-series chestnut panel (long lead)."
+          "detail": "Cracked through with broken clip mounts. Plan is repair-in-place, not replace: back-reinforce the cracks with heat-formed ABS sheet, rebuild the broken clip pockets from ABS, then flexible-fill the show face (3M EZ Sand 35887 — verified the right product, sold on Amazon too) and SAND TO PRIMER-READY. No more self color-matching — the paint shop sprays the chestnut as part of the interior refinish, which kills the hardest part of this job. Full materials list + step-by-step at guides/bolores-door-panel-repair.md. Gate: confirm the panel's plastic type (ABS vs PP) before buying adhesives. Phase-2 door teardown — done together with the lock, the handle-mount check, and door deadening. Still gates the audio build — a loose panel rattles and ruins subs. Fallback if the repair doesn't hold: source an '87–91 Bronco/F-series chestnut panel (long lead). PARTS (DIY, installed): new door-trim panel retainer clips = Icyhaws (Ford F150/Bronco) — fitted to rebuild the broken clip pockets."
         },
         {
           "item": "Door-handle reinforcement plates",
@@ -998,6 +1004,10 @@
         },
         "valveAdjust": {
           "value": "Check at 600 mi initial then every 7,500 mi (shim-under-bucket)",
+          "confidence": "verified"
+        },
+        "sparkPlugs": {
+          "value": "NGK #1275 = CR8E (standard). Paul's confirmed plug for this bike; bought 2025, on hand. Gap ~0.7 mm (0.028\") — verify against the service manual. Iridium equivalent: CR8EIX.",
           "confidence": "verified"
         }
       },
