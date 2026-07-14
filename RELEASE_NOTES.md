@@ -14,6 +14,12 @@ What's changed at Fernwood lately. Newest first.
 - The button under the note box now reads **"Save & ask the Almanac"** — a plainer name for what it actually does: it saves your note in your own words first, then asks Garden Guru to weigh in.
 - Fixed a small shuffle: after you logged a note, **Mama's Perspective** used to jump *below* the conversation, and the note box drifted away from its button. Now everything holds its place — Mama's Perspective stays up top, and the note box and its button stay together.
 
+## 2026-07-14 — The weather card reads top to bottom now
+
+- The card opens with **one plain-language line — what it's like out, and a suggestion for what to do about it** ("Muggy morning — water at the base, not the leaves"). That same line rides the header, so the glance and the open card always agree.
+- **What's happening right now on the property** is its own block, marked *measured on the property* — the live readings from our own station. The **forecast** (next 7 days, hour by hour) sits just below it, clearly marked *Open-Meteo forecast*, so it's always plain which numbers are real-and-now versus predicted.
+- **Rainfall** keeps its spot in the middle. The **burn-status** note — which reads about the same most days — moved down to the bottom as reference. A genuine fire-weather alert still jumps to the top when there is one.
+
 ## 2026-07-13 — One button for the almanac
 
 - The note box at the top now has a **single button — "Log to the Almanac."** Whatever you write is saved to the almanac in your own words the moment you tap it, and then Garden Guru chimes in with a thought and the chance to ask a follow-up.
