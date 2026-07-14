@@ -4,6 +4,11 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-14 — Two plants confirmed from the ground, and the questions retire themselves
+
+- Mama's Perspective got its first answers, and they settle two things we'd only guessed from a photo: the summer torch by the beds **is** the crocosmia **'Lucifer'**, and the big white mopheads **are** the smooth hydrangea **'Annabelle.'** Both are now written down as confirmed rather than "we think." (Because 'Annabelle' blooms on new wood, its pruning note now reads correctly — cut it back hard in late winter, not after flowering like the blue mopheads.)
+- A quieter fix behind the scenes: once you answer one of these little cards, that question now stays gone **on every device** — not just the one you answered on. No more being asked the same thing twice.
+
 ## 2026-07-14 — The GTI's spark plugs, written down properly
 
 - The GTI's card now names the plugs the tuned car actually runs — **NGK R7437-8 racing plugs** — and carries a plain reminder for the next change: close the gap to 0.024″ (they arrive at 0.028″), snug them to a light torque with no anti-seize, and swap them about every 20,000 miles, since a tune is harder on plugs than stock.

@@ -474,12 +474,16 @@
           }
         ],
         "confidence": "verified",
-        "note": "Bigleaf mopheads lead in June–August; the panicle carries into September. Blue & white mopheads and the panicle were all in flower on the property in mid-July 2026."
+        "note": "Bigleaf mopheads lead in June–August; the panicle carries into September. Blue bigleaf and white 'Annabelle' mopheads and the panicle were all in flower on the property in mid-July 2026."
       },
       "roster": [
         {
-          "name": "Bigleaf mopheads — blue & white",
-          "note": "The classic round-headed types by the porch and wall. Blue by default in the property's acidic soil; white forms stay white. Old-wood bloomers — prune right after flowering."
+          "name": "Bigleaf mopheads — blue (macrophylla)",
+          "note": "The classic round-headed blue mopheads by the porch and wall — blue by default in the property's acidic soil. Old-wood bloomers — prune right after flowering."
+        },
+        {
+          "name": "'Annabelle' — white smooth hydrangea (arborescens)",
+          "note": "The big white mopheads — confirmed on the ground July 2026. A smooth hydrangea (H. arborescens), not a bigleaf: it blooms on NEW wood, so prune hard in late winter (Feb–early Mar), not right after flowering like the blue mopheads."
         },
         {
           "name": "Panicle (Hydrangea paniculata)",
@@ -3310,7 +3314,7 @@
     {
       "id": "crocosmia",
       "name": "Crocosmia",
-      "scientificName": "Crocosmia × crocosmiiflora (montbretia — possibly 'Lucifer'; confirm on the ground)",
+      "scientificName": "Crocosmia 'Lucifer' (montbretia)",
       "emoji": "🧡",
       "guide": "A summer torch — arching sprays of red-orange trumpets held over fans of sword-shaped leaves, opening mid-to-late summer just as the hydrangeas wind down. It grows from corms that multiply into clumps and naturalizes readily at this elevation. Hummingbirds work it hard. Wants full sun to light afternoon shade and, above all, well-drained ground.",
       "currentSeasonNote": "In full bloom now at Church Mountain Road. Nothing to do mid-bloom but enjoy it — and cut a few stems for the vase if you like; they hold well. Keep it watered through a hot dry stretch.",
