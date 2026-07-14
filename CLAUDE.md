@@ -34,6 +34,26 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - ~~**Refined "Peak this week" — needs a structured peak field (data work).**~~ ✅ **SHIPPED 2026-07-06** — machine-readable `peakDates` ({start,end} MM-DD) + the year-wrap-aware `mmddRangeActive` helper are live on all 88 windows; the prose stays for display. (Confirmed by the 2026-07-12 bloom-pass engineering review — the new `bloom` field reuses this same proven mechanism.)
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-13 (Amazon full-export parts fold + GTI plate-light + prompt-Mom seed)
+
+**The full Amazon "Request My Data" export (`~/Desktop/Claude/Your Orders/`, 1,231 orders) replaced the 10-screenshot reads — deterministic dates/prices/ASINs.** Shipped + pushed + Worker deployed (Tate-Tracker HEAD `8add29e`). Live on GH Pages.
+
+### What shipped
+- **GTI plate-light DIY fix** (`serviceHistory`, verified) — cleaned/reseated the rear license-plate light connectors after a bulb-out flicker; same reseat-and-tape technique as the DR-Z, recurrence-watch. Private plate/reg facts (plate CQV7939 / **Fulton** county / **JUN 26 sticker = expired**, corroborates the past-due reg) in the gitignored `gti-2016/EXTRACTED.md`.
+- **GTI coolant tank** — Paul **installed** the expansion/overflow reservoir tank himself (Feb 2026). New `serviceHistory` row + a context line on the coolant restoration item (suspect swapped, predates July's clean pressure test — NOT called solved).
+- **DR-Z400S spark plug** filled in: **NGK #1275 (CR8E)**, Paul-confirmed (corrects the earlier "cart spare" guess — cart runs BPR4ES).
+- **Bronco installs woven in** — Dorman 742-251 window motor + Dorman 38424 tailgate striker (rear-window/tailgate item) and Icyhaws door clips (door-panel item), Paul-confirmed installed.
+- **Amazon parts analysis folded** — durable master catalog `.private/service-records/AMAZON-PARTS.md` (39 fleet parts, per-vehicle, priced, tagged kept/returned) + reconciliations into GTI/Bronco/new DR-Z `EXTRACTED.md`. **Methodology catch:** order-level refund ≠ item returned; fixed via refund-amount matching. Corrections: DR-Z **starter was returned**; Bronco **manual + clips kept** (only the $10.88 keychain came back); **M12.1×1.5 is the drain-plug keeper**.
+- **Trimmer Outstanding #2 → UT33650A** confirmed (straight-shaft photo; card already read that).
+
+### ⚠️ Owner: Paul
+1. **GTI spare-key spec (Outstanding #8)** — the key photos confirm the *form* (MQB 4-button flip, HU66) but the part #/FCC live on the **internal fob sticker**; split the fob + shoot it to close it.
+2. **Bronco restoration statuses** — installed parts woven into the *details* of "Rear window & tailgate operation" (`testing`) and "Driver door panel" (`planned`), but statuses left as-is. Flip either to `done`?
+3. **A few [CONFIRM] install-status flags** in `AMAZON-PARTS.md` (APE fuel filter installed vs on-hand, NGK #1275 installed vs spare, the two magnetic drain plugs, audio baffles, QQWD dash bulbs kept vs returned) — batch-resolvable anytime.
+
+### Deferred (agent-can-drive)
+- **"Prompt Mom for input" feature seed** — Mom's weed-ID + control ask logged as a repeatable-loop capability for the expert panel (user-researcher · ux · ai-advisor · eng). Framing brief `.plans/2026-07-13-mom-prompted-input-scoping.md`; backlog entry above; memory [[project_fernwood_prompt_mom_input]]. **Not built — panel scopes it.**
+
 ## Pickup point — last session ended 2026-07-12 (Bronco Amazon parts + dome-light record)
 
 **A short, focused thread off the vehicle-records work: chased down "what did I buy for the Bronco's dome lights."** Answer wasn't in the 62-frame receipt folder — it was in Paul's **Amazon order history** (10 screenshots he sent). Committed locally (Tate-Tracker HEAD after commit), **UNPUSHED + Worker NOT redeployed** — Paul holds the push/deploy.
