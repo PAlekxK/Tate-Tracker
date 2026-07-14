@@ -40,6 +40,22 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - ~~**Refined "Peak this week" — needs a structured peak field (data work).**~~ ✅ **SHIPPED 2026-07-06** — machine-readable `peakDates` ({start,end} MM-DD) + the year-wrap-aware `mmddRangeActive` helper are live on all 88 windows; the prose stays for display. (Confirmed by the 2026-07-12 bloom-pass engineering review — the new `bloom` field reuses this same proven mechanism.)
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-14 (weather card reorg + source-citation system)
+
+**Weather card reworked end-to-end with the ux-expert + user-researcher, shipped + pushed + LIVE on GH Pages (Tate-Tracker HEAD `fa40ceb`). viewer.html + release notes only — no Worker/digest change.** Two commits: the IA reorg (`9450a82`) + the citation system (`fa40ceb`). Design trail: `.ux-reviews/2026-07-14-weather-card-reorg.json` + `.user-research/2026-07-14-weather-card-reader-jobs.md`.
+
+### What shipped
+- **IA reorg (glance → repository, mirrors the fishing card):** one meaning-first glance headline at top (the `generateGardenerInsight()` sentence + suggestion), which now ALSO drives the collapsed header via `renderWeatherSummary()` (one engine, can't diverge). Then **Right now** (measured) → **Forecast** (7-day + hourly merged into ONE block, one citation) → **Rainfall** (mid-card) → **Inside** → **Burn status** (bottom reference; a *severe* NWS fire alert promotes up to the top "Worth knowing" strip) → methodology.
+- **Source-citation system (per Paul):** top status bar is now the KEY — each source named once (📡 Fernwood Weather Vane / 🌐 Open-Meteo) with live status; each box cites with just the minimal colored oval + live dot. New `srcChip()` + `liveDot()` helpers. Canonical `ICON LEGEND` comment table above `srcChip()` = single source of truth, synced with the on-screen methodology footer.
+- **Station renamed** "Kirschenbauer" → **"Fernwood Weather Vane"** everywhere. Rainfall gauge (📡) kept distinct from its regional 25-yr ERA5 comparison (📊). Fixed the confusing "☁️ Sky" oval. **Forecast icon rationalized ☁️ → 🌐** (a cloud conflated source with sky content; globe = "from off the property").
+
+### Design principles written (candidates, in `~/.claude/design-principles/`)
+Three, all Paul-stated/ratified, `[candidate — 1 occurrence]`: **provenance-honesty** (cross-project) · **modeled-flush-with-measured-borrows-authority** (fernwood) · **an icon *system* needs a maintained legend + per-symbol rationale** (cross-project). The ux-expert's "split by freshness not topic" was **dropped** (topic is the outer axis; already covered by "Freshness sets altitude").
+
+### ⚠️ Owner: Paul
+1. **Safari-kill on the phone** to bust the iOS cache, then eyeball the reworked card on-device.
+2. The three candidate principles await a second sighting before promotion (nothing to do now — noted for provenance).
+
 ## Pickup point — last session ended 2026-07-14 (unified-input polish + plant look-fors bumped to the Plants tile)
 
 **Three UI changes shipped, merged to `main`, and LIVE on GH Pages (Tate-Tracker HEAD `dc2a067`). No Worker/digest change — all `viewer.html` + release notes.** Statuses folded into `BACKLOG.md` under "✅ Just shipped (2026-07-14)."
