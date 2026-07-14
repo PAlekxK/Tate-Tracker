@@ -9,7 +9,9 @@
       "prompt": "The crocosmia that came into bloom this month — we read it off a photo as the variety **'Lucifer,'** but that's a guess from the picture. Does that match the one flowering out there?",
       "entityRef": { "type": "plant", "id": "crocosmia" },
       "createdAt": "2026-07-13",
-      "active": true
+      "active": false,
+      "resolvedAt": "2026-07-14",
+      "resolution": "Mom confirmed 'Looks right' 2026-07-13; folded into plants.json (variety 'Lucifer' verified)."
     },
     {
       "id": "q-white-mophead-annabelle",
@@ -18,7 +20,9 @@
       "prompt": "The big white mophead hydrangea — from the photo it looks like **'Annabelle,'** the old smooth-hydrangea standby. Right on the ground, or something else?",
       "entityRef": { "type": "plant", "id": "hydrangea", "note": "the white mophead in the hydrangea roster" },
       "createdAt": "2026-07-13",
-      "active": true
+      "active": false,
+      "resolvedAt": "2026-07-14",
+      "resolution": "Mom confirmed 'Looks right' 2026-07-13; folded into plants.json (white mophead = 'Annabelle' smooth hydrangea, new-wood pruning)."
     },
     {
       "id": "q-panicle-hydrangea-bloom",
