@@ -4,6 +4,11 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-14 — The GTI's spark plugs, written down properly
+
+- The GTI's card now names the plugs the tuned car actually runs — **NGK R7437-8 racing plugs** — and carries a plain reminder for the next change: close the gap to 0.024″ (they arrive at 0.028″), snug them to a light torque with no anti-seize, and swap them about every 20,000 miles, since a tune is harder on plugs than stock.
+- A small housekeeping note on the Bronco too: its door speakers now show where they came from.
+
 ## 2026-07-14 — Naming our weather station, and a clearer way to show where each reading comes from
 
 - Our own weather station now has a name on the card: the **Fernwood Weather Vane**. Wherever you see its little 📡 badge, that reading was measured right here on the property — the current conditions, the rain gauge, even the indoor sensors.
