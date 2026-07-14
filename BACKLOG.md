@@ -19,16 +19,22 @@ session — keep them for the trail, but do **not** read them as current status.
 
 ## ✅ Just shipped (2026-07-14) — all live on `main` (GH Pages), no Worker change
 
-**Plant look-fors bumped up to the Plants tile as a check-it prompt.** The day's single
-highest-priority *plant* look-for now leads the always-visible Plants tile as a warm, tappable
-**"👀 Worth a look"** row; tapping routes to the composer pre-filled (`"Checked the [plant] — "`) to log
-what she sees, not the card-expand. The "Worth noticing today" list stays inside the Plants card ("do
-both" — Paul's steer). Focused on plants deliberately (highest-engagement care actions); wildlife look-fors
-stay in the central list only. One engine (`gatherPlantLookForCandidates`) feeds both surfaces so they
-can't disagree. This also answers the long-open 7/05 UX question "look-fors are too buried inside Plants."
+**Plant look-fors bumped up to the Plants tile as a check-it prompt.** The day's top *plant*
+look-fors now lead the always-visible Plants tile as warm, tappable **"👀 Worth a look"** rows;
+tapping routes to the composer pre-filled (`"Checked the [plant] — "`) to log what she sees, not the
+card-expand. The "Worth noticing today" list stays inside the Plants card ("do both" — Paul's steer).
+Focused on plants deliberately (highest-engagement care actions); wildlife look-fors stay in the
+central list only. One engine (`gatherPlantLookForCandidates`) feeds both surfaces so they can't
+disagree. This also answers the long-open 7/05 UX question "look-fors are too buried inside Plants."
 Fixed a latent init bug found along the way (a `MetricsCollector` temporal-dead-zone throw that aborted
-part of startup). **Open judgment call (Paul):** the tile shows **one** prompt, today the mow/fairway one —
-option to bias toward flowering plants over turf, and/or show **two**; both are ~1-line changes.
+part of startup). **Judgment call resolved (Paul, 2026-07-14):** the tile now shows the **top two**
+prompts, **priority-led** — the most time-sensitive window (a narrow bloom/prune window) leads and
+routine turf mowing only surfaces when nothing more urgent is active; daily rotation happens within the
+top priority tier so it stays fresh. (Prior behavior rotated across the whole candidate list ignoring
+priority, so turf could lead on a day with open narrow windows.) Complementary to — not a duplicate of —
+the structured Mama's Perspective confirm-queue: the tile invites *fresh observation of a timing event*,
+Mama's Perspective *confirms a fact the system already holds*. Coexistence of the two solicitation
+surfaces is a live design question to revisit if either starts to feel like noise.
 
 **Unified-input close-outs.** (1) Button relabeled **"Log to the Almanac" → "Save & ask the Almanac"** so it
 reads as save *and* answer, not just logging (behavior unchanged — still log-first). (2) Fixed a layout
