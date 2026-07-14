@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-14 — Naming our weather station, and a clearer way to show where each reading comes from
+
+- Our own weather station now has a name on the card: the **Fernwood Weather Vane**. Wherever you see its little 📡 badge, that reading was measured right here on the property — the current conditions, the rain gauge, even the indoor sensors.
+- The strip at the top of the weather card is now a small **key**: it names each source once (📡 Fernwood Weather Vane, 🌐 Open-Meteo forecast) and shows whether it's reporting live. After that, each section just wears its little colored badge — so at a glance you can always tell what's **measured here** versus what's a **forecast from off the property**, without the card getting wordy.
+- The rainfall box makes the same distinction: our gauge's totals (📡) sit apart from the regional 25-year history (📊) they're compared against.
+
 ## 2026-07-14 — The Plants tile now nudges you to go look
 
 - The **Plants tile** now leads with a little **"Worth a look"** prompt — the one plant thing most worth checking on out there today, like whether the reblooming hydrangea's ready for a prune. Tap it and the note box opens ready for you to jot down what you found.
