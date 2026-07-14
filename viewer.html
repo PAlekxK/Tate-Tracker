@@ -7242,17 +7242,29 @@ function gatherPlantLookForCandidates(now) {
       if (!val) continue;
       const entries = Array.isArray(val.subcategories) && val.subcategories.length ? val.subcategories : [val];
       for (const e of entries) {
-        if (!e || !Array.isArray(e.months) || !e.months.length) continue;
-        if (!e.months.includes(m)) continue;            // not active now
+        if (!e || !Array.isArray(e.months)) continue;
         const label = e.label || null;
         const peakWindow = e.peakWindow || null;
         const narrow = e.narrow === true;
-        const opening = !e.months.includes(prevM) && dayOfMonth <= 14;
+        // A "worth a look" prompt is a claim about TODAY, so it must be gated on
+        // the actual window — not just the month. When an entry has a structured
+        // `peakDates` window (MM-DD ranges), require today to fall inside it;
+        // month membership is too coarse (it kept a Jun 18–Jul 8 prune showing on
+        // Jul 14, and surfaced an Aug–Sep cutting window in July — 2026-07-14 fix).
+        // Only entries WITHOUT precise dates fall back to month granularity.
+        const hasDates = Array.isArray(e.peakDates) && e.peakDates.length > 0;
         let priority;
-        if (narrow) priority = 1;                       // P1 — narrow window active now
-        else if (opening) priority = 2;                 // P2 — window opening this month
-        else if (peakWindow) priority = 4;              // P4 — peak-window mention active
-        else continue;                                  // a long-open, no-peak window is wallpaper
+        if (hasDates) {
+          if (!e.peakDates.some(r => mmddRangeActive(r, now))) continue;  // window not open today
+          priority = narrow ? 1 : 4;                    // active dated window: narrow=P1, else P4
+        } else {
+          if (!e.months.length || !e.months.includes(m)) continue;       // month-coarse fallback
+          const opening = !e.months.includes(prevM) && dayOfMonth <= 14;
+          if (narrow) priority = 1;                     // P1 — narrow window active now
+          else if (opening) priority = 2;               // P2 — window opening this month
+          else if (peakWindow) priority = 4;            // P4 — peak-window mention active
+          else continue;                                // a long-open, no-peak window is wallpaper
+        }
         const text = lookforPlantText(careType, humbled, label, peakWindow, narrow);
         if (!text) continue;
         out.push({
