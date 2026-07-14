@@ -4,6 +4,10 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-13 — The Tiguan's fender-flare repair, logged
+
+- The **Tiguan** now has its first "what she's had done" entry — a damaged front-right fender flare was replaced (part sourced on eBay). Surfaced from the email-receipt mining.
+
 ## 2026-07-13 — The DR200's new handlebars, on the record
 
 - The **DR200S** now has a "what she's had done" entry — the bent handlebars were swapped for OEM Suzuki bars (sourced on eBay). Found while mining the email receipts.
