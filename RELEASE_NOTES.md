@@ -9,6 +9,7 @@ What's changed at Fernwood lately. Newest first.
 - **The GTI's coolant story gained a chapter** — the overflow reservoir tank was replaced (a DIY job back in February), now logged on the card. It's a suspect that got swapped before the summer's clean pressure test — not a verdict, just part of the record.
 - **The DR-Z400S now lists its spark plug** (NGK #1275 / CR8E).
 - **Bolores' rear-window motor, tailgate striker, and door-panel clips** are noted as fitted, with the exact parts, on their repair items.
+- **Bolores' rear window and tailgate now work** — marked done after the motor and striker work; the door panel is still in progress.
 
 ## 2026-07-13 — The GTI's plate lights, sorted
 
