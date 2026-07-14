@@ -4,6 +4,42 @@ Working notes for observations on the property that raise a question worth comin
 back to. Not the live app Field Notes (that's the in-app almanac); this is the
 repo-side scratch list we revisit in a session. Newest first.
 
+## 2026-07-14 — Very small tadpoles in the pond — which frog?
+
+Paul saw a batch of **very small tadpoles** in the pond and wondered if they're
+**Spring Peepers** (the guess ran off "they're so tiny → peeper").
+
+**Working read (unconfirmed — ID from a verbal description, not a photo):**
+Timing argues *against* peepers. Spring Peepers are the property's earliest
+breeders (Jan–Apr, first calls ~late Feb); their tadpoles transform in ~2–3
+months and are **gone from the pond by June**. So tiny tadpoles on **July 14**
+almost certainly aren't peepers — the "so small" hunch reads *adult* size
+(peepers are the tiniest frog here) onto the tadpoles, but on season they don't fit.
+
+What *does* fit fresh, tiny tadpoles in mid-July, per our own amphibian calendar
+(Jul highlight: "Gray Treefrog abundant"; Jun: "toadlets emerging in the hundreds"):
+- **Gray Treefrog** *(Hyla versicolor)* — strongest candidate. Peak breeding
+  Apr–Jul, still laying on warm humid July nights. Tell: olive/gold body with a
+  **tall arched tail fin, often tinged red/orange**.
+- **American Toad** *(Anaxyrus americanus)* — late-clutch possibility; most have
+  already transformed. Tell: **jet-black, in dense schooling masses** in the warm
+  shallows.
+- **Fowler's Toad** *(A. fowleri)* — breeds a touch later; less likely at this
+  clay pond but possible. Same black-schooling look.
+- **Ruled out by size:** Green Frog & Bullfrog tadpoles are *large* and overwinter
+  (green frog transforms next spring; bullfrog takes 1–2 yrs) — but they're a good
+  size yardstick since they're in the pond now too.
+
+**To settle it on the ground (deterministic — Paul's eyes / a photo):**
+1. **Color + behavior** — jet-black and swarming in a dense ball = toad; olive with
+   a reddish high-finned tail, more spread out = gray treefrog.
+2. **Size vs. the big overwintered tadpoles** in the same pond, for scale.
+3. **A photo** would let us close it. Best guess: gray treefrog, toad the runner-up.
+
+**Note:** Paul may also want to log the raw sighting in the in-app Almanac himself
+(his verbatim words, the AI-free capture path) — this repo entry is the open-question
+side, not a substitute for that.
+
 ## 2026-06-29 — Water lilies in the pond, yellowing pads
 
 Mom photographed the pond water lilies and asked about yellowing leaves + care tips
