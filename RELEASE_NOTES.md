@@ -4,6 +4,10 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-13 — The DR200's new handlebars, on the record
+
+- The **DR200S** now has a "what she's had done" entry — the bent handlebars were swapped for OEM Suzuki bars (sourced on eBay). Found while mining the email receipts.
+
 ## 2026-07-13 — More of the fleet's parts history, filled in
 
 - **The GTI's coolant story gained a chapter** — the overflow reservoir tank was replaced (a DIY job back in February), now logged on the card. It's a suspect that got swapped before the summer's clean pressure test — not a verdict, just part of the record.
