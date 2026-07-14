@@ -41,7 +41,7 @@
           "confidence": "verified"
         },
         "sparkPlugs": {
-          "value": "NGK PFR7S8EG — gap 0.028\" (factory; tuned cars sometimes drop to 0.024–0.026\"). Replace every 40k mi on Stage 1.",
+          "value": "NGK R7437-8 racing plug (APR Stage-1 heat range). Gap 0.024\" — they ship at 0.028\", so close the gap down before install. ~25 Nm (18 ft-lb), no anti-seize. Change ~20k mi on the tune (racing plugs wear faster than the 40k stock interval).",
           "confidence": "verified"
         },
         "coolant": {
@@ -100,7 +100,7 @@
         {
           "item": "Spark plugs",
           "status": "done",
-          "detail": "Done — replaced within the last ~1,000 miles (around ~81k) with the correct NGK PFR7S8EG plugs (the ones it's supposed to have). Next due ~40k from now on the Stage 1 tune. Exact mileage to confirm next drive."
+          "detail": "Done — running NGK R7437-8 racing plugs (the APR Stage-1 heat range), installed and doing well. These are one range colder than stock; the R7437-9 Eurofed used with the 2022 tune is the Stage-3 plug (over-cold here) and is now hard to find, so the -8 is the correct pick, not a compromise. NEXT CHANGE reminder: gap to 0.024\" (they ship at 0.028\" — close them down), torque ~25 Nm / 18 ft-lb dry (no anti-seize — NGK's plating already anti-seizes), dielectric grease in the coil boots, and change roughly every ~20k mi on the tune. Full spec + sources in .research/2026-07-14-gti-spark-plug-setup.md."
         },
         {
           "item": "Spare key — source + program",
@@ -725,7 +725,7 @@
         {
           "item": "Amp, speakers + subwoofers",
           "status": "long-term",
-          "detail": "Door speakers acquired: a pair of Infinity Kappa 63XF — 6.5\" (165 mm) two-way coaxials (open-box; MSRP $249.95). These are the door speakers; the amp + subwoofers are still to source. The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown. Now that the door speaker size is known (6.5\" round), plan the door baffles/mounts around it when you pre-run the wiring in Phase 2. UPDATE (2026-07-13): the door speakers and their NVX silicone speaker baffles are now INSTALLED. Amp + subwoofers still to source.",
+          "detail": "Door speakers acquired: a pair of Infinity Kappa 63XF — 6.5\" (165 mm) two-way coaxials (open-box; MSRP $249.95). These are the door speakers; the amp + subwoofers are still to source. The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown. Now that the door speaker size is known (6.5\" round), plan the door baffles/mounts around it when you pre-run the wiring in Phase 2. UPDATE (2026-07-13): the door speakers and their NVX silicone speaker baffles are now INSTALLED. UPDATE (2026-07-14): door speakers sourced open-box from Creative Audio (Feb 2026, order #1000140355) — this is the purchase now on record. Amp + subwoofers still to source (confirmed not yet purchased 2026-07-14).",
           "image": "images/vehicles/bolores-audio-ref-infinity-kappa63xf.png"
         },
         {
