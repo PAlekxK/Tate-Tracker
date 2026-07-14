@@ -62,7 +62,7 @@
         "id": "clematis"
       },
       "createdAt": "2026-07-14",
-      "active": false,
+      "active": true,
       "_source": "harvest",
       "_foldTarget": "variety",
       "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
@@ -78,7 +78,7 @@
         "id": "butterfly-weed"
       },
       "createdAt": "2026-07-14",
-      "active": false,
+      "active": true,
       "_source": "harvest",
       "_foldTarget": "bloom",
       "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
@@ -192,7 +192,7 @@
         "id": "lizards-tail"
       },
       "createdAt": "2026-07-14",
-      "active": false,
+      "active": true,
       "_source": "harvest",
       "_foldTarget": "bloom",
       "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
@@ -207,7 +207,7 @@
       "answerMode": "yesno",
       "prompt": "Next spring we could add a few plants around the place just to bring in more hummingbirds and butterflies. Is that something you'd like?",
       "createdAt": "2026-07-14",
-      "active": false,
+      "active": true,
       "labels": {
         "yes": "Yes, I'd like that",
         "no": "Not really",
