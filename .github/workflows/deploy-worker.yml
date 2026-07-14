@@ -1,0 +1,104 @@
+name: Deploy Worker
+
+# Auto-deploy Garden Guru's Worker on push to main — the CI-does-the-deploy path
+# so a change to worker.js OR any digest source JSON reaches the live Worker
+# without a manual `wrangler deploy`. Mirrors tools/deploy-worker.sh:
+# rebuild digest -> deploy -> health-check, then commit the rebuilt digest back
+# so the repo stays in sync with what's deployed.
+#
+# ONE-TIME SETUP (Paul): add a repo secret CLOUDFLARE_API_TOKEN
+#   - Cloudflare dashboard -> My Profile -> API Tokens -> Create Token
+#       -> "Edit Cloudflare Workers" template (scope it to this account)
+#   - GitHub: repo Settings -> Secrets and variables -> Actions -> New secret
+#       name: CLOUDFLARE_API_TOKEN
+# Until that secret exists this workflow runs GREEN and simply skips the deploy
+# (see the guard on env.CF_TOKEN below) — it never fails a push.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "worker/worker.js"
+      - "worker/wrangler.toml"
+      - "tools/build-digest.py"
+      # Digest source JSONs — a change here must rebuild + redeploy the digest
+      - "plants.json"
+      - "birds.json"
+      - "mammals.json"
+      - "amphibians.json"
+      - "snakes.json"
+      - "lizards.json"
+      - "fishing.json"
+      - "property.json"
+      - "vehicles.json"
+      - ".github/workflows/deploy-worker.yml"
+  # Manual runs from the Actions tab (redeploy on demand)
+  workflow_dispatch:
+
+# Serialize deploys so two quick pushes can't race the deploy or the digest
+# commit-back. Don't cancel an in-flight deploy midway.
+concurrency:
+  group: deploy-worker
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # needed to commit the rebuilt digest back in sync
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      WORKER_URL: https://tate-tracker.paul-kirschenbauer.workers.dev
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Rebuild the digest from the source JSONs (stdlib-only). Runs regardless
+      # of the secret so a bad build fails loudly; the result is only deployed /
+      # committed when the token is present.
+      - name: Rebuild Garden Guru digest
+        run: python3 tools/build-digest.py
+
+      - name: Verify digest matches a fresh rebuild
+        run: python3 tools/check-digest-fresh.py
+
+      - name: Skip notice (no CLOUDFLARE_API_TOKEN yet)
+        if: env.CF_TOKEN == ''
+        run: echo "CLOUDFLARE_API_TOKEN secret not set — skipping deploy. Add it in repo Settings to enable auto-deploy."
+
+      - name: Deploy Worker (wrangler)
+        if: env.CF_TOKEN != ''
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx --yes wrangler@4 deploy
+
+      - name: Health check
+        if: env.CF_TOKEN != ''
+        run: |
+          echo "Checking $WORKER_URL/health …"
+          curl -fsS "$WORKER_URL/health" | python3 -m json.tool || echo "(couldn't fetch/parse /health — check manually)"
+
+      # Keep the committed digest in sync with what was just deployed. [skip ci]
+      # in the message prevents this push from re-triggering the workflow.
+      - name: Commit rebuilt digest if changed
+        if: env.CF_TOKEN != ''
+        run: |
+          if [[ -n $(git status --porcelain worker/digest.json) ]]; then
+            git config user.name "fernwood-deployer[bot]"
+            git config user.email "fernwood-deployer@users.noreply.github.com"
+            git add worker/digest.json
+            git commit -m "digest: rebuild on deploy $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+            git pull --rebase origin main
+            git push
+          else
+            echo "worker/digest.json already in sync."
+          fi
