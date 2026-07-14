@@ -60,6 +60,23 @@ A queue of small confirm-cards at the top of the app asking the ground-truth onl
 - ~~**Refined "Peak this week" — needs a structured peak field (data work).**~~ ✅ **SHIPPED 2026-07-06** — machine-readable `peakDates` ({start,end} MM-DD) + the year-wrap-aware `mmddRangeActive` helper are live on all 88 windows; the prose stays for display. (Confirmed by the 2026-07-12 bloom-pass engineering review — the new `bloom` field reuses this same proven mechanism.)
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-14 (Mama's Perspective — automated end-to-end)
+
+**Mom answered her first 2 confirms (7/13, both Yes) → the whole feedback loop was then automated end-to-end (5-expert panel).** All shipped + pushed + Worker deployed. Full spec: the **"Mama's Perspective — the ground-truth feedback loop"** section above; live status in `BACKLOG.md`.
+
+### What shipped
+- **Folded Mom's 2 answers to canon** — crocosmia='Lucifer', white mophead='Annabelle' (with corrected new-wood pruning). Retired both cards (`active:false`, universal).
+- **The visible loop-close** — structured `variety` field (plants.json v6) + a provenance chip: "our read from a photo" → flips to "confirmed on the ground · <month>" when folded. Fixed the panel-caught "loop closes into a void."
+- **The pipeline** — `harvest-questions.py` (deterministic reseed from uncertainty markers → Paul approves), `fold-answer.py` (assisted one-tap fold), `reinline.py` (side-effect-free re-inline), `check-data-inline.py` fixed to deep-CONTENT-compare (was id-set only → silent staleness on every fold).
+- **The queue** — durable cross-device dismissal, per-question button labels, soft-cap 5, a new **reflective/"armchair" card** type (pollinator strategy Q), `firstOfferedAt` metric. Live queue = 5 varied cards (Paul-approved: clematis variety + butterfly-weed/lizard's-tail bloom + strategy + panicle).
+- **The nudge** — `mom-queue-watch.py` + launchd job (`com.fernwood.momqueue-watch`, 9am/7pm): macOS notification when Mom answers (email declined). Read-only detector.
+
+### ⚠️ Owner: Paul
+1. **Safari-kill the phone** to see the 5-card queue + provenance chips.
+2. **When you get a "Mom answered" ping:** open Fernwood, run `fold-answer.py --deploy` (fold → chips flip) + `harvest-questions.py` (draft/approve new cards). These stay your call (the two gates).
+3. **Validation gate (n=2 = one episode, not validated):** Grow signal = Mom answers a *non-gimme* ("Not quite"/"Not yet") AND returns on a *later day* → then build the deferred "What you've settled" surface + AI log-summarizer. Watch the funnel + `firstOfferedAt` latency.
+4. 4 more harvested bloom cards sit as inactive drafts if you want to swap any in.
+
 ## Pickup point — last session ended 2026-07-14 (fleet Gmail receipt sweep + DR-Z overhaul recovery + GTI plugs + auto-deploy)
 
 **A vehicle-records session, then a first live agent-run Worker deploy.** All shipped + pushed (Tate-Tracker HEAD `7fc54d7`); **Worker redeployed by the agent** (version `977075b2`, `/health` OK). Full-detail lives in the gitignored `.private/service-records/` + `.research/`.
