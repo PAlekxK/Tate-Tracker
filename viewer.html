@@ -8489,6 +8489,7 @@ const MomQueue = (function () {
   const GENERAL_LOG_KEY = "tateTracker.momQueue.general.v1"; // [ {note, at} ] — repeatable backup
   const SUPPORTED_KINDS = ["confirm"]; // the navigable queue holds confirms; "open" is the standing foot-line
   let questions = [];
+  let serverAnswered = {}; // { [questionId]: true } — durable dismissals reconciled from the Worker (cross-device / cache-wipe safe)
   let idx = 0;            // which card in the outstanding set is showing (the stepper pointer)
   let ackTimer = null;
   const viewedIds = {};   // session dedupe — momqueue_viewed fires once per question
@@ -8518,6 +8519,7 @@ const MomQueue = (function () {
       q && q.active !== false &&
       SUPPORTED_KINDS.indexOf(q.kind) !== -1 &&
       !answered[q.id] &&
+      !serverAnswered[q.id] &&  // durable: she settled it on ANY device (Worker is the record of truth)
       snoozed[q.id] !== today   // "Not sure" hides it for the day only — it comes back
     );
   }
@@ -8819,6 +8821,38 @@ const MomQueue = (function () {
     ackTimer = setTimeout(render, 2600);
   }
 
+  // Durable, cross-device dismissal. The per-device localStorage answered-set
+  // (ANSWERED_KEY) is only THIS browser's memory — a second device, or an iOS
+  // PWA cache-wipe, would otherwise re-serve a question Mom already settled. The
+  // Worker's /api/feedback IS the durable record of what she answered, so on load
+  // we pull her mom-queue answers and merge the definitively-answered ones into
+  // the dismissal set. ONLY landed/missed (Yes/No) durably dismiss — "Not sure"
+  // (so_so) is a same-day snooze meant to return, so it must never land here.
+  // Fail-soft: if the Worker isn't configured or the fetch fails, behavior falls
+  // back to the localStorage-only dismissal (today's behavior). Deterministic,
+  // AI-free — a plain reconcile of her own recorded taps.
+  async function syncServerAnswers() {
+    if (typeof WorkerAPI === "undefined" || !WorkerAPI.isConfigured()) return;
+    try {
+      const end = todayStr();
+      const start = new Date(Date.now() - 365 * 864e5).toISOString().slice(0, 10);
+      const data = await WorkerAPI.call("GET", "/api/feedback?start=" + start + "&end=" + end);
+      const days = (data && data.days) || {};
+      const next = {};
+      Object.keys(days).forEach(d => {
+        (days[d] || []).forEach(r => {
+          const ctx = (r && r.context) || {};
+          if (ctx.type === "mom-queue" && ctx.questionId &&
+              (r.sentiment === "landed" || r.sentiment === "missed")) {
+            next[ctx.questionId] = true;
+          }
+        });
+      });
+      serverAnswered = next;
+      render();   // re-render with the durable set folded in
+    } catch (e) { /* fail-soft — keep localStorage-only behavior */ }
+  }
+
   async function start() {
     try {
       const res = await fetch("questions.json?_=" + Date.now(), { cache: "no-cache" });
@@ -8826,7 +8860,8 @@ const MomQueue = (function () {
       const data = await res.json();
       questions = Array.isArray(data && data.questions) ? data.questions : [];
     } catch (e) { questions = []; return; }
-    render();
+    render();               // fast first paint from localStorage
+    syncServerAnswers();    // then durably reconcile against the Worker (cross-device / cache-wipe safe)
   }
 
   return { start, render };
