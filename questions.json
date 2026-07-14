@@ -28,7 +28,7 @@
       "id": "q-panicle-hydrangea-bloom",
       "kind": "confirm",
       "answerMode": "yesno",
-      "prompt": "The **panicle hydrangea** — has it opened yet? We have it pegged to flower around now, but that's an estimate off the book, not something we've actually seen. Any blooms out there?",
+      "prompt": "The **panicle hydrangea** should be in flower about now — cone-shaped white blooms — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
       "entityRef": { "type": "plant", "id": "panicle-hydrangea" },
       "createdAt": "2026-07-13",
       "active": true
