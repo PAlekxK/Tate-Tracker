@@ -670,7 +670,7 @@
         {
           "item": "Rear window & tailgate operation",
           "status": "done",
-          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job. (Phase 0: independent of paint.) PARTS (DIY, installed): rear-window lift motor = Dorman 742-251; tailgate striker bushing = Dorman 38424 (installed to address the tailgate-angle/alignment). Sourced from the Amazon parts record. ✅ DONE — Paul confirmed 2026-07-13: window + tailgate operate correctly after the motor/striker work."
+          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job. (Phase 0: independent of paint.) PARTS (DIY, installed): rear-window lift motor = Dorman 742-251; tailgate striker bushing = Dorman 38424 (installed to address the tailgate-angle/alignment). Sourced from the Amazon parts record. The motor + wiring troubleshooting ran **Sept–Oct 2025** (the switch-short saga — new fuses + the under-dash circuit breaker restored operation); the glass has worked since. ✅ DONE — Paul confirmed still operating correctly 2026-07-13."
         },
         {
           "item": "Bodywork — rust & dents (pre-paint scope)",
@@ -690,7 +690,12 @@
         {
           "item": "Driver door power lock",
           "status": "diagnosing",
-          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. (Refinish sequence — Phase 2: the door teardown. Do it in one door-open session alongside the panel repair, the handle-mount check, and door sound-deadening.) UPDATE (2026-07-13): the replacement actuator (a new TRQ unit) is now INSTALLED and STILL gives no response — so it's not the actuator, it's upstream. Confirms the wiring diagnosis (door-jamb boot wiring the prime suspect). Paul has been deferring the wire-metering step; that's the next move."
+          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. (Refinish sequence — Phase 2: the door teardown. Do it in one door-open session alongside the panel repair, the handle-mount check, and door sound-deadening.) TIMELINE: the driver-side actuator was replaced ~Jan 2026 (no fix), and a further attempt fitting a new motor to the actuator ran ~Feb 2026 — STILL no response, so it's not the actuator, it's upstream. Confirms the wiring diagnosis (door-jamb boot wiring the prime suspect). Paul has been deferring the wire-metering step; that's the next move (last hands-on ~Feb 2026)."
+        },
+        {
+          "item": "Cruise control",
+          "status": "planned",
+          "detail": "Cruise is inoperative — no response from the steering-wheel buttons. The servo hardware and the dual-cable throttle linkage are both present, but the servo's vacuum hoses are disconnected/misrouted. Plan: reconnect the vacuum supply + vent lines and cap any open ports, inspect the old hoses for cracks, and test the servo diaphragm for vacuum hold (the common internal-leak failure) before reassembly. If it still won't engage after that, work the electrical side — the brake (BOO) switch, the speed signal (VSS), the steering-wheel switch pod, and the cruise amplifier/module behind the glove box, and confirm the 3-pin cruise connector is seated. A dig-in-when-you're-under-the-dash job; pairs naturally with the Phase-2 dash/steering-column work."
         },
         {
           "item": "Driver door panel",
@@ -733,6 +738,12 @@
           "status": "done",
           "detail": "The plastic screw bosses that hold the rear-window up/down and rear-defrost switches into the trim (lower-left of the steering column) had cracked through over time, leaving the switches loose. Rebuilt the bosses using heat-shrink tubing as a sleeve/form and JB Weld to recreate threadable mounting posts. Switches now mount solidly — arguably more durable than the original brittle plastic. See technique: \"Screw-boss rebuild.\"",
           "completed": "2026-06-20"
+        },
+        {
+          "item": "Gauge-cluster illumination",
+          "status": "done",
+          "detail": "The instrument-cluster backlight had a burned-out gauge light — replaced it with a purpose-bought replacement bulb sourced for the job (~late 2025). A separate fix from the dome/map/dash warm-LED re-bulb below (different bulb, different sitting).",
+          "completed": "2025-11"
         },
         {
           "item": "Interior lighting — dome, map & dash (warm LED)",
