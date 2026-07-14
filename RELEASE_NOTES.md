@@ -22,7 +22,7 @@ What's changed at Fernwood lately. Newest first.
 
 ## 2026-07-14 — The Plants tile now nudges you to go look
 
-- The **Plants tile** now leads with a little **"Worth a look"** prompt — the one plant thing most worth checking on out there today, like whether the reblooming hydrangea's ready for a prune. Tap it and the note box opens ready for you to jot down what you found.
+- The **Plants tile** now leads with a couple of little **"Worth a look"** prompts — the two most timely plant things to check on out there today, most time-sensitive first (a closing bloom or pruning window comes before routine turf care). Tap one and the note box opens ready for you to jot down what you found.
 - It's the same "worth noticing" thinking that already lives inside the Plants card, just **bumped up where you'll actually see it** — and it points you straight at logging what you see, so your eye on the ground becomes part of the record.
 
 ## 2026-07-14 — A steadier note box, and a clearer button
