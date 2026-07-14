@@ -661,8 +661,8 @@
         },
         {
           "item": "Rear window & tailgate operation",
-          "status": "testing",
-          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job. (Phase 0: independent of paint.) PARTS (DIY, installed): rear-window lift motor = Dorman 742-251; tailgate striker bushing = Dorman 38424 (installed to address the tailgate-angle/alignment). Sourced from the Amazon parts record."
+          "status": "done",
+          "detail": "Rear-window motor replaced and wiring patched/restored; the window confirmed travels up and down when the switch is pressed firmly by hand. Still to do: verify the switches now that they're seated solidly in the bezel (only hand-tested so far), and sort the tailgate alignment — parked on a slope, the tailgate's own weight pulls it out of plane so the glass binds in the channel and needs a manual assist. The strikers (where the latches close) can be adjusted to reposition the tailgate, so there's room to dial it in — needs playing with. Older truck; not chasing perfection. Switch verification and tailgate tuning are one job. (Phase 0: independent of paint.) PARTS (DIY, installed): rear-window lift motor = Dorman 742-251; tailgate striker bushing = Dorman 38424 (installed to address the tailgate-angle/alignment). Sourced from the Amazon parts record. ✅ DONE — Paul confirmed 2026-07-13: window + tailgate operate correctly after the motor/striker work."
         },
         {
           "item": "Bodywork — rust & dents (pre-paint scope)",
