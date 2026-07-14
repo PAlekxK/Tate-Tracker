@@ -244,3 +244,21 @@ but do this to keep it clean:
 5. **Verify:** `git log --all -S "<secret>" | wc -l` → must be 0.
 6. **Re-enable the workflow.** Its next run checks out the rewritten history; a
    single skipped rollup just regenerates (the recorder is idempotent).
+
+## Mama's Perspective watcher (mom-queue-watch.py) — added 2026-07-14
+
+A read-only nudge: when Mom answers a queue card, this pings Paul so he never has to
+wonder whether there's a fold waiting. Never writes canon/cards — detection only.
+
+- **Script:** `tools/mom-queue-watch.py` (imports read-mom-feedback + harvest-questions).
+- **Schedule:** launchd job `com.fernwood.momqueue-watch`, runs 9:00 + 19:00 local, pings
+  only when a NEW answer appears (state in `.private/mom-queue-watch-state.json`).
+- **Pings:** macOS notification (always) + email to Paul (only if `.private/gmail-app-password`
+  exists — a one-time Gmail app-password, from/to paul.kirschenbauer@gmail.com).
+- **Plist:** `~/Library/LaunchAgents/com.fernwood.momqueue-watch.plist` (machine-local, not
+  in the repo). Re-install after a machine rebuild:
+    `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.fernwood.momqueue-watch.plist`
+  Remove: `launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.fernwood.momqueue-watch.plist`
+- **Test:** `python3 tools/mom-queue-watch.py --force` (fires a ping regardless of state).
+- **Note:** only runs while the Mac is awake (asleep → runs on next wake). Log:
+  `.private/mom-queue-watch.log`.
