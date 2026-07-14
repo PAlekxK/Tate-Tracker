@@ -40,6 +40,20 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 - ~~**Refined "Peak this week" — needs a structured peak field (data work).**~~ ✅ **SHIPPED 2026-07-06** — machine-readable `peakDates` ({start,end} MM-DD) + the year-wrap-aware `mmddRangeActive` helper are live on all 88 windows; the prose stays for display. (Confirmed by the 2026-07-12 bloom-pass engineering review — the new `bloom` field reuses this same proven mechanism.)
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-14 (unified-input polish + plant look-fors bumped to the Plants tile)
+
+**Three UI changes shipped, merged to `main`, and LIVE on GH Pages (Tate-Tracker HEAD `dc2a067`). No Worker/digest change — all `viewer.html` + release notes.** Statuses folded into `BACKLOG.md` under "✅ Just shipped (2026-07-14)."
+
+### What shipped
+- **Composer ordering fix** — when a Garden Guru thread opened, "Mama's Perspective" jumped *below* the conversation and the text box drifted from its button. Root cause: `.unified-input` engages flex-`order` on `.conversation-active` (conversation `-3`, input-row `-2`) but `.mom-queue` and `.ui-actions` had no `order` → defaulted to `0` and fell below. Pinned `.mom-queue` to the top and kept `.ui-actions` with the composer. Browser-verified order: Mama's Perspective → thread → textbox → button.
+- **Button relabel** — "Log to the Almanac" → **"Save & ask the Almanac"** (Paul's pick), so it reads as save *and* answer. Behavior unchanged (still log-first).
+- **Plant look-fors → Plants tile check-prompt** — the day's top *plant* look-for now leads the always-visible Plants tile as a tappable **"👀 Worth a look"** row; tap pre-fills the composer (`"Checked the [plant] — "`) to log ground-truth (the loop). "Worth noticing today" list stays in the Plants card ("do both" — Paul). Refactored the plant half of `computeLookFors` into shared `gatherPlantLookForCandidates(now)`; new `plantCheckPrompts()`/`wirePlantCheckPrompt()`. Caught + fixed a `MetricsCollector` TDZ throw (the first synchronous `renderDashboardStrip()` runs before the `const` initializes; `typeof` still throws in a const's dead zone → guarded with try/catch).
+
+### ⚠️ Owner: Paul
+1. **Safari-kill on the phone** once to bust the iOS app-shell cache, then eyeball all three on-device.
+2. **Judgment call on the tile prompt** — it shows **one** plant look-for (today the mow/fairway one). Want it biased toward *flowering* plants over turf, and/or show **two**? Both ~1-line changes.
+3. Feature branch `claude/conversation-order-button-label-ku1ef8` is fully merged into `main` (identical) — safe to delete whenever.
+
 ## Pickup point — last session ended 2026-07-13 (Amazon full-export parts fold + GTI plate-light + prompt-Mom seed)
 
 **The full Amazon "Request My Data" export (`~/Desktop/Claude/Your Orders/`, 1,231 orders) replaced the 10-screenshot reads — deterministic dates/prices/ASINs.** Shipped + pushed + Worker deployed (Tate-Tracker HEAD `8add29e`). Live on GH Pages.
