@@ -1,8 +1,8 @@
 {
   "_meta": {
     "note": "PII-free catalog of private vehicle service scans; the durable index for .private/service-records/",
-    "updatedAt": "2026-07-11T21:37:53.586865+00:00",
-    "count": 87
+    "updatedAt": "2026-07-14T20:00:29.540711+00:00",
+    "count": 132
   },
   "records": [
     {
@@ -787,6 +787,456 @@
       "photoTakenAt": "2026-07-11T17:22:35",
       "stage": "triaged",
       "class": "part_label"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-09-10_evaluate-ford-bronco-listing.md",
+      "sha256": "e1b0f97f480af38e8ba0a66ba07de3d62178f97912451e2ceb718483e39be83b",
+      "bytes": 28473,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68c20ed1-73e8-832e-b60d-14fd3fc2c9c0"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-09-10_line-out-signal-without-speaker.md",
+      "sha256": "f4e4676624a83c3149730afb24bd1d9afc7850007338bb3e1c0cacd872729f80",
+      "bytes": 5008,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68c22ad9-7bbc-8327-ae7a-327906306e33"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-09-12_user-inquiry-response.md",
+      "sha256": "057f126587e351453533b06577c6470487be37dc1a4475780d659e2a34d60c12",
+      "bytes": 2990,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68c4544e-f4b4-832b-9b22-fcce59e5f5c5"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-09-12_1989-bronco-overview.md",
+      "sha256": "527f06e58caad7709b3c688f8fac3ee5e40df38c799b864030d064ffd4cf378e",
+      "bytes": 17561,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68c4766a-e074-8330-aeb3-e8c00b0bf4e1"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-09-12_oil-drain-plug-help.md",
+      "sha256": "650ffbf82538d0ab6ba660dc957e1cb5c24586a2f60eb4467e83bb42aa3e96a2",
+      "bytes": 9406,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68c498b8-5264-8326-97d1-daf6a4b818f4"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-09-22_compare-fb-marketplace-listings.md",
+      "sha256": "da2c1078e3788deb4a81ec825ebabce408529b2427c8fbf6d735ff030e21099b",
+      "bytes": 73906,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68d1a66b-779c-8332-84ff-ca51d6e82ea2"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-09-28_vehicle-inspection-tips.md",
+      "sha256": "ac7980755cbd769e967cc87c3b6027a32e51f50f3fda982f734b41b49cb185ff",
+      "bytes": 22444,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68d9a61c-30f0-832e-8c39-e465f574142e"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-03_bronco-cabin-lights-operation.md",
+      "sha256": "9c1fef70512095f814cb4709d6d9c591956a4a45bd4b8343539819eb8936f21d",
+      "bytes": 12462,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68e02f50-438c-8332-9fda-db9ad6ad5b6e"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-05_f-150-identification-help.md",
+      "sha256": "d247fe985f984df9b23640ccc1b7bc8d02d8fb25a73758602fe75c16699b2578",
+      "bytes": 23167,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68e2c43d-2650-8331-afaf-ce81503baf1e"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-06_distributor-in-89-bronco.md",
+      "sha256": "007d5d19cbd5d15e203ad1a685854f847eee16112afb3156ab0e24cecf369bcf",
+      "bytes": 3465,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68e34a55-53cc-832d-83d4-8cbc12bc4e5f"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-08_best-jumpstarter-for-bronco.md",
+      "sha256": "95d32bd5713719147e76e83ae89928a3c8540cec92b03354e1b194f4ae834176",
+      "bytes": 5539,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68e6bea8-a324-832d-b629-8cb6c8006767"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-13_bronco-component-identification.md",
+      "sha256": "51c01e43d2e5ddb22255dc6209129a17164110e75fd28b239f17c8a7927931f6",
+      "bytes": 11827,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68ed4fd1-c82c-832c-908e-9d4bf4966034"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-13_vehicle-engine-details-review.md",
+      "sha256": "14df41a6500784f97ce7abb7a295c20e55e7300f9eb6859f73af6a64a72e6cc2",
+      "bytes": 56896,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68ed51f3-23ac-832c-a444-0ca60af34e8a"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-13_tire-details-for-bronco.md",
+      "sha256": "20672a266d3f8134fd39f52d1946ad2a0f82de434905f5f7ac31f9785b818da2",
+      "bytes": 22769,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68ed5d92-c370-8321-95b0-0cf3fc0567f3"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-13_cruise-control-inspection.md",
+      "sha256": "a1b4857e686d9a19eb029d1e878c526acdc15ae6f5fd77e157bcca3ddebce0d2",
+      "bytes": 17420,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68ed5e39-4104-8324-b229-2ff304f79792"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-13_radio-slot-description.md",
+      "sha256": "6bb8d932312f9075b4354d7d574d4c0e64857bfb5bbb8bae816fb721cde07065",
+      "bytes": 26219,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68ed7eb4-e234-8332-b59d-998bc83d6bb4"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-14_instrument-cluster-bulb-replacement.md",
+      "sha256": "59ce19b72462bdc730e2f46c3332fbe38b6333ac9bef35ec17893c5d30bb0887",
+      "bytes": 11070,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68eeaad0-9fb4-8322-b12e-4691ed80d9d1"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-14_bronco-suspension-overview.md",
+      "sha256": "f56487396738c97d074944a4620d49bf06555529601f7d4d2ddedfce107ea8eb",
+      "bytes": 4535,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68ef1018-4ccc-8330-bb41-f615d6750558"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-15_rear-window-troubleshooting.md",
+      "sha256": "ed2d97e5f1e1d6fb9b236e7f1d1625bee99132de4bdbce9368ce185ea8ee2629",
+      "bytes": 23782,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68efd8a1-efc8-832c-9de4-fcb47ac2f871"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-15_power-window-switch-repair.md",
+      "sha256": "c5b971f6851672750df62a1fa3aa635902007654008eb1eccd0c52a69a97adb3",
+      "bytes": 25083,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68efd8bc-98e8-8332-bf35-7ecf2e5bb7c2"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-15_speaker-cover-replacements.md",
+      "sha256": "e156c19aa54ad4d7b99173c90e25fb02e3acdef996fa6d5ba47036a4dd3ce98d",
+      "bytes": 5672,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68eff0ba-0ccc-832a-bbb3-9e63aeebd754"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-17_wiring-issue-diagnosis.md",
+      "sha256": "c69dda10fa799b1c242dfbe2f81373edf39f3361f147dd142d0500536cc0979a",
+      "bytes": 32224,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68f26aec-6240-8331-85a7-29e6abdf3b49"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-18_diagnosing-tailgate-issue.md",
+      "sha256": "eb34025829b3cd41377b3ebec9228b0123e71a93809bb9e9060a71a042108c4b",
+      "bytes": 15397,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68f43501-8cec-832e-a0e5-5529e6c0d41b"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-20_component-identification-and-purpose.md",
+      "sha256": "28420177033917a9fcad65b9da5444c159e752e54b6219c6ba7065909d920723",
+      "bytes": 3417,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68f6e866-d2ec-8324-88fa-e0eea121dbac"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-24_rear-tailgate-switch-review.md",
+      "sha256": "270e08e32419c1d908621c24dc51478e8099efe484238b5c3dfa950a692d4e97",
+      "bytes": 951,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:68fbdd84-1988-832c-9756-3ba9c980c945"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-10-27_rear-window-damage-analysis.md",
+      "sha256": "d7b43f75c00eabc70e13b1f00ed803545dc09937efd118bc97f5e7bd1de769ba",
+      "bytes": 57209,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:69001f64-4b90-8330-9186-e1d1e8dd3133"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-11-01_lock-switch-troubleshooting-tips.md",
+      "sha256": "72758672dfedf3ade0740f70711844cea693442d6e13e5833979a3fc05fa81ff",
+      "bytes": 6563,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:6906b79c-82b0-8325-8bec-bdc0e6b9f8bc"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-11-04_audio-wiring-analysis.md",
+      "sha256": "62fc0d6dc563e58f59455f6a71eef2aeafb0d048ef22eb9edacbd643345534a1",
+      "bytes": 22271,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:690a8e87-fae8-832d-961f-5f3e661dbc03"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-11-04_cigarette-lighter-outlet-swap.md",
+      "sha256": "4555caaae2689c92fef88b0312e1b379832e98fd4dd26019b7e152e6c876f3ae",
+      "bytes": 4124,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:690ac4d3-f7dc-832f-b729-0594409f9407"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-12-18_radio-wiring-review.md",
+      "sha256": "45b91beaef8b410dfb51d1a9be11ce844ad85c8774dd3a70998e116380c885af",
+      "bytes": 12651,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:6944840e-ec34-8333-9ae5-e79c005ccc5a"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-12-26_toolbox-lock-replacement-guide.md",
+      "sha256": "a7a5672218dcd3a8c9aff183371d839295ca40e072df71bd33ccd11f7e34525d",
+      "bytes": 4996,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:694f30fa-ec6c-8332-8223-827b43daebf4"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-12-27_deep-research-prompt-bronco.md",
+      "sha256": "1ce999b795619c4f7af03e51bf0251b9a77fa199c3533e5343b83dcb6949f847",
+      "bytes": 5714,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:6950ae4a-a0e0-8332-9222-0e0009e82c17"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-12-27_1989-bronco-eddie-bauer-details.md",
+      "sha256": "5b0c677cc870a143a78adccecd519f324498820f1dd8d208e53e795bd3bd0291",
+      "bytes": 31881,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:6950ae95-432c-832f-9c57-f4a0787600a9"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2025-12-29_bluetooth-music-issue.md",
+      "sha256": "764cf4deac3f63b282db3a9e4a97782b453a8348916aa8cebcb640e6712d288c",
+      "bytes": 19583,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:69521709-0bc4-832d-ab95-5a292ecfc7be"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-01-07_power-door-lock-repair.md",
+      "sha256": "6ac931d9dfd64d96cd3d71159b9a6412e8d29a141f353a35c288f96bff0d4246",
+      "bytes": 4613,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:695efe07-fea4-8331-b62f-364f9edea97e"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-01-09_1989-bronco-cruise-control.md",
+      "sha256": "38bbb7cd35112e4c86ef479eedbaaf1944f1d5bf0967cf5a387376677d19c39c",
+      "bytes": 10082,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:69609327-06e8-8325-9218-139276f79f85"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-01-10_securing-your-bronco.md",
+      "sha256": "5920ba0a8b5a7367087a10d4c51a39c3af5c5179e7980c3bdc0ebee113466eac",
+      "bytes": 800,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:69632c27-e4f4-8330-82d1-83fa293795fd"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-02-19_bench-seat-swap-options.md",
+      "sha256": "49150452c8b5821d02fbbadc75018277beb449137faa8180b7f425a5db5594ed",
+      "bytes": 5024,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:6997ce4f-88bc-832c-b2ed-d4aa79cae3b9"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-02-22_facebook-marketplace-ad.md",
+      "sha256": "d97e6e778ec7964192ae348fca4efde9c9e707d646c5945bfd82d23825794a95",
+      "bytes": 12730,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:699b6331-8ba4-8331-ab79-55f57d797b98"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-02-22_car-speakers-discussion.md",
+      "sha256": "14ec84ca5f2b9ec8dd4d454d50a52d575d0b47610a93175e1fd19c1b68f63598",
+      "bytes": 86703,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:699bbcab-febc-8327-808b-2ffd9c1f2722"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-02-23_bronco-door-jam-decode.md",
+      "sha256": "1570bea648f0468a0769f5d1df9bdbf7d2d2a28c0bbc610ca9d481bf9f97bcca",
+      "bytes": 10371,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:699cbb69-4478-8330-982a-b0d7b3e97c51"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-02-23_door-lock-actuator-diagnosis.md",
+      "sha256": "a232565f1f4b226c3fe4c33c6ddc532b2569ca9f474f4ed32ad285285f1ed65d",
+      "bytes": 4856,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:699ce024-05b8-8330-aadc-f03e84309cc3"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/_chatgpt-intake/2026-02-25_spare-tire-carrier-bushings.md",
+      "sha256": "44bd55e27ee5902c901f743452ad5f76b4fb8d3887e263370ccbb08935c2a82a",
+      "bytes": 2505,
+      "photoTakenAt": null,
+      "stage": "chatgpt-intake",
+      "class": "chatgpt-transcript",
+      "source": "chatgpt-export-2026-07-13 conv:699f9ee7-6ef4-8326-80bf-4181602434a4"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/CHATGPT-DIAGNOSTICS.md",
+      "sha256": "57108bb3cabf8c4260a743d90af716dfe5e7b190e0d770f77c860ebd9a3b584a",
+      "bytes": 64435,
+      "photoTakenAt": null,
+      "stage": "assembled",
+      "class": "chatgpt-digest",
+      "source": "chatgpt-export-2026-07-13"
+    },
+    {
+      "vehicleId": "bronco-1989",
+      "file": ".private/service-records/bronco-1989/CANDIDATE-ROWS.md",
+      "sha256": "40b0fe3941a1765106bd34818ed9225ce2c0d804fd62697ac1d754d6168b1cb9",
+      "bytes": 28269,
+      "photoTakenAt": null,
+      "stage": "assembled",
+      "class": "chatgpt-digest",
+      "source": "chatgpt-export-2026-07-13"
     }
   ]
 }
