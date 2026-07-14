@@ -48,7 +48,7 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 
 ### ⚠️ Owner: Paul
 1. **GTI spare-key spec (Outstanding #8)** — the key photos confirm the *form* (MQB 4-button flip, HU66) but the part #/FCC live on the **internal fob sticker**; split the fob + shoot it to close it.
-2. **Bronco restoration statuses** — installed parts woven into the *details* of "Rear window & tailgate operation" (`testing`) and "Driver door panel" (`planned`), but statuses left as-is. Flip either to `done`?
+2. ~~**Bronco restoration statuses**~~ ✅ resolved 2026-07-13: "Rear window & tailgate operation" → **done** (window + tailgate operate correctly after the motor/striker work). "Driver door panel" stays open — worked on, not done (Paul's next big project).
 3. **A few [CONFIRM] install-status flags** in `AMAZON-PARTS.md` (APE fuel filter installed vs on-hand, NGK #1275 installed vs spare, the two magnetic drain plugs, audio baffles, QQWD dash bulbs kept vs returned) — batch-resolvable anytime.
 
 ### Deferred (agent-can-drive)
