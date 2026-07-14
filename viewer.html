@@ -3741,16 +3741,17 @@
     background: #fff; color: #7a7258; border: 2px solid #d8cca0;
   }
   .gg-suggest-btn-neutral:hover, .gg-suggest-btn-neutral:active { background: #f6f0dd; border-color: #b8a878; }
-  /* Quiet, optional "add a note" invite — secondary to the chips, never a box. */
+  /* Optional "add a note" — a full-width button, as legible as the answer buttons
+     (Paul's steer 2026-07-14). Dashed + softer fill marks it a modifier, not a 4th answer. */
   .mom-queue-addnote {
-    display: inline-block; margin-top: 8px;
-    background: none; border: none; padding: 2px 0; cursor: pointer;
-    font-family: "Crimson Text", Georgia, serif; font-style: italic;
-    font-size: 13px; color: #7a8256; text-decoration: underline;
-    text-underline-offset: 3px; text-decoration-color: #c6d0aa;
-    -webkit-tap-highlight-color: transparent;
+    display: block; width: 100%; box-sizing: border-box; margin-top: 10px;
+    border-radius: 22px; padding: 8px 16px; min-height: 44px; line-height: 1;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+    font-family: "Crimson Text", Georgia, serif; font-size: 14px; font-weight: 600;
+    background: #fbfaf4; color: #6a7a4a; border: 2px dashed #cdd6ac;
+    transition: background 0.12s, border-color 0.12s;
   }
-  .mom-queue-addnote:hover, .mom-queue-addnote:active { color: #4a6a2a; }
+  .mom-queue-addnote:hover, .mom-queue-addnote:active { background: #f2f0e0; border-color: #a8b878; }
   .mom-queue-note-wrap { margin-top: 2px; }
   /* Stepper — little cards, easy to move through (never one-and-done). Calm dots,
      no count-as-pressure ("2 of 5 due"); just where-you-are in the set. */
@@ -3772,7 +3773,7 @@
   body.text-lg .mom-queue-framing    { font-size: 15px; }
   body.text-lg .mom-queue-prompt     { font-size: 17.5px; }
   body.text-lg .mom-queue-correction { font-size: 17px; }
-  body.text-lg .mom-queue-addnote    { font-size: 15px; }
+  body.text-lg .mom-queue-addnote    { font-size: 17px; min-height: 52px; }
   body.text-lg .mom-queue-nav-arrow  { font-size: 26px; }
   body.text-lg .gg-suggest-btn-neutral { font-size: 17px; min-height: 52px; }
 
@@ -8583,7 +8584,7 @@ const MomQueue = (function () {
 
       const framing = document.createElement("div");
       framing.className = "mom-queue-framing";
-      framing.textContent = "Your eye on the place — things only you can see from the ground. No wrong answers; “not sure” is always fine.";
+      framing.textContent = "Your eye on the place — things only you can see from the ground. No wrong answers, and no rush.";
       host.appendChild(framing);
 
       const card = buildCard(q, { idx: idx, total: items.length });
@@ -8730,7 +8731,7 @@ const MomQueue = (function () {
     const later = document.createElement("button");
     later.type = "button";
     later.className = "gg-suggest-btn-neutral";
-    later.textContent = "Not sure";
+    later.textContent = "Ask me later";
     later.addEventListener("click", () => { markTapped(q); notSure(q, getNote()); });
 
     actions.appendChild(yes);
@@ -8742,7 +8743,7 @@ const MomQueue = (function () {
     const addNote = document.createElement("button");
     addNote.type = "button";
     addNote.className = "mom-queue-addnote";
-    addNote.textContent = "add a note ›";
+    addNote.textContent = "＋ Add a note";
     addNote.addEventListener("click", () => { markTapped(q); openNote("In your words (optional)"); addNote.style.display = "none"; });
     card.appendChild(addNote);
 
@@ -8795,7 +8796,7 @@ const MomQueue = (function () {
     writeMap(SNOOZED_KEY, snoozed);
     if (note) postFeedback(q, "so_so", note);
     track("momqueue_answered", { questionId: q.id, kind: q.kind, sentiment: "so_so", hasNote: !!note });
-    showAck("No rush — “not sure” is a fine answer. It'll be here next time.");
+    showAck("No rush — I'll bring this back another time.");
   }
 
   function answer(q, sentiment, noteText) {
@@ -12255,13 +12256,15 @@ function lookforTap(item) {
   if (typeof MetricsCollector !== "undefined") {
     MetricsCollector.track("lookfor_tapped", { key: item.key });
   }
-  const ui = document.getElementById("unified-input");
   const ta = document.getElementById("ui-textarea");
-  if (ui) ui.scrollIntoView({ behavior: "smooth", block: "start" });
   if (!ta) return;
   if (!(ta.value || "").trim()) {
     ta.value = item.starter || "";
   }
+  // Scroll the TEXT BOX itself into view (centered), NOT the unified-input
+  // container — its top is now Mama's Perspective (pinned there), so scrolling to
+  // the container's top hid the composer the tap pre-fills (Paul reported 2026-07-14).
+  ta.scrollIntoView({ behavior: "smooth", block: "center" });
   ta.focus();
   ta.dispatchEvent(new Event("input", { bubbles: true }));
 }
