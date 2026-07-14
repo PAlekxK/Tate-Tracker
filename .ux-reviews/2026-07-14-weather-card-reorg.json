@@ -1,0 +1,169 @@
+{
+  "review_id": "ux-2026-07-14-weather-card-reorg",
+  "project": "fernwood",
+  "subject": "Information-architecture / layout reorganization of the Weather card (#card-weather / renderWeather at viewer.html:6568, renderWeatherSummary:6557, renderRainfallPanel:6471, renderAmbientStationPanel:6241, computeBurnStatus:13151, generateGardenerInsight:6071)",
+  "review_date": "2026-07-14",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA",
+  "scope_note": "IA + layout only, per the split with user-researcher (who is framing reader jobs separately). This review does not re-derive the jobs; it takes the glance/repository principle + the fishing A-G precedent as the design spine and maps the weather card onto it.",
+  "user_context": {
+    "primary_user": "Two readers share this card (unlike fishing, which was Paul-only): (1) Mom — the confirmed daily user (memory: analyze-fernwood rollup; Mom-no-glasses a11y applies), glancing to know 'what's it doing outside'; (2) Paul — same read plus the burn/rain/pressure detail. The card must serve the calm-glance reader first and let the detail reader drill in.",
+    "core_jobs_to_be_done": [
+      "At a glance: what is it doing outside right now, and is there anything I should know about today? (decision layer)",
+      "Read the true CURRENT conditions from the on-property station — one clean measured read, not blended with a model",
+      "See what's coming — today's high/low, the next few days, the next hours (forecast, clearly a forecast)",
+      "Drill into recent + coming rainfall, indoor sensors, burn/fire rules, and where the data comes from (reference)"
+    ],
+    "context_of_use": "Phone, on or away from the property, glancing at the Fernwood dashboard. Field-journal tone — 'looking out at the land,' never an ops console. No urgency language (project tone rule).",
+    "assumptions_made": [
+      "Weather is a general-audience card (Mom + Paul), not Paul-tactical like fishing — so the calm-glance discipline and Mom-legibility bar apply here where they were exempted on the fishing card.",
+      "The on-site Ambient station is the freshest, most-local source; Open-Meteo is the modeled layer; ERA5 is reference plumbing (matches CLAUDE.md source-hierarchy: station -> forecast -> season/reference)."
+    ],
+    "user_context_confidence": "medium-high"
+  },
+  "principles_applied": [
+    "The glance and the repository (CLAUDE.md governing principle) — decision layer up top, reference relocated down, nothing deleted",
+    "Freshness sets altitude (cross-project.md) — order by how live/local a signal is; the constant static ban is the LOWEST-altitude signal on the card",
+    "Source-hierarchy drives layout (cross-project.md) — station -> forecast -> season/reference",
+    "Trust is load-bearing; measured signals kept visually distinct from modeled (CLAUDE.md; fishing R2) — a modeled read must not borrow the station's authority",
+    "One engine, one verdict (fernwood.md, from 2026-07-06 fishing reorg) — the header summary and the in-card summary must be driven by one generator so they can never disagree",
+    "Nielsen #4 consistency; Nielsen #1 visibility of system status"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "Four separate 'what's going on now' reads coexist, from three different sources: (a) the collapsed-header summary #weather-summary via renderWeatherSummary() = Open-Meteo cur.temperature + cur.condition + worst alert (MODELED temp); (b) the in-card 'Today' gardener insight = generateGardenerInsight(), which is station-PREFERRED synthesized prose ('Mild comfortable afternoon — 68F at the property'); (c) the 'Right now' station hero headline (MEASURED); (d) the Open-Meteo condition word woven into 'Right now'. Temperature is stated up to four times; the sky/condition word twice.",
+      "user_impact": "This is the concrete source of Paul's 'clobbered / several views of today' complaint. Worse than clutter: the header can show a MODELED Open-Meteo temp while the body shows a MEASURED station temp a few degrees different — the card visibly disagrees with itself, which erodes the trust the whole card is built on. There is no single, authoritative 'here is now' the eye can land on.",
+      "principle_invoked": "One engine, one verdict; Trust is load-bearing",
+      "recommendation": "Pick ONE current-read generator, station-first, and drive everything from it. generateGardenerInsight() is already the right one (station-preferred, calm, field-journal voice, honest 'on the forecast' fallback). Make it the single glance sentence at the top of the card body (A), and have renderWeatherSummary() call the same generator (or a compact variant) so the collapsed header and the expanded top can never disagree. The Open-Meteo condition word stops being a competing 'now' and becomes a source-tagged sky descriptor (see F3).",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The 'Right now' block (renderWeather ~6646) fuses two sources inside one .wblock with only a margin-top:10px between them: #ambient-station-panel (MEASURED station temp/humidity/wind/rain/pressure/dew) and a weather-current-row carrying the Open-Meteo condition word + weather-icon-big + today's High/Low (MODELED). They read as one continuous 'right now' reading.",
+      "user_impact": "This is the exact smell Paul flagged, and the exact thing the fishing card deliberately avoided (R2, 2026-07-06: 'estimates must read as estimates at every altitude'). By sitting flush with the measured station numbers, the modeled condition + H/L borrow the station's authority — the reader can't tell which figures are ground-truth and which are a forecast. On the card whose credibility rests on 'measured, on your property,' that blur is the costliest kind.",
+      "principle_invoked": "Trust is load-bearing; measured kept visually distinct from modeled",
+      "recommendation": "Split the block. B RIGHT NOW = station hero ONLY, headed with the existing 📡 src-tag ('Measured on the property'). Move the H/L into the FORECAST block (C, modeled). Handle the condition word per F3. Reuse the existing .src-tag-station / .src-tag-forecast chips + 📡/☁️ vocabulary already defined at CSS ~1262 — do not invent new styling.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The Open-Meteo condition word ('Partly cloudy') is the one 'now' fact the station genuinely cannot report — the PWS has no sky-state sensor. So it isn't pure redundancy; it's a real gap the model legitimately fills. But today it is presented with measured-weight, inside the station block.",
+      "user_impact": "If it's simply deleted, the reader loses the sky read. If it stays fused with the station numbers, it violates F2. It needs a home that is honest about being modeled.",
+      "principle_invoked": "Measured distinct from modeled (the honest-split, not delete)",
+      "recommendation": "Give the condition word its own source-tagged line — either a distinct '☁️ Sky: partly cloudy (forecast)' sub-row at the FOOT of B (visually separated from the measured numbers), or as the lead of the FORECAST block C. Recommend the foot-of-B sub-row, since 'what does the sky look like now' is a current-moment question — but tagged ☁️ so it can't pass as a station reading.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "Burn status sits at position 3 — above the freshest station read (position 5) and above the whole forecast. But computeBurnStatus() is almost entirely static/slow: a seasonal regulatory ban keyed only on month (inSeasonalBan, May-Sep), plus slow drought/days-since-rain context. During the ~5-month ban it shows the same 'State outdoor-burning ban active' line every single day. It is the LOWEST-freshness signal on the card, occupying near the highest altitude.",
+      "user_impact": "This is Paul's stated #1 fix ('the constant outdoor burn ban is static -> move to bottom'). A block that never changes is trained-blindness fuel sitting where the eye expects live news, and it pushes the actual live station read down the scroll. Freshness-sets-altitude is inverted here.",
+      "principle_invoked": "Freshness sets altitude; the glance and the repository (relocate depth, don't delete)",
+      "recommendation": "Move the burn block to the bottom reference zone (F). BUT do not blanket-bury it — see F5: the one time it IS fresh (an active NWS fire-weather alert) it must promote upward, not sit at the bottom.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "computeBurnStatus() fuses two very different-freshness things into one block: (a) a static seasonal/regulatory baseline (the constant ban), and (b) a genuinely time-sensitive Tier-1 'severe' output driven by an active NWS Red Flag / Fire Weather alert (fwAlerts). If F4 is applied naively, moving 'burn status' to the bottom would also bury a live Red Flag warning at the bottom of the card.",
+      "user_impact": "Burying an active fire-weather alert is a real safety/decision miss, not just polish — it's the one weather-card output where getting the altitude wrong has consequences on a dry mountain property. The static ban and the live fire alert must not share a fate.",
+      "principle_invoked": "Freshness sets altitude (split the fused signal by freshness); Nielsen #1 visibility of system status",
+      "recommendation": "Split by freshness at the source. When burn.level === 'severe' (active fire-weather alert), surface it as an ALERT in the top 'Worth knowing' block (A) — it's decision-shaped and fresh. The normal/elevated regulatory baseline (the static ban + drought/days-dry context) goes to the bottom reference block (F). One computeBurnStatus() call, routed to two altitudes by tier.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "The Rainfall panel (position 8) leads with the on-property station rain gauge (renderPropertyGaugeBlock — now/today/event/week/month, MEASURED, ~0.3 mi local) yet sits BELOW the 7-day and hourly forecast (modeled). The measured, local, recent-rain read is positioned as less-fresh than a multi-day model. Indoor sensors (position 9, also measured station data) sit even lower.",
+      "user_impact": "Same freshness-inversion as F4, milder: a measured local signal reads as reference-tier by position. On a mountain property, 'how much has actually fallen here lately' is a high-value, high-freshness glance — the gauge earns a higher altitude than it has.",
+      "principle_invoked": "Freshness sets altitude; source-hierarchy drives layout",
+      "recommendation": "Keep the Rainfall panel unified (gauge 📡 + regional/ERA5 context ☁️/📊 with its existing divider), but lift it to the glance->repository seam — after the forecast, as the 'how wet, recently and ahead' bridge into reference — OR directly after B if you want the measured gauge adjacent to current conditions. Recommend seam placement (D) for v1; it's a judgment call because the panel itself spans measured-recent through modeled-context. Indoor sensors move to the reference zone (E).",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "When the card is expanded there is no single top-of-body glance line. The reader meets, in order: source-status bar -> alerts -> burn -> 'Today' -> 'Right now' — several blocks before one clean current read. The header summary line only shows in the collapsed state; on expand it disappears and is not replaced by an equivalent anchor.",
+      "user_impact": "The reader expands the card wanting 'so what's it doing?' and has to assemble the answer from 3-4 blocks. The fishing card solved exactly this by opening on a verdict line (A). Weather has no equivalent single landing spot once opened.",
+      "principle_invoked": "The glance and the repository (the glance must lead); Meet the user at the action",
+      "recommendation": "Promote the single station-first summary sentence (F1) to the very top of the card body as block A, immediately under the source-status bar, with the 'Worth knowing' alerts. That IS the glance; everything below it is progressive depth.",
+      "effort": "low"
+    }
+  ],
+  "proposed_section_order": {
+    "spine": "Mirrors the fishing A-G: a GLANCE zone (freshest-first, decision-shaped) -> seam -> a REPOSITORY zone (reference, slow-moving). Measured (📡) and modeled (☁️) are legibly separated throughout; the static ban lands at the bottom, its severe tier promotes to the top.",
+    "glance_zone": [
+      {"block": "(top strip)", "name": "Source-status bar", "source": "📡/☁️ freshness proof", "note": "Unchanged, stays at very top — confirms both feeds are alive."},
+      {"block": "A", "name": "NOW — glance", "source": "station-first synthesized + alerts", "note": "ONE summary sentence (generateGardenerInsight, also drives #weather-summary) + 'Worth knowing' alerts, INCLUDING a promoted severe fire-weather alert (F5). The single thing the eye lands on."},
+      {"block": "B", "name": "RIGHT NOW — current conditions", "source": "📡 MEASURED", "note": "Station hero ONLY (temp/feels/humidity/wind/rain/dew/pressure/trends). Sky-condition word as a distinct ☁️-tagged sub-row at its foot (F3)."},
+      {"block": "C", "name": "FORECAST", "source": "☁️ MODELED", "note": "Today H/L + condition context, Next 7 days strip, Hour by hour — one clearly-modeled forecast zone, visually separate from B."},
+      {"block": "D", "name": "RAINFALL", "source": "📡 gauge + ☁️/📊 context", "note": "Unified panel at the glance->repository seam — measured on-property gauge leads, regional/ERA5 context follows behind the divider."}
+    ],
+    "repository_zone": [
+      {"block": "E", "name": "INSIDE", "source": "📡 MEASURED (indoor)", "note": "Indoor sensors — measured but low-urgency; reference altitude."},
+      {"block": "F", "name": "BURN & FIRE", "source": "reference (regulatory + slow context)", "note": "The static seasonal ban + drought/days-dry baseline. Severe fire-weather tier is NOT here — it promotes to A (F5)."},
+      {"block": "G", "name": "WHERE THIS DATA COMES FROM", "source": "methodology", "note": "Expandable source explainer — unchanged, bottom."},
+      {"block": "(toggle)", "name": "Live Radar", "source": "RainViewer", "note": "Collapsible, very bottom — unchanged."}
+    ]
+  },
+  "before_after_map": [
+    {"current": "1. Source-status bar", "new_home": "(top strip) — unchanged", "why": "Freshness proof for both feeds; belongs at the very top."},
+    {"current": "2. Alerts 'Worth knowing'", "new_home": "A (glance)", "why": "Decision layer; stays near top. Now also receives the promoted severe fire-weather alert."},
+    {"current": "3. Burn status (static)", "new_home": "F (bottom reference) — severe tier splits up to A", "why": "F4 + F5: constant ban is the lowest-freshness signal (bottom); an active fire-weather alert is fresh (promote to A)."},
+    {"current": "4. 'Today' gardener insight", "new_home": "A (the single glance sentence) + drives header #weather-summary", "why": "F1/F7: this station-first synthesized read becomes THE glance and reconciles the header so they can't disagree."},
+    {"current": "5. 'Right now' (station hero + condition + H/L)", "new_home": "SPLIT: station hero -> B (📡); condition word -> tagged ☁️ sub-row in B (F3); H/L -> C (forecast)", "why": "F2: unfuse measured from modeled so the model can't borrow the station's authority."},
+    {"current": "6. Next 7 days", "new_home": "C (forecast, ☁️)", "why": "Modeled forecast zone, clearly separated from the measured now."},
+    {"current": "7. Hour by hour", "new_home": "C (forecast, ☁️)", "why": "Same modeled forecast zone."},
+    {"current": "8. Rainfall panel", "new_home": "D (glance->repository seam)", "why": "F6: measured on-property gauge leads and deserves a higher altitude than a multi-day model."},
+    {"current": "9. Inside sensors", "new_home": "E (reference)", "why": "Measured but low-urgency; reference altitude."},
+    {"current": "10. Methodology footer", "new_home": "G (bottom reference) — unchanged", "why": "Source explainer belongs at the foot."},
+    {"current": "(header) #weather-summary", "new_home": "driven by the same generator as A", "why": "F1: one engine, one verdict — collapsed header and expanded top read from generateGardenerInsight so they never diverge."},
+    {"current": "(markup) Live Radar toggle", "new_home": "very bottom — unchanged", "why": "Already correctly a collapsed, on-demand reference surface."}
+  ],
+  "summary_reconciliation": {
+    "problem": "Three current-read surfaces, two source families: #weather-summary (header, MODELED Open-Meteo temp+condition+alert), the 'Today' gardener insight (station-PREFERRED synthesized prose), and the Open-Meteo condition word (MODELED).",
+    "resolution": "generateGardenerInsight() is the canonical current read — station-first, calm, honest fallback. (1) Promote it to the top-of-body glance (A). (2) Make renderWeatherSummary() call the same generator so the collapsed header agrees with the body (one engine, one verdict). (3) Retire the condition word as a competing 'now'; re-home it as an explicitly ☁️-tagged sky descriptor (F3). Net: exactly one authoritative current sentence, station-first, everywhere it appears."
+  },
+  "measured_vs_modeled_discipline": {
+    "reuse": "The card already ships .src-tag-station / .src-tag-forecast / .src-tag-reference chips + 📡/☁️/📊 vocabulary + the top status bar (CSS ~1262-1351). Reuse them; do not invent new styling.",
+    "rules": [
+      "B RIGHT NOW: header 📡 'Measured on the property'; every figure is a station reading; the ☁️ sky word sits in its own tagged sub-row, never flush with the numbers (fixes the F2 blend).",
+      "C FORECAST: header ☁️ 'Open-Meteo forecast'; H/L + 7-day + hourly all live here as one clearly-modeled zone.",
+      "D RAINFALL: 📡 gauge sub-block and ☁️/📊 regional/ERA5 sub-block kept either side of the existing divider.",
+      "A glance sentence: when it uses the forecast fallback it already says 'on the forecast' — keep that honest marker; when station-sourced it says 'at the property'."
+    ]
+  },
+  "loop_note": "The Fernwood flywheel (invite ground-truth where we admit a model) is lighter on this card than on fishing, because the station already IS the ground truth for most current fields. The one honest-estimate seam is the modeled sky/condition word and the forecast — a future, optional 'does that match what you see?' invite could live at the foot of C. NOT a build ask here; flagged so the loop isn't forgotten when the reorg lands.",
+  "severity_calibration_note": "Hobby project — nothing is 'critical' (no lost work; the reader can still read the weather today). The three 'important' findings are genuine trust/decision risks, not enterprise inflation: F1 (header vs body can show different temps), F2 (modeled data wearing the station's authority — the exact smell Paul named), F5 (a live fire-weather alert could get buried at the bottom). F4 is Paul's own stated fix. The rest (F3, F6, F7) are polish/placement.",
+  "open_questions_for_user": [
+    "Rainfall placement: at the glance->repository seam (D, recommended) so the forecast still reads as one block, or lifted higher to sit directly under B so the measured gauge is adjacent to current conditions? The panel spans measured-recent through modeled-context, so it's a real judgment call.",
+    "Sky-condition word home: foot-of-B ☁️ sub-row (recommended — it's a current-moment question) or lead-of-C? ",
+    "Do you want the promoted severe fire-weather alert (F5) to also keep a line in the bottom Burn block for continuity, or promote-only (appears at top, absent from bottom while active)?"
+  ],
+  "follow_up_research_suggested": [
+    "user-researcher is framing the reader jobs for this card separately — reconcile this IA against that once it lands (as was done for fishing on 2026-07-06)."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Split a fused block by the freshness of its parts, not by its topic — a single computed block that mixes a static baseline with a live exception must route each part to the altitude its freshness earns (static to the bottom, the live exception to the top).",
+      "scope": "cross-project",
+      "rationale": "computeBurnStatus() is one 'topic' (burning) but two freshnesses: a constant seasonal ban and an active fire-weather alert. Grouping by topic buried the live part; grouping by freshness fixes it. This is the next refinement of 'Freshness sets altitude' — it says the unit that gets an altitude is the SIGNAL, not the topical block, so topical blocks may need splitting. Same shape likely recurs (a 'Rainfall' block with a live gauge + a 25-year normal; a financial 'position' block with a live price + a static thesis). Propose after Paul approves the reorg."
+    },
+    {
+      "principle": "A modeled reading placed flush with a measured one inherits its authority — separate them with a source tag and visual break, or the model gets believed as ground-truth.",
+      "scope": "fernwood",
+      "rationale": "Second occurrence of the fishing R2 pattern (estimate dressed as reading). Here it's the Open-Meteo condition + H/L sitting inside the station hero block. Fernwood has many measured/modeled adjacencies (lake temp, rainfall, sky) and the card's whole credibility is 'measured on your property,' so the discipline is worth naming as a standing fernwood rule. Propose after the split lands."
+    }
+  ]
+}
