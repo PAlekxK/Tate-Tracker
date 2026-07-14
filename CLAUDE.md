@@ -24,7 +24,13 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 
 (Root-cause fix still open: make Guru's promote flow verify its own re-inline commit landed, so this drift can't open silently in the first place.)
 
-## Backlog — Mom engagement & feedback (2026-07-13) — ⏸ HELD, design done
+## 📋 Canonical backlog → `BACKLOG.md`
+
+**Live status for every Fernwood thread lives in `BACKLOG.md` (repo root) — read status there, not from the dated "Pickup point" log below (that log is historical, not current status).**
+
+## Backlog — Mom engagement & feedback — ✅ SHIPPED 2026-07-13 as "Mama's Perspective"
+
+> **Status: SHIPPED** (supersedes the "HELD" trail below). Paul steered the panel's held single-probe into a navigable, continuously-populatable **queue** — **"Mama's Perspective"** — and it shipped 2026-07-13 (git `a888ebb`; `questions.json` + `MomQueue` in viewer.html; RELEASE_NOTES; Worker `/api/feedback` live). Now in the ~2–3 wk validation gate (Grow/Kill in `BACKLOG.md`). The paragraph below + the panel synthesis + the `project_fernwood_prompt_mom_input` memory are the historical HELD design trail — point-in-time, now superseded.
 
 - **Mom engagement/feedback — five-lens panel RAN + CONVERGED; build decision HELD (Paul, 2026-07-13).** The whole parked Mom-feedback backlog was reassessed holistically under a hard reframe: **the discovery interview will never happen — the device + her usage must generate the signal.** ⭐ **Master brief (single entry point):** `.user-research/2026-07-13-mom-engagement-panel-synthesis.md` — it links all five reviews (user-researcher/ux/eng/ai-advisor/content-steward, all 2026-07-13) + the grounding corpus. **Converged recommendation:** ship ONE contextual confirm ("is this crocosmia 'Lucifer'?") on the plant entry, AI-free capture, instrumented offered→viewed→tapped funnel, hard kill metric — *as a prove-before-build probe*, NOT a standing queue (that's the ⭐-star trap). **Backlog reassessment folded in:** ⭐ star → KILL; 🚩 open-feedback → DON'T BUILD; seeded prompts → deprecate; the weed "prompt-for-input" seed → SUBSUMED into this; change-reactions → DEFER; **Save/Ask split → still open, separate thread.** **HELD:** only Paul's go/no-go to BUILD v1 remains — nothing needs re-running. (Superseded seed brief: `.plans/2026-07-13-mom-prompted-input-scoping.md`.)
 
