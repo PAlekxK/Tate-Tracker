@@ -17,6 +17,25 @@ session — keep them for the trail, but do **not** read them as current status.
 
 ---
 
+## ✅ Just shipped (2026-07-14) — all live on `main` (GH Pages), no Worker change
+
+**Plant look-fors bumped up to the Plants tile as a check-it prompt.** The day's single
+highest-priority *plant* look-for now leads the always-visible Plants tile as a warm, tappable
+**"👀 Worth a look"** row; tapping routes to the composer pre-filled (`"Checked the [plant] — "`) to log
+what she sees, not the card-expand. The "Worth noticing today" list stays inside the Plants card ("do
+both" — Paul's steer). Focused on plants deliberately (highest-engagement care actions); wildlife look-fors
+stay in the central list only. One engine (`gatherPlantLookForCandidates`) feeds both surfaces so they
+can't disagree. This also answers the long-open 7/05 UX question "look-fors are too buried inside Plants."
+Fixed a latent init bug found along the way (a `MetricsCollector` temporal-dead-zone throw that aborted
+part of startup). **Open judgment call (Paul):** the tile shows **one** prompt, today the mow/fairway one —
+option to bias toward flowering plants over turf, and/or show **two**; both are ~1-line changes.
+
+**Unified-input close-outs.** (1) Button relabeled **"Log to the Almanac" → "Save & ask the Almanac"** so it
+reads as save *and* answer, not just logging (behavior unchanged — still log-first). (2) Fixed a layout
+shuffle: when a conversation opened, Mama's Perspective jumped *below* the thread and the text box drifted
+from its button — flex-`order` gap (the queue + actions defaulted to 0 while the thread used negatives). Now
+Mama's Perspective stays pinned on top and the composer + button stay together.
+
 ## ✅ Just shipped (2026-07-13)
 
 **Worker deploy automation — built, awaiting one secret to arm.** GitHub Action
@@ -30,7 +49,7 @@ Actions → New secret. After that, Worker changes self-deploy on push (no more 
 
 
 
-**Save / Ask → ONE button: "Log to the Almanac" (log-first, then Garden Guru).** Shipped git `bc2cfff`.
+**Save / Ask → ONE button: "Save & ask the Almanac" (log-first, then Garden Guru).** Shipped git `bc2cfff` (label was "Log to the Almanac"; renamed 7/14).
 On tap it writes her **verbatim** entry to the almanac **first** (deterministic, AI-free, always
 succeeds), then fires Garden Guru as a best-effort second step for the answer + follow-up. The log
 never depends on the AI — closes the 7/3 failure that turned Mom away on both the ask and the log.
@@ -103,8 +122,8 @@ to Guru. Browser-verified the note survives a Guru failure. Preserves [[feedback
 
 ## SHIPPED (for reference — the built base these build on)
 
-Mama's Perspective (Mom confirm queue, 2026-07-13) · Unified input — one "Log to the Almanac" button,
-log-first (7/13; collapsed the 5/20 Save/Ask split) ·
+Mama's Perspective (Mom confirm queue, 2026-07-13) · Unified input — one "Save & ask the Almanac" button,
+log-first (7/13; collapsed the 5/20 Save/Ask split; relabeled 7/14) ·
 The Almanac card (5/21) · Garden Guru Phase E conversational layer (5/19) + redesign Phases 1–3 (7/02) +
 into-the-machines (7/07) · Phase D capture rebuild (5/19) · Phase F image input → auto-promote (5/21) ·
 Concept A "Today + Reference Drawer" / computeLookFors (7/05) · structured `peakDates` (7/06) ·
