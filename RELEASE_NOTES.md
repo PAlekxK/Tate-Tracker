@@ -4,6 +4,11 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-13 — One button for the almanac
+
+- The note box at the top now has a **single button — "Log to the Almanac."** Whatever you write is saved to the almanac in your own words the moment you tap it, and then Garden Guru chimes in with a thought and the chance to ask a follow-up.
+- The important part: your note is saved **first**, on its own. Even if Garden Guru is slow or the signal's weak out there, what you wrote is already safely in the almanac — nothing gets lost waiting on an answer.
+
 ## 2026-07-13 — Mama's Perspective — a little corner for your read of the place
 
 - A new spot at the top of the app, **Mama's Perspective**, quietly asks the things only someone standing on the land can settle — like whether that orange crocosmia really is the 'Lucifer' variety. One little card at a time, with arrows to move through them.
