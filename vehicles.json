@@ -457,7 +457,15 @@
       "manual": {
         "label": "Owner's manual (2nd-gen, 2017–18)",
         "url": "https://www.vwmanuals.org/wp-content/uploads/2022/07/2017-volkswagen-tiguan.pdf"
-      }
+      },
+      "serviceHistory": [
+        {
+          "date": "2026-01-07",
+          "shop": "DIY (Paul)",
+          "summary": "Replaced the front-right fender flare after it was damaged (OEM-fit part, sourced on eBay)",
+          "confidence": "verified"
+        }
+      ]
     },
     {
       "id": "f150-2006",
