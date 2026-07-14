@@ -7374,15 +7374,24 @@ function plantCheckPrompts(now, limit) {
     if (!prev || c.priority < prev.priority) byText.set(c.promptShort, c);
   }
   let items = [...byText.values()];
+  // Priority LEADS (2026-07-14, Paul's call): the most time-sensitive window
+  // always comes first — a narrow/opening bloom window outranks routine turf
+  // mowing, which now only surfaces when nothing more urgent is active. Daily
+  // rotation happens *within* the leading priority tier so the glance stays
+  // fresh day-to-day without ever demoting an urgent window below wallpaper.
+  // (Prior behavior rotated across the whole list regardless of priority, so
+  // Fairway Turf could lead on a day with six open narrow windows.)
   items.sort((a, b) => a.priority - b.priority || a.speciesName.localeCompare(b.speciesName));
-  // Daily rotation so a long list of eligible plants takes turns on the tile.
-  if (items.length > limit) {
+  const topP = items[0].priority;
+  const topTier = items.filter(c => c.priority === topP);
+  const rest = items.filter(c => c.priority !== topP);
+  if (topTier.length > 1) {
     const startOfYear = new Date(now.getFullYear(), 0, 0);
     const dayOfYear = Math.floor((now - startOfYear) / 86400000);
-    const offset = ((dayOfYear % items.length) + items.length) % items.length;
+    const offset = ((dayOfYear % topTier.length) + topTier.length) % topTier.length;
     const rotated = [];
-    for (let i = 0; i < limit; i++) rotated.push(items[(offset + i) % items.length]);
-    items = rotated;
+    for (let i = 0; i < topTier.length; i++) rotated.push(topTier[(offset + i) % topTier.length]);
+    items = rotated.concat(rest);
   }
   items = items.slice(0, limit);
   return items.map(c => ({
@@ -8703,35 +8712,46 @@ const MomQueue = (function () {
     const actions = document.createElement("div");
     actions.className = "gg-suggest-actions";
 
+    // Per-question button labels — the queue holds different flavors (a variety
+    // "Looks right", a bloom "It's out", a strategy "Yes, I'd like that"), so the
+    // words flex per card (q.labels) while the mechanics stay the same. Defaults
+    // keep the variety-confirm voice.
+    const L = q.labels || {};
     const yes = document.createElement("button");
     yes.type = "button";
     yes.className = "gg-suggest-btn-yes";
-    yes.textContent = "Looks right";
+    yes.textContent = L.yes || "Looks right";
     yes.addEventListener("click", () => { markTapped(q); answer(q, "landed", getNote()); });
 
     const not = document.createElement("button");
     not.type = "button";
     not.className = "gg-suggest-btn-no";
-    not.textContent = "Not quite";
+    not.textContent = L.no || "Not quite";
     not.addEventListener("click", () => {
-      // A correct "no" owes a next move — invite (optionally) the real name,
-      // then let her send. Text stays optional (never required).
       markTapped(q);
-      openNote("What is it, then? (optional)");
-      actions.innerHTML = "";
-      const send = document.createElement("button");
-      send.type = "button";
-      send.className = "gg-suggest-btn-yes";
-      send.textContent = "Send";
-      send.addEventListener("click", () => answer(q, "missed", getNote()));
-      actions.appendChild(send);
-      addNote.style.display = "none";
+      // A "no" on an ID/variety card owes a next move — invite the real name, then
+      // send (q.correctionPrompt). A bloom "Not yet" or a strategy "Not for me" has
+      // nothing to correct, so it just records; the optional "add a note" button
+      // still covers anything else she wants to say.
+      if (q.correctionPrompt) {
+        openNote(q.correctionPrompt);
+        actions.innerHTML = "";
+        const send = document.createElement("button");
+        send.type = "button";
+        send.className = "gg-suggest-btn-yes";
+        send.textContent = "Send";
+        send.addEventListener("click", () => answer(q, "missed", getNote()));
+        actions.appendChild(send);
+        addNote.style.display = "none";
+      } else {
+        answer(q, "missed", getNote());
+      }
     });
 
     const later = document.createElement("button");
     later.type = "button";
     later.className = "gg-suggest-btn-neutral";
-    later.textContent = "Ask me later";
+    later.textContent = L.later || "Ask me later";
     later.addEventListener("click", () => { markTapped(q); notSure(q, getNote()); });
 
     actions.appendChild(yes);

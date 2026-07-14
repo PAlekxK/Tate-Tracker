@@ -95,6 +95,8 @@ def harvest(plants, questions, today_mmdd):
                 "entityId": pid,
                 "prompt": TEMPLATES["variety"].format(name=name, variety=v["value"], note=note_txt),
                 "why": f"variety '{v['value']}' is {v.get('confidence','?')} + askable",
+                # a "no" on an ID owes the real name; keeps the variety-confirm voice
+                "extra": {"correctionPrompt": "What is it, then? (optional)"},
             })
 
         b = p.get("bloom")
@@ -106,13 +108,15 @@ def harvest(plants, questions, today_mmdd):
                     "entityId": pid,
                     "prompt": TEMPLATES["bloom"].format(name=name),
                     "why": f"bloom is inferred + in-window now ({b.get('window','')})",
+                    # "It's out / Not yet" reads in one glance for a bloom question
+                    "extra": {"labels": {"yes": "It's out", "no": "Not yet"}},
                 })
     return cands
 
 
 def to_question(cand, created):
     """Shape a candidate into a questions.json entry (drafted, NOT live)."""
-    return {
+    q = {
         "id": cand["id"],
         "kind": "confirm",
         "answerMode": "yesno",
@@ -124,6 +128,8 @@ def to_question(cand, created):
         "_foldTarget": cand["type"],
         "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
     }
+    q.update(cand.get("extra") or {})  # per-type labels / correctionPrompt
+    return q
 
 
 def main():

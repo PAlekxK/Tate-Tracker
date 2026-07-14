@@ -7,7 +7,10 @@
       "kind": "confirm",
       "answerMode": "yesno",
       "prompt": "The crocosmia that came into bloom this month — we read it off a photo as the variety **'Lucifer,'** but that's a guess from the picture. Does that match the one flowering out there?",
-      "entityRef": { "type": "plant", "id": "crocosmia" },
+      "entityRef": {
+        "type": "plant",
+        "id": "crocosmia"
+      },
       "createdAt": "2026-07-13",
       "active": false,
       "resolvedAt": "2026-07-14",
@@ -18,7 +21,11 @@
       "kind": "confirm",
       "answerMode": "yesno",
       "prompt": "The big white mophead hydrangea — from the photo it looks like **'Annabelle,'** the old smooth-hydrangea standby. Right on the ground, or something else?",
-      "entityRef": { "type": "plant", "id": "hydrangea", "note": "the white mophead in the hydrangea roster" },
+      "entityRef": {
+        "type": "plant",
+        "id": "hydrangea",
+        "note": "the white mophead in the hydrangea roster"
+      },
       "createdAt": "2026-07-13",
       "active": false,
       "resolvedAt": "2026-07-14",
@@ -29,7 +36,10 @@
       "kind": "confirm",
       "answerMode": "yesno",
       "prompt": "The **panicle hydrangea** should be in flower about now — cone-shaped white blooms — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
-      "entityRef": { "type": "plant", "id": "panicle-hydrangea" },
+      "entityRef": {
+        "type": "plant",
+        "id": "panicle-hydrangea"
+      },
       "createdAt": "2026-07-13",
       "active": true
     },
@@ -41,6 +51,171 @@
       "createdAt": "2026-07-13",
       "active": true,
       "_note": "The standing general channel — deliberately one quiet foot-line, not a co-equal card. Repeatable (never dismissed). Its note-only answers need the /api/feedback relax deployed (already live 2026-07-13); until then the localStorage backup holds them. Set active:false to remove the line entirely."
+    },
+    {
+      "id": "q-clematis-variety",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The big **Clematis** — from the photo it looks like the pale-pink kind, with a rosy stripe down each petal. Does that match what's flowering out there, or is it a deeper rose?",
+      "entityRef": {
+        "type": "plant",
+        "id": "clematis"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "variety",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "correctionPrompt": "What is it, then? (optional)"
+    },
+    {
+      "id": "q-butterfly-weed-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **Butterfly Weed** should be in flower about now — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
+      "entityRef": {
+        "type": "plant",
+        "id": "butterfly-weed"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "bloom",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "labels": {
+        "yes": "It's out",
+        "no": "Not yet"
+      }
+    },
+    {
+      "id": "q-wisteria-summer-cascade-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **Summer Cascade Wisteria** should be in flower about now — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
+      "entityRef": {
+        "type": "plant",
+        "id": "wisteria-summer-cascade"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "bloom",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "labels": {
+        "yes": "It's out",
+        "no": "Not yet"
+      }
+    },
+    {
+      "id": "q-clematis-elpis-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **Elpis Clematis** should be in flower about now — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
+      "entityRef": {
+        "type": "plant",
+        "id": "clematis-elpis"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "bloom",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "labels": {
+        "yes": "It's out",
+        "no": "Not yet"
+      }
+    },
+    {
+      "id": "q-hydrangea-dreamcloud-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **DreamCloud Reblooming Hydrangea** should be in flower about now — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
+      "entityRef": {
+        "type": "plant",
+        "id": "hydrangea-dreamcloud"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "bloom",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "labels": {
+        "yes": "It's out",
+        "no": "Not yet"
+      }
+    },
+    {
+      "id": "q-endless-summer-pop-star-hydrangea-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **Pop Star Endless Summer Reblooming Hydrangea** should be in flower about now — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
+      "entityRef": {
+        "type": "plant",
+        "id": "endless-summer-pop-star-hydrangea"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "bloom",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "labels": {
+        "yes": "It's out",
+        "no": "Not yet"
+      }
+    },
+    {
+      "id": "q-spiderwort-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **Spiderwort** should be in flower about now — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
+      "entityRef": {
+        "type": "plant",
+        "id": "spiderwort"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "bloom",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "labels": {
+        "yes": "It's out",
+        "no": "Not yet"
+      }
+    },
+    {
+      "id": "q-lizards-tail-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **Lizard's Tail** should be in flower about now — but that's a guess off the book, not something we've actually watched. Does that match what's out there?",
+      "entityRef": {
+        "type": "plant",
+        "id": "lizards-tail"
+      },
+      "createdAt": "2026-07-14",
+      "active": false,
+      "_source": "harvest",
+      "_foldTarget": "bloom",
+      "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
+      "labels": {
+        "yes": "It's out",
+        "no": "Not yet"
+      }
+    },
+    {
+      "id": "q-strategy-pollinators",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "Next spring we could add a few plants around the place just to bring in more hummingbirds and butterflies. Is that something you'd like?",
+      "createdAt": "2026-07-14",
+      "active": false,
+      "labels": {
+        "yes": "Yes, I'd like that",
+        "no": "Not really",
+        "later": "Ask me later"
+      },
+      "_source": "authored",
+      "_kind": "reflective",
+      "_note": "Armchair/strategy card — answerable from anywhere, no going outside. Her preference, captured AI-free; not a canon fold (no _foldTarget)."
     }
   ]
 }
