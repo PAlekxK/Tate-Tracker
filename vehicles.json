@@ -690,7 +690,7 @@
         {
           "item": "Driver door power lock",
           "status": "diagnosing",
-          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. (Refinish sequence — Phase 2: the door teardown. Do it in one door-open session alongside the panel repair, the handle-mount check, and door sound-deadening.)"
+          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. (Refinish sequence — Phase 2: the door teardown. Do it in one door-open session alongside the panel repair, the handle-mount check, and door sound-deadening.) UPDATE (2026-07-13): the replacement actuator (a new TRQ unit) is now INSTALLED and STILL gives no response — so it's not the actuator, it's upstream. Confirms the wiring diagnosis (door-jamb boot wiring the prime suspect). Paul has been deferring the wire-metering step; that's the next move."
         },
         {
           "item": "Driver door panel",
@@ -725,7 +725,7 @@
         {
           "item": "Amp, speakers + subwoofers",
           "status": "long-term",
-          "detail": "Door speakers acquired: a pair of Infinity Kappa 63XF — 6.5\" (165 mm) two-way coaxials (open-box; MSRP $249.95). These are the door speakers; the amp + subwoofers are still to source. The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown. Now that the door speaker size is known (6.5\" round), plan the door baffles/mounts around it when you pre-run the wiring in Phase 2.",
+          "detail": "Door speakers acquired: a pair of Infinity Kappa 63XF — 6.5\" (165 mm) two-way coaxials (open-box; MSRP $249.95). These are the door speakers; the amp + subwoofers are still to source. The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown. Now that the door speaker size is known (6.5\" round), plan the door baffles/mounts around it when you pre-run the wiring in Phase 2. UPDATE (2026-07-13): the door speakers and their NVX silicone speaker baffles are now INSTALLED. Amp + subwoofers still to source.",
           "image": "images/vehicles/bolores-audio-ref-infinity-kappa63xf.png"
         },
         {
