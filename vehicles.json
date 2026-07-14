@@ -728,10 +728,16 @@
           "detail": "Sound-deadening (doors, floor, roof). The key realization (2026-06-22): this is NOT a separate project — it's the first step of reassembly after paint, and nearly free in teardown terms because every surface it needs is already exposed by work you're already doing: door shells (panels off), floor pans (carpet up, seats out at the trim shop), roof (headliner down). Goes on after the body's painted, before panels/carpet/headliner go back. Refinish sequence — Phase 4."
         },
         {
-          "item": "Amp, speakers + subwoofers",
-          "status": "long-term",
-          "detail": "Door speakers acquired: a pair of Infinity Kappa 63XF — 6.5\" (165 mm) two-way coaxials (open-box; MSRP $249.95). These are the door speakers; the amp + subwoofers are still to source. The audio build — deliberately last (Phase 5), after the panels are solid (repaired + reinforced) and the deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the speaker/amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Rough-spec the wiring paths (door speakers? amp/sub location?) before that teardown. Now that the door speaker size is known (6.5\" round), plan the door baffles/mounts around it when you pre-run the wiring in Phase 2. UPDATE (2026-07-13): the door speakers and their NVX silicone speaker baffles are now INSTALLED. UPDATE (2026-07-14): door speakers sourced open-box from Creative Audio (Feb 2026, order #1000140355) — this is the purchase now on record. Amp + subwoofers still to source (confirmed not yet purchased 2026-07-14).",
+          "item": "Audio — head unit + speakers",
+          "status": "done",
+          "detail": "The everyday listening system is in and playing — installed together ~Feb 2026. Fitted a RetroSound (Liberty-type) head unit, then did all four speakers in the same go: FRONT doors = Infinity Kappa 63XF 6.5\" (165 mm) two-way coaxials (open-box from Creative Audio, Feb 2026, order #1000140355) on their NVX silicone baffles; REAR = Infinity Kappa 86CFX 6×8 coaxials (a separate purchase). The truck's old external amp didn't work, so it was pulled — all four speakers now run straight off the head unit. Sounds good as-is; the amp + subwoofer build below is a down-the-road upgrade, not a fix.",
+          "completed": "2026-02",
           "image": "images/vehicles/bolores-audio-ref-infinity-kappa63xf.png"
+        },
+        {
+          "item": "Amp + subwoofers (down the road)",
+          "status": "long-term",
+          "detail": "The audio upgrade beyond the head-unit-only setup — an amp + subwoofers, deliberately last (Phase 5), after the door panels are solid (repaired + reinforced) and the sound-deadening's done so it sings. One move that saves a whole future teardown: PRE-RUN the amp/sub wiring during the Phase-2 door + interior teardown, even though the gear goes in last. Amp + subs not yet purchased (confirmed 2026-07-14)."
         },
         {
           "item": "Dash bezel — rear window & defrost",
