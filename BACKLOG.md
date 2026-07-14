@@ -17,31 +17,20 @@ session — keep them for the trail, but do **not** read them as current status.
 
 ---
 
-## ▶ NEXT — building now (decided 2026-07-13)
+## ✅ Just shipped (2026-07-13)
 
-**Collapse Save / Ask → ONE button: "Log to Fernwood Almanac" (log-first, then Garden Guru).**
-Paul's call, 2026-07-13. The unified input's two buttons become one. On tap it (1) writes her
-**verbatim** entry to the almanac **first**, deterministically and AI-free — always succeeds, instant —
-then (2) fires Garden Guru as a second step for the answer + follow-up opportunity. The log never
-*depends* on the AI, so a Guru refusal / timeout / dead-signal can't eat the entry (this closes the
-7/3 failure that turned Mom away on both the ask and the log).
-
-- **Why decided now:** cost was the only suspected blocker and it's negligible — Haiku 4.5 at
-  $1/$5 per MTok, ~a penny per warm turn / ~$0.10 cold-cache first turn, **~$5/mo measured**. The real
-  reason two buttons existed was capture *reliability* + verbatim integrity, not cost — and log-first
-  preserves both while giving Paul the single-button, always-logged, follow-up-enabled UX.
-- **Build shape:** merge the two handlers in the unified-input section; Save's deterministic write runs
-  first, then hands off to the Guru path. **Do NOT** route the log *through* Guru (that reopens the
-  "did it save?" problem). Preserves [[feedback_no_ai_on_capture]] — the capture stays deterministic;
-  AI is the second, best-effort step on the ask side.
-- **Guardrail:** if Guru fails after the log lands, tell her calmly the note is saved but the answer
-  didn't come through — never imply the note was lost.
+**Save / Ask → ONE button: "Log to the Almanac" (log-first, then Garden Guru).** Shipped git `bc2cfff`.
+On tap it writes her **verbatim** entry to the almanac **first** (deterministic, AI-free, always
+succeeds), then fires Garden Guru as a best-effort second step for the answer + follow-up. The log
+never depends on the AI — closes the 7/3 failure that turned Mom away on both the ask and the log.
+Cost was the only suspected blocker and it's negligible (~$5/mo measured); the real reason for two
+buttons was capture reliability + verbatim integrity, both preserved. Photos/audio still route straight
+to Guru. Browser-verified the note survives a Guru failure. Preserves [[feedback_no_ai_on_capture]].
 
 ## ACTIVE
 
 | Item | What it is | Gate / next |
 |---|---|---|
-| **Save / Ask → one button** | See ▶ NEXT above — decided, building now. | In progress. |
 | **Mama's Perspective — validation gate** | The shipped Mom confirm-queue is now in its ~2–3 week live-exposure test. | **Grow** = Mom answers ≥1 confirm on a day it was `viewed` → scale the queue. **Kill** = `offered`+`viewed` firing with **zero `tapped`** → it's the next dead affordance, stop. **Ambiguous** = high `offered` / low `viewed` → reposition/extend. Watch `momqueue_offered/viewed/tapped/answered`. |
 | **Vehicle records — rest of the fleet** | Extend the shipped GTI service-records pipeline to the Bronco's bigger paper pile, then others. | Agent-can-drive. |
 | **Bronco door-panel repair** | Paul's stated "next big project"; guide + verified buy-list ready, panel is out of the truck. | Physical work, owner: Paul. |
@@ -104,7 +93,8 @@ then (2) fires Garden Guru as a second step for the answer + follow-up opportuni
 
 ## SHIPPED (for reference — the built base these build on)
 
-Mama's Perspective (Mom confirm queue, 2026-07-13) · Unified input (Save/Ask + auto-save, 5/20) ·
+Mama's Perspective (Mom confirm queue, 2026-07-13) · Unified input — one "Log to the Almanac" button,
+log-first (7/13; collapsed the 5/20 Save/Ask split) ·
 The Almanac card (5/21) · Garden Guru Phase E conversational layer (5/19) + redesign Phases 1–3 (7/02) +
 into-the-machines (7/07) · Phase D capture rebuild (5/19) · Phase F image input → auto-promote (5/21) ·
 Concept A "Today + Reference Drawer" / computeLookFors (7/05) · structured `peakDates` (7/06) ·
