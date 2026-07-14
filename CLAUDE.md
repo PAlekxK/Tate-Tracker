@@ -60,6 +60,25 @@ A queue of small confirm-cards at the top of the app asking the ground-truth onl
 - ~~**Refined "Peak this week" — needs a structured peak field (data work).**~~ ✅ **SHIPPED 2026-07-06** — machine-readable `peakDates` ({start,end} MM-DD) + the year-wrap-aware `mmddRangeActive` helper are live on all 88 windows; the prose stays for display. (Confirmed by the 2026-07-12 bloom-pass engineering review — the new `bloom` field reuses this same proven mechanism.)
 - ~~**Fishing data — make it granular + dynamic (Paul-raised).**~~ ✅ **SHIPPED (Passes 1–3, 2026-07-06, LIVE).** `fishing.json` gained a versioned `conditionsModel` (evidence-weighted signals) + season-tagged phases; the view is now a station-driven, time-of-day forecast (dawn/dusk windows scored on their own hour's pressure/rain/wind) promoted to its own standalone card. See the 2026-07-06 pickup point below.
 
+## Pickup point — last session ended 2026-07-14 (ChatGPT-history mining → Bolores owner-era + GTI key spec)
+
+**Mined Paul's ChatGPT export for vehicle history, folded it onto the cards, and corrected the GTI spare-key spec off a photo of the real key.** All shipped + pushed + Worker deployed (Tate-Tracker HEAD `1c3cb9d`; digest redeployed, `/health` OK).
+
+### What shipped
+- **ChatGPT export mined (`~/Downloads/…-2026-07-13-….zip`, 136 convs).** The whole "vehicle" cluster is **Bolores, pre-Scott** (nothing for the `bronco-parts` resale project). Deterministic AI-free ingest → 43 verbatim transcripts in `.private/service-records/bronco-1989/_chatgpt-intake/` → a 43-agent digest **workflow** (35 confirmed Bolores; 8 correctly routed out) → `.private/…/CHATGPT-DIAGNOSTICS.md` (owner-era companion to `EXTRACTED.md`) + `CANDIDATE-ROWS.md` (verify queue) + `photo-seed.json` (68 truck images). 45 PII-free records added to `service-records.manifest.json`. Memory: [[project_vehicle_service_records]].
+- **Bolores card updates** — added **Cruise control** [planned] + **Gauge-cluster illumination** [done]; corrected work-**timing** on rear-window (→ Sept–Oct 2025) and door-lock (→ ~Jan–Feb 2026) items (their "confirmed 7/13" dates were confirmation-dates, not work-dates); **split the audio item** into "head unit + speakers [done, Feb 2026]" (front Kappa 63XF + rear Kappa 86CFX, old amp pulled) + "amp + subwoofers [long-term]".
+- **GTI spare-key spec CORRECTED off Paul's own key** — he read FCC **NBGFS12P01** off the fob (matches the crop; web-verified) → VW **5G0 959 752 BE** / 315 MHz / MQB48 / HU66 / CR2025 (MK7 Comfort-Access). This replaced the card's prior **5K0 837 202 AK / NBG010206T**, which came from the Marketplace keys and is the **wrong (older) generation**. Outstanding #8 resolved.
+
+### ⚠️ Owner: Paul
+1. **Safari-kill the phone** → eyeball Bolores' updated card (cruise, gauge, audio, timing) + the GTI spare-key spec.
+2. **GTI spare key — decision:** locksmiths can't do MQB Comfort-Access, so it's the **dealer**. Budget **~$450–500 all-in** (fob + cut + program); bundle with the **Jim Ellis Chamblee** recall-check trip (next to Autobahn). Phone-vet: "all-in for a 2016 GTI *with Comfort Access* — FCC NBGFS12P01 — in stock or order? add-a-key, I have one working key." Only chase supply-your-own-fob if they'll program a customer part.
+3. **Audio reconciliation done** (Paul confirmed rear 86CFX separate order, old amp removed, head unit + speakers installed together Feb 2026) — nothing open.
+
+### Deferred (agent-can-drive)
+- **Work the `CANDIDATE-ROWS.md` verify queue** — remaining open diagnostic issues + minor restoration items (cigarette-lighter USB, Bluetooth-music flakiness, spare-tire bushings) not yet on the card.
+- **Feed `photo-seed.json` (68 images) to photo-miner** as a Bolores seed.
+- **Other ChatGPT clusters untouched** — bathroom/water-damage (~50 threads, no project home yet) + career (resume/portfolio JSON).
+
 ## Pickup point — last session ended 2026-07-14 (Mama's Perspective — automated end-to-end)
 
 **Mom answered her first 2 confirms (7/13, both Yes) → the whole feedback loop was then automated end-to-end (5-expert panel).** All shipped + pushed + Worker deployed. Full spec: the **"Mama's Perspective — the ground-truth feedback loop"** section above; live status in `BACKLOG.md`.
