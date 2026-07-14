@@ -24,6 +24,10 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 
 (Root-cause fix still open: make Guru's promote flow verify its own re-inline commit landed, so this drift can't open silently in the first place.)
 
+## Backlog — raised 2026-07-13 (prompt-Mom-for-input)
+
+- **"Prompt Mom for input" as a capability (expert-panel scope, NOT started).** Triggered 2026-07-13 by Mom photographing a weed and asking what it is + how to control it. Paul wants this turned from a one-off into a repeatable loop the app runs — and scoped by the panel (user-researcher · ux-expert · ai-advisor · engineering-partner) for *how it works* and *how we learn from it*. Framing brief (the panel's input): `.plans/2026-07-13-mom-prompted-input-scoping.md`. Key tensions already flagged: it's an **inversion** of the canonical invite-loop (Mom initiates with a need, not us inviting ground-truth); the **native-vs-nuisance** stewardship judgment (violet is native — contain, don't reflexively eradicate); capture-stays-AI-free; and it's ONE real instance so far (defer-affordances-pending-signal applies). Don't build until the panel runs.
+
 ## Backlog — raised 2026-07-05 (Concept A session)
 
 - **Save/Ask two-button intent split — revisit (design, Paul-raised).** Paul isn't convinced the app needs both "Save to journal" and "Ask Garden Guru" buttons. *Don't just remove them* — the split is the on-screen form of Paul's own capture-path principle ([[feedback_no_ai_on_capture]]): Save = deterministic, AI-free, logs verbatim words; Ask = the AI path. Collapsing forces either all-capture-through-AI (breaks the principle), intent-guessing on the capture path (what Phase D pivoted away from), or do-both-every-time. The 7/2 Mom evidence ("I hoped it was logged but wasn't sure") argues for a *distinct* Save. Likely resolution is **hierarchy, not removal** — make Save the primary action, Ask the quiet secondary — but confirm what's actually bugging Paul (clutter vs choice-friction vs one-intent-dominates) first. Consider a ux-expert read since this was an evidence-based decision.
