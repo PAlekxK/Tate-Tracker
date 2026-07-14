@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-14 — Your reads show up on the plants, and more little cards to look through
+
+- When we've only guessed at something from a photo, the plant's card now says so plainly — a small **"our read from a photo"** tag by the name. Once you settle it from the ground, that tag flips to **"confirmed on the ground."** Your eye on the place becomes the record, and you can see it happen.
+- **Mama's Perspective has more to look at, and more variety** — not just "is it blooming?" but a plant's *kind* (is the clematis the pale-pink one?), and even a from-the-armchair question you can answer without going outside (*would you like a few more plants for the hummingbirds next spring?*).
+- **The answers fit the question now** — *It's out / Not yet* for a bloom, *Yes, I'd like that* for a suggestion — and *Ask me later* takes the place of "Not sure." **Add a note** is a proper button now, easy to find.
+
 ## 2026-07-14 — Two plants confirmed from the ground, and the questions retire themselves
 
 - Mama's Perspective got its first answers, and they settle two things we'd only guessed from a photo: the summer torch by the beds **is** the crocosmia **'Lucifer'**, and the big white mopheads **are** the smooth hydrangea **'Annabelle.'** Both are now written down as confirmed rather than "we think." (Because 'Annabelle' blooms on new wood, its pruning note now reads correctly — cut it back hard in late winter, not after flowering like the blue mopheads.)
