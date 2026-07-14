@@ -12,10 +12,22 @@ in JSON but not in the inlined fallback, or vice versa).
 This script:
 - Reads each source JSON.
 - Greps the matching const out of viewer.html.
-- Compares the species id-sets + the count.
-- Reports any drift with file paths + the missing/extra ids.
+- Compares the species id-sets + the count (STRUCTURE drift).
+- Deep-compares the full parsed structures (CONTENT drift) — so an edit to an
+  existing entry's fields (flip a confidence, correct a variety, edit a note)
+  is caught, not just added/removed entries. Parsed compare, never text: the
+  inline is minified and the source is indent=2, so a text diff would
+  false-positive on formatting every run.
+- Reports any drift with file paths + the missing/extra ids or differing paths.
 
 Exit code 0 → all in sync. Exit code 1 → drift detected.
+
+Content-blindness fix (2026-07-14): the check previously reduced each entry to
+its `id` and diffed id-sets only — so a field edit to an entry whose id didn't
+change read as "in sync," and `--fix` was a no-op. That is exactly the mutation
+every Mama's-Perspective fold produces, so silent dashboard staleness was the
+default. Now the check deep-compares content and `--fix` re-inlines the whole
+const via the side-effect-free tools/reinline.py.
 
 Background — why this matters (2026-05-21 incident):
 - Phase F Option C auto-promote committed plants.json + viewer.html + photo
@@ -39,8 +51,10 @@ import argparse
 import json
 import os
 import re
-import subprocess
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import reinline  # noqa: E402  — shared side-effect-free re-inline path
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 VIEWER = os.path.join(ROOT, "viewer.html")
@@ -49,14 +63,61 @@ VIEWER = os.path.join(ROOT, "viewer.html")
 # Mirrors the KIND_TARGETS in worker/worker.js + the CATEGORIES in
 # tools/wire-photos.py. If you add a new species category, update all three.
 SOURCES = [
-    ("plants.json",     "PLANTS_DATA",     "plants",  "plants"),
-    ("mammals.json",    "MAMMALS_DATA",    "species", "mammals"),
-    ("birds.json",      "BIRDS_DATA",      "species", "birds"),
-    ("amphibians.json", "AMPHIBIANS_DATA", "species", "amphibians"),
-    ("snakes.json",     "SNAKES_DATA",     "species", "snakes"),
-    ("lizards.json",    "LIZARDS_DATA",    "species", "lizards"),
-    ("fishing.json",    "FISHING_DATA",    "species", "fishing"),
+    ("plants.json",     "PLANTS_DATA",     "plants",   "plants"),
+    ("mammals.json",    "MAMMALS_DATA",    "species",  "mammals"),
+    ("birds.json",      "BIRDS_DATA",      "species",  "birds"),
+    ("amphibians.json", "AMPHIBIANS_DATA", "species",  "amphibians"),
+    ("snakes.json",     "SNAKES_DATA",     "species",  "snakes"),
+    ("lizards.json",    "LIZARDS_DATA",    "species",  "lizards"),
+    ("fishing.json",    "FISHING_DATA",    "species",  "fishing"),
+    ("vehicles.json",   "VEHICLES_DATA",   "vehicles", "vehicles"),
 ]
+
+# Cap on how many differing paths to print per const (keep output legible).
+MAX_DIFFS_SHOWN = 12
+
+
+def _short(v):
+    """One-line, length-capped repr of a value for drift output."""
+    s = json.dumps(v, ensure_ascii=False) if not isinstance(v, str) else v
+    s = s.replace("\n", " ")
+    return s if len(s) <= 80 else s[:77] + "…"
+
+
+def deep_diff(inlined, source, path=""):
+    """Yield (path, inlined_value, source_value) where the two parsed structures
+    differ. Order-sensitive for lists (re-inline preserves source order). Ints and
+    floats that are numerically equal are treated as equal."""
+    diffs = []
+    if isinstance(inlined, bool) or isinstance(source, bool):
+        if inlined is not source:
+            diffs.append((path or "(root)", inlined, source))
+        return diffs
+    if isinstance(inlined, (int, float)) and isinstance(source, (int, float)):
+        if inlined != source:
+            diffs.append((path or "(root)", inlined, source))
+        return diffs
+    if type(inlined) is not type(source):
+        diffs.append((path or "(root)", inlined, source))
+        return diffs
+    if isinstance(inlined, dict):
+        for k in sorted(set(inlined) | set(source), key=str):
+            kp = f"{path}.{k}" if path else k
+            if k not in inlined:
+                diffs.append((kp, "(absent in inlined)", source[k]))
+            elif k not in source:
+                diffs.append((kp, inlined[k], "(absent in source)"))
+            else:
+                diffs.extend(deep_diff(inlined[k], source[k], kp))
+    elif isinstance(inlined, list):
+        if len(inlined) != len(source):
+            diffs.append((f"{path}[length]", len(inlined), len(source)))
+        for i in range(min(len(inlined), len(source))):
+            diffs.extend(deep_diff(inlined[i], source[i], f"{path}[{i}]"))
+    else:
+        if inlined != source:
+            diffs.append((path or "(root)", inlined, source))
+    return diffs
 
 
 def get_inlined_const(html, const_name):
@@ -122,13 +183,24 @@ def check_all():
         if missing_in_inlined or extra_in_inlined:
             any_drift = True
             drift_categories.append(category)
-            print(f"  DRIFT {const_name}: source({len(json_ids)}) ≠ inlined({len(inlined_ids)})")
+            print(f"  DRIFT {const_name}: source({len(json_ids)}) ≠ inlined({len(inlined_ids)}) — STRUCTURE")
             if missing_in_inlined:
-                print(f"    - missing from inlined PLANTS_DATA: {sorted(missing_in_inlined)}")
+                print(f"    - missing from inlined {const_name}: {sorted(missing_in_inlined)}")
             if extra_in_inlined:
                 print(f"    - extra in inlined (not in JSON): {sorted(extra_in_inlined)}")
+            continue
+        # Same entry set — now check CONTENT (the drift the id-set compare is blind to).
+        content_diffs = deep_diff(inlined, json_data)
+        if content_diffs:
+            any_drift = True
+            drift_categories.append(category)
+            print(f"  DRIFT {const_name}: {len(content_diffs)} field(s) differ — CONTENT (inlined ≠ source)")
+            for p, iv, sv in content_diffs[:MAX_DIFFS_SHOWN]:
+                print(f"    - {p}:  inlined={_short(iv)}  →  source={_short(sv)}")
+            if len(content_diffs) > MAX_DIFFS_SHOWN:
+                print(f"    … and {len(content_diffs) - MAX_DIFFS_SHOWN} more")
         else:
-            print(f"  OK    {const_name}: {len(json_ids)} entries, in sync.")
+            print(f"  OK    {const_name}: {len(json_ids)} entries, content in sync.")
 
     if any_drift:
         print()
@@ -138,23 +210,17 @@ def check_all():
 
 
 def fix(drift_categories):
-    """Run wire-photos.py for each drifted category to re-inline the const."""
-    wire_script = os.path.join(ROOT, "tools", "wire-photos.py")
-    if not os.path.isfile(wire_script):
-        print(f"ERROR: wire-photos.py not found at {wire_script}", file=sys.stderr)
-        return 2
+    """Re-inline each drifted category's const directly from its source JSON via
+    the side-effect-free reinline module (no attribution merge, no source rewrite,
+    unlike wire-photos.py). This repairs CONTENT drift, which the old wire-photos
+    path never reached because it was only ever called on structure drift."""
+    const_by_category = {cat: (jf, cn) for jf, cn, _sp, cat in SOURCES}
     for cat in drift_categories:
-        print(f"\n[fix] Re-inlining {cat}...")
-        result = subprocess.run(
-            ["python3", wire_script, "--category", cat],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            print(f"  FAILED: {result.stderr.strip()}")
-            return 3
-        print(f"  {result.stdout.strip()}")
+        jf, const_name = const_by_category[cat]
+        json_path = os.path.join(ROOT, jf)
+        print(f"\n[fix] Re-inlining {const_name} from {jf} …")
+        reinline.reinline_from_source(VIEWER, const_name, json_path)
+        print("  done.")
     print()
     print("[fix] Re-running check to verify...")
     exit_code, _ = check_all()
