@@ -4,6 +4,11 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-13 — Bolores: door speakers in, and the door lock points to wiring
+
+- The Bronco's **door speakers (and their baffles) are now installed** — the amp and subwoofers are still to come.
+- The **driver door power lock** got a new actuator swapped in, and it still doesn't respond — which confirms the trouble is in the **wiring** (the door-jamb boot), not the lock itself. That wire check is the next step.
+
 ## 2026-07-13 — The Tiguan's fender-flare repair, logged
 
 - The **Tiguan** now has its first "what she's had done" entry — a damaged front-right fender flare was replaced (part sourced on eBay). Surfaced from the email-receipt mining.
