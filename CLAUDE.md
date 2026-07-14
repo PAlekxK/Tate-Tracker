@@ -7,8 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Run these first thing when picking up Fernwood, before other work:**
 
 ```bash
-python3 tools/check-data-inline.py     # viewer.html inlines vs source JSON
-python3 tools/check-digest-fresh.py    # Garden Guru's digest vs source JSON
+python3 tools/check-data-inline.py         # viewer.html inlines vs source JSON
+python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
+python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — surface Mom's NEW answers (silent if none)
 ```
 
 `check-data-inline.py` compares the source JSON (`plants.json`, `mammals.json`, `birds.json`, …) against the inlined `*_DATA` constants in `viewer.html`. Exit 0 = in sync (say nothing, move on). Exit 1 = **drift** — surface it.
@@ -23,6 +24,8 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 3. Only then `python3 tools/check-data-inline.py --fix`, verify clean, add a release note, commit.
 
 (Root-cause fix still open: make Guru's promote flow verify its own re-inline commit landed, so this drift can't open silently in the first place.)
+
+`read-mom-feedback.py --pickup` surfaces the ground-truth Mom has settled in **Mama's Perspective** since Paul last reviewed (it reads the Worker's `/api/feedback`; token from `.private/fernwood-token`). Prints a short "N new answer(s)" block with a drafted **ready-to-fold** canon edit per Yes/No answer, or **nothing at all** when there's nothing new (calm, no-noise — matches the app's tone). It **never writes canon** — promotion into `plants.json` (flip a variety's `confidence` inferred→verified, or correct it to what she said) stays Paul's call. When Paul has folded her answers in, run `python3 tools/read-mom-feedback.py --mark-reviewed` to advance the watermark so they stop showing as new. (Note: the viewer now reconciles answered questions against the Worker on load, so a Yes/No answer stops being served on all of Mom's devices automatically — `active:false` in `questions.json` is now just housekeeping, not required to stop re-asking her.)
 
 ## 📋 Canonical backlog → `BACKLOG.md`
 
