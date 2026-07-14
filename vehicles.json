@@ -939,7 +939,15 @@
       "manual": {
         "label": "Owner's manual (2020 ed. — the DR200S is unchanged from your 2017)",
         "url": "https://www.manua.ls/suzuki/dr200s-2020/manual"
-      }
+      },
+      "serviceHistory": [
+        {
+          "date": "2026-07-12",
+          "shop": "DIY (Paul)",
+          "summary": "Replaced the bent handlebars with OEM Suzuki DR200 handlebars (sourced via eBay)",
+          "confidence": "verified"
+        }
+      ]
     },
     {
       "id": "drz400s-2001",
