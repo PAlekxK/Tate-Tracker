@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-14 — Bolores remembers when — the Bronco's own-era story fills in
+
+- Bolores' "what she needs / what she's had done" list gained the work you'd only ever talked through, never written down — a **cruise-control** to-do (the servo's vacuum lines are disconnected) and the **gauge-cluster light** you re-bulbed last fall now sit on the card alongside everything else.
+- The **timing** on a few jobs is truer now: the rear-window/tailgate fixes trace back to their real **Sept–Oct 2025** run, and the driver-door-lock chase to **early 2026** — not the day they happened to get logged. Her history reads in the order you actually lived it.
+
+---
+
 ## 2026-07-14 — Your reads show up on the plants, and more little cards to look through
 
 - When we've only guessed at something from a photo, the plant's card now says so plainly — a small **"our read from a photo"** tag by the name. Once you settle it from the ground, that tag flips to **"confirmed on the ground."** Your eye on the place becomes the record, and you can see it happen.
