@@ -1,6 +1,6 @@
 {
-  "_comment": "Outstanding things only someone at the property can settle. Fetched at load by viewer.html (NOT inlined — no _DATA const, so check-data-inline.py does not track it; a failed fetch just means an absent queue, which is the correct calm behavior). Paul authors a row, commits, pushes; on pickup he acts on the answer (edit plants.json, flip confidence inferred->verified) and sets the row active:false (or deletes it). Mom's answers land via POST /api/feedback with context.{type:'mom-queue',questionId,kind}; Paul reads them with tools/read-mom-feedback.py. Schema is forward-compatible: kind = confirm|react|open, answerMode = yesno|sentiment|text. v1 probe (2026-07-13) seeds confirm items only.",
-  "version": 1,
+  "_comment": "Mama's Perspective — the property's open ground-truth questions, the kind only someone standing on the land can settle. Fetched at load by viewer.html (NOT inlined — no _DATA const, so check-data-inline.py does not track it; a failed fetch just means an absent queue, which is the correct calm behavior). This is a QUEUE, navigable and continuously populatable: Paul adds rows over time, refines them on what Mom engages with, and it is deliberately NOT one-and-done. Framing is Mom <-> app direct (her space to record her read of the place) — do NOT foreground Paul in prompts or acks. Mom's answers land via POST /api/feedback with context.{type:'mom-queue',questionId,kind}; Paul reads them with tools/read-mom-feedback.py, acts on the answer (edit plants.json, flip confidence inferred->verified), and sets the row active:false (or deletes it). Schema is forward-compatible: kind = confirm|react|open, answerMode = yesno|sentiment|text. v1 (2026-07-13) seeds confirm items + one standing open foot-line.",
+  "version": 2,
   "questions": [
     {
       "id": "q-crocosmia-lucifer",
@@ -21,13 +21,22 @@
       "active": true
     },
     {
+      "id": "q-panicle-hydrangea-bloom",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The **panicle hydrangea** — has it opened yet? We have it pegged to flower around now, but that's an estimate off the book, not something we've actually seen. Any blooms out there?",
+      "entityRef": { "type": "plant", "id": "panicle-hydrangea" },
+      "createdAt": "2026-07-13",
+      "active": true
+    },
+    {
       "id": "q-open-standing",
       "kind": "open",
       "answerMode": "text",
-      "prompt": "Anything else on your mind — a plant we're missing, a date that's off, something about the app? Set it down here and Paul will see it.",
+      "prompt": "Anything else you've noticed about the place — a plant we're missing, a date that seems off, something about the app? Set it down here.",
       "createdAt": "2026-07-13",
       "active": true,
-      "_note": "The standing general-feedback channel — deliberately one quiet foot-line, not a co-equal item. Repeatable (never dismissed). Its note-only answers need the /api/feedback relax deployed (tools/deploy-worker.sh) to reach the server; until then the localStorage backup holds them. Set active:false to remove the line entirely."
+      "_note": "The standing general channel — deliberately one quiet foot-line, not a co-equal card. Repeatable (never dismissed). Its note-only answers need the /api/feedback relax deployed (already live 2026-07-13); until then the localStorage backup holds them. Set active:false to remove the line entirely."
     }
   ]
 }
