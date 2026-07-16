@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-16 — When you set something down, it stays down
+
+- **Setting something down now works on any device you happen to be on** — a laptop, a borrowed phone, one you've never used here before. It used to quietly need a setup step first, and without it your words went nowhere.
+- **"It's in the record" now means it.** That line only appears once your words have actually arrived. If you're out of signal, you'll get an honest **"Saved on your phone — it'll reach the record when you're back in signal"** instead, and they go up on their own the next time you're connected. Nothing to remember, nothing to re-type.
+- **If something does go wrong, your words stay on the screen** where you can see them, and the app says so plainly rather than pretending.
+
+---
+
 ## 2026-07-14 — Bolores remembers when — the Bronco's own-era story fills in
 
 - Bolores' "what she needs / what she's had done" list gained the work you'd only ever talked through, never written down — a **cruise-control** to-do (the servo's vacuum lines are disconnected) and the **gauge-cluster light** you re-bulbed last fall now sit on the card alongside everything else.

@@ -1,7 +1,9 @@
 {
   "_meta": {
     "purpose": "Optional deviceId → person mapping read by tools/analyze-fernwood.py. If this file is absent, the device table shows raw deviceIds.",
-    "lastUpdated": "2026-07-10"
+    "lastUpdated": "2026-07-16",
+    "ATTRIBUTION_IS_INVALID": "A deviceId is NOT a person, and this map must not be read as engagement-per-person (W1.5, 2026-07-16). Two independent reasons: (1) Paul shares his phone with Mom, so entries below attribute a shared device to one name; (2) until 2026-07-16 every write path gated on per-device pairing, so an UNPAIRED device produced zero records of any kind — on 2026-07-15 Mom's MacBook wrote nothing across all four streams while the UI acknowledged success. A device absent from the data is therefore indistinguishable from a person who never showed up. Do not conclude anything about who engaged from a deviceId, and do not re-guess the mapping to patch it — the fix is capture that works without pairing (shipped 2026-07-16) plus the new context.paired flag on each feedback record, which says whether the writing device was ever paired.",
+    "mappingBelowIsRetained": "Kept as corroborating evidence of what was observed, NOT as a current attribution claim."
   },
   "people": [
     {
