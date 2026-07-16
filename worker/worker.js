@@ -85,6 +85,48 @@ function authOk(request, env) {
   return env.SHARED_TOKEN && tok && tok === env.SHARED_TOKEN;
 }
 
+// ---- Write-only capture exception (2026-07-16) ----
+// WHY THIS EXISTS. On 2026-07-15 Mom wrote substantive feedback on her MacBook —
+// a device that had never been paired with the token. Every write path gates on
+// the same per-device localStorage token, so postFeedback() silently no-op'd,
+// metrics never flushed, and the UI still told her "Noted — it's in the record.
+// ✓". Her words were lost and the failure was invisible to Paul: a dark device
+// looks exactly like disengagement. Per-device pairing made her PRIMARY device a
+// silent void.
+//
+// So: POST /api/feedback is allowed WITHOUT a token. It is write-only and
+// low-risk — it appends a size-capped record to a dated KV key. GET stays
+// token-gated, so nobody can READ her words. Every other endpoint keeps the
+// token, where it earns it: /api/chat is real Anthropic spend;
+// promote/remove-species write and DELETE public canon.
+//
+// Threat model, honestly: an unauthenticated writer could append junk to a
+// garden journal's feedback log. Rate-limited and size-capped, that's graffiti
+// in a notebook — recoverable, and strictly better than losing the ground-truth
+// of the one person who has it.
+const FEEDBACK_MAX_BYTES = 8 * 1024;   // a note is capped at 2000 chars downstream
+const FEEDBACK_RATE_MAX = 20;          // per IP, per window
+const FEEDBACK_RATE_WINDOW_SEC = 300;  // 5 minutes
+
+async function feedbackRateLimitOk(request, env) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
+  const key = `ratelimit:feedback:${ip}:${bucket}`;
+  try {
+    const raw = await env.OBSERVATIONS.get(key);
+    const n = raw ? parseInt(raw, 10) || 0 : 0;
+    if (n >= FEEDBACK_RATE_MAX) return false;
+    await env.OBSERVATIONS.put(key, String(n + 1), {
+      expirationTtl: FEEDBACK_RATE_WINDOW_SEC * 2,
+    });
+    return true;
+  } catch (e) {
+    // Fail OPEN. A rate-limiter outage must never be the thing that eats her
+    // words — that is the exact failure this whole change exists to end.
+    return true;
+  }
+}
+
 // ---- Observations ----
 
 async function loadObservations(env) {
@@ -1895,6 +1937,17 @@ export default {
           openai: !!env.OPENAI_API_KEY,
         },
       });
+    }
+
+    // Capture must work on ANY device she ever opens, with zero pairing. This
+    // sits AHEAD of the auth gate deliberately — see feedbackRateLimitOk above
+    // for the 2026-07-15 loss that motivates it. Write-only: GET /api/feedback
+    // still falls through to the token gate below.
+    if (url.pathname === "/api/feedback" && request.method === "POST" && !authOk(request, env)) {
+      const len = parseInt(request.headers.get("Content-Length") || "0", 10);
+      if (len > FEEDBACK_MAX_BYTES) return json({ error: "too-large" }, 413);
+      if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      return handleFeedback(request, env, url);
     }
 
     if (!authOk(request, env)) return unauthorized();

@@ -17,6 +17,60 @@ session — keep them for the trail, but do **not** read them as current status.
 
 ---
 
+## 🔴 ACTIVE — Mom's map (opened 2026-07-16, awaiting Paul's green light)
+
+**Full plan: `~/.claude/plans/stateless-growing-hopcroft.md`. Record of her feedback:
+`.user-research/2026-07-16-mom-feedback-relay.md`. Nothing is deployed; nothing is pushed.**
+
+**What happened.** On **2026-07-15 Mom wrote substantive feedback into Fernwood and every word
+was lost.** She was on her **MacBook** — never paired with the Worker token. Every write path
+(feedback, observations, *and* telemetry) gates on the same per-device `isConfigured()`, so it all
+silently no-op'd while the app told her **"Noted — it's in the record. ✓"**. Second lost-capture
+incident (first 2026-07-03), same root: capture fails silently while the UI acknowledges success it
+never verified. **Worst property: a dark device is indistinguishable from disengagement — this bug
+was positioned to make Paul conclude she wasn't using the app at the exact moment he was deciding
+whether she engages. Fernwood currently cannot measure Mom.**
+
+**Her asks** (Paul's relay — her verbatim is unrecoverable; testimony, not quotes): every plant
+should carry **a picture she selects** + a clear description + a **zone**; a **general feedback
+field, clearly labeled**; **three stacked text boxes is confusing**; **confirm cards must show a
+picture** of the plant being asked about.
+
+**The finding underneath all of it:** the record isn't about her place. **24/26 plants have
+`zoneId: null`**; **18/26 photos are Wikimedia stock** (a stranger's photo of the species); 6 have
+none; **the confirm card has no `<img>` at all**. She was asked *"is this crocosmia 'Lucifer'?"* —
+a question about a photograph — shown no photograph, of a plant we hold no photograph of. She said
+Yes. It's canon.
+
+| # | Item | Status |
+|---|---|---|
+| **W1** | **Fix capture** — open write-only `POST /api/feedback` (Paul's chosen auth model, 2026-07-16); await the POST, ack only on 2xx; durable outbox (replays her 7/15 words off the MacBook for free); a dark device must announce itself; `people.json` attribution is invalid (Paul shares his phone with her). | **APPROVED — unblocked.** Worker edit written, uncommitted, **not deployed**. |
+| **W0** | **Replace the basemap** — it's a Google Earth Pro screenshot with a **macOS notification baked into the sky**, oblique 3-D, **March 2015 leaf-off**. The only 2 `confirmed` zones are the only 2 legible features. **Blocks W2 mechanically**: vertices are fractional coords *of that image*, so swapping it moves every polygon. Want nadir + leaf-on + no chrome (`tools/fetch-aerial.py` + NAIP pipeline + unused ESRI z17–19 tiles already exist). | BLOCKS W2 |
+| **W2** | **Zones — Paul draws, she reconciles.** Paul walked them with her; he's sure; he draws (not relitigated). Tag each `heard-from-her` vs `paul-inferred`. Fix the `property.json.propertyZones` placeholder-stub SSOT break. **Demote the confirm button** — ask *"which of these is wrong?"*: a confirm cannot surface an omission, and her base rate is 2-for-2 Yes. The disagreement UI **already exists** (built May, never pointed at her). | GATED on W0 |
+| **W3** | **"What's growing here?" — voice, not text.** Tap a zone → 🎤. Her constraint is *text*, not speech (22 A/A+ events). **Store the audio, not the transcript** (Web Speech mangles the nicknames we're mining for). Wire the existing `createVoiceCapture` (`viewer.html:14929`) to every free-response field — **MomQueue has no mic today**. Map to position 1, time-boxed 4 weeks, **no wizard/counter/progress**. | GATED on W2 |
+| **W4** | **Photos on confirm cards** (her ask #4). Interim rule: **don't ask what you can't show.** Consider re-opening the two 7/13 answers folded to canon off photoless photograph-questions. | GATED on W3 photo path |
+| **W5** | **The three boxes.** All three live in one `<section class="unified-input">`; the note + general field are the **same CSS class** 120px apart; composer and feedback toggle ask **the same sentence**. A label can't carry it for someone who reads with difficulty — **the disambiguator is a person**: *"Something to tell Paul about the app?"* | AFTER W1 |
+| **W-PRIV** | **⚠️ Mom's research files are on the public internet.** `.user-research/persona-mom.md` + 19 tracked files in the public repo — her reading difficulty, age, behavior analysis. **Paul's call; blocks push.** This session is committed locally only. | **PAUL** |
+
+**KILLED (don't revive without new evidence):** the **24-row editable plant table** — all five
+experts rejected it as an **invalid instrument** (a null result can't distinguish "doesn't want
+ownership" from "can't read a table," but would read as the first and retire her one unprompted ask
+on a rigged test; ⭐ precedent: 0 uses / 104 sessions). The gap view is **Paul's** `tools/` script,
+not her surface. Also killed: **EXIF→zone auto-placement** (no georeference; and don't automate the
+highest-ownership moment in the plan); **baking the God-token** into the public deploy;
+**AI-for-drudgery** (AI-at-scale is what *produced* the 18 stock photos — "24 is your number, not hers").
+
+**Doctrine amendments forced (proposed, unapplied):** retire **"open feedback → DON'T BUILD"** (she
+asked for it unprompted; her direct ask outranks the 7/13 panel inference) · the **AI boundary should
+be a *provenance* rule, not a model rule** (the stock photos + generic guides came from **zero AI
+calls** — the harm arrived by a route the rule doesn't cover) · `feedback_defer_affordances_pending_signal`
+— **this is the signal** that gate was waiting for.
+
+**Supersedes** the "Mama's Perspective validation gate" below: the gate never ran. Both 7/13 answers
+were gimmes and 7/15 was zero across four streams.
+
+---
+
 ## ✅ Just shipped (2026-07-14) — all live on `main` (GH Pages), no Worker change
 
 **Plant look-fors bumped up to the Plants tile as a check-it prompt.** The day's top *plant*

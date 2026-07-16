@@ -1,0 +1,235 @@
+{
+  "review_id": "path-2026-07-16-mom-ownership-and-capture",
+  "project": "fernwood",
+  "subject": "Two paths: (1) fix the silent-failure capture path after the 2026-07-15 lost-capture incident; (2) the data-ownership mechanism letting Mom write plant zone/photo/description",
+  "review_date": "2026-07-16",
+  "reviewer_mode": "path-evaluation",
+  "user_context": {
+    "primary_user": "Mom — the make-or-break Fernwood user. Standing on the property; the only person who can settle ground truth. A Claude-on-her-laptop power user, so her MacBook is a PRIMARY device, not an edge case.",
+    "core_jobs_to_be_done": [
+      "Tell Paul something about the place and have it actually land",
+      "Own the record of her own property — the plant table: name, zone, and a photo SHE selects",
+      "Know, honestly, whether her words were saved"
+    ],
+    "context_of_use": "Rural mountain property, 2,959 ft. Offline/flaky network is normal. Multiple devices (iPhone + MacBook), only some of which Paul ever paired.",
+    "sources": [
+      ".user-research/2026-07-16-mom-feedback-relay.md",
+      "CLAUDE.md (Mama's Perspective loop spec; glance/repository/loop principle)",
+      "~/.claude/engineering-principles/fernwood.md"
+    ],
+    "assumptions_made": [
+      "Her three asks (photo she selects / clear description / zone placement) are one ask: ownership of the record. Taken from the research doc's synthesis, which is [relayed] not verbatim.",
+      "Root cause (Mom on an unconfigured MacBook) is Paul-confirmed via the coordinator, not independently observed by me — an unconfigured device is invisible by construction, so it cannot be positively confirmed from telemetry. My telemetry work independently ELIMINATED every competing hypothesis, which is the strongest corroboration available."
+    ],
+    "user_context_confidence": "high"
+  },
+  "code_context": {
+    "purpose": "Family field-journal dashboard. Capture path must be deterministic + AI-free; trust is the load-bearing emotion.",
+    "stack": "Single-file viewer.html (no build step) on public GitHub Pages + Cloudflare Worker + KV. Canon = git-committed *.json, re-inlined into viewer.html.",
+    "conventions_observed": [
+      "KV-first + git-commit dual write already shipped and trusted in handleZoneSave (worker.js:2017) — KV is the freshness path, git is canon + cold-start fallback",
+      "Mom ALREADY has direct write-to-canon rights for creating whole species (handlePromoteSpecies, Option C since 2026-05-21) behind a double-confirm",
+      "sanitize-at-the-storage-boundary is an established, applied principle (sanitizeZone)",
+      "Photos already live in the repo and are committed via the GitHub Contents API by handlePromoteSpecies; GH Pages serves them",
+      "AI boundary: AI never touches Mom's surface or Mom's words"
+    ],
+    "deployment_context": "mom-ready",
+    "robustness_level": "shippable",
+    "assumptions_made": [
+      "No R2 binding exists — worker/wrangler.toml declares only the OBSERVATIONS KV namespace"
+    ],
+    "code_context_confidence": "high"
+  },
+  "tooling_signals": {
+    "type_check": "n/a",
+    "linter": "n/a",
+    "tests": "not-run",
+    "notes": "Evidence gathered by read-only authenticated GETs against Paul's own Worker (/api/metrics, /api/feedback, /api/observations) — the same calls tools/read-mom-feedback.py makes at every session start. No writes performed."
+  },
+  "principles_applied": [
+    "Capture path stays pure; batch and amortize (fernwood.md)",
+    "Field-captured free text lands in the private store; canon grows only by hand (fernwood.md)",
+    "Storage mirrors existing shape (fernwood.md)",
+    "Sanitize at the storage boundary (feedback_sanitize_at_storage_boundary)",
+    "Loud failure beats silent fallback (cross-project)",
+    "Don't over-engineer small projects (foundation)",
+    "Single source of truth per concept (feedback_single_source_of_truth)"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "critical",
+      "location": "viewer.html:8696-8706 (postFeedback) + viewer.html:8682-8693 (sendGeneral)",
+      "observation": "postFeedback() is wrapped in `if (WorkerAPI.isConfigured())`. When false, the entire function body is skipped — no POST, no throw, no return value. sendGeneral() then unconditionally calls showAck(\"Noted — it's in the record. ✓\"). On an unpaired device the app tells her, every single time, that words it never transmitted are safe.",
+      "risk_or_impact": "This is the whole incident. It is not a network bug — it is the app asserting a fact it never checked. At this project's stakes the cost isn't downtime, it's Mom's trust and her actual words, twice lost (7/03, 7/15). CLAUDE.md names trust as the load-bearing emotion; this is the single line of code most directly opposed to that.",
+      "principle_invoked": "Loud failure beats silent fallback",
+      "the_why": "An acknowledgement is a claim about state. A claim you haven't verified is a guess, and a guess rendered as '✓' is a lie the user has no way to audit. The right shape is that the ack is DERIVED from the write result, never issued in parallel with it — so the success message becomes structurally unable to appear without a success.",
+      "recommendation": "Make postFeedback() return a Promise that resolves on a 2xx and rejects otherwise (including a synchronous reject when unconfigured — never a silent no-op). sendGeneral() awaits it: ack only on resolve; on reject, keep her text on screen and say what's true ('Saved on this device — not yet in the record'). Never `.catch()` a capture failure to console.warn.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "critical",
+      "location": "viewer.html:13122-13151 (WorkerAPI/cfg/isConfigured), :13232 (MetricsCollector.flush), :8697 (postFeedback)",
+      "observation": "Every write path — feedback, observations, zone-feedback, conversations, AND metrics — gates on the same per-device localStorage key `tateTracker.sync.v1`. An unpaired device therefore emits NOTHING: no data and no telemetry about the absence of data. It is invisible to Paul by construction.",
+      "risk_or_impact": "The most damaging property of this bug is not the lost words — it's that Mom trying hard and Mom not using the app produce byte-identical evidence. Paul was one inference away from concluding she'd disengaged, at exactly the moment the Grow/Kill validation gate is open. A monitoring system that cannot distinguish 'no signal' from 'no sensor' will mislead the person reading it.",
+      "principle_invoked": "Loud failure beats silent fallback",
+      "the_why": "Gating the health beacon on the same condition it's supposed to report is a classic self-defeating monitor — the alarm is wired to the thing that fails. Whatever else changes, the capture path must not be able to fail into perfect silence.",
+      "recommendation": "Break the shared gate. See F3 for the structural fix (un-auth capture, so there are no dark devices). Whatever the auth outcome, an unconfigured device must announce itself on load rather than no-op.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "intent": "suggestion",
+      "area": "security",
+      "severity": "important",
+      "location": "worker/worker.js:1806 (handleFeedback) + the shared SHARED_TOKEN auth model",
+      "observation": "One God-token authorizes everything: /api/feedback (junk risk) but also /api/chat (Anthropic spend), /api/promote-species and /api/remove-species (writes and DELETES canon in the public repo), /api/zone-save, /api/admin/clean-observations. Because capture rides the same token as spend-and-canon, capture inherits a pairing requirement it doesn't need — and that requirement is what ate her words.",
+      "risk_or_impact": "The path that must NEVER fail is coupled to the strictest auth in the system, for no benefit. Meanwhile every new device Mom opens is a permanent void until Paul manually pairs it.",
+      "principle_invoked": "Match the gate to what's actually at risk",
+      "the_why": "Auth should be proportional to what an attacker gains. On a write-only feedback endpoint an attacker gains: the ability to put junk in Paul's queue. They must first know an unlisted Worker URL; they cannot read anything, spend anything, or touch canon. That is a genuinely low-value target for a family garden app. Contrast /api/chat (real money) and /api/promote-species (writes a public git repo) — those earn their token. Splitting the model by what's at risk is what lets capture become unconditional.",
+      "recommendation": "Split auth by risk class. Allow UNAUTHENTICATED POST to /api/feedback (write-only; GET stays token-gated so nobody can read her words). Defend with cheap non-auth controls instead: cap note length (2000 already), cap body size, per-IP rate limit, and keep the existing sanitize-at-boundary. Keep the God-token exactly where it earns its keep — chat, promote/remove-species, zone-save, admin. Net effect: capture works on ANY device she ever opens, forever, with zero pairing, and the dark-device failure class stops existing.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "intent": "issue",
+      "area": "security",
+      "severity": "critical",
+      "location": "viewer.html (public GH Pages) — re: the 'bake the token into the deploy' option",
+      "observation": "One option on the table is baking the token into the deployed app. The Fernwood repo is PUBLIC and served from GitHub Pages.",
+      "risk_or_impact": "This would publish the God-token to the open internet: anyone could spend Paul's Anthropic budget without limit, rewrite plants.json, and call /api/remove-species to delete canon from the public repo. It would also land the token permanently in git history — the exact class of mistake that already cost a painful filter-repo + force-push for VINs on 2026-06-12.",
+      "principle_invoked": "Never commit a secret to a public repo",
+      "the_why": "Flagging this precisely because it's the most tempting fix — it's one line and it makes the symptom vanish. But 'the client needs the secret' plus 'the client is public' means the secret is public. The correct move isn't to hide the token better in a public file; it's to remove capture's NEED for a secret (F3).",
+      "recommendation": "Do not bake the token into viewer.html. If a pairing link is wanted for the authed surfaces (chat/canon), use a URL-fragment link Paul texts her (`viewer.html#pair=<token>`) — fragments are never sent to the server, so it stays out of GH Pages logs — and strip the fragment immediately after storing. Treat that as a convenience bridge for the spend/canon surfaces only, NOT as capture's safety net.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "intent": "suggestion",
+      "area": "error-handling",
+      "severity": "important",
+      "location": "viewer.html — capture surfaces (MomQueue, ObservationStore, zone feedback)",
+      "observation": "There is a localStorage backup (GENERAL_LOG_KEY, viewer.html:8686-8689) but it is terminal: nothing ever replays it to the server. It preserved her words on a machine Paul cannot read.",
+      "risk_or_impact": "A backup nobody can retrieve is not a backup; it's a souvenir. This is precisely why localStorage-only failed Paul — durability without reachability solved nothing.",
+      "principle_invoked": "Capture path stays pure; batch and amortize (the existing MetricsCollector buffer is the proven local pattern)",
+      "the_why": "Her device is on a mountain — offline is normal, not exceptional, so a durable local queue IS correct. The missing half is replay: the queue must drain to the server on the next successful load. That's what converts a device-local backup into an eventually-server-side record Paul can actually read. Note the honest limit: an outbox alone would NOT have saved 7/15 — on an unpaired device there is nowhere to retry TO. The outbox only becomes a real safety net once capture is unauthenticated (F3). The two fixes are complements, not alternatives.",
+      "recommendation": "Add a durable outbox for capture writes: append to localStorage on submit, POST immediately, delete from the outbox only on a 2xx, and replay any residue on next load. Mirror MetricsCollector's existing buffer shape rather than inventing a new one.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "intent": "praise",
+      "area": "other",
+      "severity": "nice-to-have",
+      "location": "worker/worker.js:2017 (handleZoneSave)",
+      "observation": "handleZoneSave already does exactly the right thing for a Mom-authored write: sanitize at the boundary, write KV first (freshness path, bypasses the GH Pages deploy tail), then commit git as canon + cold-start fallback — with an explicit comment explaining why KV goes first.",
+      "risk_or_impact": "n/a — this is the pattern the ownership path should copy rather than reinvent.",
+      "principle_invoked": "Storage mirrors existing shape",
+      "the_why": "It's worth naming because it already solves, in shipped code, the two problems the ownership path will hit: the deploy-tail staleness AND the Lizard's-Tail failure class (if the viewer.html re-inline commit doesn't land, KV still serves the truth). The next feature should look like this one.",
+      "recommendation": "Reuse this shape for plant edits. Don't invent a third write pattern.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "intent": "suggestion",
+      "area": "code-quality",
+      "severity": "important",
+      "location": "New: worker.js handlePlantEdit + viewer.html plant card edit affordance",
+      "observation": "PATH 2 RECOMMENDATION. Three candidate shapes: (A) KV overlay merged over canon at render; (B) direct-to-canon via Worker; (C) proposal queue Paul folds like fold-answer.py. Recommending B, scoped by field type.",
+      "risk_or_impact": "24 of 26 plants need a zone assigned and 18 carry stock Wikimedia photos. Routing ~40 edits through a Paul-folds-by-hand queue means ~40 terminal sessions; the fold ritual does not survive contact with data entry at this volume. Option A (overlay) is rejected on single-source-of-truth grounds — it creates a permanent second home for plant data that git canon silently disagrees with.",
+      "principle_invoked": "Single source of truth per concept + Field-captured free text lands in the private store",
+      "the_why": "The fold ritual exists for a specific reason, and it's worth being precise about what that reason IS: it guards JUDGMENT CALLS (is this cultivar 'Lucifer'?) and FREE PROSE (which can carry PII into a public repo). It does not exist to guard ground truth Mom owns outright. zoneId is not a judgment call — she is standing in the Eastern Garden looking at the hydrangea — and it's a closed vocabulary of 8 known zone ids, so a bad write is a dropdown that won't submit, not a review problem. Note the precedent that settles it: Mom has had DIRECT write-to-canon rights for CREATING entire species since 2026-05-21 (handlePromoteSpecies). Setting zoneId on an existing plant is strictly less dangerous than authoring a whole entry. Denying her a dropdown while granting her entry-creation is inconsistent.",
+      "recommendation": "New POST /api/plant-edit, modeled field-for-field on handleZoneSave (sanitize → KV first → git commit + re-inline). Scope it to a strict allow-list:\n• zoneId → DIRECT to canon. Dropdown of the 8 zone ids from /api/zones; reject any value not in the set.\n• photo she selects → DIRECT to canon. Reuse handlePromoteSpecies' existing photo-commit path.\n• free-text description → NOT direct. Route to the private ObservationStore; Paul folds. This honors the standing fernwood principle that field-captured free text never lands in the public git canon.\n• common/scientific name → do NOT build a second path. Mama's Perspective + fold-answer.py already serve this well.",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "intent": "suggestion",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "Photo storage decision — R2 vs KV vs git",
+      "observation": "The question was framed as R2 vs KV, citing /api/audio-upload as precedent. But audio-upload (worker.js:720) is a deliberately TRANSIENT store — KV with a 1-hour TTL, explicitly so orphans get garbage-collected. It is not a precedent for durable images.",
+      "risk_or_impact": "Adding R2 means a new binding, a new public-URL surface, and a second home for photos while git already holds them — a single-source-of-truth violation. KV means a 25MB value ceiling and Worker egress on every image view.",
+      "principle_invoked": "Single source of truth per concept + don't over-engineer small projects",
+      "the_why": "Photos already live in the repo, GH Pages already serves them for free with CDN caching, and handlePromoteSpecies already commits image files via the Contents API — Mom has been committing photos through that path since May. The incumbent store is already correct and already proven; introducing R2 for ~26 images at family scale is buying infrastructure to solve a problem that doesn't exist.",
+      "recommendation": "Neither R2 nor KV — reuse the existing git photo-commit path. Revisit only if photo volume grows past what's comfortable in the repo, which is not a 2026 problem.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "intent": "issue",
+      "area": "other",
+      "severity": "important",
+      "location": "tools/people.json",
+      "observation": "people.json maps mom → `d-14nyhnjz-5lh01604-mpevr35o`. That is falsified by hard evidence: Mom's two 7/13 confirms (q-crocosmia-lucifer, q-white-mophead-annabelle — the answers Paul folded to canon as HER ground truth) carry deviceId `d-szqlt0h7-79xgx1bj-mpfrqkme`. Those feedback records are Mom by definition. Meanwhile `mpevr35o` was active every day 7/13–7/16 including 7/15, and per the coordinator posted the 'Test by Paul' observations.",
+      "risk_or_impact": "Paul's read of 'Mom uses this daily' may be substantially his own usage reflected back at him. Her actual iPhone appears in metrics on 7/13 ONLY across the 7/13–7/16 window. The Grow/Kill validation gate is currently being judged against corrupted attribution — this could produce exactly the wrong call in either direction.",
+      "principle_invoked": "Model-read values are hypotheses until verified",
+      "the_why": "The original mom→mpevr35o mapping was a behavioral INFERENCE from the 5/26 rollup ('only device that used the A/A+ text-size toggle; most-active daily'), later written into people.json as if confirmed. A feedback record carrying a deviceId is deterministic evidence; a usage-pattern inference is not. When the two disagree, the deterministic one wins.",
+      "recommendation": "Correct people.json: mom → `d-szqlt0h7-79xgx1bj-mpfrqkme`. Leave `d-14nyhnjz-5lh01604-mpevr35o` UNATTRIBUTED pending Paul's confirmation rather than reassigning it to him on my inference — I have not independently verified its owner. Then re-read the validation gate with corrected attribution before making any Grow/Kill call.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "intent": "suggestion",
+      "area": "other",
+      "severity": "nice-to-have",
+      "location": "Recovery of the 7/15 words — localStorage['tateTracker.momQueue.general.v1'] on Mom's MacBook",
+      "observation": "Her actual verbatim words from 7/15 are still on the MacBook in that key. The research doc records a decision not to attempt device recovery, made when the cause was believed to be an unrecoverable device-level failure. That premise has changed: we now know exactly which key on which machine.",
+      "risk_or_impact": "Upside is recovering her real words and retiring the [relayed] provenance on the whole document. Downside is asking Mom to do something technical, which has its own cost.",
+      "principle_invoked": "Log the human's words, not the model's",
+      "the_why": "The elegant version costs her nothing: if F3 (un-authed capture) and F5 (outbox replay) ship together, then the next time she simply OPENS the app on that MacBook, the queued words post themselves. No console, no instructions, no asking her to be technical — and it doubles as a live end-to-end validation of the fix.",
+      "recommendation": "Do not chase this now. Ship F3+F5, then ask her to open Fernwood on the MacBook once and watch /api/feedback. Only if that fails, fall back to a texted console one-liner. Paul's call — flagging that the recovery decision was made on a premise that no longer holds.",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "intent": "question",
+      "area": "other",
+      "severity": "nice-to-have",
+      "location": "viewer.html:8642-8652 (buildGeneral) — the general-feedback affordance",
+      "observation": "The general field exists, but as a collapsed foot-line reading 'Anything else you've noticed? Set it down ›', shown only when an 'open' question row is active. Her ask #2 was for 'a general feedback field, CLEARLY LABELED as such' — she asked for a thing that already exists, which is itself evidence she couldn't find or recognize it. Her ask #3 (three stacked boxes, couldn't tell them apart) is the same signal.",
+      "risk_or_impact": "If the fix ships and the field still isn't findable, the capture path will be honest and still unused.",
+      "principle_invoked": "n/a — flagging a boundary, not asserting a fix",
+      "the_why": "This is UI/labeling/IA, which is ux-expert's call, not mine — I'm noting it because the engineering fix (honest ack, working transport) is necessary but not sufficient for Paul's actual goal of getting her input. Worth a ux-expert pass on the three-box composer once capture is trustworthy.",
+      "recommendation": "Route the labeling + three-box IA question to ux-expert. Out of scope for this path-eval.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "F3 is the load-bearing call: are you OK with an unauthenticated write-only POST /api/feedback (rate-limited, size-capped, GET still token-gated)? It's what structurally kills the dark-device class. The cost is that someone who discovers the Worker URL could put junk in your queue.",
+    "F9: who actually owns `d-14nyhnjz-5lh01604-mpevr35o`? It's been labeled Mom in people.json since 7/11 and the two real confirms say otherwise. This changes how you read the Grow/Kill gate.",
+    "F7: comfortable with Mom writing zoneId + photo straight to git canon (dropdown-constrained, no free text)? She's had entry-CREATION rights since 5/21, so this is a narrowing, not an expansion — but it's your canon.",
+    "F10: still want to leave her 7/15 words on the MacBook, now that we know the exact key and a zero-effort recovery exists?"
+  ],
+  "follow_up_research_suggested": [
+    "ux-expert: the three-box composer + a findable, clearly-labeled general feedback field (her asks #2 and #3)",
+    "user-researcher: re-read the Mama's Perspective validation gate after people.json is corrected — n and engagement may both be wrong"
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "An acknowledgement must be derived from the write result, never issued alongside it",
+      "scope": "cross-project",
+      "rationale": "Two lost-capture incidents (7/03, 7/15) trace to showAck() running unconditionally next to a fire-and-forget POST. The durable rule isn't 'await your POSTs' — it's that success messaging must be structurally unable to render without a success, so the two can never drift apart."
+    },
+    {
+      "principle": "Never gate the health beacon on the condition it reports",
+      "scope": "cross-project",
+      "rationale": "Metrics, feedback, and observations all gated on the same isConfigured() check, so a broken device produced perfect silence — indistinguishable from disengagement. A monitor wired to the thing it monitors cannot report that thing's failure."
+    },
+    {
+      "principle": "Match the gate to what's actually at risk",
+      "scope": "cross-project",
+      "rationale": "Fernwood's capture path inherited a God-token's pairing requirement for no benefit, and that requirement is what ate Mom's words. Auth should be proportional to what an attacker gains: write-only feedback earns almost none, /api/chat and /api/promote-species earn a lot."
+    },
+    {
+      "principle": "Closed-vocabulary ground truth the user owns can go straight to canon; free prose and judgment calls keep the human fold",
+      "scope": "fernwood",
+      "rationale": "The boundary that resolves the ownership path. The fold ritual guards judgment (cultivar IDs) and PII-bearing free prose — not enumerable facts Mom is standing in front of. Names the reason the ritual exists so it can be applied rather than cargo-culted."
+    }
+  ]
+}
