@@ -17,7 +17,7 @@ session — keep them for the trail, but do **not** read them as current status.
 
 ---
 
-## 🔴 ACTIVE — Mom's map (opened 2026-07-16, awaiting Paul's green light)
+## 🔴 ACTIVE — Mom's map (opened 2026-07-16; **W1 shipped 2026-07-16**, rest awaiting Paul)
 
 **Full plan: `~/.claude/plans/stateless-growing-hopcroft.md`. Record of her feedback:
 `.user-research/2026-07-16-mom-feedback-relay.md`. Nothing is deployed; nothing is pushed.**
@@ -44,7 +44,7 @@ Yes. It's canon.
 
 | # | Item | Status |
 |---|---|---|
-| **W1** | **Fix capture** — open write-only `POST /api/feedback` (Paul's chosen auth model, 2026-07-16); await the POST, ack only on 2xx; durable outbox (replays her 7/15 words off the MacBook for free); a dark device must announce itself; `people.json` attribution is invalid (Paul shares his phone with her). | **APPROVED — unblocked.** Worker edit written, uncommitted, **not deployed**. |
+| **W1** | **Fix capture** — open write-only `POST /api/feedback` (Paul's chosen auth model, 2026-07-16); await the POST, ack only on 2xx; durable outbox (replays her 7/15 words off the MacBook for free); a dark device must announce itself; `people.json` attribution is invalid (Paul shares his phone with her). | **✅ SHIPPED 2026-07-16** (`33541bf`). Worker **deployed + verified live** (unpaired POST 200; replay dedupes; GET still 401; 9KB→413). Client W1.2–W1.5 written, browser-verified, **pushed**. ⏳ *GH Pages was still serving the old bundle ~18 min after the push — GitHub was in a **partially degraded** state (API degraded). The fix reaches her device when Pages rebuilds; **confirm the served file contains `feedbackOutbox`** before trusting it.* Baked `FEEDBACK_ENDPOINT` was required and unplanned: `cfg()` needs a token AND a url, so a dark device had nowhere to POST. |
 | **W0** | **Replace the basemap** — it's a Google Earth Pro screenshot with a **macOS notification baked into the sky**, oblique 3-D, **March 2015 leaf-off**. The only 2 `confirmed` zones are the only 2 legible features. **Blocks W2 mechanically**: vertices are fractional coords *of that image*, so swapping it moves every polygon. Want nadir + leaf-on + no chrome (`tools/fetch-aerial.py` + NAIP pipeline + unused ESRI z17–19 tiles already exist). | BLOCKS W2 |
 | **W2** | **Zones — Paul draws, she reconciles.** Paul walked them with her; he's sure; he draws (not relitigated). Tag each `heard-from-her` vs `paul-inferred`. Fix the `property.json.propertyZones` placeholder-stub SSOT break. **Demote the confirm button** — ask *"which of these is wrong?"*: a confirm cannot surface an omission, and her base rate is 2-for-2 Yes. The disagreement UI **already exists** (built May, never pointed at her). | GATED on W0 |
 | **W3** | **"What's growing here?" — voice, not text.** Tap a zone → 🎤. Her constraint is *text*, not speech (22 A/A+ events). **Store the audio, not the transcript** (Web Speech mangles the nicknames we're mining for). Wire the existing `createVoiceCapture` (`viewer.html:14929`) to every free-response field — **MomQueue has no mic today**. Map to position 1, time-boxed 4 weeks, **no wizard/counter/progress**. | GATED on W2 |
