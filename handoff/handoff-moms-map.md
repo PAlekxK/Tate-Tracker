@@ -1,6 +1,6 @@
 # Handoff: Mom's map (Fernwood)
 
-<!-- generated 2026-07-16 10:13 AM EDT · sources: /Users/paulkirschenbauer/Developer/Tate-Tracker@4cb3f83 · RECEIVER: verify shas vs HEAD before trusting any status below -->
+<!-- generated 2026-07-16 10:31 AM EDT · sources: /Users/paulkirschenbauer/Developer/Tate-Tracker@f63d77e · RECEIVER: verify shas vs HEAD before trusting any status below -->
 
 ## 1. Mission
 
@@ -44,15 +44,17 @@ carries their conclusions. Their trail is listed at the bottom of the plan.
    `python3 tools/build-release-notes.py`, then `tools/deploy-worker.sh` **with the Bash sandbox
    disabled** (see `[[reference_fernwood_worker_deploy]]`).
 
-**W0 (basemap) is next after W1 — and it BLOCKS W2 mechanically.** Do not let anyone draw zones
-before it: vertices are fractional coords *of the basemap image*, so replacing the image moves
-every polygon.
+7. **Confirm her 7/15 words landed.** The outbox should upload them from her MacBook on next open.
+   Check with `python3 tools/read-mom-feedback.py`. **This gates W-PRIV** (see below).
+
+**Then W-PRIV, then W0.** Do not reorder — see the two hard constraints in field 5.
 
 ## 4. State & pointers
 
-- **Repo:** `/Users/paulkirschenbauer/Developer/Tate-Tracker` @ `4cb3f83`
-- **⚠️ 2 commits are UNPUSHED and deliberately so** (`4385fd6`, `4cb3f83`) — held pending
-  **W-PRIV** (below). Do not push without Paul's call.
+- **Repo:** `/Users/paulkirschenbauer/Developer/Tate-Tracker` @ `f63d77e` (+ this brief's own commit)
+- **⚠️ ALL commits from 2026-07-16 are UNPUSHED and deliberately so** (`4385fd6`, `4cb3f83`,
+  `f63d77e`, …) — held pending **W-PRIV**. **Do not push without Paul's call**; a push sends this
+  session's Mom docs to the public repo, which is the exact problem W-PRIV exists to fix.
 - **Nothing is deployed.** The Worker edit is committed but inert until `wrangler deploy`.
 - Worker: `https://tate-tracker.paul-kirschenbauer.workers.dev` · token `.private/fernwood-token`
   (header is `X-Tate-Token`, **not** Bearer) · read her answers with
@@ -66,8 +68,26 @@ every polygon.
 
 ## 5. Guardrails
 
-- **Green light required.** Paul explicitly held execution. Confirm before touching code.
-- **Do not push.** W-PRIV is unresolved (see field 8).
+### 🚨 Two hard constraints — read these before touching anything
+
+**1. NEVER migrate the origin before W1 ships and her words are recovered.**
+`palekxk.github.io` and `*.workers.dev` are **different origins**; localStorage is origin-bound.
+Her MacBook's `tateTracker.momQueue.general.v1` is **the only surviving copy of her 7/15 feedback**.
+Serving from the Worker first makes it **unreachable forever** — and takes every device's
+answered-set, A/A+ text-size pref, token config, and installed PWA with it. Order is forced:
+**W1 → confirm her words landed → localStorage migration script (must run on the OLD origin) →
+Worker serving → repo private → purge.** Reversing this solves the privacy problem by destroying
+the evidence the whole thread exists to recover.
+
+**2. Check the GitHub plan tier BEFORE touching repo visibility.**
+Pages on a private repo needs Pro/Team. **Flipping to private on a free account takes Fernwood
+dark for Mom instantly, with no warning.** If there's no Pro, the Worker migration must land first.
+
+### Standing
+- **Green light required.** Paul held execution. Confirm before touching code.
+- **Do not push.** W-PRIV is decided but unshipped (see field 8).
+- **Do not widen `plants.json` to fake instance-level data.** The species-vs-instance break (W6)
+  is a real schema decision needing its own path-eval — see the plan's identity-key section.
 - **Do not build the 24-row plant table.** Five experts killed it as an *invalid instrument*.
   If it resurfaces, read the plan's "Killed" section before re-arguing.
 - **Do not automate zone assignment** (no EXIF→zone: no georeference exists) and do not
@@ -95,11 +115,17 @@ opens Fernwood on her MacBook, with no instructions given to her.
   hypothesis is dead (metrics flushed fine on 7/15 and gate on the same `isConfigured()`, so
   token-loss-on-a-paired-device is out; no unknown device appears because it can't) and Paul
   independently said she was on her MacBook. It fits perfectly. It is still inference.
-- **The whole feedback record is Paul's memory.** Her verbatim is gone. The user-researcher
-  flagged the relay as the weakest evidence in the analysis, and specifically that the
-  ownership reading hangs on the emphasis on *she* selects the photo — the least verifiable
-  token in a paraphrase. A competing read fits every datum: *she wants the record to be right
-  and is agnostic about who fixes it.* Same feature, opposite bet.
+- **~~The ownership-vs-agnostic debate~~ — RETIRED 2026-07-16 by Paul, do not reopen.** Two rounds
+  of panel speculation (mine: "she wants to own the data"; the researcher's: "she wants the record
+  right, agnostic about who fixes it") were **both wrong**, and it was never a paraphrase artifact.
+  **The photo is an IDENTITY KEY**: she wants her own photos of her own plants so it's unambiguous
+  **which individual** we mean — there can be multiples of the same plant across zones or several in
+  one zone. Functional, not sentimental. A stock species photo fails *by definition* — it cannot
+  point at *that* hydrangea. **This breaks the schema (W6, species-level vs instance-level) and
+  reframes W3.** See the plan's identity-key section before designing anything.
+- **The relay is still Paul's memory** on the *other* three asks (labeled feedback field, three
+  boxes, photos on cards) — her verbatim is gone. Weight accordingly; but #1 is now settled
+  by Paul directly.
 - **Unresolved, worth watching:** the panel's "one card at a time" alternative *is* the queue
   already shipped (n=2). The rebuttal — that it ran under a dark device, photoless cards, and two
   gimme questions, so it never really ran — is mine, and Paul hasn't ruled on it.
@@ -125,13 +151,17 @@ opens Fernwood on her MacBook, with no instructions given to her.
 - The doctrine amendments in the plan (retire "open feedback → DON'T BUILD"; make the AI boundary
   a provenance rule). **Proposed, unapplied.**
 
-**⚠️ W-PRIV — needs Paul, blocks push:**
-`.user-research/persona-mom.md` **+ 19 other research files are tracked in the PUBLIC repo**
-`github.com/PAlekxK/Tate-Tracker` — Mom's reading difficulty, her age, behavior analysis,
-engagement history. The 2026-07-16 docs land in the same tracked dirs. Precedent suggests this
-was accepted or never noticed; given the VIN `filter-repo` history, it deserves a deliberate
-call. Options: accept · move Mom-personal research to `.private/` + purge history · keep
-committing but stop pushing these dirs. **Until Paul rules: committed locally, never pushed.**
+**⚠️ W-PRIV — DECIDED 2026-07-16, gated on W1, blocks push:**
+Paul: *"keep all the info about mom out of public accessibility."* **Chosen: repo private + serve
+`viewer.html` from the Worker** — Fernwood is a two-person family app and doesn't need a public URL.
+Measured exposure: **146 tracked files** name her, and **the served `viewer.html` mentions her 99×**
+in inline comments (design commentary, her reading difficulty, behavior reads, panel findings) —
+**view-source reads all of it, so repo-private alone does NOT fix it.**
+**Sequencing is forced by the origin/localStorage landmine — see field 5, constraint 1.**
+**Honest limit:** this has been public for months. Force-pushed commits stay SHA-reachable until
+GitHub's GC, forks/clones keep what they took, search engines may have cached the Pages site.
+**The purge stops the bleeding; it does not guarantee retrieval — do not tell Paul it's erased.**
+`filter-repo` runbook from the 2026-06-12 VIN purge: `tools/SCHEDULING.md`.
 
 **Verified-deterministic (safe to rely on):** the four-stream 7/15 emptiness · the
 `isConfigured()` gate chain · 24/26 `zoneId: null` · 18/26 stock photos · no `<img>` in the
