@@ -1878,6 +1878,14 @@ async function handleFeedback(request, env, url) {
       try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; }
       catch (e) { arr = []; }
     }
+    // Idempotent on id — the client outbox (2026-07-16) replays anything it
+    // couldn't confirm, and "the write landed but the response didn't" is exactly
+    // the case that produces a retry. Without this, recovering her words would
+    // duplicate them. A client-supplied id makes the replay safe; a generated one
+    // is unique by construction, so this can only match a genuine re-send.
+    if (body.id && arr.some(r => r && r.id === body.id)) {
+      return json({ stored: 0, duplicate: true, total: arr.length, id: record.id });
+    }
     arr.push(record);
     await env.OBSERVATIONS.put(key, JSON.stringify(arr));
     return json({ stored: 1, total: arr.length, id: record.id });
