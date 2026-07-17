@@ -788,6 +788,94 @@ async function handleAudioUpload(request, env) {
   return json({ recordingId, mediaType, sizeBytes: base64.length });
 }
 
+// ---- Zone audio (W3: "what's growing here?" — Mom's verbatim voice, AI-FREE) ----
+// She taps a zone on the map and speaks what grows there; we store the AUDIO, never
+// a transcript (Web Speech mangles exactly the nicknames we're mining for) and never
+// an AI interpretation (capture stays deterministic — [[feedback_no_ai_on_capture]]).
+//
+// TWO deliberate departures from /api/audio-upload, both load-bearing:
+//   1. DURABLE storage — NO TTL. audio-upload uses a 1-hour TTL because its blob is
+//      consumed by the Guru identify→promote flow within the hour. Mom's recording
+//      must survive until Paul reviews it, which could be days. A TTL here would
+//      silently delete her words before he heard them — the 2026-07-15 failure, again.
+//   2. WRITE-ONLY, NO TOKEN on POST (wired above the auth gate, like /api/feedback).
+//      Her device may be unpaired; a token-gated capture path is what ate her words
+//      on 7/15. Size-capped + rate-limited so an unauthenticated write stays graffiti.
+// READ (GET) is token-gated by the global auth gate — only Paul ever hears them.
+// Blobs live in KV, NEVER git: the repo is public, her voice is not.
+const ZONE_AUDIO_MAX_B64 = 2_000_000;  // ~2 MB of base64; a 30s note @24kbps is ~90 KB
+
+async function handleZoneAudio(request, env, url) {
+  if (request.method === "POST") {
+    let body;
+    try { body = await request.json(); }
+    catch (e) { return json({ error: "bad-json" }, 400); }
+    const audio = body && body.audio;
+    if (!audio || typeof audio !== "string" || !audio.startsWith("data:audio/")) {
+      return json({ error: "missing-or-bad-audio", required: "data URL with audio/* mediaType" }, 400);
+    }
+    const m = audio.match(/^data:(audio\/[a-zA-Z0-9.+-]+(?:;[^,]*)?);base64,(.+)$/);
+    if (!m) return json({ error: "audio-not-base64-data-url" }, 400);
+    const mediaType = m[1].split(";")[0];
+    const base64 = m[2];
+    if (base64.length > ZONE_AUDIO_MAX_B64) {
+      return json({ error: "payload-too-large", limit_bytes: ZONE_AUDIO_MAX_B64 }, 413);
+    }
+    const zoneId = typeof body.zoneId === "string"
+      ? body.zoneId.slice(0, 80).toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "")
+      : "";
+    if (!zoneId) return json({ error: "missing-zone-id" }, 400);
+
+    const id = generateRecordingId();
+    const nowIso = new Date().toISOString();
+    // Durable blob — NO expirationTtl. This is the whole point.
+    await env.OBSERVATIONS.put(`zone-audio-blob:${id}`, JSON.stringify({
+      id, zoneId, mediaType, base64, uploadedAt: nowIso, sizeBytes: base64.length,
+    }));
+    // Lean dated metadata index — cheap to list without pulling blobs.
+    const today = nowIso.slice(0, 10);
+    const key = `zone-audio:${today}`;
+    const meta = {
+      id, zoneId, uploadedAt: nowIso, mediaType, sizeBytes: base64.length,
+      durationMs: Number.isFinite(body.durationMs) ? Math.round(body.durationMs) : null,
+      deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
+      reviewed: false,
+    };
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = [];
+    if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
+    arr.push(meta);
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+    return json({ stored: 1, id, zoneId, total_today: arr.length });
+  }
+
+  if (request.method === "GET") {
+    // Reached only past the global auth gate (token required).
+    const id = url.searchParams.get("id");
+    if (id) {
+      const raw = await env.OBSERVATIONS.get(`zone-audio-blob:${id}`);
+      if (!raw) return json({ error: "not-found" }, 404);
+      return new Response(raw, { status: 200, headers: { "Content-Type": "application/json", ...CORS_HEADERS } });
+    }
+    const start = url.searchParams.get("start");
+    const end = url.searchParams.get("end");
+    if (!start || !end) return json({ error: "missing-start-or-end (or id=)" }, 400);
+    const d0 = new Date(start + "T00:00:00Z");
+    const d1 = new Date(end + "T00:00:00Z");
+    if (isNaN(d0) || isNaN(d1) || d1 < d0) return json({ error: "bad-dates" }, 400);
+    const out = [];
+    let days = 0;
+    for (let d = new Date(d0); d <= d1 && days < 90; d.setUTCDate(d.getUTCDate() + 1), days++) {
+      const raw = await env.OBSERVATIONS.get(`zone-audio:${d.toISOString().slice(0, 10)}`);
+      if (raw) { try { const a = JSON.parse(raw); if (Array.isArray(a)) out.push(...a); } catch (e) {} }
+    }
+    out.sort((a, b) => (a.uploadedAt || "").localeCompare(b.uploadedAt || ""));
+    return json({ recordings: out, count: out.length });
+  }
+
+  return json({ error: "method-not-allowed" }, 405);
+}
+
 // ---- Schema Drafter (Phase F) — full-schema generator for auto-promotion ----
 // Separate system prompt from Garden Guru. Triggered when the user confirms
 // "Worth adding to the Almanac?" → client POSTs /api/promote-species, which
@@ -1965,7 +2053,7 @@ export default {
       return json({
         ok: true,
         ts: new Date().toISOString(),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zones", "/api/zones-sync-status"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -1987,6 +2075,17 @@ export default {
       return handleFeedback(request, env, url);
     }
 
+    // W3 zone audio — same write-only-no-token doctrine as /api/feedback, so Mom's
+    // "what's growing here?" recording is captured from ANY device, paired or not.
+    // Bigger cap than a text note (it's audio) but still bounded + rate-limited.
+    // GET falls through to the token gate below — only Paul hears them.
+    if (url.pathname === "/api/zone-audio" && request.method === "POST" && !authOk(request, env)) {
+      const len = parseInt(request.headers.get("Content-Length") || "0", 10);
+      if (len > ZONE_AUDIO_MAX_B64 + 200_000) return json({ error: "too-large" }, 413);
+      if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      return handleZoneAudio(request, env, url);
+    }
+
     if (!authOk(request, env)) return unauthorized();
 
     if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url);
@@ -2006,6 +2105,7 @@ export default {
     if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
     if (url.pathname === "/api/zone-save") return handleZoneSave(request, env);
     if (url.pathname === "/api/zone-feedback") return handleZoneFeedback(request, env, url);
+    if (url.pathname === "/api/zone-audio") return handleZoneAudio(request, env, url);
     if (url.pathname === "/api/zones") return handleZonesGet(request, env, url);
     if (url.pathname === "/api/zones-sync-status") return handleZonesSyncStatus(request, env, url);
 
