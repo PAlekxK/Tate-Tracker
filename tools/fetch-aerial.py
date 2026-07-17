@@ -63,7 +63,7 @@ def fetch_tile(template, z, x, y, tries=3, delay=0.5):
     raise RuntimeError(f"failed {url}: {last_err}")
 
 
-def build_mosaic(lat, lon, zoom, grid, source="ESRI"):
+def build_mosaic(lat, lon, zoom, grid, source="ESRI", marker=True):
     """Build a (grid x grid) mosaic of tiles around the lat/lon at zoom z."""
     template = SOURCES[source]
     cx, cy = latlon_to_tile(lat, lon, zoom)
@@ -83,14 +83,21 @@ def build_mosaic(lat, lon, zoom, grid, source="ESRI"):
             py = (dy + half) * TILE_SIZE
             out.paste(tile, (px, py))
 
-    # Draw a small crosshair at the property's pixel position
+    # Draw a small crosshair at the property's pixel position.
+    #
+    # marker=False for anything destined to be a MAP BASE. A baked-in crosshair is
+    # chrome: it can't be turned off later, it sits on top of the exact area the
+    # zones get drawn over, and it re-commits the mistake the 2015 Google Earth
+    # screenshot made (notification + HUD + pin welded into the imagery). Keep the
+    # marker for scouting/reference pulls, where "where is the house" is the point.
     center_px = int((half + frac_x) * TILE_SIZE)
     center_py = int((half + frac_y) * TILE_SIZE)
-    draw = ImageDraw.Draw(out)
-    r = 10
-    draw.ellipse([center_px - r, center_py - r, center_px + r, center_py + r], outline="red", width=2)
-    draw.line([center_px - r * 2, center_py, center_px + r * 2, center_py], fill="red", width=1)
-    draw.line([center_px, center_py - r * 2, center_px, center_py + r * 2], fill="red", width=1)
+    if marker:
+        draw = ImageDraw.Draw(out)
+        r = 10
+        draw.ellipse([center_px - r, center_py - r, center_px + r, center_py + r], outline="red", width=2)
+        draw.line([center_px - r * 2, center_py, center_px + r * 2, center_py], fill="red", width=1)
+        draw.line([center_px, center_py - r * 2, center_px, center_py + r * 2], fill="red", width=1)
     return out, (center_px, center_py)
 
 
@@ -100,7 +107,7 @@ def estimate_ground_resolution(lat, zoom):
 
 
 def main():
-    args = {"zoom": 18, "grid": 3, "source": "ESRI"}
+    args = {"zoom": 18, "grid": 3, "source": "ESRI", "marker": True, "out": None}
     for i, a in enumerate(sys.argv[1:]):
         if a == "--zoom" and i + 1 < len(sys.argv) - 1:
             args["zoom"] = int(sys.argv[i + 2])
@@ -108,6 +115,10 @@ def main():
             args["grid"] = int(sys.argv[i + 2])
         elif a == "--source" and i + 1 < len(sys.argv) - 1:
             args["source"] = sys.argv[i + 2].upper()
+        elif a == "--no-marker":
+            args["marker"] = False          # map bases must carry no chrome
+        elif a == "--out" and i + 1 < len(sys.argv) - 1:
+            args["out"] = sys.argv[i + 2]
 
     zoom = args["zoom"]
     grid = args["grid"]
@@ -127,8 +138,8 @@ def main():
     print(f"  approx ground resolution: {mpp:.2f} m/px = {mpp * 3.28084:.2f} ft/px")
     print(f"  image size: {width}x{width} px = ~{span_ft:.0f} ft across")
 
-    mosaic, center = build_mosaic(PROPERTY_LAT, PROPERTY_LON, zoom, grid, source=source)
-    out_path = f"images/property-map/aerial-{source.lower()}-z{zoom}.jpg"
+    mosaic, center = build_mosaic(PROPERTY_LAT, PROPERTY_LON, zoom, grid, source=source, marker=args["marker"])
+    out_path = args["out"] or f"images/property-map/aerial-{source.lower()}-z{zoom}.jpg"
     mosaic.save(out_path, "JPEG", quality=90, optimize=True)
     sz = os.path.getsize(out_path)
     print(f"  saved {out_path} ({sz/1024:.0f} KB) — property marked at ({center[0]}, {center[1]})")
