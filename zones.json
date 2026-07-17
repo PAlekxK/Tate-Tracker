@@ -23,7 +23,7 @@
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
     "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-    "lastBuiltAt": "2026-07-17T20:52:29.027Z"
+    "lastBuiltAt": "2026-07-17T20:52:45.806Z"
   },
   "zones": [
     {
@@ -558,6 +558,66 @@
           "details": {
             "name": "Western Garden",
             "vertexCount": 9
+          }
+        }
+      ]
+    },
+    {
+      "id": "fairway-fringe-2",
+      "name": "Fairway Fringe",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36792564180264,
+          34.54959476052195
+        ],
+        [
+          -84.36796830504306,
+          34.54957036116507
+        ],
+        [
+          -84.36793779068867,
+          34.54953001364987
+        ],
+        [
+          -84.3678833915707,
+          34.549497781582545
+        ],
+        [
+          -84.36793793014608,
+          34.54947852451272
+        ],
+        [
+          -84.3679951774135,
+          34.549518562783845
+        ],
+        [
+          -84.36801548455811,
+          34.54957389980075
+        ],
+        [
+          -84.36797378142833,
+          34.54962576003078
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:52:43.149Z",
+      "createdBy": "device",
+      "updatedAt": "2026-07-17T20:52:43.149Z",
+      "lastEditedBy": "device",
+      "history": [
+        {
+          "at": "2026-07-17T20:52:43.149Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Fairway Fringe",
+            "vertexCount": 8
           }
         }
       ]
