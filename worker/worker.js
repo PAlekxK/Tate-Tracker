@@ -1997,10 +1997,32 @@ export default {
 // GET  /api/zone-feedback?start=YYYY-MM-DD&end=YYYY-MM-DD — reads entries
 // across a date range, sorted by createdAt.
 
-function clamp01(n) {
-  const x = Number(n);
-  if (!isFinite(x)) return 0;
-  return Math.max(0, Math.min(1, x));
+// Zone vertices are [lon, lat] — real WGS84 coordinates (schema v2, 2026-07-16),
+// no longer fractions of a base image. The envelope below is the property's
+// neighbourhood, generously padded; anything outside it is a bug, not a boundary.
+const ZONE_LON_MIN = -84.40, ZONE_LON_MAX = -84.33;
+const ZONE_LAT_MIN = 34.52,  ZONE_LAT_MAX = 34.58;
+
+// REJECT, never clamp.
+//
+// This replaces a clamp01() that squeezed every vertex into 0..1. That was correct
+// while vertices were image-fractions and a silent data-destroyer the moment they
+// became coordinates: lat 34.55 -> 1, lon -84.37 -> 0, so every polygon collapsed
+// to the image corner while the Worker returned 200 and the sync chip said "live
+// everywhere". Destroyed geometry would then commit to git and propagate to every
+// device. That is the same shape as the 2026-07-15 capture loss — success reported
+// for a write that threw the data away — and it is the third in that family.
+//
+// A clamp asserts "roughly right, just out of range." Of a coordinate that is never
+// true: an out-of-envelope vertex means the caller's units are wrong, and the only
+// safe answer is to refuse the write loudly rather than invent a plausible one.
+function validVertex(v) {
+  if (!Array.isArray(v) || v.length !== 2) return false;
+  const lon = Number(v[0]), lat = Number(v[1]);
+  if (!isFinite(lon) || !isFinite(lat)) return false;
+  if (lon < ZONE_LON_MIN || lon > ZONE_LON_MAX) return false;
+  if (lat < ZONE_LAT_MIN || lat > ZONE_LAT_MAX) return false;
+  return true;
 }
 
 function sanitizeZone(z) {
@@ -2009,9 +2031,10 @@ function sanitizeZone(z) {
   if (typeof z.name !== "string" || !z.name.trim()) return null;
   if (!Array.isArray(z.vertices) || z.vertices.length < 3) return null;
 
-  const verts = z.vertices
-    .map(v => Array.isArray(v) && v.length === 2 ? [clamp01(v[0]), clamp01(v[1])] : null)
-    .filter(Boolean);
+  // One bad vertex fails the whole zone. Dropping the bad ones and keeping the rest
+  // would silently redraw the polygon into a different shape and still report success.
+  if (!z.vertices.every(validVertex)) return null;
+  const verts = z.vertices.map(v => [Number(v[0]), Number(v[1])]);
   if (verts.length < 3) return null;
 
   const validStatuses = ["draft", "confirmed", "flagged"];
