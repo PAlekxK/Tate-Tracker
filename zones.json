@@ -22,7 +22,8 @@
     "baseImageStacItem": "ga_m_3408430_sw_16_060_20220110",
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
-    "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames."
+    "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
+    "lastBuiltAt": "2026-07-17T02:30:07.705Z"
   },
   "zones": [
     {
@@ -61,7 +62,7 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 33,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
@@ -98,7 +99,7 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 11,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
@@ -141,7 +142,7 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 20,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
@@ -178,7 +179,7 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 15,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
@@ -215,7 +216,7 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 15,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
@@ -252,7 +253,7 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 25,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
@@ -289,7 +290,7 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 21,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
@@ -326,292 +327,12 @@
           "by": "paul",
           "action": "vertices-cleared",
           "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the NAIP 2022-01-10 leaf-off base.",
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 22,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
         }
       ]
-    }
-  ],
-  "_deleted": [
-    {
-      "id": "test-2",
-      "lastName": "Test 2",
-      "history": [
-        {
-          "at": "2026-05-27T19:25:00.623Z",
-          "by": "device",
-          "action": "created"
-        },
-        {
-          "at": "2026-05-27T19:37:18.899Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:58:18.024Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:59:20.945Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:04:09.600Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:23:37.922Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:23:37.922Z"
-    },
-    {
-      "id": "fairway-meadow",
-      "lastName": "Fairway meadow",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded"
-        },
-        {
-          "at": "2026-05-27T19:34:12.965Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:34:35.833Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:35:17.121Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:37:12.046Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:43:35.679Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:43:42.150Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:47:57.604Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:47:59.688Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:48:23.660Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:58:14.841Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:58:16.489Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:59:18.996Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:04:07.550Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:16:18.676Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:23:25.746Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:23:46.143Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:23:46.143Z"
-    },
-    {
-      "id": "fairway-edge-west",
-      "lastName": "Western fairway edge",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded"
-        },
-        {
-          "at": "2026-05-27T19:48:15.019Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T19:48:16.782Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:04:13.986Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:23:49.663Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:23:49.663Z"
-    },
-    {
-      "id": "test",
-      "lastName": "Test",
-      "history": [
-        {
-          "at": "2026-05-27T19:34:01.170Z",
-          "by": "device",
-          "action": "created"
-        },
-        {
-          "at": "2026-05-27T19:44:46.894Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:23:51.813Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:23:51.813Z"
-    },
-    {
-      "id": "front-lawn",
-      "lastName": "Front lawn",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded"
-        },
-        {
-          "at": "2026-05-27T19:27:58.835Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-27T20:23:54.247Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:23:54.247Z"
-    },
-    {
-      "id": "pond-area",
-      "lastName": "Pond area",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded"
-        },
-        {
-          "at": "2026-05-27T20:23:56.817Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:23:56.817Z"
-    },
-    {
-      "id": "western-patio",
-      "lastName": "Western patio",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded"
-        },
-        {
-          "at": "2026-05-27T20:23:59.369Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:23:59.369Z"
-    },
-    {
-      "id": "eastern-patio",
-      "lastName": "Eastern patio",
-      "history": [
-        {
-          "at": "2026-05-27T17:00:00Z",
-          "by": "paul",
-          "action": "seeded"
-        },
-        {
-          "at": "2026-05-27T20:24:01.537Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-27T20:24:01.537Z"
-    },
-    {
-      "id": "pond-area-2",
-      "lastName": "Pond Area",
-      "history": [
-        {
-          "at": "2026-05-27T20:24:23.625Z",
-          "by": "device",
-          "action": "created"
-        },
-        {
-          "at": "2026-05-27T20:32:11.226Z",
-          "by": "device",
-          "action": "confirmed"
-        },
-        {
-          "at": "2026-05-28T02:55:18.449Z",
-          "by": "device",
-          "action": "deleted"
-        }
-      ],
-      "deletedAt": "2026-05-28T02:55:18.449Z"
     }
   ]
 }
