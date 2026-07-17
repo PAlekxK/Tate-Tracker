@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-17 — Easier to aim when you're drawing a place on the map
+
+- When you outline a place on the property map, the little markers where you tap are now **small, hollow rings with a dot in the middle** instead of big filled circles — so you can see the ground you're tracing around instead of covering it up.
+- They **stay the same size no matter how far you zoom in**, so a tight corner is easy to place precisely.
+
+---
+
 ## 2026-07-16 — When you set something down, it stays down
 
 - **Setting something down now works on any device you happen to be on** — a laptop, a borrowed phone, one you've never used here before. It used to quietly need a setup step first, and without it your words went nowhere.
