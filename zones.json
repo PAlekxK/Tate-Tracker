@@ -23,7 +23,7 @@
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
     "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-    "lastBuiltAt": "2026-07-17T20:52:03.429Z"
+    "lastBuiltAt": "2026-07-17T20:52:29.027Z"
   },
   "zones": [
     {
@@ -494,6 +494,70 @@
           "details": {
             "name": "Eastern Patio",
             "vertexCount": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "western-garden-2",
+      "name": "Western Garden",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36789154446554,
+          34.54964985897914
+        ],
+        [
+          -84.3678080148398,
+          34.5496405860749
+        ],
+        [
+          -84.3677378892168,
+          34.54961472443536
+        ],
+        [
+          -84.36766292549439,
+          34.549601665500184
+        ],
+        [
+          -84.36762578154921,
+          34.549565466273265
+        ],
+        [
+          -84.36772104168874,
+          34.54955665723513
+        ],
+        [
+          -84.36781359313625,
+          34.54956725547108
+        ],
+        [
+          -84.36785492080378,
+          34.54957401466283
+        ],
+        [
+          -84.36791673261955,
+          34.549591566472515
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:52:26.360Z",
+      "createdBy": "device",
+      "updatedAt": "2026-07-17T20:52:26.360Z",
+      "lastEditedBy": "device",
+      "history": [
+        {
+          "at": "2026-07-17T20:52:26.360Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Western Garden",
+            "vertexCount": 9
           }
         }
       ]
