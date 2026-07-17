@@ -23,7 +23,7 @@
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
     "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-    "lastBuiltAt": "2026-07-17T20:51:41.465Z"
+    "lastBuiltAt": "2026-07-17T20:52:03.429Z"
   },
   "zones": [
     {
@@ -434,6 +434,66 @@
           "details": {
             "name": "Stable Grounds",
             "vertexCount": 7
+          }
+        }
+      ]
+    },
+    {
+      "id": "eastern-patio",
+      "name": "Eastern Patio",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36729606251042,
+          34.54944465934221
+        ],
+        [
+          -84.36713159335258,
+          34.54943234455625
+        ],
+        [
+          -84.36699448168626,
+          34.54941374671623
+        ],
+        [
+          -84.36704358023066,
+          34.5495373422434
+        ],
+        [
+          -84.36708910294399,
+          34.54958025550262
+        ],
+        [
+          -84.36718926435597,
+          34.54960084035848
+        ],
+        [
+          -84.36729323998776,
+          34.5496073747347
+        ],
+        [
+          -84.36731888108038,
+          34.549551086424145
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:52:00.725Z",
+      "createdBy": "device",
+      "updatedAt": "2026-07-17T20:52:00.725Z",
+      "lastEditedBy": "device",
+      "history": [
+        {
+          "at": "2026-07-17T20:52:00.725Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Eastern Patio",
+            "vertexCount": 8
           }
         }
       ]
