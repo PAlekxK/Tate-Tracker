@@ -1131,7 +1131,36 @@ async function ghGetFile(env, path) {
   }
   const data = await res.json();
   // GitHub returns content base64-encoded with newlines; decode as binary then UTF-8.
-  const b64 = (data.content || "").replace(/\n/g, "");
+  let b64 = (data.content || "").replace(/\n/g, "");
+
+  // ---- The 1 MB cliff (root-caused 2026-07-16) ----------------------------
+  // The Contents API only inlines `content` for files <= 1 MB. Above that it
+  // returns HTTP 200, `encoding: "none"`, and an EMPTY content string — no error.
+  // So this function handed callers a perfectly successful-looking "" and every
+  // re-inline into viewer.html quietly found nothing to replace.
+  //
+  // viewer.html crossed 1 MB on 2026-07-02 in commit 23ac94f — *"Garden Guru
+  // Phase 3: add and remove a plant from conversation"*. The commit that shipped
+  // the add/remove write path is the commit that broke it: the feature grew the
+  // file past the ceiling its own writes depend on. Lizard's Tail (added to
+  // plants.json, never re-inlined, found 7/05) was this. So was the zone-save
+  // failure found 7/16. The 7/06 fix (d1da306) added verification, which detects
+  // the symptom — and could not succeed either, because the verify read is this
+  // same call.
+  //
+  // The Blob API serves up to 100 MB base64. `git_url` on the Contents response
+  // points straight at this file's blob.
+  if (!b64 && data.size > 0 && data.git_url) {
+    const blobRes = await fetch(data.git_url, { headers: ghHeaders(env) });
+    if (!blobRes.ok) {
+      const txt = await blobRes.text().catch(() => "");
+      throw new Error(`github-blob-${blobRes.status}: ${txt.slice(0, 200)}`);
+    }
+    const blob = await blobRes.json();
+    b64 = (blob.content || "").replace(/\n/g, "");
+    if (!b64) throw new Error(`github-blob-empty for ${path} (size ${data.size})`);
+  }
+
   const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
   const contentText = new TextDecoder("utf-8").decode(bytes);
   return { exists: true, sha: data.sha, contentText };
@@ -2029,13 +2058,20 @@ function sanitizeZone(z) {
   if (!z || typeof z !== "object") return null;
   if (typeof z.id !== "string" || !z.id.trim()) return null;
   if (typeof z.name !== "string" || !z.name.trim()) return null;
-  if (!Array.isArray(z.vertices) || z.vertices.length < 3) return null;
+  if (!Array.isArray(z.vertices)) return null;
+
+  // An EMPTY vertex list is valid: a named place that has no boundary drawn yet.
+  // That is a real state as of schema v2 — the 8 zones kept their names while their
+  // v1 geometry was cleared. It must round-trip, because the client posts the WHOLE
+  // zone set on every save: if an un-drawn placeholder were invalid, the first zone
+  // Paul draws would fail the all-or-nothing check and nothing would ever save.
+  // 1 or 2 vertices is not a placeholder, it's a degenerate polygon — reject it.
+  if (z.vertices.length > 0 && z.vertices.length < 3) return null;
 
   // One bad vertex fails the whole zone. Dropping the bad ones and keeping the rest
   // would silently redraw the polygon into a different shape and still report success.
   if (!z.vertices.every(validVertex)) return null;
   const verts = z.vertices.map(v => [Number(v[0]), Number(v[1])]);
-  if (verts.length < 3) return null;
 
   const validStatuses = ["draft", "confirmed", "flagged"];
 
@@ -2113,7 +2149,26 @@ async function handleZoneSave(request, env) {
   }
 
   // Sanitize at the boundary (per feedback_sanitize_at_storage_boundary).
-  const zones = body.zones.map(sanitizeZone).filter(Boolean);
+  //
+  // ALL-OR-NOTHING. The sanitized array below becomes the ENTIRE file, so
+  // `.filter(Boolean)` on its own would mean a rejected zone is not an error —
+  // it is a DELETION, silently committed to canon behind a 200. Refuse the whole
+  // write instead and say which zone was bad. (2026-07-16: this got sharper when
+  // vertex validation went from "clamp anything" to "reject out-of-envelope" —
+  // strictness plus silent-drop turns a corrupt polygon into a vanished zone.)
+  const sanitized = body.zones.map(sanitizeZone);
+  const rejected = body.zones
+    .map((z, i) => (sanitized[i] ? null : (z && z.id) || `index ${i}`))
+    .filter(Boolean);
+  if (rejected.length) {
+    return json({
+      error: "invalid-zones",
+      rejected,
+      hint: "Vertices must be WGS84 [lon, lat] within the property envelope (schema v2). " +
+            "Nothing was written — fix and resend the full set.",
+    }, 400);
+  }
+  const zones = sanitized;
   const tombstones = Array.isArray(body._deleted)
     ? body._deleted.slice(0, 200).map(sanitizeTombstone).filter(Boolean)
     : [];
@@ -2127,9 +2182,30 @@ async function handleZoneSave(request, env) {
     catch (e) { existingData = {}; }
   }
 
-  const meta = (body._meta && typeof body._meta === "object") ? body._meta
-             : (existingData._meta || {});
+  // THE SERVER OWNS _meta. It carries the georeference (baseImage + bounds +
+  // image dimensions) — infrastructure, not user data, and no drawing tool has any
+  // business rewriting it. Taking the client's copy meant a device running a STALE
+  // CACHED viewer (iOS app-shell caching is a known, documented problem here) could
+  // save one zone and write its v1 _meta back over the bounds, stranding every
+  // vertex against the wrong picture. _meta changes by commit, deliberately.
+  const meta = existingData._meta || {};
   const nowIso = new Date().toISOString();
+
+  // A stale client is a rejected write, not a silent downgrade. Its fractional
+  // vertices would fail validVertex anyway — this just fails it honestly, and says
+  // why, instead of letting it look like an empty property.
+  const clientSchema = body._meta && body._meta.schemaVersion;
+  if (clientSchema !== undefined && meta.schemaVersion !== undefined
+      && clientSchema !== meta.schemaVersion) {
+    return json({
+      error: "stale-client",
+      clientSchemaVersion: clientSchema,
+      serverSchemaVersion: meta.schemaVersion,
+      hint: "This device is running an old copy of the app. Reload it (on iOS, quit " +
+            "Safari fully) and try again. Nothing was written.",
+    }, 409);
+  }
+
   meta.lastBuilt = nowIso.slice(0, 10);
   meta.lastBuiltAt = nowIso;
 
