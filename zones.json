@@ -23,7 +23,7 @@
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
     "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-    "lastBuiltAt": "2026-07-17T20:53:04.725Z"
+    "lastBuiltAt": "2026-07-17T20:53:29.352Z"
   },
   "zones": [
     {
@@ -678,6 +678,74 @@
           "details": {
             "name": "Lower 40",
             "vertexCount": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "upper-uber-wall-area",
+      "name": "Upper-Uber Wall Area",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36776988128337,
+          34.54963463356839
+        ],
+        [
+          -84.36771635270146,
+          34.54961480969836
+        ],
+        [
+          -84.36766742567778,
+          34.54960432875427
+        ],
+        [
+          -84.36760779663868,
+          34.54959448794539
+        ],
+        [
+          -84.36759195025392,
+          34.549618848646766
+        ],
+        [
+          -84.36760570558206,
+          34.549654111968614
+        ],
+        [
+          -84.36769037178571,
+          34.54966240832427
+        ],
+        [
+          -84.367754022562,
+          34.54967594261174
+        ],
+        [
+          -84.36782510615014,
+          34.54967542948748
+        ],
+        [
+          -84.3678531781225,
+          34.54966467419972
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:53:26.667Z",
+      "createdBy": "device",
+      "updatedAt": "2026-07-17T20:53:26.667Z",
+      "lastEditedBy": "device",
+      "history": [
+        {
+          "at": "2026-07-17T20:53:26.667Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Upper-Uber Wall Area",
+            "vertexCount": 10
           }
         }
       ]
