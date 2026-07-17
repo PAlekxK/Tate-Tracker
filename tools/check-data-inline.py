@@ -71,6 +71,11 @@ SOURCES = [
     ("lizards.json",    "LIZARDS_DATA",    "species",  "lizards"),
     ("fishing.json",    "FISHING_DATA",    "species",  "fishing"),
     ("vehicles.json",   "VEHICLES_DATA",   "vehicles", "vehicles"),
+    # Added 2026-07-16: ZONES_DATA was the only re-inlined const with no drift alarm.
+    # It matters more than most now — since schema v2 its _meta carries the BASEMAP
+    # GEOREFERENCE (bounds + image dimensions), so a stale inline doesn't just show
+    # old data, it projects every zone against the wrong picture.
+    ("zones.json",      "ZONES_DATA",      "zones",    "zones"),
 ]
 
 # Cap on how many differing paths to print per const (keep output legible).
