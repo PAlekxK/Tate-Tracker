@@ -23,7 +23,7 @@
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
     "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-    "lastBuiltAt": "2026-07-17T20:53:29.352Z"
+    "lastBuiltAt": "2026-07-17T21:15:09.801Z"
   },
   "zones": [
     {
@@ -64,234 +64,6 @@
           "details": {
             "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 33,
-            "recoverableFrom": "git history (zones.json before this commit)"
-          }
-        }
-      ]
-    },
-    {
-      "id": "western-garden",
-      "name": "Western Garden",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [],
-      "status": "draft",
-      "createdAt": "2026-05-28T02:56:34.231Z",
-      "createdBy": "device",
-      "updatedAt": "2026-07-17T02:01:59.236984Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-28T02:56:34.231Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Western Garden",
-            "vertexCount": 11
-          }
-        },
-        {
-          "at": "2026-07-17T02:01:59.236984Z",
-          "by": "paul",
-          "action": "vertices-cleared",
-          "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-            "clearedVertexCount": 11,
-            "recoverableFrom": "git history (zones.json before this commit)"
-          }
-        }
-      ]
-    },
-    {
-      "id": "pond-area-3",
-      "name": "Pond Area",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [],
-      "status": "draft",
-      "createdAt": "2026-05-28T02:57:10.224Z",
-      "createdBy": "device",
-      "updatedAt": "2026-07-17T02:01:59.236984Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-28T02:57:10.224Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Pond Area",
-            "vertexCount": 20
-          }
-        },
-        {
-          "at": "2026-05-28T03:21:57.608Z",
-          "by": "device",
-          "action": "confirmed",
-          "details": null
-        },
-        {
-          "at": "2026-07-17T02:01:59.236984Z",
-          "by": "paul",
-          "action": "vertices-cleared",
-          "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-            "clearedVertexCount": 20,
-            "recoverableFrom": "git history (zones.json before this commit)"
-          }
-        }
-      ]
-    },
-    {
-      "id": "eastern-garden",
-      "name": "Eastern Garden",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [],
-      "status": "draft",
-      "createdAt": "2026-05-28T02:57:45.772Z",
-      "createdBy": "device",
-      "updatedAt": "2026-07-17T02:01:59.236984Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-28T02:57:45.772Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Eastern Garden",
-            "vertexCount": 15
-          }
-        },
-        {
-          "at": "2026-07-17T02:01:59.236984Z",
-          "by": "paul",
-          "action": "vertices-cleared",
-          "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-            "clearedVertexCount": 15,
-            "recoverableFrom": "git history (zones.json before this commit)"
-          }
-        }
-      ]
-    },
-    {
-      "id": "fairway-fringe",
-      "name": "Fairway Fringe",
-      "type": "meadow",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [],
-      "status": "draft",
-      "createdAt": "2026-05-28T02:58:22.465Z",
-      "createdBy": "device",
-      "updatedAt": "2026-07-17T02:01:59.236984Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-28T02:58:22.465Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Fairway Fringe",
-            "vertexCount": 15
-          }
-        },
-        {
-          "at": "2026-07-17T02:01:59.236984Z",
-          "by": "paul",
-          "action": "vertices-cleared",
-          "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-            "clearedVertexCount": 15,
-            "recoverableFrom": "git history (zones.json before this commit)"
-          }
-        }
-      ]
-    },
-    {
-      "id": "lower-40",
-      "name": "Lower 40",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [],
-      "status": "draft",
-      "createdAt": "2026-05-28T02:58:53.010Z",
-      "createdBy": "device",
-      "updatedAt": "2026-07-17T02:01:59.236984Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-28T02:58:53.010Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Lower 40",
-            "vertexCount": 25
-          }
-        },
-        {
-          "at": "2026-07-17T02:01:59.236984Z",
-          "by": "paul",
-          "action": "vertices-cleared",
-          "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-            "clearedVertexCount": 25,
-            "recoverableFrom": "git history (zones.json before this commit)"
-          }
-        }
-      ]
-    },
-    {
-      "id": "stable-grounds",
-      "name": "Stable Grounds",
-      "type": "planted",
-      "color": [
-        122,
-        149,
-        104
-      ],
-      "vertices": [],
-      "status": "draft",
-      "createdAt": "2026-05-28T02:59:37.039Z",
-      "createdBy": "device",
-      "updatedAt": "2026-07-17T02:01:59.236984Z",
-      "lastEditedBy": "device",
-      "history": [
-        {
-          "at": "2026-05-28T02:59:37.039Z",
-          "by": "device",
-          "action": "created",
-          "details": {
-            "name": "Stable Grounds",
-            "vertexCount": 21
-          }
-        },
-        {
-          "at": "2026-07-17T02:01:59.236984Z",
-          "by": "paul",
-          "action": "vertices-cleared",
-          "details": {
-            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-            "clearedVertexCount": 21,
             "recoverableFrom": "git history (zones.json before this commit)"
           }
         }
@@ -383,7 +155,7 @@
       ]
     },
     {
-      "id": "stable-grounds-2",
+      "id": "stable-grounds",
       "name": "Stable Grounds",
       "type": "planted",
       "color": [
@@ -434,6 +206,15 @@
           "details": {
             "name": "Stable Grounds",
             "vertexCount": 7
+          }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "stable-grounds-2",
+            "to": "stable-grounds"
           }
         }
       ]
@@ -499,7 +280,7 @@
       ]
     },
     {
-      "id": "western-garden-2",
+      "id": "western-garden",
       "name": "Western Garden",
       "type": "planted",
       "color": [
@@ -559,11 +340,20 @@
             "name": "Western Garden",
             "vertexCount": 9
           }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "western-garden-2",
+            "to": "western-garden"
+          }
         }
       ]
     },
     {
-      "id": "fairway-fringe-2",
+      "id": "fairway-fringe",
       "name": "Fairway Fringe",
       "type": "planted",
       "color": [
@@ -619,11 +409,20 @@
             "name": "Fairway Fringe",
             "vertexCount": 8
           }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "fairway-fringe-2",
+            "to": "fairway-fringe"
+          }
         }
       ]
     },
     {
-      "id": "lower-40-2",
+      "id": "lower-40",
       "name": "Lower 40",
       "type": "planted",
       "color": [
@@ -678,6 +477,15 @@
           "details": {
             "name": "Lower 40",
             "vertexCount": 8
+          }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "lower-40-2",
+            "to": "lower-40"
           }
         }
       ]
