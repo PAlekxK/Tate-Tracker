@@ -23,7 +23,7 @@
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
     "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-    "lastBuiltAt": "2026-07-17T20:51:12.520Z"
+    "lastBuiltAt": "2026-07-17T20:51:41.465Z"
   },
   "zones": [
     {
@@ -378,6 +378,62 @@
           "details": {
             "name": "Pond Area",
             "vertexCount": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "stable-grounds-2",
+      "name": "Stable Grounds",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36725131853363,
+          34.54924288429698
+        ],
+        [
+          -84.36722461899502,
+          34.549433690177
+        ],
+        [
+          -84.36695227098713,
+          34.549393745660815
+        ],
+        [
+          -84.36696409506851,
+          34.54916763948874
+        ],
+        [
+          -84.36696780121876,
+          34.549163728287596
+        ],
+        [
+          -84.36709995122081,
+          34.54917662425605
+        ],
+        [
+          -84.36717728452729,
+          34.54918451472477
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:51:38.784Z",
+      "createdBy": "device",
+      "updatedAt": "2026-07-17T20:51:38.784Z",
+      "lastEditedBy": "device",
+      "history": [
+        {
+          "at": "2026-07-17T20:51:38.784Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Stable Grounds",
+            "vertexCount": 7
           }
         }
       ]
