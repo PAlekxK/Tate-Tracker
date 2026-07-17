@@ -23,7 +23,7 @@
     "baseImageCaptureDate": "2022-01-10",
     "baseImageSeason": "leaf-off",
     "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,959 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-    "lastBuiltAt": "2026-07-17T02:34:35.127Z"
+    "lastBuiltAt": "2026-07-17T20:51:12.520Z"
   },
   "zones": [
     {
@@ -330,6 +330,54 @@
             "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
             "clearedVertexCount": 22,
             "recoverableFrom": "git history (zones.json before this commit)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pond-area",
+      "name": "Pond Area",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36756877678147,
+          34.549541267256004
+        ],
+        [
+          -84.36743867140879,
+          34.54950854631247
+        ],
+        [
+          -84.36742993463194,
+          34.549419433812645
+        ],
+        [
+          -84.36753022402009,
+          34.54941348760422
+        ],
+        [
+          -84.36759930247615,
+          34.549461722440704
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:46:51.544Z",
+      "createdBy": "device",
+      "updatedAt": "2026-07-17T20:46:51.544Z",
+      "lastEditedBy": "device",
+      "history": [
+        {
+          "at": "2026-07-17T20:46:51.544Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Pond Area",
+            "vertexCount": 5
           }
         }
       ]
