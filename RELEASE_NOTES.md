@@ -4,6 +4,15 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-17 — A warm invitation to walk the gardens, out loud
+
+- At the very top, above the questions, there's now a gentle invitation: **"You know these gardens better than I do — when you've got a minute, tell me about one."**
+- Tap **"I've got a minute"** and it walks you through the property's places **one at a time** — for each, a big **"🎤 Tell me about this spot"** so you can just *talk* about what grows there, in your own words. Move between places with the little **‹ ›** arrows.
+- When you've told me about a place, you can go on to **another spot** or say **you're all done** — no counting, no rush, whenever you feel like it. If it's not a good time, **"Another day"** tucks it away and it comes back tomorrow.
+- Your words are saved as **your voice**, nothing rewritten — and it only ever says "saved" when it really has.
+
+---
+
 ## 2026-07-17 — Tell the map what's growing, in your own words
 
 - Tap any place on the property map and you'll see **"🎤 What's growing here?"** — press it and just *say* what grows there, in your own words. No typing, no lists to read.
