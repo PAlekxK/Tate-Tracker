@@ -84,7 +84,7 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 
 | Item | What it is | Gate |
 |---|---|---|
-| **Tool-use migration** ⚠️ | Move Garden Guru off system-prompt digest-stuffing to tool-use. | digest >80K **or** observations >50. ⚠️ **digest is ~80K NOW — at the ceiling.** The closest-to-triggering item in the whole backlog; treat as near-term, not "someday." |
+| **Tool-use migration** | Move Garden Guru off system-prompt digest-stuffing to tool-use. | digest >80K **or** observations >50. **De-urgent-ed 2026-07-17:** excluding vehicles/equipment from the digest (Paul — Guru is Mom's garden assistant, not the fleet tracker) dropped it **~82K → ~71K tokens**, back under the ceiling with headroom. Still the durable fix eventually, but no longer near-triggering. *(Machine Q&A via Guru is intentionally gone; Paul uses Claude-in-terminal for that.)* |
 | **Streaming responses** | Stream Guru replies (~30 lines client). | If turns feel laggy on LTE. |
 | **Conversation browse UI** | UI to browse KV-stored conversations. | v2 want. |
 | **Durable photo-in-note** | Persist photos in saved notes (stripped for iOS quota). | Needs own scoping; mirror the audio_ref server-blob pattern. |
