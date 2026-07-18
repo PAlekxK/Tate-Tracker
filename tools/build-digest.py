@@ -178,7 +178,12 @@ def main():
         "lizards": digest_wildlife(load("lizards.json")),
         "fishing": digest_fishing(load("fishing.json")),
         "property": digest_property(load("property.json")),
-        "vehicles": digest_vehicles(load("vehicles.json")),
+        # Vehicles/equipment EXCLUDED from Garden Guru's digest 2026-07-17 (Paul).
+        # Fernwood carries two products: Guru is MOM's garden assistant; the fleet
+        # tracker is Paul-facing (he uses Claude-in-terminal for machine questions).
+        # Dropping vehicles relieved the ~80K-token digest ceiling (~9.6K tokens, 11%)
+        # and focuses Guru on her world. digest_vehicles() is kept below (now unused)
+        # so re-enabling is a one-line change if this reverses.
     }
 
     import datetime
@@ -192,8 +197,7 @@ def main():
     raw_total = sum(
         os.path.getsize(p)
         for p in ("plants.json", "birds.json", "mammals.json", "amphibians.json",
-                  "snakes.json", "lizards.json", "fishing.json", "property.json",
-                  "vehicles.json")
+                  "snakes.json", "lizards.json", "fishing.json", "property.json")
     )
     digest_size = os.path.getsize(out_path)
     # Rough char→token estimate: ~4 chars/token for JSON
