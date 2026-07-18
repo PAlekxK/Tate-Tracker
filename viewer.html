@@ -8443,8 +8443,11 @@ const ZonePanel = (function () {
     if (!rec.isRecording()) return;
     const zid = activeZoneId;                    // capture before any await / close
     const payload = await rec.stop();
-    if (!payload || !payload.dataUrl) {
-      setGrowStatus("Didn't catch that — tap the mic to try again.");
+    // Reject an empty / header-only blob (< ~1.5 KB is no real audio) with an
+    // honest "didn't catch that" — NEVER claim "Saved ✓" on a capture with no
+    // sound in it (the 2026-07-18 empty-capture guard; belt to the stop() fix).
+    if (!payload || !payload.dataUrl || (payload.sizeBytes || 0) < 1500) {
+      setGrowStatus("Didn't catch that — tap the mic and speak, then try again.");
       return;
     }
     setGrowStatus("Saving…");
@@ -9615,7 +9618,7 @@ const ZoneJourney = (function () {
     const z = currentZone();
     const zid = z && z.id;                        // capture before any await / close
     const payload = await r.stop();
-    if (!payload || !payload.dataUrl) { setStatus("Didn't catch that — tap the mic to try again."); return; }
+    if (!payload || !payload.dataUrl || (payload.sizeBytes || 0) < 1500) { setStatus("Didn't catch that — tap the mic and speak, then try again."); return; }
     setStatus("Saving…");
     // Honest ack lives in uploadZoneAudio; we claim a save ONLY on its {ok:true}.
     const result = await uploadZoneAudio({ dataUrl: payload.dataUrl, zoneId: zid, durationMs: payload.durationMs, flowId: flowId });
@@ -15896,8 +15899,16 @@ function createAudioCapture(ids) {
     return new Promise((resolve) => {
       if (!active || !mediaRecorder) { resolve(null); return; }
       const recordedMimeType = mediaRecorder.mimeType;
+      if (durationTimer) { clearTimeout(durationTimer); durationTimer = null; }
+      // ⚠️ Tear the mic stream down ONLY inside onstop, AFTER the recorder has
+      // flushed its final chunk. Killing the tracks synchronously right after
+      // mediaRecorder.stop() (as this did before 2026-07-18) races the flush and
+      // produces empty, header-only blobs — the "Saved ✓ but no audio" bug that
+      // ate two of Paul's first test captures. Never move this back out.
+      const teardownStream = () => { if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } };
       mediaRecorder.onstop = () => {
         const blob = new Blob(chunks, { type: recordedMimeType });
+        teardownStream();
         const reader = new FileReader();
         reader.onload = () => {
           resolve({
@@ -15907,14 +15918,12 @@ function createAudioCapture(ids) {
             durationMs: Date.now() - startedAtMs,
           });
         };
-        reader.onerror = () => resolve(null);
+        reader.onerror = () => { teardownStream(); resolve(null); };
         reader.readAsDataURL(blob);
       };
-      try { mediaRecorder.stop(); } catch (e) { resolve(null); }
-      if (durationTimer) { clearTimeout(durationTimer); durationTimer = null; }
-      if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
       active = false;
       setButtonState(false, 0);
+      try { mediaRecorder.stop(); } catch (e) { teardownStream(); resolve(null); }
     });
   }
 
