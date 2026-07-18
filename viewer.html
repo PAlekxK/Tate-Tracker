@@ -9501,6 +9501,19 @@ const ZoneJourney = (function () {
   function allZones() { return (typeof ZONES_DATA !== "undefined" && ZONES_DATA.zones) || []; }
   function el(id) { return document.getElementById(id); }
 
+  // Order for the guided walk (Paul, 2026-07-17): lead with the Eastern Patio, then
+  // the rest of the DRAWN zones (in canon order), then any zone with no geometry yet
+  // (Fairway, Parking Bank) LAST — don't open Mom into a place that has no shape.
+  const LEAD_ZONE_ID = "eastern-patio";
+  function hasGeometry(z) { return z && Array.isArray(z.vertices) && z.vertices.length > 0; }
+  function orderedZones() {
+    const all = allZones().slice();
+    const lead  = all.filter(z => z && z.id === LEAD_ZONE_ID);
+    const drawn = all.filter(z => z && z.id !== LEAD_ZONE_ID && hasGeometry(z));
+    const empty = all.filter(z => z && z.id !== LEAD_ZONE_ID && !hasGeometry(z));
+    return lead.concat(drawn, empty);
+  }
+
   function ensureMounted() {
     if (mounted) return;
     backdrop = document.createElement("div");
@@ -9634,7 +9647,7 @@ const ZoneJourney = (function () {
 
   function start(fid) {
     ensureMounted();
-    zones = allZones().slice();
+    zones = orderedZones();
     if (!zones.length) return;
     flowId = fid || null;
     pos = 0;
