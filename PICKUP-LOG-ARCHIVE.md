@@ -90,7 +90,7 @@ Three, all Paul-stated/ratified, `[candidate — 1 occurrence]`: **provenance-ho
 **The full Amazon "Request My Data" export (`~/Desktop/Claude/Your Orders/`, 1,231 orders) replaced the 10-screenshot reads — deterministic dates/prices/ASINs.** Shipped + pushed + Worker deployed (Tate-Tracker HEAD `8add29e`). Live on GH Pages.
 
 ### What shipped
-- **GTI plate-light DIY fix** (`serviceHistory`, verified) — cleaned/reseated the rear license-plate light connectors after a bulb-out flicker; same reseat-and-tape technique as the DR-Z, recurrence-watch. Private plate/reg facts (plate CQV7939 / **Fulton** county / **JUN 26 sticker = expired**, corroborates the past-due reg) in the gitignored `gti-2016/EXTRACTED.md`.
+- **GTI plate-light DIY fix** (`serviceHistory`, verified) — cleaned/reseated the rear license-plate light connectors after a bulb-out flicker; same reseat-and-tape technique as the DR-Z, recurrence-watch. Private plate/reg facts (redacted — the actual plate / county / sticker values live only in the gitignored `gti-2016/EXTRACTED.md`; they corroborate the past-due reg).
 - **GTI coolant tank** — Paul **installed** the expansion/overflow reservoir tank himself (Feb 2026). New `serviceHistory` row + a context line on the coolant restoration item (suspect swapped, predates July's clean pressure test — NOT called solved).
 - **DR-Z400S spark plug** filled in: **NGK #1275 (CR8E)**, Paul-confirmed (corrects the earlier "cart spare" guess — cart runs BPR4ES).
 - **Bronco installs woven in** — Dorman 742-251 window motor + Dorman 38424 tailgate striker (rear-window/tailgate item) and Icyhaws door clips (door-panel item), Paul-confirmed installed.
