@@ -4,11 +4,11 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
-## 2026-07-20 — A new Weeds section, starting with what's in the fairway
+## 2026-07-20 — A new Weeds section, from photos taken on the property
 
-- There's a new **Weeds** card — a running note on the weeds that turn up on the property: what to look for, and above all **when to get after each one before it goes to seed**.
-- It starts with one we spotted in the fairway grass — a low, spreading grass that looks like it might be **crabgrass**. It's marked plainly as **"our read from a photo · needs confirming,"** because that's all it is so far.
-- The surest way to know is a look on the ground: come late summer, if it sends up little finger-like seed spikes, that settles it — and that's exactly the kind of thing to check and tell me. More weeds will fill in the section over time.
+- There's a new **Weeds** card — a running note on the weeds that turn up on the property: what each one looks like, and above all **when to get after it before it goes to seed**.
+- It starts with **five**, each shown with **a photo taken right here on the property**: a possible **stiltgrass** and **beggar's lice** along the woods edge, **Virginia creeper** and a **wild violet**, plus a **crabgrass** in the fairway grass. Each one is marked plainly as **"our read from a photo · needs confirming"** — best guesses, no more, until they're settled on the ground.
+- That's where you come in: little things like whether the sticky triangular seeds catch on your clothes, or the pale stripe down a leaf, are exactly what settles which is which. As you tell me, the guesses become knowns and the section fills in.
 
 ---
 

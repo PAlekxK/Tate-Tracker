@@ -12,13 +12,19 @@
     {
       "id": "crabgrass",
       "name": "Crabgrass",
-      "commonNames": ["Large crabgrass", "Hairy crabgrass"],
+      "commonNames": [
+        "Large crabgrass",
+        "Hairy crabgrass"
+      ],
       "scientificName": "Digitaria sanguinalis",
       "emoji": "🌾",
       "confidence": "inferred",
       "status": "needs-confirmation",
       "observedOn": "2026-07-20",
-      "observedZones": ["fairway", "fairway-fringe"],
+      "observedZones": [
+        "fairway",
+        "fairway-fringe"
+      ],
       "observedBy": "Paul — photo walk",
       "photo": null,
       "attribution": null,
@@ -39,6 +45,167 @@
         "confirmBy": "the finger-like seed spikes in late summer"
       },
       "notes": "First surfaced as the low, spreading 'second grass' in the fairway and meadow photos (2026-07-20). Recorded here as inferred, pending Mom's confirmation on the ground."
+    },
+    {
+      "id": "japanese-stiltgrass",
+      "name": "Japanese stiltgrass",
+      "commonNames": [
+        "Nepalese browntop",
+        "Microstegium"
+      ],
+      "scientificName": "Microstegium vimineum",
+      "emoji": "🌿",
+      "confidence": "inferred",
+      "status": "needs-confirmation",
+      "observedOn": "2026-07-20",
+      "observedZones": [
+        "woodland-edge"
+      ],
+      "observedBy": "Paul — photo walk",
+      "photo": "images/weeds/japanese-stiltgrass.jpg",
+      "attribution": {
+        "source": "Property record",
+        "author": "Paul",
+        "license": "Property record",
+        "takenOn": "2026-07-20"
+      },
+      "lookFor": "A low, sprawling grass that lies across the ground in loose mats rather than standing up. Short lance-shaped leaves, an inch or two long, each with a tell-tale pale, silvery stripe running slightly off-center down the middle. Loves shade and damp ground along the woods edge.",
+      "habit": "A summer annual — comes up thick each year from seed, sprawls all summer, and dies at frost. It's one of the most aggressive shade invasives in the Southeast; a patch left alone carpets the ground and crowds native growth out.",
+      "seedTiming": {
+        "window": "Late summer — August into September",
+        "note": "It sets seed in late summer, just before frost, and a single season's seed can carpet the ground for years. Getting after it before it seeds is the whole game."
+      },
+      "combat": [
+        "It's shallow-rooted — a patch pulls up in easy handfuls, or a string-trimmer / mow knocks it down. The key is doing it in late summer, before the seed ripens.",
+        "Because it reseeds so heavily, one clearing isn't enough — stay after the same spots for a few years to run the seed bank down.",
+        "Shade and a thick native groundcover are its enemies; bare, disturbed, damp ground is where it takes hold.",
+        "For a heavy stand, a spring pre-emergent (same timing as for crabgrass) stops the seed from sprouting."
+      ],
+      "momConfirm": {
+        "questionId": "q-weed-stiltgrass",
+        "confirmBy": "the pale silvery stripe down each leaf, and how easily a whole mat pulls up"
+      },
+      "notes": "The dominant sprawling grass in the woodland-edge photos (7/20). Recorded inferred pending confirmation on the ground."
+    },
+    {
+      "id": "beggars-lice",
+      "name": "Beggar's lice (tick-trefoil)",
+      "commonNames": [
+        "Tick-trefoil",
+        "Tick clover",
+        "Desmodium"
+      ],
+      "scientificName": "Desmodium sp.",
+      "emoji": "🌸",
+      "confidence": "inferred",
+      "status": "needs-confirmation",
+      "observedOn": "2026-07-20",
+      "observedZones": [
+        "woodland-edge"
+      ],
+      "observedBy": "Paul — photo walk",
+      "photo": "images/weeds/beggars-lice.jpg",
+      "attribution": {
+        "source": "Property record",
+        "author": "Paul",
+        "license": "Property record",
+        "takenOn": "2026-07-20"
+      },
+      "lookFor": "Wiry, thin, sprawling stems with small pink-purple pea flowers, and leaves in threes (a leaflet trio). After it flowers it forms little flat, triangular seed segments in a chain — the ones that stick to your clothes and the dog by the dozen.",
+      "habit": "A native legume of woodland edges — not a bully like the stiltgrass. The nuisance is entirely the seeds: those flat triangular segments are covered in tiny hooks and hitch a ride on anything that brushes past, which is exactly how it spreads.",
+      "seedTiming": {
+        "window": "Late summer — before the pods ripen",
+        "note": "Cut or pull the flowering stems before the little triangular pods dry and start sticking. Once they're ripe, every pass through a patch plants next year's crop somewhere new."
+      },
+      "combat": [
+        "Pull or cut the stems while it's flowering, before the sticky pods set — that's the one move that matters.",
+        "It's a native and not aggressive, so there's no need to go to war with it — just keep it cut back along the paths where the seeds catch you.",
+        "A thick edge of taller native growth shades it down over time."
+      ],
+      "momConfirm": {
+        "questionId": "q-weed-beggars-lice",
+        "confirmBy": "whether the little flat triangular seeds stick to your clothes"
+      },
+      "notes": "The pink-flowered, sticky-seeded plant in the 7/20 photos. Recorded inferred pending confirmation."
+    },
+    {
+      "id": "virginia-creeper",
+      "name": "Virginia creeper",
+      "commonNames": [
+        "Woodbine",
+        "Five-leaved ivy"
+      ],
+      "scientificName": "Parthenocissus quinquefolia",
+      "emoji": "🍁",
+      "confidence": "inferred",
+      "status": "needs-confirmation",
+      "observedOn": "2026-07-20",
+      "observedZones": [
+        "woodland-edge"
+      ],
+      "observedBy": "Paul — photo walk",
+      "photo": "images/weeds/virginia-creeper.jpg",
+      "attribution": {
+        "source": "Property record",
+        "author": "Paul",
+        "license": "Property record",
+        "takenOn": "2026-07-20"
+      },
+      "lookFor": "A climbing vine whose leaves each have FIVE leaflets spreading from one point, like fingers on a hand, with toothed edges. Note the five — that's what tells it apart from poison ivy, which always has three. Turns brilliant red in fall.",
+      "habit": "A native vine, and a good one for wildlife — birds take the dark berries. It's only a 'weed' where it climbs somewhere you don't want it: up the house, into a shrub, or across a bed.",
+      "seedTiming": {
+        "window": "Not seed-driven — manage where it climbs",
+        "note": "No urgent seed window here; it spreads mostly by running and rooting. The move is to cut it back wherever it's climbing into something before the vine gets woody and hard to pull."
+      },
+      "combat": [
+        "Where it's not bothering anything, leave it — it's native and feeds the birds.",
+        "Where it climbs the house or into a shrub, cut it at the base and pull the young runners; the roots come up fairly easily when the plant is young.",
+        "Five leaflets, not three — worth being sure before pulling, so it isn't confused with poison ivy nearby."
+      ],
+      "momConfirm": {
+        "questionId": null,
+        "confirmBy": "counting five leaflets on a leaf (poison ivy has three)"
+      },
+      "notes": "The five-leaflet vine in the 7/20 photos. Native; recorded here because Paul flagged it. Inferred pending confirmation."
+    },
+    {
+      "id": "wild-violet",
+      "name": "Wild violet",
+      "commonNames": [
+        "Common blue violet"
+      ],
+      "scientificName": "Viola sororia",
+      "emoji": "💜",
+      "confidence": "inferred",
+      "status": "needs-confirmation",
+      "observedOn": "2026-07-20",
+      "observedZones": [
+        "woodland-edge"
+      ],
+      "observedBy": "Paul — photo walk",
+      "photo": "images/weeds/wild-violet.jpg",
+      "attribution": {
+        "source": "Property record",
+        "author": "Paul",
+        "license": "Property record",
+        "takenOn": "2026-07-20"
+      },
+      "lookFor": "Low rosettes of round, heart-shaped leaves with scalloped edges, close to the ground. In spring it carries the little purple violet flowers everyone knows. (A lower-confidence read — the round leaves could be a look-alike until the flowers or Mom settle it.)",
+      "habit": "A tough native spring wildflower that many people are happy to keep as a groundcover — it feeds early pollinators. It earns the 'weed' label mostly in a tidy lawn, where its rhizomes make it hard to be rid of.",
+      "seedTiming": {
+        "window": "Easiest to know in spring",
+        "note": "Not a get-it-before-it-seeds case — it's a perennial that persists on its roots. Spring, when the purple flowers are out, is simply the easiest time to be sure of what it is."
+      },
+      "combat": [
+        "If it's welcome as a groundcover, nothing to do — it's a native and a pollinator plant.",
+        "Where it's unwanted in turf, dig the whole rhizome; mowing and pulling tops alone won't finish it.",
+        "Wait for the spring flowers to confirm it before treating anything."
+      ],
+      "momConfirm": {
+        "questionId": null,
+        "confirmBy": "the little purple flowers next spring"
+      },
+      "notes": "The round heart-leaved plant in the 7/20 photos — lower confidence. Inferred pending confirmation."
     }
   ]
 }
