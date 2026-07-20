@@ -76,6 +76,8 @@ SOURCES = [
     # GEOREFERENCE (bounds + image dimensions), so a stale inline doesn't just show
     # old data, it projects every zone against the wrong picture.
     ("zones.json",      "ZONES_DATA",      "zones",    "zones"),
+    # Added 2026-07-20 with the Weeds card — inferred weed reads, settled via Mom.
+    ("weeds.json",      "WEEDS_DATA",      "weeds",    "weeds"),
 ]
 
 # Cap on how many differing paths to print per const (keep output legible).

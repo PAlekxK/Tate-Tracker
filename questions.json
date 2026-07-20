@@ -216,6 +216,27 @@
       "_source": "authored",
       "_kind": "reflective",
       "_note": "Armchair/strategy card — answerable from anywhere, no going outside. Her preference, captured AI-free; not a canon fold (no _foldTarget)."
+    },
+    {
+      "id": "q-fairway-grass-seedheads",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "Down in the fairway and meadow there seem to be **two different grasses** — a coarse clumpy one and a lower, spreading one. We're guessing the spreading one might be crabgrass, but that's only a guess from a picture. **Come late summer, does that low spreading grass send up little finger-like seed spikes?** That would tell us for sure.",
+      "entityRef": {
+        "type": "plant",
+        "id": "fairway-meadow"
+      },
+      "createdAt": "2026-07-20",
+      "active": false,
+      "_source": "authored",
+      "_foldTarget": "observedGrasses",
+      "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. Flip active:true then. When the add-a-photo-on-card affordance ships (BACKLOG A2 W4b), this is a prime candidate to invite HER photo, not just a yes/no.",
+      "labels": {
+        "yes": "Yes, it does",
+        "no": "No, no spikes",
+        "later": "Ask me later"
+      },
+      "correctionPrompt": "What does it look like, if you can say? (optional)"
     }
   ]
 }

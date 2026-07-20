@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-20 — A new Weeds section, starting with what's in the fairway
+
+- There's a new **Weeds** card — a running note on the weeds that turn up on the property: what to look for, and above all **when to get after each one before it goes to seed**.
+- It starts with one we spotted in the fairway grass — a low, spreading grass that looks like it might be **crabgrass**. It's marked plainly as **"our read from a photo · needs confirming,"** because that's all it is so far.
+- The surest way to know is a look on the ground: come late summer, if it sends up little finger-like seed spikes, that settles it — and that's exactly the kind of thing to check and tell me. More weeds will fill in the section over time.
+
+---
+
 ## 2026-07-20 — Bolores's story, all the way back
 
 - The **1989 Bronco's** service history now runs much deeper — her paper trail turns out to reach back to a **Memphis, TN chapter (2010–2011)**, where the 4" lift she still wears was actually built and she went through a long recommissioning.
