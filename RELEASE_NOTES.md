@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-20 — A picture to check the question against
+
+- The questions at the top now show a **picture** of the plant they're asking about — so when it asks about the panicle hydrangea or the clematis, you can see one and say whether it matches what's out there.
+- Each picture is labeled **"A reference picture — not one taken here,"** with a small credit to where it came from — so it's clear it's a stock photo for comparison, not one of your own gardens. (A photo that *was* taken on the property says so instead.)
+
+---
+
 ## 2026-07-20 — Where the GTI came from
 
 - The **2016 GTI** now carries a little **"🔑 Acquired · CarMax, April 2021"** line — where and when she joined the fleet. A quiet bit of the car's own history, surfaced from an old receipt.
