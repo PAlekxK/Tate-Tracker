@@ -1,7 +1,7 @@
 {
   "_meta": {
     "note": "PII-free catalog of private vehicle service scans; the durable index for .private/service-records/",
-    "updatedAt": "2026-07-20T21:03:35.586944+00:00",
+    "updatedAt": "2026-07-20T23:17:02.087963+00:00",
     "count": 220
   },
   "records": [
@@ -1244,7 +1244,7 @@
       "sha256": "716597f5853cb09e2c8b25a4891528af9591e07b6aa08b8bb9e23e566283f7c0",
       "bytes": 1488079,
       "photoTakenAt": "2026-07-20T14:54:45",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1253,7 +1253,7 @@
       "sha256": "5a1c469b1f96082d7c272f85bb0b6b24697fceae3194158fdabb15b575554657",
       "bytes": 1500965,
       "photoTakenAt": "2026-07-20T14:54:48",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1262,7 +1262,7 @@
       "sha256": "80530df54f231e092073850f6a18afde6d79fcc772a2f6b12ac2f4e90bf6e6d9",
       "bytes": 1486578,
       "photoTakenAt": "2026-07-20T14:55:00",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1271,7 +1271,7 @@
       "sha256": "8e19ebd7b8740e23aec4dc1f975df9588acb64e9fa817ec4ac2056b0e4bf3894",
       "bytes": 1199480,
       "photoTakenAt": "2026-07-20T14:55:09",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1280,7 +1280,7 @@
       "sha256": "34b60c9383ca3f0cfc777f9c8cdfeadf68c48b47de3cac17d8ec68437bd8577d",
       "bytes": 1185644,
       "photoTakenAt": "2026-07-20T14:55:13",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1289,7 +1289,7 @@
       "sha256": "ddb9ae904168c696842b5c27b94f70aaa29e292222ac7007b4abfdfeda346bee",
       "bytes": 1742866,
       "photoTakenAt": "2026-07-20T14:55:25",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1298,7 +1298,7 @@
       "sha256": "40581019768933604ed4d259f86f1fa187d4a11bce579aa953753f8c617fe76e",
       "bytes": 1219597,
       "photoTakenAt": "2026-07-20T14:55:31",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1307,7 +1307,7 @@
       "sha256": "5d44847a992fc0dfa028cc75352359f7780f8b6a3c824652c0fc0f39ddfa8ce6",
       "bytes": 1152383,
       "photoTakenAt": "2026-07-20T14:55:37",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1316,7 +1316,7 @@
       "sha256": "bb6155503e7f8c225ebb0a41d305a63241ff7e3f530e4fc8124a1983ac057585",
       "bytes": 1189818,
       "photoTakenAt": "2026-07-20T14:55:42",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1325,7 +1325,7 @@
       "sha256": "05eca1138b134ff9cc1426a859e00b00bad71cd4c1c1bb3a9d7227ae2cadc4a1",
       "bytes": 1948703,
       "photoTakenAt": "2026-07-20T14:55:47",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1334,7 +1334,7 @@
       "sha256": "c4e80e5579ba35cbf4e8887b45f692d9895c144f3d57739668008713af400ae3",
       "bytes": 1092880,
       "photoTakenAt": "2026-07-20T14:55:56",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1343,7 +1343,7 @@
       "sha256": "600f52921c33dfe3e310932553898e1c57e3517e58e850bea6f1af7d02544363",
       "bytes": 1668534,
       "photoTakenAt": "2026-07-20T14:55:59",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1352,7 +1352,7 @@
       "sha256": "d68d5ad41052271598bc222d287242e4aafcef14b09056503dd68affb81de7b7",
       "bytes": 1140894,
       "photoTakenAt": "2026-07-20T14:56:06",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1361,7 +1361,7 @@
       "sha256": "faab8d327eb9bc4c3e8f71d5ba2d2c287e3a2a22c36f3b38ec4088add5942ee6",
       "bytes": 1184172,
       "photoTakenAt": "2026-07-20T14:56:10",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1370,7 +1370,7 @@
       "sha256": "79f14d94ae902005e05ad82ab548128c1e4d6284c6403a5bc0f43df6469c9955",
       "bytes": 1442609,
       "photoTakenAt": "2026-07-20T14:56:17",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1379,7 +1379,7 @@
       "sha256": "901bfec140005eabbd99406413b9537f532fd7fb921b1ecffaf7acd513d1336f",
       "bytes": 1146194,
       "photoTakenAt": "2026-07-20T14:56:22",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1388,7 +1388,7 @@
       "sha256": "f4a5f56dc2762e970b3535b1f5e7ddab5a322143b50ff736574d628d586453b7",
       "bytes": 2275332,
       "photoTakenAt": "2026-07-20T14:56:27",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1397,7 +1397,7 @@
       "sha256": "cb2f4847b5f7e16b4b7e13ad7b9f6e85b82f55875e429df5bd435f95bc40ef97",
       "bytes": 1261523,
       "photoTakenAt": "2026-07-20T14:56:35",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1406,7 +1406,7 @@
       "sha256": "f84d03479fa5e8b52c44d37a67ae6cd841ee94aef58e57f250fc066e985a7ce7",
       "bytes": 1152119,
       "photoTakenAt": "2026-07-20T14:56:41",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1415,7 +1415,7 @@
       "sha256": "131606d9adc485191c4ab9b0266ba6bed170c2d942a37073472bf9475e73b740",
       "bytes": 1204708,
       "photoTakenAt": "2026-07-20T14:56:50",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1424,7 +1424,7 @@
       "sha256": "4f9d6b8f130cb9c0af2be0da6e123edc6117b4ed64dcd5bc4fce81337b996db6",
       "bytes": 952838,
       "photoTakenAt": "2026-07-20T14:56:56",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1433,7 +1433,7 @@
       "sha256": "bb52a9bea31bd2416401f05fadb24ef34623fad5bc9534686e13cfe28c21c184",
       "bytes": 1260073,
       "photoTakenAt": "2026-07-20T14:57:07",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1442,7 +1442,7 @@
       "sha256": "d6e074a5c78637a1eee69b9b5eb488f597422e1c3bd63b41dbe821d552fbf26f",
       "bytes": 1227786,
       "photoTakenAt": "2026-07-20T14:57:34",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1451,7 +1451,7 @@
       "sha256": "f5568927be838b95fcd403ee9db788ce44fbaa6db2af904d550a906a160244d1",
       "bytes": 1359298,
       "photoTakenAt": "2026-07-20T14:57:41",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1460,7 +1460,7 @@
       "sha256": "9bcc7b1230c7de96fce2ddd156b0a45d5af4effc8c0bba2dae46ece0fd70b087",
       "bytes": 1334361,
       "photoTakenAt": "2026-07-20T15:20:49",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1469,7 +1469,7 @@
       "sha256": "d7aaa94a959c2a2226bfaccc5aa675345fd8f8c43bfd8b8b5d8301679feae863",
       "bytes": 1286833,
       "photoTakenAt": "2026-07-20T15:20:55",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1478,7 +1478,7 @@
       "sha256": "1c309026044183025bd337c66f93cdb1bb0289e21e900a17b7975112bf1340f3",
       "bytes": 1534856,
       "photoTakenAt": "2026-07-20T15:21:12",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1487,7 +1487,7 @@
       "sha256": "7d39620cfe35ae612a818531a9abf70f6f9c66dfa45091ecc1267fb8c1a90ede",
       "bytes": 1360537,
       "photoTakenAt": "2026-07-20T15:21:21",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1496,7 +1496,7 @@
       "sha256": "27a981aec40a8994fc24743167e5ca9ff64577f8756fb9f000598d125038bbdf",
       "bytes": 1778690,
       "photoTakenAt": "2026-07-20T15:21:29",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1505,7 +1505,7 @@
       "sha256": "428914d10a057cf9ad2118994f1369f50180835ec5a405fae66c1f666d993ee0",
       "bytes": 1987526,
       "photoTakenAt": "2026-07-20T15:21:32",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1514,7 +1514,7 @@
       "sha256": "9453df60685f6a5b587061a96df16ac2849a6a3cf30ba33f412889fede680290",
       "bytes": 1782869,
       "photoTakenAt": "2026-07-20T15:21:39",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1523,7 +1523,7 @@
       "sha256": "7c8abd34d407789ab8aa270bf829027c45640a2a1aa0407ee781e1894f110116",
       "bytes": 1131631,
       "photoTakenAt": "2026-07-20T15:21:47",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1532,7 +1532,7 @@
       "sha256": "20f21f19d8026410698099be2c4e7398461b82c5449706513ba40e3760e35feb",
       "bytes": 1069564,
       "photoTakenAt": "2026-07-20T15:22:17",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1541,7 +1541,7 @@
       "sha256": "846f916fe1a9980fcc221b460696dba39426eeefb626e276f3192c188a092b10",
       "bytes": 1994255,
       "photoTakenAt": "2026-07-20T15:22:22",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1550,7 +1550,7 @@
       "sha256": "4c8c348368a9dd9f9fd4e900f5c3797676c3956f3df727a4b1e9faa74b98d36b",
       "bytes": 1345904,
       "photoTakenAt": "2026-07-20T15:22:29",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1559,7 +1559,7 @@
       "sha256": "e9135494e3b49df559f6cb6923f04b30861189e7550f297a171c23510679cdac",
       "bytes": 1531701,
       "photoTakenAt": "2026-07-20T15:22:36",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1568,7 +1568,7 @@
       "sha256": "88c976143fb4ad27a3a91be66754e7c3f41445630c663092e62397deefc68bdf",
       "bytes": 1996762,
       "photoTakenAt": "2026-07-20T15:22:40",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1577,7 +1577,7 @@
       "sha256": "f77f4c84c6630d3092712ac26fb8b0302708aed33c7b381509c880969ea35032",
       "bytes": 1948167,
       "photoTakenAt": "2026-07-20T15:22:52",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1586,7 +1586,7 @@
       "sha256": "ac2a7911a8c8683e0aa10568f11247ee1731ba25a9e2829c0361036d17e2678b",
       "bytes": 1872605,
       "photoTakenAt": "2026-07-20T15:22:57",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1595,7 +1595,7 @@
       "sha256": "280b453af01c21b3adc6d3cfbdb0909cd89cb38642680b7bbfa65fc85bdc5c8a",
       "bytes": 1912795,
       "photoTakenAt": "2026-07-20T15:23:05",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1604,7 +1604,7 @@
       "sha256": "15fca9169bb79b6971836a37b203835dbd1872739fecc0a08199649457893531",
       "bytes": 1270131,
       "photoTakenAt": "2026-07-20T15:23:17",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1613,7 +1613,7 @@
       "sha256": "f02fe273eff647850b86ed0f8367fe127044c6798a3e705b79da69b1f08913b2",
       "bytes": 1655604,
       "photoTakenAt": "2026-07-20T15:24:08",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1622,7 +1622,7 @@
       "sha256": "dba41cf60be8fa82ec02d55da699f4b3020b4631f91caa1599fda830dacea3de",
       "bytes": 1588804,
       "photoTakenAt": "2026-07-20T15:24:11",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1631,7 +1631,7 @@
       "sha256": "5cec7bfc9ea8ebac747980b87e0b8c041300c4a8d92cd2ffb44053e6f05140ff",
       "bytes": 1539429,
       "photoTakenAt": "2026-07-20T15:24:16",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1640,7 +1640,7 @@
       "sha256": "c4ba08fc15669ab48087d52cab032e50e17d98f2626c1928f86dc6a92068d5e9",
       "bytes": 1479527,
       "photoTakenAt": "2026-07-20T15:24:25",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1649,7 +1649,7 @@
       "sha256": "265dccdd1dad67738c873a263ef06ea61e8905cb7195fafc6bed207c9761318b",
       "bytes": 1276599,
       "photoTakenAt": "2026-07-20T15:24:30",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1658,7 +1658,7 @@
       "sha256": "696870445632aa8f659965a17d7b7d70626bd3baeb7daad169038e02e7b3acfd",
       "bytes": 1198480,
       "photoTakenAt": "2026-07-20T15:24:37",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1667,7 +1667,7 @@
       "sha256": "d459ee1fd0494435164f1038bd8ab0c6c28078d1172db0e1e3f354313eefa575",
       "bytes": 1207057,
       "photoTakenAt": "2026-07-20T15:24:45",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1676,7 +1676,7 @@
       "sha256": "31aff6d3ac3df10efe1aa19b753ac837079ae48b3710653766b12bbbf9cf99f2",
       "bytes": 1277102,
       "photoTakenAt": "2026-07-20T15:24:49",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1685,7 +1685,7 @@
       "sha256": "e7a8850372b96f85767a52f3937464f44400d9725b8016abde30e18d73186375",
       "bytes": 1621773,
       "photoTakenAt": "2026-07-20T15:24:54",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1694,7 +1694,7 @@
       "sha256": "4a7cfb80938caff42eaf2f79b189dc8032d6c3c42d4e6999e56b5c57a91251a9",
       "bytes": 1180824,
       "photoTakenAt": "2026-07-20T15:25:02",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1703,7 +1703,7 @@
       "sha256": "cebe5aacfb98ab8e14975fd14beac0dbe734bf8e7a762d87ed97fb9240853167",
       "bytes": 1593022,
       "photoTakenAt": "2026-07-20T15:25:05",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1712,7 +1712,7 @@
       "sha256": "5c8737180bd397e9ebce9d98d630e3f429c596827dbcfcc9a69f1df96c134676",
       "bytes": 1563641,
       "photoTakenAt": "2026-07-20T15:25:09",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1721,7 +1721,7 @@
       "sha256": "0eaf2af060f2a239ab0120c9e32e6f47d03741bc12c841d5a3d8500591b22fd7",
       "bytes": 1244570,
       "photoTakenAt": "2026-07-20T15:25:15",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1730,7 +1730,7 @@
       "sha256": "5ebb2c78abb5641c3f51a48bb2a9fc55a7d2fe1197bae9293b3bd1ba63b377a5",
       "bytes": 1390575,
       "photoTakenAt": "2026-07-20T15:25:20",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1739,7 +1739,7 @@
       "sha256": "f2fd7af0d44fd2c94f31bfd2b85afd9f1bcd8ede61bab2d4bf75dbff3ae317cc",
       "bytes": 1353067,
       "photoTakenAt": "2026-07-20T15:25:24",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1748,7 +1748,7 @@
       "sha256": "0f695ab1d168c061eed3849df977c67895abdac179c446452bcc22a189dc56d6",
       "bytes": 1068466,
       "photoTakenAt": "2026-07-20T15:25:29",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1757,7 +1757,7 @@
       "sha256": "db6540ebf70778a4e313d5e85969e1a5b538a0237a130199f836a0c132075c6f",
       "bytes": 1276065,
       "photoTakenAt": "2026-07-20T15:25:41",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1766,7 +1766,7 @@
       "sha256": "7679a77c12a5e8c93aa4d0cf9296c3a9387a55d682f9d41c112ef79c1c06dad9",
       "bytes": 1418636,
       "photoTakenAt": "2026-07-20T15:25:44",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1775,7 +1775,7 @@
       "sha256": "0931d4cf6bfe56af4c40560e59488d214bdcfa7f7df6fd30dbf307f112e1924f",
       "bytes": 1507420,
       "photoTakenAt": "2026-07-20T15:25:50",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1784,7 +1784,7 @@
       "sha256": "db098d086b0e7aa8adac2fd8be6391f49098907226c7b12d0d1d88a883ae2dee",
       "bytes": 1305433,
       "photoTakenAt": "2026-07-20T15:25:58",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1793,7 +1793,7 @@
       "sha256": "324237a9dc73db65ae9c9fdf1579d0d0e1a0277af5279069c3024ad0b37ac822",
       "bytes": 1552584,
       "photoTakenAt": "2026-07-20T15:26:05",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1802,7 +1802,7 @@
       "sha256": "f687b0a0fa689fdd7ad9e41ea7600a5a34b406e59c328ce894eb6ea9e40cacad",
       "bytes": 1935009,
       "photoTakenAt": "2026-07-20T15:26:13",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1811,7 +1811,7 @@
       "sha256": "1d92ac5592441e5875b91e2487f9f3f73ecd74d2dccd4a91e6a1877dca15bf5a",
       "bytes": 1698278,
       "photoTakenAt": "2026-07-20T15:26:18",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1820,7 +1820,7 @@
       "sha256": "0af82f06c601441371bbb5bca201985870bd9ab78e1d041f8cab6ce7a28c6570",
       "bytes": 1655339,
       "photoTakenAt": "2026-07-20T15:26:23",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1829,7 +1829,7 @@
       "sha256": "f4704ba19a719574b1a3892238529ece586e2c55f27d25db0e25f70fb3666344",
       "bytes": 1900167,
       "photoTakenAt": "2026-07-20T15:26:28",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1838,7 +1838,7 @@
       "sha256": "ef99c2647d6158107a8c0859577c98b16ca7ac30169670c4f634c640fa9b224f",
       "bytes": 1204978,
       "photoTakenAt": "2026-07-20T15:26:41",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1847,7 +1847,7 @@
       "sha256": "a8d973c4dbfa95cfd3a5d384e6c9082902c20a2cbcf399725674dc283f5a1fed",
       "bytes": 1838251,
       "photoTakenAt": "2026-07-20T16:08:13",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1856,7 +1856,7 @@
       "sha256": "3255c2f1377e3b05069620b91a34a386b4342c2069a0cf2d1cc90c0c681b3df3",
       "bytes": 1185281,
       "photoTakenAt": "2026-07-20T16:08:19",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1865,7 +1865,7 @@
       "sha256": "819c85d825543eed7fee916fe58d619d3b1d7b743fed87714f2c80d2a886d795",
       "bytes": 1206147,
       "photoTakenAt": "2026-07-20T16:08:24",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1874,7 +1874,7 @@
       "sha256": "a204ec87f97024fb8f7b2ed78f4571961a9d908e936907ab98a9e4fb4d7c9b6f",
       "bytes": 1844032,
       "photoTakenAt": "2026-07-20T16:08:28",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1883,7 +1883,7 @@
       "sha256": "319d5ff6058ceb4092ce872f300e1fee9aa75aa7ed253da29d6e42f277df6ba9",
       "bytes": 1091909,
       "photoTakenAt": "2026-07-20T16:08:30",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1892,7 +1892,7 @@
       "sha256": "61a56640915c2301d16e38859c97633a8f5b547842cd5c2b0140086a7dc82a10",
       "bytes": 891015,
       "photoTakenAt": "2026-07-20T16:08:36",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1901,7 +1901,7 @@
       "sha256": "19ef8585c6e73d819c09c95ce67d3c932bb06a16270daddc9e3e7d7254373186",
       "bytes": 1047976,
       "photoTakenAt": "2026-07-20T16:08:42",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1910,7 +1910,7 @@
       "sha256": "a7a2a6d101b291d7ee405b58b66c67ef3011cd639a476b0f5fc0588da9565bd7",
       "bytes": 1597294,
       "photoTakenAt": "2026-07-20T16:08:46",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1919,7 +1919,7 @@
       "sha256": "4ec567569aa8a2843ef0fe334a08f9bf6cbae0e3ac699e243103f712b2b92d12",
       "bytes": 1804187,
       "photoTakenAt": "2026-07-20T16:08:58",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1928,7 +1928,7 @@
       "sha256": "25f16d01fec55bed70f02bc171d255489e5c07745e6df19524ad98a75627b755",
       "bytes": 1279246,
       "photoTakenAt": "2026-07-20T16:09:02",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1937,7 +1937,7 @@
       "sha256": "c7b6aa10546462fe738c2a173ab9a53b553b78d12f0943b64b069a2d3a52494a",
       "bytes": 2089064,
       "photoTakenAt": "2026-07-20T16:09:08",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1946,7 +1946,7 @@
       "sha256": "54f1eb4b308353b57dc0c82c01c48509499ba1f1d824ac11a39c660d1b6ce1fc",
       "bytes": 1592216,
       "photoTakenAt": "2026-07-20T16:09:13",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1955,7 +1955,7 @@
       "sha256": "a39a4a24aba961456d06e5d76084616de0d8e336852e7f911921cde8f7dfcaab",
       "bytes": 1277347,
       "photoTakenAt": "2026-07-20T16:09:18",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1964,7 +1964,7 @@
       "sha256": "94daa638b4e0a8dfb614ec156b53ab2ef26c67f3e20da7409d9144e16fb22a20",
       "bytes": 1417238,
       "photoTakenAt": "2026-07-20T16:09:29",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1973,7 +1973,7 @@
       "sha256": "61ce0ac733220f6e849923d3c22e828c04d0314974c87b55902ba3c4e0cc0aeb",
       "bytes": 1676664,
       "photoTakenAt": "2026-07-20T16:10:06",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1982,7 +1982,7 @@
       "sha256": "f051393bfde566651d4c38c73bdd5de47bd52881950bb184ab070b060740fe1d",
       "bytes": 1671777,
       "photoTakenAt": "2026-07-20T16:10:12",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -1991,7 +1991,7 @@
       "sha256": "890496655a7f1ee078cdbd7d5283abf877fe36de89ca9c945efc9859754f3036",
       "bytes": 1755621,
       "photoTakenAt": "2026-07-20T16:10:19",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -2000,7 +2000,7 @@
       "sha256": "5c58f271d2ae1001f9ffcd499c30661364cb957692879a015d797ed7559eae39",
       "bytes": 1788127,
       "photoTakenAt": "2026-07-20T16:10:19",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -2009,7 +2009,7 @@
       "sha256": "d32cf69178257528464501cae4c0ab92901a55497b6b654d7ab5a628303fb65c",
       "bytes": 1047397,
       "photoTakenAt": "2026-07-20T16:10:22",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -2018,7 +2018,7 @@
       "sha256": "f149e31e0d7f9fe35fd1dabb46dc58c8ffab226a800b457dd263448a3aa49979",
       "bytes": 1213907,
       "photoTakenAt": "2026-07-20T16:10:26",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     },
     {
@@ -2027,7 +2027,7 @@
       "sha256": "29ff0e6394868a3f96c5a93f78f2e0255a46b94c51ebcfd87e1a9706caddafa9",
       "bytes": 1712944,
       "photoTakenAt": "2026-07-20T15:21:59",
-      "stage": "inbox",
+      "stage": "filed",
       "class": null
     }
   ]
