@@ -4,6 +4,12 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-20 — Where the GTI came from
+
+- The **2016 GTI** now carries a little **"🔑 Acquired · CarMax, April 2021"** line — where and when she joined the fleet. A quiet bit of the car's own history, surfaced from an old receipt.
+
+---
+
 ## 2026-07-17 — A warm invitation to walk the gardens, out loud
 
 - At the very top, above the questions, there's now a gentle invitation: **"You know these gardens better than I do — when you've got a minute, tell me about one."**

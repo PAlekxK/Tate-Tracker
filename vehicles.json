@@ -12,6 +12,12 @@
       "emoji": "🚗",
       "engine": "EA888 Gen 3 2.0T, APR Stage 1 tuned",
       "category": "daily-driver",
+      "acquired": {
+        "source": "CarMax",
+        "date": "April 2021",
+        "detail": "Paul's since ~April 2, 2021",
+        "confidence": "verified"
+      },
       "status": "Active — coolant leak diagnosis ongoing",
       "specs": {
         "displacement": "1,984 cc turbocharged inline-4",
