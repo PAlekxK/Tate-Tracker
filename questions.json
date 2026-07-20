@@ -237,6 +237,48 @@
         "later": "Ask me later"
       },
       "correctionPrompt": "What does it look like, if you can say? (optional)"
+    },
+    {
+      "id": "q-weed-stiltgrass",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "Along the shady edge of the woods there's a low, sprawling grass that lies flat in mats. We think it might be **Japanese stiltgrass** — a weed worth getting after before it seeds. **Does each little leaf have a pale, silvery stripe running down the middle, and does a whole mat pull up easily?**",
+      "entityRef": {
+        "type": "weed",
+        "id": "japanese-stiltgrass"
+      },
+      "createdAt": "2026-07-20",
+      "active": false,
+      "_source": "authored",
+      "_foldTarget": "confidence",
+      "_draftNote": "DRAFT staged 2026-07-20 from the weed photo-read. Flip active:true to ping Mom. On 'yes' fold japanese-stiltgrass confidence inferred->verified.",
+      "labels": {
+        "yes": "Yes, that's it",
+        "no": "No, doesn't match",
+        "later": "Ask me later"
+      },
+      "correctionPrompt": "What does it look like, if you can say? (optional)"
+    },
+    {
+      "id": "q-weed-beggars-lice",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "There's a wiry plant along the woods edge with small pink pea-flowers that we think is **beggar's lice** (tick-trefoil). The tell is the seeds. **Come late summer, do little flat triangular seeds stick all over your clothes when you walk past it?**",
+      "entityRef": {
+        "type": "weed",
+        "id": "beggars-lice"
+      },
+      "createdAt": "2026-07-20",
+      "active": false,
+      "_source": "authored",
+      "_foldTarget": "confidence",
+      "_draftNote": "DRAFT staged 2026-07-20 from the weed photo-read. Flip active:true (best in late summer when it seeds). On 'yes' fold beggars-lice confidence inferred->verified.",
+      "labels": {
+        "yes": "Yes, they stick",
+        "no": "No, they don't",
+        "later": "Ask me later"
+      },
+      "correctionPrompt": "Anything else about it? (optional)"
     }
   ]
 }
