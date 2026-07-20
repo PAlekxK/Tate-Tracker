@@ -656,7 +656,7 @@
           "confidence": "tbd"
         }
       },
-      "notes": "\"Bolores\" — the Eddie Bauer edition: two-tone maroon over tan, upgraded interior. Lifted and riding on 35\" Pro Comp mud-terrains over 15\" alloys with WARN locking hubs; Mickey Thompson Baja spare on the rear carrier. Full restoration underway.",
+      "notes": "\"Bolores\" — the Eddie Bauer edition: two-tone maroon over tan, upgraded interior. Lifted and riding on 35\" Pro Comp mud-terrains over 15\" alloys with WARN locking hubs; Mickey Thompson Baja spare on the rear carrier. Full restoration underway. Her documented history now reaches back to a Memphis, TN owner (2010–2013) who built that 4\" lift and worked through a long recommissioning — the 351 had already been rebuilt once even before then. She came into Georgia on a Mississippi title, was bought by a Canton-area owner in 2016 who swapped the engine twice (a short-block in '16, then a warranty long-block in '18) and kept her at a local shop for years — including a 2021 stint in Maine — before Paul brought her home in October 2025. Her odometer isn't trustworthy: the instrument cluster was opened/replaced along the way, and the '89 title is odometer-exempt.",
       "restoration": [
         {
           "item": "Frame — inspect at steering box",
@@ -841,10 +841,29 @@
           "confidence": "verified"
         },
         {
+          "date": "2023",
+          "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
+          "summary": "Driveline & fuel work — front CV axle & throttle body, driveshaft U-joints, fuel filter, and transmission-leak reseals (prior owner)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2022",
+          "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
+          "summary": "Front ball joints and a new rear driveshaft assembly (prior owner)",
+          "confidence": "inferred"
+        },
+        {
           "date": "2021-10",
           "mileage": 97377,
           "shop": "VIP Tires & Service (Farmingdale, ME)",
           "summary": "Front-end & brake rebuild — replacement spindle, front wheel bearings & manual locking hubs, brakes, synthetic oil change (prior owner; the truck was in Maine at the time)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2021-08",
+          "mileage": 94438,
+          "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
+          "summary": "Major tune-up — plugs, wires, cap & rotor, exhaust-manifold re-torque, fuel-gauge sender, plus an instrument-cluster / amp-gauge repair (prior owner). The odometer lives in that cluster, so mileage reads drift afterward.",
           "confidence": "inferred"
         },
         {
@@ -854,9 +873,23 @@
           "confidence": "inferred"
         },
         {
+          "date": "2018-06",
+          "mileage": 78488,
+          "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
+          "summary": "Front-end alignment — became the truck's regular shop for the next several years (prior owner)",
+          "confidence": "inferred"
+        },
+        {
           "date": "2018",
           "shop": "Prior owner (various)",
           "summary": "Emissions-delete phase — A/C, smog air pump & EGR removed; new (shorter) serpentine belt; throttle-body swap attempts",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2018",
+          "mileage": 77294,
+          "shop": "Tim's Auto Care (Woodstock, GA)",
+          "summary": "Warranty long-block engine replacement — the 2016 short-block failed and was swapped under warranty (prior owner)",
           "confidence": "inferred"
         },
         {
@@ -866,9 +899,10 @@
           "confidence": "inferred"
         },
         {
-          "date": "~2016–17",
-          "shop": "Tim's Auto (prior owner)",
-          "summary": "Reman “factory-fresh” 351 long-block installed",
+          "date": "2016-10",
+          "mileage": 58441,
+          "shop": "Tim's Auto Care (Woodstock, GA)",
+          "summary": "Reman 351 short-block installed — the first of two engine jobs (prior owner)",
           "confidence": "inferred"
         },
         {
@@ -884,9 +918,23 @@
           "shop": "Hickory Flat Hwy Automotive (Canton, GA)",
           "summary": "Post-purchase recommissioning — front-end rebuild (ball joints, tie rods, drag link), brakes, wheel bearings, timing cover, window motor, A/C service (prior owner)",
           "confidence": "inferred"
+        },
+        {
+          "date": "2011-02",
+          "mileage": 46815,
+          "shop": "4 Wheel Parts (Memphis, TN)",
+          "summary": "The 4\" suspension lift she still wears was built here — an F-150/Bronco 4\" kit (coils, add-a-leaf, Pitman arm, shocks) on 35\" tires & wheels (early owner)",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2010–2011",
+          "mileage": 46492,
+          "shop": "Broadus Automotive (Memphis, TN)",
+          "summary": "Long recommissioning — transmission overhaul, fuel pump, cooling/thermostat, A/C, EGR & exhaust work (early owner). The engine had already been rebuilt once before this.",
+          "confidence": "inferred"
         }
       ],
-      "_serviceHistoryNote": "Reconstructed from the prior owner's paper records that came with the truck (2016–2025); owner PII removed. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Full detail + costs held privately."
+      "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis, TN chapter from 2010 through Paul's 2025 purchase); owner names and costs kept private. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Mileages are approximate — the instrument cluster was serviced/replaced over the years, so odometer reads are inconsistent, and the 1989 title is odometer-exempt."
     },
     {
       "id": "dr200s-2017",

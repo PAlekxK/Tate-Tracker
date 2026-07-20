@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-20 — Bolores's story, all the way back
+
+- The **1989 Bronco's** service history now runs much deeper — her paper trail turns out to reach back to a **Memphis, TN chapter (2010–2011)**, where the 4" lift she still wears was actually built and she went through a long recommissioning.
+- Newly surfaced milestones fill in the years between: the **two engine swaps** (a short-block in '16, then a warranty long-block in '18) and the long run of driveline, brake, and tune-up work at her Georgia shops through 2023.
+- A note on her **odometer**: the instrument cluster was opened and replaced over the years, so the mileage readings jump around and can't be trusted — and as an '89 she's odometer-exempt anyway. The history is reconstructed from the records that came with her; the fine-grained detail and costs stay private.
+
+---
+
 ## 2026-07-20 — A picture to check the question against
 
 - The questions at the top now show a **picture** of the plant they're asking about — so when it asks about the panicle hydrangea or the clematis, you can see one and say whether it matches what's out there.
