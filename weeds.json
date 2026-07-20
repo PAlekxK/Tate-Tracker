@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "domain": "weeds",
+    "purpose": "The property's weeds — what to get after, when (before it seeds), and how. A field-journal domain, not a task list: the tone is 'worth getting after this before it seeds,' never 'N weeds due.' Every entry is a HYPOTHESIS until confirmed on the ground — each carries confidence + a needs-confirmation flag, and the Mama's-Perspective loop is how Mom settles it. As she answers, what we learn seeds MORE entries and MORE cards. AI may draft combat advice behind Paul's gate; Mom's surface + capture stay AI-free (ask-path vs capture-path).",
+    "created": "2026-07-20",
+    "schemaVersion": 1,
+    "schemaNotes": "v1 (2026-07-20): each weed = {id, name, commonNames[], scientificName, emoji, confidence(inferred|verified), status(needs-confirmation|confirmed), observedOn, observedZones[], observedBy, photo/attribution (an own photo renders as 'taken here'; a stock one as a reference), lookFor (the glance ID cues), habit, seedTiming {window, note} (the 'before it seeds' trigger — phenological, framed as an observation not a deadline), combat[] (the repository advice, organic-first), momConfirm {questionId, confirmBy} (the loop hook), notes}."
+  },
+  "summary": "What's worth getting after — and when, before it seeds",
+  "intro": "A running note on the weeds that turn up on the property — the ones worth getting after before they set seed, with a plain read on how to handle each. Everything here starts as a best guess from a photo and gets settled on the ground: the surest fix for most weeds is timing, and the surest way to know what we're looking at is a good look when it seeds.",
+  "weeds": [
+    {
+      "id": "crabgrass",
+      "name": "Crabgrass",
+      "commonNames": ["Large crabgrass", "Hairy crabgrass"],
+      "scientificName": "Digitaria sanguinalis",
+      "emoji": "🌾",
+      "confidence": "inferred",
+      "status": "needs-confirmation",
+      "observedOn": "2026-07-20",
+      "observedZones": ["fairway", "fairway-fringe"],
+      "observedBy": "Paul — photo walk",
+      "photo": null,
+      "attribution": null,
+      "lookFor": "A low grass that spreads flat in a star from a central point, rather than growing upright in a clump. Light green, wider blades held out near the ground. Turns up in thin, scalped, or bare patches in the heat of summer.",
+      "habit": "Summer annual — sprouts each spring from seed, races through the summer, and dies at the first frost. It does its damage by seeding heavily before it goes, so next year's crop is set now.",
+      "seedTiming": {
+        "window": "Late summer — August into September",
+        "note": "It throws unmistakable finger-like seed spikes in late summer. That's both the tell that it really is crabgrass and the last good moment to pull or cut it before it drops next year's seed."
+      },
+      "combat": [
+        "The real defense is a thick fescue turf — crabgrass only gets a foothold in thin, bare, or scalped spots. Mow high (3–3.5\") and overseed thin areas every September so it has nowhere to start.",
+        "Pull or dig the isolated plants before the seed-heads open — the whole plant lifts from one crown.",
+        "If it's widespread, next year's lever is a spring pre-emergent, laid down before the soil warms (~55°F, about mid-March here). It stops the seed from sprouting; little helps once it's already up.",
+        "Don't feed the lawn in high summer — it favors the crabgrass over the fescue."
+      ],
+      "momConfirm": {
+        "questionId": "q-fairway-grass-seedheads",
+        "confirmBy": "the finger-like seed spikes in late summer"
+      },
+      "notes": "First surfaced as the low, spreading 'second grass' in the fairway and meadow photos (2026-07-20). Recorded here as inferred, pending Mom's confirmation on the ground."
+    }
+  ]
+}

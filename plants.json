@@ -3181,7 +3181,7 @@
       "scientificName": "Schizachyrium, Panicum, Sorghastrum spp. & wildflowers",
       "emoji": "🌾",
       "guide": "Beyond the mowed turf, the rest of the clearing is run the opposite way — as meadow. It's cut back hard just once a year and otherwise left to grow tall and loose. This is where the native warm-season bunchgrasses belong: little bluestem, switchgrass, indiangrass, and the autumn bentgrass Mom flagged for the property, threaded through with wildflowers. The contrast is the whole point — a crisp, close-mown fairway reading against a tall, seed-headed, pollinator-fed meadow. It also asks almost nothing in return: no lime, no fertilizer, no weekly mowing.",
-      "currentSeasonNote": "Right now — the meadow is coming up for the season. Leave it be: the warm-season grasses and wildflowers do their work straight through summer and into fall, feeding pollinators and setting seed. The only cut that matters comes next February.",
+      "currentSeasonNote": "Right now — the meadow is coming up for the season. Leave it be: the warm-season grasses and wildflowers do their work straight through summer and into fall, feeding pollinators and setting seed. The only cut that matters comes next February. A note from a July 2026 walk: two distinct grasses seem to grow across the fairway and meadow — a coarse clumping grass (likely the turf-type tall fescue) and a lower, spreading one (possibly crabgrass, a summer annual). Both are first reads from photos, not yet confirmed on the ground — something for Mom to settle with her own pictures down the road, especially once seed-heads show in late summer.",
       "soilNotes": "Leave it acidic and unlimed — the native grasses and wildflowers are adapted to the property's natural pH (4.5–5.5). No fertilizer: feeding a meadow favors weeds and floppy, lodging growth over the wildflowers you actually want.",
       "aspectPreference": "Full sun, the same south-facing clearing as the turf — warm-season natives thrive in it. Drier upland spots suit little bluestem and indiangrass; the damp lower edge toward the spring drainage suits switchgrass and the autumn bentgrass.",
       "frostSensitivity": "Warm-season grasses — they green late in spring and go dormant gold after fall frost, which is exactly the look you want. The standing dead growth gives winter structure and cover until the late-winter cut.",
@@ -3201,7 +3201,30 @@
           ]
         }
       },
-      "zoneId": "fairway-fringe"
+      "zoneId": "fairway-fringe",
+      "observedGrasses": {
+        "observedOn": "2026-07-20",
+        "observedBy": "Paul — photo walk",
+        "confidence": "inferred",
+        "status": "needs-confirmation",
+        "note": "Two distinct grasses seen across the fairway and meadow. A first read from photos only — NOT confirmed on the ground. To be settled by Mom's own pictures down the road (a seed-head in August is the clincher).",
+        "varieties": [
+          {
+            "label": "The coarse clumping grass",
+            "inferredId": "Turf-type tall fescue (Festuca / Schedonorus arundinaceus)",
+            "confidence": "inferred",
+            "basis": "wide, heavily-veined blades in a bunch from one crown; consistent with the fairway turf canon already names",
+            "confirmBy": "ligule + clumping habit on the ground"
+          },
+          {
+            "label": "The low, spreading grass",
+            "inferredId": "Possibly crabgrass (Digitaria sp.) — a summer annual",
+            "confidence": "inferred",
+            "basis": "flat, star-shaped spread of light-green blades over thin/bare soil in mid-summer",
+            "confirmBy": "finger-like (digitate) seed spikes appearing in August"
+          }
+        ]
+      }
     },
     {
       "id": "lizards-tail",
