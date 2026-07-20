@@ -1541,7 +1541,12 @@
       "id": "clematis",
       "name": "Clematis (large-flowered hybrid)",
       "scientificName": "Clematis sp. (Group 2)",
-      "variety": { "value": "Nelly Moser or Dr. Ruppel", "confidence": "inferred", "askable": true, "note": "a photo read — the pale-pink kind with a rosy stripe down each petal, vs a deeper rose" },
+      "variety": {
+        "value": "Nelly Moser or Dr. Ruppel",
+        "confidence": "inferred",
+        "askable": true,
+        "note": "a photo read — the pale-pink kind with a rosy stripe down each petal, vs a deeper rose"
+      },
       "emoji": "🌺",
       "guide": "The clematis on the east-facing deck trellis climbs by twisting its leaf petioles around any thin support — the cable rail does the job nicely. Pink-and-magenta bicolor flowers with a darker bar down each tepal. Group 2 clematis bloom twice: once in late May–June on previous year's wood, then a smaller second flush in August on new wood. The classic gardener's wisdom: 'cool feet, warm head' — keep the roots shaded and cool with mulch or low plantings, let the vine itself climb into sun.",
       "currentSeasonNote": "In May at Church Mountain — vines should be actively growing and approaching bloom. First flowers typically open mid- to late-May at Church Mountain Road's elevation. If buds look swollen, peak bloom is 1–2 weeks out. Now is a fine time to apply mulch and check that the support trellis is firmly anchored before flower weight piles on.",
@@ -3316,7 +3321,13 @@
       "id": "crocosmia",
       "name": "Crocosmia",
       "scientificName": "Crocosmia × crocosmiiflora (montbretia)",
-      "variety": { "value": "Lucifer", "confidence": "verified", "askable": false, "verifiedOn": "2026-07", "source": "confirmed on the ground, July 2026" },
+      "variety": {
+        "value": "Lucifer",
+        "confidence": "verified",
+        "askable": false,
+        "verifiedOn": "2026-07",
+        "source": "confirmed on the ground, July 2026"
+      },
       "emoji": "🧡",
       "guide": "A summer torch — arching sprays of red-orange trumpets held over fans of sword-shaped leaves, opening mid-to-late summer just as the hydrangeas wind down. It grows from corms that multiply into clumps and naturalizes readily at this elevation. Hummingbirds work it hard. Wants full sun to light afternoon shade and, above all, well-drained ground.",
       "currentSeasonNote": "In full bloom now at Church Mountain Road. Nothing to do mid-bloom but enjoy it — and cut a few stems for the vase if you like; they hold well. Keep it watered through a hot dry stretch.",
@@ -3650,8 +3661,13 @@
         "confidence": "verified",
         "note": "Opens lime-white and ages to pink; seen coming into bloom on the property in mid-July 2026."
       },
-      "photo": null,
-      "attribution": null,
+      "photo": "images/plants/hydrangea-panicle.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Hedwig Storch",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_paniculata_IMG_6629.JPG"
+      },
       "zoneId": null
     }
   ]
