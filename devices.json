@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "lastUpdated": "2026-07-20",
+    "note": "Smart-home / building-systems inventory for the Fernwood (Tate Mountain) property. Derived deterministically from the Google Takeout Nest export for paul.kirschenbauer@gmail.com (export 2026-07-13; Nest service). This is Google's own structured export, not an OCR/vision read — device identity, HVAC wiring, and firmware are high-confidence. The property→device mapping is inferred from the Nest structure name (\"Tate\"). Physical ground-truth (propane tank location/size, actual room placement) is confirmable on-site and can be folded like any other Fernwood observation. Scope: this file lists ONLY devices at the Tate property; Paul's other Nest structures (\"Condo\", \"Condo Midtown\") are recorded in the Google-Takeout archive capture, not here.",
+    "source": {
+      "provider": "Google Nest (Takeout)",
+      "account": "paul.kirschenbauer@gmail.com",
+      "exportDate": "2026-07-13",
+      "nestStructureId": "REDACTED-S19",
+      "nestStructureName": "Tate",
+      "structureCreatedAt": "2025-11-10"
+    }
+  },
+  "devices": [
+    {
+      "id": "nest-thermostat-tate-family-room",
+      "category": "thermostat",
+      "displayName": "Nest Thermostat — Family Room",
+      "make": "Google Nest",
+      "model": "Nest Learning Thermostat (3rd Generation)",
+      "serialNumber": "REDACTED-S19",
+      "manufacturingDate": "2018-04",
+      "productRevision": 4,
+      "firmware": "6.3-5",
+      "room": "Family Room",
+      "installedAtTate": "2025-11-10",
+      "nestDeviceId": "REDACTED-S19",
+      "confidence": "high",
+      "provenance": "deterministic — Google Nest Takeout export (DeviceIdentityTrait + DeviceLocatedSettingsTrait)",
+      "hvac": {
+        "heatingFuel": "propane (LP)",
+        "heating": "Propane (LP) forced-air, up to 3 stages. Alt-heat source configured as gas; auxiliary + emergency heat are electric.",
+        "cooling": "Electric forced-air (up to 3 stages)",
+        "dualFuel": "single fuel",
+        "note": "Read from the thermostat's Equipment settings (EquipmentSettingsTrait, as configured 2026-04-05). Primary heat = propane — implies an on-property propane tank to monitor/refill (a real maintenance item for this property). Cooling + backup heat are electric.",
+        "confidence": "high"
+      }
+    }
+  ]
+}

@@ -158,6 +158,15 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 |---|---|
 | **Photo-library vehicle/repair-photo miner** | Mine the ~50K-photo library for per-vehicle machine + teardown shots; propose-then-confirm. **NB:** since prototyped — now its own project (`~/Developer/photo-miner/`, memory `project_photo_miner`). Effectively ACTIVE there, not a Fernwood-repo item. The `photo-seed.json` (68 Bolores truck images) is the standing seed to feed it. |
 
+## B5 · Smart-home systems (Nest) — inventory + live feed (idea, 2026-07-20)
+
+*Seeded from the Google-Takeout Nest export (`~/Developer/google-takeout-archive`). The inventory leg is DONE; the live-feed leg is an idea pending signal + a real access decision.*
+
+- **✅ Landed — device inventory → `devices.json`.** The Tate property's smart devices, captured deterministically from Google's Nest export: **1 Nest Learning Thermostat (3rd gen)**, Family Room, serial `REDACTED-S19`, added to the "Tate" structure 2025-11-10. Key property fact surfaced: **heat is propane (LP) forced-air** (backup heat + cooling electric) → implies an on-property **propane tank** to monitor/refill (a genuine maintenance item — candidate for a Track B1 obligation once tank size / refill cadence is known). Unwired data file for now (not inlined into `viewer.html`).
+- **💡 Idea — a Nest live feed, like the weather station.** Fernwood already renders one live signal (the on-site Ambient Weather station). The cabin thermostat could be a second: **current indoor temp + heat/cool state at Tate** as a "glance" tile ("the cabin is 58° right now") — useful remotely (Paul away; is it holding heat?) and calm enough for Mom's surface. Fits the deterministic-capture rule (raw device data, no AI). Would follow the same live-fetch pattern as `renderWeather()`.
+- **⚠️ Access reality (why this is an idea, not a task).** The **Takeout export is a one-time dump, not a feed** — same lesson as the Google Photos API lock. A live Nest feed needs the **Google Smart Device Management (SDM) API**: a Google Cloud project + **Device Access registration (one-time $5 fee)** + OAuth consent. Non-trivial plumbing and a small cost. Decide whether the "is the cabin holding heat?" glance is worth that before building. Cheaper interim: the propane/HVAC facts already captured are static and need no API.
+- **Owner:** Paul's call on whether to pursue the live feed. Inventory data is agent-maintainable.
+
 ---
 
 # TRACK C — Cross-cutting / infra / doctrine
