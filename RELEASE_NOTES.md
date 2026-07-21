@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-20 — A "General feedback" tab that's always there
+
+- There's now a little **"General feedback"** tab tucked against the right edge of the screen. It **stays put as you scroll**, so it's always within reach and never gets lost down the page.
+- Tap it and a small box opens: **say anything about the app** — something that's off, something you'd like, anything at all — and it goes straight to Paul in your own words. It only says "it's in the record" once it truly has.
+
+---
+
 ## 2026-07-20 — A new Weeds section, from photos taken on the property
 
 - There's a new **Weeds** card — a running note on the weeds that turn up on the property: what each one looks like, and above all **when to get after it before it goes to seed**.
