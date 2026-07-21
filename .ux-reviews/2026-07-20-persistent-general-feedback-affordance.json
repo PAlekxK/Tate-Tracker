@@ -1,0 +1,94 @@
+{
+  "review_id": "ux-2026-07-20-persistent-general-feedback-affordance",
+  "project": "Fernwood",
+  "subject": "Persistent, non-intrusive general-feedback affordance (Mom's direct ask; W5/W8) — design recommendation + pattern research",
+  "review_date": "2026-07-20",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Paul's Mom — the make-or-break user; reads with difficulty (meaning must land via icon+size+color+position, not a text label alone); uses the app one-handed on a phone, often reclined/half-engaged.",
+    "core_jobs_to_be_done": [
+      "Tell Paul something about the app, any time, without having to hunt for where — and be sure it won't get lost.",
+      "Do so without feeling nagged or obligated (field-journal, not task-manager)."
+    ],
+    "context_of_use": "iPhone, one-handed, half-attended morning/evening reading. Public GH-Pages viewer.html + Cloudflare Worker /api/feedback capture. Solicitation stack at top-of-app already carries: pinned front-door launcher card + Mama's Perspective confirm carousel + composer + a buried general-feedback text toggle.",
+    "assumptions_made": [
+      "ASSUMPTION: Mom is right-handed / uses right thumb — drives the right-edge placement. Mirror to left edge if Paul knows otherwise.",
+      "ASSUMPTION: the strongest literacy-independent signifier for 'reach Paul' is Paul himself (a face), per the 'disambiguator is a person' finding in W5 — needs a quick Mom check before over-investing.",
+      "Mom's direct unprompted ask (relayed by Paul) is treated as validated need; the specific SIGNIFIER on the tab is not yet validated."
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "Mom reads with difficulty — meaning via icon+size+color+position (memory: fernwood_mom_reading_accessibility)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice — no ops/SaaS-widget register (fernwood.md)",
+    "Caution/calm as noticing, not warning — no badges/pulsing/counts (fernwood.md + project tone)",
+    "Capture stays deterministic/AI-free; verbatim to /api/feedback; honest three-state ack (CLAUDE.md AI boundary + W1 durable-outbox)",
+    "Defer affordances pending signal — and Mom's direct ask IS that signal (memory: feedback_defer_affordances_pending_signal; BACKLOG A4 doctrine amendment)",
+    "Nielsen: recognition over recall (a fixed handle, not a remembered location); visibility of system status (honest ack); flexibility (persistent reach)",
+    "Norman: signifier + affordance — a bookmark-ribbon signifies 'set something down here'"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "Today the general-feedback channel is a low-contrast text toggle ('Anything else you've noticed? Set it down ›') rendered INSIDE #mom-queue, appended AFTER the confirm carousel, and only present when an active kind:'open' question exists. It scrolls away, buries under the confirm cards, and can vanish entirely.",
+      "user_impact": "Mom cannot reliably find the one thing she explicitly asked for — a way to tell Paul about the app that is impossible to lose. Recognition fails; the channel is recall-dependent (she has to remember it's hidden below the carousel).",
+      "principle_invoked": "Nielsen recognition-over-recall; 'Make every surface read at half-engagement'",
+      "recommendation": "Relocate the general channel out of the carousel onto a persistent, edge-pinned bookmark-ribbon that stays fixed on scroll and expands on tap. Same capture path, new home.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "A literal circular chat-style FAB (Intercom/Zendesk bubble) bottom-right would import the SaaS/ops-widget register Fernwood forbids, collide with the iOS home indicator / Safari toolbar, and carry no legible meaning for a low-literacy reader without a text label.",
+      "user_impact": "Register-leak teaches Mom this is an app/support surface, not a place to note something about her land; and a round bubble is unreadable to her without words.",
+      "principle_invoked": "'Glyphs follow the journal voice, not the dashboard voice'",
+      "recommendation": "Use a journal BOOKMARK-RIBBON metaphor pinned to the edge (a field journal has a ribbon marker) rather than a chat bubble — on-tone, and it can carry a human/face signifier.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The signifier is the crux for a reader who reads with difficulty. Generic feedback icons (speech bubble, question mark) require reading to disambiguate and risk implying 'chat with the AI', which the AI-boundary makes false.",
+      "user_impact": "If the tap target doesn't say 'reach Paul' pre-literately, Mom won't trust what it does — and the whole point is a person-to-person channel.",
+      "principle_invoked": "'The disambiguator is a person' (W5); faces are processed pre-literately",
+      "recommendation": "Signify with a person: a small circular photo of Paul (recommended, pending a Mom check) OR a fallback pen/envelope glyph paired with the short word 'Tell Paul'. Meaning lands via image+size+color+position, not the word alone.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "flow",
+      "severity": "nice-to-have",
+      "observation": "The existing sendGeneral/postFeedback flow (verbatim note -> kind:'open' -> durable outbox -> honest three-state ack) is exactly right and needs no change; only the trigger surface moves.",
+      "user_impact": "Reusing it preserves the capture-cannot-lie guarantee Mom needs (her words survive a failed send) with zero new backend risk.",
+      "principle_invoked": "Capture stays AI-free/deterministic; W1 durable outbox",
+      "recommendation": "Wire the ribbon's expanded panel to the identical postFeedback path; do not build a parallel capture. Keep the kind:'open' question in questions.json as the record target/id; change only WHERE it's surfaced.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "Is Mom right- or left-handed? Drives which edge the ribbon pins to (thumb-reach).",
+    "Is Paul comfortable with his own photo as the tab signifier? It's the most literacy-independent 'reach Paul' cue, but it's his call — glyph+word is the safe fallback.",
+    "Confirm the ribbon should SUBSUME the current in-carousel general toggle entirely (one home for general feedback), not run in parallel."
+  ],
+  "follow_up_research_suggested": [
+    "A 30-second Mom check: show her the ribbon at rest and ask what she thinks it does / how she'd tell Paul something — validates the signifier before over-investing (mirrors the W4 'validate with Mom' posture).",
+    "Watch the same funnel already wired (offered->viewed->tapped->answered) on the ribbon to confirm the persistent handle lifts general-note capture vs the buried toggle."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "The persistent handle wears the journal's furniture, not the app's chrome — when a control must float and stay (edge tab, standing affordance), reach for an on-domain physical metaphor (a bookmark ribbon in a journal) before a platform idiom (a chat FAB), so persistence doesn't buy register-leak.",
+      "scope": "Fernwood",
+      "rationale": "This review had to reconcile a genuinely-needed persistent affordance with the standing anti-ops-chrome glyph rules. The resolution — ribbon-not-bubble — is a reusable move for any future standing Fernwood control. Candidate; watch for a second occurrence before hardening."
+    },
+    {
+      "principle": "For the no-glasses reader, signify a person-to-person channel with the person's FACE, not a feedback glyph — faces are read pre-literately; a photo of the actual human on the other end is the most literacy-independent 'reach ___' cue available.",
+      "scope": "Fernwood",
+      "rationale": "Sharpens 'the disambiguator is a person' (W5) from copy into a visual-signifier rule. Candidate; validate with Mom, then consider hardening."
+    }
+  ]
+}
