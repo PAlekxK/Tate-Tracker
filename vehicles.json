@@ -763,7 +763,7 @@
         {
           "item": "Driver door power lock",
           "status": "diagnosing",
-          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. (Refinish sequence — Phase 2: the door teardown. Do it in one door-open session alongside the panel repair, the handle-mount check, and door sound-deadening.) TIMELINE: the driver-side actuator was replaced ~Jan 2026 (no fix), and a further attempt fitting a new motor to the actuator ran ~Feb 2026 — STILL no response, so it's not the actuator, it's upstream. Confirms the wiring diagnosis (door-jamb boot wiring the prime suspect). Paul has been deferring the wire-metering step; that's the next move (last hands-on ~Feb 2026)."
+          "detail": "Actuator already replaced with no fix, so the signal isn't reaching it. Next: meter power switch → actuator. Prime suspect is the door-jamb boot wiring (flexes and cracks inside the rubber boot where you can't see it); also check the switch and its ground. (Refinish sequence — Phase 2: the door teardown. Do it in one door-open session alongside the panel repair, the handle-mount check, and door sound-deadening.) TIMELINE: the driver-side actuator was replaced ~Jan 2026 (no fix), and a further attempt fitting a new motor to the actuator ran ~Feb 2026 — STILL no response, so it's not the actuator, it's upstream. Confirms the wiring diagnosis (door-jamb boot wiring the prime suspect). Paul has been deferring the wire-metering step; that's the next move (last hands-on ~Feb 2026). NOTE 2026-07-22: a NEW TRQ door-lock actuator (eBay, 11/3/25) is ON-SHELF, not installed (Paul-confirmed) — reconcile against the 'actuator already replaced' note above at the next door session (two units, or a misremembered sequence)."
         },
         {
           "item": "Cruise control",
@@ -910,6 +910,12 @@
           "date": "2025-11-20",
           "shop": "eBay (automaall)",
           "summary": "Door-trim panel clip set, 50-pc (73–86 Ford/Bronco fitment) — confirmed installed during the door-panel work",
+          "confidence": "verified"
+        },
+        {
+          "date": "2025-11-03",
+          "shop": "DIY (eBay parts)",
+          "summary": "Tailgate latch handle rod clips (8-pc) — installed (Paul-confirmed 2026-07-22, part of the tailgate work).",
           "confidence": "verified"
         },
         {
@@ -1270,6 +1276,18 @@
           "shop": "DIY (Paul)",
           "summary": "Clutch lever repair — the end of the lever had broken off. Extended the broken-off section with a screw and attached it with zip ties + a duct-tape wrap. Photos in Apple Photos (UUIDs in .private/service-records/drz400s-2001/EXTRACTED.md).",
           "confidence": "verified"
+        },
+        {
+          "date": "2025-07-16",
+          "shop": "DIY (Paul)",
+          "summary": "NGK CR8E spark plug (stock #1275, Amazon $6.42) — installed (Paul-confirmed 2026-07-22; resolves the 7/12 install-status conflict).",
+          "confidence": "verified"
+        },
+        {
+          "date": "2025-06-25",
+          "shop": "DIY (Paul)",
+          "summary": "APE Racing inline fuel filter, 90° 1/4in (Amazon $10.58) — installed (Paul-confirmed 2026-07-22).",
+          "confidence": "verified"
         }
       ]
     },
@@ -1302,8 +1320,8 @@
           "source": "manuals/text/g22a-2005.txt — 'Recommended oil: YAMALUBE 4-cycle oil or SAE 10W-30' (API SE/SF/SG); 'Engine oil capacity: 1.16 US qt (1.1 L)'; 'Oil change quantity: 1.0 US qt (0.9 L)'; 'distance between the dipstick marks represents approx. 1/2 US qt' — manual confirms the fill-by-measure story."
         },
         "oilDrainPlug": {
-          "value": "Stock drain plug was stripped; repaired spring 2026 with an oversize self-tapping repair plug (Paul ordered an M14×1.5 magnetic stainless plug per the ChatGPT mine) — no longer leaking. ⚠️ STOCK thread pitch is UNCONFIRMED: the earlier 'M12×1.5' is one of two contradictory ChatGPT reads — the other says M12×1.25 fine thread, OEM 90109-12079-00, and warns M12×1.5 kits strip the pan. Measure the old plug or a parts fiche before trusting either. Factory drain-plug torque per the owner's manual: 23 ft-lb (31 N·m) — which contradicts the ChatGPT '17 ft-lb' read (moot for the oversize repair plug: snug by feel).",
-          "confidence": "repaired (Paul-confirmed); stock thread pitch unconfirmed — model-read",
+          "value": "Stock drain plug was stripped; repaired spring 2026 with an oversize self-tapping repair plug (Paul ordered an M14×1.5 magnetic stainless plug per the ChatGPT mine) — no longer leaking. ⚠️ STOCK thread pitch is UNCONFIRMED: the earlier 'M12×1.5' is one of two contradictory ChatGPT reads — the other says M12×1.25 fine thread, OEM 90109-12079-00, and warns M12×1.5 kits strip the pan. Measure the old plug or a parts fiche before trusting either. Factory drain-plug torque per the owner's manual: 23 ft-lb (31 N·m) — which contradicts the ChatGPT '17 ft-lb' read (moot for the oversize repair plug: snug by feel). INSTALLED plug (spring 2026, over stripped threads): M12.1×1.5 × 15mm OVERSIZE piggyback thread-repair plug (Amazon 2026-04-13) — Paul-recalled + purchase-math-confirmed 2026-07-22. The magnetic-plug trials (M14×1.5 / M12×1.25) are NOT in the cart; one is a shelf spare (which one deliberately unresolved). Torque figure above applies to the factory plug — follow the repair-plug's own seating instructions.",
+          "confidence": "inferred",
           "source": "manuals/text/g22a-2005.txt — 'Drain plug torque: 23 ft.lb (31 Nm, 3.1 m.kg)'. Thread pitch not stated in the manual."
         },
         "sparkPlug": {
@@ -1787,7 +1805,15 @@
       "manual": {
         "label": "Instruction manual (MS 290/310/390)",
         "url": "https://ssc.stihl.com/tsa/techdoc-documents/DVS_STIHL/ZBA/ZBA/0458-209-0121-B_ZBA_03_01.pdf"
-      }
+      },
+      "serviceHistory": [
+        {
+          "date": "2026-07-17",
+          "shop": "Garner Ace Hardware",
+          "summary": "New saw chain + chain sharpening (joint receipt covering BOTH saws — Paul 2026-07-22: 'the Ace receipt should be for both'; $37.82 total, per-saw split unrecorded; receipt in .private/_held → filed).",
+          "confidence": "verified"
+        }
+      ]
     },
     {
       "id": "chainsaw-cs352",
@@ -1853,7 +1879,15 @@
       "manual": {
         "label": "Operator's manual",
         "url": "https://www.echo-usa.com/getattachment/e7544d8b-7e45-43ee-94d9-f9f8e2d90270/v2_CS-352_15_090420_es.pdf"
-      }
+      },
+      "serviceHistory": [
+        {
+          "date": "2026-07-17",
+          "shop": "Garner Ace Hardware",
+          "summary": "New saw chain + chain sharpening (joint receipt covering BOTH saws — Paul 2026-07-22: 'the Ace receipt should be for both'; $37.82 total, per-saw split unrecorded; receipt in .private/_held → filed).",
+          "confidence": "verified"
+        }
+      ]
     },
     {
       "id": "ego-trimmer",
