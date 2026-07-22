@@ -1981,7 +1981,7 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
       },
-      "zoneId": null,
+      "zoneId": "pond-area",
       "bloom": {
         "window": "Mid-May into June",
         "dates": [
@@ -2124,7 +2124,7 @@
         "license": "Property record",
         "takenOn": "2026-07-22"
       },
-      "zoneId": null,
+      "zoneId": "pond-area",
       "bloom": {
         "window": "Mid-May into June",
         "dates": [
