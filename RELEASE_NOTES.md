@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-22 — The DR-Z400's 2025 overhaul, written down at last
+
+- **Desert Storm** (the DR-Z400) now carries the full story of its **2025 carburetor & cooling overhaul** — the lean-start chase, the carb rework, the radiators found damaged and replaced both sides, and the coolant bleed that finally settled it. It had only ever been a vague "big overhaul last year"; the details are on the card now.
+- The **DR200 has a name on the card — "Blue Thunder"** — to sit alongside Desert Storm.
+
+---
+
 ## 2026-07-20 — A "General feedback" tab that's always there
 
 - There's now a little **"General feedback"** tab tucked against the right edge of the screen. It **stays put as you scroll**, so it's always within reach and never gets lost down the page.
