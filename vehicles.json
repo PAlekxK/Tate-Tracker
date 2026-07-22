@@ -289,7 +289,7 @@
           "mileage": 79582,
           "shop": "Express Oil",
           "summary": "4 new tires (Hankook Ventus V2, 225/40R18) + mount/balance + alignment",
-          "confidence": "inferred"
+          "confidence": "verified"
         },
         {
           "date": "2025-09-15",
@@ -338,7 +338,7 @@
           "mileage": 55478,
           "shop": "Express Oil",
           "summary": "Oil change",
-          "confidence": "inferred"
+          "confidence": "verified"
         },
         {
           "date": "2022-10-21",
@@ -369,7 +369,7 @@
           "confidence": "inferred"
         }
       ],
-      "_serviceHistoryNote": "Summarized from scanned paper records (full detail + part numbers + costs held privately). Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed."
+      "_serviceHistoryNote": "Summarized from scanned paper records (full detail + part numbers + costs held privately). Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. The 2026-01-02 Express Oil invoice (machine-printed PDF from the shop's email) embeds the shop's own service ladder, deterministically confirming the dates + mileages of every Express Oil row from 2021-06-18 through 2026-01-02; the oil-brand/spec details on the still-'inferred' oil-change rows come from scanned invoices and await Paul's eyeball."
     },
     {
       "id": "tiguan-2018",
@@ -471,12 +471,20 @@
       },
       "serviceHistory": [
         {
+          "date": "2026-01-16",
+          "mileage": 107459,
+          "shop": "Express Oil (Atlanta — Moreland Ave)",
+          "summary": "Full-service oil change — Valvoline 0W-20 full synthetic + new filter; shop flagged tires and an alignment check as due",
+          "confidence": "verified"
+        },
+        {
           "date": "2026-01-07",
           "shop": "DIY (Paul)",
           "summary": "Replaced the front-right fender flare after it was damaged (OEM-fit part, sourced on eBay)",
           "confidence": "verified"
         }
-      ]
+      ],
+      "_serviceHistoryNote": "Rows marked 'verified' are backed by a deterministic record (machine-printed invoice or order email) or Paul-confirmed. Note: the 2026-01-16 Express Oil invoice had been mis-filed as a GTI visit in the staging log — the invoice itself names the 2018 Tiguan; corrected 2026-07-22."
     },
     {
       "id": "f150-2006",
@@ -837,13 +845,25 @@
           "date": "2025-11-23",
           "shop": "Weatherstrip Specialists (eBay)",
           "summary": "Rear tailgate upper window run-channel weatherstrip (Bronco-specific)",
-          "confidence": "inferred"
+          "confidence": "verified"
+        },
+        {
+          "date": "2025-11-20",
+          "shop": "eBay (automaall)",
+          "summary": "Door-trim panel clip set, 50-pc (73–86 Ford/Bronco fitment) — confirmed installed during the door-panel work",
+          "confidence": "verified"
         },
         {
           "date": "2025-11-02",
           "shop": "Classic Industries (eBay)",
           "summary": "Tailgate latch assembly (78–96 Bronco)",
-          "confidence": "inferred"
+          "confidence": "verified"
+        },
+        {
+          "date": "2025-10-15",
+          "shop": "eBay (DIY parts)",
+          "summary": "Window & tailgate electrical parts — Dorman 901-302 door window switch, tailgate window sweep/weatherstrip seal kit, and overhead dome-light lens cover, plus a rear power-window switch in a same-day order; the switch, sweep/seal and dome light confirmed installed",
+          "confidence": "verified"
         },
         {
           "date": "2025-10-10",
@@ -951,7 +971,7 @@
           "confidence": "inferred"
         }
       ],
-      "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis, TN chapter from 2010 through Paul's 2025 purchase); owner names and costs kept private. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Mileages are approximate — the instrument cluster was serviced/replaced over the years, so odometer reads are inconsistent, and the 1989 title is odometer-exempt."
+      "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis, TN chapter from 2010 through Paul's 2025 purchase); owner names and costs kept private. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Mileages are approximate — the instrument cluster was serviced/replaced over the years, so odometer reads are inconsistent, and the 1989 title is odometer-exempt. Verification pass 2026-07-22: the Paul-era eBay parts rows were checked against deterministic order records (email trail) and marked 'verified'; the prior-owner rows (2010–2023) have no deterministic twin on file (paper scans only — no Carfax or machine-readable title packet exists), so they stay 'inferred' awaiting Paul's eyeball of the physical documents."
     },
     {
       "id": "dr200s-2017",
