@@ -593,10 +593,10 @@
         "transmission": "AOD 4-speed automatic",
         "transfer_case": "Borg Warner 1356",
         "drivetrain": "4WD",
-        "suspension": "Lifted — aftermarket suspension lift to clear 35\" tires (red coil springs up front on the Dana 44 TTB)",
-        "tires": "Pro Comp Xtreme M/T 2 — 35X12.50R15LT, Load Range C (mud-terrain)",
+        "suspension": "Lifted — 4\" aftermarket suspension lift (red coil springs up front on the Dana 44 TTB), originally built for 35s by an early owner; currently running 33s",
+        "tires": "Pro Comp Xtreme M/T 2 — 33X12.50R15LT, Load Range C (mud-terrain). Size read off the actual sidewalls from the photos Paul provided (2025-10-13, confirmed 2026-07-22)",
         "wheels": "15\" aftermarket alloy, 5×5.5\" bolt pattern; WARN manual locking hubs on the front axle",
-        "spare": "Mickey Thompson Baja mud-terrain on the rear swing-out tire carrier"
+        "spare": "Mickey Thompson Baja MTZ 33\" mud-terrain on the rear swing-out tire carrier"
       },
       "maintenance": {
         "fuel": {
@@ -640,7 +640,7 @@
           "confidence": "verified"
         },
         "tires": {
-          "value": "Pro Comp Xtreme M/T 2 — 35X12.50R15LT, Load Range C. Replacement size 35×12.50R15. Measured ~34.6\" diameter, ~12.1\" section width, ~601 revs/mi, 20/32\" tread when new.",
+          "value": "Pro Comp Xtreme M/T 2 — 33X12.50R15LT, Load Range C (mud-terrain). Replacement size 33×12.50R15 (≈32.8\" nominal diameter). Size read off the actual sidewalls from the photos Paul provided (2025-10-13, Paul-confirmed 2026-07-22) — corrects an earlier 35×12.50R15 that had been carried over from prior-owner records.",
           "confidence": "verified"
         },
         "tirePressure": {
@@ -656,7 +656,7 @@
           "confidence": "tbd"
         }
       },
-      "notes": "\"Bolores\" — the Eddie Bauer edition: two-tone maroon over tan, upgraded interior. Lifted and riding on 35\" Pro Comp mud-terrains over 15\" alloys with WARN locking hubs; Mickey Thompson Baja spare on the rear carrier. Full restoration underway. Her documented history now reaches back to a Memphis, TN owner (2010–2013) who built that 4\" lift and worked through a long recommissioning — the 351 had already been rebuilt once even before then. She came into Georgia on a Mississippi title, was bought by a Canton-area owner in 2016 who swapped the engine twice (a short-block in '16, then a warranty long-block in '18) and kept her at a local shop for years — including a 2021 stint in Maine — before Paul brought her home in October 2025. Her odometer isn't trustworthy: the instrument cluster was opened/replaced along the way, and the '89 title is odometer-exempt.",
+      "notes": "\"Bolores\" — the Eddie Bauer edition: two-tone maroon over tan, upgraded interior. Lifted and riding on 33\" Pro Comp mud-terrains over 15\" alloys with WARN locking hubs; 33\" Mickey Thompson Baja spare on the rear carrier. Full restoration underway. Her documented history now reaches back to a Memphis, TN owner (2010–2013) who built that 4\" lift and worked through a long recommissioning — the 351 had already been rebuilt once even before then. She came into Georgia on a Mississippi title, was bought by a Canton-area owner in 2016 who swapped the engine twice (a short-block in '16, then a warranty long-block in '18) and kept her at a local shop for years — including a 2021 stint in Maine — before Paul brought her home in October 2025. Her odometer isn't trustworthy: the instrument cluster was opened/replaced along the way, and the '89 title is odometer-exempt.",
       "restoration": [
         {
           "item": "Frame — inspect at steering box",
@@ -1109,7 +1109,7 @@
         {
           "item": "2025 carburetor & cooling-system overhaul",
           "status": "done",
-          "detail": "Summer 2025 — the extensive carb + cooling overhaul Paul recalled (his private EXTRACTED.md note had it only as a vague recollection); the OpenAI ChatGPT conversation mine reconstructed the blow-by-blow on 2026-07-22. THE ARC: the bike started hard and would run only on the choke — a classic LEAN condition (clogged pilot / stale gas). Paul cleaned the carburetor and spark plug and installed a NiceCNC extended air/fuel mixture screw, but the old screw had sat ~5.5 turns out and the new one was reset far leaner — it wouldn't catch and backfired. Chasing it richer to ~4 turns out over-corrected into FLOODING: raw fuel leaked from the carb, a flooded cylinder strained the starter (near-hydrolock), and the plug sprayed fuel. ⚠️ SAFETY: while cranking with the plug out to clear the flood, expelled fuel vapor IGNITED — a brief garage flash-fire near the plug (no injury; a hard lesson in not cranking raw fuel near an arcing/ungrounded plug). Separately, the RADIATOR was found visibly damaged on 2025-07-11 — new radiators installed BOTH sides by 2025-07-19, cooling system refilled and bled (an initial trapped air pocket caused smoking + a red temp light until re-bled; the radiator receipt is still unfound — see private service records for the narrowed 7/11–7/19 purchase window). Final loose end: a HIGH IDLE + overheat after the carb work, traced to the idle-speed screw turned in too far (NOT the fuel screw) — backed out to spec. OUTCOME: starts reliably, the start-squeak gone. Fuel-screw baseline for this bike at ~2,900 ft elevation ≈ 1.75–2.5 turns out. Installed + confirmed running: NiceCNC extended mixture screw, DRZ400 air filter, NGK CR8E plug, APE inline fuel filter.\n\nOPEN (unconfirmed as of 2026-07-22, flagged by the mine): (1) vacuum-petcock fault — bike ran on PRI but starved on ON (petcock may not be opening under vacuum); (2) the small fuel-screw washer was lost during the extended-screw swap — confirm a replacement went back in; (3) valve clearance was never confirmed checked.",
+          "detail": "Summer 2025 — the extensive carb + cooling overhaul Paul recalled (his private EXTRACTED.md note had it only as a vague recollection); the OpenAI ChatGPT conversation mine reconstructed the blow-by-blow on 2026-07-22. THE ARC: the bike started hard and would run only on the choke — a classic LEAN condition (clogged pilot / stale gas). Paul cleaned the carburetor and spark plug and installed a NiceCNC extended air/fuel mixture screw, but the old screw had sat ~5.5 turns out and the new one was reset far leaner — it wouldn't catch and backfired. Chasing it richer to ~4 turns out over-corrected into FLOODING: raw fuel leaked from the carb, a flooded cylinder strained the starter (near-hydrolock), and the plug sprayed fuel. ⚠️ SAFETY: while cranking with the plug out to clear the flood, expelled fuel vapor IGNITED — a brief garage flash-fire near the plug (no injury; a hard lesson in not cranking raw fuel near an arcing/ungrounded plug). Separately, the RADIATOR was found visibly damaged on 2025-07-11 — new radiators installed BOTH sides by 2025-07-19, cooling system refilled and bled (an initial trapped air pocket caused smoking + a red temp light until re-bled; the radiator receipt is still unfound — see private service records for the narrowed 7/11–7/19 purchase window). Final loose end: a HIGH IDLE + overheat after the carb work, traced to the idle-speed screw turned in too far (NOT the fuel screw) — backed out to spec. OUTCOME: starts reliably, the start-squeak gone. Fuel-screw baseline for this bike at ~2,900 ft elevation ≈ 1.75–2.5 turns out. Installed + confirmed running: NiceCNC extended mixture screw, DRZ400 air filter, NGK CR8E plug, APE inline fuel filter.\n\nRESOLVED SINCE (Paul-confirmed 2026-07-22): the vacuum petcock now works fine and the fuel-screw washer is back in — the bike is running very well. STILL OPEN: valve clearance has not been confirmed checked.",
           "source": "OpenAI ChatGPT conversation mine (cherryfarmer), Apr–Jul 2025 threads"
         },
         {
