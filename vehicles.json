@@ -652,8 +652,8 @@
           "confidence": "inferred"
         },
         "fuelSystem": {
-          "value": "5.8L in '89 could be carbureted or EFI depending on build — verify from your unit before tune-up parts.",
-          "confidence": "tbd"
+          "value": "EFI — Ford sequential EFI (SEFI) on the 5.8L 351W, EEC-IV engine management. Confirmed: the 1989 5.8L was factory EFI, and the engine-bay photos show an aftermarket BBK throttle body (an EFI-only part). Not carbureted.",
+          "confidence": "verified"
         }
       },
       "notes": "\"Bolores\" — the Eddie Bauer edition: two-tone maroon over tan, upgraded interior. Lifted and riding on 33\" Pro Comp mud-terrains over 15\" alloys with WARN locking hubs; 33\" Mickey Thompson Baja spare on the rear carrier. Full restoration underway. Her documented history now reaches back to a Memphis, TN owner (2010–2013) who built that 4\" lift and worked through a long recommissioning — the 351 had already been rebuilt once even before then. She came into Georgia on a Mississippi title, was bought by a Canton-area owner in 2016 who swapped the engine twice (a short-block in '16, then a warranty long-block in '18) and kept her at a local shop for years — including a 2021 stint in Maine — before Paul brought her home in October 2025. Her odometer isn't trustworthy: the instrument cluster was opened/replaced along the way, and the '89 title is odometer-exempt.",
@@ -771,7 +771,7 @@
         "H": "engine code H = 5.8L (351W) V8 (confirms engine on file)",
         "5": "check digit",
         "K": "model year 1989",
-        "L": "Louisville, KY assembly plant",
+        "L": "Michigan Truck Plant (Wayne, MI) — from the VIN 11th digit; corrects an earlier 'Louisville, KY' read (Louisville is code U, not L). Confirmed via Ford VIN plant codes, 2026-07-22.",
         "••••••": "production sequence — masked here; full VIN in private records"
       },
       "paint": {

@@ -9,6 +9,7 @@ What's changed at Fernwood lately. Newest first.
 - **Desert Storm** (the DR-Z400) now carries the full story of its **2025 carburetor & cooling overhaul** — the lean-start chase, the carb rework, the radiators found damaged and replaced both sides, and the coolant bleed that finally settled it. It had only ever been a vague "big overhaul last year"; the details are on the card now.
 - The **DR200 has a name on the card — "Blue Thunder"** — to sit alongside Desert Storm.
 - **Bolores's tire size corrected** — she's on **33″** Pro Comp mud-terrains now (read off the actual sidewalls in Paul's photos), not the 35s an earlier owner ran. The old 35″ figure lives on only where it belongs — in her prior-owner service history.
+- **A couple of Bolores facts set straight** from her VIN and engine bay: she was built at Ford's **Michigan Truck Plant** (not Louisville), and she runs **fuel injection** (EFI), not a carburetor. Her transmission is still an open question — flagged to identify from the truck itself.
 
 ---
 
