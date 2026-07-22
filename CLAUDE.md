@@ -96,6 +96,32 @@ python3 -m http.server 8765
 
 **Every user-facing change ships with a release note.** When a release lands something Mom or Paul would notice on the dashboard (a new card, a new affordance, a visible behavior change), add a `## YYYY-MM-DD — Title` entry to `RELEASE_NOTES.md` (newest stays at top, field-journal voice, bullets describe what changed *for the user* — not the engineering), then run `python3 tools/build-release-notes.py` to re-inline `RELEASE_NOTES_DATA` (latest 5) into viewer.html. The "Recent updates" card renders it. Purely behind-the-scenes work (refactors, data plumbing) doesn't need an entry. If a release shipped without a note, backfill it.
 
+## Plant taxonomy & organization — the rule (v1, 2026-07-22)
+
+**Why this exists.** Three shapes for organizing plants now coexist in `plants.json` — separate species records, the `variety` field, and the hydrangea hub-and-roster — plus a deferred instance model (BACKLOG **W6**). This is the decision procedure so every addition uses the *same* logic and we can measure which shape earns its keep. It's a **starting point**, deliberately simple; adjust it as evidence comes in — when you change it, bump the version here and note what moved.
+
+**The unit of a plant record = one identity that shares one care calendar.** Not a location, not a single physical plant — an *identity* (a species, or a cultivar distinct enough to need its own care). Where it grows lives in `zoneId`; *which individual* is W6, still deferred.
+
+**Decision procedure — when adding or reorganizing a plant, take the FIRST case that fits:**
+
+1. **Distinct species, or same species but genuinely different care → its own top-level record.** The default, and most common. Two plants a reader thinks of as *different plants*, or that need different care timing, are separate records — **even when they share a spot** (the two pond irises: `iris-blue-flag`, `iris-yellow-flag`). **Never name a record for where it lives** — use the identity (`iris-yellow-flag`), not the location (`iris-pond`). Location isn't identity: a plant can move, and one pond can hold two species. (This was the original iris mistake, corrected 2026-07-22.)
+
+2. **Same species, uncertain or noteworthy cultivar, care is identical → one record + the `variety` field** (schema v6), *not* a split. Use when the only variation is *which cultivar* and it doesn't change care. Carries `{value, confidence, askable, …}`, drives the provenance chip, and is harvested into Mama's Perspective. Precedent: `clematis` ("Nelly Moser or Dr. Ruppel", inferred) · `crocosmia` ("Lucifer", verified).
+
+3. **A genus/group a reader mentally bundles together (~3+ members) → hub-and-roster.** One **hub** record telling the shared genus story with a `roster[]` naming every member. Then, per member: one with **its own care calendar** gets **its own top-level record** *and* a roster line pointing to it (`hydrangea-dreamcloud`, `hydrangea-panicle`, Pop Star); one that **shares the genus care** stays a **roster line only**, no separate card (bigleaf-blue, 'Annabelle'). Below ~3 members, plain separate records are simpler — don't build a hub for two.
+
+4. **Several individuals of the SAME species across different zones → do NOT clone the record or widen `plants.json`.** Keep one species record; put the individual/zone specifics in prose or an observation. This is **W6, deferred** — escalate to a real instance model only when its gate fires (see BACKLOG). The rule's job in this case is to *stop silent schema drift*.
+
+**Every new record carries** (checklist): a stable identity `id` (kebab-case); `name`, `scientificName`, `emoji`, `guide`, `currentSeasonNote`; `soilNotes`, `aspectPreference`, `frostSensitivity`; the six `care` types (empty months are fine); `bloom` if it flowers; `photo` + `attribution`; `zoneId` (`null` until Paul assigns it — zone assignment stays Paul-driven, per W2).
+
+**Honesty markers are mandatory, not decorative.** Anything guessed (cultivar, bloom window, an ID read off a photo) is marked `confidence: inferred` (plus `askable: true` where someone standing on the property could settle it). That flag *is* the hook the Mama's-Perspective harvest pulls on — a confidently-wrong record is worse than an honestly-unsure one.
+
+**Photos:** prefer a property photo (attribution `source`/`license` = `"Property record"` → renders "Taken here on the property"); otherwise a licensed stock image, captioned as a reference *not* taken here. Photoless degrades cleanly — a missing photo is fine, a mislabeled one is not.
+
+**Landing checklist after any add/reorg:** `python3 tools/check-data-inline.py --fix` (re-inline) → `python3 tools/build-digest.py` (refresh Guru's context) → add a `RELEASE_NOTES.md` entry if a card or behavior changed for Mom/Paul → commit. Worker digest **deploy stays Paul's step**.
+
+**What we measure (the revisit gate).** Watch where the shapes strain. The known pressure is **W6**: when the "same species, several individuals across zones" case shows up *for real* (not hypothetically), that's the signal to design the instance model and revise this rule to **v2**. Until a case forces it, hold to the four above — consistency now is what makes the eventual measurement legible.
+
 ## Architecture
 
 `viewer.html` is a single ~4,600-line self-contained file: all CSS, JS, and inlined JSON data live in one file. There is no build system, no module bundler, no framework. The JSON files (`plants.json`, `fishing.json`, etc.) are the source of truth for data — they are fetched at page load and the inlined copies in `viewer.html` serve as fallback. When updating data, edit the JSON files and re-inline them.
