@@ -109,15 +109,38 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 | **Populate from Paul's weed photos** | ✅ **First pass DONE 2026-07-20.** Paul sent 10 weed photos (HEIC from his library); read **four** woodland-edge weeds off them + staged one own-photo each into `images/weeds/` (renders **"Taken here on the property"** via the new `renderWeeds` photo block): **Japanese stiltgrass** (`Microstegium` — dominant), **beggar's lice** (`Desmodium`), **Virginia creeper** (native; not poison ivy), **wild violet** (lower-confidence). All `inferred`/`needs-confirmation`. Two DRAFT Mom questions staged (`q-weed-stiltgrass`, `q-weed-beggars-lice`, `active:false`). As Mom answers, fold `inferred→verified` and let it **seed more entries + cards** (Paul's loop). | ✅ 4 weeds seeded 2026-07-20; ID = model-read, awaiting ground-truth. |
 | **"Before it seeds" timely nudge** | The weed-glance's concrete trigger — surface a weed at the moment it's about to set seed (highest-leverage time to pull it). Phenological like the bloom windows, framed as a field-journal observation (*"the crabgrass is about to seed — worth getting after it"*), never a deadline/alert. The per-weed `seedTiming` window is already in `weeds.json`; this promotes it into a top-of-app glance. | IDEATION — after a couple of real weeds exist. |
 
-## A8 · ChatGPT-mine use-cases — added 2026-07-22
+## A8 · ChatGPT-mine use-cases — added 2026-07-22 (rounds 1+2)
 
-*Source: the OpenAI ChatGPT conversation mine (`~/Developer/openai-data-archive/reports/use-case-routing.md`, §A Fernwood). Property/fishing/pond material for the field-journal layer. Lake facts are model-read → verify locally.*
+*Source: OpenAI ChatGPT conversation mine — `~/Developer/openai-data-archive/reports/use-case-routing.md` §A + `…-round2.md` (fuller detail). All care/wildlife facts from chat are model-read → verify on the ground.*
 
+**Real property EVENTS → wildlife/device layer:**
 | Item | What it is | Status |
 |---|---|---|
-| **Fold "Home in Jasper Summary" into property reference** | A 2025-07-19 compiled property-context brief for the exact Fernwood parcel — near-zero-effort reuse in the Property card's reference layer. | IDEATION |
-| **Lake Sequoyah fishing reference** | Two 2025-03 threads of lake-specific fishing intel tied to the property's own lake; fits the existing fishing theme. | IDEATION |
-| **Pond-ecosystem build-out notes** | Multi-thread record of the pond Paul built (EPDM liner, koi, cattail, plantings) — feeds the observations/knowledge layer. ⚠️ confirm the pond is at Jasper (near-certain), not the Atlanta condo. | IDEATION |
+| **Wildlife nuisance flags → `mammals.json`** | Beaver (active nuisance — felling trees at the pond), feral hog (landscaping damage Jasper↔Ellijay), bear (tearing pond liner → electric fence), deer/rabbit (browse on pond-edge cardinal flower). These are active *management concerns*, not just presence. | IDEATION |
+| **Amphibian-decline observation → `amphibians.json`** | Paul's multi-year observed decline on the spring-fed pond (2024-08) — anchors the domain to a real concern. | IDEATION |
+| **Pond infrastructure → `devices.json`** | Bear **electric fence**; **pump shed** (30×22×18 plywood, sloped roof); a second gutter+drain on the existing shed. Installed/in-progress, only in ChatGPT today. | IDEATION |
+| **`guides/` hunting & game reference** | Pickens County seasons/limits + squirrel/hog handling & meat safety. ⚠️ regs are year-dated — annual-refresh flag. | IDEATION |
+
+**The pond (densest thread, no data-model home yet):**
+| Item | What it is | Status |
+|---|---|---|
+| **Pond/koi record** | EPDM 40-mil liner, ~22 ft across, 4.5 ft deep; koi stocked; the koi+*Gambusia*-vs-frog/tadpole tradeoff (fish-free cover zones). | IDEATION |
+| **Add purchased pond plants → `plants.json`** | From a Pike Nurseries receipt: Variegated + Blue Flag Iris, Pickerelweed, Bowles Golden Sedge, Dwarf Papyrus, Corkscrew Rush (only "Pond Iris" tracked today). Species IDs are model-read. | IDEATION |
+| **Cattail entry (⚠️ monitor containment)** + **Cardinal flower** (pond-bog candidate) | Intentional but aggressive introduction; on-site native find. | IDEATION |
+
+**Existing-plant field history + reference:**
+| Item | What it is | Status |
+|---|---|---|
+| **'Orangeola' Japanese-maple field history** → existing Japanese Maple entry | Shade/heat struggle + powdery mildew → recovered after a move to more sun. | IDEATION |
+| **Mountain-laurel regrowth / boxwood self-layering / white-pine prop** notes | Onto existing entries. | IDEATION |
+| **Heritage cherry tree — planned planting** | Kirschenbauer = "cherry farmer" (Bavaria); site meets chill hours. Intent, not planted. | IDEATION |
+| **Fold "Home in Jasper Summary" (2025-07-19)** into property reference | A ready property-context brief; **verify-then-fold** vs `property.json`, don't trust wholesale. | IDEATION |
+| **Lake Sequoyah fishing reference** | 2025-03 lake-specific fishing intel. | IDEATION |
+
+**⚠️ Reconcile before recording (Paul):**
+- **Sarracenia/pitcher plants:** pond threads put *S. purpurea* in the **Jasper pond bog**; memory `project_sarracenia_pitcher_plants` says they stay **outdoor Atlanta, NOT Tate (too cold)**. Resolve first.
+- **Address:** Church Mountain Rd vs a "Wildcat Road" mention — confirm canonical.
+- **Pest-control methods** for the hog/beaver nuisance are tracked **privately** (kept out of this public repo) — see the mine's round-2 report §E. Cross-link only in a private surface.
 
 ---
 
