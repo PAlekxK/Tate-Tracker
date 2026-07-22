@@ -41,7 +41,9 @@
         "id": "hydrangea-panicle"
       },
       "createdAt": "2026-07-13",
-      "active": true
+      "active": false,
+      "resolution": "Mom answered 'Looks right' 2026-07-18 10:59 PM ET (paired device, no note; Paul 99% sure it's her, 2026-07-22). Bloom was ALREADY verified in canon (Plants v5, 7/12 — card was stale-premised at authoring); folded as a second-witness line on the bloom note rather than a confidence flip.",
+      "resolvedAt": "2026-07-22"
     },
     {
       "id": "q-open-standing",

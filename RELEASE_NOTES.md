@@ -4,6 +4,11 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-22 — Your word on the hydrangea, in the record
+
+- Your answer about the **panicle hydrangea** made it home: the record now notes it was **confirmed in flower on the ground** — by you — alongside what we'd read in the books. The question card has retired itself.
+- A small green note now sits at the top of the page: **"We got your feedback on the panicle hydrangea — it's in the record. Keep it coming!"** It'll stay there, and each time you tell us something new, it'll change to mention that instead — so you always know the last thing you said was heard.
+
 ## 2026-07-22 — The DR-Z400's 2025 overhaul, written down at last
 
 - **Desert Storm** (the DR-Z400) now carries the full story of its **2025 carburetor & cooling overhaul** — the lean-start chase, the carb rework, the radiators found damaged and replaced both sides, and the coolant bleed that finally settled it. It had only ever been a vague "big overhaul last year"; the details are on the card now.
