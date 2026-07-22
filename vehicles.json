@@ -28,43 +28,53 @@
       "maintenance": {
         "fuel": {
           "value": "91+ octane premium unleaded REQUIRED (APR Stage 1 needs 91-93 octane). Top Tier preferred.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "91+ requirement is APR Stage-1 tune guidance (not on disk). Factory manual only sets 87 AKI minimum + Top Tier — manuals/text/gti-2016.txt: 'octane levels below 87 can also cause engine damage'; 'Never use fuel with an octane rating lower than 87 AKI/91 RON'; 'VW recommends using TOP TIER Detergent Gasoline'."
         },
         "oil": {
-          "value": "Gate on VW 502.00 approval. The owner's manual allows synthetic meeting VW 502.00 in 5W-40 OR 5W-30 — so a 502.00 5W-30 is fully manual-legal; 5W-40 is preferred for the Stage-1 tune (thermal margin, matches APR's own oil). Real walk-away = a generic/dexos 5W-30 with NO 502.00. Examples (502.00): Liqui Moly Top Tec 4200, Castrol Edge Pro. Capacity 5.3 qt (5L) with filter.",
-          "confidence": "verified"
+          "value": "Gate on VW 502.00 approval. The owner's manual allows synthetic meeting VW 502.00 in 5W-40 OR 5W-30 — so a 502.00 5W-30 is fully manual-legal; 5W-40 is preferred for the Stage-1 tune (thermal margin, matches APR's own oil). Real walk-away = a generic/dexos 5W-30 with NO 502.00. Examples (502.00): Liqui Moly Top Tec 4200, Castrol Edge Pro. Capacity 6.0 qt (5.7 L) with filter — the earlier 5.3 qt (5 L) figure was wrong.",
+          "confidence": "verified",
+          "source": "manuals/text/gti-2016.txt — 'Golf GTI … Engine oil capacity (with filter) … About 6.0 quarts (5.7 liters)'; 'VW 502 00'; 'viscosity grade of SAE 5W-40. or SAE 5W-30'."
         },
         "oilFilter": {
           "value": "VW OEM cartridge — 06L 115 562 / 06L 115 562 B (EA888 Gen 3)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's manual on disk carries no filter part numbers; P/N from parts research."
         },
         "airFilter": {
           "value": "VW OEM 5Q0 129 620 B",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's manual on disk carries no filter part numbers; P/N from parts research."
         },
         "cabinFilter": {
           "value": "VW OEM 5Q0 819 644 A (combination filter w/ activated carbon)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's manual on disk carries no filter part numbers; P/N from parts research."
         },
         "sparkPlugs": {
           "value": "NGK R7437-8 racing plug (APR Stage-1 heat range). Gap 0.024\" — they ship at 0.028\", so close the gap down before install. ~25 Nm (18 ft-lb), no anti-seize. Change ~20k mi on the tune (racing plugs wear faster than the 40k stock interval).",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "APR racing-plug spec (NGK R7437-8, 0.024\" gap, 20k interval) is tune-vendor guidance — not in the factory manual on disk."
         },
         "coolant": {
           "value": "VW G13 (pink) — never mix with G11 or G12. Active leak under diagnosis: check thermostat housing + expansion tank cap first.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/gti-2016.txt — 'engine coolant additive G 13 (TL-VW 774 J)'; 'Do not mix - G 13 - with - G 12 plus - or - G 11 -'."
         },
         "brakeFluid": {
-          "value": "DOT 4 LV (VW G 060 157)",
-          "confidence": "verified"
+          "value": "DOT 4 LV — VW Standard 501 14 (e.g. VW G 060 157 A2). High-quality FMVSS 116 DOT 4 acceptable only as a fallback.",
+          "confidence": "verified",
+          "source": "manuals/text/gti-2016.txt — 'use brake fluid that expressly conforms to quality standard VW Standard 501 14'; 'if it is not available … FMVSS 116 DOT 4'."
         },
         "transmissionFluid": {
           "value": "Manual gearbox oil (MK7 6-speed manual). ⚠️ The prior \"DSG G 052 182 A2 / 40k\" spec was an ERROR — this car is a MANUAL, not a DSG. Manual gear oil is long-life; verify the exact spec (commonly VW G 052 527 A2) before any change.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's manual confirms the 6-speed manual gearbox ('Gearshift pattern of a 6-speed manual transmission') but gives no gear-oil spec — G 052 527 A2 remains unconfirmed on disk."
         },
         "tirePressure": {
           "value": "37 psi (250 kPa) cold, front & rear; spare 60 psi (420 kPa) — per door tire-and-loading placard. Tires 225/40 R18, compact spare 125/70 R18.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "Door tire-and-loading placard (on-unit read)."
         }
       },
       "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan. (Plan refreshed 2026-07-22 for the MANUAL correction: no DSG service exists — the old 'DSG 40k @ 82,698 overdue' urgency is void; manual gearbox oil is a low-priority long-life check.) ⚠️ Front-end cone-strike repaired DIY 2026-07-21 (see serviceHistory) — mention the understrike at the next shop visit so the radiator/condenser area gets eyeballed.",
@@ -415,15 +425,18 @@
       "maintenance": {
         "fuel": {
           "value": "87 octane minimum (premium recommended for performance, not required)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "On-disk manual is the international edition and defers to the car: 'factory-fitted sticker on the inside of the tank flap indicates the required fuel type' (manuals/text/tiguan-2018.txt). US 87-minimum figure not on disk — confirm off the fuel-flap sticker."
         },
         "oil": {
           "value": "0W-20 meeting VW 508.00 / 509.00 spec. Capacity ~5.3 qt with filter.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "manuals/text/tiguan-2018.txt confirms VW 508 00 for petrol engines (oil-spec table), but states neither viscosity nor capacity — verify capacity before an oil change (~5.3 qt is unconfirmed; US-spec figure may differ)."
         },
         "oilFilter": {
           "value": "VW OEM 06L 115 562 (EA888 Gen 3B cartridge)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "P/N not in owner's manual on disk; from parts research."
         },
         "airFilter": {
           "value": "VW OEM (verify P/N at dealer for Gen 3B)",
@@ -434,20 +447,24 @@
           "confidence": "inferred"
         },
         "coolant": {
-          "value": "VW G13 (pink)",
-          "confidence": "verified"
+          "value": "VW G 13 (TL-VW 774 J) — dyed purple; keep at least 40% additive mixed with distilled water; never mix with G 12 plus or G 11.",
+          "confidence": "verified",
+          "source": "manuals/text/tiguan-2018.txt — '40% coolant additive G 13 (TL-VW 774 J). The coolant additive is dyed purple'; 'Mixing - G 13 - with … - G 12 plus - … significantly reduces corrosion protection'."
         },
         "brakeFluid": {
-          "value": "DOT 4 LV",
-          "confidence": "verified"
+          "value": "DOT 4 LV — VW standard 501 14 (FMVSS 116 DOT 4 only in exceptional circumstances).",
+          "confidence": "verified",
+          "source": "manuals/text/tiguan-2018.txt — 'Only use brake fluid that is explicitly compliant with VW standard 501 14'."
         },
         "transmissionFluid": {
           "value": "8-speed AQ250 — typically lifetime fill but service at 80k mi recommended",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "On-disk manual is the international DSG edition — it doesn't cover the US 8-speed torque-converter automatic. The 'AQ250' label is also suspect (AQ250 is VW's 6-speed automatic family; the US 8-speed is Aisin AQ450/AWF8F35) — verify off-disk before any service."
         },
         "tirePressure": {
           "value": "38 psi (260 kPa) cold, front & rear; spare 60 psi (420 kPa) — per door tire-and-loading placard. Tires 215/65 R17, compact spare 145/85 R18.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "Door tire-and-loading placard (on-unit read)."
         }
       },
       "vin": "3VV1B7AX1JM••••••",
@@ -532,39 +549,48 @@
       "maintenance": {
         "fuel": {
           "value": "87 octane regular unleaded",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/f150-2006.txt — 'designed to use \"Regular\" unleaded gasoline with pump (R+M)/2 octane rating of 87'."
         },
         "oil": {
-          "value": "5W-20 SAE — Motorcraft Synthetic Blend or equivalent. Capacity 5 qt with filter.",
-          "confidence": "verified"
+          "value": "5W-20 SAE meeting Ford spec WSS-M2C930-A — Motorcraft Synthetic Blend or equivalent. Capacity 6.0 qt (5.7 L) with filter change — the earlier 5-qt figure was wrong.",
+          "confidence": "verified",
+          "source": "manuals/text/f150-2006.txt — 'Use SAE 5W-20 engine oil'; 'Ford specification WSS-M2C930-A'; Refill capacities: '4.2L engine — 6.0 quarts (5.7L)' (includes filter change)."
         },
         "oilFilter": {
-          "value": "Motorcraft FL-820S",
-          "confidence": "verified"
+          "value": "Motorcraft FL-400-S — the 4.2L V6 filter per the owner's-guide part table. (The earlier FL-820-S fits the 4.6L/5.4L V8s, not this truck.)",
+          "confidence": "verified",
+          "source": "manuals/text/f150-2006.txt Motorcraft part-numbers table — 4.2L V6 column: 'Oil Filter FL-400-S'."
         },
         "airFilter": {
           "value": "Motorcraft FA-1632",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/f150-2006.txt Motorcraft part-numbers table — 'Air filter element FA-1632' (4.2L V6)."
         },
         "sparkPlugs": {
           "value": "Motorcraft SP-417 (6 needed) — gap 0.054\"",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's guide defers plug specs to the dealer ('For spark plug replacement, see your authorized dealer') — SP-417 / 0.054\" gap are from parts research; confirm against the underhood emissions (VECI) decal."
         },
         "coolant": {
-          "value": "Motorcraft Premium Gold (G-05) — yellow/gold pre-mix",
-          "confidence": "verified"
+          "value": "Motorcraft Premium Gold (yellow) — VC-7-A (VC-7-B in CA/OR/NM), Ford spec WSS-M97B51-A1; maintain 50/50 with distilled water. (Zerex G-05 is the common aftermarket cross-reference.)",
+          "confidence": "verified",
+          "source": "manuals/text/f150-2006.txt — 'Motorcraft Premium Gold Engine Coolant (yellow-colored), VC-7–A … meeting Ford Specification WSS-M97B51–A1'; 'concentration should be maintained at 50/50 coolant and distilled water'."
         },
         "transmissionFluid": {
           "value": "MERCON V (4R70W). Total fill ~13.9 qt; pan service ~5 qt.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's guide lists the automatic as '4R70E and 4R75E' with ~13.9-qt approximate dry fill, and says the fluid type is 'indicated on the dipstick or on the dipstick handle' — MERCON and MERCON V are NOT interchangeable ('DO NOT mix'). Read the dipstick before service; the flat 'MERCON V (4R70W)' claim is unconfirmed."
         },
         "brakeFluid": {
           "value": "DOT 3",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/f150-2006.txt Refill capacities — 'Motorcraft High Performance DOT 3 Motor Vehicle Brake Fluid'."
         },
         "tirePressure": {
           "value": "35 psi (240 kPa) cold, front & rear — per driver-door certification label (05/06). OE tire P255/65R17, rims 17×7.5J.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "Driver-door certification label (on-unit read)."
         }
       },
       "vin": "1FTRF12206N••••••",
@@ -634,15 +660,18 @@
       "maintenance": {
         "fuel": {
           "value": "87 octane regular unleaded (older engine, no premium needed)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "On-disk owner's guide (OCR-partial) only says use 'unleaded gasoline containing detergents' — no octane spec."
         },
         "oil": {
           "value": "5W-30 or 10W-30 conventional. Capacity 5 qt with filter.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's-guide capacity row is OCR-garbled; only legible: '(1) Add one U.S. quart … with filter change' (manuals/text/bronco-1989.txt). Viscosity and capacity unverified on disk."
         },
         "oilFilter": {
           "value": "Motorcraft FL-1A (classic small-block Ford filter)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Not in the on-disk owner's-guide extract; from parts research."
         },
         "airFilter": {
           "value": "Round element — Motorcraft FA-46 or equivalent (verify by carb/EFI configuration)",
@@ -654,23 +683,28 @@
         },
         "coolant": {
           "value": "Traditional green IAT (ethylene glycol 50/50) — appropriate for era",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Coolant type not stated in the on-disk owner's-guide extract."
         },
         "transmissionFluid": {
           "value": "AOD: MERCON (NOT MERCON V — wrong friction modifier for AOD)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's guide gives AOD capacity (12.3 qt) but no fluid type on disk; MERCON-vs-MERCON-V for the AOD is from research."
         },
         "transferCaseFluid": {
           "value": "BW1356: Mercon ATF",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's guide: 'Warner 1356 Transfer Case — 2.0' qt capacity; fluid type not stated on disk."
         },
         "differentialFluid": {
           "value": "75W-90 or 80W-90 GL-5 gear oil (front + rear axles)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Not stated in the on-disk owner's-guide extract."
         },
         "brakeFluid": {
           "value": "DOT 3",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Not stated in the on-disk owner's-guide extract."
         },
         "tires": {
           "value": "Pro Comp Xtreme M/T 2 — 33X12.50R15LT, Load Range C (mud-terrain). Replacement size 33×12.50R15 (≈32.8\" nominal diameter). Size read off the actual sidewalls from the photos Paul provided (2025-10-13, Paul-confirmed 2026-07-22) — corrects an earlier 35×12.50R15 that had been carried over from prior-owner records.",
@@ -1046,35 +1080,43 @@
       "maintenance": {
         "fuel": {
           "value": "87 octane unleaded, mid-grade OK",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/dr200s-2017-service.txt — 'unleaded gasoline of at least 87 pump octane (R/2+M/2)'."
         },
         "oil": {
           "value": "10W-40 motorcycle-specific (JASO MA/MA2 wet-clutch rated). Capacity 1.0 qt with filter change.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Service manual disagrees with itself: CAPACITIES table says 'with filter change 1 050 ml (1.1 US qt)' but the FUEL+OIL servicing table says 'Filter change 950 ml (1.00 US qt)'. Fill ~1.0 qt and set the final level by the sight/level check rather than by measure alone."
         },
         "oilFilter": {
           "value": "Suzuki 16510-37450 or HiFlo HF138",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Part numbers are not in the service manual (parts-catalog data)."
         },
         "airFilter": {
           "value": "Suzuki OEM (foam element) or K&N SU-2092",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Service manual confirms 'Polyurethane foam element' but carries no P/N; numbers from parts research."
         },
         "sparkPlug": {
           "value": "NGK DR8EA — gap 0.024–0.028\" (0.6–0.7 mm)",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/dr200s-2017-service.txt — 'NGK DR8EA or DENSO X24ESR-U'; gap 0.6–0.7 mm (0.024–0.028 in)."
         },
         "driveChain": {
-          "value": "428 pitch — clean and lube every 300–500 mi or after wet rides",
-          "confidence": "verified"
+          "value": "520 pitch — D.I.D. 520VC.5, 112 links per the service manual (the earlier '428 pitch' was wrong). Clean and lube every 300–500 mi or after wet rides.",
+          "confidence": "verified",
+          "source": "manuals/text/dr200s-2017-service.txt — 'Drive chain … D.I.D. 520VC.5, 112 links' (appears in both the base spec and supplement spec tables)."
         },
         "tirePressure": {
-          "value": "Front 18 psi / Rear 21 psi (typical solo street)",
-          "confidence": "inferred"
+          "value": "Front 22 psi (150 kPa) / Rear 25 psi (175 kPa) cold, solo riding; rear 29 psi (200 kPa) dual — per the service manual (the earlier 18/21 psi was low).",
+          "confidence": "verified",
+          "source": "manuals/text/dr200s-2017-service.txt COLD INFLATION TIRE PRESSURE table — solo: front 150 kPa / 22 psi, rear 175 kPa / 25 psi; dual: rear 200 kPa / 29 psi."
         },
         "coldStart": {
           "value": "Carbureted cold start: choke / enrichener fully ON, throttle closed, then thumb the starter in short bursts. Suzuki: never operate the starter more than 5 seconds at a time (it overheats the starter motor and wiring harness). If it doesn't catch within ~5 sec, release, wait 10–15 sec, and try again. Ease the choke off over the first minute or two as it warms.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "The 5-second-starter warning is not in the on-disk service manual (it's owner's-manual guidance); technique is sound but unverified on disk."
         }
       },
       "notes": "Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain. Recommissioned ~June 2026 after sitting: the tank and carb had been drained and the battery stored off the bike. Charged the battery, filled with ethanol-free gas, primed the carb, reconnected — fired right up nicely. Oil change still pending. Starting issues resolved 2026-07-21 — Mom cleaned the contacts and reset the contact points; it now fires immediately on the starter button.",
@@ -1149,40 +1191,49 @@
       },
       "maintenance": {
         "fuel": {
-          "value": "91+ octane premium recommended (high 11.3:1 compression). 87 OK in pinch.",
-          "confidence": "verified"
+          "value": "Unleaded, minimum 87 pump octane ((R+M)/2) per the service manual — its '91 octane or higher' figure is the Research Method rating of the same pump fuel, not a premium requirement. Premium is optional headroom for the 11.3:1 compression, not required.",
+          "confidence": "verified",
+          "source": "manuals/text/drz400s-2001-service.txt — 'unleaded gasoline of at least 87 pump octane ( R+M/2 ) method or 91 octane or higher rated by the Research Method'."
         },
         "oil": {
-          "value": "10W-40 motorcycle-specific (JASO MA/MA2). Capacity ~1.4 qt with filter change.",
-          "confidence": "verified"
+          "value": "10W-40, API SF or SG per the service manual (motorcycle JASO MA/MA2 oils qualify). Capacity: 1.7 L (1.8 US qt) oil change; 1.8 L (1.9 US qt) with filter change; 1.9 L (2.0 US qt) dry/overhaul. Dry-sump — drain BOTH plugs (crankcase + frame downtube). The earlier '~1.4 qt with filter' was wrong.",
+          "confidence": "verified",
+          "source": "manuals/text/drz400s-2001-service.txt — 'Oil and filter change: 1.8 L (1.9 US qt)'; 'SAE 10W-40 … API service classifications SF or SG'; 'engine oil drain plugs ((3), (8))' (two plugs)."
         },
         "oilFilter": {
           "value": "Suzuki 16510-29F00 or HiFlo HF139",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Part numbers are not in the service manual (parts-catalog data)."
         },
         "airFilter": {
           "value": "Suzuki OEM (foam element) or K&N SU-4001",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Service manual confirms the polyurethane foam element; P/Ns from parts research."
         },
         "sparkPlug": {
-          "value": "NGK CR8E — gap 0.024–0.028\"",
-          "confidence": "verified"
+          "value": "NGK CR8E (DENSO U24ESR-N) — gap 0.7–0.8 mm (0.028–0.031\") per the service manual. (The earlier 0.024–0.028\" gap was the DR200's spec.)",
+          "confidence": "verified",
+          "source": "manuals/text/drz400s-2001-service.txt — 'Spark plug … NGK: CR8E'; 'Spark plug gap Standard: 0.7 - 0.8 mm (0.028 - 0.031 in)'."
         },
         "coolant": {
           "value": "Ethylene glycol 50/50 (motorcycle-specific or auto OK if silicate-free)",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/drz400s-2001-service.txt — 'antifreeze designed for aluminum radiators', mix 50:50–40:60 with distilled water; capacity 1 250 ml (1.3 US qt)."
         },
         "driveChain": {
-          "value": "520 pitch — clean and lube every 300 mi",
-          "confidence": "verified"
+          "value": "520 pitch — RK520KZO, 112 links per the service manual. Lubricate every 600 mi (1,000 km); more often in wet/off-road use.",
+          "confidence": "verified",
+          "source": "manuals/text/drz400s-2001-service.txt — 'Drive chain … RK520KZO, 112 links'; maintenance chart: 'Lubricate every 1 000 km (600 miles)'."
         },
         "valveAdjust": {
-          "value": "Check at 600 mi initial then every 7,500 mi (shim-under-bucket)",
-          "confidence": "verified"
+          "value": "Tappet (valve) clearance: inspect every 15,000 mi (24,000 km, 24 months) per the service manual — shim-under-bucket. (The earlier '600 mi initial then every 7,500 mi' was wrong for this model.)",
+          "confidence": "verified",
+          "source": "manuals/text/drz400s-2001-service.txt — 'TAPPET CLEARANCE — Inspect every 24 000 km (15 000 miles, 24 months)'."
         },
         "sparkPlugs": {
-          "value": "NGK #1275 = CR8E (standard). The bike is currently running this plug (Paul-confirmed installed). Gap ~0.7 mm (0.028\") — verify against the service manual. Iridium equivalent: CR8EIX.",
-          "confidence": "verified"
+          "value": "NGK #1275 = CR8E (standard). The bike is currently running this plug (Paul-confirmed installed). Gap 0.7–0.8 mm (0.028–0.031\") per the service manual. Iridium equivalent: CR8EIX.",
+          "confidence": "verified",
+          "source": "manuals/text/drz400s-2001-service.txt — 'Spark plug gap Standard: 0.7 - 0.8 mm (0.028 - 0.031 in)'; CR8E confirmed as the standard plug."
         }
       },
       "notes": "Dual-sport — street-legal with headlight, tail light, and mirrors. VIN position 10 = '1' confirms 2001 model year. Recommissioned ~June 2026 the same way as the DR200: ethanol-free gas in, primed the carb, fully charged battery back on — fired right up. On the first test ride it developed an electrical fault (see the list).",
@@ -1242,35 +1293,43 @@
       "maintenance": {
         "fuel": {
           "value": "87 octane regular unleaded",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's manual says only 'Unleaded gasoline' (tank 6.1 US gal) — no octane spec on disk; 87 regular is the sensible default."
         },
         "engineOil": {
           "value": "SAE 10W-30 — capacity ~1.16 qt (1.1 L). No spin-on filter to change (splash-lubricated). ⚠️ FILL BY MEASURE (~1 qt), NOT to the dipstick MAX: the MIN→MAX span is only ~½ qt, so filling 'to MAX' overfills by ~50%. In June 2025 an overfill (filled to MAX) forced oil through the breather into the intake → heavy smoking + sputtering; fixed by draining back to a measured ~1 qt and cleaning pooled oil out of the intake (Paul-confirmed).",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/g22a-2005.txt — 'Recommended oil: YAMALUBE 4-cycle oil or SAE 10W-30' (API SE/SF/SG); 'Engine oil capacity: 1.16 US qt (1.1 L)'; 'Oil change quantity: 1.0 US qt (0.9 L)'; 'distance between the dipstick marks represents approx. 1/2 US qt' — manual confirms the fill-by-measure story."
         },
         "oilDrainPlug": {
-          "value": "Stock drain plug was stripped; repaired spring 2026 with an oversize self-tapping repair plug (Paul ordered an M14×1.5 magnetic stainless plug per the ChatGPT mine) — no longer leaking. ⚠️ STOCK thread pitch is UNCONFIRMED: the earlier 'M12×1.5' is one of two contradictory ChatGPT reads — the other says M12×1.25 fine thread, ~17 ft-lb (23 N·m), OEM 90109-12079-00, and warns M12×1.5 kits strip the pan. Measure the old plug or the manual before trusting either.",
-          "confidence": "repaired (Paul-confirmed); stock thread pitch unconfirmed — model-read"
+          "value": "Stock drain plug was stripped; repaired spring 2026 with an oversize self-tapping repair plug (Paul ordered an M14×1.5 magnetic stainless plug per the ChatGPT mine) — no longer leaking. ⚠️ STOCK thread pitch is UNCONFIRMED: the earlier 'M12×1.5' is one of two contradictory ChatGPT reads — the other says M12×1.25 fine thread, OEM 90109-12079-00, and warns M12×1.5 kits strip the pan. Measure the old plug or a parts fiche before trusting either. Factory drain-plug torque per the owner's manual: 23 ft-lb (31 N·m) — which contradicts the ChatGPT '17 ft-lb' read (moot for the oversize repair plug: snug by feel).",
+          "confidence": "repaired (Paul-confirmed); stock thread pitch unconfirmed — model-read",
+          "source": "manuals/text/g22a-2005.txt — 'Drain plug torque: 23 ft.lb (31 Nm, 3.1 m.kg)'. Thread pitch not stated in the manual."
         },
         "sparkPlug": {
-          "value": "NGK BPR4ES — gap ~0.030\" (0.8 mm). Standard across Yamaha G14/G16/G21/G22/G29 gas.",
-          "confidence": "verified"
+          "value": "NGK BPR2ES — gap 0.028–0.031\" (0.7–0.8 mm) per the G22A owner's manual. (The earlier BPR4ES is cross-cart folklore; the manual explicitly lists BPR2ES.)",
+          "confidence": "verified",
+          "source": "manuals/text/g22a-2005.txt — 'BPR2ES'; 'Spark plug gap: 0.028 – 0.031 in (0.7 – 0.8 mm)'."
         },
         "airFilter": {
           "value": "Yamaha OEM JN6-E4450-00 (alt -01), 357cc 4-cycle engine — plus a foam pre-filter.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Owner's manual shows foam pre-filter + element service but no P/N; JN6-E4450-00 from parts research."
         },
         "oilFilter": {
           "value": "None — Yamaha gas-cart engines use an internal oil screen/strainer, not a replaceable spin-on filter. Clean the screen at oil changes.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "Consistent with the owner's manual: the oil-change procedure is drain + refill only — no filter item anywhere in the maintenance chart."
         },
         "brakeFluid": {
-          "value": "DOT 3 (verify on master cylinder cap)",
-          "confidence": "inferred"
+          "value": "Likely NONE — the owner's manual maintenance chart has only 'check brake pedal freeplay and adjust' (mechanical drum brakes) and no brake-fluid item anywhere. Confirm there is no master-cylinder reservoir on the cart, then drop this line.",
+          "confidence": "inferred",
+          "source": "manuals/text/g22a-2005.txt maintenance chart — brake service = pedal-freeplay adjustment; no hydraulic-fluid mention in the whole manual."
         },
         "tirePressure": {
-          "value": "18–22 psi typical",
-          "confidence": "inferred"
+          "value": "16 psi (110 kPa) — G22A spec per the owner's manual (the earlier '18–22 psi typical' was high).",
+          "confidence": "verified",
+          "source": "manuals/text/g22a-2005.txt — 'Tire pressure: For G22A: 16 psi (110 kPa, 1.1 kgf/cm2)'."
         },
         "fuelFilter": {
           "value": "Inline fuel filter — replace at tune-up (verify P/N; common in Yamaha gas tune-up kits).",
@@ -1322,20 +1381,24 @@
           "confidence": "verified"
         },
         "blade": {
-          "value": "OEM Kobalt 20\" dual-blade replacement set — confirm P/N at Lowe's by Item #506586",
-          "confidence": "tbd"
+          "value": "OEM Kobalt 20\" dual-blade replacement set — Lowe's Item #0535389 per the manual (sold separately). (Item #506586 is the mower itself, not the blade set.)",
+          "confidence": "verified",
+          "source": "manuals/text/kobalt-km2040x-06.txt — 'Use only KOBALT replacement blades (Item #0535389, sold separately)'."
         },
         "battery": {
-          "value": "Kobalt 40V Max Li-Ion (typically 4.0 Ah or 5.0 Ah). Mower runs on two batteries at once.",
-          "confidence": "inferred"
+          "value": "Kobalt 40V Max Li-Ion — the manual lists 40V 73 Wh (2.0 Ah, ~1-hr charge) and 146 Wh (4.0 Ah, ~2-hr charge) packs. Note: the manual consistently refers to a single battery — confirm whether this unit really runs two at once before buying spares.",
+          "confidence": "inferred",
+          "source": "manuals/text/kobalt-km2040x-06.txt specifications — 'Charge time 1 hour, for 40 V 73 Wh battery / 2 hours, for 40 V 146 Wh battery'; parts list shows 'Battery' (singular)."
         },
         "batteryStorage": {
           "value": "Off-season: store at ~40–60% charge in cool, dry place. Avoid leaving fully discharged.",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "Manual: store indoors, cool/dry, battery storage above 45°F and below 104°F; the 40–60%-charge guidance is general Li-ion practice, not in the manual."
         },
         "general": {
           "value": "Clean underside of deck after each use. Sharpen or replace blades 1–2× per season depending on use.",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "Manual confirms scraping the deck clean and inspecting/replacing the blade at storage; the sharpening cadence (1–2×/season) is not stated."
         }
       },
       "manual": {
@@ -1363,27 +1426,32 @@
       "maintenance": {
         "fuel": {
           "value": "50:1 mix — 89+ octane unleaded, E10 max (no E15+). Use Echo Power Blend or equivalent ISO-L-EGD 2-stroke oil.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb7910t.txt — '89 Octane [R+M/2] (mid grade or higher)'; 'up to 10% Ethanol'; oil 'meeting ISO-L-EGD (ISO/CD 13738) and J.A.S.O. FD'; 50:1 ratio."
         },
         "oil": {
           "value": "n/a — 2-stroke (mixed with fuel)",
           "confidence": "verified"
         },
         "sparkPlug": {
-          "value": "NGK BPMR8Y — gap 0.025\" (verify at first service)",
-          "confidence": "inferred"
+          "value": "NGK CMR7H — gap 0.026\" (0.65 mm); torque 86–133 lbf·in. Manual: 'Use only NGK CMR7H spark plug otherwise severe engine damage can occur.' (The earlier BPMR8Y guess was wrong.)",
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb7910t.txt — 'Use only NGK CMR7H spark plug'; gap '0.65 mm (0.026 in.)'."
         },
         "airFilter": {
           "value": "Echo OEM — confirm P/N at dealer (typical Echo handheld: A226000352-class element)",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "Manual services the element via the ECHO Tune-Up Kit; no element P/N given on disk."
         },
         "fuelFilter": {
           "value": "Echo OEM — replace annually",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "Manual services the fuel filter via the ECHO Tune-Up Kit; no P/N or fixed interval given on disk."
         },
         "general": {
           "value": "Drain fuel before long-term storage; ethanol-free fuel strongly preferred.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb7910t.txt — 'Long Term Storage (Over 30 Days)' section."
         }
       },
       "manual": {
@@ -1407,28 +1475,33 @@
       },
       "maintenance": {
         "fuel": {
-          "value": "50:1 mix — 89+ octane unleaded, E10 max. Same fuel/oil mix as the Homelite trimmer; can share a fuel jug.",
-          "confidence": "verified"
+          "value": "50:1 mix (2.6 oz 2-cycle lubricant per US gallon) — 87+ octane unleaded, E10 max per the manual (the earlier '89+' was stricter than spec). Same mix as the Homelite trimmer; can share a fuel jug.",
+          "confidence": "verified",
+          "source": "manuals/text/homelite-blower-vac.txt — 'octane rating of 87 [(R + M) / 2] or higher'; 'Mix at 2.6 oz. per gallon (US)'."
         },
         "oil": {
           "value": "n/a — 2-stroke",
           "confidence": "verified"
         },
         "sparkPlug": {
-          "value": "Champion RCJ-6Y or NGK BPMR7A — gap 0.025\" (standard for the HHCPS.0264AT family)",
-          "confidence": "inferred"
+          "value": "Ryobi AC00160A or Champion RCJ-6Y (or equivalent) — gap 0.025\", replace annually, per the manual.",
+          "confidence": "verified",
+          "source": "manuals/text/homelite-blower-vac.txt — 'This engine uses a Ryobi AC00160A, Champion RCJ-6Y, or equivalent spark plug with .025 in. electrode gap … replace annually'."
         },
         "airFilter": {
           "value": "Homelite/Ryobi 308054003 (foam element, common across the 26cc family)",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "P/N not in the operator's manual; from parts research."
         },
         "fuelFilter": {
           "value": "Homelite 530095646 (in-tank)",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "P/N not in the operator's manual; from parts research."
         },
         "general": {
           "value": "Drain fuel before long-term storage. Clean impeller + vacuum bag after vacuum use to prevent jams.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "Manual: drain the tank into an approved container before storage; stop engine and ensure impeller blades have stopped before clearing obstructions."
         },
         "support": {
           "value": "1-800-242-4672 (Homelite) per starting decal",
@@ -1464,27 +1537,32 @@
       "maintenance": {
         "fuel": {
           "value": "50:1 mix — 89+ octane unleaded, E10 max. Echo Power Blend or equivalent ISO-L-EGD 2-stroke oil.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb250ln.txt — '89 Octane [R+M/2] (mid grade or higher)'; 50:1 with ECHO Power Blend X / Red Armor (ISO-L-EGD / JASO FD class)."
         },
         "oil": {
           "value": "n/a — 2-stroke",
           "confidence": "verified"
         },
         "sparkPlug": {
-          "value": "NGK BPMR8Y — gap 0.025\"",
-          "confidence": "inferred"
+          "value": "NGK BPM-8Y (BPMR-8Y in Canada) — gap 0.65 mm (0.026\") per the manual.",
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb250ln.txt — 'Use only NGK BPM-8Y spark plug (BPMR-8Y in Canada)'; 'NGK BPM-8Y Gap 0.65 mm (0.026 in.)'; parts manual lists both."
         },
         "airFilter": {
-          "value": "Echo OEM — A226000352 (verify at dealer)",
-          "confidence": "inferred"
+          "value": "Echo A226001410 — 'FILTER, AIR - DOUBLE LAYER' per the parts manual (single-layer 13031054130 is the optional alternative). (The earlier A226000352 was wrong.)",
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb250ln-parts.txt — 'A226001410 … FILTER, AIR - DOUBLE LAYER'."
         },
         "fuelFilter": {
-          "value": "Echo OEM 13120507320 (verify)",
-          "confidence": "inferred"
+          "value": "Echo 13120507320 — confirmed in the parts manual.",
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb250ln-parts.txt — '13120507320' in the fuel-tank group."
         },
         "general": {
           "value": "Designed for noise-restricted areas. Drain fuel before long-term storage.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/echo-pb250ln.txt — 'Long Term Storage (Over 30 Days)' section; LN = the low-noise model line."
         }
       },
       "manual": {
@@ -1513,32 +1591,38 @@
       },
       "maintenance": {
         "fuel": {
-          "value": "50:1 mix — 89+ octane unleaded, E10 max. Use TruFuel 50:1 or quality TCW-3 spec 2-cycle oil.",
-          "confidence": "verified"
+          "value": "50:1 mix (2.6 oz 2-cycle engine lubricant per US gallon) — 87+ octane unleaded, E10 max per the manual (the earlier '89+' was stricter than spec, and the manual calls for 2-cycle engine lubricant, not TCW-3 outboard oil).",
+          "confidence": "verified",
+          "source": "manuals/text/homelite-trimmer.txt — 'octane rating of 87 [(R + M) / 2] or higher'; 'Mix at 2.6 oz. per gallon (US)'."
         },
         "oil": {
           "value": "n/a — 2-stroke (mixed with fuel)",
           "confidence": "verified"
         },
         "sparkPlug": {
-          "value": "Champion RCJ-6Y or NGK BPMR7A — gap 0.025\"",
-          "confidence": "verified"
+          "value": "Champion RCJ-6Y or Torch L7RTC — gap 0.025\", replace annually, per the manual (use an exact replacement).",
+          "confidence": "verified",
+          "source": "manuals/text/homelite-trimmer.txt — 'This engine uses a Champion RCJ-6Y or Torch L7RTC spark plug with .025 in. electrode gap … replace annually'."
         },
         "airFilter": {
           "value": "Homelite/Ryobi 308054003 (foam element, common across HHCPS.0264AT family)",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "P/N not in the operator's manual; from parts research."
         },
         "fuelFilter": {
           "value": "Homelite 530095646 (in-tank)",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "P/N not in the operator's manual; from parts research."
         },
         "trimmerLine": {
-          "value": "0.080\" diameter standard for 26cc trimmers; 0.095\" max",
-          "confidence": "verified"
+          "value": "0.080\" diameter — the manual's product spec for the 26cc family. (The earlier '0.095 max' claim is not in the manual.)",
+          "confidence": "verified",
+          "source": "manuals/text/homelite-trimmer.txt product specifications — 'Line diameter .080 in.'."
         },
         "general": {
           "value": "Drain fuel before long-term storage. Clean air filter every 5–10 hours of use.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Manual says keep the air filter clean and drain fuel for storage; the 5–10-hour cleaning cadence is not stated on disk."
         }
       },
       "researchNeeded": [
@@ -1569,35 +1653,43 @@
       "maintenance": {
         "fuel": {
           "value": "87+ octane unleaded, E10 max (no E15+)",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "Kawasaki FR691V manual (manuals/text/husqvarna-mower-engine.txt) — 'clean, fresh, unleaded regular grade gasoline'; 'up to 10% ethanol by volume'."
         },
         "oil": {
-          "value": "SAE 10W-30 — 64 fl oz (1.9 L) capacity with filter change",
-          "confidence": "verified"
+          "value": "SAE 10W-40 recommended for most conditions per the Kawasaki FR691V manual (10W-30 usable; multi-grade oils increase consumption — check level more often). Capacity 2.1 L (2.2 US qt) with filter change; 1.8 L (1.9 qt) without. (The earlier '64 fl oz / 1.9 L with filter' used the without-filter figure.)",
+          "confidence": "verified",
+          "source": "manuals/text/husqvarna-mower-engine.txt — 'Engine Oil Capacity 1.8 L (1.9 US·qt) [when oil filter is not removed] / 2.1 L (2.2 US·qt) [when oil filter is removed]'; '10W-40 engine oil is the recommended oil for most conditions'."
         },
         "sparkPlug": {
           "value": "NGK BPR4ES — gap 0.030\"",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/husqvarna-mower-engine.txt — 'NGK BPR4ES', 'Gap 0.75 mm (0.030 in)'."
         },
         "airFilter": {
           "value": "Kawasaki 11013-7043",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "P/N not in on-disk manuals (engine manual covers cleaning only); from parts research."
         },
         "fuelFilter": {
           "value": "Kawasaki 49019-0031",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "P/N not in on-disk manuals; from parts research."
         },
         "oilFilter": {
           "value": "Kawasaki 49065-7807",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "P/N not in on-disk manuals; from parts research."
         },
         "blades_hiLift": {
           "value": "Husqvarna 582 76 05-02 — 54\" Hi-Lift, 3-blade set",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Z254F IPL not on disk (the on-disk Husqvarna manual is for the YTH24V54 tractor — a different machine); P/N from parts research."
         },
         "blades_mulch": {
           "value": "Husqvarna 532 18 72-65 — 54\" Mulch, 3-blade set",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Z254F IPL not on disk; P/N from parts research."
         },
         "primaryMowerBelt": {
           "value": "Husqvarna 532 95 18-09 (sticker partially worn — verify before ordering)",
@@ -1605,19 +1697,23 @@
         },
         "groundDriveBelt": {
           "value": "Husqvarna 539 11 04-11",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Z254F IPL not on disk; P/N from parts research."
         },
         "replacementKeys": {
           "value": "Husqvarna 532 41 19-33",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Z254F IPL not on disk; P/N from parts research."
         },
         "schedule": {
-          "value": "Engine oil + filter every 50 hours or annually. Air filter check every 25 hours, replace annually. Sharpen/replace blades 1–2× per season. Fuel filter annual.",
-          "confidence": "inferred"
+          "value": "Kawasaki FR691V engine schedule: oil change after first 8 hr, then every 100 hr; oil filter every 200 hr; clean the air-cleaner paper element every 100 hr (more often in dust) and replace per chart; clean/regap spark plug every 100 hr; valve clearance every 300 hr (dealer). Deck/blade service (sharpen 1–2×/season) is Husqvarna-side — Z254F manual not on disk.",
+          "confidence": "verified",
+          "source": "manuals/text/husqvarna-mower-engine.txt periodic maintenance chart — 'Change oil after first 8 hours … thereafter every 100 hours'; 'Change the oil filter every 200 hours'; 'Clean the paper element (A) every 100 hours'; 'plug gap (A) every 100 hours'."
         },
         "support": {
           "value": "1-800-849-1297 (Husqvarna)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Phone from Husqvarna support research; not on any on-disk document."
         }
       },
       "researchNeeded": [
@@ -1648,35 +1744,43 @@
       "maintenance": {
         "fuel": {
           "value": "50:1 mix (2.6 fl oz 2-stroke oil per gallon). 89+ octane, E10 max — never E15+.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-ms290.txt (intl MS 290/310/390 manual) — '1:50 = 1 part oil + 50 parts gasoline'; 'octane rating of at least 90 ROC'; alcohol above 10% should not be used. The 89-AKI US guidance is consistent with this."
         },
         "oil": {
           "value": "n/a engine oil; bar/chain oil = Stihl Platinum or equivalent SAE 30 weight",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Manual calls for quality bar/chain lubricant (STIHL BioPlus etc.); an 'SAE 30' weight is not stated on disk."
         },
         "sparkPlug": {
           "value": "NGK BPMR7A or Stihl OEM — gap 0.020\"",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-ms290.txt specifications — 'Bosch WSR 6 F, NGK BPMR 7 A / Electrode gap: 0.5 mm' (0.020\")."
         },
         "airFilter": {
           "value": "Stihl HD2 1127 120 1620 (or equivalent)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "HD2 P/N not in the instruction manual; from parts research."
         },
         "fuelFilter": {
           "value": "Stihl 0000 350 3502 (in-tank)",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "P/N not in the instruction manual; from parts research."
         },
         "bar": {
           "value": "16\"–20\" — 18\" Farm Boss standard. 3/8\" pitch, 0.050\" gauge.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Gauge conflict: this (intl) manual's 3/8\" chain listings carry 1.6 mm (0.063\") drive-link gauge, while US MS 290s commonly run 0.050\". Read the gauge stamped on the bar before buying chain."
         },
         "chain": {
           "value": "3/8\" pitch × 0.050\" gauge — Stihl 33RS, Oregon 72LPX, or equivalent",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Same gauge conflict as the bar entry (manual lists 3/8\" Rapid Micro/Super at 1.6 mm / 0.063\"); confirm the bar stamp before buying 0.050\" chain."
         },
         "schedule": {
           "value": "Clean air filter after each tank. Sharpen chain when shavings turn to dust. Replace fuel/air filter annually.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "Folk cadence — the manual's maintenance chart differs (e.g. spark plug replace after 100 hours of operation)."
         }
       },
       "notes": "The 'Farm Boss' — Stihl's iconic mid-range saw for landowners and farmers. Well-suited for firewood, storm cleanup, and land clearing.",
@@ -1706,35 +1810,43 @@
       "maintenance": {
         "fuel": {
           "value": "50:1 mix — Echo Power Blend or equivalent ISO-L-EGD 2-stroke oil. 89+ octane, E10 max.",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352.txt — '89 Octane [R+M/2] (mid grade or higher)'; 'Fuel to Oil Mix – 50:1 Ratio'."
         },
         "oil": {
-          "value": "n/a engine oil; bar/chain oil = Echo or any SAE 30 bar oil",
-          "confidence": "verified"
+          "value": "n/a engine oil (2-stroke); bar/chain oil = SAE 30 in summer, SAE 10 in winter or when cutting resinous trees, per the manual.",
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352.txt — 'Use bar and chain oil of the following grades: SAE No. 30 in summer. SAE No. 10 in winter or when cutting resinous trees.'"
         },
         "sparkPlug": {
-          "value": "NGK BPMR7A — gap 0.025\"",
-          "confidence": "verified"
+          "value": "NGK BPM-8Y (BPMR-8Y resistor variant per the parts list) — gap 0.65 mm (0.026\") per the operator's manual. (The earlier 'BPMR7A — 0.025\"' was wrong.)",
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352-parts.txt — 'SPARK PLUG - BPM8Y / SPARK PLUG - BPMR8Y'; manuals/text/chainsaw-cs352.txt — 'The standard spark gap is 0.65 mm (0.026 in.)'."
         },
         "airFilter": {
-          "value": "Echo OEM A226000371 (verify)",
-          "confidence": "inferred"
+          "value": "Echo A226001420 — 'FILTER ASSY, AIR' per the parts manual. (The earlier A226000371 was wrong.)",
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352-parts.txt — 'A226001420 … FILTER ASSY, AIR'."
         },
         "fuelFilter": {
-          "value": "Echo OEM 13120507320 (verify)",
-          "confidence": "inferred"
+          "value": "Echo A369000470 — 'FILTER, FUEL' per the parts manual. (The earlier 13120507320 is the PB-250LN's fuel filter.)",
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352-parts.txt — 'A369000470 … FILTER, FUEL'."
         },
         "bar": {
-          "value": "14\"–16\"",
-          "confidence": "verified"
+          "value": "12\", 14\", or 16\" per the manual's bar/chain table (14\"/16\" typical fits).",
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352.txt bar/chain table — bars 12A0CD3745 / 14A0CD3752 (356 mm) / 16A0CD3757 (406 mm)."
         },
         "chain": {
           "value": "3/8\" LP (low-profile) × 0.050\" gauge — Oregon 91PX or equivalent",
-          "confidence": "verified"
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352.txt bar/chain table — 'Pitch (in.) 3/8 — 91PX / 91VG', 45/52/57 links by bar (91-series = low-profile, 0.050\" gauge); 'Chain and guide bar gauge size must be identical'."
         },
         "features": {
-          "value": "Automatic chain oiler, tool-free chain tensioner",
-          "confidence": "verified"
+          "value": "Automatic chain oiler (adjustable). Chain tensioner is side-access but NOT tool-free — manual: 'Always loosen sprocket guard nuts before turning the chain tension adjuster.'",
+          "confidence": "verified",
+          "source": "manuals/text/chainsaw-cs352.txt — 'Automatic Oiler'; sprocket-guard-nuts warning under Adjusting Chain Tension."
         }
       },
       "notes": "Lighter-duty saw — ideal for limbing, brush clearing, and smaller diameter wood (up to ~12\" logs). i-30 reduced-effort starter makes cold starts much easier.",
@@ -1761,11 +1873,13 @@
       "maintenance": {
         "power": {
           "value": "EGO 56V ARC Lithium battery (interchangeable across the EGO 56V line — blower/mower/etc.). Charge on the EGO 56V charger; for long storage keep cells ~30–70% and indoors.",
-          "confidence": "verified"
+          "confidence": "inferred",
+          "source": "No EGO manual on disk; interchangeability and storage-charge guidance from product research."
         },
         "line": {
           "value": "0.095 in (2.4 mm) twisted trimmer line; the ST1620T Rapid-Reload head takes pre-cut lengths.",
-          "confidence": "inferred"
+          "confidence": "inferred",
+          "source": "No EGO manual on disk; from product research."
         },
         "general": {
           "value": "Cordless — no fuel, oil, or spark plug. Clear grass from the head after use; keep battery contacts clean and dry.",
