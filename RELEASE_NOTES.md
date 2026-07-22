@@ -10,6 +10,9 @@ What's changed at Fernwood lately. Newest first.
 - The **DR200 has a name on the card — "Blue Thunder"** — to sit alongside Desert Storm.
 - **Bolores's tire size corrected** — she's on **33″** Pro Comp mud-terrains now (read off the actual sidewalls in Paul's photos), not the 35s an earlier owner ran. The old 35″ figure lives on only where it belongs — in her prior-owner service history.
 - **A couple of Bolores facts set straight** from her VIN and engine bay: she was built at Ford's **Michigan Truck Plant** (not Louisville), and she runs **fuel injection** (EFI), not a carburetor. Her transmission is still an open question — flagged to identify from the truck itself.
+- **The GTI is a 6-speed manual** — the card had wrongly listed it as a DSG automatic (with a whole overdue "DSG service" to match). Corrected everywhere; that phantom service is gone. Also logged: the **heated seat that's stopped working**.
+- **The golf cart's 2025 smoking mystery, written down** — it was an oil *overfill* (filled to the dipstick MAX instead of a measured quart), fixed by draining back down and clearing oil out of the intake. The card now warns to fill by measure, not to the mark.
+- Small ones: the **F-150 is the family truck** (an STX regular-cab, wants a cover), and **Blue Thunder** (the DR200) got its 2025 fuel-flush recommission logged.
 
 ---
 
