@@ -108,6 +108,16 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 | **Populate from Paul's weed photos** | ✅ **First pass DONE 2026-07-20.** Paul sent 10 weed photos (HEIC from his library); read **four** woodland-edge weeds off them + staged one own-photo each into `images/weeds/` (renders **"Taken here on the property"** via the new `renderWeeds` photo block): **Japanese stiltgrass** (`Microstegium` — dominant), **beggar's lice** (`Desmodium`), **Virginia creeper** (native; not poison ivy), **wild violet** (lower-confidence). All `inferred`/`needs-confirmation`. Two DRAFT Mom questions staged (`q-weed-stiltgrass`, `q-weed-beggars-lice`, `active:false`). As Mom answers, fold `inferred→verified` and let it **seed more entries + cards** (Paul's loop). | ✅ 4 weeds seeded 2026-07-20; ID = model-read, awaiting ground-truth. |
 | **"Before it seeds" timely nudge** | The weed-glance's concrete trigger — surface a weed at the moment it's about to set seed (highest-leverage time to pull it). Phenological like the bloom windows, framed as a field-journal observation (*"the crabgrass is about to seed — worth getting after it"*), never a deadline/alert. The per-weed `seedTiming` window is already in `weeds.json`; this promotes it into a top-of-app glance. | IDEATION — after a couple of real weeds exist. |
 
+## A8 · ChatGPT-mine use-cases — added 2026-07-22
+
+*Source: the OpenAI ChatGPT conversation mine (`~/Developer/openai-data-archive/reports/use-case-routing.md`, §A Fernwood). Property/fishing/pond material for the field-journal layer. Lake facts are model-read → verify locally.*
+
+| Item | What it is | Status |
+|---|---|---|
+| **Fold "Home in Jasper Summary" into property reference** | A 2025-07-19 compiled property-context brief for the exact Fernwood parcel — near-zero-effort reuse in the Property card's reference layer. | IDEATION |
+| **Lake Sequoyah fishing reference** | Two 2025-03 threads of lake-specific fishing intel tied to the property's own lake; fits the existing fishing theme. | IDEATION |
+| **Pond-ecosystem build-out notes** | Multi-thread record of the pond Paul built (EPDM liner, koi, cattail, plantings) — feeds the observations/knowledge layer. ⚠️ confirm the pond is at Jasper (near-certain), not the Atlanta condo. | IDEATION |
+
 ---
 
 # TRACK B — Fleet & equipment (Paul-facing)
