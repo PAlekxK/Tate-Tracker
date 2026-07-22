@@ -125,6 +125,7 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 | Item | What it is | Status |
 |---|---|---|
 | **Pond/koi record** | EPDM 40-mil liner, ~22 ft across, 4.5 ft deep; koi stocked; the koi+*Gambusia*-vs-frog/tadpole tradeoff (fish-free cover zones). | IDEATION |
+| **Sarracenia purpurea → `plants.json`** | Paul confirmed 2026-07-22: the pitcher plants are **in the pond at Tate** (bog planting). Author a full pond-bog care entry. | IDEATION |
 | **Add purchased pond plants → `plants.json`** | From a Pike Nurseries receipt: Variegated + Blue Flag Iris, Pickerelweed, Bowles Golden Sedge, Dwarf Papyrus, Corkscrew Rush (only "Pond Iris" tracked today). Species IDs are model-read. | IDEATION |
 | **Cattail entry (⚠️ monitor containment)** + **Cardinal flower** (pond-bog candidate) | Intentional but aggressive introduction; on-site native find. | IDEATION |
 
@@ -136,11 +137,13 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 | **Heritage cherry tree — planned planting** | Kirschenbauer = "cherry farmer" (Bavaria); site meets chill hours. Intent, not planted. | IDEATION |
 | **Fold "Home in Jasper Summary" (2025-07-19)** into property reference | A ready property-context brief; **verify-then-fold** vs `property.json`, don't trust wholesale. | IDEATION |
 | **Lake Sequoyah fishing reference** | 2025-03 lake-specific fishing intel. | IDEATION |
+| **Japanese-maple seed-propagation program** | Paul 2026-07-22: the maples are **being planted at Fernwood** — the seed-prop hobby routes here (knowledge + eventual planting records). Source: ChatGPT-mine round-2 report. | IDEATION |
 
-**⚠️ Reconcile before recording (Paul):**
-- **Sarracenia/pitcher plants:** pond threads put *S. purpurea* in the **Jasper pond bog**; memory `project_sarracenia_pitcher_plants` says they stay **outdoor Atlanta, NOT Tate (too cold)**. Resolve first.
-- **Address:** Church Mountain Rd vs a "Wildcat Road" mention — confirm canonical.
-- **Pest-control methods** for the hog/beaver nuisance are tracked **privately** (kept out of this public repo) — see the mine's round-2 report §E. Cross-link only in a private surface.
+**✅ Reconcile flags resolved (Paul, 2026-07-22):**
+- **Sarracenia/pitcher plants — they ARE in the pond at Tate.** Capture item added above; memory's earlier "Atlanta-only, too cold for Tate" note superseded.
+- **Address: 282 Church Mountain Road is canonical.** The lone "Wildcat Road" mention in a 2025 chat thread was wrong.
+- **Japanese maples → Fernwood** (being planted here) — item added above.
+- **Pest-control facts stay in Fernwood; the hunting/firearms detail stays private** (kept out of this public repo — see the mine's round-2 report §E; cross-link only in a private surface). Ratified.
 
 ---
 
