@@ -1851,12 +1851,12 @@
       "zoneId": null
     },
     {
-      "id": "iris-pond",
+      "id": "iris-blue-flag",
       "name": "Pond Iris (Blue Flag)",
-      "scientificName": "Iris virginica or I. versicolor (Southern or Northern Blue Flag)",
+      "scientificName": "Iris virginica / I. versicolor (Blue Flag)",
       "emoji": "💜",
-      "guide": "The iris at the pond edge is a native or near-native wetland species, rhizomes anchored in mud, foliage rising out of the shallows. Strap-like sword-shaped foliage emerges from rhizomes anchored in mud. Deep purple/violet falls and standards with a yellow-and-white signal patch. Spreads gradually by rhizome extension — clumps double in size every 3–5 years. Very low maintenance once established; the pond does most of the work.",
-      "currentSeasonNote": "Right now — bloom stalks emerging or about to. Peak bloom typically May 20–June 10 at Church Mountain Road's elevation. Now is a fine time to thin out any decaying winter foliage from the previous year that's still in the water — it adds organic load as it breaks down.",
+      "guide": "The native Blue Flag holds the pond edge, its rhizomes anchored in mud and strap-like sword-shaped foliage rising out of the shallows. Deep purple/violet falls and standards with a yellow-and-white signal patch. Spreads gradually by rhizome extension — clumps double in size every 3–5 years. The well-behaved neighbor to the pond's Yellow Flag. Very low maintenance once established; the pond does most of the work.",
+      "currentSeasonNote": "Right now — bloom's finished for the year (peak here runs mid-May into June). A fine time to thin out any decaying foliage sitting in the water, which adds organic load as it breaks down. Unlike its Yellow Flag pondmate, the native Blue Flag stays put and doesn't need its seed heads chased down.",
       "soilNotes": "Lives in pond mud and shallow water (0–4 inches over the rhizome). The pond's accumulated organic sediment provides all nutrition needed. No amendment required. Tolerant of seasonal water-level fluctuation as long as the rhizome stays consistently moist.",
       "aspectPreference": "Full sun for best bloom. Tolerates light shade but flower count drops 30–50%. The pond location with open sky exposure is ideal. North-bank plantings get more sun (south-facing aspect into the pond); south-bank plantings get less.",
       "frostSensitivity": "Hardy USDA Zone 3–9. Bulletproof. Native species; built for North Georgia winters. Foliage dies back to the rhizome after first hard frost; new shoots emerge in April.",
@@ -1974,14 +1974,157 @@
           ]
         }
       },
-      "photo": "images/plants/iris-pond.jpg",
+      "photo": "images/plants/iris-blue-flag.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "D. Gordon E. Robertson",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
       },
-      "zoneId": null,
+      "zoneId": "pond-area",
+      "bloom": {
+        "window": "Mid-May into June",
+        "dates": [
+          {
+            "start": "05-10",
+            "end": "06-10"
+          }
+        ],
+        "confidence": "inferred"
+      }
+    },
+    {
+      "id": "iris-yellow-flag",
+      "name": "Pond Iris (Yellow Flag)",
+      "scientificName": "Iris pseudacorus (Yellow Flag)",
+      "emoji": "💛",
+      "guide": "Yellow Flag shares the pond edge with the native Blue Flag — same strap-leaved, mud-anchored wetland habit, but bright yellow falls instead of violet. An introduced Eurasian species, and a vigorous colonizer: it spreads by both creeping rhizome and floating seed, which is exactly why its ribbed green seed pods are worth keeping an eye on around a pond. Handsome, tough, and happy to take more of the shoreline than you'd offer it — the one to keep in bounds.",
+      "currentSeasonNote": "Right now — bloom's finished and the seed pods have set. Observed late July 2026: fat, ribbed green capsules standing where the flowers were, in clusters at the pond edge. Left alone they'll ripen, split, and float seed off into the shallows to start new clumps, so snipping the spent stalks now — before the pods brown and open — is the way to keep Yellow Flag from taking over the pond. Peak bloom here runs mid-May into June.",
+      "soilNotes": "Lives in pond mud and shallow water (0–4 inches over the rhizome). The pond's accumulated organic sediment provides all nutrition needed. No amendment required. Tolerant of seasonal water-level fluctuation as long as the rhizome stays consistently moist.",
+      "aspectPreference": "Full sun for best bloom. Tolerates light shade but flower count drops 30–50%. The pond location with open sky exposure is ideal. North-bank plantings get more sun (south-facing aspect into the pond); south-bank plantings get less.",
+      "frostSensitivity": "Hardy USDA Zone 4–9. Bulletproof and then some. A non-native (introduced Eurasian) species, entirely untroubled by North Georgia winters. Foliage dies back to the rhizome after first hard frost; new shoots emerge in April.",
+      "care": {
+        "prune": {
+          "subcategories": [
+            {
+              "id": "deadhead",
+              "label": "Cut spent stalks before seed pods ripen",
+              "months": [
+                6,
+                7
+              ],
+              "peakWindow": "Jun–Jul, before the green pods brown and split",
+              "narrow": true,
+              "description": "Snip spent flower stalks at the base as soon as bloom finishes, before the seed pods ripen and split. Yellow Flag seeds float and colonize fast, so on a pond this is the main thing standing between one tidy clump and a shoreline takeover. Removing the pods also redirects energy back into the rhizome.",
+              "peakDates": [
+                {
+                  "start": "06-01",
+                  "end": "07-31"
+                }
+              ]
+            },
+            {
+              "id": "fall-cleanup",
+              "label": "Cut back foliage in late fall",
+              "months": [
+                10,
+                11
+              ],
+              "peakWindow": "After first hard frost flattens leaves",
+              "narrow": false,
+              "description": "Cut foliage to about 6 inches above the water surface after frost has killed back the leaves. Removing the dead foliage from the water reduces decomposition load on the pond and limits overwintering iris borer eggs (their preferred winter habitat is in old leaf debris).",
+              "peakDates": [
+                {
+                  "start": "10-15",
+                  "end": "11-15"
+                }
+              ]
+            }
+          ]
+        },
+        "propagate": {
+          "months": [
+            7,
+            8
+          ],
+          "peakWindow": "Aug 10–Sep 5 — post-bloom, before fall dormancy",
+          "narrow": false,
+          "description": "Divide rhizomes every 3–5 years to prevent overcrowding. Lift the clump with a fork (or pull from the mud), wash off muck to expose the rhizome network, cut into sections each with a healthy fan of leaves and several inches of root. Replant immediately at the same depth as before — rhizome top barely covered, leaf bases above water. August–early September timing avoids stressing during peak summer heat and gives roots time to re-establish before winter.",
+          "peakDates": [
+            {
+              "start": "08-10",
+              "end": "09-05"
+            }
+          ]
+        },
+        "fertilize": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Light feeding only. Pond iris in established ponds rarely need fertilizer — the pond's organic load supplies plenty. If bloom is poor, slow-release aquatic fertilizer tablets (e.g. Pondtabbs) pushed into the mud around the rhizome in early spring help. Excessive fertilizer causes lush leaves at the expense of bloom and can drive pond algae blooms.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — lives in the pond. No supplemental irrigation needed.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable for pond-edge plantings. Container-grown specimens (rare for Blue Flag) would refresh aquatic potting mix every 2–3 years in early spring.",
+          "peakDates": []
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "iris-borer",
+              "label": "Iris borer",
+              "months": [
+                4,
+                5,
+                6
+              ],
+              "peakWindow": "May 10–Jun 15 — larvae feed inside leaf bases",
+              "narrow": true,
+              "description": "The most serious iris pest. Adult moths lay eggs on dead foliage in fall; larvae hatch in spring and tunnel down through new leaves into the rhizome where they cause soft rot. Symptoms: water-soaked or 'bleeding' streaks on leaves; ragged chewed leaf edges; foul-smelling rhizomes. Control: remove and destroy ALL old foliage in late fall (eliminates overwintering eggs). If borers found in spring, squash them inside the leaf channel or remove the affected fan entirely. Iron-phosphate slug bait near the base in early spring can disrupt hatching. Severe infestations may require dividing and replanting only clean rhizome sections.",
+              "peakDates": [
+                {
+                  "start": "05-10",
+                  "end": "06-15"
+                }
+              ]
+            },
+            {
+              "id": "leaf-spot",
+              "label": "Bacterial leaf spot",
+              "months": [
+                6,
+                7,
+                8
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Brown or yellow spots on leaves during humid summer weather. Cosmetic only — rarely affects rhizome health. Improve air circulation by thinning crowded clumps. Severe: copper-based fungicide if needed.",
+              "peakDates": []
+            }
+          ]
+        }
+      },
+      "photo": "images/plants/iris-yellow-flag.jpg",
+      "attribution": {
+        "source": "Property record",
+        "author": "Paul",
+        "license": "Property record",
+        "takenOn": "2026-07-22"
+      },
+      "zoneId": "pond-area",
       "bloom": {
         "window": "Mid-May into June",
         "dates": [

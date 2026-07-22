@@ -9,6 +9,15 @@ What's changed at Fernwood lately. Newest first.
 - Your answer about the **panicle hydrangea** made it home: the record now notes it was **confirmed in flower on the ground** — by you — alongside what we'd read in the books. The question card has retired itself.
 - A small green note now sits at the top of the page: **"We got your feedback on the panicle hydrangea — it's in the record. Keep it coming!"** It'll stay there, and each time you tell us something new, it'll change to mention that instead — so you always know the last thing you said was heard.
 
+---
+
+## 2026-07-22 — Two irises at the pond, told apart
+
+- The pond iris is now **two cards, not one** — the native **Blue Flag** (violet) and the **Yellow Flag** (bright yellow), which really are two different plants sharing the shoreline.
+- Logged from a late-July walk: the **Yellow Flag has set seed pods** — clusters of fat green capsules where the flowers were. Yellow Flag seeds float and colonize fast, so its card now flags cutting the spent stalks *before the pods ripen* as the way to keep it from taking over the pond. The native Blue Flag stays put and needs no such fuss.
+
+---
+
 ## 2026-07-22 — The DR-Z400's 2025 overhaul, written down at last
 
 - **Desert Storm** (the DR-Z400) now carries the full story of its **2025 carburetor & cooling overhaul** — the lean-start chase, the carb rework, the radiators found damaged and replaced both sides, and the coolant bleed that finally settled it. It had only ever been a vague "big overhaul last year"; the details are on the card now.
