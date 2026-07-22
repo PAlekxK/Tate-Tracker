@@ -64,7 +64,7 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
   },
   "holly": {
-    "author": "J\u00fcrgen Howaldt",
+    "author": "Jürgen Howaldt",
     "credit": "Self-photographed",
     "file": "File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg",
     "license": "CC BY-SA 2.0 de",
@@ -112,7 +112,7 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
   },
   "japanese-maple": {
-    "author": "Kurt St\u00fcber [1]",
+    "author": "Kurt Stüber [1]",
     "credit": "caliban.mpiz-koeln.mpg.de/mavica/index.html part of www.biolib.de",
     "file": "File:Acer_palmatum0.jpg",
     "license": "CC BY-SA 3.0",
@@ -150,5 +150,14 @@
     "license": "CC BY-SA 3.0",
     "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
     "source_url": "https://commons.wikimedia.org/wiki/File:Wisterria_macrostachya_flowers1.jpg"
+  },
+  "iris-yellow-flag": {
+    "author": "Paul",
+    "credit": "Own photo, taken on the property",
+    "file": "",
+    "license": "Property record",
+    "license_url": "",
+    "source_url": "",
+    "takenOn": "2026-07-22"
   }
 }

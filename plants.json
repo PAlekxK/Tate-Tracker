@@ -2117,8 +2117,13 @@
           ]
         }
       },
-      "photo": null,
-      "attribution": null,
+      "photo": "images/plants/iris-yellow-flag.jpg",
+      "attribution": {
+        "source": "Property record",
+        "author": "Paul",
+        "license": "Property record",
+        "takenOn": "2026-07-22"
+      },
       "zoneId": null,
       "bloom": {
         "window": "Mid-May into June",
