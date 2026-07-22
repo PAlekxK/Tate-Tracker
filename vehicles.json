@@ -22,7 +22,7 @@
       "specs": {
         "displacement": "1,984 cc turbocharged inline-4",
         "power": "~230 hp (APR Stage 1 tune)",
-        "transmission": "6-speed DSG (DQ250)",
+        "transmission": "6-speed manual (MK7 MQ350) — Paul-confirmed 2026-07-22. NOTE: the card previously said \"6-speed DSG (DQ250)\", which was WRONG; this GTI is a MANUAL.",
         "drivetrain": "FWD"
       },
       "maintenance": {
@@ -59,7 +59,7 @@
           "confidence": "verified"
         },
         "transmissionFluid": {
-          "value": "DSG service fluid VW G 052 182 A2 — service every 40k mi",
+          "value": "Manual gearbox oil (MK7 6-speed manual). ⚠️ The prior \"DSG G 052 182 A2 / 40k\" spec was an ERROR — this car is a MANUAL, not a DSG. Manual gear oil is long-life; verify the exact spec (commonly VW G 052 527 A2) before any change.",
           "confidence": "verified"
         },
         "tirePressure": {
@@ -67,12 +67,17 @@
           "confidence": "verified"
         }
       },
-      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump/DSG repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
       "restoration": [
+        {
+          "item": "Heated seat not working (open)",
+          "status": "open",
+          "detail": "Captured from the ChatGPT mine 2026-07-22 — not previously on the card. Symptom evolved over several months (~late 2024→2025-03): first, pressing the seat-heater button lit the indicator but it shut off after a few seconds with no warmth; later the indicator STAYS ON but the seat never warms. Unresolved. Likely causes (unverified): heater element burnout (most common), a faulty switch / Climatronic module, a thermal fuse/thermistor fault, or wiring/connector damage under the seat. No fix attempted yet."
+        },
         {
           "item": "Coolant — verify at next shop visit",
           "status": "planned",
-          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase — fold it into a visit that's already happening. Two natural moments: (a) the spare-key dealer trip — grab a free coolant-level eyeball while they do the free recall check (treat any 'recommended services' list as an upsell, not gospel); (b) better for a real read — the overdue DSG service at Autobahn, where they can properly check whether it's losing any (dye/pressure) and glance the brake pads at the same time. Eurofed also holds your history. On any eventual pump replacement, ask for a metal-impeller INA/OE kit. (3) 2026-02-02: Paul replaced the coolant expansion/overflow reservoir tank himself (DIY) — a suspect swapped out; predates the clean 7/11 pressure test. Not calling the loss solved, but it's a variable now on record.",
+          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase — fold it into a visit that's already happening. Two natural moments: (a) the spare-key dealer trip — grab a free coolant-level eyeball while they do the free recall check (treat any 'recommended services' list as an upsell, not gospel); (b) better for a real read — a specialist visit at Autobahn, where they can properly check whether it's losing any (dye/pressure) and glance the brake pads at the same time. Eurofed also holds your history. On any eventual pump replacement, ask for a metal-impeller INA/OE kit. (3) 2026-02-02: Paul replaced the coolant expansion/overflow reservoir tank himself (DIY) — a suspect swapped out; predates the clean 7/11 pressure test. Not calling the loss solved, but it's a variable now on record.",
           "contactId": [
             "expressoil",
             "eurofed",
@@ -80,9 +85,9 @@
           ]
         },
         {
-          "item": "DSG transmission service",
-          "status": "due soon",
-          "detail": "Fluid + filter. Interval is 40k / 80k miles — at 82,698 (verified 7/11/26) it's PAST the 80k interval — overdue. The highest-value 'while it's in the shop' item; don't skip it. Spec: VW G 052 182 A2. Express Oil can quote it, but the temp-controlled fill wants the specialist — defaults to Autobahn (a quote under ~$250 = probably just a drain-and-fill).",
+          "item": "Manual gearbox oil — low-priority check (was mis-filed as a DSG service)",
+          "status": "low",
+          "detail": "⚠️ CORRECTED 2026-07-22: filed as a 'DSG service', but the GTI is a 6-speed MANUAL (Paul-confirmed) — there is no DSG. Manual gearbox oil is long-life (not a 40k/80k item), so this drops from 'overdue, don't skip' to a low-priority check. If changing it, verify the manual spec (commonly VW G 052 527 A2) and drain-and-fill at a visit that's already happening; skip the temp-controlled DSG fill entirely.",
           "contactId": [
             "eurofed",
             "autobahn"
@@ -153,7 +158,7 @@
         {
           "item": "Brakes — quick check",
           "status": "planned",
-          "detail": "You recall the brakes looking OK recently, and the records back that up — front brakes done 2022 (Eurofed/Autohaus), rears at Midas 2022. On 7/11/26 Express gave it an overall look-over and flagged nothing on the brakes — read: no red flags, likely fine. (Caveat: their checklist measures brake FLUID level, not pad thickness, so there's no actual pad number on record yet.) No action needed; just confirm pad thickness at the next shop visit — it rides along for free with the spare-key dealer trip or the overdue DSG/Autobahn visit (see those items). Low priority.",
+          "detail": "You recall the brakes looking OK recently, and the records back that up — front brakes done 2022 (Eurofed/Autohaus), rears at Midas 2022. On 7/11/26 Express gave it an overall look-over and flagged nothing on the brakes — read: no red flags, likely fine. (Caveat: their checklist measures brake FLUID level, not pad thickness, so there's no actual pad number on record yet.) No action needed; just confirm pad thickness at the next shop visit — it rides along for free with the spare-key dealer trip or the Autobahn visit (see those items). Low priority.",
           "contactId": "expressoil"
         }
       ],
@@ -210,7 +215,7 @@
           "address": "6476 Buford Hwy NE, Atlanta, GA 30340",
           "hours": "Mon–Fri 9–6 (closed weekends)",
           "url": "https://autobahn-performance.com",
-          "notes": "German specialist since 1993; APR/Dinan/IE-certified, 4.9★ across Yelp/CARFAX/Birdeye (250+ reviews), 2yr/24k-mi warranty — a strong shop and a useful second quote against Eurofed. When you book, phone-vet the specific jobs: water-pump/thermostat with a metal-impeller pump, DSG fluid+filter, walnut-blast carbon, VCDS chain-stretch read."
+          "notes": "German specialist since 1993; APR/Dinan/IE-certified, 4.9★ across Yelp/CARFAX/Birdeye (250+ reviews), 2yr/24k-mi warranty — a strong shop and a useful second quote against Eurofed. When you book, phone-vet the specific jobs: water-pump/thermostat with a metal-impeller pump, manual gear-oil service, walnut-blast carbon, VCDS chain-stretch read."
         },
         {
           "id": "jim-ellis-chamblee",
@@ -477,9 +482,10 @@
       "id": "f150-2006",
       "group": "vehicle",
       "name": "2006 Ford F-150",
-      "trim": "",
+      "trim": "STX (read off a body badge/VIN in the ChatGPT mine, 2026-07-22 — model-read, verify)",
+      "cab": "Regular Cab · 2WD/RWD · 6.5-ft short bed (ChatGPT decode from Paul's photos — model-read). No factory cabin air filter on 2004–08 F-150s (nothing to replace). Fitted-cover size code = T3. Parked outdoors under trees — Paul wants a cover.",
       "registration": {
-        "owner": "Mom",
+        "owner": "Family (registered in Mom's name)",
         "renewsBy": "September 21 (Mom's birthday)",
         "renewMonth": 9,
         "renewDay": 21,
@@ -774,6 +780,17 @@
         "L": "Michigan Truck Plant (Wayne, MI) — from the VIN 11th digit; corrects an earlier 'Louisville, KY' read (Louisville is code U, not L). Confirmed via Ford VIN plant codes, 2026-07-22.",
         "••••••": "production sequence — masked here; full VIN in private records"
       },
+      "doorLabel": {
+        "summary": "Facts read off the driver-door Vehicle Certification Label. Paul photographed the label (ChatGPT 'Bronco Door Jam Decode' thread, 2026-02-23; the label is also in the private _inbox photos). These are a MODEL-READ of the label image — hypotheses until confirmed against the physical sticker.",
+        "confidence": "model-read from the door-label photo, 2026-02-23 — verify against the physical label (ties to Fernwood BACKLOG B3 #5)",
+        "buildDate": "10/88 (October 1988 build, 1989 model year)",
+        "rearAxle": "code H9 → ~3.55 ratio, possibly limited-slip (Ford 8.8) — the card otherwise had no rear-axle ratio",
+        "dso": "52 = Atlanta district sales office (explains her Georgia origin)",
+        "factoryTirePlacard": "31x10.50R15 on 15x8 rims, 40 psi cold — the ORIGINAL spec; she now runs 33s (see specs.tires)",
+        "springCodes": "front D7, rear U",
+        "paintField": "read as '85' = Cabernet Red (upper) — NOTE this differs from the researched upper code 2H/M6156 below; the physical label is the tiebreaker (Fernwood BACKLOG B3 #5)",
+        "interiorTrim": "MPV = Eddie Bauer, tan/saddle"
+      },
       "paint": {
         "exterior": {
           "type": "two-tone",
@@ -1022,6 +1039,12 @@
       },
       "serviceHistory": [
         {
+          "date": "2025-05-09",
+          "shop": "DIY (Paul)",
+          "summary": "Wouldn't start — battery was fully charged, so traced it to fuel: drained the carb and found degraded yellow gas (ethanol gone off from sitting), then fully drained the tank + carb and flushed with fresh gas until it ran clean, and refilled. This is the drain/flush that preceded the ~June 2026 recommission (see notes). Captured from the OpenAI ChatGPT mine, 2026-07-22.",
+          "confidence": "verified"
+        },
+        {
           "date": "2026-07-12",
           "shop": "DIY (Paul)",
           "summary": "Replaced the bent handlebars with OEM Suzuki DR200 handlebars (sourced via eBay)",
@@ -1151,12 +1174,12 @@
           "confidence": "verified"
         },
         "engineOil": {
-          "value": "SAE 10W-30 — capacity ~1.16 qt (1.1 L). No spin-on filter to change.",
+          "value": "SAE 10W-30 — capacity ~1.16 qt (1.1 L). No spin-on filter to change (splash-lubricated). ⚠️ FILL BY MEASURE (~1 qt), NOT to the dipstick MAX: the MIN→MAX span is only ~½ qt, so filling 'to MAX' overfills by ~50%. In June 2025 an overfill (filled to MAX) forced oil through the breather into the intake → heavy smoking + sputtering; fixed by draining back to a measured ~1 qt and cleaning pooled oil out of the intake (Paul-confirmed).",
           "confidence": "verified"
         },
         "oilDrainPlug": {
-          "value": "Stock M12×1.5 drain plug was stripped; repaired spring 2026 with a correctly-sized oversize piggyback self-tapping repair plug — no longer leaking.",
-          "confidence": "verified"
+          "value": "Stock drain plug was stripped; repaired spring 2026 with an oversize self-tapping repair plug (Paul ordered an M14×1.5 magnetic stainless plug per the ChatGPT mine) — no longer leaking. ⚠️ STOCK thread pitch is UNCONFIRMED: the earlier 'M12×1.5' is one of two contradictory ChatGPT reads — the other says M12×1.25 fine thread, ~17 ft-lb (23 N·m), OEM 90109-12079-00, and warns M12×1.5 kits strip the pan. Measure the old plug or the manual before trusting either.",
+          "confidence": "repaired (Paul-confirmed); stock thread pitch unconfirmed — model-read"
         },
         "sparkPlug": {
           "value": "NGK BPR4ES — gap ~0.030\" (0.8 mm). Standard across Yamaha G14/G16/G21/G22/G29 gas.",
@@ -1185,6 +1208,11 @@
       },
       "notes": "Gas cart (Yamaha's G22A = the gas model; the 11.4 hp engine is rated 8.5 kW, which an earlier note mis-read as an electric motor). Spring 2026 service: oil change, new spark plug, and fixed the stripped oil drain plug with a piggyback repair plug — no longer leaking. Replaced the air filter and a broken-off airbox cover; it sputtered afterward, so we opened the intake with a few added vent holes — that cleared the sputter and woke it up a touch, back to a clean baseline. As of July 2026 the cart is running well with no known issues.",
       "restoration": [
+        {
+          "item": "2025 oil-overfill smoking incident (resolved)",
+          "status": "done",
+          "detail": "Summer 2025 (captured from the ChatGPT mine 2026-07-22; identified as this G22A from an ID-tag photo 2025-09-12 — earlier threads mis-guessed 'G14/G16'). After a family oil change filled it to the dipstick MAX, the cart smoked heavily and sputtered at full throttle — an OVERFILL forced oil through the crankcase breather into the intake/combustion. Draining the carb didn't help (ruled out flooding); the fix was draining + flushing the oil, refilling a measured ~1 qt, and cleaning pooled oil out of the air intake — ran well after (Paul-confirmed). A residual oil-fouled main jet caused a lingering throttle sputter into July. Separately (2025-05-04): left in the rain, ran ~1 mi on low gas then died and wouldn't restart even with starter fluid — no logged resolution, likely subsumed by the June oil work. The 'fill by measure, not to MAX' lesson is now in maintenance.engineOil."
+        },
         {
           "item": "Air-intake tuning (optional)",
           "status": "planned",
