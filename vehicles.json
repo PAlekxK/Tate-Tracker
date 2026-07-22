@@ -842,6 +842,12 @@
       },
       "serviceHistory": [
         {
+          "date": "2025-12-22",
+          "shop": "DIY (Amazon parts)",
+          "summary": "Tailgate striker bushing (Dorman 38424) — installed to correct the tailgate angle/alignment so the glass tracks true",
+          "confidence": "verified"
+        },
+        {
           "date": "2025-11-23",
           "shop": "Weatherstrip Specialists (eBay)",
           "summary": "Rear tailgate upper window run-channel weatherstrip (Bronco-specific)",
@@ -860,6 +866,12 @@
           "confidence": "verified"
         },
         {
+          "date": "2025-10-24",
+          "shop": "DIY (Amazon parts)",
+          "summary": "Rear-window lift motor (Dorman 742-251) — the replacement motor from the rear-window/tailgate electrical revival; window confirmed traveling up and down",
+          "confidence": "verified"
+        },
+        {
           "date": "2025-10-15",
           "shop": "eBay (DIY parts)",
           "summary": "Window & tailgate electrical parts — Dorman 901-302 door window switch, tailgate window sweep/weatherstrip seal kit, and overhead dome-light lens cover, plus a rear power-window switch in a same-day order; the switch, sweep/seal and dome light confirmed installed",
@@ -870,6 +882,12 @@
           "shop": "NAPA (Canton, GA)",
           "summary": "Wiper blades + battery core",
           "confidence": "inferred"
+        },
+        {
+          "date": "2025-10-08",
+          "shop": "DIY (Amazon parts)",
+          "summary": "Door-lock rod clips (Dorman 75450) — confirmed installed during the door-lock work",
+          "confidence": "verified"
         },
         {
           "date": "2025-10-07",
@@ -971,7 +989,7 @@
           "confidence": "inferred"
         }
       ],
-      "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis, TN chapter from 2010 through Paul's 2025 purchase); owner names and costs kept private. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Mileages are approximate — the instrument cluster was serviced/replaced over the years, so odometer reads are inconsistent, and the 1989 title is odometer-exempt. Verification pass 2026-07-22: the Paul-era eBay parts rows were checked against deterministic order records (email trail) and marked 'verified'; the prior-owner rows (2010–2023) have no deterministic twin on file (paper scans only — no Carfax or machine-readable title packet exists), so they stay 'inferred' awaiting Paul's eyeball of the physical documents."
+      "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis, TN chapter from 2010 through Paul's 2025 purchase); owner names and costs kept private. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Mileages are approximate — the instrument cluster was serviced/replaced over the years, so odometer reads are inconsistent, and the 1989 title is odometer-exempt. Verification pass 2026-07-22: the Paul-era eBay parts rows were checked against deterministic order records (email trail), and the Amazon parts rows against the Amazon order-history data export (structured export, not screenshots) — matched, install-confirmed rows are 'verified'; the prior-owner rows (2010–2023) have no deterministic twin on file (paper scans only — no Carfax or machine-readable title packet exists), so they stay 'inferred' awaiting Paul's eyeball of the physical documents."
     },
     {
       "id": "dr200s-2017",
