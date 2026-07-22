@@ -250,10 +250,10 @@
         "id": "japanese-stiltgrass"
       },
       "createdAt": "2026-07-20",
-      "active": false,
+      "active": true,
       "_source": "authored",
       "_foldTarget": "confidence",
-      "_draftNote": "DRAFT staged 2026-07-20 from the weed photo-read. Flip active:true to ping Mom. On 'yes' fold japanese-stiltgrass confidence inferred->verified.",
+      "_draftNote": "Flipped active 2026-07-22 (Paul's go — the standing V1-candidate offer). On 'yes' fold japanese-stiltgrass confidence inferred->verified; a 'no' is the non-gimme the A1 gate watches for.",
       "labels": {
         "yes": "Yes, that's it",
         "no": "No, doesn't match",
