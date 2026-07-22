@@ -67,12 +67,21 @@
           "confidence": "verified"
         }
       },
-      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan.",
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan. (Plan refreshed 2026-07-22 for the MANUAL correction: no DSG service exists — the old 'DSG 40k @ 82,698 overdue' urgency is void; manual gearbox oil is a low-priority long-life check.) ⚠️ Front-end cone-strike repaired DIY 2026-07-21 (see serviceHistory) — mention the understrike at the next shop visit so the radiator/condenser area gets eyeballed.",
       "restoration": [
         {
           "item": "Heated seat not working (open)",
           "status": "open",
           "detail": "Captured from the ChatGPT mine 2026-07-22 — not previously on the card. Symptom evolved over several months (~late 2024→2025-03): first, pressing the seat-heater button lit the indicator but it shut off after a few seconds with no warmth; later the indicator STAYS ON but the seat never warms. Unresolved. Likely causes (unverified): heater element burnout (most common), a faulty switch / Climatronic module, a thermal fuse/thermistor fault, or wiring/connector damage under the seat. No fix attempted yet."
+        },
+        {
+          "item": "Underbody + radiator/condenser eyeball (post cone-strike)",
+          "status": "planned",
+          "detail": "After the 7/21 cone strike (grill + underbody panels, DIY-repaired in place), have whoever next has it on a lift eyeball the radiator/condenser area, mounts, and the zip-tie/washer repair — piggybacks on the coolant-verify visit, no special trip.",
+          "contactId": [
+            "expressoil",
+            "autobahn"
+          ]
         },
         {
           "item": "Coolant — verify at next shop visit",
@@ -257,13 +266,21 @@
         "county": "Fulton/DeKalb (Atlanta) — emissions county",
         "emissionsRequired": true,
         "lastEmissions": "2025-06-30 @ 75,731 — PASS (cert KI936679)",
-        "note": "GA registration renews at midnight on the owner's birthday (June 3). Atlanta is an emissions county, and the 2016 GTI (model years 2002–2023) needs a passing emissions test each year BEFORE the tag can be renewed. ⚠️ As of 2026-07-11 the 2026 renewal (was due 2026-06-03) appears PAST DUE — needs a fresh 2026 emissions test + tag renewal (GA late penalty: 10% of ad-valorem tax + 25% of tag fee). VERIFY current status."
+        "note": "GA registration renews at midnight on the owner's birthday (June 3). Atlanta is an emissions county — the GTI needs a passing emissions test each year before renewal. ✅ RENEWED 2026-07-22 at a GA MVD kiosk (receipt on file, .private) — $25 total incl. the $5 late plate penalty; new expiration 2027-06-03, JUN 27 decal. The kiosk renewal implies 2026 emissions compliance was on file; [CONFIRM with Paul: when/where the 2026 emissions test was run — lastEmissions below still shows the 2025 test].",
+        "lastRenewed": "2026-07-22",
+        "expires": "2027-06-03"
       },
       "manual": {
         "label": "Owner's manual (2016 US edition)",
         "url": "https://carworklog.com/stuff/Manual/Owners_Manual-Golf-GTI-Golf-R-US-Edition_Model-Year-2016_Edition-07_2015.pdf"
       },
       "serviceHistory": [
+        {
+          "date": "2026-07-21",
+          "shop": "DIY (Paul)",
+          "summary": "Cone-strike repair. A traffic cone fell off the back of a truck ahead and got sucked under the car, damaging the front grill and underbody panels and snapping many of the panel attachment points. Rather than replacing the body parts, re-secured everything in place: washers on all the attaching screws, zip ties stitched through the lower lip, and a duct-tape wrap — solid result. Done at the property (jack + stand). 21 photos in Apple Photos (UUIDs in .private/service-records/gti-2016/EXTRACTED.md). Flag for the next shop visit: mention the understrike so they eyeball the radiator/condenser area and mounts while it's on the lift.",
+          "confidence": "verified"
+        },
         {
           "date": "2026-07-13",
           "mileage": 82698,
@@ -592,7 +609,9 @@
         "renewDay": 3,
         "county": "Fulton/DeKalb (Atlanta)",
         "emissionsRequired": false,
-        "note": "GA registration renews on the owner's birthday (June 3). GOOD NEWS: as a 1989 (model year 2000 or older) the Bronco is EXEMPT from GA emissions — tag renewal only, no test needed. ⚠️ As of 2026-07-11 the 2026 renewal (was due 2026-06-03) appears PAST DUE if it's currently tagged/driven — VERIFY (a mid-restoration project vehicle may be untagged, or on an antique/historic tag with its own rules)."
+        "note": "GA registration renews on the owner's birthday (June 3). As a 1989 (model year 2000 or older) the Bronco is EXEMPT from GA emissions — tag renewal only. ✅ RENEWED 2026-07-22 at a GA MVD kiosk (receipt on file, .private) — $60 total incl. the $5 late plate penalty; new expiration 2027-06-03, JUN 27 decal. This also settles the earlier open question: she IS actively tagged (standard tag, not antique/historic).",
+        "lastRenewed": "2026-07-22",
+        "expires": "2027-06-03"
       },
       "trim": "Eddie Bauer",
       "emoji": "🟢",
@@ -1058,7 +1077,7 @@
           "confidence": "verified"
         }
       },
-      "notes": "Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain. Recommissioned ~June 2026 after sitting: the tank and carb had been drained and the battery stored off the bike. Charged the battery, filled with ethanol-free gas, primed the carb, reconnected — fired right up nicely. Oil change still pending.",
+      "notes": "Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain. Recommissioned ~June 2026 after sitting: the tank and carb had been drained and the battery stored off the bike. Charged the battery, filled with ethanol-free gas, primed the carb, reconnected — fired right up nicely. Oil change still pending. Starting issues resolved 2026-07-21 — Mom cleaned the contacts and reset the contact points; it now fires immediately on the starter button.",
       "restoration": [
         {
           "item": "Oil change",
@@ -1086,6 +1105,12 @@
           "date": "2026-07-12",
           "shop": "DIY (Paul)",
           "summary": "Replaced the bent handlebars with OEM Suzuki DR200 handlebars (sourced via eBay)",
+          "confidence": "verified"
+        },
+        {
+          "date": "2026-07-21",
+          "shop": "DIY (Mom)",
+          "summary": "Cleaned the electrical contacts and reset the contact points — the bike now starts up immediately at the press of the starter button. Resolves the intermittent starting issues.",
           "confidence": "verified"
         }
       ]
@@ -1187,7 +1212,15 @@
       "manual": {
         "label": "Factory service manual (2000–2009 — covers 2001)",
         "url": "https://archive.org/details/1150301820002009SuzukiDrZ400sDrZ400smServiceRepairManualDownload00010203040506070809"
-      }
+      },
+      "serviceHistory": [
+        {
+          "date": "2026-07-21",
+          "shop": "DIY (Paul)",
+          "summary": "Clutch lever repair — the end of the lever had broken off. Extended the broken-off section with a screw and attached it with zip ties + a duct-tape wrap. Photos in Apple Photos (UUIDs in .private/service-records/drz400s-2001/EXTRACTED.md).",
+          "confidence": "verified"
+        }
+      ]
     },
     {
       "id": "g22a-2005",
