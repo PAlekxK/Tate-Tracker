@@ -15,7 +15,7 @@
       "acquired": {
         "source": "CarMax",
         "date": "April 1, 2021",
-        "detail": "Purchased 4/1/2021 from CarMax Roswell at 43,101 miles, financed and paid off in full by June 2021 (purchase packet ingested 2026-07-23 — date/mileage are scan reads, pending Paul's eyeball; full detail in private records)",
+        "detail": "Purchased 4/1/2021 from CarMax Roswell at 43,101 miles — financed, paid off very quickly (Paul-confirmed 7/23; the lien-release letters date it by June 2021). Date/mileage are scan reads off the purchase packet; full detail in private records",
         "confidence": "verified"
       },
       "status": "Active — coolant leak diagnosis ongoing",
@@ -392,7 +392,7 @@
           "date": "2022-02-22",
           "mileage": 50531,
           "shop": "Midas",
-          "summary": "Oil change (5W-40 European full synthetic) + RIGHT FRONT control arm replaced — the first documented front-suspension repair, 4 months before the front-end knocking complaint at Autohaus. Read off a repair order (not a stamped-paid invoice) — confirm with Paul the work was performed",
+          "summary": "Oil change (5W-40 European full synthetic) + RIGHT FRONT control arm replaced — the first documented front-suspension repair, 4 months before the front-end knocking complaint at Autohaus. Read off a repair order (not a stamped-paid invoice); Paul doesn't specifically recall the job (7/23), but there's no suspension issue today",
           "confidence": "inferred"
         },
         {
