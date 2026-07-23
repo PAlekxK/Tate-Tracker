@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-23 — The GTI's paper trail, complete
+
+- The last box of GTI paperwork has been read into the record — and the story now starts at the very beginning: **bought April 1, 2021 at CarMax with 43,101 miles on the clock**, loan paid off within two months.
+- Four early chapters join her service history: the **free dealer once-over eleven days after purchase** (clean bill, worn filters flagged), two small **Midas visits in summer 2021** (a tire, an alignment), and a **February 2022 visit** that swapped the right-front control arm — the first suspension work on record, months before the front-end knock she'd later see a specialist about.
+- Two threads tie themselves off: the extended warranty from the purchase **ran out this past April**, and the heated-seat mystery turns out to have been **on Paul's radar since spring 2025** — his own handwriting on a dealer estimate says so.
+
+---
+
 ## 2026-07-22 — Your word on the hydrangea, in the record
 
 - Your answer about the **panicle hydrangea** made it home: the record now notes it was **confirmed in flower on the ground** — by you — alongside what we'd read in the books. The question card has retired itself.

@@ -14,8 +14,8 @@
       "category": "daily-driver",
       "acquired": {
         "source": "CarMax",
-        "date": "April 2021",
-        "detail": "Paul's since ~April 2, 2021",
+        "date": "April 1, 2021",
+        "detail": "Purchased 4/1/2021 from CarMax Roswell at 43,101 miles, financed and paid off in full by June 2021 (purchase packet ingested 2026-07-23 — date/mileage are scan reads, pending Paul's eyeball; full detail in private records)",
         "confidence": "verified"
       },
       "status": "Active — coolant leak diagnosis ongoing",
@@ -77,12 +77,12 @@
           "source": "Door tire-and-loading placard (on-unit read)."
         }
       },
-      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan. (Plan refreshed 2026-07-22 for the MANUAL correction: no DSG service exists — the old 'DSG 40k @ 82,698 overdue' urgency is void; manual gearbox oil is a low-priority long-life check.) ⚠️ Front-end cone-strike repaired DIY 2026-07-21 (see serviceHistory) — mention the understrike at the next shop visit so the radiator/condenser area gets eyeballed.",
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan. (Plan refreshed 2026-07-22 for the MANUAL correction: no DSG service exists — the old 'DSG 40k @ 82,698 overdue' urgency is void; manual gearbox oil is a low-priority long-life check.) ⚠️ Front-end cone-strike repaired DIY 2026-07-21 (see serviceHistory) — mention the understrike at the next shop visit so the radiator/condenser area gets eyeballed. WARRANTY NOTE (from the 7/23 paper ingest): a MaxCare extended service contract ran 60 months / 75k miles from the 4/1/2021 purchase — EXPIRED ~April 2026, so no active warranty coverage today.",
       "restoration": [
         {
           "item": "Heated seat not working (open)",
           "status": "open",
-          "detail": "Captured from the ChatGPT mine 2026-07-22 — not previously on the card. Symptom evolved over several months (~late 2024→2025-03): first, pressing the seat-heater button lit the indicator but it shut off after a few seconds with no warmth; later the indicator STAYS ON but the seat never warms. Unresolved. Likely causes (unverified): heater element burnout (most common), a faulty switch / Climatronic module, a thermal fuse/thermistor fault, or wiring/connector damage under the seat. No fix attempted yet."
+          "detail": "Captured from the ChatGPT mine 2026-07-22 — not previously on the card. Symptom evolved over several months (~late 2024→2025-03): first, pressing the seat-heater button lit the indicator but it shut off after a few seconds with no warmth; later the indicator STAYS ON but the seat never warms. Unresolved. Likely causes (unverified): heater element burnout (most common), a faulty switch / Climatronic module, a thermal fuse/thermistor fault, or wiring/connector damage under the seat. No fix attempted yet. PAPER TRAIL (7/23 ingest): Paul's handwritten 'seat heating element inspection' note on the 3/20/2025 Jim Ellis estimate — the fault was already on his radar by spring 2025."
         },
         {
           "item": "Underbody + radiator/condenser eyeball (post cone-strike)",
@@ -130,7 +130,7 @@
         {
           "item": "Spark plugs",
           "status": "done",
-          "detail": "Done — running NGK R7437-8 racing plugs (the APR Stage-1 heat range), installed and doing well. These are one range colder than stock; the R7437-9 Eurofed used with the 2022 tune is the Stage-3 plug (over-cold here) and is now hard to find, so the -8 is the correct pick, not a compromise. NEXT CHANGE reminder: gap to 0.024\" (they ship at 0.028\" — close them down), torque ~25 Nm / 18 ft-lb dry (no anti-seize — NGK's plating already anti-seizes), dielectric grease in the coil boots, and change roughly every ~20k mi on the tune. Full spec + sources in .research/2026-07-14-gti-spark-plug-setup.md."
+          "detail": "Done — running NGK R7437-8 racing plugs (the APR Stage-1 heat range), installed and doing well. These are one range colder than stock; the R7437-9 Eurofed used with the 2022 tune is the Stage-3 plug (over-cold here) and is now hard to find, so the -8 is the correct pick, not a compromise. NEXT CHANGE reminder: gap to 0.024\" (they ship at 0.028\" — close them down), torque ~25 Nm / 18 ft-lb dry (no anti-seize — NGK's plating already anti-seizes), dielectric grease in the coil boots, and change roughly every ~20k mi on the tune. Full spec + sources in .research/2026-07-14-gti-spark-plug-setup.md. ORIGIN (7/23 ingest): Jim Ellis quoted a $348 plug job on the 3/20/2025 estimate; Paul declined and ordered the 4x NGK R7437-8 himself five days later — declined-dealer-work-then-DIY, documented."
         },
         {
           "item": "Spare key — source + program",
@@ -389,14 +389,42 @@
           "confidence": "verified"
         },
         {
+          "date": "2022-02-22",
+          "mileage": 50531,
+          "shop": "Midas",
+          "summary": "Oil change (5W-40 European full synthetic) + RIGHT FRONT control arm replaced — the first documented front-suspension repair, 4 months before the front-end knocking complaint at Autohaus. Read off a repair order (not a stamped-paid invoice) — confirm with Paul the work was performed",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2021-07-05",
+          "mileage": 46103,
+          "shop": "Midas",
+          "summary": "4-wheel alignment — front toe was out of spec and corrected; courtesy inspection otherwise all-OK",
+          "confidence": "inferred"
+        },
+        {
+          "date": "2021-06-24",
+          "mileage": 45950,
+          "shop": "Midas",
+          "summary": "Mount & balance one customer-supplied tire (driver front)",
+          "confidence": "inferred"
+        },
+        {
           "date": "2021-06-18",
           "mileage": 45671,
           "shop": "Express Oil",
           "summary": "First full-service oil change (Valvoline 5W-30)",
           "confidence": "inferred"
+        },
+        {
+          "date": "2021-04-12",
+          "mileage": 44508,
+          "shop": "Jim Ellis VW",
+          "summary": "Free multi-point inspection + car wash 11 days after purchase — clean bill (tires 10/32 tread all around); engine air + cabin filters flagged; all quoted work (filters, brake flush, plugs, 40k service) declined",
+          "confidence": "inferred"
         }
       ],
-      "_serviceHistoryNote": "Summarized from scanned paper records (full detail + part numbers + costs held privately). Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. The 2026-01-02 Express Oil invoice (machine-printed PDF from the shop's email) embeds the shop's own service ladder, deterministically confirming the dates + mileages of every Express Oil row from 2021-06-18 through 2026-01-02; the oil-brand/spec details on the still-'inferred' oil-change rows come from scanned invoices and await Paul's eyeball."
+      "_serviceHistoryNote": "Summarized from scanned paper records (full detail + part numbers + costs held privately). Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. The 2026-01-02 Express Oil invoice (machine-printed PDF from the shop's email) embeds the shop's own service ladder, deterministically confirming the dates + mileages of every Express Oil row from 2021-06-18 through 2026-01-02; the oil-brand/spec details on the still-'inferred' oil-change rows come from scanned invoices and await Paul's eyeball. 2026-07-23 batch: the remaining GTI paper pile (29 scans — purchase packet, two Midas visits, a Jim Ellis MPI, quotes) was ingested; its rows are vision reads marked inferred, full detail private."
     },
     {
       "id": "tiguan-2018",
