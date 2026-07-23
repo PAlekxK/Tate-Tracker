@@ -568,21 +568,46 @@ tucked under the hill, open downslope.
 **This one fact explains nearly every anomaly in `weather-bias.json` — and it is a simpler
 explanation than the one the audit reached for.**
 
-- **Humidity +6%** — a sensor within ~20 m of open water reads high. Textbook siting artifact.
-- **Overnight lows +2.5°F** — water has large thermal mass and suppresses the local nocturnal
-  minimum. **This supersedes the thermal-belt hypothesis in §2.3.** Pond moderation is a much
-  simpler cause than "the site sits above the nocturnal inversion," and it means the station's
-  warm minima are **no longer usable as evidence for a warmer hardiness zone.**
-- **Wind 0.0 mph mean, gusts ≤ 3.8 mph** — a hollow with terrain rising 60+ ft within 60 m,
-  plus pond-margin planting, is genuinely sheltered. **The anemometer is probably fine**; the
-  wind-stall flag should be reworded from "possible hardware fault" to "sheltered siting."
+**⚠ Corrected 2026-07-23 after Paul pushed back — two claims in the first draft of this
+section were overstated and are retracted here.**
+
+- **RETRACTED — "elevation mismatch inflates the bias."** It does not, materially. The
+  house→pond difference is 25 ft, which at the property's own 3.5°F/1,000 ft rate is
+  **0.09°F** against measured deltas of +2.5 to +3.3°F. The "93 ft" figure in the first draft
+  was itself invalid — it subtracted an SRTM-derived pond elevation from a Copernicus-derived
+  902 m, mixing two DEMs. Fixing `gridElevation_m` is tidy-up, not a correction.
+- **RETRACTED — "pond thermal mass suppresses the nocturnal minimum."** Overstated. The
+  `pond-area` polygon is **160 m² (0.04 acres)**, and that includes margin — open water is
+  less. A garden pond that size lacks the mass to lift overnight minima 2.5°F at a sensor
+  metres away. The lake-scale reasoning was misapplied to a garden feature.
+
+What survives, delta by delta:
+
+- **Humidity +6% — well explained by the pond.** RH is highly sensitive near any evaporating
+  surface, so even a small pond a few metres away plausibly does this. Good fit.
+- **Highs +3.3°F — the pond does NOT explain this, and it is the largest delta.** Water cools
+  daytime highs if anything. A sensor reading 3.3°F warm on highs in a south-facing clearing
+  with maximum solar gain points to **radiation-shield overexposure** — a passive shield in
+  full sun with poor aspiration reads high on calm sunny days. Better fit than any pond effect.
+- **Lows +2.5°F — genuinely confounded; the cause cannot be isolated from this data.**
+  Candidates: shield heat retention, proximity to the house ~20–30 yd away, the pond, or a
+  real thermal belt. They do not all push the same way — a low spot should pool cold air and
+  read *colder*, cutting against the hollow story. (The 60 m ring shows the site drains to the
+  SW rather than sitting in a closed basin, so cold air flows through instead of pooling.)
+- **Wind 0.0 mph mean, gusts ≤ 3.8 mph — holds.** Terrain rising 55–68 ft within 60 m to the
+  N/NE is real shelter regardless of the pond. **The anemometer is probably fine**; reword the
+  wind-stall flag from "possible hardware fault" to "sheltered siting."
 - **Rain over-reading** — pond margins mean vegetation, and `plants.json` confirms it (iris,
-  lizard's tail, sarracenia all planted there). Canopy drip and splash-in are the classic
-  causes of a gauge reading high. Combined with the §2.1 timezone bug, this plausibly accounts
-  for the whole +78% without any orographic effect at all.
-- **Elevation mismatch** — `weather-bias.json._meta` compares the station against the grid at
-  **902 m (2,959 ft)**. The station is actually at ~2,866 ft. Some of the measured "bias" is
-  just an elevation mismatch baked into the comparison.
+  lizard's tail, sarracenia all planted there). Canopy drip and splash-in are classic causes of
+  a gauge reading high. Combined with the §2.1 timezone bug, this plausibly accounts for the
+  whole +78% without any orographic effect.
+
+**The load-bearing conclusion, stated carefully.** Paul's answer does not correct the readings;
+it corrects their **status**. The station is not in a representative open position, so its
+deltas cannot be read as "the property vs. the region." That is enough to disqualify it as
+evidence for the thermal-belt / warmer-zone argument in §2.3 — **not because the pond refutes
+that hypothesis, but because the site is confounded and this instrument cannot distinguish
+between the candidates.** Weakened, not killed.
 
 **What this does NOT overturn:** the hardiness re-baseline in §2.3 still stands, because its
 two other legs are independent of the station — the 2023 USDA map reads **8a** for the ZIP
@@ -603,3 +628,57 @@ third vote.
 5. **Drop the station from the hardiness argument**, keep it for phenology and rainfall *of
    the pond zone* once the timezone bug is fixed.
 6. **Hedge the soil pH copy** and get the $9 test.
+
+---
+
+## 12. Resolved by measurement — the station bias, split by conditions (2026-07-23)
+
+Paul pushed back on §11: a 0.04-acre man-made pond cannot move air temperature 2.5°F at a
+sensor 20 yd away, and 20 yd from the house is an ordinary PWS position. **He is right, and
+the pond explanation in §11 is withdrawn.**
+
+Rather than speculate a third time, ran the discriminating test. If the warm bias is a
+**radiation-shield artifact**, it must concentrate on calm sunny days and wash out with wind
+and cloud. If the site is **genuinely warmer**, the bias should be roughly flat across
+conditions. Compared `weather-history.json` day-by-day against the Open-Meteo ERA5 archive at
+902 m for the same window (n = 73 days with both records).
+
+| split | high delta | low delta |
+|---|---|---|
+| sunny vs cloudy (by shortwave radiation) | **+4.61 / +1.73** | +2.45 / +2.61 |
+| clear vs overcast (by cloud cover) | **+4.64 / +1.61** | +2.89 / +2.16 |
+| calm vs windy (by grid wind max) | **+4.31 / +1.96** | +2.37 / +2.69 |
+| overall | +3.15 | +2.53 |
+
+**Daytime highs: instrument.** ~3°F of swing driven by sun, removed by wind — both
+dependencies present, both strong, all three splits agreeing. This is the classic passive
+radiation-shield overheating signature. **Most of the +3.3°F high bias is the sensor, not the
+property.** Do not use it as evidence the site runs warm by day; consider an aspirated shield
+or a shadier mount if the daytime number is ever to be trusted.
+
+**Overnight lows: real.** Flat at ~+2.5°F across every split. There is no sun at night to heat
+a shield and wind does not remove it, so this is not an exposure artifact.
+
+**Consequence — the §2.3 thermal-belt finding is REINSTATED.** §11 discounted it via the pond;
+that reasoning is now withdrawn and the observation stands on its own. Note the original
+argument never depended on the grid comparison: it was station-vs-**real stations** — mean
+overnight low 62.7°F here against Jasper 1 NNW's 61.9°F, **1,494 ft lower**. Lapse rate
+predicts this site ~5°F cooler than Jasper; it measures warmer. That is the mid-slope
+thermal-belt signature — the site sitting above the cold air that pools in the valley overnight.
+
+**The honest limit.** This is 73 days of May–July. Hardiness zone is defined by the mean
+*annual extreme minimum* — the coldest night of the year — and winter inversions and cold-air
+damming behave differently from summer nights. So this supports "growing-season minima run
+warmer than the lapse model assumes"; it does **not** by itself establish the winter extreme.
+
+**Zone evidence, restated with weights:**
+1. 2023 USDA map reads **8a** for ZIP 30143 (verified twice) — strongest, but ZIP-centroid.
+2. Creeping fig overwintered outdoors — the only leg that speaks to **winter** directly; n=1.
+3. Warm summer minima, 73 days — solid measurement, indirect for winter.
+
+**Corrections log for this section:** §11's pond-thermal-mass claim — withdrawn. §11's
+elevation-mismatch claim — withdrawn (0.09°F, immaterial). §11's humidity and wind-shelter
+readings still stand. The rain findings in §2.1 are untouched by any of this (the duplicate
+days are arithmetic in the rollup). Note also that the 20:00→20:00 ET window does *not*
+corrupt temperature the way it corrupts rain: daily max and min both still fall inside the
+shifted window, whereas `dailyrainin` is a reset-counter and gets double-counted.
