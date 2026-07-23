@@ -466,13 +466,13 @@ here is exactly the elevation-band question worth asking Mom.
 
 ## 8. Open questions only Paul can settle
 
-0. **Where exactly is the weather station mounted, and what is above it?** The single
-   highest-value unverified fact in the whole audit — a five-minute walk. It gates whether the
-   property's only instrument can be trusted, and three separate findings (§2.1 rain, §2.3 warm
-   minima, the wind-stall flag) all hang on the answer.
-1. **Has a soil test ever been run on the property?** If yes, ~18 `soilNotes` are fine as-is;
-   if no, they all need the honest-uncertainty hedge. A $9 UGA test also settles the Tallapoosa
-   vs Ashe/Edneyville question that §2.3 leaves open.
+0. ~~Where is the weather station mounted?~~ **ANSWERED 2026-07-23 — see §11. It is right by
+   the pond, ~20–30 yards from the house. This resolves most of §2.1 and §2.3 and changes the
+   conclusion.**
+1. ~~Has a soil test been run?~~ **ANSWERED 2026-07-23 — no. So all ~18 `soilNotes` assert an
+   untested pH as settled fact and need the honest-uncertainty hedge. A $9 UGA test also
+   partly settles the Tallapoosa vs Ashe/Edneyville series question in §2.3 — and the app
+   already recommends that test on its own Property card.**
 2. **Is `currentSeasonNote` meant to be one evergreen note or per-month?** The §1.1 fix forks
    on this.
 3. **What are the Tate Mountain POA's actual lake rules?** Almost certainly the *binding*
@@ -530,3 +530,76 @@ from generic to genuinely this property's.
 
 **Then depth and voice:** the generator charter sweep, the calling-season split, the missing
 turtles and salamanders, the fishing rating vocabulary.
+
+---
+
+## 11. Paul's answers — 2026-07-23 (folded back in)
+
+Two of the gating questions in §8 are now answered, and one of them changes a conclusion.
+
+### 11.1 No soil test has ever been run
+So every pH claim in the app is a county-survey inference presented as a property fact.
+~18 `soilNotes` say things like *"Church Mountain Road's native 4.5–5.5 range"* and
+*"Boxwoods prefer slightly less acidic soil than…"* — all untested. Compounding it, §2.3
+shows the *series* those numbers derive from (Cecil, Pacolet) cannot occur at this elevation
+at all, so both the number and its provenance are unsound.
+
+This is a clean, cheap fix and the app already knows the answer: its own Property card
+recommends a **$9 UGA Extension test through Pickens County**, testable per area. Until that
+happens the copy should carry the same honest-uncertainty marker the variety chip uses
+(*"our read from a photo"* → *"confirmed on the ground"*). One test also narrows the
+Tallapoosa-vs-Ashe/Edneyville question.
+
+### 11.2 The station is by the pond — ~20–30 yards from the house
+
+Measured against the DEM and the traced zone polygons (which corroborate the estimate
+almost exactly):
+
+| | elevation | note |
+|---|---|---|
+| house polygon centroid | 2,891 ft | |
+| pond-area zone centroid | **2,866 ft** | **25 ft below the house** |
+| separation | **22 m ≈ 24 yards** | matches Paul's 20–30 yd recollection |
+
+Local relief on a 60 m ring around the pond: terrain **rises 55–68 ft to the N/NE** and
+**falls 25–42 ft to the S/SW**. The pond sits on a sheltered shelf on the south-facing slope,
+tucked under the hill, open downslope.
+
+**This one fact explains nearly every anomaly in `weather-bias.json` — and it is a simpler
+explanation than the one the audit reached for.**
+
+- **Humidity +6%** — a sensor within ~20 m of open water reads high. Textbook siting artifact.
+- **Overnight lows +2.5°F** — water has large thermal mass and suppresses the local nocturnal
+  minimum. **This supersedes the thermal-belt hypothesis in §2.3.** Pond moderation is a much
+  simpler cause than "the site sits above the nocturnal inversion," and it means the station's
+  warm minima are **no longer usable as evidence for a warmer hardiness zone.**
+- **Wind 0.0 mph mean, gusts ≤ 3.8 mph** — a hollow with terrain rising 60+ ft within 60 m,
+  plus pond-margin planting, is genuinely sheltered. **The anemometer is probably fine**; the
+  wind-stall flag should be reworded from "possible hardware fault" to "sheltered siting."
+- **Rain over-reading** — pond margins mean vegetation, and `plants.json` confirms it (iris,
+  lizard's tail, sarracenia all planted there). Canopy drip and splash-in are the classic
+  causes of a gauge reading high. Combined with the §2.1 timezone bug, this plausibly accounts
+  for the whole +78% without any orographic effect at all.
+- **Elevation mismatch** — `weather-bias.json._meta` compares the station against the grid at
+  **902 m (2,959 ft)**. The station is actually at ~2,866 ft. Some of the measured "bias" is
+  just an elevation mismatch baked into the comparison.
+
+**What this does NOT overturn:** the hardiness re-baseline in §2.3 still stands, because its
+two other legs are independent of the station — the 2023 USDA map reads **8a** for the ZIP
+(verified), and the creeping fig survived a winter outdoors. The station simply stops being a
+third vote.
+
+### 11.3 Revised recommendations
+
+1. **Do not treat the station as "the property."** It is an excellent record *of the pond
+   area* — which is genuinely useful, since several plants live exactly there. Relabel it
+   accordingly. This is a small copy change with a large honesty payoff, and it is the
+   measured-vs-modeled discipline the app already applies well elsewhere.
+2. **Fix the comparison elevation** in `analyze-weather-bias.mjs` / `weather-bias.json`
+   (902 m → the pond's actual ~873–880 m) so the bias is not inflated by a 93 ft mismatch.
+3. **The one physical check left** is the rain gauge specifically: is anything overhanging it?
+   That is now the only station question that still matters.
+4. **Reword the wind-stall flag** — the hardware-fault framing is probably wrong.
+5. **Drop the station from the hardiness argument**, keep it for phenology and rainfall *of
+   the pond zone* once the timezone bug is fixed.
+6. **Hedge the soil pH copy** and get the $9 test.
