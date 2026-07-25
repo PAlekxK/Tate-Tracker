@@ -4385,6 +4385,89 @@
         "note": "Deep purple flowers with a gold eye over striped leaves; local timing not yet observed."
       },
       "_provenance": "Paul's recollection 2026-07-25 — 'a variegated Japanese iris, purple flowers,' the third pond iris beyond the blue/yellow flags. ID Iris ensata 'Variegata' matched to that description + web-verified traits (variegated leaves, purple gold-eyed flowers, water marginal, Zn 4-9). Species/cultivar to confirm on the ground. Source: ChatGPT-mine A8 + Paul."
+    },
+    {
+      "id": "pitcher-plant",
+      "name": "Pitcher Plant",
+      "scientificName": "Sarracenia sp.",
+      "emoji": "🪴",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "A native carnivorous pitcher plant, grown here as a bog planting in the pond. Its upright hollow pitchers trap and digest insects — a striking, low-maintenance oddity for a sunny, permanently-wet, nutrient-poor pond margin. The exact species isn't pinned down (it is NOT the purple pitcher plant, Sarracenia purpurea — Paul ruled that out); which Sarracenia it is is an easy thing to settle on the ground when it pitchers and blooms.",
+      "currentSeasonNote": "Confirmed in the pond (Paul, 2026-07-25). A few were set in the pond bog around spring 2026. First seasons here, so bloom and pitcher timing at ~2,959 ft aren't observed yet — and the species is still to confirm (not purple).",
+      "soilNotes": "Wants a nutrient-POOR, acidic, permanently-wet bog — sphagnum/peat + sand, never garden soil or fertilizer (fertilizer kills Sarracenia). The pond margin's acidic water suits it; keep it out of any spot that collects leaf-litter mud or runoff, which would enrich the root zone it needs to stay lean.",
+      "aspectPreference": "Full sun for the strongest pitchers and colour; tolerates part sun. An open pond-edge spot is ideal.",
+      "frostSensitivity": "Most native Sarracenia are very cold-hardy (well below this elevation) and go dormant in winter — leave the old pitchers until spring. The main overwinter concern is keeping the crown wet but not locked in solid ice for long stretches; a pond that doesn't freeze to the bottom is fine. (If the exact species turns out to be a tender one, revisit this.)",
+      "care": {
+        "prune": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Feb–Mar",
+          "narrow": false,
+          "description": "In early spring, trim off winter-blackened pitchers before new growth pushes.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Mar–Apr",
+          "narrow": false,
+          "description": "Divide the rhizome in early spring, or let it clump up.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "NEVER fertilize — it feeds on insects; fertilizer or rich soil is fatal.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Keep permanently wet with rainwater / pond water; never let the bog dry out.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond-bog planting, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Keep the crown wet and the root zone low-nutrient; remove any leaf-mud smothering it. When it pitchers/blooms, note the species to settle the ID.",
+          "peakDates": []
+        }
+      },
+      "bloom": {
+        "window": "spring (unobserved here yet)",
+        "dates": [
+          {
+            "start": "04-15",
+            "end": "05-31"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Sarracenia send up nodding flowers on tall stalks in spring; timing and flower colour here not yet observed (colour will also help ID the species)."
+      },
+      "_provenance": "Paul confirmed 2026-07-25: Sarracenia pitcher plant(s) ARE in the pond — but NOT the purple species (S. purpurea ruled out). Kept at genus level (Sarracenia sp.) until the exact species is confirmed on the ground. ~3 bought spring 2026 (memory project_sarracenia_pitcher_plants). Supersedes the removed sarracenia-purpurea. Source: ChatGPT-mine A8 + Paul."
     }
   ]
 }
