@@ -128,9 +128,9 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 | Item | What it is | Status |
 |---|---|---|
 | **Pond/koi record** | EPDM 40-mil liner, ~22 ft across, 4.5 ft deep; koi stocked; the koi+*Gambusia*-vs-frog/tadpole tradeoff (fish-free cover zones). | IDEATION |
-| **Sarracenia purpurea → `plants.json`** | Paul confirmed 2026-07-22: the pitcher plants are **in the pond at Tate** (bog planting). Author a full pond-bog care entry. | IDEATION |
-| **Add purchased pond plants → `plants.json`** | From a Pike Nurseries receipt: Variegated + Blue Flag Iris, Pickerelweed, Bowles Golden Sedge, Dwarf Papyrus, Corkscrew Rush (only "Pond Iris" tracked today). Species IDs are model-read. | IDEATION |
-| **Cattail entry (⚠️ monitor containment)** + **Cardinal flower** (pond-bog candidate) | Intentional but aggressive introduction; on-site native find. | IDEATION |
+| **Sarracenia purpurea → `plants.json`** | ~~Author a full pond-bog care entry.~~ ✅ **DONE 2026-07-25** (`sarracenia-purpurea`, zoneId pond-area) — bog-planting care authored; local phenology marked unobserved; overwinter wet-not-frozen note added. | ✅ authored |
+| **Add purchased pond plants → `plants.json`** | Pike Nurseries receipt. ✅ **DONE 2026-07-25**: `pickerelweed`, `bowles-golden-sedge`, `dwarf-papyrus` (⚠️ tender — overwinter call ~Oct), `corkscrew-rush` (all zoneId pond-area; species IDs marked model-read/inferred; care honest-not-fabricated per the hyperlocalization-audit lesson). **STILL OPEN — the "Variegated Iris":** ambiguous vs the existing `iris-blue-flag`/`iris-yellow-flag`; needs Paul's ID before authoring. | ⏳ variegated iris pending Paul's ID |
+| **Cattail entry (⚠️ monitor containment)** + **Cardinal flower** (pond-bog candidate) | ✅ **DONE 2026-07-25** — `cattail` (Typha sp., ⚠️ aggressive-spreader framing, propagate=don't) + `cardinal-flower` (Lobelia cardinalis, on-site find, Aug-2025 browse event recorded). Both zoneId pond-area. | ✅ authored |
 
 **Existing-plant field history + reference:**
 | Item | What it is | Status |

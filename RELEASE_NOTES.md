@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-25 — The pond plantings join the record
+
+- Seven plants that live in and around the pond now have their own cards: the **purple pitcher plant** in the bog, **pickerelweed**, **cardinal flower**, **corkscrew rush**, **dwarf papyrus**, **Bowles' golden sedge**, and — with a watch-it warning — the **cattail**, which spreads fast and wants keeping in check.
+- Two carry honest cautions worth knowing: the **dwarf papyrus** is the tender one and probably won't take a winter outside (a lift-it-or-lose-it call to make by October), and the **cattail** will ring the pond by rhizome if it isn't held back.
+- These came from the record of what was actually bought and planted; the exact plant names are our best read and are marked as needing your eye on the ground, and none of their bloom or care timing has been watched here for a full season yet — so the cards say so rather than guessing.
+
+---
+
 ## 2026-07-25 — A steadier read on the lake's temperature
 
 - The estimated water temperature for Lake Sequoyah is calmer and more trustworthy now. It leads with **what the lake typically runs each month** — which already reflects how water lags the air by weeks — and then nudges a few degrees for whether it's been warmer or cooler than usual lately.

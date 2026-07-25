@@ -3835,6 +3835,542 @@
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_paniculata_IMG_6629.JPG"
       },
       "zoneId": null
+    },
+    {
+      "id": "sarracenia-purpurea",
+      "name": "Purple Pitcher Plant",
+      "scientificName": "Sarracenia purpurea",
+      "emoji": "🪴",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "A hardy native carnivorous pitcher plant, grown here as a bog planting at the pond. Its squat, veined pitchers hold rainwater and trap insects — unusual among Sarracenia in that the purpurea pitchers fill with water rather than staying dry. It wants a sunny, permanently-wet, nutrient-poor acidic bog: exactly the fish-free shallow margin of a pond. Cold-hardy well below this elevation, so it overwinters outside — the winter-survival question worth watching is wet-not-frozen-solid roots, not the cold itself.",
+      "currentSeasonNote": "Bought spring 2026 and set in the pond bog. First season here, so its bloom and pitcher timing at ~2,959 ft are not yet observed — worth noting when the first spring 'umbrella' flowers and when the new pitchers open, to establish local timing.",
+      "soilNotes": "Wants a nutrient-POOR, acidic, permanently-wet bog mix — sphagnum/peat + sand, never garden soil or fertilizer (fertilizer kills it). The pond margin's acidic water suits it; the one thing to protect is the low-nutrient root zone, so keep it out of any spot collecting leaf-litter mud or runoff.",
+      "aspectPreference": "Full sun is best for strong pitcher colour and vigor; it will tolerate part sun. A pond-edge spot with open sky overhead is ideal.",
+      "frostSensitivity": "Very cold-hardy (to roughly Zone 3) — no cold concern at this elevation. It goes dormant in winter; leave the old pitchers until spring. The real overwinter question is keeping the crown wet but not frozen into solid ice for long stretches — a pond that doesn't freeze to the bottom is fine.",
+      "care": {
+        "prune": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Feb–Mar",
+          "narrow": false,
+          "description": "In early spring, trim off winter-blackened pitchers before new growth pushes.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Mar–Apr",
+          "narrow": false,
+          "description": "Divide the rhizome in early spring, or let it clump up.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "NEVER fertilize — it feeds itself on insects; fertilizer or rich soil is fatal.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Keep permanently wet with rainwater / pond water; never let the bog dry out.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond/bog planting, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Watch that the crown stays wet and low-nutrient; remove any leaf-mud smothering it.",
+          "peakDates": []
+        }
+      },
+      "bloom": {
+        "window": "spring (unobserved here yet)",
+        "dates": [
+          {
+            "start": "04-15",
+            "end": "05-31"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Nodding maroon 'umbrella' flowers on tall stalks in spring — timing at this elevation not yet observed."
+      },
+      "_provenance": "Paul confirmed 2026-07-22 the Sarracenia are in the pond at Tate (supersedes an earlier 'Atlanta-only' note). Care is authored from horticultural knowledge; local phenology is unobserved. Source: ChatGPT-mine A8."
+    },
+    {
+      "id": "pickerelweed",
+      "name": "Pickerelweed",
+      "scientificName": "Pontederia cordata",
+      "emoji": "🌾",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "A native emergent marginal aquatic with glossy heart-shaped leaves and violet-blue flower spikes through summer — one of the best-behaved, most pollinator-friendly plants for a pond edge. It grows in a few inches of standing water at the shallow margin and spreads by rhizome into a soft colony.",
+      "currentSeasonNote": "Bought spring 2026 (Pike Nurseries) and set at the pond margin. First season here — note when the blue spikes first open to establish local bloom timing.",
+      "soilNotes": "Marginal aquatic: plant in heavy loam or aquatic soil in a few inches of standing water at the pond edge. Not fussy about pH. Contain the pot or the rhizome if you don't want it to march along the whole margin.",
+      "aspectPreference": "Full sun to part sun — more sun means more flowers.",
+      "frostSensitivity": "Hardy to about Zone 3; dies back to the rhizome each winter and returns in spring. No cold concern here.",
+      "care": {
+        "prune": {
+          "months": [
+            10,
+            11
+          ],
+          "peakWindow": "Nov / Mar",
+          "narrow": false,
+          "description": "Let frost knock it back; tidy dead foliage from the water in late fall or early spring.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            3,
+            4,
+            5
+          ],
+          "peakWindow": "Apr–May",
+          "narrow": false,
+          "description": "Divide the rhizome in spring.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Pond/bog plants in a living pond generally need no feeding — the water carries nutrients.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Lives in the pond — water level is the pond's job, not a watering task.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond/bog planting, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Watch its spread along the margin and for browse.",
+          "peakDates": []
+        }
+      },
+      "bloom": {
+        "window": "summer (unobserved here yet)",
+        "dates": [
+          {
+            "start": "06-01",
+            "end": "09-01"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Violet-blue spikes over glossy leaves through summer; local timing not yet observed."
+      },
+      "_provenance": "Pike Nurseries pond-plant receipt (purchase confirmed; species ID model-read). Source: ChatGPT-mine A8. Care authored; local phenology unobserved."
+    },
+    {
+      "id": "cardinal-flower",
+      "name": "Cardinal Flower",
+      "scientificName": "Lobelia cardinalis",
+      "emoji": "🌺",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "A native wet-margin perennial found growing on the property, kept as a pond-bog plant. Its late-summer spikes of intense scarlet are a hummingbird magnet — one of the few reds a ruby-throat can't resist. It wants consistently moist, rich soil at the water's edge and is short-lived unless it's allowed to self-sow.",
+      "currentSeasonNote": "An on-site native find, sited at the pond edge. Deer/rabbit stripped the pond-edge cardinal flower in Aug 2025 — worth watching for browse again as the scarlet spikes come up in late summer.",
+      "soilNotes": "Rich, consistently moist to wet soil at the pond margin — it will not tolerate drying out. Slightly acidic to neutral. A mulch of leaf litter keeps the roots cool and damp.",
+      "aspectPreference": "Part shade to full sun as long as the soil stays wet; afternoon shade helps in the open.",
+      "frostSensitivity": "Hardy to about Zone 3. Forms an overwintering basal rosette; keep it from being buried in wet leaves that can rot the crown. No cold concern here.",
+      "care": {
+        "prune": {
+          "months": [
+            10,
+            11
+          ],
+          "peakWindow": "spring",
+          "narrow": false,
+          "description": "Leave seed heads to self-sow (it's short-lived — seedlings carry it forward), then tidy in spring.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Mar–Apr",
+          "narrow": false,
+          "description": "Divide basal rosettes in spring, or let it self-seed.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Pond/bog plants in a living pond generally need no feeding — the water carries nutrients.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Lives in the pond — water level is the pond's job, not a watering task.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond/bog planting, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            7,
+            8,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Watch for deer/rabbit browse on the flower spikes — a known problem at this pond.",
+          "peakDates": []
+        }
+      },
+      "bloom": {
+        "window": "late summer (unobserved here yet)",
+        "dates": [
+          {
+            "start": "07-15",
+            "end": "09-15"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Scarlet hummingbird spikes in late summer; local timing not yet observed."
+      },
+      "_provenance": "On-site native find (ChatGPT-mine A8, pond-bog candidate). Aug-2025 browse event recorded. Care authored; local phenology unobserved."
+    },
+    {
+      "id": "cattail",
+      "name": "Cattail",
+      "scientificName": "Typha sp.",
+      "emoji": "🌾",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "The classic brown-spike marsh plant, collected roadside and introduced to the pond. Handsome and good habitat — but an AGGRESSIVE colonizer by thick rhizome that can take over a pond margin and choke open water within a few seasons. This one is on the watch-list: enjoy it, but keep it contained.",
+      "currentSeasonNote": "Introduced intentionally; ⚠️ track its spread. Cattail marches by rhizome — check each season how far it has crept along the margin and pull or barrier it back before it rings the pond.",
+      "soilNotes": "Grows in mud to a foot of standing water at the margin. Not fussy. The management issue is not the soil but the rhizome — a submerged barrier or a contained pocket is the only reliable way to hold it in one spot.",
+      "aspectPreference": "Full sun.",
+      "frostSensitivity": "Fully hardy; dies back to the rhizome and returns each spring. No cold concern.",
+      "care": {
+        "prune": {
+          "months": [
+            10,
+            11,
+            2,
+            3
+          ],
+          "peakWindow": "fall / spring",
+          "narrow": false,
+          "description": "Cut back old stalks in late fall or early spring; cutting below the waterline repeatedly is one way to weaken a colony you want to shrink.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Do NOT propagate — it spreads itself far too readily. The task is containment, not increase.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Pond/bog plants in a living pond generally need no feeding — the water carries nutrients.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Lives in the pond — water level is the pond's job, not a watering task.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond/bog planting, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "⚠️ Check the colony's edge every season and pull/barrier back new rhizome runs before they ring the pond.",
+          "peakDates": []
+        }
+      },
+      "bloom": {
+        "window": "summer",
+        "dates": [
+          {
+            "start": "06-01",
+            "end": "08-01"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "The brown cigar spike is the flower/seed head, early-mid summer."
+      },
+      "_provenance": "Roadside-collected, intentionally introduced (ChatGPT-mine A8). Flagged as an aggressive spreader to monitor for containment."
+    },
+    {
+      "id": "corkscrew-rush",
+      "name": "Corkscrew Rush",
+      "scientificName": "Juncus effusus 'Spiralis'",
+      "emoji": "🌀",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "An ornamental rush whose green stems curl and spiral like corkscrews — a textural novelty at the pond edge. A cultivar of the native soft rush, it wants wet feet at the shallow margin and stays a tidy clump rather than running.",
+      "currentSeasonNote": "Bought spring 2026 (Pike Nurseries) for the pond margin. First season here.",
+      "soilNotes": "Wet, boggy soil or shallow standing water at the margin; tolerant of most pH. Keeps to a clump — well-behaved next to the cattail's aggression.",
+      "aspectPreference": "Full sun to part shade.",
+      "frostSensitivity": "Hardy to about Zone 4; may look ragged over winter — cut back tired growth in spring. No cold concern here.",
+      "care": {
+        "prune": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Feb–Mar",
+          "narrow": false,
+          "description": "Comb out or cut back winter-tattered stems in early spring; some spirals revert to straight — trim those for the look.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Mar–Apr",
+          "narrow": false,
+          "description": "Divide the clump in spring.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Pond/bog plants in a living pond generally need no feeding — the water carries nutrients.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Lives in the pond — water level is the pond's job, not a watering task.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond/bog planting, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Keep the roots wet; watch for straight (reverted) stems if you want the curl.",
+          "peakDates": []
+        }
+      },
+      "_provenance": "Pike Nurseries pond-plant receipt (purchase confirmed; cultivar ID model-read). Source: ChatGPT-mine A8."
+    },
+    {
+      "id": "dwarf-papyrus",
+      "name": "Dwarf Papyrus",
+      "scientificName": "Cyperus prolifer",
+      "emoji": "🌿",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "A compact papyrus with fine green pom-pom heads on slender stems — an architectural marginal for the pond edge. Smaller and better-mannered than true giant papyrus. It is the least cold-hardy of the pond plantings here, so overwintering is the open question.",
+      "currentSeasonNote": "Bought spring 2026 (Pike Nurseries). First season here — and the one pond plant whose winter survival at ~2,959 ft is genuinely uncertain (see below).",
+      "soilNotes": "Wet soil or a few inches of standing water at the margin; rich medium. Not pH-fussy.",
+      "aspectPreference": "Full sun to part sun.",
+      "frostSensitivity": "⚠️ The tender one — hardy only to roughly Zone 8–9, well warmer than this site. It will likely NOT survive a Tate winter in the pond. Treat it as an annual, OR lift it in fall and overwinter the pot indoors / in a frost-free spot. Worth deciding this fall (memory flags an overwinter question ~October).",
+      "care": {
+        "prune": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Trim spent stems anytime; if overwintering indoors, cut back before bringing in.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            3,
+            4,
+            5
+          ],
+          "peakWindow": "spring",
+          "narrow": false,
+          "description": "Divide in spring; the flower heads can also root ('proliferum' = it sprouts plantlets).",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Pond/bog plants in a living pond generally need no feeding — the water carries nutrients.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Lives in the pond — water level is the pond's job, not a watering task.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [
+            9,
+            10
+          ],
+          "peakWindow": "Sep–Oct",
+          "narrow": false,
+          "description": "If overwintering: lift and pot before first frost, keep in a bright frost-free spot.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            9,
+            10
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Decide by October: treat as annual or lift to overwinter — it won't take the cold outside.",
+          "peakDates": []
+        }
+      },
+      "_provenance": "Pike Nurseries pond-plant receipt (purchase confirmed; species ID model-read). Source: ChatGPT-mine A8. Flagged tender — overwinter decision pending (~Oct)."
+    },
+    {
+      "id": "bowles-golden-sedge",
+      "name": "Bowles' Golden Sedge",
+      "scientificName": "Carex elata 'Aurea'",
+      "emoji": "🌾",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "A bright golden-yellow sedge that lights up a pond edge — arching grassy blades in near-fluorescent chartreuse, best colour in spring and early summer. A clumping sedge for wet margins, it brings the one colour (soft gold) the rest of the pond greens lack.",
+      "currentSeasonNote": "Bought spring 2026 (Pike Nurseries). First season here; the gold is brightest in the cooler months, greening a little through summer heat.",
+      "soilNotes": "Consistently moist to wet soil or the shallow margin; tolerant of most pH. Clumps rather than runs.",
+      "aspectPreference": "Part sun keeps the gold best; too much hot afternoon sun can scorch the fine blades, too much shade dulls the colour.",
+      "frostSensitivity": "Hardy to about Zone 5; semi-evergreen, cut back tired foliage in spring. No cold concern here.",
+      "care": {
+        "prune": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Feb–Mar",
+          "narrow": false,
+          "description": "Cut or comb out winter-worn foliage in early spring before new growth.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Mar–Apr",
+          "narrow": false,
+          "description": "Divide the clump in spring.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Pond/bog plants in a living pond generally need no feeding — the water carries nutrients.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Lives in the pond — water level is the pond's job, not a watering task.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond/bog planting, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Keep roots moist; watch for summer scorch if the spot is too hot/dry.",
+          "peakDates": []
+        }
+      },
+      "_provenance": "Pike Nurseries pond-plant receipt (purchase confirmed; cultivar ID model-read). Source: ChatGPT-mine A8."
     }
   ]
 }
