@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": 1,
-    "generatedAt": "2026-07-19T09:59:40.343Z",
+    "generatedAt": "2026-07-25T16:42:52.476Z",
     "method": "Deterministic (AI-free) comparison of the on-site Ambient Weather station vs. the Open-Meteo ERA5 regional grid, both at the property's 902 m elevation.",
     "station": "Kirschenbauer Ambient Weather Station (D8:F1:5B:15:28:B8)",
     "gridModel": "Open-Meteo ERA5 archive",
@@ -9,62 +9,62 @@
   },
   "window": {
     "start": "2026-05-02",
-    "end": "2026-07-18",
-    "comparedDays": 70
+    "end": "2026-07-23",
+    "comparedDays": 76
   },
   "metrics": {
     "tempHigh": {
-      "station": 77.3,
-      "grid": 74,
+      "station": 77.4,
+      "grid": 74.1,
       "delta": 3.3,
-      "n": 70
+      "n": 76
     },
     "tempLow": {
-      "station": 62.7,
-      "grid": 60.2,
-      "delta": 2.5,
-      "n": 70
+      "station": 62.8,
+      "grid": 60.5,
+      "delta": 2.3,
+      "n": 76
     },
     "tempMean": {
-      "station": 68,
-      "grid": 66.5,
+      "station": 68.3,
+      "grid": 66.7,
       "delta": 1.5,
-      "n": 70
+      "n": 76
     },
     "humidity": {
       "station": 89,
       "grid": 83,
       "delta": 6,
-      "n": 70
+      "n": 76
     },
     "gust": {
-      "station": 3.8,
-      "grid": 22.4,
-      "delta": -18.6,
-      "n": 70
+      "station": 3.3,
+      "grid": 22.6,
+      "delta": -19.4,
+      "n": 75
     },
     "windAvg": {
-      "station": 0,
-      "grid": 8.3,
-      "delta": -8.3,
-      "n": 70
+      "station": 0.1,
+      "grid": 8.4,
+      "delta": -8.4,
+      "n": 76
     },
     "precip": {
-      "stationTotal": 25.26,
-      "gridTotal": 14.22,
-      "pctDelta": 78,
-      "n": 70
+      "stationTotal": 19.42,
+      "gridTotal": 16.16,
+      "pctDelta": 20,
+      "n": 76
     }
   },
   "headline": {
-    "precipPctDelta": 78,
+    "precipPctDelta": 20,
     "tempMeanDelta": 1.5,
     "humidityDelta": 6
   },
   "flags": [
     {
       "code": "wind-stall",
-      "message": "Station avg wind 0 mph vs model 8.3 mph — deep sheltering OR anemometer not reading. Worth a physical check."
+      "message": "Station avg wind 0.1 mph vs model 8.4 mph — deep sheltering OR anemometer not reading. Worth a physical check."
     }
   ],
   "snapshots": [
@@ -107,6 +107,16 @@
       "humidityDelta": 6,
       "windStation": 0,
       "windGrid": 8.3
+    },
+    {
+      "date": "2026-07-25",
+      "windowEnd": "2026-07-23",
+      "nDays": 76,
+      "precipPctDelta": 20,
+      "tempMeanDelta": 1.5,
+      "humidityDelta": 6,
+      "windStation": 0.1,
+      "windGrid": 8.4
     }
   ]
 }

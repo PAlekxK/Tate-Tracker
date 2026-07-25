@@ -238,6 +238,38 @@ async function main() {
     return;
   }
 
+  if (flag("--recompute")) {
+    // Re-pull and OVERWRITE every day already in the history, using the current
+    // (fixed) ET-midnight day bounds. This is the one-time correction after the
+    // 2026-07-25 timezone fix, which had double-counted the gauge's midnight
+    // reset (duplicate rain days). Unlike --backfill (fills only missing days),
+    // this recomputes days we already have.
+    const dates = history.days.map(d => d.date).sort();
+    console.log("Recomputing " + dates.length + " existing day(s) with corrected day bounds…");
+    let changed = 0;
+    for (const dt of dates) {
+      try {
+        const rollup = await rollupForDate(dt);
+        if (rollup) {
+          const before = history.days.find(d => d.date === dt);
+          const rainWas = before ? before.rainTotal : null;
+          upsertDay(history, rollup);
+          await saveHistory(history);
+          const delta = (rainWas != null && rainWas !== rollup.rainTotal) ? "  (rain " + rainWas + '" → ' + rollup.rainTotal + '")' : "";
+          if (delta) changed++;
+          console.log("  " + dt + " ok" + delta);
+        } else {
+          console.log("  " + dt + " (no data)");
+        }
+      } catch (err) {
+        console.log("  " + dt + " failed: " + err.message);
+      }
+      await new Promise(r => setTimeout(r, 2500));
+    }
+    console.log("Recompute complete: " + changed + " day(s) changed rain total.");
+    return;
+  }
+
   console.log("Rolling up " + target + "…");
   const rollup = await rollupForDate(target);
   if (!rollup) {
