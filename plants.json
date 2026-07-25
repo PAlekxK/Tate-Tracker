@@ -4371,6 +4371,98 @@
         }
       },
       "_provenance": "Pike Nurseries pond-plant receipt (purchase confirmed; cultivar ID model-read). Source: ChatGPT-mine A8."
+    },
+    {
+      "id": "iris-japanese-variegated",
+      "name": "Variegated Japanese Iris",
+      "scientificName": "Iris ensata 'Variegata'",
+      "emoji": "🌸",
+      "zoneId": "pond-area",
+      "photo": null,
+      "attribution": null,
+      "guide": "The third of the pond irises (with the blue flag and yellow flag), and the showiest in leaf: its blades are striped green-and-cream and hold that variegation all season, unlike most variegated plants that green up in summer. Deep purple flowers with a small gold eye rise above the foliage in early-to-mid summer. A true Japanese water iris — it wants rich, acidic, wet soil while it's growing.",
+      "currentSeasonNote": "One of three irises at the pond. Named from the plant's own look — variegated leaves plus purple flowers with a gold eye — which points to Iris ensata 'Variegata'; easy to confirm on the ground when it blooms. First seasons here, so local bloom timing isn't established yet.",
+      "soilNotes": "Rich, moist-to-wet, ACIDIC soil at the pond margin — the acidic pond water suits it well (Japanese iris dislikes lime). One real care difference from the flag irises: Iris ensata wants abundant water spring through summer but prefers NOT to sit in deep standing water over winter — so a margin spot that's wet in the growing season and merely damp in winter is ideal, rather than fully submerged year-round. Worth checking how this one is actually sited.",
+      "aspectPreference": "Full sun to part shade; more sun means more flowers, but afternoon shade is fine at the pond edge.",
+      "frostSensitivity": "Hardy to about Zone 4 — no cold concern at this elevation. Dies back to the rhizome in winter and returns in spring; leave a tidy cut-back for spring.",
+      "care": {
+        "prune": {
+          "months": [
+            10,
+            11,
+            2,
+            3
+          ],
+          "peakWindow": "after bloom / spring",
+          "narrow": false,
+          "description": "Cut back spent bloom stalks after flowering; tidy winter-worn foliage in late fall or early spring.",
+          "peakDates": []
+        },
+        "propagate": {
+          "months": [
+            7,
+            8
+          ],
+          "peakWindow": "Aug (post-bloom)",
+          "narrow": false,
+          "description": "Divide clumps in late summer, a few weeks after flowering, every 3–4 years to keep them vigorous.",
+          "peakDates": []
+        },
+        "fertilize": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": "Apr",
+          "narrow": false,
+          "description": "Japanese iris are hungry — a spring feed of an acidic (never lime) fertilizer or compost supports the big blooms.",
+          "peakDates": []
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Keep consistently wet through the growing season; do not let it dry out while budding and blooming.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable — a pond-margin perennial, not a container plant.",
+          "peakDates": []
+        },
+        "inspect": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Watch that it stays wet in the growing season; confirm it isn't sitting in deep water over winter (ensata dislikes that); watch for browse.",
+          "peakDates": []
+        }
+      },
+      "bloom": {
+        "window": "early–mid summer (unobserved here yet)",
+        "dates": [
+          {
+            "start": "06-01",
+            "end": "07-15"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "Deep purple flowers with a gold eye over striped leaves; local timing not yet observed."
+      },
+      "_provenance": "Paul's recollection 2026-07-25 — 'a variegated Japanese iris, purple flowers,' the third pond iris beyond the blue/yellow flags. ID Iris ensata 'Variegata' matched to that description + web-verified traits (variegated leaves, purple gold-eyed flowers, water marginal, Zn 4-9). Species/cultivar to confirm on the ground. Source: ChatGPT-mine A8 + Paul."
     }
   ]
 }
