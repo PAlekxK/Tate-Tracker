@@ -19,7 +19,7 @@
   },
   "propertyHighlights": {
     "whatToExpect": "The most-encountered snake on the property is likely the Eastern Garter Snake (around the pond, garden edges, woodpiles) followed by the Ring-necked Snake (under flat rocks and logs in moist forest). Eastern Rat Snakes are large and conspicuous — often seen climbing trees raiding bird nests or crossing the road on warm afternoons. Copperhead awareness matters most April–October in transition zones: leaf litter at forest edges, rock walls, woodpiles, and around outbuildings.",
-    "safetyNotes": "If you find a venomous snake, give it space and walk around — bites almost always happen during handling attempts or accidental contact in unwatched footing. Wear closed shoes (not flip-flops) when walking through tall grass or moving wood/rocks. Use a flashlight at night around the pond and walkways April–October. In a snakebite emergency, call 911 and Georgia Poison Center (1-800-222-1222) — do NOT apply ice, tourniquet, or attempt suction. Keep the bitten limb still and below heart level during transport. Most US snakebite deaths are 1–6 per year out of 7,000–8,000 bites.",
+    "safetyNotes": "If you find a venomous snake, give it space and walk around — bites almost always happen during handling attempts or accidental contact in unwatched footing. Wear closed shoes (not flip-flops) when walking through tall grass or moving wood/rocks. Use a flashlight at night around the pond and walkways April–October. In a snakebite emergency, call 911 and Georgia Poison Center (1-800-222-1222) — do NOT apply ice, tourniquet, or attempt suction. Keep the bitten limb still and at about heart level, and remove any rings or watches before swelling starts. Most US snakebite deaths are 1–6 per year out of 7,000–8,000 bites.",
     "lookalikePairs": [
       {
         "pair": "Northern Water Snake vs. Cottonmouth",
@@ -98,8 +98,8 @@
       "habitat": "Mature mountain forests, rocky south-facing slopes (used as winter dens), stream corridors. Prefers undisturbed wooded terrain — encounters near houses are rare.",
       "size_in": "36–60 (occasionally to 72)",
       "appearance": "Heavy-bodied with two color phases — yellow (tan to brown with dark chevron crossbands) and black (very dark, often with rust dorsal stripe). Distinctive segmented rattle on tail tip (may be missing in young or injured snakes). Triangular head, vertical pupils, heat-sensing pits.",
-      "notes": "Possible in the surrounding mature mountain forest, though far less commonly encountered than copperhead — and remarkably docile when seen. Most will rattle and hold ground rather than strike if given space. Despite the more potent venom, bites are very rare because the snake announces itself and avoids people. Timber rattlesnakes hibernate communally in traditional rocky den sites used for generations. Listed as a species of conservation concern in Georgia due to habitat loss and persecution. If you ever see one on the property, count yourself lucky — this is a rare and ecologically valuable predator. Same response as copperhead: back away, don't handle, don't kill (it's protected). Diet: rodents (a major check on rodent-borne disease).",
-      "conservation": "Georgia status: rare; populations declining range-wide",
+      "notes": "Possible in the surrounding mature mountain forest, though far less commonly encountered than copperhead — and remarkably docile when seen. Most will rattle and hold ground rather than strike if given space. Despite the more potent venom, bites are very rare because the snake announces itself and avoids people. Timber rattlesnakes hibernate communally in traditional rocky den sites used for generations. Listed as a species of conservation concern in Georgia due to habitat loss and persecution. If you ever see one on the property, count yourself lucky — this is a rare and ecologically valuable predator. Same response as copperhead: back away, don't handle, and there's no reason to kill one — it will move on. (Note: Georgia's law protecting non-game snakes exempts venomous species, so the timber rattlesnake is not legally protected here — but the harmless snakes on this list, like the racer, kingsnake, ratsnake and watersnake, ARE protected by law.) Diet: rodents (a major check on rodent-borne disease).",
+      "conservation": "Not state-listed in Georgia (venomous species are exempt from the non-game protection law); declining range-wide from habitat loss and persecution",
       "photo": "images/snakes/timber-rattlesnake.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
@@ -296,8 +296,8 @@
     },
     {
       "id": "black-racer",
-      "name": "Northern Black Racer",
-      "scientificName": "Coluber constrictor constrictor",
+      "name": "Black Racer",
+      "scientificName": "Coluber constrictor",
       "emoji": "🐍",
       "type": "snake",
       "venomous": false,

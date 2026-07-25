@@ -4,6 +4,17 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-25 — A pass through the record for accuracy
+
+- The **snakebite first-aid note** now reflects current guidance — keep a bitten limb **at heart level** (the older "below heart level" advice has been dropped), and take off rings and watches before swelling starts.
+- The **timber rattlesnake** entry no longer says it's legally protected in Georgia — it isn't (venomous snakes are exempt from the state's non-game protection law). The note now points out the more useful fact: the *harmless* snakes here — the racer, kingsnake, ratsnake and watersnake — **are** protected.
+- The **gray treefrog** calling in the trees is now named correctly as **Cope's Gray Treefrog** — the true Gray Treefrog doesn't live in Georgia. The **two-lined salamander** by the creek is likewise given its honest name (two species overlap here, and the montane one is likelier at our elevation).
+- The **deer rut** now carries its real week — **November 10–16** in Pickens County, from Georgia DNR's county rut map — rather than a vague "November."
+- A **solar-eclipse note for August 12** was removed: that eclipse isn't visible from Georgia at all. The **Perseid meteor shower** peaking the same night — which *is* the real show — was already on the calendar.
+- Small fixes: the November bird note no longer lists a turkey *hunting* season (Georgia's is spring-only), and the plant section no longer hard-codes a plant count that had gone stale.
+
+---
+
 ## 2026-07-23 — The GTI's paper trail, complete
 
 - The last box of GTI paperwork has been read into the record — and the story now starts at the very beginning: **bought April 1, 2021 at CarMax with 43,101 miles on the clock**, loan paid off within two months.

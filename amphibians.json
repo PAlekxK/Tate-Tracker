@@ -310,8 +310,8 @@
     },
     {
       "id": "gray-treefrog",
-      "name": "Gray Treefrog",
-      "scientificName": "Hyla versicolor",
+      "name": "Cope's Gray Treefrog",
+      "scientificName": "Dryophytes chrysoscelis",
       "emoji": "🌿",
       "type": "treefrog",
       "statusLabel": "Breeding resident",
@@ -331,10 +331,10 @@
         7
       ],
       "habitat": "Trees and shrubs near ponds and wetlands; breeds in the pond but spends most of its life in vegetation",
-      "call": "Loud, musical, bird-like trill. Often calls from trees 10–20 feet above the ground before and during rain.",
+      "call": "A short, fast, slightly harsh trill — a rapid nasal buzz, faster and lower than the true (northern) Gray Treefrog's slow musical trill. Often calls from trees before and during rain.",
       "size_in": "1.25–2.25",
       "appearance": "Gray to green (can change color in minutes) with bright orange-yellow hidden coloring on inner thighs. Sticky toe pads for climbing. Difficult to spot in bark-colored resting position.",
-      "notes": "One of the most common sounds of summer nights at Church Mountain Road — calling from the trees and vegetation around the pond and across the property. Brilliantly camouflaged against bark and lichen, they're rarely seen despite being common. Their call is triggered by rain and humidity — on a warm humid evening you may hear a dozen calling from the trees above the house. The flash of orange-yellow on the inner thighs when they leap is a distinctive field mark.",
+      "notes": "One of the most common sounds of summer nights at Church Mountain Road — calling from the trees and vegetation around the pond and across the property. This is the southern species, Cope's Gray Treefrog: the true Gray Treefrog (D. versicolor) does not occur in Georgia, though the two are identical to the eye and separable only by call and range. Brilliantly camouflaged against bark and lichen, they're rarely seen despite being common. Their call is triggered by rain and humidity — on a warm humid evening you may hear a dozen calling from the trees above the house. The flash of orange-yellow on the inner thighs when they leap is a distinctive field mark.",
       "conservation": "Common",
       "photo": "images/amphibians/gray-treefrog.jpg",
       "attribution": {
@@ -350,7 +350,7 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Gray_Tree_Frog_(Hyla_versicolor),_Peoria,_Illinois_XC135285.mp3"
       },
-      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/gray-treefrog/"
+      "srelUrl": "https://srelherp.uga.edu/frogs-and-toads/copes-gray-treefrog/"
     },
     {
       "id": "spotted-salamander",
@@ -517,8 +517,9 @@
     },
     {
       "id": "two-lined-salamander",
-      "name": "Two-lined Salamander",
-      "scientificName": "Eurycea bislineata",
+      "name": "Two-lined Salamander (Eurycea sp.)",
+      "scientificName": "Eurycea cirrigera / E. wilderae",
+      "taxonomicNote": "Two species occur in Pickens County and are separated by larval and range detail, not field marks. E. cirrigera (Southern Two-lined) is the lowland animal; E. wilderae (Blue Ridge Two-lined) is the montane one, and at ~2,959 ft on a cold headwater stream it is the more likely of the two. The northern E. bislineata that older books list does not reach Georgia.",
       "emoji": "🟡",
       "type": "salamander",
       "statusLabel": "Stream resident",
@@ -546,7 +547,7 @@
       "call": "Silent",
       "size_in": "2.5–4.75",
       "appearance": "Slender yellowish-green salamander with a dark stripe along each side. Bronze to yellow-orange back.",
-      "notes": "The stream salamander. Where there's a healthy small stream at Church Mountain Road, there are Two-lined Salamanders under the rocks. Their presence is a bioindicator of excellent water quality — they're sensitive to sedimentation and pollution. Flip rocks in shallow stream margins to find them (replace rocks carefully — this is their home). Larvae live in streams for 1–3 years before metamorphosis. The first warm spring rains trigger breeding movements from stream edges.",
+      "notes": "The stream salamander. Where there's a healthy small stream at Church Mountain Road — Clear Creek and the seeps that feed it — there are Two-lined Salamanders under the rocks. Their presence is a bioindicator of excellent water quality — they're sensitive to sedimentation and pollution. Flip rocks in shallow stream margins to find them (replace rocks carefully — this is their home). Larvae live in streams for 1–3 years before metamorphosis. The first warm spring rains trigger breeding movements from stream edges.",
       "conservation": "Common in clean-water Blue Ridge streams — a good bioindicator of stream health",
       "photo": "images/amphibians/two-lined-salamander.jpg",
       "attribution": {
