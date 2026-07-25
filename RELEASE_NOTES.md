@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-25 — The animals that dig, browse, and tear things up
+
+- Two new mammal cards for the pests that leave real sign: the **nine-banded armadillo** (a recent arrival, and the one behind the conical rooting holes in the beds and turf) and the **feral hog** (a growing problem in the Jasper–Ellijay country, noted as an area concern rather than confirmed on the property).
+- Existing cards gained their field history: the **black bear** now records the 2025 pond-liner damage and the electric fence strung around the pond in response; the **gray squirrel** its nuisance-level abundance; and the **deer** and **cottontail** the pond-edge browsing that stripped the cardinal flower last August.
+- A few plants tell their own Fernwood stories now too: the **'Orangeola' Japanese maple** that only thrived after moving out of deep shade, the **mountain laurel** regrowing from cut stumps under the power line, and the **boxwood** that layers itself into free new plants.
+
+---
+
 ## 2026-07-25 — The pond plantings join the record
 
 - The plants that live in and around the pond now have their own cards: the **purple pitcher plant** in the bog, **pickerelweed**, **cardinal flower**, **corkscrew rush**, **dwarf papyrus**, **Bowles' golden sedge**, the **variegated Japanese iris** (the third pond iris, alongside the blue flag and yellow flag — striped leaves, deep purple flowers), and — with a watch-it warning — the **cattail**, which spreads fast and wants keeping in check.

@@ -120,9 +120,9 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 **Real property EVENTS → wildlife/device layer:**
 | Item | What it is | Status |
 |---|---|---|
-| **Wildlife nuisance flags → `mammals.json`** | Beaver (active nuisance — felling trees at the pond), feral hog (landscaping damage Jasper↔Ellijay), bear (tearing pond liner → electric fence), deer/rabbit (browse on pond-edge cardinal flower). These are active *management concerns*, not just presence. | IDEATION |
+| **Wildlife nuisance flags → `mammals.json`** | ✅ **DONE 2026-07-25.** Authored: **bear** — 2025 pond-liner damage → Paul's electric fence around the pond; **squirrel** — abundant to nuisance (digging beds/containers); **deer + cottontail** — pond-edge browse (cardinal flower stripped Aug 2025); **nine-banded armadillo** — NEW entry, confirmed burrowing pest (Paul, range-expansion); **feral hog** — NEW entry, framed as an *area* concern (Jasper–Ellijay landscaping damage), NOT asserted on-property. ⚠️ **Beaver CORRECTED (Paul 2026-07-25): they're at the LAKE, not the pond** — the mine mis-attributed it (same lake→pond slip as the amphibian note); beaver entry clarified to "Lake Sequoyah nearby (not the property pond)." | ✅ authored |
 | ~~**Amphibian-decline observation → `amphibians.json`**~~ | **KILLED 2026-07-25 (Paul):** don't author it — it's hearsay with no real data, AND it referred to the nearby **lake**, not our pond. **Our pond is healthy and full of frogs.** The ChatGPT-mine capture mis-attributed a lake remark to the pond. | 🪦 KILLED — don't author |
-| **Pond infrastructure → `devices.json`** | Bear **electric fence**; **pump shed** (30×22×18 plywood, sloped roof); a second gutter+drain on the existing shed. Installed/in-progress, only in ChatGPT today. | IDEATION |
+| **Pond infrastructure → the rich-pond-zone** (was → `devices.json`) | Bear **electric fence**; **pump shed** (30×22×18 plywood, sloped roof); second gutter+drain on the existing shed; pond **pump + filter → waterfall**; EPDM 40-mil liner ~22 ft × 4.5 ft. **Decision 2026-07-25: do NOT author into the Nest-sourced `devices.json`** — these are pond builds and belong in the **"zones as rich content-containers"** item (A2), where the pond zone will hold its koi + pump/filter + plants. The bear fence is already captured on the `black-bear` mammal entry. The full spec lives here + in the rich-zone item until that zone is built. | ⏸ folds into the rich-pond-zone (A2), not devices.json |
 | **`guides/` hunting & game reference** | Pickens County seasons/limits + squirrel/hog handling & meat safety. ⚠️ regs are year-dated — annual-refresh flag. | IDEATION |
 
 **The pond (densest thread, no data-model home yet):**
@@ -136,8 +136,8 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 **Existing-plant field history + reference:**
 | Item | What it is | Status |
 |---|---|---|
-| **'Orangeola' Japanese-maple field history** → existing Japanese Maple entry | Shade/heat struggle + powdery mildew → recovered after a move to more sun. | IDEATION |
-| **Mountain-laurel regrowth / boxwood self-layering / white-pine prop** notes | Onto existing entries. | IDEATION |
+| **'Orangeola' Japanese-maple field history** → existing Japanese Maple entry | ✅ **DONE 2026-07-25** — appended to the `japanese-maple` guide: the 'Orangeola' struggled in deep shade (heat + powdery mildew from low airflow), recovered after a move to a brighter spot; the "shade-tolerant ≠ deep-shade-happy" lesson. | ✅ authored |
+| **Mountain-laurel regrowth / boxwood self-layering / white-pine prop** notes | ✅ **DONE 2026-07-25** — appended to guides: `mountain-laurel` (regrowing from cut stumps under the power line), `boxwood` (self-layering = free propagation, how-to), `white-pine` (prop interest — honest note that pines don't root from cuttings; seed/graft are the real paths). | ✅ authored |
 | **Heritage cherry tree — planned planting** | Kirschenbauer = "cherry farmer" (Bavaria); site meets chill hours. Intent, not planted. | IDEATION |
 | **Fold "Home in Jasper Summary" (2025-07-19)** into property reference | A ready property-context brief; **verify-then-fold** vs `property.json`, don't trust wholesale. | IDEATION |
 | **Lake Sequoyah fishing reference** | 2025-03 lake-specific fishing intel. | IDEATION |
@@ -148,6 +148,8 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 - **Address: 282 Church Mountain Road is canonical.** The lone "Wildcat Road" mention in a 2025 chat thread was wrong.
 - **Japanese maples → Fernwood** (being planted here) — item added above.
 - **Pest-control facts stay in Fernwood; the hunting/firearms detail stays private** (kept out of this public repo — see the mine's round-2 report §E; cross-link only in a private surface). Ratified.
+
+**⚠️ Reconcile learning (Paul, 2026-07-25) — the mine conflates the nearby LAKE with the property POND.** Two mine-sourced water items were mis-attributed to the pond when they belong to Lake Sequoyah: the **amphibian decline** (KILLED — hearsay, and it's the lake) and the **beaver** (they fell trees at the lake, not the pond — the property pond has no beaver and is healthy, full of frogs). **On any mine-sourced water/aquatic item, verify pond-vs-lake with Paul before authoring** — the two are 0.3 mi apart and the source text blurs them. (Bear-at-the-pond-liner and the deer/rabbit pond-edge browse were confirmed as genuinely the property pond.)
 
 ---
 
