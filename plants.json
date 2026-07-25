@@ -1191,10 +1191,15 @@
           ]
         },
         "propagate": {
-          "months": [],
-          "peakWindow": null,
+          "months": [
+            8,
+            9,
+            2,
+            3
+          ],
+          "peakWindow": "Collect samaras Sep–Oct; sow in spring after ~3-mo cold-strat",
           "narrow": false,
-          "description": "Most cultivars (named varieties like 'Bloodgood' or any laceleaf type) are grafted onto seedling rootstock and won't come true from cuttings or seed — propagation is for specialists. Species Acer palmatum can be grown from seed (collect samaras in fall, cold-stratify, sow in spring), but seedlings are highly variable. If you want more of a specific cultivar, it's nursery stock only.",
+          "description": "Most cultivars (named varieties like 'Bloodgood' or any laceleaf type) are grafted onto seedling rootstock and won't come true from cuttings or seed — propagation is for specialists. Species Acer palmatum can be grown from seed (collect samaras in fall, cold-stratify, sow in spring), but seedlings are highly variable. If you want more of a specific cultivar, it's nursery stock only. Field history at Fernwood — Paul's own seed program: each year he collects Japanese-maple samaras around the Grant Park neighborhood in Atlanta, cold-stratifies the seed in the fridge for about three months, soaks it, and sows it at Tate in spring. It's a low-odds, high-fun annual ritual — most seedlings don't make it, but some do: a few small maples are already scattered around the property from past years, and this year's fresh crop has about three tiny ones hanging on. Seedlings are variable (they won't match any parent cultivar), which is half the fun. Worth keeping up each year.",
           "peakDates": []
         },
         "fertilize": {
@@ -3835,89 +3840,6 @@
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_paniculata_IMG_6629.JPG"
       },
       "zoneId": null
-    },
-    {
-      "id": "sarracenia-purpurea",
-      "name": "Purple Pitcher Plant",
-      "scientificName": "Sarracenia purpurea",
-      "emoji": "🪴",
-      "zoneId": "pond-area",
-      "photo": null,
-      "attribution": null,
-      "guide": "A hardy native carnivorous pitcher plant, grown here as a bog planting at the pond. Its squat, veined pitchers hold rainwater and trap insects — unusual among Sarracenia in that the purpurea pitchers fill with water rather than staying dry. It wants a sunny, permanently-wet, nutrient-poor acidic bog: exactly the fish-free shallow margin of a pond. Cold-hardy well below this elevation, so it overwinters outside — the winter-survival question worth watching is wet-not-frozen-solid roots, not the cold itself.",
-      "currentSeasonNote": "Bought spring 2026 and set in the pond bog. First season here, so its bloom and pitcher timing at ~2,959 ft are not yet observed — worth noting when the first spring 'umbrella' flowers and when the new pitchers open, to establish local timing.",
-      "soilNotes": "Wants a nutrient-POOR, acidic, permanently-wet bog mix — sphagnum/peat + sand, never garden soil or fertilizer (fertilizer kills it). The pond margin's acidic water suits it; the one thing to protect is the low-nutrient root zone, so keep it out of any spot collecting leaf-litter mud or runoff.",
-      "aspectPreference": "Full sun is best for strong pitcher colour and vigor; it will tolerate part sun. A pond-edge spot with open sky overhead is ideal.",
-      "frostSensitivity": "Very cold-hardy (to roughly Zone 3) — no cold concern at this elevation. It goes dormant in winter; leave the old pitchers until spring. The real overwinter question is keeping the crown wet but not frozen into solid ice for long stretches — a pond that doesn't freeze to the bottom is fine.",
-      "care": {
-        "prune": {
-          "months": [
-            2,
-            3
-          ],
-          "peakWindow": "Feb–Mar",
-          "narrow": false,
-          "description": "In early spring, trim off winter-blackened pitchers before new growth pushes.",
-          "peakDates": []
-        },
-        "propagate": {
-          "months": [
-            3,
-            4
-          ],
-          "peakWindow": "Mar–Apr",
-          "narrow": false,
-          "description": "Divide the rhizome in early spring, or let it clump up.",
-          "peakDates": []
-        },
-        "fertilize": {
-          "months": [],
-          "peakWindow": null,
-          "narrow": false,
-          "description": "NEVER fertilize — it feeds itself on insects; fertilizer or rich soil is fatal.",
-          "peakDates": []
-        },
-        "water": {
-          "months": [],
-          "peakWindow": null,
-          "narrow": false,
-          "description": "Keep permanently wet with rainwater / pond water; never let the bog dry out.",
-          "peakDates": []
-        },
-        "repot": {
-          "months": [],
-          "peakWindow": null,
-          "narrow": false,
-          "description": "Not applicable — a pond/bog planting, not a container plant.",
-          "peakDates": []
-        },
-        "inspect": {
-          "months": [
-            4,
-            5,
-            6,
-            7,
-            8,
-            9
-          ],
-          "peakWindow": null,
-          "narrow": false,
-          "description": "Watch that the crown stays wet and low-nutrient; remove any leaf-mud smothering it.",
-          "peakDates": []
-        }
-      },
-      "bloom": {
-        "window": "spring (unobserved here yet)",
-        "dates": [
-          {
-            "start": "04-15",
-            "end": "05-31"
-          }
-        ],
-        "confidence": "inferred",
-        "note": "Nodding maroon 'umbrella' flowers on tall stalks in spring — timing at this elevation not yet observed."
-      },
-      "_provenance": "Paul confirmed 2026-07-22 the Sarracenia are in the pond at Tate (supersedes an earlier 'Atlanta-only' note). Care is authored from horticultural knowledge; local phenology is unobserved. Source: ChatGPT-mine A8."
     },
     {
       "id": "pickerelweed",
