@@ -524,6 +524,27 @@
       ],
       "notes": "The native answer for the shaded lawn edges, not the open sunny fairway — honestly, a sunny native turf-grass that takes regular mowing and foot traffic the way tall fescue does largely doesn't exist for the Southeast yet. Plant as plugs; needs little once established and tolerates light foot traffic.",
       "curationNotes": "Native, and the “don't limit our thinking” entry: a real native lawn alternative, scoped to where it actually works (shade), with the sunny-turf limitation stated plainly."
+    },
+    {
+      "id": "heritage-cherry",
+      "name": "Cherry tree — a heritage planting",
+      "scientificName": "Prunus cerasus (sour/tart) · Prunus avium (sweet)",
+      "emoji": "🍒",
+      "status": "considering",
+      "category": "heritage-fruit",
+      "rationale": "A cherry tree honoring the Kirschenbauer name — literally 'cherry farmer' in Bavaria. The site is what makes it feasible: at 2,959 ft, Fernwood sits in the Georgia mountains, one of the few parts of the state that actually meets a cherry's winter chill requirement (1,000–2,000 hours) — lowland Georgia can't, which is why cherries fail there. So this is a planting the elevation genuinely earns.",
+      "communityFit": [
+        "Open, sunny, well-drained slope (full sun, good air movement)",
+        "Not a wet or low-lying spot"
+      ],
+      "sourceIds": [
+        "chatgpt-mine-a8-cherry-thread"
+      ],
+      "flaggedBy": "Paul",
+      "notes": "WHAT WORKS HERE — Sour/tart cherry (Prunus cerasus) is the better bet, and the one that also matches the Bavarian heritage (Sauerkirsche / Morello are the classic Bavarian cherry, the Black-Forest-cake cherry). It's self-fertile (a single tree fruits — no pollinizer needed), hardier, and blooms a little later than sweet cherry so it dodges more spring frosts. UGA recommends 'Montmorency' and 'Early Richmond' for Georgia; a Morello leans most authentically Bavarian. WHAT'S HARDER — Sweet cherry (Prunus avium; e.g. 'Rainier') is possible at this elevation but tougher: it usually needs a second tree to pollinate, blooms earliest (most frost-exposed), and is the most disease-prone. THE CAVEATS EITHER WAY — the humid Southeast is hard on cherries: brown rot, cherry leaf spot (Montmorency is especially leaf-spot-prone), and powdery mildew all thrive in still, damp air, and early bloom means a late frost can take the crop. Site it in full sun on a breezy, well-drained spot and treat a good fruit year as a bonus, not a given. THE PICK we're circling: a sour/Morello cherry — it's both the most plantable choice for this site and the most Bavarian. The exact cultivar is Paul's to lock in (Montmorency = easiest to source + UGA-backed; a true Morello = most heritage-faithful).",
+      "curationNotes": "Horticulture web-verified 2026-07-25 against UGA Extension 'Minor Fruits and Nuts in Georgia' (B992) + general SE cherry references: cherries need 1,000–2,000 chill hrs met only in GA's Piedmont/mountains; sour > sweet in GA; sour cherries self-fertile; humid-SE disease pressure (brown rot, leaf spot, powdery mildew) and early-bloom frost risk are the real limiters. Heritage tie (Kirschenbauer = cherry farmer, Bavaria) is Paul-stated. Intent, not yet planted.",
+      "photo": null,
+      "attribution": null
     }
   ]
 }

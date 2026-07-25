@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-25 — A cherry tree worth considering
+
+- Worth Considering has a new entry: a **cherry tree** — a nod to the Kirschenbauer name, which means "cherry farmer" in Bavaria. It's here because the property earns it: at nearly 3,000 feet, Fernwood gets the winter chill a cherry needs, which most of Georgia can't give one.
+- The card lays out what actually works here — a **sour (tart) cherry** is the sweet spot, both the easiest to grow in our humid mountains and the most true to the Bavarian roots (it's the Black-Forest-cake cherry) — versus what's harder (sweet cherries bloom too early and catch more disease), with the real caveats named honestly.
+
+---
+
 ## 2026-07-25 — The animals that dig, browse, and tear things up
 
 - Two new mammal cards for the pests that leave real sign: the **nine-banded armadillo** (a recent arrival, and the one behind the conical rooting holes in the beds and turf) and the **feral hog** (a growing problem in the Jasper–Ellijay country, noted as an area concern rather than confirmed on the property).
