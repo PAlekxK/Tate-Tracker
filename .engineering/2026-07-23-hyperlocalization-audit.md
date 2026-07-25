@@ -682,3 +682,29 @@ readings still stand. The rain findings in §2.1 are untouched by any of this (t
 days are arithmetic in the rollup). Note also that the 20:00→20:00 ET window does *not*
 corrupt temperature the way it corrupts rain: daily max and min both still fall inside the
 shifted window, whereas `dailyrainin` is a reset-counter and gets double-counted.
+
+---
+
+## 13. Build decisions — Paul, 2026-07-25
+
+Walked through the three items that carried a real design choice. Decisions locked:
+
+- **#8 · `currentSeasonNote` → month-keyed authored notes.** Replace the single drifting string
+  with a `seasonNotes: {"<month>": "..."}` object; the card renders today's month's line and
+  stays silent for months with none. Chosen over generate-from-data (voice risk) and
+  gate-the-single-note (goes blank most of the year) because it keeps the field-journal voice
+  *and* structurally cannot go stale. Claude drafts all months in voice; **Paul spot-checks
+  before ship.** This is authoring work, done once.
+- **#9 · lake temp → climatology backbone + bounded nudge.** `historicalWaterTemp[month].typical`
+  plus `clamp(0.35 × recent-air-anomaly, −6, +6)`, then clamp to `[33, monthHigh+4]`. Gives
+  thermal mass, reflects a real warm/cold spell, and makes 26°F-water / "still-warming-at-peak"
+  impossible. Chosen over stable-seasonal (wanted some responsiveness) and fix-air-model-in-place
+  (keeps the fragile premise).
+- **#12 · sun times → show both, labeled, split by location.** Precompute a horizon profile for
+  the lake and the house; solve true sundown/sunup against it. **Fishing card speaks for the
+  lake** ("sun off the water 8:35 · ridge west of the lake"); **dashboard sunset tile speaks for
+  the house** ("Sunset 8:46 · last light here ~8:50"). Chosen over silent (hides the result) and
+  replace-outright (unexplained disagreement reads as wrong). Matches the app's existing
+  measured-vs-standard honesty.
+
+None built yet — decisions only.
