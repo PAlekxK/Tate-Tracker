@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-25 — A steadier read on the lake's temperature
+
+- The estimated water temperature for Lake Sequoyah is calmer and more trustworthy now. It leads with **what the lake typically runs each month** — which already reflects how water lags the air by weeks — and then nudges a few degrees for whether it's been warmer or cooler than usual lately.
+- The old estimate leaned too hard on the coming week's air forecast, which let it drift into readings that couldn't be right — showing the lake *still warming* at the height of summer, or improbably cold figures in winter. It now stays within a believable range for the season, in every month.
+
+---
+
 ## 2026-07-25 — When the sun really leaves the water
 
 - The fishing windows now know the shape of the land. Up to now, sunrise and sunset came straight from a weather service that assumes a flat, sea-level horizon — but **Lake Sequoyah sits in a bowl with a ridge to its west**, so the sun drops off the water noticeably earlier than the clock says (and clears the far ridge later in the morning). We measured the real skyline from elevation data and the dawn and dusk windows now follow *that*.
