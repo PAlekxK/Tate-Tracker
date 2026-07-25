@@ -457,7 +457,7 @@
           "source": "On-disk manual is the international edition and defers to the car: 'factory-fitted sticker on the inside of the tank flap indicates the required fuel type' (manuals/text/tiguan-2018.txt). US 87-minimum figure not on disk — confirm off the fuel-flap sticker."
         },
         "oil": {
-          "value": "0W-20 meeting VW 508.00 / 509.00 spec. Capacity ~5.3 qt with filter.",
+          "value": "0W-20 meeting VW 508.00 spec. Capacity ~5.3 qt with filter.",
           "confidence": "inferred",
           "source": "manuals/text/tiguan-2018.txt confirms VW 508 00 for petrol engines (oil-spec table), but states neither viscosity nor capacity — verify capacity before an oil change (~5.3 qt is unconfirmed; US-spec figure may differ)."
         },
@@ -598,7 +598,7 @@
         "sparkPlugs": {
           "value": "Motorcraft SP-417 (6 needed) — gap 0.054\"",
           "confidence": "inferred",
-          "source": "Owner's guide defers plug specs to the dealer ('For spark plug replacement, see your authorized dealer') — SP-417 / 0.054\" gap are from parts research; confirm against the underhood emissions (VECI) decal."
+          "source": "manuals/text/f150-2006.txt confirms the 4.2L V6 gap spec (0.052–0.056 in, so 0.054\" is correct) and the firing order 1-4-2-5-3-6, but defers the plug part number to the dealer ('For spark plug replacement, see your authorized dealer') — SP-417 is parts research; confirm the P/N against the underhood emissions (VECI) decal. (Gap is manual-verified; the entry stays 'inferred' only because the P/N isn't.)"
         },
         "coolant": {
           "value": "Motorcraft Premium Gold (yellow) — VC-7-A (VC-7-B in CA/OR/NM), Ford spec WSS-M97B51-A1; maintain 50/50 with distilled water. (Zerex G-05 is the common aftermarket cross-reference.)",
@@ -606,9 +606,9 @@
           "source": "manuals/text/f150-2006.txt — 'Motorcraft Premium Gold Engine Coolant (yellow-colored), VC-7–A … meeting Ford Specification WSS-M97B51–A1'; 'concentration should be maintained at 50/50 coolant and distilled water'."
         },
         "transmissionFluid": {
-          "value": "MERCON V (4R70W). Total fill ~13.9 qt; pan service ~5 qt.",
-          "confidence": "inferred",
-          "source": "Owner's guide lists the automatic as '4R70E and 4R75E' with ~13.9-qt approximate dry fill, and says the fluid type is 'indicated on the dipstick or on the dipstick handle' — MERCON and MERCON V are NOT interchangeable ('DO NOT mix'). Read the dipstick before service; the flat 'MERCON V (4R70W)' claim is unconfirmed."
+          "value": "MERCON V. Total fill ~13.9 qt; pan service ~5 qt.",
+          "confidence": "verified",
+          "source": "manuals/text/f150-2006.txt — the maintenance/fluid table specifies 'Motorcraft MERCON V ATF' for the automatic (4R70E/4R75E) and warns 'MERCON and MERCON V are not interchangeable. DO NOT mix'; dry fill 13.9 qt (13.2 L). (Pan service ~5 qt is a shop rule-of-thumb, not from the manual.) Note: plain MERCON in this manual is only the power-steering and transfer-case fluid — not the transmission."
         },
         "brakeFluid": {
           "value": "DOT 3",
@@ -1363,14 +1363,9 @@
           "source": "Owner's manual shows foam pre-filter + element service but no P/N; JN6-E4450-00 from parts research."
         },
         "oilFilter": {
-          "value": "None — Yamaha gas-cart engines use an internal oil screen/strainer, not a replaceable spin-on filter. Clean the screen at oil changes.",
+          "value": "None — no replaceable oil filter; the oil change is drain + refill only.",
           "confidence": "verified",
-          "source": "Consistent with the owner's manual: the oil-change procedure is drain + refill only — no filter item anywhere in the maintenance chart."
-        },
-        "brakeFluid": {
-          "value": "Likely NONE — the owner's manual maintenance chart has only 'check brake pedal freeplay and adjust' (mechanical drum brakes) and no brake-fluid item anywhere. Confirm there is no master-cylinder reservoir on the cart, then drop this line.",
-          "confidence": "inferred",
-          "source": "manuals/text/g22a-2005.txt maintenance chart — brake service = pedal-freeplay adjustment; no hydraulic-fluid mention in the whole manual."
+          "source": "manuals/text/g22a-2005.txt — the oil-change procedure is drain + refill only, no filter item anywhere in the maintenance chart. (An internal screen may exist but the manual gives no screen-service step, so none is claimed.)"
         },
         "tirePressure": {
           "value": "16 psi (110 kPa) — G22A spec per the owner's manual (the earlier '18–22 psi typical' was high).",
@@ -1432,9 +1427,9 @@
           "source": "manuals/text/kobalt-km2040x-06.txt — 'Use only KOBALT replacement blades (Item #0535389, sold separately)'."
         },
         "battery": {
-          "value": "Kobalt 40V Max Li-Ion — the manual lists 40V 73 Wh (2.0 Ah, ~1-hr charge) and 146 Wh (4.0 Ah, ~2-hr charge) packs. Note: the manual consistently refers to a single battery — confirm whether this unit really runs two at once before buying spares.",
-          "confidence": "inferred",
-          "source": "manuals/text/kobalt-km2040x-06.txt specifications — 'Charge time 1 hour, for 40 V 73 Wh battery / 2 hours, for 40 V 146 Wh battery'; parts list shows 'Battery' (singular)."
+          "value": "Kobalt 40V Max Li-Ion — 40V 73 Wh (2.0 Ah, ~1-hr charge) or 146 Wh (4.0 Ah, ~2-hr charge) packs. Runs a SINGLE battery in one port; the \"DUAL\" on the cover means dual-BLADE, not two batteries. Buy spares as single packs.",
+          "confidence": "verified",
+          "source": "manuals/text/kobalt-km2040x-06.txt — battery specs 'Charge time 1 hour for 40 V 73 Wh / 2 hours for 40 V 146 Wh'; install/remove steps are all singular (one port, one cover, one release), and the cover's 'DUAL BLADE MOWER' label refers to the two blades."
         },
         "batteryStorage": {
           "value": "Off-season: store at ~40–60% charge in cool, dry place. Avoid leaving fully discharged.",
