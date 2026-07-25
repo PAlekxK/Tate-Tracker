@@ -91,14 +91,27 @@ async function fetchAmbientHistory(endDateMs, limit = 288) {
   throw new Error("Ambient API rate limit not cleared after 5 retries");
 }
 
+// Minutes that wall-clock time in `timeZone` leads UTC at the given instant
+// (e.g. -240 for America/New_York in EDT, -300 in EST). Independent of the
+// process timezone — GitHub Actions runners are UTC, which is why the old
+// `new Date(y,m,d)` (process-local midnight) sliced days on a UTC boundary and
+// double-counted the gauge's ET-midnight reset. See ROLLUP_TZ.
+function tzOffsetMinutes(instant, timeZone) {
+  const p = new Intl.DateTimeFormat("en-US", {
+    timeZone, hour12: false, year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit",
+  }).formatToParts(instant).reduce((a, x) => ((a[x.type] = x.value), a), {});
+  const asUTC = Date.UTC(p.year, p.month - 1, p.day, p.hour === "24" ? 0 : p.hour, p.minute, p.second);
+  return (asUTC - instant.getTime()) / 60000;
+}
+
 function dayBoundsMs(localDate) {
-  // localDate is YYYY-MM-DD. Compute UTC ms for [start, end) of that local day.
-  // We use a quick hack: parse with the TZ offset baked into a Date constructed
-  // from the local-date midnight string.
+  // localDate is YYYY-MM-DD. Return the UTC ms window [start,end) for that
+  // calendar day AS IT FALLS IN ROLLUP_TZ (Eastern) — not in the process zone.
   const [y, m, d] = localDate.split("-").map(Number);
-  // Create a date at local midnight, then check the offset
-  const localMidnight = new Date(y, m - 1, d, 0, 0, 0);
-  const start = localMidnight.getTime();
+  const guess = Date.UTC(y, m - 1, d, 0, 0, 0);
+  const offMin = tzOffsetMinutes(new Date(guess), ROLLUP_TZ);
+  const start = guess - offMin * 60000;   // ET midnight, expressed in UTC ms
   const end = start + 24 * 60 * 60 * 1000;
   return { start, end };
 }

@@ -12,6 +12,7 @@ What's changed at Fernwood lately. Newest first.
 - The **deer rut** now carries its real week — **November 10–16** in Pickens County, from Georgia DNR's county rut map — rather than a vague "November."
 - A **solar-eclipse note for August 12** was removed: that eclipse isn't visible from Georgia at all. The **Perseid meteor shower** peaking the same night — which *is* the real show — was already on the calendar.
 - Small fixes: the November bird note no longer lists a turkey *hunting* season (Georgia's is spring-only), and the plant section no longer hard-codes a plant count that had gone stale.
+- The **rainfall note** is now honest about a wrinkle we found: the on-property gauge has been reading wetter than the regional average, but the gauge sits in a sheltered spot by the pond and a day-boundary bug had been double-counting some days — so the note no longer claims a specific "more rain" figure while we sort out how much is really the mountain. (The counting bug is fixed going forward.)
 
 ---
 

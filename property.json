@@ -111,14 +111,17 @@
   "soils": {
     "likelySeries": [
       "Hayesville",
-      "Cecil",
-      "Pacolet"
+      "Ashe",
+      "Edneyville",
+      "Porters",
+      "Tallapoosa"
     ],
+    "seriesNote": "INFERRED, not tested. Cecil and Pacolet were removed 2026-07-25: both are thermic Piedmont series capped near 900 ft elevation and do not occur in this county's soil survey, so they cannot be right for a 2,959 ft Blue Ridge site. The series listed now are the mesic, higher-elevation Blue Ridge candidates (Ashe, Edneyville and Porters are shallow, coarse-loamy Inceptisols; Tallapoosa is a shallow Hapludult mapped nearby). Which one is actually underfoot is unconfirmed until the W9 soil test returns a texture result. See .plans/2026-07-25-soil-sampling-plan.md.",
     "parentMaterial": "Residuum weathered from high-grade metamorphic and igneous rock \u2014 mica gneiss, mica schist, granodiorite. Typical of the Southern Appalachian Blue Ridge.",
-    "texture": "Sandy loam to loam surface horizon (A/E); red-yellow sandy clay loam to clay loam subsoil (Bt argillic horizon). Moderately high clay content in subsoil can impede drainage in flat areas.",
+    "texture": "Sandy loam to loam surface over a coarse, micaceous subsoil; on these Blue Ridge slopes the soil is typically shallow, with weathered rock within roughly 20 inches. Well to excessively drained. The governing constraint here is shallow rooting depth and summer drought stress on a steep slope, NOT perched water over clay (the clay-subsoil/argillic story belongs to the Piedmont series that were wrongly listed before 2026-07-25 and does not apply at this elevation). Unconfirmed until the W9 soil test.",
     "structure": "Moderate granular structure when in good health; can become compacted and crusting when depleted of organic matter or heavily trafficked.",
     "pH": {
-      "nativeRange": "4.5\u20135.5 (extremely acid to moderately acid, unlimed)",
+      "nativeRange": "Likely 4.5-5.5 (acidic), but INFERRED from regional Blue Ridge soils - NO on-site soil test has ever been run, so treat this as a hypothesis, not a measurement. The W9 soil test will replace it with real per-zone numbers.",
       "plantingTargets": {
         "acidLovers": "4.5\u20135.5 \u2014 azaleas, rhododendrons, mountain laurel, blueberries; your native soil is ideal unlimed",
         "generalShrubsAndTrees": "5.5\u20136.5 \u2014 dogwood, hydrangea, boxwood, holly, Japanese maple; may need light liming",
@@ -129,7 +132,7 @@
     },
     "drainage": {
       "onSlopes": "Well-drained to excessively drained \u2014 water moves through quickly; drought stress risk in summer",
-      "flatAreas": "Watch for perched water tables above clay subsoil; test drainage by digging 12-inch hole and observing after rain",
+      "flatAreas": "On the few flatter benches, check drainage by digging a 12-inch hole and watching it after rain before planting anything moisture-sensitive. (The old 'perched water over clay subsoil' warning was tied to the mis-listed Piedmont series and likely overstates the risk on these coarse, shallow soils.)",
       "lowAreas": "Potential for seasonal wet spots \u2014 check before planting moisture-sensitive species"
     },
     "organicMatter": {
