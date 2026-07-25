@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-25 — When the sun really leaves the water
+
+- The fishing windows now know the shape of the land. Up to now, sunrise and sunset came straight from a weather service that assumes a flat, sea-level horizon — but **Lake Sequoyah sits in a bowl with a ridge to its west**, so the sun drops off the water noticeably earlier than the clock says (and clears the far ridge later in the morning). We measured the real skyline from elevation data and the dawn and dusk windows now follow *that*.
+- The fishing card carries a plain-spoken line — **"sun on the water 7:00 · off the water 8:34"** — with a note that the lake's ridge is why it differs from the clock sunset.
+- The dashboard's sunset now adds **"last light here"** for the house itself, where the land falls away to the west and the sun actually lingers a few minutes longer than the published time.
+
+---
+
 ## 2026-07-25 — A pass through the record for accuracy
 
 - The **snakebite first-aid note** now reflects current guidance — keep a bitten limb **at heart level** (the older "below heart level" advice has been dropped), and take off rings and watches before swelling starts.
