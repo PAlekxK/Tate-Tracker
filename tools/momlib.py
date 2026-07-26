@@ -276,6 +276,91 @@ def question_state(q, c=None):
             "why": f"{info['where']} is `{info['value']}`"}
 
 
+# ------------------------------------------- free-text notes have a lifecycle
+#
+# THE GAP THIS CLOSES (Paul, 2026-07-26). A confirm answer has a target we can
+# probe, so "is it dealt with?" derives. A free-text note has nothing to probe —
+# so until now it had NO state at all. It was captured perfectly, shown once
+# while it was newer than the watermark, and then aged out silently forever.
+#
+# That is exactly how her 2026-07-26 rainfall report — a correct bug report,
+# about a figure that was wrong by 14× against her own rain gauge — sat unseen.
+# Capture was never the problem. The loop had three legs and no fourth.
+#
+# "Did we act on what she said?" genuinely CANNOT be derived: no artifact in the
+# repo records it. So this is the one place an explicit assertion is the honest
+# instrument, and it earns its existence by answering a question no other store
+# can. It is kept minimal and self-dating: a note id, when we addressed it, and
+# WHERE it went. Never her words — those live in the Worker, and this file is
+# tracked in a PUBLIC repo.
+
+FEEDBACK_LOG = os.path.join(ROOT, "feedback-log.json")
+
+
+def load_feedback_log():
+    data = load_json("feedback-log.json")
+    entries = data.get("addressed") or []
+    return {e["noteId"]: e for e in entries if isinstance(e, dict) and e.get("noteId")}
+
+
+def save_feedback_log(by_id):
+    payload = {
+        "_meta": {
+            "purpose": "Disposition of Mom's free-text feedback — WHERE each note went. "
+                       "Never her words (public repo); the verbatim lives in the Worker.",
+            "schemaVersion": 1,
+            "writtenBy": "tools/read-mom-feedback.py --address",
+        },
+        "addressed": sorted(by_id.values(), key=lambda e: e.get("noteTs") or ""),
+    }
+    with open(FEEDBACK_LOG, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+def is_general_note(rec):
+    """A free-text note from Mom, as opposed to a confirm tap.
+
+    Covers both shapes: the standing open card (`kind:"open"`) and any
+    non-mom-queue general record — both carry words and no fold target.
+    """
+    if not (rec.get("note") or "").strip():
+        return False
+    ctx = rec.get("context") or {}
+    if ctx.get("type") == "mom-queue":
+        return rec.get("sentiment") not in DEFINITIVE
+    return ctx.get("type") not in ("w1-verify",)  # bench-test records aren't feedback
+
+
+def note_state(rec, log=None):
+    """`addressed` (we recorded where it went) or `needs-reply` (nothing has).
+
+    `needs-reply` is ACTIONABLE, which is what stops the watermark from ever
+    burying it — the systematic half of the fix.
+    """
+    log = load_feedback_log() if log is None else log
+    entry = log.get(rec.get("id"))
+    if entry:
+        return {"state": "addressed", "entry": entry,
+                "why": f"{entry.get('addressedOn','?')} — {entry.get('disposition','(no disposition recorded)')}"}
+    return {"state": "needs-reply", "entry": None,
+            "why": "nothing recorded as answering this"}
+
+
+def address_note(rec, disposition, acknowledged=False):
+    """Record WHERE a note went. Paul's judgment, written down once."""
+    log = load_feedback_log()
+    log[rec["id"]] = {
+        "noteId": rec["id"],
+        "noteTs": rec.get("ts"),
+        "addressedOn": dt.date.today().isoformat(),
+        "disposition": disposition,
+        "acknowledgedToHer": bool(acknowledged),
+    }
+    save_feedback_log(log)
+    return log[rec["id"]]
+
+
 # ------------------------------------------------ deriving "her latest input"
 
 # The channels input actually arrives through. TEXT IS NOT ONE — the app is the

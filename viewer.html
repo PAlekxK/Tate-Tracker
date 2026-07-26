@@ -2184,6 +2184,46 @@
     line-height: 1;
     margin-bottom: 2px;
   }
+  /* Day-by-day rain at our own gauge — Mom asked for this directly
+     ("I could look back and see the rainfall by day", 2026-07-26). The data
+     was already being fetched and never shown. */
+  .rain-byday-hdr {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #5a8aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 10px 0 5px;
+  }
+  .rain-byday {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .rain-byday-cell {
+    background: #fff;
+    border: 1px solid #d0e8f4;
+    border-radius: 7px;
+    padding: 5px 2px 4px;
+    text-align: center;
+  }
+  .rain-byday-cell.is-today { border-color: #7fb8d4; background: #f2f9fd; }
+  .rain-byday-day {
+    font-size: 9px;
+    font-weight: 700;
+    color: #5a8aaa;
+    letter-spacing: 0.3px;
+  }
+  .rain-byday-amt {
+    font-family: "Crimson Text", serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a3a5a;
+    line-height: 1.15;
+  }
+  .rain-byday-amt.is-dry { color: #a8bfcc; font-weight: 500; }
+  .rain-byday-amt.is-wet { color: #12557f; }
+  .rain-byday-none { font-size: 11px; color: #a8bfcc; }
   .rv-badge {
     display: inline-block;
     margin-top: 5px;
@@ -6405,16 +6445,26 @@ function renderPropertyGaugeBlock(d) {
   const rate    = d.hourlyrainin != null ? d.hourlyrainin.toFixed(2) : "0.00";
   const today   = d.dailyrainin  != null ? d.dailyrainin.toFixed(2)  : "0.00";
   const event   = d.eventrainin  != null ? d.eventrainin.toFixed(2)  : null;
-  const week    = d.weeklyrainin != null ? d.weeklyrainin.toFixed(2) : "0.00";
   const month   = d.monthlyrainin != null ? d.monthlyrainin.toFixed(2) : "0.00";
   const ratePos = d.hourlyrainin != null && d.hourlyrainin > 0;
   const eventPos = event != null && parseFloat(event) > 0;
+
+  // "Week" used to be the station's own `weeklyrainin`, which RESETS on the
+  // week boundary — so on a Sunday it read 0.02" two days after 1.96" fell, and
+  // the summary below then announced a "Dry stretch." Nobody means "since
+  // Sunday" when they say week. Use the rolling seven days ending today, the
+  // same number the day-by-day strip shows, so the two can never disagree.
+  // (Falls back to the station field, honestly relabelled, if history is late.)
+  const roll7 = stationRain7();
+  const week      = roll7 ? roll7.total.toFixed(2)
+                    : (d.weeklyrainin != null ? d.weeklyrainin.toFixed(2) : "0.00");
+  const weekLabel = roll7 ? "Last 7 Days" : "Since Sun";
 
   // Summary status: actively raining / recently rained / dry
   let summary = "";
   if (ratePos) summary = "Raining now · " + rate + '"/hr';
   else if (parseFloat(today) > 0.05) summary = "Rained today · " + today + '" total';
-  else if (parseFloat(week) > 0.5) summary = "Recent rain · " + week + '" this week';
+  else if (parseFloat(week) > 0.5) summary = "Recent rain · " + week + '" in the last 7 days';
   else summary = "Dry stretch — " + month + '" this month';
 
   const cell = (label, value, active) =>
@@ -6432,7 +6482,7 @@ function renderPropertyGaugeBlock(d) {
       cell("Now",       rate,  ratePos) +
       cell("Today",     today, parseFloat(today) > 0) +
       (event != null ? cell("Event", event, eventPos) : cell("Event", "0.00", false)) +
-      cell("Week",      week,  false) +
+      cell(weekLabel,   week,  parseFloat(week) > 0.5) +
       cell("Month",     month, false) +
     '</div>' +
   '</div>';
@@ -6907,6 +6957,62 @@ function precipVerdict(pct) {
   return              { label: 'Very Wet', cls: 'rv-very-wet'  };
 }
 
+// ---- Rain at OUR OWN GAUGE, day by day (Mom's report, 2026-07-26) ----
+//
+// She wrote: the 7-day rainfall is confusing, she doesn't believe it, and she'd
+// like to see it by day. She was right on both counts, and it was not a small
+// miss: the figure came from the ERA5 regional grid, which read 0.14" for
+// 7/19–7/25 while HER OWN station recorded 2.01" — including 1.96" on 7/24, a
+// localized storm the ~10-25 km grid cell simply never saw. She knew, because
+// she was standing in it.
+//
+// Two defects behind one number:
+//   1. WRONG SOURCE on the glance. weather-bias.json already says the grid
+//      under-reads precip here by ~24% on average, and the burn-status code
+//      already prefers the station as "closer to ground truth at the property."
+//      The dashboard strip printed the grid figure anyway, unlabelled, inches
+//      from the station block showing something else. Source-hierarchy says the
+//      on-site station leads; this is that rule, applied where she reads.
+//   2. NOT ACTUALLY SEVEN DAYS. recentPrecip runs todayIdx-7 .. todayIdx
+//      EXCLUSIVE, i.e. the last seven COMPLETE days — today's rain is missing.
+//      Her instinct ("I don't believe it's literally the past seven days") was
+//      a precise bug report.
+//
+// Returns null when station history hasn't loaded, so the caller can fall back
+// to the grid — labelled as the estimate it is.
+function stationRain7() {
+  const days = (WEATHER_DATA.history && WEATHER_DATA.history.days) || [];
+  if (!days.length) return null;
+  const byDate = {};
+  for (const d of days) if (d && d.date) byDate[d.date] = d;
+
+  const iso = (dd) => dd.getFullYear() + "-" +
+    String(dd.getMonth() + 1).padStart(2, "0") + "-" +
+    String(dd.getDate()).padStart(2, "0");
+  const DOW = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+  const out = [];
+  // Seven days ENDING TODAY, inclusive — the plain reading of "past 7 days".
+  for (let i = 6; i >= 0; i--) {
+    const dd = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+    const key = iso(dd);
+    const rec = byDate[key];
+    out.push({
+      date: key,
+      label: DOW[dd.getDay()],
+      inches: rec ? (rec.rainTotal || 0) : null,
+      isToday: i === 0
+    });
+  }
+  const counted = out.filter(d => d.inches != null);
+  if (!counted.length) return null;
+  return {
+    days: out,
+    total: Math.round(counted.reduce((s, d) => s + d.inches, 0) * 100) / 100,
+    missingDays: 7 - counted.length
+  };
+}
+
 function renderRainfallPanel() {
   const container = document.getElementById("rainfall-panel");
   if (!container) return;
@@ -6961,10 +7067,35 @@ function renderRainfallPanel() {
         srcChip('reference', {title: 'ERA5 reanalysis (2001–2025) — regional, not the property gauge'}) +
       '</div>' +
       '<div class="rain-ctx-cols">' +
-        colHtml('Past 30 Days',   rp.rolling30.toFixed(2),    v30,  pct30)  +
-        colHtml('Past 7 Days',    rp.past7total.toFixed(2),   v7,   pct7)   +
-        colHtml('7-Day Forecast', forecastTotal.toFixed(2),   vFct, pctFct) +
+        // Labelled REGION explicitly. These are ERA5 grid figures kept for the
+        // climatology percentile, and they sit inches from our own gauge —
+        // which read 2.01" for a week the grid called 0.14". Without the word
+        // on the tile itself, a reader compares two numbers that were never
+        // measuring the same thing and concludes the app is broken. She did.
+        colHtml('Region · 30 Days', rp.rolling30.toFixed(2),  v30,  pct30)  +
+        colHtml('Region · 7 Days',  rp.past7total.toFixed(2), v7,   pct7)   +
+        colHtml('7-Day Forecast',   forecastTotal.toFixed(2), vFct, pctFct) +
       '</div>';
+  }
+
+  // ── Day by day at our own gauge — her ask, answered with measured data ──
+  let byDayBlock = '';
+  const st7 = stationRain7();
+  if (st7) {
+    const cells = st7.days.map(d => {
+      const cls = d.inches == null ? 'rain-byday-none'
+        : (d.inches >= 0.10 ? 'rain-byday-amt is-wet'
+        : (d.inches > 0 ? 'rain-byday-amt' : 'rain-byday-amt is-dry'));
+      const txt = d.inches == null ? '—' : d.inches.toFixed(2);
+      return '<div class="rain-byday-cell' + (d.isToday ? ' is-today' : '') + '">' +
+        '<div class="rain-byday-day">' + (d.isToday ? 'Today' : d.label) + '</div>' +
+        '<div class="' + cls + '">' + txt + '</div>' +
+      '</div>';
+    }).join('');
+    byDayBlock =
+      (gaugeBlock ? '<div class="rain-divider"></div>' : '') +
+      '<div class="rain-byday-hdr">Day by day at our gauge · ' + st7.total.toFixed(2) + '" over the 7 days ending today</div>' +
+      '<div class="rain-byday">' + cells + '</div>';
   }
 
   // ── "How our spot differs from the region" — from weather-bias.json ──
@@ -6991,6 +7122,7 @@ function renderRainfallPanel() {
         (station ? srcChip('station', {dot: rainStationDot, title: 'Fernwood Weather Vane — measured on the property'}) : '') +
       '</div>' +
       gaugeBlock +
+      byDayBlock +
       contextBlock +
       localBlock +
     '</div>';
@@ -13701,8 +13833,18 @@ function renderDashboardStrip() {
       '<span class="dash-tease-body">' + cur.temperature + '°F · ' + escapeHtml(cur.condition) + hl + '</span>' +
     '</div>';
 
-    // Rainfall summary: past 7 days (Open-Meteo recentPrecip) + next 7 days (forecast)
-    const past7 = WEATHER_DATA.recentPrecip ? WEATHER_DATA.recentPrecip.past7total : null;
+    // Rainfall summary: past 7 days + next 7 days (forecast).
+    //
+    // The past-7 figure now leads with OUR OWN GAUGE (seven days ending today,
+    // inclusive) and falls back to the regional grid only when station history
+    // hasn't loaded — in which case it says so. Mom reported this number as
+    // wrong on 2026-07-26 and she was right: the grid read 0.14" for a week her
+    // station measured 2.01". A measured signal must never be silently replaced
+    // by a modelled one on the glance — see stationRain7().
+    const strip7 = stationRain7();
+    const past7 = strip7 ? strip7.total
+      : (WEATHER_DATA.recentPrecip ? WEATHER_DATA.recentPrecip.past7total : null);
+    const past7Qualifier = strip7 ? ' past 7d here' : ' past 7d (regional est.)';
     let next7 = 0, next7Counted = 0;
     for (let i = 0; i < Math.min(7, daily.length); i++) {
       if (daily[i] && daily[i].precipAmount != null) {
@@ -13712,7 +13854,7 @@ function renderDashboardStrip() {
     }
     next7 = Math.round(next7 * 100) / 100;
     if (past7 != null || next7Counted > 0) {
-      const pastStr = past7 != null ? past7.toFixed(2) + '" past 7d' : '— past 7d';
+      const pastStr = past7 != null ? past7.toFixed(2) + '"' + past7Qualifier : '— past 7d';
       const nextStr = next7Counted > 0 ? next7.toFixed(2) + '" next 7d' : '— next 7d';
       html += '<div class="dash-tease-row">' +
         '<span class="dash-tease-icon">💧</span>' +

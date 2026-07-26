@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "purpose": "Disposition of Mom's free-text feedback — WHERE each note went. Never her words (public repo); the verbatim lives in the Worker.",
+    "schemaVersion": 1,
+    "writtenBy": "tools/read-mom-feedback.py --address"
+  },
+  "addressed": [
+    {
+      "noteId": "fb-cycletest-20260726-174840",
+      "noteTs": "2026-07-26T17:48:40.973099Z",
+      "addressedOn": "2026-07-26",
+      "disposition": "automated cycle test 20260726-174840 — self-closed, no action needed",
+      "acknowledgedToHer": true
+    }
+  ]
+}

@@ -71,6 +71,11 @@ STATE_FILE = os.path.join(momlib.ROOT, ".private", "mom-feedback-state.json")
 # must never advance past one of them.
 ACTIONABLE = ("open", "settled-in-canon", "draft", "unprobeable")
 
+NOTE_BUCKET_TITLES = [
+    ("needs-reply", "💬 She told us something and nothing has answered it yet"),
+    ("addressed", "💬 Notes already addressed"),
+]
+
 BUCKET_TITLES = [
     ("open", "Ready to fold — canon still says inferred"),
     ("settled-in-canon", "Card is open but canon already settled — retire the card"),
@@ -163,6 +168,47 @@ def classify(mom_records, questions, c):
     return rows, buckets
 
 
+def classify_notes(records):
+    """Her free-text notes, with the one thing they never had: a state.
+
+    A note is `needs-reply` until someone records where it went. That state is
+    ACTIONABLE, so the watermark can never bury an unanswered note again — which
+    is exactly what happened to her 2026-07-26 rainfall report.
+    """
+    log = momlib.load_feedback_log()
+    rows = []
+    for r in records:
+        if not momlib.is_general_note(r):
+            continue
+        rows.append({"rec": r, "note_state": momlib.note_state(r, log)})
+    rows.sort(key=lambda x: x["rec"].get("ts") or "")
+    buckets = {name: [] for name, _ in NOTE_BUCKET_TITLES}
+    for row in rows:
+        buckets.setdefault(row["note_state"]["state"], []).append(row)
+    return rows, buckets
+
+
+def render_note_buckets(note_buckets):
+    for name, title in NOTE_BUCKET_TITLES:
+        rows = note_buckets.get(name) or []
+        if not rows:
+            continue
+        print(title)
+        for row in rows:
+            rec = row["rec"]
+            when = momlib.et_str(rec.get("ts"))
+            text = (rec.get("note") or "").strip().replace("\n", " ")
+            if name == "needs-reply":
+                print(f"  • {rec.get('id')}   ({when})")
+                print(f"    \"{text[:180]}{'…' if len(text) > 180 else ''}\"")
+                print(f"    ↳ once you've acted, record where it went:")
+                print(f"        python3 tools/read-mom-feedback.py --address {rec.get('id')} \\")
+                print(f"            --as \"filed as BACKLOG <row> / fixed in <commit>\"")
+            else:
+                print(f"  • {rec.get('id'):24s} {row['note_state']['why']}")
+        print()
+
+
 def render_buckets(buckets, verbose=True):
     """Print the four buckets. Returns the count of rows that need Paul."""
     todo = 0
@@ -196,7 +242,7 @@ def render_buckets(buckets, verbose=True):
 
 # --------------------------------------------------------------- watermark
 
-def advance_watermark(state, mom_records, rows, through=None):
+def advance_watermark(state, mom_records, rows, through=None, note_rows=None):
     """Move the read watermark forward WITHOUT ever stepping over an answer that
     still needs Paul.
 
@@ -213,10 +259,12 @@ def advance_watermark(state, mom_records, rows, through=None):
     if not all_ts:
         return None, "no answers in range"
 
-    actionable = sorted(
-        (r["rec"].get("ts") or "") for r in rows if r["state"]["state"] in ACTIONABLE
-    )
-    actionable = [t for t in actionable if t]
+    actionable = [r["rec"].get("ts") or "" for r in rows if r["state"]["state"] in ACTIONABLE]
+    # An unanswered free-text note is actionable too. Without this, a note with
+    # no probeable target — her rainfall bug report — ages out silently.
+    actionable += [r["rec"].get("ts") or "" for r in (note_rows or [])
+                   if r["note_state"]["state"] == "needs-reply"]
+    actionable = sorted(t for t in actionable if t)
     ceiling = actionable[0] if actionable else None
 
     candidates = [t for t in all_ts if (ceiling is None or t < ceiling)]
@@ -240,7 +288,7 @@ def advance_watermark(state, mom_records, rows, through=None):
 
 # ----------------------------------------------------------------- rendering
 
-def render_full(mom, other, questions, watermark, show_all, rows, buckets):
+def render_full(mom, other, questions, watermark, show_all, rows, buckets, note_buckets):
     if not mom:
         print("No answers from Mama's Perspective in this range.")
     else:
@@ -277,6 +325,7 @@ def render_full(mom, other, questions, watermark, show_all, rows, buckets):
 
         print("--- What's actually waiting (derived from canon — nothing is auto-written) ---\n")
         render_buckets(buckets)
+        render_note_buckets(note_buckets)
 
     if show_all and other:
         print(f"=== Other feedback records — {len(other)} ===\n")
@@ -287,12 +336,14 @@ def render_full(mom, other, questions, watermark, show_all, rows, buckets):
                   + f"   ({momlib.et_str(r.get('ts'), with_time=False)})")
 
 
-def render_pickup(mom, questions, watermark, rows, buckets):
-    """Quiet session-start block. Two reasons to speak: something NEW arrived,
-    or something is genuinely waiting to be folded. Otherwise: silence."""
+def render_pickup(mom, questions, watermark, rows, buckets, note_buckets):
+    """Quiet session-start block. Three reasons to speak: something NEW arrived,
+    something is waiting to be folded, or she said something nobody has answered.
+    Otherwise: silence."""
     new = [r for r in mom if is_new(r, watermark)]
     waiting = [r for r in rows if r["state"]["state"] in ("open", "settled-in-canon", "draft")]
-    if not new and not waiting:
+    unanswered = note_buckets.get("needs-reply") or []
+    if not new and not waiting and not unanswered:
         return 0
 
     if new:
@@ -314,7 +365,17 @@ def render_pickup(mom, questions, watermark, rows, buckets):
             if row["suggestion"]:
                 print(f"      ↳ {row['suggestion']}")
         print("  (fold with `python3 tools/fold-answer.py`)")
-    return len(new) or len(waiting)
+        print()
+
+    if unanswered:
+        print(f"💬 She told us {len(unanswered)} thing(s) nothing has answered yet:")
+        for row in unanswered:
+            rec = row["rec"]
+            text = (rec.get("note") or "").strip().replace("\n", " ")
+            print(f"  • ({momlib.et_str(rec.get('ts'), with_time=False)}) \"{text[:110]}"
+                  f"{'…' if len(text) > 110 else ''}\"")
+        print("  (see the full text + how to close it: `python3 tools/read-mom-feedback.py`)")
+    return len(new) or len(waiting) or len(unanswered)
 
 
 def main():
@@ -328,6 +389,12 @@ def main():
                     help="Stamp reviewed answers as seen (never past one that still needs you)")
     ap.add_argument("--mark-reviewed-through", metavar="TS", default=None,
                     help="Stamp only up to this ISO timestamp (used by fold-answer.py for exactly what it folded)")
+    ap.add_argument("--address", metavar="NOTE_ID", default=None,
+                    help="Record that one of her free-text notes has been acted on")
+    ap.add_argument("--as", dest="disposition", metavar="WHERE", default=None,
+                    help="Where it went, e.g. 'filed as BACKLOG A1 rainfall row; fixed in abc1234'")
+    ap.add_argument("--acknowledged", action="store_true",
+                    help="Mark that the ribbon has told HER about it (not just that we fixed it)")
     args = ap.parse_args()
 
     token = resolve_token()
@@ -354,14 +421,34 @@ def main():
 
     c = momlib.canon()
     rows, buckets = classify(mom, questions, c)
+    note_rows, note_buckets = classify_notes(records)
+
+    if args.address:
+        rec = next((r for r in records if r.get("id") == args.address), None)
+        if rec is None:
+            print(f"error: no feedback record with id {args.address!r} in {args.start} → {args.end}. "
+                  f"Widen --start if it's older.", file=sys.stderr)
+            return 2
+        if not args.disposition:
+            print("error: --address needs --as \"<where it went>\". Record the action, not her words.",
+                  file=sys.stderr)
+            return 2
+        entry = momlib.address_note(rec, args.disposition, acknowledged=args.acknowledged)
+        print(f"✓ {rec['id']} recorded as addressed ({entry['addressedOn']}): {entry['disposition']}")
+        if not args.acknowledged:
+            print("  Note: this records that WE acted, not that SHE knows. If the ribbon hasn't")
+            print("  told her yet, she still doesn't know she was heard — re-run with --acknowledged")
+            print("  once MOM_ACK_DATA names it.")
+        return 0
 
     if args.pickup:
-        render_pickup(mom, questions, watermark, rows, buckets)
+        render_pickup(mom, questions, watermark, rows, buckets, note_buckets)
     else:
-        render_full(mom, other, questions, watermark, args.all, rows, buckets)
+        render_full(mom, other, questions, watermark, args.all, rows, buckets, note_buckets)
 
     if (args.mark_reviewed or args.mark_reviewed_through) and mom:
-        new_wm, why = advance_watermark(state, mom, rows, through=args.mark_reviewed_through)
+        new_wm, why = advance_watermark(state, mom, rows, through=args.mark_reviewed_through,
+                                        note_rows=note_rows)
         if new_wm:
             state["lastReviewedTs"] = new_wm
             state["lastReviewedAt"] = dt.datetime.now().astimezone().isoformat()
