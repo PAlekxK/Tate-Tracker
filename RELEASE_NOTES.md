@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-26 — Small fixes to the questions
+
+- **The lizard's tail question now has a picture.** It was the one question in the queue asking about a plant with nothing to look at — a fair thing to ask about a flower nobody can see is a hard thing to answer. It's a reference photo, captioned as one, not a picture taken here.
+- **The stiltgrass question shows your own photo now.** It always had one — a picture taken here on the property — but the card was only ever looking for plants, so a weed's photo never made it to the screen. It does now, captioned as one taken here.
+- **"Ask me later" is gone from the pollinator question.** It now says **"Haven't thought about it"** — which is a real answer, not a promise to come back to it. There's no wrong answer on that one and no list keeping score.
+
+---
+
 ## 2026-07-26 — The rainfall now comes from our own gauge
 
 - Someone looked at the rainfall and said it didn't look right. **It wasn't.** The "past 7 days" figure was coming from a regional weather model, not from the rain gauge on the property — and the model had missed the storm on the 24th almost entirely. It was reading **0.14 inches** for a week our own gauge measured **two full inches**.

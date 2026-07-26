@@ -218,7 +218,7 @@
       "labels": {
         "yes": "Yes, I'd like that",
         "no": "Not really",
-        "later": "Ask me later"
+        "later": "Haven't thought about it"
       },
       "_source": "authored",
       "_kind": "reflective",

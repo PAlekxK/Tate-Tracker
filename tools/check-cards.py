@@ -106,6 +106,19 @@ def photo_findings(q, entity):
         return out
     photo = entity.get("photo")
     att = entity.get("attribution") or {}
+
+    # ⚠️ Check what the CARD can reach, not merely what canon holds. The first
+    # version read canon, saw a photo on `japanese-stiltgrass`, and reported the
+    # weed card as fine — while buildCard, hardcoded to `eref.type === "plant"`,
+    # rendered nothing. A check that verifies the DATA instead of the SURFACE
+    # will happily bless a broken screen. Keep this list in step with
+    # buildCard's ENTITY_DATA map (viewer.html).
+    RENDERABLE = {"plant", "weed"}
+    etype = (q.get("entityRef") or {}).get("type")
+    if photo and etype not in RENDERABLE:
+        out.append((RED, f"`{entity.get('id')}` has a photo but the card renderer cannot resolve "
+                         f"entityRef.type={etype!r} — it will silently show nothing"))
+
     if q.get("active") is True and not photo:
         out.append((AMBER, f"SERVED with no photo — `{entity.get('id')}` has none, so she is "
                            f"asked to judge something she cannot see on the card"))
