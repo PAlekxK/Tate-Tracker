@@ -1594,8 +1594,12 @@
     color: #5a7a6a;
   }
   .rain-cell-value {
+    /* 13.5 → 18px (2026-07-26). Her own gauge used to render SMALLER than the
+       regional model sitting ten pixels below it. Source-hierarchy says the
+       on-site station leads; that has to be true of the type scale too, or the
+       layout argues the opposite of the data. */
     font-family: "Crimson Text", Georgia, serif;
-    font-size: 13.5px;
+    font-size: 18px;
     font-weight: 600;
     color: #1a4028;
     line-height: 1.2;
@@ -2177,8 +2181,12 @@
     margin-bottom: 4px;
   }
   .rain-ctx-amount {
+    /* 22 → 15px (2026-07-26). These are ERA5 GRID figures, kept for the
+       climatology percentile. They were the largest thing on the card — the
+       number she disbelieved, set 1.6× the size of the gauge that proved her
+       right. Measured leads modelled, in the type scale as well as the data. */
     font-family: "Crimson Text", serif;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 600;
     color: #1a3a5a;
     line-height: 1;
@@ -2190,7 +2198,10 @@
   .rain-byday-hdr {
     font-size: 9.5px;
     font-weight: 700;
-    color: #5a8aaa;
+    /* Green, matching the gauge block above it. It used to be pixel-identical
+       to the REGIONAL block — her measured data wearing the model's uniform and
+       visually grouped away from the gauge it came from. */
+    color: #5a7a6a;
     text-transform: uppercase;
     letter-spacing: 0.4px;
     margin: 10px 0 5px;
@@ -2202,27 +2213,27 @@
   }
   .rain-byday-cell {
     background: #fff;
-    border: 1px solid #d0e8f4;
+    border: 1px solid #c8e8d8;
     border-radius: 7px;
     padding: 5px 2px 4px;
     text-align: center;
   }
-  .rain-byday-cell.is-today { border-color: #7fb8d4; background: #f2f9fd; }
+  .rain-byday-cell.is-today { border-color: #8ab4d8; background: #e8f4fc; }
   .rain-byday-day {
     font-size: 9px;
     font-weight: 700;
-    color: #5a8aaa;
+    color: #5a7a6a;
     letter-spacing: 0.3px;
   }
   .rain-byday-amt {
     font-family: "Crimson Text", serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
-    color: #1a3a5a;
+    color: #1a4028;
     line-height: 1.15;
   }
-  .rain-byday-amt.is-dry { color: #a8bfcc; font-weight: 500; }
-  .rain-byday-amt.is-wet { color: #12557f; }
+  .rain-byday-amt.is-dry { color: #a9bcae; font-weight: 500; }
+  .rain-byday-amt.is-wet { color: #14612f; }
   .rain-byday-none { font-size: 11px; color: #a8bfcc; }
   .rv-badge {
     display: inline-block;
@@ -3820,6 +3831,16 @@
      the true answer. The heavier ask should never be the more prominent one. */
   .ack-btn-primary { background: #dcefd4; border-color: #a3cc95; color: #234f28; }
   .ack-btn-primary:hover { background: #cfe8c5; }
+  /* The tappable phrase inside the acknowledgment. Underlined, same serif,
+     same size — it reads as part of the sentence, not as a control bolted on. */
+  .ack-inline-link {
+    font: inherit; color: #1f5a28; background: none; border: 0;
+    padding: 0; cursor: pointer;
+    text-decoration: underline; text-decoration-color: #8fbd84;
+    text-underline-offset: 3px; text-decoration-thickness: 1.5px;
+  }
+  .ack-inline-link:hover { text-decoration-color: #3a7a3a; }
+  .ack-inline-link:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; border-radius: 3px; }
   .ack-seen-note {
     font-family: "Crimson Text", Georgia, serif;
     font-size: 13px; font-style: italic; color: #5a7a5a; margin-right: auto;
@@ -5093,6 +5114,18 @@
   body.text-lg .weather-condition { font-size: 17px; }
   body.text-lg .weather-detail    { font-size: 16px; }
   body.text-lg .weather-glance-line   { font-size: 21px; }
+  /* The rainfall card had NO entries in this hand-written allowlist, so in
+     large-text mode every figure on it stayed put while the prose around it
+     grew — the card got relatively denser for the reader who needs it least
+     dense. Added 2026-07-26. */
+  body.text-lg .rain-cell-value    { font-size: 21px; }
+  body.text-lg .rain-cell-label    { font-size: 11px; }
+  body.text-lg .rain-byday-amt     { font-size: 19px; }
+  body.text-lg .rain-byday-day     { font-size: 11px; }
+  body.text-lg .rain-byday-hdr     { font-size: 11.5px; }
+  body.text-lg .rain-ctx-amount    { font-size: 17px; }
+  body.text-lg .rain-ctx-col-label { font-size: 11px; }
+  body.text-lg .rain-local-note    { font-size: 16px; }
   body.text-lg .weather-glance-action { font-size: 16px; }
   body.text-lg .weather-sky-word      { font-size: 16px; }
 
@@ -9210,7 +9243,9 @@ const MOM_ACK_DATA = {
   "acknowledgedThrough": "2026-07-26T18:17:19.325593Z",
   "channels": [
     "feedback"
-  ]
+  ],
+  "linkPhrase": "look back at it day by day",
+  "linkCard": "card-weather"
 };
 
 const MomQueue = (function () {
@@ -9408,14 +9443,45 @@ const MomQueue = (function () {
       // evidence that she was heard — replaced by the next one, never cleared
       // (Paul's 7/22 design). If a tap deleted it, the next visit would show her
       // nothing, which is the opposite of the point. It softens and stays.
+      const ackIdOf = () => MOM_ACK_DATA.acknowledgedThrough || "unversioned";
       const ackStrip = document.createElement("div");
       ackStrip.className = "mom-ack-ribbon";
       const check = document.createElement("span");
       check.className = "ack-check";
       check.textContent = "\u2713";
+      // The message can carry its own way TO the thing it describes. This one
+      // told her "you can look back at it day by day" and then made her hunt:
+      // the day-by-day strip is mid-body of a COLLAPSED Weather card, behind
+      // four other blocks. The one moment the app tells her she was right
+      // should not end in a scavenger hunt.
+      //
+      // `linkPhrase` names the exact words in the message to make tappable, and
+      // `linkCard` the card to open. A field, not a hard-coded case, so any
+      // future acknowledgment can point at whatever it changed — and when they
+      // are absent the ribbon renders exactly as before.
       const msg = document.createElement("span");
       msg.className = "ack-msg";
-      msg.textContent = MOM_ACK_DATA.message;
+      const phrase = MOM_ACK_DATA.linkPhrase;
+      const target = MOM_ACK_DATA.linkCard;
+      const at = phrase && target ? MOM_ACK_DATA.message.indexOf(phrase) : -1;
+      if (at >= 0) {
+        msg.appendChild(document.createTextNode(MOM_ACK_DATA.message.slice(0, at)));
+        const link = document.createElement("button");
+        link.type = "button";
+        link.className = "ack-inline-link";
+        link.textContent = phrase;
+        link.addEventListener("click", (e) => {
+          e.stopPropagation();
+          track("momack_followed", { acknowledgedThrough: ackIdOf(), card: target });
+          if (typeof expandCard === "function") expandCard(target);
+          const el = document.getElementById(target);
+          if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        msg.appendChild(link);
+        msg.appendChild(document.createTextNode(MOM_ACK_DATA.message.slice(at + phrase.length)));
+      } else {
+        msg.textContent = MOM_ACK_DATA.message;
+      }
 
       const actions = document.createElement("div");
       actions.className = "ack-actions";
