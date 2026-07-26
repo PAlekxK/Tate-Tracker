@@ -124,7 +124,11 @@ python3 -m http.server 8765
 
 **Photos:** prefer a property photo (attribution `source`/`license` = `"Property record"` → renders "Taken here on the property"); otherwise a licensed stock image, captioned as a reference *not* taken here. Photoless degrades cleanly — a missing photo is fine, a mislabeled one is not.
 
-**Landing checklist after any add/reorg:** `python3 tools/check-data-inline.py --fix` (re-inline) → `python3 tools/build-digest.py` (refresh Guru's context) → add a `RELEASE_NOTES.md` entry if a card or behavior changed for Mom/Paul → commit. Worker digest **deploy stays Paul's step**.
+**Landing checklist after any add/reorg:** `python3 tools/check-data-inline.py` (plain check FIRST — see the drift rule above; `--fix` only after Paul confirms the drift is legit) → `python3 tools/build-digest.py` (refresh Guru's context) → add a `RELEASE_NOTES.md` entry if a card or behavior changed for Mom/Paul → commit → **deploy the Worker**.
+
+**Worker deploy is the agent's job (Paul, 2026-07-26 — supersedes "deploy stays Paul's step").** Run `bash tools/deploy-worker.sh` **with the Bash sandbox disabled** (it needs network for `wrangler`; the sandbox is the only thing that ever blocked this). It rebuilds the digest, checks freshness, deploys, and hits `/health`. Verify the health check passes and report the Worker version — a deploy is only done when `/health` says so.
+
+*Why this changed:* the old rule was a **stale assumption, not a real constraint** — an agent ran the script end-to-end on 2026-07-14 (Worker version `977075b2`, `/health` OK). Keeping a human gate on the last step of a checklist the agent otherwise owns just stranded finished work as undeployed. Same failure class as the market-digest refresh nag: *a stale `owner: paul` tag is indistinguishable from a real constraint, and nobody re-tests it.* If a deploy ever needs a judgment call (a schema break, a Worker-side migration), surface that — the *judgment* is Paul's, the *deploy* is not.
 
 **What we measure (the revisit gate).** Watch where the shapes strain. The known pressure is **W6**: when the "same species, several individuals across zones" case shows up *for real* (not hypothetically), that's the signal to design the instance model and revise this rule to **v2**. Until a case forces it, hold to the four above — consistency now is what makes the eventual measurement legible.
 
