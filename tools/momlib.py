@@ -544,6 +544,29 @@ def channels_since(state, cutoff):
     return [c for c in state["channels"] if c["latest"] and c["latest"] > cutoff]
 
 
+def ack_receipts(token, days=60):
+    """When she TAPPED "Got it" on an acknowledgment — the loop's first real receipt.
+
+    Everything before this was exposure: `momack_shown` fires when the strip
+    renders, which says nothing about whether she read it. A tap is an act. It
+    is still not proof she felt heard — nothing can be — but it is the first
+    evidence that an acknowledgment reached a person, and it is the only such
+    evidence this loop has ever been able to collect.
+    """
+    today = dt.date.today()
+    try:
+        data = _get("/api/feedback", token,
+                    {"start": str(today - dt.timedelta(days=min(days, 60))), "end": str(today)})
+    except Exception:  # noqa: BLE001
+        return []
+    out = []
+    for r in flatten(data):
+        ctx = r.get("context") or {}
+        if ctx.get("section") == "ack-receipt" or ctx.get("questionId") == "q-ack-receipt":
+            out.append({"ts": r.get("ts"), "deviceId": r.get("deviceId")})
+    return out
+
+
 # --------------------------------------------------------- the ribbon's clock
 
 def _git(*args):

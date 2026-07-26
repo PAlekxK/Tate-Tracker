@@ -3794,25 +3794,35 @@
     font-size: 15px; color: #2a4a2a; line-height: 1.45;
   }
   .mom-ack-ribbon .ack-check { flex: 0 0 auto; font-size: 17px; line-height: 1.3; color: #3a7a3a; }
-  /* Tappable acknowledgment (2026-07-26): it is a <button> now, so reset the
-     UA chrome and keep the field-journal look. Full-width, left-aligned text —
-     it must not read as a form control. */
-  .mom-ack-ribbon {
-    width: 100%; text-align: left; cursor: pointer;
-    -webkit-appearance: none; appearance: none;
-    flex-wrap: wrap;
+  /* The acknowledgment answers back (2026-07-26). Two doors of different cost:
+     "Got it" is a one-tap receipt for when her whole reaction is *okay, good*;
+     "Write back" opens the panel. It is a plain strip again, not one big button
+     — two explicit small targets read more clearly than an invisible tap zone,
+     which matters for a reader with difficulty. */
+  .mom-ack-ribbon { flex-wrap: wrap; }
+  .mom-ack-ribbon .ack-msg { flex: 1 1 100%; min-width: 0; }
+  .mom-ack-ribbon.is-seen { background: #f4f9f1; border-color: #cfe3c6; }
+  .ack-actions {
+    flex: 1 1 100%;
+    display: flex; align-items: center; gap: 8px;
+    margin: 7px 0 0 25px;
   }
-  .mom-ack-ribbon:hover { background: #e7f2e1; border-color: #a8cc9a; }
-  .mom-ack-ribbon:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; }
-  /* The reply affordance. Deliberately quiet and deliberately a VERB — the
-     point is that she can answer back, which is the only receipt this loop has
-     ever actually observed. */
-  .mom-ack-ribbon .ack-reply-hint {
-    flex: 0 0 auto; margin-left: auto; align-self: center;
+  .ack-btn {
     font-family: "DM Sans", system-ui, sans-serif;
-    font-size: 11.5px; font-weight: 600; letter-spacing: 0.2px;
-    color: #3a7a3a; border-bottom: 1px solid #9ec592;
-    padding-bottom: 1px; white-space: nowrap;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.1px;
+    padding: 5px 13px; border-radius: 999px; cursor: pointer;
+    background: #fff; color: #35683a; border: 1px solid #bcd8b0;
+    min-height: 30px;
+  }
+  .ack-btn:hover { background: #eef6e9; }
+  .ack-btn:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; }
+  /* "Got it" leads — it is the cheaper of the two and the one most likely to be
+     the true answer. The heavier ask should never be the more prominent one. */
+  .ack-btn-primary { background: #dcefd4; border-color: #a3cc95; color: #234f28; }
+  .ack-btn-primary:hover { background: #cfe8c5; }
+  .ack-seen-note {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 13px; font-style: italic; color: #5a7a5a; margin-right: auto;
   }
   .mom-queue-card {
     padding: 11px 13px;
@@ -9381,31 +9391,71 @@ const MomQueue = (function () {
     // The standing "we got your feedback" acknowledgment — always first, not
     // dismissable; replaced (not cleared) when the NEXT feedback is folded.
     if (typeof MOM_ACK_DATA !== "undefined" && MOM_ACK_DATA && MOM_ACK_DATA.message) {
-      // ⭐ TAPPABLE (2026-07-26). It was a broadcast: we said "we heard you" on a
-      // one-way surface and then asked whether it landed. It never could be
-      // answered — `momack_shown` is exposure, not receipt. The only return leg
-      // ever OBSERVED working is Paul telling her in words somewhere she could
-      // reply, and her reply WAS the receipt. So give the acknowledgment a reply
-      // path: tapping it opens the existing feedback panel, and a note that
-      // comes back carrying section:"ack-reply" is the first hard evidence the
-      // ribbon was ever read. No new surface — it reuses the one that exists.
-      const ackStrip = document.createElement("button");
-      ackStrip.type = "button";
+      // ⭐ SHE CAN ANSWER IT (2026-07-26). It began as a broadcast: we said "we
+      // heard you" on a one-way surface and then asked whether it landed —
+      // which `momack_shown` can never answer, because exposure is not reading.
+      // The only return leg ever OBSERVED working is Paul telling her in words
+      // somewhere she could reply, and her reply WAS the receipt.
+      //
+      // Two doors, because they cost her different amounts (Paul, 2026-07-26):
+      //   "Got it"    — one tap. If her honest reaction is just *okay, good*,
+      //                 this is the whole of it. Zero effort and it cannot be
+      //                 WRONG, which is the only class of ask she reliably uses.
+      //                 It is the first hard receipt signal this loop has had.
+      //   "Write back" — opens the existing panel for anyone who has more to say.
+      //
+      // ⚠️ "Got it" ACKNOWLEDGES, it does not DISMISS. The ribbon is standing
+      // evidence that she was heard — replaced by the next one, never cleared
+      // (Paul's 7/22 design). If a tap deleted it, the next visit would show her
+      // nothing, which is the opposite of the point. It softens and stays.
+      const ackStrip = document.createElement("div");
       ackStrip.className = "mom-ack-ribbon";
-      ackStrip.setAttribute("aria-label", "We heard you — tap to reply: " + MOM_ACK_DATA.message);
       const check = document.createElement("span");
       check.className = "ack-check";
-      check.textContent = "✓";
+      check.textContent = "\u2713";
       const msg = document.createElement("span");
+      msg.className = "ack-msg";
       msg.textContent = MOM_ACK_DATA.message;
-      const reply = document.createElement("span");
-      reply.className = "ack-reply-hint";
-      reply.textContent = "Write back";
-      ackStrip.appendChild(check);
-      ackStrip.appendChild(msg);
-      ackStrip.appendChild(reply);
-      ackStrip.addEventListener("click", () => {
-        track("momack_tapped", { acknowledgedThrough: MOM_ACK_DATA.acknowledgedThrough || null });
+
+      const actions = document.createElement("div");
+      actions.className = "ack-actions";
+      const seenKey = "tateTracker.ackSeen.v1";
+      const ackId = MOM_ACK_DATA.acknowledgedThrough || "unversioned";
+      const alreadySeen = (readMap(seenKey) || {})[ackId] === true;
+
+      const gotIt = document.createElement("button");
+      gotIt.type = "button";
+      gotIt.className = "ack-btn ack-btn-primary";
+      gotIt.textContent = "Got it";
+      const writeBack = document.createElement("button");
+      writeBack.type = "button";
+      writeBack.className = "ack-btn";
+      writeBack.textContent = "Write back";
+
+      function markSeen(persist) {
+        const m = readMap(seenKey) || {};
+        m[ackId] = true;
+        writeMap(seenKey, m);
+        ackStrip.classList.add("is-seen");
+        actions.innerHTML = "";
+        const noted = document.createElement("span");
+        noted.className = "ack-seen-note";
+        noted.textContent = "Thanks \u2014 glad it reached you.";
+        actions.appendChild(noted);
+        actions.appendChild(writeBack);
+        if (persist) {
+          // Record the receipt where Paul can actually see it. A localStorage-only
+          // receipt would be invisible off her device — the same blind spot that
+          // made "did she see it?" unanswerable in the first place.
+          const gq = { id: "q-ack-receipt", kind: "ack" };
+          postFeedback(gq, "landed", "", "ack-receipt").catch(() => {});
+          track("momack_acknowledged", { acknowledgedThrough: ackId });
+        }
+      }
+
+      gotIt.addEventListener("click", () => markSeen(true));
+      writeBack.addEventListener("click", () => {
+        track("momack_tapped", { acknowledgedThrough: ackId });
         if (typeof FeedbackRibbon !== "undefined" && FeedbackRibbon.open) {
           FeedbackRibbon.open({
             section: "ack-reply",
@@ -9413,6 +9463,11 @@ const MomQueue = (function () {
           });
         }
       });
+
+      ackStrip.appendChild(check);
+      ackStrip.appendChild(msg);
+      if (alreadySeen) { markSeen(false); } else { actions.appendChild(gotIt); actions.appendChild(writeBack); }
+      ackStrip.appendChild(actions);
       host.appendChild(ackStrip);
       // Track WHAT the ribbon covered, not questionId — that field is null now
       // that input arrives through four channels, so it gave the metric no

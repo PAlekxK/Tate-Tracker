@@ -228,6 +228,18 @@ def main():
             print( "     Read it, then attest:  python3 tools/check-mom-ack.py --mark-read <channel>")
             print( "     (read-mom-feedback.py and read-mom-zone-audio.py mark their own channel.)")
 
+    if token and not offline:
+        receipts = momlib.ack_receipts(token, days=args.days)
+        if receipts:
+            newest_r = max(r["ts"] for r in receipts if r["ts"])
+            print(f"\n  RECEIPT               {GREEN} she tapped \"Got it\" — {momlib.et_str(newest_r)}"
+                  f"  ({len(receipts)} total)")
+            print("     The first hard evidence an acknowledgment ever REACHED her.")
+            print("     Not proof she felt heard — nothing can be — but an act, not exposure.")
+        else:
+            print("\n  RECEIPT               ⚪ no \"Got it\" tap recorded yet")
+            print("     momack_shown is exposure, not reading. Until she taps, delivery is unmeasured.")
+
     print(f"\n  R3 specificity        — NOT machine-checkable; read it yourself:")
     print(f"     \"{ribbon['message']}\"")
     print(f"     Does that name what she actually GAVE? A generic thank-you does not tell her")
