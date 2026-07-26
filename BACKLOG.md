@@ -19,9 +19,26 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 
 *Intent: a hyper-personal field journal that helps Mom see and record what only she can know from standing on the ground — and gets more trustworthy the more of her ground-truth it folds back in. Glance → repository → loop. Capture stays deterministic and AI-free; AI lives only on the ask path, behind Paul's gate.*
 
-## A1 · The engagement keystone — measure before you build ⭐
+## A1 · ✅ PASSED 2026-07-26 — the engagement question is answered; the return leg is now the work ⭐
 
-*Intent: the whole track is gated HERE. Does Mom actually engage? Nothing downstream ships until the signal fires — a **non-gimme answer AND a later-day return**. n=2 is one episode, not validation.*
+*Original intent: the whole track was gated here — does Mom actually engage? **Paul's call 2026-07-26: A1 is PASSED and the gate is RETIRED.** Track A is unblocked.*
+
+**Why it was blocking on a bar nobody wrote.** The gate enforced here read *"a **non-gimme answer** AND a later-day return,"* credited to the user-researcher's 7/13 panel. That document says something different — line 138: *"**Grow / validated:** Mom answers ≥1 confirm — tap **or** note — on a day the confirm was `viewed`. **Even one genuine 'not sure' counts.**"* The phrase "non-gimme" appears **once** in that file, at line 142, under a heading reading **"Guardrail (health, not success)"** — a caution about agreeableness artifacts, never a success criterion. The hardening came from a 7/16 restatement and was attributed backwards. **By its written terms the gate fired 2026-07-13**, the day the probe shipped. Track A sat blocked ~2 weeks on a drafting error. *(Found and self-reported by the user-researcher, 2026-07-26; verified independently against the source document before acting.)*
+
+**And the hard version was an invalid instrument anyway.** It measured the **confirm tap** — the one path her stated fear of being wrong blocks — while she contributed freely through three others: two real Garden Guru questions with a genuine follow-up, self-reported repeat opens, a discoverability report, an unprompted new domain *with its IA*, and moss the record didn't know existed. It was also confounded (the confirm surface has never had a fair trial: A-or-B questions on Yes/No buttons, "Ask me later" as the not-sure label, and **not one loop ever visibly closed**) and measurement-invalid (Safari ITP can erase "later-day return" on exactly the intermittent usage it tries to detect).
+
+**⭐ The failure condition has flipped, and this is the point.** It is no longer *"is she engaged?"* — she is. It is ***"did we answer her?"*** — **which is ours, not hers.** What replaces the gate:
+
+| Metric | What it measures | Threshold |
+|---|---|---|
+| **Arrivals / month** | ground-truth arriving unprompted, **any channel** | trend, not a bar |
+| **Fold latency** | arrival → in the record | days, watch the tail |
+| **R1 · ack staleness** | `today − MOM_ACK_DATA.answeredOn` | 🟢 ≤3d · 🟡 4–7d · 🔴 >7d — **ping on amber**, red means it already failed |
+| **R2 · unacknowledged arrivals** | input newer than the ack (count + age of oldest) | any ≥1 surfaces · oldest >72h = 🔴 |
+| **R3 · specificity** | does the ribbon name the newest arrival's topic? | boolean; false = stale even at green |
+| **R4 · delivery** | — | **explicitly unmeasurable.** `momack_shown` is exposure, not receipt. Never read it as "she felt heard." |
+
+*R1–R4 from the user-researcher; the mechanism to compute them is engineering-partner's `check-mom-ack.py` + an `acknowledgedThrough` field (Track C). **R1/R2 are PROCESS metrics — green means the loop works on us; the arrow from there to "she gives more" stays an `assumption`.***
 
 ### 📣 Mom gave us a lot of feedback on 2026-07-26 — summary
 
