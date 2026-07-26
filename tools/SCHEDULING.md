@@ -247,12 +247,26 @@ but do this to keep it clean:
 
 ## Mama's Perspective watcher (mom-queue-watch.py) — added 2026-07-14
 
-A read-only nudge: when Mom answers a queue card, this pings Paul so he never has to
-wonder whether there's a fold waiting. Never writes canon/cards — detection only.
+A read-only nudge so Paul never has to wonder whether Mom has given us something.
+Never writes canon/cards — detection only.
 
-- **Script:** `tools/mom-queue-watch.py` (imports read-mom-feedback + harvest-questions).
-- **Schedule:** launchd job `com.fernwood.momqueue-watch`, runs 9:00 + 19:00 local, pings
-  only when a NEW answer appears (state in `.private/mom-queue-watch-state.json`).
+**⭐ WIDENED 2026-07-26.** It used to fire only on *"she answered a queue card"* — which
+is why it was **completely silent on 2026-07-26**, the richest feedback day the project
+has had: she asked Garden Guru two real questions, reported a display bug that turned out
+to be correct by 14×, proposed a new domain and shared a moss technique — and answered
+zero cards. A watcher keyed to the one channel her fear of being wrong blocks stays quiet
+exactly when it matters most. It now fires on **either**: (a) she answered an open card,
+or (b) input landed through **any** app channel that the acknowledgment ribbon does not
+cover yet — the same computation `check-mom-ack.py` runs, imported rather than
+reimplemented, so "acknowledged" can only ever mean one thing.
+
+- **Script:** `tools/mom-queue-watch.py` (imports `momlib` + harvest-questions).
+- **Schedule:** launchd job `com.fernwood.momqueue-watch`, runs 9:00 + 19:00 local. Pings
+  once per new arrival, not every run (state in `.private/mom-queue-watch-state.json`:
+  `pingedAnswerIds` + `lastUncoveredPingedTs`).
+- **Verified under launchd's minimal environment** (2026-07-26): absolute paths throughout,
+  and `git` — needed by the ribbon's not-yet-pushed check — resolves at `/usr/bin/git` on
+  the bare `/usr/bin:/bin` PATH launchd provides.
 - **Pings:** macOS notification (always) + email to Paul (only if `.private/gmail-app-password`
   exists — a one-time Gmail app-password, from/to paul.kirschenbauer@gmail.com).
 - **Plist:** `~/Library/LaunchAgents/com.fernwood.momqueue-watch.plist` (machine-local, not
