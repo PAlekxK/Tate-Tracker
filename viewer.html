@@ -377,6 +377,7 @@
 
   /* === AMPHIBIANS CARD === */
   .amp-intro { font-size: 13px; color: #2a4840; line-height: 1.55; margin-bottom: 12px; padding: 10px 12px; background: #f0f9f6; border-left: 3px solid #5aaa90; border-radius: 0 8px 8px 0; }
+  .gg-suggest-later-hint { font-size: 13px; color: #6b6b5e; margin: 6px 2px 0; line-height: 1.4; }
   .vehicles-intro { font-family: "Crimson Text", Georgia, serif; font-style: italic; font-size: 14px; color: #3a3a30; line-height: 1.55; margin: 4px 0 14px; padding: 10px 12px; background: #f7f6f0; border-left: 3px solid #a89878; border-radius: 0 8px 8px 0; }
   .amp-event-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
   .amp-event-card { background: #f0f9f6; border: 1.5px solid #a8d8c8; border-radius: 10px; padding: 10px 12px; }
@@ -9568,13 +9569,21 @@ const MomQueue = (function () {
     const later = document.createElement("button");
     later.type = "button";
     later.className = "gg-suggest-btn-neutral";
-    later.textContent = L.later || "Ask me later";
+    later.textContent = L.later || "I haven't looked";
     later.addEventListener("click", () => { markTapped(q); notSure(q, getNote()); });
 
     actions.appendChild(yes);
     actions.appendChild(not);
     actions.appendChild(later);
     card.appendChild(actions);
+
+    // Say what "I haven't looked" DOES, before she taps it (Paul, 2026-07-26).
+    // The ack after tapping already reassures her; the worry it answers — "will I
+    // lose this card?" — happens at the moment of deciding, not after.
+    const laterHint = document.createElement("div");
+    laterHint.className = "gg-suggest-later-hint";
+    laterHint.textContent = "If you haven't looked, we'll bring it back another time.";
+    card.appendChild(laterHint);
 
     // The quiet, optional "add a note" invite — present on every card, secondary.
     const addNote = document.createElement("button");
@@ -10858,8 +10867,14 @@ function renderVarietyRow(plant) {
   if (!v || !v.value) return '';
   if (v.confidence === 'verified') {
     const when = v.verifiedOn ? formatVarietyDate(v.verifiedOn) : '';
+    // The loop-close had no author: she was outside the "we" when asked and invisible
+    // when right. `confirmedBy` is a FIELD, not a hardcoded "Mom" — a confirm from
+    // anyone else needs a name too, and allowing that costs nothing today.
+    const who = v.confirmedBy || 'Mom';
+    const credit = [who, when].filter(Boolean).join(', ');
     return '<div class="plant-variety">Variety: <b>' + escapeHtml(v.value) + '</b>' +
-      '<span class="variety-chip variety-verified">confirmed on the ground' + (when ? ' · ' + when : '') + '</span></div>';
+      '<span class="variety-chip variety-verified">confirmed on the ground' +
+      (credit ? ' · ' + escapeHtml(credit) : '') + '</span></div>';
   }
   return '<div class="plant-variety">Likely <b>' + escapeHtml(v.value) + '</b>' +
     '<span class="variety-chip variety-guess">our read from a photo</span></div>';

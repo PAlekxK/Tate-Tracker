@@ -58,7 +58,7 @@
       "id": "q-clematis-variety",
       "kind": "confirm",
       "answerMode": "yesno",
-      "prompt": "The big **Clematis** — from the photo it looks like the pale-pink kind, with a rosy stripe down each petal. Does that match what's flowering out there, or is it a deeper rose?",
+      "prompt": "The big **clematis** on the deck trellis — next time you're past it, **what colour are the flowers?**",
       "entityRef": {
         "type": "plant",
         "id": "clematis"
@@ -68,7 +68,12 @@
       "_source": "harvest",
       "_foldTarget": "variety",
       "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
-      "correctionPrompt": "What is it, then? (optional)"
+      "correctionPrompt": "Something else? (optional)",
+      "labels": {
+        "yes": "Pale pink with a stripe",
+        "no": "Deeper rose all through",
+        "later": "I haven't looked"
+      }
     },
     {
       "id": "q-butterfly-weed-bloom",
@@ -244,7 +249,7 @@
       "id": "q-weed-stiltgrass",
       "kind": "confirm",
       "answerMode": "yesno",
-      "prompt": "Along the shady edge of the woods there's a low, sprawling grass that lies flat in mats. We think it might be **Japanese stiltgrass** — a weed worth getting after before it seeds. **Does each little leaf have a pale, silvery stripe running down the middle, and does a whole mat pull up easily?**",
+      "prompt": "Along the shady edge of the woods there's a low grass that lies flat in mats. **Does each little leaf have a pale, silvery stripe down the middle?**",
       "entityRef": {
         "type": "weed",
         "id": "japanese-stiltgrass"
@@ -255,9 +260,9 @@
       "_foldTarget": "confidence",
       "_draftNote": "Flipped active 2026-07-22 (Paul's go — the standing V1-candidate offer). On 'yes' fold japanese-stiltgrass confidence inferred->verified; a 'no' is the non-gimme the A1 gate watches for.",
       "labels": {
-        "yes": "Yes, that's it",
-        "no": "No, doesn't match",
-        "later": "Ask me later"
+        "yes": "Yes, it has the stripe",
+        "no": "No stripe on it",
+        "later": "I haven't looked"
       },
       "correctionPrompt": "What does it look like, if you can say? (optional)"
     },
