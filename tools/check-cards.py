@@ -34,6 +34,15 @@ Contradictions it catches, none of which any other check sees:
   🟡 LABEL DEFECTS                 an A-or-B prompt on yes/no labels; a
                                    deferral-shaped "later" ("Ask me later")
                                    instead of a state ("I haven't looked")
+  🟡 NO PHOTO ON A SERVED CARD     W4(a) retired "don't ask what you can't
+                                   show" only FOR REFERENCE-SHOWABLE plants.
+                                   A served card whose entity has no photo is
+                                   asking her to judge something invisible.
+  🔴 MISLABELLED PROPERTY PHOTO    attribution.source says stock but the
+                                   license/takenOn say it was taken HERE (or
+                                   vice-versa) — the caption is keyed off this,
+                                   so a wrong source tells Mom a photo of her
+                                   own pond is "not one taken here"
 
 That last one is here because it is exactly the defect the stale row named: it
 is mechanically checkable, it reaches Mom, and it silently regressed on 3 of 5
@@ -78,6 +87,54 @@ def latest_answers(token, days=88):
         qid = ctx.get("questionId")
         if qid and r.get("sentiment") in momlib.DEFINITIVE:
             out[qid] = r  # oldest-first, so this keeps the latest
+    return out
+
+
+def photo_findings(q, entity):
+    """Is the card showing her something, and is the caption honest about it?
+
+    Both halves reach Mom. `buildCard` degrades silently when there is no
+    photo, which is correct behaviour but invisible — so a served card can quietly
+    ask her to confirm a bloom with nothing on screen. And the caption
+    ("A reference picture — not one taken here" vs "Taken here on the property")
+    is keyed off `attribution.source`, so a wrong source is a lie told in her
+    voice about her own place. Found live 2026-07-26: wire-photos.py hardcoded
+    every wired photo to "Wikimedia Commons", relabelling a pond photo Paul took.
+    """
+    out = []
+    if entity is None:
+        return out
+    photo = entity.get("photo")
+    att = entity.get("attribution") or {}
+    if q.get("active") is True and not photo:
+        out.append((AMBER, f"SERVED with no photo — `{entity.get('id')}` has none, so she is "
+                           f"asked to judge something she cannot see on the card"))
+    if photo and att:
+        # MIRROR the viewer's own predicate exactly (viewer.html:9798) —
+        #   fromProperty = /property record|phase f/i.test(license + " " + source)
+        # A check that is stricter than the surface it checks produces false
+        # alarms ("Phase F submission" is a property photo and renders as one),
+        # and a check that is looser misses real ones. Either way it stops being
+        # trusted. So: same rule, one place, derived not guessed.
+        blob = f"{att.get('license','')} {att.get('source','')}"
+        renders_as_property = bool(re.search(r"property record|phase f", blob, re.I))
+        claims_property = bool(att.get("takenOn")) or att.get("license") == "Property record"
+        if claims_property and not renders_as_property:
+            out.append((RED, "attribution has takenOn/Property-record license but neither field "
+                             "matches the viewer's property test — the card would caption HER "
+                             "photo as a stock reference"))
+        if renders_as_property and not claims_property:
+            out.append((AMBER, f"renders as 'taken here on the property' on the strength of "
+                               f"source={att.get('source')!r} alone, with no takenOn and no "
+                               f"Property-record license to back it"))
+        # The regression that motivated this: wire-photos.py hardcoded
+        # source="Wikimedia Commons" onto every wired photo, including a pond
+        # picture Paul took, and dropped its takenOn. The caption survived (the
+        # license still matched), but the provenance was quietly falsified.
+        if renders_as_property and att.get("source") not in (None, "", "Property record") \
+                and "phase f" not in (att.get("source") or "").lower():
+            out.append((AMBER, f"source={att.get('source')!r} contradicts a property-record "
+                               f"license/takenOn — provenance is internally inconsistent"))
     return out
 
 
@@ -144,6 +201,9 @@ def main():
                                      f"{info['value']!r} — the resolution asserts a fold canon can't confirm"))
         if ans and st["state"] == "draft":
             flags.append((AMBER, "she answered a card that was never served (active:false, no resolvedAt)"))
+        for lvl, msg in photo_findings(q, c.find((q.get("entityRef") or {}).get("type"),
+                                                  (q.get("entityRef") or {}).get("id"))):
+            flags.append((lvl, msg))
         for f in label_findings(q):
             # A defect on a card she is SERVED reaches her now; the same defect
             # on an unserved draft is a trap to disarm before it ships.

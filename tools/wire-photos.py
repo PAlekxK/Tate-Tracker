@@ -58,12 +58,30 @@ def merge_attribution(cfg):
             continue
         a = attribution[sid]
         item["photo"] = f"{img_dir_rel}/{sid}.jpg"
-        item["attribution"] = {
-            "source": "Wikimedia Commons",
+
+        # ⚠️ DERIVE the source; do NOT hardcode "Wikimedia Commons" (fixed
+        # 2026-07-26). This stamped every wired photo as a stock reference —
+        # including PROPERTY photos. It silently downgraded `iris-yellow-flag`,
+        # a picture Paul took at the pond on 2026-07-22, from "Property record"
+        # to "Wikimedia Commons" and DELETED its `takenOn`. That is not a
+        # cosmetic field: `renderVarietyRow`/`buildCard` key the caption off it,
+        # so the photo would have started telling Mom "A reference picture — not
+        # one taken here" about her own pond. A property photo is the whole
+        # point of W4/W6 (her own photo is the identity key); mislabelling one
+        # as stock is the exact opposite of the honesty markers this app runs on.
+        is_property = (a.get("license") == "Property record"
+                       or not (a.get("source_url") or "").strip())
+        att = {
+            "source": "Property record" if is_property else "Wikimedia Commons",
             "author": a["author"],
             "license": a["license"],
-            "url": a["source_url"],
         }
+        if is_property:
+            if a.get("takenOn"):
+                att["takenOn"] = a["takenOn"]
+        else:
+            att["url"] = a["source_url"]
+        item["attribution"] = att
         updated += 1
 
     with open(json_path, "w") as f:
