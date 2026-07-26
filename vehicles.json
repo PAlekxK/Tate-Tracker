@@ -1,4 +1,5 @@
 {
+  "_comment": "Holds THREE groups, not just vehicles: group='vehicle' | 'equipment' | 'household-system'. Renders as the **Machines** card (Vehicles · Yard equipment · Household systems). The filename is a legacy infrastructure identifier and is deliberately NOT renamed — same call CLAUDE.md made for tate-tracker/tateTracker through the Fernwood rename: internal identifiers aren't user-facing and renaming carries churn for zero reader benefit (VEHICLES_DATA, check-data-inline.py, build-digest.py, renderVehicles, #vehicles-list, .vehicles-intro, …). 2026-07-26.",
   "_meta": {
     "schemaVersion": 3,
     "notes": "Schema v3: items split into 'vehicle' and 'equipment' groups via the `group` field on each entry. Per-item `maintenance` block added with at-a-store reference for fuel, oil, sparkPlug, filters, consumables. Confidence convention: each maintenance value tagged 'verified' (manufacturer spec / OEM doc / on-unit sticker), 'inferred' (typical for product line — double-check before ordering), or 'tbd'."
