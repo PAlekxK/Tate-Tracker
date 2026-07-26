@@ -1,0 +1,197 @@
+{
+  "review_id": "ux-2026-07-26-feedback-loop-visibility",
+  "project": "fernwood",
+  "subject": "The Mom-feedback cycle as ONE system — the acknowledgment ribbon (MOM_ACK_DATA), the provenance chip (renderVarietyRow), and the confirm queue (MomQueue): does the loop close perceptibly, and why does asking feel safe while answering feels like exposure?",
+  "review_date": "2026-07-26",
+  "reviewer_mode": "review",
+  "review_level": "flow (the three surfaces read as one loop) with screen-component work on the confirm card",
+  "user_context": {
+    "primary_user": "Paul's Mom — the make-or-break user. Reads with difficulty: meaning is carried by icon + size + colour + position, not by prose. Half-engaged, one-handed, often no glasses. Secondary: Paul as the operator who folds her reads into canon by hand.",
+    "core_jobs_to_be_done": [
+      "Enjoy her place — open the app and find something worth knowing about the land she tends",
+      "Settle a ground-truth only someone standing on the property can settle — WITHOUT risking being wrong about it",
+      "Know that what she gave was received, was right, and changed the record — without having to go looking for the proof",
+      "Paul: harvest her reads, fold them into canon, keep the queue calm and non-nagging"
+    ],
+    "context_of_use": "Single-page dashboard opened at half-attention, usually phone, often first thing in the morning. The queue is pinned at the top, above everything else. Capture is deterministic and AI-free. The fold is manual and latent — Paul edits plants.json, GH Pages serves it 1-3 minutes later. Card wording is human-confirmed before it reaches her. The repo is PUBLIC, which constrains what the ribbon can say.",
+    "assumptions_made": [
+      "Funnel treated as ground truth per the brief: offered 35 -> viewed 33 -> tapped 1 -> answered 1",
+      "Her stated reason for hesitating (fear of being wrong) is treated as validated — she said it herself, unprompted, and it is corroborated behaviorally the same morning (said she would answer a card, then spent nine minutes asking Garden Guru two questions and left the card untouched)",
+      "Her unprompted praise of the Weeds card — the one rich surface that asks no verdict of her — is treated as validated signal, not politeness",
+      "Reading-difficulty / half-engagement model carried forward from the 2026-05-22 no-glasses a11y review and Fernwood memory; not re-tested this session",
+      "The 8-day-stale ribbon is treated as a design failure already diagnosed and fixed in doctrine (CLAUDE.md, 2026-07-26); this review does not re-litigate it, it asks whether the ribbon is the right CARRIER at all"
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "The glance and the repository — glance (decision) -> repository (depth) -> the loop (invite + fold back visibly) (CLAUDE.md, Fernwood governing principle)",
+    "Close the loop VISIBLY or it feels extractive (Fernwood doctrine, CLAUDE.md)",
+    "Close the loop on the ENTITY, not with a status tracker (fernwood.md candidate, 2026-07-14) — tested here and found necessary but insufficient",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Register is carried by chrome, not just words — especially for the no-glasses reader (fernwood.md candidate)",
+    "Typographic hierarchy by value (cross-project.md)",
+    "Caution as noticing, not warning / Glyphs follow the journal voice (fernwood.md)",
+    "A correct 'no' still owes a next move (cross-project.md)",
+    "Defer affordances pending signal (memory: feedback_defer_affordances_pending_signal) — applied as a brake, and noted as having partially FIRED: her stated blocker is signal",
+    "Nielsen #3 — user control and freedom (undo, emergency exit)",
+    "Nielsen #6 — recognition over recall",
+    "Nielsen #2 — match between system and the real world (the control set must map to the option set)",
+    "Norman — conceptual model, signifiers, and consequence visibility; a control whose consequence is invisible is assumed to be worse than it is"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "The loop is designed to close in the repository layer, but the doubt lives at the glance layer. The provenance chip ('our read from a photo' -> 'confirmed on the ground · <month>') is the designed loop-close — and it is four moves deep: scroll past the queue and the dashboard strip, open the Plants card, find the plant, expand the plant, then read a 10.5px italic chip. Her three answered confirms WERE folded and those chips DO read 'confirmed on the ground.' She never saw them, and spent a week doubting answers that were already correct and in the record. Meanwhile the surface she does see — the ribbon — carried a receipt for one folded item and nothing about whether her reads had held up.",
+      "user_impact": "For a user who reads with difficulty and opens at half-attention, a proof she has to navigate to is a proof that does not exist. The Fernwood flywheel depends on her SEEING her read become the truth of the place; if the only place that happens is a card she never opens, the loop is closed for the data model and open for the human. That is the definition of extractive under Fernwood's own doctrine — and it is exactly what produced a week of private doubt.",
+      "principle_invoked": "The glance and the repository (CLAUDE.md) — the loop-close is currently filed in the repository layer; 'Close the loop VISIBLY or it feels extractive' (Fernwood doctrine); sharpens the 2026-07-14 'Close the loop on the ENTITY' candidate, which is necessary but NOT sufficient for a reader who will not navigate",
+      "recommendation": "Keep the chip — it is the right artifact and it is honest. But promote the loop-close to the glance: the ribbon (the surface she actually meets) becomes the primary carrier, and the chip becomes corroboration for anyone who drills in. Concretely, the ribbon should be able to say what her reads DID, not just that they arrived — name the thing and the change in her nouns ('The crocosmia is down as Lucifer because you said so'). Do not build a status pipeline or a settled-tracker with navigation; one glance-level sentence, no counts, no badges.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "affordance",
+      "severity": "critical",
+      "observation": "The ask-vs-answer asymmetry is structural, not attitudinal. Asking Garden Guru: no answer key exists, nothing she types can be graded, the cost of a bad question is zero, and she can ask another one immediately. Answering a confirm card: the app has already stated a candidate answer in bold and asks her to adjudicate it; the buttons are grading words ('Looks right' / 'Not quite'); the tap is IRREVERSIBLE (answer() writes ANSWERED_KEY and syncServerAnswers durably dismisses the question on every device — there is no revoke, no edit, no undo window beyond a 2.6s transient ack); and the consequence is invisible — she cannot see what her Yes does to the record, so she has to assume the worst. Every one of those is an exposure amplifier, and they compound.",
+      "user_impact": "A user who has told you she is afraid of being wrong is being handed a control that is permanent, ungradeable-by-her, and opaque in consequence. Under uncertainty, the rational move is to not tap — which is precisely the funnel (35 offered, 1 answered). She is not disengaged; she is behaving correctly given the affordance she was given. Asking Guru is not avoidance, it is the only low-risk way she has to participate.",
+      "principle_invoked": "Nielsen #3 (user control and freedom — an action with no exit); Norman (consequence must be perceivable before commitment; an invisible conceptual model is assumed worse than reality); Friction kills — it just works (cross-project.md)",
+      "recommendation": "Import what makes Guru safe INTO the card rather than merging the surfaces (CLAUDE.md forbids dragging Guru onto the confirm card, and the reverse collision is the same mistake). Three moves, in priority order: (1) make the answer revisable and SAY so on the card — the honest true statement today is that anything she says later supersedes what she said before, because Paul folds by hand; the stronger version is making the chip tappable to reopen the question; (2) show the consequence before the tap, in one short line naming what a Yes changes ('This would put it down as Nelly Moser in the record'); (3) demote the app's candidate answer from proposition-to-be-graded to context (see F3). Wording is human-confirmed before it ships — these are shapes, not final copy.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "flow",
+      "severity": "critical",
+      "observation": "The cards that go unanswered ask what she KNOWS; the surfaces she engages with ask nothing, or ask what she SEES. Compare: q-clematis-variety asks her to identify a cultivar from a photo — an expertise claim. q-weed-stiltgrass asks whether each leaf has a pale silvery stripe and whether a mat pulls up easily — a looking task, with the diagnostic tell handed to her in the prompt. The Weeds card, which she praised unprompted, asks no verdict at all and GIVES her something (her adversaries named and in plain sight). Garden Guru gives and asks nothing. The confirm card is the only surface in the loop that takes without giving, and the variety/ID flavor of it also tests her.",
+      "user_impact": "An identification question puts her expertise on the line and has a right answer she can miss. An observation question has no wrong answer available — she either sees the stripe or she doesn't, and the app cannot correct her about what her own eyes report. The distinction is invisible in the code (both are kind:'confirm', answerMode:'yesno') but it is the whole difference between a card she can answer safely and one she can't. Note the ID cards also route her most confident knowledge through free text — the modality she is least comfortable with (she second-guesses her own wording).",
+      "principle_invoked": "Jobs-to-be-Done — the job is 'contribute what only I can see,' not 'pass an identification test'; Nielsen #6 (recognition over recall — recognizing a stripe is recognition, naming a cultivar is recall); Norman (the conceptual model of an ID card is a quiz, not a journal entry)",
+      "recommendation": "Decompose every identification card into the diagnostic observation that would settle it, using the weed/grass cards as the in-house template — they are already right. For clematis: don't ask which cultivar; ask what the stripe looks like. For bloom cards: they are already observation-shaped, which is why they are the safest cards in the queue. Second move, cheap and separable: give every card ONE thing she didn't have before it asks — the tell, a fact about the plant, why it matters. That turns the card from an extraction into an exchange, which is the mechanism behind everything she has actually engaged with. Card wording is human-confirmed before shipping; content-steward owns the final words.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "Verified defect: q-clematis-variety poses an A-or-B question ('...or is it a deeper rose?') wired to a Yes/No control pair. 'Not quite' cannot say which — it only says 'not A.' The only path to expressing B is the correctionPrompt free-text, so the app makes her WRITE to say the one thing she may be most sure of.",
+      "user_impact": "She may know perfectly well it is the deeper rose and still have no safe way to say so. The control set does not cover the option set the prompt itself opened, so a confident user is pushed into the highest-exposure modality (typing, unprompted, in her own words, on the surface where she already fears getting it wrong). This is the single card she told Paul she would answer, and it is structurally unanswerable for her.",
+      "principle_invoked": "Nielsen #2 (match between system and the real world) + Norman mapping — a control set must enumerate the option set the prompt offers; 'A correct no still owes a next move' (cross-project.md) — here the 'no' owes a SECOND OPTION, not a text box",
+      "recommendation": "The buttons carry the two options: labels {yes: 'Pale pink with a stripe', no: 'Deeper rose'} (exact words human-confirmed), and drop the trailing 'or is it a deeper rose?' from the prompt since the buttons now say it. Record in the question's fold note that 'missed' maps to the deeper-rose cultivar so the fold stays deterministic. Keep the neutral third button and keep '+ Add a note' available, but the fold should no longer DEPEND on free text. Generalize the rule at authoring time: if a prompt names N choices, the card needs N buttons plus the neutral.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The not-sure control is labelled 'Ask me later' but internally calls notSure() — the mechanism is right (first-class ground-truth, same-day snooze, returns), and the label says 'you still owe this.' It is the only escape hatch on a card built around a fear of being wrong, and it is worded as a deferred obligation.",
+      "user_impact": "For a user whose blocker is exposure, the escape hatch is the most important control on the card — it should read as a legitimate, complete answer, not a postponement. 'Ask me later' frames not-knowing as a debt she is carrying, which is the task-manager register Fernwood's tone doctrine forbids and the exact opposite of what this user needs at this moment.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood.md) — obligation language leaking into a field-journal surface; Caution as noticing, not warning; Nielsen #3 (a real exit, framed as legitimate)",
+      "recommendation": "Relabel so the deficiency sits in her POSITION, not in her knowledge — she isn't failing, she just isn't standing in front of the plant. Options to put in front of Paul + content-steward, my lean first: (a) 'I'll look next time I'm out'; (b) 'Haven't looked yet'; (c) 'Not sure yet'. Avoid bare 'Not sure' — it names the state she is already anxious about. Do not change the mechanism; it is correct.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The queue already tries to disarm the fear with copy — the framing line reads 'Your eye on the place — things only you can see from the ground. No wrong answers, and no rush.' It failed, for two compounding reasons. First, it renders at 13px italic Crimson Text in #6a7250 on cream — faint italic serif below her legibility threshold, the exact pattern the 2026-05-22 a11y review flagged repeatedly. Second, and more important: a reassurance sentence sitting above a card that then presents a bold candidate answer plus grading buttons is outvoted by the structure underneath it. Structure is louder than copy.",
+      "user_impact": "The disclaimer she needed most is written in the smallest, faintest type on the surface, and is contradicted a few pixels below by the shape of the thing itself. She gets the quiz and not the permission slip. The important consequence for Paul: the obvious fix — write warmer, more reassuring copy — will not work, and will cost a round trip to discover that.",
+      "principle_invoked": "Register is carried by chrome, not just words — especially for the no-glasses reader (fernwood.md candidate; this is a clean SECOND occurrence); Typographic hierarchy by value (cross-project.md) — the reassurance is the highest-value text on the surface and is set as the smallest; Make every surface read at half-engagement (fernwood.md)",
+      "recommendation": "Do not answer this finding with more reassurance copy. Fix it structurally via F2 (revisable + consequence shown), F3 (ask what she sees), F4 (buttons cover the answer space) and F5 (a legitimate exit). Separately: if the framing line stays at all, it must be legible — same size and weight class as the prompt it governs, non-italic. My lean is that once F2-F5 land, the line can shorten to almost nothing, because the card will no longer need a disclaimer to be safe.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The ribbon carries its entire meaning in a sentence. It renders as ~2 lines of 15px Crimson Text (17px in text-lg) prose in a green strip with a generic '✓' — and the payload (WHICH of her contributions was heard) sits mid-sentence among connectives. Position and colour are doing real work: it is first, and its green reads distinctly against the tan confirm card, so at a glance she can tell 'that green strip is the app talking back to me.' But the specifics — the part that actually says 'I heard THIS from you' — are only available to a full read. The '✓' means 'done,' not 'heard,' so the one non-text carrier on the strip is generic.",
+      "user_impact": "For a reader whose meaning arrives via icon + size + colour + position, a prose strip is the weakest possible carrier for the single message that has to land. At half-engagement she gets 'there is an acknowledgment' and not 'they got the moss and the buttermilk' — which is the difference between generic reassurance and being specifically seen. A generic thanks does not tell her she was heard, and Paul's own 7/26 doctrine says so.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md); Typographic hierarchy by value (cross-project.md); Nielsen #6 (recognition over recall — her own nouns are instantly recognizable, a sentence about them is not); Icons earn their place — true AND useful (cross-project.md) — the ✓ is true but adds nothing",
+      "recommendation": "Give the ribbon two tiers instead of one paragraph. Tier 1: a short bold lead in HER nouns, at a size above the body ('Moss. Buttermilk. The house's own systems.'). Tier 2: the sentence, at current size. The render already supports this — MomQueue.fmt() honors **bold**, and MOM_ACK_DATA.message is a single string, so this is a copy-shape change plus one CSS rule, not new machinery. Consider whether the '✓' earns its place at all once a bold lead is doing the routing; if it stays, it should mean 'heard,' not 'completed.'",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The provenance chip is set at 10.5px italic (12px in text-lg), #2f6a3a on #e4f2e0 with a #b7d9b0 border — pale green on pale green, italic, and the smallest text in its own block. It is the artifact the whole loop was designed to close into, and it is below this user's reading threshold in size, face, and contrast simultaneously.",
+      "user_impact": "Even if she DID navigate to the plant card (F1 says she won't), the chip would not deliver its message to her. It reads as a small pale smudge next to the variety name. The verified state and the guess state are also differentiated mainly by hue — ochre-on-cream vs green-on-green — which is a colour-only distinction at a size where the words are unreadable; the two chips are the same shape, same size, same italic face, and the shape carries no meaning.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md); Typographic hierarchy by value (cross-project.md) — this is the highest-meaning micro-text in the loop and it is set as the lowest; Norman — state must be perceivable",
+      "recommendation": "Two moves, both cheap. (1) Set the chip in the same non-italic face as the body it sits beside, at a size that survives a no-glasses glance — italic is the wrong face for a low-vision reader and it is doing no semantic work here. (2) Let the SHAPE carry the state difference so it doesn't rest on hue and words alone: the confirmed chip filled, the guess chip outlined only (mirroring the already-proven filled-yes / outlined-no grammar of the confirm buttons at viewer.html:4092-4126, which was built for exactly this reader). Then treat the chip as corroboration, not as the loop-close — per F1, the ribbon carries the close.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "other",
+      "severity": "important",
+      "observation": "A constraint that will bite the obvious fix: MOM_ACK_DATA lives inline in viewer.html, which is a tracked file in a PUBLIC repo. The strongest accessibility move for the ribbon (F7) is to reflect her own words back at her — recognition beats reading — and the strongest reassurance move (F1) is naming specifically what she gave. Those two pull directly toward publishing her phrasing. Today's ack handles this correctly by using plain factual nouns rather than her sentences, but nothing in the code or comments states the rule, so the next person to warm up the copy will walk into it.",
+      "user_impact": "Not a usability impact on Mom directly — a governance one that protects her. Her verbatim words about the property are hers, and the private-file convention (.private/, gitignored) already exists precisely because she is not the one deciding whether her words are public. The ribbon is the one Mom-facing surface whose content is baked into a public artifact.",
+      "principle_invoked": "Fernwood's existing private-words convention (.private/ + gitignore, established for her feedback and zone audio); consistency with the AI-boundary rule that Paul's eyes sit between the model and Mom in both directions",
+      "recommendation": "Write the rule down next to MOM_ACK_DATA in viewer.html: the ribbon may name WHAT she gave in plain nouns (moss, buttermilk, the house's systems) but must not carry her sentences or anything about her state of mind. Same rule for any future ribbon that acknowledges an answered card. Cheap, and it makes the F7 bold-lead fix safe to implement.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "The top of her app currently stacks, in order: the ack ribbon, then the zone-journey launcher (a warm, single-action 'I've got a minute' block with a mic emoji, its own sub-copy, a note about microphone permission, and a dismiss), then the queue title, then the framing line, then the confirm card. The reassurance and the card that needs the reassurance are separated by an unrelated, larger, more inviting ask.",
+      "user_impact": "Gestalt proximity says the ribbon reads as belonging to whatever sits next to it — and what sits next to it is a different invitation. The confirm card is the fifth block she meets, after a bigger and friendlier competing ask. At half-engagement, whatever is fifth is effectively below the fold of attention.",
+      "principle_invoked": "Gestalt proximity; Make every surface read at half-engagement (fernwood.md); Freshness sets altitude (cross-project.md) — position encodes priority, and the confirm card's position says it is the least important thing up there",
+      "recommendation": "Don't add anything; reorder or thin. Either move the ribbon adjacent to the card it is reassuring (ribbon -> queue -> launcher), or accept that the launcher is the current priority and let the confirm queue rest until F2-F5 land — shipping a fixed card into fifth position wastes the fix. My lean: ribbon and card adjacent, launcher below, since the ribbon's whole job right now is to make the card answerable.",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "area": "other",
+      "severity": "nice-to-have",
+      "observation": "The nav arrows (buildNav, viewer.html:9595) do not call markTapped and fire no event, so a session where she stepped through five cards and answered none is indistinguishable in the funnel from a session where she looked at card one and stopped.",
+      "user_impact": "No direct user impact — a measurement gap that matters for judging whether F2-F5 worked. 'She browsed and declined' and 'she never got past the first card' call for different next moves, and right now the data can't separate them.",
+      "principle_invoked": "The funnel exists to distinguish 'never saw it' from 'saw it and ignored it' (MomQueue's own stated design intent) — the nav step is the missing rung",
+      "recommendation": "Fire one behavioral event on nav (question id + direction), same shape as momqueue_viewed. Behavioral only, never her words. This is the cheapest instrument for telling whether the redesigned card actually changed her behavior.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "The ribbon carrying a standing line about what her reads have SETTLED (not just what arrived) is close to the 'What you've settled' journal surface you deliberately deferred. My read: the deferral gate has partially fired — she told you the blocker herself, which is exactly the signal that rule waits for. But the safe version is ONE sentence in the ribbon, no counts, no badges, no navigation. Comfortable with that line, or do you want the ribbon to stay purely a receipt?",
+    "Undo: do you want a real revoke path (the chip on the plant card becomes tappable to reopen the question), or is the honest weaker version enough for now — a line on the card saying anything she tells you later replaces what she said before, which is already true because you fold by hand?",
+    "Identification cards: retire them entirely in favour of observation cards (F3), or keep a few where the cultivar genuinely can't be decomposed into something she can just look at? My lean is retire — every ID question I looked at has an observable tell underneath it.",
+    "Once F2-F5 land, do you want to re-serve q-clematis-variety in its rebuilt form? It is the one card she said out loud she intended to answer, which makes it the cleanest before/after test you will get."
+  ],
+  "follow_up_research_suggested": [
+    "There is a natural experiment already running in the live queue: q-weed-stiltgrass is observation-shaped (hands her the tell: silvery stripe, mat pulls up easily) and q-clematis-variety is identification-shaped. Both are active. If she answers the stiltgrass card and not the clematis card, F3's mechanism is confirmed at no build cost. user-researcher should watch that pair before anything ships.",
+    "user-researcher: is the fear specific to identification, or does it extend to bloom/observation cards too? The three cards she DID answer were all 'looks right / it's out' shaped, which is weak evidence for the narrower reading — worth testing deliberately.",
+    "content-steward: the not-sure relabel (F5), the two-tier ribbon lead (F7), and the consequence line on the card (F2). All three reach Mom, so all three are human-confirmed before shipping.",
+    "After F2-F5 ship, the metric that matters is not the answer rate alone — it is whether she ever uses a revise path. A single revision would be strong evidence the exposure has actually come down."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Ask what she can SEE, never what she has to KNOW — decompose every identification into its diagnostic observation",
+      "scope": "fernwood",
+      "rationale": "The sharpest thing this review found. Fernwood's ground-truth queue exists because she is the authority on the property — but an identification question inverts that: it hands her the app's candidate answer and asks her to be graded against it, which manufactures a right answer she can miss. An observation question ('does each leaf have a pale silvery stripe?') has no wrong answer available, because the app cannot correct her about what her own eyes report. The evidence is behavioral and unambiguous: 35 offered, 1 answered, and the same morning she chose to ask Garden Guru two questions rather than answer a card she had already said she would answer. The weed and grass cards already do this correctly and are the in-house template. Corollary for authoring: where a fold needs an identification, find the observable tell that settles it and ask THAT — the fold gets the same information and she is never tested. Candidate, 1 occurrence (Mama's Perspective, 2026-07-26)."
+    },
+    {
+      "principle": "Give before you ask — a surface that only extracts gets ignored",
+      "scope": "fernwood",
+      "rationale": "One mechanism explains all three observed behaviors. The Weeds card gives (her adversaries named and in plain sight) and asks nothing — she praised it unprompted. Garden Guru gives (an answer) and asks nothing — she used it twice in nine minutes, reading closely enough to come back with a follow-up about an unfamiliar word. The confirm card gives nothing and asks for a verdict — 1 of 35. Every ask-surface in Fernwood should hand the reader something she didn't have before it asks her for something: the tell, a fact about the plant, why it matters. This is not decoration; it converts an extraction into an exchange, which is what the flywheel actually runs on. Candidate, 1 occurrence — watch for a second on any future capture surface (the zone-journey launcher is the obvious next test)."
+    },
+    {
+      "principle": "The buttons are the answer space",
+      "scope": "cross-project",
+      "rationale": "If a prompt offers N choices, the control set must contain N choices plus any neutral exit — otherwise a user who knows the answer has no way to give it. Found concretely: q-clematis-variety asks 'pale pink with a rosy stripe, or a deeper rose?' and wires it to Yes/No, so 'No' can only say 'not the first one.' The only path to expressing the second option is free text, which pushes the most confident user into the highest-exposure modality. This is Norman's mapping principle and Nielsen #2 applied to a binary control, and it is a cheap authoring-time check that would have caught the defect before it shipped. Proposed cross-project rather than Fernwood-only because it is a property of controls, not of this domain. Candidate, 1 occurrence."
+    },
+    {
+      "principle": "Reversibility is the cheapest cure for an anxious user — an irreversible commit turns an uncertain contributor into a non-contributor",
+      "scope": "cross-project",
+      "rationale": "When a user's stated blocker is fear of being wrong, undo is worth more than any amount of reassuring copy: it removes the stake rather than arguing about it. Fernwood's confirm card is permanent by construction (localStorage answered-set plus a cross-device durable dismissal, with only a 2.6-second transient ack in between) and shows no consequence before the tap, so a user under uncertainty rationally declines to act. Nielsen #3 states the rule; this adds the diagnostic — when engagement is near zero on a control that is otherwise well-built, check irreversibility and consequence-opacity before you check copy or discoverability. Candidate, 1 occurrence — watch for a second on any commit-shaped control (the zone-journey save, a Guru promote-to-canon confirm)."
+    },
+    {
+      "principle": "The loop-close belongs at the glance altitude — the entity chip proves it, the glance surface DELIVERS it",
+      "scope": "fernwood",
+      "rationale": "Sharpens the 2026-07-14 candidate 'Close the loop on the ENTITY, not with a status tracker.' That candidate was right about the artifact and wrong about the reach: the chip is honest, cheap, and correctly avoids the star-trap, but it sits four moves deep on a card this user does not open, at 10.5px italic she cannot read. Her three answered confirms were folded and the chips did flip — and she spent a week doubting answers that were already in the record, because nothing at the glance told her. The revision: the entity chip remains the proof, but the surface she actually meets must carry the message, naming specifically what she gave and what changed because of it. A proof she has to navigate to is not a proof for this user. 2nd occurrence of the parent candidate, with a correction."
+    },
+    {
+      "principle": "Second-occurrence evidence for the existing candidate 'Register is carried by chrome, not just words — especially for the no-glasses reader'",
+      "scope": "fernwood",
+      "rationale": "Not a new principle — promotion evidence. The queue's framing line already tells her there are no wrong answers, and it did not work, for both halves of the candidate's claim: it is set as the faintest text on the surface (13px italic Crimson in a muted olive), and it is contradicted a few pixels below by a card that presents a bold candidate answer and grading buttons. The structure outvoted the sentence. First occurrence was the machine-vs-journal register in Garden Guru (2026-07-07, F3); this is a cleanly different surface and a different failure — reassurance rather than register — but the same underlying rule: what the chrome does beats what the copy says. Recommend promoting the candidate out of the candidates section on this second occurrence."
+    }
+  ]
+}
