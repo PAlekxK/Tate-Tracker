@@ -241,7 +241,7 @@
       "labels": {
         "yes": "Yes, it does",
         "no": "No, no spikes",
-        "later": "Ask me later"
+        "later": "I haven't looked"
       },
       "correctionPrompt": "What does it look like, if you can say? (optional)"
     },
@@ -283,7 +283,7 @@
       "labels": {
         "yes": "Yes, they stick",
         "no": "No, they don't",
-        "later": "Ask me later"
+        "later": "I haven't looked"
       },
       "correctionPrompt": "Anything else about it? (optional)"
     }

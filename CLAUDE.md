@@ -10,6 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 python3 tools/check-data-inline.py         # viewer.html inlines vs source JSON
 python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
+python3 tools/check-cards.py               # does the SERVED card queue match reality?
 python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — her NEW answers + anything she said that's unanswered (silent if none)
 ```
 
