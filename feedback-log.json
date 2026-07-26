@@ -23,8 +23,8 @@
       "noteId": "fb-v0xl2jv6-ms1ts7ml",
       "noteTs": "2026-07-26T13:20:06.813Z",
       "addressedOn": "2026-07-26",
-      "disposition": "CORRECT bug report. Fixed in f38c275: strip now reads the station gauge (2.00\" vs the grid's 0.14\"), 7 days now ends TODAY, WEEK tile no longer resets Sunday, regional columns relabelled, and the by-day view she asked for is built. Filed as BACKLOG A1 rainfall row.",
-      "acknowledgedToHer": false
+      "disposition": "CORRECT bug report — she was right by 14x. Fixed + live in f38c275 (station gauge, window ends today, WEEK tile no longer resets Sunday, region columns labelled, by-day view built). Acknowledged to her in the ribbon, f2cd8a7.",
+      "acknowledgedToHer": true
     },
     {
       "noteId": "fb-cycletest-20260726-174840",
