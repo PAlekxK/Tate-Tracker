@@ -31,10 +31,10 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 
 | Metric | What it measures | Threshold |
 |---|---|---|
-| **Arrivals / month** | ground-truth arriving unprompted, **any channel** | trend, not a bar |
+| **Arrivals / month** | ground-truth arriving unprompted through **any app channel, plus whatever Paul relays** | trend, not a bar. **Text is NOT a channel** (Paul, 2026-07-26) — the app is the feedback mechanism; no automatic read of her messages exists or is planned, and nothing here may depend on one. |
 | **Fold latency** | arrival → in the record | days, watch the tail |
 | **R1 · ack staleness** | `today − MOM_ACK_DATA.answeredOn` | 🟢 ≤3d · 🟡 4–7d · 🔴 >7d — **ping on amber**, red means it already failed |
-| **R2 · unacknowledged arrivals** | input newer than the ack (count + age of oldest) | any ≥1 surfaces · oldest >72h = 🔴 |
+| **R2 · unacknowledged arrivals** | input newer than the ack (count + age of oldest), read from `/api/feedback` + `/api/observations` + `/api/zone-audio` | any ≥1 surfaces · oldest >72h = 🔴. **No text ledger** — the design engineering-partner and user-researcher both leaned on is removed by Paul's channel call, and the check is simpler for it. |
 | **R3 · specificity** | does the ribbon name the newest arrival's topic? | boolean; false = stale even at green |
 | **R4 · delivery** | — | **explicitly unmeasurable.** `momack_shown` is exposure, not receipt. Never read it as "she felt heard." |
 
