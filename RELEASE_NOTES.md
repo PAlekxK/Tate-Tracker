@@ -4,6 +4,16 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-26 — The rainfall now comes from our own gauge
+
+- Someone looked at the rainfall and said it didn't look right. **It wasn't.** The "past 7 days" figure was coming from a regional weather model, not from the rain gauge on the property — and the model had missed the storm on the 24th almost entirely. It was reading **0.14 inches** for a week our own gauge measured **two full inches**.
+- The number on the front now comes from **our gauge**, and "past 7 days" now means the seven days **ending today** — today's rain used to be left out of it.
+- **New: rainfall day by day.** Seven small squares showing what fell each day at our gauge, so you can see that Friday's 1.96" for yourself instead of taking a weekly total on faith.
+- The "week" tile was quietly resetting every Sunday, which is why the card could say "dry stretch" two days after a downpour. It now covers a rolling seven days, and it agrees with the day-by-day row.
+- The regional model figures are still there — they're what the wet/dry comparison against 25 years of history is built on — but they're now **labelled "Region"** so they can't be mistaken for rain that fell here.
+
+---
+
 ## 2026-07-26 — Every plant now speaks for the month you're in
 
 - The line at the top of each plant card used to be a single note that never moved — so in July the azaleas were still telling you to enjoy peak bloom, and the fescue still called it late spring. Now **every plant carries a note for each month that has something worth saying**, and the card shows the one for the month you're actually in.

@@ -6,6 +6,27 @@
   },
   "addressed": [
     {
+      "noteId": "fb-an5q0hiu-mro92d67",
+      "noteTs": "2026-07-17T01:19:08.335Z",
+      "addressedOn": "2026-07-26",
+      "disposition": "W1 bench test from an unpaired device — Paul's own, no action needed",
+      "acknowledgedToHer": true
+    },
+    {
+      "noteId": "fb-4goj8swu-mro93jhe",
+      "noteTs": "2026-07-17T01:20:03.170Z",
+      "addressedOn": "2026-07-26",
+      "disposition": "W1 bench test — Paul's own, no action needed",
+      "acknowledgedToHer": true
+    },
+    {
+      "noteId": "fb-v0xl2jv6-ms1ts7ml",
+      "noteTs": "2026-07-26T13:20:06.813Z",
+      "addressedOn": "2026-07-26",
+      "disposition": "CORRECT bug report. Fixed in f38c275: strip now reads the station gauge (2.00\" vs the grid's 0.14\"), 7 days now ends TODAY, WEEK tile no longer resets Sunday, regional columns relabelled, and the by-day view she asked for is built. Filed as BACKLOG A1 rainfall row.",
+      "acknowledgedToHer": false
+    },
+    {
       "noteId": "fb-cycletest-20260726-174840",
       "noteTs": "2026-07-26T17:48:40.973099Z",
       "addressedOn": "2026-07-26",
