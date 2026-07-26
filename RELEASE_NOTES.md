@@ -4,6 +4,15 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-26 — Every plant now speaks for the month you're in
+
+- The line at the top of each plant card used to be a single note that never moved — so in July the azaleas were still telling you to enjoy peak bloom, and the fescue still called it late spring. Now **every plant carries a note for each month that has something worth saying**, and the card shows the one for the month you're actually in.
+- Around 170 notes across all 35 plants: when the leafminers emerge, when the pruning window on a shrub has already closed, which month the panicle hydrangea's white starts ageing to pink, and when to walk the pond edge to see how far the cattail ran over winter.
+- **Months with nothing to say now stay quiet** rather than showing you last season's text. A quiet month reads as a quiet month.
+- The precise timing hasn't moved: the peak windows on each care block still hold the actual dates. The monthly notes describe the character of the month and leave the day-level timing to them.
+
+---
+
 ## 2026-07-25 — A cherry tree worth considering
 
 - Worth Considering has a new entry: a **cherry tree** — a nod to the Kirschenbauer name, which means "cherry farmer" in Bavaria. It's here because the property earns it: at nearly 3,000 feet, Fernwood gets the winter chill a cherry needs, which most of Georgia can't give one.
