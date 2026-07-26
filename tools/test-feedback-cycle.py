@@ -179,7 +179,10 @@ def live_suite():
         "ts": dt.datetime.now(dt.timezone.utc).isoformat().replace("+00:00", "Z"),
         "note": f"[automated cycle test {stamp}] not from Mom — proves capture→surface→close. Safe to ignore.",
         "sentiment": None,
-        "context": {"type": "mom-queue", "questionId": "q-open-standing", "kind": "open"},
+        # `test: true` keeps this off the human-facing queue while still
+        # exercising the real POST path end to end.
+        "context": {"type": "mom-queue", "questionId": "q-open-standing",
+                    "kind": "open", "test": True},
     }
     req = urllib.request.Request(
         momlib.WORKER_URL + "/api/feedback",
@@ -204,8 +207,11 @@ def live_suite():
           back is not None and back.get("note") == payload["note"])
     if back is None:
         return
-    check("SURFACE  the round-tripped record classifies as `needs-reply`",
-          momlib.note_state(back, {})["state"] == "needs-reply")
+    check("SURFACE  a real note would classify as `needs-reply`",
+          momlib.note_state({**back, "context": {**back["context"], "test": False}},
+                            {})["state"] == "needs-reply")
+    check("HYGIENE  ...but self-test traffic never reads as a person waiting",
+          momlib.is_instrumentation(back) and not momlib.carries_words(back))
 
     # Close it out so the test never leaves a phantom to-do behind.
     # Write to a THROWAWAY log, never the tracked one. The 7/26 run put a

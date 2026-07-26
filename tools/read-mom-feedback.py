@@ -416,6 +416,9 @@ def main():
     watermark = state.get("lastReviewedTs") or ""
 
     records = flatten(data)
+    # Self-test traffic and "Got it" receipts are the system talking about
+    # itself. They stay in the stream but must never read as a person waiting.
+    records = [r for r in records if not momlib.is_instrumentation(r)]
     mom = [r for r in records if (r.get("context") or {}).get("type") == "mom-queue"]
     other = [r for r in records if (r.get("context") or {}).get("type") != "mom-queue"]
 

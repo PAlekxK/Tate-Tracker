@@ -342,7 +342,30 @@ def carries_words(rec):
     if not (rec.get("note") or "").strip():
         return False
     ctx = rec.get("context") or {}
+    if ctx.get("test") is True:
+        return False   # self-test traffic must never look like a person waiting
+    if ctx.get("section") == "ack-receipt" or ctx.get("questionId") == "q-ack-receipt":
+        return False   # a "Got it" tap is a receipt, not something owed a reply
     return ctx.get("type") not in ("w1-verify",)  # bench-test records aren't feedback
+
+
+def is_instrumentation(rec):
+    """Records the SYSTEM generated about itself — self-tests and receipts.
+
+    They belong in the stream (they exercise the real path, and a receipt is
+    real evidence), but they are not a person asking for something. Counting
+    them as arrivals makes the ribbon look stale because a test ran, which is
+    the fastest way to teach someone to ignore a check.
+    """
+    ctx = rec.get("context") or {}
+    return (ctx.get("test") is True
+            or ctx.get("section") == "ack-receipt"
+            or ctx.get("questionId") == "q-ack-receipt"
+            or ctx.get("type") == "w1-verify"
+            # Legacy self-test rows written before context.test existed. They
+            # announce themselves in their own text; match that rather than
+            # writing test rows into the tracked disposition log.
+            or (rec.get("note") or "").lstrip().startswith("[automated cycle test"))
 
 
 # Kept as the old name so nothing that imports it breaks; the meaning is now
@@ -481,7 +504,7 @@ def _channel_latest(name, path, token, start, end):
     try:
         if name == "feedback":
             data = _get(path, token, {"start": start, "end": end})
-            recs = flatten(data)
+            recs = [r for r in flatten(data) if not is_instrumentation(r)]
             stamps = [r.get("ts") for r in recs]
         elif name == "observations":
             data = _get(path, token)
