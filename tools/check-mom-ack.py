@@ -90,7 +90,29 @@ def main():
                     help="Stamp MOM_ACK_DATA.acknowledgedThrough to this ISO timestamp "
                          "(use when the uncovered input was yours, not hers). Writes the CLOCK only, never the message.")
     ap.add_argument("--days", type=int, default=60, help="How far back to read the channels (default 60)")
+    ap.add_argument("--mark-read", metavar="CHANNEL", default=None,
+                    help="Attest that you have actually READ a channel through its newest input "
+                         "(feedback | observations | zone-audio | guru | zone-describe). "
+                         "For channels with no reader tool, your read IS the action.")
     args = ap.parse_args()
+
+    if args.mark_read:
+        tok = momlib.resolve_token()
+        if not tok:
+            print("error: no token.", file=sys.stderr)
+            return 2
+        st = momlib.latest_mom_input(tok, days=args.days)
+        ch = next((c for c in st["channels"] if c["name"] == args.mark_read), None)
+        if ch is None:
+            print(f"error: unknown channel {args.mark_read!r}. Known: "
+                  + ", ".join(c["name"] for c in st["channels"]), file=sys.stderr)
+            return 2
+        if not ch["latest"]:
+            print(f"· {args.mark_read} has no input to read.")
+            return 0
+        momlib.mark_channel_read(args.mark_read, ch["latest"], by="human attestation")
+        print(f"✓ {args.mark_read} marked read through {momlib.et_str(ch['latest'])}")
+        return 0
 
     if args.acknowledged_through:
         ts = args.acknowledged_through
@@ -138,6 +160,16 @@ def main():
         newest = state["latest"]
         uncovered = momlib.channels_since(state, ack)
 
+    # ⭐ A channel nobody has READ cannot be green, whatever the ribbon says.
+    # On 2026-07-26 this check reported ALL GREEN while five zone recordings sat
+    # unlistened and fourteen Guru conversations unread — because the ribbon's
+    # clock is cleared by stamping a timestamp, which is not the act of reading
+    # anything. A detection mechanism must be clearable only by the action it is
+    # detecting the absence of.
+    unread = momlib.unread_channels(state) if (state and not offline) else []
+    if unread:
+        problems.append(("UNREAD", f"{len(unread)} channel(s) hold input nothing has read"))
+
     if newest and ack and newest > ack:
         oldest_uncovered = min((c["latest"] for c in uncovered), default=newest)
         age_h = None
@@ -174,14 +206,27 @@ def main():
             oldest = min(c["latest"] for c in uncovered)
             hrs = momlib.days_since(oldest)
             dot2 = RED if (hrs is not None and hrs * 24 > 72) else AMBER
+        unread_names = {c["name"] for c in unread}
         print(f"\n  R2 uncovered arrivals {dot2} {n} channel(s) with input past the ribbon")
+        print(f"     {'':2s} {'channel':22s} {'newest input':22s} {'read through':22s}")
         for c in state["channels"]:
             mark = "›" if c in uncovered else " "
             label = CHANNEL_LABEL.get(c["name"], c["name"])
             when = momlib.et_str(c["latest"]) if c["latest"] else "—"
-            print(f"     {mark} {label:22s} {when}   ({c['count']} record(s))")
+            rt = next((u.get("readThrough") for u in unread if u["name"] == c["name"]), "")
+            if c["name"] in unread_names:
+                read_col = (momlib.et_str(rt) if rt else "NEVER READ") + "  ⚠️"
+            else:
+                read_col = "up to date" if c["latest"] else "—"
+            print(f"     {mark} {label:22s} {when:22s} {read_col}")
         if state["errors"]:
             print(f"     ⚠️  couldn't read: {', '.join(state['errors'])}")
+        if unread:
+            print(f"\n  R2b UNREAD            🔴 nothing has actually read: "
+                  + ", ".join(u["name"] for u in unread))
+            print( "     The ribbon's clock is cleared by a stamp; that is not the act of reading.")
+            print( "     Read it, then attest:  python3 tools/check-mom-ack.py --mark-read <channel>")
+            print( "     (read-mom-feedback.py and read-mom-zone-audio.py mark their own channel.)")
 
     print(f"\n  R3 specificity        — NOT machine-checkable; read it yourself:")
     print(f"     \"{ribbon['message']}\"")
@@ -198,7 +243,20 @@ def main():
         print("     3. COMMIT AND PUSH (Pages serves viewer.html; a commit alone never reaches her)")
         print("     · Vary the close — never repeat the same closing phrase two refreshes running.")
         if newest and ack and newest > ack:
-            print(f"     · If that input was YOURS, not hers:")
+            # ⚠️ This used to suggest the GLOBAL newest timestamp, which is a
+            # cross-channel mute: stamp your own 1:48pm test tap and her 9:17am
+            # Guru question is silently "acknowledged" too. Name what the stamp
+            # would swallow, so the mute is never accidental.
+            print(f"     · If that input was YOURS, not hers, you can stamp the clock — but")
+            print(f"       a stamp covers EVERY channel up to that instant. It would cover:")
+            for c in uncovered:
+                print(f"         · {CHANNEL_LABEL.get(c['name'], c['name'])} "
+                      f"(newest {momlib.et_str(c['latest'])})")
+            per_channel = min((c["latest"] for c in uncovered), default=newest)
+            if per_channel != newest:
+                print(f"       To cover only the OLDEST uncovered one, stamp that instead:")
+                print(f"         python3 tools/check-mom-ack.py --acknowledged-through {per_channel}")
+            print(f"       To cover all of it:")
             print(f"         python3 tools/check-mom-ack.py --acknowledged-through {newest}")
         print()
         return 1

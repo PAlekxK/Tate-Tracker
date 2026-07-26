@@ -91,6 +91,14 @@ def offline_suite():
           not momlib.is_general_note(records[0]))
     check("SURFACE  a note with words IS recognised",
           momlib.is_general_note(records[1]))
+    # The 2026-07-26 audit finding: her words can ride ALONG WITH a Yes/No tap.
+    # Those used to be invisible to the lifecycle — shown once, then the card
+    # folds to `resolved` and the watermark steps straight over her sentence.
+    tap_with_words = answer("fb-both", "2026-07-15T12:00:00Z", "q-clematis-variety")
+    tap_with_words["note"] = "Yes — and by the way the deer got the hostas"
+    check("SURFACE  words riding along WITH a Yes/No tap are still tracked",
+          momlib.is_general_note(tap_with_words),
+          "a sentence attached to a tap has no lifecycle — the original bug, one branch over")
 
     note_rows = [{"rec": r, "note_state": momlib.note_state(r, log)}
                  for r in records if momlib.is_general_note(r)]
@@ -200,10 +208,20 @@ def live_suite():
           momlib.note_state(back, {})["state"] == "needs-reply")
 
     # Close it out so the test never leaves a phantom to-do behind.
+    # Write to a THROWAWAY log, never the tracked one. The 7/26 run put a
+    # cycle-test row into the public feedback-log.json with
+    # acknowledgedToHer=true — polluting the single field that measures whether
+    # the loop actually closed, with a row where nobody was acknowledged.
+    tmp_log = os.path.join(momlib.ROOT, ".private", "cycle-test-log.json")
     momlib.address_note(back, f"automated cycle test {stamp} — self-closed, no action needed",
-                        acknowledged=True)
+                        acknowledged=True, synthetic=True, log_path=tmp_log)
     check("CLOSE    the test note self-closes to `addressed`",
-          momlib.note_state(back)["state"] == "addressed")
+          momlib.note_state(back, log_path=tmp_log)["state"] == "addressed")
+    entry = momlib.load_feedback_log(tmp_log)[back["id"]]
+    check("HYGIENE  a synthetic row can NEVER claim she was acknowledged",
+          entry["_synthetic"] is True and entry["acknowledgedToHer"] is False)
+    check("HYGIENE  the test never writes to the tracked feedback-log.json",
+          back["id"] not in momlib.load_feedback_log())
 
 
 def main():

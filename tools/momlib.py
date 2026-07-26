@@ -297,13 +297,20 @@ def question_state(q, c=None):
 FEEDBACK_LOG = os.path.join(ROOT, "feedback-log.json")
 
 
-def load_feedback_log():
-    data = load_json("feedback-log.json")
+def load_feedback_log(path=None):
+    if path:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except (FileNotFoundError, ValueError):
+            data = {}
+    else:
+        data = load_json("feedback-log.json")
     entries = data.get("addressed") or []
     return {e["noteId"]: e for e in entries if isinstance(e, dict) and e.get("noteId")}
 
 
-def save_feedback_log(by_id):
+def save_feedback_log(by_id, path=None):
     payload = {
         "_meta": {
             "purpose": "Disposition of Mom's free-text feedback — WHERE each note went. "
@@ -313,32 +320,43 @@ def save_feedback_log(by_id):
         },
         "addressed": sorted(by_id.values(), key=lambda e: e.get("noteTs") or ""),
     }
-    with open(FEEDBACK_LOG, "w", encoding="utf-8") as f:
+    with open(path or FEEDBACK_LOG, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
 
-def is_general_note(rec):
-    """A free-text note from Mom, as opposed to a confirm tap.
+def carries_words(rec):
+    """Does this record contain something she WROTE (as opposed to a tap)?
 
-    Covers both shapes: the standing open card (`kind:"open"`) and any
-    non-mom-queue general record — both carry words and no fold target.
+    ⚠️ FIXED 2026-07-26 (found in the same-day audit). This used to exclude any
+    record whose sentiment was a definitive Yes/No — on the reasoning that a
+    confirm tap is not a note. But the note field rides along WITH the tap:
+    *"Yes — and by the way the deer got the hostas"* is one record with a
+    sentiment AND her words. Under the old rule those words had no lifecycle at
+    all: shown once, then the card folds → `resolved` → not ACTIONABLE → the
+    watermark steps straight over them. **That is precisely the failure the note
+    lifecycle was built to stop, one branch over.**
+
+    If she wrote something, it needs a disposition. What she tapped is separate.
     """
     if not (rec.get("note") or "").strip():
         return False
     ctx = rec.get("context") or {}
-    if ctx.get("type") == "mom-queue":
-        return rec.get("sentiment") not in DEFINITIVE
     return ctx.get("type") not in ("w1-verify",)  # bench-test records aren't feedback
 
 
-def note_state(rec, log=None):
+# Kept as the old name so nothing that imports it breaks; the meaning is now
+# "she wrote words here", which is the question that actually matters.
+is_general_note = carries_words
+
+
+def note_state(rec, log=None, log_path=None):
     """`addressed` (we recorded where it went) or `needs-reply` (nothing has).
 
     `needs-reply` is ACTIONABLE, which is what stops the watermark from ever
     burying it — the systematic half of the fix.
     """
-    log = load_feedback_log() if log is None else log
+    log = load_feedback_log(log_path) if log is None else log
     entry = log.get(rec.get("id"))
     if entry:
         return {"state": "addressed", "entry": entry,
@@ -347,18 +365,94 @@ def note_state(rec, log=None):
             "why": "nothing recorded as answering this"}
 
 
-def address_note(rec, disposition, acknowledged=False):
+# The disposition is free text in a PUBLIC repo, and the _meta says "never her
+# words" — which was a policy statement with nothing enforcing it. Guard it at
+# the lowest write helper, per [[sanitize at the storage boundary]].
+MAX_DISPOSITION = 400
+
+
+def address_note(rec, disposition, acknowledged=False, synthetic=False, log_path=None):
     """Record WHERE a note went. Paul's judgment, written down once."""
-    log = load_feedback_log()
-    log[rec["id"]] = {
+    disposition = " ".join((disposition or "").split())
+    if not disposition:
+        raise ValueError("a disposition is required — record the action, not nothing")
+    if len(disposition) > MAX_DISPOSITION:
+        raise ValueError(
+            f"disposition is {len(disposition)} chars (max {MAX_DISPOSITION}). "
+            "This file is PUBLIC and records where a note WENT — it is not the place "
+            "to transcribe what she said. Point at a backlog row or a commit.")
+    log = load_feedback_log(log_path)
+    entry = {
         "noteId": rec["id"],
         "noteTs": rec.get("ts"),
         "addressedOn": dt.date.today().isoformat(),
         "disposition": disposition,
         "acknowledgedToHer": bool(acknowledged),
     }
-    save_feedback_log(log)
-    return log[rec["id"]]
+    # A self-test's own record must never look like a closed loop. `acknowledged`
+    # is the ONE field that measures whether the loop actually shut, and the
+    # 7/26 cycle test wrote `true` into it having acknowledged nobody.
+    if synthetic:
+        entry["_synthetic"] = True
+        entry["acknowledgedToHer"] = False
+    log[rec["id"]] = entry
+    save_feedback_log(log, log_path)
+    return entry
+
+
+# ---------------------------------------------- per-channel READ clocks
+#
+# ⭐ THE PRINCIPLE THE AUDIT SURFACED (2026-07-26): *a detection mechanism must
+# be clearable only by the action it is detecting the absence of.*
+#
+# `needs-reply` got this right — only `--address` clears it, and addressing IS
+# the act of dealing with a note. The ribbon clock got it WRONG: it is cleared
+# by stamping a timestamp, which is not the act of reading anything. Proven on
+# 2026-07-26 — `check-mom-ack.py` reported ALL GREEN while five zone recordings
+# sat unlistened and fourteen Guru conversations unread. A check that can be
+# green in that state teaches you to trust it, which is worse than no check.
+#
+# So each channel gets its own read-through mark, advanced only by a tool that
+# actually reads that channel. A channel with input newer than its read mark
+# cannot be green, no matter what the ribbon says.
+
+READ_STATE = os.path.join(ROOT, ".private", "channel-read-state.json")
+
+
+def load_read_state():
+    try:
+        with open(READ_STATE, "r", encoding="utf-8") as f:
+            d = json.load(f)
+        return d if isinstance(d, dict) else {}
+    except (FileNotFoundError, ValueError):
+        return {}
+
+
+def mark_channel_read(channel, through, by):
+    """Advance a channel's read mark. `by` names the tool that actually read it."""
+    st = load_read_state()
+    prev = (st.get(channel) or {}).get("readThrough") or ""
+    if through and through > prev:
+        st[channel] = {"readThrough": through, "by": by,
+                       "markedAt": dt.datetime.now(dt.timezone.utc).isoformat()}
+        os.makedirs(os.path.dirname(READ_STATE), exist_ok=True)
+        with open(READ_STATE, "w", encoding="utf-8") as f:
+            json.dump(st, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+    return st.get(channel)
+
+
+def unread_channels(state, read_state=None):
+    """Channels holding input newer than anything that has actually READ them."""
+    read_state = load_read_state() if read_state is None else read_state
+    out = []
+    for c in state["channels"]:
+        if not c["latest"]:
+            continue
+        mark = (read_state.get(c["name"]) or {}).get("readThrough") or ""
+        if c["latest"] > mark:
+            out.append({**c, "readThrough": mark or None})
+    return out
 
 
 # ------------------------------------------------ deriving "her latest input"

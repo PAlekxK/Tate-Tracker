@@ -446,6 +446,15 @@ def main():
     else:
         render_full(mom, other, questions, watermark, args.all, rows, buckets, note_buckets)
 
+    # Surfacing her records to a human IS the act of reading this channel, so
+    # this tool — and only a tool that actually displays them — advances the
+    # feedback channel's read mark. check-mom-ack.py can then refuse to go green
+    # on a channel nothing has read.
+    if records:
+        newest_shown = max((r.get("ts") or "") for r in records)
+        if newest_shown:
+            momlib.mark_channel_read("feedback", newest_shown, by="read-mom-feedback.py")
+
     if (args.mark_reviewed or args.mark_reviewed_through) and mom:
         new_wm, why = advance_watermark(state, mom, rows, through=args.mark_reviewed_through,
                                         note_rows=note_rows)

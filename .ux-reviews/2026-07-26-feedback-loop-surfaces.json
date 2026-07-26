@@ -1,0 +1,232 @@
+{
+  "review_id": "ux-2026-07-26-feedback-loop-surfaces",
+  "project": "Fernwood",
+  "subject": "The nine capture channels + the single reflect-back surface (W8 solicitation-stack IA pass, run on real signal) + the post-fix rainfall card + the acknowledgment ribbon",
+  "review_date": "2026-07-26",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA (with two screen-component passes: the rainfall panel and the ack ribbon)",
+  "method_note": "Heuristic evaluation against cross-project.md + fernwood.md, plus a cognitive walkthrough of Mom's open-the-app path. NOT run live: this agent has no Bash tool in its toolset, so `python3 -m http.server` could not be started and no screenshot was taken. Every visual claim below is derived from the render functions (renderRainfallPanel ~7016, renderPropertyGaugeBlock ~6443, MomQueue.render ~9344, buildCard ~9600, FeedbackRibbon ~9899, saveZoneFeedback ~9117) and the CSS rules they resolve to (line numbers cited per finding). Type sizes, palettes and media queries are read from the stylesheet, so they are verifiable but not eyeballed.",
+  "user_context": {
+    "primary_user": "Mom — ~70s, reads with difficulty, phone-first, the make-or-break user. Her stated blocker, unprompted and twice on 2026-07-26: fear of being wrong.",
+    "core_jobs_to_be_done": [
+      "Look at something interesting about my place without being asked to grade anything (the Weeds pattern — she loves the one section that asks no verdict of her)",
+      "Ask a question about my own ground when I have one, safely (Guru, 2 real turns 7/26)",
+      "Tell someone when the app looks wrong to me, without that being an accusation I have to defend (the 7/26 rainfall report — she led with 'confusing', not 'wrong')",
+      "Know that what I said landed and mattered"
+    ],
+    "context_of_use": "Phone, one-handed, half-engagement, possibly A+ text mode, rural signal. Repeat opens ('it's getting better every time I open it'). Confirm funnel: offered 35 -> viewed 33 -> tapped 1 -> answered 1.",
+    "assumptions_made": [
+      "The zone-journey front door has still recorded ~zero taps since 2026-07-17 (BACKLOG records day-1 zeros; not re-read live this session)",
+      "She is on a phone <=480px, so FeedbackRibbon renders in its stacked narrow variant, not the ~150px wide desktop variant"
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "Source-hierarchy drives layout (cross-project.md)",
+    "Freshness sets altitude (cross-project.md)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project.md)",
+    "Typographic hierarchy by value (cross-project.md)",
+    "Meet the user at the action (cross-project.md)",
+    "A correct 'no' still owes a next move (cross-project.md)",
+    "Save-success at the surface, not at the destination (cross-project.md)",
+    "Scope is communicated by where you tap, not auto-detected (cross-project.md)",
+    "Glossary coverage is not readability — the readability unit is the sentence (cross-project.md)",
+    "Ornament earns its place (cross-project.md)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Caution as noticing, not warning (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "A modeled value placed flush with a measured one borrows its credibility (fernwood.md)",
+    "Capture needs a declared scope; a scope-blind capture control can't stay AI-free (fernwood.md)",
+    "The glance and the repository (Tate-Tracker/CLAUDE.md, governing)",
+    "Capture is not a loop — every channel needs a lifecycle (Tate-Tracker/CLAUDE.md, standing)",
+    "Defer affordances pending signal (auto-memory)"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "Surface 8 — the property map's 'describe a place' text box — is the 7/15 MacBook data-loss bug still live on a second channel. `saveZoneFeedback` (viewer.html ~9117) writes to localStorage, then POSTs to /api/zone-feedback ONLY `if (WorkerAPI.isConfigured())`. An unpaired device — the exact device class W1 was built to rescue — never posts at all. There is no ack of any kind: `_saveRenameBranched` calls `saveZoneFeedback(text)` then `close()` immediately, so the panel just disappears. And nothing downstream can see it: no tool in tools/ reads /api/zone-feedback, and it is absent from `momlib.CHANNELS` (which lists feedback, observations, zone-audio, conversations), so `check-mom-ack.py` is structurally blind to it.",
+      "user_impact": "If she describes a place on a device that isn't paired, her words are gone and the panel closes as though they were saved. If she describes one on a paired device, they land in a KV bucket nobody reads, and the ack-check that exists to guarantee she gets answered cannot see them. This is a surface that can take her words and silently lose them — the single failure mode this project has already paid for once, on the exact user whose trust is the whole dependency.",
+      "principle_invoked": "Fernwood standing rule 'Capture is not a loop — every channel needs a LIFECYCLE' (fails all three legs: surfaced, protected, closed) + cross-project 'Save-success at the surface, not at the destination' + the W1 doctrine 'a surface that claims a save it didn't make is a liar'",
+      "recommendation": "Two options, and I'd take (a). (a) Retire the entry point until it's wired — it is a fourth free-text channel that nothing reads; deleting it also shrinks the W8 stack for free. (b) If it stays, route it through `MomQueue.submitGeneralNote` with a scope tag (`context.type: 'zone-describe'`) so it inherits the durable outbox, the no-token endpoint, and the honest 3-state ack for free, and add `/api/zone-feedback` (or the tagged feedback records) to `momlib.CHANNELS`. Do not leave it as-is for another week.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "On the rainfall panel, the regional ERA5 numbers are still the LARGEST type on the card. `.rain-ctx-amount` is 22px Crimson Text 600 (CSS ~2179). Her own gauge's figures are `.rain-cell-value` 13.5px (~1596) and `.rain-byday-amt` 14px (~2217). So the number she disbelieved — 0.14\" of modeled regional grid — renders at 1.6x the size of the 2.01\" her own station measured, on the same card, ten pixels apart. Today's fix corrected the data and relabelled the columns ('Region · 7 Days'); it did not re-rank the layout. The disambiguating labels doing the load-bearing work (`.rain-ctx-col-label`, `.rain-byday-hdr`) are 9.5px uppercase in low-contrast blue-grey #5a8aaa — the smallest, faintest type in the block, carrying the meaning that the biggest, boldest type depends on.",
+      "user_impact": "At half-engagement the eye lands on type weight before it lands on labels. The card still visually asserts that the regional model is the headline rainfall figure and her gauge is footnote detail — which is the inversion that produced her report in the first place. She is the one person who can check this against the actual sky; the layout keeps telling her the sky is the secondary source.",
+      "principle_invoked": "Source-hierarchy drives layout + Typographic hierarchy by value + fernwood 'A modeled value placed flush with a measured one borrows its credibility' (proximity is fixed; SIZE now does the borrowing instead)",
+      "recommendation": "Invert the two type scales. Give the by-day total and the gauge's 'Last 7 Days' the 22px Crimson treatment; drop `.rain-ctx-amount` to ~15px. Then relocate the whole regional block behind a disclosure ('How this compares to normal years') per the glance/repository rule — its job is the climatology percentile, which is repository-layer, not glance-layer. Depth relocates, it doesn't get deleted.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The rainfall panel uses two palettes, and they group the blocks against their sources. The station gauge block is green/journal (`.rain-cell` border #c8e8d8, value #1a4028). The new day-by-day strip is BLUE (`.rain-byday-cell` border #d0e8f4, `.rain-byday-day` #5a8aaa, `.rain-byday-amt` #1a3a5a) — pixel-identical family to the regional block (`.rain-ctx-col` border #d0e8f4, `.rain-ctx-col-label` #5a8aaa, `.rain-ctx-amount` #1a3a5a). So her measured day-by-day data is visually bound to the modeled regional data, and visually separated from the measured gauge data it actually came from.",
+      "user_impact": "Colour is the fastest grouping cue a half-engaged reader has, and here it says the opposite of the truth: 'these two blue blocks belong together; that green thing above is something else.' The one block built specifically to answer her — 'you can look back at it day by day' — is wearing the regional model's uniform.",
+      "principle_invoked": "fernwood 'Register is carried by chrome, not just words — especially for the no-glasses reader' + 'A value's provenance must be shown as honestly as the value itself' + the icon-system legend rule (the 📡/🌐/📊 vocabulary is undercut when the colour system contradicts it)",
+      "recommendation": "One palette per source, enforced. Everything measured on the property (gauge cells + by-day cells) wears the green/📡 family; everything regional/modeled wears blue/📊. Then merge the gauge grid and the by-day strip under ONE heading ('Our gauge') with one divider beneath it, so the card reads as two groups, not three.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "other",
+      "severity": "important",
+      "observation": "`body.text-lg` — the A/A+ accessibility toggle built for Mom — is an explicit per-class allowlist (~lines 3970-5107), not a scaled container. There is not a single `body.text-lg .rain-*`, `.garden-hero-rain*` or `.rv-*` rule in the file. Nearby weather classes ARE covered (`.weather-glance-line` -> 21px, `.weather-sky-word` -> 16px, `.weather-detail` -> 16px). So in A+ mode, every number and every label on the rainfall panel stays at its base size — 9px labels, 9.5px percentile text, 13.5-14px numbers — while the prose around them grows by ~15-25%.",
+      "user_impact": "In the mode she is most likely to be using, the card that just caused a trust incident becomes relatively SMALLER and denser than everything around it. The 9px `.rain-cell-label` and 9.5px `.rv-pct` are below the readable floor for this reader at any setting; in A+ they are also now conspicuously out of scale, which reads as 'this part isn't for me.'",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood) + Nielsen #4 consistency and standards",
+      "recommendation": "Add the rainfall family to the A+ allowlist now (labels to >=12px, gauge/by-day values to >=17px, drop or enlarge `.rv-pct`). Then treat the allowlist itself as a defect class: any new surface is invisible to the accessibility mode by default, and nothing catches it. Worth a one-line check in the landing checklist — 'does the new surface have A+ rules?' — the same shape as check-data-inline.",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "W8's IA pass, run. Above the dashboard strip — before she sees one thing ABOUT her place — she passes, in DOM order: (1) the ack ribbon, (2) the front-door launcher card, (3) 'Mama's Perspective' title + framing + confirm card with its nested '+ Add a note', (4) the composer. Plus (5) the FeedbackRibbon fixed to the edge of every screen. That is one give-back to four asks, with a fifth permanently pinned. And the ordering is inverted against her demonstrated behaviour: the composer — the surface she actually used on 7/26, twice, unprompted — sits BELOW the confirm carousel she has declined 33 of 33 times, and below a launcher card with no recorded taps in nine days.",
+      "user_impact": "For a reader whose named blocker is fear of being wrong, the top of the app is a wall of requests she can fail at. The one section she volunteered that she loves — Weeds — is the one that asks nothing. Meanwhile the two surfaces she does use (composer, Guru) are the hardest to reach, and the two she doesn't are the first two things she meets.",
+      "principle_invoked": "Freshness sets altitude (cross-project) — applied here as its sibling: among competing solicitation surfaces, demonstrated engagement should set altitude, not build order. Plus 'The glance and the repository': the glance layer should lead with something about the place, not with a queue of asks.",
+      "recommendation": "Reorder the block, no deletions required: (1) ack ribbon, (2) composer, (3) the ONE current ask (confirm card OR launcher — see F8, never both at full weight), and demote 'Mama's Perspective' title+framing into the card rather than above it. Bigger move to weigh separately: nothing in this block is ABOUT her place. The strongest version of this fix puts one Weeds-shaped line — something to look at that asks nothing — at position 2, and pushes every ask below it. That is the structural answer to 'she'll ask, she won't answer.'",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "The singular-ribbon-vs-plural-inputs question, answered: the strip is being asked to do two different jobs with two different lifetimes, and that — not the count of channels — is why one strip feels wrong. Job A is RECEIPT ('your words arrived') — per-submission, immediate, must be automatic, belongs at the point of capture. Job B is CONSEQUENCE ('here's what your words changed') — episodic, human-authored per the AI boundary, belongs at the top of the app. Today receipt exists and is honest for /api/feedback and the mom-queue (the 3-state ack), is thin for photo->pending-species, and is entirely absent for 'describe a place' (F1). Consequence is MOM_ACK_DATA. Conflating them makes the ribbon look like it has to scale to four channels, when it doesn't.",
+      "user_impact": "She currently gets a real receipt on some channels and none on others, and one authored consequence line for everything. The channels with no receipt teach her the app sometimes eats her words; the single consequence line is fine as far as it goes, but it's carrying blame for the receipt gap.",
+      "principle_invoked": "Save-success at the surface, not at the destination (receipt is a surface-local guarantee) + 'Capture is not a loop' (consequence is the loop's second half) + Norman: feedback is per-action, and a conceptual model breaks when one signal stands in for many actions",
+      "recommendation": "Split them explicitly and stop treating the ribbon as the whole return leg. RECEIPT becomes a per-channel invariant — every capture surface uses the same honest 3-state ack, no exceptions, checked by test-feedback-cycle.py. CONSEQUENCE stays exactly one authored ribbon. Then add the third layer Fernwood already invented and hasn't generalised: the provenance chip. The visible close belongs ON THE THING that changed, not in a ledger — that is what keeps this from becoming a status tracker.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The ribbon reads: 'You were right about the rainfall — it wasn't our own gauge it was reading. It is now, and you can look back at it day by day.' It promises a thing she can now do and gives her no way to do it. The by-day strip lives inside `#rainfall-panel`, which is mid-body of the Weather card, which is collapsed by default. To reach what the ribbon just told her about she must: read the ribbon at the top of the app, scroll past four solicitation surfaces and the dashboard strip, tap Weather, then scroll past Worth knowing / the glance / Right now / the 7-day forecast / hour-by-hour to find it.",
+      "user_impact": "The one moment the app has ever told her she was right ends in a scavenger hunt. For a reader with difficulty this is the difference between 'they fixed it' and 'they said they fixed it.' Norman's gulf of execution, at the exact moment trust is being repaid.",
+      "principle_invoked": "Meet the user at the action + 'A correct no still owes a next move' (its positive twin: a correct YES also owes a next move) + Save-success at the surface, not at the destination",
+      "recommendation": "Make the ribbon's last clause tappable. `expandCard('card-weather')` already exists and the dashboard cell already calls it — add a scroll-into-view on `#rainfall-panel` and wire it to a quiet 'Show me' or to the phrase itself. One line of copy becomes a door. This is the single highest-value cheap fix in the review.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The front-door launcher is the visually loudest element in the entire top block and it sits directly beneath the ribbon. `.mom-queue-launcher` (~3985): green gradient fill, 1.5px border PLUS a 5px dark left border, 16px padding, a head-line, a sub-line, an emoji button, a note line, and a dismiss link. The ack ribbon above it is a flat pale strip with a single line of 15px serif. It renders unconditionally every day with the same fixed head-line ('You know these gardens better than I do.') and, per the funnel, has recorded no taps since 2026-07-17.",
+      "user_impact": "The furniture risk Paul is worried about is real, but it is not the ribbon repeating — it is the ribbon being outshouted by a permanent, unchanging, higher-weight neighbour. The one element in that block that CHANGES is the quietest thing in it. That is the mechanism by which a reader stops seeing a surface: not repetition, but being visually subordinate to something that never changes.",
+      "principle_invoked": "Typographic hierarchy by value + Ornament earns its place + Discreet != dormant (inverted: the element carrying the most value is dressed the most quietly)",
+      "recommendation": "Do NOT kill the launcher — its 4-week time-box (7/17 -> ~8/14) is the measurement, and killing it early destroys the only read we'll get. Instead: demote its weight below the ribbon's (drop the gradient and the 5px left rule, tighten to a head-line + button), and show only ONE full-weight ask at a time — launcher OR confirm card, alternating — so the stack never presents two large solicitations at once. Give the ribbon the visual weight the launcher currently has: it should be the most prominent thing in the block, because it is the only thing that changes and the only thing that gives rather than asks.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "On a confirm card (buildCard ~9600), the render order is: prompt, photo, three buttons (Looks right / Not quite / I haven't looked), a hint line, then '＋ Add a note' as a small trailing link, then the hidden textarea. The note — the ONLY move on that card that cannot be wrong — is the last, smallest, most tentative element, positioned after three verdict buttons and a hint. Meanwhile the framing line above the carousel promises 'No wrong answers', and `q-clematis-variety` poses an A-or-B question wired to Yes/No buttons, so the honest answer literally does not fit in the primary controls.",
+      "user_impact": "The card's visual hierarchy tells a frightened reader that the graded options are primary and the safe option is an afterthought. Her demonstrated behaviour is exactly this: she'll ask, she won't answer — and the note is the only 'ask'-shaped thing on the card. It's ranked last.",
+      "principle_invoked": "Typographic hierarchy by value + fernwood 'Explicit user-routing requires symmetric affordance weight' + Scope is communicated by where you tap (the per-card note EARNS its place precisely because it carries scope the general box can't — W7's open question, answered: keep it)",
+      "recommendation": "W7 resolved: keep the per-card note, do NOT funnel it to the general box — it is the only scoped low-risk door she has, and merging it would make her words scope-blind. But promote it. Put it level with the buttons as a co-equal option, in the same button family, worded as the safe move ('Tell me in your own words' / 'Something looks off to me'), not as a dashed '+' link below the fold of the card. Sequencing note: this is A3 'FIX THE ASK' territory and the wording reaches Mom, so it's Paul-gated.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "The dispute question, assessed skeptically. The case AGAINST a scoped 'this doesn't look right' affordance is strong: Fernwood is 0-for-2 on per-item affordances aimed at Mom (the star, 0 uses in 104 revisits; the confirm buttons, 1 tap in 35 offers); a control attached to a number is verdict-shaped, the exact class she declines; the weather card holds 40+ numbers so a per-datum control is either absurd or arbitrary; and the general box ALREADY WORKED — it produced the highest-value input this project has ever received. Adding a competing scoped channel risks siphoning from the one channel with a proven hit and splitting the record across two lifecycles. BUT the case FOR turns on one detail in her own sentence: she led with 'It's confusing to read...' — not 'it's wrong.' Confusion is unfalsifiable and therefore costs her nothing. That is not a verdict move; it's the safest utterance available, and it's why she made it. The other detail: she had to describe WHICH number in prose ('today it shows as .14 inches over the last seven days'). She did the scoping work by hand — and a note with no target is exactly why notes had no lifecycle.",
+      "user_impact": "The opportunity is real but the obvious form of it is the trap. A per-number control would be a new affordance with no signal, in a class she has twice ignored. What she has actually demonstrated is that she will use ONE general box if she can find it, and that she frames her disputes as confusion.",
+      "principle_invoked": "Defer affordances pending signal (auto-memory) + Scope is communicated by where you tap, not auto-detected + 'A correct no still owes a next move'",
+      "recommendation": "No new surface. Enrich the one she used: when the FeedbackRibbon opens while a card is expanded, pre-scope the panel — 'Something about the Weather card?' with a visible, changeable 'or something else' — and carry `context.section` on the POST. Zero new stack items, no per-number controls, and it converts an untargetable note into a targetable one, which is what the lifecycle rule needs. Two guardrails: (a) the scope must be VISIBLE and overridable in the panel, not silently attached, or it violates 'scope is declared by where you tap'; (b) the label should invite confusion, not correction — 'Confusing? Doesn't match what you're seeing?' — because that is the register she actually used and the one that costs her nothing.",
+      "effort": "medium"
+    },
+    {
+      "id": "F11",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The regional block ends each column with an `rv-badge` verdict pill. `.rv-very-dry` is background #fde8e8 / text #8b1a1a — a red alert pill — with labels 'Very Dry' / 'Dry' / 'Normal' / 'Moist' / 'Very Wet' and an ordinal-percentile line beneath ('12th percentile').",
+      "user_impact": "Red severity pills are monitoring-dashboard grammar on a field-journal surface; a half-engaged reader feels the 'something is wrong' pulse before the word resolves. And 'Very Dry · 12th percentile' asks her to hold a statistical construct to read a rainfall card — the decode-density problem, on the exact card that just failed her.",
+      "principle_invoked": "fernwood 'Caution as noticing, not warning' + 'Glyphs follow the journal voice, not the dashboard voice' + 'Glossary coverage is not readability'",
+      "recommendation": "If the regional block moves behind a disclosure (F2), this mostly resolves itself. Whatever survives: drop the red, use the in-palette quiet treatment, and replace the percentile with plain language ('drier than most years at this date'). Percentiles are repository-layer.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "area": "discoverability",
+      "severity": "nice-to-have",
+      "observation": "The gauge grid renders five cells — Now / Today / Event / Last 7 Days / Month (renderPropertyGaugeBlock ~6470). 'Event' is an undefined term of art (the station's `eventrainin` — rain since the last dry break) with no gloss anywhere on the card. At <=480px the grid drops to 3 columns (CSS ~1607), so five cells wrap to 3 + 2 with a ragged hole in the second row. Counting everything on the panel: 5 gauge cells + 7 by-day cells + 1 by-day total + 3 regional columns + 3 percentile lines = 19 figures on one card.",
+      "user_impact": "'Event 1.96\"' is a number she cannot interpret sitting between two she can, which is the local version of the same problem the whole card just had — a figure whose meaning isn't stated reads as a contradiction, and the honest conclusion is that the app is broken.",
+      "principle_invoked": "Make every surface read at half-engagement + Friction kills — it just works (if it needs a tooltip, redesign the moment)",
+      "recommendation": "Cut 'Event' from the default grid (four cells fits 2x2 cleanly at 3 columns... better: cut to Now / Today / Last 7 Days and put Month + Event in the repository layer). Or rename it in plain words — 'This storm'. Answering Paul's question directly: yes, three groups of rainfall figures on one card is one too many, and the third group is the regional one, not hers.",
+      "effort": "low"
+    },
+    {
+      "id": "F13",
+      "area": "empty-state",
+      "severity": "nice-to-have",
+      "observation": "MOM_ACK_DATA is 'never cleared, only replaced' by design, and the ribbon renders on every load with no notion of whether she has seen it. The proposed anti-furniture instincts (a dismiss control, a 'what you've settled' log, a per-item status list) are all the star trap wearing a new hat.",
+      "user_impact": "A permanent strip whose content is 8 days old reads as furniture; a strip whose content changes whenever she contributes reads as a conversation. The variable isn't permanence, it's freshness.",
+      "principle_invoked": "Defer affordances pending signal + 'Static visuals lie on dynamic surfaces' (a standing acknowledgment strip is a dynamic-signalling surface; stale content on it erodes trust in the whole return leg)",
+      "recommendation": "Add no control and no tracker — the correct answer here is the one already built. `check-mom-ack.py` computing 'she is owed a line' IS the anti-furniture mechanism; the guarantee is that the ribbon's content changes at least as often as she contributes. Two additions worth considering, both non-control: (a) let the ribbon carry a soft time anchor in her frame of reference ('what you wrote this morning'), so it binds to a memory rather than asking her to retrieve one; (b) generalise the provenance chip so the consequence also lives on the artifact — a quiet 'day by day, at your ask · July' on the by-day header — which survives after the ribbon is replaced. Flag on (b): it risks reading as a plaque about her rather than a fact about the rain; test the wording before shipping, and if it can't be said plainly, don't say it.",
+      "effort": "low"
+    },
+    {
+      "id": "F14",
+      "area": "feedback",
+      "severity": "nice-to-have",
+      "observation": "Two of the nine channels are invisible to the mechanism that guarantees she gets answered. `momlib.CHANNELS` (~379) lists feedback / observations / zone-audio / conversations. Not listed: /api/zone-feedback ('describe a place', F1) and pending-species (photo -> ID). The ack ribbon's `acknowledgedThrough` clock can therefore be 'current' while input sits on two channels nobody checked.",
+      "user_impact": "Paul's ask — 'for every capture channel, automated recognition she submitted something' — is currently true for four of six server-side channels. The two gaps are the two newest.",
+      "principle_invoked": "Fernwood standing rule 'a new input channel is not shipped until a note arriving on it can be surfaced, protected, and closed' + Nielsen #1 visibility of system status (for the operator, which is what makes it visible to the user)",
+      "recommendation": "Fold both into `momlib.CHANNELS` when F1 is resolved. Note that pending-species is Paul-gated by design and its visible close is the species appearing in canon — so it needs to be SEEN by the check even though its close is a different shape.",
+      "effort": "low"
+    }
+  ],
+  "surface_audit": {
+    "note": "The W8 verdict per surface, condensed. 'Earns it' = keep as-is; 'Earns it, re-rank' = keep but change position/weight; 'Not as built' = fails a gate.",
+    "1_confirm_card_buttons": "Earns it only in re-cut form (A3's observation/expertise slate). Should not be the largest thing in the stack while it converts 1 in 35. See F5, F9.",
+    "2_per_card_add_a_note": "EARNS IT — W7 answered. Do not funnel it to the general box; it is the only scoped low-risk door she has. Promote it to co-equal weight. See F9.",
+    "3_feedback_ribbon": "EARNS IT, unambiguously — her direct ask, and it caught the rainfall report. On phone it renders in the stacked narrow variant (<=480px: ~62-80px label, bottom:84px), so the '~150px / 40% of a reading band' concern in BACKLOG W5 describes the wide layout, not her device. Residual is ~2 lines of vertical coverage at the right margin. Recommend: stop treating width as the open question; do the Mom-check on placement and on the label wording instead. Best upgrade is F10 (scope it to the open card).",
+    "4_q_open_standing_card": "Already retired from the carousel (buildGeneral/expandGeneral kept as reference only). Correct — one home for general feedback. No action.",
+    "5_unified_composer": "EARNS IT and is under-ranked. The surface she actually used, sitting below the surface she declines. Move it up. See F5.",
+    "6_garden_guru": "Earns it. This is where she goes. Its receipt is the reply itself, which is the right shape. No stack cost (it lives inside the composer).",
+    "7_zone_journey_front_door": "Earns a place only at reduced weight, and only until its time-box closes (~8/14). Currently the loudest element in the stack with no recorded taps. See F8.",
+    "8_describe_a_place_text": "NOT AS BUILT — fails all three lifecycle legs and can silently lose her words on an unpaired device. Retire the entry point or wire it through submitGeneralNote. See F1.",
+    "9_photo_pending_species": "Earns it — behind the composer, Paul-gated, with a review tool. Add it to the ack-check channel list. See F14."
+  },
+  "open_questions_for_user": [
+    "Position 2 of the top block: are you willing to put something ABOUT the place (a Weeds-shaped line that asks nothing) above every ask? That is the structural answer to 'she'll ask, she won't answer', and it's the one recommendation here that changes the app's opening posture rather than its ordering.",
+    "The launcher time-box runs to ~8/14. Do you want it demoted now (my recommendation — it dilutes the ribbon) or held at full weight to protect the measurement?",
+    "The regional/ERA5 block: is the climatology percentile something you want on the rainfall card at all, or is it repository-layer? My read is repository. It's the only thing keeping three groups of numbers on that card.",
+    "F13(b) — a quiet 'at your ask' credit on the by-day header. Does that read as warm or as a plaque? Your call; I can't test it and it reaches her.",
+    "Did I get the launcher funnel right? I'm assuming ~zero taps since 7/17 from BACKLOG's day-1 record; if `read-mom-funnel.py` says otherwise, F8's weight changes."
+  ],
+  "follow_up_research_suggested": [
+    "user-researcher: her 7/26 note led with 'confusing', not 'wrong'. Worth testing whether CONFUSION is a systematically safer register for her than CORRECTION across surfaces — if so it's a copy rule for every ask in the app, not just the feedback panel.",
+    "One live pass on a real phone at A+ text size with the Weather card open — I could not run the app this session (no Bash tool), and F4 in particular deserves an eyeball before the fix is scoped.",
+    "engineering-partner: whether the `body.text-lg` allowlist should become a scaled container or a checked list. It is a defect class, not a one-off."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Receipt and consequence are two different acknowledgments — don't let one surface carry both",
+      "scope": "cross-project",
+      "rationale": "From F6. A receipt ('your words arrived') is per-submission, immediate, automatic, and belongs at the point of capture. A consequence ('here's what your words changed') is episodic, authored, and belongs at the top of the app or on the artifact that changed. Fernwood's single ribbon was being asked to scale across nine channels because the two jobs were conflated; separated, receipt scales trivially (it's an invariant) and consequence stays singular by design. Generalises cleanly to the financial dashboard's capture surfaces and any Bolo lead-capture form."
+    },
+    {
+      "principle": "A relabel is not a re-rank — when the source hierarchy is wrong, fix the type scale, not the caption",
+      "scope": "cross-project",
+      "rationale": "From F2. The 7/26 rainfall fix corrected the data and added the word 'Region' to the columns, but left the modeled figure at 22px and the measured one at 13.5px. The reader's eye ranks by weight before it reads labels, so a correct label under a dominant number still communicates the wrong hierarchy. Sharpens 'Source-hierarchy drives layout' with the specific failure mode of a partial fix — worth naming because a relabel FEELS like a fix and closes the ticket."
+    },
+    {
+      "principle": "An accessibility text mode built as an allowlist silently excludes every surface added after it",
+      "scope": "cross-project",
+      "rationale": "From F4. Fernwood's A+ mode is ~140 hand-listed selectors; the rainfall panel has none, so the card at the centre of a trust incident does not grow in the mode built for the reader who needs it. Mechanism is domain-independent (any opt-in accessibility layer decays as the surface grows) and it is checkable, which makes it a good candidate for a landing-checklist line rather than a principle nobody applies."
+    },
+    {
+      "principle": "Among competing solicitation surfaces, demonstrated engagement sets altitude",
+      "scope": "Fernwood",
+      "rationale": "From F5/F8. Sibling to 'Freshness sets altitude' — that rule orders by how live a signal is; this one orders ASKS by which ones the user actually answers. Fernwood's top block currently orders by build date, which put a 1-in-35 surface and a 0-tap surface above the composer she used twice unprompted. Fernwood-scoped for now; watch for a second occurrence (Bolo's email signup vs booking CTA is the likely one) before proposing promotion."
+    }
+  ]
+}

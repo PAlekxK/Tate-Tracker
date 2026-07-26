@@ -10,27 +10,20 @@
       "noteTs": "2026-07-17T01:19:08.335Z",
       "addressedOn": "2026-07-26",
       "disposition": "W1 bench test from an unpaired device — Paul's own, no action needed",
-      "acknowledgedToHer": true
+      "acknowledgedToHer": false
     },
     {
       "noteId": "fb-4goj8swu-mro93jhe",
       "noteTs": "2026-07-17T01:20:03.170Z",
       "addressedOn": "2026-07-26",
       "disposition": "W1 bench test — Paul's own, no action needed",
-      "acknowledgedToHer": true
+      "acknowledgedToHer": false
     },
     {
       "noteId": "fb-v0xl2jv6-ms1ts7ml",
       "noteTs": "2026-07-26T13:20:06.813Z",
       "addressedOn": "2026-07-26",
       "disposition": "CORRECT bug report — she was right by 14x. Fixed + live in f38c275 (station gauge, window ends today, WEEK tile no longer resets Sunday, region columns labelled, by-day view built). Acknowledged to her in the ribbon, f2cd8a7.",
-      "acknowledgedToHer": true
-    },
-    {
-      "noteId": "fb-cycletest-20260726-174840",
-      "noteTs": "2026-07-26T17:48:40.973099Z",
-      "addressedOn": "2026-07-26",
-      "disposition": "automated cycle test 20260726-174840 — self-closed, no action needed",
       "acknowledgedToHer": true
     }
   ]

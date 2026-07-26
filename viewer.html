@@ -9023,11 +9023,20 @@ const ZonePanel = (function () {
     if (activeZoneId === "__describe__") {
       // Describe-mode: log to feedback queue, no polygon yet.
       if (!text) { setRenameHint("Tell me a bit about the place.", true); return; }
-      saveZoneFeedback(text);
-      if (typeof MetricsCollector !== "undefined") {
-        MetricsCollector.track("zone_suggested", { textLength: text.length });
-      }
-      close();
+      // Await the real result and tell her the truth. This used to fire and
+      // forget, then close() — so the panel vanished identically whether her
+      // words were stored or dropped. An ack that cannot fail is not an ack.
+      setRenameHint("Saving…", false);
+      saveZoneFeedback(text).then(result => {
+        if (typeof MetricsCollector !== "undefined") {
+          MetricsCollector.track("zone_suggested", { textLength: text.length, result });
+        }
+        if (result === "failed") {
+          setRenameHint("Couldn't save that just yet — it's still here, try again.", true);
+          return;   // keep the panel open; her words stay on screen
+        }
+        close();
+      });
       return;
     }
 
@@ -9110,33 +9119,35 @@ function makeZoneId(name) {
   return base + "-" + i;
 }
 
-// Voice/text "describe a place" feedback queue. Mirrors localStorage AND
-// posts to Worker /api/zone-feedback which appends to KV zone-feedback:YYYY-MM-DD.
-// Paul reads the canonical queue; localStorage is the offline-safe fallback.
-const ZONE_FEEDBACK_KEY = "tateTracker.zoneFeedback.v1";
-function saveZoneFeedback(text) {
-  const record = {
-    id: "fb-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6),
-    text,
-    createdAt: new Date().toISOString(),
-    by: "device",
-    status: "pending",
-  };
+// Voice/text "describe a place" — REROUTED 2026-07-26 onto the general-note path.
+//
+// It used to POST to /api/zone-feedback, and that was the worst channel in the
+// app on every axis at once:
+//   · it only sent `if (WorkerAPI.isConfigured())` — so on an UNPAIRED device
+//     her words went to localStorage and nowhere else, silently unrecoverable.
+//     That is the 7/15 data-loss bug that W1 was written to kill, still alive
+//     on a second channel.
+//   · it gave NO acknowledgment — the caller ran saveZoneFeedback() then close(),
+//     so the panel just vanished whether or not anything was stored.
+//   · NO tool has ever read /api/zone-feedback. Verified 2026-07-26: 0 entries
+//     across 207 days scanned. Nothing was lost — but only because she never
+//     used it. It was absent from momlib.CHANNELS, so check-mom-ack.py was
+//     structurally blind to it and would report green regardless.
+//
+// It failed all three legs of the standing rule (surfaced / protected / closed).
+// Rather than instrument a fourth channel, it now rides the SAME path as the
+// general feedback box: token-free POST /api/feedback, durable outbox, honest
+// 3-state ack, and — for free — the note lifecycle in feedback-log.json.
+// `context.section` records that it came from the map, so the provenance isn't
+// lost. Returns the ack result so the caller can be honest with her.
+async function saveZoneFeedback(text) {
+  const note = (text || "").trim();
+  if (!note) return "failed";
   try {
-    const raw = localStorage.getItem(ZONE_FEEDBACK_KEY);
-    const list = raw ? JSON.parse(raw) : [];
-    if (Array.isArray(list)) {
-      list.push(record);
-      localStorage.setItem(ZONE_FEEDBACK_KEY, JSON.stringify(list));
-    }
-  } catch (e) { /* quota / blocked — best effort */ }
-
-  // Fire-and-forget POST. Failures are silent; the localStorage copy is the
-  // backup. Paul can read his queue from KV (canon) — Worker is authoritative.
-  if (typeof WorkerAPI !== "undefined" && WorkerAPI.isConfigured()) {
-    WorkerAPI.call("POST", "/api/zone-feedback", { text }).catch(e => {
-      console.warn("[zone-feedback] post failed:", e && e.message ? e.message : e);
-    });
+    return await MomQueue.submitGeneralNote(note, { section: "zone-describe" });
+  } catch (e) {
+    console.warn("[zone-describe] submit failed:", e && e.message ? e.message : e);
+    return "failed";
   }
 }
 
@@ -9480,7 +9491,7 @@ const MomQueue = (function () {
   // ("sent"|"queued"|"failed") instead of painting the mom-queue host. Falls back
   // to a hardcoded open-question ref so a dark/offline device (questions.json
   // unfetched) can still reach the record.
-  async function submitGeneralNote(text) {
+  async function submitGeneralNote(text, opts) {
     const note = (text || "").trim();
     if (!note) return "failed";
     const gq = generalQ() || { id: "q-open-standing", kind: "open" };
@@ -9489,8 +9500,10 @@ const MomQueue = (function () {
       const list = raw ? JSON.parse(raw) : [];
       if (Array.isArray(list)) { list.push({ note, at: new Date().toISOString() }); writeMap(GENERAL_LOG_KEY, list); }
     } catch (e) { /* quota — best effort */ }
-    const result = await postFeedback(gq, null, note);
-    track("ribbon_general_sent", { result });
+    // `section` records WHERE she wrote it (the map's describe-a-place panel,
+    // an expanded card) so a scoped report keeps its scope in the record.
+    const result = await postFeedback(gq, null, note, (opts && opts.section) || null);
+    track("ribbon_general_sent", { result, section: (opts && opts.section) || null });
     return result;
   }
 
@@ -9508,13 +9521,14 @@ const MomQueue = (function () {
   // Returns "sent" (a verified 2xx) | "queued" (durably on disk, will replay) |
   // "failed" (neither — her words exist ONLY in the DOM, so the caller must not
   // clear the surface). Never throws, and never reports a write it didn't verify.
-  async function postFeedback(q, sentiment, note) {
+  async function postFeedback(q, sentiment, note, section) {
     const firstOfferedAt = readMap(OFFERED_KEY)[q.id] || null;  // enables offer→answer latency
     const body = {
       id: "fb-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
       ts: new Date().toISOString(),
       context: {
         type: "mom-queue", questionId: q.id, kind: q.kind, firstOfferedAt,
+        ...(section ? { section } : {}),
         // W1.4 — a dark device announces itself IN THE RECORD. Paul could not
         // previously tell "she tried and we ate it" from "she didn't show up";
         // capture no longer needs pairing, but whether this device was ever
@@ -15386,18 +15400,6 @@ function fnMatchSpecies(category, guess) {
 // Classify a journal entry via the Worker. Returns { category, speciesId, speciesName }
 // or null when the Worker isn't configured / the call fails. Designed to be called
 // async after save — failures are silent.
-async function classifyEntry(entryBody, isoDate) {
-  if (!WorkerAPI.isConfigured()) return null;
-  try {
-    const data = await WorkerAPI.call("POST", "/api/classify", { body: entryBody, date: isoDate });
-    if (!data || !data.category) return null;
-    const match = fnMatchSpecies(data.category, data.species_guess);
-    return { category: data.category, speciesId: match.speciesId, speciesName: match.speciesName };
-  } catch (e) {
-    if (!e.notConfigured) console.warn("classify failed:", e.message);
-    return null;
-  }
-}
 
 function fnSpeciesOptionsFor(category) {
   const map = {
@@ -15782,27 +15784,15 @@ if (ObservationStore.isConfigured()) {
   ObservationStore.refresh().then(() => renderFieldNotes());
 }
 
-// Retry classification for any entries that got orphaned with classifyPending=true
-// (e.g. from a session where the page crashed before classify could complete).
-function fnRetryPendingClassifications() {
-  if (!WorkerAPI.isConfigured()) return;
-  const pending = fnLoadAll().filter(e => e.classifyPending === true && !e.category);
-  if (!pending.length) return;
-  console.log("Retrying classification for", pending.length, "orphaned entr" + (pending.length === 1 ? "y" : "ies"));
-  for (const entry of pending) {
-    classifyEntry(entry.body, entry.date).then(async result => {
-      const updated = { ...entry, classifyPending: false };
-      if (result) {
-        updated.category = result.category;
-        updated.speciesId = result.speciesId;
-        updated.speciesName = result.speciesName;
-      }
-      await ObservationStore.save(updated);
-      renderFieldNotes();
-    });
-  }
-}
-fnRetryPendingClassifications();
+// REMOVED 2026-07-26 — fnRetryPendingClassifications() + classifyEntry().
+// This was dormant Phase-D machinery that ran UNCONDITIONALLY at every page
+// load, scanning her saved field notes for classifyPending===true and firing
+// POST /api/classify (a model call) on her verbatim words. It was inert only
+// because nothing in the codebase sets that flag true — a CONVENTION, not a
+// control. One future line would have silently resumed AI classification of
+// Mom's observations on the capture path: forbidden creep mode (1).
+// The backlog said "removed (kept dormant)"; dormant code with a live trigger
+// is not removed. See CLAUDE.md "The AI boundary".
 
 // =========================
 // GARDEN GURU (Phase E — conversational property assistant)
