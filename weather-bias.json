@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": 1,
-    "generatedAt": "2026-07-25T16:55:28.572Z",
+    "generatedAt": "2026-07-26T10:09:00.737Z",
     "method": "Deterministic (AI-free) comparison of the on-site Ambient Weather station vs. the Open-Meteo ERA5 regional grid, both at the property's 902 m elevation.",
     "station": "Kirschenbauer Ambient Weather Station (D8:F1:5B:15:28:B8)",
     "gridModel": "Open-Meteo ERA5 archive",
@@ -9,55 +9,55 @@
   },
   "window": {
     "start": "2026-05-02",
-    "end": "2026-07-24",
-    "comparedDays": 77
+    "end": "2026-07-25",
+    "comparedDays": 78
   },
   "metrics": {
     "tempHigh": {
       "station": 77.3,
       "grid": 74.1,
       "delta": 3.2,
-      "n": 77
+      "n": 78
     },
     "tempLow": {
       "station": 62.9,
-      "grid": 60.6,
-      "delta": 2.3,
-      "n": 77
+      "grid": 60.7,
+      "delta": 2.2,
+      "n": 78
     },
     "tempMean": {
       "station": 68.3,
-      "grid": 66.7,
+      "grid": 66.8,
       "delta": 1.5,
-      "n": 77
+      "n": 78
     },
     "humidity": {
       "station": 89,
       "grid": 83,
       "delta": 6,
-      "n": 77
+      "n": 78
     },
     "gust": {
-      "station": 3.3,
+      "station": 3.2,
       "grid": 22.6,
-      "delta": -19.3,
-      "n": 76
+      "delta": -19.4,
+      "n": 77
     },
     "windAvg": {
       "station": 0,
       "grid": 8.4,
       "delta": -8.3,
-      "n": 77
+      "n": 78
     },
     "precip": {
       "stationTotal": 21.38,
-      "gridTotal": 17.13,
-      "pctDelta": 25,
-      "n": 77
+      "gridTotal": 17.24,
+      "pctDelta": 24,
+      "n": 78
     }
   },
   "headline": {
-    "precipPctDelta": 25,
+    "precipPctDelta": 24,
     "tempMeanDelta": 1.5,
     "humidityDelta": 6
   },
@@ -113,6 +113,16 @@
       "windowEnd": "2026-07-24",
       "nDays": 77,
       "precipPctDelta": 25,
+      "tempMeanDelta": 1.5,
+      "humidityDelta": 6,
+      "windStation": 0,
+      "windGrid": 8.4
+    },
+    {
+      "date": "2026-07-26",
+      "windowEnd": "2026-07-25",
+      "nDays": 78,
+      "precipPctDelta": 24,
       "tempMeanDelta": 1.5,
       "humidityDelta": 6,
       "windStation": 0,
