@@ -25,7 +25,6 @@ Usage:
 """
 import argparse
 import datetime as dt
-import importlib.util
 import json
 import os
 import subprocess
@@ -34,21 +33,21 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
 VIEWER = os.path.join(ROOT, "viewer.html")
-PLANTS = os.path.join(ROOT, "plants.json")
 QUESTIONS = os.path.join(ROOT, "questions.json")
 
 sys.path.insert(0, HERE)
 import reinline  # noqa: E402
+import momlib  # noqa: E402
 
+rmf = momlib  # historical alias — this file used to import read-mom-feedback.py by path
 
-def _load(name, path):
-    spec = importlib.util.spec_from_file_location(name, path)
-    m = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(m)
-    return m
-
-
-rmf = _load("rmf", os.path.join(HERE, "read-mom-feedback.py"))
+# entityRef.type -> (source path, list key, the viewer const to re-inline).
+# It used to be plants-only, so the three live WEED cards silently degraded to
+# "entity not found in plants.json" (2026-07-26).
+FOLD_SOURCES = {
+    "plant": (os.path.join(ROOT, "plants.json"), "plants", "PLANTS_DATA"),
+    "weed": (os.path.join(ROOT, "weeds.json"), "weeds", "WEEDS_DATA"),
+}
 
 MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -66,10 +65,10 @@ def latest_answers(token):
     return latest
 
 
-def find_plant(plants, pid):
-    for p in plants:
-        if p.get("id") == pid:
-            return p
+def find_entity(entities, eid):
+    for e in entities:
+        if e.get("id") == eid:
+            return e
     return None
 
 
@@ -110,6 +109,21 @@ def draft_edit(question, plant, answer):
             b["confidence"] = "verified"
         return (f"{plant['id']}.bloom.confidence", old, "verified", apply)
 
+    # Top-level `confidence` — the weeds shape. Her "yes, that's stiltgrass"
+    # settles the ID we read off a photo, so the honesty markers both move.
+    if target == "confidence" and plant.get("confidence") is not None:
+        old = plant.get("confidence")
+        if old == "verified":
+            return (None, "identification already verified", None, None)
+
+        def apply():
+            plant["confidence"] = "verified"
+            if plant.get("status") == "needs-confirmation":
+                plant["status"] = "confirmed"
+            plant["verifiedOn"] = when or dt.date.today().strftime("%Y-%m")
+            plant["source"] = f"confirmed on the ground{', ' + label_month if label_month else ''}"
+        return (f"{plant['id']}.confidence", old, "verified", apply)
+
     return (None, f"no auto-fold rule for _foldTarget={target!r}", None, None)
 
 
@@ -127,9 +141,17 @@ def main():
 
     qdata = json.load(open(QUESTIONS, encoding="utf-8"))
     questions = qdata["questions"]
-    pdata = json.load(open(PLANTS, encoding="utf-8"))
-    plants = pdata["plants"]
     by_id = {q["id"]: q for q in questions}
+
+    # Load every entity source a card could point at (plants, weeds), keeping
+    # each parsed doc so we write back only the ones we actually touched.
+    docs = {}
+    for etype, (path, key, _const) in FOLD_SOURCES.items():
+        try:
+            docs[etype] = json.load(open(path, encoding="utf-8"))
+        except FileNotFoundError:
+            docs[etype] = None
+    touched = set()
 
     answers = latest_answers(token)
     # Foldable = answered + question still open (active:true) + has a fold target.
@@ -141,15 +163,22 @@ def main():
         return 0
 
     applied = 0
+    folded_ts = []       # ts of exactly what we folded — the watermark's ceiling
     manual = []
     for qid, answer in todo:
         q = by_id[qid]
-        plant = find_plant(plants, (q.get("entityRef") or {}).get("id"))
+        ref = q.get("entityRef") or {}
+        etype, eid = ref.get("type"), ref.get("id")
         if q.get("_foldTarget") is None:
             manual.append((qid, "reflective/preference — not a canon fold; note it for yourself"))
             continue
+        if etype not in FOLD_SOURCES or docs.get(etype) is None:
+            manual.append((qid, f"no source file mapped for entityRef.type={etype!r}"))
+            continue
+        src_path, src_key, _const = FOLD_SOURCES[etype]
+        plant = find_entity(docs[etype].get(src_key) or [], eid)
         if plant is None:
-            manual.append((qid, f"entity {(q.get('entityRef') or {}).get('id')!r} not found in plants.json"))
+            manual.append((qid, f"entity {eid!r} not found in {os.path.basename(src_path)}"))
             continue
 
         path, old, new, apply = draft_edit(q, plant, answer)
@@ -169,10 +198,14 @@ def main():
             continue
 
         apply()
+        touched.add(etype)
         q["active"] = False
         q["resolvedAt"] = dt.date.today().isoformat()
         q["resolution"] = f"Mom confirmed '{rmf.CONFIRM_LABEL.get(answer.get('sentiment'), answer.get('sentiment'))}' " \
-                          f"{(answer.get('ts') or '')[:10]}; folded into plants.json ({path} → verified)."
+                          f"{momlib.et_str(answer.get('ts'), with_time=False)}; " \
+                          f"folded into {os.path.basename(src_path)} ({path} → verified)."
+        if answer.get("ts"):
+            folded_ts.append(answer["ts"])
         applied += 1
         print("    ✓ staged")
 
@@ -186,17 +219,43 @@ def main():
         return 0
 
     if applied:
-        # Write canon + questions, then re-inline PLANTS_DATA via the shared path.
-        json.dump(pdata, open(PLANTS, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-        open(PLANTS, "a", encoding="utf-8").write("\n")
+        # Write back ONLY the canon files we touched, then re-inline each one's
+        # const via the shared side-effect-free path.
+        written = []
+        for etype in sorted(touched):
+            path_json, _key, const = FOLD_SOURCES[etype]
+            json.dump(docs[etype], open(path_json, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+            open(path_json, "a", encoding="utf-8").write("\n")
+            reinline.reinline_from_source(VIEWER, const, path_json)
+            written.append(f"{os.path.basename(path_json)} + {const}")
         json.dump(qdata, open(QUESTIONS, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
         open(QUESTIONS, "a", encoding="utf-8").write("\n")
-        reinline.reinline_from_source(VIEWER, "PLANTS_DATA", PLANTS)
-        print(f"\n✓ Folded {applied} answer(s): plants.json + PLANTS_DATA + questions.json updated.")
+        print(f"\n✓ Folded {applied} answer(s): {', '.join(written)} + questions.json updated.")
 
-        # Advance the read watermark so these stop showing as 'new' in --pickup.
-        subprocess.run([sys.executable, os.path.join(HERE, "read-mom-feedback.py"), "--mark-reviewed"],
-                       cwd=ROOT, env={**os.environ, "FERNWOOD_TOKEN": token})
+        # Advance the read watermark — but ONLY through what we actually folded.
+        #
+        # ⚠️ This call used to be a bare `--mark-reviewed`, which stamped the max
+        # timestamp across EVERY record in view. Folding one card therefore made
+        # an unrelated, unfolded answer of Mom's stop being "new" — permanently.
+        # It was the only silent-data-loss path in the cycle. `--mark-reviewed-
+        # through` bounds the stamp to these answers, and read-mom-feedback.py
+        # additionally clamps below anything still needing Paul.
+        cmd = [sys.executable, os.path.join(HERE, "read-mom-feedback.py")]
+        if folded_ts:
+            cmd += ["--mark-reviewed-through", max(folded_ts)]
+        else:
+            cmd += ["--mark-reviewed"]
+        subprocess.run(cmd, cwd=ROOT, env={**os.environ, "FERNWOOD_TOKEN": token},
+                       stdout=subprocess.DEVNULL)
+
+        # A fold is by definition new acknowledged-through material: she settled
+        # something, so the ribbon owes her a line naming it. The tool computes
+        # THAT she is owed one; the words stay Paul's (AI-boundary, CLAUDE.md).
+        print("\n🎗  The acknowledgment ribbon now owes her a line — she just settled something.")
+        print("    Name what she actually gave, in her words, then commit AND PUSH")
+        print("    (Pages serves viewer.html; a commit alone never reaches her):")
+        print("      1. edit MOM_ACK_DATA.message + acknowledgedThrough in viewer.html")
+        print(f"      2. python3 tools/check-mom-ack.py    (verifies it covers her latest input)")
 
         if args.deploy:
             print("\n[deploy] rebuilding digest + deploying Worker …")

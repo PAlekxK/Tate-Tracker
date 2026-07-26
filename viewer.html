@@ -9034,7 +9034,8 @@ function saveZoneFeedback(text) {
 const MOM_ACK_DATA = {
   "message": "The moss and the buttermilk slurry are in the record now — and household systems is your name for it, and the right one.",
   "answeredOn": "2026-07-26",
-  "questionId": null
+  "questionId": null,
+  "acknowledgedThrough": "2026-07-26T13:19:00Z"
 };
 
 const MomQueue = (function () {
@@ -9225,7 +9226,11 @@ const MomQueue = (function () {
       ackStrip.appendChild(check);
       ackStrip.appendChild(msg);
       host.appendChild(ackStrip);
-      track("momack_shown", { questionId: MOM_ACK_DATA.questionId });
+      // Track WHAT the ribbon covered, not questionId — that field is null now
+      // that input arrives through four channels, so it gave the metric no
+      // discriminator at all. acknowledgedThrough is how you'd ever learn
+      // whether a FRESH ribbon changes her behaviour versus a stale one.
+      track("momack_shown", { acknowledgedThrough: MOM_ACK_DATA.acknowledgedThrough || null });
     }
 
     // The standing front door — a head-line ABOVE the carousel, rendered FIRST and

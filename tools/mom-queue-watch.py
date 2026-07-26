@@ -6,9 +6,22 @@ card, never dirties the repo. It just answers "is there anything worth a 2-minut
 approval session?" and pings Paul when the answer changes to yes — so he never has
 to wonder whether Mom has answered.
 
-Triggers a ping when Mom has answered an OPEN question we haven't pinged about yet
-(a fold is waiting). The ping also reports how many fresh cards the harvester could
-draft, so Paul can reseed while he's in there.
+⭐ WIDENED 2026-07-26 — it now watches "unacknowledged INPUT," not just "a fold
+is waiting." The old trigger was `answered + active:True`, i.e. a confirm-card
+answer. That is why this watcher was **completely silent on 2026-07-26**, the
+richest feedback day the project has had: Mom asked Garden Guru two real
+questions, reported a display problem, proposed a whole new domain and shared a
+moss technique — and answered zero cards. A watcher keyed to the one channel her
+stated fear of being wrong blocks will stay quiet exactly when it matters most.
+
+So it pings on either of two things:
+  1. she answered an OPEN card (a fold is waiting), or
+  2. input landed through ANY app channel that the acknowledgment ribbon does
+     not cover yet — the same computation `check-mom-ack.py` runs, imported,
+     not reimplemented.
+
+The ping also reports how many fresh cards the harvester could draft, so Paul can
+reseed while he's in there.
 
 Pings via (either/both, best-effort):
   • macOS notification  — always attempted (zero setup)
@@ -39,9 +52,13 @@ APP_PW_FILE = os.path.join(ROOT, ".private", "gmail-app-password")
 EMAIL_ADDR = "paul.kirschenbauer@gmail.com"
 
 sys.path.insert(0, HERE)
+import momlib  # noqa: E402
 
 
 def _load(name, path):
+    """Import a hyphenated tool by path. Still needed for harvest-questions.py;
+    the copy that used to load read-mom-feedback.py is gone — its shared helpers
+    now live in momlib (rule of three, 2026-07-26)."""
     spec = importlib.util.spec_from_file_location(name, path)
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
@@ -102,7 +119,7 @@ def main():
     ap.add_argument("--force", action="store_true", help="Ping even if nothing is new (for testing)")
     args = ap.parse_args()
 
-    rmf = _load("rmf", os.path.join(HERE, "read-mom-feedback.py"))
+    rmf = momlib  # the shared helpers used to be reached through read-mom-feedback.py
     harvestmod = _load("harvestmod", os.path.join(HERE, "harvest-questions.py"))
 
     token = rmf.resolve_token()
@@ -134,12 +151,27 @@ def main():
     existing = {q["id"] for q in questions}
     fresh_cards = [c for c in candidates if c["id"] not in existing]
 
+    # --- the widened half: input the ribbon doesn't cover yet ---
+    # Same computation check-mom-ack.py runs, imported rather than reimplemented,
+    # so "acknowledged" can only ever mean one thing across the two tools.
+    ribbon = momlib.ribbon_state()
+    ack = ribbon["acknowledged_through"]
+    try:
+        inputs = momlib.latest_mom_input(token, days=60)
+    except Exception:  # noqa: BLE001
+        inputs = {"latest": None, "channels": [], "errors": []}
+    uncovered = momlib.channels_since(inputs, ack)
+    uncovered_ts = max((c["latest"] for c in uncovered), default=None)
+
     state = read_state()
     pinged = set(state.get("pingedAnswerIds", []))
     new_answers = answered_open - pinged
+    # Ping once per newly-arrived uncovered input, not every run.
+    last_uncovered = state.get("lastUncoveredPingedTs") or ""
+    new_uncovered = bool(uncovered_ts and uncovered_ts > last_uncovered)
 
-    if not new_answers and not args.force:
-        # Nothing new to fold. Keep state's answered set current (so a re-answer of a
+    if not new_answers and not new_uncovered and not args.force:
+        # Nothing new. Keep state's answered set current (so a re-answer of a
         # newly-reopened question can re-trigger), but don't ping.
         state["pingedAnswerIds"] = sorted(answered_open)
         state["lastRun"] = today.isoformat()
@@ -152,20 +184,43 @@ def main():
     parts = []
     if n:
         parts.append(f"Mom answered {n} — ready to fold")
+    if uncovered:
+        chans = ", ".join(c["name"] for c in uncovered)
+        parts.append(f"input the ribbon hasn't answered ({chans})")
     if k:
         parts.append(f"{k} new card(s) to approve")
     if not parts:
         parts.append("nothing pending (forced ping)")
     summary = "; ".join(parts) + "."
-    body = (summary + "\n\nWhen you have a minute, open a Fernwood session and run:\n"
-            "  python3 tools/read-mom-feedback.py            (see her answers)\n"
-            "  python3 tools/fold-answer.py --deploy         (fold them into canon)\n"
-            "  python3 tools/harvest-questions.py            (draft new cards to approve)\n")
+
+    body_lines = [summary, ""]
+    if uncovered:
+        body_lines += [
+            "Input landed that the acknowledgment ribbon doesn't cover:",
+            f"  ribbon covers through : {momlib.et_str(ack) if ack else '(no clock set)'}",
+        ]
+        for c in uncovered:
+            body_lines.append(f"  · {c['name']:14s} {momlib.et_str(c['latest'])}")
+        body_lines += [
+            "  (attribution is NOT asserted — if that was your own tap, clear it with",
+            "   python3 tools/check-mom-ack.py --acknowledged-through <ts>)",
+            "",
+        ]
+    body_lines += [
+        "When you have a minute, open a Fernwood session and run:",
+        "  python3 tools/check-mom-ack.py                (is she owed a line?)",
+        "  python3 tools/read-mom-feedback.py            (see her answers)",
+        "  python3 tools/fold-answer.py --deploy         (fold them into canon)",
+        "  python3 tools/harvest-questions.py            (draft new cards to approve)",
+    ]
+    body = "\n".join(body_lines) + "\n"
 
     notify_macos(title, summary)
     emailed = notify_email(title + " — " + summary, body)
 
     state["pingedAnswerIds"] = sorted(answered_open)
+    if uncovered_ts:
+        state["lastUncoveredPingedTs"] = uncovered_ts
     state["lastRun"] = today.isoformat()
     state["lastPingAt"] = dt.datetime.now().astimezone().isoformat()
     write_state(state)
