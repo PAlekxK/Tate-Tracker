@@ -122,6 +122,93 @@ Install: remove panel + handle → set the plate → drill for rivets → rivet 
 
 ---
 
+## STEP 6 — The one-removal protocol (old plastic; open the door ONCE)
+
+*Added 2026-07-27, from Paul's concern: every on/off cycle is another chance to crack 37-year-old plastic.*
+
+**The count is forced, and it's better than it feels.** The panel has to be off the truck for the
+chestnut spray — that's non-negotiable, and it's the *last* time it comes off. Which means:
+
+> **Any install of that panel before paint is a wasted cycle by definition.**
+
+So the optimum is **1 removal + 1 install**, with the panel simply *staying off* in between — through
+bench repair, through the shop, through reassembly. That's not a big-bang weekend; it's a two-day
+teardown followed by months of unhurried access. **The risk isn't the work, it's closing the window early.**
+
+### What fills the window
+
+1. **Teardown (both doors, one session).** This is the two days. Panels off, vapor barriers off (cut at
+   the butyl bead and **save them as templates**), survey, photograph, bag + label fasteners per door.
+   Do the diagnosis that has no paint dependency: **meter the lock circuit** (switch → jamb boot →
+   actuator — the step deferred since Feb 2026; reconcile the on-shelf TRQ actuator against the
+   "already replaced" note while in there), check **both** inside handles for the fatigue crack (Step 5),
+   assess regulator, glass channels, hinge pins. **Order parts off what you find.**
+2. **Bench, in parallel (weeks).** Steps 0–4 of this guide. Cure times make it naturally slow — it fills
+   the waiting rather than competing with anything.
+3. **Truck + panels at paint.** Nothing to do.
+4. **Truck back — the cavity, then close.** Cavity prep (see the fork below) → deaden → fit every new
+   part → pre-run the amp/sub wiring **plus a spare pull string** → **test everything with the panel
+   still off** → new water shield → panel on with NEW clips. Once.
+
+### The cavity prep fork — clean is mandatory, paint is conditional
+
+Butyl needs a **clean, sound** surface, not a fresh one. Intact factory coating is actually a *better*
+substrate than new paint, because it's already cured. Strip, clean, **look**, then decide:
+
+- **Just dirty?** Vacuum, degrease, dry, deaden. Same session, no cure gate. Most likely outcome.
+- **Surface rust or flaking?** Treat it — but for the *door's* sake, not the deadener's. Sealing rust
+  under butyl is how you find a hole in five years.
+- **Perforated at the bottom?** Different job. Worth knowing regardless.
+
+**The cure gate is free here.** It only costs if you're trying to finish in a weekend — and you're not,
+because the panel is off for the shop anyway. So if the insides get cleaned and painted simply because
+you want them clean and painted, that's a fine reason and it costs nothing.
+
+### ⚠️ What forces a second cycle
+
+Every item here is somebody re-opening a door they'd already closed:
+
+1. **Reusing old clips.** 37-year-old retainers are brittle; reused ones don't seat, the panel sits
+   proud, and off it comes again. Buy enough of the Icyhaws set for **both** doors.
+2. **Buttoning up before testing.** Window up/down, lock cycling, speaker playing, handle pulling the
+   latch, mirror moving — all verified **with the panel off.** This single rule prevents most re-entries.
+3. **Skipping an age-based part because "it still works."** At 37 years with the panel off, *works* is
+   not a reason to skip a $15 part: glass run channels and fuzzies, weatherstrip, regulator lube, door
+   check strap, hinge bushings.
+4. **Not pre-running wire.** Already planned for the amp/subs — add a pull string for whatever hasn't
+   been thought of yet.
+5. **Doing only the driver's door.** The reinforcement plates ship as a pair anyway (Step 5).
+
+### Removing it without breaking it
+
+- **Do it WARM.** ABS cracks cold and flexes warm — Georgia in July/August is ideal; an unheated space
+  in January is the worst possible time.
+- **Proper trim fork, prying AT each clip, never between them.** Mid-span prying is exactly what cracks
+  a panel.
+- **Expect to break clips** — that's fine, that's why new ones are bought in advance. *The clips are
+  consumable. The panel is what you're protecting.*
+
+### Door-specific deadening cautions
+
+- **Don't seal the door drains.** Water always gets into a door; one that can't drain rots bottom-up.
+  This is the most common way people damage a truck while improving it.
+- **Go easy on mass.** CLD on the inside of the outer skin + foam on the inner is the standard door
+  treatment and it's what makes the Kappas sound right. Piling MLV into a door adds weight the hinges
+  carry, and OBS Ford doors are heavy and sag-prone already. (Judgment, not a spec.) Check hinge pins
+  and bushings while it's apart.
+- **Cavity wax last.** After deadening, shoot Fluid Film / Woolwax into the bottom of the door and
+  confirm the drains run. Doors rot bottom-up from the inside, and this is the **only** time that
+  access exists. ~$20.
+
+### Open, gated on Larry
+
+**Are the doors going to bare metal, or scuffed and sprayed?** Scuff-and-spray → cavity work can happen
+before paint, no conflict. Stripping / heat / filler / any metalwork on a door skin → **wait**, because
+heat on the outer skin cooks butyl applied to the back of that same skin, and if they cut a door,
+everything done inside it is gone. See `guides/bolores-shop-shortlist.md` → "Questions to bring to Larry."
+
+---
+
 ## Cautions
 
 - **Acetone is the ABS test *and* the ABS weld — but it also attacks the show-face finish.** Keep it to the back / hidden areas and the hidden bond lines.
