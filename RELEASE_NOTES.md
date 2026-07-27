@@ -8,7 +8,7 @@ What's changed at Fernwood lately. Newest first.
 
 - **The machines now carry their tips & tricks.** A new panel on each vehicle for the know-how you only get by living with the thing — the quirks that are normal and want no fixing, and the repair tricks that actually worked here. It sits between "what she needs" and "what she's had done," because nothing in it is owed.
 - **First two entries.** Blue Thunder seeps a little fuel from the carburetor when she's parked at a hard lean — wheels above the kickstand — and stops the moment she's on flat ground. That's normal for a carbureted bike on a steep sidestand, not a leak to chase. And the Bronco's screw-boss rebuild — heat-shrink as a form, JB Weld as the post — was written down back in June and had never had anywhere to show.
-- **Both bikes have a spring on the calendar.** Blue Thunder and Desert Storm each carry a note to come out of winter with a full oil change and a carburetor clean — the sitting is what left stale fuel in them last time.
+- **Both bikes have a spring on the calendar.** Blue Thunder and Desert Storm each carry a note to come out of winter with a full oil change and a carburetor clean — the sitting is what left stale fuel in them last time. The oil change that had been waiting since they were woken up in June is folded into it: they've been running, the miles are low, and the oil in them will have gone a year and a winter by the time it comes out.
 
 ---
 
