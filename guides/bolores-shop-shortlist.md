@@ -96,12 +96,15 @@ These gate real sequencing decisions elsewhere in the plan:
 2. **Is the front floor pan (under the carpet) in scope?** And if not — **can you shoot it while the
    interior's already stripped?** Cheap add, and it hands back cured metal to deaden onto, which
    settles the "who paints the pan" question and the cure gate in one move.
-3. 🚨 **DO NOT SPRAY THE BED — MASK IT.** *(Revised 2026-07-27, same day; an earlier draft of this list
-   asked him to spray the bed in Cabernet. Wrong.)* The bed is **original factory paint** and Paul is
-   preserving it, with carpet going back over the top. Original paint is a **one-way door** — under a
-   spray gun it's gone permanently and cannot be walked back. Say this out loud, early, and confirm he
-   heard it. **Exception:** the tailgate-corner rust repair kills the factory paint locally anyway, and
-   since that patch lives under carpet it only needs to be sound and rust-proof — **not show-matched.**
+3. **Bed IS on the spray list** — fresh coat in the factory colour after the tailgate-corner repair,
+   matched as closely as possible, sprayed in the same pass as the exterior upper. Carpet goes back
+   over it afterwards. Nothing special to negotiate on the rust patch: it's prepped and sprayed like
+   any other body repair.
+   *(Corrected 2026-07-27, same day. A draft of this list briefly said "do not spray the bed — mask it,"
+   on a misreading of "it's a factory paint job and I want to recover it" as preserve-the-original-film.
+   Paul meant the factory COLOUR, resprayed, and "re-cover" = put the carpet back. **Scope is a FULL
+   respray of everything in factory colours** — all body metal including the bed, all plastic trim in
+   chestnut.)*
 4. **Interior plastic panels in chestnut** — panels sprayed off the truck, separately?
 5. **Roughly how long is she with you?** (Sizes the panel-off window — see the one-removal protocol
    in `guides/bolores-door-panel-repair.md`.)
