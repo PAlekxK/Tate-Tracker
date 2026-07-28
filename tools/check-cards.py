@@ -111,9 +111,11 @@ def photo_findings(q, entity):
     # version read canon, saw a photo on `japanese-stiltgrass`, and reported the
     # weed card as fine — while buildCard, hardcoded to `eref.type === "plant"`,
     # rendered nothing. A check that verifies the DATA instead of the SURFACE
-    # will happily bless a broken screen. Keep this list in step with
-    # buildCard's ENTITY_DATA map (viewer.html).
-    RENDERABLE = {"plant", "weed"}
+    # will happily bless a broken screen.
+    # READ buildCard's own binding (2026-07-27) — this used to be a hand-typed
+    # {"plant","weed"} whose only job was noticing when the other maps drifted,
+    # which is a smoke detector that can go stale by itself.
+    RENDERABLE = set(momlib.viewer_entity_map())
     etype = (q.get("entityRef") or {}).get("type")
     if photo and etype not in RENDERABLE:
         out.append((RED, f"`{entity.get('id')}` has a photo but the card renderer cannot resolve "
@@ -192,6 +194,12 @@ def main():
     questions = (momlib.load_json("questions.json").get("questions") or [])
     c = momlib.canon()
     problems, rows = [], []
+
+    # The one duplicate the language forces (JS cannot look a `const` up by
+    # name). Report it ONCE, up front — otherwise a drifted binding shows up as
+    # a per-card photo storm and the actual cause is buried.
+    for msg in momlib.entity_map_divergence():
+        problems.append(("(entity map)", RED, msg))
 
     for q in questions:
         qid = q.get("id")

@@ -28,6 +28,7 @@ computes what is owed, never what to say. See CLAUDE.md "The AI boundary".
 import datetime as dt
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.parse
@@ -155,14 +156,48 @@ def load_json(name):
 
 # ------------------------------------------------- deriving a card's state
 
-# entityRef.type -> (source file, list key). NOT a guess: three live cards point
-# at WEEDS, and fold-answer.py silently degraded them to "not found in
-# plants.json" because it assumed plants. A two-entry dict that fails loudly on
-# an unknown type beats an f-string that works by luck.
+# ⭐ THE ONE ENTITY-RESOLUTION MAP (collapsed here 2026-07-27).
+#
+# entityRef.type -> where that record lives. "Assumed plants" shipped broken
+# THREE times in one day (2026-07-26), each place separately: fold-answer.py
+# degraded weed cards to "entity not found in plants.json"; read-mom-feedback's
+# probe did the same; and buildCard in viewer.html gated on
+# `eref.type === "plant"`, so `q-weed-stiltgrass` was served to Mom for six days
+# with a photo SHE took sitting on disk, rendering nothing. Each was found by
+# accident, on a different day, by a different route — because the failure mode
+# is silent degradation, not an error.
+#
+# All the Python now reads THIS declaration and nothing else. `viewer.html`
+# cannot import Python and JavaScript cannot look a `const` up by name, so
+# `buildCard`'s `ENTITY_DATA` is one unavoidable binding — but it is no longer
+# agreed by hand: `entity_map_divergence()` derives the comparison and
+# test-feedback-cycle.py fails on any mismatch. ⚠️ Adding a domain means adding
+# it HERE and in buildCard; the test names exactly what is missing. Do not add a
+# third place — that is the trap this replaced.
+class EntitySource(tuple):
+    """(file, key, const) — indexable like the 2-tuple it replaced, so existing
+    `ENTITY_SOURCES[t][0]` reads keep meaning 'the source file'."""
+
+    __slots__ = ()
+
+    def __new__(cls, file, key, const):
+        return super().__new__(cls, (file, key, const))
+
+    file = property(lambda self: self[0])   # e.g. "plants.json"
+    key = property(lambda self: self[1])    # the list key inside that JSON
+    const = property(lambda self: self[2])  # the inlined viewer const
+
+
 ENTITY_SOURCES = {
-    "plant": ("plants.json", "plants"),
-    "weed": ("weeds.json", "weeds"),
+    "plant": EntitySource("plants.json", "plants", "PLANTS_DATA"),
+    "weed": EntitySource("weeds.json", "weeds", "WEEDS_DATA"),
 }
+
+
+def entity_path(etype):
+    """Absolute path to the canon file a card's entityRef.type resolves to."""
+    src = ENTITY_SOURCES.get(etype)
+    return os.path.join(ROOT, src.file) if src else None
 
 # _foldTarget -> the path to the confidence flag the fold would flip.
 FOLD_FIELDS = {
@@ -185,18 +220,81 @@ class _Canon:
         src = ENTITY_SOURCES.get(etype)
         if not src or not eid:
             return None
-        fname, key = src
-        if fname not in self._cache:
-            data = load_json(fname)
-            self._cache[fname] = {
-                e.get("id"): e for e in (data.get(key) or []) if isinstance(e, dict)
+        if src.file not in self._cache:
+            data = load_json(src.file)
+            self._cache[src.file] = {
+                e.get("id"): e for e in (data.get(src.key) or []) if isinstance(e, dict)
             }
-        return self._cache[fname].get(eid)
+        return self._cache[src.file].get(eid)
 
 
 def canon():
     """A fresh canon reader. Hold one per run; it caches file reads."""
     return _Canon()
+
+
+# -------------------------------------------- the viewer's half of the map
+#
+# The check-cards.py `RENDERABLE` set used to be a hand-typed third copy of
+# {plant, weed} whose whole job was to notice when the other two diverged — a
+# set that can itself go stale is a smoke detector with the battery out. This
+# READS buildCard's binding instead of restating it, so the comparison is
+# derived, and there is still exactly one declaration (ENTITY_SOURCES).
+
+_ENTITY_DATA_BLOCK = re.compile(r"const ENTITY_DATA = \{(.*?)\n\s*\};", re.S)
+_ENTITY_DATA_ROW = re.compile(r"(\w+)\s*:\s*\(typeof\s+(\w+)\b")
+
+
+_viewer_entity_cache = {}
+
+
+def viewer_entity_map(viewer_path=None):
+    """buildCard's `ENTITY_DATA` as {entityRef.type: viewer const}.
+
+    Returns {} if the block cannot be found — callers treat that as a finding,
+    never as "no types", because a silently-empty map is the original bug.
+    Cached per (path, mtime): check-cards asks once per card.
+    """
+    path = viewer_path or VIEWER
+    try:
+        stamp = (path, os.path.getmtime(path))
+    except OSError:
+        return {}
+    if stamp in _viewer_entity_cache:
+        return _viewer_entity_cache[stamp]
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            src = f.read()
+    except FileNotFoundError:
+        return {}
+    m = _ENTITY_DATA_BLOCK.search(src)
+    found = dict(_ENTITY_DATA_ROW.findall(m.group(1))) if m else {}
+    _viewer_entity_cache[stamp] = found
+    return found
+
+
+def entity_map_divergence(viewer_path=None):
+    """Where the viewer's binding and ENTITY_SOURCES disagree. [] = in step.
+
+    This is what makes the one unavoidable duplicate safe: a domain added to
+    canon but not to buildCard renders NOTHING on Mom's card, with no error —
+    which is exactly how the stiltgrass photo was invisible for six days.
+    """
+    seen = viewer_entity_map(viewer_path)
+    if not seen:
+        return ["viewer.html: could not read buildCard's ENTITY_DATA block at all"]
+    out = []
+    for etype, src in sorted(ENTITY_SOURCES.items()):
+        if etype not in seen:
+            out.append(f"viewer.html buildCard cannot resolve entityRef.type={etype!r} "
+                       f"— a {etype} card would silently render no photo")
+        elif seen[etype] != src.const:
+            out.append(f"entityRef.type={etype!r}: momlib says {src.const}, "
+                       f"buildCard reads {seen[etype]}")
+    for etype in sorted(set(seen) - set(ENTITY_SOURCES)):
+        out.append(f"viewer.html buildCard knows entityRef.type={etype!r} but "
+                   f"momlib.ENTITY_SOURCES has no source file for it")
+    return out
 
 
 def probe_target(q, c=None):

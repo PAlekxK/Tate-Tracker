@@ -41,13 +41,12 @@ import momlib  # noqa: E402
 
 rmf = momlib  # historical alias — this file used to import read-mom-feedback.py by path
 
-# entityRef.type -> (source path, list key, the viewer const to re-inline).
-# It used to be plants-only, so the three live WEED cards silently degraded to
-# "entity not found in plants.json" (2026-07-26).
-FOLD_SOURCES = {
-    "plant": (os.path.join(ROOT, "plants.json"), "plants", "PLANTS_DATA"),
-    "weed": (os.path.join(ROOT, "weeds.json"), "weeds", "WEEDS_DATA"),
-}
+# entityRef.type -> where the record lives. This file used to carry its own
+# copy of that map — plants-only at first, so the three live WEED cards silently
+# degraded to "entity not found in plants.json" (2026-07-26), and then a
+# hand-kept duplicate afterwards. It now reads momlib's ONE declaration
+# (2026-07-27); add a new domain THERE, never here.
+FOLD_SOURCES = momlib.ENTITY_SOURCES
 
 MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -146,9 +145,9 @@ def main():
     # Load every entity source a card could point at (plants, weeds), keeping
     # each parsed doc so we write back only the ones we actually touched.
     docs = {}
-    for etype, (path, key, _const) in FOLD_SOURCES.items():
+    for etype in FOLD_SOURCES:
         try:
-            docs[etype] = json.load(open(path, encoding="utf-8"))
+            docs[etype] = json.load(open(momlib.entity_path(etype), encoding="utf-8"))
         except FileNotFoundError:
             docs[etype] = None
     touched = set()
@@ -175,10 +174,10 @@ def main():
         if etype not in FOLD_SOURCES or docs.get(etype) is None:
             manual.append((qid, f"no source file mapped for entityRef.type={etype!r}"))
             continue
-        src_path, src_key, _const = FOLD_SOURCES[etype]
-        plant = find_entity(docs[etype].get(src_key) or [], eid)
+        src = FOLD_SOURCES[etype]
+        plant = find_entity(docs[etype].get(src.key) or [], eid)
         if plant is None:
-            manual.append((qid, f"entity {eid!r} not found in {os.path.basename(src_path)}"))
+            manual.append((qid, f"entity {eid!r} not found in {src.file}"))
             continue
 
         path, old, new, apply = draft_edit(q, plant, answer)
@@ -203,7 +202,7 @@ def main():
         q["resolvedAt"] = dt.date.today().isoformat()
         q["resolution"] = f"Mom confirmed '{rmf.CONFIRM_LABEL.get(answer.get('sentiment'), answer.get('sentiment'))}' " \
                           f"{momlib.et_str(answer.get('ts'), with_time=False)}; " \
-                          f"folded into {os.path.basename(src_path)} ({path} → verified)."
+                          f"folded into {src.file} ({path} → verified)."
         if answer.get("ts"):
             folded_ts.append(answer["ts"])
         applied += 1
@@ -223,11 +222,12 @@ def main():
         # const via the shared side-effect-free path.
         written = []
         for etype in sorted(touched):
-            path_json, _key, const = FOLD_SOURCES[etype]
+            src = FOLD_SOURCES[etype]
+            path_json = momlib.entity_path(etype)
             json.dump(docs[etype], open(path_json, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
             open(path_json, "a", encoding="utf-8").write("\n")
-            reinline.reinline_from_source(VIEWER, const, path_json)
-            written.append(f"{os.path.basename(path_json)} + {const}")
+            reinline.reinline_from_source(VIEWER, src.const, path_json)
+            written.append(f"{src.file} + {src.const}")
         json.dump(qdata, open(QUESTIONS, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
         open(QUESTIONS, "a", encoding="utf-8").write("\n")
         print(f"\n✓ Folded {applied} answer(s): {', '.join(written)} + questions.json updated.")

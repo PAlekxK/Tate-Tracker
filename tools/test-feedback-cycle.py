@@ -19,6 +19,9 @@ one of them is caught here rather than by Mom.
   7. PIN         a card nothing in canon can confirm (a reflective card) holds
                  the ceiling until a human retires it — and SAYS so, naming the
                  one action that releases it
+  8. RESOLVE     every surface resolves a card's entityRef the SAME way — the
+                 "assumed plants" class, which shipped broken three times in one
+                 day and never once failed loudly
 
 Default is OFFLINE: synthetic records driven through the real functions, no
 network, no writes to her feedback stream, no mutation of tracked state. That
@@ -180,6 +183,78 @@ def offline_suite():
           wm5 == newer, f"stamped {wm5}, expected {newer}")
 
 
+def entity_map_suite():
+    """8 · RESOLVE — one map, and the one duplicate the language forces.
+
+    "Assumed plants" shipped broken THREE times in one day (2026-07-26):
+    fold-answer.py, read-mom-feedback's probe, and buildCard. Each failed
+    SILENTLY — a weed card resolved to nothing and rendered nothing, with Mom's
+    own photo of the stiltgrass sitting on disk for six days. The Python is now
+    one declaration (`momlib.ENTITY_SOURCES`); JavaScript cannot look a `const`
+    up by name, so buildCard's binding is the one irreducible copy — and this is
+    what stops it from being agreed by hand.
+    """
+    print("\n── RESOLVE: does every surface resolve a card's entity the same way? ──\n")
+
+    import importlib.util as _iu
+    _s = _iu.spec_from_file_location("fa", os.path.join(HERE, "fold-answer.py"))
+    fa = _iu.module_from_spec(_s)
+    _s.loader.exec_module(fa)
+    _s2 = _iu.spec_from_file_location("cc", os.path.join(HERE, "check-cards.py"))
+    cc = _iu.module_from_spec(_s2)
+    _s2.loader.exec_module(cc)
+
+    check("RESOLVE  fold-answer reads momlib's map — it does not carry its own",
+          fa.FOLD_SOURCES is momlib.ENTITY_SOURCES,
+          "fold-answer.FOLD_SOURCES is a separate object again")
+    check("RESOLVE  check-cards derives its renderable set from buildCard itself",
+          "RENDERABLE = set(momlib.viewer_entity_map())" in
+          open(os.path.join(HERE, "check-cards.py"), encoding="utf-8").read(),
+          "check-cards re-typed the set of renderable types")
+    check("RESOLVE  the viewer's binding is in step with the one declaration",
+          momlib.entity_map_divergence() == [],
+          "; ".join(momlib.entity_map_divergence()))
+
+    # The guard has to FAIL on the failure it was built for, or it is decoration.
+    fake = os.path.join(momlib.ROOT, ".private", "cycle-test-viewer.html")
+    os.makedirs(os.path.dirname(fake), exist_ok=True)
+    with open(fake, "w", encoding="utf-8") as f:
+        f.write('  x\n    const ENTITY_DATA = {\n'
+                '      plant: (typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || null,\n'
+                '    };\n  y\n')
+    dropped = momlib.entity_map_divergence(fake)
+    check("RESOLVE  a domain missing from buildCard is NAMED, not silent",
+          any("weed" in m for m in dropped), f"got {dropped}")
+    with open(fake, "w", encoding="utf-8") as f:
+        f.write('  x\n    const ENTITY_DATA = {\n'
+                '      plant: (typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || null,\n'
+                '      weed:  (typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || null,\n'
+                '    };\n  y\n')
+    wrong = momlib.entity_map_divergence(fake)
+    check("RESOLVE  a domain wired to the WRONG canon const is caught too",
+          any("WEEDS_DATA" in m and "PLANTS_DATA" in m for m in wrong), f"got {wrong}")
+    check("RESOLVE  an unreadable binding is a finding, never an empty map",
+          momlib.entity_map_divergence(os.path.join(HERE, "momlib.py")) != [])
+    os.remove(fake)
+
+    # Every card in the live queue must resolve identically through the two
+    # readers — the concrete thing that was false for three weed cards.
+    c = momlib.canon()
+    disagree = []
+    for q in (momlib.load_json("questions.json").get("questions") or []):
+        etype = (q.get("entityRef") or {}).get("type")
+        if etype is None:
+            continue
+        by_momlib = etype in momlib.ENTITY_SOURCES
+        by_fold = etype in fa.FOLD_SOURCES
+        by_viewer = etype in momlib.viewer_entity_map()
+        if not (by_momlib == by_fold == by_viewer):
+            disagree.append(f"{q.get('id')} ({etype}): momlib={by_momlib} "
+                            f"fold={by_fold} viewer={by_viewer}")
+    check("RESOLVE  every live card resolves the same in canon, fold and viewer",
+          not disagree, "; ".join(disagree))
+
+
 def ribbon_suite():
     print("\n── ESCALATE: does the ribbon report her as owed a reply? ──\n")
     r = momlib.ribbon_state()
@@ -278,6 +353,7 @@ def main():
 
     print("Feedback-cycle self-test — capture is not a loop; every leg is asserted.")
     offline_suite()
+    entity_map_suite()
     ribbon_suite()
     if args.live:
         live_suite()
