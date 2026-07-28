@@ -4,6 +4,17 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-28 — The Almanac knows the weeds now (and the machines)
+
+- **Ask the Almanac about a weed and it knows.** The weeds section shipped to the dashboard
+  last week, but the Almanac couldn't see it — ask about the stiltgrass and it would tell you
+  that wasn't one we tend. It is now, along with what to look for, when it seeds, and how to
+  work against it.
+- **It knows the machines again too** — the trucks, the motorcycles, the cart, the yard
+  equipment, with their specs, what they need, and who services them.
+- Under the hood it stopped saying "the seventeen plants we tend." There are thirty-six, and
+  now it just says "the plants we tend" so it can't go stale again.
+
 ## 2026-07-28 — Your saved conversations read properly, and they stay complete
 
 - **Larger text now reaches the Almanac.** Turning on the bigger type made everything else grow, but your saved entries stayed small — so the record of what you'd said was the hardest thing on the page to read. It scales now, like the rest.

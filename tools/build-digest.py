@@ -26,6 +26,26 @@ STRIP_KEYS_PER_ENTRY = {
     "photo", "attribution", "sound", "soundAttribution",
     "srelUrl", "ebirdCode", "emoji",
     "taxonomicNote",  # internal-only audit field, see CLAUDE.md
+    # ── Added 2026-07-28 to buy back digest budget for weeds + vehicles ──────────
+    # Both are stripped from the DIGEST ONLY. `plants.json` keeps them untouched;
+    # this is about what the assistant needs in context, not what the record holds.
+    #
+    # `currentSeasonNote` — superseded by month-keyed `seasonNotes` (schema v7,
+    # 2026-07-26) and already DEAD IN THE RENDER. CLAUDE.md keeps it "only as a net
+    # for a record added without notes." Verified before stripping: all 36 plants
+    # carry seasonNotes, so the net is currently catching nobody and this loses
+    # seasonal prose for zero plants. It was 9,449 bytes — 4.9% of the plants
+    # section — to say a worse version of something already in context.
+    # ⚠️ If a plant is ever added WITHOUT seasonNotes, the net stops working here
+    # too. The authoring lint is what should catch that, not this digest.
+    "currentSeasonNote",
+    # `_phaseF` — promote-flow plumbing (promotedAt / conversationId / deviceId).
+    # Internal provenance of HOW a species got promoted; the assistant never
+    # verbally references it. Same class as the schema/licence fields above.
+    # NOTE: `_provenance` is deliberately NOT stripped — it carries honesty markers
+    # ("species ID model-read", "local phenology unobserved") that are exactly what
+    # should make Guru hedge instead of assert. Cheap, and load-bearing.
+    "_phaseF",
 }
 
 # Fields to strip from _meta blocks
@@ -72,6 +92,31 @@ def digest_wildlife(d):
     if "seasonalCalendar" in d:
         out["seasonalCalendar"] = d["seasonalCalendar"]
     # Note: citizenScience block intentionally stripped (currently dormant)
+    return out
+
+
+def digest_weeds(d):
+    """Weeds — the domain Mom uses most and Guru could not see (added 2026-07-28).
+
+    Shipped to her dashboard 2026-07-20 and excluded from the digest for eight days, so
+    Guru's closed-world depth filter answered *"not one of the ones we tend"* about the
+    stiltgrass her own app was showing her. That is the worst failure available on this
+    surface: confident, and about her own ground. (BACKLOG A7 · A6.)
+
+    Keeps `summary` + `intro` — they carry the section's framing, which is what makes a
+    weed answer sound like the app rather than like a search result. Per-entry stripping
+    is the shared `digest_species_list` path, so photo/attribution/licence fields fall away
+    exactly as they do for plants; the fields that matter to an answer — `lookFor`,
+    `habit`, `seedTiming`, `combat`, `observedZones`, `confidence`/`status` — are prose or
+    small and survive. The confidence markers are load-bearing, not decoration: four of the
+    five weeds are `inferred` / `needs-confirmation`, and Guru must hedge on them rather
+    than assert.
+    """
+    out = {"_meta": digest_meta(d.get("_meta", {}))}
+    for k in ("summary", "intro"):
+        if k in d:
+            out[k] = d[k]
+    out["weeds"] = digest_species_list(d.get("weeds", []))
     return out
 
 
@@ -177,13 +222,31 @@ def main():
         "snakes": digest_wildlife(load("snakes.json")),
         "lizards": digest_wildlife(load("lizards.json")),
         "fishing": digest_fishing(load("fishing.json")),
+        "weeds": digest_weeds(load("weeds.json")),
         "property": digest_property(load("property.json")),
-        # Vehicles/equipment EXCLUDED from Garden Guru's digest 2026-07-17 (Paul).
-        # Fernwood carries two products: Guru is MOM's garden assistant; the fleet
-        # tracker is Paul-facing (he uses Claude-in-terminal for machine questions).
-        # Dropping vehicles relieved the ~80K-token digest ceiling (~9.6K tokens, 11%)
-        # and focuses Guru on her world. digest_vehicles() is kept below (now unused)
-        # so re-enabling is a one-line change if this reverses.
+        # ── VEHICLES RE-ENABLED 2026-07-28 (Paul) — the 07-17 exclusion is reversed ──
+        # Both of that decision's reasons are now void, and it is worth recording which
+        # was which, because only one of them was ever technical:
+        #
+        #   1. PRODUCT — "Guru is MOM's garden assistant; the fleet tracker is
+        #      Paul-facing." REVERSED by Paul 2026-07-28. The stated vision is now one
+        #      input box serving Mom, Paul, and anyone else, over ANY Fernwood
+        #      information. Machines are in scope by that definition.
+        #   2. CAPACITY — dropping vehicles relieved the ~80K digest line. That line
+        #      turned out to be about COST, not capability, and it is not enforced
+        #      anywhere: it sets a status string, nothing more. At ~0.54 turns/day the
+        #      cost difference is cents per year.
+        #
+        # The exclusion also left a LIVE CONTRADICTION in place for 11 days: the system
+        # prompt has been telling Guru "you also know the property's machines — the
+        # vehicles and equipment in the digest" the entire time they were absent. So
+        # the choice was never "add machines or not"; it was "make the prompt true, or
+        # make it stop promising." Re-adding makes it true, which is what Paul wants.
+        #
+        # Paid for, not just added: stripping the superseded `currentSeasonNote` and the
+        # `_phaseF` plumbing (see STRIP_KEYS_PER_ENTRY) frees ~10.6KB, which keeps the
+        # digest under the ~100K retrieval-degradation note this file names below.
+        "vehicles": digest_vehicles(load("vehicles.json")),
     }
 
     import datetime
