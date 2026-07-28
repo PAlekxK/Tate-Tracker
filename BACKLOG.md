@@ -35,6 +35,15 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 
 ### 🤖 Agent-drivable — next up
 
+- **`check-mom-ack.py:229` asserts a behaviour that does not exist** *(found 2026-07-27 by a build
+  agent while shipping the zone-audio clamp `12bcc49`; routed at close-out)*. The comment claims
+  `read-mom-zone-audio.py` "marks its own channel" — **it never calls `mark_channel_read`.** Left
+  alone deliberately at the time: it lives in a third file and fixing it inside that task would have
+  been unrequested scope. Small, agent-doable, no Mom-facing surface. *Same shape as the rest of the
+  2026-07-27 sweep: a comment asserting another file's behaviour with nothing checking the assertion
+  is true — which is exactly what the cross-project `falsifier/probe` recommendation targets.*
+
+
 | Item | Where | Why it's next |
 |---|---|---|
 | **1 · Conversation browse — findability, not a new feature** | A6 | **Mom asked for it unprompted** (*"Is there a way to look back at these?"*) and **the capability already exists** — her 7/26 questions were read back out of storage. Likely the cheapest real win in the batch. |
