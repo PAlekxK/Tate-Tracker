@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-28 — Your saved conversations read properly, and they stay complete
+
+- **Larger text now reaches the Almanac.** Turning on the bigger type made everything else grow, but your saved entries stayed small — so the record of what you'd said was the hardest thing on the page to read. It scales now, like the rest.
+- **A conversation keeps filling in as it goes.** Before, the Almanac copy stopped at whatever had been said the first time it was tucked away, so a question asked later — and its answer — never made it in. The saved copy now stays current to the end of the conversation.
+- **Anything you've starred stays starred.** That last change had to be made carefully so keeping a conversation up to date could never quietly undo something you'd marked as mattering.
+
+---
+
 ## 2026-07-27 — The top of the app leads with your own words
 
 - **The box where you write something now sits right under the acknowledgment.** Opening the app used to mean passing a queue of questions before reaching the one place you can simply say what you saw. That order is flipped: what you were heard on stays at the top, the writing box comes next, and the questions wait below it.
