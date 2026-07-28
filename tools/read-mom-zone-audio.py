@@ -11,7 +11,9 @@ What it does:
   • Lists recordings in a date range, grouped by zone (joins zoneId -> zone name
     from the local zones.json so it reads like a place, not an id).
   • NEW-since-last-seen via a local watermark (.private/mom-zone-audio-state.json);
-    `--mark-reviewed` advances it once you've listened.
+    `--mark-reviewed` advances it once you've listened — but NEVER past a
+    recording you could not actually have heard (see advance_watermark). That
+    clamp is the same one read-mom-feedback.py carries, for the same reason.
   • Downloads each NEW recording's audio to .private/mom-zone-audio/ and prints
     the path so you can open it (QuickTime plays .webm/.m4a/.wav). It NEVER
     transcribes or interprets — that stays your ear and your hand.
@@ -92,6 +94,64 @@ def save_state(state):
         json.dump(state, f, ensure_ascii=False, indent=2)
 
 
+def read_watermark(state):
+    """The uploadedAt this tool has been marked as reviewed through.
+
+    `lastReviewedTs` is the clamped DATA watermark (what was actually heard);
+    `lastReviewedAt` is kept as the wall-clock stamp of when the review ran —
+    the same two-field shape read-mom-feedback.py uses. Older state files hold
+    only `lastReviewedAt` (a `now` stamp), so it stays the fallback and nothing
+    that was already reviewed re-surfaces on the first run after this change.
+    """
+    return state.get("lastReviewedTs") or state.get("lastReviewedAt") or ""
+
+
+def advance_watermark(state, staged, listed=None):
+    """Move the watermark forward WITHOUT stepping over a recording nobody heard.
+
+    THE BUG THIS FIXES (the same data-loss shape read-mom-feedback.py's
+    advance_watermark was written to kill, one channel over): `--mark-reviewed`
+    stamped `dt.datetime.now()`. A recording that landed between the fetch and
+    the stamp — Mom standing in a zone talking while Paul runs the tool — was
+    never listed, never downloaded, and was instantly older than the watermark.
+    It would never be flagged NEW again. Her voice, gone, silently.
+
+    So the stamp is the newest `uploadedAt` we actually STAGED, and the ceiling
+    is the oldest recording that is new but was NOT staged (a failed download is
+    exactly as unheard as one that never arrived). Anything you could not have
+    listened to keeps coming back.
+
+    Returns (new_watermark|None, why) — never writes.
+    """
+    old = read_watermark(state)
+    staged_ts = sorted(t for t in ((r.get("uploadedAt") or "") for r in staged) if t)
+    if not staged_ts:
+        return None, ("nothing was staged this run, so there is nothing you could "
+                      "have listened to")
+
+    staged_ids = {r.get("id") for r in staged}
+    unheard = sorted(
+        t for t in ((r.get("uploadedAt") or "") for r in (listed or [])
+                    if r.get("id") not in staged_ids)
+        if t and t > old)
+    ceiling = unheard[0] if unheard else None
+
+    candidates = [t for t in staged_ts if ceiling is None or t < ceiling]
+    if not candidates:
+        return None, (f"the oldest recording you haven't heard "
+                      f"({fmt_when(ceiling)}) is older than everything staged — "
+                      f"nothing to stamp")
+
+    new_wm = max(candidates)
+    if old and new_wm <= old:
+        return None, "watermark already at or past that point"
+    held = ""
+    if ceiling:
+        held = (f"; held back at {fmt_when(ceiling)} so {len(unheard)} unheard "
+                f"recording(s) stay flagged NEW")
+    return new_wm, f"advanced to {fmt_when(new_wm)}{held}"
+
+
 def _get(path, token, params=None):
     url = WORKER_URL + path
     if params:
@@ -160,7 +220,8 @@ def main():
     ap.add_argument("--start", help="YYYY-MM-DD (default: 30 days ago)")
     ap.add_argument("--end", help="YYYY-MM-DD (default: today, UTC)")
     ap.add_argument("--pickup", action="store_true", help="quiet session-start block; silent if nothing new")
-    ap.add_argument("--mark-reviewed", action="store_true", help="advance the watermark to now")
+    ap.add_argument("--mark-reviewed", action="store_true",
+                    help="stamp what you've listened to (never past a recording you haven't heard)")
     ap.add_argument("--no-download", action="store_true", help="list only; don't stage audio files")
     args = ap.parse_args()
 
@@ -181,7 +242,7 @@ def main():
 
     recs = data.get("recordings", [])
     state = load_state()
-    watermark = state.get("lastReviewedAt", "")
+    watermark = read_watermark(state)
     new_recs = [r for r in recs if (r.get("uploadedAt") or "") > watermark]
 
     if args.pickup:
@@ -202,7 +263,7 @@ def main():
     for r in show:
         by_zone.setdefault(r.get("zoneId", "?"), []).append(r)
 
-    staged = 0
+    staged = []
     for zid, rs in sorted(by_zone.items()):
         print(f"\n  📍 {names.get(zid, zid)}")
         for r in sorted(rs, key=lambda x: x.get("uploadedAt", "")):
@@ -213,22 +274,27 @@ def main():
             if not args.no_download and is_new:
                 path = download_blob(r, token)
                 if path:
-                    staged += 1
+                    staged.append(r)
             print(line)
             if path:
                 print(f"       ▶ {path}")
 
     if staged:
-        print(f"\n  Staged {staged} new recording(s) → {os.path.relpath(AUDIO_DIR, os.getcwd()) if AUDIO_DIR.startswith(os.getcwd()) else AUDIO_DIR}")
+        print(f"\n  Staged {len(staged)} new recording(s) → {os.path.relpath(AUDIO_DIR, os.getcwd()) if AUDIO_DIR.startswith(os.getcwd()) else AUDIO_DIR}")
         print("  Open them in QuickTime to listen. Folding what she says into canon stays your call.")
 
     if not args.pickup:
         print("\n  Run with --mark-reviewed once you've listened, to stop them showing as new.")
 
     if args.mark_reviewed:
-        state["lastReviewedAt"] = dt.datetime.now(dt.timezone.utc).isoformat()
-        save_state(state)
-        print("\n  ✓ Watermark advanced — these won't show as new next time.")
+        new_wm, why = advance_watermark(state, staged, listed=show)
+        if new_wm:
+            state["lastReviewedTs"] = new_wm
+            state["lastReviewedAt"] = dt.datetime.now(dt.timezone.utc).isoformat()
+            save_state(state)
+            print(f"\n  ✓ Watermark {why}.")
+        else:
+            print(f"\n  · Watermark unchanged — {why}.")
 
     return 0
 
