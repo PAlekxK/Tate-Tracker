@@ -27,7 +27,10 @@ Output is four buckets, and only the first is a to-do:
                              fold went into the hydrangea ROSTER). Printed as an
                              ASSERTION, labelled as one. An honestly-unsure tool
                              beats a confidently-wrong one — the same doctrine
-                             the app itself runs on.
+                             the app itself runs on. It is also the ONE bucket
+                             that cannot clear itself, so every place it appears
+                             names the action that clears it — retire the card —
+                             or it holds the watermark indefinitely.
 
 What it does beyond a raw dump:
   • NEW-since-last-seen — a local watermark (.private/mom-feedback-state.json).
@@ -69,7 +72,25 @@ STATE_FILE = os.path.join(momlib.ROOT, ".private", "mom-feedback-state.json")
 
 # A card in one of these states still wants something from Paul. The watermark
 # must never advance past one of them.
+#
+# ⚠️ `unprobeable` is the one with no SELF-clearing path (audit finding, 2026-07-26).
+# The other three leave this set on their own once canon moves — a fold flips
+# `inferred`→`verified`, a retire sets `resolvedAt`. `unprobeable` means no probe
+# can ever see the fold, so canon can never answer "was this handled?": the card
+# sits at the watermark ceiling until a HUMAN retires it. A reflective card
+# (`_kind:reflective`, no `_foldTarget` by design — momlib.probe_target) is the
+# permanent case. It stays ACTIONABLE — burying her preference would be the
+# silent-loss bug this clamp exists to prevent — so the fix is to NAME the
+# clearing action everywhere it surfaces, which is what fold_suggestion(),
+# render_buckets(), render_pickup() and advance_watermark() now do.
 ACTIONABLE = ("open", "settled-in-canon", "draft", "unprobeable")
+
+# The one action that releases an `unprobeable` card. Written once, printed
+# wherever the card shows, so the escape hatch is never a thing you had to
+# already know.
+RETIRE_ACTION = ("retire the card (`active:false` + `resolvedAt` in questions.json) "
+                 "once you've handled it — until then it holds the watermark and "
+                 "every later answer keeps reading as new")
 
 NOTE_BUCKET_TITLES = [
     ("needs-reply", "💬 She told us something and nothing has answered it yet"),
@@ -80,7 +101,9 @@ BUCKET_TITLES = [
     ("open", "Ready to fold — canon still says inferred"),
     ("settled-in-canon", "Card is open but canon already settled — retire the card"),
     ("draft", "⚠️  Answer against a card that was never served — check what happened"),
-    ("unprobeable", "Can't verify automatically — check by hand"),
+    # "check by hand" read as *inspect* and left the clearing action undiscoverable,
+    # so these pinned the watermark indefinitely. The title now says what to DO.
+    ("unprobeable", "Can't verify automatically — handle by hand, then RETIRE the card"),
     ("resolved", "Already settled — nothing to do"),
 ]
 
@@ -121,6 +144,17 @@ def fold_suggestion(q, state, sentiment, note):
     probe = state.get("probe") or {}
     where = probe.get("where") or "the mapped entry"
     target = q.get("_foldTarget")
+
+    # An unprobeable card can never clear itself — say so, and say what does.
+    # Checked FIRST because there is no `where` to correct and no flag to flip:
+    # the generic "correct <the mapped entry>" line below would be a probe that
+    # lies, which is the one thing this tool refuses to do.
+    if state["state"] == "unprobeable":
+        lead = ("she gave you a preference here, never a canon fold"
+                if q.get("_kind") == "reflective"
+                else "no generic probe can see this fold")
+        note_part = f'  she says: "{note}"' if note else ""
+        return f"{lead} — {RETIRE_ACTION}.{note_part}"
     subject = {"variety": "the variety she confirmed",
                "bloom": "the bloom window she confirmed",
                "confidence": "the identification she confirmed"}.get(target, "what she confirmed")
@@ -232,6 +266,8 @@ def render_buckets(buckets, verbose=True):
                 print(f"  • {qid:42s} {claim}")
                 if row["q"] and row["q"].get("resolution"):
                     print(f"    {'':42s} asserted resolution: {strip_md(row['q']['resolution'])}")
+                if row["suggestion"]:
+                    print(f"    ↳ {row['suggestion']}")
             else:
                 print(f"  • {qid:42s} (answered {when})")
                 if row["suggestion"]:
@@ -259,20 +295,27 @@ def advance_watermark(state, mom_records, rows, through=None, note_rows=None):
     if not all_ts:
         return None, "no answers in range"
 
-    actionable = [r["rec"].get("ts") or "" for r in rows if r["state"]["state"] in ACTIONABLE]
+    # (ts, what it is, its state) so the held-back message can NAME the card
+    # holding the ceiling — otherwise an `unprobeable` card that can never clear
+    # itself looks identical to a fold you simply haven't done yet.
+    actionable = [(r["rec"].get("ts") or "", r.get("qid") or "?", r["state"]["state"])
+                  for r in rows if r["state"]["state"] in ACTIONABLE]
     # An unanswered free-text note is actionable too. Without this, a note with
     # no probeable target — her rainfall bug report — ages out silently.
-    actionable += [r["rec"].get("ts") or "" for r in (note_rows or [])
-                   if r["note_state"]["state"] == "needs-reply"]
-    actionable = sorted(t for t in actionable if t)
-    ceiling = actionable[0] if actionable else None
+    actionable += [(r["rec"].get("ts") or "", r["rec"].get("id") or "?", "needs-reply")
+                   for r in (note_rows or []) if r["note_state"]["state"] == "needs-reply"]
+    actionable = sorted(t for t in actionable if t[0])
+    holder = actionable[0] if actionable else None
+    ceiling = holder[0] if holder else None
 
     candidates = [t for t in all_ts if (ceiling is None or t < ceiling)]
     if through:
         candidates = [t for t in candidates if t <= through]
     if not candidates:
-        why = (f"the oldest answer still needing you ({momlib.et_str(ceiling, False)}) "
-               f"is the oldest in range — nothing to stamp")
+        why = (f"the oldest answer still needing you ({holder[1]}, "
+               f"{momlib.et_str(ceiling, False)}) is the oldest in range — nothing to stamp")
+        if holder[2] == "unprobeable":
+            why += f"; it can NEVER clear itself — {RETIRE_ACTION}"
         return None, why
 
     new_wm = max(candidates)
@@ -281,8 +324,11 @@ def advance_watermark(state, mom_records, rows, through=None, note_rows=None):
         return None, "watermark already at or past that point"
     held = ""
     if ceiling:
-        held = (f"; held back at {momlib.et_str(ceiling, False)} so "
+        held = (f"; held back at {momlib.et_str(ceiling, False)} by {holder[1]} so "
                 f"{len(actionable)} answer(s) still needing you stay visible")
+        if holder[2] == "unprobeable":
+            held += (f" — {holder[1]} can NEVER clear itself (nothing in canon can "
+                     f"confirm it); {RETIRE_ACTION}")
     return new_wm, f"advanced to {momlib.et_str(new_wm, False)}{held}"
 
 
@@ -342,8 +388,13 @@ def render_pickup(mom, questions, watermark, rows, buckets, note_buckets):
     Otherwise: silence."""
     new = [r for r in mom if is_new(r, watermark)]
     waiting = [r for r in rows if r["state"]["state"] in ("open", "settled-in-canon", "draft")]
+    # `unprobeable` was ACTIONABLE — it held the watermark — and yet it was the one
+    # actionable state this quiet mode never mentioned. So the card doing the
+    # holding was invisible in the block Paul actually reads, and the only symptom
+    # was every older answer re-reading as new, forever, with no stated cause.
+    pinning = [r for r in rows if r["state"]["state"] == "unprobeable"]
     unanswered = note_buckets.get("needs-reply") or []
-    if not new and not waiting and not unanswered:
+    if not new and not waiting and not pinning and not unanswered:
         return 0
 
     if new:
@@ -367,6 +418,14 @@ def render_pickup(mom, questions, watermark, rows, buckets, note_buckets):
         print("  (fold with `python3 tools/fold-answer.py`)")
         print()
 
+    if pinning:
+        print("🌿 Mama's Perspective — holding the read watermark (nothing can confirm these):")
+        for row in pinning:
+            print(f"  • {row['qid']}   {row['state']['why']}")
+            if row["suggestion"]:
+                print(f"      ↳ {row['suggestion']}")
+        print()
+
     if unanswered:
         print(f"💬 She told us {len(unanswered)} thing(s) nothing has answered yet:")
         for row in unanswered:
@@ -375,7 +434,7 @@ def render_pickup(mom, questions, watermark, rows, buckets, note_buckets):
             print(f"  • ({momlib.et_str(rec.get('ts'), with_time=False)}) \"{text[:110]}"
                   f"{'…' if len(text) > 110 else ''}\"")
         print("  (see the full text + how to close it: `python3 tools/read-mom-feedback.py`)")
-    return len(new) or len(waiting) or len(unanswered)
+    return len(new) or len(waiting) or len(pinning) or len(unanswered)
 
 
 def main():

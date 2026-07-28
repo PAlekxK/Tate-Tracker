@@ -16,6 +16,9 @@ one of them is caught here rather than by Mom.
   4. ESCALATE    the ack ribbon reports her as owed a reply
   5. CLOSE       recording where it went flips it to `addressed`
   6. RELEASE     with nothing outstanding, the watermark advances again
+  7. PIN         a card nothing in canon can confirm (a reflective card) holds
+                 the ceiling until a human retires it — and SAYS so, naming the
+                 one action that releases it
 
 Default is OFFLINE: synthetic records driven through the real functions, no
 network, no writes to her feedback stream, no mutation of tracked state. That
@@ -138,6 +141,43 @@ def offline_suite():
     wm3, _ = rmf.advance_watermark({}, records, q_rows_unfolded, note_rows=note_rows2)
     check("REGRESS  an UNFOLDED answer still pins the watermark below itself",
           wm3 is not None and wm3 < newer, f"stamped {wm3}")
+
+    # 7 · PIN — the 2026-07-26 audit's finding on reflective cards. They are
+    # `unprobeable` BY DESIGN (no `_foldTarget`), so canon can never answer "was
+    # this handled?" and the card sits at the watermark ceiling until a human
+    # retires it. Dropping it out of ACTIONABLE would bury her preference — the
+    # silent-loss bug one branch over — so the contract is: it PINS, the reason
+    # NAMES the card and the one action that clears it, and retiring RELEASES.
+    refl_ts = "2026-07-14T09:00:00Z"
+    reflective = {"id": "q-strategy-test", "active": True, "_kind": "reflective",
+                  "_foldTarget": None, "entityRef": None}
+    st_refl = momlib.question_state(reflective)
+    check("PIN      a reflective card derives `unprobeable` and stays ACTIONABLE",
+          st_refl["state"] == "unprobeable" and st_refl["state"] in rmf.ACTIONABLE,
+          f"got {st_refl['state']!r}")
+    refl_records = [answer("fb-a", older, "q-crocosmia-lucifer"),
+                    answer("fb-refl", refl_ts, "q-strategy-test"),
+                    answer("fb-b", newer, "q-panicle-hydrangea-bloom")]
+    rows_refl = [
+        {"qid": "q-crocosmia-lucifer", "rec": refl_records[0], "state": {"state": "resolved"}},
+        {"qid": "q-strategy-test", "rec": refl_records[1], "state": st_refl,
+         "suggestion": rmf.fold_suggestion(reflective, st_refl, "landed", "")},
+        {"qid": "q-panicle-hydrangea-bloom", "rec": refl_records[2], "state": {"state": "resolved"}},
+    ]
+    wm4, why4 = rmf.advance_watermark({}, refl_records, rows_refl)
+    check("PIN      an answered reflective card holds the watermark below itself",
+          wm4 is not None and wm4 < refl_ts, f"stamped {wm4}")
+    check("PIN      ...and the reason NAMES the card and the action that clears it",
+          "q-strategy-test" in why4 and "retire the card" in why4, why4)
+    check("PIN      the punch-list line says RETIRE, not just 'check by hand'",
+          "retire the card" in (rows_refl[1]["suggestion"] or ""),
+          rows_refl[1]["suggestion"])
+    retired = dict(reflective, active=False, resolvedAt="2026-07-27")
+    rows_retired = list(rows_refl)
+    rows_retired[1] = dict(rows_refl[1], state=momlib.question_state(retired))
+    wm5, _ = rmf.advance_watermark({}, refl_records, rows_retired)
+    check("PIN      retiring the card RELEASES the watermark past her answer",
+          wm5 == newer, f"stamped {wm5}, expected {newer}")
 
 
 def ribbon_suite():
