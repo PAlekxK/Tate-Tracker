@@ -3,6 +3,23 @@
   "version": 2,
   "questions": [
     {
+      "id": "q-almanac-name",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "When you asked about looking back at what you'd written, you called it the journal — the app calls that card “The Almanac.” Would “Journal” fit better?",
+      "createdAt": "2026-07-28",
+      "active": true,
+      "labels": {
+        "yes": "Yes, Journal",
+        "no": "Something else",
+        "later": "Either is fine"
+      },
+      "correctionPrompt": "What would you call it?",
+      "_source": "authored",
+      "_kind": "reflective",
+      "_note": "Naming card. Wording approved by Paul 2026-07-28 and activated (authored content reaching Mom is human-confirmed; it was staged inactive until he said yes). Origin: she asked 'Is there a way to look back at these, eg in the journal?' (2026-07-26) and CLAUDE.md:56 says adopt her words, never improve them — so rather than renaming the card on her behalf, ask her. The 'no' path opens correctionPrompt so a third word of her own can land. ⚠ Reflective cards have no _foldTarget and therefore cannot self-clear: this one holds the feedback watermark until it is RETIRED by hand (active:false + resolvedAt), per the 2026-07-27 unprobeable rule. Placed FIRST among confirms 2026-07-28: outstanding() slices the first 5 confirms in file order (MAX_VISIBLE=5, viewer.html:9379), and appended it would have sat 6th and never been shown. It answers a question SHE asked, and it is reflective (answerable from a chair), so it outranks a weed that needs a walk outside. Displaces q-weed-stiltgrass below the cap until something ahead is answered or retired — the soft-cap's designed 'extras wait their turn'."
+    },
+    {
       "id": "q-crocosmia-lucifer",
       "kind": "confirm",
       "answerMode": "yesno",
@@ -286,23 +303,6 @@
         "later": "I haven't looked"
       },
       "correctionPrompt": "Anything else about it? (optional)"
-    },
-    {
-      "id": "q-almanac-name",
-      "kind": "confirm",
-      "answerMode": "yesno",
-      "prompt": "When you asked about looking back at what you'd written, you called it the journal — the app calls that card “The Almanac.” Would “Journal” fit better?",
-      "createdAt": "2026-07-28",
-      "active": false,
-      "labels": {
-        "yes": "Yes, Journal",
-        "no": "Something else",
-        "later": "Either is fine"
-      },
-      "correctionPrompt": "What would you call it?",
-      "_source": "authored",
-      "_kind": "reflective",
-      "_note": "Naming card, staged active:false pending Paul's approval (authored content reaching Mom is human-confirmed). Origin: she asked 'Is there a way to look back at these, eg in the journal?' (2026-07-26) and CLAUDE.md:56 says adopt her words, never improve them — so rather than renaming the card on her behalf, ask her. The 'no' path opens correctionPrompt so a third word of her own can land. ⚠ Reflective cards have no _foldTarget and therefore cannot self-clear: this one holds the feedback watermark until it is RETIRED by hand (active:false + resolvedAt), per the 2026-07-27 unprobeable rule."
     }
   ]
 }

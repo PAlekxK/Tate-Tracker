@@ -9,6 +9,8 @@ What's changed at Fernwood lately. Newest first.
 - **Larger text now reaches the Almanac.** Turning on the bigger type made everything else grow, but your saved entries stayed small — so the record of what you'd said was the hardest thing on the page to read. It scales now, like the rest.
 - **A conversation keeps filling in as it goes.** Before, the Almanac copy stopped at whatever had been said the first time it was tucked away, so a question asked later — and its answer — never made it in. The saved copy now stays current to the end of the conversation.
 - **Anything you've starred stays starred.** That last change had to be made carefully so keeping a conversation up to date could never quietly undo something you'd marked as mattering.
+- **Asking a question no longer leaves two entries behind.** What you wrote was saved the moment you tapped, and then saved again once the answer came back — so the same question showed up twice, once with nothing under it. Now the two settle into a single entry that has your words and the answer together. Your words are still written down the instant you tap; nothing waits on the answer arriving.
+- **There's a question waiting about what to call it.** You called it the journal; the card says "The Almanac." Rather than pick one for you, we've asked.
 
 ---
 
