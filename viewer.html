@@ -5194,7 +5194,14 @@
 
   /* Almanac entries */
   body.text-lg .fn-entry-when             { font-size: 14px; }
-  body.text-lg .fn-entry-text             { font-size: 16.5px; line-height: 1.6; }
+  /* ⭐ FIXED 2026-07-28: this rule said `.fn-entry-text`, a class that does not
+     exist anywhere in this file. The rendered element is `.fn-entry-body`
+     (styled at ~line 4403, emitted at ~line 15769), so large-text mode has NEVER
+     reached the Almanac: her own saved words stayed at 13.5px while the live copy
+     next to them scaled to 17px. For the one reader whose stated difficulty is
+     reading, the archive of what she said was the least legible thing on the page.
+     A silent selector typo — nothing errors when a CSS rule matches nothing. */
+  body.text-lg .fn-entry-body             { font-size: 16.5px; line-height: 1.6; }
 
   /* Sources / Reference card */
   body.text-lg .ref-title                 { font-size: 16px; }
@@ -5252,10 +5259,29 @@
          2. the composer     — the surface she has actually used, unprompted.
          3. #mom-queue       — the asks: the zone-journey front door and the
             "Mama's Perspective" confirm carousel, below.
-       Until today all three lived in one host ABOVE the composer, so she met a
-       carousel declined 33/33 and a launcher with 0 taps in nine days before
-       reaching the one surface she uses. Both hosts are `.mom-queue`, both
-       `:empty { display:none }`, so nothing renders when there's nothing to say. -->
+       Until 2026-07-27 all three lived in one host ABOVE the composer, so she met
+       both asks before reaching the one surface she uses. Both hosts are
+       `.mom-queue`, both `:empty { display:none }`, so nothing renders when
+       there's nothing to say.
+
+       ⚠️ THE EVIDENCE ORIGINALLY CITED HERE WAS WRONG — CORRECTED 2026-07-28.
+       This comment used to justify the order with "a carousel declined 33/33 and
+       a launcher with 0 taps in nine days." Neither figure was Mom's. tools/people.json
+       had Paul's builder device recorded as HERS, so his own app-opens were counted
+       as her engagement. Re-measured with his four devices excluded (07-13 → 07-28,
+       her first confirm onward):
+           confirm carousel   offered 9 → viewed 5 → tapped 1 → ANSWERED 3
+           zone launcher      offered 5 → viewed 4 → tapped 0
+       She has answered a THIRD of the confirms she was actually offered, and has
+       seen the launcher five times — which is not a rejected affordance, it is
+       barely a sample.
+       The ORDER IS KEPT anyway, on the argument that survives: giving back before
+       asking is right regardless of engagement counts, and the composer is the
+       surface she reached for unprompted on 07-26. What does NOT survive is
+       "demonstrated engagement" as the reason — there was no demonstration, in
+       either direction. Do not re-derive anything from the old numbers; if this
+       ordering needs a verdict, take it from the clean time-box that closes
+       2026-08-10 (tools/read-mom-funnel.py). -->
   <div class="mom-queue" id="mom-queue-ack"></div>
   <div class="ui-input-row">
     <button id="ui-image-btn" class="ui-glyph-btn" type="button" aria-label="Attach a photo for identification">
@@ -16524,9 +16550,22 @@ const GardenGuru = (function () {
   }
 
   // Auto-save the current conversation to the almanac (per 2026-05-20 design lock).
-  // Fires on reset, cap hit, and session end. Idempotent — only saves once per
-  // conversationId (tracked via savedConversationIds).
-  const savedConversationIds = new Set();
+  // Fires on reset, cap hit, and session end.
+  //
+  // ⭐ FIXED 2026-07-28 — IT USED TO FREEZE AT THE FIRST SAVE.
+  // This was a Set of conversationIds and saveCurrentConversation() returned early
+  // if the id was already in it, so the Almanac kept whatever the conversation looked
+  // like the FIRST time it was written and never caught up. Measured on her 2026-07-26
+  // conversation: 6 turns in the Worker's KV, 4 in the Almanac — the last exchange, the
+  // boxwoods question and its answer, was not there and never would be. Silent, because
+  // capture "worked": the entry existed, it was just permanently out of date.
+  //
+  // Now a Map conversationId -> entryId. Re-saving REUSES the entry id, and
+  // ObservationStore.save() upserts by id (local findIndex-replace + POST to the
+  // Worker), so a later save updates the record in place instead of either
+  // duplicating it or being suppressed. Idempotency is preserved where it was actually
+  // wanted — one Almanac entry per conversation — without freezing its contents.
+  const savedConversationEntryIds = new Map();
   // Extract a plain-text snippet from a turn whose content may be a string OR a
   // multi-block array (Phase F: [{type:"image",...},{type:"text",...}]).
   function textFromContent(content) {
@@ -16557,25 +16596,39 @@ const GardenGuru = (function () {
     };
   }
   function saveCurrentConversation() {
-    if (!conversationId || savedConversationIds.has(conversationId)) return;
+    if (!conversationId) return;
     if (turns.filter(t => t.role === "user").length === 0) return;
     const cid = conversationId;
-    savedConversationIds.add(cid);
+    // Reuse this conversation's entry id if it has already been written, so the save
+    // UPDATES the Almanac copy rather than being suppressed (see the note above).
+    const existingId = savedConversationEntryIds.get(cid);
+    const entryId = existingId
+      || ("c-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36));
+    savedConversationEntryIds.set(cid, entryId);
+    // ⚠️ An update must not clobber what happened to the entry AFTER it was written.
+    // Re-emitting the literal defaults below would silently reset `isStarred` — Mom's
+    // "this matters" star — and wipe any classification that landed later. Making the
+    // save re-runnable and making it destructive are one line apart, so read the prior
+    // record and let it win on every field this function does not actually own.
+    const prior = (typeof fnLoadAll === "function"
+      ? (fnLoadAll() || []).find(o => o && o.id === entryId)
+      : null) || null;
     const isoToday = new Date().toISOString().slice(0, 10);
     const firstUserTurn = turns.find(t => t.role === "user");
     const body = firstUserTurn ? textFromContent(firstUserTurn.content) : "";
     const entry = {
-      id: "c-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
-      date: isoToday,
-      createdAt: new Date().toISOString(),
-      category: null,
-      speciesId: null,
-      speciesName: null,
-      zoneId: null,
+      id: entryId,
+      // The prior record wins on identity + anything set after the first write.
+      date: prior ? prior.date : isoToday,
+      createdAt: prior ? prior.createdAt : new Date().toISOString(),
+      category: prior ? prior.category : null,
+      speciesId: prior ? prior.speciesId : null,
+      speciesName: prior ? prior.speciesName : null,
+      zoneId: prior ? prior.zoneId : null,
       body,
-      classifyPending: false,
+      classifyPending: prior ? prior.classifyPending : false,
       kind: "conversation",
-      isStarred: false,
+      isStarred: prior ? !!prior.isStarred : false,   // never un-star her on an update
       hasPhoto: !!(firstUserTurn && hasImageContent(firstUserTurn.content)),
       conversation: {
         conversationId: cid,
