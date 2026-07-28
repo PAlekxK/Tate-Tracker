@@ -4,6 +4,13 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-27 — The top of the app leads with your own words
+
+- **The box where you write something now sits right under the acknowledgment.** Opening the app used to mean passing a queue of questions before reaching the one place you can simply say what you saw. That order is flipped: what you were heard on stays at the top, the writing box comes next, and the questions wait below it.
+- **Nothing was taken away.** Mama's Perspective and the invitation to walk the zones are still there, unchanged — they've just moved below the writing box, so nothing stands between you and setting something down.
+
+---
+
 ## 2026-07-27 — Tips & tricks, on the machines
 
 - **The machines now carry their tips & tricks.** A new panel on each vehicle for the know-how you only get by living with the thing — the quirks that are normal and want no fixing, and the repair tricks that actually worked here. It sits between "what she needs" and "what she's had done," because nothing in it is owed.
