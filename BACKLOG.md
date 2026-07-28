@@ -63,7 +63,6 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 | **Rotate the Ambient Weather API key** | C | Key is world-readable on public Pages. Say "rotated" → the de-embed cleanup is one agent pass. |
 | **Add the `CLOUDFLARE_API_TOKEN` repo secret** | C | One-time; after it, Worker changes self-deploy on push. |
 | **GTI spare key + service bundle** | B1 | The only deadline-bearing track. Phone-vet + book; bundle with the Chamblee recall trip. |
-| **Buttermilk 🥛** | A2 · moss | A Tate-trip shopping item — **she asked twice.** |
 
 ---
 
@@ -104,7 +103,7 @@ Mom provided this feedback (texts to Paul, plus in-app activity the same morning
 - **She asked Garden Guru two real questions** (8:57 and 9:00 AM ET) — how to use the rich water off the pond filter, then a follow-up on a term Guru used that she didn't know. **Meanwhile she left unanswered the confirm card she had just said she'd answer.** She'll ask; she won't answer.
 - **She asked how to find her past questions again** — *"Is there a way to look back at these, eg in the 'journal'?"* → **A6, promoted.**
 - **She proposed a whole new domain and its structure, unprompted** — household systems (furnace, hot water heater) with make/model/age and attached receipts or service orders, and she derived the vehicles / equipment / household-systems split herself → **new section B6.**
-- **She's tending moss the record doesn't know exists**, and shared the buttermilk-slurry technique for it → **A2.** (Buttermilk is a Tate-trip shopping item; she asked twice.)
+- **She's tending moss the record doesn't know exists**, and shared the buttermilk-slurry technique for it → **A2.** (Buttermilk was tracked as a Tate-trip shopping item — **❌ KILLED 2026-07-27, Paul's call:** *"that's not something we actually need to do. Mom can do that if she's excited."* The moss RECORD work in A2 is unaffected and stays open; only the errand is dropped.)
 - **A bug she was exposed to:** Guru told her the pond sits at 2,800 ft — that's Lake Sequoyah's elevation, not the property's 2,959 ft → **A6.**
 - **⭐ A SECOND app report, in the app, that nobody had seen** (9:20 AM ET, surfaced 2026-07-26 by the new `check-mom-ack.py` on its **first run**): she finds the **7-day rainfall figure** confusing and does not believe it. Row below. Worth noting *how* this arrived — through the general-feedback box, i.e. **the affordance the 7/13 panel said DON'T BUILD and her own ask reopened** (see W5 / the KILLED table). It sat unread for four hours in a repo full of people looking for exactly this.
 
