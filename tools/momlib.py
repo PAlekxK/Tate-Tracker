@@ -491,11 +491,25 @@ def unread_channels(state, read_state=None):
 # log. Both are read here, because the motivating failure (8-day-stale ribbon
 # while she asked Guru two real questions) is invisible without conversations.
 # Metadata only: this reads `updatedAt`, never a turn's content.
+#
+# ⭐ pending-species added 2026-07-27 (feedback-loop audit finding ⑦). It was the
+# last app channel invisible here — the ack clock could read "current" while a
+# photo she submitted sat untriaged. Two things make it fit rather than force it:
+#   · It has a REAL reader — `review-pending-species.py --list/--show/--promote/
+#     --dismiss`. This tuple is only ever wired to a channel something can read.
+#   · It is self-clearing by the right action. `--promote`/`--dismiss` DELETE the
+#     KV record, so an empty queue reports no `latest` and the channel goes quiet.
+#     That satisfies the standing rule a detection mechanism must be clearable
+#     ONLY by the action whose absence it detects — here, triaging the photo.
+# Its CLOSE is a different shape from the others and deliberately so: the species
+# appearing in canon IS the acknowledgment (user-researcher, 2026-07-26), so
+# being seen here is about Paul not losing it, not about owing her a ribbon line.
 CHANNELS = (
     ("feedback", "/api/feedback", "confirm answers + general notes"),
     ("observations", "/api/observations", "field notes (incl. anything Paul relays)"),
     ("zone-audio", "/api/zone-audio", "voice captures"),
     ("guru", "/api/conversations", "Garden Guru turns"),
+    ("pending-species", "/api/pending-species", "photo → species suggestions awaiting triage"),
 )
 
 
@@ -514,6 +528,16 @@ def _channel_latest(name, path, token, start, end):
             data = _get(path, token, {"start": start, "end": end})
             recs = data.get("recordings") or []
             stamps = [r.get("uploadedAt") for r in recs if isinstance(r, dict)]
+        elif name == "pending-species":
+            # Per-day KV, same {days:{date:[records]}} shape as feedback — but the
+            # records carry `submittedAt`, not `ts`, so flatten() does not apply.
+            # NB the Worker hard-rejects a range wider than 90 days
+            # (worker.js handleSuggestSpecies); `days=60` keeps us inside it, and
+            # a wider call degrades to a named entry in `errors`, never a lie.
+            data = _get(path, token, {"start": start, "end": end})
+            recs = [r for day in (data.get("days") or {}).values()
+                    for r in (day or []) if isinstance(r, dict)]
+            stamps = [r.get("submittedAt") for r in recs]
         else:  # guru
             data = _get(path, token, {"start": start, "end": end})
             recs = data.get("conversations") or []
