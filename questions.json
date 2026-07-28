@@ -286,6 +286,23 @@
         "later": "I haven't looked"
       },
       "correctionPrompt": "Anything else about it? (optional)"
+    },
+    {
+      "id": "q-almanac-name",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "When you asked about looking back at what you'd written, you called it the journal — the app calls that card “The Almanac.” Would “Journal” fit better?",
+      "createdAt": "2026-07-28",
+      "active": false,
+      "labels": {
+        "yes": "Yes, Journal",
+        "no": "Something else",
+        "later": "Either is fine"
+      },
+      "correctionPrompt": "What would you call it?",
+      "_source": "authored",
+      "_kind": "reflective",
+      "_note": "Naming card, staged active:false pending Paul's approval (authored content reaching Mom is human-confirmed). Origin: she asked 'Is there a way to look back at these, eg in the journal?' (2026-07-26) and CLAUDE.md:56 says adopt her words, never improve them — so rather than renaming the card on her behalf, ask her. The 'no' path opens correctionPrompt so a third word of her own can land. ⚠ Reflective cards have no _foldTarget and therefore cannot self-clear: this one holds the feedback watermark until it is RETIRED by hand (active:false + resolvedAt), per the 2026-07-27 unprobeable rule."
     }
   ]
 }

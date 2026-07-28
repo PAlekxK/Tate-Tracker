@@ -16636,9 +16636,57 @@ const GardenGuru = (function () {
       },
     };
     // Fire-and-forget; failures are silent (local save is synchronous within store).
-    ObservationStore.save(entry).then(() => {
+    ObservationStore.save(entry).then(async () => {
+      await absorbInlineDuplicate(entry);
       if (typeof renderFieldNotes === "function") renderFieldNotes();
     }).catch(e => console.warn("auto-save conversation failed:", e));
+  }
+
+  // ⭐ ABSORB THE LOG-FIRST ENTRY (2026-07-28, Paul-approved).
+  //
+  // Asking Guru wrote her words TWICE. fnSaveInlineEntry() logs her verbatim text the
+  // instant she taps — deterministic, AI-free, so a Guru refusal or timeout can never eat
+  // it (the 2026-07-13 log-first design, which closed the 7/3 lost-capture failure). Then
+  // the conversation auto-saves as a second entry carrying the same words PLUS the reply.
+  // Her three questions on 07-26 produced four Almanac entries, three of them questions
+  // with nothing under them.
+  //
+  // Neither half can simply be deleted: drop the inline log and a failed Guru call loses
+  // her words again; drop the conversation and the answers go. So the conversation ABSORBS
+  // the inline entry instead — and the ordering is the whole safety argument:
+  //
+  //   1. the conversation entry is saved FIRST,
+  //   2. it is then READ BACK from the store to prove it landed,
+  //   3. only then is the now-redundant inline entry removed.
+  //
+  // At no instant do her words exist in zero places. If step 2 fails for any reason, the
+  // inline entry simply stays and she sees the duplicate — the old behaviour, which is the
+  // correct thing to degrade to. This is a delete on a path whose entire purpose is that
+  // nothing is ever deleted, so it is deliberately the most conservative version.
+  async function absorbInlineDuplicate(convEntry) {
+    try {
+      if (typeof fnLoadAll !== "function" || !convEntry || !convEntry.body) return;
+      const all = fnLoadAll() || [];
+      // (2) durability check — the conversation entry must be readable back, with the body
+      // intact, before anything is removed.
+      const landed = all.find(o => o && o.id === convEntry.id && o.body === convEntry.body);
+      if (!landed) return;
+      const convStart = Date.parse(
+        (convEntry.conversation && convEntry.conversation.turns || [])
+          .map(t => t.ts).find(Boolean) || convEntry.createdAt) || 0;
+      // A candidate is an inline log (no kind) with the SAME verbatim body, written in the
+      // 10 minutes before the conversation began. Body-only matching would risk eating a
+      // genuinely separate note she happened to write identically; the time bound makes
+      // that effectively impossible without weakening the match.
+      const dupes = all.filter(o =>
+        o && o.id !== convEntry.id && !o.kind && o.body === convEntry.body &&
+        !o.isStarred &&                         // never absorb something she marked
+        Math.abs(Date.parse(o.createdAt || 0) - convStart) <= 10 * 60 * 1000);
+      if (dupes.length !== 1) return;           // 0 = already absorbed; >1 = ambiguous, leave it
+      await ObservationStore.remove(dupes[0].id);
+    } catch (e) {
+      console.warn("absorb skipped (inline entry left in place):", e);
+    }
   }
 
   // Best-effort save on session end. Also fire reply-dwell with session_end action.
