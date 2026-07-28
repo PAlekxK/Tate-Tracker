@@ -21,10 +21,15 @@ Events consumed (MetricsCollector -> /api/metrics; each event is
 A zone_audio_saved WITHOUT a flowId = an organic map capture (not via the card) -> H1.
 
 Caveats it prints, never hides:
-  - Shared device: Paul shares his phone with Mom (people.json attribution invalid),
-    so a per-deviceId "return" is a proxy, not proof it was Mom. Per-device breakdown
-    is shown so Paul can eyeball. Set localStorage tateTracker.metricsExclude="1" on
-    Paul's own test device to keep builder-testing out of the numbers.
+  - Attribution (rewritten 2026-07-28, CLEAN SLATE). Two things used to make a deviceId
+    unusable as a person, and both are closed: Paul shared his phone with Mom (ended by
+    his decision 2026-07-28), and people.json had the mapping BACKWARDS — his builder
+    device was recorded as Mom's, so his own app-opens were counted as her engagement.
+    Corrected against authored content: every one of Mom's four real inputs is on
+    d-szqlt0h7. Builder devices are now dropped deterministically via people.json
+    `excludeFromEngagement`, not via the localStorage flag, which had to be re-set on
+    every browser and therefore never was. The exclusion count prints on every run.
+    ⚠ Nothing before 2026-07-28 is comparable to what comes after — do not splice them.
   - The "non-gimme answer" half of GROW lives in the ANSWER content (/api/feedback,
     read by read-mom-feedback.py), not the funnel. This tool reports engagement +
     returns; combine with read-mom-feedback for the full Grow call.
@@ -50,7 +55,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
 
 # The front-door voice walk shipped 2026-07-17 — the 4-week time-box starts here.
-TIMEBOX_START = "2026-07-17"
+# ⭐ CLEAN SLATE 2026-07-28. The time-box restarted because every number before this date
+# was attributed to the wrong person: tools/people.json named Paul's builder device as Mom's
+# and vice versa, so "0 launcher taps in nine days" and "declined 33/33" were counts of
+# PAUL'S OWN app-opens. Neither reproduces. The old start (2026-07-17, the front-door ship
+# date) is kept below only as history — do not quietly restore it to "get more data," because
+# the extra data is the contaminated kind. See people.json `_meta.whatThisInvalidates`.
+TIMEBOX_START = "2026-07-28"
+TIMEBOX_START_PRE_RESET = "2026-07-17"   # historical; contaminated by device misattribution
 TIMEBOX_WEEKS = 4
 
 
@@ -175,6 +187,15 @@ def scorecard_text(sc, start, end):
     lines = []
     lines.append(f"Mom-engagement funnel  ·  {start} → {end}")
     lines.append("=" * 52)
+    # Print the denominator on every run. A tool that quietly excludes nothing reads exactly
+    # like a tool that correctly excluded everything — that ambiguity is what let builder
+    # testing masquerade as Mom's engagement for 26 days (clean slate 2026-07-28).
+    exc = sc.get("_excluded") or {}
+    if exc.get("devices"):
+        lines.append(f"  [excluding {len(exc['devices'])} builder device(s); "
+                     f"{exc['events_dropped']} event(s) dropped]")
+    else:
+        lines.append("  [⚠ NO device exclusion applied — builder testing may be inflating this]")
     lines.append("FRONT-DOOR WALK (zone journey)")
     lines.append(f"  offered {fd['offered']} → viewed {fd['viewed']} → tapped {fd['tapped']} "
                  f"→ zone-picked {fd['zone_picked']} → SAVED {fd['saved_total']}")
@@ -200,7 +221,7 @@ def scorecard_text(sc, start, end):
     lines.append("")
     lines.append(f"VERDICT: {sc['verdict']}")
     lines.append("  (funnel only — combine with read-mom-feedback.py for the non-gimme-answer half;")
-    lines.append("   shared device means a 'return' is a proxy, not proof it was Mom.)")
+    lines.append("   attribution is valid from 2026-07-28 — phone-sharing ended, builder devices excluded.)")
     return "\n".join(lines)
 
 
@@ -241,7 +262,33 @@ def main():
         return 0
 
     events = list(iter_events(data))
+
+    # ⭐ 2026-07-28 — EXCLUDE THE BUILDER'S OWN DEVICES DETERMINISTICALLY.
+    # The old design relied on a localStorage flag (tateTracker.metricsExclude, viewer.html)
+    # being set on every browser Paul ever tested from. It never was, so his app-opens were
+    # counted as engagement — and because people.json ALSO had the device mapping backwards,
+    # they were counted as MOM's. That produced the two figures that drove real decisions
+    # ("0 taps", "33/33 declines"), neither of which reproduces. A flag that must be re-set
+    # per browser is a flag that will be missed; the map is the durable place for this.
+    excluded = set()
+    try:
+        with open(os.path.join(os.path.dirname(__file__), "people.json")) as fh:
+            for person in (json.load(fh).get("people") or []):
+                if person.get("excludeFromEngagement"):
+                    excluded.update(person.get("deviceIds") or [])
+    except Exception:
+        excluded = set()   # absent/broken map -> exclude nothing, and say so below
+    dropped = [t for t in events if t[1] in excluded]
+    if excluded:
+        events = [t for t in events if t[1] not in excluded]
+
     sc = compute(events)
+    sc["_excluded"] = {"devices": sorted(excluded), "events_dropped": len(dropped),
+                       "note": ("builder devices excluded via people.json excludeFromEngagement"
+                                if excluded else
+                                "NO device exclusion applied — people.json unreadable or no "
+                                "device is flagged excludeFromEngagement. Builder testing may "
+                                "be inflating these numbers.")}
     tot = sc["totals"]
 
     # Days into the time-box (for context on how much signal to expect)

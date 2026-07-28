@@ -1,25 +1,30 @@
 {
   "_meta": {
-    "purpose": "Optional deviceId → person mapping read by tools/analyze-fernwood.py. If this file is absent, the device table shows raw deviceIds.",
-    "lastUpdated": "2026-07-16",
-    "ATTRIBUTION_IS_INVALID": "A deviceId is NOT a person, and this map must not be read as engagement-per-person (W1.5, 2026-07-16). Two independent reasons: (1) Paul shares his phone with Mom, so entries below attribute a shared device to one name; (2) until 2026-07-16 every write path gated on per-device pairing, so an UNPAIRED device produced zero records of any kind — on 2026-07-15 Mom's MacBook wrote nothing across all four streams while the UI acknowledged success. A device absent from the data is therefore indistinguishable from a person who never showed up. Do not conclude anything about who engaged from a deviceId, and do not re-guess the mapping to patch it — the fix is capture that works without pairing (shipped 2026-07-16) plus the new context.paired flag on each feedback record, which says whether the writing device was ever paired.",
-    "mappingBelowIsRetained": "Kept as corroborating evidence of what was observed, NOT as a current attribution claim."
+    "purpose": "deviceId → person mapping read by tools/analyze-fernwood.py and tools/read-mom-funnel.py.",
+    "lastUpdated": "2026-07-28",
+    "CLEAN_SLATE": "2026-07-28",
+    "resetWhy": "The mapping was BACKWARDS until 2026-07-28. `d-14nyhnjz-5lh01604-mpevr35o` was recorded as Mom on the strength of a 2026-07-02 interview plus the A/A+ text-size toggle; it is Paul's. Corrected against CONTENT, not activity shape: all four of Mom's genuine inputs — confirms 2026-07-13 (crocosmia, white mophead), 2026-07-19 (panicle hydrangea), and the 2026-07-26 rainfall note — carry deviceId `d-szqlt0h7-79xgx1bj-mpfrqkme`, and `d-14nyhnjz` has produced ZERO feedback records ever. The only zone recordings on `d-14nyhnjz` are Paul saying 'this is Paul testing.' Verified against /api/feedback 2026-07-28; Paul confirmed the reading the same day.",
+    "whatThisInvalidates": "Every engagement number computed before 2026-07-28 attributed Paul's own app-opens to Mom and Mom's to nobody. The two figures that actually drove decisions — '0 launcher taps in nine days' and 'a carousel she declined 33/33' — are counts of the WRONG PERSON and do not reproduce. Do not cite any pre-2026-07-28 funnel verdict; re-derive it. Commit 5237293 changed Mom's surface on the strength of the 33/33 figure and is under review for that reason.",
+    "attributionIsValidFrom": "2026-07-28. Two conditions previously made a deviceId unusable as a person, and both are now closed: (1) Paul shared his phone with Mom — ENDED by Paul's decision 2026-07-28 ('we're not gonna do that anymore'), so a device is now one person; (2) until 2026-07-16 every write path gated on per-device pairing, so an unpaired device wrote nothing and 'absent from the data' was indistinguishable from 'never showed up' — fixed 2026-07-16 by capture that works unpaired, plus the context.paired flag on each feedback record. This map may therefore be read as person attribution for data dated 2026-07-28 or later, and MUST NOT be for anything earlier.",
+    "ifYouAreTemptedToReGuess": "Don't. The previous mapping was a confident inference from a toggle and an interview, and it was wrong for 26 days while reading as CONFIRMED. Attribute only from CONTENT the person demonstrably authored — a confirm answer, a written note, a recording of their voice — never from device activity shape."
   },
   "people": [
     {
       "name": "paul",
       "deviceIds": [
         "d-avslqpyd-m72qxt1s-mpeuqnyg",
-        "d-fxeb35uh-389ga8h6-mpflc4zl"
+        "d-fxeb35uh-389ga8h6-mpflc4zl",
+        "d-14nyhnjz-5lh01604-mpevr35o"
       ],
-      "notes": "laptop (Mac, ttys session); iPhone Safari."
+      "excludeFromEngagement": true,
+      "notes": "laptop (Mac, ttys session); iPhone Safari; and d-14nyhnjz — the builder/test device previously misattributed to Mom. `excludeFromEngagement` keeps builder-testing out of the funnel DETERMINISTICALLY, rather than depending on the localStorage flag tateTracker.metricsExclude (viewer.html:14878) being set on every browser Paul ever tests from. A flag that must be re-set per browser is a flag that will be missed."
     },
     {
       "name": "mom",
       "deviceIds": [
-        "d-14nyhnjz-5lh01604-mpevr35o"
+        "d-szqlt0h7-79xgx1bj-mpfrqkme"
       ],
-      "notes": "CONFIRMED Mom (2026-07-02 discovery interview) = the active daily user (only device that used the A/A+ text-size toggle; most-active daily). Exact full deviceId sourced 2026-07-11 from .audit/2026-05-26-telemetry-rollup.md (the analyze-fernwood run output)."
+      "notes": "Established from authored CONTENT, the only evidence that survives scrutiny: confirm answers 2026-07-13 (crocosmia 'Lucifer'), 2026-07-13 (white mophead 'Annabelle'), 2026-07-19 (panicle hydrangea), and the 2026-07-26 free-text rainfall report — every one on this device, none on any other."
     }
   ]
 }
