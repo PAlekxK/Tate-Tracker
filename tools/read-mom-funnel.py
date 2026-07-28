@@ -55,14 +55,27 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
 
 # The front-door voice walk shipped 2026-07-17 — the 4-week time-box starts here.
-# ⭐ CLEAN SLATE 2026-07-28. The time-box restarted because every number before this date
-# was attributed to the wrong person: tools/people.json named Paul's builder device as Mom's
-# and vice versa, so "0 launcher taps in nine days" and "declined 33/33" were counts of
-# PAUL'S OWN app-opens. Neither reproduces. The old start (2026-07-17, the front-door ship
-# date) is kept below only as history — do not quietly restore it to "get more data," because
-# the extra data is the contaminated kind. See people.json `_meta.whatThisInvalidates`.
-TIMEBOX_START = "2026-07-28"
-TIMEBOX_START_PRE_RESET = "2026-07-17"   # historical; contaminated by device misattribution
+# ⭐ TIME-BOX ANCHORED TO HER FIRST CONFIRM (Paul, 2026-07-28).
+#
+# 2026-07-13 is the day Mom answered her first confirm card (crocosmia 'Lucifer', then the
+# white mophead) — the first act in the record that is unambiguously hers. The box starts
+# there and counts only what SHE does.
+#
+# Why this is the right anchor, and why an earlier reset here was wrong: the contamination
+# was never about DATES, it was about DEVICES. tools/people.json had Paul's builder device
+# recorded as Mom's, so his app-opens were counted as her engagement — that is what produced
+# "0 launcher taps in nine days" and "declined 33 of 33," neither of which reproduces. The
+# deterministic `excludeFromEngagement` drop below is the actual fix. Restarting the clock at
+# 2026-07-28 (the first attempt) ALSO threw away her genuine 07-13 and 07-19 confirms to
+# escape contamination the exclusion already removes — over-correction, and it would have
+# left the box measuring from zero while real signal sat just behind it.
+#
+# ⚠ One honest caveat on the early edge: until 2026-07-16 every write path gated on
+# per-device pairing, so an UNPAIRED device wrote nothing at all. Her confirms landed, so her
+# device was paired — but any activity from an unpaired device of hers in 07-13..07-16 is
+# simply absent. That biases this window toward UNDER-counting her, never over-counting.
+TIMEBOX_START = "2026-07-13"          # her first confirm answer
+TIMEBOX_START_SHIPDATE = "2026-07-17"  # front-door ship date; historical reference only
 TIMEBOX_WEEKS = 4
 
 
@@ -196,6 +209,9 @@ def scorecard_text(sc, start, end):
                      f"{exc['events_dropped']} event(s) dropped]")
     else:
         lines.append("  [⚠ NO device exclusion applied — builder testing may be inflating this]")
+    for did in (exc.get("unmapped_devices") or []):
+        lines.append(f"  [⚠ UNMAPPED device counted as Mom: {did} — if it is yours, "
+                     f"add it to people.json paul.deviceIds]")
     lines.append("FRONT-DOOR WALK (zone journey)")
     lines.append(f"  offered {fd['offered']} → viewed {fd['viewed']} → tapped {fd['tapped']} "
                  f"→ zone-picked {fd['zone_picked']} → SAVED {fd['saved_total']}")
@@ -221,7 +237,8 @@ def scorecard_text(sc, start, end):
     lines.append("")
     lines.append(f"VERDICT: {sc['verdict']}")
     lines.append("  (funnel only — combine with read-mom-feedback.py for the non-gimme-answer half;")
-    lines.append("   attribution is valid from 2026-07-28 — phone-sharing ended, builder devices excluded.)")
+    lines.append("   builder devices excluded by deviceId; phone-sharing ended 2026-07-28, so")
+    lines.append("   a stray Paul-on-her-phone session before that date is possible but unflagged.)")
     return "\n".join(lines)
 
 
@@ -282,8 +299,22 @@ def main():
     if excluded:
         events = [t for t in events if t[1] not in excluded]
 
+    # Any device in neither list is UNMAPPED, and silence about it is the failure mode that
+    # started all this. An unmapped device is either a new device of Mom's (its events belong
+    # in the numbers) or another browser of Paul's (they must not be) — and nothing here can
+    # tell which, so the tool NAMES it and lets Paul answer instead of quietly picking.
+    known = set(excluded)
+    try:
+        with open(os.path.join(os.path.dirname(__file__), "people.json")) as fh:
+            for person in (json.load(fh).get("people") or []):
+                known.update(person.get("deviceIds") or [])
+    except Exception:
+        pass
+    unmapped = sorted({t[1] for t in events if t[1] not in known and t[1] != "unknown"})
+
     sc = compute(events)
     sc["_excluded"] = {"devices": sorted(excluded), "events_dropped": len(dropped),
+                       "unmapped_devices": unmapped,
                        "note": ("builder devices excluded via people.json excludeFromEngagement"
                                 if excluded else
                                 "NO device exclusion applied — people.json unreadable or no "
