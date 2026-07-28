@@ -557,6 +557,26 @@
     pointer-events: auto;              /* future: tap handlers in step 5 */
     cursor: pointer;
   }
+  /* A zone whose status is not `confirmed` is a BOUNDARY SOMEONE DREW, not a
+     boundary anyone walked — every v2 polygon was traced off the NAIP basemap,
+     and _meta.accuracyHonesty says outright that such vertices are hypotheses.
+     Drawing it identically to a confirmed zone tells Mom a guess about her own
+     land is settled fact, so the two states must differ ON THE MAP, not only in
+     the panel that opens on tap.
+     The distinction is carried by TEXTURE (a broken outline — a line with gaps
+     in it is unfinished in a way that survives any colour vision and does not
+     need a legend) plus WEIGHT (a fill at less than half the confirmed density,
+     so a draft zone sits back off the photograph). Colour is deliberately NOT
+     the carrier: same sage, same forest-green stroke. Stroke goes 2 -> 2.5
+     because dashes remove ~40% of the ink and the Mom-no-glasses floor above
+     requires the outline still read at default zoom — a draft zone must be
+     quieter, never fainter. */
+  .pmap-zone.is-draft {
+    fill: rgba(122, 149, 104, 0.08);
+    stroke-width: 2.5;
+    stroke-dasharray: 10 7;            /* viewBox units; non-scaling-stroke keeps it even under zoom */
+    stroke-linecap: butt;              /* square dash ends — a dash, not a dotted seam */
+  }
   .pmap-zone-label {
     font-family: "Crimson Text", Georgia, serif;
     font-style: italic;
@@ -8307,7 +8327,14 @@ function renderPropertyMap() {
       const p = ZoneGeo.lonLatToPixel(v);
       return p[0].toFixed(1) + "," + p[1].toFixed(1);
     }).join(" ");
-    svg += '<polygon class="pmap-zone" data-zone-id="' + escapeHtml(z.id) + '" points="' + points + '" />';
+    // Only `confirmed` earns the solid outline. Anything else — draft, flagged,
+    // or a status this build has never heard of — renders as not-yet-confirmed,
+    // because the failure that matters is a guess reading as fact, not the
+    // reverse. data-zone-status is emitted so the rendered page can be checked
+    // against the record without re-deriving it from a class name.
+    const draftClass = z.status === "confirmed" ? "" : " is-draft";
+    svg += '<polygon class="pmap-zone' + draftClass + '" data-zone-id="' + escapeHtml(z.id) + '"' +
+           ' data-zone-status="' + escapeHtml(String(z.status || "unknown")) + '" points="' + points + '" />';
   }
   // Labels in a second pass so they render above all polygons.
   for (const z of zones) {
