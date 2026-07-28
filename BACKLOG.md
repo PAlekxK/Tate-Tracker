@@ -15,7 +15,58 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 
 ---
 
+# 🔝 TOP ITEM — full backlog rationalization + reprioritization (Paul, 2026-07-28)
+
+> **This is the top of Fernwood, above everything below it.** Paul's call: *"the top item for Fernwood
+> is just to do a full rationalization of all the backlog and reprioritization."* Nothing in the tracks
+> below should be picked up as "next" until this runs — because the thing that currently says what's
+> next is demonstrably wrong.
+
+**The evidence is in this file, and it is not subtle.** The `▶️ NEXT` table directly below contains
+**two overlapping numbered lists in one table** — a 1-2-3 and a 1-2-3-4 — so **"Conversation browse"
+is both item 1 and item 3**, and "Household systems" is both 2 and 4. Worse, **Conversation browse
+shipped on 2026-07-28** (three defects fixed and live, `4878994`), so the table's own top entry is
+done. A pointer table that has drifted into a second tracker is the exact failure it opens by warning
+against: *"This is a POINTER table, not a second tracker."*
+
+**Scale, for honesty about the job:** ~435 lines, **156 table rows** across three tracks plus shared
+reference. That is a decision record, and a good one — the *why* behind a hundred calls lives here and
+must not be thrown away. What it is not, any more, is something you can read to find out what to do.
+
+**What the rationalization has to produce:**
+1. **One true NEXT** — a single ordered list, deduplicated, with the shipped entries retired. Not two.
+2. **A shipped-vs-open sweep.** Today alone, four rows were found describing shipped work as open
+   (conversation browse, the draft-zone rendering, the Worker-deploy "gate" that gated nothing, and the
+   Ambient row's stale line numbers). Assume there are more; verify against git and the live app rather
+   than reading the rows.
+3. **A real reprioritization against the two products.** Track A is Mom's field journal; Track B is
+   Paul's fleet tracker. They compete for the same hours and have never been ranked against each other.
+4. **A kill list.** Some of these should not be done at all. Finding that out is a successful outcome —
+   the buttermilk errand and the 24-row plant table were both killed on their merits and the file is
+   better for it.
+5. **Where the boundary sits with the anchor.** As of 2026-07-28 Fernwood carries **zero** cross-project
+   anchor rows by Paul's call — everything lives here. That is deliberate, and it means **this file is
+   the only thing standing between a Fernwood thread and being forgotten.** Rationalizing it is
+   therefore load-bearing in a way it wasn't when the anchor mirrored it.
+
+**Two items are explicitly folded INTO this one** (Paul, 2026-07-28) rather than tracked separately:
+- **The taxonomy question** — *"how should the record be organized, holistically?"* (Track C). It is
+  the same question one level down: weeds carry top-level confidence/status while plants carry
+  variety/bloom markers, which is why `harvest-questions.py` can never harvest a weed.
+- **The Guru capability architecture** (A6, below). Both belong to "what is this project, and what
+  order should it be built in" rather than to any single track.
+
+**Do NOT start by editing.** Read the tracks, check them against git and the live app, then propose
+the reordering for Paul. The decision record is the asset; the priority list is what's broken.
+
+---
+
 # ▶️ NEXT — the short list (added 2026-07-26)
+
+> ⚠️ **STALE AND KNOWN-DUPLICATED as of 2026-07-28 — see the TOP ITEM above before trusting this
+> table.** Two numbered lists collided in it, its #1 has shipped, and it is queued for replacement by
+> the rationalization. Left in place rather than half-fixed: a partial patch would make it *look*
+> current, which is worse than a table that announces it isn't.
 
 **This is a POINTER table, not a second tracker.** It names what is actually next and who owns it; **the status stays in the row it points to.** Nothing here is a copy, so there is nothing to keep in sync — if a line here and its row disagree, **the row wins** and this line is stale and should be re-pointed or dropped. Everything *not* listed here is still live in its track; it is simply not next. The 100-odd rows below are a **decision record** — read them for *why*, read this for *what now*.
 
