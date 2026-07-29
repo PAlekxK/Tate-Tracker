@@ -4,6 +4,24 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-29 — Every card now says how to open it
+
+- **The cards tell you they open.** Each section — Weather, Plants, Wildlife, Fishing, all of
+  them — now carries a small green **Open** button on the right. Tap the row and the card opens;
+  the button turns to **Close**. There was always more inside every one of these; the only thing
+  saying so was a pale grey arrow that was easy to miss entirely.
+
+- **What was already behind those cards.** The radar. The rainfall for each of the last seven
+  days at our own gauge. The full care calendar for every plant. None of it is new — it just
+  wasn't obvious how to get to it.
+
+- **A question about how the place should be laid out.** There's a new card in Mama's
+  Perspective asking whether vehicles, equipment, house systems, gardening and wildlife are the
+  right big categories — and what's missing from that list. The answer decides how the app gets
+  organized, so it's a real question, not a survey.
+
+---
+
 ## 2026-07-29 — Bolores tells us more of her own story
 
 - **We finally read her birth certificate.** The sticker in the driver's door jamb turned out

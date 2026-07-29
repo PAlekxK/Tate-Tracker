@@ -37,6 +37,8 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 
 ## Mama's Perspective — the ground-truth feedback loop (built 2026-07-14)
 
+**⭐ The disposition half now has a ritual: `/mom-cycle`** (`~/.claude/skills/mom-cycle/SKILL.md`, 2026-07-29 — Paul-stated). The tools below detect and protect her input; the Skill decides what happens to it — triage → **resolve ambiguity in the cheapest place (telemetry → Paul → only then Mom)** → one expert seat → ship the non-Mom-facing wins → draft the return leg (a **dated** ribbon + at most ONE clarifying card) for Paul's gate. It never sends. Run it when `read-mom-feedback.py --pickup` surfaces anything. It is deliberately early — every run appends to its Refinement log.
+
 A queue of small confirm-cards at the top of the app asking the ground-truth only someone standing on the property can settle. Full lifecycle + tools:
 
 - **Seed / reseed** — `tools/harvest-questions.py` reads the canon's own honest-uncertainty markers (`variety.confidence != verified` & `askable`; `bloom.confidence == inferred` & in-window-now) and DRAFTS candidate cards. It never serves one: candidates are `active:false` until Paul flips them (his gate). Card types: variety-confirm, bloom-confirm, and hand-authored **reflective** cards (a "would you like…" strategy/preference question answerable from anywhere — `_kind:reflective`, no `_foldTarget`, captured as preference, never folded).
