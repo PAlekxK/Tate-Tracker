@@ -4,6 +4,21 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-29 — The Journal has its name, and we answer you by date
+
+- **It's called the Journal now.** You called it the journal; the card said "The Almanac." You
+  picked, so it's the Journal. The voice you ask questions of is still the Almanac — two
+  different things that had been sharing one name.
+
+- **The note at the top now says when you wrote.** It opens with the day and time of day your
+  last note came in, so you can tell at a glance whether we're answering something you said
+  this week or something from a while back.
+
+- **The walk-the-zones invitation moved down.** It used to sit above the questions; it now sits
+  below them. Still there whenever you want it.
+
+---
+
 ## 2026-07-29 — Every card now says how to open it
 
 - **The cards tell you they open.** Each section — Weather, Plants, Wildlife, Fishing, all of

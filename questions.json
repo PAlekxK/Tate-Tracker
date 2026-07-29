@@ -25,7 +25,9 @@
       "answerMode": "yesno",
       "prompt": "When you asked about looking back at what you'd written, you called it the journal — the app calls that card “The Almanac.” Would “Journal” fit better?",
       "createdAt": "2026-07-28",
-      "active": true,
+      "active": false,
+      "resolvedAt": "2026-07-29",
+      "resolution": "Mom answered Yes 2026-07-29 8:54 AM ET — the card is now called \"Journal\". HANDLED THEN RETIRED, in that order: retiring first would have claimed we acted on a preference we hadn't. Rename scoped to the card alone (card-fieldnotes title + the two \"Open Sync settings in the …\" navigation strings that point AT it); the header tagline (\"An Appalachian Almanac for 282 Church Mountain Road\") and the ask-the-Almanac voice keep their name — the word carried three referents and she was asked about one. Retiring this also RELEASES THE FEEDBACK WATERMARK: as an unprobeable reflective card it held the ceiling, so every later answer of hers kept re-reading as new.",
       "labels": {
         "yes": "Yes, Journal",
         "no": "Something else",

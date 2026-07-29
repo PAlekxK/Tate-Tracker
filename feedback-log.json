@@ -25,6 +25,13 @@
       "addressedOn": "2026-07-26",
       "disposition": "CORRECT bug report — she was right by 14x. Fixed + live in f38c275 (station gauge, window ends today, WEEK tile no longer resets Sunday, region columns labelled, by-day view built). Acknowledged to her in the ribbon, f2cd8a7.",
       "acknowledgedToHer": true
+    },
+    {
+      "noteId": "fb-946dp0qk-ms639ds6",
+      "noteTs": "2026-07-29T12:56:29.190Z",
+      "addressedOn": "2026-07-29",
+      "disposition": "Split: 7-day half shipped 7/26 and she reached it (momack_followed 7/28); month+year range filed as BACKLOG W8-c; ribbon answers it honestly as not-built-yet",
+      "acknowledgedToHer": true
     }
   ]
 }
