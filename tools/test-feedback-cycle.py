@@ -42,6 +42,7 @@ import datetime as dt
 import importlib.util
 import json
 import os
+import re
 import sys
 import urllib.request
 
@@ -281,6 +282,61 @@ def ribbon_suite():
               os.path.join(momlib.ROOT, ".private", "mom-input-log.json")))
 
 
+def draft_suite():
+    """DRAFT — typed-but-unsent words must survive a re-render.
+
+    Added 2026-07-29 after the last silent-loss path in the loop was found: the confirm
+    carousel's ‹ / › arrows called render(), which rebuilds the host, WITHOUT ever reading
+    the textarea. If she typed a note and then stepped to another card to check something,
+    her words were gone — no warning, no way back.
+
+    What makes it worth a permanent test rather than a one-time fix: the codebase already
+    carried the correct instinct next door. showAck(keep) has an explicit no-wipe branch
+    commented "her text stays exactly where she left it." The arrows simply never got the
+    same guard, because the only path anyone ever exercised was answer-then-advance.
+
+    These are static assertions against viewer.html rather than a browser drive — the same
+    posture as the RESOLVE leg above. They cannot prove the guard works (that was verified
+    in a real browser when it shipped); they prove it has not been REMOVED or quietly
+    decoupled, which is the regression that would actually happen.
+    """
+    print("\n── DRAFT: do her unsent words survive a re-render? ──\n")
+    path = os.path.join(momlib.ROOT, "viewer.html")
+    try:
+        src = open(path, encoding="utf-8").read()
+    except OSError as e:  # noqa: BLE001
+        check("DRAFT    viewer.html is readable", False, str(e))
+        return
+
+    check("DRAFT    a draft store exists", "const drafts = Object.create(null)" in src,
+          "the in-memory per-card draft store is gone")
+    check("DRAFT    textareas bind to it", "function bindDraft(" in src and "bindDraft(" in src,
+          "bindDraft missing — a textarea that does not bind is a textarea that loses text")
+    check("DRAFT    the confirm note field is bound",
+          'bindDraft(noteTa, "note:"' in src,
+          "the per-card note textarea no longer registers with the draft store")
+    check("DRAFT    the general/open field is bound",
+          'bindDraft(ta, "general:"' in src,
+          "the open-question textarea no longer registers with the draft store")
+
+    # The load-bearing one: BOTH arrows must capture BEFORE they re-render.
+    arrows = re.findall(r'(?:prev|next)\.addEventListener\("click",[^\n]*?render\(\);', src)
+    check("DRAFT    both carousel arrows exist as click handlers", len(arrows) >= 2,
+          f"found {len(arrows)} arrow handler(s)")
+    guarded = [a for a in arrows if "captureDrafts()" in a]
+    check("DRAFT    ⭐ every arrow captures drafts BEFORE render()",
+          len(guarded) == len(arrows) and len(arrows) >= 2,
+          f"{len(guarded)} of {len(arrows)} arrows guarded — an unguarded arrow silently "
+          f"destroys her typed note, which is the exact bug this leg exists to prevent")
+
+    # A draft may only be dropped when her words are actually safe.
+    check("DRAFT    a FAILED send keeps the draft (it is the only copy left)",
+          'if (result !== "failed") clearDraft(' in src or
+          ('clearDraft("note:"' in src and 'result !== "failed"' in src),
+          "clearDraft is not gated on a non-failed result — a failed send would drop her "
+          "only remaining copy")
+
+
 def live_suite():
     print("\n── LIVE: the real capture path (POST → store → read back) ──\n")
     token = momlib.resolve_token()
@@ -355,6 +411,7 @@ def main():
     offline_suite()
     entity_map_suite()
     ribbon_suite()
+    draft_suite()
     if args.live:
         live_suite()
     else:

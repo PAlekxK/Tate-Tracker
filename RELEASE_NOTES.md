@@ -4,6 +4,19 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-29 — Typing is easier, and nothing you write gets lost
+
+- **The page no longer jumps when you tap a box to type.** Every place you can write something —
+  a note on a card, the main box, the general feedback panel — the text was set just small enough
+  that a phone would zoom in on the whole page the moment you tapped, and not zoom back out. It
+  doesn't do that anymore.
+- **Your words stay put if you look at another card.** If you'd started writing a note and then
+  tapped the arrows to see a different question, what you'd written was gone. Now it waits for you,
+  and it's still there when you come back to that card.
+- **The rain gauge and the machines got a correction.** A tire size on the Bronco had been written
+  down wrong, and the Almanac had been told about a garden area that doesn't exist here. Both fixed,
+  so what it tells you matches what's actually on the property.
+
 ## 2026-07-29 — The Journal has its name, and we answer you by date
 
 - **It's called the Journal now.** You called it the journal; the card said "The Almanac." You
@@ -77,7 +90,7 @@ What's changed at Fernwood lately. Newest first.
 
 - **Larger text now reaches the Almanac.** Turning on the bigger type made everything else grow, but your saved entries stayed small — so the record of what you'd said was the hardest thing on the page to read. It scales now, like the rest.
 - **A conversation keeps filling in as it goes.** Before, the Almanac copy stopped at whatever had been said the first time it was tucked away, so a question asked later — and its answer — never made it in. The saved copy now stays current to the end of the conversation.
-- **Anything you've starred stays starred.** That last change had to be made carefully so keeping a conversation up to date could never quietly undo something you'd marked as mattering.
+- **Keeping a conversation up to date never undoes anything already saved.** That last change had to be made carefully — filling an entry in as it goes must never quietly drop something already written down.
 - **Asking a question no longer leaves two entries behind.** What you wrote was saved the moment you tapped, and then saved again once the answer came back — so the same question showed up twice, once with nothing under it. Now the two settle into a single entry that has your words and the answer together. Your words are still written down the instant you tap; nothing waits on the answer arriving.
 - **There's a question waiting about what to call it.** You called it the journal; the card says "The Almanac." Rather than pick one for you, we've asked.
 
