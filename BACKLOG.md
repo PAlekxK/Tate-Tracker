@@ -59,6 +59,45 @@ must not be thrown away. What it is not, any more, is something you can read to 
 **Do NOT start by editing.** Read the tracks, check them against git and the live app, then propose
 the reordering for Paul. The decision record is the asset; the priority list is what's broken.
 
+## ⭐ THE AXIS TO RE-CUT ON — Paul's disposition tiers (2026-07-29) `[paul-stated]`
+
+The 7/28 spec above says *what* the rationalization must produce. This says **what to sort on**, and
+it is the piece that was missing. Paul, scoping the UX half and then generalizing it:
+
+> *"There are probably some very easy quick wins that are just font, alignment, size… Then there are
+> some that need confirmation, like the reordering of the journal, which we have confirmation to
+> bring that to the top. Then there's kind of this high level reorganization, which we are still
+> collecting data on from Mom. So I want us to have some paths and options charted out with clear
+> questions we can ask Mom along the way to help inform the transformation… and we can apply that
+> pattern not just from UX, but to content and any other kind of threads that we uncover."*
+
+**Every open item gets exactly one tier, and the tier is defined by WHAT UNBLOCKS IT:**
+
+| Tier | Unblocked by | Examples already in hand |
+|---|---|---|
+| **1 · FIX NOW** | Nothing. Just do it. | font / size / alignment / spacing; the rainfall type-scale inversion (W8·b ①) |
+| **2 · CONFIRMED** | An answer Mom has **already given** — build it | the Journal rename (shipped 7/29); bringing the Journal up so she can reference it |
+| **3 · STEER** | A question **not yet asked** | the high-level reorganization — tabs vs. reinforced cards (W8·a) |
+
+**A Tier-3 row is not complete until it names two more things:** ① **the question to ask Mom**, and
+② **how the answer gets captured** (which surface, which channel, how it comes back). *That is what
+makes this different from a normal backlog* — today a "needs Mom's input" row can sit forever
+because nothing says how her input would ever arrive.
+
+**Why this axis beats the current track split.** Track A/B says *what area a thing belongs to*;
+these tiers say *what to do next*. A/B stays as the product boundary (two products, two users,
+different definitions of done) — the tiers are the **priority cut layered over it**, and they make
+the kill list fall out for free: a row that is Tier 3 with no askable question and no capture path
+is a row nobody can ever start.
+
+**Scope:** UX first, then **content**, then any other thread cluster the rationalization uncovers.
+**⚠️ MOBILE FIRST throughout** (Paul, 2026-07-29): *"that's our primary interaction source, so all
+these should be checked out in the mobile view specifically."* Review at **390×844**, not desktop.
+
+**Status: NOT STARTED.** Commissioned 2026-07-29 at the end of the `/mom-cycle` run-1 session. The
+inputs it should consume are already written: **W8·a–d** (A4), the run-1 telemetry findings, and the
+7/26 four-lens audit's deferred list.
+
 ---
 
 # ▶️ NEXT — the short list (added 2026-07-26)
