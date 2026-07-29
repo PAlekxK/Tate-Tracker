@@ -678,12 +678,12 @@
         "displacement": "5,766 cc OHV V8",
         "power": "210 hp @ 3,800 rpm (stock)",
         "torque": "315 lb-ft @ 2,800 rpm",
-        "transmission": "AOD 4-speed automatic",
+        "transmission": "C6 3-speed automatic (CORRECTED 2026-07-29 — the card previously said 'AOD 4-speed', which was wrong). Four independent legs: (1) door-tag TRANS code 'K' = C6, read off the label by Paul; (2) the C6 is the factory automatic behind the 5.8L — the AOD went behind the 5.0L; (3) ⭐ the 2010 Broadus overhaul replaced a VACUUM MODULATOR and its hose — C6 hardware the AOD does not have (the AOD uses a TV cable, so there is no modulator to replace); (4) that job reads 'remove transmission, disassemble and inspect, overhaul transmission complete, REINSTALL transmission' — the same unit went back in, and no swap appears anywhere in the 2010–2025 record. NOTE the limit: there is no documentation at all for 1989–2010 (~46,000 miles), so the pre-2010 history cannot be cleared from paper — but the unit present in Dec 2010 was vacuum-modulated and was rebuilt rather than replaced. Free confirmation whenever anyone sits in her: a C6 is a THREE-speed — quadrant P R N D 2 1 closes it; an overdrive position would mean a swap.",
         "transfer_case": "Borg Warner 1356",
         "drivetrain": "4WD",
-        "suspension": "Lifted — 4\" aftermarket suspension lift (red coil springs up front on the Dana 44 TTB), originally built for 35s by an early owner; currently running 33s",
-        "tires": "Pro Comp Xtreme M/T 2 — 33X12.50R15LT, Load Range C (mud-terrain). Size read off the actual sidewalls from the photos Paul provided (2025-10-13, confirmed 2026-07-22)",
-        "wheels": "15\" aftermarket alloy, 5×5.5\" bolt pattern; WARN manual locking hubs on the front axle",
+        "suspension": "Lifted — 4\" aftermarket suspension lift (red coil springs up front on the Dana 44 TTB). ⭐ PROVENANCE SETTLED 2026-07-29 (flag F-7 closed): the lift was bought and fitted at 4 Wheel Parts in MEMPHIS on 2011-02-23 at 46,815 miles — an F150 4in lift kit + coil springs on the same order that mounted the wheels — NOT in Georgia in 2016. Note: that order specifies mount-and-balance 'up to 33in', so the older card claim that it was 'originally built for 35s' is an inference with nothing behind it and has been dropped.",
+        "tires": "Pro Comp Xtreme MT2, ⚠️ DIAMETER UNRESOLVED — X12.50R15LT, Load Range C, 6PR, mud-terrain. The sidewall markings PRO COMP / XTREME MT2 / X12.50R15LT / 6PR / LOAD RANGE C / M+S are all legible in Paul's 2025-10-13 photos, but THE LEADING NUMBER IS CUT OFF AT THE FRAME EDGE in all three frames. The card previously asserted '33X12.50R15LT ... read off the actual sidewalls', which overstated its own provenance. Paul recalls 35s; the 2011 4WP order says 'M&B up to 33in'. Nothing on file settles it. Paul is taking a fresh sidewall photo (2026-07-29) — until then do not assert a diameter.",
+        "wheels": "15×10 aftermarket alloy, 5×5.5\" bolt pattern, 3.625\" backspacing; WARN manual locking hubs on the front axle. Width/backspacing added 2026-07-29 from the 2011 4 Wheel Parts invoice (line PXA 8069-5185, five wheels) — the card previously said only '15\" aftermarket alloy'.",
         "spare": "Mickey Thompson Baja MTZ 33\" mud-terrain on the rear swing-out tire carrier"
       },
       "maintenance": {
@@ -716,9 +716,9 @@
           "source": "Coolant type not stated in the on-disk owner's-guide extract."
         },
         "transmissionFluid": {
-          "value": "AOD: MERCON (NOT MERCON V — wrong friction modifier for AOD)",
+          "value": "C6: Type F / MERCON-era ATF — NOT the AOD spec the card used to carry. What is actually IN it: Broadus filled it with DEXRON III at the 2010 overhaul.",
           "confidence": "inferred",
-          "source": "Owner's guide gives AOD capacity (12.3 qt) but no fluid type on disk; MERCON-vs-MERCON-V for the AOD is from research."
+          "source": "Rewritten 2026-07-29 after the transmission was corrected AOD→C6. The old entry ('AOD: MERCON, not MERCON V') was reasoning from the wrong gearbox. C6 and AOD take different fluid, so the previous value was not merely unsourced but wrong-premised. Dexron III is what the 2010 rebuild used (Paul-verified off the Broadus parts list) — tell the next shop that, whatever a spec chart says. Capacity not on disk for the C6; confirm before a service."
         },
         "transferCaseFluid": {
           "value": "BW1356: Mercon ATF",
@@ -876,43 +876,48 @@
         "••••••": "production sequence — masked here; full VIN in private records"
       },
       "doorLabel": {
-        "summary": "Facts read off the driver-door Vehicle Certification Label. Paul photographed the label (ChatGPT 'Bronco Door Jam Decode' thread, 2026-02-23; the label is also in the private _inbox photos). These are a MODEL-READ of the label image — hypotheses until confirmed against the physical sticker.",
-        "confidence": "model-read from the door-label photo, 2026-02-23 — verify against the physical label (ties to Fernwood BACKLOG B3 #5)",
-        "buildDate": "10/88 (October 1988 build, 1989 model year)",
-        "rearAxle": "code H9 → ~3.55 ratio, possibly limited-slip (Ford 8.8) — the card otherwise had no rear-axle ratio",
-        "dso": "52 = Atlanta district sales office (explains her Georgia origin)",
-        "factoryTirePlacard": "31x10.50R15 on 15x8 rims, 40 psi cold — the ORIGINAL spec; she now runs 33s (see specs.tires)",
-        "springCodes": "front D7, rear U",
-        "paintField": "read as '85' = Cabernet Red (upper) — NOTE this differs from the researched upper code 2H/M6156 below; the physical label is the tiebreaker (Fernwood BACKLOG B3 #5)",
-        "interiorTrim": "MPV = Eddie Bauer, tan/saddle"
+        "summary": "Driver-door Vehicle Certification Label, read in full and confirmed by Paul on 2026-07-29.",
+        "confidence": "verified — Paul read every field off the label photo; an independent agent read of the same 4032×3024 image matched field for field.",
+        "sourcePhoto": ".private/service-records/bronco-1989/_assets/doorjamb-label-2026-02-23.jpeg (recovered 2026-07-29 from the OpenAI/ChatGPT export; previously the photo existed only inside that archive)",
+        "buildDate": "10/88 — built October 1988 as a 1989 model year",
+        "type": "MPV (Multi-Purpose Vehicle) — an FMVSS vehicle-type field, NOT an interior code",
+        "exteriorPaintColors": "2D (upper) + 9T (lower)",
+        "trans": "K → C6 automatic. This is the deterministic answer to the long-open C6-vs-AOD question; see specs.transmission.",
+        "rearAxle": "H9 → ~3.55 ratio, possibly limited-slip (Ford 8.8)",
+        "body": "HK",
+        "wb": "105",
+        "typeGvw": "U154",
+        "tape": "U",
+        "dso": "52 = Atlanta district sales office",
+        "springCodes": "front B; rear read as Z (agent) / 7 (Paul) — unresolved, not load-bearing",
+        "gvwr": "6300 lb — front GAWR 2800 lb / rear GAWR 3770 lb",
+        "factoryTirePlacard": "31-10.5R15C on 15×8.0JJ rims, 40 psi cold — the ORIGINAL spec; she now wears aftermarket 15×10 wheels (see specs)",
+        "correctionsThisFieldReplaced": "The earlier version of this object carried two errors, both from a ChatGPT decode of the same photo: paint field read as '85' (nowhere on the label) and interior read as 'MPV' (that is the TYPE field). Both are gone."
       },
       "paint": {
         "exterior": {
           "type": "two-tone",
-          "summary": "Medium Cabernet Red (upper) over Light Chestnut (lower)",
+          "summary": "Two-tone — upper code 2D over lower code 9T (both read off the door label and confirmed by Paul, 2026-07-29)",
           "upper": {
-            "name": "Cabernet Red / Medium Cabernet Red",
-            "fordCode": "2H",
-            "mixCode": "M6156 (6156)",
-            "finish": "metallic (per paint-supplier catalogs; some factory lists call Cabernet a solid — confirm by code)",
-            "confidence": "researched — 2H/6156 was Ford's 1987–89 Cabernet code; CONFIRM against the door EXT PNT field"
+            "fordCode": "2D",
+            "name": "Cabernet Red family — NAME NOT YET CONFIRMED against a 1989 Ford chip chart",
+            "confidence": "verified — code read off the door Vehicle Certification Label by Paul, 2026-07-29",
+            "supersedes": "Was recorded as 2H / M6156 ('researched, pending label'). The label reads 2D. ALSO supersedes a ChatGPT read of '85', which appears nowhere on the label — it looks to have taken U154 (the TYPE-GVW field) and invented a paint code.",
+            "beforeYouMixPaint": "The CODE is verified; the COLOUR NAME and the mix formula are not. Have the paint supplier cross-reference 2D against a 1989 Ford chart before mixing — this gates the full respray, which happens once."
           },
           "lower": {
-            "name": "Light Chestnut",
             "fordCode": "9T",
-            "mixCode": "6190",
-            "finish": "metallic (per paint supplier; one factory list calls it solid — confirm)",
-            "alt": "Dark Chestnut is the other 1989 chestnut (metallic) — verify which one is on the truck",
-            "confidence": "researched — candidate; CONFIRM against the door EXT PNT field"
+            "name": "Light Chestnut",
+            "mixCode": "6190 (researched, not label-confirmed)",
+            "confidence": "verified — code read off the door label by Paul, 2026-07-29",
+            "note": "The researched candidate 9T was CORRECT. Dark Chestnut is ruled out."
           },
-          "location": "Driver-door Vehicle Certification Label — EXT PNT carries two codes for the two-tone",
+          "location": "Driver-door Vehicle Certification Label — the EXTERIOR PAINT COLORS row carries two codes: 2D (upper) and 9T (lower).",
           "status": "researched-pending-label"
         },
         "interior": {
-          "name": "Chestnut",
-          "trimNote": "Interior is a TRIM code (INT TR on the door label), NOT a body-paint M-code — interiors use a separate coding system. To refinish/dye, match a chestnut interior vinyl-&-plastic dye (e.g. SEM Color Coat), not a body-paint code.",
-          "location": "Driver-door Vehicle Certification Label — INT TR",
-          "status": "name-confirmed"
+          "status": "NOT RECORDED — no interior trim code exists on this label",
+          "note": "CORRECTION 2026-07-29. The card previously carried interior 'MPV (Eddie Bauer tan/saddle)'. MPV is the label's TYPE field — Multi-Purpose Vehicle, a standard FMVSS vehicle-type entry — not an interior code. There is no interior trim field on this label at all, so this was deleted rather than corrected. Separately: the seats are NOT factory trim anyway (reupholstered in leather in the prior-owner era), so an interior code would not describe what is in the truck."
         }
       },
       "techniques": [
@@ -928,6 +933,12 @@
         "url": "https://archive.org/details/ford-bronco-operating-guide-1988"
       },
       "serviceHistory": [
+        {
+          "date": "2018-04-19",
+          "shop": "Summit Racing (parts order)",
+          "summary": "Aftermarket intake parts bought during the long-block replacement — BBK 3503 throttle body (application: 87–96 Ford F-series/Bronco 302/351) and a Standard Motor Products AC23 idle air control valve, $40.99. Invoice 6678736. ⚠️ SHE RUNS AN AFTERMARKET BBK THROTTLE BODY — this was absent from the record entirely until 2026-07-29 and is a real deviation from stock on a truck being restored 'factory fresh'. Bore size is NOT stated on the page read, so no millimetre figure is claimed. Corroborated five years later by the 2023 Express Oil invoice, which bills removing and cleaning the throttle body and the idle control motor.",
+          "confidence": "verified"
+        },
         {
           "date": "2025-12-22",
           "shop": "DIY (Amazon parts)",
@@ -973,8 +984,8 @@
         {
           "date": "2025-10-10",
           "shop": "NAPA (Canton, GA)",
-          "summary": "Wiper blades + battery core",
-          "confidence": "inferred"
+          "summary": "Wiper blades (NP18 ×2). ⚠️ SPLIT RECEIPT — the ticket names no vehicle and also carries a BATTERY CORE that is NOT the Bronco's (Paul, 2026-07-29). Only the wipers are hers; the battery belongs to another vehicle and is deliberately left unassigned rather than guessed.",
+          "confidence": "verified"
         },
         {
           "date": "2025-10-08",
@@ -991,8 +1002,8 @@
         {
           "date": "2023",
           "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
-          "summary": "Driveline & fuel work — front CV axle & throttle body, driveshaft U-joints, fuel filter, and transmission-leak reseals (prior owner)",
-          "confidence": "inferred"
+          "summary": "Express Oil — driveline & fuel work. ⭐ The 2023-04-06 invoice (06025-35693) is Paul-verified and reconciles to the cent: right front axle outer stubs $198.04, CV joint $80.30 (NOTE: the ticket line reads 'CV Joint : 377' — 377 is a PART NUMBER, not a price), R&R right front axle outer U-joint and stubs $555.00, electrical shorts test for reverse lights not working + replaced damaged connector $300.00, connector pigtail $27.10, throttle body removed/cleaned + idle control motor cleaned + vacuum leaks + accelerator cables $135.00, UPS part shipping $38.00 = subtotal $1,333.44 + $20.61 tax = TOTAL $1,354.05. The reverse-light electrical repair was missing from the record entirely. ⚠️ PRIOR-OWNER MARGIN NOTES, unresolved: 'still rt front noise — since U-joint repl', 'up shifting — fix', 'kick down cable', 'front end clicks and clanks?', 'left rear exhaust hanger bushing'. Also that April: trans-leak reseal and a dipstick-tube seal.",
+          "confidence": "verified"
         },
         {
           "date": "2022",
@@ -1004,85 +1015,134 @@
           "date": "2021-10",
           "mileage": 97377,
           "shop": "VIP Tires & Service (Farmingdale, ME)",
-          "summary": "Front-end & brake rebuild — replacement spindle, front wheel bearings & manual locking hubs, brakes, synthetic oil change (prior owner; the truck was in Maine at the time)",
-          "confidence": "inferred"
+          "summary": "VIP Tires & Service (Farmingdale, MAINE) — front-end & brake rebuild: replacement spindle, front wheel bearings, manual locking hubs, brakes, synthetic oil. ⭐ ODOMETER 97,377 Paul-verified — the HIGHEST AND LAST odometer on paper; the whole mileage ladder hangs off it. The Maine location is corroborated by arithmetic: 94,438 in Georgia on 8/6 → 97,377 in Maine on 10/24 = 2,939 miles, against an Atlanta–Maine round trip of ~2,400, and she is demonstrably back in Georgia by December.",
+          "confidence": "verified"
         },
         {
           "date": "2021-08",
           "mileage": 94438,
           "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
-          "summary": "Major tune-up — plugs, wires, cap & rotor, exhaust-manifold re-torque, fuel-gauge sender, plus an instrument-cluster / amp-gauge repair (prior owner). The odometer lives in that cluster, so mileage reads drift afterward.",
-          "confidence": "inferred"
+          "summary": "Express Oil — MAJOR TUNE-UP, $2,317.05. ⭐ ODOMETER 94,438 Paul-verified on the invoice. Spark plugs, cap/rotor/wires, exhaust-manifold torque, dipstick mount, parking brake, and the instrument cluster removed and disassembled to repair the amp gauge — the reason later odometer reads go strange.",
+          "confidence": "verified"
         },
         {
           "date": "2019-05",
           "shop": "Southern Off-Road Specialists (Alpharetta, GA)",
-          "summary": "Dual steering stabilizer + sway-bar bushings (prior owner)",
-          "confidence": "inferred"
+          "summary": "Southern Off-Road Specialists — dual steering stabilizer + sway-bar bushings. ⭐ DATE NOW EXACT: 2019-05-19 (Paul-verified; the record previously had only 'May 2019' with the date itself in question). Lift-related work, consistent with the 4\" lift.",
+          "confidence": "verified"
         },
         {
           "date": "2018-06",
           "mileage": 78488,
           "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
-          "summary": "Front-end alignment — became the truck's regular shop for the next several years (prior owner)",
-          "confidence": "inferred"
+          "summary": "Express Oil — new-customer front-end alignment. ⭐ ODOMETER 78,488 Paul-verified.",
+          "confidence": "verified"
         },
         {
           "date": "2018",
           "shop": "Prior owner (various)",
-          "summary": "Emissions-delete phase — A/C, smog air pump & EGR removed; new (shorter) serpentine belt; throttle-body swap attempts",
+          "summary": "2018 EMISSIONS-DELETE PHASE — ⚠️ DOWNGRADED 2026-07-29. The record previously asserted A/C + smog air pump + EGR all removed plus a shorter belt, as established fact. Reading the actual documents with Paul splits that into three very different confidence levels:\n• AIR PUMP REMOVED — STRONG. Handwritten on the physical Duralast belt package: 'new belt size since removing [?] and air pump' (Paul-verified). A shorter belt is a physical consequence of removal, not an intention.\n• SHORTER SERPENTINE BELT — CONFIRMED with a part number: Duralast 830K6 / 6PK2110.\n• A/C REMOVED — LIKELY BUT UNCONFIRMED. The first word in that handwriting is not legible; both Paul and an independent agent read it as something like 'CADS'. Mechanically it should be the A/C compressor, since the compressor and the air pump are the two belt-driven accessories whose removal shortens the belt — but that is reasoning, not reading. Settle by looking for a compressor on the engine.\n• EGR DELETED — NOT SUPPORTED. The only document is IMG_8550, a PROCUREMENT DIARY (4/25/18 onward): hunting an EGR block-off plate for the fuel-injection plenum, out of stock, ordered an R66M block-off/eliminator ~$27.75 + $5.95 shipping, then '5/3 WRONG PART', a re-order, and follow-up calls on 11/27 and 11/29 with 'no reply'. Paul's own read: 'this is all about parts you kept trying to return and buy.' INTENT IS NOT INSTALLATION — nothing says a plate ever went on.\nCONTEXT: this ran alongside the long-block replacement and the BBK throttle-body purchase (see the 2018-04-19 row) — the same notes ask for an 'air idle control delete plate or air boost delete plate'. April–May 2018 was ONE project: new engine + intake/throttle-body upgrade + delete attempts.\n⭐ SETTLES IN 30 SECONDS UNDER THE HOOD: is there an EGR valve on the intake? a smog/Thermactor air pump on the front of the engine? an A/C compressor? Three yes/no looks at the object outrank this entire paper trail.",
           "confidence": "inferred"
         },
         {
           "date": "2018",
           "mileage": 77294,
           "shop": "Tim's Auto Care (Woodstock, GA)",
-          "summary": "Warranty long-block engine replacement — the 2016 short-block failed and was swapped under warranty (prior owner)",
-          "confidence": "inferred"
+          "summary": "Tim's Auto Care — LONG BLOCK engine replacement, part E9TZ6009A. ⭐ ODOMETER 77,294 Paul-verified. Billed $1,545.44 but marked NO CHARGE under warranty (the Oct-2016 short block had failed); the prior owner's handwriting reads 'Replaced engine, make sure Tim gets paid $800 warranty' and 'Replace motor #2 77K'. ⭐ THE ENGINE IN THE TRUCK TODAY IS THIS ONE — 'motor #2', installed ~2018 at 77,294 mi, so it had roughly 20,000 miles on it as of the last odometer on paper (97,377). She is NOT a 97,000-mile engine. (The invoice's own VID field reads '1986 Bronco' — a shop typo; same VIN, same customer, every other Tim's ticket reads '89.')",
+          "confidence": "verified"
         },
         {
           "date": "2017-03",
           "shop": "Cherokee Muffler & Auto Repair (Canton, GA)",
-          "summary": "Custom dual aluminized exhaust + Flowmaster VX mufflers (prior owner)",
-          "confidence": "inferred"
+          "summary": "Cherokee Muffler — exhaust. ⭐ Paul-verified off the ticket: 2¼\" aluminized pipe, Flowmaster VX muffler, 2¼\" aluminized tailpipes, 3\" angled tip, TOTAL $424, vehicle named on the ticket as a 1989 Ford Bronco. ⚠️ The word 'dual' has been REMOVED — the ticket lists ONE muffler and ONE tip. Count the tailpipe tips at the truck to settle whether she is single or dual.",
+          "confidence": "verified"
         },
         {
           "date": "2016-10",
           "mileage": 58441,
           "shop": "Tim's Auto Care (Woodstock, GA)",
-          "summary": "Reman 351 short-block installed — the first of two engine jobs (prior owner)",
-          "confidence": "inferred"
+          "summary": "Tim's Auto Care — reman 351 SHORT block installed. ⭐ ODOMETER 58,441 Paul-verified. This engine FAILED ~19,000 miles later and was replaced under warranty (see the 2018 row) — the short-block and long-block entries are a failure and its replacement, not duplicates.",
+          "confidence": "verified"
         },
         {
           "date": "2016-07",
           "mileage": 56631,
           "shop": "Cherokee Tire Service (Canton, GA)",
-          "summary": "35\" Mickey Thompson tire + lifted-truck alignment (prior owner)",
-          "confidence": "inferred"
+          "summary": "Cherokee Tire Service — ⭐ ODOMETER 56,631 Paul-verified. Tire + alignment work two weeks after the post-buy inspection flagged the right front tire.",
+          "confidence": "verified"
         },
         {
           "date": "2016-07",
           "mileage": 56283,
           "shop": "Hickory Flat Hwy Automotive (Canton, GA)",
-          "summary": "Post-purchase recommissioning — front-end rebuild (ball joints, tie rods, drag link), brakes, wheel bearings, timing cover, window motor, A/C service (prior owner)",
-          "confidence": "inferred"
+          "summary": "Hickory Flat Hwy Automotive — ⭐ THIS IS THE POST-BUY INSPECTION, not a repair visit. ODOMETER 56,283 Paul-verified; vehicle received 06/30/2016, invoice 07/01/2016, total $236.31. A third-party condition report from the moment the GA-era owner bought her, and the most diagnostically dense document in the corpus. FAULTS FOUND (not repairs): oil leak between block & timing cover; timing cover warped & needs replacing; valve covers leaking; TRANSFER CASE LEAK; passenger upper & lower ball joints; right front wheel bearing + grease seals; left inner tie rod play; front and rear sway-bar bushings; front pads almost metal-to-metal; rear brakes need adjusting; right tail pipe hanger loose; right front tire; alternator putting out 12.5 V with A/C & lights on; driver window motor & regulator; front right sidemarker/parking light; back window switch pushed through dash. Most of these became the 2016–2019 work list — the engine problem in particular was visible on day one and led to the short block that October.",
+          "confidence": "verified"
         },
         {
           "date": "2011-02",
           "mileage": 46815,
           "shop": "4 Wheel Parts (Memphis, TN)",
-          "summary": "The 4\" suspension lift she still wears was built here — an F-150/Bronco 4\" kit (coils, add-a-leaf, Pitman arm, shocks) on 35\" tires & wheels (early owner)",
-          "confidence": "inferred"
+          "summary": "4 Wheel Parts (Memphis) — ⭐ ODOMETER IN 46,815 / OUT 46,819 Paul-verified. The F150 4\" lift kit + coil springs SHE STILL WEARS, plus five 15×10 wheels (3.625\" backspacing), valve stems, mount & balance up to 33\", tire warranty and wheel weights. $2,100 deposit taken 02/01/11. Settles flags F-6 (Memphis provenance) and F-7 (the lift is Memphis 2011, not Georgia 2016).",
+          "confidence": "verified"
         },
         {
           "date": "2010–2011",
           "mileage": 46492,
           "shop": "Broadus Automotive (Memphis, TN)",
-          "summary": "Long recommissioning — transmission overhaul, fuel pump, cooling/thermostat, A/C, EGR & exhaust work (early owner). The engine had already been rebuilt once before this.",
-          "confidence": "inferred"
+          "summary": "Long recommissioning at Broadus (Memphis). ⭐ ODOMETER 46,492 Paul-verified. Complaint on the ticket: \"TRANSMISSION SLIPS COLD\" → the labor reads 'remove transmission, disassemble and inspect, overhaul transmission complete, install shift-improve kit and bushings, replace starter, replace MODULATOR and hose at modulator, replace miscellaneous washers, REINSTALL transmission, add new fluid and additive, test drive and adjust shift settings and kickdown, adjust gear shift linkage.' Parts: master transmission overhaul kit, shift-improve kit, bushings, thrust washers, adjustable modulator, BG trans additive, Dexron III. Also fuel pump, cooling/thermostat, A/C, EGR & exhaust work. ⭐ THIS IS THE DOCUMENT THAT IDENTIFIES THE GEARBOX — a vacuum modulator is C6 hardware the AOD does not have.",
+          "confidence": "verified"
         }
       ],
-      "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis, TN chapter from 2010 through Paul's 2025 purchase); owner names and costs kept private. Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. Mileages are approximate — the instrument cluster was serviced/replaced over the years, so odometer reads are inconsistent, and the 1989 title is odometer-exempt. Verification pass 2026-07-22: the Paul-era eBay parts rows were checked against deterministic order records (email trail), and the Amazon parts rows against the Amazon order-history data export (structured export, not screenshots) — matched, install-confirmed rows are 'verified'; the prior-owner rows (2010–2023) have no deterministic twin on file (paper scans only — no Carfax or machine-readable title packet exists), so they stay 'inferred' awaiting Paul's eyeball of the physical documents."
+      "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis chapter from 2010 through Paul's 2025 purchase); costs and the full VIN are kept in .private/ and never in this tracked file. ⚠️ NOT TRUE OF OWNER NAMES, contrary to what this note used to claim: a prior owner's full name already appears in the seat-upholstery entry below (it is load-bearing there — it is the name a trim shop needs to look up the original order) and has been in the PUBLIC repo since commit 981a038. Flagged for Paul's call 2026-07-29, not silently changed. The Memphis-era owner's name was deliberately NOT added during this pass and stays in .private/. ⭐ MAJOR VERIFICATION PASS 2026-07-29 — Paul worked the 17-item eyeball queue against the physical documents. SEVEN odometers are now Paul-verified (46,492 · 46,815 · 56,283 · 56,631 · 58,441 · 77,294 · 78,488 · 94,438 · 97,377), the VIN is verified on four independent sources, and flags F-6 (Memphis provenance) and F-7 (lift = Memphis 2011) are closed. Rows still marked 'inferred' are vision reads without a Paul confirmation. NOTE ON DOLLAR FIGURES: several crops framed invoice headers rather than totals, so some job totals remain 'inferred' even where the odometer on the same document is verified — that is deliberate and not an oversight. Full verdict-by-verdict trail, including two staging bugs that were caught and fixed: .private/service-records/bronco-1989/EYEBALL-VERDICTS.md",
+      "vinNote": "⭐ VERIFIED 2026-07-29 on FOUR independent sources — the Georgia title and the City of Memphis inspection certificate (both read by Paul), plus the door-jamb label and a 2016 Hickory Flat invoice. Full value stays in .private/ (hard rule: no full VIN in tracked files). RESOLVED: the standing flag that 'the 11th character reads A where an '89 Bronco should show L' was OUR OWN COUNTING ERROR — position 11 is L (Michigan Truck Plant), correct; A is position 12, the first character of the sequence number. A Carfax pull is now safe to run.",
+      "openMechanicalItems": {
+        "_note": "Added 2026-07-29 from the eyeball pass. These are SHOP-RECORDED FINDINGS with no repair anywhere in the corpus — observations, not diagnoses, and none of them has been checked on the physical truck. Grouped because they are ONE trip: get under her once with a light.",
+        "items": [
+          {
+            "item": "Rear main seal — engine oil leak",
+            "firstFlagged": "2022-11-21 (Express Oil invoice, $1,431.11 visit)",
+            "status": "open — never shown repaired; predates Paul's Oct-2025 purchase by ~3 years",
+            "whyItMatters": "On a 351W the rear main sits between engine and transmission — an engine-out or trans-out job, so expensive alone and nearly free if the drivetrain is ever apart. This bears directly on the paint-window decision: if she is at a shop for an extended respray, that is the moment to deal with it.",
+            "check": "one look at the bellhousing / engine-to-trans junction for fresh oil"
+          },
+          {
+            "item": "Transfer case leak",
+            "firstFlagged": "2016-07-01 post-buy inspection",
+            "status": "open — Express Oil touched a transfer-case plug in Dec 2021; unknown whether that closed it",
+            "check": "look at the transfer case for fresh fluid"
+          },
+          {
+            "item": "Valve covers leaking",
+            "firstFlagged": "2016-07-01 post-buy inspection",
+            "status": "open — no fix on file. NOTE the engine was replaced twice since (2016 short block, 2018 long block), so this may be long moot.",
+            "check": "look along the valve-cover rails"
+          },
+          {
+            "item": "Frame crack at the steering box",
+            "firstFlagged": "~Sept 2020 prior-owner handwritten note; corroborated again on IMG_8556",
+            "status": "open — flag F-2, THE load-bearing one on a lifted 351",
+            "check": "inspect the frame at the steering-box mount before trusting her on the road"
+          },
+          {
+            "item": "Front-end noise",
+            "firstFlagged": "2023-04 prior-owner margin note: 'still rt front noise — since U-joint repl'",
+            "status": "open — unresolved for ~3 years, on top of the 2016 ball-joint / tie-rod / wheel-bearing findings",
+            "check": "road test + front-end inspection"
+          },
+          {
+            "item": "Exhaust: is she single or dual?",
+            "firstFlagged": "2026-07-29 — the record said 'dual' but the 2017 Cherokee ticket lists ONE muffler and ONE 3\" tip",
+            "status": "open — 'dual' removed from the record pending a look",
+            "check": "walk to the back and count the tailpipe tips"
+          },
+          {
+            "item": "Transmission — confirm C6 by quadrant",
+            "firstFlagged": "2026-07-29",
+            "status": "strongly supported (door-tag K + vacuum modulator + rebuilt-not-swapped) but not physically confirmed",
+            "check": "a C6 is a THREE-speed: quadrant P R N D 2 1 closes it; an overdrive position would mean a swap"
+          }
+        ]
+      }
     },
     {
       "id": "dr200s-2017",

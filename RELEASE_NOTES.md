@@ -4,6 +4,31 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-29 — Bolores tells us more of her own story
+
+- **We finally read her birth certificate.** The sticker in the driver's door jamb turned out
+  to be photographed and forgotten in an old chat archive. It gives her build month (October
+  1988), her paint codes, her axle, and the answer to a question the record had wrong for
+  months.
+
+- **She is not the transmission we thought.** The card said a four-speed. She is a three-speed —
+  and the thing that settled it was a part a shop replaced in Memphis in 2010 that only one of
+  the two transmissions even has.
+
+- **Her paint codes were wrong in two different ways.** One was a guess and one was invented
+  outright. Both are corrected now, which matters because she gets painted once.
+
+- **The engine is younger than the odometer suggests.** The engine in her went in around 2018 —
+  a warranty replacement after the previous one failed. She reads like a high-mileage truck and
+  carries a much newer heart than that.
+
+- **Some things the record was sure about, it shouldn't have been.** The tire size, the "dual"
+  exhaust, and a set of emissions parts we had listed as removed all turned out to rest on
+  thinner evidence than the confident wording implied. They now say so, and each one names the
+  thirty-second look at the truck that would settle it.
+
+---
+
 ## 2026-07-28 — The Almanac knows the weeds now (and the machines)
 
 - **Ask the Almanac about a weed and it knows.** The weeds section shipped to the dashboard
