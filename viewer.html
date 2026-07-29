@@ -9418,17 +9418,43 @@ async function saveZoneFeedback(text) {
 // wrote — the only one of the two that means anything to the person reading it,
 // and the one the dated line renders. Keep both: R1 staleness is computed off the
 // cutoff, the greeting is rendered off her timestamp.
+// ── The moss acknowledgment (2026-07-29) ─────────────────────────────────────
+// She gave us the moss on Sunday 7/26 — that she had planted it, and how she feeds
+// it. The record took all of it: `plants.json` → `moss` carries both plantings and
+// the buttermilk slurry credited to her by name. NOBODY EVER TOLD HER. It has been
+// the oldest unacknowledged thing she has given us, and it sat under two newer
+// ribbons that were about other things.
+//
+// Shaped against the standing rules: dated; names what she actually gave in HER
+// nouns (moss, buttermilk — never "ground-cover", never "your technique"); says what
+// CHANGED rather than thanking her; and carries NO closing ask, because the queue
+// sits inches below and is already the ask. A close that does not exist cannot
+// repeat itself two refreshes running.
+//
+// ⚠️ acknowledgedThrough deliberately stays at the 07-29 value and is NOT moved back
+// to the moss arrival. The clock tracks the newest input we have answered; her 07-29
+// rainfall-range ask was answered by the previous ribbon. Moving it backwards would
+// re-open an item she has already been answered on and would make check-mom-ack.py
+// report a debt that does not exist.
+//
+// arrivalRef is null on purpose: the moss came to Paul directly and he relayed it, so
+// there is no /api/feedback record to point at. Paul-relayed input is real input
+// (channel doctrine) — but it is honest that no app channel carried it.
 const MOM_ACK_DATA = {
-  "message": "You asked to see the rain day by day, and further back than a week. The last seven days are there now at our own gauge; a month and a year aren't built yet. Every card also tells you how to open it now — the radar's behind Weather.",
+  // NOTE: the renderer prepends its own dated stamp ("We got your note <date>."), so
+  // this message must NOT open with the date again — the first draft did, and it read
+  // "…Sunday morning, July 26. Sunday morning, July 26 — the moss." Caught in a browser,
+  // not on the page. Whether that stamp should exist at all is a separate open question.
+  "message": "The moss — you'd planted it in two places, and you told us how you feed it, buttermilk and all. The record didn't know any of it was there. It's written down now, in your name: both plantings, and your method with it. It's under Plants.",
   "questionId": null,
-  "arrivedAt": "2026-07-29T12:56:29.190Z",
-  "arrivalRef": "fb-946dp0qk-ms639ds6",
+  "arrivedAt": "2026-07-26T13:00:00.000Z",
+  "arrivalRef": null,
   "acknowledgedThrough": "2026-07-29T12:56:29.190Z",
   "channels": [
-    "feedback"
+    "paul-relay"
   ],
-  "linkPhrase": "the radar's behind Weather",
-  "linkCard": "card-weather"
+  "linkPhrase": "It's under Plants",
+  "linkCard": "card-plants"
 };
 
 const MomQueue = (function () {
