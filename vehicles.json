@@ -1054,7 +1054,7 @@
         {
           "date": "2017-03",
           "shop": "Cherokee Muffler & Auto Repair (Canton, GA)",
-          "summary": "Cherokee Muffler — exhaust. ⭐ Paul-verified off the ticket: 2¼\" aluminized pipe, Flowmaster VX muffler, 2¼\" aluminized tailpipes, 3\" angled tip, TOTAL $424, vehicle named on the ticket as a 1989 Ford Bronco. ⚠️ The word 'dual' has been REMOVED — the ticket lists ONE muffler and ONE tip. Count the tailpipe tips at the truck to settle whether she is single or dual.",
+          "summary": "Cherokee Muffler — DUAL exhaust. ⭐ Paul-verified off the ticket: 2¼\" aluminized pipe, Flowmaster VX muffler, 2¼\" aluminized tailpipes, 3\" angled tip, TOTAL $424, vehicle named on the ticket as a 1989 Ford Bronco. ✅ 'DUAL' CONFIRMED 2026-07-29 AT THE TRUCK — Paul counted TWO exhaust tips. NOTE how this went: the word 'dual' was briefly REMOVED earlier the same day, because reading the ticket aloud suggested one muffler and one tip. The truck restored it. The likely reconciliation is that the dictated 'two point two four' lines are QUANTITY 2 of 2¼\" pipe and QUANTITY 2 of 2¼\" tailpipes — i.e. the ticket described a true dual system all along, and the single-tip reading was the error, not the record.",
           "confidence": "verified"
         },
         {
@@ -1096,7 +1096,7 @@
       "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis chapter from 2010 through Paul's 2025 purchase); costs and the full VIN are kept in .private/ and never in this tracked file. ⚠️ NOT TRUE OF OWNER NAMES, contrary to what this note used to claim: a prior owner's full name already appears in the seat-upholstery entry below (it is load-bearing there — it is the name a trim shop needs to look up the original order) and has been in the PUBLIC repo since commit 981a038. Flagged for Paul's call 2026-07-29, not silently changed. The Memphis-era owner's name was deliberately NOT added during this pass and stays in .private/. ⭐ MAJOR VERIFICATION PASS 2026-07-29 — Paul worked the 17-item eyeball queue against the physical documents. SEVEN odometers are now Paul-verified (46,492 · 46,815 · 56,283 · 56,631 · 58,441 · 77,294 · 78,488 · 94,438 · 97,377), the VIN is verified on four independent sources, and flags F-6 (Memphis provenance) and F-7 (lift = Memphis 2011) are closed. Rows still marked 'inferred' are vision reads without a Paul confirmation. NOTE ON DOLLAR FIGURES: several crops framed invoice headers rather than totals, so some job totals remain 'inferred' even where the odometer on the same document is verified — that is deliberate and not an oversight. Full verdict-by-verdict trail, including two staging bugs that were caught and fixed: .private/service-records/bronco-1989/EYEBALL-VERDICTS.md",
       "vinNote": "⭐ VERIFIED 2026-07-29 on FOUR independent sources — the Georgia title and the City of Memphis inspection certificate (both read by Paul), plus the door-jamb label and a 2016 Hickory Flat invoice. Full value stays in .private/ (hard rule: no full VIN in tracked files). RESOLVED: the standing flag that 'the 11th character reads A where an '89 Bronco should show L' was OUR OWN COUNTING ERROR — position 11 is L (Michigan Truck Plant), correct; A is position 12, the first character of the sequence number. A Carfax pull is now safe to run.",
       "openMechanicalItems": {
-        "_note": "Added 2026-07-29 from the eyeball pass. These are SHOP-RECORDED FINDINGS with no repair anywhere in the corpus — observations, not diagnoses, and none of them has been checked on the physical truck. Grouped because they are ONE trip: get under her once with a light.",
+        "_note": "Added 2026-07-29 from the eyeball pass. These are SHOP-RECORDED FINDINGS with no repair anywhere in the corpus — observations, not diagnoses, and none of them has been checked on the physical truck. Grouped because they are ONE trip: get under her once with a light. ⭐ WORTH NOTING FROM THE FIRST TWO ANSWERED (2026-07-29): the truck FALSIFIED one record claim (A/C removal) and RESTORED another (dual exhaust). Physical checks are not a way of confirming what we already believe — they cut both directions, which is exactly why they outrank the paper.",
         "items": [
           {
             "item": "Rear main seal — engine oil leak",
@@ -1130,10 +1130,10 @@
             "check": "road test + front-end inspection"
           },
           {
-            "item": "Exhaust: is she single or dual?",
+            "item": "Exhaust: single or dual? — ✅ ANSWERED",
             "firstFlagged": "2026-07-29 — the record said 'dual' but the 2017 Cherokee ticket lists ONE muffler and ONE 3\" tip",
-            "status": "open — 'dual' removed from the record pending a look",
-            "check": "walk to the back and count the tailpipe tips"
+            "status": "✅ CLOSED 2026-07-29 — Paul counted TWO TIPS at the truck. She is DUAL. The record's original wording was correct; the mid-day downgrade to 'single' was an over-correction from a dictated receipt line, and the physical check reversed it.",
+            "check": "done — no action"
           },
           {
             "item": "Transmission — confirm C6 by quadrant",
