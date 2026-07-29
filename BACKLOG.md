@@ -2,7 +2,7 @@
 
 **Single source of truth for Fernwood backlog statuses.** When any other doc (CLAUDE.md fragments, memory, design docs) disagrees, **this file wins** and the stale source should point here. First consolidated 2026-07-13; **re-organized into two tracks 2026-07-17** (intent-first rationalization — spec: `.plans/2026-07-17-backlog-rationalization.md`).
 
-**Why two tracks (2026-07-17):** Fernwood carries **two products in one repo** — **Mom's field journal** (Track A: Mom-facing, field-journal tone, the whole W-series arc, plants/wildlife/weather/map) and **Paul's fleet & equipment tracker** (Track B: Paul-facing, utilitarian, deadline-bearing). Different users, tone, cadence, and definition of "done." They're split so each is legible on its own terms and the Mom arc doesn't read as accretion. Track C is cross-cutting infra/doctrine. **Shared reference** (KILLED / SHIPPED / reconciliation) is at the bottom.
+**Why two tracks (2026-07-17):** Fernwood carries **two products in one repo** — **Mom's field journal** (Track A: Mom-facing, field-journal tone, the whole W-series arc, plants/wildlife/weather/map) and **Paul's fleet & equipment tracker** (Track B: Paul-facing, utilitarian, ~~deadline-bearing~~ — **no live deadline as of 2026-07-29**; the overdue registration that made it the clock-bearing track was resolved 7/22, next hard date 2027-06-03). Different users, tone, cadence, and definition of "done." They're split so each is legible on its own terms and the Mom arc doesn't read as accretion. Track C is cross-cutting infra/doctrine. **Shared reference** (KILLED / SHIPPED / reconciliation) is at the bottom.
 
 **Status taxonomy:**
 - **SHIPPED** — live in production (GH Pages + Worker).
@@ -14,157 +14,183 @@
 The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026-07-17) — it's history, not status. Read status here.
 
 ---
+# ▶️ NEXT — the one true list (rationalized 2026-07-29)
 
-# 🔝 TOP ITEM — full backlog rationalization + reprioritization (Paul, 2026-07-28)
+> **This replaces the old TOP ITEM block and the two colliding `▶️ NEXT` tables.** The rationalization
+> Paul commissioned on 2026-07-28 **ran on 2026-07-29**: five expert seats (ux · user-research ·
+> engineering · content · ai-advisor) plus a mechanical verification sweep that classified **140 rows**
+> against git and the live app. Proposal + full reasoning: `.plans/2026-07-29-rationalized-backlog-PROPOSAL.md`.
+> Panel reports: `.ux-reviews/`, `.user-research/`, `.engineering/`, `.content-reviews/`, `.ai-advisor/`,
+> `.plans/2026-07-29-verification-sweep.md`. The old head is preserved in git.
 
-> **This is the top of Fernwood, above everything below it.** Paul's call: *"the top item for Fernwood
-> is just to do a full rationalization of all the backlog and reprioritization."* Nothing in the tracks
-> below should be picked up as "next" until this runs — because the thing that currently says what's
-> next is demonstrably wrong.
+**This is a POINTER list, not a second tracker.** Status stays in the row it points to. The ~156 rows
+below are the **decision record** — read them for *why*; read this for *what now*.
 
-**The evidence is in this file, and it is not subtle.** The `▶️ NEXT` table directly below contains
-**two overlapping numbered lists in one table** — a 1-2-3 and a 1-2-3-4 — so **"Conversation browse"
-is both item 1 and item 3**, and "Household systems" is both 2 and 4. Worse, **Conversation browse
-shipped on 2026-07-28** (three defects fixed and live, `4878994`), so the table's own top entry is
-done. A pointer table that has drifted into a second tracker is the exact failure it opens by warning
-against: *"This is a POINTER table, not a second tracker."*
+**Sorted by Paul's disposition tiers** (`[paul-stated]` 2026-07-29): the tier is defined by **what
+unblocks a row**, not what area it belongs to. Track A/B stays as the product boundary; the tiers are
+the priority cut laid over it.
 
-**Scale, for honesty about the job:** ~435 lines, **156 table rows** across three tracks plus shared
-reference. That is a decision record, and a good one — the *why* behind a hundred calls lives here and
-must not be thrown away. What it is not, any more, is something you can read to find out what to do.
-
-**What the rationalization has to produce:**
-1. **One true NEXT** — a single ordered list, deduplicated, with the shipped entries retired. Not two.
-2. **A shipped-vs-open sweep.** Today alone, four rows were found describing shipped work as open
-   (conversation browse, the draft-zone rendering, the Worker-deploy "gate" that gated nothing, and the
-   Ambient row's stale line numbers). Assume there are more; verify against git and the live app rather
-   than reading the rows.
-3. **A real reprioritization against the two products.** Track A is Mom's field journal; Track B is
-   Paul's fleet tracker. They compete for the same hours and have never been ranked against each other.
-4. **A kill list.** Some of these should not be done at all. Finding that out is a successful outcome —
-   the buttermilk errand and the 24-row plant table were both killed on their merits and the file is
-   better for it.
-5. **Where the boundary sits with the anchor.** As of 2026-07-28 Fernwood carries **zero** cross-project
-   anchor rows by Paul's call — everything lives here. That is deliberate, and it means **this file is
-   the only thing standing between a Fernwood thread and being forgotten.** Rationalizing it is
-   therefore load-bearing in a way it wasn't when the anchor mirrored it.
-
-**Two items are explicitly folded INTO this one** (Paul, 2026-07-28) rather than tracked separately:
-- **The taxonomy question** — *"how should the record be organized, holistically?"* (Track C). It is
-  the same question one level down: weeds carry top-level confidence/status while plants carry
-  variety/bloom markers, which is why `harvest-questions.py` can never harvest a weed.
-- **The Guru capability architecture** (A6, below). Both belong to "what is this project, and what
-  order should it be built in" rather than to any single track.
-
-**Do NOT start by editing.** Read the tracks, check them against git and the live app, then propose
-the reordering for Paul. The decision record is the asset; the priority list is what's broken.
-
-## ⭐ THE AXIS TO RE-CUT ON — Paul's disposition tiers (2026-07-29) `[paul-stated]`
-
-The 7/28 spec above says *what* the rationalization must produce. This says **what to sort on**, and
-it is the piece that was missing. Paul, scoping the UX half and then generalizing it:
-
-> *"There are probably some very easy quick wins that are just font, alignment, size… Then there are
-> some that need confirmation, like the reordering of the journal, which we have confirmation to
-> bring that to the top. Then there's kind of this high level reorganization, which we are still
-> collecting data on from Mom. So I want us to have some paths and options charted out with clear
-> questions we can ask Mom along the way to help inform the transformation… and we can apply that
-> pattern not just from UX, but to content and any other kind of threads that we uncover."*
-
-**Every open item gets exactly one tier, and the tier is defined by WHAT UNBLOCKS IT:**
-
-| Tier | Unblocked by | Examples already in hand |
-|---|---|---|
-| **1 · FIX NOW** | Nothing. Just do it. | font / size / alignment / spacing; the rainfall type-scale inversion (W8·b ①) |
-| **2 · CONFIRMED** | An answer Mom has **already given** — build it | the Journal rename (shipped 7/29); bringing the Journal up so she can reference it |
-| **3 · STEER** | A question **not yet asked** | the high-level reorganization — tabs vs. reinforced cards (W8·a) |
-
-**A Tier-3 row is not complete until it names two more things:** ① **the question to ask Mom**, and
-② **how the answer gets captured** (which surface, which channel, how it comes back). *That is what
-makes this different from a normal backlog* — today a "needs Mom's input" row can sit forever
-because nothing says how her input would ever arrive.
-
-**Why this axis beats the current track split.** Track A/B says *what area a thing belongs to*;
-these tiers say *what to do next*. A/B stays as the product boundary (two products, two users,
-different definitions of done) — the tiers are the **priority cut layered over it**, and they make
-the kill list fall out for free: a row that is Tier 3 with no askable question and no capture path
-is a row nobody can ever start.
-
-**Scope:** UX first, then **content**, then any other thread cluster the rationalization uncovers.
-**⚠️ MOBILE FIRST throughout** (Paul, 2026-07-29): *"that's our primary interaction source, so all
-these should be checked out in the mobile view specifically."* Review at **390×844**, not desktop.
-
-**Status: NOT STARTED.** Commissioned 2026-07-29 at the end of the `/mom-cycle` run-1 session. The
-inputs it should consume are already written: **W8·a–d** (A4), the run-1 telemetry findings, and the
-7/26 four-lens audit's deferred list.
+| Tier | Unblocked by |
+|---|---|
+| **1 · FIX NOW** | Nothing. Just do it. |
+| **2 · CONFIRMED** | An answer Mom has **already given** — build it |
+| **3 · STEER** | A question **not yet asked** — and the row is INCOMPLETE until it names ① the question and ② how the answer gets captured |
 
 ---
 
-# ▶️ NEXT — the short list (added 2026-07-26)
+## ⭐⭐ THE ORIENTING PRINCIPLE (Paul, 2026-07-29) — steer on her signal, and clean the instrument first
 
-> ⚠️ **STALE AND KNOWN-DUPLICATED as of 2026-07-28 — see the TOP ITEM above before trusting this
-> table.** Two numbered lists collided in it, its #1 has shipped, and it is queued for replacement by
-> the rationalization. Left in place rather than half-fixed: a partial patch would make it *look*
-> current, which is worse than a table that announces it isn't.
+Two clauses, both standing.
 
-**This is a POINTER table, not a second tracker.** It names what is actually next and who owns it; **the status stays in the row it points to.** Nothing here is a copy, so there is nothing to keep in sync — if a line here and its row disagree, **the row wins** and this line is stale and should be re-pointed or dropped. Everything *not* listed here is still live in its track; it is simply not next. The 100-odd rows below are a **decision record** — read them for *why*, read this for *what now*.
+**① Orient around her feedback — explicit AND behavioural.** Paul: *"let's always orient around her
+feedback, be that explicit — like taps on yes or no or free response — or just how she's clearly using
+the app, what she's looking at, what she's not."* Both are evidence: taps, notes, Guru questions, zone
+audio and anything Paul relays; **and** card expansions, what she opens, what she never does, what she
+returns to. A recommendation citing neither is a weaker class of evidence and must say so.
 
-*Owner: 👤 Paul (judgment, physical access, or it reaches Mom) · 🤖 agent-drivable end-to-end · 👥 agent drafts, Paul confirms.*
+**② The UX cleanup is MEASUREMENT HYGIENE, not polish — which is why it goes first.** Paul: *"cleaning
+up the UX… especially where we ask for her input… right now it's a little confusing, so it introduces
+some noise into the feedback data that she provides us and the usage data."* Read literally: **the
+confusing input stack is contaminating the instrument we steer by.** We cannot distinguish *she
+declined* from *she never understood which thing she was answering*. **Anything that disambiguates a
+surface outranks anything that adds an ask** — the second is unmeasurable until the first lands.
 
-### ✅ SHIPPED 2026-07-26 — the Mom-cycle determinism build (`da75fa8`, live on Pages)
+---
 
-*Spec: `.engineering/2026-07-26-mom-cycle-determinism.md`. All five landed together, tested against real data, pushed. Detail in `CLAUDE.md` → "Mama's Perspective".*
+## 🚨 READ THIS BEFORE CITING ANY ENGAGEMENT NUMBER
+
+**The funnel that justified this project's headline finding counted the wrong person.**
+`tools/people.json` is unambiguous — the device mapping was **backwards until 2026-07-28**, and its own
+`_meta` says *"Do not cite any pre-2026-07-28 funnel verdict; re-derive it."*
+
+- **"Offered 35 → viewed 33 → tapped 1" is NOT her.** Corrected: **~10 offered → 4 answered.** That is
+  not a disengaged user. Strike the old figure wherever it appears — it is still quoted in A3, in
+  `q-top-categories._note`, and in the `/mom-cycle` Skill.
+- **The fear hypothesis loses its quantitative leg.** What remains is self-report, n=1, offered to a
+  reassuring son — this project's own weakest evidence class.
+- **A rival now fits better: TOPIC ORIGIN.** Every card authored from *our* uncertainty markers and
+  offered after 7/14 is unanswered (**0 of 4**). The one seeded from *her own words* —
+  `q-almanac-name` — was answered **in under a day**. A third candidate, occasion/effort, is confounded
+  with it in every row and stays on the board.
+- **She has NEVER used the A/A+ toggle** (Paul's device fired it 22×). Reading-difficulty still stands
+  on Paul's testimony, but its behavioural corroboration is gone — **so tune the DEFAULT type scale,
+  not `body.text-lg`.**
+- **`persona-mom.md`'s entire telemetry tier is Paul's device** and must be re-derived before anything
+  reads it as user context.
+- **Three irreconcilable funnel figures** (35/33/1 · 9→3 · 60/42/2) sit in three sections. None is
+  current. Re-derive from 2026-07-28 forward.
+
+---
+
+## ✅ SHIPPED 2026-07-29 — the Tier-1 correctness pass
+
+*All verified in a real browser at 390×844 or by rebuild. Detail in the proposal doc.*
 
 | Item | What landed |
 |---|---|
-| ✅ **Scope the fold watermark** | The only **data-loss-shaped** path in the cycle is closed. `--mark-reviewed` no longer stamps the max ts across every record in view; it clamps **below the oldest still-actionable answer**, and `fold-answer.py` passes `--mark-reviewed-through <max ts of what it actually folded>`. Proven against the exact failing scenario. |
-| ✅ **Derive the punch-list from canon** | Four buckets, only the first a to-do. The three already-folded answers now correctly read *Already settled*; *Ready to fold* is empty. The probe resolves `entityRef.type` → source file, so **weed** cards read `weeds.json` (three live cards were silently degrading). Where no probe can see the fold ('Annabelle' → the hydrangea roster) it prints the claim **labelled as an assertion**. |
-| ✅ **`check-mom-ack.py` + `acknowledgedThrough`** | Leg 3 has a mechanism. R1/R2 computed, R3 printed for Paul's eye (never asserted), plus the **committed-but-not-pushed** check. Never writes the message, never advances its own clock. ⚠️ **Spec deviation, deliberate:** Guru turns are at `/api/conversations`, **not** `/api/observations` as R2 above states — the check reads both (metadata only), because the failure that motivated it is invisible otherwise. Still **no text ledger**. |
-| ✅ **Widen `mom-queue-watch.py`** | Now pings on *"input we haven't acknowledged"*, not just *"a fold is waiting"* — verified firing on exactly the 7/26 case it was silent for, and once per new arrival. |
-| ✅ **`tools/momlib.py`** | `question_state()` is now the single definition of "settled". Three `_load()` copies and three definitions of "pending" collapsed to one. |
-
-### 🤖 Agent-drivable — next up
-
-- **`check-mom-ack.py:229` asserts a behaviour that does not exist** *(found 2026-07-27 by a build
-  agent while shipping the zone-audio clamp `12bcc49`; routed at close-out)*. The comment claims
-  `read-mom-zone-audio.py` "marks its own channel" — **it never calls `mark_channel_read`.** Left
-  alone deliberately at the time: it lives in a third file and fixing it inside that task would have
-  been unrequested scope. Small, agent-doable, no Mom-facing surface. *Same shape as the rest of the
-  2026-07-27 sweep: a comment asserting another file's behaviour with nothing checking the assertion
-  is true — which is exactly what the cross-project `falsifier/probe` recommendation targets.*
-
-
-| Item | Where | Why it's next |
-|---|---|---|
-| **1 · Conversation browse — findability, not a new feature** | A6 | **Mom asked for it unprompted** (*"Is there a way to look back at these?"*) and **the capability already exists** — her 7/26 questions were read back out of storage. Likely the cheapest real win in the batch. |
-| **2 · Household systems = `group: "household-system"`** | B6 | Shape already decided; it is one new enum value on `vehicles.json`, and B5's Nest export already holds entry #1 (the furnace). |
-| ~~**3 · The 7-day rainfall figure she flagged**~~ | A1 | ✅ **FIXED + LIVE (`f38c275`)** — she was right by 14×. See the row. **Still open: tell her.** |
-| **1 · Rainfall card legibility** | A3 · audit row ① | The fix made it correct and *harder to read*: her gauge renders smaller than the regional model, in the model's colours. Highest-value deferred item. |
-| **2 · Ribbon → day-by-day deep link** | A3 · audit row ② | It promises "look back day by day" and gives her no path. `expandCard` already exists. |
-| **3 · Conversation browse — findability, not a new feature** | A6 | **She asked for it unprompted** and the capability already exists. |
-| **4 · Household systems = `group: "household-system"`** | B6 | One new enum value; B5's Nest export already holds entry #1. |
-
-### 👥 Agent drafts → Paul confirms (it reaches Mom, so the wording is gated)
-
-| Item | Where | Why it's next |
-|---|---|---|
-| **8 · Reframe the bloom cards** | A3 | Fix the template **once** in `harvest-questions.py` → corrects **8 live/staged cards**. Makes the plant the subject and the hedge *the record's gap*, not a request for her verdict. |
-| **9 · The moss record + an observation-shaped moss card** | A2 | She planted it, she has the technique, **the record doesn't know it exists** — the app is the novice and it is an exchange she cannot lose. The best first card of the new slate. |
-
-### 👤 Waiting on Paul
-
-| Item | Where | What's needed |
-|---|---|---|
-| **⭐ FIX THE ASK — re-shape the confirm card** | A3 | The highest-value open item and **entirely a judgment call**. The **mechanical** half (real A-or-B buttons, "I haven't looked" as a state) shipped in `5ee31e1`; what remains is the reframe, a first-class "not sure", and pushing the fix into the template. **→ Next move is the MOSS card** — it discriminates between the two live hypotheses (wrongness-risk vs. authorship), which is worth more than a nicer ask. ⚠️ Don't touch either live A/B card until she answers one; that free experiment is running. |
-| **Assign `zoneId` on the 24 null plants** | A2 · W2 | Paul's own *"most important part"* — the W2 payoff, and it gates the per-plant W9 soil fold. |
-| **Season-note spot-check** | A2 · #8 | 170 authored notes await your read on the plants you know best. |
-| **Soil sampling — 5 samples, ~$50, fall window** | A2 · W9 | *"The single highest-accuracy fix in the whole app."* Sampling waits on nothing. |
-| **Rotate the Ambient Weather API key** | C | Key is world-readable on public Pages. Say "rotated" → the de-embed cleanup is one agent pass. |
-| **Add the `CLOUDFLARE_API_TOKEN` repo secret** | C | One-time; after it, Worker changes self-deploy on push. |
-| **GTI spare key + service bundle** | B1 | The only deadline-bearing track. Phone-vet + book; bundle with the Chamblee recall trip. |
+| ✅ **The falsified Bolores tire size no longer renders** | `maintenance.tires` said **33**X12.50R15LT, stamped `"confidence":"verified"`, still carrying the exact *"size read off the actual sidewalls"* sentence `7494b46` **proved false** — and it was in Guru's digest. The 7/29 fix had reached `specs.tires` and stopped there. **A clear must reach every asserting line.** |
+| ✅ **Guru's digest held a FABRICATED zone and none of the real ones** | `property.json.propertyZones` still contained the shipped-template placeholder `zone-placeholder` / *"Example: Front Beds"* — and it flowed into the digest, while **zero** of the ten real zones were there. The assistant carried an invented place-name on the surface Mom's voice walks and her map are built on. Stub removed; **real zones now in the digest lean** (id/name/type/status — `vertices`/`history` stripped as pure distractor mass), plus `turf.json`, closing the *"Guru reads an id it cannot resolve"* hole behind the weeds' `observedZones`. |
+| ✅ **Every text box triggered an iOS Safari viewport zoom** | All three inputs rendered below the 16px threshold (`.ui-textarea` 14, `.mom-queue-correction` 15, `.feedback-panel-input` 15.5). **She tapped a box and the page jumped to ~1.2× and did not come back.** Never caught because the app had only ever been reviewed on a desktop viewport. 16px is now a documented functional floor. |
+| ✅ **The carousel arrows silently destroyed typed-but-unsent notes** | `‹`/`›` called `render()` — which rebuilds the host — without ever reading the textarea. The codebase already knew the hazard: `showAck(keep)` carries an explicit no-wipe branch commented *"her text stays exactly where she left it."* **The arrows never got the same guard.** Now an in-memory per-card draft store, bound on input so **every** re-render path is covered, cleared only on a send that did not fail. Browser-verified: type → step away → step back → her words are still there. |
+| ✅ **Guru recited a falsified soil series** | Cecil/Pacolet are thermic Piedmont series capped near 900 ft; the property is 2,959 ft. `plants.json._meta.soilSeries` still **listed** them 4 days after `property.json` retracted them, and both files' citations still named them. Corrected + aligned. The **17** per-plant `soilNotes` are W9-gated (they get rewritten once, well, against a measured pH) so they are scrubbed **in the derived digest only** — the repo keeps its record, the assistant stops asserting a retracted fact. |
+| ✅ **`check-mom-ack.py:229` asserted a behaviour that does not exist** | It told the reader `read-mom-zone-audio.py` "marks its own channel." It never calls `mark_channel_read` and holds no `momlib` reference at all — so zone-audio read as self-attesting while nothing was reading it. |
+| ✅ **`CLAUDE.md` was wrong about its own codebase** | Documented `viewer.html` as "~4,600 lines"; it is **17,878**. And *"fetched at page load, inlined copies as fallback"* is true of only **4 of 21** JSON files — for the other 17 the inlined constant **is** what renders, which is why `check-data-inline.py` is a correctness gate, not a tidiness check. |
+| ✅ **A live release note promised a feature that is gone** | *"Anything you've starred stays starred"* — the star UI was retired. Rewritten and re-inlined. |
 
 ---
 
+## 🔥 TIER 1 · FIX NOW — remaining
+
+*Nothing blocks these. All agent-drivable. **The Mom-facing ones are wording changes and stay gated on
+Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
+
+| # | Item | Where | Note |
+|---|---|---|---|
+| **1** | **7 cards are `active:true` against a visible cap of 5** — `q-strategy-pollinators` and `q-weed-stiltgrass` **render to nobody**; stiltgrass has been served to no one while carrying a photo she took | A3 · A7 | 👥 ordering is mechanical, but it changes what she sees |
+| **2** | **Retire the 3 un-reframed verdict cards** — 3 of 5 visible slots, two with **no "I haven't looked" label at all**. Retiring them makes `q-top-categories` the visible ask and clears carryover before any new experiment | A3 | 👥 |
+| **3** | **Fix the ask template once** — `harvest-questions.py:112` corrects **7** staged/live cards at a stroke. Subject = the thing on the property, never our claim; hedge = *the record's* gap, said once, anchored with "here"; buttons describe what she'd see; third button is a **state**, always present | A3 | 👥 content-steward has drafted it |
+| **4** | **Two green affirmatives 190px apart meaning different things** — `Got it` (ack) and `That's all of them` (confirm) share a visual grammar, so *"I read your note"* and *"your guess is right"* are the same gesture. Directly corrupts the signal | A4 | 👥 |
+| **5** | **The blue collision on the rainfall card** — `.rain-cell.rain-active` navy (`viewer.html:1659`) is the same family as the regional block, so blue encodes both *"notable"* and *"regional source"*, and her own gauge figure wears it. Hue = source only; salience via fill + weight | A3 · W8·b | 🤖 |
+| **6** | **Remove the `✓` from the ack ribbon** — a check is the completion mark in every icon library, already means *settled* elsewhere in this app, and sits directly above a queue of unanswered cards, so it reads as the first row of a checklist. Let the dated line lead | W8·b ② | 👥 |
+| **7** | **Sub-44px targets** — the 30px ack buttons are the only ones in the stack below the threshold | A4 | 🤖 |
+
+---
+
+## ✅ TIER 2 · CONFIRMED — she already answered; build it
+
+| # | Item | The answer that authorizes it | Where |
+|---|---|---|---|
+| **1** | **Make the Journal reachable** | She asked *"Is there a way to look back at these?"* **and answered the naming card Yes.** It is the **most-opened card in the app** (41 of 139 expansions) sitting **8th of 13, with no dashboard tile.** She asked to look back and still cannot find it | A6 |
+| **2** | **Acknowledge the moss — a return leg, not an ask** | She gave it 7/26; the record has it, credited to her by name; **she has never been told.** Point the next ribbon at the moss record via the shipped `linkPhrase`/`linkCard`. Asks nothing; produces an object she can see | A2 · A3 |
+| **3** | **Household systems renders to nobody** — 7 vehicle, 9 equipment, **0 household-system** | She proposed the category unprompted and derived the taxonomy herself. The cheapest possible demonstration that proposing something to this app makes it appear | B6 |
+| **4** | **Rainfall range — month + year** | Her direct ask, 7/29 (`fb-946dp0qk-ms639ds6`). Station history is already local; presentation only | W8·c |
+| **5** | **Read `/api/feedback` by `context.section`** | The instrument itself. Every note already carries which door it came through — **nobody has ever read it that way**, which is why we cannot tell a decline from a misunderstanding | A1 · W8·a |
+| **6** | **Guru synthetic-conversation fix** (~15 lines, `worker.js`) | Test turns persist to `conversation:<id>` → listed by `/api/conversations` → read as an **arrival**, so probing makes Paul read as owing Mom a reply. Worse: a test conversation lands in the store **the Journal reads back** — it is visible to Mom. One `origin` predicate at three call sites | A6 |
+
+---
+
+## 🧭 TIER 3 · STEER — each carries its question AND its capture path
+
+*Per Paul's rule: a Tier-3 row without both is on the kill list.*
+
+| # | Question | Ask via | Capture path |
+|---|---|---|---|
+| **0** | `q-top-categories` — **IN FLIGHT**, leads the queue | Card (live) | ⚠️ **Unprobeable — pre-schedule the hand-retire** (`active:false` + `resolvedAt`) or it pins the feedback watermark exactly as `q-almanac-name` did |
+| **1** | **The real discriminator** — zero wrongness risk but **our** topic: *"We've never written down what's actually coming to the feeders this summer — only what the books say should be. From where you sit, are the hummingbirds still working the feeders, or have they thinned out?"* | ONE card, after Tier-1 #1–2 clear the queue | Needs a `_foldTarget` → a dated `observedHere` line on the Birds card, **in her name**. Answers → our-topic asks are repairable. Silence → **topic origin binds and `harvest-questions.py`'s whole supply chain is dead** |
+| **2** | `q-fairway-grass-seedheads` — already staged verbatim | Flip `active:true` **in August** when seed-heads emerge | Existing fold path; a second sample in the same cell as #1 |
+| **3** | *"The last time something in the house needed a repair or a part — what were you trying to find, and where did you end up looking?"* | **Paul, in conversation** | Paul relays → B6. Two different builds hide behind one ask. Does not consume the card budget |
+| **4** | *"When you wrote in that the rainfall number looked wrong — what did you figure would happen with that?"* | **Paul, in conversation** | Paul relays → the whole return-leg design |
+| **5** | **Guru turn audit** — opens conversation content | **Paul ratifies** (not Mom) | v1 needs **no AI**: the fact table gives exact strings, so `2,800` in an assistant turn is a regex hit. Shrinks the ask from *"AI may analyze conversation content"* to *"a script may grep our own output"* |
+| **6** | **W6 instance model** — what is its real shape? | **Paul** | Design doc first. **Not Mom's** — asking her to adjudicate a schema is the exact class A3 just deprioritised |
+| **7** | **Wildlife confidence markers** — 67 records assert an animal is present with no way to say *"we think"* | **Paul** | Schema call; see the taxonomy answer in the proposal doc §6 |
+
+**⚠️ PRE-COMMITTED, IN WRITING:** a miss on **#1** is **NOT** evidence for the topic-origin hypothesis
+until the input-stack cleanup ships and the card is re-offered on a clean surface. Otherwise a null gets
+over-read exactly the way the A1 gate was.
+
+---
+
+## 🪦 KILL LIST (2026-07-29)
+
+| Kill | Because |
+|---|---|
+| **The moss card as an experiment** | The experiment already ran — `q-almanac-name` was the same cell (zero wrongness, her words, answerable from a chair) and was answered in a day. Moss is **her** topic, so all three hypotheses predict she answers it: **it discriminates nothing.** And the record already shipped 7/26. → converted to the Tier-2 return leg |
+| **W8·b ①** (the rainfall type-scale inversion) | **Shipped 7/26** (`0ef98e5`) — gauge 18px, by-day 16px, ERA5 15px, plus 8 `body.text-lg` rules. It was written on 7/29 describing the **pre-fix** state and was used as the axis table's worked Tier-1 example. **Deleted, not folded** — a spot fix is exactly what the typography pass would undo |
+| **The 80K digest gate** | A tripwire nobody acts on, computed by an estimator that under-reads ~13–15%, proxying a **$2.47 lifetime** cost. It was crossed 16 days before someone wrote "back under the ceiling" |
+| **"Does per-card Add-a-note earn its place?" as a question for Mom** (W7) | Verdict-shaped, about our own design, and answerable from telemetry we already hold (`context.section`) |
+| **Add-a-photo-on-card** | Adds a **sixth** input affordance to the surface we are disambiguating |
+| **"Tell her a wrong answer costs nothing"** | Reassurance the product has not demonstrated erodes rather than reassures. The queue header already says it once, correctly. Instead: make wrongness structurally impossible, and fire a receipt at the disagreeing tap — *"Noted — the record had it wrong, and now it doesn't."* |
+| **R2-vs-Drive backup row** · **candidates/devices into the digest** · **LLM-judge in harness v1** · **vector DBs** · **any framework/bundler migration** | No askable question, or over-engineering for a two-user app at 0.54 turns/day |
+
+---
+
+## ⚖️ TRACK A vs TRACK B — the ranking that had never been made
+
+**Track A first, and the carve-out turned out to be unnecessary.**
+
+- **B1 is no longer deadline-bearing.** The overdue registration that made it *"the only clock-bearing
+  track"* was **resolved 2026-07-22**; the next hard date is **2027-06-03**, ~10 months out. **Track B
+  has no clock at all right now.** *(Real residual: `lastEmissions` still reads 2025-06-30 @ 75,731, and
+  Fulton/DeKalb requires it annually — the kiosk renewal implies 2026 compliance was on file but the
+  card was never updated. And MaxCare expired ~April 2026, so there is no warranty coverage today.)*
+- **Track B waits** — not because Mom's product matters more, but because **Track B's decisions come
+  from Paul's own knowledge and are unaffected by the noise, while Track A is actively accruing bad
+  evidence.** Track B is *pausable without loss*; Track A is not.
+- **B6 household systems is Track A wearing Track B's clothes** — she proposed it. It sits in Tier 2.
+
+---
+
+## 👤 WAITING ON PAUL — and nothing else is
+
+| Item | What's needed | Where |
+|---|---|---|
+| **🔑 Ambient Weather key rotation** | ⚠️ **The sequence in the old row was BACKWARDS.** The station call is **client-side**, so **rotating before a Worker proxy exists republishes the new key.** Correct order: **proxy → rotate → strip.** Literals are at `viewer.html:6540-6541` (**that pointer has now been wrong three times — record the symbol, not the line**) and `tools/record-daily-rollup.mjs:28,30`. The workflow already uses `${{ secrets.* }}` — it was never a third site. Exposed 84+ days; blast radius stays small (read access to one station) | C |
+| **The zone map now reads ALL-DASHED** | All 10 zones are `status: draft`, so the draft-rendering that shipped 7/28 made the whole map dashed. Paul has not eyeballed it. If it reads as *"nothing here is settled,"* the fix is to **confirm the zones we trust**, not soften the rendering | A2 |
+| **178 season notes await a spot-check** | Read the notes on the plants you know best | A2 · #8 |
+| **Three relayed conversations** | Tier 3 #3, #4 and the categories follow-up. Given the app-only channel, **these are the only interview leg the method has** — schedule them as first-class work, not as an afterthought | A1 · B6 |
+| **GTI spare key + service bundle** | ~$450–500 dealer job, no clock. Bundle with the Chamblee recall trip | B1 |
+
+---
 # TRACK A — Mom's field journal
 
 *Intent: a hyper-personal field journal that helps Mom see and record what only she can know from standing on the ground — and gets more trustworthy the more of her ground-truth it folds back in. Glance → repository → loop. Capture stays deterministic and AI-free; AI lives only on the ask path, behind Paul's gate.*

@@ -164,7 +164,16 @@ python3 -m http.server 8765
 
 ## Architecture
 
-`viewer.html` is a single ~4,600-line self-contained file: all CSS, JS, and inlined JSON data live in one file. There is no build system, no module bundler, no framework. The JSON files (`plants.json`, `fishing.json`, etc.) are the source of truth for data — they are fetched at page load and the inlined copies in `viewer.html` serve as fallback. When updating data, edit the JSON files and re-inline them.
+`viewer.html` is a single **~17,900-line** self-contained file (>1 MB): all CSS, JS, and inlined JSON data live in one file. There is no build system, no module bundler, no framework.
+
+⚠️ **Two corrections, 2026-07-29 — this section had drifted badly from the thing it describes:**
+
+1. **It said "~4,600 lines." It is 17,878.** The file has roughly quadrupled since that sentence was written and nothing re-derived it.
+2. **"Fetched at page load with the inlined copies as fallback" is true of only 4 of the 21 JSON files.** For the other 17 the inlined `*_DATA` constant **is** what renders — there is no fetch behind it. That is why `check-data-inline.py` is a correctness gate rather than a tidiness check: for most domains, a source file that has not been re-inlined is simply **not in the app**. Treat re-inlining as part of the edit, not a follow-up.
+
+**The 1 MB cliff is a live hazard, not history.** Crossing 1 MB on 2026-07-02 silently broke Guru's entire write-to-canon path for two weeks: the GitHub Contents API returns HTTP 200 with an empty body above 1 MB, so every re-inline "succeeded" against nothing. Fixed via a Blob API fallback (100 MB ceiling), but the file grows every session — **this file has now silently hit two ceilings.**
+
+When updating data, edit the JSON files and re-inline them.
 
 ### Data layer
 
