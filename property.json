@@ -6,8 +6,8 @@
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP Pickens County Airport (elev 1,535 ft)",
       "Almanac.com frost dates for Jasper GA (sourced from NOAA normals)",
-      "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)",
-      "USDA NRCS Official Series Descriptions: Hayesville, Cecil, Pacolet",
+      "USDA Web Soil Survey — Pickens County, GA (Hayesville and the mesic Blue Ridge candidates: Ashe, Edneyville, Porters, Tallapoosa)",
+      "USDA NRCS Official Series Descriptions: Hayesville, Ashe, Edneyville, Porters, Tallapoosa. ⚠️ Cecil and Pacolet were REMOVED 2026-07-25 — both are thermic Piedmont series capped near 900 ft and cannot occur at this 2,959 ft Blue Ridge site. Series remain INFERRED until the W9 soil test returns a texture result.",
       "Appalachian lapse rate study: Springer Nature 'Air and soil temperatures in the Appalachian Highlands' (2025)",
       "Cold-air drainage research: GeoJournal 'Thermal belt and cold air drainage on mountain slopes'",
       "USDA Plant Hardiness Zone Map 2023",
@@ -203,20 +203,9 @@
     }
   },
   "propertyZones": {
-    "note": "Define your property's specific areas here to enable zone-aware care recommendations. Examples below — edit to match your actual layout.",
-    "zones": [
-      {
-        "id": "zone-placeholder",
-        "name": "Example: Front Beds (East-facing, mid-slope)",
-        "aspect": "east",
-        "position": "mid-slope",
-        "sunExposure": "morning-sun",
-        "knownFrostPocket": false,
-        "soilNotes": "",
-        "plantsHere": [],
-        "notes": "Replace this placeholder with your actual zones"
-      }
-    ]
+    "note": "SSOT POINTER — the real zones live in zones.json (10 zones, drawn 2026-07-17/22, WGS84 vertices). This key formerly held a shipped-template PLACEHOLDER ('zone-placeholder' / 'Example: Front Beds') that was never replaced; it flowed into worker/digest.json, so Garden Guru carried a FABRICATED zone in its context while none of the ten real zones were there at all. Removed 2026-07-29. Do not re-add zone data here — zones.json is the single source of truth.",
+    "source": "zones.json",
+    "zones": []
   },
   "resources": {
     "localExtension": {

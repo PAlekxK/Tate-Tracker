@@ -226,7 +226,15 @@ def main():
                   + ", ".join(u["name"] for u in unread))
             print( "     The ribbon's clock is cleared by a stamp; that is not the act of reading.")
             print( "     Read it, then attest:  python3 tools/check-mom-ack.py --mark-read <channel>")
-            print( "     (read-mom-feedback.py and read-mom-zone-audio.py mark their own channel.)")
+            # CORRECTED 2026-07-29. This line used to claim "read-mom-feedback.py and
+            # read-mom-zone-audio.py mark their own channel." Only the first one does —
+            # read-mom-zone-audio.py never calls mark_channel_read and holds no momlib
+            # reference at all, so anyone trusting this line believed the zone-audio
+            # channel was self-attesting when nothing was reading it. Same failure class
+            # this repo keeps re-learning: prose asserting another file's behaviour with
+            # nothing checking the assertion.
+            print( "     (read-mom-feedback.py marks its own channel. read-mom-zone-audio.py")
+            print( "      does NOT — attest zone-audio by hand after you have listened.)")
 
     if token and not offline:
         receipts = momlib.ack_receipts(token, days=args.days)

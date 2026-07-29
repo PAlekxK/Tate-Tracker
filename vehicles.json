@@ -736,8 +736,9 @@
           "source": "Not stated in the on-disk owner's-guide extract."
         },
         "tires": {
-          "value": "Pro Comp Xtreme M/T 2 — 33X12.50R15LT, Load Range C (mud-terrain). Replacement size 33×12.50R15 (≈32.8\" nominal diameter). Size read off the actual sidewalls from the photos Paul provided (2025-10-13, Paul-confirmed 2026-07-22) — corrects an earlier 35×12.50R15 that had been carried over from prior-owner records.",
-          "confidence": "verified"
+          "value": "Pro Comp Xtreme MT2 — 35X12.50R15LT, Load Range C, 6PR, TRI-PLY sidewall, mud-terrain. Replacement size 35X12.50R15. ✅ VERIFIED 2026-07-29 by Paul from a photograph of the tires actually on the truck; DOT date code 3220 = week 32 of 2020, so the set is ~6 years old. ⚠️ This line previously carried a smaller size wearing a 'read off the actual sidewalls' claim it never earned — full provenance in specs.tires. Cite that, not this, when the history matters.",
+          "confidence": "verified",
+          "source": "Paul, photograph of the tires on the truck, 2026-07-29"
         },
         "tirePressure": {
           "value": "Sidewall max 35 psi (max load 2,535 lb each). On a half-ton Bronco these big LT tires ride well below the sidewall max — typical street range ~18–26 psi; tune by ride, wear pattern, and load.",

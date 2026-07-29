@@ -77,9 +77,15 @@ def digest_species_list(species):
 
 
 def digest_plants(d):
+    plants = digest_species_list(d.get("plants", []))
+    # See scrub_falsified_series() — the retracted soil series must not reach the
+    # assistant's context, even though the prose stays in plants.json until W9 lands.
+    for p in plants:
+        if isinstance(p.get("soilNotes"), str):
+            p["soilNotes"] = scrub_falsified_series(p["soilNotes"])
     return {
         "_meta": digest_meta(d.get("_meta", {})),
-        "plants": digest_species_list(d.get("plants", [])),
+        "plants": plants,
     }
 
 
@@ -191,11 +197,99 @@ def digest_vehicles(d):
 
 
 def digest_property(d):
-    """Property.json is already fairly lean. Keep structurally, drop _meta sources."""
+    """Property.json is already fairly lean. Keep structurally, drop _meta sources.
+
+    `propertyZones` is dropped entirely as of 2026-07-29: zones now reach the digest via
+    digest_zones() from zones.json (the SSOT). What remains in property.json under that
+    key is a pointer note explaining that a fabricated placeholder used to live there —
+    useful to a human reading the file, but it NAMES the fake zone, and a fabricated
+    place-name has no business sitting in the assistant's context even inside a caveat.
+    """
     out = {}
     for k, v in d.items():
         if k == "_meta":
             out[k] = digest_meta(v)
+        elif k == "propertyZones":
+            continue
+        else:
+            out[k] = v
+    return out
+
+
+_FALSIFIED_SERIES = ("Cecil", "Pacolet")
+
+
+def scrub_falsified_series(text):
+    """Stop Guru reciting a soil series the project has already falsified.
+
+    Added 2026-07-29. `property.json` retracted Cecil and Pacolet on 2026-07-25 — both are
+    thermic Piedmont series capped near 900 ft and cannot occur at this 2,959 ft Blue Ridge
+    site — but ~17 per-plant `soilNotes` still name them, so the digest carried the
+    falsified series dozens of times against ONE retraction note. A plausible-wrong fact
+    repeated 17× beside a single correction is precisely the distractor pattern that
+    produced the 2,800 ft answer; the model has no reason to prefer the lone note.
+
+    The prose is NOT rewritten in `plants.json`: that rewrite is gated on the W9 soil test
+    and zoneId assignment so it can be done once, well, against a measured pH. This scrub
+    applies to the DERIVED digest only — the repo keeps its record, and the assistant stops
+    asserting something we know is wrong. Remove this function when W9 lands and the prose
+    is rewritten for real.
+    """
+    if not isinstance(text, str) or not any(s in text for s in _FALSIFIED_SERIES):
+        return text
+    out = text
+    for s in _FALSIFIED_SERIES:
+        out = out.replace(s + " ", "").replace(s + ",", "").replace(s, "")
+    out = " ".join(out.split())
+    return (out + " [SOIL SERIES UNCONFIRMED: no soil test has ever been run here; the series "
+                  "once named in this note were falsified for this elevation. Treat pH and texture "
+                  "as inferred, never as measured.]")
+
+
+def digest_zones(d):
+    """The 10 real zones, lean — id/name/type/status only.
+
+    Added 2026-07-29, and it closes a live grounding hole rather than adding a nicety.
+    Until today Guru had NO zone data at all, while `weeds.json` referenced zone ids
+    (`observedZones`: fairway / fairway-fringe / woodland-edge) and Mom's voice walks and
+    her map are built entirely on these zones. An id the model cannot resolve is worse
+    than absent data — an unresolvable reference invites the model to invent a referent,
+    which is the 2,800 ft failure mode.
+
+    Worse, what Guru DID carry was a shipped-template PLACEHOLDER out of
+    `property.json.propertyZones` — "zone-placeholder" / "Example: Front Beds" — so the
+    single zone in its context was FABRICATED and none of the ten real ones were there.
+    That stub is removed as of the same date.
+
+    ~94% of zones.json is `vertices` (polygon geometry) and `history` (an edit audit
+    trail). Guru can never verbally reference either, and raw coordinate arrays are pure
+    numeric distractor mass next to a property whose elevation has already been confused
+    once. Both are stripped. `status` is kept deliberately: all 10 zones are currently
+    `draft`, and the assistant should not speak about a traced outline as settled ground.
+    """
+    zones = d.get("zones", d) if isinstance(d, dict) else d
+    items = zones.values() if isinstance(zones, dict) else zones
+    return [
+        {k: z[k] for k in ("id", "name", "type", "status") if k in z}
+        for z in items
+    ]
+
+
+def digest_turf(d):
+    """Turf entries minus provenance plumbing.
+
+    Added 2026-07-29 alongside zones. The weeds text names turf / fescue / overseed
+    repeatedly — crabgrass's entire combat advice is "the real defense is a thick fescue
+    turf — mow high 3–3.5in, overseed every September" — and Guru could not see the turf
+    record behind any of it. `sources` is stripped: it is citation plumbing the assistant
+    never reads out.
+    """
+    out = {}
+    for k, v in d.items():
+        if k == "_meta":
+            out[k] = digest_meta(v)
+        elif k == "sources":
+            continue
         else:
             out[k] = v
     return out
@@ -224,6 +318,8 @@ def main():
         "fishing": digest_fishing(load("fishing.json")),
         "weeds": digest_weeds(load("weeds.json")),
         "property": digest_property(load("property.json")),
+        "zones": digest_zones(load("zones.json")),
+        "turf": digest_turf(load("turf.json")),
         # ── VEHICLES RE-ENABLED 2026-07-28 (Paul) — the 07-17 exclusion is reversed ──
         # Both of that decision's reasons are now void, and it is worth recording which
         # was which, because only one of them was ever technical:

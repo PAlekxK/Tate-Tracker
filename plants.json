@@ -9,19 +9,22 @@
     "firstFrost_50pct": "October 17",
     "soilSeries": [
       "Hayesville",
-      "Cecil",
-      "Pacolet"
+      "Ashe",
+      "Edneyville",
+      "Porters",
+      "Tallapoosa"
     ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
     "schemaVersion": 7,
     "schemaNotes": "v7 (2026-07-26): added `seasonNotes` — an optional month-keyed object of authored prose ({\"0\"..\"11\"}, 0-indexed to match monthIndex and every care.*.months array). The card renders the current month's line and stays silent for months with none, which replaces the single `currentSeasonNote` string that drifted (it showed May text in July). AUTHORING RULE: the note carries the CHARACTER of the month; peakDates/peakWindow keep the dates. A note must never assert a date, a day-range, or \"now / right about now\" for anything that has peakDates — a month is coarser than a 1-2 week window, so such a claim is wrong for part of the month it renders in. Hedges must hold true across the whole month (\"late in the month\", \"by the time the flowers drop\"). DISPLAY-ONLY: nothing parses seasonNotes, same posture as peakWindow prose. `currentSeasonNote` is retained as the fallback until Paul's spot-check clears the full set. v6 (2026-07-14): added an optional plant-level `variety` field {value, confidence ('inferred'=book/photo-read guess / 'verified'=confirmed on the ground), askable (bool — can someone standing on the property settle it?), optional verifiedOn/source/note} — the structured home for cultivar/variety uncertainty that used to live as prose in scientificName. Drives the provenance chip on the card (guess→'confirmed on the ground') and is a first-class source for the Mama's-Perspective harvest engine. `confidence`+`askable` are the general honest-uncertainty markers a harvest reads. v5 (2026-07-12): added an optional plant-level `bloom` field {window (display prose), dates[] ({start,end} MM-DD, year-wrap-aware via mmddRangeActive), confidence ('verified'=observed on-property / 'inferred'=book), optional note} on flowering plants; foliage/structure plants omit it. Added an optional `roster` array on the Hydrangea hub entry (each {name, note}) naming the specific hydrangeas on the property, which each keep their own card with full care. v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,959 ft (~1,424 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for ~1,424 ft above station",
-      "USDA Web Soil Survey — Pickens County, GA (Hayesville, Cecil, Pacolet series)",
-      "USDA NRCS Official Series Descriptions: Hayesville, Cecil, Pacolet",
+      "USDA Web Soil Survey — Pickens County, GA (Hayesville and the mesic Blue Ridge candidates: Ashe, Edneyville, Porters, Tallapoosa)",
+      "USDA NRCS Official Series Descriptions: Hayesville, Ashe, Edneyville, Porters, Tallapoosa. ⚠️ Cecil and Pacolet were REMOVED 2026-07-25 — both are thermic Piedmont series capped near 900 ft and cannot occur at this 2,959 ft Blue Ridge site. Series remain INFERRED until the W9 soil test returns a texture result.",
       "USDA Plant Hardiness Zone Map 2023",
       "UGA Cooperative Extension North Georgia gardening and pest management resources"
-    ]
+    ],
+    "soilSeriesNote": "INFERRED, never tested. Aligned to property.json.soils.likelySeries on 2026-07-29 — this list still read [Hayesville, Cecil, Pacolet] four days after those two series were falsified for this elevation, so plants.json was asserting a soil basis property.json had already retracted. The per-plant soilNotes prose still names the old series in ~17 records and is deliberately NOT rewritten here: it waits on the W9 test result and zoneId assignment so it can be rewritten once, well, against measured pH. See .plans/2026-07-25-soil-sampling-plan.md."
   },
   "plants": [
     {
