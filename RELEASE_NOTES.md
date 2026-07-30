@@ -11,11 +11,11 @@ What's changed at Fernwood lately. Newest first.
   They used to run together inside one big panel, with a couple of them boxed inside it, so it was
   hard to tell where one thing ended and the next began. Same four things, each in its own card,
   each with its own name and mark at the top.
-- **It's all called the Fernwood Almanac now — and that includes the card you named.** Where you
-  write a note or ask a question, the place your writing is kept, and the voice that answers you had
-  three different names between them. Now they share one. The button says **Save & consult the
-  Almanac**, and it still saves what you wrote first, every time, before it goes looking for an
-  answer.
+- **It's all called the Fernwood Almanac now.** Where you write a note, where your writing is kept,
+  and the voice that answers you had three different names between them. One name for all of it is
+  easier to hold onto. The button says **Save & consult the Almanac**, and it still saves what you
+  wrote first, every time, before it goes looking for an answer. If a different name suits you
+  better, say so — we're always open to suggestions.
 - **There's a "Look back" link at the top of the Almanac now, and on the note we send you.** One tap
   from where you're writing to everything you've written and asked before — you'd asked whether there
   was a way to look back at these, and this is a second way in, right where you already are.
