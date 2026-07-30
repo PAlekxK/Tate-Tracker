@@ -30,8 +30,8 @@
       "noteId": "fb-946dp0qk-ms639ds6",
       "noteTs": "2026-07-29T12:56:29.190Z",
       "addressedOn": "2026-07-29",
-      "disposition": "Month half SHIPPED c213ea1 (last-30-days + whole-record totals at our gauge). The YEAR is not buildable — station record starts 2026-05-02, 84 days; refused to fill it with ERA5 grid (the 14x substitution she caught). Card now states the gap in plain words per Paul 7/29. Ribbon does NOT yet name this — moss ribbon is current.",
-      "acknowledgedToHer": false
+      "disposition": "Month half shipped c213ea1; year refused (station starts 2026-05-02, 84 days) and the card states the gap. Ribbon 2c59b7b now NAMES the rainfall day-by-day view with a live link to card-weather, alongside the moss and the Journal.",
+      "acknowledgedToHer": true
     }
   ]
 }
