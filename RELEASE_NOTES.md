@@ -4,6 +4,19 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-29 — Rain over a longer stretch, and the Journal has its own tile
+
+- **You asked to see rainfall over a month.** Under the day-by-day row there's now a longer view
+  from our own gauge: the last 30 days, and the whole record since it started.
+- **You also asked about a year, and we can't show you one yet — so the card says so.** Our gauge
+  only began keeping a daily record on May 2, so there's about three months to look back on, and it
+  grows by a day every day. The regional numbers further down do go back further, but those are
+  estimates for the whole area, not what fell here. We'd rather tell you that than quietly hand you
+  an area estimate and call it our rain.
+- **The Journal has a tile at the top now.** You asked whether there was a way to look back at what
+  you'd written. There was, but it sat eight cards down with nothing pointing to it. Now it's up top
+  with the rest.
+
 ## 2026-07-29 — The tiles at the top show you they open
 
 - **Each summary tile now has a small arrow.** The seven tiles across the top — Weather, Plants,
