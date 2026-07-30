@@ -10053,7 +10053,7 @@ const MomQueue = (function () {
       const list = raw ? JSON.parse(raw) : [];
       if (Array.isArray(list)) { list.push({ note, at: new Date().toISOString() }); writeMap(GENERAL_LOG_KEY, list); }
     } catch (e) { /* quota — best effort */ }
-    const result = await postFeedback(gq, null, note);   // open kind: note-only, sentiment null
+    const result = await postFeedback(gq, null, note, "queue-general");   // open kind: note-only, sentiment null
     track("momqueue_general_sent", { result });
     // Kept on "failed" — see answer(): a failed send makes the draft the only copy.
     if (result !== "failed") clearDraft("general:" + (gq && gq.id ? gq.id : "open"));
@@ -10077,7 +10077,7 @@ const MomQueue = (function () {
     } catch (e) { /* quota — best effort */ }
     // `section` records WHERE she wrote it (the map's describe-a-place panel,
     // an expanded card) so a scoped report keeps its scope in the record.
-    const result = await postFeedback(gq, null, note, (opts && opts.section) || null);
+    const result = await postFeedback(gq, null, note, (opts && opts.section) || "ribbon");
     track("ribbon_general_sent", { result, section: (opts && opts.section) || null });
     return result;
   }
@@ -10103,7 +10103,16 @@ const MomQueue = (function () {
       ts: new Date().toISOString(),
       context: {
         type: "mom-queue", questionId: q.id, kind: q.kind, firstOfferedAt,
-        ...(section ? { section } : {}),
+        // ⚠️ ALWAYS STAMPED, never omitted (2026-07-29). `section` is WHICH DOOR
+        // she came through, and it is the field the whole input-stack measurement
+        // depends on — we cannot tell "she declined" from "she never understood
+        // which thing she was answering" without it. It was in the schema since
+        // the start and only ONE of five producers set it, so 12 of 14 records
+        // carried `section: null` while the backlog described it as "every note
+        // already carries which door it came through." It did not.
+        // A caller that forgets now lands as "unspecified" rather than vanishing:
+        // a missing door must be VISIBLE in the report, not absent from it.
+        section: section || "unspecified",
         // W1.4 — a dark device announces itself IN THE RECORD. Paul could not
         // previously tell "she tried and we ate it" from "she didn't show up";
         // capture no longer needs pairing, but whether this device was ever
@@ -10383,7 +10392,7 @@ const MomQueue = (function () {
     snoozed[q.id] = todayStr();
     writeMap(SNOOZED_KEY, snoozed);
     let result = "sent";
-    if (note) result = await postFeedback(q, "so_so", note);
+    if (note) result = await postFeedback(q, "so_so", note, "card-notsure");
     track("momqueue_answered", { questionId: q.id, kind: q.kind, sentiment: "so_so", hasNote: !!note, result });
     if (result === "failed") return ackFor(result);
     showAck("No rush — I'll bring this back another time.");
@@ -10391,7 +10400,7 @@ const MomQueue = (function () {
 
   async function answer(q, sentiment, noteText) {
     const note = (noteText || "").trim();
-    const result = await postFeedback(q, sentiment, note);
+    const result = await postFeedback(q, sentiment, note, "card-answer");
     // ANSWERED_KEY must never retire an answer that never landed. Dismissing the
     // card on a failed send would lose the question AND her words together.
     if (result !== "failed") {
