@@ -11,12 +11,14 @@ What's changed at Fernwood lately. Newest first.
   They used to run together inside one big panel, with a couple of them boxed inside it, so it was
   hard to tell where one thing ended and the next began. Same four things, each in its own card,
   each with its own name and mark at the top.
-- **The thing you ask is called the Fernwood Almanac.** It had picked up a second name along the
-  way; now there's one. Where you write a note or ask a question is the Almanac, and the button says
-  **Save & consult the Almanac** — it still saves what you wrote first, every time, before it goes
-  looking for an answer.
-- **The Journal is still the Journal.** That's your own writing, looked back at — you named it, and
-  it keeps its name and its tile.
+- **It's all called the Fernwood Almanac now — and that includes the card you named.** Where you
+  write a note or ask a question, the place your writing is kept, and the voice that answers you had
+  three different names between them. Now they share one. The button says **Save & consult the
+  Almanac**, and it still saves what you wrote first, every time, before it goes looking for an
+  answer.
+- **There's a "Look back" link at the top of the Almanac now, and on the note we send you.** One tap
+  from where you're writing to everything you've written and asked before — you'd asked whether there
+  was a way to look back at these, and this is a second way in, right where you already are.
 - **Mama's Perspective stays put even when you've answered everything.** It used to disappear
   entirely, so the top of the app changed shape depending on the day. Now it's always there, and
   when there's nothing waiting it just says so.

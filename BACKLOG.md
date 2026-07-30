@@ -178,6 +178,14 @@ Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
 | **5** | **Guru turn audit** — opens conversation content | **Paul ratifies** (not Mom) | v1 needs **no AI**: the fact table gives exact strings, so `2,800` in an assistant turn is a regex hit. Shrinks the ask from *"AI may analyze conversation content"* to *"a script may grep our own output"* |
 | **6** | **W6 instance model** — what is its real shape? | **Paul** | Design doc first. **Not Mom's** — asking her to adjudicate a schema is the exact class A3 just deprioritised |
 | **7** | **Wildlife confidence markers** — 67 records assert an animal is present with no way to say *"we think"* | **Paul** | Schema call; see the taxonomy answer in the proposal doc §6 |
+| **8** ⭐ | **Getting her to adopt "Almanac"** — on 2026-07-30 the record card was renamed **Journal → Fernwood Almanac**, so the write surface, the record and the voice all share one name. That knowingly overrides her own word: she answered `q-almanac-name` Yes on 7/29 and "Journal" was hers. Paul: *"let's try to get her to adopt Almanac. I think it's the more appropriate. we'll work on that with her, though."* | **PAUL, in conversation — not a card.** *"You do not need to worry about that. I will work on her, not we."* A drafted confirm card was written and then **deleted** on that instruction; do not re-add one | Paul relays whatever comes back. **If she wants Journal, it goes back everywhere** — that is the loop working, not a reversal. Standing rule this follows: Paul drives outreach, the app iterates on the signal he brings back |
+
+**Resolved with #8, same day:** the acknowledgment ribbon used to read *"You called it the journal, so
+that is its name: the Journal sits at the top now."* The rename made that sentence false on her screen,
+so **the naming clause was removed** at Paul's direction — not rewritten to praise the new name. What
+she is still told is the part that stayed true: what she's written now sits at the top. The `links`
+entry moved from the phrase *"the Journal"* to *"at the top now"*, pointing at the same card, so she
+loses no door.
 
 **⚠️ PRE-COMMITTED, IN WRITING:** a miss on **#1** is **NOT** evidence for the topic-origin hypothesis
 until the input-stack cleanup ships and the card is re-offered on a clean surface. Otherwise a null gets
