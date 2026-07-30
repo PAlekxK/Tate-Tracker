@@ -99,6 +99,41 @@ surface outranks anything that adds an ask** — the second is unmeasurable unti
 
 ---
 
+## ✅ SHIPPED 2026-07-29 (evening) — the agent-drivable sweep + Paul's four calls
+
+*All browser-verified at 390×844. Tier-1 #1–#5, #7 and Tier-2 #1, #4, #5, #6 are closed above;
+#6 (the ✓) is held open by Paul. Three backlog premises were checked and found WRONG — each is
+corrected in its own row rather than quietly fixed, because a wrong SSOT row is the failure this
+repo keeps re-learning.*
+
+**Paul's four calls this session, all now in code:**
+1. **The ✓ stays on the ribbon** for now, kept as an option (Tier-1 #6).
+2. **The ribbon covers everything since the last one she gave input on, each linked** to where she
+   can see it. This required a renderer change — one `linkPhrase`/`linkCard` pair became
+   `links: [{phrase, card}]`.
+3. **Promote stiltgrass, and order the queue by the data most helpful to us.** Ordering axis now
+   lives in `questions.json._ordering`: an answer that unblocks a BUILD > one that fills a canon
+   gap > a verdict on our own guess.
+4. **Bloom labels are `It's blooming · Not blooming · Snooze card`**, snooze meaning dismiss-and-
+   resurface (the mechanism already worked that way — `notSure()` snoozes for the day only).
+
+**⭐ And one doctrine REVERSAL worth remembering:** Tier-1 #4 wanted the two green affirmatives made
+*more different*. Paul reversed it — consistency over precision, because one learnable signal beats
+two she has to tell apart. The affirmative grammar is now a single shared component set.
+
+### ⚠️ LOOSE THREADS LEFT OPEN — named, not buried
+
+| Thread | Why it's open |
+|---|---|
+| **The third button is inconsistent across cards** — `Snooze card` (2 bloom) · `I haven't looked` (clematis, stiltgrass) · `I'll think on it` (top-categories) · `Haven't thought about it` (pollinators) | Paul specified the wording for the BLOOM cards. The others are hand-authored and semantically specific ("I haven't looked" is right for a go-and-look card; "I'll think on it" for a reflective one). **Card wording reaching Mom is human-confirmed** — so this is Paul's call, not an agent's. Ask: should all four collapse to `Snooze card`? |
+| **`Snooze card` is action-shaped, not state-shaped** | The 7/26 doctrine chose STATE language on the reasoning that a state is unembarrassing to someone afraid of being wrong, and `check-cards.py` lints deferral-shaped labels. `Snooze card` does not trip the lint and Paul weighed clarity higher — recorded as an exemption in `check-cards.py`. **If the third button's tap rate drops, revisit this variable first.** |
+| **13 sub-44px targets app-wide**, outside her input stack — incl. `.fn-mic-btn` 38px, a Mom-facing capture control | Enumerated in Tier-1 #7. An app-wide target pass touches many surfaces and wants its own review. |
+| **The ribbon has NOT told her about the month view** as of this commit | `feedback-log.json` carries `addressed: true` / `acknowledgedToHer: false` for `fb-946dp0qk-ms639ds6` deliberately — she was told "not built yet," and that answer is now obsolete. This ribbon fixes it; the flag flips once it's pushed and she taps. |
+| **`q-strategy-pollinators` is now active-but-invisible** | The exact condition that hid stiltgrass for six days. Verified unanswered, so no watermark pin. Left active on purpose (it is a real question) and documented in `_ordering` — but it is a card serving nobody. Retire or re-promote at the next reseed. |
+| **`read-feedback-sections.py` coverage is 14%** | By construction — stamping is prospective. Do not read the uninstrumented 12 as a signal about her; the tool refuses to let you. |
+
+---
+
 ## 🔥 TIER 1 · FIX NOW — remaining
 
 *Nothing blocks these. All agent-drivable. **The Mom-facing ones are wording changes and stay gated on
@@ -106,13 +141,13 @@ Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
 
 | # | Item | Where | Note |
 |---|---|---|---|
-| **1** | **7 cards are `active:true` against a visible cap of 5** — `q-strategy-pollinators` and `q-weed-stiltgrass` **render to nobody**; stiltgrass has been served to no one while carrying a photo she took | A3 · A7 | 👥 ordering is mechanical, but it changes what she sees |
-| **2** | **Retire the 3 un-reframed verdict cards** — 3 of 5 visible slots, two with **no "I haven't looked" label at all**. Retiring them makes `q-top-categories` the visible ask and clears carryover before any new experiment | A3 | 👥 |
-| **3** | **Fix the ask template once** — `harvest-questions.py:112` corrects **7** staged/live cards at a stroke. Subject = the thing on the property, never our claim; hedge = *the record's* gap, said once, anchored with "here"; buttons describe what she'd see; third button is a **state**, always present | A3 | 👥 content-steward has drafted it |
-| **4** | **Two green affirmatives 190px apart meaning different things** — `Got it` (ack) and `That's all of them` (confirm) share a visual grammar, so *"I read your note"* and *"your guess is right"* are the same gesture. Directly corrupts the signal | A4 | 👥 |
+| ~~**1**~~ | ✅ **DONE 2026-07-29 — and the row's arithmetic was WRONG.** It said 7 active against a cap of 5 with **two** cards rendering to nobody. But `SUPPORTED_KINDS = ["confirm"]` and `q-open-standing` is `kind: open` — the standing foot-line never competes for a slot. So it was **6 confirms against 5**, and exactly **ONE** card was invisible: `q-weed-stiltgrass`. `q-strategy-pollinators` was visible in slot 5 the whole time. Verified in a browser, not inferred. **Fixed:** `questions.json` reordered by INFORMATION VALUE (rationale in its `_ordering` key) — stiltgrass promoted 6th→2nd; pollinators takes its place out of view, verified unanswered first so it cannot pin the watermark. | A3 · A7 | ✅ |
+| ~~**2**~~ | ✅ **RESOLVED 2026-07-29 by REFRAMING, not retiring (Paul's call) — and the "no label at all" premise was about the JSON, not the screen.** The row said two cards had **no `"I haven't looked"` label at all**. True of `questions.json`; **false of what Mom sees** — the viewer defaults a missing `later` (`L.later || "I haven't looked"`), so all three buttons always rendered. Verified on screen. There was no functional gap; the **prompt** was the real defect. Also: only **2** un-reframed verdict cards existed in the visible set, not 3. **Fixed:** both prompts reframed to the record's-own-gap template and labels now emitted EXPLICITLY so the file and the screen agree. | A3 | ✅ |
+| ~~**3**~~ | ✅ **SHIPPED 2026-07-29.** `TEMPLATES["bloom"]` rewritten to content-steward's draft (plant = subject; hedge = the record's own gap; "yet" makes *Not blooming* a fact about the season, not a verdict on us). `{where}` anchor wired from `zoneId` via `zones.json`, empty when unknown — never invented. **Labels are Paul's wording: `It's blooming · Not blooming · Snooze card`.** `TEMPLATES["variety"]` now emits a `⟨…⟩` SKELETON on purpose — no generic string can name the per-plant observable — and `check-cards.py` **fails any served card still carrying one**. ⚠️ A template fix cannot reach prompts already in `questions.json`; the 2 live cards were hand-edited to match. | A3 | ✅ |
+| ~~**4**~~ | ⚠️ **REVERSED BY PAUL 2026-07-29 — and the measurement was wrong.** Measured at 390×844 they were **431px** apart, not 190, and they did **not** share a grammar: `Got it` was a pale outline pill in DM Sans 12.5px with no glyph; `That's all of them` was a solid `#3a6a3a` fill, Crimson 14px, ✓ glyph. **This row wanted them made MORE different. Paul's call is the opposite:** *"the cue and affirmative styling, we should make it consistent and a consistent signal of we hear you, and we've recorded your information … let's make it simple and consistent for mom."* One learnable signal beats two precise ones she must tell apart — and the app already HAD that grammar (ux-expert F4: fill + glyph carry the decision independent of label legibility), the ribbon just never adopted it. **Fixed:** the ribbon's buttons are now literally the same components (`gg-suggest-btn-yes` / `-neutral`), so they cannot drift apart on the next change. | A4 | ✅ |
 | **5** | **The blue collision on the rainfall card** — `.rain-cell.rain-active` navy (`viewer.html:1659`) is the same family as the regional block, so blue encodes both *"notable"* and *"regional source"*, and her own gauge figure wears it. Hue = source only; salience via fill + weight | A3 · W8·b | 🤖 |
-| **6** | **Remove the `✓` from the ack ribbon** — a check is the completion mark in every icon library, already means *settled* elsewhere in this app, and sits directly above a queue of unanswered cards, so it reads as the first row of a checklist. Let the dated line lead | W8·b ② | 👥 |
-| **7** | **Sub-44px targets** — the 30px ack buttons are the only ones in the stack below the threshold | A4 | 🤖 |
+| **6** | ⏸ **HELD OPEN by Paul 2026-07-29** — *"the check mark is fine on the acknowledgment ribbon for now at least, but we can keep that as an option."* Not killed, not scheduled. Note that the ✓ now **rhymes** with the ✓ on every affirmative button (row 4), which arguably earns its place better than it did when it stood alone. Revisit if the ribbon ever reads as a checklist header. | W8·b ② | ⏸ Paul |
+| ~~**7**~~ | ✅ **SHIPPED 2026-07-29 — and they were NOT the only ones.** `.ack-btn` 30→44px, and `.mom-queue-nav-arrow` was **40px** too (the arrows that were destroying her typed-but-unsent notes until 7/29, so a miss there used to cost her words) → 44×44. Both now inherit the shared button grammar. **STILL OPEN, app-wide, outside her input stack: 13 other interactive rules measure under 44px** — `.bio-sound-btn` 30 · `.pmap-ctrl-btn` 36 · `.text-size-btn` 36 · `.fn-mic-btn` 38 (a Mom-facing capture control) · `.pmap-sync-action-btn` 38 · `.ref-drawer-toggle .main-card-icon` 38 · `.ui-glyph-btn` inner glyphs 13/24 · sync chip 24 · and the "Add a place" button 36. Deliberately NOT swept in — an app-wide target pass changes many surfaces at once and wants its own review. | A4 | 🤖 (residual) |
 
 ---
 
@@ -120,12 +155,12 @@ Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
 
 | # | Item | The answer that authorizes it | Where |
 |---|---|---|---|
-| **1** | **Make the Journal reachable** | She asked *"Is there a way to look back at these?"* **and answered the naming card Yes.** It is the **most-opened card in the app** (41 of 139 expansions) sitting **8th of 13, with no dashboard tile.** She asked to look back and still cannot find it | A6 |
-| **2** | **Acknowledge the moss — a return leg, not an ask** | She gave it 7/26; the record has it, credited to her by name; **she has never been told.** Point the next ribbon at the moss record via the shipped `linkPhrase`/`linkCard`. Asks nothing; produces an object she can see | A2 · A3 |
+| ~~**1**~~ ✅ **SHIPPED 2026-07-29** — Journal tile added to the top strip, sub adopts HER framing ("Look back at what you've written"). | She asked *"Is there a way to look back at these?"* **and answered the naming card Yes.** It is the **most-opened card in the app** (41 of 139 expansions) sitting **8th of 13, with no dashboard tile.** She asked to look back and still cannot find it | A6 |
+| ~~**2**~~ ✅ **SHIPPED 2026-07-29**, then SUPERSEDED the same day: the ribbon now covers the moss AND the Journal naming AND the rainfall, with a link each (`links: [{phrase, card}]` — the old single `linkPhrase`/`linkCard` pair could only point at one). | She gave it 7/26; the record has it, credited to her by name; **she has never been told.** Point the next ribbon at the moss record via the shipped `linkPhrase`/`linkCard`. Asks nothing; produces an object she can see | A2 · A3 |
 | **3** | **Household systems renders to nobody** — 7 vehicle, 9 equipment, **0 household-system** | She proposed the category unprompted and derived the taxonomy herself. The cheapest possible demonstration that proposing something to this app makes it appear | B6 |
-| **4** | **Rainfall range — month + year** | Her direct ask, 7/29 (`fb-946dp0qk-ms639ds6`). Station history is already local; presentation only | W8·c |
-| **5** | **Read `/api/feedback` by `context.section`** | The instrument itself. Every note already carries which door it came through — **nobody has ever read it that way**, which is why we cannot tell a decline from a misunderstanding | A1 · W8·a |
-| **6** | **Guru synthetic-conversation fix** (~15 lines, `worker.js`) | Test turns persist to `conversation:<id>` → listed by `/api/conversations` → read as an **arrival**, so probing makes Paul read as owing Mom a reply. Worse: a test conversation lands in the store **the Journal reads back** — it is visible to Mom. One `origin` predicate at three call sites | A6 |
+| ~~**4**~~ ✅ **SHIPPED 2026-07-29 — the MONTH. The YEAR does not exist and the card says so.** This row said "presentation only; station history is already local." Half right: `weather-history.json` starts **2026-05-02** (84 days), so there is no year of measured data. The ERA5 grid does cover a year, and using it would answer a question about HER gauge with a model — the 14× substitution she caught. Shipped: last-30-days + whole-record totals, plus a caveat sized to be READ. `stationRainRange()` returns coverage beside every total so a partial window can't pose as a whole one. | Her direct ask, 7/29 (`fb-946dp0qk-ms639ds6`). Station history is already local; presentation only | W8·c |
+| ~~**5**~~ ✅ **SHIPPED 2026-07-29 — and it was a WRITE task, not a read task.** This row said "every note already carries which door it came through." It did not: `section` was set on **2 of 14** records, because only 1 of 5 `postFeedback` call sites passed it. All five doors now stamp themselves; the helper writes `"unspecified"` rather than omitting so a future gap is visible. `tools/read-feedback-sections.py` keeps THREE kinds of unknown apart (uninstrumented / unspecified / floor-bypassed). Prospective only — the 12 existing records can never be attributed to a surface. Coverage at ship: **14%**. | The instrument itself. Every note already carries which door it came through — **nobody has ever read it that way**, which is why we cannot tell a decline from a misunderstanding | A1 · W8·a |
+| ~~**6**~~ ✅ **SHIPPED + DEPLOYED 2026-07-29.** `origin` predicate at three call sites, sticky and one-way. Verified end-to-end against the live Worker: probe hidden by default, visible with `?origin=all`, `excludedNonApp: 1` reported rather than silent, and momlib's `guru` channel unmoved. | Test turns persist to `conversation:<id>` → listed by `/api/conversations` → read as an **arrival**, so probing makes Paul read as owing Mom a reply. Worse: a test conversation lands in the store **the Journal reads back** — it is visible to Mom. One `origin` predicate at three call sites | A6 |
 
 ---
 

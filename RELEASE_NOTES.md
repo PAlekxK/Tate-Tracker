@@ -4,6 +4,20 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-29 — The bloom questions ask better, and the buttons match everywhere
+
+- **The flower questions were asking you to grade our guess.** They used to say a plant "should be
+  in flower about now — does that match?" Now they say we have it written down to flower around
+  now but have never actually watched it here, and ask whether it's in flower yet. The plant is the
+  question, not our guesswork.
+- **The buttons say what they mean: It's blooming · Not blooming · Snooze card.** Snooze puts a card
+  away for now and brings it back another day — nothing is lost by tapping it.
+- **The green "yes" button looks the same everywhere now.** On a card, on the note at the top,
+  anywhere you agree with something — same shape, same colour, same check mark. It always means the
+  same thing: we've got it, and it's written down.
+- **The questions are in a new order,** with the one about the grass along the woods near the front.
+  It has been waiting a while, and it has your photo with it.
+
 ## 2026-07-29 — Rain over a longer stretch, and the Journal has its own tile
 
 - **You asked to see rainfall over a month.** Under the day-by-day row there's now a longer view

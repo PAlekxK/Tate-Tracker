@@ -12,7 +12,13 @@ python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
 python3 tools/check-cards.py               # does the SERVED card queue match reality?
 python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — her NEW answers + anything she said that's unanswered (silent if none)
+python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — decline vs. misunderstanding
 ```
+
+**⭐ Mom's feedback is checked FIRST, before current state (Paul, standing, 2026-07-29):** *"every time
+that we initialize around the Fernwood tracker, we should check for feedback from [Mom] — that should
+be part of our first step, and current state."* That is what the block above is; run it before
+anything else, not after picking a thread.
 
 *(Occasionally, and after any change to a feedback channel: `python3 tools/test-feedback-cycle.py` — proves a note can't be captured and then silently lost. `--live` also exercises the real POST path.)*
 
@@ -34,6 +40,32 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 *(Documentation note, 2026-07-26: BACKLOG A1·R2 lists three channels and places Guru turns in `/api/observations`. That's wrong on the plumbing — Guru conversations live at `/api/conversations`, observations are the field-note log. The check reads both, because the failure that motivated it — an 8-day-stale ribbon while she asked Guru two real questions — is invisible without conversations. Still **no text ledger**, and none planned.)*
 
 `read-mom-feedback.py --pickup` surfaces the ground-truth Mom has settled in **Mama's Perspective** since Paul last reviewed (it reads the Worker's `/api/feedback`; token from `.private/fernwood-token`). Prints a short "N new answer(s)" block with a drafted **ready-to-fold** canon edit per Yes/No answer, or **nothing at all** when there's nothing new (calm, no-noise — matches the app's tone). It **never writes canon** — promotion into `plants.json` (flip a variety's `confidence` inferred→verified, or correct it to what she said) stays Paul's call. When Paul has folded her answers in, run `python3 tools/read-mom-feedback.py --mark-reviewed` to advance the watermark so they stop showing as new. (Note: the viewer now reconciles answered questions against the Worker on load, so a Yes/No answer stops being served on all of Mom's devices automatically — `active:false` in `questions.json` is now just housekeeping, not required to stop re-asking her.)
+
+## ⭐ Four standing rules from 2026-07-29 (Paul-stated) — read before touching her surfaces
+
+1. **ONE affirmative grammar, everywhere she taps.** *"The cue and affirmative styling, we should make
+   it consistent and a consistent signal of we hear you, and we've recorded your information … let's
+   make it simple and consistent for mom."* Affirmative = filled green pill + ✓ (`gg-suggest-btn-yes`);
+   secondary = the neutral chip. The ribbon's buttons are **literally those components**, not
+   lookalikes, so they cannot drift. **This REVERSED BACKLOG Tier-1 #4**, which wanted "Got it" and
+   "That's all of them" made *more* different because they mean different things. They do — and one
+   learnable signal still beats two precise ones she has to tell apart. Consistency outranks semantic
+   precision on Mom's surfaces. Don't re-differentiate them without asking him.
+2. **The ribbon covers EVERYTHING since the last one she gave input on, each phrase linked** to where
+   she can see it. `MOM_ACK_DATA.links = [{phrase, card}]` — many, not one. A phrase that is no longer
+   in the message is skipped rather than rendered as a dead control.
+3. **The card queue is ordered by INFORMATION VALUE TO US**, and position IS priority
+   (`outstanding()` does `.slice(0, 5)` on declaration order — card 6 renders to NOBODY). Axis, in
+   `questions.json._ordering`: an answer that unblocks a BUILD > one that fills a canon gap > a verdict
+   on our own guess. Before pushing a card out of the visible set, **check it is unanswered** — an
+   answered unprobeable card pins the feedback watermark.
+4. **Check her feedback FIRST at every pickup** — see the session-start block above.
+
+⚠️ **And the standing verification rule this session earned the hard way:** three BACKLOG rows were
+checked against the running app and found **wrong** — a card count that ignored `SUPPORTED_KINDS`, a
+"no label at all" that was true of the JSON but false on screen (the viewer defaults `later`), and a
+"190px" that measured 431. **Verify a row against the app before acting on it, and correct the row
+rather than quietly fixing past it.** A wrong SSOT row is this repo's most repeated failure.
 
 ## Mama's Perspective — the ground-truth feedback loop (built 2026-07-14)
 

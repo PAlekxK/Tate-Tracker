@@ -68,6 +68,16 @@ RED, AMBER, GREEN, DIM = "🔴", "🟡", "🟢", "·"
 AB_PROMPT = re.compile(r"\bor is it\b|\bwhich (one|of)\b|\bA or B\b|\bor a\b.*\?", re.I)
 GENERIC_YES = {"yes", "yes it is", "looks right", "that's right", "correct"}
 DEFERRAL_LATER = {"ask me later", "later", "remind me", "skip", "not now"}
+# "Snooze card" is Paul's wording (2026-07-29) and deliberately NOT in that set.
+# It is action-shaped rather than state-shaped, which is close to the line this
+# lint patrols, but it says plainly what happens next — the card comes back — and
+# Paul weighed that clarity above the state framing for this reader. Recorded so
+# the exemption is a decision on the record, not an oversight.
+
+# ⟨…⟩ is the variety template's tripwire: harvest-questions.py emits a SKELETON
+# because no generic string can name the observable that settles a variety. A
+# served card still carrying one is asking Mom to answer an unwritten question.
+SKELETON_MARK = "⟨"
 
 
 def latest_answers(token, days=88):
@@ -160,6 +170,12 @@ def label_findings(q):
     prompt = momlib.strip_md(q.get("prompt") or "")
     yes = (labels.get("yes") or "").strip()
     later = (labels.get("later") or "").strip()
+
+    # A skeleton that reached her is the worst case this file can catch: the card
+    # is live, she can tap it, and the question was never actually written.
+    if q.get("active") is True and SKELETON_MARK in (q.get("prompt") or ""):
+        out.append("SERVED WITH AN UNRESOLVED ⟨…⟩ SKELETON — the observable was never "
+                   "written; she is being asked to answer a placeholder")
 
     if AB_PROMPT.search(prompt) and yes.lower() in GENERIC_YES:
         out.append("an A-or-B question on generic yes/no labels — \"no\" cannot say WHICH")
