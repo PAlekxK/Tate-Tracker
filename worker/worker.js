@@ -1056,7 +1056,24 @@ function leanTurnContent(content) {
   });
 }
 
-async function persistConversation(env, conversationId, turns) {
+// Origins a conversation can have. `app` is Mom (or Paul) actually using Guru;
+// anything else is OURS and must never read as an arrival from her, and must
+// never surface on a Mom-facing surface.
+//
+// ⚠️ WHY THIS EXISTS (2026-07-29). Probing Guru wrote `conversation:<id>` records
+// indistinguishable from hers. Two consequences, the second worse than the first:
+//   1. /api/conversations listed them, momlib counted them as a `guru` ARRIVAL,
+//      and check-mom-ack.py then reported Paul as owing Mom a reply — a test of
+//      ours manufacturing an obligation to her.
+//   2. Those records land in the store the Journal reads back, so our own test
+//      chatter was reachable on HER surface.
+// Absent origin = legacy real traffic (fail-open is forced: the field postdates
+// existing records, and silently reclassifying her real conversations as tests
+// would be the worse error).
+const CONVERSATION_ORIGINS = ["app", "probe", "test"];
+const REAL_CONVERSATION = o => o == null || o === "app";
+
+async function persistConversation(env, conversationId, turns, origin) {
   const key = `conversation:${conversationId}`;
   const existing = await env.OBSERVATIONS.get(key);
   let session;
@@ -1070,6 +1087,9 @@ async function persistConversation(env, conversationId, turns) {
       turns: [],
     };
   }
+  // Sticky and one-way: a session opened as a probe can never launder itself into
+  // `app` on a later turn. Only ever set here, never cleared.
+  if (origin && origin !== "app") session.origin = origin;
   // Replace the turns array with the latest from the client (the source of truth
   // within a session is the client's turn list; the Worker just persists snapshots).
   session.turns = turns.map(t => ({
@@ -1099,6 +1119,10 @@ async function handleChat(request, env) {
   const conversationId = body && body.conversation_id;
   const turns = (body && Array.isArray(body.turns)) ? body.turns : null;
   const liveState = (body && body.live_state) || {};
+  // Unknown values collapse to `app` rather than 400 — a probe that mistypes its
+  // own origin should be treated as real traffic (loud, visible, someone fixes it)
+  // rather than silently excluded from the record it was meant to exercise.
+  const reqOrigin = CONVERSATION_ORIGINS.includes(body && body.origin) ? body.origin : "app";
   if (!conversationId || !turns || !turns.length) {
     return json({ error: "missing-required-fields", required: ["conversation_id", "turns"] }, 400);
   }
@@ -1180,7 +1204,7 @@ async function handleChat(request, env) {
 
   // Append assistant turn to the conversation, then persist + log cost.
   const updatedTurns = [...turns, { role: "assistant", content: reply, ts: new Date().toISOString() }];
-  try { await persistConversation(env, conversationId, updatedTurns); }
+  try { await persistConversation(env, conversationId, updatedTurns, reqOrigin); }
   catch (e) { console.warn("conversation persist failed:", e); }
   try { await logChatCost(env, conversationId, apiData); }
   catch (e) { console.warn("cost log failed:", e); }
@@ -1903,12 +1927,15 @@ async function handleCostLog(request, env, url) {
 }
 
 // ---- Conversations read — Garden Guru session metadata ----
-// GET /api/conversations?start=YYYY-MM-DD&end=YYYY-MM-DD — list conversation
-// metadata (no turn content) where startedAt or updatedAt falls in range.
+// GET /api/conversations?start=YYYY-MM-DD&end=YYYY-MM-DD[&origin=all] — list
+// conversation metadata (no turn content) where startedAt or updatedAt falls in range.
 //
-// Privacy: returns only structural metadata { id, startedAt, updatedAt, turnCount }.
-// Conversation content (prompts + replies) stays behind the per-uuid key and is
-// not exposed by this endpoint.
+// Privacy: returns only structural metadata { id, startedAt, updatedAt, turnCount,
+// origin }. Conversation content (prompts + replies) stays behind the per-uuid key
+// and is not exposed by this endpoint.
+//
+// Excludes non-`app` origins (our probes) by default — see CONVERSATION_ORIGINS.
+// Pass `origin=all` to include them; `excludedNonApp` always reports the count.
 
 async function handleConversations(request, env, url) {
   if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
@@ -1923,6 +1950,9 @@ async function handleConversations(request, env, url) {
   if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) {
     return json({ error: "bad-date-range" }, 400);
   }
+
+  const includeAll = url.searchParams.get("origin") === "all";
+  let excluded = 0;
 
   const keys = [];
   let cursor = undefined;
@@ -1953,16 +1983,26 @@ async function handleConversations(request, env, url) {
       (!isNaN(startedMs) && startedMs >= startMs && startedMs <= endMs) ||
       (!isNaN(updatedMs) && updatedMs >= startMs && updatedMs <= endMs);
     if (!inRange) continue;
+    // THE PREDICATE. Our own probes are excluded by default, because every
+    // consumer of this endpoint treats a row as "Mom used Guru" — momlib's
+    // `guru` channel, which check-mom-ack.py turns into "she is owed a reply."
+    // A test of ours must not be able to manufacture an obligation to her.
+    // `?origin=all` shows everything (with the field, so the caller can tell
+    // them apart); it is opt-in so the honest default is the safe one.
+    if (!includeAll && !REAL_CONVERSATION(session.origin)) { excluded++; continue; }
     conversations.push({
       id: session.id,
       startedAt: session.startedAt,
       updatedAt: session.updatedAt || session.startedAt,
       turnCount: Array.isArray(session.turns) ? session.turns.length : 0,
+      origin: session.origin || "app",
     });
   }
   // Sort newest-first by startedAt for stable output.
   conversations.sort((a, b) => (b.startedAt || "").localeCompare(a.startedAt || ""));
-  return json({ range: { start, end }, conversations });
+  // `excludedNonApp` is reported, never silent — a count that drops with no
+  // explanation is how a filter becomes indistinguishable from a bug.
+  return json({ range: { start, end }, conversations, excludedNonApp: excluded });
 }
 
 // ---- Feedback — user reactions to Garden Guru replies + general feedback ----
