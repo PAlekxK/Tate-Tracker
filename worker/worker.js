@@ -14,7 +14,8 @@
  *   POST   /api/metrics                   Append engagement events to today's daily key (writes only)
  *   GET    /api/metrics?start=&end=       Read metrics batches in a date range
  *   GET    /api/cost-log?start=&end=      Read per-day Anthropic API cost entries (write happens via /api/chat)
- *   GET    /api/conversations?start=&end= List conversation metadata in range (no turn content)
+ *   GET    /api/conversations?start=&end= List conversation metadata in range (no turn content;
+ *                                        includes deviceId since 2026-07-30)
  *   POST   /api/feedback                  Append a feedback record (sentiment + note)
  *   GET    /api/feedback?start=&end=      Read feedback records in a date range
  *   POST   /api/pending-species           Phase F — append a Mom/Paul-photo plant/animal suggestion
@@ -1073,7 +1074,7 @@ function leanTurnContent(content) {
 const CONVERSATION_ORIGINS = ["app", "probe", "test"];
 const REAL_CONVERSATION = o => o == null || o === "app";
 
-async function persistConversation(env, conversationId, turns, origin) {
+async function persistConversation(env, conversationId, turns, origin, deviceId) {
   const key = `conversation:${conversationId}`;
   const existing = await env.OBSERVATIONS.get(key);
   let session;
@@ -1087,6 +1088,13 @@ async function persistConversation(env, conversationId, turns, origin) {
       turns: [],
     };
   }
+  // WHICH DEVICE opened this conversation (2026-07-30). Sticky and first-write-
+  // wins, exactly like `origin`: a later turn cannot relabel who started it, and
+  // an absent id (an older client, or a probe that sends none) stays absent
+  // rather than being backfilled with whoever spoke last.
+  // ⚠️ A deviceId is a browser bucket, not a person — it makes attribution
+  // POSSIBLE via tools/people.json, it never asserts one.
+  if (deviceId && !session.deviceId) session.deviceId = deviceId;
   // Sticky and one-way: a session opened as a probe can never launder itself into
   // `app` on a later turn. Only ever set here, never cleared.
   if (origin && origin !== "app") session.origin = origin;
@@ -1123,6 +1131,11 @@ async function handleChat(request, env) {
   // own origin should be treated as real traffic (loud, visible, someone fixes it)
   // rather than silently excluded from the record it was meant to exercise.
   const reqOrigin = CONVERSATION_ORIGINS.includes(body && body.origin) ? body.origin : "app";
+  // Structural only — a device bucket, never turn content. Bounded and shape-checked
+  // at the boundary so a malformed client cannot write junk into the session record.
+  const rawDeviceId = body && body.device_id;
+  const reqDeviceId = (typeof rawDeviceId === "string" && /^[A-Za-z0-9_-]{1,64}$/.test(rawDeviceId))
+    ? rawDeviceId : null;
   if (!conversationId || !turns || !turns.length) {
     return json({ error: "missing-required-fields", required: ["conversation_id", "turns"] }, 400);
   }
@@ -1204,7 +1217,7 @@ async function handleChat(request, env) {
 
   // Append assistant turn to the conversation, then persist + log cost.
   const updatedTurns = [...turns, { role: "assistant", content: reply, ts: new Date().toISOString() }];
-  try { await persistConversation(env, conversationId, updatedTurns, reqOrigin); }
+  try { await persistConversation(env, conversationId, updatedTurns, reqOrigin, reqDeviceId); }
   catch (e) { console.warn("conversation persist failed:", e); }
   try { await logChatCost(env, conversationId, apiData); }
   catch (e) { console.warn("cost log failed:", e); }
@@ -1992,6 +2005,8 @@ async function handleConversations(request, env, url) {
     if (!includeAll && !REAL_CONVERSATION(session.origin)) { excluded++; continue; }
     conversations.push({
       id: session.id,
+      // Structural metadata only — still no turn content on this endpoint.
+      deviceId: session.deviceId || null,
       startedAt: session.startedAt,
       updatedAt: session.updatedAt || session.startedAt,
       turnCount: Array.isArray(session.turns) ? session.turns.length : 0,

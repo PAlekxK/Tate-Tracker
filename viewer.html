@@ -15852,7 +15852,16 @@ const MetricsCollector = (function () {
   flush();
   track("session_start", {});
 
-  return { track, sessionStartMs: sessionStartMs };
+  // ⭐ `deviceId` IS EXPORTED so the capture paths can stamp the SAME id this
+  // module already mints (2026-07-30). Two channels — field notes and Guru
+  // conversations — recorded no device at all, so "was that Paul or Mom?" was
+  // unanswerable from the record for exactly the two channels that flag most
+  // often. tools/people.json maps deviceId → person, but it could only ever be
+  // applied to /api/feedback, the one channel that carried one.
+  // Exported rather than re-implemented: a second generator against the same
+  // localStorage key would drift, and a device that reported two different ids
+  // is worse than one that reports none.
+  return { track, deviceId, sessionStartMs: sessionStartMs };
 })();
 
 // =========================
@@ -16394,6 +16403,25 @@ const ObservationStore = (function () {
     // it just won't appear in this device's local cache until rebuildFromCloud().
     const all = fnLoadAll();
     const idx = all.findIndex(o => o.id === entry.id);
+    // ⭐ WHICH DEVICE WROTE THIS — stamped HERE, at the lowest write helper, and
+    // deliberately NOT in the four entry constructors (2026-07-30). A per-caller
+    // stamp is the shape that already failed once on this exact schema: `section`
+    // was in the feedback record from the start and only one of five producers
+    // set it, so 12 of 14 records carried null while the docs claimed every note
+    // had it. A fifth constructor added later inherits this for free.
+    // FIRST WRITER WINS: `save()` is an update path too (a conversation entry is
+    // rewritten on every turn from `prior`), so a later save from another device
+    // must not relabel who started it.
+    // ⚠️ A deviceId is a BROWSER BUCKET, not a person. It makes attribution
+    // POSSIBLE via tools/people.json; it never asserts one on its own — the
+    // 2026-07-28 misattribution came from reading activity shape as identity, and
+    // the standing rule is still to attribute from authored CONTENT.
+    if (!entry.deviceId) {
+      const prior = idx >= 0 ? all[idx] : null;
+      entry.deviceId = (prior && prior.deviceId) ||
+        (typeof MetricsCollector !== "undefined" && MetricsCollector.deviceId
+          ? MetricsCollector.deviceId() : null);
+    }
     if (idx >= 0) all[idx] = entry; else all.push(entry);
     const localOk = fnSaveAll(all);
     if (!localOk) localFull = true; else if (localFull) localFull = false;
@@ -17114,6 +17142,13 @@ const GardenGuru = (function () {
         conversation_id: conversationId,
         turns: turns.map(t => ({ role: t.role, content: t.content, ts: t.ts })),
         live_state: gatherGuruLiveState(),
+        // WHICH DEVICE is asking (2026-07-30). The Worker builds the
+        // `conversation:<id>` session record itself, so unlike a field note the
+        // client cannot stamp it after the fact — it has to travel with the
+        // request. Structural only: no turn content rides on this field, and
+        // /api/conversations still returns metadata without any turn text.
+        device_id: (typeof MetricsCollector !== "undefined" && MetricsCollector.deviceId)
+          ? MetricsCollector.deviceId() : null,
       });
       const rawReply = (result && result.reply) || "[no reply]";
       // Strip the log fence and the follow-up fence (each matches anywhere), then parse
