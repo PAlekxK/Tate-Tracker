@@ -1655,8 +1655,17 @@
     line-height: 1.2;
     margin-top: 1px;
   }
-  .rain-cell.rain-active { background: #e8f4fc; border-color: #8ab4d8; }
-  .rain-cell.rain-active .rain-cell-value { color: #1f4870; }
+  /* HUE ENCODES SOURCE, NOTHING ELSE (Tier-1 #5, 2026-07-29).
+     These cells were `#e8f4fc` / `#8ab4d8` — the border pixel-identical to
+     `.src-tag-forecast`, the chip that means REGIONAL MODEL. So blue meant two
+     unrelated things at once ("notable" and "modelled"), and the figures from
+     HER OWN GAUGE wore the model's hue — on the exact card where she caught us
+     showing the grid's 0.14" against her station's 2.01". The 7/26 pass fixed
+     the by-day *header* for this reason and never reached the cells.
+     Now: station green (matching `.src-tag-station`), and salience is carried by
+     FILL + WEIGHT instead of a second hue. Blue on this card means one thing. */
+  .rain-cell.rain-active { background: #e6f8ec; border-color: #5cb87a; }
+  .rain-cell.rain-active .rain-cell-value { color: #14612f; font-weight: 700; }
   @media (max-width: 480px) {
     .garden-hero-rain-grid { grid-template-columns: repeat(3, 1fr); }
   }
@@ -2277,7 +2286,17 @@
     padding: 5px 2px 4px;
     text-align: center;
   }
-  .rain-byday-cell.is-today { border-color: #8ab4d8; background: #e8f4fc; }
+  /* "Today" is a POSITION, not a source and not an amount — so it gets a
+     structural ring, not a hue. Same reasoning as `.rain-cell.rain-active`
+     above: this was the regional-model blue, on measured station data.
+     Deliberately quiet — magnitude is the thing she reads here, and it is
+     already carried by the value color (is-dry → is-wet). An inset shadow
+     thickens the ring without the 1px layout shift a wider border would cause. */
+  .rain-byday-cell.is-today {
+    border-color: #5cb87a;
+    box-shadow: inset 0 0 0 1px #5cb87a;
+  }
+  .rain-byday-cell.is-today .rain-byday-day { color: #1d6035; }
   .rain-byday-day {
     font-size: 9px;
     font-weight: 700;
@@ -3898,9 +3917,18 @@
   .ack-btn {
     font-family: "DM Sans", system-ui, sans-serif;
     font-size: 12.5px; font-weight: 600; letter-spacing: 0.1px;
-    padding: 5px 13px; border-radius: 999px; cursor: pointer;
+    padding: 5px 15px; border-radius: 999px; cursor: pointer;
     background: #fff; color: #35683a; border: 1px solid #bcd8b0;
-    min-height: 30px;
+    /* 30 → 44px (Tier-1 #7, 2026-07-29). These were the smallest targets in her
+       input stack, and they are the two doors on the one surface whose whole job
+       is telling her she was heard — a missed tap there reads as the app
+       ignoring her. 44px is the documented functional floor, the same class of
+       rule as the 16px input floor found on 7/29 (both were invisible because
+       the app had only ever been reviewed on a desktop viewport).
+       Centered rather than padded to height, so the pill grows around the label
+       instead of the text drifting to the top of a tall box. */
+    min-height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
   }
   .ack-btn:hover { background: #eef6e9; }
   .ack-btn:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; }
@@ -4095,7 +4123,14 @@
   .mom-queue-nav-arrow {
     background: none; border: none; cursor: pointer;
     font-size: 22px; line-height: 1; color: #8a9668; padding: 4px 10px;
-    min-height: 40px; border-radius: 10px;
+    /* 40 → 44px (Tier-1 #7, 2026-07-29). The backlog row named only the ack
+       buttons; these were under the floor too. They matter more than 4px
+       suggests: these are the arrows that were destroying her typed-but-unsent
+       notes until 7/29, so a MISS here used to cost her words. Also widened to
+       44 — a 30px-wide arrow is a small target horizontally even when it is
+       tall enough. */
+    min-width: 44px; min-height: 44px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
     -webkit-tap-highlight-color: transparent;
   }
   .mom-queue-nav-arrow:hover, .mom-queue-nav-arrow:active { color: #4a6a2a; background: #f4f0df; }
