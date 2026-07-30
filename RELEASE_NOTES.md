@@ -4,6 +4,23 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-30 — Four cards at the top, and the Almanac has its name
+
+- **The top of the app is four clear cards now, and they're always in the same order.** What we got
+  from you · the Fernwood Almanac · Mama's Perspective · exploring and defining Fernwood's zones.
+  They used to run together inside one big panel, with a couple of them boxed inside it, so it was
+  hard to tell where one thing ended and the next began. Same four things, each in its own card,
+  each with its own name and mark at the top.
+- **The thing you ask is called the Fernwood Almanac.** It had picked up a second name along the
+  way; now there's one. Where you write a note or ask a question is the Almanac, and the button says
+  **Save & consult the Almanac** — it still saves what you wrote first, every time, before it goes
+  looking for an answer.
+- **The Journal is still the Journal.** That's your own writing, looked back at — you named it, and
+  it keeps its name and its tile.
+- **Mama's Perspective stays put even when you've answered everything.** It used to disappear
+  entirely, so the top of the app changed shape depending on the day. Now it's always there, and
+  when there's nothing waiting it just says so.
+
 ## 2026-07-29 — The bloom questions ask better, and the buttons match everywhere
 
 - **The flower questions were asking you to grade our guess.** They used to say a plant "should be

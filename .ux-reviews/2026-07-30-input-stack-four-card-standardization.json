@@ -1,0 +1,190 @@
+{
+  "review_id": "ux-2026-07-30-input-stack-four-card-standardization",
+  "project": "Fernwood",
+  "subject": "The input/feedback stack inside <section class=\"unified-input\"> — ack ribbon, composer, Garden Guru conversation, Mama's Perspective confirms, zone-walk launcher. Standardizing them into four cards with one shared shell.",
+  "review_date": "2026-07-30",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (one surface and its constituent blocks) — not a flow review, not a zoom-out",
+  "user_context": {
+    "primary_user": "Paul's mother — the make-or-break user. Reads with difficulty; meaning is carried by icon + size + color + position, not by parsing body text. Reads at half-engagement (one-handed, reclined, often without reading glasses), on a phone, on rural signal.",
+    "core_jobs_to_be_done": [
+      "Know that what I gave this app was received and mattered (the ack ribbon's job — past tense, reassurance).",
+      "Say or ask one thing without deciding where it goes (the composer's job — the only surface she has reached for unprompted, 2026-07-26).",
+      "Settle a question only someone standing on the property can settle (Mama's Perspective — she has answered a third of what she was actually offered).",
+      "Optionally, walk the place and talk it through (the zone launcher — offered to her ~5 times, viewed ~4, tapped 0)."
+    ],
+    "context_of_use": "Phone, ~390px wide, sometimes body.text-lg. This stack sits at the very top of the app, above the dashboard strip and the collapsible white cards — the scarcest vertical space in the product. She reads the glance and rarely opens a second layer (card_expanded fired 4 times in 30 days across 15 sessions).",
+    "assumptions_made": [
+      "Paul's 'four separate main cards' is a target state, not a literal count of what renders today — part of the ask was to resolve the five-blocks-but-he-said-four discrepancy.",
+      "The launcher usage figures in the brief (offered 60 / viewed 42 / tapped 2, both taps Paul's) and the corrected in-markup figures (offered 5 / viewed 4 / tapped 0 with Paul's four devices excluded) are the same data at two filters, not a contradiction. The load-bearing number for a design call is HERS: ~4 views, 0 taps — barely a sample.",
+      "'The Almanac' is the user-facing name for the ask surface (it is what the commit button says); 'Garden Guru' is an internal name."
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "Consistency > precision on Mom's surfaces — ONE learnable signal beats two precise ones (auto-memory feedback_consistency_over_precision_mom_surfaces; Paul-stated 2026-07-29)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "Register is carried by chrome, not just words — especially for the no-glasses reader (fernwood.md, candidate)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Conversational surfaces inherit the universal chat spatial model (cross-project.md, candidate)",
+    "Typographic hierarchy by value (cross-project.md)",
+    "Ornament earns its place / Icons earn their place — true AND useful (cross-project.md)",
+    "An icon *system* needs a maintained legend and a per-symbol rationale (cross-project.md, candidate)",
+    "Content and function first; form follows — and then form has to be excellent (cross-project.md)",
+    "Discreet ≠ dormant (cross-project.md, candidate)",
+    "The glance and the repository (Tate-Tracker/CLAUDE.md governing principle)",
+    "Nielsen #4 (consistency and standards), #6 (recognition over recall), #8 (aesthetic and minimalist design)",
+    "Norman — signifiers and conceptual model: a container boundary is a claim that its contents are one thing"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "consistency",
+      "severity": "important",
+      "status": "DECIDED by Paul 2026-07-30 — grouping A ratified, in his words: the composer and the Guru conversation are ONE card because from the end user's side they are one interface for having a conversation. Recorded here for the reasoning trail; not an open question.",
+      "observation": "There are five renderable blocks (ack / composer / conversation / confirms / launcher) but Paul asked for four. Reading A groups composer+conversation as one card; reading B groups confirms+launcher as one card and leaves the conversation standalone. Reading B produces THREE cards at rest (the conversation is `hidden` until a thread exists) and four only when a thread is live — and under the 2026-07-02 reorder those four appear in a DIFFERENT order (ack, conversation, composer, asks) than the three at rest. Reading A produces exactly four cards, in the same order, in every state.",
+      "user_impact": "This user routes by position. A stack that is three cards on most visits, four on some, and reordered on those, cannot teach 'there are four things here.' The count and the order have to be facts she can learn once. Reading A is also the only grouping that matches the jobs: the conversation is not a separate job — it is the Almanac's REPLY to what she just typed. A card boundary between the composer and its own reply asserts they are two different things, which is false, and it re-opens the exact seam the 2026-07-02 fix closed (input split from thread → 15/16 conversations dead-ended at one turn).",
+      "principle_invoked": "Conversational surfaces inherit the universal chat spatial model (cross-project) + Consistency > precision on Mom's surfaces + Norman's conceptual model (a container boundary claims its contents are one thing)",
+      "recommendation": "Adopt reading A, refined: (1) 'We got your note' — the receipt. (2) 'The Almanac' — the composer AND the conversation thread in one card; the reorder becomes internal to this card. (3) 'Mama's Perspective' — the confirm ask, with its title and framing line brought INSIDE the card. (4) the zone-walk door — kept as its own card but demoted to the shared shell. Reject B: merging confirms+launcher is attractive on its own merits, but paying for it by splitting the composer from its reply costs more than it buys, and it makes the card count state-dependent.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "`.unified-input` is itself a card (beige gradient, 1px #d8cda0, 14px radius) holding three children that are also cards (`.mom-ack-ribbon`, `.mom-queue-card`, `.mom-queue-launcher`). Two levels of chrome, at the top of a page whose entire remaining structure is a single flat column of `.main-card` siblings. Its rendered width (636px) is already identical to the dashboard cards' width.",
+      "user_impact": "Nesting makes the top of the app structurally different from the rest of it for no reason the reader can use. The outer border's only honest job is 'these belong together' — and it pays for that with a second boundary the reader has to resolve before she can tell how many things are in front of her. This is the tiles-within-tiles Paul flagged.",
+      "principle_invoked": "Ornament earns its place (cross-project) + Nielsen #8 (aesthetic and minimalist design)",
+      "recommendation": "Make `.unified-input` a transparent group wrapper — drop background, border, radius and padding; keep only `width: calc(100% - 24px); max-width: 636px; margin: 14px auto`. The four cards then align pixel-exactly with the `.main-card` stack below and the whole page reads as one column of siblings. Carry the grouping by SHADE instead of a border: the four input cards are warm cream (#fbf8ee), the dashboard cards below are white — same shape, different temperature, zero extra chrome. Do NOT add a group heading above the four; add one only if the grouping later reads as arbitrary.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "`.ui-conversation` has no chrome (only `border-top: 1px dashed #d8cda0`) and no name. Everything else in the stack announces itself; the Almanac's answer — the single most valuable thing this surface ever produces — arrives unframed and unlabelled.",
+      "user_impact": "For a reader who routes by chrome rather than by reading, an unframed block of prose has no identity: she cannot tell at a glance that this is the app answering HER, versus more of the app's standing text. It is also the reason the whole card-2 job has never been named on screen.",
+      "principle_invoked": "Register is carried by chrome, not just words — especially for the no-glasses reader (fernwood.md, candidate) + Discreet ≠ dormant (cross-project, candidate)",
+      "recommendation": "Do not give the conversation its own card (see F1). Give the card it belongs to a header — an identity square + the title 'The Almanac' — so the thread is unmistakably inside a named container. Keep the dashed `border-top` at rest: it now separates two distinct groups WITHIN one card, which is exactly what a divider is for.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The launcher is the loudest element on the surface: gradient green wash, 1.5px border, a 5px dark-green left rail, 16px radius, a 20px italic serif head (LARGER than `.main-card-title`'s 19px — the biggest type in the input stack), and a full-width 58px dark-green CTA with a drop shadow. It is also the affordance Mom has viewed ~4 times and tapped zero times. Meanwhile the composer's own primary button — the surface she actually uses — is 52px and sits in a right-aligned row.",
+      "user_impact": "Visual weight is a claim about value. Right now the app's loudest claim is attached to the door she has never opened, positioned above nothing but below the questions we actually need answered. Typographic weight is being assigned by build order, not by value to her.",
+      "principle_invoked": "Typographic hierarchy by value (cross-project) + Freshness sets altitude / Source-hierarchy drives layout (weight should track demonstrated value)",
+      "recommendation": "Demote by CHROME, not by fill: drop the gradient wash, drop the 1.5px border, drop the 5px left rail, 16px→14px radius, and demote the 20px head to 15px serif body copy (keep the words — 'You know these gardens better than I do.' is good copy, it was just wearing a title's weight). Give the card a short real title instead ('A walk around the place'). Keep the CTA the SAME solid green as the composer's Save button — equal, not quieter: a lighter fill would read as a closed door, and the measurement window is still open (see F11). If Paul wants a firmer demotion, take it after 2026-08-10.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The confirm block is a tile inside a tile inside a tile, and it is split: `.mom-queue-title` ('Mama's Perspective') and `.mom-queue-framing` float bare inside `.unified-input`, while `.mom-queue-card` — the thing they name — sits below them with its own background, border and radius. The heading is outside the box it heads.",
+      "user_impact": "The name and the thing it names are in different containers, so the chrome says they are two blocks. Same failure Paul flagged on the conversation, one level down and less visible because the confirm card at least has a border.",
+      "principle_invoked": "Ornament earns its place (dividers that don't separate distinct groups) + Nielsen #4 (consistency and standards)",
+      "recommendation": "Card 3 = one shell containing the header ('Mama's Perspective'), the framing line, and the confirm content. `.mom-queue-card` keeps its class name but loses its chrome entirely (background/border/radius/padding → none), so the confirm content sits directly in the shell. Retire `.mom-queue-title` in favour of the shared header title class.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Once all four wear the same shell, 'there are four separate things' becomes legible but 'which one is which' does not. The current per-card identity signals are all ad-hoc and all different in kind: card 1 = green tint + a ✓; card 2 = a rounded tan field; card 3 = an italic serif line; card 4 = a green wash + a rail. Four vocabularies for one job.",
+      "user_impact": "This reader's documented routing model is icon + size + color + position. If the shared shell removes the color and size differences, she needs a replacement signal — and per Paul's 2026-07-29 standing rule, it must be ONE learnable signal, not four precise ones she has to tell apart.",
+      "principle_invoked": "Consistency > precision on Mom's surfaces (Paul-stated) + Icons earn their place — true AND useful (the icon here is a pre-verbal routing signal for a reader with difficulty, which is the 'useful' test passing on accessibility grounds, not decorative ones) + An icon system needs a maintained legend and a per-symbol rationale (candidate)",
+      "recommendation": "Reuse the vocabulary the page already teaches six times below: a small identity square + a Crimson Text title, i.e. a compact variant of `.main-card-header`. One signal, one grammar, already learned. Assignments — card 1: ✓ on soft green, title = the dated stamp line ('We got your note Tuesday morning, July 29.'); card 2: 📓 on the existing `.main-card-icon.fieldnotes` tan gradient (a TRUE link — it is the field-notes write surface), title 'The Almanac'; card 3: 🌿 on sage, title 'Mama's Perspective'; card 4: 🎤 on green, title 'A walk around the place'. Deliberate difference from the dashboard cards: NO chevron/'Open' pill, because these four are always open — the absence of a door is itself the signal that these are live, not stored.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Under the four-card model the `conversation-active` reorder stops being a page-level shuffle and becomes internal to card 2. Today it re-ranks six elements across the whole container and needs an explicit `order: -6` on `#mom-queue-ack` purely to stop the ack falling under the thread (a real bug, fixed 2026-07-14).",
+      "user_impact": "Card positions on the page become invariant: 1 ack, 2 Almanac, 3 Mama's Perspective, 4 the walk — at rest and live, always. She learns the stack once. Today the stack rearranges itself the moment she asks a question, which is the worst possible moment to move her landmarks.",
+      "principle_invoked": "Conversational surfaces inherit the universal chat spatial model (cross-project, candidate) + Make every surface read at half-engagement (fernwood)",
+      "recommendation": "Move the flex + order rules from `.unified-input` down onto the almanac card. Order inside card 2 when active: header (-7) → conversation (-6) → input row (-5) → image preview (-4) → audio preview (-3) → actions (-2). DELETE `.unified-input.conversation-active #mom-queue-ack { order: -6 }` — the ack is now a sibling above and its position is guaranteed by DOM order. Also delete the dead `.unified-input.conversation-active .ui-icon-row` rule (no `.ui-icon-row` element exists in the current markup). Keep toggling the `conversation-active` class on `#unified-input` and use descendant selectors, so `wireUI()` is untouched. The compose area still lands directly beneath the latest reply with only the existing dashed divider between them — the 2026-07-02 fix is preserved exactly.",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "area": "discoverability",
+      "severity": "nice-to-have",
+      "observation": "The commit button says 'Save & ask the Almanac'; the code, comments and Paul's own brief call the surface 'Garden Guru'; the surface itself is unlabelled, so the conflict has never had to be resolved on screen. Titling card 2 forces the choice.",
+      "user_impact": "Two names for one feature is a documented Fernwood tone-coherence failure (F4, 2026-05-11 — Astronomy vs Sky & Stars). For a reader who navigates by recognition, a second name for a thing she already knows is a new thing.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood.md) + Nielsen #4 (consistency and standards)",
+      "recommendation": "Use 'The Almanac' on the card title — it is what the button already promises, so the label and the destination agree. Keep 'Garden Guru' as the internal/engineering name only, and don't let it surface anywhere she reads.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "other",
+      "severity": "nice-to-have",
+      "observation": "Two different left rails would coexist within ~200px on the same screen: `.mom-queue-launcher`'s 5px #3a6a3a rail (meaning: 'this is the front door') and `.ui-turn-machine`'s 3px #6f8bb0 rail (meaning: 'this reply is machine content, not nature content'). Same device, two unrelated meanings.",
+      "user_impact": "The machine-answer rail is a real, load-bearing register signal for this reader (fernwood candidate principle, 2026-07-07). Spending the same device on 'this card is important' dilutes it.",
+      "principle_invoked": "An icon system needs a maintained legend and a per-symbol rationale (cross-project, candidate) — the same discipline applies to non-glyph signal devices",
+      "recommendation": "Drop the launcher's left rail (F4 already calls for it) and RESERVE the left rail in this stack to mean 'different content register' only. Note it beside the `.ui-turn-machine` rule so the next person doesn't spend it again.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "Four full-weight card headers at the dashboard's own scale (42px icon + 19px title + 16/18px padding ≈ 58px each) would add ~230px of chrome above the dashboard strip — roughly a quarter of a 390×844 viewport, in the app's scarcest space, before she reaches anything she came for.",
+      "user_impact": "She reads the glance and stops. Pushing the glance further down the page to make the input stack legible trades one problem for a worse one.",
+      "principle_invoked": "The glance and the repository (CLAUDE.md governing principle) + restraint: hierarchy from typography and spacing before decoration",
+      "recommendation": "Use a COMPACT header variant — 28×28 icon square, 16px Crimson title (18px under text-lg), single flex row, ~36px total. Same vocabulary as the dashboard cards, one register smaller, which correctly says 'sibling, but chrome-light.' Card 1 costs no extra row at all because its header title IS the dated stamp line it already renders.",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "area": "error-handling",
+      "severity": "critical",
+      "observation": "Five hard-won fixes live in the exact CSS a restyle touches, and every one of them is invisible on a desktop viewport: (a) the 16px font-size floor on `.ui-textarea`, `.mom-queue-correction`, `.feedback-panel-input` — below it iOS Safari zooms the viewport on focus and does not zoom back out (found 2026-07-29); (b) the 44px tap floor on `.ack-btn`, `.mom-queue-nav-arrow` (44×44 — these arrows were DESTROYING her typed-but-unsent notes until 7/29), `gg-suggest-btn-*`, `.mom-queue-addnote`, `.gg-followup-chip`, `.gg-log-btn`; (c) the one affirmative grammar — the ribbon's buttons are literally `gg-suggest-btn-yes` / `gg-suggest-btn-neutral`, not lookalikes, so they cannot drift (Paul-stated 2026-07-29, and it REVERSED a backlog row that wanted them differentiated); (d) the ack pinned above the composer; (e) give-back-before-asking order (ack → composer → asks). Separately, `.mom-queue:empty { display: none }` means an empty host must not carry card chrome, and the 2026-07-28 `.fn-entry-text` incident proves a `body.text-lg` selector that matches nothing fails silently forever.",
+      "user_impact": "Each of these, if undone, produces a failure she experiences as the app being broken or ignoring her — including outright loss of her typed words (the nav-arrow case). These are the highest-cost regressions available on this surface.",
+      "principle_invoked": "Norman — feedback and error prevention; Nielsen #5 (error prevention); Fernwood's standing verification rule (verify a row against the running app before acting on it)",
+      "recommendation": "Treat as a hard register, not advice. Never set a focusable input below 16px. Never let a shared shell's tighter padding shrink a control below 44px in either dimension. Do NOT give any of the four cards its own button styling in the name of card identity — identity lives in the HEADER, never in the buttons. Put the shell classes on inner elements (`.mom-ack-ribbon`, a new almanac wrapper, a new perspective wrapper, `.mom-queue-launcher`), never on `#mom-queue` / `#mom-queue-ack`, so the empty-host collapse still works. Add a `body.text-lg` rule for every new class and verify it by toggling, not by reading. Verification set before shipping: 390px wide; text-lg on and off; conversation empty and 3-turn; ack with 0 links and with 3 links; ack with `arrivedAt` missing (must still render a header — fall back to 'We got your note.'); confirm queue empty; launcher dismissed-today.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "area": "other",
+      "severity": "important",
+      "observation": "The markup comment at ~line 5507 states the ordering question should take its verdict from a clean measurement time-box closing 2026-08-10. This restyle changes the visual weight of all four surfaces inside that window.",
+      "user_impact": "None directly — but it means the launcher's 0-tap result cannot be attributed to the launcher after this ships, and pre/post counts cannot be pooled. Getting this wrong produces a confident wrong conclusion about an affordance whose real sample from Mom is ~4 views.",
+      "principle_invoked": "Trust is the load-bearing emotion / honest instrumentation — the same doctrine as 'an honestly-unsure tool beats a confidently-wrong one'",
+      "recommendation": "Ship the restyle, but stamp the date in the same comment block and in the release note: 'input-stack chrome standardized YYYY-MM-DD — do not pool launcher/queue counts across this line.' Do NOT additionally demote the launcher's CTA fill in the same change (see F4) — one confound is recoverable, two stacked is not.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "Card 3 when the queue is empty: today nothing renders unless a general-feedback question exists. Under the four-card model I recommend card 3 ALWAYS renders — header + the existing calm line 'Nothing to settle just now — the place is just growing.' — so 'four' is unconditionally true and the stack never changes shape. That is a small behaviour change (a standing card with nothing to do), so it needs your nod. Alternative: let card 3 collapse and accept that the stack is sometimes three.",
+    "Card 4 title: 'A walk around the place' is my draft. It has to be short enough for a compact header and it must not sound like a task. Your call on the words.",
+    "Do you want a single quiet group label above the four ('Between you and the Almanac' or similar)? My recommendation is NO for now — the shared cream shade already groups them against the white dashboard cards, and a label costs a line at the top of the scarcest space on the page.",
+    "Confirm 'The Almanac' as the on-screen name for card 2 and that 'Garden Guru' stays internal-only."
+  ],
+  "follow_up_research_suggested": [
+    "After 2026-08-10, read the launcher's clean time-box with the chrome change stamped as a break — and if her taps are still zero on a real sample, the question becomes whether the zone walk wants a different door entirely (inside the Plants card, at the moment a zone is being read about) rather than a standing card at the top.",
+    "Instrument which of the four cards she is actually in contact with — the ack already tracks momack_shown / momack_acknowledged / momack_followed; the composer and the confirms have their own events. A per-card contact read across one month would tell you whether four cards is the right number or whether one of them should be relocated rather than restyled."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "A response is not a sibling of its input — card boundaries follow jobs, not DOM blocks. When a surface produces a reply to something the user just entered, the reply lives INSIDE the input's container. Giving it its own container asserts they are two different things and re-opens the seam between the reply and the follow-up affordance.",
+      "scope": "cross-project",
+      "rationale": "Sharpens the existing candidate 'Conversational surfaces inherit the universal chat spatial model.' That candidate governs vertical ORDER (compose beneath the latest reply); this governs CONTAINMENT (they are one card). Fernwood is the second surface where the distinction has bitten: the 2026-07-02 fix corrected the order, and the floating `.ui-conversation` shows the containment half was never settled — which is why 'make it its own card' reads as the obvious repair when it is the wrong one."
+    },
+    {
+      "principle": "One shell, one signal each — when a group of sibling surfaces is standardized to a shared shell, each member must keep exactly ONE distinguishing signal, drawn from a vocabulary the page already teaches elsewhere. Not one signal per card invented per card.",
+      "scope": "Fernwood",
+      "rationale": "Directly downstream of Paul's 2026-07-29 'consistency outranks semantic precision on Mom's surfaces.' That rule was stated about button grammar; this review shows the same rule governs CARD identity — standardizing the shell removes the accidental color/size differences she was routing by, so the replacement signal has to be a single learnable one (identity square + serif title, already taught six times by the dashboard cards) rather than four bespoke treatments. Fernwood-scoped for now; watch for a second occurrence on Bolo Boys before proposing promotion."
+    },
+    {
+      "principle": "A restyle inside an open measurement window is a confound — stamp the date, don't pool. When a surface is being deliberately measured to settle a design question, any change to its visual weight breaks the series; ship the change if it's right, but record the break so the two halves are never averaged.",
+      "scope": "cross-project",
+      "rationale": "Surfaced here by the launcher's clean time-box closing 2026-08-10, but it generalizes to every instrumented surface Paul runs — Bolo Boys' add-to-calendar path, the Fernwood funnel, any financial-dashboard read. It is the design-side twin of the device-misattribution incident: there, a wrong attribution produced a confident wrong conclusion from real data; here, an unstamped restyle would do the same. [1 occurrence — watch for a second]"
+    }
+  ]
+}
