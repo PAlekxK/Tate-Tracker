@@ -722,6 +722,43 @@ def _git(*args):
         return None
 
 
+def _ack_block(src):
+    """Locate the MOM_ACK_DATA literal in viewer.html source.
+
+    Returns (start, end_inclusive) offsets of the `{...}` or None.
+    """
+    marker = "const MOM_ACK_DATA = "
+    i = src.find(marker)
+    if i < 0:
+        return None
+    start = i + len(marker)
+    end = src.find("};", start)
+    if end < 0:
+        return None
+    return start, end + 1
+
+
+def _strip_js_comments(blob):
+    """Drop whole-line `//` comments so a JS object literal parses as JSON.
+
+    ⚠️ This exists because the check went BLIND on 2026-07-29. `MOM_ACK_DATA` is
+    a JavaScript literal, and the moss ribbon commit (45ecf13) added a four-line
+    `//` note inside it explaining why the message must not re-state the date.
+    Perfectly legal JS — and `json.loads` died on it, so `read_mom_ack` returned
+    None and `check-mom-ack.py` reported **"MOM_ACK_DATA not found in
+    viewer.html"** about a constant sitting at line 9443. The one guard on the
+    ribbon that reaches Mom was dark, and its error message pointed at the wrong
+    thing entirely (absent, not unparseable).
+
+    The general shape: *parsing a JS literal as JSON is a lie that holds until
+    someone writes a comment.* Only whole-line comments are stripped — a JSON
+    string can't span lines, so a line whose first non-space chars are `//` is
+    always a comment and never part of a value (which keeps a `https://` inside
+    a message safe).
+    """
+    return "\n".join(l for l in blob.splitlines() if not l.lstrip().startswith("//"))
+
+
 def read_mom_ack(viewer_path=VIEWER):
     """Parse MOM_ACK_DATA out of viewer.html. The constant is the SSOT — there
     is deliberately no mom-ack.json (it has no runtime consumer, so a parallel
@@ -731,16 +768,11 @@ def read_mom_ack(viewer_path=VIEWER):
             src = f.read()
     except FileNotFoundError:
         return None
-    marker = "const MOM_ACK_DATA = "
-    i = src.find(marker)
-    if i < 0:
-        return None
-    start = i + len(marker)
-    end = src.find("};", start)
-    if end < 0:
+    span = _ack_block(src)
+    if span is None:
         return None
     try:
-        return json.loads(src[start:end + 1])
+        return json.loads(_strip_js_comments(src[span[0]:span[1]]))
     except ValueError:
         return None
 
@@ -782,21 +814,33 @@ def set_acknowledged_through(ts, viewer_path=VIEWER):
     """
     with open(viewer_path, "r", encoding="utf-8") as f:
         src = f.read()
-    marker = "const MOM_ACK_DATA = "
-    i = src.find(marker)
-    if i < 0:
-        raise RuntimeError("MOM_ACK_DATA not found in viewer.html")
-    start = i + len(marker)
-    end = src.find("};", start)
-    if end < 0:
-        raise RuntimeError("MOM_ACK_DATA block is not terminated")
-    obj = json.loads(src[start:end + 1])
-    obj["acknowledgedThrough"] = ts
-    rendered = json.dumps(obj, ensure_ascii=False, indent=2)
-    out = src[:start] + rendered + src[end + 1:]
+    span = _ack_block(src)
+    if span is None:
+        raise RuntimeError("MOM_ACK_DATA not found (or not terminated) in viewer.html")
+    start, end = span
+    blob = src[start:end]
+
+    # Rewrite the ONE field textually rather than re-serializing the object.
+    # A json.loads → json.dumps round-trip would silently delete the `//` notes
+    # inside the literal — including the one recording that the renderer already
+    # prepends the date, which is the note that stops the ribbon from reading
+    # "…July 26. July 26 — the moss." Stamping the clock must not erase the
+    # reasoning; "touching nothing else" is the promise this docstring makes.
+    pat = re.compile(r'("acknowledgedThrough"\s*:\s*)"[^"]*"')
+    if pat.search(blob):
+        new_blob = pat.sub(lambda m: m.group(1) + json.dumps(ts), blob, count=1)
+    else:
+        # Legacy ribbon with no clock — the "NO CLOCK" state check-mom-ack.py
+        # reports, whose documented remedy is this very flag. Insert it.
+        brace = blob.index("{")
+        new_blob = (blob[:brace + 1]
+                    + f'\n  "acknowledgedThrough": {json.dumps(ts)},'
+                    + blob[brace + 1:])
+
+    out = src[:start] + new_blob + src[end:]
     with open(viewer_path, "w", encoding="utf-8") as f:
         f.write(out)
-    return obj
+    return read_mom_ack(viewer_path)
 
 
 if __name__ == "__main__":  # a tiny self-report, handy when something looks off

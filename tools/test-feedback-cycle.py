@@ -258,7 +258,30 @@ def entity_map_suite():
 
 def ribbon_suite():
     print("\n── ESCALATE: does the ribbon report her as owed a reply? ──\n")
+
+    # PARSE — the guard must not go blind on legal JavaScript.
+    # 2026-07-29: the moss commit added a `//` note inside MOM_ACK_DATA, json.loads
+    # died on it, read_mom_ack returned None, and check-mom-ack.py announced
+    # "MOM_ACK_DATA not found in viewer.html" about a constant on line 9443. The
+    # ribbon's only guard was dark, and it blamed absence rather than parseability.
+    # Comments inside that literal are WANTED (they carry the reasoning), so the
+    # parser tolerates them and this leg proves it stays that way.
+    src = open(momlib.VIEWER, encoding="utf-8").read()
+    span = momlib._ack_block(src)
+    check("PARSE the MOM_ACK_DATA literal is locatable in viewer.html", span is not None)
+    if span:
+        blob = src[span[0]:span[1]]
+        commented = [l for l in blob.splitlines() if l.lstrip().startswith("//")]
+        probe = blob if commented else blob.replace(
+            "{", '{\n  // synthetic comment — this leg asserts comments are tolerated', 1)
+        check("PARSE a `//` comment inside the literal does not blind the parser",
+              json.loads(momlib._strip_js_comments(probe)).get("message") is not None,
+              f"{len(commented)} comment line(s) present in the live literal")
+
     r = momlib.ribbon_state()
+    check("ESCALATE the ribbon parses at all (not a false 'not found')",
+          r["message"] is not None,
+          "read_mom_ack returned None — the ribbon cannot be checked")
     check("ESCALATE the ribbon exposes a machine-readable clock",
           r["acknowledged_through"] is not None,
           "MOM_ACK_DATA has no acknowledgedThrough — staleness is unanswerable")
