@@ -4,6 +4,18 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-29 — The tiles at the top show you they open
+
+- **Each summary tile now has a small arrow.** The seven tiles across the top — Weather, Plants,
+  Wildlife, and the rest — have always opened the full card when you tap them. Nothing on a phone
+  ever said so. There's a little arrow on each one now, and it nudges when you press.
+- **The rain figures from our own gauge are green, like the gauge.** The numbers measured here had
+  been tinted the same blue as the regional forecast sitting beside them, which made two different
+  things look like one thing. Ours are green now. Blue on that card means the regional figure, and
+  only that.
+- **The buttons on the note at the top are bigger,** along with the arrows that step between
+  questions — both were small enough to miss with a thumb.
+
 ## 2026-07-29 — Typing is easier, and nothing you write gets lost
 
 - **The page no longer jumps when you tap a box to type.** Every place you can write something —
