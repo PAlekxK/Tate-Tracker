@@ -11,6 +11,7 @@ python3 tools/check-data-inline.py         # viewer.html inlines vs source JSON
 python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
 python3 tools/check-cards.py               # does the SERVED card queue match reality?
+python3 tools/rationalize-bench.py         # is anything we're serving OUT OF SEASON, and what's on the bench?
 python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — her NEW answers + anything she said that's unanswered (silent if none)
 python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — decline vs. misunderstanding
 ```
@@ -34,6 +35,15 @@ When drift shows, don't auto-fix — the point is a **human signal that the addi
 3. Only then `python3 tools/check-data-inline.py --fix`, verify clean, add a release note, commit.
 
 (Root-cause fix still open: make Guru's promote flow verify its own re-inline commit landed, so this drift can't open silently in the first place.)
+
+`rationalize-bench.py` (built 2026-07-31) answers **"is anything we are asking her right now out of season?"** and manages the **bench** — the cards drafted but not yet serving. It is in this block rather than run on demand for the reason the block exists at all: **a flag nobody reads is the same as no flag.** `harvest-questions.py` computes "is this bloom window open?" when it *drafts* a card and never again, so a card's freshness was measured once, at birth, and every later reader inherited that verdict as current. On the day it was built it found `q-lizards-tail-bloom` hours from asking Mom *"is it in flower yet?"* about a plant with no window for the next ten months, and `q-clematis-variety` sending her to read a flower colour on a day the vine had none.
+
+Three things to know before acting on its output:
+- **Paul's clear gate is the whole design.** `--apply` promotes ONLY cards carrying an `approvedForServe` stamp, and nothing writes that stamp except `--approve <id>`, run by a human. An agent may run the report freely; an agent may not approve a card. Multiple supply streams feed the bench (harvest-created · surfaced from her feedback · hand-slotted) and each will grow its own approval rules — this gate is the floor under all of them.
+- **`MAX_VISIBLE` stays 5 and variety is a HARD constraint** (Paul, 2026-07-31). The five are *a sample of what she can influence*, not a workload — so diversity is a **filter** over the ranked list, not a tiebreaker. A pure information-value sort would stack all five slots with bloom cards, which scores well and says exactly the wrong thing.
+- **It flags; it does not hide.** Fail-open is deliberate: only a *measured* closed window may say "do not serve," and the bloom-gated-by-wording case (`q-clematis-variety`, whose `_foldTarget` is `variety` but whose observable is the flower) is a **heuristic** reported as REVIEW for a human. Wrongly hiding a card loses an answer silently; wrongly showing one costs a line in a report someone reads.
+
+**Seasonal deactivation and the bench are the same mechanism.** To rest a card whose window has closed, set `active:false` and add a `_seasonHold` note — deliberately *no* `resolvedAt`, which would mean folded-and-retired. It lands on the bench awaiting approval and the season check re-offers it when its window reopens. A card needs no separate hibernating state (`q-lizards-tail-bloom` is the worked example).
 
 `check-mom-ack.py` answers the one question the loop's third leg depends on: **does the acknowledgment ribbon still cover what she's given us, and did it actually reach her?** It compares `MOM_ACK_DATA.acknowledgedThrough` (added 2026-07-26 — the field that makes staleness *computable* instead of unanswerable) against the newest input across every **app** channel: `/api/feedback`, `/api/observations`, `/api/zone-audio` **and `/api/conversations`** (Guru turns — metadata only, never turn content). Exit 0 = silent. Exit 1 = she is owed a line, or `viewer.html` is committed-but-**not pushed** — which matters because CLAUDE.md already says shipping means a push, and a ribbon Paul wrote and didn't push is exactly as stale to Mom as one he never wrote. **It never writes the message and never advances the clock on its own** — it computes *that* she is owed a line and *what evidence* exists; Paul writes the words (the AI boundary; a template can only produce "thanks for your feedback," which is worse than silence at the moment she's doubting herself). Attribution is never asserted — a deviceId is a browser bucket, not a person — so if the uncovered input was Paul's own test tap, `--acknowledged-through <ts>` clears it in one command, stamping the clock only.
 
