@@ -73,6 +73,19 @@ DEFERRAL_LATER = {"ask me later", "later", "remind me", "skip", "not now"}
 # lint patrols, but it says plainly what happens next — the card comes back — and
 # Paul weighed that clarity above the state framing for this reader. Recorded so
 # the exemption is a decision on the record, not an oversight.
+#
+# WIDENED 2026-07-31 (Paul) from the two bloom cards to ALL of them — the four
+# remaining wordings ("I haven't looked" ×2, "I'll think on it", "Haven't thought
+# about it") all collapsed to "Snooze card". His reasoning, which is the exemption's
+# real basis and supersedes the per-card read above: the label should carry the
+# PROMISE, not the state — "it's more clear that the card doesn't just disappear,
+# it's not embarrassing to hit snooze, and it doesn't create any worry that the card
+# will not pop back up." Note all three wordings always DID the same thing
+# (`snoozed[id] !== today` — hidden for the day, back tomorrow); only the label
+# differed, so this changed what she is told, not what happens.
+# Under watch, not settled: BACKLOG Track A tracks the third-button tap rate as the
+# thing to revisit first if deferral behaviour shifts, and asking her directly is
+# the escalation if it does.
 
 # ⟨…⟩ is the variety template's tripwire: harvest-questions.py emits a SKELETON
 # because no generic string can name the observable that settles a variety. A

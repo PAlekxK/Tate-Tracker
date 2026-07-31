@@ -4,6 +4,15 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-07-31 — Every question snoozes the same way
+
+- **The third button says "Snooze card" on every question now.** It used to say something different
+  depending on the card — "I haven't looked," "I'll think on it," "Haven't thought about it." They
+  all did the same thing, so now they all say the same thing. Snooze tucks a card away for the day
+  and brings it back tomorrow. Nothing you snooze goes away, and there's no wrong time to use it.
+
+---
+
 ## 2026-07-30 — Four cards at the top, and the Almanac has its name
 
 - **The top of the app is four clear cards now, and they're always in the same order.** What we got

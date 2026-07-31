@@ -12,7 +12,7 @@
       "labels": {
         "yes": "That's all of them",
         "no": "Something's missing",
-        "later": "I'll think on it"
+        "later": "Snooze card"
       },
       "correctionPrompt": "What else would you add?",
       "_source": "authored",
@@ -36,7 +36,7 @@
       "labels": {
         "yes": "Yes, it has the stripe",
         "no": "No stripe on it",
-        "later": "I haven't looked"
+        "later": "Snooze card"
       },
       "correctionPrompt": "What does it look like, if you can say? (optional)"
     },
@@ -58,7 +58,7 @@
       "labels": {
         "yes": "Pale pink with a stripe",
         "no": "Deeper rose all through",
-        "later": "I haven't looked"
+        "later": "Snooze card"
       }
     },
     {
@@ -113,7 +113,7 @@
       "labels": {
         "yes": "Yes, I'd like that",
         "no": "Not really",
-        "later": "Haven't thought about it"
+        "later": "Snooze card"
       },
       "_source": "authored",
       "_kind": "reflective",
