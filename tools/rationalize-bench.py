@@ -199,13 +199,16 @@ def main():
           + (f"  ⚠ {cap_note}" if cap_note else ""))
 
     # ---- 1. STALE ON HER SURFACE RIGHT NOW --------------------------------
-    bad_live = [q for q in live if season[q["id"]]["verdict"] in ("out-of-season", "review")]
+    bad_live = [q for q in live
+                if season[q["id"]]["verdict"] in ("out-of-season", "review", "dangling")]
     print(f"\n── SERVED NOW ({len(live)} confirm cards live, {min(len(live), cap)} visible)")
     if not bad_live:
         print("   every live card's observable exists today.")
     for q in bad_live:
         s = season[q["id"]]
-        mark = "⛔ OUT OF SEASON" if s["verdict"] == "out-of-season" else "⚠ REVIEW"
+        mark = {"out-of-season": "⛔ OUT OF SEASON",
+                "dangling": "🔴 BROKEN POINTER",
+                "review": "⚠ REVIEW"}[s["verdict"]]
         print(f"   {mark}  {q['id']}")
         print(f"      {s['why']}")
         if s["next_open"]:
@@ -333,6 +336,11 @@ def _coverage(qs, state, season, live, bench, drafts):
         print("      raises these and never decides them)")
     if unknown:
         print(f"   ? {len(unknown)} bloom card(s) with no windows in canon: {', '.join(unknown)}")
+    dangling = [q["id"] for q in qs if state[q["id"]] != "resolved"
+                and season[q["id"]]["verdict"] == "dangling"]
+    if dangling:
+        print(f"   🔴 {len(dangling)} card(s) with a BROKEN entityRef — fix the pointer "
+              f"before trusting any verdict about them: {', '.join(dangling)}")
     print("   NOT CHECKED BY ANY TIER: whether a card that is in season and in canon")
     print("   is a question worth asking her. Seasonality is not relevance.")
     return 0

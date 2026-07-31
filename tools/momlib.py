@@ -273,12 +273,37 @@ def _md_in(span_start, span_end, md):
     return md >= span_start or md <= span_end     # e.g. 11-15..02-10
 
 
-def bloom_windows(q, c=None):
-    """The bloom date-spans of the entity a card points at, or [] if none."""
+def entity_of(q, c=None):
+    """(entity, why_not) for a card's entityRef. `entity` is None when it does
+    not resolve, and `why_not` then says so in words.
+
+    Split out from bloom_windows() 2026-07-31, hours after this module shipped,
+    because the original folded three cases into one empty list: no entityRef at
+    all, an entityRef that DOES NOT RESOLVE, and an entity with no bloom record.
+    The middle one is a broken pointer and it was reading as `season-free` —
+    identical to a card that legitimately has no seasonal observable. That is the
+    exact failure this repo has now hit four times (`fold-answer.py`,
+    read-mom-feedback's probe, `buildCard`, and this): a resolution miss that does
+    not fail loudly. No card triggers it today — every entityRef resolves — which
+    is luck, not design, and is precisely when it is cheapest to close.
+    """
     c = c or canon()
     ref = q.get("entityRef") or {}
-    entity = c.find(ref.get("type"), ref.get("id"))
+    etype, eid = ref.get("type"), ref.get("id")
+    if not etype:
+        return None, None                      # no ref at all — legitimately season-free
+    if etype not in ENTITY_SOURCES:
+        return None, f"entityRef.type={etype!r} is not in momlib.ENTITY_SOURCES"
+    entity = c.find(etype, eid)
     if not isinstance(entity, dict):
+        return None, f"{ENTITY_SOURCES[etype].file} has no entry `{eid}`"
+    return entity, None
+
+
+def bloom_windows(q, c=None):
+    """The bloom date-spans of the entity a card points at, or [] if none."""
+    entity, _ = entity_of(q, c)
+    if entity is None:
         return []
     bloom = entity.get("bloom")
     if not isinstance(bloom, dict):
@@ -298,6 +323,9 @@ def in_season(q, c=None, today=None):
                         _foldTarget is not `bloom`); a human decides
         season-free   — no seasonal observable (reflective, preference, or an
                         observable that persists, like the stiltgrass stripe)
+        dangling      — the card names an entity that DOES NOT RESOLVE. Not a
+                        season verdict at all: the card is broken and no season
+                        answer about it can be trusted. Loud on purpose.
         unknown       — points at a bloom-bearing entity but carries no windows
 
     FAIL-OPEN is deliberate: `unknown` and `review` never assert out-of-season.
@@ -310,6 +338,14 @@ def in_season(q, c=None, today=None):
     # not at 8 PM ET (which is what UTC's date rollover would do).
     today = today or dt.datetime.now(ET or dt.timezone.utc).date()
     md = today.strftime("%m-%d")
+
+    # A broken pointer is reported as broken, never absorbed into `season-free`.
+    _entity, why_not = entity_of(q, c)
+    if why_not:
+        return {"verdict": "dangling", "windows": [], "next_open": None,
+                "why": f"entityRef does not resolve — {why_not}. No seasonal claim "
+                       f"about this card can be trusted until the pointer is fixed."}
+
     windows = bloom_windows(q, c)
     target = q.get("_foldTarget")
     prompt = q.get("prompt") or ""
