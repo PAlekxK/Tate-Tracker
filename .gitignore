@@ -12,3 +12,6 @@ REINTEGRATION-BACKLOG-2026-07-09.md
 # Tooling scratch — never source (added 2026-07-16)
 .playwright-mcp/
 __pycache__/
+
+# claude --bg agent worktrees — never tracked (added 2026-07-31)
+.claude/worktrees/
