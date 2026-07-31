@@ -233,6 +233,123 @@ def canon():
     return _Canon()
 
 
+# ------------------------------------------------------- seasonality (2026-07-31)
+# WHY THIS EXISTS, and why it lives here rather than in the tool that needed it:
+#
+# `harvest-questions.py` computes "is this bloom window open NOW?" when it DRAFTS
+# a card — and never again. So a card's freshness was measured once, at birth,
+# and every later reader inherited that one-time verdict as if it were current.
+# Measured 2026-07-31, with the queue live in front of Mom:
+#
+#   • q-lizards-tail-bloom  window 06-01..07-31 — expires TODAY, then keeps
+#     asking "is it in flower?" until next June with no window at all.
+#   • q-clematis-variety    windows 05-10..06-20 and 08-01..08-31 — asking
+#     "what colour are the flowers?" on a day the vine has none.
+#   • q-spiderwort-bloom    (benched) window closed 07-15, sixteen days ago.
+#
+# This is the same failure this repo keeps re-learning: a status written down at
+# one moment gets read later as a measurement of the world at THAT moment. So the
+# definition goes here, derived and self-dating, next to question_state() — the
+# other answer to "what is true about this card right now?"
+#
+# ⚠️ AND THE ONE THAT IS EASY TO MISS: a card is bloom-gated by its OBSERVABLE,
+# not by its _foldTarget. `q-clematis-variety` folds to `variety.confidence`, so
+# every target-based rule calls it season-free — but it asks her to go read the
+# FLOWER COLOUR, which only exists while the plant is in bloom. Gating on
+# _foldTarget alone would have served that card straight through the gap between
+# its two windows. Hence `flower_observable`, which is a HEURISTIC and is
+# reported as one: it never silently decides, it raises a REVIEW.
+
+FLOWER_WORDS = re.compile(
+    r"\bflower(s|ing)?\b|\bbloom(s|ing)?\b|\bblossom(s)?\b|\bin flower\b|\bpetal(s)?\b",
+    re.I,
+)
+
+
+def _md_in(span_start, span_end, md):
+    """Is MM-DD `md` inside [start, end], honouring windows that wrap the year?"""
+    if span_start <= span_end:
+        return span_start <= md <= span_end
+    return md >= span_start or md <= span_end     # e.g. 11-15..02-10
+
+
+def bloom_windows(q, c=None):
+    """The bloom date-spans of the entity a card points at, or [] if none."""
+    c = c or canon()
+    ref = q.get("entityRef") or {}
+    entity = c.find(ref.get("type"), ref.get("id"))
+    if not isinstance(entity, dict):
+        return []
+    bloom = entity.get("bloom")
+    if not isinstance(bloom, dict):
+        return []
+    return [d for d in (bloom.get("dates") or [])
+            if isinstance(d, dict) and d.get("start") and d.get("end")]
+
+
+def in_season(q, c=None, today=None):
+    """Should this card be in front of Mom TODAY?
+
+    Returns {"verdict", "why", "windows", "next_open"}. Verdicts:
+
+        in-season     — a bloom window is open now
+        out-of-season — the card's observable does not exist today
+        review        — bloom-gated by HEURISTIC (flower wording on a card whose
+                        _foldTarget is not `bloom`); a human decides
+        season-free   — no seasonal observable (reflective, preference, or an
+                        observable that persists, like the stiltgrass stripe)
+        unknown       — points at a bloom-bearing entity but carries no windows
+
+    FAIL-OPEN is deliberate: `unknown` and `review` never assert out-of-season.
+    Wrongly hiding a card costs a lost answer silently; wrongly showing one costs
+    a flagged line in a report someone reads. Only a MEASURED closed window is
+    allowed to say "do not serve this."
+    """
+    c = c or canon()
+    # Eastern, always — a window must turn over at midnight where the plant is,
+    # not at 8 PM ET (which is what UTC's date rollover would do).
+    today = today or dt.datetime.now(ET or dt.timezone.utc).date()
+    md = today.strftime("%m-%d")
+    windows = bloom_windows(q, c)
+    target = q.get("_foldTarget")
+    prompt = q.get("prompt") or ""
+
+    if not windows:
+        if target == "bloom":
+            return {"verdict": "unknown", "windows": [],
+                    "why": "a bloom card whose entity carries no bloom dates — cannot be season-checked",
+                    "next_open": None}
+        return {"verdict": "season-free", "windows": [],
+                "why": "no bloom record on the entity this card points at",
+                "next_open": None}
+
+    open_now = any(_md_in(w["start"], w["end"], md) for w in windows)
+    spans = ", ".join(f"{w['start']}..{w['end']}" for w in windows)
+    nxt = None
+    if not open_now:
+        later = sorted(w["start"] for w in windows if w["start"] > md)
+        nxt = later[0] if later else sorted(w["start"] for w in windows)[0]
+
+    if target == "bloom":
+        return {"verdict": "in-season" if open_now else "out-of-season",
+                "windows": windows, "next_open": nxt,
+                "why": f"bloom card; windows {spans}; today {md}"}
+
+    # Not a bloom card, but it points at something that flowers. If the PROMPT
+    # asks about the flower, the flower is the observable — heuristic, so review.
+    if FLOWER_WORDS.search(prompt):
+        if open_now:
+            return {"verdict": "in-season", "windows": windows, "next_open": None,
+                    "why": f"asks about the flower and a window is open ({spans})"}
+        return {"verdict": "review", "windows": windows, "next_open": nxt,
+                "why": (f"_foldTarget={target!r} is not season-bound, BUT the prompt asks "
+                        f"about the flower and no window is open (windows {spans}, today {md}) "
+                        f"— she would be sent to look at something that is not there")}
+
+    return {"verdict": "season-free", "windows": windows, "next_open": None,
+            "why": f"entity blooms ({spans}) but this card's observable is not the flower"}
+
+
 # -------------------------------------------- the viewer's half of the map
 #
 # The check-cards.py `RENDERABLE` set used to be a hand-typed third copy of
