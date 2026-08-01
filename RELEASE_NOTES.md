@@ -12,6 +12,10 @@ What's changed at Fernwood lately. Newest first.
   full fingertip now. Most of them look exactly the same as before; the part that grew is the part
   you can't see.
 - **The fish tabs are a little taller**, so they read as doors you can push rather than labels.
+- **The green "General feedback" tab gets out of the way now.** It used to sit on top of whatever
+  was underneath it — including the "Save & consult the Almanac" button, whose name it cut in half.
+  It stays full-sized at the top of the page, and once you start scrolling it tucks itself into a
+  small tab on the right edge. It's always in the same spot, and it's still one tap.
 
 ---
 
