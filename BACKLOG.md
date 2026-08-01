@@ -422,7 +422,28 @@ as before.
 > stops floating — ends the overlap and the always-reachable property together; **(d) reserve a right
 > gutter** so content never renders beneath it — 82px is 21% of a 390px reading column, too expensive;
 > **(e) collapse it to a thin edge tab while any control is under it** — keeps both properties, most
-> complexity. Recommend **(a)** if a change to her surface is acceptable, else **(e)**.
+> complexity.
+>
+> ### ⚡ DECIDED 2026-08-01 (Paul) — **(e)**, with a narrower trigger. Build is unblocked.
+>
+> His call: **collapse it to a thin edge tab when something *actionable* is underneath it.** His
+> reasoning settles the alternatives at the same time — *"I think we can assume that mom knows that she
+> can scroll up and down to uncover things if that general feedback tab is kind of pinned in its place
+> on the side."*
+>
+> Three things that decision fixes, and they are what to build against:
+> 1. **The tab stays pinned and stays labelled.** (a) dock-to-bottom and (c) move-below-the-stack are
+>    **rejected** — both spend the always-in-the-same-place property he is explicitly relying on.
+> 2. **Overlapping static prose is acceptable**, because she can scroll it out from under the tab.
+>    This is the half of the original row's framing ("overlaps card *content*") that turns out **not**
+>    to be the defect at all.
+> 3. **The trigger is narrower than "any overlap" — it is "something actionable."** That is a sharper
+>    rule than option (e) as written, which said *any control*. Prose scrolls; a button she cannot
+>    reach does not, because scrolling to uncover it also scrolls it away from her thumb.
+>
+> Implementation note, not yet decided: "actionable" needs a definition that cannot silently rot — the
+> honest version is a live hit-test against the ribbon's own rect (the same probe used to measure this),
+> not a hand-kept list of selectors, which would go stale the first time a new button lands.
 
 ## A5 · Light privacy — hard to find, PII local, never at the cost of Mom's access
 
