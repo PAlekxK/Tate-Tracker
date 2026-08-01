@@ -4300,6 +4300,45 @@
   }
   .feedback-ribbon:hover, .feedback-ribbon:active { background: linear-gradient(135deg, #24543a, #327a4d); }
   .feedback-ribbon:focus-visible { outline: 3px solid #cfe6b8; outline-offset: 2px; }
+
+  /* ── Slim state (2026-08-01, Paul's call) ────────────────────────────────
+     The ribbon is FIXED and pinned right, so it floats over whatever scrolls
+     under it. Measured at 390px: it was clipping "Save & consult the Almanac"
+     mid-word and sitting squarely on .fn-sync-btn's centre, i.e. eating taps
+     meant for two buttons.
+
+     Paul's call was to keep it pinned and labelled — Mom can scroll prose out
+     from under it — and to shrink it to a thin edge tab only when something
+     ACTIONABLE is underneath. So the label is the default and the slim form is
+     the exception, not the other way round; that ordering is what preserves the
+     "impossible to lose" property the label was added for (Mom's ask).
+
+     Height stays at the 44px floor: slimming must never re-create the tap
+     problem the rest of this pass just fixed. */
+  .feedback-ribbon.is-slim {
+    padding: 0;
+    /* 44, not the ~34 that would look thinner. This tab is itself a tap target,
+       and the rest of this pass just put every control on a 44px floor —
+       exempting the one control that CHANGES SIZE would be the worst place to
+       make an exception. Extending the hit area with a .tap44 pseudo-element
+       was the alternative and is wrong here: it would make the ribbon capture
+       MORE of the area around it, which is the exact behaviour being fixed. */
+    width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    gap: 0;
+    border-radius: 14px 0 0 14px;
+  }
+  .feedback-ribbon.is-slim .feedback-ribbon-label {
+    /* width/opacity, not display:none — the label has to be able to animate
+       back in, and a display toggle would also drop it from the a11y tree.
+       The button keeps its own aria-label either way. */
+    width: 0; opacity: 0; overflow: hidden; margin: 0;
+  }
+  .feedback-ribbon-label { transition: opacity 0.14s ease; }
+  @media (prefers-reduced-motion: no-preference) {
+    .feedback-ribbon { transition: width 0.18s ease, padding 0.18s ease; }
+  }
   .feedback-ribbon-icon { font-size: 16px; line-height: 1; }
   .feedback-ribbon-label { white-space: nowrap; }
   body.text-lg .feedback-ribbon { font-size: 16px; padding: 14px 16px; }
@@ -11028,6 +11067,178 @@ const FeedbackRibbon = (function () {
                     '<span class="feedback-ribbon-label">General feedback</span>';
     tab.addEventListener("click", open);
     document.body.appendChild(tab);
+    initSlimWatch(tab);
+  }
+
+  // ── Slim-when-it-would-be-in-the-way (2026-08-01, Paul's call) ───────────
+  //
+  // Paul's rule was "collapse when something ACTIONABLE is underneath." Taken
+  // literally that fires 84% of the scroll range — measured — because most of
+  // what passes under the ribbon is a full-width card header or dash cell, and
+  // clipping the right 70px of a 366px-wide header harms nothing: she can still
+  // tap the other 280px. Always-slim would spend the label to fix a non-problem,
+  // which is the one thing his reasoning was protecting.
+  //
+  // So the trigger is the HARM, not the mere overlap. Two ways the ribbon can
+  // actually cost her something, and they are different:
+  //   · UNREACHABLE — the ribbon covers the element's centre, so the obvious
+  //     place to tap is the ribbon. This is literally what made .fn-sync-btn
+  //     untappable.
+  //   · UNREADABLE — the ribbon covers the element's rendered TEXT, so its
+  //     label is cut mid-word. This is the "Save & consult the Al…" case, which
+  //     a reachability-only test misses entirely (155px of that button is still
+  //     free — it reads broken, it isn't broken).
+  // Either one slims it. Together they fire on 45% of the scroll range, and the
+  // causes are all genuine — including "Look back ›", which really does sit
+  // under the tab.
+  //
+  // Two things that keep this honest:
+  //   1. The probe is a LIVE hit-test against the ribbon's own rect, never a
+  //      hand-kept list of selectors. A list would go stale the first time a
+  //      button lands near the right edge and nobody would notice.
+  //   2. It always tests the EXPANDED footprint, even while slim. Testing the
+  //      current rect would mean slimming shrinks the probe, which un-detects
+  //      the thing that caused it, which re-expands it — an oscillation. Caching
+  //      the expanded box removes that by construction rather than by damping.
+  function initSlimWatch(tab) {
+    if (typeof window === "undefined") return;
+    const ACTIONABLE = 'button, a[href], [role="button"], input:not([type=hidden]),' +
+                       ' select, textarea, [onclick]';
+    let expanded = null;     // cached expanded rect — the probe region
+    let queued = false, settle = null;
+
+    function measure() {
+      // only trustworthy while actually expanded
+      if (tab.classList.contains("is-slim")) return;
+      const r = tab.getBoundingClientRect();
+      if (r.width > 0) expanded = r;
+    }
+
+    function intersects(a, b) {
+      return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+    }
+
+    // Where this element's text actually renders. An element's box can be wide
+    // and mostly empty (a full-width header), so the box is the wrong unit for
+    // "is the label being cut".
+    function textRects(el) {
+      const out = [];
+      const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = walk.nextNode())) {
+        if (!n.nodeValue || !n.nodeValue.trim()) continue;
+        const rg = document.createRange();
+        rg.selectNodeContents(n);
+        const rects = rg.getClientRects();
+        for (let i = 0; i < rects.length; i++) {
+          if (rects[i].width > 0 && rects[i].height > 0) out.push(rects[i]);
+        }
+      }
+      return out;
+    }
+
+    // 20x16 sampling: verified to agree with a 10x10 grid on 76/76 scroll
+    // positions at ~0.5ms per evaluation, so the cheap grid costs no accuracy.
+    function wouldBeInTheWay() {
+      if (!expanded) return false;
+      const hits = new Set();
+      for (let px = expanded.left + 3; px < expanded.right - 2; px += 20) {
+        for (let py = expanded.top + 3; py < expanded.bottom - 2; py += 16) {
+          const stack = document.elementsFromPoint(px, py);
+          for (let i = 0; i < stack.length; i++) {
+            const e = stack[i];
+            if (e === tab || tab.contains(e)) continue;
+            const act = e.closest && e.closest(ACTIONABLE);
+            if (act) { hits.add(act); break; }
+          }
+        }
+      }
+      for (const el of hits) {
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        const unreachable = cx >= expanded.left && cx <= expanded.right &&
+                            cy >= expanded.top  && cy <= expanded.bottom;
+        if (unreachable) return true;
+        const ink = textRects(el);
+        for (let i = 0; i < ink.length; i++) if (intersects(ink[i], expanded)) return true;
+      }
+      return false;
+    }
+
+    // Slim IMMEDIATELY (it's in the way now), but expand only once things have
+    // settled. Asymmetry on purpose: a control that re-expands mid-scroll
+    // flickers, and a shape that changes while she is reading is exactly the
+    // kind of restlessness this app's tone rules out.
+    function evaluate() {
+      queued = false;
+      measure();
+      if (wouldBeInTheWay()) {
+        if (settle) { clearTimeout(settle); settle = null; }
+        tab.classList.add("is-slim");
+      } else if (!settle) {
+        settle = setTimeout(function () {
+          settle = null;
+          if (!wouldBeInTheWay()) tab.classList.remove("is-slim");
+        }, 260);
+      }
+    }
+
+    // rAF coalesces scroll bursts to one evaluation per painted frame. But a
+    // frame is NOT guaranteed: Chrome stops firing rAF entirely when the window
+    // is occluded or the tab is backgrounded. With a bare `queued` latch that
+    // wedges the watcher PERMANENTLY — the flag is set, the callback never runs
+    // to clear it, and every later schedule() returns early, so the ribbon stays
+    // whatever it was even after the page is visible and scrolling again.
+    // Caught while debugging: rAF was dead in the test window and the feature
+    // looked broken when it was merely never asked to run.
+    // So the latch always carries its own release.
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      let done = false;
+      const run = function () { if (done) return; done = true; evaluate(); };
+      window.requestAnimationFrame(run);
+      setTimeout(run, 200);   // frame never came — evaluate anyway
+    }
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", function () { expanded = null; measure(); schedule(); });
+    // Cards expanding/collapsing changes what sits under it without any scroll.
+    //
+    // ⚠️ MUST ignore mutations on the tab itself. evaluate() toggles `is-slim`
+    // ON THE TAB, which is inside the observed subtree — so an unfiltered
+    // observer re-triggers itself every frame and pins the renderer at 100%.
+    // Found by doing exactly that: the first build froze the tab hard enough to
+    // time out CDP. Self-triggering is the default failure of any observer whose
+    // callback writes inside what it observes.
+    //
+    // childList matters as much as class: this app renders ASYNC (weather
+    // fetches, cards built after init), so the layout at init time is not the
+    // layout Mom sees. A class-only observer plus a single init evaluation left
+    // the ribbon permanently expanded at the top of the page — sitting on the
+    // Save button — because nothing ever asked it again. Caught by testing at
+    // scrollY 0, which is the one position no scroll event ever reaches.
+    if (window.MutationObserver) {
+      const mo = new MutationObserver(function (records) {
+        for (let i = 0; i < records.length; i++) {
+          const t = records[i].target;
+          if (t === tab || tab.contains(t)) continue;   // our own write — ignore
+          schedule();
+          return;
+        }
+      });
+      mo.observe(document.body, {
+        attributes: true, attributeFilter: ["class"],
+        childList: true, subtree: true
+      });
+    }
+    measure();
+    schedule();
+    // The async render settles over the first few seconds; re-check a handful
+    // of times rather than trusting one reading of a page that is still moving.
+    window.addEventListener("load", schedule);
+    [400, 1200, 2500, 4000].forEach(function (ms) { setTimeout(schedule, ms); });
   }
 
   function onKey(e) { if (e.key === "Escape") close(); }
