@@ -34,12 +34,34 @@ def parse_release_notes(path: Path):
         body_start = m.end()
         body_end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
         body = text[body_start:body_end].strip()
-        # Extract bullet lines (lines starting with `- `)
+        # Extract bullets. A bullet starts at `- ` and RUNS UNTIL the next
+        # bullet or a blank line — RELEASE_NOTES.md is hard-wrapped prose, so a
+        # bullet is almost always several physical lines.
+        #
+        # ⚠️ This used to take `line[2:]` and move on, silently dropping every
+        # continuation line. Because the file wraps at ~95 chars, that truncated
+        # EVERY bullet at its first line — Mom's "Recent updates" card had been
+        # showing her sentences that stop mid-clause ("It used to say something
+        # different", "What we got"). Found 2026-08-01 by diffing the deployed
+        # payload against the source, not by reading either one. The script's
+        # own "(2 bullets)" output looked correct throughout, which is why it
+        # survived: a count is not a content check.
         bullets = []
-        for line in body.splitlines():
-            line = line.strip()
+        current = None
+        for raw in body.splitlines():
+            line = raw.strip()
             if line.startswith("- "):
-                bullets.append(line[2:].strip())
+                if current:
+                    bullets.append(" ".join(current))
+                current = [line[2:].strip()]
+            elif not line:
+                if current:
+                    bullets.append(" ".join(current))
+                current = None
+            elif current is not None:
+                current.append(line)
+        if current:
+            bullets.append(" ".join(current))
         entries.append({"date": date, "title": title, "bullets": bullets})
     # Sort newest-first by date
     entries.sort(key=lambda e: e["date"], reverse=True)
