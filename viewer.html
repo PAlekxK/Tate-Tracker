@@ -4338,8 +4338,12 @@
   .feedback-ribbon.is-slim .feedback-ribbon-label {
     /* width/opacity, not display:none — the label animates back in, and a
        display toggle would also drop it from the a11y tree. The button keeps
-       its own aria-label either way. */
-    width: 0; opacity: 0; overflow: hidden; margin: 0;
+       its own aria-label either way.
+       HEIGHT must go to 0 as well, not just width: on phones the ribbon is a
+       COLUMN flex, so a zero-width label still occupies its wrapped height and
+       justify-content:center then centres icon-plus-ghost — which pins the
+       icon to the top with dead green space under it (Paul, 2026-08-01). */
+    width: 0; height: 0; opacity: 0; overflow: hidden; margin: 0; padding: 0;
   }
   .feedback-ribbon-label { transition: opacity 0.14s ease; }
   @media (prefers-reduced-motion: no-preference) {
