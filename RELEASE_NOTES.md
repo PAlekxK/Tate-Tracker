@@ -4,6 +4,17 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-01 — Easier to hit, on a phone
+
+- **The small buttons are easier to tap.** The little play buttons beside each bird and frog, the
+  map's zoom controls, the A / A+ sizing chips, the fish tabs — a good number of them were smaller
+  than a fingertip, which meant a tap could land just off and nothing would happen. They all take a
+  full fingertip now. Most of them look exactly the same as before; the part that grew is the part
+  you can't see.
+- **The fish tabs are a little taller**, so they read as doors you can push rather than labels.
+
+---
+
 ## 2026-07-31 — Every question snoozes the same way
 
 - **The third button says "Snooze card" on every question now.** It used to say something different
