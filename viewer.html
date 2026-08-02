@@ -4506,7 +4506,18 @@
   }
   .gg-suggest-btn-neutral:hover, .gg-suggest-btn-neutral:active { background: #f6f0dd; border-color: #b8a878; }
   /* Optional "add a note" — a full-width button, as legible as the answer buttons
-     (Paul's steer 2026-07-14). Dashed + softer fill marks it a modifier, not a 4th answer. */
+     (Paul's steer 2026-07-14). Dashed + softer fill marks it a modifier, not a 4th answer.
+
+     ⚠️ 2026-08-02: the button-system audit (F2/F16) proposed pulling this INTO
+     the verdict row as a fourth choice chip. NOT DONE, deliberately — it would
+     have reversed BOTH halves of the line above: Paul's full-width steer, and
+     the modifier-not-a-4th-answer distinction the dashed border exists to carry.
+     The audit was reasoning from the 7/26 finding that this is "the move she
+     cannot be wrong about"; that argues for prominence, which full-width already
+     gives it, not for demoting it into the row of things she CAN be wrong about.
+     Paul's complaint (a ragged row) is fully answered by the grid above. Two
+     widths remain — half for the verdicts, full for the deferral and this — and
+     every edge now lands on the card's edge. Raise it with Paul before moving. */
   .mom-queue-addnote {
     display: block; width: 100%; box-sizing: border-box; margin-top: 10px;
     border-radius: var(--r-pill); padding: 8px 16px; min-height: 44px; line-height: 1;
@@ -4693,13 +4704,42 @@
     line-height: 1.45;
   }
 
-  /* Garden Guru suggestion actions — yes/no chips after a photo-ID response */
+  /* Garden Guru suggestion actions — yes/no chips after a photo-ID response.
+
+     ⭐ A CONTROL ROW IS EVEN OR IT IS STACKED — NEVER WRAPPED (2026-08-02).
+     Paul: "that's all of them is kind of on top of a row where something's
+     missing." It was a wrap artifact, and it was computable: `flex-wrap` in a
+     336px card against ✓ Looks right (~125px) + × Not quite (~117px) + the
+     global deferral from a474276 (~136px) = 394px. Line 1 took the two
+     verdicts, the deferral wrapped alone, and ~200px of empty row sat beside
+     it. A ragged row reads as a missing control, not as a line break.
+
+     A GRID, never flex-wrap: wrap decides the layout from label lengths, which
+     change with copy, with text-lg and with translation. The grid states the
+     real structure instead — two verdicts, one deferral — so form follows
+     function rather than following the widest word.
+
+     A true 3-up is NOT reachable at 390px and this is measured, not a guess:
+     three even cells give 106px and "I haven't looked" needs ~136px at her
+     14px floor. Getting there costs type below the floor or every label on two
+     lines. Paul chose the 2+1 (2026-08-02) precisely because it needs no
+     change to a ratified component. */
   .gg-suggest-actions {
-    display: flex;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--btn-gap);
     margin: 8px 0 4px;
-    flex-wrap: wrap;
   }
+  /* The deferral spans — it is a different KIND of answer from the two
+     verdicts, and the geometry now says so. */
+  .gg-suggest-actions > .gg-suggest-btn-neutral { grid-column: 1 / -1; }
+  /* A lone action ("Try again" on the add-error path) spans rather than sitting
+     at half width beside nothing — the row stays even either way, which is the
+     whole rule. */
+  .gg-suggest-actions > :only-child { grid-column: 1 / -1; }
+  .gg-suggest-actions > .gg-suggest-btn-yes,
+  .gg-suggest-actions > .gg-suggest-btn-no,
+  .gg-suggest-actions > .gg-suggest-btn-neutral { justify-content: center; }
   /* Yes/No confirm buttons (per ux-expert F4, 2026-05-22):
      Yes = filled green pill with ✓ glyph. No = outlined neutral pill with × glyph.
      Glyph + fill state carries the decision independent of label legibility. Critical
@@ -10968,10 +11008,13 @@ const MomQueue = (function () {
     card.appendChild(laterHint);
 
     // The quiet, optional "add a note" invite — present on every card, secondary.
+    // The label NAMES WHAT OPENS, in her register, and carries no glyph: a glyph
+    // on a button must carry the DECISION, never the topic, and "＋" was doing
+    // neither. Recommended 2026-07-26, shipped 2026-08-02.
     const addNote = document.createElement("button");
     addNote.type = "button";
     addNote.className = "mom-queue-addnote";
-    addNote.textContent = "＋ Add a note";
+    addNote.textContent = "Tell me in your own words";
     addNote.addEventListener("click", () => { markTapped(q); openNote("In your words (optional)"); addNote.style.display = "none"; });
     card.appendChild(addNote);
 
