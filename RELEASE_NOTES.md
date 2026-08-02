@@ -4,6 +4,28 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-02 — The weather card says each thing once
+
+- **One reading, one place.** The weather card had a habit of telling you the same thing three
+  ways — a note up top, then the same temperature again a little further down, then a third
+  summary beside it. Each part now says its own thing: the sentence at the top tells you what
+  the day is like, and the numbers live with the station reading that measured them.
+- **The fungal-weather note says what it's about.** It used to read "Fungal pressure high — water
+  at the base, not foliage," which left you to guess what was at risk. On a muggy day it now names
+  the plant: "Fungal weather for the boxwood and anything crowded — water at the base, not the
+  leaves."
+- **The day-by-day rainfall no longer runs off the edge.** In the larger text size on a phone, the
+  last box in the seven-day rainfall strip pushed past the card's border. The row now fits, and in
+  large text it wraps onto two tidy lines instead of squeezing.
+- **The buttons match each other.** Rounded, oval, wide, narrow — the buttons had drifted into a
+  lot of different shapes. Now a rounded oval always means "pick one of these" and a rounded
+  rectangle always means "send it," everywhere in the app. The answer buttons also keep their oval
+  shape properly in the larger text size, which they had stopped doing.
+- **The answer buttons sit in a tidy row.** On a question card, the two answers now sit side by
+  side with the "I haven't looked" option across the bottom, instead of leaving an awkward gap.
+
+---
+
 ## 2026-08-02 — Bolores's cabin lights get their own line
 
 - **The warm-LED conversion is on her service history now.** In October the dome light, the two map
