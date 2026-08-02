@@ -117,3 +117,26 @@ animal, or a deliberate probe once the garden queue is healthy.
 **Principle invoked:** [[feedback_defer_affordances_pending_signal]] — build where the signal is, not
 where the records are.
 **Decided by:** paul-stated
+
+### the bench as a whole · 2026-08-02
+**Call:** approve nothing today · shape: n/a
+**Reasoning:** The live queue is full at 5, every live card's observable exists today, nothing is ready
+to fold, nothing pins the watermark and no note of hers is unanswered. **Approving a card with zero
+open slots changes nothing she sees** — it moves an item from one holding state to another and creates
+the impression of progress. The gate exists to decide what she is asked, not to drain a list.
+**What actually changes the queue** is one of the five being answered or retired, and that is her move
+or a deliberate retirement, not an approval.
+**Principle invoked:** derive a gate's pending count; don't act on the list's length.
+**Decided by:** agent-proposed
+
+### q-wild-violet · weed · 2026-08-02
+**Call:** don't serve yet — drafted but out of season · shape: identity
+**Reasoning:** Newly harvestable after M1, and the record names its own observable — but that observable
+is *"the little purple flowers next spring."* Serving it in August asks her to look for something that
+will not exist for seven months. Same failure as the spiderwort bloom card, arriving by a different
+road: there, a date range said so; here it is prose the machine cannot parse, which is why the
+harvester **flags** it rather than filtering it. Worth noting the near-miss — a marker-agnostic
+harvester finds more, and *more* includes more that is wrong for today.
+**Principle invoked:** only a measured closed window may say "do not serve"; prose gets flagged to a
+human.
+**Decided by:** agent-proposed
