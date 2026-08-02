@@ -34,6 +34,12 @@
  * Secrets (configured via `npx wrangler secret put NAME`):
  *   SHARED_TOKEN          — required, gates /api/*
  *   AIRNOW_API_KEY        — required for /api/airnow (free at airnowapi.org)
+ *   AMBIENT_APP_KEY       — required for /api/ambient; the on-site station's
+ *   AMBIENT_API_KEY         applicationKey/apiKey pair. These used to be inlined
+ *                           in viewer.html and served world-readable from public
+ *                           Pages; this route is what let them come out.
+ *   AMBIENT_MAC           — optional; defaults to the property station's MAC,
+ *                           which is a device id and not a secret
  *   ANTHROPIC_API_KEY     — required for /api/today-line, /api/classify, /api/chat,
  *                            /api/promote-species (schema drafter call)
  *   GITHUB_TOKEN          — required for /api/promote-species; fine-grained PAT with
@@ -240,6 +246,68 @@ async function withCache(env, key, ttlSeconds, producer) {
   const fresh = await producer();
   await env.OBSERVATIONS.put(key, JSON.stringify(fresh), { expirationTtl: ttlSeconds });
   return { ...fresh, cached: false };
+}
+
+// ---- Ambient Weather proxy (2026-08-02) ----
+//
+// WHY THIS EXISTS: the on-site station call was CLIENT-SIDE, so the
+// `applicationKey`/`apiKey` pair had to ship inside viewer.html — served
+// world-readable from a public Pages site since 2026-05-05. Rotating the key
+// without this route in place would simply have republished the NEW key, which
+// is why the fix was recorded backwards once and sat for 89 days. Correct order:
+//   1. this proxy ships and its secrets are set   (Paul: `wrangler secret put`)
+//   2. viewer.html switches to /api/ambient and the literals come OUT
+//   3. only THEN does Paul rotate at ambientweather.net — by that point no key
+//      exists in any client, so the rotation is final rather than cosmetic
+//
+// Blast radius of the exposure was always small (read access to one weather
+// station), which is why deferring stayed reasonable. It is not a reason to
+// leave a live credential in a public file indefinitely.
+//
+// The MAC is NOT a secret — it is a device identifier, already public in the
+// repo and in every historical commit — so it stays a plain default and only the
+// key pair moves to secrets.
+const AMBIENT_MAC_DEFAULT = "D8:F1:5B:15:28:B8";
+
+async function handleAmbient(request, env, url) {
+  if (!env.AMBIENT_APP_KEY || !env.AMBIENT_API_KEY) {
+    return json({ error: "ambient-not-configured" }, 503);
+  }
+  // The dashboard asks for 288 points (24 h at 5-min resolution). Clamp rather
+  // than trust the caller: this route is unauthenticated like the other
+  // read-only proxies, and Ambient rate-limits at roughly 1 request/second.
+  const limitRaw = parseInt(url.searchParams.get("limit") || "288", 10);
+  const limit = Math.min(Math.max(Number.isFinite(limitRaw) ? limitRaw : 288, 1), 288);
+  const mac = (env.AMBIENT_MAC || AMBIENT_MAC_DEFAULT).trim();
+  const key = `cache:ambient:${mac}:${limit}`;
+  try {
+    // 120 s: the station reports about once a minute, and the dashboard's own
+    // "measured, not modelled" promise wants this fresh. Short enough to stay
+    // honest, long enough that a page refresh loop cannot burn the rate limit.
+    const data = await withCache(env, key, 120, async () => {
+      const upstream = "https://api.ambientweather.net/v1/devices/"
+        + encodeURIComponent(mac)
+        + "?applicationKey=" + encodeURIComponent((env.AMBIENT_APP_KEY || "").trim())
+        + "&apiKey=" + encodeURIComponent((env.AMBIENT_API_KEY || "").trim())
+        + "&limit=" + limit;
+      const res = await fetch(upstream);
+      const text = await res.text();
+      if (!res.ok) {
+        // Never echo `text` to the caller — an Ambient error body can quote the
+        // query string back, which would hand the very credential this route
+        // exists to hide to an unauthenticated client.
+        throw new Error(`Ambient HTTP ${res.status}`);
+      }
+      let rows;
+      try { rows = JSON.parse(text); }
+      catch (e) { throw new Error("Ambient returned non-JSON"); }
+      if (!Array.isArray(rows)) throw new Error("Ambient returned an unexpected shape");
+      return { rows, mac, limit, fetchedAt: new Date().toISOString() };
+    });
+    return json(data);
+  } catch (e) {
+    return json({ error: "ambient-fetch-failed", detail: String(e.message || e) }, 502);
+  }
 }
 
 // ---- AirNow proxy ----
@@ -2123,6 +2191,7 @@ export default {
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
+          ambient: !!(env.AMBIENT_APP_KEY && env.AMBIENT_API_KEY),
           anthropic: !!env.ANTHROPIC_API_KEY,
           github: !!(env.GITHUB_TOKEN && env.GITHUB_REPO),
           openai: !!env.OPENAI_API_KEY,
@@ -2151,6 +2220,20 @@ export default {
       if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
       return handleZoneAudio(request, env, url);
     }
+
+    // ---- READ-ONLY WEATHER, DELIBERATELY UNGATED (2026-08-02) ----
+    // The station call it replaces was a DIRECT browser fetch, so it worked on
+    // every device Mom has ever opened, paired or not. The shared token is pasted
+    // per device — so putting this behind the gate would blank the on-site
+    // conditions on any unpaired device, which is precisely the 2026-07-16
+    // failure: per-device pairing turning HER primary device into a silent void,
+    // invisible to Paul because a dark device looks like disengagement.
+    //
+    // Fernwood's stated posture decides it: privacy here is LIGHT security and is
+    // SUBORDINATE TO MOM'S ACCESS. What is exposed is the outdoor conditions at a
+    // house, scoped to one MAC, cached, with no credential reachable — strictly
+    // less than the world-readable API key this route exists to retire.
+    if (url.pathname === "/api/ambient")    return handleAmbient(request, env, url);
 
     if (!authOk(request, env)) return unauthorized();
 
