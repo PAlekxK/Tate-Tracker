@@ -12,7 +12,7 @@ python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
 python3 tools/check-cards.py               # does the SERVED card queue match reality?
 python3 tools/rationalize-bench.py         # is anything we're serving OUT OF SEASON, and what's on the bench?
-python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — her NEW answers + anything she said that's unanswered (silent if none)
+python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — the Mom-check counter (ALWAYS one line) + her NEW answers and anything unanswered
 python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — decline vs. misunderstanding
 ```
 
@@ -20,6 +20,17 @@ python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — dec
 that we initialize around the Fernwood tracker, we should check for feedback from [Mom] — that should
 be part of our first step, and current state."* That is what the block above is; run it before
 anything else, not after picking a thread.
+
+**⭐ The Mom-check counter — one line, every run, quiet days included (Paul, 2026-08-02).** `--pickup`
+used to be **silent on the happy path**, which meant *"nothing new"* and *"nobody has looked in nine
+days"* printed the same thing: nothing. A quiet watcher and a dead one are indistinguishable in a log.
+So it now always prints `🌿 Mom-check — last checked N days ago · her last answer <date>`, with a ⚠️
+once the gap reaches 7 days, and stamps `lastCheckedAt` in `.private/mom-feedback-state.json` on every
+run — so the number measures **the gap between sessions that actually looked**. Run it in any session
+that touches this repo, not only a formal pickup. *This is the deliberate replacement for wiring
+`mom-queue-watch.py`'s email path* — Paul's call: *"a counter that tells us when's the last time, a
+reminder to nudge us… that's just simpler than trying to do something super automated."* The email
+code stays in place, unconfigured, and is **not** to be "fixed" (see the docstring on `notify_email`).
 
 *(Occasionally, and after any change to a feedback channel: `python3 tools/test-feedback-cycle.py` — proves a note can't be captured and then silently lost. `--live` also exercises the real POST path.)*
 

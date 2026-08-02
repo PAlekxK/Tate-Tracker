@@ -88,6 +88,20 @@ def notify_macos(title, body):
 
 
 def notify_email(subject, body):
+    """⛔ DELIBERATELY UNCONFIGURED — Paul's call 2026-08-02. Do not "fix" this.
+
+    `.private/gmail-app-password` does not exist, so this always returns False
+    and every ping logs `(email=skipped)`. That was raised as a gap — pings land
+    only on a Mac nobody may be looking at — and Paul chose NOT to wire it:
+    *"that's something we may wanna revisit in the future, but for now I don't
+    wanna hear about it anymore… I don't wanna go through all the steps."*
+
+    What replaced it is cheaper and needs no secret: `read-mom-feedback.py
+    --pickup` now prints a **Mom-check counter on every run**, including quiet
+    ones, so any session touching this repo sees how long it has been since
+    anyone looked. Push notification traded for a pull reminder, on purpose.
+    Leave the code path in place — it works the moment the file appears.
+    """
     try:
         with open(APP_PW_FILE, encoding="utf-8") as f:
             app_pw = next((ln.strip() for ln in f if ln.strip() and not ln.startswith("#")), "")

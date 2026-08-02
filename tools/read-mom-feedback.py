@@ -123,6 +123,58 @@ def save_state(state):
         json.dump(state, f, ensure_ascii=False, indent=2)
 
 
+def _days_since(iso):
+    """Whole days between an ISO timestamp and now. None if unparseable."""
+    if not iso:
+        return None
+    try:
+        then = dt.datetime.fromisoformat(str(iso).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if then.tzinfo is None:
+        then = then.astimezone()
+    return max(0, (dt.datetime.now().astimezone() - then).days)
+
+
+def render_counter(state, mom, window_days):
+    """ONE line, printed at EVERY pickup — including the quiet ones.
+
+    Paul's call 2026-08-02, replacing the unconfigured email path on
+    mom-queue-watch: *"anytime we work within the Fernwood repository, we should
+    check and have, like, a counter that tells us when's the last time — a
+    reminder to nudge us to check for Mom's feedback. That's just simpler than
+    trying to do something super automated."*
+
+    Why a counter and not silence: a quiet watcher and a dead one look
+    IDENTICAL in a log, and `--pickup` was silent on the happy path — so
+    "nothing new" and "nobody has looked in nine days" printed the same thing
+    (nothing). The counter is the cheap instrument that tells those apart, and
+    it costs one line. It measures the gap between sessions that actually
+    looked, which is why the stamp is written on every run.
+    """
+    since_check = _days_since(state.get("lastCheckedAt"))
+    if since_check is None:
+        when = "never checked before (first run — the counter starts today)"
+    elif since_check == 0:
+        when = "last checked today"
+    elif since_check == 1:
+        when = "last checked yesterday"
+    else:
+        when = f"last checked {since_check} days ago"
+
+    newest = max((r.get("ts") or "") for r in mom) if mom else ""
+    if newest:
+        d = _days_since(newest)
+        hers = (f"her last answer {momlib.et_str(newest, with_time=False)}"
+                + (f" ({d}d ago)" if d is not None else ""))
+    else:
+        hers = f"no answers from her in the last {window_days} days"
+
+    # Loud only when the gap is real. A nudge that fires every day is furniture.
+    flag = "⚠️ " if (since_check is not None and since_check >= 7) else ""
+    print(f"{flag}🌿 Mom-check — {when} · {hers}.")
+
+
 def load_questions():
     """questionId -> question dict, from the repo's questions.json (if present)."""
     data = momlib.load_json("questions.json")
@@ -504,7 +556,17 @@ def main():
         return 0
 
     if args.pickup:
+        # The counter prints FIRST and ALWAYS — before the conditional block, so
+        # a quiet day still produces a line. Stamped after rendering so the line
+        # reports the gap since the PREVIOUS look, not zero.
+        try:
+            window_days = (dt.date.fromisoformat(args.end) - dt.date.fromisoformat(args.start)).days
+        except ValueError:
+            window_days = 30
+        render_counter(state, mom, window_days)
         render_pickup(mom, questions, watermark, rows, buckets, note_buckets)
+        state["lastCheckedAt"] = dt.datetime.now().astimezone().isoformat()
+        save_state(state)
     else:
         render_full(mom, other, questions, watermark, args.all, rows, buckets, note_buckets)
 
