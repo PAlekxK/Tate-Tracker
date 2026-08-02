@@ -3,7 +3,8 @@ type: behavioral-interpretation
 project: fernwood
 artifact_id: mom-behavior-interpretation-2026-07-02
 date: 2026-07-02
-evidence_level: validated (behavior) + inferred-strong (device→Mom)
+evidence_level: "⛔️ device→Mom REFUTED 2026-07-28; re-attributed 2026-08-01 — see the banner"
+reattributed: 2026-08-01
 sources:
   - .user-research/2026-07-02-garden-guru-conversation-analysis.md (real KV turn content + 40-day metrics window)
   - .user-research/persona-mom.md (2026-05-27 telemetry-grounded persona)
@@ -19,6 +20,59 @@ purpose: >
 ---
 
 # Mom's behavior as the transcript — interpretation, rubric reconciliation, verification questions
+
+> # ⛔️ RE-ATTRIBUTED 2026-08-01 — the device this artifact reads as Mom is PAUL
+>
+> **The caveat below asked for exactly one thing: a Paul-sights-her-phone confirmation.
+> It arrived on 2026-07-28 and went the other way.** `tools/people.json` corrected the map
+> against *content*: `d-14nyhnjz` is Paul; Mom is `d-szqlt0h7`.
+>
+> This artifact has now been re-attributed **per conversation**, not waved off. Method:
+> `conversation_started` metrics events carry a `deviceId` (the conversation records
+> themselves carry `deviceId: null` — **which is why this was never checkable from the
+> conversation data alone, and is the root cause of the whole error**). Each of the 25
+> conversation records was joined to its start event by timestamp; nearest match ≤12s, and
+> the two closest start events in the entire corpus are **51s** apart, so **zero joins are
+> ambiguous.**
+>
+> ### The corpus, 2026-05-01 → 2026-08-01
+>
+> | | conversations | multi-turn (a real follow-up) |
+> |---|---|---|
+> | **Paul** (`d-14nyhnjz` + `d-avslqpyd`) | **12** | 7/03 ×3 (incl. an **8-turn**), 7/14 |
+> | **Mom** (`d-szqlt0h7`) | **9**, spanning 05-21 → 07-26 | **5/28 (4-turn) and 7/26 (6-turn)** |
+> | unattributed | 4 (all 05-20, 19:38–19:41 — four in four minutes, launch-day testing) | — |
+>
+> ### What that does to this artifact's four findings
+>
+> 1. **"Adoption is durable — active 27 of ~40 days" → PAUL.** The headline is void as a
+>    statement about Mom. Her real cadence is in `persona-mom.md`.
+> 2. **"Her Guru questions are the stewardship-lookup the rubric predicted" → SURVIVES, and
+>    this artifact had the evidence in hand.** §"Paul-mobile silent failure" logged
+>    `d-szqlt0h7` as *"7 conversations, stewardship-voiced"* and filed it as an unresolved
+>    **Paul** device. The stewardship voice was read correctly and attached to the wrong
+>    person. **Content-reading was the sound instrument here; device attribution was the
+>    broken one.**
+> 3. **The 5/28 creeping-fig follow-up → CORRECTLY Mom's** (4 turns, joined at Δ7s). The
+>    "she was trying to continue and hit a UI wall" reading stands.
+> 4. **The 7/02 lily-pad utterance → PAUL's** (07-02T18:24, 2 turns, Δ8s). ⛔️ **This one
+>    proposed a NEW JOB for the persona off a single observation.** It is Paul's own
+>    utterance. The candidate job is withdrawn; it was never evidence about Mom.
+>
+> ### And one thing that is now BETTER than this artifact claimed
+>
+> The anti-persona says Mom *"is not the power-user conversationalist who chains 8
+> follow-ups."* Corrected: **the 8-turn conversation in this corpus is Paul's**, and **Mom
+> has two genuine multi-turn conversations, not one** — 5/28 (4 turns) and 7/26 (6 turns,
+> her longest). The "single follow-up in the entire corpus" framing was an artifact of
+> counting Paul's device as hers. She follows up more than this said.
+>
+> ⚠️ **`turnCount` is a TURN PAIR, not a user turn** — `turnCount: 2` means *one* user turn.
+> Every conversation in the corpus is ≥2. Read ≥4 as "she came back."
+>
+> *Re-attribution is metadata-only (device, timestamp, turn count) — no turn content was
+> re-read, per the ingress/quarantine clauses in CLAUDE.md.*
+
 
 We stopped waiting on the discovery interview because Mom's 40 days of real use
 answer most of what the interview was designed to ask. This artifact reads that

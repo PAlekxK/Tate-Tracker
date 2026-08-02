@@ -65,21 +65,34 @@ The user whose adoption decides whether Fernwood is worth building at all. Joint
 
 **~~Status update 2026-05-27 (telemetry)~~ — ⛔️ RETRACTED 2026-08-01, see banner.** ~~Adoption is no longer hypothetical.~~ The `d-14nyhnjz-...` device — viewport 393x793 (iPhone Pro), 27 sessions / 341 events over 6 days, the only device that touched the A/A+ text-size toggle (12 events) — was read as Mom's. **It is Paul's.** "Confirmation step is still Paul-sights-her-phone" was the caveat that should have blocked every downstream `[validated]` tag and did not: **the persona promoted an unconfirmed identification to validated evidence, then reasoned from it for nine weeks.** That is the durable lesson here — not the wrong device, but that nothing in the process re-tested the load-bearing assumption once it had been written down.
 
-**Status update 2026-07-02 (40-day conversation-content read):** ⚠️ **THIS BLOCK INHERITS THE SAME
-BAD ATTRIBUTION — 2026-08-01.** It reads *content*, which is the right instrument, but it selected
-that content by device, and its own last line admits the join was never confirmed
-(*"Device→Mom remains `[inferred, strong]`, still awaiting a Paul-sights-her-phone confirmation"*).
-That confirmation came on 2026-07-28 and **went the other way.** So *"active 27 of ~40 days"* is
-Paul, and every conversation called "probable-Mom" here needs re-attributing before it is cited —
-`d-szqlt0h7` recorded **2 conversations** in the 07-13→08-01 window, not a 40-day corpus.
-**Re-reading the turn content against the corrected map is genuine open work, not a doc fix**, and
-it is the one piece of this correction a re-derivation could not do mechanically. *Original text
-kept below.* The window extended from 6 days to ~40, and we now read the actual turn *content*, not just event counts. See `.user-research/2026-07-02-mom-behavior-interpretation.md` for the full read. Headlines:
-- `[validated]` **Adoption is durable, not a spike.** Active 27 of ~40 days *through today*; ran a photo-bearing Guru conversation today. The 2026-05-27 "Guru-becomes-pattern: NOT YET" and the 4-day-silence worry are both retired — Guru use is now an **emerging pattern**, not a one-off.
-- `[validated]` **Her Guru questions are the stewardship-lookup the rubric predicted** — fertilize/transplant timing, soil amendment, ID, seasonal diagnosis. None idle.
-- `[inferred, single-observation]` **A new job the persona didn't hold:** log a *seasonal change on a plant she already knows* + diagnose + get advice, in one breath (today's lily-pad utterance). Distinct from Job 3 (ID the unknown) and Job 5 (promote a new species). N=1, probable-Mom; verification Q's drafted to firm it up. It currently dead-ends into Paul's manual work.
-- `[contested]` **The anti-persona "multi-turn probably misses her" causal claim is softened** — the only 2-turn conversation in the whole corpus (5/28 creeping-fig, probable-Mom) was her *trying to continue* and hitting a UI wall, not choosing to stop. She's still not a chain-eight-follow-ups user; but "doesn't follow up" ≠ "doesn't want to."
-- Device→Mom remains `[inferred, strong]`, still awaiting a Paul-sights-her-phone confirmation.
+**Status update 2026-07-02 (40-day conversation-content read) — ✅ RE-ATTRIBUTED PER CONVERSATION 2026-08-01.**
+Its own last line asked for a Paul-sights-her-phone confirmation; that arrived 2026-07-28 and **went
+the other way.** Rather than discard the artifact, every one of the 25 conversations in
+2026-05-01→08-01 was re-attributed: `conversation_started` metrics events carry a `deviceId` (the
+conversation records themselves carry **`deviceId: null`** — the root cause: this was never checkable
+from conversation data alone), joined by timestamp, nearest match ≤12s, closest two start events 51s
+apart, **0 ambiguous joins**. Full working: `.user-research/2026-07-02-mom-behavior-interpretation.md`.
+
+**The corpus: Paul 12 · Mom 9 (05-21→07-26) · 4 unattributed** (all 05-20 19:38–19:41, four in four
+minutes — launch-day testing). Headline-by-headline:
+- ⛔️ ~~`[validated]` **Adoption is durable** — active 27 of ~40 days~~ → **PAUL.** Void as a claim
+  about Mom. See the re-opened question at the bottom of this file.
+- ✅ `[validated]` **Her Guru questions are the stewardship-lookup the rubric predicted** —
+  **SURVIVES, and the artifact had the evidence in hand.** It logged `d-szqlt0h7` as *"7
+  conversations, stewardship-voiced"* and filed it under a **Paul** heading. The voice was read
+  correctly and attached to the wrong person. *Content-reading was the sound instrument; device
+  attribution was the broken one.*
+- ⛔️ ~~`[inferred, single-observation]` **A new job the persona didn't hold** (the lily-pad
+  utterance)~~ → **PAUL's** (07-02T18:24, Δ8s). **Withdrawn.** It was never evidence about Mom, and
+  it was a persona-level proposal off a single observation.
+- ✅ `[contested→better]` **The 5/28 creeping-fig follow-up is correctly Mom's** (4 turns, Δ7s), so
+  "she was trying to continue and hit a UI wall" stands — **and she follows up MORE than this said.**
+  She has **two** genuine multi-turn conversations, not one: 5/28 (4 turns) and **7/26 (6 turns, her
+  longest)**. The lone-follow-up framing was an artifact of counting Paul's device as hers.
+- ⚠️ **`turnCount` is a TURN PAIR, not a user turn.** `turnCount: 2` = *one* user turn; everything in
+  the corpus is ≥2. Read ≥4 as "she came back." Several old claims turn on this and read as if 2 were
+  a follow-up.
+- ✅ Device→Mom is no longer `[inferred, strong]` — it is **settled, and it was wrong.**
 
 ## Situation
 
@@ -131,7 +144,7 @@ The headline: the project is succeeding at its load-bearing metric. Garden Guru 
 
 `[inferred]` — The productivity-app user who wants checklists, streaks, completion percentages, and reminder pings. Mom is not that user, and designing for that user breaks this one. Also not the casual visitor who's just curious about the property — Mom has a real stake in it, and the app should treat her as someone whose knowledge of the place exceeds what's in the app, not the other way around.
 
-`[inferred — added 2026-05-27; causal claim CONTESTED 2026-07-02]` — Also not the "power-user conversationalist" who chains 8 follow-ups with the AI. Telemetry: her conversations are single-turn. She asks; she gets an answer; she stops. **BUT — the 2026-07-02 content read contests *why*.** The only 2-turn conversation in the entire corpus (5/28, probable-Mom, "our journal") was her *trying to continue* — to add a plant — and hitting a dead-ending UI, not choosing to be done. So "she doesn't follow up" can no longer be read as "she doesn't want to"; behavior can't separate *didn't want to* from *couldn't find how* (verification Q1 is built to). She is still not a chain-eight-turns user, and the low-attention posture is real — so the anti-persona holds in spirit. What's dropped is the confident inference that affordances assuming any continuation "probably miss her." A *re-presented input box after a reply* (a surfacing fix, not a chat-history browser) may be exactly what her one blocked follow-up wanted.
+`[REWRITTEN 2026-08-01 on the corrected attribution — was "inferred 2026-05-27, contested 2026-07-02"]` — Also not the "power-user conversationalist" who chains 8 follow-ups with the AI. **⚠️ The 8-turn conversation this sentence was written against is PAUL's** (07-03), so the anti-persona was being drawn by contrast with the builder, not measured against her. Corrected: of Mom's **9** conversations, **7 are single-turn and 2 are genuine follow-ups** — 5/28 (4 turns) and 7/26 (6 turns). ~~The only 2-turn conversation in the entire corpus~~ The 5/28 conversation ("our journal") was her *trying to continue* — to add a plant — and hitting a dead-ending UI, not choosing to be done. So "she doesn't follow up" can no longer be read as "she doesn't want to"; behavior can't separate *didn't want to* from *couldn't find how* (verification Q1 is built to). She is still not a chain-eight-turns user, and the low-attention posture is real — so the anti-persona holds in spirit. What's dropped is the confident inference that affordances assuming any continuation "probably miss her." A *re-presented input box after a reply* (a surfacing fix, not a chat-history browser) may be exactly what her one blocked follow-up wanted.
 
 ## Evidence log
 
@@ -141,7 +154,7 @@ The headline: the project is succeeding at its load-bearing metric. Garden Guru 
 - `2026-07-02: [contested] — same — the only 2-turn conversation in the corpus (5/28 creeping-fig, probable-Mom "our journal") was a user trying to CONTINUE and hitting a UI wall. Softens the 2026-05-27 anti-persona multi-turn causal claim; the single-turn pattern may be a dead-ending UI, not disposition.`
 - `2026-05-27: [validated] — Telemetry rollup (.audit/2026-05-26-telemetry-rollup.md) — likely-Mom device d-14nyhnjz-... shows 27 sessions / 341 events over 6 days. Adoption is real. The single strongest validation event since project start.`
 - `2026-05-27: [validated] — Telemetry rollup — 12 text_size_changed events on her device (only device that used the A/A+ toggle). The no-reading-glasses constraint is now behaviorally validated, not just stated.`
-- `2026-05-27: [validated] — Telemetry rollup — All 2 of her Garden Guru conversations are 2-turn. Multi-turn engagement is not part of her pattern (yet).`
+- `2026-08-01: [CORRECTED — supersedes the 2026-05-27 entry] — Re-attributed per conversation (conversation_started deviceId, joined to conversation records by timestamp; 0 ambiguous joins). Mom has NINE conversations 05-21→07-26, and TWO are genuinely multi-turn: 5/28 (4 turns) and 7/26 (6 turns, her longest). The old entry counted 2 conversations on the wrong device. NOTE turnCount is a TURN PAIR — turnCount 2 = one user turn — so read >=4 as 'she came back.' Multi-turn engagement IS part of her pattern, just not a frequent one.`
 - `2026-05-27: [validated] — Telemetry rollup — 0 stars in 55 entry_revisited events on her device (0 across 104 revisits all-devices). The star affordance is not part of how she uses the app. Revisit-as-curation IS the behavior; tapping a star is not.`
 - `2026-05-27: [inferred — instrumentation gap] — Telemetry rollup — 27 session_starts vs 1 session_end on her device. iOS Safari is not reliably firing the unload-style handler; retention/engagement metrics derived from session_end will undercount her. Not a behavioral signal about her — a measurement gap.`
 - `2026-05-27: [validated] — Telemetry rollup — Plants (60) and Weather (60) are most-viewed cards on her device. Wildlife (54), Celestial (47), Property (45). Field-notes is 43 views with 18 expands (highest expand-rate) — when she opens field-notes, she opens deeply.`
@@ -160,9 +173,22 @@ The headline: the project is succeeding at its load-bearing metric. Garden Guru 
 
 Updated 2026-05-27. Items that telemetry closed are removed; items it opened are added.
 
-### Closed by telemetry (was open at 2026-05-22)
-- ~~Behavioral: in the first 30 days after launch, does Mom open the app unprompted? How often?~~ → **YES, ~4.5 sessions/day on the likely-Mom device. Closed.**
-- ~~Mobile vs. desktop split: is the porch-and-kitchen mobile model correct?~~ → **Mobile-only confirmed. Closed.**
+### ⛔️ RE-OPENED 2026-08-01 — these were closed by telemetry that counted Paul
+**A question closed on the wrong person's data is not closed, and leaving it struck through
+is worse than never having asked it** — it tells every later reader the make-or-break
+question is settled.
+
+- **RE-OPENED · Behavioral: does Mom open the app unprompted, and how often?**
+  ~~YES, ~4.5 sessions/day. Closed.~~ That was Paul's device. **Re-derived 2026-07-13→08-01:
+  11 sessions across 6 active days ≈ 0.55/day**, against Paul's 69/18. That is real,
+  recurring use by someone who is not the builder — but it is **not** the "adoption is no
+  longer hypothetical" verdict this persona has carried since May.
+  **This is the project's make-or-break question and it is OPEN.** The clean measurement
+  window (`tools/read-mom-funnel.py`, builder devices excluded) closes **2026-08-10**.
+  ⚠️ Do not pool across 2026-07-30 — four input surfaces were restyled at once.
+- **STILL CLOSED · Mobile vs. desktop split** — the porch-and-kitchen mobile model holds.
+  This one survives the correction: `d-szqlt0h7` is a phone, zero desktop activity appears
+  on **any** device in the pool, and the claim never depended on which phone was hers.
 
 ### Still open from prior sessions
 - Auth: what does "easy to remember" mean for her specifically — a family word, a shared phrase, a 4-digit code? Worth a single direct conversation before implementing.

@@ -71,9 +71,27 @@ surface outranks anything that adds an ask** — the second is unmeasurable unti
   excluded: **offered 14 → viewed 9 → tapped 2 → answered 4**; front door **offered 10 → viewed 7 →
   tapped 0**. Her device is **11 sessions / 6 active days** against Paul's **69 / 18**.
   That is not a disengaged user.
-  - ⚠️ **Still open, and it is not a doc fix:** the **2026-07-02 40-day conversation-content read**
-    inherits the same bad attribution — it selected content *by device*. Its conversations need
-    re-attributing before any of its findings are cited again.
+  - ✅ **RE-ATTRIBUTED 2026-08-01 (Paul: go-ahead).** All 25 conversations in 05-01→08-01 mapped to
+    a person. **Root cause found: the conversation records carry `deviceId: null`** — attribution
+    was never checkable from conversation data, only from the `conversation_started` metrics event.
+    Joined by timestamp; nearest ≤12s, closest two start events 51s apart, **0 ambiguous joins**.
+    **Corpus: Paul 12 · Mom 9 (05-21→07-26) · 4 unattributed** (all 05-20 19:38–19:41).
+    - **Void:** "adoption is durable, 27 of ~40 days" (Paul) · the **lily-pad new-job proposal**
+      (Paul's utterance, 07-02T18:24 — a persona-level job proposed off one observation).
+    - **Survives:** "her Guru questions are stewardship-lookup" — the artifact had logged
+      `d-szqlt0h7` as *"7 conversations, stewardship-voiced"* **under a Paul heading**. It read the
+      voice right and attached it to the wrong person. *Content-reading was the sound instrument.*
+    - **BETTER than we thought:** the 8-turn conversation is **Paul's**, and Mom has **two**
+      multi-turn conversations (5/28 4-turn, **7/26 6-turn**), not one. She follows up more than the
+      anti-persona said.
+    - ⚠️ **`turnCount` is a TURN PAIR** — `turnCount: 2` = one user turn. Several old claims read as
+      if 2 were a follow-up. Read ≥4 as "she came back."
+  - ⛔️ **RE-OPENED: does Mom open the app unprompted, and how often?** The persona had it struck
+    through as *"YES, ~4.5 sessions/day. Closed."* — closed on **Paul's** data. Re-derived: **11
+    sessions / 6 active days ≈ 0.55/day** vs Paul's 69/18. Real recurring non-builder use, but not
+    the "adoption is no longer hypothetical" verdict carried since May. **This is the make-or-break
+    question and it is OPEN**; the clean window closes **2026-08-10**. *A question closed on the
+    wrong person's data is not closed, and leaving it struck through tells every later reader it is.*
 - **The fear hypothesis loses its quantitative leg.** What remains is self-report, n=1, offered to a
   reassuring son — this project's own weakest evidence class.
 - **A rival now fits better: TOPIC ORIGIN.** Every card authored from *our* uncertainty markers and
