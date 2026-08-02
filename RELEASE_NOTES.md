@@ -11,6 +11,9 @@ What's changed at Fernwood lately. Newest first.
   plastic dome lens fitted at the same time. Two sets of white bulbs were tried first and sent
   back — the white was too sterile — so the warm light in that cab is a choice somebody made, not
   whatever came in the box. That's the kind of thing a service record usually loses.
+- **And the switch that didn't work got its footnote.** Before the rear tailgate-window switch that's
+  in the dash today, an aftermarket one was wired in and shorted on the first test — melted its own
+  plastic body. It's written on the same line as the switch that replaced it, where it belongs.
 
 ---
 
