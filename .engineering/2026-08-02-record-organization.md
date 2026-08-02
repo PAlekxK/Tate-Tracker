@@ -179,3 +179,32 @@ limit how much they diverge as they continue to be enriched over time."*
 what is actually uncertain, not a migration), and rewriting `harvest-questions.py` to consume
 `markers()`. The second one puts new cards in front of Mom, so it ships behind Paul's clear gate with
 card supply as the thing to watch.
+
+---
+
+## Two canon gaps the season-note lint surfaced — recorded, NOT fixed
+
+`tools/check-season-notes.py`'s useful residue (2 of 6 findings) both point the same direction:
+**the prose knows something the structured record does not.** Neither was corrected, deliberately —
+both would change what renders on Mom's plant cards, and the correction is a botanical judgment, which
+makes it a model read. *A model-read value is a hypothesis until a deterministic source or Paul
+confirms it.*
+
+**1 · `dwarf-papyrus` (Cyperus prolifer) — `bloom: null`, but the note describes flower heads.**
+Its May note reads *"The flower heads root too — it sprouts plantlets, which is what the name means."*
+So the plant visibly flowers and the record cannot say when.
+⚠️ **The obvious fix is the wrong one.** Adding a `bloom` window with `confidence: inferred` would
+immediately make it harvestable — and the card would ask *"is it in flower yet?"* about a **persistent
+umbel that is present all season**. That is a question with no answer, on a 5-slot surface, to a reader
+whose engagement is fragile. The honest resolution is probably an explicit *"no distinct bloom event"*
+declaration the lint can read — which is a **schema decision**, not a data entry, and belongs with the
+M1 marker work rather than being smuggled in here.
+
+**2 · `garden-phlox` — the July note says deadhead; `care.prune` months don't include July.**
+*"…deadhead the spent trusses to keep it going"* renders in July, while the prune months are
+Apr · May · Nov · Dec. Deadheading phlox through its bloom is ordinary practice, so the likeliest read
+is that **the care data is incomplete, not that the note is wrong** — but "likeliest read" is exactly
+what this project does not promote to canon unaided.
+
+**Both are the same shape as the finding that motivated M1:** the record's structured half and its
+prose half disagree, and only the prose was ever authored with the whole plant in mind.
