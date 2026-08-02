@@ -32,7 +32,15 @@
      surface are both costs, and #2 pays neither. Do NOT apply .tap44 to
      controls packed closer than ~44px apart — the enlarged areas would
      overlap and steal each other's taps. Verified per-control in a 390px
-     viewport when this landed; re-verify if a row's spacing tightens. */
+     viewport when this landed; re-verify if a row's spacing tightens.
+
+     ⛔ RATIFIED EXCEPTION — `.mom-queue-launcher-dismiss` (90×25) STAYS SMALL.
+     Paul's call, 2026-08-02: "we can keep that small, that's fine." It is the
+     one DESTRUCTIVE control on her surface — it drops the card queue the whole
+     feedback loop depends on. The 44px floor exists so she does not miss what
+     she MEANT to hit; it is not an argument for making the discard easier to
+     hit by accident. A future sweep will measure this at 90×25 and read it as
+     an oversight — it is not. Do not "fix" it, and do not .tap44 it. */
   .tap44 { position: relative; }
   /* .feedback-close is already position:absolute, i.e. already a containing
      block — re-declaring relative would move it. It gets the hit area only. */
