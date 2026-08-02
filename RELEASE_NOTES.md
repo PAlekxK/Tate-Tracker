@@ -4,6 +4,16 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-02 — Bolores's cabin lights get their own line
+
+- **The warm-LED conversion is on her service history now.** In October the dome light, the two map
+  lights beside it and several of the dash indicators were all re-bulbed in one pass, with a new
+  plastic dome lens fitted at the same time. Two sets of white bulbs were tried first and sent
+  back — the white was too sterile — so the warm light in that cab is a choice somebody made, not
+  whatever came in the box. That's the kind of thing a service record usually loses.
+
+---
+
 ## 2026-08-01 — Easier to hit, on a phone
 
 - **The small buttons are easier to tap.** The little play buttons beside each bird and frog, the
