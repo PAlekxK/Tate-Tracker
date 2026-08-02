@@ -1375,6 +1375,15 @@
      line that decides whether Mom taps in is legible without glasses. */
   .main-card-summary { font-size: 14px; color: #3a5a3a; margin-top: 3px; line-height: 1.45; }
   .summary-loading { font-family: "Crimson Text", Georgia, serif; font-style: italic; color: #8aaa8a; }
+  /* The measured temperature on the COLLAPSED weather header. It is a separate
+     element rather than part of the sentence because the sentence is shared with
+     the expanded glance, where the station hero already carries the figure —
+     see renderWeatherSummary(). Serif + weight marks it as a reading, not prose. */
+  .weather-summary-temp {
+    font-family: "Crimson Text", Georgia, serif;
+    font-size: 15px; font-weight: 600; color: #1a4028;
+    white-space: nowrap;
+  }
   /* The card header is a DOOR — say so (2026-07-29).
      It was a 14px #9bbf9b "▼" on white: a low-contrast glyph carrying, alone, the
      whole message "there is more inside this card." Mom's device fired
@@ -5688,6 +5697,7 @@
 
   /* Card headers + summaries */
   body.text-lg .main-card-summary { font-size: 17.5px; }
+  body.text-lg .weather-summary-temp { font-size: 18.5px; }
   body.text-lg .main-card-chevron { font-size: 15px; padding: 7px 14px; }
   body.text-lg .mcc-arrow { font-size: 11px; }
   body.text-lg .weather-condition { font-size: 17px; }
@@ -7303,10 +7313,8 @@ function renderTrendStrip(history) {
   const temps = sorted.map(r => r.tempf);
   const hums  = sorted.map(r => r.humidity);
   const press = sorted.map(r => r.baromrelin);
-  const t0 = temps[temps.length - 1];
   const tMin = Math.min.apply(null, temps.filter(v => v != null));
   const tMax = Math.max.apply(null, temps.filter(v => v != null));
-  const h0 = hums[hums.length - 1];
   const hMin = Math.min.apply(null, hums.filter(v => v != null));
   const hMax = Math.max.apply(null, hums.filter(v => v != null));
   const pressValid = press.filter(v => v != null);
@@ -7320,12 +7328,17 @@ function renderTrendStrip(history) {
 
   return '<div class="garden-hero-trends">' +
     '<div class="trend">' +
-      '<div class="trend-header"><span class="trend-label">Temp 24h</span><span class="trend-now">' + Math.round(t0) + '°</span></div>' +
+      // No `.trend-now` on temp or humidity: both are already the first two
+      // values of the 📡 station hero ~30px above, and the collapsed header
+      // carries the temp too. The 24h RANGE is this strip's actual
+      // contribution. Pressure keeps its current value — it is the one reading
+      // that appears nowhere else on the card (2026-08-02).
+      '<div class="trend-header"><span class="trend-label">Temp 24h</span></div>' +
       '<div class="trend-spark">' + renderSparkline(temps, { stroke: "#5cb87a" }) + '</div>' +
       '<div class="trend-range">' + Math.round(tMin) + '° → ' + Math.round(tMax) + '°</div>' +
     '</div>' +
     '<div class="trend">' +
-      '<div class="trend-header"><span class="trend-label">Humidity 24h</span><span class="trend-now">' + h0 + '%</span></div>' +
+      '<div class="trend-header"><span class="trend-label">Humidity 24h</span></div>' +
       '<div class="trend-spark">' + renderSparkline(hums, { stroke: "#3a7aaa" }) + '</div>' +
       '<div class="trend-range">' + hMin + '% → ' + hMax + '%</div>' +
     '</div>' +
@@ -7340,6 +7353,23 @@ function renderTrendStrip(history) {
 // Garden insight — synthesizes station readings + forecast into a single
 // "today at the cabin" observation + optional action. Rule-based, ordered by
 // urgency. Returns null when there's no station data to anchor on.
+// ⭐ ONE NUMBER, ONE ALTITUDE (2026-08-02). The glance carries MEANING; the 📡
+// "Right now" block and the 🌐 Forecast block own the FIGURES. Paul: "we say
+// muggy afternoon and show the temperature ... then we say Right Now and show
+// the temperature again and give another summary."
+//
+// Six of these rules used to bake a measured or forecast number into the
+// observation string, and every one of those numbers already rendered elsewhere
+// in the same expanded card — temp and humidity in the station hero ~30px below,
+// dew point in the comfort line (which ALSO re-derives the word "muggy"), the
+// day's high and precip chance in the Forecast Today cell, rain rate and today's
+// total in the hero and twice more in the rainfall panel.
+//
+// The one number that stays is the overnight frost low: it appears nowhere else
+// on the card, and for a frost the figure IS the meaning.
+//
+// Each rule also returns a `key`. That is what stops "Worth knowing" and the
+// glance both announcing the same condition — see the filter in renderWeather().
 function generateGardenerInsight() {
   const station  = WEATHER_DATA.stationData;
   const current  = WEATHER_DATA.current || {};
@@ -7386,29 +7416,54 @@ function generateGardenerInsight() {
     // Storm imminent (pressure trend + forecast)
     if (pressureDelta6h < -0.08 && todayPrecipChance > 50) {
       return {
+        key: "storm",
         observation: "Pressure dropping fast — storms likely within hours.",
         action: "Finish outdoor work soon; secure anything loose."
       };
     }
-    // Active rain (live rain rate)
-    if (rainRate > 0.05) {
+    // Active rain (live rain rate). Threshold is 0.02, matching generateAlerts()
+    // — it was 0.05 here and 0.02 there, so on a light-rain afternoon the alert
+    // said it was raining and the glance did not mention rain at all.
+    if (rainRate > 0.02) {
       return {
-        observation: "Rain in progress (" + rainRate.toFixed(2) + '"/hr) — ' + rainToday.toFixed(2) + '" today so far.',
+        key: "rain-now",
+        observation: "Rain coming down now.",
         action: rainRate > 0.3 ? "Heavy rain — watch low beds for standing water." : "Plants getting watered naturally; skip irrigation."
       };
     }
     // Saturated soil (cumulative daily rain)
     if (rainToday > 0.5 && rainRate < 0.02) {
       return {
-        observation: rainToday.toFixed(2) + '" of rain today — soils saturated.',
+        key: "saturated",
+        observation: "Soils saturated after today's rain.",
         action: "Let beds drain a day before working low areas."
       };
     }
     // Muggy / fungal pressure (needs station dew point)
     if (humidity != null && humidity > 85 && dewPt != null && dewPt > 65 && temp != null && temp > 65) {
+      // Paul, 2026-08-02, on the old "Fungal pressure high — water at the base,
+      // not foliage.": "is that a plant thing, or what is that?" He was right —
+      // the sentence had no subject. property.json holds the actual knowledge for
+      // exactly this condition (high summer RH plus cloud immersion at elevation
+      // "raises fungal pressure (boxwood blight, powdery mildew)"), and boxwood is
+      // a real record in canon. So the card knew what was at risk, what the risk
+      // was called, and that it grows here — and surfaced none of it.
+      // Deterministic lookup, no model call. Degrades honestly if the plant is
+      // ever removed from canon. "the leaves" beats "foliage" for this reader.
+      // PLANTS_DATA is { _meta, plants: [...] } — not a bare array.
+      // Ordered by property.json's own risk language ("boxwood blight, powdery
+      // mildew"), NOT by canon array order — canon order would have named the
+      // hydrangea for a condition property.json names the boxwood for.
+      const canon = ((typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || []);
+      const susceptible = ["boxwood", "hydrangea", "mountain-laurel"]
+        .map(id => (canon.find(p => p.id === id) || {}).name)
+        .filter(Boolean);
       return {
-        observation: "Muggy " + partOfDay + " — " + Math.round(temp) + "°F, dew point " + Math.round(dewPt) + "°.",
-        action: "Fungal pressure high — water at the base, not foliage."
+        key: "muggy",
+        observation: "Muggy " + partOfDay + " — heavy air, slow to dry.",
+        action: susceptible.length
+          ? "Fungal weather for the " + susceptible[0].toLowerCase() + " and anything crowded — water at the base, not the leaves."
+          : "Fungal weather — water at the base, not the leaves."
       };
     }
   }
@@ -7417,29 +7472,33 @@ function generateGardenerInsight() {
   // Frost / freeze
   if (tonightLow != null && tonightLow < 38) {
     return {
+      // The one rule that KEEPS its figure: the overnight low appears nowhere
+      // else on the card, and for a frost the number is the meaning.
+      key: "frost",
       observation: tonightLow < 33 ? "Hard freeze tonight (low " + tonightLow + "°F)." : "Frost possible tonight (low " + tonightLow + "°F).",
       action: "Cover frost-tender plants by sunset; mulch tender shrubs."
     };
   }
   // Heat
   if (todayHigh != null && todayHigh > 88) {
-    const tail = (temp != null) ? ", currently " + Math.round(temp) + "°F." : ".";
     return {
-      observation: "Hot day ahead — high " + todayHigh + "°F" + tail,
+      key: "heat",
+      observation: "Hot day ahead.",
       action: "Water deeply at dawn; check stressed plants by midday."
     };
   }
   // Rain coming today (forecast-only, fires when station not actively raining)
   if (todayPrecipChance >= 70 || (todayPrecipAmount != null && todayPrecipAmount > 0.25)) {
-    const amt = (todayPrecipAmount != null && todayPrecipAmount > 0) ? " (~" + todayPrecipAmount.toFixed(2) + '"' + ")" : "";
     return {
-      observation: "Rain likely today" + amt + " — " + todayPrecipChance + "% chance.",
+      key: "rain-today",
+      observation: "Rain likely today.",
       action: "Hold off on watering; bring sensitive containers under cover if storms come."
     };
   }
   // Rain coming tomorrow
   if (tomorrowPrecipChance >= 70) {
     return {
+      key: "rain-tomorrow",
       observation: "Rain moving in tomorrow — " + tomorrowPrecipChance + "% chance.",
       action: "Good day to finish outdoor jobs; ground will be wet by evening tomorrow."
     };
@@ -7449,7 +7508,8 @@ function generateGardenerInsight() {
   // Cool damp morning — needs station humidity to fire confidently
   if (hasStation && humidity != null && humidity > 80 && temp != null && temp < 60 && hour < 10) {
     return {
-      observation: "Cool damp morning — " + Math.round(temp) + "°F at " + humidity + "% humidity.",
+      key: "damp-morning",
+      observation: "Cool damp morning.",
       action: "Let surfaces dry before working in beds."
     };
   }
@@ -7460,9 +7520,10 @@ function generateGardenerInsight() {
   if (windowTempOk && wind < 12 && todayPrecipChance < 30 && dewPtOk) {
     const dryTomorrow = tomorrowPrecipChance < 30 && tomorrowHigh != null && tomorrowHigh >= 60 && tomorrowHigh <= 85;
     const lead = (temp != null)
-      ? "Comfortable " + monthName + " " + partOfDay + " — " + Math.round(temp) + "°F, light winds."
-      : "Forecast looks comfortable today — high near " + todayHigh + "°F, light winds.";
+      ? "Comfortable " + monthName + " " + partOfDay + ", light winds."
+      : "Forecast looks comfortable today — light winds.";
     return {
+      key: "garden-window",
       observation: lead,
       action: dryTomorrow
         ? "Excellent garden window — looks similar tomorrow, good for planting."
@@ -7476,14 +7537,16 @@ function generateGardenerInsight() {
     const tempWord = temp < 45 ? "Cold" : temp < 60 ? "Cool" : temp < 75 ? "Mild" : temp < 85 ? "Warm" : "Hot";
     const suffix = hasStation ? " at the property." : ".";
     return {
-      observation: tempWord + " " + dpWord + " " + partOfDay + " — " + Math.round(temp) + "°F" + suffix,
+      key: "baseline",
+      observation: tempWord + " " + dpWord + " " + partOfDay + suffix,
       action: null
     };
   }
   if (todayHigh != null) {
     const tempWord = todayHigh < 50 ? "Cold" : todayHigh < 65 ? "Cool" : todayHigh < 78 ? "Mild" : todayHigh < 88 ? "Warm" : "Hot";
     return {
-      observation: tempWord + " " + monthName + " day on the forecast — high near " + todayHigh + "°F.",
+      key: "baseline",
+      observation: tempWord + " " + monthName + " day on the forecast.",
       action: null
     };
   }
@@ -8019,15 +8082,37 @@ function renderWeatherSummary() {
   // leads the card body (generateGardenerInsight), so the two can never
   // disagree (2026-07-14 reorg). Falls back to the bare temp + condition
   // only when no insight is available.
+  // ⚠️ The temperature is appended HERE, not put back into the generator.
+  // When "one number, one altitude" landed (2026-08-02) the glance sentence
+  // stopped carrying figures — right, because the station hero sits ~30px below
+  // it. But when the card is COLLAPSED the hero is not on screen at all, so a
+  // number-free sentence would leave the header with no temperature.
+  //
+  // The wrong fix is to fork the generator so the header gets its own sentence:
+  // that recreates the two-compute-paths bug this card has now hit three times.
+  // The right fix is this — one engine still produces the sentence, and the two
+  // altitudes differ in DEPTH. The glance is a projection of the same
+  // computation, not a parallel one.
   const insight = generateGardenerInsight();
-  let summary;
+  const el = document.getElementById("weather-summary");
+  const station = WEATHER_DATA.stationData;
+  const cur = WEATHER_DATA.current;
+  const temp = station && station.tempf != null
+    ? Math.round(station.tempf)
+    : (cur && cur.temperature != null ? Math.round(cur.temperature) : null);
+
   if (insight) {
-    summary = insight.observation;
+    el.textContent = insight.observation;
+    if (temp != null) {
+      const t = document.createElement("span");
+      t.className = "weather-summary-temp";
+      t.textContent = temp + "°F";
+      el.appendChild(document.createTextNode(" "));
+      el.appendChild(t);
+    }
   } else {
-    const cur = WEATHER_DATA.current;
-    summary = cur.temperature + "° and " + cur.condition.toLowerCase();
+    el.textContent = cur.temperature + "° and " + cur.condition.toLowerCase();
   }
-  document.getElementById("weather-summary").textContent = summary;
 }
 
 function renderWeather() {
@@ -8087,7 +8172,32 @@ function renderWeather() {
   // Worth knowing — weather alerts, plus a *severe* NWS fire-weather alert
   // lifted up out of the burn section (only when Red Flag / Fire Weather is
   // active). The static seasonal ban stays at the bottom (F).
-  const alerts = generateAlerts();
+  // ⭐ A CONDITION IS STATED ONCE, AT THE HIGHEST ALTITUDE IT EARNS (2026-08-02).
+  // Paul: "it feels like we just give multiple summaries from different sources
+  // about the conditions right now."
+  //
+  // He was reading a real structural fact: this card ran TWO independent rule
+  // cascades over the same four inputs. generateGardenerInsight() is
+  // first-match-wins and returns one read; generateAlerts() is all-match and
+  // returns a list — and they fired on the same drivers at NEIGHBOURING
+  // thresholds (rain rate 0.05 vs 0.02, saturation 0.5 vs 0.75). So on a wet
+  // afternoon the reader met the same rain in "Worth knowing", again in the
+  // glance, again in the station hero and twice more in the rainfall panel; and
+  // on a light-rain afternoon the two functions disagreed about whether it was
+  // raining at all.
+  //
+  // The thresholds are now aligned (both took the lower — the one that already
+  // earns a place on the surface), every rule in both cascades carries a `key`,
+  // and the glance's key is subtracted from the alert list here. Both cascades'
+  // rule bodies survive; they just stop being two functions that each decide
+  // independently what today is.
+  //
+  // This is the third occurrence of "one engine, one verdict" in this card —
+  // 7/06 found two compute paths, 7/14 reconciled header to body, and this is
+  // the path neither could see. If a fourth appears, the answer is not another
+  // filter: it is that the two functions should have been one.
+  const glanceKey = (generateGardenerInsight() || {}).key;
+  const alerts = generateAlerts().filter(a => !a.key || a.key !== glanceKey);
   const burn = computeBurnStatus();
   const fireAlert = (burn && burn.level === "severe") ? burn : null;
   if (alerts.length > 0 || fireAlert) {
@@ -8275,19 +8385,19 @@ function generateAlerts() {
     const rate = station.hourlyrainin || 0;
     const todayTotal = station.dailyrainin || 0;
     if (rate > 0.3) {
-      alerts.push({ severity: "severe", source: "station", icon: "⛈️",
+      alerts.push({ key: "rain-now", severity: "severe", source: "station", icon: "⛈️",
         title: "Heavy rain at the property right now",
         text: 'Property gauge: ' + rate.toFixed(2) + '"/hr now — ' + todayTotal.toFixed(2) + '" today. Worth watching low-lying beds for standing water.'
       });
       stationCovers.rain = true;
     } else if (rate > 0.10) {
-      alerts.push({ severity: "warning", source: "station", icon: "🌧️",
+      alerts.push({ key: "rain-now", severity: "warning", source: "station", icon: "🌧️",
         title: "It's raining at the gauge",
         text: 'Property gauge: ' + rate.toFixed(2) + '"/hr — ' + todayTotal.toFixed(2) + '" today so far.'
       });
       stationCovers.rain = true;
     } else if (rate > 0.02) {
-      alerts.push({ severity: "opportunity", source: "station", icon: "💧",
+      alerts.push({ key: "rain-now", severity: "opportunity", source: "station", icon: "💧",
         title: "A little rain at the gauge — the plants are getting watered",
         text: 'Property gauge: ' + rate.toFixed(2) + '"/hr. Plants are getting a gentle drink; no need to water today.'
       });
@@ -8295,8 +8405,11 @@ function generateAlerts() {
     }
 
     // Saturated soil (heavy rain already today)
-    if (todayTotal > 0.75 && rate < 0.02) {
-      alerts.push({ severity: "warning", source: "station", icon: "💦",
+    // 0.5, matching generateGardenerInsight() — it was 0.75 here and 0.5 there,
+    // so between the two the card could call the soil saturated in one voice and
+    // say nothing about it in the other.
+    if (todayTotal > 0.5 && rate < 0.02) {
+      alerts.push({ key: "saturated", severity: "warning", source: "station", icon: "💦",
         title: "Wet soil after " + todayTotal.toFixed(2) + '" today',
         text: "Property gauge total today. Worth holding off on planting or working low areas; root rot risk for boxwoods, mountain laurel, dogwoods."
       });
@@ -8305,7 +8418,7 @@ function generateAlerts() {
 
     // Hot now (real measurement)
     if (station.tempf != null && station.tempf > 88) {
-      alerts.push({ severity: "warning", source: "station", icon: "🥵",
+      alerts.push({ key: "heat", severity: "warning", source: "station", icon: "🥵",
         title: "It's " + Math.round(station.tempf) + "° at the property — hot afternoon",
         text: "Hydrangeas and azaleas in sun stress fast above 88°F. Worth deep-watering and checking shaded plants for wilting."
       });
@@ -8314,7 +8427,7 @@ function generateAlerts() {
 
     // Freezing now (only meaningful in cooler months)
     if (station.tempf != null && station.tempf < 33 && (currentMonth >= 9 || currentMonth <= 4)) {
-      alerts.push({ severity: "severe", source: "station", icon: "🥶",
+      alerts.push({ key: "freezing-now", severity: "severe", source: "station", icon: "🥶",
         title: "It's " + Math.round(station.tempf) + "° at the gauge — freezing on the property",
         text: "Drain hoses and disconnect spigots if not already done. Cover any tender new growth."
       });
@@ -8323,7 +8436,7 @@ function generateAlerts() {
 
     // High wind gusts now
     if (station.windgustmph != null && station.windgustmph > 40) {
-      alerts.push({ severity: "warning", source: "station", icon: "💨",
+      alerts.push({ key: "wind", severity: "warning", source: "station", icon: "💨",
         title: "Gusts up to " + Math.round(station.windgustmph) + " mph right now",
         text: "Station gust reading. Postpone tree work, ladder work, or anything involving tarps."
       });
@@ -8338,7 +8451,7 @@ function generateAlerts() {
         const slice6h = press.slice(-72);
         const delta = slice6h[slice6h.length - 1] - slice6h[0];
         if (delta < -0.10) {
-          alerts.push({ severity: "warning", source: "station", icon: "📉",
+          alerts.push({ key: "storm", severity: "warning", source: "station", icon: "📉",
             title: "Pressure dropping fast — storms often follow",
             text: 'Pressure dropped ' + delta.toFixed(2) + '" inHg in the last 6 hours. Worth finishing outdoor work soon.'
           });
@@ -8348,7 +8461,7 @@ function generateAlerts() {
 
     // Battery low (info)
     if (station.battout === 0) {
-      alerts.push({ severity: "opportunity", source: "station", icon: "🔋",
+      alerts.push({ key: "battery", severity: "opportunity", source: "station", icon: "🔋",
         title: "Station battery getting low",
         text: "Outdoor sensor battery is reporting low. Worth replacing soon — readings will go offline once it dies."
       });
@@ -8362,13 +8475,13 @@ function generateAlerts() {
     if (stationCovers.cold && i === 0) break; // station already covering tonight
     const low = daily[i].low;
     if (low <= 28) {
-      alerts.push({ severity: "severe", source: "forecast", icon: "🥶",
+      alerts.push({ key: "frost", severity: "severe", source: "forecast", icon: "🥶",
         title: "Hard freeze " + (i === 0 ? "tonight" : "in " + i + " day" + (i>1?"s":"")) + " — low " + low + "°",
         text: "Cover or move tender plants. Drain hoses, disconnect spigots, protect outdoor faucets. Japanese maples already leafed out are vulnerable; worth draping with frost cloth."
       });
       break;
     } else if (low <= 32) {
-      alerts.push({ severity: "warning", source: "forecast", icon: "❄️",
+      alerts.push({ key: "frost", severity: "warning", source: "forecast", icon: "❄️",
         title: "Frost coming " + (i === 0 ? "tonight" : "in " + i + " day" + (i>1?"s":"")),
         text: "Low of " + low + "°F. Tender new growth on hydrangeas, Japanese maples, and recently-planted azaleas at risk — worth covering with sheets or frost cloth in the evening."
       });
@@ -8383,7 +8496,7 @@ function generateAlerts() {
     else break;
   }
   if (heatDays >= 3 && !stationCovers.heat) {
-    alerts.push({ severity: "warning", source: "forecast", icon: "🥵",
+    alerts.push({ key: "heat", severity: "warning", source: "forecast", icon: "🥵",
       title: "Hot stretch ahead — " + heatDays + " days above 92°",
       text: "Hydrangeas will wilt visibly in the afternoons; worth deep-watering before the heat hits. Japanese maples and azaleas in too much sun will scorch."
     });
@@ -8402,7 +8515,7 @@ function generateAlerts() {
     const first = rainDays[0];
     const idx = daily.indexOf(first);
     const whenText = idx === 0 ? "today" : (idx === 1 ? "tomorrow" : "by " + first.dayName);
-    alerts.push({ severity: "opportunity", source: "forecast", icon: "🌱",
+    alerts.push({ key: "rain-today", severity: "opportunity", source: "forecast", icon: "🌱",
       title: "Good week to seed or plant — rain coming",
       text: "Rain expected " + whenText + " (~" + rainTotal.toFixed(1) + '" total over ' + rainDays.length + " day" + (rainDays.length>1?"s":"") + "). Good window to overseed lawns, broadcast fertilizer, or set in new transplants — they'll get watered in naturally."
     });
@@ -8423,7 +8536,7 @@ function generateAlerts() {
       } else if (daily[i].precipAmount > 0) {
         rainCtx = " (" + daily[i].precipAmount + "\" forecast)";
       }
-      alerts.push({ severity: "warning", source: "forecast", icon: "⛈️",
+      alerts.push({ key: "storm", severity: "warning", source: "forecast", icon: "⛈️",
         title: "Heavy rain coming through " + (i === 0 ? "today" : "soon"),
         text: "Significant rain expected " + when + rainCtx + ". Worth watching low-lying beds for standing water — boxwoods, mountain laurel, and dogwoods are especially susceptible to root rot in saturated soil."
       });
@@ -8436,12 +8549,12 @@ function generateAlerts() {
     let maxGust = 0, maxGustDay = -1;
     daily.forEach((d, i) => { if (d.windGusts > maxGust) { maxGust = d.windGusts; maxGustDay = i; } });
     if (maxGust >= 50) {
-      alerts.push({ severity: "severe", source: "forecast", icon: "💨",
+      alerts.push({ key: "wind", severity: "severe", source: "forecast", icon: "💨",
         title: "Strong winds coming — gusts to " + maxGust + " mph",
         text: "Expected " + (maxGustDay === 0 ? "today" : "on " + daily[maxGustDay].dayName) + ". Secure loose items, postpone tree work, inspect large trees for weak limbs."
       });
     } else if (maxGust >= 35) {
-      alerts.push({ severity: "warning", source: "forecast", icon: "💨",
+      alerts.push({ key: "wind", severity: "warning", source: "forecast", icon: "💨",
         title: "Gusty day coming",
         text: "Gusts to " + maxGust + " mph " + (maxGustDay === 0 ? "today" : "on " + daily[maxGustDay].dayName) + ". Not ideal for spraying, painting, or any work involving tarps or ladders."
       });
@@ -8453,7 +8566,7 @@ function generateAlerts() {
     const d = daily[i];
     if (d.high >= 60 && d.high <= 80 && d.low >= 40 && d.precipAmount < 0.05 && d.precipChance < 30 && d.windGusts < 20) {
       const when = i === 0 ? "Today" : (i === 1 ? "Tomorrow" : d.dayName);
-      alerts.push({ severity: "opportunity", source: "forecast", icon: "👍",
+      alerts.push({ key: "garden-window", severity: "opportunity", source: "forecast", icon: "👍",
         title: when + " looks great outside",
         text: "High " + d.high + "°F, light winds, dry. Good window for mowing, mulching, splitting firewood, riding the dirt bikes, working on the Bronco, or any project that needs steady weather."
       });
