@@ -10,17 +10,31 @@ a deterministic filter over structured markers; phrasing is a fixed template ban
 (Paul edits for voice). This is the "AI on the ask path, capture AI-free" line —
 harvest is neither; it's mechanical selection from a human-authored uncertainty.
 
+⭐ DOMAIN-AGNOSTIC since 2026-08-02 (M1). It no longer knows any field names. It
+asks `momlib.markers(record, dtype)` "does this record admit a guess?" over every
+domain the manifest marks `cardable`, and the MARKER PATH picks the template.
+Adding a domain is a declaration in `momlib.DOMAINS` — not an edit in here.
+
+*Why that mattered:* the BACKLOG called this "the one remaining plants-only site,"
+which understated it. It did not merely read plants.json — it hardcoded the
+`variety` and `bloom` field SHAPES, so repointing it at weeds.json would have
+returned ZERO. Three weeds sat marked `confidence: inferred` +
+`status: needs-confirmation` — explicitly raising their hands, in a vocabulary
+this file could not hear.
+
 Markers harvested (all must be Mom-answerable FROM THE GROUND — observable, never
 taxonomic):
-  • variety   — plant.variety with confidence != 'verified' AND askable == true
-                → "we read it as X off a photo — does that match?"
-  • bloom     — plant.bloom with confidence == 'inferred' AND its window is
-                ACTIVE RIGHT NOW (so "is it in flower?" is answerable today)
-                → "should be in flower about now — does that match?"
+  • variety   — `variety.confidence` != verified AND askable
+                → skeleton only; a human must write the observable (see TEMPLATES)
+  • bloom     — `bloom.confidence` == inferred AND its window is ACTIVE RIGHT NOW
+                (so "is it in flower?" is answerable today)
+  • identity  — a record-level `confidence` that is not verified, in any domain
+                → uses the record's OWN `momConfirm.confirmBy` as the observable,
+                  which is why this one needs no human to finish it
 
-Already-covered markers are skipped: an entity with an active OR resolved question
-in questions.json is not re-drafted (don't re-ask what she's settled or is being
-asked).
+Already-covered markers are skipped, in BOTH directions — card→record via
+`entityRef`, and record→card via `momConfirm.questionId`. Reading only the first
+re-drafts crabgrass; see covered_ids().
 
 Usage:
     python3 tools/harvest-questions.py                 # dry run — print candidates
@@ -31,9 +45,12 @@ import argparse
 import datetime as dt
 import json
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-PLANTS = os.path.join(ROOT, "plants.json")
 QUESTIONS = os.path.join(ROOT, "questions.json")
 ZONES = os.path.join(ROOT, "zones.json")
 
@@ -68,7 +85,31 @@ TEMPLATES = {
                 "seed-head? Then delete this bracket.⟩"),
     "bloom":   ("The **{name}**{where} — we have it down to flower around now, though we've "
                 "never actually watched it here. **Is it in flower yet?**"),
+    # ⭐ NEW 2026-08-02 — the shape that made non-plant domains harvestable at all.
+    # A weed's uncertainty is its IDENTITY, and the record already names the thing
+    # that settles it in `momConfirm.confirmBy` ("counting five leaflets on a leaf
+    # (poison ivy has three)"). So unlike `variety`, this template does NOT need a
+    # human to write the observable — the domain that admits the guess also states
+    # how to check it. That pairing is why weeds could be wired and plants' variety
+    # still cannot: the marker and the observable live together.
+    "identity": ("The **{name}**{where} — we picked it out of a photo and have never "
+                 "checked it on the ground. **{confirm_by}**"),
 }
+
+# Which template a marker path calls for. The harvester reads THIS instead of
+# knowing field names, which is what makes it domain-agnostic: a new domain
+# declares its marker path in momlib.DOMAINS and lands here, not in the loop.
+MARKER_TEMPLATE = {
+    "variety.confidence": "variety",
+    "bloom.confidence": "bloom",
+    "confidence": "identity",
+}
+
+# A confirmBy that names a season is describing something that may not exist
+# today. Flagged, never suppressed — the prose is not machine-readable, so a
+# human decides. (wild-violet's is "the little purple flowers next spring".)
+SEASONAL_PROSE = ("spring", "summer", "fall", "autumn", "winter", "next year",
+                  "late season", "early season")
 
 # Button labels, Paul's wording (2026-07-29): "it's blooming, not blooming, or
 # snooze card. Let's just use snooze card as a way to dismiss it, but it goes back
@@ -106,13 +147,26 @@ def range_active(rng, today_mmdd):
     return today_mmdd >= s or today_mmdd <= e  # wraps the year end
 
 
-def covered_ids(questions):
-    """Entity ids that already have a question (active OR resolved) — skip these."""
-    ids = set()
-    for q in questions:
-        ref = (q.get("entityRef") or {})
-        if ref.get("id"):
-            ids.add(ref["id"])
+def covered_ids(questions, records_by_type=None):
+    """Entity ids that already have a question (active OR resolved) — skip these.
+
+    Two directions, because the link is not reliably bidirectional. `entityRef`
+    points card → record; a weed's `momConfirm.questionId` points record → card.
+    **Reading only the first would have re-drafted crabgrass**: its card
+    `q-fairway-grass-seedheads` carries `entityRef: plant/fairway-meadow` (the
+    meadow the seed-heads are IN), while the crabgrass record names that same card
+    as its own confirmation. Both statements are true and neither is wrong — they
+    just anchor to different things — so a harvester that trusts one direction
+    silently duplicates a question Mom is already being asked.
+    """
+    ids = {ref["id"] for q in questions
+           if (ref := (q.get("entityRef") or {})).get("id")}
+    known = {q.get("id") for q in questions}
+    for recs in (records_by_type or {}).values():
+        for r in recs:
+            qid = ((r.get("momConfirm") or {}).get("questionId"))
+            if qid and qid in known and r.get("id"):
+                ids.add(r["id"])
     return ids
 
 
@@ -141,47 +195,81 @@ def where_phrase(plant, zones_by_id):
     return f" in the {nm}"
 
 
-def harvest(plants, questions, today_mmdd, zones_by_id=None):
+def harvest(records_by_type, questions, today_mmdd, zones_by_id=None):
+    """Draft candidates from EVERY cardable domain's own uncertainty markers.
+
+    ⭐ REWRITTEN 2026-08-02 (M1). The old loop walked `plants` and hardcoded the
+    `variety` and `bloom` field shapes, which is why the BACKLOG's "plants-only
+    site" understated the problem: repointing it at weeds.json would have found
+    ZERO, because weeds admit a guess top-level and it could only read the nested
+    plant shape. Three weeds were sitting explicitly marked
+    `confidence: inferred` + `status: needs-confirmation` — raising their hands in
+    a vocabulary this file could not hear.
+
+    It now asks `momlib.markers()` "does this record admit a guess?" and lets the
+    marker path pick a template. Adding a domain is a declaration in
+    `momlib.DOMAINS`, not an edit here.
+    """
     zones_by_id = zones_by_id or {}
-    covered = covered_ids(questions)
+    covered = covered_ids(questions, records_by_type)
     cands = []
-    for p in plants:
-        pid = p.get("id")
-        if not pid or pid in covered:
-            continue
-        name = short_name(p)
-        where = where_phrase(p, zones_by_id)
+    for dtype, records in sorted(records_by_type.items()):
+        for rec in records:
+            rid = rec.get("id")
+            if not rid or rid in covered:
+                continue
+            name = short_name(rec)
+            where = where_phrase(rec, zones_by_id)
 
-        v = p.get("variety")
-        if isinstance(v, dict) and v.get("value") and v.get("confidence") != "verified" and v.get("askable"):
-            note = v.get("note")
-            note_txt = f" ({note})" if note else ""
-            cands.append({
-                "type": "variety",
-                "id": f"q-{pid}-variety",
-                "entityId": pid,
-                "prompt": TEMPLATES["variety"].format(
-                    name=name, variety=v["value"], note=note_txt, where=where),
-                "why": f"variety '{v['value']}' is {v.get('confidence','?')} + askable",
-                # a "no" on an ID owes the real name; keeps the variety-confirm voice
-                "extra": {"correctionPrompt": "What is it, then? (optional)"},
-            })
+            for mk in momlib.markers(rec, dtype):
+                if not mk["askable"]:
+                    continue
+                kind = MARKER_TEMPLATE.get(mk["path"])
+                if not kind:
+                    continue          # a marker with no template is not yet askable
+                owner, warn, extra = mk["owner"], None, {}
 
-        b = p.get("bloom")
-        if isinstance(b, dict) and b.get("confidence") == "inferred" and isinstance(b.get("dates"), list):
-            if any(range_active(r, today_mmdd) for r in b["dates"]):
-                cands.append({
-                    "type": "bloom",
-                    "id": f"q-{pid}-bloom",
-                    "entityId": pid,
-                    "prompt": TEMPLATES["bloom"].format(name=name, where=where),
-                    "why": f"bloom is inferred + in-window now ({b.get('window','')})",
+                if kind == "bloom":
+                    dates = owner.get("dates")
+                    if not isinstance(dates, list) or not any(
+                            range_active(r, today_mmdd) for r in dates):
+                        continue      # out of window — "is it in flower?" is unanswerable
+                    prompt = TEMPLATES["bloom"].format(name=name, where=where)
+                    why = f"bloom is {mk['confidence']} + in-window now ({owner.get('window','')})"
                     # Emitted EXPLICITLY so the JSON is self-describing. The viewer
                     # defaults a missing `later` to "I haven't looked", which meant
                     # the served card and the record disagreed about what her third
                     # option said — and a reader of questions.json concluded there
                     # was no third button at all. There was. Say it in the file.
-                    "extra": {"labels": dict(BLOOM_LABELS)},
+                    extra = {"labels": dict(BLOOM_LABELS)}
+                elif kind == "variety":
+                    if not owner.get("value"):
+                        continue
+                    note = owner.get("note")
+                    prompt = TEMPLATES["variety"].format(
+                        name=name, variety=owner["value"],
+                        note=f" ({note})" if note else "", where=where)
+                    why = f"variety '{owner['value']}' is {mk['confidence']} + askable"
+                    # a "no" on an ID owes the real name; keeps the variety-confirm voice
+                    extra = {"correctionPrompt": "What is it, then? (optional)"}
+                else:  # identity — the record names its own observable
+                    confirm_by = ((rec.get("momConfirm") or {}).get("confirmBy") or "").strip()
+                    if not confirm_by:
+                        continue      # no observable = no honest question to ask
+                    prompt = TEMPLATES["identity"].format(
+                        name=name, where=where,
+                        confirm_by=confirm_by[0].upper() + confirm_by[1:] + "?")
+                    why = f"{dtype} identity is {mk['confidence']} + {rec.get('status','askable')}"
+                    if any(w in confirm_by.lower() for w in SEASONAL_PROSE):
+                        warn = (f"its confirmBy names a SEASON — \"{confirm_by}\" — so the "
+                                f"observable may not exist today. Check before serving.")
+                    extra = {"correctionPrompt": "What is it, then? (optional)"}
+
+                cands.append({
+                    "type": kind, "domain": dtype,
+                    "id": f"q-{rid}-{kind}" if kind != "identity" else f"q-weed-{rid}",
+                    "entityId": rid, "prompt": prompt, "why": why,
+                    "warn": warn, "extra": extra,
                 })
     return cands
 
@@ -193,11 +281,14 @@ def to_question(cand, created):
         "kind": "confirm",
         "answerMode": "yesno",
         "prompt": cand["prompt"],
-        "entityRef": {"type": "plant", "id": cand["entityId"]},
+        "entityRef": {"type": cand["domain"], "id": cand["entityId"]},
         "createdAt": created,
         "active": False,
         "_source": "harvest",
-        "_foldTarget": cand["type"],
+        # The fold target is the CONFIDENCE FLAG the answer would flip, which for
+        # an identity card is the record's own top-level `confidence` — the same
+        # key momlib.FOLD_FIELDS already knows. Never the template name.
+        "_foldTarget": "confidence" if cand["type"] == "identity" else cand["type"],
         "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
     }
     q.update(cand.get("extra") or {})  # per-type labels / correctionPrompt
@@ -211,7 +302,14 @@ def main():
     args = ap.parse_args()
 
     today = dt.date.fromisoformat(args.today)
-    plants = json.load(open(PLANTS, encoding="utf-8")).get("plants", [])
+    # Every domain the manifest marks cardable — not a hardcoded file list.
+    records_by_type = {}
+    for dtype, dom in momlib.DOMAINS.items():
+        if not dom.cardable:
+            continue
+        got = momlib.load_json(dom.file).get(dom.key)
+        if isinstance(got, list):
+            records_by_type[dtype] = [r for r in got if isinstance(r, dict)]
     qdata = json.load(open(QUESTIONS, encoding="utf-8"))
     questions = qdata.get("questions", [])
 
@@ -225,7 +323,7 @@ def main():
     except (OSError, ValueError):
         pass
 
-    cands = harvest(plants, questions, mmdd(today), zones_by_id)
+    cands = harvest(records_by_type, questions, mmdd(today), zones_by_id)
 
     if not cands:
         print("No new candidates — every askable uncertainty is already covered or out of season.")
@@ -233,8 +331,10 @@ def main():
 
     print(f"=== {len(cands)} candidate card(s) — your approval gates each (nothing is live) ===\n")
     for c in cands:
-        print(f"[{c['type']}] {c['id']}   ({c['why']})")
+        print(f"[{c['domain']}·{c['type']}] {c['id']}   ({c['why']})")
         print(f"    {c['prompt']}\n")
+        if c.get("warn"):
+            print(f"    \u26a0\ufe0f  {c['warn']}\n")
         if "\u27e8" in c["prompt"]:
             print("    \u26a0\ufe0f  UNRESOLVED \u27e8\u2026\u27e9 — this prompt is a SKELETON, not a question.")
             print("        No generic string can name the observable that settles a variety;")
