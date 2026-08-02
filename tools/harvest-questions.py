@@ -295,14 +295,23 @@ def to_question(cand, created):
     return q
 
 
-def main():
-    ap = argparse.ArgumentParser(description="Harvest candidate Mama's-Perspective cards from canon uncertainty.")
-    ap.add_argument("--today", default=str(dt.date.today()), help="YYYY-MM-DD override for the in-bloom filter")
-    ap.add_argument("--append-drafts", action="store_true", help="Append candidates to questions.json as active:false drafts")
-    args = ap.parse_args()
+def load_records():
+    """Every domain the manifest marks cardable — not a hardcoded file list.
 
-    today = dt.date.fromisoformat(args.today)
-    # Every domain the manifest marks cardable — not a hardcoded file list.
+    ⭐ EXTRACTED 2026-08-02, and the extraction is the fix. M1 changed `harvest()`'s
+    first argument from a plants LIST to a domain-keyed DICT and updated the only
+    caller it could see — this file's own `main()`. `mom-queue-watch.py` was still
+    passing `plants`, so both scheduled runs after M1 died on
+    `'list' object has no attribute 'values'` and Mom's loop went quiet while
+    looking merely idle.
+
+    The obvious patch — build `{"plant": plants}` at the call site — would have
+    restored the count and silently re-created the bug M1 existed to kill: a
+    second producer that can only see plants, blind to the three askable weeds.
+    So the loader is ONE function both callers import, for the same reason
+    `momlib.question_state()` is one function: three copies of a `_load()` shim
+    and three definitions of "pending" already cost this repo a real wrong claim.
+    """
     records_by_type = {}
     for dtype, dom in momlib.DOMAINS.items():
         if not dom.cardable:
@@ -310,6 +319,17 @@ def main():
         got = momlib.load_json(dom.file).get(dom.key)
         if isinstance(got, list):
             records_by_type[dtype] = [r for r in got if isinstance(r, dict)]
+    return records_by_type
+
+
+def main():
+    ap = argparse.ArgumentParser(description="Harvest candidate Mama's-Perspective cards from canon uncertainty.")
+    ap.add_argument("--today", default=str(dt.date.today()), help="YYYY-MM-DD override for the in-bloom filter")
+    ap.add_argument("--append-drafts", action="store_true", help="Append candidates to questions.json as active:false drafts")
+    args = ap.parse_args()
+
+    today = dt.date.fromisoformat(args.today)
+    records_by_type = load_records()
     qdata = json.load(open(QUESTIONS, encoding="utf-8"))
     questions = qdata.get("questions", [])
 

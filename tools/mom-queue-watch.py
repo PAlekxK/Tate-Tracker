@@ -45,7 +45,6 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
-PLANTS = os.path.join(ROOT, "plants.json")
 QUESTIONS = os.path.join(ROOT, "questions.json")
 STATE = os.path.join(ROOT, ".private", "mom-queue-watch-state.json")
 APP_PW_FILE = os.path.join(ROOT, ".private", "gmail-app-password")
@@ -142,7 +141,6 @@ def main():
 
     qdata = json.load(open(QUESTIONS, encoding="utf-8"))
     questions = qdata["questions"]
-    plants = json.load(open(PLANTS, encoding="utf-8"))["plants"]
     by_id = {q["id"]: q for q in questions}
 
     # Answers to still-OPEN questions = folds waiting for Paul.
@@ -161,7 +159,11 @@ def main():
                 answered_open.add(qid)
 
     # Fresh cards the harvester could draft (read-only count).
-    candidates = harvestmod.harvest(plants, questions, harvestmod.mmdd(today))
+    # Load through the harvester's OWN loader, never a local dict built here --
+    # this watcher must see exactly the domains the harvester sees, or the ping
+    # under-counts every domain M1 unlocked. (It passed a bare plants list until
+    # 2026-08-02 and crashed both runs after M1 changed the signature.)
+    candidates = harvestmod.harvest(harvestmod.load_records(), questions, harvestmod.mmdd(today))
     existing = {q["id"] for q in questions}
     fresh_cards = [c for c in candidates if c["id"] not in existing]
 
