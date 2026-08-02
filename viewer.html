@@ -11,14 +11,55 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* ── The shape system (2026-08-02) ───────────────────────────────────────
+     Fernwood had 110 buttons, 31 visual signatures and 10 radii — not because
+     anyone drifted, but because nothing ever declared what a button IS. Every
+     prior wave correctly fixed the button in front of it (the ✓/× grammar
+     5/22, the 44px floor 8/01, the four-card shell 7/30) and none could fix
+     the class, because the class had no name. This block is the name.
+
+     ⭐ SHAPE IS THE ROLE. The system was already 90% emergent — it is being
+     written down, not invented:
+       pill (999px)  = a CHOICE among options. Hugs its label. Stays put.
+       rect (10px)   = a COMMIT. Fills its row. Hands off to a flow.
+       chip / circle = CHROME. Painted small, hit area grown to 44px.
+       no box        = a control inside a sentence.
+
+     THE RULE: a new visual signature is a claim that a fifth role exists.
+     That needs an argument, not a paint job. Put the role class in the markup
+     ALONGSIDE the specific class (`class="btn-choice gg-suggest-btn-yes"`) —
+     geometry lives in the role, fill and glyph in the specific class. That is
+     what makes conforming cheaper than inventing.
+
+     A GLYPH ON A BUTTON CARRIES THE DECISION, NEVER THE TOPIC. The ✓ and ×
+     qualify (they encode the answer independent of label legibility, which is
+     why they are Paul-stated). A topic emoji does not — the card header
+     already says what the card is about. */
+  :root {
+    --r-shell: 18px;   /* .main-card — the outermost containers */
+    --r-shelf: 16px;   /* .ref-drawer-toggle, sheets */
+    --r-card:  14px;   /* .ic-card, modals, panels */
+    --r-block: 12px;   /* .wblock, .dash-cell, in-card panels */
+    --r-ctrl:  10px;   /* every COMMITTING button, and every text input */
+    --r-chip:   8px;   /* small chrome: src-tags, data cells, icon squares */
+    --r-pill:  999px;  /* choice chips — a pill at ANY height, never a number
+                          that happens to match today's min-height */
+    --r-round:  50%;   /* circular icon buttons */
+    --btn-gap:  8px;   /* the only gap inside a control row */
+  }
+
   /* ── Tap-target floor (2026-08-01) ───────────────────────────────────────
      Two ways to reach the 44px functional floor, and WHICH ONE depends on
      what the control is:
 
      1. GROW THE BOX (`min-height: 44px` + inline-flex centering) — the
-        idiom .ack-btn established on 2026-07-29. Right when the control is
-        already a substantial block/pill and a bigger visual is an
-        improvement, not a distortion.
+        idiom established on 2026-07-29, whose live exemplar is
+        .gg-suggest-btn-yes. (It read ".ack-btn" until 2026-08-02; that class
+        was deleted on 7/29 when the ribbon was rebuilt out of the literal
+        gg-suggest components, so the file's own doctrine was pointing at
+        something that no longer rendered. The idiom is right — only its
+        exemplar moved.) Right when the control is already a substantial
+        block/pill and a bigger visual is an improvement, not a distortion.
 
      2. `.tap44` — grow only the HIT AREA, leave the paint alone. A centered
         transparent pseudo-element; hit-testing on ::after dispatches to its
@@ -40,7 +81,17 @@
      feedback loop depends on. The 44px floor exists so she does not miss what
      she MEANT to hit; it is not an argument for making the discard easier to
      hit by accident. A future sweep will measure this at 90×25 and read it as
-     an oversight — it is not. Do not "fix" it, and do not .tap44 it. */
+     an oversight — it is not. Do not "fix" it, and do not .tap44 it.
+
+     ⛔ REASONED EXEMPTION — `.ack-inline-link` (22px tall) STAYS SMALL.
+     Verified 2026-08-02: it is an underlined phrase INSIDE a sentence in the
+     acknowledgment ribbon. Growing the box would break the sentence it lives
+     in — the same argument this block already makes for reaching for
+     mechanism 2 over mechanism 1. It is a .btn-link, not a button.
+
+     This exemption list is a REGISTER, not a memory. Add to it rather than
+     re-deciding each sweep — the 2026-08-02 sweep re-derived all five ::after
+     recipients below and found the 8/01 floor already covering them. */
   .tap44 { position: relative; }
   /* .feedback-close is already position:absolute, i.e. already a containing
      block — re-declaring relative would move it. It gets the hit area only. */
@@ -91,7 +142,7 @@
     display: inline-flex;
     gap: 6px;
     background: rgba(255,255,255,0.10);
-    border-radius: 22px;
+    border-radius: var(--r-pill);
     padding: 4px;
     z-index: 5;
   }
@@ -757,7 +808,7 @@
     background: rgba(106, 138, 74, 0.94);
     color: #fff;
     border: 1.5px solid #5a7a3a;
-    border-radius: 22px;
+    border-radius: var(--r-pill);
     padding: 8px 16px;
     font-family: inherit;
     font-size: 14px;
@@ -1678,9 +1729,12 @@
     color: #2a4a2a;
     font-style: italic;
   }
+  /* minmax(0,…) for the same reason as .rain-byday — not overflowing today by
+     measurement, but it is the identical construction and the same
+     one-long-label failure is one label away. */
   .garden-hero-rain-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 6px;
   }
   .rain-cell {
@@ -1722,7 +1776,7 @@
   .rain-cell.rain-active { background: #e6f8ec; border-color: #5cb87a; }
   .rain-cell.rain-active .rain-cell-value { color: #14612f; font-weight: 700; }
   @media (max-width: 480px) {
-    .garden-hero-rain-grid { grid-template-columns: repeat(3, 1fr); }
+    .garden-hero-rain-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   .trend {
     display: flex;
@@ -2286,7 +2340,7 @@
   }
   .rain-ctx-cols {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
   }
   .rain-ctx-col {
@@ -2329,17 +2383,36 @@
     letter-spacing: 0.4px;
     margin: 10px 0 5px;
   }
+  /* ⚠️ `minmax(0, 1fr)` + `min-width: 0`, NOT `1fr` — and the reason is the
+     reason this strip overflowed (Paul reported it 2026-08-02, fixed same day).
+     A bare `1fr` track is floored at its MIN-CONTENT width, so all seven tracks
+     were sized by the widest single cell: six say "Su"/"Mo" (2 chars) and one
+     says "Today" (5). That one label set the floor for all seven. At 390px a
+     .wblock gives 297px → 39px per track; at base size "Today" needs ~36px and
+     just fits, but body.text-lg takes the label to 11px and the amount to 19px,
+     pushing the demand to ~42px per track → 318px into a 297px box. It spilled
+     ~21px past the right edge, and ONLY in A+ on a phone — Mom's configuration,
+     and invisible at desktop default, which is why it survived every prior
+     sweep. minmax(0,…) removes the floor so tracks always divide the container.
+     Do not "simplify" it back to 1fr. */
   .rain-byday {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 4px;
   }
   .rain-byday-cell {
     background: #fff;
     border: 1px solid #c8e8d8;
-    border-radius: 7px;
+    border-radius: var(--r-chip);
     padding: 5px 2px 4px;
     text-align: center;
+    min-width: 0;
+  }
+  /* At A+ on a phone the 42px demand still exceeds the ~39px track, so give her
+     full-size numbers on two rows rather than clipped ones on one. 4+3 wraps
+     cleanly and keeps left-to-right chronology within each row. */
+  @media (max-width: 480px) {
+    body.text-lg .rain-byday { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }
   /* "Today" is a POSITION, not a source and not an amount — so it gets a
      structural ring, not a hue. Same reasoning as `.rain-cell.rain-active`
@@ -2356,7 +2429,9 @@
     font-size: 9px;
     font-weight: 700;
     color: #5a7a6a;
-    letter-spacing: 0.3px;
+    /* letter-spacing: 0 — every 0.3px here is multiplied by the longest label
+       ("Today") and then by all seven tracks. See the .rain-byday note above. */
+    letter-spacing: 0;
   }
   .rain-byday-amt {
     font-family: "Crimson Text", serif;
@@ -3675,7 +3750,7 @@
     align-items: flex-end;
     background: #fbfaf3;
     border: 1.5px solid #e4dcc4;
-    border-radius: 22px;
+    border-radius: var(--r-pill);
     padding: 5px 7px;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
@@ -3900,7 +3975,6 @@
     min-height: 52px;
     min-width: 140px;
   }
-  .ui-action-btn .ui-action-icon { font-size: 24px; line-height: 1; }
   .ui-action-btn:active { transform: scale(0.98); }
   .ui-action-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
   .ui-save-btn {
@@ -3908,11 +3982,10 @@
     box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
   }
   .ui-save-btn:active { background: linear-gradient(135deg, #1f4528, #143018); }
-  .ui-ask-btn {
-    background: linear-gradient(135deg, #d49538, #a87018);
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
-  }
-  .ui-ask-btn:active { background: linear-gradient(135deg, #a87018, #805510); }
+  /* `.ui-ask-btn` (the gold Ask treatment) and `.ui-action-icon` were deleted
+     2026-08-02 — dead since 2026-07-13, when the two-button Save/Ask split was
+     resolved to one log-first button. The CSS outlived the feature by three
+     weeks and nothing rendered it. */
 
   /* Icon row — voice / photo / listen, sits below the textarea. Each icon
      is a labeled stacked button so Mom can read what each does without
@@ -4077,7 +4150,7 @@
     border: 1px solid #cdbf90;
     background: #fbf7ea;
     color: #5a4a1f;
-    border-radius: 22px;
+    border-radius: var(--r-pill);
     padding: 9px 15px;
     min-height: 44px;
     font-family: "Crimson Text", Georgia, serif;
@@ -4108,7 +4181,7 @@
     border: 1px solid #b7c9a8;
     background: #eef4e6;
     color: #35502f;
-    border-radius: 22px;
+    border-radius: var(--r-pill);
     padding: 10px 16px;
     min-height: 44px;
     font-family: "Crimson Text", Georgia, serif;
@@ -4198,28 +4271,14 @@
        mark on this line any more, so they sit on the card's own edge. */
     margin: 8px 0 0 0;
   }
-  .ack-btn {
-    font-family: "DM Sans", system-ui, sans-serif;
-    font-size: 12.5px; font-weight: 600; letter-spacing: 0.1px;
-    padding: 5px 15px; border-radius: 999px; cursor: pointer;
-    background: #fff; color: #35683a; border: 1px solid #bcd8b0;
-    /* 30 → 44px (Tier-1 #7, 2026-07-29). These were the smallest targets in her
-       input stack, and they are the two doors on the one surface whose whole job
-       is telling her she was heard — a missed tap there reads as the app
-       ignoring her. 44px is the documented functional floor, the same class of
-       rule as the 16px input floor found on 7/29 (both were invisible because
-       the app had only ever been reviewed on a desktop viewport).
-       Centered rather than padded to height, so the pill grows around the label
-       instead of the text drifting to the top of a tall box. */
-    min-height: 44px;
-    display: inline-flex; align-items: center; justify-content: center;
-  }
-  .ack-btn:hover { background: #eef6e9; }
-  .ack-btn:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; }
-  /* "Got it" leads — it is the cheaper of the two and the one most likely to be
-     the true answer. The heavier ask should never be the more prominent one. */
-  .ack-btn-primary { background: #dcefd4; border-color: #a3cc95; color: #234f28; }
-  .ack-btn-primary:hover { background: #cfe8c5; }
+  /* `.ack-btn` / `.ack-btn-primary` were deleted 2026-08-02 — dead since
+     2026-07-29, when standing rule 1 rebuilt this ribbon out of the LITERAL
+     `gg-suggest-btn-*` components rather than lookalikes, which is precisely
+     what stops the two grammars drifting apart. Their reasoning did not die
+     with them: the 44px floor argument moved into the tap-target block at the
+     top of this stylesheet, and "Got it leads — the cheaper answer, and the
+     heavier ask should never be the more prominent one" is now carried by the
+     component order in `.gg-suggest-actions`. */
   /* The tappable phrase inside the acknowledgment. Underlined, same serif,
      same size — it reads as part of the sentence, not as a control bolted on. */
   .ack-inline-link {
@@ -4435,7 +4494,7 @@
   }
   /* Neutral third door — same family as the yes/no chips, no glyph, no fill. */
   .gg-suggest-btn-neutral {
-    border-radius: 22px;
+    border-radius: var(--r-pill);
     padding: 8px 16px;
     font-family: "Crimson Text", Georgia, serif;
     font-size: 14px; font-weight: 600;
@@ -4450,7 +4509,7 @@
      (Paul's steer 2026-07-14). Dashed + softer fill marks it a modifier, not a 4th answer. */
   .mom-queue-addnote {
     display: block; width: 100%; box-sizing: border-box; margin-top: 10px;
-    border-radius: 22px; padding: 8px 16px; min-height: 44px; line-height: 1;
+    border-radius: var(--r-pill); padding: 8px 16px; min-height: 44px; line-height: 1;
     cursor: pointer; -webkit-tap-highlight-color: transparent;
     font-family: "Crimson Text", Georgia, serif; font-size: 14px; font-weight: 600;
     background: #fbfaf4; color: #6a7a4a; border: 2px dashed #cdd6ac;
@@ -4645,9 +4704,21 @@
      Yes = filled green pill with ✓ glyph. No = outlined neutral pill with × glyph.
      Glyph + fill state carries the decision independent of label legibility. Critical
      path for the photo-ID flow — Mom's primary use case. Position is Yes-left, No-right
-     across both confirm steps so muscle memory builds. */
+     across both confirm steps so muscle memory builds.
+
+     ⭐ RADIUS IS var(--r-pill) = 999px, NOT 22px (Paul's go, 2026-08-02).
+     22px was a pill only because min-height happened to be 44px. `body.text-lg`
+     raises these to 52px and never touched the radius, so in A+ — the mode Mom
+     is most likely using — the affirmative control became a rounded rectangle
+     with 4px of flat edge, sharing its silhouette with the Save button. The one
+     shape rule the app had stopped holding in the one text mode it was written
+     for. 999px is a pill at 44px, at 52px, and at any height a future text mode
+     introduces: the shape is size-independent BY CONSTRUCTION rather than by a
+     number that matches today's height. This REPAIRS CLAUDE.md standing rule 1
+     (one affirmative grammar); it does not alter it — "Got it" and "That's all
+     of them" remain identical to each other. Do not put a number back. */
   .gg-suggest-btn-yes, .gg-suggest-btn-no {
-    border-radius: 22px;
+    border-radius: var(--r-pill);
     padding: 8px 16px 8px 12px;
     font-family: "Crimson Text", Georgia, serif;
     font-size: 14px;
@@ -5618,7 +5689,6 @@
   /* Unified input + Garden Guru */
   body.text-lg #ui-textarea               { font-size: 17px; }
   body.text-lg .ui-action-btn             { font-size: 19px; min-height: 60px; }
-  body.text-lg .ui-action-btn .ui-action-icon { font-size: 28px; }
   body.text-lg .ui-icon-btn .icon-label   { font-size: 14.5px; }
   body.text-lg .ui-icon-btn .icon-emoji   { font-size: 26px; }
   body.text-lg .ui-turn-user,
