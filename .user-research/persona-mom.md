@@ -2,22 +2,79 @@
 type: persona
 project: tate-tracker
 person_id: mom
-last_updated: 2026-05-27
-evidence_level: validated
+last_updated: 2026-08-01
+evidence_level: contested — the entire telemetry tier is INVALID (wrong device)
 sources:
   - Paul direct (multiple sessions, 2026-05 series)
   - Tate Tracker CLAUDE.md (project tone + user notes)
   - ~/.claude/agent-foundations/_about-paul.md (Tate Tracker user context)
-  - .audit/2026-05-26-telemetry-rollup.md (first real-usage telemetry, 6-day window 2026-05-20..2026-05-27, likely-Mom device d-14nyhnjz-...)
+  - "⛔️ RETRACTED AS A SOURCE FOR THIS PERSONA: .audit/2026-05-26-telemetry-rollup.md — its
+     'likely-Mom device d-14nyhnjz-...' is PAUL'S device. See the banner below."
+  - tools/people.json (authoritative device→person map; corrected 2026-07-28 against CONTENT)
+  - "Re-derived 2026-08-01: tools/read-mom-funnel.py + tools/analyze-fernwood.py,
+     window 2026-07-13..2026-08-01, builder devices excluded"
 ---
 
 # Mom — Make-or-break user
 
 The user whose adoption decides whether Fernwood is worth building at all. Joint primary user with Paul. Not technophobic, but the adoption hurdle is real: anything the app asks of her has to feel earned, not imposed.
 
-**Status update 2026-05-27 (telemetry):** Adoption is no longer hypothetical. The `d-14nyhnjz-...` device — viewport 393x793 (iPhone Pro), 27 sessions / 341 events over 6 days, the only device that touched the A/A+ text-size toggle (12 events) — is best read as Mom's. Confirmation step is still Paul-sights-her-phone, but every behavioral signal lines up. The persona below now distinguishes what telemetry *validates*, what it *demotes*, and what it *flags* as newly unknown.
+> # 🚨 READ THIS BEFORE USING ANY NUMBER IN THIS FILE
+>
+> **Every telemetry claim below originally tagged `[validated — 2026-05-27]` counted PAUL, not
+> Mom.** They now carry `[⛔️ INVALIDATED 2026-08-01]` in place of that tag.
+>
+> `tools/people.json` is unambiguous: the device mapping was **backwards until 2026-07-28**.
+> `d-14nyhnjz-5lh01604-mpevr35o` — the device this persona calls "likely-Mom" and builds its
+> entire behavioural tier on — **is Paul's**. It was corrected against *content*, not activity
+> shape: all four of Mom's genuine inputs carry `d-szqlt0h7-79xgx1bj-mpfrqkme`, `d-14nyhnjz` has
+> produced **zero** feedback records ever, and its only zone recordings are Paul saying *"this is
+> Paul testing."* Paul confirmed the reading the same day.
+>
+> **This matters beyond the file: `ux-expert` reads this persona for user context.** Until
+> 2026-08-01 it was handing every design review a portrait of Mom assembled from Paul's own
+> dogfooding — the most engaged possible user, mistaken for the one whose adoption is in question.
+>
+> ### What the numbers actually are (re-derived 2026-08-01, builder devices excluded)
+>
+> | Claim in this file | Whose device | Re-derived truth |
+> |---|---|---|
+> | "27 sessions / 6 days = ~4.5 sessions/day" | **Paul** (`d-14nyhnjz`: 69 sessions / 18 active days) | Mom: **11 sessions across 6 active days** in a 20-day window ≈ **0.55/day** |
+> | "the only device that touched the A/A+ toggle (12 events)" | **Paul** | Mom has **never** used the A/A+ toggle |
+> | "Plants and Weather most-viewed, 60 views each" | **Paul** | not re-derived at card grain for her; **do not cite** |
+> | "55 `entry_revisited` on her device vs 0 stars" | **Paul** | 0 stars holds *portfolio-wide* (`entry_starred` = 0 across all devices); the **55-on-her-device** figure does not |
+> | "offered 35 → viewed 33 → tapped 1" | **Paul** | Mom, 07-13→08-01: **offered 14 → viewed 9 → tapped 2 → answered 4** |
+>
+> **The single largest reversal: adoption was never validated.** "Adoption is no longer
+> hypothetical" was the strongest claim this persona ever made, and it was a measurement of the
+> builder opening his own app. The make-or-break question this persona exists to answer is
+> **still open**, and the clean measurement window closes **2026-08-10**.
+>
+> **What SURVIVES, because it never rested on the device attribution:** everything sourced to
+> *Paul direct* (the reading-difficulty constraint, the low-attention posture, the earn-its-place
+> framing), and everything sourced to her own **content** — her four confirms, the rainfall note
+> where she was right by 14×, and her in-person tabs request. Those are her, and they are the
+> better evidence anyway.
+>
+> ⚠️ **Do NOT pool a pre- and post-07-30 series** — four input surfaces were restyled at once on
+> 07-30, so launcher counts especially are not comparable across it.
+>
+> *Banner added 2026-08-01. Claim-level tags below were demoted in the same pass; the original
+> text is left standing rather than deleted, because a persona that quietly loses its evidence
+> reads exactly like one that never had any.*
 
-**Status update 2026-07-02 (40-day conversation-content read):** The window extended from 6 days to ~40, and we now read the actual turn *content*, not just event counts. See `.user-research/2026-07-02-mom-behavior-interpretation.md` for the full read. Headlines:
+**~~Status update 2026-05-27 (telemetry)~~ — ⛔️ RETRACTED 2026-08-01, see banner.** ~~Adoption is no longer hypothetical.~~ The `d-14nyhnjz-...` device — viewport 393x793 (iPhone Pro), 27 sessions / 341 events over 6 days, the only device that touched the A/A+ text-size toggle (12 events) — was read as Mom's. **It is Paul's.** "Confirmation step is still Paul-sights-her-phone" was the caveat that should have blocked every downstream `[validated]` tag and did not: **the persona promoted an unconfirmed identification to validated evidence, then reasoned from it for nine weeks.** That is the durable lesson here — not the wrong device, but that nothing in the process re-tested the load-bearing assumption once it had been written down.
+
+**Status update 2026-07-02 (40-day conversation-content read):** ⚠️ **THIS BLOCK INHERITS THE SAME
+BAD ATTRIBUTION — 2026-08-01.** It reads *content*, which is the right instrument, but it selected
+that content by device, and its own last line admits the join was never confirmed
+(*"Device→Mom remains `[inferred, strong]`, still awaiting a Paul-sights-her-phone confirmation"*).
+That confirmation came on 2026-07-28 and **went the other way.** So *"active 27 of ~40 days"* is
+Paul, and every conversation called "probable-Mom" here needs re-attributing before it is cited —
+`d-szqlt0h7` recorded **2 conversations** in the 07-13→08-01 window, not a 40-day corpus.
+**Re-reading the turn content against the corrected map is genuine open work, not a doc fix**, and
+it is the one piece of this correction a re-derivation could not do mechanically. *Original text
+kept below.* The window extended from 6 days to ~40, and we now read the actual turn *content*, not just event counts. See `.user-research/2026-07-02-mom-behavior-interpretation.md` for the full read. Headlines:
 - `[validated]` **Adoption is durable, not a spike.** Active 27 of ~40 days *through today*; ran a photo-bearing Guru conversation today. The 2026-05-27 "Guru-becomes-pattern: NOT YET" and the 4-day-silence worry are both retired — Guru use is now an **emerging pattern**, not a one-off.
 - `[validated]` **Her Guru questions are the stewardship-lookup the rubric predicted** — fertilize/transplant timing, soil amendment, ID, seasonal diagnosis. None idle.
 - `[inferred, single-observation]` **A new job the persona didn't hold:** log a *seasonal change on a plant she already knows* + diagnose + get advice, in one breath (today's lily-pad utterance). Distinct from Job 3 (ID the unknown) and Job 5 (promote a new species). N=1, probable-Mom; verification Q's drafted to firm it up. It currently dead-ends into Paul's manual work.
@@ -28,17 +85,17 @@ The user whose adoption decides whether Fernwood is worth building at all. Joint
 
 `[inferred]` — Lives the property day-to-day in a way Paul (Atlanta-based) doesn't. Notices what's blooming, what's broken, what needs attention — but currently holds that knowledge in her head and her memory of past seasons, not in any shared system. The app is being introduced into an already-working life, not filling a desperate gap. That asymmetry matters: she doesn't *need* it; it has to earn its place.
 
-`[validated — 2026-05-27]` — **Use is daily and recurring**, not occasional. 27 sessions over 6 days = ~4.5 sessions/day on the likely-Mom device. The "the app has to earn its place" framing held — and the app has earned it, at least at the open-the-thing level. Source: `.audit/2026-05-26-telemetry-rollup.md` engagement-by-device table.
+`[⛔️ INVALIDATED 2026-08-01 — counted Paul's device; see banner]` — **Use is daily and recurring**, not occasional. 27 sessions over 6 days = ~4.5 sessions/day on the likely-Mom device. The "the app has to earn its place" framing held — and the app has earned it, at least at the open-the-thing level. Source: `.audit/2026-05-26-telemetry-rollup.md` engagement-by-device table.
 
-`[inferred — partially validated 2026-05-27]` — Use is likely off-property too, not only at-property. Phone in bed with morning coffee or at night winding down — a leisure-mode reading session, not a deliberate stewardship task at a desk. The dashboard is competing with whatever else she'd reach for on her phone in those moments. (Source: Paul direct 2026-05-11.) **2026-05-27 update:** telemetry confirms phone-as-surface (iPhone Pro viewport, mobile device class) and confirms daily cadence consistent with morning/evening pull-ups, but does NOT yet validate the specific bed-and-coffee posture — that requires direct conversation with Mom. Session times per event would help if Paul wants to look at the hour-of-day distribution.
+`[inferred — the 2026-05-27 'partial validation' is WITHDRAWN 2026-08-01; it was Paul's device]` — Use is likely off-property too, not only at-property. Phone in bed with morning coffee or at night winding down — a leisure-mode reading session, not a deliberate stewardship task at a desk. The dashboard is competing with whatever else she'd reach for on her phone in those moments. (Source: Paul direct 2026-05-11.) **2026-05-27 update:** telemetry confirms phone-as-surface (iPhone Pro viewport, mobile device class) and confirms daily cadence consistent with morning/evening pull-ups, but does NOT yet validate the specific bed-and-coffee posture — that requires direct conversation with Mom. Session times per event would help if Paul wants to look at the hour-of-day distribution.
 
 ## Job-to-be-done
 
 `[inferred]` — Enjoy and steward the property well, without the act of stewarding becoming work she resents. Wants to feel confident — knowing what's happening this month, what's coming, what each plant needs — and wants the noticing of the place (birds at the feeders, frogs at the pond, the seasons turning) to feel rewarding rather than instrumentalized.
 
-`[validated — 2026-05-27]` — **The dashboard's at-a-glance cards carry most of the job.** Per telemetry: Plants and Weather tied for most-viewed (60 views each on likely-Mom device); Wildlife at 54; Celestial 47; Property 45. Card-section-viewed dominates the event mix (194 of 341 events ≈ 57%). She is scanning the cards, not deep-diving. The "lay out the place at a glance" job is the one Fernwood currently serves best. Source: `.audit/2026-05-26-telemetry-rollup.md` card-popularity table.
+`[⛔️ INVALIDATED 2026-08-01 — counted Paul's device; see banner]` — **The dashboard's at-a-glance cards carry most of the job.** Per telemetry: Plants and Weather tied for most-viewed (60 views each on likely-Mom device); Wildlife at 54; Celestial 47; Property 45. Card-section-viewed dominates the event mix (194 of 341 events ≈ 57%). She is scanning the cards, not deep-diving. The "lay out the place at a glance" job is the one Fernwood currently serves best. Source: `.audit/2026-05-26-telemetry-rollup.md` card-popularity table.
 
-`[validated — 2026-05-27]` — **She returns to saved entries at scale.** 55 `entry_revisited` events on her device alone (104 across all devices) vs. 0 stars. Revisit-as-curation is the actual behavior; the star affordance is not part of how she uses the app. The "this matters" interaction exists — it's just expressed as "I come back to this entry," not as "I tap a star." See updated open questions below.
+`[⛔️ INVALIDATED 2026-08-01 — counted Paul's device; see banner]` — **She returns to saved entries at scale.** 55 `entry_revisited` events on her device alone (104 across all devices) vs. 0 stars. Revisit-as-curation is the actual behavior; the star affordance is not part of how she uses the app. The "this matters" interaction exists — it's just expressed as "I come back to this entry," not as "I tap a star." See updated open questions below.
 
 ## Triggers
 
@@ -54,10 +111,10 @@ The user whose adoption decides whether Fernwood is worth building at all. Joint
 
 - `[inferred]` — A simple, easy-to-remember password is acceptable. Low-friction authentication is the real constraint; password-free is not required. (Original "no password / Mom stops" hypothesis was contradicted by Paul on 2026-05-11: *"We could have a password. I don't think there's anything wrong with that. It would just need to be very easy to remember. I don't think there's a lot of confidential information there."*)
 - `[inferred]` — Not gun shy about tech, but won't pursue a tool that has friction relative to the value she gets from it. The bar is "compelling enough to open" — not "tolerable to use once open." **Strengthened 2026-05-27:** the bar has been cleared. The compelling-enough-to-open question is answered by 27 sessions in 6 days.
-- `[validated — 2026-05-27]` — **Mobile-only realistically.** Telemetry shows zero desktop activity from her device pool; viewport 393x793 (iPhone Pro). The earlier "porch or kitchen, not at a desk" reading was correct. Promoted from `inferred` to `validated`.
+- `[⛔️ INVALIDATED 2026-08-01 — counted Paul's device; see banner]` — **Mobile-only realistically.** Telemetry shows zero desktop activity from her device pool; viewport 393x793 (iPhone Pro). The earlier "porch or kitchen, not at a desk" reading was correct. Promoted from `inferred` to `validated`.
 - `[assumption]` — Time and attention are scarce; she's not going to read long blocks of text or work through multi-step interactions.
 - `[inferred]` — **Low-attention reading posture is a real use mode.** Bed, one-handed, reclined, half-engaged (waking up or winding down). Design has to read well at half-engagement — scannable, light cognitive load, no multi-step interactions, no tiny tap targets. (Source: Paul direct 2026-05-11.) **2026-05-27:** the 2-turn ceiling on all 10 Garden Guru conversations is consistent with low-attention posture — she's not getting drawn into multi-turn exchanges. (Could also mean the assistant isn't pulling her in — see open questions.)
-- `[validated — 2026-05-27, promoted from validated-inline]` — **Mom has a hard time reading and may not use the app with reading glasses on.** Now backed by direct usage: 12 `text_size_changed` events on her device — the *only* device that touched the A/A+ toggle Paul shipped 5/22 for exactly this reason. The accessibility constraint isn't just a stated preference; she is actively reaching for the affordance designed for it. Implication unchanged: small body copy, faint helper text, and meaning carried by text labels alone are accessibility failures here. Icon + size + color must carry intent independently of fine print. (Original source: Paul direct 2026-05-22. Behavioral confirmation: `.audit/2026-05-26-telemetry-rollup.md`.)
+- `[⛔️ INVALIDATED 2026-08-01 as TELEMETRY — the A/A+ evidence is Paul's device. The CONSTRAINT still stands on Paul-direct 2026-05-22; only its behavioural confirmation is withdrawn]` — **Mom has a hard time reading and may not use the app with reading glasses on.** Now backed by direct usage: 12 `text_size_changed` events on her device — the *only* device that touched the A/A+ toggle Paul shipped 5/22 for exactly this reason. The accessibility constraint isn't just a stated preference; she is actively reaching for the affordance designed for it. Implication unchanged: small body copy, faint helper text, and meaning carried by text labels alone are accessibility failures here. Icon + size + color must carry intent independently of fine print. (Original source: Paul direct 2026-05-22. Behavioral confirmation: `.audit/2026-05-26-telemetry-rollup.md`.)
 
 ## Definition of success
 
