@@ -93,3 +93,27 @@ put in the position of correcting us.
 **Principle invoked:** ask the observable, never our sentence.
 **Decided by:** agent-proposed, Paul-engaged (he redirected the whole item toward Mom-in-the-app
 rather than a Paul reading task, which is what forced this distinction)
+
+### wildlife markers (whole class: bird · mammal · amphibian · snake · lizard · fish) · 2026-08-02
+**Call:** don't ask — park the whole backfill · shape: would have been sighting
+**Reasoning:** Paul, redirecting mid-build: *"some of the wildlife stuff is probably, like, lower
+priority and lower interest than a more thorough review of the garden and all the plants and weed and
+fairway and all that, and really digging into that with Mom."* Checked before acting on it, and her
+record says the same thing louder: **every confirm card she has ever answered has been about a plant**
+— crocosmia, the Annabelle hydrangea, the panicle bloom, 3 of 3 entity-bearing cards. None of her
+free-text inputs (the moss and how she feeds it, household systems, the rainfall number) touched an
+animal either. Zero wildlife signal of any kind, in either direction.
+
+The work was already framed and defensible — the uncertainty is *already* recorded informally in the
+`statusLabel` prose (*"species TBD"*, *"in the area"*, *"Lake Sequoyah nearby (not the property
+pond)"*), so the backfill would have been extraction rather than invention. **It was still the wrong
+next move**: 67 records of marker authoring in the one domain with no evidence she cares, to feed a
+card queue with a hard cap of 5 slots. Supply built where demand has never appeared.
+
+**What this is NOT:** a claim that wildlife doesn't interest her. Nobody has asked. It is a claim that
+with a 5-slot cap and a garden she demonstrably engages with, the garden goes first.
+**Un-park trigger:** any wildlife signal from her — a sighting she volunteers, a Guru question about an
+animal, or a deliberate probe once the garden queue is healthy.
+**Principle invoked:** [[feedback_defer_affordances_pending_signal]] — build where the signal is, not
+where the records are.
+**Decided by:** paul-stated
