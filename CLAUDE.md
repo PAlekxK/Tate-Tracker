@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Run these first thing when picking up Fernwood, before other work:**
 
 ```bash
+python3 tools/check-domains.py             # does every domain still conform to the ONE manifest?
 python3 tools/check-data-inline.py         # viewer.html inlines vs source JSON
 python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
@@ -179,6 +180,52 @@ python3 -m http.server 8765
 ## Release notes — update every release
 
 **Every user-facing change ships with a release note.** When a release lands something Mom or Paul would notice on the dashboard (a new card, a new affordance, a visible behavior change), add a `## YYYY-MM-DD — Title` entry to `RELEASE_NOTES.md` (newest stays at top, field-journal voice, bullets describe what changed *for the user* — not the engineering), then run `python3 tools/build-release-notes.py` to re-inline `RELEASE_NOTES_DATA` (latest 5) into viewer.html. The "Recent updates" card renders it. Purely behind-the-scenes work (refactors, data plumbing) doesn't need an entry. If a release shipped without a note, backfill it.
+
+## ⭐⭐ The domain manifest — how the record is organized, holistically (Paul, 2026-08-02)
+
+**`momlib.DOMAINS` is THE declaration of every domain, and `tools/check-domains.py` is what stops it
+drifting.** Paul's ask: *"a holistic structure that allows all these various files and categories of
+content to be somewhat modular across, especially some of the capture surfaces that we're building.
+And we want to limit how much they diverge as they continue to be enriched over time."* Full analysis:
+`.engineering/2026-08-02-record-organization.md`.
+
+**The finding that shaped it: the domains were already right.** A universal spine already existed
+unplanned (`id`/`name`/`scientificName`/`emoji`/`photo`/`attribution`/`notes` in every domain), and the
+five wildlife files are one schema wearing five filenames. Records answer four axes — identity, time,
+action, honesty — and only **honesty** had diverged: weeds top-level, plants nested and partial,
+vehicles per-value, **wildlife nothing at all across 64 records**. So this is a contract, **not a
+reorganization**: nothing was merged, nothing renamed, nothing moved.
+
+Three things each domain now declares, and what each is for:
+
+- **`group` — the ACTION axis** (`tend` · `fight` · `visit` · `run` · `place`). **This is the answer to
+  "technically, weeds are plants."** Biologically yes — but the split here has never been biological:
+  you *tend* a plant and *fight* a weed, and those want different fields, a different voice and a
+  different question to Mom. **Biology is a PROPERTY of a record (`scientificName` carries it), not a
+  folder.** It is also Mom's own axis — she derived vehicles / equipment / household systems unprompted.
+- **`time`** — which keys carry that domain's temporal axis. Declared rather than renamed: a
+  `monthsPresent`→`monthsActive` rename across 64+ records buys nothing an accessor doesn't and costs a
+  re-inline of every domain.
+- **`markers`** — where that domain admits a guess. **`momlib.markers(record, dtype)` normalises all of
+  them**, so a producer asks *"does this record admit a guess?"* instead of knowing field names.
+  `harvest-questions.py` did not merely read plants.json — it hardcoded the `variety` and `bloom` FIELD
+  SHAPES, which is why pointing it at `weeds.json` would have returned **zero**: the three
+  unharvestable weeds are explicitly marked askable, in a vocabulary it could not read.
+
+**`cardable` is not "does this domain exist" — it is "is it wired into `buildCard` today."**
+`ENTITY_SOURCES` is now DERIVED from it, so `entity_map_divergence()` guards exactly what it guarded
+before: adding a domain to canon is free; promoting one to Mom's cards is a two-place change the test
+names. Flipping the flag without touching `buildCard` fails loudly.
+
+⚠️ **Remaining M1 work, and `check-domains.py` prints it every run:** amphibian · bird · fish · lizard
+· mammal · snake have **no marker path at all**, so they cannot produce a card however good the
+harvester gets. Backfilling those is authoring judgement, not a migration. ⚠️ **And the risk when they
+land is SUPPLY, not schema** — a harvester that can see four domains puts new cards in front of Mom,
+and the 5-slot cap binds immediately with 8 already on the bench and none approved.
+
+*(Occasional, not per-session: `python3 tools/check-season-notes.py` audits all 178 month-keyed
+`seasonNotes` against each plant's own bloom and care months — heuristics over prose, so it flags and
+never fixes. `--month N` gives the only set that is actually on screen.)*
 
 ## Plant taxonomy & organization — the rule (v1, 2026-07-22)
 

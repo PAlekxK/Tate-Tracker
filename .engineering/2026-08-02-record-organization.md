@@ -133,3 +133,49 @@ model. A harvester that can suddenly see four domains is a supply problem wearin
 ---
 
 *Status: recommendation, Paul's call. Nothing here has been implemented.*
+
+---
+
+## SHIPPED the same day — M1 (structure) and M3, Paul-approved
+
+Paul approved M1 and M3 and added the requirement that shaped the build:
+*"let's have a holistic structure that allows all these various files and categories of content to be
+somewhat modular across, especially some of the capture surfaces that we're building. And we want to
+limit how much they diverge as they continue to be enriched over time."*
+
+**Landed:**
+
+- **`momlib.DOMAINS`** — the one declaration, all 10 domains, each carrying `group` (M3's action axis),
+  `time`, `markers` and `cardable`. `EntitySource` widened to `Domain` **without moving positions 0–2**,
+  so every existing index and attribute read still means what it did.
+- **`momlib.markers(record, dtype)`** — M1's core. Normalises weeds' top-level `confidence`, plants'
+  nested `variety`/`bloom`, vehicles' per-value `maintenance.*.confidence` and zones' `status` into one
+  shape. Supports `*` in a marker path. Infers `askable` from each domain's own vocabulary
+  (`askable` flag · `status: needs-confirmation` · else non-verified-means-ask).
+- **`ENTITY_SOURCES` is now DERIVED** from `cardable`, so `entity_map_divergence()` keeps guarding
+  precisely what it guarded before. Verified: the map is byte-identical for positions 0–2 and
+  divergence is still `[]`.
+- **`tools/check-domains.py`** — the anti-drift mechanism, wired into the session-start block. Asserts
+  every domain resolves, declares a known group, has its inlined const present, and that every declared
+  temporal key exists on real records. Reports honesty coverage per domain. **And it catches the case
+  nothing could see before: a domain file appearing on disk that nobody declared** — undeclared files
+  must land in `DOMAINS` or in `NON_DOMAINS` *with a reason*, so "we decided this isn't a domain" and
+  "nobody looked" stop being the same state.
+
+**Regression-checked, all passing:** `check-cards.py`, `test-feedback-cycle.py` (incl. its RESOLVE leg),
+`rationalize-bench.py`, `check-data-inline.py`.
+
+**First run's standing output** — six domains with no way to admit a guess at all:
+
+| domain | group | records | marker paths | with marker | askable | wired |
+|---|---|---|---|---|---|---|
+| plant | tend | 36 | 2 | 21 | 21 | card |
+| weed | fight | 5 | 1 | 5 | 5 | card |
+| vehicle | run | 16 | 1 | 14 | 0 | — |
+| zone | place | 10 | 1 | 10 | 0 | — |
+| bird · mammal · amphibian · snake · lizard · fish | visit | 64+3 | **0** | 0 | 0 | — 🔴 |
+
+**Not done, deliberately:** backfilling markers onto the wildlife domains (authoring judgement about
+what is actually uncertain, not a migration), and rewriting `harvest-questions.py` to consume
+`markers()`. The second one puts new cards in front of Mom, so it ships behind Paul's clear gate with
+card supply as the thing to watch.

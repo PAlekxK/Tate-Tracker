@@ -174,24 +174,155 @@ def load_json(name):
 # test-feedback-cycle.py fails on any mismatch. ⚠️ Adding a domain means adding
 # it HERE and in buildCard; the test names exactly what is missing. Do not add a
 # third place — that is the trap this replaced.
-class EntitySource(tuple):
-    """(file, key, const) — indexable like the 2-tuple it replaced, so existing
-    `ENTITY_SOURCES[t][0]` reads keep meaning 'the source file'."""
+class Domain(tuple):
+    """(file, key, const, …) — indexable like the 2-tuple it replaced, so existing
+    `ENTITY_SOURCES[t][0]` reads keep meaning 'the source file'.
+
+    Widened 2026-08-02 (Paul) from a 3-field source pointer into the full domain
+    declaration, so that new domains and new capture surfaces plug into ONE
+    contract instead of each inventing its own. The three original positions are
+    unchanged and every existing index/attribute read still means what it did.
+    """
 
     __slots__ = ()
 
-    def __new__(cls, file, key, const):
-        return super().__new__(cls, (file, key, const))
+    def __new__(cls, file, key, const, group, time=(), markers=(), cardable=False):
+        return super().__new__(cls, (file, key, const, group, tuple(time),
+                                     tuple(markers), bool(cardable)))
 
     file = property(lambda self: self[0])   # e.g. "plants.json"
     key = property(lambda self: self[1])    # the list key inside that JSON
     const = property(lambda self: self[2])  # the inlined viewer const
+    # ── the axes added 2026-08-02 ────────────────────────────────────────────
+    group = property(lambda self: self[3])    # ACTION axis — what you DO with it
+    time = property(lambda self: self[4])     # record keys carrying the temporal axis
+    markers = property(lambda self: self[5])  # where this domain admits a guess
+    cardable = property(lambda self: self[6])  # is it wired into buildCard TODAY?
 
 
-ENTITY_SOURCES = {
-    "plant": EntitySource("plants.json", "plants", "PLANTS_DATA"),
-    "weed": EntitySource("weeds.json", "weeds", "WEEDS_DATA"),
+# ⭐ THE ACTION AXIS (Paul, 2026-08-02) — how the record is organized, holistically.
+#
+# The split between domains has never been biological: you TEND a plant and you
+# FIGHT a weed, and those want different fields, a different voice and a different
+# question to Mom. Biology is a PROPERTY of a record (`scientificName` carries it),
+# not a folder. This is also Mom's own axis — she derived vehicles / equipment /
+# household systems unprompted, a split by what you do with the thing.
+GROUPS = {
+    "tend":  "things you tend",
+    "fight": "things you fight",
+    "visit": "things that visit",
+    "run":   "things that run the place",
+    "place": "the ground itself",
 }
+
+# ⭐ THE DOMAIN MANIFEST — one declaration, every domain, so enrichment cannot
+# silently diverge. `check-domains.py` fails when a domain drifts from it.
+#
+# `cardable` is deliberately NOT "does this domain exist" — it is "is this domain
+# wired into buildCard's ENTITY_DATA today." ENTITY_SOURCES is derived from it, so
+# entity_map_divergence() keeps guarding exactly what it guarded before: adding a
+# domain to canon is free, and promoting one to Mom's cards is a two-place change
+# the test names. Flipping a flag here without touching buildCard fails loudly.
+DOMAINS = {
+    "plant":     Domain("plants.json", "plants", "PLANTS_DATA", "tend",
+                        time=("care", "bloom", "seasonNotes"),
+                        markers=("variety.confidence", "bloom.confidence"),
+                        cardable=True),
+    "weed":      Domain("weeds.json", "weeds", "WEEDS_DATA", "fight",
+                        time=("seedTiming",),
+                        markers=("confidence",),
+                        cardable=True),
+    "bird":      Domain("birds.json", "species", "BIRDS_DATA", "visit",
+                        time=("monthsPresent", "peakMonths",
+                              "arrivalWindow", "departureWindow")),
+    "mammal":    Domain("mammals.json", "species", "MAMMALS_DATA", "visit",
+                        time=("monthsPresent", "peakMonths")),
+    "amphibian": Domain("amphibians.json", "species", "AMPHIBIANS_DATA", "visit",
+                        time=("monthsActive", "peakMonths")),
+    "snake":     Domain("snakes.json", "species", "SNAKES_DATA", "visit",
+                        time=("monthsActive", "peakMonths")),
+    "lizard":    Domain("lizards.json", "species", "LIZARDS_DATA", "visit",
+                        time=("monthsActive", "peakMonths")),
+    "fish":      Domain("fishing.json", "species", "FISHING_DATA", "visit",
+                        time=("tempPhases",)),
+    "vehicle":   Domain("vehicles.json", "vehicles", "VEHICLES_DATA", "run",
+                        markers=("maintenance.*.confidence",)),
+    "zone":      Domain("zones.json", "zones", "ZONES_DATA", "place",
+                        markers=("status",)),
+}
+
+# Backward-compatible aliases. ENTITY_SOURCES stays exactly what it was — the map
+# of types a CARD can resolve — and is now derived rather than hand-kept.
+EntitySource = Domain
+ENTITY_SOURCES = {t: d for t, d in DOMAINS.items() if d.cardable}
+
+
+def _resolve_path(record, path):
+    """Walk a dotted marker path. `*` means 'each value of this dict'.
+
+    Yields (readable_path, value). Missing legs yield nothing — an absent marker
+    is the normal case, not an error.
+    """
+    head, _, rest = path.partition(".")
+    if head == "*":
+        if isinstance(record, dict):
+            for k, v in record.items():
+                for sub, val in _resolve_path(v, rest) if rest else [("", v)]:
+                    yield (f"{k}.{sub}" if sub else k), val
+        return
+    if not isinstance(record, dict) or head not in record:
+        return
+    value = record[head]
+    if not rest:
+        yield head, value
+        return
+    for sub, val in _resolve_path(value, rest):
+        yield f"{head}.{sub}", val
+
+
+def markers(record, dtype):
+    """⭐ THE ONE UNCERTAINTY READER (M1, 2026-08-02).
+
+    Every domain had invented its own way of admitting a guess — weeds top-level
+    `confidence`+`status`, plants nested under `variety`/`bloom`, vehicles inside
+    each `maintenance` value, wildlife nothing at all. `harvest-questions.py` did
+    not merely read plants.json: it hardcoded the `variety` and `bloom` FIELD
+    SHAPES, so pointing it at weeds.json would have returned ZERO candidates —
+    the three unharvestable weeds are explicitly marked askable, in a vocabulary
+    it could not read.
+
+    This normalises all of them to one shape, so a producer asks "does this
+    record admit a guess?" instead of knowing any domain's field names:
+
+        [{"path": "variety.confidence", "confidence": "inferred",
+          "askable": True, "owner": {...the dict the flag lives on...}}]
+
+    `askable` is the domain's own way of saying a human on the property could
+    settle it: plants use an explicit `askable`, weeds use
+    `status == "needs-confirmation"`. Absent either, a non-verified confidence is
+    treated as askable — being unsure is the whole reason to ask.
+    """
+    dom = DOMAINS.get(dtype)
+    if not dom or not isinstance(record, dict):
+        return []
+    out = []
+    for spec in dom.markers:
+        for path, value in _resolve_path(record, spec):
+            if not isinstance(value, str) or value == "verified":
+                continue
+            owner = record
+            parent_path = path.rsplit(".", 1)[0] if "." in path else ""
+            if parent_path:
+                for _, owner_val in _resolve_path(record, parent_path):
+                    owner = owner_val if isinstance(owner_val, dict) else record
+                    break
+            askable = owner.get("askable")
+            if askable is None:
+                askable = (record.get("status") == "needs-confirmation"
+                           if "status" in record else True)
+            out.append({"path": path, "confidence": value,
+                        "askable": bool(askable), "owner": owner})
+    return out
 
 
 def entity_path(etype):
