@@ -228,6 +228,43 @@ touched all four surfaces at once. Launcher counts in particular must not be poo
 
 ---
 
+## 🎨 The shape system — SHIPPED 2026-08-02 (Paul-commissioned UX audit)
+
+Commissioned by Paul as a general UX audit, three named areas plus a whole-viewer sweep. Full findings:
+`.ux-reviews/2026-08-02-button-system-weather-collapse-disclosure.json` (18 findings). Shipped and
+**live on Pages** in `582607f`→`b386597`.
+
+| What shipped | Detail |
+|---|---|
+| ✅ **The button system is named** | 110 buttons / 31 visual signatures / 10 button radii → **8, all on a token scale**. The key finding: the system was **already 90% emergent** — pills are choices, 10px rects are commits — and had simply never been written down, which is why it broke just often enough to be unlearnable. Tokens + 4 role classes (`.btn-commit` / `.btn-choice` / `.btn-quiet` / `.btn-link`) in `viewer.html`, plus the rule that **a new visual signature is a claim that a fifth role exists**. 118 literal radii converted to tokens with zero rendering change. **Standing rule 1 is NAMED by this, not altered.** |
+| ✅ **The by-day rainfall strip stopped overflowing** | `repeat(7, 1fr)` floors every track at the widest cell's min-content, so the single 5-char label ("Today") sized all seven → ~21px past the right edge, **only in A+ on a phone**. `minmax(0,1fr)` + `min-width:0`, plus a 4+3 wrap at A+. ⚠️ **Verified by arithmetic and mechanism, NOT at a true 390px A+ viewport** — no reproduction was achieved this session. Worth one look on a phone in large text. |
+| ✅ **The affirmative pill stays a pill at any height** | `22px` was a pill only because `min-height` happened to be 44px; `text-lg` raises it to 52px and left the radius, so the app's one "we heard you" control became a rounded rect sharing the Save button's silhouette. Now `999px`. Touched a ratified component — **Paul's explicit go, 2026-08-02.** |
+| ✅ **The weather card says each thing once** | Root cause was **two independent rule cascades over the same four inputs** (`generateGardenerInsight` first-match-wins vs `generateAlerts` all-match) at **mismatched thresholds** — rain 0.05/0.02, saturation 0.5/0.75 — so a light-rain afternoon had one saying it was raining and the other silent. Thresholds aligned to the lower, every rule keyed, the glance's key subtracted from the alert list. Six rules stopped baking figures into their sentences; the frost low keeps its number (it appears nowhere else, and there the figure IS the meaning). Collapsed header appends the temp as its own element rather than forking the generator. |
+| ✅ **The fungal advisory has a subject** | Paul: *"is that a plant thing, or what is that?"* It had none. `property.json:100` names boxwood blight / powdery mildew for exactly this condition and boxwood is in canon. Now *"Fungal weather for the boxwood and anything crowded — water at the base, not the leaves."* Deterministic lookup, ordered by property.json's own risk language, degrades honestly if canon changes. |
+| ✅ **The confirm-card action row is even** | Paul: *"that's all of them is kind of on top of a row where something's missing."* A wrap artifact: three pills needing ~394px in a 336px card, so the deferral wrapped alone leaving ~200px of empty row. Now a 2-col grid with the deferral spanning. **A true 3-up is not reachable at 390px** (three even cells give 106px; "I haven't looked" needs ~136px at her type floor) — Paul chose 2+1 over dropping below the floor. |
+| ✅ **`＋ Add a note` → `Tell me in your own words`** | Recommended 2026-07-26, never shipped until now. Names what opens, in her register, and drops a glyph carrying neither decision nor topic. **Paul-approved wording, 2026-08-02** (Mom-facing authored content — gated, then pushed). |
+
+**⏸ HELD — do not ship before 2026-08-10.** The launcher's 🎤 glyph and the `.fish-tab` restyle (which
+would return the filled dark-green pill to the affirmative and give the app ONE tab grammar). Both sit
+inside the clean measurement window above, and the 07-30 shell restyle already spent the one recoverable
+confound. **Gate: 2026-08-10** — take them in the same change that reads the launcher's result.
+
+**⛔ DECLINED, with reasoning recorded at the call site in `viewer.html`.** The audit proposed pulling
+`.mom-queue-addnote` into the verdict row as a fourth choice chip. That would have reversed **both**
+halves of Paul's 2026-07-14 steer — full-width, *"as legible as the answer buttons"*, with the dashed
+border marking it a **modifier, not a 4th answer**. The ragged-row complaint is fully answered by the
+grid without it.
+
+⚠️ **A premise in that review was WRONG and is corrected here rather than quietly fixed past.** It
+justified two findings on "A+ is the mode Mom is most likely using" / "Mom's configuration." **Line 101
+of this file says the opposite from telemetry: she has NEVER fired the A/A+ toggle; Paul's device fired
+it 22×.** A+ is *Paul's* mode. Both fixes stand on their own merits — an overflow is a defect for
+whoever meets it, and a shape rule holding in only one of two text modes is broken in both — but the
+premise must not propagate. The standing guidance is unchanged: **tune the DEFAULT type scale, not
+`body.text-lg`.**
+
+---
+
 ## 🪦 KILL LIST (2026-07-29)
 
 | Kill | Because |

@@ -2439,10 +2439,17 @@
      .wblock gives 297px → 39px per track; at base size "Today" needs ~36px and
      just fits, but body.text-lg takes the label to 11px and the amount to 19px,
      pushing the demand to ~42px per track → 318px into a 297px box. It spilled
-     ~21px past the right edge, and ONLY in A+ on a phone — Mom's configuration,
-     and invisible at desktop default, which is why it survived every prior
-     sweep. minmax(0,…) removes the floor so tracks always divide the container.
-     Do not "simplify" it back to 1fr. */
+     ~21px past the right edge, and ONLY in A+ on a phone — invisible at desktop
+     default, which is why it survived every prior sweep. minmax(0,…) removes the
+     floor so tracks always divide the container. Do not "simplify" it back to 1fr.
+
+     ⚠️ CORRECTED at close-out the same day: the review that found this called A+
+     "Mom's configuration." That is WRONG, and BACKLOG.md:101 says so from
+     telemetry — she has NEVER fired the A/A+ toggle; Paul's device fired it 22×.
+     A+ is PAUL's mode. The fix stands on its own (an overflow is a defect for
+     whoever meets it, and Paul is a real user of this card), but do not carry
+     the "Mom reads in A+" premise forward — the project's own standing guidance
+     is to tune the DEFAULT type scale, not body.text-lg. */
   .rain-byday {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -4804,11 +4811,14 @@
 
      ⭐ RADIUS IS var(--r-pill) = 999px, NOT 22px (Paul's go, 2026-08-02).
      22px was a pill only because min-height happened to be 44px. `body.text-lg`
-     raises these to 52px and never touched the radius, so in A+ — the mode Mom
-     is most likely using — the affirmative control became a rounded rectangle
-     with 4px of flat edge, sharing its silhouette with the Save button. The one
-     shape rule the app had stopped holding in the one text mode it was written
-     for. 999px is a pill at 44px, at 52px, and at any height a future text mode
+     raises these to 52px and never touched the radius, so in A+ the affirmative
+     control became a rounded rectangle with 4px of flat edge, sharing its
+     silhouette with the Save button. (The review that found this said A+ is "the
+     mode Mom is most likely using." Corrected at close-out 2026-08-02: BACKLOG.md
+     :101 has her at ZERO toggle uses from telemetry — A+ is Paul's mode. The fix
+     stands regardless: a shape rule that holds in only one of two text modes is
+     broken in both, because the whole point is that it is learnable.)
+     999px is a pill at 44px, at 52px, and at any height a future text mode
      introduces: the shape is size-independent BY CONSTRUCTION rather than by a
      number that matches today's height. This REPAIRS CLAUDE.md standing rule 1
      (one affirmative grammar); it does not alter it — "Got it" and "That's all
