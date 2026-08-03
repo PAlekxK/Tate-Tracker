@@ -4660,18 +4660,14 @@
   @media (max-width: 480px) {
     /* Phone: stack "General / feedback" so the tab barely protrudes, and sit it
        low toward the bottom-right (clear of the iOS home indicator). Paul 7/20. */
-    /* Keep Mom's primary action out of the ribbon's column (2026-08-01).
-       Under the Material rule the tab is EXTENDED at the top of the page — and
-       the top of the page is exactly where this button sits, so the scroll rule
-       alone still left "Save & consult the Al…" clipped by 41px. Clearing the
-       content is better than nudging the tab: the tab's low-right position is
-       Paul's 7/20 call (clear of the iOS home indicator).
-       ⚠️ Scoped to body.fab-extended since 2026-08-02 evening: Save is now a
-       full-width .btn-commit (the launcher's twin), so a STATIC margin left it
-       permanently 58px short of its row — a third button width. The clearance
-       now applies exactly when the wide ribbon does; once she scrolls, the tab
-       is slim (44px, right edge) and the button takes its full row. */
-    body.fab-extended .ui-action-row { margin-right: 58px; }
+    /* No clearance for the ribbon (2026-08-03, Paul — retires the 8/01 rule).
+       The scoped 58px margin made the Save row CHANGE WIDTH at the 24px scroll
+       line — the page's primary action resizing under her thumb, which reads
+       as a glitch however sound each half of the mechanism was. Paul's call:
+       the button keeps ONE geometry at every scroll position, and the extended
+       ribbon may briefly sit over content — "people understand the relationship
+       between the two objects"; a momentary cover-up reads as natural layering,
+       not breakage. Do not reintroduce layout that flexes with the ribbon. */
     .feedback-ribbon { flex-direction: column; gap: 3px; padding: 9px 10px; bottom: 84px; font-size: 12px; text-align: center; }
     .feedback-ribbon-icon { font-size: 15px; }
     .feedback-ribbon-label { white-space: normal; max-width: 62px; line-height: 1.12; }
@@ -11517,9 +11513,6 @@ const FeedbackRibbon = (function () {
       if (want === slim) return;   // no DOM write on the vast majority of frames
       slim = want;
       tab.classList.toggle("is-slim", want);
-      // Mirrored onto body so layout can clear the EXTENDED ribbon only while
-      // it is actually extended — see the .ui-action-row clearance rule.
-      document.body.classList.toggle("fab-extended", !want);
     }
     window.addEventListener("scroll", apply, { passive: true });
     window.addEventListener("resize", apply);
