@@ -3887,8 +3887,13 @@
     display: flex;
     gap: 4px;
     align-items: flex-end;
-    background: #fbfaf3;
-    border: 1.5px solid #e4dcc4;
+    /* WHITE, not warm-tan (Paul, 2026-08-02 late): on the cream card the tan
+       field "just kinda blends in — it really should stand out as something
+       that catches the eye immediately." This retires the 7/03 "warm-tan as
+       invitation" call: the writing box is the Almanac's whole point, and the
+       one white rectangle on a cream card IS the invitation. */
+    background: #fff;
+    border: 1.5px solid #cdbf90;
     /* --r-ctrl, NOT --r-pill (Paul, 2026-08-02 evening): the capsule ends read
        as a width constraint on a multi-line field, and the token block's own
        rule is that every text input takes the control radius. A pill is a
