@@ -4,6 +4,20 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-02 — Mama's Perspective can fold away, and your note stays in view
+
+- **The card closes and opens like the big cards below it.** Same "Open / Close" button
+  you already know from Weather and Plants. Fold it away when you're not in the mood for
+  questions — everything comes right back with a tap, and the little row of links up top
+  reopens it too.
+- **Your note never hides.** Even folded, one line stays: "✓ We got your note…" — the
+  part worth peeking at is always in view.
+- **Words typed with a photo are saved properly now.** If you attached a picture and wrote
+  something with it, your words used to ride along only with the answer. Now they're
+  written into the Almanac first, every time, photo or no photo — same as plain notes.
+
+---
+
 ## 2026-08-02 — Two doors at the top, and quick links above everything
 
 - **The Almanac now sits first.** It's the one part of the top of the app that's always
