@@ -1,0 +1,41 @@
+{
+  "title": "Input stack IA — round 1",
+  "decision": "Where does the standing Almanac live, relative to the transient feedback cards?",
+  "criteria": "1. Almanac reachable without wading through asks · 2. Mom's give-back note still lands · 3. nothing new to learn",
+  "recommend": "R1-B: the strip answers the quick-access goal directly, and the pin alone (A) still buries Weather/Plants below the fold",
+  "exhibits": [
+    {
+      "id": "R1-now",
+      "file": "shots/R1-now.png",
+      "label": "today's order: note → Almanac → asks",
+      "note": "",
+      "look": "how far down the Almanac sits, below the acknowledgment",
+      "status": "baseline",
+      "css": "",
+      "added": "2026-08-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-A",
+      "file": "shots/R1-A.png",
+      "label": "Almanac pinned first",
+      "note": "vs CURRENT: one change — the standing knowledge door moves to the top; the transient feedback cards follow",
+      "look": "the composer is the first thing you meet; the note card reads as mail below it",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-08-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-B",
+      "file": "shots/R1-B.png",
+      "label": "pinned + bare-bones jump strip",
+      "note": "vs A: adds one row of plain links above everything (names TBD — shown as top-5-by-traffic guess)",
+      "look": "the link row: quick access without scrolling past the feedback asks",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-08-02",
+      "archived": ""
+    }
+  ]
+}
