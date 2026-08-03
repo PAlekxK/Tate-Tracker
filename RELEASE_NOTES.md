@@ -4,6 +4,21 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-02 — Two doors at the top, and quick links above everything
+
+- **The Almanac now sits first.** It's the one part of the top of the app that's always
+  there — where you write, ask, and look things up — so it now greets you at the top
+  instead of sitting below the day's notes.
+- **Everything we're hoping to hear from you lives in one card.** "Mama's Perspective" is
+  now the single home for all of it: the note we wrote you back, the questions only you
+  can settle, and the walk-the-zones invitation — one card, thin lines between its parts,
+  one introduction instead of three.
+- **A little row of links at the very top.** Almanac · Weather · Plants · Wildlife ·
+  Mama's Perspective — one tap opens that card and takes you there. Small on purpose:
+  just names, no boxes, no space taken from the page.
+
+---
+
 ## 2026-08-02 — Every button is the same button now
 
 - **One shape, one green, stacked.** We went further than the morning's tidy-up: every button
