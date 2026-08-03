@@ -1,9 +1,31 @@
 {
-  "title": "Input stack IA — round 1",
-  "decision": "Where does the standing Almanac live, relative to the transient feedback cards?",
-  "criteria": "1. Almanac reachable without wading through asks · 2. Mom's give-back note still lands · 3. nothing new to learn",
-  "recommend": "R1-B: the strip answers the quick-access goal directly, and the pin alone (A) still buries Weather/Plants below the fold",
+  "title": "Input stack IA — round 2",
+  "decision": "R1-B is chosen. Round 2: does Mama's Perspective become the envelope for all three feedback surfaces?",
+  "criteria": "1. clearer organization (Paul's hypothesis) · 2. her note still lands first inside · 3. no tiles-within-tiles",
+  "recommend": "R2-C: two doors instead of four cards — but note the duplicated 'Your eye on the place' intro lines, a copy fix if this wins",
   "exhibits": [
+    {
+      "id": "R1-A",
+      "file": "shots/R1-A.png",
+      "label": "Almanac pinned first",
+      "note": "vs CURRENT: one change — the standing knowledge door moves to the top; the transient feedback cards follow",
+      "look": "the composer is the first thing you meet; the note card reads as mail below it",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-08-02",
+      "archived": "R1-B chosen — pin-only still left the main cards below the fold"
+    },
+    {
+      "id": "R2-C",
+      "file": "shots/R2-C.png",
+      "label": "B + Mama's Perspective as the master card",
+      "note": "vs R1-B: one change — the three feedback surfaces (your note · the questions · the zone walk) live inside ONE Mama's Perspective card, separated by hairlines, not nested tiles",
+      "look": "the page becomes two things: the Almanac (knowledge door) and her card (feedback door)",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-08-02",
+      "archived": ""
+    },
     {
       "id": "R1-now",
       "file": "shots/R1-now.png",
@@ -16,22 +38,11 @@
       "archived": ""
     },
     {
-      "id": "R1-A",
-      "file": "shots/R1-A.png",
-      "label": "Almanac pinned first",
-      "note": "vs CURRENT: one change — the standing knowledge door moves to the top; the transient feedback cards follow",
-      "look": "the composer is the first thing you meet; the note card reads as mail below it",
-      "status": "candidate",
-      "css": "",
-      "added": "2026-08-02",
-      "archived": ""
-    },
-    {
       "id": "R1-B",
       "file": "shots/R1-B.png",
-      "label": "pinned + bare-bones jump strip",
-      "note": "vs A: adds one row of plain links above everything (names TBD — shown as top-5-by-traffic guess)",
-      "look": "the link row: quick access without scrolling past the feedback asks",
+      "label": "Almanac pinned + bare-bones jump strip (CHOSEN r1)",
+      "note": "vs CURRENT: Almanac to the top; one row of plain links above (names TBD)",
+      "look": "the link row + the Almanac as the front door",
       "status": "candidate",
       "css": "",
       "added": "2026-08-02",
