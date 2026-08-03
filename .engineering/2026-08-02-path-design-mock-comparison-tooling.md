@@ -66,7 +66,16 @@ cropping (agent element-screenshots the region).
   one-per-screen swipe on a phone. Revisit if a parameter-tuning round on a phone
   actually hurts (the log will say).
 
-## Proposed principles (agent-proposed, NOT ratified — Paul's call)
+## Proposed principles — ✅ ALL FIVE PAUL-RATIFIED 2026-08-02 ("I'm good with all of these")
+
+Written into their libraries the same night: #1–2 below → `engineering-principles/
+cross-project/architecture-and-seams.md`; "mock in the medium" → `ai-playbook/
+cross-cutting/tooling-and-promotion.md`; the two ux candidates → `design-principles/
+cross-project/honest-surfaces.md` + `ordering-and-layout.md`. The menu-order/place-vs-
+ranking principle also moved off watch status (second occurrence: this session's
+exhibit-folder numbering). Original proposals kept below as the record.
+
+## Proposed principles (as originally flagged)
 
 1. **Compose the annotation in the viewer, not into the pixels** — bake text into
    a raster only when the consumer is out-of-band (a model's context, someone
@@ -78,4 +87,5 @@ cropping (agent element-screenshots the region).
 Also proposed the same night: ai-advisor's **"Mock in the medium, on real data"**
 (playbook candidate) and ux-expert's **"An artifact must carry its own status in
 its pixels"** + **"Juxtapose large differences; superpose small ones"**
-(design-principle candidates). None filed to the libraries — flagged for Paul.
+(design-principle candidates). ~~None filed to the libraries — flagged for Paul.~~
+*(Superseded by the ratification header above — all five are now filed.)*
