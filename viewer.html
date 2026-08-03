@@ -18934,7 +18934,11 @@ const UnifiedInput = (function () {
       const text = (ta.value || "").trim();
       const hasImg = !!attachedImage;
       const hasAud = !!attachedAudio;
-      if (!text && !hasImg && !hasAud) { ta.focus(); return; }
+      if (!text && !hasImg && !hasAud) {
+        // Guarded direct call — this scope has no local track() shim.
+        if (typeof MetricsCollector !== "undefined") MetricsCollector.track("composer_empty_tap", {});
+        ta.focus(); return;
+      }
       actionTakenSinceFocus = true;
       if (abandonTimer) { clearTimeout(abandonTimer); abandonTimer = null; }
       const wasVoice = UnifiedVoice.isRecording();
@@ -19166,15 +19170,20 @@ MomQueue.start();
 <script>
 // Jump strip (R2-C, 2026-08-02): expand the target card if it's collapsible,
 // then scroll. Deterministic, no state.
-function toggleMpMaster(forceOpen) {
+function mpTrack(name, payload) {
+  if (typeof MetricsCollector !== "undefined") MetricsCollector.track(name, payload || {});
+}
+function toggleMpMaster(forceOpen, source) {
   var m = document.getElementById("mp-master");
   if (!m) return;
   var collapse = forceOpen === true ? false : !m.classList.contains("collapsed");
+  var changed = collapse !== m.classList.contains("collapsed");
   m.classList.toggle("collapsed", collapse);
   var word = document.getElementById("mp-toggle-word");
   if (word) word.textContent = collapse ? "Open" : "Close";
   var head = m.querySelector(".mp-head-toggle");
   if (head) head.setAttribute("aria-expanded", String(!collapse));
+  if (changed) mpTrack("mp_envelope_toggled", { collapsed: collapse, source: source || "header" });
 }
 (function () {
   document.querySelectorAll(".jump-strip a").forEach(function (a) {
@@ -19182,8 +19191,9 @@ function toggleMpMaster(forceOpen) {
       e.preventDefault();
       var el = document.getElementById(a.getAttribute("data-jump"));
       if (!el) return;
+      mpTrack("jumpstrip_tapped", { target: a.getAttribute("data-jump") });
       if (el.classList.contains("main-card")) el.classList.add("expanded");
-      if (el.id === "mp-master") toggleMpMaster(true);
+      if (el.id === "mp-master") toggleMpMaster(true, "strip");
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
