@@ -7,6 +7,9 @@
 # Manual source PDFs — local-only (public repo; avoid republishing copyrighted manuals + repo bloat).
 # Extracted text in manuals/text/ IS committed as the queryable substrate.
 manuals/pdf/
+# EXCEPTION: the LMC FD.88 catalog text stays local-only too — a current commercial
+# price catalog is not a manual; don't republish 180 pages of LMC's pricing publicly.
+manuals/text/bronco-1989-lmc-catalog-fd88.txt
 REINTEGRATION-BACKLOG-2026-07-09.md
 
 # Tooling scratch — never source (added 2026-07-16)

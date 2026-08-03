@@ -32,6 +32,7 @@ digest to protect its ~57K/80K-token budget).
 | `dr200s-2017-service` | Suzuki **DR200SE Service Manual** (99500-…) | 262 | 🟡 service (not owner's) manual; DR200S unchanged across years. OCR text is sparse (scan). | djebel-club.ru (enthusiast archive) |
 | `drz400s-2001-service` | Suzuki DR-Z400S/SM **Service Manual** — 2000–2009 | 431 | ✅ covers 2001 | archive.org (enthusiast archive) |
 | `g22a-2005` | Yamaha Golf Car G22A (gas) Owner's/Operator Manual — LIT-19626-16 | 47 | ✅ gas variant | mygolfbuggy.com (3rd-party copy of genuine Yamaha file) |
+| `bronco-1989-lmc-catalog-fd88` | **LMC Truck parts catalog FD.88** — Ford Truck & Bronco 1980–96, 2026 Edition Vol. 2 | 180 | ✅ covers the '89 Bronco directly (many rows are Bronco-specific) | LMC Truck print/PDF catalog (Paul's copy, ingested 2026-08-03) |
 
 **Notes**
 - **DR200S:** no clean owner's-manual PDF exists free; the 262-pg factory *service* manual is
@@ -43,6 +44,14 @@ digest to protect its ~57K/80K-token budget).
 - **Bronco:** the full 1989 owner's manual (328 pp) exists only behind ManualsLib's login/captcha
   (`manualslib.com/manual/231684`). The Bolores restoration already has 4 dedicated guides in
   `guides/`, so the owner's manual is the lowest-value doc in the fleet.
+- **LMC catalog (FD.88):** the parts book for the Bolores restoration — LMC's *website* blocks
+  automated reads (403, see the carpet research), so this local copy is the only queryable view of
+  their part numbers and prices we have. ⚠️ **Prices expired 2026-08-03** (cover: "valid May 5 –
+  Aug 3, 2026") — treat every price as approximate; part numbers and applications stay good.
+  **Both the PDF and its extracted text are LOCAL-ONLY / gitignored** — unlike the manuals, this is
+  a current commercial price catalog ("no part may be reproduced"), so its text doesn't go in the
+  public repo. Not re-fetchable by `download.sh`; the source copy lives in Paul's Desktop/Claude
+  drop (FD88.pdf). No `manual:` link in vehicles.json — it's a catalog, not an operating doc.
 
 ## Equipment
 
