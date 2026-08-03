@@ -4,6 +4,30 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-02 — The four cards at the top speak one language
+
+- **The writing box is a rounded rectangle now, not an oval.** The Almanac's box had capsule
+  ends that made it look like your words would run out of room. Squared off gently, it reads
+  as what it is — a page to write on.
+- **"Save & consult the Almanac" is always in full color.** It used to sit washed-out until
+  you typed something, which made it look broken next to the bright green button two cards
+  below. It's always ready now — tap it before writing anything and it just brings the pen
+  to the page.
+- **The two green "go" buttons are identical twins.** "Save & consult the Almanac" and "I've
+  got a minute" are the same button now — same deep green, same shape, same width. The
+  microphone emoji came off the second one; the note underneath already says your phone may
+  ask to use the microphone.
+- **Answer pairs sit the same way on every card.** "Got it / Write me back" now sits in the
+  same tidy side-by-side row as "That's all of them / Something's missing" — pairs of choices
+  look the same wherever you meet them.
+- **The little options stopped being the big ones.** "Snooze card" and the write-a-note
+  invitation used to stretch wall to wall, wider than the answers themselves. They now sit
+  quietly centered at their natural size, so the biggest buttons on a question are the answers.
+- **One phrase for writing to us.** "Write back" and "Tell me in your own words" were two
+  names for the same door. It's "Write me back" everywhere now.
+
+---
+
 ## 2026-08-02 — The weather card says each thing once
 
 - **One reading, one place.** The weather card had a habit of telling you the same thing three
