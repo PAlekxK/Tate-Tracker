@@ -265,7 +265,23 @@ premise must not propagate. The standing guidance is unchanged: **tune the DEFAU
 
 ---
 
-## 🪦 KILL LIST (2026-07-29)
+## 🔭 Two-pass fresh-eyes review — RAN 2026-08-03; punch list mostly FROZEN
+
+The founding `/ux-sweep` run (skill formalized same day, `~/.claude/skills/ux-sweep/SKILL.md`).
+Full trail + adjudications: **`.ux-reviews/2026-08-03-two-pass-fresh-eyes-pilot.md`** — status of
+each punch item lives THERE; this section is the pointer plus the gates.
+
+- ✅ **Shipped 2026-08-03:** Save-button geometry freeze (`6c5d462`) · Mama's Perspective folded
+  receipt + one-question view + one Write-me-back (`05db30a`, release-noted `a584cb1`).
+- ⛔ **Declined `[paul-stated 2026-08-03]`:** always-slim feedback ribbon — the chat bubble stays
+  as-is; momentary cover-ups accepted as natural. Recorded in the review file; do not re-propose.
+- ⏸ **11 punch items PARKED behind Paul's freeze:** *"let's not do too much more before getting
+  mom's feedback."* **Gate: Mom's next feedback round lands, or Paul lifts it by name** (he lifted
+  it once, scoped to the Mama's Perspective card only). Includes the one-line `FN_STORAGE_KEY` TDZ
+  fix (vehicle field notes silently never render — invisible to Mom, eligible on a word) and the
+  clock/pressure/provenance unifications.
+- ❓ **Parked questions `[paul-stated 2026-08-03]`:** machine status chrome (skipped, revisit
+  someday) · Mama's-card default-collapse / strip altitude (explore later).
 
 | Kill | Because |
 |---|---|
