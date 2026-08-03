@@ -4,7 +4,21 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
-## 2026-08-02 — The four cards at the top speak one language
+## 2026-08-02 — Every button is the same button now
+
+- **One shape, one green, stacked.** We went further than the morning's tidy-up: every button
+  in the top cards is now the same gently rounded rectangle, the same height, the same deep
+  green when it's the main thing to do — and buttons sit one above another instead of side by
+  side. The dark green appears once per card, so nothing shouts. Trimmer, too: the big blocks
+  slimmed down, though your fingertip gets the same generous landing spot it always did —
+  the part that shrank is only the part you can see.
+- **"Bring this back another time."** The third choice on a question used to say "Snooze card"
+  with a little explanation underneath about how nothing gets lost. Now the button just says
+  the promise itself. Same on the walk card: "Another day — it'll be here." Skipping something
+  is always safe here, and now the words that do the skipping say so.
+- **Fewer boxes, calmer cards.** A question card shows two boxed answers and nothing else in a
+  box — the skip and the write-a-note invitation are quiet underlined phrases beneath them, the
+  same kind you already know from "Look back."
 
 - **The writing box is a rounded rectangle now, not an oval.** The Almanac's box had capsule
   ends that made it look like your words would run out of room. Squared off gently, it reads

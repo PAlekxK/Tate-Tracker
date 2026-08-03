@@ -67,8 +67,10 @@ Three things to know before acting on its output:
 
 1. **ONE affirmative grammar, everywhere she taps.** *"The cue and affirmative styling, we should make
    it consistent and a consistent signal of we hear you, and we've recorded your information … let's
-   make it simple and consistent for mom."* Affirmative = filled green pill + ✓ (`gg-suggest-btn-yes`);
-   secondary = the neutral chip. The ribbon's buttons are **literally those components**, not
+   make it simple and consistent for mom."* Affirmative = filled green + ✓ (`gg-suggest-btn-yes`);
+   secondary = the outlined neutral. (The ratified part is the FILL + GLYPH grammar; the shape around
+   it became the v2 one-shape stacked rectangle on 2026-08-02 evening — Paul's call from staged
+   exhibits, doctrine at the top of viewer.html's stylesheet.) The ribbon's buttons are **literally those components**, not
    lookalikes, so they cannot drift. **This REVERSED BACKLOG Tier-1 #4**, which wanted "Got it" and
    "That's all of them" made *more* different because they mean different things. They do — and one
    learnable signal still beats two precise ones she has to tell apart. Consistency outranks semantic
