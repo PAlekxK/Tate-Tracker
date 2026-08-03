@@ -1,5 +1,5 @@
 {
-  "_comment": "Holds THREE groups, not just vehicles: group='vehicle' | 'equipment' | 'household-system'. Renders as the **Machines** card (Vehicles · Yard equipment · Household systems). The filename is a legacy infrastructure identifier and is deliberately NOT renamed — same call CLAUDE.md made for tate-tracker/tateTracker through the Fernwood rename: internal identifiers aren't user-facing and renaming carries churn for zero reader benefit (VEHICLES_DATA, check-data-inline.py, build-digest.py, renderVehicles, #vehicles-list, .vehicles-intro, …). 2026-07-26.",
+  "_comment": "Holds THREE groups, not just vehicles: group='vehicle' | 'equipment' | 'household-system'. Renders as the **Machines** card (Vehicles · Yard equipment · Household systems). The filename is a legacy infrastructure identifier and is deliberately NOT renamed — same call CLAUDE.md made for tate-tracker/tateTracker through the Fernwood rename: internal identifiers aren't user-facing and renaming carries churn for zero reader benefit (VEHICLES_DATA, check-data-inline.py, build-digest.py, renderVehicles, #vehicles-list, .vehicles-intro, …). 2026-07-26. ID CONVENTION (2026-08-03): every serviceHistory entry carries a stable `id` (sr-<date>-<slug>, unique within its vehicle) minted at ingest — external references use service:<vehicle-id>:<sr-id>; photo-organizer reads this file IN PLACE to map repair photos to entries (the visual-journeys thread), so an entry without an id is unreferenceable and any ingest that omits one should be corrected before folding.",
   "_meta": {
     "schemaVersion": 3,
     "notes": "Schema v3: items split into 'vehicle' and 'equipment' groups via the `group` field on each entry. Per-item `maintenance` block added with at-a-store reference for fuel, oil, sparkPlug, filters, consumables. Confidence convention: each maintenance value tagged 'verified' (manufacturer spec / OEM doc / on-unit sticker), 'inferred' (typical for product line — double-check before ordering), or 'tbd'."
@@ -287,12 +287,14 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2026-07-21-cone-strike-repair-a",
           "date": "2026-07-21",
           "shop": "DIY (Paul)",
           "summary": "Cone-strike repair. A traffic cone fell off the back of a truck ahead and got sucked under the car, damaging the front grill and underbody panels and snapping many of the panel attachment points. Rather than replacing the body parts, re-secured everything in place: washers on all the attaching screws, zip ties stitched through the lower lip, and a duct-tape wrap — solid result. Done at the property (jack + stand). 21 photos in Apple Photos (UUIDs in .private/service-records/gti-2016/EXTRACTED.md). Flag for the next shop visit: mention the understrike so they eyeball the radiator/condenser area and mounts while it's on the lift.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2026-07-13-rear-license-plate-lights",
           "date": "2026-07-13",
           "mileage": 82698,
           "shop": "DIY (Paul)",
@@ -300,6 +302,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2026-07-11-full-service-oil-change",
           "date": "2026-07-11",
           "mileage": 82698,
           "shop": "Express Oil",
@@ -307,12 +310,14 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2026-02-02-replaced-the-coolant-expansion",
           "date": "2026-02-02",
           "shop": "DIY (Paul)",
           "summary": "Replaced the coolant expansion / overflow reservoir tank (DIY) — a suspect swapped out during the coolant-loss investigation",
           "confidence": "verified"
         },
         {
+          "id": "sr-2026-01-02-4-new-tires-hankook",
           "date": "2026-01-02",
           "mileage": 79582,
           "shop": "Express Oil",
@@ -320,6 +325,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-09-15-oil-change-valvoline-5w",
           "date": "2025-09-15",
           "mileage": 77793,
           "shop": "Cannon Automotive (Jasper)",
@@ -327,6 +333,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2025-06-30-annual-emissions-test-pass",
           "date": "2025-06-30",
           "mileage": 75731,
           "shop": "GA Clean Air Force (emissions)",
@@ -334,6 +341,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2025-03-20-suction-jet-pump-safety",
           "date": "2025-03-20",
           "mileage": 73631,
           "shop": "Jim Ellis VW",
@@ -341,6 +349,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2025-03-20-oil-change-valvoline-5w",
           "date": "2025-03-20",
           "mileage": 73610,
           "shop": "Express Oil",
@@ -348,6 +357,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2024-05-15-full-service-oil-change",
           "date": "2024-05-15",
           "mileage": 66857,
           "shop": "Express Oil",
@@ -355,6 +365,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2023-08-26-full-service-oil-change",
           "date": "2023-08-26",
           "mileage": 60652,
           "shop": "Express Oil",
@@ -362,6 +373,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2022-11-18-oil-change",
           "date": "2022-11-18",
           "mileage": 55478,
           "shop": "Express Oil",
@@ -369,6 +381,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2022-10-21-4-tires-mount-balance",
           "date": "2022-10-21",
           "mileage": 54844,
           "shop": "Midas",
@@ -376,6 +389,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2022-09-22-apr-stage-1-tune",
           "date": "2022-09-22",
           "mileage": 54297,
           "shop": "Eurofed",
@@ -383,6 +397,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2022-06-24-water-pump-thermostat-assembly",
           "date": "2022-06-24",
           "mileage": 52665,
           "shop": "Autohaus Social",
@@ -390,6 +405,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2022-02-22-oil-change-5w-40",
           "date": "2022-02-22",
           "mileage": 50531,
           "shop": "Midas",
@@ -397,6 +413,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2021-07-05-4-wheel-alignment-front",
           "date": "2021-07-05",
           "mileage": 46103,
           "shop": "Midas",
@@ -404,6 +421,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2021-06-24-mount-balance-one-customer",
           "date": "2021-06-24",
           "mileage": 45950,
           "shop": "Midas",
@@ -411,6 +429,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2021-06-18-first-full-service-oil",
           "date": "2021-06-18",
           "mileage": 45671,
           "shop": "Express Oil",
@@ -418,6 +437,7 @@
           "confidence": "inferred"
         },
         {
+          "id": "sr-2021-04-12-free-multi-point-inspection",
           "date": "2021-04-12",
           "mileage": 44508,
           "shop": "Jim Ellis VW",
@@ -534,6 +554,7 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2026-01-16-full-service-oil-change",
           "date": "2026-01-16",
           "mileage": 107459,
           "shop": "Express Oil (Atlanta — Moreland Ave)",
@@ -541,6 +562,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2026-01-07-replaced-the-front-right",
           "date": "2026-01-07",
           "shop": "DIY (Paul)",
           "summary": "Replaced the front-right fender flare after it was damaged (OEM-fit part, sourced on eBay)",
@@ -935,90 +957,105 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2018-04-19-aftermarket-intake-parts-bought",
           "date": "2018-04-19",
           "shop": "Summit Racing (parts order)",
           "summary": "Aftermarket intake parts bought during the long-block replacement — BBK 3503 throttle body (application: 87–96 Ford F-series/Bronco 302/351) and a Standard Motor Products AC23 idle air control valve, $40.99. Invoice 6678736. ⚠️ SHE RUNS AN AFTERMARKET BBK THROTTLE BODY — this was absent from the record entirely until 2026-07-29 and is a real deviation from stock on a truck being restored 'factory fresh'. Bore size is NOT stated on the page read, so no millimetre figure is claimed. Corroborated five years later by the 2023 Express Oil invoice, which bills removing and cleaning the throttle body and the idle control motor.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-12-22-tailgate-striker-bushing-dorman",
           "date": "2025-12-22",
           "shop": "DIY (Amazon parts)",
           "summary": "Tailgate striker bushing (Dorman 38424) — installed to correct the tailgate angle/alignment so the glass tracks true",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-11-23-rear-tailgate-upper-window",
           "date": "2025-11-23",
           "shop": "Weatherstrip Specialists (eBay)",
           "summary": "Rear tailgate upper window run-channel weatherstrip (Bronco-specific)",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-11-20-door-trim-panel-clip",
           "date": "2025-11-20",
           "shop": "eBay (automaall)",
           "summary": "Door-trim panel clip set, 50-pc (73–86 Ford/Bronco fitment) — confirmed installed during the door-panel work",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-11-03-tailgate-latch-handle-rod",
           "date": "2025-11-03",
           "shop": "DIY (eBay parts)",
           "summary": "Tailgate latch handle rod clips (8-pc) — installed (Paul-confirmed 2026-07-22, part of the tailgate work).",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-11-02-tailgate-latch-assembly-7896",
           "date": "2025-11-02",
           "shop": "Classic Industries (eBay)",
           "summary": "Tailgate latch assembly (78–96 Bronco)",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-10-24-rear-window-lift-motor",
           "date": "2025-10-24",
           "shop": "DIY (Amazon parts)",
           "summary": "Rear-window lift motor (Dorman 742-251) — the replacement motor from the rear-window/tailgate electrical revival; window confirmed traveling up and down",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-10-17-cabin-lighting-converted-to",
           "date": "2025-10-17",
           "shop": "DIY (Paul)",
           "summary": "Cabin lighting converted to warm LED — SEALIGHT 194 2700K bulbs in the overhead dome light and the two map lights flanking it, several dashboard indicator lights re-bulbed in the same pass, and a new plastic dome lens fitted. Two white/6000K sets were tried first and returned — \"the white was too sterile\" — so the warm set is a deliberate choice, not what happened to be on hand. Install Paul-confirmed 2026-07-12; the purchase itself is absent from the Amazon order export, so the part identity stays a screenshot read while the work is verified.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-10-15-window-tailgate-electrical-parts",
           "date": "2025-10-15",
           "shop": "eBay (DIY parts)",
           "summary": "Window & tailgate electrical parts — Dorman 901-302 door window switch, tailgate window sweep/weatherstrip seal kit, and overhead dome-light lens cover, plus a rear power-window switch in a same-day order; the switch, sweep/seal and dome light confirmed installed. Footnote: an aftermarket 5-pin rocker switch was tried on the rear tailgate-window circuit first and shorted on test, melting its own plastic body — the OEM-style rear power-window switch replaced it and is properly wired into the dash. Closed out (Paul, 2026-08-02)",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-10-10-wiper-blades-np18-2",
           "date": "2025-10-10",
           "shop": "NAPA (Canton, GA)",
           "summary": "Wiper blades (NP18 ×2). ⚠️ SPLIT RECEIPT — the ticket names no vehicle and also carries a BATTERY CORE that is NOT the Bronco's (Paul, 2026-07-29). Only the wipers are hers; the battery belongs to another vehicle and is deliberately left unassigned rather than guessed.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-10-08-door-lock-rod-clips",
           "date": "2025-10-08",
           "shop": "DIY (Amazon parts)",
           "summary": "Door-lock rod clips (Dorman 75450) — confirmed installed during the door-lock work",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-10-07-purchased-titled-in-georgia",
           "date": "2025-10-07",
           "shop": "Georgia MVD (Fulton County)",
           "summary": "Purchased & titled in Georgia — replacement title, clean, no liens",
           "confidence": "verified"
         },
         {
+          "id": "sr-2023-express-oil-driveline-fuel",
           "date": "2023",
           "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
           "summary": "Express Oil — driveline & fuel work. ⭐ The 2023-04-06 invoice (06025-35693) is Paul-verified and reconciles to the cent: right front axle outer stubs $198.04, CV joint $80.30 (NOTE: the ticket line reads 'CV Joint : 377' — 377 is a PART NUMBER, not a price), R&R right front axle outer U-joint and stubs $555.00, electrical shorts test for reverse lights not working + replaced damaged connector $300.00, connector pigtail $27.10, throttle body removed/cleaned + idle control motor cleaned + vacuum leaks + accelerator cables $135.00, UPS part shipping $38.00 = subtotal $1,333.44 + $20.61 tax = TOTAL $1,354.05. The reverse-light electrical repair was missing from the record entirely. ⚠️ PRIOR-OWNER MARGIN NOTES, unresolved: 'still rt front noise — since U-joint repl', 'up shifting — fix', 'kick down cable', 'front end clicks and clanks?', 'left rear exhaust hanger bushing'. Also that April: trans-leak reseal and a dipstick-tube seal.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2022-front-ball-joints-and",
           "date": "2022",
           "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
           "summary": "Front ball joints and a new rear driveshaft assembly (prior owner)",
           "confidence": "inferred"
         },
         {
+          "id": "sr-2021-10-vip-tires-service-farmingdale",
           "date": "2021-10",
           "mileage": 97377,
           "shop": "VIP Tires & Service (Farmingdale, ME)",
@@ -1026,6 +1063,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2021-08-express-oil-major-tune",
           "date": "2021-08",
           "mileage": 94438,
           "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
@@ -1033,12 +1071,14 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2019-05-southern-off-road-specialists",
           "date": "2019-05",
           "shop": "Southern Off-Road Specialists (Alpharetta, GA)",
           "summary": "Southern Off-Road Specialists — dual steering stabilizer + sway-bar bushings. ⭐ DATE NOW EXACT: 2019-05-19 (Paul-verified; the record previously had only 'May 2019' with the date itself in question). Lift-related work, consistent with the 4\" lift.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2018-06-express-oil-new-customer",
           "date": "2018-06",
           "mileage": 78488,
           "shop": "Express Oil Change & Tire Engineers (Canton, GA)",
@@ -1046,12 +1086,14 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2018-2018-emissions-delete-phase",
           "date": "2018",
           "shop": "Prior owner (various)",
           "summary": "2018 EMISSIONS-DELETE PHASE — ⚠️ CORRECTED AND DOWNGRADED 2026-07-29. The record previously asserted A/C + smog air pump + EGR all removed plus a shorter belt, as established fact. Reading the actual documents with Paul, and then checking them against the truck, splits that four ways:\n• ❌ A/C REMOVED — FALSE. **The truck has working A/C** (Paul, 2026-07-29, direct observation). The A/C was never removed. This claim is retired, not softened. Ground truth on the object outranks both the paperwork and our reading of the prior owner's handwriting.\n• 🟢 AIR PUMP REMOVED — STRONG. Handwritten on the physical Duralast belt package: 'new belt size since removing [?] and air pump' (Paul-verified). A shorter belt is a physical consequence of removal.\n• 🟢 SHORTER SERPENTINE BELT — CONFIRMED with a part number: Duralast 830K6 / 6PK2110.\n• 🔴 EGR DELETED — NOT SUPPORTED. The only document is IMG_8550, a PROCUREMENT DIARY (4/25/18 onward): hunting an EGR block-off plate for the fuel-injection plenum, out of stock, ordered an R66M block-off/eliminator ~$27.75 + $5.95 shipping, then '5/3 WRONG PART', a re-order, and follow-up calls on 11/27 and 11/29 with 'no reply'. Paul's read: 'this is all about parts you kept trying to return and buy.' INTENT IS NOT INSTALLATION.\n⚠️ OPEN: what the first word in the belt handwriting actually says. Both Paul and an independent agent read it as something like 'CADS'. It is NOT 'A/C' — the A/C works. HYPOTHESIS, unverified: 'CATS' (catalytic converters). It fits — the Thermactor air pump feeds air to the cats, so the two are commonly removed together; the 2017 Cherokee Muffler rebuild (2¼\" aluminized pipe, Flowmaster VX, 2¼\" tailpipes, 3\" tip) lists NO catalytic converters; and as a 1989 she is GA emissions-exempt, so a cat delete costs nothing at inspection. Settle by looking under her for cats — do not record 'CATS' until someone has.\nCONTEXT: this ran alongside the long-block replacement and the BBK throttle-body purchase (2018-04-19 row) — the same notes ask for an 'air idle control delete plate'. April–May 2018 was ONE project: new engine + intake/throttle-body upgrade + delete attempts.\n⭐ STILL SETTLES UNDER THE HOOD: is there an EGR valve on the intake? a smog/Thermactor air pump on the front of the engine? (A/C is answered — it works.) And underneath: are there catalytic converters?",
           "confidence": "inferred"
         },
         {
+          "id": "sr-2018-tim-s-auto-care",
           "date": "2018",
           "mileage": 77294,
           "shop": "Tim's Auto Care (Woodstock, GA)",
@@ -1059,12 +1101,14 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2017-03-cherokee-muffler-dual-exhaust",
           "date": "2017-03",
           "shop": "Cherokee Muffler & Auto Repair (Canton, GA)",
           "summary": "Cherokee Muffler — DUAL exhaust. ⭐ Paul-verified off the ticket: 2¼\" aluminized pipe, Flowmaster VX muffler, 2¼\" aluminized tailpipes, 3\" angled tip, TOTAL $424, vehicle named on the ticket as a 1989 Ford Bronco. ✅ 'DUAL' CONFIRMED 2026-07-29 AT THE TRUCK — Paul counted TWO exhaust tips. NOTE how this went: the word 'dual' was briefly REMOVED earlier the same day, because reading the ticket aloud suggested one muffler and one tip. The truck restored it. The likely reconciliation is that the dictated 'two point two four' lines are QUANTITY 2 of 2¼\" pipe and QUANTITY 2 of 2¼\" tailpipes — i.e. the ticket described a true dual system all along, and the single-tip reading was the error, not the record.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2016-10-tim-s-auto-care",
           "date": "2016-10",
           "mileage": 58441,
           "shop": "Tim's Auto Care (Woodstock, GA)",
@@ -1072,6 +1116,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2016-07-cherokee-tire-service-odometer",
           "date": "2016-07",
           "mileage": 56631,
           "shop": "Cherokee Tire Service (Canton, GA)",
@@ -1079,6 +1124,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2016-07-hickory-flat-hwy-automotive",
           "date": "2016-07",
           "mileage": 56283,
           "shop": "Hickory Flat Hwy Automotive (Canton, GA)",
@@ -1086,6 +1132,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2011-02-4-wheel-parts-memphis",
           "date": "2011-02",
           "mileage": 46815,
           "shop": "4 Wheel Parts (Memphis, TN)",
@@ -1093,6 +1140,7 @@
           "confidence": "verified"
         },
         {
+          "id": "sr-2010-2011-long-recommissioning-at-broadus",
           "date": "2010–2011",
           "mileage": 46492,
           "shop": "Broadus Automotive (Memphis, TN)",
@@ -1257,18 +1305,21 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2025-05-09-wouldn-t-start-battery",
           "date": "2025-05-09",
           "shop": "DIY (Paul)",
           "summary": "Wouldn't start — battery was fully charged, so traced it to fuel: drained the carb and found degraded yellow gas (ethanol gone off from sitting), then fully drained the tank + carb and flushed with fresh gas until it ran clean, and refilled. This is the drain/flush that preceded the ~June 2026 recommission (see notes). Captured from the OpenAI ChatGPT mine, 2026-07-22.",
           "confidence": "verified"
         },
         {
+          "id": "sr-2026-07-12-replaced-the-bent-handlebars",
           "date": "2026-07-12",
           "shop": "DIY (Paul)",
           "summary": "Replaced the bent handlebars with OEM Suzuki DR200 handlebars (sourced via eBay)",
           "confidence": "verified"
         },
         {
+          "id": "sr-2026-07-21-cleaned-the-electrical-contacts",
           "date": "2026-07-21",
           "shop": "DIY (Mom)",
           "summary": "Cleaned the electrical contacts and reset the contact points — the bike now starts up immediately at the press of the starter button. Resolves the intermittent starting issues.",
@@ -1398,18 +1449,21 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2026-07-21-clutch-lever-repair-the",
           "date": "2026-07-21",
           "shop": "DIY (Paul)",
           "summary": "Clutch lever repair — the end of the lever had broken off. Extended the broken-off section with a screw and attached it with zip ties + a duct-tape wrap. Photos in Apple Photos (UUIDs in .private/service-records/drz400s-2001/EXTRACTED.md).",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-07-16-ngk-cr8e-spark-plug",
           "date": "2025-07-16",
           "shop": "DIY (Paul)",
           "summary": "NGK CR8E spark plug (stock #1275, Amazon $6.42) — installed (Paul-confirmed 2026-07-22; resolves the 7/12 install-status conflict).",
           "confidence": "verified"
         },
         {
+          "id": "sr-2025-06-25-ape-racing-inline-fuel",
           "date": "2025-06-25",
           "shop": "DIY (Paul)",
           "summary": "APE Racing inline fuel filter, 90° 1/4in (Amazon $10.58) — installed (Paul-confirmed 2026-07-22).",
@@ -1929,6 +1983,7 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2026-07-17-new-saw-chain-chain",
           "date": "2026-07-17",
           "shop": "Garner Ace Hardware",
           "summary": "New saw chain + chain sharpening (joint receipt covering BOTH saws — Paul 2026-07-22: 'the Ace receipt should be for both'; $37.82 total, per-saw split unrecorded; receipt in .private/_held → filed).",
@@ -2003,6 +2058,7 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2026-07-17-new-saw-chain-chain",
           "date": "2026-07-17",
           "shop": "Garner Ace Hardware",
           "summary": "New saw chain + chain sharpening (joint receipt covering BOTH saws — Paul 2026-07-22: 'the Ace receipt should be for both'; $37.82 total, per-saw split unrecorded; receipt in .private/_held → filed).",

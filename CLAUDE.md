@@ -135,6 +135,19 @@ A queue of small confirm-cards at the top of the app asking the ground-truth onl
 
 **Live status for every Fernwood thread lives in `BACKLOG.md` (repo root) — read status there, not from the dated "Pickup point" log below (that log is historical, not current status).**
 
+## Cross-project linkage — vehicles ↔ photo-organizer `[paul-stated 2026-08-03, "marrying more threads"]`
+
+`~/Developer/photo-organizer` reads **`vehicles.json` IN PLACE** (never copies) to map repair/
+in-process photos to `serviceHistory` entries — the **visual-journeys** thread (Bolores first,
+then GTI/golf cart/the fleet). Two contracts follow: (1) every serviceHistory entry carries a
+stable `id` (convention in the file's `_comment`; minted 2026-08-03) — external references are
+`service:<vehicle-id>:<sr-id>`, so **renaming/removing an id breaks tags in another repo**;
+(2) confirmed photo↔entry mappings live in photo-organizer's DB (its confirmations JSONL is the
+durable copy), and any future vehicles-card photo display reads FROM there — this file stays
+photo-free. Paul's review flow: he curates + describes what a photo shows (his words verbatim,
+the primary evidence); the deterministic join proposes, he confirms. Long-horizon: part-level
+tags → clickable exploded view; deferred per defer-affordances-pending-signal.
+
 ## Backlog fragments — folded into `BACKLOG.md` (2026-07-17)
 
 The Mom-engagement backlog (shipped 2026-07-13 as **Mama's Perspective**) and the 2026-07-05 Concept-A items (Save/Ask split — resolved to one log-first button 7/13; `peakDates` + fishing granularity — shipped 7/06) now live in `BACKLOG.md`. Historical design trail: `.user-research/2026-07-13-mom-engagement-panel-synthesis.md`.

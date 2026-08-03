@@ -674,7 +674,7 @@ as before.
 
 | Item | What it is |
 |---|---|
-| **Photo-library vehicle/repair-photo miner** | Mine the ~50K-photo library for per-vehicle machine + teardown shots; propose-then-confirm. **NB:** since prototyped — now its own project (`~/Developer/photo-miner/`, memory `project_photo_miner`). Effectively ACTIVE there, not a Fernwood-repo item. The `photo-seed.json` (68 Bolores truck images) is the standing seed to feed it. |
+| **Photo-library vehicle/repair-photo miner** | Mine the ~50K-photo library for per-vehicle machine + teardown shots; propose-then-confirm. ~~now its own project (`~/Developer/photo-miner/`)~~ **photo-miner was RETIRED into `photo-organizer` (its P10 housekeeping); the live successor is the VISUAL-JOURNEYS thread there `[paul-stated 2026-08-03]`**: serviceHistory ids minted fleet-wide (56 entries), photo-organizer reads `vehicles.json` in place, candidate join = date-window × probe × labels × in-progress verdicts → Paul curates + describes, mappings accrete as `service:<vehicle-id>:<sr-id>` tags. See CLAUDE.md "Cross-project linkage". The `photo-seed.json` (68 Bolores truck images) remains the standing seed. |
 
 ## B5 · Smart-home systems (Nest) — inventory + live feed (idea, 2026-07-20)
 
@@ -733,6 +733,12 @@ Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
 - **Status: IDEATION — feasibility CLEARED, deliberately parked.** Gate: Paul says go. First mover
   when picked up: prototype `<model-viewer>` + stock GLB + 2–3 hotspots wired to real
   `serviceHistory` rows; the scan is a separate nice-day errand.
+- **↻ 2026-08-03 — the substrate this needs started building (B7 itself stays parked).** Paul's
+  "marrying more threads" session: every `serviceHistory` entry fleet-wide now carries a stable
+  `id` (hotspots can reference `service:bronco-1989:<sr-id>` durably), and photo-organizer is
+  growing the photo↔entry mapping via Paul's curate-and-describe review. When B7 unparks, the
+  clicks open onto mapped photos, not just card text — and the part-level tags that review
+  produces are exactly the hotspot vocabulary. Nothing here changes the gate.
 
 ---
 
