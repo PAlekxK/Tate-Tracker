@@ -19,24 +19,12 @@ What's changed at Fernwood lately. Newest first.
 - **Fewer boxes, calmer cards.** A question card shows two boxed answers and nothing else in a
   box — the skip and the write-a-note invitation are quiet underlined phrases beneath them, the
   same kind you already know from "Look back."
-
-- **The writing box is a rounded rectangle now, not an oval.** The Almanac's box had capsule
+- **The writing box is a rounded rectangle too.** The Almanac's box had capsule
   ends that made it look like your words would run out of room. Squared off gently, it reads
   as what it is — a page to write on.
 - **"Save & consult the Almanac" is always in full color.** It used to sit washed-out until
-  you typed something, which made it look broken next to the bright green button two cards
-  below. It's always ready now — tap it before writing anything and it just brings the pen
-  to the page.
-- **The two green "go" buttons are identical twins.** "Save & consult the Almanac" and "I've
-  got a minute" are the same button now — same deep green, same shape, same width. The
-  microphone emoji came off the second one; the note underneath already says your phone may
-  ask to use the microphone.
-- **Answer pairs sit the same way on every card.** "Got it / Write me back" now sits in the
-  same tidy side-by-side row as "That's all of them / Something's missing" — pairs of choices
-  look the same wherever you meet them.
-- **The little options stopped being the big ones.** "Snooze card" and the write-a-note
-  invitation used to stretch wall to wall, wider than the answers themselves. They now sit
-  quietly centered at their natural size, so the biggest buttons on a question are the answers.
+  you typed something. It's always ready now — tap it before writing anything and it just
+  brings the pen to the page.
 - **One phrase for writing to us.** "Write back" and "Tell me in your own words" were two
   names for the same door. It's "Write me back" everywhere now.
 
@@ -55,12 +43,6 @@ What's changed at Fernwood lately. Newest first.
 - **The day-by-day rainfall no longer runs off the edge.** In the larger text size on a phone, the
   last box in the seven-day rainfall strip pushed past the card's border. The row now fits, and in
   large text it wraps onto two tidy lines instead of squeezing.
-- **The buttons match each other.** Rounded, oval, wide, narrow — the buttons had drifted into a
-  lot of different shapes. Now a rounded oval always means "pick one of these" and a rounded
-  rectangle always means "send it," everywhere in the app. The answer buttons also keep their oval
-  shape properly in the larger text size, which they had stopped doing.
-- **The answer buttons sit in a tidy row.** On a question card, the two answers now sit side by
-  side with the "I haven't looked" option across the bottom, instead of leaving an awkward gap.
 
 ---
 
