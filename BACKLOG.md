@@ -699,6 +699,41 @@ as before.
 | **Cross-ref: B5 already holds half the data** | **B5 (Nest) already captured that the cabin's heat is propane (LP) forced-air**, plus the thermostat's make/model/serial and install date, from the Google Takeout export — i.e. **the furnace she is asking about is partly already in the record**, just not on a surface she can see. The propane tank noted there as a candidate maintenance obligation belongs to this domain too. | Fold B5's device inventory into this domain rather than standing up a parallel one. |
 | **Register note (for the researcher pass)** | Even while designing the thing herself she hedged about her own wording. Same not-wanting-to-be-wrong reflex as the confirm cards (A3). Worth reading as one behaviour, not two. | Evidence for the A3 finding. |
 
+## B7 · Interactive 3D Bolores — clickable repair-story showpiece (idea, 2026-08-02)
+
+*Paul's idea (2026-08-02): a 3D model of a vehicle you can spin, with clickable parts that open the
+repair stories — a portfolio showpiece weaving in the documented work, and a learning project.
+Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
+
+- **Vehicle: Bolores (the '89 Bronco), decided.** She has 10× the material of any other vehicle: 18
+  public `serviceHistory` rows, the provenance chain back to the 2011 Memphis lift build, both engine
+  swaps dated, 35 mined diagnostic threads, and the 68-photo seed (`photo-seed.json`, B4). A clickable
+  model is only as good as what's behind the clicks. (Also practical: dirt bikes photogrammetry-scan
+  poorly — thin tubes and spokes; a big boxy truck scans well.)
+- **Interaction layer is a solved pattern, no game engine:** Google's `<model-viewer>` web component
+  gives rotate/zoom + clickable **hotspots** anchored to model points, each opening a detail panel fed
+  by the existing `serviceHistory` data + photos. Static page, weekend-buildable. Upgrade path if
+  wanted: Three.js (camera fly-tos, part highlighting, exploded views).
+- **Asset path — Paul's constraint: it must read as HER (lifted '89, her stance/paint), so:**
+  - **Primary: photogrammetry-scan the actual truck** (Polycam or similar, iPhone, ~30–45 min walk-around;
+    overcast light, hood popped so the engine bay captures; underside won't scan — no hotspots live
+    there). Captures lift/tires/paint exactly *because it is her*. Output = GLB, drops into the viewer.
+  - **Placeholder to build against now:** free correct-generation (bricknose, not '66–'77) stock model
+    exists — Sketchfab "Ford Bronco 1989" (EGGJUICE, 39dc64e2), more on TurboSquid / 3D CAD Browser.
+    Build the whole experience against it; swap one file when the scan lands. Nothing wasted.
+  - **Fallback: Blender-modify the stock model** (raise body vs. axles, scale tires, repaint material) —
+    modest, scriptable, a legit learning detour, but always an approximation. Only if the scan disappoints.
+- **Privacy rail:** hotspot content draws ONLY from the public `serviceHistory[]` card data (already
+  PII-scrubbed) — never `.private/…/EXTRACTED.md` (costs, VINs, prior-owner detail).
+- **Where it lives:** its own standalone page, not Mom's surface — different audience (portfolio
+  viewers). The Fernwood vehicle card can link to it.
+- **Portfolio framing (the career tie-in):** the 3D page is the hook; the deeper story is the chain
+  behind it — receipts + photos mined through the verify-before-publish pipeline into structured data
+  now feeding a 3D front-end. Cross-ref `~/Developer/Career` when it ships.
+- **Status: IDEATION — feasibility CLEARED, deliberately parked.** Gate: Paul says go. First mover
+  when picked up: prototype `<model-viewer>` + stock GLB + 2–3 hotspots wired to real
+  `serviceHistory` rows; the scan is a separate nice-day errand.
+
 ---
 
 ---
