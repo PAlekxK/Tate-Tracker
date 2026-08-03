@@ -389,3 +389,12 @@ The vehicle/equipment data-collection list (mower belt P/N, Homelite model IDs, 
 | First frost 50% | October 17 |
 | On-site station | Kirschenbauer Ambient Weather station, MAC `D8:F1:5B:15:28:B8` (source of `weather-history.json`) |
 | Sky quality | Bortle 3 (rural dark sky) |
+
+## Decision intake → operating-layer (D33)
+
+A decision Paul owes becomes ONE file `.decisions/<project>-<n>.md` in this repo — card
+format `## <id> · <title>`, `- project:`/`- options: a | b` facts, `### Why it's here` +
+`### What it means` + `### Recommendation` blocks. The operating-layer render discovers it
+from the filesystem; answers and threads live in operating-layer's `data/decisions.jsonl`.
+Never edit status into the card file — the card is a document, the decision is an event.
+Full spec: `~/Developer/operating-layer/CLAUDE.md` §intake.
