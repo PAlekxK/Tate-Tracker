@@ -4,6 +4,19 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-03 — A shorter note back, and questions one at a time
+
+- **Our note back to you now leads with the point.** The card that tells you we got your
+  note says it in a line — "Read the rest ›" opens the whole thing whenever you want it,
+  links and all.
+- **Questions come one at a time now.** No more little dots and arrows to page through:
+  you'll see one question, with "Another question ›" underneath to bring the next. Going
+  around brings you back — nothing falls off the edge.
+- **One "Write me back."** It was in two places saying the same thing; now it's one, and
+  a second appears right where you'd want it — after you've tapped "Got it" on our note.
+
+---
+
 ## 2026-08-02 — Mama's Perspective can fold away, and your note stays in view
 
 - **The card closes and opens like the big cards below it.** Same "Open / Close" button
