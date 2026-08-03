@@ -4472,6 +4472,21 @@
   }
   .ack-inline-link:hover { text-decoration-color: #3a7a3a; }
   .ack-inline-link:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; border-radius: 3px; }
+  /* Folded receipt (paul-stated 2026-08-03): the lead sentence stands alone;
+     "Read the rest ›" discloses the remainder on its own line — the same quiet
+     word-led underline grammar as "Write me back" / "Look back ›". 44px floor. */
+  .ack-read-rest {
+    display: flex; align-items: center; min-height: 44px;
+    font: inherit; color: #4a7a3a; background: none; border: 0;
+    padding: 0; margin: 0; cursor: pointer;
+    text-decoration: underline; text-decoration-color: #b9cfa6;
+    text-underline-offset: 3px; text-decoration-thickness: 1.5px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ack-read-rest:hover, .ack-read-rest:active { color: #2f5a28; text-decoration-color: #3a7a3a; }
+  .ack-read-rest:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; border-radius: 4px; }
+  .ack-msg-rest { display: block; margin-top: 2px; }
+  .ack-msg-rest[hidden] { display: none; }
   .ack-seen-note {
     font-family: "Crimson Text", Georgia, serif;
     font-size: 13px; font-style: italic; color: #5a7a5a; margin-right: auto;
@@ -4703,12 +4718,29 @@
   }
   .mom-queue-addnote:hover, .mom-queue-addnote:active { color: #2f5a28; text-decoration-color: #3a7a3a; }
   .mom-queue-note-wrap { margin-top: 2px; }
-  /* Stepper — little cards, easy to move through (never one-and-done). Calm dots,
-     no count-as-pressure ("2 of 5 due"); just where-you-are in the set. */
+  /* One question at a time; "Another question ›" brings the next (paul-stated
+     2026-08-03, two-pass review). The ‹ › arrows + 6px pager dots are retired:
+     dots-with-a-denominator read as a QUEUE OF FIVE — count-as-pressure in
+     miniature — and hid 4 of 5 questions behind a control both review passes
+     called easy to miss and hard to tap. One quiet word-led link, the same
+     underline grammar as "Write me back" above it. */
   .mom-queue-nav {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-    margin-top: 11px; padding-top: 9px; border-top: 1px solid #ece2c2;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 11px; padding-top: 5px; border-top: 1px solid #ece2c2;
   }
+  .mom-queue-another {
+    background: none; border: none; cursor: pointer;
+    font-family: "Crimson Text", Georgia, serif; font-size: 15.5px;
+    color: #4a7a3a; padding: 0 10px;
+    min-height: 44px; display: inline-flex; align-items: center;
+    text-decoration: underline; text-decoration-color: #b9cfa6;
+    text-underline-offset: 3px; text-decoration-thickness: 1.5px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mom-queue-another:hover, .mom-queue-another:active { color: #2f5a28; text-decoration-color: #3a7a3a; }
+  .mom-queue-another:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; border-radius: 4px; }
+  /* .mom-queue-nav-arrow survives for the zone-journey stepper (#zj-prev/#zj-next),
+     which still pages PLACES — a spatial walk, not a question queue. */
   .mom-queue-nav-arrow {
     background: none; border: none; cursor: pointer;
     font-size: 22px; line-height: 1; color: #8a9668; padding: 4px 10px;
@@ -4723,9 +4755,6 @@
     -webkit-tap-highlight-color: transparent;
   }
   .mom-queue-nav-arrow:hover, .mom-queue-nav-arrow:active { color: #4a6a2a; background: #f4f0df; }
-  .mom-queue-dots { display: inline-flex; align-items: center; gap: 6px; }
-  .mom-queue-dot { width: 6px; height: 6px; border-radius: 50%; background: #d6dcbe; }
-  .mom-queue-dot.active { background: #7a9658; }
   body.text-lg .mom-queue-title      { font-size: 18px; }
   body.text-lg .mom-queue-framing    { font-size: 15px; }
   body.text-lg .mom-ack-ribbon       { font-size: 17px; }
@@ -4733,6 +4762,7 @@
   body.text-lg .mom-queue-correction { font-size: 17px; }
   body.text-lg .mom-queue-addnote    { font-size: 16.5px; }
   body.text-lg .mom-queue-nav-arrow  { font-size: 26px; }
+  body.text-lg .mom-queue-another    { font-size: 17.5px; }
   /* CARD 4 — the zone walk. Wears `.ic-card` (2026-07-30); its own gradient,
      1.5px border, 5px left rail and 16px radius are all gone.
      ⚠️ It was the LOUDEST thing on the surface and had never been tapped from
@@ -10780,12 +10810,43 @@ const MomQueue = (function () {
         .filter(h => h && h.at >= 0)
         .sort((a, b) => a.at - b.at);
 
+      // ⭐ FOLDED RECEIPT (paul-stated 2026-08-03, from the two-pass review —
+      // .ux-reviews/2026-08-03-two-pass-fresh-eyes-pilot.md). The full message
+      // had grown to a nine-line wall — receipt and consequence in one block —
+      // and both review passes found it burying the card. Now the first
+      // sentence stands as the visible receipt and the rest sits behind one
+      // quiet "Read the rest ›". The whole message still ships and every
+      // phrase-link still renders (standing rule 2 — coverage + links — is
+      // preserved one tap down, not trimmed). Short messages never fold.
+      const FOLD_MIN = 180;
+      let splitAt = message.length;
+      if (message.length >= FOLD_MIN) {
+        const dot = message.indexOf(". ");
+        if (dot > 0 && dot + 2 < message.length) splitAt = dot + 2;
+      }
+      const leadSpan = document.createElement("span");
+      leadSpan.className = "ack-msg-lead";
+      const restSpan = document.createElement("span");
+      restSpan.className = "ack-msg-rest";
+      restSpan.hidden = true;
+      // A text run that crosses the fold is split at it; a phrase never crosses
+      // (phrases don't span sentences), so each link lands whole on one side.
+      function appendMsgText(from, to) {
+        if (from >= to) return;
+        if (from < splitAt && to > splitAt) {
+          leadSpan.appendChild(document.createTextNode(message.slice(from, splitAt)));
+          restSpan.appendChild(document.createTextNode(message.slice(splitAt, to)));
+        } else {
+          (from < splitAt ? leadSpan : restSpan).appendChild(document.createTextNode(message.slice(from, to)));
+        }
+      }
+
       let cursor = 0;
       for (const h of hits) {
         // Overlapping phrases would double-render the overlap; skip any hit that
         // starts inside the span already consumed.
         if (h.at < cursor) continue;
-        if (h.at > cursor) msg.appendChild(document.createTextNode(message.slice(cursor, h.at)));
+        appendMsgText(cursor, h.at);
         const link = document.createElement("button");
         link.type = "button";
         link.className = "ack-inline-link";
@@ -10799,11 +10860,24 @@ const MomQueue = (function () {
           const el = document.getElementById(h.card);
           if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" });
         });
-        msg.appendChild(link);
+        (h.at < splitAt ? leadSpan : restSpan).appendChild(link);
         cursor = h.at + h.phrase.length;
       }
-      if (cursor < message.length) {
-        msg.appendChild(document.createTextNode(message.slice(cursor)));
+      appendMsgText(cursor, message.length);
+
+      msg.appendChild(leadSpan);
+      if (restSpan.childNodes.length) {
+        const readRest = document.createElement("button");
+        readRest.type = "button";
+        readRest.className = "ack-read-rest";
+        readRest.textContent = "Read the rest ›";
+        readRest.addEventListener("click", () => {
+          restSpan.hidden = false;
+          readRest.remove();
+          track("momack_unfolded", { acknowledgedThrough: ackIdOf() });
+        });
+        msg.appendChild(readRest);
+        msg.appendChild(restSpan);
       }
 
       const actions = document.createElement("div");
@@ -10869,7 +10943,12 @@ const MomQueue = (function () {
       // `.ack-check` and `.ack-textcol` are retired with it.
       ackStrip.appendChild(ackHead);
       ackStrip.appendChild(msg);
-      if (alreadySeen) { markSeen(false); } else { actions.appendChild(gotIt); actions.appendChild(writeBack); }
+      // ONE "Write me back" visible in the envelope at rest (paul-stated
+      // 2026-08-03) — both review passes flagged two identical invites on one
+      // screen. The question card below keeps the standing one; the ack's
+      // reply door now appears only after "Got it" (markSeen appends it), which
+      // is the natural reply moment anyway. The door is later, not gone.
+      if (alreadySeen) { markSeen(false); } else { actions.appendChild(gotIt); }
       ackStrip.appendChild(actions);
       ackHost.appendChild(ackStrip);
       // Track WHAT the ribbon covered, not questionId — that field is null now
@@ -11303,43 +11382,33 @@ const MomQueue = (function () {
 
     card.appendChild(noteWrap);
 
-    // Navigation — little cards, easy to move through, so it's never one-and-done.
-    // Only when more than one is outstanding.
+    // Navigation — one more question at a time, never a queue with a
+    // denominator. Only when more than one is outstanding.
     if (position && position.total > 1) card.appendChild(buildNav(position));
     return card;
   }
 
+  // ⭐ THE CAROUSEL FURNITURE IS RETIRED (paul-stated 2026-08-03, from the
+  // two-pass review — .ux-reviews/2026-08-03-two-pass-fresh-eyes-pilot.md).
+  // The old nav was ‹ › arrows around 6px pager dots: dots-plus-denominator
+  // presents the questions as A QUEUE OF FIVE, which is exactly the register
+  // the card's own intro line ("no rush") disclaims — and 4 of 5 questions sat
+  // invisible behind a control both review passes called easy to miss and hard
+  // to tap. Now: ONE visible question and one quiet word-led link that brings
+  // the next. It cycles (render() wraps idx), so every question is reachable
+  // and "back" is just going around — no position state for her to track.
   function buildNav(position) {
     const nav = document.createElement("div");
     nav.className = "mom-queue-nav";
-
-    const prev = document.createElement("button");
-    prev.type = "button";
-    prev.className = "mom-queue-nav-arrow";
-    prev.setAttribute("aria-label", "Previous");
-    prev.textContent = "‹";
-    // captureDrafts() BEFORE render() — render() rebuilds the host and would otherwise
-    // take her unsent words with it. See the drafts store above.
-    prev.addEventListener("click", () => { captureDrafts(); idx = position.idx - 1; render(); });
-
-    const dots = document.createElement("div");
-    dots.className = "mom-queue-dots";
-    for (let i = 0; i < position.total; i++) {
-      const dot = document.createElement("span");
-      dot.className = "mom-queue-dot" + (i === position.idx ? " active" : "");
-      dots.appendChild(dot);
-    }
-
-    const next = document.createElement("button");
-    next.type = "button";
-    next.className = "mom-queue-nav-arrow";
-    next.setAttribute("aria-label", "Next");
-    next.textContent = "›";
-    next.addEventListener("click", () => { captureDrafts(); idx = position.idx + 1; render(); });
-
-    nav.appendChild(prev);
-    nav.appendChild(dots);
-    nav.appendChild(next);
+    const another = document.createElement("button");
+    another.type = "button";
+    another.className = "mom-queue-another";
+    another.setAttribute("aria-label", "Show another question");
+    another.textContent = "Another question ›";
+    // captureDrafts() BEFORE render() — render() rebuilds the host and would
+    // otherwise take her unsent words with it. See the drafts store above.
+    another.addEventListener("click", () => { captureDrafts(); idx = position.idx + 1; render(); });
+    nav.appendChild(another);
     return nav;
   }
 
