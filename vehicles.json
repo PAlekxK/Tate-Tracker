@@ -940,20 +940,24 @@
           "summary": "Two-tone — upper code 2D over lower code 9T (both read off the door label and confirmed by Paul, 2026-07-29)",
           "upper": {
             "fordCode": "2D",
-            "name": "Cabernet Red family — NAME NOT YET CONFIRMED against a 1989 Ford chip chart",
-            "confidence": "verified — code read off the door Vehicle Certification Label by Paul, 2026-07-29",
-            "supersedes": "Was recorded as 2H / M6156 ('researched, pending label'). The label reads 2D. ALSO supersedes a ChatGPT read of '85', which appears nowhere on the label — it looks to have taken U154 (the TYPE-GVW field) and invented a paint code.",
-            "beforeYouMixPaint": "The CODE is verified; the COLOUR NAME and the mix formula are not. Have the paint supplier cross-reference 2D against a 1989 Ford chart before mixing — this gates the full respray, which happens once."
+            "name": "Medium Scarlet",
+            "mixCode": "6236",
+            "alsoListedAs": "2D / EN / 6236 · PPG 3935 · sold by some vendors as 'Scarlet Red', 1987–1991 Ford",
+            "confidence": "code VERIFIED (read off the door Vehicle Certification Label, Paul 2026-07-29, re-read off the label photo 2026-08-04). Name/formula from multiple independent paint-vendor databases that agree.",
+            "supersedes": "⚠️ CORRECTED 2026-08-04 — this entry said 'Cabernet Red family — NAME NOT YET CONFIRMED'. 2D IS NOT CABERNET RED. Medium Cabernet Red is code 2H / 6156, a DIFFERENT code, and it is what this record carried BEFORE the label was read. When the label turned out to say 2D, the CODE was updated and the NAME was left behind — so a wrong colour name rode along attached to a right code for six days, and it is the NAME a paint shop would have mixed from. Also previously superseded: a ChatGPT read of '85', which appears nowhere on the label (it looks to have taken U154, the TYPE-GVW field, and invented a paint code).",
+            "howToBuy": "Available today as reproduction basecoat, not just touch-up: Tamco Paint (Ford Scarlet Red 2D/EN/6236, 1987-1991 OEM basecoat) · PaintScratch (pint/quart for spray equipment) · Express Paint · AutomotiveTouchup."
           },
           "lower": {
             "fordCode": "9T",
             "name": "Light Chestnut",
-            "mixCode": "6190 (researched, not label-confirmed)",
-            "confidence": "verified — code read off the door label by Paul, 2026-07-29",
-            "note": "The researched candidate 9T was CORRECT. Dark Chestnut is ruled out."
+            "mixCode": "6190",
+            "confidence": "code VERIFIED off the label; name + formula CONFIRMED 2026-08-04 against multiple vendor databases — the researched candidate was correct. Dark Chestnut (95/6262) is ruled out.",
+            "howToBuy": "PaintScratch (pint/quart) · Express Paint (half-pint/pint/quart) · DipYourCar Luna OEM basecoat · ColorRite. Widely stocked."
           },
           "location": "Driver-door Vehicle Certification Label — the EXTERIOR PAINT COLORS row carries two codes: 2D (upper) and 9T (lower).",
-          "status": "researched-pending-label"
+          "status": "codes VERIFIED off the label; names + mix formulas RESOLVED 2026-08-04",
+          "whichIsUpper": "⚠️ NOT ESTABLISHED FROM THE LABEL. The EXTERIOR PAINT COLORS field simply lists 2D and 9T; it does not say which is upper. Assignment (2D upper / 9T lower) comes from LOOKING AT THE TRUCK — the body is red over a tan/chestnut lower, and Medium Scarlet is the red. That is sound, but it is an observation, not a label reading.",
+          "beforeYouMixPaint": "⭐ GET A SPRAY-OUT CARD BEFORE COMMITTING TO THE RESPRAY — it happens once. Two reasons specific to this truck: (1) the clear coat is failing and 37 years of oxidation darken red badly, so the truck TODAY is not a reliable colour reference — in the 2026-08-04 photos she reads deep burgundy in shade and noticeably brighter red in direct light, which is exactly what a tired Medium Scarlet does; (2) compare the card against an UNFADED area, not a sun-exposed panel — inside a door jamb, under trim, under the tailgate lip. Matching to a faded panel buys faded paint permanently. Have the supplier cross-reference 2D and 9T against a 1989 Ford chart as a second check on the names below."
         },
         "interior": {
           "color": "Eddie Bauer tan / saddle",
