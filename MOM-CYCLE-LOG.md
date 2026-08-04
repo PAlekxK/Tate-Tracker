@@ -11,7 +11,7 @@ amended mid-lap.
 
 ---
 
-## Lap 1 — 2026-08-04 · ⏸ OPEN, standing at leg 6
+## Lap 1 — 2026-08-04 · ✅ CLOSED — shipped `8718f46`, pushed and verified live
 
 **Trigger:** Paul, after confirming Mom's 08-03 visit in the data — *"let's run our feedback loop,
 take care of the things waiting on me."*
@@ -24,8 +24,8 @@ take care of the things waiting on me."*
 | **3 · RESOLVE** 👤 | One genuine ambiguity, routed to **tier 2 (Paul)**, not to a card: *does "tabs across the top" mean the nav strip that shipped, or a re-organization of the app into her five categories?* Tier 1 could not settle it — and ⛔ **the reason recorded here at the time was WRONG**: it said *"telemetry shows she has never tapped the strip"*, which treats an unmeasured zero as a measured one. Corrected same day (see below). **Spending a card on this would have been the ladder failing.** | funnel query; the question is put to Paul in-conversation |
 | **4 · EXPERT** | **No seat convened, deliberately.** Both items are execution, and the one interpretive question routed to tier 2, where it is free. Recording the reason because an unexplained skipped leg is indistinguishable from a forgotten one. | this line |
 | **5 · SHIP** | Two channel read-attestations (`observations`, `guru`) — her 08-03 Almanac conversation on creeping-fig cuttings was **actually read**, not stamped. Meta work: the map, the status surface, this chronicle, the map control. | `.private/channel-read-state.json`; commits below |
-| **6 · GATE** 👤 | **⏸ HERE.** Ribbon draft + card retirement presented to Paul as exact text. Nothing applied, nothing pushed. | pending |
-| **7 · CLOSE** | not reached | — |
+| **6 · GATE** 👤 | **6a PREVIEW** — served at `localhost:8765`, Paul flipped through it and caught two errors from the page itself (the "your five" count over six tabs; the collapsed feedback notes). **6b TELEMETRY** — built mid-lap after his question, found 23 never-fired events. **6c PROXY** — SKIPPED, named (D14). **6d** — all three seats ran, Paul approved, **pushed**. | `8718f46`; verified live by unauthenticated fetch |
+| **7 · CLOSE** | `q-top-categories` retired · watermark advanced (only after the ribbon actually shipped) · Worker deployed `fc7aea9b` · all seven checks green · `mom-cycle-status.py` reads 🟢 | this file |
 
 ### What the lap found that it was not looking for
 
@@ -198,16 +198,22 @@ sequence behaving as designed. It is n=1 and proves nothing yet — D6's rules n
 
 | # | criterion | lap 1 |
 |---|---|---|
-| 1 | every leg left an artifact | ✅ so far |
-| 2 | legs 1, 6, 7 non-empty | ⏸ 6 open, 7 not reached |
-| 3 | nothing served that she answered | ❌ **NOT MET** — `q-top-categories` still active |
+| 1 | every leg left an artifact | ✅ |
+| 2 | legs 1, 6, 7 non-empty | ✅ all three ran |
+| 3 | nothing served that she answered | ✅ retired; `check-cards.py` exits 0 |
 | 4 | every newer-than-mark channel attested read | ✅ observations + guru attested 08-04 |
-| 5 | the return leg shipped | ❌ **NOT MET** — at Paul's gate, unpushed |
+| 5 | the return leg shipped | ✅ `8718f46` on `origin/main`; the new copy verified in the PUBLIC file by unauthenticated fetch |
 | 6 | watermark stepped over nothing | ✅ clamp held; the reflective card is holding it, correctly |
 
-**This is the definition doing its job.** It was written before it was scored, and it came back with
-two ❌ on the very lap that authored it. A clean-lap definition that congratulated its own lap would
-have been worthless.
+**CLEAN — 6/6.** But the reading that matters is the one from earlier in the same lap: written before
+it was scored, this definition came back **2/6 down** on the lap that authored it, and both ❌ named
+real unfinished work (a card still being served to her; an unshipped ribbon). It scored clean only
+after both were actually fixed. A definition that had congratulated its own lap would have been
+worthless, and this one demonstrably could not.
+
+⚠️ **And clean still does not mean she felt heard.** Six green criteria prove the loop closed its
+loops on OUR side. `momack_shown` counts exposure, not receipt. No outcome measure for the return leg
+exists — the gap is named in the map and is not papered over by this score.
 
 ### Meta work shipped this lap
 
@@ -217,3 +223,19 @@ have been worthless.
   real run** (this file did not exist), and `--selftest` proves it can fail rather than asserting it.
 - This chronicle.
 - `tools/test-feedback-cycle.py` — the DRAFT leg de-coupled from a retired widget (see above).
+- `tools/check-telemetry.py` — **an event in the SOURCE is not an event in the RECORD.** Built after
+  Paul asked whether the zero taps were real or unmeasured. Wired in as Leg 6b, before any push.
+- `tools/read-mom-feedback.py --retire` — retirement as one command with two refusing guards.
+- `tools/read-mom-funnel.py` — reads the strip funnel, and prints each event's **first-ever firing**
+  beside the count so no reader takes a zero on trust.
+- `~/.claude/tools/cycle-docs-check.py` + close-out **C4·cycle** — every documented loop's chronicle
+  checked against its repo HEAD.
+
+### What lap 2 inherits
+
+1. **Build Leg 6c**, the Mom-proxy. Designed this lap, skipped this lap (D14).
+2. **W12** — 23 never-fired events. Trigger the six on paths that should have run.
+3. **The strip now has a denominator.** `jumpstrip_viewed` shipped with this push, so lap 2 is the
+   first lap that can say anything at all about whether she uses the tabs. **Do not pool across
+   `8718f46`** — before it, both the control and the instrumentation were different.
+4. **D6 scores from here.** Three seats ran this lap; the demote/re-order/cost rules need three laps.
