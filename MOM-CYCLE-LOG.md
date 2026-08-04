@@ -63,6 +63,26 @@ caught at one day old instead of weeks.
 renames the control will not re-break it. Negative-controlled before adoption — an injected
 unguarded handler FAILS, an empty queue FAILS, the real file PASSES.
 
+### Decisions
+
+Every lap records what it **decided**, what that **supersedes**, and **why now** — the record that
+lets a later lap tell a trajectory from a flip-flop `[paul-stated 2026-08-04]`. Enforced as a record
+shape by `check-cycle-map.py`; it checks that the block exists, never whether the trajectory is good.
+
+| # | decision | supersedes | why now | evidence |
+|---|---|---|---|---|
+| D1 | **Reorganize the top nav around Mom's five categories** (vehicles · equipment · household systems · gardening · wildlife) | the 2026-08-02 hand-picked strip (Almanac · Weather · Plants · Wildlife · Mama's Perspective), whose own code comment called the five a PLACEHOLDER | she confirmed the list herself 08-03 ("That's all of them"), so the input the placeholder was waiting on has arrived | `q-top-categories` answer; `BACKLOG` ② |
+| D2 | **Ship the reorganization now, ahead of the 8/10 rationalization** | the 08-02 freeze — *"nothing here ships early; tonight's surface gets clean air for the window's final week"* | Paul's call 08-04. ⚠️ **This IS a reversal of his own two-day-old decision, and it is recorded as one** — the freeze existed to protect a clean measurement window, and shipping into that window means the 8/10 funnel read cannot be pooled across the change line | Paul, this session |
+| D3 | **Split Machines into Vehicles + Equipment**, filtering the record-level `group` field | one "Machines" card — a third word neither Mom nor Paul used | her split already exists in the data as a declared field (7 `vehicle` / 9 `equipment`), so this is a display change, not a migration | `vehicles.json`; verified |
+| D4 | **Keep Weather in the strip** `[paul-stated 08-04]` | the domains-only rule the researcher recommends | Paul: *"weather is important"* — and the ack will say we made that call and it can change | Paul, this session |
+| D5 | **Adopt her coined term "household systems"** | the card's shortened "house systems" | *adopt her words, never improve them*; CLAUDE.md already records shortening this exact term as a past violation | `BACKLOG:363`; Paul confirmed |
+| D6 | **Leg 4 becomes a scoped expert sequence** | *"one seat by default"* `[paul-stated 2026-07-29]` | Paul's 08-04 call. Recorded as a reversal of a Paul-stated rule, with the 4-lens week as the named cost and a latency guard against repeating it. **Effective lap 2** | `MOM-CYCLE-MAP.md` § Leg 4 |
+| D7 | **⏸ OPEN — the Household Systems card's shape** | Paul's "empty card that asks her to populate it" | the researcher found `devices.json` already holds a real record (Nest thermostat, propane heat). Not an empty domain. **At Paul's gate** | `devices.json`; verified |
+
+**Two of these seven reverse a prior Paul decision (D2, D6), and one reverses a researcher
+recommendation (D4).** That is not a problem — it is the record working. The failure this table
+exists to prevent is reversing something *without noticing*.
+
 ### Score against the pre-registered definition — **NOT CLEAN (yet)**
 
 | # | criterion | lap 1 |

@@ -72,6 +72,33 @@ def audit(map_text):
         if not re.search(rf"\b{leg}\b", map_text):
             findings.append(f"MISSING LEG  the map has no row for leg {leg}")
 
+    # TRAJECTORY — every lap must record what it DECIDED and what that supersedes.
+    # `[paul-stated 2026-08-04]`: "my intention is to help make sure that there's a
+    # trajectory throughout these cycles, and not necessarily pinging back between two
+    # different states without any self-awareness from cycle to cycle."
+    #
+    # Oscillation is the failure; volume is not. A loop that changes one thing five times
+    # toward one end is healthy — a loop that flips the same thing twice WITHOUT NOTICING
+    # is not, and the tell is the not-noticing. That cannot be a habit (this stack's own
+    # rule: name the mechanism or drop the claim), so it is a required record shape:
+    # a reversal becomes queryable instead of remembered.
+    #
+    # ⚠️ THIS CHECKS SHAPE, NOT TRAJECTORY. It cannot tell a principled reversal from a
+    # flip-flop — it only guarantees the data a human (or a later detector) would need.
+    # An actual oscillation detector needs >= 2 laps of history and does not exist yet.
+    log_path = os.path.join(ROOT, "MOM-CYCLE-LOG.md")
+    if os.path.exists(log_path):
+        with open(log_path, encoding="utf-8") as f:
+            log_text = f.read()
+        laps = re.split(r"^## Lap ", log_text, flags=re.M)[1:]
+        for lap in laps:
+            title = lap.splitlines()[0].strip() if lap.splitlines() else "?"
+            if not re.search(r"^###\s*Decisions\b", lap, flags=re.M):
+                findings.append(
+                    f"NO DECISIONS BLOCK  lap '{title}' records no Decisions section — "
+                    f"what it changed and what that supersedes is unqueryable, so a later "
+                    f"lap cannot tell a trajectory from a flip-flop")
+
     if "PRE-REGISTERED" not in map_text.upper():
         findings.append(
             "NO PRE-REGISTRATION  the map defines no 'clean lap', so the loop "
