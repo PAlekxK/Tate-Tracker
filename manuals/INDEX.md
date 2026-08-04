@@ -2,6 +2,13 @@
 
 Reference materials for the fleet on the Vehicles card. Assembled 2026-07-08.
 
+> **Companion file (added 2026-08-04): [`LINKS.md`](LINKS.md)** — fleet references we do **not** hold
+> as files (videos, forum threads, vendor pages, and manuals found but not yet downloaded).
+> **The discriminator is one question: is there a file on disk?** Yes → this INDEX. No → `LINKS.md`.
+> That test is mechanical, so the two files cannot both claim the same document — which is the
+> duplicate the FD.88 re-ingest produced on 2026-08-04. `LINKS.md` is also the **ingestion queue**:
+> its 📥 rows move *here* once downloaded, and the move is the ingestion.
+
 **Structure**
 - `pdf/` — source PDFs. **Local-only / gitignored** (public repo; avoids republishing
   copyrighted manuals and keeps the repo lean). Re-fetch anytime with `download.sh`.
