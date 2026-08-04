@@ -40,6 +40,29 @@ take care of the things waiting on me."*
   asked about is exactly the shape of a real one, and `check-season-notes.py` had already returned
   clean on it — the tool was right and the reader was wrong.
 
+### ⚠️ The double-check found a control that had gone dead
+
+Paul asked for a verification pass **after** the lap, not just inside it. It paid immediately:
+`test-feedback-cycle.py` was **RED, and had been since 2026-08-03** — one day, caught early.
+
+- **What it asserted:** the confirm carousel's `prev` / `next` arrows both capture drafts before
+  re-rendering (`>= 2` handlers, matched by NAME).
+- **What is true:** commit `05db30a` (2026-08-03, the folded-receipt / one-question view)
+  deliberately replaced the carousel with a single *"Another question ›"* control — **and that
+  control is correctly guarded** (`viewer.html:11410`, `captureDrafts()` before `render()`).
+- **So the invariant held the whole time; the test was asserting a retired UI shape.** Verified
+  against git: 0 `prev`/`next` handlers at `05db30a`, 2 at its parent `6c5d462`.
+
+**Why this is worth more than the fix.** A control that fails for a reason nobody can act on is
+worse than no control — everyone correctly learns to ignore it, and the red line still *looks* like
+a gate. That is the market-digest staleness ratchet's pathology in miniature, and this one was
+caught at one day old instead of weeks.
+
+**Fixed by asserting the invariant instead of the widget:** *any* click handler that calls
+`render()` must call `captureDrafts()` first, whatever it is named, `>= 1`. The next redesign that
+renames the control will not re-break it. Negative-controlled before adoption — an injected
+unguarded handler FAILS, an empty queue FAILS, the real file PASSES.
+
 ### Score against the pre-registered definition — **NOT CLEAN (yet)**
 
 | # | criterion | lap 1 |
@@ -62,3 +85,4 @@ have been worthless.
 - `tools/check-cycle-map.py` — the map's own staleness control. **Caught a real gap on its first
   real run** (this file did not exist), and `--selftest` proves it can fail rather than asserting it.
 - This chronicle.
+- `tools/test-feedback-cycle.py` — the DRAFT leg de-coupled from a retired widget (see above).

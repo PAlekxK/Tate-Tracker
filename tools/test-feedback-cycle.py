@@ -342,15 +342,31 @@ def draft_suite():
           'bindDraft(ta, "general:"' in src,
           "the open-question textarea no longer registers with the draft store")
 
-    # The load-bearing one: BOTH arrows must capture BEFORE they re-render.
-    arrows = re.findall(r'(?:prev|next)\.addEventListener\("click",[^\n]*?render\(\);', src)
-    check("DRAFT    both carousel arrows exist as click handlers", len(arrows) >= 2,
-          f"found {len(arrows)} arrow handler(s)")
-    guarded = [a for a in arrows if "captureDrafts()" in a]
-    check("DRAFT    ⭐ every arrow captures drafts BEFORE render()",
-          len(guarded) == len(arrows) and len(arrows) >= 2,
-          f"{len(guarded)} of {len(arrows)} arrows guarded — an unguarded arrow silently "
-          f"destroys her typed note, which is the exact bug this leg exists to prevent")
+    # The load-bearing one: EVERY control that re-renders must capture first.
+    #
+    # ⚠️ GENERALISED 2026-08-04. This used to match `prev`/`next` by NAME and demand
+    # >= 2 of them — the ‹ / › carousel that existed when the guard was written. On
+    # 2026-08-03 (`05db30a`, the folded-receipt / one-question view) the carousel was
+    # deliberately replaced by a single "Another question ›" control, so the test went
+    # RED for a UI shape that no longer exists while the invariant it protects was
+    # perfectly intact next door. A control that fails for a reason nobody can act on
+    # is worse than no control — everyone correctly learns to ignore it, and the red
+    # line still LOOKS like a gate (the same pathology as the market-digest staleness
+    # ratchet that was red from birth for days).
+    #
+    # So it now asserts the INVARIANT rather than the widget: any click handler that
+    # calls render() must call captureDrafts() first, whatever it happens to be named.
+    # The next redesign that renames the control will not re-break this.
+    rerenderers = re.findall(r'\w+\.addEventListener\("click",[^\n]*?render\(\);', src)
+    check("DRAFT    at least one re-rendering control exists", len(rerenderers) >= 1,
+          f"found {len(rerenderers)} handler(s) that call render() — if the queue has no "
+          f"re-rendering control at all, this leg is guarding nothing and needs a human look")
+    unguarded = [h for h in rerenderers if "captureDrafts()" not in h]
+    check("DRAFT    ⭐ every re-rendering control captures drafts BEFORE render()",
+          not unguarded and len(rerenderers) >= 1,
+          f"{len(rerenderers) - len(unguarded)} of {len(rerenderers)} guarded — an unguarded "
+          f"re-render silently destroys her typed note, which is the exact bug this leg "
+          f"exists to prevent. Unguarded: {unguarded[:2]}")
 
     # A draft may only be dropped when her words are actually safe.
     check("DRAFT    a FAILED send keeps the draft (it is the only copy left)",
