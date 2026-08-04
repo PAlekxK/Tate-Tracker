@@ -113,21 +113,33 @@ of hands-on knowledge. These three are the raw material for filling it.
 
 ---
 
-## Bronco (1989) — deliberately NOT populated here
+## Bronco (1989) — **live at `.private/service-records/bronco-1989/REFERENCE.md`**
 
-**Owned by a concurrent session (Bolores/paint/reference thread), and left to it on purpose.** The
-export holds **27** Bronco links; none has been triaged into this file, because two windows filing
-the same 27 rows is the duplicate-that-diverges problem this file exists to avoid.
+**All 28 Bronco links are curated there**, under *"Links, organised by the work they serve"* — grouped
+by restoration thread (paint · tailgate electrical · doors · body · interior · audio · cruise ·
+parts). **Do not copy them here.** One vehicle, one place.
 
-Bolores evidence and its tiers live in `.private/service-records/bronco-1989/SOURCES.md`; the FD.88
-catalogue is an `INDEX.md` row.
+**Why this is a deliberate exception and not a fork.** By this file's own subject-axis rule, a forum
+thread about 1980-96 tailgate wiring is *model-level* and would belong here. It stays there because
+Bolores is an **active restoration with its own workspace**, and those links are organised by the
+work they serve rather than by the machine they describe — which is more useful to the person holding
+a screwdriver than a fleet list would be. No other vehicle has such a workspace. **If a second
+restoration ever gets one, it gets its own `REFERENCE.md` too, and this file keeps pointing.**
 
-⚠️ **Two things that thread should know:**
-1. **One Bronco link is misfiled outside the Bronco folder** — *"Tailgate rewire! Works 100x better!"*
-   (`fullsizebronco.com/threads/…361210`) sits under **Finances** in the export.
-2. **fullsizebronco.com now redirects to a tollbit paywall** — agents can no longer fetch those
-   threads. **Save the page as a file before more of them go**, which converts a **C** link into an
-   **A** document and moves the row to `INDEX.md`. That migration is the whole point of this file.
+⚠️ **A 28th Bronco link was misfiled outside the folder** — *"Tailgate rewire! Works 100x better!"*
+(`fullsizebronco.com/threads/…361210`) sits under **Finances** in the export. It belongs to the
+tailgate-electrical thread.
+
+### 🔴 The decay is measured, and it is the worst on the fleet
+
+The Bolores session counted it on 2026-08-04: **11 of 27 Bronco links (41%) are no longer
+agent-retrievable** — 7 fullsizebronco threads behind a `tollbit` paywall (HTTP 402, transition
+observed live that day), 3 hosts 403 (LMC, eBay, OEM Parts Online), 1 returning 500. Four more are
+YouTube, where a link is the only holdable form. **Nothing behind any of them is archived.**
+
+That is the strongest argument this file makes: **a C link is a wasting asset.** Saving a page as a
+file converts it to an **A** document and moves the row to `INDEX.md` — and for the seven paywalled
+threads, that window is already closed to an agent and open only to Paul in a browser.
 
 ---
 
