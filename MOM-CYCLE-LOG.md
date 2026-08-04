@@ -81,6 +81,10 @@ shape by `check-cycle-map.py`; it checks that the block exists, never whether th
 | D9 | **`vehicles.json` stays the single home for household systems; do NOT wire `devices.json` as a second one** | the researcher's prerequisite ("declare `device` in `momlib.DOMAINS`, inline `DEVICES_DATA`"), which I had already implemented and then REVERTED | `renderVehicles()` already declares `group: 'household-system'` with the label "Household systems" — her taxonomy is built. A second home would entrench a single-source-of-truth violation on the domain she proposed | viewer.html:13026; `VEHICLES_DATA._comment` |
 | D8 | **Keep an AUTHORSHIP affordance on that card, not adjudication only** `[paul-stated 08-04]` | the researcher's pure-adjudication recommendation | Paul: *"she's still warming up to her feedback and adjudication role, so let's not not give her the opportunity to provide authorship-level input."* Seeding gives her something to react to; it must not become a ceiling on what she can add | Paul, this session |
 
+| D10 | **Move Vehicles / Equipment / Household Systems OUT of the Reference drawer** | their current home in `#ref-drawer-body` | ⛔ **SHIP-BLOCKER.** `card-vehicles` (6423) is inside `#ref-drawer-body` (6407–6481), which ships `hidden` / `display:none`, and the strip handler never opens the drawer — it only adds `.expanded` and scrolls. Three of her five strip links would scroll to a hidden element and **visibly do nothing.** And the drawer's own label is *"the estate's back pages"*: you cannot promote three of her five categories to the top nav while filing them under back pages | viewer.html:6407/6423/19257; verified |
+| D11 | **Drop the per-group item counts** | `groupHeader()`'s `N items` in 10px uppercase | it renders `HOUSEHOLD SYSTEMS · 1 ITEM` beside `9 ITEMS` — a completeness meter that makes her domain read as neglect at the exact moment she is invited into it | viewer.html:13041 |
+| D12 | **The authorship affordance goes on the CARD, not the confirm queue** | the queue as the default home for any ask | an authorship ask has no `_foldTarget`, so it becomes an unprobeable card that **holds the feedback watermark** until retired by hand — the 2026-07-27 rule this loop already carries. The queue is also capped at 5 with 8 on the bench | `MOM-CYCLE-MAP.md`; ux-expert |
+
 **Two of these reverse a prior Paul decision (D2, D6); two reverse a researcher recommendation
 (D4, D8).** That is not a problem — it is the record working. The failure this table exists to
 prevent is reversing something *without noticing*.
@@ -136,6 +140,26 @@ never the first thing under the strip.)
    all four independently confirmed), which is precisely why one false `validated` is dangerous: it
    travels on the credibility of the true ones. **Spot-check a seat's load-bearing structural claims
    before acting on them**, the same standing rule this repo already carries for BACKLOG rows.
+
+### Seat measurement — the D6 experiment's first data (informational; D6 scores from lap 2)
+
+| seat | position | changed the artifact? | overturned an earlier seat? |
+|---|---|---|---|
+| `user-researcher` | 1 | **YES, materially** — found `devices.json`, the record-level `group` field, the "Machines" title, and the impression-event gap. All four independently confirmed | n/a |
+| `ux-expert` | 2 | **YES, and caught a ship-blocker** — the drawer (D10), the tap-band overlap on wrap, the counts (D11), the watermark trap in the authorship ask (D12) | **corrected the researcher's Weather premise** (which I had already refuted independently) |
+
+**Two flags fired between seats, and one of them was wrong.** ux-expert flagged my `card_expanded`
+citation as a retracted figure — it conflated it with the persona's retracted *"Plants and Weather
+most-viewed, 60 views each"* line, a different claim at a different grain. **Re-derived from
+`/api/metrics` rather than argued: 4 `card_expanded` across 15 sessions / 10 distinct days on her
+device, 07-05→08-04. The figure holds exactly.** (Incidental finding worth keeping: the four were
+`card-candidates`, `card-weeds`, and `card-fieldnotes` ×2 — **she has never expanded the vehicles
+card once**, which is what D10 predicts of a card buried in a drawer.)
+
+**The early read on the sequence, stated as a read and not a result:** both seats changed the
+artifact, the second caught something the first missed *and* something I missed, and the one
+cross-seat flag that was wrong was cheap to settle by re-deriving instead of debating. That is the
+sequence behaving as designed. It is n=1 and proves nothing yet — D6's rules need three laps.
 
 ### Score against the pre-registered definition — **NOT CLEAN (yet)**
 

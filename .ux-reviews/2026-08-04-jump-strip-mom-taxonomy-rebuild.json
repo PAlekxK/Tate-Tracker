@@ -1,0 +1,252 @@
+{
+  "review_id": "ux-2026-08-04-jump-strip-mom-taxonomy-rebuild",
+  "project": "fernwood",
+  "subject": "Jump-strip rebuild around Mom's six categories (Weather + vehicles/equipment/household systems/gardening/wildlife), the Machines card split, and the household-systems surface — execution review of a decision already made. REVISED mid-review on a corrected premise: her three-way taxonomy is ALREADY implemented as three declared sections inside renderVehicles() (viewer.html:13032-13036), with the household-systems section rendering nothing because zero records carry group:'household-system'.",
+  "review_date": "2026-08-04",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA",
+  "user_context": {
+    "primary_user": "Mom — the make-or-break user. Reads with difficulty, may not have glasses on (Paul-direct, validated 2026-05-22). Phone-only, 414x848-class viewport. Low-attention posture, reclined, half-engaged.",
+    "core_jobs_to_be_done": [
+      "Open the app and get to the part of her place she is thinking about right now, without scrolling past things asking her for feedback (Paul's stated reason the strip exists: 'super quick access [so] you don't get lost or bogged down in all the requests for feedback')",
+      "Enjoy and steward the property without stewarding becoming work she resents",
+      "Contribute what only someone standing on the property knows — and, on the new Household Systems card specifically, contribute at authorship level rather than only reacting to a seeded record"
+    ],
+    "context_of_use": "Phone in hand, morning coffee or evening wind-down, one-handed, half-attended. ~0.55 sessions/day across a 20-day window (re-derived 2026-08-01, builder devices excluded). Never uses the A/A+ text-size toggle — the 12 text_size_changed events attributed to her until 2026-08-01 were Paul's.",
+    "assumptions_made": [
+      "The five categories are hers verbatim and in her stated order — taken from Paul's brief, not independently sourced by me",
+      "The three new/split cards (Vehicles, Equipment, Household Systems) will all be live in the same ship; no strip entry points at a card that does not yet exist",
+      "Type-width figures below are computed estimates from the CSS (12.5px / 14.5px DM Sans, 386px usable width), not measured on device. The wrap conclusion is robust to ~15% error; the exact 4/2 split is not"
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "The glance and the repository (Tate-Tracker/CLAUDE.md, governing)",
+    "Consistency outranks semantic precision on Mom's surfaces (CLAUDE.md standing rule 1, paul-stated 2026-07-29)",
+    "ONE affirmative grammar, everywhere she taps (CLAUDE.md standing rule 1)",
+    "EVERYTHING IS CHANGEABLE + its journey-aware caveat (CLAUDE.md standing rule 5, paul-stated 2026-08-04)",
+    "Adopt her words, never improve them (CLAUDE.md, Mama's Perspective doctrine, 2026-07-26)",
+    "One engine, one verdict + its 2026-08-02 sharpening clause (fernwood.md, paul-ratified)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Capture needs a declared scope; a scope-blind capture control can't stay AI-free (fernwood.md, candidate)",
+    "Give before you ask — a surface that only extracts gets ignored (fernwood.md, candidate)",
+    "One shell, one signal each (fernwood.md, candidate)",
+    "A menu's order is a PLACE; a worklist's order is a RANKING (cross-project/ordering-and-layout.md)",
+    "Source-hierarchy drives layout / Freshness sets altitude (cross-project/ordering-and-layout.md)",
+    "Icons earn their place — true AND useful (cross-project/form-and-restraint.md)",
+    "Norman: mapping — a control's layout should mirror the world it controls",
+    "Nielsen H4 consistency & standards; H6 recognition over recall; H3 user control and freedom (the exit)"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "flow",
+      "severity": "critical",
+      "observation": "The jump-strip's click handler (viewer.html:19257-19269) does NOT open the Reference drawer. It does `el.classList.add('expanded')` then `scrollIntoView`. `card-vehicles` currently lives INSIDE `#ref-drawer-body`, which ships `hidden` with `aria-expanded=\"false\"` (viewer.html:6398-6407, 6423). `expandCard()` (15345-15358) handles this case explicitly and the strip handler does not. So the moment Vehicles / Equipment / Household Systems are added to the strip while they live in the drawer, those three links scroll to a `display:none` element and visibly do nothing. The two handlers also diverge on `syncCardHeaderState`, which only `expandCard()` calls — so the same navigation act can leave the Open/Close pill in different states depending on which control she used.",
+      "user_impact": "Three of her own six categories would be dead links on the surface built to honor her taxonomy. For a user with 0.55 sessions/day whose adoption is the open make-or-break question, a nav entry that does nothing when tapped is worse than not shipping the entry — it teaches her the app does not respond to her.",
+      "principle_invoked": "One engine, one verdict + its 2026-08-02 sharpening clause (two functions over the same input set writing the same output slot, neither calling the other, disagreeing only at the margins) — Fernwood canon, paul-ratified",
+      "recommendation": "Do not patch the strip handler with a copy of the drawer logic — that creates the third navigator. Make the strip handler CALL `expandCard(id)`, keeping only its own `mpTrack('jumpstrip_tapped')` and the `mp-master` special case. One navigator for the whole page. Verify by tapping each of the six links with the drawer shut.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "flow",
+      "severity": "critical",
+      "observation": "Vehicles is not merely card #10 — it is inside the Reference drawer, whose own label reads 'The estate's back pages — specs, sources, and records', collapsed by default. Splitting Machines into Vehicles + Equipment and seeding a Household Systems card leaves three of Mom's five stated categories behind a collapsed shelf named 'back pages'.",
+      "user_impact": "Her taxonomy would be simultaneously promoted to the top nav and filed under 'back pages'. The app would be telling her two contradictory things about the same five categories in one screen. It also means the only route to them is a nav strip — remove or mis-tap the strip and they are unreachable by scrolling, because scrolling never reveals a hidden drawer body.",
+      "principle_invoked": "Norman — mapping: the control's layout must mirror the world it controls. Plus Nielsen H4 consistency.",
+      "recommendation": "Move `card-vehicles`, the new `card-equipment`, and the new `card-household` OUT of `#ref-drawer-body` into `.content-wrap` proper, in her order (see F5). The Reference drawer keeps what it was built for: Property, Worth considering, Sources, Recent updates. This is not optional cleanup — it is the change that makes F1's fix meaningful.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "Six entries will wrap, and the wrap breaks the tap targets. Computed: `.unified-input` is `calc(100% - 24px)` = 390px at a 414px viewport; `.jump-strip` padding leaves ~386px. Six labels at 12.5px DM Sans with `gap:14px` estimate to ~450px total (Weather ~49 · Vehicles ~50 · Equipment ~62 · Household systems ~110 · Gardening ~61 · Wildlife ~48, + 70px of gaps); at `body.text-lg` 14.5px, ~511px. Both wrap to two rows. `.jump-strip a::after` is a 44px-tall invisible hit band centered on each link (3810-3813), but two wrapped rows sit only ~31-35px apart (link box ~19-21px + the 14px row gap that flex `gap` also applies vertically). 44 > 35, so adjacent rows' hit bands OVERLAP by roughly 9-13px, and in the overlap the later DOM element wins the hit test. A tap near the bottom of a row-1 label lands on a row-2 label. NOTE: by the same arithmetic the CURRENT five entries already exceed 386px at `body.text-lg` (~409px), so this defect may be live today in A+ mode — worth a device check before it is written off as new.",
+      "user_impact": "The no-glasses reader taps approximately, near the edges of small targets, which is exactly where the stolen band is. She taps 'Equipment' and arrives at 'Wildlife' with no explanation. Misroutes on a nav are self-blame-inducing for a user already documented as afraid of getting things wrong.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md); Fitts's law on target separation; Nielsen H5 error prevention",
+      "recommendation": "Stop making the strip a wrapping centered flex row of text links. Move it to a fixed 2-column x 3-row grid, reusing the grammar `.dash-strip-inner` already uses (`display:grid; grid-template-columns: repeat(2,1fr); gap:8px`) so it is not a new layout language on the page. Each entry becomes a real block with `min-height:44px` — the hit area is then the element itself and the phantom `::after` band is deleted rather than patched.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "12.5px is the smallest type on the page, and it is carrying the nav for the reader whose validated constraint is reading difficulty. The card summary line — the line that decides whether she taps into a card — was deliberately bumped 12.5px -> 14px for exactly this reason (comment at viewer.html:1453-1455, ux-expert F9, 2026-05-22). The nav that routes her through her own category system is currently smaller than that.",
+      "user_impact": "She cannot use a menu she cannot read. Worse, the strip is the first interactive thing under the header — if it reads as illegible chrome she will scroll past it every session and the whole rebuild buys nothing.",
+      "principle_invoked": "Ordering first, then type in service of it (cross-project); Make every surface read at half-engagement (fernwood.md); typographic-hierarchy-by-value",
+      "recommendation": "Label type at 15px DM Sans, `body.text-lg` 17px. This sits above the 14px summary line and below the 19px Crimson card title, so the hierarchy is preserved — card titles still outrank nav labels — while the nav stops being sub-legible. Do not compensate for six entries by shrinking type; compensate with the two-column grid from F3, which buys the width back.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "`justify-content: center` plus `flex-wrap: wrap` means the last wrapped row is centered, so every entry's horizontal position shifts when text size changes, when a label is reworded, or on a different phone width. Position is one of the four channels that carry meaning on her surfaces (icon + size + color + position).",
+      "user_impact": "She is being asked to learn a fixed list of her own five categories. A list that lands in a different place each session cannot be learned; she has to re-read all six every time instead of reaching for the one she wants.",
+      "principle_invoked": "Consistency outranks semantic precision on Mom's surfaces (CLAUDE.md standing rule 1, paul-stated); Nielsen H6 recognition rather than recall",
+      "recommendation": "The 2x3 grid from F3 fixes this by construction — every entry has a fixed cell at every text size and every width. If a flex row is kept for any reason, `justify-content` must become `flex-start`, never `center`.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Question 2 (her order vs page order) is posed as a dilemma between two orders, but there are three orders in play and they are not the same kind of thing. The strip is a MENU — its job is to be in the same place every time. The page is a READING SEQUENCE. Neither is a ranking. Today's page order is an accretion of build dates (turf, weeds, fishing landed where they landed), not a stated design; her order is a stated user model.",
+      "user_impact": "A nav whose order contradicts the page order forces her to hold two different maps of her own property. Reordering her list, on the other hand, is a silent correction of the person whose documented fear is getting words wrong — the same failure the acknowledgment ribbon already committed once when it 'improved' her 'household systems' into 'the house's own systems'.",
+      "principle_invoked": "A menu's order is a PLACE; a worklist's order is a RANKING — never let one set the other (cross-project/ordering-and-layout.md); Adopt her words, never improve them (CLAUDE.md); Norman mapping",
+      "recommendation": "Her order wins in the strip, AND the page order changes to match it. Weather stays pinned first in both — and the honest justification is not 'Paul's call' but Freshness sets altitude: Weather is the only card whose content changes hourly, so it is pinned on a different axis than her taxonomy, not ranked above it. Resulting content-wrap order: Weather -> Vehicles -> Equipment -> Household Systems -> [gardening band] -> Wildlife -> Fishing -> Sky & Stars -> Fernwood Almanac -> Reference drawer.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "Her five categories are not 1:1 with cards. 'Gardening' maps to THREE existing cards — Plants (`card-plants`), The Fairway (`card-turf`), Weeds (`card-weeds`). 'Wildlife' maps to `card-wildlife` with Fishing adjacent. And the page holds six cards that appear nowhere in her five: Sky & Stars, Fishing, Fernwood Almanac/field notes, Fernwood/Property, Worth considering, Sources, Recent updates. A single 'gardening' jump target silently picks one of three cards.",
+      "user_impact": "She taps her own word 'gardening' and lands on Plants, with Weeds and The Fairway invisible somewhere else — so her category appears to contain less than it does. She praised the Weeds card unprompted; burying it under a category that does not appear to include it is a real loss.",
+      "principle_invoked": "Information architecture — a navigation label must deliver the whole of what it names; the glance and the repository (a jump should deliver a REGION, not an arbitrary member of one)",
+      "recommendation": "Make each of her five categories a contiguous BAND of cards rather than a single card, and point the jump at the band's first card. Gardening band = Plants -> The Fairway -> Weeds, adjacent, in that order. Do NOT merge turf and weeds into Plants as sections — that destroys two card identities, one of which she has actually praised. Everything outside her five keeps its current card and lands after her bands (Fishing, Sky & Stars, Almanac) or stays in the drawer (Property, Worth considering, Sources, Recent updates) — the reorg must not silently demote Sky & Stars or Fishing, which have traffic and no signal to move.",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "area": "flow",
+      "severity": "important",
+      "observation": "There is no route back from a jumped-to card except scrolling, and the strip compounds the problem: the handler ADDS `.expanded` and never removes it, so after three jumps she has three fully-expanded cards stacked above her and the return scroll is enormous. `position: static` on the strip is correct as far as it goes.",
+      "user_impact": "The trip back is proportional to how much she has used the nav — the more she navigates, the more punishing navigation becomes. That is backwards, and on a leisure-read surface the cost is that she stops navigating.",
+      "principle_invoked": "Nielsen H3 user control and freedom (a clearly marked exit); the persistent handle wears the journal's furniture, not the app's chrome (fernwood.md candidate)",
+      "recommendation": "Do NOT make the strip sticky. A 3-row grid strip is ~150px, over 20% of her ~700px usable viewport, permanently, on a reading surface — it converts the top of every card into app chrome, which is register-leak on a field journal. A condensed sticky one-liner is worse: it re-creates the illegible 12.5px line F4 just fixed. Instead, two moves: (a) give every expanded card a quiet left-aligned return at the FOOT of `.main-card-body` — one shared builder, not per-card copies — that scrolls back to the strip; it costs zero pixels at rest and sits exactly where she is when she has finished reading, which is the journal's own furniture (the back of a chapter). (b) When the strip opens a card, collapse the card the STRIP previously opened — tracked by last-strip-target only, never a card she opened herself by tapping its header. Flag (b) to Paul as a behavior change worth his call.",
+      "effort": "medium"
+    },
+    {
+      "id": "F9",
+      "area": "flow",
+      "severity": "important",
+      "observation": "REVISED ANSWER TO 4a — split into three cards; do not keep one card with section jumps. Verified against the code: (a) the group headers built by `groupHeader()` (13040-13042) carry NO id, so no section anchor exists today; (b) `.main-card-body` collapsed is `max-height:0; overflow:hidden; opacity:0` animating over 420ms (1502-1516), so a section jump requires expand -> wait out the animation -> then measure and scroll, and `expandCard()`'s existing `setTimeout(..., 50)` would measure the section's position at a fraction of final height and land short; (c) a section jump lands her INSIDE the card with the title, the identity square and the Open/Close pill scrolled off — the first thing on screen is a 16px serif group header over a specs table, with nothing answering 'where am I?'; (d) the card holds 16 records with specs tables, maintenance blocks, service history and registration lines, so reaching one section means inheriting all 16 as scroll distance, which multiplies F8's one-way-trip problem inside a single card.",
+      "user_impact": "The decisive point is altitude, and it does not depend on any telemetry number. A card header is a glance object — identity square, serif title, summary line — visible without expanding. A section header inside a collapsed card does not exist until she does the one thing she is least likely to do. For a reader who reads the glance and does not drill, her taxonomy living as sections-inside-a-card is equivalent to not shipping the taxonomy. It would also make the strip dishonest: six entries where three land on card headers and three land mid-content are two different trips wearing one shape, and she cannot tell which she is taking before she taps.",
+      "principle_invoked": "For a user whose only validated behavior is 'opens and glances,' a new affordance must live where she already looks or it does not exist (fernwood.md candidate); the glance and the repository (CLAUDE.md governing); Norman — mapping",
+      "recommendation": "Three cards: Vehicles, Equipment, Household Systems, placed in her order per F6. BUT keep ONE renderer — the `GROUPS` array at 13032-13036 is already the right shape and is the declaration of her taxonomy; drive three card bodies from that one array (`GROUPS.forEach(g => ...'#cards-' + g.key)`), never three copy-pasted render functions. That is 'One engine, one verdict', which this file has already been bitten by three times. Keep the `ungrouped` fallback — failing loud is good design — and give it a home in the last card or the Reference drawer. Keep ONE data file: back out `devices.json` as a render source (your instinct is right and matches the domain-manifest doctrine — `group` is the action axis declared per RECORD, not per file), migrate the Nest into `vehicles.json` with `group:'household-system'`, and note that `momlib.DOMAINS` / `check-domains.py` need the same edit — engineering's call, not mine.",
+      "effort": "medium"
+    },
+    {
+      "id": "F15",
+      "area": "empty-state",
+      "severity": "important",
+      "observation": "ANSWER TO 4c — one row reads as NEGLECT today, and there is a specific mechanism doing it. `groupHeader()` renders a count into `.vehicle-group-count`, styled 10px uppercase letter-spaced (2368-2374). Folding the thermostat in produces, on one screen: 'VEHICLES · 7 ITEMS / YARD EQUIPMENT · 9 ITEMS / HOUSEHOLD SYSTEMS · 1 ITEM'. That is a completeness meter, and 1-against-7-and-9 reads as a shortfall at a glance with no reading required. Separately, the count treatment is itself a live instance of the failure the ratified 'Tone-coherence across all chrome' principle names — its own worked example is '9px uppercase tracked labels read as CMS-admin chrome rather than journal voice'. AND there is a broken promise on the surface right now, before anything ships: `.vehicles-intro` reads 'Everything on the place with a make and a model — trucks, mowers, THE FURNACE' (13045), and the dash tile sub-copy says 'the furnace' too (6152), while the household-systems section returns early on `if (!rows.length) return;` and renders nothing.",
+      "user_impact": "The app currently promises her the furnace and delivers no furnace — an existing honesty defect, not a new-feature question, and the strongest argument for folding the Nest in promptly. Once folded, a count turns her newest category into the one that looks neglected, on the card where she is being invited to author.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood.md, ratified); Give before you ask (fernwood.md candidate, 2nd occurrence); a surface must not look more complete — or less — than it is (cross-project honest-surfaces)",
+      "recommendation": "Drop `.vehicle-group-count` entirely, from all groups. It does no job for her (she does not need '9' before reading nine rows) and it is the single element converting 'a start' into 'a shortfall'; under the split it would become a per-card completeness meter, which is worse. Note that the split itself solves most of this structurally — three cards are met one at a time, each with its own summary line, so '1 vs 9' never appears on one screen. The one row still needs the anti-ceiling shape: (1) the Nest rendered IN FULL with its provenance — 'the heat is propane' implies a tank to watch, which is a genuine give; (2) ONE line of PROSE naming the extent of the category with examples from a house like hers (the well and its pump, the septic, the water heater, the propane tank, the generator) — never ghost rows, greyed placeholders or empty slots, which are an empty state in costume and put unfilled checkboxes in front of the one user whose anti-persona is the checklist user; (3) the ask last. And no count in `.main-card-summary` either — '1 system' asserts a ceiling in four characters at the altitude she may never scroll past. Wording of (2) is content-steward's; my constraints are prose-not-slots and no-count.",
+      "effort": "medium"
+    },
+    {
+      "id": "F16",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "ANSWER TO 4b, plus a live wording defect. The renderer's label at 13034 is 'Yard equipment'. Her word is 'equipment'. That is a narrowing as well as a rewording — a generator, a compressor or a shop tool is equipment and is not yard equipment. On the title question: if one card survived, it could not be a category name (it holds three) and could not be 'Machines' (her word for none of it), so it would need an invented parent noun — 'The fleet', 'Around the place', 'Machines & systems'. Every option shares one defect: it adds a word to her taxonomy that she did not give, and then teaches it back to her.",
+      "user_impact": "This is the same act as reordering her list, one level up — the app quietly supplying a word for her own model. She coined 'household systems', hedged that it might be wrong, and was right; the ribbon then 'improved' it once already. Doing it again on the sibling label is the pattern, not the incident.",
+      "principle_invoked": "Adopt her words, never improve them (CLAUDE.md, Mama's Perspective doctrine 2026-07-26); Consistency outranks semantic precision on Mom's surfaces",
+      "recommendation": "Change 'Yard equipment' to 'Equipment' in the same commit, whether or not the split ships. On the title: the split makes the question disappear — three cards need no invented parent — which is an independent argument for F9. If Paul keeps one card anyway, take the least-inventive option and join her three words ('Vehicles, equipment & household systems'), accepting the length, because a long true title beats a short invented one. The constraint I would hand content-steward either way is: NO NEW NOUN.",
+      "effort": "low"
+    },
+    {
+      "id": "F17",
+      "area": "flow",
+      "severity": "important",
+      "observation": "ANSWER TO 4c, second half — where the authorship affordance attaches. Three candidate homes: the section, the card, or the confirm queue. The confirm queue is the tempting one and it is wrong on measurable grounds: `MAX_VISIBLE` is 5 with variety as a HARD constraint (Paul, 2026-07-31), 8 cards are already on the bench with none approved, and an authorship ask has no `_foldTarget` — making it an unprobeable/reflective card, which per the 2026-07-27 rule can never clear itself and holds the feedback watermark ceiling until a human retires it by hand.",
+      "user_impact": "The queue asks her to REACT to something the app proposed. Paul's stated goal on this card is the opposite — authorship-level input, her own record, not a verdict on ours. Putting it in the queue also spends one of five scarce slots and creates a permanent watermark holder.",
+      "principle_invoked": "Capture needs a declared scope; a scope-blind capture control can't stay AI-free (fernwood.md candidate, ratified shape); Give before you ask; Scope is communicated by where you tap, not auto-detected (cross-project)",
+      "recommendation": "Attach it to the CARD, at its foot — not the section (three layers below her attention if one card survives) and not the queue. The card is itself the scope declaration, so the note routes to household-systems deterministically with no auto-detection and no AI on the capture path; routing it through the top Almanac box would force exactly the forbidden choice between auto-detection and an untagged dump. Order on the card is give -> extent -> ask, ask last, so it reads as an exchange rather than an extraction. Style it with the launcher grammar per F10, never the affirmative pill. The 'everything is changeable' clause (standing rule 5) attaches here, once, on this control — varied, never a standing footer; steward's words.",
+      "effort": "medium"
+    },
+    {
+      "id": "F18",
+      "area": "other",
+      "severity": "nice-to-have",
+      "observation": "The corrected brief cites '`card_expanded` telemetry says she rarely opens the second layer at all.' That is the exact class of claim the persona file retracted on 2026-08-01: card-grain telemetry for Mom is explicitly marked 'not re-derived at card grain for her; DO NOT CITE', and the card-popularity figures it replaced ('Plants and Weather 60 views each', 'field-notes highest expand-rate') were all Paul's device.",
+      "user_impact": "None directly. Flagged because it is the second premise in one session that needed independent checking, and because the persona file's own durable lesson is that nothing in the process re-tested a load-bearing assumption once it had been written down.",
+      "principle_invoked": "Evidence-tag discipline — never silently upgrade `assumption`/retracted to ground truth (ux-expert methodology); repo doctrine 'verify a row against the app before acting on it'",
+      "recommendation": "Do not carry that number into the next brief without re-derivation via `tools/read-mom-funnel.py` with builder devices excluded. Note that my F9 recommendation does NOT rest on it — the argument is structural (a section header inside a collapsed card is invisible at the glance altitude however often she expands), so the split recommendation stands either way.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The authorship control on Household Systems is a CAPTURE door, not a confirmation. There is a live risk it gets styled with the ratified affirmative grammar (`gg-suggest-btn-yes` — filled green + check) because that is the app's most prominent button component.",
+      "user_impact": "The filled-green-plus-check grammar means exactly one thing on her surfaces: 'we heard you, we recorded it.' If it starts also meaning 'open a form', the one learnable signal the standing rule exists to protect stops being learnable.",
+      "principle_invoked": "ONE affirmative grammar, everywhere she taps (CLAUDE.md standing rule 1, paul-stated 2026-07-29)",
+      "recommendation": "Reuse the launcher grammar (`mom-queue-launcher-go`) — the component that already means 'start something here' — literally, not as a lookalike. Reserve the affirmative pill for the moment her input is actually recorded.",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The dashboard tile strip is a second, independent navigation system on the same page: Tier A (Weather, Plants, Wildlife, Sky & Stars, Fishing, Fernwood Almanac) plus Tier B (Machines, Fernwood). After this change the two navigators will disagree on membership, on naming, and on visual grammar. Concretely and immediately: the Tier B tile at viewer.html:6150-6153 is labelled 'Machines' with sub-copy 'Trucks, mowers, the furnace — what each one is and how to keep it running'. The furnace is about to become a Household Systems record, and 'Machines' is about to be a word the app no longer uses.",
+      "user_impact": "On one screen the app would tell her the furnace lives under Machines and that Machines does not exist. Two names for one thing is the Astronomy / Sky-&-Stars failure, this time applied to her own taxonomy — the highest-cost place to do it.",
+      "principle_invoked": "One engine, one verdict (fernwood.md, paul-ratified) applied at the IA level; Tone-coherence across all chrome (fernwood.md)",
+      "recommendation": "Two things, both in the same commit as the split. (1) The Tier B tile must be replaced — its label and its sub-copy — the day 'Machines' goes away; do not let it ship a release behind. (2) Decide and write down what each strip IS, because that is the only thing that makes them allowed to differ: the jump strip is HER TAXONOMY (a menu — a place, stable, all six always present), the dash strip is THE GLANCE (previews with live sub-lines — ordered by what is live today). That is the cross-project menu-vs-ranking distinction applied cleanly. If Paul does not want to hold that distinction, then one of the two should go — and the redundancy to cut is the jump strip's overlap with Tier B, not the dash strip.",
+      "effort": "medium"
+    },
+    {
+      "id": "F12",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The comment at viewer.html:6001-6002 states that the strip's five names are 'a HAND-PICKED PLACEHOLDER' and that 'the intended rule is top-cards-by-traffic (derivable from telemetry), not this list.' This decision overrules that: her taxonomy is a stated user model, top-cards-by-traffic is a ranking.",
+      "user_impact": "None directly — this is a maintainer-facing risk. But CLAUDE.md names a stale authoritative-looking row as this repo's most repeated failure, and a future session reading that comment will re-derive a telemetry-ordered strip Paul has now overruled.",
+      "principle_invoked": "Repo doctrine: 'verify a row against the app before acting on it, and correct the row rather than quietly fixing past it' (CLAUDE.md, 2026-07-29)",
+      "recommendation": "Rewrite the comment in the same commit to record that the strip is now her taxonomy, in her order, with Weather pinned on the freshness axis — and that top-cards-by-traffic was considered and superseded, with the date. MOM-CYCLE-LOG.md is the place the journey-aware half of standing rule 5 expects this to be checkable from.",
+      "effort": "low"
+    },
+    {
+      "id": "F13",
+      "area": "affordance",
+      "severity": "nice-to-have",
+      "observation": "The non-text channel her accessibility constraint asks for is available and currently unused by the strip: every card already carries its own emoji in a 42x42 gradient identity square (plants 🌿, vehicles 🛻, wildlife 🐾, fairway 🌾, weeds 🌿, fishing 🎣). Two gaps: Equipment and Household Systems have no glyph yet, and Plants and Weeds currently SHARE 🌿, so the gardening band has a collision.",
+      "user_impact": "Icon + size + color + position are the four channels that carry meaning independently of fine print for her. A text-only nav uses one of the four. Adding the card's own glyph gives her a second, literacy-independent route to the right entry.",
+      "principle_invoked": "Icons earn their place — true AND useful (cross-project); Glyphs follow the journal voice, not the dashboard voice (fernwood.md); One shell, one signal each (fernwood.md candidate)",
+      "recommendation": "Put each card's OWN glyph in the strip entry — reused literally, never a new glyph minted for the strip, or the strip teaches a second lexicon. Two authoring decisions for Paul: (a) mint glyphs for Equipment and Household Systems — my proposal is 🛻 Vehicles / 🔧 Equipment / 🏠 Household systems, flagging that 🔧 reads 'tool' more than 'machine' and he may want something else; hard constraint from the ratified glyph rule: nothing from the ops/admin register, so no ⚙️. (b) Resolve the 🌿 collision between Plants and Weeds before the gardening band puts them adjacent.",
+      "effort": "low"
+    },
+    {
+      "id": "F14",
+      "area": "other",
+      "severity": "nice-to-have",
+      "observation": "Every new element here (six strip entries, the Equipment card, the Household Systems card, the card-foot return link) needs its `body.text-lg` override authored in the same edit — the file carries roughly sixty of them, which means an element without one silently fails the larger-text path. Separately and worth Paul knowing: the persona correction of 2026-08-01 established that Mom has NEVER used the A/A+ toggle; the 12 text_size_changed events were Paul's.",
+      "user_impact": "An unstyled element at A+ is not merely smaller — it inverts the hierarchy, because everything around it grows and it does not.",
+      "principle_invoked": "Consistency outranks semantic precision on Mom's surfaces (CLAUDE.md standing rule 1)",
+      "recommendation": "Author the `body.text-lg` rule for each new selector in the same edit, and check the strip at A+ on a 414px device specifically for the F3 wrap. Separately, put to user-researcher — not to me — the question the persona correction opens: the affordance built for her single validated accessibility constraint has zero use by her. Can't find it / doesn't need it / doesn't know it exists are three different answers with three different design consequences, and the current design leans on text-lg as though it were her active path.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "F11 is the one I would not ship without your answer: are the jump strip and the dashboard tile strip two different things (her taxonomy vs. the live glance), or is one of them redundant? Everything else in this review is compatible with either answer, but the answer determines whether six entries plus eight tiles is coherent or is just two menus.",
+    "F8(b) — collapsing the previously strip-opened card is a behavior change on her surface. Want it, or is leaving every card she opened open the safer read of 'she is in control'?",
+    "F13 — glyphs for Equipment and Household Systems, and the 🌿 collision between Plants and Weeds. Authoring calls, yours.",
+    "F15 proposes dropping the group counts from ALL groups, not just household systems — that changes the Vehicles and Equipment surfaces too. Fine, or do you want the counts kept where they are flattering?",
+    "Does the strip drop 'Almanac' and 'Mama's Perspective'? The brief lists six entries that do not include them, and both are currently in the strip. Both targets sit within about 100 lines of the strip itself, so their nav value is low — but 'Mama's Perspective' leaving the strip is a visible demotion of her own surface and should be a decision, not a side effect."
+  ],
+  "follow_up_research_suggested": [
+    "Whether her five categories are exhaustive in her own mind — the page holds Sky & Stars, Fishing and the Almanac, none of which appear in her five. Did she omit them because they are not 'hers', or because the question did not reach that far? This determines whether the tail after her five bands is a natural remainder or a set of orphans.",
+    "The A/A+ zero-use finding (F14) — three candidate explanations, different design consequences.",
+    "After ship: whether `jumpstrip_tapped` events on her device concentrate on the three new categories. That is the cheapest available test of whether adopting her taxonomy actually changed her navigation, and the clean measurement window closes 2026-08-10."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Adopt her taxonomy whole — its ORDER is part of her words, and the page reorders to match the menu, not the reverse.",
+      "scope": "fernwood",
+      "rationale": "'Adopt her words, never improve them' is currently scoped to naming. This review found the same act one level up: silently reordering a list she stated is the same correction as silently rewording a term she coined, and the app has already made that mistake once ('household systems' -> 'the house's own systems'). The corollary is the load-bearing half: if her order wins in the menu, the page must move, because a menu that contradicts the reading sequence teaches two maps of one property. Second occurrence of the parent rule, applied to structure rather than vocabulary."
+    },
+    {
+      "principle": "Give before you ask — second occurrence, on a seeded card rather than a confirm card.",
+      "scope": "fernwood",
+      "rationale": "The candidate was proposed 2026-07-26 off the Weeds card, Garden Guru, and the 1-of-35 confirm card. The Household Systems card is a clean second occurrence in a new shape: the question 'how do I make one record read as a start rather than a ceiling' resolves to 'make the second element a give, not an ask' — the extent of the category told as prose she learns something from, before any control that asks her for input. Worth wording with Paul and promoting out of candidate status."
+    },
+    {
+      "principle": "A hit target larger than its element is a lie the layout can expose — never let an invisible tap band exceed the row rhythm of a wrapping container.",
+      "scope": "cross-project",
+      "rationale": "The `.jump-strip a::after` 44px band is a genuinely good pattern for link-quiet paint with an accessible target — until the container wraps, at which point adjacent rows' bands overlap and the later DOM element silently steals taps from the earlier one. The failure is invisible in code review, invisible at one text size, and appears only at a particular width. The general rule: if a tap band is bigger than the element that paints it, the container must guarantee row spacing greater than the band, or the element itself must become the target. Candidate — one occurrence; the likely second is any Bolo Boys link row with the same quiet-paint / big-target trade."
+    }
+  ]
+}
