@@ -971,7 +971,63 @@
           "seatsAreNotFactoryTrim": "The seats were reupholstered in leather in the prior-owner (Edwards) era, and the carpet likewise — but Paul's read is that BOTH were chosen in keeping with the factory Chestnut, so the interior is a faithful reference rather than a deviation.",
           "provenanceCorrection": "The card once read 'MPV (Eddie Bauer tan/saddle)'. MPV was a misread — it is the label's TYPE field (Multi-Purpose Vehicle, FMVSS) — and killing it was right. But 'tan/saddle' never depended on that label; it is an observation of the interior. Retracting a claim because its cited SOURCE was bogus, without asking whether the claim is independently true, deleted a true fact. The brochure has now independently confirmed it."
         },
-        "_factorySource": "⭐ 1989 Bronco brochure p.10 'COLORS AND TRIMS' — filed at .private/service-records/bronco-1989/_assets/1989-bronco-brochure-colors-trims-p10.jpg (Paul supplied 2026-08-04). It is the FACTORY compatibility matrix: four interior colours (Dark Charcoal, Crystal Blue, Scarlet Red, Chestnut) against twelve exterior colours, plus the hardtop options. This is the document that settles the chestnut confusion."
+        "_factorySource": "⭐ 1989 Bronco brochure p.10 'COLORS AND TRIMS' — filed at .private/service-records/bronco-1989/_assets/1989-bronco-brochure-colors-trims-p10.jpg (Paul supplied 2026-08-04). It is the FACTORY compatibility matrix: four interior colours (Dark Charcoal, Crystal Blue, Scarlet Red, Chestnut) against twelve exterior colours, plus the hardtop options. This is the document that settles the chestnut confusion.",
+        "⭐_COLOUR_MAP": {
+          "_why": "ONE table, every colour on this truck, keyed to the PART it goes on — so 'chestnut' can never again be ambiguous. Two documents back it: the door Vehicle Certification Label (exterior codes) and SEM's 1989 Color Coat Mixing System trim-code listing (interior + fiberglass-roof). Both filed in .private/service-records/bronco-1989/_assets/.",
+          "1_upper_body_RED": {
+            "part": "Upper body — hood, upper fenders, cowl, upper doors, tailgate above the molding",
+            "name": "Scarlet Red (vendors: Medium Scarlet)",
+            "code": "2D",
+            "formula": "6236 · also EN · PPG 3935",
+            "source": "code read off the door label; name/formula from multiple vendor DBs + the brochure lists Scarlet Red and Cabernet Red as SEPARATE 1989 colours",
+            "buy": "Tamco OEM basecoat · PaintScratch · Express Paint"
+          },
+          "2_lower_bodyside_ACCENT": {
+            "part": "Lower bodyside accent below the molding, and the tailgate lower",
+            "name": "Light Chestnut",
+            "code": "9T",
+            "formula": "6190",
+            "source": "code read off the door label",
+            "buy": "PaintScratch · Express Paint · DipYourCar Luna · ColorRite"
+          },
+          "3_fiberglass_hardtop_EXTERIOR": {
+            "part": "Removable fiberglass hardtop — OUTSIDE",
+            "name": "Light Chestnut",
+            "code": "9T",
+            "formula": "6190 (same as the lower accent — one code, two surfaces)",
+            "source": "brochure: the rear fiberglass roof came in exactly four colours (Raven Black, Light Chestnut, Deep Shadow Blue, Colonial White) and Bolores' top matches her lower accent. Paul raised this 2026-08-04 and was right.",
+            "note": "FIBERGLASS, not steel — different prep, and it is why the soundproofing entry treats the rear roof differently from the steel cab roof."
+          },
+          "4_interior_TRIM": {
+            "part": "Interior plastic + vinyl trim — dash, door panels, pillars, kick panels, consoles",
+            "name": "Chestnut",
+            "fordTrimCode": "U",
+            "product": "⭐ SEM 4168 (Color Coat)",
+            "source": "SEM STCL REV. 11/89, 'FORD MOTOR COMPANY — INTERIOR COLORS — AEROSTAR, BRONCO I & II, ECONOLINE, LIGHT-MED.-HEAVY TRUCKS, RANGER': trim code U · CHESTNUT · usage L/T, B, E, M/T, H/T · years 86-89 · SEM No. 4168. 'B' = Bronco I & II. This is a VENDOR-AUTHORITATIVE cross-reference, not a forum guess.",
+            "note": "There is NO interior code on this truck's label — Ford did not put interior trim on it. The trim code U comes from Ford's own trim designation as published by SEM, and the colour is independently confirmed by the brochure matrix and by looking at the truck."
+          },
+          "5_fiberglass_roof_INTERIOR": {
+            "part": "Underside/inside of the fiberglass hardtop",
+            "name": "Lt. Chestnut",
+            "fordTrimCode": "U",
+            "product": "⭐ SEM 4168 — THE SAME PRODUCT as the interior trim",
+            "source": "SEM STCL 1989, 'FORD MOTOR COMPANY — FIBERGLASS ROOF INTERIOR PAINT': trim code U · LT. CHESTNUT · 86-89 · SEM 4168",
+            "note": "Convenient: one SEM number covers both the cabin trim and the inside of the top."
+          },
+          "6_seats": {
+            "part": "Seats",
+            "name": "NOT FACTORY TRIM — reupholstered in leather in the prior-owner (Edwards) era",
+            "action": "match the EXISTING leather, not the factory Chestnut. Paul's read is the reupholstery was chosen in keeping with factory, so it is a faithful reference."
+          },
+          "7_carpet": {
+            "part": "Carpet",
+            "name": "in keeping with Chestnut",
+            "action": "molded ACC kit already researched + decided — see the Carpet restoration item."
+          },
+          "⚠️_THE_TRAP": "'LIGHT CHESTNUT' (9T/6190) is EXTERIOR — lower bodyside + outside of the hardtop. 'CHESTNUT' (SEM 4168) is INTERIOR. Two different colours, near-identical names. ALWAYS say EXTERIOR Light Chestnut or INTERIOR Chestnut. Never the bare word.",
+          "⚠️_SEM_CAVEAT": "SEM's own note on the sheet: 'ALL MATCHES ARE FORMULATED TO GIVE GOOD OVERALL COLOR MATCH WHEN VIEWED FROM A FEW FEET AWAY.' It is a good match, not a spectrophotometric one. Forum reports also say SEM does not can every Bronco brown and some people have a pint custom-mixed off a trim piece. So: buy 4168, spray a test piece, and keep the custom-mix path open if it reads off.",
+          "⚠️_INSTRUMENT_PANEL_SHEEN": "The same SEM sheet tells GM and Chrysler users to shoot SEM 1302 over the base coat to match the flat sheen of an instrument panel. It does not print that note in the Ford block, so treat it as a QUESTION for the paint supplier rather than an instruction: a dash that comes back glossier than factory is the classic interior-refinish tell."
+        }
       },
       "techniques": [
         {
