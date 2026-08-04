@@ -78,11 +78,43 @@ shape by `check-cycle-map.py`; it checks that the block exists, never whether th
 | D5 | **Adopt her coined term "household systems"** | the card's shortened "house systems" | *adopt her words, never improve them*; CLAUDE.md already records shortening this exact term as a past violation | `BACKLOG:363`; Paul confirmed |
 | D6 | **Leg 4 becomes a scoped expert sequence** | *"one seat by default"* `[paul-stated 2026-07-29]` | Paul's 08-04 call. Recorded as a reversal of a Paul-stated rule, with the 4-lens week as the named cost and a latency guard against repeating it. **Effective lap 2** | `MOM-CYCLE-MAP.md` § Leg 4 |
 | D7 | **Seed Household Systems with the record we already have** (Nest thermostat, propane forced-air heat, electric cooling) `[paul-stated 08-04]` | the empty-card plan | `devices.json` already holds a real, deterministically-sourced record — the domain was never empty, so an empty card would have been a fabricated blank | `devices.json`; verified |
+| D9 | **`vehicles.json` stays the single home for household systems; do NOT wire `devices.json` as a second one** | the researcher's prerequisite ("declare `device` in `momlib.DOMAINS`, inline `DEVICES_DATA`"), which I had already implemented and then REVERTED | `renderVehicles()` already declares `group: 'household-system'` with the label "Household systems" — her taxonomy is built. A second home would entrench a single-source-of-truth violation on the domain she proposed | viewer.html:13026; `VEHICLES_DATA._comment` |
 | D8 | **Keep an AUTHORSHIP affordance on that card, not adjudication only** `[paul-stated 08-04]` | the researcher's pure-adjudication recommendation | Paul: *"she's still warming up to her feedback and adjudication role, so let's not not give her the opportunity to provide authorship-level input."* Seeding gives her something to react to; it must not become a ceiling on what she can add | Paul, this session |
 
 **Two of these reverse a prior Paul decision (D2, D6); two reverse a researcher recommendation
 (D4, D8).** That is not a problem — it is the record working. The failure this table exists to
 prevent is reversing something *without noticing*.
+
+### ⭐ THE FINDING THAT SHRINKS THE WORK: her taxonomy is already built
+
+`renderVehicles()` (viewer.html:13026) has carried an explicit three-way split since before any of
+this, in a declared order, **using her words as the labels**:
+
+```
+{ key: 'vehicle',          label: 'Vehicles' },
+{ key: 'equipment',        label: 'Yard equipment' },
+{ key: 'household-system', label: 'Household systems' },
+```
+
+and `VEHICLES_DATA._comment` says so out loud: *"Holds THREE groups, not just vehicles… Renders as
+the **Machines** card (Vehicles · Yard equipment · Household systems)."*
+
+**So three of her five categories are already the card's three sections.** What is actually wrong is
+narrower than a rebuild:
+1. the card is **titled "Machines"** — a fourth word neither she nor Paul used, and it hides the
+   structure underneath it;
+2. the **Household systems section renders nothing** (`if (!rows.length) return;`) because **zero**
+   records carry `group: 'household-system'`;
+3. its one real record — the Nest thermostat, propane forced-air heat — sits in **`devices.json`**,
+   a file referenced by nothing but `check-domains.py`.
+
+**A near-miss worth recording.** Acting on the researcher's prerequisite, I declared a `device`
+domain in `momlib.DOMAINS` and was about to inline `DEVICES_DATA` — which would have made
+`devices.json` a **second permanent home** for the domain Mom herself proposed, against
+[[feedback_single_source_of_truth]]. `check-domains.py` failed on it immediately (`viewer.html has no
+const DEVICES_DATA`), which is what sent me to read `renderVehicles()` and find the existing split.
+**Reverted.** The check did not catch the SSOT problem — it caught an inconsistency that made me
+look, which is most of what a check is for.
 
 ### ⚠️ A seat's finding was tagged `validated` and was false
 
