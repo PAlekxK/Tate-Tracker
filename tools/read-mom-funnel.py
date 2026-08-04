@@ -164,6 +164,11 @@ def compute(events):
     # whose overlapping hit bands stole taps. Counts before and after that commit
     # measure different controls — do not sum across it.
     strip = {"viewed": n("jumpstrip_viewed"), "tapped": n("jumpstrip_tapped")}
+    # The first-ever firing travels WITH the count, so no reader has to take a zero
+    # on trust. An event that has never fired makes its zero uninformative.
+    for k in ("viewed", "tapped"):
+        stamps = sorted(e.get("ts") for e, _dv, _dy in by_type.get("jumpstrip_" + k, []) if e.get("ts"))
+        strip["first_" + k] = stamps[0] if stamps else None
     strip["targets"] = {}
     for ev, _did, _d in by_type.get("jumpstrip_tapped", []):
         t = ev.get("target") or "?"
@@ -264,6 +269,8 @@ def scorecard_text(sc, start, end):
             print("  ⚠️ SEEN BUT NOT USED — the one reading this funnel could never produce before.")
         for t, c in sorted(js.get("targets", {}).items(), key=lambda kv: -kv[1]):
             print(f"     {c:3d}  {t}")
+    print(f"  first tap ever seen : {js.get('first_tapped') or 'NONE — any tap-zero here is UNMEASURED'}")
+    print(f"  first view ever seen: {js.get('first_viewed') or 'NONE — impressions still unmeasured'}")
     print("  ⚠️ do NOT pool across 2026-08-04 — the strip was rebuilt (her categories, 44px targets).")
     print()
 

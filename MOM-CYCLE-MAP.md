@@ -36,7 +36,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **3 · RESOLVE** 👤 | the ambiguity ladder: telemetry → **Paul** → only then a card | **Paul at tier 2** | settled at the cheapest tier that can settle it |
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked |
-| **6 · GATE** 👤 | **6a PREVIEW** (the running app, staged) → **6b PROXY** (her-eyes acceptance check) → **6c** the return leg as exact text | **Paul** | he has flipped through it, the proxy's flags are dispositioned, he approves, and it is **pushed** (Pages serves `viewer.html`) |
+| **6 · GATE** 👤 | **6a PREVIEW** → **6b TELEMETRY** (does the instrumentation fire?) → **6c PROXY** (her-eyes check) → **6d** the return leg as exact text | **Paul** | he has flipped through it, `check-telemetry.py` is clean or its gaps are named, the proxy's flags are dispositioned, he approves, and it is **pushed** |
 | **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped |
 
 **The loop closes at leg 7 → leg 1.** What makes it a cycle rather than a checklist is that leg 7's
@@ -94,6 +94,7 @@ decoration**, so where one exists because something went wrong, that is named.
 | `tools/read-mom-feedback.py --retire` | retire a card she has already answered — **one command, not a hand-edit** | `q-top-categories` was answered 08-03 and **still being served 08-04**: a fresh device would have re-asked her a question she had answered, and being unprobeable it pinned the watermark the whole time. Retiring meant hand-editing `questions.json`, which is exactly why it got skipped |
 | `tools/fold-answer.py` | apply what she settled, with Paul confirming | the watermark used to step over unfolded answers — the loop's **only silent-data-loss path** |
 | `tools/mom-cycle-status.py` | **where in the loop are we, and is anything mine?** | five green exit codes never answered "is anything waiting on me" |
+| `tools/check-telemetry.py` | **has every instrumented event actually FIRED?** | 08-02 shipped three events "so the window's final week measures them." Two had **never fired** and the third first fired **12h after Mom's only session** — and her zero was written into the backlog and the cycle log as a finding |
 | `tools/check-cycle-map.py` | is this map still true? | hand-maintained facts drift, and always flatteringly |
 
 > ⚠️ **The shape that recurs across half of these: a mechanism that inspects as present and has
@@ -161,6 +162,32 @@ Clean measures the **loop closing its loops**, never how much moved.
 ⚠️ **And clean never means she felt heard.** R1/R2 are *process* metrics: green proves the loop works
 on **us**. `momack_shown` counts exposure, not receipt. No outcome measure for the return leg exists
 — that gap is real, it is named here, and it must never be papered over with a process number.
+
+---
+
+## Leg 6b — the TELEMETRY check, before anything reaches her `[paul-stated 2026-08-04]`
+
+Paul: *"a telemetry check is something we also need to build into our cycle before we push anything
+new to Mom."* Asked immediately after his own question — *"zero taps truly, or because we didn't
+have telemetry for it?"* — exposed that a number this lap leaned on twice was unmeasured.
+
+```bash
+python3 tools/check-telemetry.py                              # has everything fired?
+python3 tools/check-telemetry.py --before <session-start-iso> # was it live for HER?
+```
+
+⭐ **THE PRINCIPLE: an event in the SOURCE is not an event in the RECORD.** Writing `track("x")`
+proves someone intended to measure x. It does not prove the file shipped, the deploy landed, the code
+path ran, or the POST succeeded. Only a *fired* event proves that — and only one fired **before** the
+session you are reading makes that session's zero mean anything.
+
+**Its first run, 2026-08-04, is why this is a step and not a nicety: 23 of the app's instrumented
+events have NEVER fired.** Some are legitimately rare. Others (`momack_tapped`,
+`momqueue_general_sent`, `log_saved`, `log_offered`) are on paths that should have run by now, and
+every one of them is a zero somebody could mistake for behaviour. Filed as **W12**.
+
+**What it will not do:** prove an event is *correctly* wired. A never-fired event may just be a path
+nobody has walked. It FLAGS; a human triggers the path once and confirms it lands.
 
 ---
 
