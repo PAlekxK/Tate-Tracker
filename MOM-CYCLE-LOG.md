@@ -74,14 +74,36 @@ shape by `check-cycle-map.py`; it checks that the block exists, never whether th
 | D1 | **Reorganize the top nav around Mom's five categories** (vehicles · equipment · household systems · gardening · wildlife) | the 2026-08-02 hand-picked strip (Almanac · Weather · Plants · Wildlife · Mama's Perspective), whose own code comment called the five a PLACEHOLDER | she confirmed the list herself 08-03 ("That's all of them"), so the input the placeholder was waiting on has arrived | `q-top-categories` answer; `BACKLOG` ② |
 | D2 | **Ship the reorganization now, ahead of the 8/10 rationalization** | the 08-02 freeze — *"nothing here ships early; tonight's surface gets clean air for the window's final week"* | Paul's call 08-04. ⚠️ **This IS a reversal of his own two-day-old decision, and it is recorded as one** — the freeze existed to protect a clean measurement window, and shipping into that window means the 8/10 funnel read cannot be pooled across the change line | Paul, this session |
 | D3 | **Split Machines into Vehicles + Equipment**, filtering the record-level `group` field | one "Machines" card — a third word neither Mom nor Paul used | her split already exists in the data as a declared field (7 `vehicle` / 9 `equipment`), so this is a display change, not a migration | `vehicles.json`; verified |
-| D4 | **Keep Weather in the strip** `[paul-stated 08-04]` | the domains-only rule the researcher recommends | Paul: *"weather is important"* — and the ack will say we made that call and it can change | Paul, this session |
+| D4 | **Keep Weather in the strip** `[paul-stated 08-04]` | the domains-only rule the researcher recommended | Paul: *"weather is important"* — and the ack will say we made that call and it can change. ⭐ **The counter-argument was then REFUTED on fact** (below), so this is no longer a preference overriding an analysis; the analysis was wrong | Paul, this session; DOM verified |
 | D5 | **Adopt her coined term "household systems"** | the card's shortened "house systems" | *adopt her words, never improve them*; CLAUDE.md already records shortening this exact term as a past violation | `BACKLOG:363`; Paul confirmed |
 | D6 | **Leg 4 becomes a scoped expert sequence** | *"one seat by default"* `[paul-stated 2026-07-29]` | Paul's 08-04 call. Recorded as a reversal of a Paul-stated rule, with the 4-lens week as the named cost and a latency guard against repeating it. **Effective lap 2** | `MOM-CYCLE-MAP.md` § Leg 4 |
-| D7 | **⏸ OPEN — the Household Systems card's shape** | Paul's "empty card that asks her to populate it" | the researcher found `devices.json` already holds a real record (Nest thermostat, propane heat). Not an empty domain. **At Paul's gate** | `devices.json`; verified |
+| D7 | **Seed Household Systems with the record we already have** (Nest thermostat, propane forced-air heat, electric cooling) `[paul-stated 08-04]` | the empty-card plan | `devices.json` already holds a real, deterministically-sourced record — the domain was never empty, so an empty card would have been a fabricated blank | `devices.json`; verified |
+| D8 | **Keep an AUTHORSHIP affordance on that card, not adjudication only** `[paul-stated 08-04]` | the researcher's pure-adjudication recommendation | Paul: *"she's still warming up to her feedback and adjudication role, so let's not not give her the opportunity to provide authorship-level input."* Seeding gives her something to react to; it must not become a ceiling on what she can add | Paul, this session |
 
-**Two of these seven reverse a prior Paul decision (D2, D6), and one reverses a researcher
-recommendation (D4).** That is not a problem — it is the record working. The failure this table
-exists to prevent is reversing something *without noticing*.
+**Two of these reverse a prior Paul decision (D2, D6); two reverse a researcher recommendation
+(D4, D8).** That is not a problem — it is the record working. The failure this table exists to
+prevent is reversing something *without noticing*.
+
+### ⚠️ A seat's finding was tagged `validated` and was false
+
+The `user-researcher` pass argued domains-only on the premise that **"Weather is card #1, directly
+beneath the strip… access cost of dropping it is zero,"** tagged `[validated — structure]`.
+
+**It is not.** Verified against the DOM: `unified-input` (5983) → jump strip (6003) → **Almanac card
+(6026)** → **Mama's Perspective envelope (6090)** → `card-weather` (6164). Weather is the **third**
+major block, below two substantial ones — which is exactly where Paul said it was, from memory,
+before anyone checked. (Honest nuance: the MP envelope collapses, so the distance varies; Weather is
+never the first thing under the strip.)
+
+**Two things follow, and the second is the durable one:**
+1. D4 is no longer a preference overriding an analysis — the analysis was wrong, and keeping Weather
+   is now the better-supported call.
+2. **`validated` is a claim about provenance, not a guarantee of truth.** The tag was applied to a
+   structural read that a two-second `grep` refutes. The seat did excellent work elsewhere in the
+   same pass (`devices.json`, the `group` field, the `Machines` title, the impression-event gap —
+   all four independently confirmed), which is precisely why one false `validated` is dangerous: it
+   travels on the credibility of the true ones. **Spot-check a seat's load-bearing structural claims
+   before acting on them**, the same standing rule this repo already carries for BACKLOG rows.
 
 ### Score against the pre-registered definition — **NOT CLEAN (yet)**
 
