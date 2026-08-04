@@ -3810,6 +3810,7 @@
      card IS the tap target at the 44px floor — no phantom ::after band, which is
      the bug the jump strip was carrying. */
   .ack-changes-lead { font-weight: 600; margin: 2px 0 4px; }
+  .ack-closing { margin-top: 6px; }
   .ack-changes { list-style: none; margin: 0; padding: 0; }
   .ack-changes li { position: relative; padding-left: 15px; }
   .ack-changes li::before {
@@ -10502,35 +10503,45 @@ async function saveZoneFeedback(text) {
 // there is no /api/feedback record to point at. Paul-relayed input is real input
 // (channel doctrine) — but it is honest that no app channel carried it.
 const MOM_ACK_DATA = {
-  // ⭐ `changes` SUPERSEDES `message` for this refresh (paul-stated 2026-08-04).
-  // Bullets of what changed, each tappable to the card it changed — see the
-  // renderer for why condensing beat folding. `message` is kept as the fallback
-  // path and still works; it is simply not what this refresh uses.
+  // ⭐ COPY IS THE content-steward's, 2026-08-04 (seat 3 of 3). Five of its six
+  // findings applied verbatim; each is noted where it changed something real.
   //
-  // WHAT SHE GAVE, and it is one thing: on 2026-08-03 7:53 AM ET she answered
-  // `q-top-categories` "That's all of them" — confirming vehicles / equipment /
-  // household systems / gardening / wildlife as her list. Every bullet below is
-  // downstream of that single tap, which is why this ribbon is short.
+  // ⛔ THE ONE THAT WAS A FACTUAL ERROR, and it was introduced by the fix before
+  // it: the bullet read "Weather is the sixth". Weather is FIRST in the strip and
+  // first on the page. Correcting "your five" (there are six tabs) created a
+  // second contradiction — "sixth" is how WE count it (a sixth beyond her five);
+  // to her it flatly disagrees with the screen. Same class as the 07-26 rainfall
+  // numbers, where the honest conclusion available to her was "the app is broken".
+  // Now it names the ADDITION and discloses WHERE WE PUT IT — our card ahead of
+  // all five of hers, which is the decision she might actually object to.
   //
-  // ⚠️ WEATHER IS NAMED AS OUR CALL, deliberately (Paul, 2026-08-04): "we can
-  // just say in the acknowledgment we made that call, and we can change it." Her
-  // five did not include Weather; adding it silently would be the same act as
-  // rewording "household systems", which this app has already done to her once.
-  // The changeable clause rides on THAT bullet rather than standing alone —
-  // attached to the thing it is about, never a footer (standing rule 5).
+  // ⭐ AND THE CHANGEABLE CLAUSE MOVED (standing rule 5). It rode on Weather
+  // alone, which protected OUR decision rather than her answer. It now covers the
+  // tabs — order, membership and Weather — because that is what she might want
+  // changed, and it is true: it is a one-line edit.
+  //
+  // ⭐ THE CLOSING LINE EXISTS BECAUSE THE CARD WAS ALL FURNITURE. Every bullet is
+  // about the app's own structure; nothing was about Fernwood. Two minutes after
+  // the tap this card answers, she asked the Almanac about creeping-fig cuttings —
+  // and no check could have caught the omission, because `acknowledgedThrough` is
+  // stamped past it and reads green. The 07-26 failure that produced the ribbon
+  // rules was exactly a ribbon that ignored her Guru questions.
   "message": "",
   "changes": [
     { "text": "The tabs across the top are your five, in the order you gave them.", "card": null },
-    { "text": "Weather is the sixth — our call, because it is the one thing that changes hour to hour. Say the word and it moves.", "card": "card-weather" },
-    { "text": "Vehicles and Equipment are their own cards now, not one card called Machines.", "card": "card-equipment" },
-    { "text": "Household Systems has started — the thermostat, and the propane heat it runs.", "card": "card-household" }
+    { "text": "Weather is the one we added, and we put it first — it changes hour to hour. Say the word and we\u2019ll change the tabs.", "card": "card-weather" },
+    { "text": "Equipment has its own card now, separate from Vehicles — the two used to share one.", "card": "card-equipment" },
+    { "text": "Household Systems has its own card now — so far just the thermostat and the propane heat it runs.", "card": "card-household" }
   ],
+  "closing": "You asked the Almanac about the creeping fig that same morning — that one\u2019s kept in the Journal too, answer and all.",
+  "closingCard": "card-fieldnotes",
   "questionId": "q-top-categories",
   "arrivedAt": "2026-08-03T11:53:50.563Z",
   "arrivalRef": "fb-wifqa1b6-msd682xv",
   "acknowledgedThrough": "2026-08-03T11:56:17.964Z",
   "channels": [
-    "feedback"
+    "feedback",
+    "guru"
   ],
   "links": []
 };
@@ -10878,8 +10889,12 @@ const MomQueue = (function () {
       const ackTitle = document.createElement("span");
       ackTitle.className = "ic-head-title";
       // ⚠️ FALLBACK STILL LOAD-BEARING: undated is a worse ribbon, not a broken one.
+      // ⚠️ "Actioning your feedback from <date>:" was Paul's exact phrasing and the
+      // steward argued it out: subject = us, verb = our process — a sentence a
+      // stranger at any SaaS company writes. This makes HER input the subject and
+      // leaves us out of it, which is the whole point of the card.
       ackTitle.textContent = hasChanges
-        ? (wroteShort ? "Actioning your feedback from " + wroteShort + ":" : "Actioning your feedback:")
+        ? (wroteShort ? wroteShort + " — what your answer changed:" : "What your answer changed:")
         : (wrote ? "We got your note " + wrote + "." : "We got your note.");
       // The condensed acknowledgment for the COLLAPSED envelope (Paul, 8/02
       // late): the give-back stays visible even when she folds the asks away.
@@ -10970,6 +10985,28 @@ const MomQueue = (function () {
           list.appendChild(li);
         });
         msg.appendChild(list);
+        // Under the list, deliberately NOT a bullet and NOT an ask — the queue an
+        // inch below is already the ask. It is the only line on this card that is
+        // about the place rather than about the app.
+        if (MOM_ACK_DATA.closing) {
+          const close = document.createElement("div");
+          close.className = "ack-closing";
+          if (MOM_ACK_DATA.closingCard) {
+            const cb = document.createElement("button");
+            cb.type = "button";
+            cb.className = "ack-change-link ack-closing-link";
+            cb.textContent = MOM_ACK_DATA.closing;
+            cb.addEventListener("click", function (e) {
+              e.stopPropagation();
+              track("momack_followed", { acknowledgedThrough: ackIdOf(), card: MOM_ACK_DATA.closingCard });
+              if (typeof expandCard === "function") expandCard(MOM_ACK_DATA.closingCard);
+            });
+            close.appendChild(cb);
+          } else {
+            close.textContent = MOM_ACK_DATA.closing;
+          }
+          msg.appendChild(close);
+        }
       } else {
       const message = MOM_ACK_DATA.message || "";
       const linkSpecs = Array.isArray(MOM_ACK_DATA.links) && MOM_ACK_DATA.links.length
@@ -13253,7 +13290,7 @@ function renderVehicles() {
     //     openers so there's a consistent design language."
     if (g.target === 'household-list') {
       html += '<button type="button" class="card-later-link" id="household-add-link">' +
-              'Is there a system we should be tracking? Tell the Almanac \u203a</button>';
+              'Is there something else the house runs on? Tell the Almanac \u203a</button>';
     }
     // Ungrouped records surface on the Vehicles card rather than vanishing —
     // the same fail-loud posture the three-way split was written with.

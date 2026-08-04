@@ -1,0 +1,128 @@
+{
+  "review_id": "content-2026-08-04-mom-ack-change-list",
+  "project": "Fernwood",
+  "subject": "Mama's Perspective acknowledgment card (dated title + 4-bullet change list) + the new Household Systems authorship link",
+  "surface": "UI — in-app acknowledgment card, top of Mama's Perspective envelope; plus a quiet footer link on card-household",
+  "audience": "Mom — make-or-break user. Reads with difficulty, phone, low-attention posture (bed/coffee). Documented fear: getting things wrong. Still learning that giving feedback is safe.",
+  "voice_charter_applied": "fernwood.md (+ cross-project/voice-and-stance.md: could-be-anyone; credit-don't-thank; describe-don't-grade)",
+  "tone_register": "acknowledging — credit-giving, plain-spoken, no ask",
+  "review_date": "2026-08-04",
+  "reviewer_mode": "review",
+  "could_be_anyone_test": "fail",
+  "anchor_check": "fail",
+  "findings": [
+    {
+      "id": "F1",
+      "area": "accuracy",
+      "severity": "critical",
+      "observation": "Bullet 2 says 'Weather is the sixth.' On the surface she will look at, Weather is FIRST — leftmost in the jump strip (viewer.html:6042) and the first of the six cards on the page (card-weather 6213, then vehicles/equipment/household/plants/wildlife). 'Sixth' means 'a sixth category beyond your five' internally; to a reader scanning the strip it is a flat contradiction of what she sees. This is the same class as the 2026-07-26 rainfall failure — two things on one card that measure differently, unlabelled, and the honest conclusion available to her is 'the app is broken.'",
+      "voice_principle_invoked": "CLAUDE.md Mama's-Perspective lesson 2 ('two numbers on one card that measure different things must say which is which'); Fernwood charter — reads with difficulty, no clause-stacking",
+      "recommendation": "Say we ADDED it and say where we PUT it. Replace with: 'Weather is the one we added, and we put it first — it changes hour to hour. Say the word and we'll change the tabs.' This also removes the redundant 'our call' (the two 'we' verbs already carry the attribution), and widens the changeable clause from Weather-only to the whole strip, which is the thing she might actually want moved.",
+      "alternative_drafts": [
+        "Weather is the one we added, and we put it first — it changes hour to hour. Say the word and we'll change the tabs.",
+        "Weather is the one we added — we put it ahead of your five because it changes hour to hour. Say the word and we'll change the tabs."
+      ]
+    },
+    {
+      "id": "F2",
+      "area": "voice",
+      "severity": "critical",
+      "observation": "The title — 'Actioning your feedback from Monday, August 3:' — is the one string on the card that is about US. 'Actioning' is consulting-deck vocabulary and 'feedback' is product vocabulary; together they make the sentence's subject the team and its verb our process. A stranger at any SaaS company could have written it, so it fails the could-be-anyone test outright, and it is the exact 'changelog about our work' failure Paul flagged as his worry.",
+      "voice_principle_invoked": "cross-project — Could-be-anyone test; Credit, don't thank (attach her name to the content, not to a receipt); Fernwood charter — field journal, not task manager",
+      "recommendation": "Invert the subject so her input is the actor and we are absent. Replace with: 'Monday, August 3 — what your answer changed:'. Keeps one line, keeps the date, survives the collapsed-summary transform at viewer.html:10891 ('✓ Monday, August 3 — what your answer changed.'). The undated fallback becomes 'What your answer changed:'.",
+      "alternative_drafts": [
+        "Monday, August 3 — what your answer changed:",
+        "Monday, August 3 — you said that's all of them. Here's what changed:",
+        "Monday, August 3 — here's what your answer changed:"
+      ]
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "Bullet 3 names Vehicles first but its tap opens card-equipment. The first thing the sentence names is not the thing the tap opens — a reader who taps because she read the word 'Vehicles' lands on Equipment. Separately, 'not one card called Machines' names a word that is ours, not hers (MOM-CYCLE-LOG D3: 'a third word neither Mom nor Paul used'), and lap-1 telemetry shows she has never once expanded that card — so the word most likely is not in her head, and naming it teaches a term in order to retire it. Both halves point the same way: the negation is housekeeping about our structure.",
+      "voice_principle_invoked": "Credit, don't thank — corollary 'adopt their words, never improve them'; the card's job is her vocabulary reflected back. Plus: a bullet's first noun should be its destination.",
+      "recommendation": "Lead with Equipment (it is both the genuinely new card and the tap target) and drop 'Machines'. Replace with: 'Equipment has its own card now, separate from Vehicles — the two used to share one.'",
+      "alternative_drafts": [
+        "Equipment has its own card now, separate from Vehicles — the two used to share one.",
+        "Vehicles and Equipment each have their own card now — they used to share one. (only if the card target is re-pointed to card-vehicles)"
+      ]
+    },
+    {
+      "id": "F4",
+      "area": "voice",
+      "severity": "important",
+      "observation": "Bullet 4's 'has started' is a build-status word — it reports our progress rather than telling her what is in the card. It is mild, but it is the same drift as the title. It also loses the parallel with bullet 3, which helps a scanning reader.",
+      "voice_principle_invoked": "Fernwood charter — describe what IS at this place, never report on the project; Field journal, not task manager",
+      "recommendation": "Replace with: 'Household Systems has its own card now — so far just the thermostat and the propane heat it runs.' 'So far just' carries the honest-incompleteness better than 'has started' (and points at the authorship link sitting at the foot of that same card), and 'has its own card now' rhymes with bullet 3. Her full coined term is preserved — confirmed clean at viewer.html:6045, 10526, 13213.",
+      "alternative_drafts": [
+        "Household Systems has its own card now — so far just the thermostat and the propane heat it runs.",
+        "Household Systems has a card now — the thermostat, and the propane heat it runs, for a start."
+      ]
+    },
+    {
+      "id": "F5",
+      "area": "voice",
+      "severity": "important",
+      "observation": "The authorship link — 'Is there a system we should be tracking? Tell the Almanac ›' — asks her a should-question. 'Should' invites her to judge whether her idea qualifies, which is precisely the judgment her documented fear attaches to; 'tracking' is systems/productivity register on the one card that belongs to her. The card's own intro already says it better: 'The systems the house runs on.'",
+      "voice_principle_invoked": "Fernwood charter — Lexicon-no (productivity language); Action sentences soften toward 'worth doing', never toward a verdict the reader has to render; Acknowledge the shared work (for uncertain readers)",
+      "recommendation": "Ask what exists, not what should be done, and echo the card's own frame. Replace with: 'Is there something else the house runs on? Tell the Almanac ›'. Keep 'Tell the Almanac ›' — it is anchored, it names the real destination (#unified-input inside the Fernwood Almanac card), and it is the one-door rule showing through.",
+      "alternative_drafts": [
+        "Is there something else the house runs on? Tell the Almanac ›",
+        "Something else the house runs on — tell the Almanac ›"
+      ]
+    },
+    {
+      "id": "F6",
+      "area": "sense-making",
+      "severity": "important",
+      "observation": "Nothing on this card is about Fernwood. Five strings, and all five are about the app's own furniture — tabs, cards, a card that split, a card that started. Meanwhile she gave a second input in the same session that goes unnamed: at 7:55 AM ET on 08-03, two minutes after the 'That's all of them' tap, she asked the Almanac about creeping-fig cuttings (guru readThrough 2026-08-03T11:55:10Z in .private/channel-read-state.json; the lap log confirms canon and the Almanac agreed). No tool will flag this — acknowledgedThrough (11:56:17Z) is stamped past it — which is exactly why it is worth raising rather than trusting the check.",
+      "voice_principle_invoked": "CLAUDE.md ribbon rule — 'the ribbon covers EVERYTHING since the last one she gave input on'; Fernwood anchor test (this specific place, never could-be-anywhere); 'vary the close'",
+      "recommendation": "Add one closing line under the list — not a bullet, and not an ask — that names the other thing she gave and stays anchored in the place: 'You asked the Almanac about the creeping fig that same morning — that one's kept in the Journal too, answer and all.' Different shape and different phrasing from the previous refresh's close ('Not a year, though — our own gauge only started keeping count in May…'), so the vary-the-close rule holds. If Paul would rather keep the card to four bullets, that is a defensible call — but then the card should be understood as a change list, not a full ribbon.",
+      "alternative_drafts": [
+        "You asked the Almanac about the creeping fig that same morning — that one's kept in the Journal too, answer and all.",
+        "You asked the Almanac about the creeping fig that same morning — cuttings hold into early September, and it's in the Journal whenever you want it back."
+      ]
+    },
+    {
+      "id": "F7",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "observation": "Bullet 1 — 'The tabs across the top are your five, in the order you gave them.' — is clean and should ship as written. 'Tabs' is her word (relayed 07-29), 'your five' is credit rather than a thank-you, and the claim stays true once bullet 2 discloses that Weather sits in front. Recorded as a keep so a later reader knows it was checked, not skipped.",
+      "voice_principle_invoked": "Credit, don't thank; adopt her words never improve them",
+      "recommendation": "KEEP AS IS: 'The tabs across the top are your five, in the order you gave them.'",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F8",
+      "area": "clarity",
+      "severity": "nice-to-have",
+      "observation": "Paul asked whether the unlinked bullet 1 reads inert beside three that move. On the copy side it does not: its own text is the wayfinding — 'across the top' names where to look, the tabs are visible without a jump, and it sits first, before she learns the other bullets are tappable. A bullet whose destination is already on screen needs no control.",
+      "voice_principle_invoked": "Content design — sometimes the right answer is no affordance; ux-expert hand-off (surface question, not a copy question)",
+      "recommendation": "No copy change. FLAG TO UX-EXPERT, not a rewrite: linked bullets render as <button class='ack-change-link'>, unlinked as plain <li> (viewer.html:10949-10970) — whether that distinction survives at her A+ text size is a surface call, not mine.",
+      "alternative_drafts": []
+    }
+  ],
+  "open_questions_for_paul": [
+    "The propane-tank gap is live and unnamed anywhere she can see: vehicles.json marks 'where it is, who fills it, how big it is' as an explicit inference-not-observation. It is a real ground-truth only she can settle and it sits inside the exact bullet we are making a claim about. Not for this card — but it looks like the natural first thing the new authorship link should be pointed at.",
+    "F6 is a genuine fork: is this card a CHANGE LIST (four bullets, nothing else) or the RIBBON (covers everything since her last input)? It is currently titled and shaped as the first and governed by the rules of the second. Worth deciding once rather than per-refresh.",
+    "Bullet 3's tap target: recommendation reorders the nouns so the first-named thing is the destination. If you would rather keep 'Vehicles and Equipment', re-point the card to card-vehicles instead — either fixes it, but one of the two must move."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "A bullet's first noun is its destination. When a line of copy is itself the tap target, the first thing it names must be the thing that opens — a reader taps on the word that caught her, not on the object.",
+      "scope": "cross-project",
+      "rationale": "Fernwood 2026-08-04: 'Vehicles and Equipment are their own cards now' opened Equipment. Generalises to any tappable-sentence pattern (email CTA sentences, IG caption link-outs, card-as-control lists)."
+    },
+    {
+      "principle": "Ordinals describe position, never provenance. If copy means 'one we added beyond your list', say added — 'the sixth' is a claim about where the reader will find it, and it is checkable against the screen in one glance.",
+      "scope": "Fernwood",
+      "rationale": "Bullet 2 called Weather 'the sixth' while it renders first in the strip and first on the page. For a reader with difficulty, a contradiction between copy and screen reads as a broken app — the same cost as the 2026-07-26 rainfall numbers."
+    },
+    {
+      "principle": "In an acknowledgment, the reader's input is the grammatical subject and the team is absent. If the sentence's verb is something WE did to her input ('actioning', 'processing', 'incorporating', 'shipped'), the card has become a changelog.",
+      "scope": "cross-project",
+      "rationale": "Extends 'Credit, don't thank' from nouns to syntax. 'Actioning your feedback' is a receipt with a process verb attached; 'what your answer changed' says the same thing with her as the actor. Second-project test: Bolo Boys fan-facing replies to venue/fan input."
+    }
+  ]
+}
