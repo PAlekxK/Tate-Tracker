@@ -10520,8 +10520,8 @@ const MOM_ACK_DATA = {
   // attached to the thing it is about, never a footer (standing rule 5).
   "message": "",
   "changes": [
-    { "text": "The tabs across the top are your five now, in your order.", "card": null },
-    { "text": "Weather sits first — our call, because it is the one thing that changes hour to hour. Say the word and it moves.", "card": "card-weather" },
+    { "text": "The tabs across the top are your five, in the order you gave them.", "card": null },
+    { "text": "Weather is the sixth — our call, because it is the one thing that changes hour to hour. Say the word and it moves.", "card": "card-weather" },
     { "text": "Vehicles and Equipment are their own cards now, not one card called Machines.", "card": "card-equipment" },
     { "text": "Household Systems has started — the thermostat, and the propane heat it runs.", "card": "card-household" }
   ],
@@ -10840,6 +10840,19 @@ const MomQueue = (function () {
         return et({ weekday: "long" }) + " " + partOfDay + ", " +
                et({ month: "long" }) + " " + et({ day: "numeric" });
       }
+      // The CONSOLIDATED title drops the part-of-day (paul-stated 2026-08-04:
+      // "actioning your feedback from Monday, August third, colon, and then the
+      // list"). "Monday morning" earns its keep in a sentence that is only a
+      // greeting; in a line that also has to carry the word "feedback" and a
+      // colon, it is three syllables of nothing. Still Eastern, still written the
+      // way a person says it, never ISO.
+      function whenSheWroteShort(iso) {
+        if (!iso) return null;
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return null;
+        const et = (opts) => d.toLocaleString("en-US", Object.assign({ timeZone: "America/New_York" }, opts));
+        return et({ weekday: "long" }) + ", " + et({ month: "long" }) + " " + et({ day: "numeric" });
+      }
       // The dated line is now the CARD TITLE (2026-07-30) — it is what this card
       // is, and it lands in the same slot where the other three name themselves.
       // ⚠️ FALLBACK IS LOAD-BEARING: `arrivedAt` is optional, and a headerless
@@ -10847,6 +10860,15 @@ const MomQueue = (function () {
       // surface whose job is telling her she was heard. Undated is a worse
       // ribbon (that was the whole 7/29 finding); it is not a broken one.
       const wrote = whenSheWrote(MOM_ACK_DATA.arrivedAt);
+      // ⭐ ONE LINE, NOT TWO (paul-stated 2026-08-04). The card carried a dated
+      // greeting in the title AND "Actioning your feedback:" underneath it — two
+      // lines of header over a four-line list. Consolidated: the title now says
+      // what this card IS *and* when her input arrived, and the separate lead is
+      // gone. Same trade as the framing line removed above — header that repeats
+      // itself is furniture, and this card's whole job is the list.
+      const hasChanges = Array.isArray(MOM_ACK_DATA.changes) &&
+                         MOM_ACK_DATA.changes.some(c => c && c.text);
+      const wroteShort = whenSheWroteShort(MOM_ACK_DATA.arrivedAt);
       const ackHead = document.createElement("div");
       ackHead.className = "ic-head";
       const ackIcon = document.createElement("span");
@@ -10855,12 +10877,18 @@ const MomQueue = (function () {
       ackIcon.textContent = "✓";
       const ackTitle = document.createElement("span");
       ackTitle.className = "ic-head-title";
-      ackTitle.textContent = wrote ? "We got your note " + wrote + "." : "We got your note.";
+      // ⚠️ FALLBACK STILL LOAD-BEARING: undated is a worse ribbon, not a broken one.
+      ackTitle.textContent = hasChanges
+        ? (wroteShort ? "Actioning your feedback from " + wroteShort + ":" : "Actioning your feedback:")
+        : (wrote ? "We got your note " + wrote + "." : "We got your note.");
       // The condensed acknowledgment for the COLLAPSED envelope (Paul, 8/02
       // late): the give-back stays visible even when she folds the asks away.
       // Deterministic slice of the same title — no separate copy to drift.
       const mpSummary = document.getElementById("mp-summary");
-      if (mpSummary) mpSummary.textContent = "✓ " + ackTitle.textContent;
+      // The condensed line that survives a collapse is a deterministic slice of the
+      // same title — no second copy to drift. The trailing colon is dropped: it
+      // promises a list that the collapsed state does not show.
+      if (mpSummary) mpSummary.textContent = "✓ " + ackTitle.textContent.replace(/:$/, ".");
       ackHead.appendChild(ackIcon);
       ackHead.appendChild(ackTitle);
       // The same door as the Almanac card's (Paul, 2026-07-30: "we can add that
@@ -10914,10 +10942,8 @@ const MomQueue = (function () {
       const changeSpecs = Array.isArray(MOM_ACK_DATA.changes)
         ? MOM_ACK_DATA.changes.filter(c => c && c.text) : [];
       if (changeSpecs.length) {
-        const lead = document.createElement("div");
-        lead.className = "ack-changes-lead";
-        lead.textContent = "Actioning your feedback:";
-        msg.appendChild(lead);
+        // No lead line here — the card TITLE carries "Actioning your feedback from
+        // <date>:" now, so a second one would repeat the header at the reader.
         const list = document.createElement("ul");
         list.className = "ack-changes";
         changeSpecs.forEach(function (c) {

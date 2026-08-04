@@ -504,6 +504,12 @@ def main():
                     help="Record that one of her free-text notes has been acted on")
     ap.add_argument("--as", dest="disposition", metavar="WHERE", default=None,
                     help="Where it went, e.g. 'filed as BACKLOG A1 rainfall row; fixed in abc1234'")
+    ap.add_argument("--retire", metavar="QUESTION_ID", default=None,
+                    help="Retire a card she has ALREADY ANSWERED (active:false + resolvedAt). "
+                         "Needs --because '<what was incorporated>'.")
+    ap.add_argument("--because", metavar="WHAT", default=None,
+                    help="For --retire: what her answer actually changed. The incorporation "
+                         "attestation — no machine can check it, so a human states it.")
     ap.add_argument("--acknowledged", action="store_true",
                     help="Mark that the ribbon has told HER about it (not just that we fixed it)")
     args = ap.parse_args()
@@ -536,6 +542,64 @@ def main():
     c = momlib.canon()
     rows, buckets = classify(mom, questions, c)
     note_rows, note_buckets = classify_notes(records)
+
+    if args.retire:
+        # ⭐ RETIREMENT IS A STEP, NOT A CHORE `[paul-stated 2026-08-04]`: "if that's
+        # the question card that you already asked or answered, we should definitely
+        # retire that. That should be automatic part of the process, after we check
+        # that we've incorporated the feedback."
+        #
+        # Until now retiring meant hand-editing questions.json, which is precisely
+        # why it got skipped — `q-top-categories` was answered 08-03 and was still
+        # being SERVED to her a day later, so a fresh device would have re-asked her
+        # a question she had already answered, and (being reflective/unprobeable) it
+        # pinned the feedback watermark the whole time.
+        #
+        # ⚠️ WHAT STAYS HUMAN, AND WHY IT CANNOT BE AUTOMATED AWAY. A reflective card
+        # has no `_foldTarget` by design, so canon can NEVER say "handled" for it —
+        # that is the 2026-07-27 unprobeable rule. So the detector is deterministic
+        # (check-cards.py already flags served-but-answered) and the ACTION is one
+        # command, but the judgement "did we actually incorporate what she said?"
+        # is `--because`, typed by a person. Retiring first would claim we acted on
+        # a preference we had not: HANDLED, THEN RETIRED, in that order.
+        qs = momlib.load_json("questions.json")
+        items = qs.get("questions") if isinstance(qs, dict) else qs
+        q = next((x for x in items if x.get("id") == args.retire), None)
+        if q is None:
+            print(f"error: no question with id {args.retire!r} in questions.json", file=sys.stderr)
+            return 2
+        if not args.because:
+            print("error: --retire needs --because \"<what her answer changed>\". A card retired "
+                  "with no stated incorporation is indistinguishable from one quietly dropped.",
+                  file=sys.stderr)
+            return 2
+        answered = [r for r in mom
+                    if (r.get("context") or {}).get("questionId") == args.retire]
+        if not answered:
+            print(f"⛔ REFUSED: she has not answered {args.retire!r} in {args.start} → {args.end}.\n"
+                  f"   Retiring an UNANSWERED card silently removes a question she never got to.\n"
+                  f"   Widen --start if the answer is older, or leave it serving.", file=sys.stderr)
+            return 2
+        if not q.get("active", True):
+            print(f"· {args.retire} is already retired (resolvedAt {q.get('resolvedAt')}). Nothing to do.")
+            return 0
+        when = answered[-1].get("ts")
+        q["active"] = False
+        q["resolvedAt"] = str(dt.date.today())
+        q["_note"] = (q.get("_note", "") +
+                      f" RETIRED {q['resolvedAt']} — answered {momlib.et_str(when)}. "
+                      f"Incorporated: {' '.join(args.because.split())}").strip()
+        momlib.save_json("questions.json", qs) if hasattr(momlib, "save_json") else None
+        if not hasattr(momlib, "save_json"):
+            with open(os.path.join(momlib.ROOT, "questions.json"), "w", encoding="utf-8") as f:
+                json.dump(qs, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+        print(f"✓ {args.retire} retired ({q['resolvedAt']}).")
+        print(f"  incorporated: {args.because}")
+        print("  This also RELEASES the feedback watermark if this card was holding it —")
+        print("  re-run `--pickup` to confirm, and re-run check-cards.py to confirm she is")
+        print("  no longer being served something she already answered.")
+        return 0
 
     if args.address:
         rec = next((r for r in records if r.get("id") == args.address), None)

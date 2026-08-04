@@ -37,7 +37,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked |
 | **6 · GATE** 👤 | **6a PREVIEW** (the running app, staged) → **6b PROXY** (her-eyes acceptance check) → **6c** the return leg as exact text | **Paul** | he has flipped through it, the proxy's flags are dispositioned, he approves, and it is **pushed** (Pages serves `viewer.html`) |
-| **7 · CLOSE** | dispositions recorded, cards retired, watermark advanced | ai | `feedback-log.json` written; watermark clamped |
+| **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped |
 
 **The loop closes at leg 7 → leg 1.** What makes it a cycle rather than a checklist is that leg 7's
 watermark decides what leg 1 surfaces next lap — and the clamp means a lap cannot close over
@@ -91,6 +91,7 @@ decoration**, so where one exists because something went wrong, that is named.
 | `tools/read-mom-funnel.py` | is she engaging, and with what? | the funnel counted **Paul's device as hers for 26 days**; the two figures that drove design decisions were counts of the wrong person |
 | `tools/read-feedback-sections.py` | which **door** did she come through? | *she declined* and *she never understood which thing she was answering* were indistinguishable |
 | `tools/read-mom-zone-audio.py` | has anyone actually **listened**? | 3 of 5 recordings were never listened to while the ribbon read green |
+| `tools/read-mom-feedback.py --retire` | retire a card she has already answered — **one command, not a hand-edit** | `q-top-categories` was answered 08-03 and **still being served 08-04**: a fresh device would have re-asked her a question she had answered, and being unprobeable it pinned the watermark the whole time. Retiring meant hand-editing `questions.json`, which is exactly why it got skipped |
 | `tools/fold-answer.py` | apply what she settled, with Paul confirming | the watermark used to step over unfolded answers — the loop's **only silent-data-loss path** |
 | `tools/mom-cycle-status.py` | **where in the loop are we, and is anything mine?** | five green exit codes never answered "is anything waiting on me" |
 | `tools/check-cycle-map.py` | is this map still true? | hand-maintained facts drift, and always flatteringly |
@@ -160,6 +161,31 @@ Clean measures the **loop closing its loops**, never how much moved.
 ⚠️ **And clean never means she felt heard.** R1/R2 are *process* metrics: green proves the loop works
 on **us**. `momack_shown` counts exposure, not receipt. No outcome measure for the return leg exists
 — that gap is real, it is named here, and it must never be papered over with a process number.
+
+---
+
+## Leg 7 — retirement is a STEP, not a chore `[paul-stated 2026-08-04]`
+
+Paul: *"if that's the question card that you already asked or answered, we should definitely retire
+that. That should be automatic part of the process, after we check that we've incorporated the
+feedback."*
+
+**What is now automatic, and what deliberately is not:**
+
+| part | how |
+|---|---|
+| **detect** | deterministic — `check-cards.py` already flags SERVED-but-ANSWERED, and it is criterion 3 of a clean lap |
+| **act** | one command — `read-mom-feedback.py --retire <id> --because "<what her answer changed>"`. Sets `active:false` + `resolvedAt`, appends the incorporation to the card's `_note`, and releases the watermark if that card was holding it |
+| **judge** | ⛔ **STAYS HUMAN.** A reflective card has no `_foldTarget` *by design*, so canon can never say "handled" — the 2026-07-27 unprobeable rule. `--because` is that judgement, typed by a person |
+
+**Two guards, both of which refuse rather than warn:**
+- **No `--because`, no retirement.** A card retired with no stated incorporation is indistinguishable
+  from one quietly dropped.
+- **It refuses to retire a card she has not answered** — that would silently remove a question she
+  never got to, which is the opposite failure and a worse one.
+
+⭐ **HANDLED, THEN RETIRED — in that order.** Retiring first would claim we acted on a preference we
+had not. This is why the step sits at leg 7 and not at leg 2 where the detector fires.
 
 ---
 
