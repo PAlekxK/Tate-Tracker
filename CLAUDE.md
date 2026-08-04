@@ -84,6 +84,20 @@ Three things to know before acting on its output:
    on our own guess. Before pushing a card out of the visible set, **check it is unanswered** — an
    answered unprobeable card pins the feedback watermark.
 4. **Check her feedback FIRST at every pickup** — see the session-start block above.
+5. **⭐ "EVERYTHING IS CHANGEABLE"** `[paul-stated 2026-08-04]`. While she is still learning to give
+   feedback, her surfaces carry — lightly and consistently — that anything she has told us can be
+   changed later if she changes her mind: a list, an ordering, a naming, an answer. *"We want to be
+   clear in messaging as she gets used to providing feedback that everything is changeable… without
+   beating her over the head with it."* **Why it is load-bearing:** her documented fear is getting
+   it *wrong* — she hedged that "household systems" might be the wrong term (it wasn't) and doubted
+   whether her answers were any good during her best contributing week. A permanent-feeling answer
+   is expensive to give; a revisable one is cheap. **How:** one short varied clause attached to the
+   thing she just gave, never a standing footer and never the same phrasing twice running (the rule
+   that killed "keep it coming"); a repeated reassurance reads as a warning that something is
+   fragile. **It has a planned decay** — Paul: *"eventually we can stop really mentioning that."*
+   Scaffolding for the learning period, retired on his read, not on a date. **And it must be TRUE:**
+   never call a thing changeable and then make changing it costly.
+   Full reasoning: memory `feedback_everything_is_changeable`.
 
 ⚠️ **And the standing verification rule this session earned the hard way:** three BACKLOG rows were
 checked against the running app and found **wrong** — a card count that ignored `SUPPORTED_KINDS`, a
