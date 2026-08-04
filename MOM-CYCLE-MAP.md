@@ -36,7 +36,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **3 · RESOLVE** 👤 | the ambiguity ladder: telemetry → **Paul** → only then a card | **Paul at tier 2** | settled at the cheapest tier that can settle it |
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked |
-| **6 · GATE** 👤 | the return leg — ribbon + at most one card — presented as exact text | **Paul** | he approves, and it is **pushed** (Pages serves `viewer.html`) |
+| **6 · GATE** 👤 | **6a PREVIEW** (the running app, staged) → **6b PROXY** (her-eyes acceptance check) → **6c** the return leg as exact text | **Paul** | he has flipped through it, the proxy's flags are dispositioned, he approves, and it is **pushed** (Pages serves `viewer.html`) |
 | **7 · CLOSE** | dispositions recorded, cards retired, watermark advanced | ai | `feedback-log.json` written; watermark clamped |
 
 **The loop closes at leg 7 → leg 1.** What makes it a cycle rather than a checklist is that leg 7's
@@ -160,6 +160,65 @@ Clean measures the **loop closing its loops**, never how much moved.
 ⚠️ **And clean never means she felt heard.** R1/R2 are *process* metrics: green proves the loop works
 on **us**. `momack_shown` counts exposure, not receipt. No outcome measure for the return leg exists
 — that gap is real, it is named here, and it must never be papered over with a process number.
+
+---
+
+## Leg 6, AMENDED — preview, then a proxy, then the words `[paul-stated 2026-08-04]`
+
+> **⏱ AMENDMENT, recorded 2026-08-04. FIRST SCORES AT LAP 2.** Same rule as the Leg 4 amendment.
+
+### 6a · PREVIEW — stage the running app, always
+
+Paul: *"you should always give me the chance to flip through the app. Just go ahead and stage it for
+me either live or otherwise — that's kind of our dev or QA environment, if you will, which we should
+try to formalize a little in how we talk about it within our cycles."*
+
+**The gap this closes:** Leg 6 presented *exact text* and never the *running thing*. This repo already
+carries the rule — **verify a row against the app before acting on it** — and it was applied to
+BACKLOG rows but never to Paul's own gate. A ribbon can be judged as text; a nav strip cannot.
+
+**The standing name for it: the PREVIEW.** `python3 -m http.server 8765` from the repo root →
+`http://localhost:8765/viewer.html`. There is no build step, so the working tree *is* the preview —
+which is why this costs one command and has no excuse for being skipped.
+
+Two rules that make it honest:
+- **Verify the endpoint against the listening PID** (`lsof -nP -iTCP:8765 -sTCP:LISTEN`), never by a
+  `curl` 200 — [[feedback_verify_handoff_endpoint]]. A 200 can come from something else.
+- **The preview is the working tree, not the deploy.** It cannot catch anything that only breaks on
+  Pages. Say so rather than letting "I looked at it" stand in for "it shipped correctly."
+
+⚠️ **PREVIEW ≠ SHIPPED.** Mom sees `viewer.html` only after a **push**. The preview is Paul's QA
+surface and nothing more; it must never be reported as the change reaching her.
+
+### 6b · PROXY — the her-eyes acceptance check `[paul-stated 2026-08-04]`
+
+Paul: *"a rough Mom proxy agent that just reviews all of Mom's continuous feedback and then goes and
+walks through the app with only that context… almost like the fresh-eyes review, but focused on
+whether that feedback is being actioned and actioned clearly, and aligned with continuous nudges. I
+wonder if that's something we build in as a check at the end of our Mom feedback cycle before pushing
+everything to her."*
+
+**Yes — and its value comes entirely from what it is NOT told.** Every other seat this lap was primed
+with our intent, so each judged whether we built *what we set out to build*. None could ask the only
+question that matters at the gate: **walking in cold, holding only what she has actually said, is her
+input visibly answered?** The design rationale is exactly the context that must be withheld.
+
+| property | rule |
+|---|---|
+| **input** | ONLY her routed input — confirm answers, notes, Guru turns, zone audio, Paul-relayed items — plus the running PREVIEW. **Never** the plan, the backlog, the decisions table, or this map |
+| **question** | for each thing she gave: is it answered on the surface, findable, and in her words? |
+| **output** | flags with a pointer to the input each one traces to |
+| **authority** | ⚠️ **IT FLAGS, NEVER CLEARS.** The most it can do is subtract confidence. **Paul clears** — the same posture as the examiner-panel |
+| **⛔ the hard line** | **it is a proxy, not her.** Its output is never reported as "Mom thinks X," never quoted as her words, and never folded into canon as her input. It is a check on *our* work, in a public repo, about a person who is not in the room |
+| **when** | after `content-steward`, before the push. The last thing before her |
+
+**The failure it is built to catch** is the one this lap nearly shipped twice: `.vehicles-intro`
+promised her "the furnace" while the section rendered nothing, and the strip would have carried three
+links into a `display:none` drawer. Both are invisible in a plan and obvious to someone walking the
+app with her asks in hand.
+
+**Not built yet.** Recorded here so it is a designed step rather than a good idea, and so lap 2
+either runs it or names why not.
 
 ---
 
