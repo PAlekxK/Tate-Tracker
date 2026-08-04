@@ -39,6 +39,8 @@ digest to protect its ~57K/80K-token budget).
 | `dr200s-2017-service` | Suzuki **DR200SE Service Manual** (99500-…) | 262 | 🟡 service (not owner's) manual; DR200S unchanged across years. OCR text is sparse (scan). | djebel-club.ru (enthusiast archive) |
 | `drz400s-2001-service` | Suzuki DR-Z400S/SM **Service Manual** — 2000–2009 | 431 | ✅ covers 2001 | archive.org (enthusiast archive) |
 | `g22a-2005` | Yamaha Golf Car G22A (gas) Owner's/Operator Manual — LIT-19626-16 | 47 | ✅ gas variant | mygolfbuggy.com (3rd-party copy of genuine Yamaha file) |
+| `g22a-2005-ax2` | Yamaha Golf Car **G22-AX2** Owner/Operator Manual, 2006 (`1EJU0-100E1`) | 56 | 🟡 sibling variant, one year later | yamahagolfcars.com.au (3rd-party copy of genuine Yamaha file). Ingested 2026-08-04. **Secondary** — the `g22a-2005` gas manual above stays the card link. Kept because it is 9 pp longer and may cover assemblies the shorter one omits; compare before relying on it |
+| `generac-7000exl` | **Generac Portable Products 7000EXL Extended Life Generator** — Owner's Manual | 24 | ✅ names "7000EXL" 23× | archive.org (`manualsbase-id-609002`). Ingested 2026-08-04. ⚠️ **GENERATOR ONLY — it defers all engine service to a separate engine owner's manual we do NOT hold**, so it carries no oil, spark-plug or air-filter spec. Finding that engine manual is the top open item on the card |
 | `bronco-1989-lmc-catalog-fd88` | **LMC Truck parts catalog FD.88** — Ford Truck & Bronco 1980–96, 2026 Edition Vol. 2 | 180 | ✅ covers the '89 Bronco directly (many rows are Bronco-specific) | LMC Truck print/PDF catalog (Paul's copy, ingested 2026-08-03) |
 
 **Notes**

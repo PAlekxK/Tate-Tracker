@@ -1,0 +1,2282 @@
+G22-AX2 (JU03)                     U.S.A.,CANADA,JAPAN,OTHERS
+
+
+                                                                                              1EJU0-100E1
+
+                                                                                           ( 2EJU0-100E1 )
+
+
+2010/05/17     NEWS No.      DATE                                        COMMENT
+             PE0-GC-100002 2010/05/14 COR: FIG.17 BRAKE2, FIG.18 BRAKE3 LIST/ILLUSTRATION CORRECTION
+
+
+                                  A2
+               G22-AX2
+       PARTS CATALOGUE
+©2006 by Yamaha Motor Co., Ltd.
+     1st edition, January 2006
+         All rights reserved.
+Any reprinting or unauthorized use
+ without the written permission of
+      Yamaha Motor Co., Ltd.
+      is expressly prohibited.
+          Printed in Japan.
+
+
+
+
+             A3
+                                                                                         FOREWORD
+This Parts Catalogue is related to the parts for the model(s) on the cover page. When you are       6. The asterisk (*) before a reference number indicates modified items after the first edition.
+ordering replacement parts, please refer to this Parts Catalogue and quote both part numbers
+and part names correctly.
+
+  1. Modifications or additions which have been made after the issue of the Parts Catalogue
+     will be announced in the Parts News.
+     It is advisable that you make the necessary corrections to the Parts Catalogue according
+     to the Parts News.
+
+  2. Abbreviations
+     The following abbreviations are used in this Parts Catalogue.
+       “UR” Use specified parts number.
+       “UN” Use as many as needed.
+       “AP” Alternate Parts
+       “LM” Locally Made (Parts need to be ordered locally)
+       “F#” Frame No. (Applicable machine No.)
+       “O/S” Over Size
+
+  3. The number of components for assembly
+      • Parts, which are to be supplied in an assembly, are listed with a dot (.) in front of the
+        part name as shown below.
+      • The numeral appearing to the right of each component part indicates the quantity of
+        parts for each assembly unit.
+
+        PART NO.              DESCRIPTION                           Q’TY REMARKS
+        2F5–83310–60          FRONT FLASHER LIGHT ASSY                2
+        115–83311–60          .BULB (6V–18W)                          1
+
+  4. Applicable colours of graphics are represented in the “REMARKS” as shown below.
+
+        PART NO.              DESCRIPTION                           Q’TY REMARKS
+        2N4–24110–00–X5 FUEL TANK COMP.                               2     MXR
+        3J1–24240–10          .GRAPHIC, FUEL TANK                     1     FOR MXR
+
+  5. Note that the illustrations for reference in finding parts numbers are not to be used for
+     assembling. When assembling, please use the applicable service manual.
+
+
+
+
+                                                                                          A4
+                                                                               FOREWORD
+7. Applicable Serial No.                                                            10. Applicable Starting Serial No.
+     Engine Serial No.                  Frame Serial No.                                 Frame Serial No.
+
+                                                                                                    Serial No.           Name Of Q’ty Column   Model Code
+                                                                                                   JU0-310101                   JU03             JU03
+
+
+
+
+8. Applicable Colour Code (The (*) mark shows Model colour.)
+
+       Abbreviation                   Colour Name                   Colour Code
+        DPBMT(*)           DEEP PURPLISH BLUE METALLIC T                0978
+         DRMG(*)                 DARK RED METALLIC G                    0811
+          HTR(*)                       HEAT RED                         00EY
+         PURW(*)                     PURE WHITE                         0240
+         VDGS1(*)             VERY DARK GREEN SOLID 1                   0614
+         VPYS2(*)            VERY PALE YELLOW SOLID 2                   0500
+
+
+
+
+9. Quantity Column Information
+
+        Column No.          Name Of Q’ty Column                Destination
+                                                       U.S.A.,CANADA,JAPAN,OTH-
+             1                      JU03
+                                                                  ERS
+
+
+
+
+                                                                               A5
+                                                                                                 CONTENTS
+                                             ENGINE
+ENGINE ASSEMBLY ............................................................ B2                        ALTERNATE FOR SUN ROOF ............................................ E5
+CYLINDER HEAD ................................................................. B3                     ALTERNATE FOR LIGHT KIT .............................................. E6
+CRANKSHAFT & PISTON .................................................... B4                                                                    INDEX
+CAMSHAFT & VALVE ........................................................... B5
+AIR SHROUD & FAN ............................................................ B6                       NUMERICAL INDEX ............................................................. M1
+INTAKE ................................................................................. B7
+CARBURETOR ..................................................................... B8
+EXHAUST ............................................................................. B9
+CRANKCASE ........................................................................ B10
+                                               BODY
+ENGINE BRACKET ............................................................... B11
+REAR ARM & SUSPENSION ............................................... B12
+FRAME .................................................................................. B13
+FRONT SUSPENSION & WHEEL ........................................ B14
+STEERING ............................................................................ C2
+FUEL TANK ........................................................................... C4
+BRAKE .................................................................................. C5
+BRAKE 2 ............................................................................... C7
+BRAKE 3 ............................................................................... C8
+ACCELERATOR ................................................................... C9
+GOVERNOR ......................................................................... C10
+                                              DRIVE
+PRIMARY SHEAVE .............................................................. C11
+SECONDARY SHEAVE ........................................................ C12
+TRANSMISSION 1 ................................................................ C13
+REAR AXLE MOUNT & WHEEL ........................................... D2
+SHIFTER & CABLES ............................................................ D3
+BUMPER ............................................................................... D4
+BODY .................................................................................... D5
+BODY 2 ................................................................................. D7
+BODY FITTING ..................................................................... D9
+CARRIER .............................................................................. D10
+SEAT ..................................................................................... D11
+                                        ELECTRICAL
+STARTING MOTOR .............................................................. D13
+ELECTRICAL 1 ..................................................................... D15
+ELECTRICAL 2 ..................................................................... E2
+ALTERNATE FOR WINDSHIELD ......................................... E4
+     FIG.   1 ENGINE ASSEMBLY
+     REF.
+                                          JU03
+             PART NO.       DESCRIPTION          REMARKS
+     NO.
+      1 JR6–19001–00    ENGINE ASSEMBLY    1
+
+
+
+
+B2
+     FIG.      2 CYLINDER HEAD
+     REF.
+                                                       JU03
+                 PART NO.          DESCRIPTION                 REMARKS
+     NO.
+      1 JT0–11111–00        HEAD, CYLINDER 1            1
+
+      2 JN6–11133–10        .GUIDE, VALVE 1             2
+
+      3 JT0–11181–00        GASKET, CYLINDER HEAD 1     1
+
+      4 95817–10070         BOLT, FLANGE                4
+
+      5 99530–14016         PIN, DOWEL                  2
+
+      6 95627–08618         BOLT, STUD                  2
+
+      7 94702–00348         PLUG, SPARK (NGK-BPR2ES)    1     STD
+
+            94702–00343     PLUG, SPARK (NGK BP4ES)     1     AP
+
+      8 JN6–11191–01        COVER, CYLINDER HEAD 1      1
+
+      9 JN6–11116–00        .JOINT, BREATHER            1
+
+     10 JN6–11168–00        COVER, BREATHER             1
+
+     11 JN6–11169–00        GASKET, BREATHER COVER      1
+
+     12 JN6–11193–00        GASKET, HEAD COVER 1        1
+
+     13 95827–06030         BOLT, FLANGE                4
+
+     14 JN6–E1166–00        PIPE, BREATHER 1            1
+
+     15 95607–08710         BOLT, STUD                  2
+
+     16 JR7–11163–00        ELEMENT                     1
+
+     17 90467–13847         CLIP                        2
+
+
+
+
+B3
+     FIG.      3 CRANKSHAFT & PISTON
+     REF.
+                                                           JU03
+                 PART NO.        DESCRIPTION                       REMARKS
+     NO.
+      1 JN6–11400–00        CRANKSHAFT ASSY                 1
+
+      2 JR7–11631–00–A0     PISTON (STD)                    1
+
+            JR7–11635–00    PISTON (0.25MM O/S)             1     AP
+
+            JR7–11636–00    PISTON (0.50MM O/S)             1     AP
+
+      3 JR7–11610–00        PISTON RING SET (STD)           1
+
+            JR7–11610–10    PISTON RING SET (0.25MM O/S)    1     AP
+
+            JR7–11610–20    PISTON RING SET (0.50MM O/S)    1     AP
+
+      4 583–11633–00        PIN, PISTON                     1
+
+      5 93450–21053         CIRCLIP                         2
+
+      6 JN6–11650–00        CONNECTING ROD ASSY             1
+
+      7 JN6–11654–00        .BOLT, CONNECTING ROD           2
+
+      8 JN6–11454–00        WEIGHT 1                        1
+
+
+
+
+B4
+     FIG.   4 CAMSHAFT & VALVE
+     REF.
+                                                 JU03
+             PART NO.         DESCRIPTION               REMARKS
+     NO.
+      1 JR7–12170–00    CAMSHAFT ASSY 1           1
+
+      2 JN6–12111–01    VALVE, INTAKE             1
+
+      3 7RH–12121–00    VALVE, EXHAUST            1
+
+      4 JN6–12153–00    LIFTER, VALVE             2
+
+      5 90501–264A9     SPRING, COMPRESSION       2
+
+      6 J38–12117–01    RETAINER, VALVE SPRING    2
+
+      7 J38–12118–00    COTTER, VALVE             2
+
+      8 JN6–12151–00    ARM, VALVE ROCKER         2
+
+      9 22F–12159–00    SCREW, VALVE ADJUSTING    2
+
+     10 90170–05302     NUT                       2
+
+     11 J38–12156–00    SHAFT, ROCKER 2           1
+
+     12 JR7–12154–01    ROD, VALVE PUSH           2
+
+     13 4G0–12119–00    SEAL, VALVE STEM          1
+
+
+
+
+B5
+     FIG.   5 AIR SHROUD & FAN
+     REF.
+                                                    JU03
+             PART NO.        DESCRIPTION                   REMARKS
+     NO.
+      1 JN6–12621–02    CASE, FAN                    1
+
+      2 95807–06020     BOLT, FLANGE                 4
+
+      3 JN6–12616–00    COVER, FAN CASE              1
+
+      4 97707–60520     SCREW, TAPPING               3
+
+      5 JN6–12651–00    AIR SHROUD, CYLINDER 1       1
+
+      6 JR7–12658–00    DAMPER, AIR SHROUD 1         1
+
+      7 JN6–12652–00    AIR SHROUD, CYLINDER 2       1
+
+      8 95807–06020     BOLT, FLANGE                 2
+
+      9 JU0–2179R–00    PLATE, EPA 2 (CALIFORNIA)    1
+
+     10 JN6–E2691–00    DUCT, 1                      1
+
+     11 90269–08813     RIVET                        2
+
+
+
+
+B6
+     FIG.   6 INTAKE
+     REF.
+                                                    JU03
+             PART NO.          DESCRIPTION                 REMARKS
+     NO.
+      1 JN6–13595–00    JOINT                        1
+
+      2 95707–08500     NUT, FLANGE                  2
+
+      3 JN6–13567–00    GASKET                       3
+
+      4 90119–06838     BOLT, WITH WASHER            2
+
+      5 91701–05010     PIN, CLEVIS                  2
+
+      6 90468–10049     CLIP                         2
+
+      7 99001–07600     CIRCLIP                      1
+
+      8 91701–05010     PIN, CLEVIS                  1
+
+      9 90468–10049     CLIP                         1
+
+     10 JU0–E4411–00    CASE, AIR CLEANER 1          1
+
+     11 JU0–E4412–00    CAP, CLEANER CASE 1          1
+
+     12 JU0–E4450–00    ELEMENT ASSY, AIR CLEANER    1
+
+     13 JU0–E445E–00    FILTER 1                     1
+
+     14 JU0–E3586–00    JOINT, CARBURETOR 1          1
+
+     15 5UH–E4424–00    CLIP, CAP FITTING            5
+
+     16 93210–398D6     O-RING                       1
+
+     17 90105–06862     BOLT, FLANGE                 3
+
+     18 JU0–F6331–00    CABLE, STARTER 1             1
+
+     19 JU0–F6312–00    CABLE, THROTTLE 2            1
+
+     20 JU0–F6333–00    NUT                          1
+
+
+
+
+B7
+     FIG.     7 CARBURETOR
+     REF.
+                                                         JU03
+                 PART NO.             DESCRIPTION                REMARKS
+     NO.
+      1 JR6–14101–00          CARBURETOR ASSY 1           1
+
+      2 98507–05008           .SCREW, PAN HEAD            2
+
+      3 92990–05100           .WASHER, SPRING             2
+
+      4 JN6–14291–00          .BRACKET 1                  1
+
+      5 J10–14227–00          .PLATE                      1
+
+      6 7NJ–14211–00          .SCREW, PILOT ADJUSTING     1
+
+      7 73A–14212–10          .SPRING                     1
+
+      8 732–14142–65–A0       .JET, PILOT (# 65)          1
+
+      9 JN6–1495H–3B          .NOZZLE, MAIN               1
+
+     10 73A–1414G–00          .PIPE, MAIN BREED           1
+
+     11 3G2–1423A–68–A0       .JET, MAIN (# 87.5)         1     STD
+
+            3G2–1423A–67      .JET, MAIN (# 82.5)         1     AP
+
+            3G2–1423E–33–A0   .JET, MAIN (#83.8)          1     AP
+
+     12 796–14184–00          .GASKET, FLOAT CHAMBER      1
+
+     13 JN6–14185–00          .FLOAT                      1
+
+     14 127–14198–00          .GASKET                     1
+
+     15 7R1–14162–00          .BOLT, HOLDING              1
+
+     16 JN5–14150–00          .NEEDLE ASSY (WITH CLIP)    1
+
+     17 22F–14186–00          .PIN, FLOAT                 1
+
+     18 1WG–14922–00          .SCREW, THROTTLE            1
+
+     19 73A–14212–10          .SPRING                     1
+
+     20 98507–04010           .SCREW, PAN HEAD            1
+
+     21 92902–04100           .WASHER, SPRING             1
+
+     22 7E1–14191–00          .PLUG, DRAIN                1
+
+     23 73A–14212–00          .SPRING                     1
+
+     24 7LV–14118–00          .CAP                        1
+
+     25 1KT–14197–01          .PIPE                       1
+
+
+
+
+B8
+     FIG.   8 EXHAUST
+     REF.
+                                            JU03
+             PART NO.         DESCRIPTION          REMARKS
+     NO.
+      1 JU0–E4710–10    MUFFLER ASSY 1       1
+
+      2 7KY–14613–01    GASKET, EXHAUST 1    1
+
+      3 90179–08879     NUT                  2
+
+      4 90185–08841     NUT, SELF-LOCKING    1
+
+      5 JU0–F1436–00    BRKT., MUFF. 2       1
+
+      6 90119–08825     BOLT, WITH WASHER    1
+
+
+
+
+B9
+      FIG.   9 CRANKCASE
+      REF.
+                                                     JU03
+              PART NO.        DESCRIPTION                   REMARKS
+      NO.
+       1 JR7–15100–00    CRANKCASE ASSY               1
+
+       2 JN6–15155–00    .NOZZLE 3                    1
+
+       3 JR7–15407–00    ELEMENT 1                    1
+
+       4 JR7–15123–00    PLATE, BUFFLE 1              1
+
+       5 90159–06107     SCREW, WITH WASHER           1
+
+       6 93306–30709     BEARING                      1
+
+       7 93102–35014     OIL SEAL                     1
+
+       8 93306–20201     BEARING                      1
+
+       9 90340–12097     PLUG, STRAIGHT SCREW         1
+
+      10 812–11198–00    GASKET                       1
+
+      11 99530–08016     PIN, DOWEL                   2
+
+      12 JN6–15411–01    COVER, CRANKCASE 1           1
+
+      13 93306–20714     BEARING                      1
+
+      14 93102–35014     OIL SEAL                     1
+
+      15 93306–20201     BEARING                      1
+
+      16 JN6–15451–02    GASKET, CRANKCASE COVER 1    1
+
+      17 95817–08045     BOLT, FLANGE                 6
+
+      18 95817–10050     BOLT, FLANGE                 2
+
+      19 796–15363–01    PLUG, OIL                    1
+
+      20 93210–22344     O-RING                       1
+
+      21 J38–15361–00    GAUGE, LEVEL                 1
+
+
+
+
+B10
+      FIG. 10 ENGINE BRACKET
+      REF.
+                                                   JU03
+              PART NO.       DESCRIPTION                  REMARKS
+      NO.
+       1 9560P–10200     NUT, FLANGE                4
+
+       2 9290P–10200     WASHER                     4
+
+       3 JT0–21481–00    BOLT, ENGINE MOUNTING 1    4
+
+
+
+
+B11
+      FIG. 11 REAR ARM & SUSPENSION
+      REF.
+                                                     JU03
+              PART NO.         DESCRIPTION                  REMARKS
+      NO.
+       1 JU0–F2110–10    REAR ARM COMP.               1
+
+       2 JN6–F2123–10    BUSH 1                       1
+
+       3 90105–13864     BOLT, FLANGE                 1
+
+       4 90179–13878     NUT                          1
+
+       5 9751P–10620     BOLT, WITH WASHER            2
+
+       6 JN6–F217G–00    ROD, CONNECTING 2            1
+
+       7 JN6–F2124–10    BUSH 2                       2
+
+       8 9581P–12065     BOLT, FLANGE                 2
+
+       9 9560P–12200     NUT, FLANGE                  2
+
+      10 90201–128S4     WASHER, PLATE                2
+
+      11 JN4–F2210–00    SHOCK ABSORBER ASSY, REAR    2
+
+      12 95807–10055     BOLT, FLANGE                 4
+
+      13 95607–10200     NUT, U FLANGE                4
+
+
+
+
+B12
+      FIG. 12 FRAME
+      REF.
+                                                   JU03
+              PART NO.       DESCRIPTION                   REMARKS
+      NO.
+       1 JU0–F2501–00    FRAME COMP.                1
+
+       2 JU0–F254R–00    SUPPORT, BODY MOUNTING     1
+
+       3 95807–08016     BOLT, FLANGE               2
+
+       4 90480–25856     GROMMET                    1
+
+       5 JU0–F2567–00    SUPPORT 1                  1
+
+       6 JU0–K834A–00    REINF.,HOLDER              2     FOR SUN ROOF
+
+       7 JN3–K832F–00    GROMMET, ROOF SUPPORT 1    2     FOR SUN ROOF
+
+       8 90201–11800     WASHER, PLATE              2     FOR SUN ROOF
+
+
+
+
+B13
+      FIG. 13 FRONT SUSPENSION & WHEEL
+      REF.
+                                                 JU03
+              PART NO.         DESCRIPTION              REMARKS
+      NO.
+       1 JU0–F3570–20    FRONT LOWER ARM COMP.    2
+
+       2 90381–18001     .BUSH, SOLID             2
+
+       3 2HR–23526–00    .BUSH                    2
+
+       4 JU0–F3511–00    KNUCKLE, STEERING 1      1
+
+       5 JU0–F3512–02    ARM, KNUCKLE 1           2
+
+       6 90105–10728     BOLT, FLANGE             4
+
+       7 95607–10200     NUT, U FLANGE           12
+
+       8 91401–25020     PIN, COTTER              8
+
+       9 90105–10064     BOLT, FLANGE             2
+
+      10 2NL–23448–00    SPACER                   2
+
+      11 90381–17067     BUSH, SOLID              4
+
+      12 2NL–23517–00    COVER, THRUST 1          4
+
+      13 JU0–F3521–00    KNUCKLE, STEERING 2      1
+
+      14 90105–10890     BOLT, FLANGE             4
+
+      15 JU0–F3350–20    SHOCK ABSORBER ASSY      1
+
+      16 90387–12016     COLLAR                   1
+
+      17 401–22128–01    COVER, THRUST 1          4
+
+      18 95817–12080     BOLT, FLANGE             2
+
+      19 9561P–12100     NUT                      2
+
+      20 JU0–F3390–20    SHOCK ABSORBER ASSY 2    1
+
+      21 95807–10065     BOLT, FLANGE             2
+
+      22 JG5–WF511–10    HUB, FRONT               2
+
+      23 90114–12800     .BOLT, SERRATION         4
+
+      24 93306–204X0     BEARING                  2
+
+      25 93306–005Y3     BEARING                  2
+
+      26 90387–241M7     COLLAR                   2
+
+      27 93102–30083     OIL SEAL                 2
+
+
+
+
+B14
+      FIG. 13 FRONT SUSPENSION & WHEEL
+      REF.
+                                                          JU03
+                  PART NO.         DESCRIPTION                    REMARKS
+      NO.
+      28 90209–32832         WASHER                        2
+
+      29 95607–14100         NUT, U                        2
+
+      30 JN6–F5118–00        COVER, HUB DUST               2
+
+      31 90179–12262         NUT                           8
+
+      32 JN6–F5100–11        WHEEL ASSY (18X8.5-8 4PLY)    2     UR KENDA
+
+             JU0–F5100–00    WHEEL ASSY (18X8.5-8 4PLY)    2     UR MAXXIS PRORIDE
+
+             JN6–F5100–30    WHEEL ASSY (18X8.5-8 4PLY)    2     UR KENDA FOR PURW
+
+
+
+
+B15
+     FIG. 14 STEERING
+     REF.
+                                               JU03
+             PART NO.           DESCRIPTION           REMARKS
+     NO.
+      1 JU0–F3811–00    COLUMN, STEERING        1
+
+      2 9581P–08016     BOLT, FLANGE            4
+
+      3 JU0–F3857–10    HOLDER                  1
+
+      4 JU0–F3828–00    ROD, STEERING           1
+
+      5 JN3–F3814–00    HOLDER, HANDLE UPPER    1
+
+      6 JN3–F3838–00    WHEEL, STEERING         1
+
+      7 90185–12061     NUT, SELF-LOCKING       1
+
+      8 9290P–12200     WASHER                  1
+
+      9 95607–12200     NUT, SELF-LOCKING       2
+
+     10 91401–25020     PIN, COTTER             2
+
+     11 JU0–F3400–00    STEERING ASSY           1
+
+     12 JU0–F3848–00    .BOOT                   2
+
+     13 JU0–F1338–00    .CLAMP                  2
+
+     14 JU0–F3833–00    .NUT 1                  2
+
+     15 JU0–F3837–00    .ROD, TIE 2             2
+
+     16 JU0–F387E–00    .GEAR, RACK             1
+
+     17 JU0–F3834–00    .NUT 2                  1
+
+     18 JU0–F387G–00    .COVER, ADJUST          1
+
+     19 JU0–F387K–00    .SPRING, PRESSURE       1
+
+     20 JU0–F387F–00    .PAD, PRESSURE          1
+
+     21 JU0–F3844–00    .SEAL                   1
+
+     22 JU0–F387J–00    .RING, STOPPER          1
+
+     23 JU0–F339Y–00    .BEARING                1
+
+     24 JU0–F3183–00    .CIRCLIP                1
+
+     25 JU0–F387A–00    .GEAR,PINION            1
+
+     26 JU0–F620A–00    .HOUSING COMP.          1
+
+     27 JU0–F582M–00    ..BEARING               1
+
+
+
+
+C2
+     FIG. 14 STEERING
+     REF.
+                                                     JU03
+                 PART NO.          DESCRIPTION               REMARKS
+     NO.
+     28 JU0–F3841–00        JOINT, UNIVERSAL 1        2
+
+     29 90105–10810         BOLT, FLANGE              4
+
+     30 JU0–F3822–00        JOINT 1                   1
+
+     31 97017–08030         BOLT                      2
+
+     32 92907–08600         WASHER, PLATE             2
+
+     33 JN3–K8357–00        HOLDER 1                  1
+
+     34 JN6–K8358–01        HOLDER 2                  1
+
+     35 97707–40525         SCREW, TAPPING            2
+
+     36 90201–048R5         WASHER, PLATE             2
+
+     37 90502–10013         SPRING, CONICAL           2
+
+     38 90387–046N7         COLLAR                    2
+
+     39 JU0–K7762–00        LABEL, WARNING 2 (E)      1     FOR USA,CAN,JPN
+
+            JU0–K7762–10    LABEL, WARNING 2 (E,F)    1     FOR OTHERS
+
+            JU0–K7762–20    LABEL, WARNING 2 (G,S)    1     FOR OTHERS
+
+
+
+
+C3
+     FIG. 15 FUEL TANK
+     REF.
+                                             JU03
+             PART NO.          DESCRIPTION          REMARKS
+     NO.
+      1 JU0–F4111–01    TANK, FUEL            1
+
+      2 JU0–F4300–10    .FUEL PIPE JOINT      1
+
+      3 JU5–F4375–00    .GROMMET              1
+
+      4 JN6–F4610–00    CAP ASSY              1
+
+      5 90105–08878     BOLT, FLANGE          2
+
+      6 90560–08251     SPACER                2
+
+      7 90201–088S2     WASHER, PLATE         2
+
+      8 JN6–F4410–11    FUEL PUMP ASSY        1
+
+      9 JN6–F3394–00    BOLT, SPECIAL         2
+
+     10 JN6–F4312–30    PIPE 2                1
+
+     11 JN6–F4560–00    FILTER ASSY           1
+
+     12 JN6–F4311–30    PIPE, FUEL 1          1
+
+     13 JN6–F4313–30    PIPE 3                1
+
+     14 JN6–F4314–21    PIPE 4                1
+
+     15 90467–12845     CLIP                  2
+
+     16 90467–10846     CLIP                  4
+
+     17 90467–11090     CLIP                  2
+
+     18 90464–11816     CLAMP                 1
+
+     19 90464–12836     CLAMP                 1
+
+
+
+
+C4
+     FIG. 16 BRAKE
+     REF.
+                                                JU03
+             PART NO.          DESCRIPTION             REMARKS
+     NO.
+      1 J46–27250–03    BRAKE ARM COMP.          1
+
+      2 90384–14080     .BUSH, BIMETAL FORMED    2
+
+      3 JU0–27211–01    PEDAL, BRAKE             1
+
+      4 JU0–25671–00    PEDAL, PARKING BRAKE     1
+
+      5 90387–08014     COLLAR                   1
+
+      6 90387–08013     COLLAR                   1
+
+      7 97027–06035     BOLT                     1
+
+      8 90179–07564     NUT                      1
+
+      9 97027–08100     BOLT                     1
+
+     10 95307–08600     NUT                      1
+
+     11 92907–08200     WASHER                   1
+
+     12 J17–25666–02    SECTOR, PARKING BRAKE    1
+
+     13 90384–10162     BUSH, BIMETAL FORMED     1
+
+     14 J17–27221–00    SEAL, SHAFT              2
+
+     15 92907–10600     WASHER, PLATE            1
+
+     16 99001–07600     CIRCLIP                  1
+
+     17 90508–14548     SPRING, TORSION          1
+
+     18 J17–25672–01    PAD, PARKING PEDAL       1
+
+     19 J17–27231–03    ROD, BRAKE               1
+
+     20 J17–27232–00    END, ROD 2               1
+
+     21 95307–06700     NUT                      2
+
+     22 90506–09001     SPRING, TENSION          1
+
+     23 J17–25673–00    DAMPER, BRAKE            1
+
+     24 J17–27228–00    PIN, JOINT               1
+
+     25 92907–05600     WASHER, PLATE            1
+
+     26 99002–04600     CIRCLIP                  1
+
+     27 90387–12009     COLLAR                   3
+
+
+
+
+C5
+     FIG. 16 BRAKE
+     REF.
+                                             JU03
+             PART NO.          DESCRIPTION          REMARKS
+     NO.
+     28 90508–32015     SPRING, TORSION       1
+
+     29 90201–104G8     WASHER, PLATE         2
+
+     30 JN3–F7245–00    PAD, BRAKE PEDAL      1
+
+     31 90508–40007     SPRING, TORSION       1
+
+     32 90101–10884     BOLT                  1
+
+     33 95607–10200     NUT, U FLANGE         1
+
+     34 J55–2252M–00    BRACKET, 3            1
+
+     35 J17–27246–00    NAIL, BRAKE           1
+
+     36 90105–08878     BOLT, FLANGE          2
+
+     37 J17–25673–00    DAMPER, BRAKE         1
+
+     38 90387–107F8     COLLAR                1
+
+     39 JN6–F5685–00    ROD                   1
+
+     40 93210–132A8     O-RING                2
+
+     41 91701–10022     PIN, CLEVIS           1
+
+     42 91490–30015     PIN, COTTER           1
+
+     43 JN6–F5681–00    EQUALIZER, BRAKE      1
+
+     44 90249–14129     PIN                   1
+
+     45 90179–08894     NUT                   1
+
+     46 95307–08700     NUT                   1
+
+     47 JU0–F6341–10    CABLE, BRAKE          1
+
+     48 JU0–F6351–10    CABLE, BRAKE          1
+
+     49 99001–09600     CIRCLIP               4
+
+     50 91701–08018     PIN, CLEVIS           2
+
+     51 91701–08026     PIN, CLEVIS           2
+
+     52 91490–25015     PIN, COTTER           4
+
+     53 90464–19815     CLAMP                 1
+
+
+
+
+C6
+     FIG. 17 BRAKE 2
+     REF.
+                                                JU03
+             PART NO.        DESCRIPTION                REMARKS
+     NO.
+      1 JN6–F7290–03    BACKING PLATE ASSY 2     1     (L.H)
+
+      2 JN6–F5331–01    .SHOE, BRAKE 1            1
+
+      3 JN6–F819G–00    .REPAIR PARTS KIT        1
+
+      4 JN6–F7286–00    .COVER, DUST             1
+
+      5 JN6–F722E–00    .LEVER, ADJUSTOR (LH)    1
+
+
+
+
+C7
+     FIG. 18 BRAKE 3
+     REF.
+                                                JU03
+             PART NO.        DESCRIPTION                REMARKS
+     NO.
+      1 JN6–F7280–03    BACKING PLATE ASSY 1     1     (R.H)
+
+      2 JN6–F5341–01    .SHOE, BRAKE 2            1
+
+      3 JN6–F819G–00    .REPAIR PARTS KIT        1
+
+      4 JN6–F7286–00    .COVER, DUST             1
+
+      5 JN6–F722F–00    .LEVER, ADJUSTOR (RH)    1
+
+
+
+
+C8
+     FIG. 19 ACCELERATOR
+     REF.
+                                                     JU03
+             PART NO.          DESCRIPTION                  REMARKS
+     NO.
+      1 JN6–F7874–01    BRACKET, ACCELERATOR PEDAL    1
+
+      2 J17–27853–01    SHAFT, PEDAL 1                1
+
+      3 J38–27872–00    ARM, ACCELERATOR PEDAL        1
+
+      4 91609–60028     PIN, SPRING                   1
+
+      5 91609–35028     PIN, SPRING                   1
+
+      6 J10–27871–01    PEDAL, ACCELERATOR            1
+
+      7 95807–06025     BOLT, FLANGE                  1
+
+      8 90106–08806     BOLT                          1
+
+      9 95707–08500     NUT, FLANGE                   1
+
+     10 90384–14080     BUSH, BIMETAL FORMED          2
+
+     11 93210–14104     O-RING                        4
+
+     12 90105–08878     BOLT, FLANGE                  3
+
+     13 90506–26282     SPRING, TENSION               1
+
+     14 JU0–F6311–00    CABLE, THROTTLE 1             1
+
+     15 91701–05014     PIN, CLEVIS                   1
+
+     16 90468–10049     CLIP                          1
+
+     17 90508–16460     SPRING, TORSION               1
+
+     18 90560–05001     SPACER                        1
+
+     19 95807–06025     BOLT, FLANGE                  1
+
+     20 95707–06500     NUT, FLANGE                   1
+
+     21 90464–40825     CLAMP                         2
+
+     22 90387–068T4     COLLAR                        1
+
+
+
+
+C9
+      FIG. 20 GOVERNOR
+      REF.
+                                                JU03
+              PART NO.          DESCRIPTION            REMARKS
+      NO.
+       1 J38–27951–00    LEVER, SPEED LIMITER    1
+
+       2 95307–06600     NUT                     1
+
+       3 90386–08141     BUSH                    2
+
+       4 90508–40678     SPRING, TORSION         1
+
+       5 J38–27959–00    SCREW, ADJUSTING        1
+
+       6 9560P–06200     NUT, FLANGE             1
+
+
+
+
+C10
+      FIG. 21 PRIMARY SHEAVE
+      REF.
+                                                         JU03
+              PART NO.           DESCRIPTION                    REMARKS
+      NO.
+       1 JN6–G6201–04    PRIMARY FIXED SHEAVE ASSY        1
+
+       2 JN6–G6210–00    .PRIMARY FIXED SHEAVE COMP.      1
+
+       3 JN6–G6220–00    .PRIMARY SLIDING SHEAVE COMP.    1
+
+       4 93101–28831     ..OIL SEAL                       2
+
+       5 90384–27823     ..BUSH, BIMETAL FORMED           2
+
+       6 93700–06810     ..NIPPLE, GREASE                 1
+
+       7 90338–04840     ..PLUG                           3
+
+       8 JN6–G6232–01    .WEIGHT 1                        3
+
+       9 90109–06860     .BOLT                            3
+
+      10 90185–06834     .NUT, SELF-LOCKING               3
+
+      11 JN6–G6251–01    .SPIDER                          1
+
+      12 JN6–G6258–02    .COLLAR, ROLLER                  3
+
+      13 93610–358A3     .PIN, DOWEL                      3
+
+      14 JN6–G6253–00    .SLIDER                          6
+
+      15 JU0–G6231–00    .CAP                             1
+
+      16 JU0–G6297–00    .COVER, DUST                     1
+
+      17 90105–06861     .BOLT, FLANGE                    3
+
+      18 90201–228K5     .WASHER, PLATE                   1
+
+      19 JN6–G621F–00    .SHIM,THRUST                     6
+
+      20 JN6–G6249–00    BOLT                             1
+
+      21 J55–G6241–00    V-BELT                           1
+
+
+
+
+C11
+      FIG. 22 SECONDARY SHEAVE
+      REF.
+                                                          JU03
+              PART NO.        DESCRIPTION                        REMARKS
+      NO.
+       1 JN6–G6260–00    SECONDARY FIXED SHEAVE COMP.      1
+
+       2 JN6–G6270–01    SECONDARY SLIDING SHEAVE COMP.    1
+
+       3 93700–06809     .NIPPLE, GREASE                   1
+
+       4 93109–20069     .OIL SEAL                         2
+
+       5 JN6–G6280–00    SECONDARY SPRING SEAT COMP.       1
+
+       6 JN6–E7688–00    .SHOE, RAMP                       3
+
+       7 90110–04834     .BOLT, HEXAGON SOCKET HEAD        3
+
+       8 90508–45844     SPRING, TORSION                   1
+
+       9 90202–20130     WASHER, PLATE                     1
+
+      10 90280–05022     KEY, WOODRUFF                     1
+
+      11 90201–128S5     WASHER, PLATE                     1
+
+      12 95607–12200     NUT, SELF-LOCKING                 1
+
+
+
+
+C12
+      FIG. 23 TRANSMISSION 1
+      REF.
+                                                     JU03
+              PART NO.           DESCRIPTION                REMARKS
+      NO.
+       1 JU0–G6300–11    TRANS AXLE ASSY              1
+
+       2 JN3–G6313–00    .COVER, TRNSMISSION          1
+
+       3 93102–25868     .OIL SEAL                    1
+
+       4 93306–303Y6     .BEARING                     3
+
+       5 JN6–G6410–00    .DIFFERENTIAL ASSY.          1
+
+       6 93306–005Y4     .BEARING                     1
+
+       7 JN6–G6555–00    .BRACKET 2                   1
+
+       8 90105–08859     .BOLT, FLANGE                7
+
+       9 93306–007Y0     .BEARING                     2
+
+      10 JN3–G633E–01    .BAR 1                       1
+
+      11 91490–25025     .PIN, COTTER                 2
+
+      12 90101–10854     .BOLT                        4
+
+      13 90170–10840     .NUT                         4
+
+      14 90105–10840     .BOLT, FLANGE                4
+
+      15 JU0–F722H–00    .RETAINER                    1
+
+      16 JN3–G6432–00    .STOPPER                     1
+
+      17 JU0–G631A–00    .GSKT., CASE                 1
+
+      18 JU0–F723F–00    .WASHER, SPECIAL             1
+
+      19 90101–08856     .BOLT                       11
+
+      20 JN3–G6314–00    .COVER, TRANSMISSION         1
+
+      21 JN3–G6320–01    .INPUT SHAFT ASSY            1
+
+      22 JN3–G633G–00    .SHAFT                       1
+
+      23 JN3–G6355–00    .GEAR, PRIMARY               1
+
+      24 93101–24822     .OIL SEAL                    2
+
+      25 JN3–G6511–00    .SHAFT, REAR AXLE 1 (L.H)    1
+
+      26 JN3–G6512–00    .SHAFT, REAR AXLE 2 (R.H)    1
+
+      27 93420–44805     .CIRCLIP                     4
+
+
+
+
+C13
+      FIG. 23 TRANSMISSION 1
+      REF.
+                                                   JU03
+              PART NO.           DESCRIPTION               REMARKS
+      NO.
+      28 93306–004X5     .BEARING                   2
+
+      29 JN3–G6514–00    .HUB, REAR AXLE            2
+
+      30 90114–12804     ..BOLT, SERRATION          4
+
+      31 JN3–G6556–00    .BRACKET 3                 1
+
+      32 90185–16833     .NUT, SELF-LOCKING         2
+
+      33 JN6–F7290–03    .BACKING PLATE ASSY 2      1     SEE FIG.17(L.H)
+
+      34 JN6–F7280–03    .BACKING PLATE ASSY 1      1     SEE FIG.18(R.H)
+
+      35 90101–08855     .BOLT                      8
+
+      36 90170–08841     .NUT                       8
+
+      37 90201–178H8     .WASHER, PLATE             2
+
+      38 JN3–G6316–00    .GEAR, PINION 1            1
+
+      39 JN3–G6326–00    .GEAR, WHEEL 1             1
+
+      40 JN3–G6327–00    .GEAR, WHEEL 2             1
+
+      41 JN3–G6356–00    .GEAR, IDLER               1
+
+      42 90201–208H9     .WASHER, PLATE             1
+
+      43 90201–208J0     .WASHER, PLATE             1
+
+      44 93440–20813     .CIRCLIP                   1
+
+      45 JN3–G638A–00    .BAR, SHIFT 1              1
+
+      46 JN6–G638E–00    .BAR, SHIFT 2              1
+
+      47 JU0–G6376–00    .SPRING SET                1
+
+      48 93410–12822     .CIRCLIP                   1
+
+      49 90202–12807     .WASHER, PLATE             1
+
+      50 93104–11829     .OIL SEAL                  1
+
+      51 93109–10820     .OIL SEAL                  1
+
+      52 JN3–G6153–00    .COLLAR, GUIDE             1
+
+      53 93606–10842     .PIN, DOWEL                2
+
+      54 JN3–G6344–00    .SHIM, 0.76MM (0.030IN)    1     UR
+
+
+
+
+C14
+      FIG. 23 TRANSMISSION 1
+      REF.
+                                                       JU03
+                  PART NO.          DESCRIPTION                REMARKS
+      NO.
+      54 JN3–G6344–10        .SHIM, 0.90MM (0.035IN)    1     UR
+
+             JN3–G6344–20    .SHIM, 1.00MM (0.040IN)    1     UR
+
+             JN3–G6344–30    .SHIM, 1.14MM (0.045IN)    1     UR
+
+             JN3–G6344–40    .SHIM, 1.27MM (0.050IN)    1     UR
+
+             JN3–G6344–50    .SHIM, 1.39MM (0.055IN)    1     UR
+
+             JN3–G6344–60    .SHIM, 1.52MM (0.060IN)    1     UR
+
+             JN3–G6344–70    .SHIM, 1.65MM (0.065IN)    1     UR
+
+             JN3–G6344–80    .SHIM, 0.38MM (0.015IN)    1     UR
+
+             JN3–G6344–90    .SHIM, 1.78MM (0.070IN)    1     UR
+
+             JN3–G6344–A0    .SHIM, 1.92MM (0.075IN)    1     UR
+
+             JN3–G6344–B0    .SHIM, 2.03MM (0.080IN)    1     UR
+
+             JN3–G6344–C0    .SHIM, 2.12MM (0.085IN)    1     UR
+
+             JN3–G6344–D0    .SHIM, 2.29MM (0.090IN)    1     UR
+
+      55 JN3–G6319–00        .GASKET                    1
+
+      56 JU0–G6290–00        .CASEASSY                  1
+
+      57 JU0–G6164–00        .BEARING 1                 1
+
+      58 JH7–G5619–00        .CAP                       1
+
+      59 93410–25017         CIRCLIP                    1
+
+
+
+
+C15
+     FIG. 24 REAR AXLE MOUNT & WHEEL
+     REF.
+                                                         JU03
+                 PART NO.         DESCRIPTION                    REMARKS
+     NO.
+      1 JN6–F5100–11        WHEEL ASSY (18X8.5-8 4PLY)    2     UR KENDA
+
+            JU0–F5100–00    WHEEL ASSY (18X8.5-8 4PLY)    2     UR MAXXIS PRORIDE
+
+            JN6–F5100–30    WHEEL ASSY (18X8.5-8 4PLY)    2     UR KENDA FOR PURW
+
+      2 90179–12262         NUT                           8
+
+      3 JU0–G6521–00        DRUM                          2
+
+      4 JN6–F5118–00        COVER, HUB DUST               2
+
+      5 9581P–08075         BOLT, FLANGE                  1
+
+      6 95707–08500         NUT, FLANGE                   1
+
+      7 9751P–10620         BOLT, WITH WASHER             8
+
+
+
+
+D2
+     FIG. 25 SHIFTER & CABLES
+     REF.
+                                              JU03
+             PART NO.        DESCRIPTION             REMARKS
+     NO.
+      1 95607–08100     NUT, U                 1
+
+      2 JN3–G8330–00    CABLE END ASSY         1
+
+      3 J55–G6383–00    .LEVER, SHIFT 2        1
+
+      4 JN3–G6371–00    .WIRE, SHIFT           2
+
+      5 JF2–46382–00    LEVER, SHIFT 1         1
+
+      6 91701–06014     PIN, CLEVIS            2
+
+      7 9290P–06600     WASHER                 2
+
+      8 91401–20012     PIN, COTTER            2
+
+      9 JN3–G6381–00    KNOB, SHIFT            1
+
+     10 JN3–G6376–00    SPRING SET             1
+
+     11 90201–208S8     WASHER, PLATE          1
+
+     12 90201–198S7     WASHER, PLATE          1
+
+     13 99009–19400     CIRCLIP                1
+
+     14 98507–04016     SCREW, PAN HEAD        2
+
+     15 92907–04100     WASHER, SPRING         2
+
+     16 92907–04600     WASHER                 2
+
+     17 JN3–G6372–00    BRACKET, SHIFT WIRE    1
+
+     18 90105–06876     BOLT, FLANGE           4
+
+     19 JN3–82617–01    SWITCH                 1
+
+     20 90465–06038     CLAMP                  1
+
+     21 90464–19815     CLAMP                  1
+
+
+
+
+D3
+     FIG. 26 BUMPER
+     REF.
+                                             JU03
+             PART NO.       DESCRIPTION             REMARKS
+     NO.
+      1 JN3–K7510–10    FRONT BUMPER COMP.    1
+
+      2 JU0–K8164–00    STAY, FRONT BUMPER    2
+
+      3 90105–06876     BOLT, FLANGE          8
+
+      4 9581P–08012     BOLT, FLANGE          2
+
+      5 JN6–K7540–10    REAR BUMPER COMP.     1
+
+      6 JN3–K8174–00    STAY, REAR BUMPER     2
+
+      7 90105–10881     BOLT, FLANGE          2
+
+
+
+
+D4
+     FIG. 27 BODY
+     REF.
+                                                     JU03
+                 PART NO.        DESCRIPTION                 REMARKS
+     NO.
+      1 JU0–K8115–00        COWL, FRONT               1     UR FOR VPYS2
+
+            JU0–K8115–30    COWL, FRONT               1     UR FOR HTR
+
+            JU0–K8115–50    COWL, FRONT               1     UR FOR VDGS1
+
+            JU0–K8115–60    COWL, FRONT               1     UR FOR DRMG
+
+            JU0–K8115–80    COWL, FRONT               1     UR FOR DPBMT
+
+            JU0–K8115–90    COWL, FRONT               1     UR FOR PURW
+
+      2 JU0–F4161–00        EMBLEM 1                  1
+
+      3 JU0–K7573–00        NUT, SPECIAL              2
+
+      4 JF2–K811V–00        PROTECTOR 1               1
+
+      5 JU0–K8261–00        PLATE, BODY PROTECT 1     2
+
+      6 90201–06829         WASHER, PLATE            10
+
+      7 JF2–K8262–01        PLATE, BODY PROTECT 2     1
+
+      8 JF2–K8263–01        PLATE, BODY PRTOTECT 3    1
+
+      9 90185–06836         NUT, SELF-LOCKING        10
+
+     10 JN6–K8264–10        PLATE, BODY PROTECT 4     1
+
+     11 9560P–06200         NUT, FLANGE               4
+
+     12 JN6–K8265–10        PLATE, BODY PROTECT 5     1
+
+     13 JN3–K8273–10        COVER, HOLE               1
+
+     14 JF2–K8114–03        PANEL, FRONT              1
+
+     15 90269–08066         RIVET                     3
+
+     16 JN3–K815G–00        SEAL, FRONT STORAGE       1
+
+     17 JN3–K7768–01        LABEL, WARNING 8 (E)      1     FOR USA,CAN,JPN
+
+            JN3–K7768–11    LABEL, WARNING 8 (E,F)    1     FOR OTHERS
+
+            JN3–K7768–21    LABEL, WARNING 8 (G,S)    1     FOR OTHERS
+
+     18 JN6–K835E–00        HOLDER, BEVERAGE          1
+
+     19 JN3–K835G–00        HOUSING, HOLDER           1
+
+     20 9770P–60130         SCREW, TAPPING            6
+
+
+
+
+D5
+     FIG. 27 BODY
+     REF.
+                                           JU03
+             PART NO.        DESCRIPTION          REMARKS
+     NO.
+     21 JN6–K8182–00    PLATE 2             1
+
+     22 90267–63047     RIVET, BLIND        2
+
+
+
+
+D6
+     FIG. 28 BODY 2
+     REF.
+                                                        JU03
+                 PART NO.          DESCRIPTION                  REMARKS
+     NO.
+      1 JN6–K8142–02        PANEL, REAR BODY             1     UR FOR VPYS2
+
+            JU0–K8142–32    PANEL, REAR BODY             1     UR FOR HTR
+
+            JN6–K8142–52    PANEL, REAR BODY             1     UR FOR VDGS1
+
+            JU0–K8142–62    PANEL, REAR BODY             1     UR FOR DRMG
+
+            JU0–K8142–82    PANEL, REAR BODY             1     UR FOR DPBMT
+
+            JU0–K8142–90    PANEL, REAR BODY             1     UR FOR PURW
+
+      2 90110–06837         BOLT, HEXAGON SOCKET HEAD    2
+
+      3 90183–06811         NUT, SPRING                  2
+
+      4 JN6–K824E–00        TRIM, REAR BODY 1            1
+
+      5 90201–068H0         WASHER, PLATE                2
+
+      6 JN3–K8363–00        PROTECTOR                    2
+
+      7 JN3–K7741–00        INDICATOR 1                  1
+
+      8 JN3–K8425–00        SEAL, SEAT                   2
+
+      9 JN3–K842A–00        SEAL, SEAT 2                 2
+
+     10 90338–05834         PLUG                        20
+
+     11 JN3–K8243–10        MAT, REAR BODY SIDE (LH)     1
+
+     12 JN3–K8244–10        MAT, REAR BODY SIDE (RH)     1
+
+     13 90269–07810         RIVET                       10
+
+     14 JF2–K8237–00        COVER, REAR FLOOR            1
+
+     15 90269–08813         RIVET                        7
+
+     16 90101–06876         BOLT                         2
+
+     17 90201–068G7         WASHER, PLATE                4
+
+     18 9572R–06300         NUT, NYLON                   2
+
+     19 JU0–K8151–00        PANEL, INSPECTION LID 1      1
+
+     20 90269–06804         RIVET                        2
+
+     21 JN6–K8232–01        MAT, MAIN FLOOR 2            1
+
+     22 90269–08813         RIVET                        4
+
+
+
+
+D7
+     FIG. 28 BODY 2
+     REF.
+                                            JU03
+             PART NO.        DESCRIPTION            REMARKS
+     NO.
+     23 90267–63047     RIVET, BLIND         9
+
+     24 JN3–K8297–10    PLATE, CAUTION 1     1
+
+     25 JN3–K8299–10    PLATE, CAUTION       1
+
+     26 JN6–K8233–01    MAT, MAIN FLOOR 3    1
+
+     27 JN6–K8231–01    MAT, MAIN FLOOR 1    1
+
+     28 JU0–K8251–00    PAD, SILENCER 1      1
+
+     29 JU0–K8252–00    PAD, SILENCER 2      1
+
+     30 JN6–H2377–00    LABEL                1     FOR CANADA
+
+     31 JU0–F1781–00    EMBLEM 1             1     FOR PURW
+
+
+
+
+D8
+     FIG. 29 BODY FITTING
+     REF.
+                                                   JU03
+             PART NO.          DESCRIPTION                REMARKS
+     NO.
+      1 JN6–K8271–00    SERVICE LID, PEDAL          1
+
+      2 JU0–K818A–00    PROTECTOR, SIDE PLATE       1
+
+      3 JU0–K818B–00    PROTECTOR, SIDE PLATE 2     1
+
+      4 JF2–K8215–10    PLATE, SIDE TRIM            1
+
+      5 JF2–K821F–10    PLATE, SIDE TRIM            1
+
+      6 90338–05829     PLUG                        4
+
+      7 90267–48831     RIVET, BLIND                8
+
+      8 90267–48154     RIVET, BLIND                6
+
+      9 90267–48086     RIVET, BLIND                4
+
+     10 JF2–K8191–01    PANEL, REAR FENDER 1        1
+
+     11 JF2–K8192–01    PANEL, REAR FENDER 2        1
+
+     12 JF2–K8187–00    FLAP, FRONT FENDER (L.H)    1
+
+     13 JF2–K8189–00    FLAP, FRONT FENDER (R.H)    1
+
+
+
+
+D9
+      FIG. 30 CARRIER
+      REF.
+                                                    JU03
+              PART NO.          DESCRIPTION                REMARKS
+      NO.
+       1 JF2–K8356–00    PAD, BAG SUPPORT            1
+
+       2 JN6–K8355–00    BAND                        1
+
+       3 J38–78367–00    PLATE, ANCHOR               1
+
+       4 90101–06865     BOLT                        1
+
+       5 90185–06836     NUT, SELF-LOCKING           1
+
+       6 JN6–K8380–00    LOCK ASSY                   2
+
+       7 90159–06845     SCREW, WITH WASHER          4
+
+       8 9299R–06200     WASHER                      4
+
+       9 JN6–K8340–00    LUGGAGE RACK ASSY., REAR    1
+
+      10 90111–08803     BOLT,HEX. SOCKET BUTTON     4
+
+      11 90201–088R9     WASHER, PLATE               8
+
+      12 90185–08832     NUT, SELF-LOCKING           4
+
+
+
+
+D10
+      FIG. 31 SEAT
+      REF.
+                                                       JU03
+                  PART NO.         DESCRIPTION                 REMARKS
+      NO.
+       1 JN6–K8401–10        SEAT SUB-ASSY,CUSHION      1     UR IVORY WHITE
+
+             JU0–K8401–00    SEAT SUB-ASSY,CUSHION      1     UR MILKY BROWN
+
+       2 JN6–K8404–10        .COVER,SEAT                1     UR IVORY WHITE
+
+             JU0–K8404–00    .COVER,SEAT                1     UR MILKY BROWN
+
+       3 JF2–K8427–00        HINGE, SEAT 2              2
+
+       4 90105–06903         BOLT, FLANGE               4
+
+       5 JN3–K8426–01        HINGE, SEAT 1              2
+
+       6 90111–06810         BOLT,HEX. SOCKET BUTTON    4
+
+       7 90204–06807         WASHER, SPRING             4
+
+       8 JN6–K8361–00        ARM REST 1                 1
+
+       9 JU0–K8362–00        ARM REST 2                 1
+
+      10 90167–04815         SCREW, TAPPING             4
+
+      11 9560P–08200         NUT                       12
+
+      12 JN6–K8121–00        REINFORCEMENT 1            2
+
+      13 JN6–K8122–02        REINFORCEMENT 2            2
+
+      14 JN3–K8402–00        SEAT SUB ASSY, BACK        2     UR IVORY WHITE
+
+             JU0–K8402–00    SEAT SUB ASSY, BACK        2     UR MILKY BROWN
+
+      15 JN3–K841G–09        .COVER, SEAT BACK 2        1     UR IVORY WHITE
+
+             JU0–K841G–09    .COVER, SEAT BACK 2        1     UR MILKY BROWN
+
+      16 JN3–K8413–00        COVER, SEAT BACK           2
+
+      17 90119–08820         BOLT, WITH WASHER          4
+
+      18 90201–098J4         WASHER, PLATE              4
+
+      19 90201–068G0         WASHER, PLATE              4
+
+      20 95880–06025         BOLT, FLANGE               4
+
+      21 90201–068G6         WASHER, PLATE              4
+
+      22 JU0–K8423–00        SUPPORT, SEAT BACK         1
+
+      23 JN3–K842H–00        RETAINER, SEAT             2
+
+
+
+
+D11
+      FIG. 31 SEAT
+      REF.
+                                              JU03
+              PART NO.          DESCRIPTION          REMARKS
+      NO.
+      24 90105–08871     BOLT, FLANGE          4
+
+      25 90338–09828     PLUG                  2
+
+
+
+
+D12
+      FIG. 32 STARTING MOTOR
+      REF.
+                                                         JU03
+              PART NO.           DESCRIPTION                     REMARKS
+      NO.
+       1 JN6–H1100–03    STARTER GENERATOR ASSY           1
+
+       2 JN3–H1150–00    .ARMATURE ASSY                   1
+
+       3 93306–20226     ..BEARING                        1     KOYO
+
+       4 93306–30317     ..BEARING                        1
+
+       5 J10–81159–10    ..HOLDER, BEARING                1
+
+       6 JN6–H1110–10    .STATOR ASSY                     1
+
+       7 JN6–H1160–10    ..FIELD COIL ASSY                1
+
+       8 J10–81148–10    ..SCREW SET 4                    2
+
+       9 9530N–06600     ...NUT                           2
+
+      10 9290N–06600     ...WASHER                        1
+
+      11 9290N–06100     ...WASHER, SPRING                2
+
+      12 J10–81146–10    ..SCREW 2                        4
+
+      13 JN6–H1165–00    .BRACKET, STARTER GENERATOR 1    1
+
+      14 J10–81166–10    .BRACKET, STARTER GENERATOR 2    1
+
+      15 J10–81147–10    .SCREW SET 3                     2
+
+      16 9530N–06600     ..NUT                            2
+
+      17 9290N–06600     ..WASHER                         1
+
+      18 9290N–06100     ..WASHER, SPRING                 2
+
+      19 JN6–H1119–00    .BRUSH HOLDER ASSY               1
+
+      20 JF2–H1111–00    ..BRUSH                          4
+
+      21 JN6–H1113–00    ..SPRING, BRUSH                  4
+
+      22 J10–H1115–10    ..WIRE, LEAD                     2
+
+      23 9850N–05016     ..SCREW, PAN HEAD                2
+
+      24 9850N–04010     ..SCREW, PAN HEAD                4
+
+      25 J10–81129–10    .COVER, BRUSH                    3
+
+      26 J10–H1139–10    .COVER, BRUSH 2                  1
+
+      27 J10–81145–10    .SCREW 1                         2
+
+
+
+
+D13
+      FIG. 32 STARTING MOTOR
+      REF.
+                                                 JU03
+                 PART NO.          DESCRIPTION           REMARKS
+      NO.
+      28 9290N–06600        .WASHER               2
+
+      29 JN3–H1661–00       .SPACER               1
+
+      30 JN6–H1161–00       .PULLEY               1
+
+      31     *              .NUT                  1     LM
+
+      32 9850N–05018        .SCREW, PAN HEAD      3
+
+
+
+
+D14
+      FIG. 33 ELECTRICAL 1
+      REF.
+                                                      JU03
+              PART NO.          DESCRIPTION                  REMARKS
+      NO.
+       1 9581P–12025     BOLT, FLANGE                  2
+
+       2 JN6–H1170–00    TENSIONER ASSY                1
+
+       3 9582P–08020     BOLT, FLANGE                  2
+
+       4 90109–08875     BOLT                          1
+
+       5 95707–08500     NUT, FLANGE                   1
+
+       6 90101–06478     BOLT                          1
+
+       7 95307–06600     NUT                           1
+
+       8 JN6–H1171–10    BRACKET, STARTER GENERATOR    1
+
+       9 9582P–08020     BOLT, FLANGE                  2
+
+      10 JN6–H1173–00    BELT                          1
+
+      11 90464–09823     CLAMP                         1
+
+      12 JR7–85650–00    ROTOR ASSY                    1
+
+      13 JN6–85640–01    T.C.I. UNIT ASSY              1
+
+      14 95827–06025     BOLT, FLANGE                  2
+
+      15 JN6–82318–00    WIRE, SUB-LEAD                1
+
+      16 95307–18600     NUT                           1
+
+      17 90201–18620     WASHER, PLATE                 1
+
+      18 90280–04052     KEY, WOODRUFF                 1
+
+      19 JN6–82370–00    PLUG CAP ASSY                 1
+
+      20 JE8–82372–00    SEAL, PLUG CAP                1
+
+      21 JT0–85720–00    OIL LEVEL GAUGE ASSY          1
+
+      22 95827–06012     BOLT, FLANGE                  4
+
+      23 JT0–85724–00    CLAMP                         1
+
+      24 JT0–15362–00    PLUG, OIL LEVEL               1
+
+      25 93210–15414     O-RING                        1
+
+      26 JT0–8231Y–00    WIRE, LEAD                    1
+
+
+
+
+D15
+     FIG. 34 ELECTRICAL 2
+     REF.
+                                                    JU03
+             PART NO.        DESCRIPTION                    REMARKS
+     NO.
+      1 JN3–H2133–00    SCREW, FITTING               2
+
+      2 J55–H2136–00    PLATE, BATTERY FITTING       1
+
+      3 9290P–06200     WASHER                       2
+
+      4 95707–06500     NUT, FLANGE                  2
+
+      5 JN6–H2115–01    WIRE, PLUS LEAD              1
+
+      6 JN6–H2116–01    WIRE, MINUS LEAD             1
+
+      7 JN6–H2117–10    WIRE, LEAD                   1
+
+      8 JU0–H2590–00    WIRE HARNESS ASSY            1
+
+      9 JN6–H2151–00    .FUSE (10 A)                 1
+
+     10 JR1–H2150–00    .FUSE HOLDER ASSY            1
+
+     11 JR3–H1950–00    RELAY ASSY                   1
+
+     12 JN6–H2105–00    WIRE HARNESS                 1
+
+     13 90163–06005     SCREW, TAPPING               2
+
+     14 JF2–81910–01    VOLTAGE REGULATOR ASSY       1
+
+     15 90105–06876     BOLT, FLANGE                 1
+
+     16 JF7–82817–20    SWITCH                       1
+
+     17 98507–05025     SCREW, PAN HEAD              2
+
+     18 92907–05100     WASHER, SPRING               2
+
+     19 92907–05600     WASHER, PLATE                2
+
+     20 JR1–H3383–01    BUZZER                       1
+
+     21 JN6–H3386–01    STAY, BUZZER                 1
+
+     22 JG5–H2110–01    BATTERY ASSY (GC-24, 12V)    1     LM
+
+     23 4U8–81950–02    RELAY ASSY                   1
+
+     24 JN6–H1942–00    COVER                        1
+
+     25 90461–16802     CLAMP                        1
+
+     26 90464–40825     CLAMP                        4
+
+     27 90105–06876     BOLT, FLANGE                 2
+
+
+
+
+E2
+     FIG. 34 ELECTRICAL 2
+     REF.
+                                            JU03
+             PART NO.        DESCRIPTION            REMARKS
+     NO.
+     28 90207–05800     WASHER, FINISH       1
+
+     29 90464–40825     CLAMP                3
+
+     30 90267–489U9     RIVET, BLIND         1
+
+     31 JU2–H2510–10    MAIN SWITCH ASSY     1
+
+     32 5UG–H2579–00    .CAP, KEY            1
+
+     33 JU2–H2511–00    .KEY, MAIN SWITCH    1
+
+     34 JN6–83530–00    PILOT LIGHT ASSY     1
+
+     35 123–83516–21    .BULB (12V-3.4W)     1
+
+     36 JU2–H2510–20    MAIN SWITCH ASSY     1     AP RANDOM KEY
+
+
+
+
+E3
+     FIG. 35 ALTERNATE FOR WINDSHIELD
+     REF.
+                                                             JU03
+                 PART NO.        DESCRIPTION                         REMARKS
+     NO.
+      1 JU0–K7200–03        WINDSHIELD ASSY, SOLID (CLEAR)    1     UR AP
+
+            JU0–K7200–13    WINDSHIELD ASSY, SOLID(TINTED)    1     UR AP
+
+      2 JU0–K838A–20        .RETAINER 1                       2
+
+      3 JU0–K838A–10        .RETAINER 1                       3
+
+      4 JU0–K7458–00        .LABEL, WARNING                   1
+
+      5 JU0–K7200–22        WINDSHIELD ASSY, HINGED(CLEAR)    1     UR AP
+
+            JU0–K7200–32    WINDSHIELD ASSY, HINGED(SMOKE)    1     UR AP
+
+      6 JU0–K838B–00        .RETAINER 2                       3
+
+      7 JU0–K7173–00        .LEVER, LATCH 1                   2
+
+      8 JU0–K7171–00        .BODY, LATCH 1                    2
+
+      9 JU0–K7222–01        .BRACKET, WINDSHIELD(R.H)         2
+
+     10 JU0–K7458–00        .LABEL, WARNING                   1
+
+     11 JU0–K8382–00        .JOINT, SCREW                     4
+
+
+
+
+E4
+     FIG. 36 ALTERNATE FOR SUN ROOF
+     REF.
+                                                   JU03
+                 PART NO.           DESCRIPTION            REMARKS
+     NO.
+      1 JU0–K8310–00        SUN ROOF ASSY           1     IVORY
+
+            JU0–K8310–10    SUN ROOF ASSY           1     MILKY BROWN
+
+            JU0–K8310–20    SUN ROOF ASSY           1     MILKY BROWN(PURW)
+
+      2 JU0–K8314–00        .COVER, SUN ROOF        1     UR IVORY
+
+            JU0–K8314–10    .COVER, SUN ROOF        1     UR MILKY BROWN
+
+      3 JU0–K8312–01        .SUPPORT, SUN ROOF 1    1
+
+            JU0–K8312–10    .SUPPORT, SUN ROOF 1    1     BLACK FOR PURW
+
+      4 JU0–K8313–01        .SUPPORT, SUN ROOF 2    2
+
+            JU0–K8313–10    .SUPPORT, SUN ROOF 2    2     BLACK FOR PURW
+
+      5 JU0–K8388–00        .BOLT, ROOF 1           8
+
+      6 90201–088T2         .WASHER, PLATE         16
+
+      7 JU0–K8398–00        .NUT, ROOF 1            8
+
+      8 90101–22864         .BOLT                   4
+
+      9 90201–088J3         .WASHER, PLATE          8
+
+     10 90185–12835         .NUT, SELF-LOCKING      4
+
+     11 90201–098J4         .WASHER, PLATE          2
+
+     12 90176–08801         .NUT, CROWN             2
+
+
+
+
+E5
+     FIG. 37 ALTERNATE FOR LIGHT KIT
+     REF.
+                                                            JU03
+                PART NO.        DESCRIPTION                         REMARKS
+     NO.
+      1 JN6–H430A–20       HEADLIGHT UNIT ASSY               1     UR
+
+      2 JN3–H4303–20       .HEADLIGHT UNIT ASSY              2
+
+      3 JN3–H3976–20       .SWITCH, HANDLE 1                 1
+
+      4 9E212–10401        .TERMINAL                         2
+
+      5 JN6–H4159–00       .CORD, HEADLIGHT                  1
+
+      6 JU5–H4700–00       .TAILLIGHT ASSY                   2
+
+      7 JU5–H4718–00       .GROMMET                          2
+
+      8     *              .WIRE TIE                        20     LM
+
+      9 JU0–H430A–00       HEADLIGHT UNIT ASSY               1     UR
+
+     10 5FU–H4300–10       .HEADLIGHT ASSY                   1
+
+     11 5FU–H4314–10       ..BULB, HEADLIGHT (12V-30/30W)    1
+
+     12 5FU–H4320–10       ..LENS ASSY                       1
+
+     13 5FU–H4340–10       ..SOCKET CORD ASSY 1              1
+
+     14 JU7–H411T–02       .HOLDER, 1                        1
+
+     15 98507–03540        .SCREW, PAN HEAD                  1
+
+     16 2GU–84332–00       .SPRING, SCREW                    1
+
+     17 2GU–84334–00       .NUT, ADJUSTING                   1
+
+     18 90150–05802        .SCREW, ROUND HEAD                2
+
+     19 90183–05008        .NUT, SPRING                      2
+
+     20 JU7–H5415–00       .MARK, SIGNAL LAMP                1
+
+     21 JU7–H3547–00       .COVER, SOCKET                    1
+
+     22 5FU–H4300–10       .HEADLIGHT ASSY                   1
+
+     23 5FU–H4314–10       ..BULB, HEADLIGHT (12V-30/30W)    1
+
+     24 5FU–H4320–10       ..LENS ASSY                       1
+
+     25 5FU–H4340–10       ..SOCKET CORD ASSY 1              1
+
+     26 JU7–H411U–02       .HOLDER, 2                        1
+
+     27 98507–03540        .SCREW, PAN HEAD                  1
+
+
+
+
+E6
+     FIG. 37 ALTERNATE FOR LIGHT KIT
+     REF.
+                                             JU03
+             PART NO.        DESCRIPTION            REMARKS
+     NO.
+     28 2GU–84332–00    .SPRING, SCREW        1
+
+     29 2GU–84334–00    .NUT, ADJUSTING       1
+
+     30 90150–05802     .SCREW, ROUND HEAD    2
+
+     31 90183–05008     .NUT, SPRING          2
+
+     32 JU7–H5415–00    .MARK, SIGNAL LAMP    1
+
+     33 JU7–H3547–00    .COVER, SOCKET        1
+
+     34 JU5–H4700–00    .TAILLIGHT ASSY       2
+
+     35 JU5–H4718–00    .GROMMET              2
+
+     36 JU7–H4118–01    .STAY, HEADLIGHT 1    2
+
+     37 JU7–H4119–01    .STAY, HEADLIGHT 2    2
+
+     38 97707–40112     .SCREW, TAPPING       4
+
+     39 JU0–H3976–00    .SWITCH, HANDLE 1     1
+
+     40 JU0–H4159–01    .CORD, HEADLIGHT      1
+
+     41 90464–14806     .CLAMP               20
+
+
+
+
+E7
+                                                                     NUMERICAL INDEX
+
+                  GRID                       GRID                    GRID                    GRID                    GRID                    GRID
+PART NO.                   PART NO.                   PART NO.                PART NO.                PART NO.                PART NO.
+                  NO.                        NO.                     NO.                     NO.                     NO.                     NO.
+
+JT0–11111–00      B – 3    7E1–14191–00      B – 8    J38–78367–00   D – 10   JN6–F3394–00   C – 4    JU0–F582M–00   C – 2    JN3–G6326–00   C – 14
+JN6–11116–00      B – 3    1KT–14197–01      B – 8    J10–81129–10   D – 13   JU0–F339Y–00   C – 2    JU0–F620A–00   C – 2    JN3–G6327–00   C – 14
+JN6–11133–10      B – 3    127–14198–00      B – 8    J10–81145–10   D – 13   JU0–F3400–00   C – 2    JU0–F6311–00   C – 9    JN3–G633E–01   C – 13
+JR7–11163–00      B – 3    7NJ–14211–00      B – 8    J10–81146–10   D – 13   JU0–F3511–00   B – 14   JU0–F6312–00   B – 7    JN3–G633G–00   C – 13
+JN6–11168–00      B – 3    73A–14212–00      B – 8    J10–81147–10   D – 13   JU0–F3512–02   B – 14   JU0–F6331–00   B – 7    JN3–G6344–00   C – 14
+JN6–11169–00      B – 3    73A–14212–10      B – 8    J10–81148–10   D – 13   JU0–F3521–00   B – 14   JU0–F6333–00   B – 7    JN3–G6344–10   C – 15
+JT0–11181–00      B – 3    J10–14227–00      B – 8    J10–81159–10   D – 13   JU0–F3570–20   B – 14   JU0–F6341–10   C – 6    JN3–G6344–20   C – 15
+JN6–11191–01      B – 3    3G2–1423A–67      B – 8    J10–81166–10   D – 13   JU0–F3811–00   C – 2    JU0–F6351–10   C – 6    JN3–G6344–30   C – 15
+JN6–11193–00      B – 3    3G2–1423A–68–A0   B – 8    JF2–81910–01   E – 2    JN3–F3814–00   C – 2    JN6–F722E–00   C – 7    JN3–G6344–40   C – 15
+812–11198–00      B – 10   3G2–1423E–33–A0   B – 8    4U8–81950–02   E – 2    JU0–F3822–00   C – 3    JN6–F722F–00   C – 8    JN3–G6344–50   C – 15
+JN6–11400–00      B – 4    JN6–14291–00      B – 8    JN6–82318–00   D – 15   JU0–F3828–00   C – 2    JU0–F722H–00   C – 13   JN3–G6344–60   C – 15
+JN6–11454–00      B – 4    7KY–14613–01      B – 9    JT0–8231Y–00   D – 15   JU0–F3833–00   C – 2    JU0–F723F–00   C – 13   JN3–G6344–70   C – 15
+JR7–11610–00      B – 4    1WG–14922–00      B – 8    JN6–82370–00   D – 15   JU0–F3834–00   C – 2    JN3–F7245–00   C – 6    JN3–G6344–80   C – 15
+JR7–11610–10      B – 4    JN6–1495H–3B      B – 8    JE8–82372–00   D – 15   JU0–F3837–00   C – 2    JN6–F7280–03   C – 8    JN3–G6344–90   C – 15
+JR7–11610–20      B – 4    JR7–15100–00      B – 10   JN3–82617–01   D – 3    JN3–F3838–00   C – 2                   C – 14   JN3–G6344–A0   C – 15
+JR7–11631–00–A0   B – 4    JR7–15123–00      B – 10   JF7–82817–20   E – 2    JU0–F3841–00   C – 3    JN6–F7286–00   C – 7    JN3–G6344–B0   C – 15
+583–11633–00      B – 4    JN6–15155–00      B – 10   123–83516–21   E – 3    JU0–F3844–00   C – 2                   C – 8    JN3–G6344–C0   C – 15
+JR7–11635–00      B – 4    J38–15361–00      B – 10   JN6–83530–00   E – 3    JU0–F3848–00   C – 2    JN6–F7290–03   C – 7    JN3–G6344–D0   C – 15
+JR7–11636–00      B – 4    JT0–15362–00      D – 15   2GU–84332–00   E – 6    JU0–F3857–10   C – 2                   C – 14   JN3–G6355–00   C – 13
+JN6–11650–00      B – 4    796–15363–01      B – 10   2GU–84334–00   E – 6    JU0–F387A–00   C – 2    JN6–F7874–01   C – 9    JN3–G6356–00   C – 14
+JN6–11654–00      B – 4    JR7–15407–00      B – 10   JN6–85640–01   D – 15   JU0–F387E–00   C – 2    JN6–F819G–00   C – 7    JN3–G6371–00   D – 3
+JN6–12111–01      B – 5    JN6–15411–01      B – 10   JR7–85650–00   D – 15   JU0–F387F–00   C – 2                   C – 8    JN3–G6372–00   D – 3
+J38–12117–01      B – 5    JN6–15451–02      B – 10   JT0–85720–00   D – 15   JU0–F387G–00   C – 2    JH7–G5619–00   C – 15   JN3–G6376–00   D – 3
+J38–12118–00      B – 5    JR6–19001–00      B – 2    JT0–85724–00   D – 15   JU0–F387J–00   C – 2    JN3–G6153–00   C – 14   JU0–G6376–00   C – 14
+4G0–12119–00      B – 5    JT0–21481–00      B – 11   JN6–E1166–00   B – 3    JU0–F387K–00   C – 2    JU0–G6164–00   C – 15   JN3–G6381–00   D – 3
+7RH–12121–00      B – 5    JU0–2179R–00      B – 6    JN6–E2691–00   B – 6    JU0–F4111–01   C – 4    JN6–G6201–04   C – 11   J55–G6383–00   D – 3
+JN6–12151–00      B – 5    401–22128–01      B – 14   JU0–E3586–00   B – 7    JU0–F4161–00   D – 5    JN6–G6210–00   C – 11   JN3–G638A–00   C – 14
+JN6–12153–00      B – 5    J55–2252M–00      C – 6    JU0–E4411–00   B – 7    JU0–F4300–10   C – 4    JN6–G621F–00   C – 11   JN6–G638E–00   C – 14
+JR7–12154–01      B – 5    2NL–23448–00      B – 14   JU0–E4412–00   B – 7    JN6–F4311–30   C – 4    JN6–G6220–00   C – 11   JN6–G6410–00   C – 13
+J38–12156–00      B – 5    2NL–23517–00      B – 14   5UH–E4424–00   B – 7    JN6–F4312–30   C – 4    JU0–G6231–00   C – 11   JN3–G6432–00   C – 13
+22F–12159–00      B – 5    2HR–23526–00      B – 14   JU0–E4450–00   B – 7    JN6–F4313–30   C – 4    JN6–G6232–01   C – 11   JN3–G6511–00   C – 13
+JR7–12170–00      B – 5    J17–25666–02      C – 5    JU0–E445E–00   B – 7    JN6–F4314–21   C – 4    J55–G6241–00   C – 11   JN3–G6512–00   C – 13
+JN6–12616–00      B – 6    JU0–25671–00      C – 5    JU0–E4710–10   B – 9    JU5–F4375–00   C – 4    JN6–G6249–00   C – 11   JN3–G6514–00   C – 14
+JN6–12621–02      B – 6    J17–25672–01      C – 5    JN6–E7688–00   C – 12   JN6–F4410–11   C – 4    JN6–G6251–01   C – 11   JU0–G6521–00   D – 2
+JN6–12651–00      B – 6    J17–25673–00      C – 5    JU0–F1338–00   C – 2    JN6–F4560–00   C – 4    JN6–G6253–00   C – 11   JN6–G6555–00   C – 13
+JN6–12652–00      B – 6    JU0–27211–01      C – 5    JU0–F1436–00   B – 9    JN6–F4610–00   C – 4    JN6–G6258–02   C – 11   JN3–G6556–00   C – 14
+JR7–12658–00      B – 6    J17–27221–00      C – 5    JU0–F1781–00   D – 8    JU0–F5100–00   B – 15   JN6–G6260–00   C – 12   JN3–G8330–00   D – 3
+JN6–13567–00      B – 7    J17–27228–00      C – 5    JU0–F2110–10   B – 12                  D – 2    JN6–G6270–01   C – 12   JN6–H1100–03   D – 13
+JN6–13595–00      B – 7    J17–27231–03      C – 5    JN6–F2123–10   B – 12   JN6–F5100–11   B – 15   JN6–G6280–00   C – 12   JN6–H1110–10   D – 13
+JR6–14101–00      B – 8    J17–27232–00      C – 5    JN6–F2124–10   B – 12                  D – 2    JU0–G6290–00   C – 15   JF2–H1111–00   D – 13
+7LV–14118–00      B – 8    J17–27246–00      C – 6    JN6–F217G–00   B – 12   JN6–F5100–30   B – 15   JU0–G6297–00   C – 11   JN6–H1113–00   D – 13
+732–14142–65–A0   B – 8    J46–27250–03      C – 5    JN4–F2210–00   B – 12                  D – 2    JU0–G6300–11   C – 13   J10–H1115–10   D – 13
+73A–1414G–00      B – 8    J17–27853–01      C – 9    JU0–F2501–00   B – 13   JN6–F5118–00   B – 15   JN3–G6313–00   C – 13   JN6–H1119–00   D – 13
+JN5–14150–00      B – 8    J10–27871–01      C – 9    JU0–F254R–00   B – 13                  D – 2    JN3–G6314–00   C – 13   J10–H1139–10   D – 13
+7R1–14162–00      B – 8    J38–27872–00      C – 9    JU0–F2567–00   B – 13   JN6–F5331–01   C – 7    JN3–G6316–00   C – 14   JN3–H1150–00   D – 13
+796–14184–00      B – 8    J38–27951–00      C – 10   JU0–F3183–00   C – 2    JN6–F5341–01   C – 8    JN3–G6319–00   C – 15   JN6–H1160–10   D – 13
+JN6–14185–00      B – 8    J38–27959–00      C – 10   JU0–F3350–20   B – 14   JN6–F5681–00   C – 6    JU0–G631A–00   C – 13   JN6–H1161–00   D – 14
+22F–14186–00      B – 8    JF2–46382–00      D – 3    JU0–F3390–20   B – 14   JN6–F5685–00   C – 6    JN3–G6320–01   C – 13   JN6–H1165–00   D – 13
+
+
+
+
+                                                                     M1
+                                                               NUMERICAL INDEX
+
+               GRID                    GRID                    GRID                    GRID                   GRID                   GRID
+PART NO.                PART NO.                PART NO.                PART NO.                PART NO.               PART NO.
+               NO.                     NO.                     NO.                     NO.                    NO.                    NO.
+
+JN6–H1170–00   D – 15   JU0–K7222–01   E – 4    JU0–K8251–00   D – 8    JU0–K8423–00   D – 11   90163–06005   E – 2    90207–05800   E – 3
+JN6–H1171–10   D – 15   JU0–K7458–00   E – 4    JU0–K8252–00   D – 8    JN3–K8425–00   D – 7    90167–04815   D – 11   90209–32832   B – 15
+JN6–H1173–00   D – 15   JN3–K7510–10   D – 4    JU0–K8261–00   D – 5    JN3–K8426–01   D – 11   90170–05302   B – 5    90249–14129   C – 6
+JN3–H1661–00   D – 14   JN6–K7540–10   D – 4    JF2–K8262–01   D – 5    JF2–K8427–00   D – 11   90170–08841   C – 14   90267–48086   D – 9
+JN6–H1942–00   E – 2    JU0–K7573–00   D – 5    JF2–K8263–01   D – 5    JN3–K842A–00   D – 7    90170–10840   C – 13   90267–48154   D – 9
+JR3–H1950–00   E – 2    JN3–K7741–00   D – 7    JN6–K8264–10   D – 5    JN3–K842H–00   D – 11   90176–08801   E – 5    90267–48831   D – 9
+JN6–H2105–00   E – 2    JU0–K7762–00   C – 3    JN6–K8265–10   D – 5    JG5–WF511–10   B – 14   90179–07564   C – 5    90267–489U9   E – 3
+JG5–H2110–01   E – 2    JU0–K7762–10   C – 3    JN6–K8271–00   D – 9    90101–06478    D – 15   90179–08879   B – 9    90267–63047   D – 6
+JN6–H2115–01   E – 2    JU0–K7762–20   C – 3    JN3–K8273–10   D – 5    90101–06865    D – 10   90179–08894   C – 6                  D – 8
+JN6–H2116–01   E – 2    JN3–K7768–01   D – 5    JN3–K8297–10   D – 8    90101–06876    D – 7    90179–12262   B – 15   90269–06804   D – 7
+JN6–H2117–10   E – 2    JN3–K7768–11   D – 5    JN3–K8299–10   D – 8    90101–08855    C – 14                 D – 2    90269–07810   D – 7
+JN3–H2133–00   E – 2    JN3–K7768–21   D – 5    JU0–K8310–00   E – 5    90101–08856    C – 13   90179–13878   B – 12   90269–08066   D – 5
+J55–H2136–00   E – 2    JF2–K8114–03   D – 5    JU0–K8310–10   E – 5    90101–10854    C – 13   90183–05008   E – 6    90269–08813   B – 6
+JR1–H2150–00   E – 2    JU0–K8115–00   D – 5    JU0–K8310–20   E – 5    90101–10884    C – 6    90183–06811   D – 7                  D – 7
+JN6–H2151–00   E – 2    JU0–K8115–30   D – 5    JU0–K8312–01   E – 5    90101–22864    E – 5    90185–06834   C – 11   90280–04052   D – 15
+JN6–H2377–00   D – 8    JU0–K8115–50   D – 5    JU0–K8312–10   E – 5    90105–06861    C – 11   90185–06836   D – 5    90280–05022   C – 12
+JU2–H2510–10   E – 3    JU0–K8115–60   D – 5    JU0–K8313–01   E – 5    90105–06862    B – 7                  D – 10   90338–04840   C – 11
+JU2–H2510–20   E – 3    JU0–K8115–80   D – 5    JU0–K8313–10   E – 5    90105–06876    D – 3    90185–08832   D – 10   90338–05829   D – 9
+JU2–H2511–00   E – 3    JU0–K8115–90   D – 5    JU0–K8314–00   E – 5                   D – 4    90185–08841   B – 9    90338–05834   D – 7
+5UG–H2579–00   E – 3    JF2–K811V–00   D – 5    JU0–K8314–10   E – 5                   E – 2    90185–12061   C – 2    90338–09828   D – 12
+JU0–H2590–00   E – 2    JN6–K8121–00   D – 11   JN3–K832F–00   B – 13   90105–06903    D – 11   90185–12835   E – 5    90340–12097   B – 10
+JR1–H3383–01   E – 2    JN6–K8122–02   D – 11   JN6–K8340–00   D – 10   90105–08859    C – 13   90185–16833   C – 14   90381–17067   B – 14
+JN6–H3386–01   E – 2    JN6–K8142–02   D – 7    JU0–K834A–00   B – 13   90105–08871    D – 12   90201–048R5   C – 3    90381–18001   B – 14
+JU7–H3547–00   E – 6    JU0–K8142–32   D – 7    JN6–K8355–00   D – 10   90105–08878    C – 4    90201–06829   D – 5    90384–10162   C – 5
+JU0–H3976–00   E – 7    JN6–K8142–52   D – 7    JF2–K8356–00   D – 10                  C – 6    90201–068G0   D – 11   90384–14080   C – 5
+JN3–H3976–20   E – 6    JU0–K8142–62   D – 7    JN3–K8357–00   C – 3                   C – 9    90201–068G6   D – 11                 C – 9
+JU7–H4118–01   E – 7    JU0–K8142–82   D – 7    JN6–K8358–01   C – 3    90105–10064    B – 14   90201–068G7   D – 7    90384–27823   C – 11
+JU7–H4119–01   E – 7    JU0–K8142–90   D – 7    JN6–K835E–00   D – 5    90105–10728    B – 14   90201–068H0   D – 7    90386–08141   C – 10
+JU7–H411T–02   E – 6    JU0–K8151–00   D – 7    JN3–K835G–00   D – 5    90105–10810    C – 3    90201–088J3   E – 5    90387–046N7   C – 3
+JU7–H411U–02   E – 6    JN3–K815G–00   D – 5    JN6–K8361–00   D – 11   90105–10840    C – 13   90201–088R9   D – 10   90387–068T4   C – 9
+JN6–H4159–00   E – 6    JU0–K8164–00   D – 4    JU0–K8362–00   D – 11   90105–10881    D – 4    90201–088S2   C – 4    90387–08013   C – 5
+JU0–H4159–01   E – 7    JN3–K8174–00   D – 4    JN3–K8363–00   D – 7    90105–10890    B – 14   90201–088T2   E – 5    90387–08014   C – 5
+5FU–H4300–10   E – 6    JN6–K8182–00   D – 6    JN6–K8380–00   D – 10   90105–13864    B – 12   90201–098J4   D – 11   90387–107F8   C – 6
+JN3–H4303–20   E – 6    JF2–K8187–00   D – 9    JU0–K8382–00   E – 4    90106–08806    C – 9                  E – 5    90387–12009   C – 5
+JU0–H430A–00   E – 6    JF2–K8189–00   D – 9    JU0–K8388–00   E – 5    90109–06860    C – 11   90201–104G8   C – 6    90387–12016   B – 14
+JN6–H430A–20   E – 6    JU0–K818A–00   D – 9    JU0–K838A–10   E – 4    90109–08875    D – 15   90201–11800   B – 13   90387–241M7   B – 14
+5FU–H4314–10   E – 6    JU0–K818B–00   D – 9    JU0–K838A–20   E – 4    90110–04834    C – 12   90201–128S4   B – 12   90461–16802   E – 2
+5FU–H4320–10   E – 6    JF2–K8191–01   D – 9    JU0–K838B–00   E – 4    90110–06837    D – 7    90201–128S5   C – 12   90464–09823   D – 15
+5FU–H4340–10   E – 6    JF2–K8192–01   D – 9    JU0–K8398–00   E – 5    90111–06810    D – 11   90201–178H8   C – 14   90464–11816   C – 4
+JU5–H4700–00   E – 6    JF2–K8215–10   D – 9    JU0–K8401–00   D – 11   90111–08803    D – 10   90201–18620   D – 15   90464–12836   C – 4
+JU5–H4718–00   E – 6    JF2–K821F–10   D – 9    JN6–K8401–10   D – 11   90114–12800    B – 14   90201–198S7   D – 3    90464–14806   E – 7
+JU7–H5415–00   E – 6    JN6–K8231–01   D – 8    JN3–K8402–00   D – 11   90114–12804    C – 14   90201–208H9   C – 14   90464–19815   C – 6
+JU0–K7171–00   E – 4    JN6–K8232–01   D – 7    JU0–K8402–00   D – 11   90119–06838    B – 7    90201–208J0   C – 14                 D – 3
+JU0–K7173–00   E – 4    JN6–K8233–01   D – 8    JU0–K8404–00   D – 11   90119–08820    D – 11   90201–208S8   D – 3    90464–40825   C – 9
+JU0–K7200–03   E – 4    JF2–K8237–00   D – 7    JN6–K8404–10   D – 11   90119–08825    B – 9    90201–228K5   C – 11                 E – 2
+JU0–K7200–13   E – 4    JN3–K8243–10   D – 7    JN3–K8413–00   D – 11   90150–05802    E – 6    90202–12807   C – 14   90465–06038   D – 3
+JU0–K7200–22   E – 4    JN3–K8244–10   D – 7    JN3–K841G–09   D – 11   90159–06107    B – 10   90202–20130   C – 12   90467–10846   C – 4
+JU0–K7200–32   E – 4    JN6–K824E–00   D – 7    JU0–K841G–09   D – 11   90159–06845    D – 10   90204–06807   D – 11   90467–11090   C – 4
+
+
+
+
+                                                               M2
+                                                            NUMERICAL INDEX
+
+              GRID                   GRID                   GRID                   GRID                GRID              GRID
+PART NO.               PART NO.               PART NO.               PART NO.               PART NO.          PART NO.
+              NO.                    NO.                    NO.                    NO.                 NO.               NO.
+
+90467–12845   C – 4    93101–24822   C – 13   95607–12200   C – 12   98507–05025   E – 2
+90467–13847   B – 3    93101–28831   C – 11   95607–14100   B – 15   9850N–04010   D – 13
+90468–10049   B – 7    93102–25868   C – 13   9560P–06200   C – 10   9850N–05016   D – 13
+              C – 9    93102–30083   B – 14                 D – 5    9850N–05018   D – 14
+90480–25856   B – 13   93102–35014   B – 10   9560P–08200   D – 11   99001–07600   B – 7
+90501–264A9   B – 5    93104–11829   C – 14   9560P–10200   B – 11                 C – 5
+90502–10013   C – 3    93109–10820   C – 14   9560P–12200   B – 12   99001–09600   C – 6
+90506–09001   C – 5    93109–20069   C – 12   9561P–12100   B – 14   99002–04600   C – 5
+90506–26282   C – 9    93210–132A8   C – 6    95627–08618   B – 3    99009–19400   D – 3
+90508–14548   C – 5    93210–14104   C – 9    95707–06500   C – 9    99530–08016   B – 10
+90508–16460   C – 9    93210–15414   D – 15                 E – 2    99530–14016   B – 3
+90508–32015   C – 6    93210–22344   B – 10   95707–08500   B – 7    9E212–10401   E – 6
+90508–40007   C – 6    93210–398D6   B – 7                  C – 9
+90508–40678   C – 10   93306–004X5   C – 14                 D – 2
+90508–45844   C – 12   93306–005Y3   B – 14                 D – 15
+90560–05001   C – 9    93306–005Y4   C – 13   9572R–06300   D – 7
+90560–08251   C – 4    93306–007Y0   C – 13   95807–06020   B – 6
+91401–20012   D – 3    93306–20201   B – 10   95807–06025   C – 9
+91401–25020   B – 14   93306–20226   D – 13   95807–08016   B – 13
+              C – 2    93306–204X0   B – 14   95807–10055   B – 12
+91490–25015   C – 6    93306–20714   B – 10   95807–10065   B – 14
+91490–25025   C – 13   93306–30317   D – 13   95817–08045   B – 10
+91490–30015   C – 6    93306–303Y6   C – 13   95817–10050   B – 10
+91609–35028   C – 9    93306–30709   B – 10   95817–10070   B – 3
+91609–60028   C – 9    93410–12822   C – 14   95817–12080   B – 14
+91701–05010   B – 7    93410–25017   C – 15   9581P–08012   D – 4
+91701–05014   C – 9    93420–44805   C – 13   9581P–08016   C – 2
+91701–06014   D – 3    93440–20813   C – 14   9581P–08075   D – 2
+91701–08018   C – 6    93450–21053   B – 4    9581P–12025   D – 15
+91701–08026   C – 6    93606–10842   C – 14   9581P–12065   B – 12
+91701–10022   C – 6    93610–358A3   C – 11   95827–06012   D – 15
+92902–04100   B – 8    93700–06809   C – 12   95827–06025   D – 15
+92907–04100   D – 3    93700–06810   C – 11   95827–06030   B – 3
+92907–04600   D – 3    94702–00343   B – 3    9582P–08020   D – 15
+92907–05100   E – 2    94702–00348   B – 3    95880–06025   D – 11
+92907–05600   C – 5    95307–06600   C – 10   97017–08030   C – 3
+              E – 2                  D – 15   97027–06035   C – 5
+92907–08200   C – 5    95307–06700   C – 5    97027–08100   C – 5
+92907–08600   C – 3    95307–08600   C – 5    9751P–10620   B – 12
+92907–10600   C – 5    95307–08700   C – 6                  D – 2
+9290N–06100   D – 13   95307–18600   D – 15   97707–40112   E – 7
+9290N–06600   D – 13   9530N–06600   D – 13   97707–40525   C – 3
+9290P–06200   E – 2    95607–08100   D – 3    97707–60520   B – 6
+9290P–06600   D – 3    95607–08710   B – 3    9770P–60130   D – 5
+9290P–10200   B – 11   95607–10200   B – 12   98507–03540   E – 6
+9290P–12200   C – 2                  B – 14   98507–04010   B – 8
+92990–05100   B – 8                  C – 6    98507–04016   D – 3
+9299R–06200   D – 10   95607–12200   C – 2    98507–05008   B – 8
+
+
+
+
+                                                            M3
+

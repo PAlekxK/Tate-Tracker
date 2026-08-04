@@ -60,7 +60,8 @@ fully drained** (Paul). These five are the entire research basis for recommissio
 
 | Ref | Tier | What it is | What it does NOT settle |
 |---|---|---|---|
-| 📥 **INGEST** — [Generac 7000EXL user manual](https://archive.org/details/manualsbase-id-609002) · PDF: `archive.org/download/manualsbase-id-609002/609002.pdf` | — | The manual. Title verified against the archive.org metadata API 2026-08-04. **Queued for `INDEX.md`** — see BACKLOG B2 | Whether it matches our unit: `7000EXL` currently comes from bookmark titles, **not from the data plate** |
+| ✅ **INGESTED 2026-08-04 → `INDEX.md`** (24 pp) | — | *Row migrated out of this file — that migration IS the ingestion.* ⚠️ **It turned out to be the GENERATOR manual only** and defers all engine service elsewhere, so oil/plug/filter are still open and the **engine owner's manual is now a wanted document** | — |
+| 🔎 **WANTED — the Generac ENGINE owner's manual** | — | Not yet found. The generator manual (now held) says only *"Engine Maintenance — see engine owner's manual"*, so **oil type/capacity, spark plug + gap and air filter live in a document we don't have.** ⚠️ The generator manual never names the engine either — identify it off the unit first | Everything the recommissioning actually needs |
 | [Generator won't start after sitting for years — Generac 7000EXL](https://www.youtube.com/watch?v=eJrhMdziZDk) | **C** | Model-specific, and the closest published case to ours | One person's machine. Not a procedure for ours |
 | [How to start a generator that's been sitting too long](https://www.youtube.com/watch?v=oGq7ywlU2KY) | **C** | General long-storage restart | Not Generac-specific |
 | [What to do when your Generac portable generator won't start](https://www.youtube.com/watch?v=Wmdj4eYM1AY) | **C** | Generac-brand troubleshooting | Not 7000EXL-specific |
@@ -74,7 +75,7 @@ fully drained** (Paul). These five are the entire research basis for recommissio
 
 | Ref | Tier | What it is | What it does NOT settle |
 |---|---|---|---|
-| 📥 **INGEST** — [Yamaha G22-AX2 manual, 2006 (`1EJU0-100E1`)](https://www.yamahagolfcars.com.au/uploads/2/0/7/5/20756704/g22-ax2_ju03_2006_1eju0100e1.pdf) | — | Second G22 manual, AX2 variant. Secondary to the G22A gas manual already held | Whether it adds anything over the held manual — compare before ingesting |
+| ✅ **INGESTED 2026-08-04 → `INDEX.md`** (56 pp) | — | *Migrated out.* 🟡 sibling variant, 9 pp longer than the held G22A manual; the card link is unchanged | Whether it actually adds coverage — still worth a compare |
 | 🔴 **DEAD (404, checked 2026-08-04)** — G22A wiring diagram, cunninghamgolfcar.com | — | Was the only wiring diagram found for this cart. **Needs re-sourcing** | — |
 | [Yamaha golf-cart model-year guide](https://hookupmycart.com/tech-center/yamaha-golf-cart-year-guide/) | **C** | Vendor year/model decoder | A vendor's table, not Yamaha's |
 | [Oil in air cleaner, G9](https://buggiesgonewild.com/showthread.php?t=154878) | **C** | Forum thread on a **G9**, not a G22 | Different model. A seed only |

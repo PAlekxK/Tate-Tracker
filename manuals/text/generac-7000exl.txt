@@ -1,0 +1,878 @@
+7000EXL   Portable Generator Owner’s Manual
+
+        m s?
+     ble     ?
+  Pro stionsur unit
+  Que g yo re,
+           in
+       tak the sto tor
+   ore             a
+Bef ack to gener
+   b       e      at
+         th     e
+    call helplin -140
+                       8
+          -27 CT 0
+        00
+     1- -F 8-5
+       8
+        M
+
+
+
+
+        Model No. 1470-0 (7,000 Watt AC Generator) Manual No. 186744 Revision 0 (06/13/2001)
+                    Visit our Generac website: www.generac-portables.com
+This is the safety alert symbol. It is used to alert you to potential personal injury hazards.
+Obey all safety messages that follow this symbol to avoid possible injury or death.
+                                 Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+EQUIPMENT                                                         SAFETY RULES
+ DESCRIPTION                                                      This generator set was designed and manufactured for
+                                                                  specific applications. Do Not attempt to modify the unit or
+This generator is an engine–driven, revolving field,              use it for any application it was not designed for. If you have
+alternating current (AC) generator. It was designed to            any questions about your generator’s application, ask your
+supply electrical power for operating compatible electrical       dealer or consult the factory.
+lighting, appliances, tools and motor loads.This manual
+                                                                  The manufacturer could not possibly anticipate every
+contains information for a generator that operates
+                                                                  circumstance that might involve a hazard. For that reason
+120 and/or 240 Volt, single phase, 60 Hz devices that
+                                                                  warnings in the manual and warnings on tags or decals
+require up to 7,000 watts (7.0 kW) of power that pull up
+                                                                  affixed to the unit are not all–inclusive. If you intend to
+to 58.3 Amps at 120 Volts or 29.2 Amps at 240 Volts.
+                                                                  handle, operate or service the unit by a procedure or
+CAUTION! Do Not exceed the generator’s                            method not specifically recommended by the manufacturer,
+wattage/amperage capacity. Add up the rated watts of all          first make sure that such a procedure or method will not
+devices you are connecting to generator receptacles at one        render this equipment unsafe or pose a threat to you and
+time.This total should not be greater than 7,000 watts. See       others.
+“Don’t Overload the Generator” on page 11.                        Read this manual carefully and become familiar
+                                                                  with your generator set. Know its applications, its
+The generator’s revolving field is driven at about 3600 rpm
+                                                                  limitations and any hazards involved.
+by a single-cylinder engine.
+Every effort has been made to ensure that information in                            WARNING:
+this manual is accurate and current. However, Generac
+                                                                    The engine exhaust from this product contains
+reserves the right to change, alter or otherwise improve              chemicals known to the State of California to
+the product and this document at any time without prior             cause cancer, birth defects, or other reproductive
+notice.                                                                                   harm.
+
+       CAUTION! Do Not tamper with engine                                DANGER! You must isolate the generator from
+       governed speed. High operating speeds are                         the electric utility using approved transfer
+       dangerous and increase risk of personal injury or                 equipment if this unit is used for backup power.
+       damage to equipment.The generator supplies                        Failure to isolate the generator from the
+       correct rated frequency and voltage only when                     power utility may result in injury or death to
+       running at proper governed speed. Incorrect                       electric utility workers and damage to the
+       frequency and/or voltage can damage some                          generator due to a backfeed of electrical energy.
+       connected electrical loads. Operating at excessively              Whenever unit is providing backup power, the
+       low speeds imposes a heavy load.When adequate                     electric utility must be notified.
+       engine power is not available engine life may be
+       shortened.                                                        DANGER! Generator exhaust gases contain
+                                                                         DEADLY carbon monoxide gas. If breathed in
+                                                                         sufficient concentrations, carbon monoxide
+                                                                         can cause unconsciousness or death. Operate
+                                                                         this equipment outdoors where adequate ventilation
+                                                                         is available.
+                                                                  The Emission Control System for this generator is
+                                                                  warranted for standards set by the Environmental
+                                                                  Protection Agency. For warranty information refer to the
+                                                                  engine owner’s manual.
+
+
+
+
+                                                              2
+                             Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+• The generator produces a very powerful voltage that can             • Never operate the generator:
+  cause serious injury or death by electrocution. Never                 in rain; in any enclosed compartment; when connected
+  touch bare wires or receptacles. Never permit a child or              electrical devices overheat; if electrical output is lost; if
+  any unqualified person to operate the generator.                      engine or generator sparks; if flame or smoke is observed
+• Never handle any kind of electrical cord or device while              while unit is running; if unit vibrates excessively.
+  standing in water, while barefoot or while hands or feet
+  are wet. Death or serious injury from electrocution may             GROUNDING THE
+  result.
+• Use a ground fault circuit interrupter (GFCI) in any damp
+                                                                       GENERATOR
+  or highly conductive area (such as metal decking or steel           The National Electrical Code requires that the frame and
+  work).                                                              external electrically conductive parts of this generator be
+• Never use worn, bare, frayed or otherwise damaged                   properly connected to an approved earth ground. Local
+  electrical cords with the generator. Death, serious injury          electrical codes may also require proper grounding of the
+  and property damage from electrical shock may result.               unit. For that purpose, a GROUNDING WING NUT is
+• Gasoline is highly FLAMMABLE and its vapors are                     provided on the generator end (Figure 1).
+  EXPLOSIVE. Never allow smoking, open flames,                          Figure 1 — Grounding Wing Nut
+  sparks or heat in the vicinity while handling
+  gasoline. Avoid spilling gasoline on a hot engine. Comply
+  with all laws regulating storage and handling of gasoline.
+• Do Not overfill the fuel tank. Always allow room for fuel
+  expansion. If tank is overfilled, fuel can overflow
+  onto a hot engine and cause a FIRE or an
+  EXPLOSION.                                                                Grounding Wing Nut
+• Never store a generator with fuel in the tank where
+  gasoline vapors might reach an open flame, spark or pilot
+  light (as on a furnace, water heater, clothes dryer). FIRE
+  or an EXPLOSION may result.
+• The unit requires an adequate flow of cooling air for its           Generally, connecting a No. 12 AWG (American Wire
+  continued proper operation. Never operate the unit                  Gauge) stranded copper wire to the grounding wing nut
+  inside any room or enclosure where the free flow of                 and to an earth–driven copper or brass grounding rod
+  cooling air into and out of the unit might be obstructed.           (electrode) provides adequate protection against electrical
+  Allow at least 2 feet of clearance on all sides of generator,       shock. Be careful to keep the grounding wire attached after
+  even while operating unit outdoors, or you could damage             connecting the stranded copper wire. However, local codes
+  the unit.                                                           may vary widely. Consult with a local electrician for
+• Never start, or stop the unit with electrical loads                 grounding requirements in your area.
+  connected to receptacles with the connected devices                 Properly grounding the generator helps prevent electrical
+  turned ON. Start the engine and let it stabilize before             shock if a ground fault condition exists in the generator or
+  connecting any electrical loads. Disconnect all electrical          in connected electrical devices. Proper grounding also helps
+  loads before shutting down the generator.                           dissipate static electricity, which often builds up in
+• Do Not insert any object through cooling slots of the               ungrounded devices.
+  engine.You could damage the unit or injure yourself.
+
+
+
+
+                                                                  3
+                                 Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+Your generator requires attachment of the negative battery
+cable and is ready for use after it has been properly
+                                                                   CHECK BATTERY / ATTACH
+serviced with the recommended oil and fuel.                         NEGATIVE BATTERY
+IMPORTANT: Any attempt to run the unit before it has
+been serviced with the recommended oil will result in an            WIRE
+engine failure.                                                    The sealed battery on the generator is fully charged and
+Check that the following is included with your unit. If any        pre–installed except for the negative (black) battery cable.
+parts are missing or damaged, call the generator helpline at       To install:
+1-800-270-1408.                                                    • Cut off tie wrap securing loose end of negative (black)
+• Battery charge cables                                              cable.
+• Battery float charger                                            • Remove nut and washer on the negative battery terminal.
+• Extenda Panel™ cord                                              • Slide the negative battery cable over the screw on the
+                                                                     negative terminal (Figure 2).
+• Generator and engine owner’s manuals
+                                                                    Figure 2 — Negative Battery Connection
+• Locking 30 Amp plug
+• Three packets of fuel stabilizer                                                        Nut
+• Two bottles of engine oil                                                                     Washer
+
+
+
+
+                                                                    Negative
+                                                                    battery
+                                                                    cable         Screw
+                                                                                                Positive battery cable
+
+                                                                   • Reattach washer and nut and tighten.
+                                                                   • Verify that the connections to the battery and generator
+                                                                     are tight and secure.
+
+
+
+
+                                                               4
+                            Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+BEFORE STARTING THE                                                 • Slowly add unleaded regular gasoline to fuel tank. Be
+                                                                      careful not to overfill. Allow about 1/2" of tank space for
+ ENGINE                                                               fuel expansion (Figure 3).
+                                                                      Figure 3 — Typical Fuel Expansion Space
+
+Add Oil
+CAUTION! Any attempt to crank or start the engine
+before it has been properly filled with the recommended
+oil may result in an engine failure.
+To fill your engine with oil:
+• Place generator on a level surface.
+• Follow the oil grade recommendations and oil fill
+  instructions given in the engine owner’s manual.
+NOTE: The generator’s revolving field rides on a                    • Install fuel cap and wipe up any spilled gasoline.
+prelubricated and sealed ball bearing that requires no
+additional lubrication for the life of the bearing.                 IMPORTANT: It is important to prevent gum deposits
+                                                                    from forming in essential fuel system parts, such as the
+                                                                    carburetor, fuel filter, fuel hose or tank during storage. Also,
+Add Gasoline                                                        experience indicates that alcohol–blended fuels (called
+       WARNING! Never fill fuel tank indoors. Never                 gasohol, ethanol or methanol) can attract moisture, which
+       fill fuel tank when engine is running or hot. Do Not         leads to separation and formation of acids during storage.
+       light a cigarette or smoke when filling the fuel tank.       Acidic gas can damage the fuel system of an engine while in
+                                                                    storage. Be sure to review the precautions given in
+       WARNING! Do Not overfill the fuel tank.                      “Storage” on page 13.
+       Always allow room for fuel expansion.                        Never use engine or carburetor cleaner products in the
+                                                                    fuel tank or permanent damage may occur.
+• Use regular UNLEADED gasoline with the generator
+  engine. Do Not use premium gasoline. Do Not mix oil
+  with gasoline.
+• Clean area around fuel fill cap, remove cap.
+
+
+
+
+                                                                5
+                                 Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+KNOW YOUR GENERATOR
+Read this owner’s manual and safety rules before operating your generator.
+Compare the illustrations with your generator, to familiarize yourself with the locations of various controls and
+adjustments. Save this manual for future reference.
+                           Air Cleaner                               Choke Lever       Run/Stop Switch
+
+             Fuel Tank                                                                        Spark Arrester Muffler
+
+
+       Start Button
+
+
+                                                                                                         120 Volt AC, 20 Amp
+                                                                                                         Duplex Receptacle
+
+
+                                                                                                          Idle Control Switch
+
+
+
+                                                                                                      120/240 Volt AC,
+                                                                                                      30 Amp Receptacle
+
+                                                                                                     12 Volt DC, 10 Amp
+             Circuit Breakers (AC)                                                                   Receptacle
+
+                             120 Volt AC, 30 Amp                                   Grounding Wing Nut
+                             Receptacle
+
+12 Volt DC,10 Amp Receptacle — Recharge a                           Choke Lever — Used when starting a cold engine.
+discharged 12 Volt automotive type battery through this             Circuit Breakers (AC) — Each receptacle is provided
+receptacle.                                                         with a "push to reset" circuit breaker to protect the
+120 Volt AC, 20 Amp, Duplex Receptacle — May be                     generator against electrical overload.
+used to supply electrical power for the operation of                Fuel Tank — Capacity of seven (7) U.S. gallons.
+120 Volt AC, 20 Amp, single phase, 60 Hz electrical lighting,       Grounding Wing Nut — Used for proper grounding of
+appliance, tool and motor loads.                                    unit.
+120 Volt AC, 30 Amp Locking Receptacle — May be                     Idle Control Switch — With this switch set to ON,
+used to supply electrical power for the operation of                generator automatically reduces engine speed when no
+120 Volt AC, 30 Amp, single phase, 60 Hz electrical lighting,       load is connected and increases engine to proper speed
+appliance, tool and motor loads.                                    when load is applied. However, be sure switch is OFF when
+120/240 Volt AC, 30 Amp Locking Receptacle — May                    starting engine.
+be used to supply electrical power for the operation of             Run/Stop Switch — Set this switch to "Run" before
+120 and/or 240 Volt AC, 30 Amp, single phase, 60 Hz                 starting engine. Set switch to "Stop" to switch OFF engine.
+electrical lighting, appliance, tool and motor loads.
+                                                                    Spark Arrester Muffler — Exhaust muffler lowers
+Air Cleaner — Uses a dry type filter element and foam               engine noise and is equipped with a spark arrester screen.
+pre–cleaner to limit the amount of dirt and dust sucked
+                                                                    Start Button — When pressed, cranks engine to start.
+into the engine.
+
+
+
+                                                                6
+                                  Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+OPERATING THE                                                       4.     Place the choke lever in the “Full” choke position
+                                                                           (Figure 7).
+ GENERATOR                                                               Figure 7 — Choke Positions
+
+          CAUTION! Never start or stop unit with
+          electrical loads connected AND with the connected
+          devices turned ON.
+
+IMPORTANT: Always unplug the battery float charger
+before starting the generator.
+
+Starting the Engine
+Disconnect all electrical loads from the generator. Use the         5A. For electric starting, press start switch on generator
+following start instruction steps by numerical order:                   cradle.To prolong the life of the starter components,
+1.     Turn the fuel valve to the “On” position (Figure 4).             press the starter button for no more than 15 seconds,
+     Figure 4 — Fuel Valve                                              and pause for 30 seconds.
+                                                                    5B. For manual starting, grasp the recoil handle and pull
+                                                                        slowly until slight resistance is felt.Then pull rapidly
+                                                                        one time only to start engine.
+                                                                             • If engine starts, proceed to step 7.
+                                                                             • If engine fails to start, proceed to step 6.
+ Fuel Valve is shown
+ in the On position                                                 6.     Move the choke lever to “Half” choke position, and
+                                                                           pull recoil handle twice.
+2.     Make sure the Idle Control switch is in “Off” position                • If engine fails to start, repeat steps 4 thru 6.
+       (Figure 5).
+                                                                    7.     Move choke lever to “Run” position. If engine falters,
+     Figure 5 — Idle Control Switch                                        move choke lever to “Half ” choke position until the
+                                                                           engine runs smoothly and then to “Run” position.
+                                                                    NOTE: If engine still fails to start after 3 pulls, check for
+                                                                    proper oil level in crankcase.This unit is equipped with a
+                                                                    Low Oil Shutdown System. See engine manual.
+                                                                    Refer to the engine owner’s manual for complete
+                                                                    starting instructions.
+
+3.     Set the Run/Stop switch to “Run” position (Figure 6).        Connecting Electrical Loads
+     Figure 6 — Run/Stop Switch                                     • Let engine stabilize and warm up for a few minutes after
+                                                                      starting.
+                                                                    • Plug in and turn on the desired 120 and/or 240 Volt AC,
+                                                                      single phase, 60 Hz electrical loads.
+                                                                    • Do Not connect 240 Volt loads to the 120 Volt
+                                                                      receptacles.
+                                                                    • Do Not connect 3–phase loads to the generator.
+                                                                    • Do Not connect 50 Hz loads to the generator.
+
+
+
+                                                                7
+                                 Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+• DO NOT OVERLOAD THE GENERATOR. Add up                             To recharge 12 Volt batteries, proceed as follows:
+  the rated watts (or amps) of all loads to be connected at         • Check fluid level in all battery cells. If necessary, add
+  one time.This total should not be greater than the rated            ONLY distilled water to cover separators in battery cells.
+  wattage/amperage capacity of the generator. See “Don’t              Do Not use tap water.
+  Overload the Generator” on page 11.
+                                                                    • If the battery is equipped with vent caps, make sure they
+                                                                      are installed and are tight.
+Stopping the Engine
+                                                                    • If necessary, clean battery terminals.
+• Unplug all electrical loads from generator panel
+  receptacles. Never start or stop engine with electrical           • Connect battery charge cable connector plug to panel
+  devices plugged in and turned on.                                   receptacle identified by the words “12 VOLTS D.C.”
+• Put the idle control switch in the “Off ” position.               • Connect battery charge cable clamp with red handle to
+• Let engine run at no–load for 30 seconds to stabilize the           the positive (+) battery terminal (Figure 8).
+  internal temperatures of engine and generator.                      Figure 8 — Battery Charge Cable Connection
+• Move run/stop switch to “Stop.”
+• Close the fuel shut–off valve.                                         Red
+Operating Automatic Idle Control
+                                                                                                     Black
+This switch is designed to greatly improve fuel economy.
+When this switch is turned ON, the engine will only
+run at its normal high governed engine speed when an
+electrical load is connected.When an electrical load is
+removed, the engine will run at a reduced speed. With the
+switch off, the engine will run at the normal high engine
+speed. Always have the switch off when starting and
+stopping the engine.
+
+Charging a Battery                                                  • Connect battery charge cable clamp with black handle
+       WARNING! Storage batteries give off explosive                  to the negative (–) battery terminal (Figure 8).
+       hydrogen gas while recharging. An explosive mixture          • Start engine. Let the engine run while battery recharges.
+       will remain around the battery for a long time after         • When battery has charged, shut down engine
+       it has been charged.The slightest spark can ignite
+                                                                    NOTE: Use an automotive hydrometer to test battery
+       the hydrogen and cause an explosion, resulting in
+                                                                    state of charge and condition. Follow the hydrometer
+       blindness or other serious injury.
+                                                                    manufacturer’s instructions carefully. Generally, a battery is
+                                                                    considered to be at 100% state of charge when specific
+       WARNING! Do Not permit smoking, open
+                                                                    gravity of its fluid (as measured by hydrometer) is 1.260 or
+       flame, sparks or any other source of heat around a
+                                                                    higher.
+       battery.Wear protective goggles, rubber apron and
+       rubber gloves when working around a battery.
+       Battery electrolyte fluid is an extremely caustic            How to Use the Battery Charger
+       sulfuric acid solution that can cause severe burns. If       Use battery float charger jack to keep the starting battery
+       spill occurs flush area with clear water immediately.        charged and ready for use. Battery charging should be done
+                                                                    in a dry location, such as inside a garage.
+Your generator has the capability of recharging a discharged
+12 Volt automotive or utility style storage battery. Do Not         • Plug the charger into the unit’s “Battery Float Charger”
+use the unit to charge any 6 Volt batteries. Do Not use the           jack, which is located on the starter switch (Figure 9).
+unit to crank an engine having a discharged battery.                  Plug battery charger into a 120 Volt AC wall receptacle.
+
+
+
+                                                                8
+                             Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+  Figure 9 — Battery Charger Jack                                    The maximum load on each outlet is 20 Amps.The
+                                                                     maximum total load on both yellow wire outlets or black
+                                                                     wire outlets is 30 Amps.
+                                                                     NOTE: Follow all safety precautions when connecting any
+                                                                     extension cord or device to the generator.
+
+                                                                     RECEPTACLES
+                                                                     120/240 Volt AC, 30 Amp Locking
+                                                                       Receptacle
+                                                                     Use a NEMA L14-30 plug with this receptacle. Connect a
+                                                                     4-wire cord set rated for 250 Volt AC loads at 30 Amps (or
+• Unplug the charger from the unit and the wall outlet               greater) (Figure 11).You can use the same 4-wire cord if
+  when generator is being started and while it is in                 you plan to run a 120 Volt load.
+  operation.                                                           Figure 11 — 120/240 Volt AC, 30 Amp Receptacle
+• Keep this charger plugged in when generator is not in
+  use to prolong battery life.The charger has a built in float
+  equalizer and will not overcharge the battery, even when
+  plugged in for an extended period of time.
+IMPORTANT: See “Battery Maintenance” on page 12 for
+additional information.
+
+EXTENDA PANEL™
+The generator is equipped with a 25’ Extenda Panel™
+device designed for a 240 Volt, 30 Amp grounded neutral
+circuit (Figure 10).The Extenda Panel™ provides a
+convenient supply of emergency power into your dwelling
+so that your generator can be operated safely outside.The
+cord/outlets may also be used as a heavy duty extension
+cord.
+  Figure 10 — Extenda Panel™
+
+                                                                     This receptacle powers 120/240 Volt AC, 60 Hz, single
+                                                                     phase loads requiring up to 3,600 watts of power (3.6 kW)
+                                                                     at 30 Amps for 120 Volts OR 7,000 watts of power
+                                                                     (7.0 kW) at 29.2 Amps for 240 Volts.The outlet is
+                                                                     protected by a 30 Amp push-to-reset circuit breaker.
+
+                                                                            CAUTION! Although this outlet states it has a
+                                                                            240 Volt 30 Amp rating (up to 7,200 watts), the
+                                                                            generator is only rated for 7,000 watts. Powering
+                                                                            loads that exceed the wattage/ amperage capacity of
+                                                                            the generator can damage it or cause serious
+                                                                            injuries. 240 Volt loads powered through this outlet
+                                                                            should not exceed 29.2 Amps of current draw.
+
+
+
+
+                                                                 9
+                                 Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+120 Volt AC, 30 Amp Locking                                          Figure 13 — 120 Volt AC, 20 Amp Receptacles
+  Receptacle
+Use a NEMA L5–30 plug with this receptacle. Connect a
+3–wire cord set rated for 125 Volt AC loads at 30 Amps to
+the plug (Figure 12).
+  Figure 12 — 120 Volt, 30 Amp Receptacle
+
+
+
+
+                                                                    12 Volt DC, 10 Amp Receptacle
+                                                                    This receptacle allows you to recharge a 12 Volt
+                                                                    automotive or utility style storage battery with the battery
+                                                                    charge cables provided (Figure 14).This receptacle can not
+Use this receptacle to operate 120 Volt AC, 60 Hz, single           recharge 6 Volt batteries and can not be used to crank an
+phase loads requiring up to 3,600 watts (3.6 kW) of power           engine having a discharged battery. See the section
+at 30 Amps.The outlet is protected by a 30 Amp                      “Charging a Battery” (page 8) before attempting to
+push–to–reset circuit breaker.                                      recharge a battery.
+                                                                      Figure 14 — 12 Volt DC, 10 Amp Receptacle
+120 Volt AC, 20 Amp, Duplex
+  Receptacle
+Each receptacle (Figure 13) is protected against overload by
+a 20 Amp push–to–reset circuit breaker.
+Use each receptacle to operate 120 Volt AC, single–phase,
+60 Hz electrical loads requiring up to 2,400 watts (2.4 kW)
+at 20 Amps of current. Use cord sets that are rated for
+125 Volt AC loads at 20 Amps (or greater).
+
+
+
+
+                                                               10
+                                               Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+DON’T OVERLOAD THE                                                                                            • The rated wattage of lights can be taken from wattage
+                                                                                                                listed on the light bulbs.The rated wattage of tools,
+ GENERATOR                                                                                                      appliances and motors can usually be found on a data
+                                                                                                                plate or decal affixed to the device. Use Figure 15 below
+Overloading a generator in excess of its rated wattage                                                          as a general reference.
+capacity can result in damage to the generator and/or                                                         • Some electric motors, such as induction types, require
+connected electrical devices. Observe the following, to                                                         about three times more watts of power for starting than
+prevent overloading the unit:                                                                                   for running.This surge of power lasts for only a few
+• Add up the total wattage of all electrical devices to be                                                      seconds when starting such motors. Be sure you allow
+  connected at one time.This total should NOT be greater                                                        for this high starting wattage when selecting electrical
+  than the generator’s wattage capacity.                                                                        devices to connect to your generator. First figure the
+• If the appliance, tool or motor does not give wattage,                                                        watts needed to start the largest motor. Add to that
+  multiply 120 Volts times ampere rating to determine                                                           figure the running watts of all other connected loads.
+  watts (volts x amps = watts).
+
+
+  Figure 15 — Wattage Reference Guide
+Recreational/Home Uses                                                                                        Professional/Contractor Uses
+Tool/Appliance....................................................Watts                                       Tool/Appliance....................................................Watts
+AM/FM clock radio ....................................................................50                      *1/3 hp airless sprayer ............................................................600
+Light bulb....................................................................................100             3/8" hammer drill .....................................................................600
+Fan................................................................................................200        Variable speed Sawzall® .........................................................960
+20" color TV ..............................................................................400                ½" power drill ........................................................................1000
+*Deep freezer ...........................................................................500                  Quartz-halogen work light ..................................................1000
+Personal computer and 15" monitor...................................800                                       Belt sander...............................................................................1200
+*1/3 hp furnace fan blower ....................................................800                            7 ¼" circular saw ...................................................................1500
+Microwave oven........................................................................800                     7 ¼" worm drive saw ...........................................................1600
+*18 cu ft refrigerator...............................................................800                      *1½ hp air compressor ........................................................1800
+Sump pump..............................................................................1000                   *10" power miter saw...........................................................1800
+Electric skillet..........................................................................1250                6" bench grinder.....................................................................1800
+*½ hp water well pump .......................................................1400                             *6" table planer.......................................................................1800
+*12,000 Btu window air conditioner ................................1400                                       *10" table/radial arm saw .....................................................2000
+Space heater............................................................................1800                  Wire feed welder...................................................................2400
+Electric water heater ............................................................4000                        * allow 3 times listed watts for starting this device
+
+
+
+
+                                                                                                         11
+                                                                Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+SPECIFICATIONS                                                                        Generator Maintenance
+Maximum Surge Watts . . . . . . . . . . . . . . . .12,250 watts                       Generator maintenance consists of keeping the unit clean
+Continuous Wattage Capacity . . . . . . . . . . .7,000 watts                          and dry. Operate and store the unit in a clean dry
+                                                                                      environment where it will not be exposed to excessive
+Power Factor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .1.0           dust, dirt, moisture or any corrosive vapors. Cooling air
+Rated Maximum Continuous AC Load Current:                                             slots in the generator must not become clogged with snow,
+   At 120 Volts . . . . . . . . . . . . . . . . . . . . . . .58.3 Amps                leaves or any other foreign material.
+   At 240 Volts . . . . . . . . . . . . . . . . . . . . . . .29.2 Amps                NOTE: Do Not use a garden hose to clean generator.
+Phase . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .1–phase        Water can enter engine fuel system and cause problems. In
+                                                                                      addition, if water enters generator through cooling air slots,
+Rated Frequency . . . . . . . . . . . . . . . . . . . . . . .60 Hertz
+                                                                                      some of the water will be retained in voids and cracks of
+Fuel Tank Capacity . . . . . . . . . . . . . . . . . . . 7 U.S. gallons               the rotor and stator winding insulation.Water and dirt
+Shipping Weight . . . . . . . . . . . . . . . . . . . . . . . . .240 lbs.             buildup on the generator internal windings will eventually
+                                                                                      decrease the insulation resistance of these windings.
+GENERAL MAINTENANCE                                                                   Battery Maintenance
+ RECOMMENDATIONS                                                                      Other than float charging, described elsewhere, no
+The Owner/Operator is responsible for making sure that                                maintenance is required for the battery. Keep the battery
+all periodic maintenance tasks are completed on a timely                              and terminals clean and dry.
+basis; that all discrepancies are corrected; and that the unit                        IMPORTANT: Battery charging should be performed in a
+is kept clean and properly stored. Never operate a                                    dry location, such as inside a garage.
+damaged or defective generator.
+                                                                                      To Clean the Generator
+Engine Maintenance                                                                    • Use a damp cloth to wipe exterior surfaces clean.
+See engine owner’s manual for instructions.                                           • A soft bristle brush may be used to loosen caked on dirt
+                                                                                        or oil.
+          CAUTION! Avoid prolonged or repeated skin                                   • A vacuum cleaner may be used to pick up loose dirt.
+          contact with used motor oil. Used motor oil has
+          been shown to cause skin cancer in certain                                  • Low pressure air (not to exceed 25 psi) may be used to
+                                                                                        blow away dirt. Inspect cooling air slots and opening on
+          laboratory animals.Thoroughly wash exposed areas
+                                                                                        generator.These openings must be kept clean and
+          with soap and water.                                                          unobstructed.
+          KEEP OUT OF REACH OF CHILDREN. DON'T
+          POLLUTE. CONSERVE RESOURCES. RETURN
+          USED OIL TO COLLECTION CENTERS.
+
+
+
+
+                                                                                 12
+                            Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+STORAGE                                                            Engine Storage
+The generator should be started at least once every seven          See engine owner’s manual for instructions.
+days and allowed to run at least 30 minutes. If this cannot
+be done and you must store the unit for more than                  Other Storage Tips
+30 days, use the following guidelines to prepare it for
+storage.                                                           • To prevent gum from forming in fuel system or on
+                                                                     essential carburetor parts, empty all three supplied fuel
+Generator Storage                                                    stabilizer containers into fuel tank and fill with fresh
+                                                                     gasoline. Run the unit for several minutes to circulate the
+• Clean the generator as outlined in “To Clean the
+  Generator.”                                                        additive through the carburetor.The unit and fuel can
+                                                                     then be stored for up to 24 months. Additional fuel
+• Check that cooling air slots and openings on generator
+                                                                     stabilizer can be purchased locally.
+  are open and unobstructed.
+                                                                   • Do Not store gasoline from one season to another
+       CAUTION! Storage covers can be flammable.                     unless it has been treated as described above.
+       Do Not place a storage cover over a hot
+                                                                   • Replace gasoline can if it starts to rust. Rust and/or dirt
+       generator. Let the unit cool for a sufficient time
+                                                                     in gasoline can cause problems when that fuel is used
+       before placing the cover on the unit.
+                                                                     with this unit.
+                                                                   • Store in clean and dry area.
+
+
+
+
+                                                              13
+        Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+NOTES
+
+
+
+
+                                 14
+                        Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+TROUBLESHOOTING
+Problem                      Cause                                         Correction
+                             1.   One of the circuit breakers is open.     1.   Reset circuit breaker.
+                             2.   Fault in generator.                      2.   Contact Generac service facility.
+Engine is running, but no
+                             3.   Poor connection or defective cord set.   3.   Check and repair.
+AC output is available.
+                             4.   Connected device is bad.                 4.   Connect another device that is in
+                                                                                good condition.
+                             1.   Short circuit in a connected load.       1.   Disconnect shorted electrical load.
+Engine runs good at no-      2.   Engine speed is too slow.                2.   Contact Generac service facility.
+load but “bogs” down"        3.   Generator is overloaded.                 3.   See “Don't Overload the Generator”
+when loads are connected.                                                       on page 12.
+                             4.  Shorted generator circuit.                4.   Contact Generac service facility.
+                             1.  Run/Stop Switch set to “STOP”.            1.   Set switch to “RUN”.
+                             2.  Dirty air cleaner.                        2.   Clean or replace air cleaner.
+                             3.  Out of gasoline.                          3.   Fill fuel tank.
+                             4.  Stale gasoline.                           4.   Drain gas tank; fill with fresh fuel.
+                             5.  Spark plug wire not connected to          5.   Connect wire to spark plug.
+                                 spark plug.
+Engine will not start; or
+                             6. Bad spark plug.                            6. Replace spark plug.
+starts and runs rough.
+                             7. Water in gasoline.                         7. Drain gas tank; fill with fresh fuel.
+                             8. Overchoking.                               8. Open choke fully and crank engine.
+                             9. Excessively rich fuel mixture.             9. Contact Generac service facility.
+                             10. Intake valve stuck open or closed.        10. Contact Generac service facility.
+                             11. Engine has lost compression.              11. Contact Generac service facility.
+                             12. Failed battery.                           12. Replace battery.
+Engine shuts down during     1. Out of gasoline.                           1. Fill fuel tank.
+operation.                   2. Low oil level.                             2. Fill crankcase to proper level.
+                             1. Load is too high.                          1. See “Don't Overload the Generator”
+Engine lacks power.                                                            on page 12.
+                             2.   Dirty air filter.                        2. Replace air filter.
+                             1.   Choke is opened too soon.                1. Move choke to halfway position until
+                                                                               engine runs smoothly.
+Engine “hunts” or falters.
+                             2.   Carburetor is running too rich or too    2. Contact Generac service facility.
+                                  lean.
+
+
+
+
+                                                        15
+            Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+SCHEMATIC
+
+
+
+
+                                     16
+         Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+WIRING DIAGRAM
+
+
+
+
+                                      17
+           Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+EXPLODED VIEW – ALTERNATOR
+
+
+
+
+                                    18
+         Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+EXPLODED VIEW – FRAME
+
+
+
+
+                                      19
+                          Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+PARTS LIST – ALTERNATOR & FRAME
+Item   Part #  Qty   Description                             Item   Part #  Qty Description
+   1   A187024 1     CRADLE                                    53   67022    1  GROMMET, Rubber
+   2   J189176   1   SHIELD, Heat                              54   66825C   1  CARRIER, Rear Bearing
+   3   92982     1   DECAL, Danger                             55   86494    1  SCREW, M6-1.0 x 16 Wing
+   4   92665     1   INSULATION, #2-1/4" Thick                 56   23762    3  WASHER, Shakeproof #10
+   5   B1998     1   TANK, Fuel (Incls Item 12 & 13)           57   66386    1  ASSEMBLY, Brush Holder
+   6   B4363     1   CAP, with Gauge, Fuel                     58   66849    2  TAPTITE, M5-0.8 x 16
+   7   85000     1   CLIP, Insulation                          59   B4871    1  COVER, Bearing Carrier
+   8   93826     1   DECAL, Start Instructions                 60   74908    4  TAPTITE, M5-0.8 x 10
+   9   78831B    4   HHMS, M6-1.0 x 60, SEMS                   61   B4605    2  GRIP
+  10   83465     4   GROMMET,Tank                              62   66849C   1  TAPTITE, M5-0.8 x 30
+  11   77395     8   NUT, Flange Lock - M6                     63   65795    2  RECTIFIER, Battery Charge
+  12   80270     1   VALVE,Tank                                64   66449L   4  BOLT, Stator M6-1 x 190mm
+  13   78299     1   BUSHING,Tank                              65   22145    4  WASHER, Flat 5/16 - M8
+  14   B2153     9   SCREW, 12-14 x 7/8, Self Driller          66   22097    5  LOCKWASHER, 1/4" - M6
+  15   43116     4   HHCS, M6 - 1.0 x 12                       67   186744   1  MANUAL, Operators
+  16   51731     2   HHCS, M8 - 1.25 x 50                      68   BB5586   2  HANDLE
+  17   B4135     2   PIN, with Lanyard                         69   52858    4  NUT, Lock M8
+  18   187104    4   WASHER, Nylon                             70   B186927  1  LEG, Support
+  19   49820    2    NUT, M8 Nylok                             71   27007    2  MOUNT,Vibration
+  20   83083     1   SCREEN, Spark Arrester                    72   42909    2  CAPSCREW, M8 - 1.25 x 30
+  21   86307     4   HHMS, 5/16-24 x 3/4"                      73   93693G   1  AXLE
+  22   92247     1   HOUSING, Engine Adapter                   74   B4966    2  WHEEL
+  23   A92531    1   SUPPORT, Engine                           75   22247    2  WASHER,Wheel
+  24   189160   12   NUT, 5/16-18 Flange Serrated              76   87005A   2  PIN, Retaining
+  25   22129     2   WASHER, Lock - M8                         77   189302B  1  WIRE ASM, #16
+  26   82857     4   MOUNT,Vibration                           78   77282    1  SWITCH, Starter
+  27   22531     2   HHCS, 5/16-18 x 1-3/4"                    79   188987   1  BRACKET, Switch
+  28   92609     2   MOUNT,Vibration                           80   188989   1  ASM, Jack, DC
+  29   22142     2   SCREW, 5/16 - 18 x 3/4"                   81   22287    2  HHCS, 1/4 - 20 x 3/4"
+  30   A7433     1   MUFFLER                                   82   22097    4  LOCKWASHER, 1/4 - M6
+  31   A92731    1   SUPPORT, Engine & Muffler                 83   22127    5  NUT, 1/4 - 20
+  32   90239     1   GASKET, Muffler                           84   J186704  1  TRAY, Battery
+  33   B1342G    1   ASSEMBLY, Rotor (Incls Item 34)           85   B4489    1  BATTERY, 12V 18 AH
+  34   65791     1   BEARING                                   86   189302C 1   WIRE ASM, #13
+  35   96796     1   WASHER, Special Flat - M8                 87   185939H 1   WIRE ASM, #55
+  36   47481     1   HHCS, 5/16-24 x 10-5/8                    88   73054    1  DECAL, Fuel Shut-Off
+  37   B1897G    1   ASSEMBLY, Stator                          89   77816    2  DECAL, Hot Muffler
+  38   20566     1   DECAL, 1-800                              90   39253    2  HHCS, M8 - 1.25 x 20
+  39   40976     2   SCREW, M8 - 1.25 x 20                     91   A8927    1  MANUAL, Engine
+  40   92532     1   BRACKET, Muffler                          92   52618    2  HHCS, M5 - 0.8 x 12
+  41   66476     2   CAPSCREW, M6 - 1.0 x 12mm                 93   23897    2  WASHER, M5 Flat
+  42   186747    1   DECAL, Control Panel                      94   52856    2  NUT, M5 Flange Hex
+  43   92630     1   ASSEMBLY, Control Box                     95   50190    2  WASHER, Flat 10 GA 0.34 x 1
+  44   J96068    1   SHIELD, Heat                              96   96113    1  WIRE ASM, #13
+  45   14353621 1    WIRE, Ground                              97   58359    1  LUG, 5/16 #22/18 I-S
+  46   26850     2   LW, EXT, Shakeproof M6                    98   189198   1  DECAL, Instruction, ES
+  47   BB3061    2   BOTTLE, Oil                               99   B4177    1  CHARGE, Battery Float
+  48   81917     1   PIN, Roll 4mm x 10                       100   189208   3  FUEL STABILIZER, 1oz Tube
+  49   B4986     1   DECAL, Ground                            101   65787    1  CABLE, Battery Charge
+  50   186798    2   DECAL, Heat Shield                       102   37806    1  PLUG, 120V/30 Amp
+  51   56893     5   CRIMPTITE, 10-24 x 1/2"                  103   188971   1  EXTENDA PANEL
+  52   84132     1   ASSEMBLY, Power Regulator                900   NSP      1  ENGINE
+
+
+                                                        20
+                       Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+EXPLODED VIEW AND PARTS LIST – CONTROL PANEL
+
+
+
+
+Item   Part #   Qty   Description                        Item   Part #   Qty Description
+   1   A92070    1    PANEL, Control                       14   43437     1  OUTLET, 120V/240V, 30A
+   2   23897     4    FLAT WASHER, #10 M5                                    Locking
+   3   49226     4    LOCK WASHER, M5                     15    68759     1  OUTLET, 120V, 20A Duplex
+   4   91526     4    SCREW, M5-0.8 x 12mm                16    43180     6  FLAT WASHER, M4
+   5   82538     1    SWITCH, Idle Control                17    22264     6  LOCK WASHER, #8 M4
+   6   82881     4    LOCK WASHER, 7/16"                  18    51715     6  NUT, M4-0.7 Hex
+   7   43181     4    SCREW, M3 - 0.5 x 10mm              19    64526     8  SCREW, #6-32 x 3/8"
+   8   43182     4    LOCK WASHER, M3                     20    83970     1  BOARD, System Control
+   9   90418     1    OUTLET, 12V                         21    64525     4  STAND-OFF, 3/4" Hex
+  10   75207A    2    CIRCUIT BREAKER, 30A                22    87962     1  CIRCUIT BREAKER. 12V, 10A
+  11   75207     2    CIRCUIT BREAKER, 20A                                   (auto)
+  12   23365     6    WASHER, #8 Shakeproof               23    84335     1  ASSEMBLY,Wire Harness
+  13   68868     1    OUTLET, 120 Volt, 30 Amp            24    84134     1  GROMMET, Rubber Conn.
+                      Locking                             25    B92069    1  BOX, Control Panel
+                                                          26    84028     1  TRANSFORMER, Idle Control
+
+
+                                                    21
+        Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+NOTES
+
+
+
+
+                                 22
+        Generac Portable Products 7000EXL Extended Life Generator
+
+
+
+
+NOTES
+
+
+
+
+                                     23
+          PORTABLE GENERATOR LIMITED WARRANTY
+GENERAC PORTABLE PRODUCTS (hereafter referred to as the COMPANY) warrants to the original purchaser that the
+components in its portable generator will be free from defects in materials or workmanship for the items and period set
+forth below from the date of original purchase.This warranty does not include the gasoline engine when furnished or
+attached because such engine is covered solely by the engine manufacturer’s warranty. Starting batteries are not warranted
+by the COMPANY.The term “original purchaser” means the person for whom the generator is originally purchased.This
+warranty is not transferable and applies only to portable generators driven by an overhead valve engine.
+Warranty Schedule:
+                                Consumer*                                              Commercial*
+         Engine                 Warranted solely by the engine manufacturer
+         All other parts        2 years (2nd year parts only)                          1 Year
+With the exception of European Community Countries, all units bound for export shall be warranted for One (1)
+Year in Consumer applications, and 90 days in Commercial applications as defined below.
+*NOTE: For the purpose of this warranty "consumer use" means personal residential household use by
+original purchaser.This warranty does not apply to units used for Prime Power in place of utility.
+"Commercial Use" means all other uses, including rental, construction, commercial and income producing
+purposes. Once a generator has experienced commercial use, it shall thereafter be considered a commercial
+use generator for the purposes of this warranty.
+During said warranty period, the COMPANY will, at is option, repair or replace any part which, upon examination by the
+COMPANY, is found to be defective under normal use and service**. All transportation costs under warranty, including
+return to the factory if necessary, are to be borne by the purchaser and prepaid by the purchaser.This warranty does not
+cover normal maintenance and service and does not apply to a generator set, alternator, or parts which have been
+subjected to improper or unauthorized installation or alteration, misuse, negligence, accident, overloading, overspeeding,
+improper maintenance, repair or storage so as, in the COMPANY’s judgement, to adversely affect its performance and
+reliability.
+**NORMAL WEAR: As with all mechanical devices, the generator needs periodic parts service and
+replacement to perform well.This warranty will not cover repair when normal use has exhausted the life of
+a part or generator.
+       THERE IS NO OTHER EXPRESS WARRANTY.THE COMPANY HEREBY DISCLAIMS ANY AND ALL
+       IMPLIED WARRANTIES, INCLUDING BUT NOT LIMITED TO THOSE OF MERCHANTABILITY AND
+       FITNESS FOR A PARTICULAR PURPOSE TO THE EXTENT PERMITTED BY LAW.THE DURATION OF ANY
+       IMPLIED WARRANTIES WHICH CANNOT BE DISCLAIMED IS LIMITED TO THE TIME PERIOD AS
+       SPECIFIED IN THE EXPRESS WARRANTY. LIABILITY FOR CONSEQUENTIAL, INCIDENTAL OR SPECIAL
+       DAMAGES UNDER ANY AND ALL WARRANTIES IS EXCLUDED. THE COMPANY ALSO DISCLAIMS ANY
+       RESPONSIBILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES, SUCH AS THE LOSS OF TIME OR
+       THE USE OF THE POWER EQUIPMENT, OR ANY COMMERCIAL LOSS DUE TO THE FAILURE OF THE
+       EQUIPMENT:AND ANY IMPLIED WARRANTIES ARE LIMITED TO THE DURATION OF THIS WRITTEN
+       WARRANTY.
+Some states do not allow limitations on how long an implied warranty lasts, or the exclusion or limitation of incidental or
+consequential damages, so the above limitations or exclusions may not apply to you.This warranty gives you specific legal
+rights and you may also have other rights, which vary from state to state.
+For service, see your nearest COMPANY authorized warranty service facility or call 1-877-544-0982. Or look on the
+internet at www.generac-portables.com.Warranty service can be performed only by a COMPANY authorized service
+facility.This warranty will not apply to service at any other facility. At the time of requesting warranty service, evidence of
+original purchase date must be presented.
+
+
+
+                             GENERAC PORTABLE PRODUCTS
+                                   Jefferson,Wisconsin U.S.A.
+
