@@ -2198,6 +2198,57 @@
       ]
     },
     {
+      "id": "generac-7000exl",
+      "group": "equipment",
+      "name": "Generac 7000EXL Portable Generator",
+      "trim": "7000EXL",
+      "emoji": "🔌",
+      "category": "equipment",
+      "status": "Decommissioned — fully drained, storage state. Recommissioning not yet attempted.",
+      "specs": {
+        "model": "7000EXL",
+        "type": "Portable generator, electric start",
+        "_specsNote": "Output, engine, displacement, tank capacity and run-time all TBD — nothing here is read off the unit or the manual yet. The manual is on file (link below) but has NOT been ingested; see BACKLOG B2 ‘Generac recommissioning’."
+      },
+      "maintenance": {
+        "fuel": {
+          "value": "TBD — pending manual sweep",
+          "confidence": "tbd"
+        },
+        "oil": {
+          "value": "TBD — pending manual sweep",
+          "confidence": "tbd"
+        },
+        "sparkPlug": {
+          "value": "TBD — pending manual sweep",
+          "confidence": "tbd"
+        },
+        "airFilter": {
+          "value": "TBD — pending manual sweep",
+          "confidence": "tbd"
+        },
+        "battery": {
+          "value": "TBD — electric-start unit, so it carries a starting battery. Condition unknown after storage; a fully drained machine has very likely lost it.",
+          "confidence": "tbd"
+        },
+        "schedule": {
+          "value": "TBD — pending manual sweep",
+          "confidence": "tbd"
+        }
+      },
+      "notes": "⚠️ **Decommissioned and fully drained of everything** (Paul, 2026-08-04) — fuel, oil, the lot. This is a deliberate storage state, not neglect, but it means the unit cannot simply be started: a drained machine needs fluids, almost certainly a battery, and a carburetor that has sat dry. **Paul's framing: the open question is whether we can get it running again, and that wants testing BEFORE cold weather** — a generator first tested during the outage it was bought for is a generator you don't have. Surfaced 2026-08-04 from a bookmark-export analysis: five saved sources from Aug 2025 (four ‘won’t start after sitting’ walkthroughs plus the manual scan), and the machine was absent from this file entirely until now.",
+      "manual": {
+        "label": "Generac 7000EXL user manual (archive.org scan) — NOT yet ingested to manuals/text/",
+        "url": "https://archive.org/details/manualsbase-id-609002"
+      },
+      "researchNeeded": [
+        "Ingest the manual to manuals/text/ and fill every `tbd` maintenance value (fuel, oil type + capacity, spark plug + gap, air filter, battery spec, service schedule).",
+        "Confirm the model designation against the unit's own data plate — `7000EXL` currently comes from Paul's bookmark titles, not from a read of the machine.",
+        "Establish the recommissioning sequence and a parts/consumables buy-list before the first start attempt.",
+        "Record where it lives and whether it was ever wired to anything (transfer switch vs extension cords)."
+      ]
+    },
+    {
       "id": "nest-thermostat-family-room",
       "group": "household-system",
       "name": "Nest Learning Thermostat",
