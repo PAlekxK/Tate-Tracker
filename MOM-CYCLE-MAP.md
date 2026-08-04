@@ -1,0 +1,202 @@
+# MOM-CYCLE MAP — how Fernwood's feedback loop actually fits together
+
+> **Paul, 2026-08-04:** *"this is kind of where we're defining this loop formally that we've talked
+> about for some of the other processes as well… let's make sure we're documenting it very clearly
+> and rigorously here, keeping up with the standard we've established for other processes."*
+
+This is the **definable-loop** treatment `[paul-stated 2026-08-03]` applied to Mama's Perspective:
+named legs you can draw, human gates at the real decision points, checks that have been *seen to
+fail*, a pre-registered definition of a clean lap, self-improvement between laps, and a glanceable
+awareness surface. Reference implementation for the standard is the market-digest five-beat cycle
+(`~/Developer/market-digest-pipeline/research/theses/CYCLE-MAP.md`).
+
+**What this is NOT.** Not the procedure — that is `~/.claude/skills/mom-cycle/SKILL.md`, and it
+stays canonical for *how to run a lap*. Not the doctrine — that is `CLAUDE.md` § "Mama's
+Perspective". This maps the **load-bearing pieces**: the legs, the gates, the checks, the surfaces,
+and the loop that scores itself.
+
+⚠️ **A HAND-WRITTEN MAP GOES STALE**, and on this stack that is measured behaviour, not a worry —
+`[[feedback_hand_maintained_facts_drift]]` fired five times on 2026-08-02 and every drift flattered
+the writer. So the map ships with its own control: `python3 tools/check-cycle-map.py` fails when a
+loop tool exists that this file does not name. It is a **close-out check, not a gate** — wiring it
+into the loop's own sweep would make the map check gate the thing it documents.
+
+---
+
+## The eight legs
+
+The procedure's own numbering, unchanged — renaming established legs would fork the doctrine.
+👤 marks a leg a run **cannot cross on its own**.
+
+| leg | what happens | who | how it is known to be done |
+|---|---|---|---|
+| **0 · GUARD** | is another session in this repo? | ai | `git log --oneline -1` at start and again before committing; HEAD unmoved |
+| **1 · READ** | the deterministic sweep — five checks | ai | all five run; the work-list is collected from their output, never from a backlog row |
+| **2 · TRIAGE** | every item lands in exactly one of correctness / feature / ambiguous / preference | ai | each item routed; a two-class item split |
+| **3 · RESOLVE** 👤 | the ambiguity ladder: telemetry → **Paul** → only then a card | **Paul at tier 2** | settled at the cheapest tier that can settle it |
+| **4 · EXPERT** | one seat (`user-researcher` by default), escalate only on trigger | ai | a seat's finding, or a recorded reason none was convened |
+| **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked |
+| **6 · GATE** 👤 | the return leg — ribbon + at most one card — presented as exact text | **Paul** | he approves, and it is **pushed** (Pages serves `viewer.html`) |
+| **7 · CLOSE** | dispositions recorded, cards retired, watermark advanced | ai | `feedback-log.json` written; watermark clamped |
+
+**The loop closes at leg 7 → leg 1.** What makes it a cycle rather than a checklist is that leg 7's
+watermark decides what leg 1 surfaces next lap — and the clamp means a lap cannot close over
+something it failed to handle.
+
+**Two structural facts about the gates:**
+
+- **Leg 6 cannot be crossed by shipping.** A ribbon Paul has not read is not a ribbon, and a commit
+  is not a ship — Pages serves the pushed file. *"A ribbon Paul wrote and didn't push is exactly as
+  stale to Mom as one he never wrote."*
+- **Leg 3 tier 2 exists because Paul asked for it** (2026-07-29: *"I'm happy to help sort through
+  some of the ambiguity and turn that into feedback for her"*). It sits **above** Mom in the ladder
+  because her attention is the scarcest resource in the project — every card resolvable upstream
+  spends it for nothing.
+
+---
+
+## Where the work lives
+
+Four surfaces, and **none is a copy of another**.
+
+| surface | holds | who owns it |
+|---|---|---|
+| `questions.json` | the cards she is served — prompt, class, `active`, `resolvedAt`, origin `_note` | ai drafts, **Paul approves** |
+| `MOM_ACK_DATA` (`viewer.html`) | the acknowledgment ribbon — feedback *to her* | ai drafts, **Paul approves** |
+| `feedback-log.json` | **where each note WENT** — never her words (public repo) | ai |
+| `.private/channel-read-state.json` | per-channel read marks — attestation that a human actually read | whoever read it |
+| `BACKLOG.md` | the **argument** behind every row | both |
+| `MOM-CYCLE-LOG.md` | the lap chronicle, one section per lap, with receipts | ai |
+
+**The split that matters:** `BACKLOG.md` keeps the ARGUMENT; the JSON surfaces keep the STATE. Her
+verbatim words live in the Worker and in `.private/` — never in this public repo. Feedback about the
+*app* is project material; her account of her own uncertainty is not.
+
+---
+
+## The checks — and the failure each was born from
+
+Every check answers one question and none answers another's. **A gate with no failure behind it is
+decoration**, so where one exists because something went wrong, that is named.
+
+| check | asks | born from |
+|---|---|---|
+| `tools/read-mom-feedback.py` | what has she settled, and what is actually waiting? | the punch-list was listing folded answers as pending — **3 phantom "ready to fold" rows on 07-26** propagated into BACKLOG, a researcher brief and three agent reports before anyone checked canon |
+| `tools/check-mom-ack.py` | is the ribbon still true, and did it **ship**? | the ribbon sat **8 days stale during her best week** — it refreshed on *our* events, not hers |
+| `tools/check-cards.py` | is what she is being **shown right now** correct? | 07-26: there was a check for the ribbon and a check for the punch-list, and **nothing verified the queue she actually sees** |
+| `tools/check-data-inline.py` | do `viewer.html`'s inlined constants match canon? | inline drift renders ghost entries — data present in JSON, absent on her screen |
+| `tools/check-digest-fresh.py` | is Garden Guru's context current? | 2026-07-07 — plants + fishing drifted **three days** and Guru served stale knowledge to her |
+| `tools/check-season-notes.py` | do 178 authored prose lines still agree with their own dates? | the standing "Paul reads all 178" item sat undone a week; scoped as a slog, it read as one |
+| `tools/test-feedback-cycle.py` | does her feedback survive the round trip? | her rainfall report was captured perfectly and **still went unanswered for four hours** — capture is not a loop |
+| `tools/read-mom-funnel.py` | is she engaging, and with what? | the funnel counted **Paul's device as hers for 26 days**; the two figures that drove design decisions were counts of the wrong person |
+| `tools/read-feedback-sections.py` | which **door** did she come through? | *she declined* and *she never understood which thing she was answering* were indistinguishable |
+| `tools/read-mom-zone-audio.py` | has anyone actually **listened**? | 3 of 5 recordings were never listened to while the ribbon read green |
+| `tools/fold-answer.py` | apply what she settled, with Paul confirming | the watermark used to step over unfolded answers — the loop's **only silent-data-loss path** |
+| `tools/mom-cycle-status.py` | **where in the loop are we, and is anything mine?** | five green exit codes never answered "is anything waiting on me" |
+| `tools/check-cycle-map.py` | is this map still true? | hand-maintained facts drift, and always flatteringly |
+
+> ⚠️ **The shape that recurs across half of these: a mechanism that inspects as present and has
+> never actually run — or runs and cannot fail.** The ribbon clock was cleared by *stamping a
+> timestamp*, which is not the act of reading anything, so `check-mom-ack.py` reported ALL GREEN on
+> 2026-07-26 while five zone recordings sat unlistened and fourteen Guru conversations unread. **A
+> detection mechanism must be clearable only by the action it is detecting the absence of.** That
+> is why the read marks are attestations and why `check-cycle-map.py --selftest` exists.
+
+---
+
+## The awareness surface — a map, not a stream
+
+```bash
+python3 tools/mom-cycle-status.py        # ← read the loop's position here
+```
+
+Prints the eight legs with the current one marked, 👤 on the two gates, and **🔴 NEEDS YOU** when
+the loop is standing on something only Paul can clear. Exit 0 = nothing waiting; exit 1 = something
+is.
+
+⭐ **This is a NON-AI DOOR** `[paul-stated 2026-08-02]`. No model runs in it; every signal is derived
+from canon on disk plus the Worker's own endpoints, and each one names its source. *If the only way
+to learn whether Mom is owed a reply were to ask Claude, this loop would be broken.*
+
+**What it deliberately will not report:** a return leg that exists only in an agent's chat window.
+That is not loop state — it is unshipped. What it prints is what the **record** owes her.
+
+| signal | derived from |
+|---|---|
+| served queue is wrong | `check-cards.py` exit code + its 🔴 lines |
+| return leg owed | `check-mom-ack.py` exit code (R1 staleness + R2 uncovered arrivals) |
+| a channel is unread | `check-mom-ack.py` R2b — attestation, not a stamp |
+| canon surfaces behind | `check-data-inline.py` + `check-digest-fresh.py` |
+| unpushed / dirty | `git` — because a commit is not a ship |
+
+---
+
+## What a CLEAN LAP means — PRE-REGISTERED
+
+> **Written 2026-08-04, BEFORE the lap it first scores.** That is the point: without a
+> pre-registration, "did the loop work?" is answered by whoever is describing it, and the answer is
+> reliably generous. Amendments are legitimate **only between laps**, recorded before the lap they
+> first score.
+>
+> ✅ **Verified able to fail before being adopted:** scored against the 2026-08-04 lap in progress,
+> criteria 3 and 5 read **NOT MET**. A definition that is green from birth measures nothing.
+
+A lap is **clean** when all six hold. Every criterion is derivable from a tool's exit code or a file
+on disk — never a hand count, and never a claim in this file.
+
+| # | criterion | derived from |
+|---|---|---|
+| 1 | **Every leg that ran left its artifact** — a `MOM-CYCLE-LOG.md` lap section with one line per leg, each pointing at something durable | the chronicle + the artifacts it points at |
+| 2 | **Legs 2, 4 and 5 may be empty; legs 1, 6 and 7 never.** A lap with no expert seat and no shipped win is still a lap; a lap that skipped the sweep, the gate, or the close is not | the chronicle |
+| 3 | **She is served nothing she has already answered** — `check-cards.py` exits 0 | its exit code |
+| 4 | **Every channel with input newer than its mark has been attested read** — `check-mom-ack.py` R2b not red | its output |
+| 5 | **The return leg SHIPPED** — approved by Paul, and `origin/main` contains the ribbon commit | `git log origin/main` + `MOM_ACK_DATA.acknowledgedThrough` ≥ her newest input |
+| 6 | **The watermark did not step over anything actionable** — the clamp held, no item silently cleared | `read-mom-feedback.py` held-back message |
+
+**What clean is NOT: volume.** A lap that answers one confirm and ships one honest *"not built yet"*
+is clean. A lap that folded four answers while a card she already answered kept being served is not.
+Clean measures the **loop closing its loops**, never how much moved.
+
+⚠️ **And clean never means she felt heard.** R1/R2 are *process* metrics: green proves the loop works
+on **us**. `momack_shown` counts exposure, not receipt. No outcome measure for the return leg exists
+— that gap is real, it is named here, and it must never be papered over with a process number.
+
+---
+
+## Self-improvement between laps
+
+- **The chronicle** — `MOM-CYCLE-LOG.md`, one section per lap, written **as the lap runs**, every
+  line carrying a pointer to a durable artifact. A hand-kept journal written afterwards is how the
+  63 KB pickup-point died in the other repo; a log written at each leg's completion cannot drift the
+  same way.
+- **The refinement log** — `~/.claude/skills/mom-cycle/SKILL.md` § Refinement log. One line per lap:
+  what the cycle got wrong or couldn't do, and what changed in the procedure as a result. Run 1
+  produced four amendments, one of which (*telemetry is the FIRST move, not a check*) overturned
+  three conclusions that had been reached from reading code.
+- **The amendment rule** — the procedure may change any time; the **clean-lap definition may not
+  change mid-lap**. Amend it between laps, and record it before the lap it first scores.
+
+**The split, borrowed from the market-digest cycle:** work that changes what the RECORD knows is
+lap work; work that changes how the LOOP runs — these tools, this map, the chronicle — is **meta
+work**, and it runs between laps. Today's map, status surface and control are meta work.
+
+---
+
+## Reading order for someone picking this up cold
+
+1. `CLAUDE.md` § "Mama's Perspective" — the doctrine, and the four standing rules
+2. **this file** — which piece serves which leg
+3. `~/.claude/skills/mom-cycle/SKILL.md` — how to run a lap
+4. `MOM-CYCLE-LOG.md` — what has actually happened, lap by lap
+5. `BACKLOG.md` — why any given row exists
+
+---
+
+## What this map deliberately does not cover
+
+- **Whether any of it is *right*.** `check-cycle-map.py` verifies that no loop tool is undocumented.
+  It cannot verify a sentence, and it does not pretend to.
+- **The capture path.** How her tap and her words get to the Worker is deterministic and AI-free by
+  doctrine (`[[feedback_no_ai_on_capture]]`); this loop begins where capture ends.
+- **The other tools in `tools/`.** Fetchers, builders and wiring scripts are not loop legs;
+  `check-domains.py` is excluded by name and reason in the control itself.
