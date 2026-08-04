@@ -7302,9 +7302,14 @@ async function fetchLiveWeather() {
 // =========================
 // AMBIENT WEATHER STATION (on-property)
 // =========================
-const AMBIENT_APP_KEY = "18bddad32ee64161962476f115eb8ededbd71d2cea74439397ef85f278d064bc";
-const AMBIENT_API_KEY = "3123e9a73a6a4d549fc8801b19ecd902c5806dcadeb44dc5a96765614991a964";
-const AMBIENT_MAC     = "D8%3AF1%3A5B%3A15%3A28%3AB8";
+// The key pair lives as Worker secrets (AMBIENT_APP_KEY / AMBIENT_API_KEY) and
+// never in this file. The MAC is a device identifier, not a secret, and the
+// Worker holds its own default.
+//
+// /api/ambient is UNAUTHENTICATED on purpose. The direct fetch this replaced
+// worked on every device, paired or not, so routing it through WorkerAPI.call
+// would blank the conditions on an unpaired device — e.g. Mom's.
+const AMBIENT_ENDPOINT = "https://tate-tracker.paul-kirschenbauer.workers.dev/api/ambient";
 
 // Apply on-property station readings on top of WEATHER_DATA.current. Idempotent —
 // safe to re-call whenever WEATHER_DATA gets reassigned (e.g. when Open-Meteo
@@ -7333,12 +7338,14 @@ function applyStationOverrides(d, history) {
 
 async function fetchAmbientWeather() {
   // limit=288 = 24 hours at 5-min cadence — gives us trend sparklines on the same call
-  const url = "https://api.ambientweather.net/v1/devices/" + AMBIENT_MAC +
-    "?applicationKey=" + AMBIENT_APP_KEY + "&apiKey=" + AMBIENT_API_KEY + "&limit=288";
+  const url = AMBIENT_ENDPOINT + "?limit=288";
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
+    const payload = await res.json();
+    // The proxy wraps the upstream array: { rows, mac, limit, fetchedAt, cached }.
+    // Tolerate a bare array too, so this survives a shape change either way.
+    const data = Array.isArray(payload) ? payload : (payload && payload.rows) || [];
     const d = Array.isArray(data) && data.length > 0 ? data[0] : null;
     if (!d || Object.keys(d).length === 0 || d.tempf == null) {
       // Station registered but hardware not yet reporting
