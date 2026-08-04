@@ -34,7 +34,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **1 · READ** | the deterministic sweep — five checks | ai | all five run; the work-list is collected from their output, never from a backlog row |
 | **2 · TRIAGE** | every item lands in exactly one of correctness / feature / ambiguous / preference | ai | each item routed; a two-class item split |
 | **3 · RESOLVE** 👤 | the ambiguity ladder: telemetry → **Paul** → only then a card | **Paul at tier 2** | settled at the cheapest tier that can settle it |
-| **4 · EXPERT** | one seat (`user-researcher` by default), escalate only on trigger | ai | a seat's finding, or a recorded reason none was convened |
+| **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked |
 | **6 · GATE** 👤 | the return leg — ribbon + at most one card — presented as exact text | **Paul** | he approves, and it is **pushed** (Pages serves `viewer.html`) |
 | **7 · CLOSE** | dispositions recorded, cards retired, watermark advanced | ai | `feedback-log.json` written; watermark clamped |
@@ -160,6 +160,78 @@ Clean measures the **loop closing its loops**, never how much moved.
 ⚠️ **And clean never means she felt heard.** R1/R2 are *process* metrics: green proves the loop works
 on **us**. `momack_shown` counts exposure, not receipt. No outcome measure for the return leg exists
 — that gap is real, it is named here, and it must never be papered over with a process number.
+
+---
+
+## Leg 4, AMENDED — the expert sequence `[paul-stated 2026-08-04]`
+
+> **⏱ AMENDMENT, recorded 2026-08-04. FIRST SCORES AT LAP 2 — not lap 1.** The pre-registration rule
+> in this file forbids amending a clean-lap definition mid-lap, and lap 1 is open at leg 6. Applying
+> it retroactively to the lap that authored it is exactly the self-flattery the rule exists to stop.
+
+Paul: *"we should be calling our experts probably during each of these cycles at the right time to
+make sure what we're developing aligns with mom's feedback as well as the long-term customer journey
+she's on, that what we're building makes sense and looks good and is usable, and that the tone and
+how things are phrased is consistent."*
+
+**This replaces "one seat by default."** It does NOT discard the reason that rule existed: the
+2026-07-26 four-lens panel produced excellent doctrine and **took a week to disposition a rainfall
+strip.** So the sequence is scoped by what the lap actually produces, and carries a latency guard.
+
+### The order, and why
+
+| # | seat | owns | why here |
+|---|---|---|---|
+| 1 | `user-researcher` | *is this what she asked for, and does it serve the journey?* | defines the problem; everything downstream is wasted if this is wrong |
+| 2 | `ux-expert` | structure, hierarchy, legibility at her accessibility bar | reviews the **shape** while the shape is still cheap to move |
+| 3 | `content-steward` | the words that reach her | **last, because copy is surface-coupled** — written before the layout settles, it gets rewritten; and it lands immediately before Paul's gate, which is where "human-confirmed before it ships" already sits |
+
+⚠️ **Paul proposed researcher → steward → UX.** The order above is the counter-proposal, adopted on
+the surface-coupling argument. **It is a hypothesis, and § Measurement below is how it gets tested
+rather than defended.**
+
+### When the full sequence runs — scoped, not standing
+
+| the lap produces | seats |
+|---|---|
+| a change to a Mom-facing **surface** | all three, in order |
+| **words only** (a ribbon refresh, a card rewording) | `content-steward` alone |
+| **structure only**, no new copy | `user-researcher` → `ux-expert` |
+| tooling / meta / canon-only — nothing she sees | **none**, and the chronicle says so |
+| a correctness bug, or a channel storing input with no lifecycle | + `engineering-partner` (trigger) |
+| an AI-boundary question | + `ai-advisor` (trigger) |
+
+**Each seat receives the previous seat's output**, so they compose instead of repeating. The
+researcher's journey read is the brief the other two work against.
+
+⏱ **LATENCY GUARD — the anti-four-lens clause.** A seat that would delay the return leg past the next
+day is **skipped, and the chronicle records "skipped for latency."** Her acknowledgment is time-
+sensitive in a way a design opinion is not: the ribbon sat 8 days stale during her best contributing
+week, and no panel finding is worth repeating that.
+
+### Measurement — pre-registered, because "did the panel help?" must be a query
+
+`[paul-stated 2026-08-04: "it needs to be measured and all that for the future."]`
+
+Each lap's chronicle records, per seat run:
+- **position** in the sequence,
+- **did its finding CHANGE the artifact before Paul's gate?** — yes/no + one line,
+- **did a later seat overturn an earlier seat's output?** — yes/no + what.
+
+Three decision rules, written now so they cannot be adjusted to fit the result:
+
+1. **DEMOTION.** A seat producing **zero artifact-changes across 3 consecutive laps in which it ran**
+   is demoted to trigger-only. Same doctrine as the gates: a seat with no change behind it is
+   decoration, and a standing panel that never changes anything is the expensive kind.
+2. **RE-ORDER.** If a later seat overturns an earlier seat's output in **≥2 of 3 laps**, the order is
+   wrong — swap it and record the swap. This is the test that settles the researcher→UX→steward vs
+   researcher→steward→UX question with evidence instead of argument.
+3. **COST.** If the sequence pushes the return leg past next-day in **2 of 3 laps**, the scoping table
+   is too broad — narrow it. Latency is the failure mode with a real precedent here.
+
+**Clean-lap criterion 7, effective lap 2:** *the seats the scoping table calls for either ran, or the
+chronicle names why not.* Deliberately **not** "all three ran" — a words-only lap correctly runs one,
+and a criterion that rewarded convening more seats would manufacture the 2026-07-26 failure.
 
 ---
 

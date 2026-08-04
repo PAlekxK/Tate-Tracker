@@ -97,6 +97,17 @@ Three things to know before acting on its output:
    fragile. **It has a planned decay** — Paul: *"eventually we can stop really mentioning that."*
    Scaffolding for the learning period, retired on his read, not on a date. **And it must be TRUE:**
    never call a thing changeable and then make changing it costly.
+   ⚠️ **AND THE CAVEAT, which is half the rule** `[paul-stated 2026-08-04]`: *"we want it to be
+   intentional and with a history of the journey we've taken so far, so we're not just constantly
+   changing back and forth… we generally wanna change things in a way that makes sense and is
+   supported by data."* Changeable is the message **to her**; it is not a license for churn. A
+   change must be (a) **intentional** — a decision with a reason, not a reflex to the newest input;
+   (b) **journey-aware** — check what we already tried and why it moved, or the app oscillates and
+   she can never learn it; **`MOM-CYCLE-LOG.md` is the history that makes this checkable**; and
+   (c) **data-supported where data exists**, and honest where it doesn't. Her stated preference IS
+   data on a preference question — she cannot be wrong about what she wants — but it is not data on
+   whether a layout works. Reversing a decision is fine; reversing it *without noticing we are
+   reversing it* is not.
    Full reasoning: memory `feedback_everything_is_changeable`.
 
 ⚠️ **And the standing verification rule this session earned the hard way:** three BACKLOG rows were
