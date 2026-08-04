@@ -3806,6 +3806,25 @@
      the ELEMENT the target: a fixed 2x3 grid, min-height 44px, no phantom band.
      Type is 15px (17px at A+) — 12.5px was the smallest text on the page, on the
      surface whose governing constraint is that she reads with difficulty. */
+  /* The acknowledgment's change list (2026-08-04). Every bullet that points at a
+     card IS the tap target at the 44px floor — no phantom ::after band, which is
+     the bug the jump strip was carrying. */
+  .ack-changes-lead { font-weight: 600; margin: 2px 0 4px; }
+  .ack-changes { list-style: none; margin: 0; padding: 0; }
+  .ack-changes li { position: relative; padding-left: 15px; }
+  .ack-changes li::before {
+    content: "\2022"; position: absolute; left: 3px; top: 11px; color: #7aa05a;
+  }
+  .ack-change-link {
+    display: flex; align-items: center; min-height: 44px;
+    width: 100%; text-align: left; padding: 4px 0;
+    background: none; border: 0; font: inherit; cursor: pointer;
+    color: #2f5a3a; text-decoration: underline; text-decoration-color: #b9cfa6;
+    text-underline-offset: 3px;
+  }
+  .ack-change-link:hover, .ack-change-link:active { color: #1f4528; text-decoration-color: #3a7a3a; }
+  .ack-changes li:not(:has(.ack-change-link)) { padding-top: 6px; padding-bottom: 6px; }
+
   .jump-strip {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
     padding: 2px 2px 12px;
@@ -6121,10 +6140,14 @@
       <span class="main-card-chevron"><span id="mp-toggle-word">Close</span> <span class="mcc-arrow" aria-hidden="true">&#9662;</span></span>
     </button>
     <div class="mp-summary" id="mp-summary"></div>
-    <!-- The ratified framing line (7/13), promoted from the old inner card to
-         cover all three sections — NOT new copy; the mock's second intro line
-         was dropped so one line does the job. -->
-    <div class="mp-framing">Your eye on the place &mdash; things only you can see from the ground. No wrong answers, and no rush.</div>
+    <!-- The 7/13 framing line ("Your eye on the place — things only you can see
+         from the ground. No wrong answers, and no rush.") was REMOVED 2026-08-04
+         `[paul-stated]`: "that's probably not necessary… we can just say
+         'actioning your feedback:' and then a bullet point that hits on the
+         actual changes." It was two lines of standing framing above the one
+         thing on this card that is actually about HER — and it said the same
+         thing on every visit, which is the definition of furniture. The room it
+         freed goes to the change list in the acknowledgment below. -->
     <div class="mom-queue" id="mom-queue-ack"></div>
     <div class="mom-queue" id="mom-queue"></div>
   </div>
@@ -10479,45 +10502,37 @@ async function saveZoneFeedback(text) {
 // there is no /api/feedback record to point at. Paul-relayed input is real input
 // (channel doctrine) — but it is honest that no app channel carried it.
 const MOM_ACK_DATA = {
-  // NOTE: the renderer prepends its own dated stamp ("We got your note <date>."), so
-  // this message must NOT open with the date again — the first draft did, and it read
-  // "…Sunday morning, July 26. Sunday morning, July 26 — the moss." Caught in a browser,
-  // not on the page. Whether that stamp should exist at all is a separate open question.
+  // ⭐ `changes` SUPERSEDES `message` for this refresh (paul-stated 2026-08-04).
+  // Bullets of what changed, each tappable to the card it changed — see the
+  // renderer for why condensing beat folding. `message` is kept as the fallback
+  // path and still works; it is simply not what this refresh uses.
   //
-  // COVERS EVERYTHING SHE GAVE US SINCE THE LAST RIBBON, each phrase linked to
-  // where she can see it (Paul, 2026-07-29). The previous ribbon named only the
-  // moss and could carry only one link; three of her inputs had landed by then.
-  // Order follows hers, oldest first, so it reads as a reply and not a changelog.
-  // The close deliberately lands on what we DON'T have — no "keep it coming"
-  // (that phrase closed the two previous refreshes, and the queue an inch below
-  // is already the ask).
-  // ⚠️ THE NAMING SENTENCE WAS REMOVED 2026-07-30 (Paul): "let's get rid of that
-  // journal comment about her calling it the journal." It read "You called it the
-  // journal, so that is its name: the Journal sits at the top now, instead of
-  // eight cards down." The card was renamed to Fernwood Almanac the same day, so
-  // that sentence had become false ON HER SCREEN — the ribbon would have told her
-  // her word was adopted while the card above it said otherwise. Removing it is
-  // the honest move; rewriting it to praise the new name would not be.
-  // What she is still told, and what remains true: the place to look back moved
-  // to the top. Paul is taking the naming conversation to her directly rather
-  // than through a card — his call, 2026-07-30, and consistent with the standing
-  // rule that Paul drives outreach and the app iterates on what he brings back.
-  "message": "That one, and the two before it, are all in the record now. The moss you'd planted in two places — and how you feed it, buttermilk and all — is written under Plants, in your name. What you've written is easier to get back to as well — it sits at the top now, instead of eight cards down. And the rain is broken out day by day, with the last thirty days beside it. Not a year, though — our own gauge only started keeping count in May, and the card says so rather than guessing.",
-  "questionId": null,
-  "arrivedAt": "2026-07-29T12:56:29.190Z",
-  "arrivalRef": "fb-946dp0qk-ms639ds6",
-  "acknowledgedThrough": "2026-07-30T19:08:44.919Z",
+  // WHAT SHE GAVE, and it is one thing: on 2026-08-03 7:53 AM ET she answered
+  // `q-top-categories` "That's all of them" — confirming vehicles / equipment /
+  // household systems / gardening / wildlife as her list. Every bullet below is
+  // downstream of that single tap, which is why this ribbon is short.
+  //
+  // ⚠️ WEATHER IS NAMED AS OUR CALL, deliberately (Paul, 2026-08-04): "we can
+  // just say in the acknowledgment we made that call, and we can change it." Her
+  // five did not include Weather; adding it silently would be the same act as
+  // rewording "household systems", which this app has already done to her once.
+  // The changeable clause rides on THAT bullet rather than standing alone —
+  // attached to the thing it is about, never a footer (standing rule 5).
+  "message": "",
+  "changes": [
+    { "text": "The tabs across the top are your five now, in your order.", "card": null },
+    { "text": "Weather sits first — our call, because it is the one thing that changes hour to hour. Say the word and it moves.", "card": "card-weather" },
+    { "text": "Vehicles and Equipment are their own cards now, not one card called Machines.", "card": "card-equipment" },
+    { "text": "Household Systems has started — the thermostat, and the propane heat it runs.", "card": "card-household" }
+  ],
+  "questionId": "q-top-categories",
+  "arrivedAt": "2026-08-03T11:53:50.563Z",
+  "arrivalRef": "fb-wifqa1b6-msd682xv",
+  "acknowledgedThrough": "2026-08-03T11:56:17.964Z",
   "channels": [
-    "paul-relay",
     "feedback"
   ],
-  "links": [
-    { "phrase": "under Plants", "card": "card-plants" },
-    // Was `"the Journal"` — retired with the sentence that carried it. The new
-    // phrase points at the same card, so she loses no door.
-    { "phrase": "at the top now", "card": "card-fieldnotes" },
-    { "phrase": "day by day", "card": "card-weather" }
-  ]
+  "links": []
 };
 
 const MomQueue = (function () {
@@ -10774,7 +10789,16 @@ const MomQueue = (function () {
 
     // The standing "we got your feedback" acknowledgment — always first, not
     // dismissable; replaced (not cleared) when the NEXT feedback is folded.
-    if (typeof MOM_ACK_DATA !== "undefined" && MOM_ACK_DATA && MOM_ACK_DATA.message) {
+    // ⚠️ THE GUARD HAS TO KNOW ABOUT BOTH SHAPES (2026-08-04). It keyed on
+    // `message` alone, so the moment the ribbon became a `changes` list with an
+    // empty message the ENTIRE acknowledgment card silently stopped rendering —
+    // caught in the browser, not in the file, which is exactly why the PREVIEW
+    // step exists. A give-back that vanishes because its content moved fields is
+    // the worst possible failure on this particular card.
+    const hasAckContent = typeof MOM_ACK_DATA !== "undefined" && MOM_ACK_DATA &&
+      (MOM_ACK_DATA.message ||
+       (Array.isArray(MOM_ACK_DATA.changes) && MOM_ACK_DATA.changes.some(c => c && c.text)));
+    if (hasAckContent) {
       // ⭐ SHE CAN ANSWER IT (2026-07-26). It began as a broadcast: we said "we
       // heard you" on a one-way surface and then asked whether it landed —
       // which `momack_shown` can never answer, because exposure is not reading.
@@ -10869,6 +10893,58 @@ const MomQueue = (function () {
       // and is read as a one-element list, so nothing has to be migrated.
       const msg = document.createElement("span");
       msg.className = "ack-msg";
+
+      // ⭐ BULLETS, NOT A PARAGRAPH — and NOT COLLAPSED `[paul-stated 2026-08-04]`.
+      // "I'm not sure about collapsing the feedback notes. I think we can be clear
+      // and show the feedback, but maybe condense it just to bullets about what
+      // changed, with the link to that card… we can get rid of some of the
+      // boilerplate or intro text to make room, and keep it condensed so we don't
+      // have to collapse."
+      //
+      // This SUPERSEDES the 2026-08-03 folded receipt ("Read the rest ›"), and the
+      // supersession is the interesting part: folding was the right fix for the
+      // wrong problem. The message had grown to a nine-line wall, and both review
+      // passes correctly found it burying the card — so it was HIDDEN. But the wall
+      // was prose *about* changes; the fix is to make it a LIST *of* changes, at
+      // which point there is nothing left to hide. A fold is a confession that the
+      // content is too long; condensing removes the confession.
+      //
+      // The prose path below is kept, not deleted: `message` still renders, still
+      // folds, still links, whenever `changes` is absent. Nothing has to migrate.
+      const changeSpecs = Array.isArray(MOM_ACK_DATA.changes)
+        ? MOM_ACK_DATA.changes.filter(c => c && c.text) : [];
+      if (changeSpecs.length) {
+        const lead = document.createElement("div");
+        lead.className = "ack-changes-lead";
+        lead.textContent = "Actioning your feedback:";
+        msg.appendChild(lead);
+        const list = document.createElement("ul");
+        list.className = "ack-changes";
+        changeSpecs.forEach(function (c) {
+          const li = document.createElement("li");
+          if (c.card) {
+            // The whole bullet is the control — a tap band bigger than its element
+            // is what broke the old jump strip. Same telemetry as the inline links,
+            // so "which change did she go look at" keeps working across the change.
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "ack-change-link";
+            b.textContent = c.text;
+            b.addEventListener("click", function (e) {
+              e.stopPropagation();
+              track("momack_followed", { acknowledgedThrough: ackIdOf(), card: c.card });
+              if (typeof expandCard === "function") expandCard(c.card);
+            });
+            li.appendChild(b);
+          } else {
+            // A change with nowhere to go renders as plain text rather than a dead
+            // control — the same posture as a link phrase that is no longer present.
+            li.textContent = c.text;
+          }
+          list.appendChild(li);
+        });
+        msg.appendChild(list);
+      } else {
       const message = MOM_ACK_DATA.message || "";
       const linkSpecs = Array.isArray(MOM_ACK_DATA.links) && MOM_ACK_DATA.links.length
         ? MOM_ACK_DATA.links
@@ -10956,6 +11032,7 @@ const MomQueue = (function () {
         });
         msg.appendChild(readRest);
         msg.appendChild(restSpan);
+      }
       }
 
       const actions = document.createElement("div");
@@ -13130,6 +13207,28 @@ function renderVehicles() {
     const rows = items.filter(v => v.group === g.key);
     let html = '<div class="vehicles-intro">' + INTRO[g.target] + '</div>';
     html += rows.map(renderVehicleItem).join('');
+    // ⭐ THE AUTHORSHIP DOOR `[paul-stated 2026-08-04]` — "just a link back up to
+    // the journal asking her to record any new systems she wants explored there.
+    // That way we don't have to build any new plumbing, but we still point her to
+    // an opportunity to provide some authorship data."
+    //
+    // Household systems is the domain SHE proposed and the one with a single
+    // record, so it is the one place where seeding could read as a ceiling. This
+    // keeps it a floor. Three things it deliberately does NOT do:
+    //   · no new capture path — it walks her to the Almanac composer, the one
+    //     door, which already stores, surfaces and closes what she writes;
+    //   · not a confirm card — an authorship ask has no `_foldTarget`, so it
+    //     would become an unprobeable card pinning the feedback watermark until a
+    //     human retired it by hand (the 2026-07-27 rule);
+    //   · not the affirmative ✓ grammar — filled-green-plus-✓ means "recorded,"
+    //     and a control that OPENS something must not wear the paint that means
+    //     something landed. `.card-later-link` is the existing quiet-opener
+    //     grammar, already at the 44px floor. Paul: "make it look like the other
+    //     openers so there's a consistent design language."
+    if (g.target === 'household-list') {
+      html += '<button type="button" class="card-later-link" id="household-add-link">' +
+              'Is there a system we should be tracking? Tell the Almanac \u203a</button>';
+    }
     // Ungrouped records surface on the Vehicles card rather than vanishing —
     // the same fail-loud posture the three-way split was written with.
     if (g.target === 'vehicles-list' && ungrouped.length) {
@@ -13138,6 +13237,24 @@ function renderVehicles() {
     }
     host.innerHTML = html;
   });
+  // Wired after innerHTML, because innerHTML discards previously-attached handlers.
+  const addLink = document.getElementById("household-add-link");
+  if (addLink) {
+    addLink.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track("household_author_prompt_tapped", {});
+      }
+      const host = document.getElementById("unified-input");
+      if (host && host.scrollIntoView) host.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Focus AFTER the smooth scroll settles — focusing first makes iOS Safari
+      // jump the viewport itself and fight the scroll.
+      setTimeout(function () {
+        const ta = document.getElementById("ui-textarea");
+        if (ta) ta.focus();
+      }, 500);
+    });
+  }
 }
 
 
