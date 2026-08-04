@@ -1,0 +1,211 @@
+{
+  "review_id": "ux-2026-08-04-control-center-spec",
+  "project": "fernwood",
+  "subject": "Control Center page (tools/build-control.py -> .private/control.html) — seat 2 of 3, design spec against the seat-1 charter",
+  "review_date": "2026-08-04",
+  "reviewer_mode": "review",
+  "review_level": "screen-component (one surface, spec'd to build-ready)",
+  "method_limit": "This seat has no shell. build-control.py was not executed. However .private/control.html existed on disk from a 2026-08-04 12:02 PM ET run and was read — so every finding below marked [live] is verified against a RENDERED instance, not only source. Findings marked [source] are read off the generator and its dependencies.",
+  "user_context": {
+    "primary_user": "Paul, and only Paul-the-operator-of-a-loop (charter §1). Never Mom; never Paul-the-steward-of-the-property.",
+    "core_jobs_to_be_done": [
+      "D1 Do I owe Mom a reply, and is it mine to write now?",
+      "D2 Is she being shown something wrong right now?",
+      "D3 Is my last work in front of her, or on my laptop?",
+      "D4 Is a lap open, and where?",
+      "D5 Can I trust the number I'm about to reason from?",
+      "D6 Has she gone quiet? (page must REFUSE to answer)",
+      "D7 What next? (demote to a pointer)"
+    ],
+    "context_of_use": "Re-entry after a gap of days, at a laptop, in the terminal-first workflow. Triggered, never scheduled. The page must be cheaper than the terminal block it replaces.",
+    "assumptions_made": [
+      "Charter §1 primary moment ('re-entry after a gap') is [inferred] by seat 1 and is NOT validated — charter open question 1 asks Paul whether the terminal block is still his front door. If it is, the primary moment is the leg-6 gate and the above-the-fold ordering below still holds, but the self-age thresholds should tighten.",
+      "Charter open question 4 (30-min staleness) unanswered — spec proposes two thresholds in one named constant so Paul can move them."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "One engine, one verdict (fernwood.md, paul-ratified 2026-08-02) — incl. the sharpening clause: two rule cascades over one input set are two engines",
+    "A render's own age is part of its denominator (cross-project/honest-surfaces.md, paul-ratified 2026-08-01)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+    "Freshness sets altitude + its 2026-07-30 GOVERNING CLAUSE — name the reader's top question first; freshness is not always the dimension (cross-project/honest-surfaces.md)",
+    "Register is carried by chrome, not just words — corollary: no ops-chrome on LIVING-PROPERTY surfaces, NOT 'everything must look like the journal' (fernwood.md, candidate)",
+    "Consistency > precision on Mom's surfaces — restated for a LOW-FREQUENCY expert reader (feedback_consistency_over_precision_mom_surfaces)",
+    "An unchecked box is not open work (global CLAUDE.md, paul-stated 2026-07-31)",
+    "Deterministic things need a non-AI door (global CLAUDE.md, paul-stated 2026-08-02)",
+    "Nielsen H1 visibility of system status; H9 help users recognize and recover from errors; Norman — feedback and conceptual model"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "[source] A GREEN EXIT CODE CAN MEAN 'DID NOT RUN'. check-cards.py:215 prints to stderr and `return 0` when there is no token. check-mom-ack.py:148-156 sets offline=True when the token is missing or every channel errors, and then can only raise NOT SHIPPED / NO CLOCK — it exits 0 with the entire app-channel half unverified. build-control.run() returns `p.stdout` only (stderr discarded) and render() reads only the returncode. So a run with no token, or with the Worker down, produces a page green on all seven checks AND green on the top banner.",
+      "user_impact": "This is charter finding (a) one level up, at the layer that decides the page's top line. The failure the page exists to prevent — a confident summary that quietly goes stale — is shipped in the one place it cannot be caught, because the reader's only cue would be the absence of an error he was never shown.",
+      "principle_invoked": "Nielsen H1 (visibility of system status) + the repo's own standing rule: a detection mechanism must be clearable only by the action it detects the absence of (MOM-CYCLE-MAP.md)",
+      "recommendation": "run() returns (rc, stdout, stderr, elapsed_ms). A check is `did-not-run` when rc not in (0,1), OR when stderr matches /skipping|no token|couldn't reach|offline/. Three states everywhere: PASSED / WANTS YOU / DID NOT RUN. Any did-not-run forces the verdict band to CAN'T TELL.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "other",
+      "severity": "critical",
+      "observation": "[live] The page reproduces the exact failure check-telemetry.py was built to catch. The rendered instance shows `jumpstrip_tapped — 0 from her · first ever seen Mon Aug 3, 8:02 PM ET` while `Last visit` three rows above reads `Mon Aug 3, 7:52 AM ET`. The event's first-ever firing is ~12 hours AFTER her only session in the window, and the page prints the zero without comment. strip_row() tests 'has this event ever fired' — the wrong honesty test.",
+      "user_impact": "D5 (can I trust this number) fails silently on the panel whose whole caption is about not trusting numbers. This is the identical mistake that on 2026-08-04 wrote a false finding ('she likes seeing it, not that she navigates with it') into BACKLOG and the cycle log.",
+      "principle_invoked": "An event in the SOURCE is not an event in the RECORD (MOM-CYCLE-MAP §6b) + feedback_absence_of_records_is_weak_evidence",
+      "recommendation": "One renderer, count_row(event, n, first_seen, her_last_session): first_seen None -> UNMEASURED (the word). first_seen >= her_last_session -> UNMEASURED FOR HER, naming the two timestamps. n==0 with first_seen < her_last_session -> the numeral 0, plus 'measured — it was live for her.' n>0 -> the numeral. check-telemetry.py --before already computes the comparison.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "critical",
+      "observation": "[live+source] The top banner and the panels are two engines. The rendered instance shows `🟢 Nothing is waiting on you` directly above a Shipping panel with `Uncommitted 1` styled .bad red. render() computes needs_paul from two exit codes; mom-cycle-status.position() computes it from three signals; neither calls the other. LEGS is hand-copied at build-control.py:61 while mom-cycle-status.py:50 declares it with four fields, and check-cycle-map.py guards MOM-CYCLE-MAP.md against tools/*.py — it does not guard this table.",
+      "user_impact": "Two definitions of 'where the loop is' and two of 'is anything mine' on one page. Fernwood has now hit this failure three times (fishing 07-06, weather 07-14, weather 08-02) and it is the project's own ratified principle.",
+      "principle_invoked": "One engine, one verdict (fernwood.md, paul-ratified 2026-08-02) — including the sharpening clause: the tell is a shared INPUT SET plus a shared OUTPUT SLOT, not a shared call",
+      "recommendation": "Call `mom-cycle-status.py --json`; render at_leg/needs_paul, never re-derive. Import mom-cycle-status via the same importlib shim momlib uses and read its LEGS constant (num, name, is_gate, blurb) — delete build-control's copy. Every panel chip is a projection of ONE verdict dict.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "hierarchy",
+      "severity": "critical",
+      "observation": "[live] The return leg (D1, the top-ranked decision and the only leg whose absence is invisible to both parties) has no panel. It is one boolean folded into a banner. Meanwhile Open items — the weakest decision, explicitly demoted by the charter — is the largest panel on the page, 14 rows deep.",
+      "user_impact": "Surface area is inverted against the decision ranking. The leg that sat 8 days stale during Mom's best contributing week gets less pixels than a scrape.",
+      "principle_invoked": "Freshness sets altitude + its governing clause (name the reader's top question; the dimension here is OWED-BY-PAUL, not recency) + 'a worklist's order is a RANKING'",
+      "recommendation": "P1 'Does she have a reply from you?' becomes the first panel under the verdict band, carrying the ribbon's own words, acknowledgedThrough + age, the five-channel table with per-channel read marks, shipped-state, and the ack receipt. Open items drops to a pointer (F8).",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "error-handling",
+      "severity": "critical",
+      "observation": "[source] gather() catches metrics and feedback exceptions into g['metrics_error'] / g['feedback_error'] and render() never reads either key. Token missing or Worker down and the page prints 'Sessions (30d): 0 · Answers, all time: 0'. (Charter (a), confirmed at build-control.py:129-130, 140-141 vs render() which references neither.)",
+      "user_impact": "The unmeasured-zero failure, shipped inside the page built to prevent it.",
+      "principle_invoked": "Nielsen H9 + the repo's UNMEASURED discipline",
+      "recommendation": "On failure the panel body is replaced entirely by an UNAVAILABLE pill + ExceptionClass + message + 'every count in this panel would be a zero we did not measure.' Never 0, never a bare em-dash.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "[source] build-control.py:48 defines ET as a FIXED -4 offset while momlib.py:59 defines ET = ZoneInfo('America/New_York') with a docstring explaining why the shared renderer exists (et_str, written because raw UTC slicing displayed a 10:59 PM answer as the next day). ago() likewise re-implements momlib.days_since.",
+      "user_impact": "Wrong from 2026-11-01 on a page whose entire premise is age, and it disagrees with every other tool in the loop. Violates the global 'Eastern Time, always' rule at the mechanism level, not the display level.",
+      "principle_invoked": "One engine, one verdict (render-layer twin of single-source-of-truth)",
+      "recommendation": "Delete et() and ago(); use momlib.et_str and momlib.days_since.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "[source] A red check shows no detail — run(tool)[0] discards stdout, so the highest-value case sends Paul back to the terminal. Note for the builder: mom-cycle-status.py's served_queue.detail is NOT the fix — its filter `if '🔴' in l or '🟡' in l` matches check-cards.py's id line (`     🔴 <qid>`) and drops the following indented message line, so it yields ids with no messages.",
+      "user_impact": "Charter must-carry ('checks WITH their failing lines') unmet, and the obvious substitute is silently lossy.",
+      "principle_invoked": "A correct 'no' still owes a next move (cross-project/interaction-and-friction.md)",
+      "recommendation": "Parse check-cards.py stdout as two-line pairs (glyph+id, then the indented message). Render both. Cap at 12 lines then '…+N more · run it yourself' with the exact command as selectable text.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "other",
+      "severity": "important",
+      "observation": "[live] The Open-items scrape does not select what its caption claims. Of the 14 rendered rows, at least three are CLOSED work: 'Zone-journey front door + funnel' (✅ built 2026-07-17), 'W2' (🟢 UNBLOCKED), 'Input-stack IA' (✅ SHIPPED 2026-08-02). The predicate is 'one of five words appears anywhere in the last cell of any `| **`-leading row' across a document whose tables have different column meanings; rows are then truncated at 110/80 chars mid-sentence with raw `**` and `<br>` bleeding through.",
+      "user_impact": "The panel is systematically wrong in the direction doctrine names as dangerous — it over-reports, so the risk is acting on something already handled. Even the COUNT is untrustworthy, so a number here invites arithmetic on a known-wrong figure.",
+      "principle_invoked": "An unchecked box is not open work (paul-stated 2026-07-31)",
+      "recommendation": "Replace the panel with one line: a file:// link to BACKLOG.md, its last-modified time, and 'a scrape of a hand-maintained doc over-reports and never under — verify the row against the app before acting on it.' No rows, no count.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "other",
+      "severity": "important",
+      "observation": "[live+source] Windows are wrong and mislabelled, and one concept has two numbers on the page. Metrics uses 30d (build-control.py:109), feedback uses 60d (line 134), the row reads 'Answers, all time'. Both windows span the 2026-07-28 attribution clean slate and the 2026-08-04 strip rebuild — two non-poolable boundaries named in people.json and read-mom-funnel.py. Separately: the Funnel panel prints 'Never-fired events 24' while the Open-items panel two panels down carries the W12 row titled '23 instrumented events have NEVER fired' (never vs. hard, check-telemetry.py:102/126).",
+      "user_impact": "D5 fails: every engagement figure on the page is a pooled count across a change line, under a label that denies it, and a reader who notices the 24/23 gap has no way to resolve it.",
+      "principle_invoked": "A value's provenance and freshness must be shown as honestly as the value itself; 'an accumulator that resets is not a duration' (CLAUDE.md rainfall lesson)",
+      "recommendation": "One window, read from people.json _meta.CLEAN_SLATE (2026-07-28), labelled 'since the clean slate (N days)'. A NON_POOLABLE list of (date, why) in the generator; whenever the window spans one, print the reason. Delete 'all time'. Render check-telemetry's split as two numbers, which needs --json (see open questions).",
+      "effort": "medium"
+    },
+    {
+      "id": "F10",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "[source] Line 226 renders the hand-typed conclusion 'she reads the glance; she rarely drills' in the .ago slot beside a derived count — no source, no date, no tag, on a page whose thesis is that a number with neither is a rumour. Same class of claim the repo struck everywhere on 2026-08-01.",
+      "user_impact": "A reader cannot tell which parts of the page are derived and which are someone's opinion from a past session. That is the specific anxiety the charter names as the strongest force.",
+      "principle_invoked": "A value's provenance and freshness must be shown as honestly as the value itself",
+      "recommendation": "Delete. No hand-typed interpretation renders beside a derived number, ever, on this page.",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "[source] No self-staleness. The page bakes 'Generated Tue Aug 4, 12:02 PM ET' at build time and never elapses it. It also has no liveness probe: no Worker /health, no unauthenticated fetch of the live viewer.html, so D3 ('is my last work in front of her') is answered by inference from `origin/main..HEAD` — itself measured against a remote-tracking ref nothing fetched.",
+      "user_impact": "A frozen 'nothing is waiting on you' is a stronger lie than a stale number, because the verdict is the thing being trusted.",
+      "principle_invoked": "A render's own age is part of its denominator (paul-ratified 2026-08-01)",
+      "recommendation": "Bake the ISO instant; inline deterministic JS elapses it against the reader's clock. Two thresholds in one constant: soft at 30 min (band keeps its verdict, gains a slate rule + 're-run before you trust this'), hard at 4 h (band drops to CAN'T TELL). Add two unauthenticated probes: GET /health, and GET the live viewer.html — parse its MOM_ACK_DATA with momlib._ack_block/_strip_js_comments and show the ribbon SHE has beside the one on disk.",
+      "effort": "medium"
+    },
+    {
+      "id": "F12",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "[live+source] Chrome register. Panel h2 is 14px uppercase letter-spaced dim — CMS-admin chrome, and it makes titles quieter than the data on a page navigated by scanning titles. Cards use Mom's exact language (1.5px #d8eacc border, 18px radius, the viewer's green gradient body).",
+      "user_impact": "Borrowing viewer.html's card skin makes a private ops page look like the journal — which is how someone eventually decides it is safe to publish. The register difference should be structural.",
+      "principle_invoked": "Register is carried by chrome, not just words (fernwood.md candidate) — legitimately different content earns legitimately different chrome + Tone-coherence across all chrome",
+      "recommendation": "Panel h2 15px/600 sentence case in ink. Neutral surface (#fbfcfa on #f2f4f0), 1px #e0ece0 border, 10px radius, no shadow. Keep the Georgia h1 as the one identity tie. Add a generator comment: nothing on this page may be copied onto viewer.html.",
+      "effort": "low"
+    },
+    {
+      "id": "F13",
+      "area": "other",
+      "severity": "important",
+      "observation": "[source] Mom's deviceId is hardcoded at build-control.py:49 (MOM = 'd-szqlt0h7-…'), and the SAME identifier is already committed at tools/people.json:30 in a working tree where .gitignore covers neither. The generator also filters by whitelist (`if did != MOM: continue`) rather than by exclusion, so it prints no exclusion denominator and no unmapped-device warning — read-mom-funnel.py:335-358 already computes both.",
+      "user_impact": "Out of this seat's scope for the exposure question (routed to Paul + engineering-partner, per charter (d)). In scope for the surface: a whitelist means any new device of hers — new phone, Safari ITP eviction — reads as zero engagement with no warning, which is a silent unmeasured-zero on the panel that is supposed to police unmeasured zeros.",
+      "principle_invoked": "A tool that quietly excludes nothing reads identically to one that correctly excluded everything (read-mom-funnel.py, standing)",
+      "recommendation": "Read the id from people.json; introduce no third copy. Print the exclusion denominator and any unmapped device on every run, in the panel, not in a comment. Route the tracked-identifier question to Paul and engineering-partner.",
+      "effort": "low"
+    },
+    {
+      "id": "F14",
+      "area": "empty-state",
+      "severity": "important",
+      "observation": "[source] There is no discriminator between a quiet loop and a dead pipe, and no distinction between UNMEASURED (never fired) and NONE YET (fired, none in window). The page has exactly one honest-empty treatment and it is applied to two rows.",
+      "user_impact": "D6 — the page must refuse to answer 'has she gone quiet', and it can only refuse honestly if it shows the one fact that discriminates: her silence beside a live pipe is a different fact from her silence beside a dead one.",
+      "principle_invoked": "Charter §5; feedback_absence_of_records_is_weak_evidence",
+      "recommendation": "Add 'anything at all, from any device: N days ago' beside her last visit, labelled 'this is the pipe, not her', rendered as an inequality (≥N) when the window bounds it. Two distinct empty words, UNMEASURED vs NONE YET, used consistently.",
+      "effort": "low"
+    },
+    {
+      "id": "F15",
+      "area": "hierarchy",
+      "severity": "nice-to-have",
+      "observation": "[live] The 'Mom' panel is titled as a portrait of a person and reads as a dossier of her behaviour. Separately, seven check rows compose into one undifferentiated green table, so 'this detector found nothing' seven times reads as 'this is right'.",
+      "user_impact": "Tone: a private page carrying one person's engagement counts under her name is the artifact you least want to look like a file on someone. Structure: composed greens are the pathology the charter names.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood.md); charter §5 'seven greens must not compose'",
+      "recommendation": "Retitle 'Her side of the loop'. Split the check table into two captioned groups — 'The loop's checks' (cards, ack, cycle-map, feedback-cycle) and 'Canon surfaces' (domains, data-inline, digest-fresh) — matching mom-cycle-status's own canon_surfaces grouping.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "Charter Q1 stands and changes the staleness thresholds: do you open a page at session start, or is the terminal block still your front door?",
+    "Q4 staleness: spec proposes soft-degrade at 30 min, hard CAN'T TELL at 4 h, both in one constant. Move them or replace with 'always regenerate, never read the file'?",
+    "MOM-CYCLE-MAP §'What this map deliberately does not cover' says the control excludes check-domains.py 'by name and reason' — the prototype includes it with no reason. The map or the code is wrong; which?",
+    "/health carries no version field (worker/worker.js:2186). Add `version` at deploy (one line, engineering-partner), or drop the Worker-version field from the page?"
+  ],
+  "follow_up_research_suggested": [
+    "The charter's primary moment is [inferred]. One cheap validation: after two weeks, does .private/control.html's mtime cluster at session start or at leg 6? The file's own mtime is the instrument and costs nothing."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "A green means 'this detector found nothing.' A detector that did not run must never be able to render the same green — three states, always: passed / wants you / did not run.",
+      "scope": "cross-project",
+      "rationale": "Verified twice in one surface here (check-cards.py returns 0 with no token; check-mom-ack.py exits 0 offline with its app-channel half unverified) and it is the same shape as the global CLAUDE.md lessons about the 18-day false automation claim and the bare-rm guard. One occurrence in UX terms; propose as a candidate."
+    },
+    {
+      "principle": "A private operations surface earns ops chrome — and must therefore be visually incapable of being mistaken for the product it monitors.",
+      "scope": "fernwood",
+      "rationale": "Resolves the apparent conflict between Fernwood's anti-ops-glyph rules (scoped to Mom's living-property surfaces) and a control page that legitimately needs red/green. Second occurrence of the existing candidate 'Register is carried by chrome, not just words' — with the corollary running the other direction: the ops page must not wear the journal's skin, because that is how a .private artifact eventually gets published."
+    }
+  ]
+}
