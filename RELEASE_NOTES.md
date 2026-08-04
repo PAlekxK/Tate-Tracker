@@ -4,6 +4,17 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-04 — The tabs across the top, in your words
+
+- **The row at the top of the page is now your five categories** — Vehicles, Equipment, Household
+  Systems, Gardening, Wildlife — in the order you named them, with Weather kept at the front
+  because it is the one thing that changes hour to hour. Tap any of them to go straight there.
+- **Vehicles and Equipment are two cards now**, not one card called "Machines." They were always
+  two different things; the app just hadn't said so.
+- **Household Systems is a card of its own**, starting with the thermostat in the family room —
+  propane heat, electric cooling. It's a beginning, not a finished list.
+- The tabs are bigger, and each one carries the same little picture as the card it opens.
+
 ## 2026-08-03 — A shorter note back, and questions one at a time
 
 - **Our note back to you now leads with the point.** The card that tells you we got your

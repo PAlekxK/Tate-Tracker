@@ -2100,6 +2100,45 @@
       "researchNeeded": [
         "Fetch the official EGO ST1620T operator's manual PDF for the manuals corpus + 📖 card link (paper copy is on hand)."
       ]
+    },
+    {
+      "id": "nest-thermostat-family-room",
+      "group": "household-system",
+      "name": "Nest Learning Thermostat",
+      "trim": "3rd Generation",
+      "emoji": "🌡️",
+      "category": "thermostat",
+      "status": "Active — Family Room. Installed here November 10, 2025.",
+      "_provenance": "Folded from devices.json 2026-08-04 — the first household-system record, the domain Mom proposed herself. Read deterministically from the Google Nest Takeout export (DeviceIdentityTrait / DeviceLocatedSettingsTrait / EquipmentSettingsTrait as configured 2026-04-05), NOT a model inference. ⚠️ The serial number and Nest device/structure IDs are DELIBERATELY ABSENT: this file inlines into viewer.html and Pages serves it publicly. They live in .private/devices-identifiers.json. Do not re-add them here.",
+      "specs": {
+        "make": "Google Nest",
+        "model": "Nest Learning Thermostat (3rd Generation)",
+        "room": "Family Room",
+        "manufactured": "April 2018",
+        "installedHere": "November 10, 2025"
+      },
+      "maintenance": {
+        "heat": {
+          "value": "Propane (LP) forced-air, up to 3 stages.",
+          "confidence": "verified",
+          "source": "Google Nest Takeout — EquipmentSettingsTrait, as configured 2026-04-05. A read of the thermostat's own configuration, not a guess from the model line."
+        },
+        "cooling": {
+          "value": "Electric forced-air, up to 3 stages.",
+          "confidence": "verified",
+          "source": "Google Nest Takeout — EquipmentSettingsTrait, as configured 2026-04-05."
+        },
+        "backupHeat": {
+          "value": "Auxiliary and emergency heat are electric. Single-fuel system (the alternate heat source is configured as gas, but it is not a dual-fuel setup).",
+          "confidence": "verified",
+          "source": "Google Nest Takeout — EquipmentSettingsTrait, as configured 2026-04-05."
+        },
+        "propaneTank": {
+          "value": "Propane heat implies a tank on the property to monitor and refill — but nothing in the record says where it is, who fills it, or how big it is.",
+          "confidence": "inferred",
+          "source": "INFERENCE from the verified heatingFuel read above, not an observation. This is the honest gap, and it is the kind of thing only someone standing on the property can settle."
+        }
+      }
     }
   ]
 }
