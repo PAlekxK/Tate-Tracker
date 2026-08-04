@@ -956,8 +956,14 @@
           "status": "researched-pending-label"
         },
         "interior": {
-          "status": "NOT RECORDED — no interior trim code exists on this label",
-          "note": "CORRECTION 2026-07-29. The card previously carried interior 'MPV (Eddie Bauer tan/saddle)'. MPV is the label's TYPE field — Multi-Purpose Vehicle, a standard FMVSS vehicle-type entry — not an interior code. There is no interior trim field on this label at all, so this was deleted rather than corrected. Separately: the seats are NOT factory trim anyway (reupholstered in leather in the prior-owner era), so an interior code would not describe what is in the truck."
+          "color": "Eddie Bauer tan / saddle",
+          "confidence": "verified — Paul, first-hand on the truck 2026-08-04 (\"it is an Eddie Bauer tan saddle interior for sure\")",
+          "fordCode": "NONE EXISTS — there is no interior trim field on this truck's Vehicle Certification Label. Do not go looking for one again.",
+          "status": "colour KNOWN and Paul-observed; no factory code, and none needed — the match is taken off the vehicle",
+          "howToMatch": "SPECTROPHOTOMETER SCAN off a physical sample at an automotive paint jobber — there is no code to look up. ⭐ Bring an UNFADED sample: scan a sun-baked panel and you buy faded colour permanently. Use a surface UV never reached — inside the glovebox door, under a seat, the back face of a removed panel. Interior plastic wants a FLEXIBLE, adhesion-promoted coating (SEM Color Coat over SEM adhesion promoter is the trim standard), not rigid body paint.",
+          "whyTheReferenceIsTheTRUCK": "The seats were reupholstered in leather in the prior-owner (Edwards) era and the carpet was chosen the same way — but Paul's read 2026-08-04 is that BOTH were kept in keeping with the factory tan/saddle. So the previous owners were already matching to factory, and the existing interior is a faithful reference rather than a deviation from one. Match the vehicle, not a chart.",
+          "provenanceCorrection": "⚠️ THE 7/29 RETRACTION WENT ONE STEP TOO FAR, restored 2026-08-04. The card had read 'MPV (Eddie Bauer tan/saddle)'. MPV was indeed a misread — it is the label's TYPE field (Multi-Purpose Vehicle, FMVSS), not an interior code — and killing it was right. But 'tan/saddle' NEVER DEPENDED ON THAT LABEL: it is an observation of the interior, independently checkable by looking. Retracting a claim because its cited SOURCE was bogus, without asking whether the claim is independently true, deletes a true fact. Ask that question before deleting.",
+          "OPEN_BEFORE_THE_SHOP_SPRAYS": "🚨 'CHESTNUT' IS USED AMBIGUOUSLY IN THE RESTORATION ENTRIES AND IT GATES A ONE-TIME SPRAY. The repaint item says interior panels get 'a fresh, consistent chestnut' and 'all plastic trim gets the chestnut' — but Chestnut (9T Light Chestnut) is the EXTERIOR LOWER body colour, while the interior is tan/saddle. As written, a shop could spray interior trim in an exterior body colour. RESOLVE BEFORE SPRAY: confirm the interior target is the tan/saddle scanned off the truck, and reword every 'chestnut' reference that means the interior."
         }
       },
       "techniques": [
