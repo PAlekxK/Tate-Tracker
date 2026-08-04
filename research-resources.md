@@ -400,6 +400,21 @@ Concrete one-time actions, ordered by friction:
 
 ---
 
+
+### Beneficial Buffers: Native Plants for Ponds & Lakes in the South
+**URL:** https://www.solitudelakemanagement.com/beneficial-buffers-native-plants-for-ponds-lakes-in-the-south/
+**What it is:** Lake-management firm's guide to native buffer planting around Southern ponds and lakes — which natives stabilise a margin, filter runoff, and support wildlife.
+**Why it's relevant here:** Fernwood has a drafted `pond-area` zone (type `planted`) and three Sarracenia already in it. This is the buffer-planting half of that zone, and it is written for the South rather than a generic temperate audience. ⚠️ Vendor-authored — treat as a **seed**, and check any species against the UGA/USDA sources in Category 1 before it reaches a card.
+**Dashboard integration idea:** Candidate source for pond-margin planting suggestions on the Pond Area zone. Pair with the wetland-plant guide below rather than using either alone.
+**Depth tier:** Deep-dive link.
+
+### Wetland Plants of Georgia (iNaturalist guide)
+**URL:** https://www.inaturalist.org/guides/20115
+**What it is:** A community-curated iNaturalist guide to Georgia wetland plant species, photo-keyed and filterable.
+**Why it's relevant here:** Georgia-specific and photo-first, which is what actually helps at the water's edge. Complements the vendor guide above with observation data rather than sales copy. ⚠️ Returns **403** to automated checks — a bot-block, not a dead link; it loads normally in a browser.
+**Dashboard integration idea:** ID reference for anything found at the pond margin; feeds the same Plants-card native-status question the Category 1 sources answer for uplands.
+**Depth tier:** Deep-dive link.
+
 ## Category 3: Wildlife (state & federal)
 
 ### Georgia DNR — State Wildlife Action Plan 2025 (Blue Ridge Ecoregion)
@@ -529,6 +544,63 @@ Concrete one-time actions, ordered by friction:
 **Depth tier:** Card subtitle (seasonal) + deep-dive link.
 
 ---
+
+
+### Rabbit Hunting 101 (Georgia DNR Wildlife Resources Division)
+**URL:** https://georgiawildlife.com/sites/default/files/wrd/pdf/hunting/Rabbit%20Hunting%20101-DNR%20web%20version.pdf
+**What it is:** Georgia DNR's own introductory rabbit-hunting guide — seasons, methods, habitat, and where rabbits actually are in Georgia.
+**Why it's relevant here:** State-agency primary source for a species the property plausibly holds. DNR is already the authority this library leans on for wildlife.
+**Dashboard integration idea:** Grounding for any future small-game notes on the property record; DNR season dates are the authoritative version of a fact worth getting right.
+**Depth tier:** Deep-dive link.
+
+### Gray Squirrel fact sheet (Georgia DNR)
+**URL:** https://georgiawildlife.com/sites/default/files/wrd/pdf/fact-sheets/2005_squirrel.pdf
+**What it is:** Georgia DNR species fact sheet on the gray squirrel — range, habitat, diet, reproduction, management.
+**Why it's relevant here:** The squirrel is already a tracked mammal on the property. This is the state agency's own account of it, which outranks any general-interest write-up.
+**Dashboard integration idea:** Authoritative backing for the Mammals card entry; the diet/habitat detail is the kind that makes a card read as observed rather than generic.
+**Depth tier:** Card subtitle + deep-dive link.
+
+### Georgia squirrel hunting season opens August 15 (Georgia DNR Law Enforcement)
+**URL:** https://gadnrle.org/georgia-squirrel-hunting-season-begins-august-15-0
+**What it is:** DNR Law Enforcement Division notice covering the squirrel season opener, limits, and licence requirements.
+**Why it's relevant here:** A **dated, seasonal** fact about the property's own calendar — mid-August is inside the window the field journal already narrates.
+**Dashboard integration idea:** Candidate for a seasonal note. ⚠️ Season dates change year to year — treat the date as needing re-verification each season rather than as a durable fact.
+**Depth tier:** Seasonal note.
+
+### Five squirrel recipes (Georgia Wildlife Blog)
+**URL:** https://georgiawildlife.blog/2018/08/26/5-squirrel-recipes-youll-ever-taste/
+**What it is:** Georgia DNR's own blog, five preparations for squirrel.
+**Why it's relevant here:** The other half of small game — DNR treats harvest and table as one subject, and so does the property's own use of it.
+**Dashboard integration idea:** Light seasonal content, not a card.
+**Depth tier:** Seasonal note.
+
+### How to Field Dress a Rabbit (wikiHow)
+**URL:** https://www.wikihow.com/Field-Dress-a-Rabbit
+**What it is:** Illustrated step-by-step field-dressing guide.
+**Why it's relevant here:** Practical technique reference. ⚠️ **Not an authority** — general-interest, no agency behind it. Fine for method, never for a fact about Georgia.
+**Dashboard integration idea:** Reference only; would not surface on a card.
+**Depth tier:** Deep-dive link.
+
+### Skinning a rabbit by hand in under a minute (video)
+**URL:** https://www.youtube.com/watch?v=6-E50NolhGk
+**What it is:** Short demonstration of hand-skinning technique.
+**Why it's relevant here:** Same class as the wikiHow entry — technique, not authority.
+**Dashboard integration idea:** Reference only.
+**Depth tier:** Deep-dive link.
+
+### Curing small-animal pelts (Instructables)
+**URL:** https://www.instructables.com/Curing-Small-Animal-Pelts,-Squirrels-Rabbits-etc../
+**What it is:** Six-step guide to curing squirrel and rabbit pelts.
+**Why it's relevant here:** Extends small game past the table into use of the whole animal. Community-authored — a seed, not an authority.
+**Dashboard integration idea:** Reference only.
+**Depth tier:** Deep-dive link.
+
+### Wild Harvest Initiative — Quarterly Report (March 2020)
+**URL:** https://thewildharvestinitiative.com/wp-content/uploads/2020/07/WHI-Quarterly-Report-March-2020.pdf
+**What it is:** Research-programme report quantifying the volume and conservation value of wild-harvested food across North America.
+**Why it's relevant here:** The only source in this group that is *about* wild harvest rather than *how to* — it supplies the framing that connects small game to the property's conservation posture, which the rest of this library already leans toward.
+**Dashboard integration idea:** Framing source for any future 'what this land provides' narrative; not a card in itself.
+**Depth tier:** Deep-dive link.
 
 ## Category 4: Land, soil, water
 
@@ -660,6 +732,28 @@ Concrete one-time actions, ordered by friction:
 
 ---
 
+
+### Cement Pond Tips (Van Ness Water Gardens)
+**URL:** https://vnwg.com/Pond-Building/Pond-Building-Tips/Cement-Pond-Tips
+**What it is:** Long-running water-garden nursery's practical guidance on building and sealing concrete ponds — curing, sealing, and the free-lime problem that kills fish in new concrete.
+**Why it's relevant here:** Fernwood's `pond-area` is a real zone with plants and fish downstream of it. The free-lime caution is the load-bearing item here: a newly worked concrete pond can be lethal until it is cured and neutralised.
+**Dashboard integration idea:** Reference behind any pond-work note; the curing caution is the kind of fact worth surfacing before work rather than after.
+**Depth tier:** Deep-dive link.
+
+### Building a concrete pond (The Concrete Society, UK)
+**URL:** https://www.concrete.org.uk/fingertips-nuggets.asp?cmd=display&id=809
+**What it is:** Technical note from the UK Concrete Society on concrete pond construction — mix, thickness, reinforcement, waterproofing.
+**Why it's relevant here:** The engineering counterpart to the nursery guidance above: same subject, materially higher authority. ⚠️ UK standards — mixes and terminology differ from US practice; use it for principle, not for a spec.
+**Dashboard integration idea:** Technical backing where the hobby sources and the engineering sources disagree.
+**Depth tier:** Deep-dive link.
+
+### Admixtures as Waterproofing (WATERPROOF! Magazine)
+**URL:** https://www.waterproofmag.com/2019/09/admixtures-as-waterproofing/
+**What it is:** Trade-magazine explainer on integral waterproofing admixtures — waterproofing mixed into the concrete rather than applied to its surface.
+**Why it's relevant here:** The third approach to the same problem, and the one with the fewest failure modes over time because there is no coating to fail. Trade press, so: informed, but commercially adjacent.
+**Dashboard integration idea:** Reference for a pond-repair decision, should one come up.
+**Depth tier:** Deep-dive link.
+
 ## Category 5: Fishing & aquatic (Lake Sequoyah / regional)
 
 > **Note on Lake Sequoyah identity:** Confirmed — Sequoyah Lake is a 38-acre reservoir at Tate Mountain Estates in Pickens County (~6.2 mi from Jasper town center; **~0.3 mi from the property**, ~2,800 ft elevation), built by Col. Sam Tate around 1929. The property has a real local-historical anchor here. Public-access status is unclear; appears HOA/private — confirm before publishing fishing-regulation content.
@@ -756,6 +850,21 @@ Concrete one-time actions, ordered by friction:
 **Depth tier:** Deep-dive link.
 
 ---
+
+
+### Old-School Tips for Catching Giant Bass in Small Ponds (Outdoor Life)
+**URL:** https://www.outdoorlife.com/fishing/old-school-tips-for-catching-giant-bass-in-small-ponds/
+**What it is:** Technique piece on fishing small, closed waters for largemouth — how small-pond bass behave differently from lake fish.
+**Why it's relevant here:** ⚠️ **Scope note worth keeping straight:** `fishing.json` is built around **Lake Sequoyah**, not the property pond. This is the only source in the library aimed at the *pond*, and it is only useful if the pond is actually fished — which the record does not currently say either way.
+**Dashboard integration idea:** Would support a pond-fishing section if one is ever wanted. Do not fold into the lake record — different water, different fish behaviour.
+**Depth tier:** Deep-dive link.
+
+### Boating Knots (Animated Knots by Grog)
+**URL:** https://www.animatedknots.com/boating-knots
+**What it is:** Step-by-step animated knot reference — the standard free resource for knots.
+**Why it's relevant here:** General utility around water and equipment rather than fishing specifically. Included because it is genuinely useful and permanently free; filed here because water is where it gets used.
+**Dashboard integration idea:** Reference only.
+**Depth tier:** Deep-dive link.
 
 ## Category 6: Climate, dark sky, homesteading-adjacent
 

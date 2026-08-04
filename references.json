@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "lastBuilt": "2026-05-28",
+    "lastBuilt": "2026-08-04",
     "source": "research-resources.md",
-    "totalEntries": 151,
+    "totalEntries": 167,
     "categoryCount": 8
   },
   "categories": [
@@ -240,6 +240,16 @@
           "title": "Establishing Pollinator Meadows from Seed (Xerces Society)",
           "url": "https://xerces.org/sites/default/files/2018-05/15-020_02_XercesSoc_Establishing-Pollinator-Meadows-from-Seed_web.pdf",
           "framing": "The meadow's point is the grasses-plus-wildflowers mix that feeds pollinators, not grass alone. This is the seed-and-establishment reference for getting that mix to take in the fairway fringe."
+        },
+        {
+          "title": "Beneficial Buffers: Native Plants for Ponds & Lakes in the South",
+          "url": "https://www.solitudelakemanagement.com/beneficial-buffers-native-plants-for-ponds-lakes-in-the-south/",
+          "framing": "Fernwood has a drafted `pond-area` zone (type `planted`) and three Sarracenia already in it. This is the buffer-planting half of that zone, and it is written for the South rather than a generic temperate audience. ⚠️ Vendor-authored — treat as a **seed**, and check any species against the UGA/USDA sources in Category 1 before it reaches a card."
+        },
+        {
+          "title": "Wetland Plants of Georgia (iNaturalist guide)",
+          "url": "https://www.inaturalist.org/guides/20115",
+          "framing": "Georgia-specific and photo-first, which is what actually helps at the water's edge. Complements the vendor guide above with observation data rather than sales copy. ⚠️ Returns **403** to automated checks — a bot-block, not a dead link; it loads normally in a browser."
         }
       ]
     },
@@ -336,6 +346,46 @@
           "title": "Hummingbirds at Home (National Audubon)",
           "url": "https://www.audubon.org/conservation/about-hummingbirds-home",
           "framing": "Ruby-throated Hummingbird is the only eastern US breeder and definitely uses the property (typical arrival mid-Apr in north GA mountains, departure early Oct)."
+        },
+        {
+          "title": "Rabbit Hunting 101 (Georgia DNR Wildlife Resources Division)",
+          "url": "https://georgiawildlife.com/sites/default/files/wrd/pdf/hunting/Rabbit%20Hunting%20101-DNR%20web%20version.pdf",
+          "framing": "State-agency primary source for a species the property plausibly holds. DNR is already the authority this library leans on for wildlife."
+        },
+        {
+          "title": "Gray Squirrel fact sheet (Georgia DNR)",
+          "url": "https://georgiawildlife.com/sites/default/files/wrd/pdf/fact-sheets/2005_squirrel.pdf",
+          "framing": "The squirrel is already a tracked mammal on the property. This is the state agency's own account of it, which outranks any general-interest write-up."
+        },
+        {
+          "title": "Georgia squirrel hunting season opens August 15 (Georgia DNR Law Enforcement)",
+          "url": "https://gadnrle.org/georgia-squirrel-hunting-season-begins-august-15-0",
+          "framing": "A **dated, seasonal** fact about the property's own calendar — mid-August is inside the window the field journal already narrates."
+        },
+        {
+          "title": "Five squirrel recipes (Georgia Wildlife Blog)",
+          "url": "https://georgiawildlife.blog/2018/08/26/5-squirrel-recipes-youll-ever-taste/",
+          "framing": "The other half of small game — DNR treats harvest and table as one subject, and so does the property's own use of it."
+        },
+        {
+          "title": "How to Field Dress a Rabbit (wikiHow)",
+          "url": "https://www.wikihow.com/Field-Dress-a-Rabbit",
+          "framing": "Practical technique reference. ⚠️ **Not an authority** — general-interest, no agency behind it. Fine for method, never for a fact about Georgia."
+        },
+        {
+          "title": "Skinning a rabbit by hand in under a minute (video)",
+          "url": "https://www.youtube.com/watch?v=6-E50NolhGk",
+          "framing": "Same class as the wikiHow entry — technique, not authority."
+        },
+        {
+          "title": "Curing small-animal pelts (Instructables)",
+          "url": "https://www.instructables.com/Curing-Small-Animal-Pelts,-Squirrels-Rabbits-etc../",
+          "framing": "Extends small game past the table into use of the whole animal. Community-authored — a seed, not an authority."
+        },
+        {
+          "title": "Wild Harvest Initiative — Quarterly Report (March 2020)",
+          "url": "https://thewildharvestinitiative.com/wp-content/uploads/2020/07/WHI-Quarterly-Report-March-2020.pdf",
+          "framing": "The only source in this group that is *about* wild harvest rather than *how to* — it supplies the framing that connects small game to the property's conservation posture, which the rest of this library already leans toward."
         }
       ]
     },
@@ -432,6 +482,21 @@
           "title": "The Nature Conservancy — Upper Coosa River Basin (Georgia)",
           "url": "https://www.nature.org/en-us/get-involved/how-to-help/places-we-protect/upper-coosa-river-basin/",
           "framing": "Frames the property within the Upper Coosa biodiversity story; the Etowah and Conasauga are sister sub-basins of the same system."
+        },
+        {
+          "title": "Cement Pond Tips (Van Ness Water Gardens)",
+          "url": "https://vnwg.com/Pond-Building/Pond-Building-Tips/Cement-Pond-Tips",
+          "framing": "Fernwood's `pond-area` is a real zone with plants and fish downstream of it. The free-lime caution is the load-bearing item here: a newly worked concrete pond can be lethal until it is cured and neutralised."
+        },
+        {
+          "title": "Building a concrete pond (The Concrete Society, UK)",
+          "url": "https://www.concrete.org.uk/fingertips-nuggets.asp?cmd=display&id=809",
+          "framing": "The engineering counterpart to the nursery guidance above: same subject, materially higher authority. ⚠️ UK standards — mixes and terminology differ from US practice; use it for principle, not for a spec."
+        },
+        {
+          "title": "Admixtures as Waterproofing (WATERPROOF! Magazine)",
+          "url": "https://www.waterproofmag.com/2019/09/admixtures-as-waterproofing/",
+          "framing": "The third approach to the same problem, and the one with the fewest failure modes over time because there is no coating to fail. Trade press, so: informed, but commercially adjacent."
         }
       ]
     },
@@ -503,6 +568,16 @@
           "title": "Georgia Rivers (formerly Georgia River Network)",
           "url": "https://garivers.org/coosa-river/",
           "framing": "Single jumping-off point for Georgia watershed groups; their Coosa River page is a clean basin summary."
+        },
+        {
+          "title": "Old-School Tips for Catching Giant Bass in Small Ponds (Outdoor Life)",
+          "url": "https://www.outdoorlife.com/fishing/old-school-tips-for-catching-giant-bass-in-small-ponds/",
+          "framing": "⚠️ **Scope note worth keeping straight:** `fishing.json` is built around **Lake Sequoyah**, not the property pond. This is the only source in the library aimed at the *pond*, and it is only useful if the pond is actually fished — which the record does not currently say either way."
+        },
+        {
+          "title": "Boating Knots (Animated Knots by Grog)",
+          "url": "https://www.animatedknots.com/boating-knots",
+          "framing": "General utility around water and equipment rather than fishing specifically. Included because it is genuinely useful and permanently free; filed here because water is where it gets used."
         }
       ]
     },
@@ -656,6 +731,11 @@
       "id": "history-and-cultural-heritage",
       "label": "History and cultural heritage",
       "entries": [
+        {
+          "title": "Family email archive — Tate Mountain community record (2010–2026) 🏠 primary source",
+          "url": "",
+          "framing": "Every other source in this category is *about* Tate; this one is the family *in* Tate — the lived-membership layer that connects the Sam Tate history to the Property card's present. TMC minutes are also the community's own governance record (roads, dam, pond, boundaries) — the authoritative source for community-infrastructure facts near the property."
+        },
         {
           "title": "Pickens County, Georgia (New Georgia Encyclopedia)",
           "url": "https://www.georgiaencyclopedia.org/articles/counties-cities-neighborhoods/pickens-county/",
