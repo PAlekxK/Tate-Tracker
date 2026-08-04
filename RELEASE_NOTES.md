@@ -4,6 +4,22 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-04 — A generator we'd never written down, and fifteen new sources
+
+- **The generator is on the Equipment card now.** A Generac 7000EXL that the record simply
+  didn't have — everything from the chainsaws to the trimmers was listed, and it wasn't. It's
+  there, and the card says plainly what it is: drained, in storage, not yet started. The open
+  question is whether she comes back, and that's a question worth answering before the cold.
+- **Its manual is on file** — 24 pages. It gave us the tank size, the battery, and the storage
+  procedure. What it does *not* give us is the engine's oil or spark plug, because it points at a
+  second manual we don't have yet. The card says that too, rather than guessing.
+- **Fifteen new sources in the reference library** — pond planting and pond building, and the
+  Georgia DNR's own pages on rabbits and squirrels. Each one notes what it's good for and where it
+  shouldn't be trusted; three of them are technique videos rather than authorities, and they're
+  labelled that way.
+
+---
+
 ## 2026-08-04 — The tabs across the top, in your words
 
 - **The row at the top of the page is now your five categories** — Vehicles, Equipment, Household
