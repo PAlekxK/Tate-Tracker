@@ -99,6 +99,53 @@ def audit(map_text):
                     f"what it changed and what that supersedes is unqueryable, so a later "
                     f"lap cannot tell a trajectory from a flip-flop")
 
+    # ⭐ MAP ↔ PROCEDURE AGREEMENT (added 2026-08-04, the same day it broke).
+    # The map is the DEFINITION; `~/.claude/skills/mom-cycle/SKILL.md` is the
+    # PROCEDURE an agent actually loads when someone types /mom-cycle. On the day
+    # the map gained three amendments the procedure gained none, and for hours it
+    # still said "one seat by default" while the map said the opposite — so a lap
+    # run from the Skill would have executed the OLD loop while the map documented
+    # the new one.
+    #
+    # ⚠️ THEY LIVE IN DIFFERENT REPOS (`~/.claude` vs this one), which is precisely
+    # how a scoped close-out updates one and not the other. Nothing structural stops
+    # them drifting; this check is the only thing that does.
+    #
+    # It compares VOCABULARY, not prose — every amended leg name the map introduces
+    # must appear somewhere in the procedure. It cannot tell whether the procedure
+    # describes them CORRECTLY, and says so rather than implying coverage.
+    skill = os.path.expanduser("~/.claude/skills/mom-cycle/SKILL.md")
+    if os.path.exists(skill):
+        with open(skill, encoding="utf-8") as f:
+            proc = f.read()
+        for token, why in (("PREVIEW", "leg 6a"), ("TELEMETRY", "leg 6b"),
+                           ("PROXY", "leg 6c"), ("--retire", "leg 7's one-command retirement")):
+            if token in map_text and token not in proc:
+                findings.append(
+                    f"MAP/PROCEDURE DRIFT  the map defines {token} ({why}) and "
+                    f"SKILL.md never mentions it — an agent running /mom-cycle would "
+                    f"execute a loop the map does not describe")
+        # Check the FRONTMATTER description separately — it is what an agent reads
+        # first and what the skill listing shows, and it drifted independently of
+        # the body on 2026-08-04. Prose that QUOTES the superseded rule (a banner, a
+        # `supersedes "…"` note) is legitimate history, so match the stale CLAIM in
+        # the description rather than the phrase anywhere in the file.
+        desc = next((l for l in proc.splitlines() if l.startswith("description:")), "")
+        if "one expert seat" in desc:
+            findings.append(
+                "MAP/PROCEDURE DRIFT  SKILL.md's frontmatter description still promises "
+                "'one expert seat' while the map carries an amended Leg 4 sequence — and "
+                "the description is what the skill listing shows")
+        leg4 = next((l for l in proc.splitlines() if l.startswith("## Leg 4")), "")
+        if leg4 and "AMENDED" not in map_text.upper():
+            pass
+        elif leg4 and "SCOPED" not in leg4.upper() and "SEQUENCE" not in leg4.upper():
+            findings.append(
+                "MAP/PROCEDURE DRIFT  SKILL.md's Leg 4 heading does not describe a sequence "
+                "while the map's Leg 4 is amended to one")
+    else:
+        findings.append(f"NO PROCEDURE  {skill} is missing — the map defines a loop nothing runs")
+
     if "PRE-REGISTERED" not in map_text.upper():
         findings.append(
             "NO PRE-REGISTRATION  the map defines no 'clean lap', so the loop "
