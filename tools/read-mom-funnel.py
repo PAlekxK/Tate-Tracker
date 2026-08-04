@@ -146,6 +146,29 @@ def compute(events):
     # ---- confirm queue (Mama's Perspective) ----
     mq = {k: n("momqueue_" + k) for k in ("offered", "viewed", "tapped", "answered")}
 
+    # ---- the jump strip ("the tabs across the top") ----
+    # ⭐ ADDED 2026-08-04, and the gap it closes is the point. The strip shipped
+    # 08-02 with TAPS-ONLY instrumentation — the only major control in the app
+    # without an impression event, while momqueue and launcher both have
+    # offered/viewed/tapped. So when Mom told Paul she had "seen the tabs at the
+    # top and liked them", that was literally unmeasurable, and a zero tap count
+    # could not be told apart from a zero VIEW count. `jumpstrip_viewed` (fires
+    # once per session at 50% visibility) is the denominator.
+    #
+    # ⚠️ READ THE SPLIT HONESTLY, BOTH WAYS:
+    #   viewed 0            → we cannot say anything. Not evidence against it.
+    #   viewed > 0, tapped 0 → she sees it and does not use it. THAT is a finding,
+    #                          and it is the first time this funnel can produce it.
+    # ⚠️ AND THE LINE IS NOT POOLABLE. The strip was rebuilt 2026-08-04 around her
+    # own five categories, with bigger type and real 44px targets replacing a row
+    # whose overlapping hit bands stole taps. Counts before and after that commit
+    # measure different controls — do not sum across it.
+    strip = {"viewed": n("jumpstrip_viewed"), "tapped": n("jumpstrip_tapped")}
+    strip["targets"] = {}
+    for ev, _did, _d in by_type.get("jumpstrip_tapped", []):
+        t = ev.get("target") or "?"
+        strip["targets"][t] = strip["targets"].get(t, 0) + 1
+
     # ---- deterministic verdict (raw counts; no narrative) ----
     # KILL  = offered a lot, never tapped (dead affordance).
     # GROW* = a real capture AND a later-day return (the funnel half of Grow; the
@@ -189,6 +212,7 @@ def compute(events):
             "median": sorted(durations)[len(durations) // 2] if durations else None,
         },
         "confirm_queue": mq,
+        "jump_strip": strip,
         "per_device_saves": {did: sorted(ds) for did, ds in days_by_device.items()},
         "verdict": verdict,
         "totals": {"saves": total_saves, "launcher_taps": tapped, "confirm_answers": mq["answered"]},
@@ -229,6 +253,20 @@ def scorecard_text(sc, start, end):
     if h5["detail"]:
         for did, days in h5["detail"].items():
             lines.append(f"    · {did[:16]}…: {', '.join(days)}")
+    js = sc.get("jump_strip") or {"viewed": 0, "tapped": 0, "targets": {}}
+    print("THE TABS ACROSS THE TOP (jump strip)")
+    if not js["viewed"] and not js["tapped"]:
+        print("  no data — impression tracking shipped 2026-08-04; before that only taps existed,")
+        print("  so an empty reading here means UNMEASURED, never 'she did not look'.")
+    else:
+        print(f"  viewed {js['viewed']} → tapped {js['tapped']}")
+        if js["viewed"] and not js["tapped"]:
+            print("  ⚠️ SEEN BUT NOT USED — the one reading this funnel could never produce before.")
+        for t, c in sorted(js.get("targets", {}).items(), key=lambda kv: -kv[1]):
+            print(f"     {c:3d}  {t}")
+    print("  ⚠️ do NOT pool across 2026-08-04 — the strip was rebuilt (her categories, 44px targets).")
+    print()
+
     mq = sc["confirm_queue"]
     lines.append("")
     lines.append("CONFIRM QUEUE (Mama's Perspective)")
