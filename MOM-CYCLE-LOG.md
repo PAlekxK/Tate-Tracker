@@ -21,7 +21,7 @@ take care of the things waiting on me."*
 | **0 · GUARD** | HEAD `b5a596c`, working tree clean at start. No concurrent session. | `git log --oneline -1` |
 | **1 · READ** | Five checks run. `check-cards` 🔴 1 contradiction · `check-mom-ack` 🟡 R1 4d, 🔴 R2b two channels unread · `check-data-inline` ✅ 10/10 in sync · `check-digest-fresh` ✅ · `read-mom-feedback` 1 new answer, 0 ready to fold. | tool output, this table |
 | **2 · TRIAGE** | Two items. **(a)** `q-top-categories` answered 08-03 but still served → *preference*, settled, needs retirement. **(b)** ribbon does not cover her 08-03 session → *return leg owed*. Neither is a correctness bug; canon is clean. | — |
-| **3 · RESOLVE** 👤 | One genuine ambiguity, routed to **tier 2 (Paul)**, not to a card: *does "tabs across the top" mean the nav strip that shipped, or a re-organization of the app into her five categories?* Tier 1 could not settle it — telemetry shows she has never tapped the strip (`jumpstrip_tapped` = 0 from `d-szqlt0h7`), which is consistent with both readings. **Spending a card on this would have been the ladder failing.** | funnel query; the question is put to Paul in-conversation |
+| **3 · RESOLVE** 👤 | One genuine ambiguity, routed to **tier 2 (Paul)**, not to a card: *does "tabs across the top" mean the nav strip that shipped, or a re-organization of the app into her five categories?* Tier 1 could not settle it — and ⛔ **the reason recorded here at the time was WRONG**: it said *"telemetry shows she has never tapped the strip"*, which treats an unmeasured zero as a measured one. Corrected same day (see below). **Spending a card on this would have been the ladder failing.** | funnel query; the question is put to Paul in-conversation |
 | **4 · EXPERT** | **No seat convened, deliberately.** Both items are execution, and the one interpretive question routed to tier 2, where it is free. Recording the reason because an unexplained skipped leg is indistinguishable from a forgotten one. | this line |
 | **5 · SHIP** | Two channel read-attestations (`observations`, `guru`) — her 08-03 Almanac conversation on creeping-fig cuttings was **actually read**, not stamped. Meta work: the map, the status surface, this chronicle, the map control. | `.private/channel-read-state.json`; commits below |
 | **6 · GATE** 👤 | **⏸ HERE.** Ribbon draft + card retirement presented to Paul as exact text. Nothing applied, nothing pushed. | pending |
@@ -142,6 +142,37 @@ never the first thing under the strip.)
    all four independently confirmed), which is precisely why one false `validated` is dangerous: it
    travels on the credibility of the true ones. **Spot-check a seat's load-bearing structural claims
    before acting on them**, the same standing rule this repo already carries for BACKLOG rows.
+
+### ⛔ THE ZERO WAS UNMEASURED, AND I REPORTED IT TWICE AS A FINDING
+
+**Paul's question, unprompted, at the end of the lap:** *"Zero taps — truly, because there were zero
+taps, or because we didn't have telemetry for it?"*
+
+The record answers it, and the answer overturns something this lap leaned on twice:
+
+| the three events instrumented 08-02 22:58 ET (`bbf764a`) | first-ever firing |
+|---|---|
+| `jumpstrip_tapped` | **2026-08-04T00:02:55Z** — i.e. 08-03 **8:02 PM ET** |
+| `mp_envelope_toggled` | **NEVER** |
+| `composer_empty_tap` | **NEVER** |
+
+**Her only session since the strip shipped was 08-03 at 7:52 AM ET — twelve hours EARLIER than the
+earliest proof that any of that commit's code has ever run.** So *she did not tap the strip* is
+indistinguishable from *nothing could have recorded it if she had*. The zero carries no information.
+
+**What I actually did wrong, which is worse than the fact.** I checked the deploy timing early in the
+lap, could not verify it (no `gh` on this machine), and correctly said so once — then went on to
+state the zero as a finding in `BACKLOG.md` and again in this log, with the caveat quietly dropped
+both times. **A caveat that survives only in the sentence where it was born is not a caveat.**
+[[feedback_absence_of_records_is_weak_evidence]] is a standing rule in this stack and it did not fire,
+because the searched-negative got promoted one restatement at a time.
+
+**It did not change what shipped** — the rebuild rests on her confirmed category list, not on the
+zero — and the impression event shipped *because* the gap was real. But the qualifier it was used
+for (*"she likes seeing it, NOT that she navigates with it"*) had no evidence under it.
+
+⭐ **And it makes `jumpstrip_viewed` load-bearing rather than nice-to-have.** With a denominator,
+`viewed > 0, tapped 0` becomes a real finding and `viewed 0` correctly says nothing.
 
 ### Seat measurement — the D6 experiment's first data (informational; D6 scores from lap 2)
 
