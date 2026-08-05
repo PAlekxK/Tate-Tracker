@@ -90,5 +90,53 @@ digest to protect its ~57K/80K-token budget).
 
 ---
 
+## 🚚 THE FLEET SWEEP — open workstream `[paul-stated 2026-08-05]`
+
+**This resolves the sentence that got cut off at close-out on 2026-08-04** ("Bring our fleet
+into…"), which was recorded rather than guessed. His words on 08-05:
+
+> *"let's make sure we've looked at all these bookmarks and mined all the data for all the
+> vehicles and everything else that could be useful… as well as looked across all my other iCloud
+> for other manuals or anything else that we should be properly locating and consolidating like we
+> did with the bolores bronco files that we found on my iCloud archives, and being sure that's all
+> set up to be ingested and accessible in one place related to the vehicle."*
+
+**Bolores is the worked example, and it is the ONLY one.** Measured 2026-08-05 across the 18
+`vehicles.json` entries:
+
+| | Count | |
+|---|---:|---|
+| Fleet entries | **18** | 7 vehicles · 10 equipment · 1 household system |
+| Have a manual in this INDEX | **21 docs** | good coverage — this is the part that IS done |
+| Have a `referenceLibrary` | **1** | `bronco-1989` only |
+| Have a service-record directory | **5** | bronco · gti · tiguan · dr200s · drz400s |
+| Have had their manual text **mined** | **1** | `bronco-1989`, 2026-08-05 |
+
+**The three legs, in dependency order:**
+
+1. **MINE what is already on disk.** `text/` holds **5.66 MB across 21 manuals** and, until
+   2026-08-05, exactly none of it had been mined against open work. `tools/mine_parts_catalog.py`
+   is the pattern — but note it is *catalogue-shaped* (part rows). A service manual needs a
+   different miner (procedures + specs), so this is a build, not a re-run. **Cheapest leg, zero
+   network, and it is where Bolores' wins came from.**
+2. **SWEEP iCloud for what is not on disk yet.** The Bolores `_assets/` material was found in the
+   iCloud archives, not on the web — so the same sweep across the other 17 entries is the obvious
+   next seam. ⚠️ **Not yet scoped: nobody has looked.** Do not state a count until one exists.
+3. **CONSOLIDATE per vehicle.** "Accessible in one place related to the vehicle" = give the fleet
+   what `bronco-1989` has — a `referenceLibrary` entry and, where there is material,
+   a `REFERENCE.md` + `SOURCES.md` pair. **The structure is already proven; it just has one
+   occupant.**
+
+> ⚠️ **Do NOT invent a fourth store for this.** The existing split holds fleet-wide: model-level →
+> `manuals/` (this INDEX for files, `LINKS.md` for links) · machine-level →
+> `.private/service-records/<id>/`. The whole reason those two files exist is that a third home was
+> considered on 2026-08-04 and deliberately refused.
+
+**The bookmark half is filed but NOT captured** — see `~/.claude/handoff/BOOKMARK-SWEEP.md`:
+103 of 135 filed, **0 archived, 0 cleared**, and **11 of 27 Bronco links are already unreachable**.
+Filing recorded that we knew about a link; it did not keep the page. That is the leg with a clock on it.
+
+---
+
 _To refresh: run `bash download.sh` (re-downloads any missing PDF), then_
 _`for f in pdf/*.pdf; do pdftotext -q "$f" "text/$(basename "$f" .pdf).txt"; done`._
