@@ -72,16 +72,47 @@ def run(cmd: list[str]) -> tuple[int, str, str]:
     return p.returncode, p.stdout, p.stderr
 
 
+def ocr_scanned_pdf(src: Path) -> tuple[str | None, str | None]:
+    """Render a scanned PDF to 300-dpi pages and OCR them.
+
+    Kept SEPARATE from the text-layer path, and headed as OCR, because the two are
+    different claims about the same file type: one is the document's own text, the
+    other is a model's guess at pixels. Proven on `SEM-STCL-1989-trim-codes.pdf`
+    (2026-08-05), which has NO text layer — at 300 dpi with `--psm 6` it recovers
+    `U CHESTNUT L/T, B, E, M/T, H/T 86-89 4168`, matching what SOURCES.md already
+    says that sheet proves. That agreement is a positive control on the settings,
+    not a new fact: the value was verified by a human read first.
+    """
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        stem = Path(td) / "pg"
+        rc, _, err = run(["pdftoppm", "-r", "300", "-png", str(src), str(stem)])
+        if rc != 0:
+            return None, f"pdftoppm rc={rc}: {err.strip()[:160]}"
+        pages = sorted(Path(td).glob("pg*.png"))
+        if not pages:
+            return None, "pdftoppm produced no pages"
+        chunks = []
+        for pg in pages:
+            rc, out, _ = run(["tesseract", str(pg), "-", "--psm", "6"])
+            if rc == 0 and out.strip():
+                chunks.append(out)
+        if not chunks:
+            return None, "scanned PDF OCR produced no text"
+    return OCR_HEADER.format(src=src.name) + "\n\n".join(chunks), None
+
+
 def extract_pdf(src: Path) -> tuple[str | None, str | None]:
     rc, out, err = run(["pdftotext", "-layout", str(src), "-"])
     if rc != 0:
         return None, f"pdftotext rc={rc}: {err.strip()[:200]}"
     if len(out.strip()) < SCAN_SUSPICION_CHARS:
-        return None, (
-            f"no usable text layer ({len(out.strip())} chars) — this PDF is likely a "
-            "SCAN. Needs OCR, which is a different claim than a text layer; not "
-            "silently OCR'd here so the distinction survives."
-        )
+        # No text layer -> it is a scan. OCR it, but under the OCR header so the
+        # distinction between "the document's text" and "a model read" survives.
+        text, ocr_err = ocr_scanned_pdf(src)
+        if text is None:
+            return None, f"no text layer ({len(out.strip())} chars) and OCR failed: {ocr_err}"
+        return text, None
     return PDF_HEADER.format(src=src.name) + out, None
 
 
@@ -91,16 +122,23 @@ def extract_image(src: Path) -> tuple[str | None, str | None]:
     # the common case, not the edge one). `sips` ships with macOS and transcodes
     # losslessly enough for OCR. The PNG is a scratch file, never kept: the HEIC
     # stays the asset of record so nothing here creates a second copy to diverge.
+    # Upscale to 4000px on the long edge as well as transcoding: these are
+    # photographs of documents, not screenshots, and small print is the payload.
+    # Measured on the factory brochure (2026-08-05): at native size tesseract
+    # returned the page HEADING and noise; upscaled with --psm 6 it also returns
+    # colour names. ⚠️ Only PARTIALLY — the colour MATRIX on that page stays
+    # unreadable at any setting tried. Do not read "the file has text now" as
+    # "the content was captured"; see the coverage note in REFERENCE.md.
     target, tmp = src, None
-    if src.suffix.lower() == ".heic":
+    if src.suffix.lower() in {".heic", ".jpg", ".jpeg"}:
         tmp = src.with_suffix(".ocr-tmp.png")
-        rc, _, err = run(["sips", "-s", "format", "png", str(src), "--out", str(tmp)])
+        rc, _, err = run(["sips", "-s", "format", "png", "-Z", "4000", str(src), "--out", str(tmp)])
         if rc != 0:
             tmp.unlink(missing_ok=True)
-            return None, f"sips HEIC->PNG rc={rc}: {err.strip()[:160]}"
+            return None, f"sips transcode rc={rc}: {err.strip()[:160]}"
         target = tmp
     try:
-        rc, out, err = run(["tesseract", str(target), "-", "--psm", "3"])
+        rc, out, err = run(["tesseract", str(target), "-", "--psm", "6"])
     finally:
         if tmp is not None:
             tmp.unlink(missing_ok=True)
