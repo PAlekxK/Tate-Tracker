@@ -11,6 +11,28 @@ amended mid-lap.
 
 ---
 
+## Interlap note — 2026-08-06 · **no lap ran**
+
+Recorded because `cycle-docs-check.py` (close-out C4·cycle) correctly flagged *"repo moved 08-06,
+newest chronicled lap 08-04 — either a lap went unrecorded, or the work was meta and the chronicle
+should say so."* **It was meta.** Both 08-06 commits were checked file-by-file and neither touches
+any Mom surface:
+
+- `66932b1` (10:49) — `worker/digest.json`, a rebuild stamp from a deploy.
+- `9f12147` (14:49) — `BACKLOG.md` only, correcting a **Bolores/vehicle** row that had read open for
+  a day after the work shipped. Nothing to do with Mama's Perspective.
+
+So lap 2 is still unstarted and everything under *"What lap 2 inherits"* below stands untouched —
+in particular, **`jumpstrip_viewed` still has no post-`8718f46` reading**, because no lap has run to
+take one.
+
+⭐ **The note exists so the gap is a stated fact rather than an inference.** An un-updated chronicle
+and a loop that did not run are indistinguishable from outside, and the ambiguity resolves in the
+flattering direction ([[feedback_hand_maintained_facts_drift]]) — a reader assumes the loop is
+healthy and merely under-documented. Writing "no lap ran" costs one paragraph and removes the guess.
+
+---
+
 ## Lap 1 — 2026-08-04 · ✅ CLOSED — shipped `8718f46`, pushed and verified live
 
 **Trigger:** Paul, after confirming Mom's 08-03 visit in the data — *"let's run our feedback loop,
