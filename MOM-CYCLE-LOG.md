@@ -11,6 +11,31 @@ amended mid-lap.
 
 ---
 
+## Interlap note — 2026-08-07 · **no lap ran**
+
+Same flag, same answer, second day running. `cycle-docs-check.py` reported *"repo moved 2026-08-07,
+newest chronicled lap 2026-08-06."* **It was meta again.** Both 08-07 commits were checked and
+neither touches any Mom surface:
+
+- `835e4e2` — `BACKLOG.md` only. A dispatched verification found the Bolores corpus row's four
+  "open" legs had closed on 08-05 and nobody updated the row; the row now reads ALL FIVE LEGS
+  CLOSED, with the old claim struck rather than deleted.
+- `9837ab2` — `manuals/LINKS.md` + `.private/` asset sidecars. Retracts a link-decay figure that
+  was **falsified by Paul from memory on 08-05** and re-propagated on 08-06 anyway. Re-probing all
+  30 links found one REAL new loss (`sourceresearch.com`, NXDOMAIN) that the inflated number had
+  been hiding. `viewer.html` untouched; `.private/` is gitignored.
+
+So **lap 2 is still unstarted** — everything under *"What lap 2 inherits"* stands, and
+`jumpstrip_viewed` still has no post-`8718f46` reading.
+
+⚠️ **Two interlap notes in a row is itself a reading.** One is a quiet week; two consecutive days of
+repo movement with no lap means the Fernwood *vehicle/manuals* thread is active while the *Mom*
+thread is idle. That is a legitimate state — but it is now a fact on the record rather than
+something a future reader has to reconstruct from commit archaeology. If a third lands, the
+question stops being "did a lap run" and becomes "is lap 2 blocked on something nobody has named."
+
+---
+
 ## Interlap note — 2026-08-06 · **no lap ran**
 
 Recorded because `cycle-docs-check.py` (close-out C4·cycle) correctly flagged *"repo moved 08-06,
