@@ -131,16 +131,34 @@ restoration ever gets one, it gets its own `REFERENCE.md` too, and this file kee
 (`fullsizebronco.com/threads/…361210`) sits under **Finances** in the export. It belongs to the
 tailgate-electrical thread.
 
-### 🔴 The decay is measured, and it is the worst on the fleet
+### The decay, re-measured 2026-08-07 — one real loss, and the old number was wrong
 
-The Bolores session counted it on 2026-08-04: **11 of 27 Bronco links (41%) are no longer
-agent-retrievable** — 7 fullsizebronco threads behind a `tollbit` paywall (HTTP 402, transition
-observed live that day), 3 hosts 403 (LMC, eBay, OEM Parts Online), 1 returning 500. Four more are
-YouTube, where a link is the only holdable form. **Nothing behind any of them is archived.**
+> ⚠️ **This block used to read "11 of 27 Bronco links (41%) are no longer agent-retrievable …
+> Nothing behind any of them is archived."** Both halves were false when written, and Paul had
+> already falsified them from memory on 08-05 (*"if you open those eleven in Chrome, something will
+> come up — I thought we did that"*). The 41% figure was an automated checker's 403s read as rot —
+> **which the very next section of this file already warns against.** Kept visible rather than
+> deleted, so nobody re-derives it from the history.
 
-That is the strongest argument this file makes: **a C link is a wasting asset.** Saving a page as a
-file converts it to an **A** document and moves the row to `INDEX.md` — and for the seven paywalled
-threads, that window is already closed to an agent and open only to Paul in a browser.
+All 30 links re-probed 2026-08-07. What is actually true:
+
+- **One hard loss, and it is NEW: `www.sourceresearch.com` is NXDOMAIN.** The domain is gone, so no
+  better client recovers it. It was **not** in the 08-04 count — the inflated number was hiding a
+  real death underneath it.
+- **The 7 fullsizebronco threads were archived on 08-04**, images recovered 08-06. They answer 202
+  (tollbit), not 402. Only 3 of the 8 threads carried a content image and all 3 fetched with plain
+  `curl` — the images were never paywalled, just the HTML.
+- **5 hosts 403 a bot** (eBay, LMC, OEM Parts Online, ford-trucks, garysgaragemahal) and were
+  Chrome-verified as loading on 08-05. `ocautocarpets` is the standing demonstration: **403 to bare
+  `curl`, 200 on a User-Agent swap alone.**
+- **1 transient**: `justgivemethedamnmanual.com` returns a 500 that looks like a DB error.
+- **1 "404" is our own typo** — the stored URL at `REFERENCE.md:142` is truncated mid-word
+  (`…/Weatherstrip-Kit/produc`). A transcription defect counted as link rot.
+
+**The argument survives the correction, and is sharper for it: a C link is a wasting asset** — one
+of these did die, permanently, in the three days nobody was looking. Saving a page as a file
+converts it to an **A** document and moves the row to `INDEX.md`. **But an automated liveness check
+cannot tell a dead page from a bot-block**, so it may only ever raise a question, never a verdict.
 
 ---
 
