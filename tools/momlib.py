@@ -1069,7 +1069,8 @@ def ribbon_state(viewer_path=VIEWER):
     did not push is exactly as stale to Mom as one he never wrote — and that
     sentence was a policy statement with no mechanism until this function.
     """
-    ack = read_mom_ack(viewer_path) or {}
+    raw = read_mom_ack(viewer_path)
+    ack = raw or {}
     dirty = _git("status", "--porcelain", "--", "viewer.html")
     unpushed = _git("log", "--oneline", "origin/main..HEAD", "--", "viewer.html")
     reasons = []
@@ -1078,9 +1079,31 @@ def ribbon_state(viewer_path=VIEWER):
     if unpushed:
         n = len(unpushed.splitlines())
         reasons.append(f"{n} commit(s) touching viewer.html not pushed to origin/main")
+
+    # ⭐ ASSERT THE INVARIANT, NOT THE WIDGET (2026-08-08).
+    # The ribbon migrated from a single `message` string to a `changes[]` list on
+    # 2026-08-04, and `message` has been "" ever since — BY DESIGN. Every reader
+    # here still asked for `message`, so the R3 specificity check — the one check
+    # that asks "does this name what she actually GAVE?" — was printing an empty
+    # string and could no longer fail. That is this stack's most repeated failure
+    # shape, named in MOM-CYCLE-MAP.md: a mechanism that inspects as present and
+    # cannot fail. `rendered_text` is what she would actually READ, whichever
+    # shape the ribbon is in, so a future migration cannot blind the check again.
+    changes = ack.get("changes") or []
+    closing = ack.get("closing") or ""
+    parts = [ack.get("message") or ""]
+    parts += [(c or {}).get("text", "") for c in changes]
+    parts.append(closing)
+    rendered = " ".join(p.strip() for p in parts if p and p.strip())
+
     return {
+        "found": raw is not None,
         "message": ack.get("message"),
+        "changes": changes,
+        "closing": closing,
+        "rendered_text": rendered,
         "acknowledged_through": ack.get("acknowledgedThrough"),
+        "arrived_at": ack.get("arrivedAt"),
         "channels": ack.get("channels"),
         "legacy_answered_on": ack.get("answeredOn"),
         "shipped": not reasons,

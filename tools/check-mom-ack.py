@@ -126,8 +126,17 @@ def main():
         return 0
 
     ribbon = momlib.ribbon_state()
-    if ribbon["message"] is None:
+    if not ribbon["found"]:
         print("⚠️  MOM_ACK_DATA not found in viewer.html — the ribbon can't be checked.", file=sys.stderr)
+        return 1
+    # An ack block that parses but renders NOTHING is the failure that killed the
+    # whole card on 2026-08-04 while every check stayed green. Guard the invariant.
+    if not ribbon["rendered_text"].strip():
+        print("⚠️  MOM_ACK_DATA renders NO TEXT — message, changes[] and closing are all empty.",
+              file=sys.stderr)
+        print("    The acknowledgment card is blank on her screen. This is not a stale ribbon;",
+              file=sys.stderr)
+        print("    it is an absent one.", file=sys.stderr)
         return 1
 
     ack = ribbon["acknowledged_through"]
@@ -249,7 +258,16 @@ def main():
             print("     momack_shown is exposure, not reading. Until she taps, delivery is unmeasured.")
 
     print(f"\n  R3 specificity        — NOT machine-checkable; read it yourself:")
-    print(f"     \"{ribbon['message']}\"")
+    # Print what she would actually READ. Until 2026-08-08 this printed
+    # `message` alone, which the 08-04 changes[] migration had left permanently
+    # empty — so the check displayed "" and nobody could tell blind from clean.
+    if ribbon["message"]:
+        print(f"     {ribbon['message']}")
+    for c in ribbon["changes"]:
+        tgt = (c or {}).get("card")
+        print(f"     · {(c or {}).get('text','')}" + (f"   → [{tgt}]" if tgt else ""))
+    if ribbon["closing"]:
+        print(f"     {ribbon['closing']}")
     print(f"     Does that name what she actually GAVE? A generic thank-you does not tell her")
     print(f"     she was heard. Adopt her words; never improve them.")
 
