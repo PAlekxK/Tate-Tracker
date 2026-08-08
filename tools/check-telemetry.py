@@ -54,6 +54,7 @@ Usage:
 import argparse
 import datetime as dt
 import importlib.util
+import json
 import os
 import re
 import sys
@@ -165,23 +166,50 @@ def main():
     tok = momlib.resolve_token()
     data = momlib._get("/api/metrics", tok,
                        {"start": a.since, "end": str(dt.date.today() + dt.timedelta(days=1))})
-    first, counts = {}, {}
+    # ⭐ THE TEST HARNESS MUST NEVER LAUNDER INTO EVIDENCE (2026-08-08).
+    # The baseline walk fires real events from a real deviceId — that is the only
+    # way to prove wiring. But an event whose ONLY record is the harness has been
+    # shown to WORK, not to be USED, and reporting it as "fired" would convert a
+    # synthetic tap into a claim about a person. That is the same class of error as
+    # the 2026-07-28 funnel counting Paul's device as Mom's, run in reverse.
+    harness = set()
+    try:
+        with open(os.path.join(HERE, "people.json"), encoding="utf-8") as f:
+            for p in (json.load(f).get("people") or []):
+                if p.get("isTestHarness"):
+                    harness.update(p.get("deviceIds") or [])
+    except (OSError, ValueError):
+        pass  # absent people.json → every device counts as real, the safe default
+
+    first, counts, real_counts = {}, {}, {}
     for day, batches in (data.get("days") or {}).items():
         for b in batches or []:
+            dev = (b.get("device") or {}).get("deviceId")
+            is_harness = dev in harness
             for ev in (b.get("events") or []):
                 t, ts = ev.get("type"), (ev.get("ts") or day)
                 if t:
                     counts[t] = counts.get(t, 0) + 1
+                    if not is_harness:
+                        real_counts[t] = real_counts.get(t, 0) + 1
                     if t not in first or ts < first[t]:
                         first[t] = ts
 
     never = [e for e in emitted if e not in first]
     fired = [e for e in emitted if e in first]
+    # Seen ONLY from the harness: wiring proven, behaviour still unmeasured.
+    wired_only = [e for e in fired if not real_counts.get(e)]
 
     print(f"telemetry — {len(emitted)} event name(s) emitted by viewer.html, "
           f"read against /api/metrics since {a.since}\n")
     print(f"  ✓ fired at least once : {len(fired)}")
     print(f"  ⚠️ NEVER fired         : {len(never)}")
+    if wired_only:
+        print(f"  🧪 WIRED, NOT USED     : {len(wired_only)}  "
+              f"(only the test harness has ever fired these)")
+        print("     Proven to work; still zero real-world use. Never cite one as behaviour.")
+        for e in wired_only:
+            print(f"      · {e}  (harness {counts.get(e,0)}x · real 0)")
     if never:
         print("\n  These events exist in the source and have NO record. A zero on any of them\n"
               "  means UNMEASURED, not 'it did not happen':")
@@ -198,8 +226,12 @@ def main():
                 unknown.append((e, "expected rare"))
             elif e in GATED_BY:
                 up = GATED_BY[e]
-                if counts.get(up):
-                    untaken.append((e, f"{up} fired {counts[up]}x"))
+                # REAL counts, not totals: a harness tap on the upstream must not
+                # relabel a behavioural zero as "offered, never taken."
+                if real_counts.get(up):
+                    untaken.append((e, f"{up} fired {real_counts[up]}x for real"))
+                elif counts.get(up):
+                    unoffered.append((e, f"{up} fired ONLY from the test harness"))
                 else:
                     unoffered.append((e, f"{up} has never fired either"))
             else:
