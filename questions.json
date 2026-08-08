@@ -291,7 +291,7 @@
       "id": "q-fairway-grass-seedheads",
       "kind": "confirm",
       "answerMode": "yesno",
-      "prompt": "Down in the fairway and meadow there seem to be **two different grasses** — a coarse clumpy one and a lower, spreading one. We're guessing the spreading one might be crabgrass, but that's only a guess from a picture. **Come late summer, does that low spreading grass send up little finger-like seed spikes?** That would tell us for sure.",
+      "prompt": "Down in the fairway and meadow there seem to be **two different grasses** — a coarse clumpy one and a lower, spreading one. We're guessing the spreading one might be crabgrass, but that's only a guess from a picture. **Does that low spreading grass have little finger-like seed spikes on it now?** That would tell us for sure.",
       "entityRef": {
         "type": "plant",
         "id": "fairway-meadow"
@@ -300,11 +300,11 @@
       "active": false,
       "_source": "authored",
       "_foldTarget": "observedGrasses",
-      "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. Flip active:true then. When the add-a-photo-on-card affordance ships (BACKLOG A2 W4b), this is a prime candidate to invite HER photo, not just a yes/no.",
+      "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. ⚠️ The add-a-photo-on-card idea this note used to point at was KILLED (BACKLOG: 'adds a sixth input affordance to the surface we are disambiguating') — do not revive it from here. 2026-08-08 (Paul-approved, both edits): the ask was written on 07-20 as a FUTURE ping and still said 'Come late summer' — it IS late summer, so it now asks in the present; and `later` was the last card anywhere still carrying 'I haven't looked' against the 07-31 ratification of 'Snooze card'. That label is the monitored variable under WATCH, and serving two wordings at once would have pooled two treatments in one queue — the exact comparison the WATCH row says not to make.",
       "labels": {
         "yes": "Yes, it does",
         "no": "No, no spikes",
-        "later": "I haven't looked"
+        "later": "Snooze card"
       },
       "correctionPrompt": "What does it look like, if you can say? (optional)"
     },
