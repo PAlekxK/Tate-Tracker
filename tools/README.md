@@ -113,7 +113,7 @@ By default the script uses the same Ambient Weather API keys embedded in
 `viewer.html`. To override (recommended for production cron/CI use):
 
 ```bash
-AMBIENT_APP_KEY=... AMBIENT_API_KEY=... AMBIENT_MAC=D8:F1:5B:15:28:B8 \
+AMBIENT_APP_KEY=... AMBIENT_API_KEY=... AMBIENT_MAC=(MAC in .private/ambient-station.json) \
   node tools/record-daily-rollup.mjs
 ```
 

@@ -3,7 +3,7 @@
     "schemaVersion": 1,
     "generatedAt": "2026-08-02T10:05:38.245Z",
     "method": "Deterministic (AI-free) comparison of the on-site Ambient Weather station vs. the Open-Meteo ERA5 regional grid, both at the property's 902 m elevation.",
-    "station": "Kirschenbauer Ambient Weather Station (D8:F1:5B:15:28:B8)",
+    "station": "Kirschenbauer Ambient Weather Station",
     "gridModel": "Open-Meteo ERA5 archive",
     "gridElevation_m": 902
   },

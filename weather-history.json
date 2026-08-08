@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": 1,
-    "source": "Kirschenbauer Ambient Weather Station (D8:F1:5B:15:28:B8)",
+    "source": "Kirschenbauer Ambient Weather Station",
     "rollupCadence": "daily",
     "rollupTimezone": "America/New_York",
     "firstDay": "2026-05-05",

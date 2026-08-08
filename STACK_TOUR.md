@@ -191,7 +191,7 @@ The transcript is committed to the textarea on each phrase boundary, so what you
 
 ## The weather-history GitHub Action
 
-The dashboard has an Ambient Weather station on the property (`D8:F1:5B:15:28:B8`, "Tate") reporting roughly every 10 minutes. The station's raw data is ephemeral on Ambient's servers — we don't get a long historical archive for free.
+The dashboard has an Ambient Weather station on the property (`.private/ambient-station.json`, "Tate") reporting roughly every 10 minutes. The station's raw data is ephemeral on Ambient's servers — we don't get a long historical archive for free.
 
 **`tools/record-daily-rollup.mjs`** is a Node script (no dependencies) that fetches the station's data, computes a daily rollup (min/max/avg for temp, humidity, wind, rain totals, etc.), and merges that rollup into `weather-history.json`. Idempotent — running it again on a date already recorded replaces that date's rollup.
 

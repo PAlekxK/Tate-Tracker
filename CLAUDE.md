@@ -329,7 +329,7 @@ All domain data is loaded as JS constants from inlined JSON at the top of the sc
 - `VEHICLES_DATA` — Fleet registry with status badges.
 - `PROPERTY_DATA` — Microclimate, soil series, watershed, elevation notes.
 
-Live data is fetched async at init from three sources: the **on-site Ambient Weather station** (MAC `D8:F1:5B:15:28:B8`, via `api.ambientweather.net`) for current on-property conditions; **Open-Meteo** (`api.open-meteo.com` forecast + `archive-api…` ERA5) for the forecast and the historical grid baseline; and **RainViewer** for radar. The logged daily record (`weather-history.json`, maintained by the `record-weather.yml` GitHub Action + `tools/record-daily-rollup.mjs`) is 100% the on-site station. NOTE: the old Weather Underground PWS `KGAJASPE279` is **no longer used** — only a Wundermap deep-link remains. Don't reintroduce it as a data source.
+Live data is fetched async at init from three sources: the **on-site Ambient Weather station** (MAC in `.private/ambient-station.json`, via `api.ambientweather.net`) for current on-property conditions; **Open-Meteo** (`api.open-meteo.com` forecast + `archive-api…` ERA5) for the forecast and the historical grid baseline; and **RainViewer** for radar. The logged daily record (`weather-history.json`, maintained by the `record-weather.yml` GitHub Action + `tools/record-daily-rollup.mjs`) is 100% the on-site station. NOTE: the old Weather Underground PWS `KGAJASPE279` is **no longer used** — only a Wundermap deep-link remains. Don't reintroduce it as a data source.
 
 ### CSS conventions
 
@@ -416,7 +416,7 @@ The vehicle/equipment data-collection list (mower belt P/N, Homelite model IDs, 
 | Last frost 50% | May 3 |
 | Last frost 90% safe | May 24 |
 | First frost 50% | October 17 |
-| On-site station | Kirschenbauer Ambient Weather station, MAC `D8:F1:5B:15:28:B8` (source of `weather-history.json`) |
+| On-site station | Kirschenbauer Ambient Weather station, MAC in `.private/ambient-station.json` (source of `weather-history.json`) |
 | Sky quality | Bortle 3 (rural dark sky) |
 
 ## Decision intake → operating-layer (D33)

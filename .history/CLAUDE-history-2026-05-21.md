@@ -19,7 +19,7 @@ Verdict now steps down when `lakeTemp < hwtMonth.low_F`. A context note and Earl
 Replaced: "17 actions due" → month-name + per-care-type teaser; "3 alerts" → quiet alert teaser rows; "3 need attention" / "items in fleet" → "Specifications and maintenance". Remaining strings to scan: any internal weather alert titles that read "Warning" / "Severe" — those are arguably right when the conditions are dangerous (freeze, damaging wind), so probably leave them as-is.
 
 ### ~~Ambient Weather integration — full sensor data~~ ✓ Done
-Switched the configured AMBIENT_MAC to the active reporting station (`D8:F1:5B:15:28:B8`, "Tate"). The on-property hero now populates with all 25 sensor fields including indoor temp/humidity, solar radiation, UV, and the physical rain gauge. Removed the Weather Underground PWS fetch (CORS-blocked, redundant with Ambient).
+Switched the configured AMBIENT_MAC to the active reporting station (`.private/ambient-station.json`, "Tate"). The on-property hero now populates with all 25 sensor fields including indoor temp/humidity, solar radiation, UV, and the physical rain gauge. Removed the Weather Underground PWS fetch (CORS-blocked, redundant with Ambient).
 
 ### ~~Weather card UI overhaul — source-grouped blocks + live indicators~~ ✓ Done
 Each weather subsection is now a tinted bordered `.wblock` container (one source per block). Three variants:
