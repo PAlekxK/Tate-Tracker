@@ -297,7 +297,7 @@
         "id": "fairway-meadow"
       },
       "createdAt": "2026-07-20",
-      "active": false,
+      "active": true,
       "_source": "authored",
       "_foldTarget": "observedGrasses",
       "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. ⚠️ The add-a-photo-on-card idea this note used to point at was KILLED (BACKLOG: 'adds a sixth input affordance to the surface we are disambiguating') — do not revive it from here. 2026-08-08 (Paul-approved, both edits): the ask was written on 07-20 as a FUTURE ping and still said 'Come late summer' — it IS late summer, so it now asks in the present; and `later` was the last card anywhere still carrying 'I haven't looked' against the 07-31 ratification of 'Snooze card'. That label is the monitored variable under WATCH, and serving two wordings at once would have pooled two treatments in one queue — the exact comparison the WATCH row says not to make.",
@@ -307,7 +307,8 @@
         "later": "Snooze card"
       },
       "correctionPrompt": "What does it look like, if you can say? (optional)",
-      "approvedForServe": "2026-08-08"
+      "approvedForServe": "2026-08-08",
+      "promotedAt": "2026-08-08"
     },
     {
       "id": "q-weed-beggars-lice",
