@@ -306,7 +306,8 @@
         "no": "No, no spikes",
         "later": "Snooze card"
       },
-      "correctionPrompt": "What does it look like, if you can say? (optional)"
+      "correctionPrompt": "What does it look like, if you can say? (optional)",
+      "approvedForServe": "2026-08-08"
     },
     {
       "id": "q-weed-beggars-lice",
