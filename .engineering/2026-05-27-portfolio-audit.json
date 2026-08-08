@@ -28,7 +28,7 @@
     "user_context_confidence": "high"
   },
   "code_context": {
-    "purpose": "Family field-journal dashboard for 282 Church Mountain Road. Hyper-personalized; single-property; tone is load-bearing.",
+    "purpose": "Family field-journal dashboard for Fernwood. Hyper-personalized; single-property; tone is load-bearing.",
     "stack": "Single-file HTML/CSS/JS (viewer.html, 11,294 lines) hosted on GitHub Pages + Cloudflare Worker (worker.js, 1,669 lines) backed by a single KV namespace OBSERVATIONS. JSON files at repo root are canon; viewer.html re-inlines them as DATA constants. Phase F Option C round-trips through GitHub Contents API to grow canon from photo confirmations.",
     "conventions_observed": [
       "No build step, no module bundler, no framework runtime",

@@ -39,7 +39,7 @@ There's also a generally good seam where the *system-status / data-provenance* c
 *viewer.html:1954, :6*
 The site has no tagline, subtitle, or framing line under "Tate Tracker." The address sits below, but there's no human voice introducing what this place *is*. CLAUDE.md describes the dashboard's aspiration as "looking out at the land." The header should imply that posture in one short line. The charter's voice is "a field journal kept by someone who knows this specific place" — make the header sound like the spine of a field journal, not the title of an app.
 **Suggested rewrite (pick one):**
-- *"Tate Tracker"* with subtitle *"A field journal for 282 Church Mountain Road"* (state the genre — invites the reading mode the site wants)
+- *"Tate Tracker"* with subtitle *"A field journal for Fernwood"* (state the genre — invites the reading mode the site wants)
 - *"Tate Tracker"* with subtitle *"What's happening on Church Mountain this week"* (anchors in time + place)
 - *"Tate Tracker"* with subtitle *"Notes from the property"* (terse, journal-like, durable)
 
@@ -511,7 +511,7 @@ Honest provenance. Maybe slightly long; defer.
 
 2. **Replace the fishing verdict bar emojis + verdicts** (E1) — kill the shrug 🤷 and the ❌ "Not Worth It." The verdict bar should describe the lake, not grade the trip. Rewrite the four label states as observational descriptions of the lake's condition.
 
-3. **Add a header subtitle that names the genre** (A1) — "A field journal for 282 Church Mountain Road" (or similar). The site's voice is *vastly* clearer if the header tells you what you're reading before you start reading.
+3. **Add a header subtitle that names the genre** (A1) — "A field journal for Fernwood" (or similar). The site's voice is *vastly* clearer if the header tells you what you're reading before you start reading.
 
 4. **Open every plant `guide` field with a property-anchored first sentence** (C1) — *"The white pines on the property…"* / *"The azaleas here…"* / *"The mountain laurel by the front porch…"* — small touch, huge could-be-anyone fix across 17 plants. The rest of the prose can stay encyclopedic.
 

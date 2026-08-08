@@ -11,7 +11,7 @@ Starting-point imagery for the eventual property map view at 34.5496°N, 84.3674
 | `aerial-esri-z19.jpg` | ESRI World Imagery | z19, ~620 ft across, 0.8 ft/px | Close-in: house + driveway |
 | `aerial-esri-z18.jpg` | ESRI World Imagery | z18, ~1,240 ft across, 1.6 ft/px | Working scale: house, fairway, forest edge |
 | `aerial-esri-z17.jpg` | ESRI World Imagery | z17, ~4,100 ft across, 3.2 ft/px | Wide context: property in relation to Lake Sequoyah and neighbors |
-| `gep-2015-03-leafoff.png` | Google Earth Pro (user-supplied) | Mar 6, 2015 | **True leaf-off winter capture, canonical base layer for the eventual map view.** Bare deciduous trees show fairway pattern, driveway, and forest density clearly. House labeled "282 Church Mountain Rd" with pin. |
+| `gep-2015-03-leafoff.png` | Google Earth Pro (user-supplied) | Mar 6, 2015 | **True leaf-off winter capture, canonical base layer for the eventual map view.** Bare deciduous trees show fairway pattern, driveway, and forest density clearly. House labeled "Fernwood" with pin. |
 
 ### NAIP historical time-lapse (`naip/`)
 

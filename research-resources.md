@@ -1,6 +1,6 @@
 # Fernwood — Research Resources
 
-A curated library of publications, organizations, and live data sources relevant to **282 Church Mountain Road, Jasper, GA** — assembled for the dashboard's "support local wildlife and plants, especially indigenous" goal.
+A curated library of publications, organizations, and live data sources relevant to **Fernwood, Jasper, GA** — assembled for the dashboard's "support local wildlife and plants, especially indigenous" goal.
 
 Each entry includes:
 - **Why it's relevant** to this specific property (zone, elevation, watershed, Bortle 3, etc.)
@@ -434,7 +434,7 @@ Concrete one-time actions, ordered by friction:
 ### USFWS IPaC — Information for Planning and Consultation
 **URL:** https://ipac.ecosphere.fws.gov/
 **What it is:** Federal interactive tool — draw a project area, get the official list of federally listed species, critical habitat, migratory birds known/believed to occur there.
-**Why it's relevant here:** Authoritative federal species list for the exact 282 Church Mountain Rd parcel — most defensible source for any "federally listed species on or near this property" claim.
+**Why it's relevant here:** Authoritative federal species list for the exact Fernwood parcel — most defensible source for any "federally listed species on or near this property" claim.
 **Dashboard integration idea:** Wildlife card footer link: "Federally tracked species at this address (USFWS IPaC)." One-time pull, then surface a list of federally listed species the property might host (likely: Indiana bat, northern long-eared bat, monarch butterfly).
 **Depth tier:** Deep-dive link.
 
@@ -607,7 +607,7 @@ Concrete one-time actions, ordered by friction:
 ### USDA NRCS Web Soil Survey
 **URL:** https://websoilsurvey.nrcs.usda.gov/app/
 **What it is:** USDA's interactive tool for generating custom soil reports (series, slope, depth, drainage, suitability) for any user-drawn area, backed by SSURGO.
-**Why it's relevant here:** The 282 Church Mountain Road property sits on Blue Ridge mountain soils — likely Edneyville, Ashe, Chestnut, or Junaluska series typical of Pickens County's steep forested slopes.
+**Why it's relevant here:** The Fernwood property sits on Blue Ridge mountain soils — likely Edneyville, Ashe, Chestnut, or Junaluska series typical of Pickens County's steep forested slopes.
 **Dashboard integration idea:** Property card → "Soil series" subtitle. One-time WSS lookup keyed to the property polygon; bake the dominant component name and key drainage/erosion class into static config. Link the subtitle to a saved WSS AOI report for the deep-dive.
 **Depth tier:** Card subtitle (one-time lookup, baked in).
 
@@ -635,7 +635,7 @@ Concrete one-time actions, ordered by friction:
 ### USGS StreamStats — Georgia
 **URL:** https://streamstats.usgs.gov/ss/ (Georgia overview: https://www.usgs.gov/streamstats/georgia-streamstats)
 **What it is:** Map-based web app delineating a watershed for any clicked stream point and computing flow statistics for ungauged streams.
-**Why it's relevant here:** The unnamed creek behind 282 Church Mountain Road is almost certainly ungauged. StreamStats can produce a property-specific watershed area, mean annual flow estimate, and flood frequency.
+**Why it's relevant here:** The unnamed creek behind Fernwood is almost certainly ungauged. StreamStats can produce a property-specific watershed area, mean annual flow estimate, and flood frequency.
 **Dashboard integration idea:** Property card → "Watershed" subtitle with computed acreage, mean annual flow, 100-year flood Q. One-time delineation cached.
 **Depth tier:** Card subtitle (one-time, cached) + deep-dive link.
 

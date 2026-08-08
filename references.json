@@ -270,7 +270,7 @@
         {
           "title": "USFWS IPaC — Information for Planning and Consultation",
           "url": "https://ipac.ecosphere.fws.gov/",
-          "framing": "Authoritative federal species list for the exact 282 Church Mountain Rd parcel — most defensible source for any \"federally listed species on or near this property\" claim."
+          "framing": "Authoritative federal species list for the exact Fernwood parcel — most defensible source for any \"federally listed species on or near this property\" claim."
         },
         {
           "title": "Birds Georgia — Wildlife Sanctuary Program",
@@ -396,7 +396,7 @@
         {
           "title": "USDA NRCS Web Soil Survey",
           "url": "https://websoilsurvey.nrcs.usda.gov/app/",
-          "framing": "The 282 Church Mountain Road property sits on Blue Ridge mountain soils — likely Edneyville, Ashe, Chestnut, or Junaluska series typical of Pickens County's steep forested slopes."
+          "framing": "The Fernwood property sits on Blue Ridge mountain soils — likely Edneyville, Ashe, Chestnut, or Junaluska series typical of Pickens County's steep forested slopes."
         },
         {
           "title": "USDA NRCS Soil Data Access (SDA) Web Services",
@@ -416,7 +416,7 @@
         {
           "title": "USGS StreamStats — Georgia",
           "url": "https://streamstats.usgs.gov/ss/",
-          "framing": "The unnamed creek behind 282 Church Mountain Road is almost certainly ungauged. StreamStats can produce a property-specific watershed area, mean annual flow estimate, and flood frequency."
+          "framing": "The unnamed creek behind Fernwood is almost certainly ungauged. StreamStats can produce a property-specific watershed area, mean annual flow estimate, and flood frequency."
         },
         {
           "title": "USGS Earthquake Hazards — GeoJSON Feeds & FDSN Event API",

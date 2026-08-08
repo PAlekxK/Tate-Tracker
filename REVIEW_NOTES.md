@@ -19,7 +19,7 @@ Everything locked in this review file has shipped. **This file is now historical
 
 **From the 2026-05-18 holistic review (UX + copy + expansion pass):**
 - **Phase 1 mechanical cleanup** ✅ — commit `cad6821`. Dropped wildlife traffic-light glyphs, ~20 meta-chip emojis, Sky & Stars decorative glyphs, celestial star ratings, fishing verdict emojis, plants empty ✓, snake safety ⚠, Reference divider, palette fixes on `tbd` chip and peak-window chip, soft alert chrome.
-- **Phase 2 voice rewrites** ✅ — commits `9557bc9` + `a2d4554`. Alert subsystem (~17 titles + body softening), fishing verdict text ("Lake is sluggish"), header subtitle ("An Appalachian Almanac for 282 Church Mountain Road"), empty states across 4 surfaces, Vehicles card summary + Crimson-italic intro, all 17 plant `guide` first sentences anchored in the property, `currentSeasonNote` opener variety across 13 plants.
+- **Phase 2 voice rewrites** ✅ — commits `9557bc9` + `a2d4554`. Alert subsystem (~17 titles + body softening), fishing verdict text ("Lake is sluggish"), header subtitle ("An Appalachian Almanac for Fernwood"), empty states across 4 surfaces, Vehicles card summary + Crimson-italic intro, all 17 plant `guide` first sentences anchored in the property, `currentSeasonNote` opener variety across 13 plants.
 - **Phase 4.1 Property card lead + surface-fact callouts** ✅ — Crimson-italic Sand County Almanac-register lead + six callouts (Tate Mountain Estates, On Cherokee land, A Bortle 3 sky, Keystone plants, Outdoor burning, Homegrown National Park).
 - **Existing wildlife audit** ✅ — 48-species pass, zero deletions, 8 prose softenings + Lake Sequoyah distance fix (`3c46d7a`).
 

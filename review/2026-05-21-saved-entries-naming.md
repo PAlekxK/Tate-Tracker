@@ -33,7 +33,7 @@ The recent Property-card pass codified exactly this — "Anchored naming beats f
 - It is voice-fluent in a way a thoughtful nature publication could have written without knowing this property — the could-be-anyone problem.
 - It mirrors a Sand-County-Almanac-style **chapter heading** (e.g. "Field Notes from the Sand Counties"), not the work's title. The work's title is *Almanac*.
 
-The locked subtitle already names the form: *"An Appalachian Almanac for 282 Church Mountain Road."* The card that holds the almanac entries should be called what the subtitle promises — otherwise the dashboard has a header advertising an almanac and a card holding "field notes," and the reader has to bridge that gap themselves. Mom (low-attention morning posture) will not bridge it; she will read each surface for what it says.
+The locked subtitle already names the form: *"An Appalachian Almanac for Fernwood."* The card that holds the almanac entries should be called what the subtitle promises — otherwise the dashboard has a header advertising an almanac and a card holding "field notes," and the reader has to bridge that gap themselves. Mom (low-attention morning posture) will not bridge it; she will read each surface for what it says.
 
 In short: **voice is the journal; the journal generates the almanac; the almanac is what's on the page.** The intro copy inside the card already says this verbatim — *"The journal generates the almanac."* The card title currently contradicts the copy inside it.
 
@@ -64,7 +64,7 @@ It collides with the subtitle's "Appalachian Almanac" without lifting any of its
 
 ## Sense-check against adjacent surfaces
 
-**Header subtitle:** *"An Appalachian Almanac for 282 Church Mountain Road."* "The Almanac" inside the dashboard pays this off — the subtitle promises one, the card delivers it. The two reinforce rather than collide; "An Appalachian Almanac" (subtitle) is the *introduction*, "The Almanac" (card) is the *thing*.
+**Header subtitle:** *"An Appalachian Almanac for Fernwood."* "The Almanac" inside the dashboard pays this off — the subtitle promises one, the card delivers it. The two reinforce rather than collide; "An Appalachian Almanac" (subtitle) is the *introduction*, "The Almanac" (card) is the *thing*.
 
 **Property card "Fernwood":** No collision. Fernwood is the place; the Almanac is the year-on-the-place. They sit at different layers — one names *where you are*, one names *what you're reading*. The dashboard now reads cleanly: this is Fernwood, here is its almanac.
 
@@ -163,7 +163,7 @@ Under "The Almanac," the subtitle has a different job. The title now names the f
 Three drafts in priority order:
 
 1. **"What we've noticed here this year"** *(recommended)*
-   - Anchored ("here," "this year"); plural-collective ("we"); observational verb ("noticed") that matches the field-journal voice and the existing intro copy ("A place to set down what you saw this week…"). Mom-readable at 7am. Pays off the header subtitle's "Appalachian Almanac for 282 Church Mountain Road" by saying, more plainly, what that almanac contains.
+   - Anchored ("here," "this year"); plural-collective ("we"); observational verb ("noticed") that matches the field-journal voice and the existing intro copy ("A place to set down what you saw this week…"). Mom-readable at 7am. Pays off the header subtitle's "Appalachian Almanac for Fernwood" by saying, more plainly, what that almanac contains.
 
 2. **"A year of noticings — this place, this season, this month"**
    - More literary; mirrors the calendar layering an almanac actually has. Slightly longer; the em-dash list reads well in serif but may feel decorative for a one-line subtitle Mom skims. Hold as a fallback if the recommended draft reads under-stated.
@@ -198,6 +198,6 @@ Flagged so Paul can sanity-check the scope boundary:
 - **Empty-state line 8938 ("No entries yet. The first observation goes here.")** — reads fine under either title. No change.
 - **Unified-input label "Note or ask the slope" (line 2988)** — distinct surface (the *act* of writing). Stays as-is; the original review noted it as a separate surface worth its own review later, not part of this rename.
 - **Legacy `#quick-capture` (line 2957) and `#garden-guru` (line 2968+) strings** — out of scope per Paul; removed wholesale in the cleanup pass.
-- **Header subtitle "An Appalachian Almanac for 282 Church Mountain Road"** — no change. "The Almanac" pays this off; the two reinforce.
+- **Header subtitle "An Appalachian Almanac for Fernwood"** — no change. "The Almanac" pays this off; the two reinforce.
 
 The blast radius of this rename is therefore four strings on three lines (3164, 3165, 8910) plus one intro line *intentionally* left unchanged because it's load-bearing under the new title.

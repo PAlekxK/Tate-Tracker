@@ -121,7 +121,7 @@ These pair UX and copy work tightly — don't do one without the other.
 | 2.3 | **Vehicles card** — rewrite summary "Specifications and maintenance" → property-anchored line; add 1-line journal-voice intro at top of card body | UX F1 + UX F2 + Copy F1 | Could lift the dashboard-tile sub "The fleet — what each one is and how to keep it running" |
 | 2.4 | **Plant guide first-sentence anchoring** — open each of 17 `guide` fields with property-anchored sentence ("The white pines on the property…") | Copy C1 | Highest-impact scalable copy fix. The rest can stay encyclopedic. |
 | 2.5 | **Empty-state copy rewrite** — replace "nothing scheduled" / "no tasks" / "nothing due" with field-journal alternatives across Plants tile + 3 Month + This Month | UX B6 + UX D3 + Copy C6/C10 | "Quiet month at the property" / "Resting" / "The garden is asleep" |
-| 2.6 | **Header subtitle** — add genre-naming subtitle to "Tate Tracker" header. Copy review proposes 3 candidates; recommends *"A field journal for 282 Church Mountain Road"* | Copy A1 | One of the highest-leverage single additions. Frames the entire reading mode for first-time visits. |
+| 2.6 | **Header subtitle** — add genre-naming subtitle to "Tate Tracker" header. Copy review proposes 3 candidates; recommends *"A field journal for Fernwood"* | Copy A1 | One of the highest-leverage single additions. Frames the entire reading mode for first-time visits. |
 | 2.7 | **Property card 1-line journal-voice lead** at top of card body | UX G2 + Copy principle #3 | Coordinated with surface-fact callouts cluster (Phase 3 strategic) |
 | 2.8 | **`currentSeasonNote` opener variety** — rotate "Early May:" across the 17 plants | Copy C2 | Optional now or batched with C1 |
 
@@ -194,7 +194,7 @@ This collapses what was previously framed as Path A vs Path B into a single dire
 | **OQ4** | ✅ **Content-steward to draft** the Vehicles card summary + 1-line intro. Phase 2 work. |
 | **OQ5** | ✅ **Drop alert all-caps.** Sentence-case throughout. |
 | **OQ6** | ✅ **Refined principle:** state the lake's condition plainly; don't grade the user's trip *and* don't assume "worth it" means "catching fish." Sometimes people just go out in the boat. Five working rewrites drafted in this synthesis's chat thread. Phase 2 work. |
-| **OQ7** | ✅ **Header subtitle locked: *"An Appalachian Almanac for 282 Church Mountain Road"*** — Phase 2 work. Genre framing: Appalachian Almanac (form) coexists with field journal (voice). Cultural touchstone: Aldo Leopold's *A Sand County Almanac*. Tone memory updated. |
+| **OQ7** | ✅ **Header subtitle locked: *"An Appalachian Almanac for Fernwood"*** — Phase 2 work. Genre framing: Appalachian Almanac (form) coexists with field journal (voice). Cultural touchstone: Aldo Leopold's *A Sand County Almanac*. Tone memory updated. |
 | **OQ11** | ✅ **Mammals list curated** to ~17 species Paul actually observes (deer, gray squirrel, chipmunk, raccoon, opossum, cottontail, skunk, red fox, gray fox, coyote, black bear, bobcat, groundhog, river otter, beaver, flying squirrels, bats). Flat list parallel to existing tabs; encounter context in `notes` field, not UI structure. Phase 4.2. |
 | **OQ12** | ✅ **Resolved: depth.** Paul: *"we want to really focus on depth in the sense that it's very specific to the property."* Direction set for Phase 4 expansion. See [[feedback_tate_tracker_depth_filter]]. |
 | **OQ13** | ✅ **Green light on a small server proxy.** Unlocks AirNow AQI, US Drought Monitor, NOAA NCEI normals, and the AI-synthesized "today" line. Phase 4.5. |
@@ -220,7 +220,7 @@ This collapses what was previously framed as Path A vs Path B into a single dire
 2. **Ship Phase 2 voice rewrites in priority order:**
    - 2.1 Alert subsystem (drop all-caps, rewrite ~17 NWS-bulletin titles observationally, soften action sentences)
    - 2.2 Fishing verdict rewrite (5 new descriptive strings drafted in chat thread)
-   - 2.6 Header subtitle — *"An Appalachian Almanac for 282 Church Mountain Road"*
+   - 2.6 Header subtitle — *"An Appalachian Almanac for Fernwood"*
    - 2.5 Empty-state copy (Plants tile + 3 Month + This Month)
    - 2.3 Vehicles card summary + intro (content-steward to draft both)
    - 2.4 Plant `guide` first-sentence anchoring across 17 plants (Paul-as-writer or content-steward draft)

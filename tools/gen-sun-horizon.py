@@ -165,7 +165,7 @@ def hhmm(m):
 
 if __name__ == "__main__":
     SITES = {
-        "House (282 Church Mountain Rd)": (34.5496, -84.3674),
+        "House (Fernwood)": (34.5496, -84.3674),
     }
     if len(sys.argv) > 2:
         SITES = {sys.argv[3] if len(sys.argv) > 3 else "site":

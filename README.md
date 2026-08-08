@@ -1,6 +1,6 @@
 # Church Mountain Property Tracker
 
-A self-contained property dashboard for **282 Church Mountain Road, Jasper, GA 30143** (elevation 2,959 ft, USDA Zone 6b elevation-adjusted; 7b official).
+A self-contained property dashboard for **Fernwood, Jasper, GA 30143** (elevation 2,959 ft, USDA Zone 6b elevation-adjusted; 7b official).
 
 Open `viewer.html` in any browser — no server, no build step, no account required.
 
@@ -62,7 +62,7 @@ property-tracker/
 
 | Field | Value |
 |---|---|
-| Address | 282 Church Mountain Road, Jasper, GA 30143 |
+| Address | Fernwood, Jasper, GA 30143 |
 | Coordinates | 34.5496°N, 84.3674°W |
 | Elevation | 2,959 ft (confirmed via Open-Meteo elevation API) |
 | USDA Zone | 7b |

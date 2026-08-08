@@ -4,7 +4,7 @@ Companion to `.engineering/2026-07-16-path-zone-coordinate-model.md`. Commission
 *"the most effective way to set these zones that's going to endure and be able to be refined in
 the future based on what data we expect to be accessible now and in the future."*
 
-Target: 282 Church Mountain Rd, Jasper GA · 34.5496, -84.3674 · 2,959 ft · Pickens County.
+Target: Fernwood, Jasper GA · 34.5496, -84.3674 · 2,959 ft · Pickens County.
 Where noted **[verified at point]**, the live service was queried against the property's exact
 coordinate rather than repeating documentation.
 

@@ -34,7 +34,7 @@ Detail and trade-offs below.
 The "Field Notes → The Almanac" pass taught two things:
 
 1. **Form-layer beats voice-layer for a UI surface.** "Field Notes" was the voice-layer name (what the *content* is); "The Almanac" is the form-layer name (what the *reader* is reading). Form-layer won because that's what a returning reader needs to *find* on the dashboard.
-2. **Match the form-layer family that's already declared in the header subtitle** — *"An Appalachian Almanac for 282 Church Mountain Road."* Saved entries became "The Almanac" because that word was already in the genre frame the reader had been handed at the top of the page. The new card collected up under it.
+2. **Match the form-layer family that's already declared in the header subtitle** — *"An Appalachian Almanac for Fernwood."* Saved entries became "The Almanac" because that word was already in the genre frame the reader had been handed at the top of the page. The new card collected up under it.
 
 For a reference shelf in an almanac, the form-layer question is: **what does an almanac call its curated references?**
 

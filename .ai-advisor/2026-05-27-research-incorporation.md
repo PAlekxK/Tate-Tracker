@@ -101,7 +101,7 @@ Ranked roughly by signal-to-effort. The top three are the strongest picks.
 
 **Cost:** Free.
 
-**Constraints stressed:** Ground-truth filter — "Cherokee land" passes (documented). "Mount Oglethorpe was the AT terminus" passes (documented). "Lake Sequoyah named for the silversmith who created the syllabary" passes (Top finds #9). Anything that says "your land was…" needs the same property-scale check as the darters did. Some entries are about Tate Mountain Estates or Pickens County, not the specific 282 Church Mountain Road lot — those need a "framed as: the development around you" voice register, not "your land."
+**Constraints stressed:** Ground-truth filter — "Cherokee land" passes (documented). "Mount Oglethorpe was the AT terminus" passes (documented). "Lake Sequoyah named for the silversmith who created the syllabary" passes (Top finds #9). Anything that says "your land was…" needs the same property-scale check as the darters did. Some entries are about Tate Mountain Estates or Pickens County, not the specific Fernwood lot — those need a "framed as: the development around you" voice register, not "your land."
 
 **Validation question.** *Does the Property card start getting expanded? Does the Place Memory item ever come up in a Garden Guru turn (Mom or Paul asking "wait, what's this about Sanderstown")?*
 
