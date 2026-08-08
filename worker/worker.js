@@ -279,34 +279,69 @@ async function handleAmbient(request, env, url) {
   const limitRaw = parseInt(url.searchParams.get("limit") || "288", 10);
   const limit = Math.min(Math.max(Number.isFinite(limitRaw) ? limitRaw : 288, 1), 288);
   const mac = (env.AMBIENT_MAC || AMBIENT_MAC_DEFAULT).trim();
-  const key = `cache:ambient:${mac}:${limit}`;
+
+  // `endDate` (UTC ms) asks Ambient for the window ENDING at that instant rather
+  // than the live tail. The dashboard never sends it; the daily rollup recorder
+  // (tools/record-daily-rollup.mjs) does, once per day it rolls up. Added
+  // 2026-08-08 so that recorder could stop carrying its own copy of the key
+  // pair — the 2026-08-02 rotation killed the copy it had and the Action failed
+  // silently for four days, freezing weather-history.json. One credential, one
+  // home: a rotation can no longer break a consumer that holds no secret.
+  const endRaw = url.searchParams.get("endDate");
+  let endDate = null;
+  if (endRaw != null && endRaw !== "") {
+    const n = parseInt(endRaw, 10);
+    // Reject junk and absurd futures, but allow a small forward skew: the
+    // recorder deliberately asks ~30 min past the local day's end.
+    if (!Number.isFinite(n) || n <= 0 || n > Date.now() + 86400000) {
+      return json({ error: "bad-endDate" }, 400);
+    }
+    endDate = n;
+  }
+
+  // A historical window is immutable once the day is past, so it caches far
+  // longer than the live tail — which also keeps a --backfill or --recompute
+  // walk from burning Ambient's ~1 req/sec budget on repeat.
+  const ttl = endDate ? 3600 : 120;
+  const key = `cache:ambient:${mac}:${limit}:${endDate || "live"}`;
   try {
-    // 120 s: the station reports about once a minute, and the dashboard's own
-    // "measured, not modelled" promise wants this fresh. Short enough to stay
+    // 120 s (live): the station reports about once a minute, and the dashboard's
+    // own "measured, not modelled" promise wants this fresh. Short enough to stay
     // honest, long enough that a page refresh loop cannot burn the rate limit.
-    const data = await withCache(env, key, 120, async () => {
+    const data = await withCache(env, key, ttl, async () => {
       const upstream = "https://api.ambientweather.net/v1/devices/"
         + encodeURIComponent(mac)
         + "?applicationKey=" + encodeURIComponent((env.AMBIENT_APP_KEY || "").trim())
         + "&apiKey=" + encodeURIComponent((env.AMBIENT_API_KEY || "").trim())
-        + "&limit=" + limit;
+        + "&limit=" + limit
+        + (endDate ? "&endDate=" + endDate : "");
       const res = await fetch(upstream);
       const text = await res.text();
       if (!res.ok) {
         // Never echo `text` to the caller — an Ambient error body can quote the
         // query string back, which would hand the very credential this route
-        // exists to hide to an unauthenticated client.
-        throw new Error(`Ambient HTTP ${res.status}`);
+        // exists to hide to an unauthenticated client. The STATUS is safe, and
+        // the recorder needs it to tell "back off, rate limited" (429, retry)
+        // from "these keys are dead" (401, stop and shout).
+        const err = new Error(`Ambient HTTP ${res.status}`);
+        err.upstreamStatus = res.status;
+        throw err;
       }
       let rows;
       try { rows = JSON.parse(text); }
       catch (e) { throw new Error("Ambient returned non-JSON"); }
       if (!Array.isArray(rows)) throw new Error("Ambient returned an unexpected shape");
-      return { rows, mac, limit, fetchedAt: new Date().toISOString() };
+      return { rows, mac, limit, endDate, fetchedAt: new Date().toISOString() };
     });
     return json(data);
   } catch (e) {
-    return json({ error: "ambient-fetch-failed", detail: String(e.message || e) }, 502);
+    // Surface 429 AS 429 so a client's existing backoff works unchanged;
+    // everything else stays a 502 so a proxy fault never masquerades as success.
+    const up = e && e.upstreamStatus;
+    return json(
+      { error: "ambient-fetch-failed", detail: String(e.message || e), upstreamStatus: up || null },
+      up === 429 ? 429 : 502,
+    );
   }
 }
 

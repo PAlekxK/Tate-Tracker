@@ -20,19 +20,20 @@ jobs:
         with:
           node-version: "20"
 
+      # NO CREDENTIALS HERE, DELIBERATELY (2026-08-08). The recorder reads the
+      # station through the Worker's /api/ambient proxy, which holds the only
+      # copy of the key pair. This job used to carry AMBIENT_APP_KEY /
+      # AMBIENT_API_KEY secrets; the 2026-08-02 rotation left them stale and the
+      # job failed every 6 h for four days — silently, because the dashboard
+      # reads through the proxy and stayed green the whole time. Do not
+      # reintroduce the secrets: a second copy of a credential is the bug.
       - name: Update today's rollup
-        env:
-          AMBIENT_APP_KEY: ${{ secrets.AMBIENT_APP_KEY }}
-          AMBIENT_API_KEY: ${{ secrets.AMBIENT_API_KEY }}
         run: node tools/record-daily-rollup.mjs --today
 
       # When the run lands shortly after local midnight ET (~04:00–05:00 UTC),
       # also finalize the just-completed day. Cheap to do every run since the
       # script is idempotent.
       - name: Finalize previous day
-        env:
-          AMBIENT_APP_KEY: ${{ secrets.AMBIENT_APP_KEY }}
-          AMBIENT_API_KEY: ${{ secrets.AMBIENT_API_KEY }}
         run: node tools/record-daily-rollup.mjs
 
       - name: Commit if changed

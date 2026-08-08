@@ -11,8 +11,18 @@
 // day already recorded REPLACES that day's rollup (use this to refresh today's
 // partial as the day progresses).
 //
-// Credentials: read from env (AMBIENT_APP_KEY, AMBIENT_API_KEY, AMBIENT_MAC) or
-// fall back to the values currently embedded in viewer.html.
+// Credentials: NONE. This script holds no Ambient key and never has one in its
+// environment — it reads the station through the Worker's /api/ambient proxy,
+// which is where the key pair lives (Cloudflare secrets, set by Paul).
+//
+// WHY (2026-08-08): it used to call api.ambientweather.net directly with its own
+// hardcoded copy of the key pair. The 2026-08-02 rotation — done in the correct
+// order for the *viewer* (proxy ships → viewer switches → then rotate) — killed
+// that copy, and this recorder failed every 6 h for four days while the
+// dashboard stayed green, because the break is invisible from the front end.
+// weather-history.json froze at 2026-08-04. A consumer that holds no credential
+// cannot be broken by a rotation, so the fix is to remove the credential, not to
+// re-sync it. Override the endpoint with AMBIENT_PROXY if the Worker moves.
 
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -23,12 +33,11 @@ const ROOT = path.resolve(__dirname, "..");
 const HISTORY_FILE = path.join(ROOT, "weather-history.json");
 const ROLLUP_TZ = "America/New_York";
 
-// === credentials ===
-const APP_KEY = process.env.AMBIENT_APP_KEY ||
-  "18bddad32ee64161962476f115eb8ededbd71d2cea74439397ef85f278d064bc";
-const API_KEY = process.env.AMBIENT_API_KEY ||
-  "3123e9a73a6a4d549fc8801b19ecd902c5806dcadeb44dc5a96765614991a964";
-const MAC = process.env.AMBIENT_MAC || "D8:F1:5B:15:28:B8";
+// === data source ===
+// The Worker proxy. It holds the credential and the station MAC; this script
+// holds neither.
+const PROXY = (process.env.AMBIENT_PROXY ||
+  "https://tate-tracker.paul-kirschenbauer.workers.dev/api/ambient").replace(/\/$/, "");
 
 // === args ===
 const args = process.argv.slice(2);
@@ -70,23 +79,38 @@ function r(v, places = 2) {
 }
 
 async function fetchAmbientHistory(endDateMs, limit = 288) {
-  // endDate is the timestamp of the most recent record we want; the API
-  // returns up to `limit` records ending at that time, in newest-first order.
-  const url = "https://api.ambientweather.net/v1/devices/" + encodeURIComponent(MAC) +
-    "?applicationKey=" + APP_KEY + "&apiKey=" + API_KEY +
-    "&limit=" + limit +
+  // endDate is the timestamp of the most recent record we want; the proxy passes
+  // it through and returns up to `limit` records ending at that time, in
+  // newest-first order — wrapped as {rows, mac, limit, endDate, fetchedAt}.
+  const url = PROXY +
+    "?limit=" + limit +
     (endDateMs ? "&endDate=" + endDateMs : "");
-  // Retry with backoff on 429 (Ambient enforces 1 req/sec per appKey)
+  // Retry with backoff on 429 (Ambient enforces ~1 req/sec per appKey; the proxy
+  // re-raises that status rather than flattening it into a generic failure).
   for (let attempt = 0; attempt < 5; attempt++) {
     const res = await fetch(url);
-    if (res.ok) return res.json();
+    if (res.ok) {
+      const body = await res.json();
+      if (!body || !Array.isArray(body.rows)) {
+        throw new Error("Proxy returned an unexpected shape (no rows[])");
+      }
+      return body.rows;
+    }
     if (res.status === 429) {
       const wait = (attempt + 1) * 3000; // 3s, 6s, 9s, 12s, 15s
       console.log("  (rate limited, waiting " + (wait / 1000) + "s)");
       await new Promise(r => setTimeout(r, wait));
       continue;
     }
-    throw new Error("Ambient API HTTP " + res.status);
+    // 503 ambient-not-configured means the Worker is missing its secrets — a
+    // different failure from "the station is down", and worth saying out loud.
+    let hint = "";
+    try {
+      const body = await res.json();
+      if (body && body.error) hint = " (" + body.error +
+        (body.upstreamStatus ? ", upstream " + body.upstreamStatus : "") + ")";
+    } catch { /* non-JSON error body — the status alone is the signal */ }
+    throw new Error("Ambient proxy HTTP " + res.status + hint);
   }
   throw new Error("Ambient API rate limit not cleared after 5 retries");
 }
