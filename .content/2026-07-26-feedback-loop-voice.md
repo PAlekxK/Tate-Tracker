@@ -734,6 +734,6 @@ the icon stays a pickup, the icon becomes the misleading half. Worth a look alon
 2. **`Yard equipment` or plain `Equipment`?** I'd take the sharper word and accept the chainsaw
    stretch — but it's a coin-flip you should call, not me.
 3. **First household-system entry.** B5 already has the furnace half-recorded — propane (LP)
-   forced-air, Nest Learning Thermostat 3rd gen, serial `REDACTED-S19`, Family Room, installed
+   forced-air, Nest Learning Thermostat 3rd gen, serial in `.private/`, Family Room, installed
    2025-11-10. It's a genuinely good first test of these names: *Machines → Household systems → the
    furnace, with its filter size.* Reads clean at all three levels.
