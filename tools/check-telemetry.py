@@ -57,6 +57,7 @@ import importlib.util
 import os
 import re
 import sys
+import textwrap
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
@@ -71,6 +72,79 @@ EMIT_RX = re.compile(r'(?:MetricsCollector\.track|mpTrack|(?<![\w.])track)\(\s*"
 EXPECTED_RARE = {
     "zone_audio_started", "zone_audio_saved",   # she has to walk the property
     "composer_empty_tap",                       # only fires on an empty submit
+}
+
+# ⭐ GATED_BY — downstream event → the upstream that must fire FIRST for it to be
+# reachable at all (2026-08-08).
+#
+# WHY THIS EXISTS. On 2026-08-08 this tool reported 23 never-fired events as one
+# undifferentiated list, and the list read like 23 defects. It was not: a manual
+# call-site sweep found ZERO broken wiring. Most were downstream of an affordance
+# that has never been OFFERED — Garden Guru has never once emitted a log or remove
+# fence, so `log_saved` *cannot* have fired and its zero says nothing about anyone.
+#
+# The distinction this encodes is the whole point:
+#   · upstream also 0  → NEVER OFFERED. Explained. Nothing to walk, nothing to fix.
+#   · upstream  > 0    → OFFERED, NEVER TAKEN. A real behavioural zero, correctly
+#                        measured — the only bucket where the number means something.
+#   · no known upstream→ genuinely needs a human to walk the path once.
+#
+# ⚠️ A pair here is a REACHABILITY claim, not a funnel. It says the downstream is
+# unreachable until the upstream fires; it does NOT assert they share a session, a
+# device or a person. Do not compute a rate from it.
+GATED_BY = {
+    "log_saved":                "log_offered",
+    "remove_confirmed":         "remove_offered",
+    # declineAdd() requires suggestionStatus === "id-confirmed", and confirmAdd the
+    # same — so BOTH are downstream of the ID step, not of add_offered.
+    "species_add_declined":     "species_id_confirmed",
+    "species_promoted":         "species_id_confirmed",
+    "followup_suggestion_used": "followup_suggestion_shown",
+    "momack_tapped":            "momack_acknowledged",  # the reply door is appended by markSeen()
+    "momack_followed":          "momack_shown",
+    "launcher_dismissed":       "launcher_viewed",
+    "jumpstrip_tapped":         "jumpstrip_viewed",
+}
+
+# ⚠️ MISSING DENOMINATORS — a downstream event whose upstream is NOT INSTRUMENTED.
+# These cannot be classified by GATED_BY because the thing that would explain their
+# zero was never measured. Naming them is the point: an unexplained zero that looks
+# explained is worse than one that admits it.
+#
+# `species_id_confirmed` / `species_id_declined` fire from confirmId()/declineId(),
+# both of which require `turn.suggestion` — attached at the parseSuggestionFence
+# branch, which emits NO event. So "Guru never proposed an ID" and "Guru proposed
+# and nobody answered" are indistinguishable in the record. Exactly the gap
+# `jumpstrip_viewed` was added on 2026-08-04 to close for the jump strip.
+NO_DENOMINATOR = {
+    "species_id_confirmed": "no `suggestion_offered` event — the fence branch is uninstrumented",
+    "species_id_declined":  "no `suggestion_offered` event — the fence branch is uninstrumented",
+}
+
+# ⛔ UNREACHABLE — the control that fires this cannot be rendered by the CURRENT
+# build. Distinct from "never walked": no amount of walking will produce it.
+# Verified by reading the call site, not inferred from the zero.
+UNREACHABLE = {
+    "momack_unfolded":
+        "the 'Read the rest ›' fold lives only on the LEGACY prose branch of the "
+        "ack ribbon (viewer.html ~11019, the `else` of `if (changeSpecs.length)`). "
+        "MOM_ACK_DATA has used `changes[]` since 2026-08-04, so the fold never "
+        "renders. Reachable again only if a ribbon ships with no `changes`. "
+        "NB `momack_followed` was deliberately re-wired into the new branch and "
+        "survived the migration — this one was not.",
+}
+
+# Context that changes how a zero should be read, but is not a reachability claim.
+NOTES = {
+    "zone_confirmed":  "zone track HELD since 2026-07-31 pending a signal from Mom",
+    "zone_deleted":    "zone track HELD since 2026-07-31 pending a signal from Mom",
+    "zone_flagged":    "zone track HELD since 2026-07-31 pending a signal from Mom",
+    "zone_renamed":    "zone track HELD since 2026-07-31 pending a signal from Mom",
+    "zone_suggested":  "zone track HELD since 2026-07-31 pending a signal from Mom",
+    "momqueue_general_sent":
+        "she uses a DIFFERENT DOOR — both her free-text notes went via "
+        "`ribbon_general_sent` (2x, both hers). Not a dead path; an unused one.",
+    "household_author_prompt_tapped": "shipped 2026-08-04, AFTER her last session (08-03)",
 }
 
 
@@ -91,13 +165,15 @@ def main():
     tok = momlib.resolve_token()
     data = momlib._get("/api/metrics", tok,
                        {"start": a.since, "end": str(dt.date.today() + dt.timedelta(days=1))})
-    first = {}
+    first, counts = {}, {}
     for day, batches in (data.get("days") or {}).items():
         for b in batches or []:
             for ev in (b.get("events") or []):
                 t, ts = ev.get("type"), (ev.get("ts") or day)
-                if t and (t not in first or ts < first[t]):
-                    first[t] = ts
+                if t:
+                    counts[t] = counts.get(t, 0) + 1
+                    if t not in first or ts < first[t]:
+                        first[t] = ts
 
     never = [e for e in emitted if e not in first]
     fired = [e for e in emitted if e in first]
@@ -109,9 +185,59 @@ def main():
     if never:
         print("\n  These events exist in the source and have NO record. A zero on any of them\n"
               "  means UNMEASURED, not 'it did not happen':")
+
+        # Split by REACHABILITY before printing. An undifferentiated list reads as
+        # N defects; it was 23 cold paths and 0 defects on 2026-08-08.
+        unoffered, untaken, unknown, blind, dead = [], [], [], [], []
         for e in never:
-            tag = "  (expected rare)" if e in EXPECTED_RARE else ""
-            print(f"      · {e}{tag}")
+            if e in UNREACHABLE:
+                dead.append((e, UNREACHABLE[e]))
+            elif e in NO_DENOMINATOR:
+                blind.append((e, NO_DENOMINATOR[e]))
+            elif e in EXPECTED_RARE:
+                unknown.append((e, "expected rare"))
+            elif e in GATED_BY:
+                up = GATED_BY[e]
+                if counts.get(up):
+                    untaken.append((e, f"{up} fired {counts[up]}x"))
+                else:
+                    unoffered.append((e, f"{up} has never fired either"))
+            else:
+                unknown.append((e, None))
+
+        if dead:
+            print("\n    ⛔ UNREACHABLE IN THIS BUILD — walking the app cannot produce these ──")
+            for e, why in dead:
+                print(f"      · {e}")
+                for ln in textwrap.wrap(why, 78):
+                    print(f"          {ln}")
+        if unoffered:
+            print("\n    ── NEVER OFFERED — the upstream affordance has not fired either ──")
+            print("       Explained, not mysterious. There is no path to walk and nothing to fix")
+            print("       in the app; the zero is about what was never presented.")
+            for e, why in unoffered:
+                print(f"      · {e:34} ({why})")
+        if untaken:
+            print("\n    ── OFFERED, NEVER TAKEN — a real behavioural zero ──")
+            print("       The affordance HAS been shown and nobody has acted on it. This is the")
+            print("       only bucket where the number carries information about a person —")
+            print("       and it is still not proof of a preference at low n.")
+            for e, why in untaken:
+                print(f"      · {e:34} ({why})")
+        if blind:
+            print("\n    ── UNEXPLAINABLE — the upstream is NOT INSTRUMENTED ──")
+            print("       These zeros cannot be interpreted at all: the event that would say")
+            print("       whether the affordance was ever OFFERED does not exist. Fix the")
+            print("       denominator before reading the numerator.")
+            for e, why in blind:
+                print(f"      · {e:34} ({why})")
+        if unknown:
+            print("\n    ── NO KNOWN UPSTREAM — a human must walk this path once ──")
+            for e, why in unknown:
+                print(f"      · {e:34}" + (f"  ({why})" if why else ""))
+                if e in NOTES:
+                    for ln in textwrap.wrap(NOTES[e], 74):
+                        print(f"          ↳ {ln}")
 
     if a.before:
         cutoff = a.before
