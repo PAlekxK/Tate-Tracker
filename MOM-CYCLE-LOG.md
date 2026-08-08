@@ -291,3 +291,94 @@ exists — the gap is named in the map and is not papered over by this score.
    first lap that can say anything at all about whether she uses the tabs. **Do not pool across
    `8718f46`** — before it, both the control and the instrumentation were different.
 4. **D6 scores from here.** Three seats ran this lap; the demote/re-order/cost rules need three laps.
+
+---
+
+## Lap 2 — 2026-08-08 (ET)
+
+**Shape:** tooling / meta only. **Nothing Mom-facing changed, and no return leg was owed** —
+`check-mom-ack` is green on every channel and the ribbon covers through her newest input
+(2026-08-03 7:56 AM ET). Per the ribbon's own doctrine it refreshes on HER events, not ours; she
+has given none since. Drafting one anyway would have been the changelog-in-the-ribbon's-clothes
+failure the doctrine names.
+
+**Leg 4 (expert seats): NONE — and the scoping table is why.** The lap produced no Mom-facing
+surface and no copy, which the table routes to "none, and the chronicle says so." Recorded rather
+than skipped silently. Clean-lap criterion 7 (effective this lap) is therefore MET by naming it.
+
+| leg | what happened | artifact |
+|---|---|---|
+| 0 · GUARD | HEAD unmoved, tree clean at start and before each commit | `git log` |
+| 1 · READ | full sweep; **work-list EMPTY** — 9 answers all folded/retired/dispositioned, 0 ready to fold, 0 unaddressed notes, 0 channels with uncovered arrivals | tool output |
+| 2 · TRIAGE | nothing of hers to route. Every item this lap was OUR instrument | — |
+| 3 · RESOLVE | one tier-2 question put to Paul (what does 8/10 decide now?) — **answered: hold the line** | below |
+| 4 · EXPERT | none convened — see above | this row |
+| 5 · SHIP | three tooling fixes, none reaching her | `49abc62`, `ad7392a`, `99eb648` |
+| 6 · GATE | **no return leg owed.** Preview served + PID-verified; telemetry walked | `tools/telemetry-walk.js` |
+| 7 · CLOSE | watermark untouched (nothing to advance); `check-cards` exit 0 | tool output |
+
+### What this lap found
+
+1. **`check-mom-ack`'s R3 had gone blind for four days.** The ribbon migrated to `changes[]` on
+   08-04; `message` has been `""` since, and `ribbon_state()` never exposed the new fields — so the
+   one check asking *"does this name what she actually gave?"* printed an empty string and **could
+   not fail**. Fixed, and a blank-rendering ribbon is now a hard failure. Proven able to fail on a
+   synthetic empty ribbon before adoption.
+2. **The 23 never-fired events were 23 cold paths and ZERO broken wiring.** A call-site sweep of all
+   23 found no defect. The undifferentiated list was the problem, not the events;
+   `check-telemetry.py` now classifies by reachability.
+3. **⛔ `momack_unfolded` is UNREACHABLE in this build** — the "Read the rest ›" fold lives only on
+   the legacy prose branch. Confirmed in the DOM, not just by reading: 4 change bullets render,
+   **0** `.ack-read-rest`, **0** `.ack-msg-lead`. Note `momack_followed` WAS deliberately re-wired
+   into the new branch and survived — so this is a metric that died silently in a migration, which
+   is the failure class worth guarding.
+4. **A second missing denominator.** `species_id_confirmed`/`_declined` sit downstream of a
+   suggestion fence that emits no event, so *"Guru never proposed"* and *"proposed and ignored"* are
+   indistinguishable — the same gap `jumpstrip_viewed` was added to close on 08-04. It is a pattern.
+5. **The 8/10 window is closing on an unmeasurable question.** Her last session was **08-03**; the
+   strip she asked for shipped **08-04**. She has never loaded the build containing the thing 8/10
+   was meant to decide. `jumpstrip_viewed`/`_tapped` have fired only from Paul's device.
+   **Paul's call: HOLD THE LINE** — close the window as pre-registered, do not extend, do not prompt
+   her; then reassess how the cycle runs and how to structure and time each lap.
+6. **BACKLOG:402's claim that "the strip does not yet carry her list" was stale.** It was rebuilt
+   08-04 (`e58bdde`) and carries her five in her order; the ribbon's claim to her is TRUE on screen.
+   So 8/10 no longer decides *which list* — that is settled in favour of hers.
+
+### The baseline telemetry walk — new, and now a leg of the cycle
+
+`[paul-stated 2026-08-08]` *"worth having a baseline telemetry test that we probably work into the
+cycle… not necessarily monthly. We don't know what the cycle is, but whatever the mom feedback
+cycle is."* **Cadence deliberately unset — one run per lap, wherever the lap lands.**
+
+**5 of 5 walkable Mom-facing paths fire correctly**: `jumpstrip_tapped` ·
+`household_author_prompt_tapped` · `mp_envelope_toggled` · `launcher_dismissed` ·
+`composer_empty_tap`.
+
+**Why it cannot pollute, structurally rather than by promise:** run against localhost,
+`tateTracker.sync.v1` is unset → `WorkerAPI.isConfigured()` false → `flush()` returns before
+sending, while `track()` still runs. Measured on this run: `worker_configured: false`,
+`attempted_network: 0`. **Nothing left the browser.** `metricsExclude` was rejected as the
+mechanism because it makes `track()` a no-op and would prove nothing.
+
+⛔ **Not walked, by choice:** anything POSTing to `/api/feedback` — a card answer, a note, the ack
+"Got it" receipt (`viewer.html:11147`). Those write into Mom's answer record, which no metrics
+exclusion covers. Localhost inertness would have stopped them too; they are excluded anyway,
+because defending her record with a shim written in the same session is a single point of failure.
+
+**The harness failed its own second run and that is why it is trustworthy.** Walk #2 reported the
+launcher dismiss as ELEMENT ABSENT — the first walk had written today's date to
+`tateTracker.zoneJourney.launcherDismissed.v1`, so the control stopped rendering for the day. A
+baseline that only works once per day is not a baseline. It now clears the two day-scoped keys
+first, read off `viewer.html:10559` and `:10702` rather than guessed — **a reset that clears a
+misspelled key silently does nothing and the walk still looks green.**
+
+### What lap 3 inherits
+
+1. **The 8/10 reassessment** — how the cycle runs, and how to structure and time each lap. Paul's,
+   and the first cadence decision this loop has ever made deliberately.
+2. **`momack_unfolded`** — decide: re-wire the fold into the `changes[]` branch, or retire the event.
+   Leaving it is the third state, and the one that reads as a bug forever.
+3. **The suggestion-fence denominator** — instrument `suggestion_offered`, or accept two
+   permanently uninterpretable events.
+4. **Leg 6c, the Mom-proxy** — designed lap 1, skipped lap 1, skipped lap 2. Third lap running.
+5. **The bench** — 1 open slot, `q-fairway-grass-seedheads` ripe in August. Only Paul runs `--approve`.
