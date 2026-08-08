@@ -344,6 +344,16 @@ than skipped silently. Clean-lap criterion 7 (effective this lap) is therefore M
    08-04 (`e58bdde`) and carries her five in her order; the ribbon's claim to her is TRUE on screen.
    So 8/10 no longer decides *which list* — that is settled in favour of hers.
 
+### Decisions
+
+| # | decision | supersedes | why now | evidence |
+|---|---|---|---|---|
+| D15 | **HOLD THE LINE — close the 4-week window on 2026-08-10 as pre-registered** `[paul-stated 08-08]` | the option to extend it until she had loaded the 08-04 build, and the option to prompt her into opening it | her last session was 08-03 and the strip shipped 08-04, so the window's headline question is **structurally unmeasurable** and two more days cannot fix it. Extending would amend a pre-registration to rescue a result; prompting would contaminate *"does she open it unprompted,"* which IS the question. **Better to record an honest null than manufacture a measured one** | funnel: `jumpstrip_viewed` 2/0, `jumpstrip_tapped` 2/0, both Paul's |
+| D16 | **The baseline telemetry walk becomes a leg of the cycle, cadence UNSET** `[paul-stated 08-08]` | ad-hoc "trigger it yourself once and confirm it lands" — advice nobody had a reason to follow | Paul: *"not necessarily monthly… whatever the mom feedback cycle is."* ⭐ The cadence is deliberately **not** decided here: it is an input to the 8/10 reassessment of how laps are timed, and guessing it now would pre-empt that | `tools/telemetry-walk.js` |
+| D17 | **The walk runs INERT on localhost, not against the live record** | the test-device approach (`d-telemetrytest-harness-v1`) drafted earlier this lap | on localhost the Worker is unconfigured, so `track()` runs and `flush()` returns — pollution is prevented by construction rather than by an exclusion someone must maintain. Measured: `attempted_network: 0`. The test device stays registered as the **fallback** for a future end-to-end test | `tools/people.json`; run output |
+| D18 | **`check-telemetry.py` reports reachability, not a flat never-fired list** | the undifferentiated 23-item list | the list read as 23 defects and there were **zero**; that misreading is why it sat unexamined since 08-04. A flag nobody can act on is the same as no flag | `ad7392a` |
+| D19 | **A test-harness event may never count as behaviour** | nothing — this is new, and it is the guard the walk required before it was allowed to exist | firing real events to prove wiring would otherwise flip a dead event to "fired" for every later reader. `isTestHarness` keeps *proven wired* apart from *a human did this* — the 2026-07-28 wrong-device error run in reverse | `99eb648` |
+
 ### The baseline telemetry walk — new, and now a leg of the cycle
 
 `[paul-stated 2026-08-08]` *"worth having a baseline telemetry test that we probably work into the
