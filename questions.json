@@ -312,7 +312,7 @@
       "id": "q-weed-beggars-lice",
       "kind": "confirm",
       "answerMode": "yesno",
-      "prompt": "There's a wiry plant along the woods edge with small pink pea-flowers that we think is **beggar's lice** (tick-trefoil). The tell is the seeds. **Come late summer, do little flat triangular seeds stick all over your clothes when you walk past it?**",
+      "prompt": "There's a wiry plant along the woods edge with small pink pea-flowers that we think is **beggar's lice** (tick-trefoil). The tell is the seeds. **Do little flat triangular seeds stick all over your clothes when you walk past it?**",
       "entityRef": {
         "type": "weed",
         "id": "beggars-lice"
@@ -321,11 +321,11 @@
       "active": false,
       "_source": "authored",
       "_foldTarget": "confidence",
-      "_draftNote": "DRAFT staged 2026-07-20 from the weed photo-read. Flip active:true (best in late summer when it seeds). On 'yes' fold beggars-lice confidence inferred->verified.",
+      "_draftNote": "DRAFT staged 2026-07-20 from the weed photo-read. Flip active:true (best in late summer when it seeds). On 'yes' fold beggars-lice confidence inferred->verified. 2026-08-08 (Paul-approved, same two edits as q-fairway-grass-seedheads): dropped the 'Come late summer' qualifier — it IS late summer, and 'do seeds stick when you walk past it' is already present-habitual, so no time word is needed; and `later` moved to the 07-31 ratified 'Snooze card'. These were the only two cards left on the pre-07-31 wording, and the label is the monitored variable under WATCH.",
       "labels": {
         "yes": "Yes, they stick",
         "no": "No, they don't",
-        "later": "I haven't looked"
+        "later": "Snooze card"
       },
       "correctionPrompt": "Anything else about it? (optional)"
     }
