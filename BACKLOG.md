@@ -162,6 +162,16 @@ two she has to tell apart. The affirmative grammar is now a single shared compon
 
 ---
 
+> ⚠️ **`vehicles.json` is AHEAD of the app — re-inline pending Paul's confirm** `[found at close-out 2026-08-09]`
+> `python3 tools/check-data-inline.py` reports **DRIFT in vehicles**: the inlined `VEHICLES_DATA` disagrees
+> with `vehicles.json` (restoration entries among them), from the 08-09 Bolores audio session
+> (`66d2789` / `fba4a1c` / `2c58a4e`). **Per this repo's own architecture note, most domains render from the
+> INLINED constant — so un-re-inlined source is simply NOT IN THE APP.**
+> **Deliberately not auto-fixed.** CLAUDE.md's drift rule is explicit that the point is a *human signal that
+> the addition is legit*, not a tidy-up: confirm the additions → `check-data-inline.py --fix` → verify clean →
+> `RELEASE_NOTES.md` entry if a card changed → commit → deploy the Worker.
+> Falsifier: `check-data-inline.py` exits 0.
+
 ## 🔥 TIER 1 · FIX NOW — remaining
 
 *Nothing blocks these. All agent-drivable. **The Mom-facing ones are wording changes and stay gated on
