@@ -21,6 +21,13 @@ the writer. So the map ships with its own control: `python3 tools/check-cycle-ma
 loop tool exists that this file does not name. It is a **close-out check, not a gate** — wiring it
 into the loop's own sweep would make the map check gate the thing it documents.
 
+<!-- map-control: python3 tools/check-cycle-map.py -->
+<!-- Read by ~/.claude/tools/cycle-docs-check.py. Declared here rather than guessed there:
+     that tool used to hardcode this exact filename, which worked for this repo and silently
+     mis-reported every loop that names its control differently. Keep this line in step with
+     the invocation above. -->
+
+
 ---
 
 ## The eight legs
