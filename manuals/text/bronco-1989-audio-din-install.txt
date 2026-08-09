@@ -1,0 +1,504 @@
+   Installation
+& Assembly Manual
+
+
+
+
+       MODERN SOUND FOR YOUR CLASSIC
+    What’s in the box
+    Thank you for purchasing a RetroSound® radio. RetroSound® radios
+    combine classic styling with the advanced features you expect from a
+    modern car stereo. Your RetroSound® radio consists of two main parts:
+    the Radio Face and the Radio Motor.
+
+      This guide is intended to cover DIN Solutions Radios. The model in this
+           guide is a representation of a typical DIN Radio installation.
+    Please refer to the other installation and assembly manual for models with
+        independent control shafts and other specialty faces not covered.
+    PLEASE REFER TO THE QUICK START GUIDE THAT WAS INCLUDED WITH YOUR
+          RADIO FACE FOR ANY MODEL SPECIFIC INSTALLATION STEPS.
+
+
+
+     DIN SOLUTIONS Radio Face Box Contents
+
+
+
+
+     A    Radio Face x(1)             B   Control Knob Set X(1)        C   DIN Sleeve x(1)
+
+                   Radio Face & Knobs will vary depending on product purchased.
+
+
+
+
+      D    DIN Brackets x(2)         E    DIN Release Keys x(2)         F Small Screws x(4)
+
+
+
+
+       The information enclosed in this user’s manual is to be used as a guide to
+       assist you in the assembly and installation of your radio. This guide does
+      not cover every installation possibility, every vehicle, or every aspect of the
+                                   installation process.
+
+          Retro Manufacturing, LLC or its subsidiaries assume no responsibility for
+               any installation. This manual may be updated from time to time.
+
+                       Please check our website for the latest updates
+
+
+2                                 www.retromanufacturing.com
+                                                                      What’s in the box
+Radio Motor Box Contents
+
+
+
+
+                                                                      Main Wiring Harness x(1)
+                                                                                                                     Speaker Harness x(1)
+                                                       15A FUSE
+
+
+
+
+                                                                                                                                                            Power Harness x(1)
+                                                                                                   SPEAKER OUTPUTS                          POWER OUTPUTS
+
+
+
+
+                                                                           G                                             H                                        I
+               Z   Radio Motor x(1)
+
+
+
+            J                  K                O                 P                                     U                                       V
+
+
+
+                          InfiniMount
+                          Screws x(10)
+                                                            10 mm Self
+                               L         Dual Thread         Tapping
+                                          Bolt x(1)         Screw x(1)
+     Large Washerx(8)
+
+
+                            6mm Nut
+                                             Q                    R
+                              x(4)
+
+      Left InfiniMount
+   M Bracket x(1)
+                                            Lock
+                                                        Self Tapping
+                                           Washer
+                                                         Screw x(1)
+                                             x(3)
+
+
+                                                S                 T
+                                                                                                 Back-strap                 Bluetooth Mic x(1)
+                                                                                                    x(1)
+
+
+
+                                          7 mm Nut         Rubber
+NOT USED FOR                                 x(1)        Stopper x(1)
+                                                                                                           W
+ DIN STYLE
+  RADIOS
+                                            X
+
+
+
+     Right InfiniMount
+  N Bracket x(1)                         Cupped Plastic Spacer x(2)                                Large Plastic Spacer x(2)
+
+
+
+
+    NOTE: All hardware will not be required for every installation.
+ Extra items are included to help you get the right fit for your vehicle.
+
+                              tech@retromanufacturing.com                                                                                                                        3
+    PRECAUTIONS
+    PLEASE OBSERVE THESE PRECAUTIONS WHEN INSTALLING AND USING THIS UNIT:
+
+    This user’s manual does not cover all possible installation scenarios. Please be
+    sure to follow the instructions carefully while attempting installation. If you feel
+    you cannot install this unit yourself, consult with a local car audio professional.
+
+    Retro Manufacturing, LLC is not liable for any problems resulting from
+    improper installation of the unit.
+
+              If you have questions about installing your radio, contact us at:
+                tech@retromanufacturing.com or by calling 888.325.1555.
+
+      • If the unit does not turn on, check all wiring first. Then check the fuse in your
+        vehicle’s fuse panel and the fuse at the unit’s wiring harness. If either fuse has
+        failed, eliminate the cause of the failure, and replace the fuse with one pre-
+        scribed for this unit.
+      • Do not disassemble or modify the unit or attempt to repair it yourself. If the unit
+        needs to be repaired, consult your dealer or Retro Manufacturing, LLC.
+      • This unit is not designed for a marine environment. Please do not use the unit
+        where it will be exposed to moisture or excessive dust. Exposure to moisture will
+        damage the unit and void your warranty.
+      • Use caution when routing wiring and cables to prevent them from being caught
+        in the vehicle chassis, or damaged by screws or moving parts, such as seat rails.
+      • Cutting the main wiring harness, antenna lead, USB or auxiliary cables will void
+        the warranty of your radio.
+      • If mounting the Radio Face or Radio Motor remotely, use extreme caution not to
+        damage these units’ internal parts when choosing brackets and screws.
+      • Never install the unit in a location where it interferes with your field of vision.
+      • Use the supplied metal backstrap to secure the rear of the unit. Failure to secure
+        the back of the unit will damage the shafts and will void the warranty.
+      • Never splice into the power lead to supply other equipment with power.
+      • After installation and wiring, always check the normal operation of other electri-
+        cal equipment.
+      • Make sure that no wires interfere with driving or getting in and out of the vehicle.
+        Insulate all exposed wires to prevent short-circuiting or electric shock.
+      • Keep the volume of your radio at a level that allows you to hear outside noises,
+        such as emergency sirens and train crossing warnings. Prolonged exposure to
+        high volume levels may also result in hearing loss.
+      • This unit is designed for operation with a negative ground 12-volt DC battery
+        system. Do not operate this unit with other battery systems, especially an 18-
+        volt or 24-volt DC or a positive ground system. If you have a 6-volt system, you
+        need to either convert to 12-volt DC or purchase a separate inverter that would
+        increase the voltage to 12-volts. NOTE: The inverter needs to be rated at 10
+        amps or higher for the radio to operate properly.
+
+
+
+4                              www.retromanufacturing.com
+                                                               PRECAUTIONS
+Special Instructions for the Grand Prix Radio
+  • Turn off the ignition and wait 30 seconds.
+  • Turn the ignition on.
+  • Once the radio displays “RETROSOUND” on the screen, press and hold the
+    radio’s power button for approximately 15 seconds to reboot and enter SEL
+    PANEL mode. The screen will display “SEL PANEL” when successful.
+  • Release the power button.
+  • Press and release the power button repeatedly until your desired Panel/Display
+    type is shown on the screen. The selected display type will flash five times and
+    then the screen will turn off.
+  • Press the power button once more to turn the radio back on. The radio is now in
+    the selected Panel/Display mode chosen and is ready to use.
+(See below for your face type Power on)
+
+
+
+
+                              Press and hold the ON/Off power button
+
+
+
+
+                            tech@retromanufacturing.com                                5
+    Radio Face Assembly
+    Parts Needed | Steps 1&2
+
+
+
+
+      A    Radio Face x(1)        Z   Radio Motor x(1)             F    Small Screws x(4)
+
+
+
+    Step #1 Connecting the Radio Face.
+
+    IF YOUR RADIO FACE INCLUDED A
+    Y-CONNECTOR CONTROL HARNESS:
+
+    Unplug and remove the Y-connector
+    harness shown in red. This is not
+    needed for installation on this Motor.
+
+    If your radio face did not include a
+    Y-connector harness skip to the
+    next section.
+
+
+
+
+    Plug the two ribbon cables from the Radio Motor into the Radio Face.
+
+
+                                                         Single Molex
+       Single Molex
+
+
+       Dual Molex
+
+                                                                               Dual Molex
+                 Back of Radio Face                              Front of Motor
+     There are two types of Molex Connectors, a single and double bank. Make
+     sure to correspond these to the connectors on the radio face.
+
+     Tuck any access cable back into the motor house opening.
+
+
+6                            www.retromanufacturing.com
+                                             Radio Face Assembly
+ Parts Needed | Step 3
+
+
+
+
+                                                              InfiniMount
+ D   DIN Bracket x(2)                                     K   Screws x(8)
+
+
+Step #2 Attaching Radio Face to Motor
+
+ Attach the Radio Face to the
+ Radio Motor with the four
+ small screws (F) located in
+ the small orange bag.
+
+
+
+
+Step #3 Attaching the DIN Brackets
+
+
+
+
+Using the 8 screws (K) included in the Radio Motor box, install the DIN
+Brackets (D) to the sides of the Radio Motor. Adjust the brackets forward until
+they meet the back of the radio face.
+
+Be careful not to bend the brackets to ensure proper fitment into the DIN Sleeve.
+
+                        tech@retromanufacturing.com                               7
+    DIN Repair Sleeve & Knob Installation
+    Parts Needed | Steps 4
+
+
+
+
+     C   DIN Sleeve               B    Control Knob Set X(1)       E   DIN REMOVAL KEYS
+
+
+
+    Step #4 Installing the DIN Sleeve
+
+                                                       Insert the DIN Sleeve(C) into
+                                                       your dash opening.
+
+
+
+
+                                   C
+
+
+    Using a screwdriver, push down the sleeve tabs on all four sides of the DIN
+    Sleeve to secure it into the dash opening.
+
+
+
+
+     NOTE:
+     Complete
+     after Step 5
+
+
+
+    After the main wiring harness is plugged into the back of the radio (Step 5),
+    slide the radio assembly into the DIN Sleeve until the unit clicks into place.
+
+
+
+
+                                   Install the included knob sets(B) onto the
+                                   right and left control shafts.
+
+                                   To Remove the radio after installation:
+                                   insert the supplied DIN KEYS (E) into the
+                                   sides of the radio. Once fully seated the
+                                   radio can be pulled out.
+
+
+
+8                          www.retromanufacturing.com
+Wiring the Radio
+Parts Needed | Step 5
+
+
+
+
+                                                    SPEAKER OUTPUTS               POWER OUTPUTS
+
+
+
+
+       15A FUSE
+
+                                       H            Speaker Harness x(1)   I   Power Harness x(1)
+
+
+                                   SIRIUSXM INPUT
+
+
+
+
+                                                                           Your connections
+                                                                           will vary depending
+                                                                           on the unit
+                                                                           purchased. Refer
+                                                                           to the wiring
+                                                                           diagram included
+                                                                           in your Radio Motor
+                                                                           box for specific
+                                                                           connections.
+
+   G    Main Wiring Harness x(1)
+
+
+
+
+Step #5 Connect the Wiring Harness
+ Locate the three wiring harnesses: Main Wiring Harness(G), Speaker
+ Harness(H), and Power Harness(I) from your Radio Motor box. Using the
+ Power Harness and Speaker Harness, connect the bare wire ends of your
+ power and speaker wires to the appropriate power and speaker locations
+ in your vehicle (see wiring diagram included in your Radio Motor box). Then
+ connect the Main Wiring Harness to the back of the Radio Motor.
+
+ Do not connect the Speaker and Power Harnesses to the Main Wiring
+ Harness until Step #6.
+
+   If you find this step too difficult, consult with a local audio installation
+ professional, or contact us at tech@retromanufacturing.com for assistance.
+
+
+                            tech@retromanufacturing.com                                             9
+                                                                    Attaching the Backstrap
+      Parts Needed | Step 6
+       U                                          O                 Q                  P                   R
+
+
+                                                                    Lock Washer x(1)                      Self Tapping Screw x(1)
+
+                                                                    S                                      T
+                                                                                         10 mm
+                                                      Dual Thread                      Self Tapping
+           Backstrap x(1)                              Bolt x(1)    7 mm NUT x(1)       Screw x(1)         Rubber Stopper x(1)
+
+
+
+                  IMPORTANT STEP: Attach the Backstrap!
+      Before completing the installation with the final nuts and washers, it is IMPORTANT
+      that you secure the unit to your vehicle using the supplied Backstrap to support the
+     unit’s weight properly. Failure to attach the Backstrap will damage the Control Shafts
+                                      and void your warranty.
+
+
+
+      Step #6 Attach the Backstrap
+
+
+
+                                                 U
+
+
+                      P                                         O
+                                                          Q
+                                                      S
+
+
+
+                       Fac
+                            tor
+                                  yM
+                                    oun
+                                       ting
+                                              Po                                                      T
+                                                 int
+
+
+
+
+     Before attaching the backstrap, connect both the Speaker Harness(H) and Power
+     Harness(I) to the female plug of the Main Wiring Harness(G). If you are using the
+     Bluetooth Mic(V), USB extensions, or any AUX devices, connect them at this time
+     and route the cables to their proper locations. Next, you will need to secure the
+     back of the radio using the supplied Backstrap(U) and mounting hardware.
+
+     The backstrap mounts to the threads on the back of the Radio Motor using
+     the Dual Thread Bolt(O), Lock Washer(Q), and 7 mm Nut(S) and can be bent or
+     adjusted to align with the mounting point of the original factory radio behind the
+     dash. The Rubber Stopper(T) can be added if needed to cover the Dual Thread
+     Bolt. Secure the other end of the backstrap to the factory mounting point on your
+     vehicle using the 10 mm Self Tapping Screw(P) or the Self Tapping Screw(R).
+
+10                                        www.retromanufacturing.com
+                                                          Troubleshooting
+
+   Problem                 Possible Cause                 Action to Solve Problem
+
+Radio will not                                         Check all connections are
+                   Constant +12V (yellow) wire
+turn on (no                                            connected proper voltage with
+                   not connected or incorrect
+lights,                                                a volt meter. Voltage range:
+                   voltage
+no sound)                                              12-15 volts
+
+                   +12V ignition/ accessory (red)      Check +12V
+                   wire not connected or incor-        accessory (red) wire connec-
+                   rect voltage                        tion
+
+                   Ground (black) wire
+                                                       Check ground connection
+                   not connected
+                   Fuse on constant +12V (yellow)
+                                                       Replace blown fuse
+                   wire is blown
+
+No sound heard     Volume turned
+from unit but                                          Increase radio volume
+                   all the way down
+unit lights up
+
+                                                       Check speaker leads
+                   Internal amp in protection
+                                                       for any grounded or
+                   mode
+                                                       shorted wires
+
+                                                       Make sure the unit is in the
+                   Wrong source mode selected          desired source mode (RA-
+                                                       DIO,AUX)
+
+                                                       Make sure only fuses with cor-
+Unit blows         Possible short in wiring or         rect 15 amp ratings are used
+fuses              incorrect fuse used                 and check all wiring connec-
+                                                       tions for possible short
+
+                                                       Make sure battery is
+                   Battery hooked up backwards
+                                                       properly connected
+
+
+
+
+                  For replacement parts, visit our website at:
+                        www.retromanufacturing.com
+                       Contact us by calling 888.325.1555
+             or send an email to tech@retromanufacturing.com.
+         (see “What’s in the Box” on pages 2-3 to confirm the part(s) needed).
+
+
+
+
+                        tech@retromanufacturing.com                                     11
+                  7470 Commercial Way,
+                  Henderson, NV 89011
+
+                  www.retromanufacturing.com
+
+
+©2025 Retro Manufacturing, LLC | 03/12/25
+

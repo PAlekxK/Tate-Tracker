@@ -1,0 +1,147 @@
+BOLORES — AUDIO SYSTEM SPEAKER SPECIFICATIONS
+1989 Ford Bronco (vehicles.json id: bronco-1989)
+Compiled 2026-08-09.
+
+===============================================================================
+⚠️  PROVENANCE — READ FIRST
+===============================================================================
+This file is NOT a pdftotext extraction of a vendor PDF, which is what every
+other file in manuals/text/ is. Infinity/Harman serve their own product pages
+and spec-sheet PDFs behind bot protection (infinityspeakers.com product pages
+returned HTTP 410, shop.infinityspeakers.com and crutchfield.com returned HTTP
+403, manualslib's PDF endpoint returned 403). So the vendor PDFs could not be
+downloaded and this is a COMPILED reference instead.
+
+Every figure below is attributed to the page it came from. The vendor PDFs that
+DO exist but are not held on disk are queued in manuals/LINKS.md as 📥 rows —
+if they ever become fetchable, they belong in manuals/pdf/ and this file should
+be re-derived from them.
+
+Confidence: 🟡 — vendor-published figures from a manufacturer regional site and
+multiple retailer databases that agree with each other. NOT a first-party PDF
+spec sheet, and NOT measured.
+
+
+===============================================================================
+WHAT IS ACTUALLY INSTALLED
+===============================================================================
+Four speakers, two different sizes. Installed ~Feb 2026 in one session together
+with the head unit. All four run OFF THE HEAD UNIT — the truck's pre-existing
+external amplifier did not work and was pulled.
+
+  FRONT (both doors) ....... Infinity KAPPA 63XF   — 6.5 in (165 mm) coaxial
+  REAR ..................... Infinity KAPPA 86CFX  — 6 x 8 in coaxial
+
+The front door openings are 6.5 in ROUND. This was established by photo
+diagnosis during the install after a 6x8 was initially assumed; the mixed
+front-6.5 / rear-6x8 arrangement is a consequence of that finding, not a
+preference. The speakers they replaced were Pioneer TS-A1674R in front.
+
+Front speakers are mounted on NVX XBAF65 6.5 in silicone speaker baffles.
+
+
+===============================================================================
+INFINITY KAPPA 63XF — FRONT DOORS
+===============================================================================
+Type ......................... 6-1/2 in (165 mm) two-way coaxial
+Power handling ............... 85 W RMS / 255 W peak
+NOMINAL IMPEDANCE ............ 3 ohms          <-- see IMPEDANCE WARNING below
+Sensitivity .................. 93 dB @ 2.83 V
+Frequency response ........... 45 Hz – 40 kHz
+Woofer ....................... Plus One+ glass-fiber cone
+Tweeter ...................... edge-driven silk dome, 40 kHz high-resolution
+Tweeter level control ........ push-button on the angled tweeter,
+                               0 dB or -3 dB output level
+
+Sources: sonicelectronix.com item 183273; shop.singhelectronics.ca;
+creativeaudio.net/kappa63xf/. These three agree on power, impedance and
+sensitivity.
+
+⭐ THE TWEETER LEVEL SWITCH IS A TEARDOWN-WINDOW ITEM. It is a physical button
+on the speaker, so reaching it means the door card comes off. The door cards
+are already coming off for the panel repair + sound deadening (restoration
+Phase 2), and that is the cheap moment to audition 0 dB vs -3 dB. After the
+doors go back together it is a whole disassembly to change a setting.
+
+
+===============================================================================
+INFINITY KAPPA 86CFX — REAR
+===============================================================================
+Type ......................... 6 in x 8 in two-way coaxial (also fits 5x7)
+Power handling ............... 100 W RMS / 300 W peak
+NOMINAL IMPEDANCE ............ 2.5 ohms        <-- see IMPEDANCE WARNING below
+Sensitivity .................. 94 dB @ 2.83 V
+Frequency response ........... 40 Hz – 25 kHz
+Voice coil diameter .......... 1-3/16 in (30 mm)
+Woofer ....................... Plus One glass-fiber cone
+Tweeter ...................... edge-driven textile dome, oversized voice coil
+Tweeter mounting ............. UniPivot, 270 degrees of rotation
+Tweeter level control ........ +0 dB flat or +3 dB
+Crossover .................... gap-selectable, 3-way upgradable
+Design note .................. "high-output SLI design optimized for factory
+                               wiring resistance"
+
+Source: th.infinityspeakers.com/KAPPA+86CFX_.html (Infinity regional site —
+the only Infinity-owned page that served content).
+
+NOTE ON THE TWEETER LEVEL CONVENTION: the 63XF is published as 0 / -3 dB
+(cut) and the 86CFX as +0 / +3 dB (boost). Both are reproduced here as the
+vendor states them rather than normalised, because which direction the switch
+moves changes what you would do with it. Verify against the speaker itself
+before relying on the sign.
+
+
+===============================================================================
+⚠️⚠️  IMPEDANCE WARNING — THE ONE THING TO KNOW
+===============================================================================
+BOTH SPEAKER PAIRS SIT BELOW THE HEAD UNIT'S RATED OUTPUT IMPEDANCE.
+
+  RetroSound Motor 2B rated output impedance ............ 4 ohms
+  Kappa 63XF (front) ................................... 3 ohms
+  Kappa 86CFX (rear) ................................... 2.5 ohms
+
+RetroSound's own Motor 2B user manual names this exact condition as a fault
+cause. From the Frequently Asked Questions, p.19, under "I have all 4 speakers
+connected to your radio and the display is lit up like it is working, but
+there's no sound coming out":
+
+    "Speaker impedance below 4 ohms. Older speakers are usually not
+     compatible with modern electronics."
+
+And the Troubleshooting table, p.18, lists "Internal amp in protection mode"
+as a cause of "No sound heard from unit but unit lights up."
+
+WHAT THIS DOES AND DOES NOT MEAN:
+  • It is NOT a prediction of failure. The system is installed and playing and
+    Paul's own assessment is that it "sounds good as-is" (recorded Feb 2026).
+    A 3-ohm load on a 4-ohm-rated amp is a mild overdraw; 2.5 ohms is not mild.
+  • It DOES mean the head unit's internal amplifier is being asked for more
+    current than it is specified to deliver, continuously, on all four
+    channels — and the rear pair is the worse offender.
+  • It IS an independent argument for the external amp, separate from any
+    argument about loudness. An outboard amplifier rated for 2-ohm loads would
+    be operating INSIDE its specification driving these speakers, which the
+    Motor 2B is not. The amp stops being a want and becomes the thing that
+    puts the load where it belongs.
+  • ⛔ BEFORE BUYING ANY AMPLIFIER: confirm 2-ohm stability. A 4-ohm-only amp
+    reproduces this same problem with a bigger power supply behind it.
+
+If the radio ever cuts out when warm or at volume, this is the first thing to
+suspect — not the wiring, not the head unit.
+
+
+===============================================================================
+RELATED
+===============================================================================
+Head unit ......... RetroSound Motor 2B. Full manual held on disk:
+                    manuals/text/bronco-1989-audio-motor2b.txt
+                    (25 W RMS x 4 internal; front/rear/subwoofer pre-outs;
+                    dedicated amplifier turn-on lead)
+Install manual .... manuals/text/bronco-1989-audio-din-install.txt
+Purchase records .. .private/service-records/bronco-1989/ (Creative Audio
+                    orders #1000140240 and #1000140355, Feb 2026)
+Restoration ....... vehicles.json restoration[] items "Audio — head unit +
+                    speakers" (done) and "Amp + subwoofers" (long-term)
+Deadening ......... vehicles.json restoration[] item "Soundproofing" — the
+                    door treatment explicitly limits mass in the door because
+                    OBS Ford doors are sag-prone

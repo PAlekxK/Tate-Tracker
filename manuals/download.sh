@@ -31,6 +31,14 @@ dl drz400s-2001-service.pdf    "https://archive.org/download/manualzilla-id-6883
 dl drz400s-2001-service-text.pdf "https://archive.org/download/manualzilla-id-6883861/6883861_text.pdf"
 dl g22a-2005.pdf               "https://mygolfbuggy.com/maintenance/manuals/yamaha/Yamaha%20G22A%20Petrol%20Owners%20Manual.pdf"
 
+echo "== Bolores audio system =="
+# The installed head unit is a RetroSound Motor 2B (order #116059, Jan 2026).
+# NOTE: the Infinity speaker spec sheets are NOT here — Infinity/Harman block
+# automated fetches (410/403). Their specs are compiled by hand in
+# text/bronco-1989-audio-speakers.txt and the PDFs are queued in LINKS.md.
+dl bronco-1989-audio-motor2b.pdf     "https://help.retromanufacturing.com/wp-content/uploads/2023/09/RetroSound_User-Manual_M2B.pdf"
+dl bronco-1989-audio-din-install.pdf "https://help.retromanufacturing.com/wp-content/uploads/2025/03/InstallationAssembly_Manual-Arrangment-UPDATE-DIN-only-WEB-3-12-25.pdf"
+
 echo "== Equipment =="
 dl echo-pb7910t.pdf            "https://www.echo-usa.com/getattachment/c3cfd356-0286-4935-aed2-1d72a4ccb9ce/filev2_"
 dl echo-pb250ln.pdf            "https://www.echo-usa.com/getattachment/0f5d7527-b62f-4811-8dcf-da1775a4a285/v2_PB-250LN_P39926_HdMx_010919_e.pdf"

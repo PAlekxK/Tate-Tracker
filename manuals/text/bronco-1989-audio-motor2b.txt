@@ -1,0 +1,1155 @@
+2
+User Manual
+               B
+
+
+
+
+   MODERN SOUND FOR YOUR CLASSIC
+TABLE OF CONTENTS
+General Features........................... 2
+
+PRECAUTIONS................................ 3
+
+Accessories................................ 4
+
+Radio Operation Instructions............... 5
+
+System Settings............................ 7
+
+USB Device Instructions.................... 16
+
+Bluetooth® Device Instructions.............. 17
+
+Troubleshooting............................ 18
+
+Frequently Asked Questions................. 19
+
+Specifications............................. 21
+
+Warranty................................... 22
+
+Purchase Notes............................. 23
+
+
+
+
+              www.retromanufacturing.com
+                                                        ◄ Table of Contents
+General Features
+Model: Motor 2B
+
+
+ • AM/FM tuner with 30 presets and RDS (Radio Data System)
+
+ • Selectable international tuner frequencies
+
+ • Built-in MOSFET amplifier: 25 watts RMS / 45 watts Max x4
+   channels
+
+ • Patented InfiniMount Bracket System for maximum installation
+   flexibility
+
+ • Available with period-correct knobs and bezel for your vehicle
+
+ • Separate power antenna and amplifier turn-on leads
+
+ • 3 EQ presets plus user-controlled bass, mid-range, treble, fader,
+   and balance adjustments
+
+ • Selectable 32,000 color LCD illumination with user presets
+
+ • Multi-channel pre-amp outputs (front, rear, subwoofer)
+
+ • Rear-mounted USB port plays MP3, WMA and FLAC files
+
+ • Built-in Bluetooth® for hands-free calling and audio streaming
+
+ • Wireless audio browsing from your iPhone® or Android device
+
+ • Made for iPod®/iPhone®
+
+ • Non-volatile memory
+
+ • 1 Year manufacturer warranty (see page 22)
+
+
+
+
+                                                                              2
+
+                     tech@retromanufacturing.com
+                                                               ◄ Table of Contents
+    PRECAUTIONS
+    PLEASE OBSERVE THESE PRECAUTIONS WHEN OPERATING
+    THIS UNIT:
+
+    This user’s manual does not cover the installation process. Please review
+    the Installation and Assembly Manual included in your Radio Motor box
+    carefully before attempting installation.
+
+    Retro Manufacturing, LLC is not liable for any problems resulting
+    from improper installation of the unit.
+
+    If you have questions about installing your radio, visit our support website
+    at help.retromanufacturing.com, contact us via email at tech@
+    retromanufacturing.com or chat with us online.
+
+      • This unit is designed for operation with a negative ground 12-volt
+        DC battery system. Do not operate this unit with other battery
+        systems, especially an 18-volt or 24-volt DC or a positive ground
+        system. If you have a 6-volt system, you need to either convert to
+        12-volt DC or purchase a separate inverter that will increase the
+        voltage to 12-volts. NOTE: The inverter needs to be rated at 10
+        amps or higher for the radio to operate properly.
+
+      • This unit is not designed for a marine environment. Please do
+        not use the unit where it will be exposed to moisture or excessive
+        dust. Exposure to moisture will damage the unit and void your
+        warranty.
+
+      • Keep the volume of your radio at a level that allows you to hear
+        outside noises, such as emergency sirens and train crossing
+        warnings. Prolonged exposure to high volume levels may also
+        result in hearing loss.
+
+
+
+
+           The information enclosed in this user manual is a universal
+           guide to assist you in your radio’s operation. Some features
+           covered in this manual are not available in every model.
+           This manual may be updated from time to time. Please
+                    check our website for the latest updates:
+                         www.retromanufacturing.com
+
+
+
+
+3
+
+                           www.retromanufacturing.com
+                                                         ◄ Table of Contents
+Accessories
+Speakers
+RetroSound® started in the speaker business and developed its radio
+line to be perfectly matched with RetroSound® speakers. Together Retro-
+Sound® radios and speakers produce the most accurate audio available
+for your classic car.
+                                               SHOP SPEAKERS
+
+
+
+Amps & Subs
+RetroSound® amplifiers and subwoofers are designed to work seamless-
+ly with RetroSound® radios to fill in the low frequencies usually missing
+from a classic vehicle’s sound system.
+                                              SHOP AMPS & SUBS
+
+
+Speaker Pods
+RetroPod® speaker pods are great for classics that have no factory speak-
+er locations. They mount to any flat surface and direct sound towards the
+listener for a balanced mix. Paint or wrap them for a perfect match to the
+interior of your classic vehicle.
+                                             SHOP SPEAKER PODS
+
+
+
+USB/AUX Extension Cable
+The RetroSound® USB/Auxiliary extension cable is available in black or
+chrome and features a 53” extension of both a USB input and a standard
+3.5mm auxiliary input.
+                                          USB/AUX EXTENSION CABLE
+
+
+
+
+Antennas
+RetroSound® offers OE-quality replacement antennas featuring chrome
+plated brass masts that are almost impervious to the elements and pro-
+vide an improved ground plane for enhanced AM/FM reception.
+                                                   ANTENNAS
+
+
+
+
+      RetroBelt® offers two-point, three-point, and four-point
+      seat belt systems for classic cars and trucks and are
+      available in a variety of colors and styles to update the
+      safety in any vintage vehicle.
+
+                    www.RetroBelt.com
+                                                                               4
+
+                      tech@retromanufacturing.com
+                                                                     ◄ Table of Contents
+    Radio Operation Instructions
+    Front Panel Controls
+    These instructions are for all Radio Faces with 2 control shafts and push-
+    buttons including: Dallas, Daytona, Denver, Detroit, Europa, Huntington,
+    Monterey, Redondo-RS, RetroRadio, Wonder Bar I, and Wonder Bar III.
+    For radios with alternate control layouts please see links at the bottom of
+    this page.
+
+
+
+
+                                            CLASSIC       LOCAL
+
+
+
+
+                               5 Preset Buttons
+
+              1 Left-Front Knob                       Right-Front Knob 3
+
+      2 Left-Rear Knob                                            Right-Rear Knob 4
+
+
+
+
+     IMPORTANT: Control Setup & Reset
+     By default, RetroSound® Radio Motors are configured to function with the
+     standard Radio Faces listed above. Some Radio Faces, like the Redondo-
+     RT, require a different control mode.
+     If you have mistakenly changed your Radio Motor to use a Radio Face
+     that you do not have, follow the steps below to reboot and change
+     control modes.
+     With the vehicle's ignition on, press and hold the Left-Front Knob(1)
+     for approximately 15 seconds to reboot the radio into the SEL PANEL
+     menu. Once in the SEL PANEL menu, press and release the power
+     button until the correct panel/control mode is displayed (select "Normal"
+     for standard 2-shaft/push-button controls). Let the unit time out to
+     accept the changes. The display will flash five times and reboot with the
+     selected control mode activated.
+
+
+                           Other Radio User Guides:
+    Apache | Grand Prix | Redondo-RT | Newport | New York | Santa Cruz
+
+
+5
+
+                          www.retromanufacturing.com
+                                                          ◄ Table of Contents
+Radio Operation Instructions
+Power On/Off
+Press the Left-Front Knob(1) to turn the unit on. RETROSOUND will appear
+on the screen. Press and hold the Left-Front Knob(1) to turn the unit off.
+GOODBYE will appear on the screen to confirm that it has turned off.
+Volume
+Rotate the Left-Front Knob(1) to adjust the volume between 0-46.
+
+Mode
+Rotate the Left-Rear Knob(2) clockwise to select from available listening
+sources*: RADIO(AM/FM), USB, or BT Audio.
+
+NOTE: The USB mode will not appear unless a USB device is plugged in.
+
+The USB input is located at the back of the Radio Motor. The USB input
+allow you to control your iPod®/iPhone®, play music from a portable device,
+or play music from a flash drive. The USB cable must be routed to an acces-
+sible area during installation to use the USB input. A USB extension cable
+may be required for your vehicle.
+
+Radio Tuning
+Rotate the Right-Front Knob(3) to tune to the next or previous AM/FM
+frequency.
+
+NOTE: When the radio is tuned to a strong FM station, the stereo indicator
+will appear in the LCD’s upper right corner (two oval circles).
+
+Radio Bands
+Rotate the Right-Rear Knob(4) counter-clockwise to cycle through the five
+radio bands (two AM and three FM).
+
+Storing Radio Presets
+There are six radio presets for each radio band. For presets one through
+five, tune to the desired radio station and then press and hold the desired
+Preset Button(5) to store the station into memory. To set the sixth preset,
+rotate the Right-Rear Knob(4) clockwise and hold for 3 seconds to store.
+
+Recalling Radio Presets
+To recall radio presets, press the appropriate Preset Button(5) in the
+selected radio band. To recall preset six, rotate the Right-Rear Knob(4)
+clockwise and release it.
+
+Mute/Pause
+Press the Right-Front Knob(3) to mute/unmute or pause/play depending
+on the source mode.
+
+
+                                                                                6
+
+                      tech@retromanufacturing.com
+                                                               ◄ Table of Contents
+    System Settings
+    System Settings
+    The System Settings sub-menu enables access to the numerous addi-
+    tional features of your RetroSound® radio. Press and hold the Right-Front
+    Knob(3) for three seconds to access the sub-menu. Then rotate the Right-
+    Front Knob(3) to cycle through the available sub-menu options. Once in a
+    specific sub-menu, press and release the Right-Front Knob(3) to change
+    the options.
+
+    Auto Seek/Manual
+    This sub-menu toggles between Auto Seek or Manual tuning. In Auto
+    Seek mode, the radio will tune to the next available station when tuning.
+
+    To access the AUTO SEEK/MANUAL sub-menu, press and hold the
+    Right-Front Knob(3) for three seconds, AUTO SEEK will be displayed.
+    Press and release the Right-Front Knob(3) to select between AUTO SEEK
+    or MANUAL. Once the desired setting is shown, let the unit time out to set.
+
+    A Store
+    This sub-menu activates A STORE which will automatically fill FM presets
+    on all three FM bands, six presets each (eighteen total presets) with the
+    strongest radio stations available in your area.
+
+    To access the A STORE sub-menu, press and hold the Right-Front
+    Knob(3) for three seconds. Rotate the Right-Front Knob(3) until A STORE
+    appears on the screen. Press the Right-Front Knob(3) to activate. This
+    process can take up to one minute to complete. Once completed the radio
+    will resume play.
+
+    Local/Distant
+    This sub-menu adjusts the sensitivity of the FM tuner. When listening to
+    the FM tuner, selecting LOCAL will focus the tuner in the local area, mak-
+    ing the signal stronger. Selecting DISTANT will broaden the signal and
+    allow your local stations to be listened to at a greater distance when trav-
+    eling.
+
+    To access the LOCAL/DISTANT sub-menu, press and hold the Right-
+    Front Knob(3) for three seconds. Rotate the Right-Front Knob(3) until LO-
+    CAL/DISTANT appears on the screen. Press and release the Right-Front
+    Knob(3) to select the desired option. Once the desired setting is shown,
+    let the unit time out to set.
+
+    Clock
+    This sub-menu sets the clock.
+
+    To access the CLK sub-menu, press and hold the Right-Front Knob(3) for
+    three seconds. Rotate the Right-Front Knob(3) until CLK appears on the
+7
+
+                           www.retromanufacturing.com
+                                                           ◄ Table of Contents
+System Settings
+screen, then press the Right-Front Knob(3) to select. To adjust the hours,
+rotate the Right-Front Knob(3) clockwise or counter-clockwise. Adjusting
+past 12 will change between AM and PM. Once the hour is set, press the
+Right-Front Knob(3) to select the minutes. Rotate the Right-Front Knob(3)
+to adjust the minutes, once the desired time is shown let the unit time out
+to set.
+
+Clock 12/24
+This sub-menu changes the clock from a twelve-hour clock to a twenty-
+four-hour clock. The default setting is for a twelve-hour clock (CLK 12).
+
+To access the CLK 12/24 sub-menu, press and hold the Right-Front
+Knob(3) for three seconds. Rotate the Right-Front Knob(3) until CLK 12
+appears on the screen. Press and release the Right-Front Knob(3) to se-
+lect the desired option. Once the desired setting is shown, let the unit time
+out to set.
+
+Display Frequency/Clock
+This sub-menu sets the screen to display either the radio station you’re
+listening to, (DISP FREQ), or the current time (CLK).
+
+To access the DISP sub-menu, press and hold the Right-Front Knob(3)
+for three seconds. Rotate the Right-Front Knob(3) until DISP FREQ ap-
+pears on the screen. Press and release the Right-Front Knob(3) to select
+either DISP FREQ or DISP CLK. Once the desired setting is shown, let
+the unit time out to set.
+
+Clock ON/OFF
+This sub-menu sets the radio to display or hide the current time when
+the radio is off. The default setting displays the time when the radio is off
+(CLK ON).
+
+To access the CLK ON/OFF sub-menu, press and hold the Right-Front
+Knob(3) for three seconds. Rotate the Right-Front Knob(3) until CLK ON
+appears on the screen. Press and release the Right-Front Knob(3) to se-
+lect the desired option. Once the desired setting is shown, let the unit time
+out to set.
+
+Beep On/Off
+This sub-menu sets the audible beep confirmation that sounds during the
+operation of the radio on or off. Select BEEP ON to hear the audible beep
+or BEEP OFF to disable it.
+
+To access the BEEP sub-menu, press and hold the Right-Front Knob(3) for
+three seconds. Rotate the Right-Front Knob(3) until BEEP appears on the
+
+
+                                                                                 8
+
+                       tech@retromanufacturing.com
+                                                                ◄ Table of Contents
+    System Settings
+    screen. Press and release the Right-Front Knob(3) to select the desired
+    option. Once the desired setting is shown, let the unit time out to set.
+
+    Display Color
+    This sub-menu changes the display color. The default setting is SCAN,
+    which will cycle through all of the available colors.
+
+    To access the display color sub-menu, press and hold the Right-Front
+    Knob(3) for three seconds. Rotate the Right-Front Knob(3) until SCAN ap-
+    pears on the screen. Press and release the Right-Front Knob(3) to select
+    the desired color preset. Once the desired setting is shown, let the unit
+    time out to set.
+
+    WARNING: Setting all RGB values to "00" will make the display
+    unreadable. Resetting your radio will NOT reset the display.
+
+    To create a custom color, press and hold the Right-Front Knob(3) for three
+    seconds to access the sub-menu system. Rotate the Right-Front Knob(3)
+    until SCAN (or current color) appears on the screen. Press and release the
+    Right-Front Knob(3) until you see USER. Rotate the Right-Front Knob(3)
+    clockwise to access the RGB settings and press the Right-Front Knob(3)
+    to select. Rotate the Right-Front Knob(3) to set a color value for RED, then
+    press the Right-Front Knob(3) to move to the next color. Repeat the steps
+    to adjust the values for each color. Once the desired color is set, press the
+    Right-Front Knob(3) to accept the settings and let the unit time out to set.
+
+    Dimmer High/Low
+    This sub-menu sets the radio’s display brightness to high (DIMM HIGH),
+    medium (DIMM MEDIUM), or low (DIMM LOW).
+
+    To access the DIMMER sub-menu, press and hold the Right-Front Knob(3)
+    for three seconds. Rotate the Right-Front Knob(3) until DIMMER appears
+    on the screen. Press and release the Right-Front Knob(3) to select the de-
+    sired option. Once the desired setting is shown, let the unit time out to set.
+
+    RDS (Radio Data System)
+    This sub-menu turns the RDS function on or off. RDS tuners can automat-
+    ically tune in stations according to the music style (or talk) they broadcast.
+    With the RDS function ON, and if the FM station you are listening to is
+    broadcasting RDS information, the radio station call letters, song info, art-
+    ist info, and other messages will appear on the display. Not all FM stations
+    use RDS, nor will all RDS functions work in every location.
+
+    To access the RDS sub-menu, press and hold the Right-Front Knob(3) for
+    three seconds. Rotate the Right-Front Knob(3) until RDS appears on the
+    screen. Press and release the Right-Front Knob(3) to toggle RDS ON or
+9
+
+                           www.retromanufacturing.com
+                                                            ◄ Table of Contents
+System Settings
+RDS OFF. Once the desired setting is shown, let the unit time out to set.
+
+Program Type
+This sub-menu allows you to select from 31 predefined program types (i.e.
+News, Info, Sports). Once set, you will be able to use PTY SEEK to find
+similar stations to your selected program type.
+
+To access the PTY sub-menu, press and hold the Right-Front Knob(3) for
+three seconds. Rotate the Right-Front Knob(3) until PTY appears on the
+screen. Press and release the Right-Front Knob(3) to enter the list of pro-
+gram types. Rotate the Right-Front Knob(3) to select between the avail-
+able options. Once the desired program type is shown, press the Right-
+Front Knob(3) to accept. PTY SEEK will appear on the screen, indicating
+that the radio is searching the FM band for the next available station with
+your selected program type. If none are found, the radio will revert to the
+last station selected.
+
+Alternative Frequency
+This sub-menu enables the radio to automatically search for another fre-
+quency that provides the same station when the signal gets weak.
+
+To access the AF sub-menu, press and hold the Right-Front Knob(3) for
+three seconds. Rotate the Right-Front Knob(3) until AF ON/OFF appears
+on the screen. Press and release the Right-Front Knob(3) to select the de-
+sired option. Once the desired setting is shown, let the unit time out to set.
+
+Traffic Announcements
+This sub-menu toggles the traffic announcements function on or off. The
+traffic announcements function is part of the RDS and allows FM stations
+to broadcast traffic announcements that scroll across the screen or audi-
+ble traffic alerts to your radio.
+
+To access the TA sub-menu, press and hold the Right-Front Knob(3) for
+three seconds. Rotate the Right-Front Knob(3) until TA ON/OFF appears
+on the screen. Press and release the Right-Front Knob(3) to select the de-
+sired option. Once the desired setting is shown, let the unit time out to set.
+
+Clock Time
+This sub-menu toggles the clock time feature on or off. If the radio station
+supports clock time, your radio will synchronize its clock with the radio
+station’s clock.
+
+To access the CT sub-menu, press and hold the Right-Front Knob(3) for
+three seconds. Rotate the Right-Front Knob(3) until CT ON/OFF appears
+on the screen. Press and release the Right-Front Knob(3) to select the de-
+sired option. Once the desired setting is shown, let the unit time out to set.
+
+                                                                                  10
+
+                       tech@retromanufacturing.com
+                                                                 ◄ Table of Contents
+     System Settings
+     Bluetooth® On/Off
+     This sub-menu toggles Bluetooth® on or off. Bluetooth® must be enabled
+     before you can connect a Bluetooth® device.
+
+     To access the BT sub-menu, press and hold the Right-Front Knob(3) for
+     three seconds. Rotate the Right-Front Knob(3) until BT ON/OFF appears
+     on the screen. Press and release the Right-Front Knob(3) to select the de-
+     sired option. Once the desired setting is shown, let the unit time out to set.
+
+     Bluetooth® Connect/Disconnect (BT must be "ON")
+     This sub-menu enables the radio to be discoverable on your Bluetooth®
+     device. Choose BT CONNEC to allow your device to connect, and BT
+     DISCON to disconnect Bluetooth® devices.
+
+     To access the BT CONNEC/DISCON sub-menu, press and hold the
+     Right-Front Knob(3) for three seconds. Rotate the Right-Front Knob(3)
+     until BT CONNEC/DISCON appears on the screen. To connect a device,
+     press and release the Right-Front Knob(3) to select BT CONNEC, then
+     search for “RETROSOUND” in your phone’s Bluetooth® device list. Enter
+     password “0000” if prompted. To disconnect a device, press and release
+     the Right-Front Knob(3) to select BT DISCON, then let the unit time out to
+     disconnect the current device.
+
+     Area USA/EUR/AUS/JAP/RUS
+     This sub-menu allows you to set your area to receive the appropriate
+     broadcasts for your region. The default setting is the United States (USA).
+
+     To access the AREA sub-menu, press and hold the Right-Front Knob(3)
+     for three seconds. Rotate the Right-Front Knob(3) until AREA USA ap-
+     pears on the screen. Press and release the Right-Front Knob(3) to select
+     the desired region (USA/EUR/AUS/JAP/RUS). Once the desired region is
+     shown, let the unit time out to set.
+
+     Volume Last/Adjust
+     This sub-menu adjusts the volume level at which the radio will turn on.
+     The default setting is VOL LAST, which means the radio turns on at the
+     volume level at which the radio was turned off. VOL ADJUS allows you to
+     preset the volume level at which the radio turns on from 0-46, regardless
+     of the volume level at which the radio was turned off (see “Volume” on
+     page 5).
+
+     To access the VOL sub-menu, press and hold the Right-Front Knob(3) for
+     three seconds. Rotate the Right-Front Knob(3) until VOL appears on the
+     screen. Press and release the Right-Front Knob(3) to select the desired
+     option. If VOL ADJUS is selected, rotate the Right-Front Knob(3) clock-
+
+11
+
+                            www.retromanufacturing.com
+                                                            ◄ Table of Contents
+System Settings
+wise (AD VAL is shown) and press the Right-Front Knob(3) to accept. Ro-
+tate the Right-Front Knob(3) again to adjust the level between 0-46. Once
+the desired setting is shown, let the unit time out to set.
+
+SEL Panel
+This sub-menu changes the operating mode between operation with two
+knobs and push-buttons and operation for specialty faces with specific
+control layouts.
+
+To access the SEL PANEL sub-menu, press and hold the Right-Front
+Knob(3) for three seconds. Rotate the Right-Front Knob(3) until SEL PAN-
+EL appears on the screen. Press and release the Right-Front Knob(3) to
+enter the panel choices. Rotate the Right-Front Knob(3) to select the de-
+sired option. Once the desired setting is shown, let the unit time out to set.
+
+System Reset
+This sub-menu resets the unit to factory settings.
+
+To access the RESET sub-menu, press and hold the Right-Front Knob(3)
+for three seconds. Rotate the Right-Front Knob(3) until RESET appears
+on the screen. Press and release the Right-Front Knob(3) to reset the unit
+to factory settings. The unit will reset and turn off.
+
+System Rescue
+If you have mistakenly changed your Radio Motor to use a Radio Face/
+Panel that you do not have, use the steps below to reboot the radio to SEL
+PANEL mode.
+
+Turn the ignition off and wait 30 seconds. Turn the ignition on; once the
+radio boots up and RETROSOUND scrolls across the screen, press and
+hold the radio’s power button for approximately 15 seconds to reboot the
+radio into SEL PANEL mode. See the list below for the appropriate power
+button for your radio type. Once SEL PANEL is displayed on the screen,
+release the Power Button, then press and release the button until your
+panel/display type is displayed. The Display will Flash your selection five
+times and will turn off.
+
+Radio Power Buttons:
+ • Standard Knobs (shafts): Press and hold the left front knob.
+ • Thumb Rollers: Press and hold left-inside thumb roller.
+ • Grand Prix: Press and hold the ON/Off button.
+
+Software Info
+This sub-menu displays the unit’s software version.
+
+
+                                                                                  12
+
+                       tech@retromanufacturing.com
+                                                               ◄ Table of Contents
+     System Settings
+     To access the sub-menu, press and hold the Right-Front Knob(3) for
+     three seconds. Rotate the Right-Front Knob(3) until the software version
+     appears on the screen (there are no adjustable settings in this menu).
+
+     Digital Signal Processor
+     This sub-menu sets the Digital Signal Processor (DSP) Setting. The de-
+     fault setting is off (DSP OFF). When activated, you are able to select one
+     of three preset equalization settings:
+
+       • CLASSIC: This setting offers subtle sonic adjustments that lend
+         themselves to classical music.
+
+       • POP: This setting accentuates bass and treble frequencies and is
+         suitable for popular music.
+
+       • ROCK: This setting accentuates treble frequencies and is suitable
+         for rock music.
+
+     To access the DSP sub-menu, press the Left-Front Knob(1) once, DSP
+     OFF will be displayed. Rotate the Left-Front Knob(1) clockwise to select
+     from the available presets. Once the desired setting is shown, let the unit
+     time out to set.
+
+     NOTE: If using one of the preset DSP settings, any manual
+     adjustments to Mid, Bass, or Treble will not save when the radio is
+     powered off.
+
+     Bass
+     This sub-menu adjusts the radio’s bass levels.
+
+     To access the BASS sub-menu, press and release the Left-Front Knob(1)
+     until BASS appears on the screen. Rotate the Left-Front Knob(1) clock-
+     wise or counter-clockwise to select the desired level. Once the desired
+     setting is shown, let the unit time out to set.
+
+     Mid
+     This sub-menu adjusts the radio’s mid levels.
+
+     To access the MID sub-menu, press and release the Left-Front Knob(1)
+     until MID appears on the screen. Rotate the Left-Front Knob(1) clockwise
+     or counter-clockwise to select the desired level. Once the desired setting
+     is shown, let the unit time out to set.
+
+     Treble
+     This sub-menu adjusts the radio’s treble levels.
+
+
+13
+
+                            www.retromanufacturing.com
+                                                          ◄ Table of Contents
+System Settings
+To access the TREBLE sub-menu, press and release the Left-Front
+Knob(1) until TREBLE appears on the screen. Rotate the Left-Front
+Knob(1) clockwise or counter-clockwise to select the desired level. Once
+the desired setting is shown, let the unit time out to set.
+
+Balance
+This sub-menu adjusts the radio’s balance from left to right.
+
+To access the BAL sub-menu, press and release the Left-Front Knob(1)
+until BAL appears on the screen. Rotate the Left-Front Knob(1) clockwise
+or counter-clockwise to select the desired level. Once the desired setting
+is shown, let the unit time out to set.
+
+Fader
+This sub-menu adjusts the radio’s fader from front to back.
+
+To access the FADER sub-menu, press and release the Left-Front Knob(1)
+until FADER appears on the screen. Rotate the Left-Front Knob(1) clock-
+wise or counter-clockwise to select the desired level. Once the desired
+setting is shown, let the unit time out to set.
+
+XBASS
+This sub-menu enables or disables the XBAS function. XBAS boosts the
+low frequencies resulting in enhanced bass tones.
+
+To access the XBAS sub-menu, press and release the Left-Front Knob(1)
+until XBAS appears on the screen. Rotate the Left-Front Knob(1) clock-
+wise or counter-clockwise to select the desired option. Once the desired
+setting is shown, let the unit time out to set.
+
+Subwoofer
+This sub-menu toggles the subwoofer RCA output on or off.
+
+To access the SUB sub-menu, press and release the Left-Front Knob(1)
+until SUB appears on the screen. Rotate the Left-Front Knob(1) clockwise
+or counter-clockwise to select the desired option. Once the desired set-
+ting is shown, let the unit time out to set.
+
+Subwoofer Volume
+This sub-menu adjusts the subwoofer volume between 0-12 and will only
+appear as an option when SUB ON is selected in the Subwoofer menu.
+
+To access the SUB VOL sub-menu, press and release the Left-Front
+Knob(1) until SUB VOL appears on the screen. Rotate the Left-Front
+Knob(1) clockwise or counter-clockwise to select the desired setting.
+Once the desired setting is shown, let the unit time out to set.
+
+                                                                                14
+
+                      tech@retromanufacturing.com
+                                                           ◄ Table of Contents
+     System Settings
+     Subwoofer Frequency
+     This sub-menu adjusts the frequency crossover point of the subwoofer
+     between 80Hz, 120Hz, or 160Hz.
+
+     To access the SUB sub-menu, press and release the Left-Front Knob(1)
+     until SUB 120H appears on the screen. Rotate the Left-Front Knob(1)
+     clockwise or counter-clockwise to select the desired setting. Once the
+     desired setting is shown, let the unit time out to set.
+
+     Bass Frequency
+     This sub-menu adjusts the bass tones’ frequency crossover point be-
+     tween 60Hz, 80Hz, 100Hz, or 200Hz.
+
+     To access the BAS sub-menu, press and release the Left-Front Knob(1)
+     until BAS 80H appears on the screen. Rotate the Left-Front Knob(1)
+     clockwise or counter-clockwise to select the desired setting. Once the
+     desired setting is shown, let the unit time out to set.
+
+     Mid Frequency
+     This sub-menu adjusts the mid-tones’ frequency crossover point between
+     0.5KHz, 1.0KHz, 1.5KHz, or 2.5KHz.
+
+     To access the MID sub-menu, press and release the Left-Front Knob(1)
+     until MID 1.0K appears on the screen. Rotate the Left-Front Knob(1)
+     clockwise or counter-clockwise to select the desired setting. Once the
+     desired setting is shown, let the unit time out to set.
+
+     Treble Frequency
+     This sub-menu adjusts the treble tones’ frequency crossover point be-
+     tween 0.5KHz, 10.0KHz, 12.5KHz, 15.0KHz, or 17.5KHz.
+
+     To access the TRE sub-menu, press and release the Left-Front Knob(1)
+     until TRE 10.0K appears on the screen. Rotate the Left-Front Knob(1)
+     clockwise or counter-clockwise to select the desired setting. Once the
+     desired setting is shown, let the unit time out to set.
+
+
+
+
+15
+
+                          www.retromanufacturing.com
+                                                                                         ◄ Table of Contents
+USB Device Instructions
+USB Inputs
+USB inputs are located at the rear of the Radio Motor. The USB cables
+must be routed during installation to a convenient and accessible location
+for connecting USB devices.
+
+NOTE: The USB Mode will not appear in the menu unless a USB de-
+vice is plugged in.
+
+USB Device Connection
+Connect your USB Flash Drive, iPod®/iPhone®, or other supported USB
+devices to one of the USB inputs. The radio will display USB for three
+seconds indicating the device has been connected successfully. After con-
+necting a USB device, the radio will display the USB icon       on the
+screen and automatically find your songs and begin playback.
+
+USB Device Operation
+The Preset Buttons(5) will enable you to play/pause, listen to 10 seconds
+of each song (INTRO), randomly shuffle all songs (RDM), and navigate
+folders.
+                                                       USB Playback
+
+
+
+
+                                                                    ROCK
+
+
+
+
+                      Play/Pause     Intro   Shuffle   Pre Folder          Next Folder
+
+
+
+
+          1 Left-Front Knob                                                 Right-Front Knob 3
+  2 Left-Rear Knob                 5 Preset Buttons                                      Right-Rear Knob 4
+
+
+
+  • To play or pause a song, press the First Preset Button.
+  • To activate/deactivate intro mode, press the Second Preset Button.
+  • To activate/deactivate shuffle mode, press the Third Preset Button.
+  • To navigate to the previous folder, press the Fourth Preset Button.
+  • To navigate to the next folder, press the Fifth Preset Button.
+  • To switch to the next song, rotate the Right-Front Knob(3) clockwise.
+  • To switch to the previous song, rotate the Right-Front Knob(3)
+    counterclockwise.
+  • To activate/deactivate repeat, rotate the Right-Rear Knob(4)
+    clockwise.
+
+                                                                                                               16
+
+                         tech@retromanufacturing.com
+                                                                 ◄ Table of Contents
+     Bluetooth® Device Instructions
+     Bluetooth®
+     When using a Bluetooth® device for the first time, you must enable Blue-
+     tooth® and pair the device with the unit (see page 11). Be sure your phone
+     is conncected for both calls and audio and that your microphone is en-
+     abled.
+
+     Making a Call
+
+     To make a call, dial the desired number on the paired cell phone. Once di-
+     aling is in progress; CALLING will appear on the screen. When a call is in
+     progress, TALK will appear on the screen along with the elapsed call time
+     (TALK 00:00). During a call, the radio music source will be muted, and the
+     call audio will broadcast through your car’s speaker system.
+
+     Answering a Call
+     When a call is incoming, any audio playback from the current source will
+     either be muted or paused (depending on the source). PHONE IN will be
+     shown on the screen along with the caller ID if it is enabled by the phone/
+     carrier. To accept the call, rotate the Left-Rear Knob(2) counterclockwise.
+     To end the call, rotate the Left-Rear Knob(2) again counterclockwise.
+                                                        Bluetooth Controls
+
+
+
+
+                                                  POP
+
+
+
+
+              1 Left-Front Knob                         Right-Front Knob 3
+      2 Left-Rear Knob                                            Right-Rear Knob 4
+
+     Streaming Music
+     With a device paired, rotate the Left-Rear Knob(2) clockwise to select BT
+     AUDIO. Next, select your desired playback source on your device (Apple
+     Music ®, Spotify ®, Pandora®, YouTube Music ®, etc.) and play the music as
+     you normally would.
+
+     Browsing Music
+     Some devices will allow you to browse folders and skip songs using the
+     Right-Front Knob(3) and the Right-Rear Knob(4). To skip songs, rotate
+     the Right-Front Knob(3). To browse music, rotate the Right-Rear Knob(4)
+     counterclockwise to access the browsing sub-menu, then rotate the Right-
+     Front Knob(3) to cycle through the options (artist, album, song, folder) and
+     press the Right-Front Knob(3) to make your selection.
+
+17
+
+                             www.retromanufacturing.com
+                                                         ◄ Table of Contents
+Troubleshooting
+
+     Problem           Possible Cause         Action to Solve Problem
+
+                     Constant +12V           Check all connections for
+                     (yellow) wire not       proper voltage with a volt
+                     connected or incor-     meter. Voltage range: 12-
+                     rect voltage            15 volts
+
+                     +12V ignition/ac-       Check +12V
+   Radio will        cessory (red) wire      accessory (red) wire
+   not turn on       not connected or        connection and test
+   (no lights,       incorrect voltage       voltage
+   no sound)
+                     Ground (black) wire     Check ground
+                     not connected           connection
+
+                     Fuse on constant
+                     +12V (yellow) wire      Replace blown fuse
+                     is blown
+                     Volume turned
+                                             Increase radio volume
+                     all the way down
+
+                                             Check speaker leads
+   No sound          Internal amp in         for any grounded or
+   heard from        protection mode         shorted wires or reset sys-
+   unit but unit                             tem to factory defaults*
+   lights up
+                                             Make sure the unit is in
+                     Wrong source mode
+                                             the desired source mode
+                     selected
+                                             (RADIO,AUX)
+
+                                             Make sure only fuses with
+                     Possible short in       correct 15 amp ratings are
+                     wiring or incorrect     used and check all wiring
+   Unit blows        fuse used               connections for possible
+   fuses                                     short
+
+                     Battery hooked up       Make sure battery is prop-
+                     backwards               erly connected
+
+
+*System Reset
+To restore/reset the unit to factory defaults see page 12.
+
+
+
+
+                                                                               18
+
+                     tech@retromanufacturing.com
+                                                                ◄ Table of Contents
+     Frequently Asked Questions
+     Do your radios work on 6 volt systems or on positive ground sys-
+     tems?
+
+     No. Our radios are 12 volt, negative ground only. After-market converters
+     and inverters are available but must provide at least 10 amps of continuous
+     output.
+
+     I’m having problems getting the radio to turn on.
+
+     RetroSound® radios require 12 volts to both power leads. The red lead
+     (+12 volt accessory) goes to a switched power source, and the yellow to
+     a constant +12 volt power source. Using a volt meter, check the voltage
+     when the key is turned from “off” to “on”. If there is a significant drop in
+     the voltage, the circuit to which you have the yellow lead attached cannot
+     handle the additional draw of the radio. You will need to find another
+     circuit that can handle the additional draw of the radio, or you will need to
+     go directly to the battery.
+
+     What speaker wire do you recommend I use?
+
+     We recommend using 16 gauge wire for our speakers.
+
+     I have all 4 speakers connected to your radio and the display is lit up
+     like it is working, but there’s no sound coming out.
+
+     This usually indicates one of two things:
+
+       • Speaker wires touching each other or the vehicle chassis at some
+         point. Check each speaker lead from radio to speaker.
+
+       • Speaker impedance below 4 ohms. Older speakers are usually
+         not compatible with modern electronics.
+
+     My car originally came with a switch to control my automatic
+     antenna. Can I use the RetroSound® radio’s remote antenna wire to
+     control my antenna?
+
+     No, you cannot. Your factory antenna is known as “semi-automatic.” It
+     requires a switch to either extend or retract the antenna. You must retain
+     this switch to control your antenna; the RetroSound® radio’s power
+     antenna wire is for more modern “fully-automatic” antennas not requiring
+     a separate switch.
+
+
+19
+
+                            www.retromanufacturing.com
+                                                              ◄ Table of Contents
+Frequently Asked Questions
+The sound output is all mid-range, with very little bass and a
+strangled-sounding upper range. What is wrong?
+
+One of your speaker wires is connected backwards. This is called being
+“out of phase.” Check to make sure positive is wired to positive and
+negative to negative on all your speakers.
+
+Will cutting or bending the InfiniMount Brackets void the warranty
+or harm the unit?
+
+No. The RetroSound® patented InfiniMount Bracket system has been
+designed specifically to be bent, cut and modified to simplify radio
+installation. Modifying the radio’s brackets is actually encouraged to
+ensure proper fit.
+
+If you have questions about modifying the brackets, contact us via email at
+tech@retromanufacturing.com or visit help.retromanufacturing.com.
+
+How much should I tighten the shaft nuts when installing the
+brackets and mounting the radio to the dash?
+
+DO NOT OVERTIGHTEN the shaft nuts. The shaft nuts are NOT the
+only means of securing the radio to the dash. There is a backstrap
+included which works with the shaft nuts to secure the radio to the dash.
+Please note that overtightening the shaft nuts could break the shafts.
+Retro Manufacturing, LLC will not be responsible for broken shafts due to
+overtightening the shaft nuts.
+
+I have your radio with an amplifier connected, but hear a whining/
+buzzing sound through the speakers when I step on the accelerator.
+
+If you have an external amplifier installed and experience a high-pitched
+noise that varies with the engine’s RPM, there are many possible solu-
+tions:
+
+  • Make sure the amplifier’s gain controls are not turned all the way
+    up. Amplifiers amplify everything, including noise.
+
+  • Try grounding the amplifier near where it is installed.
+
+  • Try a filter on the amplifier’s 12 volt power lead. Make sure to use
+    a filter that includes a ground wire.
+
+  • On rare occasions, noise can be introduced through the antenna lead.
+    If disconnecting the antenna makes the noise go away, you need to
+    replace or repair the antenna plug where it goes into the radio.
+
+                                                                                    20
+
+                      tech@retromanufacturing.com
+                                                                                             ◄ Table of Contents
+     Specifications
+     FM
+     Tuning Range (USA/EUR/AUS/JAP/RUS tuning) wih RDS.............87.5-107.9MHz
+     Antenna Terminal.......................................................External Antenna Connector
+     Usable Sensitivity. .......................................................................................12.5dBf
+     Selectivity...................................................................................... 75 dB @400kHz
+     Signal to Noise Ratio..................................................62dB (Stereo), 67dB (Mono)
+     Harmonic Distortion @ 1 kHz.....................................0.8% (Stereo), 0.5% (Mono)
+     Separation. .........................................................................................32dB @1kHz
+     Frequency Response..........................................................................30-16,000Hz
+
+
+     AM
+     Tuning Range (USA/EUR/AUS/JAP/RUS tuning). ............................ 530-1710kHz
+     Antenna Terminal.......................................................External Antenna Connector
+
+
+     General
+     Dimensions (Radio Face)...................................................3.5”W x 1.5”H x 1.05”D
+                  (dimensions will vary depending on model purchased)
+     Dimensions (Radio Motor)............................................. 3.96”W x 1.98”H x 4.30”D
+     Power Requirements. ............................................................................ 10.5-14.4V
+     Current Consumption (during operation)................................................. Max. 15A
+     Current Consumption (car off)................................................................... <3.5 mA
+     Output Power (@14.4volts @4ohm @1% THD). .........25w x4 RMS / 45w x4 Max
+     Output Impedance..........................................................................................4ohm
+     Low Level Output (4 channels). ............................................................... 2.85 volts
+     EROM. ...................................................................................Non-Volatile Memory
+     USB Input............................................................................ 5v (USB female input)
+     USB Charging.........................................................................................2.1A (total)
+
+
+              NOTE: All specifications are subject to change without notice.
+
+
+
+
+21
+
+                                        www.retromanufacturing.com
+                                                                        ◄ Table of Contents
+Warranty
+Your unit comes with a manufacturer's warranty covering any defects in materials and
+workmanship. Retro Manufacturing, LLC (collectively referred to as "the warranter"),
+at its option, will either (a) repair your unit with new or refurbished parts or (b) replace
+it with a new or refurbished unit. The warranty period starts from the original purchase
+date and is valid for the length of time indicated in the chart below. The decision to
+repair or replace will be made by the warranter.
+                    ITEM                                       WARRANTY
+
+                  Motor 2B                                     One (1) Year
+
+During the "Parts" warranty period, there will be no charge for parts. You must mail in your
+unit during the warranty period at your expense. This warranty only applies to products
+purchased directly from Retro Manufacturing or an authorized dealer. This warranty
+is extended only to the original purchaser of a new product that was not sold "as is."
+A purchase receipt or other proof of the original purchase date is required for warranty
+service.
+
+To handle a warranty issue go to www.retromanufacturing.com/returns-center
+and fill out the Returns Form for a Return Authorization (RA) number. A RA number
+must accompany all returns and warranty issues. Any product received without a RA
+number will be refused.
+
+LIMITED WARRANTY-LIMITS AND EXCLUSIONS
+
+This warranty ONLY COVERS failures due to defects in materials and workmanship and
+DOES NOT COVER normal wear and tear or cosmetic damage. The warranty ALSO
+DOES NOT COVER damages that occurred during shipment, failures which are caused
+by products not supplied by the warranter, failures that result from accident, misuse,
+abuse, neglect, bug infestation, mishandling, misapplication, alteration, faulty installation,
+set-up adjustment, maladjustment of consumer control, improper maintenance,
+improper antenna, inadequate signal reception or pickup, power line surge, improper
+voltage supply, lightning, modification, commercial use (such as use in hotels, offices,
+restaurants, or other business uses) or rental use of the product, or service by anyone
+other than Retro Manufacturing, LLC, or damage that is attributable to acts of God.
+
+THERE ARE NO EXPRESS WARRANTIES EXCEPT AS LISTED UNDER
+LIMITED WARRANTY. THE WARRANTER IS NOT LIABLE FOR INCIDENTAL OR
+CONSEQUENTIAL DAMAGES RESULTING FROM THE USE OF THIS UNIT OR
+ARISING OUT OF ANY BREACH OF THIS WARRANTY. (As examples, this excludes
+damages for lost time, the cost of having someone remove or re-install an installed
+unit if applicable, travel to and from the servicer, and loss of media, data, or other
+memory contents. The items listed are not exclusive but are for illustration only.)
+ALL EXPRESS AND IMPLIED WARRANTIES, INCLUDING THE WARRANTY OF
+MERCHANTABILITY, ARE LIMITED TO THE PERIOD OF THE LIMITED WARRANTY.
+
+Some states do not allow the exclusion or limitation of incidental or consequential
+damages or limitations on how long an implied warranty lasts, so the exclusions may
+not apply to you. This warranty gives you specific legal rights, and you may also have
+other rights which vary from state to state. If a problem with this unit develops during
+or after the warranty period, you may contact your dealer or Retro Manufacturing, LLC.
+
+
+                                                                                                 22
+
+                             tech@retromanufacturing.com
+                                                          ◄ Table of Contents
+     Purchase Notes
+
+
+     Record the place and date of purchase for future reference.
+
+
+     Model No.
+
+
+
+     Serial No.
+
+
+
+     Purchase Date
+
+
+
+     Purchased From
+
+
+     Keep this information and your sales receipt in a safe place.
+
+
+
+
+23
+
+                          www.retromanufacturing.com
+                              ◄ Table of Contents
+
+
+
+
+                                                    24
+
+tech@retromanufacturing.com
+7470 Commercial Way | Henderson, NV 89011
+       help.retromanufacturing.com
+
+
+MODERN SOUND FOR YOUR CLASSIC
+
+
+                RETROMANUFACTURING
+  Published: 09/22/23 | ©2021 Retro Manufacturing, LLC
+
+
+
+
+       www.retromanufacturing.c o m
+

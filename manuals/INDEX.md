@@ -57,6 +57,9 @@ digest to protect its ~57K/80K-token budget).
 | `g22a-2005-ax2` | Yamaha Golf Car **G22-AX2** Owner/Operator Manual, 2006 (`1EJU0-100E1`) | 56 | 🟡 sibling variant, one year later | yamahagolfcars.com.au (3rd-party copy of genuine Yamaha file). Ingested 2026-08-04. **Secondary** — the `g22a-2005` gas manual above stays the card link. Kept because it is 9 pp longer and may cover assemblies the shorter one omits; compare before relying on it |
 | `generac-7000exl` | **Generac Portable Products 7000EXL Extended Life Generator** — Owner's Manual | 24 | ✅ names "7000EXL" 23× | archive.org (`manualsbase-id-609002`). Ingested 2026-08-04. ⚠️ **GENERATOR ONLY — it defers all engine service to a separate engine owner's manual we do NOT hold**, so it carries no oil, spark-plug or air-filter spec. Finding that engine manual is the top open item on the card |
 | `bronco-1989-lmc-catalog-fd88` | **LMC Truck parts catalog FD.88** — Ford Truck & Bronco 1980–96, 2026 Edition Vol. 2 | 180 | ✅ covers the '89 Bronco directly (many rows are Bronco-specific) | LMC Truck print/PDF catalog (Paul's copy, ingested 2026-08-03) |
+| `bronco-1989-audio-motor2b` | **RetroSound Motor 2B — User Manual** (the installed head unit) | 26 | ✅ exact model, receipt-verified | help.retromanufacturing.com (official). Ingested 2026-08-09 |
+| `bronco-1989-audio-din-install` | **RetroSound DIN Solutions — Installation & Assembly Manual** (rev. 3-12-25) | 12 | ✅ the DIN-opening mounting path this truck needs | help.retromanufacturing.com (official). Ingested 2026-08-09 |
+| `bronco-1989-audio-speakers` | **Bolores audio — Infinity Kappa 63XF + 86CFX specifications** | — | 🟡 **COMPILED, not a PDF extraction** — see note | vendor + retailer pages (attributed line-by-line in the file). Compiled 2026-08-09 |
 
 **Notes**
 - **DR200S:** no clean owner's-manual PDF exists free; the 262-pg factory *service* manual is
@@ -76,6 +79,24 @@ digest to protect its ~57K/80K-token budget).
   a current commercial price catalog ("no part may be reproduced"), so its text doesn't go in the
   public repo. Not re-fetchable by `download.sh`; the source copy lives in Paul's Desktop/Claude
   drop (FD88.pdf). No `manual:` link in vehicles.json — it's a catalog, not an operating doc.
+- **Bolores audio (added 2026-08-09):** the head unit is a **RetroSound Motor 2B**, established
+  from the purchase receipt (order #116059, 2026-01-20) — *not* the "Liberty" the record carried
+  for six months, which was an unverified inference from a December shopping thread. The Motor 2B
+  manual is the authority for the two facts the amp/sub decision rests on: **front / rear /
+  subwoofer pre-amp outputs**, a **separate amplifier turn-on lead**, and **25 W RMS × 4 into a
+  rated 4-ohm load**. The DIN Solutions manual is here because this truck's dash was cut to a
+  7×2" DIN opening by a previous owner (for a Pioneer MVH-P8200BT) and RetroSound publishes **no
+  vehicle-specific listing for an '89 Bronco** — so the DIN sleeve + backstrap is the mounting
+  path, not the usual shaft-and-bracket one.
+- ⚠️ **`bronco-1989-audio-speakers` is the one file in `text/` that is NOT a `pdftotext` output.**
+  Infinity/Harman block automated reads (product pages 410, shop + Crutchfield 403, ManualsLib's
+  PDF endpoint 403), so their spec sheets could not be downloaded and the figures were compiled
+  by hand with per-line attribution. The vendor PDFs are real and are queued as 📥 INGEST rows in
+  `.private/service-records/bronco-1989/REFERENCE.md` (**not** `LINKS.md` — the Bronco exception
+  in that file sends every Bolores link to its own workspace). A 403 is a bot block, not rot, so
+  those PDFs will open in a browser: it's a manual-download job, not a dead end. If they ever land
+  in `pdf/`, this file should be re-derived from them. Treat it as 🟡 vendor-published, never as
+  first-party capture.
 
 ## Equipment
 
