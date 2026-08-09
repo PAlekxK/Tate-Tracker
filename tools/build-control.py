@@ -338,6 +338,35 @@ def people():
             "clean_slate": (data.get("_meta") or {}).get("CLEAN_SLATE")}
 
 
+def classify_receipts(receipts, ppl):
+    """Split ack receipts into four buckets by device attribution.
+
+    Extracted from `p1_return_leg` 2026-08-09 so it can be tested against
+    known answers (W14). It was inline, and on 2026-08-04 it read the people
+    map off the wrong dict — so both of her real receipts fell through to
+    "unmapped" and the page asserted *"none from a device mapped to her — this
+    is not evidence she was acknowledged"* while two of the three WERE hers.
+    A false negative that makes a claim, which is worse than the over-claim it
+    replaced, and it reads as rigour. It rendered without error the whole time:
+    the only thing that could catch it is a fixture with a known answer.
+
+    The four buckets are not three plus a remainder. **A null deviceId is not an
+    unknown device** — it is a record written before that channel stamped one at
+    all, so it is unattributable by construction with nothing to backfill from.
+    Merging it into `unmapped` would invent a mystery device.
+    """
+    hers = ppl.get("hers") or set()
+    known = ppl.get("known") or set()
+    R = list(receipts or [])
+    did = lambda r: r.get("deviceId")  # noqa: E731
+    return {
+        "mine": [r for r in R if did(r) and did(r) in hers],
+        "other": [r for r in R if did(r) and did(r) in known - hers],
+        "nodev": [r for r in R if not did(r)],
+        "unmapped": [r for r in R if did(r) and did(r) not in known],
+    }
+
+
 def gather_metrics(tok, fetch_from, count_from):
     """/api/metrics, over TWO windows on purpose.
 
@@ -900,18 +929,9 @@ def p1_return_leg(g, v):
         # two of the three ARE hers. A false negative that CLAIMS something, which
         # is worse than the over-claim it replaced. Caught by reading the rendered
         # page against the raw records, not by re-reading the diff.
-        ppl_ = people()
-        hers_ = ppl_.get("hers") or set()
-        known_ = ppl_.get("known") or set()
-        R = g["receipts"]
-        mine = [r_ for r_ in R if r_.get("deviceId") in hers_]
-        other = [r_ for r_ in R if r_.get("deviceId") and r_.get("deviceId") in known_ - hers_]
-        # A NULL deviceId is not an unknown device — it is a record written before
-        # that channel stamped one at all. Lumping the two would invent a mystery
-        # device; there is nothing to backfill from and the page should say so.
-        nodev = [r_ for r_ in R if not r_.get("deviceId")]
-        unmapped = [r_ for r_ in R
-                    if r_.get("deviceId") and r_.get("deviceId") not in known_]
+        buckets = classify_receipts(g["receipts"], people())
+        mine, other = buckets["mine"], buckets["other"]
+        nodev, unmapped = buckets["nodev"], buckets["unmapped"]
         if mine:
             newest = max(r_["ts"] for r_ in mine if r_.get("ts"))
             line = (f'<b>Receipt</b> — a tap from a device mapped to her, {e(when(newest))}. '
@@ -1477,10 +1497,142 @@ No model ran to produce this page. It cannot tell a quiet loop from a neglected 
 </body></html>"""
 
 
+# ══════════════════════════════════════════════════════════════ selftest ═════
+
+def _g(needs_paul=False, at_leg="1", error=None, checks=None, **signals):
+    """Build a synthetic gather() dict carrying only what verdict() reads.
+
+    Deliberately hand-built rather than captured from a real run: a fixture
+    recorded from the live loop encodes whatever the loop happened to be doing
+    that day, and a control tested against one arbitrary world is a control
+    tested against nothing.
+    """
+    sig = {"return_leg": {"owed": False, "unread": False},
+           "served_queue": {"clean": True},
+           "canon_surfaces": {"clean": True},
+           "repo": {"unpushed_commits": 0, "dirty_files": 0}}
+    for k, v in signals.items():
+        sig[k] = {**sig.get(k, {}), **v}
+    return {"status": {"at_leg": at_leg, "needs_paul": needs_paul,
+                       "error": error, "signals": sig},
+            "checks": checks if checks is not None else
+            {"check-cards.py": Ran("check-cards.py", (), "", 0, "ok", "", 1)}}
+
+
+def selftest():
+    """Prove this page's ONE ENGINE can fail — and does not cry wolf.
+
+    `verdict()` is the whole judgment layer: the band and every panel chip
+    project from it, so a bug here is a page that tells Paul the wrong thing
+    calmly and in the right font. It is also a pure function of the gathered
+    dict, which is why this test needs no network, no git and no Worker — the
+    thing worth testing is separable from everything that makes testing hard.
+
+    Both directions are checked, per the positive-control rule: each detector
+    is shown FIRING on a world that satisfies it, and the last case is the
+    near-miss — a clean world that must come back CLEAR. A detector that only
+    ever says "something is wrong" is indistinguishable from a broken one.
+    """
+    cases = [
+        ("owed return leg surfaces as YOURS",
+         _g(return_leg={"owed": True}), "YOURS", "p1"),
+        ("an unread channel surfaces as YOURS",
+         _g(return_leg={"unread": True}), "YOURS", "p1"),
+        ("a contradicted served queue surfaces as YOURS",
+         _g(served_queue={"clean": False}), "YOURS", "p2"),
+        ("needs_paul with no itemised signal still surfaces (belt and braces)",
+         _g(needs_paul=True), "YOURS", "p4"),
+        ("a check that DID NOT RUN forces CANT_TELL",
+         _g(checks={"check-cards.py": Ran("check-cards.py", (), "", 127, "", "not found", 1)}),
+         "CANT_TELL", None),
+        ("a status-tool error forces CANT_TELL",
+         _g(error="mom-cycle-status.py exploded"), "CANT_TELL", None),
+        ("NEAR-MISS: a clean world must read CLEAR, not YOURS",
+         _g(), "CLEAR", None),
+    ]
+
+    print("SELFTEST — feeding verdict() synthetic worlds.\n")
+    ok = True
+    for name, g, want_state, want_panel in cases:
+        v = verdict(g)
+        got = v["state"]
+        hit = got == want_state
+        if want_panel:
+            hit = hit and any(p == want_panel for p, _t in v["yours"])
+        # ⭐ The invariant the prototype violated: a green band above a red
+        # panel. CLEAR and a non-empty `yours` may never coexist, in ANY world.
+        if v["state"] == "CLEAR" and v["yours"]:
+            hit, ok = False, False
+            print("  ⛔ TWO ENGINES — CLEAR band with itemised YOURS")
+        ok = ok and hit
+        print(f"  {'PASS' if hit else 'FAIL'}  {name}")
+        print(f"        → {got}: {v['line1']}")
+
+    # A note is not a summons. Unpushed commits are real and worth seeing, and
+    # promoting them to YOURS is how a control learns to cry wolf.
+    v = verdict(_g(repo={"unpushed_commits": 3}))
+    quiet = v["state"] == "CLEAR" and not v["yours"] and v["notes"]
+    ok = ok and quiet
+    print(f"  {'PASS' if quiet else 'FAIL'}  a note stays a note and never becomes YOURS")
+
+    # ⭐ THE KNOWN-ANSWER FIXTURE (W14). This is the case that actually broke on
+    # 2026-08-04, and the numbers are the real ones: three receipts, two from a
+    # device mapped to her, one written before the channel stamped a deviceId.
+    # Mom's real deviceId is NOT written here and must never be — the ids are
+    # synthetic, because what is under test is the CLASSIFIER, not the roster.
+    ppl_fix = {"hers": {"dev-hers-1", "dev-hers-2"},
+               "known": {"dev-hers-1", "dev-hers-2", "dev-builder"}}
+    fixture = [{"deviceId": "dev-hers-1", "ts": "2026-08-01T00:00:00Z"},
+               {"deviceId": "dev-hers-2", "ts": "2026-08-02T00:00:00Z"},
+               {"deviceId": None, "ts": "2026-07-01T00:00:00Z"}]
+    b = classify_receipts(fixture, ppl_fix)
+    want = {"mine": 2, "other": 0, "nodev": 1, "unmapped": 0}
+    got = {k: len(v) for k, v in b.items()}
+    hit = got == want
+    ok = ok and hit
+    print(f"  {'PASS' if hit else 'FAIL'}  3 receipts → 2 hers · 1 no-device · 0 unmapped")
+    if not hit:
+        print(f"        → wanted {want}, got {got}")
+
+    # NEAR-MISS for the same classifier: a device in nobody's list must land in
+    # `unmapped` and NEVER be silently counted as hers or quietly dropped. A
+    # classifier that puts everything in `mine` would pass the case above.
+    b2 = classify_receipts(fixture + [{"deviceId": "dev-new", "ts": "2026-08-08T00:00:00Z"}], ppl_fix)
+    strays = len(b2["unmapped"]) == 1 and len(b2["mine"]) == 2
+    ok = ok and strays
+    print(f"  {'PASS' if strays else 'FAIL'}  an unrecognised device reads UNMAPPED, not hers")
+
+    # Every receipt lands in exactly one bucket — no double-count, no silent drop.
+    total = sum(len(v) for v in b2.values())
+    partitions = total == len(fixture) + 1
+    ok = ok and partitions
+    print(f"  {'PASS' if partitions else 'FAIL'}  the four buckets partition the receipts "
+          f"({total} of {len(fixture) + 1} accounted for)")
+
+    # Two structural invariants that have each already cost this project once.
+    priv = os.path.join(ROOT, ".private") + os.sep
+    in_private = os.path.abspath(OUT).startswith(os.path.abspath(priv))
+    ok = ok and in_private
+    print(f"  {'PASS' if in_private else 'FAIL'}  the page renders inside .private/ "
+          f"(public repo — devices.json, 2026-08-04)")
+
+    u = unavailable("her last visit", "worker unreachable", "cannot tell a quiet week from a dead probe")
+    no_zero = "UNAVAILABLE" in u and ">0<" not in u
+    ok = ok and no_zero
+    print(f"  {'PASS' if no_zero else 'FAIL'}  an unmeasured thing renders UNAVAILABLE, never 0")
+
+    print(f"\n{'✓ the control can fail' if ok else '⛔ THIS CONTROL CANNOT FAIL — it is decoration'}")
+    return 0 if ok else 1
+
+
 def main():
     ap = argparse.ArgumentParser(description="Render Fernwood's control page")
     ap.add_argument("--open", action="store_true", help="open it after writing")
+    ap.add_argument("--selftest", action="store_true",
+                    help="prove the verdict engine can FAIL — a control never seen to fail is decoration")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     g = gather()
     with open(OUT, "w", encoding="utf-8") as f:
