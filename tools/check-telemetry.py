@@ -144,6 +144,41 @@ UNREACHABLE = {
         "survived the migration — this one was not.",
 }
 
+# ⭐ NOT_WALKABLE — reachable in principle, but NOT by a person using the app (2026-08-09).
+#
+# WHY THIS BUCKET EXISTS. The W12 instruction has been "trigger each path once by hand and
+# confirm it lands." For most events that is right. For these it is not just useless, it is
+# misleading: it sends Paul to walk a path that no amount of walking can produce, and when
+# nothing fires the honest conclusion ("this cannot be walked") looks identical to the
+# alarming one ("the wiring is broken").
+#
+# Two distinct reasons, kept apart because they resolve differently:
+#
+#   fence  — the event fires only when GARDEN GURU emits a suggestion fence in its reply.
+#            It is gated on MODEL OUTPUT, not on a human action. Note the sibling
+#            `add_offered` HAS fired, which proves the fence mechanism works and narrows
+#            the finding to "Guru has never proposed a log / remove / species ID."
+#            ⚠️ Eliciting one deliberately is not free — probing /api/chat forges a
+#            Mom-input signal and corrupts the engagement measurement (ai-advisor,
+#            2026-07-26). So this is a DESIGN question about Guru's prompting, not a
+#            walk, and it belongs to the parked Guru-capability thread.
+#
+#   held   — the feature is deliberately switched off. The zone track has been HELD since
+#            2026-07-31 pending a signal from Mom. Nothing is broken and nothing should be
+#            walked; the zero is the policy working.
+NOT_WALKABLE = {
+    "log_offered":       ("fence", "Guru must emit a log fence; it never has"),
+    "remove_offered":    ("fence", "Guru must emit a remove fence; it never has"),
+    "species_id_offered": ("fence", "Guru must emit a species-ID fence; it never has. "
+                                    "Instrumented 2026-08-09, so its own zero is correct "
+                                    "and expected, not a regression"),
+    "zone_confirmed":    ("held", "zone track HELD since 2026-07-31"),
+    "zone_deleted":      ("held", "zone track HELD since 2026-07-31"),
+    "zone_flagged":      ("held", "zone track HELD since 2026-07-31"),
+    "zone_renamed":      ("held", "zone track HELD since 2026-07-31"),
+    "zone_suggested":    ("held", "zone track HELD since 2026-07-31"),
+}
+
 # Context that changes how a zero should be read, but is not a reachability claim.
 NOTES = {
     "zone_confirmed":  "zone track HELD since 2026-07-31 pending a signal from Mom",
@@ -219,6 +254,12 @@ def main():
         print("     Proven to work; still zero real-world use. Never cite one as behaviour.")
         for e in wired_only:
             print(f"      · {e}  (harness {counts.get(e,0)}x · real 0)")
+    # The walk list is DERIVED from the bucketing below, never re-filtered separately —
+    # a second filter drifts from the first, and the first is the one whose reasoning is
+    # written down. (It drifted the moment it was written: an independent filter put the
+    # GATED_BY events back on the walk list, the exact 'never offered' set the buckets
+    # exist to keep off it.)
+    walk_bucket = []
     if never:
         print("\n  These events exist in the source and have NO record. A zero on any of them\n"
               "  means UNMEASURED, not 'it did not happen':")
@@ -226,9 +267,12 @@ def main():
         # Split by REACHABILITY before printing. An undifferentiated list reads as
         # N defects; it was 23 cold paths and 0 defects on 2026-08-08.
         unoffered, untaken, unknown, blind, dead = [], [], [], [], []
+        notwalk = []
         for e in never:
             if e in UNREACHABLE:
                 dead.append((e, UNREACHABLE[e]))
+            elif e in NOT_WALKABLE:
+                notwalk.append((e,) + NOT_WALKABLE[e])
             elif e in NO_DENOMINATOR:
                 blind.append((e, NO_DENOMINATOR[e]))
             elif e in EXPECTED_RARE:
@@ -272,6 +316,25 @@ def main():
             print("       denominator before reading the numerator.")
             for e, why in blind:
                 print(f"      · {e:34} ({why})")
+        if notwalk:
+            print("\n    ── NOT WALKABLE — reachable, but not by a person using the app ──")
+            print("       Do NOT put these on the manual walk. Walking cannot produce them,")
+            print("       and a walk that produces nothing looks exactly like broken wiring.")
+            for kind, header in (
+                ("fence", "gated on GURU'S OUTPUT, not on an action — it must emit the fence"),
+                ("held",  "the feature is deliberately switched off; the zero is the policy working"),
+            ):
+                rows = [(e, why) for e, k, why in notwalk if k == kind]
+                if not rows:
+                    continue
+                print(f"      {kind}: {header}")
+                for e, why in rows:
+                    print(f"        · {e:32} {why}")
+            if any(k == "fence" for _, k, _ in notwalk):
+                print("       ⚠️ The sibling `add_offered` HAS fired, so the fence mechanism works —")
+                print("          the finding is about what Guru proposes, not about wiring. Eliciting")
+                print("          one deliberately forges a Mom-input signal, so it is a DESIGN question")
+                print("          for the parked Guru thread, not a walk.")
         if unknown:
             print("\n    ── NO KNOWN UPSTREAM — a human must walk this path once ──")
             for e, why in unknown:
@@ -279,6 +342,10 @@ def main():
                 if e in NOTES:
                     for ln in textwrap.wrap(NOTES[e], 74):
                         print(f"          ↳ {ln}")
+                # An event carrying an EXPECTED_RARE or NOTES explanation is already
+                # accounted for; only an unexplained one is actually owed a walk.
+                elif why != "expected rare":
+                    walk_bucket.append(e)
 
     if a.before:
         cutoff = a.before
@@ -295,8 +362,18 @@ def main():
     if not hard:
         print("✓ every event that should have fired by now has a record.")
         return 0
-    print(f"⚠️ {len(hard)} event(s) have never been seen. Before reading a zero on any of them\n"
-          "   as behaviour, trigger it yourself once and confirm it lands.")
+    # Report the WALK list, not the never-fired list. Telling Paul to "trigger each one
+    # yourself" across all 23 is the instruction that made W12 look like 23 chores; most
+    # of them cannot be triggered by hand at all, and sending someone to walk an
+    # unwalkable path produces a nothing that is indistinguishable from broken wiring.
+    walk = walk_bucket
+    _is = "is" if len(walk) == 1 else "are"
+    print(f"⚠️ {len(hard)} event(s) have never been seen — but only {len(walk)} of them {_is} "
+          f"something\n   a person can trigger by hand:")
+    for e in walk:
+        print(f"      · {e}")
+    print("   Walk those, confirm each lands in /api/metrics, and until one does, do not read\n"
+          "   its zero as behaviour. The rest are explained above — not chores.")
     return 1
 
 
