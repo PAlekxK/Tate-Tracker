@@ -392,3 +392,23 @@ misspelled key silently does nothing and the walk still looks green.**
    permanently uninterpretable events.
 4. **Leg 6c, the Mom-proxy** — designed lap 1, skipped lap 1, skipped lap 2. Third lap running.
 5. **The bench** — 1 open slot, `q-fairway-grass-seedheads` ripe in August. Only Paul runs `--approve`.
+
+---
+
+## 2026-08-09 — NO LAP. Meta only, recorded so the gap is explained rather than open.
+
+`cycle-docs-check.py` flags a repo that moved past its newest chronicled lap. It did move —
+twice, from two sessions — and **neither touch was a lap**, so nothing was skipped:
+
+- **Tooling / controls (agent):** `tools/manuals-search.py` (the deterministic manuals door,
+  `feedback_non_ai_door`), the W12 telemetry reclassification (the manual walk is **3 events,
+  not 23**), and the `map-control` declaration this checker itself now reads.
+- **Fleet data (other session):** the Bolores audio identification and its manual ingests.
+
+**Nothing reached Mom's surface.** `viewer.html` is untouched across all of it, which is the
+test that matters here — a commit is not a ship, a push is, and no lap of her cycle ran.
+
+⚠️ **One thing DID come out of it that the next lap owes an answer on:** `check-mom-ack.py`
+does **not** filter test-harness devices, so a synthetic chat turn registers as input she is
+owed an acknowledgment ribbon for. That is the 2026-07-28 attribution error running backwards.
+It is written up in `BACKLOG.md`'s W12 row; the designed escape is `--acknowledged-through`.
