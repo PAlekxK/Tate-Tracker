@@ -895,20 +895,82 @@ CHANNELS = (
 )
 
 
+_HARNESS_IDS = None
+
+
+def harness_device_ids():
+    """Device ids registered as a TEST HARNESS in tools/people.json (`isTestHarness`).
+
+    ⭐ WHY THIS LIVES HERE, AND WHY IT IS DEVICE-BASED (2026-08-09).
+
+    `check-telemetry.py` has separated harness traffic from real since 2026-08-08 — an
+    event whose only record is the harness has been shown to WORK, not to be USED. That
+    distinction never reached THIS module, so `latest_mom_input` counted a deliberate test
+    as input Mom is owed an acknowledgment ribbon for. Same class as the 2026-07-28 funnel
+    counting Paul's device as Mom's, run in reverse: a synthetic tap becoming a claim
+    about a person.
+
+    **It has to be the DEVICE, because the content cannot carry it.** Measured the day
+    this shipped: Paul ran a deliberate mic test and *said* he had marked it as test
+    information — and a `zone-audio` record carries exactly
+    `deviceId · durationMs · id · mediaType · reviewed · sizeBytes · uploadedAt · zoneId`.
+    **There is nowhere to put a test flag.** His marking was semantic, spoken into the
+    recording, and structurally invisible to every tool that reads the channel. Intent that
+    only exists inside the payload cannot be filtered by anything.
+
+    So the procedure is: **test from the registered harness device id** (swap
+    `localStorage["tateTracker.deviceId"]`, run the test, swap back). That is machine-
+    readable at capture time and needs no app change and no discipline beyond the swap.
+
+    ⚠️ AND THE LINE THIS MUST NOT CROSS: **Paul's own device is NOT a harness device and
+    must never be registered as one.** He shares his phone with Mom, Safari ITP evicts the
+    id, and a deviceId is a browser storage bucket rather than a person. Filtering his
+    device wholesale would silently discard HER input. Only the dedicated
+    `telemetry-test` id is filtered, and it is filtered because it is used for nothing else.
+    """
+    global _HARNESS_IDS
+    if _HARNESS_IDS is None:
+        ids = set()
+        try:
+            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "people.json"), encoding="utf-8") as fh:
+                for p in (json.load(fh).get("people") or []):
+                    if p.get("isTestHarness"):
+                        ids.update(p.get("deviceIds") or [])
+        except (OSError, ValueError):
+            ids = set()          # absent/broken file -> filter nothing, the safe default
+        _HARNESS_IDS = ids
+    return _HARNESS_IDS
+
+
+def _drop_harness(recs):
+    """Strip records captured by a registered harness device.
+
+    Fails OPEN on a record with no deviceId — an unattributed record is kept, because
+    dropping it would silently discard real input to make a number look tidy.
+    """
+    h = harness_device_ids()
+    if not h:
+        return recs
+    return [r for r in recs
+            if not (isinstance(r, dict) and r.get("deviceId") in h)]
+
+
 def _channel_latest(name, path, token, start, end):
     """(newest_ts, count) for one channel, or (None, 0). Never raises."""
     try:
         if name == "feedback":
             data = _get(path, token, {"start": start, "end": end})
             recs = [r for r in flatten(data) if not is_instrumentation(r)]
+            recs = _drop_harness(recs)
             stamps = [r.get("ts") for r in recs]
         elif name == "observations":
             data = _get(path, token)
-            recs = data.get("observations") or []
+            recs = _drop_harness(data.get("observations") or [])
             stamps = [r.get("createdAt") or r.get("date") for r in recs if isinstance(r, dict)]
         elif name == "zone-audio":
             data = _get(path, token, {"start": start, "end": end})
-            recs = data.get("recordings") or []
+            recs = _drop_harness(data.get("recordings") or [])
             stamps = [r.get("uploadedAt") for r in recs if isinstance(r, dict)]
         elif name == "pending-species":
             # Per-day KV, same {days:{date:[records]}} shape as feedback — but the
@@ -917,12 +979,12 @@ def _channel_latest(name, path, token, start, end):
             # (worker.js handleSuggestSpecies); `days=60` keeps us inside it, and
             # a wider call degrades to a named entry in `errors`, never a lie.
             data = _get(path, token, {"start": start, "end": end})
-            recs = [r for day in (data.get("days") or {}).values()
-                    for r in (day or []) if isinstance(r, dict)]
+            recs = _drop_harness([r for day in (data.get("days") or {}).values()
+                                  for r in (day or []) if isinstance(r, dict)])
             stamps = [r.get("submittedAt") for r in recs]
         else:  # guru
             data = _get(path, token, {"start": start, "end": end})
-            recs = data.get("conversations") or []
+            recs = _drop_harness(data.get("conversations") or [])
             stamps = [r.get("updatedAt") or r.get("startedAt") for r in recs if isinstance(r, dict)]
     except Exception as e:  # noqa: BLE001
         raise ChannelError(name, e)
