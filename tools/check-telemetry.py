@@ -105,6 +105,9 @@ GATED_BY = {
     "momack_followed":          "momack_shown",
     "launcher_dismissed":       "launcher_viewed",
     "jumpstrip_tapped":         "jumpstrip_viewed",
+    # Closed 2026-08-09 — see NO_DENOMINATOR below, which is now empty.
+    "species_id_confirmed":     "species_id_offered",
+    "species_id_declined":      "species_id_offered",
 }
 
 # ⚠️ MISSING DENOMINATORS — a downstream event whose upstream is NOT INSTRUMENTED.
@@ -117,10 +120,16 @@ GATED_BY = {
 # branch, which emits NO event. So "Guru never proposed an ID" and "Guru proposed
 # and nobody answered" are indistinguishable in the record. Exactly the gap
 # `jumpstrip_viewed` was added on 2026-08-04 to close for the jump strip.
-NO_DENOMINATOR = {
-    "species_id_confirmed": "no `suggestion_offered` event — the fence branch is uninstrumented",
-    "species_id_declined":  "no `suggestion_offered` event — the fence branch is uninstrumented",
-}
+# ✅ EMPTY as of 2026-08-09 — the one entry class it held is closed. The
+# parseSuggestionFence branch now emits `species_id_offered` (viewer.html, beside the
+# log/add/remove branches that had always counted their own offers), so both species
+# events moved into GATED_BY above and have a real denominator.
+#
+# ⚠️ KEEP THE DICT, and keep it wired. An empty register still has a job: the next
+# uninstrumented upstream goes here rather than being argued about in a comment, and a
+# reader can tell "nothing is missing a denominator" from "nobody tracks that." Deleting
+# it would make the second look like the first.
+NO_DENOMINATOR = {}
 
 # ⛔ UNREACHABLE — the control that fires this cannot be rendered by the CURRENT
 # build. Distinct from "never walked": no amount of walking will produce it.

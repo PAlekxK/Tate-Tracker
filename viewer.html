@@ -18065,7 +18065,19 @@ const GardenGuru = (function () {
         content: displayText || afterFollowup.text,
         ts: new Date().toISOString(),
       };
-      if (suggestion) assistantTurn.suggestion = suggestion;
+      // ⭐ THE DENOMINATOR for species_id_confirmed / species_id_declined (added
+      // 2026-08-09). Both fire from confirmId()/declineId(), which require
+      // `turn.suggestion` — attached right here. Until this event existed the branch
+      // emitted nothing, so "Guru never proposed an ID" and "Guru proposed and nobody
+      // answered" were the same zero in the record. The three sibling branches below
+      // (log / add / remove) each already count their own offer; this one did not,
+      // and that asymmetry is the whole bug.
+      if (suggestion) {
+        assistantTurn.suggestion = suggestion;
+        if (typeof MetricsCollector !== "undefined") {
+          MetricsCollector.track("species_id_offered", { conversationId, kind: suggestion.kind });
+        }
+      }
       // Machine (shop-hand) register → distinct bubble treatment (Phase 4).
       if (afterRegister.machine) assistantTurn.machineRegister = true;
       // A log affordance offered on this turn (deterministic capture on confirm).
