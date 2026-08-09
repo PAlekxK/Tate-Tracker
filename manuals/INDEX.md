@@ -16,6 +16,21 @@ Reference materials for the fleet on the Vehicles card. Assembled 2026-07-08.
   searchable substrate a future Garden Guru retrieval layer would read. Filename = the
   vehicles.json `id` (plus `-parts` / `-service` / `-engine` for secondary docs).
 
+**How YOU search it (no model involved) — added 2026-08-09:**
+
+```
+python3 tools/manuals-search.py "spark plug gap"        # whole fleet, ranked
+python3 tools/manuals-search.py --machine drz400 "oil"  # one machine
+python3 tools/manuals-search.py --list                  # what's in the corpus
+```
+
+`grep -rin manuals/text` still works and always will. The tool adds the three things grep
+structurally cannot: it names **which machine** a hit belongs to, it **ranks** (a 1,341-page
+owner's manual and a 7-page quick-ref no longer arrive in alphabetical order), and it matches
+**document names** as well as contents. It prints each document's confidence marker from the
+table below, so a 🟡/⚠️ hit arrives already flagged as maybe-not-your-unit.
+⛔ **This is not Guru retrieval** — that is the separate, still-parked §A6 build.
+
 **How it reaches Garden Guru (today):** each item carries a `manual: {label, url}` link in
 `vehicles.json`; `build-digest.py` copies it into the digest, so Guru can point a reader to
 the right manual and the 📖 link shows on the card. Guru does **not** read the manual *text*
