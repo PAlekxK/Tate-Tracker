@@ -94,6 +94,18 @@ CATEGORIES = {
         },
         "file_overrides": {},
     },
+    "weeds": {
+        "json_file": "weeds.json",
+        "species_path": "weeds",
+        "image_dir": "images/weeds",
+        "prefer": "sci",  # weed common names are regional; the binomial is the safer lookup
+        # ⚠️ Four of the five weeds carry Paul's OWN 7/20 property photos, which render
+        # "Taken here on the property." The script skips any id whose file already exists,
+        # so a bare `--category weeds` is safe — but NEVER pass `--force` here without
+        # naming ids, or a stock image silently replaces a photo taken on the ground.
+        "page_overrides": {},
+        "file_overrides": {},
+    },
     "lizards": {
         "json_file": "lizards.json",
         "species_path": "species",

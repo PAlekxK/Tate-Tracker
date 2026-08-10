@@ -125,10 +125,18 @@ def photo_findings(q, entity):
     every wired photo to "Wikimedia Commons", relabelling a pond photo Paul took.
     """
     out = []
-    if entity is None:
+    # A CARD-LEVEL photo wins over the entity's lead image, exactly as buildCard
+    # resolves it (2026-08-10) — and it needs NO entity at all, so this returns
+    # before the entity guard. Checking the entity here while the viewer renders
+    # the card's own picture is the same class of bug the ⚠️ below records:
+    # verifying the DATA instead of the SURFACE.
+    card_photo = q.get("photo")
+    if card_photo:
+        photo, att, owner = card_photo, (q.get("attribution") or {}), q.get("id")
+    elif entity is None:
         return out
-    photo = entity.get("photo")
-    att = entity.get("attribution") or {}
+    else:
+        photo, att, owner = entity.get("photo"), (entity.get("attribution") or {}), entity.get("id")
 
     # ⚠️ Check what the CARD can reach, not merely what canon holds. The first
     # version read canon, saw a photo on `japanese-stiltgrass`, and reported the
@@ -140,12 +148,14 @@ def photo_findings(q, entity):
     # which is a smoke detector that can go stale by itself.
     RENDERABLE = set(momlib.viewer_entity_map())
     etype = (q.get("entityRef") or {}).get("type")
-    if photo and etype not in RENDERABLE:
-        out.append((RED, f"`{entity.get('id')}` has a photo but the card renderer cannot resolve "
+    # Only an ENTITY photo has to survive the entityRef resolution — a card photo
+    # is read straight off the card and never touches ENTITY_DATA.
+    if photo and not card_photo and etype not in RENDERABLE:
+        out.append((RED, f"`{owner}` has a photo but the card renderer cannot resolve "
                          f"entityRef.type={etype!r} — it will silently show nothing"))
 
     if q.get("active") is True and not photo:
-        out.append((AMBER, f"SERVED with no photo — `{entity.get('id')}` has none, so she is "
+        out.append((AMBER, f"SERVED with no photo — `{owner}` has none, so she is "
                            f"asked to judge something she cannot see on the card"))
     if photo and att:
         # MIRROR the viewer's own predicate exactly (viewer.html:9798) —

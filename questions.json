@@ -296,11 +296,18 @@
         "type": "plant",
         "id": "fairway-meadow"
       },
+      "photo": "images/weeds/crabgrass-seedhead.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Stefan.lefnaer",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Digitaria_sanguinalis_subsp._sanguinalis_sl6.jpg"
+      },
       "createdAt": "2026-07-20",
       "active": true,
       "_source": "authored",
       "_foldTarget": "observedGrasses",
-      "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. ⚠️ The add-a-photo-on-card idea this note used to point at was KILLED (BACKLOG: 'adds a sixth input affordance to the surface we are disambiguating') — do not revive it from here. 2026-08-08 (Paul-approved, both edits): the ask was written on 07-20 as a FUTURE ping and still said 'Come late summer' — it IS late summer, so it now asks in the present; and `later` was the last card anywhere still carrying 'I haven't looked' against the 07-31 ratification of 'Snooze card'. That label is the monitored variable under WATCH, and serving two wordings at once would have pooled two treatments in one queue — the exact comparison the WATCH row says not to make.",
+      "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. ⚠️ The add-a-photo-on-card idea this note used to point at was KILLED (BACKLOG: 'adds a sixth input affordance to the surface we are disambiguating') — do not revive it from here. 2026-08-08 (Paul-approved, both edits): the ask was written on 07-20 as a FUTURE ping and still said 'Come late summer' — it IS late summer, so it now asks in the present; and `later` was the last card anywhere still carrying 'I haven't looked' against the 07-31 ratification of 'Snooze card'. That label is the monitored variable under WATCH, and serving two wordings at once would have pooled two treatments in one queue — the exact comparison the WATCH row says not to make. 2026-08-10: SERVED WITH NO PHOTO — `check-cards.py` flagged it, and the flag was right: the card names two grasses, asks about one, and asks her to judge a feature (digitate seed spikes) with nothing on screen showing what one looks like. Fixed with a CARD-LEVEL `photo`/`attribution` — a new slot, because the card's need and the entity's lead image are genuinely different pictures: `fairway-meadow` wants a meadow, `crabgrass` (now photographed, it was the only weed without one) wants its spreading habit, and THIS card wants the seed-head alone. Deliberately NOT the killed add-a-photo-on-card idea — that was an INPUT affordance for Mom; this is display-only, nothing new to tap. Reference image, captioned 'not one taken here' by the existing honest-provenance predicate; Paul's own 7/20 walk photos of the fairway grasses are not in the repo.",
       "labels": {
         "yes": "Yes, it does",
         "no": "No, no spikes",

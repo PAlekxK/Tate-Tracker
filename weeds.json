@@ -26,8 +26,13 @@
         "fairway-fringe"
       ],
       "observedBy": "Paul — photo walk",
-      "photo": null,
-      "attribution": null,
+      "photo": "images/weeds/crabgrass.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Rasbak",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Harig_vingergras_plant_(Digitaria_sanguinalis).jpg"
+      },
       "lookFor": "A low grass that spreads flat in a star from a central point, rather than growing upright in a clump. Light green, wider blades held out near the ground. Turns up in thin, scalped, or bare patches in the heat of summer.",
       "habit": "Summer annual — sprouts each spring from seed, races through the summer, and dies at the first frost. It does its damage by seeding heavily before it goes, so next year's crop is set now.",
       "seedTiming": {

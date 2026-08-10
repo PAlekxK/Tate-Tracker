@@ -4,6 +4,18 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-10 — A picture for the grass question
+
+- **The fairway grass question now shows you what to look for.** It asked whether the low,
+  spreading grass has "little finger-like seed spikes" on it — and then showed nothing, so you
+  had to already know what one looks like. There's a picture on the card now: one seed head,
+  the spikes fanning out from a single point. That's the whole tell. It's a reference photo
+  from elsewhere, not one taken here, and the card says so.
+- **Crabgrass has a photo in the weeds list too** — the only weed that didn't. The other four
+  are pictures from the property; this one is a reference, and it's labelled that way.
+
+---
+
 ## 2026-08-04 — A generator we'd never written down, and fifteen new sources
 
 - **The generator is on the Equipment card now.** A Generac 7000EXL that the record simply
