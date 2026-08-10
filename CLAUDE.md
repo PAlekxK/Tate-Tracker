@@ -17,6 +17,16 @@ python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — the Mom-che
 python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — decline vs. misunderstanding
 ```
 
+**⭐⭐ AND THIS BLOCK IS THE LOOP'S TRIGGER, not just a status read** `[paul-stated 2026-08-10]`.
+*"Continue to monitor for Mom's feedback, and then when we get it, that's a trigger to start a
+cycle. That's how I'm gonna try to run this."* **The loop RESTS; her input fires it** — not a
+schedule, not a backlog, not our shipping cadence. So a quiet reading here is the healthy steady
+state (**ARMED**), not a lap that is overdue, and an agent does not open `/mom-cycle` because the
+cycle exists. Same clock the ribbon runs on: *it goes quiet when she does.* ⚠️ Read a 🔴 on
+`mom-cycle-status.py` **against the device before believing it** — the board cannot yet tell
+Paul's own bench taps from Mom speaking (BACKLOG Tier 1 · 9). Full statement, the three states,
+and the known defect: **`MOM-CYCLE-MAP.md` § "What STARTS a lap"**.
+
 **⭐ Mom's feedback is checked FIRST, before current state (Paul, standing, 2026-07-29):** *"every time
 that we initialize around the Fernwood tracker, we should check for feedback from [Mom] — that should
 be part of our first step, and current state."* That is what the block above is; run it before

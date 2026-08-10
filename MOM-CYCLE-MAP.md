@@ -62,6 +62,56 @@ something it failed to handle.
 
 ---
 
+## What STARTS a lap — the trigger, and the resting state `[paul-stated 2026-08-10]`
+
+Paul: *"our plan really should be to continue to monitor for Mom's feedback, and then when we get
+it, that's a trigger to start a cycle. That's how I'm gonna try to run this."*
+
+**The map documented legs 0–7 and the close (7 → 1) and never said what fires leg 1.** That gap is
+why this section exists: a loop whose entry condition is unwritten gets entered on vibes — on a
+free afternoon, on a backlog row, on an agent noticing the cycle exists. Named now:
+
+> **The loop rests. HER INPUT is what fires it.** Not a schedule, not a backlog, not our shipping
+> cadence, not an agent's judgment that a lap is overdue.
+
+This is the **same clock the ribbon already runs on** — *"it refreshes on HER events, never on ours;
+it goes quiet when she does"* (`CLAUDE.md` § what the ribbon is for). The trigger rule is that
+doctrine applied to the whole loop rather than to one card. A lap that fires on our cadence is a
+release cycle wearing the loop's clothes, and it spends her attention to do it.
+
+**Three states, and they must stay tellable apart:**
+
+| state | what is true | what to do |
+|---|---|---|
+| **RESTING** | no input from her since the last lap closed | nothing. Not a backlog item, not a blocked lap |
+| **ARMED** | a lap closed clean; the monitor is running; the gate is defined | keep monitoring. This is the healthy steady state |
+| **FIRED** | she has given something the record has not answered | run `/mom-cycle` |
+
+**The monitor is deterministic and already exists** — no model decides whether the trigger fired.
+`read-mom-feedback.py --pickup` prints its counter on **every** run, quiet days included (the
+2026-08-02 fix: *a quiet watcher and a dead one printed the same thing — nothing*), and
+`check-mom-ack.py`'s R2 names which channel carries uncovered input. Both are in `CLAUDE.md`'s
+session-start block, which is why the trigger needs no new machinery: **it is already checked
+first at every pickup.** ⭐ NON-AI DOOR — the answer to "has she said anything" is readable
+without invoking a model.
+
+⚠️ **RESTING is a legitimate reading, and the chronicle already says so.** The interlap-note
+convention in `MOM-CYCLE-LOG.md` exists precisely to record *no lap ran, and here is why* — so idle
+is a fact on the record rather than something a later reader reconstructs from commit archaeology.
+Two consecutive interlap notes is a reading; it is not a failure.
+
+⚠️ **AND THE KNOWN DEFECT, which is half of what makes a trigger usable.** `mom-cycle-status.py`
+**cannot presently tell ARMED from FIRED**, because its arrival flags key on *input landed*, not
+*input from her* — attribution is deliberately never asserted (a deviceId is a browser bucket, not
+a person). So **Paul's own bench taps raise the same 🔴 as Mom speaking.** On 2026-08-10 the board
+showed 🔴 RETURN LEG + 🔴 UNREAD off a test conversation that says, in its own text, *"testing
+testing this is Paul… disregard this data."* A resting loop that looks identical to a fired one
+teaches its reader to ignore the board — the exact failure `[[feedback_expected_volume_masks_
+unexpected_outcome]]` names. `--acknowledged-through <ts>` clears it by hand today. Backlog row:
+**Tier 1 · 9**.
+
+---
+
 ## Where the work lives
 
 Four surfaces, and **none is a copy of another**.

@@ -11,6 +11,47 @@ amended mid-lap.
 
 ---
 
+## Interlap note — 2026-08-10 · **no lap ran — and this is the state the loop is supposed to be in**
+
+Third interlap note, and unlike 08-06/08-07 this one is not "the work was meta." A Mom surface
+**was** touched. It still was not a lap, and the distinction is the point.
+
+**What the sweep found.** `check-cards.py` flagged `q-fairway-grass-seedheads` as SERVED WITH NO
+PHOTO. Verified against the world rather than the checkbox and the flag was right: the card names
+two grasses, asks about one, and asked her to judge a feature — digitate seed spikes — with nothing
+on screen showing what one looks like. Fixed in `29cc154` (card-level `photo`/`attribution` slot;
+`crabgrass` also filled the only weed-photo gap in canon). **Committed, not pushed** — it reaches
+her, so leg 6 holds it at Paul's gate. He has seen the rendered card.
+
+**Why this is not lap 3.** A lap disposes of *what Mom gave*. This disposed of a defect *we* found
+in what we were asking her, before she ever answered it — leg 5 work (a win that never reaches her)
+that happened to surface a leg-6 item. Calling it a lap would let a lap close with her side empty.
+
+**Her side is empty, verified — not assumed.** Zero records carrying her deviceId on **any**
+channel since 2026-08-03 (feedback · observations · zone-audio · guru · pending-species, 30-day
+window), and zero telemetry events from her device in 14 days. Her active days were 07-26, 07-28,
+07-29, 08-03. The 08-09 traffic that lit the board is Paul's own — the Guru turn says so in its own
+text.
+
+**The state this leaves the loop in, and Paul's call on it** `[paul-stated 2026-08-10]`:
+
+> *"we've kind of got, at this point, a clean moment with a gate defined that will trigger our whole
+> cycle… let's continue to ensure this is documented and structured."*
+
+Lap 2 closed clean, her side is quiet, and the entry condition is now written down rather than
+implied — `MOM-CYCLE-MAP.md` § **"What STARTS a lap"**. The loop is **ARMED**: monitoring runs at
+every pickup via the session-start block, and **her input is what fires the next lap.** Not a
+schedule, not a backlog, not our shipping cadence.
+
+Two things a future reader should not have to reconstruct:
+- **`jumpstrip_viewed` still has no post-`8718f46` reading** — carried forward from the 08-06 and
+  08-07 notes, still true, and it will stay unmeasured until she opens the app.
+- **The board cannot currently tell ARMED from FIRED** (Paul's test taps raise Mom's flags).
+  Named in the map and filed as **Tier 1 · 9**. Until it is fixed, a 🔴 on this loop must be read
+  against the device, not taken at face value — which is exactly what happened today.
+
+---
+
 ## Interlap note — 2026-08-07 · **no lap ran**
 
 Same flag, same answer, second day running. `cycle-docs-check.py` reported *"repo moved 2026-08-07,
