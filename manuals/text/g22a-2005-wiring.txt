@@ -1,0 +1,97 @@
+YAMAHA G22A — CHASSIS SPECIFICATIONS + WIRING DIAGRAM (gas cart)
+Golf cart, vehicles.json id: g22a-2005
+Ingested 2026-08-12.
+
+===============================================================================
+⛔ READ THIS FIRST — WHAT THIS DOCUMENT IS *NOT* NEEDED FOR
+===============================================================================
+**The wiring diagram was never missing.** `manuals/LINKS.md` carried a 🔴 DEAD
+row from 2026-08-04 — a 404 at cunninghamgolfcar.com — asserting it "was the
+only wiring diagram found for this cart" and that it "needs re-sourcing."
+
+That was wrong, and the refutation was already on disk. `manuals/pdf/g22a-2005.pdf`
+**page 43** — printed page **11-1**, document code **Y-509** — IS the G22A wiring
+diagram, and has been in this corpus since 2026-07-08. It is the same document
+this file's PDF reproduces: same code, same page number, same sixteen numbered
+callouts, same colour code. The owner's-manual copy is **better** — a clean print
+rather than a rotated dealer scan, and it carries a TEXT LAYER, so
+`tools/manuals-search.py` has been able to find it the whole time.
+
+  → For the wiring diagram, use `g22a-2005.pdf` p.43. Not this file.
+
+The row spent eight days describing a gap the record did not have. Standing rule,
+earned again: **verify a row against the world, not against the row.**
+
+===============================================================================
+WHAT THIS DOCUMENT DOES ADD, AND IT IS THE ONLY REASON IT WAS KEPT
+===============================================================================
+Its UPPER half is page **10-3, CHASSIS SPECIFICATIONS** — a table the corpus does
+NOT otherwise hold. Neither `g22a-2005.txt` nor `g22a-2005-ax2.txt` contains it
+(checked: no "rack and pinion", no "1.55 turn", no tyre sizes in either).
+
+So this is a **specifications** document that happens to also duplicate a diagram
+we already had — not a re-sourced wiring diagram. Filed under its real value.
+
+  source   https://www.yamahagolfcarsofca.com/fckimages/pdf/
+           wiring_diagram_Yamaha_G22A_2003-2007.pdf
+  fetched  2026-08-12, HTTP 200, application/pdf, 318,668 bytes, 1 page
+  md5      5c56ca1a26d1d77f29cd2db049aa61b2
+  on disk  manuals/pdf/g22a-2005-wiring.pdf  (gitignored, re-fetch via download.sh)
+  host     Yamaha Golf Cars of California — a Yamaha DEALER, not Yamaha itself
+
+⚠️ IMAGE-ONLY PDF. `pdftotext -layout` returns 1 byte — there is no text layer.
+Every other file in `manuals/text/` is a machine extraction; this one is written
+by hand, because without it `manuals-search.py` (which reads `text/` and nothing
+else) could not see the document at all.
+
+Confidence: 🟡 close-match. The file name says 2003-2007; the cart is the
+2005/2006 G22-AX2. Same model family, inside the year range, but dealer-hosted.
+
+⚠️ G22A is the GAS cart. A G22E (electric) diagram is a different document and
+must not be substituted — this one shows a starter generator, an engine stop
+relay and an oil level gauge, none of which exist on the electric cart.
+
+===============================================================================
+COMPONENT LEGEND — ✅ CORROBORATED, not a model read
+===============================================================================
+Read off the scan by a vision model, then checked item-for-item against the
+deterministic `pdftotext` extraction of `g22a-2005.pdf` p.43 (see
+`manuals/text/g22a-2005.txt`, the "G22A WIRING DIAGRAM" block). All sixteen
+match exactly, so this list has a deterministic source and is not a hypothesis.
+
+  1  engine stop relay        9  relay
+  2  engine ground           10  battery
+  3  pickup                  11  pilot lamp (12V, 3.4W)
+  4  rotor                   12  main switch
+  5  oil level gauge         13  accelerator stop switch
+  6  blade fuse (10A)        14  back switch
+  7  voltage regulator       15  buzzer
+  8  starter generator       16  body ground
+
+Wire colour code (same corroboration):
+  B black · L blue · G green · Y yellow · R red · P pink · Br brown · W white
+  B/R black-red · Y/B yellow-black · R/Y red-yellow · R/W red-white
+
+===============================================================================
+⚠️  CHASSIS SPECIFICATIONS — MODEL-READ, UNVERIFIED. DO NOT QUOTE AS FACT.
+===============================================================================
+These came off the scanned image on 2026-08-12 and have **no** deterministic
+source anywhere in this corpus — unlike the legend above, nothing corroborates
+them. They are a HYPOTHESIS until someone reads the page or measures the cart.
+Recorded so a search for "tyre pressure" or "brake freeplay" finds the document.
+[[Model-read values are hypotheses until a deterministic source or Paul confirms]]
+
+  steering            rack and pinion; 1.55 turn L.H., 1.55 turn R.H.
+  brakes              mechanical drum on each rear wheel, dual internal
+                      expanding shoe, leading/trailing (self-adjusting)
+  pedal freeplay      25-30 mm
+  cable end play      0.004-0.02 in. (0.1-0.5 mm)
+  parking brake       foot type, automatic release
+  tyres               front 18 x 8.50-8.00/4 PR · rear 18 x 8.50-8.00/4 PR
+  rim                 7.00-8.00
+  pressure            G16A: 16 psi (110 kPa, 1.1 kgf/cm2)
+
+⚠️ The tyre-pressure row names **G16A**, a different model, in a table otherwise
+headed G22A. That is what the scan appears to say; it is not a transcription slip
+on our side, and it is exactly the kind of thing a model read gets wrong. Do not
+inflate this cart's tyres on this line — read the cart's own placard.

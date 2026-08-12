@@ -76,7 +76,7 @@ fully drained** (Paul). These five are the entire research basis for recommissio
 | Ref | Tier | What it is | What it does NOT settle |
 |---|---|---|---|
 | ✅ **INGESTED 2026-08-04 → `INDEX.md`** (56 pp) | — | *Migrated out.* 🟡 sibling variant, 9 pp longer than the held G22A manual; the card link is unchanged | Whether it actually adds coverage — still worth a compare |
-| 🔴 **DEAD (404, checked 2026-08-04)** — G22A wiring diagram, cunninghamgolfcar.com | — | Was the only wiring diagram found for this cart. **Needs re-sourcing** | — |
+| ~~🔴 **DEAD (404, checked 2026-08-04)** — G22A wiring diagram, cunninghamgolfcar.com~~ ⛔ **RETIRED 2026-08-12 — THE ROW WAS WRONG, NOT JUST STALE.** | — | It claimed this *"was the only wiring diagram found for this cart"* and *"needs re-sourcing."* **We already held one.** `manuals/pdf/g22a-2005.pdf` **p. 43** — printed 11-1, doc `Y-509` — IS the G22A wiring diagram, ingested 2026-07-08, with a text layer, and `manuals-search.py` could find it the whole time. The 404 was real; the *gap* it implied never existed. A separate dealer scan was fetched before this was noticed and is kept in `INDEX.md` as `g22a-2005-wiring` **for its chassis spec table only** | The dead URL is struck rather than deleted so the link loss stays on the record — but nothing here was ever a hole in the corpus |
 | [Yamaha golf-cart model-year guide](https://hookupmycart.com/tech-center/yamaha-golf-cart-year-guide/) | **C** | Vendor year/model decoder | A vendor's table, not Yamaha's |
 | [Oil in air cleaner, G9](https://buggiesgonewild.com/showthread.php?t=154878) | **C** | Forum thread on a **G9**, not a G22 | Different model. A seed only |
 

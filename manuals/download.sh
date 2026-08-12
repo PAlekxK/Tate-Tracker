@@ -52,6 +52,9 @@ dl homelite-blower-vac.pdf     "https://manuals.ttigroupna.com/system/files/9590
 dl husqvarna-mower-engine.pdf  "https://images.thdstatic.com/catalog/pdfImages/c5/c5581c61-d6d9-4d4c-9981-6d04d019fe54.pdf"
 dl husqvarna-mower-yth24v54.pdf "https://www-static-nw.husqvarna.com/hbd/tdrdownload/v2/pub000080278/doc000141547/OM/gI_kX6EZNTIW0RUL8hkWgSxH2Js"
 dl g22a-2005-ax2.pdf           "https://www.yamahagolfcars.com.au/uploads/2/0/7/5/20756704/g22-ax2_ju03_2006_1eju0100e1.pdf"
+# Wiring diagram, re-sourced 2026-08-12 after the cunninghamgolfcar.com copy 404ed.
+# Image-only scan: pdftotext yields nothing, so text/g22a-2005-wiring.txt is hand-written.
+dl g22a-2005-wiring.pdf        "https://www.yamahagolfcarsofca.com/fckimages/pdf/wiring_diagram_Yamaha_G22A_2003-2007.pdf"
 dl generac-7000exl.pdf         "https://archive.org/download/manualsbase-id-609002/609002.pdf"
 
 echo "== done =="
