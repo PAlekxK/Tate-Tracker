@@ -352,8 +352,28 @@ promised her "the furnace" while the section rendered nothing, and the strip wou
 links into a `display:none` drawer. Both are invisible in a plan and obvious to someone walking the
 app with her asks in hand.
 
-**Not built yet.** Recorded here so it is a designed step rather than a good idea, and so lap 2
-either runs it or names why not.
+**⏳ HALF BUILT — 2026-08-12.** Skipped three laps running (D14, lap 2, lap 3's inheritance
+list), and what was actually missing was never the judgment — it was the SUBTRACTION.
+
+✅ **`tools/build-proxy-packet.py`** builds the seat's input: her routed input across all five
+channels, minus registered harness and bench devices, rendered plain into
+`.private/mom-proxy-packet.md` **(gitignored — it holds her verbatim words and this repo is
+PUBLIC; the 2026-07-26 quarantine clause)**, with the seat's three questions and its three ⛔
+rules at the top and the preview URL verified against the **listening PID**, never a curl 200.
+
+⭐ **Why a tool rather than a careful prompt.** *"Remember not to mention the plan"* is a promise,
+made in the same session as the work, which is the single point of failure this repo keeps paying
+for. So the packet is built BY SUBTRACTION: it can name every source it is allowed to read, and
+`--selftest` **asserts that distinctive prose from `BACKLOG.md`, `MOM-CYCLE-MAP.md`,
+`MOM-CYCLE-LOG.md`, `CLAUDE.md` and `RELEASE_NOTES.md` is absent from what it produced**, that a
+dead preview announces itself loudly, that the destination is under a gitignored `.private/`, and
+that the packet renders no verdict token of its own — it flags, it never clears, so it must not
+pre-judge for the seat either.
+
+⏸ **What is still owed: the WALK.** The seat has not run, because no lap is running — the loop is
+ARMED and her side has been quiet since 2026-08-03. Running it now would judge a surface she has
+not given new input about, which is the changelog-in-the-ribbon's-clothes failure wearing a
+different hat. **unpark_when:** the next lap reaches leg 6, or Paul asks for a cold read.
 
 ---
 
