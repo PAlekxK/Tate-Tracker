@@ -100,15 +100,40 @@ convention in `MOM-CYCLE-LOG.md` exists precisely to record *no lap ran, and her
 is a fact on the record rather than something a later reader reconstructs from commit archaeology.
 Two consecutive interlap notes is a reading; it is not a failure.
 
-⚠️ **AND THE KNOWN DEFECT, which is half of what makes a trigger usable.** `mom-cycle-status.py`
-**cannot presently tell ARMED from FIRED**, because its arrival flags key on *input landed*, not
-*input from her* — attribution is deliberately never asserted (a deviceId is a browser bucket, not
-a person). So **Paul's own bench taps raise the same 🔴 as Mom speaking.** On 2026-08-10 the board
+✅ **THE KNOWN DEFECT IS FIXED — 2026-08-12** (`789d5dc`; was Tier 1 · 9). `mom-cycle-status.py`
+could not tell ARMED from FIRED, because its arrival flags keyed on *input landed*, not *input from
+her* — so **Paul's own bench taps raised the same 🔴 as Mom speaking.** On 2026-08-10 the board
 showed 🔴 RETURN LEG + 🔴 UNREAD off a test conversation that says, in its own text, *"testing
 testing this is Paul… disregard this data."* A resting loop that looks identical to a fired one
 teaches its reader to ignore the board — the exact failure `[[feedback_expected_volume_masks_
-unexpected_outcome]]` names. `--acknowledged-through <ts>` clears it by hand today. Backlog row:
-**Tier 1 · 9**.
+unexpected_outcome]]` names.
+
+**It was two collapses, and both are undone. Neither fix asserts attribution.**
+
+1. **Every arrival looked like her arrival.** `momlib.split_arrivals()` now splits arrivals by
+   **ORIGIN**, into `bench` and `unresolved`. ⛔ **There is no `hers` bucket and no path to one** —
+   a device Paul registered as his own (`excludeFromEngagement` in `tools/people.json`) is `bench`;
+   an unknown device, **and a record with no `deviceId` at all**, are both `unresolved` and keep the
+   board lit. Bench arrivals are **separated and NAMED on screen, never dropped**: he shared his
+   phone with Mom until 2026-07-28, so a silent drop could discard hers. `_drop_harness` deletes;
+   this classifies, and that difference is the whole design.
+2. **"Nobody has looked" was rendered as "she is owed a card."** The board derived *the return leg
+   is owed* from `check-mom-ack.py`'s **exit code**, which is 1 for any finding — so R2b UNREAD and
+   R1/R2 STALE landed on the same leg wearing the same red. `check-mom-ack.py --json` now reports
+   *which rule fired*: UNREAD routes to **leg 1 READ** (a five-minute read), STALE to **leg 6** at
+   Paul's gate.
+
+`position()` is pure and returns `(leg, state, needs_paul)`, so `mom-cycle-status.py --selftest`
+drives it with fixtures — 14 assertions, three of them **negative controls** asserting the board
+still fires on inputs a careless exclusion would swallow. **Proven by mutation:** a no-device record
+classified as bench, unresolved arrivals routed back to leg 6, and a faithful replay of the 08-10
+bug were each injected into a scratch copy and each caught with exit 1.
+
+⚠️ **What this does NOT do.** It cannot say an arrival IS hers — nothing can, and the board no
+longer pretends otherwise. `unresolved` means *go look*. `--acknowledged-through <ts>` remains the
+hand escape for a stamp; `--mark-read <channel>` is the one that clears an unread arrival, and it
+is still the only act that clears it, because a detection mechanism must be clearable only by the
+action it detects the absence of.
 
 ---
 

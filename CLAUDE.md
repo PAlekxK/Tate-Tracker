@@ -22,10 +22,14 @@ python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — dec
 cycle. That's how I'm gonna try to run this."* **The loop RESTS; her input fires it** — not a
 schedule, not a backlog, not our shipping cadence. So a quiet reading here is the healthy steady
 state (**ARMED**), not a lap that is overdue, and an agent does not open `/mom-cycle` because the
-cycle exists. Same clock the ribbon runs on: *it goes quiet when she does.* ⚠️ Read a 🔴 on
-`mom-cycle-status.py` **against the device before believing it** — the board cannot yet tell
-Paul's own bench taps from Mom speaking (BACKLOG Tier 1 · 9). Full statement, the three states,
-and the known defect: **`MOM-CYCLE-MAP.md` § "What STARTS a lap"**.
+cycle exists. Same clock the ribbon runs on: *it goes quiet when she does.* ✅ **The board can now
+tell ARMED from FIRED** (fixed 2026-08-12, `789d5dc` — was BACKLOG Tier 1 · 9): arrivals are split
+by ORIGIN into `bench` (a device Paul registered as his own) and `unresolved`, and **only
+`unresolved` fires it**. ⛔ It still asserts NO attribution — there is no "hers" bucket, a record
+with no `deviceId` is `unresolved`, and bench arrivals are *named on screen, never dropped*. A 🔴
+now means either the ribbon is genuinely behind her (leg 6, yours) or something unread could be
+hers (leg 1 — go look). Full statement and the three states: **`MOM-CYCLE-MAP.md` § "What STARTS a
+lap"**.
 
 **⭐ Mom's feedback is checked FIRST, before current state (Paul, standing, 2026-07-29):** *"every time
 that we initialize around the Fernwood tracker, we should check for feedback from [Mom] — that should
