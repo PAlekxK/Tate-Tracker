@@ -335,7 +335,7 @@ exists — the gap is named in the map and is not papered over by this score.
 
 ---
 
-## Lap 2 — 2026-08-08 (ET)
+## Lap 2 — 2026-08-08 (ET) · ✅ CLOSED — 7/7 clean, **stamped 2026-08-12 after re-verification**
 
 **Shape:** tooling / meta only. **Nothing Mom-facing changed, and no return leg was owed** —
 `check-mom-ack` is green on every channel and the ribbon covers through her newest input
@@ -422,6 +422,33 @@ launcher dismiss as ELEMENT ABSENT — the first walk had written today's date t
 baseline that only works once per day is not a baseline. It now clears the two day-scoped keys
 first, read off `viewer.html:10559` and `:10702` rather than guessed — **a reset that clears a
 misspelled key silently does nothing and the walk still looks green.**
+
+### Score against the pre-registered definition — **CLEAN, 7/7** `[stamped 2026-08-12]`
+
+⚠️ **Lap 2 ran to leg 7 on 08-08 and was never stamped.** Four days of chronicle were written on
+top of it — three interlap notes, one of which asserts in passing that *"Lap 2 closed clean"* —
+without the score table the definition requires. **Recording a closure and closing a thread are two
+acts, and only the first has a natural trigger.** So this stamp was NOT taken on the log's say-so:
+every criterion below was re-derived from the record on 2026-08-12, four days late, and the
+verification is written out because a stamp whose evidence is "the section above says so" is the
+thing this table exists to prevent.
+
+| # | criterion | lap 2 | how it was verified on 08-12, not assumed |
+|---|---|---|---|
+| 1 | every leg that ran left its artifact | ✅ | all three leg-5 commits exist and are ancestors of HEAD (`49abc62` 06:51, `ad7392a` 07:05, `99eb648` 07:10 ET); leg 6's artifact `tools/telemetry-walk.js` is on disk and first landed in `4bfd9ca` |
+| 2 | legs 1, 6, 7 non-empty (2, 4, 5 may be empty) | ✅ | all eight legs carry a row; legs 1/6/7 each name a durable output. Leg 4 is empty **and says why**, which the definition permits |
+| 3 | nothing served that she has answered — `check-cards.py` exits 0 | ✅ | re-run at HEAD: **exit 0**, 18 cards, 6 served, 0 contradictions. ⚠️ This is a re-verification, not a replay — `questions.json` has moved 5 times since lap 2 closed, so what this proves is that the property still holds |
+| 4 | every channel with input past its mark is attested read — R2b not red | ✅ | reconstructed per channel at the lap's own close (cutoff `2026-08-08T11:10:28Z`): feedback, observations, zone-audio and guru each had a read mark **exactly equal** to their newest record at that instant — **0 unread on all five channels**. ⚠️ Honest caveat: `.private/channel-read-state.json` is gitignored and un-versioned, so the marks cannot be proven to predate the close. What *can* be shown is that they have not moved since — the 08-09 arrivals are still unread — so no post-hoc advance flatters this row |
+| 5 | the return leg shipped | ✅ | **none was owed, and that is derivable rather than asserted.** `MOM_ACK_DATA.acknowledgedThrough` at `99eb648` reads `2026-08-03T11:56:17.964Z` — **exactly** her newest input across every channel at that moment. The commit is on `origin/main` |
+| 6 | the watermark stepped over nothing actionable | ✅ | `read-mom-feedback.py` prints **Ready to fold — (none)** and emits no held-back message; the four addressed notes each carry a disposition |
+| 7 | the seats the scoping table calls for either ran, or the chronicle names why not `[effective this lap]` | ✅ | none convened, named in the leg-4 row with the scoping-table reason. **This is criterion 7's first-ever scoring**, and it scored by the naming clause rather than by a seat running |
+
+**What the four-day gap actually cost, stated rather than glossed:** nothing in the world — the lap
+was genuinely finished, and every criterion holds. What it cost was *legibility*. For four days the
+chronicle held a closed lap that looked open, and the 08-10 interlap note asserted the closure in
+prose beside a section that did not carry it — **a fully-closed lap reads exactly like a live one**
+`[[feedback_unchecked_box_is_not_open_work]]`. The fix is the stamp, not a new control: laps are
+rare enough that a checker for this would fire less often than a reader would.
 
 ### What lap 3 inherits
 
