@@ -956,22 +956,100 @@ def _drop_harness(recs):
             if not (isinstance(r, dict) and r.get("deviceId") in h)]
 
 
-def _channel_latest(name, path, token, start, end):
-    """(newest_ts, count) for one channel, or (None, 0). Never raises."""
+_BENCH_IDS = None
+
+
+def bench_device_ids():
+    """Devices PAUL HIMSELF registered as his own bench/builder devices —
+    `excludeFromEngagement: true` in `tools/people.json`, minus the harness ids,
+    which are a stronger and separate claim (`harness_device_ids()`).
+
+    ⭐ WHAT THIS IS, AND WHAT IT IS CAREFULLY NOT (2026-08-12).
+
+    It is **not an attribution**. It never says a record is Mom's, and it never
+    says a record is *not* hers. It says exactly one thing, and the thing is
+    Paul's own declaration rather than our inference: *this browser bucket is one
+    Paul registered as a device he builds and tests from.* The funnel
+    (`read-mom-funnel.py`) and `analyze-fernwood.py` have honoured that
+    declaration since 2026-07-28; `mom-cycle-status.py` never did, which is why
+    Paul's own bench taps raised the same 🔴 as Mom speaking (BACKLOG Tier 1 · 9).
+
+    ⚠️ AND THE LINE, which is the whole reason this is not `harness_device_ids()`:
+    a bench device is **separated on the board, never dropped from the record**.
+    `_drop_harness` deletes; this classifies. The difference matters because Paul
+    shared his phone with Mom until 2026-07-28 and a deviceId is a browser bucket
+    rather than a person — so a consumer that *deleted* these records could
+    silently discard hers. A consumer that *names* them cannot: the count stays on
+    screen, and the escape is to go look.
+    """
+    global _BENCH_IDS
+    if _BENCH_IDS is None:
+        ids = set()
+        try:
+            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "people.json"), encoding="utf-8") as fh:
+                for p in (json.load(fh).get("people") or []):
+                    if p.get("excludeFromEngagement") and not p.get("isTestHarness"):
+                        ids.update(p.get("deviceIds") or [])
+        except (OSError, ValueError):
+            ids = set()          # absent/broken file -> classify nothing, the safe default
+        _BENCH_IDS = ids
+    return _BENCH_IDS
+
+
+def split_arrivals(records, ts_keys, cutoff=None, bench_ids=None):
+    """Split records into `bench` and `unresolved` by ORIGIN — pure, no network.
+
+    Returns {"bench": [ts...], "unresolved": [ts...]}, newest last, keeping only
+    records strictly newer than `cutoff` (None = keep everything with a stamp).
+
+    ⭐ THE BUCKET NAMES ARE THE POINT. There is no "hers" bucket, because nothing
+    here can earn one. `unresolved` means *we cannot tell*, and that includes a
+    record with no deviceId at all (every observations/guru record written before
+    2026-07-30 has none, and there is nothing to backfill from).
+
+    **It fails OPEN, in the only direction that is safe here:** an unknown device
+    and a missing device are both `unresolved`, so the board stays lit rather than
+    going quiet on something nobody has looked at. Only a device Paul explicitly
+    registered can move to `bench`.
+    """
+    bench_ids = bench_device_ids() if bench_ids is None else bench_ids
+    out = {"bench": [], "unresolved": []}
+    for r in records:
+        if not isinstance(r, dict):
+            continue
+        ts = next((r.get(k) for k in ts_keys if r.get(k)), None)
+        if not ts or (cutoff and ts <= cutoff):
+            continue
+        dev = r.get("deviceId")
+        out["bench" if (dev and dev in bench_ids) else "unresolved"].append(ts)
+    for k in out:
+        out[k].sort()
+    return out
+
+
+# Which key carries each channel's clock. Declared once so `_channel_records`
+# and `split_arrivals` cannot disagree about what "newest" means.
+CHANNEL_TS_KEYS = {
+    "feedback": ("ts",),
+    "observations": ("createdAt", "date"),
+    "zone-audio": ("uploadedAt",),
+    "pending-species": ("submittedAt",),
+    "guru": ("updatedAt", "startedAt"),
+}
+
+
+def _channel_records(name, path, token, start, end):
+    """Every non-harness, non-instrumentation record on one channel. Never raises
+    anything but ChannelError."""
     try:
         if name == "feedback":
             data = _get(path, token, {"start": start, "end": end})
             recs = [r for r in flatten(data) if not is_instrumentation(r)]
-            recs = _drop_harness(recs)
-            stamps = [r.get("ts") for r in recs]
         elif name == "observations":
-            data = _get(path, token)
-            recs = _drop_harness(data.get("observations") or [])
-            stamps = [r.get("createdAt") or r.get("date") for r in recs if isinstance(r, dict)]
+            recs = _get(path, token).get("observations") or []
         elif name == "zone-audio":
-            data = _get(path, token, {"start": start, "end": end})
-            recs = _drop_harness(data.get("recordings") or [])
-            stamps = [r.get("uploadedAt") for r in recs if isinstance(r, dict)]
+            recs = _get(path, token, {"start": start, "end": end}).get("recordings") or []
         elif name == "pending-species":
             # Per-day KV, same {days:{date:[records]}} shape as feedback — but the
             # records carry `submittedAt`, not `ts`, so flatten() does not apply.
@@ -979,20 +1057,55 @@ def _channel_latest(name, path, token, start, end):
             # (worker.js handleSuggestSpecies); `days=60` keeps us inside it, and
             # a wider call degrades to a named entry in `errors`, never a lie.
             data = _get(path, token, {"start": start, "end": end})
-            recs = _drop_harness([r for day in (data.get("days") or {}).values()
-                                  for r in (day or []) if isinstance(r, dict)])
-            stamps = [r.get("submittedAt") for r in recs]
+            recs = [r for day in (data.get("days") or {}).values()
+                    for r in (day or []) if isinstance(r, dict)]
         else:  # guru
-            data = _get(path, token, {"start": start, "end": end})
-            recs = _drop_harness(data.get("conversations") or [])
-            stamps = [r.get("updatedAt") or r.get("startedAt") for r in recs if isinstance(r, dict)]
+            recs = _get(path, token, {"start": start, "end": end}).get("conversations") or []
     except Exception as e:  # noqa: BLE001
         raise ChannelError(name, e)
+    return _drop_harness([r for r in recs if isinstance(r, dict)])
 
-    stamps = [s for s in stamps if s]
+
+def _channel_latest(name, path, token, start, end):
+    """(newest_ts, count) for one channel, or (None, 0). Never raises."""
+    recs = _channel_records(name, path, token, start, end)
+    keys = CHANNEL_TS_KEYS[name]
+    stamps = [ts for ts in (next((r.get(k) for k in keys if r.get(k)), None) for r in recs) if ts]
     if not stamps:
         return None, 0
     return max(stamps), len(stamps)
+
+
+def arrivals_by_origin(token, days=60, read_state=None):
+    """Per channel, arrivals NEWER THAN ITS READ MARK, split bench / unresolved.
+
+    This is the signal `mom-cycle-status.py` needs and never had: it answers
+    *"is there anything unread that could be hers?"* without ever claiming that
+    anything IS hers. Returns
+    {"channels": [{name, bench, unresolved, read_through}], "errors": [names]}
+    where `bench`/`unresolved` are {"count": int, "latest": ts|None}.
+    """
+    read_state = load_read_state() if read_state is None else read_state
+    today = dt.date.today()
+    start, end = str(today - dt.timedelta(days=days)), str(today)
+    out, errors = [], []
+    for name, path, _desc in CHANNELS:
+        try:
+            recs = _channel_records(name, path, token, start, end)
+        except ChannelError as e:
+            errors.append(e.channel)
+            continue
+        mark = (read_state.get(name) or {}).get("readThrough") or None
+        split = split_arrivals(recs, CHANNEL_TS_KEYS[name], cutoff=mark)
+        out.append({
+            "name": name,
+            "read_through": mark,
+            "bench": {"count": len(split["bench"]),
+                      "latest": split["bench"][-1] if split["bench"] else None},
+            "unresolved": {"count": len(split["unresolved"]),
+                           "latest": split["unresolved"][-1] if split["unresolved"] else None},
+        })
+    return {"channels": out, "errors": errors}
 
 
 class ChannelError(Exception):

@@ -55,6 +55,7 @@ Usage:
 """
 import argparse
 import datetime as dt
+import json
 import os
 import sys
 
@@ -86,6 +87,9 @@ def staleness(days):
 def main():
     ap = argparse.ArgumentParser(description="Is Mom's acknowledgment ribbon current, and did it ship?")
     ap.add_argument("--verbose", action="store_true", help="Print the report even when everything is green")
+    ap.add_argument("--json", action="store_true",
+                    help="Emit the findings as JSON (which RULES fired, not just an exit code) "
+                         "so a caller can tell UNREAD apart from STALE.")
     ap.add_argument("--acknowledged-through", metavar="TS", default=None,
                     help="Stamp MOM_ACK_DATA.acknowledgedThrough to this ISO timestamp "
                          "(use when the uncovered input was yours, not hers). Writes the CLOCK only, never the message.")
@@ -189,6 +193,28 @@ def main():
             "STALE",
             f"input landed that the ribbon doesn't cover (oldest uncovered "
             f"{age_h}h ago)" if age_h is not None else "input landed that the ribbon doesn't cover"))
+
+    # ---- machine-readable, for the board ----
+    #
+    # ⭐ WHY THIS EXISTS (2026-08-12). `mom-cycle-status.py` used to derive "the
+    # return leg is owed" from this tool's EXIT CODE, which is 1 for any problem —
+    # so R2b UNREAD ("nobody has looked at what landed") and STALE ("the ribbon is
+    # behind her") rendered as the same 🔴 at the same leg. They are different
+    # states with different costs: one is a five-minute read, the other is a Mom-
+    # facing card at Paul's gate. A caller that cannot tell them apart has to
+    # collapse them, so the discrimination has to live HERE.
+    if args.json:
+        print(json.dumps({
+            "problems": [k for k, _ in problems],
+            "detail": {k: v for k, v in problems},
+            "offline": offline,
+            "acknowledged_through": ack,
+            "newest_input": newest,
+            "unread": [u["name"] for u in unread],
+            "uncovered": [c["name"] for c in uncovered],
+            "shipped": ribbon["shipped"],
+        }, indent=2, ensure_ascii=False))
+        return 1 if problems else 0
 
     # ---- report ----
     if not problems and not args.verbose:
