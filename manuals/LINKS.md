@@ -33,6 +33,31 @@ A manual we have found but not yet downloaded is a row **here**; downloading it 
 `INDEX.md`. That migration *is* the ingestion, and it makes "known but not held" a visible state
 rather than an invisible one. Rows marked **📥 INGEST** below are queued for exactly that.
 
+### ⚠️ The two cmsnl parts fiches — MEASURED 2026-08-12, and the fix in this file does NOT transfer
+
+The two 📥 Suzuki rows below (`cmsnl.com`) have sat queued because "the host 403s automated reads."
+That is right, and it is now diagnosed rather than observed:
+
+```
+curl (bare)                 -> 403
+curl -A "<real Chrome UA>"  -> 403, 5,505 bytes
+  title:  "Attention Required! | Cloudflare"
+  server: cloudflare
+```
+
+**It is Cloudflare bot management, not user-agent sniffing.** That distinction matters because this
+file's own standing example points the other way — *"`ocautocarpets` is the standing demonstration:
+403 to bare `curl`, 200 on a User-Agent swap alone."* **That remedy does not work here**, and left
+unqualified it sends the next reader down a dead end. Recorded so nobody re-measures it.
+
+The remaining door is a **real browser** (`fetch-tabs` already carries the same finding: Cloudflare
+blocks headless). ⏸ **Still parked, and not on the fetch.** These are *interactive multi-page parts
+fiches* — one page per assembly, not a PDF — so ingestion is a per-assembly capture, and the row's
+own caveat is a judgement gate an agent must not close: **2004 fiche vs a 2001 bike, confirm
+applicability per assembly, don't assume.**
+**unpark_when:** Paul wants a specific assembly's part numbers (then capture that assembly, not the
+catalogue), or a browser-driven capture is run with him confirming year applicability as it goes.
+
 ### Tiers
 
 Reused verbatim from `.private/service-records/bronco-1989/SOURCES.md` rather than invented here —
