@@ -168,9 +168,15 @@ two she has to tell apart. The affirmative grammar is now a single shared compon
 > (`66d2789` / `fba4a1c` / `2c58a4e`). **Per this repo's own architecture note, most domains render from the
 > INLINED constant — so un-re-inlined source is simply NOT IN THE APP.**
 > **Deliberately not auto-fixed.** CLAUDE.md's drift rule is explicit that the point is a *human signal that
-> the addition is legit*, not a tidy-up: confirm the additions → `check-data-inline.py --fix` → verify clean →
-> `RELEASE_NOTES.md` entry if a card changed → commit → deploy the Worker.
-> Falsifier: `check-data-inline.py` exits 0.
+> the addition is legit*, not a tidy-up.
+> ↻ **2026-08-12 — this block is now a POINTER; the live row is Tier 1 · 8 below, and this copy was WRONG
+> ABOUT THE REMEDY.** Two statements of one thread had drifted apart in the dangerous direction: this one
+> prescribed a bare `check-data-inline.py --fix`, which is the exact command row 8 warns against — it
+> re-inlines *anything else* drifted at that moment, not just vehicles. It also never learned that
+> `worker/digest.json` is stale on the same section, so following it would leave **Garden Guru answering
+> from the superseded vehicle record** while the dashboard went green. Read row 8 for the scoped sequence
+> (`reinline.reinline_from_source` → `build-digest.py` → `deploy-worker.sh`) and the pinned provenance.
+> Falsifier for the thread: `check-data-inline.py` **and** `check-digest-fresh.py` both exit 0.
 
 ## 🔥 TIER 1 · FIX NOW — remaining
 
