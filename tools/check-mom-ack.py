@@ -221,7 +221,13 @@ def main():
         return 0
 
     if problems:
-        print("🎗  Mom's acknowledgment ribbon needs you.\n")
+        print("🎗  Mom's acknowledgment ribbon needs you.")
+        # ⭐ WHICH RULE, on its own stable line (2026-08-12). "needs you" alone
+        # cannot distinguish a five-minute read (UNREAD) from a Mom-facing card at
+        # Paul's gate (STALE) — and a reader who has to infer that from the body
+        # will infer it wrong. It is also the line the control page parses, so the
+        # page and this report can never disagree about which rule fired.
+        print(f"   rules fired: {', '.join(k for k, _ in problems)}\n")
     else:
         print("🎗  Mom's acknowledgment ribbon — all green.\n")
 

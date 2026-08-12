@@ -474,6 +474,15 @@ def gather():
             raise RuntimeError("no token at .private/fernwood-token")
         return momlib.ack_receipts(tok, days=60)
 
+    def _arrivals():
+        # The ARMED/FIRED discriminator (2026-08-12). Arrivals past each channel's
+        # read mark, split bench / unresolved by ORIGIN — never by person. Without
+        # it this page inherits the exact defect the board just shed: Paul's own
+        # bench taps reading as Mom speaking.
+        if not tok:
+            raise RuntimeError("no token at .private/fernwood-token")
+        return momlib.arrivals_by_origin(tok)
+
     jobs = {
         # ⭐⭐ D6 (2026-08-04 review) — ONE ENGINE, ONE MEASUREMENT.
         #
@@ -496,6 +505,7 @@ def gather():
         "metrics": lambda: gather_metrics(tok, metrics_since, since),
         "channels": _channels,
         "receipts": _receipts,
+        "arrivals": _arrivals,
         "health": lambda: fetch(momlib.WORKER_URL + "/health"),
         "live": lambda: fetch(LIVE_VIEWER),
     }
@@ -539,18 +549,38 @@ def gather():
             g["status"]["error"] = ("one or more detectors did not run, so the loop's "
                                     "position cannot be derived this run")
         else:
+            # ⭐ WHICH RULE FIRED, not just "the exit code was 1" (2026-08-12).
+            # `check-mom-ack.py` is 1 for ANY finding, so deriving `owed` from the
+            # code put R2b UNREAD ("nobody has looked at what landed") and R1/R2
+            # STALE ("the ribbon is behind her") on the same leg wearing the same
+            # red. The tool now prints `rules fired: …` on its own stable line;
+            # parsing that ONE line keeps this page and the terminal twin unable to
+            # disagree, without a second invocation (D6).
+            ack_out = (g["checks"]["check-mom-ack.py"].out or "")
+            fired = set()
+            for ln in ack_out.splitlines():
+                if "rules fired:" in ln:
+                    fired = {p.strip() for p in ln.split("rules fired:", 1)[1].split(",")}
+                    break
+            arr = results.get("arrivals")
+            arr = arr if isinstance(arr, dict) and "channels" in arr else {"channels": []}
             sig = {
                 "served_queue": {"clean": cards == 0, "source": "check-cards.py",
                                  "detail": []},
-                "return_leg": {"owed": ack != 0, "source": "check-mom-ack.py",
-                               "unread": "R2b" in (g["checks"]["check-mom-ack.py"].out or "")
-                                         and "🔴" in (g["checks"]["check-mom-ack.py"].out or "")},
+                "return_leg": {"owed": bool(fired & {"STALE", "NOT SHIPPED", "NO CLOCK"}),
+                               "source": "check-mom-ack.py",
+                               "why": sorted(fired),
+                               "unread": "UNREAD" in fired},
                 "canon_surfaces": {"clean": inline == 0 and digest == 0,
                                    "source": "check-data-inline.py + check-digest-fresh.py"},
+                "arrivals": {"source": "momlib.arrivals_by_origin", **arr},
             }
-            at_leg, needs_paul = CYCLE.position(sig)
-            g["status"].update({"at_leg": at_leg, "needs_paul": bool(needs_paul),
-                                "signals": sig})
+            at_leg, state, needs_paul = CYCLE.position(sig)
+            unresolved, bench = CYCLE.arrival_counts(sig)
+            g["status"].update({"at_leg": at_leg, "state": state,
+                                "needs_paul": bool(needs_paul), "signals": sig,
+                                "unresolved_arrivals": unresolved,
+                                "bench_arrivals": bench})
     except Exception as e:  # noqa: BLE001
         g["status"]["error"] = f"could not derive position: {type(e).__name__}: {e}"
 
@@ -667,8 +697,25 @@ def verdict(g):
     ret, queue = sig.get("return_leg") or {}, sig.get("served_queue") or {}
     if ret.get("owed"):
         v["yours"].append(("p1", "the return leg — she has given something the ribbon does not cover"))
-    if ret.get("unread"):
+
+    # ⭐ ARMED vs FIRED, on the page as on the board (2026-08-12). An unread
+    # channel used to land in YOURS unconditionally — so Paul's own bench taps
+    # summoned him here exactly as they lit the terminal twin. Split by ORIGIN,
+    # never by person: `unresolved` is a summons, `bench` is a note.
+    # ⚠️ Fails SAFE. If the arrivals signal could not be gathered at all (no
+    # token, no network), there is no origin information, and an unread channel
+    # goes back to being YOURS — a missing discriminator must never buy silence.
+    arrivals = sig.get("arrivals") or {}
+    unresolved, bench = CYCLE.arrival_counts(sig)
+    if unresolved:
+        v["yours"].append(("p1", f"{unresolved} arrival(s) nobody has read, from a browser "
+                                 "nobody registered — it could be hers"))
+    elif ret.get("unread") and not (arrivals.get("channels") or []):
         v["yours"].append(("p1", "a channel holds input nothing has actually read"))
+    if bench:
+        v["notes"].append(("p1", f"{bench} bench arrival(s) from devices you registered as "
+                                 "your own — separated, not dropped"))
+
     if not queue.get("clean", True):
         v["yours"].append(("p2", "the served queue contradicts reality"))
     if v["needs_paul"] and not v["yours"]:
@@ -1499,6 +1546,14 @@ No model ran to produce this page. It cannot tell a quiet loop from a neglected 
 
 # ══════════════════════════════════════════════════════════════ selftest ═════
 
+def _arr(unresolved=0, bench=0):
+    """An `arrivals` signal fixture, in `momlib.arrivals_by_origin`'s shape."""
+    return {"channels": [{"name": "guru", "read_through": None,
+                          "bench": {"count": bench, "latest": "2026-08-09T00:00:00Z"},
+                          "unresolved": {"count": unresolved,
+                                         "latest": "2026-08-09T00:00:00Z"}}]}
+
+
 def _g(needs_paul=False, at_leg="1", error=None, checks=None, **signals):
     """Build a synthetic gather() dict carrying only what verdict() reads.
 
@@ -1536,8 +1591,19 @@ def selftest():
     cases = [
         ("owed return leg surfaces as YOURS",
          _g(return_leg={"owed": True}), "YOURS", "p1"),
-        ("an unread channel surfaces as YOURS",
+        ("an unread channel with NO origin signal surfaces as YOURS (fails safe)",
          _g(return_leg={"unread": True}), "YOURS", "p1"),
+        # ⭐ The 2026-08-10 case, on this page. Three arrivals, all from devices
+        # Paul registered as his own: a NOTE, never a summons.
+        ("bench-only arrivals are a note, not YOURS",
+         _g(return_leg={"unread": True}, arrivals=_arr(bench=3)), "CLEAR", None),
+        # NEGATIVE CONTROL — the same three from a browser nobody registered must
+        # still summon him. An exclusion that can go quiet on an unknown device is
+        # the failure this whole split exists to avoid.
+        ("an arrival from an UNREGISTERED browser still surfaces as YOURS",
+         _g(return_leg={"unread": True}, arrivals=_arr(unresolved=3)), "YOURS", "p1"),
+        ("one unresolved among bench traffic still surfaces as YOURS",
+         _g(return_leg={"unread": True}, arrivals=_arr(unresolved=1, bench=9)), "YOURS", "p1"),
         ("a contradicted served queue surfaces as YOURS",
          _g(served_queue={"clean": False}), "YOURS", "p2"),
         ("needs_paul with no itemised signal still surfaces (belt and braces)",
