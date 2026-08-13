@@ -6,13 +6,25 @@ name: Deploy Worker
 # rebuild digest -> deploy -> health-check, then commit the rebuilt digest back
 # so the repo stays in sync with what's deployed.
 #
-# ONE-TIME SETUP (Paul): add a repo secret CLOUDFLARE_API_TOKEN
-#   - Cloudflare dashboard -> My Profile -> API Tokens -> Create Token
-#       -> "Edit Cloudflare Workers" template (scope it to this account)
-#   - GitHub: repo Settings -> Secrets and variables -> Actions -> New secret
-#       name: CLOUDFLARE_API_TOKEN
-# Until that secret exists this workflow runs GREEN and simply skips the deploy
-# (see the guard on env.CF_TOKEN below) — it never fails a push.
+# ✅ SETUP DONE 2026-08-13 — the repo secret is FERNWOOD_AUG_2026 [paul-chosen].
+# The Cloudflare token behind it: "fernwood-worker-deploy (GitHub Actions)", built
+# from the "Edit Cloudflare Workers" template, scoped to Paul's account only, with
+# the template's zone-scoped Workers Routes permission REMOVED — this Worker serves
+# from tate-tracker.paul-kirschenbauer.workers.dev, a workers.dev subdomain with no
+# custom zone, so that permission would have forced a zone grant the deploy never uses.
+# Add it back only if Fernwood moves to a custom domain.
+#
+# ⚠️ THE SECRET NAME IS LOAD-BEARING AND ITS FAILURE IS SILENT. The guard below is
+# `if: env.CF_TOKEN != ''`, so a secret under any OTHER name means this workflow runs
+# GREEN and simply skips the deploy — a passing check and nothing deployed. That is
+# not hypothetical: on 2026-08-13 the secret was first added as CLOUDFLARE_API_TOKEN's
+# name-mismatch twin and would have done exactly this. It is the same shape as the
+# 2026-08-08 record-weather.yml break, which failed every 6 hours for four days while
+# the dashboard stayed green (see CLAUDE.md) — a break in CI is invisible from the
+# front end. If a deploy seems not to land, CHECK THIS NAME FIRST.
+#   Rename procedure (GitHub cannot rename a secret): add the new name with the same
+#   value, change BOTH `secrets.` references below, delete the old one, then prove it
+#   with a workflow_dispatch run — not by reading the settings page.
 
 on:
   push:
@@ -48,7 +60,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
       WORKER_URL: https://tate-tracker.paul-kirschenbauer.workers.dev
     steps:
       - uses: actions/checkout@v4
@@ -70,15 +82,23 @@ jobs:
       - name: Verify digest matches a fresh rebuild
         run: python3 tools/check-digest-fresh.py
 
-      - name: Skip notice (no CLOUDFLARE_API_TOKEN yet)
+      # This step firing at all means the deploy did NOT happen. It is the only
+      # visible trace of a silent skip, so it names the exact secret rather than
+      # saying "the token" — a generic message is what makes a name mismatch hard
+      # to spot in a green run.
+      - name: Skip notice (secret FERNWOOD_AUG_2026 not visible)
         if: env.CF_TOKEN == ''
-        run: echo "CLOUDFLARE_API_TOKEN secret not set — skipping deploy. Add it in repo Settings to enable auto-deploy."
+        run: |
+          echo "::warning::NO DEPLOY. Repo secret FERNWOOD_AUG_2026 is empty or absent, so the deploy and health check were skipped. This run is green and deployed NOTHING. Check the secret's exact name in Settings -> Secrets and variables -> Actions."
 
       - name: Deploy Worker (wrangler)
         if: env.CF_TOKEN != ''
         working-directory: worker
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # The ENV VAR name is fixed by wrangler — it reads CLOUDFLARE_API_TOKEN and
+          # nothing else, so do NOT rename the left side to match the secret. Only the
+          # right side (which secret supplies the value) is ours to choose.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
         run: npx --yes wrangler@4 deploy
 
       - name: Health check
