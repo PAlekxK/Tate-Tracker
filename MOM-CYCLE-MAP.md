@@ -44,7 +44,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked |
 | **6 · GATE** 👤 | **6a PREVIEW** → **6b TELEMETRY** (does the instrumentation fire?) → **6c PROXY** (her-eyes check) → **6d** the return leg as exact text | **Paul** | he has flipped through it, `check-telemetry.py` is clean or its gaps are named, the proxy's flags are dispositioned, he approves, and it is **pushed** |
-| **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped |
+| **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced — and **the ship VERIFIED against the live URL** `[paul-stated 2026-08-14]` | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped; **`check-live.py` exits 0** — until it does, the lap shipped nothing, whatever git says |
 
 **The loop closes at leg 7 → leg 1.** What makes it a cycle rather than a checklist is that leg 7's
 watermark decides what leg 1 surfaces next lap — and the clamp means a lap cannot close over
@@ -177,6 +177,7 @@ decoration**, so where one exists because something went wrong, that is named.
 | `tools/fold-answer.py` | apply what she settled, with Paul confirming | the watermark used to step over unfolded answers — the loop's **only silent-data-loss path** |
 | `tools/mom-cycle-status.py` | **where in the loop are we, and is anything mine?** | five green exit codes never answered "is anything waiting on me" |
 | `tools/check-telemetry.py` | **has every instrumented event actually FIRED?** | 08-02 shipped three events "so the window's final week measures them." Two had **never fired** and the third first fired **12h after Mom's only session** — and her zero was written into the backlog and the cycle log as a finding |
+| `tools/check-live.py` | **is what Mom can LOAD the same as what we committed?** | 08-14: Paul tapped "Show radar" on his phone and asked if it landed. It could not have — **Pages was still serving the pre-lap build**, and every other check read green. A commit is not a ship; a **push is not a ship either**, because Pages rebuilds asynchronously |
 | `tools/check-cycle-map.py` | is this map still true? | hand-maintained facts drift, and always flatteringly |
 
 > ⚠️ **The shape that recurs across half of these: a mechanism that inspects as present and has

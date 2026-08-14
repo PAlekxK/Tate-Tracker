@@ -11,7 +11,7 @@ amended mid-lap.
 
 ---
 
-## Lap 3 — 2026-08-14 · ⏸ OPEN AT LEG 6 (Paul's gate) · **the lap that found the loop measuring the wrong door**
+## Lap 3 — 2026-08-14 · ✅ CLOSED — shipped `c83d2b7`+`09cafd4`, pushed, and **verified live** · **the lap that found the loop measuring the wrong door**
 
 **Fired by:** her input, 2026-08-14 8:27–8:28 AM ET — she asked the Almanac *the best fertilizer for
 her boxwoods*, landing on two channels (Guru conv `mssx9l49-ittwb`, turnCount 2; observation
@@ -30,8 +30,8 @@ open.
 | **3 · RESOLVE** | ⭐ settled at **tier 1 and tier 2 — no card drafted.** See below |
 | **4 · EXPERT** | `user-researcher` → `content-steward`. `ux-expert` **skipped by the scoping table** (this lap produces words + invisible instrumentation, no structure change) |
 | **5 · SHIP** | instrumentation (invisible to her); canon re-inline + digest rebuild |
-| **6 · GATE** | ⏸ **open** — preview staged, telemetry checked, ribbon + season note + noun fix await Paul |
-| **7 · CLOSE** | pending leg 6 |
+| **6 · GATE** | ✅ preview staged (PID-verified) → telemetry checked → **Paul approved the ribbon and the instrumentation** → pushed. Proxy seat **skipped — still unbuilt** (`build-proxy-packet.py` exists, the walk does not) |
+| **7 · CLOSE** | zone-audio disposition recorded · channel read-marks attested · watermark advanced · chronicle written as the lap ran · **`check-live.py` exits 0 — the live page is byte-identical to HEAD** |
 
 ### ⛔ THE FINDING: `card_expanded` was measuring the one door we had already replaced
 
@@ -118,6 +118,22 @@ again three weeks later.** This is *capture is not a loop* (07-26 doctrine) appl
 was never applied to. The season note is the first thing that makes the record hold the answer.
 Filed, not fixed — a per-item lifecycle on `/api/observations` + Guru turns is a real build.
 
+### Scored against the pre-registered clean-lap definition
+
+| # | criterion | verdict |
+|---|---|---|
+| 1 | every leg that ran left its artifact | ✅ one row per leg, each pointing at something durable |
+| 2 | legs 1, 6, 7 never empty | ✅ all three ran |
+| 3 | she is served nothing she has already answered | ✅ `check-cards.py` exit 0 |
+| 4 | every channel with newer input attested read | ✅ incl. zone-audio, which required *listening* (a transcript), not a stamp |
+| 5 | **the return leg SHIPPED** | ✅ `origin/main` carries the ribbon commit **and `check-live.py` confirms Pages actually serves it** — strictly stronger than criterion 5 as written, and the reason that tool now exists |
+| 6 | watermark did not step over anything actionable | ✅ clamp held |
+| 7 | seats the scoping table called for ran, or the chronicle says why not | ✅ researcher + steward ran; ux-expert's skip recorded with its reason |
+
+**7/7 — CLEAN.** ⚠️ And clean still does not mean she felt heard: `momack_shown` counts exposure,
+not receipt. The one thing we can honestly claim is that the record now holds the boxwood answer it
+did not hold when she asked the first time.
+
 ### Decisions
 
 | # | decision | supersedes | why now | evidence |
@@ -127,7 +143,8 @@ Filed, not fixed — a per-item lifecycle on `/api/observations` + Guru turns is
 | D3 | **Do NOT move or default-open the radar this lap** | the tempting reflex to act on her 08-13 relay immediately | position, not state, is the defect; and moving it now would confound *reaching the card* with *reaching the radar* permanently. Bounded by a **trigger + pre-registered rule**, not "later" | rule 5's caveat (intentional · journey-aware · data-supported) |
 | D4 | **Ship a real change (the boxwood season note) BEFORE acknowledging her question** | acknowledging the ask on its own | a card headed *"what your question changed"* over something that changed nothing inverts the ribbon's charter into a changelog; and she has now asked twice, which is evidence the record never held the answer | `content-steward`, this lap; `plants.json` `care.fertilize.months=[2,3]` |
 | D5 | **The ribbon's noun follows the door she came through** — "question" when the input carries no `feedback` channel | hardcoded *"what your **answer** changed"* | her 08-14 input was a question asked through the Almanac; the same small untruth class as silently correcting "household systems" | derived from `MOM_ACK_DATA.channels`, not a hand-set field |
-| D6 | **No Mom card this lap** | the reflex to ask her about the radar | tier 2 already answered it on 07-29 (*likes it, could not find it*); a verdict-class ask about a layout she cannot self-report, against a queue with **zero taps since 08-03** | `BACKLOG` W8·a; funnel |
+| D6 | **The lap does not close until the LIVE page matches HEAD** — `check-live.py` at step 7-pre, and the public URL recorded in `CLAUDE.md` | *"shipping means a push"* (July) | a push is not a ship: Pages rebuilds asynchronously, and on 08-14 Paul's phone tap hit the stale build while every repo check read green | `tools/check-live.py`; falsified at `HEAD~2` |
+| D7 | **No Mom card this lap** | the reflex to ask her about the radar | tier 2 already answered it on 07-29 (*likes it, could not find it*); a verdict-class ask about a layout she cannot self-report, against a queue with **zero taps since 08-03** | `BACKLOG` W8·a; funnel |
 
 ### Honest state at the gate
 
@@ -162,6 +179,28 @@ Filed, not fixed — a per-item lifecycle on `/api/observations` + Guru turns is
   own procedure. Both transcribe + read tools added to the block; Leg 1's row in the map updated.
   ⭐ **And "it was Paul" is now a DISPOSITION, not a dismissal** — *nobody listened* and *we listened
   and it was his* must never print the same thing.
+- ✅ **PROVEN ON PRODUCTION, 11:27 AM ET** — walked against the live GitHub Pages build under the
+  segregated harness device, flushed, and read back out of `/api/metrics`:
+  **`card_expanded {cardId:"card-weather", via:"strip"}`** — the blind spot, closed and demonstrated
+  on the exact door that was silent — and **`radar_toggled {shown:true}`**.
+- ⛔ **`radar_section_viewed` remains UNPROVEN, and the cause is now identified rather than guessed:
+  IntersectionObserver is wholly inert in the automation tab.** A fresh observer on `document.body`
+  at threshold **0** returned **zero** entries, when the spec requires an initial one for any observed
+  target — the tab never leaves `visibilityState: "hidden"`, and IO does not compute for a hidden
+  page. A probe suggesting `observeSections()` registered nothing could not be separated from that
+  same cause and **is not recorded here as a defect**; the shipped function was read back in the live
+  page and does contain the `querySelectorAll` → `sectionObserver.observe` call. Bounding the risk:
+  the sibling `card_section_viewed` uses the identical mechanism and has fired 220× on Mom's device,
+  and a direct `track("radar_section_viewed")` lands correctly. **One tap on a real phone settles it.**
+- ⭐ **THE LAP'S LAST FINDING, and it changes the loop: a PUSH is not a SHIP.** Paul tapped "Show
+  radar" on his phone and asked if it landed; it had not, because **Pages was still serving the
+  pre-lap build** (~2 minutes behind) while every check in the repo read green. His 11:10 AM session
+  carried `jumpstrip_tapped` with **no `card_expanded`** — the bug caught live, in production, by the
+  person the fix was for. New tool **`tools/check-live.py`** (loop step **7-pre**) hashes the live
+  page against `HEAD:viewer.html`; **the public URL now lives in `CLAUDE.md`**, having lived nowhere
+  in this repo before today. ✅ **Verified able to FAIL before adoption** — run from a worktree at
+  `HEAD~2` it correctly reported 🔴 / exit 1, and the sha it printed was exactly the stale build
+  measured earlier. A gate with no failure behind it is decoration.
 - 🧪 The local preview's `localStorage` is left holding the harness deviceId **deliberately** — any
   clicking Paul does at `localhost:8765` records as segregated test traffic that every analysis tool
   drops, rather than polluting the pool.

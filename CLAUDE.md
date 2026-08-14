@@ -245,6 +245,34 @@ The single most important structural principle for Fernwood. It came out of the 
 
 **Trust is the load-bearing emotion** (a confidently-wrong model is worse than an honestly-unsure one): keep *measured* signals visually distinct from *modeled* ones, and estimates legibly estimates at every altitude.
 
+## ⭐ Where Mom actually loads it — and the check that proves a ship `[paul-stated 2026-08-14]`
+
+**The live app: <https://palekxk.github.io/Tate-Tracker/viewer.html>** (GitHub Pages, served from
+`main`). ⚠️ **This URL was recorded nowhere in this repo until 2026-08-14** — a session had to *ask
+Paul for it* before it could verify anything had shipped, which is precisely the kind of fact that
+must not depend on a human being awake.
+
+```bash
+python3 tools/check-live.py            # is the live page byte-identical to HEAD?
+python3 tools/check-live.py --wait 180 # poll after a push while Pages rebuilds
+```
+
+⭐⭐ **A COMMIT IS NOT A SHIP — AND NEITHER IS A PUSH.** This file has said "shipping means a push"
+since July. That was already too weak, and *nothing verified even the push*. Pages rebuilds
+**asynchronously** (measured: ~2 minutes on 08-14), and during that window every check in this repo
+reads green while Mom is loading last week's file.
+
+**It cost a real reading the day it was written.** Lap 3 instrumented `radar_toggled`; Paul then
+tapped "Show radar" on his phone and asked whether it had landed. It had not, and could not have —
+Pages was still serving the pre-lap build. The record showed it deterministically rather than by
+inference: his 11:10 AM session carried `jumpstrip_tapped` with **no `card_expanded` at all**, and
+the only `card_expanded` that day carried `via: None`, a field that exists only in the new code.
+
+**Run it at the END of every lap** (loop step 7-pre) and before reading any telemetry. Its boundary,
+stated so it does not read as full coverage: it verifies **one file**. The Worker is
+`deploy-worker.sh` + `/health`; Guru's context is `check-digest-fresh`; and **a phone can still serve
+a cached copy long after Pages is correct** — hard-refresh before trusting any walk.
+
 ## How to run
 
 Open `viewer.html` directly in a browser — no build step, no server, no install. For Playwright testing or CORS-sensitive API testing, serve locally:
