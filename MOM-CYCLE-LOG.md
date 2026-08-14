@@ -183,15 +183,21 @@ did not hold when she asked the first time.
   segregated harness device, flushed, and read back out of `/api/metrics`:
   **`card_expanded {cardId:"card-weather", via:"strip"}`** — the blind spot, closed and demonstrated
   on the exact door that was silent — and **`radar_toggled {shown:true}`**.
-- ⛔ **`radar_section_viewed` remains UNPROVEN, and the cause is now identified rather than guessed:
-  IntersectionObserver is wholly inert in the automation tab.** A fresh observer on `document.body`
-  at threshold **0** returned **zero** entries, when the spec requires an initial one for any observed
-  target — the tab never leaves `visibilityState: "hidden"`, and IO does not compute for a hidden
-  page. A probe suggesting `observeSections()` registered nothing could not be separated from that
-  same cause and **is not recorded here as a defect**; the shipped function was read back in the live
-  page and does contain the `querySelectorAll` → `sectionObserver.observe` call. Bounding the risk:
-  the sibling `card_section_viewed` uses the identical mechanism and has fired 220× on Mom's device,
-  and a direct `track("radar_section_viewed")` lands correctly. **One tap on a real phone settles it.**
+- ✅ **`radar_section_viewed` PROVEN — 2026-08-14 11:38 AM ET, Paul's iPhone**, alongside
+  `card_expanded {via:"strip"}` and `radar_toggled {shown:true}` in the same session. **All three
+  events shipped today are now confirmed in the record.** The observer wiring was sound; the silence
+  was entirely the harness, as diagnosed — IntersectionObserver is inert in the automation tab
+  (`visibilityState: "hidden"`; a fresh observer on `document.body` at threshold **0** returned zero
+  entries where the spec requires one). ⭐ **The searched-negative was reported as one and it was the
+  right call:** had this been written up as "the observer does not work," a correct mechanism would
+  have been rebuilt to fix a bug that did not exist. A probe that *looked* like a wiring defect was
+  inseparable from the harness cause, and saying so is what left the finding recoverable by one tap.
+  ⚠️ **Paul's walk does NOT trigger the pre-registered rule.** Both signals firing reads as *nothing
+  is broken*, but that rule was pre-registered about **HER** journey; he knew where the radar was and
+  went straight to it. His tap proves the **instrument**, not her path — cashing the rule here would
+  be the cleanest available way to fool ourselves. **The rule stays armed; the trigger is unchanged.**
+  Incidental proof of the blind spot itself, same device, same morning: his 10:31 AM `card_expanded`
+  carries **no `via`**, his 11:38 one carries `via: "strip"`.
 - ⭐ **THE LAP'S LAST FINDING, and it changes the loop: a PUSH is not a SHIP.** Paul tapped "Show
   radar" on his phone and asked if it landed; it had not, because **Pages was still serving the
   pre-lap build** (~2 minutes behind) while every check in the repo read green. His 11:10 AM session
