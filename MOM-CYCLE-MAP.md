@@ -38,7 +38,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | leg | what happens | who | how it is known to be done |
 |---|---|---|---|
 | **0 · GUARD** | is another session in this repo? | ai | `git log --oneline -1` at start and again before committing; HEAD unmoved |
-| **1 · READ** | the deterministic sweep — the checks in `CLAUDE.md`'s session-start block (**derive the list from there, never count it here** — this row said "five" and was stale inside a day) | ai | all five run; the work-list is collected from their output, never from a backlog row |
+| **1 · READ** | the deterministic sweep — the checks in `CLAUDE.md`'s session-start block (**derive the list from there, never count it here** — this row said "five" and was stale inside a day) | ai | every check in that block run; the work-list is collected from their output, never from a backlog row. ⭐ **Includes HER VOICE** — `read-mom-zone-audio.py` + `transcribe-…` joined the block 2026-08-14 `[paul-stated]`; it was named in the table below and absent from the sweep, so the loop could not reach the channel by running its own procedure |
 | **2 · TRIAGE** | every item lands in exactly one of correctness / feature / ambiguous / preference | ai | each item routed; a two-class item split |
 | **3 · RESOLVE** 👤 | the ambiguity ladder: telemetry → **Paul** → only then a card | **Paul at tier 2** | settled at the cheapest tier that can settle it |
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |

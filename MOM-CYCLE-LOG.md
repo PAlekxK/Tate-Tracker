@@ -11,6 +11,167 @@ amended mid-lap.
 
 ---
 
+## Lap 3 — 2026-08-14 · ⏸ OPEN AT LEG 6 (Paul's gate) · **the lap that found the loop measuring the wrong door**
+
+**Fired by:** her input, 2026-08-14 8:27–8:28 AM ET — she asked the Almanac *the best fertilizer for
+her boxwoods*, landing on two channels (Guru conv `mssx9l49-ittwb`, turnCount 2; observation
+`c-r1q4agta-mssxb5z9`). Board read 🔴 FIRED / 2 unresolved arrivals. Correct trigger: **her** input,
+not our cadence.
+
+**Carried in:** four questions from Paul's session — is the usage pattern positive · what
+instrumentation to add · what to ask her about the weather card/radar · should the radar always be
+open.
+
+| leg | what happened |
+|---|---|
+| **0 · GUARD** | `b9472e6`, clean tree, HEAD unmoved at commit time |
+| **1 · READ** | all eight session-start checks run; `check-domains` · `check-cards` · `check-data-inline` · `check-digest-fresh` green, `check-mom-ack` 🔴 STALE+UNREAD |
+| **2 · TRIAGE** | her boxwood ask → **Feature** (the record does not hold the answer) + ribbon-owed. Paul's four → Leg 3 |
+| **3 · RESOLVE** | ⭐ settled at **tier 1 and tier 2 — no card drafted.** See below |
+| **4 · EXPERT** | `user-researcher` → `content-steward`. `ux-expert` **skipped by the scoping table** (this lap produces words + invisible instrumentation, no structure change) |
+| **5 · SHIP** | instrumentation (invisible to her); canon re-inline + digest rebuild |
+| **6 · GATE** | ⏸ **open** — preview staged, telemetry checked, ribbon + season note + noun fix await Paul |
+| **7 · CLOSE** | pending leg 6 |
+
+### ⛔ THE FINDING: `card_expanded` was measuring the one door we had already replaced
+
+`expandCard()` sets `.expanded` **directly**, and the only `card_expanded` emit lived in the header
+`toggle()`. So **all 14 `expandCard()` call sites opened cards silently** — the 8 dashboard teaser
+cells, the 3 acknowledgment-ribbon links, the jump strip, the Almanac-history link. Every *designed*
+route into a card was invisible; the header tap — the control we replaced on 07-29 precisely because
+it was too easy to miss — was the only one counted.
+
+**It produced a real wrong reading inside this session, before anyone checked.** "She has not opened
+the weather card since 06-22" was derived from that zero and stated to Paul. She had in fact reached
+it **five times on 08-11–08-12** through the strip. Same family as lap 1's unmeasured zero, one level
+deeper: not an event that never fired, but an event whose *code path* was never wired.
+
+⚠️ **The insight already existed and was applied to the wrong artifact.** `viewer.html:7189` says
+`.expanded` has four writers and routes all four through `syncCardHeaderState` so the pill cannot
+misreport its state. Nobody applied the same reasoning to the metric. **A control that misreports its
+state was treated as a bug; a metric that misreports the world was not.**
+
+⚠️ **Counts before 2026-08-14 are header-taps only. Do not pool them with what comes after.**
+
+### Leg 3 — the ladder held, and tier 2 had already answered
+
+**Tier 1 (telemetry/canon) settled Paul's Q1 and Q2.** Q3 — *what should we ask her about the radar?*
+— was already answered at **tier 2 three weeks ago**: `BACKLOG.md` W8·a, 07-29, Paul-relayed — she
+likes the radar *"but didn't know how to access it."* Asking again would re-ask a question she has
+answered, in the worst (verdict) class, about a preference she cannot be wrong on. **No card
+drafted.** Her queue holds 5 live cards with **zero taps since 08-03**.
+
+### What the record says about how she uses this app
+
+Her active days vs. quiet days, 85-day overlap window, against the on-site station's own rain record:
+
+| | active (28 d) | quiet (57 d) |
+|---|---|---|
+| mean rainfall | **0.573"** | 0.193" |
+| median rainfall | **0.38"** | **0.00"** |
+| any rain | 20/28 | 26/57 |
+
+Permutation test, 20 000 draws: **p = 0.0015**; survives dropping her wettest active day. She was on
+the app for **5 of the 8 wettest days**. `[inferred]` **She opens Fernwood when the weather is doing
+something.** Correlational, and rain days cluster so exchangeability is imperfect — but it converges
+with 5-of-6 jump-strip taps landing on Weather and with both of her relays.
+
+### 📌 PRE-REGISTERED DECISION RULE — read this before moving the radar
+
+Written **before** the data exists, so the answer cannot be chosen after the fact.
+
+- **`radar_section_viewed` fires, `radar_toggled` does not** → the **door** is the problem. Upgrade
+  the toggle to the ratified cards-as-doors treatment (labelled pill, real button semantics,
+  `body.text-lg` entry). Do **not** move the section.
+- **Neither fires** → **position** is the problem. Move the radar under *Right now*, above Forecast —
+  its correct altitude under *freshness sets altitude* + *source-hierarchy drives layout*.
+- **Both fire** → nothing is broken. Close the thread and stop.
+
+**Trigger, not a date** (her radar behaviour is storm-driven, so a calendar is the wrong clock): read
+it at **the next rain event carrying a Weather jump-strip tap**, or the next lap, whichever is first.
+
+⚠️ **Default-open was considered and rejected.** The radar renders *last* in the weather card, below
+the "Where does this data come from?" methodology accordion — a 240px map auto-opened there is as
+invisible as a closed one to a reader who does not scroll that far, while paying the full Leaflet +
+CartoDB + RainViewer + ~13–15 tile-layer + animation cost on every weather expansion, on a rural
+connection. **Position is the defect; state is not.**
+
+### Leg 4 — seat measurement (per the 08-04 amendment)
+
+| seat | position | changed the artifact? | overturned an earlier seat? |
+|---|---|---|---|
+| `user-researcher` | 1 | **YES** — turned a 1-event patch into a **2-event pair**, on the argument that `radar_toggled` alone cannot separate *never scrolled to it* from *scrolled and didn't tap*, and those have **opposite fixes**. Also corrected the main session's rationale: the strip's effect on reaching the card is *already* measured; what is unmeasured is reaching the radar **inside** it | n/a (first) |
+| `ux-expert` | — | **skipped — scoping table**, no structure change proposed this lap | — |
+| `content-steward` | 3 | **YES** — rejected acknowledging an ask that changed nothing (that inverts the ribbon's charter into a changelog from the opposite direction), producing the **boxwood season note**; and caught that the ribbon title says *"what your **answer** changed"* over an input that was a **question** | no |
+
+Both seats' load-bearing structural claims were **spot-checked before use** and held: radar renders
+below the methodology accordion; `.radar-section-title` 13px / `.radar-toggle-btn` 11px (smaller than
+the 14px chevron replaced on 07-29); **zero** `body.text-lg` radar rules; canon's own
+`care.fertilize.description` names the pH gap the ribbon's second bullet discloses.
+
+### ⚠️ The gap this lap exposed and did NOT close: the Almanac has no lifecycle
+
+She asked about feeding boxwoods on **07-26** ("diluted filter water") and again on **08-14**. The
+07-26 ask appears nowhere in `feedback-log.json` — that log covers `/api/feedback`, and hers came
+through the Almanac. **Guru answered in the moment and the record learned nothing, so she asked
+again three weeks later.** This is *capture is not a loop* (07-26 doctrine) applied to the channel it
+was never applied to. The season note is the first thing that makes the record hold the answer.
+Filed, not fixed — a per-item lifecycle on `/api/observations` + Guru turns is a real build.
+
+### Decisions
+
+| # | decision | supersedes | why now | evidence |
+|---|---|---|---|---|
+| D1 | **Instrument the second layer: `card_expanded` fires from `expandCard()` too, carrying `via`** (header · dash · strip · ack · almanac-history) | `card_expanded` on the header toggle alone, since 2026-05-20 | the zero produced a **stated wrong finding this session**; and the app's *designed* doors — the ones we built to fix her access problem — were the exact ones going uncounted | `viewer.html` toggle + `expandCard()`; 14 call sites |
+| D2 | **Instrument the radar as a PAIR** — `radar_section_viewed` + `radar_toggled` | no radar telemetry of any kind | one event cannot separate *never scrolled to it* from *scrolled and did not tap*, and those have **opposite fixes**; the pair is what makes the pre-registered rule decidable | `user-researcher`, this lap |
+| D3 | **Do NOT move or default-open the radar this lap** | the tempting reflex to act on her 08-13 relay immediately | position, not state, is the defect; and moving it now would confound *reaching the card* with *reaching the radar* permanently. Bounded by a **trigger + pre-registered rule**, not "later" | rule 5's caveat (intentional · journey-aware · data-supported) |
+| D4 | **Ship a real change (the boxwood season note) BEFORE acknowledging her question** | acknowledging the ask on its own | a card headed *"what your question changed"* over something that changed nothing inverts the ribbon's charter into a changelog; and she has now asked twice, which is evidence the record never held the answer | `content-steward`, this lap; `plants.json` `care.fertilize.months=[2,3]` |
+| D5 | **The ribbon's noun follows the door she came through** — "question" when the input carries no `feedback` channel | hardcoded *"what your **answer** changed"* | her 08-14 input was a question asked through the Almanac; the same small untruth class as silently correcting "household systems" | derived from `MOM_ACK_DATA.channels`, not a hand-set field |
+| D6 | **No Mom card this lap** | the reflex to ask her about the radar | tier 2 already answered it on 07-29 (*likes it, could not find it*); a verdict-class ask about a layout she cannot self-report, against a queue with **zero taps since 08-03** | `BACKLOG` W8·a; funnel |
+
+### Honest state at the gate
+
+- ✅ **`zone-audio` deliberately left 🔴 UNREAD.** One 6-second Fairway clip, 08-09 1:52 PM ET,
+  almost certainly Paul's bench (his laptop posted "this is Paul… disregard" at 1:53 PM the same
+  minute) — but **nobody has listened, so nothing may attest that they have.** A detection mechanism
+  must be clearable only by the act it detects the absence of.
+- ✅ **Two of the three new signals are PROVEN to fire**, walked under the segregated harness device
+  `d-telemetrytest-harness-v1` and read back out of the client buffer:
+  `card_expanded {cardId:"card-weather", via:"strip"}` — **the blind spot closed, demonstrated on the
+  exact path that was silent** — and `radar_toggled {shown:true}`.
+- ⚠️ **`radar_section_viewed` is UNPROVEN, and that is a statement about the harness, not the code.**
+  The automation tab never reaches `document.visibilityState === "visible"`, and **IntersectionObserver
+  does not compute intersections for a hidden page** — so the observer could not be exercised at all.
+  A probe suggesting `observeSections()` made no `observe()` call could not be separated from the same
+  cause, and **is not reported here as a defect**, only as unresolved. Two things bound the risk: the
+  sibling `card_section_viewed` uses the *identical* mechanism and has fired 220× on Mom's device, and
+  a direct `MetricsCollector.track("radar_section_viewed")` lands correctly, so the name and the sink
+  are good. ⛔ **Do not read this event's zero as behaviour until a human has seen it fire in a real
+  window** — which is precisely the one-line check `check-telemetry.py` asks for.
+  **This is the lap's own instance of the rule it was written to honour: a searched-negative, reported
+  as one, not promoted to a finding.**
+- ✅ **RESOLVED IN-LAP — zone audio, and the structural gap under it** `[paul-stated 2026-08-14]`.
+  The 08-09 1:52 PM Fairway clip is **Paul's bench test, disregarded**, attributed on three
+  independent legs: the transcript's own words (*"testing… disregard this data"*), the `deviceId`
+  `d-avslqpyd` (his laptop, `excludeFromEngagement`), and his observation one minute later on the
+  same device saying the same thing. Marked reviewed + read. ⚠️ The transcript is a model read
+  (`[transcript-UNVERIFIED]`) — it supports a **disregard**, and could not promote anything to canon.
+  **The real finding is why it reached Leg 6 at all:** `read-mom-zone-audio.py` was named in this
+  map's checks table and in the loop's doctrine, and was **not in `CLAUDE.md`'s session-start block**
+  — the list Leg 1 derives its sweep from. The loop could not reach her voice channel by running its
+  own procedure. Both transcribe + read tools added to the block; Leg 1's row in the map updated.
+  ⭐ **And "it was Paul" is now a DISPOSITION, not a dismissal** — *nobody listened* and *we listened
+  and it was his* must never print the same thing.
+- 🧪 The local preview's `localStorage` is left holding the harness deviceId **deliberately** — any
+  clicking Paul does at `localhost:8765` records as segregated test traffic that every analysis tool
+  drops, rather than polluting the pool.
+- 🐛 **Caught in-lap:** the section observer first built its event name as `key + "_section_viewed"`.
+  It works at runtime and is **invisible to `check-telemetry.py`**, whose `EMIT_RX` matches only a
+  quoted literal inside `track(`. The clever version would have recreated this loop's most expensive
+  bug while looking tidier. Rewritten to emit literals via `SECTION_TRACKERS`.
+
+---
+
 ## Interlap note — 2026-08-10 · **no lap ran — and this is the state the loop is supposed to be in**
 
 Third interlap note, and unlike 08-06/08-07 this one is not "the work was meta." A Mom surface

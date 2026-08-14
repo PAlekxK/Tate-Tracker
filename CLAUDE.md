@@ -15,7 +15,27 @@ python3 tools/check-cards.py               # does the SERVED card queue match re
 python3 tools/rationalize-bench.py         # is anything we're serving OUT OF SEASON, and what's on the bench?
 python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — the Mom-check counter (ALWAYS one line) + her NEW answers and anything unanswered
 python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — decline vs. misunderstanding
+python3 tools/read-mom-zone-audio.py       # ⭐ HER VOICE — stage any new recordings; a channel nobody sweeps is a channel nobody hears
+python3 tools/transcribe-mom-zone-audio.py # make them readable (local whisper, .private/, UNVERIFIED — see the AI boundary)
 ```
+
+**⭐ ZONE AUDIO IS PART OF THE SWEEP, not a leftover** `[paul-stated 2026-08-14]`: *"zone audio
+should definitely be read and measured as part of the mom cycle early on… when we do a full sweep
+for feedback, it should include that for sure. If that particular thing is me, that's fine, we can
+disregard it — but be sure that we record that as a part of the cycle."*
+
+**The gap this closes, and it is a structural one.** `read-mom-zone-audio.py` was named in
+`MOM-CYCLE-MAP.md`'s checks table and in the loop's own doctrine — and it was **not in this block**,
+which is the list Leg 1 derives its sweep from. So the loop could not reach her voice channel by
+running its own procedure. That is why 3 of 5 recordings once sat unlistened while the ribbon read
+green, and why on 2026-08-14 a clip surfaced only at **Leg 6**, as a leftover, rather than at Leg 1.
+A channel absent from the sweep is not a low-priority channel; it is an unreachable one.
+
+**And "it was Paul" is a DISPOSITION, not a dismissal.** A bench clip gets *recorded as checked and
+attributed*, because *nobody listened* and *we listened and it was Paul's* must never print the same.
+Attribute from the recording's own CONTENT (the transcript), never from device shape — the standing
+rule in `tools/people.json`. ⚠️ A transcript is a **model read**, `[transcript-UNVERIFIED]`: it may
+support a disregard, and it may never promote anything to canon on its own.
 
 **⭐⭐ AND THIS BLOCK IS THE LOOP'S TRIGGER, not just a status read** `[paul-stated 2026-08-10]`.
 *"Continue to monitor for Mom's feedback, and then when we get it, that's a trigger to start a

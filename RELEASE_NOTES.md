@@ -4,6 +4,17 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-14 — When to feed the boxwoods
+
+- **The Boxwood card now says when to fertilize.** Its August line covered watering and blight and
+  said nothing about feeding, so the timing lived only in the care calendar. It now says feeding
+  waits for early spring — a late feed pushes soft growth that won't harden before winter.
+- **The soil-pH caveat is stated, not implied.** Boxwoods here want a less acidic soil than Church
+  Mountain Road's native range, and fertilizer does little until that's corrected. The card gives the
+  timing and stops short of naming a product, because the pH for those beds isn't in the record yet.
+
+---
+
 ## 2026-08-10 — A picture for the grass question
 
 - **The fairway grass question now shows you what to look for.** It asked whether the low,
