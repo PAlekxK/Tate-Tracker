@@ -4,6 +4,17 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-14 — A proper door to the radar
+
+- **The live radar is easier to find.** It used to be a small "SHOW" chip tucked at the end of the
+  Weather card, smaller than anything around it. It's now a single wide button that says what it
+  does — *Show the live radar* — and says *Hide the live radar* once it's open.
+- **It's still inside the Weather card**, in the same place as before. Only the button changed.
+- **If the radar ever fails to load**, the button now says so plainly and invites another tap,
+  instead of showing the word "Error".
+
+---
+
 ## 2026-08-14 — When to feed the boxwoods
 
 - **The Boxwood card now says when to fertilize.** Its August line covered watering and blight and
