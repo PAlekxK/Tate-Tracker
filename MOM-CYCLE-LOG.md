@@ -80,12 +80,18 @@ with 5-of-6 jump-strip taps landing on Weather and with both of her relays.
 
 Written **before** the data exists, so the answer cannot be chosen after the fact.
 
-- **`radar_section_viewed` fires, `radar_toggled` does not** → the **door** is the problem. Upgrade
-  the toggle to the ratified cards-as-doors treatment (labelled pill, real button semantics,
-  `body.text-lg` entry). Do **not** move the section.
+- ~~**`radar_section_viewed` fires, `radar_toggled` does not** → the **door** is the problem. Upgrade
+  the toggle to the ratified cards-as-doors treatment.~~ ⛔ **AMENDED 2026-08-14 — THIS BRANCH'S
+  REMEDY WAS SPENT BEFORE ITS DATA WAS READ** (ux-expert F1). The door was rebuilt the same day, so
+  "upgrade the toggle" is no longer available as a next move and `radar_toggled` from here measures
+  the NEW door. **Replacement branch:** viewed-but-not-toggled now means the door is the ratified
+  treatment *and she still does not open it* — which is no longer a styling question. Next move is
+  **position**, or a past-behaviour question to Paul. It is NOT another styling pass.
+  ⚠️ **And subtract `radar_load_failed` from `radar_toggled` before reading any branch** — a tap
+  that failed to load records `{shown:true}` and would otherwise read as a successful open.
 - **Neither fires** → **position** is the problem. Move the radar under *Right now*, above Forecast —
   its correct altitude under *freshness sets altitude* + *source-hierarchy drives layout*.
-- **Both fire** → nothing is broken. Close the thread and stop.
+- **Both fire** (net of `radar_load_failed`) → nothing is broken. Close the thread and stop.
 
 **Trigger, not a date** (her radar behaviour is storm-driven, so a calendar is the wrong clock): read
 it at **the next rain event carrying a Weather jump-strip tap**, or the next lap, whichever is first.
@@ -101,8 +107,8 @@ connection. **Position is the defect; state is not.**
 | seat | position | changed the artifact? | overturned an earlier seat? |
 |---|---|---|---|
 | `user-researcher` | 1 | **YES** — turned a 1-event patch into a **2-event pair**, on the argument that `radar_toggled` alone cannot separate *never scrolled to it* from *scrolled and didn't tap*, and those have **opposite fixes**. Also corrected the main session's rationale: the strip's effect on reaching the card is *already* measured; what is unmeasured is reaching the radar **inside** it | n/a (first) |
-| `ux-expert` | — | **skipped — scoping table**, no structure change proposed this lap | — |
-| `content-steward` | 3 | **YES** — rejected acknowledging an ask that changed nothing (that inverts the ribbon's charter into a changelog from the opposite direction), producing the **boxwood season note**; and caught that the ribbon title says *"what your **answer** changed"* over an input that was a **question** | no |
+| `ux-expert` | 2 | ⚠️ **Skipped at scoping, then RAN POST-HOC on 08-14 after Paul caught the gap** — the lap's shape changed (it shipped a Mom-facing surface) and nobody re-ran the scoping table. **YES, changed the artifact:** the 📡 glyph (the door re-spent the *measured-on-property* legend glyph, `viewer.html:7531`, on RainViewer — a third-party modelled source, in the card that teaches the distinction), the map not scrolling into view on open, and the 11px controls *behind* the door. Also caught **F1** — the pre-registered rule's branch-1 remedy had been spent before its data was read | **YES — it overturned the main session's own claim** that fixing the door cost nothing measurable |
+| `content-steward` | 3 | **YES ×2.** On the ribbon (below). And POST-HOC on the door copy, where it found a **critical live bug** — the `(forecast)` label test read `idx >= (indexOf(find(…)) \|\| Infinity)`; with no nowcast frames `indexOf(undefined)` is `-1`, **`-1` is truthy**, so the test became `idx >= -1` and **every OBSERVED frame was labelled "(forecast)"**. ⭐ Verified live: RainViewer was serving **0 nowcast frames at that moment**, so **13 of 13 frames were mislabelled in production** — the app telling her rain she can see is a prediction, the 07-26 rainfall failure again. It also killed the word "live" (the map *rests* on a predicted frame) and caught that the release note quoted the button verbatim, so the two would have disagreed by one word. Original ribbon finding: rejected acknowledging an ask that changed nothing (that inverts the ribbon's charter into a changelog from the opposite direction), producing the **boxwood season note**; and caught that the ribbon title says *"what your **answer** changed"* over an input that was a **question** | no |
 
 Both seats' load-bearing structural claims were **spot-checked before use** and held: radar renders
 below the methodology accordion; `.radar-section-title` 13px / `.radar-toggle-btn` 11px (smaller than
@@ -133,6 +139,17 @@ Filed, not fixed — a per-item lifecycle on `/api/observations` + Guru turns is
 **7/7 — CLEAN.** ⚠️ And clean still does not mean she felt heard: `momack_shown` counts exposure,
 not receipt. The one thing we can honestly claim is that the record now holds the boxwood answer it
 did not hold when she asked the first time.
+
+### Leg 5 step — FIRST EVALUATION of "walk an event's other paths" `[added 2026-08-14, provisional]`
+
+**Caught anything? YES — on its first application, before it was even committed.**
+`radar_toggled {shown:true}` fires at TAP time, before the map loads. On a failed load the code
+reverted `_radarVisible` but the event had already claimed the radar opened — so a **broken** radar
+would have recorded as a successful open and satisfied the *"both fire → nothing is broken"* branch
+of a pre-registered rule, closing a thread on a broken feature. Fixed by adding `radar_load_failed`
+as the subtraction, and the failure path was **walked in the browser** (init forced to throw): the
+record now reads `radar_toggled{shown:true}` → `radar_load_failed`, and the door reverts honestly.
+⚠️ One data point is not a validated step. Two more laps decide it under the DEMOTE rule.
 
 ### Decisions
 

@@ -42,7 +42,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **2 · TRIAGE** | every item lands in exactly one of correctness / feature / ambiguous / preference | ai | each item routed; a two-class item split |
 | **3 · RESOLVE** 👤 | the ambiguity ladder: telemetry → **Paul** → only then a card | **Paul at tier 2** | settled at the cheapest tier that can settle it |
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
-| **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked |
+| **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked. ⭐ **Any NEW EVENT walks its other paths first** — every route in, the failure path, the reach path `[paul-approved 2026-08-14, PROVISIONAL]`. See § Leg 5, below |
 | **6 · GATE** 👤 | **6a PREVIEW** → **6b TELEMETRY** (does the instrumentation fire?) → **6c PROXY** (her-eyes check) → **6d** the return leg as exact text | **Paul** | he has flipped through it, `check-telemetry.py` is clean or its gaps are named, the proxy's flags are dispositioned, he approves, and it is **pushed** |
 | **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced — and **the ship VERIFIED against the live URL** `[paul-stated 2026-08-14]` | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped; **`check-live.py` exits 0** — until it does, the lap shipped nothing, whatever git says |
 
@@ -271,6 +271,40 @@ every one of them is a zero somebody could mistake for behaviour. Filed as **W12
 
 **What it will not do:** prove an event is *correctly* wired. A never-fired event may just be a path
 nobody has walked. It FLAGS; a human triggers the path once and confirms it lands.
+
+---
+
+## Leg 5 — an event is only as true as its worst path `[paul-approved 2026-08-14 · PROVISIONAL]`
+
+Paul: *"let's put your standing habit into the cycle, and we can evaluate whether it makes sense over
+time."* So it is a step, and it ships with the test that could retire it.
+
+**Before new instrumentation counts as done, enumerate — in writing — three things.** Each row is a
+failure this loop actually paid for, all three on 2026-08-14:
+
+| walk | the question | what it cost when skipped |
+|---|---|---|
+| **every route IN** | who else sets the state you are measuring? | `card_expanded` fired only from the header toggle while `.expanded` had **four** writers. 14 `expandCard()` sites — the dashboard cells, the ribbon links, the jump strip — opened cards silently, and the zero became a stated wrong finding |
+| **the FAILURE path** | what does the event claim if the thing then fails? | `radar_toggled {shown:true}` fired **before** the map loaded. A failed load would have read as a successful open and satisfied the *"both fire → nothing is broken"* branch of a pre-registered rule — closing a thread on a broken feature |
+| **the REACH path** | is this code the code she is running? | a push is not a ship; Pages served the stale build while every check read green. That is why `check-live.py` is leg 7-pre |
+
+⭐ **The shape all three share: a signal TRUE in the case the author pictured and silently FALSE
+everywhere else.** One habit missing three times, not three bugs.
+
+⚠️ **It does not replace leg 6b.** That asks *did it fire?*; this asks *is it true?* An event can
+fire perfectly and still lie — and a lying event is worse than a missing one, because it survives
+every check and gets believed.
+
+### The evaluation, pre-registered
+
+Scored at **every lap that adds or changes an event**; the chronicle records **caught anything? yes/no
++ what**. Two decision rules, written now so they cannot be adjusted to fit the result:
+
+1. **DEMOTE** — nothing caught across **3 consecutive laps in which it ran** → it becomes a comment in
+   `check-telemetry.py` rather than a step. Same standard the expert seats are held to: a step with no
+   catch behind it is decoration.
+2. **PROMOTE** — if it keeps catching, build the mechanical half into `check-telemetry.py`. It already
+   parses every `track()` site; *enumerating a state's other writers* is the half a human still does.
 
 ---
 

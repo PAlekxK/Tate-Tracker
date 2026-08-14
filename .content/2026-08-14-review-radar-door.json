@@ -1,0 +1,182 @@
+{
+  "review_id": "content-2026-08-14-radar-door",
+  "project": "Fernwood (Tate-Tracker)",
+  "subject": "The radar's door inside the Weather card — four states in setRadarDoor() (viewer.html:13973-13989), plus the shipped release note that quotes them (RELEASE_NOTES_DATA 2026-08-14, 'A proper door to the radar')",
+  "surface": "UI",
+  "audience": "Mom — make-or-break user; reads with difficulty; opens Fernwood when the weather is doing something (MOM-CYCLE-LOG lap 3: app opened on 5 of the 8 wettest days, 5-of-6 jump-strip taps land on Weather); has told Paul twice she likes the radar and once (07-29, Paul-relayed, BACKLOG W8-a) that she didn't know how to access it",
+  "voice_charter_applied": "fernwood.md (+ cross-project/voice-and-stance.md)",
+  "tone_register": "instructional — a control label, not prose; the closed state is advertising, the open state is dismissal, the error state is honest-failure",
+  "review_date": "2026-08-14",
+  "reviewer_mode": "review",
+  "post_hoc": true,
+  "could_be_anyone_test": "fail",
+  "could_be_anyone_note": "As shipped, 'Show the live radar' is the generic weather-app phrase — the word 'live' is imported from the TV/weather-app register, not from her. What makes this control right is knowledge of her (she calls it 'the radar'), and 'live' is the one word in it that no one on this project chose for her. Deleting it moves the label to pass: it then carries only the noun she uses.",
+  "anchor_check": "pass",
+  "anchor_note": "Anchored via the reader's own word rather than via the property. Per fernwood.md 'Anchored naming beats field-journal-fluent naming' — name the thing, not the register — and cross-project 'Credit, don't thank' corollary: if she named it, that is its name. Over-anchoring a control ('the radar over Tate Mountain') would be a mistake.",
+  "findings": [
+    {
+      "id": "F1",
+      "area": "voice",
+      "severity": "important",
+      "observation": "'live' in 'Show the live radar' / 'Hide the live radar'. It is the only word in the control that came from the weather-app register rather than from her, and it survived by accident: the section used to be headed '📡 Live Radar', the heading was absorbed into the button, and the adjective rode along. Nothing in the record shows anyone chose it for this control. It also costs a reader with difficulty one extra word before she reaches the noun that does the work, and it is the word most likely to be skipped — meaning she parses 'Show the … radar' anyway.",
+      "voice_principle_invoked": "could-be-anyone test; 'Credit, don't thank' → adopt their words, never improve them; fernwood.md make-or-break-user test",
+      "recommendation": "Delete 'live' from both states. closed: \"Show the radar\" · open: \"Hide the radar\". This is the whole recommended change to the button — one word, deleted twice — and it has the side benefit of making all four states name the object identically ('the radar' in every state), which they currently do not.",
+      "alternative_drafts": ["Show the radar", "Hide the radar"]
+    },
+    {
+      "id": "F2",
+      "area": "accuracy",
+      "severity": "important",
+      "observation": "'live' is also a promise the surface does not honor, and the mismatch is structural, not pedantic. initRadarMap() concatenates data.radar.past with data.radar.nowcast, sets _radarCurIdx to the LAST frame, and stepRadarAnim() deliberately pauses 1600ms there ('so latest data is visible' — the comment is wrong; the last frame is the furthest-out forecast, not the latest observation). So the map she opens under a button reading 'live' comes to rest on predicted rain. The only thing on screen that says otherwise is the '(forecast)' suffix in .radar-frame-indicator at 10.5px in #6a8a6a — the smallest, faintest text in the section, under a 15px/600-weight claim.",
+      "voice_principle_invoked": "cross-project 'Register follows audience — severity vocabulary is set by the cost of missing' (the loudest marker must be true of the thing it sits on); Fernwood precedent — the 2026-07-26 rainfall incident, 'when she disbelieves a number, SHE is the instrument'",
+      "recommendation": "Same one-word fix as F1 resolves the copy side: with 'live' gone, the button asserts nothing about latency and the frame indicator is free to carry the qualifier. Separately, hand to engineering: resting the loop on the newest OBSERVED frame rather than the furthest forecast frame would make the default view honest without any copy at all. Not a copy fix and not mine to make.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F3",
+      "area": "accuracy",
+      "severity": "critical",
+      "observation": "Latent bug that puts a false word on her surface. viewer.html:14094 computes the forecast suffix as `idx >= (_radarFrames.indexOf(_radarFrames.find(f => f.path.includes(\"nowcast\"))) || Infinity)`. When RainViewer returns no nowcast frames, find() is undefined, indexOf(undefined) is -1, and -1 is TRUTHY — so the fallback to Infinity never fires and the expression becomes `idx >= -1`, which is true for every frame. Every observed radar frame would be labelled '(forecast)'. Line 14092 above it (`... && false; // placeholder`) is dead code left in place.",
+      "voice_principle_invoked": "Fernwood 2026-07-26 rainfall lesson 1 — 'a measured signal must never be silently replaced by a modelled one on the glance'; the cost is teaching the one person who checks the app against the actual sky that the record disagrees with her eyes",
+      "recommendation": "Engineering hand-off, not a copy edit. Compute the nowcast boundary as past.length and label frames at or beyond it; delete the dead line 14092. Flagged critical because the failure mode is the app telling her that rain she can see out the window is a forecast — but note honestly that it only fires when the RainViewer payload carries no nowcast array, which is not the normal case.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F4",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The button strings are quoted VERBATIM in copy that already shipped to her. RELEASE_NOTES_DATA 2026-08-14 'A proper door to the radar', bullet 1: '…a single wide button that says what it does — *Show the live radar* — and says *Hide the live radar* once it's open.' The Recent updates card renders the latest five entries, so this is live on her surface right now. Change the button without changing the note and the changelog and the button disagree by one word.",
+      "voice_principle_invoked": "Standing rule 1 (2026-07-29) — consistency outranks semantic precision on Mom's surfaces; Fernwood 2026-07-26 rainfall lesson 2 — to a reader with difficulty, two surfaces disagreeing is not depth, it is evidence the app is broken",
+      "recommendation": "If the word change ships, edit the release note in the SAME commit and push. Proposed bullet 1: \"**The radar has its own button now.** One wide button across the Weather card that says *Show the radar* — and *Hide the radar* once it's open.\"",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F5",
+      "area": "voice",
+      "severity": "important",
+      "observation": "Release note bullet 1 opens with archaeology: 'It used to be a small \"SHOW\" chip tucked at the end of the Weather card, smaller than anything around it.' This change traces to her 07-29 relay that she could not find the radar. The note therefore describes her observation back to her, in the app's own voice, while crediting her with nothing — the app noticing the problem rather than her having reported it. Paul's own constraint on this review is 'do not reflect them back at her', and the surface that is supposed to carry her contributions is the ribbon, not the changelog.",
+      "voice_principle_invoked": "cross-project 'Credit, don't thank'; ribbon doctrine consequence 2 — 'every line traces to something she gave' belongs on the ribbon, and a change she did not cause belongs in Recent updates",
+      "recommendation": "Drop the archaeology. Describe what the button IS now, not what the old one was wrong about — see the bullet 1 rewrite in F4. Whether the change should instead (or additionally) be credited to her on the ribbon is Paul's call and is in open questions; if he wants that, it needs wording that credits without quoting her.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F6",
+      "area": "voice",
+      "severity": "important",
+      "observation": "Release note bullet 3: 'If the radar ever fails to load, the button now says so plainly and invites another tap, instead of showing the word \"Error\".' Two problems. It pre-announces a failure mode to a reader whose documented fear is doing things wrong, about a state she has never seen and may never see — planting the idea that the radar breaks. And it is now the only place on her surface where the word 'Error' appears at all: the note explaining that the word was removed is what reintroduces it.",
+      "voice_principle_invoked": "fernwood.md 'Field journal, not task manager' → Avoid list (no alarm vocabulary); the register is audience-derived and Mom is the audience",
+      "recommendation": "Delete bullet 3. The improved error state is real and worth having; it is not worth telling her about in advance. Keep bullet 2 ('It's still inside the Weather card, in the same place as before') — that one earns its space, because it tells a reader who navigates by position that nothing moved.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F7",
+      "area": "clarity",
+      "severity": "important",
+      "observation": "Release note TITLE: 'A proper door to the radar'. 'Door' is this repo's internal doctrine word (cards-as-doors, .radar-door, 'THE RADAR'S DOOR'). On her surface it is a metaphor she has to decode before she learns what changed, and 'proper' quietly implies the last one was improper — the same self-criticism as F5, compressed into the headline.",
+      "voice_principle_invoked": "could-be-anyone test inverted — internal team vocabulary leaking onto a reader's surface; fernwood.md make-or-break-user test",
+      "recommendation": "Retitle to something concrete she will recognise on screen: \"A bigger button for the radar\".",
+      "alternative_drafts": ["A bigger button for the radar", "The radar's button is bigger now"]
+    },
+    {
+      "id": "F8",
+      "area": "length",
+      "severity": "important",
+      "observation": "The error string is 40 characters in a flex row with two sibling glyphs and `line-height: 1`. On a ~360px phone the label span has roughly 220px of inner width at 15px/600 — it wraps to two lines that touch, because line-height is 1 and there is no wrap rule. Under body.text-lg (17px, padding 14px 18px) it is worse. The one state she reads under mild frustration is the one most likely to render cramped.",
+      "voice_principle_invoked": "ux-expert hand-off (content-steward → ux-expert: do not rewrite copy to compensate for a surface problem)",
+      "recommendation": "The sentence is right — do not shorten it to fit. Hand the wrap to ux-expert/engineering: a line-height of ~1.25 when the label wraps, or `flex-wrap` handling on .radar-door. Recording it here so the copy is not blamed for a layout constraint.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F9",
+      "area": "clarity",
+      "severity": "important",
+      "observation": "The radar footer's only timestamp is `\"Loaded \" + ts`, set from `new Date()` at init — the time SHE opened it, not the age of the picture. Combined with a button that says 'live', there is nothing on the surface that tells her how old what she is looking at is, and 'Loaded 3:42 PM' reads exactly like a data time.",
+      "voice_principle_invoked": "Fernwood 2026-07-26 rainfall lesson 2 — 'two numbers on one card that measure different things must say which is which'",
+      "recommendation": "Copy side: the word 'Loaded' is doing provenance work it cannot do. If the frame's own timestamp is available (it is — frame.time), the honest line is the newest observed frame's time. Suggested string once engineering can supply it: \"Radar as of 3:35 PM\". Until then \"Opened 3:42 PM\" at least stops it from impersonating a data time. Low-cost, but it is downstream of F2/F3 and should ship with them, not before.",
+      "alternative_drafts": ["Radar as of 3:35 PM", "Opened 3:42 PM"]
+    },
+    {
+      "id": "F10",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "Verb-pair divergence. Every other door in this app says Open/Close — the .main-card-chevron pill (syncCardHeaderState: `label.textContent = open ? \"Close\" : \"Open\"`), the Weather card's own header pill inches above this control, Mama's Perspective. The radar door introduces Show/Hide. The pre-registered remedy in MOM-CYCLE-LOG lap 3 said to 'upgrade the toggle to the ratified cards-as-doors treatment', and the structural half of that landed (labelled pill, real button semantics, body.text-lg entry at viewer.html:192). The word pair did not carry over, and nothing in the record says that was a decision.",
+      "voice_principle_invoked": "Standing rule 1 (2026-07-29) — one learnable signal beats two precise ones she has to tell apart; standing rule 5 caveat — 'reversing a decision is fine; reversing it without noticing we are reversing it is not'",
+      "recommendation": "KEEP Show/Hide — do not change it. Two reasons. 'Show' is the word that advertises a feature; 'Open' is more abstract and this control's job is discovery. And Show→Hide names the reversal of the exact thing she just did, which is the reversibility message carried by structure rather than by a sentence — the same move standing rule 5 asks for. The action here is one line in MOM-CYCLE-LOG recording that the verb was deliberately not carried over, so the divergence is a decision on the record instead of a silent drift someone re-litigates in three weeks.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F11",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "observation": "EXAMINED — NO CHANGE. 'Bringing up the radar…' (loading). It sits in the established Fernwood loading-state family — 'Listening for the station…' (this very card, viewer.html:6242), 'Listening for what's calling…', 'Looking at the month…', 'Checking the sky…' — same present-participle shape, same plain register. It is not twee: 'bring up the radar' is what a person says out loud. It is also not clever, which is the actual test. The only thing separating it from its siblings is that they are verbs of attention and this is a verb of fetching; that is a distinction no reader will feel.",
+      "voice_principle_invoked": "fernwood.md Examples → loading-state register (Pass list)",
+      "recommendation": "Leave exactly as shipped. With 'live' deleted from the other two states it also becomes the phrase that sets the object's name for all four.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F12",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "observation": "EXAMINED — NO CHANGE. 'The radar didn't load — tap to try again' (error). It holds the field-journal register: no 'Error', no red, no urgency, names what failed and what to do. It is also already the house error grammar — the app says 'Couldn't save just now — tap the mic to try again' (10090, 12097), 'Didn't catch that — tap the mic and speak, then try again' (10080, 12090), 'Tap allow when your device asks for the microphone, then try again' (10098, 12078). On 'tap' specifically: it is settled house vocabulary across eight-plus of her strings, plus 'Tap on the map' (9579) and 'Tap to note what you see out there' (16053). Making this one string 'tap or click' would break a pattern she is learning in order to be pedantically right on a device she mostly is not using — consistency outranks precision here, and 'tap' is the word that stays. Naming no object ('tap to try again') is correct, because the thing to tap is the button showing the message.",
+      "voice_principle_invoked": "Standing rule 1 (2026-07-29) — consistency outranks semantic precision on Mom's surfaces; fernwood.md 'Describe the lake, don't define worth' (honest state, no verdict)",
+      "recommendation": "Leave exactly as shipped. See F8 for the layout risk, which is not a copy problem.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F13",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "observation": "EXAMINED — NO CHANGE. The word 'radar' itself. Paul asked whether describing what she'd SEE ('where the rain is') would serve her better. It would not, and the reason is a ratified principle rather than a preference: she has used 'radar' with Paul (relayed twice), and 'adopt their words, never improve them' exists in this library BECAUSE of the 'household systems' incident — she coined a term, hedged it might be wrong, was right, and the app quietly restated it in house words for a reader whose stated fear is getting words wrong. Replacing 'radar' with a friendlier description would be the identical move on the identical reader. The technical-term worry also inverts here: 'radar' is the plainer word, because it is the TV-weather word she already owns, and 'where the rain is' is the one someone invented for her.",
+      "voice_principle_invoked": "cross-project 'Credit, don't thank' → corollary: adopt their words, never improve them",
+      "recommendation": "Keep 'radar'. Do not gloss it, do not append 'where the rain is', do not offer both. If a gloss is ever wanted, the map itself is the gloss — she opens it once and the word is anchored to a picture.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F14",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "observation": "EXAMINED — DOES NOT FIRE. Standing rule 5, 'EVERYTHING IS CHANGEABLE', does not apply to this control and no reassurance clause should be attached to it. That rule governs things SHE has given us — an answer, a list, an ordering, a naming — where a permanent-feeling contribution is expensive to give. A radar toggle is not her input; it is a view she can reverse in one tap, and the Show/Hide pair already says so structurally. Recording this so a later pass does not bolt a changeable clause onto a control, which the rule itself warns against ('a repeated reassurance reads as a warning that something is fragile').",
+      "voice_principle_invoked": "Standing rule 5 (2026-08-04) — scope of 'everything is changeable'; ribbon doctrine consequence 3 — intent carried by structure, not by explaining itself",
+      "recommendation": "No change. No clause.",
+      "alternative_drafts": []
+    }
+  ],
+  "recommended_strings_for_pauls_gate": {
+    "setRadarDoor WORDS": {
+      "closed": "Show the radar",
+      "open": "Hide the radar",
+      "loading": "Bringing up the radar…",
+      "error": "The radar didn't load — tap to try again"
+    },
+    "release_note_if_the_button_changes": {
+      "title": "A bigger button for the radar",
+      "bullets": [
+        "**The radar has its own button now.** One wide button across the Weather card that says *Show the radar* — and *Hide the radar* once it's open.",
+        "**It's still inside the Weather card**, in the same place as before. Only the button changed."
+      ]
+    }
+  },
+  "open_questions_for_paul": [
+    "Did Mom actually say the word 'radar', or is that your paraphrase of what she likes? If it is her word, F13 is closed and 'radar' is simply its name. If it is yours, the recommendation does not change (it is still the ordinary word) but the principle binds less hard, and it is worth knowing which.",
+    "The radar door traces to her 07-29 relay. Ribbon doctrine says a change she caused belongs on the ribbon, not only in Recent updates — but your own instruction on this review is not to reflect her remark back at her. Those pull opposite ways. My read: do not ribbon it, because any honest attribution here would have to name what she could not find. Your call, and I did not draft ribbon copy for it.",
+    "Should the word change wait for the pre-registered decision rule in MOM-CYCLE-LOG lap 3 to be read? My read: no. That rule is measuring whether the DOOR gets tapped, and deleting one adjective does not change whether she finds it — but it does change the string, so stamp the date in the log so a later read knows which label was live when. Anything larger than this should wait.",
+    "F3 (the '(forecast)' labelling bug) and the loop resting on the furthest-out forecast frame are engineering, not copy. Do you want those routed to a separate seat, or handled in your session?"
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "A qualifier cannot retract a claim it is smaller than. When a surface makes a claim in its loudest type ('live') and qualifies it in its quietest ('(forecast)' at 10.5px, muted), the claim is what the reader receives — especially a reader who navigates by size, weight and colour. Either the claim narrows to what is true of the whole surface, or the qualifier rises to the claim's weight.",
+      "scope": "Fernwood (candidate for cross-project — needs a second project's evidence)",
+      "rationale": "From this review, F2. It is the inverse of the cross-project 'Register follows audience' corollary, which governs not spending the loudest marker on the least urgent condition; this governs not spending it on the least accurate one. Same instrument, opposite failure."
+    },
+    {
+      "principle": "Copy that quotes a control is a second copy of that control's string. Release notes, help text, onboarding and emails that quote UI verbatim create a duplicate that drifts silently the moment the UI is edited. Treat the quote and the control as one surface: they change in the same commit or the quote does not use quotation.",
+      "scope": "cross-project",
+      "rationale": "From this review, F4 — the 08-14 release note quotes 'Show the live radar' verbatim on a card Mom reads, so a one-word button fix silently desyncs a shipped surface. Generalises immediately: Bolo Boys' site copy quoted in emails and social posts has the same shape, and the failure is invisible until a reader holds both."
+    },
+    {
+      "principle": "Don't narrate the old defect to the person who reported it. When a change came from a reader's remark, a changelog that explains what used to be wrong echoes her observation back in the product's voice while crediting her with nothing — she gets the criticism of the old surface and none of the authorship of the new one. Describe what the thing IS now; put the authorship on the surface built for it, or nowhere.",
+      "scope": "Fernwood (candidate for cross-project)",
+      "rationale": "From this review, F5 and F7. It is the third distinct failure mode of the same asymmetry that produced 'Credit, don't thank' — she was outside the 'we' when asked, invisible in the record when right, and here she is invisible in the record when she was the reason. Held at Fernwood scope pending a second project, per the promotion threshold."
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "review_id": "ux-2026-08-14-radar-door",
+  "project": "fernwood",
+  "subject": "The radar's door inside the Weather card (.radar-door / setRadarDoor) — POST-HOC review of a change already shipped to main and live on Pages",
+  "review_date": "2026-08-14",
+  "reviewer_mode": "review",
+  "review_level": "screen-component, with one flow-level and one measurement-level observation",
+  "verification_note": "Every structural claim below was checked against viewer.html at HEAD and, where the surface is server-served, against https://palekxk.github.io/Tate-Tracker/viewer.html. The live page returns the string '📡 Show the live radar ▾' verbatim, so the ship is confirmed, not inferred. Line numbers cited are from the working copy read during this review.",
+  "user_context": {
+    "primary_user": "Mom — the make-or-break Fernwood user. Reads with difficulty; navigates by icon, size, colour and position before she navigates by words. Uses body.text-lg.",
+    "core_jobs_to_be_done": [
+      "See whether rain is coming toward the property right now, from a phone, at half-engagement",
+      "Appreciation: watch the weather do something over her own land (the radar is the one feature she has named twice as liked)",
+      "Reach the radar at all — the 07-29 relay was that she likes it but did not know how to access it"
+    ],
+    "context_of_use": "Phone, one-handed, reclined or mid-task. Telemetry from lap 3 [inferred]: she opens Fernwood on 5 of the 8 wettest days, and 5 of 6 jump-strip taps land on Weather — so the radar is being reached, if at all, on storm days when she is most motivated and least patient. The door sits at the very bottom of the expanded Weather card, below the 'Where does this data come from?' methodology accordion, so reaching it requires scrolling past the entire weather body.",
+    "assumptions_made": [
+      "Both statements about her liking the radar are Paul-relayed, not her words, and are treated as reported preference rather than quotation.",
+      "No behavioural data exists yet for the radar door itself — radar_section_viewed and radar_toggled both landed 2026-08-14, the same day as the door.",
+      "Her viewport is assumed ~390px wide with body.text-lg active; the wrap arithmetic in F7 is computed against that."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "Icons earn their place — true AND useful, incl. the ⭐ sharpening clause 'on a BUTTON, a glyph must carry the DECISION, never the topic' (cross-project/form-and-restraint.md, paul-ratified 2026-08-02)",
+    "Ornament earns its place (cross-project/form-and-restraint.md)",
+    "Content and function first; form follows — and then form has to be excellent (cross-project/form-and-restraint.md, paul-stated 2026-07-27)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+    "Meet the user at the action (cross-project/interaction-and-friction.md)",
+    "Friction kills — it just works (cross-project/interaction-and-friction.md)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "A modeled value placed flush with a measured one borrows its credibility (fernwood.md, candidate)",
+    "One shell, one signal each (fernwood.md, candidate)",
+    "Standing rule 1 — ONE affirmative grammar everywhere she taps (Tate-Tracker/CLAUDE.md, paul-stated 2026-07-29)",
+    "The v2 button system — ONE SHAPE, ONE GREEN, STACKED; a pill means 'label,' never 'press me' (viewer.html stylesheet doctrine, Paul 2026-08-02 evening)",
+    "The glance and the repository (Tate-Tracker/CLAUDE.md, 2026-07-06)",
+    "Nielsen #1 Visibility of system status; Nielsen #4 Consistency and standards; Norman — signifiers and feedback"
+  ],
+  "explicitly_cleared": [
+    {
+      "question": "Q1 — Is a full-width tinted button inside a card a tonal break for a field journal? Does it out-shout the weather data above it?",
+      "verdict": "No, on both counts, and the change moved TOWARD the journal voice rather than away from it.",
+      "evidence": "What it replaced was an 11px UPPERCASE 'SHOW' chip. Uppercase micro-labels are the exact treatment 'Tone-coherence across all chrome' names as CMS-admin chrome leaking onto a journal surface (F8 of the 2026-05-11 zoom-out). The new label is a plain sentence-case clause — 'Show the live radar' — in the card's own palette. That is journal register, not task-manager register. On out-shouting: the Weather card's dominant element is .weather-temp at 42px Crimson serif (viewer.html:1567) against a 15px/600 DM Sans door. It is not close. The door IS now the loudest control in the card, which is exactly what Paul asked for, and no other control competes with it inside the card body — the card's own Open/Close pill lives in the header, and the two are essentially never co-visible, because the door only becomes reachable after scrolling past the entire weather body. No finding."
+    },
+    {
+      "question": "Q2 — Does the large tinted-green pill collide with the ratified affirmative grammar (filled green + ✓)? Does it read as 'press to agree'?",
+      "verdict": "No. This is a clean distinction, not a collision — and the app already has a three-fill lexicon that makes it clean.",
+      "evidence": "The affirmative is .gg-suggest-btn-yes: SOLID var(--green-primary) #2f5a3a, WHITE text, a 2px border of the same green, and a ✓ pseudo-glyph (viewer.html:5018–5023). The radar door is a PALE #eaf5e1 fill with DARK #2f6b45 text, a 1.5px #cbe3bc border, and no ✓ (viewer.html:2831–2853). Those are opposite polarities, not neighbours. More importantly, #eaf5e1 / #cbe3bc / #2f6b45 is not a new colour at all — it is the exact triple already carried by .main-card-chevron (viewer.html:1490–1500), the ratified card door. So the fill already means one specific thing in this app: 'this opens something.' Read as a system: pale green = a DOOR, solid green + ✓ = AFFIRM, white + × = DECLINE. Three fills, three meanings, no overlap. I am proposing that lexicon be written down and tokenised (see principles_to_propose #1 and F6), because right now it is true by accident — hardcoded twice — and a third hand-copy is how it stops being true.",
+      "caveat": "The one grammar rule the door DOES break is a different one and Paul did not ask about it — the pill radius. See F5."
+    },
+    {
+      "question": "Q3 — Two disclosure grammars in one card: does the radar door compete with .main-card-chevron?",
+      "verdict": "Not competing — but there are THREE disclosure grammars in this card, not two, and the one worth worrying about is neither of the two Paul named.",
+      "evidence": "The radar door is not a second grammar against the chevron; it is the SAME grammar at a larger scale (identical fill, border, ink, weight, letter-spacing, line-height, caret idiom). Paul's 'override on prominence' turns out to be a smaller deviation than it looked: MOM-CYCLE-LOG.md's own pre-registered branch-1 remedy reads 'upgrade the toggle to the ratified cards-as-doors treatment (labelled pill, real button semantics, body.text-lg entry)' — which is, near-verbatim, what shipped. The real inconsistency is the THIRD control: the 'Where does this data come from?' <details><summary> sitting directly above it is 11.5px italic grey with its ::marker explicitly suppressed (viewer.html:1671–1680) — no caret, no chip, no affordance signal of any kind. The quietest disclosure in the app now sits three lines above the loudest. And a fourth geometry already exists — .ref-drawer-toggle (viewer.html:434–454), the app's established FULL-WIDTH disclosure: --r-shelf radius, 44px, left-aligned, icon square left, chevron right. The door invented a full-width geometry the app already had. Recorded as observation + F5/F9 rather than a demand to rebuild, because the paint is right and only the radius is wrong."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "other",
+      "severity": "important",
+      "observation": "The change is, near-verbatim, the remedy pre-registered for branch 1 of the radar decision rule — and it shipped before any data was read. MOM-CYCLE-LOG.md lap 3 states: '`radar_section_viewed` fires, `radar_toggled` does not → the door is the problem. Upgrade the toggle to the ratified cards-as-doors treatment (labelled pill, real button semantics, `body.text-lg` entry). Do not move the section.' The rule was written to be read at the next rain event or the next lap. The door was upgraded to a labelled pill with real button semantics and body.text-lg entry on the same day the instrumentation landed. So branch 1's remedy is already spent, and — more sharply — branch 1's TEST can no longer be run: any radar_toggled reading from here measures the new door, so the question 'was the old door the problem?' has no remaining way to be answered. Lap 3's D3 explicitly refused to move the radar because 'moving it now would confound reaching the card with reaching the radar permanently.' The door change introduces the identical class of confound on the other variable, and nothing recorded it. Two secondary consequences: (a) neither event has a pre-change baseline, so only absolute levels are readable, never an effect; (b) lap 3's leg-4 seat table records `ux-expert` as 'skipped — scoping table, no structure change proposed this lap', which is now false for that lap.",
+      "user_impact": "Not a direct user impact — a decision-quality impact on the one open question that governs whether Mom can reach the feature she has named twice. If the next reading comes back 'viewed but not opened,' the rule as written prescribes an action already taken and forbids the only remaining one ('Do not move the section'), so the loop would have no move and could plausibly close the thread on a stale rule. Standing rule 5's caveat — intentional, journey-aware, data-supported — is the thing at risk.",
+      "principle_invoked": "The definable loop / pre-registered decision rules (global CLAUDE.md); standing rule 5's caveat, 'reversing a decision is fine; reversing it without noticing we are reversing it is not' (Tate-Tracker/CLAUDE.md, paul-stated 2026-08-04)",
+      "recommendation": "Before the next telemetry read, do three things and do them in the log, not in a summary: (1) re-word the decision rule — branch 1 becomes 'the door was already upgraded on 08-14; if section_viewed fires and toggled does not, the remaining variable is POSITION, so branch 1 now collapses into branch 2' — and stamp the re-wording with the reason, so it is legible as an amendment and not as the original; (2) add a one-line correction to lap 3's leg-4 seat table noting the ux-expert seat was skipped and a Mom-facing structure change shipped anyway (this review is that seat, run post-hoc); (3) record explicitly that 08-14 is the zero point for both radar events, so no future reader mistakes an absolute count for an effect.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "Opening the door does not bring the thing it opened into view. toggleRadar() (viewer.html:13991–14024) sets container.style.display = 'block', flips the label and the aria state, and stops — there is no scrollIntoView. Every other disclosure in this app does the opposite: expandCard() scrolls the card into view (15755), the jump strip scrolls its target (19721), the acknowledgment ribbon's inline links scroll the card they name (11115), the household prompt scrolls the composer (13380), and the pre-fill path scrolls the textarea itself with a comment recording that Paul REPORTED this exact class of bug on 2026-07-14 ('scrolling to the container's top hid the composer the tap pre-fills'). The radar is the one disclosure in the app that reveals 240px+ of new content and leaves the user to find it. The risk is highest precisely here: the door is the LAST thing in the Weather card, so at the moment she taps it, it is very likely the lowest thing on her screen, and the map, the animation controls and the timestamp all render BELOW it.",
+      "user_impact": "She taps the one control she was finally able to find, the label flips to 'Hide the live radar' — and the radar may be entirely below the fold. From her seat, the app said yes and showed nothing. For a reader whose documented fear is getting it wrong, an unconfirmed tap is worse than a hard failure; the most likely next action is to tap again, which now HIDES it. Worse for the record than for her: radar_toggled would log a successful open for a session in which she never saw radar.",
+      "principle_invoked": "Nielsen #1 — visibility of system status; Norman — feedback must be immediate and in the same place as the action; 'Meet the user at the action' (cross-project/interaction-and-friction.md); the app's own established scroll-on-disclose idiom",
+      "recommendation": "In toggleRadar(), after a successful open (both the already-initialised path and the end of the try block), scroll the revealed content into view using the idiom the app already uses everywhere else — scroll the .radar-section, not the map, so the door stays visible above its own result and she can see the label now reads 'Hide': `document.querySelector('.radar-section').scrollIntoView({ behavior: 'smooth', block: 'start' })`. Do it only on open, never on close. Guard for prefers-reduced-motion the same way the rest of the file does.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The 📡 on the door is already a taken glyph inside this exact card, and it means something the radar is not. viewer.html:7523–7545 is an explicit, canonical ICON LEGEND for the Weather card's citation vocabulary: 📡 = the Fernwood Weather Vane, 'live, measured on-property'; 🌐 = Open-Meteo, 'from off the property / the wider world'; 📊 = ERA5 archive. The legend's own instruction is 'keep this table and the on-screen methodology footer in agreement; if an icon changes, change it in BOTH' — and 📡 is rendered under that meaning at least four more times in this card (srcChip() at 7554, the src-tag at 8488, the '📡 Station' label at 8546, the methodology paragraph at 8679). The radar is RainViewer: third-party, off-property, remote-sensed — categorically the 🌐 side of that legend. So the door now labels an off-property source with the on-property-measurement glyph, a few hundred pixels from the block that teaches the opposite. Separately, the ratified sharpening clause is unambiguous: 'on a BUTTON, a glyph must carry the DECISION, never the topic… Not permitted is a topic emoji on a committing button.' 📡 carries the topic. The ▾/▴ caret carries the decision and correctly passes the same clause. Third, on legibility at 16px specifically: this file's own icon doctrine (viewer.html:420–424) says a glyph 'takes meaning from icon + size + colour + position' and that 🥀 was chosen over a second green sprig for a genuinely different SHAPE AND COLOUR. 📡 renders as a grey dish on a grey stand — detail-dense, no colour block — which is the weakest possible choice for a reader who routes by colour and shape before words.",
+      "user_impact": "Direct hit on the emotion the project calls load-bearing. This is the same card where she disbelieved a rainfall number and was right by 14×; the fix from that incident was that measured signals must stay visually distinct from modelled ones. Re-spending the measured-on-property glyph on a third-party regional radar quietly teaches the opposite. Secondarily, for a reader navigating by icon, a glyph that means two things is worse than no glyph — it makes the icon channel unreliable, which is the channel she uses most.",
+      "principle_invoked": "Icons earn their place — true AND useful, ⭐ sharpening clause on button glyphs (cross-project/form-and-restraint.md, paul-ratified 2026-08-02); 'A value's provenance and freshness must be shown as honestly as the value itself' (cross-project/honest-surfaces.md); 'A modeled value placed flush with a measured one borrows its credibility' (fernwood.md); Trust is the load-bearing emotion (Tate-Tracker/CLAUDE.md)",
+      "recommendation": "Remove the 📡 span. The label 'Show the live radar' already carries the topic; the caret carries the state; the door's full width, fill and 44px height carry the findability far more strongly than a 16px grey glyph does. Do NOT substitute another emoji: I checked the neighbours and the vocabulary is genuinely full — 🌐 and 📊 are the legend's other two slots, 🛰 was explicitly rejected in 2026-07-14 as 'too close to 📡 at a glance', 🌧 is in use as a live condition glyph (6904–6907, 7596, 8719), and 🗺️ is claimed by the zone-walk card header (10758). If Paul wants a locating mark, the honest answer is that the glyph slot on this button is the wrong instrument; the section's border-top plus the door's own block shape already do that job better.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "The door was widened, enlarged and given a body.text-lg entry (17px / 48px, viewer.html:192–193). Nothing behind the door was. The radar's own controls are the smallest chrome anywhere in the Weather card and have zero large-text coverage: .radar-anim-btn is 11px with 3px/10px padding — a paint height of roughly 20px, less than half the 44px tap floor — with no .tap44 treatment and no body.text-lg rule (2877–2887); .radar-frame-indicator is 10.5px (2888–2893); .radar-footer is 10.5px (2859–2865). A grep for `body.text-lg .*(radar|rd-)` returns exactly two rules, both on the door itself. So a reader in large-text mode taps a 48px control and is handed a 20px Pause button and a 10.5px timestamp.",
+      "user_impact": "The change's stated purpose was getting her through the door. Having gotten her through it, the room is dark. Pause/play is the control that actually matters on a radar — it is how you tell whether the storm is coming toward you or away — and at ~20px it is below her reliable tap accuracy and below her reading size. The 'is it moving toward us?' job is the whole reason the radar exists.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md); the tap-target floor doctrine, viewer.html:132–175 ('a missed tap and a redesigned surface are both costs'); Norman — an affordance the user cannot physically operate is not an affordance",
+      "recommendation": "Three lines of CSS, no layout change: add `.radar-anim-btn` to the .tap44 register (mechanism 2 in the file's own tap-target block — grow the hit area, leave the paint alone, which is correct here because it sits in a tight inline row); add `body.text-lg .radar-anim-btn { font-size: 15px; }` and `body.text-lg .radar-frame-indicator, body.text-lg .radar-footer { font-size: 13px; }`. Then re-verify the row at 390px per the register's own standing instruction. Do this in the same pass as F2 — together they are the difference between 'she found it' and 'she used it.'",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "This is the one place the door genuinely breaks a ratified grammar, and it is not the one Paul was worried about. The v2 button system at the top of the stylesheet states: '--r-pill: 999px — NON-INTERACTIVE chips/badges only since the v2 system: a pill now means \"label,\" never \"press me\"' (viewer.html:45–46), and 'Every button: var(--r-ctrl) radius, full row width, centered label…' plus 'A pill now ALWAYS means a non-interactive chip/badge. A new radius or a new green is a claim that a new kind of object exists — it isn't.' .radar-door uses `border-radius: var(--r-pill)` on a real <button> (2839). The reason the sibling .main-card-chevron gets away with the same radius is precise and worth stating: the chevron is a <span> — a LABEL inside a clickable header, exactly what the pill rule permits. The radar door borrowed a label's paint and put it on a button. Note how close it already is otherwise: full row width ✓, centered label ✓, 44px hit ✓ — it matches the v2 system on every axis except this one token. The `--btn-h: 37px` + 44px band convention is also bypassed in favour of a 44px paint, which is a defensible deviation for a door (the file's own tap-target doctrine calls that 'mechanism 1' and says it is right 'when the control is already a substantial block and a bigger visual is an improvement'), but it should be recorded as chosen rather than left looking accidental.",
+      "user_impact": "Low and slow. She does not read the radius; she learns the system. A pill that means 'label' 40 times and 'press me' once is a small tax on a learnable surface, and the cost lands not on her but on the next person who copies it.",
+      "principle_invoked": "The v2 button system, ONE SHAPE (viewer.html stylesheet doctrine, Paul 2026-08-02); Nielsen #4 — consistency and standards; 'One shell, one signal each' (fernwood.md, candidate)",
+      "recommendation": "Change one token: `border-radius: var(--r-pill)` → `var(--r-ctrl)`. It costs nothing in prominence — the door stays full-width, 44px, tinted and 15px/600 — and it converts the control from 'a label that happens to be tappable' into 'the app's button shape, at door scale,' which is what it actually is. Add a one-line comment recording that the 44px paint is a deliberate mechanism-1 choice rather than a missed --btn-h.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "#eaf5e1 / #cbe3bc / #2f6b45 — the door fill, edge and ink — are now hardcoded in two places (.main-card-chevron at 1495–1497, .radar-door at 2840–2842), with matching hardcoded press states (#dcedd0/#b6d7a4 at 1504 vs #dcefcf/#b9dba6 at 2850 — note these two are already NOT identical). Meanwhile every other systemic colour in this file is a token (--green-primary, --green-press, --edge-secondary). The door lexicon is currently true by hand-agreement, which the stylesheet's own doctrine says is how a system stops being one.",
+      "user_impact": "None today; it is the mechanism by which the clean three-fill lexicon described under Q2 silently stops being clean. The third copy is the one that drifts, and this file has a documented history of exactly that failure (the .ack-btn exemplar that pointed at a class that no longer rendered).",
+      "principle_invoked": "Ornament earns its place / a system is only a system if conforming is cheaper than inventing (viewer.html:28–32); 'One engine, one verdict' (fernwood.md, paul-ratified 2026-08-02)",
+      "recommendation": "Add three tokens to the :root block beside the green trio — `--door-fill: #eaf5e1; --door-edge: #cbe3bc; --door-ink: #2f6b45;` (plus a press pair) — and point both .main-card-chevron and .radar-door at them, reconciling the two press states to one. Then write one line into the v2 doctrine block naming the third fill explicitly: pale = DOOR, solid green + ✓ = AFFIRM, white + × = DECLINE. That sentence is the actual answer to Paul's grammar-collision question, and it is currently nowhere in the file.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "error-handling",
+      "severity": "nice-to-have",
+      "observation": ".radar-door sets `line-height: 1` (2846) with no wrap handling, and setRadarDoor's error string is 'The radar didn't load — tap to try again' (13984). At body.text-lg the door is 17px/600 DM Sans with 18px padding either side inside a card that is roughly 340px wide on a 390px phone; 41 characters at ~9.4px average plus the caret and gaps exceeds the available width, so the error label wraps to two lines — and at line-height 1 the two lines have no leading at all and will visually touch. The loading string ('Bringing up the radar…') is short enough to be safe.",
+      "user_impact": "Small, but it lands at the worst moment: the one time the feature she likes has failed, on the rural connection where it is most likely to fail, in the text size she uses. Two cramped touching lines read as broken rather than as an instruction, which undoes the careful work already done on that string — the field-journal, no-red, says-what-to-do-next wording in setRadarDoor is genuinely good and deserves to render legibly.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md); Nielsen #9 — help users recognise and recover from errors",
+      "recommendation": "`line-height: 1.25` on .radar-door (the flex centering already handles the vertical result), and add `text-align: center` so a wrapped second line centres under the first rather than left-hanging under the icon. Check it once at 390px in text-lg with the error state forced.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "affordance",
+      "severity": "nice-to-have",
+      "observation": ".radar-door has :hover and :active states (2850) but no :focus-visible rule, in a file where every other custom interactive control has one — .main-card-header (1508), .card-later-link (127), .dash-cell (3394), .ic-head-link (3932), .ack-inline-link (4528), .ack-read-rest (4541), .mom-queue-another (4795). The browser default focus ring will still render, so this is not an accessibility failure; it is an inconsistency in a change whose headline was 'real button semantics and keyboard support.'",
+      "user_impact": "Effectively none for Mom (touch). It matters for the claim: the change was made partly to give the control real keyboard semantics, and the keyboard's own visible signifier is the one part not styled to the app's standard.",
+      "principle_invoked": "Nielsen #4 — consistency and standards; Norman — a signifier must be perceivable in the modality being used",
+      "recommendation": "`.radar-door:focus-visible { outline: 2px solid #3a7a3a; outline-offset: 2px; }` — the same idiom as its six siblings.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "discoverability",
+      "severity": "nice-to-have",
+      "observation": "Two smaller things, recorded rather than pressed. (a) The word 'live' in 'Show the live radar' is the one bit of the label carrying an ops/monitoring whiff, and it is not doing work — a radar is live by definition, and the section already prints its own timestamp in .radar-time. 'Show the radar' is shorter, plainer and more journal-voiced, and shortening it also relieves the wrap pressure in F7. (b) The methodology <details><summary> that sits immediately above the door has its ::marker suppressed and carries no caret or affordance mark at all (1671–1680) — so within one card there are now three disclosure treatments at wildly different volumes: a labelled pill chip in the header, a bare italic line at 11.5px, and a full-width 44px tinted door. The gap between (b) and the door is now the widest it has ever been.",
+      "user_impact": "(a) is a one-word register nudge, no functional cost. (b) is not urgent — the methodology accordion is deliberately quiet repository material and the glance/repository principle says depth should be shelved, not shouted. But it is the disclosure control she is most likely to miss entirely, and it sits directly in her scroll path to the radar.",
+      "principle_invoked": "Glyphs follow the journal voice, not the dashboard voice (fernwood.md); Tone-coherence across all chrome (fernwood.md); the glance and the repository (Tate-Tracker/CLAUDE.md)",
+      "recommendation": "(a) Consider 'Show the radar' / 'Hide the radar' — Paul's call, it is a taste question not a defect. (b) Leave it this lap; if a future pass touches the methodology accordion, give the summary the app's smallest door signal (a ▾ caret at minimum) so the card teaches one caret idiom rather than one caret and one nothing. Do not enlarge it — depth is supposed to be quiet.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "F1 is the finding I would act on first and it is not a pixel question: do you want the lap-3 decision rule re-worded before the next telemetry read, and lap 3's seat table corrected to record that a Mom-facing structure change shipped with the ux-expert seat marked skipped?",
+    "Position is off the table this round as instructed, so this is filed as an observation only: the door is now excellent and it is still the last element in the card, below a methodology accordion. If the next reading is 'viewed but not opened,' branch 1's remedy has already been spent — see F1.",
+    "F5 asks you to give up the pill radius but nothing else. Confirm that reads as 'no loss of prominence' to you before it is changed, since prominence was your explicit call.",
+    "Should the three door colours be tokenised now (F6) or left until a third surface needs them? My recommendation is now, because the two existing copies already disagree on their press states."
+  ],
+  "follow_up_research_suggested": [
+    "Once radar_section_viewed and radar_toggled have fired for real, check whether any session shows viewed-and-toggled but a very short dwell — that would be the F2 signature (opened it, saw nothing below the fold, left).",
+    "If F2 and F4 both ship, they are a single intervention ('she can find it AND operate it'), and the next reading cannot separate them from the door change either. Consider stamping them as one dated change in MOM-CYCLE-LOG.md so the confound is at least legible.",
+    "Nothing here warrants a Mom card. Lap 3's D7 was right: she has already answered the radar question, and a verdict-class ask against a queue with zero taps since 08-03 spends her attention for nothing."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "The door lexicon — three fills, three meanings. Pale green (#eaf5e1 fill / #cbe3bc edge / #2f6b45 ink) means THIS OPENS SOMETHING, at any scale from a header chip to a full-width door. Solid --green-primary + ✓ means AFFIRM. White + --edge-secondary + × means DECLINE. A control may vary in size, width and position; it may not invent a fourth fill.",
+      "scope": "fernwood",
+      "rationale": "This is the actual answer to Paul's grammar-collision worry, and it currently exists only as an accident — the radar door and .main-card-chevron share a colour triple that nothing declares and nothing enforces, and their press states have already drifted apart. Written down, it explains why a large green disclosure is NOT a confusable affirmative (opposite polarity, no ✓) and gives the next control a place to belong. It also sharpens standing rule 1 rather than competing with it: rule 1 governs the AFFIRMATIVE fill+glyph; this names what the other two fills mean, so 'one affirmative grammar' has a background to be one against. Candidate, one occurrence — but it is describing something already shipped twice, which is unusually strong for a first sighting."
+    },
+    {
+      "principle": "A disclosure owes delivery, not just state — a control that reveals content must bring that content into view, not merely change its own label.",
+      "scope": "cross-project",
+      "rationale": "Fernwood has this right in five places (expandCard, the jump strip, the ack links, the household prompt, the composer pre-fill) and wrong in exactly one — the radar door, which reveals 240px of map at the very bottom of a long card. And there is already a genuine second occurrence on record: viewer.html:15886–15889 documents Paul REPORTING this same class on 2026-07-14, when the composer scrolled to the wrong element and hid the thing the tap had just filled in. Two independent occurrences on the same axis (the state changed, the user could not see the result) is the promotion bar. The general form — feedback must be perceivable at the moment and place of action, not merely correct in the DOM — travels to any project with expand/collapse, which is all of them."
+    },
+    {
+      "principle": "A published legend spends its glyphs — within the scope a legend teaches, no other element may reuse one of its icons for a different meaning.",
+      "scope": "cross-project",
+      "rationale": "Fernwood's Weather card publishes an explicit citation lexicon (📡 measured on-property / 🌐 off-property model / 📊 archive) in both code and on screen, and the new door re-spent 📡 on a third-party regional radar a few hundred pixels away. Existing rules do not catch this: 'Icons earn their place' tests truth and non-redundancy, and 📡 on a radar door arguably passes both in isolation — it only fails once you know the same card has already assigned that glyph. The failure is scope-level, not element-level, which is why it needs its own line. This will recur anywhere a surface teaches a key: financial-dashboard source tags, Bolo's set-list or venue markers, any status legend. Candidate, one occurrence."
+    },
+    {
+      "principle": "An intervention on a surface under an open measurement is itself an event the measurement must be told about — re-word the pre-registered rule before reading the data, never after.",
+      "scope": "fernwood",
+      "rationale": "Filed here rather than cross-project because it is really loop doctrine and may belong in MOM-CYCLE-MAP.md instead of the design library — Paul's call which home is right. The lap-3 rule pre-registered 'upgrade the door' as the remedy for one branch; the door was upgraded before the branch could be tested, which spends the remedy and destroys the test at the same time. The design-side lesson is specific and worth keeping: shipping an improvement to an element that is currently the independent variable in a live read is not a free win — it is a decision to stop being able to answer the question. Sometimes worth it. Never worth it silently."
+    }
+  ]
+}
