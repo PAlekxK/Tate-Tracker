@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-15 — Cards that stopped short
+
+- **Opening a lot of things inside one card no longer cuts it off.** Open enough insects — or
+  enough of anything else — and the card used to stop at a fixed height, with the rest of it
+  simply gone and no way to scroll to it. Paul found it going down the cicadas one after another.
+- **It was quietly there all along.** Every card has had that ceiling; nothing on the dashboard
+  had been long enough to reach it until the insects arrived with photographs.
+
 ## 2026-08-15 — Now you can see them too
 
 - **Every singing insect has pictures.** Open any species in Insect Sounds and there are three
