@@ -16997,8 +16997,14 @@ function renderInsects() {
           ? `<div class="bio-photo-credit"><a href="${escapeHtml(a.url)}" target="_blank" rel="noopener">${credit}</a></div>`
           : `<div class="bio-photo-credit">${credit}</div>`;
       }
-      card += renderSoundCredit(sp);
     }
+    // ⚠️ Sound credit sits OUTSIDE the photo block, unlike the sibling renderers.
+    // They nest it inside `if (sp.photo)`, which is harmless there only because
+    // every bird/frog/mammal with audio happens to have a photo. No insect has one,
+    // so nesting it here would play CC-licensed audio with the attribution silently
+    // dropped — a licensing bug, not a cosmetic one. Attribution must never depend
+    // on an unrelated field being present.
+    card += renderSoundCredit(sp);
     card += '<div class="bio-months-bar">' + renderMonthsBar(sp.monthsActive, sp.peakMonths) + '</div>';
     card += '<div style="font-size:10px;color:#8aa080;margin:2px 0 6px;">▪ Singing &nbsp; ◼ Peak months</div>';
     card += '<div class="bio-species-meta">';

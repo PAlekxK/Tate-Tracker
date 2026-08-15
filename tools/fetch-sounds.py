@@ -92,13 +92,32 @@ CATEGORIES = {
 # in CATEGORIES["insects"]. Merged into SPECIES_OVERRIDES below so the existing
 # lookup path picks them up without a second mechanism.
 INSECT_NAME_FALLBACKS = {
-    "dog-day-cicada":      ["Tibicen canicularis", "Neotibicen canicularis call"],
+    # Cicadas — all four were moved out of Tibicen in 2015, so the old binomial is
+    # tried explicitly. `tibicen tibicen` is also catalogued as `chloromerus`.
+    "dog-day-cicada":      ["Tibicen canicularis", "Neotibicen canicularis call",
+                            "dog day cicada"],
     "linnes-cicada":       ["Tibicen linnei", "Neotibicen linnei song"],
     "lyric-cicada":        ["Tibicen lyricen", "Neotibicen lyricen song"],
-    "morning-cicada":      ["Tibicen tibicen", "Neotibicen tibicen chloromerus"],
-    "common-true-katydid": ["Pterophylla camellifolia song", "true katydid call"],
-    "snowy-tree-cricket":  ["Oecanthus fultoni song", "snowy tree cricket chirp"],
+    "morning-cicada":      ["Tibicen tibicen", "Neotibicen tibicen chloromerus",
+                            "swamp cicada"],
+    # Katydids and the conehead.
+    "common-true-katydid": ["Pterophylla camellifolia song", "true katydid call",
+                            "katydid"],
+    "greater-anglewing":   ["Microcentrum rhombifolium song", "greater angle-wing katydid"],
+    "lesser-anglewing":    ["Microcentrum retinerve song", "lesser angle-wing katydid"],
+    "oblong-winged-katydid": ["Amblycorypha oblongifolia song", "oblong-winged katydid"],
+    "fork-tailed-bush-katydid": ["Scudderia furcata song", "fork-tailed bush katydid"],
+    "sword-bearing-conehead": ["Neoconocephalus ensiger song", "sword-bearing conehead"],
+    # Crickets.
+    "snowy-tree-cricket":  ["Oecanthus fultoni song", "snowy tree cricket chirp",
+                            "thermometer cricket"],
     "fall-field-cricket":  ["Gryllus pennsylvanicus song", "field cricket chirp"],
+    "carolina-ground-cricket": ["Eunemobius carolinus song", "Nemobius carolinus",
+                               "Carolina ground cricket"],
+    "jumping-bush-cricket": ["Orocharis saltator song", "jumping bush cricket"],
+    "handsome-trig":       ["Phyllopalpus pulchellus song", "red-headed bush cricket",
+                            "handsome trig"],
+    "narrow-winged-tree-cricket": ["Oecanthus niveus song", "narrow-winged tree cricket"],
 }
 SPECIES_OVERRIDES.update(INSECT_NAME_FALLBACKS)
 

@@ -45,6 +45,17 @@ CATEGORIES = {
         "species_path": "species",
         "sound_dir": "sounds/mammals",
     },
+    # Added 2026-08-15 with the Insect Sounds tab. This is the half that actually
+    # reaches the app: fetch-sounds.py only downloads files and writes the
+    # attribution log — the `sound` field, and the re-inline that makes it render,
+    # happen HERE. A category present in fetch-sounds but missing here downloads
+    # audio that nothing ever plays.
+    "insects": {
+        "json_file": "insects.json",
+        "data_const": "INSECTS_DATA",
+        "species_path": "species",
+        "sound_dir": "sounds/insects",
+    },
 }
 
 
