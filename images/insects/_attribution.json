@@ -1,0 +1,418 @@
+{
+  "carolina-ground-cricket": [
+    {
+      "author": "Frederic Desmeules",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/133522278",
+      "observed_on": "2022-09-03",
+      "place": "Le Sud-Ouest, Montréal, QC, Canada"
+    },
+    {
+      "author": "Luke Padon",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/226045461",
+      "observed_on": "2024-04-13",
+      "place": "McLennan County, TX, USA"
+    },
+    {
+      "author": "Ingolf Askevold",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "observation_url": "https://www.inaturalist.org/observations/339248402",
+      "observed_on": "2026-02-18",
+      "place": "Spencer Rd, Tallahassee, FL, US"
+    }
+  ],
+  "common-true-katydid": [
+    {
+      "author": "Seth Shively",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/223604454",
+      "observed_on": "2024-06-18",
+      "place": "Cotton Belt Trail, Waco, TX, US"
+    },
+    {
+      "author": "gbasstx",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/214266181",
+      "observed_on": "2024-05-07",
+      "place": "N Frazier St, Conroe, TX, US"
+    },
+    {
+      "author": "Eric Keith",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/8437084",
+      "observed_on": "2017-09-24",
+      "place": "Walker County, TX, USA"
+    }
+  ],
+  "dog-day-cicada": [
+    {
+      "author": "thecicadadude",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/131081834",
+      "observed_on": "2022-08-16",
+      "place": "Illinois, US"
+    },
+    {
+      "author": "Spencer Quayle",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "observation_url": "https://www.inaturalist.org/observations/171126007",
+      "observed_on": "2023-07-04",
+      "place": "Wood Buffalo, AB, CA"
+    },
+    {
+      "author": "earthdream",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/128197920",
+      "observed_on": "2022-07-27",
+      "place": "Sussex, NB E4E 5S1, Canada"
+    }
+  ],
+  "fall-field-cricket": [
+    {
+      "author": "Wolf Dietrich",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/32310451",
+      "observed_on": "2019-09-02",
+      "place": "Newtonville Rd, Clarington, ON, CA"
+    },
+    {
+      "author": "pepperonipizza",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/187904391",
+      "observed_on": "2023-09-01",
+      "place": "Peabody, MA 01960, USA"
+    },
+    {
+      "author": "Todd Hagedorn",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/20396539",
+      "observed_on": "2018-08-11",
+      "place": "Gravenhurst, ON, Canada"
+    }
+  ],
+  "fork-tailed-bush-katydid": [
+    {
+      "author": "Gustavo Vasquez",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/45132798",
+      "observed_on": "2020-05-06",
+      "place": "Santa Rosa, CA, US"
+    },
+    {
+      "author": "Sawyer Dawson",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/244773788",
+      "observed_on": "2024-09-29",
+      "place": "Middlesex, CA-ON, CA"
+    },
+    {
+      "author": "Jeremy Gatten",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/335458895",
+      "observed_on": "2023-06-15",
+      "place": "Squamish-Lillooet, BC, Canada"
+    }
+  ],
+  "greater-anglewing": [
+    {
+      "author": "pkryan33",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/56360107",
+      "observed_on": "2020-08-13",
+      "place": "Tremont Rd, Pine Grove, PA, US"
+    },
+    {
+      "author": "Shawn Carroll",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/267305082",
+      "observed_on": "2022-12-16",
+      "place": "Bonita, CA, USA"
+    },
+    {
+      "author": "Ethan Dropkin",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/29781629",
+      "observed_on": "2018-09-01",
+      "place": "Liberty State Park, Jersey City, NJ, US"
+    }
+  ],
+  "handsome-trig": [
+    {
+      "author": "ltjeffers",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/51178698",
+      "observed_on": "2020-06-27",
+      "place": "Shadow Creek Ranch, Pearland, TX, USA"
+    },
+    {
+      "author": "Bill Keim",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/247892462",
+      "observed_on": "2024-08-12",
+      "place": "Bucks County, PA, USA"
+    },
+    {
+      "author": "Ken Kneidel",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "observation_url": "https://www.inaturalist.org/observations/85915127",
+      "observed_on": "2021-07-05",
+      "place": "Haven Dr, Charlotte, NC, US"
+    }
+  ],
+  "jumping-bush-cricket": [
+    {
+      "author": "Matt Pelikan",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/59329923",
+      "observed_on": "2020-09-11",
+      "place": "Oak Bluffs, MA, USA"
+    },
+    {
+      "author": "Tardigrades Rule",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/34217452",
+      "observed_on": "2019-10-10",
+      "place": "Douglas Rd, Chappaqua, NY, US"
+    },
+    {
+      "author": "Jerry Cannon",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/18580964",
+      "observed_on": "2018-09-19",
+      "place": "Twinsburg, OH 44087, USA"
+    }
+  ],
+  "lesser-anglewing": [
+    {
+      "author": "Susan J. Hewitt",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/91870499",
+      "observed_on": "2021-08-20",
+      "place": "Manhattan, New York, NY, US"
+    },
+    {
+      "author": "Stott Noble",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/4254142",
+      "observed_on": "2016-10-01",
+      "place": "Ruffner Mountain Nature Preserve, Birmingham, Alabama"
+    },
+    {
+      "author": "nje171",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/182700807",
+      "observed_on": "2023-09-10",
+      "place": "Beaver Lake Dr, Ellijay, GA, US"
+    }
+  ],
+  "linnes-cicada": [
+    {
+      "author": "Janet Wright",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/7609899",
+      "observed_on": "2017-08-21",
+      "place": "Nashville, TN"
+    },
+    {
+      "author": "Colin Reth",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/296659824",
+      "observed_on": "2021-09-06",
+      "place": "Delaware County, US-IA, US"
+    },
+    {
+      "author": "Daniel Sgro",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/296028060",
+      "observed_on": "2022-07-27",
+      "place": "Montgomery, NJ, USA"
+    }
+  ],
+  "lyric-cicada": [
+    {
+      "author": "Andrew Dreelin",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/15133698",
+      "observed_on": "2018-08-05",
+      "place": "Cape May County, NJ, USA"
+    },
+    {
+      "author": "Cecil Smith",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/89974764",
+      "observed_on": "2021-08-03",
+      "place": "Hereford Township, PA, USA"
+    },
+    {
+      "author": "mangumcl",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/126100160",
+      "observed_on": "2022-07-12",
+      "place": "N Ninth St, De Queen, AR, US"
+    }
+  ],
+  "morning-cicada": [
+    {
+      "author": "richard crook",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/106049448",
+      "observed_on": "2006-07-30",
+      "place": "10216 Lee Rd, Boynton Beach, FL 33472, USA"
+    },
+    {
+      "author": "Judy Gallagher",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/14339203",
+      "observed_on": "2018-07-13",
+      "place": "Fairfax County, VA, USA"
+    },
+    {
+      "author": "Brett Jackson",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/38313886",
+      "observed_on": "2015-08-03",
+      "place": "Timber Cove, Taylor Lake Village, TX 77586, USA"
+    }
+  ],
+  "narrow-winged-tree-cricket": [
+    {
+      "author": "Scott King",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/3973127",
+      "observed_on": "2016-08-22",
+      "place": "Northfield, Minnesota, United States"
+    },
+    {
+      "author": "Kyle Aldinger",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/236638243",
+      "observed_on": "2024-08-18",
+      "place": "Zinn Chapel Rd, Reedsville, WV, US"
+    },
+    {
+      "author": "Sinéad Tuttle-Lerner",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/188812099",
+      "observed_on": "2023-10-23",
+      "place": "South Branch Raritan River, Long Valley, NJ, US"
+    }
+  ],
+  "oblong-winged-katydid": [
+    {
+      "author": "Nodnarb Nedloh",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/10301918",
+      "observed_on": "2014-09-20",
+      "place": "Leamington, ON, Canada"
+    },
+    {
+      "author": "Ty Sharrow",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/174686803",
+      "observed_on": "2023-07-24",
+      "place": "Jacksonville, AR, US"
+    },
+    {
+      "author": "Tom Preney",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/6681248",
+      "observed_on": "2010-07-15",
+      "place": "5200 Matchette Rd, Windsor, ON N9C 4E8, Canada"
+    }
+  ],
+  "snowy-tree-cricket": [
+    {
+      "author": "William K",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/304338332",
+      "observed_on": "2025-08-02",
+      "place": "Illinois, US"
+    },
+    {
+      "author": "Cayla N",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/155084611",
+      "observed_on": "2023-04-15",
+      "place": "Michigan, US"
+    },
+    {
+      "author": "esche099",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/132207615",
+      "observed_on": "2022-08-24",
+      "place": "Lanark"
+    }
+  ],
+  "sword-bearing-conehead": [
+    {
+      "author": "Chelsea Crouse",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/132442967",
+      "observed_on": "2022-08-26",
+      "place": "Barrington, NS, CA"
+    },
+    {
+      "author": "Molly Jacobson",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/150557122",
+      "observed_on": "2016-09-30",
+      "place": "UNH"
+    },
+    {
+      "author": "bertfoquet",
+      "license": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "observation_url": "https://www.inaturalist.org/observations/125733395",
+      "observed_on": "2022-07-10",
+      "place": "John T Mcnaughton Park, Pekin, IL, US"
+    }
+  ]
+}

@@ -118,7 +118,40 @@
         "author": "peterwchen",
         "license": "CC BY 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Pterophylla_camellifolia_singing.wav"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/common-true-katydid-1.jpg",
+          "author": "Seth Shively",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/223604454",
+          "observedOn": "2024-06-18",
+          "place": "Cotton Belt Trail, Waco, TX, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/common-true-katydid-2.jpg",
+          "author": "gbasstx",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/214266181",
+          "observedOn": "2024-05-07",
+          "place": "N Frazier St, Conroe, TX, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/common-true-katydid-3.jpg",
+          "author": "Eric Keith",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/8437084",
+          "observedOn": "2017-09-24",
+          "place": "Walker County, TX, USA",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/common-true-katydid-1.jpg"
     },
     {
       "id": "snowy-tree-cricket",
@@ -162,7 +195,40 @@
         "author": "Dom",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/308588489"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/snowy-tree-cricket-1.jpg",
+          "author": "William K",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/304338332",
+          "observedOn": "2025-08-02",
+          "place": "Illinois, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/snowy-tree-cricket-2.jpg",
+          "author": "Cayla N",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/155084611",
+          "observedOn": "2023-04-15",
+          "place": "Michigan, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/snowy-tree-cricket-3.jpg",
+          "author": "esche099",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/132207615",
+          "observedOn": "2022-08-24",
+          "place": "Lanark",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/snowy-tree-cricket-1.jpg"
     },
     {
       "id": "lyric-cicada",
@@ -207,7 +273,40 @@
         "author": "L.J. Lamera",
         "license": "CC BY 4.0",
         "url": "https://www.inaturalist.org/observations/227918297"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/lyric-cicada-1.jpg",
+          "author": "Andrew Dreelin",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/15133698",
+          "observedOn": "2018-08-05",
+          "place": "Cape May County, NJ, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/lyric-cicada-2.jpg",
+          "author": "Cecil Smith",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "url": "https://www.inaturalist.org/observations/89974764",
+          "observedOn": "2021-08-03",
+          "place": "Hereford Township, PA, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/lyric-cicada-3.jpg",
+          "author": "mangumcl",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/126100160",
+          "observedOn": "2022-07-12",
+          "place": "N Ninth St, De Queen, AR, US",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/lyric-cicada-1.jpg"
     },
     {
       "id": "linnes-cicada",
@@ -249,7 +348,40 @@
         "author": "Janet Wright",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/7609899"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/linnes-cicada-1.jpg",
+          "author": "Janet Wright",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/7609899",
+          "observedOn": "2017-08-21",
+          "place": "Nashville, TN",
+          "reference": true
+        },
+        {
+          "src": "images/insects/linnes-cicada-2.jpg",
+          "author": "Colin Reth",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/296659824",
+          "observedOn": "2021-09-06",
+          "place": "Delaware County, US-IA, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/linnes-cicada-3.jpg",
+          "author": "Daniel Sgro",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/296028060",
+          "observedOn": "2022-07-27",
+          "place": "Montgomery, NJ, USA",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/linnes-cicada-1.jpg"
     },
     {
       "id": "morning-cicada",
@@ -291,7 +423,40 @@
         "author": "Dan Johnson",
         "license": "CC BY 4.0",
         "url": "https://www.inaturalist.org/observations/119965157"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/morning-cicada-1.jpg",
+          "author": "richard crook",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/106049448",
+          "observedOn": "2006-07-30",
+          "place": "10216 Lee Rd, Boynton Beach, FL 33472, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/morning-cicada-2.jpg",
+          "author": "Judy Gallagher",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "url": "https://www.inaturalist.org/observations/14339203",
+          "observedOn": "2018-07-13",
+          "place": "Fairfax County, VA, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/morning-cicada-3.jpg",
+          "author": "Brett Jackson",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/38313886",
+          "observedOn": "2015-08-03",
+          "place": "Timber Cove, Taylor Lake Village, TX 77586, USA",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/morning-cicada-1.jpg"
     },
     {
       "id": "dog-day-cicada",
@@ -334,7 +499,40 @@
         "author": "Ryan Hodnett",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Northern_Dog-day_Cicada_(Neotibicen_canicularis)_-_Guelph,_Ontario_2020-07-26.mp3"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/dog-day-cicada-1.jpg",
+          "author": "thecicadadude",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/131081834",
+          "observedOn": "2022-08-16",
+          "place": "Illinois, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/dog-day-cicada-2.jpg",
+          "author": "Spencer Quayle",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "url": "https://www.inaturalist.org/observations/171126007",
+          "observedOn": "2023-07-04",
+          "place": "Wood Buffalo, AB, CA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/dog-day-cicada-3.jpg",
+          "author": "earthdream",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/128197920",
+          "observedOn": "2022-07-27",
+          "place": "Sussex, NB E4E 5S1, Canada",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/dog-day-cicada-1.jpg"
     },
     {
       "id": "greater-anglewing",
@@ -377,7 +575,40 @@
         "author": "David Matevosian",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/388655315"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/greater-anglewing-1.jpg",
+          "author": "pkryan33",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/56360107",
+          "observedOn": "2020-08-13",
+          "place": "Tremont Rd, Pine Grove, PA, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/greater-anglewing-2.jpg",
+          "author": "Shawn Carroll",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/267305082",
+          "observedOn": "2022-12-16",
+          "place": "Bonita, CA, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/greater-anglewing-3.jpg",
+          "author": "Ethan Dropkin",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/29781629",
+          "observedOn": "2018-09-01",
+          "place": "Liberty State Park, Jersey City, NJ, US",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/greater-anglewing-1.jpg"
     },
     {
       "id": "lesser-anglewing",
@@ -420,7 +651,40 @@
         "author": "Dan Johnson",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/16627500"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/lesser-anglewing-1.jpg",
+          "author": "Susan J. Hewitt",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/91870499",
+          "observedOn": "2021-08-20",
+          "place": "Manhattan, New York, NY, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/lesser-anglewing-2.jpg",
+          "author": "Stott Noble",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/4254142",
+          "observedOn": "2016-10-01",
+          "place": "Ruffner Mountain Nature Preserve, Birmingham, Alabama",
+          "reference": true
+        },
+        {
+          "src": "images/insects/lesser-anglewing-3.jpg",
+          "author": "nje171",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/182700807",
+          "observedOn": "2023-09-10",
+          "place": "Beaver Lake Dr, Ellijay, GA, US",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/lesser-anglewing-1.jpg"
     },
     {
       "id": "oblong-winged-katydid",
@@ -464,7 +728,40 @@
         "author": "Misha Zitser",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/176711599"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/oblong-winged-katydid-1.jpg",
+          "author": "Nodnarb Nedloh",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "url": "https://www.inaturalist.org/observations/10301918",
+          "observedOn": "2014-09-20",
+          "place": "Leamington, ON, Canada",
+          "reference": true
+        },
+        {
+          "src": "images/insects/oblong-winged-katydid-2.jpg",
+          "author": "Ty Sharrow",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/174686803",
+          "observedOn": "2023-07-24",
+          "place": "Jacksonville, AR, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/oblong-winged-katydid-3.jpg",
+          "author": "Tom Preney",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/6681248",
+          "observedOn": "2010-07-15",
+          "place": "5200 Matchette Rd, Windsor, ON N9C 4E8, Canada",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/oblong-winged-katydid-1.jpg"
     },
     {
       "id": "fork-tailed-bush-katydid",
@@ -509,7 +806,40 @@
         "author": "asimina11",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/389386448"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/fork-tailed-bush-katydid-1.jpg",
+          "author": "Gustavo Vasquez",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/45132798",
+          "observedOn": "2020-05-06",
+          "place": "Santa Rosa, CA, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/fork-tailed-bush-katydid-2.jpg",
+          "author": "Sawyer Dawson",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/244773788",
+          "observedOn": "2024-09-29",
+          "place": "Middlesex, CA-ON, CA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/fork-tailed-bush-katydid-3.jpg",
+          "author": "Jeremy Gatten",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/335458895",
+          "observedOn": "2023-06-15",
+          "place": "Squamish-Lillooet, BC, Canada",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/fork-tailed-bush-katydid-1.jpg"
     },
     {
       "id": "sword-bearing-conehead",
@@ -553,7 +883,40 @@
         "author": "Ryan Hodnett",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Sword-bearing_Conehead_(Neoconocephalus_ensiger)_-_Guelph,_Ontario_2020-07-26.mp3"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/sword-bearing-conehead-1.jpg",
+          "author": "Chelsea Crouse",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/132442967",
+          "observedOn": "2022-08-26",
+          "place": "Barrington, NS, CA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/sword-bearing-conehead-2.jpg",
+          "author": "Molly Jacobson",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/150557122",
+          "observedOn": "2016-09-30",
+          "place": "UNH",
+          "reference": true
+        },
+        {
+          "src": "images/insects/sword-bearing-conehead-3.jpg",
+          "author": "bertfoquet",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/125733395",
+          "observedOn": "2022-07-10",
+          "place": "John T Mcnaughton Park, Pekin, IL, US",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/sword-bearing-conehead-1.jpg"
     },
     {
       "id": "fall-field-cricket",
@@ -599,7 +962,40 @@
         "author": "Thatcher",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Field_cricket_Gryllus_pennsylvanicus.ogg"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/fall-field-cricket-1.jpg",
+          "author": "Wolf Dietrich",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/32310451",
+          "observedOn": "2019-09-02",
+          "place": "Newtonville Rd, Clarington, ON, CA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/fall-field-cricket-2.jpg",
+          "author": "pepperonipizza",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/187904391",
+          "observedOn": "2023-09-01",
+          "place": "Peabody, MA 01960, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/fall-field-cricket-3.jpg",
+          "author": "Todd Hagedorn",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/20396539",
+          "observedOn": "2018-08-11",
+          "place": "Gravenhurst, ON, Canada",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/fall-field-cricket-1.jpg"
     },
     {
       "id": "carolina-ground-cricket",
@@ -646,7 +1042,40 @@
         "author": "Misha Zitser",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/299203551"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/carolina-ground-cricket-1.jpg",
+          "author": "Frederic Desmeules",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/133522278",
+          "observedOn": "2022-09-03",
+          "place": "Le Sud-Ouest, Montréal, QC, Canada",
+          "reference": true
+        },
+        {
+          "src": "images/insects/carolina-ground-cricket-2.jpg",
+          "author": "Luke Padon",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "url": "https://www.inaturalist.org/observations/226045461",
+          "observedOn": "2024-04-13",
+          "place": "McLennan County, TX, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/carolina-ground-cricket-3.jpg",
+          "author": "Ingolf Askevold",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "url": "https://www.inaturalist.org/observations/339248402",
+          "observedOn": "2026-02-18",
+          "place": "Spencer Rd, Tallahassee, FL, US",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/carolina-ground-cricket-1.jpg"
     },
     {
       "id": "jumping-bush-cricket",
@@ -689,7 +1118,40 @@
         "author": "Misha Zitser",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/308437269"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/jumping-bush-cricket-1.jpg",
+          "author": "Matt Pelikan",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "url": "https://www.inaturalist.org/observations/59329923",
+          "observedOn": "2020-09-11",
+          "place": "Oak Bluffs, MA, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/jumping-bush-cricket-2.jpg",
+          "author": "Tardigrades Rule",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/34217452",
+          "observedOn": "2019-10-10",
+          "place": "Douglas Rd, Chappaqua, NY, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/jumping-bush-cricket-3.jpg",
+          "author": "Jerry Cannon",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/18580964",
+          "observedOn": "2018-09-19",
+          "place": "Twinsburg, OH 44087, USA",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/jumping-bush-cricket-1.jpg"
     },
     {
       "id": "handsome-trig",
@@ -736,7 +1198,40 @@
         "author": "Ken Kneidel",
         "license": "CC0 1.0",
         "url": "https://www.inaturalist.org/observations/94171513"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/handsome-trig-1.jpg",
+          "author": "ltjeffers",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/51178698",
+          "observedOn": "2020-06-27",
+          "place": "Shadow Creek Ranch, Pearland, TX, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/handsome-trig-2.jpg",
+          "author": "Bill Keim",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "url": "https://www.inaturalist.org/observations/247892462",
+          "observedOn": "2024-08-12",
+          "place": "Bucks County, PA, USA",
+          "reference": true
+        },
+        {
+          "src": "images/insects/handsome-trig-3.jpg",
+          "author": "Ken Kneidel",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "url": "https://www.inaturalist.org/observations/85915127",
+          "observedOn": "2021-07-05",
+          "place": "Haven Dr, Charlotte, NC, US",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/handsome-trig-1.jpg"
     },
     {
       "id": "narrow-winged-tree-cricket",
@@ -780,7 +1275,40 @@
         "author": "Kyle Aldinger",
         "license": "CC BY-NC 4.0",
         "url": "https://www.inaturalist.org/observations/236638243"
-      }
+      },
+      "photos": [
+        {
+          "src": "images/insects/narrow-winged-tree-cricket-1.jpg",
+          "author": "Scott King",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/3973127",
+          "observedOn": "2016-08-22",
+          "place": "Northfield, Minnesota, United States",
+          "reference": true
+        },
+        {
+          "src": "images/insects/narrow-winged-tree-cricket-2.jpg",
+          "author": "Kyle Aldinger",
+          "license": "CC BY-NC 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+          "url": "https://www.inaturalist.org/observations/236638243",
+          "observedOn": "2024-08-18",
+          "place": "Zinn Chapel Rd, Reedsville, WV, US",
+          "reference": true
+        },
+        {
+          "src": "images/insects/narrow-winged-tree-cricket-3.jpg",
+          "author": "Sinéad Tuttle-Lerner",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "url": "https://www.inaturalist.org/observations/188812099",
+          "observedOn": "2023-10-23",
+          "place": "South Branch Raritan River, Long Valley, NJ, US",
+          "reference": true
+        }
+      ],
+      "photo": "images/insects/narrow-winged-tree-cricket-1.jpg"
     }
   ],
   "seasonalCalendar": {

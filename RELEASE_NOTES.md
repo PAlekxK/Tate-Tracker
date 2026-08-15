@@ -4,6 +4,20 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-15 — Now you can see them too
+
+- **Every singing insect has pictures.** Open any species in Insect Sounds and there are three
+  photographs of it, where before there were none — the one Wildlife tab that had sound but
+  nothing to look at.
+- **Three, not one, and that is the point.** Nobody can tell a Carolina Ground Cricket from a
+  Jumping Bush Cricket at a glance, so a single photo would be a claim you could not check.
+  Three, each taken by a different person, let a wrong one look wrong.
+- **They were taken somewhere else.** These come from iNaturalist, photographed by the people
+  credited under each one, on their ground and not ours — the card says so plainly. The day one
+  of these is a picture taken at Fernwood, that will be worth more than all forty-eight.
+- **Bigger on a phone than on a laptop.** They sit three across on a wide screen and two across
+  on a phone, where each one comes out larger rather than smaller.
+
 ## 2026-08-15 — What's making that noise
 
 - **New tab under Wildlife: Insect Sounds.** Sixteen of the singers behind a Georgia summer — the
