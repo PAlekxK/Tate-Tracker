@@ -70,7 +70,37 @@ CATEGORIES = {
             "coyote", "red-fox", "black-bear", "raccoon", "white-tailed-deer",
         },
     },
+    "insects": {
+        # Added 2026-08-15 with the Insect Sounds tab. EVERY record in insects.json
+        # earns its place by being audible — the domain is defined by song — so there
+        # is no is_vocal filter to apply here, unlike the mammals subset above.
+        #
+        # ⚠️ Expect a lower hit rate than birds or frogs. Commons is thin on singing
+        # insects, and the scientific names have churned: the annual cicadas were all
+        # moved from Tibicen to Neotibicen in 2015, and a lot of good recordings are
+        # still filed under the old binomial. The overrides below cover that, and
+        # iNaturalist (which this script already accepts CC audio from) is the better
+        # source for Orthoptera generally.
+        "json_file": "insects.json",
+        "species_path": "species",
+        "sound_dir": "sounds/insects",
+        "is_vocal": lambda item: True,
+    },
 }
+
+# Old genus names and common-name fallbacks for the singing insects — see the note
+# in CATEGORIES["insects"]. Merged into SPECIES_OVERRIDES below so the existing
+# lookup path picks them up without a second mechanism.
+INSECT_NAME_FALLBACKS = {
+    "dog-day-cicada":      ["Tibicen canicularis", "Neotibicen canicularis call"],
+    "linnes-cicada":       ["Tibicen linnei", "Neotibicen linnei song"],
+    "lyric-cicada":        ["Tibicen lyricen", "Neotibicen lyricen song"],
+    "morning-cicada":      ["Tibicen tibicen", "Neotibicen tibicen chloromerus"],
+    "common-true-katydid": ["Pterophylla camellifolia song", "true katydid call"],
+    "snowy-tree-cricket":  ["Oecanthus fultoni song", "snowy tree cricket chirp"],
+    "fall-field-cricket":  ["Gryllus pennsylvanicus song", "field cricket chirp"],
+}
+SPECIES_OVERRIDES.update(INSECT_NAME_FALLBACKS)
 
 
 def fetch_json(url):
