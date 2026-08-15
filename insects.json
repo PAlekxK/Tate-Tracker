@@ -17,7 +17,6 @@
     "notes": "⚠️ NO SPECIES IN THIS FILE HAS BEEN CONFIRMED AT THE PROPERTY. Every record here is a range-and-habitat inference — the species is documented in the north Georgia Blue Ridge and the property has the habitat it wants. That is why every record carries `presence.confidence: inferred` and `presence.askable: true`. This is the only domain in the record that is honest-uncertain from top to bottom, and a single evening on the porch with the app open can start settling it. Timing is temperature-driven and shifts a week or more year to year; at 2,959 ft expect the chorus to start later in summer and quit earlier in autumn than lowland north Georgia.",
     "monthIndex": "0-indexed — 0 = January, matching every other domain in this record"
   },
-
   "propertyHighlights": {
     "whyItSounds": "Church Mountain Road has the two things a loud summer night needs: unbroken hardwood canopy and a warm open edge. True katydids and cicadas sing from the tops of the oaks and hickories — you almost never see them, you only ever hear them. The fairway clearing, the mulched beds and the pond margin give the crickets and the smaller bush katydids their low, close-in layer. The result is a chorus with real vertical structure: the cicadas overhead by day, the katydids overhead by night, and the crickets down at ankle height around the house from dusk until the cold shuts them off.",
     "howToListen": [
@@ -59,7 +58,6 @@
       }
     ]
   },
-
   "listeningGuide": {
     "thermometerCricket": {
       "species": "snowy-tree-cricket",
@@ -76,7 +74,6 @@
       "fernwoodAngle": "Two or three years of logged first-katydid dates against the station's actual first-frost dates would settle it here for good, one way or the other."
     }
   },
-
   "species": [
     {
       "id": "common-true-katydid",
@@ -85,9 +82,20 @@
       "emoji": "🍃",
       "type": "katydid",
       "statusLabel": "The sound of an August night",
-      "monthsActive": [6, 7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["dusk", "night"],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "dusk",
+        "night"
+      ],
       "minTempF": 52,
       "perch": "High in the canopy of oaks, hickories and maples — 30 to 60 ft up",
       "song": "A harsh, rasping phrase of two to four pulses, repeated over and over from the treetops. In the Southeast the phrase runs faster and carries more pulses than the leisurely northern 'ka-ty-did'.",
@@ -103,6 +111,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Universal in mature eastern hardwood forest across its range, and the property is exactly that. Unconfirmed here only because nobody has written it down."
+      },
+      "sound": "sounds/insects/common-true-katydid.wav",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "peterwchen",
+        "license": "CC BY 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Pterophylla_camellifolia_singing.wav"
       }
     },
     {
@@ -112,9 +127,20 @@
       "emoji": "🦗",
       "type": "cricket",
       "statusLabel": "The thermometer cricket",
-      "monthsActive": [6, 7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["dusk", "night"],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "dusk",
+        "night"
+      ],
       "perch": "Shrubs, brambles and the low branches of small trees, usually 3–10 ft up",
       "song": "Pure, mellow, evenly spaced whistled notes — 'treet ... treet ... treet' — with a soft bell-like quality nothing else here matches. Every snowy within earshot synchronizes, so a whole hillside pulses together in perfect time.",
       "soundsLike": "a slow, sweet, unhurried whistle — the sound most people picture when they imagine a summer night",
@@ -129,6 +155,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Widespread across the eastern US including the southern Appalachians, and the shrubby fairway edge is good habitat. Unconfirmed here."
+      },
+      "sound": "sounds/insects/snowy-tree-cricket.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Dom",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/308588489"
       }
     },
     {
@@ -138,9 +171,21 @@
       "emoji": "☀️",
       "type": "cicada",
       "statusLabel": "Daytime resident",
-      "monthsActive": [5, 6, 7, 8],
-      "peakMonths": [6, 7],
-      "hoursActive": ["morning", "afternoon", "dusk"],
+      "monthsActive": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        6,
+        7
+      ],
+      "hoursActive": [
+        "morning",
+        "afternoon",
+        "dusk"
+      ],
       "perch": "Trunks and high limbs of oaks and hickories",
       "song": "A steady, buzzy, rattling trill that runs unbroken for thirty seconds to a minute or more, with no rise and fall and no pulsing.",
       "soundsLike": "a long unbroken rattle — the one cicada that never seems to pause for breath",
@@ -155,6 +200,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Documented across north Georgia in exactly this forest type. Unconfirmed here."
+      },
+      "sound": "sounds/insects/lyric-cicada.mp3",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "L.J. Lamera",
+        "license": "CC BY 4.0",
+        "url": "https://www.inaturalist.org/observations/227918297"
       }
     },
     {
@@ -164,9 +216,18 @@
       "emoji": "☀️",
       "type": "cicada",
       "statusLabel": "Daytime resident",
-      "monthsActive": [6, 7, 8],
-      "peakMonths": [7],
-      "hoursActive": ["morning", "afternoon"],
+      "monthsActive": [
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        7
+      ],
+      "hoursActive": [
+        "morning",
+        "afternoon"
+      ],
       "perch": "High in deciduous canopy",
       "song": "Begins softly, builds quickly, then settles into a rapid pulsating rattle before ending abruptly. About fifteen seconds start to finish.",
       "soundsLike": "a shaken salt shaker that speeds up, holds, and stops dead",
@@ -181,6 +242,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "One of the commonest annual cicadas in north Georgia. Unconfirmed here."
+      },
+      "sound": "sounds/insects/linnes-cicada.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Janet Wright",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/7609899"
       }
     },
     {
@@ -190,9 +258,18 @@
       "emoji": "☀️",
       "type": "cicada",
       "statusLabel": "Uncertain at this elevation",
-      "monthsActive": [6, 7, 8],
-      "peakMonths": [7],
-      "hoursActive": ["dawn", "morning"],
+      "monthsActive": [
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        7
+      ],
+      "hoursActive": [
+        "dawn",
+        "morning"
+      ],
       "perch": "Trees near water — the pond margin is the likeliest spot here",
       "song": "A soft buzz that grows into a pulsating drone, swells to a crescendo, then tapers and stops abruptly. Ten to fifteen seconds.",
       "soundsLike": "a wave building and breaking — and almost always before noon",
@@ -207,6 +284,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Common in lowland Georgia and associated with wet ground; the property has a pond but sits well above its usual elevation band. Genuinely uncertain — a morning-singing cicada heard here would be worth reporting."
+      },
+      "sound": "sounds/insects/morning-cicada.mp3",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Dan Johnson",
+        "license": "CC BY 4.0",
+        "url": "https://www.inaturalist.org/observations/119965157"
       }
     },
     {
@@ -216,9 +300,19 @@
       "emoji": "☀️",
       "type": "cicada",
       "statusLabel": "Possible elevation specialist",
-      "monthsActive": [6, 7, 8],
-      "peakMonths": [6, 7],
-      "hoursActive": ["morning", "afternoon"],
+      "monthsActive": [
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        6,
+        7
+      ],
+      "hoursActive": [
+        "morning",
+        "afternoon"
+      ],
       "perch": "Pines and mixed canopy",
       "song": "A long, even, high-pitched buzz that swells slightly and fades, without the rattling pulse of the other cicadas here. Ten to twenty seconds.",
       "soundsLike": "a distant circular saw, or a power line humming on a hot afternoon",
@@ -233,6 +327,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Southern range limit is elevation-dependent in the Appalachians and 2,959 ft is plausible, but there is no Pickens County record in hand. The highest-value unknown in this file."
+      },
+      "sound": "sounds/insects/dog-day-cicada.mp3",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "Ryan Hodnett",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Northern_Dog-day_Cicada_(Neotibicen_canicularis)_-_Guelph,_Ontario_2020-07-26.mp3"
       }
     },
     {
@@ -242,9 +343,19 @@
       "emoji": "🍃",
       "type": "katydid",
       "statusLabel": "Night caller",
-      "monthsActive": [6, 7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["night"],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "night"
+      ],
       "perch": "Treetops and tall shrubs",
       "song": "Two quite different songs: a loud, high, isolated 'tsip!' delivered every few seconds, and a rapid mechanical ticking — 'tick-tick-tick-tick' — like a tiny wind-up toy.",
       "soundsLike": "a single sharp lisp out of the dark, then later a rattling tick — frequently mistaken for a bird or a tree frog",
@@ -259,6 +370,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Widespread in Georgia in wooded and edge habitat. Unconfirmed here."
+      },
+      "sound": "sounds/insects/greater-anglewing.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "David Matevosian",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/388655315"
       }
     },
     {
@@ -268,9 +386,19 @@
       "emoji": "🍃",
       "type": "katydid",
       "statusLabel": "Early-season night caller",
-      "monthsActive": [5, 6, 7, 8],
-      "peakMonths": [6, 7],
-      "hoursActive": ["night"],
+      "monthsActive": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "peakMonths": [
+        6,
+        7
+      ],
+      "hoursActive": [
+        "night"
+      ],
       "perch": "Deciduous trees and tall shrubs",
       "song": "A short, coarse, raspy buzz — 'zeep ... zeep' — repeated at irregular intervals, rougher and less clean than the Greater Anglewing's sharp tick.",
       "soundsLike": "a brief scratchy rasp, like a zipper pulled two inches",
@@ -285,6 +413,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Common across Georgia in deciduous woodland edge. Unconfirmed here."
+      },
+      "sound": "sounds/insects/lesser-anglewing.mp3",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Dan Johnson",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/16627500"
       }
     },
     {
@@ -294,9 +429,20 @@
       "emoji": "🍃",
       "type": "katydid",
       "statusLabel": "Shrub-layer night caller",
-      "monthsActive": [6, 7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["dusk", "night"],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "dusk",
+        "night"
+      ],
       "perch": "Shrubs, brambles and low trees along the clearing edge",
       "song": "A dry, two-parted phrase — 'tzeet-tzeet' — delivered every few seconds from low cover.",
       "soundsLike": "two short dry scrapes, close together, then a pause",
@@ -311,6 +457,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Widespread in Georgia; the fairway edge and mulched beds are good habitat. Unconfirmed here."
+      },
+      "sound": "sounds/insects/oblong-winged-katydid.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Misha Zitser",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/176711599"
       }
     },
     {
@@ -320,9 +473,21 @@
       "emoji": "🍃",
       "type": "katydid",
       "statusLabel": "The one closest to the house",
-      "monthsActive": [5, 6, 7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["dusk", "night"],
+      "monthsActive": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "dusk",
+        "night"
+      ],
       "perch": "Garden shrubs, ornamental beds, low foliage — routinely within a few feet of a door",
       "song": "A soft, lisping 'zeep', given as single notes at long and irregular intervals. Quiet enough to miss entirely unless the night is still.",
       "soundsLike": "a faint short lisp, minutes apart — the sound you notice only after you stop looking for it",
@@ -337,6 +502,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "One of the commonest katydids in eastern North America and a habitual garden species. Unconfirmed here only for lack of a written record."
+      },
+      "sound": "sounds/insects/fork-tailed-bush-katydid.wav",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "asimina11",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/389386448"
       }
     },
     {
@@ -346,9 +518,20 @@
       "emoji": "🌾",
       "type": "conehead",
       "statusLabel": "Grassy-edge night caller",
-      "monthsActive": [6, 7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["dusk", "night"],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "dusk",
+        "night"
+      ],
       "perch": "Tall grass and weedy margins along the fairway edge",
       "song": "A long, relentless, mechanical series of quick rasps — 'tsip-tsip-tsip-tsip' — running on without variation for minutes at a time.",
       "soundsLike": "a lawn sprinkler ticking round, or an old sewing machine",
@@ -363,6 +546,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Widespread in the Southeast wherever there is tall grass; the fairway edge qualifies. Unconfirmed here."
+      },
+      "sound": "sounds/insects/sword-bearing-conehead.mp3",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "Ryan Hodnett",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Sword-bearing_Conehead_(Neoconocephalus_ensiger)_-_Guelph,_Ontario_2020-07-26.mp3"
       }
     },
     {
@@ -372,9 +562,21 @@
       "emoji": "🦗",
       "type": "cricket",
       "statusLabel": "Late-season ground singer",
-      "monthsActive": [7, 8, 9, 10],
-      "peakMonths": [8, 9],
-      "hoursActive": ["afternoon", "dusk", "night"],
+      "monthsActive": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "peakMonths": [
+        8,
+        9
+      ],
+      "hoursActive": [
+        "afternoon",
+        "dusk",
+        "night"
+      ],
       "perch": "Under stones, mulch, wood piles, doorsteps and foundation edges",
       "song": "The archetypal cricket chirp — short musical bursts at roughly two to three a second, from ground level.",
       "soundsLike": "'cricket' — this is the sound the word means",
@@ -390,6 +592,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Ubiquitous in eastern North America including the Blue Ridge. Unconfirmed here only for lack of a written record."
+      },
+      "sound": "sounds/insects/fall-field-cricket.m4a",
+      "soundAttribution": {
+        "source": "Wikimedia Commons",
+        "author": "Thatcher",
+        "license": "CC BY-SA 3.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Field_cricket_Gryllus_pennsylvanicus.ogg"
       }
     },
     {
@@ -399,9 +608,23 @@
       "emoji": "🦗",
       "type": "cricket",
       "statusLabel": "The background layer",
-      "monthsActive": [6, 7, 8, 9, 10],
-      "peakMonths": [7, 8, 9],
-      "hoursActive": ["afternoon", "dusk", "night"],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "peakMonths": [
+        7,
+        8,
+        9
+      ],
+      "hoursActive": [
+        "afternoon",
+        "dusk",
+        "night"
+      ],
       "perch": "Leaf litter, damp ground, the base of beds and the woodland floor",
       "song": "A soft, buzzy, uneven trill that swells and sags without ever quite stopping — pitched low and coming from everywhere at once.",
       "soundsLike": "a faint hiss under everything else, more texture than tune",
@@ -416,6 +639,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "One of the most abundant ground crickets in the eastern US, in exactly this leaf-litter habitat. Unconfirmed here only for lack of a written record."
+      },
+      "sound": "sounds/insects/carolina-ground-cricket.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Misha Zitser",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/299203551"
       }
     },
     {
@@ -425,9 +655,19 @@
       "emoji": "🦗",
       "type": "cricket",
       "statusLabel": "Shrub-layer night singer",
-      "monthsActive": [7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["dusk", "night"],
+      "monthsActive": [
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "dusk",
+        "night"
+      ],
       "perch": "Shrubs and small trees, very often the ones planted right against a house",
       "song": "A single sharp, clean chirp, well separated — one every second or two — with a bright ringing quality.",
       "soundsLike": "a slow, deliberate 'chip ... chip ... chip', much more spaced out than a field cricket",
@@ -442,6 +682,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Common across Georgia in shrubby and planted habitat. Unconfirmed here."
+      },
+      "sound": "sounds/insects/jumping-bush-cricket.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Misha Zitser",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/308437269"
       }
     },
     {
@@ -451,9 +698,23 @@
       "emoji": "🦗",
       "type": "cricket",
       "statusLabel": "Daytime singer",
-      "monthsActive": [5, 6, 7, 8, 9],
-      "peakMonths": [6, 7, 8],
-      "hoursActive": ["morning", "afternoon", "dusk"],
+      "monthsActive": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        6,
+        7,
+        8
+      ],
+      "hoursActive": [
+        "morning",
+        "afternoon",
+        "dusk"
+      ],
       "perch": "Low shrubs, vines, brambles and dense leafy growth",
       "song": "A rapid, buzzy, staccato phrase — 'chi-chi-chi-chi' — repeated in short bursts, surprisingly loud for the size of the insect.",
       "soundsLike": "a quick electric stutter from inside a bush",
@@ -468,6 +729,13 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Common across Georgia in dense low growth. Unconfirmed here."
+      },
+      "sound": "sounds/insects/handsome-trig.mp3",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Ken Kneidel",
+        "license": "CC0 1.0",
+        "url": "https://www.inaturalist.org/observations/94171513"
       }
     },
     {
@@ -477,9 +745,20 @@
       "emoji": "🦗",
       "type": "cricket",
       "statusLabel": "Night singer",
-      "monthsActive": [6, 7, 8, 9],
-      "peakMonths": [7, 8],
-      "hoursActive": ["dusk", "night"],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "peakMonths": [
+        7,
+        8
+      ],
+      "hoursActive": [
+        "dusk",
+        "night"
+      ],
       "perch": "Tree foliage and tall shrubs",
       "song": "A rapid pulsing trill delivered in bursts — rougher, faster and less musical than the Snowy Tree Cricket's clean whistle.",
       "soundsLike": "a buzzy warble rather than a bell",
@@ -494,25 +773,119 @@
         "confidence": "inferred",
         "askable": true,
         "basis": "Widespread in the eastern US in shrub and tree foliage. Unconfirmed here."
+      },
+      "sound": "sounds/insects/narrow-winged-tree-cricket.m4a",
+      "soundAttribution": {
+        "source": "iNaturalist",
+        "author": "Kyle Aldinger",
+        "license": "CC BY-NC 4.0",
+        "url": "https://www.inaturalist.org/observations/236638243"
       }
     }
   ],
-
   "seasonalCalendar": {
-    "Jan": { "active": [], "highlights": "Silent. The singing insects are overwintering as eggs in plant stems and soil, or as nymphs underground — the cicadas beneath the oaks are years into a multi-year development nobody can see." },
-    "Feb": { "active": [], "highlights": "Still silent. The first sound of the year at the property will be spring peepers at the pond, not insects — the insect chorus is more than four months away." },
-    "Mar": { "active": [], "highlights": "Nothing singing. Ground cricket and katydid eggs are beginning to develop as soil temperatures rise." },
-    "Apr": { "active": [], "highlights": "Nymphs hatching and growing, all of them mute — singing requires the adult wings, which are several moults away yet." },
-    "May": { "active": ["handsome-trig", "fork-tailed-bush-katydid", "lesser-anglewing"], "highlights": "The very first voices. Handsome Trigs may start stuttering from the brambles on warm afternoons, and the earliest bush katydids appear. In a Brood XIX year — next due 2037 — this is the month the periodical cicadas would arrive instead, and nothing about the month would sound normal." },
-    "Jun": { "active": ["lyric-cicada", "lesser-anglewing", "handsome-trig", "fork-tailed-bush-katydid", "narrow-winged-tree-cricket", "carolina-ground-cricket"], "highlights": "The chorus opens. The first cicadas start in the canopy late in the month and the Lesser Anglewing rasps after dark, well before the true katydids get going. Evenings are still much quieter than they will be in six weeks." },
-    "Jul": { "active": ["common-true-katydid", "linnes-cicada", "lyric-cicada", "dog-day-cicada", "morning-cicada", "greater-anglewing", "oblong-winged-katydid", "sword-bearing-conehead", "snowy-tree-cricket", "handsome-trig"], "highlights": "The true katydids arrive, usually in the first days of the month, and the night changes character completely. Cicadas hold the daylight hours. Everything is present but not yet at full volume." },
-    "Aug": { "active": ["common-true-katydid", "linnes-cicada", "lyric-cicada", "dog-day-cicada", "morning-cicada", "greater-anglewing", "oblong-winged-katydid", "fork-tailed-bush-katydid", "sword-bearing-conehead", "snowy-tree-cricket", "narrow-winged-tree-cricket", "jumping-bush-cricket", "fall-field-cricket", "carolina-ground-cricket", "handsome-trig"], "highlights": "PEAK. Every species is out at once and the night chorus becomes a single pulsing wall of sound — the loudest the property gets all year. The best month to try the tree-cricket thermometer against the station." },
-    "Sep": { "active": ["common-true-katydid", "greater-anglewing", "oblong-winged-katydid", "sword-bearing-conehead", "snowy-tree-cricket", "narrow-winged-tree-cricket", "jumping-bush-cricket", "fall-field-cricket", "carolina-ground-cricket"], "highlights": "The handoff. Cicadas finish and the days go quiet; the katydids thin out; the cricket layer moves to the front. Cool nights start slowing everything down noticeably." },
-    "Oct": { "active": ["fall-field-cricket", "carolina-ground-cricket"], "highlights": "Down to crickets, and running slow. Watch the station on a clear night — Common True Katydids stop entirely below about 52°F, and up here that line gets crossed weeks earlier than it does in town." },
-    "Nov": { "active": ["fall-field-cricket"], "highlights": "A few field crickets on the warmest afternoons, then nothing. The first hard freeze ends the season outright." },
-    "Dec": { "active": [], "highlights": "Silent, and will stay silent until May." }
+    "Jan": {
+      "active": [],
+      "highlights": "Silent. The singing insects are overwintering as eggs in plant stems and soil, or as nymphs underground — the cicadas beneath the oaks are years into a multi-year development nobody can see."
+    },
+    "Feb": {
+      "active": [],
+      "highlights": "Still silent. The first sound of the year at the property will be spring peepers at the pond, not insects — the insect chorus is more than four months away."
+    },
+    "Mar": {
+      "active": [],
+      "highlights": "Nothing singing. Ground cricket and katydid eggs are beginning to develop as soil temperatures rise."
+    },
+    "Apr": {
+      "active": [],
+      "highlights": "Nymphs hatching and growing, all of them mute — singing requires the adult wings, which are several moults away yet."
+    },
+    "May": {
+      "active": [
+        "handsome-trig",
+        "fork-tailed-bush-katydid",
+        "lesser-anglewing"
+      ],
+      "highlights": "The very first voices. Handsome Trigs may start stuttering from the brambles on warm afternoons, and the earliest bush katydids appear. In a Brood XIX year — next due 2037 — this is the month the periodical cicadas would arrive instead, and nothing about the month would sound normal."
+    },
+    "Jun": {
+      "active": [
+        "lyric-cicada",
+        "lesser-anglewing",
+        "handsome-trig",
+        "fork-tailed-bush-katydid",
+        "narrow-winged-tree-cricket",
+        "carolina-ground-cricket"
+      ],
+      "highlights": "The chorus opens. The first cicadas start in the canopy late in the month and the Lesser Anglewing rasps after dark, well before the true katydids get going. Evenings are still much quieter than they will be in six weeks."
+    },
+    "Jul": {
+      "active": [
+        "common-true-katydid",
+        "linnes-cicada",
+        "lyric-cicada",
+        "dog-day-cicada",
+        "morning-cicada",
+        "greater-anglewing",
+        "oblong-winged-katydid",
+        "sword-bearing-conehead",
+        "snowy-tree-cricket",
+        "handsome-trig"
+      ],
+      "highlights": "The true katydids arrive, usually in the first days of the month, and the night changes character completely. Cicadas hold the daylight hours. Everything is present but not yet at full volume."
+    },
+    "Aug": {
+      "active": [
+        "common-true-katydid",
+        "linnes-cicada",
+        "lyric-cicada",
+        "dog-day-cicada",
+        "morning-cicada",
+        "greater-anglewing",
+        "oblong-winged-katydid",
+        "fork-tailed-bush-katydid",
+        "sword-bearing-conehead",
+        "snowy-tree-cricket",
+        "narrow-winged-tree-cricket",
+        "jumping-bush-cricket",
+        "fall-field-cricket",
+        "carolina-ground-cricket",
+        "handsome-trig"
+      ],
+      "highlights": "PEAK. Every species is out at once and the night chorus becomes a single pulsing wall of sound — the loudest the property gets all year. The best month to try the tree-cricket thermometer against the station."
+    },
+    "Sep": {
+      "active": [
+        "common-true-katydid",
+        "greater-anglewing",
+        "oblong-winged-katydid",
+        "sword-bearing-conehead",
+        "snowy-tree-cricket",
+        "narrow-winged-tree-cricket",
+        "jumping-bush-cricket",
+        "fall-field-cricket",
+        "carolina-ground-cricket"
+      ],
+      "highlights": "The handoff. Cicadas finish and the days go quiet; the katydids thin out; the cricket layer moves to the front. Cool nights start slowing everything down noticeably."
+    },
+    "Oct": {
+      "active": [
+        "fall-field-cricket",
+        "carolina-ground-cricket"
+      ],
+      "highlights": "Down to crickets, and running slow. Watch the station on a clear night — Common True Katydids stop entirely below about 52°F, and up here that line gets crossed weeks earlier than it does in town."
+    },
+    "Nov": {
+      "active": [
+        "fall-field-cricket"
+      ],
+      "highlights": "A few field crickets on the warmest afternoons, then nothing. The first hard freeze ends the season outright."
+    },
+    "Dec": {
+      "active": [],
+      "highlights": "Silent, and will stay silent until May."
+    }
   },
-
   "citizenScience": [
     {
       "id": "inaturalist-sounds",
@@ -521,7 +894,13 @@
       "url": "https://www.inaturalist.org/",
       "emoji": "🎙️",
       "description": "Singing insects are identified from sound, and a phone recording uploaded to iNaturalist can be identified to species by specialists. County-level records for crickets and katydids are genuinely sparse — a recording from this ridge would be a real contribution, not a token one.",
-      "monthsActive": [6, 7, 8, 9, 10],
+      "monthsActive": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
       "seasonNote": "June through October, best after dark in August"
     }
   ]

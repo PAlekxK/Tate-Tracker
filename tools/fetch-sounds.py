@@ -121,6 +121,27 @@ INSECT_NAME_FALLBACKS = {
 }
 SPECIES_OVERRIDES.update(INSECT_NAME_FALLBACKS)
 
+# ⚠️ Species whose Commons search is POISONED BY A HOMONYM — skip Commons entirely
+# and go straight to iNaturalist, which searches by taxon rather than by filename.
+#
+# `title_matches_species` accepts a bare species-epithet match, which is right for
+# almost everything and catastrophically wrong when the epithet is also a name in
+# another genus. Measured 2026-08-15: the Morning Cicada (Neotibicen *tibicen*)
+# resolved to `File:Juvenile white-backed Australian magpie (Gymnorhina *tibicen*
+# tyrannica) song.ogg` — Latin *tibicen*, "flute player", names both a cicada and
+# that bird — and the pipeline downloaded, transcoded and attributed a BIRD as a
+# Georgia cicada without one line of complaint. That is the exact failure this
+# repo's doctrine is built against: a confidently-wrong record is worse than an
+# honestly-unsure one, and Mom is the reader who would hear a magpie in July.
+#
+# Fixed here rather than by tightening the heuristic: requiring a full binomial
+# would silently drop the good common-name hits the other 15 species rely on, and
+# an epithet-blocklist is a guess about words rather than a statement about the two
+# species we have actually checked. This says only what we measured.
+COMMONS_SKIP = {
+    "morning-cicada",  # Gymnorhina tibicen — Australian magpie
+}
+
 
 def fetch_json(url):
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
@@ -440,7 +461,11 @@ def main():
 
         try:
             print(f"[fetch] {sid} — {item['name']}")
-            file_title, meta = find_audio(item, cfg)
+            if sid in COMMONS_SKIP:
+                print(f"  ~ skipping Commons (epithet homonym) — iNaturalist only")
+                file_title, meta = None, None
+            else:
+                file_title, meta = find_audio(item, cfg)
             source = "commons"
             if not file_title or not meta:
                 print(f"  ! no Commons recording — trying iNaturalist fallback")
