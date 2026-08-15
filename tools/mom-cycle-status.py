@@ -332,12 +332,75 @@ def selftest():
     return 0
 
 
+STATE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                          "data", "cycle-state.json")
+
+
+def write_state(at, state, needs_paul, unresolved, bench):
+    """Publish data/cycle-state.json, the portfolio-standard state artifact.
+
+    WHY A FILE AND NOT A FLAG. The cross-project readers — operating-layer's
+    cycle DISPATCH, focus.py's spill-back — must be able to learn this loop's
+    state WITHOUT running this loop's code. That is the non-AI-door rule applied
+    to a cycle: a state only obtainable by executing a project-local tool is a
+    state no portfolio surface will ever show, and this board proved it. It has
+    computed ARMED/FIRED correctly since 2026-08-12 and told nobody but the
+    person who typed the command.
+
+    Shape is fixed by the registry contract (`page.cycle.state`), matching
+    private-financial-dashboard's publisher, the only other one:
+        {state, generated_at, generated_by, why, next}
+    `why` and `next` are prose for a human; `state` is the field machines read.
+
+    generated_at is LOCAL wall-clock ISO, matching the existing publisher. A
+    reader that treats a missing or unparseable artifact as RESTING would defeat
+    the point, so the readers fail closed on both — see
+    field_log.cycle_published_state.
+    """
+    if state == "FIRED":
+        if needs_paul:
+            why = f"leg {at} — the return leg is owed, or the served queue is wrong"
+            nxt = "run /mom-cycle: the return leg is a Paul gate"
+        else:
+            why = (f"leg {at} — {unresolved} unresolved arrival(s) nobody has read yet")
+            nxt = "run /mom-cycle beat 1 (READ) — until someone looks, whose it was is unknown"
+    else:
+        why = f"leg {at} — monitor live, nothing unread could be hers"
+        if bench:
+            why += f" ({bench} bench arrival(s), not hers)"
+        nxt = None
+    doc = {
+        "state": state,
+        "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
+        "generated_by": "Tate-Tracker/tools/mom-cycle-status.py --write-state",
+        "why": why,
+        "next": nxt,
+        "at_leg": at,
+        "needs_paul": needs_paul,
+        "unresolved_arrivals": unresolved,
+    }
+    os.makedirs(os.path.dirname(STATE_PATH), exist_ok=True)
+    tmp = STATE_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(doc, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+    os.replace(tmp, STATE_PATH)                    # atomic; a torn read reads FIRED-less
+    print(f"published {STATE_PATH} — state {state} · {why}")
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(description="Where is the Mom-feedback loop standing?")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true",
                     help="Drive position() with known-answer fixtures and negative controls. "
                          "No network, no git, no Worker.")
+    ap.add_argument("--write-state", action="store_true",
+                    help="Publish data/cycle-state.json — the portfolio-standard state "
+                         "artifact operating-layer's DISPATCH and focus.py's spill-back read. "
+                         "This board already KNOWS the state; until now it only ever said so "
+                         "to whoever ran it, so a FIRED loop was invisible to every reader "
+                         "that was not a human at this terminal.")
     a = ap.parse_args()
 
     if a.selftest:
@@ -346,6 +409,9 @@ def main():
     sig = gather()
     at, state, needs_paul = position(sig)
     unresolved, bench = arrival_counts(sig)
+
+    if a.write_state:
+        return write_state(at, state, needs_paul, unresolved, bench)
 
     if a.json:
         print(json.dumps({"at_leg": at, "state": state, "needs_paul": needs_paul,
