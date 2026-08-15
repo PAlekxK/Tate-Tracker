@@ -703,3 +703,33 @@ test that matters here — a commit is not a ship, a push is, and no lap of her 
 does **not** filter test-harness devices, so a synthetic chat turn registers as input she is
 owed an acknowledgment ribbon for. That is the 2026-07-28 attribution error running backwards.
 It is written up in `BACKLOG.md`'s W12 row; the designed escape is `--acknowledged-through`.
+
+---
+
+## 2026-08-15 — NO LAP, but **her surface DID change** — recorded because the usual test does not apply
+
+`cycle-docs-check.py` flagged the repo as moved past its newest chronicled lap (08-14). It moved
+a lot: the Insect Sounds domain landed (16 species, 16 recordings, 48 reference photos) plus a
+card-clipping fix. **No lap of her cycle ran, and nothing here was triggered by her.**
+
+⚠️ **The 08-09 entry above resolved this by checking that `viewer.html` was untouched. That test
+is UNAVAILABLE today and must not be reused** — `viewer.html` was touched, pushed, and verified
+live four times. Her surface genuinely changed. So the honest discriminator is the trigger, not
+the blast radius:
+
+- **What starts a lap is her input** (CLAUDE.md: *the loop RESTS; her input fires it*). Her last
+  answer is **2026-08-03, 12 days ago**; `read-mom-feedback.py --pickup` reports nothing new and
+  nothing unresolved. The loop is **ARMED**, which is its healthy steady state — not overdue.
+- Today's work was a **new domain**, authored content on the ask path, and a correctness fix. It
+  answered no question of hers and folded nothing into canon on her behalf.
+
+**What she will see next time she opens it,** unannounced by any ribbon — which is correct, because
+the ribbon refreshes on HER events and none occurred: a new Insect Sounds tab under Wildlife, and
+two Recent-updates entries. Nothing in the insect domain is confirmed at the property; all 16
+records are `inferred` + `askable`, and the domain is deliberately **not `cardable`**, so this
+added **zero** cards to her 5-slot queue.
+
+**The next lap inherits a supply question, not a debt.** 16 askable records now exist in a domain
+whose harvester cannot see it (`harvest-questions.py` is plants-only). Promoting insects to
+`cardable` would put new cards in front of her while the queue is already full with 8 on the
+bench — so that is a deliberate decision for a lap to make, not a gap to close quietly.
