@@ -315,6 +315,14 @@ def main():
         "amphibians": digest_wildlife(load("amphibians.json")),
         "snakes": digest_wildlife(load("snakes.json")),
         "lizards": digest_wildlife(load("lizards.json")),
+        # Added 2026-08-15 with the Insect Sounds tab. "What is that noise?" is a
+        # question asked from the porch with a phone in hand, which is exactly Guru's
+        # surface — leaving the domain out of the digest would make the one assistant
+        # that gets asked it the one thing in the app that cannot answer.
+        # digest_wildlife's shape fits unchanged: the song/soundsLike/chorusRole prose
+        # rides along in `species`, and `presence` carries the honest-uncertainty flag
+        # Guru needs in order to hedge instead of asserting.
+        "insects": digest_wildlife(load("insects.json")),
         "fishing": digest_fishing(load("fishing.json")),
         "weeds": digest_weeds(load("weeds.json")),
         "property": digest_property(load("property.json")),
@@ -356,7 +364,8 @@ def main():
     raw_total = sum(
         os.path.getsize(p)
         for p in ("plants.json", "birds.json", "mammals.json", "amphibians.json",
-                  "snakes.json", "lizards.json", "fishing.json", "property.json")
+                  "snakes.json", "lizards.json", "insects.json", "fishing.json",
+                  "property.json")
     )
     digest_size = os.path.getsize(out_path)
     # Rough char→token estimate: ~4 chars/token for JSON

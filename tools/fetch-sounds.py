@@ -70,6 +70,76 @@ CATEGORIES = {
             "coyote", "red-fox", "black-bear", "raccoon", "white-tailed-deer",
         },
     },
+    "insects": {
+        # Added 2026-08-15 with the Insect Sounds tab. EVERY record in insects.json
+        # earns its place by being audible — the domain is defined by song — so there
+        # is no is_vocal filter to apply here, unlike the mammals subset above.
+        #
+        # ⚠️ Expect a lower hit rate than birds or frogs. Commons is thin on singing
+        # insects, and the scientific names have churned: the annual cicadas were all
+        # moved from Tibicen to Neotibicen in 2015, and a lot of good recordings are
+        # still filed under the old binomial. The overrides below cover that, and
+        # iNaturalist (which this script already accepts CC audio from) is the better
+        # source for Orthoptera generally.
+        "json_file": "insects.json",
+        "species_path": "species",
+        "sound_dir": "sounds/insects",
+        "is_vocal": lambda item: True,
+    },
+}
+
+# Old genus names and common-name fallbacks for the singing insects — see the note
+# in CATEGORIES["insects"]. Merged into SPECIES_OVERRIDES below so the existing
+# lookup path picks them up without a second mechanism.
+INSECT_NAME_FALLBACKS = {
+    # Cicadas — all four were moved out of Tibicen in 2015, so the old binomial is
+    # tried explicitly. `tibicen tibicen` is also catalogued as `chloromerus`.
+    "dog-day-cicada":      ["Tibicen canicularis", "Neotibicen canicularis call",
+                            "dog day cicada"],
+    "linnes-cicada":       ["Tibicen linnei", "Neotibicen linnei song"],
+    "lyric-cicada":        ["Tibicen lyricen", "Neotibicen lyricen song"],
+    "morning-cicada":      ["Tibicen tibicen", "Neotibicen tibicen chloromerus",
+                            "swamp cicada"],
+    # Katydids and the conehead.
+    "common-true-katydid": ["Pterophylla camellifolia song", "true katydid call",
+                            "katydid"],
+    "greater-anglewing":   ["Microcentrum rhombifolium song", "greater angle-wing katydid"],
+    "lesser-anglewing":    ["Microcentrum retinerve song", "lesser angle-wing katydid"],
+    "oblong-winged-katydid": ["Amblycorypha oblongifolia song", "oblong-winged katydid"],
+    "fork-tailed-bush-katydid": ["Scudderia furcata song", "fork-tailed bush katydid"],
+    "sword-bearing-conehead": ["Neoconocephalus ensiger song", "sword-bearing conehead"],
+    # Crickets.
+    "snowy-tree-cricket":  ["Oecanthus fultoni song", "snowy tree cricket chirp",
+                            "thermometer cricket"],
+    "fall-field-cricket":  ["Gryllus pennsylvanicus song", "field cricket chirp"],
+    "carolina-ground-cricket": ["Eunemobius carolinus song", "Nemobius carolinus",
+                               "Carolina ground cricket"],
+    "jumping-bush-cricket": ["Orocharis saltator song", "jumping bush cricket"],
+    "handsome-trig":       ["Phyllopalpus pulchellus song", "red-headed bush cricket",
+                            "handsome trig"],
+    "narrow-winged-tree-cricket": ["Oecanthus niveus song", "narrow-winged tree cricket"],
+}
+SPECIES_OVERRIDES.update(INSECT_NAME_FALLBACKS)
+
+# ⚠️ Species whose Commons search is POISONED BY A HOMONYM — skip Commons entirely
+# and go straight to iNaturalist, which searches by taxon rather than by filename.
+#
+# `title_matches_species` accepts a bare species-epithet match, which is right for
+# almost everything and catastrophically wrong when the epithet is also a name in
+# another genus. Measured 2026-08-15: the Morning Cicada (Neotibicen *tibicen*)
+# resolved to `File:Juvenile white-backed Australian magpie (Gymnorhina *tibicen*
+# tyrannica) song.ogg` — Latin *tibicen*, "flute player", names both a cicada and
+# that bird — and the pipeline downloaded, transcoded and attributed a BIRD as a
+# Georgia cicada without one line of complaint. That is the exact failure this
+# repo's doctrine is built against: a confidently-wrong record is worse than an
+# honestly-unsure one, and Mom is the reader who would hear a magpie in July.
+#
+# Fixed here rather than by tightening the heuristic: requiring a full binomial
+# would silently drop the good common-name hits the other 15 species rely on, and
+# an epithet-blocklist is a guess about words rather than a statement about the two
+# species we have actually checked. This says only what we measured.
+COMMONS_SKIP = {
+    "morning-cicada",  # Gymnorhina tibicen — Australian magpie
 }
 
 
@@ -391,7 +461,11 @@ def main():
 
         try:
             print(f"[fetch] {sid} — {item['name']}")
-            file_title, meta = find_audio(item, cfg)
+            if sid in COMMONS_SKIP:
+                print(f"  ~ skipping Commons (epithet homonym) — iNaturalist only")
+                file_title, meta = None, None
+            else:
+                file_title, meta = find_audio(item, cfg)
             source = "commons"
             if not file_title or not meta:
                 print(f"  ! no Commons recording — trying iNaturalist fallback")

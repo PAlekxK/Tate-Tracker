@@ -4,6 +4,31 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-15 — What's making that noise
+
+- **New tab under Wildlife: Insect Sounds.** Sixteen of the singers behind a Georgia summer — the
+  cicadas overhead by day, the katydids overhead by night, and the crickets down around the house
+  from dusk until the cold shuts them off.
+- **It leads with what you can hear right now.** The top of the tab reads the month, the actual
+  sunset, and the temperature at our own gauge, then names what should be singing at this hour.
+  Step outside and check it.
+- **The chorus has a temperature.** Common True Katydids stop singing below 52°F, so on a cool
+  October night the card says so and marks them silent — the gauge and the chorus agree or they
+  don't.
+- **The cricket thermometer.** Snowy Tree Crickets chirp at a rate that tracks the air temperature:
+  count the chirps in 13 seconds, add 40. On a summer evening the card offers the current gauge
+  reading to check it against.
+- **Everything here is a guess, and the card says so.** Nothing in this list has been confirmed on
+  the property — every species is there because the range and the habitat fit, not because anyone
+  has heard it here. One evening on the porch is worth more than all of it. The most interesting
+  guess is the Dog-day Cicada, a northern cicada that reaches Georgia only by climbing; 2,959 ft
+  might be high enough.
+- **Weather lore, checked rather than repeated.** The old saying that first frost follows six to
+  eight weeks after the first katydid doesn't survive contact with our own frost date, and the card
+  shows the arithmetic instead of passing the saying along.
+
+---
+
 ## 2026-08-14 — A bigger button for the radar
 
 - **The radar has its own button now.** One wide button across the Weather card that says

@@ -243,6 +243,19 @@ DOMAINS = {
                         time=("monthsActive", "peakMonths")),
     "lizard":    Domain("lizards.json", "species", "LIZARDS_DATA", "visit",
                         time=("monthsActive", "peakMonths")),
+    # ⭐ The first `visit` domain that can admit a guess (added 2026-08-15). The
+    # other six wildlife domains are 🔴 in check-domains — no marker path at all,
+    # so they cannot produce a card however good the harvester gets. Insects ship
+    # with one because the honesty is not decorative here: NOTHING in insects.json
+    # has been confirmed at the property. Every record is a range-and-habitat
+    # inference, so `presence.confidence` is `inferred` on all 16 and `askable` on
+    # all 16. `hoursActive` joins the temporal axis — a soundscape is organised by
+    # hour of the day as much as by month, and this is the only domain where that
+    # is true. Deliberately NOT cardable: buildCard is untouched, so no new supply
+    # reaches Mom's 5-slot queue (already full, 7 on the bench awaiting approval).
+    "insect":    Domain("insects.json", "species", "INSECTS_DATA", "visit",
+                        time=("monthsActive", "peakMonths", "hoursActive"),
+                        markers=("presence.confidence",)),
     "fish":      Domain("fishing.json", "species", "FISHING_DATA", "visit",
                         time=("tempPhases",)),
     "vehicle":   Domain("vehicles.json", "vehicles", "VEHICLES_DATA", "run",
