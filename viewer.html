@@ -20167,10 +20167,35 @@ function gatherGuruLiveState() {
 }
 
 // Text-size toggle (2026-05-22) — A / A+ chip in the header.
-// Per-device localStorage; default is normal. Applied via body.text-lg class.
+// Per-device localStorage; applied via body.text-lg class.
 // The scaling rules live in the .text-lg CSS block at the end of <style>.
+//
+// ⭐ THE DEFAULT IS A+ AS OF 2026-08-15 `[paul-stated]`: "let's try defaulting Mom
+// to A+ moving forward and see if she toggles it back as a test — my hunch is she
+// just doesn't understand the UI."
+//
+// This is a DEFAULT change, not a .text-lg change, which is the standing guidance
+// in CLAUDE.md and at viewer.html:2523 ("tune the DEFAULT type scale, not
+// body.text-lg"). It reaches anyone with no stored preference — which is Mom, who
+// has never fired this toggle in the record, while Paul's devices fired it 22x and
+// therefore keep whatever they last chose.
+//
+// ⚠️ WHAT A NULL RESULT WILL AND WILL NOT MEAN. "She did not toggle back" is
+// consistent with BOTH "A+ suits her" and Paul's own hunch, "she never noticed the
+// control" — the second being the reason she never turned it ON. So the toggle
+// cannot be the instrument for the thing it is testing. Two things follow, and both
+// are built rather than assumed:
+//   1. NOTHING IS WRITTEN TO localStorage ON A DEFAULT. An absent key keeps meaning
+//      "she has never chosen," which is the only reason a later text_size_changed
+//      is readable as a real decision. Stamping the default would forge a choice.
+//   2. `text_size_served` fires once per session with {size, stored} — the
+//      DENOMINATOR. Without it, "served A+ 14 times, never toggled back" and "the
+//      build never reached her" are the same zero, which is the 2026-08-04 lesson.
+// The real read is behavioural, not the toggle: session length, card opens and
+// journal interaction before vs. after today, via tools/read-mom-engagement.py.
 (function wireTextSizeToggle() {
   const KEY = "tateTracker.textSize";
+  const DEFAULT_SIZE = "lg";
   const aBtn = document.getElementById("text-size-a");
   const aplusBtn = document.getElementById("text-size-aplus");
   if (!aBtn || !aplusBtn) return;
@@ -20184,9 +20209,15 @@ function gatherGuruLiveState() {
     aplusBtn.setAttribute("aria-pressed", String(isLg));
   }
 
-  let saved = "normal";
-  try { saved = localStorage.getItem(KEY) || "normal"; } catch (e) {}
-  apply(saved);
+  let stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  apply(stored || DEFAULT_SIZE);
+  if (typeof MetricsCollector !== "undefined") {
+    MetricsCollector.track("text_size_served", {
+      size: stored || DEFAULT_SIZE,
+      stored: Boolean(stored),
+    });
+  }
 
   function set(size) {
     try { localStorage.setItem(KEY, size); } catch (e) {}

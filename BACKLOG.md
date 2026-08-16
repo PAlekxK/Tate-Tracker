@@ -265,6 +265,41 @@ Commissioned by Paul as a general UX audit, three named areas plus a whole-viewe
 | ✅ **The confirm-card action row is even** | Paul: *"that's all of them is kind of on top of a row where something's missing."* A wrap artifact: three pills needing ~394px in a 336px card, so the deferral wrapped alone leaving ~200px of empty row. Now a 2-col grid with the deferral spanning. **A true 3-up is not reachable at 390px** (three even cells give 106px; "I haven't looked" needs ~136px at her type floor) — Paul chose 2+1 over dropping below the floor. |
 | ✅ **`＋ Add a note` → `Tell me in your own words`** | Recommended 2026-07-26, never shipped until now. Names what opens, in her register, and drops a glyph carrying neither decision nor topic. **Paul-approved wording, 2026-08-02** (Mom-facing authored content — gated, then pushed). |
 
+### 🔬 NEXT LAP — the "she wants it AS SIMPLE AS POSSIBLE" hypothesis `[paul-raised 2026-08-15]`
+
+Paul: *"if that's true, and if she likes the jump menu over the context-rich summary menu we
+previously developed, that she may prefer as clean and simple a UI as possible… that's to consider in
+the next lap of the cycle **with the customer researcher** and ensure we consider in our longer term
+strategy."*
+
+**Deliberately NOT acted on this session.** Filed as a hypothesis with its evidence and its
+falsifiers so the next lap's **user-researcher** seat starts from the record rather than from the
+sentence. Long-horizon: if it holds, it is a **strategy input**, not a punch-list item — it would
+argue against the whole context-rich direction, which is a bigger call than any single card.
+
+**What actually supports it today — and it is thinner than it feels:**
+- She has **never fired the A/A+ toggle** (line 101), while Paul's devices fired it 22×.
+- Since `card_expanded` started carrying `via` (2026-08-14, lap 3), **every card open from her
+  device came via the jump strip** — and that is **2 opens**, on one day. `jumpstrip_viewed` was only
+  instrumented 08-04, so there is no clean before/after against the dashboard tiles.
+- Her sessions are **short**: 13s, 33s, 91s since lap 3 (`read-mom-engagement.py`).
+
+⚠️ **THE RIVAL EXPLANATION IS PAUL'S OWN, AND IT PREDICTS THE SAME DATA.** *"My hunch is she just
+doesn't understand the UI."* A person who does not recognise a control does not use it — which is
+indistinguishable, in this record, from a person who prefers not to. **"Simple" and "opaque" produce
+identical telemetry**, and only one of them is a preference. Do not let the first become the finding
+because it is the more flattering read. This is the same shape as the 07-28 attribution error: a
+confident inference from a toggle, held for 26 days, and backwards.
+- ⭐ **The A+ default test (shipped today) is one probe of this and CANNOT settle it** — see its
+  reasoning at `viewer.html`'s `wireTextSizeToggle`. If she never toggles back, that is consistent
+  with *both* readings.
+- **A discriminating probe is what this lap owes**, and it will not come from more counting: an
+  observation or a question that separates *did not notice* from *did not want*. That is a
+  user-researcher design problem, and Mom's attention is the scarcest resource in the project — so it
+  competes for the 5-slot cap and probably belongs at leg 3 tier 2 (Paul) before it ever reaches her.
+
+---
+
 ### 🔴 OPEN — does the nesting eat the width? `[paul-raised 2026-08-15, filed for NEXT cycle]`
 
 Paul: *"whether the cards within cards and nested drop downs is eating up margins and width of the
@@ -381,6 +416,7 @@ each punch item lives THERE; this section is the pointer plus the gates.
 | ~~**178 season notes await a spot-check**~~ | ↻ **REFRAMED 2026-08-02 — Paul will not read 178 notes, and the row should stop asking.** *"I'm not gonna do that realistically… let's have a strategic way of going through this."* Two facts reshaped it: **only the CURRENT month ever renders** (`plant.seasonNotes[String(currentMonth)]` — August is 24, never 178), and the v7 rule **forbids date claims outright**, so the notes are deliberately unfalsifiable by timing. **Tier 1 SHIPPED:** `tools/check-season-notes.py` audits all 178 against each plant's own bloom/care months — heuristics over prose, so it flags and never fixes. **Tier 2 is dead as written** (Paul reading a month) — he wants **Mom** doing this, in the app, inside the existing capture/feedback loop. **Tier 3** = season-note cards that ask about the OBSERVABLE the note describes, never about our prose; unblocked by M1 but competes for the 5-slot cap. | A2 · #8 |
 | ~~**Three relayed conversations**~~ | ✅ **CLOSED 2026-08-02 — Paul: *"let's just close nine. That seems out of date."*** Retires Tier-3 **#3** (the household-repair question feeding B6) and **#4** (what she expected to happen when she reported the rainfall number), both authored off the 2026-07-26 feedback, plus the categories follow-up. ⚠️ **What closes with them:** #4 was the only planned read on *what she expects back when she reports something* — the return-leg design now proceeds on inference rather than her account. If that gap bites, re-ask it fresh rather than reviving these — a question written for a week-old moment is the staleness that closed this row. | A1 · B6 |
 | **⭐ Should BEHAVIOUR be able to fire a lap?** `[paul-raised 2026-08-15]` | **The measurement half is BUILT and wired; the trigger half is his call and deliberately untouched.** Paul: *"the false signal of her not responding to any of the cards means she's not using the app. But that's just because that's the only thing we're checking **and have as a trigger for cycles**."* Today every detector in the loop keys on an **arrival** (an answer, a note, a recording, a Guru turn), so `mom-cycle-status.py` read 🟢 ARMED / *"nothing unread could be hers"* on 2026-08-15 while her device had **3 sessions, 2 jump-strip taps and 2 card opens since lap 3** — and **18 sessions on 11 active days** across the prior month, five of them (08-11, 08-12) producing no arrival at all. ✅ **Shipped 2026-08-15:** `tools/read-mom-engagement.py` (her device, since the last lap — sessions · card opens · journal · offered→viewed→taken), in the session-start block, in the map's checks table, and on the board as an informational **BETWEEN-LAP USE** line. ⛔ **What was NOT done, on purpose:** nothing about what STARTS a lap. **The question for Paul: should a behavioural signal fire one, and which?** The candidates are not equal — *she used it and gave nothing* (arguably the most informative state we have, and today it is invisible), *she was offered something N times and never took it*, *she stopped coming* (a decay trigger, which is the one thing an arrival-only loop can NEVER fire — silence produces no event). ⚠️ **The cost of getting it wrong runs one way:** an arrival trigger is self-limiting because she has to act; a behavioural trigger fires on our own instrumentation and could put the loop on a cadence, which is exactly what *"the loop RESTS; HER input fires it"* was written to prevent. ⚠️ And at this n a behavioural trigger would be firing on **single-digit counts from a device bucket, not a person**. | loop · A1 |
+| **⭐ A+ IS NOW THE DEFAULT — two calls are Paul's** `[paul-stated 2026-08-15]` | *"Let's try defaulting Mom to A+ moving forward and see if she toggles it back as a test. My hunch is she just doesn't understand the UI."* **Built and committed, NOT pushed** — it changes her surface, so it is leg 6 and his to release. Implementation is a DEFAULT change, not a `.text-lg` change, which is the standing guidance (`viewer.html:2523`). Nothing is written to localStorage on a default, so an absent key keeps meaning *"she has never chosen"* — the only reason a later `text_size_changed` reads as a real decision — and a new `text_size_served {size, stored}` fires once per session to supply the denominator (verified firing with the harness deviceId 2026-08-15; it will read NEVER-FIRED in `check-telemetry.py` until a real session flushes). **① THE RELEASE-NOTE CALL.** The standing rule is that every user-facing change ships a note — but a note naming the text-size control **tells her the control exists, which is the exact variable being tested**. Recommendation: **ship this one without a note**, recorded here rather than silently skipped; if he wants a note, it should describe something else that shipped and never mention type size. **② THE 390px CHECK IS NOT DONE.** Verified: the default applies, A+ is pressed, nothing is stored, the event fires. **NOT verified: layout at a true 390px A+ viewport** — the window would not resize below 1512 here. This matters because A+ was *Paul's* mode and is now *everyone's*, so every A+-only layout bug is promoted from his screen to hers, and one is already known-unverified (the 08-02 rainfall-strip fix, *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"*). One look on his phone before pushing closes it. ⚠️ **And the null result will not settle the hunch** — see the "as simple as possible" hypothesis in the shape-system section. | A4 · loop |
 | **GTI spare key + service bundle** | ~$450–500 dealer job, no clock. Bundle with the Chamblee recall trip | B1 |
 
 ---
