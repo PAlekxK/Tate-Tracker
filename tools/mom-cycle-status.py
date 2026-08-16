@@ -389,6 +389,52 @@ def write_state(at, state, needs_paul, unresolved, bench):
     return 0
 
 
+def _print_engagement():
+    """⭐ ARMED must never be read as 'she is not using the app' `[paul-stated 2026-08-15]`.
+
+    This board says *"nothing unread could be hers"* — a true statement about the
+    ARRIVAL record and a false one about the app. On 2026-08-15 it read 🟢 ARMED
+    while her device had 3 sessions, 2 jump-strip taps and 2 card opens since lap 3.
+    Paul: *"the false signal of her not responding to any of the cards means she's
+    not using the app. But that's just because that's the only thing we're checking."*
+
+    So the board carries the between-lap engagement line beside the arrival state.
+    It is INFORMATIONAL — it does not move a leg, does not set FIRED, and does not
+    change what triggers a lap. Best-effort by design: a failed read prints as a
+    failed read, never as a zero, because a silent zero here is the exact defect.
+    """
+    try:
+        _spec = importlib.util.spec_from_file_location(
+            "engagement", os.path.join(HERE, "read-mom-engagement.py"))
+        eng = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(eng)
+        lap = eng.last_lap()
+        hers = eng.her_devices()
+        if not hers:
+            return
+        start = lap[1] if lap else None
+        if not start:
+            return
+        r = eng.build(start, hers, momlib.resolve_token())
+    except Exception as exc:
+        print(f"  ⚪️ between-lap engagement — could not read /api/metrics ({type(exc).__name__}).")
+        print("       Unknown, NOT zero. python3 tools/read-mom-engagement.py")
+        print()
+        return
+
+    n_s, n_d = len(r["sessions"]), len(r["active_days"])
+    j = sum(r["journal"].get(k, 0) for k in ("field_note_saved", "entry_revisited",
+                                             "conversation_turn"))
+    icon = "📈" if n_s else "⚪️"
+    print(f"  {icon} BETWEEN-LAP USE — since lap {lap[0]} ({lap[1]}): {n_s} session(s) on "
+          f"{n_d} day(s),")
+    print(f"       {sum(r['cards'].values())} card open(s), {j} journal interaction(s). "
+          f"Her device bucket — not a")
+    print(f"       claim about who held the phone, and not a trigger. Detail:")
+    print("       python3 tools/read-mom-engagement.py")
+    print()
+
+
 def main():
     ap = argparse.ArgumentParser(description="Where is the Mom-feedback loop standing?")
     ap.add_argument("--json", action="store_true")
@@ -441,6 +487,8 @@ def main():
     else:
         print("  🔴 FIRED — something is waiting that is not ours to ignore.")
     print()
+
+    _print_engagement()
 
     if not sig["served_queue"]["clean"]:
         print("  🔴 SERVED QUEUE — what she is being shown is wrong:")

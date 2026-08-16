@@ -265,6 +265,39 @@ Commissioned by Paul as a general UX audit, three named areas plus a whole-viewe
 | ✅ **The confirm-card action row is even** | Paul: *"that's all of them is kind of on top of a row where something's missing."* A wrap artifact: three pills needing ~394px in a 336px card, so the deferral wrapped alone leaving ~200px of empty row. Now a 2-col grid with the deferral spanning. **A true 3-up is not reachable at 390px** (three even cells give 106px; "I haven't looked" needs ~136px at her type floor) — Paul chose 2+1 over dropping below the floor. |
 | ✅ **`＋ Add a note` → `Tell me in your own words`** | Recommended 2026-07-26, never shipped until now. Names what opens, in her register, and drops a glyph carrying neither decision nor topic. **Paul-approved wording, 2026-08-02** (Mom-facing authored content — gated, then pushed). |
 
+### 🔴 OPEN — does the nesting eat the width? `[paul-raised 2026-08-15, filed for NEXT cycle]`
+
+Paul: *"whether the cards within cards and nested drop downs is eating up margins and width of the
+page. So that for example the info boxes within a given insect's card are relatively narrow resulting
+in more rows than necessary. **This is true across our card schema.**"*
+
+**Not scheduled this lap — filed so the next one starts with it.** Deliberately recorded as a
+**question with a measurement**, not a fix: the whole point of the shape system above is that a new
+visual rule must be a claim someone can check, and "it feels cramped" is not yet one.
+
+- **The claim to test:** each nesting level (`.main-card` → section → info box → disclosure) spends
+  its own horizontal padding/border, and those costs **compound multiplicatively down the tree**
+  while the page's `max-width: 660px` and a 390px phone do not grow. If four levels each spend
+  ~12–14px a side, the innermost text column is ~100px narrower than the card that contains it —
+  which shows up not as a visible margin but as **more wrapped rows than the content needs**.
+- **How to measure it, and this is the part that must not be skipped:** compute the *used* content
+  width at every nesting depth **at 390px, in BOTH text modes**, and report the innermost column as a
+  fraction of the viewport. The insect card is Paul's named exemplar (shipped 08-15, the deepest tree
+  in the app) — but the finding is only worth acting on if it reproduces on **at least two other
+  domains**, since he says it is schema-wide.
+- ⚠️ **Measure at a real viewport, do not infer from the CSS.** The 08-02 rainfall-strip fix in the
+  table above was *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"* — the same
+  shortcut, one section up, and it is still carrying an unverified note.
+- ⚠️ **A+ is PAUL'S mode, not hers** (line 101 — she has never fired the A/A+ toggle). A width finding
+  that only bites at A+ is a real defect for whoever meets it, but it is **not** evidence about Mom's
+  experience, and it must not be argued as one. Tune the **default** scale.
+- **What a fix is allowed to be:** collapsing a nesting *level* (removing a box, not shaving its
+  padding) is the structural answer and the one that compounds; a padding token pass is the cosmetic
+  one. Prefer the first — but neither ships without the measurement above, and anything touching a
+  ratified component needs Paul's explicit go, as `.gg-suggest-btn-yes` did on 08-02.
+
+---
+
 **⏸ HELD — do not ship before 2026-08-10.** The launcher's 🎤 glyph and the `.fish-tab` restyle (which
 would return the filled dark-green pill to the affirmative and give the app ONE tab grammar). Both sit
 inside the clean measurement window above, and the 07-30 shell restyle already spent the one recoverable
@@ -347,6 +380,7 @@ each punch item lives THERE; this section is the pointer plus the gates.
 | **🪑 Approve a batch of bench cards** | ⚠️ **THE 08-02 PREMISE HAS FLIPPED — re-measured 2026-08-08.** That row concluded *"nothing is urgent"* **because the queue was full**; it is not anymore. She answered `q-top-categories` on 08-03 and it retired on 08-04, so `rationalize-bench.py` now reads **4 live · 1 OPEN SLOT · 8 awaiting Paul's clear gate · 0 approved on the bench**. Approving now *does* change what she sees. **RIPE: `q-fairway-grass-seedheads`** — its own trigger is *"flip in August when seed-heads emerge,"* and it is August. **Still SKIP (out of season, per today's run):** `q-spiderwort-bloom`, `q-hydrangea-dreamcloud-bloom` (reopens 09-01), `q-lizards-tail-bloom`. The 08-02 reading, preserved because its reasoning stands: ✅ **VERIFIED 2026-08-02 — nothing is urgent, and nothing is owed to her.** Live queue was **full and healthy**: 5 confirm cards, every observable exists today, **0 open slots**, so approving changed nothing until one was answered. *(Checked the scare too: 6 cards read as `active`, but `SUPPORTED_KINDS = ["confirm"]` filters the open-standing card out of the 5-slice and `generalQ()` renders it separately as the foot-line — it is visible, via a different path. Not a bug.)* Loop state: **nothing ready to fold, nothing pinning the watermark, no unanswered notes** — `q-almanac-name` already handled-then-retired, which released the ceiling. **Supply is now 10 in the pipe** (8 on the bench + virginia-creeper and wild-violet, newly harvestable after M1). **RIPE:** `q-fairway-grass-seedheads` — flip in August, the seed spikes are the tell. **SKIP (out of season):** `q-spiderwort-bloom`, `q-hydrangea-dreamcloud-bloom` (reopens 09-01), `q-lizards-tail-bloom`. ⚠️ **`q-wild-violet`'s observable is "the little purple flowers next spring"** — the harvester flags it; do not serve it in August. **The constraint has flipped:** it is no longer supply, it is the gate and the cap. An agent may run the report; only Paul runs `--approve`. | A3 · "THE BENCH" |
 | ~~**178 season notes await a spot-check**~~ | ↻ **REFRAMED 2026-08-02 — Paul will not read 178 notes, and the row should stop asking.** *"I'm not gonna do that realistically… let's have a strategic way of going through this."* Two facts reshaped it: **only the CURRENT month ever renders** (`plant.seasonNotes[String(currentMonth)]` — August is 24, never 178), and the v7 rule **forbids date claims outright**, so the notes are deliberately unfalsifiable by timing. **Tier 1 SHIPPED:** `tools/check-season-notes.py` audits all 178 against each plant's own bloom/care months — heuristics over prose, so it flags and never fixes. **Tier 2 is dead as written** (Paul reading a month) — he wants **Mom** doing this, in the app, inside the existing capture/feedback loop. **Tier 3** = season-note cards that ask about the OBSERVABLE the note describes, never about our prose; unblocked by M1 but competes for the 5-slot cap. | A2 · #8 |
 | ~~**Three relayed conversations**~~ | ✅ **CLOSED 2026-08-02 — Paul: *"let's just close nine. That seems out of date."*** Retires Tier-3 **#3** (the household-repair question feeding B6) and **#4** (what she expected to happen when she reported the rainfall number), both authored off the 2026-07-26 feedback, plus the categories follow-up. ⚠️ **What closes with them:** #4 was the only planned read on *what she expects back when she reports something* — the return-leg design now proceeds on inference rather than her account. If that gap bites, re-ask it fresh rather than reviving these — a question written for a week-old moment is the staleness that closed this row. | A1 · B6 |
+| **⭐ Should BEHAVIOUR be able to fire a lap?** `[paul-raised 2026-08-15]` | **The measurement half is BUILT and wired; the trigger half is his call and deliberately untouched.** Paul: *"the false signal of her not responding to any of the cards means she's not using the app. But that's just because that's the only thing we're checking **and have as a trigger for cycles**."* Today every detector in the loop keys on an **arrival** (an answer, a note, a recording, a Guru turn), so `mom-cycle-status.py` read 🟢 ARMED / *"nothing unread could be hers"* on 2026-08-15 while her device had **3 sessions, 2 jump-strip taps and 2 card opens since lap 3** — and **18 sessions on 11 active days** across the prior month, five of them (08-11, 08-12) producing no arrival at all. ✅ **Shipped 2026-08-15:** `tools/read-mom-engagement.py` (her device, since the last lap — sessions · card opens · journal · offered→viewed→taken), in the session-start block, in the map's checks table, and on the board as an informational **BETWEEN-LAP USE** line. ⛔ **What was NOT done, on purpose:** nothing about what STARTS a lap. **The question for Paul: should a behavioural signal fire one, and which?** The candidates are not equal — *she used it and gave nothing* (arguably the most informative state we have, and today it is invisible), *she was offered something N times and never took it*, *she stopped coming* (a decay trigger, which is the one thing an arrival-only loop can NEVER fire — silence produces no event). ⚠️ **The cost of getting it wrong runs one way:** an arrival trigger is self-limiting because she has to act; a behavioural trigger fires on our own instrumentation and could put the loop on a cadence, which is exactly what *"the loop RESTS; HER input fires it"* was written to prevent. ⚠️ And at this n a behavioural trigger would be firing on **single-digit counts from a device bucket, not a person**. | loop · A1 |
 | **GTI spare key + service bundle** | ~$450–500 dealer job, no clock. Bundle with the Chamblee recall trip | B1 |
 
 ---

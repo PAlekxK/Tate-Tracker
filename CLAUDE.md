@@ -17,7 +17,32 @@ python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — the Mom-che
 python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — decline vs. misunderstanding
 python3 tools/read-mom-zone-audio.py       # ⭐ HER VOICE — stage any new recordings; a channel nobody sweeps is a channel nobody hears
 python3 tools/transcribe-mom-zone-audio.py # make them readable (local whisper, .private/, UNVERIFIED — see the AI boundary)
+python3 tools/read-mom-engagement.py --pickup # ⭐ WHAT SHE DID — sessions/opens/journal since the last lap; silence in the answer record is not silence in the app
 ```
+
+**⭐⭐ AN EMPTY ANSWER RECORD IS NOT A QUIET USER** `[paul-stated 2026-08-15]`: *"this is really to
+keep track of and measure engagement between cycles. Right now we've got the false signal of her not
+responding to any of the cards means she's not using the app. But that's just because that's the only
+thing we're checking and have as a trigger for cycles."*
+
+**Every other check above keys on something LANDING** — an answer, a note, a recording, a Guru turn.
+That is the *arrival* record, and it is only half the signal. Measured 2026-08-15 with
+`mom-cycle-status.py` reading 🟢 ARMED and *"nothing unread could be hers"*: her device had **3
+sessions across 2 days, 2 jump-strip taps and 2 card opens since lap 3** — and across 2026-07-16 →
+08-15, **18 sessions on 11 active days**, five of them (08-11, 08-12) producing **no arrival at all**.
+She was in the app on days this loop recorded her as silent, and every design conversation that read
+"she isn't using it" was reading the wrong instrument.
+
+`read-mom-engagement.py` closes that against `/api/metrics` — data already collected for months —
+scoped to **her device, since the last lap in `MOM-CYCLE-LOG.md`**. Its boundaries are on its own face
+and are not negotiable: a deviceId is a **browser bucket, not a person** (the mapping is
+content-established and is still not a claim about who held the phone); it **scores nothing** and
+narrates nothing at this n; and an event first fired *inside* the window is listed apart, because a
+zero is only readable if the event was live before the window opened.
+
+⚠️ **What it does NOT change: what FIRES a lap.** The trigger is still an arrival. Engagement is
+*measured* between cycles here, not *promoted* to a trigger — that is a live question for Paul, and
+not one a check may settle by existing.
 
 **⭐ ZONE AUDIO IS PART OF THE SWEEP, not a leftover** `[paul-stated 2026-08-14]`: *"zone audio
 should definitely be read and measured as part of the mom cycle early on… when we do a full sweep
