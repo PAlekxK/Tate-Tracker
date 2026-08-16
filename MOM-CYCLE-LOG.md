@@ -733,3 +733,80 @@ added **zero** cards to her 5-slot queue.
 whose harvester cannot see it (`harvest-questions.py` is plants-only). Promoting insects to
 `cardable` would put new cards in front of her while the queue is already full with 8 on the
 bench — so that is a deliberate decision for a lap to make, not a gap to close quietly.
+
+---
+
+## 2026-08-15 (evening) — NO LAP. Loop **instrumentation**, and it corrects the entry above.
+
+`cycle-docs-check.py` flagged the repo as moved past its newest chronicled lap again. It moved for
+the second time today, and again **no lap ran and nothing was triggered by her**. But this entry is
+not just a second "meta only" note, because the work changed what the entry above is allowed to
+claim.
+
+### ⛔ THE FINDING: this loop was measuring ARRIVALS and calling it engagement
+
+`[paul-stated 2026-08-15]`: *"I want us to not limit our signal for Mom's feedback to the cards and
+whether she's responded or not… this is really to keep track of and measure engagement between
+cycles. Right now we've got the false signal of her not responding to any of the cards means she's
+not using the app. But that's just because that's the only thing we're checking and have as a
+trigger for cycles."*
+
+Every detector in this cycle keys on something **landing** — an answer, a note, a recording, a Guru
+turn. That is a true reading of the answer record and a false one of the app. Measured today with
+`mom-cycle-status.py` reading 🟢 ARMED and *"nothing unread could be hers"*:
+
+| window | her device |
+|---|---|
+| since lap 3 (08-14) | **3 sessions / 2 active days**, 2 jump-strip taps, 2 card opens, 1 note, 1 Guru conversation |
+| 2026-07-16 → 08-15 | **18 sessions / 11 active days**, five of them (08-11, 08-12) producing **no arrival at all** |
+
+⚠️ **THIS PARTLY FALSIFIES THE ENTRY IMMEDIATELY ABOVE, and the correction is the point.** That
+entry reasons from *"her last answer is 2026-08-03, 12 days ago"* to *"the loop is ARMED, which is
+its healthy steady state."* The ARMED call was correct — nothing unread was hers — but the silence
+it rests on is **not** the silence a reader takes from it. She has opened the app on nine days since
+that last answer. **"She has not answered" and "she is not using it" were the same sentence in this
+loop's vocabulary, and they are not the same fact.** Every design conversation that reasoned from
+her quiet was reading the wrong instrument.
+
+### What shipped (`bb256a4`, pushed and live in the repo)
+
+- **`tools/read-mom-engagement.py`** — her device, since the last lap parsed from this file:
+  sessions · card opens · journal interactions · every ask as offered → viewed → taken.
+- Wired into **CLAUDE.md's session-start block** — which is what leg 1 derives its sweep from, and
+  therefore the only wiring that makes a tool reachable *by the loop running its own procedure*.
+  **This is the 08-14 zone-audio failure exactly**: `read-mom-funnel.py` and `analyze-fernwood.py`
+  both already existed, the second already computed most of these numbers, and **neither was in
+  that block** — so the loop could not reach either one.
+- **`mom-cycle-status.py` carries a BETWEEN-LAP USE line** so ARMED can never again be read as "she
+  is not using the app." Informational only: it moves no leg and sets no state. Selftest still 14/14.
+
+**Boundaries kept on the tool's own face:** a deviceId is a **browser bucket, not a person**; it
+scores nothing and narrates nothing at this n; and an event first fired *inside* the window is
+listed apart, because a zero is only readable if the event was live before the window opened.
+
+### ⛔ What was deliberately NOT done: the TRIGGER
+
+Nothing about what **starts** a lap changed. The question is filed for Paul, with the asymmetry
+named: an arrival trigger is self-limiting because she has to act, while a behavioural one fires on
+**our own instrumentation** and could put the loop on a cadence — which is what *"the loop RESTS;
+HER input fires it"* exists to prevent. The one trigger an arrival-only loop can **never** fire is
+**decay**: silence produces no event.
+
+### Held for the next lap — a push, and one measurement pass
+
+- ⛔ **The A+ text-size default is built, committed (`2e8791a`) and UNPUSHED** `[paul-stated: "save
+  it for the next lap"]`. Landing it mid-interval would split the before/after engagement baseline
+  across the lap-3 window and make the only real read of that test unresolvable. **Push it at the
+  START of the next lap and stamp the date.** The hold is guarded in `CLAUDE.md` under the
+  `check-live.py` block and in `BACKLOG.md`, because for as long as it holds the board shows amber
+  and `check-live.py` reports the live page behind HEAD — and this repo argues everywhere that a
+  commit is not a ship, which is precisely what would get the hold "fixed" with a push.
+- **No release note, deliberately** — a note naming the text-size control tells her the control
+  exists, which is the variable under test.
+- **Two questions, one measurement:** the 390px A+ viewport check and Paul's nested-card width
+  question are both *"what is the used content width on her phone."* Run them as one pass.
+- **The third next-lap item is the user-researcher's:** Paul's *"she may prefer as clean and simple
+  a UI as possible"* hypothesis — filed with its evidence and, more importantly, with the rival
+  explanation that predicts identical telemetry. **A person who does not recognise a control and a
+  person who prefers not to use it produce the same zeros.** Only one of those is a preference, and
+  the discriminating probe does not exist yet.
