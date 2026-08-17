@@ -40,9 +40,44 @@ content-established and is still not a claim about who held the phone); it **sco
 narrates nothing at this n; and an event first fired *inside* the window is listed apart, because a
 zero is only readable if the event was live before the window opened.
 
-⚠️ **What it does NOT change: what FIRES a lap.** The trigger is still an arrival. Engagement is
-*measured* between cycles here, not *promoted* to a trigger — that is a live question for Paul, and
-not one a check may settle by existing.
+✅ **SETTLED 2026-08-17 — ENGAGEMENT IS NOW A TRIGGER** `[paul-approved]`. ~~What it does NOT change:
+what FIRES a lap. The trigger is still an arrival. Engagement is *measured* between cycles here, not
+*promoted* to a trigger — that is a live question for Paul, and not one a check may settle by
+existing.~~ He settled it the day a `/pickup` rendered this loop **🟢 ARMED · "nothing unread could
+be hers"** over a window in which she had **4 sessions across 3 active days and viewed 3 of 4
+Perspective offers without tapping one**. Both readings were correct. Only one of them was on the
+board, and it was the one that reads as *she is not using the app*.
+
+**`mom-cycle-status.py` now derives three engagement signals** (thresholds agent-proposed, ratified
+by Paul's pick — first cut, not doctrine; tune them from what the laps show and record the move in
+`MOM-CYCLE-LOG.md`):
+
+| signal | fires when | today |
+|---|---|---|
+| `offers-passed` | ≥3 Perspective offers she **saw and did not tap** | ⚡ 3 / 3 |
+| `sessions-quiet` | ≥3 app sessions since the lap with **no arrival at all** | ⚡ 4 / 3 |
+| `answer-age` | ≥21 days since her last settled answer | · 14d / 21d |
+
+**⭐ WHAT DID NOT CHANGE, and it is the load-bearing half.** `position()` is untouched — still pure,
+still arrival-driven, still covered by its own assertions. Engagement is an **additional gate that
+can only RAISE ARMED → FIRED**, never quiet a fired loop, and it publishes its **own stated reason**,
+because a lap fired by her *behaviour* must never render like one fired by her *words*: an arrival
+says *read what she sent*; this says *she saw the ask and passed over it*, and those want different
+opening moves.
+
+⛔ **It still asserts NOTHING about her.** A deviceId is a browser bucket, not a person. An event
+whose first firing postdates the window publishes **`"?"`, never `0`** — re-committing that zero
+inside the new mechanism would be the exact failure this promotion exists to correct. And
+`answer-age` **borrows `read-mom-feedback.py`'s own line** rather than re-deriving which records are
+hers: this board mints no second, quieter definition of a claim about a person. A parse miss reads
+UNMEASURED. *(The durable fix is a `--json` on that tool — until then this is a borrowed reading, not
+a new source.)*
+
+⚠️ **The state artifact is only as fresh as its last `--write-state`, and nothing runs it on a
+cadence** — found the same day: the published file said `ARMED · leg 7` from **08-15** while a live
+run said `FIRED · leg 6, the return leg is owed`. No reader checks `generated_at` (neither does
+photo-organizer's), so a stale artifact reads as a current verdict. Run `--write-state` at the end of
+every lap, and do not trust the file's age from its face.
 
 **⭐ ZONE AUDIO IS PART OF THE SWEEP, not a leftover** `[paul-stated 2026-08-14]`: *"zone audio
 should definitely be read and measured as part of the mom cycle early on… when we do a full sweep
