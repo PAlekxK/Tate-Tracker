@@ -67,6 +67,7 @@ import datetime as dt
 import importlib.util
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -251,8 +252,15 @@ def _sig(*, unresolved=0, bench=0, owed=False, queue_clean=True, canon_clean=Tru
 
 def selftest():
     fails = []
+    ran = []
 
     def check(label, got, want):
+        # ⚠️ COUNT THE ASSERTIONS, never state the number in prose. This line used
+        # to end `"14 assertions, incl. 3 negative controls."` as a literal, and by
+        # 2026-08-17 the suite held 31 — a green summary confidently under-reporting
+        # its own coverage by more than half. Same shape as every stale-count
+        # finding in this repo, sitting inside the check that exists to catch them.
+        ran.append(label)
         if got != want:
             fails.append(f"{label}\n        got  {got}\n        want {want}")
 
@@ -313,6 +321,59 @@ def selftest():
     check("nothing anywhere reads ARMED at leg 7",
           position(_sig()), ("7", "ARMED", False))
 
+    # ── ENGAGEMENT AS A TRIGGER `[paul-approved 2026-08-17]` ─────────────────
+    # Every signal proven in BOTH directions, plus its UNMEASURED case. The
+    # stakes are the mirror of this board's original defect: that one could not
+    # say she HAD spoken; this one must not say she was quiet when the event was
+    # simply not being recorded yet.
+    def _eng(**ev):
+        unreadable = ev.pop("_unreadable", [])
+        sess = ev.pop("_sessions", 0)
+        return {"events": ev, "sessions": [{}] * sess, "unreadable_zeros": unreadable}
+
+    def _named(raw, days=None):
+        sigs, fired = engagement_signals(raw, days)
+        return {s["name"]: s for s in sigs}, fired
+
+    s, f = _named(_eng(momqueue_viewed=3, momqueue_tapped=0))
+    check("3 offers seen and passed FIRES", s["offers-passed"]["fired"], True)
+    check("...and it is named as the reason", "offers-passed" in f, True)
+    s, _ = _named(_eng(momqueue_viewed=2, momqueue_tapped=0))
+    check("NEAR MISS — 2 passed does not fire", s["offers-passed"]["fired"], False)
+    s, _ = _named(_eng(momqueue_viewed=4, momqueue_tapped=4))
+    check("offers she TAPPED are not passed offers", s["offers-passed"]["fired"], False)
+
+    # ⭐ THE CONTROL THAT MATTERS MOST. An event not live for the whole window
+    #   has an unreadable zero, and a 0 there would read as "she ignored it".
+    s, f = _named(_eng(_unreadable=["momqueue_viewed"]))
+    check("an UNMEASURED offer count publishes '?'", s["offers-passed"]["value"], "?")
+    check("...and never fires on it", s["offers-passed"]["fired"], False)
+
+    s, _ = _named(_eng(_sessions=3))
+    check("3 quiet sessions FIRES", s["sessions-quiet"]["fired"], True)
+    s, _ = _named(_eng(_sessions=2))
+    check("NEAR MISS — 2 quiet sessions does not fire", s["sessions-quiet"]["fired"], False)
+
+    s, _ = _named(_eng(), days=21)
+    check("a 21-day answer gap FIRES", s["answer-age"]["fired"], True)
+    s, _ = _named(_eng(), days=20)
+    check("NEAR MISS — 20 days does not fire", s["answer-age"]["fired"], False)
+    s, _ = _named(_eng(), days=None)
+    check("an unknown answer age is '?', not 0", s["answer-age"]["value"], "?")
+
+    # A dead reader must not read as a quiet user.
+    s, f = _named(None)
+    check("an unreadable /api/metrics fires NOTHING", f, [])
+    check("...and says so rather than publishing zeros",
+          "UNMEASURED" in s["engagement"]["detail"], True)
+
+    # The prose parser this borrows its answer-age from.
+    check("the answer-age parser reads the real line shape",
+          _AGE_RX.search("🌿 Mom-check — last checked today · her last answer "
+                         "2026-08-03 (14d ago).").group(1), "14")
+    check("...and yields nothing on a line without one",
+          _AGE_RX.search("🌿 Mom-check — no answers from her in the last 30 days."), None)
+
     # ---- the declaration this all rests on is actually in people.json ----
     real = momlib.bench_device_ids()
     if not real:
@@ -328,15 +389,127 @@ def selftest():
         for f in fails:
             print(f"   · {f}")
         return 1
-    print("✅ mom-cycle-status selftest — 14 assertions, incl. 3 negative controls.")
+    print(f"✅ mom-cycle-status selftest — {len(ran)} assertions "
+          f"(arrival classifier · leg position · engagement trigger), "
+          f"every fire paired with a near-miss that must not.")
     return 0
 
 
 STATE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                           "data", "cycle-state.json")
 
+# ── ENGAGEMENT AS A TRIGGER `[paul-approved 2026-08-17]` ─────────────────────
+#
+# CLAUDE.md has carried this as an OPEN QUESTION since 2026-08-15: *"Engagement is
+# measured between cycles here, not promoted to a trigger — that is a live question
+# for Paul, and not one a check may settle by existing."* He settled it on 08-17,
+# after a pickup rendered this loop 🟢 ARMED / "nothing unread could be hers" on a
+# window in which she had **4 sessions across 3 active days and viewed 3 of 4
+# Perspective offers without tapping one**. Both readings were correct. Only one of
+# them was on the board.
+#
+# ⭐ WHAT CHANGES AND WHAT DOES NOT. The arrival trigger is untouched — `position()`
+# is still pure, still arrival-driven, still covered by its own 14 assertions. This
+# is an ADDITIONAL gate that can raise ARMED → FIRED, with its own stated reason, so
+# a lap fired by her *behaviour* never renders like one fired by her *words*. It can
+# only ever raise the state; it can never quiet a FIRED loop.
+#
+# ⛔ AND IT ASSERTS NOTHING ABOUT HER. Every boundary the engagement reader states
+# still binds: a deviceId is a browser bucket, not a person; an event whose first
+# firing postdates the window is UNMEASURED and publishes "?", never 0. A signal
+# that cannot be measured must never render as a quiet one — that is the whole
+# failure this promotion exists to correct, and re-committing it here would be the
+# same mistake wearing the new mechanism's clothes.
+#
+# The three thresholds below are AGENT-PROPOSED and ratified by Paul's pick of the
+# option that previewed these exact numbers. They are the first cut, not doctrine —
+# tune them from what the next laps show, and record the move in MOM-CYCLE-LOG.md.
+VIEWED_NOT_TAKEN = 3    # Perspective offers she SAW and passed over
+SESSIONS_QUIET = 3      # app sessions since the lap with no arrival at all
+DAYS_SINCE_ANSWER = 21  # her last settled answer, in days
 
-def write_state(at, state, needs_paul, unresolved, bench):
+
+def _engagement_raw():
+    """`read-mom-engagement.py --json`, or None. Never raises, never invents."""
+    rc, out = _run("read-mom-engagement.py", "--json")
+    if rc != 0 or not out:
+        return None
+    try:
+        return json.loads(out)
+    except (ValueError, TypeError):
+        return None
+
+
+_AGE_RX = re.compile(r"her last answer\s+\S+\s+\((\d+)d ago\)")
+
+
+def _days_since_answer():
+    """Days since her last settled answer, or None (→ UNMEASURED, never 0).
+
+    ⚠️ THIS PARSES PROSE, and that is a stated weakness, not a hidden one.
+    `read-mom-feedback.py` computes this and has no `--json`, so the choices were
+    to parse its one line or to re-derive "which records are hers" here — and the
+    second is worse than fragile, it is WRONG: this board asserts no attribution
+    by design (there is no `hers` bucket; a record with no deviceId is
+    `unresolved`). Re-deriving it would mint a second, quieter definition of a
+    claim about a person, which is the one thing this loop refuses to do twice.
+    So it reuses the tool that already makes the claim on the pickup surface.
+
+    A parse miss returns None and the signal publishes "?" — the failure lands as
+    UNMEASURED rather than as a confident zero. The durable fix is a `--json` on
+    that tool; until then this is a borrowed reading, not a new source.
+    """
+    _rc, out = _run("read-mom-feedback.py", "--pickup")
+    m = _AGE_RX.search(out or "")
+    return int(m.group(1)) if m else None
+
+
+def engagement_signals(raw, last_answer_days=None, today=None):
+    """Her BEHAVIOUR as trigger signals. PURE — fixtures drive it in the selftest.
+
+    Returns (signals, fired) — `fired` is the subset of names that went off.
+    """
+    if raw is None:
+        return ([{"name": "engagement", "fired": False, "value": "?", "threshold": "—",
+                  "detail": "UNMEASURED: could not read /api/metrics"}], [])
+
+    ev = raw.get("events") or {}
+    unreadable = set(raw.get("unreadable_zeros") or [])
+    sigs = []
+
+    # 1 · She saw the ask and passed over it. The one signal an ARRIVAL trigger can
+    #     never produce: declining is invisible to a record that only logs answers.
+    if {"momqueue_viewed", "momqueue_tapped"} & unreadable:
+        sigs.append({"name": "offers-passed", "fired": False, "value": "?",
+                     "threshold": VIEWED_NOT_TAKEN,
+                     "detail": "UNMEASURED: the event was not live for this whole window"})
+    else:
+        passed = max(0, ev.get("momqueue_viewed", 0) - ev.get("momqueue_tapped", 0))
+        sigs.append({"name": "offers-passed", "fired": passed >= VIEWED_NOT_TAKEN,
+                     "value": passed, "threshold": VIEWED_NOT_TAKEN,
+                     "detail": "Perspective offers she SAW and did not tap"})
+
+    # 2 · She is in the app and settling nothing. Deliberately NOT "she is absent" —
+    #     absence is her prerogative and fires nothing.
+    n_sessions = len(raw.get("sessions") or [])
+    sigs.append({"name": "sessions-quiet", "fired": n_sessions >= SESSIONS_QUIET,
+                 "value": n_sessions, "threshold": SESSIONS_QUIET,
+                 "detail": "sessions since the lap — using it, settling nothing"})
+
+    # 3 · The slow clock. A real gate: time passes whether or not anyone works it.
+    if last_answer_days is None:
+        sigs.append({"name": "answer-age", "fired": False, "value": "?",
+                     "threshold": DAYS_SINCE_ANSWER,
+                     "detail": "UNMEASURED: no dated answer on record"})
+    else:
+        sigs.append({"name": "answer-age", "fired": last_answer_days >= DAYS_SINCE_ANSWER,
+                     "value": f"{last_answer_days}d", "threshold": f"{DAYS_SINCE_ANSWER}d",
+                     "detail": "since her last settled answer"})
+
+    return (sigs, [s["name"] for s in sigs if s["fired"]])
+
+
+def write_state(at, state, needs_paul, unresolved, bench, signals=None, engagement=()):
     """Publish data/cycle-state.json, the portfolio-standard state artifact.
 
     WHY A FILE AND NOT A FLAG. The cross-project readers — operating-layer's
@@ -364,6 +537,13 @@ def write_state(at, state, needs_paul, unresolved, bench):
         else:
             why = (f"leg {at} — {unresolved} unresolved arrival(s) nobody has read yet")
             nxt = "run /mom-cycle beat 1 (READ) — until someone looks, whose it was is unknown"
+    elif engagement:
+        # Fired by BEHAVIOUR, not by an arrival — and it says so, because the two
+        # mean different things and want different opening moves. An arrival says
+        # *read what she sent*; this says *she saw the ask and passed over it*.
+        why = (f"leg {at} — nothing unread, but her ENGAGEMENT fired: "
+               + ", ".join(engagement))
+        nxt = "run /mom-cycle — she is using the app and declining the asks; the ask design is the work"
     else:
         why = f"leg {at} — monitor live, nothing unread could be hers"
         if bench:
@@ -378,6 +558,7 @@ def write_state(at, state, needs_paul, unresolved, bench):
         "at_leg": at,
         "needs_paul": needs_paul,
         "unresolved_arrivals": unresolved,
+        "signals": signals or [],
     }
     os.makedirs(os.path.dirname(STATE_PATH), exist_ok=True)
     tmp = STATE_PATH + ".tmp"
@@ -456,8 +637,15 @@ def main():
     at, state, needs_paul = position(sig)
     unresolved, bench = arrival_counts(sig)
 
+    # ⭐ ENGAGEMENT can RAISE the state, never lower it. `position()` stays the
+    #   authority on an arrival-fired lap; this only reaches a loop it left ARMED.
+    eng_sigs, eng_fired = engagement_signals(_engagement_raw(), _days_since_answer())
+    if eng_fired and state != "FIRED":
+        state = "FIRED"
+
     if a.write_state:
-        return write_state(at, state, needs_paul, unresolved, bench)
+        return write_state(at, state, needs_paul, unresolved, bench,
+                           signals=eng_sigs, engagement=eng_fired)
 
     if a.json:
         print(json.dumps({"at_leg": at, "state": state, "needs_paul": needs_paul,
