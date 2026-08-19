@@ -1067,6 +1067,14 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2026-08-19-front-left-tire-low-inflated",
+          "date": "2026-08-19",
+          "mileage": 11032.5,
+          "shop": "DIY (Paul)",
+          "summary": "FRONT LEFT tire found LOW and inflated — noticed and corrected the same day as the coolant service. ⚠️ PRESSURE VALUE NOT RECORDED — Paul said a number aloud that did not transcribe cleanly, and it is deliberately left blank rather than guessed. DO NOT backfill this from memory or inference; ask Paul. Why it matters enough to leave a hole: these are 35X12.50R15LT Load Range C tires with a SIDEWALL MAX of 35 psi, while the driver-door placard reads 40 psi for the ORIGINAL 31-10.5R15C on 15×8 rims. The placard is therefore ABOVE this tire's sidewall maximum and must never be used on the current setup — a wrong number here is a real over-inflation, not a rounding error. ⏳ ALSO OPEN: a single tire going low on its own is a symptom, not an event. Re-check the front left cold in a few days. If it drops again it is a slow leak — valve stem (the 2011 4 Wheel Parts order included new stems, now ~15 years old), bead seal on the aftermarket 15×10 alloy, or a puncture. 🚨 SEPARATE AND MORE IMPORTANT: the current set carries DOT date code 3220 = week 32 of 2020, so the rubber is ~6 years old as of today regardless of tread depth. Age-related sidewall cracking is the governing risk on a mud-terrain that sits, not wear. Inspect sidewalls and shoulders for weather checking at the next opportunity.",
+          "confidence": "verified"
+        },
+        {
           "id": "sr-2026-08-19-coolant-drain-flush-refill",
           "date": "2026-08-19",
           "mileage": 11032.5,
