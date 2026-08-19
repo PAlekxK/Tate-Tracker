@@ -11,6 +11,98 @@ amended mid-lap.
 
 ---
 
+## Lap 4 — 2026-08-19 · ✅ SHIPPED `7db2476`, pushed, **verified live** (`a9c0179…`, 5:52 PM ET) · **the lap that walked back its own experiment, because a different lap had already answered its question**
+
+**Fired by:** the **engagement trigger** (promoted 2026-08-17) plus **pre-registered owed work** from
+the 08-15 hold — release the A+ default and run the deferred 390px check. Then **Paul relayed live,
+mid-lap**: *"she says she's using the radar a lot"* — which redirected the lap and became its subject.
+Note the trigger shape: **no arrival fired this lap.** Her answer record had been silent 15 days.
+
+| leg | what happened |
+|---|---|
+| **0 · GUARD** | HEAD `2ed8e10`, clean tree, unmoved at commit time — **and it moved 24s AFTER, see below** |
+| **1 · READ** | **eleven** session-start checks, list DERIVED from `CLAUDE.md` not counted here (the block has grown again; the Skill's prose still said five-plus-four). All structural green |
+| **2 · TRIAGE** | nothing unaddressed in the record — *"Ready to fold: (none)"*. The lap's work came from owed items + Paul's relay |
+| **3 · RESOLVE** | ⭐ **tier 1 settled the radar question — telemetry answered it, she was never asked.** See below |
+| **4 · EXPERT** | **none convened.** Scoping table: the surface change was already Paul-designed (exhibit R-C) and his own call; the lap verified rather than designed. Recorded, not skipped silently |
+| **5 · SHIP** | radar door moved to the top of the weather card; A+ default reverted; hold guard removed from `CLAUDE.md`; 5 findings filed to `BACKLOG.md` |
+| **6 · GATE** | preview staged at her real **414×848** (PID-verified) → 390px A+ check → telemetry checked → **Paul approved both changes from screenshots** → pushed. Proxy seat **still unbuilt** |
+| **7 · CLOSE** | `check-live.py` exits 0 — live byte-identical to HEAD. Nothing to disposition (record already clear). **Watermark not advanced — nothing actionable had arrived** |
+
+### ⭐ THE FINDING: the A+ default was answered by a question nobody was asking it
+
+The A+ experiment's premise was Paul's hunch — *"she just doesn't understand the UI."* This lap found
+the better explanation, and it came from the radar:
+
+- she navigates **100% by the jump strip** — all 5 card opens since lap 3
+- on **2026-08-16** she opened the radar on her **first contact with its new door**, and the session
+  **ended there** — she browsed equipment → vehicles → weather, opened the radar, put the phone down
+- she had told Paul **twice** she liked the radar, once adding she *"didn't know how to access it"*
+
+**That is a DOOR problem, not a comprehension problem — and a door problem is not fixed by resizing
+her type.** Paul walked the A+ default back the same session: *"let's not force an A+ text resizing
+if she's used to A."* `2e8791a` was **never pushed, so she was never served A+**; the hold did its job.
+
+⭐ **Generalise: an experiment can be retired by evidence it never collected.** The A+ test was built
+to probe "does she understand the UI." A different measurement answered that question more cheaply and
+more specifically, and the correct move was to stop testing, not to run the test.
+
+### ⛔ AND THE ANSWER TO "IS SHE USING THE RADAR A LOT?" IS *THE RECORD CANNOT SAY*
+
+Radar has existed since ≥ 2026-07-29. **It was instrumented on 2026-08-14** — the same commit that
+gave it a real door (`4b38e82`). So every radar use before 08-14 is **invisible, not zero.** Four
+measurable days, covering 3 of her sessions, contain **one** use — and that one converted on first
+contact. **The record is consistent with her claim and contains nothing that refutes it.** Do not
+report "once" as a behaviour finding; report the instrumentation window.
+
+### What else this lap turned up
+
+1. **The deferred 390px A+ check RAN and PASSED** — zero page overflow collapsed *and* with all 15
+   cards expanded; **zero A+-only clipping** (13 clipped elements under A+, the same 13 under A).
+   ⭐ It **retires the known-unverified 08-02 rainfall-strip fix**: 70 rainfall elements, none past
+   390px, worst clip 5px. So A+ was never the layout risk it was held to be.
+2. **Her viewport is 414×848, not 390** (51 batches). Every check in this repo has used 390, which is
+   narrower and therefore conservative — but **no check has ever measured the 24px she actually has.**
+3. **`check-mom-ack.py`'s `shipped` flag reads the FILE, not the RIBBON.** It fired 🔴 NOT SHIPPED off
+   the held A+ commit while `MOM_ACK_DATA` was byte-identical to `origin/main`, and its remediation
+   line — *"COMMIT AND PUSH"* — was, during the hold, **an instruction to break the hold.** The 08-15
+   guard was placed where `check-live.py`'s conclusion forms; **this was a second, unguarded reader of
+   the same state.** It went green the instant the push landed, confirming the diagnosis.
+4. **⚠️ Moving the radar changed what `radar_section_viewed` MEANS** — it fired after a ~2,300px
+   scroll, and now fires on card open. **Counts either side of 2026-08-19 are not comparable.**
+   `radar_toggled` is the event to judge this by. Recorded before the first post-move number exists.
+5. **⛔ A CONCURRENT SESSION COMMITTED TO THIS REPO 24 SECONDS AFTER THIS LAP'S COMMIT** — `04db47c`
+   (Bronco coolant service), from `session_01Ky5oyq8XdKvkUC8t9XDZZm`. Leg 0's guard checks HEAD *at
+   start and before commit*; this arrived in the window **between commit and push**, which the guard
+   does not cover. Caught by the push rejection, not by the guard. Paul confirmed it was his other
+   window before anything was pushed; the rebase rewrote its sha (`04db47c` → `d84ccc0`, patch md5
+   identical, original still in reflog).
+6. **⛔ PAUL-RELAYED INPUT HAS NOWHERE TO LIVE.** Rule 2 says *"Paul relays, or it is not in the
+   system — Paul-relayed input IS real input."* But `read-mom-feedback.py` can only `--address` notes
+   that arrived **from her device**. This lap was redirected by a relayed sentence and shipped a change
+   because of it, and **the record holds no trace of the input that caused it.** Same shape as the
+   radar itself: built at lap 3 because she *"named it twice"* — two namings that exist only in a
+   commit message.
+
+### Scored against the pre-registered clean-lap definition — **5 of 6, criterion 5 NOT MET**
+
+| # | criterion | verdict |
+|---|---|---|
+| 1 | every leg left its artifact | ✅ this section |
+| 2 | legs 1, 6, 7 non-empty | ✅ (leg 4 empty, permitted and recorded) |
+| 3 | nothing served she already answered | ✅ `check-cards.py` exit 0 |
+| 4 | every channel attested read | ✅ R2 🟢 0 uncovered |
+| 5 | **the return leg SHIPPED** | ⛔ **NOT MET — no ribbon refresh.** A change she asked for shipped and **she has not been told.** Draft is at Paul's gate |
+| 6 | watermark stepped over nothing | ✅ not advanced; nothing actionable |
+
+⭐ **Criterion 5 failing is the honest result, and finding 6 is why it is structurally hard to pass
+here:** the input that drove this lap arrived by relay, so it has no timestamp the ribbon can lead
+with and no channel `check-mom-ack` can see. **The loop shipped for her and cannot yet say so.**
+*(Note: she tapped "Got it" on the standing ribbon 2026-08-18 8:23 PM ET — 4 total. The ribbon is
+reaching her; it is simply now out of date with respect to what we did today.)*
+
+---
+
 ## Lap 3 — 2026-08-14 · ✅ CLOSED — shipped `c83d2b7`+`09cafd4`, pushed, and **verified live** · **the lap that found the loop measuring the wrong door**
 
 **Fired by:** her input, 2026-08-14 8:27–8:28 AM ET — she asked the Almanac *the best fertilizer for
