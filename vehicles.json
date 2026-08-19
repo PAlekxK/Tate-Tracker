@@ -679,7 +679,16 @@
       "manual": {
         "label": "Owner's guide (2006)",
         "url": "https://manuals.opinautos.com/published/Ford-F-150_2006_EN-US_US_fd58898a4f.pdf"
-      }
+      },
+      "serviceHistory": [
+        {
+          "id": "sr-2026-08-19-front-left-tire-low-inflated",
+          "date": "2026-08-19",
+          "shop": "DIY (Paul)",
+          "summary": "FRONT LEFT tire found LOW and inflated (Paul, same day as the Bronco's coolant service). ⚠️ MISFILED FIRST — this row was originally written to the BRONCO because Paul said 'the truck' while mid-Bronco-job; he corrected it to the gray F-150 the same session. It also briefly carried the Bronco's 11,032.5 odometer reading, which is NOT this vehicle's mileage and has been stripped. F-150 mileage at this service: UNKNOWN — ask Paul. ⚠️ PRESSURE NOT RECORDED — Paul said a number that did not transcribe cleanly ('that one fifty'). Left blank rather than guessed. It cannot be sanity-checked either, because THIS TRUCK'S TIRE DATA IS A HOLE: doorLabel is null (no placard ever read), there is no tires or tirePressure entry in maintenance, and this is the FIRST serviceHistory row the F-150 has ever had. Whether ~50 psi is correct or dangerous depends entirely on whether she wears P-metric (placard typically ~35 psi) or LT Load Range E (where 50+ psi can be right) — and nothing on file answers that. ⏳ CHEAP FIX, HIGH VALUE: next time Paul is at the truck, photograph (a) the driver door-jamb tire placard and (b) one tire sidewall. That single pass fills doorLabel, maintenance.tires, maintenance.tirePressure, and settles this row. ⏳ ALSO: one tire going low alone is a symptom, not an event — re-check the front left cold in a few days; a repeat drop means valve stem, bead, or puncture.",
+          "confidence": "verified"
+        }
+      ]
     },
     {
       "id": "bronco-1989",
@@ -1066,14 +1075,6 @@
         "url": "https://archive.org/details/ford-bronco-operating-guide-1988"
       },
       "serviceHistory": [
-        {
-          "id": "sr-2026-08-19-front-left-tire-low-inflated",
-          "date": "2026-08-19",
-          "mileage": 11032.5,
-          "shop": "DIY (Paul)",
-          "summary": "FRONT LEFT tire found LOW and inflated — noticed and corrected the same day as the coolant service. ⚠️ PRESSURE VALUE NOT RECORDED — Paul said a number aloud that did not transcribe cleanly, and it is deliberately left blank rather than guessed. DO NOT backfill this from memory or inference; ask Paul. Why it matters enough to leave a hole: these are 35X12.50R15LT Load Range C tires with a SIDEWALL MAX of 35 psi, while the driver-door placard reads 40 psi for the ORIGINAL 31-10.5R15C on 15×8 rims. The placard is therefore ABOVE this tire's sidewall maximum and must never be used on the current setup — a wrong number here is a real over-inflation, not a rounding error. ⏳ ALSO OPEN: a single tire going low on its own is a symptom, not an event. Re-check the front left cold in a few days. If it drops again it is a slow leak — valve stem (the 2011 4 Wheel Parts order included new stems, now ~15 years old), bead seal on the aftermarket 15×10 alloy, or a puncture. 🚨 SEPARATE AND MORE IMPORTANT: the current set carries DOT date code 3220 = week 32 of 2020, so the rubber is ~6 years old as of today regardless of tread depth. Age-related sidewall cracking is the governing risk on a mud-terrain that sits, not wear. Inspect sidewalls and shoulders for weather checking at the next opportunity.",
-          "confidence": "verified"
-        },
         {
           "id": "sr-2026-08-19-coolant-drain-flush-refill",
           "date": "2026-08-19",
