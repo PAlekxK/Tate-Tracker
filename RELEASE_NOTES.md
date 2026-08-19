@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-19 — The radar comes first in Weather now
+
+- **You don't have to go looking for it.** Open Weather and "Show the radar" is right there
+  under the heading. It used to sit at the very bottom of the card, past everything else —
+  about three screens down on a phone.
+- **Nothing else moved.** The radar still lives inside the Weather card, where it was; it
+  just comes first now instead of last.
+
 ## 2026-08-15 — Cards that stopped short
 
 - **Opening a lot of things inside one card no longer cuts it off.** Open enough insects — or

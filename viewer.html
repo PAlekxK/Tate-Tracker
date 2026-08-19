@@ -6321,7 +6321,6 @@
       <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
     </div>
     <div class="main-card-body">
-      <div class="weather-inner" id="weather-content"></div>
       <div class="radar-section" data-metric-section="radar">
         <div class="radar-section-header">
           <button type="button" class="radar-door" id="radar-toggle-btn"
@@ -6343,6 +6342,7 @@
           </div>
         </div>
       </div>
+      <div class="weather-inner" id="weather-content"></div>
     </div>
   </div>
 
@@ -20170,9 +20170,27 @@ function gatherGuruLiveState() {
 // Per-device localStorage; applied via body.text-lg class.
 // The scaling rules live in the .text-lg CSS block at the end of <style>.
 //
-// ⭐ THE DEFAULT IS A+ AS OF 2026-08-15 `[paul-stated]`: "let's try defaulting Mom
-// to A+ moving forward and see if she toggles it back as a test — my hunch is she
-// just doesn't understand the UI."
+// ⛔ THE A+ DEFAULT WAS TRIED AND WALKED BACK, 2026-08-19 `[paul-stated]`: "if she
+// is happy with A, let's not change it to A+ — in the formatting everything is
+// gonna change, so let's not force an A+ text resizing if she's used to A."
+// The default is NORMAL. This block is kept, not deleted: the experiment and its
+// verdict are both worth finding here.
+//
+// WHAT IT WAS, 2026-08-15 `[paul-stated]`: "let's try defaulting Mom to A+ moving
+// forward and see if she toggles it back as a test — my hunch is she just doesn't
+// understand the UI." Built as 2e8791a, held unpushed for a clean before/after
+// baseline, and NEVER SHIPPED — she was never served A+.
+//
+// ⭐ WHY IT WAS WALKED BACK, and the second reason is the one that generalises:
+//   1. She has never fired this toggle, so she is habituated to A. Changing the
+//      default re-formats every surface at once for someone who did not ask.
+//   2. THE HUNCH IT WAS TESTING WAS ANSWERED BY SOMETHING ELSE. "She doesn't
+//      understand the UI" was the premise. Lap 4 found she navigates 100% by the
+//      jump strip and, on 2026-08-16, opened the radar on her first contact with
+//      its new door — having told Paul twice she liked the radar, once saying she
+//      "didn't know how to access it." That is a DOOR problem, not a comprehension
+//      problem, and a door problem is not fixed by resizing her type.
+// Do not re-raise the A+ default without new evidence about HER, not about the UI.
 //
 // This is a DEFAULT change, not a .text-lg change, which is the standing guidance
 // in CLAUDE.md and at viewer.html:2523 ("tune the DEFAULT type scale, not
@@ -20195,7 +20213,7 @@ function gatherGuruLiveState() {
 // journal interaction before vs. after today, via tools/read-mom-engagement.py.
 (function wireTextSizeToggle() {
   const KEY = "tateTracker.textSize";
-  const DEFAULT_SIZE = "lg";
+  const DEFAULT_SIZE = "normal";   // walked back 2026-08-19 — see the block above
   const aBtn = document.getElementById("text-size-a");
   const aplusBtn = document.getElementById("text-size-aplus");
   if (!aBtn || !aplusBtn) return;

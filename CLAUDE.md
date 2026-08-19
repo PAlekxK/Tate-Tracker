@@ -317,15 +317,11 @@ python3 tools/check-live.py            # is the live page byte-identical to HEAD
 python3 tools/check-live.py --wait 180 # poll after a push while Pages rebuilds
 ```
 
-⛔ **ACTIVE EXCEPTION — 2026-08-15 → the start of the next lap: `check-live.py` IS EXPECTED TO
-REPORT DRIFT, AND THE FIX IS NOT TO PUSH.** `2e8791a` (the A+ text-size default) is committed and
-**deliberately held** `[paul-stated: "save it for the next lap"]`, because landing it mid-interval
-would split the A+ before/after engagement baseline across the lap-3 window and make the only real
-read of that test unresolvable. **Everything on this page argues that a commit is not a ship and a
-push is not a ship — which is exactly what will make this amber look like a defect to the next
-session.** It is not one. Do not push `viewer.html` to "fix" it, and do not let it ride along on an
-unrelated commit. Full reasoning and the release condition: `BACKLOG.md` § WAITING ON PAUL, the row
-beginning **"A+ DEFAULT — BUILT, COMMITTED, HELD FOR NEXT LAP."** Delete this block when it ships.
+✅ **THE A+ DEFAULT WAS WALKED BACK, 2026-08-19 — the 08-15 hold is RESOLVED and this file no
+longer carries an exception.** `2e8791a` was never pushed, so **Mom was never served A+**; the
+default is `normal` again and the reasoning + verdict live in `viewer.html`'s `wireTextSizeToggle`
+block. `check-live.py` drift is once again a real finding, not an expected one — treat it as such.
+Paul, 2026-08-19: *"let's not force an A+ text resizing if she's used to A."*
 
 ⭐⭐ **A COMMIT IS NOT A SHIP — AND NEITHER IS A PUSH.** This file has said "shipping means a push"
 since July. That was already too weak, and *nothing verified even the push*. Pages rebuilds
