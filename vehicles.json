@@ -1067,6 +1067,14 @@
       },
       "serviceHistory": [
         {
+          "id": "sr-2026-08-19-coolant-drain-flush-refill",
+          "date": "2026-08-19",
+          "mileage": 11032.5,
+          "shop": "DIY (Paul)",
+          "summary": "Coolant drain, double flush & refill — DIY, in the driveway. ODOMETER 11,032.5 Paul-read the same day (see the odometer note — this is a reading on the post-2023 reset counter, not lifetime miles). Radiator drained at the petcock, then TWO full water-flush cycles: refill, run to operating temperature with the heater on max so the block AND the heater core circulate, shut down, cool, drain again. ⭐ THE DRAIN CAME OUT CLEAN — diluted green, no rust, no grit, no milkiness, no oil film. That is a meaningful three-way NEGATIVE on a truck whose 1989–2010 history is undocumented: no significant internal corrosion, no coolant-into-oil path (head or intake gasket), and no transmission-cooler seep inside the radiator core — the last one worth stating explicitly because the C6 runs its cooler through the radiator, so a cross-leak was a live possibility going in. Block drain plugs were DELIBERATELY NOT PULLED: on a 37-year-old iron block a seized pipe plug that snaps off is a far worse day than the ~2 qt per side it recovers, and two dilution cycles reach substantially the same place. Overflow bottle emptied and rinsed separately (it is a dead leg the petcock never reaches). Refill spec: FRAM GREEN low-silicate IAT concentrate (F1015, 1 U.S. gal jugs ×2, bought over the counter) cut to 50/50 with DISTILLED water — correct era chemistry for a 1989 Ford (conventional green, ESE-M97B44-A lineage); explicitly NOT an orange/Dex-Cool or a 'universal'. Concentrate goes in first and neat, because the several quarts of flush water the petcock cannot drain out of the block are already part of the final mix. ⏳ OPEN AT TIME OF WRITING — the refill was still in progress when this row was created. To close out: confirm the final mix on a hydrometer/refractometer (target −34°F or colder), confirm the burp completed (upper hose hot and firm, vents hot, level stable with cap off), and confirm the cold-level top-off the following morning. Until those three are confirmed the MIX is a plan, not a measurement — the drain findings above are the verified part of this row.",
+          "confidence": "verified"
+        },
+        {
           "id": "sr-2018-04-19-aftermarket-intake-parts-bought",
           "date": "2018-04-19",
           "shop": "Summit Racing (parts order)",
