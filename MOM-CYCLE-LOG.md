@@ -84,7 +84,19 @@ report "once" as a behaviour finding; report the instrumentation window.
    radar itself: built at lap 3 because she *"named it twice"* — two namings that exist only in a
    commit message.
 
-### Scored against the pre-registered clean-lap definition — **5 of 6, criterion 5 NOT MET**
+### Decisions
+
+| # | decision | supersedes | why now | evidence |
+|---|---|---|---|---|
+| D1 | **Move the radar door to the TOP of the weather card** (first child of `.main-card-body`, above `#weather-content`) | lap 3 **D3**, *"do NOT move or default-open the radar this lap"* | Paul's direct instruction, plus her relayed *"using the radar a lot"*, plus the measured position: the door sat **2,447px** below the card top at her viewport — the *"position is the defect"* condition lap 3 itself named | measured 414×848; 2,447px → 115px |
+| D1a | ⛔ **AND IT OVERRIDES THE PRE-REGISTERED DECISION RULE — recorded as an OVERRIDE, NOT as the rule firing** | that rule's branch 3: *"**Both fire** (net of `radar_load_failed`) → nothing is broken. **Close the thread and stop.**"* | **Both DID fire.** Her 2026-08-16 11:40 session carries `radar_section_viewed` **and** `radar_toggled`, and `radar_load_failed` has **never fired at any time**, so the net is clean. By the rule written before the data existed, the correct move was to **STOP**. ⭐ It was overridden on (a) Paul's instruction and (b) a relayed claim the instrument **cannot see** — the pre-08/14 era is unmeasured. That is exactly the after-the-fact reasoning pre-registration exists to prevent. **Whether the override was RIGHT is a separate question this row does not settle; that it WAS an override is the fact being preserved.** ⚠️ n=1 is a fair objection to the branch — but it is being raised *after* seeing the data, which is what makes it an objection rather than a rule | `/api/metrics`, mom device `d-szqlt0h7…`; `check-telemetry.py` never-fired list |
+| D2 | **Walk back the A+ default; `DEFAULT_SIZE` returns to `"normal"`** | `2e8791a` (2026-08-15), *"A+ becomes the default"* | ① she has never fired the toggle, so she is habituated to A; ② **the hunch it was testing was answered by a different finding** — she opened the radar on first contact with its new door, so it is a door problem, not a comprehension problem. Never pushed, so **she was never served A+** | `viewer.html` `wireTextSizeToggle`; Paul 2026-08-19 |
+| D3 | **Do NOT give the radar its own jump-strip entry** | the main session's own proposal, made off the finding that she navigates 100% by strip | Paul: *"it should just be kind of near the top of weather."* Keeps exhibit **R-C**'s nesting — the radar is weather, and the fix for *"I can't find it"* is to put it where she lands, not to add a door | Paul 2026-08-19 |
+| D4 | **The ribbon heading gains a THIRD door: `relay` → "what you told us changed"** | lap 3 **D5**, which derived the noun from `channels` but knew only *question* / *answer* | relayed input is neither; with `channels: []` it rendered *"what your **answer** changed"* over something she never answered — the same small untruth D5 was written to kill, one door along. **Extends D5, does not reverse it** | `viewer.html`; caught by the leg-6a preview while every check was green |
+| D5 | **For relayed input, `arrivedAt` = the day it reached the PROJECT, not the day she spoke** | the 6a rule *"use HER arrival timestamp"*, which relayed input cannot satisfy | Paul chose the dating explicitly; the copy never claims she said it today, only that she said it. **A workaround for the gap, not a closing of it** | Paul 2026-08-19; gap filed in `BACKLOG.md` |
+| D6 | **Re-inline `VEHICLES_DATA` left drifted by a concurrent session** | leaving another session's canon drift alone | `vehicles.json` held two 2026-08-19 service records never inlined, so the card Mom loads was behind canon; the fix is deterministic, not a judgment call | `paul-confirmed`; `check-data-inline --fix` |
+
+### Scored against the pre-registered clean-lap definition — **6 of 6, criterion 5 passed LATE**
 
 | # | criterion | verdict |
 |---|---|---|
