@@ -11,7 +11,7 @@ amended mid-lap.
 
 ---
 
-## Lap 4 — 2026-08-19 · ✅ SHIPPED `7db2476`, pushed, **verified live** (`a9c0179…`, 5:52 PM ET) · **the lap that walked back its own experiment, because a different lap had already answered its question**
+## Lap 4 — 2026-08-19 · ✅ **CLOSED CLEAN, 6 of 6** — shipped `7db2476` (radar + A+ walk-back) and `c7e441b` (the return leg), both **verified live** (`a9c0179…` 5:52 PM, `8546fd62…` 6:30 PM ET) · **the lap that walked back its own experiment, because a different lap had already answered its question**
 
 **Fired by:** the **engagement trigger** (promoted 2026-08-17) plus **pre-registered owed work** from
 the 08-15 hold — release the A+ default and run the deferred 390px check. Then **Paul relayed live,
@@ -92,14 +92,41 @@ report "once" as a behaviour finding; report the instrumentation window.
 | 2 | legs 1, 6, 7 non-empty | ✅ (leg 4 empty, permitted and recorded) |
 | 3 | nothing served she already answered | ✅ `check-cards.py` exit 0 |
 | 4 | every channel attested read | ✅ R2 🟢 0 uncovered |
-| 5 | **the return leg SHIPPED** | ⛔ **NOT MET — no ribbon refresh.** A change she asked for shipped and **she has not been told.** Draft is at Paul's gate |
+| 5 | **the return leg SHIPPED** | ✅ **MET** — `c7e441b` pushed and live; `check-mom-ack` `shipped` 🟢, R1 🟢 0d |
 | 6 | watermark stepped over nothing | ✅ not advanced; nothing actionable |
 
-⭐ **Criterion 5 failing is the honest result, and finding 6 is why it is structurally hard to pass
-here:** the input that drove this lap arrived by relay, so it has no timestamp the ribbon can lead
-with and no channel `check-mom-ack` can see. **The loop shipped for her and cannot yet say so.**
-*(Note: she tapped "Got it" on the standing ribbon 2026-08-18 8:23 PM ET — 4 total. The ribbon is
-reaching her; it is simply now out of date with respect to what we did today.)*
+⭐ **Criterion 5 was NOT MET for most of this lap, and the record keeps that**: the lap shipped a
+change she asked for and could not say so, because relayed input has no arrival timestamp and no
+channel. It passed only once Paul **supplied the date himself** — which is the gap being paid for by
+hand, not the gap being closed. *(She tapped "Got it" on the previous ribbon 2026-08-18 8:23 PM ET,
+4 total.)*
+
+### ⭐ THE RETURN LEG FOUND A THIRD DOOR — and only the preview caught it
+
+Lap 3 made the ribbon's heading noun **derive from `channels`**, because heading a question she asked
+with *"what your answer changed"* is a small untruth to someone whose documented fear is getting
+things wrong. **Relayed input is a door that logic did not know about.** With `channels: []` the card
+rendered *"what your ANSWER changed"* over something she never answered — the same untruth, one door
+further along. `relay` now yields *"what you told us changed."*
+
+⛔ **Every check was green while it was wrong.** It was caught by **leg 6a, the preview** — the leg
+that exists because emptying `message` once silently killed the whole ack card with all checks green.
+Second time that leg has caught something no check could.
+
+⚠️ **And the preview nearly lied too:** the first load served a **CACHED** `viewer.html` and showed
+the OLD ribbon *and* `text-lg` — i.e. it reported both changes as not applied. Two symptoms at once
+was the tell; a cache-buster resolved it. `CLAUDE.md` already warns *"a phone can hold a cached copy
+— hard-refresh before any walk."* **That warning applies to the local preview, not only to her
+phone,** and nothing in the loop said so until now.
+
+### Also folded in at close: canon drift left by a CONCURRENT session
+
+`vehicles.json` carried two 2026-08-19 service records (coolant drain/flush/refill; front-left tire)
+that were **never inlined into `VEHICLES_DATA`**, so the card Mom loads was behind canon. Left by
+`session_01Ky5oyq8XdKvkUC8t9XDZZm`, which committed to this repo **three times** during this lap.
+Re-inlined `[paul-confirmed]` + digest rebuilt. ⭐ **The drift was invisible to lap 4's own Leg 1
+sweep** — it arrived *after* the sweep ran, and was caught only because the ribbon write re-ran
+`check-data-inline`. **A sweep is a snapshot; a lap that lasts hours outlives it.**
 
 ---
 
