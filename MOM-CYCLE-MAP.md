@@ -44,6 +44,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked. ⭐ **Any NEW EVENT walks its other paths first** — every route in, the failure path, the reach path `[paul-approved 2026-08-14, PROVISIONAL]`. See § Leg 5, below |
 | **6 · GATE** 👤 | **6a PREVIEW** → **6b TELEMETRY** (does the instrumentation fire?) → **6c PROXY** (her-eyes check) → **6d** the return leg as exact text | **Paul** | he has flipped through it, `check-telemetry.py` is clean or its gaps are named, the proxy's flags are dispositioned, he approves, and it is **pushed** |
+| **6e · HER CONDITIONS** 👤 | ⭐ **414 × A+ — the combination she actually meets — before every release** `[paul-stated 2026-08-24]` | ai | `measureNestingWidth.herConditions()` returns `clean: true` (no HIGH), or every HIGH is dispositioned in the chronicle |
 | **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced — and **the ship VERIFIED against the live URL** `[paul-stated 2026-08-14]` | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped; **`check-live.py` exits 0** — until it does, the lap shipped nothing, whatever git says |
 
 **The loop closes at leg 7 → leg 1.** What makes it a cycle rather than a checklist is that leg 7's
@@ -179,7 +180,10 @@ decoration**, so where one exists because something went wrong, that is named.
 | `tools/mom-cycle-status.py` | **where in the loop are we, and is anything mine?** | five green exit codes never answered "is anything waiting on me" |
 | `tools/check-telemetry.py` | **has every instrumented event actually FIRED?** | 08-02 shipped three events "so the window's final week measures them." Two had **never fired** and the third first fired **12h after Mom's only session** — and her zero was written into the backlog and the cycle log as a finding |
 | `tools/check-live.py` | **is what Mom can LOAD the same as what we committed?** | 08-14: Paul tapped "Show radar" on his phone and asked if it landed. It could not have — **Pages was still serving the pre-lap build**, and every other check read green. A commit is not a ship; a **push is not a ship either**, because Pages rebuilds asynchronously |
-| `tools/check-cycle-map.py` | is this map still true? | hand-maintained facts drift, and always flatteringly |
+| `tools/telemetry-walk.js` | **is a zero a BROKEN call site, or a path nobody walked?** `check-telemetry.py` reads the record and cannot tell those apart; this walks the paths in a browser so a zero becomes attributable. Leg 6b's companion — *"a baseline telemetry test that we work into the cycle"* `[paul-stated 2026-08-08]` | ⚠️ **This tool served the loop for 16 days while this map never named it and `check-cycle-map.py` reported OK** — every glob in `TOOL_GLOBS` ended in `.py`, so a loop tool written in JavaScript was structurally invisible to the control that exists to catch exactly this. Fixed 2026-08-24 (lap 5) by globbing `*.js` too, and the fix was **verified able to fail before adoption** — it flagged both `.js` tools |
+| `tools/measure-nesting-width.js` | **does the nesting eat the width?** — used content width at every depth, at a real viewport, in both text modes, priced in **line boxes** rather than pixels | built lap 5 for `BACKLOG.md`'s standing measurement, which forbids a fix before a number `[paul-raised 2026-08-15, re-raised 2026-08-24]`. Two of its own defects were caught before any number was reported: `clientWidth` is **0 for inline boxes** (a plausible number, not an error), and the first A/A+ split was **contaminated by localStorage** — the A+ frame stored the preference and every later frame restored it, so both columns were secretly A+ |
+| `tools/check-ux-sweep.py` | **is a holistic two-pass UX sweep owed?** Counts the accumulation — days, `viewer.html` commits, laps closed — since the last two-pass run | `/ux-sweep` existed, was correctly built, and its informed pass already reads every design-principles file — but it was named **nowhere in this loop**, so it was a capability Paul had to remember to invoke. Measured the day this landed: **21d, 38 viewer commits, 5 laps** since the 2026-08-03 pilot, and nothing said so. ⚠️ A **trigger, not a per-lap beat** — a sweep is two agents and a full browse. **A single-seat review does NOT reset the clock**; that is the single-fix work a sweep exists to zoom out from. Thresholds are a first cut, unratified |
+| `tools/check-cycle-map.py` | is this map still true? | hand-maintained facts drift, and always flatteringly. ⚠️ And a control drifts too: see the `.js` hole above — it passed for 16 days on a toolbox it could only half see. ⭐ It caught `check-ux-sweep.py` on the day that tool was written, which is the control doing its job on its own author |
 
 > ⚠️ **The shape that recurs across half of these: a mechanism that inspects as present and has
 > never actually run — or runs and cannot fail.** The ribbon clock was cleared by *stamping a
@@ -214,6 +218,52 @@ That is not loop state — it is unshipped. What it prints is what the **record*
 | a channel is unread | `check-mom-ack.py` R2b — attestation, not a stamp |
 | canon surfaces behind | `check-data-inline.py` + `check-digest-fresh.py` |
 | unpushed / dirty | `git` — because a commit is not a ship |
+
+---
+
+## ⭐ LEG 6e — HER CONDITIONS, and why it did not exist until lap 5
+
+> Paul, 2026-08-24: *"If she's being served at A+ and at 414 — if that's what she's seeing, you
+> need to run a full check on that pretty much right now, or at least build that in before we do
+> the final release. This lap and every lap thereafter, that should kind of be the default."*
+
+**Every layout check in this repo has been run at 390 × A. Neither number was ever hers.**
+
+- **390** came from the `/design-options` exhibit convention. Her device reports **414×848** (51
+  metric batches, found at lap 4). 390 is *narrower*, so every past check is conservative and
+  nothing already verified is invalidated — but **no check had ever measured the 24px she actually
+  has.**
+- **A** was assumed because she has never fired the A/A+ toggle (**0 of 37** events, all Paul's).
+  But `text_size_served` reports **`{size:"lg", stored:true}`** on her device (2026-08-20 and
+  2026-08-24). She is **served A+**. *Never toggled* and *is on A* are different claims, and this
+  repo had been using the first as evidence for the second.
+
+So the one combination she meets was the one combination nobody had ever checked. It now runs
+before every release: `measureNestingWidth.herConditions()` — page overflow, elements past the
+right edge, silently clipped content, tap targets, and the row tax, all at 414 × A+.
+
+⚠️ **ITS FIRST RUN REPORTED 235 HIGH FINDINGS AND ESSENTIALLY ALL OF THEM WERE ITS OWN BUGS.**
+~200 were the hourly and 7-day forecast strips, which live inside `overflow-x: auto` scrollers —
+extending past the viewport is what a side-scroller *is*. Eight more were **collapsed** cards
+reported as "content clipped and hidden," which is what a shut accordion *is*. A tap-target pass
+flagged controls the 2026-08-01 sweep had already given 44px `::after` hit areas, invisible to
+`getBoundingClientRect`. All three are now handled and **each fix is commented at its site with
+the false positive that produced it**. Recorded here because a check that cries wolf 200 times is
+worse than no check: it trains its reader to skim, which is the same failure the padded focus
+queue exists to prevent. *A harness earns belief by reproducing a case you already know.*
+
+**First honest run (lap 5, 2026-08-24), after the fixes:**
+
+| | HIGH | MED (row tax) | LOW (tap <44px) |
+|---|---|---|---|
+| **414 × A+ — hers** | **0** | 20 | 4 |
+| 414 × A | 0 | 19 | 4 |
+| 390 × A+ — stress | 0 | 23 | 4 |
+
+**Nothing structural breaks at her conditions.** A+ costs one extra row-tax breach over A. The four
+sub-44px controls are `ic-head` (360×32), `vehicle-specs-toggle` (55×19), a bare `a` (192×15) and
+`plant-action-item` (360×40) — all real, none new, and `vehicle-specs-toggle` is the most worn of
+them.
 
 ---
 

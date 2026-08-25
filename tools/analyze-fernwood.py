@@ -480,8 +480,24 @@ def render_usage(events):
         if e["type"] == "card_expanded":
             card_expansions[props.get("cardId") or "unknown"] += 1
         elif e["type"] == "subtab_switched":
-            parent = props.get("parent")
-            target = props.get("target") or "unknown"
+            # ⚠️ FIELD NAMES CORRECTED 2026-08-24 (mom-cycle lap 5). This read
+            # `props.get("parent")` / `props.get("target")`; the viewer has only
+            # ever emitted `{card, subtab}` (viewer.html:17219, 17229). `parent`
+            # was therefore ALWAYS None, so NEITHER branch could fire and both
+            # `plant_tabs` and `wildlife_subtabs` stayed empty — the section was
+            # silently omitted rather than reported as zero, for the full life of
+            # the signal (first fired 2026-05-21).
+            #
+            # This is the ONLY tool that reads the one event saying which of the
+            # six wildlife rooms anyone entered. `[[match_payload_not_container]]`
+            # — the wrong key returns None, not an error, and a missing section
+            # reads as "nothing to say."
+            #
+            # `parent`/`target` are kept as fallbacks ONLY so an older stored
+            # batch, if one ever carried them, still counts. New data uses the
+            # first name in each pair.
+            parent = props.get("card") or props.get("parent")
+            target = props.get("subtab") or props.get("target") or "unknown"
             if parent == "plants":
                 plant_tabs[target] += 1
             elif parent == "wildlife":

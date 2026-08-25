@@ -18,7 +18,54 @@ python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — dec
 python3 tools/read-mom-zone-audio.py       # ⭐ HER VOICE — stage any new recordings; a channel nobody sweeps is a channel nobody hears
 python3 tools/transcribe-mom-zone-audio.py # make them readable (local whisper, .private/, UNVERIFIED — see the AI boundary)
 python3 tools/read-mom-engagement.py --pickup # ⭐ WHAT SHE DID — sessions/opens/journal since the last lap; silence in the answer record is not silence in the app
+python3 ~/.claude/tools/health-probe.py --only fernwood  # ⭐ IS THE RECORD ITSELF INTACT — weather history, the Action, Pages, the Worker
+python3 tools/check-ux-sweep.py            # ⭐ is a HOLISTIC two-pass UX sweep owed? (accumulation, not cadence)
 ```
+
+**⭐ THE LAST LINE IS THE ZOOM-OUT THAT SINGLE-FIX WORK NEVER SCHEDULES** `[paul-stated 2026-08-24]`:
+*"That UX review should have a pass of kind of fresh eyes, and then a pass that has our principles
+and all these rules we're coming up with fed into that informed pass. So let's also double check
+that that's kind of a part of our natural release cycle."*
+
+**It was not.** `/ux-sweep` existed and was correctly built — pass 1 browses un-primed, pass 2
+adjudicates every finding against `~/.claude/design-principles/` (so every rule written into that
+library feeds it **automatically**, which is exactly the informed pass he asked for). But it was
+referenced **nowhere** in this loop: not in this block, not as a leg in `MOM-CYCLE-MAP.md`, not in
+the `/mom-cycle` procedure. It was a capability Paul had to remember to invoke.
+
+Measured the day this line was added: **21 days, 38 commits to `viewer.html`, 5 closed laps** since
+the last two-pass run (the 2026-08-03 pilot). Nothing said so. **Third instance of one failure shape
+found in a single day** — `telemetry-walk.js` unnamed in the map for 16 days, weather-history
+completeness living outside the loop, and this. *A capability the loop cannot reach by running its
+own procedure is not a capability the loop has.*
+
+⚠️ **It is a TRIGGER, not a per-lap beat.** A sweep is two agents and a full browse; running it every
+lap spends real attention on a surface that has not moved, and this project's doctrine is that loops
+rest and fire on a signal. The skill's own guidance agrees — *"after a burst of accumulated changes,
+not per-fix."* **A single-seat review does NOT reset the clock; only a two-pass run does** — a
+`ux-expert` consult on one surface is precisely the single-fix work a sweep exists to zoom out from.
+Thresholds (21d / 20 viewer commits / 3 laps) are a **first cut, not ratified** — tune from what runs
+show and record the move in `MOM-CYCLE-LOG.md`.
+
+**⭐ THE LAST LINE IS NOT A MOM CHECK, AND THAT IS WHY IT HAD TO BE ADDED** `[paul-stated 2026-08-24,
+lap 5]`. Every other check above asks *what has she given us and have we answered it*. **None of them
+looks at whether the record she reads is intact.** On 2026-08-24 the portfolio probe flagged a short
+weather day (192 readings against a ~281 median) that **this loop would never have found** — it lives
+outside Fernwood entirely, and a lap could have closed clean over it. Paul: *"let's add it to leg
+one's block about the weather check — that's something we should probably bear in mind."*
+
+The argument for including it, since "weather completeness is not her feedback" is a fair objection:
+**the weather card is the one card she demonstrably opens** (both of her card opens since lap 4), so
+the integrity of that data is upstream of every reading this loop takes about her.
+
+⚠️ **It is DELIBERATELY the portfolio probe, not a Fernwood copy.** A local
+`check-weather-history.py` would mean a second completeness ratio, a second ack registry and a second
+remedy string — the exact drift this repo pays for repeatedly. **One source, N readers:** the
+thresholds and the ack file (`~/.claude/handoff/health-probe-ack.json`) stay in the probe, and
+`--only` just filters the view. A short day has **two** honest resolutions and both clear the flag —
+re-record it (the recorder is idempotent), or **acknowledge it as a genuine outage with the evidence
+that re-recording recovered nothing**. Do not add a date to the ack file to quiet a flag you have not
+understood; that turns the registry into the thing it exists to prevent.
 
 **⭐⭐ AN EMPTY ANSWER RECORD IS NOT A QUIET USER** `[paul-stated 2026-08-15]`: *"this is really to
 keep track of and measure engagement between cycles. Right now we've got the false signal of her not
@@ -316,6 +363,27 @@ must not depend on a human being awake.
 python3 tools/check-live.py            # is the live page byte-identical to HEAD?
 python3 tools/check-live.py --wait 180 # poll after a push while Pages rebuilds
 ```
+
+### ⭐⭐ AND CHECK IT AT **HER** CONDITIONS — 414 × A+ — BEFORE EVERY RELEASE `[paul-stated 2026-08-24]`
+
+*"If she's being served at A+ and at 414 — if that's what she's seeing, you need to run a full check
+on that pretty much right now, or at least build that in before we do the final release. This lap and
+every lap thereafter, that should kind of be the default."*
+
+```bash
+python3 -m http.server 8765     # then, in the browser console on any same-origin page:
+#   paste tools/measure-nesting-width.js, then:  await measureNestingWidth.herConditions()
+```
+
+**Every layout check in this repo has run at 390 × A, and neither number was ever hers.** 390 came
+from the `/design-options` exhibit convention; her device reports **414×848** (51 metric batches, lap
+4) — 390 is narrower, so past checks are conservative, but **none ever measured the 24px she actually
+has**. And A was assumed from "she has never fired the toggle" (**0 of 37** events, all Paul's) —
+while `text_size_served` reports **`{size:"lg", stored:true}`** on her device on 2026-08-20 and
+2026-08-24. **She is served A+.** *Never toggled* and *is on A* are different claims; this repo had
+been using the first as evidence for the second. So the one combination she meets was the one nobody
+had checked. Full reasoning, the first honest run, and the three false-positive classes its first
+version invented: `MOM-CYCLE-MAP.md` § Leg 6e.
 
 ✅ **THE A+ DEFAULT WAS WALKED BACK, 2026-08-19 — the 08-15 hold is RESOLVED and this file no
 longer carries an exception.** `2e8791a` was never pushed, so **Mom was never served A+**; the

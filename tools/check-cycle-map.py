@@ -39,7 +39,20 @@ LOG = os.path.join(ROOT, "MOM-CYCLE-LOG.md")
 # Derived by GLOB, never by a hand-kept list — a hand-kept list is the exact
 # failure mode this file exists to catch.
 TOOL_GLOBS = ("check-*.py", "read-*.py", "test-feedback-cycle.py",
-              "fold-answer.py", "mom-cycle-status.py")
+              "fold-answer.py", "mom-cycle-status.py",
+              # ⭐ `.js` ADDED 2026-08-24 (mom-cycle lap 5) — THE CONTROL HAD A
+              # HOLE THE EXACT SHAPE OF THE THING IT GUARDS AGAINST.
+              # Every glob above ends in `.py`, so a loop tool written in
+              # JavaScript was invisible to it. `telemetry-walk.js` — Leg 6b's
+              # walk, whose own header says "A leg of the mom-cycle, not a
+              # calendar item" `[paul-stated 2026-08-08]` — is named NOWHERE in
+              # MOM-CYCLE-MAP.md, and this check reported OK for 16 days.
+              # A control that cannot see half the toolbox reports clean about
+              # the half it can see, which reads as clean about all of it.
+              # Globbed, not enumerated: a hand-kept list is the failure this
+              # file exists to catch, and it had grown one in the file
+              # extension.
+              "*.js")
 
 # Tools that are deliberately NOT part of this loop. Each needs a reason, and the
 # reason is checked by a human, not by this script.

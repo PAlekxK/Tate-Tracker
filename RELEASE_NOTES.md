@@ -4,6 +4,16 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-24 — The insect list is easier to read
+
+- **Each insect's name now sits on its own line**, above what it sounds like. The
+  descriptions had been squeezed into a narrow column beside the names.
+- **Vehicles, Equipment and Household read wider.** The little icon used to take up a
+  column all the way down each entry; now it sits on the title line and the text has the
+  full width of the card.
+
+---
+
 ## 2026-08-19 — The radar comes first in Weather now
 
 - **You don't have to go looking for it.** Open Weather and "Show the radar" is right there

@@ -11,6 +11,172 @@ amended mid-lap.
 
 ---
 
+## Lap 5 — 2026-08-24 · 🔓 **OPEN AT LEG 6** — the lap that measured the nesting, and found the app has been serving Mom a text size the record says she never chose
+
+**Fired by:** `cycles.py` — `offers-passed 3/3` (Perspective offers she SAW and did not tap) +
+`sessions-quiet 4/3`. Her one unanswered arrival: **"Fabulous"** (`fb-0wk7w59c-mt1k6tll`,
+2026-08-20 9:31 AM ET), which arrived through the **`ack-reply`** door — she wrote it back to the
+lap-4 ribbon itself.
+
+**Scope, Paul-directed mid-lap:** *"I would like to take care of that as a part of this lap through
+the full cycle"* — the nested-card width question filed 2026-08-15 and re-raised 2026-08-24 with a
+named path (Wildlife → Insects → one insect). Plus three deterministic items surfaced at pickup,
+which he asked be handled by the cycle naturally rather than as a side errand.
+
+### Leg 0 · GUARD
+HEAD `f9524f4` at start. `session-radar.py` reported **two other open sessions**, both `cwd: ~`, one
+with **no field-log writes at all (work UNANNOUNCED)**. Neither had sealed `Tate-Tracker`. Proceeded
+with the repo treated as writable but **HEAD re-checked before commit** (lap 4's finding: the guard
+has a hole between COMMIT and PUSH).
+
+### Leg 1 · READ
+All eleven checks in `CLAUDE.md`'s session-start block, list **derived** from the block, not counted
+from the procedure. Three flagged: digest STALE (vehicles), ack ribbon STALE 5d, and — from the
+portfolio health probe, not from this loop — a short weather-history day.
+
+### Leg 2 · TRIAGE
+- **"Fabulous"** → *preference / affirmation*. No truth value, nothing to build. It is a reply **to
+  the ribbon**, which is the first time in this project's record that the return leg drew a verbal
+  response.
+- **Nesting width** → *feature (structural)*, Paul-raised, routed to Leg 4.
+- The three pickup items → *correctness*, Leg 5.
+
+### Leg 3 · RESOLVE
+No tier-3 card. Nothing reached her. Both live ambiguities were settled at **tier 1 (telemetry)** —
+see Leg 4 — which is the ladder working as designed.
+
+### Leg 4 · EXPERT — `user-researcher` → `ux-expert` (structure; no new copy)
+Scoped per the table: the lap produces a **structural** change, so steward is not convened for it.
+- **The measurement first.** New tool `tools/measure-nesting-width.js`; report
+  `.plans/2026-08-24-nesting-width-measurement.md`; raw `.plans/2026-08-24-nesting-width-raw.json`.
+  **The claim reproduces on all six domains walked, in both text modes.** 81 extra line boxes at her
+  real viewport. Worst column 135.3px = 32.7% of a 387px card.
+- ⭐ **It splits in two, and only one is "nesting."** Padding compounds 36+33+22 = **91px** before a
+  word is set; then a **two-column row** inside the narrowed box cuts 296 → 135 — a bigger single cut
+  than all three padding levels combined, and **not named anywhere in the backlog row that
+  commissioned the measurement**.
+- ⚠️ **The worst row cost is not the deepest node.** `vehicle-notes`, depth 5, in a *wide* 281px
+  column, runs **20 lines where 14 would do**. Any strategy aimed at "the deepest thing" misses it.
+- **seat 1 (`user-researcher`)** → `.user-research/2026-08-24-nesting-depth.md`. Verdict, unflattered:
+  **64% of the row cost is on Paul's own surface or on a surface with zero recorded visits from Mom.**
+  The one domain she demonstrably reaches — Weather — has **no nested door at all**; its cost is text
+  volume. Its prevention argument is the real reason to act: `renderVehicleItem` renders vehicles,
+  equipment **and household** from one template (verified at `viewer.html:13308` + the `GROUPS` block),
+  and **household is the domain Mom proposed by name**.
+
+### Leg 5 · SHIP — wins that never reach her surface
+1. **Guru digest rebuilt** — `check-digest-fresh` green (was STALE on vehicles).
+2. **2026-08-18 weather re-recorded, and the answer was "nothing to recover."** Re-pull returned the
+   **identical 192 records**; the gap is in the station's own record. Added to
+   `~/.claude/handoff/health-probe-ack.json` **with that evidence**, per that file's own rule that a
+   date belongs there only when re-recording cannot recover anything. Portfolio health probe: green.
+3. ⛔ **`subtab_switched` had a DEAD BRANCH for the entire life of the signal.**
+   `analyze-fernwood.py:483` read `props["parent"]`/`["target"]`; the viewer has only ever emitted
+   `{card, subtab}` (`viewer.html:17219,17229`). `parent` was always `None`, so **neither branch could
+   fire**, both counters stayed empty, and the section was **silently omitted rather than reported as
+   zero** — since 2026-05-21. This was the only tool reading the one event that says which of the six
+   wildlife rooms anyone entered. Fixed; the "Plant view tabs" and "Wildlife subtabs" sections now
+   render. `[[match_payload_not_container]]`, again.
+4. ⛔ **`detail_opened` was read by ZERO tools.** Shipped lap 3 *specifically* to see inside cards,
+   reachable only via `--json`. Wired into `read-mom-engagement.py` as a new **HOW DEEP SHE WENT**
+   block covering depth 2 (`subtab_switched`) and depth 3 (`detail_opened`). Every "no evidence she
+   goes deep" claim in this repo — including the ones sizing this lap's work — had been standing on
+   signals nobody printed.
+5. ⛔ **THE MAP'S OWN CONTROL HAD A HOLE THE EXACT SHAPE OF WHAT IT GUARDS.** Every glob in
+   `check-cycle-map.py`'s `TOOL_GLOBS` ended in **`.py`**, so a loop tool written in JavaScript was
+   structurally invisible. **`telemetry-walk.js` — Leg 6b's walk, whose own header calls it "a leg of
+   the mom-cycle" `[paul-stated 2026-08-08]` — is named nowhere in `MOM-CYCLE-MAP.md`, and the control
+   reported OK for 16 days.** Fixed by globbing `*.js`; **verified able to fail before adoption** (it
+   flagged both `.js` tools); map updated to name both; `--selftest` passes.
+
+### ⭐⭐ THE FINDING — she is being served A+, and every claim resting on "A+ is Paul's mode" is now wrong
+`text_size_served` reports **`{size:"lg", stored:true}` on her device on 2026-08-20 and 2026-08-24** —
+the size at serve time, measured. And she has **still never fired the toggle**: re-counted across the
+entire record, **0 of 37** `text_size_changed` events are hers; all 37 are `d-14nyhnjz`.
+
+**"Never toggled" and "is on A" are different claims, and this repo has been using the first as
+evidence for the second.** They came apart the moment a default could be stored without a tap.
+`stored:true` means the localStorage key is set (`viewer.html:20240`) and the only writer of that key
+fires the event her device has never produced. **How it got set is unresolved and may be
+unrecoverable** — recorded as unresolved rather than explained away.
+
+⏱ **Instrument dated, per lap 4's own rule:** `text_size_served` first fired **2026-08-19**. So this
+is established for her sessions **since 08-19 only**; her mode before that is **UNMEASURED, not
+"normal."** Every engagement and layout reading taken before 08-19 has an unknown type scale under it.
+
+✅ The nesting measurement was run in **both** modes for exactly this reason, and its finding is
+mode-independent — the one place this lap was already protected against its own surprise.
+
+### 🟡 The radar rule got her events — and it still does not fire
+Her 08-20 session, in order: `momack_tapped` + `ribbon_general_sent {section:"ack-reply"}` → `momqueue_viewed`
+→ `jumpstrip_tapped {card-weather}` → `card_expanded {via:"strip"}` → **`radar_section_viewed` →
+`radar_toggled {shown:true}`** → `session_end {66s}`. That is the pre-registered **both** branch,
+which reads *"nothing is broken, close the thread."* **Not closed.** Two disqualifiers, both the
+rule's own: ① the trigger was *"the next RAIN EVENT"* and `weather-history.json` has **`rainTotal: 0`
+for 08-20** — it was dry; ② **we demonstrated the path to her seconds earlier** in the ribbon she had
+just tapped, and the row's own left column says *"Never demonstrate the path; that destroys the
+observation."* This is a **reachability** reading, not the **findability** one the rule was written to
+take. Rule stays armed; the confound is recorded in the row so the next reader checks both conditions.
+
+### How deep she has ever gone — the boundary, now that something prints it
+- **depth 2** (`subtab_switched`, live since 2026-05-21, ~95 days): she fired it **exactly twice** —
+  2026-05-21 `wildlife→amphibians`, 2026-06-04 `plants→by-species`. **Nothing in 81 days.**
+- **depth 3** (`detail_opened`, live since **2026-08-15 — 9 days**): **0 from her**, 21 from Paul's
+  device, 6 harness. ⚠️ **A 9-day zero across 3 short sessions is thin, not proven.** Reported as
+  unmeasured-leaning, never as "she never goes deep."
+
+### Leg 4 continued · seat 2 (`ux-expert`) → `.ux-reviews/2026-08-24-nesting-depth.md`
+Every load-bearing claim it made was **spot-checked before use** (the 08-04 rule); all six verified.
+- ⭐ **THE BIGGEST RECOVERABLE CUT IN THE APP IS A DECORATIVE EMOJI.** `.vehicle-icon` — 40px plus a
+  12px gap — was the first flex child of `.vehicle`, so every line of every panel beneath it was set
+  **52px narrower than the card, at every depth**. It exactly accounts for the `333→281` step the
+  measurement report had left unexplained. **Neither the report nor seat 1 saw it**; both read it as
+  part of the padding chain.
+- **The chorus row is a DEFECT, and seat 1 was wrong about it.** Seat 1 argued the two-up may be
+  load-bearing to a name+discriminator scan and that stacking would *raise* the row count. Verified
+  against the files: `soundsLike` values are **54–116-character prose sentences**, and
+  `.chorus-now-item` is a **per-row** flex with `flex-shrink:0` on the name — no shared column track,
+  so it pays a two-up's full width cost and delivers **no** alignment. Stacked wins above ~44 chars,
+  which is all of them; the 110-char entry is **5 lines two-up, 3 stacked**.
+- ⛔ **A WAYFINDING BLOCKER NOBODY HAD NAMED.** `.main-card { overflow: hidden }` (`viewer.html:394`)
+  makes `position: sticky` **inoperable** on any card header. The repo's zero-`sticky` count is
+  therefore not only a fact about intent, as seat 1 read it — it is a fact about **capability**: had
+  anyone tried, it would have failed while looking like it worked.
+- **It refuted its own hypothesis about the A+ finding** — see Decisions.
+
+### Leg 5 continued · the width fix SHIPPED (Paul-surface), measured before and after
+`.vehicle` un-flexed, icon moved into a `.vehicle-head` row, `table-layout: fixed` on the specs table.
+**The three domains `renderVehicleItem` renders went from 32 extra rows to 15 — a 53% reduction from
+two CSS changes.** Vehicles narrowest 152.6→**184.8px**, Equipment 265→**317px**, Household
+265→**287.9px**. Verified in a real 414px frame: body recovered to full 333px, icon present, **no
+horizontal overflow**. Portfolio-wide the six domains went **81 → 61** extra rows.
+`table-layout: fixed` is **prevention**: `td:first-child` carries `white-space: nowrap` (hard) with
+`width: 38%` (only a hint under auto layout), so a long label takes the value column with no floor —
+invisible with Paul's short labels, live the moment household phrases populate the same template.
+
+### The harness became a GATE
+`measureNestingWidth.gate()` now enforces the **ROW TAX RULE** (Clause A: `rowTax ≤ 1.25`; Clause B:
+chrome ≤ 15% of card content) and exits on breach. A width FLOOR was tried first and **discarded** —
+it does not flag `vehicle-notes`, the app's worst row cost, which sits at 68% of its card. The tax is
+scale-invariant, stated in Paul's own unit, and auto-exempts short values. **25 breaches today**;
+thresholds are a declared first cut, to be tuned from runs.
+
+### Decisions
+| # | decision | supersedes | why |
+|---|---|---|---|
+| 1 | **The nesting question is answered by MEASUREMENT and partly FIXED** — no longer "🔴 OPEN, filed for next cycle" | `BACKLOG.md` § nesting row, `[paul-raised 2026-08-15]` | it reproduces on all six domains; the row's own precondition (measure before fixing) is met |
+| 2 | **The ROW TAX RULE is the space rule**, enforced by the harness | nothing — new | the repo requires a new visual rule to be a checkable claim; "it feels cramped" was not one |
+| 3 | **A width FLOOR is rejected** as the rule | the intuitive framing in the backlog row ("the innermost column as a fraction of the viewport") | a floor cannot flag `vehicle-notes`, which is the worst offender and sits at 68% |
+| 4 | **Fix ORDER is yield, not safety** — the icon column first | seat 1's ranking, which put `renderVehicleItem` first *because it is Paul-surface and therefore low-risk* | on the safety argument alone this is busywork on a surface with two recorded visitors; on yield it is the largest single recoverable cut in the app |
+| 5 | **"Collapse a nesting level" is DEMOTED from the preferred fix to last** | `BACKLOG.md`'s stated preference for structural collapse over a padding pass | `.bio-section`'s three levels do three different jobs. **Collapse a level that carries no meaning; shave padding on a level that does** |
+| 6 | **The radar decision rule stays ARMED** despite its `both` branch firing on her device | the literal reading of the pre-registered rule | its trigger (*a rain event*) did not occur — `rainTotal: 0` on 08-20 — and we had demonstrated the path to her in the ribbon seconds earlier, which the row itself forbids |
+| 7 | **"She has never fired the A/A+ toggle" is downgraded from FACT to CONTESTED** | `BACKLOG.md` L101 and every line resting on *"A+ is Paul's mode, not hers"* | she is **served** A+ (`{size:"lg", stored:true}`, 08-20 and 08-24). The seat proposed instrumentation-age as the explanation; **`git log -S` refutes it** — the toggle and its event shipped in the *same* commit `cd80760` (2026-05-22), so there was never a silent era. Record and browser state disagree, and the honest line is that they disagree |
+| 8 | **`check-cycle-map.py` globs `*.js`** | its `.py`-only `TOOL_GLOBS` | `telemetry-walk.js` served the loop for 16 days while the control that exists to catch exactly that reported OK |
+
+### Leg 6 · GATE — 🔓 OPEN
+Preview staged for Paul. **Nothing Mom-facing has shipped in this lap** — the chorus stack,
+`.bio-section` padding and the sticky header are all gated. The return leg is still owed.
+
 ## Lap 4 — 2026-08-19 · ✅ **CLOSED CLEAN, 6 of 6** — shipped `7db2476` (radar + A+ walk-back) and `c7e441b` (the return leg), both **verified live** (`a9c0179…` 5:52 PM, `8546fd62…` 6:30 PM ET) · **the lap that walked back its own experiment, because a different lap had already answered its question**
 
 **Fired by:** the **engagement trigger** (promoted 2026-08-17) plus **pre-registered owed work** from

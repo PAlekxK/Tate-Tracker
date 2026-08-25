@@ -184,11 +184,29 @@ def build(window_start, hers, token):
     ev = Counter(e["type"] for e in mine if e.get("type"))
     cards = Counter()
     sections = Counter()
+    # ⭐ HOW DEEP DID SHE GO (added 2026-08-24, mom-cycle lap 5).
+    # `card_expanded` is depth 1. Two signals go deeper and NEITHER was printed
+    # by any tool: `subtab_switched` (depth 2 — which of the six wildlife rooms,
+    # which plants view) was read only by analyze-fernwood.py and read with the
+    # WRONG FIELD NAMES so its branch was dead; `detail_opened` (depth 3 — an
+    # individual species) shipped lap 3 specifically to see inside cards and was
+    # read by **zero** tools, reachable only via --json.
+    #
+    # It matters because every "no evidence she goes deep" claim in this repo —
+    # including the ones sizing the nested-width work — was standing on signals
+    # nobody printed. An unprinted signal and an absent one are the same zero to
+    # a reader, which is this project's oldest recurring failure.
+    subtabs = Counter()
+    details = Counter()
     for e in mine:
         if e["type"] == "card_expanded":
             cards[(e.get("cardId") or "?", e.get("via") or "?")] += 1
         elif e["type"] == "card_section_viewed":
             sections[e.get("cardId") or "?"] += 1
+        elif e["type"] == "subtab_switched":
+            subtabs[(e.get("card") or "?", e.get("subtab") or "?")] += 1
+        elif e["type"] == "detail_opened":
+            details[(e.get("kind") or "?", e.get("id") or "?")] += 1
 
     # Events whose FIRST EVER firing (any device) postdates the window — their zeros
     # inside it are unmeasured, not behavioural.
@@ -201,6 +219,8 @@ def build(window_start, hers, token):
         "events": ev,
         "cards": cards,
         "sections": sections,
+        "subtabs": subtabs,
+        "details": details,
         "journal": {k: ev.get(k, 0) for k in JOURNAL_EVENTS},
         "almanac_opens": sum(n for (c, _), n in cards.items() if c in ALMANAC_CARD_IDS),
         "other_device_events": others,
@@ -232,6 +252,21 @@ def report(r, lap):
     if r["sections"]:
         print("    scrolled into view: "
               + ", ".join(f"{c} {n}" for c, n in r["sections"].most_common()))
+
+    # ⭐ HOW DEEP — the two signals nothing printed until 2026-08-24. Depth 1 is
+    # the card open above; these are 2 and 3. A zero here is reported as a zero
+    # and dated by the unreadable-zeros block below, never left as a blank.
+    print(f"\n  HOW DEEP SHE WENT — past the card face")
+    print(f"    depth 2 · a room inside a card (subtab_switched) — {sum(r['subtabs'].values())}")
+    for (card, tab), n in r["subtabs"].most_common():
+        print(f"      {card} → {tab:20} {n}")
+    if not r["subtabs"]:
+        print("      none in this window")
+    print(f"    depth 3 · one individual opened (detail_opened) — {sum(r['details'].values())}")
+    for (kind, ident), n in r["details"].most_common(8):
+        print(f"      {kind}: {ident:22} {n}")
+    if not r["details"]:
+        print("      none in this window")
 
     print(f"\n  THE JOURNAL — {r['almanac_opens']} card open(s)")
     for k, label in JOURNAL_EVENTS.items():

@@ -98,9 +98,42 @@ surface outranks anything that adds an ask** — the second is unmeasurable unti
   offered after 7/14 is unanswered (**0 of 4**). The one seeded from *her own words* —
   `q-almanac-name` — was answered **in under a day**. A third candidate, occasion/effort, is confounded
   with it in every row and stays on the board.
-- **She has NEVER used the A/A+ toggle** (Paul's device fired it 22×). Reading-difficulty still stands
-  on Paul's testimony, but its behavioural corroboration is gone — **so tune the DEFAULT type scale,
-  not `body.text-lg`.**
+- **She has NEVER used the A/A+ toggle** (Paul's device fired it 22×; re-counted **2026-08-24 across
+  the entire record: 0 of 37**, all 37 from `d-14nyhnjz`). Reading-difficulty still stands on Paul's
+  testimony, but its behavioural corroboration is gone.
+  - 🔴 **BUT THE CONCLUSION DRAWN FROM IT — "so tune the DEFAULT type scale, not `body.text-lg`" —
+    IS FALSE, AND HAS BEEN SINCE AT LEAST 2026-08-20** `[lap 5, 2026-08-24]`. **Mom's device is being
+    served A+.** `text_size_served` reports `{size:"lg", stored:true}` on her device on **2026-08-20
+    9:30 AM** and **2026-08-24 8:06 AM** — the size at serve time, measured, not inferred.
+    `stored:true` means `localStorage["tateTracker.textSize"]` is set on her phone
+    (`viewer.html:20240`), and the **only** writer of that key is `set()`, which fires
+    `text_size_changed` — an event her device has never produced. **How the key got set is
+    unresolved and may be unrecoverable.** Do not guess at it in prose; the actionable half needs no
+    explanation.
+    - ⛔ **ONE EXPLANATION IS RULED OUT, BY GIT.** The obvious hypothesis — *the toggle predates its
+      instrumentation, so an early press stored the key silently* — is **false**:
+      `git log -S'text_size_changed'` and `git log -S'text-size-aplus'` both first appear in the
+      **same commit, `cd80760` (2026-05-22)**. The button and its event shipped together; there was
+      never a silent era. Her device first appears 2026-05-21, one day before, and the metrics record
+      covers the whole span. *(Raised by the lap-5 `ux-expert` seat, which proposed instrumentation
+      age as the explanation and named the command that refutes it.)*
+    - What survives: the event fired and its batch **never reached the Worker** (her sessions are 28–127s
+      and a flush can be lost), or the press was **not by her**. Both are unfalsifiable from here.
+    - ⚠️ **So "she has never fired the toggle" may no longer be stated as fact.** The RECORD shows no
+      event; the BROWSER STATE says that button was pressed on that device. Those disagree, and the
+      honest line is that they disagree — not whichever one flatters the current argument.
+  - ⚠️ **"Never toggled" and "is on A" are DIFFERENT CLAIMS, and this backlog has been treating the
+    first as evidence for the second.** They came apart the moment a default could be stored without
+    a toggle. Every downstream line resting on *"A+ is Paul's mode, not hers"* — including
+    *"latent, not live… it bites nobody today"* about A+-only layout defects — **is now wrong: A+
+    defects bite HER, today.** The instruction above stands only as "the default matters"; it may no
+    longer be read as "`body.text-lg` does not reach her."
+  - ⏱ **DATE THE INSTRUMENT (lap 4's own rule, applied to itself).** `text_size_served` first fired
+    **2026-08-19**, five days before this reading. So *"she is on A+"* is established for her
+    sessions **since 08-19 only**. Her mode before that is **UNMEASURED — not "normal."** Every
+    engagement and layout reading in this repo taken before 08-19 has an unknown type scale under it.
+  - ✅ Lap 5's nesting-width measurement was run in **both** modes for exactly this reason and its
+    finding is mode-independent (`.plans/2026-08-24-nesting-width-measurement.md`).
 - **`persona-mom.md`'s entire telemetry tier is Paul's device** and must be re-derived before anything
   reads it as user context.
 - **Three irreconcilable funnel figures** (35/33/1 · 9→3 · 60/42/2) sit in three sections. None is
@@ -218,7 +251,7 @@ Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
 
 | # | Question | Ask via | Capture path |
 |---|---|---|---|
-| **R** | **Is the radar's problem the DOOR or the POSITION?** She has told Paul twice she likes it — 07-29 *"didn't know how to access it"*, and again 08-13. `[lap 3, 2026-08-14]` | ⛔ **NOT via a card.** Tier 2 already answered it; a verdict-class ask about a layout nobody can self-report, into a queue with zero taps since 08-03. Ask **Paul** to ask a past-behaviour question next time he is with her — *"last week when it was really coming down, did you end up looking at the radar?"* → *"what'd you do to get to it?"*. Never demonstrate the path; that destroys the observation | **`radar_section_viewed` + `radar_toggled`**, shipped 08-14. ⭐ **DECISION RULE PRE-REGISTERED** (`MOM-CYCLE-LOG.md` lap 3, written before the data existed): viewed-but-not-toggled → **the door** is wrong, upgrade the toggle; **neither** → **position** is wrong, move it under *Right now*; **both** → nothing is broken, close the thread. **Trigger, not a date:** the next rain event carrying a Weather jump-strip tap. ✅ **ALL THREE EVENTS PROVEN 2026-08-14 11:38 AM ET** (Paul's iPhone: `card_expanded {via:"strip"}` + `radar_section_viewed` + `radar_toggled`). ⚠️ **His walk does NOT trigger the rule** — it was pre-registered about HER journey, and he knew exactly where the radar was; it proves the instrument, not her path. **Rule stays armed.** <br><br>**IF THE ANSWER IS "THE DOOR", here is the fix, pre-measured so nobody re-derives it:** `.radar-section-title` is **13px**, `.radar-toggle-btn` **11px**, `.radar-anim-btn` 11px, `.radar-frame-indicator` 10.5px — i.e. **the door is smaller than the 14px "▼" chevron replaced on 07-29 for being too hard to see**, and it renders *below* the "Where does this data come from?" accordion, in the position a footer occupies. The fix is the ratified **cards-as-doors** treatment: a labelled pill stating the action, real `role="button"` + `aria-expanded` + keyboard (the header is a bare `div` with an `onclick`), and a `body.text-lg` entry. ⚠️ **`body.text-lg` carries 146 rules app-wide and ZERO for any radar element**, so in large-text mode everything around the radar grows and its own label does not — the identical defect already documented for the rainfall card. **Honest qualifier: that half is latent, not live — Mom has never used A/A+ (0 of 27 `text_size_changed` events are hers), so it bites nobody today.** The 11px default does. ✅ **THE DOOR IS FIXED — 2026-08-14, Paul chose exhibit R-C** from four staged options (*"if it's a key feature, let's highlight it as such… I like that it's still nested within the weather card itself"*). Heading + 11px chip collapsed into ONE full-width 15px button naming the action, real `<button>` semantics with `aria-expanded`, 44px min-height, and the missing `body.text-lg` rules. ⚠️ **This narrows the pre-registered rule rather than voiding it.** The earlier note here said not to touch the door mid-measurement; that was **over-cautious and is superseded** — `radar_section_viewed` fires on scroll-into-view and is completely independent of how the button looks, so the POSITION branch is untouched. What is now unanswerable is only *"would the 11px door have worked?"*, which nobody needs: it was substandard against the ratified cards-as-doors pattern regardless. **Still live: does she ever scroll this far?** If `radar_section_viewed` stays silent for her, position is the problem and the section moves under *Right now*. Tap area is NOT the issue: `.radar-toggle-btn` already carries a 44px `::after` (viewer.html:180-190) and the whole header row is clickable |
+| **R** | **Is the radar's problem the DOOR or the POSITION?** She has told Paul twice she likes it — 07-29 *"didn't know how to access it"*, and again 08-13. `[lap 3, 2026-08-14]` | ⛔ **NOT via a card.** Tier 2 already answered it; a verdict-class ask about a layout nobody can self-report, into a queue with zero taps since 08-03. Ask **Paul** to ask a past-behaviour question next time he is with her — *"last week when it was really coming down, did you end up looking at the radar?"* → *"what'd you do to get to it?"*. Never demonstrate the path; that destroys the observation | **`radar_section_viewed` + `radar_toggled`**, shipped 08-14. ⭐ **DECISION RULE PRE-REGISTERED** (`MOM-CYCLE-LOG.md` lap 3, written before the data existed): viewed-but-not-toggled → **the door** is wrong, upgrade the toggle; **neither** → **position** is wrong, move it under *Right now*; **both** → nothing is broken, close the thread. **Trigger, not a date:** the next rain event carrying a Weather jump-strip tap. ✅ **ALL THREE EVENTS PROVEN 2026-08-14 11:38 AM ET** (Paul's iPhone: `card_expanded {via:"strip"}` + `radar_section_viewed` + `radar_toggled`). ⚠️ **His walk does NOT trigger the rule** — it was pre-registered about HER journey, and he knew exactly where the radar was; it proves the instrument, not her path. **Rule stays armed.** <br><br>**IF THE ANSWER IS "THE DOOR", here is the fix, pre-measured so nobody re-derives it:** `.radar-section-title` is **13px**, `.radar-toggle-btn` **11px**, `.radar-anim-btn` 11px, `.radar-frame-indicator` 10.5px — i.e. **the door is smaller than the 14px "▼" chevron replaced on 07-29 for being too hard to see**, and it renders *below* the "Where does this data come from?" accordion, in the position a footer occupies. The fix is the ratified **cards-as-doors** treatment: a labelled pill stating the action, real `role="button"` + `aria-expanded` + keyboard (the header is a bare `div` with an `onclick`), and a `body.text-lg` entry. ⚠️ **`body.text-lg` carries 146 rules app-wide and ZERO for any radar element**, so in large-text mode everything around the radar grows and its own label does not — the identical defect already documented for the rainfall card. **Honest qualifier: that half is latent, not live — Mom has never used A/A+ (0 of 27 `text_size_changed` events are hers), so it bites nobody today.** The 11px default does. ✅ **THE DOOR IS FIXED — 2026-08-14, Paul chose exhibit R-C** from four staged options (*"if it's a key feature, let's highlight it as such… I like that it's still nested within the weather card itself"*). Heading + 11px chip collapsed into ONE full-width 15px button naming the action, real `<button>` semantics with `aria-expanded`, 44px min-height, and the missing `body.text-lg` rules. ⚠️ **This narrows the pre-registered rule rather than voiding it.** The earlier note here said not to touch the door mid-measurement; that was **over-cautious and is superseded** — `radar_section_viewed` fires on scroll-into-view and is completely independent of how the button looks, so the POSITION branch is untouched. What is now unanswerable is only *"would the 11px door have worked?"*, which nobody needs: it was substandard against the ratified cards-as-doors pattern regardless. **Still live: does she ever scroll this far?** If `radar_section_viewed` stays silent for her, position is the problem and the section moves under *Right now*. Tap area is NOT the issue: `.radar-toggle-btn` already carries a 44px `::after` (viewer.html:180-190) and the whole header row is clickable <br><br>🟡 **HER EVENTS LANDED 2026-08-20 — AND THE RULE STILL DOES NOT FIRE. READ THIS BEFORE CLOSING THE THREAD** `[lap 5, 2026-08-24]`. Her device, 9:31 AM, in order: `momack_tapped` + `ribbon_general_sent {section:"ack-reply"}` ("Fabulous") → `momqueue_viewed` → `jumpstrip_tapped {target:"card-weather"}` → `card_expanded {via:"strip"}` → **`radar_section_viewed` → `radar_toggled {shown:true}`** → `session_end {durationSec:66}`. On the **both** branch that reads *"nothing is broken, close the thread."* **Do not close it.** Two disqualifiers, and they are the rule's own: <br>① **The stated trigger did not occur.** The rule fires on *"the next RAIN EVENT carrying a Weather jump-strip tap."* `weather-history.json` has **`rainTotal: 0` for 2026-08-20** (0 on 08-19 too; 0.11" on 08-21). It was dry. The rule was built to detect whether she can FIND the radar when she *wants* it, and wanting it is what rain supplies. <br>② **The path was demonstrated to her seconds earlier — by us.** The ribbon she had just tapped says, in its own words, *"The radar is the first thing in the Weather card now… You'd said you didn't know how to get to it."* This row's own left column forbids exactly this: **"Never demonstrate the path; that destroys the observation."** We demonstrated it in the acknowledgment and then measured her following it. That is a **reachability** reading — the door works when pointed at — not the **findability** reading the rule was pre-registered to take. <br>**What it DOES establish, and it is not nothing:** the radar is reachable, the instrument fires end-to-end on her device, and she acted on a ribbon within one minute of reading it. **Rule stays armed** for a genuine rain event with no ribbon pointing at the radar in the same session. ⚠️ Whoever reads that next: check `rainTotal` for the day AND check whether the live ribbon named the radar, or this same confound repeats invisibly. <br><br>🔴 **AND THE "latent, not live" QUALIFIER ABOVE IS NOW FALSE** — see the corrected A/A+ bullet at the head of this file (lap 5). Her device is served `{size:"lg", stored:true}` (08-20, 08-24). The `body.text-lg` half of any radar defect **bites her**, and the "0 of 27" count is now **0 of 37** — still zero, still not the same claim as "she is on A." |
 | ~~**0**~~ | ✅ **ANSWERED 2026-08-03, RETIRED 2026-08-04 — and the pre-scheduled hand-retire WORKED.** She answered **Yes / "That's all of them"** (sentiment `landed`) in her 7:52–7:56 AM ET session, and the retire landed the next day: `active:false` + `resolvedAt: 2026-08-04`. **The watermark was never pinned** — verified 2026-08-08, nothing is holding the ceiling. This row is the one worked example of the 2026-07-27 unprobeable rule being honoured *in advance* rather than discovered after it bit. **Her five, in her words: vehicles / equipment / house systems / gardening / wildlife** — carried forward into the 8/10 strip decision, which the shipped strip does **not** yet reflect | Card (live) | ✅ Retired by hand as pre-scheduled |
 | **1** | **The real discriminator** — zero wrongness risk but **our** topic: *"We've never written down what's actually coming to the feeders this summer — only what the books say should be. From where you sit, are the hummingbirds still working the feeders, or have they thinned out?"* | ONE card, after Tier-1 #1–2 clear the queue | Needs a `_foldTarget` → a dated `observedHere` line on the Birds card, **in her name**. Answers → our-topic asks are repairable. Silence → **topic origin binds and `harvest-questions.py`'s whole supply chain is dead** |
 | **2** | `q-fairway-grass-seedheads` — already staged verbatim | Flip `active:true` **in August** when seed-heads emerge | Existing fold path; a second sample in the same cell as #1 |
@@ -305,7 +338,65 @@ confident inference from a toggle, held for 26 days, and backwards.
 
 ---
 
-### 🔴 OPEN — does the nesting eat the width? `[paul-raised 2026-08-15, filed for NEXT cycle]`
+### 🟡 MEASURED + PARTLY FIXED — does the nesting eat the width? `[paul-raised 2026-08-15 · re-raised with a named path 2026-08-24 · MEASURED lap 5]`
+
+> ## ✅ MEASURED 2026-08-24 (mom-cycle lap 5) — **THE CLAIM REPRODUCES ON ALL SIX DOMAINS WALKED**
+> Harness `tools/measure-nesting-width.js` · report `.plans/2026-08-24-nesting-width-measurement.md`
+> · raw `.plans/2026-08-24-nesting-width-raw.json` · seats `.user-research/2026-08-24-nesting-depth.md`,
+> `.ux-reviews/2026-08-24-nesting-depth.md`.
+>
+> **81 extra line boxes** across six domains at her real viewport (414×848), card content 387px,
+> worst column **135.3px = 32.7%**. **Materially identical in A and A+** — so it is NOT an A+-only
+> finding, which is the bar this row itself set.
+>
+> ⭐ **IT SPLITS IN TWO, AND THE ROW ABOVE NAMED ONLY ONE.** ① padding compounds (36+33+22 = **91px**
+> before a word is set); ② a **two-column row inside the narrowed box** cuts 296→135 — a bigger single
+> cut than all three padding levels combined, and **not among the fixes this row contemplated**.
+>
+> ⚠️ **AND THE WORST ROW COST IS NOT THE DEEPEST NODE.** `vehicle-notes` sits at depth 5 in a *wide*
+> 281px column (68% of its card) and ran **20 lines where 14 would do**. This row's instruction to
+> prefer "collapsing a nesting level" would have missed it, and so would any width-floor rule.
+>
+> ⭐ **THE BIGGEST SINGLE RECOVERABLE CUT WAS NEITHER PADDING NOR A LEVEL — it was a 40px decorative
+> emoji.** `.vehicle-icon` (40px + 12px gap) sat as the first flex child of `.vehicle`, so every line
+> of every panel beneath it — specs, maintenance, restoration, notes, service history — was set 52px
+> narrower than the card, at every depth. **Found by the `ux-expert` seat; both the measurement report
+> and seat 1 had read it as part of the padding chain.**
+>
+> ### THE RULE THIS PRODUCED — the ROW TAX, now enforced by the harness
+> **Clause A (verdict):** no text leaf may cost more than **25% extra line boxes** vs. the same text
+> reflowed at its own card's content width (`rowTax ≤ 1.25`).
+> **Clause B (diagnosis):** chrome between `.main-card-body` and a leaf may spend **≤15%** of card
+> content width — chrome being ancestor padding/border/margin **plus any fixed-width non-text sibling**.
+> A width FLOOR was tried and discarded: it does not flag `vehicle-notes`. The tax is scale-invariant,
+> stated in Paul's own unit, and **auto-exempts short values** (a cell reading "10W-30" scores 1.00),
+> so it needs no exemption list. `measureNestingWidth.gate()` exits on breach. **Thresholds are a
+> first cut, to be tuned from runs** — the rule is checkable, which is what this repo requires of a
+> new visual rule; the constant is not yet claimed to be right.
+>
+> ### ✅ SHIPPED IN LAP 5 — Paul-surface only, measured before and after
+> `.vehicle` un-flexed and the icon moved into a header row + `table-layout: fixed` on the specs
+> table. **The three domains `renderVehicleItem` renders went from 32 extra rows to 15 — a 53%
+> reduction from two CSS changes.** Vehicles narrowest 152.6→**184.8px**, Equipment 265→**317px**,
+> Household 265→**287.9px**; no horizontal overflow; icon intact.
+> `table-layout: fixed` is **prevention, not repair**: `td:first-child` carries `white-space: nowrap`
+> (hard) with `width: 38%` (a hint under auto layout), so a long label takes the value column with no
+> floor — invisible with Paul's short labels, live the moment **household** phrases populate the same
+> template.
+>
+> ### ⏸ GATED — Mom-facing, NOT shipped, awaiting Paul
+> · **Stack the chorus row** (the `ux-expert` seat adjudicated 135.3px a **defect**, against seat 1's
+> read: `soundsLike` values are **54–116-char prose sentences**, and `.chorus-now-item` is a *per-row*
+> flex with `flex-shrink:0` — it pays a two-up's full width cost and delivers **no** column alignment.
+> Arithmetic runs the other way from seat 1's fear: the 110-char entry is **5 lines two-up, 3
+> stacked**.) · **`.bio-section` padding** · **sticky card header**.
+>
+> ### ⛔ THE WAYFINDING HALF HAS A BLOCKER NOBODY HAD NAMED
+> `.main-card { overflow: hidden }` (verified, `viewer.html:394`) makes `position: sticky`
+> **inoperable** on any card header. So the zero-`sticky` count in this repo is not only a fact about
+> intent — it is a fact about **capability**: had anyone tried it, it would have failed while looking
+> like it worked.
+
 
 Paul: *"whether the cards within cards and nested drop downs is eating up margins and width of the
 page. So that for example the info boxes within a given insect's card are relatively narrow resulting
