@@ -17,7 +17,37 @@ reason. Nothing in this lap has reached Mom.
 
 ---
 
-## 🔴 THE CRITICAL PATH — in order, each blocks the next
+## ✅ CRITICAL PATH — CLOSED 2026-08-24, SHIPPED AND LIVE
+
+`9c05c81` + `50126ab` · **`check-live.py` ✅ LIVE MATCHES HEAD** (sha `2bcf844f…`, 03:12 GMT).
+Loop state: **🟢 ARMED at leg 7** — the healthy resting state. Her arrival
+`fb-0wk7w59c-mt1k6tll` is dispositioned and acknowledged; watermark advanced.
+
+The ribbon that shipped:
+
+> ✓ **Thursday, August 20 — what you wrote back settled:**
+> • "Fabulous" — so the radar stays right where it is, first thing in the Weather card.
+> *Everything else new is in Recent updates ›*
+
+Also shipped: the release note the bridge's completeness claim depends on · the
+stepper's orphaning `border-top` deleted (fix C) · the bridge styled italic ·
+`.gitattributes` + `tools/git-merge-generated.py` so the weather bot's commits stop
+costing a hand-merge.
+
+### ⏭ PICK UP HERE — the only things still owed
+
+| # | item | why it is not done |
+|---|---|---|
+| 1 | **Confirm-card fixes B and A** | B = generalize `correctionPrompt` (mechanism exists). A = dismissal → one word in the corner, ⛔ **not an ×**. **A is the dangerous one** — it must keep carrying `getNote()` or her typed-but-unsent words die, and that wants a real test, not a midnight edit. **Paul still owes the word** for the corner label. |
+| 2 | **`closing` renders only when `changes[]` is non-empty** | The model cannot express *"she gave approval; nothing changed."* Did not bite this lap (there was a bullet). Restructuring live render code at midnight for a case that does not occur was the wrong trade. |
+| 3 | **`/ux-sweep` is OWED** | 21d, 38 viewer commits, 5 laps. `check-ux-sweep.py` now fires it at every pickup, so it cannot be forgotten again. Two agents + a full browse — start it fresh. |
+| 4 | **Type + colour system** | 24 sizes, **165 text colours**, 55 used once. Proposals written, none ratified — needs Paul's word on the ~7 bands, "collapse to most-used", and the merge test. |
+| 5 | **`.card-later-link` is an opener AND a dismisser** | One class, two opposite meanings. Needs its own class. |
+| 6 | **`vehicle-specs-toggle` 55×19** | Smallest real control, on Paul's own surface. |
+
+---
+
+## 🔴 THE ORIGINAL CRITICAL PATH — kept for the record
 
 | # | item | state | note |
 |---|---|---|---|
