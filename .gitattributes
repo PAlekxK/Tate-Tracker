@@ -1,0 +1,6 @@
+# Generated files the weather bot and the deploy also write. A conflict here is
+# never a disagreement about intent — it is two processes writing the same derived
+# artifact at different times, so there is a correct answer and a machine gives it.
+# Drivers: tools/git-merge-generated.py  (run --install once per clone).
+weather-history.json merge=fernwood-weather
+worker/digest.json   merge=fernwood-digest
