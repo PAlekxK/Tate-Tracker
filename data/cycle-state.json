@@ -1,6 +1,6 @@
 {
   "state": "ARMED",
-  "generated_at": "2026-08-27T14:54:22",
+  "generated_at": "2026-08-27T15:00:49",
   "generated_by": "Tate-Tracker/tools/mom-cycle-status.py --write-state",
   "why": "leg 7 — monitor live, nothing unread could be hers",
   "next": null,

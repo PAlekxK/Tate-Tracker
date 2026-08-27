@@ -200,8 +200,16 @@ IntersectionObserver is inert and **no telemetry reading may be taken from that 
 ⚠️ **`RELEASE_NOTES.md` nearly went out in the wrong voice** — the first draft named an internal card
 id and referred to her in the third person, in the file the ribbon links **her** to. Rewritten.
 
-⚠️ **`check-live.py` verifies `viewer.html` only.** It read green while `questions.json` — the file
-that decides what she is *asked* — was still stale on Pages for ~3 minutes. Not fixed; filed.
+✅ **`check-live.py` FIXED, same session.** It verified `viewer.html` only, and read green while
+`questions.json` — the file that decides what she is *asked* — was still stale on Pages for ~3
+minutes. Its own docstring said *"It compares ONE file."* **A boundary you have written down is not a
+boundary you have handled.** It now checks all **five** same-origin assets, and **scans
+`HEAD:viewer.html` for same-origin fetches on every run, failing on any it does not check** — an
+unverified asset must never appear silently, which is the "4 visible" failure one layer over.
+It also tells **local-behind** from **pages-stale**: `weather-history.json` is bot-written, so a
+mismatch against local HEAD is usually *you have not pulled*, and calling that a failed ship would
+teach the reader to ignore the tool. `tools/test-check-live.py` — 7 controls, **each paired with a
+near-miss**, all driven to fail before being trusted.
 
 ### Decisions
 
