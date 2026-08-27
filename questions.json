@@ -3,6 +3,25 @@
   "version": 2,
   "questions": [
     {
+      "id": "q-rain-byday-check",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "You said .14 inches over seven days didn't look right — and you were reading a rolling total. Each day is listed separately now. **Do the daily numbers look closer to the rain you actually got?**",
+      "createdAt": "2026-08-27",
+      "active": false,
+      "_source": "authored",
+      "_kind": "reflective",
+      "seededFrom": "her-words",
+      "answerCost": "glance",
+      "labels": {
+        "yes": "That looks right now",
+        "no": "Still looks off",
+        "later": "Bring this back another time"
+      },
+      "correctionPrompt": "About how much do you think fell? (optional)",
+      "_note": "STAGED 2026-08-27, active:false — Paul's gate not yet passed. ORIGIN: her own note of 2026-07-26, the only correctness challenge she has ever made — she disbelieved .14in over seven days and asked to see rainfall by day. The by-day strip shipped from it (viewer.html .rain-byday-hdr) and SHE WAS NEVER TOLD WHETHER SHE WAS RIGHT. This closes that loop. CLASS: expertise, not verdict — the subject is HER rain, not our inference about a plant, and doctrine on a Correctness note is that she is probably right and it is a bug until checked. answerCost=glance: the weather card is the one card she demonstrably opens. ⚠ NO _foldTarget BY DESIGN — it verifies our own display, not canon, so nothing can ever mark it handled. It MUST BE RETIRED BY HAND (read-mom-feedback.py --retire q-rain-byday-check --because ...) or it holds the feedback watermark ceiling open indefinitely, the way q-almanac-name did. ⚠ PLACEMENT IS DELIBERATE: first in file order. outstanding() slices in file order and she has only ever seen position 0 (28 of 28 offers), so approving this makes it the HEAD card and drops q-weed-stiltgrass — 10 offered-days, 0 answers — to position 1, where she has never looked. That is the rotation, done by supply."
+    },
+    {
       "id": "q-top-categories",
       "kind": "confirm",
       "answerMode": "yesno",
