@@ -89,7 +89,28 @@ problem and neither was visible before.
 
 `q-butterfly-weed-bloom` has been served since **08-16 past its own window** (canon: `06-15..08-15`,
 `confidence: inferred`). Its prompt tells her *"we have it down to flower around now"* — a sentence
-our own record now contradicts. It was card 3 of the 5 she could see. **Not shipped; Paul's call.**
+our own record now contradicts. It was card 3 of the 5 she could see.
+
+✅ **RESOLVED SAME SESSION — Paul: *"bench that butterfly card until next year."*** Shipped `42001b1`
+and **verified on the live file** (`questions.json` is fetched at load from Pages): `active: false`,
+`benchedAt: 2026-08-27`, 4 live confirms. ⚠️ The first two polls still served the OLD file — a push
+is not a ship, again.
+
+⭐ **And the tool could not do it.** `--approve` had no inverse, so a card could be promoted by tool
+and removed only by hand-editing `questions.json` — the act Leg 7 already names as why retirement
+got skipped once. `rationalize-bench.py` had printed `⛔ OUT OF SEASON` for this card **every day for
+12 days** with no way to act. **A check that can only report is half a control.** Added
+`--bench <id> --because "<why>"`; all four refusals (no `--because`, a draft, a retired card, an
+unknown id) proven before first use.
+
+⚠️ **Bench is not retire.** `read-mom-feedback.py --retire` correctly **refused** — she never
+answered this card. Retire = she settled it. Bench = the world moved out from under it. The card
+keeps `approvedForServe`, sits on the bench, and FILL re-promotes it on **06-15** with no human.
+
+⚠️ **Her surface is now 4, one under Paul's hard `five-stays-five` constraint** (*"a SAMPLE OF WHAT
+SHE CAN INFLUENCE"*). Two in-season candidates exist — `q-clematis-elpis-bloom` and
+`q-endless-summer-pop-star-hydrangea-bloom` — and both sit at **his clear gate**, deliberately not
+auto-approved.
 
 ⚠️ **What this lap must NOT claim:** that this is why she passed on the offer. `momqueue_viewed`
 fires per-question on intersection, and since lap 5 exactly **one** offer was viewed — the record
