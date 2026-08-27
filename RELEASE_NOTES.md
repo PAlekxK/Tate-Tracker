@@ -4,6 +4,18 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-27 — Bolores needs one headliner, not two
+
+- **The Bronco's headliner job got smaller.** The record had said she needed two
+  panels — one over the front seats and another in the removable back top. She
+  doesn't. The fiberglass top is bare fiberglass inside; there was never a second
+  panel to buy. That halves the job.
+- **Prices are real now.** The headliner entry had been carrying numbers from a
+  parts house that doesn't sell anything for a 1989 Bronco. Those are gone,
+  replaced with what five suppliers actually quote today.
+
+---
+
 ## 2026-08-24 — The insect list is easier to read
 
 - **Each insect's name now sits on its own line**, above what it sounds like. The
