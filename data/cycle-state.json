@@ -1,31 +1,31 @@
 {
-  "state": "FIRED",
-  "generated_at": "2026-08-17T13:18:48",
+  "state": "ARMED",
+  "generated_at": "2026-08-27T13:46:37",
   "generated_by": "Tate-Tracker/tools/mom-cycle-status.py --write-state",
-  "why": "leg 6 — the return leg is owed, or the served queue is wrong",
-  "next": "run /mom-cycle: the return leg is a Paul gate",
-  "at_leg": "6",
-  "needs_paul": true,
+  "why": "leg 7 — monitor live, nothing unread could be hers",
+  "next": null,
+  "at_leg": "7",
+  "needs_paul": false,
   "unresolved_arrivals": 0,
   "signals": [
     {
       "name": "offers-passed",
-      "fired": true,
-      "value": 3,
+      "fired": false,
+      "value": 1,
       "threshold": 3,
       "detail": "Perspective offers she SAW and did not tap"
     },
     {
       "name": "sessions-quiet",
-      "fired": true,
-      "value": 4,
+      "fired": false,
+      "value": 1,
       "threshold": 3,
       "detail": "sessions since the lap — using it, settling nothing"
     },
     {
       "name": "answer-age",
       "fired": false,
-      "value": "14d",
+      "value": "7d",
       "threshold": "21d",
       "detail": "since her last settled answer"
     }

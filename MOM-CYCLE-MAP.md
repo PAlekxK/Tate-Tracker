@@ -75,6 +75,43 @@ free afternoon, on a backlog row, on an agent noticing the cycle exists. Named n
 > **The loop rests. HER INPUT is what fires it.** Not a schedule, not a backlog, not our shipping
 > cadence, not an agent's judgment that a lap is overdue.
 
+### ⭐ AMENDED 2026-08-17 — BEHAVIOUR fires it too `[paul-approved 2026-08-17, commit 0fee32f]`
+
+⛔ **The blockquote above is no longer the whole rule, and read alone it is now WRONG.** It says a
+lap is fired by her input and by nothing else — *"not an agent's judgment that a lap is overdue."*
+Since 2026-08-17 that is false: **three deterministic BEHAVIOURAL signals also fire a lap**, and
+`mom-cycle-status.py` is the executable that decides.
+
+| signal | fires when | why an arrival trigger can never see it |
+|---|---|---|
+| `offers-passed` | ≥3 Perspective offers she **saw and did not tap** | declining is invisible to a record that only logs answers |
+| `sessions-quiet` | ≥3 sessions since the lap with **no arrival at all** | *she used it and gave nothing* produces no event |
+| `answer-age` | ≥21 days since her last settled answer | time passes whether or not anyone works it |
+
+**This is not a cadence, and the distinction is the whole reason it was allowed.** Every one of the
+three keys on *something she did or did not do*, measured on her own device — not on our shipping
+rhythm and not on a calendar. `sessions-quiet` deliberately does **not** mean *she is absent*:
+absence is her prerogative and fires nothing. The guard the original blockquote was written to
+provide still holds; what changed is that "her input" now includes her **declining**, which is
+arguably the most informative state the loop has and was invisible for the loop's first four laps.
+
+⚠️ **Both readings can be true at once, and only one used to be on the board.** The pickup that
+settled this rendered 🟢 ARMED / *"nothing unread could be hers"* on a window in which she had 4
+sessions across 3 active days and viewed 3 of 4 offers without tapping one.
+
+⚠️ **The n is small and the bucket is not a person.** These fire on single-digit counts from a
+browser bucket. A fired behavioural signal is a reason to LOOK, never a finding about her.
+
+> ⛔ **This section went un-amended for TEN DAYS** — 0fee32f wrote the trigger into `CLAUDE.md` and
+> the code on 08-17 and never touched this file, so the loop's own formal definition contradicted
+> the loop until lap 6 found it. That is the third instance of one failure (2026-08-04, 2026-08-14,
+> here), and the refinement log had pre-registered the response: *"the fix that failed was prose.
+> If it happens a third time, the answer is a CONTROL, not a louder banner."* Built:
+> **`tools/check-loop-docs.py`** — it parses the signal names out of `mom-cycle-status.py` and fails
+> when any prose surface describing the loop has never heard of one. It is in Leg 1's block.
+> It checks NAMING, not correctness: a document can name all three and still assert the wrong rule.
+
+
 This is the **same clock the ribbon already runs on** — *"it refreshes on HER events, never on ours;
 it goes quiet when she does"* (`CLAUDE.md` § what the ribbon is for). The trigger rule is that
 doctrine applied to the whole loop rather than to one card. A lap that fires on our cadence is a
@@ -356,6 +393,35 @@ Scored at **every lap that adds or changes an event**; the chronicle records **c
    catch behind it is decoration.
 2. **PROMOTE** — if it keeps catching, build the mechanical half into `check-telemetry.py`. It already
    parses every `track()` site; *enumerating a state's other writers* is the half a human still does.
+
+---
+
+## Leg 7-post — REPUBLISH THE STATE `[found lap 6, 2026-08-27]`
+
+**A lap does not close until `data/cycle-state.json` describes today.**
+
+```bash
+python3 tools/mom-cycle-status.py --write-state
+```
+
+⛔ **Nothing called this at close, and nothing ever had.** A grep for `--write-state` across this
+repo and the Skill returned zero callers outside `mom-cycle-status.py` itself, so the published
+artifact froze at whatever the last explicit run said. **Lap 5 closed 2026-08-24 and left the state
+stamped 2026-08-17, reading `FIRED · leg 6 — the return leg is owed`**, with signal values
+(`offers-passed 3/3`, `sessions-quiet 4/3`) that any reader takes as current. The live tool on
+2026-08-27 said `ARMED` on `1/3` and `1/3`.
+
+⚠️ **And the board cannot catch it, by construction.** `cycles.py` orders its verdict chain with
+`pub == "FIRED"` **above** the freshness check, so a FIRED artifact never reaches the age test and
+renders identically at 1 day and at 10 — no age, no caveat. That exemption is deliberate and the
+direction is right (*"staleness errs toward FIRED"* — a stale quiet claim is the dangerous one). But
+it is **silent**, so the cost lands here: `/pickup` briefed this loop as fired for three days after
+lap 5 resolved it, and **lap 6 was opened on a trigger that had already been answered.**
+
+⭐ **The generalisation, and it is the same one twice in one lap:** a published artifact is a claim
+about NOW, and the publisher that stops running is invisible unless something re-publishes on a
+schedule the reader can trust. `MOM-CYCLE-MAP.md` had the same shape — amended 08-17 in the code and
+never here. **Both were caught by looking at the artifact's age rather than its content.**
 
 ---
 

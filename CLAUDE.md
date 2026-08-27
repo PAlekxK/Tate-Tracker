@@ -20,6 +20,7 @@ python3 tools/transcribe-mom-zone-audio.py # make them readable (local whisper, 
 python3 tools/read-mom-engagement.py --pickup # ⭐ WHAT SHE DID — sessions/opens/journal since the last lap; silence in the answer record is not silence in the app
 python3 ~/.claude/tools/health-probe.py --only fernwood  # ⭐ IS THE RECORD ITSELF INTACT — weather history, the Action, Pages, the Worker
 python3 tools/check-ux-sweep.py            # ⭐ is a HOLISTIC two-pass UX sweep owed? (accumulation, not cadence)
+python3 tools/check-loop-docs.py           # ⭐ do the loop's DOCS still describe the loop's CODE? (the 3x divergence)
 ```
 
 **⭐ THE LAST LINE IS THE ZOOM-OUT THAT SINGLE-FIX WORK NEVER SCHEDULES** `[paul-stated 2026-08-24]`:

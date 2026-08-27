@@ -11,7 +11,101 @@ amended mid-lap.
 
 ---
 
-## Lap 5 — 2026-08-24 · 🔓 **OPEN AT LEG 6** — the lap that measured the nesting, and found the app has been serving Mom a text size the record says she never chose
+## Lap 6 — 2026-08-27 · ✅ **CLOSED** — 🪞 **the lap that was fired by a stale artifact, and whose whole subject turned out to be the loop's own publishing**
+
+**Fired by:** the loop board reading `⚡ FIRED · offers-passed 3/3 · sessions-quiet 4/3`.
+⛔ **That trigger had already been answered.** `data/cycle-state.json` was stamped **2026-08-17** and
+lap 5 closed **08-24** without republishing it. A live run of `mom-cycle-status.py` on 08-27 said
+**🟢 ARMED**, on `1/3 · 1/3 · 7d/21d`. **Nothing was firing.** The lap is recorded as real work
+anyway, because what it found is why the false trigger was possible.
+
+| leg | what happened |
+|---|---|
+| **0 · GUARD** | HEAD `78be2c7` → `49abcd7` (this session's digest commit), clean tree. ⚠️ **3 other sessions open**, none writing to the field log; Paul confirmed this window drives Fernwood |
+| **1 · READ** | **thirteen** checks, list DERIVED from `CLAUDE.md`. Record side all green: `Ready to fold: (none)`, R2 **0 uncovered arrivals**, receipt tapped 08-20. **No arrival was owed anything** |
+| **2 · TRIAGE** | nothing from her to route. The work-list came entirely from artifact staleness |
+| **3 · RESOLVE** | **tier 1 settled everything.** Canon and the tools answered every question; **nothing reached tier 2, and nothing reached her.** No card drafted |
+| **4 · EXPERT** | **none convened**, per the scoping table — the lap changed no Mom-facing surface and wrote no copy that reaches her. Recorded, not skipped silently |
+| **5 · SHIP** | the control + three prose corrections + the `cycles.py` fix, below |
+| **6 · GATE** | one item only: `q-butterfly-weed-bloom`, served 12 days past its own window |
+| **7 · CLOSE** | `--write-state` run (**and now wired into the procedure**), `check-live.py`, this entry |
+
+### ⭐⭐ THE FINDING — one shape, three artifacts, all from lap 5's close
+
+**A published artifact is a claim about NOW, and a publisher that stops running is invisible.**
+Lap 5 closed on 08-24 and its close reached *none* of the three surfaces that describe the loop:
+
+| artifact | what it said | what was true | cost |
+|---|---|---|---|
+| `data/cycle-state.json` | `FIRED · leg 6 — the return leg is owed`, stamped 08-17 | `ARMED`, nothing firing | **`/pickup` briefed the loop as fired for 3 days, and opened this lap on it** |
+| `MOM-CYCLE-LOG.md` | `🔓 OPEN AT LEG 6 · the return leg is still owed` | closed 08-24 by `742ba31` | the chronicle contradicted its own close commit |
+| `MOM-CYCLE-MAP.md` | *"The loop rests. HER INPUT is what fires it"* | behaviour fires it too, since 08-17 | **the loop's formal definition forbade the lap the code had just fired** |
+
+⭐ **All three were caught by looking at an artifact's AGE rather than its CONTENT.** Every one of
+them reads perfectly plausibly. None of them can degrade in a way a reader notices.
+
+### ⚠️ And the board could not catch the first one, by construction
+
+`cycles.py` orders its verdict chain with `pub == "FIRED"` **above** the freshness check, so a FIRED
+artifact never reaches the age test and renders identically at 1 day and at 16. The exemption is
+**deliberate and the direction is right** — *"staleness errs toward FIRED"*; downgrading a stale
+quiet claim is the dangerous one. But it was **silent**, and silence is what made a 10-day-old claim
+indistinguishable from this morning's.
+
+**Fixed without changing the verdict:** a stale FIRED still reads FIRED, and now carries
+*"⚠ but this claim was published Nd ago… re-run --write-state before acting on it"*. Three tests
+added (37 pass): the stale case, a **near-miss** fresh FIRED that must carry no warning, and an
+unstamped FIRED that must say its age is unknowable.
+
+⭐ **It generalised immediately.** The moment it shipped, the board revealed **two more loops
+rendering stale FIRED as current**: **Bolo Boys (8d)** and **GKW (9d)**. Neither was Fernwood's
+problem and neither was visible before.
+
+### Leg 5 · SHIP — wins that never reach her surface
+
+1. ⭐ **`tools/check-loop-docs.py` — the CONTROL, and it was pre-registered.** The refinement log
+   after instance two said, in those words: *"the fix that failed was prose. If it happens a third
+   time, the answer is a CONTROL, not a louder banner."* This is instance three. It parses the
+   trigger signal names out of `mom-cycle-status.py` — **the code is the source, prose is the
+   renderer** — and fails when any surface describing the loop has never heard of one.
+   **Seen to fail (6 gaps, then 3) and to pass.** It found more than the hand-search did: the
+   **Skill** was silent on all three signals too, not just the map. Wired into Leg 1's block, so the
+   loop can reach it by running its own procedure. ⚠️ **It checks NAMING, not correctness** — a
+   document can name all three signals and still assert the wrong rule.
+2. **`MOM-CYCLE-MAP.md` § What STARTS a lap — amended.** The behavioural trigger, its three signals,
+   why it is not a cadence, and the ten-day divergence recorded on its face.
+3. **`~/.claude/skills/mom-cycle/SKILL.md` — new § What FIRES a lap**, including the rule this lap
+   needed and did not have: *a behavioural lap has no unanswered arrival, so Leg 1 reads green and
+   Leg 6 owes no ribbon — do not manufacture a card to fill the silence. The subject of a
+   behavioural lap is the ASK QUEUE, not her.*
+4. **`BACKLOG.md`'s "Should BEHAVIOUR fire a lap?" row — corrected.** It still read *"the question
+   for Paul"* ten days after `0fee32f` answered it `[paul-approved]`.
+5. **Leg 7-post added to both the map and the Skill** — `--write-state` at close. Nothing had ever
+   called it; a grep found zero callers outside the tool itself. **This is the root cause of the
+   whole lap.**
+6. **`~/.claude/tools/cycles.py`** — the stale-FIRED label, + 3 tests.
+
+### Leg 6 · GATE — one item
+
+`q-butterfly-weed-bloom` has been served since **08-16 past its own window** (canon: `06-15..08-15`,
+`confidence: inferred`). Its prompt tells her *"we have it down to flower around now"* — a sentence
+our own record now contradicts. It was card 3 of the 5 she could see. **Not shipped; Paul's call.**
+
+⚠️ **What this lap must NOT claim:** that this is why she passed on the offer. `momqueue_viewed`
+fires per-question on intersection, and since lap 5 exactly **one** offer was viewed — the record
+does not say she ever saw this card. It is a defect in what she was **offered**, not a measured
+cause of anything.
+
+### Decisions
+
+- **The lap ran on a false trigger and is still recorded as a lap.** The alternative — deleting it
+  as noise — would have discarded the finding that made the false trigger possible.
+- **`cycles.py`'s FIRED exemption was kept.** Fail-closed is right; only the silence was wrong.
+- **No expert seat, no card, no ribbon.** Nothing reached her surface and nothing was owed to her.
+
+---
+
+## Lap 5 — 2026-08-24 · ✅ **CLOSED 2026-08-24** (`742ba31`) — ⚠️ *heading corrected 2026-08-27 by lap 6; it read `🔓 OPEN AT LEG 6` for three days after the lap closed, because the close commit touched `.plans/` and `feedback-log.json` and never this file* — the lap that measured the nesting, and found the app has been serving Mom a text size the record says she never chose
 
 **Fired by:** `cycles.py` — `offers-passed 3/3` (Perspective offers she SAW and did not tap) +
 `sessions-quiet 4/3`. Her one unanswered arrival: **"Fabulous"** (`fb-0wk7w59c-mt1k6tll`,
@@ -173,9 +267,15 @@ thresholds are a declared first cut, to be tuned from runs.
 | 7 | **"She has never fired the A/A+ toggle" is downgraded from FACT to CONTESTED** | `BACKLOG.md` L101 and every line resting on *"A+ is Paul's mode, not hers"* | she is **served** A+ (`{size:"lg", stored:true}`, 08-20 and 08-24). The seat proposed instrumentation-age as the explanation; **`git log -S` refutes it** — the toggle and its event shipped in the *same* commit `cd80760` (2026-05-22), so there was never a silent era. Record and browser state disagree, and the honest line is that they disagree |
 | 8 | **`check-cycle-map.py` globs `*.js`** | its `.py`-only `TOOL_GLOBS` | `telemetry-walk.js` served the loop for 16 days while the control that exists to catch exactly that reported OK |
 
-### Leg 6 · GATE — 🔓 OPEN
+### Leg 6 · GATE — ✅ CLOSED 2026-08-24
 Preview staged for Paul. **Nothing Mom-facing has shipped in this lap** — the chorus stack,
-`.bio-section` padding and the sticky header are all gated. The return leg is still owed.
+`.bio-section` padding and the sticky header are all gated.
+
+> ⚠️ **The two lines that followed this were WRONG from 08-24 to 08-27** — *"The return leg is still
+> owed"* and the heading's `🔓 OPEN AT LEG 6`. The lap **did** close: `742ba31` shipped the ribbon,
+> dispositioned `fb-0wk7w59c-mt1k6tll`, advanced the watermark, and `check-live.py` confirmed live
+> matched HEAD. The close simply never reached this file. Corrected by lap 6. See lap 6's finding —
+> the same close failed to reach `data/cycle-state.json` too, and that one cost a lap.
 
 ## Lap 4 — 2026-08-19 · ✅ **CLOSED CLEAN, 6 of 6** — shipped `7db2476` (radar + A+ walk-back) and `c7e441b` (the return leg), both **verified live** (`a9c0179…` 5:52 PM, `8546fd62…` 6:30 PM ET) · **the lap that walked back its own experiment, because a different lap had already answered its question**
 
