@@ -217,6 +217,16 @@ near-miss**, all driven to fail before being trusted.
   as noise — would have discarded the finding that made the false trigger possible.
 - **`cycles.py`'s FIRED exemption was kept.** Fail-closed is right; only the silence was wrong.
 - **No expert seat, no card, no ribbon.** Nothing reached her surface and nothing was owed to her.
+- ⭐ **NO PAGINATION DOTS** `[paul-decided 2026-08-27]`: *"if we have the shuffle in place, we don't
+  need the pagination dots."* Closes the `dots` direction in **W8·e** and re-affirms the 2026-08-03
+  call rather than reversing it. The agent argued the same way and the argument is worth keeping:
+  **every affordance ever built for this went untapped** — pager dots (retired 08-03), `‹ ›` arrows
+  (retired 08-03), the word-link (0 taps in 28 offers) — so a third affordance to fix an affordance
+  problem was the move most likely to fail quietly, and the dots additionally reintroduce the
+  denominator ("five items owed") that got them killed. **The rotation solves the measured defect;
+  the dots addressed a hypothesis about her awareness we have no evidence for either way.**
+  ⚠️ W8·e is NARROWED, not closed — the control still does not read as a cycle of the card above it.
+  That is now cosmetic, and nothing depends on it.
 
 ---
 
