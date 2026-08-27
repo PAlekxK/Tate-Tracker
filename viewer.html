@@ -11066,17 +11066,66 @@ const MomQueue = (function () {
   // turn — they surface as earlier ones are answered/retired, never all at once.
   const MAX_VISIBLE = 5;
 
+  // ⭐⭐ THE DAILY SHUFFLE (paul-stated 2026-08-27). Measured that day: 28 of 28
+  //    offers on her device carried `position: 0`, and "Another question ›" has
+  //    NEVER been tapped — so the queue behind the head has zero exposure, and
+  //    q-weed-stiltgrass sat at the head from 08-03 to 08-24 as the only card she
+  //    saw. Every affordance built to let her reach past it has gone unused:
+  //    pager dots (retired 08-03), ‹ › arrows (retired 08-03), the word-link (0
+  //    taps in 28 offers). So rotate the ORDER instead of asking her to navigate.
+  //    Variety with no interaction required is the only kind she has ever taken.
+  //
+  //    DETERMINISTIC BY DATE, NOT RANDOM PER RENDER — and this is the whole design:
+  //     · render() is called on every answer, every note, every ack interaction.
+  //       A per-render shuffle would move the card SHE IS READING out from under
+  //       her mid-sentence. Seeded on the date, every render in a day yields the
+  //       same order, so `idx` stays pointed at the same card and a reload is
+  //       identical.
+  //     · it also keeps `momqueue_offered` interpretable: exactly one card holds
+  //       position 0 on a given day, so "offered-days at the head" still means
+  //       days she actually saw it. The rotation counter's SEMANTIC is unchanged;
+  //       only its rate slows, because exposure is now spread across the set.
+  //     · same seed for every device, so her order and a preview order match —
+  //       a walk-through can be compared to what she got.
+  //
+  //    SCOPE: it permutes the VISIBLE SET ONLY — Paul: "just between the five that
+  //    are already served up." Cards past MAX_VISIBLE do not rotate in; that
+  //    would be a supply decision, and supply is his gate.
+  function daysSinceAnchor() {
+    // ROTATION_ANCHOR is the day q-rain-byday-check was approved, so index 0 is
+    // that day and the newest card leads on the day it ships.
+    const ROTATION_ANCHOR = Date.UTC(2026, 7, 27);   // 2026-08-27 (month is 0-based)
+    const s = todayStr();                            // "YYYY-MM-DD", ET
+    const p = s.split("-");
+    const today = Date.UTC(+p[0], +p[1] - 1, +p[2]);
+    return Math.floor((today - ROTATION_ANCHOR) / 86400000);
+  }
+  function shuffleForToday(list) {
+    if (!list || list.length < 2) return list;
+    // Strict round-robin, not a lottery — and the difference is the whole point.
+    // A seeded random shuffle was built first and REJECTED by its own test: over
+    // 60 days it gave the five cards 16/14/11/10/9 head-days, and on the very day
+    // it was written it put q-weed-stiltgrass (10 offered-days, 0 answers) back at
+    // the head and buried the card Paul had just approved. RANDOM DOES NOT FIX
+    // ZERO EXPOSURE, IT RANDOMISES IT. Round-robin gives every card the head
+    // exactly 1 day in N, in turn, with no storage and no seed.
+    const n = list.length;
+    let k = daysSinceAnchor() % n;
+    if (k < 0) k += n;                               // a clock set before the anchor
+    return list.slice(k).concat(list.slice(0, k));
+  }
+
   function outstanding() {
     const answered = readMap(ANSWERED_KEY);
     const snoozed = readMap(SNOOZED_KEY);
     const today = todayStr();
-    return questions.filter(q =>
+    return shuffleForToday(questions.filter(q =>
       q && q.active !== false &&
       SUPPORTED_KINDS.indexOf(q.kind) !== -1 &&
       !answered[q.id] &&
       !serverAnswered[q.id] &&  // durable: she settled it on ANY device (Worker is the record of truth)
       snoozed[q.id] !== today   // "Not sure" hides it for the day only — it comes back
-    ).slice(0, MAX_VISIBLE);
+    ).slice(0, MAX_VISIBLE));
   }
 
   function el(id) { return document.getElementById(id); }

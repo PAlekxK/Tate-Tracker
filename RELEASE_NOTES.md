@@ -4,6 +4,14 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-27 — the questions take turns
+
+The questions in Mama's Perspective used to sit in a fixed order, so the same one
+was always the one you saw. They take turns now — a different one leads each day,
+and the others are still there behind "Another question."
+
+There's also a new one about the rainfall, picking up what you wrote in July.
+
 ## 2026-08-27 — Bolores needs one headliner, not two
 
 - **The Bronco's headliner job got smaller.** The record had said she needed two
