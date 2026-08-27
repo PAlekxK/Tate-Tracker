@@ -171,6 +171,38 @@ stints ≈ 6–10 months at 1.7 answers/month) and waiting will not fix it. The 
 not needs an errand and a close look, 5–0. **One answered errand card kills the hypothesis.**
 *"We still cannot tell"* is pre-approved as a verdict.
 
+### Lap 6 addendum II — THE QUEUE NOW ROTATES (shipped, live)
+
+Paul: *"have those cards shuffle daily or by login or something like that just between the five that
+are already served up."*
+
+⭐ **A seeded random shuffle was built first and its own test rejected it.** Over 60 days it gave the
+five cards **16/14/11/10/9** head-days, and on the day it was written it put `q-weed-stiltgrass` —
+10 offered-days, 0 answers — straight back at the head and buried the card approved minutes earlier.
+**Random does not fix zero exposure; it randomises it.** Replaced with a **strict round-robin**:
+**12/12/12/12/12 over 60 days, spread zero**, stateless, no seed, no storage. The anchor is the day
+`q-rain-byday-check` was approved, so the newest card leads on the day it ships.
+
+**Deterministic by DATE, never per render** — `render()` fires on every answer, note and ack
+interaction, and a per-render shuffle would move the card she is *reading* out from under her
+mid-sentence. It also keeps `momqueue_offered` interpretable: exactly one card holds position 0 on a
+given day, so *offered-days at the head* still means days she actually saw it.
+
+⭐ **Verified in the browser, not just in the file** — the lap-5 failure was a card silently dying
+while every file check stayed green. The card renders, the head is right, all four controls are
+present, stepping wraps — **and her typed-but-unsent note survives a re-render and a full cycle.**
+That last one was the only thing here that could have silently destroyed real input.
+
+⚠️ **Two honest limits.** `visibilityState` was `hidden` in the automation tab, so
+IntersectionObserver is inert and **no telemetry reading may be taken from that walk**. And
+**tomorrow's head is predicted by the node test, not observed.**
+
+⚠️ **`RELEASE_NOTES.md` nearly went out in the wrong voice** — the first draft named an internal card
+id and referred to her in the third person, in the file the ribbon links **her** to. Rewritten.
+
+⚠️ **`check-live.py` verifies `viewer.html` only.** It read green while `questions.json` — the file
+that decides what she is *asked* — was still stale on Pages for ~3 minutes. Not fixed; filed.
+
 ### Decisions
 
 - **The lap ran on a false trigger and is still recorded as a lap.** The alternative — deleting it
