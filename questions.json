@@ -72,7 +72,7 @@
         "id": "butterfly-weed"
       },
       "createdAt": "2026-07-14",
-      "active": true,
+      "active": false,
       "_source": "harvest",
       "_foldTarget": "bloom",
       "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
@@ -81,7 +81,11 @@
         "no": "Not blooming",
         "later": "Snooze card"
       },
-      "_relabelled": "2026-07-29 — prompt reframed to the record's-own-gap template; labels are Paul's wording (It's blooming / Not blooming / Snooze card). The template fix cannot reach prompts already written into this file, so these two were edited to match it."
+      "_relabelled": "2026-07-29 — prompt reframed to the record's-own-gap template; labels are Paul's wording (It's blooming / Not blooming / Snooze card). The template fix cannot reach prompts already written into this file, so these two were edited to match it.",
+      "approvedForServe": "pre-tool",
+      "_approvedForServeNote": "Set when the card was benched: it was live, so it had been cleared, but carried no stamp — it predates rationalize-bench.py (2026-07-31). NOT a record that Paul approved it on this date.",
+      "benchedAt": "2026-08-27",
+      "_benchedBecause": "Out of season since 08-16: canon's window is 06-15..08-15 (confidence: inferred) and the prompt tells her 'we have it down to flower around now', which our own record now contradicts. Nobody answered it — the world moved out from under the card. It returns when the window reopens 06-15."
     },
     {
       "id": "q-lizards-tail-bloom",

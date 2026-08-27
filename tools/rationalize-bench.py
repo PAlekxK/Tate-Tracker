@@ -48,6 +48,7 @@ Run it inside `/mom-cycle`'s rationalization pass, or any time before a reseed.
     python3 tools/rationalize-bench.py                  # report only (default)
     python3 tools/rationalize-bench.py --approve <id>   # Paul clears one card
     python3 tools/rationalize-bench.py --apply          # promote to fill the five
+    python3 tools/rationalize-bench.py --bench <id> --because "…"  # take one OFF her surface
     python3 tools/rationalize-bench.py --date 2026-08-01  # ask about another day
 """
 import argparse
@@ -152,6 +153,11 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true",
                     help="promote approved bench cards to fill the visible set")
+    ap.add_argument("--bench", metavar="ID", action="append", default=[],
+                    help="take a LIVE card off her surface and back to the bench "
+                         "(seasonal hold; requires --because)")
+    ap.add_argument("--because", metavar="TEXT",
+                    help="why the card is coming off her surface — required by --bench")
     ap.add_argument("--approve", metavar="ID", action="append", default=[],
                     help="stamp Paul's clear-gate on a card (repeatable)")
     ap.add_argument("--date", metavar="YYYY-MM-DD",
@@ -164,6 +170,64 @@ def main():
     doc = load_questions()
     qs = doc["questions"]
     c = momlib.canon()
+
+    # ---- the INVERSE of the gate -----------------------------------------
+    # ⭐ WHY THIS VERB EXISTS (added 2026-08-27, lap 6). `--approve` had no
+    #    opposite. A card could be promoted by tool and could only be REMOVED by
+    #    hand-editing questions.json — the exact act Leg 7 names as the reason
+    #    retirement got skipped ("q-top-categories was answered 08-03 and STILL
+    #    BEING SERVED 08-04"). So the tool could name `q-butterfly-weed-bloom` as
+    #    ⛔ OUT OF SEASON every single day for 12 days and do nothing about it.
+    #    A check that can only ever report is half a control.
+    #
+    #    BENCH IS NOT RETIRE, and they must not collapse:
+    #      · retire  = she answered it; it is settled; it never comes back.
+    #                  Lives in read-mom-feedback.py --retire, which REFUSES on a
+    #                  card she has not answered. Correct, and it refused here.
+    #      · bench   = nobody answered anything. The card is fine; the WORLD moved
+    #                  out from under it. It comes back when its window reopens.
+    #    Benching keeps `approvedForServe`, so the card lands on the bench rather
+    #    than back in the draft pile, and the FILL step already holds out-of-season
+    #    bench cards back — so it re-promotes itself, in season, with no human.
+    if args.bench:
+        if not args.because:
+            print("⛔ REFUSED: --bench requires --because.")
+            print("   Taking a card off her surface is a decision about what she is asked;")
+            print("   no machine can check the reason, so it has to be written down.")
+            return 2
+        by_id = {q.get("id"): q for q in qs}
+        benched = []
+        for qid in args.bench:
+            q = by_id.get(qid)
+            if q is None:
+                print(f"✗ no card `{qid}`")
+                return 2
+            st = classify(q)
+            if st == "resolved":
+                print(f"✗ `{qid}` is retired — it is not on her surface to take off")
+                return 2
+            if st != "live":
+                print(f"✗ `{qid}` is `{st}`, not live — nothing to bench")
+                return 2
+            if not q.get("approvedForServe"):
+                # It was live, so it WAS cleared — just before this tool existed
+                # (2026-07-31) or by hand. Record that honestly rather than
+                # stamping today's date as if Paul cleared it today.
+                q["approvedForServe"] = "pre-tool"
+                q["_approvedForServeNote"] = (
+                    "Set when the card was benched: it was live, so it had been cleared, "
+                    "but carried no stamp — it predates rationalize-bench.py (2026-07-31). "
+                    "NOT a record that Paul approved it on this date.")
+            q["active"] = False
+            q["benchedAt"] = today.isoformat()
+            q["_benchedBecause"] = args.because
+            benched.append(qid)
+        save_questions(doc)
+        print(f"✓ benched ({today}): {', '.join(benched)}")
+        print(f"  because: {args.because}")
+        print("  They are off her surface and ON THE BENCH — --apply will re-promote")
+        print("  them once their window reopens. Re-run check-cards.py, then commit.")
+        return 0
 
     # ---- Paul's gate ------------------------------------------------------
     if args.approve:
