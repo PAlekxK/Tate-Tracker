@@ -362,7 +362,7 @@ Paul for it* before it could verify anything had shipped, which is precisely the
 must not depend on a human being awake.
 
 ```bash
-python3 tools/check-live.py            # is the live page byte-identical to HEAD?
+python3 tools/check-live.py            # are ALL FIVE live assets byte-identical to HEAD? (questions.json is the one that decides what she is ASKED)
 python3 tools/check-live.py --wait 180 # poll after a push while Pages rebuilds
 ```
 
