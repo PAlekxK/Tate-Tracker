@@ -11104,10 +11104,27 @@ const MomQueue = (function () {
       obs.observe(cardEl);
     } catch (e) { markViewed(q); }
   }
-  function markTapped(q) {
+  // ⭐ `choice` added 2026-08-27. The event fired with NO record of WHICH control was
+  // tapped, so the one tap `q-weed-stiltgrass` earned in 13 offers is permanently
+  // uninterpretable — an abandoned "Not quite" and an abandoned "Write me back" are
+  // the same row, and they mean opposite things about the card.
+  //
+  // Walking its other paths, per the leg-5 rule:
+  //  ① ROUTES IN — four, and all four now pass a choice: yes · not · later · addNote.
+  //    (`markTapped` has exactly these four callers; verified by grep, not by memory.)
+  //  ② FAILURE PATH — the tap is recorded BEFORE the action it starts, deliberately:
+  //    an abandoned correction is the case we most want to see. So `choice` means
+  //    "the control she pressed", never "the thing she completed". A later
+  //    `momqueue_answered` is what says she finished.
+  //  ③ REACH PATH — questions.json + viewer.html are fetched from Pages, so this
+  //    records nothing until it is PUSHED and check-live.py is green.
+  //
+  // Session-deduped per card, so `choice` is the FIRST control she pressed on it.
+  // That is the intended semantic: the second tap of a session is a continuation.
+  function markTapped(q, choice) {
     if (tappedIds[q.id]) return;
     tappedIds[q.id] = true;
-    track("momqueue_tapped", { questionId: q.id, kind: q.kind });
+    track("momqueue_tapped", { questionId: q.id, kind: q.kind, choice: choice || "unknown" });
   }
 
   // ---- W3 front-door: the standing invitation into the zone-audio journey ----
@@ -12018,14 +12035,14 @@ const MomQueue = (function () {
     yes.type = "button";
     yes.className = "gg-suggest-btn-yes";
     yes.textContent = L.yes || "Looks right";
-    yes.addEventListener("click", () => { markTapped(q); answer(q, "landed", getNote()); });
+    yes.addEventListener("click", () => { markTapped(q, "yes"); answer(q, "landed", getNote()); });
 
     const not = document.createElement("button");
     not.type = "button";
     not.className = "gg-suggest-btn-no";
     not.textContent = L.no || "Not quite";
     not.addEventListener("click", () => {
-      markTapped(q);
+      markTapped(q, "no");
       // A "no" on an ID/variety card owes a next move — invite the real name, then
       // send (q.correctionPrompt). A bloom "Not yet" or a strategy "Not for me" has
       // nothing to correct, so it just records; the optional "add a note" button
@@ -12057,7 +12074,7 @@ const MomQueue = (function () {
     later.type = "button";
     later.className = "card-later-link";
     later.textContent = "Bring this back another time";
-    later.addEventListener("click", () => { markTapped(q); notSure(q, getNote()); });
+    later.addEventListener("click", () => { markTapped(q, "later"); notSure(q, getNote()); });
 
     actions.appendChild(yes);
     actions.appendChild(not);
@@ -12072,7 +12089,7 @@ const MomQueue = (function () {
     addNote.type = "button";
     addNote.className = "mom-queue-addnote";
     addNote.textContent = "Write me back";
-    addNote.addEventListener("click", () => { markTapped(q); openNote("In your words (optional)"); addNote.style.display = "none"; });
+    addNote.addEventListener("click", () => { markTapped(q, "write-back"); openNote("In your words (optional)"); addNote.style.display = "none"; });
     card.appendChild(addNote);
 
     card.appendChild(noteWrap);

@@ -297,12 +297,153 @@ def notify_macos(title, body):
         pass
 
 
+ROTATION_THRESHOLD = 3          # distinct offered-days at the head slot without an answer
+
+# Event first-fired dates. A stint predating one of these publishes "?", never 0 —
+# the same rule mom-cycle-status.py follows. UNMEASURED is not zero.
+INSTRUMENTATION = {
+    "momqueue_offered": "2026-07-13",
+    "momqueue_answered": "2026-07-13",
+    "momqueue_viewed": "2026-07-19",
+    "momqueue_tapped": "2026-07-19",
+    "momqueue_tapped.choice": "2026-08-27",   # which control she pressed
+}
+
+
+def rotation_rows(events, excluded, qs_by_id, season_of):
+    """Per-card head-slot exposure. REPORT ONLY — it computes, it never writes.
+
+    THE UNIT IS A DISTINCT OFFERED-DAY AT THE HEAD SLOT, not a raw offer.
+    `q-weed-stiltgrass` has 13 offers across far fewer days; a render fires an
+    offer and she opens the app repeatedly in a day. 13 offers is not 13 decisions.
+
+    TWO PRE-CONDITIONS, and the first is the one that matters:
+     ① UNANSWERABLE != DECLINED. A day the card was out-of-season does not count.
+        q-clematis-variety is the worked example — 7 offers, 7 views, 0 taps, and
+        the honest reading is NOT "she is bored of this card", it is "we asked her
+        to read a flower colour on a vine that had no flowers". A naive
+        no-response-after-N rule gets that card right for the wrong reason and
+        writes the wrong reason into a record that outlives the reasoning.
+     ② HEAD-SLOT ONLY. A card accrues a day only on a day it actually fired
+        momqueue_offered. No exposure, no evidence, no aging — this is what stops
+        the cards she has never seen from silently aging off.
+    """
+    import collections as _c
+    days = _c.defaultdict(set)
+    offers = _c.Counter()
+    taps = _c.defaultdict(_c.Counter)
+    answered_on = {}
+    her_sessions = set()
+    positions = _c.Counter()
+
+    for ev, dev, date in events:
+        if dev in excluded:
+            continue
+        t_ = ev.get("type", "")
+        if t_ == "session_start":   # verified present: 148 in window. Do not add a
+            #                          second name here without checking it fires.
+            her_sessions.add(date)
+        if not t_.startswith("momqueue_"):
+            continue
+        qid = ev.get("questionId")
+        if not qid:
+            continue
+        if t_ == "momqueue_offered":
+            pos = ev.get("position")
+            positions[pos] += 1
+            # position is None for pre-instrumentation events; those were the
+            # single rendered card too, so they count as head.
+            if pos in (0, None):
+                days[qid].add(date)
+                offers[qid] += 1
+        elif t_ == "momqueue_tapped":
+            taps[qid][ev.get("choice") or "unrecorded"] += 1
+        elif t_ == "momqueue_answered":
+            answered_on[qid] = min(answered_on.get(qid, date), date)
+
+    rows = []
+    for qid, dayset in days.items():
+        q = qs_by_id.get(qid) or {}
+        # ① drop days the card could not be answered on
+        countable = sorted(d for d in dayset if season_of(qid, d) in ("in-season", "season-free", "unknown"))
+        dropped = len(dayset) - len(countable)
+        rows.append({
+            "questionId": qid,
+            "offeredDays": len(countable),
+            "daysDroppedUnanswerable": dropped,
+            "offers": offers[qid],
+            "taps": dict(taps[qid]),
+            "answeredOn": answered_on.get(qid),
+            "live": q.get("active") is True,
+            "firstDay": min(dayset) if dayset else None,
+            "lastDay": max(dayset) if dayset else None,
+            "due": (q.get("active") is True
+                    and qid not in answered_on
+                    and len(countable) >= ROTATION_THRESHOLD),
+        })
+    rows.sort(key=lambda r: (-r["offeredDays"], r["questionId"]))
+    return rows, positions, len(her_sessions)
+
+
+def rotation_text(rows, positions, n_session_days, bench_ready):
+    out = []
+    out.append(f"CARD ROTATION — head-slot exposure  ·  threshold {ROTATION_THRESHOLD} offered-days")
+    out.append("")
+    head = sum(v for k, v in positions.items() if k in (0, None))
+    deep = sum(v for k, v in positions.items() if k not in (0, None))
+    out.append(f"  she was offered a card {head + deep} time(s): {head} at the HEAD slot, {deep} deeper in the queue.")
+    if deep == 0 and head:
+        out.append("  ⭐ SHE HAS NEVER SEEN A CARD PAST THE HEAD. 'Another question ›' has never been")
+        out.append("     tapped on her device, so every card below the first has had ZERO exposure —")
+        out.append("     that is not zero response, and the two must never be read the same way.")
+    out.append("")
+    out.append(f"  {'questionId':<40}{'days':>6}{'offers':>8}  {'answered':<12}taps")
+    for r in rows:
+        mark = "⚡" if r["due"] else ("✓" if r["answeredOn"] else " ")
+        tap = ", ".join(f"{k}×{v}" for k, v in sorted(r["taps"].items())) or "—"
+        ans = r["answeredOn"] or "—"
+        out.append(f"{mark} {r['questionId']:<40}{r['offeredDays']:>6}{r['offers']:>8}  {ans:<12}{tap}")
+        if r["daysDroppedUnanswerable"]:
+            out.append(f"    ↳ {r['daysDroppedUnanswerable']} day(s) NOT counted — the card was unanswerable then "
+                       f"(out of season). Unanswerable is not declined.")
+    due = [r for r in rows if r["due"]]
+    out.append("")
+    if not due:
+        out.append("  nothing is due to rotate.")
+    else:
+        for r in due:
+            out.append(f"  ⚡ {r['questionId']} is DUE to rotate "
+                       f"({r['offeredDays']} offered-days, {r['firstDay']} → {r['lastDay']}, no answer)")
+            if bench_ready:
+                out.append(f"     replacement available on the bench: {', '.join(bench_ready)}")
+            else:
+                # This is the supply signal, and it costs Mom nothing.
+                out.append("     ⛔ NOTHING APPROVED ON THE BENCH TO REPLACE IT — so do not rotate.")
+                out.append("        Rotating with no swap shrinks her queue below cap, which violates")
+                out.append("        five-stays-five outright. This is a SUPPLY signal for Paul, not a")
+                out.append("        card problem: clear one with rationalize-bench.py --approve <id>.")
+    out.append("")
+    out.append("  REPORT ONLY — this writes nothing. Rotation becomes a write only after")
+    out.append("  three clean laps (see .user-research/2026-08-27-card-rotation.md §1.4).")
+    out.append("")
+    out.append("  INSTRUMENTATION (a stint predating an event is UNMEASURED, never 0):")
+    for k, v in INSTRUMENTATION.items():
+        out.append(f"    {k:<28} first available {v}")
+    out.append(f"  Her active days in window: {n_session_days}. Rotation runs on HER cadence —")
+    out.append("  a quiet stretch produces no aging, because she has declined nothing.")
+    return "\n".join(out)
+
+
 def main():
     ap = argparse.ArgumentParser(description="Read the Mom-engagement funnel (read-only).")
     ap.add_argument("--start", default=TIMEBOX_START, help="YYYY-MM-DD (default: front-door ship date)")
     ap.add_argument("--end", default=None, help="YYYY-MM-DD (default: today)")
     ap.add_argument("--pickup", action="store_true", help="One line; silent if no funnel data yet")
     ap.add_argument("--json", action="store_true", help="Emit the scorecard as JSON")
+    ap.add_argument("--rotation", action="store_true",
+                    help="Head-slot exposure per card + what is due to rotate (report only)")
+    ap.add_argument("--write-log", action="store_true",
+                    help="with --rotation: write data/card-rotation-log.json (the RECORD, not a verdict)")
     ap.add_argument("--notify", action="store_true", help="macOS notification when the verdict-state advances")
     ap.add_argument("--state-file", default=os.path.join(ROOT, ".private", "mom-funnel-watch-state.json"))
     args = ap.parse_args()
@@ -324,6 +465,121 @@ def main():
         return 0
 
     events = list(iter_events(data))
+
+    if args.rotation:
+        excluded = set()
+        try:
+            with open(os.path.join(os.path.dirname(__file__), "people.json")) as fh:
+                for person in (json.load(fh).get("people") or []):
+                    if person.get("excludeFromEngagement"):
+                        excluded.update(person.get("deviceIds") or [])
+                        if person.get("deviceId"):
+                            excluded.add(person["deviceId"])
+        except Exception as e:
+            print(f"⛔ cannot read people.json ({e}) — refusing to report numbers that")
+            print("   would silently include the builder's own devices.")
+            return 2
+
+        ml = _load("momlib", os.path.join(HERE, "momlib.py"))
+        qdoc = json.load(open(os.path.join(ROOT, "questions.json")))
+        qs = qdoc["questions"] if isinstance(qdoc, dict) else qdoc
+        by_id = {q.get("id"): q for q in qs}
+        canon = ml.canon()
+
+        def season_of(qid, daystr):
+            q = by_id.get(qid)
+            if not q:
+                return "unknown"
+            try:
+                return ml.in_season(q, canon, dt.date.fromisoformat(daystr))["verdict"]
+            except Exception:
+                return "unknown"
+
+        bench_ready = []
+        for q in qs:
+            if q.get("active") is not True and q.get("approvedForServe"):
+                v = season_of(q.get("id"), end)
+                if v in ("in-season", "season-free"):
+                    bench_ready.append(q["id"])
+
+        rows, positions, nsess = rotation_rows(events, excluded, by_id, season_of)
+        print(rotation_text(rows, positions, nsess, bench_ready))
+
+        if args.write_log:
+            # THE RECORD, not the verdict. It states what was offered and what came
+            # back; it never says what that MEANS. The verdict is dated, human-authored
+            # and lives in MOM-CYCLE-LOG.md — see §2.2 of the research file.
+            #
+            # ⚠ `rotated` and `answered` are different outcomes and MUST NOT MERGE.
+            #   A rotated card is UNANSWERED, not handled: no resolvedAt is written
+            #   anywhere by this path, and it must never release the feedback
+            #   watermark. If rotation ever writes a resolution, a real question of
+            #   hers disappears silently — the worst failure class in this repo.
+            log_path = os.path.join(ROOT, "data", "card-rotation-log.json")
+            stints = []
+            for r in rows:
+                q = by_id.get(r["questionId"]) or {}
+                if r["answeredOn"]:
+                    outcome = "answered"
+                elif q.get("_seasonHold") or q.get("benchedAt"):
+                    outcome = "season-hold"
+                elif q.get("resolvedAt") or q.get("resolution"):
+                    outcome = "retired"
+                elif r["due"]:
+                    outcome = "due-to-rotate"
+                elif q.get("active") is True:
+                    outcome = "open"
+                else:
+                    outcome = "superseded"
+                pre = r["firstDay"] and r["firstDay"] < INSTRUMENTATION["momqueue_tapped"]
+                stints.append({
+                    "questionId": r["questionId"],
+                    "class": q.get("kind"),
+                    "answerCost": q.get("answerCost", "?"),
+                    "seededFrom": q.get("seededFrom") or ("our-uncertainty-marker"
+                                                          if q.get("_source") == "harvest" else "?"),
+                    "enteredHeadAt": r["firstDay"],
+                    "leftHeadAt": r["answeredOn"] or (None if q.get("active") is True else r["lastDay"]),
+                    "offeredDays": r["offeredDays"],
+                    "daysDroppedUnanswerable": r["daysDroppedUnanswerable"],
+                    "offers": r["offers"],
+                    # "?" not 0 — the count is UNMEASURED for stints predating the event.
+                    "taps": r["taps"] if not pre else "?",
+                    "herActiveDaysInWindow": nsess,
+                    "outcome": outcome,
+                    "seasonVerdictAtExit": season_of(r["questionId"], end),
+                    "replacedBy": None,
+                    "windowNote": ("stint predates momqueue_tapped (2026-07-19); tap counts "
+                                   "are UNMEASURED, not zero" if pre else None),
+                })
+            doc = {
+                "_meta": {
+                    "purpose": "One row per head-slot STINT. THE RECORD, never the verdict — "
+                               "it says what was offered and what came back, never what it means. "
+                               "Verdicts are dated and human-authored in MOM-CYCLE-LOG.md.",
+                    "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
+                    "generated_by": "tools/read-mom-funnel.py --rotation --write-log",
+                    "window": {"start": args.start, "end": end},
+                    "rotationThreshold": ROTATION_THRESHOLD,
+                    "outcomeValues": ["answered", "rotated", "due-to-rotate", "season-hold",
+                                      "retired", "superseded", "edited", "open"],
+                    "warning": "`rotated` != `answered`. A rotated card is UNANSWERED. "
+                               "Nothing here may release the feedback watermark.",
+                },
+                "_instrumentation": INSTRUMENTATION,
+                "_caveats": [
+                    "A deviceId is a browser bucket, not a person.",
+                    "Counts are single-digit; a pattern here is a reason to look, not a finding.",
+                    "She has never tapped past the head slot, so cards below position 0 have "
+                    "ZERO EXPOSURE — which is not zero response.",
+                ],
+                "stints": stints,
+            }
+            with open(log_path, "w", encoding="utf-8") as fh:
+                json.dump(doc, fh, indent=2, ensure_ascii=False)
+                fh.write("\n")
+            print(f"\n✓ wrote {log_path} — {len(stints)} stint(s)")
+        return 0
 
     # ⭐ 2026-07-28 — EXCLUDE THE BUILDER'S OWN DEVICES DETERMINISTICALLY.
     # The old design relied on a localStorage flag (tateTracker.metricsExclude, viewer.html)

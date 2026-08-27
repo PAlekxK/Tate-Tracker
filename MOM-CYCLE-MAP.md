@@ -402,6 +402,7 @@ Scored at **every lap that adds or changes an event**; the chronicle records **c
 
 ```bash
 python3 tools/mom-cycle-status.py --write-state
+python3 tools/read-mom-funnel.py --rotation --write-log
 ```
 
 ⛔ **Nothing called this at close, and nothing ever had.** A grep for `--write-state` across this

@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "purpose": "One row per head-slot STINT. THE RECORD, never the verdict — it says what was offered and what came back, never what it means. Verdicts are dated and human-authored in MOM-CYCLE-LOG.md.",
+    "generated_at": "2026-08-27T14:21:47",
+    "generated_by": "tools/read-mom-funnel.py --rotation --write-log",
+    "window": {
+      "start": "2026-07-13",
+      "end": "2026-08-27"
+    },
+    "rotationThreshold": 3,
+    "outcomeValues": [
+      "answered",
+      "rotated",
+      "due-to-rotate",
+      "season-hold",
+      "retired",
+      "superseded",
+      "edited",
+      "open"
+    ],
+    "warning": "`rotated` != `answered`. A rotated card is UNANSWERED. Nothing here may release the feedback watermark."
+  },
+  "_instrumentation": {
+    "momqueue_offered": "2026-07-13",
+    "momqueue_answered": "2026-07-13",
+    "momqueue_viewed": "2026-07-19",
+    "momqueue_tapped": "2026-07-19",
+    "momqueue_tapped.choice": "2026-08-27"
+  },
+  "_caveats": [
+    "A deviceId is a browser bucket, not a person.",
+    "Counts are single-digit; a pattern here is a reason to look, not a finding.",
+    "She has never tapped past the head slot, so cards below position 0 have ZERO EXPOSURE — which is not zero response."
+  ],
+  "stints": [
+    {
+      "questionId": "q-weed-stiltgrass",
+      "class": "confirm",
+      "answerCost": "?",
+      "seededFrom": "?",
+      "enteredHeadAt": "2026-08-03",
+      "leftHeadAt": null,
+      "offeredDays": 10,
+      "daysDroppedUnanswerable": 0,
+      "offers": 13,
+      "taps": {
+        "unrecorded": 1
+      },
+      "herActiveDaysInWindow": 17,
+      "outcome": "due-to-rotate",
+      "seasonVerdictAtExit": "season-free",
+      "replacedBy": null,
+      "windowNote": null
+    },
+    {
+      "questionId": "q-panicle-hydrangea-bloom",
+      "class": "confirm",
+      "answerCost": "?",
+      "seededFrom": "?",
+      "enteredHeadAt": "2026-07-14",
+      "leftHeadAt": "2026-07-19",
+      "offeredDays": 2,
+      "daysDroppedUnanswerable": 0,
+      "offers": 2,
+      "taps": "?",
+      "herActiveDaysInWindow": 17,
+      "outcome": "answered",
+      "seasonVerdictAtExit": "in-season",
+      "replacedBy": null,
+      "windowNote": "stint predates momqueue_tapped (2026-07-19); tap counts are UNMEASURED, not zero"
+    },
+    {
+      "questionId": "q-almanac-name",
+      "class": "confirm",
+      "answerCost": "?",
+      "seededFrom": "?",
+      "enteredHeadAt": "2026-07-29",
+      "leftHeadAt": "2026-07-29",
+      "offeredDays": 1,
+      "daysDroppedUnanswerable": 0,
+      "offers": 2,
+      "taps": {
+        "unrecorded": 1
+      },
+      "herActiveDaysInWindow": 17,
+      "outcome": "answered",
+      "seasonVerdictAtExit": "season-free",
+      "replacedBy": null,
+      "windowNote": null
+    },
+    {
+      "questionId": "q-crocosmia-lucifer",
+      "class": "confirm",
+      "answerCost": "?",
+      "seededFrom": "?",
+      "enteredHeadAt": "2026-07-13",
+      "leftHeadAt": "2026-07-13",
+      "offeredDays": 1,
+      "daysDroppedUnanswerable": 0,
+      "offers": 2,
+      "taps": "?",
+      "herActiveDaysInWindow": 17,
+      "outcome": "answered",
+      "seasonVerdictAtExit": "in-season",
+      "replacedBy": null,
+      "windowNote": "stint predates momqueue_tapped (2026-07-19); tap counts are UNMEASURED, not zero"
+    },
+    {
+      "questionId": "q-top-categories",
+      "class": "confirm",
+      "answerCost": "?",
+      "seededFrom": "?",
+      "enteredHeadAt": "2026-08-03",
+      "leftHeadAt": "2026-08-03",
+      "offeredDays": 1,
+      "daysDroppedUnanswerable": 0,
+      "offers": 1,
+      "taps": {
+        "unrecorded": 1
+      },
+      "herActiveDaysInWindow": 17,
+      "outcome": "answered",
+      "seasonVerdictAtExit": "season-free",
+      "replacedBy": null,
+      "windowNote": null
+    },
+    {
+      "questionId": "q-white-mophead-annabelle",
+      "class": "confirm",
+      "answerCost": "?",
+      "seededFrom": "?",
+      "enteredHeadAt": "2026-07-13",
+      "leftHeadAt": "2026-07-13",
+      "offeredDays": 1,
+      "daysDroppedUnanswerable": 0,
+      "offers": 1,
+      "taps": "?",
+      "herActiveDaysInWindow": 17,
+      "outcome": "answered",
+      "seasonVerdictAtExit": "season-free",
+      "replacedBy": null,
+      "windowNote": "stint predates momqueue_tapped (2026-07-19); tap counts are UNMEASURED, not zero"
+    },
+    {
+      "questionId": "q-clematis-variety",
+      "class": "confirm",
+      "answerCost": "?",
+      "seededFrom": "our-uncertainty-marker",
+      "enteredHeadAt": "2026-07-19",
+      "leftHeadAt": null,
+      "offeredDays": 0,
+      "daysDroppedUnanswerable": 5,
+      "offers": 7,
+      "taps": {},
+      "herActiveDaysInWindow": 17,
+      "outcome": "open",
+      "seasonVerdictAtExit": "in-season",
+      "replacedBy": null,
+      "windowNote": null
+    }
+  ]
+}

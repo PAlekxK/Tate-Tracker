@@ -156,6 +156,12 @@ def main():
     ap.add_argument("--bench", metavar="ID", action="append", default=[],
                     help="take a LIVE card off her surface and back to the bench "
                          "(seasonal hold; requires --because)")
+    ap.add_argument("--stamp", metavar="ID", action="append", default=[],
+                    help="with --answer-cost alone: which card(s) to stamp")
+    ap.add_argument("--answer-cost", metavar="WORD", choices=("chair", "glance", "errand"),
+                    help="chair | glance | errand — what it COSTS her to answer. Rule B "
+                         "(.user-research/2026-08-27-card-rotation.md §3.2) is dead without it. "
+                         "Usable with --approve, or on its own to stamp an existing card.")
     ap.add_argument("--because", metavar="TEXT",
                     help="why the card is coming off her surface — required by --bench")
     ap.add_argument("--approve", metavar="ID", action="append", default=[],
@@ -170,6 +176,32 @@ def main():
     doc = load_questions()
     qs = doc["questions"]
     c = momlib.canon()
+
+    # ---- answerCost, on its own -------------------------------------------
+    # ⭐ WHAT IT COSTS HER TO ANSWER — chair | glance | errand. The one comparison
+    #    that is REACHABLE at this n (§3.2 of the rotation research): the class
+    #    question needs ~40 stints / 6-10 months and will not arrive, but every card
+    #    she has answered was answerable from a chair or a glance and every one she
+    #    has not needs an errand and a close look — 5-0 today.
+    #    It is a HUMAN classification. Counts built on it are deterministic; the
+    #    BUCKET is an assumption, and it must be tagged that way forever.
+    if args.answer_cost and not args.approve and not args.bench:
+        targets = list(args.stamp or [])
+        if not targets:
+            print("⛔ --answer-cost on its own needs --stamp <id> (repeatable).")
+            return 2
+        by_id = {q.get("id"): q for q in qs}
+        done = []
+        for qid in targets:
+            q = by_id.get(qid)
+            if q is None:
+                print(f"✗ no card `{qid}`")
+                return 2
+            q["answerCost"] = args.answer_cost
+            done.append(qid)
+        save_questions(doc)
+        print(f"✓ answerCost={args.answer_cost}: {', '.join(done)}")
+        return 0
 
     # ---- the INVERSE of the gate -----------------------------------------
     # ⭐ WHY THIS VERB EXISTS (added 2026-08-27, lap 6). `--approve` had no
@@ -242,6 +274,8 @@ def main():
                 print(f"✗ `{qid}` is retired — approving it would re-serve a settled card")
                 return 2
             q["approvedForServe"] = today.isoformat()
+            if args.answer_cost:
+                q["answerCost"] = args.answer_cost
             stamped.append(qid)
         save_questions(doc)
         print(f"✓ cleared to serve ({today}): {', '.join(stamped)}")
@@ -265,7 +299,21 @@ def main():
     # ---- 1. STALE ON HER SURFACE RIGHT NOW --------------------------------
     bad_live = [q for q in live
                 if season[q["id"]]["verdict"] in ("out-of-season", "review", "dangling")]
-    print(f"\n── SERVED NOW ({len(live)} confirm cards live, {min(len(live), cap)} visible)")
+    # ⛔ "visible" USED TO MEAN min(live, cap), AND THAT WAS WRONG — corrected
+    #    2026-08-27. `MAX_VISIBLE` is how many the queue HOLDS; the render shows
+    #    ONE at a time behind "Another question ›" (viewer.html: "One question at a
+    #    time"). Measured the day this was fixed: 28 of 28 offers on her device
+    #    carried `position: 0`, and positions 1-4 appear only on builder devices —
+    #    SHE HAS NEVER TAPPED PAST THE FIRST CARD. So the cards behind the head
+    #    have ZERO EXPOSURE, which is not zero response, and a tool printing
+    #    "4 visible" was the surface that let one card sit at the head for 21 days
+    #    without anyone noticing. Say what she can actually see.
+    print(f"\n── SERVED NOW ({len(live)} confirm card(s) live · queue holds {cap})")
+    if live:
+        print(f"   ⚠ she sees ONE at a time — '{live[0]['id']}' is at the head; the other "
+              f"{max(0, len(live) - 1)} sit behind \"Another question ›\",")
+        print("     which her device has never tapped. Head-slot exposure: "
+              "read-mom-funnel.py --rotation")
     if not bad_live:
         print("   every live card's observable exists today.")
     for q in bad_live:
