@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "One row per head-slot STINT. THE RECORD, never the verdict — it says what was offered and what came back, never what it means. Verdicts are dated and human-authored in MOM-CYCLE-LOG.md.",
-    "generated_at": "2026-08-27T14:21:47",
+    "generated_at": "2026-08-27T14:33:51",
     "generated_by": "tools/read-mom-funnel.py --rotation --write-log",
     "window": {
       "start": "2026-07-13",
@@ -36,7 +36,7 @@
     {
       "questionId": "q-weed-stiltgrass",
       "class": "confirm",
-      "answerCost": "?",
+      "answerCost": "errand",
       "seededFrom": "?",
       "enteredHeadAt": "2026-08-03",
       "leftHeadAt": null,
@@ -55,7 +55,7 @@
     {
       "questionId": "q-panicle-hydrangea-bloom",
       "class": "confirm",
-      "answerCost": "?",
+      "answerCost": "glance",
       "seededFrom": "?",
       "enteredHeadAt": "2026-07-14",
       "leftHeadAt": "2026-07-19",
@@ -72,7 +72,7 @@
     {
       "questionId": "q-almanac-name",
       "class": "confirm",
-      "answerCost": "?",
+      "answerCost": "chair",
       "seededFrom": "?",
       "enteredHeadAt": "2026-07-29",
       "leftHeadAt": "2026-07-29",
@@ -91,7 +91,7 @@
     {
       "questionId": "q-crocosmia-lucifer",
       "class": "confirm",
-      "answerCost": "?",
+      "answerCost": "glance",
       "seededFrom": "?",
       "enteredHeadAt": "2026-07-13",
       "leftHeadAt": "2026-07-13",
@@ -108,7 +108,7 @@
     {
       "questionId": "q-top-categories",
       "class": "confirm",
-      "answerCost": "?",
+      "answerCost": "chair",
       "seededFrom": "?",
       "enteredHeadAt": "2026-08-03",
       "leftHeadAt": "2026-08-03",
@@ -127,7 +127,7 @@
     {
       "questionId": "q-white-mophead-annabelle",
       "class": "confirm",
-      "answerCost": "?",
+      "answerCost": "glance",
       "seededFrom": "?",
       "enteredHeadAt": "2026-07-13",
       "leftHeadAt": "2026-07-13",
@@ -144,7 +144,7 @@
     {
       "questionId": "q-clematis-variety",
       "class": "confirm",
-      "answerCost": "?",
+      "answerCost": "errand",
       "seededFrom": "our-uncertainty-marker",
       "enteredHeadAt": "2026-07-19",
       "leftHeadAt": null,
