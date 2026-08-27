@@ -117,6 +117,60 @@ fires per-question on intersection, and since lap 5 exactly **one** offer was vi
 does not say she ever saw this card. It is a defect in what she was **offered**, not a measured
 cause of anything.
 
+### Lap 6 addendum — CARD ROTATION (meta work, same session)
+
+Paul: *"we should have a kind of standing rule where we rotate these... seeing what gets responses
+and what doesn't."* → `user-researcher` seat (he asked for it by name) →
+`.user-research/2026-08-27-card-rotation.md`.
+
+⭐⭐ **THE SEAT CORRECTED THE PREMISE, AND BOTH HALVES WERE SPOT-CHECKED BEFORE ANY ACTION** — the
+standing leg-4 rule, and it paid off twice in one session.
+
+**There is ONE slot, not five.** `viewer.html:4969` — *"One question at a time; 'Another question ›'
+brings the next."* Her **28 offers: 25 at `position: 0`, 3 pre-instrumentation, ZERO deeper.**
+Positions 1–4 exist only on builder devices. **She has never tapped past the first card**, so cards
+2–5 have **zero exposure — which is not zero response**, and the two must never be read alike.
+
+**Head-slot history — the finding:**
+
+| card | offered-days | offers | answered |
+|---|---|---|---|
+| crocosmia · white-mophead · panicle · almanac-name · top-categories | 1–2 each | 1–2 | ✅ all |
+| q-clematis-variety | **0 countable** (5 dropped) | 7 | ✗ |
+| **q-weed-stiltgrass** | **10** | **13** | **✗ — still at the head** |
+
+**Every card she answered, she answered within 1–2 offers. `q-weed-stiltgrass` has been the only card
+she has seen since 08-03.** Head-of-line blocking is total.
+
+⚠️ **And `rationalize-bench.py` was printing "4 visible" the whole time** — `min(live, cap)`, which is
+what the queue *holds*, not what she *sees*. **That tool was the surface that let one card sit at the
+head for 21 days with nothing noticing.** Corrected: it now names the head card and says the rest are
+unseen.
+
+⭐ **The season guard earned its keep on first run.** `q-clematis-variety` drops from 5 countable days
+to **zero** — every one of its days was out of season. A naive *no-response-after-N* rule would have
+written *"she declined it 7 times"* into a record that outlives the reasoning. The truth is **we asked
+her to read a flower colour on a vine that had no flowers.** Unanswerable ≠ declined.
+
+**Shipped:** `momqueue_tapped` now records the control she pressed (all four routes walked per leg 5 —
+the one tap stiltgrass ever earned is *uninterpretable* because the event carried no choice) ·
+`read-mom-funnel.py --rotation` (report-only, distinct offered-days, threshold 3 — deliberately the
+08-12 proposal's number, not a second one) · `data/card-rotation-log.json` (**`rotated` ≠ `answered`;
+nothing here writes `resolvedAt` or releases the watermark**) · `--answer-cost chair|glance|errand` at
+the gate · wired into leg 1 and leg 7-post.
+
+⛔ **Nothing rotates yet, and that is the mechanism working.** Rotation is a **swap, never a removal**;
+the bench holds one card and it is out of season, so the report refuses and prints a **supply signal**
+instead. The researcher's own strongest objection is why: *rotation treats a supply problem as a
+selection problem*, and `harvest-questions.py` is structurally a verdict-ask factory — rotating today
+would swap one card for another of the same shape from the same source.
+
+⚠️ **Pre-registered now, before the data exists:** the **class** question is **not reachable** (~40
+stints ≈ 6–10 months at 1.7 answers/month) and waiting will not fix it. The reachable comparison is
+**answer-cost** — every card she answered was answerable from a chair or a glance; every one she has
+not needs an errand and a close look, 5–0. **One answered errand card kills the hypothesis.**
+*"We still cannot tell"* is pre-approved as a verdict.
+
 ### Decisions
 
 - **The lap ran on a false trigger and is still recorded as a lap.** The alternative — deleting it
