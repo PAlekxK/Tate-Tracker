@@ -534,3 +534,91 @@ LIVE rendered DOM.
   ABS sheet · trim forks · sandpaper · degreaser · and one genuinely NEW need —
   **4–6 mil plastic sheeting**, because Paul confirmed 2026-08-28 that the doors have **no water
   shield at all**, so it gets fabricated, not resealed.
+
+
+---
+
+## STEP 10 — CLEANING THE PANEL (consolidated 2026-08-28)
+
+> **"Can I just use isopropyl?" — No.** IPA has no surfactant: it dissolves a little oil, flashes off
+> in seconds, and has no dwell time. It does not lift and carry dirt, it barely touches old dressing
+> buildup, and it cannot float grime out of the grain valleys. **Soap and water CLEAN. IPA PREPS.**
+> Different jobs, both needed.
+
+### The four materials, and what each is actually FOR
+
+| Material | Its ONE job | Where | Status |
+|---|---|---|---|
+| **Cleaner** — Dawn + warm water, or a diluted APC | Lift and carry away grime | Both faces | ✅ **OWNED** (Paul, 8/28) |
+| **Brushes** — soft/medium detail brush | Reach into the GRAIN. **The item that decides the outcome** | Show face | ✅ **OWNED** (Paul, 8/28) |
+| **Isopropyl 91%+** | Final wipe — strips the oily film removers leave, flashes clean | Bond areas only | ❓ verify |
+| **Adhesive remover** — Goo Gone Automotive / mineral spirits | Pad glue that won't scrape | Back only | ❌ buy ONLY if scraping fails |
+
+⭐ **Net shopping for cleaning: essentially nothing.** Paul confirmed brushes + cleaner on hand 8/28.
+Verify the IPA is **91% or 99%, NOT 70%** — the 70% is mostly water and wets the surface without
+cutting oil. Try the scrape-and-heat route before buying any remover.
+
+⭐ **The cleaner matters LESS than the brush.** The grained chestnut holds dirt down in the valleys and
+a cloth skates across the peaks. You can wipe this panel until it looks clean and have removed almost
+nothing. **Agitation is the work.**
+
+### THE BACK (be aggressive — nothing here is delicate)
+
+1. **Scrape before you dissolve.** Plastic razor on the pad adhesive; the heat gun on low softens
+   37-year-old contact adhesive so it releases in sheets instead of crumbs. Mechanical removal is
+   free and puts no chemistry into a surface you have to bond to.
+2. **Only then reach for a remover**, and only on what's left. ⛔ **NOT acetone** — that is the ABS
+   solvent-weld; it hazes and softens the panel.
+3. **Wash** — Dawn, warm water, stiff brush is fine here. Rinse; detergent residue is a contaminant.
+4. **IPA wipe on every bond area, LAST.**
+
+### THE SHOW FACE (driver-facing)
+
+⛔ **Do NOT use the adhesive remover here.** It is oily by design; you'd smear a film across the whole
+panel and then have to remove *that*.
+
+1. **DRY PASS FIRST** — vacuum or blow the loose grit out of the grain. Add water to a dusty panel and
+   you make mud, then push it deeper into the texture.
+2. **Work in SECTIONS.** Spray, dwell ~30 s, agitate with the brush, wipe off with a damp microfiber,
+   follow with a clean damp one.
+3. ⚠️ **NEVER let the cleaner dry on the surface.** Dried cleaner re-deposits the dirt you just lifted
+   and can stain or lighten aged plastic. This is the rule that matters most on this face.
+4. Stubborn spots: **repeat the pass, don't scrub harder.**
+
+⚠️ **Don't over-scrub the grain.** Aggressive brushing burnishes the high points and leaves a blotchy
+shine that reads worse than the dirt did. Medium pressure, more passes.
+⚠️ **Test any strong APC in a hidden spot** — it can lighten aged chestnut.
+
+### Drying — a full day
+
+Old panels hold water in seams, clip pockets, and under leftover adhesive. Compressed air helps.
+**Nothing bonds to damp** — not the bracket's CA gel, not a mesh weld.
+
+### ⛔ The don'ts, collected
+
+- **Acetone** on the panel — attacks ABS
+- **Pressure washer** — drives water into seams, damages the grain
+- **Soaking / submerging** — trapped water you'll never fully dry
+- **Adhesive remover on the show face**
+- **Any SILICONE protectant** (Armor-All and most trim shines) — see below
+
+### Protecting it in the meantime `paul-decided 2026-08-28`
+
+Paint is likely a couple of months out and the panel goes back on the truck, so protecting the show
+face is reasonable. **The earlier "leave it dull" advice in this guide was over-indexed on a booth
+date that isn't near** — Paul pushed back and he was right; the fix is the right product, not going
+without.
+
+**Use a SILICONE-FREE, water-based protectant** (303 Automotive Protectant `B0185PU38A`, ~$15.97,
+4.7★/16.3K — not yet bought). Silicone migrates INTO aged plastic rather than sitting on it; that is
+why it causes fisheyes and why washing does not undo it. Water-based gives UV protection without
+adding the contaminant.
+
+Honest calibration: on **rigid grained ABS** the real benefit is **UV blocking**, not "conditioning" —
+feeding-the-plastic is mostly marketing for hard plastics.
+
+- **Show face ONLY. Nothing on the back.** The back is where the bracket bonds and the CCF sticks —
+  dress it and the foam peels and the bracket lets go. That fails in DAYS, not months.
+- **Apply LAST**, once repairs are done and it is going back on.
+- ⭐ **Tell Larry exactly what was used.** A shop preps differently when it knows; "silicone-free,
+  water-based" is a genuinely different answer for them than "Armor-All."
