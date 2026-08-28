@@ -146,6 +146,16 @@ Attribute from the recording's own CONTENT (the transcript), never from device s
 rule in `tools/people.json`. ⚠️ A transcript is a **model read**, `[transcript-UNVERIFIED]`: it may
 support a disregard, and it may never promote anything to canon on its own.
 
+⛔ **AND THE DISPOSITION IS PER RECORD — a batch may not be cleared by one of its members**
+`[added 2026-08-28, from the 08-09 clip's re-examination]`. On 08-10 the whole day's arrivals were
+cleared with *"the 08-09 traffic that lit the board is Paul's own — the Guru turn says so in its own
+text."* The recording **was seen**, and was dismissed on a **different record's** self-identification
+four days before anyone staged it. A per-record omission self-heals — the next sweep finds the hole.
+A batch clear does not: the channel reads attested while one of its records has never been opened.
+Every arrival carries its own disposition or the channel is not attested. `BACKLOG` Tier 1 · **12**
+(and the Skill's own gap list already names the structural half: *no per-item lifecycle on
+`/api/zone-audio` or Guru turns*).
+
 **⭐⭐ AND THIS BLOCK IS THE LOOP'S TRIGGER, not just a status read** `[paul-stated 2026-08-10]`.
 *"Continue to monitor for Mom's feedback, and then when we get it, that's a trigger to start a
 cycle. That's how I'm gonna try to run this."* **The loop RESTS; her input fires it** — not a

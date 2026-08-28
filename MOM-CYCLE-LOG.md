@@ -11,6 +11,109 @@ amended mid-lap.
 
 ---
 
+## 2026-08-28 — NO LAP. A **re-examination of the 08-09 zone clip**, at Paul's ask — and it corrects what lap 3 recorded as the root cause
+
+Not a lap: nothing of hers arrived, nothing reached her surface, no leg ran. Recorded here because
+lap 3 closed this item and the closure was **right about the verdict and incomplete about the
+failure**, and because a lap that closes an item wrong is exactly the thing this chronicle exists to
+catch.
+
+**Paul's ask** `[paul-stated 2026-08-28]`: *"supposedly there is an audio recording that we've not
+listened to from Fernwood… let's analyze that and also figure out why that slipped through our
+process cracks."* His memory was literally accurate. Lap 3 dispositioned the clip; **no human has
+ever played it**, and lap 3 says so on its own face at the gate.
+
+### The clip — every attribution leg re-verified against the world, not read off lap 3
+
+| | |
+|---|---|
+| id | `r-msm3oqo6-8edsfawx` · zone `fairway` |
+| uploaded | `2026-08-09T17:52:44.550Z` (1:52 PM ET) |
+| length | `durationMs 5784` server-side; **5.46 s** measured by `ffprobe` on the staged file |
+| deviceId | `d-avslqpyd-m72qxt1s-mpeuqnyg` |
+| staged / transcribed / watermarked | 08-14, 10:38 / 10:59 / 11:01 AM ET |
+
+Three legs, each checked independently today rather than inherited:
+
+1. **The device** — `tools/people.json` maps `d-avslqpyd-m72qxt1s-mpeuqnyg` to Paul,
+   `excludeFromEngagement: true`. It is the **established** mapping, not the one flagged
+   `assumedNotVerified` (`d-l4ct2ilv`).
+2. **The sibling record** — observation `c-n20bpx4o-msm3pv3i`, `2026-08-09T17:53:36.942Z`, **52
+   seconds after** the recording, **same deviceId**, body: *"testing testing this is Paul Destiny
+   disregard this data"* (dictation homophone for *testing*).
+3. **A SECOND, LARGER MODEL READ** — the 08-14 transcript was `ggml-base.en`. Re-run today against
+   `ggml-small.en`, greedy **and** beam-5, both agreeing with each other and in shape with base.en:
+
+   - `base.en` (08-14): *"Testing, testing, all that thing throughout this data."*
+   - `small.en` (08-28): *"Test in. Test in. All testing through this data."*
+
+   Word timings from `small.en` put a **single 1.7-second token at 2.33–4.07 s** decoded as
+   *"testing"* — far too long for that word, and the right length for three syllables. *"disregard"*
+   fits that slot, and it is the word the sibling record uses. **Neither model hears "Paul."**
+
+**Verdict unchanged: Paul's bench test, disregard.** ⚠️ And unchanged in its epistemic class — this
+is now **four** inferences instead of three (a model read, a second model read, a device id, a
+sibling record) and **still not an ear**. A model read is a hypothesis until a deterministic source
+or Paul clears it. Staged for him to play at `~/Desktop/ATTACH-THESE`; when he does, that is the
+line this entry is waiting on.
+
+### ⛔ THE CORRECTION — lap 3 named one crack. There are three, and the one it named is the least of them
+
+Lap 3 records the cause as the wiring gap: `read-mom-zone-audio.py` was named in `MOM-CYCLE-MAP.md`
+and in the loop's doctrine but **not in `CLAUDE.md`'s session-start block**, the list Leg 1 derives
+its sweep from, so *"the loop could not reach her voice channel by running its own procedure."* True,
+and fixed 08-14. **But it explains why nobody LISTENED, not why nobody NOTICED they hadn't** — and
+those are different failures with different remedies.
+
+| # | crack | what it actually explains | status |
+|---|---|---|---|
+| 1 | **Unreachable channel** — the tool was not in the block Leg 1 derives its sweep from | why the clip was never staged between 08-09 and 08-14 | ✅ fixed 08-14; both tools in the block |
+| 2 | **Batch dismissal on a sibling record** — see below | why the omission left **no hole** for the next sweep to find | 🔴 **BACKLOG Tier 1 · 12** |
+| 3 | **Bench is a content claim made from device shape** | why an arrival like this is *structurally* guaranteed to raise nothing | 🟠 **BACKLOG Tier 1 · 13** |
+
+**Crack 2, in the record's own words.** The 08-10 interlap note above reads: *"Zero records carrying
+her deviceId on any channel since 2026-08-03 (feedback · observations · zone-audio · guru ·
+pending-species, 30-day window)… The 08-09 traffic that lit the board is Paul's own — **the Guru turn
+says so in its own text**."* ⭐ **The recording WAS seen on 08-10.** It was cleared by a *different
+record's* self-identification, four days before anyone staged it. A per-record omission is
+self-healing — the next sweep finds the hole. **A batch clear is not**: it leaves the channel reading
+attested with one of its records never opened, which is precisely the state lap 3 found at Leg 6 and
+called a leftover.
+
+⚠️ **The rule that should have stopped this was already written, and it does not bind at batch
+scope.** `CLAUDE.md`: *"it was Paul" is a DISPOSITION, not a dismissal … nobody listened and we
+listened and it was Paul's must never print the same.* Authored **for one record**; nothing holds it
+across a set. That is the shape this loop keeps re-finding — *the fix that failed was prose* — and
+per the pre-registered rule from lap 6, the answer at a repeat is **a control, not a louder banner**.
+Row 12 carries the seen-to-fail test: two arrivals, same minute, same device, only one
+self-identifying — the checker must still report the second as undispositioned.
+
+**Crack 3 is a tension inside a fix, not a regression.** Row 9's `split_arrivals()` correctly stops
+bench arrivals lighting the board as *hers*; nothing here reverses that. But on the four
+**authored-content** channels it decides *whose words these are* from *which browser posted them* —
+the one inference `tools/people.json` forbids, and the inference whose reversal is written into
+`d-l4ct2ilv`'s own falsifier (*"if any authored content — a confirm answer, a written note, **a voice
+recording** — ever arrives from this deviceId, the assumption is WRONG"*). Live consequence: a
+recording Mom makes on Paul's laptop raises nothing, ever. Row 13's remedy is `bench-unheard`, not
+a board light.
+
+### What the three laps since have and have not shown
+
+Laps 4 (08-19), 5 (08-24) and 6 (08-27) mention zone-audio **nowhere**. That is not a failure — lap
+6's Leg 1 ran *"thirteen checks, list DERIVED from `CLAUDE.md`,"* so the channel was swept, and the
+Worker confirms **no recording has arrived since 08-09** (6 total, `/api/zone-audio`, 0 new). But it
+means the 08-14 fix **has never been exercised on a live arrival**, and no lap since carries an
+attestation that her voice channel was read. ⛔ Do not read those three silences as the fix working.
+
+### One dead field, found while verifying
+
+`/api/zone-audio` still returns **`"reviewed": false`** for `r-msm3oqo6-8edsfawx`. `--mark-reviewed`
+advances only `.private/mom-zone-audio-state.json`; **nothing writes the server field, ever.** A
+status field with no writer reads *never reviewed* in perpetuity — the container cannot match the
+payload. Filed as a sub-item under row 12: write it or delete it.
+
+---
+
 ## Lap 6 — 2026-08-27 · ✅ **CLOSED** — 🪞 **the lap that was fired by a stale artifact, and whose whole subject turned out to be the loop's own publishing**
 
 **Fired by:** the loop board reading `⚡ FIRED · offers-passed 3/3 · sessions-quiet 4/3`.
