@@ -1078,3 +1078,37 @@ Mama's Perspective (Mom confirm queue, 2026-07-13) · Unified input — one "Sav
 - **Duplicate/adjacent rows folded:** `soilNotes W9 sweep` → merged into **W9** (it was a row whose entire content was "folds into W9") · the three pond rows (A2 rich-zone + A8 pond-infrastructure + A8 pond/koi) now point at **one** canonical row instead of restating each other · the two A3 bloom rows merged into one (they share a single fix — the template in `harvest-questions.py`).
 - **Structural bug fixed:** B3 items **15–16 were stranded at the very bottom of the file**, orphaned below `## Reconciliation notes` and invisible as fleet work. Returned to B3.
 - **Not done, deliberately:** no row was deleted and no history was compressed. The narrative in the status cells *is* the decision record — it is why this project does not relitigate — so the fix was to make the **next action** findable above it, not to thin it out.
+
+### 📥 Two vehicle-record asks `[routed 2026-08-28 from the /pickup comms sweep]`
+
+Filed here, not into a loop. `ask-cycle.py` refused both — Fernwood's only loop is the
+**mom-cycle**, fired by Mom's input and behaviour, and vehicle records have no beat in it.
+`~/.claude/tools/demand.py` counted the refusals and flagged Fernwood as demand-with-no-door;
+that flag is a prompt to check the map, and the map says the door would be wrong. Recorded so
+the next reader does not re-derive it.
+
+- [ ] **⚡ TIME-SENSITIVE · Two LMC Truck orders shipped to the HOUSE, not the gatehouse.** `owner: paul`
+      `W7610655` — DIN DASH REPAIR KIT-BLACK, part **38-5066**, $86.07.
+      `W7610656` — Buckle Sleeve Tan, part **48-2334-TN** ×2, $18.41. Both placed **2026-08-28
+      2:15 PM ET**, both carrying **282 Church Mountain Rd**. The dash kit is a package and
+      belonged at the gatehouse. LMC customer service: **1-800-562-8782**, Mon–Fri 8am–9pm ET,
+      Sat 9–7 — an address change is plausible before Monday's shipment and not after.
+      ⭐ **The address is now VERIFIED, and the old one was wrong: 12 Lake SEQUOYAH Rd, Jasper,
+      GA 30143.** Memory carried "Sequoia" from voice dictation and flagged it as the first thing
+      to check if a shipment bounced. Confirmed three ways — property records, Tate Mountain
+      Associates' own listed address at that exact number, and the dam project's DCCM document
+      set titled *"Sequoyah Lake Dam"*.
+      ⭐ **The rule is PACKAGES, not all mail** `paul-stated 2026-08-28`: *"the swatch should be
+      fine because it would fit in a mailbox."* Judge by whether it fits in a mailbox.
+      **The durable fix is the saved address in the LMC account, not the rule** — the rule was
+      stated the same morning these orders were placed and the checkout still had the house.
+      Also from the same day, for the Bolores interior work: **Stock Interiors headliner-board
+      swatches requested** — colors A1755, A2055, A2081, A1511, A1587.
+
+- [ ] **A 2016 Golf GTI service visit happened and no `serviceHistory` entry was proposed.** `owner: ai`
+      VW of Marietta sent a service survey **2026-08-28**, which means a visit occurred. Nothing
+      captured it. Pairs with the existing anchor row *"Approve 15 proposed serviceHistory entries
+      + 2 date corrections"* — this would be a 16th, and it is worth asking whether the survey
+      mail is a **general detector** for unrecorded service rather than a one-off catch.
+      ⚠️ The survey proves a visit, not what was done to the car. Date and dealer are evidence;
+      anything about the work itself is not in the mail and must not be inferred into the record.
