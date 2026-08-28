@@ -1,6 +1,8 @@
-# Bolores — Driver Door Panel Repair Guide
+# Bolores — Door Panel Repair Guide (both doors)
 
-*1989 Ford Bronco Eddie Bauer · chestnut interior · driver-side door panel, cracked through with broken clip mounts*
+*1989 Ford Bronco Eddie Bauer · chestnut interior*
+
+> **Scope note (2026-08-28):** this guide was written driver-side-first (that panel is cracked through with broken clip mounts). Everything in STEPS 0–6 is **door-agnostic** — material check, mesh-weld, backing patches, clip pockets, removal technique. The **passenger** panel is a different and much milder job; its own state, findings and sequence live in **STEP 7** at the bottom. Read STEP 7 first if you're working the passenger side.
 
 The goal: structurally sound panel that mounts solidly (no rattle — this is what gates the audio build), with the visible face filled and sanded **ready for primer**. Repair-in-place is the plan; sourcing a replacement panel is the fallback if the repair doesn't hold.
 
@@ -56,7 +58,7 @@ The repaint is the pivot event — a quality exterior + interior refinish forces
 - [ ] **Stainless reinforcing mesh** *(rebar for plastic — best for clip tabs + any crack reaching a panel edge)* — [Polyvance 2045-10](https://www.polyvance.com/Reinforcing-Mesh-1/2045-10/) (industry standard) or a [cheaper generic 5-pack](https://www.amazon.com/Welding-Plastic-Reinforcing-Stainless-Thermoplastic/dp/B08XK52T29). Skip if you go solid-sheet-backing only.
 - [ ] **Plastic trim / door-panel removal tools** — the forked nylon pry tools, so you pull the panel without snapping *more* clips.
 - [ ] **Door-panel retainer clip kit** — correct Ford part #s (N801925-S / N802900-S): [Icyhaws 50-pc](https://www.amazon.com/Icyhaws-Retainer-Compatible-N801925-S-N802900-S/dp/B0FC2SVY5D) (~$8, verified). Replace them all while you're in there.
-- [ ] **(Optional — easiest snapped-post fix) Mounting-post repair kit** — [Blue Truck Parts `DPPRK87`](https://bluetruckparts.com/products/dpprk87) (~$34), brackets engineered for the '87–91 Bronco/F-series panel that bond on to recreate broken mounting posts + color-matched screw-hole caps. *(Found via research — stock not independently verified.)*
+- [ ] **(Optional — easiest snapped-post fix) Mounting-post repair kit** — [Blue Truck Parts `DPPRK87`](https://bluetruckparts.com/products/dpprk87) (~$34), brackets engineered for the '87–91 Bronco/F-series panel that bond on to recreate broken mounting posts + color-matched screw-hole caps. ✅ **ON SHELF since 2026-06-22** — Blue Truck Parts, $30.59 + $2.72 = **$33.31**, order `06-14809-51927`, two eBay line items that day. DETERMINISTIC-MATCH verified in `.private/service-records/bronco-1989/VERIFICATION-2026-07-22.md`. **Paul-confirmed 2026-08-28:** the kit **includes the color-matched screw-hole caps**, the bracket mounts on the **back** of the panel (invisible when installed), and it **ships cyanoacrylate (super glue) gel** as its adhesive. Do not re-buy. *(This line previously read "Found via research — stock not independently verified" — the guide was two months behind the receipt.)*
 - [ ] **Degreaser** — isopropyl alcohol (90%+) and/or acetone, plus clean rags. *Non-negotiable: nothing bonds to years of skin oil + Armor-All.*
 - [ ] **Sandpaper** — 80/120/220 grit (scuff for adhesion + knock down repairs) and 320/400 for finish.
 - [ ] **Nitrile gloves, mixing sticks, plastic spreaders, painter's tape, clamps / spring clamps.**
@@ -219,3 +221,140 @@ everything done inside it is gone. See `guides/bolores-shop-shortlist.md` → "Q
 ---
 
 *Companion to the `bronco-1989` restoration list in `vehicles.json` → "Driver door panel."*
+
+---
+
+## STEP 7 — THE PASSENGER DOOR PANEL (bench session opened 2026-08-28)
+
+*Written live while Paul had the panel on the bench. This section is the single source of truth for the passenger side; STEPS 0–6 above still supply the technique.*
+
+### State as found — and it's good news
+
+The passenger panel is in **substantially better shape than the driver's**. Photo-confirmed 2026-08-28, panel off the truck and on the bench:
+
+- **Retainer clips still seated in their pockets** around the perimeter — several intact along the bottom edge. This is the big difference from the driver side ("cracked through with broken clip mounts"). The passenger job may be a **strip-clean-repair-refinish**, not a structural rebuild.
+- **One damaged screw hole**, previously stopgapped by Paul with a **metal washer glued on with cyanoacrylate** to spread load and stop the tear-out progressing. Correct instinct; it held for months.
+- **Back-side insulation pad** present, glued over the flat lower/middle field — torn and ragged around the openings, partially detached, with a slit cut through it near centre by someone at some point.
+- ⚠️ **UNRESOLVED — a dark line runs through the lower field** in both photos. Molding seam or crack? **Fingernail-test it after the gross clean** (grime hides hairline cracks — this is why cleaning precedes assessment). Catches = crack, and STEP 2 applies.
+
+### The insulation — identified, and what replaces it
+
+**What it is:** **recycled cotton shoddy** — garnetted textile waste, needle-punched into a batt. The colored flecks (red/green/blue threads through the gray) are the identifying tell. Standard automotive insulator through the '80s–'90s. **Not** fiberglass, **not** jute, **no asbestos concern** on an '89 trim pad. Dusty and possibly moldy — wear a mask, bag it as it comes off.
+
+**What it was doing** — read it off the placement: it covers the big *unsupported flat field* and stops short of the reinforced perimeter. That makes it an **anti-drum absorber and anti-buzz spacer**, not a thermal blanket. Ranked by what actually matters:
+1. Damping the flat field so the door doesn't sound like a drum head on close.
+2. Keeping plastic off inner door metal so it doesn't buzz. **This is the one that gates the audio build.**
+3. Trivial thermal benefit — a rounding error.
+
+**Remove it: YES.** Four reasons, and the last one forces it regardless of the others:
+- Already torn, ragged and lifting free — a partially-detached damper doesn't damp.
+- Recycled cotton is a moisture sponge and a nesting medium (same mechanism the record caught in the bed corner: *"degraded jute/carpet remnant sitting directly in the wet corner"*).
+- It's glued over exactly the field any backing patch would bond to.
+- The Phase-4 soundproofing plan supersedes it anyway.
+
+**Replace it: YES — and this is not optional.** Strip it and fit nothing and you get precisely what it was preventing: hollow slap on close, plus buzz where the panel touches metal. Self-inflicted, on the truck whose whole audio build is gated on "no rattle."
+
+**Replacement spec — 1/8" closed-cell foam (CCF), cut from the old pad as a template.** NOT a new fiber pad.
+
+> ⚠️ **BUTYL IS NOT THE REPLACEMENT.** Per the four-layer model in `vehicles.json`: butyl CLD is **layer 1 (DAMPING)** and belongs on the door's **outer skin, bonded to metal**. The shoddy pad was doing **layers 2 (DECOUPLING) and 4 (ABSORPTION)**. Different job, different surface, different material. **Paul does not currently own a layer-2 material — CCF is a shopping item.** (Butyl leftovers on the panel's biggest flat field are a marginal bonus, not the fix.)
+
+**Two rules on the CCF:**
+- **Same thickness as the old pad or thinner.** Old pad measures ~1/4"; go 1/8" for margin. Thicker → panel stands proud → nearby clips fight it → you have built the rattle you were preventing. (Same fitment trap as the Carpet entry.)
+- **Find the rub marks first.** Before binning the pad, look for shiny/worn spots on the panel back and the door shell where they've contacted for 37 years. **Foam or felt tape at those specific points is the highest-value move in this whole job.** Full-field foam is the nice-to-have; the contact points are the actual fix.
+
+**Timing: the CCF goes on at REASSEMBLY, not now.** Don't put foam on a panel that still has to be masked and handled around a spray booth. Right now: pull the pad, **trace the template onto paper or cardboard immediately** (in case the pad disintegrates), keep the pad flat.
+
+### The glued washer — removal (SOLVED 2026-08-28)
+
+**Outcome: it twisted off cleanly. Underside of the washer showed no plastic — the bond failed at the glue, the panel lost no material.**
+
+**What worked:** grip the washer with pliers and **twist it in plane**. It resisted at first; enough torque sheared it.
+
+**Why that's the move:** cyanoacrylate has decent tensile strength and poor shear. Twisting shears a thin glue film. **Prying or lifting loads the *panel* in peel — that's the one action that can tear a disc of ABS out of an already-damaged hole and make the problem worse.** Twist, never lift.
+
+**Things that were considered and are recorded so they aren't re-litigated:**
+- ⛔ **Oil soak does NOT work.** Cured CA is not soluble in oil and does not "rehydrate" — it's polymerized, not dried out. The ubiquitous online advice is for superglue **on skin** (where oil softens the *skin*) and for **sticker/tape residue** (a different adhesive chemistry that oils genuinely do dissolve). Vegetable and olive oil are the same thing here; neither works. If soaking anyway, use **mineral oil** — vegetable oils oxidize to a gummy film — and time-box it to an hour.
+- ⛔ **Do not use a soldering iron.** 700°F on a metal washer sitting on ABS will mark it in seconds. This was suggested in-session and retracted.
+- ✅ **Heat is NOT a real danger if the tool can't reach the threshold.** ABS softens ~221°F; a hair dryer tops out ~150°F and physically cannot get there. A heat gun on low, kept moving, is what this guide already prescribes for heat-forming ABS. Choose a tool whose ceiling is below the failure point rather than being careful with one that isn't.
+- ✅ **If grip fails** (thin washer, nothing to hold): shock it laterally with a punch and light hammer taps — CA is brittle and fails better under impulse than steady force — or **grind the washer away** with a Dremel. Zero load on the panel.
+- 💡 **Best insight, if it recurs: the goal is FLUSH, not REMOVED.** Filing/sanding a thin washer down flush solves the actual problem and keeps its load-spreading benefit. Only fully remove it if the bracket needs to bond chemically to bare ABS.
+
+### The DPPRK87 bracket install
+
+**What the kit is** (Paul-confirmed 2026-08-28, holding the part — this beats the June research note): the bracket mounts on the **back** of the panel and is **invisible** when installed; the kit **includes the color-matched screw-hole caps**; and it **ships cyanoacrylate gel** as its adhesive.
+
+**What the CA gel tells you — this is the load-bearing inference:**
+- **The bracket is a locator and load-spreader. The SCREW carries the load.** CA gel is not a structural adhesive for a load path. Consequence: bond area matters less than feared, and **not overtightening the screw matters much more** — over-torque into brittle 37-year-old ABS is almost certainly what tore the hole out originally, and a new bracket torqued the same way fails the same way. Snug, then stop. A nylon or rubber-backed washer under the head spreads bearing load and adds compliance.
+- **Corroborating evidence on substrate:** a vendor specializing in '87–91 Ford panels shipping CA gel implicitly asserts the panel takes CA well → **points ABS** (CA is mediocre on polypropylene). Supports the STEP 0 hypothesis; does **not** replace the acetone test.
+- ⚠️ **CA gel has essentially NO GAP FILL.** So **flatness matters in BOTH directions** — a dish means the bracket bonds only at its rim. *(An earlier in-session note said "a slight dish is fine, a bump is not." That was epoxy logic and is wrong for this adhesive.)* Sand the CA ring flat with 120 on a **rigid block**, then check by test-fitting the bracket and looking for light under it — not by feel.
+- ⚠️ **CA gel gives up around 180°F.** A paint bake runs 140–180°F. → **Question for Larry: does interior trim get baked, and at what temperature?**
+- ✅ **Adequacy: CA is good enough here.** Evidence from this very session — the old washer's CA bond, on a dirty unprepped 37-year-old surface, required pliers and real torque to shear. A scuffed, degreased, flat bond will be considerably better. Don't second-guess the vendor's choice.
+- 💡 **Optional belt-and-suspenders:** tack with the supplied gel, then epoxy the perimeter once it's held. Matches this guide's existing ABS pattern ("solvent-weld, then epoxy the edges") and Paul's proven `vehicles.json` **"Screw-boss rebuild"** technique (heat-shrink form + JB Weld), whose note reads *"arguably more durable than the original brittle plastic."*
+
+**Handling CA gel:** no repositioning — dry-fit and **pencil the outline first**, then commit. Scuff **both** faces (3D-printed parts have a glossy print skin and handling oils; PETG especially bonds badly unabraded — the layer lines give good tooth once scuffed through). Degrease immediately before, not earlier. Press and hold; don't crush.
+
+**Before/after paint?** The bracket is back-side and invisible, so it is **not** paint-dependent. Default: **bond it now** rather than leaving the panel half-repaired for months waiting on a booth date — the bake risk is small and the failure mode is a re-glue of a part nobody can see. The **color-matched caps go on AFTER paint** regardless; they're finished parts, you don't spray them.
+
+### Cleaning — you clean TWICE, and the first one comes earlier than instinct says
+
+**1. Gross clean — BEFORE you assess.** Soap, water, degreaser, both faces. Not cosmetic. Two reasons: **grime hides hairline cracks** (you cannot honestly survey a dirty panel, and assessment is the whole point of having it bare), and sanding/scraping a dirty panel **drives contaminants into** the plastic. Then **dry completely** — a full day or blow it out; old panels hold water in seams and nothing bonds to damp.
+
+**2. Local bond prep — at each joint, immediately before bonding.** Scuff, degrease, bond. Never rely on last month's big clean to serve today's joint.
+
+**3. Final prep clean — immediately before it goes to Larry.**
+> ⚠️ **HIGHEST-STAKES CLEANING OF THE WHOLE JOB: the show face.** Decades of Armor-All means **silicone**, and silicone is *the* fisheye contaminant in a paint booth. Multiple passes with a proper wax-and-grease remover, **fresh rag each pass**. **Gloves from this point forward** — skin oil after the final wipe undoes it. Raise it with Larry directly; a protectant-soaked 37-year-old interior panel is a known shop headache.
+
+⚠️ Adhesive residue from the pad: **mineral spirits or 3M adhesive remover — NOT acetone** (acetone is the ABS solvent-weld and will haze and soften the panel). Then isopropyl to lift the oily film every adhesive remover leaves.
+
+### THE SEQUENCE
+
+```
+strip → gross clean → dry → assess (+ acetone test) → repair (incl. bracket)
+      → filler & sand show face → final prep clean → BOOTH
+      → color-match caps + CCF + hardware + NEW clips → test with panel OFF → install ONCE
+```
+
+**Now — strip & document**
+- [ ] Photograph the back before anything else comes off
+- [ ] Pull the shoddy pad, keep it **intact and flat** — it's the CCF cut pattern
+- [ ] **Trace the template onto paper/cardboard immediately**
+- [ ] Note/photograph the **rub marks** on the panel back
+- [ ] Remove hardware: door pull, courtesy light, switch plate, trim
+- [ ] Bag + label fasteners **by location**, not in one pile
+
+**Now — gross clean, then dry a full day**
+
+**Now — assess (the real payoff of having it bare)**
+- [ ] Fingernail-test the line in the lower field — crack or molding seam?
+- [ ] Survey **every** screw hole. The one that failed was just first — same age, same brittleness. Two kit orders are on shelf, so there's material
+- [ ] Survey every clip pocket up close
+- [ ] ⭐ **Acetone test → record the substrate.** STEP 0 gate, open since June, never confirmed on an original panel. Decides the adhesive column for BOTH doors. `Substrate = __________`
+
+**Now — repair (bench, unhurried; cure times are free here)**
+- [ ] Sand the CA ring flat, 120 on a block; test-fit for light underneath
+- [ ] Bond the DPPRK87 bracket (dry-fit → pencil → scuff → degrease → gel)
+- [ ] Any cracks: **drill the crack ends first**, then back-reinforce per STEP 2
+- [ ] Rebuild any broken clip pockets (STEP 4)
+- [ ] Flexible filler on the show face → 220 → 320 → 400. **Stop at primer-ready. No color matching.**
+
+**Later — at reassembly, after paint**
+- [ ] Color-matched screw-hole caps
+- [ ] CCF from the template + felt tape at the contact points
+- [ ] Hardware back on; **NEW clips** (Icyhaws 50-pc, on shelf)
+- [ ] **Test window, lock, speaker, handle with the panel still OFF**
+- [ ] Panel on. Once.
+
+### OPEN — needs Paul
+
+1. ⭐ **Acetone test result** — panel substrate. Gates both doors.
+2. **Is the line in the lower field a crack?** Fingernail test after the gross clean.
+3. **What is the blue/silver foil sheet in the 8/28 bench photos?** ⚠️ **No sound-deadening MAT exists in any purchase record** — Amazon, eBay, all of it. The only line item is a *Sound Deadener Application Roller, $9.03, 2026-02-24*, and the record from that week says *"Optional door sound-deadening + foam speaker rings not yet done (discussed only)."* Read the label and file it; this is a genuine gap in the parts record, not a lookup failure.
+4. **Sequence question:** Paul said 2026-08-28 "we're gonna do paint last overall." This guide's Phase 3 puts paint **before** reassembly (panels sprayed, then on once). If "last" means the last *major phase*, no conflict. If it means after the truck is back together, **that breaks the one-removal protocol** — the panel would go on and come back off. Needs resolving before Phase 2 commits.
+5. **For Larry:** does interior trim get baked, and at what temperature? (CA gel limit ~180°F.)
+
+### Still to fold into `vehicles.json` (held 2026-08-28 — concurrent GTI session in this repo)
+
+- A **"Passenger door panel"** restoration item (none exists; the record has driver-side only)
+- The shoddy-pad finding + CCF replacement spec + the layer-1-vs-layer-2 distinction
+- DPPRK87 status: **ON SHELF**, contents confirmed, ships CA gel
+- The washer removal result (panel intact)
