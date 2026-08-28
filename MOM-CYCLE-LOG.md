@@ -1493,3 +1493,31 @@ HER input fires it"* exists to prevent. The one trigger an arrival-only loop can
   explanation that predicts identical telemetry. **A person who does not recognise a control and a
   person who prefers not to use it produce the same zeros.** Only one of those is a preference, and
   the discriminating probe does not exist yet.
+
+## 2026-08-28 — NO LAP. The repo moved, and **~18 rows left this loop's scope on purpose.**
+
+Recorded so `cycle-docs-check` can tell a meta change from an unrecorded lap. Nothing about
+Mom's surface changed; she is not implicated in any of it.
+
+**What happened.** `BACKLOG.md` has said since 2026-07-17 that Fernwood is **two products in one
+repo** — Track A (Mom's field journal, this loop's subject) and Track B (Paul's fleet & equipment
+tracker). The cross-project registry did not know that: `cycle_sweeps: ["Fernwood"]` declared
+**this loop the sweeper of all 41 live anchor rows**, ~18 of which are Bolores, GTI, F-150,
+Generac, parts and service work that has **no beat anywhere in this map**. Those rows were being
+suppressed from Paul's focus list on a coverage claim this loop could never have honoured.
+
+**The fix, per `operating-layer/DECISIONS.md` D41** `[paul-ratified 2026-08-28]` — *a repo is a
+place, a project is a subject, and one repo may be touched by several loops.* Track B rows now
+carry their own anchor project string, **`Fernwood Fleet`**, and this loop's sweep is truthful at
+23 rows. Verified after the fold: 41 live before, 41 after, none lost, none live in both.
+
+**⚠️ Track B has a DOOR but no LOOP.** `cycle/requests.jsonl` was added the same day so another
+project can file a vehicle/parts correction (`ask-cycle.py fernwood-fleet …`) — built because
+`ask-cycle` **correctly refused** two such asks on 8/28 and `demand.py` had logged them as
+demonstrated demand. It is a durable inbox, **not an alarm**: nothing sweeps Track B on a cadence,
+and its 14 Paul-owned rows now sit in his focus list, which is the honest place for them.
+
+⚠️ **`demand.py` will keep flagging Fernwood** — its refusals are keyed to the `tate-tracker`
+slug, and *this* loop still has no inbox of its own. That reading is correct; do not clear it by
+giving the mom-cycle a door. An inbox wired into this loop's trigger would fire a mom-lap for work
+it cannot do, which is the thing the tool's own docstring warns against.
