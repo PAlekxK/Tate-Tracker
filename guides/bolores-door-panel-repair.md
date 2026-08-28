@@ -354,6 +354,19 @@ strip → gross clean → dry → assess (+ acetone test) → repair (incl. brac
 
 1. ⏸ **Acetone test — DEFERRED by Paul 2026-08-28** ("rather not do an acetone test... I could do one later when it's fully clean"). Working assumption is therefore **ABS — ASSUMED, NOT VERIFIED**, resting on three independent lines: (a) every repro panel (DashSkin, LMC, Classic Industries) is vacuum-formed ABS; (b) the driver panel's failure — rigid plastic cracked through, snapped clip tabs — is the classic ABS mode; (c) Blue Truck Parts, an '87–91 Ford panel specialist, ships **CA gel** with its kit, and CA is mediocre on polypropylene. **Where the assumption actually bites: only crack repair.** The bracket (vendor-supplied CA gel) and the CCF (adhesive-backed) are both substrate-agnostic, so under the 8/28 resequence this gate blocks nothing until a crack needs a bonded backing patch. Run it then, on a clean panel.
 2. **Is the line in the lower field a crack?** Fingernail test after the gross clean.
+   **Narrowed 2026-08-28 from the post-clean bench photos — a MODEL READ, not a finding.** The back
+   shows **two populations of line, and they read differently**, which is itself the useful part:
+   - **Short, parallel, evenly-spaced lines in the upper-left field** (present in both the dirty and
+     the cleaned photos) → most likely **tooling / knit lines**. Cracks do not arrive parallel and
+     evenly spaced.
+   - **Irregular, branching lines around the old glued-washer screw hole** → these have the
+     character of **genuine radiating tear-out**, and are consistent with the known damage at that
+     hole.
+
+   ⚠️ **A photo cannot settle this and this note does not close the item** — per the
+   verification doctrine a vision read is a hypothesis. It is a *targeting* list: fingernail-test
+   those two zones specifically. Catches = crack → STEP 2 (drill the crack ENDS first, then
+   mesh-weld from the back).
 3. ✅ **RESOLVED 2026-08-28 — the blue/silver sheet is CLD butyl, and Paul already owns 36 sq ft of it.**
    **CUKWUYBY Butyl Sound Deadening, 80 mil (2 mm), 36 sq ft, 33 sheets @ 15.75" × 9.84" — ASIN `B0F1MV7GRF`. Amazon product page reads "Last purchased Feb 23, 2026."** 3-layer: aluminium foil / butyl core / adhesive. $42.49 as read 2026-08-28 (typical $48.99); 4.7★, 441 ratings.
    **Paul's read was right: it's butyl and it belongs on metal.** → **LAYER 1 (DAMPING) IS FULLY STOCKED. Buy no butyl.**
@@ -438,16 +451,44 @@ strip → gross clean → dry → assess (+ acetone test)
 | **DPPRK87 bracket kit** | Blue Truck Parts, 2× orders 2026-06-22, $33.31. Includes colour-matched screw-hole caps + CA gel. |
 | **Icyhaws panel clips** | 50 pc, 2026-06-22, $8.70 — but see the clip-budget note below. |
 
-### 🛒 ORDERED 2026-08-28 (Paul-stated; order confirmation not independently read)
+### 🛒 ORDERED 2026-08-28 — ✅ **VERIFIED against Amazon order history, not Paul-stated**
+
+> ⚠️ **The 8/28 first pass of this table was WRONG on two of four rows, and the caveat it carried
+> ("Paul-stated; order confirmation not independently read") is what caught it.** Paul reported a
+> "partial cancellation"; the browser check found **no cancellation at all** — the tape and the
+> clips had **never been placed**. Both were still sitting in the active cart. Keep the caveat
+> discipline: *a stated order is a hypothesis until the order number is read.*
 
 | Item | Qty | Price | ETA |
 |---|---|---|---|
-| **LLPT butyl tape, 1" × 33 ft, BLACK** — vapor-barrier reseal | 1 | $14.39 | Aug 29 |
-| **Icyhaws 50 pc panel clips** — `N801925-S` **+** `N802900-S` | 2 | $7.49 ea | Aug 31 |
-| **ToLanbbt sponge neoprene, 1/8" × 12" × 59"** — the CCF layer | 2 | $12.97 ea | Aug 29 |
-| **Frost King `P1025B/6` polyethylene sheeting, 10' × 25' × 6 mil, BLACK** — the water shields | 1 | $23.00 | Aug 29 |
+| **Frost King `P1025B/6` polyethylene sheeting, 10' × 25' × 6 mil, BLACK** — the water shields | 1 | $22.60 | **Aug 29** |
+| **ToLanbbt sponge neoprene, 1/8" × 12" × 59"** — the CCF layer | 2 | $27.76 | **Aug 30 (Sun)** |
+| **LLPT butyl tape, 1" × 33 ft, BLACK** — vapor-barrier reseal · ASIN `B0822FNHFQ` | 1 | $15.40 | **Aug 30 (Sun)** |
 
-**Subtotal $55.31.** Selection notes, so this isn't re-litigated later:
+**Verified total $65.76.** All three read off the live orders page 2026-08-28 after Paul re-ordered
+the tape. 🔒 **The order numbers live in `.private/service-records/TOOLS.md`, not here — this repo is
+PUBLIC.** Keep account identifiers on the private side of that line.
+
+**❌ NOT ordered — corrected 2026-08-28:**
+- **Icyhaws 50 pc panel clips ×2.** No August order exists; an order-history search for
+  `panel retainer clips` returns Icyhaws **only on 2026-06-22**. Paul's call: he has that 50-pc box
+  and it covers this install. The two-installs × two-doors budget note below still stands as the
+  argument for a second box at ~$7.49 — deferred, not forgotten. Not urgent: clips are
+  reassembly-time.
+
+⚠️ **THE LOOKALIKE TRAP — the reason the right tape is worth naming by ASIN.** Paul's cart held
+**two LLPT butyls**, same brand, ~$1 apart, near-identical titles:
+
+| ASIN | Product | Verdict |
+|---|---|---|
+| ✅ `B0822FNHFQ` | LLPT Butyl **Tape**, 1" × 33 ft, black — **flat ribbon** | **CORRECT — ordered.** Wide flat ribbon seals the barrier edge |
+| ⛔ `B084VM3Q2L` | LLPT Butyl Sealant **Rope** Tape, 3/8" × 16.5 ft — round bead | Wrong shape for a door water shield. Left in cart, unordered |
+
+⚠️ **The cart is a re-buy trap.** After the tape order, the cart still holds the **Frost King
+sheeting and the ToLanbbt foam — both already purchased.** Checking that cart out wholesale
+re-buys ~$50 of parts already inbound. Flagged to Paul 8/28.
+
+**Selection notes, so this isn't re-litigated later:**
 - **Clips — Icyhaws over the cheaper-per-piece 100 pc kits.** The 100 pc options cover `N801925-S` ONLY; Icyhaws covers **both** Ford part numbers, and it is the exact clip already installed on this truck (June 2026). **For a fitment part, proven-on-this-vehicle beats review count** — Icyhaws has only 5 ratings and that's fine. 2 boxes = 100 clips for the two-install budget.
 - **Dorman was checked and rejected** despite being a brand Paul has used twice on Bolores (742-251, 38424): their panel retainers are 2–15-review blister packs with 1–5 units in stock. Wrong product shape for a bulk reclip.
 - **Tape — black, so LLPT not Dicor.** There is no true black Dicor in this form; their `BBT` line reads black but is gray. LLPT is a butyl specialist, 3,520 ratings @ 4.7, Amazon's Choice, stated range −20 to 98 °C. Dicor has the deeper reputation (12.9K ratings, RV-industry standard) — that was the trade made for colour, on a part that is invisible behind the panel. Ordered 1" (not the 3/4" originally speced); fine, arguably better for bedding a water shield.
@@ -488,16 +529,75 @@ A sheet or two of the CUKWUYBY butyl on the panel's **largest flat field** damps
 **The parts gate REASSEMBLY, not the bench work.** Everything through bonding the bracket is unblocked right now — the DPPRK87 kit and its CA gel are already on the shelf.
 
 **Do while waiting (and the timing is nearly perfect — the gross clean wants a full day to dry anyway):**
-- [ ] Pull the shoddy pad; keep it flat; **trace the template onto card immediately**
-- [ ] Photograph the rub marks on the panel back
+- [x] ✅ **Pull the shoddy pad** — done 8/28, photo-confirmed (pad peeling off the back-side field)
+- [ ] ⚠️ **Trace the template onto card** — ❓ **UNKNOWN, asked and not yet answered.** The pad is
+      already off. If it wasn't traced, do it before the pad moves again or disintegrates — it is
+      the CCF cut pattern and there is no second source for it
+- [ ] ⚠️ **Photograph the rub marks on the panel back** — ❓ **UNKNOWN, asked and not yet answered.**
+      The back has now been washed. Burnished/shiny contact spots should survive soap and water, but
+      they were easier to read dirty. Per STEP 7 these points are *"the highest-value move in this
+      whole job"* — full-field foam is the nice-to-have
 - [ ] Hardware off, fasteners bagged by location
-- [ ] Gross clean both faces → **dry a full day**
+- [x] ✅ **Gross clean — THE BACK, done 2026-08-28** `paul-stated`. Sequence run: peeled the bulk
+      adhesive residue mechanically → Dawn + rag + scour sponge, several passes, wiping off and
+      going back over → finished with **watered-down isopropyl** on the remaining tack. Paul's call
+      to stop short of bare plastic — *"at some point it just damages the door"* — is **correct and
+      is now doctrine for this panel** (see the standard below)
+- [ ] Gross clean — **the SHOW FACE** → then **dry a full day**
 - [ ] Assess on a clean panel: fingernail-test the line in the lower field; survey every screw hole and clip pocket
 - [ ] Sand the CA ring flat (120 on a block); test-fit the bracket for light underneath
 - [ ] Bond the bracket — dry-fit → pencil the outline → scuff both faces → degrease → gel
 - [ ] *(optional, free)* acetone-test the panel now that it's clean — STEP 0 has been open since June
 
-**Blocked until the boxes land:** vapor-barrier reseal (tape), CCF on the panel back (foam), reinstall (clips).
+### ⭐ The standard on the back is BOND FOOTPRINTS, not "clean" `resolved 2026-08-28`
+
+Paul asked whether to keep scrubbing. **No — and the reason generalises.** On the back there is no
+cosmetic requirement at all; the only areas that must reach bare, scuffed, degreased plastic are the
+**bond footprints**: the DPPRK87 bracket pad, the CCF field, and any crack that gets back-reinforced.
+Residue anywhere else on the back is invisible forever and costs nothing.
+
+And that prep is **local and late** — it happens at each joint immediately before bonding, which is
+this guide's existing "you clean TWICE" rule (STEP 7): *"Never rely on last month's big clean to
+serve today's joint."* So the answer to "should I scrub it all the way down" is **no, and you also
+don't need to** — the remaining residue is either irrelevant or will be removed locally at bond time.
+
+⚠️ **The dilution note.** Watered-down isopropyl is fine as a residue wipe, but the **final bond-area
+prep needs 91% or 99% undiluted**. STEP 10's rule — 70% *"is mostly water and wets the surface
+without cutting oil"* — and diluting 91% walks it toward exactly that failure. `TOOLS.md` still
+carries Paul's IPA strength as **❓ unverified**; read the bottle before the bracket goes on.
+
+⚠️ **Scour sponge: back only.** Fine on the back where nothing is delicate. **Keep it off the show
+face** — STEP 10's warning is that aggressive abrasion *"burnishes the high points and leaves a
+blotchy shine that reads worse than the dirt did,"* and burnished grain does not come back.
+
+### ⭐ "Can I reinforce the plastic from the backside?" — YES, and it is fully stocked `paul-asked 2026-08-28`
+
+**There is no generic "reinforce the panel" move.** Reinforcement is always applied to a *named
+failure*, and three apply to this panel. All three are executable today with zero purchases:
+
+| Failure | Fix | Stock |
+|---|---|---|
+| The torn-out screw hole | **DPPRK87 bracket**, bonded to the back, invisible installed | ✅ on shelf since 2026-06-22 (ships its own CA gel) |
+| Any confirmed crack | **Drill the crack ENDS first**, then mesh-weld from the back | ✅ ATOLS hot stapler + stainless mesh + tips + heat gun, all on shelf |
+| Broken clip pockets / tabs | Mesh-weld a new tab, or an ABS backing plate (STEP 4) | ✅ mesh path stocked |
+
+⭐ **The unlock, and it resolves the gate Paul deferred this morning: mesh-welding is MECHANICAL,
+not adhesive — it behaves identically on ABS or PP.** So the STEP 0 acetone/substrate test blocks
+**no** crack repair. It only matters if he chooses a *bonded* ABS backing patch instead. Crack work
+can start now on an unresolved substrate.
+
+⚠️ **Drilling the crack terminus is not optional.** Skip it and the reinforcement simply relocates
+the crack rather than stopping it.
+
+⚠️ **The bracket is a back-side, invisible part → bond it NOW, don't wait on the booth.** Two things
+decide whether it holds, both already in STEP 7: sand the old CA ring **flat on a rigid block** and
+test-fit looking for light underneath (CA gel has essentially no gap fill), and **do not overtighten
+the screw** — over-torque into brittle ABS is the most likely original cause of the tear-out, and a
+new bracket torqued the same way fails the same way.
+
+**Blocked until the boxes land:** vapor-barrier reseal (tape, **Aug 30**), CCF on the panel back
+(foam, **Aug 30**), water shields (sheeting, **Aug 29**). Reinstall clips: **not blocked** — the
+June 22 Icyhaws 50-pc box is on shelf.
 
 
 ---
@@ -622,6 +722,28 @@ feeding-the-plastic is mostly marketing for hard plastics.
 - **Apply LAST**, once repairs are done and it is going back on.
 - ⭐ **Tell Larry exactly what was used.** A shop preps differently when it knows; "silicone-free,
   water-based" is a genuinely different answer for them than "Armor-All."
+
+#### ⭐ "Should I ask the conditioner question AFTER everything is glued on?" — YES `paul-asked 2026-08-28`
+
+Paul arrived at the right sequencing on his own and it is worth stating as a rule, because the
+reason is stronger than tidiness: **any dressing is a bond RELEASE AGENT.** Silicone or oil, it
+leaves a film, it migrates *into* aged plastic rather than sitting on it, and washing does not undo
+it. So this is a hard ordering constraint, not a preference:
+
+> **All bonding first. Conditioning last. And on the back, never.**
+
+Corollary that bites *before* the conditioner ever comes out: keep contamination off the panel in
+the meantime too — no silicone spray, no WD-40, no Armor-All anywhere near it while glue-up is
+still pending.
+
+**Calibrate the payoff honestly** (this is why it is safe to defer): on rigid grained ABS the real
+benefit is **UV blocking**, not conditioning. It will **not** restore flexibility to brittle
+37-year-old plastic — nothing will. That is what makes the two questions Paul asked together
+actually *separate* jobs: the dressing is cosmetic and UV, and **structural recovery comes entirely
+from the backside work** (bracket + mesh-weld), not from any product applied to the face.
+
+💡 Secondary payoff of stopping the scrub where he did: a water-based dressing evens out tone and
+will help hide the residue shadow he chose not to abrade away.
 
 
 ---
