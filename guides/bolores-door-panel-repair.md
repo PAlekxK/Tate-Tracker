@@ -432,7 +432,21 @@ strip → gross clean → dry → assess (+ acetone test)
 | **DPPRK87 bracket kit** | Blue Truck Parts, 2× orders 2026-06-22, $33.31. Includes colour-matched screw-hole caps + CA gel. |
 | **Icyhaws panel clips** | 50 pc, 2026-06-22, $8.70 — but see the clip-budget note below. |
 
-### 🛒 TO BUY
+### 🛒 ORDERED 2026-08-28 (Paul-stated; order confirmation not independently read)
+
+| Item | Qty | Price | ETA |
+|---|---|---|---|
+| **LLPT butyl tape, 1" × 33 ft, BLACK** — vapor-barrier reseal | 1 | $14.39 | Aug 29 |
+| **Icyhaws 50 pc panel clips** — `N801925-S` **+** `N802900-S` | 2 | $7.49 ea | Aug 31 |
+| **ToLanbbt sponge neoprene, 1/8" × 12" × 59"** — the CCF layer | 2 | $12.97 ea | Aug 29 |
+
+**Subtotal $55.31.** Selection notes, so this isn't re-litigated later:
+- **Clips — Icyhaws over the cheaper-per-piece 100 pc kits.** The 100 pc options cover `N801925-S` ONLY; Icyhaws covers **both** Ford part numbers, and it is the exact clip already installed on this truck (June 2026). **For a fitment part, proven-on-this-vehicle beats review count** — Icyhaws has only 5 ratings and that's fine. 2 boxes = 100 clips for the two-install budget.
+- **Dorman was checked and rejected** despite being a brand Paul has used twice on Bolores (742-251, 38424): their panel retainers are 2–15-review blister packs with 1–5 units in stock. Wrong product shape for a bulk reclip.
+- **Tape — black, so LLPT not Dicor.** There is no true black Dicor in this form; their `BBT` line reads black but is gray. LLPT is a butyl specialist, 3,520 ratings @ 4.7, Amazon's Choice, stated range −20 to 98 °C. Dicor has the deeper reputation (12.9K ratings, RV-industry standard) — that was the trade made for colour, on a part that is invisible behind the panel. Ordered 1" (not the 3/4" originally speced); fine, arguably better for bedding a water shield.
+- **Foam is a no-name and that's OK.** 1/8" closed-cell adhesive neoprene is a commodity — the spec is the spec, there is no brand quality in it. The reputable names (Second Skin, Resonix, Siless) only sell CCF in 36 sq ft automotive rolls at $45+, which is a floor-and-tunnel purchase, not two door panels.
+
+### 🛒 SUPERSEDED — the original shortlist
 
 **1. CCF — closed-cell foam, 1/8", adhesive-backed → the panel-back layer. THE ONE THING BLOCKING REASSEMBLY.**
 Sponge neoprene is the right pick here over PE foam: it's compliant, conforms, and is exactly what you want at a rub point.
@@ -458,3 +472,22 @@ Wide flat ribbon beats round rope for a door water shield — it seals the barri
 A sheet or two of the CUKWUYBY butyl on the panel's **largest flat field** damps it — the layer-1 job applied to plastic. Less dramatic than on steel (plastic is already more self-damping) and strictly optional, but it's paid for and sitting there. Keep it to the flat field, then CCF over the top: **CLD first, foam second.** Do not add mass out near the clip pockets.
 
 ⚠️ This is the **panel**, not the door skin. **Butyl on the outer SKIN stays gated on Larry** — see the resequence section.
+
+
+---
+
+## ⏳ WHAT THE SHIPMENT ACTUALLY GATES (2026-08-28)
+
+**The parts gate REASSEMBLY, not the bench work.** Everything through bonding the bracket is unblocked right now — the DPPRK87 kit and its CA gel are already on the shelf.
+
+**Do while waiting (and the timing is nearly perfect — the gross clean wants a full day to dry anyway):**
+- [ ] Pull the shoddy pad; keep it flat; **trace the template onto card immediately**
+- [ ] Photograph the rub marks on the panel back
+- [ ] Hardware off, fasteners bagged by location
+- [ ] Gross clean both faces → **dry a full day**
+- [ ] Assess on a clean panel: fingernail-test the line in the lower field; survey every screw hole and clip pocket
+- [ ] Sand the CA ring flat (120 on a block); test-fit the bracket for light underneath
+- [ ] Bond the bracket — dry-fit → pencil the outline → scuff both faces → degrease → gel
+- [ ] *(optional, free)* acetone-test the panel now that it's clean — STEP 0 has been open since June
+
+**Blocked until the boxes land:** vapor-barrier reseal (tape), CCF on the panel back (foam), reinstall (clips).
