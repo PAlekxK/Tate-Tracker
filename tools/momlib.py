@@ -1154,6 +1154,228 @@ def latest_mom_input(token, days=60, since=None):
     return {"latest": newest, "channels": out, "errors": errors}
 
 
+
+# ------------------------------------------- per-arrival dispositions (2026-08-28)
+#
+# ⛔ THE CONTROL THAT REPLACES A BATCH CLEAR. `channel-read-state.json` holds ONE
+# watermark per channel (`readThrough`), and a watermark is a batch instrument by
+# construction: advancing it past a timestamp clears every record at or before it,
+# whether or not anyone opened them. That is how the 2026-08-09 Fairway recording
+# was cleared on 08-10 — the interlap note read *"the 08-09 traffic that lit the
+# board is Paul's own — the Guru turn says so in its own text"*, and a DIFFERENT
+# record's self-identification carried the whole day. The recording was seen four
+# days before anyone staged it, and the batch clear left no hole for the next
+# sweep to find.
+#
+# A per-record omission self-heals. A batch clear does not. So the disposition is
+# keyed by (channel, record id) and nothing else can supply it.
+#
+# ⭐ AND IT IS NOT A SECOND LEDGER FOR FEEDBACK. `feedback-log.json` has recorded
+# per-note dispositions since 2026-07-26 and is the model this generalises; the
+# feedback channel still reads and writes THAT file, through the adapter below.
+# One rule, two stores, no migration of a tracked record.
+ARRIVAL_LOG = os.path.join(ROOT, "arrival-dispositions.json")
+
+# Channels where an arrival is something a PERSON authored, and therefore
+# something that can only be dispositioned by a human having looked at it.
+#
+# `pending-species` is deliberately absent and it is not an oversight: it is
+# self-clearing by the right action — `--promote`/`--dismiss` DELETE the KV
+# record, so the queue empties by triaging the photo. It already satisfies the
+# standing rule that a detection mechanism be clearable only by the act whose
+# absence it detects. Adding it here would ask for a disposition on a record
+# that no longer exists.
+AUTHORED_CHANNELS = ("feedback", "observations", "zone-audio", "guru")
+
+MAX_ARRIVAL_DISPOSITION = 400
+
+
+def arrival_baseline(path=None):
+    """The instant before which this control makes NO per-record claim.
+
+    ⚠️ A BASELINE IS ITSELF A BATCH CLEAR, which is the exact mechanism this
+    control exists to kill — so it is declared once, dated, carries its reason on
+    its face, and is NEVER reported as a disposition. Records before it are
+    `baselined`: *governed by the channel watermark, never individually attested.*
+    That is a different sentence from *we looked and it was Paul's*, and the whole
+    point of this file is that those two must never print the same.
+
+    Without it the control's first run reports 69 historical arrivals as open work
+    and gets ignored — and teaching someone to ignore a check is the failure this
+    repo has already paid for once (`is_instrumentation`).
+    """
+    b = arrival_baseline_block(path)
+    return (b or {}).get("before") or None
+
+
+def arrival_baseline_block(path=None):
+    """The whole declared baseline object — `before`, `why`, `declaredBy`.
+
+    Read as a BLOCK rather than a bare timestamp so a rewrite of the file cannot
+    quietly drop the reason and leave a naked date behind. A batch clear with its
+    justification deleted is indistinguishable from one nobody ever justified.
+    """
+    try:
+        with open(path or ARRIVAL_LOG, "r", encoding="utf-8") as f:
+            b = (json.load(f).get("_meta") or {}).get("baseline")
+    except (FileNotFoundError, ValueError):
+        return None
+    return b if isinstance(b, dict) else None
+
+
+def load_arrival_log(path=None):
+    """{(channel, id): entry} for the non-feedback authored channels."""
+    try:
+        with open(path or ARRIVAL_LOG, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (FileNotFoundError, ValueError):
+        data = {}
+    out = {}
+    for e in (data.get("dispositioned") or []):
+        if isinstance(e, dict) and e.get("channel") and e.get("recordId"):
+            out[(e["channel"], e["recordId"])] = e
+    return out
+
+
+def save_arrival_log(by_key, path=None, baseline=None):
+    payload = {
+        "_meta": {
+            "purpose": "Per-ARRIVAL disposition — which record was looked at, by whom, "
+                       "and where it went. Keyed by (channel, recordId) so a batch can "
+                       "never be cleared by one of its members. PUBLIC repo: never her "
+                       "words and never a transcript, only where the record went.",
+            "schemaVersion": 1,
+            "writtenBy": "tools/check-arrival-dispositions.py --record",
+            "seeAlso": "feedback-log.json holds the same lifecycle for the feedback channel.",
+            **({"baseline": baseline} if baseline else {}),
+        },
+        "dispositioned": sorted(by_key.values(),
+                                key=lambda e: (e.get("recordTs") or "", e.get("channel") or "")),
+    }
+    with open(path or ARRIVAL_LOG, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+def disposition_of(channel, record_id, arrival_log=None, feedback_log=None):
+    """The recorded disposition for ONE arrival, or None.
+
+    The feedback channel reads `feedback-log.json` (its existing, tracked
+    lifecycle); every other authored channel reads `arrival-dispositions.json`.
+    """
+    if channel == "feedback":
+        log = load_feedback_log() if feedback_log is None else feedback_log
+        e = log.get(record_id)
+        if not e:
+            return None
+        return {"channel": "feedback", "recordId": record_id,
+                "disposition": e.get("disposition"), "on": e.get("addressedOn"),
+                "attestedBy": e.get("by") or "read-mom-feedback.py --address"}
+    log = load_arrival_log() if arrival_log is None else arrival_log
+    return log.get((channel, record_id))
+
+
+def record_arrival_disposition(channel, record_id, record_ts, disposition,
+                               attested_by, origin=None, path=None):
+    """Write ONE arrival's disposition. Paul's judgment, recorded once.
+
+    `attested_by` names WHAT ESTABLISHED IT, and it is required, because the
+    distinction this whole control exists to preserve is between *nobody
+    looked* and *we looked and it was Paul's*. "listened" and "inferred from a
+    sibling record" are not the same claim and must never write the same row.
+    """
+    disposition = " ".join((disposition or "").split())
+    if not disposition:
+        raise ValueError("a disposition is required — record the action, not nothing")
+    if len(disposition) > MAX_ARRIVAL_DISPOSITION:
+        raise ValueError(f"disposition is {len(disposition)} chars "
+                         f"(max {MAX_ARRIVAL_DISPOSITION}); this file is PUBLIC and "
+                         "records where a record WENT, not what it said")
+    if not (attested_by or "").strip():
+        raise ValueError("attestedBy is required — name what established this "
+                         "(a human listened / read; or the inference relied on)")
+    if channel not in AUTHORED_CHANNELS:
+        raise ValueError(f"{channel} is not an authored-content channel")
+    log = load_arrival_log(path)
+    base = arrival_baseline_block(path)
+    log[(channel, record_id)] = {
+        "channel": channel,
+        "recordId": record_id,
+        "recordTs": record_ts,
+        "origin": origin,
+        "disposition": disposition,
+        "attestedBy": attested_by.strip(),
+        "dispositionedOn": dt.datetime.now(dt.timezone.utc).isoformat(),
+    }
+    save_arrival_log(log, path, baseline=base)
+    return log[(channel, record_id)]
+
+
+def undispositioned_arrivals(token, days=60, arrival_log=None, feedback_log=None,
+                             records_by_channel=None, baseline=None):
+    """Every authored-content arrival with NO disposition of its own.
+
+    ⭐ BENCH ARRIVALS ARE INCLUDED, and that is BACKLOG Tier 1 · 13. `split_arrivals`
+    bins a record from a device Paul registered as his own into `bench`, which
+    correctly keeps it from lighting the board as HERS (Tier 1 · 9, not reversed
+    here). But on an AUTHORED channel that bin decides *whose words these are*
+    from *which browser posted them* — the one inference `tools/people.json`
+    forbids, and the one its own `d-l4ct2ilv` falsifier names: *"if any authored
+    content — a confirm answer, a written note, a voice recording — ever arrives
+    from this deviceId, the assumption is WRONG."* So a bench arrival is
+    `bench-unheard`: it still needs a disposition, and it is still not a debt owed
+    to Mom. The two questions are kept apart on the returned record —
+    `owed_to_mom` is False for bench, True for unresolved — so nothing built on
+    this can manufacture a ribbon out of Paul's own test tap.
+
+    Returns {"items": [...], "errors": [channel names]}, oldest first.
+    """
+    arrival_log = load_arrival_log() if arrival_log is None else arrival_log
+    feedback_log = load_feedback_log() if feedback_log is None else feedback_log
+    baseline = arrival_baseline() if baseline is None else (baseline or None)
+    feedback_log = feedback_log or {}
+    bench = bench_device_ids()
+    baselined = 0
+    today = dt.date.today()
+    start, end = str(today - dt.timedelta(days=days)), str(today)
+    items, errors = [], []
+    for name, path, _desc in CHANNELS:
+        if name not in AUTHORED_CHANNELS:
+            continue
+        if records_by_channel is not None:
+            recs = records_by_channel.get(name) or []
+        else:
+            try:
+                recs = _channel_records(name, path, token, start, end)
+            except ChannelError as e:
+                errors.append(e.channel)
+                continue
+        keys = CHANNEL_TS_KEYS[name]
+        for r in recs:
+            rid = r.get("id")
+            if not rid:
+                continue          # nothing to key a disposition to; the watermark still covers it
+            if name == "feedback" and is_instrumentation(r):
+                continue
+            ts = next((r.get(k) for k in keys if r.get(k)), None)
+            if disposition_of(name, rid, arrival_log, feedback_log):
+                continue
+            if baseline and ts and ts <= baseline:
+                baselined += 1        # counted and named, never called dispositioned
+                continue
+            dev = r.get("deviceId")
+            origin = "bench" if (dev and dev in bench) else "unresolved"
+            items.append({
+                "channel": name, "id": rid, "ts": ts, "deviceId": dev,
+                "origin": origin,
+                "state": "bench-unheard" if origin == "bench" else "undispositioned",
+                "owed_to_mom": origin != "bench",
+            })
+    items.sort(key=lambda i: (i.get("ts") or "", i["channel"]))
+    return {"items": items, "errors": errors,
+            "baseline": baseline, "baselined": baselined}
+
+
 def channels_since(state, cutoff):
     """Which channels carry input newer than `cutoff` — the evidence line."""
     if not cutoff:

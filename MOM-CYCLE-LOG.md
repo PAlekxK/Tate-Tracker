@@ -112,6 +112,64 @@ advances only `.private/mom-zone-audio-state.json`; **nothing writes the server 
 status field with no writer reads *never reviewed* in perpetuity — the container cannot match the
 payload. Filed as a sub-item under row 12: write it or delete it.
 
+
+### ↻ LATER THE SAME DAY — Paul listened, and the control shipped
+
+Two things closed the entry above rather than deferring it, both `[paul-stated 2026-08-28]`:
+*"I listened to the audio"* / *"that's just a test from me to be disregarded"*, and — on being told
+the structural half was already written in the Skill and merely unconnected — *"if it's just a matter
+of connecting it, let's just go ahead and take care of this."*
+
+**⭐ THE EAR.** The clip's disposition no longer rests on inference. It rested on four — two model
+reads, a deviceId, a sibling record — all agreeing, none of them a person. Paul played it. The
+verdict is unchanged and its *class* is not: **`arrival-dispositions.json` records it attested by
+ear, and says on the entry's face that the prior legs were inference.** That distinction is the
+entire reason this file exists.
+
+**⭐⭐ THE CONTROL — `tools/check-arrival-dispositions.py`.** Lap 6 pre-registered the response to a
+repeat of a class already fixed in prose: *a control, not a louder banner.* This is it. A disposition
+is keyed by **(channel, record id)**, so nothing but looking at that record can supply one, and a
+`readThrough` watermark — a batch instrument by construction — can no longer step over it.
+
+- **`feedback` still reads `feedback-log.json`.** One rule, two stores, no migration of a tracked
+  record. The notes lifecycle from 07-26 is the thing this generalises, not a thing it replaces.
+- **`pending-species` is deliberately excluded** — it is already clearable only by the act whose
+  absence it detects (`--promote`/`--dismiss` delete the KV record).
+- **Selftest 14/14, and it is SEEN TO FAIL — three mutations, each restored:** bench arrivals
+  silently cleared (9/14) · a **watermark-shaped** clear, the faithful replay of 08-10 (10/14) · a
+  baseline that swallows records uncounted (13/14).
+
+⚠️ **AND THE MUTATION RUN CAUGHT A HOLE IN THE TEST ITSELF, which is the part worth keeping.** The
+first watermark mutation passed **green**. Not because the code was right — because the fixture's
+dispositioned entry carried no `recordTs`, so there was nothing for a watermark to compare against.
+A test can be insensitive to the exact mechanism it was written to guard and still read 11/11. The
+fixture now carries the timestamp and a comment saying why. A second, smaller instance of the same
+shape: four assertions turned red the moment the baseline landed, because the fixtures were silently
+reading the real baseline off disk — every call now passes `baseline=` explicitly.
+
+**The baseline, named as what it is.** The first live run reported **69** arrivals with no
+disposition of their own, going back to 07-14. Reporting 69 items as open work on day one is how a
+check gets ignored — the failure this repo already paid for once. So there is a declared baseline at
+`2026-08-28T00:00:00Z`. ⛔ **A baseline IS a batch clear** — the exact mechanism this control exists
+to kill — so it is dated, carries its reason in the file, is **counted (68) and printed on every
+clean run**, and is **never** reported as a disposition. Those records are *baselined*: covered by
+the watermark, never individually attested. The 69th is the Fairway clip, dispositioned explicitly.
+The clean line now reads *"every authored arrival **since the baseline** carries its own
+disposition"* — because the shorter sentence would not be true.
+
+**Reachability, applied to the control itself.** Wired into `CLAUDE.md`'s session-start block (the
+list Leg 1 derives its sweep from — crack 1's own lesson), `MOM-CYCLE-MAP.md`'s checks table, and
+the `/mom-cycle` Skill's gap list, whose line *"No per-item lifecycle on `/api/zone-audio` or Guru
+turns"* is now struck. ⭐ **`check-cycle-map.py` caught the map omission on its own** — the tool was
+in `tools/` and unnamed in the map, and the checker said so before anyone looked.
+
+**Still open, deliberately:** `/api/zone-audio`'s `reviewed` field still has no writer. It is the one
+part of row 12 not closed today, and it is recorded as such rather than quietly bundled in.
+
+⚠️ **What this does NOT do.** It checks that a disposition **exists** and what attested it. It cannot
+check that a disposition is **true**. And nothing here reaches Mom's surface — `viewer.html` and
+canon are untouched, so this is leg-5-shaped work in a no-lap session, on the 08-10 reasoning.
+
 ---
 
 ## Lap 6 — 2026-08-27 · ✅ **CLOSED** — 🪞 **the lap that was fired by a stale artifact, and whose whole subject turned out to be the loop's own publishing**

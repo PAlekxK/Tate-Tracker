@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "purpose": "Per-ARRIVAL disposition — which record was looked at, by whom, and where it went. Keyed by (channel, recordId) so a batch can never be cleared by one of its members. PUBLIC repo: never her words and never a transcript, only where the record went.",
+    "schemaVersion": 1,
+    "writtenBy": "tools/check-arrival-dispositions.py --record",
+    "seeAlso": "feedback-log.json holds the same lifecycle for the feedback channel.",
+    "baseline": {
+      "before": "2026-08-28T00:00:00.000Z",
+      "why": "This control was built 2026-08-28. Arrivals before it were governed by the channel watermark in .private/channel-read-state.json — a batch instrument. The baseline is therefore ITSELF a batch clear, declared once and dated rather than applied silently, and it is never reported as a disposition: those records are `baselined` (covered by the watermark, never individually attested), which is a different sentence from `we looked and it was Paul's`. The first run found 69 arrivals with no disposition of their own; 68 fall behind this line, and the 69th — the 2026-08-09 Fairway recording this whole control came out of — is dispositioned explicitly below. The count is printed on every clean run so a green tick can never hide it. Do NOT extend this date to quiet a finding.",
+      "declaredBy": "paul-stated 2026-08-28 ('let's just go ahead and take care of this')"
+    }
+  },
+  "dispositioned": [
+    {
+      "channel": "zone-audio",
+      "recordId": "r-msm3oqo6-8edsfawx",
+      "recordTs": "2026-08-09T17:52:44.550Z",
+      "origin": "bench",
+      "disposition": "Paul's own bench test at the Fairway zone; disregard. Nothing to fold to canon.",
+      "attestedBy": "Paul LISTENED to the audio, 2026-08-28 — a human ear, not a model read. Prior legs (2 model transcripts, deviceId, sibling observation 52s later) agreed but were all inference.",
+      "dispositionedOn": "2026-08-28T16:56:03.728119+00:00"
+    }
+  ]
+}

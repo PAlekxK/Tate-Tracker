@@ -17,6 +17,7 @@ python3 tools/read-mom-feedback.py --pickup # Mama's Perspective — the Mom-che
 python3 tools/read-feedback-sections.py    # WHICH DOOR she came through — decline vs. misunderstanding
 python3 tools/read-mom-zone-audio.py       # ⭐ HER VOICE — stage any new recordings; a channel nobody sweeps is a channel nobody hears
 python3 tools/transcribe-mom-zone-audio.py # make them readable (local whisper, .private/, UNVERIFIED — see the AI boundary)
+python3 tools/check-arrival-dispositions.py --pickup # ⭐ DID ANYONE ACTUALLY LOOK — per-ARRIVAL, so a batch can't be cleared by one of its members
 python3 tools/read-mom-engagement.py --pickup # ⭐ WHAT SHE DID — sessions/opens/journal since the last lap; silence in the answer record is not silence in the app
 python3 ~/.claude/tools/health-probe.py --only fernwood  # ⭐ IS THE RECORD ITSELF INTACT — weather history, the Action, Pages, the Worker
 python3 tools/check-ux-sweep.py            # ⭐ is a HOLISTIC two-pass UX sweep owed? (accumulation, not cadence)
@@ -152,9 +153,13 @@ cleared with *"the 08-09 traffic that lit the board is Paul's own — the Guru t
 text."* The recording **was seen**, and was dismissed on a **different record's** self-identification
 four days before anyone staged it. A per-record omission self-heals — the next sweep finds the hole.
 A batch clear does not: the channel reads attested while one of its records has never been opened.
-Every arrival carries its own disposition or the channel is not attested. `BACKLOG` Tier 1 · **12**
-(and the Skill's own gap list already names the structural half: *no per-item lifecycle on
-`/api/zone-audio` or Guru turns*).
+Every arrival carries its own disposition or the channel is not attested.
+✅ **ENFORCED since 2026-08-28 by `tools/check-arrival-dispositions.py`** — the disposition is
+keyed by (channel, record id), so nothing but looking at that record can supply it, and the
+`readThrough` watermark can no longer step over one. Selftest **14/14, proven by three
+mutations** (bench silently cleared · a watermark-shaped clear · a baseline that swallows
+records uncounted). ⚠️ It checks a disposition EXISTS and what attested it; it cannot check
+that the disposition is TRUE.
 
 **⭐⭐ AND THIS BLOCK IS THE LOOP'S TRIGGER, not just a status read** `[paul-stated 2026-08-10]`.
 *"Continue to monitor for Mom's feedback, and then when we get it, that's a trigger to start a
