@@ -52,17 +52,23 @@ The repaint is the pivot event — a quality exterior + interior refinish forces
 ## STEP 1 — Materials & shopping list
 
 ### Buy now (needed regardless of substrate)
-- [ ] **ABS sheet stock** — 1/16" (0.06") for contoured backing patches, plus a little 1/8" for rebuilding clip mounts. Black is fine (it's all hidden). [Cut-to-size at TAP Plastics](https://www.tapplastics.com/product/plastics/cut_to_size_plastic/abs_sheets/524) (small pieces, both thicknesses — verified in stock; don't buy a 4×8 sheet). *(Even if the panel turns out to be PP, ABS sheet is still the backing material — you just change the adhesive.)*
-- [ ] **Heat gun** — to form the ABS backing to the panel's contour. *(You have one.)*
-- [ ] **Plastic welder / hot-stapler** *(for the mesh-weld method + rebuilding clip tabs — see Step 2)* — [ATOLS hot-stapler kit](https://www.amazon.com/ATOLS-Plastic-Welding-Machine-Stapler/dp/B091T368MK) (~$20, verified) or [Harbor Freight 70770](https://www.harborfreight.com/hot-stapler-kit-70770.html) (~$30, verified). A plain soldering iron also works for melting mesh in.
-- [ ] **Stainless reinforcing mesh** *(rebar for plastic — best for clip tabs + any crack reaching a panel edge)* — [Polyvance 2045-10](https://www.polyvance.com/Reinforcing-Mesh-1/2045-10/) (industry standard) or a [cheaper generic 5-pack](https://www.amazon.com/Welding-Plastic-Reinforcing-Stainless-Thermoplastic/dp/B08XK52T29). Skip if you go solid-sheet-backing only.
-- [ ] **Plastic trim / door-panel removal tools** — the forked nylon pry tools, so you pull the panel without snapping *more* clips.
-- [ ] **Door-panel retainer clip kit** — correct Ford part #s (N801925-S / N802900-S): [Icyhaws 50-pc](https://www.amazon.com/Icyhaws-Retainer-Compatible-N801925-S-N802900-S/dp/B0FC2SVY5D) (~$8, verified). Replace them all while you're in there.
+
+> 🛑 **STOP — MOST OF THIS IS ALREADY OWNED. Corrected 2026-08-28 from Amazon order history.**
+> Paul bought the **entire plastic-welding kit on 2026-06-17 → 06-22**, the same week the repaint
+> was scoped, and **none of it had reached any record.** This list read "buy now" for two months
+> over things sitting on his shelf. Full register: `.private/service-records/TOOLS.md`.
+> **Do not re-buy anything marked ✅.**
+- [ ] ❓ **ABS sheet stock** *(no receipt found — but only needed for the BONDED-PATCH path; the mesh-weld path below is fully stocked)* — 1/16" (0.06") for contoured backing patches, plus a little 1/8" for rebuilding clip mounts. Black is fine (it's all hidden). [Cut-to-size at TAP Plastics](https://www.tapplastics.com/product/plastics/cut_to_size_plastic/abs_sheets/524) (small pieces, both thicknesses — verified in stock; don't buy a 4×8 sheet). *(Even if the panel turns out to be PP, ABS sheet is still the backing material — you just change the adhesive.)*
+- [x] ✅ **Heat gun** — **BLACK+DECKER, dual heat to 1000 °F, 1350 W, acquired 2026-06-17.** (This line used to say only "you have one" — now dated and identified.)
+- [x] ✅ **Plastic welder / hot-stapler — OWNED: ATOLS welder + 1000 staples, pure copper transformer, acquired 2026-06-22.** He bought the exact unit this line recommends. Plus **YehVeh welding tips ×2 (2026-06-22)** for the iron. Original research kept for reference: *(for the mesh-weld method + rebuilding clip tabs — see Step 2)* — [ATOLS hot-stapler kit](https://www.amazon.com/ATOLS-Plastic-Welding-Machine-Stapler/dp/B091T368MK) (~$20, verified) or [Harbor Freight 70770](https://www.harborfreight.com/hot-stapler-kit-70770.html) (~$30, verified). A plain soldering iron also works for melting mesh in.
+- [x] ✅ **Stainless reinforcing mesh — OWNED: 5-pc stainless welding mesh screen, acquired 2026-06-22.** Original research kept for reference: *(rebar for plastic — best for clip tabs + any crack reaching a panel edge)* — [Polyvance 2045-10](https://www.polyvance.com/Reinforcing-Mesh-1/2045-10/) (industry standard) or a [cheaper generic 5-pack](https://www.amazon.com/Welding-Plastic-Reinforcing-Stainless-Thermoplastic/dp/B08XK52T29). Skip if you go solid-sheet-backing only.
+- [ ] ❓ **Plastic trim / door-panel removal tools** *(no receipt found — but the panel came off intact on 8/28, so probably owned; ask)* — the forked nylon pry tools, so you pull the panel without snapping *more* clips.
+- [x] ✅ **Door-panel retainer clip kit — OWNED (Icyhaws 50 pc, 2026-06-22) + ×2 MORE ON ORDER (2026-08-28)**, covering both `N801925-S` and `N802900-S`. Original research: — correct Ford part #s (N801925-S / N802900-S): [Icyhaws 50-pc](https://www.amazon.com/Icyhaws-Retainer-Compatible-N801925-S-N802900-S/dp/B0FC2SVY5D) (~$8, verified). Replace them all while you're in there.
 - [ ] **(Optional — easiest snapped-post fix) Mounting-post repair kit** — [Blue Truck Parts `DPPRK87`](https://bluetruckparts.com/products/dpprk87) (~$34), brackets engineered for the '87–91 Bronco/F-series panel that bond on to recreate broken mounting posts + color-matched screw-hole caps. ✅ **ON SHELF since 2026-06-22** — Blue Truck Parts, $30.59 + $2.72 = **$33.31**, order `06-14809-51927`, two eBay line items that day. DETERMINISTIC-MATCH verified in `.private/service-records/bronco-1989/VERIFICATION-2026-07-22.md`. **Paul-confirmed 2026-08-28:** the kit **includes the color-matched screw-hole caps**, the bracket mounts on the **back** of the panel (invisible when installed), and it **ships cyanoacrylate (super glue) gel** as its adhesive. Do not re-buy. *(This line previously read "Found via research — stock not independently verified" — the guide was two months behind the receipt.)*
-- [ ] **Degreaser** — isopropyl alcohol (90%+) and/or acetone, plus clean rags. *Non-negotiable: nothing bonds to years of skin oil + Armor-All.*
-- [ ] **Sandpaper** — 80/120/220 grit (scuff for adhesion + knock down repairs) and 320/400 for finish.
-- [ ] **Nitrile gloves, mixing sticks, plastic spreaders, painter's tape, clamps / spring clamps.**
-- [ ] **Flexible filler for the show face** — [3M EZ Sand 35887 / 05887](https://www.autobodytoolmart.com/product/3m-ez-sand-multi-purpose-repair-material-35887/automotive-adhesive) (verified in stock). *Not* rigid Bondo on a flexing panel. ⚠️ The older 3M **05895** is sold out everywhere now — 35887/05887 is the same flexible-filler family and is the in-stock substitute.
+- [ ] ❓ **Degreaser** *(no receipt found — ask before buying)* — isopropyl alcohol (90%+) and/or acetone, plus clean rags. *Non-negotiable: nothing bonds to years of skin oil + Armor-All.*
+- [ ] ❓ **Sandpaper** *(no receipt found — ask before buying)* — 80/120/220 grit (scuff for adhesion + knock down repairs) and 320/400 for finish.
+- [x] ✅ **Nitrile gloves OWNED** (TitanFlex 6-mil XL, 100 ct, 2025-10-17). Still verify: **mixing sticks, plastic spreaders, painter's tape, clamps / spring clamps.**
+- [x] ✅ **Flexible filler — OWNED: 3M EZ Sand `05887`, acquired 2026-06-22.** Exactly what this line specifies. Not needed until the booth window under the 8/28 resequence, but it is here. Original research: — [3M EZ Sand 35887 / 05887](https://www.autobodytoolmart.com/product/3m-ez-sand-multi-purpose-repair-material-35887/automotive-adhesive) (verified in stock). *Not* rigid Bondo on a flexing panel. ⚠️ The older 3M **05895** is sold out everywhere now — 35887/05887 is the same flexible-filler family and is the in-stock substitute.
 
 ### Buy AFTER the Step 0 material check (substrate-specific bonding)
 
@@ -491,3 +497,39 @@ A sheet or two of the CUKWUYBY butyl on the panel's **largest flat field** damps
 - [ ] *(optional, free)* acetone-test the panel now that it's clean — STEP 0 has been open since June
 
 **Blocked until the boxes land:** vapor-barrier reseal (tape), CCF on the panel back (foam), reinstall (clips).
+
+
+---
+
+## STEP 9 — THE OWNERSHIP REGISTER (new 2026-08-28)
+
+`paul-asked`: *"I don't know if there's any way that you should be able to pull in a record of
+everything that I have and don't have, and we can build that together."*
+
+**Built: `.private/service-records/TOOLS.md`** — derived from Amazon order history, not hand-kept.
+
+**Why, in one line: three misses in a single session, all under-reporting what Paul owns** — the
+DPPRK87 kit (guide said buy, receipt said on-shelf since June), the 36 sq ft butyl mat (record had
+the roller, not the mat), and the entire welding kit (in **no** record, surfaced only because Paul
+said so out loud). Each nearly bought a duplicate.
+
+⚠️ **Coverage is partial and the file says so**: Amazon 2026 + 2025, two pages each. Nothing before
+that, and nothing bought off-Amazon. **An item's absence from that file is not evidence he lacks
+it** — that is precisely the inference this whole exercise exists to stop.
+
+⚠️ **Endpoint gotcha, measured 2026-08-28** (recorded because it silently returns *plausible wrong
+data*): the legacy `amazon.com/gp/css/order-history?orderFilter=year-YYYY` **ignores the year and
+keeps serving the current one.** Use `amazon.com/your-orders/orders?timeFilter=year-YYYY&startIndex=N`.
+And `fetch()`-ing those pages returns a shell with no order cards — the scan must run against the
+LIVE rendered DOM.
+
+### What it changes for THIS job
+
+- **Every crack repair in STEP 2 is executable today, with no purchase.** Welder, mesh, tips, heat
+  gun, JB Weld, flexible filler — all on shelf.
+- **The STEP 0 substrate gate is fully moot for crack repair.** Mesh-welding is mechanical, so it
+  works on ABS or PP identically. It would only matter for a bonded ABS backing patch.
+- **The real open list shrank to five**, and four of those are "probably owned, ask first":
+  ABS sheet · trim forks · sandpaper · degreaser · and one genuinely NEW need —
+  **4–6 mil plastic sheeting**, because Paul confirmed 2026-08-28 that the doors have **no water
+  shield at all**, so it gets fabricated, not resealed.
