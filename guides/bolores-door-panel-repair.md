@@ -622,3 +622,86 @@ feeding-the-plastic is mostly marketing for hard plastics.
 - **Apply LAST**, once repairs are done and it is going back on.
 - ⭐ **Tell Larry exactly what was used.** A shop preps differently when it knows; "silicone-free,
   water-based" is a genuinely different answer for them than "Armor-All."
+
+
+---
+
+## STEP 11 — THE PHOTO ROUTING (run 2026-08-28, PARKED one step short)
+
+**Goal:** get the 8/28 bench photos into photo-organizer as evidence attached to this job, so a dated
+phone photo of the torn screw hole is retrievable later rather than living only in a chat transcript.
+
+### What was done
+
+1. ✅ **Minted the join target.** photo-organizer tags mappings `service:<vehicle-id>:<sr-id>`, so the
+   photos had nothing to point at until `sr-2026-08-28-passenger-door-panel-bench` existed in
+   `vehicles.json`. That is why the Fernwood fold had to land first.
+2. ✅ **Captured metadata.** `tools/capture_photo_metadata.py` — DB **56,233 → 56,275** (new=42).
+   ⚠️ Needs the osxphotos venv: `~/.local/share/uv/tools/osxphotos/bin/python`, not system python.
+   Backup taken first: `db/photo-organizer.sqlite.pre-capture-2026-08-28`.
+3. ✅ **Embedded.** `clipenv/bin/python tools/embed_photos.py` — 13 pending, all done.
+   ⚠️ Needs `clipenv`, not system python (numpy). It takes no `--help`; invoking it RUNS it.
+4. ⏸ **Join re-run:** `in_window` 0 → **13**. But **`candidates: 0`.**
+
+### ⭐ Why candidates is 0 — and it is NOT a bug
+
+The `vehicle-bolores` probe is a CLIP probe that scores **whole-vehicle appearance**. Today's frames
+are a trim panel on a dining table, a washer held in pliers, and bolts on a rag. **Those genuinely do
+not look like a Bronco**, so the probe correctly declines to match them.
+
+> ⚠️ **THE GAP WORTH NAMING (candidate for photo-organizer's own backlog, not filed there yet):**
+> the photos a SERVICE RECORD most wants — close-ups of the broken part, on a bench, off the vehicle —
+> are exactly the photos a whole-vehicle appearance probe scores lowest. **The join is weakest
+> precisely where the evidence is strongest.** Date-window + Paul-curation is the working path;
+> the probe is not going to find bench macros on its own.
+
+`apple_labels` is empty on all 8, so the label-only fallback has nothing either.
+
+### The remaining step (deliberately NOT taken)
+
+The sanctioned route per photo-organizer's CLAUDE.md is **album → Paul verifies in Photos.app → drag
+keepers → `tools/ingest_service_review.py`**. Model reads are discovery signals ONLY; Paul's eye is
+the confirmation. So the close is: stage these 8 into a review album
+(`osxphotos query --uuid-from-file F --add-to-album NAME`), Paul confirms, then ingest as
+`signal='paul-review'` tagged `service:bronco-1989:sr-2026-08-28-passenger-door-panel-bench`.
+
+**Not done — Paul closed the session first. Nothing is lost: the UUIDs are recorded below, so this
+resumes without re-deriving anything.**
+
+| Time | File | UUID |
+|---|---|---|
+| 09:21 | IMG_9316.HEIC | `96BC28E8-03C4-4F7D-BAF4-7750C3AF9514` |
+| 09:21 | IMG_9317.HEIC | `B87734D1-6F91-41BF-849A-7A4AC4170B93` |
+| 09:38 | IMG_9318.HEIC | `C81DB46C-8BDF-4D09-A60A-0C8AFD9F44E6` |
+| 09:39 | IMG_9319.MOV | `677A8E63-1FED-49FB-8DDC-924F325359DB` |
+| 09:44 | IMG_9320.HEIC | `A311C768-2D6A-4BFF-A909-71FD9E692F43` |
+| 09:44 | IMG_9321.HEIC | `33DD91C1-1967-4634-A859-BE31B219732E` |
+| 09:44 | IMG_9322.HEIC | `168158B0-3DA5-42E0-B5FC-6A977A495CE3` |
+| 10:15 | IMG_9323.HEIC | `E3F01537-742B-469E-A0B6-201142D7B91C` |
+
+⚠️ **Derivative file mtime ≠ capture time.** A first pass staged 14 "today" files by modification date;
+only 8 were actually shot 8/28 — the rest were older photos the Mac happened to re-render today.
+Query the DB `date` column, never the filesystem.
+
+---
+
+## 📍 SESSION CLOSE — 2026-08-28
+
+**Panel state:** passenger trim panel OFF, on the bench, pad being removed. Washer + cured CA ring
+removed, panel lost no material. **Cleaning is next**, then assessment.
+
+**Paul's next action:** clean the panel per STEP 10, dry a full day, **then** do an in-depth crack
+assessment — `paul-stated 8/28: "I think there are multiple crack locations of different types… I
+can't really even see right now."* That is the guide's own sequencing (grime hides hairline cracks),
+so nothing is being deferred that could have been done today.
+
+**Arriving:** butyl tape, CCF ×2, poly sheeting — Aug 29. Clips — Aug 31.
+
+**Open, in priority order:**
+1. **Crack map** — locations + types, after cleaning. Decides solid-sheet backing vs mesh-weld per spot.
+2. **Larry** — do the doors go to bare metal? Does interior trim get baked? (Gates outer-skin butyl,
+   and the CA gel's ~180 °F limit.)
+3. **Photo routing** — one step short, see STEP 11.
+4. ❓ Verify: isopropyl **91%+** on hand · trim removal forks · sandpaper · ABS sheet (bonded-patch
+   path only) — all "ask before buying", per the 8/28 under-reporting finding.
+5. **Not bought:** 303 Automotive Protectant (`B0185PU38A`) · adhesive remover (only if scrape+heat fails).
