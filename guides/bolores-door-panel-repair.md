@@ -346,9 +346,13 @@ strip → gross clean → dry → assess (+ acetone test) → repair (incl. brac
 
 ### OPEN — needs Paul
 
-1. ⭐ **Acetone test result** — panel substrate. Gates both doors.
+1. ⏸ **Acetone test — DEFERRED by Paul 2026-08-28** ("rather not do an acetone test... I could do one later when it's fully clean"). Working assumption is therefore **ABS — ASSUMED, NOT VERIFIED**, resting on three independent lines: (a) every repro panel (DashSkin, LMC, Classic Industries) is vacuum-formed ABS; (b) the driver panel's failure — rigid plastic cracked through, snapped clip tabs — is the classic ABS mode; (c) Blue Truck Parts, an '87–91 Ford panel specialist, ships **CA gel** with its kit, and CA is mediocre on polypropylene. **Where the assumption actually bites: only crack repair.** The bracket (vendor-supplied CA gel) and the CCF (adhesive-backed) are both substrate-agnostic, so under the 8/28 resequence this gate blocks nothing until a crack needs a bonded backing patch. Run it then, on a clean panel.
 2. **Is the line in the lower field a crack?** Fingernail test after the gross clean.
-3. **What is the blue/silver foil sheet in the 8/28 bench photos?** ⚠️ **No sound-deadening MAT exists in any purchase record** — Amazon, eBay, all of it. The only line item is a *Sound Deadener Application Roller, $9.03, 2026-02-24*, and the record from that week says *"Optional door sound-deadening + foam speaker rings not yet done (discussed only)."* Read the label and file it; this is a genuine gap in the parts record, not a lookup failure.
+3. ✅ **RESOLVED 2026-08-28 — the blue/silver sheet is CLD butyl, and Paul already owns 36 sq ft of it.**
+   **CUKWUYBY Butyl Sound Deadening, 80 mil (2 mm), 36 sq ft, 33 sheets @ 15.75" × 9.84" — ASIN `B0F1MV7GRF`. Amazon product page reads "Last purchased Feb 23, 2026."** 3-layer: aluminium foil / butyl core / adhesive. $42.49 as read 2026-08-28 (typical $48.99); 4.7★, 441 ratings.
+   **Paul's read was right: it's butyl and it belongs on metal.** → **LAYER 1 (DAMPING) IS FULLY STOCKED. Buy no butyl.**
+   ⚠️ **PARTS-RECORD GAP — the record was wrong, not Paul.** `AMAZON-PARTS.md` carries the *Sound Deadener Application Roller* ($9.03, 2026-02-24) but **not the mat bought the day before**, and `CANDIDATE-ROWS.md` still says *"door sound-deadening not yet done (discussed only)"* — true of the install, false of the purchase. Feb 23–24 2026 is the same window as the NVX baffles and the Kappa door-speaker install; the deadener was bought for that job and never laid. **Fold the mat into `AMAZON-PARTS.md` as ON SHELF.**
+   💡 Relevant review on that listing, from a custom shop: used this exact material on **two early-Bronco builds**, ~three boxes per truck for full interior coverage, reports doors *"have a much more solid feel and sound when they close."* Caution from the same review: **foil lifts if a piece ends on a bend or tight radius — plan seams on flat areas and roll the edges down.** (Paul owns the roller.)
 4. ✅ **RESOLVED 2026-08-28 — see "THE 8/28 RESEQUENCE" below.** Paul's call: restore and reinstall now, accept a second removal at paint.
 5. **For Larry:** does interior trim get baked, and at what temperature? (CA gel limit ~180°F.)
 
@@ -412,3 +416,45 @@ strip → gross clean → dry → assess (+ acetone test)
 ```
 
 **Clip budget:** the Icyhaws 50-pc kit now has to cover **two** installs across **two** doors. Count what's left after this round and re-buy early — reused brittle retainers are item #1 on STEP 6's what-forces-another-cycle list, and at ~$8 a kit there is no reason to be short.
+
+
+---
+
+## STEP 8 — PARTS: what's on shelf vs. what to buy (as of 2026-08-28)
+
+> ⚠️ Prices read off Amazon 2026-08-28 and **will drift** — treat them as an order-of-magnitude, re-check at purchase.
+
+### ✅ ALREADY OWNED — do not re-buy
+| Item | Detail |
+|---|---|
+| **Butyl CLD (layer 1)** | CUKWUYBY 80 mil, 36 sq ft, 33 sheets — ASIN `B0F1MV7GRF`, bought **2026-02-23**. Enough for both doors many times over. |
+| **Deadener roller** | $9.03, 2026-02-24. Non-negotiable for butyl — unrolled CLD is decorative. |
+| **DPPRK87 bracket kit** | Blue Truck Parts, 2× orders 2026-06-22, $33.31. Includes colour-matched screw-hole caps + CA gel. |
+| **Icyhaws panel clips** | 50 pc, 2026-06-22, $8.70 — but see the clip-budget note below. |
+
+### 🛒 TO BUY
+
+**1. CCF — closed-cell foam, 1/8", adhesive-backed → the panel-back layer. THE ONE THING BLOCKING REASSEMBLY.**
+Sponge neoprene is the right pick here over PE foam: it's compliant, conforms, and is exactly what you want at a rub point.
+- *Sponge Neoprene Foam Sheet with Adhesive, 1/8" × 12" × 59"* — **~$12.97**, 4.4★ (395). ≈4.9 sq ft ≈ one panel field. **Recommended — buy two.**
+- Alternatives: *Storystore 1/8" × 12" × 59"* ~$12.99, 4.2★ (566) · *78" × 12" × 1/8" marine roll w/ adhesive* ~$13.99, 4.5★ (42).
+- ⛔ **Do NOT buy Siless Liner / PE liner 36 sq ft (~$44.95) for this job.** It's 4 mm and sized for floors and tunnels — a later-phase purchase, not this weekend's.
+
+**2. Butyl sealant tape → resealing the vapor barrier. NON-OPTIONAL under the resequence.**
+Wide flat ribbon beats round rope for a door water shield — it seals the barrier edge properly.
+- ⭐ *Dicor `BT-1834-1` Butyl Seal Tape, 1/8" × 3/4" × 30'* — **~$18.35**, 4.7★ (**12.9K** ratings), #1 Top Rated. 30 ft does both doors with margin. **Recommended.**
+- Alternatives: *XFasten 1/2" × 30' × 1/8"* ~$14.99, 4.6★ (2.8K) · *Second Skin Butyl Tape 20 ft* ~$24.50, 4.7★ (1.2K) · *LLPT rope 3/8" × 16.5 ft* ~$14.99, 4.4★ (650) for a factory-like round bead.
+- ⚠️ Filter out the crawl-space/foundation listings that dominate this search — 2" × 90' double-sided, $37–110. Wrong product, wrong scale.
+
+**3. More panel clips — the budget is now TWO installs × TWO doors.**
+- ⭐ *GoaMotors 100 pc `N801925-S`* — **~$11.93**, 4.5★ (137). Double the count, correct Ford P/N, deeper reviews. **Recommended over re-buying the 50 pc.**
+- Same-as-before: *Icyhaws 50 pc* ~$7.49 (5 ratings).
+- Reused brittle retainers are item #1 on STEP 6's what-forces-another-cycle list. At ~$12 there is no reason to be short.
+
+**4. Optional, ~$5 — foam gasket tape for the rub points.**
+*Car Speaker Sealing Tape / foam grip tape, 3 mm × 10 mm × 16.5 ft* — ~$5.09, 4.7★ (420). For the specific contact points found on the panel back. Cheapest high-value item in this whole job.
+
+### 💡 Free upgrade you already own
+A sheet or two of the CUKWUYBY butyl on the panel's **largest flat field** damps it — the layer-1 job applied to plastic. Less dramatic than on steel (plastic is already more self-damping) and strictly optional, but it's paid for and sitting there. Keep it to the flat field, then CCF over the top: **CLD first, foam second.** Do not add mass out near the clip pockets.
+
+⚠️ This is the **panel**, not the door skin. **Butyl on the outer SKIN stays gated on Larry** — see the resequence section.
