@@ -1,0 +1,36 @@
+# cycle/requests.jsonl — the FLEET & EQUIPMENT record's inbound door. Append-only.
+#
+# ⭐ THIS IS TRACK B's DOOR, NOT THE MOM-CYCLE'S. Read BACKLOG.md's opening:
+# Fernwood carries TWO PRODUCTS in one repo — Track A, Mom's field journal, and
+# Track B, Paul's fleet & equipment tracker. Different users, tone, cadence and
+# definition of done. The mom-cycle (MOM-CYCLE-MAP.md) is Track A's loop and has
+# NO BEAT for a vehicle record. Track B has no loop at all.
+#
+# WHY THIS EXISTS. On 2026-08-28 two vehicle facts surfaced from a comms sweep —
+# two LMC Truck orders addressed to the house instead of the gatehouse, and a
+# Golf GTI service visit with no serviceHistory entry. `ask-cycle.py` REFUSED
+# both, correctly: Fernwood's only declared loop is the mom-cycle and neither ask
+# belonged in it. They reached BACKLOG.md because a session remembered to put
+# them there. This door is so the next one does not depend on remembering.
+# `demand.py` had both logged as DEMONSTRATED DEMAND — 2 asks, no door.
+#
+# WHAT BELONGS HERE. A fact about a vehicle, a part, a piece of equipment, a
+# service event or a delivery address that the Fernwood record has wrong, missing
+# or unverified. ⚠️ The parts record is known wrong in BOTH directions
+# ([[reference_parts_record_under_reports]]): it has under-reported what Paul
+# OWNS and over-reported what he ORDERED. Absence is not evidence, and neither is
+# a stated order — clear an order with an ORDER NUMBER.
+#
+#   python3 ~/.claude/tools/ask-cycle.py fernwood-fleet "<the fact + its evidence>" --from <project>
+#
+# WHAT DOES NOT BELONG HERE. Anything about Mom, her feedback, the journal, the
+# viewer, or her asks — that is Track A and it rides the mom-cycle. Filing it
+# here puts it where no beat reads it.
+#
+# ⚠️ NOTHING SWEEPS THIS FILE ON A CADENCE. Track B has no loop, so an entry is
+# read when fleet work is next opened. A durable inbox, not an alarm; a
+# time-sensitive fact also belongs on BACKLOG.md, which stays the canonical
+# surface for Fernwood open work.
+#
+# Shape (one JSON object per line):
+#   {"from":"security","what":"LMC order W7610655 shipped to the house, belonged at the gatehouse","opened":"2026-08-28"}
