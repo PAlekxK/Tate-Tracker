@@ -19,7 +19,7 @@
         "detail": "Purchased 4/1/2021 from CarMax Roswell at 43,101 miles — financed, paid off very quickly (Paul-confirmed 7/23; the lien-release letters date it by June 2021). Date/mileage are scan reads off the purchase packet; full detail in private records",
         "confidence": "verified"
       },
-      "status": "Active — coolant leak diagnosis ongoing",
+      "status": "Active — rear brakes and brake fluid owed (two independent dealer reads); coolant still losing slowly",
       "specs": {
         "displacement": "1,984 cc turbocharged inline-4",
         "power": "~230 hp (APR Stage 1 tune)",
@@ -81,6 +81,44 @@
       "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan. (Plan refreshed 2026-07-22 for the MANUAL correction: no DSG service exists — the old 'DSG 40k @ 82,698 overdue' urgency is void; manual gearbox oil is a low-priority long-life check.) ⚠️ Front-end cone-strike repaired DIY 2026-07-21 (see serviceHistory) — mention the understrike at the next shop visit so the radiator/condenser area gets eyeballed. WARRANTY NOTE (from the 7/23 paper ingest): a MaxCare extended service contract ran 60 months / 75k miles from the 4/1/2021 purchase — EXPIRED ~April 2026, so no active warranty coverage today.",
       "restoration": [
         {
+          "item": "Rear brakes — rotors & pads (two independent dealer reads)",
+          "status": "due-soon",
+          "detail": "⚠️ SUPERSEDES the old “likely fine” reading, which came from Express Oil flagging nothing on 7/11 — and that entry already carried the right caveat, that their checklist measures brake FLUID LEVEL, not pad thickness, so no pad number was ever on record. Two independent VW dealers now say the rears are done: Jim Ellis called rear rotors and pads in March 2025 at 73,631, and VW of Marietta called them again in August 2026 at 83,782, marked Critical. Ten thousand miles apart, same finding, and the rears were last done at Midas in 2022 around 54,844 — roughly 29,000 miles ago. Treat this as real rather than an upsell: it is the one item on the dealer estimate that two unrelated shops agree on. ⭐ WHERE IT SHOULD GO: not the quick-lube chain. The MK7 has an ELECTRONIC PARKING BRAKE, so the rear caliper pistons must be retracted with a scan tool in service mode rather than wound back by hand; the wrong tool or the wrong habit damages the caliper actuator motors, which are expensive. A VW specialist does this routinely. Eurofed holds the history and is the preferred specialist; Autobahn is the standing default for the big work. Do the brake fluid in the same visit — the system is being bled anyway, so the fluid is nearly free on labour. The dealer's own price for the rear job is a dealer-rate benchmark, not a quote to accept.",
+          "contactId": [
+            "eurofed",
+            "autobahn"
+          ]
+        },
+        {
+          "item": "Brake fluid — REOPENED, the 7/11 exchange is in question",
+          "status": "due-soon",
+          "detail": "⚠️ REOPENED 2026-08-28 — this was marked done on the strength of a single receipt, and the world now disagrees with it. Express Oil billed a brake-fluid exchange on 2026-07-11 at 82,698. On 2026-08-26 at 83,782 — 46 days and 1,084 miles later — the VW of Marietta advisor called the fluid “really black,” and Paul's own look on 8/28 reads the reservoir as very dark grey to black. Brake fluid is a static hydraulic column, not a circulating one, so there is no mechanism to re-darken a freshly exchanged reservoir in six weeks; even a reservoir-only job should still look fresh. ⭐ WHY THIS MATTERS MORE THAN A BILLING DISPUTE: across all 21 rows of this car's service history (2021→2026, 43,101→83,782 mi) that 7/11 exchange is the ONLY brake-fluid service ever recorded — every other mention is a recommendation nobody acted on. If it did not happen, the car may still be on factory-original fluid approaching ten years, against a two-year interval. Old fluid absorbs water and its boiling point falls; the failure shows up as a soft or sinking pedal under sustained heavy braking — which is what a long descent off the mountain is. Pair that with rear pads two dealers have now called worn and both ingredients of brake fade are in the same car. NOT PROVEN: “really black” is a subjective call from someone selling a $264.99 flush, and the reservoir has not yet been sampled onto white to separate fluid colour from tank, float and shadow. DO: sample onto white; then have it done properly. Spec is DOT 4 LV (VW G 060 157), all four corners bled, not a reservoir exchange — and it rides nearly free on labour if it is done alongside the rear brakes. Detail and the Express Oil question: finding F-G in the private records.",
+          "contactId": [
+            "eurofed",
+            "autobahn",
+            "expressoil"
+          ]
+        },
+        {
+          "item": "Coolant — verify at next shop visit",
+          "status": "diagnosing",
+          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase — fold it into a visit that's already happening. Two natural moments: (a) the spare-key dealer trip — grab a free coolant-level eyeball while they do the free recall check (treat any 'recommended services' list as an upsell, not gospel); (b) better for a real read — a specialist visit at Autobahn, where they can properly check whether it's losing any (dye/pressure) and glance the brake pads at the same time. Eurofed also holds your history. On any eventual pump replacement, ask for a metal-impeller INA/OE kit. (3) 2026-02-02: Paul replaced the coolant expansion/overflow reservoir tank himself (DIY) — a suspect swapped out; predates the clean 7/11 pressure test. Not calling the loss solved, but it's a variable now on record. (4) ⚡ 2026-08-28 — THE LOSS IS ACTIVE, and two of the readings above are now unsafe to lean on. Paul topped the reservoir off roughly one to two weeks before 8/28 (a small top-off, not a refill) and sees fluid under the car, so the level is still falling and the 2/2026 tank swap did not close it. ⚠️ FIRST: the 7/11 Express Oil pressure test above is a claim from the same visit whose brake-fluid claim is now in question (finding F-G) — if it was never performed, “no active leak” was never established and an ordinary physical leak was never ruled out. ⚠️ SECOND: at the 8/26 dealer visit Paul asked about the coolant, was offered a full diagnostic at about $220, and declined it — so the absence of a coolant line on that visit's estimate is not a clean bill, they simply did not look. Fluid under the car also cuts against the worn-pressure-cap theory in the research notes, whose whole signature is a slow loss with NO puddle; that promotes a physical leak — the plastic thermostat/water-pump housing, already replaced once in 2022, or the turbo-to-head coolant pipe. STILL UNKNOWN and all free: the colour of the under-car fluid (pink/violet is coolant, clear is ordinary summer A/C condensate, brown/black would be oil and would point at the timing cover instead), what he topped off with (G13 or G12evo are both correct; generic green or orange is its own problem), and what is stamped on the cap now fitted. Cardboard under the car overnight answers the first. When it next goes in, ask by name for the CAP to be tested on a cap tester, separately from a system pressure test — that step gets skipped, and a system test cannot see a cap fault.",
+          "contactId": [
+            "expressoil",
+            "eurofed",
+            "autobahn"
+          ]
+        },
+        {
+          "item": "Upper timing chain cover — oil seep (dealer-flagged)",
+          "status": "diagnosing",
+          "detail": "NEW 2026-08-26 — VW of Marietta flagged the UPPER TIMING CHAIN COVER on the courtesy inspection at 83,782, and Paul marked it Critical on the sheet. On the EA888 Gen 3 this is the well-known upper-cover oil seep: a labour-heavy job around a cheap gasket. ⭐ WORTH HOLDING TWO THOUGHTS APART: this is an OIL leak, while the long-running open item on this car is a COOLANT loss. They are different fluids and probably different problems — but nobody has yet confirmed what the fluid under the car actually is, and brown or black on the cardboard would point here rather than at the cooling system. Get an independent read before buying the dealer's price; this is exactly the kind of job where a specialist's opinion on whether it is seeping or genuinely leaking changes whether it is worth doing now. Not urgent the way the brakes are.",
+          "contactId": [
+            "eurofed",
+            "autobahn"
+          ]
+        },
+        {
           "item": "Heated seat not working (open)",
           "status": "open",
           "detail": "Captured from the ChatGPT mine 2026-07-22 — not previously on the card. Symptom evolved over several months (~late 2024→2025-03): first, pressing the seat-heater button lit the indicator but it shut off after a few seconds with no warmth; later the indicator STAYS ON but the seat never warms. Unresolved. Likely causes (unverified): heater element burnout (most common), a faulty switch / Climatronic module, a thermal fuse/thermistor fault, or wiring/connector damage under the seat. No fix attempted yet. PAPER TRAIL (7/23 ingest): Paul's handwritten 'seat heating element inspection' note on the 3/20/2025 Jim Ellis estimate — the fault was already on his radar by spring 2025."
@@ -88,19 +126,9 @@
         {
           "item": "Underbody + radiator/condenser eyeball (post cone-strike)",
           "status": "planned",
-          "detail": "After the 7/21 cone strike (grill + underbody panels, DIY-repaired in place), have whoever next has it on a lift eyeball the radiator/condenser area, mounts, and the zip-tie/washer repair — piggybacks on the coolant-verify visit, no special trip.",
+          "detail": "After the 7/21 cone strike (grill + underbody panels, DIY-repaired in place), have whoever next has it on a lift eyeball the radiator/condenser area, mounts, and the zip-tie/washer repair — piggybacks on the coolant-verify visit, no special trip. ⚡ PARTLY DISCHARGED 2026-08-26: it was on a lift at VW of Marietta for a courtesy multi-point inspection, and the resulting six-line estimate names nothing at the radiator, condenser or mounts — weak good news rather than a clearance, since a courtesy MPI is a quick look and the coolant question specifically was not examined. What they DID flag from the strike is the front bumper vents, both sides — so the in-place repair reads as incomplete to a trained eye. Cosmetic, and deferrable; see the separate bumper item.",
           "contactId": [
             "expressoil",
-            "autobahn"
-          ]
-        },
-        {
-          "item": "Coolant — verify at next shop visit",
-          "status": "planned",
-          "detail": "Two observations on record — no conclusion drawn. (1) 2025-09-15 @ 77,793 (Cannon Automotive, Jasper): an invoice note reads the coolant reservoir was empty prior to service and was topped off — a single-source vision read of one printed line, treated as an observation, not confirmed. (2) 2026-07-11 @ 82,698 (Express Oil): cooling system pressure-tested, no active leak found; reservoir at a safe level. Context, not a diagnosis: the water pump + thermostat assembly was already replaced once (Autohaus, Jun 2022 @ ~52,665 mi), so it's not the original plastic module — full part list is in the private service records. PLAN: no special trip and no call to chase — fold it into a visit that's already happening. Two natural moments: (a) the spare-key dealer trip — grab a free coolant-level eyeball while they do the free recall check (treat any 'recommended services' list as an upsell, not gospel); (b) better for a real read — a specialist visit at Autobahn, where they can properly check whether it's losing any (dye/pressure) and glance the brake pads at the same time. Eurofed also holds your history. On any eventual pump replacement, ask for a metal-impeller INA/OE kit. (3) 2026-02-02: Paul replaced the coolant expansion/overflow reservoir tank himself (DIY) — a suspect swapped out; predates the clean 7/11 pressure test. Not calling the loss solved, but it's a variable now on record.",
-          "contactId": [
-            "expressoil",
-            "eurofed",
             "autobahn"
           ]
         },
@@ -110,15 +138,6 @@
           "detail": "⚠️ CORRECTED 2026-07-22: filed as a 'DSG service', but the GTI is a 6-speed MANUAL (Paul-confirmed) — there is no DSG. Manual gearbox oil is long-life (not a 40k/80k item), so this drops from 'overdue, don't skip' to a low-priority check. If changing it, verify the manual spec (commonly VW G 052 527 A2) and drain-and-fill at a visit that's already happening; skip the temp-controlled DSG fill entirely.",
           "contactId": [
             "eurofed",
-            "autobahn"
-          ]
-        },
-        {
-          "item": "Brake fluid flush",
-          "status": "done",
-          "detail": "DONE 2026-07-11 at Express Oil — brake fluid exchange ($124.99). Fluid only, no pad work (the invoice's 'with friction replacement' is the fluid-service package wording, not new pads — Paul confirmed). Fluid spec if ever redone: DOT 4 LV (VW G 060 157), 2-year interval.",
-          "contactId": [
-            "expressoil",
             "autobahn"
           ]
         },
@@ -135,8 +154,8 @@
         },
         {
           "item": "Spare key — source + program",
-          "status": "sourcing",
-          "detail": "Get a second key before you ever need it — you still have one working key, so this is a cheap “add-a-key” job, not the all-keys-lost nightmare. Yours is the flip-key-with-KESSY (Comfort Access) type — SPEC CONFIRMED off Paul's own key (2026-07-14, read off the fob + web-verified): genuine Hella OEM, FCC ID NBGFS12P01, VW part 5G0 959 752 BE family (MK7 / MQB platform), 315 MHz US, MQB48 transponder, HU66 blade, CR2025 battery, 4-button. ⚠️ THIS CORRECTS AN EARLIER SPEC: the Facebook Marketplace pair read 5K0 837 202 AK / FCC NBG010206T — a DIFFERENT, older (non-MK7) generation. Do NOT buy those for this car; they're the wrong key and would be the classic won't-program money-pit. Source to NBGFS12P01 / 5G0 959 752. Two routes: a VW-capable MOBILE locksmith (comes to you, one visit, ~$250–400, roughly 40–60% under dealer) or a VW dealer (either Jim Ellis Chamblee — right by Autobahn, so you can do it the same trip as the GTI service — or Jim Ellis Kennesaw, which is on the way to the property; OEM but usually order-then-return = 2 trips, ~$350–450; bundle it with the free 16V647 recall check + a written 90k estimate). The catch with USED keys (e.g. a Facebook Marketplace pair): the MK7 is MQB, so registering a key needs dealer FAZIT online access or an MQB-capable locksmith, and a used fob still married to another car can REFUSE to program (people have burned $120+ trying). Before buying used, confirm it’s virgin/resettable AND line up someone who’ll program used MQB keys — otherwise a new aftermarket NBGFS12P01 / 5G0 959 752 fob (~$35–80) programs clean. Programming is the gated cost either way (~$60–150). On the dealer trip: skip any \"free multi-point inspection\" as a to-do list (dealer pricing + upsell, and you trust Autobahn for the real diagnosis) — but DO grab the dealer-only freebies: the free recall check + any recall work (16V647 EVAP etc.), and optionally a free written estimate to use as a price benchmark against Autobahn. While it's there for the freebies, it costs nothing to have them also eyeball the two open 'verify at next visit' items — the coolant level and the brake-pad thickness — just don't let those turn into an upsell list. — RECALL NOTE: a suction-jet-pump safety recall was already performed at Jim Ellis 3/2025 (@ ~73.6k); still worth running a fresh free recall check by VIN on the dealer trip in case anything new has been issued.",
+          "status": "done",
+          "detail": "DONE — Paul has two working keys as of 2026-08-26. Ordered and prepaid at the VW of Marietta parts counter on 8/04, then cut and programmed there on 8/26 at 83,782 mi. The spec that was chased down held up: genuine Hella OEM flip-key-with-KESSY, FCC ID NBGFS12P01, VW part 5G0 959 752 BE family, 315 MHz, MQB48 transponder, HU66 blade, CR2025 battery. ⭐ THE COST LESSON worth carrying to the rest of the fleet: programming was billed SEPARATELY from the key and cost very nearly the same again — the part was not the whole price, and the 8/04 invoice gave no hint of it because it carried no labour line. All-in for one spare key was roughly double what the parts invoice implied. The dealer also priced TWO keys at intake, at exactly twice the one-key figure, so a third key later costs the same again — the per-key programming price does not scale down. Amounts and invoice numbers in the private records.",
           "contactId": [
             "jim-ellis-chamblee",
             "jim-ellis-kennesaw",
@@ -160,7 +179,7 @@
         {
           "item": "Timing chain stretch check",
           "status": "planned",
-          "detail": "No fixed interval; stretch usually needs action at 120–150k. A quick VCDS / OBDeleven read now gives a baseline — worth it on a tuned car.",
+          "detail": "No fixed interval; stretch usually needs action at 120–150k. A quick VCDS / OBDeleven read now gives a baseline — worth it on a tuned car. ⚠️ NOT THE SAME THING as the UPPER TIMING CHAIN COVER that VW of Marietta flagged on 2026-08-26 — see that separate item. Stretch is a chain-and-tensioner question; the cover is a sealing surface. Do not read the dealer's cover price as a remedy for stretch, and do not let the cover job be mistaken for having addressed this.",
           "contactId": [
             "eurofed",
             "autobahn"
@@ -176,10 +195,18 @@
           ]
         },
         {
-          "item": "Brakes — quick check",
-          "status": "planned",
-          "detail": "You recall the brakes looking OK recently, and the records back that up — front brakes done 2022 (Eurofed/Autohaus), rears at Midas 2022. On 7/11/26 Express gave it an overall look-over and flagged nothing on the brakes — read: no red flags, likely fine. (Caveat: their checklist measures brake FLUID level, not pad thickness, so there's no actual pad number on record yet.) No action needed; just confirm pad thickness at the next shop visit — it rides along for free with the spare-key dealer trip or the Autobahn visit (see those items). Low priority.",
-          "contactId": "expressoil"
+          "item": "Front bumper vents — cone-strike residue (cosmetic)",
+          "status": "down-the-road",
+          "detail": "VW of Marietta quoted both front bumper vents, driver and passenger side, at the 2026-08-26 inspection. This is almost certainly the 7/21 cone strike showing through the in-place repair — washers, zip ties and tape held the panels, but the vents themselves read as damaged to a trained eye. Purely cosmetic and the most deferrable line on that estimate; it changes nothing about how she drives. Worth pricing against a body shop or a used part rather than the dealer's figure if it ever gets done.",
+          "contactId": [
+            "autobahn"
+          ]
+        },
+        {
+          "item": "Rear license-plate lights — watch for recurrence",
+          "status": "low",
+          "detail": "Paul traced a bulb-out warning to a dirty, loose connector on 2026-07-13, cleaned and reseated it, and taped rather than heat-shrinked it — the record already carried a recurrence-watch on that. ⚡ 2026-08-26: VW of Marietta quoted two license-plate bulbs at the inspection, which suggests the fault is back six weeks later and that the tape did not hold. Cheap either way and squarely DIY — Paul has done the equivalent job on the Bronco's cabin lighting. Worth confirming whether the MK7 uses replaceable bulbs here or sealed LED units, because the part cost differs by several times. If it is the connector again, heat-shrink it this time rather than tape.",
+          "contactId": []
         }
       ],
       "vin": "3VW547AU0GM••••••",
@@ -268,7 +295,7 @@
           "notes": "On the I-75/Cobb Pkwy corridor toward Jasper. Heads-up: public listings now show this as 'Volkswagen of Marietta' — the old Jim Ellis VW Marietta listing reads closed, so it looks like a rebrand/ownership change. Confirm the name when you call. Same key spec + recall check by VIN."
         }
       ],
-      "mileage": "82,698 mi — VERIFIED 2026-07-11 (Express Oil full-service oil change). Prior verified: 79,582 on 2026-01-02.",
+      "mileage": "83,782 mi — VERIFIED 2026-08-26 at the VW of Marietta visit (the figure is printed 4 times across two independent documents, and mileage in = mileage out, so the car did not move). Prior verified: 82,698 on 2026-07-11.",
       "registration": {
         "owner": "Paul",
         "renewsBy": "June 3 (Paul's birthday)",
@@ -286,6 +313,14 @@
         "url": "https://carworklog.com/stuff/Manual/Owners_Manual-Golf-GTI-Golf-R-US-Edition_Model-Year-2016_Edition-07_2015.pdf"
       },
       "serviceHistory": [
+        {
+          "id": "sr-2026-08-26-vw-marietta-key-program-mpi",
+          "date": "2026-08-26",
+          "mileage": 83782,
+          "shop": "Volkswagen of Marietta",
+          "summary": "Spare key CUT AND PROGRAMMED — the key ordered and prepaid on 8/04 was finished on this visit, and Paul now has two working keys. Waiter appointment: in at 11:00, ready at 13:34, mileage in and out both 83,782 (the car never left the shop). Programming was billed as labour only, with no parts — which answers the question the 8/04 invoice left open: cutting and immobilizer programming were NOT included in the key's price, they were a separate charge of roughly the same size again. A courtesy multi-point inspection rode along at no charge and produced a six-line declined-work estimate (rear rotors and pads, four-wheel alignment, upper timing chain cover, brake system flush, two license-plate bulbs, front bumper vents), valid to 9/25/2026 — none of it done on this visit. Paul asked about the coolant; a full diagnostic was offered and he declined it, so nothing on that estimate speaks to the coolant either way. The advisor also said the brake fluid looked black. Costs, invoice numbers and the estimate's line prices are held privately.",
+          "confidence": "verified"
+        },
         {
           "id": "sr-2026-08-04-spare-key-special-ordered-prepaid",
           "date": "2026-08-04",

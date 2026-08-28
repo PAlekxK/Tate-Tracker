@@ -1,8 +1,8 @@
 {
   "_meta": {
     "note": "PII-free catalog of private vehicle service scans; the durable index for .private/service-records/",
-    "updatedAt": "2026-08-04T19:50:06.359823+00:00",
-    "count": 251
+    "updatedAt": "2026-08-28T13:57:17.221320+00:00",
+    "count": 254
   },
   "records": [
     {
@@ -2306,6 +2306,33 @@
       "sha256": "fcc96e051e96f9168c9b72d740a4d513a1a718e30a59267d0a9978abb06520a5",
       "bytes": 4206024,
       "photoTakenAt": "2026-08-04T13:53:05",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260828_094412_IMG_9320.jpeg",
+      "sha256": "0f7a75709ede9ba3fc0c0f1a74df9539ea5f0f6a279723bff8fe1a3f123102a5",
+      "bytes": 4758962,
+      "photoTakenAt": "2026-08-28T09:44:12",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260828_094414_IMG_9321.jpeg",
+      "sha256": "d583fb20121219031d557acb81e82fdcd8847059a23532550287599b13cbb6fd",
+      "bytes": 7457236,
+      "photoTakenAt": "2026-08-28T09:44:14",
+      "stage": "inbox",
+      "class": null
+    },
+    {
+      "vehicleId": "gti-2016",
+      "file": ".private/service-records/gti-2016/_inbox/20260828_094422_IMG_9322.jpeg",
+      "sha256": "beda33c95f79722db8fa7f1be7d7fb5e8b27cf60ec006bb3b3c3cad8b3fe9992",
+      "bytes": 6370084,
+      "photoTakenAt": "2026-08-28T09:44:22",
       "stage": "inbox",
       "class": null
     }
