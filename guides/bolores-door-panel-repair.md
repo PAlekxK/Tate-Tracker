@@ -349,7 +349,7 @@ strip → gross clean → dry → assess (+ acetone test) → repair (incl. brac
 1. ⭐ **Acetone test result** — panel substrate. Gates both doors.
 2. **Is the line in the lower field a crack?** Fingernail test after the gross clean.
 3. **What is the blue/silver foil sheet in the 8/28 bench photos?** ⚠️ **No sound-deadening MAT exists in any purchase record** — Amazon, eBay, all of it. The only line item is a *Sound Deadener Application Roller, $9.03, 2026-02-24*, and the record from that week says *"Optional door sound-deadening + foam speaker rings not yet done (discussed only)."* Read the label and file it; this is a genuine gap in the parts record, not a lookup failure.
-4. **Sequence question:** Paul said 2026-08-28 "we're gonna do paint last overall." This guide's Phase 3 puts paint **before** reassembly (panels sprayed, then on once). If "last" means the last *major phase*, no conflict. If it means after the truck is back together, **that breaks the one-removal protocol** — the panel would go on and come back off. Needs resolving before Phase 2 commits.
+4. ✅ **RESOLVED 2026-08-28 — see "THE 8/28 RESEQUENCE" below.** Paul's call: restore and reinstall now, accept a second removal at paint.
 5. **For Larry:** does interior trim get baked, and at what temperature? (CA gel limit ~180°F.)
 
 ### Still to fold into `vehicles.json` (held 2026-08-28 — concurrent GTI session in this repo)
@@ -358,3 +358,57 @@ strip → gross clean → dry → assess (+ acetone test) → repair (incl. brac
 - The shoddy-pad finding + CCF replacement spec + the layer-1-vs-layer-2 distinction
 - DPPRK87 status: **ON SHELF**, contents confirmed, ships CA gel
 - The washer removal result (panel intact)
+
+
+---
+
+## ⭐ THE 8/28 RESEQUENCE — restore and reinstall NOW; the one-removal protocol is deliberately spent
+
+**`paul-decided 2026-08-28`:** *"Restore the door panels, put them on, and then just be ready to take them off when there's a full painting. We're not gonna wait on the full painting to restore and work on these door panels because I don't want them to rattle or get worse in any of the cracks."*
+
+**This overrides STEP 6's one-removal optimum, and the override is correct.** STEP 6 was never a principle — it was arithmetic, and it rested on one premise: *the booth is near-term, so any install before paint is a wasted cycle by definition.* With paint now indefinite, that premise is gone and the trade inverts. Leaving both doors gutted for a year to bank one cycle is worse than spending it. **Accepted cost: one extra removal per door.** Mitigation is unchanged — work WARM, pry AT each clip, clips are consumable and the panel is what you're protecting.
+
+### ⚠️ THE CONSEQUENCE THAT CHANGES THE WORK: "primer-ready" no longer works
+
+"Stop at primer-ready, the shop sprays the chestnut" existed **only** because the panel went bench → booth with no stop in between. A panel going back on the truck for an indefinite stretch can't wear gray filler — which drags **color-matching** back into scope, the single hardest part of this job and the thing the repaint plan was celebrated for killing.
+
+**Don't take that bait. SPLIT THE JOB by side of the panel:**
+
+> ### 🔧 DO NOW — the back (structural, invisible, no paint dependency)
+> - Back-side crack reinforcement — **stops propagation**, which is half of what Paul asked for
+> - DPPRK87 bracket at the torn screw hole
+> - Clip-pocket rebuilds — ⭐ **this is the rattle fix**
+> - CCF on the panel back — the other half of the rattle fix
+>
+> ### ⏸ DEFER TO THE BOOTH WINDOW — the show face (cosmetic)
+> - Flexible filler, 220 → 320 → 400, final prep clean, spray
+>
+> **Why defer:** show-face filler done now would sit for a year, get handled, and need re-sanding before the booth anyway. You'd do it twice and colour-match a panel that gets resprayed. The panel goes back on **structurally sound and quiet, still wearing its original chestnut and whatever cracks show on the face.** It looks how it looks today — but it doesn't rattle and it doesn't get worse. That is exactly the ask.
+
+### What moves EARLIER as a result
+
+Three items were parked at "after paint" in STEP 7 and now belong in this session:
+
+1. **CCF on the panel back — fit it NOW.** Reassembly is now. Buy the foam before buttoning up (still a shopping item; see the layer-model warning in STEP 7 — butyl is not it).
+2. ⚠️ **The vapor barrier must be properly RESEALED, not just templated.** Saving it as a template was sufficient when the door was staying open. A panel going back on over a compromised water shield **puts water in the cab.** Butyl tape or a new barrier before the panel goes on. Non-optional now.
+3. **All apart-state work, done in this session** — lock metering (switch → jamb boot → actuator; reconcile the on-shelf TRQ unit), BOTH inside-handle fatigue checks, glass run channels and fuzzies, hinge pins/bushings, door check strap, cavity inspection + cavity wax. Accepting a second cycle is no reason to pay for a third.
+
+**Unchanged and now more important, not less:** test window, lock, speaker, handle **with the panel still OFF.** A reinstall you've committed to is a reinstall you don't want to undo.
+
+### ⚠️ STILL GATED ON LARRY — butyl on the door's outer SKIN
+
+Do **not** lay CLD on the outer skin yet. If the doors later go to bare metal, or see heat/filler/metalwork, deadener on the back of that skin gets cooked or cut out. Laying it now is a bet on what Larry does to the doors. **CCF on the plastic panel carries no such exposure — that's free to do today.** It is specifically the *metal* that waits.
+
+### Revised sequence
+
+```
+strip → gross clean → dry → assess (+ acetone test)
+      → BACK-SIDE repair: cracks, bracket, clip pockets
+      → CCF on panel back  →  reseal vapor barrier
+      → test everything with panel OFF  →  panel ON  (cycle 1 of 2)
+      ...
+      → [booth window opens] → panel OFF → show face: filler, sand, spray
+      → colour-matched caps → panel ON  (cycle 2 of 2, final)
+```
+
+**Clip budget:** the Icyhaws 50-pc kit now has to cover **two** installs across **two** doors. Count what's left after this round and re-buy early — reused brittle retainers are item #1 on STEP 6's what-forces-another-cycle list, and at ~$8 a kit there is no reason to be short.
