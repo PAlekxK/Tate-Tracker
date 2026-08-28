@@ -445,6 +445,7 @@ strip → gross clean → dry → assess (+ acetone test)
 | **LLPT butyl tape, 1" × 33 ft, BLACK** — vapor-barrier reseal | 1 | $14.39 | Aug 29 |
 | **Icyhaws 50 pc panel clips** — `N801925-S` **+** `N802900-S` | 2 | $7.49 ea | Aug 31 |
 | **ToLanbbt sponge neoprene, 1/8" × 12" × 59"** — the CCF layer | 2 | $12.97 ea | Aug 29 |
+| **Frost King `P1025B/6` polyethylene sheeting, 10' × 25' × 6 mil, BLACK** — the water shields | 1 | $23.00 | Aug 29 |
 
 **Subtotal $55.31.** Selection notes, so this isn't re-litigated later:
 - **Clips — Icyhaws over the cheaper-per-piece 100 pc kits.** The 100 pc options cover `N801925-S` ONLY; Icyhaws covers **both** Ford part numbers, and it is the exact clip already installed on this truck (June 2026). **For a fitment part, proven-on-this-vehicle beats review count** — Icyhaws has only 5 ratings and that's fine. 2 boxes = 100 clips for the two-install budget.
