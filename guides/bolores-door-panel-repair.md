@@ -241,7 +241,8 @@ The passenger panel is in **substantially better shape than the driver's**. Phot
 - **Retainer clips still seated in their pockets** around the perimeter — several intact along the bottom edge. This is the big difference from the driver side ("cracked through with broken clip mounts"). The passenger job may be a **strip-clean-repair-refinish**, not a structural rebuild.
 - **One damaged screw hole**, previously stopgapped by Paul with a **metal washer glued on with cyanoacrylate** to spread load and stop the tear-out progressing. Correct instinct; it held for months.
 - **Back-side insulation pad** present, glued over the flat lower/middle field — torn and ragged around the openings, partially detached, with a slit cut through it near centre by someone at some point.
-- ⚠️ **UNRESOLVED — a dark line runs through the lower field** in both photos. Molding seam or crack? **Fingernail-test it after the gross clean** (grime hides hairline cracks — this is why cleaning precedes assessment). Catches = crack, and STEP 2 applies.
+- ✅ **RESOLVED 2026-08-29 `paul-confirmed` — the dark line is the PAD, not the panel.** It was the slit described one bullet above, photographed *through* the pad; with the pad off, Paul confirmed at the bench that the plastic underneath is unmarked. **There was never a crack there.**
+  > ⚠️ **Worth keeping as a caution: this guide already contained the answer.** The slit is described in the bullet directly above the warning, and nobody joined them — so a photo-derived observation stood as an open crack worry for a day. A model read off a photo is a hypothesis; check it against what the record already says *before* it becomes an open item.
 
 ### The insulation — identified, and what replaces it
 
@@ -793,6 +794,31 @@ will help hide the residue shadow he chose not to abrade away.
 
 ---
 
+## 📍 BENCH SESSION — 2026-08-29
+
+**Done, `paul-confirmed` at the bench:**
+- ✅ **The old CA ring is off** the torn screw hole. Flatness verification is in progress — the test is
+  test-fit the bracket and **look for light underneath**, not feel, because CA gel has no gap fill.
+- ✅ **The dark line is the pad, not the panel** — see STEP 7, resolved.
+- ✅ **Overall condition read:** the passenger panel is *"in really good shape relative to the driver
+  side."* Confirms the 8/28 photo read; the driver panel remains the structural job.
+
+**Next, in order:** local spot-clean of the bracket footprint (local, so it dries in minutes rather
+than costing a day) → scuff both faces → degrease → pencil the outline → bond.
+
+⚠️ **The live blocker is still the degreaser.** Isopropyl 91%+ is unconfirmed on the shelf. Adjudicated
+2026-08-29: the final wipe must **evaporate to nothing**, so only an **alcohol** (isopropyl 91%+ or
+denatured) or a **wax-and-grease remover** qualifies. Every cleaner Paul checked — Purple Power,
+Easy-Off, Formula 409 — is water-based and leaves a film; **409 is a fine cleaner and a valid stand-in
+for Dawn, but no cleaner can hold the final-wipe slot.** Fallback with zero purchase: 409 or Dawn,
+rinse until filmless, dry completely, and lean harder on the scuff. ⭐ A wax-and-grease remover is the
+purchase worth making — STEP 7 requires one anyway for the pre-booth clean of the show face.
+
+⚠️ **Check the DPPRK87 box before buying anything** — kits like this sometimes ship a prep wipe or
+activator, which would settle the question for free.
+
+---
+
 ## STEP 11 — THE PHOTO ROUTING (run 2026-08-28, PARKED one step short)
 
 **Goal:** get the 8/28 bench photos into photo-organizer as evidence attached to this job, so a dated
@@ -866,6 +892,9 @@ so nothing is being deferred that could have been done today.
 
 **Open, in priority order:**
 1. **Crack map** — locations + types, after cleaning. Decides solid-sheet backing vs mesh-weld per spot.
+   ✅ *The "dark line" is struck from this list (8/29, pad not panel). The rest of the survey still stands —*
+   *Paul's 8/29 read is that the passenger panel is in **good shape relative to the driver side**, which is a*
+   *general impression, not a completed survey.*
 2. **Larry** — do the doors go to bare metal? Does interior trim get baked? (Gates outer-skin butyl,
    and the CA gel's ~180 °F limit.)
 3. **Photo routing** — one step short, see STEP 11.
