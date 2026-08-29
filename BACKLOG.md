@@ -40,6 +40,55 @@ the priority cut laid over it.
 
 ---
 
+## 📷 INBOUND from the photo-organizer loop — 2026-08-28 (its lap 22, beat 4b)
+
+> **A cross-loop handoff, and it is HERE rather than in `cycle/requests.jsonl` on purpose.**
+> The 8/28 inbound door is scoped to **Track B** — vehicles, parts, equipment, service events.
+> These are property/landscaping facts, which is Track A's half of the repo, and `ask-cycle`
+> reports `tate-tracker` as **CANNOT be asked — no door**. photo-organizer's cycle map names
+> `Tate-Tracker/BACKLOG.md` as the destination for *"Fernwood — service work, vehicles, zones,
+> property"*, so that is where they go. ⚠️ **Two fleet items from the same review DID go through
+> the door** (GTI 2026-07-21, and a photographed Bronco parts list) — see `cycle/requests.jsonl`.
+> Provenance: photo-organizer sweep **120**, answers file
+> `reports/project-review-never-reviewed-bursts.answers.json`, **ruled by Paul by voice 2026-08-28**.
+
+### 🌿 P1 · The WESTERN GARDEN is a five-week arc, and in two of three parts it is not in the frame
+
+| when | what | cards |
+|---|---|---|
+| **2025-11-16** | A **heavy sculpture** taken off a truck — *"that will eventually go in the western Garden at Fernwood"* | 14 photographs |
+| **2025-12-22** | **Mountain laurels dug up** — *"that actually got planted in the western Garden"* | 1 |
+| **2025-12-23** | *"building one of the original walls in the western Garden at Fernwood"* | 2 |
+
+⭐ **The destination is Paul's testimony, not something the photographs show.** In the sculpture
+and laurel sets the garden is nowhere in the picture — it is where the thing was *going*. No
+geofence, no date cluster and no vision model could have produced that link; it took a human
+looking at a truck and saying where its cargo ended up.
+
+**What this is for on the Fernwood side:** the western garden has a build history that the record
+may not carry — a sculpture arriving, source stock for its planting, and a first wall, all inside
+five weeks. ⚠️ **NOT verified and deliberately not assumed:** whether the sculpture was ever
+installed, and where in the garden the laurels went in. The photographs evidence the *delivery and
+the digging*, not the outcome.
+
+📌 Related, already on this repo's own surfaces: `project-western-garden-terrace` is an existing
+photo category (55 prior rulings) and cards #32–33 were filed under it rather than minting a
+sibling. **Whether the sculpture delivery belongs to that same category or to its own is a naming
+call left for Paul** — photo-organizer's rule is that splitting an existing category is his alone.
+
+### 🏠 P2 · A roof inspection happened on 2026-04-23
+
+Paul: *"73 [is a picture of an] inspector … coming to look at the roof."* One photograph, ruled
+`observed:property:roof-inspection:2026-04-23`. The model's own read of the card is *"people
+actively working on the roof of the house, two trucks parked"* — which corroborates that
+somebody was up there and says nothing about **who**, **why**, or **what they found**.
+
+**Filed because a dated inspection is the kind of property event that leaves no other trace** once
+the photo scrolls past. If there is a report, an invoice or a contractor name anywhere, this dates
+it. If there is not, this is the only record that it happened.
+
+---
+
 ## ⭐⭐ THE ORIENTING PRINCIPLE (Paul, 2026-07-29) — steer on her signal, and clean the instrument first
 
 Two clauses, both standing.
