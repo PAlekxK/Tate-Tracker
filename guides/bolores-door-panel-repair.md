@@ -662,6 +662,48 @@ cutting oil. Try the scrape-and-heat route before buying any remover.
 a cloth skates across the peaks. You can wipe this panel until it looks clean and have removed almost
 nothing. **Agitation is the work.**
 
+### ⭐ THE GARAGE SHELF, ADJUDICATED `2026-08-29`
+
+Paul photographed what's actually on the bench shelf and asked which product does what. **Net: the
+shelf adds nothing this guide didn't already have, and it adds three ways to ruin the panel.** Sorted
+against the doctrine above:
+
+| On the shelf | Verdict | Why |
+|---|---|---|
+| **Dawn + warm water + detail brushes** | ✅ **This is the answer** | Already the STEP 10 recommendation, already owned, already used on the back 8/28 |
+| **Purple Power** (industrial alkaline — NaOH + butyl, ~pH 13) | ⚠️ **Back only, heavily diluted, rinsed** | This *is* the "diluted APC" in the table above, and it is precisely what the existing *"test any strong APC in a hidden spot — it can lighten aged chestnut"* warning was written for. Never full strength, never on the show face, never let it dry on the panel |
+| **Goof Off Pro Strength** (xylene) | ⚠️ **Downgraded — last resort, back only** | Xylene attacks ABS: softens and crazes it. Same failure class as the acetone this guide already bans. It is **not** the adhesive remover STEP 10 names — those are mineral spirits / Goo Gone Automotive / 3M, mild petroleum and ABS-safe. If used at all: on the rag, wiped immediately, and **never left on a bond footprint** |
+| **Klean-Strip Lacquer Thinner** | ⛔ **Hard no** | Acetone + toluene + MEK — strictly worse than the acetone STEP 10 bans as *"the ABS solvent-weld."* Its only job on this project is cleaning a spray gun |
+| **Gunk Engine Degreaser** (aerosol petroleum distillate) | ⛔ **Hard no — the worst one on the shelf** | It fails this guide's single strongest rule: **any oil or dressing is a bond RELEASE AGENT.** It leaves a film exactly where the DPPRK87 bracket's CA gel and the CCF have to stick, it cannot be rinsed off a panel indoors, and it sits in the same banned class as WD-40 and silicone spray |
+| **Great Value disinfecting wipes** | ⚪ Harmless, useless | Quat + alcohol, no surfactant dwell. Leaves a fragrance film and does nothing about grain valleys |
+| **"CA…" Premium Series Plastic Restorer** | ⛔ **Not now, possibly not ever** | It's a dressing, and the ordering rule below is hard: *all bonding first, conditioning last, on the back never.* The decided product is already **303 (`B0185PU38A`), silicone-free water-based**. ❓ **Verify before it touches anything**: read the back label for *silicone / polysiloxane / dimethicone* — a silicone dressing on a panel headed for Larry's booth is the fisheye contaminant STEP 7 calls the highest-stakes risk of the job |
+
+⚠️ **Brand read is a model read, unverified** — the logo is obscured by a black sticker in the photo;
+`CA…`, probably Carfidant. Read the bottle, don't trust this row.
+
+⭐ **The shopping answer is unchanged.** Try scrape + heat gun first. If that fails, buy **mineral
+spirits or Goo Gone Automotive** — cheap, ABS-safe, and the thing the shelf is actually missing.
+Nothing on the shelf substitutes for it.
+
+### ⭐ "How do I get the LAST of the residual glue off the back?" — mostly, don't `paul-asked 2026-08-29`
+
+The record already answers this, and the answer is **stop** — see *"The standard on the back is BOND
+FOOTPRINTS, not clean"* (STEP 8, resolved 8/28) and Paul's own call, *"at some point it just damages
+the door."* Residue outside a bond footprint is invisible forever and costs nothing. Residue inside
+one gets removed **locally, at bond time**, not by another whole-panel scrub.
+
+> ⚠️ **BUT — a scale problem in that doctrine, surfaced 2026-08-29 and NOT yet ruled on.** The bond
+> footprints on this panel are not all small. The bracket pad is a coin; **the CCF field is most of
+> the flat back** — which is exactly the area the shoddy pad's 37-year-old contact adhesive covers.
+> So "leave the residue" and "the CCF has to stick" collide over the largest surface on the panel.
+>
+> **Provisional read (Paul to confirm):** the perimeter, ribs and clip pockets are genuinely done —
+> leave them. The **flat CCF field is the one area still worth real work**, and it's mechanical work:
+> plastic razor + heat gun on low, not more chemistry. How clean it must get depends on how the CCF
+> attaches — **if the ordered CCF is PSA-backed, adhesive-over-adhesive is a real failure risk and
+> the field needs to come properly clean; if it goes on with spray adhesive, it's far more
+> forgiving.** ❓ **Check the CCF's backing when the Aug 30 box lands — that answers how hard to scrub.**
+
 ### THE BACK (be aggressive — nothing here is delicate)
 
 1. **Scrape before you dissolve.** Plastic razor on the pad adhesive; the heat gun on low softens
@@ -697,6 +739,9 @@ Old panels hold water in seams, clip pockets, and under leftover adhesive. Compr
 ### ⛔ The don'ts, collected
 
 - **Acetone** on the panel — attacks ABS
+- **Lacquer thinner** — acetone + toluene + MEK; worse than acetone `added 8/29`
+- **Goof Off Pro Strength / any xylene remover** on a bond footprint — attacks ABS `added 8/29`
+- **Engine degreaser, WD-40, any oily aerosol** — bond release agent, anywhere on the panel `added 8/29`
 - **Pressure washer** — drives water into seams, damages the grain
 - **Soaking / submerging** — trapped water you'll never fully dry
 - **Adhesive remover on the show face**
