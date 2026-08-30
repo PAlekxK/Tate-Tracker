@@ -93,4 +93,59 @@ settle it is an opinion, and opinions do not get a row in a machine's file.
 
 ## Notes
 
-*(none yet — the store was created 2026-08-30, before its first sweep.)*
+### SWEEP 1 — 2026-08-30 · dr200s-2017 · charging / battery drain
+
+**Scope, per `paul-stated` the same day: *"they should all be very specific to the two hundred."***
+Generic Suzuki charging advice was found in quantity and **deliberately not recorded** — the first
+search returned DL650, GSX-R and GSXR threads and nothing on a DR200. Folding those would be exactly
+the laundering this file exists to prevent.
+
+⚠️ **THE MODEL BOUNDARY BIT IMMEDIATELY, and it is the same boundary that produced the kickstarter
+error.** Every DR200 thread found is **DR200SE-generation (1998 / 2003 / 2007)**, not the 2017
+DR200S. Forums use "DR200" for both. Every note below records what it speaks to, and none of them
+speaks to this bike.
+
+---
+
+### dr200s-2017 — a dead charging system on a DR200 reads ~12.9–13.0 V running AND stopped
+- tier:        C — and **weaker than C: a search-result summary of a post I did not read.**
+- kind:        failure-mode
+- authors:     1 · a 1998 DR200 owner, via a ThumperTalk thread summary
+- speaks to:   1998 DR200 (SE generation) — **NOT the 2017 DR200S**
+- fetched:     2026-08-30 · archived: **NOT ARCHIVED** — the thread is tollbit-paywalled to an agent
+- test:        **T3.** Meter across the battery, engine warm, hold ~5 000 r/min. A charging system
+               that is working climbs to 13.5–14.5 V; one that is dead sits at the resting figure
+               and does not move with revs. ⭐ **The useful half is the SHAPE, not the number: read
+               it stopped AND running and compare.** A single running reading of 12.9 V could be a
+               flat battery being charged; the same figure at rest AND at 5 000 r/min cannot.
+- status:      open — a hypothesis with a test attached, which is the only thing this file may hold
+
+### dr200s-2017 — DR200 owners report batteries that die repeatedly, one per season
+- tier:        C (search-result summary, threads not read)
+- kind:        symptom
+- authors:     3 · owners of a 2003, a 2007 and one undated DR200
+- speaks to:   DR200SE generation, 1998–2007
+- fetched:     2026-08-30 · archived: NOT ARCHIVED (paywalled)
+- test:        T4 overnight hold, then **T5 as an A/B** (charger attached-unpowered vs removed).
+               A repeatedly-dying battery is the SYMPTOM these owners share; none of the summaries
+               names a confirmed cause, so this note buys a *prior*, not an answer.
+- status:      open
+- ⚠️           **Do not read this as "these bikes have a known battery problem."** Owners with a
+               working bike do not post. A forum is a census of complaints, never of machines.
+
+### SEARCHED-NEGATIVE — the accessible DR200 threads carry no diagnosis
+- `suzukiforum.com` 2007 DR200 starting-issues thread: **fetched and read in full — one post, zero
+  replies, no measurements, no cause.** A dead end, recorded so nobody spends the search again.
+- `thumpertalk.com` and `suzuki-forums.net` both return **307 → tollbit.<host>** to an agent. The
+  two threads most likely to carry real measurements (*"DR 200 Charging system Alternator"*,
+  *"DR 200 Drains Battery"*) are behind that handshake.
+- ⚠️ **A 307 to a paywall is a fact about the CLIENT, not the page** — the same correction the
+  Bronco bookmark sweep produced. **Paul can open these in Chrome.** If a real measurement is
+  wanted from them, that is a human fetch, not a dead link.
+
+### VERDICT ON THIS SWEEP — one usable hypothesis, and a lot of nothing
+Recorded plainly because lap 1 pre-registered the question *"does the FIELD beat earn its place, or
+produce only noise?"* **Honest answer so far: it earned a thin margin.** It produced exactly one
+thing worth acting on — *read the charging voltage stopped AND running, not just running* — which
+sharpens T3 at zero risk, because it is a procedure, not a value. Everything else was either the
+wrong model, the wrong bike entirely, or behind a paywall.
