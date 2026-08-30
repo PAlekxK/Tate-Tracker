@@ -53,6 +53,8 @@ import os
 import re
 import sys
 
+_URL = re.compile(r"https?://")
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 REPO = os.path.dirname(HERE)
@@ -138,6 +140,38 @@ def classify(card_tokens, doc_tokens):
     if card_tokens:
         return "NO-OVERLAP", "/".join(sorted(doc_tokens)[:3])
     return "UNKNOWN", None
+
+
+def laundering(v):
+    """Card values whose `source` is a LINK rather than a held document.
+
+    ⭐ Added 2026-08-30 `[paul-stated]`, alongside the FIELD-NOTES quarantine. Tier A
+    means "the file is in `_assets/` and anyone can check it without asking us" — a
+    URL is not a held document. It decays (11 of 27 Bronco bookmarks were once
+    unretrievable), it is unarchived, and it is the shape a third-party claim takes
+    on its way INTO the record.
+
+    THE DANGER IS MIGRATION, NOT ERROR, and this repo has measured it: the Bronco's
+    `_chatgptProvenanceWarning` records FOUR wrong card values traced to two ChatGPT
+    threads, one wearing a false "read off the actual sidewalls" provenance. It never
+    arrived labelled as junk — it was summarised into a note and later sat in
+    vehicles.json looking manual-sourced. A habit does not catch that. A scan does.
+
+    ⚠️ SCOPE, stated: `manual.url` is EXEMPT and deliberately so — that field's whole
+    job is to hold a link to the readable manual, and flagging it would be the
+    permanently-on alarm this stack keeps warning about. Only `maintenance.*.source`
+    and serviceHistory citations are scanned, because those are the fields that carry
+    the authority of a fact.
+    """
+    out = []
+    for k, m in (v.get("maintenance") or {}).items():
+        if isinstance(m, dict) and _URL.search(str(m.get("source") or "")):
+            out.append(("maintenance." + k, str(m.get("source"))[:70]))
+    for e in v.get("serviceHistory") or []:
+        blob = " ".join(str(e.get(f) or "") for f in ("summary", "source", "shop"))
+        if _URL.search(blob):
+            out.append(("serviceHistory:" + str(e.get("id"))[:34], blob[:70]))
+    return out
 
 
 def manuals_for(vid, vehicles):
@@ -229,6 +263,15 @@ def brief(v, vehicles, idx, full=False):
                   " machine — check it is the right document at all.")
         elif verdict in ("UNKNOWN", "NO-TEXT"):
             print("      ❓ its opening pages name no model we can match — NOT a pass.")
+
+    lnd = laundering(v)
+    if lnd:
+        flagged = True
+        bar("⚠️ SOURCED TO A LINK, NOT A HELD DOCUMENT")
+        for field, src in lnd:
+            print(f"  🟣 {field}\n      {src}")
+        print("  A card value's source must be a document we hold or a physical read.\n"
+              "  A link is tier C — see cycle/fleet/FIELD-NOTES.md.")
 
     for key, title in (("openMechanicalItems", "OPEN MECHANICAL ITEMS"),):
         block = v.get(key)
@@ -331,13 +374,26 @@ def selftest():
     check("resolve: a nonsense name resolves to NOTHING",
           not resolve("zzzzqqq", vehicles))
 
+    # the link-as-source guard, both ways + the exemption + the live denominator
+    check("laundering: a maintenance source that IS a URL gets flagged",
+          bool(laundering({"maintenance": {"oil": {"source": "https://forum.example/t/1"}}})))
+    check("laundering: a held-document source is NOT flagged",
+          not laundering({"maintenance": {"oil": {"source": "manuals/text/x.txt p.4-2"}}}))
+    check("laundering: manual.url is EXEMPT — holding a link is that field's job",
+          not laundering({"manual": {"url": "https://manua.ls/suzuki/dr200s"}}))
+    check("laundering: serviceHistory citations are scanned too",
+          bool(laundering({"serviceHistory": [{"id": "sr-1",
+                                               "summary": "per https://forum.example"}]})))
+    check("laundering: the real fleet is clean TODAY (guard fitted before the problem)",
+          sum(len(laundering(v)) for v in vehicles.values()) == 0)
+
     print("\n" + ("selftest PASSED" if ok else "selftest FAILED"))
     return 0 if ok else 1
 
 
 def sweep(vehicles, idx):
     """Whole-fleet provenance sweep. Prints its own denominator."""
-    bad = nov = unk = checked = 0
+    bad = nov = unk = checked = lnd_n = 0
     print("MANUAL PROVENANCE SWEEP — every machine, every document\n")
     for v in vehicles.values():
         for stem, verdict, named, conf, doc in check_manuals(v, vehicles, idx):
@@ -352,13 +408,20 @@ def sweep(vehicles, idx):
                 print(f"       names {named} · nothing matching {v.get('name')}")
             elif verdict in ("UNKNOWN", "NO-TEXT"):
                 unk += 1
-    print(f"\n  {checked} document(s) checked across {len(vehicles)} machine(s): "
+    for v in vehicles.values():
+        for field, src in laundering(v):
+            lnd_n += 1
+            print(f"  🟣 {v['id']} · {field} is sourced to a LINK, not a held document")
+    print(f"\n  card values sourced to a link: {lnd_n} "
+          f"(scanned maintenance.*.source + serviceHistory across "
+          f"{len(vehicles)} machines; manual.url exempt by design)")
+    print(f"  {checked} document(s) checked across {len(vehicles)} machine(s): "
           f"{bad} MISMATCH · {nov} NO-OVERLAP · {unk} unverifiable · "
           f"{checked-bad-nov-unk} match.")
     print("  ❓ unverifiable = the extracted text names no model we can match. "
           "That is NOT a pass —\n     a sparse scan and a correct document look "
           "identical to this check.")
-    return 1 if (bad or nov) else 0
+    return 1 if (bad or nov or lnd_n) else 0
 
 
 def main():

@@ -44,22 +44,54 @@ a specific vehicle in our fleet and all the history and all the exact details."*
 | # | beat | what it does | door |
 |---|---|---|---|
 | **0 · BRIEF** | resolve + verify the source | `vehicle-brief.py "<whatever Paul said>"` — resolve loose speech to ONE machine (printing what it rejected, refusing on a tie), then print its record **and check every attached manual's own foreword against the model the card claims**. | `tools/vehicle-brief.py` |
-| **1 · SWEEP** | what fired | `fleet_probe.py` — four signals: SEASON · INBOX · PROVENANCE · STALE-OPEN. Read the reason, not just the verdict. | `tools/fleet_probe.py` |
-| **2 · INTAKE** | drain the door | Read `cycle/requests.jsonl`. Each row lands on a repo surface — `vehicles.json` for fact, `BACKLOG.md` Track B for open work — or is refused with a reason. ⛔ **A row is never folded on a model read of a photograph.** | `cycle/requests.jsonl` |
-| **3 · VERIFY** | close the physical checks | The reads only the machine can answer, batched into one trip with a light. Never a paper answer where a physical one exists. | `openMechanicalItems` |
-| **4 · SEASON** | the only real clock | Fall put-away / spring wake-up. Parts lead time is the gate, not the weather. | `restoration` |
-| **5 · RECORD** 👤 | fold, and Paul rules | Corrections folded, `serviceHistory` appended, generated views re-inlined. **PAUL'S GATE: nothing that costs money, touches a machine, or contradicts his own read of it is decided here.** | Paul |
-| **6 · AMEND** | improve the loop | Pre-registered before the lap runs. *"None — pre-registered metric unmoved"* is a valid outcome. | `CYCLE-LOG.md` |
+| **1 · FIELD** | what OWNERS know | ⚠️ CONDITIONAL — runs when the record has no answer to a symptom, not every lap. Web/forum search for **failure modes**, landing in `cycle/fleet/FIELD-NOTES.md` — the quarantine — never in `vehicles.json`. Every note carries a `test:` or it is not accepted. | `cycle/fleet/FIELD-NOTES.md` |
+| **2 · SWEEP** | what fired | `fleet_probe.py` — four signals: SEASON · INBOX · PROVENANCE · STALE-OPEN. Read the reason, not just the verdict. | `tools/fleet_probe.py` |
+| **3 · INTAKE** | drain the door | Read `cycle/requests.jsonl`. Each row lands on a repo surface — `vehicles.json` for fact, `BACKLOG.md` Track B for open work — or is refused with a reason. ⛔ **A row is never folded on a model read of a photograph.** | `cycle/requests.jsonl` |
+| **4 · VERIFY** | close the physical checks | The reads only the machine can answer, batched into one trip with a light. Never a paper answer where a physical one exists. | `openMechanicalItems` |
+| **5 · SEASON** | the only real clock | Fall put-away / spring wake-up. Parts lead time is the gate, not the weather. | `restoration` |
+| **6 · RECORD** 👤 | fold, and Paul rules | Corrections folded, `serviceHistory` appended, generated views re-inlined. **PAUL'S GATE: nothing that costs money, touches a machine, or contradicts his own read of it is decided here.** | Paul |
+| **7 · AMEND** | improve the loop | Pre-registered before the lap runs. *"None — pre-registered metric unmoved"* is a valid outcome. | `CYCLE-LOG.md` |
 
-**S2 · the human gate is beat 5**, and it is machine-visible above (👤). Beat 3 also stops at
+**S2 · the human gate is beat 6**, and it is machine-visible above (👤). Beat 3 also stops at
 Paul by nature — he is the one holding the flashlight — but 5 is the declared blocking gate.
 
 ---
 
+## Beat 1 · the FIELD half, and why it is quarantined `[paul-stated 2026-08-30]`
+
+*"I think it's important to also get kind of third-party forum takes, which can be kind of
+dangerous… that information may need to be sequestered and treated differently than the user's
+manual."*
+
+Both halves of that are right, and the second is the load-bearing one. **The store is
+`cycle/fleet/FIELD-NOTES.md`; it is tier C by construction; nothing in it is a fact about a
+machine.** Tiers are not redefined — they are `A/B/C` from the Bolores `SOURCES.md`, promoted
+from one vehicle's private file to the fleet standard, along with its governing rule: **a C
+never silently becomes an A.**
+
+⭐ **The rule that makes it safe rather than merely tidy: never take a NUMBER from a forum,
+take a QUESTION.** A factory manual will never tell you *the regulator cooks on these and takes
+the battery with it* — only owners know that, and it is the difference between testing four
+things and testing the right one first. But a forum's legitimate output is **a hypothesis with
+a test attached**, and **a hypothesis cannot launder into the record, because the record only
+accepts a measurement.** A forum may send you to T3. It may never tell you T3's pass band.
+
+**Why the quarantine is STRUCTURAL and not a habit:** the danger is *migration*, not error. The
+Bronco card already carries a `_chatgptProvenanceWarning` recording **four wrong card values**
+traced to two ChatGPT threads — one wearing a false *"read off the actual sidewalls"*
+provenance. It did not arrive labelled as junk; it got summarised into a note and later sat in
+`vehicles.json` looking manual-sourced. So a card value's `source` may never be a URL, and that
+is **checked mechanically**, not remembered.
+
+⚠️ **CONDITIONAL, and that is deliberate.** This beat does NOT run every lap. It runs when the
+record has no answer to a symptom. Making a network search automatic would make beat 0 slow and
+non-deterministic, and beat 0's whole value is that it is a script you can trust to say the same
+thing twice.
+
 ## S3 · the deterministic check, and WHERE it is sited
 
-`vehicle-brief.py --check` (the model/foreword comparison) is sited at **beat 0, before any
-reading**, and not at beat 1 with the other signals.
+`vehicle-brief.py --check` carries TWO checks, both sited at **beat 0, before any reading** —
+the model/foreword comparison and the no-URL-as-a-source scan — and not at beat 1 with the other signals.
 
 **Why here and not there, and the alternative rejected:** beat 1 is where signals are counted
 for *scheduling* — it answers "is a lap owed." Provenance is not a scheduling question, it is
