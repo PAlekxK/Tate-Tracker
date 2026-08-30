@@ -145,6 +145,54 @@ Meter still on the posts, starter for ~3 s. Should hold above **~10.5 V**.
 A *fully charged* battery that collapses below **~9.5 V** cannot deliver current any more —
 it is finished, whatever it reads at rest.
 
+### T2b — The crank-down ladder · **the capacity test, using the starter as the load**
+
+**T2 catches a dead battery. T2b catches a DYING one** — and dying is what this bike is behaving
+like. `paul-asked 2026-08-30`: *"So does that mean I should be able to turn the bike on, turn it off,
+and then turn it back on? How can we kinda test this?"* Yes, and here is the test.
+
+**Why the starter is the right load.** A commercial load test pulls ~3× the amp-hour rating — about
+**18 A** here. The starter pulls **60–100 A**. It is a harsher load than a load tester and it is the
+one the bike actually sees, so no equipment beats it.
+
+**Setup:** fully charged, charger **off the bike**, rested ≥1 hour. Meter on the posts. Two people —
+Mom presses, Paul reads. *(If the meter has **MIN/MAX hold**, use it and one person can do it.)*
+
+**Three cranks, 60 seconds apart. Record the LOWEST voltage each time.**
+
+| | lowest volts during the crank |
+|---|---|
+| crank 1 | ______ V |
+| crank 2 (+60 s) | ______ V |
+| crank 3 (+60 s) | ______ V |
+
+**Read the SHAPE, not any single number** — the same rule as T3:
+
+| what you see | what it means |
+|---|---|
+| all three **≥10.5 V**, within ~0.3 V of each other | battery is fine. The fault is elsewhere. |
+| **first one already below ~9.5 V** | it cannot deliver current. **Done — replace it**, no further testing needed. |
+| **a descending ladder**, each low meaningfully worse | ⭐ **capacity is gone.** This is the failure the 8/30 three-start hour looked like, made visible in three cranks instead of three weeks. |
+
+The last two are **different failures** — one battery is weak, the other empties fast — which is
+exactly why the ladder beats a single reading.
+
+⭐ **IT WORKS EVEN IF SHE FIRES IMMEDIATELY.** The deepest sag happens in the **first half-second**,
+on inrush, before the engine has really turned over — so a one-second crank gives almost the same
+minimum as a five-second one. Start her, shut her off, wait 60 s, repeat.
+
+⛔ **Do NOT pull the plug cap to stop her firing.** Cranking with an ungrounded cap can take out the
+coil or CDI, and there is nothing to gain — see above.
+
+⭐ **THE NO-METER VERSION IS MOM'S, and it is the same test by ear.** Start, shut off, wait a minute,
+start, shut off, wait a minute, start. **"Did the third sound the same as the first, or slower?"**
+Same → the battery is fine and it is fuel or spark. Slower → the battery, full stop, and stop
+cranking. That one sentence is the most useful thing she can give over the phone.
+
+⚠️ **Warm restarts are the EASIEST thing you can ask of a battery** — no choke, warm oil, less
+friction. So a bike that degrades across three warm restarts is failing the gentlest version of this
+test, which is what makes the 8/30 hour damning rather than ambiguous.
+
 ### T3 — Charging voltage · **RUN THIS FIRST** · **TAKE THREE READINGS, NOT ONE**
 Meter across the battery. Read it **stopped**, then at **idle**, then holding **~5 000 r/min**.
 **Pass = 13.0 – 16.0 V at 5 000 r/min.**
@@ -310,7 +358,12 @@ Append a row per incident or test. **An empty row is not a passing test.**
   cylinder in the morning — which looks identical to a battery problem once someone has cranked
   it flat trying. Petcock off removes that whole branch from the experiment.
 - **Petcock ON, not RES,** when riding. RES is 0.7 gal with no gauge behind it.
-- Three attempts, five seconds each, then stop.
+- Three attempts, five seconds each, then stop. ⭐ **AND THIS RULE NEVER PROTECTED THE BATTERY**
+  `[paul-derived 2026-08-30]` — three 5-second cranks is 15 seconds, about **20% depth of discharge**
+  on a healthy YTX7L-BS, which shrugs it off without the cranking speed audibly drooping. The
+  **5 seconds** protects the *starter motor* (Suzuki's thermal limit) and the **three** protects the
+  *evidence*. So the rule doubles as a test: **if she cannot do three five-second attempts without
+  visibly weakening, that IS the diagnosis** — see T2b.
 - ⭐ **DO NOT SHORT-CYCLE HER — a brief idle run is a net WITHDRAWAL** (added 2026-08-30, from the
   three-start hour above). The headlight is on whenever the engine runs, and the generator makes its
   150 W at **5 000 r/min** — far less at idle. Starting, idling a minute and shutting off spends a

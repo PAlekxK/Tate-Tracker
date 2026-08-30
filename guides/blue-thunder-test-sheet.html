@@ -15,7 +15,7 @@
   .warn { border:2.5pt solid #111; padding:5.5pt 8pt; margin:6pt 0; }
   .warn b { font-size:10.5pt; }
   table { border-collapse:collapse; width:100%; margin-top:3pt; }
-  th, td { border:1pt solid #999; padding:3.5pt 5pt; vertical-align:top; font-size:8.8pt; }
+  th, td { border:1pt solid #999; padding:3pt 5pt; vertical-align:top; font-size:8.8pt; }
   th { background:#efefef; text-align:left; font-size:8.5pt; text-transform:uppercase; letter-spacing:.5pt; }
   .t { width:24pt; text-align:center; font-weight:700; font-size:11pt; background:#f4f4f4; }
   .blank { width:82pt; background:#fafafa; }
@@ -39,13 +39,10 @@
     <span class="line" style="min-width:230pt"></span></div>
 </div>
 <div class="row" style="margin-top:6pt">
-  <div class="box"><b>Key switch</b> &mdash; is there a park/accessory detent past OFF that holds the
-    tail light on? Where does it get left?<br>
-    <span class="line" style="min-width:200pt"></span></div>
-  <div class="box"><b>Spark test</b> &mdash; pull the neg cable, tap it on the post. A spark means
-    something is live with everything off.<br>
-    &#9744;&nbsp;spark &nbsp;&nbsp; &#9744;&nbsp;none &nbsp;&nbsp; if spark: unplug one connector at
-    a time</div>
+  <div class="box"><b>Spark test</b> &mdash; everything off, key out. Pull the <b>negative</b> cable,
+    tap it on the post. A spark = something is live. &nbsp; &#9744;&nbsp;spark &nbsp; &#9744;&nbsp;none
+    &nbsp;&middot;&nbsp; if spark, unplug one connector at a time and re-tap.
+    <span style="color:#666">(Key switch: checked 8/30 &mdash; ON/OFF/LOCK only, no park. Ruled out.)</span></div>
 </div>
 
 <h2>Meter settings</h2>
@@ -76,6 +73,16 @@
       <td class="spec">Hold &gt;10.5&nbsp;V<br><br>&lt;9.5&nbsp;V = FAIL</td>
       <td class="blank">______ V</td>
       <td><b>The discriminator.</b> A full battery that collapses has no capacity behind the voltage &mdash; it is done. Stop here if it fails.</td></tr>
+
+  <tr><td class="t">T2b</td>
+      <td><b>Crank-down ladder</b> &mdash; the capacity test. Three cranks, <b>60&nbsp;sec apart</b>.
+      Record the <b>lowest</b> volts each time. Fires immediately? Fine &mdash; the deepest sag is in
+      the first half-second.</td>
+      <td class="spec">all &ge;10.5 V and<br>within ~0.3 V<br>of each other</td>
+      <td class="blank">1 ____ V<br>2 ____ V<br>3 ____ V</td>
+      <td><b>Read the SHAPE.</b> First one &lt;9.5 = can't deliver, replace it. <b>Descending ladder =
+      capacity gone</b> &mdash; the dying battery, which a single reading misses.
+      <span style="color:#555">By ear (Mom): did #3 sound slower than #1?</span></td></tr>
 
   <tr><td class="t">T3</td>
       <td><b>Charging voltage &mdash; THREE readings.</b> Engine running and warm &mdash; <i>do not shut it off after T2</i>. Meter across the battery: stopped, at idle, then holding ~5&nbsp;000&nbsp;r/min.</td>
