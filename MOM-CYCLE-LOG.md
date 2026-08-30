@@ -1521,3 +1521,32 @@ and its 14 Paul-owned rows now sit in his focus list, which is the honest place 
 slug, and *this* loop still has no inbox of its own. That reading is correct; do not clear it by
 giving the mom-cycle a door. An inbox wired into this loop's trigger would fire a mom-lap for work
 it cannot do, which is the thing the tool's own docstring warns against.
+
+---
+
+## 2026-08-30 — NO LAP · Track B fleet work (Blue Thunder)
+
+Recorded so `cycle-docs-check.py` can tell an unrecorded lap from a loop that correctly did not
+run. The repo moved on 2026-08-30 (`23951df`, `ef93267`) and the newest chronicled mom-lap is
+2026-08-27 — the check flagged the gap, as designed. **The answer is that no mom-lap was owed.**
+
+**What the commits were.** A starting-fault investigation opened on the DR200S (Blue Thunder):
+`guides/blue-thunder-starting-diagnosis.md`, three `openMechanicalItems` on the vehicle card, a
+carburetor refurbish queued into `restoration`, a manual-verified correction to
+`specs.carburetor`, two `BACKLOG.md` rows and a printable shop card. **All Track B** — Paul-facing
+fleet work, anchor project `Fernwood Fleet` per D41. Mom's surface was not touched: no card, no
+Perspective offer, no ack ribbon, no answer folded, nothing rendered to her.
+
+**One Track-A-adjacent thing DID land, and it is worth naming.** `viewer.html`'s `VEHICLES_DATA`
+was **already drifted at `b6f5586`** before this session touched anything — confirmed by stashing
+the working change and re-running the check, so the drift predates it. The 2026-08-28 Bolores work
+committed `vehicles.json` without re-inlining, and the Machines card had been serving a stale
+Bolores restoration list (26 items inlined against 28 in source, items 12–15 shifted onto the
+wrong entries). `check-data-inline.py --fix` re-inlines the whole const, so that correction rides
+in `23951df`, and `worker/digest.json` was rebuilt after it. **The Machines card is a surface Mom
+can reach**, which is the only reason this note belongs in her log at all.
+
+⚠️ **This is the same failure the check above exists to catch, one layer down:** a generated view
+drifted, nothing said so, and it was found by accident while doing unrelated work. It is the
+`[[reference_generated_views_check]]` shape — the check existed and was simply not run at the
+commit that needed it.
