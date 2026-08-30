@@ -145,9 +145,18 @@ Meter still on the posts, starter for ~3 s. Should hold above **~10.5 V**.
 A *fully charged* battery that collapses below **~9.5 V** cannot deliver current any more —
 it is finished, whatever it reads at rest.
 
-### T3 — Charging voltage · **RUN THIS FIRST**
-Engine running and warm, meter across the battery, hold ~5 000 r/min.
-**Pass = 13.0 – 16.0 V.**
+### T3 — Charging voltage · **RUN THIS FIRST** · **TAKE THREE READINGS, NOT ONE**
+Meter across the battery. Read it **stopped**, then at **idle**, then holding **~5 000 r/min**.
+**Pass = 13.0 – 16.0 V at 5 000 r/min.**
+
+⭐ **Three readings, because one is ambiguous** — from FIELD sweep 1 (a 1998 DR200 owner, quarantined
+in `cycle/fleet/FIELD-NOTES.md`): a dead charging system reads *"12.9 volts not running, 12.9–13.0
+running."* A single running figure of 12.9 V could be a flat battery mid-charge. **The same figure
+stopped AND at 5 000 r/min cannot be anything but a dead charging system.** What you are reading is
+whether it *climbs*, not what it says.
+
+⚠️ **Do not read T3 at idle and stop there.** Output rises steeply with rpm; the 150 W figure is at
+5 000 r/min and idle is a small fraction of it. A low reading at idle is normal and proves nothing.
 
 - 13.5 – 14.5 → charging system fine; the battery is being replenished. Look elsewhere.
 - Sits ~12.3 and sags → **she is not charging at all.** Every ride runs the 6 Ah battery down
@@ -178,6 +187,63 @@ of a bike battery that keeps going flat overnight.
 - Ground the plug against the head, crank, look for a fat blue spark.
 
 ---
+
+## How many cranks does she actually have? `[paul-asked 2026-08-30]`
+
+**The arithmetic, then why it lies.** A YTX7L-BS is **6 Ah at the 10-hour rate** — 0.6 A for ten
+hours. A 199 cc starter pulls roughly **60–100 A** *(estimate — no manual figure, and our manual is
+the wrong model; treat as `inferred`)*. That is ~150× the rate the capacity was measured at, and
+capacity collapses under that load (Peukert). Worked out: **~1.7–2.8 Ah usable → 70–110 seconds of
+continuous cranking → 25–35 three-second cranks to truly flat.**
+
+**You will never see that number, because the limit is VOLTAGE, not charge.** The starter must spin
+the engine fast enough to fire, and that threshold arrives around 50–70% depth of discharge — far
+earlier on an old battery whose internal resistance has climbed.
+
+| | 3-second cranks from a full charge |
+|---|---|
+| **healthy** YTX7L-BS | **~10–20**, with rests, degrading gradually |
+| **tired / end-of-life** | **~3–6**, falling off a cliff |
+
+- **Rests genuinely buy cranks.** 10–15 s between attempts lets the chemistry recover. Suzuki's
+  5-on/10-off is partly starter heat and partly this.
+- **Cranking with no fuel is the expensive case** — the engine never catches, so the starter carries
+  full load for the whole three seconds. When she fires after one second, you spent one second.
+
+⭐ **WHY THIS MAKES THE 8/30 THREE-START HOUR MORE DAMNING, NOT LESS.** All three attempts *fired*,
+so each cost perhaps 1–2 seconds — **about five seconds of cranking across the whole hour. A healthy
+battery would not notice five seconds.** So that episode is not a battery being used up by cranking.
+It is either a battery with almost no usable capacity, or one that was **already low when he walked
+up** — which is exactly what the unpowered-charger hypothesis predicts. T1 and T2 separate them.
+
+## Should the idle be turned up to help it charge? `[paul-asked 2026-08-30]`
+
+**No, and it would barely help.** Output climbs steeply with rpm — the 150 W figure is at 5 000
+r/min, and idle is a small fraction of it while the headlight draws the whole time. Moving 1 500 →
+1 800 r/min takes you from *slightly negative* to *slightly less negative*, and costs correct idle
+behaviour (gear engagement, creeping, slow return to idle) for nothing.
+
+**Set it to spec for its own sake: 1 500 ± 100 r/min** *(⚠️ DR200SE manual — `inferred`)*.
+
+⭐ **And a stubbornly low idle is a data point for the CARB job, not a thing to dial around.** On a
+carbureted bike an idle that keeps wanting to sit low points at the pilot circuit — a partly blocked
+pilot jet or a mis-set fuel screw. The DR200's pilot screw is factory **PRE-SET and usually capped**,
+and a rebuild kit is already queued for the fall put-away.
+
+**The actual recharge is rpm and time: ride her 20 minutes at 3 000+ r/min.** Nothing done at idle
+substitutes for that.
+
+## Two free checks, from FIELD sweep 1 — no meter, no charge spent
+
+Both come from a 2003 DR200 thread (quarantined in `cycle/fleet/FIELD-NOTES.md`).
+⚠️ **DR200SE-generation, not this 2017 bike — confirm at the machine.**
+
+1. **Look at what the key can be turned to.** A park / accessory detent that holds the tail light
+   live is a parasitic drain that flattens a 6 Ah battery over days. If this bike has one and it has
+   been left there, that alone explains *"left it sitting and it lost charge."*
+2. **The spark test.** Pull the negative cable and **tap it against the post.** A spark with
+   everything off means something is live — T5's question answered without a meter. Isolate by
+   unplugging one connector at a time and re-tapping.
 
 ## Make the invisible variable visible
 
