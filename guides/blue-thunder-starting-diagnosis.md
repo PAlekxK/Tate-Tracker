@@ -21,6 +21,46 @@ all of them on this same bike, all of them presenting the same way to whoever wa
 So the symptom carries no information. The point of this protocol is to make each incident
 declare which axis it is on **before** anyone starts turning wrenches.
 
+## ⚠️ CORRECTION 2026-08-30 — THE MANUAL ON DISK IS FOR A DIFFERENT MODEL
+
+**`paul-stated`, standing at the machine: there is NO KICKSTARTER on the DR200S or the DR-Z400S.
+Both are electric start only.** An earlier version of this guide built its no-tools discriminator
+around kicking her over. That test does not exist. It is replaced below by the jump pack.
+
+**Where it came from, because the cause matters more than the fact.**
+`manuals/text/dr200s-2017-service.txt` **is not a DR200S manual.** Its own line 3 reads *"This manual
+contains an introductory description on SUZUKI **DR200SE**"* — a different, earlier model that
+genuinely does have electric **and** kick. The filename says `dr200s`, and `manuals/INDEX.md` even
+names it *"Suzuki **DR200SE** Service Manual"* behind a 🟡 marker. **Nothing was hidden. It was read
+past.** The INDEX's own note — *"DR200S unchanged across years"* — answers a question about YEARS
+and was read as covering a question about MODELS.
+
+Three specs disagree between that manual and this vehicle's own card, which is what a
+different-model document looks like:
+
+| | card (DR200S) | manual (DR200SE) |
+|---|---|---|
+| stroke | 58.0 mm | 58.2 mm |
+| compression | 9.5 : 1 | 9.4 : 1 |
+| starter | **electric only** *(Paul-verified at the machine)* | electric **and kick** |
+
+⚠️ **SO EVERY NUMBER IN THIS FILE SOURCED TO THAT MANUAL IS PROVENANCE-DOWNGRADED** — the battery
+type, the 13.0–16.0 V charging band, the 150 W generator output, the carburetor I.D. numbers, the
+float height, the reserve capacity. They are *probably* right (the two models share the 199 cc engine
+and the BST31SS carb) but **none is verified against a DR200S source**, and at least three sibling
+specs demonstrably differ. Treat them as `inferred`, not `verified`.
+
+**What survives unharmed, and why it does:** the tests themselves. **13.0–16.0 V at ~5 000 r/min is
+generic to any 12 V lead-acid charging system** — a bike reading 12.3 V and sagging is not charging,
+whatever the model — and the T1/T2/T4 thresholds are properties of a lead-acid battery, not of this
+motorcycle. The carb rule was already written as *read the I.D. stamped on the carb body*, which is
+now load-bearing rather than belt-and-braces.
+
+**The rule this produced:** *the filename is the container; the manual's own foreword is the payload.*
+Compare `drz400s-2001-service.txt`, which we hold correctly — its foreword names the DR-Z400S and its
+spec table reads **"Starter system … Electric"**, agreeing with Paul. The method works when the
+document actually is the right one.
+
 ## The confound we are actually trying to break
 
 `paul-stated 2026-08-30`: the repeated presentation is **slow, labored crank → then nothing or a
@@ -56,14 +96,13 @@ observations separate the stories, and both must be taken **before the battery i
 > the harness. Wait 10–15 seconds between tries. A bike that is going to start usually starts on
 > the first or second. **Every try past the third flattens the battery and erases the evidence.**
 
-**On the FIRST labored crank — before it gets worse — KICK IT.**
-She has a kickstarter as well as the electric start.
+**On the FIRST labored crank — before it gets worse — PUT THE JUMP PACK ON IT.**
+The AVAPOW jump starter lives in the kit. Clip it to the battery and try again.
 
-- **Fires on the kick** → engine, fuel and spark are all fine. It was purely a charge problem.
-- **Won't fire after several good kicks** → not the battery's cranking power. Fuel or spark.
+- **Fires on the jump pack** → engine, fuel and spark are all fine. It was purely a charge problem.
+- **Still won't fire on the jump pack** → not the battery's cranking power. Fuel or spark.
 
-*(Do this at the first labored crank, not after she's cranked down to a click — a fully dead
-battery may not run the ignition either, and then the kick test tells you nothing.)*
+*(Do this at the first labored crank, not after she's cranked down to a click.)*
 
 **Write down which one it was:**
 
@@ -81,7 +120,7 @@ Then stop and call Paul. **Do not keep cranking.**
 Every threshold below is from the factory service manual on disk —
 `manuals/text/dr200s-2017-service.txt` — not from memory.
 
-**Reference values (manual-verified):**
+**Reference values** — ⚠️ from the **DR200SE** manual (see the correction above), so `inferred` for this bike, not `verified`. The battery/charging thresholds are generic to 12 V lead-acid and stand regardless:
 
 | Item | Spec | Manual |
 |---|---|---|

@@ -1419,12 +1419,14 @@
         "carburetor": "Mikuni BST31SS, single — bore 31 mm; I.D. No. 42AC (E-03/E-28) or 42AE (E-33/California). Read the stamp on the carb body before ordering parts.",
         "power": "~17 hp",
         "transmission": "5-speed manual",
+        "starter": "Electric start ONLY — no kickstarter. Paul-verified at the machine 2026-08-30. ⚠️ The DR200SE service manual we hold says 'Electric and kick' — that is a DIFFERENT MODEL; see _manualProvenanceWarning.",
         "frontTire": "3.00-21 51P",
         "rearTire": "4.10-18 59P",
         "fuelCapacity": "3.3 gal",
         "fuelEconomy": "~88 mpg",
         "weight_curb": "278 lbs"
       },
+      "_manualProvenanceWarning": "⚠️ THE SERVICE MANUAL WE HOLD FOR THIS BIKE IS FOR A DIFFERENT MODEL. manuals/text/dr200s-2017-service.txt names itself, on its own line 3, as covering the SUZUKI DR200SE — not the DR200S. manuals/INDEX.md titles it correctly ('Suzuki DR200SE Service Manual', 🟡) and its note says 'DR200S unchanged across years' — but that answers a question about YEARS and was read as covering a question about MODELS. FALSIFIED AT THE MACHINE 2026-08-30 (paul-stated): the manual says 'Electric and kick'; this bike has NO KICKSTARTER. Two more sibling specs disagree with this card: stroke 58.2 mm (manual) vs 58.0 (card), compression 9.4:1 vs 9.5:1. ⚠️ CONSEQUENCE: every `maintenance` value on this card whose `source` cites that manual is verified against the WRONG MODEL and should be re-rated `inferred` until a DR200S-specific source confirms it — including the values cited during the 2026-07-25 five-agent maintenance audit. They are PROBABLY right (the two models share the 199 cc engine and the BST31SS carburetor) and nothing here is asserted to be wrong — but 'probably' is not what `verified` means. ⛔ Do NOT order parts off manual numbers alone; read the number off the part. ✅ NOT AFFECTED: the battery/charging test thresholds in guides/blue-thunder-starting-diagnosis.md are generic to 12 V lead-acid, not model-specific. THE RULE: the filename is the container, the manual's own foreword is the payload. The DR-Z400S manual is held CORRECTLY and its foreword proves it — which is how this was caught.",
       "maintenance": {
         "fuel": {
           "value": "87 octane unleaded, mid-grade OK",
@@ -1476,7 +1478,7 @@
             "firstFlagged": "2026-08-30 (Paul, verbal — pattern recalled across ~2026-08-28 → 08-30)",
             "status": "open — investigating. Presentation is consistently slow/labored crank, then nothing or a single click. Charging the battery has restored starting EVERY time so far, which points at charge state; the honest counterexample is 2025-05-09, when the battery was fully charged and the cause was still fuel. ⭐ NARROWED 2026-08-30 (observation, still not a diagnosis): three starts in ~1 hour, each shut off quickly — the engine FIRED ALL THREE TIMES while cranking power decayed monotonically to barely-turning. Fuel, spark and carb are exonerated FOR THIS EPISODE; it is on the electrical axis. ⚠️ Partly self-inflicted — a short idle run on this bike is a net WITHDRAWAL (headlight always on, 150 W only at 5 000 r/min), so three of them is a discharge test. Also 8/30: she was left with a trickle charger ATTACHED BUT UNPOWERED and lost charge — a charger with no blocking diode back-feeds through its own output stage. Neither observation is a verdict; both are now testable.",
             "whyItMatters": "The labored-crank-then-click sequence is what a 6 Ah battery does under repeated cranking REGARDLESS of why the engine failed to fire, so it cannot distinguish 'she walked up to a low battery' from 'she cranked a healthy battery flat trying to start it for a fuel reason'. By the third attempt the evidence is gone either way. Mom is also riding on an unknown fuel level — this bike has no fuel gauge and reserve is only 2.5 L (0.7 gal).",
-            "check": "Two observations, both taken BEFORE the battery is run down: (1) resting voltage before the first crank of the day — >=12.4 V means it was not the battery; (2) kick it at the FIRST labored crank (she has electric AND kick start per the manual) — fires on the kick = engine/fuel/spark are fine and it was purely charge. Standing rule for Mom: three attempts of five seconds, then stop. ⭐ 8/30 — the discriminator is now T2, CRANKING VOLTAGE ON A FULLY CHARGED BATTERY: a dying AGM reads 12.6 V happily (surface charge is free) but collapses below ~9.5 V under the starter. That single 30-second test separates 'battery has no capacity left' from 'it was spent faster than it could be replaced'."
+            "check": "Two observations, both taken BEFORE the battery is run down: (1) resting voltage before the first crank of the day — >=12.4 V means it was not the battery; (2) ⚠️ CORRECTED 2026-08-30 — there is NO KICKSTARTER (paul-verified; the manual claiming one is a DR200SE manual). The substitute is the AVAPOW jump pack in the kit: clip it on at the FIRST labored crank — fires on the pack = engine/fuel/spark are fine and it was purely charge. Standing rule for Mom: three attempts of five seconds, then stop. ⭐ 8/30 — the discriminator is now T2, CRANKING VOLTAGE ON A FULLY CHARGED BATTERY: a dying AGM reads 12.6 V happily (surface charge is free) but collapses below ~9.5 V under the starter. That single 30-second test separates 'battery has no capacity left' from 'it was spent faster than it could be replaced'."
           },
           {
             "item": "Charging output never measured — THE decisive test",
@@ -1579,6 +1581,7 @@
         "power": "39 hp @ 8,400 rpm",
         "torque": "18 lb-ft @ 5,800 rpm",
         "transmission": "5-speed manual",
+        "starter": "Electric start ONLY — no kickstarter. Paul-verified at the machine 2026-08-30, and CORROBORATED by the correct manual: drz400s-2001-service.txt spec table reads 'Starter system ... Electric'.",
         "frontTire": "80/100-21",
         "rearTire": "120/90-18",
         "fuelCapacity": "2.6 gal",
