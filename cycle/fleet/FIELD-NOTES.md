@@ -110,9 +110,17 @@ speaks to this bike.
 ### dr200s-2017 — a dead charging system on a DR200 reads ~12.9–13.0 V running AND stopped
 - tier:        C — and **weaker than C: a search-result summary of a post I did not read.**
 - kind:        failure-mode
-- authors:     1 · a 1998 DR200 owner, via a ThumperTalk thread summary
+- authors:     1 · Steve Sturdevant, ThumperTalk, 2008-09-10. ⬆️ **UPGRADED — thread READ IN FULL
+               via Chrome**, not a search summary. Verbatim: *"When not running I get 12.9 volts at
+               the battery, when running I get 12.9-13.0."*
 - speaks to:   1998 DR200 (SE generation) — **NOT the 2017 DR200S**
-- fetched:     2026-08-30 · archived: **NOT ARCHIVED** — the thread is tollbit-paywalled to an agent
+- fetched:     2026-08-30 via Chrome · archived: NOT ARCHIVED
+- ⚠️ his own method looks wrong, and that is the point: he measured the alternator's three wires
+               **each to GROUND** and read 0.0 V, then concluded two alternators were bad. Stator
+               windings are normally isolated from ground, so phase-to-**ground** reads ~0 on a
+               HEALTHY unit — the test is phase-to-**phase**. *(My inference, not his and not a
+               document's — flagged as such.)* **A forum post can be a real symptom wrapped in a
+               wrong diagnosis, and the symptom is still worth having.**
 - test:        **T3.** Meter across the battery, engine warm, hold ~5 000 r/min. A charging system
                that is working climbs to 13.5–14.5 V; one that is dead sits at the resting figure
                and does not move with revs. ⭐ **The useful half is the SHAPE, not the number: read
@@ -123,9 +131,9 @@ speaks to this bike.
 ### dr200s-2017 — DR200 owners report batteries that die repeatedly, one per season
 - tier:        C (search-result summary, threads not read)
 - kind:        symptom
-- authors:     3 · owners of a 2003, a 2007 and one undated DR200
+- authors:     3 · owners of a 2003, a 2007 and one undated DR200 (2003 thread READ IN FULL)
 - speaks to:   DR200SE generation, 1998–2007
-- fetched:     2026-08-30 · archived: NOT ARCHIVED (paywalled)
+- fetched:     2026-08-30 via Chrome · archived: NOT ARCHIVED
 - test:        T4 overnight hold, then **T5 as an A/B** (charger attached-unpowered vs removed).
                A repeatedly-dying battery is the SYMPTOM these owners share; none of the summaries
                names a confirmed cause, so this note buys a *prior*, not an answer.
@@ -133,19 +141,48 @@ speaks to this bike.
 - ⚠️           **Do not read this as "these bikes have a known battery problem."** Owners with a
                working bike do not post. A forum is a census of complaints, never of machines.
 
+### ⭐ dr200s-2017 — THE KEY SWITCH POSITION can hold a circuit live and flatten it while parked
+- tier:        C · **thread read in full via Chrome**, 2 responders on a 2003 DR200 (ThumperTalk,
+               2007). One raised key-switch position; a second gave the isolation method below.
+- kind:        failure-mode
+- speaks to:   2003 DR200 (SE generation) — **NOT the 2017 DR200S; the key positions may differ**
+- test:        **Free, today, no meter.** Look at what the key can be turned to on THIS bike — if
+               there is a park / accessory detent past OFF that holds the tail light on, check
+               where Mom leaves it. Then the responder's own draw test, which is T5 without a
+               meter: pull the negative cable, **tap it against the post — a spark means something
+               is live**. Isolate by unplugging one connector at a time and re-tapping.
+- status:      open — ⭐ **the best thing this sweep produced.** It is a candidate cause for the
+               *"left it sitting and it lost charge"* episode that costs nothing to check, it is
+               checkable BEFORE the battery finishes charging, and it is the kind of thing a
+               factory manual will never tell you.
+- ⚠️           Records a POSITION to look at, never a claim about this bike's switch. Confirm at
+               the machine.
+
 ### SEARCHED-NEGATIVE — the accessible DR200 threads carry no diagnosis
 - `suzukiforum.com` 2007 DR200 starting-issues thread: **fetched and read in full — one post, zero
   replies, no measurements, no cause.** A dead end, recorded so nobody spends the search again.
 - `thumpertalk.com` and `suzuki-forums.net` both return **307 → tollbit.<host>** to an agent. The
   two threads most likely to carry real measurements (*"DR 200 Charging system Alternator"*,
   *"DR 200 Drains Battery"*) are behind that handshake.
-- ⚠️ **A 307 to a paywall is a fact about the CLIENT, not the page** — the same correction the
-  Bronco bookmark sweep produced. **Paul can open these in Chrome.** If a real measurement is
-  wanted from them, that is a human fetch, not a dead link.
+- ✅ **RESOLVED THE SAME SESSION — `paul-stated`: *"What about accessing via Chrome"*.** Both
+  threads loaded **first try** in his logged-in Chrome and were read in full. **The 307 was a fact
+  about the client, exactly as the Bronco bookmark sweep concluded** — this is the second
+  independent confirmation of that correction, and it should now be the default move rather than
+  an afterthought: *agent blocked ≠ page gone.*
 
 ### VERDICT ON THIS SWEEP — one usable hypothesis, and a lot of nothing
 Recorded plainly because lap 1 pre-registered the question *"does the FIELD beat earn its place, or
-produce only noise?"* **Honest answer so far: it earned a thin margin.** It produced exactly one
-thing worth acting on — *read the charging voltage stopped AND running, not just running* — which
-sharpens T3 at zero risk, because it is a procedure, not a value. Everything else was either the
-wrong model, the wrong bike entirely, or behind a paywall.
+produce only noise?"* ⬆️ **REVISED after the Chrome pass: it earned its place.** The first answer —
+*"a thin margin"* — was written while two of three threads were unreadable, and **it was a verdict
+on the retrieval, not on the beat.** With Chrome it produced three things, all of them procedures
+or positions to check and none of them a value:
+
+1. **read the charging voltage stopped AND running** and compare — a single running figure of
+   12.9 V is ambiguous, the same figure at rest and at 5 000 r/min is not;
+2. ⭐ **the key-switch position**, a free check available before the battery even finishes charging;
+3. **the negative-cable spark test** — T5's question answered without a meter, then isolated by
+   unplugging one connector at a time.
+
+⚠️ **And it produced one clear illustration of why the quarantine exists:** the 1998 owner's
+measurements are real and his diagnosis is probably wrong. **A field note is worth having and is
+still not a fact.**
