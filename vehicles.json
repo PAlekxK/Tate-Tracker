@@ -1416,7 +1416,7 @@
         "engineType": "Single-cylinder 4-stroke, air-cooled, SOHC",
         "bore_stroke": "66.0 × 58.0 mm",
         "compression": "9.5:1",
-        "carburetor": "Mikuni BST31",
+        "carburetor": "Mikuni BST31SS, single — bore 31 mm; I.D. No. 42AC (E-03/E-28) or 42AE (E-33/California). Read the stamp on the carb body before ordering parts.",
         "power": "~17 hp",
         "transmission": "5-speed manual",
         "frontTire": "3.00-21 51P",
@@ -1468,11 +1468,37 @@
         }
       },
       "notes": "Lightweight trail/dual-sport — good for property access and dirt roads. Fuel-efficient, easy to maintain. Recommissioned ~June 2026 after sitting: the tank and carb had been drained and the battery stored off the bike. Charged the battery, filled with ethanol-free gas, primed the carb, reconnected — fired right up nicely. Oil change moved to the fall put-away rather than spring — fresh oil overwinters better than used. Starting issues resolved 2026-07-21 — Mom cleaned the contacts and reset the contact points; it now fires immediately on the starter button.",
+      "openMechanicalItems": {
+        "_note": "Opened 2026-08-30. These are OBSERVATIONS, NOT DIAGNOSES — no test in the protocol has been run yet. The symptom (\"won't start\") has already resolved to THREE unrelated causes on this bike in 16 months (fuel 2025-05-09, electrical contacts 2026-07-21, kill switch undated), so the symptom carries no information on its own. Full protocol, thresholds and results log: guides/blue-thunder-starting-diagnosis.md. Do not fold a verdict here that the log does not carry.",
+        "items": [
+          {
+            "item": "Repeated no-start — root cause NOT established",
+            "firstFlagged": "2026-08-30 (Paul, verbal — pattern recalled across ~2026-08-28 → 08-30)",
+            "status": "open — investigating. Presentation is consistently slow/labored crank, then nothing or a single click. Charging the battery has restored starting EVERY time so far, which points at charge state; the honest counterexample is 2025-05-09, when the battery was fully charged and the cause was still fuel.",
+            "whyItMatters": "The labored-crank-then-click sequence is what a 6 Ah battery does under repeated cranking REGARDLESS of why the engine failed to fire, so it cannot distinguish 'she walked up to a low battery' from 'she cranked a healthy battery flat trying to start it for a fuel reason'. By the third attempt the evidence is gone either way. Mom is also riding on an unknown fuel level — this bike has no fuel gauge and reserve is only 2.5 L (0.7 gal).",
+            "check": "Two observations, both taken BEFORE the battery is run down: (1) resting voltage before the first crank of the day — >=12.4 V means it was not the battery; (2) kick it at the FIRST labored crank (she has electric AND kick start per the manual) — fires on the kick = engine/fuel/spark are fine and it was purely charge. Standing rule for Mom: three attempts of five seconds, then stop."
+          },
+          {
+            "item": "Charging output never measured — THE decisive test",
+            "firstFlagged": "2026-08-30",
+            "status": "open — never measured on this bike",
+            "whyItMatters": "If she is not charging, the battery will be low every single time no matter what anyone does with the gas, a new battery would die the same way, and every other question here is downstream. Generator max output is only 150 W at 5 000 r/min against short low-rpm rides.",
+            "check": "Engine warm and running, meter across the battery, hold ~5 000 r/min. Manual spec: REGULATED VOLTAGE 13.0 - 16.0 V at 5 000 r/min. Sitting at ~12.3 and sagging = not charging. Above 16 V = regulator/rectifier failing and cooking the battery."
+          },
+          {
+            "item": "Battery age unknown (YTX7L-BS, 12 V 6 Ah)",
+            "firstFlagged": "2026-08-30 — gap found in this record, not a shop finding",
+            "status": "open — no purchase or install date anywhere in the record",
+            "whyItMatters": "If it is the 2017 original it is ~9 years old against a 3-5 year AGM life, and it has been deep-cycled repeatedly (June 2026 recommission, the July 2026 contact episode, this week). A 6 Ah battery has very little margin.",
+            "check": "Read the date stamp on the battery case. Do NOT replace it before the charging-voltage test above — if the charging system is dead, a new battery just becomes the next dead battery."
+          }
+        ]
+      },
       "restoration": [
         {
           "item": "Fall put-away — oil change + drain the carb",
           "status": "planned",
-          "detail": "Autumn 2026, a fall evening in the shop. Paul's call 2026-07-27, and it's the better order: fresh oil sits far better over winter than used oil, which carries a little acid and moisture the whole time it sits. So this REPLACES the spring oil change rather than adding to it. Calendar reminder set for the first Saturday of November, recurring yearly — but the date is a placeholder for \"too cold to ride,\" not a deadline; move it to whichever evening the riding actually ends (first frost here averages Oct 17). THE JOB: warm her up, drain the oil, new filter (Suzuki 16510-37450 / HiFlo HF138), refill ~1.0 qt 10W-40 JASO MA/MA2. Then DRAIN THE FLOAT BOWL on the Mikuni BST31SS — this is the one that actually matters for her. Stale fuel varnishing in the carb is exactly what cost her the drain-and-flush in May 2025, and an empty bowl can't varnish. Tires to 22 psi front / 25 rear, chain cleaned and lubed. BOTH BIKES: fill the tank most of the way with the ethanol-free gas they already run — less air space, less condensation. Battery off the bike, on a tender or somewhere it won't freeze (that's what worked last time). Cover her."
+          "detail": "Autumn 2026, a fall evening in the shop. Paul's call 2026-07-27, and it's the better order: fresh oil sits far better over winter than used oil, which carries a little acid and moisture the whole time it sits. So this REPLACES the spring oil change rather than adding to it. Calendar reminder set for the first Saturday of November, recurring yearly — but the date is a placeholder for \"too cold to ride,\" not a deadline; move it to whichever evening the riding actually ends (first frost here averages Oct 17). THE JOB: warm her up, drain the oil, new filter (Suzuki 16510-37450 / HiFlo HF138), refill ~1.0 qt 10W-40 JASO MA/MA2. Then DRAIN THE FLOAT BOWL on the Mikuni BST31SS — this is the one that actually matters for her. Stale fuel varnishing in the carb is exactly what cost her the drain-and-flush in May 2025, and an empty bowl can't varnish. Tires to 22 psi front / 25 rear, chain cleaned and lubed. BOTH BIKES: fill the tank most of the way with the ethanol-free gas they already run — less air space, less condensation. Battery off the bike, on a tender or somewhere it won't freeze (that's what worked last time). Cover her. ⭐ NEW 2026-08-30 — CARBURETOR REFURBISH RIDES ALONG WITH THIS EVENING: see the separate restoration item below. Draining the bowl is no longer the whole carb job; if the kit is on the shelf, rebuild rather than just drain."
         },
         {
           "item": "Spring wake-up",
@@ -1483,6 +1509,11 @@
           "item": "Handlebars — replaced",
           "status": "done",
           "detail": "Replaced with new 7/8\" (22 mm) handlebars. Closes the bent-bar item — per the prior call, a re-bent steel bar is permanently weakened, so replace beats re-straighten. New levers fitted at the same time."
+        },
+        {
+          "item": "Carburetor refurbish — Mikuni BST31SS rebuild kit",
+          "status": "planned",
+          "detail": "Paul's call 2026-08-30, prompted by the fuel seepage we keep seeing. DO IT AT THE NEXT DECOMMISSION — it rides along with the fall put-away, since she is already down and the bowl is already coming off. They make rebuild kits for this carb. WHAT A KIT BUYS: float needle and seat, bowl gasket and o-rings, and usually jets — i.e. it closes the float-needle branch outright, which matters twice over: it is the part that would let her flood overnight with the petcock left on (the flooding hypothesis in the starting investigation), and it is the part the leaning-weep technique names as its own falsifier. ⚠️ ORDER BY THE I.D. NUMBER STAMPED ON THE CARB BODY, NOT THE MODEL NAME: the manual lists TWO ids for the same BST31SS — 42AC (E-03/E-28) and 42AE (E-33/California). Read the stamp first. MANUAL-VERIFIED SPECS to check the kit and the rebuild against: bore 31 mm; float height 13.0 ± 1.0 mm; idle 1 500 ± 100 r/min; pilot screw PRE-SET from the factory (expect a limiter cap — plan for removing it if the kit expects the screw to be re-set). ⚠️ JET SIZES ARE NOT SAFE TO ORDER FROM OUR ON-DISK COPY: in manuals/text/dr200s-2017-service.txt the carburetor table's columns are scrambled by the text extraction — the values #125 / 5D77 / #25 do not align cleanly to the M.J. / J.N. / P.J. rows. Read the real table before ordering jets. ⛔ THIS DOES NOT OVERTURN the leaning-weep technique, which stays 'normal for a carbureted bike on a hard-leaning sidestand'. The refurb is preventive maintenance taken at the cheapest moment, not a diagnosis of a bad seal. What WOULD be a diagnosis: weeping on level ground or at only a mild lean."
         }
       ],
       "manual": {

@@ -1,0 +1,212 @@
+# Blue Thunder — starting-fault diagnosis
+
+**2017 Suzuki DR200S · `dr200s-2017` · opened 2026-08-30**
+
+Status: **OPEN — no test results recorded yet.** This file is the protocol and the log.
+Nothing below is a diagnosis until a row in the Results table says so.
+
+---
+
+## Why this exists
+
+"The bike won't start" has already resolved to **three unrelated root causes** in 16 months,
+all of them on this same bike, all of them presenting the same way to whoever was standing there:
+
+| Date | Presented as | Actual cause |
+|---|---|---|
+| 2025-05-09 | won't start | **fuel** — battery was fully charged; degraded gas, drained tank + carb, flushed |
+| 2026-07-21 | intermittent no-start | **electrical contacts** — cleaned and reset; "starts immediately" after |
+| undated | won't start | **kill switch engaged** |
+
+So the symptom carries no information. The point of this protocol is to make each incident
+declare which axis it is on **before** anyone starts turning wrenches.
+
+## The confound we are actually trying to break
+
+`paul-stated 2026-08-30`: the repeated presentation is **slow, labored crank → then nothing or a
+single click**. That sequence is what a 6 Ah battery does under repeated cranking *regardless of
+why the engine didn't fire*. It is downstream of both stories:
+
+- **Story A** — she walked up to a battery that was already low (charging system, parasitic
+  drain, or a battery at end of life), and the labored crank is the cause of the no-start.
+- **Story B** — she walked up to a healthy battery, the engine wouldn't fire for a **fuel**
+  reason (low tank, petcock position, flooded from seepage), and the labored crank is the
+  *consequence* of her attempts.
+
+By the third attempt the evidence is destroyed — the battery is now low either way. Only two
+observations separate the stories, and both must be taken **before the battery is run down**.
+
+---
+
+# PART 1 — SHOP CARD (print this, tape it in the shop)
+
+## If Blue Thunder won't start
+
+**Before you press the button — 20 seconds:**
+
+1. **Kill switch** on RUN (red switch, right handlebar)
+2. **Petcock** on **ON** — not RES. Save RES for when ON starves.
+3. **Look in the tank.** She has no fuel gauge. Reserve is only 0.7 gal.
+4. **Cold?** Choke fully ON, throttle closed.
+5. **Read the voltmeter** if one is fitted — write the number down.
+
+**Then: THREE TRIES, FIVE SECONDS EACH. THEN STOP.**
+
+> Suzuki's own limit is 5 seconds of starter at a time — longer overheats the starter motor and
+> the harness. Wait 10–15 seconds between tries. A bike that is going to start usually starts on
+> the first or second. **Every try past the third flattens the battery and erases the evidence.**
+
+**On the FIRST labored crank — before it gets worse — KICK IT.**
+She has a kickstarter as well as the electric start.
+
+- **Fires on the kick** → engine, fuel and spark are all fine. It was purely a charge problem.
+- **Won't fire after several good kicks** → not the battery's cranking power. Fuel or spark.
+
+*(Do this at the first labored crank, not after she's cranked down to a click — a fully dead
+battery may not run the ignition either, and then the kick test tells you nothing.)*
+
+**Write down which one it was:**
+
+- ☐ **1** — nothing at all, or a single click
+- ☐ **2** — starter spins slowly and labors
+- ☐ **3** — starter spins briskly but it never fires
+- ☐ **4** — fires and dies
+
+Then stop and call Paul. **Do not keep cranking.**
+
+---
+
+# PART 2 — BENCH TESTS (Paul, with a multimeter)
+
+Every threshold below is from the factory service manual on disk —
+`manuals/text/dr200s-2017-service.txt` — not from memory.
+
+**Reference values (manual-verified):**
+
+| Item | Spec | Manual |
+|---|---|---|
+| Battery | **YTX7L-BS**, 12 V 21.6 kC (**6 Ah**)/10 HR | ELECTRICAL spec table |
+| Regulated voltage | **13.0 – 16.0 V at 5 000 r/min** | ELECTRICAL spec table |
+| Generator max output | 150 W at 5 000 r/min | ELECTRICAL spec table |
+| Generator no-load | >60 V AC at 5 000 r/min *(a second table in the same manual says >70 V — tables disagree; treat as ">60 V, confirm before condemning")* | ELECTRICAL spec table ×2 |
+| Generator coil resistance | 0.1 – 1.5 Ω | ELECTRICAL spec table |
+| Starter relay resistance | 2 – 6 Ω | ELECTRICAL spec table |
+| Main fuse | 20 A | ELECTRICAL spec table |
+| Spark plug | NGK DR8EA, gap 0.6 – 0.7 mm (0.024 – 0.028 in) | already `verified` in the record |
+| Fuel tank / reserve | 12.5 L (3.3 gal) total, **reserve 2.5 L (0.7 gal)** | CAPACITIES |
+
+### T1 — Resting voltage
+Charger off at least an hour; overnight is better (sheds surface charge). Meter across the posts.
+
+≥12.6 V full · 12.4 ≈ 75% · 12.2 ≈ 50% · ≤12.0 flat.
+Repeated trips below 12.0 permanently sulfate an AGM.
+
+### T2 — Cranking voltage
+Meter still on the posts, starter for ~3 s. Should hold above **~10.5 V**.
+A *fully charged* battery that collapses below **~9.5 V** cannot deliver current any more —
+it is finished, whatever it reads at rest.
+
+### T3 — Charging voltage · **RUN THIS FIRST**
+Engine running and warm, meter across the battery, hold ~5 000 r/min.
+**Pass = 13.0 – 16.0 V.**
+
+- 13.5 – 14.5 → charging system fine; the battery is being replenished. Look elsewhere.
+- Sits ~12.3 and sags → **she is not charging at all.** Every ride runs the 6 Ah battery down
+  instead of topping it up, and a new battery would die exactly the same way. This single result
+  would explain the whole pattern — rode fine yesterday, dead this morning — and it makes the
+  "was it low gas or low battery" argument moot.
+- Above 16 V → regulator/rectifier failing, and it is *cooking* the battery.
+
+### T4 — Overnight hold
+After T3: park level, **petcock OFF**, record the voltage. Next morning, before touching
+anything, record it again.
+Within ~0.1 V = normal. A drop of 0.3 V or more = parasitic drain or a battery that no longer
+holds. T1/T2 say which.
+
+### T5 — Parasitic draw *(only if T4 drops)*
+Key off, kill switch off. Pull the **negative** cable. Meter on **10 A DC** in series between the
+negative post and the cable. A carbureted bike with no clock should sit at a few **milliamps**.
+More than ~5–10 mA = something is live. Pull the 20 A main fuse to confirm the side, then
+disconnect the **regulator/rectifier** — one shorted diode there is the single most common cause
+of a bike battery that keeps going flat overnight.
+
+### T6 — Fuel / spark, on the next failed start (no tools)
+- Look under the carb **before** cranking: a drip at the overflow tube = float needle passing.
+- Pull the plug: **wet and smelling of gas = flooded** (too much fuel, not too little).
+  **Dry = starvation or no spark.**
+- Ground the plug against the head, crank, look for a fat blue spark.
+
+---
+
+## Make the invisible variable visible
+
+Nobody fetches a multimeter at the moment of failure, which is why the pre-crank number never
+gets taken. Fix it with hardware:
+
+- a **handlebar voltmeter** wired to the ignition circuit (~$10–15), or
+- a **Battery Tender pigtail** with a voltmeter plug — worth fitting regardless, because a 150 W
+  generator at 5 000 r/min puts very little back during a slow lap of the property, and she is
+  ridden in short hops.
+
+Then "I think the battery was low" becomes "it says 12.1" — a number that exists *before* the
+first crank, and one Mom can read out over the phone.
+
+## The fact the record is missing
+
+**Battery age.** The record carries no purchase or install date for the YTX7L-BS. There is a date
+stamp on the case — go read it. If it is the 2017 original it is ~9 years old against a 3–5 year
+AGM life, and it has been deep-cycled repeatedly (June 2026 recommission, the July contact
+episode, this week).
+
+⚠️ **Do not replace it before T3.** If the charging system is dead, a new battery just becomes
+the next dead battery.
+
+---
+
+# PART 3 — RESULTS LOG
+
+Append a row per incident or test. **An empty row is not a passing test.**
+
+| Date | What | Reading / observation | Symptom # | Verdict |
+|---|---|---|---|---|
+| | | | | |
+
+### Incident record so far (from conversation, not yet instrumented)
+
+| Date | What happened | Recorded by |
+|---|---|---|
+| ~2026-08-28 | Wouldn't start on the charger-fed attempt; fuel found low at the filter, tank filled | Paul, verbal |
+| 2026-08-29 | Ran fine, rode it around the property; **left the petcock on RES** | Paul, verbal |
+| 2026-08-30 AM | Wouldn't start | Paul, verbal |
+| 2026-08-30 | Charged the battery — starts | Paul, verbal |
+| prior | Battery pulled and the contacts tightened down | Paul, verbal |
+
+⚠️ These are recalled, not measured. They are here so the pattern is legible, **not** as evidence.
+
+---
+
+## What would close this
+
+- **T3 out of spec** → charging-system fault. Everything else is downstream. Closes it.
+- **T3 in spec + T4 drops + T5 shows draw** → parasitic drain; isolate to a circuit.
+- **T3 in spec + T4 drops + T5 clean** → battery is end-of-life. Replace the YTX7L-BS.
+- **T1 ≥12.4 at the moment of a real no-start** → it was never the battery. Go to T6.
+
+## Standing habits, regardless of outcome
+
+- **Petcock OFF whenever she is parked.** Her own recorded technique is that she weeps fuel at a
+  lean. If the float needle is passing, ON *or* RES feeds that overnight and you get a flooded
+  cylinder in the morning — which looks identical to a battery problem once someone has cranked
+  it flat trying. Petcock off removes that whole branch from the experiment.
+- **Petcock ON, not RES,** when riding. RES is 0.7 gal with no gauge behind it.
+- Three attempts, five seconds each, then stop.
+
+## Related
+
+- Carburetor refurbish at the next decommission — see `restoration` on `dr200s-2017` in
+  `vehicles.json`. A rebuild kit replaces the float needle and seat, which would close the
+  seepage/flooding branch of T6 outright.
+- Technique already on file: *"She weeps fuel when parked at a steep lean — park her level"*
+  (`provenAt` 2026-07-27). Its falsifier stands: **weeping on level ground, or at only a mild
+  lean, means the bowl level is riding high** — check float height (13.0 ± 1.0 mm) and the float
+  needle seat.
