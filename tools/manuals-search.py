@@ -56,7 +56,9 @@ VEHICLES = os.path.join(REPO, "vehicles.json")
 
 # INDEX.md rows: | `id` | Document | Pages | Match | Source |
 _ROW = re.compile(r"^\|\s*`([^`]+)`\s*\|\s*(.+?)\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|")
-_CONF = re.compile(r"(✅|🟡|⚠️)")
+_CONF = re.compile(r"(✅|🟡|🔴|⚠️)")  # 🔴 added 2026-08-30: a RED row (wrong-model
+# document, falsified at the machine) parsed as NO marker at all, so the most
+# serious confidence state in the corpus rendered identically to an unrated one.
 
 
 def load_index():
