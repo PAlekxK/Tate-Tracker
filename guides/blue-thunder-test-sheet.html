@@ -1,0 +1,99 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Blue Thunder — test sheet</title>
+<style>
+  @page { size: letter portrait; margin: 0.38in; }
+  * { box-sizing: border-box; }
+  body { font: 9.5pt/1.2 "Helvetica Neue", Helvetica, Arial, sans-serif; color:#111; margin:0; }
+  h1 { font-size: 18pt; margin:0 0 1pt; letter-spacing:-0.4pt; }
+  .sub { font-size:8.5pt; color:#555; margin:0 0 6pt; }
+  h2 { font-size:9pt; text-transform:uppercase; letter-spacing:1.1pt; margin:7pt 0 3pt;
+       border-bottom:2pt solid #111; padding-bottom:2pt; }
+  .row { display:flex; gap:9pt; }
+  .row > div { flex:1; }
+  .box { border:1.5pt solid #111; padding:5pt 7pt; }
+  .warn { border:2.5pt solid #111; padding:5.5pt 8pt; margin:6pt 0; }
+  .warn b { font-size:10.5pt; }
+  table { border-collapse:collapse; width:100%; margin-top:3pt; }
+  th, td { border:1pt solid #999; padding:3.5pt 5pt; vertical-align:top; font-size:8.8pt; }
+  th { background:#efefef; text-align:left; font-size:8.5pt; text-transform:uppercase; letter-spacing:.5pt; }
+  .t { width:24pt; text-align:center; font-weight:700; font-size:11pt; background:#f4f4f4; }
+  .blank { width:82pt; background:#fafafa; }
+  .spec { width:118pt; font-weight:700; }
+  .line { border-bottom:1pt solid #666; display:inline-block; min-width:130pt; }
+  ul { margin:3pt 0 0; padding-left:15pt; }
+  li { margin:2pt 0; }
+  .foot { margin-top:7pt; padding-top:5pt; border-top:1pt solid #bbb; font-size:8.5pt; color:#555;
+          display:flex; justify-content:space-between; }
+  .notes { border:1pt solid #999; height:44pt; margin-top:3pt; }
+</style>
+
+<h1>Blue Thunder &mdash; test sheet</h1>
+<p class="sub">2017 Suzuki DR200S &middot; battery YTX7L-BS 12&nbsp;V 6&nbsp;Ah &middot; specs from the factory service manual &middot; date: ____________</p>
+
+<h2>Free reads &mdash; do these first, no meter, no charge spent</h2>
+<div class="row">
+  <div class="box">Charger make / model &mdash; and does it say <b>trickle charger</b> or <b>maintainer/tender</b>?<br><br>
+    <span class="line" style="min-width:230pt"></span></div>
+  <div class="box">Battery date stamp on the case (the record has none):<br><br>
+    <span class="line" style="min-width:230pt"></span></div>
+</div>
+
+<h2>Meter settings</h2>
+<div class="row">
+  <div class="box"><b>T1&ndash;T4 &mdash; DC VOLTS.</b> 20&nbsp;V DC or auto. Red in <b>V&Omega;</b>, black in <b>COM</b>. Straight across the battery posts.</div>
+  <div class="box"><b>T5 &mdash; DC AMPS.</b> Red moves to the <b>10&nbsp;A</b> jack, meter <b>in series</b>: neg post &rarr; meter &rarr; neg cable. Never across the posts.</div>
+</div>
+
+<div class="warn">
+  <b>ORDER MATTERS. DO NOT SHUT IT OFF BETWEEN T2 AND T3.</b><br>
+  A short idle run on this bike is a net <i>withdrawal</i> &mdash; headlight always on, 150&nbsp;W only at 5&nbsp;000&nbsp;r/min.
+  Start it once and stay running through T3. Charger fully <b>off the battery</b> (not just unplugged), rested
+  1&nbsp;hr minimum before T1.
+</div>
+
+<h2>The tests</h2>
+<table>
+  <tr><th class="t">#</th><th>What to do</th><th class="spec">Pass / fail</th><th class="blank">Reading</th><th>What it means</th></tr>
+
+  <tr><td class="t">T1</td>
+      <td><b>Resting voltage.</b> Charger off, rested &ge;1&nbsp;hr (overnight better). Across the posts.</td>
+      <td class="spec">&ge;12.6 full<br>12.4 &asymp; 75%<br>12.2 &asymp; 50%<br>&le;12.0 flat</td>
+      <td class="blank">______ V</td>
+      <td>Surface charge is free &mdash; a dying battery reads fine here. Not conclusive alone.</td></tr>
+
+  <tr><td class="t">T2</td>
+      <td><b>Cranking voltage.</b> Meter still on the posts. Starter ~3&nbsp;sec. <b>Must be the first crank after the rest.</b></td>
+      <td class="spec">Hold &gt;10.5&nbsp;V<br><br>&lt;9.5&nbsp;V = FAIL</td>
+      <td class="blank">______ V</td>
+      <td><b>The discriminator.</b> A full battery that collapses has no capacity behind the voltage &mdash; it is done. Stop here if it fails.</td></tr>
+
+  <tr><td class="t">T3</td>
+      <td><b>Charging voltage.</b> Engine running and warm &mdash; <i>do not shut it off after T2</i>. Hold ~5&nbsp;000&nbsp;r/min, meter across the battery.</td>
+      <td class="spec">13.0 &ndash; 16.0 V<br>at 5&nbsp;000 r/min</td>
+      <td class="blank">______ V</td>
+      <td>~12.3 and sagging = <b>not charging at all</b>; a new battery dies the same way. Over 16&nbsp;V = regulator cooking it.</td></tr>
+
+  <tr><td class="t">&nbsp;</td>
+      <td colspan="4"><b>Now ride her 20 minutes at 3&nbsp;000+ r/min.</b> Park level, petcock OFF, charger OFF. Note the voltage: ______ V &nbsp;&nbsp; time: __________</td></tr>
+
+  <tr><td class="t">T4</td>
+      <td><b>Overnight hold.</b> Next morning, before touching anything.</td>
+      <td class="spec">Drop &le;0.1 V ok<br>&ge;0.3 V = problem</td>
+      <td class="blank">______ V</td>
+      <td>A drop means a drain or a battery that no longer holds. T1/T2 say which.</td></tr>
+
+  <tr><td class="t">T5</td>
+      <td><b>Parasitic draw</b> &mdash; only if T4 dropped. Key off, kill switch off, neg cable pulled. Meter in series, 10&nbsp;A jack. <b>Read it twice.</b></td>
+      <td class="spec">A: charger attached<br>B: charger removed<br>B &gt; 5&ndash;10 mA = bike</td>
+      <td class="blank">A ____ mA<br><br>B ____ mA</td>
+      <td><b>A &minus; B is the charger's share</b>, measured not argued. B alone is the bike &mdash; suspect the regulator/rectifier.</td></tr>
+</table>
+
+<h2>Notes / what happened</h2>
+<div class="notes"></div>
+
+<div class="foot">
+  <span>Full protocol + results log: <code>guides/blue-thunder-starting-diagnosis.md</code></span>
+  <span>Fernwood &middot; Tate-Tracker &middot; 2026-08-30</span>
+</div>
