@@ -141,7 +141,7 @@ speaks to this bike.
 - ⚠️           **Do not read this as "these bikes have a known battery problem."** Owners with a
                working bike do not post. A forum is a census of complaints, never of machines.
 
-### ⭐ dr200s-2017 — THE KEY SWITCH POSITION can hold a circuit live and flatten it while parked
+### ~~⭐ dr200s-2017 — THE KEY SWITCH POSITION can hold a circuit live and flatten it while parked~~ 🔴 FALSIFIED
 - tier:        C · **thread read in full via Chrome**, 2 responders on a 2003 DR200 (ThumperTalk,
                2007). One raised key-switch position; a second gave the isolation method below.
 - kind:        failure-mode
@@ -151,10 +151,24 @@ speaks to this bike.
                where Mom leaves it. Then the responder's own draw test, which is T5 without a
                meter: pull the negative cable, **tap it against the post — a spark means something
                is live**. Isolate by unplugging one connector at a time and re-tapping.
-- status:      open — ⭐ **the best thing this sweep produced.** It is a candidate cause for the
-               *"left it sitting and it lost charge"* episode that costs nothing to check, it is
-               checkable BEFORE the battery finishes charging, and it is the kind of thing a
-               factory manual will never tell you.
+- status:      🔴 **FALSIFIED 2026-08-30 — `paul-checked at the machine`:** *"There's no park mode
+               that I can see. Just on, off, and lock."* The 2017 DR200S key switch has **ON / OFF /
+               LOCK** and no accessory or park detent. LOCK is the steering lock and is electrically
+               OFF. **There is no key position on this bike that can hold a circuit live.**
+               Kept, not deleted — a falsification is an event with a name, and the next person to
+               find this thread should find the answer with it.
+- ⭐ WHAT THIS IS: **the quarantine working exactly as designed, on its first note.** A tier-C claim
+               from the wrong model generation arrived as a hypothesis with a test attached, the
+               test cost thirty seconds at the machine, and the machine settled it. **Nothing ever
+               entered the record.** Compare the failure mode this file exists to prevent — the same
+               claim summarised into a note, folded into `vehicles.json`, and sitting there for
+               weeks looking like a fact.
+- ⚠️ CONSEQUENCE — **this does NOT clear a parasitic drain, it removes one candidate.** The
+               always-live side of the harness (battery → starter relay → regulator/rectifier) is
+               live regardless of key position on any bike, and a shorted rectifier diode is the
+               classic bike-battery drain. **So the spark test in the note below is now the ONLY
+               no-meter way to see a drain on this machine, and it got more valuable, not less.**
+               By elimination it also leaves the unpowered-charger hypothesis standing.
 - ⚠️           Records a POSITION to look at, never a claim about this bike's switch. Confirm at
                the machine.
 

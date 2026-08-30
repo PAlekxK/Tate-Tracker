@@ -238,9 +238,12 @@ substitutes for that.
 Both come from a 2003 DR200 thread (quarantined in `cycle/fleet/FIELD-NOTES.md`).
 ⚠️ **DR200SE-generation, not this 2017 bike — confirm at the machine.**
 
-1. **Look at what the key can be turned to.** A park / accessory detent that holds the tail light
-   live is a parasitic drain that flattens a 6 Ah battery over days. If this bike has one and it has
-   been left there, that alone explains *"left it sitting and it lost charge."*
+1. ~~**Look at what the key can be turned to.**~~ 🔴 **DONE AND FALSIFIED 2026-08-30** — Paul, at the
+   machine: *"There's no park mode that I can see. Just on, off, and lock."* No key position on this
+   bike can hold a circuit live. ⚠️ **This removes one drain candidate, it does not clear a drain:**
+   the always-live side (battery → starter relay → regulator/rectifier) is live whatever the key
+   does, and a shorted rectifier diode is the classic bike-battery drain. **Check 2 got more
+   valuable, not less.**
 2. **The spark test.** Pull the negative cable and **tap it against the post.** A spark with
    everything off means something is live — T5's question answered without a meter. Isolate by
    unplugging one connector at a time and re-tapping.
