@@ -123,10 +123,12 @@ anything, record it again.
 Within ~0.1 V = normal. A drop of 0.3 V or more = parasitic drain or a battery that no longer
 holds. T1/T2 say which.
 
-### T5 — Parasitic draw *(only if T4 drops)*
+### T5 — Parasitic draw *(only if T4 drops)* — **run it as an A/B now that a charger is in the picture**
 Key off, kill switch off. Pull the **negative** cable. Meter on **10 A DC** in series between the
 negative post and the cable. A carbureted bike with no clock should sit at a few **milliamps**.
-More than ~5–10 mA = something is live. Pull the 20 A main fuse to confirm the side, then
+Take the reading **twice**: (A) charger clips still attached but unpowered, (B) charger clips removed
+entirely. **A − B is the charger's contribution, measured rather than argued**; B alone is the bike's
+own draw. More than ~5–10 mA on **B** = something is live on the bike. Pull the 20 A main fuse to confirm the side, then
 disconnect the **regulator/rectifier** — one shorted diode there is the single most common cause
 of a bike battery that keeps going flat overnight.
 
@@ -169,7 +171,8 @@ Append a row per incident or test. **An empty row is not a passing test.**
 
 | Date | What | Reading / observation | Symptom # | Verdict |
 |---|---|---|---|---|
-| | | | | |
+| 2026-08-30 | Left sitting with a **trickle charger attached but UNPOWERED** | Lost charge. Days elapsed and charger make/model not yet recorded | — | **Hypothesis, not a verdict.** A charger with no blocking diode back-feeds through its own output stage when unpowered. 20 mA for 3 days = 1.4 Ah of a 6 Ah battery. A smart maintainer draws microamps; a dumb trickle charger often does not. **Read the label.** |
+| 2026-08-30 | **Three starts in ~1 hour**, each shut off quickly (t=0, +30 min, +60 min) | Start 1 fine · start 2 fine · start 3 **clearly struggling, barely caught** | 2 | ⭐ **The most informative run so far, because it held FUEL CONSTANT.** The engine fired all three times — fuel, spark and carb are all exonerated for this episode. The only thing that degraded was cranking power, monotonically. **This episode is on the electrical axis.** ⚠️ Partly self-inflicted: see the standing rule below — a short idle run on this bike is a net WITHDRAWAL, so three of them is a discharge test. Still: three starts should not take a healthy 6 Ah battery from fine to barely-turning. |
 
 ### Incident record so far (from conversation, not yet instrumented)
 
@@ -200,6 +203,15 @@ Append a row per incident or test. **An empty row is not a passing test.**
   it flat trying. Petcock off removes that whole branch from the experiment.
 - **Petcock ON, not RES,** when riding. RES is 0.7 gal with no gauge behind it.
 - Three attempts, five seconds each, then stop.
+- ⭐ **DO NOT SHORT-CYCLE HER — a brief idle run is a net WITHDRAWAL** (added 2026-08-30, from the
+  three-start hour above). The headlight is on whenever the engine runs, and the generator makes its
+  150 W at **5 000 r/min** — far less at idle. Starting, idling a minute and shutting off spends a
+  large slug of amp-hours on the starter and returns almost none, so starting her "just to check on
+  her" flattens the battery *and* corrupts the next measurement. If you want to run her, **ride her at
+  3 000+ r/min for 20 minutes** — that is the only thing that puts charge back.
+- **A charger is either POWERED or fully DISCONNECTED — never attached and dead.** To leave the
+  pigtail on the bike, keep the ring terminals bolted to the battery and **unmate the SAE
+  connector**: bare wire with nothing plugged into it cannot draw anything.
 
 ## Related
 
