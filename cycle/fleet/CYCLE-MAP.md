@@ -7,6 +7,8 @@ inbound **door** since 2026-08-28 and **no loop** — `BACKLOG.md` says so in it
 **Anchor project:** `Fernwood Fleet` · **repo:** `Tate-Tracker` · **non-AI door:**
 `python3 tools/fleet_probe.py`
 
+<!-- map-control: python3 tools/fleet_probe.py --selftest && python3 tools/vehicle-brief.py --selftest -->
+
 > ⚠️ **EVERY THRESHOLD HERE IS PROVISIONAL AND LAP 1 RE-CADENCES IT.** They are one
 > session's first cut, not measurement. Same posture the Tate Dam loop took, for the same
 > reason: a threshold invented before a lap has run has no evidence behind it.
