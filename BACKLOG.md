@@ -40,6 +40,36 @@ the priority cut laid over it.
 
 ---
 
+## 🏠 Household systems build-out — SHIPPED 2026-08-31 · four gaps open (Track B)
+
+From Paul's five photos (archived `.private/household-photos/`, serials in
+`.private/devices-identifiers.json`): the household-system group grew 1 → 5 —
+propane furnace, Bradford White RE250T6-1NCYY water heater (built Sept 2024 per
+the serial date code), Samsung WF45K6500AV washer (built Oct 2016), and the
+Square D Homeline HOMC30UC panel with its 30-row door directory transcribed.
+Two new optional record sections in `renderVehicleItem`: **`rhythms[]`** (cyclical
+chores — null `lastDone` renders "no date on record yet", never "overdue"; with a
+date it warms quiet → coming up → worth doing, the tag-renewal ladder) and
+**`circuits[]`** (the panel directory, per-row confidence chips). Structure call,
+Paul-raised in-session: household-system **stays a group inside vehicles.json**,
+exactly as equipment is — one schema, one renderer, one reinline pipeline; a
+later split is mechanical if the group outgrows the file.
+
+**Open, and each is a two-minute physical act at the property:**
+
+| # | Gap | Settles |
+|---|---|---|
+| H1 | 📷 Photograph the **furnace data plate** (inside/beside the upper burner-compartment door) | Model · serial · age · igniter part number — the whole identity is `tbd` until this |
+| H2 | 👀 Read the **air-filter size** off the filter edge in the return slot | The one recurring chore's shopping fact; card says `tbd` |
+| H3 | 🔌 Flip-test panel rows **28** ("Booster pump"?) and **30** ("Bath GFI"? "Barn"?) — handwriting reads | Two `inferred` circuit rows; a booster pump would also be a new fact about the water supply |
+| H4 | 🧾 Find the **water heater install invoice** (not in Gmail — checked 2026-08-31) | Starts the 6-yr warranty clock from install rather than the Sept 2024 build date |
+
+Deferred by doctrine (`defer-affordances-pending-signal`): a capture affordance
+for `rhythms[].lastDone`. The deterministic door today is editing
+`vehicles.json` + reinline; build a UI for it only when the rhythms prove used.
+
+---
+
 ## 📷 INBOUND from the photo-organizer loop — 2026-08-28 (its lap 22, beat 4b)
 
 > **A cross-loop handoff, and it is HERE rather than in `cycle/requests.jsonl` on purpose.**
