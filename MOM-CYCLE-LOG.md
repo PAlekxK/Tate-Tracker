@@ -22,6 +22,19 @@ and no Mom-facing ask changed. Open follow-ups: `BACKLOG.md` § Household system
 Recorded so `cycle-docs-check`'s "repo moved past the newest lap" flag reads as *meta work,
 chronicled* rather than *a lap unrecorded*.
 
+**Extended (same day, PM):** still no lap — but the afternoon/evening was the **2026-08-31
+production /ux-sweep + Paul's decision walkthrough + THE FOLD**, all Paul-directed, none fired
+by an arrival of hers. What it changed on surfaces she sees (trail:
+`.ux-reviews/2026-08-31-production-full-sweep.md`): 18 punch fixes at her measured conditions
+(bird-list collisions, radar basemap, ack-ribbon clearance, one clock, "At their peak right
+now" + This-Month window states, fern/✓ removed, Delete buttons behind the maintainer flag,
+**cross-device answer retirement repaired** — it had been silently dead) · a release note ·
+**Mom's own 16-area map folded to canon** (18 zones live; her 2026-08-30 naming session).
+One thing entered her ask-pipeline: `q-jumpstrip-coverage` (D3, wording paul-confirmed,
+bench-cleared) — it serves only when a queue slot opens, so **the next lap should expect it
+in rotation** and its answer is that lap's to fold. The D4 ruling also hands the next lap a
+beat: **ledger the pre-glance stack at 414×A+** (Leg 6e harness) before any trim decision.
+
 ---
 
 ## 2026-08-28 — NO LAP. A **re-examination of the 08-09 zone clip**, at Paul's ask — and it corrects what lap 3 recorded as the root cause
