@@ -3,7 +3,7 @@
     "schemaVersion": 1,
     "lastUpdated": "2026-05-05",
     "location": "282 Church Mountain Road, Jasper, GA 30143",
-    "elevation_ft": 2959,
+    "elevation_ft": 2873,
     "coordinates": "34.5496°N, 84.3674°W",
     "region": "Blue Ridge, Pickens County, GA",
     "habitatContext": "Property includes a pond and is adjacent to Lake Sequoyah (0.3 mi) and forested slopes. Seasonal streams and moist woodland floor support high amphibian diversity. Blue Ridge mountain amphibians are among the most diverse in the eastern US — the southern Appalachians are a global hotspot for salamander species richness.",
@@ -24,7 +24,7 @@
         "name": "Spring Peeper first call",
         "window": "Late February – early March",
         "description": "The first signal that winter is breaking. On the first warm, rainy night above 45°F, Spring Peepers begin calling from the pond and wet areas. The chorus can be deafening within earshot of the pond.",
-        "elevation_note": "At 2,959 ft, first calls run 2–3 weeks later than Atlanta-area ponds — expect late February rather than mid-February."
+        "elevation_note": "At 2,873 ft, first calls run 2–3 weeks later than Atlanta-area ponds — expect late February rather than mid-February."
       },
       {
         "name": "Spotted Salamander breeding migration",
@@ -76,7 +76,7 @@
       "call": "High, clear whistle ('peep') repeated at 1-per-second. Chorus of dozens is very loud and carries far.",
       "size_in": "0.75–1.25",
       "appearance": "Tiny brown frog with distinctive dark X on its back. Rarely seen despite being very loud.",
-      "notes": "The voice of early spring at Church Mountain Road. Spring Peepers are among the very first frogs to breed — the first warm rainy night above 45°F in late February or early March triggers calling at the pond. Despite the overwhelming volume of their chorus, these are tiny frogs (smaller than a quarter) almost never seen — they hide in pond-edge vegetation. After breeding they return to the moist forest floor and are nearly impossible to find. First calls at ~2,959 ft run 2–3 weeks later than Atlanta-area ponds.",
+      "notes": "The voice of early spring at Church Mountain Road. Spring Peepers are among the very first frogs to breed — the first warm rainy night above 45°F in late February or early March triggers calling at the pond. Despite the overwhelming volume of their chorus, these are tiny frogs (smaller than a quarter) almost never seen — they hide in pond-edge vegetation. After breeding they return to the moist forest floor and are nearly impossible to find. First calls at ~2,873 ft run 2–3 weeks later than Atlanta-area ponds.",
       "conservation": "Common — one of the most abundant frogs in the eastern US",
       "photo": "images/amphibians/spring-peeper.jpg",
       "attribution": {
@@ -373,7 +373,7 @@
       "call": "Silent",
       "size_in": "6–9.75",
       "appearance": "Large, stocky black salamander with two irregular rows of bright yellow spots from head to tail. Unmistakable.",
-      "notes": "One of Church Mountain Road's most spectacular wildlife events. Spotted Salamanders live most of their lives hidden under logs and deep in the soil of the upland forest — then on the first warm (above 45°F), rainy night in late February or early March, ALL the adults in the area migrate simultaneously to the breeding pond. If you catch this night (check the calendar — it's usually the first late Feb or early March rain), walk to the pond with a flashlight and watch the parade. The adults leave egg masses attached to submerged branches, then disappear into the forest until next year. At ~2,959 ft, this event runs 1–2 weeks later than lowland sites.",
+      "notes": "One of Church Mountain Road's most spectacular wildlife events. Spotted Salamanders live most of their lives hidden under logs and deep in the soil of the upland forest — then on the first warm (above 45°F), rainy night in late February or early March, ALL the adults in the area migrate simultaneously to the breeding pond. If you catch this night (check the calendar — it's usually the first late Feb or early March rain), walk to the pond with a flashlight and watch the parade. The adults leave egg masses attached to submerged branches, then disappear into the forest until next year. At ~2,873 ft, this event runs 1–2 weeks later than lowland sites.",
       "conservation": "Secure — good populations throughout the Blue Ridge",
       "photo": "images/amphibians/spotted-salamander.jpg",
       "attribution": {
@@ -465,7 +465,7 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Adult_Female_Plethodon_cinereus.jpg"
       },
-      "taxonomicNote": "Likely candidates at Church Mountain Road (~2,959 ft, Pickens Co., GA): Plethodon serratus (Southern Red-backed) is the most plausible Blue Ridge species at this elevation; P. cinereus (Northern Red-backed) is at the far southwestern edge of its range and unlikely here; the Southern Appalachian Salamander complex (P. teyahalee / P. metcalfi) is also possible. Hand-capture and consult Jensen et al., Amphibians and Reptiles of Georgia, for definitive ID.",
+      "taxonomicNote": "Likely candidates at Church Mountain Road (~2,873 ft, Pickens Co., GA): Plethodon serratus (Southern Red-backed) is the most plausible Blue Ridge species at this elevation; P. cinereus (Northern Red-backed) is at the far southwestern edge of its range and unlikely here; the Southern Appalachian Salamander complex (P. teyahalee / P. metcalfi) is also possible. Hand-capture and consult Jensen et al., Amphibians and Reptiles of Georgia, for definitive ID.",
       "srelUrl": "https://srelherp.uga.edu/salamanders/",
       "noVocalization": true,
       "voiceNote": "Silent — salamanders do not vocalize."
@@ -519,7 +519,7 @@
       "id": "two-lined-salamander",
       "name": "Two-lined Salamander (Eurycea sp.)",
       "scientificName": "Eurycea cirrigera / E. wilderae",
-      "taxonomicNote": "Two species occur in Pickens County and are separated by larval and range detail, not field marks. E. cirrigera (Southern Two-lined) is the lowland animal; E. wilderae (Blue Ridge Two-lined) is the montane one, and at ~2,959 ft on a cold headwater stream it is the more likely of the two. The northern E. bislineata that older books list does not reach Georgia.",
+      "taxonomicNote": "Two species occur in Pickens County and are separated by larval and range detail, not field marks. E. cirrigera (Southern Two-lined) is the lowland animal; E. wilderae (Blue Ridge Two-lined) is the montane one, and at ~2,873 ft on a cold headwater stream it is the more likely of the two. The northern E. bislineata that older books list does not reach Georgia.",
       "emoji": "🟡",
       "type": "salamander",
       "statusLabel": "Stream resident",

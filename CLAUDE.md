@@ -345,7 +345,7 @@ The dated per-session **Pickup point** trail (2026-05-21 → 2026-07-14) is arch
 
 ## Project purpose & tone
 
-Fernwood is a **personal property reference dashboard** for 282 Church Mountain Road, Jasper, GA 30143 — a rural mountain property at 2,959 ft elevation in the Blue Ridge, within Tate Mountain Estates. "Fernwood" is the property's name; "Tate Mountain Estates" is the surrounding 1920s mountain development, separate from the nearby town of Tate. It is hyper-personalized, not a generic app.
+Fernwood is a **personal property reference dashboard** for 282 Church Mountain Road, Jasper, GA 30143 — a rural mountain property at 2,873 ft elevation in the Blue Ridge, within Tate Mountain Estates. "Fernwood" is the property's name; "Tate Mountain Estates" is the surrounding 1920s mountain development, separate from the nearby town of Tate. It is hyper-personalized, not a generic app.
 
 **Project rename history:** Originally "Tate Tracker" (named for Col. Sam Tate / Tate Mountain Estates); renamed to "Fernwood" on 2026-05-19 to name the actual property rather than the surrounding development. Repo path, GitHub repo, Worker URL, localStorage keys, and most internal var names retain `tate-tracker` / `tateTracker` for now — those are infrastructure-level identifiers, not user-facing, and renaming them carries data-migration risk (existing observations). Rename them only if a clear reason emerges.
 
@@ -602,13 +602,13 @@ Cards expand/collapse via `.expanded` class toggled on `.main-card` when its `.m
 
 ## Elevation calibration
 
-**Property is 2,959 ft, not 1,750 ft.** The original data was written with a stale assumption (1,750 ft, derived from Lake Sequoyah's ~2,800 ft mistakenly attributed to the property). `property.json` is the source of truth: 2,959 ft confirmed via Open-Meteo elevation API at coordinates 34.5496°N, 84.3674°W (May 2026), 1,424 ft above KJZP baseline (1,535 ft).
+**Property is 2,873 ft, not 1,750 ft.** The original data was written with a stale assumption (1,750 ft, derived from Lake Sequoyah's ~2,800 ft mistakenly attributed to the property). `property.json` is the source of truth: **2,873 ft MEASURED from USGS 3DEP 1 m lidar** at 34.5496°N, 84.3674°W (2026-08-31), 1,338 ft above KJZP baseline (1,535 ft). ⚠️ This corrected a long-standing **2,959 ft**, which came from the Open-Meteo elevation API — a ~90 m global model that reads 86 ft high on this spur and still returns 902.0 m here. It had been stamped `confirmed`, and two sources in this repo (2,865 ft and SRTM ~2,888) already disagreed with it.
 
 Cleanup completed 2026-05-13 across `plants.json`, viewer.html's inlined `PLANTS_DATA`, and README.md:
 - Numeric `elevation_ft`, "~1,750 ft" prose references, hardiness zone (7a → 6b), and KJZP delta strings all corrected.
 - Frost-date `_meta` (`lastFrost_50pct`, `lastFrost_90pctSafe`, `firstFrost_50pct`) shifted from April 30 / May 21 / October 20 → May 3 / May 24 / October 17 to match `property.json` `atPropertyElevation`.
 - Schema notes / data sources updated from "+7 days spring / -7 days fall" to "+10 days spring / -10 days fall."
-- All `peakWindow` and `currentSeasonNote` dates in the **8 original plants** (white-pine, azalea, hydrangea, dogwood, boxwood, holly, mountain-laurel, japanese-maple) shifted +3 days for Jan–Jul dates / -3 days for Aug–Dec dates. The 5 plants promoted from `plants.draft.json` (pyracomeles, deutzia, clematis, hosta, iris-pond) were authored at 2,959 ft and needed no shift.
+- All `peakWindow` and `currentSeasonNote` dates in the **8 original plants** (white-pine, azalea, hydrangea, dogwood, boxwood, holly, mountain-laurel, japanese-maple) shifted +3 days for Jan–Jul dates / -3 days for Aug–Dec dates. The 5 plants promoted from `plants.draft.json` (pyracomeles, deutzia, clematis, hosta, iris-pond) were authored at 2,873 ft and needed no shift.
 
 **Known imprecisions:** the +3/-3 shift relies on lapse-rate math (7 days per 1,000 ft); Paul's direct phenological observation is more authoritative if anything reads obviously off. Some descriptive prose still uses vague phrases ("mid-May to early June," "early summer") that weren't shifted — those are approximate to begin with and should be tightened only if a specific entry reads wrong on the ground.
 
@@ -625,8 +625,8 @@ The vehicle/equipment data-collection list (mower belt P/N, Homelite model IDs, 
 | Field | Value |
 |---|---|
 | Address | 282 Church Mountain Road, Jasper, GA 30143 |
-| Coordinates | 34.5496°N, 84.3674°W (confirmed via Google Maps + Open-Meteo elevation API, May 2026; previous 34.52, -84.46 pointed near Jasper town center and was wrong) |
-| Elevation | 2,959 ft (confirmed; 1,424 ft above KJZP baseline) |
+| Coordinates | 34.5496°N, 84.3674°W (confirmed via Google Maps, May 2026; previous 34.52, -84.46 pointed near Jasper town center and was wrong) |
+| Elevation | 2,873 ft (measured, lidar; 1,338 ft above KJZP baseline) |
 | USDA Zone | 6b (elevation-adjusted); 7b official county |
 | Last frost 50% | May 3 |
 | Last frost 90% safe | May 24 |

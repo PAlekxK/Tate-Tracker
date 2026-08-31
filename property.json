@@ -1,18 +1,18 @@
 {
   "_meta": {
     "schemaVersion": 1,
-    "lastUpdated": "2026-05-05",
-    "note": "Coordinates confirmed via Google Maps (May 2026). Elevation confirmed at 902 m / 2,959 ft via Open-Meteo elevation API at confirmed coordinates. Previous estimate of ~1,750 ft was incorrect — it was based on Lake Sequoyah's approximate elevation rather than the property address.",
+    "lastUpdated": "2026-08-31",
+    "note": "Coordinates confirmed via Google Maps (May 2026). Elevation MEASURED at 875.7 m / 2,873 ft from USGS 3DEP 1 m lidar at those coordinates (2026-08-31). ⚠️ This supersedes 902 m / 2,959 ft, which came from the Open-Meteo elevation API — a ~90 m global model that reads 86 ft high on this spur and still returns 902.0 m today. An earlier ~1,750 ft estimate was also wrong; it used Lake Sequoyah rather than the property.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP Pickens County Airport (elev 1,535 ft)",
       "Almanac.com frost dates for Jasper GA (sourced from NOAA normals)",
       "USDA Web Soil Survey — Pickens County, GA (Hayesville and the mesic Blue Ridge candidates: Ashe, Edneyville, Porters, Tallapoosa)",
-      "USDA NRCS Official Series Descriptions: Hayesville, Ashe, Edneyville, Porters, Tallapoosa. ⚠️ Cecil and Pacolet were REMOVED 2026-07-25 — both are thermic Piedmont series capped near 900 ft and cannot occur at this 2,959 ft Blue Ridge site. Series remain INFERRED until the W9 soil test returns a texture result.",
+      "USDA NRCS Official Series Descriptions: Hayesville, Ashe, Edneyville, Porters, Tallapoosa. ⚠️ Cecil and Pacolet were REMOVED 2026-07-25 — both are thermic Piedmont series capped near 900 ft and cannot occur at this 2,873 ft Blue Ridge site. Series remain INFERRED until the W9 soil test returns a texture result.",
       "Appalachian lapse rate study: Springer Nature 'Air and soil temperatures in the Appalachian Highlands' (2025)",
       "Cold-air drainage research: GeoJournal 'Thermal belt and cold air drainage on mountain slopes'",
       "USDA Plant Hardiness Zone Map 2023",
       "UGA Cooperative Extension climate and soil resources for North Georgia",
-      "Open-Meteo Elevation API — confirmed 902 m at 34.5496°N, 84.3674°W (May 2026)"
+      "USGS 3DEP 1 m lidar (GA_Statewide_2018_B18_DRRA) — elevation measured at the anchor 2026-08-31. (Replaces Open-Meteo's ~90 m global model, which read 86 ft high here.)"
     ]
   },
   "property": {
@@ -34,17 +34,26 @@
       "note": "Confirmed via Google Maps May 2026. Previous coordinates (34.52, -84.46) were pointing near Jasper town center and were incorrect."
     },
     "elevation": {
-      "estimated_ft": 2959,
-      "elevation_m": 902,
+      "estimated_ft": 2873,
+      "elevation_m": 875.7,
       "range_ft": [
-        2800,
-        3100
+        2820,
+        2900
       ],
-      "confidence": "confirmed",
-      "basis": "Confirmed at 902 m (2,959 ft) via Open-Meteo elevation API at coordinates 34.5496°N, 84.3674°W (May 2026). This is consistent with the Tate Mountain Estates area — Lake Sequoyah nearby sits at ~2,769 ft. The property is approximately 1,424 ft above the KJZP reference station (1,535 ft).",
+      "confidence": "measured",
+      "basis": "Measured 2026-08-31 from USGS 3DEP 1 m lidar (product USGS 1 Meter 16 x74y383 GA_Statewide_2018_B18_DRRA, published 2022-05-31) sampled at the recorded anchor 34.5496N, 84.3674W: 875.7 m / 2,873 ft. SUPERSEDES the previous 902 m / 2,959 ft, which was NOT wrong-by-typo — the Open-Meteo elevation API still returns exactly 902.0 m at these coordinates. That API serves a ~90 m global model, and on a mountain spur a 90 m cell averages across the slope and pulls toward the ridge. Ground at 2,959 ft does exist, 61 m away and up the knoll. Corroborated independently: the 17 areas traced with Mom span 2,819-2,894 ft, bracketing this value.",
       "valleyFloorRef_ft": 1467,
       "airportRef_ft": 1535,
-      "elevationAboveKJZP_ft": 1424
+      "elevationAboveKJZP_ft": 1338,
+      "supersededValue": {
+        "estimated_ft": 2959,
+        "elevation_m": 902,
+        "source": "Open-Meteo elevation API (~90 m global model)",
+        "recordedFrom": "2026-05-05",
+        "correctedOn": "2026-08-31",
+        "errorFt": -86,
+        "lesson": "A single global-model API is not a measurement. It was stamped confidence:'confirmed' on that basis while 1 m lidar for the same ground was free and public."
+      }
     },
     "aspect": {
       "primary": "south",
@@ -58,12 +67,12 @@
     "officialZoneMaxTemp_F": 10,
     "elevationAdjustedZone": "6b to 7a (mid-slope and open positions); 6a possible in confirmed frost pockets",
     "elevationAdjustedMinTemp_F": -5,
-    "explanation": "Pickens County is officially USDA Zone 7b based on valley-floor stations. At a confirmed elevation of 2,959 ft — approximately 1,424 ft above the KJZP reference station — the standard environmental lapse rate (3.5–5.5°F per 1,000 ft) implies approximately 5–8°F cooler average winter minimum than the valley. This pushes the property solidly into Zone 6b (−5 to 0°F minimum) on open mid-slope positions, and potentially Zone 6a (−10 to −5°F) in confirmed frost pockets on calm clear nights. Plan for Zone 6b as your baseline and treat any hollow or low-lying area as Zone 6a.",
+    "explanation": "Pickens County is officially USDA Zone 7b based on valley-floor stations. At a confirmed elevation of 2,873 ft — approximately 1,338 ft above the KJZP reference station — the standard environmental lapse rate (3.5–5.5°F per 1,000 ft) implies approximately 5–8°F cooler average winter minimum than the valley. This pushes the property solidly into Zone 6b (−5 to 0°F minimum) on open mid-slope positions, and potentially Zone 6a (−10 to −5°F) in confirmed frost pockets on calm clear nights. Plan for Zone 6b as your baseline and treat any hollow or low-lying area as Zone 6a.",
     "lapseRate_F_per_1000ft": 3.5,
     "coldAirDrainageEffect_F": "8–15°F colder in valley bottoms / hollows on calm clear nights vs. mid-slope"
   },
   "frostDates": {
-    "source": "NOAA 1991–2020 Climate Normals for Jasper GA, elevation-adjusted for confirmed 1,424 ft above KJZP (2,959 ft vs 1,535 ft)",
+    "source": "NOAA 1991–2020 Climate Normals for Jasper GA, elevation-adjusted for confirmed 1,338 ft above KJZP (2,873 ft vs 1,535 ft)",
     "valleyFloor_KJZP": {
       "note": "Official climate-normal dates for the Jasper/KJZP station (1,535 ft) — your baseline reference.",
       "lastSpring_50pct": "April 23",
@@ -73,7 +82,7 @@
       "growingSeason_days": 187
     },
     "atPropertyElevation": {
-      "note": "Adjusted ~+10 days spring / -10 days fall for confirmed 1,424 ft additional elevation (using 7 days per 1,000 ft lapse). Applies to open mid-slope positions. Add another 5–14 days for any beds in frost pockets.",
+      "note": "Adjusted ~+10 days spring / -10 days fall for confirmed 1,338 ft additional elevation (using 7 days per 1,000 ft lapse). Applies to open mid-slope positions. Add another 5–14 days for any beds in frost pockets.",
       "lastSpring_50pct": "May 3",
       "lastSpring_90pctSafe": "May 24",
       "firstFall_50pct": "October 17",
@@ -84,7 +93,7 @@
   },
   "climate": {
     "annualPrecipitation_in": 57,
-    "precipitationNotes": "57 in/yr at valley station. Orographic lift on mountain slopes typically adds 5–15% over the valley reading — Church Mountain at ~2,959 ft likely receives 62–68 in/yr. Well distributed year-round with slight spring peak (Mar–May). Afternoon convective thunderstorms common Jun–Aug.",
+    "precipitationNotes": "57 in/yr at valley station. Orographic lift on mountain slopes typically adds 5–15% over the valley reading — Church Mountain at ~2,873 ft likely receives 62–68 in/yr. Well distributed year-round with slight spring peak (Mar–May). Afternoon convective thunderstorms common Jun–Aug.",
     "temperature": {
       "annualRange_F": [
         28,
@@ -103,10 +112,10 @@
     "wind": {
       "summer": "Light and variable; primarily SW; afternoon thunderstorm outflow can produce sudden strong gusts. Ridge and exposed positions get more wind than valley.",
       "winter": "NW to NE; cold Canadian air masses; exposed ridge positions at nearly 3,000 ft get significant wind chill and evergreen desiccation — more severe than valley readings suggest",
-      "iceStormRisk": "Moderate to high — Pickens County sits in the Appalachian cold-air damming zone; at 2,959 ft, ice and snow accumulation will be heavier and more persistent than in the valley. 3–5 ice/snow events per winter typical.",
-      "snowfall_in_avg": "5–10 in/yr on average; individual storms can bring 6–12 in but most winters see modest accumulation. NOAA 1991–2020 normals show Blairsville (1,900 ft) averaging 3.1 in/yr — the property at 2,959 ft gets somewhat more but North Georgia remains well below Appalachian snowbelt averages."
+      "iceStormRisk": "Moderate to high — Pickens County sits in the Appalachian cold-air damming zone; at 2,873 ft, ice and snow accumulation will be heavier and more persistent than in the valley. 3–5 ice/snow events per winter typical.",
+      "snowfall_in_avg": "5–10 in/yr on average; individual storms can bring 6–12 in but most winters see modest accumulation. NOAA 1991–2020 normals show Blairsville (1,900 ft) averaging 3.1 in/yr — the property at 2,873 ft gets somewhat more but North Georgia remains well below Appalachian snowbelt averages."
     },
-    "growingSeasonNotes": "At ~2,959 ft, the growing season is meaningfully shorter than the valley — approximately 167 days at mid-slope. Wait until late May to plant tender annuals. Fall harvest window closes in late September at exposed positions. Summer temperatures are pleasantly cooler than Atlanta by 10–15°F."
+    "growingSeasonNotes": "At ~2,873 ft, the growing season is meaningfully shorter than the valley — approximately 167 days at mid-slope. Wait until late May to plant tender annuals. Fall harvest window closes in late September at exposed positions. Summer temperatures are pleasantly cooler than Atlanta by 10–15°F."
   },
   "soils": {
     "likelySeries": [
@@ -116,7 +125,7 @@
       "Porters",
       "Tallapoosa"
     ],
-    "seriesNote": "INFERRED, not tested. Cecil and Pacolet were removed 2026-07-25: both are thermic Piedmont series capped near 900 ft elevation and do not occur in this county's soil survey, so they cannot be right for a 2,959 ft Blue Ridge site. The series listed now are the mesic, higher-elevation Blue Ridge candidates (Ashe, Edneyville and Porters are shallow, coarse-loamy Inceptisols; Tallapoosa is a shallow Hapludult mapped nearby). Which one is actually underfoot is unconfirmed until the W9 soil test returns a texture result. See .plans/2026-07-25-soil-sampling-plan.md.",
+    "seriesNote": "INFERRED, not tested. Cecil and Pacolet were removed 2026-07-25: both are thermic Piedmont series capped near 900 ft elevation and do not occur in this county's soil survey, so they cannot be right for a 2,873 ft Blue Ridge site. The series listed now are the mesic, higher-elevation Blue Ridge candidates (Ashe, Edneyville and Porters are shallow, coarse-loamy Inceptisols; Tallapoosa is a shallow Hapludult mapped nearby). Which one is actually underfoot is unconfirmed until the W9 soil test returns a texture result. See .plans/2026-07-25-soil-sampling-plan.md.",
     "parentMaterial": "Residuum weathered from high-grade metamorphic and igneous rock — mica gneiss, mica schist, granodiorite. Typical of the Southern Appalachian Blue Ridge.",
     "texture": "Sandy loam to loam surface over a coarse, micaceous subsoil; on these Blue Ridge slopes the soil is typically shallow, with weathered rock within roughly 20 inches. Well to excessively drained. The governing constraint here is shallow rooting depth and summer drought stress on a steep slope, NOT perched water over clay (the clay-subsoil/argillic story belongs to the Piedmont series that were wrongly listed before 2026-07-25 and does not apply at this elevation). Unconfirmed until the W9 soil test.",
     "structure": "Moderate granular structure when in good health; can become compacted and crusting when depleted of organic matter or heavily trafficked.",
@@ -148,8 +157,8 @@
     "rockContent": "Moderate to high — mica schist and gneiss parent material means rocks, chert, and occasionally large boulders near the surface. Raised beds may be preferable for intensive vegetable gardening."
   },
   "microclimate": {
-    "overview": "At ~2,959 ft, Church Mountain Road sits well into Blue Ridge mountain territory. The combination of elevation, slope aspect, and topographic position (ridge vs. draw vs. mid-slope vs. valley bottom) can create temperature differences of 15–20°F across a single property on a calm clear night. This elevation is meaningfully colder, snowier, and windier than Jasper town — plan accordingly.",
-    "elevationEffect": "At 1,424 ft above the KJZP valley station, the property runs approximately 5–8°F cooler in average winter minimums. Summer highs are 8–12°F cooler than Atlanta, making it a genuine mountain climate. Spring green-up 10–14 days later than Jasper valley; fall color 2–3 weeks earlier.",
+    "overview": "At ~2,873 ft, Church Mountain Road sits well into Blue Ridge mountain territory. The combination of elevation, slope aspect, and topographic position (ridge vs. draw vs. mid-slope vs. valley bottom) can create temperature differences of 15–20°F across a single property on a calm clear night. This elevation is meaningfully colder, snowier, and windier than Jasper town — plan accordingly.",
+    "elevationEffect": "At 1,338 ft above the KJZP valley station, the property runs approximately 5–8°F cooler in average winter minimums. Summer highs are 8–12°F cooler than Atlanta, making it a genuine mountain climate. Spring green-up 10–14 days later than Jasper valley; fall color 2–3 weeks earlier.",
     "aspectEffects": {
       "south_southwest": {
         "character": "Warmest and driest",
@@ -188,7 +197,7 @@
       "gardeningImplication": "Do not plant marginally-hardy species in known frost pockets. Good uses for frost pockets: native woodland species, hardy ferns, cold-tolerant vegetables."
     },
     "orographicPrecipitation": {
-      "description": "At 2,959 ft, Church Mountain is well into orographic lift territory. Moisture-laden air rises and cools against the mountain, dropping significantly more rain and snow than the valley.",
+      "description": "At 2,873 ft, Church Mountain is well into orographic lift territory. Moisture-laden air rises and cools against the mountain, dropping significantly more rain and snow than the valley.",
       "estimatedAnnualPrecip_in": 65,
       "implication": "Drainage is critical. Hillside beds drain quickly but lower/flat areas may stay wetter than expected. Winter snow accumulation will be heavier and linger longer than in Jasper town."
     },
@@ -224,7 +233,7 @@
       "id": "KJZP",
       "name": "Pickens County Airport",
       "elevation_ft": 1535,
-      "note": "Nearest official ASOS station at 1,535 ft — approximately 1,424 ft below the property elevation. Use as a general reference but expect the property to run 5–8°F colder in winter and receive more precipitation. NWS forecast zone: GAZ013 (Pickens County)."
+      "note": "Nearest official ASOS station at 1,535 ft — approximately 1,338 ft below the property elevation. Use as a general reference but expect the property to run 5–8°F colder in winter and receive more precipitation. NWS forecast zone: GAZ013 (Pickens County)."
     },
     "personalWeatherStations": {
       "source": "Weather Underground Wundermap",
@@ -233,7 +242,7 @@
     },
     "nwsForecast": {
       "url": "https://forecast.weather.gov/MapClick.php?zoneid=GAZ013",
-      "note": "NWS zone forecast for Pickens County. Check for freeze watches and warnings — at 2,959 ft, freeze events arrive earlier and hit harder than the valley forecast suggests."
+      "note": "NWS zone forecast for Pickens County. Check for freeze watches and warnings — at 2,873 ft, freeze events arrive earlier and hit harder than the valley forecast suggests."
     }
   },
   "utilities": {

@@ -3,10 +3,10 @@
     "schemaVersion": 1,
     "lastUpdated": "2026-05-11",
     "location": "282 Church Mountain Road, Jasper, GA 30143",
-    "elevation_ft": 2959,
+    "elevation_ft": 2873,
     "coordinates": "34.5496°N, 84.3674°W",
     "region": "Blue Ridge, Pickens County, GA",
-    "habitatContext": "North Georgia is at the northern range edge for several southern lizards and the southern edge for a few northern species, producing modest lizard diversity at 2,959 ft. The property's mix of sun-warmed rock walls, fallen logs, wood piles, leaf litter, and forest edges supports a small but rewarding cast of native lizards. None are venomous and all are harmless. Skinks are the dominant family — fast, glossy, often blue-tailed as juveniles.",
+    "habitatContext": "North Georgia is at the northern range edge for several southern lizards and the southern edge for a few northern species, producing modest lizard diversity at 2,873 ft. The property's mix of sun-warmed rock walls, fallen logs, wood piles, leaf litter, and forest edges supports a small but rewarding cast of native lizards. None are venomous and all are harmless. Skinks are the dominant family — fast, glossy, often blue-tailed as juveniles.",
     "dataSources": [
       "Amphibians and Reptiles of Georgia (Jensen, Camp, Gibbons, Elliott)",
       "Savannah River Ecology Lab (SREL) Herpetology — UGA",
@@ -202,7 +202,7 @@
       "habitat": "Open sunny sandy or rocky areas with sparse vegetation — roadside cuts, gravel drives, granite outcrops, old fields. Avoids dense forest.",
       "size_in": "6–10.5",
       "appearance": "Slender with a very long tail (most of total length). Dark brown to black background with six bright yellow-green longitudinal stripes from neck to tail. Belly white in females, often pale blue-green in males. Males may show throat color in summer.",
-      "notes": "Among the fastest lizards in North America — can hit nearly 18 mph in short bursts. Active only on the hottest sunny days; retreats to burrows by mid-afternoon if cloudy. At 2,959 ft the property is at or above this species' typical elevation limit in Georgia — Racerunners are far more common in the Piedmont and on warm low-elevation south-facing slopes. Possible in disturbed sunny edges (gravel drives, granite outcrops) but well outside guaranteed habitat. If you ever spot one here, it'll be both the fastest small thing you've seen all year and a noteworthy elevation record.",
+      "notes": "Among the fastest lizards in North America — can hit nearly 18 mph in short bursts. Active only on the hottest sunny days; retreats to burrows by mid-afternoon if cloudy. At 2,873 ft the property is at or above this species' typical elevation limit in Georgia — Racerunners are far more common in the Piedmont and on warm low-elevation south-facing slopes. Possible in disturbed sunny edges (gravel drives, granite outcrops) but well outside guaranteed habitat. If you ever spot one here, it'll be both the fastest small thing you've seen all year and a noteworthy elevation record.",
       "conservation": "Common range-wide; locally limited by habitat at this elevation",
       "photo": "images/lizards/six-lined-racerunner.jpg",
       "attribution": {

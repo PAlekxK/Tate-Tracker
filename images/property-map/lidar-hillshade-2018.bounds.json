@@ -20,5 +20,5 @@
  },
  "productId": "USGS 1 Meter 16 x74y383 GA_Statewide_2018_B18_DRRA (TNM, published 2022-05-31)",
  "coverageConfirmed": "2026-08-31, deterministically: TNM Access API returned exactly 1 one-metre DEM product covering the property bbox. One-metre DEM exists ONLY where lidar was flown, so its presence IS the coverage answer.",
- "corroboration": "Max elevation in frame 906.7 m; property.json records 902 m / 2959 ft at the house. Independent agreement."
+ "corroboration": "\u26a0\ufe0f CORRECTED 2026-08-31. An earlier version of this note claimed the lidar agreed with property.json's 902 m. It does not, and the comparison was invalid: it compared the frame's MAXIMUM (906.7 m, up on the knoll) against the elevation at the ANCHOR \u2014 different points. At the anchor the lidar reads 875.7 m / 2,873 ft, which is 86 ft BELOW the old record. property.json was corrected the same day."
 }

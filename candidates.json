@@ -1,7 +1,7 @@
 {
   "_meta": {
     "lastBuilt": "2026-05-26",
-    "purpose": "Plants we might bring back to Fernwood. Distinct from plants.json — that file tracks what is on the property; this file tracks what could be. Per the depth filter, every candidate has to fit Fernwood's actual reality: 2,959 ft Blue Ridge, zone 6b, Cove Forest + Low-to-Mid Elevation Oak Forest mosaic with potential Seepage Wetlands in the spring drainage.",
+    "purpose": "Plants we might bring back to Fernwood. Distinct from plants.json — that file tracks what is on the property; this file tracks what could be. Per the depth filter, every candidate has to fit Fernwood's actual reality: 2,873 ft Blue Ridge, zone 6b, Cove Forest + Low-to-Mid Elevation Oak Forest mosaic with potential Seepage Wetlands in the spring drainage.",
     "communityReference": "Natural Communities of Blue Ridge Ecoregion (GNPS, adapted from Edwards, Ambrose, Kirkman 2013 UGA Press)",
     "categories": {
       "restoration": "Multi-decade canopy / regional restoration species. Slow, relational (TACF, HRI). Most ecologically meaningful.",
@@ -532,7 +532,7 @@
       "emoji": "🍒",
       "status": "considering",
       "category": "heritage-fruit",
-      "rationale": "A cherry tree honoring the Kirschenbauer name — literally 'cherry farmer' in Bavaria. The site is what makes it feasible: at 2,959 ft, Fernwood sits in the Georgia mountains, one of the few parts of the state that actually meets a cherry's winter chill requirement (1,000–2,000 hours) — lowland Georgia can't, which is why cherries fail there. So this is a planting the elevation genuinely earns.",
+      "rationale": "A cherry tree honoring the Kirschenbauer name — literally 'cherry farmer' in Bavaria. The site is what makes it feasible: at 2,873 ft, Fernwood sits in the Georgia mountains, one of the few parts of the state that actually meets a cherry's winter chill requirement (1,000–2,000 hours) — lowland Georgia can't, which is why cherries fail there. So this is a planting the elevation genuinely earns.",
       "communityFit": [
         "Open, sunny, well-drained slope (full sun, good air movement)",
         "Not a wet or low-lying spot"

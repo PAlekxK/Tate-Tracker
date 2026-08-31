@@ -103,7 +103,7 @@ Concrete one-time actions, ordered by friction:
 ### Native Plants for Georgia, Part II: Ferns (UGA Extension B 987-2)
 **URL:** https://extension.uga.edu/publications/detail.html?number=B987-2
 **What it is:** Free Extension bulletin on Georgia's 36 genera, 119 species, and 12 hybrid native ferns.
-**Why it's relevant here:** Shaded north-facing slopes at 2,959 ft routinely host Christmas fern, New York fern, and rattlesnake fern — natural additions to a habitat-focused dashboard.
+**Why it's relevant here:** Shaded north-facing slopes at 2,873 ft routinely host Christmas fern, New York fern, and rattlesnake fern — natural additions to a habitat-focused dashboard.
 **Dashboard integration idea:** Source if a Ferns category is added. Until then, a Surface fact in the Property profile: "Pickens County hosts ~30 of Georgia's native fern species."
 **Depth tier:** Surface fact.
 
@@ -194,7 +194,7 @@ Concrete one-time actions, ordered by friction:
 ### Lawns in Georgia: Selection and Species (UGA Extension B 1533)
 **URL:** https://extension.uga.edu/publications/detail.html?number=B1533-1
 **What it is:** UGA Extension's turfgrass-selection bulletin — which lawn grasses suit which part of Georgia, with tall fescue treated as the cool-season choice for the northern mountains and Piedmont.
-**Why it's relevant here:** The defensible basis for running the fairway as turf-type tall fescue at 2,959 ft, where summers are too cool for Bermuda and far too humid for the creeping bentgrass a golf green would use.
+**Why it's relevant here:** The defensible basis for running the fairway as turf-type tall fescue at 2,873 ft, where summers are too cool for Bermuda and far too humid for the creeping bentgrass a golf green would use.
 **Dashboard integration idea:** Sources card → reference behind the Fairway Turf entry's care calendar.
 **Depth tier:** Deep-dive link.
 
@@ -332,7 +332,7 @@ Concrete one-time actions, ordered by friction:
 **URL:** https://www.naturalcommunitiesofgeorgia.com/ ; Blue Ridge overview: https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html
 **What it is:** Companion website to the UGA Press book of the same name (Edwards, Ambrose & Kirkman). Authoritative typology of Georgia's natural plant communities by ecoregion. Blue Ridge community types at the property's elevation include: Mesic (Cove) Forests, Montane Oak Forests, Low- to Mid-Elevation Oak Forests, Mountain Bogs. Each community page lists characteristic and rare species.
 **Why it's relevant here:** The reference that answers "what natural community is this slope, and what species belong in it?" Foundation for any restorative planting decision here.
-**Dashboard integration idea:** Property card → "Natural community" subtitle (e.g., "Mesic Cove Forest / Montane Oak Forest, ~2,959 ft"). Plants card → community-type filter as the organizing principle.
+**Dashboard integration idea:** Property card → "Natural community" subtitle (e.g., "Mesic Cove Forest / Montane Oak Forest, ~2,873 ft"). Plants card → community-type filter as the organizing principle.
 **Depth tier:** Foundation source.
 
 ### GA DNR — "Georgia's Natural Communities and Associated Rare Plant and Animal Species" (PDF)
@@ -359,7 +359,7 @@ Concrete one-time actions, ordered by friction:
 ### Hemlock Restoration — HRI + Georgia Forestry Commission HWA Program
 **URL:** Hemlock Restoration Initiative (NC): https://savehemlocksnc.org/ ; GFC HWA in Georgia: https://gatrees.org/hemlock-woolly-adelgid-hwa-in-georgia/ ; Carolina hemlock species page: https://savehemlocksnc.org/hemlocks-hwa/carolina-hemlock/
 **What it is:** Two complementary resources for hemlock restoration. HRI (Asheville-based) is the regional convener for eastern (*Tsuga canadensis*) and Carolina (*Tsuga caroliniana*) hemlock conservation. GFC documents Hemlock Woolly Adelgid (HWA, arrived in GA 2003, statewide by 2012) and treatment protocols — imidacloprid and dinotefuran soil drench at root flare, year-round application as long as ground isn't frozen or saturated. A 2015 multi-state HWA-resistant clone trial showed 96% survival of resistant hemlocks at 4 years vs. 48% of susceptible trees. Carolina hemlock is under ESA review as of 2023; eastern hemlock occurs in 14 north Georgia counties.
-**Why it's relevant here:** If hemlocks exist on the property (very likely at 2,959 ft in cool drainages), there's a direct, recurring, landowner-driven treatment protocol that keeps them alive — and no other native conifer fills hemlock's ecological role.
+**Why it's relevant here:** If hemlocks exist on the property (very likely at 2,873 ft in cool drainages), there's a direct, recurring, landowner-driven treatment protocol that keeps them alive — and no other native conifer fills hemlock's ecological role.
 **Dashboard integration idea:** Property card → conditional "Hemlock check-in" reminder during HWA peak treatment windows. Plants card → restoration partner link.
 **Depth tier:** Property-card actionable + deep-dive link.
 
@@ -373,7 +373,7 @@ Concrete one-time actions, ordered by friction:
 ### Native warm-season grass and meadow seed — Roundstone & Ernst
 **URL:** Roundstone Native Seed (Upton, KY): https://www.roundstoneseed.com/ ; Ernst Conservation Seeds (Meadville, PA): https://www.ernstseed.com/
 **What it is:** Two of the major regional native-seed growers serving the eastern US. Roundstone sells regionally-adapted ecotypes — including a Georgia-ecotype switchgrass — and the rest of the warm-season palette (little bluestem, big bluestem, indiangrass) by the packet up to acreage mixes. Ernst is the large-scale meadow-mix grower.
-**Why it's relevant here:** The native meadow regime in the fairway fringe is a seed project, not a plant-by-plant one. Regionally-adapted ecotype seed (not generic Midwest stock) is the right provenance for a 2,959 ft Blue Ridge slope.
+**Why it's relevant here:** The native meadow regime in the fairway fringe is a seed project, not a plant-by-plant one. Regionally-adapted ecotype seed (not generic Midwest stock) is the right provenance for a 2,873 ft Blue Ridge slope.
 **Dashboard integration idea:** Worth considering card → sourcing behind the native warm-season grasses.
 **Depth tier:** Reference / sourcing.
 
@@ -420,7 +420,7 @@ Concrete one-time actions, ordered by friction:
 ### Georgia DNR — State Wildlife Action Plan 2025 (Blue Ridge Ecoregion)
 **URL:** https://georgiawildlife.com/WildGeorgiaSWAP
 **What it is:** Georgia's official 10-year (2025–2035) conservation roadmap identifying 1,062 Species of Greatest Conservation Need (SGCN) and the habitats essential for their survival, with dedicated story maps per ecoregion.
-**Why it's relevant here:** The property is in the Blue Ridge ecoregion at 2,959 ft — the SWAP Blue Ridge story map flags the exact mountain-specific SGCN species (salamanders, high-elevation breeding warblers, native trout) the dashboard should care about.
+**Why it's relevant here:** The property is in the Blue Ridge ecoregion at 2,873 ft — the SWAP Blue Ridge story map flags the exact mountain-specific SGCN species (salamanders, high-elevation breeding warblers, native trout) the dashboard should care about.
 **Dashboard integration idea:** Birds/Amphibians tab subtitle linking to the Blue Ridge story map. Tag matching species in species lists with a small "SGCN" marker.
 **Depth tier:** Card subtitle + deep-dive link.
 
@@ -448,7 +448,7 @@ Concrete one-time actions, ordered by friction:
 ### Audubon — Survival by Degrees Climate Visualizer
 **URL:** https://www.audubon.org/climate/survivalbydegrees
 **What it is:** ZIP-code-searchable tool modeling how 604 North American bird species' ranges shift under 1.5/2/3°C scenarios. Eight Georgia birds (Brown-headed Nuthatch, Eastern Whip-poor-will, Eastern Towhee) flagged as highly vulnerable.
-**Why it's relevant here:** The property's 2,959 ft elevation is exactly the kind of high-elevation refuge where climate-stressed Appalachian breeders may persist longest.
+**Why it's relevant here:** The property's 2,873 ft elevation is exactly the kind of high-elevation refuge where climate-stressed Appalachian breeders may persist longest.
 **Dashboard integration idea:** Birds tab — small climate-vulnerability dot/icon next to each tracked species (sourced from Audubon's species list for ZIP 30143). Subtitle: "These birds are losing range — your mountain is part of their refuge."
 **Depth tier:** Surface fact (per-species marker).
 
@@ -532,7 +532,7 @@ Concrete one-time actions, ordered by friction:
 ### Bumble Bees of the Eastern United States (Colla, Richardson & Williams — USFS)
 **URL:** https://www.pollinator.org/pollinator.org/assets/generalFiles/BumbleBeeGuide2011.pdf
 **What it is:** Free 103-page PDF field guide covering all 21 eastern US bumble bee species, with range maps, ID plates, host-plant info. Co-published by USDA Forest Service.
-**Why it's relevant here:** Standard ID reference paired with the SE Bumble Bee Atlas — at 2,959 ft the property is in range of mountain-affiliated species like B. vagans and possibly B. fervidus.
+**Why it's relevant here:** Standard ID reference paired with the SE Bumble Bee Atlas — at 2,873 ft the property is in range of mountain-affiliated species like B. vagans and possibly B. fervidus.
 **Dashboard integration idea:** Pollinators callout — "Eastern bumble bee field guide (PDF, free)" deep-dive link.
 **Depth tier:** Deep-dive link.
 
@@ -705,7 +705,7 @@ Concrete one-time actions, ordered by friction:
 ### USDA Climate Hubs — Southeast Region
 **URL:** https://www.climatehubs.usda.gov/hubs/southeast
 **What it is:** USDA's regional translation arm linking USFS, ARS, NRCS climate science to working-lands managers; publishes vulnerability assessments and tools (TACCIMO).
-**Why it's relevant here:** The Southern Appalachian forest section of the SE Hub's Vulnerability Assessment is directly applicable to a 2,959 ft Blue Ridge property thinking about long-term species shifts.
+**Why it's relevant here:** The Southern Appalachian forest section of the SE Hub's Vulnerability Assessment is directly applicable to a 2,873 ft Blue Ridge property thinking about long-term species shifts.
 **Dashboard integration idea:** "Long view" deep-dive in the Property card.
 **Depth tier:** Deep-dive link.
 
@@ -887,7 +887,7 @@ Concrete one-time actions, ordered by friction:
 ### PRISM Climate Group (Oregon State)
 **URL:** https://prism.oregonstate.edu ; explorer at https://prism.oregonstate.edu/explorer/
 **What it is:** 800m-resolution gridded climate dataset and 30-year normals (1991-2020) — much finer than NOAA's station-based normals, which matters in mountain terrain.
-**Why it's relevant here:** At 2,959 ft on a Blue Ridge ridge, the closest NWS station (likely valley-floor Jasper or Blairsville) doesn't represent your microclimate. PRISM's 800m grid actually captures the elevation gradient.
+**Why it's relevant here:** At 2,873 ft on a Blue Ridge ridge, the closest NWS station (likely valley-floor Jasper or Blairsville) doesn't represent your microclimate. PRISM's 800m grid actually captures the elevation gradient.
 **Dashboard integration idea:** One-time pull of PRISM 800m point values for 34.5496, -84.3674 (monthly Tmin/Tmax/precip normals); store as static reference data in Property card "Microclimate baseline."
 **Depth tier:** Card subtitle (bake values in) + deep-dive link.
 
@@ -1033,7 +1033,7 @@ Concrete one-time actions, ordered by friction:
 ### Appalachian Beginning Forest Farmer Coalition
 **URL:** https://www.appalachianforestfarmers.org and https://www.appalachianforestfarmers.org/ntfps
 **What it is:** USDA-funded coalition focused on cultivating native non-timber forest products (ginseng, ramps, goldenseal, black cohosh) under existing forest canopy rather than clearing land.
-**Why it's relevant here:** Bortle 3, 2,959 ft, Blue Ridge mature forest — textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network.
+**Why it's relevant here:** Bortle 3, 2,873 ft, Blue Ridge mature forest — textbook habitat for shade-grown native NTFPs. They run trainings and a mentorship network.
 **Dashboard integration idea:** Property card → featured "indigenous plant cultivation" link. Strong tie-in with Cherokee plant heritage.
 **Depth tier:** Deep-dive link (high-value).
 
@@ -1281,7 +1281,7 @@ Sources for the recurring annual events worth surfacing on the dashboard. The sc
 
 A few well-known names that came up but aren't a fit for this property:
 
-- **Longleaf Alliance** — confirmed not relevant. Longleaf pine's range is the Coastal Plain; at 2,959 ft in the Blue Ridge, the property is in Appalachian oak-hickory / cove hardwood forest types.
+- **Longleaf Alliance** — confirmed not relevant. Longleaf pine's range is the Coastal Plain; at 2,873 ft in the Blue Ridge, the property is in Appalachian oak-hickory / cove hardwood forest types.
 - **Cherokee Heritage Center (Tahlequah, OK)** — currently closed during planning period. EBCI sites above are more useful and more geographically appropriate (eastern homeland vs. post-Removal western nation).
 - **Permaculture Research Institute** — international, mostly Australia/desert focus. Low signal for North Georgia.
 - **Rodale Institute Southeast** — content is field-crop-organic focused, not homestead/wooded-property. Marginal fit.

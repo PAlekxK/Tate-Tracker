@@ -3,10 +3,10 @@
     "schemaVersion": 1,
     "lastUpdated": "2026-08-15",
     "location": "282 Church Mountain Road, Jasper, GA 30143",
-    "elevation_ft": 2959,
+    "elevation_ft": 2873,
     "coordinates": "34.5496°N, 84.3674°W",
     "region": "Blue Ridge, Pickens County, GA",
-    "habitatContext": "The singing insects are the property's loudest wildlife and its least documented. Mature oak-hickory canopy supplies the cicadas and true katydids; the fairway edge, mulched beds and pond margin supply the crickets and bush katydids; and the leaf litter supplies the ground crickets that sit under everything else. Elevation matters more here than for any other domain on the property — 2,959 ft is cool enough to plausibly hold a northern cicada that never reaches Atlanta, and cool enough that the autumn chorus shuts down earlier in the evening than it does downhill.",
+    "habitatContext": "The singing insects are the property's loudest wildlife and its least documented. Mature oak-hickory canopy supplies the cicadas and true katydids; the fairway edge, mulched beds and pond margin supply the crickets and bush katydids; and the leaf litter supplies the ground crickets that sit under everything else. Elevation matters more here than for any other domain on the property — 2,873 ft is cool enough to plausibly hold a northern cicada that never reaches Atlanta, and cool enough that the autumn chorus shuts down earlier in the evening than it does downhill.",
     "dataSources": [
       "Singing Insects of North America (SINA) — Thomas J. Walker, University of Florida / Orthopterists' Society",
       "The Songs of Insects (Lang Elliott & Wil Hershberger) — song descriptions and seasonal timing",
@@ -14,7 +14,7 @@
       "UGA CAES / Georgia DNR — Brood XIX periodical cicada county reporting, 2011 and 2024",
       "BugGuide.Net — range and phenology records for the eastern annual cicadas"
     ],
-    "notes": "⚠️ NO SPECIES IN THIS FILE HAS BEEN CONFIRMED AT THE PROPERTY. Every record here is a range-and-habitat inference — the species is documented in the north Georgia Blue Ridge and the property has the habitat it wants. That is why every record carries `presence.confidence: inferred` and `presence.askable: true`. This is the only domain in the record that is honest-uncertain from top to bottom, and a single evening on the porch with the app open can start settling it. Timing is temperature-driven and shifts a week or more year to year; at 2,959 ft expect the chorus to start later in summer and quit earlier in autumn than lowland north Georgia.",
+    "notes": "⚠️ NO SPECIES IN THIS FILE HAS BEEN CONFIRMED AT THE PROPERTY. Every record here is a range-and-habitat inference — the species is documented in the north Georgia Blue Ridge and the property has the habitat it wants. That is why every record carries `presence.confidence: inferred` and `presence.askable: true`. This is the only domain in the record that is honest-uncertain from top to bottom, and a single evening on the porch with the app open can start settling it. Timing is temperature-driven and shifts a week or more year to year; at 2,873 ft expect the chorus to start later in summer and quit earlier in autumn than lowland north Georgia.",
     "monthIndex": "0-indexed — 0 = January, matching every other domain in this record"
   },
   "propertyHighlights": {
@@ -30,7 +30,7 @@
         "name": "The chorus starts",
         "window": "Late June into early July",
         "description": "The first cicadas start in the canopy in late June, and the first true katydid usually follows in the first days of July. Before that the summer nights here are close to silent.",
-        "elevation_note": "At 2,959 ft this runs perhaps a week behind lowland north Georgia — the exact lag is unmeasured, and a first-katydid date logged here would be the first real number we have."
+        "elevation_note": "At 2,873 ft this runs perhaps a week behind lowland north Georgia — the exact lag is unmeasured, and a first-katydid date logged here would be the first real number we have."
       },
       {
         "name": "Peak — the wall of sound",
@@ -408,7 +408,7 @@
       "chorusRole": "The clock. If a cicada is singing hard at eight in the morning and quiet by two in the afternoon, this is the one.",
       "size_in": "1.5–1.8",
       "appearance": "Black with green markings and a distinct white or pale patch on each side of the thorax.",
-      "notes": "Also catalogued as the Swamp Cicada, and the two names capture the two things worth knowing about it: it likes low wet ground, and it sings in the morning rather than the afternoon. The morning habit is unusual enough to be a reliable field mark on its own. Its taste for wet lowland is also why it is the least likely of the four annual cicadas here — the pond helps its case, but 2,959 ft is above where this species usually lives.",
+      "notes": "Also catalogued as the Swamp Cicada, and the two names capture the two things worth knowing about it: it likes low wet ground, and it sings in the morning rather than the afternoon. The morning habit is unusual enough to be a reliable field mark on its own. Its taste for wet lowland is also why it is the least likely of the four annual cicadas here — the pond helps its case, but 2,873 ft is above where this species usually lives.",
       "conservation": "Common at lower elevations across the Southeast",
       "presence": {
         "status": "possible",
@@ -484,14 +484,14 @@
       "chorusRole": "The smooth one. No rattle, no pulse — just a clean rising and falling whine.",
       "size_in": "1.1–1.4",
       "appearance": "Smaller and greener than the other annual cicadas here, with a frosted white bloom on the underside.",
-      "notes": "⭐ The most interesting record in this file and the least certain. This is a northern cicada — its range covers the upper Midwest, New England and Canada, and it reaches the South only by climbing: it follows the Appalachians down as a cool-elevation relict, hanging on at heights that feel like New England to an insect. At 2,959 ft Fernwood is exactly the kind of place it could be, and it would never be found in Jasper town 1,400 ft below. Confirming a Dog-day Cicada here would be a genuine elevation record for the property and the single most valuable thing anyone could settle in this domain.",
+      "notes": "⭐ The most interesting record in this file and the least certain. This is a northern cicada — its range covers the upper Midwest, New England and Canada, and it reaches the South only by climbing: it follows the Appalachians down as a cool-elevation relict, hanging on at heights that feel like New England to an insect. At 2,873 ft Fernwood is exactly the kind of place it could be, and it would never be found in Jasper town 1,400 ft below. Confirming a Dog-day Cicada here would be a genuine elevation record for the property and the single most valuable thing anyone could settle in this domain.",
       "conservation": "Common northward; local and elevation-restricted in the southern Appalachians",
       "presence": {
         "status": "possible",
         "likelihood": "possible",
         "confidence": "inferred",
         "askable": true,
-        "basis": "Southern range limit is elevation-dependent in the Appalachians and 2,959 ft is plausible, but there is no Pickens County record in hand. The highest-value unknown in this file."
+        "basis": "Southern range limit is elevation-dependent in the Appalachians and 2,873 ft is plausible, but there is no Pickens County record in hand. The highest-value unknown in this file."
       },
       "sound": "sounds/insects/dog-day-cicada.mp3",
       "soundAttribution": {

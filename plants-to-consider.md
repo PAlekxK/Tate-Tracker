@@ -14,7 +14,7 @@ Plants worth thinking about adding to Fernwood, especially natives, protected sp
 
 ## Categories worth filling out (when active)
 
-- **Native species for the planted zones** — bed candidates for the eastern/western patio zones, pond area, fairway-edge-west. Pulled from natural-community typology (Mesic Cove / Montane Oak mosaic at 2,959 ft).
+- **Native species for the planted zones** — bed candidates for the eastern/western patio zones, pond area, fairway-edge-west. Pulled from natural-community typology (Mesic Cove / Montane Oak mosaic at 2,873 ft).
 - **Protected / at-risk species to look for and foster** — if found on the property, leave alone and support; rich-cove special-concern flora list is the starting point.
 - **Restoration targets** — American chestnut and Eastern + Carolina hemlock are the two big landowner-participation species at this elevation.
 - **Keystone / pollinator plants** — high-leverage species (oak, willow, cherry, blueberry, goldenrod) that punch above their weight ecologically.

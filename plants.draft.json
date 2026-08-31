@@ -2,8 +2,8 @@
   "_meta": {
     "schemaVersion": 3,
     "status": "DRAFT \u2014 five plant entries ready in plants.json schema. Lift entries from `plantsForPromotion` directly into plants.json.plants[] when ready. The `qualityPhotosForFutureIntegration` block stays as a separate todo.",
-    "notes": "All five entries below match the plants.json v3 schema (fields: id, name, scientificName, emoji, guide, currentSeasonNote, soilNotes, aspectPreference, frostSensitivity, care{prune, propagate, fertilize, water, repot, inspect}). Care entries use 0-indexed months and elevation-adjusted peak windows for ~2,959 ft.",
-    "elevation_ft": 2959,
+    "notes": "All five entries below match the plants.json v3 schema (fields: id, name, scientificName, emoji, guide, currentSeasonNote, soilNotes, aspectPreference, frostSensitivity, care{prune, propagate, fertilize, water, repot, inspect}). Care entries use 0-indexed months and elevation-adjusted peak windows for ~2,873 ft.",
+    "elevation_ft": 2873,
     "lastFrost_50pct": "May 3",
     "lastFrost_90pctSafe": "May 24",
     "firstFrost_50pct": "October 17",
