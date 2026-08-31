@@ -40,6 +40,30 @@ the priority cut laid over it.
 
 ---
 
+## 📐 From the 2026-08-31 production ux-sweep — Paul's decision walkthrough (trail: `.ux-reviews/2026-08-31-production-full-sweep.md`)
+
+- **[paul-stated 2026-08-31 · D4 = ledger] Pre-glance stack height ledger, next mom-cycle lap.**
+  The stack above the first glance row measures **1,712px at 414×A+** (first card ~3.6 viewports
+  down). Every resident is individually ratified; the SUM never ruled on. Run the 8/24-style
+  height ledger (Leg 6e harness) on the stack, let the numbers propose the trim, Paul decides
+  from the ledger. Change nothing before the ledger.
+- **[paul-stated 2026-08-31 · D3 = ask her] `q-jumpstrip-coverage` staged inactive** — reflective
+  card asking whether she wants Fishing / night-sky / Almanac chips. Ships on Paul's wording
+  confirm + `rationalize-bench.py --approve`. Gardening-band breadcrumb ("Plants · The Fairway ·
+  Weeds" at the chip landing) WAITS on the zone fold's vocabulary.
+- **[holds pending THE FOLD] Decision-1 remainders**: cross-reference wording (meadow ↔ map) and
+  zoning the hydrangea ring — Mom's 2026-08-31 traced vocabulary (16 areas incl. Fairway Border,
+  The Green, Fern Garden; NO Fairway/Meadow) supersedes today's zone names, so wording written
+  now would name zones the fold retires. **The fold itself** (`.plans/2026-08-31-zones-traced-with-mom.json`,
+  status PROPOSAL — NOT FOLDED, all 4 open questions resolved) is the project's biggest open act:
+  a reviewed session that lands Mom's map as canon, disposes of Fairway/Parking Bank/Upper-Uber
+  Wall/House, and remaps plant zoneIds.
+- **Small follow-ups from the sweep**: add `turf.json`/TURF_DATA to `check-data-inline.py` (the one
+  inlined dataset the checker cannot see — an edit would silently never ship) · a
+  `check-zones-drift` in the session-start block (repo zones.json vs live `/api/zones` — the two
+  disagreed in both directions for 6 weeks with nothing flagging it) · sweep lesson: grep
+  `.plans/` before declaring something absent from the record.
+
 ## 🏠 Household systems build-out — SHIPPED 2026-08-31 · four gaps open (Track B)
 
 From Paul's five photos (archived `.private/household-photos/`, serials in
