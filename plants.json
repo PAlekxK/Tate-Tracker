@@ -880,7 +880,7 @@
         "3": "Leafminer adults emerge late in the month, tiny orange flies around the foliage. It's the one stretch where treatment actually lands.",
         "4": "Shear once the first flush has partly hardened. Humidity climbs from here — watch for blight: dark circular leaf spots, black streaks on the stems.",
         "6": "Semi-hardwood cuttings root easily from here into September if you want more of them.",
-        "7": "Water at the base, never overhead. Wet foliage in summer heat is how blight gets started. Feeding waits for early spring \u2014 a late feed pushes soft growth that won't harden before winter.",
+        "7": "Water at the base, never overhead. Wet foliage in summer heat is how blight gets started. Feeding waits for early spring — a late feed pushes soft growth that won't harden before winter.",
         "10": "Winter's job is the interior cleanout — reach inside and pull out the dead leaves trapped there. That litter is where blight overwinters."
       }
     },
@@ -3511,7 +3511,7 @@
           ]
         }
       },
-      "zoneId": "fairway-fringe",
+      "zoneId": "fairway",
       "observedGrasses": {
         "observedOn": "2026-07-20",
         "observedBy": "Paul — photo walk",
