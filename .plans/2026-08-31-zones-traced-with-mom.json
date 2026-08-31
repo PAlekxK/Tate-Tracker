@@ -26,20 +26,25 @@
   "sharedBorders": "Adjacent zones were traced independently, by eye, with no vertex snapping. Neighbouring boundaries WILL disagree by a few feet and leave slivers and overlaps between them. Deferred deliberately (Paul, 2026-08-31): border smoothing and snapping come after the zones exist, not before. Do not read a gap between two zones as unclaimed ground.",
   "status": "PROPOSAL — NOT FOLDED. zones.json is unchanged. Folding is a separate reviewed act: it must decide the four open questions below, and dispose of the four old draft zones that have no counterpart here (Fairway, Parking Bank, Upper-Uber Wall Area, House). plants.json references zones by zoneId, so a fold that drops or renames an id breaks those references.",
   "openQuestions": [
-   "'The Green' appears TWICE — once by the house, once on the open fairway. Two different places with the same name, or one of them a stray? They need distinct ids before either can be traced.",
    "There is NO standalone 'Fairway' label any more — only 'Fairway Border'. Did the big open area get renamed (to 'The Green'?), or was Fairway just not re-labelled?",
    "There is NO 'House' label. Keep the existing house polygon as-is?",
    "The old draft zone 'Upper-Uber Wall Area' has no counterpart in the new set — retired, or renamed to one of the two Western patios?"
   ],
   "counts": {
-   "named": 18,
+   "named": 17,
    "traced": 17,
-   "untraced": [
-    "The Green"
-   ],
+   "untraced": [],
    "totalVertices": 304
   },
-  "snapshotAt": "2026-08-31T08:08:36-04:00"
+  "snapshotAt": "2026-08-31T08:15:24-04:00",
+  "resolved": [
+   {
+    "date": "2026-08-31",
+    "by": "paul-stated",
+    "was": "'The Green' appears TWICE — once by the house, once on the open fairway. Two different places with the same name, or one of them a stray? They need distinct ids before either can be traced.",
+    "ruling": "The SECOND 'The Green' — bottom-centre, on the open fairway — was an ERROR in the annotation, not a second place. Retired. The surviving 'The Green' is the one near the house (id the-green-house), which Paul traced with 20 points. Recorded rather than deleted so a later reader does not re-derive the duplicate from the annotated image and think a name was lost."
+   }
+  ]
  },
  "areas": [
   {
@@ -1348,15 +1353,6 @@
     ]
    ],
    "tracedAt": "2026-08-31T12:05:09.097Z",
-   "notes": ""
-  },
-  {
-   "id": "the-green-fairway",
-   "name": "The Green",
-   "labelPosition": "BOTTOM-CENTER, on the open fairway",
-   "draftZoneId": null,
-   "vertices": null,
-   "tracedAt": null,
    "notes": ""
   },
   {
