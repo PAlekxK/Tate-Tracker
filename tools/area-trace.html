@@ -94,6 +94,20 @@
   .arow .meta{font-size:11px;color:#6d7670;flex:none}
   .arow .dup{font-size:10px;color:var(--warn);border:1px solid var(--warn);border-radius:3px;
              padding:1px 4px;flex:none}
+  .lnrow{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer}
+  .lnrow:hover{background:var(--panel2)}
+  .lnrow.active{background:rgba(90,169,214,.15);box-shadow:inset 3px 0 0 #5aa9d6}
+  .lnrow .tick{width:19px;height:19px;border-radius:4px;border:1.5px solid var(--line);flex:none;
+               display:flex;align-items:center;justify-content:center;font-size:11px;color:#0f120f}
+  .lnrow.done .tick{background:#5aa9d6;border-color:#5aa9d6}
+  .lnrow .nm{flex:1;font-size:13.5px;font-weight:600}
+  .lnrow .meta{font-size:11px;color:#6d7670}
+  .sechd{padding:11px 14px 7px;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;
+         color:var(--dim);border-top:1px solid var(--line);background:#191e1a}
+  .sechd b{color:var(--ink);text-transform:none;letter-spacing:0;font-size:12.5px}
+  #snapdot{position:absolute;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;border-radius:50%;
+           border:2px solid var(--gold);background:rgba(201,162,39,.4);pointer-events:none;
+           display:none;z-index:24}
   #addrow{padding:11px 14px;border-top:1px solid var(--line);display:flex;gap:7px;flex:none}
   #addrow input{flex:1;background:#0f120f;border:1px solid var(--line);color:var(--ink);
                 border-radius:6px;padding:8px 10px;font:inherit;font-size:12.5px}
@@ -129,12 +143,13 @@
 
 <div id="wrap">
   <div id="maparea">
+    <div id="snapdot"></div>
     <div id="stage">
       <img id="base" src="/images/property-map/base-naip-2022-01-leafoff.png" alt="">
       <img id="lyr-hillshade" class="over" src="/images/property-map/lidar-hillshade-2018.png" alt="">
       <img id="lyr-slope" class="over" src="/images/property-map/lidar-slope-2018.png" alt="">
       <img id="platimg" src="/.private/plat/plat-overlay.png" alt="">
-      <svg id="svg" viewBox="0 0 1500 1500"><g id="draftg"></g><g id="doneg"></g><g id="liveg"></g></svg>
+      <svg id="svg" viewBox="0 0 1500 1500"><g id="draftg"></g><g id="doneg"></g><g id="lineg"></g><g id="liveg"></g></svg>
     </div>
 
     <div id="active" class="idle">
@@ -212,9 +227,12 @@
       <code>areas-roster.json</code> and reloading.
     </div>
     <div id="list"></div>
+    <div class="sechd"><b>Lines</b> — landmarks &amp; dividers, not areas</div>
+    <div id="linelist"></div>
     <div id="addrow">
-      <input id="newname" placeholder="An area she named that's missing…" autocomplete="off">
-      <button id="addbtn">Add</button>
+      <input id="newname" placeholder="Add…" autocomplete="off">
+      <button id="addbtn">Area</button>
+      <button id="addline">Line</button>
     </div>
     <div id="foot">
       NAIP 2022-01-10 · ±20 ft. Boundaries are where the <i>name</i> applies, not a survey line.<br>
@@ -236,7 +254,9 @@ const $=id=>document.getElementById(id);
 const el=(t,c,x)=>{const n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n;};
 const ns="http://www.w3.org/2000/svg";
 
-let AREAS=[],META={},draftZones=[],activeId=null,drafting=[];
+let AREAS=[],LINES=[],META={},draftZones=[],activeId=null,activeKind="area",drafting=[];
+// Snap radius is in SCREEN pixels, so snapping feels identical at every zoom.
+let snapTo=null; const SNAP_PX=11;
 let showDraft=true,showDone=true;
 // The lidar rasters were rendered to bounds byte-identical with the NAIP base,
 // so they register exactly by construction — no transform of their own.
@@ -287,7 +307,7 @@ function zoomBy(f){
   const mx=r.width/2,my=r.height/2;
   const ns_=Math.max(0.15,Math.min(16,view.s*f));
   view.x=mx-(mx-view.x)*(ns_/view.s); view.y=my-(my-view.y)*(ns_/view.s); view.s=ns_;
-  applyView(); drawDone();
+  applyView(); drawDone(); drawLines();
 }
 function panBy(dx,dy){ view.x+=dx; view.y+=dy; applyView(); }
 function cycleLabels(){
@@ -296,7 +316,7 @@ function cycleLabels(){
   $("tlabels").textContent="Labels: "+M.k;
   $("tlabels").appendChild(Object.assign(document.createElement("kbd"),{textContent:"L"}));
   $("tlabels").classList.toggle("on",M.fs>0);
-  drawDone();
+  drawDone(); drawLines();
 }
 /* ---------- label fitting ----------
    A label must never spill outside its own zone: the overspill is what hides
@@ -423,6 +443,35 @@ async function savePlat(){
   $("savestate").className=r.ok?"on":"err";
 }
 function cycleLayer(){ setLayer(LAYERS[(LAYERS.indexOf(topLayer)+1)%LAYERS.length]); }
+/* ---------- snapping ----------
+   Adjacent zones were traced independently by eye, so their shared borders
+   disagree. Snapping fixes it at the source: a click near an existing vertex
+   takes that vertex EXACTLY, so two areas that meet share identical coordinates
+   rather than two nearly-identical ones. Lines snap to the same set, which is
+   what makes a wall usable as the border between two areas. */
+function snapCandidates(){
+  const out=[];
+  AREAS.forEach(a=>(a.vertices||[]).forEach(v=>out.push(v)));
+  LINES.forEach(l=>(l.vertices||[]).forEach(v=>out.push(v)));
+  return out;
+}
+function findSnap(x,y){                 // x,y in the 1500-unit grid
+  const tol=SNAP_PX/view.s;             // screen px -> grid units at this zoom
+  let best=null;
+  snapCandidates().forEach(v=>{
+    const vx=toX(v[0]), vy=toY(v[1]);
+    const d=Math.hypot(vx-x,vy-y);
+    if(d<tol && (!best||d<best.d)) best={d,x:vx,y:vy};
+  });
+  return best;
+}
+function showSnap(s){
+  const el_=$("snapdot");
+  if(!s){el_.style.display="none";return;}
+  el_.style.display="block";
+  el_.style.left=(view.x+s.x*view.s)+"px";
+  el_.style.top =(view.y+s.y*view.s)+"px";
+}
 function centroid(pts){let x=0,y=0;pts.forEach(p=>{x+=p[0];y+=p[1];});return[x/pts.length,y/pts.length];}
 
 /* ---------- draw ---------- */
@@ -478,6 +527,50 @@ function drawDone(){
   });
   applyView();
 }
+function drawLines(){
+  const g=$("lineg"); g.innerHTML="";
+  LINES.forEach(L=>{
+    if(!L.vertices||L.vertices.length<2)return;
+    const pts=L.vertices.map(v=>toX(v[0])+","+toY(v[1])).join(" ");
+    const act=L.id===activeId;
+    const casing=document.createElementNS(ns,"polyline");  // dark casing, so a pale
+    casing.setAttribute("points",pts);                     // line still reads on snow
+    casing.setAttribute("fill","none"); casing.setAttribute("stroke","#0d1410");
+    casing.setAttribute("stroke-linecap","round"); casing.setAttribute("stroke-linejoin","round");
+    casing.setAttribute("data-sw",act?9:7); g.appendChild(casing);
+    const ln=document.createElementNS(ns,"polyline");
+    ln.setAttribute("points",pts); ln.setAttribute("fill","none");
+    ln.setAttribute("stroke",act?"#c9a227":"#5aa9d6");
+    ln.setAttribute("stroke-linecap","round"); ln.setAttribute("stroke-linejoin","round");
+    ln.setAttribute("data-sw",act?5:3.5); g.appendChild(ln);
+    const M=LABEL_MODES[labelMode];
+    if(M.fs>0){
+      const mid=L.vertices[Math.floor(L.vertices.length/2)];
+      const t=document.createElementNS(ns,"text");
+      t.setAttribute("x",toX(mid[0])); t.setAttribute("y",toY(mid[1])-10);
+      t.setAttribute("text-anchor","middle"); t.setAttribute("class","poly-lbl");
+      t.setAttribute("data-fs",M.fs*0.85); t.setAttribute("data-tsw",M.sw);
+      t.textContent=L.name; g.appendChild(t);
+    }
+  });
+  applyView();
+}
+function renderLineList(){
+  const L=$("linelist"); L.innerHTML="";
+  if(!LINES.length){
+    const e=el("div","empty","A wall, a path, the driveway, the property line — things with a "
+      +"length but no inside.");
+    e.style.padding="16px 18px"; L.appendChild(e); return;
+  }
+  LINES.forEach(x=>{
+    const row=el("div","lnrow"+(x.vertices?" done":"")+(x.id===activeId?" active":""));
+    row.appendChild(el("div","tick",x.vertices?"✓":""));
+    row.appendChild(el("div","nm",x.name));
+    row.appendChild(el("div","meta",x.vertices?x.vertices.length+" pts":(x.hint||"line")));
+    row.onclick=()=>setActive(x.id,"line");
+    L.appendChild(row);
+  });
+}
 function drawLive(){
   const g=$("liveg"); g.innerHTML="";
   if(!drafting.length)return;
@@ -522,28 +615,39 @@ function renderList(){
   $("ndone").textContent=done; $("ntot").textContent=AREAS.length;
   $("prog").firstElementChild.style.width=(AREAS.length?done/AREAS.length*100:0)+"%";
 }
-function setActive(id){
+function setActive(id,kind){
   // No modal here on purpose: a blocking dialog mid-trace is friction, and a
   // dropped shape is cheap to redo. Say what happened instead of asking.
   const dropped=drafting.length;
-  drafting=[]; activeId=id;
-  const a=AREAS.find(x=>x.id===id);
+  drafting=[]; activeId=id; activeKind=kind||"area";
+  const a=(activeKind==="line"?LINES:AREAS).find(x=>x.id===id);
   const box=$("active");
   if(a){
     box.classList.remove("idle");
     $("activename").textContent=a.name;
-    $("activehint").innerHTML=(dropped?"<b>Dropped "+dropped+" unfinished point"+(dropped>1?"s":"")+".</b> ":"")+
-      (a.vertices
-        ? "Already traced ("+a.vertices.length+" points). Tracing again <b>replaces</b> it."
-        : "Click its edge point by point. <b>⏎</b> closes · <b>⌫</b> undoes a point · <b>Esc</b> cancels");
+    const drop=(dropped?"<b>Dropped "+dropped+" unfinished point"+(dropped>1?"s":"")+".</b> ":"");
+    $("activehint").innerHTML= drop + (a.vertices
+      ? "Already traced ("+a.vertices.length+" points). Tracing again <b>replaces</b> it."
+      : (activeKind==="line"
+         ? "Click ALONG it — a line has ends, it does not close. <b>⏎</b> finishes · <b>⌫</b> undoes · <b>Esc</b> cancels"
+         : "Click its edge point by point. <b>⏎</b> closes · <b>⌫</b> undoes a point · <b>Esc</b> cancels"));
   }else{
     box.classList.add("idle"); $("activename").textContent="Pick an area on the right →";
   }
-  drawDone(); drawLive(); renderList();
+  drawDone(); drawLines(); drawLive(); renderList(); renderLineList();
 }
 function nextUntraced(){
   const i=AREAS.findIndex(a=>!a.vertices);
   setActive(i<0?null:AREAS[i].id);
+}
+function finishLine(){
+  if(!activeId||drafting.length<2)return;
+  const L=LINES.find(x=>x.id===activeId); if(!L)return;
+  L.vertices=drafting.map(v=>[r7(toLon(v[0])),r7(toLat(v[1]))]);
+  L.tracedAt=new Date().toISOString();
+  drafting=[]; save(); drawLines(); renderLineList(); renderList();
+  const nxt=LINES.find(x=>!x.vertices);
+  if(nxt)setActive(nxt.id,"line"); else setActive(null);
 }
 function closePolygon(){
   if(!activeId||drafting.length<3)return;
@@ -564,7 +668,7 @@ function save(){
     try{
       const r=await fetch("/api/areas-save",{method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({areas:AREAS,sourceMeta:META})});
+        body:JSON.stringify({areas:AREAS,lines:LINES,sourceMeta:META})});
       if(!r.ok)throw new Error(r.status);
       $("savestate").textContent="saved to disk · "+new Date().toLocaleTimeString("en-US",
         {hour:"numeric",minute:"2-digit",second:"2-digit"});
@@ -585,7 +689,9 @@ function mapHit(e){
   const r=$("stage").getBoundingClientRect();
   const x=(e.clientX-r.left)/view.s, y=(e.clientY-r.top)/view.s;
   if(x<0||y<0||x>W||y>H)return;
-  drafting.push([x,y]); drawLive();
+  const sn=findSnap(x,y);
+  drafting.push(sn?[sn.x,sn.y]:[x,y]);
+  drawLive();
   if(drafting.length===1)drawDone();   // step the finished zones back
 }
 map.addEventListener("mousedown",e=>{
@@ -594,6 +700,12 @@ map.addEventListener("mousedown",e=>{
         px:plat.tx,py:plat.ty,plat:alignMode&&platShown}; moved=false;
 });
 window.addEventListener("mousemove",e=>{
+  if(!down && activeId){                       // live snap preview while tracing
+    const r=$("stage").getBoundingClientRect();
+    const x=(e.clientX-r.left)/view.s, y=(e.clientY-r.top)/view.s;
+    snapTo=(x>=0&&y>=0&&x<=W&&y<=H)?findSnap(x,y):null;
+    showSnap(snapTo);
+  }
   if(!down)return;
   const dx=e.clientX-down.x,dy=e.clientY-down.y;
   if(Math.abs(dx)+Math.abs(dy)>4){moved=true;map.classList.add("panning");}
@@ -604,14 +716,14 @@ window.addEventListener("mousemove",e=>{
 });
 window.addEventListener("mouseup",()=>{ map.classList.remove("panning"); down=null; });
 map.addEventListener("click",e=>{ if(moved){moved=false;return;} mapHit(e); });
-map.addEventListener("dblclick",e=>{ e.preventDefault(); closePolygon(); });
+map.addEventListener("dblclick",e=>{ e.preventDefault(); activeKind==="line"?finishLine():closePolygon(); });
 map.addEventListener("wheel",e=>{
   e.preventDefault();
   const r=map.getBoundingClientRect();
   const mx=e.clientX-r.left,my=e.clientY-r.top;
   const ns_=Math.max(0.15,Math.min(16,view.s*Math.exp(-e.deltaY*0.0016)));
   view.x=mx-(mx-view.x)*(ns_/view.s); view.y=my-(my-view.y)*(ns_/view.s); view.s=ns_;
-  applyView(); drawDone();
+  applyView(); drawDone(); drawLines();
 },{passive:false});
 
 window.addEventListener("keydown",e=>{
@@ -619,7 +731,7 @@ window.addEventListener("keydown",e=>{
     if(e.key==="Enter"&&e.target.id==="newname")addArea();
     return;
   }
-  if(e.key==="Enter"){e.preventDefault();closePolygon();}
+  if(e.key==="Enter"){e.preventDefault(); activeKind==="line"?finishLine():closePolygon();}
   if(e.key==="Backspace"){e.preventDefault();drafting.pop();drawLive();
                           if(!drafting.length)drawDone();}
   if(e.key==="Escape"){drafting=[];drawLive();drawDone();}
@@ -653,9 +765,16 @@ function addArea(){
   const v=$("newname").value.trim(); if(!v)return;
   const id="custom-"+Date.now().toString(36);
   AREAS.push({id,name:v,labelPosition:"added by Paul",draftZoneId:null,vertices:null,notes:""});
-  $("newname").value=""; save(); renderList(); setActive(id);
+  $("newname").value=""; save(); renderList(); setActive(id,"area");
+}
+function addLine(){
+  const v=$("newname").value.trim(); if(!v)return;
+  const id="line-"+Date.now().toString(36);
+  LINES.push({id,name:v,kind:"unspecified",vertices:null,notes:"",hint:"added by Paul"});
+  $("newname").value=""; save(); renderLineList(); setActive(id,"line");
 }
 $("addbtn").onclick=addArea;
+$("addline").onclick=addLine;
 $("tdraft").onclick=()=>{showDraft=!showDraft;$("tdraft").classList.toggle("on",showDraft);drawDraft();};
 $("tdone").onclick=()=>{showDone=!showDone;$("tdone").classList.toggle("on",showDone);drawDone();};
 $("tref").onclick=toggleRef;
@@ -689,12 +808,26 @@ window.addEventListener("resize",applyView);
   AREAS=(roster.areas||[]).map(a=>({...a}));
   try{
     const prior=await (await fetch("/api/areas-state")).json();
+    LINES=prior.lines||[];
     if(prior.areas&&prior.areas.length){
       const byId=Object.fromEntries(prior.areas.map(a=>[a.id,a]));
       AREAS=AREAS.map(a=>byId[a.id]?{...a,...byId[a.id]}:a);
       prior.areas.filter(a=>!AREAS.some(x=>x.id===a.id)).forEach(a=>AREAS.push(a));
     }
   }catch(e){}
+  if(!LINES.length){
+    // Seeded from what is already established, not invented: Paul ruled both of
+    // these linear on 2026-08-31, and the driveway is the feature the plat was
+    // georeferenced against. Names are provisional — rename freely.
+    LINES=[
+      {id:"line-the-path",name:"The Path",kind:"path",vertices:null,notes:"",
+       hint:"paul: a landmark, not a zone"},
+      {id:"line-upper-uber-wall",name:"Upper-Uber wall",kind:"wall",vertices:null,notes:"",
+       hint:"paul: a dividing line · name inherited, confirm it"},
+      {id:"line-driveway",name:"Driveway",kind:"drive",vertices:null,notes:"",
+       hint:"the plat's anchor feature"}
+    ];
+  }
   const img=$("base");
   const start=()=>{fitAll();};
   if(img.complete)start(); else img.onload=start;
@@ -705,6 +838,7 @@ window.addEventListener("resize",applyView);
   const pi=$("platimg");
   if(pi.complete)applyPlat(); else pi.onload=applyPlat;
   applyLayers(); applyPlat();
+  drawLines(); renderLineList();
   drawDraft(); drawDone(); renderList(); nextUntraced();
 })();
 </script>

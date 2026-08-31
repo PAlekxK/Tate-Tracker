@@ -172,7 +172,8 @@ class Handler(SimpleHTTPRequestHandler):
             payload["_meta"]["roster"] = os.path.relpath(ROSTER_PATH, REPO)
             atomic_write(areas_path(self.session_id), payload)
             n = sum(1 for a in payload.get("areas", []) if a.get("vertices"))
-            return self._json({"ok": True, "traced": n})
+            ln = sum(1 for a in payload.get("lines", []) if a.get("vertices"))
+            return self._json({"ok": True, "traced": n, "lines": ln})
         atomic_write(session_path(self.session_id), payload)
         return self._json({"ok": True, "entries": len(payload.get("entries", []))})
 
