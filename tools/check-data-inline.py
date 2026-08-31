@@ -78,6 +78,10 @@ SOURCES = [
     ("zones.json",      "ZONES_DATA",      "zones",    "zones"),
     # Added 2026-07-20 with the Weeds card — inferred weed reads, settled via Mom.
     ("weeds.json",      "WEEDS_DATA",      "weeds",    "weeds"),
+    # Added 2026-08-31 (ux-sweep follow-up): TURF_DATA was the one re-inlined
+    # const the checker could not see — a turf.json edit would silently never ship.
+    ("turf.json",       "TURF_DATA",       "sources",  "turf"),
+
     # Added 2026-08-15 with the Insect Sounds tab. Nothing fetches insects.json at
     # runtime, so this const IS the app for that domain — the usual case, not the
     # exception (17 of 21 JSONs work this way).

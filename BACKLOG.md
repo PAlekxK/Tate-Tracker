@@ -58,11 +58,34 @@ the priority cut laid over it.
   status PROPOSAL — NOT FOLDED, all 4 open questions resolved) is the project's biggest open act:
   a reviewed session that lands Mom's map as canon, disposes of Fairway/Parking Bank/Upper-Uber
   Wall/House, and remaps plant zoneIds.
-- **Small follow-ups from the sweep**: add `turf.json`/TURF_DATA to `check-data-inline.py` (the one
-  inlined dataset the checker cannot see — an edit would silently never ship) · a
-  `check-zones-drift` in the session-start block (repo zones.json vs live `/api/zones` — the two
-  disagreed in both directions for 6 weeks with nothing flagging it) · sweep lesson: grep
-  `.plans/` before declaring something absent from the record.
+- **Small follow-ups from the sweep**: ✅ turf.json/TURF_DATA added to `check-data-inline.py`
+  2026-08-31 (caught its first drift the same run) · still open: a `check-zones-drift` in the
+  session-start block (repo zones.json vs live `/api/zones` — the two disagreed in both directions
+  for 6 weeks with nothing flagging it) · sweep lesson: grep `.plans/` before declaring something
+  absent from the record.
+
+## 🗺 THE FOLD — SHIPPED 2026-08-31 (Mom's map is canon) · three riders open
+
+Folded `.plans/2026-08-31-zones-traced-with-mom.json` into zones.json + the Worker KV
+(`zones:all`): **18 zones** = her 16 traced areas + fairway & house KEPT per her/Paul rulings;
+fairway-fringe → fairway-border (plan `draftZoneId`); tombstones so cached devices drop the
+retired ids. turf.json's fringe reference remapped. Verified live: `/api/zones` serves 18 with
+`_deleted` intact.
+- ⚠️ **parking-bank was retired WITHOUT an explicit ruling** — fold call, on the evidence that
+  Mom's "The bank" + "Lower Parking" cover its ground. **Paul may veto**; the tombstone carries
+  the reasoning and git holds the polygon.
+- **Linear features need schema v3** — The Path, Upper-Uber wall, Driveway are traced but NOT in
+  zones.json: `handleZoneSave` rebuilds `{_meta, zones}` wholesale, so any other key is silently
+  dropped on the next editor save. They live in the plan file until the schema carries lines.
+- **⭐ THE CAPTURE TOOLS — do not lose track of them** `[paul-stated 2026-08-31]`:
+  **`tools/zone-capture.html`** (annotation/naming overlay) and **`tools/area-trace.html`**
+  (polygon tracing against the registered basemap) are STANDALONE pages, separate from the in-app
+  zone editor — this session nearly missed them and declared the Fern Garden lost. Pointer also
+  lives in zones.json `_meta.fold_2026_08_31`.
+- Decision-1 riders now unblocked: cross-reference wording (meadow ↔ map, in her vocabulary) and
+  zoning the ring hydrangeas to `fairway-border` — awaiting Paul naming WHICH hydrangea records
+  form the ring (candidates: hydrangea, hydrangea-dreamcloud, endless-summer-pop-star-hydrangea,
+  hydrangea-panicle).
 
 ## 🏠 Household systems build-out — SHIPPED 2026-08-31 · four gaps open (Track B)
 

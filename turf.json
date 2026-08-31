@@ -25,7 +25,7 @@
       "id": "meadow",
       "label": "The meadow",
       "grass": "Native warm-season grasses & wildflowers",
-      "zoneId": "fairway-fringe",
+      "zoneId": "fairway-border",
       "summary": "Beyond the turf, the rest of the clearing is run the natural way — as meadow. This is where the native warm-season bunchgrasses belong: little bluestem, big bluestem, indiangrass, switchgrass, and the autumn bentgrass Mom flagged, threaded through with wildflowers. It asks almost nothing — no lime, no fertilizer, no weekly mowing — and gives back cover and seed for birds and a long pollinator season.",
       "essentials": [
         "Mow once a year in late winter (late February), down to 4–6 inches — never lower — to clear last year's growth before the new season and before ground-nesting birds get going.",
@@ -39,11 +39,41 @@
   "grassesIntro": "The full spectrum — from the practical turf grass to the native meadow bunchgrasses — lives in the Worth considering card, each with where to source it. In brief:",
   "sourcesIntro": "Where to source the seed, and what to read on the natural approach:",
   "sources": [
-    { "kind": "seed", "name": "Roundstone Native Seed", "url": "https://www.roundstoneseed.com/", "note": "Regionally-adapted native grass and meadow seed, including a Georgia-ecotype switchgrass." },
-    { "kind": "seed", "name": "Ernst Conservation Seeds", "url": "https://www.ernstseed.com/", "note": "Large-scale warm-season grass and meadow mixes." },
-    { "kind": "read", "name": "UGA — Rewild Your Lawn", "url": "https://cultivate.caes.uga.edu/rewild-your-lawn/", "note": "UGA's own case for lower-input, native-leaning ground." },
-    { "kind": "read", "name": "Lady Bird Johnson — Plant a Wildflower Meadow", "url": "https://www.wildflower.org/learn/plant-wildflower-meadow", "note": "Step-by-step meadow establishment." },
-    { "kind": "read", "name": "Xerces — Establishing Pollinator Meadows from Seed", "url": "https://xerces.org/sites/default/files/2018-05/15-020_02_XercesSoc_Establishing-Pollinator-Meadows-from-Seed_web.pdf", "note": "Getting the grass-and-wildflower mix to take." },
-    { "kind": "read", "name": "UGA — Lawns in Georgia: Selection & Species", "url": "https://extension.uga.edu/publications/detail.html?number=B1533-1", "note": "The turfgrass-selection basis for tall fescue." }
+    {
+      "kind": "seed",
+      "name": "Roundstone Native Seed",
+      "url": "https://www.roundstoneseed.com/",
+      "note": "Regionally-adapted native grass and meadow seed, including a Georgia-ecotype switchgrass."
+    },
+    {
+      "kind": "seed",
+      "name": "Ernst Conservation Seeds",
+      "url": "https://www.ernstseed.com/",
+      "note": "Large-scale warm-season grass and meadow mixes."
+    },
+    {
+      "kind": "read",
+      "name": "UGA — Rewild Your Lawn",
+      "url": "https://cultivate.caes.uga.edu/rewild-your-lawn/",
+      "note": "UGA's own case for lower-input, native-leaning ground."
+    },
+    {
+      "kind": "read",
+      "name": "Lady Bird Johnson — Plant a Wildflower Meadow",
+      "url": "https://www.wildflower.org/learn/plant-wildflower-meadow",
+      "note": "Step-by-step meadow establishment."
+    },
+    {
+      "kind": "read",
+      "name": "Xerces — Establishing Pollinator Meadows from Seed",
+      "url": "https://xerces.org/sites/default/files/2018-05/15-020_02_XercesSoc_Establishing-Pollinator-Meadows-from-Seed_web.pdf",
+      "note": "Getting the grass-and-wildflower mix to take."
+    },
+    {
+      "kind": "read",
+      "name": "UGA — Lawns in Georgia: Selection & Species",
+      "url": "https://extension.uga.edu/publications/detail.html?number=B1533-1",
+      "note": "The turfgrass-selection basis for tall fescue."
+    }
   ]
 }

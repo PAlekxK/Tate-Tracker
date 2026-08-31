@@ -1,705 +1,2007 @@
 {
- "_meta": {
-  "lastBuilt": "2026-07-17",
-  "schemaVersion": 2,
-  "purpose": "Named zones on the property. Each zone carries vertices (fractional 0-1 coords of the base image), a status (draft / confirmed / flagged), and a history log of changes. Observations and plants reference zones via the zoneId field. The browse view is itself a thinking tool — looking at the whole property from above helps Mom form mental models of where things are.",
-  "coordinateSystem": "wgs84",
-  "vertexOrder": "[lon, lat]  — GeoJSON order (x, y). NOT [lat, lon].",
-  "schemaNotes": "v2 (2026-07-16): vertices are REAL WGS84 [lon, lat] coordinates. v1 stored fractions of the base image, which meant the record said where a zone APPEARED IN A PICTURE, not where it IS — swap the picture and every polygon moved, and the v1 base was an oblique Google Earth screenshot whose pixels can never be reconciled to a nadir map, so the v1 polygons were unsalvageable. Vertices are now independent of the basemap: a new basemap is a re-registration (update _meta.baseImage + bounds), never a redraw. Zone ids/names are preserved from v1 because plants.json and observations reference them via zoneId.",
-  "baseImage": "images/property-map/base-naip-2022-01-leafoff.webp",
-  "baseImageFallbackPng": "images/property-map/base-naip-2022-01-leafoff.png",
-  "baseImageWidth": 1500,
-  "baseImageHeight": 1500,
-  "bounds": {
-   "west": -84.36990044993301,
-   "south": 34.54754054054054,
-   "east": -84.364899550067,
-   "north": 34.55165945945946
+  "_meta": {
+    "lastBuilt": "2026-08-31",
+    "schemaVersion": 2,
+    "purpose": "Named zones on the property. Each zone carries vertices (WGS84 [lon, lat] — schema v2), a status (draft / confirmed / flagged), and a history log of changes. Observations and plants reference zones via the zoneId field. The browse view is itself a thinking tool — looking at the whole property from above helps Mom form mental models of where things are.",
+    "coordinateSystem": "wgs84",
+    "vertexOrder": "[lon, lat]  — GeoJSON order (x, y). NOT [lat, lon].",
+    "schemaNotes": "v2 (2026-07-16): vertices are REAL WGS84 [lon, lat] coordinates. v1 stored fractions of the base image, which meant the record said where a zone APPEARED IN A PICTURE, not where it IS — swap the picture and every polygon moved, and the v1 base was an oblique Google Earth screenshot whose pixels can never be reconciled to a nadir map, so the v1 polygons were unsalvageable. Vertices are now independent of the basemap: a new basemap is a re-registration (update _meta.baseImage + bounds), never a redraw. Zone ids/names are preserved from v1 because plants.json and observations reference them via zoneId.",
+    "baseImage": "images/property-map/base-naip-2022-01-leafoff.webp",
+    "baseImageFallbackPng": "images/property-map/base-naip-2022-01-leafoff.png",
+    "baseImageWidth": 1500,
+    "baseImageHeight": 1500,
+    "bounds": {
+      "west": -84.36990044993301,
+      "south": 34.54754054054054,
+      "east": -84.364899550067,
+      "north": 34.55165945945946
+    },
+    "boundsNote": "The georeference. Rendering maps each axis LINEARLY and INDEPENDENTLY against its own bound (lon->x, lat->y); the two axes do not share a degrees-per-pixel scale. Across this image the linear-vs-true-Mercator error is sub-centimetre — ~1000x below the imagery's own.",
+    "baseImageSource": "USDA NAIP via Microsoft Planetary Computer",
+    "baseImageLicense": "public domain (US federal work) — redistributable",
+    "baseImageStacItem": "ga_m_3408430_sw_16_060_20220110",
+    "baseImageCaptureDate": "2022-01-10",
+    "baseImageSeason": "leaf-off",
+    "accuracyHonesty": "⚠️ READ THIS BEFORE TREATING ANY BOUNDARY AS A LINE. Paul, on finishing the trace (2026-08-31): 'in this picture it looks like there are a lot of shadows and that made it very hard to be exact with positioning and borders, especially with the low resolution.' That is a REAL and EXPLAINABLE limit, not carelessness — a 10 January capture at 34.5N puts the sun near 32 degrees at noon, so every tree, wall and structure throws a long shadow, and leaf-off bare branches add shadow texture over open ground. At 0.6 m/px there is no detail underneath a shadow to recover. So: these polygons record WHERE A NAME APPLIES, at the resolution of a name. They are NOT survey lines, NOT parcel boundaries, and NOT a basis for anything that turns on where an edge actually falls. The real budget is the NAIP spec (+/-20 ft) plus relief displacement at 2,959 ft plus the shadow ambiguity above — call it worse than +/-30 ft on any edge Paul could not positively see.",
+    "lastBuiltAt": "2026-07-17T21:15:09.801Z",
+    "fold_2026_08_31": "Mom's own map became canon: 16 areas named by her (2026-08-30 naming session, annotated NAIP aerial) and traced by Paul (2026-08-31, tools/area-trace.html) folded in; fairway + house KEPT per paul-stated rulings; fairway-fringe → fairway-border; parking-bank + upper-uber-wall-area retired (see _deleted). 3 LINEAR features (The Path, Upper-Uber wall, Driveway) are NOT here — the zone-save round-trip rebuilds {_meta, zones} wholesale and would silently drop any other key, so lines stay in the plan file until a schema v3 adds them. FULL provenance, rulings, accuracy budget: .plans/2026-08-31-zones-traced-with-mom.json. CAPTURE TOOLS (do not lose track of these): tools/zone-capture.html (annotation/naming overlay) and tools/area-trace.html (polygon tracing against the registered basemap) — the standalone pages this map was made with; they are NOT the in-app zone editor.",
+    "sharedBorders": "Adjacent zones were traced independently, by eye, with no vertex snapping. Neighbouring boundaries WILL disagree by a few feet and leave slivers and overlaps between them. Deferred deliberately (Paul, 2026-08-31): border smoothing and snapping come after the zones exist, not before. Do not read a gap between two zones as unclaimed ground."
   },
-  "boundsNote": "The georeference. Rendering maps each axis LINEARLY and INDEPENDENTLY against its own bound (lon->x, lat->y); the two axes do not share a degrees-per-pixel scale. Across this image the linear-vs-true-Mercator error is sub-centimetre — ~1000x below the imagery's own.",
-  "baseImageSource": "USDA NAIP via Microsoft Planetary Computer",
-  "baseImageLicense": "public domain (US federal work) — redistributable",
-  "baseImageStacItem": "ga_m_3408430_sw_16_060_20220110",
-  "baseImageCaptureDate": "2022-01-10",
-  "baseImageSeason": "leaf-off",
-  "accuracyHonesty": "Vertices traced off this basemap are HYPOTHESES, not measurements. NAIP's declared accuracy is +/-6 m @ 95% (~20 ft), and relief displacement at 2,873 ft makes the real budget ~15-30 ft. Good enough for the question these zones answer ('what's growing here?' -> a zone NAME); not good enough to place an individual plant. If a GPS track ever disagrees with a boundary by metres, BOTH can be right — different frames.",
-  "lastBuiltAt": "2026-07-17T21:15:09.801Z"
- },
- "zones": [
-  {
-   "id": "fairway",
-   "name": "Fairway",
-   "type": "turf",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36781674,
-     34.54932541
-    ],
-    [
-     -84.36755003,
-     34.54940229
-    ],
-    [
-     -84.36726664,
-     34.54928422
-    ],
-    [
-     -84.36689991,
-     34.54911946
-    ],
-    [
-     -84.3664665,
-     34.54906454
-    ],
-    [
-     -84.36596641,
-     34.54900962
-    ],
-    [
-     -84.36598308,
-     34.54888605
-    ],
-    [
-     -84.36651651,
-     34.54892724
-    ],
-    [
-     -84.36694992,
-     34.54898216
-    ],
-    [
-     -84.36734999,
-     34.54910573
-    ],
-    [
-     -84.36771672,
-     34.54921008
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-05-28T02:55:10.014Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-22T21:42:55.164665Z",
-   "lastEditedBy": "agent-claude",
-   "history": [
+  "zones": [
     {
-     "at": "2026-05-28T02:55:10.014Z",
-     "by": "device",
-     "action": "created",
-     "details": {
-      "name": "Fairway",
-      "vertexCount": 33
-     }
+      "id": "the-bank",
+      "name": "The bank",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3673185,
+          34.5496508
+        ],
+        [
+          -84.3673185,
+          34.5496672
+        ],
+        [
+          -84.3673185,
+          34.5496807
+        ],
+        [
+          -84.3673513,
+          34.5496864
+        ],
+        [
+          -84.367429,
+          34.5496957
+        ],
+        [
+          -84.3675266,
+          34.5497099
+        ],
+        [
+          -84.367581,
+          34.5497163
+        ],
+        [
+          -84.3676968,
+          34.5497319
+        ],
+        [
+          -84.3677408,
+          34.5497348
+        ],
+        [
+          -84.3678505,
+          34.5497469
+        ],
+        [
+          -84.3678747,
+          34.5497419
+        ],
+        [
+          -84.3678738,
+          34.5497227
+        ],
+        [
+          -84.3678281,
+          34.5497198
+        ],
+        [
+          -84.3677987,
+          34.549722
+        ],
+        [
+          -84.36774,
+          34.5497206
+        ],
+        [
+          -84.3676959,
+          34.5497213
+        ],
+        [
+          -84.3676691,
+          34.5497177
+        ],
+        [
+          -84.3676329,
+          34.5497113
+        ],
+        [
+          -84.3675854,
+          34.5497063
+        ],
+        [
+          -84.3675335,
+          34.5496985
+        ],
+        [
+          -84.3674826,
+          34.5496957
+        ],
+        [
+          -84.3674169,
+          34.5496864
+        ],
+        [
+          -84.3673677,
+          34.549675
+        ],
+        [
+          -84.3673323,
+          34.5496665
+        ],
+        [
+          -84.3673245,
+          34.5496523
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:02:56.415Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:02:56.415Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:02:56.415Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 25,
+            "labelPosition": "top-center, above the house"
+          }
+        }
+      ]
     },
     {
-     "at": "2026-05-28T03:12:54.245Z",
-     "by": "device",
-     "action": "confirmed",
-     "details": null
+      "id": "eastern-woodlands",
+      "name": "Eastern Woodlands",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3672325,
+          34.5495836
+        ],
+        [
+          -84.3672334,
+          34.5495956
+        ],
+        [
+          -84.3672437,
+          34.5496063
+        ],
+        [
+          -84.3672549,
+          34.549624
+        ],
+        [
+          -84.3672661,
+          34.5496389
+        ],
+        [
+          -84.3672661,
+          34.5496481
+        ],
+        [
+          -84.3672532,
+          34.5496637
+        ],
+        [
+          -84.3672317,
+          34.5496771
+        ],
+        [
+          -84.3671861,
+          34.5496913
+        ],
+        [
+          -84.3671258,
+          34.5496913
+        ],
+        [
+          -84.3670656,
+          34.5496814
+        ],
+        [
+          -84.3670234,
+          34.5496644
+        ],
+        [
+          -84.3669968,
+          34.5496459
+        ],
+        [
+          -84.3670183,
+          34.5495942
+        ],
+        [
+          -84.3670682,
+          34.5495878
+        ],
+        [
+          -84.3670949,
+          34.5495836
+        ],
+        [
+          -84.3671,
+          34.54958
+        ],
+        [
+          -84.3672274,
+          34.5495857
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:01:28.467Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:01:28.467Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:01:28.467Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 18,
+            "labelPosition": "top-right, the treed slope"
+          }
+        }
+      ]
     },
     {
-     "at": "2026-07-17T02:01:59.236984Z",
-     "by": "paul",
-     "action": "vertices-cleared",
-     "details": {
-      "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-      "clearedVertexCount": 33,
-      "recoverableFrom": "git history (zones.json before this commit)"
-     }
-    },
-    {
-     "at": "2026-07-22T21:42:55.164665Z",
-     "by": "agent-claude",
-     "action": "vertices-drafted",
-     "details": {
-      "vertexCount": 11,
-      "why": "v2 re-trace of main SE corridor off NAIP basemap (v1 vertices were cleared in the v1->v2 migration)",
-      "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
-     }
-    }
-   ]
-  },
-  {
-   "id": "parking-bank",
-   "name": "Parking Bank",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36825349,
-     34.54976476
-    ],
-    [
-     -84.36798344,
-     34.54978672
-    ],
-    [
-     -84.36790009,
-     34.5497373
-    ],
-    [
-     -84.36793343,
-     34.54966316
-    ],
-    [
-     -84.3681668,
-     34.5496357
-    ],
-    [
-     -84.36825349,
-     34.54969885
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-05-28T03:00:09.765Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-22T21:42:55.164665Z",
-   "lastEditedBy": "agent-claude",
-   "history": [
-    {
-     "at": "2026-05-28T03:00:09.765Z",
-     "by": "device",
-     "action": "created",
-     "details": {
-      "name": "Parking Bank",
-      "vertexCount": 22
-     }
-    },
-    {
-     "at": "2026-07-17T02:01:59.236984Z",
-     "by": "paul",
-     "action": "vertices-cleared",
-     "details": {
-      "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
-      "clearedVertexCount": 22,
-      "recoverableFrom": "git history (zones.json before this commit)"
-     }
-    },
-    {
-     "at": "2026-07-22T21:42:55.164665Z",
-     "by": "agent-claude",
-     "action": "vertices-drafted",
-     "details": {
-      "vertexCount": 6,
-      "why": "v2 re-trace of driveway/parking loop NW of house off NAIP basemap",
-      "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
-     }
-    }
-   ]
-  },
-  {
-   "id": "pond-area",
-   "name": "Pond Area",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36756877678147,
-     34.549541267256004
-    ],
-    [
-     -84.36743867140879,
-     34.54950854631247
-    ],
-    [
-     -84.36742993463194,
-     34.549419433812645
-    ],
-    [
-     -84.36753022402009,
-     34.54941348760422
-    ],
-    [
-     -84.36759930247615,
-     34.549461722440704
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-17T20:46:51.544Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-17T20:46:51.544Z",
-   "lastEditedBy": "device",
-   "history": [
-    {
-     "at": "2026-07-17T20:46:51.544Z",
-     "by": "device",
-     "action": "created",
-     "details": {
-      "name": "Pond Area",
-      "vertexCount": 5
-     }
-    }
-   ]
-  },
-  {
-   "id": "stable-grounds",
-   "name": "Stable Grounds",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36725131853363,
-     34.54924288429698
-    ],
-    [
-     -84.36722461899502,
-     34.549433690177
-    ],
-    [
-     -84.36695227098713,
-     34.549393745660815
-    ],
-    [
-     -84.36696409506851,
-     34.54916763948874
-    ],
-    [
-     -84.36696780121876,
-     34.549163728287596
-    ],
-    [
-     -84.36709995122081,
-     34.54917662425605
-    ],
-    [
-     -84.36717728452729,
-     34.54918451472477
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-17T20:51:38.784Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-17T20:51:38.784Z",
-   "lastEditedBy": "device",
-   "history": [
-    {
-     "at": "2026-07-17T20:51:38.784Z",
-     "by": "device",
-     "action": "created",
-     "details": {
-      "name": "Stable Grounds",
-      "vertexCount": 7
-     }
-    },
-    {
-     "at": "2026-07-17T20:53:29.352Z",
-     "by": "reconciliation",
-     "action": "id-reconciled",
-     "details": {
-      "from": "stable-grounds-2",
-      "to": "stable-grounds"
-     }
-    }
-   ]
-  },
-  {
-   "id": "eastern-patio",
-   "name": "Eastern Patio",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36729606251042,
-     34.54944465934221
-    ],
-    [
-     -84.36713159335258,
-     34.54943234455625
-    ],
-    [
-     -84.36699448168626,
-     34.54941374671623
-    ],
-    [
-     -84.36704358023066,
-     34.5495373422434
-    ],
-    [
-     -84.36708910294399,
-     34.54958025550262
-    ],
-    [
-     -84.36718926435597,
-     34.54960084035848
-    ],
-    [
-     -84.36729323998776,
-     34.5496073747347
-    ],
-    [
-     -84.36731888108038,
-     34.549551086424145
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-17T20:52:00.725Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-17T20:52:00.725Z",
-   "lastEditedBy": "device",
-   "history": [
-    {
-     "at": "2026-07-17T20:52:00.725Z",
-     "by": "device",
-     "action": "created",
-     "details": {
-      "name": "Eastern Patio",
-      "vertexCount": 8
-     }
-    }
-   ]
-  },
-  {
-   "id": "western-garden",
-   "name": "Western Garden",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36789154446554,
-     34.54964985897914
-    ],
-    [
-     -84.3678080148398,
-     34.5496405860749
-    ],
-    [
-     -84.3677378892168,
-     34.54961472443536
-    ],
-    [
-     -84.36766292549439,
-     34.549601665500184
-    ],
-    [
-     -84.36762578154921,
-     34.549565466273265
-    ],
-    [
-     -84.36772104168874,
-     34.54955665723513
-    ],
-    [
-     -84.36781359313625,
-     34.54956725547108
-    ],
-    [
-     -84.36785492080378,
-     34.54957401466283
-    ],
-    [
-     -84.36791673261955,
-     34.549591566472515
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-17T20:52:26.360Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-17T20:52:26.360Z",
-   "lastEditedBy": "device",
-   "history": [
-    {
-     "at": "2026-07-17T20:52:26.360Z",
-     "by": "device",
-     "action": "created",
-     "details": {
+      "id": "western-garden",
       "name": "Western Garden",
-      "vertexCount": 9
-     }
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3678731,
+          34.5496365
+        ],
+        [
+          -84.3678417,
+          34.5496384
+        ],
+        [
+          -84.3678185,
+          34.5496384
+        ],
+        [
+          -84.3678022,
+          34.5496403
+        ],
+        [
+          -84.3677836,
+          34.5496403
+        ],
+        [
+          -84.3677732,
+          34.5496403
+        ],
+        [
+          -84.3677651,
+          34.5496403
+        ],
+        [
+          -84.3677627,
+          34.5496336
+        ],
+        [
+          -84.3677651,
+          34.5496202
+        ],
+        [
+          -84.3677651,
+          34.5496106
+        ],
+        [
+          -84.3677651,
+          34.5496001
+        ],
+        [
+          -84.3677651,
+          34.5495925
+        ],
+        [
+          -84.367772,
+          34.5495839
+        ],
+        [
+          -84.3677999,
+          34.5495839
+        ],
+        [
+          -84.3678301,
+          34.549581
+        ],
+        [
+          -84.3678661,
+          34.5495772
+        ],
+        [
+          -84.3678777,
+          34.549581
+        ],
+        [
+          -84.3678905,
+          34.549581
+        ],
+        [
+          -84.3679009,
+          34.5495819
+        ],
+        [
+          -84.3678986,
+          34.5495992
+        ],
+        [
+          -84.3678951,
+          34.5496078
+        ],
+        [
+          -84.3678858,
+          34.5496173
+        ],
+        [
+          -84.3678812,
+          34.5496259
+        ],
+        [
+          -84.3678766,
+          34.5496355
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:52:26.360Z",
+      "createdBy": "device",
+      "updatedAt": "2026-08-31T11:38:48.001Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-07-17T20:52:26.360Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Western Garden",
+            "vertexCount": 9
+          }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "western-garden-2",
+            "to": "western-garden"
+          }
+        },
+        {
+          "at": "2026-08-31T11:38:48.001Z",
+          "by": "paul",
+          "action": "retraced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 24,
+            "supersedes": "western-garden",
+            "labelPosition": "left of the house"
+          }
+        }
+      ]
     },
     {
-     "at": "2026-07-17T20:53:29.352Z",
-     "by": "reconciliation",
-     "action": "id-reconciled",
-     "details": {
-      "from": "western-garden-2",
-      "to": "western-garden"
-     }
-    }
-   ]
-  },
-  {
-   "id": "fairway-fringe",
-   "name": "Fairway Fringe",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36792564180264,
-     34.54959476052195
-    ],
-    [
-     -84.36796830504306,
-     34.54957036116507
-    ],
-    [
-     -84.36793779068867,
-     34.54953001364987
-    ],
-    [
-     -84.3678833915707,
-     34.549497781582545
-    ],
-    [
-     -84.36793793014608,
-     34.54947852451272
-    ],
-    [
-     -84.3679951774135,
-     34.549518562783845
-    ],
-    [
-     -84.36801548455811,
-     34.54957389980075
-    ],
-    [
-     -84.36797378142833,
-     34.54962576003078
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-17T20:52:43.149Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-17T20:52:43.149Z",
-   "lastEditedBy": "device",
-   "history": [
-    {
-     "at": "2026-07-17T20:52:43.149Z",
-     "by": "device",
-     "action": "created",
-     "details": {
-      "name": "Fairway Fringe",
-      "vertexCount": 8
-     }
+      "id": "western-upper-patio",
+      "name": "Western Upper Patio",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.367693,
+          34.5496556
+        ],
+        [
+          -84.3676977,
+          34.5496422
+        ],
+        [
+          -84.3676814,
+          34.5496575
+        ],
+        [
+          -84.3676663,
+          34.5496575
+        ],
+        [
+          -84.3676454,
+          34.5496575
+        ],
+        [
+          -84.3676303,
+          34.5496566
+        ],
+        [
+          -84.367621,
+          34.5496566
+        ],
+        [
+          -84.3676152,
+          34.5496556
+        ],
+        [
+          -84.3676106,
+          34.5496556
+        ],
+        [
+          -84.3676025,
+          34.5496499
+        ],
+        [
+          -84.3676036,
+          34.5496413
+        ],
+        [
+          -84.3676013,
+          34.5496269
+        ],
+        [
+          -84.3676036,
+          34.5496164
+        ],
+        [
+          -84.3676059,
+          34.5496087
+        ],
+        [
+          -84.3676338,
+          34.5496068
+        ],
+        [
+          -84.3676536,
+          34.5496068
+        ],
+        [
+          -84.3676989,
+          34.5496078
+        ],
+        [
+          -84.3677116,
+          34.5496097
+        ],
+        [
+          -84.367707,
+          34.5496336
+        ],
+        [
+          -84.3677035,
+          34.5496384
+        ],
+        [
+          -84.3676977,
+          34.5496413
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T11:39:16.053Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T11:39:16.053Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T11:39:16.053Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 21,
+            "labelPosition": "house, upper west side"
+          }
+        }
+      ]
     },
     {
-     "at": "2026-07-17T20:53:29.352Z",
-     "by": "reconciliation",
-     "action": "id-reconciled",
-     "details": {
-      "from": "fairway-fringe-2",
-      "to": "fairway-fringe"
-     }
-    }
-   ]
-  },
-  {
-   "id": "lower-40",
-   "name": "Lower 40",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36792936560704,
-     34.54946269320449
-    ],
-    [
-     -84.36787018068615,
-     34.54949738243681
-    ],
-    [
-     -84.36781143371519,
-     34.549496996323505
-    ],
-    [
-     -84.36776759554608,
-     34.54947090827313
-    ],
-    [
-     -84.3677671761011,
-     34.54942415808042
-    ],
-    [
-     -84.36779435366873,
-     34.54939834437371
-    ],
-    [
-     -84.36786683129459,
-     34.549409536579155
-    ],
-    [
-     -84.36792961233938,
-     34.54943010219316
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-17T20:53:01.990Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-17T20:53:01.990Z",
-   "lastEditedBy": "device",
-   "history": [
+      "id": "western-lower-patio",
+      "name": "Western Lower Patio",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3677875,
+          34.5495864
+        ],
+        [
+          -84.3677875,
+          34.549602
+        ],
+        [
+          -84.3677866,
+          34.5496148
+        ],
+        [
+          -84.3677763,
+          34.5496169
+        ],
+        [
+          -84.3677668,
+          34.5496169
+        ],
+        [
+          -84.3677531,
+          34.5496169
+        ],
+        [
+          -84.3677496,
+          34.5496155
+        ],
+        [
+          -84.3677496,
+          34.549614
+        ],
+        [
+          -84.3677496,
+          34.5496027
+        ],
+        [
+          -84.3677505,
+          34.5495992
+        ],
+        [
+          -84.3677505,
+          34.5495864
+        ],
+        [
+          -84.3677832,
+          34.5495878
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:02:04.786Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:02:04.786Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:02:04.786Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 12,
+            "labelPosition": "house, lower west side"
+          }
+        }
+      ]
+    },
     {
-     "at": "2026-07-17T20:53:01.990Z",
-     "by": "device",
-     "action": "created",
-     "details": {
+      "id": "fairway-border",
+      "name": "Fairway Border",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36793,
+          34.5496139
+        ],
+        [
+          -84.3679581,
+          34.5496139
+        ],
+        [
+          -84.367975,
+          34.549613
+        ],
+        [
+          -84.3679942,
+          34.5496084
+        ],
+        [
+          -84.3680032,
+          34.5496047
+        ],
+        [
+          -84.3680167,
+          34.5495935
+        ],
+        [
+          -84.3680223,
+          34.5495843
+        ],
+        [
+          -84.3680223,
+          34.5495741
+        ],
+        [
+          -84.3680223,
+          34.5495611
+        ],
+        [
+          -84.3680212,
+          34.5495509
+        ],
+        [
+          -84.3680189,
+          34.5495333
+        ],
+        [
+          -84.3680032,
+          34.5495166
+        ],
+        [
+          -84.3679987,
+          34.549512
+        ],
+        [
+          -84.3679863,
+          34.5494981
+        ],
+        [
+          -84.3679626,
+          34.5494869
+        ],
+        [
+          -84.3679255,
+          34.5494777
+        ],
+        [
+          -84.3679064,
+          34.5494601
+        ],
+        [
+          -84.3678884,
+          34.5494519
+        ],
+        [
+          -84.3679034,
+          34.5494416
+        ],
+        [
+          -84.3679184,
+          34.5494416
+        ],
+        [
+          -84.3679697,
+          34.5494664
+        ],
+        [
+          -84.3679935,
+          34.5494746
+        ],
+        [
+          -84.3680098,
+          34.5494849
+        ],
+        [
+          -84.3680373,
+          34.5495262
+        ],
+        [
+          -84.3680386,
+          34.5495643
+        ],
+        [
+          -84.3680336,
+          34.549587
+        ],
+        [
+          -84.368006,
+          34.5496066
+        ],
+        [
+          -84.3679935,
+          34.5496189
+        ],
+        [
+          -84.3679672,
+          34.549621
+        ],
+        [
+          -84.367961,
+          34.549621
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:52:43.149Z",
+      "createdBy": "device",
+      "updatedAt": "2026-08-31T12:05:54.881Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-07-17T20:52:43.149Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Fairway Fringe",
+            "vertexCount": 8
+          }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "fairway-fringe-2",
+            "to": "fairway-fringe"
+          }
+        },
+        {
+          "at": "2026-08-31T12:05:54.881Z",
+          "by": "paul",
+          "action": "retraced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 30,
+            "supersedes": "fairway-fringe",
+            "labelPosition": "far left edge"
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-green-house",
+      "name": "The Green",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3679172,
+          34.5494808
+        ],
+        [
+          -84.367956,
+          34.5494901
+        ],
+        [
+          -84.3679848,
+          34.5495117
+        ],
+        [
+          -84.3679973,
+          34.5495344
+        ],
+        [
+          -84.3680073,
+          34.5495571
+        ],
+        [
+          -84.368011,
+          34.5495952
+        ],
+        [
+          -84.367986,
+          34.5496097
+        ],
+        [
+          -84.3679434,
+          34.5496107
+        ],
+        [
+          -84.3679184,
+          34.5496189
+        ],
+        [
+          -84.3679046,
+          34.5496189
+        ],
+        [
+          -84.3679009,
+          34.5496014
+        ],
+        [
+          -84.3679009,
+          34.549589
+        ],
+        [
+          -84.3678746,
+          34.5495798
+        ],
+        [
+          -84.3678496,
+          34.5495798
+        ],
+        [
+          -84.3678371,
+          34.5495767
+        ],
+        [
+          -84.3678371,
+          34.5495272
+        ],
+        [
+          -84.3678396,
+          34.5494818
+        ],
+        [
+          -84.3678659,
+          34.5494756
+        ],
+        [
+          -84.3678871,
+          34.5494746
+        ],
+        [
+          -84.3679209,
+          34.5494839
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:06:09.824Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:06:09.824Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:06:09.824Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 20,
+            "labelPosition": "LEFT-CENTER, near the house"
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-bluff",
+      "name": "The Bluff",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3677675,
+          34.549588
+        ],
+        [
+          -84.3677635,
+          34.5496159
+        ],
+        [
+          -84.3677237,
+          34.5496143
+        ],
+        [
+          -84.3676929,
+          34.5496077
+        ],
+        [
+          -84.3676381,
+          34.5496036
+        ],
+        [
+          -84.3676152,
+          34.5496036
+        ],
+        [
+          -84.3676112,
+          34.54957
+        ],
+        [
+          -84.3676351,
+          34.5495667
+        ],
+        [
+          -84.3676729,
+          34.5495692
+        ],
+        [
+          -84.3676988,
+          34.5495733
+        ],
+        [
+          -84.3677387,
+          34.5495774
+        ],
+        [
+          -84.3677615,
+          34.5495872
+        ],
+        [
+          -84.3677645,
+          34.5495872
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:01:00.078Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:01:00.078Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:01:00.078Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 13,
+            "labelPosition": "center, below the patios"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lawn",
+      "name": "Lawn",
+      "type": "turf",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3676087,
+          34.5495833
+        ],
+        [
+          -84.3676078,
+          34.5495626
+        ],
+        [
+          -84.3676061,
+          34.5495534
+        ],
+        [
+          -84.3675301,
+          34.5495463
+        ],
+        [
+          -84.3675517,
+          34.5495406
+        ],
+        [
+          -84.3674878,
+          34.5495313
+        ],
+        [
+          -84.3674541,
+          34.5495214
+        ],
+        [
+          -84.3674117,
+          34.54951
+        ],
+        [
+          -84.3673772,
+          34.5495007
+        ],
+        [
+          -84.3673617,
+          34.5494972
+        ],
+        [
+          -84.3673556,
+          34.5495093
+        ],
+        [
+          -84.3674221,
+          34.5495278
+        ],
+        [
+          -84.3674549,
+          34.5495327
+        ],
+        [
+          -84.3674549,
+          34.5495491
+        ],
+        [
+          -84.3674567,
+          34.5495555
+        ],
+        [
+          -84.3675059,
+          34.5495669
+        ],
+        [
+          -84.3675689,
+          34.5495733
+        ],
+        [
+          -84.3676035,
+          34.5495875
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:04:22.563Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:04:22.563Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:04:22.563Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 18,
+            "labelPosition": "center-right, beside the house"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fern-garden",
+      "name": "Fern Garden",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3672419,
+          34.5495602
+        ],
+        [
+          -84.3672389,
+          34.5495766
+        ],
+        [
+          -84.3672319,
+          34.5495815
+        ],
+        [
+          -84.3671931,
+          34.5495823
+        ],
+        [
+          -84.3671752,
+          34.5495839
+        ],
+        [
+          -84.3671393,
+          34.5495823
+        ],
+        [
+          -84.3671144,
+          34.549579
+        ],
+        [
+          -84.3671025,
+          34.5495741
+        ],
+        [
+          -84.3671015,
+          34.5495626
+        ],
+        [
+          -84.3670985,
+          34.5495544
+        ],
+        [
+          -84.3671114,
+          34.5495495
+        ],
+        [
+          -84.3671393,
+          34.5495495
+        ],
+        [
+          -84.3671503,
+          34.5495495
+        ],
+        [
+          -84.3671612,
+          34.5495495
+        ],
+        [
+          -84.3671961,
+          34.5495503
+        ],
+        [
+          -84.3672269,
+          34.5495561
+        ],
+        [
+          -84.3672379,
+          34.5495577
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:00:32.117Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:00:32.117Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:00:32.117Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 17,
+            "labelPosition": "right of the house"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pond-area",
+      "name": "Pond Area",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3675448,
+          34.5494439
+        ],
+        [
+          -84.3675835,
+          34.5494439
+        ],
+        [
+          -84.3676004,
+          34.5494592
+        ],
+        [
+          -84.3676004,
+          34.5494897
+        ],
+        [
+          -84.3675987,
+          34.549516
+        ],
+        [
+          -84.3675852,
+          34.549534
+        ],
+        [
+          -84.3675482,
+          34.5495312
+        ],
+        [
+          -84.3674994,
+          34.5495257
+        ],
+        [
+          -84.3674674,
+          34.549516
+        ],
+        [
+          -84.367459,
+          34.5495021
+        ],
+        [
+          -84.3674456,
+          34.549473
+        ],
+        [
+          -84.3674826,
+          34.5494619
+        ],
+        [
+          -84.3675112,
+          34.5494592
+        ],
+        [
+          -84.3675314,
+          34.5494425
+        ],
+        [
+          -84.3675465,
+          34.5494425
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:46:51.544Z",
+      "createdBy": "device",
+      "updatedAt": "2026-08-31T11:59:58.474Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-07-17T20:46:51.544Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Pond Area",
+            "vertexCount": 5
+          }
+        },
+        {
+          "at": "2026-08-31T11:59:58.474Z",
+          "by": "paul",
+          "action": "retraced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 15,
+            "supersedes": "pond-area",
+            "labelPosition": "center"
+          }
+        }
+      ]
+    },
+    {
+      "id": "eastern-patio",
+      "name": "Eastern Patio",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3672548,
+          34.5495044
+        ],
+        [
+          -84.3672528,
+          34.5495192
+        ],
+        [
+          -84.3672508,
+          34.5495323
+        ],
+        [
+          -84.3672488,
+          34.5495429
+        ],
+        [
+          -84.3672439,
+          34.5495577
+        ],
+        [
+          -84.3672359,
+          34.5495503
+        ],
+        [
+          -84.367221,
+          34.5495503
+        ],
+        [
+          -84.3671981,
+          34.5495462
+        ],
+        [
+          -84.3671742,
+          34.5495462
+        ],
+        [
+          -84.3671652,
+          34.5495454
+        ],
+        [
+          -84.3671582,
+          34.5495315
+        ],
+        [
+          -84.3671533,
+          34.5495208
+        ],
+        [
+          -84.3671523,
+          34.5495085
+        ],
+        [
+          -84.3671533,
+          34.549502
+        ],
+        [
+          -84.3671682,
+          34.5495011
+        ],
+        [
+          -84.3671971,
+          34.5495003
+        ],
+        [
+          -84.3672249,
+          34.5495011
+        ],
+        [
+          -84.3672528,
+          34.5494979
+        ],
+        [
+          -84.3672538,
+          34.5495036
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:52:00.725Z",
+      "createdBy": "device",
+      "updatedAt": "2026-08-31T12:00:20.865Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-07-17T20:52:00.725Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Eastern Patio",
+            "vertexCount": 8
+          }
+        },
+        {
+          "at": "2026-08-31T12:00:20.865Z",
+          "by": "paul",
+          "action": "retraced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 19,
+            "supersedes": "eastern-patio",
+            "labelPosition": "right of the house"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lower-40",
       "name": "Lower 40",
-      "vertexCount": 8
-     }
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.367993,
+          34.5493071
+        ],
+        [
+          -84.3679795,
+          34.5493201
+        ],
+        [
+          -84.367948,
+          34.5493395
+        ],
+        [
+          -84.3679165,
+          34.5493664
+        ],
+        [
+          -84.3678861,
+          34.5493878
+        ],
+        [
+          -84.3678861,
+          34.5494109
+        ],
+        [
+          -84.3679368,
+          34.5494499
+        ],
+        [
+          -84.3680167,
+          34.5494851
+        ],
+        [
+          -84.3680167,
+          34.5494851
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:53:01.990Z",
+      "createdBy": "device",
+      "updatedAt": "2026-08-31T12:04:50.475Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-07-17T20:53:01.990Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Lower 40",
+            "vertexCount": 8
+          }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "lower-40-2",
+            "to": "lower-40"
+          }
+        },
+        {
+          "at": "2026-08-31T12:04:50.475Z",
+          "by": "paul",
+          "action": "retraced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 9,
+            "supersedes": "lower-40",
+            "labelPosition": "left-center, below Fairway Border"
+          }
+        }
+      ]
     },
     {
-     "at": "2026-07-17T20:53:29.352Z",
-     "by": "reconciliation",
-     "action": "id-reconciled",
-     "details": {
-      "from": "lower-40-2",
-      "to": "lower-40"
-     }
-    }
-   ]
-  },
-  {
-   "id": "upper-uber-wall-area",
-   "name": "Upper-Uber Wall Area",
-   "type": "planted",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.36776988128337,
-     34.54963463356839
-    ],
-    [
-     -84.36771635270146,
-     34.54961480969836
-    ],
-    [
-     -84.36766742567778,
-     34.54960432875427
-    ],
-    [
-     -84.36760779663868,
-     34.54959448794539
-    ],
-    [
-     -84.36759195025392,
-     34.549618848646766
-    ],
-    [
-     -84.36760570558206,
-     34.549654111968614
-    ],
-    [
-     -84.36769037178571,
-     34.54966240832427
-    ],
-    [
-     -84.367754022562,
-     34.54967594261174
-    ],
-    [
-     -84.36782510615014,
-     34.54967542948748
-    ],
-    [
-     -84.3678531781225,
-     34.54966467419972
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-17T20:53:26.667Z",
-   "createdBy": "device",
-   "updatedAt": "2026-07-17T20:53:26.667Z",
-   "lastEditedBy": "device",
-   "history": [
+      "id": "st-francis-garden",
+      "name": "St Francis Garden",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.367266,
+          34.5494552
+        ],
+        [
+          -84.367266,
+          34.5494721
+        ],
+        [
+          -84.367258,
+          34.5494964
+        ],
+        [
+          -84.3672274,
+          34.5494964
+        ],
+        [
+          -84.3671979,
+          34.5494964
+        ],
+        [
+          -84.3671752,
+          34.5494945
+        ],
+        [
+          -84.3671582,
+          34.5494917
+        ],
+        [
+          -84.3671707,
+          34.5494721
+        ],
+        [
+          -84.3671752,
+          34.5494524
+        ],
+        [
+          -84.3671775,
+          34.5494468
+        ],
+        [
+          -84.3671775,
+          34.5494422
+        ],
+        [
+          -84.3672195,
+          34.5494478
+        ],
+        [
+          -84.3672682,
+          34.5494571
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T11:59:07.342Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T11:59:07.342Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T11:59:07.342Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 13,
+            "labelPosition": "right, below Eastern Patio"
+          }
+        }
+      ]
+    },
     {
-     "at": "2026-07-17T20:53:26.667Z",
-     "by": "device",
-     "action": "created",
-     "details": {
-      "name": "Upper-Uber Wall Area",
-      "vertexCount": 10
-     }
-    }
-   ]
-  },
-  {
-   "id": "house",
-   "name": "House",
-   "type": "structure",
-   "color": [
-    122,
-    149,
-    104
-   ],
-   "vertices": [
-    [
-     -84.3676067,
-     34.54977025
-    ],
-    [
-     -84.36735999,
-     34.54977025
-    ],
-    [
-     -84.36733999,
-     34.54964943
-    ],
-    [
-     -84.36739333,
-     34.54957254
-    ],
-    [
-     -84.3675667,
-     34.54957254
-    ],
-    [
-     -84.36761337,
-     34.54965492
-    ]
-   ],
-   "status": "draft",
-   "createdAt": "2026-07-22T21:42:55.164665Z",
-   "createdBy": "agent-claude",
-   "updatedAt": "2026-07-22T21:42:55.164665Z",
-   "lastEditedBy": "agent-claude",
-   "history": [
+      "id": "lower-parking",
+      "name": "Lower Parking",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.367993,
+          34.5493053
+        ],
+        [
+          -84.3679345,
+          34.549334
+        ],
+        [
+          -84.3679086,
+          34.5493683
+        ],
+        [
+          -84.3678659,
+          34.5493822
+        ],
+        [
+          -84.3678434,
+          34.5493766
+        ],
+        [
+          -84.367813,
+          34.5493516
+        ],
+        [
+          -84.3678152,
+          34.549309
+        ],
+        [
+          -84.3678175,
+          34.5492561
+        ],
+        [
+          -84.3678884,
+          34.5491551
+        ],
+        [
+          -84.3680032,
+          34.5491365
+        ],
+        [
+          -84.3680493,
+          34.5491625
+        ],
+        [
+          -84.3681067,
+          34.5492274
+        ],
+        [
+          -84.368109,
+          34.5492997
+        ],
+        [
+          -84.3680572,
+          34.5493136
+        ],
+        [
+          -84.3679964,
+          34.549309
+        ],
+        [
+          -84.3679897,
+          34.5493015
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-08-31T12:05:09.097Z",
+      "createdBy": "paul",
+      "updatedAt": "2026-08-31T12:05:09.097Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-08-31T12:05:09.097Z",
+          "by": "paul",
+          "action": "traced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 16,
+            "labelPosition": "lower-left"
+          }
+        }
+      ]
+    },
     {
-     "at": "2026-07-22T21:42:55.164665Z",
-     "by": "agent-claude",
-     "action": "created",
-     "details": {
-      "vertexCount": 6,
-      "why": "NEW zone traced off NAIP basemap for photo-organizer zone tagging; house was previously unzoned",
-      "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
-     }
+      "id": "stable-grounds",
+      "name": "Stable Grounds",
+      "type": "planted",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3669778,
+          34.5491152
+        ],
+        [
+          -84.3670323,
+          34.5491367
+        ],
+        [
+          -84.3671004,
+          34.549175
+        ],
+        [
+          -84.3671559,
+          34.5491927
+        ],
+        [
+          -84.3671979,
+          34.5492235
+        ],
+        [
+          -84.3672331,
+          34.5492488
+        ],
+        [
+          -84.3672535,
+          34.5492908
+        ],
+        [
+          -84.3672558,
+          34.5493805
+        ],
+        [
+          -84.3672739,
+          34.5493955
+        ],
+        [
+          -84.3672716,
+          34.5494141
+        ],
+        [
+          -84.3672682,
+          34.5494534
+        ],
+        [
+          -84.3671366,
+          34.5494347
+        ],
+        [
+          -84.3670788,
+          34.5494188
+        ],
+        [
+          -84.3670096,
+          34.5494048
+        ],
+        [
+          -84.3669676,
+          34.5494029
+        ],
+        [
+          -84.3669359,
+          34.5493291
+        ],
+        [
+          -84.3669404,
+          34.5492525
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-17T20:51:38.784Z",
+      "createdBy": "device",
+      "updatedAt": "2026-08-31T11:58:46.525Z",
+      "lastEditedBy": "paul-area-trace",
+      "history": [
+        {
+          "at": "2026-07-17T20:51:38.784Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Stable Grounds",
+            "vertexCount": 7
+          }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "stable-grounds-2",
+            "to": "stable-grounds"
+          }
+        },
+        {
+          "at": "2026-08-31T11:58:46.525Z",
+          "by": "paul",
+          "action": "retraced",
+          "details": {
+            "namedBy": "mom, 2026-08-30 (naming session)",
+            "vertexCount": 17,
+            "supersedes": "stable-grounds",
+            "labelPosition": "bottom-right"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fairway",
+      "name": "Fairway",
+      "type": "turf",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.36781674,
+          34.54932541
+        ],
+        [
+          -84.36755003,
+          34.54940229
+        ],
+        [
+          -84.36726664,
+          34.54928422
+        ],
+        [
+          -84.36689991,
+          34.54911946
+        ],
+        [
+          -84.3664665,
+          34.54906454
+        ],
+        [
+          -84.36596641,
+          34.54900962
+        ],
+        [
+          -84.36598308,
+          34.54888605
+        ],
+        [
+          -84.36651651,
+          34.54892724
+        ],
+        [
+          -84.36694992,
+          34.54898216
+        ],
+        [
+          -84.36734999,
+          34.54910573
+        ],
+        [
+          -84.36771672,
+          34.54921008
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-05-28T02:55:10.014Z",
+      "createdBy": "device",
+      "updatedAt": "2026-07-22T21:42:55.164665Z",
+      "lastEditedBy": "agent-claude",
+      "history": [
+        {
+          "at": "2026-05-28T02:55:10.014Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Fairway",
+            "vertexCount": 33
+          }
+        },
+        {
+          "at": "2026-05-28T03:12:54.245Z",
+          "by": "device",
+          "action": "confirmed",
+          "details": null
+        },
+        {
+          "at": "2026-07-17T02:01:59.236984Z",
+          "by": "paul",
+          "action": "vertices-cleared",
+          "details": {
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
+            "clearedVertexCount": 33,
+            "recoverableFrom": "git history (zones.json before this commit)"
+          }
+        },
+        {
+          "at": "2026-07-22T21:42:55.164665Z",
+          "by": "agent-claude",
+          "action": "vertices-drafted",
+          "details": {
+            "vertexCount": 11,
+            "why": "v2 re-trace of main SE corridor off NAIP basemap (v1 vertices were cleared in the v1->v2 migration)",
+            "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
+          }
+        },
+        {
+          "at": "2026-08-31",
+          "by": "paul",
+          "action": "kept-at-fold",
+          "details": {
+            "why": "kept per paul-stated 2026-08-31 ruling: 'it simply was not re-labelled during the annotation' — the big open area is still hers and still called Fairway"
+          }
+        }
+      ]
+    },
+    {
+      "id": "house",
+      "name": "House",
+      "type": "structure",
+      "color": [
+        122,
+        149,
+        104
+      ],
+      "vertices": [
+        [
+          -84.3676067,
+          34.54977025
+        ],
+        [
+          -84.36735999,
+          34.54977025
+        ],
+        [
+          -84.36733999,
+          34.54964943
+        ],
+        [
+          -84.36739333,
+          34.54957254
+        ],
+        [
+          -84.3675667,
+          34.54957254
+        ],
+        [
+          -84.36761337,
+          34.54965492
+        ]
+      ],
+      "status": "draft",
+      "createdAt": "2026-07-22T21:42:55.164665Z",
+      "createdBy": "agent-claude",
+      "updatedAt": "2026-07-22T21:42:55.164665Z",
+      "lastEditedBy": "agent-claude",
+      "history": [
+        {
+          "at": "2026-07-22T21:42:55.164665Z",
+          "by": "agent-claude",
+          "action": "created",
+          "details": {
+            "vertexCount": 6,
+            "why": "NEW zone traced off NAIP basemap for photo-organizer zone tagging; house was previously unzoned",
+            "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
+          }
+        },
+        {
+          "at": "2026-08-31",
+          "by": "paul",
+          "action": "kept-at-fold",
+          "details": {
+            "why": "kept per paul-stated 2026-08-31 ruling: a structure, not a named garden area — its absence from her list is not a deletion"
+          }
+        }
+      ]
     }
-   ]
-  }
- ]
+  ],
+  "_deleted": [
+    {
+      "id": "fairway-fringe",
+      "lastName": "Fairway Fringe",
+      "history": [
+        {
+          "at": "2026-07-17T20:52:43.149Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Fairway Fringe",
+            "vertexCount": 8
+          }
+        },
+        {
+          "at": "2026-07-17T20:53:29.352Z",
+          "by": "reconciliation",
+          "action": "id-reconciled",
+          "details": {
+            "from": "fairway-fringe-2",
+            "to": "fairway-fringe"
+          }
+        },
+        {
+          "at": "2026-08-31",
+          "by": "paul-fold",
+          "action": "retired",
+          "details": {
+            "why": "superseded by fairway-border (plan draftZoneId mapping) — same ground, her name"
+          }
+        }
+      ]
+    },
+    {
+      "id": "upper-uber-wall-area",
+      "lastName": "Upper-Uber Wall Area",
+      "history": [
+        {
+          "at": "2026-07-17T20:53:26.667Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Upper-Uber Wall Area",
+            "vertexCount": 10
+          }
+        },
+        {
+          "at": "2026-08-31",
+          "by": "paul-fold",
+          "action": "retired",
+          "details": {
+            "why": "paul-stated 2026-08-31: 'It's a wall. More of a dividing line than a zone.' A LINEAR feature — polygon retired; the traced line lives in the plan file pending a linear-feature schema (v3, backlogged)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parking-bank",
+      "lastName": "Parking Bank",
+      "history": [
+        {
+          "at": "2026-05-28T03:00:09.765Z",
+          "by": "device",
+          "action": "created",
+          "details": {
+            "name": "Parking Bank",
+            "vertexCount": 22
+          }
+        },
+        {
+          "at": "2026-07-17T02:01:59.236984Z",
+          "by": "paul",
+          "action": "vertices-cleared",
+          "details": {
+            "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
+            "clearedVertexCount": 22,
+            "recoverableFrom": "git history (zones.json before this commit)"
+          }
+        },
+        {
+          "at": "2026-07-22T21:42:55.164665Z",
+          "by": "agent-claude",
+          "action": "vertices-drafted",
+          "details": {
+            "vertexCount": 6,
+            "why": "v2 re-trace of driveway/parking loop NW of house off NAIP basemap",
+            "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
+          }
+        },
+        {
+          "at": "2026-08-31",
+          "by": "paul-fold",
+          "action": "retired",
+          "details": {
+            "why": "superseded by her two names covering its ground: the-bank + lower-parking (fold call, recorded for Paul veto — no explicit ruling existed)"
+          }
+        }
+      ]
+    }
+  ]
 }
