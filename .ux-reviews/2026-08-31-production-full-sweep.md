@@ -347,5 +347,43 @@ O-5 mechanisms in source — all held. The run's meta-finding: the top of this p
 list is substantially the 2026-08-03 pilot's punch list, parked behind the
 "Mom's-feedback-first" freeze and never un-parked, with the TDZ error count growing
 16→44 while it waited — the sweep clock checks whether a REVIEW is owed, but nothing
-re-checks whether a prior sweep's gated fixes were ever released. Fixes GATED — nothing
-shipped this run.
+re-checks whether a prior sweep's gated fixes were ever released.
+
+## Ship + closing beat (same session — Paul lifted the gate: "go ahead and work through all that")
+
+**17 of 18 punch items shipped** (`eac5648` + the radar-labels follow-up);
+item 18 (temporal-lens contract + rename) HELD with the NEEDS-PAUL trades for his
+one-by-one walkthrough — Paul re-opened the lens design mid-build ("do we need both?
+is This Month arbitrary?"), so documenting the current contract before that ruling
+would have papered over a live question. Paul's mid-build ruling shaped item 9:
+*"keep that hierarchy of certainty with different sources to back it all up, but
+limit what we are showing"* → provenance moved to non-rendered `_curation`, reader
+layer + honesty chips stay. NEEDS-PAUL 5 (sync direction) was implemented per its
+recommendation (client-narrow, reversible).
+
+**Closing beat — every fix verified against LIVE production at 414×848 + `text-lg`:**
+- Console: **0 errors** on a fresh load (was 44 TDZ + 1 feedback-400 + favicon).
+- `syncServerAnswers` path: live GET returns **200, 90 dates, 9 days of real data** —
+  cross-device answer retirement is functioning again.
+- Bird rows: **0 of 16** live rows with a narrow/covered name or a badge past the card
+  edge (was 3+ collisions incl. a mid-word clip).
+- Ack ribbon vs FAB at rest: **0 text-line rects intersect the extended pill**
+  (`body.fab-extended` + 84px clearance, releases on scroll; bubble untouched).
+- Radar: Esri gray base + reference labels, **no watermark**, Chattanooga/Atlanta/
+  Asheville labels over the rain frames, all tiles loaded — `2026-08-31-radar-after.png`.
+- Wildlife tabs + Full Year grid: `fade-more` live while content is offscreen; Full
+  Year opens scrolled to the current month with sticky plant names (scrollLeft 117 =
+  max; note: months BEFORE the window have no left-edge affordance — accepted, the
+  punch-sized fix took the right edge, which is where the original miss was).
+- May-note-in-August: absent from the rendered page. One clock: **0** bare 24h times
+  in rendered text ("Sun on the water 7:27 AM · off the water 7:58 PM"). Pressure
+  header single-line ("Pressure" / "→ 29.91"). Washer unit bound by real NBSPs
+  (char-code verified). `shortTip` live-returns clause cuts.
+- Fern + ribbon ✓: absent. Equipment teaser live on the strip. 46 Delete controls +
+  version chip present in DOM, **all hidden** (maintainer flag off) — Paul's devices
+  re-enable via `localStorage.setItem("tateTracker.maintainer","1")`.
+- Deploy hygiene: Worker redeployed (digest carried the vehicles edits; health OK);
+  a push race with `fernwood-deployer[bot]`'s digest stamp was resolved by taking the
+  bot's commit. `check-live.py` green post-Pages-rebuild on both pushes.
+- Review deviceId `d-l4ct2ilv…` was ALREADY in people.json's bench entry (persistent
+  Playwright profile) — review traffic was bench-classified all along.
