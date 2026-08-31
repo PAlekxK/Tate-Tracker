@@ -11,6 +11,19 @@ amended mid-lap.
 
 ---
 
+## Interlap note — 2026-08-31 · **no lap ran — the day's commits were Track B, not this loop**
+
+Not a lap: nothing of hers arrived and no leg ran. The 2026-08-31 repo movement
+(`933efb4`..`ed298c4`) is the **household-systems build-out** — Paul-driven, from his own photos:
+the household group grew 1→5 (furnace · water heater · washer · breaker panel), plus the new
+`rhythms[]` and `circuits[]` card sections. It touches a surface Mom sees (the Household Systems
+card — the domain she coined), so the release note covers it, but it was not fired by an arrival
+and no Mom-facing ask changed. Open follow-ups: `BACKLOG.md` § Household systems (H1–H4).
+Recorded so `cycle-docs-check`'s "repo moved past the newest lap" flag reads as *meta work,
+chronicled* rather than *a lap unrecorded*.
+
+---
+
 ## 2026-08-28 — NO LAP. A **re-examination of the 08-09 zone clip**, at Paul's ask — and it corrects what lap 3 recorded as the root cause
 
 Not a lap: nothing of hers arrived, nothing reached her surface, no leg ran. Recorded here because
