@@ -71,9 +71,8 @@ Folded `.plans/2026-08-31-zones-traced-with-mom.json` into zones.json + the Work
 fairway-fringe → fairway-border (plan `draftZoneId`); tombstones so cached devices drop the
 retired ids. turf.json's fringe reference remapped. Verified live: `/api/zones` serves 18 with
 `_deleted` intact.
-- ⚠️ **parking-bank was retired WITHOUT an explicit ruling** — fold call, on the evidence that
-  Mom's "The bank" + "Lower Parking" cover its ground. **Paul may veto**; the tombstone carries
-  the reasoning and git holds the polygon.
+- ✅ **parking-bank retirement RATIFIED** `[paul-stated 2026-08-31: "You can just get rid of
+  parking bank. That was an old name."]` — superseded by her the-bank + lower-parking.
 - **Linear features need schema v3** — The Path, Upper-Uber wall, Driveway are traced but NOT in
   zones.json: `handleZoneSave` rebuilds `{_meta, zones}` wholesale, so any other key is silently
   dropped on the next editor save. They live in the plan file until the schema carries lines.
