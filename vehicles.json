@@ -80,7 +80,7 @@
           "source": "Door tire-and-loading placard (on-unit read)."
         }
       },
-      "notes": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan. (Plan refreshed 2026-07-22 for the MANUAL correction: no DSG service exists — the old 'DSG 40k @ 82,698 overdue' urgency is void; manual gearbox oil is a low-priority long-life check.) ⚠️ Front-end cone-strike repaired DIY 2026-07-21 (see serviceHistory) — mention the understrike at the next shop visit so the radiator/condenser area gets eyeballed. WARRANTY NOTE (from the 7/23 paper ingest): a MaxCare extended service contract ran 60 months / 75k miles from the 4/1/2021 purchase — EXPIRED ~April 2026, so no active warranty coverage today.",
+      "notes": "APR Stage 1 software tune on stock hardware. Coolant level is on watch — a July pressure test found no active leak, but mention it (and the repaired front understrike) at the next shop visit so the radiator area gets eyeballed. Odometer 82,698 as of July 2026. No active warranty — the extended contract ran out in spring 2026.",
       "restoration": [
         {
           "item": "Rear brakes — rotors & pads (two independent dealer reads)",
@@ -489,7 +489,8 @@
           "confidence": "inferred"
         }
       ],
-      "_serviceHistoryNote": "Summarized from scanned paper records (full detail + part numbers + costs held privately). Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. The 2026-01-02 Express Oil invoice (machine-printed PDF from the shop's email) embeds the shop's own service ladder, deterministically confirming the dates + mileages of every Express Oil row from 2021-06-18 through 2026-01-02; the oil-brand/spec details on the still-'inferred' oil-change rows come from scanned invoices and await Paul's eyeball. 2026-07-23 batch: the remaining GTI paper pile (29 scans — purchase packet, two Midas visits, a Jim Ellis MPI, quotes) was ingested; its rows are vision reads marked inferred, full detail private."
+      "_serviceHistoryNote": "Summarized from scanned paper records (full detail + part numbers + costs held privately). Rows marked 'inferred' are OCR/vision reads not yet hand-verified; 'verified' = Paul-confirmed. The 2026-01-02 Express Oil invoice (machine-printed PDF from the shop's email) embeds the shop's own service ladder, deterministically confirming the dates + mileages of every Express Oil row from 2021-06-18 through 2026-01-02; the oil-brand/spec details on the still-'inferred' oil-change rows come from scanned invoices and await Paul's eyeball. 2026-07-23 batch: the remaining GTI paper pile (29 scans — purchase packet, two Midas visits, a Jim Ellis MPI, quotes) was ingested; its rows are vision reads marked inferred, full detail private.",
+      "_curation": "APR Stage 1 software tune on stock hardware. Coolant loss to verify at next shop visit (7/11/26 pressure test found no active leak). Odometer 82,698 (verified 2026-07-11). SERVICE PLAN (2026-07-08): Express Oil is Stop 1 (oil + coupons + a free written water-pump estimate); Autobahn is the specialist for the actual water-pump repair unless Express Oil clears the bar (metal-impeller pump, VW/VCDS diagnostics, warranty). See the Express Oil + Autobahn contacts + the .research/2026-07-08 plan. (Plan refreshed 2026-07-22 for the MANUAL correction: no DSG service exists — the old 'DSG 40k @ 82,698 overdue' urgency is void; manual gearbox oil is a low-priority long-life check.) ⚠️ Front-end cone-strike repaired DIY 2026-07-21 (see serviceHistory) — mention the understrike at the next shop visit so the radiator/condenser area gets eyeballed. WARRANTY NOTE (from the 7/23 paper ingest): a MaxCare extended service contract ran 60 months / 75k miles from the 4/1/2021 purchase — EXPIRED ~April 2026, so no active warranty coverage today."
     },
     {
       "id": "tiguan-2018",
@@ -619,7 +620,7 @@
       "id": "f150-2006",
       "group": "vehicle",
       "name": "2006 Ford F-150",
-      "trim": "STX (read off a body badge/VIN in the ChatGPT mine, 2026-07-22 — model-read, verify)",
+      "trim": "STX",
       "cab": "Regular Cab · 2WD/RWD · 6.5-ft short bed (ChatGPT decode from Paul's photos — model-read). No factory cabin air filter on 2004–08 F-150s (nothing to replace). Fitted-cover size code = T3. Parked outdoors under trees — Paul wants a cover.",
       "registration": {
         "owner": "Family (registered in Mom's name)",
@@ -725,7 +726,8 @@
           "summary": "FRONT LEFT tire found LOW and inflated (Paul, same day as the Bronco's coolant service). ⚠️ MISFILED FIRST — this row was originally written to the BRONCO because Paul said 'the truck' while mid-Bronco-job; he corrected it to the gray F-150 the same session. It also briefly carried the Bronco's 11,032.5 odometer reading, which is NOT this vehicle's mileage and has been stripped. F-150 mileage at this service: UNKNOWN — ask Paul. ⚠️ PRESSURE NOT RECORDED — Paul said a number that did not transcribe cleanly ('that one fifty'). Left blank rather than guessed. It cannot be sanity-checked either, because THIS TRUCK'S TIRE DATA IS A HOLE: doorLabel is null (no placard ever read), there is no tires or tirePressure entry in maintenance, and this is the FIRST serviceHistory row the F-150 has ever had. Whether ~50 psi is correct or dangerous depends entirely on whether she wears P-metric (placard typically ~35 psi) or LT Load Range E (where 50+ psi can be right) — and nothing on file answers that. ⏳ CHEAP FIX, HIGH VALUE: next time Paul is at the truck, photograph (a) the driver door-jamb tire placard and (b) one tire sidewall. That single pass fills doorLabel, maintenance.tires, maintenance.tirePressure, and settles this row. ⏳ ALSO: one tire going low alone is a symptom, not an event — re-check the front left cold in a few days; a repeat drop means valve stem, bead, or puncture.",
           "confidence": "verified"
         }
-      ]
+      ],
+      "_curation": "trim 'STX' read off a body badge/VIN in the ChatGPT mine, 2026-07-22 — model-read, verify before ordering trim-specific parts."
     },
     {
       "id": "bronco-1989",
@@ -744,7 +746,7 @@
         "expires": "2027-06-03"
       },
       "trim": "Eddie Bauer",
-      "emoji": "🟢",
+      "emoji": "🚙",
       "image": "images/vehicles/bronco-1989.jpg",
       "engine": "5.8L 351W Windsor V8",
       "category": "classic",
@@ -1877,7 +1879,7 @@
       "id": "homelite-blower-vac",
       "group": "equipment",
       "name": "Homelite Gas Blower/Vac",
-      "trim": "Likely UT09521 family — 26cc 2-cycle (no model sticker found)",
+      "trim": "Likely UT09521 family — 26cc 2-cycle",
       "emoji": "🍃",
       "category": "lawn-care",
       "status": "Active",
@@ -1929,7 +1931,8 @@
       "manual": {
         "label": "Operator's manual (26cc blower/vac)",
         "url": "https://manuals.ttigroupna.com/system/files/9590/original/UT26HBV_HBVEMC_090155040_047_662_trilingual_05.pdf?2019"
-      }
+      },
+      "_curation": "No model sticker found on the unit — 'UT09521 family' is an inference; confirm from the housing casting or an IPL before ordering parts."
     },
     {
       "id": "echo-pb250ln",
@@ -1988,7 +1991,7 @@
       "id": "homelite-trimmer",
       "group": "equipment",
       "name": "Homelite UT33650A String Trimmer",
-      "trim": "26cc 2-cycle (straight or curved shaft — confirm)",
+      "trim": "26cc 2-cycle",
       "emoji": "🌾",
       "category": "lawn-care",
       "status": "Active",
@@ -2044,7 +2047,8 @@
       "manual": {
         "label": "Operator's manual (26cc trimmer)",
         "url": "https://manuals.ttigroupna.com/system/files/7376/original/UT33600_UT33650_trilingual_05.pdf?2017"
-      }
+      },
+      "_curation": "Straight or curved shaft — unconfirmed; check the unit before ordering shaft parts."
     },
     {
       "id": "husqvarna-mower",
@@ -2374,7 +2378,7 @@
           "source": "manuals/text/generac-7000exl.txt (Generac Portable Products 7000EXL Extended Life Generator, owner's manual, 24 pp — ingested 2026-08-04)"
         }
       },
-      "notes": "⚠️ **Decommissioned and fully drained of everything** (Paul, 2026-08-04) — fuel, oil, the lot. This is a deliberate storage state, not neglect, but it means the unit cannot simply be started: a drained machine needs fluids, almost certainly a battery, and a carburetor that has sat dry. **Paul's framing: the open question is whether we can get it running again, and that wants testing BEFORE cold weather** — a generator first tested during the outage it was bought for is a generator you don't have. ✅ **Manual ingested 2026-08-04** (24 pp → `manuals/text/generac-7000exl.txt`), which filled output, fuel, battery and storage as `verified` — and revealed that oil, spark plug and air filter are **not in this document at all**: it defers to a separate engine manual we do not hold. That is now the top research item. Surfaced 2026-08-04 from a bookmark-export analysis: five saved sources from Aug 2025 (four ‘won’t start after sitting’ walkthroughs plus the manual scan), and the machine was absent from this file entirely until now.",
+      "notes": "Decommissioned and fully drained — fuel, oil, the lot (Paul, August 2026). A deliberate storage state, not neglect — but it means the unit can't simply be started: a drained machine wants fresh fluids, almost certainly a battery, and a carburetor that has sat dry. The open question is whether it runs again, and that wants testing before cold weather — a generator first tested during the outage it was bought for is a generator you don't have.",
       "manual": {
         "label": "Owner's manual (7000EXL Extended Life, 24 pp) — generator only; the ENGINE manual is a separate document not held",
         "url": "https://archive.org/details/manualsbase-id-609002"
@@ -2384,7 +2388,8 @@
         "Confirm '7000EXL' against the unit's own data plate. The DOCUMENT is confirmed; the MACHINE is not.",
         "Source a 12 V starting battery — after a full drain it is very unlikely to have survived.",
         "Decide the recommissioning order and buy fuel stabilizer (the three supplied tubes are long gone)."
-      ]
+      ],
+      "_curation": "⚠️ **Decommissioned and fully drained of everything** (Paul, 2026-08-04) — fuel, oil, the lot. This is a deliberate storage state, not neglect, but it means the unit cannot simply be started: a drained machine needs fluids, almost certainly a battery, and a carburetor that has sat dry. **Paul's framing: the open question is whether we can get it running again, and that wants testing BEFORE cold weather** — a generator first tested during the outage it was bought for is a generator you don't have. ✅ **Manual ingested 2026-08-04** (24 pp → `manuals/text/generac-7000exl.txt`), which filled output, fuel, battery and storage as `verified` — and revealed that oil, spark plug and air filter are **not in this document at all**: it defers to a separate engine manual we do not hold. That is now the top research item. Surfaced 2026-08-04 from a bookmark-export analysis: five saved sources from Aug 2025 (four ‘won’t start after sitting’ walkthroughs plus the manual scan), and the machine was absent from this file entirely until now."
     },
     {
       "id": "nest-thermostat-family-room",
@@ -2572,7 +2577,7 @@
       "id": "washer-samsung-addwash",
       "group": "household-system",
       "name": "Samsung Front-Load Washer",
-      "trim": "AddWash · steam · 4.5 cu ft",
+      "trim": "AddWash · steam · 4.5 cu ft",
       "emoji": "🧺",
       "category": "laundry",
       "status": "Active — built October 2016, coming up on ten years of service.",

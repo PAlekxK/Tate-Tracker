@@ -4,6 +4,21 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-31 — A round of polish, top to bottom
+
+- **The radar's map is back to normal.** The map tiles under the rain had started
+  printing a watermark; the rain layer itself was always fine. New map source,
+  same radar.
+- **The bird list reads cleanly at larger text** — species names and their season
+  tags no longer crowd or cover each other.
+- **Where there's more to scroll, the edge now says so.** The wildlife tabs and
+  the Full Year plant grid fade at the edge when more is waiting — and Full Year
+  opens on the current month instead of January.
+- **One clock everywhere.** Every sunrise and sunset now reads like "7:23 PM" —
+  no more "19:58" hiding among them.
+- **The machines' cards read like the rest of the journal.** Our workshop
+  bookkeeping moved off the page; the facts about each machine stayed.
+
 ## 2026-08-31 — The house's systems, on the record
 
 - **Household Systems grew from one entry to five.** The propane furnace, the
