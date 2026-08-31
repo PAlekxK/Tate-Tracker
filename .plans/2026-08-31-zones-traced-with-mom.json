@@ -25,26 +25,47 @@
   "accuracyHonesty": "⚠️ READ THIS BEFORE TREATING ANY BOUNDARY AS A LINE. Paul, on finishing the trace (2026-08-31): 'in this picture it looks like there are a lot of shadows and that made it very hard to be exact with positioning and borders, especially with the low resolution.' That is a REAL and EXPLAINABLE limit, not carelessness — a 10 January capture at 34.5N puts the sun near 32 degrees at noon, so every tree, wall and structure throws a long shadow, and leaf-off bare branches add shadow texture over open ground. At 0.6 m/px there is no detail underneath a shadow to recover. So: these polygons record WHERE A NAME APPLIES, at the resolution of a name. They are NOT survey lines, NOT parcel boundaries, and NOT a basis for anything that turns on where an edge actually falls. The real budget is the NAIP spec (+/-20 ft) plus relief displacement at 2,959 ft plus the shadow ambiguity above — call it worse than +/-30 ft on any edge Paul could not positively see.",
   "sharedBorders": "Adjacent zones were traced independently, by eye, with no vertex snapping. Neighbouring boundaries WILL disagree by a few feet and leave slivers and overlaps between them. Deferred deliberately (Paul, 2026-08-31): border smoothing and snapping come after the zones exist, not before. Do not read a gap between two zones as unclaimed ground.",
   "status": "PROPOSAL — NOT FOLDED. zones.json is unchanged. Folding is a separate reviewed act: it must decide the four open questions below, and dispose of the four old draft zones that have no counterpart here (Fairway, Parking Bank, Upper-Uber Wall Area, House). plants.json references zones by zoneId, so a fold that drops or renames an id breaks those references.",
-  "openQuestions": [
-   "There is NO standalone 'Fairway' label any more — only 'Fairway Border'. Did the big open area get renamed (to 'The Green'?), or was Fairway just not re-labelled?",
-   "There is NO 'House' label. Keep the existing house polygon as-is?",
-   "The old draft zone 'Upper-Uber Wall Area' has no counterpart in the new set — retired, or renamed to one of the two Western patios?"
-  ],
+  "openQuestions": [],
   "counts": {
    "named": 17,
    "traced": 17,
    "untraced": [],
    "totalVertices": 304
   },
-  "snapshotAt": "2026-08-31T08:15:24-04:00",
+  "snapshotAt": "2026-08-31T09:05:36-04:00",
   "resolved": [
    {
     "date": "2026-08-31",
     "by": "paul-stated",
     "was": "'The Green' appears TWICE — once by the house, once on the open fairway. Two different places with the same name, or one of them a stray? They need distinct ids before either can be traced.",
     "ruling": "The SECOND 'The Green' — bottom-centre, on the open fairway — was an ERROR in the annotation, not a second place. Retired. The surviving 'The Green' is the one near the house (id the-green-house), which Paul traced with 20 points. Recorded rather than deleted so a later reader does not re-derive the duplicate from the annotated image and think a name was lost."
+   },
+   {
+    "date": "2026-08-31",
+    "by": "paul-stated",
+    "was": "There is NO standalone 'Fairway' label any more",
+    "ruling": "KEEP the old Fairway zone. paul-stated 2026-08-31: it simply was not re-labelled during the annotation. The big open area is still hers and still called Fairway; it is not superseded by 'The Green' and it is not out of scope. This also answers the acreage question — the traced 0.6 acres is the garden complex, and Fairway is additional."
+   },
+   {
+    "date": "2026-08-31",
+    "by": "paul-stated",
+    "was": "There is NO 'House' label",
+    "ruling": "KEEP the existing house polygon as-is. paul-stated 2026-08-31. It is a structure, not a named garden area — she would not think to name it, and its absence from her list is not a deletion."
+   },
+   {
+    "date": "2026-08-31",
+    "by": "paul-stated",
+    "was": "The old draft zone 'Upper-Uber Wall Area' has no counterpart",
+    "ruling": "NOT A ZONE AT ALL. paul-stated 2026-08-31: 'It's a wall. More of a dividing line than a zone.' It is a LINEAR feature. The awkward name was the record straining to express a line in a schema that only has polygons."
    }
-  ]
+  ],
+  "geometryGap": {
+   "found": "2026-08-31, from Paul's rulings on two roster entries.",
+   "statement": "The record has ONE geometry type — the polygon — and at least two of the things Mom named are not areas. 'Upper-Uber Wall Area' is a wall ('more of a dividing line than a zone') and 'The Path' is, in Paul's words, 'the same shape. More of a landmark than a zone.'",
+   "consequence": "'The Path' is currently recorded as a 17-vertex POLYGON. That is not a bad trace; it is a MIS-MODELLING — a line forced into an area, which then reports an acreage and a median slope that mean nothing. The same pressure produced the name 'Upper-Uber Wall Area' years earlier.",
+   "alsoMissing": "Paths, walls, the driveway, water lines, fences and the property line itself are all linear. None can be recorded today.",
+   "doNot": "Do not fold 'The Path' into zones.json as a polygon to make the set tidy."
+  }
  },
  "areas": [
   {
