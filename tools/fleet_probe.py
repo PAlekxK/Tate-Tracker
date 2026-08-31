@@ -170,14 +170,11 @@ def s4_stale_open(today, vehicles):
 SIGNALS = ("SEASON", "INBOX", "PROVENANCE", "STALE-OPEN")
 
 
-def run(today=None, quiet=False):
-    today = today or dt.date.today()
+def _signals(today, vehicles):
+    """(fired, unknown, lines) — ONE evaluation shared by run() and
+    write_state(), so the printed verdict and the published artifact can never
+    be derived from two different readings."""
     fired, unknown, lines = [], [], []
-    try:
-        vehicles = _vehicles()
-    except Unknown as e:
-        print(f"UNKNOWN — {e}")
-        return 2
     for name, fn in (("SEASON", lambda: s1_season(today, vehicles)),
                      ("INBOX", s2_inbox),
                      ("PROVENANCE", s3_provenance),
@@ -191,6 +188,76 @@ def run(today=None, quiet=False):
         lines.append(f"  {'⚡' if hit else '·'} {name:11s} {why}")
         if hit:
             fired.append(name)
+    return fired, unknown, lines
+
+
+STATE = os.path.join(REPO, "cycle", "fleet", "cycle-state.json")
+
+
+def write_state(today=None, path=None, _eval=None):
+    """Publish this loop's state, derived from the probe's OWN signals.
+
+    Built at meta-stack lap 8 `[paul-ruled 2026-08-31]`: this artifact was
+    hand-authored 2026-08-30 with a `generated_by` naming this script while the
+    script wrote nothing — a state file that would pass the "generated_by names
+    a producer" check while being false (the exact predicate the run-3 seed
+    proposed as the fix). The probe owns `state` / `why` / `next` /
+    `generated_at`; the LAP-CHRONICLE fields (`lap_count`, `last_lap`, `_note`)
+    belong to the lap that closes and are carried through UNCHANGED — this
+    writer never invents a lap.
+
+    Fail-loud: if any signal is UNKNOWN and none fired, nothing is written
+    (exit 2). The prior artifact then ages past the board's 2-day staleness
+    line and renders UNPROVEN — the fail-closed direction — instead of a fresh
+    stamp laundering an unreadable world into RESTING.
+    """
+    today = today or dt.date.today()
+    path = path or STATE
+    if _eval is None:
+        vehicles = _vehicles()                      # Unknown propagates = loud
+        fired, unknown, _ = _signals(today, vehicles)
+    else:
+        fired, unknown = _eval
+    if unknown and not fired:
+        print(f"UNKNOWN — {', '.join(unknown)} unreadable; state NOT written")
+        return 2
+    try:
+        prior = json.load(open(path, encoding="utf-8"))
+    except (OSError, ValueError):
+        prior = {}
+    lap_count = prior.get("lap_count", 0)
+    doc = {
+        "state": "FIRED" if fired else "RESTING",
+        "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generated_by": "tools/fleet_probe.py --write-state",
+        "lap_count": lap_count,
+        "last_lap": prior.get("last_lap",
+                              {"lap": 0, "date": None,
+                               "outcome": "none — no lap has closed"}),
+        "next": (f"lap {lap_count + 1} — probe FIRED on {', '.join(fired)}"
+                 if fired else None),
+        "why": (f"probe FIRED on {', '.join(fired)}" if fired
+                else f"{len(SIGNALS)} signal(s) checked, none fired"),
+    }
+    if prior.get("_note"):
+        doc["_note"] = prior["_note"]
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(doc, fh, indent=1, ensure_ascii=False)
+        fh.write("\n")
+    os.replace(tmp, path)
+    print(f"cycle-state: {doc['state']} → {path}")
+    return 0
+
+
+def run(today=None, quiet=False):
+    today = today or dt.date.today()
+    try:
+        vehicles = _vehicles()
+    except Unknown as e:
+        print(f"UNKNOWN — {e}")
+        return 2
+    fired, unknown, lines = _signals(today, vehicles)
     if not quiet:
         print(f"fleet_probe — {today.isoformat()}\n")
         print("\n".join(lines))
@@ -280,6 +347,31 @@ def selftest():
                             [{"id": "x", "openMechanicalItems": {"items": [{"item": "y"}]}}])[0])
 
     check("the real vehicles.json is readable", len(_vehicles()) > 10)
+
+    # write_state, both ways + the chronicle-preservation invariant. _eval
+    # injects the verdict so this proves the WRITER offline; the signals above
+    # already prove the evaluation.
+    with tempfile.TemporaryDirectory() as td:
+        sp = os.path.join(td, "cycle-state.json")
+        json.dump({"lap_count": 3, "last_lap": {"lap": 3, "date": "2026-08-01",
+                                                "outcome": "clean"}},
+                  open(sp, "w"))
+        write_state(path=sp, _eval=(["INBOX"], []))
+        d = json.load(open(sp))
+        check("write_state publishes FIRED when a signal fired",
+              d["state"] == "FIRED" and "INBOX" in d["why"])
+        check("write_state CARRIES the lap chronicle, never invents it",
+              d["lap_count"] == 3 and d["last_lap"]["lap"] == 3)
+        check("write_state's generated_by is TRUE (names the flag that ran)",
+              d["generated_by"] == "tools/fleet_probe.py --write-state")
+        write_state(path=sp, _eval=([], []))
+        check("write_state publishes RESTING when all quiet",
+              json.load(open(sp))["state"] == "RESTING")
+        before = open(sp).read()
+        rc = write_state(path=sp, _eval=([], ["SEASON"]))
+        check("write_state refuses to write over an UNKNOWN world (exit 2, file untouched)",
+              rc == 2 and open(sp).read() == before)
+
     print("\n" + ("selftest PASSED" if ok else "selftest FAILED"))
     return 0 if ok else 1
 
@@ -288,8 +380,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--write-state", action="store_true",
+                    help="derive and publish cycle/fleet/cycle-state.json")
     a = ap.parse_args()
-    return selftest() if a.selftest else run(quiet=a.quiet)
+    if a.selftest:
+        return selftest()
+    if a.write_state:
+        try:
+            return write_state()
+        except Unknown as e:
+            print(f"UNKNOWN — {e}; state NOT written")
+            return 2
+    return run(quiet=a.quiet)
 
 
 if __name__ == "__main__":

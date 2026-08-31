@@ -1,13 +1,14 @@
 {
- "state": "ARMED",
- "generated_at": "2026-08-30T19:59:33Z",
- "generated_by": "declared by hand 2026-08-30; thereafter tools/fleet_probe.py + the lap that closes",
+ "state": "FIRED",
+ "generated_at": "2026-08-31T13:53:30Z",
+ "generated_by": "tools/fleet_probe.py --write-state",
  "lap_count": 0,
  "last_lap": {
   "lap": 0,
   "date": null,
-  "outcome": "none \u2014 the loop was declared 2026-08-30 and lap 1 has not run"
+  "outcome": "none — the loop was declared 2026-08-30 and lap 1 has not run"
  },
- "next": "lap 1 \u2014 probe FIRED on INBOX(2) \u00b7 PROVENANCE(6) \u00b7 STALE-OPEN(3); SEASON rests at 48d",
- "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md \u2014 last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. lap 0 / outcome none is the honest reading of a declared-but-never-run loop; it is NOT a closed lap."
+ "next": "lap 1 — probe FIRED on INBOX, PROVENANCE, STALE-OPEN",
+ "why": "probe FIRED on INBOX, PROVENANCE, STALE-OPEN",
+ "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. lap 0 / outcome none is the honest reading of a declared-but-never-run loop; it is NOT a closed lap."
 }
