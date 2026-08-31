@@ -168,6 +168,7 @@
       <button class="tbtn on" id="tdone">Traced <kbd>T</kbd></button>
       <button class="tbtn" id="tref">Her labels <kbd>R</kbd></button>
       <button class="tbtn on" id="tlabels">Labels: Normal <kbd>L</kbd></button>
+      <button class="tbtn" id="tsmooth">Smooth <kbd>S</kbd></button>
     </div>
 
     <div id="layers">
@@ -257,6 +258,26 @@ const ns="http://www.w3.org/2000/svg";
 let AREAS=[],LINES=[],META={},draftZones=[],activeId=null,activeKind="area",drafting=[];
 // Snap radius is in SCREEN pixels, so snapping feels identical at every zoom.
 let snapTo=null; const SNAP_PX=11;
+// Smoothing is a VIEW, never a write. The stored vertices are what Paul actually
+// clicked; rounding them would overwrite capture with interpretation, and would
+// pull apart the vertices that snapping just made identical between neighbours.
+let smoothOn=false;
+function chaikin(pts,closed,it){
+  let p=pts.slice();
+  for(let k=0;k<(it||2);k++){
+    const out=[];
+    if(!closed)out.push(p[0]);
+    const n=closed?p.length:p.length-1;
+    for(let i=0;i<n;i++){
+      const a=p[i],b=p[(i+1)%p.length];
+      out.push([0.75*a[0]+0.25*b[0],0.75*a[1]+0.25*b[1]]);
+      out.push([0.25*a[0]+0.75*b[0],0.25*a[1]+0.75*b[1]]);
+    }
+    if(!closed)out.push(p[p.length-1]);
+    p=out;
+  }
+  return p;
+}
 let showDraft=true,showDone=true;
 // The lidar rasters were rendered to bounds byte-identical with the NAIP base,
 // so they register exactly by construction — no transform of their own.
@@ -497,7 +518,8 @@ function drawDone(){
   const tracing=drafting.length>0;
   AREAS.forEach((a,i)=>{
     if(!a.vertices||a.vertices.length<3)return;
-    const pts=a.vertices.map(v=>[toX(v[0]),toY(v[1])]);
+    let pts=a.vertices.map(v=>[toX(v[0]),toY(v[1])]);
+    if(smoothOn)pts=chaikin(pts,true);
     const c=colorOf(i);
     const p=document.createElementNS(ns,"polygon");
     p.setAttribute("points",pts.map(p=>p[0]+","+p[1]).join(" "));
@@ -531,7 +553,9 @@ function drawLines(){
   const g=$("lineg"); g.innerHTML="";
   LINES.forEach(L=>{
     if(!L.vertices||L.vertices.length<2)return;
-    const pts=L.vertices.map(v=>toX(v[0])+","+toY(v[1])).join(" ");
+    let lv=L.vertices.map(v=>[toX(v[0]),toY(v[1])]);
+    if(smoothOn)lv=chaikin(lv,false);
+    const pts=lv.map(v=>v[0]+","+v[1]).join(" ");
     const act=L.id===activeId;
     const casing=document.createElementNS(ns,"polyline");  // dark casing, so a pale
     casing.setAttribute("points",pts);                     // line still reads on snow
@@ -740,6 +764,8 @@ window.addEventListener("keydown",e=>{
   if(e.key==="r"||e.key==="R")toggleRef();
   if(e.key==="0")fitAll();
   if(e.key==="l"||e.key==="L")cycleLabels();
+  if(e.key==="s"||e.key==="S"){smoothOn=!smoothOn;$("tsmooth").classList.toggle("on",smoothOn);
+                               drawDone();drawLines();}
   if(e.key==="b"||e.key==="B")cycleLayer();
   if(e.key==="p"||e.key==="P"){platShown=!platShown;applyPlat();}
   if(e.key===" "){e.preventDefault(); if(!peeking&&topLayer!=="off"){peeking=true;applyLayers();}}
@@ -779,6 +805,8 @@ $("tdraft").onclick=()=>{showDraft=!showDraft;$("tdraft").classList.toggle("on",
 $("tdone").onclick=()=>{showDone=!showDone;$("tdone").classList.toggle("on",showDone);drawDone();};
 $("tref").onclick=toggleRef;
 $("tlabels").onclick=cycleLabels;
+$("tsmooth").onclick=()=>{smoothOn=!smoothOn;$("tsmooth").classList.toggle("on",smoothOn);
+                          drawDone();drawLines();};
 LAYERS.forEach(k=>$("ly-"+k).onclick=()=>setLayer(k));
 $("ly-op").oninput=e=>{topOpacity=(+e.target.value)/100;applyLayers();};
 $("pl-show").onclick=()=>{platShown=!platShown;applyPlat();};
