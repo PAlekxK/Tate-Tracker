@@ -10303,7 +10303,15 @@ async function queueZoneAudio(payload, zid, flowId) {
     at: new Date().toISOString()
   });
 }
-const ZONE_AUDIO_HELD = "Set down — it'll reach the record next time you're near the house. ✓";
+// Wording by content-steward, 2026-08-31. The head is lifted VERBATIM from the
+// text outbox's shipped ack (viewer.html:11997) — the same state already had
+// ratified copy on this surface, and "Set down" would have given one state two
+// vocabularies. The two states are distinguished by NAMING THE LOCATION in words
+// she reads — "on your phone" vs "in the record" — not by a mark she must decode.
+// The ✓ stays: its ratified meaning here is "we have your words", which is true
+// of both. Paul: "Mom understands WiFi and the connectivity situation."
+const ZONE_AUDIO_HELD =
+  "Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓";
 
 // navigator.onLine is NOT a route test: at the edge of house Wi-Fi the phone
 // reports online while requests time out. Match the payload, not the container —
@@ -10483,13 +10491,17 @@ const ZonePanel = (function () {
     setGrowStatus("");
     // Back in range? Send whatever she recorded out of range, and if any is still
     // waiting, say so — she should never have to wonder whether it survived.
+    // One consistent world, three nouns — your phone · the record · the house Wi-Fi.
+    // No ✓ on the waiting line: a tick answers something she just did, and this is
+    // the panel telling her where things stand before she has done anything.
     ZoneAudioOutbox.flush().then(async (sent) => {
       const left = await ZoneAudioOutbox.count();
-      if (left > 0) setGrowStatus(left + (left === 1 ? " recording is" : " recordings are")
-        + " still waiting for the house Wi-Fi.");
+      if (left > 0) setGrowStatus(left === 1
+        ? "1 recording is still on your phone — it'll go to the record when you're near the house Wi-Fi."
+        : left + " recordings are still on your phone — they'll go to the record when you're near the house Wi-Fi.");
       else if (sent > 0) setGrowStatus(sent === 1
         ? "The recording you made earlier has reached the record. ✓"
-        : "The " + sent + " recordings you made earlier have reached the record. ✓");
+        : "Your " + sent + " recordings from earlier have reached the record. ✓");
     });
     backdrop.classList.add("open");
     requestAnimationFrame(() => panel.classList.add("open"));
@@ -11994,7 +12006,7 @@ const MomQueue = (function () {
   // words on screen where she can see them.
   function ackFor(result) {
     if (result === "sent") return showAck("Noted — it's in the record. ✓");
-    if (result === "queued") return showAck("Saved on your phone — it'll reach the record when you're back in signal. ✓");
+    if (result === "queued") return showAck("Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓");
     return showAck("That didn't get through — your words are still here. Worth trying again in a moment.", true);
   }
 
@@ -12527,7 +12539,7 @@ const FeedbackRibbon = (function () {
         status.style.display = "block";
         status.textContent = result === "sent"
           ? "Noted — it's in the record. ✓"
-          : "Saved on your phone — it'll reach the record when you're back in signal. ✓";
+          : "Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓";
         ta.disabled = true;
         setTimeout(close, 2400);
       } else {
