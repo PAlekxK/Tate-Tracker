@@ -14894,6 +14894,14 @@ async function initRadarMap() {
     { maxZoom: 16 }
   ).addTo(_radarMap);
 
+  // The matching label layer (same keyless service) — the gray canvas alone has
+  // almost no city names at regional zoom, and Chattanooga/Atlanta are how she
+  // orients. zIndex above the rain frames so labels stay readable through them.
+  L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+    { maxZoom: 16, zIndex: 10 }
+  ).addTo(_radarMap);
+
   // Property marker
   L.circleMarker([lat, lon], {
     radius: 6, color: "#2a7a4a", fillColor: "#4aaa6a",
