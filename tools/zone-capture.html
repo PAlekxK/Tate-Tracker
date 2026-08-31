@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fernwood — live geographic capture</title>
+<style>
+  :root{
+    --ink:#f2efe9; --dim:#9aa39c; --line:#2f3630; --panel:#1b201c; --panel2:#232a24;
+    --gold:#c9a227; --ok:#7fa86b;
+    --t-structure:#e0a94a; --t-water:#5aa9d6; --t-access:#e07a3f; --t-utility:#d9534f;
+    --t-planting:#7fa86b; --t-boundary:#c07fc0; --t-terrain:#b09070; --t-story:#9b8fd6;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:#141815;color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;overflow:hidden}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  /* ---------- top bar ---------- */
+  #top{height:56px;display:flex;align-items:center;gap:18px;padding:0 16px;
+       background:var(--panel);border-bottom:1px solid var(--line);position:relative;z-index:40}
+  #top h1{font-size:15px;font-weight:600;margin:0;letter-spacing:.02em;white-space:nowrap}
+  #top h1 span{color:var(--dim);font-weight:400}
+  .stat{font-size:12px;color:var(--dim);white-space:nowrap}
+  .stat b{color:var(--ink);font-size:15px;font-weight:600}
+  #savestate{margin-left:auto;font-size:12px;color:var(--dim);white-space:nowrap}
+  #savestate.on{color:var(--ok)}
+  #savestate.err{color:#d9534f}
+  #clockbtn{border:1px solid var(--line);border-radius:6px;padding:7px 13px;font-size:13px;
+            background:var(--panel2);white-space:nowrap}
+  #clockbtn.live{border-color:var(--gold);color:var(--gold)}
+  #clockbtn.live::before{content:"●";margin-right:7px;animation:pulse 1.6s infinite}
+  @keyframes pulse{50%{opacity:.25}}
+
+  /* ---------- layout ---------- */
+  #wrap{display:flex;height:calc(100% - 56px)}
+  #maparea{flex:1;position:relative;overflow:hidden;background:#0d0f0e;cursor:crosshair}
+  #maparea.panning{cursor:grabbing}
+  #stage{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
+  #stage img{display:block;width:1500px;height:1500px;user-select:none;-webkit-user-drag:none}
+  #stage svg{position:absolute;top:0;left:0;width:1500px;height:1500px;overflow:visible;pointer-events:none}
+  #pins{position:absolute;inset:0;pointer-events:none}
+
+  .pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer}
+  .pin .dot{width:13px;height:13px;border-radius:50%;border:2px solid #12150f;
+            box-shadow:0 0 0 1px rgba(255,255,255,.55),0 1px 5px rgba(0,0,0,.6)}
+  .pin.approx .dot{border-style:dashed;opacity:.9}
+  .pin .lbl{position:absolute;left:13px;top:-5px;white-space:nowrap;font-size:11.5px;
+            font-weight:600;padding:2px 6px;border-radius:4px;background:rgba(10,13,10,.82);
+            text-shadow:0 1px 2px #000;letter-spacing:.01em}
+  .pin.sel .lbl{outline:1px solid var(--gold)}
+  .pin.sel .dot{box-shadow:0 0 0 3px var(--gold)}
+  .halo{fill:currentColor;opacity:.13;stroke:currentColor;stroke-opacity:.45;stroke-dasharray:6 5}
+
+  /* ---------- toolbar ---------- */
+  #tools{position:absolute;top:12px;left:12px;z-index:20;display:flex;gap:6px;flex-wrap:wrap;
+         max-width:560px;background:rgba(20,24,21,.93);padding:8px;border-radius:9px;
+         border:1px solid var(--line);backdrop-filter:blur(6px)}
+  .tbtn{display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:6px;
+        border:1px solid transparent;font-size:12.5px;color:var(--dim)}
+  .tbtn i{width:10px;height:10px;border-radius:50%;background:currentColor;font-style:normal}
+  .tbtn kbd{font:11px ui-monospace,Menlo,monospace;color:#6d7670}
+  .tbtn.on{background:var(--panel2);border-color:var(--line);color:var(--ink)}
+  #modebar{position:absolute;bottom:12px;left:12px;z-index:20;display:flex;gap:6px;
+           background:rgba(20,24,21,.93);padding:8px;border-radius:9px;border:1px solid var(--line)}
+  #hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:15;
+        font-size:12px;color:var(--dim);background:rgba(20,24,21,.9);padding:6px 12px;
+        border-radius:20px;border:1px solid var(--line);pointer-events:none;white-space:nowrap}
+
+  /* ---------- entry editor ---------- */
+  #editor{position:absolute;left:12px;bottom:60px;width:392px;z-index:30;display:none;
+          background:var(--panel);border:1px solid var(--gold);border-radius:11px;padding:14px;
+          box-shadow:0 12px 40px rgba(0,0,0,.6)}
+  #editor.show{display:block}
+  #editor .cap{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin-bottom:7px}
+  #editor input,#editor textarea{width:100%;background:#0f120f;border:1px solid var(--line);
+     color:var(--ink);border-radius:7px;padding:10px 11px;font:inherit;margin-bottom:9px}
+  #editor input{font-size:18px;font-weight:600}
+  #editor textarea{height:70px;resize:vertical;font-size:13.5px;line-height:1.5}
+  #editor input:focus,#editor textarea:focus{outline:none;border-color:var(--gold)}
+  .row{display:flex;gap:7px;align-items:center}
+  .row .grow{flex:1}
+  .prec{display:flex;gap:0;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .prec button{padding:7px 11px;font-size:12px;color:var(--dim)}
+  .prec button.on{background:var(--gold);color:#141815;font-weight:600}
+  .go{background:var(--gold);color:#141815;font-weight:600;padding:9px 17px;border-radius:7px}
+  .ghost{border:1px solid var(--line);padding:9px 13px;border-radius:7px;color:var(--dim)}
+
+  /* ---------- right rail ---------- */
+  #rail{width:342px;background:var(--panel);border-left:1px solid var(--line);
+        display:flex;flex-direction:column}
+  #tabs{display:flex;border-bottom:1px solid var(--line);flex:none}
+  #tabs button{flex:1;padding:13px 8px;font-size:12.5px;color:var(--dim);border-bottom:2px solid transparent}
+  #tabs button.on{color:var(--ink);border-bottom-color:var(--gold)}
+  .pane{flex:1;overflow-y:auto;display:none}
+  .pane.on{display:block}
+
+  .item{padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer}
+  .item:hover{background:var(--panel2)}
+  .item .hd{display:flex;align-items:center;gap:8px}
+  .item .sw{width:9px;height:9px;border-radius:50%;flex:none}
+  .item .nm{font-weight:600;font-size:13.5px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .item .tm{font:11px ui-monospace,Menlo,monospace;color:#6d7670;flex:none}
+  .item .nt{font-size:12.5px;color:var(--dim);margin:5px 0 0 17px;line-height:1.5;
+            border-left:2px solid var(--line);padding-left:9px;white-space:pre-wrap}
+  .item .mt{font-size:11px;color:#6d7670;margin:5px 0 0 17px}
+  .empty{padding:32px 22px;color:var(--dim);font-size:13px;line-height:1.7;text-align:center}
+
+  .zrow{padding:11px 14px;border-bottom:1px solid var(--line)}
+  .zrow .hd{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+  .zrow .nm{font-weight:600;font-size:13.5px;flex:1}
+  .zrow .rul{display:flex;gap:5px}
+  .zrow .rul button{flex:1;padding:6px 4px;font-size:11.5px;border:1px solid var(--line);
+                    border-radius:5px;color:var(--dim)}
+  .zrow .rul button.on{border-color:var(--gold);color:var(--gold);background:rgba(201,162,39,.1)}
+  .zrow input{width:100%;margin-top:7px;background:#0f120f;border:1px solid var(--line);
+              color:var(--ink);border-radius:6px;padding:7px 9px;font:inherit;font-size:12.5px}
+  .zone-poly{fill-opacity:.1;stroke-opacity:.85}
+  .zone-lbl{fill:#fff;font-size:15px;font-weight:600;paint-order:stroke;
+            stroke:#000;stroke-width:3.5px;stroke-linejoin:round}
+  #foot{flex:none;padding:10px 14px;border-top:1px solid var(--line);font-size:11px;
+        color:#6d7670;line-height:1.6}
+  #foot code{color:var(--dim);font-size:10.5px;word-break:break-all}
+</style>
+</head>
+<body>
+
+<div id="top">
+  <h1>Fernwood <span>· live geographic capture</span></h1>
+  <div class="stat"><b id="n">0</b> captured</div>
+  <div class="stat"><b id="nz">0</b> zones ruled</div>
+  <button id="clockbtn">Start audio clock</button>
+  <div id="savestate">ready</div>
+</div>
+
+<div id="wrap">
+  <div id="maparea">
+    <div id="stage">
+      <img id="base" src="/images/property-map/base-naip-2022-01-leafoff.png" alt="">
+      <svg id="svg" viewBox="0 0 1500 1500"><g id="zonesg"></g><g id="shapesg"></g></svg>
+    </div>
+    <div id="pins"></div>
+
+    <div id="tools"></div>
+
+    <div id="modebar">
+      <button class="tbtn on" id="mode-point">Point <kbd>P</kbd></button>
+      <button class="tbtn" id="mode-area">Area <kbd>A</kbd></button>
+      <button class="tbtn" id="togglezones">Draft zones <kbd>Z</kbd></button>
+      <button class="tbtn" id="undo">Undo <kbd>⌫</kbd></button>
+      <button class="tbtn" id="fitbtn">Fit <kbd>0</kbd></button>
+    </div>
+
+    <div id="hint">Click the spot she's naming</div>
+
+    <div id="editor">
+      <div class="cap" id="ecap">New point</div>
+      <input id="ename" placeholder="What is it called?" autocomplete="off" spellcheck="false">
+      <textarea id="enote" placeholder="Her words — verbatim. What it was, who made it, what happened here."></textarea>
+      <div class="row">
+        <div class="prec">
+          <button id="p-exact" class="on">Exact</button>
+          <button id="p-approx">About here</button>
+        </div>
+        <div class="grow"></div>
+        <button class="ghost" id="ecancel">Esc</button>
+        <button class="go" id="esave">Save ⏎</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="rail">
+    <div id="tabs">
+      <button class="on" data-p="list">Captured</button>
+      <button data-p="zones">Draft zones</button>
+    </div>
+    <div class="pane on" id="pane-list"></div>
+    <div class="pane" id="pane-zones"></div>
+    <div id="foot">
+      NAIP 2022-01-10, leaf-off · ±20 ft. Points name a place; they don't survey one.<br>
+      <code id="savepath">…</code>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const B={west:-84.36990044993301,south:34.54754054054054,east:-84.364899550067,north:34.55165945945946};
+const W=1500,H=1500;
+const toLon=x=>B.west+(x/W)*(B.east-B.west);
+const toLat=y=>B.north-(y/H)*(B.north-B.south);
+const toX=lon=>((lon-B.west)/(B.east-B.west))*W;
+const toY=lat=>((B.north-lat)/(B.north-B.south))*H;
+const r7=v=>Math.round(v*1e7)/1e7;
+
+const TYPES=[
+  {id:"structure",label:"Structure",  key:"1",css:"--t-structure"},
+  {id:"water",    label:"Water",      key:"2",css:"--t-water"},
+  {id:"access",   label:"Road / gate",key:"3",css:"--t-access"},
+  {id:"utility",  label:"Utility",    key:"4",css:"--t-utility"},
+  {id:"planting", label:"Tree / bed", key:"5",css:"--t-planting"},
+  {id:"boundary", label:"Boundary",   key:"6",css:"--t-boundary"},
+  {id:"terrain",  label:"Terrain",    key:"7",css:"--t-terrain"},
+  {id:"story",    label:"Story",      key:"8",css:"--t-story"}
+];
+const COLOR=Object.fromEntries(TYPES.map(t=>[t.id,getComputedStyle(document.documentElement).getPropertyValue(t.css).trim()]));
+
+let S={entries:[],zoneRulings:[],audioClockStart:null};
+let zones=[],showZones=true,mode="point",curType="structure";
+let draft=null,drafting=[],selId=null;
+let view={x:0,y:0,s:1};
+
+const $=id=>document.getElementById(id);
+const el=(t,c,x)=>{const n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n;};
+
+/* ---------------- transform ---------------- */
+function applyView(){
+  $("stage").style.transform=`translate(${view.x}px,${view.y}px) scale(${view.s})`;
+  $("svg").querySelectorAll("[data-sw]").forEach(n=>n.setAttribute("stroke-width",(+n.dataset.sw)/view.s));
+  placePins();
+}
+function fit(){
+  const r=$("maparea").getBoundingClientRect();
+  view.s=Math.min(r.width/W,r.height/H)*0.98;
+  view.x=(r.width-W*view.s)/2; view.y=(r.height-H*view.s)/2;
+  applyView();
+}
+function fitZones(){
+  const xs=[],ys=[];
+  zones.forEach(z=>(z.vertices||[]).forEach(v=>{xs.push(toX(v[0]));ys.push(toY(v[1]));}));
+  S.entries.forEach(e=>{
+    if(e.kind==="point"){xs.push(toX(e.lon));ys.push(toY(e.lat));}
+    else (e.vertices||[]).forEach(v=>{xs.push(toX(v[0]));ys.push(toY(v[1]));});
+  });
+  if(xs.length<2)return fit();
+  const pad=110;
+  const x0=Math.min(...xs)-pad,x1=Math.max(...xs)+pad;
+  const y0=Math.min(...ys)-pad,y1=Math.max(...ys)+pad;
+  const r=$("maparea").getBoundingClientRect();
+  view.s=Math.min(r.width/(x1-x0),r.height/(y1-y0));
+  view.x=(r.width-(x1-x0)*view.s)/2-x0*view.s;
+  view.y=(r.height-(y1-y0)*view.s)/2-y0*view.s;
+  applyView(); drawShapes();
+}
+function flyTo(lon,lat){
+  const r=$("maparea").getBoundingClientRect();
+  view.s=Math.max(view.s,2.2);
+  view.x=r.width/2-toX(lon)*view.s; view.y=r.height/2-toY(lat)*view.s;
+  applyView();
+}
+
+/* ---------------- rendering ---------------- */
+function placePins(){
+  const layer=$("pins"); layer.innerHTML="";
+  S.entries.filter(e=>e.kind==="point").forEach(e=>{
+    const p=el("div","pin"+(e.precision==="approx"?" approx":"")+(e.id===selId?" sel":""));
+    p.style.left=(view.x+toX(e.lon)*view.s)+"px";
+    p.style.top =(view.y+toY(e.lat)*view.s)+"px";
+    const d=el("div","dot"); d.style.background=COLOR[e.type]||"#ccc"; p.appendChild(d);
+    const l=el("div","lbl",e.name); l.style.color=COLOR[e.type]||"#ccc"; p.appendChild(l);
+    p.onclick=ev=>{ev.stopPropagation();select(e.id);};
+    layer.appendChild(p);
+  });
+  if(draft&&draft.kind==="point"){
+    const p=el("div","pin sel"+(draft.precision==="approx"?" approx":""));
+    p.style.left=(view.x+toX(draft.lon)*view.s)+"px";
+    p.style.top =(view.y+toY(draft.lat)*view.s)+"px";
+    const d=el("div","dot"); d.style.background=COLOR[curType]; p.appendChild(d);
+    layer.appendChild(p);
+  }
+}
+function drawShapes(){
+  const g=$("shapesg"); g.innerHTML="";
+  const ns="http://www.w3.org/2000/svg";
+  S.entries.forEach(e=>{
+    if(e.kind==="point"&&e.precision==="approx"){
+      const c=document.createElementNS(ns,"circle");
+      c.setAttribute("cx",toX(e.lon)); c.setAttribute("cy",toY(e.lat));
+      c.setAttribute("r",40); c.setAttribute("class","halo");
+      c.setAttribute("data-sw",1.5); c.style.color=COLOR[e.type];
+      g.appendChild(c);
+    }
+    if(e.kind==="area"){
+      const p=document.createElementNS(ns,"polygon");
+      p.setAttribute("points",e.vertices.map(v=>toX(v[0])+","+toY(v[1])).join(" "));
+      p.setAttribute("fill",COLOR[e.type]); p.setAttribute("fill-opacity",".22");
+      p.setAttribute("stroke",COLOR[e.type]); p.setAttribute("data-sw",3);
+      g.appendChild(p);
+      const c=centroid(e.vertices);
+      const t=document.createElementNS(ns,"text");
+      t.setAttribute("x",toX(c[0])); t.setAttribute("y",toY(c[1]));
+      t.setAttribute("text-anchor","middle"); t.setAttribute("class","zone-lbl");
+      t.textContent=e.name; g.appendChild(t);
+    }
+  });
+  if(drafting.length){
+    const p=document.createElementNS(ns,"polyline");
+    p.setAttribute("points",drafting.map(v=>v[0]+","+v[1]).join(" "));
+    p.setAttribute("fill","none"); p.setAttribute("stroke",COLOR[curType]);
+    p.setAttribute("data-sw",3); p.setAttribute("stroke-dasharray","8 6");
+    g.appendChild(p);
+    drafting.forEach(v=>{
+      const c=document.createElementNS(ns,"circle");
+      c.setAttribute("cx",v[0]);c.setAttribute("cy",v[1]);c.setAttribute("r",5/view.s);
+      c.setAttribute("fill",COLOR[curType]); g.appendChild(c);
+    });
+  }
+  applyStroke();
+}
+function applyStroke(){
+  $("svg").querySelectorAll("[data-sw]").forEach(n=>n.setAttribute("stroke-width",(+n.dataset.sw)/view.s));
+}
+function centroid(vs){
+  let x=0,y=0; vs.forEach(v=>{x+=v[0];y+=v[1];}); return [x/vs.length,y/vs.length];
+}
+function drawZones(){
+  const g=$("zonesg"); g.innerHTML="";
+  if(!showZones)return;
+  const ns="http://www.w3.org/2000/svg";
+  zones.forEach(z=>{
+    if(!z.vertices||z.vertices.length<3)return;
+    const col=z.color?`rgb(${z.color.join(",")})`:"#8fa";
+    const p=document.createElementNS(ns,"polygon");
+    p.setAttribute("points",z.vertices.map(v=>toX(v[0])+","+toY(v[1])).join(" "));
+    p.setAttribute("class","zone-poly"); p.setAttribute("fill",col);
+    p.setAttribute("stroke",col); p.setAttribute("data-sw",2.5);
+    g.appendChild(p);
+    const c=centroid(z.vertices.map(v=>[toX(v[0]),toY(v[1])]));
+    const t=document.createElementNS(ns,"text");
+    t.setAttribute("x",c[0]); t.setAttribute("y",c[1]);
+    t.setAttribute("text-anchor","middle"); t.setAttribute("class","zone-lbl");
+    t.setAttribute("opacity",".72"); t.textContent=z.name;
+    g.appendChild(t);
+  });
+  applyStroke();
+}
+
+/* ---------------- clock ---------------- */
+function elapsed(){
+  if(!S.audioClockStart)return null;
+  return Math.round((Date.now()-S.audioClockStart)/1000);
+}
+function mmss(s){
+  if(s==null)return "";
+  return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+}
+setInterval(()=>{
+  if(S.audioClockStart) $("clockbtn").textContent="audio "+mmss(elapsed());
+},1000);
+
+/* ---------------- persistence ---------------- */
+let saveT=null,saving=false;
+function save(){
+  clearTimeout(saveT);
+  saveT=setTimeout(async()=>{
+    saving=true; $("savestate").textContent="saving…"; $("savestate").className="";
+    try{
+      const r=await fetch("/api/save",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(S)});
+      if(!r.ok)throw new Error(r.status);
+      const t=new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",second:"2-digit"});
+      $("savestate").textContent="saved to disk · "+t; $("savestate").className="on";
+    }catch(e){
+      $("savestate").textContent="NOT SAVED — "+e.message; $("savestate").className="err";
+    }
+    saving=false;
+  },300);
+}
+function commit(){ renderAll(); save(); }
+function renderAll(){
+  $("n").textContent=S.entries.length;
+  $("nz").textContent=S.zoneRulings.length;
+  drawShapes(); placePins(); renderList(); renderZonePane();
+}
+
+/* ---------------- list ---------------- */
+function renderList(){
+  const p=$("pane-list"); p.innerHTML="";
+  if(!S.entries.length){
+    p.appendChild(el("div","empty","Nothing captured yet.\n\nPick a type, then click the spot on the map she's talking about. Type the name she uses — hers, not the one on a deed."));
+    return;
+  }
+  [...S.entries].reverse().forEach(e=>{
+    const d=el("div","item"+(e.id===selId?" sel":""));
+    const hd=el("div","hd");
+    const sw=el("span","sw"); sw.style.background=COLOR[e.type]; hd.appendChild(sw);
+    hd.appendChild(el("span","nm",e.name));
+    if(e.tSec!=null)hd.appendChild(el("span","tm",mmss(e.tSec)));
+    d.appendChild(hd);
+    if(e.note)d.appendChild(el("div","nt",e.note));
+    const bits=[e.kind==="area"?"area · "+e.vertices.length+" pts":"point"];
+    if(e.precision==="approx")bits.push("about here");
+    bits.push(e.kind==="point"?e.lat.toFixed(5)+", "+e.lon.toFixed(5):"");
+    d.appendChild(el("div","mt",bits.filter(Boolean).join(" · ")));
+    d.onclick=()=>{select(e.id); if(e.kind==="point")flyTo(e.lon,e.lat); else{const c=centroid(e.vertices);flyTo(c[0],c[1]);} };
+    p.appendChild(d);
+  });
+}
+function select(id){ selId=id; placePins(); renderList(); }
+
+/* ---------------- zone ruling pane ---------------- */
+const RULINGS=[["confirmed","Right"],["rename","Wrong name"],["wrong","Wrong shape"],["unsure","Not sure"]];
+function renderZonePane(){
+  const p=$("pane-zones"); p.innerHTML="";
+  if(!zones.length){p.appendChild(el("div","empty","zones.json didn't load."));return;}
+  p.appendChild(el("div","empty","All 10 zones below are still status: draft — Paul's guesses, never checked with her. Ask about each one by NAME and rule it."));
+  zones.forEach(z=>{
+    const cur=S.zoneRulings.find(r=>r.zoneId===z.id);
+    const row=el("div","zrow");
+    const hd=el("div","hd");
+    const sw=el("span","sw"); sw.style.cssText="width:9px;height:9px;border-radius:50%;background:"+
+      (z.color?`rgb(${z.color.join(",")})`:"#8fa"); hd.appendChild(sw);
+    hd.appendChild(el("span","nm",z.name));
+    row.appendChild(hd);
+    const rul=el("div","rul");
+    RULINGS.forEach(([k,lab])=>{
+      const b=el("button",cur&&cur.ruling===k?"on":"",lab);
+      b.onclick=()=>ruleZone(z,k);
+      rul.appendChild(b);
+    });
+    row.appendChild(rul);
+    if(cur){
+      const inp=el("input");
+      inp.placeholder=cur.ruling==="rename"?"What does she call it?":"Note (her words)";
+      inp.value=cur.ruling==="rename"?(cur.newName||""):(cur.note||"");
+      inp.oninput=()=>{ if(cur.ruling==="rename")cur.newName=inp.value; else cur.note=inp.value; save(); };
+      row.appendChild(inp);
+    }
+    p.appendChild(row);
+  });
+}
+function ruleZone(z,k){
+  let r=S.zoneRulings.find(x=>x.zoneId===z.id);
+  if(r&&r.ruling===k){ S.zoneRulings=S.zoneRulings.filter(x=>x.zoneId!==z.id); }
+  else if(r){ r.ruling=k; r.at=new Date().toISOString(); r.tSec=elapsed(); }
+  else S.zoneRulings.push({zoneId:z.id,zoneName:z.name,ruling:k,newName:"",note:"",
+                            at:new Date().toISOString(),tSec:elapsed()});
+  commit();
+}
+
+/* ---------------- toolbar ---------------- */
+function buildTools(){
+  const t=$("tools");
+  TYPES.forEach(ty=>{
+    const b=el("button","tbtn"+(ty.id===curType?" on":""));
+    b.dataset.t=ty.id;
+    const i=el("i"); i.style.background=COLOR[ty.id]; b.appendChild(i);
+    b.appendChild(document.createTextNode(ty.label));
+    b.appendChild(el("kbd",null,ty.key));
+    b.onclick=()=>setType(ty.id);
+    t.appendChild(b);
+  });
+}
+function setType(id){
+  curType=id;
+  $("tools").querySelectorAll(".tbtn").forEach(b=>b.classList.toggle("on",b.dataset.t===id));
+  if(draft){draft.type=id;placePins();}
+  drawShapes();
+}
+function setMode(m){
+  mode=m; drafting=[]; drawShapes();
+  $("mode-point").classList.toggle("on",m==="point");
+  $("mode-area").classList.toggle("on",m==="area");
+  $("hint").textContent = m==="point" ? "Click the spot she's naming"
+    : "Click around the edge · ⏎ closes the shape · Esc cancels";
+}
+
+/* ---------------- editor ---------------- */
+function openEditor(d){
+  draft=d;
+  $("ecap").textContent=(d.kind==="area"?"New area — ":"New point — ")+
+    TYPES.find(t=>t.id===curType).label.toLowerCase();
+  $("ename").value=""; $("enote").value="";
+  setPrec("exact");
+  $("editor").classList.add("show");
+  $("ename").focus();
+  placePins(); drawShapes();
+}
+function setPrec(p){
+  if(draft)draft.precision=p;
+  $("p-exact").classList.toggle("on",p==="exact");
+  $("p-approx").classList.toggle("on",p==="approx");
+  placePins();
+}
+function closeEditor(){
+  draft=null; drafting=[]; $("editor").classList.remove("show");
+  placePins(); drawShapes();
+}
+function saveEntry(){
+  if(!draft)return;
+  const name=$("ename").value.trim();
+  if(!name){$("ename").focus();return;}
+  const e={id:"e"+Date.now().toString(36),kind:draft.kind,type:curType,name:name,
+           note:$("enote").value.trim(),precision:draft.precision,
+           at:new Date().toISOString(),tSec:elapsed()};
+  if(draft.kind==="point"){e.lon=r7(draft.lon);e.lat=r7(draft.lat);}
+  else e.vertices=draft.vertices.map(v=>[r7(v[0]),r7(v[1])]);
+  S.entries.push(e); selId=e.id;
+  closeEditor(); commit();
+}
+
+/* ---------------- map interaction ---------------- */
+const map=$("maparea");
+let down=null,moved=false;
+map.addEventListener("mousedown",e=>{
+  if(e.target.closest("#editor,#tools,#modebar"))return;
+  down={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y}; moved=false;
+});
+window.addEventListener("mousemove",e=>{
+  if(!down)return;
+  const dx=e.clientX-down.x,dy=e.clientY-down.y;
+  if(Math.abs(dx)+Math.abs(dy)>4){moved=true;map.classList.add("panning");}
+  if(moved){view.x=down.vx+dx;view.y=down.vy+dy;applyView();}
+});
+function mapHit(e){
+  // Fires once per real click: `click` always follows mouseup. No time-based
+  // debounce — that silently dropped rapid clicks.
+  if(e.target.closest("#editor,#tools,#modebar,.pin"))return;
+  const r=$("stage").getBoundingClientRect();
+  const x=(e.clientX-r.left)/view.s, y=(e.clientY-r.top)/view.s;
+  if(x<0||y<0||x>W||y>H)return;
+  if(mode==="point"){
+    openEditor({kind:"point",lon:toLon(x),lat:toLat(y),precision:"exact"});
+  }else{
+    drafting.push([x,y]); drawShapes();
+  }
+}
+window.addEventListener("mouseup",()=>{ map.classList.remove("panning"); down=null; });
+map.addEventListener("click",e=>{ if(moved){moved=false;return;} mapHit(e); });
+map.addEventListener("wheel",e=>{
+  e.preventDefault();
+  const r=map.getBoundingClientRect();
+  const mx=e.clientX-r.left,my=e.clientY-r.top;
+  const f=Math.exp(-e.deltaY*0.0016);
+  const ns=Math.max(0.15,Math.min(14,view.s*f));
+  view.x=mx-(mx-view.x)*(ns/view.s); view.y=my-(my-view.y)*(ns/view.s); view.s=ns;
+  applyView(); drawShapes();
+},{passive:false});
+
+function closePolygon(){
+  if(drafting.length<3)return;
+  openEditor({kind:"area",vertices:drafting.map(v=>[toLon(v[0]),toLat(v[1])]),precision:"exact"});
+}
+
+/* ---------------- keys ---------------- */
+window.addEventListener("keydown",e=>{
+  const typing=/^(INPUT|TEXTAREA)$/.test(e.target.tagName);
+  if(e.key==="Escape"){ if(draft||drafting.length)closeEditor(); return; }
+  if(typing){
+    if(e.key==="Enter"&&e.target.id==="ename"){e.preventDefault();saveEntry();}
+    if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();saveEntry();}
+    return;
+  }
+  if(e.key==="Enter"&&mode==="area"&&drafting.length>=3){e.preventDefault();closePolygon();return;}
+  const t=TYPES.find(t=>t.key===e.key); if(t){setType(t.id);return;}
+  if(e.key==="p"||e.key==="P")setMode("point");
+  if(e.key==="a"||e.key==="A")setMode("area");
+  if(e.key==="z"||e.key==="Z"){showZones=!showZones;$("togglezones").classList.toggle("on",showZones);drawZones();}
+  if(e.key==="Backspace"){e.preventDefault();undo();}
+  if(e.key==="0")fitZones();
+});
+function undo(){
+  if(drafting.length){drafting.pop();drawShapes();return;}
+  if(!S.entries.length)return;
+  const last=S.entries[S.entries.length-1];
+  if(confirm('Remove "'+last.name+'"?')){S.entries.pop();commit();}
+}
+
+/* ---------------- wiring ---------------- */
+$("mode-point").onclick=()=>setMode("point");
+$("mode-area").onclick=()=>setMode("area");
+$("togglezones").onclick=()=>{showZones=!showZones;$("togglezones").classList.toggle("on",showZones);drawZones();};
+$("undo").onclick=undo;
+$("fitbtn").onclick=fitZones;
+$("esave").onclick=saveEntry;
+$("ecancel").onclick=closeEditor;
+$("p-exact").onclick=()=>setPrec("exact");
+$("p-approx").onclick=()=>setPrec("approx");
+$("clockbtn").onclick=()=>{
+  if(S.audioClockStart){
+    if(!confirm("Stop the audio clock? New entries won't be timestamped."))return;
+    S.audioClockStart=null; $("clockbtn").textContent="Start audio clock";
+    $("clockbtn").classList.remove("live");
+  }else{
+    S.audioClockStart=Date.now(); $("clockbtn").classList.add("live");
+  }
+  save();
+};
+document.querySelectorAll("#tabs button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));
+    document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="pane-"+b.dataset.p));
+  };
+});
+$("togglezones").classList.add("on");
+window.addEventListener("resize",()=>applyView());
+window.addEventListener("beforeunload",e=>{ if(saving){e.preventDefault();e.returnValue="";} });
+
+/* ---------------- boot ---------------- */
+(async function(){
+  buildTools();
+  try{
+    const cfg=await (await fetch("/api/config")).json();
+    $("savepath").textContent=cfg.savePath;
+  }catch(e){}
+  try{
+    const st=await (await fetch("/api/state")).json();
+    S.entries=st.entries||[]; S.zoneRulings=st.zoneRulings||[];
+    S.audioClockStart=st.audioClockStart||null;
+    if(S.audioClockStart)$("clockbtn").classList.add("live");
+  }catch(e){}
+  try{
+    const zj=await (await fetch("/zones.json")).json();
+    zones=zj.zones||[];
+  }catch(e){}
+  const img=$("base");
+  const start=()=>{fit();fitZones();};
+  if(img.complete)start(); else img.onload=start;
+  drawZones(); renderAll(); setMode("point");
+})();
+</script>
+</body>
+</html>

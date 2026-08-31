@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fernwood — trace the areas</title>
+<style>
+  :root{--ink:#f2efe9;--dim:#9aa39c;--line:#2f3630;--panel:#1b201c;--panel2:#232a24;
+        --gold:#c9a227;--ok:#7fa86b;--warn:#d9a441}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:#141815;color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;overflow:hidden}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  #top{height:56px;display:flex;align-items:center;gap:16px;padding:0 16px;background:var(--panel);
+       border-bottom:1px solid var(--line);position:relative;z-index:40}
+  #top h1{font-size:15px;font-weight:600;margin:0;white-space:nowrap}
+  #top h1 span{color:var(--dim);font-weight:400}
+  #prog{flex:none;width:190px;height:7px;background:#0f120f;border-radius:4px;overflow:hidden}
+  #prog i{display:block;height:100%;background:var(--gold);width:0%}
+  .stat{font-size:12px;color:var(--dim);white-space:nowrap}
+  .stat b{color:var(--ink);font-size:15px}
+  #savestate{margin-left:auto;font-size:12px;color:var(--dim)}
+  #savestate.on{color:var(--ok)} #savestate.err{color:#d9534f}
+  .lnk{font-size:12px;color:var(--dim);border:1px solid var(--line);padding:6px 11px;border-radius:6px}
+
+  #wrap{display:flex;height:calc(100% - 56px)}
+  #maparea{flex:1;position:relative;overflow:hidden;background:#0d0f0e;cursor:crosshair}
+  #maparea.panning{cursor:grabbing}
+  #stage{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
+  #stage img{display:block;width:1500px;height:1500px;user-select:none;-webkit-user-drag:none}
+  #stage svg{position:absolute;top:0;left:0;width:1500px;height:1500px;overflow:visible;pointer-events:none}
+
+  #active{position:absolute;top:12px;left:12px;z-index:25;background:rgba(20,24,21,.95);
+          border:1px solid var(--gold);border-radius:10px;padding:12px 15px;
+          max-width:min(430px,46vw)}
+  @media (max-width:900px){ #active{padding:8px 11px} #active .nm{font-size:16px}
+                            #active .hint{font-size:11px} }
+  #active .cap{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+  #active .nm{font-size:21px;font-weight:600;margin:3px 0 5px}
+  #active .hint{font-size:12px;color:var(--dim)}
+  #active .hint b{color:var(--gold);font-weight:600}
+  #active.idle{border-color:var(--line)}
+  #active.idle .nm{color:var(--dim);font-size:16px}
+
+  #modebar{position:absolute;bottom:12px;left:12px;z-index:20;display:flex;gap:6px;
+           background:rgba(20,24,21,.93);padding:8px;border-radius:9px;border:1px solid var(--line)}
+  .tbtn{padding:6px 11px;border-radius:6px;border:1px solid transparent;font-size:12.5px;color:var(--dim)}
+  .tbtn.on{background:var(--panel2);border-color:var(--line);color:var(--ink)}
+  .tbtn kbd{font:11px ui-monospace,Menlo,monospace;color:#6d7670;margin-left:5px}
+
+  #refpanel{position:absolute;top:12px;right:12px;z-index:26;width:430px;display:none;
+            background:rgba(20,24,21,.97);border:1px solid var(--line);border-radius:10px;padding:9px}
+  #refpanel.show{display:block}
+  #refpanel img{width:100%;display:block;border-radius:6px}
+  #refpanel .cap{font-size:11px;color:var(--dim);padding:6px 3px 2px}
+
+  #rail{width:352px;background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column}
+  #railhd{padding:12px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--dim);line-height:1.6}
+  #list{flex:1;overflow-y:auto}
+  .arow{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer}
+  .arow:hover{background:var(--panel2)}
+  .arow.active{background:rgba(201,162,39,.13);box-shadow:inset 3px 0 0 var(--gold)}
+  .arow .tick{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--line);flex:none;
+              display:flex;align-items:center;justify-content:center;font-size:11px;color:#0f120f}
+  .arow.done .tick{background:var(--ok);border-color:var(--ok)}
+  .arow .nm{flex:1;font-size:13.5px;font-weight:600}
+  .arow.done .nm{color:var(--dim);font-weight:500}
+  .arow .meta{font-size:11px;color:#6d7670;flex:none}
+  .arow .dup{font-size:10px;color:var(--warn);border:1px solid var(--warn);border-radius:3px;
+             padding:1px 4px;flex:none}
+  #addrow{padding:11px 14px;border-top:1px solid var(--line);display:flex;gap:7px;flex:none}
+  #addrow input{flex:1;background:#0f120f;border:1px solid var(--line);color:var(--ink);
+                border-radius:6px;padding:8px 10px;font:inherit;font-size:12.5px}
+  #addrow button{border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-size:12.5px;color:var(--dim)}
+  #foot{flex:none;padding:9px 14px;border-top:1px solid var(--line);font-size:11px;color:#6d7670;line-height:1.6}
+  .poly-lbl{fill:#fff;font-size:15px;font-weight:600;paint-order:stroke;stroke:#000;
+            stroke-width:3.5px;stroke-linejoin:round}
+</style>
+</head>
+<body>
+
+<div id="top">
+  <h1>Fernwood <span>· trace the areas</span></h1>
+  <div id="prog"><i></i></div>
+  <div class="stat"><b id="ndone">0</b> of <b id="ntot">0</b> traced</div>
+  <a class="lnk" href="/">← point capture</a>
+  <div id="savestate">ready</div>
+</div>
+
+<div id="wrap">
+  <div id="maparea">
+    <div id="stage">
+      <img id="base" src="/images/property-map/base-naip-2022-01-leafoff.png" alt="">
+      <svg id="svg" viewBox="0 0 1500 1500"><g id="draftg"></g><g id="doneg"></g><g id="liveg"></g></svg>
+    </div>
+
+    <div id="active" class="idle">
+      <div class="cap">Now tracing</div>
+      <div class="nm" id="activename">Pick an area on the right →</div>
+      <div class="hint" id="activehint">Click its edge point by point. <b>⏎</b> closes the shape · <b>⌫</b> undoes a point · <b>Esc</b> cancels</div>
+    </div>
+
+    <div id="refpanel">
+      <img src="/.private/zone-capture/2026-08-30-mom-naming-annotated.png" alt="">
+      <div class="cap">Your annotated aerial from the conversation with her</div>
+    </div>
+
+    <div id="modebar">
+      <button class="tbtn on" id="tdraft">Old draft zones <kbd>Z</kbd></button>
+      <button class="tbtn on" id="tdone">Traced <kbd>T</kbd></button>
+      <button class="tbtn" id="tref">Her labels <kbd>R</kbd></button>
+      <button class="tbtn" id="tfit">Fit <kbd>0</kbd></button>
+    </div>
+  </div>
+
+  <div id="rail">
+    <div id="railhd">
+      Her names, transcribed from your annotated image — <b>unverified</b>.
+      Click one, trace its edge, press <b>⏎</b>. Fix a wrong name by editing
+      <code>areas-roster.json</code> and reloading.
+    </div>
+    <div id="list"></div>
+    <div id="addrow">
+      <input id="newname" placeholder="An area she named that's missing…" autocomplete="off">
+      <button id="addbtn">Add</button>
+    </div>
+    <div id="foot">
+      NAIP 2022-01-10 · ±20 ft. Boundaries are where the <i>name</i> applies, not a survey line.<br>
+      <code id="savepath">…</code>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const B={west:-84.36990044993301,south:34.54754054054054,east:-84.364899550067,north:34.55165945945946};
+const W=1500,H=1500;
+const toLon=x=>B.west+(x/W)*(B.east-B.west);
+const toLat=y=>B.north-(y/H)*(B.north-B.south);
+const toX=lon=>((lon-B.west)/(B.east-B.west))*W;
+const toY=lat=>((B.north-lat)/(B.north-B.south))*H;
+const r7=v=>Math.round(v*1e7)/1e7;
+const $=id=>document.getElementById(id);
+const el=(t,c,x)=>{const n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n;};
+const ns="http://www.w3.org/2000/svg";
+
+let AREAS=[],META={},draftZones=[],activeId=null,drafting=[];
+let showDraft=true,showDone=true;
+let view={x:0,y:0,s:1};
+
+const PAL=["#e0a94a","#5aa9d6","#e07a3f","#7fa86b","#c07fc0","#b09070","#9b8fd6","#d9857a",
+           "#6fbfa8","#c9a227","#8fb0d9","#cf8fb0"];
+const colorOf=i=>PAL[i%PAL.length];
+
+/* ---------- view ---------- */
+function applyView(){
+  $("stage").style.transform=`translate(${view.x}px,${view.y}px) scale(${view.s})`;
+  $("svg").querySelectorAll("[data-sw]").forEach(n=>n.setAttribute("stroke-width",(+n.dataset.sw)/view.s));
+  $("svg").querySelectorAll("[data-r]").forEach(n=>n.setAttribute("r",(+n.dataset.r)/view.s));
+}
+function fitAll(){
+  const xs=[],ys=[];
+  draftZones.forEach(z=>(z.vertices||[]).forEach(v=>{xs.push(toX(v[0]));ys.push(toY(v[1]));}));
+  AREAS.forEach(a=>(a.vertices||[]).forEach(v=>{xs.push(toX(v[0]));ys.push(toY(v[1]));}));
+  const r=$("maparea").getBoundingClientRect();
+  if(xs.length<2){
+    view.s=Math.min(r.width/W,r.height/H)*0.98;
+    view.x=(r.width-W*view.s)/2; view.y=(r.height-H*view.s)/2; return applyView();
+  }
+  const pad=120;
+  const x0=Math.min(...xs)-pad,x1=Math.max(...xs)+pad,y0=Math.min(...ys)-pad,y1=Math.max(...ys)+pad;
+  view.s=Math.min(r.width/(x1-x0),r.height/(y1-y0));
+  view.x=(r.width-(x1-x0)*view.s)/2-x0*view.s;
+  view.y=(r.height-(y1-y0)*view.s)/2-y0*view.s;
+  applyView();
+}
+function centroid(pts){let x=0,y=0;pts.forEach(p=>{x+=p[0];y+=p[1];});return[x/pts.length,y/pts.length];}
+
+/* ---------- draw ---------- */
+function drawDraft(){
+  const g=$("draftg"); g.innerHTML="";
+  if(!showDraft)return;
+  draftZones.forEach(z=>{
+    const vs=z.vertices||[]; if(vs.length<3)return;
+    const p=document.createElementNS(ns,"polygon");
+    p.setAttribute("points",vs.map(v=>toX(v[0])+","+toY(v[1])).join(" "));
+    p.setAttribute("fill","none"); p.setAttribute("stroke","#7a8a74");
+    p.setAttribute("stroke-dasharray","7 6"); p.setAttribute("opacity",".55");
+    p.setAttribute("data-sw",2); g.appendChild(p);
+  });
+  applyView();
+}
+function drawDone(){
+  const g=$("doneg"); g.innerHTML="";
+  if(!showDone)return;
+  AREAS.forEach((a,i)=>{
+    if(!a.vertices||a.vertices.length<3)return;
+    const pts=a.vertices.map(v=>[toX(v[0]),toY(v[1])]);
+    const c=colorOf(i);
+    const p=document.createElementNS(ns,"polygon");
+    p.setAttribute("points",pts.map(p=>p[0]+","+p[1]).join(" "));
+    p.setAttribute("fill",c); p.setAttribute("fill-opacity",a.id===activeId?".34":".2");
+    p.setAttribute("stroke",c); p.setAttribute("data-sw",3); g.appendChild(p);
+    const ct=centroid(pts);
+    const t=document.createElementNS(ns,"text");
+    t.setAttribute("x",ct[0]); t.setAttribute("y",ct[1]);
+    t.setAttribute("text-anchor","middle"); t.setAttribute("class","poly-lbl");
+    t.textContent=a.name; g.appendChild(t);
+  });
+  applyView();
+}
+function drawLive(){
+  const g=$("liveg"); g.innerHTML="";
+  if(!drafting.length)return;
+  const idx=AREAS.findIndex(a=>a.id===activeId);
+  const c=colorOf(idx<0?0:idx);
+  if(drafting.length>2){
+    const f=document.createElementNS(ns,"polygon");
+    f.setAttribute("points",drafting.map(v=>v[0]+","+v[1]).join(" "));
+    f.setAttribute("fill",c); f.setAttribute("fill-opacity",".16");
+    f.setAttribute("stroke","none"); g.appendChild(f);
+  }
+  const l=document.createElementNS(ns,"polyline");
+  l.setAttribute("points",drafting.map(v=>v[0]+","+v[1]).join(" "));
+  l.setAttribute("fill","none"); l.setAttribute("stroke",c);
+  l.setAttribute("data-sw",3); g.appendChild(l);
+  drafting.forEach((v,i)=>{
+    const d=document.createElementNS(ns,"circle");
+    d.setAttribute("cx",v[0]); d.setAttribute("cy",v[1]);
+    d.setAttribute("data-r",i===0?7:5); d.setAttribute("fill",i===0?"#fff":c);
+    d.setAttribute("stroke",c); d.setAttribute("data-sw",2); g.appendChild(d);
+  });
+  applyView();
+}
+
+/* ---------- roster ---------- */
+function renderList(){
+  const L=$("list"); L.innerHTML="";
+  const counts={};
+  AREAS.forEach(a=>counts[a.name]=(counts[a.name]||0)+1);
+  AREAS.forEach((a,i)=>{
+    const row=el("div","arow"+(a.vertices?" done":"")+(a.id===activeId?" active":""));
+    const tk=el("div","tick",a.vertices?"✓":"");
+    if(a.vertices)tk.style.background=colorOf(i),tk.style.borderColor=colorOf(i);
+    row.appendChild(tk);
+    row.appendChild(el("div","nm",a.name));
+    if(counts[a.name]>1)row.appendChild(el("div","dup","×2"));
+    row.appendChild(el("div","meta",a.vertices?a.vertices.length+" pts":(a.labelPosition||"")));
+    row.onclick=()=>setActive(a.id);
+    L.appendChild(row);
+  });
+  const done=AREAS.filter(a=>a.vertices).length;
+  $("ndone").textContent=done; $("ntot").textContent=AREAS.length;
+  $("prog").firstElementChild.style.width=(AREAS.length?done/AREAS.length*100:0)+"%";
+}
+function setActive(id){
+  // No modal here on purpose: a blocking dialog mid-trace is friction, and a
+  // dropped shape is cheap to redo. Say what happened instead of asking.
+  const dropped=drafting.length;
+  drafting=[]; activeId=id;
+  const a=AREAS.find(x=>x.id===id);
+  const box=$("active");
+  if(a){
+    box.classList.remove("idle");
+    $("activename").textContent=a.name;
+    $("activehint").innerHTML=(dropped?"<b>Dropped "+dropped+" unfinished point"+(dropped>1?"s":"")+".</b> ":"")+
+      (a.vertices
+        ? "Already traced ("+a.vertices.length+" points). Tracing again <b>replaces</b> it."
+        : "Click its edge point by point. <b>⏎</b> closes · <b>⌫</b> undoes a point · <b>Esc</b> cancels");
+  }else{
+    box.classList.add("idle"); $("activename").textContent="Pick an area on the right →";
+  }
+  drawDone(); drawLive(); renderList();
+}
+function nextUntraced(){
+  const i=AREAS.findIndex(a=>!a.vertices);
+  setActive(i<0?null:AREAS[i].id);
+}
+function closePolygon(){
+  if(!activeId||drafting.length<3)return;
+  const a=AREAS.find(x=>x.id===activeId);
+  a.vertices=drafting.map(v=>[r7(toLon(v[0])),r7(toLat(v[1]))]);
+  a.tracedAt=new Date().toISOString();
+  drafting=[];
+  save(); drawDone(); renderList();
+  nextUntraced();
+}
+
+/* ---------- persistence ---------- */
+let saveT=null;
+function save(){
+  clearTimeout(saveT);
+  saveT=setTimeout(async()=>{
+    $("savestate").textContent="saving…"; $("savestate").className="";
+    try{
+      const r=await fetch("/api/areas-save",{method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({areas:AREAS,sourceMeta:META})});
+      if(!r.ok)throw new Error(r.status);
+      $("savestate").textContent="saved to disk · "+new Date().toLocaleTimeString("en-US",
+        {hour:"numeric",minute:"2-digit",second:"2-digit"});
+      $("savestate").className="on";
+    }catch(e){ $("savestate").textContent="NOT SAVED — "+e.message; $("savestate").className="err"; }
+  },300);
+}
+
+/* ---------- interaction ---------- */
+const map=$("maparea");
+let down=null,moved=false;
+function mapHit(e){
+  // Fires once per real click: `click` always follows mouseup, so this is the
+  // single entry point. No time-based debounce — that silently ate vertices
+  // when tracing faster than four clicks a second.
+  if(e.target.closest("#active,#modebar,#refpanel"))return;
+  if(!activeId){ $("active").animate([{opacity:.4},{opacity:1}],220); return; }
+  const r=$("stage").getBoundingClientRect();
+  const x=(e.clientX-r.left)/view.s, y=(e.clientY-r.top)/view.s;
+  if(x<0||y<0||x>W||y>H)return;
+  drafting.push([x,y]); drawLive();
+}
+map.addEventListener("mousedown",e=>{
+  if(e.target.closest("#active,#modebar,#refpanel"))return;
+  down={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y}; moved=false;
+});
+window.addEventListener("mousemove",e=>{
+  if(!down)return;
+  const dx=e.clientX-down.x,dy=e.clientY-down.y;
+  if(Math.abs(dx)+Math.abs(dy)>4){moved=true;map.classList.add("panning");}
+  if(moved){view.x=down.vx+dx;view.y=down.vy+dy;applyView();}
+});
+window.addEventListener("mouseup",()=>{ map.classList.remove("panning"); down=null; });
+map.addEventListener("click",e=>{ if(moved){moved=false;return;} mapHit(e); });
+map.addEventListener("dblclick",e=>{ e.preventDefault(); closePolygon(); });
+map.addEventListener("wheel",e=>{
+  e.preventDefault();
+  const r=map.getBoundingClientRect();
+  const mx=e.clientX-r.left,my=e.clientY-r.top;
+  const ns_=Math.max(0.15,Math.min(16,view.s*Math.exp(-e.deltaY*0.0016)));
+  view.x=mx-(mx-view.x)*(ns_/view.s); view.y=my-(my-view.y)*(ns_/view.s); view.s=ns_;
+  applyView();
+},{passive:false});
+
+window.addEventListener("keydown",e=>{
+  if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName)){
+    if(e.key==="Enter"&&e.target.id==="newname")addArea();
+    return;
+  }
+  if(e.key==="Enter"){e.preventDefault();closePolygon();}
+  if(e.key==="Backspace"){e.preventDefault();drafting.pop();drawLive();}
+  if(e.key==="Escape"){drafting=[];drawLive();}
+  if(e.key==="z"||e.key==="Z"){showDraft=!showDraft;$("tdraft").classList.toggle("on",showDraft);drawDraft();}
+  if(e.key==="t"||e.key==="T"){showDone=!showDone;$("tdone").classList.toggle("on",showDone);drawDone();}
+  if(e.key==="r"||e.key==="R")toggleRef();
+  if(e.key==="0")fitAll();
+});
+function toggleRef(){
+  const p=$("refpanel"); p.classList.toggle("show");
+  $("tref").classList.toggle("on",p.classList.contains("show"));
+}
+function addArea(){
+  const v=$("newname").value.trim(); if(!v)return;
+  const id="custom-"+Date.now().toString(36);
+  AREAS.push({id,name:v,labelPosition:"added by Paul",draftZoneId:null,vertices:null,notes:""});
+  $("newname").value=""; save(); renderList(); setActive(id);
+}
+$("addbtn").onclick=addArea;
+$("tdraft").onclick=()=>{showDraft=!showDraft;$("tdraft").classList.toggle("on",showDraft);drawDraft();};
+$("tdone").onclick=()=>{showDone=!showDone;$("tdone").classList.toggle("on",showDone);drawDone();};
+$("tref").onclick=toggleRef;
+$("tfit").onclick=fitAll;
+window.addEventListener("resize",applyView);
+
+/* ---------- boot ---------- */
+(async function(){
+  try{ $("savepath").textContent=(await (await fetch("/api/config")).json()).savePath
+       .replace(/\/([^/]+)\.json$/,"/areas-$1.json"); }catch(e){}
+  try{ const z=await (await fetch("/zones.json")).json(); draftZones=z.zones||[]; }catch(e){}
+  let roster={areas:[]};
+  try{ roster=await (await fetch("/api/roster")).json(); }catch(e){}
+  META=roster._meta||{};
+  AREAS=(roster.areas||[]).map(a=>({...a}));
+  try{
+    const prior=await (await fetch("/api/areas-state")).json();
+    if(prior.areas&&prior.areas.length){
+      const byId=Object.fromEntries(prior.areas.map(a=>[a.id,a]));
+      AREAS=AREAS.map(a=>byId[a.id]?{...a,...byId[a.id]}:a);
+      prior.areas.filter(a=>!AREAS.some(x=>x.id===a.id)).forEach(a=>AREAS.push(a));
+    }
+  }catch(e){}
+  const img=$("base");
+  const start=()=>{fitAll();};
+  if(img.complete)start(); else img.onload=start;
+  drawDraft(); drawDone(); renderList(); nextUntraced();
+})();
+</script>
+</body>
+</html>
