@@ -74,8 +74,22 @@
                 border-radius:6px;padding:8px 10px;font:inherit;font-size:12.5px}
   #addrow button{border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-size:12.5px;color:var(--dim)}
   #foot{flex:none;padding:9px 14px;border-top:1px solid var(--line);font-size:11px;color:#6d7670;line-height:1.6}
-  .poly-lbl{fill:#fff;font-size:15px;font-weight:600;paint-order:stroke;stroke:#000;
-            stroke-width:3.5px;stroke-linejoin:round}
+  .poly-lbl{fill:#fff;font-weight:600;paint-order:stroke;stroke:#000;
+            stroke-linejoin:round;pointer-events:none}
+
+  /* map navigation — visible controls, not just trackpad gestures */
+  #nav{position:absolute;right:12px;bottom:12px;z-index:22}
+  .navbtn{width:38px;height:38px;border-radius:8px;border:1px solid var(--line);
+          background:rgba(20,24,21,.93);color:var(--ink);font-size:16px;line-height:1;
+          display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+  .navbtn:hover{background:var(--panel2);border-color:#465043}
+  .navbtn:active{background:var(--gold);color:#141815}
+  .navbtn.wide{width:auto;padding:0 12px;font-size:12.5px;gap:7px}
+  #pad{display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(3,38px);gap:5px}
+  #pad .sp{visibility:hidden}
+  #navhint{position:absolute;right:12px;bottom:148px;z-index:22;font-size:11px;color:var(--dim);
+           background:rgba(20,24,21,.9);border:1px solid var(--line);border-radius:16px;
+           padding:5px 11px;white-space:nowrap;pointer-events:none}
 </style>
 </head>
 <body>
@@ -110,7 +124,22 @@
       <button class="tbtn on" id="tdraft">Old draft zones <kbd>Z</kbd></button>
       <button class="tbtn on" id="tdone">Traced <kbd>T</kbd></button>
       <button class="tbtn" id="tref">Her labels <kbd>R</kbd></button>
-      <button class="tbtn" id="tfit">Fit <kbd>0</kbd></button>
+      <button class="tbtn on" id="tlabels">Labels: Normal <kbd>L</kbd></button>
+    </div>
+
+    <div id="navhint">drag to move · scroll to zoom</div>
+    <div id="nav">
+      <div id="pad">
+        <button class="navbtn" id="zin"    title="Zoom in (+)">+</button>
+        <button class="navbtn" id="pup"    title="Pan up (↑)">▲</button>
+        <button class="navbtn" id="zout"   title="Zoom out (−)">−</button>
+        <button class="navbtn" id="pleft"  title="Pan left (←)">◀</button>
+        <button class="navbtn" id="pfit"   title="Fit everything (0)">⤢</button>
+        <button class="navbtn" id="pright" title="Pan right (→)">▶</button>
+        <span class="sp"></span>
+        <button class="navbtn" id="pdown"  title="Pan down (↓)">▼</button>
+        <span class="sp"></span>
+      </div>
     </div>
   </div>
 
@@ -147,6 +176,10 @@ const ns="http://www.w3.org/2000/svg";
 
 let AREAS=[],META={},draftZones=[],activeId=null,drafting=[];
 let showDraft=true,showDone=true;
+// Labels are drawn INSIDE the zoomed layer, so their size is compensated by the
+// view scale in applyView() — they stay the same size on screen at every zoom.
+const LABEL_MODES=[{k:"Normal",fs:15,sw:3.5},{k:"Small",fs:9.5,sw:2.5},{k:"Off",fs:0,sw:0}];
+let labelMode=0;
 let view={x:0,y:0,s:1};
 
 const PAL=["#e0a94a","#5aa9d6","#e07a3f","#7fa86b","#c07fc0","#b09070","#9b8fd6","#d9857a",
@@ -158,6 +191,10 @@ function applyView(){
   $("stage").style.transform=`translate(${view.x}px,${view.y}px) scale(${view.s})`;
   $("svg").querySelectorAll("[data-sw]").forEach(n=>n.setAttribute("stroke-width",(+n.dataset.sw)/view.s));
   $("svg").querySelectorAll("[data-r]").forEach(n=>n.setAttribute("r",(+n.dataset.r)/view.s));
+  $("svg").querySelectorAll("[data-fs]").forEach(n=>{
+    n.setAttribute("font-size",(+n.dataset.fs)/view.s);
+    n.setAttribute("stroke-width",(+n.dataset.tsw)/view.s);
+  });
 }
 function fitAll(){
   const xs=[],ys=[];
@@ -174,6 +211,22 @@ function fitAll(){
   view.x=(r.width-(x1-x0)*view.s)/2-x0*view.s;
   view.y=(r.height-(y1-y0)*view.s)/2-y0*view.s;
   applyView();
+}
+function zoomBy(f){
+  const r=$("maparea").getBoundingClientRect();
+  const mx=r.width/2,my=r.height/2;
+  const ns_=Math.max(0.15,Math.min(16,view.s*f));
+  view.x=mx-(mx-view.x)*(ns_/view.s); view.y=my-(my-view.y)*(ns_/view.s); view.s=ns_;
+  applyView();
+}
+function panBy(dx,dy){ view.x+=dx; view.y+=dy; applyView(); }
+function cycleLabels(){
+  labelMode=(labelMode+1)%LABEL_MODES.length;
+  const M=LABEL_MODES[labelMode];
+  $("tlabels").textContent="Labels: "+M.k;
+  $("tlabels").appendChild(Object.assign(document.createElement("kbd"),{textContent:"L"}));
+  $("tlabels").classList.toggle("on",M.fs>0);
+  drawDone();
 }
 function centroid(pts){let x=0,y=0;pts.forEach(p=>{x+=p[0];y+=p[1];});return[x/pts.length,y/pts.length];}
 
@@ -202,11 +255,15 @@ function drawDone(){
     p.setAttribute("points",pts.map(p=>p[0]+","+p[1]).join(" "));
     p.setAttribute("fill",c); p.setAttribute("fill-opacity",a.id===activeId?".34":".2");
     p.setAttribute("stroke",c); p.setAttribute("data-sw",3); g.appendChild(p);
-    const ct=centroid(pts);
-    const t=document.createElementNS(ns,"text");
-    t.setAttribute("x",ct[0]); t.setAttribute("y",ct[1]);
-    t.setAttribute("text-anchor","middle"); t.setAttribute("class","poly-lbl");
-    t.textContent=a.name; g.appendChild(t);
+    const M=LABEL_MODES[labelMode];
+    if(M.fs>0){
+      const ct=centroid(pts);
+      const t=document.createElementNS(ns,"text");
+      t.setAttribute("x",ct[0]); t.setAttribute("y",ct[1]);
+      t.setAttribute("text-anchor","middle"); t.setAttribute("class","poly-lbl");
+      t.setAttribute("data-fs",M.fs); t.setAttribute("data-tsw",M.sw);
+      t.textContent=a.name; g.appendChild(t);
+    }
   });
   applyView();
 }
@@ -353,6 +410,14 @@ window.addEventListener("keydown",e=>{
   if(e.key==="t"||e.key==="T"){showDone=!showDone;$("tdone").classList.toggle("on",showDone);drawDone();}
   if(e.key==="r"||e.key==="R")toggleRef();
   if(e.key==="0")fitAll();
+  if(e.key==="l"||e.key==="L")cycleLabels();
+  if(e.key==="+"||e.key==="=")zoomBy(1.3);
+  if(e.key==="-"||e.key==="_")zoomBy(1/1.3);
+  const P=80;
+  if(e.key==="ArrowUp"){e.preventDefault();panBy(0,P);}
+  if(e.key==="ArrowDown"){e.preventDefault();panBy(0,-P);}
+  if(e.key==="ArrowLeft"){e.preventDefault();panBy(P,0);}
+  if(e.key==="ArrowRight"){e.preventDefault();panBy(-P,0);}
 });
 function toggleRef(){
   const p=$("refpanel"); p.classList.toggle("show");
@@ -368,7 +433,15 @@ $("addbtn").onclick=addArea;
 $("tdraft").onclick=()=>{showDraft=!showDraft;$("tdraft").classList.toggle("on",showDraft);drawDraft();};
 $("tdone").onclick=()=>{showDone=!showDone;$("tdone").classList.toggle("on",showDone);drawDone();};
 $("tref").onclick=toggleRef;
-$("tfit").onclick=fitAll;
+$("tlabels").onclick=cycleLabels;
+$("zin").onclick=()=>zoomBy(1.3);
+$("zout").onclick=()=>zoomBy(1/1.3);
+$("pfit").onclick=fitAll;
+const P=80;
+$("pup").onclick=()=>panBy(0,P);
+$("pdown").onclick=()=>panBy(0,-P);
+$("pleft").onclick=()=>panBy(P,0);
+$("pright").onclick=()=>panBy(-P,0);
 window.addEventListener("resize",applyView);
 
 /* ---------- boot ---------- */

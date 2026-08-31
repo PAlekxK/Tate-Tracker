@@ -116,8 +116,21 @@
   .zrow input{width:100%;margin-top:7px;background:#0f120f;border:1px solid var(--line);
               color:var(--ink);border-radius:6px;padding:7px 9px;font:inherit;font-size:12.5px}
   .zone-poly{fill-opacity:.1;stroke-opacity:.85}
-  .zone-lbl{fill:#fff;font-size:15px;font-weight:600;paint-order:stroke;
-            stroke:#000;stroke-width:3.5px;stroke-linejoin:round}
+  .zone-lbl{fill:#fff;font-weight:600;paint-order:stroke;
+            stroke:#000;stroke-linejoin:round;pointer-events:none}
+
+  /* map navigation — visible controls, not just trackpad gestures */
+  #nav{position:absolute;right:12px;bottom:12px;z-index:22}
+  .navbtn{width:38px;height:38px;border-radius:8px;border:1px solid var(--line);
+          background:rgba(20,24,21,.93);color:var(--ink);font-size:16px;line-height:1;
+          display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+  .navbtn:hover{background:var(--panel2);border-color:#465043}
+  .navbtn:active{background:var(--gold);color:#141815}
+  #pad{display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(3,38px);gap:5px}
+  #pad .sp{visibility:hidden}
+  #navhint{position:absolute;right:12px;bottom:148px;z-index:22;font-size:11px;color:var(--dim);
+           background:rgba(20,24,21,.9);border:1px solid var(--line);border-radius:16px;
+           padding:5px 11px;white-space:nowrap;pointer-events:none}
   #foot{flex:none;padding:10px 14px;border-top:1px solid var(--line);font-size:11px;
         color:#6d7670;line-height:1.6}
   #foot code{color:var(--dim);font-size:10.5px;word-break:break-all}
@@ -148,7 +161,22 @@
       <button class="tbtn" id="mode-area">Area <kbd>A</kbd></button>
       <button class="tbtn" id="togglezones">Draft zones <kbd>Z</kbd></button>
       <button class="tbtn" id="undo">Undo <kbd>⌫</kbd></button>
-      <button class="tbtn" id="fitbtn">Fit <kbd>0</kbd></button>
+      <button class="tbtn on" id="tlabels">Labels: Normal <kbd>L</kbd></button>
+    </div>
+
+    <div id="navhint">drag to move · scroll to zoom</div>
+    <div id="nav">
+      <div id="pad">
+        <button class="navbtn" id="zin"    title="Zoom in (+)">+</button>
+        <button class="navbtn" id="pup"    title="Pan up (↑)">▲</button>
+        <button class="navbtn" id="zout"   title="Zoom out (−)">−</button>
+        <button class="navbtn" id="pleft"  title="Pan left (←)">◀</button>
+        <button class="navbtn" id="pfit"   title="Fit everything (0)">⤢</button>
+        <button class="navbtn" id="pright" title="Pan right (→)">▶</button>
+        <span class="sp"></span>
+        <button class="navbtn" id="pdown"  title="Pan down (↓)">▼</button>
+        <span class="sp"></span>
+      </div>
     </div>
 
     <div id="hint">Click the spot she's naming</div>
@@ -207,6 +235,11 @@ const COLOR=Object.fromEntries(TYPES.map(t=>[t.id,getComputedStyle(document.docu
 
 let S={entries:[],zoneRulings:[],audioClockStart:null};
 let zones=[],showZones=true,mode="point",curType="structure";
+// Map text is drawn INSIDE the zoomed layer, so its size is compensated by the
+// view scale in applyView() — labels stay the same size on screen at every zoom.
+const LABEL_MODES=[{k:"Normal",fs:15,sw:3.5,pin:11.5},{k:"Small",fs:9.5,sw:2.5,pin:9},
+                   {k:"Off",fs:0,sw:0,pin:0}];
+let labelMode=0;
 let draft=null,drafting=[],selId=null;
 let view={x:0,y:0,s:1};
 
@@ -217,6 +250,10 @@ const el=(t,c,x)=>{const n=document.createElement(t);if(c)n.className=c;if(x!=nu
 function applyView(){
   $("stage").style.transform=`translate(${view.x}px,${view.y}px) scale(${view.s})`;
   $("svg").querySelectorAll("[data-sw]").forEach(n=>n.setAttribute("stroke-width",(+n.dataset.sw)/view.s));
+  $("svg").querySelectorAll("[data-fs]").forEach(n=>{
+    n.setAttribute("font-size",(+n.dataset.fs)/view.s);
+    n.setAttribute("stroke-width",(+n.dataset.tsw)/view.s);
+  });
   placePins();
 }
 function fit(){
@@ -242,6 +279,22 @@ function fitZones(){
   view.y=(r.height-(y1-y0)*view.s)/2-y0*view.s;
   applyView(); drawShapes();
 }
+function zoomBy(f){
+  const r=$("maparea").getBoundingClientRect();
+  const mx=r.width/2,my=r.height/2;
+  const ns_=Math.max(0.15,Math.min(14,view.s*f));
+  view.x=mx-(mx-view.x)*(ns_/view.s); view.y=my-(my-view.y)*(ns_/view.s); view.s=ns_;
+  applyView(); drawShapes();
+}
+function panBy(dx,dy){ view.x+=dx; view.y+=dy; applyView(); }
+function cycleLabels(){
+  labelMode=(labelMode+1)%LABEL_MODES.length;
+  const M=LABEL_MODES[labelMode];
+  $("tlabels").textContent="Labels: "+M.k;
+  $("tlabels").appendChild(Object.assign(document.createElement("kbd"),{textContent:"L"}));
+  $("tlabels").classList.toggle("on",M.fs>0);
+  drawZones(); drawShapes(); placePins();
+}
 function flyTo(lon,lat){
   const r=$("maparea").getBoundingClientRect();
   view.s=Math.max(view.s,2.2);
@@ -257,7 +310,11 @@ function placePins(){
     p.style.left=(view.x+toX(e.lon)*view.s)+"px";
     p.style.top =(view.y+toY(e.lat)*view.s)+"px";
     const d=el("div","dot"); d.style.background=COLOR[e.type]||"#ccc"; p.appendChild(d);
-    const l=el("div","lbl",e.name); l.style.color=COLOR[e.type]||"#ccc"; p.appendChild(l);
+    const M=LABEL_MODES[labelMode];
+    if(M.pin>0){
+      const l=el("div","lbl",e.name); l.style.color=COLOR[e.type]||"#ccc";
+      l.style.fontSize=M.pin+"px"; p.appendChild(l);
+    }
     p.onclick=ev=>{ev.stopPropagation();select(e.id);};
     layer.appendChild(p);
   });
@@ -286,11 +343,15 @@ function drawShapes(){
       p.setAttribute("fill",COLOR[e.type]); p.setAttribute("fill-opacity",".22");
       p.setAttribute("stroke",COLOR[e.type]); p.setAttribute("data-sw",3);
       g.appendChild(p);
-      const c=centroid(e.vertices);
-      const t=document.createElementNS(ns,"text");
-      t.setAttribute("x",toX(c[0])); t.setAttribute("y",toY(c[1]));
-      t.setAttribute("text-anchor","middle"); t.setAttribute("class","zone-lbl");
-      t.textContent=e.name; g.appendChild(t);
+      const M=LABEL_MODES[labelMode];
+      if(M.fs>0){
+        const c=centroid(e.vertices);
+        const t=document.createElementNS(ns,"text");
+        t.setAttribute("x",toX(c[0])); t.setAttribute("y",toY(c[1]));
+        t.setAttribute("text-anchor","middle"); t.setAttribute("class","zone-lbl");
+        t.setAttribute("data-fs",M.fs); t.setAttribute("data-tsw",M.sw);
+        t.textContent=e.name; g.appendChild(t);
+      }
     }
   });
   if(drafting.length){
@@ -308,7 +369,13 @@ function drawShapes(){
   applyStroke();
 }
 function applyStroke(){
+  // Called right after every SVG redraw. Must compensate BOTH stroke and text,
+  // or freshly drawn labels sit at the SVG default size until the next pan/zoom.
   $("svg").querySelectorAll("[data-sw]").forEach(n=>n.setAttribute("stroke-width",(+n.dataset.sw)/view.s));
+  $("svg").querySelectorAll("[data-fs]").forEach(n=>{
+    n.setAttribute("font-size",(+n.dataset.fs)/view.s);
+    n.setAttribute("stroke-width",(+n.dataset.tsw)/view.s);
+  });
 }
 function centroid(vs){
   let x=0,y=0; vs.forEach(v=>{x+=v[0];y+=v[1];}); return [x/vs.length,y/vs.length];
@@ -325,12 +392,16 @@ function drawZones(){
     p.setAttribute("class","zone-poly"); p.setAttribute("fill",col);
     p.setAttribute("stroke",col); p.setAttribute("data-sw",2.5);
     g.appendChild(p);
-    const c=centroid(z.vertices.map(v=>[toX(v[0]),toY(v[1])]));
-    const t=document.createElementNS(ns,"text");
-    t.setAttribute("x",c[0]); t.setAttribute("y",c[1]);
-    t.setAttribute("text-anchor","middle"); t.setAttribute("class","zone-lbl");
-    t.setAttribute("opacity",".72"); t.textContent=z.name;
-    g.appendChild(t);
+    const M=LABEL_MODES[labelMode];
+    if(M.fs>0){
+      const c=centroid(z.vertices.map(v=>[toX(v[0]),toY(v[1])]));
+      const t=document.createElementNS(ns,"text");
+      t.setAttribute("x",c[0]); t.setAttribute("y",c[1]);
+      t.setAttribute("text-anchor","middle"); t.setAttribute("class","zone-lbl");
+      t.setAttribute("data-fs",M.fs); t.setAttribute("data-tsw",M.sw);
+      t.setAttribute("opacity",".72"); t.textContent=z.name;
+      g.appendChild(t);
+    }
   });
   applyStroke();
 }
@@ -558,6 +629,14 @@ window.addEventListener("keydown",e=>{
   if(e.key==="z"||e.key==="Z"){showZones=!showZones;$("togglezones").classList.toggle("on",showZones);drawZones();}
   if(e.key==="Backspace"){e.preventDefault();undo();}
   if(e.key==="0")fitZones();
+  if(e.key==="l"||e.key==="L")cycleLabels();
+  if(e.key==="+"||e.key==="=")zoomBy(1.3);
+  if(e.key==="-"||e.key==="_")zoomBy(1/1.3);
+  const PAN=80;
+  if(e.key==="ArrowUp"){e.preventDefault();panBy(0,PAN);}
+  if(e.key==="ArrowDown"){e.preventDefault();panBy(0,-PAN);}
+  if(e.key==="ArrowLeft"){e.preventDefault();panBy(PAN,0);}
+  if(e.key==="ArrowRight"){e.preventDefault();panBy(-PAN,0);}
 });
 function undo(){
   if(drafting.length){drafting.pop();drawShapes();return;}
@@ -571,7 +650,15 @@ $("mode-point").onclick=()=>setMode("point");
 $("mode-area").onclick=()=>setMode("area");
 $("togglezones").onclick=()=>{showZones=!showZones;$("togglezones").classList.toggle("on",showZones);drawZones();};
 $("undo").onclick=undo;
-$("fitbtn").onclick=fitZones;
+$("tlabels").onclick=cycleLabels;
+$("zin").onclick=()=>zoomBy(1.3);
+$("zout").onclick=()=>zoomBy(1/1.3);
+$("pfit").onclick=fitZones;
+const PANSTEP=80;
+$("pup").onclick=()=>panBy(0,PANSTEP);
+$("pdown").onclick=()=>panBy(0,-PANSTEP);
+$("pleft").onclick=()=>panBy(PANSTEP,0);
+$("pright").onclick=()=>panBy(-PANSTEP,0);
 $("esave").onclick=saveEntry;
 $("ecancel").onclick=closeEditor;
 $("p-exact").onclick=()=>setPrec("exact");
