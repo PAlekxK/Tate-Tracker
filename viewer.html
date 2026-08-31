@@ -3797,6 +3797,11 @@
     background: #f0fae8; border: 1px solid #c8e0a8;
     border-radius: var(--r-chip); padding: 1px 7px;
   }
+  /* D6b window-state — the month view's edges stop implying "now" (2026-08-31) */
+  .peak-state { font-weight: 700; }
+  .peak-state.now    { color: #2f6a3e; }
+  .peak-state.ahead  { color: #305880; }
+  .peak-state.closed { color: #8a6242; }
   .plant-action-desc {
     font-family: "Crimson Text", Georgia, serif;
     font-size: 13px; color: #3a5a3a;
@@ -7248,29 +7253,43 @@ function mmddRangeActive(range, ref) {
   const e = parseInt(range.end.slice(0, 2), 10) * 100 + parseInt(range.end.slice(3), 10);
   return s <= e ? (key >= s && key <= e) : (key >= s || key <= e);
 }
-// Is a care node peaking today? Prefers the structured `peakDates` field
-// (machine-readable MM-DD windows, added 2026-07-06 — handles full month names,
-// month-only, multi-window, and year-wrap that the prose parser couldn't).
-// Falls back to parsing the prose `peakWindow` only if `peakDates` is absent.
-// An explicit empty `peakDates: []` means "no calendar peak" → not active.
-function peakNodeActiveThisWeek(node) {
-  if (!node) return false;
+// ⭐ THE one "peaking today" engine — every today-lens calls this core: the strip's
+// Worth-a-look candidates, the Plants card's peak panel, the metrics state.
+// Two surfaces, one predicate — they can no longer disagree (2026-08-31 sweep,
+// Paul's D6a ruling; one-engine-one-verdict). Prefers the structured `peakDates`
+// field (MM-DD, multi-window, year-wrap-aware — added 2026-07-06); falls back to
+// parsing the prose `peakWindow` (reads ~60% of formats). Returns:
+//   "dated"  — today is inside a peakDates window
+//   "window" — today is inside the parsed prose window
+//   false    — a READABLE window exists and today is OUTSIDE it
+//   null     — no readable precise signal; the CALLER picks its coarse fallback
+//              (the strip falls back to month granularity; the panel stays silent)
+// An explicit empty `peakDates: []` means "no calendar peak" → false.
+function carePeakToday(node, ref) {
+  if (!node) return null;
+  const d = ref || today;
   if (Array.isArray(node.peakDates)) {
-    return node.peakDates.some(r => mmddRangeActive(r, today));
+    if (!node.peakDates.length) return false;
+    return node.peakDates.some(r => mmddRangeActive(r, d)) ? "dated" : false;
   }
-  return node.peakWindow ? dateInRange(today, parseShortDateRange(node.peakWindow)) : false;
+  if (node.peakWindow) {
+    const rng = parseShortDateRange(node.peakWindow);
+    if (rng) return dateInRange(d, rng) ? "window" : false;
+  }
+  return null;
 }
+function peakNodeActiveToday(node) { return !!carePeakToday(node); }
 
 // Walk every care node in a plant's care tree; return true if any is peaking today.
-function plantPeakActiveThisWeek(plant) {
+function plantPeakActiveToday(plant) {
   const care = plant.care || {};
   for (const ct of Object.keys(care)) {
     const block = care[ct];
     if (!block) continue;
-    if (peakNodeActiveThisWeek(block)) return true;
+    if (peakNodeActiveToday(block)) return true;
     if (block.subcategories) {
       for (const sub of block.subcategories) {
-        if (peakNodeActiveThisWeek(sub)) return true;
+        if (peakNodeActiveToday(sub)) return true;
       }
     }
   }
@@ -9322,16 +9341,17 @@ function gatherPlantLookForCandidates(now) {
         const peakWindow = e.peakWindow || null;
         const narrow = e.narrow === true;
         // A "worth a look" prompt is a claim about TODAY, so it must be gated on
-        // the actual window — not just the month. When an entry has a structured
-        // `peakDates` window (MM-DD ranges), require today to fall inside it;
-        // month membership is too coarse (it kept a Jun 18–Jul 8 prune showing on
-        // Jul 14, and surfaced an Aug–Sep cutting window in July — 2026-07-14 fix).
-        // Only entries WITHOUT precise dates fall back to month granularity.
-        const hasDates = Array.isArray(e.peakDates) && e.peakDates.length > 0;
+        // the actual window — not just the month. Month membership is too coarse
+        // (it kept a Jun 18–Jul 8 prune showing on Jul 14, and surfaced an Aug–Sep
+        // cutting window in July — 2026-07-14 fix). Since 2026-08-31 (D6a) the gate
+        // is carePeakToday — the SAME engine the peak panel reads — so a readable
+        // window (structured OR parseable prose) gates on today, and only entries
+        // with NO readable window fall back to month granularity.
+        const peak = carePeakToday(e, now);
         let priority;
-        if (hasDates) {
-          if (!e.peakDates.some(r => mmddRangeActive(r, now))) continue;  // window not open today
-          priority = narrow ? 1 : 4;                    // active dated window: narrow=P1, else P4
+        if (peak === false) continue;                   // readable window, not open today
+        if (peak) {
+          priority = narrow ? 1 : 4;                    // active window today: narrow=P1, else P4
         } else {
           if (!e.months.length || !e.months.includes(m)) continue;       // month-coarse fallback
           const opening = !e.months.includes(prevM) && dayOfMonth <= 14;
@@ -16837,7 +16857,7 @@ function wirePlantCheckPrompt(pSubEl, items) {
 // now reads the structured `peakDates` field (added 2026-07-06), so all 88
 // windows resolve — including the full-month, month-only, multi-window, and
 // year-wrap cases the prose parser used to miss (~40%).
-function plantsAtPeakThisWeek() {
+function plantsAtPeakToday() {
   const items = [];
   if (typeof PLANTS_DATA === "undefined" || !PLANTS_DATA.plants) return items;
   for (const p of PLANTS_DATA.plants) {
@@ -16848,7 +16868,7 @@ function plantsAtPeakThisWeek() {
       if (!b) continue;
       const entries = b.subcategories ? b.subcategories : [b];
       for (const e of entries) {
-        if (e && !seen.has(ct) && peakNodeActiveThisWeek(e)) {
+        if (e && !seen.has(ct) && peakNodeActiveToday(e)) {
           seen.add(ct);
           peaks.push({ ct, peakWindow: e.peakWindow });
         }
@@ -16864,15 +16884,15 @@ function plantsAtPeakThisWeek() {
 function renderPlantPeakPanel() {
   const el = document.getElementById("plant-peak-panel");
   if (!el) return;
-  const items = plantsAtPeakThisWeek();
+  const items = plantsAtPeakToday();
 
   if (!items.length) {
-    el.innerHTML = '<div class="plant-peak-title">Peak this week</div>' +
+    el.innerHTML = '<div class="plant-peak-title">At their peak right now</div>' +
       '<div class="plant-peak-empty">Nothing at its peak just now — the garden’s resting.</div>';
     return;
   }
 
-  let html = '<div class="plant-peak-title">Peak this week</div>';
+  let html = '<div class="plant-peak-title">At their peak right now</div>';
   html += items.map(it => {
     // one pill per distinct peaking care type (already deduped); first window = timing
     const chips = it.peaks
@@ -16986,7 +17006,7 @@ function renderDashboardStrip() {
       // parse (full month names, month-only, prose-only). Refining this needs a
       // structured peak field in the data (backlogged 2026-07-05).
       // List every plant at peak, each with its action (there's room — Paul, 7/5).
-      const peakItems = plantsAtPeakThisWeek();
+      const peakItems = plantsAtPeakToday();
       let peakRow = "";
       if (peakItems.length) {
         const rows = peakItems.map(it => {
@@ -16998,7 +17018,7 @@ function renderDashboardStrip() {
         }).join("");
         peakRow = '<div class="dash-tease-row dash-tease-peak">' +
           '<span class="dash-tease-body">' +
-            '<span class="dash-tease-action">Peak this week</span>' +
+            '<span class="dash-tease-action">At their peak</span>' +
             '<div class="dash-peak-list">' + rows + '</div>' +
           '</span>' +
         '</div>';
@@ -17160,6 +17180,42 @@ function togglePlantDetail(id) {
   if (!isOpen) trackDetailOpened('plant-action', null, id);
 }
 
+// D6b `[paul-stated 2026-08-31]` — inside the This-Month view, an entry's precise
+// window says WHERE it stands: in it now, already closed, or still ahead. Month
+// membership alone implied "now", which misleads at the month's edges (a prune
+// window that closed on the 8th read identically on the 28th). The calendar shelf
+// stays; its edges stop lying — the same honesty grammar as measured-vs-modeled.
+// Uses peakDates first, then the parseable prose window; unreadable windows say
+// nothing rather than guessing.
+function peakStateHtml(entry) {
+  let ranges = null;
+  if (Array.isArray(entry.peakDates) && entry.peakDates.length) {
+    const y = today.getFullYear();
+    ranges = entry.peakDates
+      .filter(r => r && r.start && r.end)
+      .map(r => ({
+        start: new Date(y, parseInt(r.start.slice(0, 2), 10) - 1, parseInt(r.start.slice(3), 10)),
+        end:   new Date(y, parseInt(r.end.slice(0, 2), 10) - 1, parseInt(r.end.slice(3), 10)),
+        mmdd: r,
+      }));
+  } else if (entry.peakWindow) {
+    const rng = parseShortDateRange(entry.peakWindow);
+    if (rng) ranges = [{ start: rng.start, end: rng.end, mmdd: null }];
+  }
+  if (!ranges || !ranges.length) return '';
+  const activeNow = ranges.some(r => r.mmdd ? mmddRangeActive(r.mmdd, today) : dateInRange(today, r));
+  const fmt = d => MONTH_NAMES_SHORT[d.getMonth()] + ' ' + d.getDate();
+  if (activeNow) return ' <span class="peak-state now">· in its window now</span>';
+  // Not active: prefer the next opening still ahead this year; otherwise the
+  // window has passed (a year-wrap range that isn't active also reads as "opens",
+  // via its start edge — the next real event).
+  const ahead = ranges.filter(r => r.start > today).sort((a, b) => a.start - b.start)[0];
+  if (ahead) return ' <span class="peak-state ahead">· opens ' + fmt(ahead.start) + '</span>';
+  const past = ranges.filter(r => r.end < today).sort((a, b) => b.end - a.end)[0];
+  if (past) return ' <span class="peak-state closed">· window closed ' + fmt(past.end) + '</span>';
+  return '';
+}
+
 function buildPlantDetailHtml(plant, type) {
   const entry = plant.care && plant.care[type];
   if (!entry) return '';
@@ -17173,7 +17229,8 @@ function buildPlantDetailHtml(plant, type) {
       h += '<span class="plant-detail-sub-name c-' + type + '">' + escapeHtml(sub.label) + '</span>';
       if (sub.narrow) h += '<span class="narrow-badge">Narrow window</span>';
       h += '</div>';
-      if (sub.peakWindow) h += '<div class="plant-action-peak">Peak: ' + escapeHtml(sub.peakWindow) + '</div>';
+      if (sub.peakWindow) h += '<div class="plant-action-peak">Peak: ' + escapeHtml(sub.peakWindow) + peakStateHtml(sub) + '</div>';
+      else if (peakStateHtml(sub)) h += '<div class="plant-action-peak">' + peakStateHtml(sub).trim() + '</div>';
       if (sub.description) h += '<div class="plant-action-desc">' + escapeHtml(sub.description) + '</div>';
       h += '</div>';
     });
@@ -17184,7 +17241,8 @@ function buildPlantDetailHtml(plant, type) {
       if (entry.narrow) h += '<span class="narrow-badge">Narrow window</span> ';
       h += '</div>';
     }
-    if (entry.peakWindow) h += '<div class="plant-action-peak">Peak: ' + escapeHtml(entry.peakWindow) + '</div>';
+    if (entry.peakWindow) h += '<div class="plant-action-peak">Peak: ' + escapeHtml(entry.peakWindow) + peakStateHtml(entry) + '</div>';
+    else if (peakStateHtml(entry)) h += '<div class="plant-action-peak">' + peakStateHtml(entry).trim() + '</div>';
     if (entry.description) h += '<div class="plant-action-desc">' + escapeHtml(entry.description) + '</div>';
     h += '</div>';
   }
@@ -18371,7 +18429,7 @@ function gatherTodayState() {
   // Plants peaking right now
   try {
     if (typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) {
-      state.plantsInPeak = PLANTS_DATA.plants.filter(p => plantPeakActiveThisWeek(p)).map(p => p.name).slice(0, 5);
+      state.plantsInPeak = PLANTS_DATA.plants.filter(p => plantPeakActiveToday(p)).map(p => p.name).slice(0, 5);
     }
   } catch (e) {}
   // Birds arriving / leaving this week
@@ -20910,7 +20968,7 @@ function gatherGuruLiveState() {
   try {
     if (PLANTS_DATA && PLANTS_DATA.plants) {
       state.plantsInPeak = PLANTS_DATA.plants
-        .filter(p => plantPeakActiveThisWeek(p))
+        .filter(p => plantPeakActiveToday(p))
         .map(p => p.name)
         .slice(0, 8);
     }
