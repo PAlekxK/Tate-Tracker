@@ -10213,6 +10213,107 @@ function wirePropertyMap() {
 // the call site). `flowId` is behavioral telemetry ONLY — it rides the metric,
 // never the audio payload's meaning.
 const ZONE_AUDIO_ENDPOINT = "https://tate-tracker.paul-kirschenbauer.workers.dev/api/zone-audio";
+// ── Zone-audio outbox (2026-08-31) ──────────────────────────────────────────
+// Paul stated the site's premise: no cell reception, Wi-Fi from the house only,
+// coverage falling off with distance, heavy canopy, PERMANENT. So a recording made
+// out among the plants cannot reach the Worker at the moment she makes it, and
+// "tap the mic to try again" is advice that cannot succeed where she is standing.
+// Her thirty seconds were being discarded.
+//
+// The old reason for having no queue measured the wrong instrument: audio was
+// "too big to buffer in localStorage like the text outbox" — true of a ~5 MB
+// STRING quota, false of the browser. IndexedDB holds this comfortably; a
+// 30-second clip is ~60-250 KB. Same shape as the text outbox (flushOutbox):
+// hold until a real 2xx, break on the first failure, keep the rest for next time.
+//
+// This makes the ack TRUER, not weaker — "set down" is what actually happened.
+const ZoneAudioOutbox = (function () {
+  const DB_NAME = "tateTrackerAudio", STORE = "pendingZoneAudio", VERSION = 1;
+  const MAX_PENDING = 40;                 // bounded, like OUTBOX_MAX
+  let flushing = false;
+
+  function supported() {
+    try { return typeof indexedDB !== "undefined" && !!indexedDB; } catch (_) { return false; }
+  }
+  function openDb() {
+    return new Promise((resolve, reject) => {
+      let req;
+      try { req = indexedDB.open(DB_NAME, VERSION); } catch (e) { return reject(e); }
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: "id" });
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  function tx(mode, fn) {
+    return openDb().then(db => new Promise((resolve, reject) => {
+      const t = db.transaction(STORE, mode);
+      const rq = fn(t.objectStore(STORE));
+      t.oncomplete = () => resolve(rq && rq.result !== undefined ? rq.result : null);
+      t.onerror = () => reject(t.error);
+      t.onabort = () => reject(t.error);
+    }));
+  }
+  async function all() {
+    if (!supported()) return [];
+    try { return (await tx("readonly", st => st.getAll())) || []; } catch (_) { return []; }
+  }
+  async function put(rec) {
+    if (!supported()) return false;
+    try {
+      if ((await all()).length >= MAX_PENDING) return false;  // refuse; never evict her words
+      await tx("readwrite", st => st.put(rec));
+      return true;
+    } catch (_) { return false; }
+  }
+  async function remove(id) {
+    if (!supported()) return;
+    try { await tx("readwrite", st => st.delete(id)); } catch (_) {}
+  }
+  async function count() { return (await all()).length; }
+  async function flush() {
+    if (flushing || !supported()) return 0;
+    flushing = true;
+    let sent = 0;
+    try {
+      for (const rec of await all()) {
+        if (!rec || !rec.dataUrl) { await remove(rec && rec.id); continue; }
+        const r = await uploadZoneAudio({ dataUrl: rec.dataUrl, zoneId: rec.zoneId,
+          durationMs: rec.durationMs, deviceId: rec.deviceId, flowId: rec.flowId });
+        if (!r.ok) break;                 // still out of range — keep the rest
+        await remove(rec.id); sent++;
+      }
+    } catch (_) {} finally { flushing = false; }
+    return sent;
+  }
+  return { put, all, remove, count, flush, supported };
+})();
+
+// Hold a recording that could not be sent. Returns true if her words are safe.
+async function queueZoneAudio(payload, zid, flowId) {
+  let did = "";
+  try { did = localStorage.getItem("tateTracker.deviceId") || ""; } catch (_) {}
+  return ZoneAudioOutbox.put({
+    id: "za-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7),
+    zoneId: zid, dataUrl: payload.dataUrl, durationMs: payload.durationMs,
+    deviceId: did || undefined, flowId: flowId || undefined,
+    at: new Date().toISOString()
+  });
+}
+const ZONE_AUDIO_HELD = "Set down — it'll reach the record next time you're near the house. ✓";
+
+// navigator.onLine is NOT a route test: at the edge of house Wi-Fi the phone
+// reports online while requests time out. Match the payload, not the container —
+// try on every plausible return-to-range, not on the browser's own claim alone.
+if (typeof window !== "undefined" && window.addEventListener) {
+  window.addEventListener("online", () => { ZoneAudioOutbox.flush(); });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") ZoneAudioOutbox.flush();
+  });
+}
+
 async function uploadZoneAudio(opts) {
   const o = opts || {};
   let did = o.deviceId;
@@ -10345,8 +10446,11 @@ const ZonePanel = (function () {
     // (Audio blobs are too big to buffer in localStorage like the text outbox, so
     // the honest ask-to-retry is the safeguard, not a silent queue — the 7/15 rule.)
     const r = await uploadZoneAudio({ dataUrl: payload.dataUrl, zoneId: zid, durationMs: payload.durationMs });
-    if (r.ok) setGrowStatus("Saved — thank you. ✓");
-    else setGrowStatus("Couldn't save just now — tap the mic to try again.");
+    if (r.ok) { setGrowStatus("Saved — thank you. ✓"); return; }
+    // Out of range is the NORMAL case away from the house, not an error to hand back.
+    setGrowStatus(await queueZoneAudio(payload, zid)
+      ? ZONE_AUDIO_HELD
+      : "Couldn't save just now — tap the mic to try again.");
   }
   async function toggleGrow() {
     const rec = growRec();
@@ -10371,6 +10475,16 @@ const ZonePanel = (function () {
     document.getElementById("pmap-panel-status").textContent = "· " + statusLabel;
     exitRenameMode();
     setGrowStatus("");
+    // Back in range? Send whatever she recorded out of range, and if any is still
+    // waiting, say so — she should never have to wonder whether it survived.
+    ZoneAudioOutbox.flush().then(async (sent) => {
+      const left = await ZoneAudioOutbox.count();
+      if (left > 0) setGrowStatus(left + (left === 1 ? " recording is" : " recordings are")
+        + " still waiting for the house Wi-Fi.");
+      else if (sent > 0) setGrowStatus(sent === 1
+        ? "The recording you made earlier has reached the record. ✓"
+        : "The " + sent + " recordings you made earlier have reached the record. ✓");
+    });
     backdrop.classList.add("open");
     requestAnimationFrame(() => panel.classList.add("open"));
     if (typeof MetricsCollector !== "undefined") {
@@ -12591,6 +12705,12 @@ const ZoneJourney = (function () {
     lastSaveOk = result.ok;
     lastStep = "saved:" + (result.ok ? "ok" : "fail") + ":" + zid;
     if (result.ok) { setStatus("Saved — thank you. ✓"); showAfter(); }
+    else if (await queueZoneAudio(payload, zid, flowId)) {
+      // Held, not lost — so this is a completed step, and she gets the same
+      // onward move she would have had on a live save.
+      lastSaveOk = true; lastStep = "saved:held:" + zid;
+      setStatus(ZONE_AUDIO_HELD); showAfter();
+    }
     else setStatus("Couldn't save just now — tap the mic to try again.");
   }
 
