@@ -1,0 +1,24 @@
+{
+ "image": "lidar-hillshade-2018.png",
+ "source": "USGS 3DEP 1 m DEM \u2014 GA_Statewide_2018_B18_DRRA (lidar, flown 2018, published 2022-05-31)",
+ "derivedVia": "3DEPElevation ImageServer exportImage, F32, resampled to the NAIP frame",
+ "license": "public domain (US federal work) \u2014 redistributable, same class as NAIP",
+ "render": "multi-directional hillshade, 4 azimuths (315/45/135/225) at 28-35 deg altitude, p1-p99 contrast stretch, gamma 0.9",
+ "why": "lidar is an ACTIVE sensor: no sun, therefore no shadows. This shows the terrain breaks the 2022-01-10 optical basemap loses in shadow.",
+ "notALimitationOf": "resolution \u2014 source posting is 1 m, coarser than NAIP's 0.6 m. This is a shadow answer, not a sharpness answer.",
+ "bounds": {
+  "west": -84.36990044993301,
+  "south": 34.54754054054054,
+  "east": -84.364899550067,
+  "north": 34.55165945945946
+ },
+ "pixelWidth": 1500,
+ "pixelHeight": 1500,
+ "registeredTo": "IDENTICAL bounds to base-naip-2022-01-leafoff \u2014 drop-in layer, no re-registration",
+ "siblings": {
+  "slope": "lidar-slope-2018.png (0-30 deg ramp; a break of slope IS the border of several named areas)"
+ },
+ "productId": "USGS 1 Meter 16 x74y383 GA_Statewide_2018_B18_DRRA (TNM, published 2022-05-31)",
+ "coverageConfirmed": "2026-08-31, deterministically: TNM Access API returned exactly 1 one-metre DEM product covering the property bbox. One-metre DEM exists ONLY where lidar was flown, so its presence IS the coverage answer.",
+ "corroboration": "Max elevation in frame 906.7 m; property.json records 902 m / 2959 ft at the house. Independent agreement."
+}
