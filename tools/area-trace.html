@@ -210,14 +210,14 @@ function fitAll(){
   view.s=Math.min(r.width/(x1-x0),r.height/(y1-y0));
   view.x=(r.width-(x1-x0)*view.s)/2-x0*view.s;
   view.y=(r.height-(y1-y0)*view.s)/2-y0*view.s;
-  applyView();
+  applyView(); drawDone();
 }
 function zoomBy(f){
   const r=$("maparea").getBoundingClientRect();
   const mx=r.width/2,my=r.height/2;
   const ns_=Math.max(0.15,Math.min(16,view.s*f));
   view.x=mx-(mx-view.x)*(ns_/view.s); view.y=my-(my-view.y)*(ns_/view.s); view.s=ns_;
-  applyView();
+  applyView(); drawDone();
 }
 function panBy(dx,dy){ view.x+=dx; view.y+=dy; applyView(); }
 function cycleLabels(){
@@ -227,6 +227,94 @@ function cycleLabels(){
   $("tlabels").appendChild(Object.assign(document.createElement("kbd"),{textContent:"L"}));
   $("tlabels").classList.toggle("on",M.fs>0);
   drawDone();
+}
+/* ---------- label fitting ----------
+   A label must never spill outside its own zone: the overspill is what hides
+   the ground and the neighbouring border you are tracing against. So the label
+   is placed at the polygon's POLE OF INACCESSIBILITY (the point furthest from
+   any edge) rather than its centroid — a centroid can fall clean outside a
+   concave shape — and then sized to fit the circle that fits inside the zone.
+   If it cannot fit legibly, no label is drawn at all. */
+const _mc=document.createElement("canvas").getContext("2d");
+const _mcache=new Map();
+function textUnits(str){            // width in multiples of font-size
+  if(_mcache.has(str))return _mcache.get(str);
+  _mc.font="600 100px -apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif";
+  const w=_mc.measureText(str).width/100;
+  _mcache.set(str,w); return w;
+}
+function segDist(px,py,a,b){
+  let dx=b[0]-a[0],dy=b[1]-a[1];
+  const L=dx*dx+dy*dy;
+  let t=L?((px-a[0])*dx+(py-a[1])*dy)/L:0;
+  t=Math.max(0,Math.min(1,t));
+  const ex=a[0]+t*dx-px, ey=a[1]+t*dy-py;
+  return Math.sqrt(ex*ex+ey*ey);
+}
+function signedDist(x,y,pts){       // + inside, - outside; magnitude = distance to edge
+  let inside=false,min=Infinity;
+  for(let i=0,j=pts.length-1;i<pts.length;j=i++){
+    const a=pts[j],b=pts[i];
+    if(((b[1]>y)!==(a[1]>y)) && (x<(a[0]-b[0])*(y-b[1])/(a[1]-b[1])+b[0])) inside=!inside;
+    min=Math.min(min,segDist(x,y,b,a));
+  }
+  return inside?min:-min;
+}
+function labelAnchor(pts){
+  let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity;
+  pts.forEach(p=>{x0=Math.min(x0,p[0]);y0=Math.min(y0,p[1]);x1=Math.max(x1,p[0]);y1=Math.max(y1,p[1]);});
+  const w=x1-x0,h=y1-y0,N=12;
+  let best={x:(x0+x1)/2,y:(y0+y1)/2,r:-Infinity};
+  for(let i=0;i<=N;i++)for(let j=0;j<=N;j++){
+    const x=x0+w*i/N, y=y0+h*j/N, r=signedDist(x,y,pts);
+    if(r>best.r)best={x,y,r};
+  }
+  let step=Math.max(w,h)/N;          // hill-climb to refine
+  for(let k=0;k<7;k++){
+    let moved=false;
+    for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
+      const x=best.x+dx*step, y=best.y+dy*step, r=signedDist(x,y,pts);
+      if(r>best.r){best={x,y,r};moved=true;}
+    }
+    if(!moved)step/=2;
+  }
+  return best;                       // r = radius of the largest circle that fits
+}
+const MIN_LABEL_PX=7;
+function fitLabel(name,anchor,baseFs){
+  // The text BOX has to fit the inscribed CIRCLE, so the constraint is the box's
+  // half-diagonal, not its half-width — a box 2r wide overhangs a circle of
+  // radius r at the corners, which is exactly the overspill we are removing.
+  const R=anchor.r*view.s*0.95;
+  if(R<=0)return null;
+  const words=name.split(" ");
+  const cands=[[name]];
+  const balanced=(n)=>{                    // best n-line break, by narrowest widest line
+    let best=null;
+    const walk=(start,left,acc)=>{
+      if(left===1){
+        const lines=acc.concat([words.slice(start).join(" ")]);
+        if(lines.some(l=>!l))return;
+        const m=Math.max(...lines.map(textUnits));
+        if(!best||m<best.m)best={m,lines};
+        return;
+      }
+      for(let i=start+1;i<=words.length-left+1;i++)
+        walk(i,left-1,acc.concat([words.slice(start,i).join(" ")]));
+    };
+    walk(0,n,[]);
+    return best&&best.lines;
+  };
+  if(words.length>1){const b=balanced(2); if(b)cands.push(b);}
+  if(words.length>2){const b=balanced(3); if(b)cands.push(b);}
+  let win=null;
+  cands.forEach(lines=>{
+    const wu=Math.max(...lines.map(textUnits));   // width  / font-size
+    const hu=lines.length*1.18;                   // height / font-size
+    const fs=Math.min(baseFs, 2*R/Math.sqrt(wu*wu+hu*hu));
+    if(!win||fs>win.fs)win={fs,lines};
+  });
+  return win&&win.fs>=MIN_LABEL_PX?win:null;
 }
 function centroid(pts){let x=0,y=0;pts.forEach(p=>{x+=p[0];y+=p[1];});return[x/pts.length,y/pts.length];}
 
@@ -247,23 +335,39 @@ function drawDraft(){
 function drawDone(){
   const g=$("doneg"); g.innerHTML="";
   if(!showDone)return;
+  // While a trace is in progress the finished zones step back: their fill drops
+  // away so the aerial and their own borders read clearly, because a neighbour's
+  // edge is usually the edge you are drawing against.
+  const tracing=drafting.length>0;
   AREAS.forEach((a,i)=>{
     if(!a.vertices||a.vertices.length<3)return;
     const pts=a.vertices.map(v=>[toX(v[0]),toY(v[1])]);
     const c=colorOf(i);
     const p=document.createElementNS(ns,"polygon");
     p.setAttribute("points",pts.map(p=>p[0]+","+p[1]).join(" "));
-    p.setAttribute("fill",c); p.setAttribute("fill-opacity",a.id===activeId?".34":".2");
-    p.setAttribute("stroke",c); p.setAttribute("data-sw",3); g.appendChild(p);
+    p.setAttribute("fill",c);
+    p.setAttribute("fill-opacity",a.id===activeId?".34":(tracing?".06":".2"));
+    p.setAttribute("stroke",c); p.setAttribute("data-sw",tracing?3.5:3);
+    g.appendChild(p);
     const M=LABEL_MODES[labelMode];
-    if(M.fs>0){
-      const ct=centroid(pts);
-      const t=document.createElementNS(ns,"text");
-      t.setAttribute("x",ct[0]); t.setAttribute("y",ct[1]);
-      t.setAttribute("text-anchor","middle"); t.setAttribute("class","poly-lbl");
-      t.setAttribute("data-fs",M.fs); t.setAttribute("data-tsw",M.sw);
-      t.textContent=a.name; g.appendChild(t);
-    }
+    if(M.fs<=0)return;
+    const anchor=labelAnchor(pts);
+    const fit=fitLabel(a.name,anchor,M.fs);
+    if(!fit)return;                       // won't fit inside the zone: draw nothing
+    const t=document.createElementNS(ns,"text");
+    t.setAttribute("x",anchor.x); t.setAttribute("y",anchor.y);
+    t.setAttribute("text-anchor","middle"); t.setAttribute("class","poly-lbl");
+    t.setAttribute("data-area",a.id);
+    t.setAttribute("data-fs",fit.fs); t.setAttribute("data-tsw",M.sw*fit.fs/M.fs);
+    if(tracing)t.setAttribute("opacity",".5");
+    const n=fit.lines.length;
+    fit.lines.forEach((line,k)=>{
+      const sp=document.createElementNS(ns,"tspan");
+      sp.setAttribute("x",anchor.x);
+      sp.setAttribute("dy",(k===0?(-(n-1)*0.59+0.34):1.18)+"em");
+      sp.textContent=line; t.appendChild(sp);
+    });
+    g.appendChild(t);
   });
   applyView();
 }
@@ -375,6 +479,7 @@ function mapHit(e){
   const x=(e.clientX-r.left)/view.s, y=(e.clientY-r.top)/view.s;
   if(x<0||y<0||x>W||y>H)return;
   drafting.push([x,y]); drawLive();
+  if(drafting.length===1)drawDone();   // step the finished zones back
 }
 map.addEventListener("mousedown",e=>{
   if(e.target.closest("#active,#modebar,#refpanel"))return;
@@ -395,7 +500,7 @@ map.addEventListener("wheel",e=>{
   const mx=e.clientX-r.left,my=e.clientY-r.top;
   const ns_=Math.max(0.15,Math.min(16,view.s*Math.exp(-e.deltaY*0.0016)));
   view.x=mx-(mx-view.x)*(ns_/view.s); view.y=my-(my-view.y)*(ns_/view.s); view.s=ns_;
-  applyView();
+  applyView(); drawDone();
 },{passive:false});
 
 window.addEventListener("keydown",e=>{
@@ -404,8 +509,9 @@ window.addEventListener("keydown",e=>{
     return;
   }
   if(e.key==="Enter"){e.preventDefault();closePolygon();}
-  if(e.key==="Backspace"){e.preventDefault();drafting.pop();drawLive();}
-  if(e.key==="Escape"){drafting=[];drawLive();}
+  if(e.key==="Backspace"){e.preventDefault();drafting.pop();drawLive();
+                          if(!drafting.length)drawDone();}
+  if(e.key==="Escape"){drafting=[];drawLive();drawDone();}
   if(e.key==="z"||e.key==="Z"){showDraft=!showDraft;$("tdraft").classList.toggle("on",showDraft);drawDraft();}
   if(e.key==="t"||e.key==="T"){showDone=!showDone;$("tdone").classList.toggle("on",showDone);drawDone();}
   if(e.key==="r"||e.key==="R")toggleRef();
