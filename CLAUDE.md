@@ -620,6 +620,38 @@ Phases **D** (capture rebuild), **E** (Garden Guru conversational layer), and **
 
 The vehicle/equipment data-collection list (mower belt P/N, Homelite model IDs, paint codes, Tiguan sticker, GTI mileage, Marietta dealer name, the annual NASA moon-viz refresh, …) is folded into `BACKLOG.md` under **Track B — Fleet & equipment · B3 Data collection**. Read + update it there.
 
+## ⛰ THE SITE'S PHYSICAL PREMISE — connectivity and canopy `[paul-stated 2026-08-31]`
+
+**Stated as a founding premise, not a caveat. "I want that known from the get go."**
+
+> *"We're limited to Wi-Fi coming from the house and don't really get cell reception. As soon
+> as you get far from the house you start to drop from coverage. That's just a realistic part
+> of being here and always will be. And there's also heavy tree cover."*
+
+Three fixed facts about this place, which every design has to be built AROUND rather than
+solve:
+
+1. **No cell reception.** The only network is Wi-Fi radiating from the house.
+2. **Coverage falls off with distance from the house.** ⚠️ Note the shape of this: connectivity
+   is *inversely* correlated with how far into the property you are — so the places worth
+   walking to are exactly the places with no network. Any feature whose value grows with
+   distance from the house has its connectivity shrink at the same rate.
+3. **Heavy tree cover.** Costs GPS accuracy (roughly 3–11 m under closed canopy against 1–4 m
+   in the open) and slows satellite acquisition. It is also why the basemap is a *January*
+   leaf-off flight.
+
+**PERMANENT.** Never propose a design whose mitigation is "improve the signal."
+
+**What this disqualifies:** anything that syncs, authenticates, calls an API, or fetches map
+tiles *at the moment of capture*. In the field, capture must be entirely local, with sync
+deferred until whoever it is walks back into range of the house.
+
+**⚠️ It applies to what already exists, not only to what gets built next.** Mom's tap-a-zone-
+and-speak surface posts to the Worker. If she records standing among the plants — which is
+precisely where she would want to — that post has no network. A capture path that can lose
+her words while appearing to succeed would break the one rule her surfaces are built on:
+*capture must not lie.*
+
 ## Location constants
 
 | Field | Value |
