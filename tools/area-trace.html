@@ -43,6 +43,15 @@
   #layers input[type=range]{width:172px;accent-color:var(--gold)}
   #layers .pct{font:11px ui-monospace,Menlo,monospace;color:var(--dim);width:34px;text-align:right}
   #layers .tip{font-size:11px;color:#6d7670;margin-top:7px}
+  #layers hr{border:0;border-top:1px solid var(--line);margin:10px 0 9px}
+  #layers .rowc{display:flex;align-items:center;gap:8px;margin-top:6px}
+  #layers .rowc label{font-size:11px;color:var(--dim);width:44px}
+  #layers .rowc input[type=range]{width:132px;accent-color:#0abeff}
+  #layers .num{font:11px ui-monospace,Menlo,monospace;color:var(--dim);width:46px;text-align:right}
+  #plat-save{padding:6px 12px;border-radius:6px;border:1px solid var(--line);font-size:12px;color:var(--dim)}
+  #plat-save.dirty{border-color:var(--gold);color:var(--gold)}
+  #stage img#platimg{position:absolute;top:0;left:0;width:auto;height:auto;
+                     transform-origin:center center;opacity:0;pointer-events:none}
   #layers .tip b{color:var(--dim)}
   #stage svg{position:absolute;top:0;left:0;width:1500px;height:1500px;overflow:visible;pointer-events:none}
 
@@ -123,6 +132,7 @@
       <img id="base" src="/images/property-map/base-naip-2022-01-leafoff.png" alt="">
       <img id="lyr-hillshade" class="over" src="/images/property-map/lidar-hillshade-2018.png" alt="">
       <img id="lyr-slope" class="over" src="/images/property-map/lidar-slope-2018.png" alt="">
+      <img id="platimg" src="/.private/plat/plat-overlay.png" alt="">
       <svg id="svg" viewBox="0 0 1500 1500"><g id="draftg"></g><g id="doneg"></g><g id="liveg"></g></svg>
     </div>
 
@@ -156,6 +166,26 @@
         <span class="pct" id="ly-pct">65%</span>
       </div>
       <div class="tip">hold <b>Space</b> to peek at full · <b>B</b> cycles</div>
+      <hr>
+      <div class="hd">Property plat — eye-fit, not a survey</div>
+      <div class="btns">
+        <button id="pl-show">Show <kbd></kbd></button>
+        <button id="pl-align">Align</button>
+        <button id="plat-save">Save fit</button>
+      </div>
+      <div id="pl-adv" hidden>
+      <div class="rowc"><label>fade</label>
+        <input id="pl-op" type="range" min="5" max="100" value="75">
+        <span class="num" id="pl-opn">75%</span></div>
+      <div class="rowc"><label>turn</label>
+        <input id="pl-rot" type="range" min="-180" max="180" step="0.5" value="0">
+        <span class="num" id="pl-rotn">0.0°</span></div>
+      <div class="rowc"><label>size</label>
+        <input id="pl-sc" type="range" min="2" max="60" step="0.1" value="16">
+        <span class="num" id="pl-scn">0.160</span></div>
+      <div class="tip" id="pl-tip">Turn <b>Align</b> on, then drag the plat so its
+        <b>driveway curve</b> sits on the driveway.</div>
+      </div>
     </div>
 
     <div id="navhint">drag to move · scroll to zoom</div>
@@ -211,6 +241,10 @@ let showDraft=true,showDone=true;
 // so they register exactly by construction — no transform of their own.
 const LAYERS=["off","hillshade","slope"];
 let topLayer="off", topOpacity=0.65, peeking=false;
+// The plat is a SEPARATE layer, not one of the terrain choices: you want it on
+// top of whichever ground you are checking it against.
+let plat={tx:750,ty:750,scale:0.16,rot:0,opacity:0.75,placed:false};
+let platShown=false, alignMode=false, platDirty=false;
 // Labels are drawn INSIDE the zoomed layer, so their size is compensated by the
 // view scale in applyView() — they stay the same size on screen at every zoom.
 const LABEL_MODES=[{k:"Normal",fs:15,sw:3.5},{k:"Small",fs:9.5,sw:2.5},{k:"Off",fs:0,sw:0}];
@@ -362,6 +396,31 @@ function applyLayers(){
   $("ly-pct").textContent=Math.round(topOpacity*100)+"%";
 }
 function setLayer(k){ topLayer=k; applyLayers(); }
+function applyPlat(){
+  const im=$("platimg");
+  const w=im.naturalWidth||1, h=im.naturalHeight||1;
+  im.style.opacity = platShown ? plat.opacity : 0;
+  im.style.transform =
+    `translate(${plat.tx-w/2}px,${plat.ty-h/2}px) rotate(${plat.rot}deg) scale(${plat.scale})`;
+  $("pl-show").classList.toggle("on",platShown);
+  $("pl-align").classList.toggle("on",alignMode);
+  $("pl-op").value=Math.round(plat.opacity*100); $("pl-opn").textContent=Math.round(plat.opacity*100)+"%";
+  $("pl-rot").value=plat.rot; $("pl-rotn").textContent=plat.rot.toFixed(1)+"\u00b0";
+  $("pl-sc").value=(plat.scale*100).toFixed(1); $("pl-scn").textContent=plat.scale.toFixed(3);
+  $("plat-save").classList.toggle("dirty",platDirty);
+  $("pl-adv").hidden = !(alignMode||platDirty);   // only while you are actually fitting
+  $("pl-tip").innerHTML = alignMode
+    ? "<b>Dragging moves the plat</b>, not the map. Line the driveway curve up, then Save fit."
+    : "Turn <b>Align</b> on, then drag the plat so its <b>driveway curve</b> sits on the driveway.";
+}
+async function savePlat(){
+  plat.placed=true;
+  const r=await fetch("/api/plat-save",{method:"POST",
+    headers:{"Content-Type":"application/json"},body:JSON.stringify(plat)});
+  platDirty=!r.ok; applyPlat();
+  $("savestate").textContent=r.ok?"plat fit saved to disk":"plat NOT saved";
+  $("savestate").className=r.ok?"on":"err";
+}
 function cycleLayer(){ setLayer(LAYERS[(LAYERS.indexOf(topLayer)+1)%LAYERS.length]); }
 function centroid(pts){let x=0,y=0;pts.forEach(p=>{x+=p[0];y+=p[1];});return[x/pts.length,y/pts.length];}
 
@@ -529,14 +588,18 @@ function mapHit(e){
   if(drafting.length===1)drawDone();   // step the finished zones back
 }
 map.addEventListener("mousedown",e=>{
-  if(e.target.closest("#active,#modebar,#refpanel"))return;
-  down={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y}; moved=false;
+  if(e.target.closest("#active,#modebar,#refpanel,#layers,#nav"))return;
+  down={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y,
+        px:plat.tx,py:plat.ty,plat:alignMode&&platShown}; moved=false;
 });
 window.addEventListener("mousemove",e=>{
   if(!down)return;
   const dx=e.clientX-down.x,dy=e.clientY-down.y;
   if(Math.abs(dx)+Math.abs(dy)>4){moved=true;map.classList.add("panning");}
-  if(moved){view.x=down.vx+dx;view.y=down.vy+dy;applyView();}
+  if(!moved)return;
+  if(down.plat){ plat.tx=down.px+dx/view.s; plat.ty=down.py+dy/view.s;
+                 platDirty=true; applyPlat(); }
+  else { view.x=down.vx+dx; view.y=down.vy+dy; applyView(); }
 });
 window.addEventListener("mouseup",()=>{ map.classList.remove("panning"); down=null; });
 map.addEventListener("click",e=>{ if(moved){moved=false;return;} mapHit(e); });
@@ -565,6 +628,7 @@ window.addEventListener("keydown",e=>{
   if(e.key==="0")fitAll();
   if(e.key==="l"||e.key==="L")cycleLabels();
   if(e.key==="b"||e.key==="B")cycleLayer();
+  if(e.key==="p"||e.key==="P"){platShown=!platShown;applyPlat();}
   if(e.key===" "){e.preventDefault(); if(!peeking&&topLayer!=="off"){peeking=true;applyLayers();}}
   if(e.key==="[")  {topOpacity=Math.max(0,topOpacity-0.1);applyLayers();}
   if(e.key==="]")  {topOpacity=Math.min(1,topOpacity+0.1);applyLayers();}
@@ -597,6 +661,12 @@ $("tref").onclick=toggleRef;
 $("tlabels").onclick=cycleLabels;
 LAYERS.forEach(k=>$("ly-"+k).onclick=()=>setLayer(k));
 $("ly-op").oninput=e=>{topOpacity=(+e.target.value)/100;applyLayers();};
+$("pl-show").onclick=()=>{platShown=!platShown;applyPlat();};
+$("pl-align").onclick=()=>{alignMode=!alignMode; if(alignMode)platShown=true; applyPlat();};
+$("pl-op").oninput=e=>{plat.opacity=(+e.target.value)/100;applyPlat();};
+$("pl-rot").oninput=e=>{plat.rot=+e.target.value;platDirty=true;applyPlat();};
+$("pl-sc").oninput=e=>{plat.scale=(+e.target.value)/100;platDirty=true;applyPlat();};
+$("plat-save").onclick=savePlat;
 $("zin").onclick=()=>zoomBy(1.3);
 $("zout").onclick=()=>zoomBy(1/1.3);
 $("pfit").onclick=fitAll;
@@ -627,7 +697,13 @@ window.addEventListener("resize",applyView);
   const img=$("base");
   const start=()=>{fitAll();};
   if(img.complete)start(); else img.onload=start;
-  applyLayers();
+  try{
+    const t=await (await fetch("/api/plat-transform")).json();
+    plat={...plat,...t}; platShown=!!t.placed;
+  }catch(e){}
+  const pi=$("platimg");
+  if(pi.complete)applyPlat(); else pi.onload=applyPlat;
+  applyLayers(); applyPlat();
   drawDraft(); drawDone(); renderList(); nextUntraced();
 })();
 </script>

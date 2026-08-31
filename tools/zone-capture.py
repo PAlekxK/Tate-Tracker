@@ -61,6 +61,7 @@ def areas_path(session_id):
 
 
 ROSTER_PATH = os.path.join(OUT_DIR, "areas-roster.json")
+PLAT_PATH = os.path.join(REPO, ".private", "plat", "transform.json")
 
 
 def atomic_write(path, payload):
@@ -115,13 +116,21 @@ class Handler(SimpleHTTPRequestHandler):
                 with open(path, encoding="utf-8") as fh:
                     return self._json(json.load(fh))
             return self._json({"areas": []})
+        elif self.path == "/api/plat-transform":
+            if os.path.exists(PLAT_PATH):
+                with open(PLAT_PATH, encoding="utf-8") as fh:
+                    return self._json(json.load(fh))
+            # Sensible first guess: centred on the frame, unrotated. Paul drags
+            # the driveway curve onto the driveway and the rest follows.
+            return self._json({"tx": 750, "ty": 750, "scale": 0.16,
+                               "rot": 0, "opacity": 0.75, "placed": False})
         elif self.path == "/api/config":
             return self._json({"sessionId": self.session_id,
                                "savePath": session_path(self.session_id)})
         return super().do_GET()
 
     def do_POST(self):
-        if self.path not in ("/api/save", "/api/areas-save"):
+        if self.path not in ("/api/save", "/api/areas-save", "/api/plat-save"):
             return self._json({"error": "not found"}, 404)
         n = int(self.headers.get("Content-Length", 0))
         try:
@@ -143,6 +152,21 @@ class Handler(SimpleHTTPRequestHandler):
             "status": "RAW CAPTURE — not folded to canon. zones.json/plants.json "
                       "unchanged until Paul reviews and folds deliberately.",
         }
+        if self.path == "/api/plat-save":
+            payload["_meta"] = {
+                "what": "Manual georeference of the Tate lot drawing onto the NAIP frame.",
+                "method": "Paul aligned it by eye against the DRIVEWAY CURVE, which he "
+                          "identified on the plat and which is unmistakable on the lidar "
+                          "hillshade. Feature matching, NOT a transcription of the "
+                          "bearings — those are not legible in the photograph.",
+                "accuracy": "AN EYE-FIT, not a survey. It is good enough to say roughly "
+                            "where the line runs; it is NOT good enough to site anything "
+                            "on, argue a boundary from, or record as the parcel line.",
+                "frame": "same bounds as base-naip-2022-01-leafoff; units are the 1500x1500 grid",
+                "savedAt": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
+            }
+            atomic_write(PLAT_PATH, payload)
+            return self._json({"ok": True})
         if self.path == "/api/areas-save":
             payload["_meta"]["kind"] = "AREA BOUNDARIES traced by Paul against the roster"
             payload["_meta"]["roster"] = os.path.relpath(ROSTER_PATH, REPO)
@@ -153,12 +177,38 @@ class Handler(SimpleHTTPRequestHandler):
         return self._json({"ok": True, "entries": len(payload.get("entries", []))})
 
 
+def latest_session():
+    """Resume the newest session on disk rather than blindly opening today's date.
+
+    The session id used to default to today, which meant restarting the server
+    after midnight silently opened an EMPTY session while the work sat in
+    yesterday's file — the tool reported '0 traced' and looked like data loss.
+    Nothing was ever lost, but a capture tool that appears to have thrown away an
+    hour of tracing is its own kind of failure.
+    """
+    best = None
+    if os.path.isdir(OUT_DIR):
+        for fn in os.listdir(OUT_DIR):
+            if not fn.endswith(".json"):
+                continue
+            stem = fn[:-5]
+            sid = stem[len("areas-"):] if stem.startswith("areas-") else stem
+            if sid in ("areas-roster", "roster") or not sid:
+                continue
+            m = os.path.getmtime(os.path.join(OUT_DIR, fn))
+            if best is None or m > best[0]:
+                best = (m, sid)
+    return best[1] if best else dt.date.today().isoformat()
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--session", default=dt.date.today().isoformat())
+    ap.add_argument("--session", default=None)
     ap.add_argument("--port", type=int, default=8899)
     ap.add_argument("--no-open", action="store_true")
     args = ap.parse_args()
+    if args.session is None:
+        args.session = latest_session()
 
     Handler.session_id = args.session
     path = session_path(args.session)
@@ -168,7 +218,13 @@ def main():
     url = "http://127.0.0.1:%d/" % args.port
     print("\n  Fernwood — live geographic capture")
     print("  " + "-" * 52)
-    print("  session : %s%s" % (args.session, "  (RESUMING)" if os.path.exists(path) else ""))
+    print("  session : %s%s" % (args.session, "  (RESUMING)" if os.path.exists(path)
+                                 or os.path.exists(areas_path(args.session)) else "  (new)"))
+    ap_ = areas_path(args.session)
+    if os.path.exists(ap_):
+        with open(ap_, encoding="utf-8") as fh:
+            n = sum(1 for a in json.load(fh).get("areas", []) if a.get("vertices"))
+        print("  areas   : %d already traced" % n)
     print("  saving  : %s" % os.path.relpath(path, REPO))
     print("  open    : %s" % url)
     print("  " + "-" * 52)
