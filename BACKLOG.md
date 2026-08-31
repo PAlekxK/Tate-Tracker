@@ -82,9 +82,11 @@ retired ids. turf.json's fringe reference remapped. Verified live: `/api/zones` 
   zone editor — this session nearly missed them and declared the Fern Garden lost. Pointer also
   lives in zones.json `_meta.fold_2026_08_31`.
 - Decision-1 riders now unblocked: cross-reference wording (meadow ↔ map, in her vocabulary) and
-  zoning the ring hydrangeas to `fairway-border` — awaiting Paul naming WHICH hydrangea records
-  form the ring (candidates: hydrangea, hydrangea-dreamcloud, endless-summer-pop-star-hydrangea,
-  hydrangea-panicle).
+  zoning the ring hydrangeas to `fairway-border`. `[paul-directed 2026-08-31]` **the WHICH
+  question routes through the photo library** — plant-labeled photos × the new zone polygons
+  propose, Paul confirms. Ask filed: `photo-organizer/BACKLOG.md` § "INBOUND from Fernwood
+  2026-08-31" (carries the camera-vs-subject and ±30ft caveats + the fold's stale-zone-tag
+  impact). His memory can still short-circuit it any time with a one-line answer.
 
 ## 🏠 Household systems build-out — SHIPPED 2026-08-31 · four gaps open (Track B)
 
