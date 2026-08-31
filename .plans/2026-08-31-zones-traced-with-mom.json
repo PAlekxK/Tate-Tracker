@@ -32,7 +32,7 @@
    "untraced": [],
    "totalVertices": 304
   },
-  "snapshotAt": "2026-08-31T09:05:36-04:00",
+  "snapshotAt": "2026-08-31T09:42:59-04:00",
   "resolved": [
    {
     "date": "2026-08-31",
@@ -65,6 +65,14 @@
    "consequence": "'The Path' is currently recorded as a 17-vertex POLYGON. That is not a bad trace; it is a MIS-MODELLING — a line forced into an area, which then reports an acreage and a median slope that mean nothing. The same pressure produced the name 'Upper-Uber Wall Area' years earlier.",
    "alsoMissing": "Paths, walls, the driveway, water lines, fences and the property line itself are all linear. None can be recorded today.",
    "doNot": "Do not fold 'The Path' into zones.json as a polygon to make the set tidy."
+  },
+  "lines": {
+   "what": "Linear features — things with a length but no inside. Added 2026-08-31 after Paul ruled that a wall and a path are not areas.",
+   "traced": "Paul, 2026-08-31, with vertex snapping active.",
+   "snapping": "25 line vertices sit EXACTLY on an area vertex — shared coordinates, not nearly-shared. The 17 areas were traced BEFORE snapping existed, so no two areas share a vertex yet; their residual overlap (~14 m2 excluding The Path) is untouched.",
+   "wallConfirmed": "The Upper-Uber wall touches FOUR areas at 0.0 m — The Bluff, Western Garden, Western Lower Patio, Western Upper Patio. It is measurably the divider Paul described, not a zone.",
+   "drivewayQC": "Length 80 m, net drop 14.0 m = 17.5% average grade, holding 21-24% over long baselines. That is steep for a drive. A perpendicular search finds flatter ground a median of +2.0 m to one side (15.1 deg on the line vs 8.1 deg there, ~27% vs ~14% grade), so the trace is probably running partly on the cut bank rather than the road bed. Bias is real but loose (sd 3.5 m; only 49% of points have their flattest ground within 2 m). ⚠️ Measured against 2018 terrain.",
+   "pathSupersedes": "'The Path' now exists BOTH as a 17-vertex polygon and as a 13-point line. The polygon is the mis-modelling and accounts for 93 of the 107 m2 of overlap in the area set. Retiring it is Paul's call and has not been done."
   }
  },
  "areas": [
@@ -1452,6 +1460,191 @@
     ]
    ],
    "tracedAt": "2026-08-31T11:58:46.525Z",
+   "notes": ""
+  }
+ ],
+ "lines": [
+  {
+   "id": "line-the-path",
+   "name": "The Path",
+   "kind": "path",
+   "vertices": [
+    [
+     -84.3672437,
+     34.5495807
+    ],
+    [
+     -84.3672102,
+     34.5495864
+    ],
+    [
+     -84.3671752,
+     34.5495839
+    ],
+    [
+     -84.3671267,
+     34.5495822
+    ],
+    [
+     -84.3671,
+     34.54958
+    ],
+    [
+     -84.3670682,
+     34.5495878
+    ],
+    [
+     -84.3670624,
+     34.5495602
+    ],
+    [
+     -84.3670845,
+     34.5495361
+    ],
+    [
+     -84.3670871,
+     34.5494957
+    ],
+    [
+     -84.3671138,
+     34.5494886
+    ],
+    [
+     -84.3671582,
+     34.5494917
+    ],
+    [
+     -84.3672274,
+     34.5494964
+    ],
+    [
+     -84.3672528,
+     34.5494979
+    ]
+   ],
+   "tracedAt": "2026-08-31T13:39:29.877Z",
+   "notes": ""
+  },
+  {
+   "id": "line-upper-uber-wall",
+   "name": "Upper-Uber wall",
+   "kind": "wall",
+   "vertices": [
+    [
+     -84.3676059,
+     34.5496087
+    ],
+    [
+     -84.3676338,
+     34.5496068
+    ],
+    [
+     -84.3676536,
+     34.5496068
+    ],
+    [
+     -84.3676929,
+     34.5496077
+    ],
+    [
+     -84.3677116,
+     34.5496097
+    ],
+    [
+     -84.3677237,
+     34.5496143
+    ],
+    [
+     -84.3677496,
+     34.549614
+    ],
+    [
+     -84.3677496,
+     34.5496155
+    ],
+    [
+     -84.3677627,
+     34.5496336
+    ],
+    [
+     -84.3677836,
+     34.5496403
+    ],
+    [
+     -84.3677866,
+     34.5496148
+    ],
+    [
+     -84.3678185,
+     34.5496384
+    ]
+   ],
+   "tracedAt": "2026-08-31T13:39:43.312Z",
+   "notes": ""
+  },
+  {
+   "id": "line-driveway",
+   "name": "Driveway",
+   "kind": "drive",
+   "vertices": [
+    [
+     -84.3680572,
+     34.5493136
+    ],
+    [
+     -84.368087,
+     34.5493581
+    ],
+    [
+     -84.3681257,
+     34.5494184
+    ],
+    [
+     -84.3681494,
+     34.5495177
+    ],
+    [
+     -84.3681559,
+     34.5495886
+    ],
+    [
+     -84.3681365,
+     34.5496241
+    ],
+    [
+     -84.3681106,
+     34.5496595
+    ],
+    [
+     -84.3680891,
+     34.549679
+    ],
+    [
+     -84.3680375,
+     34.5496861
+    ],
+    [
+     -84.367988,
+     34.5497109
+    ],
+    [
+     -84.3679342,
+     34.5497038
+    ],
+    [
+     -84.3678481,
+     34.549695
+    ],
+    [
+     -84.367777,
+     34.5496861
+    ],
+    [
+     -84.3676974,
+     34.5496808
+    ]
+   ],
+   "tracedAt": "2026-08-31T13:39:59.124Z",
    "notes": ""
   }
  ]
