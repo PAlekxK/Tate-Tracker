@@ -2,7 +2,9 @@
   "_comment": "Holds THREE groups, not just vehicles: group='vehicle' | 'equipment' | 'household-system'. Renders as the **Machines** card (Vehicles · Yard equipment · Household systems). The filename is a legacy infrastructure identifier and is deliberately NOT renamed — same call CLAUDE.md made for tate-tracker/tateTracker through the Fernwood rename: internal identifiers aren't user-facing and renaming carries churn for zero reader benefit (VEHICLES_DATA, check-data-inline.py, build-digest.py, renderVehicles, #vehicles-list, .vehicles-intro, …). 2026-07-26. ID CONVENTION (2026-08-03): every serviceHistory entry carries a stable `id` (sr-<date>-<slug>, unique within its vehicle) minted at ingest — external references use service:<vehicle-id>:<sr-id>; photo-organizer reads this file IN PLACE to map repair photos to entries (the visual-journeys thread), so an entry without an id is unreferenceable and any ingest that omits one should be corrected before folding.",
   "_meta": {
     "schemaVersion": 3,
-    "notes": "Schema v3: items split into 'vehicle' and 'equipment' groups via the `group` field on each entry. Per-item `maintenance` block added with at-a-store reference for fuel, oil, sparkPlug, filters, consumables. Confidence convention: each maintenance value tagged 'verified' (manufacturer spec / OEM doc / on-unit sticker), 'inferred' (typical for product line — double-check before ordering), or 'tbd'."
+    "notes": "Schema v3: items split into 'vehicle' and 'equipment' groups via the `group` field on each entry. Per-item `maintenance` block added with at-a-store reference for fuel, oil, sparkPlug, filters, consumables. Confidence convention: each maintenance value tagged 'verified' (manufacturer spec / OEM doc / on-unit sticker), 'inferred' (typical for product line — double-check before ordering), or 'tbd'.",
+    "lastUpdated": "2026-08-31",
+    "householdNote": "2026-08-31: household-system group built out from Paul's photos — furnace, water heater, washer, breaker panel. New per-record `rhythms` array carries the cyclical chores ({task, everyMonths, everyLabel?, lastDone, note?}); lastDone stays null until someone records a date, and the card says 'no date on record yet' rather than inventing urgency. New `circuits` array on the panel record is the transcribed door directory. Serial numbers live in .private/devices-identifiers.json, never here."
   },
   "vehicles": [
     {
@@ -2422,6 +2424,386 @@
           "source": "INFERENCE from the verified heatingFuel read above, not an observation. This is the honest gap, and it is the kind of thing only someone standing on the property can settle."
         }
       }
+    },
+    {
+      "id": "furnace-propane",
+      "group": "household-system",
+      "name": "Propane Furnace",
+      "trim": "Lennox-family · SureLight control",
+      "emoji": "🔥",
+      "category": "furnace",
+      "status": "Active — heats the house on propane. Model and age not yet pinned down; the data plate still wants a photo.",
+      "_provenance": "Added 2026-08-31 from Paul's photos of the cabinet labels (SureLight diagnostic table + LP-conversion notice). The MODEL/SERIAL PLATE WAS NOT CAPTURED — it usually sits inside or beside the upper burner-compartment door — so identity stays at the family level until it's read. The series numbers on the conversion notice photograph too soft to settle. Photos: .private/household-photos/2026-08-31-furnace-*.HEIC.",
+      "specs": {
+        "family": "Lennox-family gas furnace — the SureLight status/diagnostic system labeled on the cabinet is Lennox's ignition control",
+        "fuel": "Propane (LP) — the on-unit notice says the appliance was converted from natural gas, and the Nest thermostat's own equipment settings independently read the heat as propane forced-air",
+        "efficiencyClass": "80% class (metal flue, non-condensing) — the series numbers on the conversion notice read as an 80-series, but the print is too soft to be sure",
+        "modelAndSerial": "tbd — photograph the data plate inside the burner-compartment panel to settle model, serial and age",
+        "cooling": "The same blower drives the electric A/C (per the Nest equipment settings) — so the air filter below serves both seasons",
+        "breakerCircuit": "Panel circuit 10 per the hand-written panel directory"
+      },
+      "maintenance": {
+        "airFilter": {
+          "value": "THE recurring item, and it serves heating and cooling both. Size not yet on record — read it off the edge of the filter in the return slot and write it here. 1\" filters want changing every 1–3 months in season.",
+          "confidence": "tbd",
+          "source": "Filter size was not readable from the photos taken."
+        },
+        "annualService": {
+          "value": "Worth a professional combustion check each fall before heating season — burners, heat exchanger, CO reading. Propane plus an unknown-age unit is exactly the combination that earns the annual visit.",
+          "confidence": "verified",
+          "source": "Standard gas-furnace guidance."
+        },
+        "flameSensor": {
+          "value": "A gentle clean of the flame-sensor rod once a year heads off the classic no-heat call. The board's own 'low flame signal' blink code is this part talking.",
+          "confidence": "verified",
+          "source": "SureLight diagnostic table on the unit — photographed."
+        },
+        "diagnosticCodes": {
+          "value": "When it misbehaves, the two-LED code table printed on the cabinet is the first stop — the blink pattern names failed ignition, an open limit switch, pressure-switch trouble and more. We hold a photo of the full table.",
+          "confidence": "verified",
+          "source": "Photographed 2026-08-31 — .private/household-photos/2026-08-31-furnace-surelight-codes.HEIC."
+        },
+        "igniter": {
+          "value": "The SureLight hot-surface igniter is the wear part on this family of furnaces — a spare on the shelf turns a cold night into a twenty-minute fix. The part number depends on the model, so it waits on the data plate.",
+          "confidence": "tbd",
+          "source": "Known wear part for SureLight-equipped furnaces; exact part pends the model read."
+        },
+        "propaneSupply": {
+          "value": "The furnace is only as good as the tank feeding it. Check the tank gauge as cold season starts and again mid-winter. The record doesn't yet say where the tank is, how big it is, or who fills it.",
+          "confidence": "inferred",
+          "source": "Inference from the LP conversion plus the Nest fuel read — the tank itself is not yet in the record."
+        }
+      },
+      "rhythms": [
+        {
+          "task": "Change the air filter",
+          "everyMonths": 3,
+          "lastDone": null,
+          "note": "Size tbd — read it off the old filter first"
+        },
+        {
+          "task": "Pro tune-up and CO check",
+          "everyMonths": 12,
+          "lastDone": null,
+          "note": "Each fall, before heating season"
+        },
+        {
+          "task": "Check the propane tank level",
+          "everyMonths": 6,
+          "lastDone": null,
+          "note": "Start of cold season, and again mid-winter"
+        }
+      ]
+    },
+    {
+      "id": "water-heater-bradford-white",
+      "group": "household-system",
+      "name": "Bradford White Electric Water Heater",
+      "trim": "RE250T6 · 50-gallon upright",
+      "emoji": "🚿",
+      "category": "water-heater",
+      "status": "Active — built September 2024, so nearly new.",
+      "_provenance": "Added 2026-08-31 from Paul's photos of the unit (data plate + EnergyGuide label + front panel). Plate-legible values are graded as on-unit sticker reads; the manufacture date is DECODED from the serial's date code, not printed anywhere. ⚠️ The serial number lives in .private/devices-identifiers.json — this file inlines into viewer.html and is served publicly; do not add it here. Photos: .private/household-photos/2026-08-31-water-heater-*.HEIC.",
+      "specs": {
+        "make": "Bradford White (Middleville, MI)",
+        "model": "RE250T6-1NCYY — printed on both the data plate and the EnergyGuide label, which agree",
+        "capacity": "50 US gal nominal (45 gal rated storage per the EnergyGuide label)",
+        "type": "Electric automatic storage — Vitraglas-lined steel tank, Hydrojet sediment-reducing inlet",
+        "power": "240 V single-phase · upper + lower screw-in elements, 5,500 W each at 240 V (4,000 W at 208 V), one energized at a time",
+        "firstHourRating": "64 gallons",
+        "estimatedYearlyUse": "3,531 kWh — about $494/yr at the label's $0.14/kWh",
+        "manufactured": "September 2024 — decoded from the serial's first two letters (AJ) against Bradford White's date-code chart; the serial itself is in the private records",
+        "installedHere": "Not yet on record — no invoice in email; worth finding the paperwork, it starts the warranty clock",
+        "breakerCircuit": "Panel circuits 2 + 4 per the hand-written panel directory — reads as a 240 V two-pole pair"
+      },
+      "maintenance": {
+        "tpReliefValve": {
+          "value": "Lift the temperature-and-pressure relief lever once a year — water should flow while held and stop cleanly when released. A dribble afterward, or no flow at all, means the valve wants replacing.",
+          "confidence": "verified",
+          "source": "Standard storage-water-heater practice; the T&P valve is the tank's one true safety device."
+        },
+        "sedimentDrain": {
+          "value": "Drain a few gallons off the bottom spigot about twice a year. The Hydrojet inlet stirs sediment to reduce buildup — it lessens the chore, it doesn't retire it.",
+          "confidence": "verified",
+          "source": "Hydrojet is a documented series feature; the drain cadence is standard practice."
+        },
+        "anodeRod": {
+          "value": "The magnesium anode rod is what decides how long the tank lives — it corrodes so the steel doesn't. Pull and inspect around year 2–3 (that lands ~2027), replace when mostly consumed. Water chemistry sets the pace, so the first look calibrates all the rest.",
+          "confidence": "inferred",
+          "source": "Factory magnesium anode is a series spec; the 2–3-year first inspection is standard guidance, not on the plate."
+        },
+        "temperatureSetting": {
+          "value": "120°F is the usual target — plenty for the house, easier on scale and standby loss, below easy-scald range.",
+          "confidence": "verified",
+          "source": "DOE / manufacturer guidance."
+        },
+        "warranty": {
+          "value": "The T6 in the model string is Bradford White's 6-year tank-and-parts tier. The clock runs from the install date with proof — from the September 2024 build date without it. Finding the install invoice is worth real money here.",
+          "confidence": "inferred",
+          "source": "Bradford White model nomenclature; the warranty terms themselves were not read off the unit."
+        },
+        "sparesWorthKnowing": {
+          "value": "Screw-in elements are 5,500 W / 240 V — a 1-1/2\" element wrench fits both. The upper thermostat carries the red-button ECO reset; the lower is simpler. All cheap and stocked at any supply house — a cold shower is usually an element or a thermostat, not a new heater.",
+          "confidence": "inferred",
+          "source": "Wattage from the data plate; part style typical for the residential RE2 series — match exactly before ordering."
+        }
+      },
+      "rhythms": [
+        {
+          "task": "Test the T&P relief valve",
+          "everyMonths": 12,
+          "lastDone": null
+        },
+        {
+          "task": "Drain a few gallons off the bottom",
+          "everyMonths": 6,
+          "lastDone": null
+        },
+        {
+          "task": "Pull and inspect the anode rod",
+          "everyMonths": 30,
+          "everyLabel": "every 2–3 years",
+          "lastDone": null,
+          "note": "First look lands around 2027, given the September 2024 build"
+        }
+      ]
+    },
+    {
+      "id": "washer-samsung-addwash",
+      "group": "household-system",
+      "name": "Samsung Front-Load Washer",
+      "trim": "AddWash · steam · 4.5 cu ft",
+      "emoji": "🧺",
+      "category": "laundry",
+      "status": "Active — built October 2016, coming up on ten years of service.",
+      "_provenance": "Added 2026-08-31 from Paul's photo of the door-frame plate — model, build date and ratings are printed there, not decoded. ⚠️ Serial in .private/devices-identifiers.json, not here (public repo). Photo referenced in the private archive alongside the others.",
+      "specs": {
+        "make": "Samsung Electronics",
+        "model": "WF45K6500AV/A2",
+        "capacity": "4.5 cu ft front-load, with the AddWash mid-cycle door and steam cycles",
+        "power": "120 V · 10 A · 60 Hz",
+        "manufactured": "October 23, 2016 — printed on the plate, not a decode",
+        "madeIn": "Vietnam",
+        "service": "Samsung support: 1-800-726-7864",
+        "breakerCircuit": "Panel circuit 7 per the hand-written panel directory"
+      },
+      "maintenance": {
+        "detergent": {
+          "value": "HE detergent only, and less than it seems — oversudsing is the most common self-inflicted trouble on this model, and it works the drain pump hard.",
+          "confidence": "verified",
+          "source": "Samsung guidance for the WF45K6500 line; oversudsing/drain complaints are the model's best-documented pattern."
+        },
+        "pumpFilter": {
+          "value": "The debris filter lives behind the small door at the lower front — twist it out and rinse it every few months, with a towel down (some water comes with it). Most 'won't drain' complaints end right here.",
+          "confidence": "verified",
+          "source": "Samsung maintenance guidance for this model."
+        },
+        "doorBoot": {
+          "value": "Wipe the gray door gasket after wash days and leave the door and detergent drawer cracked open between loads. Mildew in the boot is the classic front-loader failure, and this is the cheap habit that prevents it.",
+          "confidence": "verified",
+          "source": "Standard front-loader practice; the boot is also this model's known replacement part."
+        },
+        "selfClean": {
+          "value": "Run the Self Clean cycle monthly — the machine prompts for it too.",
+          "confidence": "verified",
+          "source": "Samsung guidance for the WF45K6500 line."
+        },
+        "inletHoses": {
+          "value": "At ten years old, if the fill hoses are original rubber they're well past the usual five-year replacement guidance. A burst fill hose floods the room; a braided-stainless pair is cheap insurance.",
+          "confidence": "inferred",
+          "source": "Age from the build plate; hose age itself not yet checked — look before buying."
+        },
+        "repairVsReplace": {
+          "value": "At this age the pump and door boot are worth repairing; a grinding roar at spin (drum bearings or spider arm) is usually the retirement bell.",
+          "confidence": "inferred",
+          "source": "Typical economics for a 2016 front-loader — judgment guidance, not a spec."
+        }
+      },
+      "rhythms": [
+        {
+          "task": "Run the Self Clean cycle",
+          "everyMonths": 1,
+          "lastDone": null
+        },
+        {
+          "task": "Rinse the drain-pump filter",
+          "everyMonths": 3,
+          "lastDone": null
+        },
+        {
+          "task": "Look over the fill hoses",
+          "everyMonths": 12,
+          "lastDone": null,
+          "note": "If still original rubber, replace with braided stainless"
+        }
+      ]
+    },
+    {
+      "id": "electrical-panel-main",
+      "group": "household-system",
+      "name": "Square D Homeline Breaker Panel",
+      "trim": "HOMC30UC · 30 circuits",
+      "emoji": "⚡",
+      "category": "electrical",
+      "status": "Active — the house's circuit map, hand-labeled on the door and transcribed below.",
+      "_provenance": "Added 2026-08-31 from Paul's photo of the open panel (catalog label + hand-written door directory). The directory rows are reads of HANDWRITING — the uncertain ones are marked so below rather than guessed silently. Photo: .private/household-photos/2026-08-31-breaker-panel.HEIC.",
+      "specs": {
+        "make": "Square D (Schneider Electric) — Homeline series",
+        "catalog": "HOMC30UC load center · Series S1 · Type 1 (indoor) enclosure",
+        "breakerType": "Homeline (HOM) plug-on — the fact that matters at the store: spares must be HOM or Homeline-classified; QO and other brands don't fit this bus",
+        "positions": "30 circuit positions"
+      },
+      "circuits": [
+        {
+          "n": 1,
+          "label": "Stove (pairs with 3 — 240 V)"
+        },
+        {
+          "n": 2,
+          "label": "Water heater (pairs with 4 — 240 V)"
+        },
+        {
+          "n": 3,
+          "label": "Stove"
+        },
+        {
+          "n": 4,
+          "label": "Water heater"
+        },
+        {
+          "n": 5,
+          "label": "Smoke detector"
+        },
+        {
+          "n": 6,
+          "label": "Dryer (pairs with 8 — 240 V)"
+        },
+        {
+          "n": 7,
+          "label": "Washer"
+        },
+        {
+          "n": 8,
+          "label": "Dryer"
+        },
+        {
+          "n": 9,
+          "label": "Kitchen counter GFI"
+        },
+        {
+          "n": 10,
+          "label": "Furnace"
+        },
+        {
+          "n": 11,
+          "label": "Dishwasher"
+        },
+        {
+          "n": 12,
+          "label": "Microwave"
+        },
+        {
+          "n": 13,
+          "label": "Master bedroom"
+        },
+        {
+          "n": 14,
+          "label": "Fridge"
+        },
+        {
+          "n": 15,
+          "label": "Guest room"
+        },
+        {
+          "n": 16,
+          "label": "Boys' room"
+        },
+        {
+          "n": 17,
+          "label": "Upstairs GFI"
+        },
+        {
+          "n": 18,
+          "label": "Dining room"
+        },
+        {
+          "n": 19,
+          "label": "Stairway GFI"
+        },
+        {
+          "n": 20,
+          "label": "Living room"
+        },
+        {
+          "n": 21,
+          "label": "— blank on the door card",
+          "confidence": "tbd"
+        },
+        {
+          "n": 22,
+          "label": "Master bath"
+        },
+        {
+          "n": 23,
+          "label": "— blank on the door card",
+          "confidence": "tbd"
+        },
+        {
+          "n": 24,
+          "label": "— blank on the door card",
+          "confidence": "tbd"
+        },
+        {
+          "n": 25,
+          "label": "Middle bathroom"
+        },
+        {
+          "n": 26,
+          "label": "Patio"
+        },
+        {
+          "n": 27,
+          "label": "Outside cams"
+        },
+        {
+          "n": 28,
+          "label": "Booster pump — handwriting hard to read; worth confirming what it feeds",
+          "confidence": "inferred"
+        },
+        {
+          "n": 29,
+          "label": "Basement lights"
+        },
+        {
+          "n": 30,
+          "label": "Bath GFI — handwriting hard to read (could be 'Barn')",
+          "confidence": "inferred"
+        }
+      ],
+      "maintenance": {
+        "gfciTest": {
+          "value": "The GFI circuits (kitchen counter, upstairs, stairway, and the hard-to-read 30) protect people, and they can fail quietly. Press the TEST button on each GFCI outlet every few months — it should click dead, then reset.",
+          "confidence": "verified",
+          "source": "Standard GFCI guidance; the protected circuits are named on the door card."
+        },
+        "directoryVerify": {
+          "value": "Two rows are read from handwriting with a squint — 28 ('Booster pump'?) and 30 ('Bath GFI'? 'Barn'?). A two-minute flip test settles both, and confirms the 240 V pairs. A booster pump, if that's what 28 is, means the water supply has pressure help worth putting in this record.",
+          "confidence": "tbd",
+          "source": "The hand-written door card, photographed 2026-08-31."
+        },
+        "spares": {
+          "value": "A spare 15 A and 20 A Homeline (HOM) single-pole breaker in a drawer costs a few dollars and saves a hardware-store run during an outage. Match the HOM type — the bus won't take other brands.",
+          "confidence": "verified",
+          "source": "Panel catalog label — Homeline series."
+        }
+      },
+      "rhythms": [
+        {
+          "task": "Press TEST on the GFI outlets",
+          "everyMonths": 3,
+          "lastDone": null
+        }
+      ]
     }
   ]
 }

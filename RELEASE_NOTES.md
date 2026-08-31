@@ -4,6 +4,19 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-08-31 — The house's systems, on the record
+
+- **Household Systems grew from one entry to five.** The propane furnace, the
+  water heater, the washing machine and the breaker panel join the thermostat —
+  each with what it is, what it needs, and the spare parts worth knowing about
+  before something quits.
+- **Each system carries its rhythms now** — the recurring chores, like changing
+  the furnace filter or running the washer's cleaning cycle, with how often each
+  wants doing. Nothing nags: a chore we haven't dated yet simply says so.
+- **The breaker panel's hand-written door card is readable in the app** — all
+  thirty circuits transcribed, with the hard-to-read rows marked honestly
+  instead of guessed at.
+
 ## 2026-08-27 — the questions take turns
 
 The questions in Mama's Perspective used to sit in a fixed order, so the same one
