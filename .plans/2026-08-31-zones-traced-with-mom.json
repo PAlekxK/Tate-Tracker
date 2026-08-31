@@ -27,12 +27,12 @@
   "status": "PROPOSAL — NOT FOLDED. zones.json is unchanged. Folding is a separate reviewed act: it must decide the four open questions below, and dispose of the four old draft zones that have no counterpart here (Fairway, Parking Bank, Upper-Uber Wall Area, House). plants.json references zones by zoneId, so a fold that drops or renames an id breaks those references.",
   "openQuestions": [],
   "counts": {
-   "named": 17,
-   "traced": 17,
-   "untraced": [],
-   "totalVertices": 304
+   "areas": 16,
+   "lines": 3,
+   "retiredAreas": 1,
+   "totalVertices": 326
   },
-  "snapshotAt": "2026-08-31T09:42:59-04:00",
+  "snapshotAt": "2026-08-31T09:46:44-04:00",
   "resolved": [
    {
     "date": "2026-08-31",
@@ -73,6 +73,14 @@
    "wallConfirmed": "The Upper-Uber wall touches FOUR areas at 0.0 m — The Bluff, Western Garden, Western Lower Patio, Western Upper Patio. It is measurably the divider Paul described, not a zone.",
    "drivewayQC": "⚠️ CORRECTED 2026-08-31, same day. An earlier version of this note concluded the driveway trace was 'running partly on the cut bank rather than the road bed'. THAT IS WRONG and is retracted. Paul: 'the driveway is broader than the line that I drew. I tried to draw it in the middle of the driveway.' Cross-sections perpendicular to his centreline, sampled every metre from -6 m to +6 m, show a genuine ROAD BENCH: the mean profile is flat within 0.46 m from -2 m to +6 m, with the cut bank rising ~0.5 m on the uphill side beyond -3 m. His line is ON the bench, slightly toward its uphill edge — a lean of about 2 m, worth 0.05 m of elevation, which is inside the DEM's own noise and not worth moving. HOW I GOT IT WRONG: I inferred position from a slope field smoothed at ~0.5 m, on a bench only a few metres wide flanked by steep cut and fill. That slope value at the centreline is dominated by the along-road grade and by the banks either side, so it cannot resolve the bench at all. The cross-section can. Measure the section; do not infer position from a smoothed slope. WHAT STANDS: the grade is real. 80 m long, 14.0 m of net drop, 17.5% average, holding 21-24% over long baselines. That is a steep mountain drive, and it is not an artifact.",
    "pathSupersedes": "'The Path' now exists BOTH as a 17-vertex polygon and as a 13-point line. The polygon is the mis-modelling and accounts for 93 of the 107 m2 of overlap in the area set. Retiring it is Paul's call and has not been done."
+  },
+  "overlap": {
+   "method": "every pair of areas rasterised at 7.6 cm and intersected",
+   "beforeRetiringThePathPolygon": "107.0 m2 across 17 areas (4.1% of 2,618 m2)",
+   "afterRetiringThePathPolygon": "13.5 m2 across 16 areas (0.5% of 2,469 m2)",
+   "removed": "93.5 m2 — 87% of all overlap was one feature modelled as the wrong shape",
+   "residual": "largest remaining pair is Western Garden / Western Lower Patio at 6.5 m2. These are genuine eye-trace slop: the 16 areas were all traced BEFORE snapping existed, so no two of them share a vertex. Snapping prevents this for anything traced from here on; fixing the existing ones would mean re-tracing, which nobody has asked for.",
+   "largestGap": "2.4 m (Western Upper Patio / Lawn)"
   }
  },
  "areas": [
@@ -524,84 +532,6 @@
     ]
    ],
    "tracedAt": "2026-08-31T12:02:04.786Z",
-   "notes": ""
-  },
-  {
-   "id": "the-path",
-   "name": "The Path",
-   "labelPosition": "right side, through the woods",
-   "draftZoneId": null,
-   "vertices": [
-    [
-     -84.3672377,
-     34.5495829
-    ],
-    [
-     -84.3672102,
-     34.5495864
-    ],
-    [
-     -84.3671938,
-     34.5495864
-    ],
-    [
-     -84.3671783,
-     34.5495864
-    ],
-    [
-     -84.3671473,
-     34.5495857
-    ],
-    [
-     -84.3671267,
-     34.5495822
-    ],
-    [
-     -84.3671103,
-     34.5495786
-    ],
-    [
-     -84.3670974,
-     34.5495729
-    ],
-    [
-     -84.3670966,
-     34.5495609
-    ],
-    [
-     -84.3670914,
-     34.5495517
-    ],
-    [
-     -84.3670845,
-     34.5495361
-    ],
-    [
-     -84.3670871,
-     34.5494957
-    ],
-    [
-     -84.3671138,
-     34.5494886
-    ],
-    [
-     -84.3671499,
-     34.5494929
-    ],
-    [
-     -84.3672566,
-     34.5494992
-    ],
-    [
-     -84.3672506,
-     34.5495517
-    ],
-    [
-     -84.3672437,
-     34.5495807
-    ]
-   ],
-   "tracedAt": "2026-08-31T12:01:44.993Z",
    "notes": ""
   },
   {
@@ -1646,6 +1576,91 @@
    ],
    "tracedAt": "2026-08-31T13:39:59.124Z",
    "notes": ""
+  }
+ ],
+ "retiredAreas": [
+  {
+   "id": "the-path",
+   "name": "The Path",
+   "labelPosition": "right side, through the woods",
+   "draftZoneId": null,
+   "traced": false,
+   "vertices": [
+    [
+     -84.3672377,
+     34.5495829
+    ],
+    [
+     -84.3672102,
+     34.5495864
+    ],
+    [
+     -84.3671938,
+     34.5495864
+    ],
+    [
+     -84.3671783,
+     34.5495864
+    ],
+    [
+     -84.3671473,
+     34.5495857
+    ],
+    [
+     -84.3671267,
+     34.5495822
+    ],
+    [
+     -84.3671103,
+     34.5495786
+    ],
+    [
+     -84.3670974,
+     34.5495729
+    ],
+    [
+     -84.3670966,
+     34.5495609
+    ],
+    [
+     -84.3670914,
+     34.5495517
+    ],
+    [
+     -84.3670845,
+     34.5495361
+    ],
+    [
+     -84.3670871,
+     34.5494957
+    ],
+    [
+     -84.3671138,
+     34.5494886
+    ],
+    [
+     -84.3671499,
+     34.5494929
+    ],
+    [
+     -84.3672566,
+     34.5494992
+    ],
+    [
+     -84.3672506,
+     34.5495517
+    ],
+    [
+     -84.3672437,
+     34.5495807
+    ]
+   ],
+   "notes": "",
+   "tracedAt": "2026-08-31T12:01:44.993Z",
+   "retiredAt": "2026-08-31T09:45:16-04:00",
+   "retiredBy": "paul-stated 2026-08-31",
+   "reason": "NOT a deletion of bad work — a correction of the MODEL. Paul: 'the path is the same shape. More of a landmark than a zone.' A path has a length and no inside, so recording it as an area forced it to overlap everything it runs through: 47.1 m2 into Eastern Patio, 43.3 m2 into Fern Garden, 2.7 m2 into Eastern Woodlands — 93 of the 107 m2 of overlap in the whole area set. The geometry is kept here because it was traced from the ground and may still be useful; it is simply no longer an area.",
+   "replacedBy": "lines[] entry 'The Path' (13 points, traced with snapping)"
   }
  ]
 }
