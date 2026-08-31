@@ -387,3 +387,36 @@ recommendation (client-narrow, reversible).
   bot's commit. `check-live.py` green post-Pages-rebuild on both pushes.
 - Review deviceId `d-l4ct2ilv…` was ALREADY in people.json's bench entry (persistent
   Playwright profile) — review traffic was bench-classified all along.
+
+## The decision walkthrough (same session) — all six ruled
+
+- **D1 (meadow)**: `[paul-stated]` hierarchy — Fairway (full field, not all theirs) ⊃
+  Meadow (the tended portion, the family word is a PLACE) ⊃ the green; Fairway Fringe =
+  the hydrangea ring at the green's edge. `fairway-meadow.zoneId` → `fairway` (shipped).
+  Cross-reference wording + zoning the ring hydrangeas HOLD for the fold.
+- **D2 (Fern Garden)**: resolved by discovery — it was traced THIS MORNING in
+  `.plans/2026-08-31-zones-traced-with-mom.json` (16 areas + 3 lines, Mom's names, all
+  4 open questions resolved, status PROPOSAL — NOT FOLDED). ⭐ Sweep lesson recorded:
+  grep `.plans/` before declaring something absent from the record — pass 2's "the Fern
+  Garden doesn't exist" was true of canon and wrong as the answer. **THE FOLD is now
+  the project's biggest open act** (retire Fairway/Parking Bank/Upper-Uber Wall/House,
+  remap zoneIds, land Mom's vocabulary).
+- **D3 (strip coverage)**: `[paul-stated: B]` — ask her. `q-jumpstrip-coverage` staged
+  inactive on the bench; ships on wording confirm + `--approve`. Breadcrumb waits on
+  the fold.
+- **D4 (1,712px stack)**: `[paul-stated: B]` — ledger next lap (Leg 6e harness), decide
+  from the ledger. In BACKLOG.
+- **D5 (sync)**: implemented per recommendation during the build (client-narrow, 90d).
+- **D6 (temporal lenses)**: `[paul-stated: yes to both]` — SHIPPED same session.
+  6a: `carePeakToday()` is THE peaking-today engine (strip candidates + panel + metrics
+  state all read it; the strip now gates on parseable prose windows too); panel renamed
+  **"At their peak right now"**, strip tease **"At their peak"** — the old "Peak this
+  week" promised a week the predicate never checked. 6b: This-Month entries with a
+  readable window carry state inline (`peakStateHtml`): *in its window now* / *opens
+  Sep 1* / *window closed Aug 12*. Contract written to design-principles/fernwood.md
+  (punch item 18 → 18 of 18 shipped).
+  **Closing beat (live, 414×A+)**: panel/strip renamed on page · engine agreement TRUE
+  (every panel plant is carePeakToday-truthy) · live corpus: **21 stated windows → 15
+  closed / 5 now / 1 opens** — on Aug 31, most readable This-Month windows had already
+  shut, which is exactly the month's-edge mislead Paul named before seeing any number ·
+  0 console errors.
