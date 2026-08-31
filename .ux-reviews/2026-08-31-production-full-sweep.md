@@ -420,3 +420,22 @@ recommendation (client-narrow, reversible).
   closed / 5 now / 1 opens** — on Aug 31, most readable This-Month windows had already
   shut, which is exactly the month's-edge mislead Paul named before seeing any number ·
   0 console errors.
+
+## THE FOLD — shipped same session (Paul: "yes go for it")
+
+Mom's map became canon: 16 areas she named (8/30) + fairway & house KEPT per rulings =
+**18 zones**, in zones.json + ZONES_DATA + the Worker KV (`zones:all`), with tombstones
+(fairway-fringe → fairway-border · upper-uber-wall-area → linear feature, schema v3
+backlogged · **parking-bank retired as a FOLD CALL, no explicit ruling — flagged for
+Paul's veto**). turf.json's fringe ref remapped; TURF_DATA added to check-data-inline
+(caught its first drift on its first run). Lines stay in the plan file — zone-save
+rebuilds `{_meta, zones}` wholesale and would drop any sibling key.
+**Closing beat**: live `/api/zones` serves 18 + 3 tombstones; the property map renders
+**18 polygons including fern-garden**; no duplicate ids; fresh client adopts cloud
+cleanly. ⚠️ Found + neutralized: the review Playwright profile carried a months-old
+15-zone localStorage overlay (pre-dedupe: `eastern-garden`, `pond-area-3`) that
+SHADOWED cloud zones on load — the unsynced-local-wins recovery design. Cleared on the
+review profile; `_meta.lastBuiltAt` stamped current (was 7/17) since the overlay-clear
+compares against it. A stale device that ever pushes old zones up would also commit to
+git, so a clobber is visible and recoverable — the `check-zones-drift` backlog item is
+the durable watch.
