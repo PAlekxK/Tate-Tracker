@@ -943,16 +943,41 @@ async function handleZoneAudio(request, env, url) {
 
     const id = generateRecordingId();
     const nowIso = new Date().toISOString();
+    // WHEN SHE SPOKE, which is not when it arrived (2026-08-31). The property has no
+    // cell reception and Wi-Fi only near the house, so a recording made out among the
+    // plants is held on the device and sent when she comes back into range. For a field
+    // journal the observation TIME is part of the observation: "the hellebores are up"
+    // means something different on the 3rd than on the 10th.
+    // Rejected rather than trusted: a client clock can be wrong or hostile, so this is
+    // accepted only if it parses and lands in a sane window, and it never replaces
+    // uploadedAt — both are kept, and the gap between them is the honest record.
+    let recordedAt = null, heldMs = null;
+    if (typeof body.recordedAt === "string") {
+      const t = Date.parse(body.recordedAt);
+      const now = Date.parse(nowIso);
+      if (Number.isFinite(t) && t <= now + 120000 && t >= now - 90 * 86400000) {
+        recordedAt = new Date(t).toISOString();
+        heldMs = Math.max(0, now - t);
+      }
+    }
     // Durable blob — NO expirationTtl. This is the whole point.
     await env.OBSERVATIONS.put(`zone-audio-blob:${id}`, JSON.stringify({
       id, zoneId, mediaType, base64, uploadedAt: nowIso, sizeBytes: base64.length,
+      recordedAt, heldMs,
     }));
     // Lean dated metadata index — cheap to list without pulling blobs.
+    // ⚠️ Deliberately still keyed on the UPLOAD date, not recordedAt. Filing a
+    // late arrival under the day she spoke would be truer, but read-mom-zone-audio.py
+    // advances a watermark by date — a recording appearing in an ALREADY-PASSED day
+    // bucket would never be surfaced, and an unheard recording is this project's worst
+    // failure class. So: file by arrival so nothing is missed, carry recordedAt as a
+    // field so nothing is misdated, and let the reader sort by it.
     const today = nowIso.slice(0, 10);
     const key = `zone-audio:${today}`;
     const meta = {
       id, zoneId, uploadedAt: nowIso, mediaType, sizeBytes: base64.length,
       durationMs: Number.isFinite(body.durationMs) ? Math.round(body.durationMs) : null,
+      recordedAt, heldMs,
       deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
       reviewed: false,
     };

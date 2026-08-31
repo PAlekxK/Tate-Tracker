@@ -24,6 +24,10 @@ per the standing rule on her surfaces.
 
 ## STEP 0 — the offline holes in what already ships  ·  **Track A defect, do first**
 
+> **STATUS 2026-08-31: 0a, 0b, 0c BUILT and verified in the browser — `5878735` + the
+> `recordedAt` commit. NOT DEPLOYED; nothing reaches her until Paul pushes and deploys the
+> Worker. Wording is out with content-steward. 0d DEFERRED by Paul — not blocking.**
+
 > Not a field-capture feature. A live defect that the premise turned from theoretical into
 > certain. She cannot use her own surface where the job is.
 
@@ -56,7 +60,8 @@ At the edge of house Wi-Fi the phone reports online while requests time out. Cla
 the `online` event alone.
 - **Owner:** me, folds into 0b.
 
-### 0d · An offline shell — **DECISION, not a task** `[Paul's call]`
+### 0d · An offline shell — **DECISION, not a task** `[Paul's call]` · ⏸ **DEFERRED 2026-08-31**
+*Paul: decide later, it isn't blocking. Step 1 goes ahead of it.*
 No service worker, no manifest, no `sw.js` — verified, zero matches. Off Wi-Fi the surface does
 not degrade, **it does not load**. A cache-first SW fixes that and introduces a stale-app mode,
 which is this repo's most-repeated bug class (the reason `check-live.py` exists).
@@ -130,6 +135,23 @@ exactly where the January leaf-off aerial is also worst. Those edges stay hypoth
 worst data in it.
 
 ---
+
+### 0e · `recordedAt` — when she SPOKE, not when it arrived `[BUILT 2026-08-31]`
+A recording made at 4pm in the garden and flushed at 6pm at the house was being stamped 6pm.
+For a field journal the observation *time* is part of the observation — "the hellebores are
+up" means something different on the 3rd than on the 10th. The outbox already held the
+original moment; the upload simply never sent it.
+- The Worker now accepts `recordedAt`, validates it (must parse, and land inside a sane
+  window — a client clock can be wrong or hostile), stores it alongside `uploadedAt`, and
+  records `heldMs`. It never replaces the server's own arrival stamp; **both are kept and
+  the gap between them is the honest record.**
+- ⚠️ The dated index stays keyed on the **upload** date on purpose. Filing a late arrival
+  under the day she spoke would read truer, but `read-mom-zone-audio.py` advances a watermark
+  by date — a recording appearing in an already-passed bucket would never be surfaced, and an
+  unheard recording is this project's worst failure class. File by arrival so nothing is
+  missed; carry `recordedAt` so nothing is misdated; let the reader sort by it.
+- **Follow-on, not yet done:** `read-mom-zone-audio.py` should display and sort by
+  `recordedAt` where present, and show the held gap.
 
 ## Decisions Paul owes (not work — answers)
 | # | Question | Raised by |

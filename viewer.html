@@ -10281,7 +10281,8 @@ const ZoneAudioOutbox = (function () {
       for (const rec of await all()) {
         if (!rec || !rec.dataUrl) { await remove(rec && rec.id); continue; }
         const r = await uploadZoneAudio({ dataUrl: rec.dataUrl, zoneId: rec.zoneId,
-          durationMs: rec.durationMs, deviceId: rec.deviceId, flowId: rec.flowId });
+          durationMs: rec.durationMs, deviceId: rec.deviceId, flowId: rec.flowId,
+          recordedAt: rec.at });   // the moment she SPOKE, not the moment it arrived
         if (!r.ok) break;                 // still out of range — keep the rest
         await remove(rec.id); sent++;
       }
@@ -10322,7 +10323,12 @@ async function uploadZoneAudio(opts) {
     const res = await fetch(ZONE_AUDIO_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ audio: o.dataUrl, zoneId: o.zoneId, durationMs: o.durationMs, deviceId: did || undefined }),
+      // recordedAt is WHEN SHE SPOKE. For a live save that is now; for one held out
+      // of range it is the original moment, carried through the outbox. The server
+      // keeps both and never lets this replace its own arrival stamp.
+      body: JSON.stringify({ audio: o.dataUrl, zoneId: o.zoneId, durationMs: o.durationMs,
+                             deviceId: did || undefined,
+                             recordedAt: o.recordedAt || new Date().toISOString() }),
     });
     if (!res.ok) return { ok: false, stored: 0 };
     const j = await res.json().catch(() => ({}));
