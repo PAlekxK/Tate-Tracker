@@ -1,54 +1,59 @@
 {
- "_doc": "Every door input can arrive through for THIS loop. Read by ~/.claude/tools/comms.py, which counts and flags but never opens a message. This file is a DECLARATION, not a router: it says what is ours, so nothing has to guess.",
- "_the_point_of_this_one": "Fernwood's declaration exists mostly to record an EXCLUSION, and that is not a gap — it is the doctrine. The app IS the feedback channel; text is NOT. An agent does not fetch her words from a channel she did not route here. So a comms sweep of email is near-irrelevant to this loop by design, and a future runner must never 'improve' coverage by reaching into her messages.",
- "stale_days": 14,
- "channels": [
-  {
-   "name": "app:feedback",
-   "reachable": true,
-   "query": "GET /api/feedback (Worker; token in .private/fernwood-token)",
-   "note": "Mama's Perspective answers. tools/read-mom-feedback.py is the reader."
-  },
-  {
-   "name": "app:observations",
-   "reachable": true,
-   "query": "GET /api/observations",
-   "note": "Field notes. A free-text note has no canon target, so its lifecycle is feedback-log.json, not a probe."
-  },
-  {
-   "name": "app:zone-audio",
-   "reachable": true,
-   "query": "GET /api/zone-audio",
-   "note": "Her VOICE. A channel nobody sweeps is a channel nobody hears — 3 of 5 clips once sat unlistened while the ribbon read green."
-  },
-  {
-   "name": "app:conversations",
-   "reachable": true,
-   "query": "GET /api/conversations (metadata only — never turn content)",
-   "note": "Garden Guru turns. Counted, never read."
-  },
-  {
-   "name": "app:metrics",
-   "reachable": true,
-   "query": "GET /api/metrics (her device bucket, since the last lap)",
-   "note": "Engagement — what she DID. Promoted to a trigger 2026-08-17; see tools/mom-cycle-status.py."
-  },
-  {
-   "name": "her text messages",
-   "reachable": false,
-   "note": "⛔ DELIBERATELY OUT OF SCOPE, not unreached-for-lack-of-trying. No sweep, no watcher, no scheduled read — Paul relays, or it is not in the system. A parallel channel that quietly works just as well removes her reason to use the app. Paul-relayed input IS real input; the automatic harvest is what is excluded."
-  },
-  {
-   "name": "email",
-   "reachable": false,
-   "note": "Fernwood has no meaningful inbound email channel. Recorded so a future sweep does not read its own silence here as a finding."
+  "_doc": "Every door input can arrive through for THIS loop. Read by ~/.claude/tools/comms.py, which counts and flags but never opens a message. This file is a DECLARATION, not a router: it says what is ours, so nothing has to guess.",
+  "_the_point_of_this_one": "Fernwood's declaration exists mostly to record an EXCLUSION, and that is not a gap — it is the doctrine. The app IS the feedback channel; text is NOT. An agent does not fetch her words from a channel she did not route here. So a comms sweep of email is near-irrelevant to this loop by design, and a future runner must never 'improve' coverage by reaching into her messages.",
+  "stale_days": 14,
+  "channels": [
+    {
+      "name": "app:feedback",
+      "reachable": true,
+      "query": "GET /api/feedback (Worker; token in .private/fernwood-token)",
+      "note": "Mama's Perspective answers. tools/read-mom-feedback.py is the reader.",
+      "door": "door:fernwood-app"
+    },
+    {
+      "name": "app:observations",
+      "reachable": true,
+      "query": "GET /api/observations",
+      "note": "Field notes. A free-text note has no canon target, so its lifecycle is feedback-log.json, not a probe.",
+      "door": "door:fernwood-app"
+    },
+    {
+      "name": "app:zone-audio",
+      "reachable": true,
+      "query": "GET /api/zone-audio",
+      "note": "Her VOICE. A channel nobody sweeps is a channel nobody hears — 3 of 5 clips once sat unlistened while the ribbon read green.",
+      "door": "door:fernwood-app"
+    },
+    {
+      "name": "app:conversations",
+      "reachable": true,
+      "query": "GET /api/conversations (metadata only — never turn content)",
+      "note": "Garden Guru turns. Counted, never read.",
+      "door": "door:fernwood-app"
+    },
+    {
+      "name": "app:metrics",
+      "reachable": true,
+      "query": "GET /api/metrics (her device bucket, since the last lap)",
+      "note": "Engagement — what she DID. Promoted to a trigger 2026-08-17; see tools/mom-cycle-status.py.",
+      "door": "door:fernwood-app"
+    },
+    {
+      "name": "her text messages",
+      "reachable": false,
+      "note": "⛔ DELIBERATELY OUT OF SCOPE, not unreached-for-lack-of-trying. No sweep, no watcher, no scheduled read — Paul relays, or it is not in the system. A parallel channel that quietly works just as well removes her reason to use the app. Paul-relayed input IS real input; the automatic harvest is what is excluded."
+    },
+    {
+      "name": "email",
+      "reachable": false,
+      "note": "Fernwood has no meaningful inbound email channel. Recorded so a future sweep does not read its own silence here as a finding."
+    }
+  ],
+  "watermark_source": {
+    "path": ".private/channel-read-state.json",
+    "kind": "json_nested",
+    "field": "markedAt",
+    "time_basis": "transaction",
+    "note": "⭐ `markedAt` DELIBERATELY, not `readThrough`. They are different clocks and the file carries both: readThrough is a VALID time (we have read content through this date — for zone-audio that is the 08-09 Fairway clip's own timestamp), markedAt is the TRANSACTION time (when someone actually marked it). last_swept answers when we LOOKED, so it must fold markedAt. Folding readThrough would have reported Fernwood 19d stale on the day all five doors were read."
   }
- ],
- "watermark_source": {
-  "path": ".private/channel-read-state.json",
-  "kind": "json_nested",
-  "field": "markedAt",
-  "time_basis": "transaction",
-  "note": "⭐ `markedAt` DELIBERATELY, not `readThrough`. They are different clocks and the file carries both: readThrough is a VALID time (we have read content through this date — for zone-audio that is the 08-09 Fairway clip's own timestamp), markedAt is the TRANSACTION time (when someone actually marked it). last_swept answers when we LOOKED, so it must fold markedAt. Folding readThrough would have reported Fernwood 19d stale on the day all five doors were read."
- }
 }
