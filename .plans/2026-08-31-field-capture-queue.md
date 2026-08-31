@@ -25,8 +25,15 @@ per the standing rule on her surfaces.
 ## STEP 0 — the offline holes in what already ships  ·  **Track A defect, do first**
 
 > **STATUS 2026-08-31: 0a, 0b, 0c BUILT and verified in the browser — `5878735` + the
-> `recordedAt` commit. NOT DEPLOYED; nothing reaches her until Paul pushes and deploys the
-> Worker. Wording is out with content-steward. 0d DEFERRED by Paul — not blocking.**
+> `recordedAt` commit. Wording DONE — drafted by content-steward, including the two
+> genuine-loss lines and a drift catch on copy that already shipped. NOT DEPLOYED; nothing
+> reaches her until Paul pushes and deploys the Worker. 0d DEFERRED by Paul — not blocking.
+> **STEP 0 IS COMPLETE. Next: Step 1, per-vertex provenance.**
+>
+> Parked from the content seat, surface questions rather than copy ones: the arrival line
+> only fires if she happens to open a zone panel while in range, so the promise is usually
+> kept silently and she never learns it was — possibly the ack ribbon's job. And the acks
+> say "the record" while the surface she can look at is the **Journal**, her word.**
 
 > Not a field-capture feature. A live defect that the premise turned from theoretical into
 > certain. She cannot use her own surface where the job is.

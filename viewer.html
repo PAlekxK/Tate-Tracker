@@ -10260,13 +10260,19 @@ const ZoneAudioOutbox = (function () {
     if (!supported()) return [];
     try { return (await tx("readonly", st => st.getAll())) || []; } catch (_) { return []; }
   }
+  // Reports WHY it refused. A bare boolean cannot tell "this browser can't hold
+  // recordings" from "the queue is full", and those want different things said to
+  // her: only the second has a remedy. Routing it backwards would tell a browser
+  // without IndexedDB that the phone is full — a plausible sentence, wrong.
   async function put(rec) {
-    if (!supported()) return false;
+    if (!supported()) return { ok: false, reason: "unavailable" };
     try {
-      if ((await all()).length >= MAX_PENDING) return false;  // refuse; never evict her words
+      if ((await all()).length >= MAX_PENDING) {
+        return { ok: false, reason: "full" };   // refuse; never evict her words
+      }
       await tx("readwrite", st => st.put(rec));
-      return true;
-    } catch (_) { return false; }
+      return { ok: true };
+    } catch (_) { return { ok: false, reason: "unavailable" }; }
   }
   async function remove(id) {
     if (!supported()) return;
@@ -10312,6 +10318,22 @@ async function queueZoneAudio(payload, zid, flowId) {
 // of both. Paul: "Mom understands WiFi and the connectivity situation."
 const ZONE_AUDIO_HELD =
   "Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓";
+
+// The two genuine-loss lines. Wording by content-steward, 2026-08-31.
+// NO ✓ on either, deliberately: the tick's ratified meaning here is "we have your
+// words", and here we do not. She has learned it as the signal that something
+// landed, so its ABSENCE is legible — which only holds if it is never spent on a
+// state where nothing landed.
+// They differ on the only axis a status line should care about: whether anything
+// makes this stop happening. A has no remedy but a real escalation; B clears itself.
+const ZONE_AUDIO_CANNOT_HOLD =
+  "This phone can't hold recordings — that one didn't get saved. Worth letting Paul know.";
+const ZONE_AUDIO_FULL =
+  "The phone is holding all it can, so that one didn't get saved. The ones waiting will " +
+  "go when you're near the house Wi-Fi, and there'll be room again.";
+function zoneAudioLossMessage(res) {
+  return (res && res.reason === "full") ? ZONE_AUDIO_FULL : ZONE_AUDIO_CANNOT_HOLD;
+}
 
 // navigator.onLine is NOT a route test: at the edge of house Wi-Fi the phone
 // reports online while requests time out. Match the payload, not the container —
@@ -10462,9 +10484,8 @@ const ZonePanel = (function () {
     const r = await uploadZoneAudio({ dataUrl: payload.dataUrl, zoneId: zid, durationMs: payload.durationMs });
     if (r.ok) { setGrowStatus("Saved — thank you. ✓"); return; }
     // Out of range is the NORMAL case away from the house, not an error to hand back.
-    setGrowStatus(await queueZoneAudio(payload, zid)
-      ? ZONE_AUDIO_HELD
-      : "Couldn't save just now — tap the mic to try again.");
+    const held = await queueZoneAudio(payload, zid);
+    setGrowStatus(held.ok ? ZONE_AUDIO_HELD : zoneAudioLossMessage(held));
   }
   async function toggleGrow() {
     const rec = growRec();
@@ -12007,7 +12028,7 @@ const MomQueue = (function () {
   function ackFor(result) {
     if (result === "sent") return showAck("Noted — it's in the record. ✓");
     if (result === "queued") return showAck("Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓");
-    return showAck("That didn't get through — your words are still here. Worth trying again in a moment.", true);
+    return showAck("That didn't get through — your words are still here. Worth trying again when you're near the house Wi-Fi.", true);
   }
 
   // Deterministic capture — her tap + her verbatim words. No AI in the loop.
@@ -12546,7 +12567,7 @@ const FeedbackRibbon = (function () {
         // Failed — keep her words on screen and claim nothing (W1 doctrine).
         status.className = "feedback-status err";
         status.style.display = "block";
-        status.textContent = "That didn't get through — your words are still here. Worth trying again in a moment.";
+        status.textContent = "That didn't get through — your words are still here. Worth trying again when you're near the house Wi-Fi.";
         send.disabled = false;
         send.textContent = "Set it down";
       }
@@ -12723,13 +12744,20 @@ const ZoneJourney = (function () {
     lastSaveOk = result.ok;
     lastStep = "saved:" + (result.ok ? "ok" : "fail") + ":" + zid;
     if (result.ok) { setStatus("Saved — thank you. ✓"); showAfter(); }
-    else if (await queueZoneAudio(payload, zid, flowId)) {
-      // Held, not lost — so this is a completed step, and she gets the same
-      // onward move she would have had on a live save.
-      lastSaveOk = true; lastStep = "saved:held:" + zid;
-      setStatus(ZONE_AUDIO_HELD); showAfter();
+    else {
+      const held = await queueZoneAudio(payload, zid, flowId);
+      if (held.ok) {
+        // Held, not lost — a completed step, so she gets the same onward move
+        // she would have had on a live save.
+        lastSaveOk = true; lastStep = "saved:held:" + zid;
+        setStatus(ZONE_AUDIO_HELD); showAfter();
+      } else {
+        // Genuinely lost. No showAfter() — that is the completion surface and
+        // nothing completed.
+        lastStep = "lost:" + (held.reason || "unknown") + ":" + zid;
+        setStatus(zoneAudioLossMessage(held));
+      }
     }
-    else setStatus("Couldn't save just now — tap the mic to try again.");
   }
 
   // Shown ONLY after a real save. Two equal next moves, no counter / no "X left" /
