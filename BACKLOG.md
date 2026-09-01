@@ -1369,6 +1369,31 @@ Three properties, each **proven by driving it**, not by reading it:
 - **It asserts no attribution.** `undispositioned` (owed to Mom) and `bench-unheard` (a device Paul
   registered as his) are counted and printed apart.
 
+✅ **AND THE RETROSPECTIVE IS DONE — nothing of hers was lost.** The fix changed what the door can
+say *going forward*; it said nothing about the backlog the blind reader had already stepped over. So
+that was measured rather than assumed. Behind the 2026-08-28 baseline, across the three channels the
+reader could not see, **exactly 4 records came from her device — 2 acts, each mirrored**:
+
+| when | what she said | disposition |
+|---|---|---|
+| 2026-08-03 | *"You mentioned Cuttings from the keep creeping fig can you tell me more about that process"* | a QUESTION, answered by the Guru in the moment. Already cited in `CLAUDE.md`'s ribbon block — it was seen at the time |
+| 2026-08-14 | *"Can you tell me the best fertilizer for my boxwoods"* | a QUESTION, answered in the moment. No canon target, no request |
+
+**Neither is an unactioned request and neither carries ground truth for canon** — they are her using
+the Almanac for what it is for. The ~63 other blind-channel records behind the baseline are Paul's
+own and bench traffic.
+
+⚠️ **State the finding precisely, because the tempting summary is wrong.** *"The reader was blind for
+weeks and nothing was lost"* is true of the HISTORY and says nothing about the RISK: the one time it
+mattered it hid a live request for thirty minutes and would have hidden it indefinitely. **The
+defect was real and the historical loss was zero** — both, at once. The blind window was mostly
+quiet on those channels; that was luck, not design.
+
+⚠️ **One measurement limit that survives this:** every tool in the loop defaults to a **60-day**
+window, and Guru returns **14 conversations at 60d vs 30 at 120d**. Everything older is baselined so
+nothing actionable is hidden today — but the default is narrower than the corpus, and a future
+question about her history must widen it explicitly rather than trust a default.
+
 ⭐ **And it is GUARDED** — `test-feedback-cycle.py` gained a `PICKUP` suite (8 legs), because a fix
 nothing tests is one refactor from returning. It asserts the *capability* by driving the renderer with
 synthetic sweeps, not by matching wording. **Proven by three mutations:** dropping the call from the
@@ -1377,7 +1402,37 @@ All three fail the suite; the restored code passes.
 
 ---
 
-## ⛔ G1 · THE GURU TOLD MOM SOMETHING IT CANNOT DO — "It's in the record now."
+## 🌱 A-ASK · THE ASK DESIGN — a SCOPING conversation Paul seeded, not a change to make quietly
+
+`paul-stated 2026-09-01`: *"whatever she's interested in is what we need to latch onto, and that
+should continue to be a key component of the feedback cycle and absolutely could be a seed for a
+future scoping conversation."*
+
+**The measurement is in `CLAUDE.md` § "LATCH ONTO WHAT SHE STARTS."** Short version: every
+affordance that asks her to answer us took **0**; the one that just moves her took **5 of 5**; and in
+the same window she wrote 4 notes and 4 Guru turns and handed us a new domain record unprompted.
+
+⛔ **DO NOT ACT ON THIS AS A FIX.** It is the most interesting finding the loop has produced and it
+is exactly the shape that invites a reflex — retire the confirm queue, rebuild the cards, move the
+ribbon. All of those are premature:
+- **n is one active day.** `sessions-quiet` and `offers-passed` both fired on it, which means the
+  board already treats it as signal — that is not the same as understanding it.
+- **A deviceId is a browser bucket**, and this whole finding rests on one.
+- **The confirm surface has a known confound**: her documented fear is being *wrong*, and answering
+  is precisely what that blocks (BACKLOG A1's 2026-07-26 finding, already established). The new data
+  may be re-measuring that, not discovering something else.
+- ⚠️ **Depth 2 and 3 are both zero**, so any remedy that puts the fix *behind a disclosure* is
+  answering a question she has not asked.
+
+**What the conversation should decide** (`user-researcher` is the natural first seat, per the leg-4
+sequence — it is a question about a person, not about a component): whether the confirm queue is the
+wrong instrument for her, or the right instrument being asked the wrong questions; and whether
+"latch onto what she starts" implies the Guru becomes the primary capture surface — which would be a
+**material change to the AI boundary** and therefore Paul's alone.
+
+---
+
+## 🟡 G1 · THE GURU TOLD MOM SOMETHING IT CANNOT DO — interim FIXED 2026-09-01, structural gap OPEN
 
 **Found 2026-09-01, lap 8 leg 2, in the conversation that opened the lap.** Her 8-turn exchange
 closed with the Guru saying:
@@ -1409,6 +1464,26 @@ and to us — no check anywhere asserts that a Guru completion claim corresponds
    boundary's forbidden mode (2): *AI auto-folding to canon*. Would need Paul's explicit reversal.
 3. **Close the loop visibly instead** — the Guru promises nothing, and the *ribbon* is what tells her
    it landed. This is the option most consistent with existing doctrine.
+
+✅ **INTERIM SHIPPED 2026-09-01 (Worker `3cc3d422`) — option 1, and the diagnosis was sharper than
+the original write-up.** The prohibition **already existed** at two places in `GARDEN_GURU_SYSTEM`
+(*"you NEVER say 'I've logged it' or 'I've added that'"*) — but both were scoped to the **journal /
+log** path. The refrigerator went down the **add-a-new-thing** path, and that path's rule is
+*"So help them add it, honestly"* with a `<!--suggest-add` fence whose `kind` is **`plant`**.
+
+⭐ **So the real defect was a MISSING MECHANISM, not a missing rule.** Mom asked for a
+*household-system*; there is no fence for machines, household systems, wildlife or zones. The model
+had a sanctioned way to help with a plant and none for what she actually asked, so it improvised a
+completion. **A path with no honest exit produces a dishonest one.**
+
+Shipped: a domain-general prohibition (no completion claim in ANY domain, with the 09-01 incident
+stated as its reason), plus an explicit note that the fence is plants-only and what to do instead —
+reflect the facts back, say it is noted, and stop.
+
+⛔ **STILL OPEN — the structural half.** Extending `suggest-add` to non-plant domains would give her
+request a real mechanism instead of a graceful refusal. It is NOT forbidden by the AI boundary
+(forbidden mode 2 is AI *auto-folding to canon*; a fence is a PROPOSAL for a human), but it is a new
+surface on her ask path and therefore Paul's call. **Not started.**
 
 ⭐ **Whatever is chosen, the honest interim is option 1** — the Guru should not be making completion
 claims it cannot keep while the question is open.

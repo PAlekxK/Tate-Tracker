@@ -129,6 +129,40 @@ run said `FIRED · leg 6, the return leg is owed`. No reader checks `generated_a
 photo-organizer's), so a stale artifact reads as a current verdict. Run `--write-state` at the end of
 every lap, and do not trust the file's age from its face.
 
+**⭐⭐ LATCH ONTO WHAT SHE STARTS — the asks WE author are not landing, and the channels SHE
+opens are** `[paul-stated 2026-09-01]`: *"whatever she's interested in is what we need to latch onto,
+and that should continue to be a key component of the feedback cycle."*
+
+**Measured in lap 8's window, and the split is total:**
+
+| affordance | offered → taken |
+|---|---|
+| jump strip (moves her) | 5 → **5 tapped** |
+| Mama's Perspective queue (asks her) | 10 → 4 viewed → **0 tapped** |
+| acknowledgment ribbon (asks her) | 10 → **0 tapped** |
+| front-door launcher (asks her) | 10 → 4 viewed → **0 tapped** |
+| look-for prompt (asks her) | 5 → **0 tapped** |
+
+**Every affordance that asks her to answer us: zero. The one that simply moves her: 100%.** In the
+same window she saved **4 notes**, opened the composer **4 times**, and authored **4 Guru turns** —
+then opened a conversation and gave the project a whole new domain record in ninety seconds.
+
+⭐ **So "she is not engaging" was never true; "she is not answering OUR questions" is.** Those are
+different findings with opposite remedies, and this loop spent laps reading the first one. Depth 2
+and depth 3 were **both zero** across the window — she reads card faces and does not open
+individuals — which also means *content behind a disclosure is content she has not seen.*
+
+**What it changes, and this is the operative part:**
+1. **Her initiations are first-class lap material.** A Guru conversation or a field note is not
+   softer evidence than a confirm-card answer — on this record it is the ONLY evidence. Lap 8's
+   entire subject arrived that way.
+2. **Prefer instrumenting a door she already uses over authoring another ask.** Before adding a
+   card, check whether the thing can be learned from a channel she opens herself.
+3. ⚠️ **This is NOT licence to stop asking.** n is small, the window is one active day, and a
+   deviceId is a browser bucket. It is a standing lens for leg 1, not a verdict on the confirm
+   surface — the ask design question is **scoping work Paul has seeded, not a change to make
+   quietly** (`BACKLOG.md` § **A-ASK**).
+
 **⭐ ZONE AUDIO IS PART OF THE SWEEP, not a leftover** `[paul-stated 2026-08-14]`: *"zone audio
 should definitely be read and measured as part of the mom cycle early on… when we do a full sweep
 for feedback, it should include that for sure. If that particular thing is me, that's fine, we can

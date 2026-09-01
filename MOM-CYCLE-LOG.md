@@ -11,8 +11,8 @@ amended mid-lap.
 
 ---
 
-## Lap 8 — 2026-09-01 · ⏸ **HELD AT LEG 6** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation
-<!-- outcome:open -->
+## Lap 8 — 2026-09-01 · ✅ **CLOSED, 7 of 7 + QA** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation
+<!-- outcome:closed -->
 
 **Fired by: Mom herself.** Not a staleness clock, not an engagement threshold — a request, in her own
 words, at 11:11 AM ET: *"I would like to add our refrigerator under household systems."* Then, in
@@ -38,25 +38,17 @@ allowed to run.
 | 6 · GATE | ⏸ **HELD FOR PAUL.** Built, verified, committed, **NOT pushed.** |
 | 7 · CLOSE | Not reached — this lap closes at the gate, by design. |
 
-### ⏸ PUSH HELD — `paul-decided 2026-09-01`, to let the fleet session close out
+### ✅ THE PUSH — held, then released when the concurrent lap closed
 
-**Everything is built, verified and committed. Nothing is pushed.** The ribbon, the refrigerator
-card, the 8-site telemetry and the lap census are all in the local history; `check-live.py` is RED
-**and that is the honest state**, not a defect.
+The push was held mid-lap `[paul-decided]` because a concurrent fleet-lap-2 session shared this tree
+and the branch carried **12 commits ahead, five of them theirs with their lap still OPEN** — pushing
+the ribbon would have published another lap's in-flight work. **No rebase, no force.** The guard's
+refusal was verified against the remote rather than taken on faith (`git fetch` showed it genuinely
+ahead by two bot commits), which distinguished it from the guard's earlier false positive on this
+session's own sha.
 
-**Why the hold, and it is not about this lap's content.** A concurrent fleet-lap-2 session shares
-this working tree (`paul-confirmed` earlier in the lap). At push time the branch carried **12
-commits ahead of `origin/main`, five of them the fleet session's, with their lap still OPEN** — so
-pushing the ribbon would necessarily have published another lap's in-flight work. That is inherent
-to sharing a branch, and it is not this session's call to make.
-
-⛔ **No rebase, no force, no merge was performed.** `guard-concurrent.py before-push` refused, and
-the refusal was verified against the remote rather than taken on faith: `git fetch` showed the
-remote genuinely ahead by two bot commits (`weather-history` rollup + a `digest: rebuild on deploy`),
-so this was a REAL divergence, unlike the guard's earlier false positive on this session's own sha.
-
-**To resume:** once fleet lap 2 has closed and pushed, merge (never rebase — it would rewrite their
-shas), push, then run the QA leg below against the LIVE app.
+Paul then paused the other window and cleared the rest. Released by **merge, never rebase** — a
+rebase would have rewritten the fleet session's shas — and pushed.
 
 ### 🔍 QA — a scoped review of what changed, AFTER the push `[paul-stated 2026-09-01]`
 
@@ -70,8 +62,26 @@ instrument on a different trigger (accumulation, not per-lap). Distinct from `ch
 proves the BYTES match and says nothing about whether the thing looks or behaves right.
 
 ⚠️ **It is deliberately placed AFTER the push** on Paul's revision: the question is whether it is
-live and correct *as Mom will load it*, and a local check cannot answer that — Pages rebuilds
-asynchronously and a phone can serve a cached copy. **Owed for this lap, not yet run.**
+live and correct *as Mom will load it*, and a local check cannot answer that.
+
+✅ **RAN, and it paid for itself on its first outing — against the release gate.** On the live app:
+the ribbon renders (*"Tuesday, September 1 — what you asked for:"*), its bullet IS the link, tapping
+it fires `momack_followed` + `card_expanded` and opens Household Systems, the refrigerator renders
+there, and its three disclosures fire `detail_opened` with `kind:id`. **Paul's whole test path is
+instrumented end to end.**
+
+⛔ **Then `herConditions()` returned `clean:false`, 8 HIGH — and every one was false.** `inFrame()`
+loaded `"/viewer.html"`, root-absolute, which **404s on Pages** (the app is served from
+`/Tate-Tracker/`). The harness was measuring **GitHub's 404 page** and scoring its markup —
+`container`, `h1`, `p`, `a`. Proven by A/B on the live page: old path → title *"Site not found ·
+GitHub Pages"*, no `.main-card`; resolved path → *"Fernwood"*, card present, `scrollWidth` **410** in
+a 414 viewport. Fixed in `a43812d` **two ways**, because the URL alone leaves the silent half:
+resolve against `document.baseURI`, **and throw** when the frame never renders a `.main-card` (the
+old loop broke on success and *proceeded anyway* on failure — which is how a 404 got scored).
+
+⭐ **Leg 6e had never been runnable against the live site, and nothing said so.** It is
+`match the payload, not the container` inside the instrument built to catch that class, on a check
+`CLAUDE.md` gates a release with.
 
 ### What she gave, verbatim
 
@@ -123,6 +133,20 @@ Its closing turn: *"**It's in the record now.**"* Nothing was written; the Guru 
 Had this lap not run, her request would have sat behind a completion message telling her it was
 handled. Filed as `BACKLOG.md` § **G1** with three candidate directions, none chosen. **The honest
 interim is that the Guru should not make completion claims it cannot keep.**
+
+### ⚠️ The board reads FIRED the moment this lap closed — and it is an ARTIFACT, not a trigger
+
+`mom-cycle-status.py --write-state` publishes **FIRED · leg 7 · 0 unresolved arrivals ·
+needs_paul false** immediately after a clean close. Nothing is wrong and nothing is owed. The cause:
+`offers-passed` (4/3) and `sessions-quiet` (5/3) count **since the last lap**, and `last_lap()`
+resolves a lap to a **DATE, not an instant**. Lap 8 opened and closed on 2026-09-01, so her five
+sessions *that same day* — including the 11:10 one that FIRED this lap — are counted as having
+happened "since" it. The lap is being measured against itself.
+
+⛔ **Do not open lap 9 on this reading.** It self-resolves at the next date boundary. A real fix is
+timestamp-granular lap boundaries in `last_lap()`, which is more than a day-of cleanup and is not
+this lap's to make. Same family as `[[reference_lap_clamp_is_time_scoped]]`: a lap's window has ends,
+and date-granularity cannot see them.
 
 ### Decisions
 

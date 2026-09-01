@@ -1,11 +1,11 @@
 {
   "state": "FIRED",
-  "generated_at": "2026-09-01T12:11:56",
+  "generated_at": "2026-09-01T12:36:03",
   "generated_by": "Tate-Tracker/tools/mom-cycle-status.py --write-state",
-  "why": "leg 6 — the return leg is owed, or the served queue is wrong",
-  "next": "run /mom-cycle: the return leg is a Paul gate",
-  "at_leg": "6",
-  "needs_paul": true,
+  "why": "leg 7 — 0 unresolved arrival(s) nobody has read yet",
+  "next": "run /mom-cycle beat 1 (READ) — until someone looks, whose it was is unknown",
+  "at_leg": "7",
+  "needs_paul": false,
   "unresolved_arrivals": 0,
   "signals": [
     {
@@ -30,11 +30,11 @@
       "detail": "UNMEASURED: no dated answer on record"
     }
   ],
-  "lap_count": 7,
+  "lap_count": 8,
   "last_lap": {
     "n": 8,
     "date": "2026-09-01",
-    "outcome": "open",
-    "outcome_note": "⏸ **HELD AT LEG 6** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation"
+    "outcome": "closed",
+    "outcome_note": "✅ **CLOSED, 7 of 7 + QA** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation"
   }
 }

@@ -45,6 +45,7 @@ The procedure's own numbering, unchanged — renaming established legs would for
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked. ⭐ **Any NEW EVENT walks its other paths first** — every route in, the failure path, the reach path `[paul-approved 2026-08-14, PROVISIONAL]`. See § Leg 5, below |
 | **6 · GATE** 👤 | **6a PREVIEW** → **6b TELEMETRY** (does the instrumentation fire?) → **6c PROXY** (her-eyes check) → **6d** the return leg as exact text | **Paul** | he has flipped through it, `check-telemetry.py` is clean or its gaps are named, the proxy's flags are dispositioned, he approves, and it is **pushed** — ⭐ **through `guard-concurrent.py push` (or `before-push` first), because the push is the seam Leg 0's guard was blind to until 2026-08-31** |
 | **6e · HER CONDITIONS** 👤 | ⭐ **414 × A+ — the combination she actually meets — before every release** `[paul-stated 2026-08-24]` | ai | `measureNestingWidth.herConditions()` returns `clean: true` (no HIGH), or every HIGH is dispositioned in the chronicle |
+| **7-QA · SCOPED REVIEW** | ⭐ **a scoped UX/QA review of WHAT THIS LAP CHANGED, against the LIVE app** `[paul-stated 2026-09-01]` — does it look and behave as expected where Mom will actually load it | ai | every changed surface opened on the live URL and exercised: the thing renders, its affordances work, and any new instrumentation is seen to FIRE. Findings dispositioned in the chronicle. ⚠️ **Distinct from `check-live.py`**, which proves the BYTES match HEAD and says nothing about whether the result looks right — and from `/ux-sweep`, which is a two-agent zoom-out on a different (accumulation) trigger. This one is scoped to the diff |
 | **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced — and **the ship VERIFIED against the live URL** `[paul-stated 2026-08-14]` | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped; **`check-live.py` exits 0** — until it does, the lap shipped nothing, whatever git says |
 
 **The loop closes at leg 7 → leg 1.** What makes it a cycle rather than a checklist is that leg 7's
@@ -451,6 +452,49 @@ Scored at **every lap that adds or changes an event**; the chronicle records **c
    catch behind it is decoration.
 2. **PROMOTE** — if it keeps catching, build the mechanical half into `check-telemetry.py`. It already
    parses every `track()` site; *enumerating a state's other writers* is the half a human still does.
+
+---
+
+## Leg 7-QA — the scoped review, and why it runs AFTER the push `[paul-stated 2026-09-01]`
+
+> *"I think we should have kind of a QA step as well that's maybe a scoped UX review to what's been
+> changed and to be sure that things perform and look as expected. That should always be kind of a
+> final check before the final push and commit."* … *"or if it makes more sense to do it right after
+> the commit to be sure it's live as expected. I'm good with that before closing out a lap. It's a
+> final check."*
+
+**Paul revised the placement himself, and the revision is the whole point.** A pre-push review asks
+*"is this right on my machine?"* — which is not the question. The question is whether it is right
+**where Mom loads it**, and only a post-push run can answer that: Pages rebuilds asynchronously, the
+Worker is deployed separately, and a phone can serve a cached copy long after Pages is correct.
+
+⚠️ **It is NOT `check-live.py`.** That proves five files are byte-identical to HEAD — a necessary
+check that is completely blind to whether the bytes render something sensible. A card can match HEAD
+perfectly and still be broken on screen.
+
+⚠️ **It is NOT `/ux-sweep`.** That is two agents and a full un-primed browse, fired by *accumulation*
+(21d / 20 viewer commits / 3 laps). This is scoped to **the diff of this lap**, runs every lap that
+ships anything, and is minutes not hours. A single-seat scoped review **does not reset the sweep
+clock** — the existing rule stands.
+
+**What it must actually do, in order:**
+1. Load the **live URL**, hard-refreshed, at **her conditions (414 × A+)**.
+2. Open every surface this lap touched and **exercise** it — not just confirm the data is present.
+   *In the JSON* and *on the screen* are different claims; this repo has been wrong about that
+   before in both directions.
+3. Watch any **new instrumentation actually fire**, by stubbing the collector and reading what it
+   receives. An event assumed to fire is an unmeasured zero waiting to be misread as behaviour.
+4. Disposition every finding in `MOM-CYCLE-LOG.md` — including *"pre-existing, not this lap's"*,
+   which is a disposition and not a dismissal.
+
+⭐⭐ **ITS FIRST RUN PAID FOR ITSELF, and against the gate itself.** On 2026-09-01 the first live QA
+run reported `herConditions()` → `clean:false`, **8 HIGH**. None were real: `inFrame()` loaded
+`"/viewer.html"`, root-absolute, which 404s on Pages (the app lives at `/Tate-Tracker/`), so the
+harness measured **GitHub's 404 page** and scored its markup — `container`, `h1`, `p`, `a`. Fixed in
+`a43812d` two ways, because the URL alone leaves the silent half: resolve against `document.baseURI`,
+**and throw** when the frame never renders a `.main-card`. *A gate that reads the wrong document and
+returns a plausible number is worse than no gate.* **Leg 6e had never been runnable against the live
+site**, and nothing said so.
 
 ---
 
