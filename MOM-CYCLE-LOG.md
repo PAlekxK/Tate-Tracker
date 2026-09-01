@@ -38,6 +38,41 @@ allowed to run.
 | 6 · GATE | ⏸ **HELD FOR PAUL.** Built, verified, committed, **NOT pushed.** |
 | 7 · CLOSE | Not reached — this lap closes at the gate, by design. |
 
+### ⏸ PUSH HELD — `paul-decided 2026-09-01`, to let the fleet session close out
+
+**Everything is built, verified and committed. Nothing is pushed.** The ribbon, the refrigerator
+card, the 8-site telemetry and the lap census are all in the local history; `check-live.py` is RED
+**and that is the honest state**, not a defect.
+
+**Why the hold, and it is not about this lap's content.** A concurrent fleet-lap-2 session shares
+this working tree (`paul-confirmed` earlier in the lap). At push time the branch carried **12
+commits ahead of `origin/main`, five of them the fleet session's, with their lap still OPEN** — so
+pushing the ribbon would necessarily have published another lap's in-flight work. That is inherent
+to sharing a branch, and it is not this session's call to make.
+
+⛔ **No rebase, no force, no merge was performed.** `guard-concurrent.py before-push` refused, and
+the refusal was verified against the remote rather than taken on faith: `git fetch` showed the
+remote genuinely ahead by two bot commits (`weather-history` rollup + a `digest: rebuild on deploy`),
+so this was a REAL divergence, unlike the guard's earlier false positive on this session's own sha.
+
+**To resume:** once fleet lap 2 has closed and pushed, merge (never rebase — it would rewrite their
+shas), push, then run the QA leg below against the LIVE app.
+
+### 🔍 QA — a scoped review of what changed, AFTER the push `[paul-stated 2026-09-01]`
+
+> *"I think we should have kind of a QA step as well that's maybe a scoped UX review to what's been
+> changed and to be sure that things perform and look as expected… or if it makes more sense to do
+> it right after the commit to be sure it's live as expected. I'm good with that before closing out
+> a lap. It's a final check."*
+
+**Post-push, pre-close, and scoped to the diff** — not a full `/ux-sweep`, which is a different
+instrument on a different trigger (accumulation, not per-lap). Distinct from `check-live.py`, which
+proves the BYTES match and says nothing about whether the thing looks or behaves right.
+
+⚠️ **It is deliberately placed AFTER the push** on Paul's revision: the question is whether it is
+live and correct *as Mom will load it*, and a local check cannot answer that — Pages rebuilds
+asynchronously and a phone can serve a cached copy. **Owed for this lap, not yet run.**
+
 ### What she gave, verbatim
 
 | her words | where it went |
