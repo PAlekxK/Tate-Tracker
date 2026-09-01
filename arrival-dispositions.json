@@ -37,6 +37,51 @@
       "disposition": "BENCH — the SAME Guru turn as guru:mthlfxpf-o8akv, mirrored into /api/observations. One human act, two arrivals. Read; not hers.",
       "attestedBy": "claude, lap 7 leg 2",
       "dispositionedOn": "2026-09-01T12:04:20.793585+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "mtit3gn0-6xdam",
+      "recordTs": "2026-09-01T15:12:39.420Z",
+      "origin": "unresolved",
+      "disposition": "SPEC, folded to canon. Her words: 'Current model is LG 25.5 cu ft bottom freezer model LRDCS2603S' — answering the Guru's make/model question. Folded into the refrigerator record's specs as her own ground truth (confidence: verified, source: Mom).",
+      "attestedBy": "Claude read the record verbatim in lap 8 leg 2 and folded it into vehicles.json",
+      "dispositionedOn": "2026-09-01T15:40:58.971086+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "mtit41ff-qfnxl",
+      "recordTs": "2026-09-01T15:13:06.363Z",
+      "origin": "unresolved",
+      "disposition": "SPEC, folded to canon. Her words: 'No water dispenser' — answering the Guru's water/ice question. Folded: the record carries an ice maker and NO plumbed dispenser, so no dispenser filter goes on the maintenance rhythm.",
+      "attestedBy": "Claude read the record verbatim in lap 8 leg 2 and folded it into vehicles.json",
+      "dispositionedOn": "2026-09-01T15:40:59.159018+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "mtit4cp0-f0ywe",
+      "recordTs": "2026-09-01T15:13:20.964Z",
+      "origin": "unresolved",
+      "disposition": "SPEC, folded to canon. Her words: 'Ice maker works' — answering the Guru's final question. Folded: the ice-maker module is an ACTIVE item on the maintenance list, not 'present but not in use'.",
+      "attestedBy": "Claude read the record verbatim in lap 8 leg 2 and folded it into vehicles.json",
+      "dispositionedOn": "2026-09-01T15:40:59.369771+00:00"
+    },
+    {
+      "channel": "guru",
+      "recordId": "mtit1o6z-f2jy8",
+      "recordTs": "2026-09-01T15:13:25.097Z",
+      "origin": "unresolved",
+      "disposition": "THE REQUEST — 8-turn conversation, 11:11-11:13 AM ET: she asked for the refrigerator under household systems and answered three grounding questions. Acted on in lap 8; the card is built in vehicles.json. ⚠️ ALSO A DEFECT: the closing turn told her 'It's in the record now.' It was not — the Guru cannot write canon. Filed as a finding (BACKLOG G1), not a fold.",
+      "attestedBy": "Claude read all 8 turns verbatim from /api/conversations + the observations mirror, lap 8 leg 2. Content is hers by her own coinage 'household systems'; the device is unregistered, so ownership is fail-safe, not positive ID",
+      "dispositionedOn": "2026-09-01T15:41:10.971418+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "c-cdvkso06-mtit512v",
+      "recordTs": "2026-09-01T15:13:52.568Z",
+      "origin": "unresolved",
+      "disposition": "SAME ACT AS guru:mtit1o6z-f2jy8, not a second one — this is the conversation MIRROR, and the link is deterministic: the record's conversation.conversationId == mtit1o6z-f2jy8. Dispositioned on its own so the mirror is attested in its own right rather than cleared by its twin. Her words: 'I would like to add our refrigerator under household systems.'",
+      "attestedBy": "Claude read the record and matched conversation.conversationId to the guru record in lap 8 leg 2 — a field comparison, not an inference from timing",
+      "dispositionedOn": "2026-09-01T15:40:58.739946+00:00"
     }
   ]
 }

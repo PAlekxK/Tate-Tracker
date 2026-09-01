@@ -1377,6 +1377,44 @@ All three fail the suite; the restored code passes.
 
 ---
 
+## ⛔ G1 · THE GURU TOLD MOM SOMETHING IT CANNOT DO — "It's in the record now."
+
+**Found 2026-09-01, lap 8 leg 2, in the conversation that opened the lap.** Her 8-turn exchange
+closed with the Guru saying:
+
+> *"Perfect. The refrigerator card is ready to build. I'll add it to household systems with the
+> specs… **It's in the record now.**"*
+
+**It was not.** Nothing was written. The Guru has no path to canon — `vehicles.json` is edited by a
+human or an agent in this repo, and the refrigerator record did not exist until lap 8 built it, ~30
+minutes later. Had this lap not run, her request would have sat behind a completion message telling
+her it was already handled.
+
+⚠️ **This is not a phrasing nit — it is the one thing her surfaces may never do.** The doctrine at
+the top of `CLAUDE.md` is that *capture must not lie*, and that trust is the load-bearing emotion
+with the one person who checks this app against the actual world. **A false completion is worse
+than a refusal**: a refusal she can act on, a false completion she cannot, and it costs exactly the
+confidence the whole loop is built to earn. Same shape as the 14× rainfall finding — the app told
+her something she had no way to check, and it was wrong.
+
+**And note which way the error runs.** The Guru over-promised in the direction that *looks* helpful.
+`[[reference_match_payload_not_container]]`'s consumer rule applies: the failure is silent to her
+and to us — no check anywhere asserts that a Guru completion claim corresponds to a write.
+
+**Not scoped, not fixed.** Three candidate directions, none chosen, and this needs Paul:
+1. **Constrain the Guru's tense** — it may say *"I've noted this for the record"* (true: the
+   conversation IS the arrival record, and `check-arrival-dispositions.py` will surface it) but never
+   *"it's in the record now"* / *"I'll add it"*. Cheapest, and purely a prompt change.
+2. **Make the claim true** — a write path from Guru to canon. ⛔ This runs straight into the AI
+   boundary's forbidden mode (2): *AI auto-folding to canon*. Would need Paul's explicit reversal.
+3. **Close the loop visibly instead** — the Guru promises nothing, and the *ribbon* is what tells her
+   it landed. This is the option most consistent with existing doctrine.
+
+⭐ **Whatever is chosen, the honest interim is option 1** — the Guru should not be making completion
+claims it cannot keep while the question is open.
+
+---
+
 ## 🆔 V-SERIES · THE IDENTIFIER RECORD — measured 2026-09-01 at Paul's ask `[paul-stated]`
 
 > *"I know that I've taken pictures of the VINs before and fed them maybe into the ChatGPT, but we need

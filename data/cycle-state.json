@@ -1,6 +1,6 @@
 {
   "state": "FIRED",
-  "generated_at": "2026-09-01T11:27:20",
+  "generated_at": "2026-09-01T11:48:48",
   "generated_by": "Tate-Tracker/tools/mom-cycle-status.py --write-state",
   "why": "leg 6 — the return leg is owed, or the served queue is wrong",
   "next": "run /mom-cycle: the return leg is a Paul gate",
@@ -25,9 +25,9 @@
     {
       "name": "answer-age",
       "fired": false,
-      "value": "12d",
-      "threshold": "21d",
-      "detail": "since her last settled answer"
+      "value": "?",
+      "threshold": 21,
+      "detail": "UNMEASURED: no dated answer on record"
     }
   ]
 }

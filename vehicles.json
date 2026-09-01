@@ -2657,6 +2657,81 @@
       ]
     },
     {
+      "id": "refrigerator-lg-bottom-freezer",
+      "group": "household-system",
+      "name": "LG Bottom-Freezer Refrigerator",
+      "trim": "25.5 cu ft · ice maker · no water dispenser",
+      "emoji": "🧊",
+      "category": "kitchen",
+      "status": "Active — ice maker working.",
+      "_provenance": "Added 2026-09-01 (mom cycle lap 8) — THE FIRST HOUSEHOLD-SYSTEM RECORD MOM ASKED FOR HERSELF, and the first canon anywhere in this repo folded from a Garden Guru conversation. She opened it: 'I would like to add our refrigerator under household systems.' (2026-09-01 11:11 AM ET), then answered three grounding questions in her own words. Every value under specs marked source 'Mom' is HER ground truth, not a plate read and not a model lookup — she was standing in front of it. ⚠️ Installation (freestanding vs built-in) was asked TWICE by the Guru and never answered; it is recorded as open rather than guessed. No serial and no plate photo exist for this unit — unlike the furnace/water-heater/washer records, nothing here was photographed, so identity rests on the model number she read out. Serial, if ever captured, goes in .private/devices-identifiers.json, never here (this file inlines into viewer.html and Pages serves it publicly).",
+      "specs": {
+        "make": "LG",
+        "model": "LRDCS2603S",
+        "capacity": "25.5 cu ft, bottom-freezer — refrigerator above, freezer drawer below",
+        "ice": "Ice maker fitted and working",
+        "water": "No water dispenser — the door is not plumbed for drinking water",
+        "installation": "Not recorded yet — freestanding or built into cabinetry is still an open question",
+        "service": "LG support: 1-800-243-0000"
+      },
+      "maintenance": {
+        "coils": {
+          "value": "Vacuum the condenser coils once or twice a year. On a bottom-freezer LG they sit behind the lower back panel or behind the toe grille at the floor. Dust on the coils is the single most common reason a fridge runs warm and works harder than it needs to.",
+          "confidence": "verified",
+          "source": "Standard refrigerator maintenance; LG's own care guidance for bottom-freezer models."
+        },
+        "temperature": {
+          "value": "37°F in the refrigerator and 0°F in the freezer are the numbers to hold. A fridge thermometer on a shelf is the cheap way to know — the dial setting is not a reading.",
+          "confidence": "verified",
+          "source": "FDA/USDA cold-storage guidance — 40°F or below for the fridge, 0°F for the freezer."
+        },
+        "doorSeal": {
+          "value": "Wipe the door gaskets a few times a year and check the seal by closing the door on a dollar bill — if it slides out with no drag, that stretch of gasket is letting warm air in. On a bottom-freezer the drawer gasket is the one that gets missed.",
+          "confidence": "verified",
+          "source": "Standard appliance practice; the dollar-bill test is the manufacturer-recommended check."
+        },
+        "iceMaker": {
+          "value": "It works today, and that is worth keeping. The usual failures are the fill tube freezing over and the inlet valve weakening with age — both show up first as small or hollow cubes rather than as a dead maker. If ice slows down, that is the signal, not the silence.",
+          "confidence": "verified",
+          "source": "Mom confirmed the ice maker works, 2026-09-01. Failure modes are the documented pattern for LG ice-maker modules."
+        },
+        "waterFilter": {
+          "value": "OPEN QUESTION — do not buy a filter on this line alone. Because there is no water dispenser, this unit may carry no internal water filter at all, or an inline one on the supply behind the fridge. Worth a look behind the unit before assuming either.",
+          "confidence": "inferred",
+          "source": "Reasoned from her 'no water dispenser' — filter housings are usually tied to dispenser models. NOT confirmed for this unit. ⚠️ Garden Guru promised her 'the water filter' as a maintenance item on 2026-09-01; that promise ran ahead of what anyone has checked."
+        },
+        "waterLine": {
+          "value": "An ice maker means there is a water line running to the fridge even without a dispenser. The shutoff behind or below the unit is the thing to know the location of before it is ever needed in a hurry.",
+          "confidence": "verified",
+          "source": "Follows from a working ice maker — it cannot make ice without a supply."
+        },
+        "age": {
+          "value": "Age is not on record. The LRDCS2603S is a discontinued line, so this is not a new unit, but nothing here dates it — the plate inside the door or on the back would settle it in one photo.",
+          "confidence": "inferred",
+          "source": "Model line no longer in production. No plate read and no photo exists for this unit — stated as unknown rather than estimated."
+        }
+      },
+      "rhythms": [
+        {
+          "task": "Vacuum the condenser coils",
+          "everyMonths": 6,
+          "lastDone": null
+        },
+        {
+          "task": "Check the door and drawer seals",
+          "everyMonths": 6,
+          "lastDone": null,
+          "note": "The dollar-bill test — the freezer drawer gasket is the one that gets missed"
+        },
+        {
+          "task": "Check the fridge and freezer temperature with a thermometer",
+          "everyMonths": 12,
+          "lastDone": null,
+          "note": "37°F fridge, 0°F freezer — the dial setting is not a reading"
+        }
+      ]
+    },
+    {
       "id": "electrical-panel-main",
       "group": "household-system",
       "name": "Square D Homeline Breaker Panel",

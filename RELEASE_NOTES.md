@@ -4,6 +4,18 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-09-01 — The refrigerator, because you asked for it
+
+- **The refrigerator is on the record now, under Household Systems** — the LG
+  25.5 cu ft bottom-freezer, right where you asked for it. The specs came from
+  you: the model number, the ice maker that works, and no water dispenser.
+- **It carries its own rhythms** — the coils to vacuum twice a year, the door
+  and drawer seals to check, and a yearly look at the actual temperature inside.
+  None of them are dated yet, so none of them are nagging.
+- **Two things it says plainly that we don't know.** Whether it's freestanding
+  or built into the cabinets, and how old it is — both would be settled by one
+  look at the plate inside the door. The card says so rather than guessing.
+
 ## 2026-08-31 — A round of polish, top to bottom
 
 - **The radar's map is back to normal.** The map tiles under the rain had started

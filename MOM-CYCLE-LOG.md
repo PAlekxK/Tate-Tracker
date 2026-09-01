@@ -11,6 +11,95 @@ amended mid-lap.
 
 ---
 
+## Lap 8 — 2026-09-01 · ⏸ **HELD AT LEG 6** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation
+
+**Fired by: Mom herself.** Not a staleness clock, not an engagement threshold — a request, in her own
+words, at 11:11 AM ET: *"I would like to add our refrigerator under household systems."* Then, in
+ninety seconds, she answered three grounding questions the Guru asked her. **This is the first lap in
+eight whose trigger was her asking for something.**
+
+⭐⭐ **AND THE LOOP'S OWN FRONT DOOR SAID NOTHING.** Minutes after she wrote it,
+`read-mom-feedback.py --pickup` printed `her last answer 2026-08-20 (12d ago)` — green, twelve days
+quiet — because it read `/api/feedback` and nothing else. That is the line the session-start ritual
+renders for *"is anything pending from Mom?"*. **Her single most substantive contribution arrived on
+a channel the designated probe structurally could not see.** Fixed as leg 0.5 below, before leg 1 was
+allowed to run.
+
+| leg | what happened |
+|---|---|
+| 0 · GUARD | `guard-concurrent.py start` — HEAD `7670ad3`, clean, 2 unpushed. ⚠️ The guard later fired on **this session's own commit** — see Decisions. |
+| 0.5 · **M1 FIX** | **Done before leg 1, because leg 1 could not be trusted until it was.** `render_channels()` gives `--pickup` a second line built on `momlib.undispositioned_arrivals()` — the same definition `check-arrival-dispositions.py` reads, not a second one. Guarded by a new 8-leg `PICKUP` suite, **proven by three mutations**. `3f52e5b`. |
+| 1 · READ | Full sweep per `CLAUDE.md`. Health probe **green** (8 checks). `check-live` **0**. `check-digest-fresh` **stale (vehicles)** — predating this lap. Engagement since lap 7: **5 sessions across 1 day · 5 card opens · 8 journal interactions**. Bench: 5 live / cap 5, **0 open slots**. |
+| 2 · TRIAGE | **5 arrivals → 4 acts, each dispositioned on its own record.** The 5→4 collapse is now **deterministic, not inferred**: `observations:c-cdvkso06-mtit512v` carries `conversation.conversationId == mtit1o6z-f2jy8`. Lap 7 found this mechanism; lap 8 confirmed it by field comparison. |
+| 3 · RESOLVE | Resolved in the cheapest place — **her own words settled it**. No telemetry read and no ask to her was needed: she supplied make, model, capacity, ice and dispenser unprompted. |
+| 4 · EXPERT | **Not run, deliberately.** The build is a canon record on an established schema with five precedents; no design question was open. A seat with nothing to decide is spend. |
+| 5 · SHIP | **The refrigerator card is built** — `vehicles.json` `refrigerator-lg-bottom-freezer`, re-inlined, digest rebuilt, release note added. Verified **rendering** at 414×A+, not merely present in JSON. |
+| 6 · GATE | ⏸ **HELD FOR PAUL.** Built, verified, committed, **NOT pushed.** |
+| 7 · CLOSE | Not reached — this lap closes at the gate, by design. |
+
+### What she gave, verbatim
+
+| her words | where it went |
+|---|---|
+| *"I would like to add our refrigerator under household systems."* | the record itself — `group: household-system`, her own category |
+| *"Current model is LG 25.5 cu ft bottom freezer model LRDCS2603S"* | `specs.make` / `.model` / `.capacity`, source **Mom** |
+| *"No water dispenser"* | `specs.water`, and it is why **no dispenser filter** is on the rhythm list |
+| *"Ice maker works"* | `specs.ice` + the ice-maker maintenance entry as an **active** item |
+
+### ⛔ LEG 6 — HELD, and what is behind the gate
+
+Two separate things are now waiting on Paul, and **they are not the same decision**:
+
+1. **The lap-7 ribbon** — still held indefinitely per `paul-stated 2026-09-01` (*"You can hold the
+   zone until I give an explicit approval"*). Untouched. `R1 ack staleness 🔴` remains a **held gate
+   with a stated reason**, not neglect.
+2. **The refrigerator card** — new, and it reaches her surface, so *"nothing reaches Mom's surface
+   without Paul"* binds it too. The push and the Worker digest deploy are **deliberately paired**:
+   deploying the digest alone would make Guru know about a fridge her dashboard does not show.
+
+### ⚠️ G1 — the Guru told her something it cannot do
+
+Its closing turn: *"**It's in the record now.**"* Nothing was written; the Guru has no path to canon.
+Had this lap not run, her request would have sat behind a completion message telling her it was
+handled. Filed as `BACKLOG.md` § **G1** with three candidate directions, none chosen. **The honest
+interim is that the Guru should not make completion claims it cannot keep.**
+
+### Decisions
+
+- **Fix M1 before leg 1, not after.** The brief ordered it and the order was load-bearing: a sweep
+  whose front door cannot see three of four channels produces a *reading*, not a read.
+- **Build the card rather than ask her anything more.** She answered every question the Guru put to
+  her. Sending another ask would spend her willingness on something she had already settled — and the
+  bench is at 5/5 with **0 open slots**, so a new card could not have been served anyway.
+- **Record what was never answered, rather than guess it.** Installation (freestanding vs built-in)
+  was asked **twice** by the Guru and never answered; age has no plate read and no photo. Both are on
+  the card as open, marked `inferred`, with what would settle them. An honestly-unsure record beats a
+  confidently-wrong one — and this unit is the **only** household system with no photographed plate.
+- **Do NOT repeat the Guru's water-filter promise as fact.** It told her the card would carry "the
+  water filter." With no dispenser, this unit may carry no filter at all. The entry says so and says
+  *do not buy one on this line alone*, rather than inheriting a claim nobody checked.
+- **`household-system` is Track A's, and this lap treated it so** — resolving the handoff's §7 open
+  question **by evidence, not by ruling**: the group lives in `vehicles.json` but it is a category
+  **Mom coined herself** (2026-07-29), it renders on *her* Household Systems card, and five records
+  already precede it. ⚠️ **The governance question is still Paul's** — it is only the *file* that is
+  shared with Track B, not the surface.
+- **Pair the push with the digest deploy.** Neither ships alone.
+- **Concurrency: continue, with explicit paths only.** `paul-confirmed 2026-09-01` — the fleet lap 2
+  session is writing `tools/vehicle-brief.py` in this same tree, intentionally. Nothing this lap
+  staged with `-A`; every commit named its files.
+
+### ⚠️ The leg-0 guard fired on this session's own commit
+
+`guard-concurrent.py check` reported *"another session committed into this repo"* and named
+`3f52e5b` — **which this lap had just made.** The guard compares HEAD against the sha recorded at
+leg 0 and cannot tell the running session's commits from a stranger's, so **every lap that commits
+mid-run will trip it from its second commit onward.** It cried wolf on the exact day a real
+concurrent writer was present — and the real writer (`tools/vehicle-brief.py`, uncommitted) was
+invisible to it, because the guard watches **commits, not the working tree**. Not fixed here; it
+wants Paul's call on whether the guard should record its own shas as it goes.
+
+---
+
 ## Lap 7 — 2026-09-01 · ✅ **CLOSED**, with leg 6 DELIBERATELY UNCROSSED — the lap whose trigger turned out to be Paul's own smoke test, and whose return leg he deliberately deferred
 
 **Fired by:** the board reading `🔴 FIRED · leg 6 GATE · RETURN LEG (STALE, UNREAD)` — the ack ribbon
