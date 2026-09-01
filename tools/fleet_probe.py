@@ -603,20 +603,40 @@ def selftest():
     for off in range(0, 500, 7):            # sweeps across every nextLook we hold
         t = dt.date(2026, 9, 1) + dt.timedelta(days=off)
         _, _, _, c = _stale_open_scan(t, real)
-        if c["open"] + c["closed"] + c["deferred"] != c["total"]:
+        if (c["open"] + c["closed"] + c["deferred"]
+                + c["standing"]) != c["total"]:
             bad.append(t.isoformat())
-    check(f"⭐ CENSUS: open+closed+deferred == total on all 72 sampled dates "
+    check(f"⭐ CENSUS: open+closed+deferred+standing == total on all 72 sampled dates "
           f"(failing: {bad[:3]})", not bad)
 
-    # PAIRED — the date the real deferral fires, which is where it broke.
-    _, el, _, c = _stale_open_scan(dt.date(2026, 10, 1), real)
+    # PAIRED — the day a deferral fires, which is where the census broke.
+    #
+    # ⚠️ THIS PAIR NOW RUNS ON A FIXTURE, NOT ON `real` (changed 2026-09-01).
+    # It was written against the live fleet's one deferral, dated 2026-10-01.
+    # Hours later Paul ruled that item a STANDING note with no date, the fleet
+    # held zero deferrals, and BOTH halves of this control went red — not because
+    # the census regressed, but because the data it was pinned to legitimately
+    # changed. **A control coupled to mutable production data reports on the
+    # RECORD, not on the code**, and it fails on ordinary edits while going
+    # silent the moment the last instance is removed — precisely when a
+    # regression would ship unseen. The invariant sweep above still runs on
+    # `real` on purpose: it asserts a property true of ANY fleet, so no edit can
+    # make it vacuous.
+    fx = [{"id": "bike", "openMechanicalItems": {"items": [
+        {"item": "a deferral", "state": "deferred", "nextLook": "2026-10-01"},
+        {"item": "an open check", "firstFlagged": "2020-01-01"},
+        {"item": "a closed one", "state": "closed"},
+        {"item": "a standing note", "state": "standing"}]}}]
+    _, el, _, c = _stale_open_scan(dt.date(2026, 10, 1), fx)
     check("⭐ CENSUS PAIRED: on the day a deferral FIRES it is still counted "
           "deferred, and reported elapsed — a sub-count, not a reassignment",
-          c["elapsed"] == 1 and c["deferred"] >= 1 and len(el) == 1
-          and c["open"] + c["closed"] + c["deferred"] == c["total"])
-    _, el0, _, c0 = _stale_open_scan(dt.date(2026, 9, 30), real)
+          c["elapsed"] == 1 and c["deferred"] == 1 and len(el) == 1
+          and c["open"] + c["closed"] + c["deferred"] + c["standing"] == c["total"])
+    _, el0, _, c0 = _stale_open_scan(dt.date(2026, 9, 30), fx)
     check("⭐ CENSUS PAIRED: the day BEFORE, same deferral, nothing elapsed",
           c0["elapsed"] == 0 and not el0 and c0["deferred"] == c["deferred"])
+    check("⭐ CENSUS PAIRED: the standing note in that same fixture never elapses",
+          c["standing"] == 1 and c0["standing"] == 1)
 
     # The census guard itself must fail LOUD, not quietly mis-add.
     class _Rigged(dict):
