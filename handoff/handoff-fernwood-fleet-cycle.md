@@ -1,3 +1,18 @@
+> ⛔ **CONSUMED — lap 2 CLOSED 2026-09-01 (`bc4a507`). This brief is HISTORY, not open work.**
+> Do not re-run it. Live state: `cycle/fleet/cycle-state.json` (`lap_count 2`, RESTING) and the
+> **Lap 2** section of `cycle/fleet/CYCLE-LOG.md`, which is authoritative over anything below.
+>
+> ⚠️ **TWO CLAIMS IN THIS BRIEF WERE MEASURED WRONG** — kept visible rather than edited out, because
+> the sequence is the lesson:
+> 1. *"Expect SEASON to fire"* — it did not. 46d against a 45d window; the brief contradicted its own
+>    arithmetic, which put the window at 2026-09-02. The probe was right.
+> 2. *"the put-away is a natural anchor"* for the Bronco emissions deferral — **false.** The fall
+>    put-away exists only on `dr200s-2017` and `drz400s-2001`. **The Bronco has no put-away item.**
+>    It is a with-the-BIKES moment. This came from lap 1's chronicle and was repeated to Paul before
+>    anyone checked it.
+> 3. And §3's *"let the tool refuse"* — beat 0 **did not refuse**. It resolved the wrong machine at
+>    61 points to 2. Fixed in `760f9a5` / `6a8f35c`.
+
 # Handoff: fernwood-fleet-cycle
 <!-- generated 2026-09-01 11:29 AM ET · sources: Tate-Tracker@a7b2e67, .claude@230931c · RECEIVER: verify shas vs HEAD before trusting any status below -->
 
