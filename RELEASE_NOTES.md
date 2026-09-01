@@ -21,6 +21,12 @@ What's changed at Fernwood lately. Newest first.
   mountain laurel is in three gardens, and the azaleas are in two — the record could only
   ever hold one spot per plant before, so it was quietly wrong about all of them.
 - **A new plant: Constellation Dogwood**, on the Green Ring — named off the nursery label.
+- **The names that moved, in one place:** Fairway Border → **The Green Ring** · Fairway Turf →
+  **Turf Grass** · Fairway Meadow → **Meadow Grass** · the Fairway card → **The Field**. The
+  Green stayed The Green.
+- **Some of the zones are still in progress.** The map is being walked and retraced area by
+  area, so a few boundaries are rougher than they will be and more names may still move.
+  More to come.
 
 ## 2026-09-01 — The refrigerator, because you asked for it
 
