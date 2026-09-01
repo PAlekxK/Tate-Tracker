@@ -59,6 +59,36 @@ TO LIVE`.** The naming session has no arrival record, no id, no timestamp and no
 happened on paper at a kitchen table. The ribbon that acknowledges it must reference something the
 record cannot point at.
 
+### 🔒 HOLD RE-AFFIRMED — 2026-09-01 (second time today) `[paul-stated]`
+
+Asked directly what was needed to close the lap, Paul re-affirmed the leg-6 hold and **scoped the
+remaining zone work out of this lap**:
+
+> *"Still holding. Save more zone work for the next mom cycle."*
+
+**So lap 7 stays OPEN at leg 6 and the ribbon stays untouched — deliberately, for the second time in
+one day.** This is a re-affirmation under the cycle spine's hold rule (an unre-affirmed hold expires
+in 2 days and falls back to UNPROVEN, which would render a stated decision as neglect). The next
+re-affirm or release is due **2026-09-03**.
+
+⭐ **The zone work is now the NEXT lap's, not this one's.** Lap 8 does the further zone work first;
+the ribbon draft then leads on her sixteen names with the changeable clause on the retirements
+(`parking-bank`, `upper-uber-wall-area`) as already drafted above.
+
+⚠️ **Named, not resolved — this leaves lap 7 held across a lap boundary.** The loop has no prior
+instance of a lap held open while a later lap does the work that would release it, and its machinery
+was not designed for it: `lap_count` cannot increment, the watermark cannot advance, and every
+board reading this loop will keep rendering leg 6 red. That is *correct* — the gate really is shut —
+but it means the mom cycle publishes no forward progress until the ribbon ships. Flagged for beat 7
+of the next lap; **no mechanism changed on the strength of one instance.**
+
+⚠️ **`data/cycle-state.json` is STALE and this hold is not in it.** It was written **2026-08-27**
+(`ARMED · at_leg 7 · needs_paul false · "leg 7 — monitor live"`) — five days and one whole lap ago.
+Lap 7 ran 09-01 and is HELD at leg 6 with `needs_paul` true, so every board reading that file is
+reporting the pre-lap world. It is a **generated** artifact (`mom-cycle-status.py --write-state`) and
+was deliberately **not hand-edited** here — hand-writing a generated file is the drift this repo
+already checks for. It needs a `--write-state` run.
+
 ### ✅ LEG 5 — SHIPPED: the card queue rotated and reshuffled `[paul-approved 2026-09-01]`
 
 *"go ahead and do rotation and shuffling if we need to of the different cards, to give her a fresh
