@@ -1293,6 +1293,82 @@ tier must be **additive** — a second, gated layer over the open journal — ne
 front of what she already reaches. If an auth design would make her type anything to see the
 weather card, it is the wrong design, regardless of what it unlocks for Paul.
 
+### ⭐⭐ ONE BOX FOR EVERYTHING — the single-entry-point vision, and the ceiling it runs into `[paul-stated 2026-09-01]`
+
+> *"What's the Garden Guru box in Fernwood could be asked about anything, right, in the future — and
+> that's kind of the vision. Is now the right time to water my azaleas, or walk through
+> troubleshooting for one of the vehicles, or understand where the water shut-off valve is. Anything
+> that we would upload to a given state or home is fair game to be questioned… then it becomes one
+> single point of entry, it's very clear what's going on. And I want to limit developing multiple
+> analysis or interaction points like Track A and Track B, if we can find a good clean way around
+> it — which I feel like we can, but that's something we need to put to the experts."*
+
+He also asked whether the A/B split was about **memory constraints and context bloat**, and whether
+**RAG** is the answer so the corpus need not be constrained.
+
+**Two corrections first, because they change what the work is.**
+
+**① The A/B split was never a runtime split.** Its own reconciliation note (2026-07-17) says what it
+was for: *"Fernwood is two products in one repo — split into Track A / B so the Mom arc reads
+clearly and the fleet sub-system isn't interleaved through it."* That is a **backlog-legibility**
+decision about this document. It was not motivated by context, and no runtime boundary was ever
+built from it.
+
+**② The one box already exists.** Measured 2026-09-01: `GARDEN_GURU_SYSTEM` carries an explicit
+REGISTER section — *"You are one voice throughout — the same person who tends this whole place, the
+living things and the machines alike"* — with a field-journal voice for the living property, a
+shop-hand voice for the machines, a `<!--register:machine-->` marker the client uses to restyle the
+reply, and a machine-log fence sharing the plant fence's mechanism *"distinguished only by
+noteType."* **Paul's vision is largely the architecture already.** The gap is coverage, not entry
+points: household systems, contractors, receipts and shut-off valves are not in the digest, so the
+one box cannot answer about them yet.
+
+### ⛔ THE ACTUAL CEILING, and it is closer than anyone has said
+
+Every Guru turn ships the whole property digest as a cached system block. **Measured 2026-09-01:**
+
+| | |
+|---|---|
+| `worker/digest.json` | **493,137 chars ≈ ~123,000 tokens** |
+| model | `claude-haiku-4-5-20251001` (200K context) |
+| **share of the context window consumed before the conversation starts** | **~62%** |
+
+Composition: plants **41%**, vehicles **15%**, insects 10%, mammals 6%, birds 5%, snakes 5%,
+amphibians 4%, fishing 4%, property 4%, lizards 2.5%, weeds 2%, turf 0.8%, zones 0.3%.
+
+⚠️ **`worker.js`'s own comment beside that block says "the ~57K-token digest."** It is ~123K. **The
+digest has more than doubled and the code's description of it never moved** — the constraint is
+growing faster than the record of the constraint. (Same shape as
+`[[reference_match_payload_not_container]]`: the number beside the mechanism reads plausible and is
+wrong.)
+
+**So Paul's instinct is right and the arithmetic is on his side.** Adding household systems,
+contractor history, 254 receipts and a shut-off-valve map to a digest already at 62% does not
+degrade gracefully — it hits a wall. **And a second property multiplies it**, which ties this
+directly to Q3/Q4 above: one box across two houses cannot be one prompt.
+
+### ⚠️ BUT RAG IS NOT FREE HERE — the trade the experts must actually price
+
+The digest is affordable **because it is cached**: `cache_control: ephemeral` on a static block
+means a 5-minute window re-reads it at 10% of base rate. **Retrieval makes the block vary per
+turn, and a varying block is a cache miss every turn.** A naive swap to RAG can be *more*
+expensive than the thing it replaces, not less. Do not let this open with "add RAG" as the premise.
+
+Options worth pricing against each other, none chosen:
+- **Tiered prompt** — a small always-cached core (property, zones, live state) + a retrieved tail.
+  Keeps most of the cache benefit; the split point is the design question.
+- **Domain-scoped digests** — route on the question, ship one domain's slice. Cheap, cache-friendly,
+  and **it reintroduces a router**, which is the thing Paul wants to avoid. Name that tension.
+- **True retrieval over an embedded corpus** — the only option that scales to receipts, manuals and
+  forum notes, and the only one that pays the cache cost in full.
+- **Do nothing yet** — plants alone are 41%; pruning or summarizing the digest may buy a year.
+
+⭐ **The falsifier to hold this to:** *if answering "where is the water shut-off valve" requires
+choosing which assistant to ask, the design failed.* One box, whatever is behind it.
+
+**Where this sits:** it is Q4 (modularity) and Q5 (cost) of C0, seen from the runtime rather than
+the tenancy side — same workstream, same expert panel, same "research and options, not a build."
+
 ### What it will need when it opens
 
 Paul named it: **research plus all the expert seats.** At minimum `engineering-partner` (path
