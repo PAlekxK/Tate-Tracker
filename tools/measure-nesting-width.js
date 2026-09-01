@@ -398,13 +398,39 @@
     const h = height || VIEWPORTS.canonical.h;
     const f = document.createElement("iframe");
     f.style.cssText = "width:" + width + "px;height:" + h + "px;border:0;position:fixed;left:0;top:0;z-index:99999;background:#fff";
-    f.src = "/viewer.html";
+    // ⭐⭐ RESOLVE THE FRAME URL AGAINST THIS PAGE, NEVER FROM THE ROOT
+    // (2026-09-01). This read `"/viewer.html"` — a root-absolute path. That
+    // resolves locally (`localhost:8765/viewer.html`) and **404s on GitHub
+    // Pages**, where the site is served from `/Tate-Tracker/`. So on the LIVE
+    // site this harness loaded GitHub's 404 page and measured THAT: the first
+    // live run of the new QA leg reported 8 confident HIGH findings about
+    // `container`, `h1`, `p` and `a` — GitHub's 404 markup, not Fernwood's.
+    //
+    // ⛔ This is `match the payload, not the container` inside the instrument
+    // that is supposed to catch it, and CLAUDE.md GATES A RELEASE on
+    // `herConditions()`. A gate that reads a different document and returns a
+    // plausible number is worse than no gate.
+    f.src = new URL("viewer.html", document.baseURI).href;
     document.body.appendChild(f);
     await new Promise((r) => { f.onload = r; });
     // The app hydrates after load; give it room, then confirm a card exists.
+    let hydrated = false;
     for (let i = 0; i < 40; i++) {
-      if (f.contentDocument.querySelector(".main-card")) break;
+      if (f.contentDocument.querySelector(".main-card")) { hydrated = true; break; }
       await wait(250);
+    }
+    // ⛔ AND FAIL LOUDLY IF IT NEVER ARRIVED. The old loop `break`s on success
+    // and then PROCEEDS ANYWAY on failure — which is precisely how a 404 got
+    // measured and scored. Silent-vs-loud is a property of the CONSUMER: this
+    // one gates a release, so it must throw rather than report.
+    if (!hydrated) {
+      const title = (f.contentDocument && f.contentDocument.title) || "(no title)";
+      f.remove();
+      throw new Error(
+        "measure-nesting-width: the frame never rendered a .main-card — it loaded " +
+        f.src + " and got \"" + title + "\". NOTHING was measured. " +
+        "(On GitHub Pages the app lives under /Tate-Tracker/; serve locally with " +
+        "`python3 -m http.server 8765` or run this from the app's own origin.)");
     }
     const doc = f.contentDocument;
 
