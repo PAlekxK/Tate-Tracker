@@ -7,6 +7,153 @@ State artifact: `cycle/fleet/cycle-state.json` · map: `CYCLE-MAP.md` beside thi
 
 ---
 
+## Lap 2 — 2026-09-01 · 🔓 **OPEN** — held at beat 4 (Paul, physical) and beat 6 (contended file)
+
+**Fired on: Paul's update, in person.** The probe was **RESTING** — all four signals quiet — so this
+lap has a *human* trigger, not a signal one. That is legitimate for this loop (it rests and fires on
+a signal; Paul is one), and it is recorded as such rather than dressed up as a probe fire.
+
+⚠️ **The handoff brief was wrong about SEASON, by one day.** It said to *expect SEASON to fire*. It
+did not: 2026-09-01 is **46d** to first frost against a 45d window. The brief's own arithmetic put
+the window opening **2026-09-02**. The probe was right; the brief was reading a day ahead of itself.
+
+| beat | what happened |
+|---|---|
+| **0 · BRIEF** | 🔴 **FAILED, THEN FIXED.** Resolved Paul's sentence to **bronco-1989 (61)** over **dr200s-2017 (2)**. Root-caused, fixed, 18 new paired selftests, committed `760f9a5`. See below — this is the lap. |
+| **1 · FIELD** | **Not run, correctly.** Conditional: it fires when the record has NO answer to a symptom. The record has a full protocol for this one (`guides/blue-thunder-starting-diagnosis.md`, T1–T6) and FIELD sweep 1 already ran on this exact question. Nothing added to `FIELD-NOTES.md`. |
+| **2 · SWEEP** | `fleet_probe.py` → **RESTING**, 4 signals checked, none fired. Map-control selftests PASSED. |
+| **3 · INTAKE** | Door clear — `6 filed, all handled`. Nothing new arrived. |
+| **4 · VERIFY** | 👤 **IN PROGRESS with Paul today.** He has the bike, a NEXPEAK NC201 PRO charger and an All-Sun EM830 meter in hand. T1 → draw A/B → charge on AGM → T2b → T3 → a clean T4 overnight. **Lap cannot close until these land.** |
+| **5 · SEASON** | Quiet at 46d. **The put-away window opens tomorrow, 2026-09-02** — the next lap opens on it. Parts lead time is the gate, not the weather. |
+| **6 · RECORD** | ⛔ **BLOCKED, not skipped** — `vehicles.json` is held uncommitted by a concurrent session. See the concurrency section. |
+| **7 · AMEND** | One **APPLIED** (the resolver). Three **PROPOSED**, none applied. |
+
+### 🔴 Beat 0 — THE FOUNDING DEFECT RECURRED INSIDE THE CONTROL BUILT TO PREVENT IT
+
+Paul's verbatim update — *"after charging the 200 for a good amount and then left it overnight…
+it just wound up clicking"* — resolved to **bronco-1989**, score **61**, against **dr200s-2017** at
+**2**. The right machine placed **last of eight**, and the tool **did not refuse**, because it was
+never a tie.
+
+This loop exists because a session read the wrong *manual* and confidently told Paul to kick-start a
+bike with no kickstarter. `CYCLE-MAP.md` says beat 0 is *"a script, not a discipline"* precisely so
+that cannot recur. **It recurred, in the script.**
+
+**Three compounding bugs, all one shape:**
+
+1. ⭐ **`str()` ON A CONTAINER.** The haystack was `str(v.get(k) or "")` over six fields, and
+   **`doorLabel` is a dict on exactly 1 of 22 machines** — the Bronco. Python stringified it into
+   **1,557 characters of English prose** (`'summary'`, `'confidence'`, *"verified — paul read every
+   field off the label photo"*, a file path, whole sentences). That one record then won **any**
+   dictated query, because `the`/`and`/`a`/`to`/`of`/`not`/`is` were matching a **repr, not a name**
+   — 21 such hits, 61 points, **not one of them about a Bronco**.
+2. **No stopword filter**, so function words scored as identity. ⚠️ **Note the direction: the more
+   naturally Paul speaks, the worse it got.** He dictates; the tool built to accept *"whatever Paul
+   said"* was **maximally vulnerable to how he actually talks**. Terse `"the 200"` scored 3–2; his
+   real sentence scored 61–2.
+3. **It could not refuse.** *"Refuses on a tie"* was an exact-equality test, so 61 vs 2 sailed
+   through with no margin test at all.
+
+**Fixed:** strings-only haystack (a non-string field is skipped and REPORTED); `STOPWORDS` plus
+`STOPWORD_COLLISIONS` as a **closed set** — a stopword that is also a real name token (`turn` in
+*Zero-Turn*, `i` in *"i-30 Starter"*) must be **declared with a reason** or `--selftest` fails;
+strong (id/name/nickname) vs weak (trim/category) grading, because symptom vocabulary lands in
+description — `start` is a substring of the CS-352's trim; digit-bearing tokens graded as strongly as
+names, since **a model designation is the one reliable signal in loose speech**; model **years**
+whole-token-matchable but never substring-matchable (`"the 200"` was otherwise a 3-way tie against
+2001/2005/2006); and a `MIN_SCORE` floor so a lone 1-point hit refuses (`"it won't start"` → a
+chainsaw) instead of answering.
+
+⭐⭐ **THIS ANSWERS LAP 1'S PRE-REGISTERED QUESTION ③** — *"is beat 0's resolution good enough on
+Paul's real speech, or does it need aliases?"* **Lap 1 recorded its metric as met and closed.** But
+it never ran beat 0 on his speech — it ran `--check` across documents. The existing test,
+`resolve("the 200 blue thunder")`, passes **only because the machine's name is in the query.** His
+real sentence contained no name at all. *A pre-registered question can be carried forward unanswered
+while the lap that owned it reads green.*
+
+### 🚨 CONCURRENCY — a second session is live in this repo, and the guard is half-blind to it
+
+Paul, mid-lap: *"There's another session right now looking at the refrigerator."* Verified: `3f52e5b`
+(Track A, the feedback reader) landed **between** this lap's guard start and its commit, and five
+files are held uncommitted — **`vehicles.json`**, `viewer.html`, `worker/digest.json`,
+`RELEASE_NOTES.md`, `arrival-dispositions.json`.
+
+- ✅ **The commit was clean.** `760f9a5` staged an **explicit path**, so it did not sweep their work
+  — [[feedback_git_add_all_in_shared_repo]] honoured.
+- ⭐ **NEAR-MISS.** `check-data-inline.py` flagged `refrigerator-lg-bottom-freezer` as canon-ahead
+  drift. **`--fix` would have re-inlined their half-finished record into `viewer.html`, the publicly
+  served file, mid-edit.** Paul's standing rule (surface drift, never auto-fix) held — and it paid
+  off for a reason it was **not** written for.
+- 🐛 **DEFECT · the guard watches HEAD and not the working tree.** `verdict()` compares shas only
+  (`moved = now != mark["sha"]`). `repo_state()` **does** compute `dirty_files` — and **only
+  `mom-cycle-status.py` reads it, to display a board signal.** The guard's own check path never
+  consults it. *The check exists and has no caller.* It fired today only because the other session
+  also **committed**; had they merely been editing, it would have said CLEAR over a contended
+  `vehicles.json`. Its own docstring says the lap-4 failure *"was caught only because the remote
+  happened to have moved too"* — **it is still relying on a coincidence, just a different one.**
+- 🐛 **DEFECT · the concurrency guard is not concurrency-safe.** `.private/cycle-guard-state.json` is
+  **one flat document with a single `start` slot** and no namespacing by lap or track (`"lap": null`,
+  never set). Fernwood runs **two loops in one repo by design** (D41), so concurrent laps are the
+  architecture, not the exception — and the second `start` silently overwrites the first, leaving a
+  lap measuring from another lap's baseline.
+- ⚠️ **Process error, mine:** I committed with bare `git commit`, so the guard reported **my own
+  commit as a foreign incursion**. `guard-concurrent.py commit` is the intended path (check → commit
+  → record, no window). Corrected with `record-commit`. **The handoff brief names `start` and no
+  other guard subcommand** — that is a gap in the brief, not just in the operator.
+
+⛔ **Nothing in `guard-concurrent.py` was fixed this lap, deliberately.** The other session is
+actively invoking it. Editing a shared tool mid-flight is the exact failure the finding describes.
+
+### 👤 Beat 4 — what Paul is running, and what the update already changed
+
+⭐ **His update breaks the record's own pattern.** Every prior episode had *charging restores
+starting*, which is why the record read this as charge **state**. A full charge that does not survive
+one night is a different claim: **the battery is not holding, or something drained it.** It is an
+**uninstrumented T4 failure** — and the clean T4 for that night is gone, because it was cranked
+repeatedly before any reading.
+
+✅ **One named gap CLOSED:** the 8/30 results-log row said *"charger make/model not yet recorded —
+read the label."* It is a **NEXPEAK NC201 PRO**, a 7-stage smart charger with AGM/GEL and pulse-repair
+modes — **not** the dumb trickle charger the back-feed hypothesis assumed. ⚠️ `[photo-MODEL-READ,
+unverified]`, and it **weakens that hypothesis without excluding it**; T5's A/B settles it by
+measurement. Paul's own read is hedged — *"I don't think the bike was plugged into the charger."*
+
+⛔ **T5 AS WRITTEN CANNOT BE RUN ON THE METER HE OWNS** (All-Sun EM830, `[photo-MODEL-READ]`). The
+guide said *"meter on 10 A DC"*; that range resolves in **~10 mA steps** against a **5–10 mA**
+threshold, so it would read `0.00` and **look like a valid measurement while being unable to see the
+answer** — and its 10 A jack is rated 10 s max. Caveat folded into the guide: use `VΩmA` on `200m`
+or `20m`. **Third instance of one defect shape in a single lap** — the manual, the resolver, the
+meter: *match the payload, not the container.*
+
+### Beat 7 · AMEND — 1 applied, 3 proposed
+
+**Applied:** the beat-0 resolver (above), with 18 paired selftests.
+
+**Proposed, Paul rules — none applied:**
+1. ⭐ **The guard must read the WORKING TREE, not just HEAD.** The data already exists in
+   `repo_state()['dirty_files']` and has no caller in the check path. Cheapest real fix on the board.
+2. ⭐ **Namespace the guard state per track** (`fleet` / `mom`), so two concurrent laps cannot
+   overwrite each other's `start`. The `"lap"` field is already there and unused.
+3. **Beat 0 should be able to say *"I am not confident"* out loud in the brief**, not only refuse.
+   Today it either prints a full confident card or bails; a resolution at bare margin prints the same
+   as one at 22 points.
+4. **`--selftest` should carry a DICTATED query for every machine**, not one tidy phrase. Every
+   existing resolution case names the machine; that is the hole this lap fell through.
+5. **The guard has no ACKNOWLEDGED state, so a legitimate concurrent commit cannot pass it.**
+   `cmd_commit` returns `MOVED` and refuses whenever HEAD moved, with no flag to record *"I checked,
+   the commits are the other track's, my paths do not overlap, and I am performing no history
+   operation."* So the correct behaviour today — confirm with Paul, then commit explicit paths — has
+   to route **around** the guard (`git commit` + `record-commit`), which is precisely the bare-commit
+   path that produced this lap's own process error. ⚠️ **A control with no legitimate path through it
+   trains people to step around it** — the N8 · COSTLY CONTROL shape the map already warns about.
+
+**Pre-registered for the next lap:** ① does SEASON fire on 09-02 as computed, and is 45d the right
+window once parts lead time is real? ② does the fixed resolver survive Paul's *next* unrehearsed
+sentence — one measurement is not a fix. ③ do T1/T2b/T3 actually discriminate, or does the bike start
+fine and strand the protocol untested again?
+
+---
+
 ## Lap 1 — 2026-09-01 · ✅ **CLOSED** — the first lap this loop has ever run, and the first it has ever closed
 
 **Declared 2026-08-30. `lap_count` was 0 for two days while the probe read FIRED.** Run unattended

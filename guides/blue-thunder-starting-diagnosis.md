@@ -220,8 +220,12 @@ Within ~0.1 V = normal. A drop of 0.3 V or more = parasitic drain or a battery t
 holds. T1/T2 say which.
 
 ### T5 — Parasitic draw *(only if T4 drops)* — **run it as an A/B now that a charger is in the picture**
-Key off, kill switch off. Pull the **negative** cable. Meter on **10 A DC** in series between the
-negative post and the cable. A carbureted bike with no clock should sit at a few **milliamps**.
+Key off, kill switch off. Pull the **negative** cable. Meter **in series** between the
+negative post and the cable — never across the two posts, that is a dead short.
+
+⛔ **INSTRUMENT CAVEAT, added 2026-09-01 — THIS TEST CANNOT BE RUN ON THE 10 A RANGE OF THE METER PAUL OWNS.** The meter is an **All-Sun EM830** `[photo-MODEL-READ 2026-09-01]`. Its **10 A** range resolves in ~10 mA steps, and the threshold below is *5–10 mA* — so it would read `0.00`/`0.01` and **look like a valid measurement while being unable to see the answer.** Its 10 A jack is also rated **10 s max every 15 min**, and a draw test needs a sustained read. **Use the `VΩmA` jack on `200m` (0.1 mA) or `20m` (0.01 mA).** *Match the payload, not the container — the same defect class as the manual, and as beat 0's resolver this same day.*
+
+Once on a range that can resolve it: A carbureted bike with no clock should sit at a few **milliamps**.
 Take the reading **twice**: (A) charger clips still attached but unpowered, (B) charger clips removed
 entirely. **A − B is the charger's contribution, measured rather than argued**; B alone is the bike's
 own draw. More than ~5–10 mA on **B** = something is live on the bike. Pull the 20 A main fuse to confirm the side, then
@@ -327,8 +331,10 @@ Append a row per incident or test. **An empty row is not a passing test.**
 
 | Date | What | Reading / observation | Symptom # | Verdict |
 |---|---|---|---|---|
-| 2026-08-30 | Left sitting with a **trickle charger attached but UNPOWERED** | Lost charge. Days elapsed and charger make/model not yet recorded | — | **Hypothesis, not a verdict.** A charger with no blocking diode back-feeds through its own output stage when unpowered. 20 mA for 3 days = 1.4 Ah of a 6 Ah battery. A smart maintainer draws microamps; a dumb trickle charger often does not. **Read the label.** |
+| 2026-08-30 | Left sitting with a **trickle charger attached but UNPOWERED** | Lost charge. Days elapsed not recorded. ✅ **CHARGER NOW IDENTIFIED 2026-09-01** — **NEXPEAK NC201 PRO**, 12 V/24 V, "7-stage intelligent pulse repair charger", modes STD / AGM-GEL / WET / REPAIR. ⚠️ `[photo-MODEL-READ 2026-09-01, unverified]` — read off Paul's photograph of the unit, not from a purchase record. | — | **Hypothesis, not a verdict.** A charger with no blocking diode back-feeds through its own output stage when unpowered. 20 mA for 3 days = 1.4 Ah of a 6 Ah battery. A smart maintainer draws microamps; a dumb trickle charger often does not. **Read the label.** |
 | 2026-08-30 | **Three starts in ~1 hour**, each shut off quickly (t=0, +30 min, +60 min) | Start 1 fine · start 2 fine · start 3 **clearly struggling, barely caught** | 2 | ⭐ **The most informative run so far, because it held FUEL CONSTANT.** The engine fired all three times — fuel, spark and carb are all exonerated for this episode. The only thing that degraded was cranking power, monotonically. **This episode is on the electrical axis.** ⚠️ Partly self-inflicted: see the standing rule below — a short idle run on this bike is a net WITHDRAWAL, so three of them is a discharge test. Still: three starts should not take a healthy 6 Ah battery from fine to barely-turning. |
+
+| 2026-09-01 | ⭐ **CHARGED FULLY, LEFT OVERNIGHT, WOULD NOT START** — Paul, verbal, at fleet lap 2 beat 0 | *"charging the 200 for a good amount and then left it overnight… the battery kind of dimmed and it sounded like I was trying to turn over… it just wound up clicking"*. No meter reading taken before the attempts. | 2 | ⭐ **THIS BREAKS THE RECORD'S OWN PATTERN.** Every prior episode had *charging restores starting*, which is why the record read this as charge STATE. A full charge that does not survive one night is a different claim: the battery is not HOLDING, or something drained it. **This is an uninstrumented T4 failure.** ⚠️ Paul: *"I don't think the bike was plugged into the charger"* — hedged, so the 8/30 back-feed hypothesis is weakened, NOT excluded; T5's A/B settles it by measurement. ⚠️ The clean T4 for this night is GONE — it was cranked repeatedly before any reading. |
 
 ### Incident record so far (from conversation, not yet instrumented)
 
