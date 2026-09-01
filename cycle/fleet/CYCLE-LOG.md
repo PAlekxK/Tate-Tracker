@@ -24,7 +24,7 @@ outside the 45d window.
 | **3 · INTAKE** | ✅ **Door drained 2 of 2 at 09:17 — then REOPENED at 09:25** when the mine filed 4 more. All 6 disposed: 1 resolved, 5 routed. Now reads `inbox clear (6 filed, all handled)`. See "Beat 3 REOPENED" below. |
 | **4 · VERIFY** | 👤 **PAUL** — three physical checks, batched. Not attempted from paper. |
 | **5 · SEASON** | Quiet. 46d to frost; the put-away window opens at 45d, so **the next lap should expect SEASON to fire.** Parts lead time is the gate, not the weather. |
-| **6 · RECORD** | 👤 **PAUL'S GATE** — the open rows are in `BACKLOG.md` Track B § FLEET LAP 1. Nothing folded that contradicts him. |
+| **6 · RECORD** | 👤 ✅ **RAN 2026-09-01** — Paul ruled: 5 Bolores items CLOSED on a standing rule, transmission ANSWERED at the truck, emissions DEFERRED. P7 cleared by order record. See "Beat 6 RAN" below. |
 | **7 · AMEND** | below. |
 
 ### ✅ Beat 3 — the door, both rows disposed
@@ -69,6 +69,57 @@ premises **checked** rather than assumed, and P8 and P9 came out of it with more
 
 **Beat 4's trip grew.** It was three Bronco checks; it is now three Bronco checks **+ pull a GTI plug
 (P7) + look at both mowers' blade and deck bolts (P9)**. Still one trip with a light.
+
+### 👤 Beat 6 RAN — Paul ruled, 2026-09-01. Five Bolores items closed, one answered, one deferred.
+
+**The standing rule** `[paul-stated]`: *"none of these leaks… are current. They've all been replaced or
+repaired with the new engines. So if you're flagging old issues for bolores that come from the old
+documentation, don't resurface them because they've been resolved."* Folded into
+`openMechanicalItems._note` so it governs future laps.
+
+Closed: rear main seal · transfer case leak · valve covers · **frame crack at the steering box** ·
+front-end noise. Answered at the truck: **transmission quadrant — *"The P R N D 2 1, that's what I see"***,
+which is the three-speed quadrant, so **C6 confirmed physically** and the circumstantial case (door-tag K
++ vacuum modulator + rebuilt-not-swapped) now has its read. Deferred, and the only Bolores item still
+open: **emissions hardware** — *"I'll look… next time I'm with Bolores, but I'm not by the truck now."*
+
+⚠️ **The frame crack was flagged once and ruled anyway, and the record says so.** It is a FRAME finding,
+not an engine one, so the engine-replacement rationale does not mechanically reach it, and it carried the
+record's own strongest warning (F-2, *"THE load-bearing one on a lifted 351"*, *"inspect before trusting
+her on the road"*). Paul re-affirmed directly. Recorded with that disagreement visible rather than lost —
+he has been under the truck and the record has not.
+
+⚠️ **Provenance stated on every closure:** the owner's read of his own truck, **not** a repair record.
+Higher-grade than the shop paperwork it supersedes, and a *different kind* of evidence — so the record
+says which it is instead of implying an invoice exists.
+
+### ✅ P7 CLEARED BY ORDER RECORD — a three-year SEQUENCE the mine read as a contradiction
+
+Paul: *"I definitely bought those NGK plugs."* Gmail holds **both** confirmations: **NGK140052**
+(2022-10-03, NGK 4654 **R7437-9**, $153.04) and **NGK196860** (2025-03-25, NGK 4901 **R7437-8**, $178.80,
+shipped 03-26). His 2025-03-23 *"I previously ordered… R7437-9"* was **true and referred to the 2022
+order**; advised against the -9 for daily driving, he bought the **-8** two days later.
+
+⭐ **The record's `R7437-8` was right all along** — upgraded `inferred → verified` with the order number,
+the only thing that clears a purchase here. The mine saw one statement and one field and nothing in
+between, so a sequence looked like a conflict. ⚠️ Which set is *installed* is still unestablished.
+
+**Beat 3's P9 routed OUT**, at Paul's suggestion: a request for the mower-blade-sharpening **date and
+machine** is filed at `photo-organizer/cycle/requests.jsonl`. Date and visible machine only — not a
+transcription.
+
+### 🐛 SECOND DEFECT FILED — `s4_stale_open` cannot see a closure
+
+Re-ran the probe after folding five closures. **It did not move.** `s4_stale_open` keys only on
+`firstFlagged` and **never reads `status`**, so a closed item still counts as open; the 2026-07-29 exhaust
+closure escapes only because its date is under the 60-day threshold — luck, not logic. Second, undated
+items are skipped while line 160's comment claims *"the denominator below says so"* — **no denominator is
+printed**, which is why the probe reported *3 open checks* while **7** were open (two have prose dates that
+fail `fromisoformat`). The skip is deliberate and selftested; the non-disclosure is the defect. Both
+**filed in `BACKLOG.md`, proposed not applied** — same posture as lap 7's `--bench`/`--apply` finding.
+
+⚠️ **So STALE-OPEN still reads ⚡ and the lap still cannot rest on it** — not because the checks are open,
+but because the instrument cannot see that they closed. *Match the payload, not the container.*
 
 ### ⭐ Beat 0 — PROVENANCE went 6 → 3, and the 3 that remain are the real ones
 

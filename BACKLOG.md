@@ -1244,6 +1244,87 @@ person to service that machine hits cold) · it was never on these machines at a
 
 ---
 
+## ✅ FLEET LAP 1 · BEAT 6 — Paul ruled, and five of the seven Bolores items closed in one pass `[paul-stated 2026-09-01]`
+
+### ⭐⭐ THE STANDING RULE — do not resurface old Bolores issues from the old documentation
+
+> *"None of these leaks… are current. They've all been replaced or repaired with the new engines. So if
+> you're flagging old issues for bolores that come from the old documentation, don't resurface them
+> because they've been resolved."*
+
+The engine was replaced **twice** (2016 short block, 2018 long block) and the pre-existing findings went
+with it. Folded into `openMechanicalItems._note` so it governs future laps, not just this one.
+⚠️ **Scope:** it covers OLD-DOCUMENTATION items. It does **not** license closing a NEW observation
+without a look.
+
+| item | ruling |
+|---|---|
+| Rear main seal — oil leak | ✅ **CLOSED** on the rule |
+| Transfer case leak | ✅ **CLOSED** on the rule |
+| Valve covers leaking | ✅ **CLOSED** — *"I don't know of any valve cover leaking"* |
+| Frame crack at the steering box | ✅ **CLOSED** — flagged once by me as not-engine-work and ruled anyway; recorded as such |
+| Front-end noise | ✅ **CLOSED** on the rule |
+| Transmission — confirm C6 by quadrant | ✅ **ANSWERED at the truck** — *"The P R N D 2 1, that's what I see."* Three-speed quadrant, no overdrive position → **C6 confirmed**, physically |
+| Emissions hardware | ⏸ **STAYS OPEN** — *"I'll look… next time I'm with Bolores, but I'm not by the truck now."* |
+
+⚠️ **Provenance recorded honestly on every closure:** these are the **owner's read of his own truck**,
+not repair records. That is a higher-grade source than the shop paperwork it supersedes — and it is a
+*different kind* of evidence, so the record says so rather than implying a documented repair.
+
+### ✅ P7 RESOLVED — the spark plugs were never a contradiction. They were a SEQUENCE.
+
+Paul: *"I definitely bought those NGK plugs."* He did — **twice**, and both numbers are real. Gmail
+holds both order confirmations:
+
+| order | date | part | qty | total |
+|---|---|---|---|---|
+| **NGK140052** | 2022-10-03 | NGK **4654 R7437-9** Racing Plug | 4 | $153.04 |
+| **NGK196860** | 2025-03-25 (shipped 03-26) | NGK **4901 R7437-8** Racing Plug | 4 | $178.80 |
+
+So his 2025-03-23 remark — *"I previously ordered these spark plugs - NGK 4654 R7437-9"* — was **true**,
+and pointed at the **2022** order. He was advised that day against the -9 for daily driving, and **two
+days later bought the -8.** The record's `R7437-8` was right all along; it has now been upgraded
+`inferred → verified` and carries the order number, which is the only thing that clears a purchase here.
+
+⭐ **The mine read a three-year sequence as a contradiction** because it saw one statement and one field
+and nothing in between. The clearing evidence was in Gmail the whole time.
+
+⚠️ **Still not established: which set is physically IN the engine.** The -8 is the most recent purchase
+and matches the field, but the -9 was owned from 2022 and may have run. A plug pull answers it — low
+stakes now, not zero.
+
+### 📮 P9 ROUTED OUT — a request is filed at photo-organizer's door
+
+Paul: *"Last time, we sharpened the mower blades. I think we have pictures of that. So that can be a
+request to the photo organizer if we want the exact date."* Filed to
+`~/Developer/photo-organizer/cycle/requests.jsonl` asking for **the date** and **which mower** — a blade
+sharpening means the blade bolts came out, which is why it bears on the rounded 5/8". ⚠️ The ask is
+explicitly for a date and a visible machine, **not** a transcription; anything read off the images
+returns as a proposal for Paul, never folded as fact.
+
+### 🐛 TWO DEFECTS IN `fleet_probe.py` s4_stale_open — FILED, NOT FIXED
+
+Found by re-running the probe after folding the closures above, and it did **not** move.
+
+1. ⛔ **`status` is never read.** `s4_stale_open` iterates `openMechanicalItems.items` and keys only on
+   `firstFlagged`; nothing looks at whether the item is closed. **All five closures above are invisible
+   to it** — the probe still reports them as open checks past 60 days. The pre-existing exhaust closure
+   (2026-07-29) escapes only because its `firstFlagged` is 34 days old and under the threshold — **luck,
+   not logic.** This is *match the payload, not the container*: the signal tests presence-in-a-list, not
+   openness.
+2. ⚠️ **Undated items are skipped silently, and the code's own comment claims otherwise.** Line 160 reads
+   *"undated items are not counted, and the denominator below says so"* — **there is no such denominator.**
+   Neither output string reports how many were skipped. This is why the probe said *"3 open checks"* while
+   **seven** items were open: two (frame crack `~Sept 2020`, front-end noise `2023-04`) have prose dates
+   that fail `fromisoformat` and vanish; two were under threshold. The skip itself is deliberate and
+   selftested (*"S4 ignores an undated item rather than guessing"*) — the **non-disclosure** is the defect.
+
+⭐ Both are beat-7 amendments and are **proposed, not applied** — same posture lap 7 took with the
+`--bench`/`--apply` reversal. Fixing (1) makes STALE-OPEN rest; fixing (2) makes it report its own
+denominator the way every other check in this portfolio does.
+
+---
+
 ## ⭐ B0 · TRACK B HAS NO ASK LOOP — and that is the ONLY thing the two tracks do not share `[measured 2026-09-01]`
 
 **Paul's hypothesis, put to the code:** *"Track B is really a troubleshooting and maintenance

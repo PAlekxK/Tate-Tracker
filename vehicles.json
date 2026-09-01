@@ -56,8 +56,8 @@
         },
         "sparkPlugs": {
           "value": "NGK R7437-8 racing plug (APR Stage-1 heat range). Gap 0.024\" — they ship at 0.028\", so close the gap down before install. ~25 Nm (18 ft-lb), no anti-seize. Change ~20k mi on the tune (racing plugs wear faster than the 40k stock interval).",
-          "confidence": "inferred",
-          "source": "APR racing-plug spec (NGK R7437-8, 0.024\" gap, 20k interval) is tune-vendor guidance — not in the factory manual on disk."
+          "confidence": "verified",
+          "source": "⭐ CLEARED BY ORDER RECORD 2026-09-01 (fleet lap 1, beat 6). NGK.com order **NGK196860**, ordered 2025-03-25, shipped 2025-03-26 to 282 Church Mountain Road: 'NGK 4901 R7437-8 Racing Plug SKU: R7437-8', qty 4, $44.70 ea / $178.80. That is a purchase with an ORDER NUMBER, which is the only thing that clears one here. ⭐ THE -9 IS ALSO REAL AND IT WAS NOT A CONTRADICTION — a SEQUENCE three years apart. NGK.com order **NGK140052**, 2022-10-03: 'NGK 4654 R7437-9 Racing Plug SKU: R7437-9', qty 4, $153.04. So Paul's 2025-03-23 remark 'I previously ordered these spark plugs - NGK 4654 R7437-9' was TRUE and referred to the 2022 order; he was advised that day against the -9 for daily driving, and two days later bought the -8. Both numbers were bought; the record's -8 was right all along. Underlying spec is still APR tune-vendor guidance (0.024\" gap, 20k interval), not the factory manual. ⚠️ WHAT IS STILL NOT ESTABLISHED: which set is physically IN the engine. The -8 is the most recent purchase and matches this field, but the -9 was owned from 2022 and may have run. A plug pull is the only thing that answers it — low stakes now, but not zero."
         },
         "coolant": {
           "value": "VW G13 (pink) — never mix with G11 or G12. Active leak under diagnosis: check thermostat housing + expansion tank cap first.",
@@ -1340,37 +1340,37 @@
       "_serviceHistoryNote": "Reconstructed from the paper records that came with the truck (a Memphis chapter from 2010 through Paul's 2025 purchase); costs and the full VIN are kept in .private/ and never in this tracked file. ⚠️ NOT TRUE OF OWNER NAMES, contrary to what this note used to claim: a prior owner's full name already appears in the seat-upholstery entry below (it is load-bearing there — it is the name a trim shop needs to look up the original order) and has been in the PUBLIC repo since commit 981a038. Flagged for Paul's call 2026-07-29, not silently changed. The Memphis-era owner's name was deliberately NOT added during this pass and stays in .private/. ⭐ MAJOR VERIFICATION PASS 2026-07-29 — Paul worked the 17-item eyeball queue against the physical documents. SEVEN odometers are now Paul-verified (46,492 · 46,815 · 56,283 · 56,631 · 58,441 · 77,294 · 78,488 · 94,438 · 97,377), the VIN is verified on four independent sources, and flags F-6 (Memphis provenance) and F-7 (lift = Memphis 2011) are closed. Rows still marked 'inferred' are vision reads without a Paul confirmation. NOTE ON DOLLAR FIGURES: several crops framed invoice headers rather than totals, so some job totals remain 'inferred' even where the odometer on the same document is verified — that is deliberate and not an oversight. Full verdict-by-verdict trail, including two staging bugs that were caught and fixed: .private/service-records/bronco-1989/EYEBALL-VERDICTS.md",
       "vinNote": "⭐ VERIFIED 2026-07-29 on FOUR independent sources — the Georgia title and the City of Memphis inspection certificate (both read by Paul), plus the door-jamb label and a 2016 Hickory Flat invoice. Full value stays in .private/ (hard rule: no full VIN in tracked files). RESOLVED: the standing flag that 'the 11th character reads A where an '89 Bronco should show L' was OUR OWN COUNTING ERROR — position 11 is L (Michigan Truck Plant), correct; A is position 12, the first character of the sequence number. A Carfax pull is now safe to run.",
       "openMechanicalItems": {
-        "_note": "Added 2026-07-29 from the eyeball pass. These are SHOP-RECORDED FINDINGS with no repair anywhere in the corpus — observations, not diagnoses, and none of them has been checked on the physical truck. Grouped because they are ONE trip: get under her once with a light. ⭐ WORTH NOTING FROM THE FIRST TWO ANSWERED (2026-07-29): the truck FALSIFIED one record claim (A/C removal) and RESTORED another (dual exhaust). Physical checks are not a way of confirming what we already believe — they cut both directions, which is exactly why they outrank the paper.",
+        "_note": "Added 2026-07-29 from the eyeball pass. These are SHOP-RECORDED FINDINGS with no repair anywhere in the corpus — observations, not diagnoses, and none of them has been checked on the physical truck. Grouped because they are ONE trip: get under her once with a light. ⭐ WORTH NOTING FROM THE FIRST TWO ANSWERED (2026-07-29): the truck FALSIFIED one record claim (A/C removal) and RESTORED another (dual exhaust). Physical checks are not a way of confirming what we already believe — they cut both directions, which is exactly why they outrank the paper. ⭐⭐ STANDING RULE, `paul-stated 2026-09-01` at fleet lap 1 beat 6: **do not resurface old Bolores issues drawn from the old documentation.** The engine was replaced twice (2016 short block, 2018 long block) and the pre-existing leaks and findings went with it. Five of the seven items below were closed on that ruling in one pass. A shop finding that predates his ownership is not a live defect just because no paperwork records the fix — the truck is the record, and he is the one who can read it. ⚠️ The rule is about OLD-DOCUMENTATION items; it does not license closing a NEW observation without a look.",
         "items": [
           {
             "item": "Rear main seal — engine oil leak",
             "firstFlagged": "2022-11-21 (Express Oil invoice, $1,431.11 visit)",
-            "status": "open — never shown repaired; predates Paul's Oct-2025 purchase by ~3 years",
+            "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair.",
             "whyItMatters": "On a 351W the rear main sits between engine and transmission — an engine-out or trans-out job, so expensive alone and nearly free if the drivetrain is ever apart. This bears directly on the paint-window decision: if she is at a shop for an extended respray, that is the moment to deal with it.",
             "check": "one look at the bellhousing / engine-to-trans junction for fresh oil"
           },
           {
             "item": "Transfer case leak",
             "firstFlagged": "2016-07-01 post-buy inspection",
-            "status": "open — Express Oil touched a transfer-case plug in Dec 2021; unknown whether that closed it",
+            "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair.",
             "check": "look at the transfer case for fresh fluid"
           },
           {
             "item": "Valve covers leaking",
             "firstFlagged": "2016-07-01 post-buy inspection",
-            "status": "open — no fix on file. NOTE the engine was replaced twice since (2016 short block, 2018 long block), so this may be long moot.",
+            "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair.",
             "check": "look along the valve-cover rails"
           },
           {
             "item": "Frame crack at the steering box",
             "firstFlagged": "~Sept 2020 prior-owner handwritten note; corroborated again on IMG_8556",
-            "status": "open — flag F-2, THE load-bearing one on a lifted 351",
+            "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair. ⚠️ FLAGGED ONCE AT THE TIME AND RULED ANYWAY, recorded so the disagreement is visible rather than lost: this item is a FRAME finding, not an engine one, so the engine-replacement rationale does not mechanically reach it, and it had carried the record's own strongest warning (flag F-2, 'THE load-bearing one on a lifted 351', 'inspect before trusting her on the road'). Paul re-affirmed the closure directly. He has been under the truck and the record has not.",
             "check": "inspect the frame at the steering-box mount before trusting her on the road"
           },
           {
             "item": "Front-end noise",
             "firstFlagged": "2023-04 prior-owner margin note: 'still rt front noise — since U-joint repl'",
-            "status": "open — unresolved for ~3 years, on top of the 2016 ball-joint / tie-rod / wheel-bearing findings",
+            "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair. ⚠️ Also not engine work — a 2023-04 prior-owner margin note. Closed on Paul's read, same provenance caveat.",
             "check": "road test + front-end inspection"
           },
           {
@@ -1382,13 +1382,13 @@
           {
             "item": "Transmission — confirm C6 by quadrant",
             "firstFlagged": "2026-07-29",
-            "status": "strongly supported (door-tag K + vacuum modulator + rebuilt-not-swapped) but not physically confirmed",
-            "check": "a C6 is a THREE-speed: quadrant P R N D 2 1 closes it; an overdrive position would mean a swap"
+            "status": "✅ ANSWERED 2026-09-01 by Paul at the truck `[paul-stated]`: \"The P R N D 2 1, that's what I see.\" A C6 is a THREE-speed and that is the three-speed quadrant — no overdrive position, so no later swap. This CONFIRMS the prior circumstantial case (door-tag K + vacuum modulator + rebuilt-not-swapped) with a physical read, which is what the item asked for.",
+            "check": "done — Paul read the quadrant 2026-09-01"
           },
           {
             "item": "Emissions hardware — what is actually still on her",
             "firstFlagged": "2026-07-29",
-            "status": "A/C is ANSWERED — it works, so it was never removed. Air pump removal is well supported. EGR delete is unsupported by the paperwork. Catalytic converters are an open hypothesis for the illegible word on the belt package.",
+            "status": "⏸ DEFERRED 2026-09-01 `[paul-stated]`: \"I'll look at the emissions hardware next time I'm with Bolores, but I'm not by the truck now.\" STAYS OPEN — this is the one Bolores item Paul did NOT close, and he named why. Three looks close it: EGR valve on the intake? Thermactor/smog air pump on the front of the engine? catalytic converters underneath?",
             "check": "Under the hood: is there an EGR valve on the intake? a smog/Thermactor air pump on the front of the engine? Underneath: are there catalytic converters in the exhaust? Three looks, and they close the whole 2018 delete question."
           }
         ]
