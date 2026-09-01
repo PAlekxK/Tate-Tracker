@@ -28,7 +28,7 @@ Run **lap 8** of Fernwood's Track A mom cycle. It opens on **Mom's own request**
 - `~/.claude` @ `230931c` with **13 dirty files** — a prior session's autosave plus two NEW uncommitted memory files (`feedback_close_a_loop_before_opening_the_next.md`, `reference_lap_clamp_is_time_scoped.md`) and the `MEMORY.md` index edit. Not this thread's to commit.
 
 ## 5. Guardrails
-- ⛔ **THE RIBBON IS HELD INDEFINITELY** `[paul-stated 2026-09-01]`: *"You can hold the zone until I give an explicit approval. It's ready to hold to mom."* This **supersedes the spine's 2-day hold expiry** — there is no clock. Do NOT ship a ribbon, and do NOT read `R1 ack staleness 🔴` as neglect.
+- ⛔ ~~**THE RIBBON IS HELD INDEFINITELY**~~ — **WRONG UNIT, corrected by Paul 2026-09-01 during lap 8.** The gate is on **the zone WORK**, not on the acknowledgment loop: *"The zone is gated on me working on the zone and approving it is ready for distribution … specific to the zone work rather than the acknowledgment driven overall."* So: a ribbon for OTHER input (the refrigerator) is not blocked; `R1 ack staleness 🔴` **IS a real finding**, not a held gate; and the hold has a release condition (*zone work ready to distribute*) rather than being indefinite. **Still true:** nothing reaches Mom's surface without Paul reading it first.
 - **Nothing reaches Mom's surface without Paul.** Leg 6 cannot be crossed by shipping — a ribbon he has not read is not a ribbon, and a commit is not a ship.
 - **Attribute from authored CONTENT only**, never from a device id or a nearby date.
 - **Agent proposes, main session reviews.** No agent writes canon.
@@ -43,6 +43,6 @@ Lap 8 has dispositioned all four of her acts individually, delivered the refrige
 - The clamp refinement is **proposed off one instance** and no tooling enforces it. Lap 8's leg 7 should confirm or drop it.
 
 ## 8. Trust status
-**Human-cleared (Paul, 2026-09-01):** the indefinite ribbon hold · zone work deferred to this lap · closing lap 7 with leg 6 uncrossed · the time-scoped clamp · the M1 reader fix as a need.
+**Human-cleared (Paul, 2026-09-01):** the zone-work gate (⚠️ NOT an "indefinite ribbon hold" — that framing was corrected during lap 8) · zone work deferred to this lap · closing lap 7 with leg 6 uncrossed · the time-scoped clamp · the M1 reader fix as a need.
 **Model-flagged, NOT cleared — treat as hypotheses:** that the 4 acts are Mom's (the device is *not* one of Paul's four registered ids, and the content reads as hers — but `check-arrival-dispositions.py` treats unregistered as owed-to-Mom by fail-safe, which is not positive identification) · the 5→4 act collapse via the conversation mirror · every un-sealed read in §7.
 **Corrected in-session, do not re-derive:** lap 7 IS closed (`a7b2e67`) · `NOT SHIPPED` was cleared by pushing 7 commits, `check-live.py` exits 0 · `check-mom-ack`'s remaining `UNREAD` + `STALE` are **both true and deliberately left red**.

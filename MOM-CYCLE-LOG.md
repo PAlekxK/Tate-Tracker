@@ -50,12 +50,36 @@ allowed to run.
 
 Two separate things are now waiting on Paul, and **they are not the same decision**:
 
-1. **The lap-7 ribbon** — still held indefinitely per `paul-stated 2026-09-01` (*"You can hold the
-   zone until I give an explicit approval"*). Untouched. `R1 ack staleness 🔴` remains a **held gate
-   with a stated reason**, not neglect.
-2. **The refrigerator card** — new, and it reaches her surface, so *"nothing reaches Mom's surface
-   without Paul"* binds it too. The push and the Worker digest deploy are **deliberately paired**:
-   deploying the digest alone would make Guru know about a fridge her dashboard does not show.
+⭐⭐ **RECATEGORIZED BY PAUL, same day — and this corrects a mis-framing this lap inherited and
+propagated.** The handoff brief told this lap *"THE RIBBON IS HELD INDEFINITELY … Do NOT ship a
+ribbon, and do NOT read `R1 ack staleness 🔴` as neglect."* **That was the wrong unit.**
+`paul-stated 2026-09-01`:
+
+> *"The zone is gated on me working on the zone and approving it is ready for distribution — is
+> probably the cleaner way of categorizing that. Specific to the zone work rather than the
+> acknowledgment driven overall."*
+
+**The gate is on a WORK ITEM, not on the mechanism.** The zone naming is held because *the zone work
+is not finished*; you do not acknowledge work that is not ready to distribute. Nothing was ever held
+about the acknowledgment loop itself. Three consequences, all binding:
+
+- **A ribbon for other input has no zone dependency.** The refrigerator can be acknowledged now.
+- **`R1 ack staleness 🔴` is a REAL finding again**, not a held gate with a stated reason. It is 12
+  days stale across her radar answer *and* her refrigerator request. The brief's instruction not to
+  read it as neglect was wrong and is withdrawn.
+- **The hold has a RELEASE CONDITION** — *zone work ready for distribution* — instead of "indefinite."
+  ⚠️ An indefinite hold and a gated one decay differently: the first has nothing that can ever clear
+  it, so it silently becomes permanent. **This is the same failure shape as `owner: paul` on a stale
+  row** — a hold with no release condition is indistinguishable from abandonment.
+
+So the two things behind the gate are:
+
+1. **The zone naming** — gated on Paul finishing the zone work and calling it ready for distribution.
+   A real gate, with a real release condition, on the *content*.
+2. **The refrigerator card** — reaches her surface, so *"nothing reaches Mom's surface without Paul"*
+   binds it: he reads the ribbon text and the card before either ships. The push and the Worker digest
+   deploy are **deliberately paired** — deploying the digest alone would make Guru know about a fridge
+   her dashboard does not show.
 
 ### ⚠️ G1 — the Guru told her something it cannot do
 
@@ -190,7 +214,7 @@ they are owed to Mom and lap 8 owes her an answer.
 | ship VERIFIED against the live URL | ✅ `check-live.py` 0 — viewer.html, questions.json, zones.json all match HEAD live |
 | watermark advanced + **clamped** | ✅ clamped short of the 11:12 arrivals |
 | dispositions recorded | ✅ for everything this lap held; the 5 post-start arrivals are lap 8's by the refined clamp |
-| **leg 6 crossed** | ⛔ **NO — held by Paul, indefinitely, by his explicit instruction** |
+| **leg 6 crossed** | ⛔ **NO — held by Paul.** ⚠️ Recategorized 2026-09-01: the gate is on the ZONE WORK being ready for distribution, not on the acknowledgment loop. Not indefinite; it has a release condition. |
 
 ⚠️ **`check-mom-ack` still reports `UNREAD` + `STALE` at close, and both are TRUE.** They are not
 defects to silence: UNREAD is the 5 arrivals waiting for lap 8, STALE is the held ribbon. A green
