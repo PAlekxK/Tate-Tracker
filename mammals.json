@@ -6,7 +6,7 @@
     "elevation_ft": 2873,
     "coordinates": "34.5496°N, 84.3674°W",
     "region": "Blue Ridge, Pickens County, GA",
-    "habitatContext": "South-facing fairway clearing on a forested ridge at 2,873 ft, with mature mixed hardwood-pine forest on multiple sides, a pond, intermittent streams and seeps, and Lake Sequoyah at Tate Mountain Estates roughly 0.3 mi away. The mix of open clearing edge, mature forest interior, and nearby water concentrates a broad set of mid-Appalachian mammals — woodland edge species, forest interior species, and a smaller set of aquatic mammals working the lake.",
+    "habitatContext": "South-facing open clearing on a forested ridge at 2,873 ft, with mature mixed hardwood-pine forest on multiple sides, a pond, intermittent streams and seeps, and Lake Sequoyah at Tate Mountain Estates roughly 0.3 mi away. The mix of open clearing edge, mature forest interior, and nearby water concentrates a broad set of mid-Appalachian mammals — woodland edge species, forest interior species, and a smaller set of aquatic mammals working the lake.",
     "dataSources": [
       "Georgia DNR Wildlife Resources Division — species fact sheets and Georgia's Biodiversity portal",
       "Mammals of Georgia (Whitaker, Hamilton — regional references)",
@@ -19,9 +19,9 @@
     "notes": "This is a curated property list, not a regional roster. Status framing reflects what Paul actually encounters: residents seen regularly, larger species known mainly from sign (tracks, scat, occasional sightings), and a small aquatic set tied to Lake Sequoyah. Activity windows are typical for mid-Appalachian elevations — variation by year is normal."
   },
   "propertyHighlights": {
-    "whyGoodMammalWatching": "Church Mountain Road sits where a south-facing fairway clearing meets mature mixed forest, with the pond at the property and Lake Sequoyah just down the slope. That edge between open ground and deep woods is exactly where most southern Appalachian mammals do their daily work — deer browsing the clearing margins at dusk, foxes and coyotes hunting the edge after dark, raccoons and opossums working the woods at night. The lake adds the aquatic layer.",
+    "whyGoodMammalWatching": "Church Mountain Road sits where a south-facing open clearing meets mature mixed forest, with the pond at the property and Lake Sequoyah just down the slope. That edge between open ground and deep woods is exactly where most southern Appalachian mammals do their daily work — deer browsing the clearing margins at dusk, foxes and coyotes hunting the edge after dark, raccoons and opossums working the woods at night. The lake adds the aquatic layer.",
     "topFeatures": [
-      "South-facing fairway edge: dawn and dusk movement for white-tailed deer, cottontails, and turkeys; foxes and coyotes hunt this margin after dark",
+      "South-facing clearing edge: dawn and dusk movement for white-tailed deer, cottontails, and turkeys; foxes and coyotes hunt this margin after dark",
       "Mature mixed hardwood-pine forest: gray squirrel, chipmunk, flying squirrel territory; bobcat and bear sign turns up in the forest interior",
       "Property pond and seasonal seeps: drinking and foraging stops for nearly every mammal on this list",
       "Lake Sequoyah at 0.3 mi: river otter and beaver work the lake itself, not the property",
@@ -56,9 +56,9 @@
         4,
         5
       ],
-      "habitat": "Forest edges, clearings, mixed hardwood forest — heavy use of fairway margins at dawn and dusk",
+      "habitat": "Forest edges, clearings, mixed hardwood forest — heavy use of clearing margins at dawn and dusk",
       "voice": "Mostly silent. Snorts and blows when alarmed. Bucks grunt during the November rut; fawns bleat for does.",
-      "notes": "The fairway clearing is exactly the kind of edge habitat white-tails work daily — they step out from the forest at dawn and dusk to browse along the margins, then drift back into cover. The rut peaks the week of November 10–16 in Pickens County (Georgia DNR's county rut map); bucks chase does across openings and rub young saplings to mark territory. Look for trails through the forest understory and scrapes in the leaf litter under low branches. Spotted fawns appear in May and June and lie hidden in deep grass while does feed nearby — leave them alone if you find one. They also browse the pond-edge plantings — the cardinal flower there was stripped in August 2025 (deer or rabbit, the likely culprits for pond-margin browse).",
+      "notes": "The open clearing is exactly the kind of edge habitat white-tails work daily — they step out from the forest at dawn and dusk to browse along the margins, then drift back into cover. The rut peaks the week of November 10–16 in Pickens County (Georgia DNR's county rut map); bucks chase does across openings and rub young saplings to mark territory. Look for trails through the forest understory and scrapes in the leaf litter under low branches. Spotted fawns appear in May and June and lie hidden in deep grass while does feed nearby — leave them alone if you find one. They also browse the pond-edge plantings — the cardinal flower there was stripped in August 2025 (deer or rabbit, the likely culprits for pond-margin browse).",
       "funFact": "White-tails can clear an 8-foot fence from a standing start. The white-tail flag flashed when running is both an alarm signal to other deer and a 'follow me' cue for fawns.",
       "photo": "images/mammals/white-tailed-deer.jpg",
       "attribution": {
@@ -145,7 +145,7 @@
       ],
       "habitat": "Forest floor with stone walls, log piles, and downed wood; common at the forest-clearing edge",
       "voice": "Sharp, repeated 'chip-chip-chip' that can carry for surprising distances and continue for minutes. Lower 'chuck' notes when annoyed.",
-      "notes": "Chipmunks work the forest floor in short, quick bursts — a flash of striped brown between the leaves and then nothing. The fairway edges and any stone walls or log piles on the property are prime denning territory. They retreat to underground burrows in the coldest weeks of winter but don't fully hibernate; on a mild January day you may still see one out briefly. Late summer through early fall is the busiest season as they stockpile seeds in their cheek pouches.",
+      "notes": "Chipmunks work the forest floor in short, quick bursts — a flash of striped brown between the leaves and then nothing. The clearing edges and any stone walls or log piles on the property are prime denning territory. They retreat to underground burrows in the coldest weeks of winter but don't fully hibernate; on a mild January day you may still see one out briefly. Late summer through early fall is the busiest season as they stockpile seeds in their cheek pouches.",
       "funFact": "A chipmunk's cheek pouches can hold up to three times the size of its head in seeds. Burrow systems can run 20 to 30 feet underground with separate chambers for nesting, food storage, and waste.",
       "photo": "images/mammals/eastern-chipmunk.jpg",
       "attribution": {
@@ -183,9 +183,9 @@
         6,
         7
       ],
-      "habitat": "Brushy edges, fairway clearing margins, thickets near cover",
+      "habitat": "Brushy edges, open clearing margins, thickets near cover",
       "voice": "Usually silent. A piercing, almost child-like scream when caught by a predator. Soft grunts between rabbits.",
-      "notes": "Cottontails are at home along the fairway edge where short grass meets brushy cover — they feed in the open at dawn and dusk and stay within a few quick bounds of a thicket. Nests are shallow scrapes in the grass lined with fur and dry grass, hidden in plain sight; if you find a nest with young, leave it alone and check from a distance — the doe only returns at dawn and dusk to nurse. Predator pressure on this property is real: foxes, coyotes, bobcat, owls, and the occasional hawk all hunt rabbits. Cottontails also browse the tender pond-edge plantings — along with deer, the likely culprit for the cardinal flower stripped at the pond margin in August 2025.",
+      "notes": "Cottontails are at home along the clearing edge where short grass meets brushy cover — they feed in the open at dawn and dusk and stay within a few quick bounds of a thicket. Nests are shallow scrapes in the grass lined with fur and dry grass, hidden in plain sight; if you find a nest with young, leave it alone and check from a distance — the doe only returns at dawn and dusk to nurse. Predator pressure on this property is real: foxes, coyotes, bobcat, owls, and the occasional hawk all hunt rabbits. Cottontails also browse the tender pond-edge plantings — along with deer, the likely culprit for the cardinal flower stripped at the pond margin in August 2025.",
       "funFact": "A doe can have three to four litters per summer of four to five young each, and most cottontails do not survive their first year — the high reproductive rate is the species' answer to heavy predation.",
       "photo": "images/mammals/eastern-cottontail.jpg",
       "attribution": {
@@ -226,7 +226,7 @@
       ],
       "habitat": "Forest edges, clearings, slopes with well-drained soil for burrows",
       "voice": "Shrill whistle alarm call (the source of the name 'whistle-pig'). Teeth-chattering when threatened. Otherwise silent.",
-      "notes": "Groundhogs are one of the few true hibernators on this list — they vanish into deep burrows around early November and don't reappear until late February or March, when males begin moving above ground to check territory. The fairway edges and well-drained slopes near the property are good burrow habitat. Look for the large entrance holes (6 to 10 inches across) with a fan of excavated dirt out front. They feed in mid-morning and late afternoon, sitting up periodically to scan for hawks and foxes.",
+      "notes": "Groundhogs are one of the few true hibernators on this list — they vanish into deep burrows around early November and don't reappear until late February or March, when males begin moving above ground to check territory. The clearing edges and well-drained slopes near the property are good burrow habitat. Look for the large entrance holes (6 to 10 inches across) with a fan of excavated dirt out front. They feed in mid-morning and late afternoon, sitting up periodically to scan for hawks and foxes.",
       "funFact": "Groundhog body temperature drops from about 99°F to under 40°F during hibernation, and the heart rate slows from about 80 beats per minute to four or five. They are the largest member of the squirrel family in this region.",
       "photo": "images/mammals/groundhog.jpg",
       "attribution": {
@@ -397,7 +397,7 @@
       ],
       "habitat": "Forest edges, clearings, open ground with cover; prefers more open habitat than the gray fox",
       "voice": "A wide vocal repertoire including yips, barks, and a startling raspy scream sometimes heard on winter nights during the January–February breeding season.",
-      "notes": "Red foxes use more open habitat than gray foxes — the fairway clearing margins are exactly where you might see one trotting at dawn or dusk. They hunt small mammals by sound, leaping in a high arc and pinning prey through snow or deep grass with the front paws. Winter is the most vocal season as breeding pairs establish territory; the scream is unsettling the first time you hear it. Kits emerge from natal dens in April and May, and family groups may be visible briefly in early summer.",
+      "notes": "Red foxes use more open habitat than gray foxes — the open clearing margins are exactly where you might see one trotting at dawn or dusk. They hunt small mammals by sound, leaping in a high arc and pinning prey through snow or deep grass with the front paws. Winter is the most vocal season as breeding pairs establish territory; the scream is unsettling the first time you hear it. Kits emerge from natal dens in April and May, and family groups may be visible briefly in early summer.",
       "funFact": "Red foxes use the earth's magnetic field to calibrate hunting leaps — studies show they're more successful when pouncing toward the northeast, which suggests they line up prey by sound and magnetic bearing simultaneously.",
       "photo": "images/mammals/red-fox.jpg",
       "attribution": {
@@ -443,7 +443,7 @@
       ],
       "habitat": "Mature mixed hardwood forest, brushy edges, slopes with cover; prefers more closed forest than the red fox",
       "voice": "Yips, sharp barks, and a hoarse rasping cry during the January–February breeding season. Quieter overall than red fox.",
-      "notes": "Gray foxes are the more forest-loving of the two foxes here — they prefer the closed mixed hardwood interior and brushy edges over the open fairway. They are the only canid in North America that climbs trees, using semi-retractable claws to escape predators or hunt nesting birds. More nocturnal than red foxes, so encounters are rare; tracks and scat (often deposited on prominent stumps or rocks as scent marks) are easier to find than the fox itself. The black-tipped tail and salt-and-pepper gray back distinguish them from red fox.",
+      "notes": "Gray foxes are the more forest-loving of the two foxes here — they prefer the closed mixed hardwood interior and brushy edges over the open clearing. They are the only canid in North America that climbs trees, using semi-retractable claws to escape predators or hunt nesting birds. More nocturnal than red foxes, so encounters are rare; tracks and scat (often deposited on prominent stumps or rocks as scent marks) are easier to find than the fox itself. The black-tipped tail and salt-and-pepper gray back distinguish them from red fox.",
       "funFact": "The gray fox is the only member of the dog family in the Western Hemisphere that routinely climbs trees, and one of only two canids worldwide with this ability. It can climb branchless vertical trunks to more than 50 feet.",
       "photo": "images/mammals/gray-fox.jpg",
       "attribution": {
@@ -698,7 +698,7 @@
       ],
       "habitat": "Mature hardwood and mixed forest with nesting cavities — uses the whole forested portion of the property",
       "voice": "High-pitched chirps, trills, and bird-like whistles, much of it ultrasonic and inaudible to humans. The audible portion sounds more like a small bird than a squirrel.",
-      "notes": "Flying squirrels are likely more common on this property than the daytime gray squirrels — they're simply invisible because they are strictly nocturnal. They glide between trees rather than fly, using a furred membrane (the patagium) stretched between front and back legs to cover up to 150 feet between launches. The Bortle 3 dark sky makes silhouette spotting more practical here than in most places: on warm humid summer nights, watch the night sky between large trees from the fairway edge. A red flashlight beam (which they don't react to) on a known den tree is the most reliable way to see one.",
+      "notes": "Flying squirrels are likely more common on this property than the daytime gray squirrels — they're simply invisible because they are strictly nocturnal. They glide between trees rather than fly, using a furred membrane (the patagium) stretched between front and back legs to cover up to 150 feet between launches. The Bortle 3 dark sky makes silhouette spotting more practical here than in most places: on warm humid summer nights, watch the night sky between large trees from the clearing edge. A red flashlight beam (which they don't react to) on a known den tree is the most reliable way to see one.",
       "funFact": "Most southern flying squirrel vocalizations are ultrasonic, above the range of human hearing. Their large dark eyes — proportionally enormous — gather every available scrap of starlight for night gliding.",
       "photo": "images/mammals/southern-flying-squirrel.jpg",
       "attribution": {
@@ -731,9 +731,9 @@
         7,
         8
       ],
-      "habitat": "Aerial — foraging over the fairway clearing, pond, and forest canopy edge at dusk",
+      "habitat": "Aerial — foraging over the open clearing, pond, and forest canopy edge at dusk",
       "voice": "Echolocation calls are ultrasonic and inaudible to humans without a bat detector. The audible sound at a property is the soft flutter of wings and the occasional faint chitter near roost sites.",
-      "notes": "Bats are reliably present here in warm months but the specific species mix is not confirmed on the property. North Georgia hosts a number of species — big brown bat, eastern red bat, hoary bat, tri-colored bat, and several others — and the most likely visitors at this elevation and habitat are generalists working the airspace over the clearing and pond at dusk. The Bortle 3 dark sky makes them easier to spot than most places: stand at the fairway edge in the first 30 minutes after sunset between May and August, and watch the airspace 10 to 50 feet up for fluttering silhouettes against the still-lit sky. White-nose syndrome has devastated cave-hibernating species across the Southeast since 2010 — any healthy bat population here matters.",
+      "notes": "Bats are reliably present here in warm months but the specific species mix is not confirmed on the property. North Georgia hosts a number of species — big brown bat, eastern red bat, hoary bat, tri-colored bat, and several others — and the most likely visitors at this elevation and habitat are generalists working the airspace over the clearing and pond at dusk. The Bortle 3 dark sky makes them easier to spot than most places: stand at the clearing edge in the first 30 minutes after sunset between May and August, and watch the airspace 10 to 50 feet up for fluttering silhouettes against the still-lit sky. White-nose syndrome has devastated cave-hibernating species across the Southeast since 2010 — any healthy bat population here matters.",
       "funFact": "A single bat may eat 600–1,000 mosquito-sized insects in an hour. To identify species at a property usually requires either a bat detector (which translates ultrasonic calls into audible frequencies) or careful daytime photos of roosting individuals.",
       "photo": "images/mammals/bats.jpg",
       "attribution": {
@@ -774,7 +774,7 @@
       ],
       "habitat": "Soft, diggable ground — mulch beds, turf, the softer soil at the forest-clearing edge; dens in burrows",
       "voice": "Mostly silent; low grunts and constant snuffling while rooting, and a loud startle-jump when surprised.",
-      "notes": "A newcomer that has expanded into North Georgia over the last couple of decades and is now here as a confirmed pest. The sign is unmistakable: shallow conical holes rooted across turf and beds where it has dug for grubs and worms, plus burrow entrances under structures, stumps, or the fairway edge. Mostly nocturnal and crepuscular; it can't see or hear well and will blunder surprisingly close before bolting. Cold is its main limit — hard freezes at this elevation push it to shelter — but the rooting damage through the warm months is real and ongoing here.",
+      "notes": "A newcomer that has expanded into North Georgia over the last couple of decades and is now here as a confirmed pest. The sign is unmistakable: shallow conical holes rooted across turf and beds where it has dug for grubs and worms, plus burrow entrances under structures, stumps, or the clearing edge. Mostly nocturnal and crepuscular; it can't see or hear well and will blunder surprisingly close before bolting. Cold is its main limit — hard freezes at this elevation push it to shelter — but the rooting damage through the warm months is real and ongoing here.",
       "funFact": "A nine-banded armadillo almost always gives birth to identical quadruplets — four young of the same sex from a single egg. It can also hold its breath for several minutes and either float across or walk along the bottom of a stream.",
       "photo": null,
       "attribution": null
@@ -852,7 +852,7 @@
         "Skunks foraging heavily",
         "All summer-active species fully back"
       ],
-      "watchFor": "Leave alone any fawn lying still in grass — the doe is nearby. Cottontail nests in unmowed fairway edges."
+      "watchFor": "Leave alone any fawn lying still in grass — the doe is nearby. Cottontail nests in unmowed clearing edges."
     },
     "Jun": {
       "highlights": [
@@ -860,7 +860,7 @@
         "Young raccoons starting to forage with mothers",
         "Deer fawns following does into clearing"
       ],
-      "watchFor": "Stand at fairway edge for first 30 min after sunset for bat activity. Foxes hunting with kits along forest edges."
+      "watchFor": "Stand at clearing edge for first 30 min after sunset for bat activity. Foxes hunting with kits along forest edges."
     },
     "Jul": {
       "highlights": [

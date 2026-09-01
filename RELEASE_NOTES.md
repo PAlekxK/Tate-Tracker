@@ -4,6 +4,24 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-09-01 — The map got its names right
+
+- **The Fairway card is now The Field.** The open ground below the house is one field run
+  two ways, and it now says so: **The Turf** (mown regularly) and **The Meadow** (let go,
+  cut back hard once a year).
+- **"Fairway" is gone from the property.** It turned out to be backwards. On a golf course a
+  fairway is the *closely mown* corridor and the unmaintained ground is the rough — so the
+  word had been sitting on the opposite half of the field. "Meadow" had drifted the same way
+  in the other direction. Both now mean what they mean everywhere on the site.
+- **The Green keeps its name**, because it earned it — it is the flat area left from when
+  this ground was a golf course, and it is the one golf word still standing.
+- **Fairway Border is now The Green Ring** — same ground, a name that says where it is.
+- **New areas on the map:** the Western Fern and Azalea Garden, and Main Parking.
+- **Plants can live in more than one place now.** The moss is on all three patios, the
+  mountain laurel is in three gardens, and the azaleas are in two — the record could only
+  ever hold one spot per plant before, so it was quietly wrong about all of them.
+- **A new plant: Constellation Dogwood**, on the Green Ring — named off the nursery label.
+
 ## 2026-09-01 — The refrigerator, because you asked for it
 
 - **The refrigerator is on the record now, under Household Systems** — the LG

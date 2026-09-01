@@ -22,8 +22,9 @@
       "status": "needs-confirmation",
       "observedOn": "2026-07-20",
       "observedZones": [
-        "fairway",
-        "fairway-fringe"
+        "the-turf",
+        "the-meadow",
+        "the-green-ring"
       ],
       "observedBy": "Paul — photo walk",
       "photo": "images/weeds/crabgrass.jpg",
@@ -49,7 +50,8 @@
         "questionId": "q-fairway-grass-seedheads",
         "confirmBy": "the finger-like seed spikes in late summer"
       },
-      "notes": "First surfaced as the low, spreading 'second grass' in the fairway and meadow photos (2026-07-20). Recorded here as inferred, pending Mom's confirmation on the ground."
+      "notes": "First surfaced as the low, spreading 'second grass' in the turf and meadow photos (2026-07-20). Recorded here as inferred, pending Mom's confirmation on the ground.",
+      "_zoneRemapNote": "2026-09-01: was ['fairway','fairway-fringe']. fairway-fringe resolves deterministically (-> fairway-border -> the-green-ring). 'fairway' does NOT: that polygon was retired and its ground SPLIT into the-turf and the-meadow, so both are listed. THIS IS THE FAITHFUL UNION, NOT A NARROWING — the original claim covered all of that ground. Do not read three zones as three observations."
     },
     {
       "id": "japanese-stiltgrass",

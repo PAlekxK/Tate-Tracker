@@ -177,22 +177,38 @@ def short_name(plant):
     return n.split(" (")[0].strip()
 
 
+def _bare_zone_name(zone):
+    """Zone name with any leading article stripped, so " in the ..." reads right.
+
+    Zone names gained "The" prefixes at the 2026-09-01 fold (The Green, The Turf,
+    The Green Ring). Without this the card said "in the The Green Ring" — caught
+    by exercising this function against real canon, not by reading it.
+    """
+    nm = ((zone or {}).get("name") or "").strip()
+    return nm[4:].strip() if nm.lower().startswith("the ") else nm
+
+
 def where_phrase(plant, zones_by_id):
     """" down at the pond" / " in the Western Garden" — or "" when we don't know.
 
     The cheap anchor fix (content-steward C7): it tells her WHICH plant we mean,
-    which on an ID card matters more than voice. Most plants have no `zoneId`
-    today, so most cards get nothing — and that is the honest outcome, not a
+    which on an ID card matters more than voice. Most plants have no zone today,
+    so most cards get nothing — and that is the honest outcome, not a
     degradation. Never invents a location.
+
+    SCHEMA v8 (2026-09-01): reads `zones` (array of objects), not the retired
+    scalar `zoneId`. A plant in THREE places cannot be anchored by naming them —
+    the field exists to disambiguate ONE plant, and a list stops doing that — so
+    3+ zones deliberately render NOTHING rather than a phrase that reads like
+    precision and is not. [paul-approved 2026-09-01]
     """
-    zid = plant.get("zoneId")
-    if not zid:
-        return ""
-    z = zones_by_id.get(zid) or {}
-    nm = (z.get("name") or "").strip()
-    if not nm:
-        return ""
-    return f" in the {nm}"
+    zids = [z.get("zoneId") for z in (plant.get("zones") or []) if z.get("zoneId")]
+    names = [nm for z in zids for nm in [_bare_zone_name(zones_by_id.get(z))] if nm]
+    if len(names) == 1:
+        return f" in the {names[0]}"
+    if len(names) == 2:
+        return f" in the {names[0]} and the {names[1]}"
+    return ""
 
 
 def harvest(records_by_type, questions, today_mmdd, zones_by_id=None):

@@ -6,7 +6,7 @@
     "elevation_ft": 2873,
     "coordinates": "34.5496°N, 84.3674°W",
     "region": "Blue Ridge, Pickens County, GA",
-    "habitatContext": "The singing insects are the property's loudest wildlife and its least documented. Mature oak-hickory canopy supplies the cicadas and true katydids; the fairway edge, mulched beds and pond margin supply the crickets and bush katydids; and the leaf litter supplies the ground crickets that sit under everything else. Elevation matters more here than for any other domain on the property — 2,873 ft is cool enough to plausibly hold a northern cicada that never reaches Atlanta, and cool enough that the autumn chorus shuts down earlier in the evening than it does downhill.",
+    "habitatContext": "The singing insects are the property's loudest wildlife and its least documented. Mature oak-hickory canopy supplies the cicadas and true katydids; the clearing edge, mulched beds and pond margin supply the crickets and bush katydids; and the leaf litter supplies the ground crickets that sit under everything else. Elevation matters more here than for any other domain on the property — 2,873 ft is cool enough to plausibly hold a northern cicada that never reaches Atlanta, and cool enough that the autumn chorus shuts down earlier in the evening than it does downhill.",
     "dataSources": [
       "Singing Insects of North America (SINA) — Thomas J. Walker, University of Florida / Orthopterists' Society",
       "The Songs of Insects (Lang Elliott & Wil Hershberger) — song descriptions and seasonal timing",
@@ -18,7 +18,7 @@
     "monthIndex": "0-indexed — 0 = January, matching every other domain in this record"
   },
   "propertyHighlights": {
-    "whyItSounds": "Church Mountain Road has the two things a loud summer night needs: unbroken hardwood canopy and a warm open edge. True katydids and cicadas sing from the tops of the oaks and hickories — you almost never see them, you only ever hear them. The fairway clearing, the mulched beds and the pond margin give the crickets and the smaller bush katydids their low, close-in layer. The result is a chorus with real vertical structure: the cicadas overhead by day, the katydids overhead by night, and the crickets down at ankle height around the house from dusk until the cold shuts them off.",
+    "whyItSounds": "Church Mountain Road has the two things a loud summer night needs: unbroken hardwood canopy and a warm open edge. True katydids and cicadas sing from the tops of the oaks and hickories — you almost never see them, you only ever hear them. The open clearing, the mulched beds and the pond margin give the crickets and the smaller bush katydids their low, close-in layer. The result is a chorus with real vertical structure: the cicadas overhead by day, the katydids overhead by night, and the crickets down at ankle height around the house from dusk until the cold shuts them off.",
     "howToListen": [
       "Height tells you the family. Overhead in the canopy = cicada (day) or true katydid (night). Chest height in a shrub = bush katydid or jumping bush cricket. At your feet in the leaves = ground cricket.",
       "Time of day is the strongest single filter. Cicadas are the daytime sound and go quiet at dark; katydids and most crickets don't start until dusk. Nothing at Fernwood sings loudly in both halves of the day except the trigs.",
@@ -187,7 +187,7 @@
         "likelihood": "likely",
         "confidence": "inferred",
         "askable": true,
-        "basis": "Widespread across the eastern US including the southern Appalachians, and the shrubby fairway edge is good habitat. Unconfirmed here."
+        "basis": "Widespread across the eastern US including the southern Appalachians, and the shrubby clearing edge is good habitat. Unconfirmed here."
       },
       "sound": "sounds/insects/snowy-tree-cricket.m4a",
       "soundAttribution": {
@@ -720,7 +720,7 @@
         "likelihood": "likely",
         "confidence": "inferred",
         "askable": true,
-        "basis": "Widespread in Georgia; the fairway edge and mulched beds are good habitat. Unconfirmed here."
+        "basis": "Widespread in Georgia; the clearing edge and mulched beds are good habitat. Unconfirmed here."
       },
       "sound": "sounds/insects/oblong-winged-katydid.m4a",
       "soundAttribution": {
@@ -862,20 +862,20 @@
         "dusk",
         "night"
       ],
-      "perch": "Tall grass and weedy margins along the fairway edge",
+      "perch": "Tall grass and weedy margins along the clearing edge",
       "song": "A long, relentless, mechanical series of quick rasps — 'tsip-tsip-tsip-tsip' — running on without variation for minutes at a time.",
       "soundsLike": "a lawn sprinkler ticking round, or an old sewing machine",
       "chorusRole": "The machine. Utterly regular, and once you hear it you cannot un-hear it.",
       "size_in": "1.6–2.2",
       "appearance": "Long, narrow, green or brown, with the pointed cone-shaped head the group is named for. Females carry a long straight ovipositor — the 'sword'.",
-      "notes": "Coneheads live in grass rather than trees, so this one is tied to the open fairway edge rather than the forest. The song is so steady and so mechanical that people regularly mistake it for a piece of equipment left running somewhere down the hill. Coneheads can also give a painful nip if handled carelessly — they are strong-jawed for their size.",
+      "notes": "Coneheads live in grass rather than trees, so this one is tied to the open clearing edge rather than the forest. The song is so steady and so mechanical that people regularly mistake it for a piece of equipment left running somewhere down the hill. Coneheads can also give a painful nip if handled carelessly — they are strong-jawed for their size.",
       "conservation": "Common in grassland and old-field habitat",
       "presence": {
         "status": "expected",
         "likelihood": "likely",
         "confidence": "inferred",
         "askable": true,
-        "basis": "Widespread in the Southeast wherever there is tall grass; the fairway edge qualifies. Unconfirmed here."
+        "basis": "Widespread in the Southeast wherever there is tall grass; the clearing edge qualifies. Unconfirmed here."
       },
       "sound": "sounds/insects/sword-bearing-conehead.mp3",
       "soundAttribution": {

@@ -10,7 +10,7 @@
       "cultivar-trial": "Native genus with a published Mt. Cuba Center trial; the trial winner is the defensible cultivar pick.",
       "bird-pollinator": "Strong wildlife value — Audubon Plants for Birds + Xerces Southeast pollinator list + NWF Native Plant Finder zip 30143.",
       "native-grass": "Native bunchgrasses and graminoids for understory, forest edge, or seepage zones.",
-      "turf": "Grasses and lawn alternatives for the managed fairway turf — the practical tall fescue alongside lower-input and native-leaning options worth trialing as the lawn leans toward the natural approach."
+      "turf": "Grasses and lawn alternatives for the managed turf — the practical tall fescue alongside lower-input and native-leaning options worth trialing as the lawn leans toward the natural approach."
     }
   },
   "candidates": [
@@ -176,11 +176,11 @@
       "emoji": "🐝",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "Wild bergamot is native to the north Georgia mountains and would fit a sunny edge of the fairway. 'Claire Grace' is the defensible cultivar — Mt. Cuba's 40-selection trial named it the clear winner: three-week floral display, 130+ butterfly and moth visits over the trial, strong powdery-mildew resistance.",
+      "rationale": "Wild bergamot is native to the north Georgia mountains and would fit a sunny edge of the clearing. 'Claire Grace' is the defensible cultivar — Mt. Cuba's 40-selection trial named it the clear winner: three-week floral display, 130+ butterfly and moth visits over the trial, strong powdery-mildew resistance.",
       "communityFit": [
         "Forest edge",
         "Sunny meadow",
-        "Fairway edge"
+        "Clearing edge"
       ],
       "sourceIds": [
         "gnps-ngm-sale",
@@ -203,10 +203,10 @@
       "emoji": "💛",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "A long-lived perennial with a deep taproot, drought-tolerant once established — would suit a full-sun bed at the fairway edge or a patio corner. 'Screamin' Yellow' is the trial-tested cultivar pick: Mt. Cuba's baptisia trial (46 selections, 2012-2015) named it the top performer. Bright yellow spring spikes.",
+      "rationale": "A long-lived perennial with a deep taproot, drought-tolerant once established — would suit a full-sun bed at the clearing edge or a patio corner. 'Screamin' Yellow' is the trial-tested cultivar pick: Mt. Cuba's baptisia trial (46 selections, 2012-2015) named it the top performer. Bright yellow spring spikes.",
       "communityFit": [
         "Sunny meadow",
-        "Fairway edge",
+        "Clearing edge",
         "Patio bed (full sun)"
       ],
       "sourceIds": [
@@ -229,7 +229,7 @@
       "emoji": "🌼",
       "status": "considering",
       "category": "cultivar-trial",
-      "rationale": "Purple coneflower is native to woodland edges and open glades across the eastern US, north Georgia included — a fit for a sunny edge along the fairway or patio bed. 'Pica Bella' is the defensible cultivar: Mt. Cuba's 75-selection trial (2018-2020) named it the top performer; 'Fragrant Angel' averaged the most butterfly visits.",
+      "rationale": "Purple coneflower is native to woodland edges and open glades across the eastern US, north Georgia included — a fit for a sunny edge along the clearing or patio bed. 'Pica Bella' is the defensible cultivar: Mt. Cuba's 75-selection trial (2018-2020) named it the top performer; 'Fragrant Angel' averaged the most butterfly visits.",
       "communityFit": [
         "Woodland edge",
         "Sunny meadow",
@@ -386,7 +386,7 @@
       "emoji": "🌾",
       "status": "considering",
       "category": "native-grass",
-      "rationale": "The signature warm-season bunchgrass of southern Appalachian uplands — blue-green through summer, copper-red after frost. The backbone of the fairway-fringe meadow on dry, sunny ground.",
+      "rationale": "The signature warm-season bunchgrass of southern Appalachian uplands — blue-green through summer, copper-red after frost. The backbone of the clearing-fringe meadow on dry, sunny ground.",
       "communityFit": [
         "Low-to-Mid Elevation Oak Forest edge",
         "Sunny meadow",
@@ -417,7 +417,7 @@
         "ernst-seeds",
         "rock-spring-restorations"
       ],
-      "notes": "Native across Georgia. Best where the soil holds a little more moisture than little bluestem prefers — the lower fairway fringe toward the spring drainage."
+      "notes": "Native across Georgia. Best where the soil holds a little more moisture than little bluestem prefers — the lower meadow toward the spring drainage."
     },
     {
       "id": "indiangrass",
@@ -445,7 +445,7 @@
       "emoji": "🌾",
       "status": "considering",
       "category": "native-grass",
-      "rationale": "The most adaptable of the warm-season natives — takes everything from dry to seasonally wet, which suits the damp lower edge of the fairway fringe toward the spring drainage.",
+      "rationale": "The most adaptable of the warm-season natives — takes everything from dry to seasonally wet, which suits the damp lower edge of the meadow toward the spring drainage.",
       "communityFit": [
         "Sunny meadow",
         "Pond edge",
@@ -465,9 +465,9 @@
       "emoji": "🌾",
       "status": "considering",
       "category": "native-grass",
-      "rationale": "The native grass that already shows up on its own in unmowed North Georgia fairway edges and old fields — purple-tinged seedheads in late summer. Recognizing it is half the meadow work.",
+      "rationale": "The native grass that already shows up on its own in unmowed North Georgia clearing edges and old fields — purple-tinged seedheads in late summer. Recognizing it is half the meadow work.",
       "communityFit": [
-        "Fairway edge",
+        "Clearing edge",
         "Old-field / sunny meadow"
       ],
       "sourceIds": [
@@ -482,13 +482,13 @@
       "emoji": "🌱",
       "status": "considering",
       "category": "turf",
-      "rationale": "The grass already running the fairway, listed here for the choice that matters when overseeding: a quality turf-type blend, not old pasture-grade “Kentucky 31.” UGA's standard cool-season lawn grass for the North Georgia mountains.",
+      "rationale": "The grass already running the clearing, listed here for the choice that matters when overseeding: a quality turf-type blend, not old pasture-grade “Kentucky 31.” UGA's standard cool-season lawn grass for the North Georgia mountains.",
       "communityFit": [
         "Managed turf — full sun"
       ],
       "sourceIds": [],
       "notes": "Non-native (Eurasian) — the one practical exception to the native-first thinking on this list, earned by being the realistic choice for a lush mowed turf at this elevation. Turf-type blends are darker, finer, denser, and more shade- and heat-tolerant than Kentucky 31. Sold as seed at local feed-and-seed and garden centers; overseed thin spots every September.",
-      "curationNotes": "Kept honest: tracked in plants.json as the Fairway Turf the property already grows. It lives here in Candidates only for the cultivar / seed decision when refreshing the stand."
+      "curationNotes": "Kept honest: tracked in plants.json as the Turf Grass the property already grows. It lives here in Candidates only for the cultivar / seed decision when refreshing the stand."
     },
     {
       "id": "fine-fescue-no-mow",
@@ -502,7 +502,7 @@
         "Low-input lawn — sun to part shade"
       ],
       "sourceIds": [],
-      "notes": "Fine fescues struggle in the hot, humid Piedmont but are far more viable up here, where summers run 10–15°F cooler. Worth trialing on a turf area you're willing to let read softer and looser than the main fairway — mow occasionally to ~3″, or let it flop into a no-mow carpet. A genuine step toward the natural approach short of full meadow.",
+      "notes": "Fine fescues struggle in the hot, humid Piedmont but are far more viable up here, where summers run 10–15°F cooler. Worth trialing on a turf area you're willing to let read softer and looser than the main turf — mow occasionally to ~3″, or let it flop into a no-mow carpet. A genuine step toward the natural approach short of full meadow.",
       "curationNotes": "Non-native cool-season turf, like tall fescue, but a meaningfully lower-input option. Seed from turf-seed specialists (no-mow / eco-lawn blends); not a native-nursery item."
     },
     {
@@ -522,7 +522,7 @@
         "north-georgia-native-plant-nursery",
         "gnps-ngm-sale"
       ],
-      "notes": "The native answer for the shaded lawn edges, not the open sunny fairway — honestly, a sunny native turf-grass that takes regular mowing and foot traffic the way tall fescue does largely doesn't exist for the Southeast yet. Plant as plugs; needs little once established and tolerates light foot traffic.",
+      "notes": "The native answer for the shaded lawn edges, not the open sunny clearing — honestly, a sunny native turf-grass that takes regular mowing and foot traffic the way tall fescue does largely doesn't exist for the Southeast yet. Plant as plugs; needs little once established and tolerates light foot traffic.",
       "curationNotes": "Native, and the “don't limit our thinking” entry: a real native lawn alternative, scoped to where it actually works (shade), with the sunny-turf limitation stated plainly."
     },
     {

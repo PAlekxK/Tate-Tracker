@@ -57,8 +57,8 @@
     },
     "aspect": {
       "primary": "south",
-      "description": "House faces south onto an open fairway clearing. Confirmed via satellite imagery (May 2026).",
-      "implication": "Maximum solar gain on south face; fairway clearing amplifies warming effect on sunny days."
+      "description": "House faces south onto an open clearing. Confirmed via satellite imagery (May 2026).",
+      "implication": "Maximum solar gain on south face; open clearing amplifies warming effect on sunny days."
     }
   },
   "hardiness": {
@@ -201,13 +201,13 @@
       "estimatedAnnualPrecip_in": 65,
       "implication": "Drainage is critical. Hillside beds drain quickly but lower/flat areas may stay wetter than expected. Winter snow accumulation will be heavier and linger longer than in Jasper town."
     },
-    "southFacingFairway": {
-      "description": "The house sits at the top of a large open south-facing fairway clearing, visible in satellite imagery. This is the dominant microclimate feature of the property.",
+    "southFacingClearing": {
+      "description": "The house sits at the top of a large open south-facing open clearing, visible in satellite imagery. This is the dominant microclimate feature of the property.",
       "solarGain": "Maximum solar gain on the south face of the house year-round. South-facing glass and south-side plantings will receive full unobstructed sun from late morning through afternoon.",
-      "snowMelt": "Snow and frost clear significantly faster on the fairway and south-facing beds than on any forested or north-facing areas of the property.",
-      "temperatureEffect": "The open clearing warms quickly on sunny days — the fairway and south beds will run 5–10°F warmer than the surrounding forest on calm sunny afternoons.",
-      "windExposure": "The open fairway provides less wind shelter than a forested setting. Summer SW breezes and winter NW winds will be more noticeable on the south face than in sheltered forest positions.",
-      "frostBehavior": "Despite the solar advantage, the open fairway can radiate heat rapidly on calm clear nights — watch for radiative frost even when mid-slope forested areas stay frost-free.",
+      "snowMelt": "Snow and frost clear significantly faster on the clearing and south-facing beds than on any forested or north-facing areas of the property.",
+      "temperatureEffect": "The open clearing warms quickly on sunny days — the clearing and south beds will run 5–10°F warmer than the surrounding forest on calm sunny afternoons.",
+      "windExposure": "The open clearing provides less wind shelter than a forested setting. Summer SW breezes and winter NW winds will be more noticeable on the south face than in sheltered forest positions.",
+      "frostBehavior": "Despite the solar advantage, the open clearing can radiate heat rapidly on calm clear nights — watch for radiative frost even when mid-slope forested areas stay frost-free.",
       "gardeningImplication": "South beds along the house foundation are the warmest, most sun-rich positions on the property — ideal for vegetables, heat-loving perennials, and marginally hardy plants that need the extra warmth. Avoid moisture-sensitive plants that can't handle afternoon heat at this aspect."
     }
   },

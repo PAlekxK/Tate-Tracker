@@ -15,8 +15,8 @@
       "Tallapoosa"
     ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
-    "schemaVersion": 7,
-    "schemaNotes": "v7 (2026-07-26): added `seasonNotes` — an optional month-keyed object of authored prose ({\"0\"..\"11\"}, 0-indexed to match monthIndex and every care.*.months array). The card renders the current month's line and stays silent for months with none, which replaces the single `currentSeasonNote` string that drifted (it showed May text in July). AUTHORING RULE: the note carries the CHARACTER of the month; peakDates/peakWindow keep the dates. A note must never assert a date, a day-range, or \"now / right about now\" for anything that has peakDates — a month is coarser than a 1-2 week window, so such a claim is wrong for part of the month it renders in. Hedges must hold true across the whole month (\"late in the month\", \"by the time the flowers drop\"). DISPLAY-ONLY: nothing parses seasonNotes, same posture as peakWindow prose. `currentSeasonNote` is retained as the fallback until Paul's spot-check clears the full set. v6 (2026-07-14): added an optional plant-level `variety` field {value, confidence ('inferred'=book/photo-read guess / 'verified'=confirmed on the ground), askable (bool — can someone standing on the property settle it?), optional verifiedOn/source/note} — the structured home for cultivar/variety uncertainty that used to live as prose in scientificName. Drives the provenance chip on the card (guess→'confirmed on the ground') and is a first-class source for the Mama's-Perspective harvest engine. `confidence`+`askable` are the general honest-uncertainty markers a harvest reads. v5 (2026-07-12): added an optional plant-level `bloom` field {window (display prose), dates[] ({start,end} MM-DD, year-wrap-aware via mmddRangeActive), confidence ('verified'=observed on-property / 'inferred'=book), optional note} on flowering plants; foliage/structure plants omit it. Added an optional `roster` array on the Hydrangea hub entry (each {name, note}) naming the specific hydrangeas on the property, which each keep their own card with full care. v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,873 ft (~1,338 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
+    "schemaVersion": 8,
+    "schemaNotes": "v8 (2026-09-01): `zoneId` (a single string) is REPLACED by `zones` — an ARRAY OF OBJECTS, each requiring only `zoneId`. Why an array: five plants were ruled multi-zone in one conversation (moss x3 patios, mountain-laurel x3, azalea x2, dogwood x2), so the singular field was not an edge case, it was wrong. Why OBJECTS and not plain strings: per-location facts already exist — moss is a ground planting in one place and a joint-fill in another; the dogwoods' cultivar is VERIFIED at one zone and UNKNOWN at two others. A string array would have needed a second migration the first time either was written, so `note`/`variety` can now be added to ANY single occurrence with no migration at all. [paul-approved 2026-09-01: 'I'm good with zone IDs as an array as long as we don't back ourselves into a corner at any point with these schemas because it may keep evolving.'] ⭐ EVERY zone in this file is asserted BY PAUL IN WORDS, never derived from photo GPS. Measured at photo-organizer lap 25: 12 of 18 zones sit in pairs closer together than the +/-9.1 m trace error, so point-in-polygon is a SHORTLIST, never a verdict. Nothing may auto-assign a zone here. || v7 (2026-07-26): added `seasonNotes` — an optional month-keyed object of authored prose ({\"0\"..\"11\"}, 0-indexed to match monthIndex and every care.*.months array). The card renders the current month's line and stays silent for months with none, which replaces the single `currentSeasonNote` string that drifted (it showed May text in July). AUTHORING RULE: the note carries the CHARACTER of the month; peakDates/peakWindow keep the dates. A note must never assert a date, a day-range, or \"now / right about now\" for anything that has peakDates — a month is coarser than a 1-2 week window, so such a claim is wrong for part of the month it renders in. Hedges must hold true across the whole month (\"late in the month\", \"by the time the flowers drop\"). DISPLAY-ONLY: nothing parses seasonNotes, same posture as peakWindow prose. `currentSeasonNote` is retained as the fallback until Paul's spot-check clears the full set. v6 (2026-07-14): added an optional plant-level `variety` field {value, confidence ('inferred'=book/photo-read guess / 'verified'=confirmed on the ground), askable (bool — can someone standing on the property settle it?), optional verifiedOn/source/note} — the structured home for cultivar/variety uncertainty that used to live as prose in scientificName. Drives the provenance chip on the card (guess→'confirmed on the ground') and is a first-class source for the Mama's-Perspective harvest engine. `confidence`+`askable` are the general honest-uncertainty markers a harvest reads. v5 (2026-07-12): added an optional plant-level `bloom` field {window (display prose), dates[] ({start,end} MM-DD, year-wrap-aware via mmddRangeActive), confidence ('verified'=observed on-property / 'inferred'=book), optional note} on flowering plants; foliage/structure plants omit it. Added an optional `roster` array on the Hydrangea hub entry (each {name, note}) naming the specific hydrangeas on the property, which each keep their own card with full care. v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,873 ft (~1,338 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for ~1,338 ft above station",
       "USDA Web Soil Survey — Pickens County, GA (Hayesville and the mesic Blue Ridge candidates: Ashe, Edneyville, Porters, Tallapoosa)",
@@ -160,7 +160,6 @@
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Pinus_strobus_trees.jpg"
       },
-      "zoneId": null,
       "seasonNotes": {
         "1": "Structural work belongs to the dormant weeks — sap flow is minimal and you can actually see the branch architecture.",
         "3": "Weevil season opens. The tell is last year's terminal leader wilting or browning; worth checking the leaders when you walk past.",
@@ -168,7 +167,8 @@
         "5": "Watering starts to matter, especially for anything under three years old.",
         "8": "Blister rust window. Look low — orange cankers on the lower branches, yellowing needles above them.",
         "11": "Dormant again, so structural cuts are fair game through winter."
-      }
+      },
+      "zones": []
     },
     {
       "id": "azalea",
@@ -311,7 +311,6 @@
         "license": "CC BY 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Rhododendron_flower_(Ghorepani,_Nepal).jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Mid-April into early May",
         "dates": [
@@ -329,7 +328,16 @@
         "5": "For most of the shrubs the pruning window has already closed — anything cut now costs next spring's blooms. Softwood cuttings root well from here.",
         "6": "Shallow roots and hot afternoons; this is when they wilt fast. Mulch and a deep soak beat frequent sprinkling. Spider mites turn up in dry stretches.",
         "9": "Check the flat spots that hold water for root rot. That's where it starts."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "the-green-ring"
+        },
+        {
+          "zoneId": "western-fern-azalea-garden"
+        }
+      ],
+      "zoneNote": "Paul, 2026-09-01: \"The azaleas are in both the fairway border and the fern and azalea garden.\" (fairway-border was renamed the-green-ring the same day.) FIRST plant to use the array for a genuine second location rather than a correction."
     },
     {
       "id": "hydrangea",
@@ -483,7 +491,6 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_arborescens_139866012.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "June through September (across the types)",
         "dates": [
@@ -523,7 +530,8 @@
         "5": "Bloom starts, bigleafs leading. They wilt dramatically on hot afternoons and recover by morning; water for the soil, not the drama.",
         "6": "The old-wood types get their one pruning window, and it closes fast once the last flowers fade. Humid stretches bring powdery mildew to the crowded ones.",
         "8": "The panicle carries the show alone now. Watering still matters."
-      }
+      },
+      "zones": []
     },
     {
       "id": "dogwood",
@@ -681,7 +689,6 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Cornus_florida_Arkansas.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "April",
         "dates": [
@@ -700,7 +707,16 @@
         "5": "Anthracnose shows after a cool wet spring: purple-edged tan spots, dieback starting on the lower branches.",
         "7": "Deep water in dry stretches, especially anything under five years old. Chronic drought is what invites the borer in.",
         "9": "Berries ripen red. Collect them if you want volunteers — clean the pulp off and sow straight into a nursery bed."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "st-francis-garden"
+        },
+        {
+          "zoneId": "pond-area"
+        }
+      ],
+      "zoneNote": "Paul, 2026-09-01: \"There's another dogwood in the Saint Francis Garden and the pond area, but I don't know if they are constellations.\" ⚠️ CULTIVAR EXPLICITLY UNKNOWN — this entry is NOT Constellation Dogwood. Kept as its own record for exactly that reason."
     },
     {
       "id": "boxwood",
@@ -874,7 +890,6 @@
         "license": "CC BY 2.5",
         "url": "https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg"
       },
-      "zoneId": null,
       "seasonNotes": {
         "2": "A light feed before the new growth pushes. They're light feeders, so slow-release and not much of it.",
         "3": "Leafminer adults emerge late in the month, tiny orange flies around the foliage. It's the one stretch where treatment actually lands.",
@@ -882,7 +897,8 @@
         "6": "Semi-hardwood cuttings root easily from here into September if you want more of them.",
         "7": "Water at the base, never overhead. Wet foliage in summer heat is how blight gets started. Feeding waits for early spring — a late feed pushes soft growth that won't harden before winter.",
         "10": "Winter's job is the interior cleanout — reach inside and pull out the dead leaves trapped there. That litter is where blight overwinters."
-      }
+      },
+      "zones": []
     },
     {
       "id": "holly",
@@ -1030,14 +1046,14 @@
         "license": "CC BY-SA 2.0 de",
         "url": "https://commons.wikimedia.org/wiki/File:Ilex-aquifolium_(Europaeische_Stechpalme-1).jpg"
       },
-      "zoneId": null,
       "seasonNotes": {
         "1": "The window for cutting an overgrown holly hard. They take it well and come back thick.",
         "4": "New growth flush. Hold off on heavy pruning until it hardens — cutting now takes flower buds, and flowers are berries later.",
         "5": "The shaping window opens once the spring flush has firmed, and closes before the late-summer bud set.",
         "6": "Scale shows as small bumpy growths on the stems with sticky honeydew underneath. Semi-hardwood cuttings take from here into September.",
         "7": "Mites in hot dry stretches — bronze stippling on the leaf undersides. A hard spray of water handles most of it."
-      }
+      },
+      "zones": []
     },
     {
       "id": "mountain-laurel",
@@ -1178,7 +1194,6 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Mid-May into June",
         "dates": [
@@ -1195,7 +1210,19 @@
         "5": "Peak into the first half, then the one pruning window opens as the flowers finish. Lace bugs leave silvery stippling on the upper leaves.",
         "6": "Any wilting that doesn't recover overnight is usually phytophthora root rot, and it's usually fatal. They mind wet feet far more than they mind drought.",
         "9": "Layering season — pin a low branch down and let it root over the next year or two. Slow, but it's the method that works."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "western-garden"
+        },
+        {
+          "zoneId": "pond-area"
+        },
+        {
+          "zoneId": "st-francis-garden"
+        }
+      ],
+      "zoneNote": "Paul, 2026-09-01: \"there is mountain laurel actually in the western garden, the pond, and the Saint Francis Garden. There's mountain laurel in all three of those locations.\" Photo evidence for the western-garden instance: IMG_7057.HEIC 2026-04-09, ruled at photo-organizer lap 25 (sweep 135)."
     },
     {
       "id": "japanese-maple",
@@ -1354,14 +1381,14 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Acer_palmatum0.jpg"
       },
-      "zoneId": null,
       "seasonNotes": {
         "0": "Structural pruning while it's fully dormant and the architecture is visible. The window has a hard back edge — once the sap surges you've missed it.",
         "3": "Aphids cluster on the tender new growth, sticky honeydew below. That first flush is also the most frost-vulnerable growth on the property.",
         "4": "Leaves fully out and sap at its peak — the worst time to cut. A late freeze can brown the whole first flush; the tree recovers but loses a season of growth.",
         "6": "Sap has slowed enough for refinement work — thinning for light and air, not shortening.",
         "7": "Scorched leaf margins mean too much afternoon sun. Sudden branch dieback with dark streaks in the cut wood is verticillium, and there's no cure for that one."
-      }
+      },
+      "zones": []
     },
     {
       "id": "pyracomeles-berry-box",
@@ -1486,7 +1513,6 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Red_pommes_of_Firethorn_(Pyracantha).jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Small white flowers in spring, then berries",
         "dates": [
@@ -1504,7 +1530,8 @@
         "4": "Bloom finishes, and light shaping is fine once it has. Tip-prune strays; never shear it the way you would a boxwood.",
         "6": "Hot dry spells bring spider mites — stippled yellowish foliage, fine webbing underneath.",
         "7": "Semi-hardwood cuttings root now. It's patented, so cuttings stay on the property."
-      }
+      },
+      "zones": []
     },
     {
       "id": "deutzia-yuki-cherry-blossom",
@@ -1600,7 +1627,6 @@
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Deutzia_gracilis.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Mid-to-late spring",
         "dates": [
@@ -1617,7 +1643,8 @@
         "4": "Peak, then finishing. It blooms on last year's wood, so the only safe pruning is right after the flowers are completely done.",
         "5": "The window closes here. Prune later in summer or in fall and you've traded away next spring.",
         "6": "Not much to do. Water through the first couple of summers after planting."
-      }
+      },
+      "zones": []
     },
     {
       "id": "clematis",
@@ -1785,7 +1812,6 @@
         "license": "Public domain",
         "url": "https://commons.wikimedia.org/wiki/File:Clematis_%27Nelly_Moser%27.JPG"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Late spring, with a lighter repeat in late summer",
         "dates": [
@@ -1807,7 +1833,8 @@
         "4": "The big flush opens. If a stem collapses suddenly that's clematis wilt — cut it out at the base and the plant usually carries on.",
         "5": "Deadhead down to the next strong leaf pair as the first flush fades. That's what buys the August repeat.",
         "7": "The lighter second flush, on new growth. Humid weather brings a white film on the leaves — improve airflow around the trellis rather than reaching for a spray."
-      }
+      },
+      "zones": []
     },
     {
       "id": "hosta",
@@ -1937,14 +1964,14 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hosta_Bressingham_Blue.JPG"
       },
-      "zoneId": null,
       "seasonNotes": {
         "2": "Division window, and it's genuinely narrow — before the pips fully emerge. Once the leaves open, dividing costs a whole season of looks.",
         "3": "Pips up and unfurling. Bait for slugs before the damage starts; by the time the leaves are fully open the slugs have already found them.",
         "4": "Slug pressure climbs with the humidity. Deer treat these as candy here — repellent needs reapplying after rain.",
         "6": "Deep weekly water. They wilt visibly when dry and are slow to forgive it.",
         "10": "Cut the blackened foliage back once frost has flattened it. Clearing it takes away where the slugs overwinter."
-      }
+      },
+      "zones": []
     },
     {
       "id": "iris-blue-flag",
@@ -2077,7 +2104,6 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
       },
-      "zoneId": "pond-area",
       "bloom": {
         "window": "Mid-May into June",
         "dates": [
@@ -2094,7 +2120,12 @@
         "6": "Thin any decaying foliage sitting in the water; it adds organic load to the pond as it breaks down.",
         "7": "Division season if the clump has crowded up — lift it, wash the mud off, split the rhizomes.",
         "10": "Cut the foliage to about six inches above the water once frost has killed it back. That dead foliage is also where the borer moths lay."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "iris-yellow-flag",
@@ -2227,7 +2258,6 @@
         "license": "Property record",
         "takenOn": "2026-07-22"
       },
-      "zoneId": "pond-area",
       "bloom": {
         "window": "Mid-May into June",
         "dates": [
@@ -2244,7 +2274,12 @@
         "6": "Fat ribbed green capsules stand where the flowers were. Take them off before they brown and split.",
         "7": "Divide crowded clumps.",
         "10": "Cut back to about six inches above the water after frost."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "butterfly-weed",
@@ -2366,7 +2401,6 @@
         "license": "GFDL 1.2",
         "url": "https://commons.wikimedia.org/wiki/File:Butterfly_Weed_Asclepias_tuberosa_Umbel.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Mid-June into August",
         "dates": [
@@ -2383,7 +2417,8 @@
         "5": "Orange starts. Water weekly through the first year while the taproot goes down; after that it would rather be left dry.",
         "7": "Bloom winding down. Keep an eye on the tips for aphid distortion.",
         "9": "Collect pods as they start to split, before the floss carries the seed off."
-      }
+      },
+      "zones": []
     },
     {
       "id": "wisteria-summer-cascade",
@@ -2515,7 +2550,6 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Wisterria_macrostachya_flowers1.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Late spring, then repeat flushes through summer",
         "dates": [
@@ -2537,7 +2571,8 @@
         "4": "The first flush opens toward the end of the month, a week or two behind valley plants.",
         "6": "After the main flush, cut the long whippy shoots back to five or six leaves. That's what keeps it in bounds and encourages the repeat.",
         "9": "Check the support again before winter loading."
-      }
+      },
+      "zones": []
     },
     {
       "id": "clematis-elpis",
@@ -2666,7 +2701,6 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Clematis_macropetala_02.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Through the summer",
         "dates": [
@@ -2683,7 +2717,8 @@
         "5": "Bloom opens and runs through the summer. A heavy feeder — a second feed after the first flush pays for itself.",
         "7": "Keep the root zone mulched and evenly moist. A white film on the foliage in humid weather is mostly cosmetic.",
         "9": "Still flowering if the fall is mild. Don't cut it back early next spring before checking for live buds."
-      }
+      },
+      "zones": []
     },
     {
       "id": "hydrangea-dreamcloud",
@@ -2823,7 +2858,6 @@
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_white_flower.jpg"
       },
-      "zoneId": null,
       "bloom": {
         "window": "June–July, reblooming into fall",
         "dates": [
@@ -2845,7 +2879,8 @@
         "5": "First bloom, later than the valley. If a late freeze took the old-wood buds, don't panic — it reblooms on new wood, just delayed.",
         "7": "Deep watering two or three times a week in heat; these are the thirstiest shrubs on the place. Powdery mildew starts in late summer.",
         "9": "The rebloom flush carries on into fall."
-      }
+      },
+      "zones": []
     },
     {
       "id": "endless-summer-pop-star-hydrangea",
@@ -2998,7 +3033,6 @@
         "fromCommonName": "Endless Summer Pop Star Reblooming Hydrangea",
         "fromScientificName": "Hydrangea macrophylla 'NCHA3' (Pop Star cultivar)"
       },
-      "zoneId": null,
       "bloom": {
         "window": "June through fall (reblooming all season)",
         "dates": [
@@ -3016,7 +3050,8 @@
         "5": "The first flush opens, about a week behind valley plants.",
         "7": "Water deeply and often. Humid stretches bring a powdery film to the leaves.",
         "9": "Still going, which is the whole point of the type."
-      }
+      },
+      "zones": []
     },
     {
       "id": "spiderwort",
@@ -3137,7 +3172,6 @@
         "fromCommonName": "Spiderwort",
         "fromScientificName": "Tradescantia virginiana"
       },
-      "zoneId": null,
       "bloom": {
         "window": "Mid-May into July",
         "dates": [
@@ -3155,7 +3189,8 @@
         "5": "As heat and daylength build, bloom slows. That's the plant, not a problem.",
         "6": "Cutting it back hard after bloom often brings a tidy second flush of foliage.",
         "8": "Division or seed collection, depending on which you want more of."
-      }
+      },
+      "zones": []
     },
     {
       "id": "creeping-fig",
@@ -3277,24 +3312,24 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Ficus_pumila_(Leafs).jpg"
       },
-      "zoneId": null,
       "seasonNotes": {
         "3": "Refresh or step up the pot if it's container-grown, as growth restarts.",
         "5": "Full warm-season growth — the good stretch. Pinch and trim to keep it branching on its support.",
         "7": "Take a few stem cuttings as insurance. It has wintered over here, so this is cheap belt-and-braces rather than a rescue.",
         "9": "Get the protection on before hard cold — deep mulch mounded over the roots and crown, and something draped over the top growth on the worst nights.",
         "11": "If you're keeping a potted backup inside, watch it for scale and mites. Indoors is where they find it."
-      }
+      },
+      "zones": []
     },
     {
-      "id": "fairway-turf",
-      "name": "Fairway Turf",
+      "id": "turf-grass",
+      "name": "Turf Grass",
       "scientificName": "Festuca arundinacea — turf-type tall fescue",
       "emoji": "🌱",
-      "guide": "The mowed fairway below the house is the one piece of ground here run as turf rather than meadow — kept green, even, and close-cut. Turf-type tall fescue is the grass for it: a cool-season bunchgrass that's the standard choice for North Georgia lawns and an even better fit at this elevation, where the summers run too cool for Bermuda and far too humid for the creeping bentgrass a golf course would use. (The “autumn bentgrass” Mom flagged is a different plant entirely — a native meadow grass, not a turf.) Fescue grows in clumps rather than running, so it never knits over bare spots on its own; the fairway stays lush because the thin places get overseeded every fall, not because any one season is allowed to slide.",
+      "guide": "The mowed turf below the house is the one piece of ground here run as turf rather than meadow — kept green, even, and close-cut. Turf-type tall fescue is the grass for it: a cool-season bunchgrass that's the standard choice for North Georgia lawns and an even better fit at this elevation, where the summers run too cool for Bermuda and far too humid for the creeping bentgrass a golf course would use. (The “autumn bentgrass” Mom flagged is a different plant entirely — a native meadow grass, not a turf.) Fescue grows in clumps rather than running, so it never knits over bare spots on its own; the clearing stays lush because the thin places get overseeded every fall, not because any one season is allowed to slide.",
       "currentSeasonNote": "Right now — late spring is peak fescue growth. Mow tall and often (3–3.5″) and leave the clippings. Hold the nitrogen: feeding now drives soft blades straight into summer brown-patch weather. Mark the thin or bare spots you notice — September is the month to fix them.",
       "soilNotes": "Native ground here is acidic (pH 4.5–5.5); fescue wants 6.0–6.5, so a fall application of dolomitic lime — sized to a UGA soil test, not guessed — is the single biggest lever on turf color. The Hayesville/Cecil/Pacolet loams drain well on the slope. Retest every three years.",
-      "aspectPreference": "Full sun on the open, south-facing clearing — ideal light for fescue. The same exposure that melts frost and greens the fairway first in spring also dries it fastest in a summer drought, so summer water lands here before anywhere else on the property.",
+      "aspectPreference": "Full sun on the open, south-facing clearing — ideal light for fescue. The same exposure that melts frost and greens the clearing first in spring also dries it fastest in a summer drought, so summer water lands here before anywhere else on the property.",
       "frostSensitivity": "Cool-season grass: greens up early, holds color late, and shrugs off light frost and snow. Its hard season is summer, not winter — deep heat and humidity, not cold, are what stress it. Hardy well past the property's Zone 6b winters.",
       "care": {
         "mow": {
@@ -3329,7 +3364,7 @@
           ],
           "peakWindow": "Sep 1–25 — the one window that matters",
           "narrow": true,
-          "description": "Tall fescue is a bunchgrass — it grows in clumps and won't spread to fill bare spots on its own, so the fairway stays full only if you overseed thin areas every fall. September beats spring by far: the seed roots through two cool seasons before it ever faces summer. Rake or scratch the soil, sow turf-type tall fescue seed (about 5–6 lb per 1,000 sq ft on bare ground, 3–4 to thicken existing turf), and keep the top inch moist until it germinates in one to two weeks. Avoid spring seeding — young fescue rarely survives its first mountain summer.",
+          "description": "Tall fescue is a bunchgrass — it grows in clumps and won't spread to fill bare spots on its own, so the turf stays full only if you overseed thin areas every fall. September beats spring by far: the seed roots through two cool seasons before it ever faces summer. Rake or scratch the soil, sow turf-type tall fescue seed (about 5–6 lb per 1,000 sq ft on bare ground, 3–4 to thicken existing turf), and keep the top inch moist until it germinates in one to two weeks. Avoid spring seeding — young fescue rarely survives its first mountain summer.",
           "peakDates": [
             {
               "start": "09-01",
@@ -3408,7 +3443,7 @@
               ],
               "peakWindow": "Jun–Aug — ~1″/week",
               "narrow": false,
-              "description": "In a dry mountain summer, water deeply and infrequently — about one inch a week including rain, in the early morning so the blades dry before night and dodge disease. The open south-facing fairway dries fastest of any ground on the property. Established fescue can also be left to go semi-dormant and brown in drought; it greens back up with the fall rains.",
+              "description": "In a dry mountain summer, water deeply and infrequently — about one inch a week including rain, in the early morning so the blades dry before night and dodge disease. The open south-facing clearing dries fastest of any ground on the property. Established fescue can also be left to go semi-dormant and brown in drought; it greens back up with the fall rains.",
               "peakDates": [
                 {
                   "start": "06-01",
@@ -3475,23 +3510,29 @@
           ]
         }
       },
-      "zoneId": "fairway",
       "seasonNotes": {
         "1": "Crabgrass pre-emergent goes down before the soil warms through the mid-50s. Get ahead of it rather than chasing it.",
         "2": "A light green-up feed at most. The fall feedings do the real work.",
         "4": "Peak growth. Mow tall — three to three and a half inches — and leave the clippings. Hold the nitrogen; soft blades walking into summer is how brown patch starts.",
         "6": "Brown patch weather: roughly circular patches of tan collapsed blades in humid heat. About an inch of water a week, early morning, deep and infrequent.",
-        "8": "The window that matters. Fescue is a bunchgrass and won't fill bare spots on its own, so overseeding is what keeps the fairway thick. Keep the top inch moist until it roots, and feed while you're at it.",
+        "8": "The window that matters. Fescue is a bunchgrass and won't fill bare spots on its own, so overseeding is what keeps the clearing thick. Keep the top inch moist until it roots, and feed while you're at it.",
         "10": "Second feeding, and lime if the soil test calls for it — the native ground here runs acidic."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "the-turf"
+        }
+      ],
+      "zoneNote": "Repointed 2026-09-01 when the retired `fairway` polygon split into the-turf (mown) and the-meadow (cut once a year). ⚠️ The ENTRY NAME still carries the retired word — Paul's call, not changed here.",
+      "_renamedFrom": "fairway-turf ('Fairway Turf'/'Fairway Meadow') — 2026-09-01, when 'fairway' was retired property-wide [paul-stated]"
     },
     {
-      "id": "fairway-meadow",
-      "name": "Fairway Meadow",
+      "id": "meadow-grass",
+      "name": "Meadow Grass",
       "scientificName": "Schizachyrium, Panicum, Sorghastrum spp. & wildflowers",
       "emoji": "🌾",
-      "guide": "Beyond the mowed turf, the rest of the clearing is run the opposite way — as meadow. It's cut back hard just once a year and otherwise left to grow tall and loose. This is where the native warm-season bunchgrasses belong: little bluestem, switchgrass, indiangrass, and the autumn bentgrass Mom flagged for the property, threaded through with wildflowers. The contrast is the whole point — a crisp, close-mown fairway reading against a tall, seed-headed, pollinator-fed meadow. It also asks almost nothing in return: no lime, no fertilizer, no weekly mowing.",
-      "currentSeasonNote": "Right now — the meadow is coming up for the season. Leave it be: the warm-season grasses and wildflowers do their work straight through summer and into fall, feeding pollinators and setting seed. The only cut that matters comes next February. A note from a July 2026 walk: two distinct grasses seem to grow across the fairway and meadow — a coarse clumping grass (likely the turf-type tall fescue) and a lower, spreading one (possibly crabgrass, a summer annual). Both are first reads from photos, not yet confirmed on the ground — something for Mom to settle with her own pictures down the road, especially once seed-heads show in late summer.",
+      "guide": "Beyond the mowed turf, the rest of the clearing is run the opposite way — as meadow. It's cut back hard just once a year and otherwise left to grow tall and loose. This is where the native warm-season bunchgrasses belong: little bluestem, switchgrass, indiangrass, and the autumn bentgrass Mom flagged for the property, threaded through with wildflowers. The contrast is the whole point — a crisp, close-mown turf reading against a tall, seed-headed, pollinator-fed meadow. It also asks almost nothing in return: no lime, no fertilizer, no weekly mowing.",
+      "currentSeasonNote": "Right now — the meadow is coming up for the season. Leave it be: the warm-season grasses and wildflowers do their work straight through summer and into fall, feeding pollinators and setting seed. The only cut that matters comes next February. A note from a July 2026 walk: two distinct grasses seem to grow across the turf and meadow — a coarse clumping grass (likely the turf-type tall fescue) and a lower, spreading one (possibly crabgrass, a summer annual). Both are first reads from photos, not yet confirmed on the ground — something for Mom to settle with her own pictures down the road, especially once seed-heads show in late summer.",
       "soilNotes": "Leave it acidic and unlimed — the native grasses and wildflowers are adapted to the property's natural pH (4.5–5.5). No fertilizer: feeding a meadow favors weeds and floppy, lodging growth over the wildflowers you actually want.",
       "aspectPreference": "Full sun, the same south-facing clearing as the turf — warm-season natives thrive in it. Drier upland spots suit little bluestem and indiangrass; the damp lower edge toward the spring drainage suits switchgrass and the autumn bentgrass.",
       "frostSensitivity": "Warm-season grasses — they green late in spring and go dormant gold after fall frost, which is exactly the look you want. The standing dead growth gives winter structure and cover until the late-winter cut.",
@@ -3511,19 +3552,18 @@
           ]
         }
       },
-      "zoneId": "fairway",
       "observedGrasses": {
         "observedOn": "2026-07-20",
         "observedBy": "Paul — photo walk",
         "confidence": "inferred",
         "status": "needs-confirmation",
-        "note": "Two distinct grasses seen across the fairway and meadow. A first read from photos only — NOT confirmed on the ground. To be settled by Mom's own pictures down the road (a seed-head in August is the clincher).",
+        "note": "Two distinct grasses seen across the turf and meadow. A first read from photos only — NOT confirmed on the ground. To be settled by Mom's own pictures down the road (a seed-head in August is the clincher).",
         "varieties": [
           {
             "label": "The coarse clumping grass",
             "inferredId": "Turf-type tall fescue (Festuca / Schedonorus arundinaceus)",
             "confidence": "inferred",
-            "basis": "wide, heavily-veined blades in a bunch from one crown; consistent with the fairway turf canon already names",
+            "basis": "wide, heavily-veined blades in a bunch from one crown; consistent with the turf canon already names",
             "confirmBy": "ligule + clumping habit on the ground"
           },
           {
@@ -3540,7 +3580,14 @@
         "4": "Coming up for the season. Leave it be.",
         "7": "Grasses and wildflowers doing their work — feeding pollinators, setting seed. Nothing to do.",
         "10": "Dormant gold, and that's the look. The standing growth is winter structure and cover until the late-winter cut."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "the-meadow"
+        }
+      ],
+      "zoneNote": "Repointed 2026-09-01 when the retired `fairway` polygon split into the-turf (mown) and the-meadow (cut once a year). ⚠️ The ENTRY NAME still carries the retired word — Paul's call, not changed here.",
+      "_renamedFrom": "fairway-meadow ('Fairway Turf'/'Fairway Meadow') — 2026-09-01, when 'fairway' was retired property-wide [paul-stated]"
     },
     {
       "id": "lizards-tail",
@@ -3667,7 +3714,8 @@
         "author": "Eric Hunt",
         "license": "CC BY-SA 4.0",
         "url": "https://commons.wikimedia.org/wiki/File:Saururus_cernuus_2.jpg"
-      }
+      },
+      "zones": []
     },
     {
       "id": "crocosmia",
@@ -3767,7 +3815,6 @@
       },
       "photo": null,
       "attribution": null,
-      "zoneId": null,
       "bloom": {
         "window": "July into August",
         "dates": [
@@ -3785,7 +3832,8 @@
         "6": "In flower. Nothing to do but enjoy it — and cut a few stems for the vase, they hold well.",
         "7": "Keep it watered through a hot dry stretch. Fine webbing and pale stippling on the blades means mites.",
         "9": "Cut back once frost has blackened the foliage."
-      }
+      },
+      "zones": []
     },
     {
       "id": "garden-phlox",
@@ -3897,7 +3945,6 @@
       },
       "photo": null,
       "attribution": null,
-      "zoneId": null,
       "bloom": {
         "window": "July into mid-September",
         "dates": [
@@ -3915,7 +3962,8 @@
         "6": "In flower, and carrying some powdery mildew most years — that pale dusty film. Mostly cosmetic. Water at the roots rather than overhead, and deadhead the spent trusses to keep it going.",
         "8": "Still blooming. Division works now as well as it does in spring.",
         "10": "Cut to the ground after frost and clear the debris away. Don't compost mildewed foliage — it re-seeds the problem."
-      }
+      },
+      "zones": []
     },
     {
       "id": "hydrangea-panicle",
@@ -4034,7 +4082,6 @@
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_paniculata_IMG_6629.JPG"
       },
-      "zoneId": null,
       "seasonNotes": {
         "1": "Cut it back hard while it's still dormant, down to a strong low framework. It blooms on new wood, so the harder you cut the stronger the cones.",
         "3": "Balanced slow-release. Don't overfeed — floppy stems can't hold the big cones.",
@@ -4042,14 +4089,14 @@
         "6": "Cones filling out lime-green to white. Mom confirmed it in flower here in mid-July 2026. Deep weekly water while they're opening; otherwise nothing to do but watch.",
         "7": "Heavy cones after a summer downpour will pull the branches down. If it flops, cut them for the vase.",
         "8": "The white is ageing to pink. That's the plant doing what it should, not fading."
-      }
+      },
+      "zones": []
     },
     {
       "id": "pickerelweed",
       "name": "Pickerelweed",
       "scientificName": "Pontederia cordata",
       "emoji": "🌾",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "A native emergent marginal aquatic with glossy heart-shaped leaves and violet-blue flower spikes through summer — one of the best-behaved, most pollinator-friendly plants for a pond edge. It grows in a few inches of standing water at the shallow margin and spreads by rhizome into a soft colony.",
@@ -4130,14 +4177,18 @@
         "5": "Violet-blue spikes over glossy leaves. First seasons here, so the local timing isn't established — worth noting when they first open.",
         "7": "Watch how far it has run along the margin, and for browse.",
         "10": "Let frost knock it back, then tidy the dead foliage out of the water."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "cardinal-flower",
       "name": "Cardinal Flower",
       "scientificName": "Lobelia cardinalis",
       "emoji": "🌺",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "A native wet-margin perennial found growing on the property, kept as a pond-bog plant. Its late-summer spikes of intense scarlet are a hummingbird magnet — one of the few reds a ruby-throat can't resist. It wants consistently moist, rich soil at the water's edge and is short-lived unless it's allowed to self-sow.",
@@ -4216,14 +4267,18 @@
         "6": "The scarlet spikes should start going up. Local timing isn't established yet.",
         "7": "Browse watch. Deer or rabbit stripped the pond-edge plant in August 2025, so this is a known problem here rather than a precaution.",
         "10": "Leave the seed heads standing to self-sow; tidy in spring instead."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "cattail",
       "name": "Cattail",
       "scientificName": "Typha sp.",
       "emoji": "🌾",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "The classic brown-spike marsh plant, collected roadside and introduced to the pond. Handsome and good habitat — but an AGGRESSIVE colonizer by thick rhizome that can take over a pond margin and choke open water within a few seasons. This one is on the watch-list: enjoy it, but keep it contained.",
@@ -4304,14 +4359,18 @@
         "6": "The brown cigar spike is the flower and seed head.",
         "8": "Check the margin again. Left alone it will ring the pond — the management job here is the edge, not the plant.",
         "10": "Cut the old stalks back. Cutting below the waterline, repeatedly, is one way to weaken a colony that's overreaching."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "corkscrew-rush",
       "name": "Corkscrew Rush",
       "scientificName": "Juncus effusus 'Spiralis'",
       "emoji": "🌀",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "An ornamental rush whose green stems curl and spiral like corkscrews — a textural novelty at the pond edge. A cultivar of the native soft rush, it wants wet feet at the shallow margin and stays a tidy clump rather than running.",
@@ -4379,14 +4438,18 @@
         "2": "Comb out or cut back the winter-tattered stems before new growth. Some spirals revert to straight — trim those out if you want the curl to read.",
         "4": "Divide the clump if you want more.",
         "7": "Keep the roots wet, and watch for reverted straight stems."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "dwarf-papyrus",
       "name": "Dwarf Papyrus",
       "scientificName": "Cyperus prolifer",
       "emoji": "🌿",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "A compact papyrus with fine green pom-pom heads on slender stems — an architectural marginal for the pond edge. Smaller and better-mannered than true giant papyrus. It is the least cold-hardy of the pond plantings here, so overwintering is the open question.",
@@ -4453,14 +4516,18 @@
         "4": "Divide in spring. The flower heads root too — it sprouts plantlets, which is what the name means.",
         "8": "Time to decide. It's hardy to about Zone 8 and this is 6b at nearly 3,000 feet, so it very likely won't take a winter in the pond.",
         "9": "Either treat it as an annual and let it go, or lift the pot before first frost and keep it somewhere bright and frost-free."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "bowles-golden-sedge",
       "name": "Bowles' Golden Sedge",
       "scientificName": "Carex elata 'Aurea'",
       "emoji": "🌾",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "A bright golden-yellow sedge that lights up a pond edge — arching grassy blades in near-fluorescent chartreuse, best colour in spring and early summer. A clumping sedge for wet margins, it brings the one colour (soft gold) the rest of the pond greens lack.",
@@ -4528,14 +4595,18 @@
         "2": "Cut or comb out the winter-worn foliage before new growth. The gold is brightest in the cool months.",
         "4": "Divide the clump if you want more.",
         "7": "It greens off a little in summer heat — that's normal. Watch for scorch on the fine blades if the spot runs hot and dry."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "iris-japanese-variegated",
       "name": "Variegated Japanese Iris",
       "scientificName": "Iris ensata 'Variegata'",
       "emoji": "🌸",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "The third of the pond irises (with the blue flag and yellow flag), and the showiest in leaf: its blades are striped green-and-cream and hold that variegation all season, unlike most variegated plants that green up in summer. Deep purple flowers with a small gold eye rise above the foliage in early-to-mid summer. A true Japanese water iris — it wants rich, acidic, wet soil while it's growing.",
@@ -4627,14 +4698,18 @@
         "6": "Keep it consistently wet through budding and blooming. Cut the spent stalks once flowering finishes.",
         "7": "Division window, a few weeks after bloom.",
         "10": "Tidy the winter-worn foliage. It dislikes sitting in deep water over winter — worth checking where it ended up."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "pitcher-plant",
       "name": "Pitcher Plant",
       "scientificName": "Sarracenia sp.",
       "emoji": "🪴",
-      "zoneId": "pond-area",
       "photo": null,
       "attribution": null,
       "guide": "A native carnivorous pitcher plant, grown here as a bog planting in the pond. Its upright hollow pitchers trap and digest insects — a striking, low-maintenance oddity for a sunny, permanently-wet, nutrient-poor pond margin. The exact species isn't pinned down (it is NOT the purple pitcher plant, Sarracenia purpurea — Paul ruled that out); which Sarracenia it is is an easy thing to settle on the ground when it pitchers and blooms.",
@@ -4717,7 +4792,12 @@
         "5": "Keep the crown wet and the root zone lean. These want low-nutrient water; feeding them is the classic way to kill one.",
         "7": "Clear any leaf-mud smothering the crown.",
         "10": "Leave the old pitchers standing until spring. Dormancy is normal; the concern is ice locking the crown, not the cold itself."
-      }
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ]
     },
     {
       "id": "moss",
@@ -4858,9 +4938,203 @@
           "peakDates": []
         }
       },
-      "zoneId": "western-garden",
       "currentSeasonNote": "New moss plantings in the Western Garden, fed with a buttermilk slurry. The job now is simply not letting them dry out.",
-      "zoneNote": "Two plantings, two zones: **Western Garden** (ground planting) and **Eastern Patio** (curated into the flagstone joints — the more demanding of the two). `zoneId` holds only one value, so this record names the second in prose per the taxonomy rule's deferred-instance case. This is the W6 revisit gate firing for real, not hypothetically."
+      "zoneNote": "Paul, 2026-09-01: \"moss that we really try to take care of on the eastern patio in between the stones, the upper western patio, and the lower western patio. We really use moss to kinda fill in between the cracks of the stones there.\" Ruled: \"let's keep it to the three patios mainly\" — SUPERSEDES the western-garden ground-planting record.",
+      "zones": [
+        {
+          "zoneId": "eastern-patio"
+        },
+        {
+          "zoneId": "western-upper-patio"
+        },
+        {
+          "zoneId": "western-lower-patio"
+        }
+      ]
+    },
+    {
+      "emoji": "🌼",
+      "guide": "The flowering dogwoods on the property are in their native understory — morning sun, afternoon shade, well-drained acidic soil rich in organic matter is what they want, and it's largely what they already have here. Avoid planting too deep and never let mulch touch the trunk. Susceptible to dogwood anthracnose in cool wet springs and powdery mildew in humid summers.",
+      "currentSeasonNote": "Looking at the month — bloom period winding down at Church Mountain Road. Inspect bark at the base for borer entry holes and frass, and watch for early anthracnose spots on leaves as temperatures warm and humidity rises.",
+      "soilNotes": "Native to Appalachian woodland understories — your Hayesville/Cecil soil profile is its natural home. Wants well-drained acidic soil rich in organic matter (pH 5.0–6.0). Critical: never plant deeper than the nursery rootball and never pile soil or mulch against the trunk. Church Mountain Road slope positions with natural leaf litter accumulation are ideal; avoid compacted flat areas or low-lying spots with clay subsoil and wet soils.",
+      "aspectPreference": "East-facing mid-slope is the ideal Church Mountain Road position — mirrors its native understory habitat. Afternoon shade prevents the stress that makes trees susceptible to borer attack. Direct south exposure significantly increases borer risk through heat stress. North-facing positions work but reduce flowering. Woodland edge positions with dappled canopy overhead are excellent.",
+      "frostSensitivity": "Hardy to Zone 5. Flower buds are moderately frost-sensitive — a late freeze in April can brown open blossoms without harming the tree. At ~2,873 ft, the adjusted last frost of Apr 30 means late blooms (typically Apr 5–25 in the valley) may be partially frosted in average years. This is normal cosmetic damage; the tree recovers.",
+      "care": {
+        "prune": {
+          "months": [
+            11,
+            0,
+            1
+          ],
+          "peakWindow": "Dec 12–Feb 18 while fully dormant",
+          "narrow": false,
+          "description": "Late fall through late winter (Nov–Feb) when fully dormant. Dogwoods 'bleed' heavily if pruned during active sap flow, and open wounds invite the dogwood borer — the most serious dogwood pest in the Southeast. Dormant pruning lets cuts callus over before borer season begins in May at Church Mountain Road elevation. Remove dead, damaged, and crossing branches; never top a dogwood. Light hand only — dogwoods don't need or want heavy pruning.",
+          "peakDates": [
+            {
+              "start": "12-12",
+              "end": "02-18"
+            }
+          ]
+        },
+        "propagate": {
+          "subcategories": [
+            {
+              "id": "cuttings",
+              "label": "Semi-hardwood cuttings",
+              "months": [
+                5,
+                6
+              ],
+              "peakWindow": "Jun 23–Jul 18",
+              "narrow": false,
+              "description": "Jun–Jul: 4-6 inch semi-hardwood cuttings, hormone, well-drained mix, kept humid. Moderately difficult — expect 30–50% success. Wound the base lightly with a knife to expose more cambium for rooting.",
+              "peakDates": [
+                {
+                  "start": "06-23",
+                  "end": "07-18"
+                }
+              ]
+            },
+            {
+              "id": "seed",
+              "label": "Seed (volunteers)",
+              "months": [
+                9,
+                10
+              ],
+              "peakWindow": "Sep 28–Oct 29 berry collection",
+              "narrow": false,
+              "description": "Easiest method: collect berries in fall when fully ripe (red), clean off pulp, plant directly in a nursery bed where they get cold winter exposure. Germination in spring; seedlings reach plantable size in 2 years. Or just transplant volunteer seedlings from under existing trees — Church Mountain Road likely has naturally seeded volunteers in woodland areas.",
+              "peakDates": [
+                {
+                  "start": "09-28",
+                  "end": "10-29"
+                }
+              ]
+            }
+          ]
+        },
+        "fertilize": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": "Mar 18–Apr 8",
+          "narrow": false,
+          "description": "Light feeding in early spring (Mar–Apr) with an acidic slow-release. Avoid high-nitrogen lawn fertilizers — they push weak growth that attracts borers. Mature dogwoods in good soil on Church Mountain Road rarely need supplemental fertilizer — the naturally acidic Hayesville soil and leaf litter mulch provide a good native nutrient cycle.",
+          "peakDates": [
+            {
+              "start": "03-18",
+              "end": "04-08"
+            }
+          ]
+        },
+        "water": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Critical Jun–Sep, especially for trees under 5 years old. Dogwoods are notoriously drought-sensitive — chronic drought stress is the #1 reason yard dogwoods decline. Church Mountain Road's mountain rainfall (60–65 in/yr) helps, but mid-summer dry stretches still occur. Deep weekly watering and a generous mulch ring (kept off the trunk) prevents most problems.",
+          "peakDates": []
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "description": "Not applicable.",
+          "peakDates": []
+        },
+        "inspect": {
+          "subcategories": [
+            {
+              "id": "disease-anthracnose",
+              "label": "Dogwood anthracnose",
+              "months": [
+                3,
+                4,
+                5
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Apr–Jun: most likely in cool wet springs. Look for purple-edged tan leaf spots, lower branch dieback, and water-soaked lesions on twigs. Most serious dogwood disease in the Southeast — can kill trees over several years. Improve air circulation, rake fallen leaves, water at base only. Church Mountain Road's high humidity (70–90% RH in summer) elevates risk. Fungicide treatment is preventive only and rarely worth it on landscape trees.",
+              "peakDates": []
+            },
+            {
+              "id": "pest-borer",
+              "label": "Dogwood borer",
+              "months": [
+                4,
+                5,
+                6,
+                7
+              ],
+              "peakWindow": "May 8–20 at ~2,873 ft — peak adult flight; inspect base of trunk for frass weekly",
+              "narrow": true,
+              "description": "May–Aug: the #1 dogwood killer. Look for sawdust-like frass at the base of the trunk, peeling or sunken bark, branch dieback, and small holes in the trunk. At Church Mountain Road elevation, adult flight peaks in early-to-mid May (roughly a week later than valley). Borers enter through wounds — keep mulch off the trunk, never weed-whack against the bark, and prune only in winter. Established infestations are very hard to treat; prevention is everything.",
+              "peakDates": [
+                {
+                  "start": "05-08",
+                  "end": "05-20"
+                }
+              ]
+            },
+            {
+              "id": "disease-mildew",
+              "label": "Powdery mildew",
+              "months": [
+                5,
+                6,
+                7
+              ],
+              "peakWindow": null,
+              "narrow": false,
+              "description": "Jun–Aug humid stretches: white powdery coating on leaves. Mostly cosmetic on established trees. Some cultivars (e.g. Cherokee Brave) are mildew-resistant — consider them for replanting on Church Mountain Road.",
+              "peakDates": []
+            }
+          ]
+        }
+      },
+      "seasonNotes": {
+        "0": "Dormant pruning season. They bleed heavily if cut while growing, so this is the window.",
+        "3": "The white bracts are out — modified leaves, not petals, which is why they hold for weeks. A late freeze can brown open blossoms without hurting the tree.",
+        "4": "Borer flight. Sawdust-like frass at the base of the trunk is the sign, and it's the number-one dogwood killer here — worth a weekly look while you're out.",
+        "5": "Anthracnose shows after a cool wet spring: purple-edged tan spots, dieback starting on the lower branches.",
+        "7": "Deep water in dry stretches, especially anything under five years old. Chronic drought is what invites the borer in.",
+        "9": "Berries ripen red. Collect them if you want volunteers — clean the pulp off and sow straight into a nursery bed."
+      },
+      "bloom": {
+        "window": "April",
+        "dates": [
+          {
+            "start": "04-10",
+            "end": "04-30"
+          }
+        ],
+        "confidence": "inferred",
+        "note": "The white bracts are modified leaves, not petals — they hold for weeks."
+      },
+      "id": "constellation-dogwood",
+      "name": "Constellation Dogwood",
+      "scientificName": "Cornus x rutgersensis 'Constellation'",
+      "zones": [
+        {
+          "zoneId": "the-green-ring"
+        }
+      ],
+      "variety": {
+        "value": "Constellation",
+        "confidence": "verified",
+        "askable": false,
+        "verifiedOn": "2026-07-20",
+        "source": "nursery label photographed at the plant (IMG_8872/8873.HEIC), READ BY PAUL 2026-09-01",
+        "note": "Paul: \"Constellation Dogwood is what it says.\" A HUMAN read of a physical tag — not OCR, not a model read. Clears the verification bar an agent reading text off an image would not."
+      },
+      "zoneNote": "Paul, 2026-09-01: \"eight and nine are pictures of the label that was on the plant on the meadow\" — the zone renamed the-green-ring the same day. Granularity ruled by Paul: \"I would keep that level of granularity of constellation dogwood, especially since we have the label there.\" ⚠️ It is NOT established which shrub in the photographs is the labelled one; the label evidences the SPECIES at this zone.",
+      "_provenance": "photo-organizer lap 25, reports/project-review-zone-fairway-border.answers.json #8/#9 (sweep 126)"
     }
   ]
 }
