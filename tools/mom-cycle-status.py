@@ -562,6 +562,25 @@ def write_state(at, state, needs_paul, unresolved, bench, signals=None, engageme
         "unresolved_arrivals": unresolved,
         "signals": signals or [],
     }
+    # ⭐ THE LAP CENSUS — added 2026-09-01 after a peer session measured that
+    # `ecosystem-probe.py` returned UNKNOWN for this loop: it publishes neither
+    # `lap_count` nor `last_lap`, so mom lap 7 CLOSED and lap 7 OPEN-AT-LEG-6 were
+    # indistinguishable to every portfolio surface, and the closure rested entirely
+    # on a `#` heading. That is the non-AI-door rule failing in the small: a fact
+    # only a human reading prose can establish is a fact no machine can check.
+    # ⛔ Read from an explicit ENUM (`momlib.lap_outcomes`), never from the
+    # heading's prose — lap 5's heading said `🔓 OPEN AT LEG 6` for three days
+    # after it closed, and lap 7's says "CLOSED, with leg 6 DELIBERATELY
+    # UNCROSSED". A substring match would be wrong on both. An unmarked lap
+    # publishes `unknown`, never a guess.
+    try:
+        lap_count, last_lap = momlib.lap_state()
+        doc["lap_count"] = lap_count
+        doc["last_lap"] = last_lap
+    except Exception as exc:                       # noqa: BLE001
+        doc["lap_count"] = None                    # UNMEASURED, never 0
+        doc["last_lap"] = {"outcome": "unknown",
+                           "outcome_note": f"lap census unreadable: {type(exc).__name__}"}
     os.makedirs(os.path.dirname(STATE_PATH), exist_ok=True)
     tmp = STATE_PATH + ".tmp"
     with open(tmp, "w", encoding="utf-8") as fh:

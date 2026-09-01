@@ -12,6 +12,7 @@ amended mid-lap.
 ---
 
 ## Lap 8 — 2026-09-01 · ⏸ **HELD AT LEG 6** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation
+<!-- outcome:open -->
 
 **Fired by: Mom herself.** Not a staleness clock, not an engagement threshold — a request, in her own
 words, at 11:11 AM ET: *"I would like to add our refrigerator under household systems."* Then, in
@@ -125,6 +126,7 @@ wants Paul's call on whether the guard should record its own shas as it goes.
 ---
 
 ## Lap 7 — 2026-09-01 · ✅ **CLOSED**, with leg 6 DELIBERATELY UNCROSSED — the lap whose trigger turned out to be Paul's own smoke test, and whose return leg he deliberately deferred
+<!-- outcome:closed -->
 
 **Fired by:** the board reading `🔴 FIRED · leg 6 GATE · RETURN LEG (STALE, UNREAD)` — the ack ribbon
 11 days stale with two undispositioned arrivals behind it.
@@ -559,6 +561,7 @@ canon are untouched, so this is leg-5-shaped work in a no-lap session, on the 08
 ---
 
 ## Lap 6 — 2026-08-27 · ✅ **CLOSED** — 🪞 **the lap that was fired by a stale artifact, and whose whole subject turned out to be the loop's own publishing**
+<!-- outcome:closed -->
 
 **Fired by:** the loop board reading `⚡ FIRED · offers-passed 3/3 · sessions-quiet 4/3`.
 ⛔ **That trigger had already been answered.** `data/cycle-state.json` was stamped **2026-08-17** and
@@ -778,6 +781,7 @@ near-miss**, all driven to fail before being trusted.
 ---
 
 ## Lap 5 — 2026-08-24 · ✅ **CLOSED 2026-08-24** (`742ba31`) — ⚠️ *heading corrected 2026-08-27 by lap 6; it read `🔓 OPEN AT LEG 6` for three days after the lap closed, because the close commit touched `.plans/` and `feedback-log.json` and never this file* — the lap that measured the nesting, and found the app has been serving Mom a text size the record says she never chose
+<!-- outcome:closed -->
 
 **Fired by:** `cycles.py` — `offers-passed 3/3` (Perspective offers she SAW and did not tap) +
 `sessions-quiet 4/3`. Her one unanswered arrival: **"Fabulous"** (`fb-0wk7w59c-mt1k6tll`,
@@ -950,6 +954,7 @@ Preview staged for Paul. **Nothing Mom-facing has shipped in this lap** — the 
 > the same close failed to reach `data/cycle-state.json` too, and that one cost a lap.
 
 ## Lap 4 — 2026-08-19 · ✅ **CLOSED CLEAN, 6 of 6** — shipped `7db2476` (radar + A+ walk-back) and `c7e441b` (the return leg), both **verified live** (`a9c0179…` 5:52 PM, `8546fd62…` 6:30 PM ET) · **the lap that walked back its own experiment, because a different lap had already answered its question**
+<!-- outcome:closed -->
 
 **Fired by:** the **engagement trigger** (promoted 2026-08-17) plus **pre-registered owed work** from
 the 08-15 hold — release the A+ default and run the deferred 390px check. Then **Paul relayed live,
@@ -1081,6 +1086,7 @@ sweep** — it arrived *after* the sweep ran, and was caught only because the ri
 ---
 
 ## Lap 3 — 2026-08-14 · ✅ CLOSED — shipped `c83d2b7`+`09cafd4`, pushed, and **verified live** · **the lap that found the loop measuring the wrong door**
+<!-- outcome:closed -->
 
 **Fired by:** her input, 2026-08-14 8:27–8:28 AM ET — she asked the Almanac *the best fertilizer for
 her boxwoods*, landing on two channels (Guru conv `mssx9l49-ittwb`, turnCount 2; observation
@@ -1392,6 +1398,7 @@ healthy and merely under-documented. Writing "no lap ran" costs one paragraph an
 ---
 
 ## Lap 1 — 2026-08-04 · ✅ CLOSED — shipped `8718f46`, pushed and verified live
+<!-- outcome:closed -->
 
 **Trigger:** Paul, after confirming Mom's 08-03 visit in the data — *"let's run our feedback loop,
 take care of the things waiting on me."*
@@ -1628,6 +1635,7 @@ exists — the gap is named in the map and is not papered over by this score.
 ---
 
 ## Lap 2 — 2026-08-08 (ET) · ✅ CLOSED — 7/7 clean, **stamped 2026-08-12 after re-verification**
+<!-- outcome:closed -->
 
 **Shape:** tooling / meta only. **Nothing Mom-facing changed, and no return leg was owed** —
 `check-mom-ack` is green on every channel and the ribbon covers through her newest input

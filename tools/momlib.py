@@ -1376,6 +1376,73 @@ def undispositioned_arrivals(token, days=60, arrival_log=None, feedback_log=None
             "baseline": baseline, "baselined": baselined}
 
 
+LAP_HEADING_RX = re.compile(r"^##\s+Lap\s+(\d+)\s+[—-]\s+(\d{4}-\d{2}-\d{2})(.*)$", re.M)
+LAP_OUTCOME_RX = re.compile(r"<!--\s*outcome:(closed|open|abandoned)\s*-->")
+VALID_LAP_OUTCOMES = ("closed", "open", "abandoned")
+
+
+def lap_outcomes(log_path=None):
+    """Every lap in the chronicle, with a MACHINE-READABLE outcome.
+
+    ⭐⭐ WHY AN ENUM AND NOT THE HEADING'S PROSE (2026-09-01). `ecosystem-probe.py`
+    could not tell mom lap 7 CLOSED from lap 7 OPEN-AT-LEG-6, because this loop
+    published neither `lap_count` nor `last_lap` and the closure lived only in a
+    `#` heading. The obvious fix — grep the heading for "CLOSED" — is the one the
+    probe's own docstring forbids, and this log proves why: **lap 5's heading read
+    `🔓 OPEN AT LEG 6` for three days after it had closed**, and lap 7's reads
+    "CLOSED, with leg 6 DELIBERATELY UNCROSSED" — a substring match for `clos`
+    would be right by luck on one and a coin-flip on the other. Negation inverts
+    prose; it does not invert an enum.
+
+    So the marker is an HTML comment on the line after each heading: invisible in
+    the rendered chronicle, explicit to a reader, and impossible to half-match.
+
+    ⛔ A lap with NO marker is UNKNOWN, never assumed closed. Returns
+    [{n, date, outcome|None, note}] ordered by lap number.
+    """
+    path = log_path or os.path.join(ROOT, "MOM-CYCLE-LOG.md")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            text = fh.read()
+    except OSError:
+        return []
+    laps, lines = [], text.split("\n")
+    for i, ln in enumerate(lines):
+        m = LAP_HEADING_RX.match(ln)
+        if not m:
+            continue
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        om = LAP_OUTCOME_RX.search(nxt)
+        laps.append({
+            "n": int(m.group(1)),
+            "date": m.group(2),
+            "outcome": om.group(1) if om else None,
+            "note": m.group(3).strip(" ·—-") or None,
+        })
+    laps.sort(key=lambda l: l["n"])
+    return laps
+
+
+def lap_state(log_path=None):
+    """(lap_count, last_lap) for the state artifact's machine-readable fields.
+
+    `lap_count` counts laps that reached a MARKED END (closed or abandoned) —
+    the sense `ecosystem-probe._closed_lap_exists` reads: 0 means never lapped.
+    An unmarked lap is excluded from the count rather than guessed at.
+    """
+    laps = lap_outcomes(log_path)
+    if not laps:
+        return 0, None
+    closed = [l for l in laps if l["outcome"] in ("closed", "abandoned")]
+    newest = laps[-1]
+    return len(closed), {
+        "n": newest["n"],
+        "date": newest["date"],
+        "outcome": newest["outcome"] or "unknown",
+        "outcome_note": newest["note"],
+    }
+
+
 def channels_since(state, cutoff):
     """Which channels carry input newer than `cutoff` — the evidence line."""
     if not cutoff:
