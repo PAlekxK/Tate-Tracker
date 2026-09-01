@@ -34,6 +34,29 @@
       "answerCost": "errand"
     },
     {
+      "id": "q-weed-beggars-lice",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "There's a wiry plant along the woods edge with small pink pea-flowers that we think is **beggar's lice** (tick-trefoil). The tell is the seeds. **Do little flat triangular seeds stick all over your clothes when you walk past it?**",
+      "entityRef": {
+        "type": "weed",
+        "id": "beggars-lice"
+      },
+      "createdAt": "2026-07-20",
+      "active": true,
+      "_source": "authored",
+      "_foldTarget": "confidence",
+      "_draftNote": "DRAFT staged 2026-07-20 from the weed photo-read. Flip active:true (best in late summer when it seeds). On 'yes' fold beggars-lice confidence inferred->verified. 2026-08-08 (Paul-approved, same two edits as q-fairway-grass-seedheads): dropped the 'Come late summer' qualifier — it IS late summer, and 'do seeds stick when you walk past it' is already present-habitual, so no time word is needed; and `later` moved to the 07-31 ratified 'Snooze card'. These were the only two cards left on the pre-07-31 wording, and the label is the monitored variable under WATCH.",
+      "labels": {
+        "yes": "Yes, they stick",
+        "no": "No, they don't",
+        "later": "Snooze card"
+      },
+      "correctionPrompt": "Anything else about it? (optional)",
+      "approvedForServe": "2026-09-01",
+      "promotedAt": "2026-09-01"
+    },
+    {
       "id": "q-rain-byday-check",
       "kind": "confirm",
       "answerMode": "yesno",
@@ -380,27 +403,6 @@
         "yes": "It's out",
         "no": "Not yet"
       }
-    },
-    {
-      "id": "q-weed-beggars-lice",
-      "kind": "confirm",
-      "answerMode": "yesno",
-      "prompt": "There's a wiry plant along the woods edge with small pink pea-flowers that we think is **beggar's lice** (tick-trefoil). The tell is the seeds. **Do little flat triangular seeds stick all over your clothes when you walk past it?**",
-      "entityRef": {
-        "type": "weed",
-        "id": "beggars-lice"
-      },
-      "createdAt": "2026-07-20",
-      "active": false,
-      "_source": "authored",
-      "_foldTarget": "confidence",
-      "_draftNote": "DRAFT staged 2026-07-20 from the weed photo-read. Flip active:true (best in late summer when it seeds). On 'yes' fold beggars-lice confidence inferred->verified. 2026-08-08 (Paul-approved, same two edits as q-fairway-grass-seedheads): dropped the 'Come late summer' qualifier — it IS late summer, and 'do seeds stick when you walk past it' is already present-habitual, so no time word is needed; and `later` moved to the 07-31 ratified 'Snooze card'. These were the only two cards left on the pre-07-31 wording, and the label is the monitored variable under WATCH.",
-      "labels": {
-        "yes": "Yes, they stick",
-        "no": "No, they don't",
-        "later": "Snooze card"
-      },
-      "correctionPrompt": "Anything else about it? (optional)"
     }
   ],
   "_ordering": "ORDERED BY INFORMATION VALUE TO US (Paul, 2026-07-29) — not by area, not by age. outstanding() in viewer.html does .slice(0, MAX_VISIBLE=5) on THIS declaration order, so position is priority and position 6+ renders to nobody. Ranking axis, from the 2026-07-26 audit: an answer that unblocks a BUILD outranks one that fills a canon gap, which outranks a verdict on our own guess. Observation/expertise-class cards lead; verdict-class cards trail until the harvest template is reframed; preference cards last (no canon target, so no fold path and nothing to probe). q-weed-stiltgrass was 6th and therefore served to NOBODY for six days while carrying a photo Mom took — promoted to 2nd. q-strategy-pollinators takes its place out of view; verified unanswered first, so it cannot pin the feedback watermark the way q-almanac-name did. ⚠️ MEASURED 2026-08-12 AND THIS UNDERSTATES IT: every momqueue_offered event ever recorded on her device carries position 0 — she has never been offered a card at position 1-4. Since 05db30a (08-03) the queue renders ONE question at a time behind 'Another question ›', and momqueue_tapped is 3 across 60 days. So the effective visible set is 1, not 5, and 'position 6+ renders to nobody' is true of position 1+ as well. Full evidence + the rotation proposal it motivates: .engineering/2026-08-12-card-rotation-proposal.md"

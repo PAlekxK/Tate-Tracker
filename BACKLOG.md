@@ -810,6 +810,8 @@ Paul-approved decision.
 posture ever lets something stale through"*. This is its mirror image: not stale-through, but
 **fresh-reversed**. Filed as the first real defect from real use, as that block asked.
 
+⚠️ **BOUNDED, same day — do not overstate it.** A second run hours later, with `q-weed-beggars-lice` freshly approved and **1** open slot, promoted **only** beggars-lice and left stiltgrass benched. So FILL is not indiscriminate: the reversal needs **more open slots than in-season non-rotation candidates**, which is exactly the state benching two cards at once creates. It is a real defect with a narrow trigger, not a coin flip.
+
 **Today's workaround, and it is only a workaround:** after benching for rotation, **do not run
 `--apply`**. Lap 7 did the bench second and stopped there.
 
