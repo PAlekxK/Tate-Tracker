@@ -785,8 +785,17 @@ Another loop, or Paul, files an ask here and this loop disposes it:
 
     cycle/mom/requests.jsonl
 
-Written via `python3 ~/.claude/tools/ask-cycle.py tate-tracker --ask "..."`, which
-refuses an ask this loop does not accept rather than filing it somewhere plausible.
+Written via:
+
+    python3 ~/.claude/tools/ask-cycle.py tate-tracker "<the ask>" --from <your-loop-slug> --accepts
+
+⚠️ **What that tool does and does NOT do.** It refuses an undeclared loop, an unwired
+inbox, and a `--from` that is not a real registry slug (`claude-meta` vs
+`claude-meta-stack` is a real 2026-09-01 undercount that read clean). `--accepts` is a
+**GATE ON YOU, NOT A TEST OF THE ASK**: it puts the predicate below in front of whoever
+is filing and fails closed for a non-interactive caller who never passed the flag.
+**Nothing validates the ask's CONTENT against `accepts:`** — an off-predicate ask filed
+with `--accepts` lands here anyway. Read the predicate and mean it.
 What this loop accepts and what it gives back are declared ONCE, in the registry
 (`~/Developer/operating-layer/config/projects.json` -> `page.cycle.inbox`), so the
 door cannot say one thing here and another there. Read them with
