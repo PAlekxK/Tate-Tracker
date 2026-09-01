@@ -206,7 +206,7 @@ def check_manuals(v, vehicles, idx):
 # description, and description is where a symptom sentence collides: 'start' is
 # a substring of the CS-352's trim "i-30 Starter", which is not evidence that
 # Paul is talking about a chainsaw.
-STRONG_FIELDS = ("id", "name", "nickname")
+STRONG_FIELDS = ("id", "name", "nickname", "aliases")
 WEAK_FIELDS = ("trim", "category", "doorLabel")
 NAME_FIELDS = STRONG_FIELDS + WEAK_FIELDS
 
@@ -268,6 +268,14 @@ def _haystack(v):
                 continue
             if isinstance(val, str):
                 sink.append(val)
+            elif isinstance(val, list) and all(isinstance(x, str) for x in val):
+                # ⭐ A list of STRINGS is legitimately multi-valued (`aliases`),
+                # and is joined ELEMENT-WISE. Note what this is not: it is not
+                # `str(val)`, which would drop brackets, quotes and commas into
+                # the haystack. The rule is not "strings only" for its own sake —
+                # it is that every field declares a shape the reader HANDLES. A
+                # list with a non-string in it is still skipped and reported.
+                sink.extend(val)
             else:
                 skipped.append((k, type(val).__name__))
     return " ".join(strong).lower(), " ".join(weak).lower(), skipped
@@ -575,6 +583,24 @@ def selftest():
     check("resolve: filler-only speech resolves to NOTHING",
           not resolve("and then it just would not do it again", vehicles))
 
+    # ── aliases[] (added lap 2, Paul-approved) ──
+    check("ALIAS: a dictation variant resolves ('Beloris' -> bronco-1989)",
+          (lambda r: bool(r) and r[0][1]["id"] == "bronco-1989")(
+              resolve("when I am back with Beloris", vehicles)))
+    check("ALIAS: a word the record does NOT contain resolves ('fridge')",
+          (lambda r: bool(r) and r[0][1]["id"] == "refrigerator-lg-bottom-freezer")(
+              resolve("the fridge is making noise", vehicles)))
+    check("⭐ ALIAS PAIRED: a SHARED alias goes AMBIGUOUS, never a coin-flip "
+          "('the truck' is on both the F-150 and Bolores)",
+          too_close(resolve("the truck", vehicles)))
+    check("⭐ ALIAS PAIRED: 'the bike' is shared by both motorcycles too",
+          too_close(resolve("the bike won't start", vehicles)))
+    check("ALIAS: aliases[] is a list and is CONSUMED, not skipped as a container",
+          "beloris" in _haystack(vehicles["bronco-1989"])[0]
+          and not any(k == "aliases" for k, _ in _haystack(vehicles["bronco-1989"])[2]))
+    check("ALIAS: a list with a non-string is still SKIPPED and reported",
+          ("aliases", "list") in _haystack({"id": "x", "aliases": ["ok", 7]})[2])
+
     # ⭐ the model-year trap — "the 200" is inside 2001, 2005 AND 2006.
     r200 = resolve("the 200", vehicles)
     check("POSITIVE: 'the 200' -> dr200s-2017 alone (years are not substrings)",
@@ -589,14 +615,19 @@ def selftest():
     # MIN_SCORE — a lone weak hit must refuse, because a lone match is never a tie
     check("resolve: 'it won't start' resolves to NOTHING (1 pt is not identity)",
           not resolve("it won't start", vehicles))
-    check("⭐ PAIRED: a WEAK-ONLY hit refuses ('the fridge is making noise' "
-          "matched echo-pb250ln on its trim word 'noise')",
-          not resolve("the fridge is making noise", vehicles))
-    check("PAIRED: and a STRONG hit on the same machine still lands",
-          (lambda r: bool(r) and r[0][1]["id"] == "refrigerator-lg-bottom-freezer")(
-              resolve("the refrigerator", vehicles)))
-    check("PAIRED: 'the truck' is weak-only (category) and now refuses too",
-          not resolve("the truck", vehicles))
+    # ⭐ The weak-only rule, pinned on a FIXTURE rather than on fleet data.
+    # The live cases that first exposed it ("the fridge is making noise" hitting
+    # echo-pb250ln's trim word "noise") were fixed by adding an alias, so using
+    # them here would have quietly stopped testing the rule while still passing.
+    # A regression test whose premise the product has since removed is not a
+    # test. The fixture cannot be dissolved by tomorrow's record edit.
+    FIX = {"alpha": {"id": "alpha-1", "name": "Alpha One", "trim": "low noise widget"}}
+    check("⭐ WEAK-ONLY: a hit in descriptive prose alone REFUSES ('noise' is "
+          "only in trim)", not resolve("what is that noise", FIX))
+    check("⭐ WEAK-ONLY PAIRED: a STRONG hit on the same record lands",
+          (lambda r: bool(r) and r[0][1]["id"] == "alpha-1")(resolve("the alpha", FIX)))
+    check("WEAK-ONLY: weak points still COUNT once a strong point exists",
+          score_parts("alpha noise", FIX["alpha"])[1] > 0)
 
     # ⭐ STOPWORDS must never swallow a real name. Fleet-safe, asserted.
     # ⚠️ STRONG fields only, and that is the point. A machine is NAMED by its

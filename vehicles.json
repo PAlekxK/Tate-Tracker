@@ -4,7 +4,8 @@
     "schemaVersion": 3,
     "notes": "Schema v3: items split into 'vehicle' and 'equipment' groups via the `group` field on each entry. Per-item `maintenance` block added with at-a-store reference for fuel, oil, sparkPlug, filters, consumables. Confidence convention: each maintenance value tagged 'verified' (manufacturer spec / OEM doc / on-unit sticker), 'inferred' (typical for product line — double-check before ordering), or 'tbd'.",
     "lastUpdated": "2026-08-31",
-    "householdNote": "2026-08-31: household-system group built out from Paul's photos — furnace, water heater, washer, breaker panel. New per-record `rhythms` array carries the cyclical chores ({task, everyMonths, everyLabel?, lastDone, note?}); lastDone stays null until someone records a date, and the card says 'no date on record yet' rather than inventing urgency. New `circuits` array on the panel record is the transcribed door directory. Serial numbers live in .private/devices-identifiers.json, never here."
+    "householdNote": "2026-08-31: household-system group built out from Paul's photos — furnace, water heater, washer, breaker panel. New per-record `rhythms` array carries the cyclical chores ({task, everyMonths, everyLabel?, lastDone, note?}); lastDone stays null until someone records a date, and the card says 'no date on record yet' rather than inventing urgency. New `circuits` array on the panel record is the transcribed door directory. Serial numbers live in .private/devices-identifiers.json, never here.",
+    "_aliasesNote": "`aliases[]` — added 2026-09-01 at fleet lap 2, Paul-approved. What a machine is CALLED in speech, beyond its name: dictation variants ('Beloris' for Bolores — his own, from the lap-1 chronicle), short forms ('DR200'), and words the record simply does not contain ('fridge' where the record says 'refrigerator'). ⭐ WHY IT EXISTS: beat 0 could only ever resolve vocabulary the record happened to hold, so the resolver worked right up until Paul used his own word for something — measured at lap 2 when 'the fridge is making noise' resolved to a leaf blower. ⭐ THE DESIGN RULE, and it is the counter-intuitive half: where two machines genuinely share a word, BOTH carry it, so the tool goes AMBIGUOUS and ASKS rather than silently picking. 'truck' is on the F-150 AND on Bolores; 'bike' is on both motorcycles. An alias that resolves a coin-flip is worse than no alias. ⚠️ PROVENANCE: only 'Beloris' and 'DR200' come from Paul's own speech; the rest were proposed by the lap and are his to correct — these are HIS words for HIS machines, and the record should not invent them. Resolver treats aliases as a STRONG field (tools/vehicle-brief.py)."
   },
   "vehicles": [
     {
@@ -727,7 +728,11 @@
           "confidence": "verified"
         }
       ],
-      "_curation": "trim 'STX' read off a body badge/VIN in the ChatGPT mine, 2026-07-22 — model-read, verify before ordering trim-specific parts."
+      "_curation": "trim 'STX' read off a body badge/VIN in the ChatGPT mine, 2026-07-22 — model-read, verify before ordering trim-specific parts.",
+      "aliases": [
+        "truck",
+        "pickup"
+      ]
     },
     {
       "id": "bronco-1989",
@@ -1403,7 +1408,11 @@
         ]
       },
       "_chatgptProvenanceWarning": "🚨 STANDING CAUTION added 2026-07-29. FOUR wrong values in this card have been traced to TWO ChatGPT threads in .private/_chatgpt-intake/: the tire size '33' and the transmission 'AOD' (2025-10-13 tire thread), and the paint code '85' and a phantom interior code 'MPV' (2026-02-23 door-jamb thread). Every one entered the record as if verified. The intake files themselves carry the correct warning — 'everything the assistant says is MODEL OUTPUT (inference) … treat as DOUBLY unverified' — but the warning was not honoured at fold time. THEREFORE: any value in this card whose only ancestor is a _chatgpt-intake thread is a HYPOTHESIS, regardless of the confidence flag attached to it, until a document or the physical truck settles it. Four are known bad; the rest are unaudited.",
-      "referenceLibrary": "⭐ TWO STORES, never both. (1) MANUALS/CATALOGUES -> Tate-Tracker/manuals/ — the fleet-wide corpus (INDEX.md is the authority; pdf/ gitignored, text/ committed as the queryable substrate). Bolores holds the LMC FD.88 catalogue (Ford Truck & Bronco 1980-96, 180pp, ingested 2026-08-03 — prices expired 08-03, part numbers still good) and the 1988 quick-reference guide. (2) TRUCK-SPECIFIC EVIDENCE -> .private/service-records/bronco-1989/_assets/ (11 MB) — the door cert label, the 1989 factory Colors & Trims brochure page, SEM's 1989 trim-code listing, the tailgate/rear-window wiring set, the bookmark export, tyre sidewalls. READ FIRST: REFERENCE.md (the guide + where the corpus is) and SOURCES.md (evidence tiers). ⚠️ Check manuals/INDEX.md before saving any document — on 2026-08-04 the FD.88 catalogue was re-ingested into _assets/ when it had been in manuals/ since 08-03, byte-identical, 76 MB wasted. CORPUS -> CARD: the card is the glance and the corpus is the repository (paul-stated 2026-08-04, 'a robust rich history in corpus that underlies a filtered version on the card, but I wanna be able to query all of this in detail'). Today querying is grep over manuals/text/; a real retrieval layer is staged but UNBUILT — Guru can point at a manual, not read one."
+      "referenceLibrary": "⭐ TWO STORES, never both. (1) MANUALS/CATALOGUES -> Tate-Tracker/manuals/ — the fleet-wide corpus (INDEX.md is the authority; pdf/ gitignored, text/ committed as the queryable substrate). Bolores holds the LMC FD.88 catalogue (Ford Truck & Bronco 1980-96, 180pp, ingested 2026-08-03 — prices expired 08-03, part numbers still good) and the 1988 quick-reference guide. (2) TRUCK-SPECIFIC EVIDENCE -> .private/service-records/bronco-1989/_assets/ (11 MB) — the door cert label, the 1989 factory Colors & Trims brochure page, SEM's 1989 trim-code listing, the tailgate/rear-window wiring set, the bookmark export, tyre sidewalls. READ FIRST: REFERENCE.md (the guide + where the corpus is) and SOURCES.md (evidence tiers). ⚠️ Check manuals/INDEX.md before saving any document — on 2026-08-04 the FD.88 catalogue was re-ingested into _assets/ when it had been in manuals/ since 08-03, byte-identical, 76 MB wasted. CORPUS -> CARD: the card is the glance and the corpus is the repository (paul-stated 2026-08-04, 'a robust rich history in corpus that underlies a filtered version on the card, but I wanna be able to query all of this in detail'). Today querying is grep over manuals/text/; a real retrieval layer is staged but UNBUILT — Guru can point at a manual, not read one.",
+      "aliases": [
+        "Beloris",
+        "truck"
+      ]
     },
     {
       "id": "dr200s-2017",
@@ -1569,7 +1578,11 @@
           "appliesTo": "Any carbureted bike on a hard-leaning sidestand — the DR-Z400S included"
         }
       ],
-      "canonicalDesignation": "**DR200S** — canonical, `paul-ruled 2026-09-01`: \"It's 200 SE or 200 S, and make that canonical, no confusion.\" The VIN gives model code SH42A and model year 2017; SH42A spans the DR200SE/DR200S family and does not split them, but the 2017 model year does — Suzuki sold it as the DR200SE in the earlier US generation and as the DR200S from 2015. Service literature (including the manual on disk) still says DR200SE; that is the same machine, not a second one. ⛔ Do not re-open this as a mismatch — it is ruled."
+      "canonicalDesignation": "**DR200S** — canonical, `paul-ruled 2026-09-01`: \"It's 200 SE or 200 S, and make that canonical, no confusion.\" The VIN gives model code SH42A and model year 2017; SH42A spans the DR200SE/DR200S family and does not split them, but the 2017 model year does — Suzuki sold it as the DR200SE in the earlier US generation and as the DR200S from 2015. Service literature (including the manual on disk) still says DR200SE; that is the same machine, not a second one. ⛔ Do not re-open this as a mismatch — it is ruled.",
+      "aliases": [
+        "DR200",
+        "bike"
+      ]
     },
     {
       "id": "drz400s-2001",
@@ -1706,6 +1719,11 @@
           "summary": "APE Racing inline fuel filter, 90° 1/4in (Amazon $10.58) — installed (Paul-confirmed 2026-07-22).",
           "confidence": "verified"
         }
+      ],
+      "aliases": [
+        "DRZ",
+        "DRZ400",
+        "bike"
       ]
     },
     {
@@ -1833,7 +1851,10 @@
       "manual": {
         "label": "Use & care guide",
         "url": "https://pdf.lowes.com/useandcareguides/841821012045_use.pdf"
-      }
+      },
+      "aliases": [
+        "push mower"
+      ]
     },
     {
       "id": "echo-pb7910t",
@@ -2152,7 +2173,10 @@
       "manual": {
         "label": "Kawasaki FR691V engine manual (Husqvarna Z254F)",
         "url": "https://images.thdstatic.com/catalog/pdfImages/c5/c5581c61-d6d9-4d4c-9981-6d04d019fe54.pdf"
-      }
+      },
+      "aliases": [
+        "ZTR"
+      ]
     },
     {
       "id": "chainsaw-ms290",
@@ -2729,6 +2753,9 @@
           "lastDone": null,
           "note": "37°F fridge, 0°F freezer — the dial setting is not a reading"
         }
+      ],
+      "aliases": [
+        "fridge"
       ]
     },
     {

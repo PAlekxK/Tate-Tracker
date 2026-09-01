@@ -135,6 +135,42 @@ files are held uncommitted — **`vehicles.json`**, `viewer.html`, `worker/diges
 ⛔ **Nothing in `guard-concurrent.py` was fixed this lap, deliberately.** The other session is
 actively invoking it. Editing a shared tool mid-flight is the exact failure the finding describes.
 
+### ✅ ALIASES ADOPTED `[paul-approved 2026-09-01]` — and the guard defect DEMONSTRATED ITSELF
+
+Paul: *"Alias does definitely make sense, um, probably for vehicles as well. Right? Since we've
+certainly seen that come up."* — and he is right that vehicles are where it bites: **`aliases[]` is
+now a STRONG field**, seeded on 7 machines.
+
+⭐ **The design rule, which is the counter-intuitive half: where two machines genuinely share a
+word, BOTH carry it, so beat 0 goes AMBIGUOUS and ASKS rather than silently picking.** `truck` is on
+the F-150 **and** on Bolores; `bike` is on both motorcycles. *An alias that resolves a coin-flip is
+worse than no alias.* Verified: `"the truck"` and `"the bike won't start"` both now refuse and name
+their candidates.
+
+⭐ **`Beloris` is an alias, and it is Paul's own word.** It appears once in lap 1's chronicle — his
+dictation of *Bolores*. So aliases absorb **transcription drift**, not only synonyms; his own global
+instructions record that dictation produces homophones. `"when I am back with Beloris"` → `bronco-1989`.
+
+⚠️ **PROVENANCE STATED IN THE DATA:** only `Beloris` and `DR200` come from Paul's speech. `truck`,
+`pickup`, `bike`, `fridge`, `ZTR`, `push mower`, `DRZ` were **proposed by this lap and are his to
+correct** — these are HIS words for HIS machines and the record should not invent them.
+
+⛔ **THE RE-INLINE IS DEFERRED, AND THAT IS THE FINDING.** `vehicles.json` inlines into
+`viewer.html`, and re-inlining is part of the edit, not a follow-up. It was **not** run: the
+concurrent session is holding `viewer.html` uncommitted (its edit is in `renderVehicleItem` and a new
+`toggleSitePanel` block — rendering JS, not data). Running `check-data-inline --fix` would have
+written over live work.
+
+⭐⭐ **AND THE GUARD SAID `✅ CLEAR` WHILE THAT WAS TRUE.** HEAD had not moved, so `verdict()` — which
+compares shas and nothing else — reported the repo safe **at the exact moment a file was contended.**
+This is the defect filed earlier this lap, demonstrating itself within the hour, on the very file
+whose clobber would have been public. **The proposal is no longer theoretical.**
+
+⚠️ Also worth recording: this lap claimed the two tracks *"do not overlap."* **They do.** The
+refrigerator lives in Track B's `vehicles.json` and is rendered by `renderVehicleItem`, but arrived
+through Track A's loop because **Mom asked for it**. The D41 split is clean for *loops*, not for
+*files*.
+
 ### 👤 Beat 4 — what Paul is running, and what the update already changed
 
 ⭐ **His update breaks the record's own pattern.** Every prior episode had *charging restores
