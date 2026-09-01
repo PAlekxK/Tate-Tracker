@@ -186,6 +186,78 @@ phone, and **H1–H4 are already the start of that list**.
 
 ---
 
+## 🗺 INBOUND from photo-organizer — 2026-09-01: **THE PHOTO→ZONE JOIN HAS A MEASURED FLOOR, and 12 of your 18 zones are under it**
+
+Closing the plant × zone thread. Three zone sheets ruled by Paul (photo-organizer sweeps 126, 135,
+136). **Two actionable plant results, and one finding that governs how the rest of this work should
+be done.**
+
+### ⭐ Two `zoneId` proposals — both resting on Paul's WORDS, not on geometry
+
+| plant | `plants.json` today | proposed | evidence |
+|---|---|---|---|
+| **Constellation Dogwood** | `dogwood` · *Cornus florida* · `zoneId: null` | `fairway-border` | a photographed nursery label **Paul read himself** |
+| **Mountain Laurel** | `mountain-laurel` · *Kalmia latifolia* · `zoneId: null` | `western-garden` | *"22 shows some Mountain Laurel that's in the western garden"* |
+
+Plus one correction to an existing record: **`moss` is zoned `western-garden`, and Paul says the
+EASTERN PATIO "has a lot of moss in the cracks between the rocks."** Its own `soilNotes` already
+say moss wants a firm, damp, lean *surface* rather than soil — which is exactly a patio crack.
+⚠️ **`zoneId` is singular**, so a second location is a schema question, not an overwrite.
+
+### ⭐⭐ THE FINDING — the join CANNOT resolve your garden zones, and re-tracing will not fix it
+
+Paul ruled a 22-card `st-francis-garden` sheet in one sentence: ***"These are all really of the
+eastern patio."*** All 22. So the numbers were measured:
+
+| | |
+|---|---|
+| `st-francis-garden` | **10.1 × 6.0 m** |
+| `eastern-patio` | **9.4 × 6.6 m** |
+| distance between their centroids | **5.9 m** — *less than either zone's own width* |
+| `fern-garden` from `st-francis-garden` | 11.1 m |
+| `zones.json` `_meta.accuracyHonesty` | **±30 ft (~9.1 m)** |
+
+**The error budget is larger than the distance between the zones.** A single GPS point cannot
+choose between them at any threshold. **12 of your 18 zones sit in at least one such pair** — only
+`fairway`, `house`, `lower-40`, `lower-parking`, `stable-grounds` and `the-bank` are cleanly
+separable. **The join works at property scale and fails at garden scale, which is exactly where
+the plants are.**
+
+⚠️ **AND IT QUALIFIES THE TWO RESULTS ABOVE.** `fairway-border ↔ the-green-house` is 6.1 m;
+`western-garden ↔ western-lower-patio` is 5.7 m. **Both proposals came off unresolvable zones.**
+They stand because **Paul named the place in his own words** — not because the polygon did.
+⛔ **So do not let anything auto-assign `zoneId` from this join.** It would have written both of
+these correctly and had no way to know it was lucky.
+
+### ⭐ THREE SEPARATE LIMITS — and only the first is fixable by drawing better
+
+Paul, 2026-09-01: *"it could also be that the zones that I drew in are not exact, because the
+picture I zoomed in on was blurry… we'll probably need to use the pictures we identify to help
+refine our understanding of the zones as well."* **He is right, and it is a different problem
+from the one above.**
+
+1. **POLYGON ACCURACY** — traced off a blurry basemap; `zones.json` says so itself. **Re-traceable,
+   and his reverse join is sound and unbuilt:** a photograph he has *attributed* is evidence about
+   where a boundary actually runs. That is a real proposal and nobody has built it.
+2. **RESOLUTION** — a *perfect* polygon still cannot be read from one GPS point at 5.9 m
+   separation. **Re-tracing does not touch this.**
+3. **CAMERA ≠ SUBJECT** — a plant is photographed *from* somewhere else. No geometry fixes it.
+
+⛔ **Conflating (1) with (2) produces the wrong next move:** a re-trace that feels like progress
+and changes nothing about the join inside the cluster.
+
+### 📥 A DOOR THIS REPO DOES NOT HAVE — raised for the third time, and now with the blocker named
+
+`ask-cycle.py` reports **`tate-tracker` = CANNOT be asked — no door**, so this write-up is
+hand-filed, like the two before it. photo-organizer pre-registered a door for Fernwood's Track A
+at lap 22 and it has now been carried three laps.
+⚠️ **It was NOT created unilaterally, and the reason is specific:** a declared inbox that no
+`CYCLE-MAP` reads is *"a door nothing reads"*, which `ask-cycle.py` exists to refuse. **Fernwood
+has no CYCLE-MAP**, so the wiring has to happen on this side first. **Concretely:** a
+`page.cycle.inbox` block for `tate-tracker` in `operating-layer/config/projects.json`, a
+`cycle/requests.jsonl` here, and a line in a Fernwood cycle map that reads it. **Paul's call —
+REFUSED is a fine answer if hand-filing is working.**
+
 ## 🌿 INBOUND from photo-organizer — 2026-09-01: **A SPECIES IS NAMED AT `fairway-border`, and it is on a label Paul read himself**
 
 First `--zone` review lap, serving the plant×zone ask. Paul ruled 10 plant-labelled photographs
