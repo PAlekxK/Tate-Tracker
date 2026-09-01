@@ -52,7 +52,13 @@ TOOL_GLOBS = ("check-*.py", "read-*.py", "test-feedback-cycle.py",
               # Globbed, not enumerated: a hand-kept list is the failure this
               # file exists to catch, and it had grown one in the file
               # extension.
-              "*.js")
+              "*.js",
+              # ⭐ `guard-*.py` ADDED 2026-08-31, and for the same reason as `.js`:
+              # Leg 0's guard stopped being prose and became a tool
+              # (`guard-concurrent.py`), and no glob above would have seen it. A
+              # loop mechanism the map need not name is a loop mechanism the map
+              # will stop naming.
+              "guard-*.py")
 
 # Tools that are deliberately NOT part of this loop. Each needs a reason, and the
 # reason is checked by a human, not by this script.

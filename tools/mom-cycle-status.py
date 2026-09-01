@@ -78,6 +78,15 @@ spec = importlib.util.spec_from_file_location("momlib", os.path.join(HERE, "moml
 momlib = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(momlib)
 
+# ⭐ ONE GUARD, NOT TWO. Leg 0's concurrent-session check is `guard-concurrent.py`
+# and this board READS it rather than shelling out to git itself. It used to run
+# its own `git log --oneline -1` — a second, divergent copy of the same check,
+# and the copy that swallowed every failure into `head = ""` (see gather()).
+_gspec = importlib.util.spec_from_file_location(
+    "guard_concurrent", os.path.join(HERE, "guard-concurrent.py"))
+guard = importlib.util.module_from_spec(_gspec)
+_gspec.loader.exec_module(guard)
+
 # The legs, in the order SKILL.md defines them. `gate` marks a leg that a run
 # CANNOT cross on its own — the structural half of human-in-the-loop.
 LEGS = [
@@ -168,21 +177,13 @@ def gather():
 
     # Concurrency guard — Leg 0. A moving HEAD is the one signal that invalidates
     # everything below it, so it is derived first and printed loudest.
-    try:
-        head = subprocess.run(["git", "log", "--oneline", "-1"], cwd=ROOT,
-                              capture_output=True, text=True, timeout=20).stdout.strip()
-        dirty = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT,
-                               capture_output=True, text=True, timeout=20).stdout.strip()
-        unpushed = subprocess.run(["git", "log", "--oneline", "origin/main..HEAD"], cwd=ROOT,
-                                  capture_output=True, text=True, timeout=20).stdout.strip()
-    except Exception:
-        head, dirty, unpushed = "", "", ""
-    sig["repo"] = {
-        "source": "git",
-        "head": head,
-        "dirty_files": len([l for l in dirty.splitlines() if l.strip()]),
-        "unpushed_commits": len([l for l in unpushed.splitlines() if l.strip()]),
-    }
+    #
+    # ⭐ DELEGATED, not re-implemented (2026-08-31). This block used to run its own
+    # three git commands inside a bare `except: head, dirty, unpushed = "", "", ""`
+    # — so a repo the tool could not read rendered as a repo with an empty HEAD, 0
+    # dirty files and 0 unpushed commits: a guard failure wearing a clean board.
+    # `repo_state()` carries `ok`, and every consumer below fails closed on it.
+    sig["repo"] = guard.repo_state(ROOT)
     return sig
 
 
@@ -246,7 +247,8 @@ def _sig(*, unresolved=0, bench=0, owed=False, queue_clean=True, canon_clean=Tru
                                    "bench": {"count": bench, "latest": "2026-08-09T00:00:00Z"},
                                    "unresolved": {"count": unresolved,
                                                   "latest": "2026-08-09T00:00:00Z"}}]},
-        "repo": {"head": "", "dirty_files": 0, "unpushed_commits": 0},
+        "repo": {"ok": True, "head": "", "head_sha": None, "error": None,
+                 "dirty_files": 0, "unpushed_commits": 0},
     }
 
 
@@ -704,17 +706,24 @@ def main():
                 print(f"       · python3 tools/check-mom-ack.py --mark-read {c['name']}")
     if not sig["canon_surfaces"]["clean"]:
         print("  🟡 CANON SURFACES — viewer inlines or Guru's digest are behind canon.")
+    # ⭐ LEG 0, FAIL CLOSED. A repo this board cannot read is not a quiet repo.
+    if not sig["repo"]["ok"]:
+        print("  🔴 LEG 0 GUARD — CANNOT READ THIS REPO'S STATE. Treat as UNSAFE.")
+        print(f"       {sig['repo']['error']}")
+        print("       Nothing below this line is trustworthy; a guard that cannot run")
+        print("       must not report clear. python3 tools/guard-concurrent.py status")
     if sig["repo"]["unpushed_commits"]:
         print(f"  🟡 {sig['repo']['unpushed_commits']} unpushed commit(s) — Pages serves "
               "viewer.html; a commit alone never reaches her.")
+        print("       Before pushing: python3 tools/guard-concurrent.py before-push")
     if sig["repo"]["dirty_files"]:
         print(f"  🟡 {sig['repo']['dirty_files']} uncommitted file(s) in the working tree.")
 
     if (not needs_paul and not unresolved and sig["canon_surfaces"]["clean"]
-            and not sig["repo"]["unpushed_commits"]):
+            and sig["repo"]["ok"] and sig["repo"]["unpushed_commits"] == 0):
         print("  🟢 Nothing is waiting on you.")
     print()
-    return 1 if needs_paul else 0
+    return 1 if needs_paul or not sig["repo"]["ok"] else 0
 
 
 if __name__ == "__main__":
