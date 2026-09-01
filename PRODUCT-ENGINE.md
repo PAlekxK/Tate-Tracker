@@ -20,7 +20,7 @@ not start at step 3.
 | # | Do | Gated on | State |
 |---|---|---|---|
 | **1** | ~~Fleet lap 1~~ | — | ✅ **RAN 2026-09-01** — beats 0,2,3,5,7 done · INBOX drained 2/2 · PROVENANCE 6→3. 🔴 **OPEN at beats 4 + 6, both Paul's gates** → `BACKLOG.md` Track B § FLEET LAP 1 |
-| **2** | Review the two conversation mines | agent (running 2026-09-01) | ⏳ |
+| **2** | ~~Review the two conversation mines~~ | — | ✅ **BOTH LANDED 2026-09-01**, reviewed. 6 material findings · **217 images staged** · 4 new door entries. See below |
 | **3** | **`user-researcher` interview** — beat 0 | step 2 | ⏸ |
 | **4** | Agile PM artifacts — vision · personas · JTBD · now/next/later | step 3 | ⏸ |
 | **5** | Architecture options, priced | step 4 | ⛔ **do not start here** |
@@ -56,6 +56,8 @@ One session produced a lot across two repos. This is the index; each row is the 
 | Mom-cycle lap 7 — open, held at leg 6 | `MOM-CYCLE-LOG.md` § Lap 7 |
 | Claude-corpus vehicle mine (59-day window) | `.plans/2026-09-01-vehicle-conversation-mine.md` |
 | ChatGPT-archive fleet mine + images | `.plans/2026-09-01-fleet-chatgpt-archive-mine.md` · manifest in `.plans/` · images in `.private/chatgpt-fleet-images/` |
+| Contractor register proposal | `.plans/2026-09-01-contractor-register-proposal.md` |
+| Fleet lap 1 (open at Paul's gates) | `cycle/fleet/CYCLE-LOG.md` § Lap 1 · `BACKLOG.md` Track B § FLEET LAP 1 |
 | `corpus_search --sessions` ignores its query | `~/Developer/operating-layer/BACKLOG.md` |
 
 ⚠️ **A lot of this session's reasoning lives only in COMMIT MESSAGES** (2026-09-01, `7071162`
