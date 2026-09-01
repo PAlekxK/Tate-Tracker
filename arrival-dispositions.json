@@ -19,6 +19,24 @@
       "disposition": "Paul's own bench test at the Fairway zone; disregard. Nothing to fold to canon.",
       "attestedBy": "Paul LISTENED to the audio, 2026-08-28 — a human ear, not a model read. Prior legs (2 model transcripts, deviceId, sibling observation 52s later) agreed but were all inference.",
       "dispositionedOn": "2026-08-28T16:56:03.728119+00:00"
+    },
+    {
+      "channel": "guru",
+      "recordId": "mthlfxpf-o8akv",
+      "recordTs": "2026-08-31T18:50:44.197Z",
+      "origin": "bench",
+      "disposition": "BENCH — Paul builder device d-14nyhnjz, a Garden Guru smoke test during the 08-31 ux-sweep (\"Should I fertilize my boxwoods today?\"). Read in full; answer is sound and seasonally correct. Not hers, no ribbon owed.",
+      "attestedBy": "claude, lap 7 leg 2",
+      "dispositionedOn": "2026-09-01T12:04:20.519044+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "c-es59fo4e-mthlgm0f",
+      "recordTs": "2026-08-31T18:51:09.808Z",
+      "origin": "bench",
+      "disposition": "BENCH — the SAME Guru turn as guru:mthlfxpf-o8akv, mirrored into /api/observations. One human act, two arrivals. Read; not hers.",
+      "attestedBy": "claude, lap 7 leg 2",
+      "dispositionedOn": "2026-09-01T12:04:20.793585+00:00"
     }
   ]
 }

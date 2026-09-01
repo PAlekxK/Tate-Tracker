@@ -1143,6 +1143,91 @@ Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
 # TRACK C — Cross-cutting / infra / doctrine
 
 *Intent: things that serve both products or the meta-stack.*
+---
+
+## ⭐⭐ C0 · FERNWOOD AS A PRODUCT — multi-tenancy, hosting, auth, cost `[paul-raised 2026-09-01]`
+
+> **CAPTURE ONLY. Nothing is scoped, nothing is decided, no work has started.** Paul asked for this
+> to be written down and left alone: *"that's a whole nother big work stream that will need to
+> involve a lot of research probably in all the experts weighing in, but I wanna capture that for a
+> backlog for later."* Do not open this without his go — and when it opens, it opens as **research
+> and options**, not a build.
+
+**His words, the ask as given (2026-09-01):**
+
+> *"I think this is probably a whole nother workstream. We need to figure out for Fernwood — focus
+> on product a little bit more, making it a little more formalized, and figuring out what are the
+> costs and path to doing that. So for example, getting a domain, and understanding if we want to
+> set this up for someone else — which we're being approached for now with Bob Rolader. What's the
+> best way to do that? Just give him his own custom domain, and ideally give him a login and
+> password, or just a password, or some kind of authentication. And how do we make sure he has his
+> own database that's not necessarily hosted on my computer? How do we make it all functional and
+> modular — ideally in a way that the big engine components stay the same for Fernwood and for Bob's
+> house and don't diverge too much."*
+
+### The six questions inside it, kept separate because they have different answers
+
+| # | Question | Note |
+|---|---|---|
+| Q1 | **Domain** — a real name for Fernwood, and per-tenant custom domains | Cost is small and known; this is the cheapest question here and could be answered alone |
+| Q2 | **Authentication** — full login, shared password, or something lighter | ⚠️ Read against Track A doctrine before deciding: Mom's surface has **no login today, deliberately**. Any auth answer must not become a door she has to open |
+| Q3 | **Per-tenant data** — Bob's records isolated, and not on Paul's machine | See "where it actually runs" below — this starts from a better place than it sounds |
+| Q4 | **Modularity** — one engine, N properties, without divergence | The hard one. See "what would diverge first" |
+| Q5 | **Cost** — to stand up, and per additional tenant | Partly measurable today; `/api/cost-log` already tracks per-day Anthropic spend |
+| Q6 | **Whether to do it at all** | Not assumed. An approach is not a commitment, and ⛔ monetization is deferred to ~end-2026 (`[[project_monetization_deferred]]`) — this is a *portfolio and architecture* question right now, not a revenue one |
+
+### ⚠️ Is "Bob's house" the same ask as Tate Commons? — UNRESOLVED, ask Paul
+
+`~/Developer/tate-commons` was stood up 2026-08-30 for **Bob Rolader's 2026-08-21 ask**, recorded
+there as *Fernwood for the whole **community*** — a standalone at a Tate subdomain. Paul's words
+here are *"Bob's house"*, which reads as a **per-household instance of Fernwood**. Those are
+different products with different tenancy models, and one of them may have been misread. **Do not
+merge them, and do not write to `tate-commons` off this entry.** Settle it with one question to
+Paul before either scoping runs.
+
+### Where it actually runs today — the honest starting point (measured 2026-09-01)
+
+**None of this is on Paul's computer already**, which removes Q3's scariest half before it starts:
+
+- **Frontend** — `viewer.html`, **21,170 lines**, one file, all domain data inlined as JS consts by
+  `tools/reinline.py`. Served by **GitHub Pages** from this public repo.
+- **Backend** — one Cloudflare Worker (`worker/worker.js`, **2,720 lines**, name `tate-tracker`),
+  **20 `/api/*` routes**, **one KV namespace** (`OBSERVATIONS`, id `100f2b95e4…`).
+- **Auth** — a single `SHARED_TOKEN` secret in a `X-Tate-Token` header, gating `/api/*`. **There is
+  no user identity anywhere in the system.** No accounts, no login. Who did a thing is inferred
+  *after the fact* from `deviceId`, which `tools/people.json` is emphatic is a **browser bucket, not
+  a person**. Q2 is therefore not "add a login screen" — it is introducing the concept of a user to
+  a system that has never had one.
+
+### ⭐ What would diverge first — the four couplings that make Q4 hard
+
+Named now so the future session does not rediscover them. Each is a place where "one engine, two
+houses" breaks on something real:
+
+1. **The Worker holds Paul's keys.** `OPENAI_API_KEY` and `GITHUB_TOKEN` are Worker secrets. A
+   second tenant on this Worker **spends Paul's money and can reach Paul's repo.** This is the
+   sharpest constraint in the whole entry and it bounds every cheap answer to Q3.
+2. **The write path goes through git into a specific public repo.** `/api/promote-species` commits
+   to `plants.json` + `viewer.html` via the **GitHub Contents API**. Bob's confirmations would land
+   as commits in *Fernwood's* repo. Canon-in-git is the architecture, not an implementation detail —
+   arrivals live in KV, canon lives in the repo, and that hybrid is the centre of Q3/Q4.
+3. **The weather card is bound to hardware Paul owns.** `AMBIENT_MAC` defaults to the on-site
+   station's MAC. Weather is **the card Mom demonstrably opens most**, and Bob's house has no
+   station. A tenant without a sensor gets a different product, not a configured one.
+4. **Data is inlined into the served HTML.** 12 domain consts are baked into `viewer.html` and
+   `check-data-inline.py` exists to police exactly that. Per-tenant data means either N built
+   `viewer.html`s (divergence guaranteed by construction) or breaking the inline model (which the
+   whole offline-on-a-mountain premise leans on — `96395b1`: *no cell, Wi-Fi from the house only*).
+
+### What it will need when it opens
+
+Paul named it: **research plus all the expert seats.** At minimum `engineering-partner` (path
+evaluation, before code), `ai-advisor` (where AI sits per-tenant, and whose key pays), `ux-expert`
++ `content-steward` (Q2 — an auth story that does not cost Mom her frictionless door), and
+`user-researcher` (Bob is a real prospective user who can be asked rather than assumed).
+
+**Do not wrap this in loop machinery.** Per `[[feedback_cyclical_vs_finite_projects]]` this is
+**finite** — a research-and-decide arc with an end — not a cycle. Burn it down; don't give it beats.
 
 | Item | What it is | Gate |
 |---|---|---|
