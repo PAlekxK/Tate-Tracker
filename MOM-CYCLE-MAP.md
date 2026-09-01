@@ -741,3 +741,37 @@ work**, and it runs between laps. Today's map, status surface and control are me
   doctrine (`[[feedback_no_ai_on_capture]]`); this loop begins where capture ends.
 - **The other tools in `tools/`.** Fetchers, builders and wiring scripts are not loop legs;
   `check-domains.py` is excluded by name and reason in the control itself.
+
+
+---
+
+## Conformance — this loop answers to the portfolio spine `[added 2026-09-01]`
+
+The standard this loop's **machinery** is measured against is
+**`~/.claude/rituals/CYCLE-SPINE.md`** — S1 a legal state schema, S2 at least one
+blocking human gate that is machine-visible, S3 a deterministic check that has been
+*seen to fail*, S4 a closed lap marked as closed in the chronicle, S6 a map that
+parses. Read it at the **start** of a lap, not the end.
+
+**Why this section exists, and what it is not.** The spine's standing rule is that no
+loop is retrofitted — each adopts on its own next lap. That rule needs something to
+travel on, and until today it had nothing: measured 2026-09-01, **11 of 12 maps
+contained no reference to the spine at all**, and **seven loops lapped in the days
+after the 2026-08-31 two-axis amendment was ratified without adopting it**. A rule
+with no carrier is not a slow mechanism; it is not a mechanism. This section is the
+carrier, and nothing more. Its presence proves only that a lap can **see** the
+standard — never that this loop conforms. Conformance is measured separately by
+`python3 ~/.claude/tools/ecosystem-probe.py`, which counts and never grades.
+
+**Open amendments to dispose at the next lap** (each is *check and rule*, not
+*apply silently*):
+
+| amendment | what it asks of this loop |
+|---|---|
+| two-axis state keys `[paul-ratified 2026-08-31, card claude-6]` | `hold{}` and `beat{}` as dicts; `signals[].status` tri-state (`quiet` / `fired` / `unobserved`) rather than a boolean; `signals[].observed_via` naming what did the observing; `last_lap.outcome` from the closed enum (`closed` / `open` / `abandoned`) |
+| GATE-SWEEP `[paul-ratified 2026-08-31]` | a lap **opens** by disposing the gates that have already fired, before it does anything else |
+
+⚠️ A boolean `fired: false` and a tri-state `unobserved` are **not the same claim** —
+the first asserts the signal was checked and was quiet, the second admits nothing
+looked. Adopting the key without honouring that distinction is worse than not
+adopting it, because it launders an unmeasured signal into a measured-quiet one.
