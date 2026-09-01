@@ -7,7 +7,7 @@ State artifact: `cycle/fleet/cycle-state.json` · map: `CYCLE-MAP.md` beside thi
 
 ---
 
-## Lap 2 — 2026-09-01 · 🔓 **OPEN** — held at beat 4 (Paul, physical) and beat 6 (contended file)
+## Lap 2 — 2026-09-01 · ✅ **CLOSED** — the lap where beat 0, the loop's own gate, was found broken
 
 **Fired on: Paul's update, in person.** The probe was **RESTING** — all four signals quiet — so this
 lap has a *human* trigger, not a signal one. That is legitimate for this loop (it rests and fires on
@@ -23,9 +23,9 @@ the window opening **2026-09-02**. The probe was right; the brief was reading a 
 | **1 · FIELD** | **Not run, correctly.** Conditional: it fires when the record has NO answer to a symptom. The record has a full protocol for this one (`guides/blue-thunder-starting-diagnosis.md`, T1–T6) and FIELD sweep 1 already ran on this exact question. Nothing added to `FIELD-NOTES.md`. |
 | **2 · SWEEP** | `fleet_probe.py` → **RESTING**, 4 signals checked, none fired. Map-control selftests PASSED. |
 | **3 · INTAKE** | Door clear — `6 filed, all handled`. Nothing new arrived. |
-| **4 · VERIFY** | 👤 **IN PROGRESS with Paul today.** He has the bike, a NEXPEAK NC201 PRO charger and an All-Sun EM830 meter in hand. T1 → draw A/B → charge on AGM → T2b → T3 → a clean T4 overnight. **Lap cannot close until these land.** |
+| **4 · VERIFY** | 👤 **NOT RUN — carried to lap 3, on Paul's instruction** (*"leave all those waiting on me for the next cycle"*). He has the bike, the charger and the meter. T1 → draw A/B → charge on AGM → T2b → T3 → a clean T4. ⭐ **Legitimate to close over:** the three DR200S items are `state: open` and dated 2026-08-30, so **STALE-OPEN fires on them by itself at 60d (~2026-10-29)**. The work is held by a signal, not by a promise. |
 | **5 · SEASON** | Quiet at 46d. **The put-away window opens tomorrow, 2026-09-02** — the next lap opens on it. Parts lead time is the gate, not the weather. |
-| **6 · RECORD** | ⛔ **BLOCKED, not skipped** — `vehicles.json` is held uncommitted by a concurrent session. See the concurrency section. |
+| **6 · RECORD** | ✅ **RAN.** Paul's update folded onto `dr200s-2017`, aliases adopted on 7 machines, generated views re-inlined, `check-data-inline` green. Was blocked mid-lap by the concurrent session; unblocked when it committed. |
 | **7 · AMEND** | **Two APPLIED** — the beat-0 resolver, and the S1 `signals[]` adoption the handoff pre-registered. **Five PROPOSED**, none applied. |
 
 ### 🔴 Beat 0 — THE FOUNDING DEFECT RECURRED INSIDE THE CONTROL BUILT TO PREVENT IT
@@ -236,6 +236,57 @@ answer** — and its 10 A jack is rated 10 s max. Caveat folded into the guide: 
 or `20m`. **Third instance of one defect shape in a single lap** — the manual, the resolver, the
 meter: *match the payload, not the container.*
 
+### ✅ LAP CLOSED — 2026-09-01. All four signals RESTING; three gates carried to lap 3.
+
+```
+· SEASON      46d to first frost · outside the 45d window
+· INBOX       inbox clear (6 filed, all handled)
+· PROVENANCE  6 flagged document(s), all acknowledged
+· STALE-OPEN  no open check older than 60d [3 open (0 undated) · 7 closed · 1 deferred]
+RESTING — 4 signal(s) checked, none fired.
+```
+
+**✅ Beat 6 RAN.** Paul's update is folded onto `dr200s-2017` — ⭐ **and the fold was a CORRECTION, not
+an addition**: the item's own `status` claimed *"charging has restored starting EVERY time so far,
+which points at charge state."* His update falsifies that sentence, and leaving it would have left a
+known-false claim in the record. A full charge that does not survive one night is a **different
+claim**. Both the hedge (*"I don't think the bike was plugged into the charger"*) and the charger
+identification are recorded with their grades.
+
+**⏭ CARRIED TO LAP 3 — Paul's call** (*"leave all those waiting on me for the next cycle"*). Named
+here so none of it is a residue:
+
+1. 👤 **The bench work.** T1 → draw A/B (⛔ **not** on the meter's 10 A range) → charge on AGM → T2b →
+   T3 → a clean T4. **T3 is the decisive one and has never been measured on this bike.**
+2. 👤 **The emissions `nextLook`.** Still `2026-10-01` — **a date a previous session picked, not
+   Paul.** He said *"next time I'm with Bolores."* ⚠️ **This lap corrected its own brief here:** it
+   claimed the fall put-away was a natural with-the-truck anchor for it. **It is not** — verified:
+   the put-away exists only on `dr200s-2017` and `drz400s-2001`, the two motorcycles. **The Bronco
+   has no put-away item.** That line came from lap 1's chronicle, rode into the handoff brief, and
+   was repeated to Paul before anyone checked it.
+3. 👤 **The seven proposed aliases.** `truck`/`pickup`/`bike`/`fridge`/`ZTR`/`push mower`/`DRZ` are
+   the LAP's words, not Paul's, and are marked as such in the data. Only `Beloris` and `DR200` are his.
+4. **Guard state namespacing** (approved, deliberately not applied): switching to `--track` mid-lap
+   would have reset this lap's own start mark and lost its moved-since-start history. Per the spine,
+   a loop adopts at its **next lap start** — so lap 3 opens with `start --track fleet`.
+
+⭐ **What this lap was actually about.** It opened on a battery and found that **the loop's own gate
+was broken** — beat 0, the script that exists so a careful session cannot confidently name the wrong
+machine, confidently named the wrong machine. Then the fix for that introduced two more defects, a
+peer session reported a third in lap 1's amendment, and the guard demonstrated its own blind spot
+live. **Five defects, all the same shape** — a container returning a plausible value where the
+payload was never checked: a `dict` stringified into a name, symptom words scored as identity, a
+meter range that reads `0.00`, a census that counts branch membership instead of items, and a guard
+that compares shas instead of the tree.
+
+⚠️ **And the most uncomfortable finding is not any of the five.** It is that **lap 1 pre-registered
+the question that would have caught the first one** — *"is beat 0's resolution good enough on Paul's
+real speech?"* — recorded its metric as met, and closed. The question was never actually asked of a
+human sentence. *A pre-registered question can be carried forward unanswered while the lap that owned
+it reads green.*
+
+**`lap_count` 1 → 2.**
+
 ### Beat 7 · AMEND — 1 applied, 3 proposed
 
 **Applied (2):**
@@ -282,7 +333,7 @@ meter: *match the payload, not the container.*
    path that produced this lap's own process error. ⚠️ **A control with no legitimate path through it
    trains people to step around it** — the N8 · COSTLY CONTROL shape the map already warns about.
 
-**Pre-registered for the next lap:** ① does SEASON fire on 09-02 as computed, and is 45d the right
+**Pre-registered for lap 3:** ⓪ ⭐ **does a pre-registered question actually get ASKED this time** — the failure above is now this loop's own known habit, so lap 3 answers each of these explicitly or records that it did not. ① does SEASON fire on 09-02 as computed, and is 45d the right
 window once parts lead time is real? ② does the fixed resolver survive Paul's *next* unrehearsed
 sentence — one measurement is not a fix. ③ do T1/T2b/T3 actually discriminate, or does the bike start
 fine and strand the protocol untested again?

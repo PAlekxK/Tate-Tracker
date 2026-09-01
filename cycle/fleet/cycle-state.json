@@ -1,12 +1,13 @@
 {
  "state": "RESTING",
- "generated_at": "2026-09-01T15:53:41Z",
+ "generated_at": "2026-09-01T16:16:08Z",
  "generated_by": "tools/fleet_probe.py --write-state",
- "lap_count": 1,
+ "lap_count": 2,
  "last_lap": {
-  "lap": 1,
+  "lap": 2,
   "date": "2026-09-01",
-  "outcome": "✅ CLOSED 2026-09-01. Ran beats 0,2,3,5,6,7; beat 1 correctly not run (conditional, no symptom). INBOX drained 2/2 then REOPENED for 4 more from the ChatGPT mine — 6 disposed, 1 resolved, 5 routed. PROVENANCE 6 -> 3 -> 0: three acked at beat 0 with reasons, three acked at beat 6 on Paul's rulings (DR200S made canonical from the VIN + model year; one Husqvarna, so the manual is simply the wrong document; Homelite DECOMMISSIONED, never identified). Beat 4 DISPOSED not skipped: 5 Bronco items closed on Paul's standing rule (old pre-engine-replacement documentation), transmission ANSWERED at the truck (P R N D 2 1 = C6), emissions DEFERRED to nextLook 2026-10-01. P7 spark plugs cleared by order record (NGK196860). Beat 7 APPLIED: s4_stale_open now reads a closed-set `state`, supports deferred+nextLook, prints its denominator; 13 new paired selftests. All four signals RESTING at close. Raised and NOT done: the V-series identifier findings in BACKLOG.md."
+  "outcome": "closed",
+  "outcome_note": "✅ CLOSED 2026-09-01. Opened on Paul's in-person update (probe was RESTING — a HUMAN trigger, recorded as such). ⭐ THE LAP'S FINDING IS THAT THE LOOP'S OWN GATE WAS BROKEN: beat 0 resolved his first real dictated sentence to bronco-1989 (61) over dr200s-2017 (2) — the correct machine placed LAST of eight — because `doorLabel` is a dict on 1 of 22 machines and str() turned 1,557 chars of prose into a name haystack, so his filler words scored. Fixed, then fixed AGAIN (a weak-only trim word could still carry a confident answer). aliases[] adopted, Paul-approved, with shared words deliberately AMBIGUOUS. S1 signals[] tri-state adopted via write_state(). Guard gained `check --paths` after reporting CLEAR while a public file was contended. A PEER session reported a census bug in lap 1's own amendment — reproduced, fixed, mutation-proven. Beat 6 RAN: the fold was a CORRECTION, falsifying the record's own 'charging has restored starting every time' claim. ⏭ CARRIED TO LAP 3 on Paul's instruction: the bench work (T3 is decisive and never measured), the emissions nextLook date HE never picked, seven proposed aliases that are the lap's words not his, and guard-state namespacing (adopts at lap 3's start). ⚠️ Lap 1 pre-registered the question that would have caught the beat-0 defect and closed without asking it."
  },
  "next": null,
  "why": "4 signal(s) checked, none fired",
@@ -40,5 +41,5 @@
    "headline": "no open check older than 60d [3 open (0 undated, not testable) · 7 closed · 1 deferred]"
   }
  ],
- "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. ⭐ 2026-09-01: lap 1 RAN and CLOSED the same day, so lap_count is 1 — it counts CLOSED laps and per S4 a closed lap must be MARKED. Beat 4's last physical read (emissions) is not skipped, it is DEFERRED on the item itself (`state: deferred`, `nextLook: 2026-10-01`), which is what let the lap close honestly instead of staying open on a gate nobody could reach. ⚠️ THIS FILE WAS HAND-EDITED AT 11:16 AND THAT WAS WRONG — it carried `generated_by: fleet_probe.py --write-state` over content no script produced, plus a `generated_at` from 09:17 predating the work it described. That is the EXACT failure write_state() was built for on 2026-08-31 (see its docstring). Corrected by running the real writer. The lap-chronicle fields below (`lap_count`, `last_lap`, `_note`) are the lap's to write; `state`/`why`/`next`/`generated_at` are the probe's and must never be typed by hand."
+ "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md. ⭐ 2026-09-01 lap 2: `signals[]` with the tri-state `status: quiet|fired|unobserved` is ADOPTED (S1 amendment, 2026-08-31) and is PROBE-OWNED — written by write_state(), never by hand. `last_lap.outcome` is now the closed enum with prose in `outcome_note`, adopted at this lap's close because that is when last_lap is written. ⛔ THE STANDING RULE, unchanged and broken once already: `state`/`why`/`next`/`generated_at`/`generated_by`/`signals` belong to the probe and must never be typed by hand; only `lap_count`, `last_lap` and `_note` are the lap's. ⚠️ NOT adopted deliberately: the `state` phase word (RESTING->ARMED). run() prints RESTING on the non-AI door, and publishing ARMED while the door says RESTING would make the artifact and the door disagree — the exact payload/container split this lap found five times. Adopt both together or neither."
 }
