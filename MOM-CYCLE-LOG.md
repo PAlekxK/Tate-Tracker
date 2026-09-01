@@ -89,6 +89,25 @@ reporting the pre-lap world. It is a **generated** artifact (`mom-cycle-status.p
 was deliberately **not hand-edited** here — hand-writing a generated file is the drift this repo
 already checks for. It needs a `--write-state` run.
 
+### Decisions
+
+- ⭐ **The ribbon is HELD, twice in one day** `[paul-stated 2026-09-01]`: *"let's just hold off because
+  I still wanna do some more work on the zones before kinda bringing it to our attention"*, then, asked
+  directly what closing the lap needed, *"Still holding."* **This does not supersede anything** — it is
+  the first time the return leg has been deliberately deferred, and it is a *hold*, not a reversal of
+  the acknowledge-her-input principle. A later lap reading `R1 ack staleness 🔴` must read it as a
+  stated gate, not neglect.
+- ⭐ **The remaining zone work moves to LAP 8** `[paul-stated 2026-09-01]`: *"Save more zone work for the
+  next mom cycle."* Supersedes this lap's implicit plan to finish the zones before the ribbon; the
+  ribbon draft itself is unchanged (lead on her sixteen names, changeable clause on the retirements).
+- **Lap 7 therefore stays OPEN across a lap boundary** — `lap_count` cannot increment and the watermark
+  cannot advance until the ribbon ships. Recorded as a **consequence, not a design**: the loop has no
+  prior instance of a lap held while a later lap does the releasing work, and nothing was changed on the
+  strength of one instance. Flagged for lap 8's beat 7.
+- **`data/cycle-state.json` was NOT hand-edited** to reflect any of this, though it is 5 days stale
+  (written 08-27, pre-dating this whole lap). It is a generated artifact; hand-writing one is the drift
+  this repo checks for. It needs a `--write-state` run.
+
 ### ✅ LEG 5 — SHIPPED: the card queue rotated and reshuffled `[paul-approved 2026-09-01]`
 
 *"go ahead and do rotation and shuffling if we need to of the different cards, to give her a fresh

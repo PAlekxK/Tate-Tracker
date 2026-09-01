@@ -25,7 +25,7 @@ outside the 45d window.
 | **4 · VERIFY** | 👤 **PAUL** — three physical checks, batched. Not attempted from paper. |
 | **5 · SEASON** | Quiet. 46d to frost; the put-away window opens at 45d, so **the next lap should expect SEASON to fire.** Parts lead time is the gate, not the weather. |
 | **6 · RECORD** | 👤 ✅ **RAN 2026-09-01** — Paul ruled: 5 Bolores items CLOSED on a standing rule, transmission ANSWERED at the truck, emissions DEFERRED. P7 cleared by order record. See "Beat 6 RAN" below. |
-| **7 · AMEND** | below. |
+| **7 · AMEND** | ✅ **APPLIED** — `s4_stale_open` rewritten at Paul's ask: closed-set `state`, `deferred`+`nextLook`, and a printed denominator. 13 new paired selftests. STALE-OPEN now rests. See below. |
 
 ### ✅ Beat 3 — the door, both rows disposed
 
@@ -120,6 +120,44 @@ fail `fromisoformat`). The skip is deliberate and selftested; the non-disclosure
 
 ⚠️ **So STALE-OPEN still reads ⚡ and the lap still cannot rest on it** — not because the checks are open,
 but because the instrument cannot see that they closed. *Match the payload, not the container.*
+
+### ✅ Beat 7 AMENDMENT APPLIED — `s4_stale_open` now reads the payload, and a check can REST honestly
+
+Filed as proposed-not-applied earlier this lap; **Paul asked for it** — *"Let's fix the probe. gonna be
+able to defer these looks to when I'm back with Beloris and be able to close the lap smoothly."* Three
+changes, one commit:
+
+1. ⭐ **`state` is a CLOSED SET — `open | closed | deferred`.** The probe reads that, not prose. An
+   unknown value raises `Unknown` rather than defaulting; a missing one means `open`, so the old shape
+   still works. This is the doctrine fix, not just the bug fix: sniffing a status string for "✅ CLOSED"
+   would have re-created the same silent-wrong failure one layer up. **A closed set makes the mistake
+   error instantly.**
+2. ⭐ **`deferred` + `nextLook` lets a physical check rest without a schedule masquerading as an
+   answer** — beat 7's own lap-1 amendment, now built. It rests until the date and then **FIRES**. A
+   `deferred` item with no readable `nextLook` raises `Unknown`: *a deferral that cannot announce its own
+   expiry is just a nicer way to forget.*
+3. ⭐ **The denominator is printed** — `[N open (M undated, not testable) · C closed · D deferred]`, on
+   the fired path AND the rest path. The old comment claimed *"the denominator below says so"* and no
+   denominator existed, which is how *"3 open checks"* stood in for seven open items.
+
+**13 new selftest cases, every fire paired with the near-miss that must not fire** — a closed item and
+the same item left open · a deferral before and on its date · `Unknown` on a bad state and on an undated
+deferral · the denominator counting the undated item rather than dropping it. `--selftest` PASSED;
+map-control (`fleet_probe --selftest && vehicle-brief --selftest`) PASSED.
+
+**11 items migrated to explicit state:** 7 closed, 1 deferred, 3 open (the DR200S no-start trio, which
+were correctly open all along and now say so).
+
+⏸ **Emissions is deferred to `2026-10-01`** so lap 1 can close without pretending the look happened.
+⚠️ **I picked that date, Paul did not** — he said *"next time I'm with Bolores."* It is a placeholder
+that fires; move it freely. Worth knowing: **the fall put-away window opens 2026-09-02** (46d → 45d to
+frost), which is itself a with-the-truck moment and a natural anchor.
+
+**Result — STALE-OPEN RESTS:** `no open check older than 60d [3 open (0 undated) · 7 closed · 1 deferred]`.
+
+⚡ **PROVENANCE is now the only thing standing between this lap and its close** — P1 Husqvarna
+(wrong machine), P2 Homelite (never positively identified), P3 DR200SE-vs-DR200S (one sentence from
+Paul). All three are his calls, and the lap declines to ack them for him.
 
 ### ⭐ Beat 0 — PROVENANCE went 6 → 3, and the 3 that remain are the real ones
 

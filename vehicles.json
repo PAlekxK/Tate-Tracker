@@ -1347,49 +1347,58 @@
             "firstFlagged": "2022-11-21 (Express Oil invoice, $1,431.11 visit)",
             "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair.",
             "whyItMatters": "On a 351W the rear main sits between engine and transmission — an engine-out or trans-out job, so expensive alone and nearly free if the drivetrain is ever apart. This bears directly on the paint-window decision: if she is at a shop for an extended respray, that is the moment to deal with it.",
-            "check": "one look at the bellhousing / engine-to-trans junction for fresh oil"
+            "check": "one look at the bellhousing / engine-to-trans junction for fresh oil",
+            "state": "closed"
           },
           {
             "item": "Transfer case leak",
             "firstFlagged": "2016-07-01 post-buy inspection",
             "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair.",
-            "check": "look at the transfer case for fresh fluid"
+            "check": "look at the transfer case for fresh fluid",
+            "state": "closed"
           },
           {
             "item": "Valve covers leaking",
             "firstFlagged": "2016-07-01 post-buy inspection",
             "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair.",
-            "check": "look along the valve-cover rails"
+            "check": "look along the valve-cover rails",
+            "state": "closed"
           },
           {
             "item": "Frame crack at the steering box",
             "firstFlagged": "~Sept 2020 prior-owner handwritten note; corroborated again on IMG_8556",
             "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair. ⚠️ FLAGGED ONCE AT THE TIME AND RULED ANYWAY, recorded so the disagreement is visible rather than lost: this item is a FRAME finding, not an engine one, so the engine-replacement rationale does not mechanically reach it, and it had carried the record's own strongest warning (flag F-2, 'THE load-bearing one on a lifted 351', 'inspect before trusting her on the road'). Paul re-affirmed the closure directly. He has been under the truck and the record has not.",
-            "check": "inspect the frame at the steering-box mount before trusting her on the road"
+            "check": "inspect the frame at the steering-box mount before trusting her on the road",
+            "state": "closed"
           },
           {
             "item": "Front-end noise",
             "firstFlagged": "2023-04 prior-owner margin note: 'still rt front noise — since U-joint repl'",
             "status": "✅ CLOSED 2026-09-01 by Paul at fleet lap 1 beat 6 `[paul-stated]`: \"none of these leaks... are current. They've all been replaced or repaired with the new engines. So if you're flagging old issues for bolores that come from the old documentation, don't resurface them because they've been resolved.\" ⚠️ PROVENANCE: this is the OWNER'S READ of his own truck, not a repair record — no invoice closes it. That is a legitimate and higher-grade source than the shop paperwork it supersedes, but it is a different KIND of evidence and the record says so rather than implying a documented repair. ⚠️ Also not engine work — a 2023-04 prior-owner margin note. Closed on Paul's read, same provenance caveat.",
-            "check": "road test + front-end inspection"
+            "check": "road test + front-end inspection",
+            "state": "closed"
           },
           {
             "item": "Exhaust: single or dual? — ✅ ANSWERED",
             "firstFlagged": "2026-07-29 — the record said 'dual' but the 2017 Cherokee ticket lists ONE muffler and ONE 3\" tip",
             "status": "✅ CLOSED 2026-07-29 — Paul counted TWO TIPS at the truck. She is DUAL. The record's original wording was correct; the mid-day downgrade to 'single' was an over-correction from a dictated receipt line, and the physical check reversed it.",
-            "check": "done — no action"
+            "check": "done — no action",
+            "state": "closed"
           },
           {
             "item": "Transmission — confirm C6 by quadrant",
             "firstFlagged": "2026-07-29",
             "status": "✅ ANSWERED 2026-09-01 by Paul at the truck `[paul-stated]`: \"The P R N D 2 1, that's what I see.\" A C6 is a THREE-speed and that is the three-speed quadrant — no overdrive position, so no later swap. This CONFIRMS the prior circumstantial case (door-tag K + vacuum modulator + rebuilt-not-swapped) with a physical read, which is what the item asked for.",
-            "check": "done — Paul read the quadrant 2026-09-01"
+            "check": "done — Paul read the quadrant 2026-09-01",
+            "state": "closed"
           },
           {
             "item": "Emissions hardware — what is actually still on her",
             "firstFlagged": "2026-07-29",
-            "status": "⏸ DEFERRED 2026-09-01 `[paul-stated]`: \"I'll look at the emissions hardware next time I'm with Bolores, but I'm not by the truck now.\" STAYS OPEN — this is the one Bolores item Paul did NOT close, and he named why. Three looks close it: EGR valve on the intake? Thermactor/smog air pump on the front of the engine? catalytic converters underneath?",
-            "check": "Under the hood: is there an EGR valve on the intake? a smog/Thermactor air pump on the front of the engine? Underneath: are there catalytic converters in the exhaust? Three looks, and they close the whole 2018 delete question."
+            "status": "⏸ DEFERRED 2026-09-01 `[paul-stated]`: \"I'll look at the emissions hardware next time I'm with Bolores, but I'm not by the truck now.\" STAYS OPEN — this is the one Bolores item Paul did NOT close, and he named why. Three looks close it: EGR valve on the intake? Thermactor/smog air pump on the front of the engine? catalytic converters underneath? ⏸ STATE: `deferred`, `nextLook: 2026-10-01` — set at fleet lap 1 so the lap can CLOSE without pretending the look happened. ⭐ This rests the signal; it does not answer the question. The probe FIRES on 10-01 whether or not anyone remembers — a deferral that cannot announce its own expiry is just a nicer way to forget. Move the date freely; deleting it is what would lose the item.",
+            "check": "Under the hood: is there an EGR valve on the intake? a smog/Thermactor air pump on the front of the engine? Underneath: are there catalytic converters in the exhaust? Three looks, and they close the whole 2018 delete question.",
+            "state": "deferred",
+            "nextLook": "2026-10-01"
           }
         ]
       },
@@ -1482,21 +1491,24 @@
             "firstFlagged": "2026-08-30 (Paul, verbal — pattern recalled across ~2026-08-28 → 08-30)",
             "status": "open — investigating. Presentation is consistently slow/labored crank, then nothing or a single click. Charging the battery has restored starting EVERY time so far, which points at charge state; the honest counterexample is 2025-05-09, when the battery was fully charged and the cause was still fuel. ⭐ NARROWED 2026-08-30 (observation, still not a diagnosis): three starts in ~1 hour, each shut off quickly — the engine FIRED ALL THREE TIMES while cranking power decayed monotonically to barely-turning. Fuel, spark and carb are exonerated FOR THIS EPISODE; it is on the electrical axis. ⚠️ Partly self-inflicted — a short idle run on this bike is a net WITHDRAWAL (headlight always on, 150 W only at 5 000 r/min), so three of them is a discharge test. Also 8/30: she was left with a trickle charger ATTACHED BUT UNPOWERED and lost charge — a charger with no blocking diode back-feeds through its own output stage. Neither observation is a verdict; both are now testable.",
             "whyItMatters": "The labored-crank-then-click sequence is what a 6 Ah battery does under repeated cranking REGARDLESS of why the engine failed to fire, so it cannot distinguish 'she walked up to a low battery' from 'she cranked a healthy battery flat trying to start it for a fuel reason'. By the third attempt the evidence is gone either way. Mom is also riding on an unknown fuel level — this bike has no fuel gauge and reserve is only 2.5 L (0.7 gal).",
-            "check": "Two observations, both taken BEFORE the battery is run down: (1) resting voltage before the first crank of the day — >=12.4 V means it was not the battery; (2) ⚠️ CORRECTED 2026-08-30 — there is NO KICKSTARTER (paul-verified; the manual claiming one is a DR200SE manual). The substitute is the AVAPOW jump pack in the kit: clip it on at the FIRST labored crank — fires on the pack = engine/fuel/spark are fine and it was purely charge. Standing rule for Mom: three attempts of five seconds, then stop. ⭐ 8/30 — the discriminator is now T2, CRANKING VOLTAGE ON A FULLY CHARGED BATTERY: a dying AGM reads 12.6 V happily (surface charge is free) but collapses below ~9.5 V under the starter. That single 30-second test separates 'battery has no capacity left' from 'it was spent faster than it could be replaced'."
+            "check": "Two observations, both taken BEFORE the battery is run down: (1) resting voltage before the first crank of the day — >=12.4 V means it was not the battery; (2) ⚠️ CORRECTED 2026-08-30 — there is NO KICKSTARTER (paul-verified; the manual claiming one is a DR200SE manual). The substitute is the AVAPOW jump pack in the kit: clip it on at the FIRST labored crank — fires on the pack = engine/fuel/spark are fine and it was purely charge. Standing rule for Mom: three attempts of five seconds, then stop. ⭐ 8/30 — the discriminator is now T2, CRANKING VOLTAGE ON A FULLY CHARGED BATTERY: a dying AGM reads 12.6 V happily (surface charge is free) but collapses below ~9.5 V under the starter. That single 30-second test separates 'battery has no capacity left' from 'it was spent faster than it could be replaced'.",
+            "state": "open"
           },
           {
             "item": "Charging output never measured — THE decisive test",
             "firstFlagged": "2026-08-30",
             "status": "open — never measured on this bike",
             "whyItMatters": "If she is not charging, the battery will be low every single time no matter what anyone does with the gas, a new battery would die the same way, and every other question here is downstream. Generator max output is only 150 W at 5 000 r/min against short low-rpm rides.",
-            "check": "Engine warm and running, meter across the battery, hold ~5 000 r/min. Manual spec: REGULATED VOLTAGE 13.0 - 16.0 V at 5 000 r/min. Sitting at ~12.3 and sagging = not charging. Above 16 V = regulator/rectifier failing and cooking the battery."
+            "check": "Engine warm and running, meter across the battery, hold ~5 000 r/min. Manual spec: REGULATED VOLTAGE 13.0 - 16.0 V at 5 000 r/min. Sitting at ~12.3 and sagging = not charging. Above 16 V = regulator/rectifier failing and cooking the battery.",
+            "state": "open"
           },
           {
             "item": "Battery age unknown (YTX7L-BS, 12 V 6 Ah)",
             "firstFlagged": "2026-08-30 — gap found in this record, not a shop finding",
             "status": "open — no purchase or install date anywhere in the record",
             "whyItMatters": "If it is the 2017 original it is ~9 years old against a 3-5 year AGM life, and it has been deep-cycled repeatedly (June 2026 recommission, the July 2026 contact episode, this week). A 6 Ah battery has very little margin.",
-            "check": "Read the date stamp on the battery case. Do NOT replace it before the charging-voltage test above — if the charging system is dead, a new battery just becomes the next dead battery."
+            "check": "Read the date stamp on the battery case. Do NOT replace it before the charging-voltage test above — if the charging system is dead, a new battery just becomes the next dead battery.",
+            "state": "open"
           }
         ]
       },

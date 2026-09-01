@@ -148,23 +148,75 @@ def s3_provenance(ack_path=None, brief=None):
                    if flagged else "no manual/model mismatch")
 
 
+ITEM_STATES = ("open", "closed", "deferred")   # a CLOSED SET — an unknown value
+                                              # is an error, never a default
+
+
 def s4_stale_open(today, vehicles):
-    stale = []
+    """Fires on an OPEN physical check past the threshold, and on a DEFERRAL
+    whose date has arrived.
+
+    ⭐ Reads `state` (open|closed|deferred), not prose. Until 2026-09-01 this
+    keyed only on `firstFlagged` and never looked at whether the item was still
+    open, so five items closed at beat 6 stayed ⚡ forever and one pre-existing
+    closure escaped only because its date was under the threshold — luck, not
+    logic. Matching the CONTAINER (presence in the list) instead of the PAYLOAD
+    (is it open?) is the failure this closed set exists to make loud.
+
+    ⭐ `deferred` + `nextLook` is how a physical check RESTS without a schedule
+    masquerading as an answer (beat 7's lap-1 amendment). A deferral rests until
+    its date and then FIRES — a deferral that cannot announce its own expiry is
+    just a nicer way to forget. A `deferred` item with no readable `nextLook`
+    raises Unknown rather than resting silently forever.
+    """
+    stale, elapsed = [], []
+    n_closed = n_deferred = n_undated = n_open = 0
     for v in vehicles:
         block = v.get("openMechanicalItems") or {}
         for it in (block.get("items") if isinstance(block, dict) else block) or []:
+            label = f"{v['id']}:{(it.get('item') or '')[:34]}"
+            state = it.get("state", "open")
+            if state not in ITEM_STATES:
+                raise Unknown(f"{label} has state {state!r}, not one of {ITEM_STATES}")
+            if state == "closed":
+                n_closed += 1
+                continue
+            if state == "deferred":
+                raw = (it.get("nextLook") or "")[:10]
+                try:
+                    due = dt.date.fromisoformat(raw)
+                except ValueError:
+                    raise Unknown(f"{label} is deferred with no readable nextLook "
+                                  f"({raw!r}) — a deferral with no date is a forget")
+                if today >= due:
+                    elapsed.append(f"{label} (due {raw})")
+                else:
+                    n_deferred += 1
+                continue
+            n_open += 1
             raw = (it.get("firstFlagged") or "")[:10]
             try:
                 d = dt.date.fromisoformat(raw)
             except ValueError:
-                continue                      # undated items are not counted, and
-                                              # the denominator below says so
+                n_undated += 1      # counted and REPORTED below — the old code
+                continue            # claimed a denominator it never printed
             if (today - d).days > STALE_OPEN_DAYS:
-                stale.append(f"{v['id']}:{(it.get('item') or '')[:34]}")
+                stale.append(label)
+
+    denom = (f"[{n_open} open ({n_undated} undated, not testable) · "
+             f"{n_closed} closed · {n_deferred} deferred]")
+    if elapsed:
+        return True, (f"{len(elapsed)} deferral(s) ELAPSED: " +
+                      "; ".join(elapsed[:3]) +
+                      (f" (+{len(elapsed)-3} more)" if len(elapsed) > 3 else "") +
+                      (f" · {len(stale)} also past {STALE_OPEN_DAYS}d" if stale else "") +
+                      f" {denom}")
     if stale:
-        return True, f"{len(stale)} open check(s) past {STALE_OPEN_DAYS}d: " + \
-                     "; ".join(stale[:3])
-    return False, f"no open check older than {STALE_OPEN_DAYS}d"
+        return True, (f"{len(stale)} open check(s) past {STALE_OPEN_DAYS}d: " +
+                      "; ".join(stale[:3]) +
+                      (f" (+{len(stale)-3} more)" if len(stale) > 3 else "") +
+                      f" {denom}")
+    return False, f"no open check older than {STALE_OPEN_DAYS}d {denom}"
 
 
 SIGNALS = ("SEASON", "INBOX", "PROVENANCE", "STALE-OPEN")
@@ -345,6 +397,56 @@ def selftest():
     check("S4 ignores an undated item rather than guessing",
           not s4_stale_open(dt.date(2026, 8, 30),
                             [{"id": "x", "openMechanicalItems": {"items": [{"item": "y"}]}}])[0])
+
+    # ── the CLOSED-item half. Every case paired with the near-miss that must
+    # NOT behave the same way — the bug shipped 2026-09-01 was precisely a
+    # closed item and an open one being indistinguishable.
+    def _one(**kw):
+        it = {"item": "x", "firstFlagged": "2026-01-01"}; it.update(kw)
+        return [{"id": "bike", "openMechanicalItems": {"items": [it]}}]
+
+    OLD = dt.date(2026, 8, 30)
+    check("S4 does NOT count a CLOSED item, however old",
+          not s4_stale_open(OLD, _one(state="closed"))[0])
+    check("  …and the SAME item left open DOES fire (the near-miss)",
+          s4_stale_open(OLD, _one(state="open"))[0])
+    check("S4 treats a missing `state` as open (back-compat with the old shape)",
+          s4_stale_open(OLD, _one())[0])
+    try:
+        s4_stale_open(OLD, _one(state="resolved"))
+        check("S4 raises Unknown on a state outside the closed set", False)
+    except Unknown:
+        check("S4 raises Unknown on a state outside the closed set", True)
+
+    # ── the DEFERRAL half — it must rest, and it must ANNOUNCE ITS OWN EXPIRY
+    check("S4 rests on a deferral whose date has not arrived",
+          not s4_stale_open(OLD, _one(state="deferred", nextLook="2026-10-15"))[0])
+    check("  …and FIRES the day that date arrives (the near-miss)",
+          s4_stale_open(dt.date(2026, 10, 15),
+                        _one(state="deferred", nextLook="2026-10-15"))[0])
+    check("  …reporting it as ELAPSED, not as a stale check",
+          "ELAPSED" in s4_stale_open(dt.date(2026, 10, 16),
+                                     _one(state="deferred", nextLook="2026-10-15"))[1])
+    for bad in ("", "next spring"):
+        try:
+            s4_stale_open(OLD, _one(state="deferred", nextLook=bad))
+            check(f"S4 raises Unknown on a deferral dated {bad!r}", False)
+        except Unknown:
+            check(f"S4 raises Unknown on a deferral dated {bad!r}", True)
+
+    # ── the DENOMINATOR the old code's comment claimed and never printed
+    mixed = [{"id": "bike", "openMechanicalItems": {"items": [
+        {"item": "a", "firstFlagged": "2026-01-01"},
+        {"item": "b"},                                       # undated
+        {"item": "c", "state": "closed"},
+        {"item": "d", "state": "deferred", "nextLook": "2026-12-01"}]}}]
+    _, why = s4_stale_open(OLD, mixed)
+    check("S4 REPORTS its denominator — open/undated/closed/deferred",
+          all(s in why for s in ("undated", "closed", "deferred")))
+    check("  …and the undated item is counted in it, not silently dropped",
+          "1 undated" in why)
+    check("S4 rest-path carries the denominator too",
+          "closed" in s4_stale_open(dt.date(2026, 1, 15), mixed)[1])
 
     check("the real vehicles.json is readable", len(_vehicles()) > 10)
 
