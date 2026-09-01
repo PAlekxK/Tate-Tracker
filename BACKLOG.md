@@ -1589,6 +1589,34 @@ claims it cannot keep while the question is open.
 
 ---
 
+## 🖥 W1 · NOBODY OWNS `viewer.html` — and clearing its ship check became pressure to publish to Mom `[measured 2026-09-01]`
+
+Also filed at Track B's door (`cycle/requests.jsonl`) so a lap disposes it; **Paul routed it to BOTH
+surfaces** so it survives if either is folded.
+
+| measurement | instrument |
+|---|---|
+| `VEHICLES_DATA` = **304,338 B = 15.6%** of `viewer.html` (1,947,276 B) — the largest inlined const, above `PLANTS_DATA` (11.1%) | regex extract of `const X = {…};` |
+| **3 of 9** session commits touched `viewer.html` — **all three Track B**. **Zero** Track A commits touched her page | `git show --name-only` per commit |
+| Track B's map + probe: **zero** references to `check-live` / `check-data-inline` | grep |
+| Track A's leg 7 hashes `viewer.html` against HEAD | `check-live.py:99` |
+
+**Track B has WRITE duty on Track A's shipped artifact with no ship concept. Track A has SHIP duty
+with no control over the writes.**
+
+⭐ **THE INCIDENT.** `check-mom-ack` read `NOT SHIPPED` and it was **true** — but what cleared it was
+pushing **seven commits, a majority of them Track B's**, through a loop whose leg 6 rule is *"nothing
+reaches Mom's surface without Paul."* The ship check became pressure to publish.
+
+⛔ **The audit's verdict is NOT to merge the loops** — the split is sufficient and correctly drawn.
+Missing is exactly one thing: **an owner for `viewer.html`**. Seeded separately to meta-stack:
+`health-probe.py:103` `DERIVED_VIEWS` watches seven repos for this drift and **omits Tate-Tracker**,
+whose prover `check-data-inline.py` has no caller.
+
+Full grounding: `~/.claude/agents/audits/2026-09-01-session-process-advisory.md` §Q1.
+
+---
+
 ## 🆔 V-SERIES · THE IDENTIFIER RECORD — measured 2026-09-01 at Paul's ask `[paul-stated]`
 
 > *"I know that I've taken pictures of the VINs before and fed them maybe into the ChatGPT, but we need

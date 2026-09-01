@@ -1400,10 +1400,9 @@
           {
             "item": "Emissions hardware — what is actually still on her",
             "firstFlagged": "2026-07-29",
-            "status": "⏸ DEFERRED 2026-09-01 `[paul-stated]`: \"I'll look at the emissions hardware next time I'm with Bolores, but I'm not by the truck now.\" STAYS OPEN — this is the one Bolores item Paul did NOT close, and he named why. Three looks close it: EGR valve on the intake? Thermactor/smog air pump on the front of the engine? catalytic converters underneath? ⏸ STATE: `deferred`, `nextLook: 2026-10-01` — set at fleet lap 1 so the lap can CLOSE without pretending the look happened. ⭐ This rests the signal; it does not answer the question. The probe FIRES on 10-01 whether or not anyone remembers — a deferral that cannot announce its own expiry is just a nicer way to forget. Move the date freely; deleting it is what would lose the item.",
+            "status": "📌 STANDING NOTE — `paul-ruled 2026-09-01`: \"Let's not put a deadline on this. It should never fire the loop, just be a soft reminder.\" ⭐ NOT a deferral and deliberately carries NO date: a deferral promises to come back and must fire on its day, while this promises nothing and firing would misrepresent it. What it owes instead is VISIBILITY — the probe counts it in the census and NAMES it on every run, resting or not. Paul's own words on the work: \"I'll look at the emissions hardware next time I'm with Bolores.\" Three looks close it: EGR valve on the intake? Thermactor/smog air pump on the front of the engine? catalytic converters underneath? Those three answer the whole 2018 delete question.",
             "check": "Under the hood: is there an EGR valve on the intake? a smog/Thermactor air pump on the front of the engine? Underneath: are there catalytic converters in the exhaust? Three looks, and they close the whole 2018 delete question.",
-            "state": "deferred",
-            "nextLook": "2026-10-01"
+            "state": "standing"
           }
         ]
       },

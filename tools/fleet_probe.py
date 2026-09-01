@@ -148,7 +148,7 @@ def s3_provenance(ack_path=None, brief=None):
                    if flagged else "no manual/model mismatch")
 
 
-ITEM_STATES = ("open", "closed", "deferred")   # a CLOSED SET — an unknown value
+ITEM_STATES = ("open", "closed", "deferred", "standing")   # a CLOSED SET — an unknown value
                                               # is an error, never a default
 
 
@@ -169,26 +169,33 @@ def s4_stale_open(today, vehicles):
     just a nicer way to forget. A `deferred` item with no readable `nextLook`
     raises Unknown rather than resting silently forever.
     """
-    stale, elapsed, census = _stale_open_scan(today, vehicles)
+    stale, elapsed, standing, census = _stale_open_scan(today, vehicles)
     n_open, n_undated = census["open"], census["undated"]
     n_closed, n_deferred, n_elapsed = (census["closed"], census["deferred"],
                                        census["elapsed"])
+    n_standing = census["standing"]
 
     denom = (f"[{n_open} open ({n_undated} undated, not testable) · "
              f"{n_closed} closed · {n_deferred} deferred"
-             + (f", {n_elapsed} due" if n_elapsed else "") + "]")
+             + (f", {n_elapsed} due" if n_elapsed else "")
+             + (f" · {n_standing} standing" if n_standing else "") + "]")
+    # ⭐ A STANDING NOTE IS RENDERED ON EVERY RUN, FIRING OR NOT. It never fires,
+    # so this line is the ONLY thing that keeps it visible — drop it and the
+    # state becomes a silent hole in the record. Never appended to `fired`.
+    note = (" · standing: " + "; ".join(standing[:2])
+            + (f" (+{len(standing)-2})" if len(standing) > 2 else "")) if standing else ""
     if elapsed:
         return True, (f"{len(elapsed)} deferral(s) ELAPSED: " +
                       "; ".join(elapsed[:3]) +
                       (f" (+{len(elapsed)-3} more)" if len(elapsed) > 3 else "") +
                       (f" · {len(stale)} also past {STALE_OPEN_DAYS}d" if stale else "") +
-                      f" {denom}")
+                      f" {denom}" + note)
     if stale:
         return True, (f"{len(stale)} open check(s) past {STALE_OPEN_DAYS}d: " +
                       "; ".join(stale[:3]) +
                       (f" (+{len(stale)-3} more)" if len(stale) > 3 else "") +
-                      f" {denom}")
-    return False, f"no open check older than {STALE_OPEN_DAYS}d {denom}"
+                      f" {denom}" + note)
+    return False, f"no open check older than {STALE_OPEN_DAYS}d {denom}" + note
 
 
 def _stale_open_scan(today, vehicles):
@@ -214,8 +221,8 @@ def _stale_open_scan(today, vehicles):
     reassignment. The invariant `open + closed + deferred == total` is now a
     positive control.
     """
-    stale, elapsed = [], []
-    n_closed = n_deferred = n_undated = n_open = n_elapsed = n_total = 0
+    stale, elapsed, standing = [], [], []
+    n_closed = n_deferred = n_undated = n_open = n_elapsed = n_standing = n_total = 0
     for v in vehicles:
         block = v.get("openMechanicalItems") or {}
         for it in (block.get("items") if isinstance(block, dict) else block) or []:
@@ -242,6 +249,27 @@ def _stale_open_scan(today, vehicles):
                     n_elapsed += 1
                     elapsed.append(f"{label} (due {raw})")
                 continue
+            if state == "standing":
+                # ⭐ A STANDING NOTE NEVER FIRES THE LOOP — `paul-stated 2026-09-01`:
+                # "Let's not put a deadline on this. It should never fire the loop,
+                # just be a soft reminder."
+                #
+                # The distinction from `deferred` is a PROMISE, not a duration.
+                # A deferral promises to come back, so it MUST fire on its date —
+                # otherwise it is "a nicer way to forget". A standing note promises
+                # nothing and carries no date, so firing would be a lie about what
+                # it is. What it owes instead is VISIBILITY: it is counted in the
+                # census AND named in the rendered line on EVERY run, resting or
+                # not. An unfiring item that is also unrendered would be exactly
+                # the forgetting the deferral rule exists to prevent — so the two
+                # rules are the same rule, applied to two different promises.
+                #
+                # ⛔ Deliberately takes NO `nextLook`. Giving it one would make it a
+                # deferral wearing another name, and the next reader would expect a
+                # fire that never comes.
+                n_standing += 1
+                standing.append(label)
+                continue
             n_open += 1
             raw = (it.get("firstFlagged") or "")[:10]
             try:
@@ -253,12 +281,14 @@ def _stale_open_scan(today, vehicles):
                 stale.append(label)
 
     census = {"open": n_open, "undated": n_undated, "closed": n_closed,
-              "deferred": n_deferred, "elapsed": n_elapsed, "total": n_total}
-    if census["open"] + census["closed"] + census["deferred"] != n_total:
+              "deferred": n_deferred, "elapsed": n_elapsed,
+              "standing": n_standing, "total": n_total}
+    if (census["open"] + census["closed"] + census["deferred"]
+            + census["standing"]) != n_total:
         raise Unknown(
             f"stale-open census does not account for every item "
             f"({census}) — refusing to print a denominator that does not add up")
-    return stale, elapsed, census
+    return stale, elapsed, standing, census
 
 
 SIGNALS = ("SEASON", "INBOX", "PROVENANCE", "STALE-OPEN")
@@ -534,6 +564,32 @@ def selftest():
     check("S4 rest-path carries the denominator too",
           "closed" in s4_stale_open(dt.date(2026, 1, 15), mixed)[1])
 
+    # ── STANDING: never fires, always counted, always rendered ────────────
+    # `paul-stated 2026-09-01`. Each case paired with the deferral that MUST
+    # behave differently — the whole point is that the two are not the same.
+    def _st(**kw):
+        it = {"item": "emissions look", "firstFlagged": "2020-01-01"}; it.update(kw)
+        return [{"id": "bronco-1989", "openMechanicalItems": {"items": [it]}}]
+
+    FAR = dt.date(2030, 1, 1)
+    check("S4 standing does NOT fire, even years later",
+          not s4_stale_open(FAR, _st(state="standing"))[0])
+    check("  …PAIRED: a deferral with a past date DOES fire",
+          s4_stale_open(FAR, _st(state="deferred", nextLook="2026-10-01"))[0])
+    check("  …PAIRED: the same item left open DOES fire (it is 60d+ old)",
+          s4_stale_open(FAR, _st(state="open"))[0])
+    check("S4 standing takes NO nextLook and must not require one",
+          not s4_stale_open(FAR, _st(state="standing"))[0])
+    check("S4 standing is COUNTED in the census (not a silent hole)",
+          _stale_open_scan(FAR, _st(state="standing"))[3]["standing"] == 1)
+    check("S4 standing is RENDERED even on the resting path",
+          "standing" in s4_stale_open(FAR, _st(state="standing"))[1])
+    check("  …and NAMES the item, so it cannot rot unseen",
+          "emissions look" in s4_stale_open(FAR, _st(state="standing"))[1])
+    cen = _stale_open_scan(FAR, _st(state="standing"))[3]
+    check("S4 invariant still balances WITH a standing item",
+          cen["open"] + cen["closed"] + cen["deferred"] + cen["standing"] == cen["total"])
+
     check("the real vehicles.json is readable", len(_vehicles()) > 10)
 
     # ── ⭐ THE CENSUS INVARIANT · every item is accounted for, on EVERY date ──
@@ -546,19 +602,19 @@ def selftest():
     bad = []
     for off in range(0, 500, 7):            # sweeps across every nextLook we hold
         t = dt.date(2026, 9, 1) + dt.timedelta(days=off)
-        _, _, c = _stale_open_scan(t, real)
+        _, _, _, c = _stale_open_scan(t, real)
         if c["open"] + c["closed"] + c["deferred"] != c["total"]:
             bad.append(t.isoformat())
     check(f"⭐ CENSUS: open+closed+deferred == total on all 72 sampled dates "
           f"(failing: {bad[:3]})", not bad)
 
     # PAIRED — the date the real deferral fires, which is where it broke.
-    _, el, c = _stale_open_scan(dt.date(2026, 10, 1), real)
+    _, el, _, c = _stale_open_scan(dt.date(2026, 10, 1), real)
     check("⭐ CENSUS PAIRED: on the day a deferral FIRES it is still counted "
           "deferred, and reported elapsed — a sub-count, not a reassignment",
           c["elapsed"] == 1 and c["deferred"] >= 1 and len(el) == 1
           and c["open"] + c["closed"] + c["deferred"] == c["total"])
-    _, el0, c0 = _stale_open_scan(dt.date(2026, 9, 30), real)
+    _, el0, _, c0 = _stale_open_scan(dt.date(2026, 9, 30), real)
     check("⭐ CENSUS PAIRED: the day BEFORE, same deferral, nothing elapsed",
           c0["elapsed"] == 0 and not el0 and c0["deferred"] == c["deferred"])
 
