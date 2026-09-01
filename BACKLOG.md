@@ -186,6 +186,62 @@ phone, and **H1–H4 are already the start of that list**.
 
 ---
 
+## 🔧 INBOUND from photo-organizer — 2026-09-01: **MOWER BLADE SHARPENING IS DATED** (Track B)
+
+Answers the fleet-cycle request filed 2026-09-01 (`photo-organizer/cycle/requests.jsonl`,
+`from: tate-tracker:fleet-cycle`). ⭐ **No new review was needed — Paul had already ruled these
+photographs on 2026-08-16**, lap 17, answers file
+`photo-organizer/reports/project-review-burst-2025-04-10.answers.json`. The fleet lap was holding
+an item the photo corpus had already answered.
+
+**THE DATE: 2025-04-10.** The blades are photographed being sharpened at **17:36** — `IMG_6194.HEIC`
+and `IMG_6195.MOV`. The whole Husqvarna sequence runs **16:02 → 18:03** that day (`IMG_6183`,
+`6184`, `6185`, `6194`, `6195`, `6197`), carried in photo-organizer's DB as
+`observed:husqvarna-mower:repair:2025-04-10` — **6 rows**.
+
+**THE MACHINE: the Husqvarna Z254F** — ⚠️ **and this is Paul's WORD, not the photograph's.** The
+request asked whether the images show which mower. They do not. The answers file records the
+finding explicitly: *"two mowers nearly collapsed — only Paul's wording kept the Husqvarna and the
+Kobalt apart."* Filed as fact about what he said, a proposal about what the pictures prove.
+
+**⭐ IT WAS DONE OFF-PROPERTY, at Herman's shop.** Paul, 2026-08-16: *"we did ALL the sharpening in
+Herman's shop. He showed us how."* ⭐ **The geometry predicted this before he said it** — `IMG_6195`
+sat **707 m** out and `IMG_6205` **712 m**, while every other mower card that day was **14–31 m**;
+the outlier was surfaced as *"the blades very likely went to the shop — not decided here"* and he
+then volunteered the shop unprompted.
+
+**⚡ WHY THIS BEARS ON THE ROUNDED 5/8" BOLT.** The sequence is tight and it runs the right way:
+**04-10** blades come off and are sharpened (blade bolts out) → **04-13** the Kobalt push mower is
+worked (`observed:kobalt-km2040x-06:repair:2025-04-13`, `IMG_6248.HEIC`, *"the electric lawnmower,
+the small one"*) → **04-14** Paul asks for a bolt extractor for a rounded, seized 5/8" bolt. **The
+blade bolts were out four days before the bolt problem was raised.** Which machine the seized bolt
+belongs to is NOT established by this — a 5/8" deck bolt is more consistent with the riding mower,
+but that is an inference and the fleet record should not adopt it as fact.
+
+⚠️ **FOUR CAVEATS, because a model read lands here as a proposal and never as fact:**
+1. **The parts list is HEDGED and the sharpening is not.** Paul: *"it LOOKS LIKE we replaced the
+   fuel line and the air filter and the fuel filter and sharpened the blades."* The **sharpening**
+   is separately confirmed (the sparks, plus the Herman's-shop statement); **fuel line / air filter
+   / fuel filter are hedged and must stay hedged** in any serviceHistory entry.
+2. **The VLM read the sharpening as WELDING** — the fifth object-identity failure in this corpus.
+   Nothing here rests on an image-derived claim.
+3. **An unresolved residual, flagged in the answers file:** `IMG_6194` (#4) carries a **19 m** GPS
+   fix and so cannot also be at the shop, while its sibling `IMG_6195` is at 707 m. One of the two
+   is wrong and it is not resolved.
+4. **`IMG_6205` (#5→#7, 2025-04-11) is `unattributable`** — *"me helping Herman at a shop"* — real
+   activity Paul could not tie to a project.
+
+**⛔ NOTHING WAS WRITTEN TO `vehicles.json`.** Both mowers still carry zero `serviceHistory`, and
+that stays Paul's edit — photo-organizer already holds 15 unapplied proposals and does not add
+itself to another repo's canonical file. **The proposal, if taken:** a `husqvarna-mower` entry
+dated `2025-04-10`, `shop: "Herman's shop (DIY, taught by Herman)"`, work = blade sharpening
+**confirmed** + fuel line / air filter / fuel filter **hedged**, no receipt — a live instance of
+the *"labour leaves no receipt"* hole, which is why the fleet record never knew it happened.
+
+⭐ **A GAP THIS SURFACES AND THE GRAMMAR STILL CANNOT HOLD:** *"He showed us how."* The record has
+no slot for **who did the work** or **who taught it** — third instance (after the hired tree crew
+and the gifted Christmas part). It survives only in `detail` prose.
+
 ## 📷 INBOUND from the photo-organizer loop — 2026-08-28 (its lap 22, beat 4b)
 
 > **A cross-loop handoff, and it is HERE rather than in `cycle/requests.jsonl` on purpose.**
