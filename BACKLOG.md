@@ -1596,6 +1596,80 @@ BOTH directions. Absence is not evidence, and a stated order clears only with an
 (`[[reference_parts_record_under_reports]]`). Any lookup built over it must carry that, not flatten
 it into a clean-looking inventory.
 
+### 🎯 HOW C0 OPENS — a user-researcher INTERVIEW first, then agile artifacts `[paul-stated 2026-09-01]`
+
+> *"It's worth at some point having the customer researcher come in and kind of interview me, to be
+> sure that my intentions are clear and also establish a vision here for what we're trying to build.
+> Fernwood is kind of the first example of it, but there's an overarching **product engine
+> capability** that I'm trying to steer us towards — and ensure we're on a good path to not have a
+> bunch of diverging issues, and we will have flexibility so that we can approach other people and,
+> to oversimplify, pull in all their data and preferences and what they're interested in and want to
+> see, and then just populate it."*
+>
+> *"I want to try to have some of the classic agile product-management artifacts to keep us on the
+> right track — because if we get off, this could get real confusing really fast."*
+
+**⭐ THIS REORDERS THE ENTRY. C0 above reads as an architecture question; it is not one yet.** Every
+option in it — tiered prompt, domain-scoped digests, retrieval, lookup tools, per-tenant data — is
+downstream of a product decision nobody has written down. **Beat 0 of this workstream is the
+interview, not a design.** Do not open C0 with engineering.
+
+**Why user-researcher is the right seat and not a formality:** Bob Rolader is a **real prospective
+user who can be asked rather than assumed**, and that agent's charter forbids replacing real users
+with synthetic ones without an explicit OK. Paul is both product owner *and* a real Track B user.
+Mom is the only user with months of behavioural evidence behind her. Three genuine research
+subjects, none of them hypothetical.
+
+### ⚠️ THE PORTFOLIO HAS NO PRODUCT-OWNER FUNCTION — this is that gap arriving
+
+`[[project_backlog_coherence_finding]]` already records it: **there is no product-owner agent.** The
+roster has `user-researcher` (proto-personas · JTBD · journey maps — *discovery* artifacts) and
+`ux-expert`, `engineering-partner`, `content-steward`, `ai-advisor`. **Nothing owns a product vision,
+a roadmap, or acceptance criteria.** Paul is asking for exactly that function. Whether it is a new
+seat or a mode on an existing one is itself a decision for `/team-audit`, not something to assume.
+
+**⛔ And this file is NOT the backlog he is asking for.** `BACKLOG.md` is ~1,400 lines and is
+excellent at what it actually is — a **decision record**, read for *why*. It is a poor agile backlog:
+no estimates, no acceptance criteria, no prioritised increment, shipped and open interleaved by
+topic. **Conflating the two is precisely how this "gets real confusing really fast."** Keep the
+decision record; put the product artifacts somewhere else and let this file point at them.
+
+**Candidate artifact set — to be chosen WITH him at the interview, not imposed:**
+product vision statement (one page, falsifiable) · proto-personas for Mom / Paul / Bob ·
+jobs-to-be-done for the one-box assistant · a now/next/later roadmap · epics with acceptance
+criteria · a definition of done · a decision log (**already exists — this file**) · a risk register.
+⚠️ **Pick the few that earn their keep at two users.** A full ceremony set for a two-person app is
+its own kind of drift, and this repo's doctrine is `defer-affordances-pending-signal`.
+
+### ⭐ THE NUMBER THE INTERVIEW MOST NEEDS — what "just populate it" costs today
+
+His vision sentence — *"pull in all their data and preferences and what they're interested in and
+want to see, and then just populate it"* — implies the **domain set itself is configurable per
+tenant**. Fernwood's is not. Measured 2026-09-01, lines naming a specific domain:
+
+| surface | lines naming a domain |
+|---|---|
+| `viewer.html` | **606** |
+| `worker/worker.js` | 85 |
+| `tools/build-digest.py` | 50 |
+| `tools/check-data-inline.py` | 24 |
+| `tools/momlib.py` | 23 |
+
+Plus **68 domain-specific renderers** in `viewer.html` and **10 hand-written digest builders**
+(`digest_plants`, `digest_wildlife`, `digest_vehicles`, `digest_zones`, `digest_turf`,
+`digest_fishing`, `digest_weeds`, `digest_property`, …).
+
+**So per-tenant DATA and per-tenant DOMAINS are different orders of work, and the vision sentence
+quietly asks for the second.** A second property with plants, vehicles and a house is close to free.
+A tenant who wants beehives, or a boat, or no garden at all, is ~790 lines and 78 functions.
+⚠️ **`momlib.DOMAINS` is a real declared manifest and `check-domains.py` enforces conformance against
+it — that is a genuine spine and the best evidence the engine idea is sound.** The divergence risk is
+everything *downstream* of it that never learned to read it.
+
+**Ask him at the interview, in his words, not ours:** *when you say pull in their data and populate
+it — are the categories the same as Fernwood's, or does each place get to name its own?* The answer
+sets the whole engineering scope and nothing else in C0 can be sized without it.
+
 ### What it will need when it opens
 
 Paul named it: **research plus all the expert seats.** At minimum `engineering-partner` (path
