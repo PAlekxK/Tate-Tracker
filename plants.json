@@ -1971,7 +1971,12 @@
         "6": "Deep weekly water. They wilt visibly when dry and are slow to forgive it.",
         "10": "Cut the blackened foliage back once frost has flattened it. Clearing it takes away where the slugs overwinter."
       },
-      "zones": []
+      "zones": [
+        {
+          "zoneId": "hosta-garden"
+        }
+      ],
+      "zoneNote": "Paul, 2026-09-01: \"yes, hostas can go to hosta garden.\" ⭐ HIS WORD, not an inference from the zone's name — the zone was traced and folded the same evening and the name alone was deliberately NOT treated as evidence about the ground."
     },
     {
       "id": "iris-blue-flag",

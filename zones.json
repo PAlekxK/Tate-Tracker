@@ -2565,6 +2565,16 @@
             "resolutionWarning": "12.5 x 4.0 m. THREE neighbours inside the ±9.1 m trace budget — western-garden 5.4 m, the-bluff 6.6 m, western-lower-patio 7.6 m. Attributable by eye, NEVER by point-in-polygon.",
             "partOfNotSet": "The NAME points at The Green, but the geometry does not: 0% of this polygon falls inside the-green, whose centroid is 9.9 m away, and its largest overlap is 45% with the-bluff. Paul has not stated a containment, so none is recorded. GEOMETRY PROPOSES, PAUL RULES — ask before setting partOf."
           }
+        },
+        {
+          "at": "2026-09-01T22:43:03.453568Z",
+          "by": "paul",
+          "action": "relation-ruled",
+          "details": {
+            "partOf": null,
+            "why": "Paul, 2026-09-01, asked directly whether the terrace is part of The Green: \"Green Terrace is not part of the Green. It overlooks it a little bit.\" ⭐ IT OVERLOOKS THE GREEN — adjacency and a sightline, NOT containment. `partOf` stays unset. The geometry agreed in advance (0% of the terrace falls inside the-green, centroid 9.9 m away), so this is a case where the measurement and his word matched and neither was needed to correct the other.",
+            "relation": "overlooks the-green"
+          }
         }
       ]
     },
