@@ -1511,6 +1511,15 @@ future scoping conversation."*
 affordance that asks her to answer us took **0**; the one that just moves her took **5 of 5**; and in
 the same window she wrote 4 notes and 4 Guru turns and handed us a new domain record unprompted.
 
+⏸ **DEFERRED TO A DEDICATED SCOPING CONVERSATION** `[paul-stated 2026-09-01]`: *"this scoping
+conversation, I think this needs to go just to the Fernwood backlog for now. To be honest, it's a
+little much to just tack on at the very end of this conversation."* ⭐ **This is a ruling about
+SEQUENCING, not a deprioritisation** — the card stays exactly as written and loses no standing. It is
+NOT waiting on a yes/no from Paul and should not be surfaced as though it were; it is waiting on a
+sitting long enough to hold it, with `user-researcher` as the first seat. A future session that finds
+this card should ask whether that conversation is happening, never try to close it inline at the end
+of a session doing something else. `fernwood-12` stays coupled and is decided after.
+
 ⛔ **DO NOT ACT ON THIS AS A FIX.** It is the most interesting finding the loop has produced and it
 is exactly the shape that invites a reflex — retire the confirm queue, rebuild the cards, move the
 ribbon. All of those are premature:
