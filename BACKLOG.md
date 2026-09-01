@@ -1147,6 +1147,103 @@ physical check from paper, and did not try. **Batch them into one trip** rather 
 
 ---
 
+## 🔧 FLEET LAP 1 · BEAT 3 REOPENED — four rows the mine filed 8 minutes after the lap passed `[2026-09-01]`
+
+Lap 1 drained the door at 09:17 (2 of 2, both photo-organizer's). At **09:25** the ChatGPT-archive
+mine filed **four more**. Beat 3 was reopened to take them rather than leaving them for a lap 2 that
+would have started with `lap_count` still 0 and lap 1 still held. Full record:
+`cycle/fleet/CYCLE-LOG.md` § Lap 1 · Beat 3 reopened. The door now reads `inbox clear (6 filed, all handled)`.
+
+⛔ **None of the four was folded as fact.** All four are model reads of a chat archive, and beat 3's
+rule is that a row is never folded on a model read. What the beat *did* do is check each row's
+claims **about our own record** — those are deterministic — which confirmed three, corrected one,
+and found one thing the mine missed.
+
+### 🚿 P6 · Water heater — the record and a 2025 photograph describe different machines
+
+`vehicles.json` has a **Bradford White RE250T6-1NCYY**, built Sept 2024. A photo Paul sent ChatGPT
+on **2025-03-21** shows a **Kenmore/Sears 153.320590HT**. Three readings and nothing on disk
+chooses: the unit was replaced between 03/2025 and 08/2026 · two different buildings · one of the
+two reads is wrong.
+
+✅ **Confirmed here:** the open field is real — `specs.installedHere` reads *"Not yet on record — no
+invoice in email; worth finding the paperwork, it starts the warranty clock."* 0 serviceHistory rows.
+
+⭐ **Correction to the mine's own reasoning.** It declined to propose an edit because the 2026 record
+is *"newer and serial-decoded"* and *"a 2025 photo does not outrank it."* It **is** newer — but it is
+**not a better grade of evidence**. The card's own `_provenance`: *"Added 2026-08-31 from Paul's
+photos of the unit (data plate + EnergyGuide label + front panel)"*, and the Sept-2024 build date is
+**decoded from a serial that was itself read off a photographed plate**. Two model reads of
+photographs, one grade. The conclusion (Paul settles it) stands; the reason given for it did not.
+
+👤 **One sentence from Paul closes it:** replaced, or a different building? If replaced, the invoice
+hunt has a date window (2025-03 → 2026-08) and it starts the warranty clock.
+
+### 🔌 P7 · GTI spark plugs — three claims, one heat range apart, nothing installed-verified
+
+Record says **NGK R7437-8**, confidence `inferred`, its own source line admitting the part number is
+nowhere on disk. Paul, **2025-03-23**: *"I previously ordered these spark plugs - NGK 4654 R7437-9
+Racing Plug SKU: R7437-9"* — heat range **nine**, one step colder. The model that day advised
+against the -9 for daily driving (racing plug, 5–10k mile life).
+
+✅ **Confirmed here:** `AMAZON-PARTS.md` § *GTI (2016) — 2 items* holds exactly two rows — Bosch
+Aerotwin wipers (2022-12-07) and a BDFHYK coolant expansion tank (2026-02-02). **Neither is spark
+plugs.** There is no purchase evidence in the register for *either* heat range, and a stated order
+clears only with an ORDER NUMBER.
+
+⭐ **The resolution is physical, not documentary — pull a plug and read the number off it.** Joins
+beat 4's batched trip. The mine's one proposed edit (add the contradiction to the field's source
+line) is a fair fold but still a change to Paul's record → **held as a beat-6 proposal, not done.**
+
+⚠️ Two NGK numbers one heat range apart is the lookalike-part shape that has already cost this
+record once (LLPT flat tape vs rope).
+
+### 🪟 P8 · Bronco — a second rear-window switch may exist, and the mine missed the repair arc
+
+`sr-2025-10-15-window-tailgate-electrical-parts` names a **Dorman 901-302**. Two days later,
+**2025-10-17**: *"I bought a switch from Amazon that someone recommended on a forum and wired it
+according to the photos… the switch shorted out pretty much immediately got hot."* That short took
+out the **front** windows, fixed by replacing a self-resetting breaker (Paul, 2025-10-27).
+
+✅ **Confirmed:** the Bronco's 15-item register has October-2025 rows but **no window-switch row of
+any date.**
+
+⭐ **What the mine did not see, and it changes the question:** the register **does** carry
+**2025-10-24 · Dorman 742-251 Power Window Lift Motor · $34.70 · INSTALLED** — *seven days after the
+short, three days before the breaker.* The register's own sequence is **short (10-17) → window lift
+MOTOR (10-24) → breaker (10-27)**. The short may have cost a **motor as well as a breaker**. It still
+does not say where the switch came from.
+
+⭐ **Cross-link to P4:** the unread handwritten Bronco parts list is the **same truck, same era** (a
+2026-07-20 document over 2025-10 work) and may already answer this. ⛔ Do not transcribe it to find
+out — that is the eyeball/verify path with Paul in it.
+
+👤 **Paul:** same part described twice, or is a second, burnt switch on a shelf or still in the truck?
+Absence from the register stays not-evidence.
+
+### 🪛 P9 · A 5/8" bolt was rounded off and seized on a mower in April 2025 — nothing knows about it
+
+Paul, **2025-04-14**: *"…a bolt extractor that I can use to remove a 5/8 inch bolt from a lawnmower.
+The bolt has become rounded and cannot be extracted using a power drill of any kind."*
+
+⭐ **This is the row the loop exists for** — a possible live physical obstruction that no surface in
+this repo records.
+
+✅ **Confirmed here:** **both** mowers carry **0 serviceHistory rows and 0 openMechanicalItems** —
+`husqvarna-mower` (Z254F zero-turn) and `kobalt-km2040x-06` (cordless push). `TOOLS.md` has **zero**
+matches for *extract* across 180 lines. ⚠️ But TOOLS.md's own coverage warning governs: absence there
+means **not yet swept**, never "not owned."
+
+⛔ **Which mower is not asserted.** A 5/8" bolt is more plausible on the zero-turn's blade/spindle
+than on a cordless push mower — that is an inference from bolt size, and with zero serviceHistory on
+either machine there is nothing to check it against. This beat declines to promote it.
+
+👤 **Beat 4, batched trip:** look at both mowers' blade and deck bolts. **Three outcomes, all worth
+recording** — the bolt came out (close it) · the bolt is still rounded (a live obstruction the next
+person to service that machine hits cold) · it was never on these machines at all.
+
+---
+
 ## ⭐ B0 · TRACK B HAS NO ASK LOOP — and that is the ONLY thing the two tracks do not share `[measured 2026-09-01]`
 
 **Paul's hypothesis, put to the code:** *"Track B is really a troubleshooting and maintenance

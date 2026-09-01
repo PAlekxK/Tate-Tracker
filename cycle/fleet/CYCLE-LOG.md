@@ -21,7 +21,7 @@ outside the 45d window.
 | **0 · BRIEF** | `vehicle-brief.py --check` run across **25 documents / 22 machines**: 4 MISMATCH · 2 NO-OVERLAP · 11 unverifiable · 8 match. Every flag opened and read against the document's own text — see below. `card values sourced to a link: 0`. |
 | **1 · FIELD** | **Not run, correctly.** Conditional by design: it fires when the record has no answer to a symptom. No symptom was in play — this lap was provenance and intake. No forum search, nothing added to `FIELD-NOTES.md`. |
 | **2 · SWEEP** | `fleet_probe.py`. Reasons read, not just the verdict. |
-| **3 · INTAKE** | ✅ **Door drained, 2 of 2.** Now reads `inbox clear (2 filed, all handled)`. |
+| **3 · INTAKE** | ✅ **Door drained 2 of 2 at 09:17 — then REOPENED at 09:25** when the mine filed 4 more. All 6 disposed: 1 resolved, 5 routed. Now reads `inbox clear (6 filed, all handled)`. See "Beat 3 REOPENED" below. |
 | **4 · VERIFY** | 👤 **PAUL** — three physical checks, batched. Not attempted from paper. |
 | **5 · SEASON** | Quiet. 46d to frost; the put-away window opens at 45d, so **the next lap should expect SEASON to fire.** Parts lead time is the gate, not the weather. |
 | **6 · RECORD** | 👤 **PAUL'S GATE** — the open rows are in `BACKLOG.md` Track B § FLEET LAP 1. Nothing folded that contradicts him. |
@@ -39,6 +39,36 @@ outside the 45d window.
   work and was recorded all along.** The ten photographs are corroboration, not a missing event.
 - **Handwritten Bronco parts list (photo-organizer)** → **ROUTED to `BACKLOG.md` Track B, still
   open.** ⛔ Deliberately not transcribed — see P4 there.
+
+### 🔓 Beat 3 REOPENED — 2026-09-01, four more rows, all four routed
+
+**Why it reopened rather than opening a lap 2.** Beat 3 drained the door at **09:17** (2 of 2). At
+**09:25** — eight minutes later — the ChatGPT-archive mine filed **four corrections** (commit
+`03dc6d1`). `cycle-state.json` was written at 09:17 and so its `why` still read *PROVENANCE,
+STALE-OPEN* with no INBOX; the 10:20 handoff brief saw all four rows but labelled the work "lap 2."
+Neither was right: **lap 1 never closed.** It is held at beats 4 and 6 on Paul's gates and
+`lap_count` is still 0. So the door was drained inside the lap that owns it. Door now reads
+`inbox clear (6 filed, all handled)`.
+
+⛔ **Nothing folded as fact.** All four rows are model reads of a chat archive. What this beat could
+do deterministically is test each row's claims **about our own record** — and per the standing rule,
+*a tool that reads OUR files reports on the RECORD, not the world.* Three claims confirmed, one
+reasoning corrected, one thing the mine missed.
+
+| row | disposition | what the check found |
+|---|---|---|
+| **Water heater** — record vs a 2025 Kenmore photo | **ROUTED** → P6 | Open field `installedHere` is real, 0 serviceHistory. ⭐ **Corrected the mine's own reasoning**: it ranked the 2026 record over the 2025 photo as *"newer and serial-decoded"*, but the card's `_provenance` says it too was **added from photographs**, with the build date decoded from a serial read off a photographed plate. Two model reads, one grade. |
+| **GTI spark plugs** — -8 vs -9 | **ROUTED** → P7 | Confirmed: the GTI register holds exactly 2 rows (wipers, coolant tank), **neither is plugs**. No purchase evidence for either heat range. Resolution is physical — pull a plug. The proposed source-line edit is **held as a beat-6 proposal**. |
+| **Bronco second window switch** | **ROUTED** → P8 | Confirmed no switch row. ⭐ **The mine missed the adjacent arc**: `2025-10-24 · Dorman 742-251 Power Window Lift Motor · INSTALLED`, seven days after the short and three before the breaker. Sequence is short → **motor** → breaker; the short may have cost a motor too. Cross-linked to P4 (same truck, same era, still unread). |
+| **Mower 5/8" rounded bolt** | **ROUTED** → P9 | ⭐ The row this loop exists for. Both mowers: **0 serviceHistory, 0 openMechanicalItems**. TOOLS.md: **0** matches for *extract* — but its own coverage warning means *not yet swept*, not *not owned*. Which mower **not asserted** (bolt size is an inference, and there is no history on either machine to test it against). Joins beat 4. |
+
+**0 resolved, 4 routed.** That is the honest outcome, not a punt: every one of the four turns on
+something only Paul can settle — a machine he owns, a purchase only an order number clears, or a
+bolt somebody has to go look at. What the beat added is that each now lands on a surface with its
+premises **checked** rather than assumed, and P8 and P9 came out of it with more than they went in.
+
+**Beat 4's trip grew.** It was three Bronco checks; it is now three Bronco checks **+ pull a GTI plug
+(P7) + look at both mowers' blade and deck bolts (P9)**. Still one trip with a light.
 
 ### ⭐ Beat 0 — PROVENANCE went 6 → 3, and the 3 that remain are the real ones
 
