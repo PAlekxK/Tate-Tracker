@@ -1,6 +1,6 @@
 {
  "state": "RESTING",
- "generated_at": "2026-09-01T13:17:08Z",
+ "generated_at": "2026-09-01T15:19:39Z",
  "generated_by": "tools/fleet_probe.py --write-state",
  "lap_count": 1,
  "last_lap": {
@@ -8,7 +8,7 @@
   "date": "2026-09-01",
   "outcome": "✅ CLOSED 2026-09-01. Ran beats 0,2,3,5,6,7; beat 1 correctly not run (conditional, no symptom). INBOX drained 2/2 then REOPENED for 4 more from the ChatGPT mine — 6 disposed, 1 resolved, 5 routed. PROVENANCE 6 -> 3 -> 0: three acked at beat 0 with reasons, three acked at beat 6 on Paul's rulings (DR200S made canonical from the VIN + model year; one Husqvarna, so the manual is simply the wrong document; Homelite DECOMMISSIONED, never identified). Beat 4 DISPOSED not skipped: 5 Bronco items closed on Paul's standing rule (old pre-engine-replacement documentation), transmission ANSWERED at the truck (P R N D 2 1 = C6), emissions DEFERRED to nextLook 2026-10-01. P7 spark plugs cleared by order record (NGK196860). Beat 7 APPLIED: s4_stale_open now reads a closed-set `state`, supports deferred+nextLook, prints its denominator; 13 new paired selftests. All four signals RESTING at close. Raised and NOT done: the V-series identifier findings in BACKLOG.md."
  },
- "next": "lap 2 — nothing is due. Next trigger: SEASON opens 2026-09-02 (45d to frost) and the emissions deferral fires 2026-10-01.",
- "why": "all four signals resting at lap close",
- "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. ⭐ 2026-09-01: lap 1 RAN and is OPEN, so last_lap.lap is 1 while lap_count stays 0 — lap_count counts CLOSED laps, and per S4 a closed lap must be MARKED. Do not increment it to make the board look finished; the lap is waiting on Paul at beats 4 and 6, which is a HELD gate with a stated reason, not neglect. The probe preserves these chronicle fields and never writes them itself."
+ "next": null,
+ "why": "4 signal(s) checked, none fired",
+ "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. ⭐ 2026-09-01: lap 1 RAN and CLOSED the same day, so lap_count is 1 — it counts CLOSED laps and per S4 a closed lap must be MARKED. Beat 4's last physical read (emissions) is not skipped, it is DEFERRED on the item itself (`state: deferred`, `nextLook: 2026-10-01`), which is what let the lap close honestly instead of staying open on a gate nobody could reach. ⚠️ THIS FILE WAS HAND-EDITED AT 11:16 AND THAT WAS WRONG — it carried `generated_by: fleet_probe.py --write-state` over content no script produced, plus a `generated_at` from 09:17 predating the work it described. That is the EXACT failure write_state() was built for on 2026-08-31 (see its docstring). Corrected by running the real writer. The lap-chronicle fields below (`lap_count`, `last_lap`, `_note`) are the lap's to write; `state`/`why`/`next`/`generated_at` are the probe's and must never be typed by hand."
 }
