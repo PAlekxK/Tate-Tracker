@@ -1620,6 +1620,47 @@ with synthetic ones without an explicit OK. Paul is both product owner *and* a r
 Mom is the only user with months of behavioural evidence behind her. Three genuine research
 subjects, none of them hypothetical.
 
+#### ⭐ THE MINED HISTORY IS RESEARCH INPUT, NOT JUST A RECORD GAP-CHECK `[paul-stated 2026-09-01]`
+
+> *"All of this maybe is worth mining kind of with the customer researcher, to help design the cycle
+> or loop requirements."*
+
+**This changes what the conversation mines are for.** They were commissioned as record-completeness
+checks. Paul is pointing out that the same corpus is **behavioural evidence about how he actually
+works** — and that is exactly the input a loop's requirements should be derived from, rather than
+designed from an armchair.
+
+⭐ **And it is not hypothetical: the first mine already produced a finding of exactly this kind**,
+without being asked for one. `.plans/2026-09-01-vehicle-conversation-mine.md` §4, cross-cutting:
+
+> *"Roughly four in five of these openings are voice-dictated run-ons that (a) name the machine by
+> nickname, (b) state a symptom or a scope, and (c) **carry a separate instruction about the
+> record** — 'let's record all this', 'go ahead and fold today's findings into the record', 'Please
+> log all this'. **He is running two loops per session: fix the thing, and make the record carry
+> it.** The second instruction is almost never merged into the first, and it is almost never
+> omitted."*
+
+**That is a jobs-to-be-done statement, fully evidenced, sitting in a file.** A `user-researcher`
+session would otherwise have to elicit it from scratch — and would get a *reported* version rather
+than an *observed* one, which is strictly weaker evidence.
+
+**What this implies for sequencing, and it is a real change:** C0 beat 0 was written above as *the
+interview first*. It is better as **mine → interview**. The mines are already running; their §4-style
+findings become the researcher's evidence base, so the interview spends its time on the questions
+only Paul can answer (vision, tenancy, whether categories are per-tenant) instead of re-deriving
+behaviour the corpus already shows.
+
+⚠️ **The boundary that must hold:** an observed pattern is evidence about **what he did**, never a
+statement about **what he wants**. The `user-researcher` charter already tags every claim
+`assumption | inferred | validated` — a mined behaviour enters as **inferred** at best, and only
+Paul's answer promotes it. Do not let a corpus finding arrive at the interview pre-promoted.
+
+**Also in scope for the same treatment:** the fleet loop's own requirements. **B0** records that
+Track B has **no ask loop and no arrival path for its own user** — a conversational or photo-borne
+update from Paul triggers *nothing* (`fleet_probe.py`'s four signals are SEASON · INBOX ·
+PROVENANCE · STALE-OPEN, and none of them is *"Paul said something"*). What the corpus shows about
+how his updates actually arrive is the direct evidence for designing that path.
+
 ### ⚠️ THE PORTFOLIO HAS NO PRODUCT-OWNER FUNCTION — this is that gap arriving
 
 `[[project_backlog_coherence_finding]]` already records it: **there is no product-owner agent.** The
