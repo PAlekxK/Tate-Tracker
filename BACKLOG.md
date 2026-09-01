@@ -790,6 +790,37 @@ Mom provided this feedback (texts to Paul, plus in-app activity the same morning
 | **Phase G — observations as a knowledge layer** | Field notes feed other surfaces ("you noted the laurel opening April 25 last year — watch for it now"); the loop/flywheel's non-assistant surfaces. | Phase E proven **and** observation set ~50+ entries. |
 | **Fairway/meadow grass ID — inferred, awaiting ground-truth** | Paul's 7/20 photo walk shows **two distinct grasses** in the fairway/meadow: a coarse clump (likely turf-type tall fescue) + a low spreading one (possibly crabgrass). Recorded on `fairway-meadow` as `observedGrasses` (`inferred`, `needs-confirmation`) + a visible note on the meadow card. **Draft** Mom question `q-fairway-grass-seedheads` staged (`active:false`) — flip it **in August** when seed-heads emerge (the clincher). Paul's steer: onus on Mom to confirm with her own pictures down the road. Ties to A7 (the crabgrass entry) + W4b (her own photo on a card). | Staged; serve the question in Aug. Photos: Paul's library, 2026-07-20 (not yet staged into repo). |
 
+### 🐛 `--bench` and `--apply` FIGHT EACH OTHER — a rotation is silently reversed, and both steps report success `[measured 2026-09-01, lap 7]`
+
+**What happened.** Paul approved rotating `q-weed-stiltgrass` off the head slot (13 offers across 10
+offered-days, no answer). `--bench` recorded it. The very next `--apply` **promoted it straight
+back** — `benchedAt == promotedAt == 2026-09-01`, inside one minute. Both commands printed a ✓.
+
+**Why.** The FILL pass ranks bench candidates on **season and class**. Nothing in it can see *why* a
+card is on the bench. A card benched for being **out of season** and a card benched for **aging out
+of rotation** are indistinguishable to it, so the second kind is re-promoted the instant a slot
+exists — which benching itself just created.
+
+**Its shape is the one this repo keeps paying for** (`[[reference_match_payload_not_container]]`):
+`_benchedBecause` carries the reason **as prose**, and the consumer reads a closed set of structural
+facts that does not include it. The tool is correct at every step and the outcome reverses a
+Paul-approved decision.
+
+⚠️ **The A3 WATCH block above called for exactly this re-examination** — *"whether the fail-open
+posture ever lets something stale through"*. This is its mirror image: not stale-through, but
+**fresh-reversed**. Filed as the first real defect from real use, as that block asked.
+
+**Today's workaround, and it is only a workaround:** after benching for rotation, **do not run
+`--apply`**. Lap 7 did the bench second and stopped there.
+
+**Proposed fix, NOT applied — Paul's call.** Give the bench a typed reason
+(`benchedFor: "season" | "rotation" | "paul"`) and have FILL skip `rotation` until a stated
+condition clears (a number of laps, or the head having been someone else's for N offered-days).
+Prose stays for the human; the typed value is what FILL reads. ⚠️ Do not reuse `_seasonHold` for
+this — writing a rotation fact into a season field is the same conflation one level down.
+
+---
+
 ## A4 · Don't overwhelm her — the solicitation-stack IA
 
 *Intent: hold the line on input surfaces. The cure for sprawl is the defer-affordances doctrine, not more items. **Run the IA pass on A1 signal — not before.***
@@ -1218,6 +1249,47 @@ houses" breaks on something real:
    `check-data-inline.py` exists to police exactly that. Per-tenant data means either N built
    `viewer.html`s (divergence guaranteed by construction) or breaking the inline model (which the
    whole offline-on-a-mountain premise leans on — `96395b1`: *no cell, Wi-Fi from the house only*).
+
+### ⭐⭐ THE REFRAME — auth is not a cost of the product, it is the thing that UNLOCKS it `[paul-stated 2026-09-01]`
+
+Paul, on the privacy caveats raised against the household/contractor build-out:
+
+> *"I think that ties directly into our question about making this more of a secure product, right?
+> And how do we do that — because that then enables us to do some of these things where there's a
+> real value in it. For example, being able to access the contact information, see receipts or
+> histories and all that online. We need to be able to do that in a trusted way."*
+
+**He is right, and this reorders the whole entry.** C0 was written above as *"how do we serve a
+second tenant,"* with privacy as a constraint on it. The truer framing is the reverse: **the system
+has no way to hold trusted data at all**, and both the second tenant *and* the household knowledge
+Paul wants are downstream consequences of that one gap.
+
+**`.private/` is a capability ceiling, not just a safety measure — measured 2026-09-01:**
+
+- **436 MB** sits in `.private/`, gitignored, **on Paul's laptop and nowhere else.**
+- It holds **254 service-record scans** — the receipts and invoices — catalogued by
+  `service-records.manifest.json`, which IS committed and IS public.
+- So the public record **knows 254 receipts exist and cannot show you one.** The index is
+  reachable; the documents are not.
+
+**And the data most locked away is the data most needed in the field.** The contractor's phone
+number matters when the furnace quits. The water-heater invoice matters when the warranty claim is
+live (that is H4, open right now). The shut-off valve location matters at the moment water is
+running. Every one of those is a phone-at-the-property moment, and today that is precisely where
+the record cannot reach — no cell service, Wi-Fi from the house only (`96395b1`), and the documents
+on a laptop in Atlanta.
+
+**What this changes about the questions above.** Q2 stops being *"do we need a login for Bob"* and
+becomes **the load-bearing question of the whole entry**: an authenticated, trusted tier is what
+lets the record carry contacts, receipts and histories at all — for Fernwood first, whether or not
+a second tenant ever exists. Multi-tenancy then falls out of it nearly free, because a system that
+can say *who you are* can already say *whose data this is*.
+
+⚠️ **The one thing that must not be traded away.** Mom's surface has no login **by design**, and
+the frictionless door is load-bearing for the only user this project has evidence about. A trusted
+tier must be **additive** — a second, gated layer over the open journal — never a gate placed in
+front of what she already reaches. If an auth design would make her type anything to see the
+weather card, it is the wrong design, regardless of what it unlocks for Paul.
 
 ### What it will need when it opens
 

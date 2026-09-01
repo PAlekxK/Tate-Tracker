@@ -3,6 +3,37 @@
   "version": 2,
   "questions": [
     {
+      "id": "q-fairway-grass-seedheads",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "Down in the fairway and meadow there seem to be **two different grasses** — a coarse clumpy one and a lower, spreading one. We're guessing the spreading one might be crabgrass, but that's only a guess from a picture. **Does that low spreading grass have little finger-like seed spikes on it now?** That would tell us for sure.",
+      "entityRef": {
+        "type": "plant",
+        "id": "fairway-meadow"
+      },
+      "photo": "images/weeds/crabgrass-seedhead.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "Stefan.lefnaer",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/File:Digitaria_sanguinalis_subsp._sanguinalis_sl6.jpg"
+      },
+      "createdAt": "2026-07-20",
+      "active": true,
+      "_source": "authored",
+      "_foldTarget": "observedGrasses",
+      "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. ⚠️ The add-a-photo-on-card idea this note used to point at was KILLED (BACKLOG: 'adds a sixth input affordance to the surface we are disambiguating') — do not revive it from here. 2026-08-08 (Paul-approved, both edits): the ask was written on 07-20 as a FUTURE ping and still said 'Come late summer' — it IS late summer, so it now asks in the present; and `later` was the last card anywhere still carrying 'I haven't looked' against the 07-31 ratification of 'Snooze card'. That label is the monitored variable under WATCH, and serving two wordings at once would have pooled two treatments in one queue — the exact comparison the WATCH row says not to make. 2026-08-10: SERVED WITH NO PHOTO — `check-cards.py` flagged it, and the flag was right: the card names two grasses, asks about one, and asks her to judge a feature (digitate seed spikes) with nothing on screen showing what one looks like. Fixed with a CARD-LEVEL `photo`/`attribution` — a new slot, because the card's need and the entity's lead image are genuinely different pictures: `fairway-meadow` wants a meadow, `crabgrass` (now photographed, it was the only weed without one) wants its spreading habit, and THIS card wants the seed-head alone. Deliberately NOT the killed add-a-photo-on-card idea — that was an INPUT affordance for Mom; this is display-only, nothing new to tap. Reference image, captioned 'not one taken here' by the existing honest-provenance predicate; Paul's own 7/20 walk photos of the fairway grasses are not in the repo.",
+      "labels": {
+        "yes": "Yes, it does",
+        "no": "No, no spikes",
+        "later": "Snooze card"
+      },
+      "correctionPrompt": "What does it look like, if you can say? (optional)",
+      "approvedForServe": "2026-08-08",
+      "promotedAt": "2026-08-08",
+      "answerCost": "errand"
+    },
+    {
       "id": "q-rain-byday-check",
       "kind": "confirm",
       "answerMode": "yesno",
@@ -22,6 +53,44 @@
       "_note": "STAGED 2026-08-27, active:false — Paul's gate not yet passed. ORIGIN: her own note of 2026-07-26, the only correctness challenge she has ever made — she disbelieved .14in over seven days and asked to see rainfall by day. The by-day strip shipped from it (viewer.html .rain-byday-hdr) and SHE WAS NEVER TOLD WHETHER SHE WAS RIGHT. This closes that loop. ⚠ COPY CORRECTED BEFORE FIRST PUSH, 2026-08-27: the first draft told her she 'was reading a rolling total'. FALSE, and backwards — viewer.html:7829 records that `week` was the station's own `weeklyrainin`, which RESETS on the week boundary (0.02in read two days after 1.96in fell). She was right that it was not the last seven days; the rolling-week fix came AFTER, because of her. Telling the one person who has ever caught our data being wrong that she had misread a correct number would have been the worst possible sentence to send. The card now says she was right, which is both true and the thing worth telling her. CLASS: expertise, not verdict — the subject is HER rain, not our inference about a plant, and doctrine on a Correctness note is that she is probably right and it is a bug until checked. answerCost=glance: the weather card is the one card she demonstrably opens. ⚠ NO _foldTarget BY DESIGN — it verifies our own display, not canon, so nothing can ever mark it handled. It MUST BE RETIRED BY HAND (read-mom-feedback.py --retire q-rain-byday-check --because ...) or it holds the feedback watermark ceiling open indefinitely, the way q-almanac-name did. ⚠ PLACEMENT IS DELIBERATE: first in file order. outstanding() slices in file order and she has only ever seen position 0 (28 of 28 offers), so approving this makes it the HEAD card and drops q-weed-stiltgrass — 10 offered-days, 0 answers — to position 1, where she has never looked. That is the rotation, done by supply.",
       "approvedForServe": "2026-08-27",
       "promotedAt": "2026-08-27"
+    },
+    {
+      "id": "q-jumpstrip-coverage",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "The quick buttons at the top — Weather, Vehicles, Equipment, Household Systems, Gardening, Wildlife — came from your own list. **Would you like a button for anything else up there — Fishing, the night sky, or your Almanac?**",
+      "createdAt": "2026-08-31",
+      "active": true,
+      "_source": "authored",
+      "_kind": "reflective",
+      "seededFrom": "paul-decision-2026-08-31-ux-sweep-D3",
+      "answerCost": "glance",
+      "labels": {
+        "yes": "Yes — I'll say which",
+        "no": "It's good as it is",
+        "later": "Bring this back another time"
+      },
+      "correctionPrompt": "Which would you like? (optional)",
+      "_note": "STAGED 2026-08-31, active:false — bench, awaiting Paul's wording confirm + --approve. ORIGIN: ux-sweep D3 [paul-stated: B] — the 2026-08-04 strip adopted her five categories whole; Fishing, Sky & Stars and the Almanac have no chip, and whether she omitted them or the question never reached that far was never asked. Her taxonomy; extending it is her call. Reflective: no _foldTarget, captured as preference, retired by hand.",
+      "approvedForServe": "2026-08-31",
+      "promotedAt": "2026-09-01"
+    },
+    {
+      "id": "q-strategy-pollinators",
+      "kind": "confirm",
+      "answerMode": "yesno",
+      "prompt": "Next spring we could add a few plants around the place just to bring in more hummingbirds and butterflies. Is that something you'd like?",
+      "createdAt": "2026-07-14",
+      "active": true,
+      "labels": {
+        "yes": "Yes, I'd like that",
+        "no": "Not really",
+        "later": "Snooze card"
+      },
+      "_source": "authored",
+      "_kind": "reflective",
+      "_note": "Armchair/strategy card — answerable from anywhere, no going outside. Her preference, captured AI-free; not a canon fold (no _foldTarget).",
+      "answerCost": "chair"
     },
     {
       "id": "q-top-categories",
@@ -52,7 +121,7 @@
         "id": "japanese-stiltgrass"
       },
       "createdAt": "2026-07-20",
-      "active": true,
+      "active": false,
       "_source": "authored",
       "_foldTarget": "confidence",
       "_draftNote": "Flipped active 2026-07-22 (Paul's go — the standing V1-candidate offer). On 'yes' fold japanese-stiltgrass confidence inferred->verified; a 'no' is the non-gimme the A1 gate watches for.",
@@ -62,7 +131,12 @@
         "later": "Snooze card"
       },
       "correctionPrompt": "What does it look like, if you can say? (optional)",
-      "answerCost": "errand"
+      "answerCost": "errand",
+      "approvedForServe": "pre-tool",
+      "_approvedForServeNote": "Set when the card was benched: it was live, so it had been cleared, but carried no stamp — it predates rationalize-bench.py (2026-07-31). NOT a record that Paul approved it on this date.",
+      "benchedAt": "2026-09-01",
+      "_benchedBecause": "ROTATED OUT on the rotation rule, paul-approved 2026-09-01. 13 offers across 10 offered-days (2026-08-03 -> 08-24) at the HEAD slot with no answer — read-mom-funnel.py --rotation flags it due. She has declined nothing; aging runs on HER cadence and this card had its run at the only position she ever sees. Bench, not retirement: still in season, still carries a photo she took. ⚠️ DO NOT RUN --apply AFTER BENCHING THIS. Measured 2026-09-01: --bench then --apply in the same session benched and re-promoted it inside one minute (benchedAt == promotedAt == 2026-09-01). The FILL pass ranks bench cards on SEASON alone and cannot see that a card was benched for AGING, so --apply silently reverses a rotation decision and reports success both times. Defect filed in BACKLOG A3.",
+      "promotedAt": "2026-09-01"
     },
     {
       "id": "q-clematis-variety",
@@ -74,7 +148,7 @@
         "id": "clematis"
       },
       "createdAt": "2026-07-14",
-      "active": true,
+      "active": false,
       "_source": "harvest",
       "_foldTarget": "variety",
       "_draftNote": "Drafted by harvest-questions.py from a canon uncertainty marker. Edit the prompt for voice, then set active:true to serve it.",
@@ -84,7 +158,11 @@
         "no": "Deeper rose all through",
         "later": "Snooze card"
       },
-      "answerCost": "errand"
+      "answerCost": "errand",
+      "approvedForServe": "pre-tool",
+      "_approvedForServeNote": "Set when the card was benched: it was live, so it had been cleared, but carried no stamp — it predates rationalize-bench.py (2026-07-31). NOT a record that Paul approved it on this date.",
+      "benchedAt": "2026-09-01",
+      "_benchedBecause": "Out of season and it asks her to look at a flower that is not there: the prompt asks the colour of the clematis blooms, and no bloom window is open (05-10..06-20, 08-01..08-31; today 09-01). The tool flagged this as the one card it could not decide deterministically (_foldTarget='variety' is not season-bound, but the WORDING is); this is the human read it asked for. Next window opens 05-10."
     },
     {
       "id": "q-butterfly-weed-bloom",
@@ -132,23 +210,6 @@
         "later": "Snooze card"
       },
       "_relabelled": "2026-07-29 — prompt reframed to the record's-own-gap template; labels are Paul's wording (It's blooming / Not blooming / Snooze card). The template fix cannot reach prompts already written into this file, so these two were edited to match it."
-    },
-    {
-      "id": "q-strategy-pollinators",
-      "kind": "confirm",
-      "answerMode": "yesno",
-      "prompt": "Next spring we could add a few plants around the place just to bring in more hummingbirds and butterflies. Is that something you'd like?",
-      "createdAt": "2026-07-14",
-      "active": true,
-      "labels": {
-        "yes": "Yes, I'd like that",
-        "no": "Not really",
-        "later": "Snooze card"
-      },
-      "_source": "authored",
-      "_kind": "reflective",
-      "_note": "Armchair/strategy card — answerable from anywhere, no going outside. Her preference, captured AI-free; not a canon fold (no _foldTarget).",
-      "answerCost": "chair"
     },
     {
       "id": "q-open-standing",
@@ -321,37 +382,6 @@
       }
     },
     {
-      "id": "q-fairway-grass-seedheads",
-      "kind": "confirm",
-      "answerMode": "yesno",
-      "prompt": "Down in the fairway and meadow there seem to be **two different grasses** — a coarse clumpy one and a lower, spreading one. We're guessing the spreading one might be crabgrass, but that's only a guess from a picture. **Does that low spreading grass have little finger-like seed spikes on it now?** That would tell us for sure.",
-      "entityRef": {
-        "type": "plant",
-        "id": "fairway-meadow"
-      },
-      "photo": "images/weeds/crabgrass-seedhead.jpg",
-      "attribution": {
-        "source": "Wikimedia Commons",
-        "author": "Stefan.lefnaer",
-        "license": "CC BY-SA 4.0",
-        "url": "https://commons.wikimedia.org/wiki/File:Digitaria_sanguinalis_subsp._sanguinalis_sl6.jpg"
-      },
-      "createdAt": "2026-07-20",
-      "active": true,
-      "_source": "authored",
-      "_foldTarget": "observedGrasses",
-      "_draftNote": "DRAFT staged 2026-07-20 for the FUTURE ping (Paul: onus on Mom to confirm the grass ID with her own pictures down the road). Seasonal — best served in August when seed-heads emerge. ⚠️ The add-a-photo-on-card idea this note used to point at was KILLED (BACKLOG: 'adds a sixth input affordance to the surface we are disambiguating') — do not revive it from here. 2026-08-08 (Paul-approved, both edits): the ask was written on 07-20 as a FUTURE ping and still said 'Come late summer' — it IS late summer, so it now asks in the present; and `later` was the last card anywhere still carrying 'I haven't looked' against the 07-31 ratification of 'Snooze card'. That label is the monitored variable under WATCH, and serving two wordings at once would have pooled two treatments in one queue — the exact comparison the WATCH row says not to make. 2026-08-10: SERVED WITH NO PHOTO — `check-cards.py` flagged it, and the flag was right: the card names two grasses, asks about one, and asks her to judge a feature (digitate seed spikes) with nothing on screen showing what one looks like. Fixed with a CARD-LEVEL `photo`/`attribution` — a new slot, because the card's need and the entity's lead image are genuinely different pictures: `fairway-meadow` wants a meadow, `crabgrass` (now photographed, it was the only weed without one) wants its spreading habit, and THIS card wants the seed-head alone. Deliberately NOT the killed add-a-photo-on-card idea — that was an INPUT affordance for Mom; this is display-only, nothing new to tap. Reference image, captioned 'not one taken here' by the existing honest-provenance predicate; Paul's own 7/20 walk photos of the fairway grasses are not in the repo.",
-      "labels": {
-        "yes": "Yes, it does",
-        "no": "No, no spikes",
-        "later": "Snooze card"
-      },
-      "correctionPrompt": "What does it look like, if you can say? (optional)",
-      "approvedForServe": "2026-08-08",
-      "promotedAt": "2026-08-08",
-      "answerCost": "errand"
-    },
-    {
       "id": "q-weed-beggars-lice",
       "kind": "confirm",
       "answerMode": "yesno",
@@ -371,26 +401,6 @@
         "later": "Snooze card"
       },
       "correctionPrompt": "Anything else about it? (optional)"
-    },
-    {
-      "id": "q-jumpstrip-coverage",
-      "kind": "confirm",
-      "answerMode": "yesno",
-      "prompt": "The quick buttons at the top — Weather, Vehicles, Equipment, Household Systems, Gardening, Wildlife — came from your own list. **Would you like a button for anything else up there — Fishing, the night sky, or your Almanac?**",
-      "createdAt": "2026-08-31",
-      "active": false,
-      "_source": "authored",
-      "_kind": "reflective",
-      "seededFrom": "paul-decision-2026-08-31-ux-sweep-D3",
-      "answerCost": "glance",
-      "labels": {
-        "yes": "Yes — I'll say which",
-        "no": "It's good as it is",
-        "later": "Bring this back another time"
-      },
-      "correctionPrompt": "Which would you like? (optional)",
-      "_note": "STAGED 2026-08-31, active:false — bench, awaiting Paul's wording confirm + --approve. ORIGIN: ux-sweep D3 [paul-stated: B] — the 2026-08-04 strip adopted her five categories whole; Fishing, Sky & Stars and the Almanac have no chip, and whether she omitted them or the question never reached that far was never asked. Her taxonomy; extending it is her call. Reflective: no _foldTarget, captured as preference, retired by hand.",
-      "approvedForServe": "2026-08-31"
     }
   ],
   "_ordering": "ORDERED BY INFORMATION VALUE TO US (Paul, 2026-07-29) — not by area, not by age. outstanding() in viewer.html does .slice(0, MAX_VISIBLE=5) on THIS declaration order, so position is priority and position 6+ renders to nobody. Ranking axis, from the 2026-07-26 audit: an answer that unblocks a BUILD outranks one that fills a canon gap, which outranks a verdict on our own guess. Observation/expertise-class cards lead; verdict-class cards trail until the harvest template is reframed; preference cards last (no canon target, so no fold path and nothing to probe). q-weed-stiltgrass was 6th and therefore served to NOBODY for six days while carrying a photo Mom took — promoted to 2nd. q-strategy-pollinators takes its place out of view; verified unanswered first, so it cannot pin the feedback watermark the way q-almanac-name did. ⚠️ MEASURED 2026-08-12 AND THIS UNDERSTATES IT: every momqueue_offered event ever recorded on her device carries position 0 — she has never been offered a card at position 1-4. Since 05db30a (08-03) the queue renders ONE question at a time behind 'Another question ›', and momqueue_tapped is 3 across 60 days. So the effective visible set is 1, not 5, and 'position 6+ renders to nobody' is true of position 1+ as well. Full evidence + the rotation proposal it motivates: .engineering/2026-08-12-card-rotation-proposal.md"
