@@ -39,7 +39,7 @@ not start at step 3.
 - ✅ **Contractor normalization — PROPOSED 2026-09-01**, `.plans/2026-09-01-contractor-register-proposal.md`.
   ⭐ The register **already exists** (`serviceContacts[]`, with judgment in Paul's own prose) — on
   **1 vehicle out of 22**. Three moves + four questions for him. Nothing applied.
-- **D4 pre-glance stack ledger** (1,712px at 414×A+) — owed since 2026-08-31, never run.
+- ✅ **D4 pre-glance stack ledger — RAN 2026-09-01**, `.plans/2026-09-01-preglance-stack-ledger.md`. Stack is **1,958px at A+ / 1,790 at A**; **Mama's Perspective is 68% of it**, the served question card alone 36%. Measurement only, nothing changed. 🔴 **Paul rules on the trim.**
 
 ⚠️ **Step 1 is deliberately first and is NOT part of this workstream.** It is ready, it is fired,
 and it is the natural destination for both mines' candidate entries. Do it while the research runs.
