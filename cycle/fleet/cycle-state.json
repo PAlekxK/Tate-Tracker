@@ -1,14 +1,14 @@
 {
  "state": "FIRED",
- "generated_at": "2026-08-31T13:53:30Z",
+ "generated_at": "2026-09-01T13:17:08Z",
  "generated_by": "tools/fleet_probe.py --write-state",
  "lap_count": 0,
  "last_lap": {
-  "lap": 0,
-  "date": null,
-  "outcome": "none — the loop was declared 2026-08-30 and lap 1 has not run"
+  "lap": 1,
+  "date": "2026-09-01",
+  "outcome": "OPEN — ran beats 0,2,3,5,7; HELD at beat 4 (three physical Bronco checks) and beat 6 (Paul's declared gate). Beat 1 correctly not run (conditional, no symptom in play). INBOX drained 2/2; PROVENANCE 6 -> 3 with every remaining flag substantive. Chronicle: cycle/fleet/CYCLE-LOG.md · open rows: BACKLOG.md Track B § FLEET LAP 1."
  },
- "next": "lap 1 — probe FIRED on INBOX, PROVENANCE, STALE-OPEN",
- "why": "probe FIRED on INBOX, PROVENANCE, STALE-OPEN",
- "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. lap 0 / outcome none is the honest reading of a declared-but-never-run loop; it is NOT a closed lap."
+ "next": "lap 1 — probe FIRED on PROVENANCE, STALE-OPEN",
+ "why": "probe FIRED on PROVENANCE, STALE-OPEN",
+ "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. ⭐ 2026-09-01: lap 1 RAN and is OPEN, so last_lap.lap is 1 while lap_count stays 0 — lap_count counts CLOSED laps, and per S4 a closed lap must be MARKED. Do not increment it to make the board look finished; the lap is waiting on Paul at beats 4 and 6, which is a HELD gate with a stated reason, not neglect. The probe preserves these chronicle fields and never writes them itself."
 }

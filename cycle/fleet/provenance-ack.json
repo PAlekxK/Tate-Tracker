@@ -1,4 +1,8 @@
 {
- "_note": "Documents whose foreword names a different model than the card, REVIEWED and accepted anyway. An entry silences PROVENANCE for that stem. Write the REASON \u2014 an ack with no reason is a snooze button, which is what this file must never become.",
- "accepted": {}
+ "_note": "Documents whose foreword names a different model than the card, REVIEWED and accepted anyway. An entry silences PROVENANCE for that stem. Write the REASON — an ack with no reason is a snooze button, which is what this file must never become.",
+ "accepted": {
+  "echo-pb7910t": "REVIEWED 2026-09-01 (fleet lap 1, beat 0) — ACCEPTED. The document's own text names 'PB-7910'; the card is 'PB-7910T'. Suffix-only difference within one Echo model designation; no competing model appears anywhere in the extracted text. Residual uncertainty stated rather than hidden: nothing in the document explicitly says it covers the -T, so this rests on the suffix convention, not on a printed statement. Falsifier: any PB-7910T-specific value that disagrees with this document.",
+  "homelite-trimmer": "REVIEWED 2026-09-01 (fleet lap 1, beat 0) — ACCEPTED, and this one is strong. The document names BOTH 'UT33600' and 'UT33650'; the card is 'UT33650A'. It is a multi-model manual that explicitly covers the card's base model, and the card's 'A' is a revision suffix on a model the document names outright. Nothing competing in the text.",
+  "g22a-2005-ax2": "REVIEWED 2026-09-01 (fleet lap 1, beat 0) — ACCEPTED with a named limit. The extracted text resolves to the 'G22' family; the card is a 2005 Yamaha G22A. A family-level document covering the G22 series. ⚠️ It does NOT distinguish G22A (gas) from G22E (electric), so a value read from it that differs across those two variants is NOT covered by this ack. Ours is the GAS cart; treat any electrical/drivetrain value with that in mind."
+ }
 }

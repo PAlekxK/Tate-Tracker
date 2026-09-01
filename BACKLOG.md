@@ -1086,6 +1086,67 @@ as before.
 
 # TRACK B — Fleet & equipment (Paul-facing)
 
+## 🔧 FLEET LAP 1 — what it raised for Paul `[2026-09-01]`
+
+Full lap record: `cycle/fleet/CYCLE-LOG.md`. These are the rows the lap could not close itself.
+
+### ⛔ P1 · THE HUSQVARNA MANUAL IS FOR A DIFFERENT MACHINE — not a naming quibble
+
+`manuals/text/husqvarna-mower-yth24v54.txt` is the **Operator's Manual for the YTH24V54**, and its
+own safety section reads *"Safe Operation Practices for **Ride-O**[n]"*. The card it is filed
+against is the **Husqvarna Z254F Zero-Turn (54")**.
+
+**A YTH24V54 is a lawn tractor — steering wheel, ride-on. A Z254F is a zero-turn — lap bars.**
+Different controls, different drivetrain, different maintenance. **This is not a suffix difference;
+it is the wrong machine.**
+
+⚠️ `YTH24V54` appears **once** in `vehicles.json` (the manual reference itself) against **nine**
+mentions of `Z254F`, so there is no second Husqvarna in the fleet record. Either the wrong document
+was fetched, **or Paul has/had a YTH24V54 that the record does not know about.** ⛔ **NOT acked** —
+this is exactly what the PROVENANCE check exists to catch, and acking it would be the laundering the
+ack file warns against.
+
+### ⛔ P2 · The Homelite blower-vac manual is a different MODEL FAMILY
+
+The document names `UT26HBV` (and `UT26HBVEMC` / `UT26HBVVNM`). The card's own `photoEvidence`
+says: *"No model sticker found on the unit… Best bet: **UT09521 / UT09565** family."*
+
+So the record's own best guess at what the machine IS and the manual filed against it **name
+different families**. ⛔ **NOT acked.** The underlying problem is that the machine has never been
+positively identified — a physical hunt for a model sticker or EPA label settles it, and until then
+no document can be trusted against it.
+
+### ❓ P3 · `DR200SE` vs `DR200S` — one line from Paul closes this
+
+`manuals/text/dr200s-2017-service.txt` names **DR200SE**; the card is a **2017 Suzuki DR200S**.
+Plausibly the same machine under an older/market designation — but that is a model-identification
+claim, and **this lap declined to assert it.** ⛔ Not acked. **Paul owns the bike and can settle it
+in a sentence.** If it is the same machine, the ack reason should say so in his words.
+
+✅ **Three others WERE acked, with reasons, and the signal went 6 → 3:** `echo-pb7910t` (doc names
+PB-7910, card PB-7910T — suffix, residual uncertainty stated) · `homelite-trimmer` (doc names
+UT33600 **and** UT33650 outright, card is the UT33650A revision — the strongest of the three) ·
+`g22a-2005-ax2` (a G22-family document, **acked with the limit named**: it does not distinguish G22A
+gas from G22E electric, so any value differing across those is NOT covered).
+
+### 📄 P4 · The handwritten Bronco parts list — routed here from the door, still unread
+
+Two photographs of a handwritten Bronco parts/service document, **2026-07-20**, which nobody has
+read. ⛔ **Deliberately not transcribed by this lap or by any agent.** A value read off a
+photographed handwritten document is a MODEL READ, and the parts record is the one place this
+portfolio has **measured** being wrong in **both** directions
+(`[[reference_parts_record_under_reports]]`) — the 2026-08-28 case study had a stated order *and* a
+stated cancellation both false in a single afternoon. Route: the eyeball/verify path with Paul in
+it. Absence stays not-evidence; a stated order clears only with an ORDER NUMBER.
+
+### 🔩 P5 · Three Bronco checks past 60 days — beat 4, and only Paul can close them
+
+`STALE-OPEN` fires on: **rear main seal — engine oil leak** · **transfer case leak** · **valve
+covers leaking**. All three are physical reads under the truck with a light. The lap cannot close a
+physical check from paper, and did not try. **Batch them into one trip** rather than three.
+
+---
+
 ## ⭐ B0 · TRACK B HAS NO ASK LOOP — and that is the ONLY thing the two tracks do not share `[measured 2026-09-01]`
 
 **Paul's hypothesis, put to the code:** *"Track B is really a troubleshooting and maintenance
