@@ -357,6 +357,14 @@ def find_audio_inaturalist(item):
             user = obs.get("user", {}).get("name") or obs.get("user", {}).get("login") or "iNaturalist user"
             obs_url = f"https://www.inaturalist.org/observations/{obs.get('id')}"
             file_title = f"iNaturalist observation {obs.get('id')}"
+            # The observation's OWN taxon, recorded rather than discarded. This query is
+            # taxon-constrained (taxon_name= above), so the match was real — but that is a
+            # claim about THIS CODE PATH, not about the record on disk. Without it the
+            # attribution reads "iNaturalist observation 119370327" and a later auditor
+            # cannot tell a correct file from a mis-filed one without re-querying the API.
+            # Measured 2026-08-31: 3 of 7 frog rows and 17 of 21 insect+mammal rows are
+            # unverifiable from disk for exactly this reason.
+            taxon = (obs.get("taxon") or {}).get("name") or ""
             meta = {
                 "url": file_url,
                 "descurl": obs_url,
@@ -365,6 +373,7 @@ def find_audio_inaturalist(item):
                 "artist": user,
                 "license": license_label_map.get(slic, slic.upper()),
                 "license_url": license_url_map.get(slic, ""),
+                "taxon": taxon,
             }
             return file_title, meta
     return None, None
@@ -507,6 +516,12 @@ def main():
                 "source_url": meta["descurl"],
                 "source": source_label,
             }
+            # The warrant, when the source states one. Written only where it exists —
+            # an absent taxon must stay absent rather than be back-filled from canon,
+            # because the whole point is what the SOURCE asserts, not what we filed it
+            # under. Recording canon here would make every row self-confirming.
+            if meta.get("taxon"):
+                attribution[sid]["taxon"] = meta["taxon"]
             time.sleep(0.5)
         except Exception as e:
             print(f"  ! error: {e}")
