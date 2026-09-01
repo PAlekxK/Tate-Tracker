@@ -1435,6 +1435,18 @@ and `last_lap()` resolves a lap to a **DATE, not an instant** — lap 8 opened a
 2026-09-01, so her five sessions that same day, **including the 11:10 one that fired the lap**, count
 as having happened "since" it.
 
+⭐⭐ **AND IT ESCAPES THE REPO — measured at the 2026-09-01 close-out.** `focus.py` reads
+`data/cycle-state.json`, sees `FIRED`, and concludes the loop's trigger *"has already gone off"* — so
+it **spills four Fernwood rows back into Paul's personal queue**, each annotated *"cycle FIRED and
+unrun — its trigger has already gone off (last lap 2026-09-01)"*. Those rows are covered by a loop
+that closed **minutes earlier**. The artifact does not merely misread locally; it **pads the one
+list whose whole purpose is to contain only what nothing else will move**, which is the exact
+padded-queue failure `focus.py` exists to fix, arriving from inside the loop it trusts.
+
+⚠️ So the priority is higher than "cosmetic, self-resolves overnight": for as long as it stands,
+Fernwood's board tells Paul a closed lap is unrun. **Related but distinct:** `[[L2]]` is about the
+guard's state; this is about the LAP's state.
+
 ⛔ **Do not open a lap on this reading.** It self-resolves at the next date boundary.
 **Fix:** timestamp-granular lap boundaries in `read-mom-engagement.last_lap()` — the chronicle
 heading carries only `YYYY-MM-DD`, so this needs a real lap-close timestamp, most naturally the
