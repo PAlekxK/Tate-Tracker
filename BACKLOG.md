@@ -1369,6 +1369,105 @@ choosing which assistant to ask, the design failed.* One box, whatever is behind
 **Where this sits:** it is Q4 (modularity) and Q5 (cost) of C0, seen from the runtime rather than
 the tenancy side — same workstream, same expert panel, same "research and options, not a build."
 
+### ⭐⭐ THE DETAIL-VS-CARD SPLIT — measured, and it is worse than remembered `[paul-raised 2026-09-01]`
+
+> *"There's a question about — at one point we made a decision to kind of split the super-detailed
+> records versus what's on the card. But I think in reality this conversation agent would need to be
+> able to look at that whole record in detail. And maybe it's not always loaded into context from the
+> beginning — in fact we can avoid that — but it accesses that information when it's clear that it
+> needs it, and we can build deterministic helpers or lookup tables or who knows what."*
+>
+> *"It would even be cool to be able to have it pull up pictures from past repairs — if you ask how
+> something was done, or what a specific material is. And also just in general, keeping track of
+> tools and supplies… a functionality we want to consider."*
+
+**He is remembering a real decision, and it is recorded.** `tools/build-digest.py` carries the whole
+history: vehicles were EXCLUDED from the digest 2026-07-17 for two reasons, and Paul reversed it
+2026-07-28. The file is explicit that only one reason was ever technical — *"CAPACITY — dropping
+vehicles relieved the ~80K digest line. That line turned out to be about COST, not capability, and
+it is not enforced anywhere: it sets a status string, nothing more."*
+
+**But re-enabling the vehicles did not re-enable the record.** Measured 2026-09-01:
+
+| domain | source | reaches the Guru | kept |
+|---|---|---|---|
+| plants | 221,448 | 202,607 | 91.5% |
+| property | 19,663 | 17,970 | 91.4% |
+| insects | 57,294 | 49,143 | 85.8% |
+| **vehicles** | **308,410** | **72,804** | **23.6%** |
+| zones | 26,039 | 1,538 | 5.9% |
+
+**`digest_vehicles()` drops these fields ENTIRELY:** `serviceHistory` · `rhythms` · `circuits` ·
+`techniques` · `mileage` · `registration` · `restoration` · `photoEvidence` · `referenceLibrary` ·
+`openMechanicalItems` · `vin` / `vinDecode` · `acquired`.
+
+**⛔ The three that matter most, stated plainly:**
+
+1. **All 61 service-history rows are gone. Every one.** The assistant that is supposed to be a
+   troubleshooting and maintenance partner **cannot see a single thing that was ever done to a
+   machine.** It knows specs, current maintenance values, open needs, notes and who to call — and
+   nothing about what happened. Ask it *"when did we last do the Bronco's brakes"* and it cannot
+   answer from a record that holds the answer.
+2. **`circuits` and `rhythms` shipped on 2026-08-31 and are invisible to the assistant.** The
+   30-row breaker directory and the recurring-chore ladder were built the day before this was
+   measured, and the Guru cannot read either. *"Which breaker runs the patio outlets"* is in the
+   record and unreachable through the one box — which is precisely Paul's falsifier from the section
+   above, already failing today.
+3. **`photoEvidence` is dropped too**, so the "pull up pictures from past repairs" idea is blocked
+   by the same mechanism rather than by a missing capability.
+
+⚠️ **AND THE DIGEST IS ALREADY PAST ITS OWN STATED CEILING.** `build-digest.py` sets a *"soft target
+~50K tokens, actual Haiku ceiling ~100K before retrieval degradation becomes a concern."* It is at
+**~123K**. It is **23% past the limit this file wrote for itself**, the limit is **enforced
+nowhere** (it sets a status string), and the comment beside the API call still says ~57K. So adding
+the dropped fields back into the digest is not available: the thing being asked for **cannot** be
+solved by putting more in the prompt.
+
+### ⭐ WHY HIS INSTINCT IS THE RIGHT ONE — and why it is NOT the same as "add RAG"
+
+His own framing — *"not always loaded into context… it accesses that information when it's clear it
+needs it… deterministic helpers or lookup tables"* — describes **tool-use / function-calling over
+deterministic lookups**, not embedding-based retrieval. That distinction is worth protecting through
+the whole workstream, because the two have opposite properties here:
+
+|  | embedding RAG | deterministic lookup tools |
+|---|---|---|
+| cache | breaks it (variable block each turn) | **preserves it** — the cached digest never changes |
+| answer for *"last brake job on bronco-1989"* | nearest-neighbour, may miss | **exact, every time** |
+| new failure mode | silent wrong-chunk retrieval | a tool call that errors **loudly** |
+| fits the repo's doctrine | weakly | ⭐ directly — a closed set of legal queries |
+
+⭐ **This also satisfies the "deterministic things need a non-AI door" rule.** A lookup like
+`service_history(vehicle_id)` or `circuit_for(room)` is a function a human can call from the
+terminal AND the model can call as a tool — one implementation, two doors, and the AI-free path
+exists by construction rather than as a second build.
+
+⚠️ **The known trap, named now:** `[[reference_match_payload_not_container]]`. A lookup helper that
+returns `[]` for a mistyped vehicle id looks identical to one that correctly reports no service
+history. Every helper needs a **closed set of legal inputs** and must **raise** on anything outside
+it, never return empty.
+
+### 🧰 TOOLS & SUPPLIES — the record already exists; what is missing is REACH
+
+Paul asks for tool/supply tracking as new functionality. **It is already built:**
+`.private/service-records/TOOLS.md` (12.7 KB, last updated 2026-08-31) and `AMAZON-PARTS.md`, with
+the tool/part distinction already drawn — *"a **part** is consumed into one vehicle; a **tool** is
+durable and serves the whole fleet."* It exists because of three misses in one 2026-08-28 session
+that each nearly bought a duplicate, including an entire plastic-welding kit *"in no record at
+all."*
+
+**So the gap is not the register — it is that the register is in `.private/`, gitignored, on the
+laptop, and absent from the digest.** It is the same finding as the 254 receipts one section up, and
+the same shape: **the data most useful standing in a hardware-store aisle is the data structurally
+guaranteed not to be there.** ⛔ Do not open this as "build a tools tracker." Open it as *make the
+tools register reachable* — which is the auth question (Q2) and the retrieval question, not a new
+domain.
+
+⚠️ `TOOLS.md` opens with its own **COVERAGE** warning: the parts record has been measured wrong in
+BOTH directions. Absence is not evidence, and a stated order clears only with an ORDER NUMBER
+(`[[reference_parts_record_under_reports]]`). Any lookup built over it must carry that, not flatten
+it into a clean-looking inventory.
+
 ### What it will need when it opens
 
 Paul named it: **research plus all the expert seats.** At minimum `engineering-partner` (path
