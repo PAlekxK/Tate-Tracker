@@ -71,6 +71,37 @@ it never ran beat 0 on his speech — it ran `--check` across documents. The exi
 real sentence contained no name at all. *A pre-registered question can be carried forward unanswered
 while the lap that owned it reads green.*
 
+### ⭐ Beat 0, SECOND PASS — the first fix was not the whole fix
+
+**A fix verified once is verified once.** Two more defects surfaced within the hour, both only
+because the fleet CHANGED under the tool while it was being tested — the concurrent session added
+`refrigerator-lg-bottom-freezer` mid-lap.
+
+1. 🐛 **A WEAK-ONLY hit could carry a confident answer.** *"the fridge is making noise"* resolved to
+   **`echo-pb250ln`** — because `noise` is a whole token in that blower's trim, *"low noise
+   (~65 dB)"*. One word of **spec prose** produced a confident answer about an entirely different
+   machine, and `MIN_SCORE` waved it through because a lone match is never a tie. **Fixed: a
+   resolution must rest on at least one STRONG (id/name/nickname) point.** Weak points may raise
+   confidence or break a tie; they may never *be* the answer. `"the truck"` now refuses too — it was
+   only ever a `category` hit — and that is the correct trade: refusing prints the near-misses and
+   asks, which costs one sentence, while answering wrong costs the whole brief.
+2. 🐛 **My own new fleet-safety check was wrong, and the new machine proved it.** It asserted that no
+   stopword collides with a machine name token — but it scanned `trim`/`category` too, and the
+   refrigerator's trim reads *"…ice maker · **no** water dispenser"*. A bare English `no` tripped a
+   check meant to protect NAMES. **Narrowed to the STRONG fields** (the same strong/weak split the
+   scorer already uses — the check simply had not been made consistent with it), with weak-field
+   collisions now REPORTED as coverage, never graded. That in turn correctly flagged `i` as a
+   **stale declaration** — it collided only via `chainsaw-cs352`'s *trim*, not a name — so it was
+   removed, leaving `turn` as the one real declared collision.
+
+⭐ **The lesson is about the amendment, not the bug:** the fix that closed the 61-vs-2 defect
+introduced two smaller ones, and **neither was found by reasoning — both were found by running the
+tool against data that moved.** *One measurement is not a fix.*
+
+⚠️ **AND THE ALIAS GAP IS NOW MEASURED, which is the other half of lap 1's question ③.** The record
+says `refrigerator`; every human says **fridge**, and nothing joins them. Same shape as `the 200`
+before digits were graded. Beat 0 can only resolve vocabulary the record happens to contain.
+
 ### 🚨 CONCURRENCY — a second session is live in this repo, and the guard is half-blind to it
 
 Paul, mid-lap: *"There's another session right now looking at the refrigerator."* Verified: `3f52e5b`
@@ -158,7 +189,12 @@ meter: *match the payload, not the container.*
    as one at 22 points.
 4. **`--selftest` should carry a DICTATED query for every machine**, not one tidy phrase. Every
    existing resolution case names the machine; that is the hole this lap fell through.
-5. **The guard has no ACKNOWLEDGED state, so a legitimate concurrent commit cannot pass it.**
+5. ⭐ **Machines need an `aliases[]` field** — the measured other half of lap 1's question ③.
+   `fridge` → `refrigerator-lg-bottom-freezer`, `the bike`/`the DR`/`Blue Thunder` → `dr200s-2017`,
+   `the saw` → a chainsaw. ⛔ **A `vehicles.json` schema change, so it is Paul's gate at beat 6 and
+   is NOT applied here.** Today beat 0 can only resolve vocabulary the record happens to contain,
+   which means the fix works exactly until Paul uses his own word for something.
+6. **The guard has no ACKNOWLEDGED state, so a legitimate concurrent commit cannot pass it.**
    `cmd_commit` returns `MOVED` and refuses whenever HEAD moved, with no flag to record *"I checked,
    the commits are the other track's, my paths do not overlap, and I am performing no history
    operation."* So the correct behaviour today — confirm with Paul, then commit explicit paths — has

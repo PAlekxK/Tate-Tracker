@@ -228,11 +228,16 @@ what which who when where why how
 # so silencing a real name can only ever be a recorded judgment, never a drift.
 # (Same posture as the closed-set `state` fix in fleet_probe.py, lap 1 beat 7.)
 STOPWORD_COLLISIONS = {
-    "turn": "husqvarna-mower 'Zero-Turn' — but 'turn over' is how anyone "
-            "describes cranking an engine. 'zero' still carries that machine.",
-    "i":    "chainsaw-cs352 trim 'i-30 Starter' — a bare 'I' is the speaker, "
-            "not the saw. 'cs352' and 'echo' still carry that machine.",
+    "turn": "husqvarna-mower NAME 'Husqvarna Z254F Zero-Turn Mower' — but "
+            "'turn over' is how anyone describes cranking an engine, and "
+            "'zero'/'husqvarna'/'z254f' still carry that machine.",
 }
+# ⚠️ Only STRONG-field (id/name/nickname) collisions are declared here, because
+# only those are NAMES. Stopwords that also appear in weak DESCRIPTIVE fields —
+# today 'i' (chainsaw-cs352 trim "i-30 Starter") and 'no'
+# (refrigerator-lg-bottom-freezer trim "…no water dispenser") — are reported by
+# --selftest as coverage and are NOT declared: a bare "I" is the speaker, not
+# the saw, and nobody refers to a fridge as "the no".
 
 
 def _haystack(v):
@@ -300,24 +305,39 @@ def score(query, v):
     digit-bearing token is graded as strongly as a name. Plain alpha substrings
     are graded to 1 precisely because that is where symptom vocabulary lands.
     """
+    sp, wp = score_parts(query, v)
+    return sp + wp
+
+
+def score_parts(query, v):
+    """(strong_points, weak_points) — kept apart because they are different
+    KINDS of evidence, not just different weights.
+
+    ⭐ A resolution must rest on at least one STRONG point (see `resolve`). Found
+    2026-09-01, minutes after the first fix: *"the fridge is making noise"*
+    resolved to **echo-pb250ln** on a lone weak hit — `noise` is a whole token in
+    that blower's trim, "low noise (~65 dB)". One descriptive-field word carried
+    a confident answer about a different machine entirely. Weak points may raise
+    confidence or break a tie; they may never BE the answer.
+    """
     q = [t for t in re.split(r"[^a-z0-9]+", query.lower())
          if t and t not in STOPWORDS]
     strong, weak, _ = _haystack(v)
     strong_t, weak_t = _toks(strong), _toks(weak)
     strong_sub, weak_sub = _substring_hay(strong), _substring_hay(weak)
-    s = 0
+    sp = wp = 0
     for t in q:
         if t in strong_t:
-            s += 6
+            sp += 6
         elif len(t) >= 3 and t in strong_sub:
-            s += 6 if any(c.isdigit() for c in t) else 1
+            sp += 6 if any(c.isdigit() for c in t) else 1
         elif t in weak_t:
-            s += 2
+            wp += 2
         elif len(t) >= 3 and t in weak_sub:
-            s += 1
+            wp += 1
     if norm(query) and norm(query) == norm(v.get("nickname")):
-        s += 10
-    return s
+        sp += 10
+    return sp, wp
 
 
 # ⚠️ PROVISIONAL — first cut, same posture as every threshold in CYCLE-MAP.md.
@@ -332,9 +352,16 @@ MIN_SCORE = 2
 
 
 def resolve(query, vehicles):
-    ranked = sorted(((score(query, v), v) for v in vehicles.values()),
-                    key=lambda p: (-p[0], p[1]["id"]))
-    return [(s, v) for s, v in ranked if s >= MIN_SCORE]
+    scored = []
+    for v in vehicles.values():
+        sp, wp = score_parts(query, v)
+        # ⛔ NO STRONG POINT, NO ANSWER. A machine is identified by what it is
+        # CALLED; a word from its spec prose is not a claim about which machine
+        # Paul means. Refusing here is the honest output — the caller prints the
+        # near-misses and asks.
+        if sp > 0 and sp + wp >= MIN_SCORE:
+            scored.append((sp + wp, v))
+    return sorted(scored, key=lambda p: (-p[0], p[1]["id"]))
 
 
 def too_close(ranked):
@@ -562,16 +589,39 @@ def selftest():
     # MIN_SCORE — a lone weak hit must refuse, because a lone match is never a tie
     check("resolve: 'it won't start' resolves to NOTHING (1 pt is not identity)",
           not resolve("it won't start", vehicles))
-    check("PAIRED: a real weak-field hit still lands ('the truck')",
-          bool(resolve("the truck", vehicles)))
+    check("⭐ PAIRED: a WEAK-ONLY hit refuses ('the fridge is making noise' "
+          "matched echo-pb250ln on its trim word 'noise')",
+          not resolve("the fridge is making noise", vehicles))
+    check("PAIRED: and a STRONG hit on the same machine still lands",
+          (lambda r: bool(r) and r[0][1]["id"] == "refrigerator-lg-bottom-freezer")(
+              resolve("the refrigerator", vehicles)))
+    check("PAIRED: 'the truck' is weak-only (category) and now refuses too",
+          not resolve("the truck", vehicles))
 
     # ⭐ STOPWORDS must never swallow a real name. Fleet-safe, asserted.
+    # ⚠️ STRONG fields only, and that is the point. A machine is NAMED by its
+    # id/name/nickname; `trim`/`category` are DESCRIPTION, which is why they are
+    # already graded weak. Scanning them here produced a false positive within
+    # the hour: a concurrent session added
+    # `refrigerator-lg-bottom-freezer` with trim "…ice maker · no water
+    # dispenser", and the bare English "no" tripped a check meant to protect
+    # NAMES. Swallowing a token in prose costs ~1 point on a weak field;
+    # swallowing one in a name breaks resolution. Weak-field collisions are
+    # REPORTED below as coverage, never graded.
     name_toks = set()
     for v in vehicles.values():
-        for k in ("id", "name", "nickname", "trim", "category"):
+        for k in STRONG_FIELDS:
             val = v.get(k)
             if isinstance(val, str):
                 name_toks |= {t for t in re.split(r"[^a-z0-9]+", val.lower()) if t}
+    weak_toks = set()
+    for v in vehicles.values():
+        for k in WEAK_FIELDS:
+            val = v.get(k)
+            if isinstance(val, str):
+                weak_toks |= {t for t in re.split(r"[^a-z0-9]+", val.lower()) if t}
+    print(f"  · coverage: stopwords also appearing in WEAK (descriptive) fields: "
+          f"{sorted(weak_toks & STOPWORDS)} — counted, never graded")
     collide = name_toks & STOPWORDS
     undeclared = collide - set(STOPWORD_COLLISIONS)
     check(f"STOPWORDS: every name collision is DECLARED with a reason "
