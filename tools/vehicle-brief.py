@@ -198,28 +198,157 @@ def check_manuals(v, vehicles, idx):
 
 
 # ─────────────────────────── name resolution ───────────────────────────
+# ⛔ IDENTITY FIELDS ARE STRINGS. Do not add one here without checking its type
+#    across the WHOLE fleet — see the 2026-09-01 defect note in _haystack().
+#
+# ⭐ STRONG vs WEAK is the discriminator. What a machine IS CALLED (id / name /
+# nickname) is identity. What it is LIKE (trim / category / a document field) is
+# description, and description is where a symptom sentence collides: 'start' is
+# a substring of the CS-352's trim "i-30 Starter", which is not evidence that
+# Paul is talking about a chainsaw.
+STRONG_FIELDS = ("id", "name", "nickname")
+WEAK_FIELDS = ("trim", "category", "doorLabel")
+NAME_FIELDS = STRONG_FIELDS + WEAK_FIELDS
+
+# ⭐ Function words carry NO identity and must never score. Paul dictates, so a
+# real query is a run-on sentence that is mostly these.
+STOPWORDS = frozenset("""
+a an the this that these those it its is was were be been being am are
+and or but nor so if then than as at by for from in into of off on onto out
+over under up down to too with without again just really very much more most
+not no nothing never only also well like kind sort pretty
+i me my mine we us our you your he him his she her they them their
+have has had do does did done get got go goes going went come came
+try tried trying turn turned sound sounded seem seems
+what which who when where why how
+""".split())
+
+# ⚠️ A stopword that IS part of a machine's real name, declared with its reason.
+# A CLOSED SET, deliberately: an UNDECLARED collision fails --selftest loudly,
+# so silencing a real name can only ever be a recorded judgment, never a drift.
+# (Same posture as the closed-set `state` fix in fleet_probe.py, lap 1 beat 7.)
+STOPWORD_COLLISIONS = {
+    "turn": "husqvarna-mower 'Zero-Turn' — but 'turn over' is how anyone "
+            "describes cranking an engine. 'zero' still carries that machine.",
+    "i":    "chainsaw-cs352 trim 'i-30 Starter' — a bare 'I' is the speaker, "
+            "not the saw. 'cs352' and 'echo' still carry that machine.",
+}
+
+
+def _haystack(v):
+    """What the machine is CALLED (strong) and what it is LIKE (weak).
+
+    Returns (strong, weak, skipped) — STRINGS ONLY.
+
+    ⛔ 2026-09-01 DEFECT, found at fleet lap 2 beat 0 on the first real sentence
+    Paul ever gave this tool. The haystack was built with
+    `str(v.get(k) or "")`, and `doorLabel` is a **dict on exactly one of 22
+    machines** (the Bronco). Python stringified that dict into 1,557 characters
+    of English prose — 'summary', 'confidence', 'verified — paul read every
+    field off the label photo', a file path, whole sentences. That one record
+    then out-scored the entire fleet on any dictated query, because ordinary
+    words ('the', 'and', 'a', 'to', 'of', 'not', 'is') were matching a **repr**,
+    not a name. Paul's update scored bronco-1989 **61** and dr200s-2017 **2**;
+    the correct machine placed last of eight.
+
+    `str()` on a container returns a plausible value instead of raising, which
+    is why nothing caught it: **match the payload, not the container.** A
+    non-string identity field is SKIPPED and REPORTED, never stringified.
+    """
+    strong, weak, skipped = [], [], []
+    for group, sink in ((STRONG_FIELDS, strong), (WEAK_FIELDS, weak)):
+        for k in group:
+            val = v.get(k)
+            if val is None:
+                continue
+            if isinstance(val, str):
+                sink.append(val)
+            else:
+                skipped.append((k, type(val).__name__))
+    return " ".join(strong).lower(), " ".join(weak).lower(), skipped
+
+
+def _toks(s):
+    return {t for t in re.split(r"[^a-z0-9]+", s) if t}
+
+
+# A model YEAR is identity when spoken whole ("the 2017 Suzuki") and pure noise
+# when matched inside ("the 200" must not match the 2001 in drz400s-2001, nor
+# the 2006 in f150-2006). So years are whole-token-matchable but never
+# substring-matchable — found 2026-09-01 when "the 200" tied THREE machines.
+YEAR_RE = re.compile(r"^(19|20)\d{2}$")
+
+
+def _substring_hay(hay):
+    return " ".join(t for t in re.split(r"[^a-z0-9]+", hay)
+                    if t and not YEAR_RE.match(t))
+
+
 def score(query, v):
-    """Token overlap against everything the machine is called."""
-    q = [t for t in re.split(r"[^a-z0-9]+", query.lower()) if t]
-    hay = " ".join(str(v.get(k) or "") for k in
-                   ("id", "name", "nickname", "trim", "category", "doorLabel")).lower()
-    hay_t = set(re.split(r"[^a-z0-9]+", hay))
+    """Token overlap against everything the machine is called.
+
+    Function words are dropped BEFORE scoring. What remains is graded by where
+    it lands and by what KIND of token it is:
+
+      6  a whole-word hit on id/name/nickname          ("bolores", "thunder")
+      6  a DIGIT-BEARING substring hit on those        ("200" inside "dr200s")
+      2  a whole-word hit on trim/category
+      1  any other substring hit                       (weak by construction)
+
+    ⭐ Digits are identity. In loose speech the model designation is the one
+    reliable signal — Paul says "the 200", not "the Suzuki DR200S" — so a
+    digit-bearing token is graded as strongly as a name. Plain alpha substrings
+    are graded to 1 precisely because that is where symptom vocabulary lands.
+    """
+    q = [t for t in re.split(r"[^a-z0-9]+", query.lower())
+         if t and t not in STOPWORDS]
+    strong, weak, _ = _haystack(v)
+    strong_t, weak_t = _toks(strong), _toks(weak)
+    strong_sub, weak_sub = _substring_hay(strong), _substring_hay(weak)
     s = 0
     for t in q:
-        if t in hay_t:
-            s += 3                      # whole-token hit
-        elif len(t) >= 3 and t in hay:
-            s += 2                      # substring ("200" inside "dr200s")
+        if t in strong_t:
+            s += 6
+        elif len(t) >= 3 and t in strong_sub:
+            s += 6 if any(c.isdigit() for c in t) else 1
+        elif t in weak_t:
+            s += 2
+        elif len(t) >= 3 and t in weak_sub:
+            s += 1
     if norm(query) and norm(query) == norm(v.get("nickname")):
         s += 10
     return s
 
 
+# ⚠️ PROVISIONAL — first cut, same posture as every threshold in CYCLE-MAP.md.
+# Half a strong hit of daylight is the minimum to declare a winner.
+RESOLVE_MARGIN = 3
+
+
+# ⚠️ PROVISIONAL. A single weak substring hit is not identity evidence: "it
+# won't start" scored 1 against the CS-352's "i-30 Starter" and would otherwise
+# have been served as a confident answer, because a LONE match is never a tie.
+MIN_SCORE = 2
+
+
 def resolve(query, vehicles):
     ranked = sorted(((score(query, v), v) for v in vehicles.values()),
                     key=lambda p: (-p[0], p[1]["id"]))
-    ranked = [(s, v) for s, v in ranked if s > 0]
-    return ranked
+    return [(s, v) for s, v in ranked if s >= MIN_SCORE]
+
+
+def too_close(ranked):
+    """True when the top match is not clearly ahead — the caller must REFUSE.
+
+    ⭐ Replaces an EXACT-TIE test, which could only ever catch a dead heat. The
+    2026-09-01 defect scored 61 vs 2, so it was never a tie — it was
+    confidently wrong, and a confidently-wrong resolver is exactly what this
+    loop was founded to prevent. A refusal is the honest output of a resolver
+    that cannot see daylight.
+    """
+    if len(ranked) < 2:
+        return False
+    return ranked[0][0] - ranked[1][0] < RESOLVE_MARGIN
 
 
 # ─────────────────────────────── render ────────────────────────────────
@@ -374,6 +503,85 @@ def selftest():
     check("resolve: a nonsense name resolves to NOTHING",
           not resolve("zzzzqqq", vehicles))
 
+    # ⭐ REGRESSION, 2026-09-01 — PAUL'S ACTUAL DICTATED SENTENCE, verbatim.
+    # The old test above passes only because the machine's NAME is in the query.
+    # This is what he really said, and it contains no name at all. It resolved
+    # to bronco-1989 (61) over dr200s-2017 (2). Both halves are asserted: the
+    # right machine must WIN, and the wrong one must not merely lose — it must
+    # score ZERO, because every point it had was an English function word.
+    PAULS_UPDATE = ("after charging the 200 for a good amount and then left it "
+                    "overnight and tried to start it and it would not start the "
+                    "battery kind of dimmed and it sounded like I was trying to "
+                    "turn over and then I tried it again and again and it just "
+                    "wound up clicking so it really seems like the battery is "
+                    "draining or doesn't have a charge")
+    pr = resolve(PAULS_UPDATE, vehicles)
+    check("POSITIVE: Paul's dictated update -> dr200s-2017",
+          pr and pr[0][1]["id"] == "dr200s-2017")
+    check("PAIRED NEAR-MISS: it is NOT bronco-1989",
+          not (pr and pr[0][1]["id"] == "bronco-1989"))
+    check("PAIRED NEAR-MISS: bronco-1989 scores 0 on it (the noise is gone)",
+          score(PAULS_UPDATE, vehicles["bronco-1989"]) == 0)
+
+    # ⛔ the container bug itself — a dict identity field must be SKIPPED, and
+    # no machine's haystack may ever contain a Python repr.
+    bs, bw, bskip = _haystack(vehicles["bronco-1989"])
+    check("haystack: bronco doorLabel (dict) is SKIPPED, not stringified",
+          ("doorLabel", "dict") in bskip)
+    check("haystack: and its prose never reaches the haystack",
+          "summary" not in (bs + bw) and "{" not in (bs + bw))
+    check("haystack: NO machine in the fleet leaks a repr",
+          not any("{" in (h[0] + h[1]) or "'" in (h[0] + h[1])
+                  for h in (_haystack(v) for v in vehicles.values())))
+
+    # too_close — paired, because a gate proven only to open is not proven
+    check("too_close: a clear winner is NOT refused",
+          not too_close([(61, {}), (2, {})]))
+    check("too_close: a 1-point gap IS refused (an exact tie is not the only risk)",
+          too_close([(3, {}), (2, {})]))
+    check("too_close: an exact tie is still refused",
+          too_close([(5, {}), (5, {})]))
+    check("too_close: a lone match is never refused",
+          not too_close([(2, {})]))
+
+    # a query of pure filler must resolve to NOTHING, never to a machine
+    check("resolve: filler-only speech resolves to NOTHING",
+          not resolve("and then it just would not do it again", vehicles))
+
+    # ⭐ the model-year trap — "the 200" is inside 2001, 2005 AND 2006.
+    r200 = resolve("the 200", vehicles)
+    check("POSITIVE: 'the 200' -> dr200s-2017 alone (years are not substrings)",
+          r200 and r200[0][1]["id"] == "dr200s-2017" and len(r200) == 1)
+    check("PAIRED: 'the 400' -> drz400s-2001, the OTHER bike",
+          (lambda r: bool(r) and r[0][1]["id"] == "drz400s-2001")(
+              resolve("the 400", vehicles)))
+    check("PAIRED: a year spoken WHOLE still scores ('the 2017 suzuki')",
+          (lambda r: bool(r) and r[0][1]["id"] == "dr200s-2017")(
+              resolve("the 2017 suzuki", vehicles)))
+
+    # MIN_SCORE — a lone weak hit must refuse, because a lone match is never a tie
+    check("resolve: 'it won't start' resolves to NOTHING (1 pt is not identity)",
+          not resolve("it won't start", vehicles))
+    check("PAIRED: a real weak-field hit still lands ('the truck')",
+          bool(resolve("the truck", vehicles)))
+
+    # ⭐ STOPWORDS must never swallow a real name. Fleet-safe, asserted.
+    name_toks = set()
+    for v in vehicles.values():
+        for k in ("id", "name", "nickname", "trim", "category"):
+            val = v.get(k)
+            if isinstance(val, str):
+                name_toks |= {t for t in re.split(r"[^a-z0-9]+", val.lower()) if t}
+    collide = name_toks & STOPWORDS
+    undeclared = collide - set(STOPWORD_COLLISIONS)
+    check(f"STOPWORDS: every name collision is DECLARED with a reason "
+          f"(undeclared: {sorted(undeclared)})", not undeclared)
+    check("STOPWORDS: no DECLARED collision is stale (each is a real name token)",
+          set(STOPWORD_COLLISIONS) <= collide)
+    check("STOPWORDS: every declared collision carries a non-empty reason",
+          all(isinstance(r, str) and len(r) > 20
+              for r in STOPWORD_COLLISIONS.values()))
+
     # the link-as-source guard, both ways + the exemption + the live denominator
     check("laundering: a maintenance source that IS a URL gets flagged",
           bool(laundering({"maintenance": {"oil": {"source": "https://forum.example/t/1"}}})))
@@ -451,12 +659,12 @@ def main():
         print(f'✗ "{q}" matches no machine in the fleet. `--list` shows all of them.')
         return 1
     top, rest = ranked[0], ranked[1:4]
-    if len(ranked) > 1 and ranked[1][0] == top[0]:
-        print(f'⚠ "{q}" is AMBIGUOUS — {len([r for r in ranked if r[0]==top[0]])} '
-              "machines score equally. Name one:")
-        for s, v in ranked:
-            if s == top[0]:
-                print(f"    {v['id']}  {v.get('nickname') or v.get('name')}")
+    if too_close(ranked):
+        near = [(s, v) for s, v in ranked if top[0] - s < RESOLVE_MARGIN]
+        print(f'⚠ "{q}" is AMBIGUOUS — {len(near)} machines are within '
+              f"{RESOLVE_MARGIN} points of each other. Name one:")
+        for s, v in near:
+            print(f"    {s:4d}  {v['id']}  {v.get('nickname') or v.get('name')}")
         return 1
 
     flagged = brief(top[1], vehicles, idx, full=a.full)
