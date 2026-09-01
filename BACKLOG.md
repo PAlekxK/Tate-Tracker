@@ -1427,7 +1427,7 @@ this is its biggest instance.
 
 ---
 
-## 🟠 L1 · A LAP THAT OPENS AND CLOSES THE SAME DAY IS MEASURED AGAINST ITSELF
+## ✅ L1 · A LAP THAT OPENS AND CLOSES THE SAME DAY IS MEASURED AGAINST ITSELF — FIXED 2026-09-01
 
 `mom-cycle-status.py` published **FIRED · leg 7 · 0 unresolved · needs_paul false** the instant lap 8
 closed. Nothing is owed. `offers-passed` (4/3) and `sessions-quiet` (5/3) count *since the last lap*,
@@ -1447,7 +1447,26 @@ padded-queue failure `focus.py` exists to fix, arriving from inside the loop it 
 Fernwood's board tells Paul a closed lap is unrun. **Related but distinct:** `[[L2]]` is about the
 guard's state; this is about the LAP's state.
 
-⛔ **Do not open a lap on this reading.** It self-resolves at the next date boundary.
+✅ **FIXED 2026-09-01 (`707a2fa`).** The chronicle's outcome marker now carries the close INSTANT
+(`<!-- outcome:closed at:2026-09-01T16:48:11Z -->`), deliberately in the same ISO-UTC-Z shape
+`/api/metrics` uses for event timestamps — so the comparison is an ordered string compare with **no
+timezone arithmetic**, which is where the next window bug would hide. `momlib.lap_outcomes()` parses
+it, `last_lap()` returns it, `collect()` and `build()` honour it.
+
+**Measured before/after:** *"5 sessions since lap 8"* → *"0 sessions since lap 8"*, and the board went
+**FIRED → ARMED** — the correct resting state after a clean close. `focus.py` no longer spills any
+Fernwood row (the 21 that remain are health-record's, whose cycle is genuinely fired).
+
+⚠️ **Backward compatible by design:** laps closed before today carry a date only and fall back to the
+day-granular path **exactly**. A backfilled guess at when lap 3 closed would be a fabricated instant,
+and this loop does not mint those.
+
+⭐ **Guarded** — 4 new legs in `mom-cycle-status --selftest` (33 total), including a PAIRED legacy
+control that must stay day-granular, and a leg proving an event with **no** timestamp is excluded
+rather than assumed in-window. **Proven by mutation:** reverting `collect()` to the day compare exits
+1; restored exits 0.
+
+~~Do not open a lap on this reading.~~
 **Fix:** timestamp-granular lap boundaries in `read-mom-engagement.last_lap()` — the chronicle
 heading carries only `YYYY-MM-DD`, so this needs a real lap-close timestamp, most naturally the
 `last_lap` object `momlib.lap_state()` already publishes. Same family as
@@ -1482,7 +1501,7 @@ than pass.
 
 ---
 
-## 🌱 A-ASK · THE ASK DESIGN — a SCOPING conversation Paul seeded, not a change to make quietly
+## 🌱 A-ASK · THE ASK DESIGN — 🗳 **decision card `fernwood-11`** (minted 2026-09-01)
 
 `paul-stated 2026-09-01`: *"whatever she's interested in is what we need to latch onto, and that
 should continue to be a key component of the feedback cycle and absolutely could be a seed for a
@@ -1512,7 +1531,7 @@ wrong instrument for her, or the right instrument being asked the wrong question
 
 ---
 
-## 🟡 G1 · THE GURU TOLD MOM SOMETHING IT CANNOT DO — interim FIXED 2026-09-01, structural gap OPEN
+## 🟡 G1 · THE GURU TOLD MOM SOMETHING IT CANNOT DO — interim FIXED; structural half is 🗳 **card `fernwood-12`**
 
 **Found 2026-09-01, lap 8 leg 2, in the conversation that opened the lap.** Her 8-turn exchange
 closed with the Guru saying:
