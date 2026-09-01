@@ -775,3 +775,30 @@ standard — never that this loop conforms. Conformance is measured separately b
 the first asserts the signal was checked and was quiet, the second admits nothing
 looked. Adopting the key without honouring that distinction is worse than not
 adopting it, because it launders an unmeasured signal into a measured-quiet one.
+
+
+---
+
+## Inbox — this loop CAN be asked `[opened 2026-09-01]`
+
+Another loop, or Paul, files an ask here and this loop disposes it:
+
+    cycle/mom/requests.jsonl
+
+Written via `python3 ~/.claude/tools/ask-cycle.py tate-tracker --ask "..."`, which
+refuses an ask this loop does not accept rather than filing it somewhere plausible.
+What this loop accepts and what it gives back are declared ONCE, in the registry
+(`~/Developer/operating-layer/config/projects.json` -> `page.cycle.inbox`), so the
+door cannot say one thing here and another there. Read them with
+`ask-cycle.py --list`.
+
+**An open ask is disposed at the LAP-OPENING GATE SWEEP** (CYCLE-SPINE § GATE-SWEEP).
+Filing one does not by itself make a lap permitted — this loop's own trigger still
+governs, and for a gated or held loop the gate still governs too.
+
+**Why this exists.** Opened under the ENACTMENT amendment
+(`~/.claude/rituals/CYCLE-SPINE.md`, `paul-ratified 2026-09-01`). Before it, work this
+loop owned had nowhere to be filed, so it moved only when someone remembered — 7 of 14
+loops were in that state. ⚠️ **A door is not a promise of attention:** it is a place to
+put a thing so it stops depending on memory. Whether an ask is acted on is this loop's
+trigger's business, not the door's.
