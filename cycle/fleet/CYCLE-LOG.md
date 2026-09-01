@@ -26,7 +26,7 @@ the window opening **2026-09-02**. The probe was right; the brief was reading a 
 | **4 · VERIFY** | 👤 **IN PROGRESS with Paul today.** He has the bike, a NEXPEAK NC201 PRO charger and an All-Sun EM830 meter in hand. T1 → draw A/B → charge on AGM → T2b → T3 → a clean T4 overnight. **Lap cannot close until these land.** |
 | **5 · SEASON** | Quiet at 46d. **The put-away window opens tomorrow, 2026-09-02** — the next lap opens on it. Parts lead time is the gate, not the weather. |
 | **6 · RECORD** | ⛔ **BLOCKED, not skipped** — `vehicles.json` is held uncommitted by a concurrent session. See the concurrency section. |
-| **7 · AMEND** | One **APPLIED** (the resolver). Three **PROPOSED**, none applied. |
+| **7 · AMEND** | **Two APPLIED** — the beat-0 resolver, and the S1 `signals[]` adoption the handoff pre-registered. **Five PROPOSED**, none applied. |
 
 ### 🔴 Beat 0 — THE FOUNDING DEFECT RECURRED INSIDE THE CONTROL BUILT TO PREVENT IT
 
@@ -127,7 +127,26 @@ meter: *match the payload, not the container.*
 
 ### Beat 7 · AMEND — 1 applied, 3 proposed
 
-**Applied:** the beat-0 resolver (above), with 18 paired selftests.
+**Applied (2):**
+
+1. **The beat-0 resolver** (above), with 18 paired selftests.
+2. ✅ **S1 `signals[]` ADOPTED — the amendment the handoff pre-registered.** `cycle-state.json` now
+   publishes one record per signal carrying the tri-state **`status: quiet | fired | unobserved`**,
+   plus `observed_via`, a ≤100-char `headline`, and `fired:` kept as the permanent bool **alias**.
+   ⭐ **The tri-state is the whole point:** `fired: false` on a stimulus **nobody measured** read
+   exactly like one that was measured and was quiet, and those are different claims. The alias is
+   deliberately `False` for `unobserved` — it *cannot* express that state, which is precisely why a
+   reader must prefer `status`. It is kept so old readers do not break, not because it suffices.
+   ⛔ Done in **`write_state()`**, never by hand-editing the artifact — the rule the previous
+   session broke and spent a commit undoing. `_signal_record()` raises `Unknown` on a status outside
+   the closed set, the same posture as `s4_stale_open`'s `state` and for the same reason: **a closed
+   set makes the mistake error instantly.** 12 new paired cases, including that `unobserved` is
+   distinguishable from a measured `quiet` in the published file.
+   ⚠️ **NOT adopted, deliberately:** the `state` phase word (`RESTING`→`ARMED`). `run()` prints
+   `RESTING` on the non-AI door; publishing `ARMED` while the door says `RESTING` would make the
+   artifact and the door disagree — the exact payload/container split this lap found three times.
+   Adopt both together or neither. Likewise `last_lap.outcome` as the enum: `last_lap` is written
+   at CLOSE, so lap 2's own close is its natural adoption point, not a rewrite of lap 1's record.
 
 **Proposed, Paul rules — none applied:**
 1. ⭐ **The guard must read the WORKING TREE, not just HEAD.** The data already exists in

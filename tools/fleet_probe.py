@@ -221,12 +221,45 @@ def s4_stale_open(today, vehicles):
 
 SIGNALS = ("SEASON", "INBOX", "PROVENANCE", "STALE-OPEN")
 
+# Which door feeds each signal. Every one is a deterministic detector in THIS
+# file — the `detector:` form sanctioned by the S1 amendment. `observed_via`
+# absent would be counted as coverage and never graded, so naming it is free
+# honesty rather than a claim we cannot back.
+OBSERVED_VIA = {"SEASON": "detector:s1_season",
+                "INBOX": "detector:s2_inbox (cycle/requests.jsonl)",
+                "PROVENANCE": "detector:s3_provenance (vehicle-brief --check + ack)",
+                "STALE-OPEN": "detector:s4_stale_open"}
+
+HEADLINE_MAX = 100          # the S1 amendment's own cap
+
+
+def _signal_record(name, status, why):
+    """One published signal, per the CYCLE-SPINE S1 amendment (2026-08-31).
+
+    ⭐ `status` is the TRI-STATE `quiet | fired | unobserved` — the thing the old
+    bool could not say. `fired: false` on a stimulus NOBODY MEASURED reads
+    exactly like a stimulus that was measured and was quiet, and those are
+    different claims. **`unobserved` never counts as quiet.**
+
+    `fired:` is still emitted as the permanent alias the amendment guarantees —
+    but it is deliberately `False` for `unobserved`, which is precisely why a
+    reader must prefer `status`. The alias cannot express this state; it is kept
+    so old readers do not break, not because it is sufficient.
+    """
+    if status not in ("quiet", "fired", "unobserved"):
+        raise Unknown(f"signal {name}: unknown status {status!r} — refusing to guess")
+    head = " ".join(str(why).split())
+    if len(head) > HEADLINE_MAX:
+        head = head[:HEADLINE_MAX - 1].rstrip() + "…"
+    return {"name": name, "status": status, "fired": status == "fired",
+            "observed_via": OBSERVED_VIA.get(name), "headline": head}
+
 
 def _signals(today, vehicles):
     """(fired, unknown, lines) — ONE evaluation shared by run() and
     write_state(), so the printed verdict and the published artifact can never
     be derived from two different readings."""
-    fired, unknown, lines = [], [], []
+    fired, unknown, lines, records = [], [], [], []
     for name, fn in (("SEASON", lambda: s1_season(today, vehicles)),
                      ("INBOX", s2_inbox),
                      ("PROVENANCE", s3_provenance),
@@ -236,11 +269,13 @@ def _signals(today, vehicles):
         except Unknown as e:
             unknown.append(name)
             lines.append(f"  ❓ {name:11s} UNKNOWN — {e}")
+            records.append(_signal_record(name, "unobserved", str(e)))
             continue
         lines.append(f"  {'⚡' if hit else '·'} {name:11s} {why}")
+        records.append(_signal_record(name, "fired" if hit else "quiet", why))
         if hit:
             fired.append(name)
-    return fired, unknown, lines
+    return fired, unknown, lines, records
 
 
 STATE = os.path.join(REPO, "cycle", "fleet", "cycle-state.json")
@@ -267,9 +302,15 @@ def write_state(today=None, path=None, _eval=None):
     path = path or STATE
     if _eval is None:
         vehicles = _vehicles()                      # Unknown propagates = loud
-        fired, unknown, _ = _signals(today, vehicles)
+        fired, unknown, _, records = _signals(today, vehicles)
     else:
         fired, unknown = _eval
+        # The selftest drives this path with names only. Synthesise the same
+        # tri-state from membership rather than letting the fixture publish a
+        # shape the real path never produces.
+        records = [_signal_record(n, "unobserved" if n in unknown
+                                  else "fired" if n in fired else "quiet", "")
+                   for n in SIGNALS]
     if unknown and not fired:
         print(f"UNKNOWN — {', '.join(unknown)} unreadable; state NOT written")
         return 2
@@ -290,6 +331,9 @@ def write_state(today=None, path=None, _eval=None):
                  if fired else None),
         "why": (f"probe FIRED on {', '.join(fired)}" if fired
                 else f"{len(SIGNALS)} signal(s) checked, none fired"),
+        # S1 amendment (2026-08-31), adopted by this loop at lap 2. Probe-owned
+        # and DERIVED — never a lap-chronicle field, never hand-written.
+        "signals": records,
     }
     if prior.get("_note"):
         doc["_note"] = prior["_note"]
@@ -309,7 +353,7 @@ def run(today=None, quiet=False):
     except Unknown as e:
         print(f"UNKNOWN — {e}")
         return 2
-    fired, unknown, lines = _signals(today, vehicles)
+    fired, unknown, lines, _ = _signals(today, vehicles)
     if not quiet:
         print(f"fleet_probe — {today.isoformat()}\n")
         print("\n".join(lines))
@@ -473,6 +517,54 @@ def selftest():
         rc = write_state(path=sp, _eval=([], ["SEASON"]))
         check("write_state refuses to write over an UNKNOWN world (exit 2, file untouched)",
               rc == 2 and open(sp).read() == before)
+
+        # ── S1 AMENDMENT · signals[] tri-state (adopted at fleet lap 2) ──
+        write_state(path=sp, _eval=([], []))
+        d = json.load(open(sp))
+        check("S1: signals[] is published, one entry per signal",
+              isinstance(d.get("signals"), list) and len(d["signals"]) == len(SIGNALS)
+              and [s["name"] for s in d["signals"]] == list(SIGNALS))
+        check("S1: all-quiet publishes status 'quiet', never a bare bool",
+              all(s["status"] == "quiet" and s["fired"] is False for s in d["signals"]))
+        check("S1: signals[] is DERIVED, and the chronicle still rides through",
+              d["lap_count"] == 3 and d["last_lap"]["lap"] == 3)
+
+        # A world with BOTH a fire and an unreadable source — the only one that
+        # writes while carrying an unobserved signal.
+        write_state(path=sp, _eval=(["INBOX"], ["SEASON"]))
+        d = json.load(open(sp))
+        by = {s["name"]: s for s in d["signals"]}
+        check("S1 POSITIVE: a fired signal reads status 'fired'",
+              by["INBOX"]["status"] == "fired" and by["INBOX"]["fired"] is True)
+        check("S1 POSITIVE: an unreadable signal reads status 'unobserved'",
+              by["SEASON"]["status"] == "unobserved")
+        check("⭐ S1 PAIRED: 'unobserved' NEVER counts as quiet",
+              by["SEASON"]["status"] != "quiet")
+        check("⭐ S1 PAIRED: and the bool alias CANNOT express it (fired is False) "
+              "— which is why a reader must prefer status",
+              by["SEASON"]["fired"] is False)
+        check("S1 PAIRED: a measured-quiet signal is distinguishable from it",
+              by["PROVENANCE"]["status"] == "quiet"
+              and by["PROVENANCE"]["fired"] is False
+              and by["PROVENANCE"]["status"] != by["SEASON"]["status"])
+        check("S1: every signal names the door that feeds it (observed_via)",
+              all(s.get("observed_via") for s in d["signals"]))
+        check("S1: no headline exceeds the amendment's 100-char cap",
+              all(len(s.get("headline") or "") <= HEADLINE_MAX for s in d["signals"]))
+
+    # _signal_record fails LOUD on a status outside the closed set — the same
+    # posture as s4_stale_open's `state`, and for the same reason.
+    try:
+        _signal_record("SEASON", "resting", "x")
+        check("S1: an unknown status raises Unknown (closed set, never a default)", False)
+    except Unknown:
+        check("S1: an unknown status raises Unknown (closed set, never a default)", True)
+    check("S1 PAIRED: each valid status is accepted",
+          all(_signal_record("SEASON", s, "x")["status"] == s
+              for s in ("quiet", "fired", "unobserved")))
+    check("S1: a long headline is truncated, not dropped",
+          (lambda r: len(r["headline"]) == HEADLINE_MAX
+           and r["headline"].endswith("…"))(_signal_record("SEASON", "quiet", "y" * 400)))
 
     print("\n" + ("selftest PASSED" if ok else "selftest FAILED"))
     return 0 if ok else 1

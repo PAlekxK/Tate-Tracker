@@ -1,6 +1,6 @@
 {
  "state": "RESTING",
- "generated_at": "2026-09-01T15:19:39Z",
+ "generated_at": "2026-09-01T15:53:41Z",
  "generated_by": "tools/fleet_probe.py --write-state",
  "lap_count": 1,
  "last_lap": {
@@ -10,5 +10,35 @@
  },
  "next": null,
  "why": "4 signal(s) checked, none fired",
+ "signals": [
+  {
+   "name": "SEASON",
+   "status": "quiet",
+   "fired": false,
+   "observed_via": "detector:s1_season",
+   "headline": "46d to first frost · outside the 45d window"
+  },
+  {
+   "name": "INBOX",
+   "status": "quiet",
+   "fired": false,
+   "observed_via": "detector:s2_inbox (cycle/requests.jsonl)",
+   "headline": "inbox clear (6 filed, all handled)"
+  },
+  {
+   "name": "PROVENANCE",
+   "status": "quiet",
+   "fired": false,
+   "observed_via": "detector:s3_provenance (vehicle-brief --check + ack)",
+   "headline": "6 flagged document(s), all acknowledged"
+  },
+  {
+   "name": "STALE-OPEN",
+   "status": "quiet",
+   "fired": false,
+   "observed_via": "detector:s4_stale_open",
+   "headline": "no open check older than 60d [3 open (0 undated, not testable) · 7 closed · 1 deferred]"
+  }
+ ],
  "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. ⭐ 2026-09-01: lap 1 RAN and CLOSED the same day, so lap_count is 1 — it counts CLOSED laps and per S4 a closed lap must be MARKED. Beat 4's last physical read (emissions) is not skipped, it is DEFERRED on the item itself (`state: deferred`, `nextLook: 2026-10-01`), which is what let the lap close honestly instead of staying open on a gate nobody could reach. ⚠️ THIS FILE WAS HAND-EDITED AT 11:16 AND THAT WAS WRONG — it carried `generated_by: fleet_probe.py --write-state` over content no script produced, plus a `generated_at` from 09:17 predating the work it described. That is the EXACT failure write_state() was built for on 2026-08-31 (see its docstring). Corrected by running the real writer. The lap-chronicle fields below (`lap_count`, `last_lap`, `_note`) are the lap's to write; `state`/`why`/`next`/`generated_at` are the probe's and must never be typed by hand."
 }
