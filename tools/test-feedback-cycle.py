@@ -40,6 +40,7 @@ import argparse
 import copy
 import datetime as dt
 import importlib.util
+import io
 import json
 import os
 import re
@@ -305,6 +306,100 @@ def ribbon_suite():
               os.path.join(momlib.ROOT, ".private", "mom-input-log.json")))
 
 
+def pickup_scope_suite():
+    """PICKUP — can the session-start line SAY that a non-card channel is waiting?
+
+    The M1 regression guard (2026-09-01). `read-mom-feedback.py --pickup` is the
+    one line the session-start ritual renders for *"is anything pending from
+    Mom?"*. On 2026-09-01 it printed `her last answer 2026-08-20 (12d ago)` —
+    green — while four acts she had authored through the Guru ninety seconds
+    earlier sat unread. The reader looked only at /api/feedback.
+
+    A fix alone would not hold: nothing in this suite could tell the fixed
+    reader from the broken one, so a refactor could quietly restore the defect.
+    These legs assert the CAPABILITY, by driving the renderer with synthetic
+    sweeps rather than by matching its wording — the phrasing is free to change,
+    the three properties are not:
+
+      · an arrival on a NON-card channel produces a warning line
+      · a failed sweep prints UNMEASURED and never a quiet line
+      · a partly-unreachable sweep never prints the all-clear
+    """
+    print("\n── PICKUP: can the session-start line see every channel? ──\n")
+
+    spec = importlib.util.spec_from_file_location(
+        "rmf", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "read-mom-feedback.py"))
+    rmf = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(rmf)
+    except Exception as e:  # noqa: BLE001
+        check("PICKUP   read-mom-feedback.py is importable", False, str(e))
+        return
+
+    has = hasattr(rmf, "render_channels")
+    check("PICKUP   the reader has a per-CHANNEL renderer at all", has)
+    if not has:
+        return
+
+    src_r = io.open(spec.origin, encoding="utf-8").read()
+    check("PICKUP   ⭐ the --pickup path actually CALLS it",
+          "render_channels(token)" in src_r,
+          "render_channels exists but nothing on the pickup path invokes it — "
+          "the defect is back, wearing a fixed function")
+
+    real = momlib.undispositioned_arrivals
+    try:
+        def _drive(fake):
+            momlib.undispositioned_arrivals = lambda *a, **k: fake
+            buf = io.StringIO()
+            _out = sys.stdout
+            sys.stdout = buf
+            try:
+                rmf.render_channels("tok")
+            finally:
+                sys.stdout = _out
+            return buf.getvalue()
+
+        # A Guru arrival — the exact shape that was invisible on 2026-09-01.
+        out = _drive({"items": [{"channel": "guru", "owed_to_mom": True}], "errors": []})
+        check("PICKUP   ⭐ a GURU arrival reaches the line (the 2026-09-01 defect)",
+              "guru" in out.lower() and "⚠️" in out, out.strip() or "(printed nothing)")
+
+        out = _drive({"items": [{"channel": "observations", "owed_to_mom": True}],
+                      "errors": []})
+        check("PICKUP   an OBSERVATIONS arrival reaches the line",
+              "observation" in out.lower() and "⚠️" in out, out.strip() or "(printed nothing)")
+
+        # An unreadable sweep must be a loud unknown, never a quiet all-clear.
+        def _boom(*a, **k):
+            raise RuntimeError("synthetic: connection refused")
+        momlib.undispositioned_arrivals = _boom
+        buf = io.StringIO(); _out = sys.stdout; sys.stdout = buf
+        try:
+            rmf.render_channels("tok")
+        finally:
+            sys.stdout = _out
+        out = buf.getvalue()
+        check("PICKUP   ⭐ a FAILED sweep prints UNMEASURED, not silence",
+              "UNMEASURED" in out, out.strip() or "(printed nothing)")
+        check("PICKUP   a failed sweep never claims the channels are quiet",
+              "carries a disposition" not in out, out.strip())
+
+        # Partly unreachable: the all-clear must not print over a hole.
+        out = _drive({"items": [], "errors": ["zone-audio"]})
+        check("PICKUP   ⭐ one unreachable channel suppresses the all-clear",
+              "carries a disposition" not in out and "UNMEASURED" in out,
+              out.strip() or "(printed nothing)")
+
+        # And a genuinely clean sweep is still allowed to be calm.
+        out = _drive({"items": [], "errors": []})
+        check("PICKUP   a genuinely clean sweep still reads calm",
+              "⚠️" not in out and out.strip() != "", out.strip() or "(printed nothing)")
+    finally:
+        momlib.undispositioned_arrivals = real
+
+
 def draft_suite():
     """DRAFT — typed-but-unsent words must survive a re-render.
 
@@ -451,6 +546,7 @@ def main():
     entity_map_suite()
     ribbon_suite()
     draft_suite()
+    pickup_scope_suite()
     if args.live:
         live_suite()
     else:

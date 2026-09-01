@@ -1325,7 +1325,7 @@ denominator the way every other check in this portfolio does.
 
 ---
 
-## ⛔ M1 · THE FEEDBACK READER ONLY LOOKS IN ONE CHANNEL — `paul-stated 2026-09-01`, TOP OF LAP 8
+## ✅ M1 · THE FEEDBACK READER ONLY LOOKS IN ONE CHANNEL — FIXED 2026-09-01 (lap 8)
 
 > *"The feedback reader definitely needs to look in observations slash guru. Anywhere where we can get
 > feedback, the feedback reader needs to look."*
@@ -1349,8 +1349,31 @@ did not. Same shape as the 2026-08-14 finding that put her VOICE into the leg-1 
 channel is not the same as a reader looking at it.
 
 ⚠️ **Not just a reader change.** `--pickup`'s one-line summary is what the session-start ritual renders,
-so the fix has to change what that line can *say* — a count per channel, not a single answer-age. Until
-then, treat a green mom-check as **"no unanswered CARDS"**, never **"nothing pending."**
+so the fix has to change what that line can *say* — a count per channel, not a single answer-age.
+
+✅ **FIXED 2026-09-01, lap 8 leg 0.5.** `render_channels()` adds a SECOND `--pickup` line built on
+`momlib.undispositioned_arrivals()` — **the same definition `check-arrival-dispositions.py` reads, not
+a second one.** The live line now reads:
+
+```
+🌿 Mom-check — last checked today · her last card answer 2026-08-20 (12d ago).
+⚠️  🗂  channels — 5 undispositioned (4 observations, 1 Guru). Each needs its OWN disposition: …
+```
+
+Three properties, each **proven by driving it**, not by reading it:
+- **The answer-age clause now names its own scope** — "her last **card** answer". It was never wrong
+  about what it measured; it was wrong as the sentence a reader took away.
+- **An unreachable channel prints `UNMEASURED`, never `0`.** A sweep that fails and degrades to a
+  green line is this same defect wearing a different hat — `[[reference_match_payload_not_container]]`.
+  A partial error **suppresses the all-clear** rather than printing it beside a hole.
+- **It asserts no attribution.** `undispositioned` (owed to Mom) and `bench-unheard` (a device Paul
+  registered as his) are counted and printed apart.
+
+⭐ **And it is GUARDED** — `test-feedback-cycle.py` gained a `PICKUP` suite (8 legs), because a fix
+nothing tests is one refactor from returning. It asserts the *capability* by driving the renderer with
+synthetic sweeps, not by matching wording. **Proven by three mutations:** dropping the call from the
+pickup path · a renderer that sees only `feedback` · an errored sweep that prints the all-clear anyway.
+All three fail the suite; the restored code passes.
 
 ---
 

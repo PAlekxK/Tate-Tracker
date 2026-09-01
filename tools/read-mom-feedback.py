@@ -41,6 +41,33 @@ What it does beyond a raw dump:
   • `--pickup` — a quiet one-screen mode for the session-start ritual: prints
     only what needs him, or nothing at all (calm, no-noise, matches the app).
 
+⭐⭐ THE COUNTER READS EVERY CHANNEL, NOT JUST THIS ONE (M1, `paul-stated`
+2026-09-01): *"The feedback reader definitely needs to look in observations
+slash guru. Anywhere where we can get feedback, the feedback reader needs to
+look."*
+
+Measured the moment it mattered. At 11:12 AM ET Mom authored four acts — a
+request to add the refrigerator, plus three specs — through the Guru. Minutes
+later this tool printed `her last answer 2026-08-20 (12d ago)` and nothing else.
+**Green. Twelve days quiet. While a live request sat unread.** This file reads
+`/api/feedback`; `observations`, `guru` and `zone-audio` were structurally
+invisible to it — and this line is the door the session-start ritual actually
+renders for *"is anything pending from Mom?"*.
+
+So `render_counter` now carries a SECOND line derived from
+`momlib.undispositioned_arrivals()` — the same definition
+`check-arrival-dispositions.py` reads, not a second one. Three properties it
+must keep:
+  · **The answer-age clause names its own scope.** It says "her last CARD
+    answer", because that is all it ever measured. A number that cannot see a
+    channel must not be phrased as though it can.
+  · **An unreachable channel prints UNMEASURED, never 0.** A fetch failure that
+    degrades to a green line is the exact defect this fixes, wearing a different
+    hat — `[[reference_match_payload_not_container]]`.
+  · **It asserts no attribution.** `owed_to_mom` (unresolved) and `bench-unheard`
+    (a device Paul registered as his) are counted and printed apart, because a
+    bench arrival still needs a look but is not a debt to Mom.
+
 Token: FERNWOOD_TOKEN env or .private/fernwood-token (the Worker's SHARED_TOKEN).
 
 Usage:
@@ -162,17 +189,85 @@ def render_counter(state, mom, window_days):
     else:
         when = f"last checked {since_check} days ago"
 
+    # ⚠️ SCOPED WORDING IS LOAD-BEARING (M1, 2026-09-01). This value is derived
+    # from /api/feedback alone, so it may only speak about CARD answers. It once
+    # read "her last answer 12d ago" over a live Guru request — true of what it
+    # measured, and false as the sentence a reader took away.
     newest = max((r.get("ts") or "") for r in mom) if mom else ""
     if newest:
         d = _days_since(newest)
-        hers = (f"her last answer {momlib.et_str(newest, with_time=False)}"
+        hers = (f"her last card answer {momlib.et_str(newest, with_time=False)}"
                 + (f" ({d}d ago)" if d is not None else ""))
     else:
-        hers = f"no answers from her in the last {window_days} days"
+        hers = f"no card answers from her in the last {window_days} days"
 
     # Loud only when the gap is real. A nudge that fires every day is furniture.
     flag = "⚠️ " if (since_check is not None and since_check >= 7) else ""
     print(f"{flag}🌿 Mom-check — {when} · {hers}.")
+
+
+CHANNEL_LABEL = {
+    "feedback": "cards",
+    "observations": "observations",
+    "guru": "Guru",
+    "zone-audio": "voice",
+}
+
+
+def render_channels(token, days=60):
+    """The SECOND counter line: what is waiting on EVERY channel she can reach.
+
+    This is the M1 fix. `render_counter` above can only ever speak about
+    /api/feedback; this speaks about all of them, and it is deliberately built
+    on `momlib.undispositioned_arrivals()` rather than a fresh sweep — one
+    definition of "nobody has looked at this yet", N readers. A second, quieter
+    definition living here is how the two boards would come to disagree.
+
+    Returns the number of arrivals owed to Mom (for the caller's exit posture).
+    """
+    try:
+        res = momlib.undispositioned_arrivals(token, days=days)
+    except Exception as e:  # noqa: BLE001
+        # Never degrade to a green line. An unreadable sweep is a LOUD unknown.
+        print(f"⚠️  🗂  channels UNMEASURED — the arrival sweep failed ({e}). "
+              f"This line cannot say the channels are quiet; it can only say it did not look.")
+        return None
+
+    items, errors = res.get("items") or [], res.get("errors") or []
+
+    owed, bench = {}, {}
+    for it in items:
+        bucket = owed if it.get("owed_to_mom") else bench
+        bucket[it["channel"]] = bucket.get(it["channel"], 0) + 1
+
+    def _fmt(counts):
+        return ", ".join(f"{n} {CHANNEL_LABEL.get(ch, ch)}"
+                         for ch, n in sorted(counts.items(), key=lambda kv: -kv[1]))
+
+    parts = []
+    if owed:
+        parts.append(f"{sum(owed.values())} undispositioned ({_fmt(owed)})")
+    if bench:
+        parts.append(f"{sum(bench.values())} bench-unheard ({_fmt(bench)})")
+
+    if parts:
+        print(f"⚠️  🗂  channels — {' · '.join(parts)}. "
+              f"Each needs its OWN disposition: "
+              f"python3 tools/check-arrival-dispositions.py")
+    elif errors:
+        pass  # the errors line below is the whole story; don't also print green
+    else:
+        print("🗂  channels — every arrival on cards, observations, Guru and "
+              "voice carries a disposition.")
+
+    if errors:
+        # A channel we could not reach is UNMEASURED. Printing nothing here is
+        # what let a green line stand over an unreachable channel.
+        print(f"⚠️  🗂  UNMEASURED: {', '.join(sorted(errors))} — "
+              f"could not be read, so this line does not cover "
+              f"{'it' if len(errors) == 1 else 'them'}.")
+
+    return sum(owed.values())
 
 
 def load_questions():
@@ -628,6 +723,10 @@ def main():
         except ValueError:
             window_days = 30
         render_counter(state, mom, window_days)
+        # M1: the counter above sees ONE channel. This sees all of them, and it
+        # runs on the quiet path too — a channel is only watched if something
+        # looks at it on the days nothing happened.
+        render_channels(token)
         render_pickup(mom, questions, watermark, rows, buckets, note_buckets)
         state["lastCheckedAt"] = dt.datetime.now().astimezone().isoformat()
         save_state(state)
