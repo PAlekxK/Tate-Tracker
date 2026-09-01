@@ -55,6 +55,38 @@ REVIEWS = os.path.join(ROOT, ".ux-reviews")
 # not reset the clock — they are exactly the single-fix work a sweep exists to
 # zoom out from. Naming convention going forward: `YYYY-MM-DD-ux-sweep.md`.
 SWEEP_PAT = re.compile(r"(ux-sweep|two-pass)", re.I)
+
+# ⭐ CONTENT CHECK, added 2026-09-01 — because the filename pattern above MISSED A REAL RUN.
+#
+# On 2026-09-01 this checker reported "UX sweep is OWED — last two-pass run 2026-08-03 (29d ago)"
+# while `.ux-reviews/2026-08-31-production-full-sweep.md` (59 KB) sat in the very directory it
+# reads, carrying literal `## Pass 1 — fresh eyes (verbatim)` and `## Pass 2 — doctrine pass
+# (verbatim)` headers. It was a genuine two-pass production run, 36 hours old. Acting on the
+# verdict would have spent two agents and real quota re-reviewing a surface reviewed yesterday.
+#
+# The cause is [[reference_match_payload_not_container]] exactly: SWEEP_PAT tested the CONTAINER
+# (the filename) as a proxy for the PAYLOAD (was this actually a two-pass run). The comment above
+# even declares a convention — "Naming convention going forward: YYYY-MM-DD-ux-sweep.md" — and a
+# convention that has to be REMEMBERED at file-creation time is one that will be missed. The 8/31
+# run named itself `production-full-sweep` and its own clock went blind.
+#
+# ⚠️ Filename matching is KEPT, not replaced: it is cheap, and a run may be filed as JSON or with
+# headers we cannot anticipate. Content is an ADDITIONAL way to qualify, never a stricter one.
+# Both markers are required — a file merely mentioning "pass 2" in prose does not qualify.
+PASS1_PAT = re.compile(r"^#{1,3}\s*pass\s*1\b", re.I | re.M)
+PASS2_PAT = re.compile(r"^#{1,3}\s*pass\s*2\b", re.I | re.M)
+
+
+def _is_two_pass_by_content(path):
+    """True when the FILE ITSELF shows both passes ran. Read-only, fails closed."""
+    if not path.lower().endswith((".md", ".txt")):
+        return False
+    try:
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            body = fh.read(400_000)      # generous; the 8/31 trail is 59 KB
+    except OSError:
+        return False                      # unreadable -> not a qualifying run
+    return bool(PASS1_PAT.search(body) and PASS2_PAT.search(body))
 DATE_PAT = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 
 # Thresholds — a FIRST CUT, agent-proposed, not ratified. Tune from what runs show
@@ -70,7 +102,10 @@ def last_sweep():
         return None, "no .ux-reviews/ directory"
     best = None
     for name in os.listdir(REVIEWS):
-        if not SWEEP_PAT.search(name):
+        # Qualify by FILENAME (cheap, the declared convention) OR by CONTENT (what
+        # actually happened). See the note on PASS1_PAT above for why both exist.
+        if not (SWEEP_PAT.search(name)
+                or _is_two_pass_by_content(os.path.join(REVIEWS, name))):
             continue
         m = DATE_PAT.search(name)
         if not m:

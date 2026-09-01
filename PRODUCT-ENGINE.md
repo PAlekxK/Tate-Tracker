@@ -32,7 +32,10 @@ not start at step 3.
   the UNRESOLVED block below.
 
 **Independent, take when there is room:**
-- **UX sweep** — owed, all three thresholds blown (29d/21 · 65 viewer commits/20 · 6 laps/3).
+- ⛔ ~~**UX sweep** — owed~~ **NOT OWED. The checker was wrong** (fixed 2026-09-01). A full
+  two-pass production sweep ran **2026-08-31**, 17 of 18 punch items shipped; `check-ux-sweep.py`
+  matched the FILENAME and the trail is named `production-full-sweep.md`, so its own clock went
+  blind to it and reported 29 days. Now reads **rested · last 2026-08-31 (1d)**.
 - ✅ **Contractor normalization — PROPOSED 2026-09-01**, `.plans/2026-09-01-contractor-register-proposal.md`.
   ⭐ The register **already exists** (`serviceContacts[]`, with judgment in Paul's own prose) — on
   **1 vehicle out of 22**. Three moves + four questions for him. Nothing applied.
