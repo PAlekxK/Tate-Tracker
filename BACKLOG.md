@@ -117,6 +117,74 @@ for `rhythms[].lastDone`. The deterministic door today is editing
 `vehicles.json` + reinline; build a UI for it only when the rhythms prove used.
 
 ---
+## 🧑‍🔧 CONTRACTORS & TRUSTED PEOPLE — the register already exists, denormalized, and it is already colliding `[paul-raised 2026-09-01]`
+
+> *"The value of just some reference information — like contractors, trusted contractors, the history
+> that you have with them… and then potentially we get into detailed information inside the house
+> like which breakers control which outlets, where is the water shut-off valve inside and outside.
+> There's a lot of knowledge that — static may not be the right word — but needs to help be
+> remembered over time. That's the field journal applied… it's very helpful for vehicles as well as
+> the garden, and it's helpful for the house as well."*
+
+⭐ **THE REFRAME: this is not a new domain, it is a NORMALIZATION of one that has been accreting for
+a year.** Measured 2026-09-01 across `vehicles.json`:
+
+- **61 service rows, every one carrying a `shop` string — 32 DISTINCT strings.**
+- **Three collision families are already live:**
+  - `Express Oil` (7) · `Express Oil Change & Tire Engineers (Canton, GA)` (4) · `Express Oil
+    (Atlanta — Moreland Ave)` (1) — **one relationship, two locations, or three?** Unresolved.
+  - `Volkswagen of Marietta` (1) · `Volkswagen of Marietta (parts counter)` (1) — one business split
+    by department.
+  - `DIY (Paul)` (13) · `DIY (Amazon parts)` (3) · `DIY (eBay parts)` (1) · `DIY (Mom)` (1) — **not
+    shops at all.** "DIY" is the *absence* of a vendor, and **`DIY (Mom)` is a fact about a person
+    doing the work sitting in a vendor field.**
+
+**What the register lacks is exactly the three things Paul named:** **identity** (one row per
+relationship, not N strings) · **history with them** (already present, just not joined) ·
+**judgment — would we call them again**, which exists **nowhere** and only he has.
+
+### ⛔ AND IT IS 100% VEHICLES. The house has no people in it at all.
+
+The house was built, roofed, wired, plumbed and heated by somebody, and Fernwood knows none of them.
+The 08-31 build-out gave the household group **five systems**, every one carrying `maintenance` and
+**not one carrying a who**. The **2026-04-23 roof inspection** already sitting in the
+photo-organizer inbound (P2) is the first household service event with **no contractor to attach it
+to**.
+
+### The second half — latent physical facts — is a DIFFERENT animal, and half of it is already open
+
+`circuits[]` shipped 08-31, but that is the **panel's claim about itself**: hand-written on the door,
+some rows graded `inferred`, three blank. Paul is describing the **inverse index** — standing at an
+outlet, *which breaker?* That is a **room → fixture → circuit** map and it does not exist. **H3
+(flip-test rows 28 and 30) is literally its first two rows.** Shut-off valves are a third thing
+again: not a system, not a circuit, but **a location needed at the worst possible moment**, which
+argues for reachability without opening a card at all.
+
+⭐ **THE PROPERTY THAT ACTUALLY DISTINGUISHES THIS WORK — and Paul was right that "static" is the
+wrong word.** It is not that these facts don't change. It is **who else knows them**. Vehicle
+service history is knowledge Paul *creates* by doing the work. Which breaker runs the patio is
+knowledge that **already exists in the world**: an electrician derived it once, wrote thirty rows on
+a door in pencil, and left. Mom holds a large amount of the same kind about this property. That
+reframes the job from *build a form* to **capture before the knower is gone** — which carries a
+clock a garden card does not.
+
+### ⚠️ Two decisions to make BEFORE building, not during
+
+1. **This repo is PUBLIC.** Contractor names, numbers and prices are PII. `.private/` already exists
+   for exactly this (`devices-identifiers.json`, `household-photos`). The public card can carry the
+   relationship without the phone number — but see **C0's auth reframe**: `.private/` is a
+   *capability ceiling*, and the contractor's number is worthless on a laptop in Atlanta when the
+   furnace quits in Jasper. **This item and C0/Q2 are the same question wearing two hats.**
+2. **A published map of how to shut off water at an unoccupied mountain house** deserves a deliberate
+   decision rather than a default. Same file, same repo, very different exposure. **Paul's call —
+   the point is that he makes it rather than inherits it.**
+
+**Recommended sequencing (agent view, not a decision):** contractors first — it is a normalization
+with **61 rows of existing evidence to fold**, and it unblocks the household half immediately. The
+breaker map and the valves are **field-capture work**: they want a session at the property with a
+phone, and **H1–H4 are already the start of that list**.
+
+---
 
 ## 📷 INBOUND from the photo-organizer loop — 2026-08-28 (its lap 22, beat 4b)
 
@@ -1017,6 +1085,66 @@ as before.
 ---
 
 # TRACK B — Fleet & equipment (Paul-facing)
+
+## ⭐ B0 · TRACK B HAS NO ASK LOOP — and that is the ONLY thing the two tracks do not share `[measured 2026-09-01]`
+
+**Paul's hypothesis, put to the code:** *"Track B is really a troubleshooting and maintenance
+assistant in Guru. Track A is an assistant focused on the gardening data. They're probably pretty
+similar in functionality, but tuned a little bit to work on garden versus vehicles and equipment…
+And household systems is a natural fit under that Track B structure."*
+
+**✅ CONFIRMED, and understated — it is already built that way. Five pieces of evidence:**
+
+1. **One manifest, not two.** `check-domains.py` declares `vehicle` beside `plant`, `weed` and
+   `bird` — same conformance check, same marker grammar, same verb slot (`plant tend`,
+   `vehicle run`, `weed fight`, `zone place`).
+2. **The Guru is already dual-register, deliberately.** `GARDEN_GURU_SYSTEM` — *"You are one voice
+   throughout — the same person who tends this whole place, the living things and the machines
+   alike."* Field-journal voice for the living property, shop-hand for the machines, plus a
+   `<!--register:machine-->` marker the client uses to restyle the reply.
+3. **The tuning is epistemic, not just tonal.** Living side: not in the digest → say so, full stop.
+   Machine side: a property-specific **spec** comes only from the digest, but general mechanical
+   **know-how** may be answered unlogged. Two different rules about what it may claim to know.
+4. **The forum instinct is already policy.** `cycle/fleet/FIELD-NOTES.md` quarantines third-party
+   takes as tier C by construction — *"never take a NUMBER from a forum. Take a QUESTION."* Track A
+   has no equivalent because iNaturalist and species references carry a different authority model.
+5. **Household under Track B: already done, on Paul's own in-session call** (`933efb4`) —
+   *"household-system stays a GROUP inside vehicles.json, exactly as equipment is — three sibling
+   groups, one schema, one renderer, one reinline pipeline."*
+
+### ⛔ THE ONE REAL ASYMMETRY, and it is not domain — it is AUDIENCE
+
+Track A is a **two-person loop**: it asks, she answers, the answer folds to canon, a ribbon says she
+was heard. Track B is **one person talking to himself** — Paul is both asker and answerer, and there
+is nobody to acknowledge.
+
+**That shows up as a hard number.** `check-domains.py`, 2026-09-01:
+
+| domain | records | w/ marker | **askable** | wired |
+|---|---|---|---|---|
+| plant | 36 | 21 | 21 | card |
+| weed | 5 | 5 | 5 | card |
+| **vehicle** | **22** | **20** | **0** | **—** |
+
+**Vehicles carry MORE marker-bearing records than weeds do and cannot produce a single question.**
+The confirm-card path — Mama's Perspective, the fold, the ribbon — **has never been pointed at Track
+B.** So what Track B lacks is **not architecture. It is the ask loop.**
+
+⭐ **And that gap is about to close on its own, because household systems gives Track B a second
+person.** Mom uses the house; **B6 is recorded as HER ask**. The moment the house is inside Track B,
+Track B has someone to ask and someone to acknowledge — which is Track A's entire machinery, pointed
+at a furnace.
+
+**Consequence for C0:** if these are **one engine with two tunings**, then *"Bob's house"* is a
+**third tuning, not a fork** — the strongest existing evidence that C0's Q4 (modularity without
+divergence) is achievable.
+
+⚠️ **NOT a build item.** Nothing here says wire the ask path to vehicles today; a confirm card with
+no second reader is a card served to nobody. It says the *boundary everyone assumed* is not where it
+was thought to be, and that the fleet cycle — not a new mechanism — is where Track B's asks belong.
+
+---
+
 
 *Intent: a precise, deadline-aware record of Paul's vehicles + equipment — what's owed, what's been done, what's still unknown. Different user (Paul), tone (utilitarian, high-precision), and cadence than Track A. Began as one "Vehicles card"; now a co-equal system.*
 

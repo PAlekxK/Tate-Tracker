@@ -11,6 +11,117 @@ amended mid-lap.
 
 ---
 
+## Lap 7 — 2026-09-01 · 🔓 **OPEN, HELD AT LEG 6 BY PAUL** — the lap whose trigger turned out to be Paul's own smoke test, and whose return leg he deliberately deferred
+
+**Fired by:** the board reading `🔴 FIRED · leg 6 GATE · RETURN LEG (STALE, UNREAD)` — the ack ribbon
+11 days stale with two undispositioned arrivals behind it.
+
+⛔ **Both arrivals were ONE act, and it was Paul's.** `guru:mthlfxpf-o8akv` and
+`observations:c-es59fo4e-mthlgm0f` are the same Garden Guru turn — *"Should I fertilize my boxwoods
+today?"* — from builder device `d-14nyhnjz` at 2:50 PM on 08-31, mid-ux-sweep. Read in full; the
+answer is sound and seasonally correct. **Zero arrivals were owed to Mom.**
+
+⭐ **THE MECHANISM FINDING: one human act produces TWO arrivals on the board.** A Guru conversation
+writes to `/api/conversations` **and** mirrors into `/api/observations`, so a single question makes
+the loop report two undispositioned items in two channels. `check-arrival-dispositions.py` was
+right both times and the count still overstated the world by 2×. Worth knowing before any future lap
+reads an arrival count as a number of *events*.
+
+| leg | what happened |
+|---|---|
+| 0 · GUARD | `guard-concurrent.py start` — HEAD `d877ab8`, clean, nothing unpushed. Re-checked before every commit; the one HEAD move it caught was `weather-recorder[bot]`, not a session. |
+| 1 · READ | Full sweep run. Her last settled answer **2026-08-20** (11d). Engagement since lap 6: **3 sessions on 2 days, 3 card opens, 0 journal** — 08-31 at 10:11 PM (31s) and 10:12 PM (54s), i.e. **the night after the fold and the 18 ux fixes landed**. Weather ×2, plants ×1 via the strip; vehicles/equipment/household scrolled into view. **Depth 2 and 3 both zero.** 5 Perspective offers, 2 viewed, 0 tapped. |
+| 2 · TRIAGE | 0 owed to Mom. Both bench arrivals dispositioned + both channels marked read (`7071162`). |
+| 3 · RESOLVE | Not needed — no ambiguity survived leg 2. |
+| 4 · EXPERT | **Not run, deliberately.** No arrival of hers to interpret; a seat with nothing to read is spend, not rigour. |
+| 5 · SHIP | The card queue — see below. |
+| 6 · GATE | 🔴 **HELD BY PAUL.** |
+| 7 · CLOSE | Not reached. |
+
+### ⛔ LEG 6 — HELD, and it is a Paul decision, not a miss
+
+A return leg **was** owed and drafted. Since the ribbon's `acknowledgedThrough` (08-20) she gave the
+single largest thing she has ever given this project: the **2026-08-30 naming session, sixteen areas
+in her own words**, folded to canon 08-31. She opened the app the next night and the map is hers and
+the ribbon says nothing about it.
+
+**`paul-stated 2026-09-01`:** *"let's just hold off because I still wanna do some more work on the
+zones before kinda bringing it to our attention."*
+
+⭐ **So the ribbon is UNTOUCHED on purpose and the lap stays open at leg 6.** Do not let a later run
+read `R1 ack staleness 🔴` as neglect — it is a held gate with a stated reason. The draft, for
+whoever resumes: lead on her sixteen names, and put the changeable clause on the **retirements**
+(`parking-bank`, `upper-uber-wall-area`), because `parking-bank` was a **fold call** and not her
+instruction.
+
+⚠️ **This is also the biggest instance yet of lap 4's open finding, `PAUL-RELAYED INPUT HAS NOWHERE
+TO LIVE`.** The naming session has no arrival record, no id, no timestamp and no channel — it
+happened on paper at a kitchen table. The ribbon that acknowledges it must reference something the
+record cannot point at.
+
+### ✅ LEG 5 — SHIPPED: the card queue rotated and reshuffled `[paul-approved 2026-09-01]`
+
+*"go ahead and do rotation and shuffling if we need to of the different cards, to give her a fresh
+view."* Commits `6988816` + `11db610`, pushed, and **verified live by polling the served
+`questions.json`** until the head changed — not inferred from the commit.
+
+**The premise that decided the shape:** `read-mom-funnel.py --rotation` — **33 offers, 33 at the head
+slot, "Another question ›" never tapped on her device.** The effective visible set is **1**, so the
+queue's *order* is the whole surface and topping it up changes nothing.
+
+| | before | after |
+|---|---|---|
+| **pos 0 — all she sees** | q-rain-byday-check | **q-fairway-grass-seedheads** |
+| 1 | q-weed-stiltgrass | **q-weed-beggars-lice** |
+| 2 | q-clematis-variety | q-rain-byday-check |
+| 3 | q-strategy-pollinators | q-jumpstrip-coverage |
+| 4 | q-fairway-grass-seedheads | q-strategy-pollinators |
+
+- **OFF — `q-clematis-variety`** (benched): asks the colour of the clematis flowers with **no bloom
+  window open** (05-10..06-20, 08-01..08-31; today 09-01). This is the one card `rationalize-bench`
+  flags as HEURISTIC and refuses to decide; this was the human read it asks for.
+- **OFF — `q-weed-stiltgrass`** (benched): rotated on the rule — 13 offers across **10 offered-days**
+  at the head with no answer. **She declined nothing**; it had its run at the only slot she sees.
+  Bench, not retirement: still in season, still carries a photo she took.
+- **ON — `q-jumpstrip-coverage`** (approved 08-31) and **`q-weed-beggars-lice`** (`--approve`,
+  paul-approved this lap).
+- **The head changed because seedheads DECAYS.** Its own trigger is *"flip in August when seed-heads
+  emerge"*, it is in season now, and it had been **live since 08-08 with zero exposure** — never once
+  at position 0. `q-rain-byday-check` is reflective and non-seasonal, so it keeps at position 2. The
+  two cards that expire now hold the two positions closest to her.
+
+⚠️ **`--apply` put beggars-lice at position 4** — the invisible slot — for a card that expires.
+Moved to 1 by permutation, asserted in the edit. **Promotion order is not priority order**, and
+nothing in the tool says so.
+
+### 🐛 DEFECT FOUND AND FILED — `--bench` and `--apply` reverse each other
+
+`--bench q-weed-stiltgrass` then `--apply` **benched and re-promoted it inside one minute**
+(`benchedAt == promotedAt`), both steps printing ✓. FILL ranks bench candidates on **season and
+class** and cannot see *why* a card is benched, so "out of season" and "aged out of rotation" are
+indistinguishable to it — and benching creates the very slot that re-promotes.
+
+⚠️ **BOUNDED, same day:** a second run with **1** open slot promoted only the newly-approved card and
+left stiltgrass benched. The reversal needs **more open slots than in-season non-rotation
+candidates**. Real, narrow — filed in `BACKLOG.md` A3 with a typed-`benchedFor` fix **proposed, not
+applied**. An overstated defect is worse than an unstated one.
+
+### 📌 What this lap did NOT do, named rather than buried
+
+- **Leg 7 not reached** — no dispositions stamped, **no watermark advanced**. The lap is open.
+- **The UX sweep is OWED and was not run** — 29d (limit 21) · 65 viewer commits (limit 20) · 6 laps
+  (limit 3). **All three thresholds blown.** Not this lap's work, but it is not nothing.
+- **The D4 pre-glance stack ledger** (1,712px at 414×A+) that the 08-31 interlap note handed to
+  "the next lap" — **not run**. Still owed.
+- **`.plans/2026-08-31-zones-traced-with-mom.json` still says *"MODEL READ — unverified until Paul
+  confirms each name."*** Every zone's history now records `namedBy: mom, 2026-08-30` with Paul's own
+  tracing act and several `paul-stated` rulings quoted inline — **the confirm happened and the caveat
+  never moved.** It reads as open work and is not. Left as found; correcting it is a one-line edit
+  nobody has made.
+
+---
+
+
 ## Interlap note — 2026-08-31 · **no lap ran — the day's commits were Track B, not this loop**
 
 Not a lap: nothing of hers arrived and no leg ran. The 2026-08-31 repo movement
