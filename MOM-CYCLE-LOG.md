@@ -35,6 +35,45 @@ bench-cleared) — it serves only when a queue slot opens, so **the next lap sho
 in rotation** and its answer is that lap's to fold. The D4 ruling also hands the next lap a
 beat: **ledger the pre-glance stack at 414×A+** (Leg 6e harness) before any trim decision.
 
+**Extended again (same day, late PM) — still no lap. Three agent missions on LOOP MACHINERY,
+dispatched from the portfolio briefing's burn-down batch, none fired by an arrival of hers.**
+Commits `388fce9` · `f7c543f` · `0f06942` · `f3ac64c`, pushed. Two of the three rows turned out
+to be stale or already done, which is itself the finding.
+
+- **Leg 0 is code now, not a sentence** (`tools/guard-concurrent.py`). The map's old row named
+  *"`git log --oneline -1` at start and again before committing"* — **exactly the two seams that
+  were clean on lap 4 while a third session committed 24s after that lap's commit**, inside the
+  COMMIT→PUSH window neither covers. Five seams, one HEAD reader, fails closed (`0` clear ·
+  `1` moved · `2` undetermined). It also found a second defect: `mom-cycle-status.py` swallowed
+  git errors into `head="" , dirty=0, unpushed=0` — **a guard failure rendering as a clean
+  board.** Selftest 16 assertions, every fire paired with its near-miss. ⭐ **It has now run
+  against the real `origin`** — this session's own push went through `guard-concurrent.py push`,
+  which closes the "never exercised against the live remote" caveat it shipped with.
+  ⚠️ `~/.claude/skills/mom-cycle/SKILL.md` carried the same stale instruction and was the copy a
+  `/mom-cycle` run actually reads; fixed (`.claude@6d17867`). **`check-cycle-map.py` structurally
+  could not catch that** — the skill lives outside the repo it can see. Fourth instance of this
+  loop's docs-diverge-from-code shape.
+- **Leg 6e's stress case had no entry point.** Lap 5 made 414 canonical and kept 390 "as the
+  stress case" — in `run()`, which *reports*. `herConditions()` *verdicts*, and 6e gates a
+  release on it, so **at release time 390 ran nowhere**. Now split into `stressConditions()`,
+  deliberately separate: a HIGH at 414 is shipping to Mom, a HIGH at 390 alone is robustness.
+  Re-run: **0 HIGH at 414, 0 HIGH at 390, 0 HIGH at 896×414.** The one 414-only hypothesis on
+  record (`.ux-reviews/2026-08-04`, jump-strip hit bands overlapping 9–13px) was measured and
+  **does not reproduce** — it wraps to three rows, but pitch is 52px against a 44px band, 8px
+  clearance. ⚠️ The BACKLOG row asking for 414 was **seven days stale**: lap 5 (`9c05c81`) had
+  already done it.
+- **`fetch-sounds.py` now records the iNaturalist taxon** instead of discarding it. A disk-only
+  audit of all 23 bird + frog recordings found **18 pass, 0 mismatch, 5 unresolved** — no
+  magpie-class mis-file — but proved `title_matches_species` **still accepts the magpie today**
+  (the insect fix was a skip-list, not a repair): the 6-char epithet stem makes `americ` match
+  the English word *"American"*, so a Black Bear recording passes as an American Toad. A
+  proposed diff exists and is **NOT applied** — Paul's call. Measured: **44 attribution rows,
+  zero carry a taxon**; the fix is forward-looking only.
+
+⚠️ **Two of my own agents wrote this repo concurrently** and both correctly refused `git add -A`.
+Different regions of this file, so nothing was lost — but that was luck, not design, and it is
+the same class as the bug the first bullet fixes.
+
 ---
 
 ## 2026-08-28 — NO LAP. A **re-examination of the 08-09 zone clip**, at Paul's ask — and it corrects what lap 3 recorded as the root cause
