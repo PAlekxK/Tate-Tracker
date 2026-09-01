@@ -186,6 +186,87 @@ phone, and **H1–H4 are already the start of that list**.
 
 ---
 
+## 🌿 INBOUND from photo-organizer — 2026-09-01: **A SPECIES IS NAMED AT `fairway-border`, and it is on a label Paul read himself**
+
+First `--zone` review lap, serving the plant×zone ask. Paul ruled 10 plant-labelled photographs
+inside the **Fairway Border** polygon. Provenance: photo-organizer sweep **125**, answers file
+`reports/project-review-zone-fairway-border.answers.json`, ruled by voice 2026-09-01.
+
+### ⭐ THE ACTIONABLE ONE — `plants.json` `dogwood` can be zoned
+
+`IMG_8872` and `IMG_8873` (2026-07-20 17:21) are two photographs **of the nursery label attached
+to the plant**. Paul, 2026-09-01: *"eight and nine are pictures of the label that was on the plant
+on the fairway fringe. So it says exactly what kind of plant it is."* He then **read it**:
+
+> **"Constellation Dogwood is what it says."**
+
+**`plants.json` already holds `dogwood`** (*Cornus florida*) and its **`zoneId` is `null`** — one
+of the **23 of 36** entries with no zone. **Proposal: `zoneId: "fairway-border"`.**
+
+### ⭐ PAUL RULED THE GRANULARITY, AND GAVE THE REASON `[paul-stated 2026-09-01]`
+
+> *"I would keep that level of granularity of constellation dogwood, especially since we have the
+> label there."*
+
+**The reason is the rule: a photographed physical label is evidence at CULTIVAR level, so the
+record is kept at cultivar level.** It generalises past this plant — **where a nursery tag exists
+in the corpus, do not collapse to the genus.** photo-organizer applied it to its own vocabulary
+the same session: the tag category is now `reference:constellation-dogwood:plant-label:2026-07-20`,
+keyed on the cultivar, matching the existing `reference:<subject>:<kind>:<date>` pattern.
+
+⚠️ **SO THE EXISTING `dogwood` ENTRY IS NOT AUTOMATICALLY THIS PLANT.** Its `scientificName` is
+**`Cornus florida`**; *"Constellation"* is generally sold as a **Rutgers Stellar-series hybrid
+(*Cornus kousa* × *C. florida*)**. Under Paul's own granularity ruling the likely shape is a
+**distinct `constellation-dogwood` entry** zoned to `fairway-border`, leaving the generic
+`dogwood` record alone — **but that is his edit in his file, and the alternative (correcting the
+existing entry) is still open.** ⚠️ The hybrid claim is an **agent's horticultural recollection**,
+neither read off the label nor checked against a source; **the only VERIFIED string is the two
+words Paul read.**
+
+### The rest of the ruling
+
+| cards | date | Paul's words | filed as |
+|---|---|---|---|
+| #1–2 | 2025-05-03 | *"looking off the Green down the hill towards the driveway… not really sure what exactly is a note"* | `unattributable` |
+| #3 (+#4) | 2025-06-26 | *"a lot of tree clearing… part of the western garden work that's been ongoing"* | `project-tree-work:2025-06-26` |
+| #5 | 2025-10-23 | *"repairing damage that was done, you can see landscaping"* | `project-western-garden-terrace` |
+| #6–7 | 2026-05-01 | *"that's a fruit tree on the edge of the fairway"* | `observed:property:fruit-tree:2026-05-01` |
+| #8–9 | 2026-07-20 | the nursery label (above) | `reference:fairway-border:plant-label:2026-07-20` |
+| #10 | 2026-07-20 | *"pictures of plants on the edge of the fairway"* | `observed:property:plants-to-note:2026-07-20` |
+
+⚠️ **A SECOND, UNNAMED PLANT AT THE SAME ZONE:** #6–7 are a **fruit tree** on the fairway edge,
+2026-05-01 — a different date and a separate statement from the July dogwood. Whether they are the
+same plant is **not stated and not assumed**. If they are different, `fairway-border` holds at
+least two plants worth a record.
+⚠️ **#10 is a plant, not the label, and whether it shows the labelled dogwood is not stated** —
+he said *"plants"*, plural.
+
+### ⚠️ Three things this does NOT establish
+
+1. **The hydrangea question is still OPEN, not answered negative.** The ask's first errand was
+   whether hydrangea photos evidence this ring. Paul named a fruit tree and a dogwood and **never
+   said hydrangea**. He ruled the sheet, not the question.
+2. **Zone membership is where the CAMERA stood.** #1–2 sit inside the polygon while pointing *out
+   of it* (down the hill toward the driveway) — the rule appearing live on the first two cards.
+   Polygons also carry a **±30 ft** honesty budget, so at ring scale this is a shortlist.
+3. **`plants.json` was NOT touched**, and will not be from photo-organizer. `zoneId` is singular —
+   the original ask said `zoneIds`, and any edit must match the real schema.
+
+### ⭐ The method finding, which is the reusable part
+
+**A photographed nursery tag carries what no classifier in that corpus can.** Apple's labels across
+all ten cards are generic — *Foliage, Forest, Plant, Vegetation* — and name **no species**; the
+local VLM reads activity well and object identity badly (five documented failures, including a gas
+tank called "a welding helmet"). The one card that resolved anything is **a photograph of a piece
+of printed card**, and Apple's own **"Document, Printed Page"** label flagged it *before Paul
+spoke*. **Transferable: to find species names in a photo corpus, hunt Document/Printed Page inside
+a zone.**
+
+⭐ **And what an agent deliberately did NOT do:** nobody read the label off the image. **Paul did.**
+An agent OCRing a nursery tag and writing a cultivar into `plants.json` would be a model read
+promoted to a record — precisely what the verification doctrine forbids. The human read is what
+makes *"Constellation Dogwood"* usable here at all.
+
 ## 🔧 INBOUND from photo-organizer — 2026-09-01: **MOWER BLADE SHARPENING IS DATED** (Track B)
 
 Answers the fleet-cycle request filed 2026-09-01 (`photo-organizer/cycle/requests.jsonl`,
