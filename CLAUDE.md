@@ -339,6 +339,20 @@ tags → clickable exploded view; deferred per defer-affordances-pending-signal.
 
 The Mom-engagement backlog (shipped 2026-07-13 as **Mama's Perspective**) and the 2026-07-05 Concept-A items (Save/Ask split — resolved to one log-first button 7/13; `peakDates` + fishing granularity — shipped 7/06) now live in `BACKLOG.md`. Historical design trail: `.user-research/2026-07-13-mom-engagement-panel-synthesis.md`.
 
+## 🏗 Product engine → `PRODUCT-ENGINE.md` `[stood up 2026-09-01]`
+
+**Fernwood is the first instance of something Paul is trying to build, not the whole of it.** The
+multi-tenancy / auth / retrieval / one-box workstream — *"an overarching product engine capability…
+ensure we're on a good path to not have a bunch of diverging issues"* — lives in
+**`PRODUCT-ENGINE.md`**, extracted from `BACKLOG.md` when it hit 429 lines (23% of that file).
+
+**Open it for THE SEQUENCE** — the ordered path forward, plus an index of where every 2026-09-01
+thread lives. ⛔ **It is CAPTURE-ONLY**: nothing scoped, nothing decided, no build started, and it
+opens with a `user-researcher` interview rather than an architecture decision.
+
+⚠️ **Do not re-grow that material inside `BACKLOG.md`.** This file is Fernwood's; that one is the
+engine's.
+
 ## Session log → `PICKUP-LOG-ARCHIVE.md`
 
 The dated per-session **Pickup point** trail (2026-05-21 → 2026-07-14) is archived to `PICKUP-LOG-ARCHIVE.md` (git holds it regardless). Current status lives in `BACKLOG.md`, not the log.
