@@ -333,6 +333,23 @@ directions — a stated order that never happened, *and* a stated cancellation t
 happened. The order numbers are filed in `.private/service-records/TOOLS.md`.
 **Nothing here needs doing. It needs quoting, forever, as the case study.**
 
+> ⚠️ **CORRECTION APPENDED 2026-09-01 by the main session, `paul-raised`:** *"that's fine, you can
+> use it as a case study, I guess, but let's just make sure we're not confusing ourselves."* He is
+> right, and this entry as written invites exactly that. **Read on its own, "the Icyhaws clips were
+> never ordered at all" reads as an OPEN GAP. It is not one.** Current state per
+> `.private/service-records/TOOLS.md`:
+>
+> | item | state |
+> |---|---|
+> | LLPT butyl tape 1"×33ft | ✅ **ORDER VERIFIED** `113-4025619-8167467` · $15.40 · arrived Aug 30 |
+> | ToLanbbt neoprene CCF ×2 | ✅ **ORDER VERIFIED** `113-6019064-7657842` · $27.76 · arrived Aug 30 |
+> | Icyhaws retainer clips | **ALREADY ON SHELF since 2026-06-22.** Only a *second* pair was unordered — `paul-stated`: *"deferred, not done. Not urgent; clips are reassembly-time."* |
+>
+> **Nothing is outstanding and nothing is missing.** The case study is about the REPORTING failing
+> in both directions on one afternoon — a stated order and a stated cancellation, both false. It is
+> **not** about a missing part, and it must never be quoted without this table attached. A case
+> study about unreliable reporting that is itself misread is the failure it describes, one level up.
+
 **B-13 · Headliner — `PLANNED`/`ASKED` · IN-CARD (the 32 KB item)**
 2026-08-27 `9d8882c7` + 2026-08-28 `a168e341`. Paul on the phone with LMC:
 > *"OK I'm on the phone with LMC now. ON hold. What's the link to the page with the headliners?"*
