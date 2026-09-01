@@ -1377,7 +1377,10 @@ def undispositioned_arrivals(token, days=60, arrival_log=None, feedback_log=None
 
 
 LAP_HEADING_RX = re.compile(r"^##\s+Lap\s+(\d+)\s+[—-]\s+(\d{4}-\d{2}-\d{2})(.*)$", re.M)
-LAP_OUTCOME_RX = re.compile(r"<!--\s*outcome:(closed|open|abandoned)\s*-->")
+LAP_OUTCOME_RX = re.compile(
+    r"<!--\s*outcome:(closed|open|abandoned)"
+    r"(?:\s+at:(\d{4}-\d{2}-\d{2}T[0-9:.]+Z))?"
+    r"\s*-->")
 VALID_LAP_OUTCOMES = ("closed", "open", "abandoned")
 
 
@@ -1417,6 +1420,12 @@ def lap_outcomes(log_path=None):
             "n": int(m.group(1)),
             "date": m.group(2),
             "outcome": om.group(1) if om else None,
+            # ⭐ The INSTANT the lap closed, UTC, or None for a lap closed before
+            # 2026-09-01 (they carry a date only). Deliberately stored in the same
+            # ISO-UTC-Z shape /api/metrics uses for event timestamps, so the two
+            # are directly comparable — no timezone arithmetic at the comparison,
+            # which is where a window bug would hide next.
+            "closed_at": om.group(2) if (om and om.lastindex and om.lastindex >= 2) else None,
             "note": m.group(3).strip(" ·—-") or None,
         })
     laps.sort(key=lambda l: l["n"])
@@ -1439,6 +1448,7 @@ def lap_state(log_path=None):
         "n": newest["n"],
         "date": newest["date"],
         "outcome": newest["outcome"] or "unknown",
+        "closed_at": newest.get("closed_at"),
         "outcome_note": newest["note"],
     }
 

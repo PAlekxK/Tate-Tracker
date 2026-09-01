@@ -12,7 +12,7 @@ amended mid-lap.
 ---
 
 ## Lap 8 — 2026-09-01 · ✅ **CLOSED, 7 of 7 + QA** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation
-<!-- outcome:closed -->
+<!-- outcome:closed at:2026-09-01T16:48:11Z -->
 
 **Fired by: Mom herself.** Not a staleness clock, not an engagement threshold — a request, in her own
 words, at 11:11 AM ET: *"I would like to add our refrigerator under household systems."* Then, in

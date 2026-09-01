@@ -356,6 +356,44 @@ def selftest():
     s, _ = _named(_eng(_sessions=2))
     check("NEAR MISS — 2 quiet sessions does not fire", s["sessions-quiet"]["fired"], False)
 
+    # ⭐⭐ THE SAME-DAY LAP CONTROL (added 2026-09-01, after L1). `collect()`
+    # filtered on `day < window_start` — two YYYY-MM-DD strings — so the window
+    # covered the WHOLE DAY the lap is dated, and a lap that opened and closed on
+    # one day counted its OWN trigger session. Mom lap 8 published FIRED with 0
+    # unresolved arrivals the instant it closed, and `focus.py` then spilled four
+    # Fernwood rows into Paul's queue as "cycle FIRED and unrun".
+    # These legs assert the WINDOW, not the signals — the signals were always
+    # right about what they were given.
+    import importlib.util as _il
+    _s = _il.spec_from_file_location("_eng_mod", os.path.join(HERE, "read-mom-engagement.py"))
+    _e = _il.module_from_spec(_s); _s.loader.exec_module(_e)
+
+    DAY, TS = "2026-09-01", "2026-09-01T16:48:11Z"
+    _data = {"days": {DAY: [{"device": {"deviceId": "dev-hers"}, "events": [
+        {"type": "session_start", "ts": "2026-09-01T15:10:00.000Z"},   # BEFORE the close
+        {"type": "session_start", "ts": "2026-09-01T17:30:00.000Z"},   # AFTER the close
+    ]}]}}
+    hers = {"dev-hers"}
+
+    mine, _o, _f = _e.collect(_data, hers, DAY, TS)
+    check("⭐ an instant-bounded window EXCLUDES the lap's own trigger session",
+          len(mine), 1)
+    check("...and keeps what happened after the close", mine[0]["_ts"],
+          "2026-09-01T17:30:00.000Z")
+
+    # PAIRED: the legacy path must be byte-identical for laps with no instant —
+    # a backfilled guess at when lap 3 closed would be a fabricated timestamp.
+    mine_legacy, _o, _f = _e.collect(_data, hers, DAY, None)
+    check("PAIRED — with NO instant, the day-granular behaviour is unchanged",
+          len(mine_legacy), 2)
+
+    # And an event with no ts at all must not be silently kept by the instant path.
+    _noTs = {"days": {DAY: [{"device": {"deviceId": "dev-hers"},
+                             "events": [{"type": "session_start"}]}]}}
+    mine_nots, _o, _f = _e.collect(_noTs, hers, DAY, TS)
+    check("an event with NO timestamp is excluded, never assumed in-window",
+          len(mine_nots), 0)
+
     s, _ = _named(_eng(), days=21)
     check("a 21-day answer gap FIRES", s["answer-age"]["fired"], True)
     s, _ = _named(_eng(), days=20)
@@ -617,7 +655,12 @@ def _print_engagement():
         start = lap[1] if lap else None
         if not start:
             return
-        r = eng.build(start, hers, momlib.resolve_token())
+        # ⭐ Pass the close INSTANT through (2026-09-01). Without it the signals
+        # count the whole day the lap is dated, so a lap that opened and closed
+        # the same day counts its OWN trigger session and publishes FIRED the
+        # moment it closes — which then spills rows into Paul's focus queue.
+        start_ts = lap[2] if lap and len(lap) > 2 else None
+        r = eng.build(start, hers, momlib.resolve_token(), start_ts)
     except Exception as exc:
         print(f"  ⚪️ between-lap engagement — could not read /api/metrics ({type(exc).__name__}).")
         print("       Unknown, NOT zero. python3 tools/read-mom-engagement.py")

@@ -1,24 +1,24 @@
 {
-  "state": "FIRED",
-  "generated_at": "2026-09-01T12:36:03",
+  "state": "ARMED",
+  "generated_at": "2026-09-01T12:57:31",
   "generated_by": "Tate-Tracker/tools/mom-cycle-status.py --write-state",
-  "why": "leg 7 — 0 unresolved arrival(s) nobody has read yet",
-  "next": "run /mom-cycle beat 1 (READ) — until someone looks, whose it was is unknown",
+  "why": "leg 7 — monitor live, nothing unread could be hers",
+  "next": null,
   "at_leg": "7",
   "needs_paul": false,
   "unresolved_arrivals": 0,
   "signals": [
     {
       "name": "offers-passed",
-      "fired": true,
-      "value": 4,
+      "fired": false,
+      "value": 0,
       "threshold": 3,
       "detail": "Perspective offers she SAW and did not tap"
     },
     {
       "name": "sessions-quiet",
-      "fired": true,
-      "value": 5,
+      "fired": false,
+      "value": 0,
       "threshold": 3,
       "detail": "sessions since the lap — using it, settling nothing"
     },
@@ -35,6 +35,7 @@
     "n": 8,
     "date": "2026-09-01",
     "outcome": "closed",
+    "closed_at": "2026-09-01T16:48:11Z",
     "outcome_note": "✅ **CLOSED, 7 of 7 + QA** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation"
   }
 }

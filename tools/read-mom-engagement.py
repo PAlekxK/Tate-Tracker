@@ -108,15 +108,51 @@ LOOKBACK_DAYS = 60   # for "was this event ever live BEFORE the window?"
 
 
 def last_lap():
-    """(lap number, YYYY-MM-DD) of the most recent lap in the chronicle, or None."""
+    """(lap number, YYYY-MM-DD, closed_at|None) of the most recent lap, or None.
+
+    ⭐⭐ THE THIRD ELEMENT EXISTS BECAUSE A DATE CANNOT BOUND A SAME-DAY LAP
+    (2026-09-01). `collect()` filtered on `day < window_start` — two YYYY-MM-DD
+    strings — so the window included the WHOLE DAY the lap is dated. Mom lap 8
+    opened and closed on 2026-09-01, and its own trigger session (11:10 AM, the
+    one that FIRED it) therefore counted as having happened *since* it. The lap
+    was measured against itself: `mom-cycle-status` published FIRED with 0
+    unresolved arrivals the instant the lap closed.
+
+    ⛔ AND IT ESCAPED THE REPO. `focus.py` reads that state, sees FIRED, and
+    spilled four Fernwood rows into Paul's personal queue annotated *"cycle FIRED
+    and unrun"* — for a loop that had closed minutes earlier. It padded the one
+    list whose whole purpose is to hold only what nothing else will move.
+
+    `closed_at` is an ISO-UTC-Z instant read from the chronicle's own outcome
+    marker (`<!-- outcome:closed at:… -->`), the same shape /api/metrics uses for
+    event timestamps — so the comparison is a string compare with no timezone
+    arithmetic, which is where the next window bug would hide.
+
+    ⚠️ It is None for every lap closed before 2026-09-01: those markers carry a
+    date only, and `collect()` falls back to the old day-granular behaviour for
+    them **exactly**. A backfilled guess at when lap 3 closed would be a fabricated
+    instant, and this loop does not mint those.
+    """
     try:
         with open(CYCLE_LOG, encoding="utf-8") as f:
-            laps = LAP_RX.findall(f.read())
+            text = f.read()
     except OSError:
         return None
+    laps = LAP_RX.findall(text)
     if not laps:
         return None
-    return max(laps, key=lambda p: p[1])
+    n, date = max(laps, key=lambda p: p[1])
+    closed_at = None
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import momlib as _m
+        for lap in _m.lap_outcomes():
+            if str(lap["n"]) == str(n):
+                closed_at = lap.get("closed_at")
+                break
+    except Exception:                      # noqa: BLE001 — a missing instant is
+        closed_at = None                   # legacy behaviour, never an error
+    return (n, date, closed_at)
 
 
 def her_devices():
@@ -129,7 +165,7 @@ def her_devices():
     return [d for p in people if p.get("name") == "mom" for d in (p.get("deviceIds") or [])]
 
 
-def collect(data, hers, window_start):
+def collect(data, hers, window_start, window_start_ts=None):
     """Split /api/metrics into her events and everyone else's, keeping both.
 
     `first_seen` spans the whole LOOKBACK (that is what makes a zero readable);
@@ -147,7 +183,13 @@ def collect(data, hers, window_start):
                 ts = e.get("ts") or day
                 if t and (t not in first_seen or ts < first_seen[t]):
                     first_seen[t] = ts
-                if day < window_start:
+                # ⭐ Prefer the INSTANT when the chronicle gave us one; fall back
+                # to the legacy day compare when it did not. `window_start_ts` and
+                # `ts` are both ISO-UTC-Z, so this is an ordered string compare.
+                if window_start_ts:
+                    if not ts or ts < window_start_ts:
+                        continue
+                elif day < window_start:
                     continue
                 if dev in hers:
                     mine.append(dict(e, _ts=ts, _day=day))
@@ -168,7 +210,7 @@ def sessions_of(events):
     return sorted((ts, durations.get(sid)) for sid, ts in starts.items())
 
 
-def build(window_start, hers, token):
+def build(window_start, hers, token, window_start_ts=None):
     end_d = dt.date.today() + dt.timedelta(days=1)
     # The Worker caps a metrics range at 90 days and answers 400 — not an empty
     # result — past it. Clamp here so a wide `--since` degrades to a shorter
@@ -179,7 +221,7 @@ def build(window_start, hers, token):
     data = momlib._get("/api/metrics", token,
                        {"start": lookback_d.isoformat(), "end": end_d.isoformat()})
 
-    mine, others, first_seen = collect(data, hers, window_start)
+    mine, others, first_seen = collect(data, hers, window_start, window_start_ts)
 
     ev = Counter(e["type"] for e in mine if e.get("type"))
     cards = Counter()
@@ -214,6 +256,7 @@ def build(window_start, hers, token):
 
     return {
         "window_start": window_start,
+        "window_start_ts": window_start_ts,
         "sessions": sessions_of(mine),
         "active_days": sorted({e["_day"] for e in mine}),
         "events": ev,
@@ -308,6 +351,9 @@ def main():
     lap = last_lap()
     window_start = a.since or (lap[1] if lap else
                                (dt.date.today() - dt.timedelta(days=14)).isoformat())
+    # The close INSTANT, when the chronicle recorded one. An explicit --since is a
+    # day boundary by construction, so it never carries one.
+    window_start_ts = None if a.since else (lap[2] if lap and len(lap) > 2 else None)
     # An explicit --since is NOT the lap boundary, and every heading below reads off
     # `lap`. Labelling a hand-picked window "since lap 3" would put the wrong
     # denominator on a real number — the failure mode this whole file is about.
@@ -325,7 +371,7 @@ def main():
         return 1
 
     try:
-        r = build(window_start, hers, tok)
+        r = build(window_start, hers, tok, window_start_ts)
     except Exception as exc:                       # network/API — say so, never print a silent zero
         print(f"⛔ could not read /api/metrics: {exc}", file=sys.stderr)
         return 1
