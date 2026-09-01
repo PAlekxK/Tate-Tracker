@@ -1325,6 +1325,35 @@ denominator the way every other check in this portfolio does.
 
 ---
 
+## ⛔ M1 · THE FEEDBACK READER ONLY LOOKS IN ONE CHANNEL — `paul-stated 2026-09-01`, TOP OF LAP 8
+
+> *"The feedback reader definitely needs to look in observations slash guru. Anywhere where we can get
+> feedback, the feedback reader needs to look."*
+
+**Measured the moment it mattered.** At 11:12–11:13 AM ET Mom authored four acts — a request to add the
+refrigerator plus three specs answering the Guru's questions. Minutes later
+`read-mom-feedback.py --pickup` printed:
+
+```
+🌿 Mom-check — last checked today · her last answer 2026-08-20 (12d ago).
+```
+
+**Green. Twelve days quiet. While a live request sat unread.** The reader looks only at the `feedback`
+channel (Mama's Perspective card answers). `observations`, `guru` and `zone-audio` are invisible to it.
+
+⭐ **This is the pickup ritual's designated Fernwood probe** — the one line a session start is supposed
+to trust for *"is anything pending from Mom?"* Its own doctrine says *"nothing pending is a complete
+answer."* It is not, and has not been: **her most substantive input of the day arrived on a channel the
+probe structurally cannot see.** `check-arrival-dispositions.py` caught it; the door Paul actually reads
+did not. Same shape as the 2026-08-14 finding that put her VOICE into the leg-1 sweep — reaching a
+channel is not the same as a reader looking at it.
+
+⚠️ **Not just a reader change.** `--pickup`'s one-line summary is what the session-start ritual renders,
+so the fix has to change what that line can *say* — a count per channel, not a single answer-age. Until
+then, treat a green mom-check as **"no unanswered CARDS"**, never **"nothing pending."**
+
+---
+
 ## 🆔 V-SERIES · THE IDENTIFIER RECORD — measured 2026-09-01 at Paul's ask `[paul-stated]`
 
 > *"I know that I've taken pictures of the VINs before and fed them maybe into the ChatGPT, but we need

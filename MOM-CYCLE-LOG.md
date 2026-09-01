@@ -11,7 +11,7 @@ amended mid-lap.
 
 ---
 
-## Lap 7 — 2026-09-01 · 🔓 **OPEN, HELD AT LEG 6 BY PAUL** — the lap whose trigger turned out to be Paul's own smoke test, and whose return leg he deliberately deferred
+## Lap 7 — 2026-09-01 · ✅ **CLOSED**, with leg 6 DELIBERATELY UNCROSSED — the lap whose trigger turned out to be Paul's own smoke test, and whose return leg he deliberately deferred
 
 **Fired by:** the board reading `🔴 FIRED · leg 6 GATE · RETURN LEG (STALE, UNREAD)` — the ack ribbon
 11 days stale with two undispositioned arrivals behind it.
@@ -58,6 +58,54 @@ instruction.
 TO LIVE`.** The naming session has no arrival record, no id, no timestamp and no channel — it
 happened on paper at a kitchen table. The ribbon that acknowledges it must reference something the
 record cannot point at.
+
+### ✅ LAP 7 CLOSED — 2026-09-01, with leg 6 uncrossed by Paul's explicit standing hold
+
+⛔ **Read this heading exactly as written. Legs 0–5 and 7 ran; LEG 6 WAS NEVER CROSSED.** The ribbon
+was not shipped and Mom has not been acknowledged since 2026-08-20. A lap that closes with its human
+gate uncrossed is a first for this loop, and it is recorded as an exception, not normalised.
+
+**The hold is now INDEFINITE and explicit** `[paul-stated 2026-09-01]`:
+
+> *"You can hold the zone until I give an explicit approval. It's ready to hold to mom."*
+
+⭐ **This supersedes the 2-day hold-expiry.** The spine's expiry exists so an un-re-affirmed park does
+not silently read as neglect; Paul has now named the release condition — **his explicit approval** —
+so the gate is authorised open-endedly rather than decaying. A later lap must NOT read
+`R1 ack staleness 🔴` as a miss. **The ribbon obligation carries to lap 8**, where it will cover her
+sixteen zone names *and* the refrigerator.
+
+**⭐ THE CLAMP, REFINED — `paul-proposed 2026-09-01`, and it is what makes this close legal:**
+
+> *"Maybe the lap needs to close over unread input that comes in before that lap starts."*
+
+The rule was *"a lap cannot close over something it failed to handle."* That is right for input the
+lap **had** — and it silently forbade closing over input that arrived **while the lap was already
+running**, which no lap can be said to have failed. Time-scoping it:
+
+- Input that landed **before the lap started** → that lap's to handle. The clamp holds. Unchanged.
+- Input that landed **after the lap started** → the *next* lap's leg 1. The closing lap may close
+  over it, and the watermark must be clamped so lap 8 surfaces it.
+
+⚠️ **Proposed off ONE instance and applied to it — the weakest possible evidence.** Recorded here for
+the next lap's leg 7 to confirm or drop. Nothing in the tooling was changed to enforce it.
+
+**Applied:** the 5 arrivals of 11:12–11:13 AM ET landed **hours after this lap began**. They are
+**lap 8's leg-1 input**, are NOT dispositioned here, and the watermark is clamped short of them.
+`check-arrival-dispositions.py` will still report them undispositioned — **correct, and load-bearing**:
+they are owed to Mom and lap 8 owes her an answer.
+
+| leg 7 close criterion | result |
+|---|---|
+| `check-cards.py` exits 0 | ✅ 0 |
+| ship VERIFIED against the live URL | ✅ `check-live.py` 0 — viewer.html, questions.json, zones.json all match HEAD live |
+| watermark advanced + **clamped** | ✅ clamped short of the 11:12 arrivals |
+| dispositions recorded | ✅ for everything this lap held; the 5 post-start arrivals are lap 8's by the refined clamp |
+| **leg 6 crossed** | ⛔ **NO — held by Paul, indefinitely, by his explicit instruction** |
+
+⚠️ **`check-mom-ack` still reports `UNREAD` + `STALE` at close, and both are TRUE.** They are not
+defects to silence: UNREAD is the 5 arrivals waiting for lap 8, STALE is the held ribbon. A green
+board here would be the lie.
 
 ### 🔒 HOLD RE-AFFIRMED — 2026-09-01 (second time today) `[paul-stated]`
 
