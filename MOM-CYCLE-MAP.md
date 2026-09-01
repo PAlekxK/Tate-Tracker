@@ -37,13 +37,13 @@ The procedure's own numbering, unchanged — renaming established legs would for
 
 | leg | what happens | who | how it is known to be done |
 |---|---|---|---|
-| **0 · GUARD** | is another session in this repo? | ai | `git log --oneline -1` at start and again before committing; HEAD unmoved |
+| **0 · GUARD** | is another session in this repo? | ai | `tools/guard-concurrent.py` — `start` at leg 0, `commit` (or `record-commit`) at the commit, and ⭐ **`before-push` immediately before the push**, where HEAD must still equal the sha recorded **at commit time**. ⚠️ **The old row — *"`git log --oneline -1` at start and again before committing"* — named exactly the two seams that were checked on lap 4 while a third session committed 24s after the lap's commit, in the COMMIT→PUSH window neither covers.** The guard is now code, not a sentence: three seams, one HEAD reader, and any state it cannot determine **blocks** rather than passing |
 | **1 · READ** | the deterministic sweep — the checks in `CLAUDE.md`'s session-start block (**derive the list from there, never count it here** — this row said "five" and was stale inside a day) | ai | every check in that block run; the work-list is collected from their output, never from a backlog row. ⭐ **Includes HER VOICE** — `read-mom-zone-audio.py` + `transcribe-…` joined the block 2026-08-14 `[paul-stated]`; it was named in the table below and absent from the sweep, so the loop could not reach the channel by running its own procedure. ⭐⭐ **And since 2026-08-28, `check-arrival-dispositions.py` — reaching a channel is not the same as looking at a RECORD.** The 08-14 fix made the voice channel sweepable; it did not stop one record's disposition standing in for its neighbours' |
 | **2 · TRIAGE** | every item lands in exactly one of correctness / feature / ambiguous / preference | ai | each item routed; a two-class item split |
 | **3 · RESOLVE** 👤 | the ambiguity ladder: telemetry → **Paul** → only then a card | **Paul at tier 2** | settled at the cheapest tier that can settle it |
 | **4 · EXPERT** | the seat **sequence** for the lap's shape — see § Leg 4, amended | ai | each seat's finding recorded, or a recorded reason none was convened |
 | **5 · SHIP** | wins that never appear in front of Mom | ai | committed; canon-touching work re-checked. ⭐ **Any NEW EVENT walks its other paths first** — every route in, the failure path, the reach path `[paul-approved 2026-08-14, PROVISIONAL]`. See § Leg 5, below |
-| **6 · GATE** 👤 | **6a PREVIEW** → **6b TELEMETRY** (does the instrumentation fire?) → **6c PROXY** (her-eyes check) → **6d** the return leg as exact text | **Paul** | he has flipped through it, `check-telemetry.py` is clean or its gaps are named, the proxy's flags are dispositioned, he approves, and it is **pushed** |
+| **6 · GATE** 👤 | **6a PREVIEW** → **6b TELEMETRY** (does the instrumentation fire?) → **6c PROXY** (her-eyes check) → **6d** the return leg as exact text | **Paul** | he has flipped through it, `check-telemetry.py` is clean or its gaps are named, the proxy's flags are dispositioned, he approves, and it is **pushed** — ⭐ **through `guard-concurrent.py push` (or `before-push` first), because the push is the seam Leg 0's guard was blind to until 2026-08-31** |
 | **6e · HER CONDITIONS** 👤 | ⭐ **414 × A+ — the combination she actually meets — before every release** `[paul-stated 2026-08-24]` | ai | `measureNestingWidth.herConditions()` returns `clean: true` (no HIGH), or every HIGH is dispositioned in the chronicle |
 | **7 · CLOSE** | dispositions recorded, **every answered card retired**, watermark advanced — and **the ship VERIFIED against the live URL** `[paul-stated 2026-08-14]` | ai | `check-cards.py` exits 0; `feedback-log.json` written; watermark clamped; **`check-live.py` exits 0** — until it does, the lap shipped nothing, whatever git says |
 
@@ -216,6 +216,7 @@ decoration**, so where one exists because something went wrong, that is named.
 | `tools/read-mom-feedback.py --retire` | retire a card she has already answered — **one command, not a hand-edit** | `q-top-categories` was answered 08-03 and **still being served 08-04**: a fresh device would have re-asked her a question she had answered, and being unprobeable it pinned the watermark the whole time. Retiring meant hand-editing `questions.json`, which is exactly why it got skipped |
 | `tools/fold-answer.py` | apply what she settled, with Paul confirming | the watermark used to step over unfolded answers — the loop's **only silent-data-loss path** |
 | `tools/mom-cycle-status.py` | **where in the loop are we, and is anything mine?** | five green exit codes never answered "is anything waiting on me" |
+| `tools/guard-concurrent.py` | **is another session committing into this repo — at the start, before the commit, and ⭐ in the window between COMMIT and PUSH?** `start` · `check` · `commit` · `record-commit` · `before-push` · `push` | ⛔ lap 4 (2026-08-19): both prescribed checks were clean and another session committed **24 seconds after this lap's commit** (`04db47c`, three commits during the lap) — inside the one seam Leg 0 never looked at. **It was caught by the push being REJECTED, not by the guard**, and only because the weather bot had independently moved the remote; absent that coincidence the lap would have published another session's in-progress commit silently. The fix the row asked for — *compare HEAD before PUSH against the sha recorded at COMMIT time* — is now code. ⭐ **It is also the loop's ONE reader of HEAD**: `mom-cycle-status.py` imports `repo_state()` rather than shelling out, because the second copy is what swallowed every git failure into `head = ""` and rendered an unreadable repo as a clean board. **Fails closed** — a HEAD it cannot determine exits 2 and blocks, never passes. ⛔ It never merges, rebases, pulls or forces: the recovery that rewrites another session's sha is a human's call. Selftest **16 assertions, every fire paired with the near-miss it must be told apart from**, including the push fixture that proves the remote ref does not move when the guard fires |
 | `tools/check-telemetry.py` | **has every instrumented event actually FIRED?** | 08-02 shipped three events "so the window's final week measures them." Two had **never fired** and the third first fired **12h after Mom's only session** — and her zero was written into the backlog and the cycle log as a finding |
 | `tools/check-live.py` | **is what Mom can LOAD the same as what we committed?** | 08-14: Paul tapped "Show radar" on his phone and asked if it landed. It could not have — **Pages was still serving the pre-lap build**, and every other check read green. A commit is not a ship; a **push is not a ship either**, because Pages rebuilds asynchronously |
 | `tools/telemetry-walk.js` | **is a zero a BROKEN call site, or a path nobody walked?** `check-telemetry.py` reads the record and cannot tell those apart; this walks the paths in a browser so a zero becomes attributable. Leg 6b's companion — *"a baseline telemetry test that we work into the cycle"* `[paul-stated 2026-08-08]` | ⚠️ **This tool served the loop for 16 days while this map never named it and `check-cycle-map.py` reported OK** — every glob in `TOOL_GLOBS` ended in `.py`, so a loop tool written in JavaScript was structurally invisible to the control that exists to catch exactly this. Fixed 2026-08-24 (lap 5) by globbing `*.js` too, and the fix was **verified able to fail before adoption** — it flagged both `.js` tools |
@@ -302,6 +303,62 @@ queue exists to prevent. *A harness earns belief by reproducing a case you alrea
 sub-44px controls are `ic-head` (360×32), `vehicle-specs-toggle` (55×19), a bare `a` (192×15) and
 `plant-action-item` (360×40) — all real, none new, and `vehicle-specs-toggle` is the most worn of
 them.
+
+### ⭐ THE STRESS CASE HAD NO ENTRY POINT IN THE DECIDING LAYER `[2026-08-31]`
+
+Lap 5 made 414 canonical and *said* 390 was kept as the stress case. It was — in `run()`, which
+**reports**. But only `herConditions()` **verdicts**, and 6e above gates a release on
+`herConditions()` returning clean. So at release time the stress width ran **nowhere**: it had a
+place in the table and no caller in the gate. Same shape as keeping a test file and deleting the
+thing that invokes it — and it is invisible precisely because the number is still in the file.
+
+Now named, and meant to be read APART (a HIGH at 414 is shipping to Mom; a HIGH at 390 alone is a
+robustness finding, and one verdict over two viewports cannot tell you which you have):
+
+```js
+await measureNestingWidth.herConditions()      // 414×848 × A+  — the 6e gate
+await measureNestingWidth.stressConditions()   // 390×848 × A+  — narrower, not a device
+```
+
+Sizes now come from one `VIEWPORTS` register in the tool rather than literals in four defaults, and
+**height is a parameter** — it was pinned at 848, correct for both portrait cases and therefore
+invisible as an assumption, which made the observed landscape size inexpressible.
+
+**Re-run 2026-08-31, both widths, A+:**
+
+| | HIGH | MED (row tax) | LOW (tap <44px) |
+|---|---|---|---|
+| **414×848 × A+ — hers** | **0** | 23 | 4 |
+| 390×848 × A+ — stress | **0** | 27 | 4 |
+| 896×414 × A+ — landscape | **0** | 13 | 4 |
+
+⭐ **Nothing fails at 414 that passed at 390, and the gap is empty in the direction that matters.**
+Every count moves monotonically with width — wider is fewer — which is what the geometry predicts and
+is the honest read: **these checks are width-monotone by construction** (overflow, clipping and row
+tax all get *easier* as the column grows), so they can only ever find a 414-only defect through a
+discrete **wrap point**, never through a gradient. The 24px is now measured; the class of bug it
+could hide is narrower than "anything between 390 and 414."
+
+⚠️ **The one 414-only hypothesis this repo had already written down was tested and does NOT
+reproduce.** `.ux-reviews/2026-08-04` computed that six jump-strip entries would wrap and that the
+44px `::after` hit bands of adjacent rows would then **overlap by 9–13px**, so a tap at the bottom of
+row 1 would land on row 2. Measured at both widths, both modes: it does wrap — **three** rows, not
+two — but the row pitch is **52px against a 44px band, i.e. 8px of clearance, not overlap**. Not
+live, at either width. (Noted because the arithmetic was sound and the conclusion still wrong: it
+estimated label widths rather than measuring them.)
+
+### § LANDSCAPE — 896×414: RECOMMENDED AS RUNNABLE, NOT AS A GATE
+
+The lap-4 metrics carry **one** batch at `896x414` against **51** at `414x848`. One batch is a phone
+that got turned over, not a usage pattern, and it cannot separate *"she reads in landscape"* from
+*"it was face-up while she carried it."* **Recommendation: define it, do not gate it** —
+`landscapeConditions()` exists and is in no default sweep. Promote it only on evidence about **her**,
+the same bar the A+ default was held to and walked back on.
+
+Worth knowing once, and it argues for keeping it defined rather than deleting it: at 896 the app is
+**above both of its width breakpoints** (`max-width: 480px` / `540px`), so landscape renders a CSS
+branch her portrait sessions never touch — it is not "the same layout, wider." It runs **0 HIGH**
+today. That is a fact about the app, not a licence to call landscape checked.
 
 ---
 
