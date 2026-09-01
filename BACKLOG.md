@@ -1325,6 +1325,75 @@ denominator the way every other check in this portfolio does.
 
 ---
 
+## 🆔 V-SERIES · THE IDENTIFIER RECORD — measured 2026-09-01 at Paul's ask `[paul-stated]`
+
+> *"I know that I've taken pictures of the VINs before and fed them maybe into the ChatGPT, but we need
+> to have all the VINs. Like, that's something we need to lock in and really have nailed down. We don't
+> need to be asking these questions this late into collecting all this information."*
+>
+> *"This may also be an issue where the PII blocking is creating problems for us, and that again supports
+> having a password-protected or login-based solution for the backlog."*
+
+**Both reads are right, and the second one is the cause of the first.** Measured, not asserted:
+
+### 📊 V1 · Coverage — 8 of 22 machines carry an identifier; 14 carry none
+
+| store | what it holds |
+|---|---|
+| `vehicles.json` `vin` field | **6** — GTI, Tiguan, F-150, Bronco, DR200S, DR-Z400S · **all masked**, last 6 digits `••••••` |
+| `.private/devices-identifiers.json` | **3** household — water heater, washer, Nest (2 match a card id) |
+| `.private/equipment-identifiers.json` | **2** equipment — Kobalt mower, Homelite trimmer |
+
+⛔ **14 machines have no identifier anywhere:** `g22a-2005` (a titled vehicle) · `husqvarna-mower` ·
+`echo-pb7910t` · `echo-pb250ln` · `homelite-blower-vac` · `chainsaw-ms290` · `chainsaw-cs352` ·
+`ego-trimmer` · `generac-7000exl` · `furnace-propane` · `electrical-panel-main` · `nest-thermostat-family-room`
+· `kobalt-km2040x-06` and `homelite-trimmer` (these two have serials in the private store but **no card
+pointer**, so a reader of the card sees nothing).
+
+⭐ **THREE STORES AND NOTHING JOINS THEM.** "Do we have an identifier for machine X" has no single
+answer — you must check three files by hand. That is the structural reason a question got asked late:
+**the DR200S question was answerable from a VIN we already had**, and nothing pointed at it.
+
+### ⛔ V2 · The masking did not protect anything, and it broke the pointer
+
+The six vehicle cards say *"full VIN in private records."* **There is no such record.** Every full VIN
+is absent from `.private/` and from every working file.
+
+**They are not lost — they are in git history, on the public remote.**
+
+- `4e83137` (2026-06-12 **11:40**) added the four car/truck VINs in full.
+- `a7db9c1` (2026-06-12 **11:42** — two minutes later) masked the last six digits **on the public cards**.
+- `git branch -r --contains 4e83137` → **`origin/main`**. The repo is public
+  (`github.com/PAlekxK/Tate-Tracker`, served at `palekxk.github.io/Tate-Tracker`).
+
+⭐ **So the mask changed the working tree and not history.** The values it was meant to hide have been
+publicly readable the whole time, and the record believes the problem is solved — *a false pointer is
+worse than an admitted gap, because it reads as done.* (The original commit judged VINs
+*"low-sensitivity"*, which may well be right; the defect is that the protection is believed and absent.)
+This is the same class as the open S19 cross-repo privacy item, which names history rewrite as the
+remedy nothing has performed.
+
+### ⭐ V3 · The architecture conclusion Paul drew is the one the evidence supports
+
+The masking exists **solely** because `vehicles.json` inlines into `viewer.html`, which deploys to
+public GitHub Pages. One public surface forces every identifier into a second store, the second store
+was only ever partly populated, and the card keeps a pointer to it either way. **A login-gated surface
+removes the reason the split exists** — identifiers live once, on the card, and the public/private
+question is answered by auth instead of by scattering the data.
+
+⛔ Not scoped, not designed, and not this lap's work. Recorded as the measured case FOR it.
+
+### ▶️ V4 · The lead Paul already named — his own VIN photographs
+
+*"I've taken pictures of the VINs before and fed them maybe into the ChatGPT."* The ChatGPT archive
+mine has **217 images already staged** at `.private/chatgpt-fleet-images/` in 11 directories including
+`g22a-2005` (a no-identifier machine), `f150-2006`, `gti-2016`, `bronco-1989`, `drz400s-2001`,
+`fleet-wide`, `unattributed`. ⚠️ **A VIN read off a photograph is a MODEL READ** and must clear the
+eyeball/verify path with Paul before it lands — the highest-stakes possible instance of the rule, since
+a VIN is exactly the kind of value that looks right when it is wrong.
+
+---
+
 ## ⭐ B0 · TRACK B HAS NO ASK LOOP — and that is the ONLY thing the two tracks do not share `[measured 2026-09-01]`
 
 **Paul's hypothesis, put to the code:** *"Track B is really a troubleshooting and maintenance

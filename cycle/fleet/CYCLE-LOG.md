@@ -7,7 +7,7 @@ State artifact: `cycle/fleet/cycle-state.json` · map: `CYCLE-MAP.md` beside thi
 
 ---
 
-## Lap 1 — 2026-09-01 · 🔓 **OPEN at beats 4 + 6 (Paul's gates)** — the first lap this loop has ever run
+## Lap 1 — 2026-09-01 · ✅ **CLOSED** — the first lap this loop has ever run, and the first it has ever closed
 
 **Declared 2026-08-30. `lap_count` was 0 for two days while the probe read FIRED.** Run unattended
 at Paul's instruction — *"I'm gonna step away, and you can work through as much of the queue as
@@ -22,9 +22,9 @@ outside the 45d window.
 | **1 · FIELD** | **Not run, correctly.** Conditional by design: it fires when the record has no answer to a symptom. No symptom was in play — this lap was provenance and intake. No forum search, nothing added to `FIELD-NOTES.md`. |
 | **2 · SWEEP** | `fleet_probe.py`. Reasons read, not just the verdict. |
 | **3 · INTAKE** | ✅ **Door drained 2 of 2 at 09:17 — then REOPENED at 09:25** when the mine filed 4 more. All 6 disposed: 1 resolved, 5 routed. Now reads `inbox clear (6 filed, all handled)`. See "Beat 3 REOPENED" below. |
-| **4 · VERIFY** | 👤 **PAUL** — three physical checks, batched. Not attempted from paper. |
+| **4 · VERIFY** | 👤 ✅ **DISPOSED** — 5 of the Bronco items CLOSED by Paul at beat 6, transmission ANSWERED at the truck, emissions **DEFERRED** to `nextLook 2026-10-01`. Nothing answered from paper. |
 | **5 · SEASON** | Quiet. 46d to frost; the put-away window opens at 45d, so **the next lap should expect SEASON to fire.** Parts lead time is the gate, not the weather. |
-| **6 · RECORD** | 👤 ✅ **RAN 2026-09-01** — Paul ruled: 5 Bolores items CLOSED on a standing rule, transmission ANSWERED at the truck, emissions DEFERRED. P7 cleared by order record. See "Beat 6 RAN" below. |
+| **6 · RECORD** | 👤 ✅ **RAN 2026-09-01, twice** — Paul ruled: 5 Bolores items CLOSED on a standing rule, transmission ANSWERED at the truck, emissions DEFERRED. P7 cleared by order record. See "Beat 6 RAN" below. |
 | **7 · AMEND** | ✅ **APPLIED** — `s4_stale_open` rewritten at Paul's ask: closed-set `state`, `deferred`+`nextLook`, and a printed denominator. 13 new paired selftests. STALE-OPEN now rests. See below. |
 
 ### ✅ Beat 3 — the door, both rows disposed
@@ -158,6 +158,51 @@ frost), which is itself a with-the-truck moment and a natural anchor.
 ⚡ **PROVENANCE is now the only thing standing between this lap and its close** — P1 Husqvarna
 (wrong machine), P2 Homelite (never positively identified), P3 DR200SE-vs-DR200S (one sentence from
 Paul). All three are his calls, and the lap declines to ack them for him.
+
+### ✅ LAP CLOSED — 2026-09-01. All four signals RESTING.
+
+```
+· SEASON      46d to first frost · outside the 45d window
+· INBOX       inbox clear (6 filed, all handled)
+· PROVENANCE  6 flagged document(s), all acknowledged
+· STALE-OPEN  no open check older than 60d [3 open (0 undated) · 7 closed · 1 deferred]
+RESTING — 4 signal(s) checked, none fired.
+```
+
+**Beat 6, second sitting — Paul ruled the last three provenance flags:**
+
+- **P3 `dr200s-2017-service` → ACKED. Canonical designation is `DR200S`, ruled.** *"We just have one
+  motorcycle. You should have the VIN so you determine what it is. It's 200 SE or 200 S, and make that
+  canonical, no confusion."* ⭐ **The answer was already in the record.** The VIN's model-year letter
+  `H` = 2017; Suzuki sold this machine in the US as the DR200SE in the earlier generation and as the
+  DR200S from 2015. ⚠️ **Grades separated in the ack:** the VIN read is deterministic, but `SH42A`
+  spans the SE/S family and does **not** split them — the model *year* does, and that half is
+  designation knowledge, not a VIN read. Recorded on the card as `canonicalDesignation`.
+- **P1 `husqvarna-mower-yth24v54` → ACKED.** *"We just have our current riding mower for the Husqvarna.
+  That's fine."* This answers the flag's substantive half — the worry was never the filename, it was
+  *"or Paul has/had a YTH24V54 the record does not know about."* One mower, no other. ⚠️ **The ack
+  silences the signal; it does not make the document usable.** A YTH24V54 is a ride-on tractor, the card
+  is a Z254F zero-turn — different controls, drivetrain and maintenance. ⛔ Replacing it with a Z254F
+  manual is open work.
+- **P2 `homelite-blower-vac` → ACKED because the machine is LEAVING SERVICE, not because it was
+  identified.** *"It's decommissioned. I don't remember seeing a model number on it."* ⭐ His
+  recollection and the card's own `photoEvidence` (*"No model sticker found on the unit"*) agree,
+  arrived at independently. Card status set to DECOMMISSIONED, with the never-identified fact stated.
+
+**Beat 4 — DEFERRED, not skipped.** Emissions hardware carries `state: deferred, nextLook: 2026-10-01`.
+The lap closes without pretending the look happened, and the probe fires on that date on its own.
+
+**Beat 7 — the amendment was APPLIED this lap, not just proposed** (see above): `s4_stale_open` now
+reads a closed-set `state`, supports `deferred`+`nextLook`, and prints its denominator. 13 new paired
+selftests.
+
+**Raised at close and NOT this lap's work — the V-series in `BACKLOG.md`:** 8 of 22 machines carry an
+identifier across **three** stores that nothing joins; the six vehicle VINs say *"full VIN in private
+records"* and **no such record exists** — they are in git history at `4e83137`, on the **public**
+`origin/main`, because the mask two minutes later changed the working tree and not history. Paul's own
+conclusion — a login-gated surface — is the measured remedy, and it is unscoped by design.
+
+**`lap_count` 0 → 1.** The first closed lap this loop has.
 
 ### ⭐ Beat 0 — PROVENANCE went 6 → 3, and the 3 that remain are the real ones
 

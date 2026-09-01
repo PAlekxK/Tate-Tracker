@@ -1568,7 +1568,8 @@
           "provenAt": "Diagnosed on the property 2026-07-27 — leaning weep stopped the moment she moved to flat ground",
           "appliesTo": "Any carbureted bike on a hard-leaning sidestand — the DR-Z400S included"
         }
-      ]
+      ],
+      "canonicalDesignation": "**DR200S** — canonical, `paul-ruled 2026-09-01`: \"It's 200 SE or 200 S, and make that canonical, no confusion.\" The VIN gives model code SH42A and model year 2017; SH42A spans the DR200SE/DR200S family and does not split them, but the 2017 model year does — Suzuki sold it as the DR200SE in the earlier US generation and as the DR200S from 2015. Service literature (including the manual on disk) still says DR200SE; that is the same machine, not a second one. ⛔ Do not re-open this as a mismatch — it is ruled."
     },
     {
       "id": "drz400s-2001",
@@ -1894,7 +1895,7 @@
       "trim": "Likely UT09521 family — 26cc 2-cycle",
       "emoji": "🍃",
       "category": "lawn-care",
-      "status": "Active",
+      "status": "⛔ DECOMMISSIONED 2026-09-01 `[paul-stated]` — \"It's decommissioned. I don't remember seeing a model number on it.\" Out of service. ⚠️ The model was NEVER positively identified: no sticker on the unit (the card's own photoEvidence said so before Paul did, independently), the manual on file names a different family (UT26HBV vs the UT09521/UT09565 best guess), and it most likely never will be now. If it returns to service, that question returns with it.",
       "specs": {
         "displacement": "26 cc (inferred — same Homelite consumer 2-stroke family as the UT33650A trimmer)",
         "engineType": "Single-cylinder 2-stroke, air-cooled",

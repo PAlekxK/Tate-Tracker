@@ -1,14 +1,14 @@
 {
- "state": "FIRED",
+ "state": "RESTING",
  "generated_at": "2026-09-01T13:17:08Z",
  "generated_by": "tools/fleet_probe.py --write-state",
- "lap_count": 0,
+ "lap_count": 1,
  "last_lap": {
   "lap": 1,
   "date": "2026-09-01",
-  "outcome": "OPEN — ran beats 0,2,3,5,7; HELD at beat 4 (physical checks) and beat 6 (Paul's declared gate). Beat 1 correctly not run (conditional, no symptom in play). INBOX drained 2/2 at 09:17, then BEAT 3 REOPENED 09:25+ when the ChatGPT-archive mine filed 4 more: all 6 now disposed (1 resolved, 5 routed), door reads 'inbox clear (6 filed, all handled)'. Nothing folded as fact — all 4 new rows are model reads; their claims about our own record were checked instead (3 confirmed, 1 reasoning corrected, 1 missed arc found). PROVENANCE 6 -> 3 with every remaining flag substantive. Beat 4's trip grew from 3 Bronco checks to 5 physical reads (+ GTI plug, + both mowers' bolts). Chronicle: cycle/fleet/CYCLE-LOG.md · open rows: BACKLOG.md Track B § FLEET LAP 1 (P1-P5) + § BEAT 3 REOPENED (P6-P9)."
+  "outcome": "✅ CLOSED 2026-09-01. Ran beats 0,2,3,5,6,7; beat 1 correctly not run (conditional, no symptom). INBOX drained 2/2 then REOPENED for 4 more from the ChatGPT mine — 6 disposed, 1 resolved, 5 routed. PROVENANCE 6 -> 3 -> 0: three acked at beat 0 with reasons, three acked at beat 6 on Paul's rulings (DR200S made canonical from the VIN + model year; one Husqvarna, so the manual is simply the wrong document; Homelite DECOMMISSIONED, never identified). Beat 4 DISPOSED not skipped: 5 Bronco items closed on Paul's standing rule (old pre-engine-replacement documentation), transmission ANSWERED at the truck (P R N D 2 1 = C6), emissions DEFERRED to nextLook 2026-10-01. P7 spark plugs cleared by order record (NGK196860). Beat 7 APPLIED: s4_stale_open now reads a closed-set `state`, supports deferred+nextLook, prints its denominator; 13 new paired selftests. All four signals RESTING at close. Raised and NOT done: the V-series identifier findings in BACKLOG.md."
  },
- "next": "lap 1 — still OPEN at Paul's gates: beat 4 (5 physical reads, one trip) and beat 6 (RECORD). Probe FIRED on PROVENANCE, STALE-OPEN; INBOX is clear.",
- "why": "probe FIRED on PROVENANCE, STALE-OPEN — both are beat 4/6 gates, so the lap cannot close itself",
+ "next": "lap 2 — nothing is due. Next trigger: SEASON opens 2026-09-02 (45d to frost) and the emissions deferral fires 2026-10-01.",
+ "why": "all four signals resting at lap close",
  "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md — last_lap is a DICT, not a bare date, because only a dict can answer 'did a lap CLOSE'. ⭐ 2026-09-01: lap 1 RAN and is OPEN, so last_lap.lap is 1 while lap_count stays 0 — lap_count counts CLOSED laps, and per S4 a closed lap must be MARKED. Do not increment it to make the board look finished; the lap is waiting on Paul at beats 4 and 6, which is a HELD gate with a stated reason, not neglect. The probe preserves these chronicle fields and never writes them itself."
 }
