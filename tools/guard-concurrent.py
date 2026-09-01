@@ -143,6 +143,47 @@ def commits_between(root, old, new):
     return [l for l in out.splitlines() if l.strip()]
 
 
+def _porcelain_paths(dirty):
+    """Paths out of `git status --porcelain`, rename-aware ("R  old -> new")."""
+    out = []
+    for line in dirty.splitlines():
+        if not line.strip():
+            continue
+        path = line[3:] if len(line) > 3 else line.strip()
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1]
+        out.append(path.strip().strip('"'))
+    return out
+
+
+def contended(paths, root=ROOT):
+    """Which of `paths` are UNCOMMITTED in the working tree right now.
+
+    ⭐ WHY THIS EXISTS, and it is the gap that made the guard half-blind.
+    `verdict()` compares HEAD shas and nothing else, so it reports ✅ CLEAR while
+    another session holds a file uncommitted. Measured 2026-09-01 at fleet lap 2:
+    the guard said CLEAR at the exact moment the concurrent session was holding
+    `viewer.html` — the PUBLICLY SERVED file — and a `check-data-inline --fix`
+    would have written over live work. The lap-4 note in this file already said
+    the failure "was caught only because the remote happened to have moved too";
+    it was still relying on a coincidence, just a different one.
+
+    ⛔ The honest limit, stated rather than papered over: this CANNOT tell your
+    own uncommitted work from another session's. Nothing in git can. So it is
+    not a blanket "is the tree dirty" alarm — that fires constantly and gets
+    ignored (the N8 COSTLY CONTROL shape). It answers the ANSWERABLE question:
+    *I am about to write these specific files — is any of them already dirty?*
+    """
+    st = repo_state(root)
+    if not st["ok"]:
+        raise GuardError(f"cannot read the working tree ({st['error']}) — "
+                         f"contention is UNDETERMINED, which is not safe")
+    dirty = set(st["dirty_paths"] or [])
+    want = [os.path.relpath(os.path.abspath(p), root) if os.path.isabs(p) else p
+            for p in paths]
+    return [p for p in want if p in dirty]
+
+
 def repo_state(root=ROOT):
     """The board's repo signal — HEAD, dirty count, unpushed count.
 
@@ -164,11 +205,13 @@ def repo_state(root=ROOT):
         return {"source": "tools/guard-concurrent.py repo_state()", "ok": True,
                 "head": line, "head_sha": sha, "error": None,
                 "dirty_files": len([l for l in dirty.splitlines() if l.strip()]),
+                "dirty_paths": _porcelain_paths(dirty),
                 "unpushed_commits": unpushed_n}
     except GuardError as e:
         return {"source": "tools/guard-concurrent.py repo_state()", "ok": False,
                 "head": "", "head_sha": None, "error": str(e),
-                "dirty_files": None, "unpushed_commits": None}
+                "dirty_files": None, "dirty_paths": None,
+                "unpushed_commits": None}
 
 
 # --------------------------------------------------------------- lap state
@@ -324,7 +367,32 @@ def cmd_check(root, args):
     if v["moved"]:
         _print_fire(v, "LAP")
         return MOVED
+    # ⭐ HEAD is only half the question. Report the working tree too, and REFUSE
+    # outright when a path the caller named is already dirty.
+    if getattr(args, "paths", None):
+        try:
+            hit = contended(args.paths, root)
+        except GuardError as e:
+            _print_undetermined(str(e), "CONTENTION")
+            return UNDETERMINED
+        if hit:
+            print(f"\n⛔ LEG 0 GUARD — REFUSING. {len(hit)} named path(s) are "
+                  f"UNCOMMITTED in the working tree right now:\n")
+            for h in hit:
+                print(f"       · {h}")
+            print("\n   HEAD may be unmoved and this still not be safe — another session\n"
+                  "   can hold a file for a long time without committing it. Writing one\n"
+                  "   of these clobbers work that has no commit to recover it from.\n"
+                  "   ⛔ Do NOT `--fix`, re-inline, or rewrite these. Wait, or confirm\n"
+                  "      with Paul that the edits are yours.")
+            return MOVED
+    st = repo_state(root)
     print(f"✅ LEG 0 · HEAD unmoved since {v['phase']} — {v['head_line']}")
+    if st["ok"] and st["dirty_files"]:
+        print(f"   ⚠️ working tree: {st['dirty_files']} uncommitted file(s) — "
+              f"{', '.join((st['dirty_paths'] or [])[:6])}"
+              + ("…" if (st["dirty_files"] or 0) > 6 else ""))
+        print("      HEAD is unmoved; that is NOT the same as nothing being in flight.")
     return CLEAR
 
 
@@ -652,6 +720,10 @@ def main():
 
     c = sub.add_parser("check", help="HEAD against the last recorded mark")
     c.add_argument("--against", choices=("auto", "start", "commit"), default="auto")
+    c.add_argument("--paths", nargs="+", metavar="PATH",
+                   help="REFUSE if any of these repo-relative paths is uncommitted "
+                        "right now. Ask this before you --fix, re-inline or rewrite "
+                        "a shared file: HEAD being unmoved does not mean it is free.")
     c.set_defaults(fn=cmd_check)
 
     cm = sub.add_parser("commit", help="check, then git commit, then record the sha")

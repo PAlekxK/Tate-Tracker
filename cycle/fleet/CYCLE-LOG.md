@@ -171,6 +171,50 @@ refrigerator lives in Track B's `vehicles.json` and is rendered by `renderVehicl
 through Track A's loop because **Mom asked for it**. The D41 split is clean for *loops*, not for
 *files*.
 
+### 🐛 A PEER SESSION REPORTED A LIVE BUG IN `fleet_probe.py` — reproduced, fixed, mutation-proven
+
+The session that wrote this lap's handoff brief and closed lap 1 audited its own work and sent a
+defect report on `1a5ad4d`, its own beat-7 amendment. **Not taken on trust — read, reproduced, then
+fixed.**
+
+**The defect:** `n_deferred` was incremented only in the not-yet-due branch, so on the day a
+deferral's `nextLook` ARRIVED the item left `deferred` for `elapsed` and appeared in **neither**.
+The printed census silently dropped it.
+
+```
+2026-09-30  [3 open · 7 closed · 1 deferred]  = 11 of 11
+2026-10-01  [3 open · 7 closed · 0 deferred]  = 10 of 11   ⛔
+```
+
+⭐ **It lied on exactly `2026-10-01`** — the emissions `nextLook`, the very date this lap is asking
+Paul whether to move. The one day the number matters is the day it was wrong.
+
+⭐⭐ **AND IT IS THE SAME DEFECT THE AMENDMENT WAS FIXING.** Lap 1 found that the old code carried a
+comment claiming a denominator *it never printed*, and fixed it by printing one. The printed one
+**could not add up**. The defect was reproduced one layer up, by the change that closed it.
+
+**Fixed:** every deferral counts as `deferred`; `elapsed` is a **sub-count, reported, never a
+reassignment**. The counting is extracted into `_stale_open_scan()` returning a **census dict** —
+because the bug could not otherwise be caught from outside without regex-parsing the function's own
+prose, *which is the container problem again*, and the peer named it as such.
+
+⭐ **THE TEST GAP WAS THE REAL FINDING, and the peer said so.** 13 paired selftests shipped with that
+amendment and **not one asserted the counts SUM to the item total.** Each count was individually
+right; only their sum was wrong. *A denominator nobody adds up is a claim nobody checks.* Now:
+the invariant is asserted across **72 sampled dates** on the real fleet, paired on the day the
+deferral fires and the day before — **and enforced inside the function**, which raises `Unknown`
+rather than printing a census that does not balance.
+
+✅ **MUTATION-PROVEN.** Reverting the branch logic makes the code raise on an EXISTING test case:
+`Unknown: stale-open census does not account for every item ({'open': 0, 'closed': 0, 'deferred': 0,
+'elapsed': 1, 'total': 1})`. A silent wrong number is now a loud refusal.
+
+⚠️ **The peer also retracted two claims in the brief it wrote us**, unprompted: that SEASON would
+fire today (its own brief contradicted itself, 46d vs a 45d window), and that `vehicle-brief.py`
+*"refuses on a tie"* — `760f9a5` measured it resolving the wrong machine instead. **Both retractions
+match what this lap found independently before the message arrived**, which is the useful part: two
+sessions converged on the same two errors from opposite directions.
+
 ### 👤 Beat 4 — what Paul is running, and what the update already changed
 
 ⭐ **His update breaks the record's own pattern.** Every prior episode had *charging restores

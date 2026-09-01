@@ -169,11 +169,57 @@ def s4_stale_open(today, vehicles):
     just a nicer way to forget. A `deferred` item with no readable `nextLook`
     raises Unknown rather than resting silently forever.
     """
+    stale, elapsed, census = _stale_open_scan(today, vehicles)
+    n_open, n_undated = census["open"], census["undated"]
+    n_closed, n_deferred, n_elapsed = (census["closed"], census["deferred"],
+                                       census["elapsed"])
+
+    denom = (f"[{n_open} open ({n_undated} undated, not testable) · "
+             f"{n_closed} closed · {n_deferred} deferred"
+             + (f", {n_elapsed} due" if n_elapsed else "") + "]")
+    if elapsed:
+        return True, (f"{len(elapsed)} deferral(s) ELAPSED: " +
+                      "; ".join(elapsed[:3]) +
+                      (f" (+{len(elapsed)-3} more)" if len(elapsed) > 3 else "") +
+                      (f" · {len(stale)} also past {STALE_OPEN_DAYS}d" if stale else "") +
+                      f" {denom}")
+    if stale:
+        return True, (f"{len(stale)} open check(s) past {STALE_OPEN_DAYS}d: " +
+                      "; ".join(stale[:3]) +
+                      (f" (+{len(stale)-3} more)" if len(stale) > 3 else "") +
+                      f" {denom}")
+    return False, f"no open check older than {STALE_OPEN_DAYS}d {denom}"
+
+
+def _stale_open_scan(today, vehicles):
+    """(stale, elapsed, census) — the counting, separated from the rendering.
+
+    ⭐ EXTRACTED 2026-09-01 to fix a defect a PEER SESSION reported and this lap
+    reproduced: `n_deferred` was incremented only in the not-yet-due branch, so
+    on the day a deferral's `nextLook` ARRIVED the item left `deferred` for
+    `elapsed` and appeared in NEITHER — the printed census silently dropped it.
+
+        2026-09-30  [3 open · 7 closed · 1 deferred]  = 11 of 11
+        2026-10-01  [3 open · 7 closed · 0 deferred]  = 10 of 11   ⛔
+
+    It lied on **exactly the day the deferral fired**, which is the one day the
+    number matters. ⚠️ AND IT IS THE SAME DEFECT THE AMENDMENT WAS FIXING: the
+    old code carried a comment claiming a denominator it never printed; the fix
+    printed one that could not add up. Reproduced one layer up.
+
+    ⛔ It also could not be caught from the outside without regex-parsing this
+    function's own prose, which is the container again. So the counting now
+    returns a CENSUS the selftest asserts against directly, and `deferred`
+    counts every deferral — `elapsed` is a sub-count of it, reported, never a
+    reassignment. The invariant `open + closed + deferred == total` is now a
+    positive control.
+    """
     stale, elapsed = [], []
-    n_closed = n_deferred = n_undated = n_open = 0
+    n_closed = n_deferred = n_undated = n_open = n_elapsed = n_total = 0
     for v in vehicles:
         block = v.get("openMechanicalItems") or {}
         for it in (block.get("items") if isinstance(block, dict) else block) or []:
+            n_total += 1
             label = f"{v['id']}:{(it.get('item') or '')[:34]}"
             state = it.get("state", "open")
             if state not in ITEM_STATES:
@@ -188,10 +234,13 @@ def s4_stale_open(today, vehicles):
                 except ValueError:
                     raise Unknown(f"{label} is deferred with no readable nextLook "
                                   f"({raw!r}) — a deferral with no date is a forget")
+                # ⭐ EVERY deferral counts as deferred. An elapsed one is a
+                # SUB-COUNT, never a reassignment — moving it out of the census
+                # is what made the denominator lie on the day it fired.
+                n_deferred += 1
                 if today >= due:
+                    n_elapsed += 1
                     elapsed.append(f"{label} (due {raw})")
-                else:
-                    n_deferred += 1
                 continue
             n_open += 1
             raw = (it.get("firstFlagged") or "")[:10]
@@ -203,20 +252,13 @@ def s4_stale_open(today, vehicles):
             if (today - d).days > STALE_OPEN_DAYS:
                 stale.append(label)
 
-    denom = (f"[{n_open} open ({n_undated} undated, not testable) · "
-             f"{n_closed} closed · {n_deferred} deferred]")
-    if elapsed:
-        return True, (f"{len(elapsed)} deferral(s) ELAPSED: " +
-                      "; ".join(elapsed[:3]) +
-                      (f" (+{len(elapsed)-3} more)" if len(elapsed) > 3 else "") +
-                      (f" · {len(stale)} also past {STALE_OPEN_DAYS}d" if stale else "") +
-                      f" {denom}")
-    if stale:
-        return True, (f"{len(stale)} open check(s) past {STALE_OPEN_DAYS}d: " +
-                      "; ".join(stale[:3]) +
-                      (f" (+{len(stale)-3} more)" if len(stale) > 3 else "") +
-                      f" {denom}")
-    return False, f"no open check older than {STALE_OPEN_DAYS}d {denom}"
+    census = {"open": n_open, "undated": n_undated, "closed": n_closed,
+              "deferred": n_deferred, "elapsed": n_elapsed, "total": n_total}
+    if census["open"] + census["closed"] + census["deferred"] != n_total:
+        raise Unknown(
+            f"stale-open census does not account for every item "
+            f"({census}) — refusing to print a denominator that does not add up")
+    return stale, elapsed, census
 
 
 SIGNALS = ("SEASON", "INBOX", "PROVENANCE", "STALE-OPEN")
@@ -493,6 +535,43 @@ def selftest():
           "closed" in s4_stale_open(dt.date(2026, 1, 15), mixed)[1])
 
     check("the real vehicles.json is readable", len(_vehicles()) > 10)
+
+    # ── ⭐ THE CENSUS INVARIANT · every item is accounted for, on EVERY date ──
+    # Reported by a peer session 2026-09-01, reproduced here before fixing. The
+    # 13 paired tests added with the beat-7 amendment did not include this, and
+    # it is the ONLY assertion that would have caught it: the counts were each
+    # individually right and their SUM was wrong. A denominator nobody adds up
+    # is a claim nobody checks.
+    real = json.load(open(VEHICLES, encoding="utf-8"))["vehicles"]
+    bad = []
+    for off in range(0, 500, 7):            # sweeps across every nextLook we hold
+        t = dt.date(2026, 9, 1) + dt.timedelta(days=off)
+        _, _, c = _stale_open_scan(t, real)
+        if c["open"] + c["closed"] + c["deferred"] != c["total"]:
+            bad.append(t.isoformat())
+    check(f"⭐ CENSUS: open+closed+deferred == total on all 72 sampled dates "
+          f"(failing: {bad[:3]})", not bad)
+
+    # PAIRED — the date the real deferral fires, which is where it broke.
+    _, el, c = _stale_open_scan(dt.date(2026, 10, 1), real)
+    check("⭐ CENSUS PAIRED: on the day a deferral FIRES it is still counted "
+          "deferred, and reported elapsed — a sub-count, not a reassignment",
+          c["elapsed"] == 1 and c["deferred"] >= 1 and len(el) == 1
+          and c["open"] + c["closed"] + c["deferred"] == c["total"])
+    _, el0, c0 = _stale_open_scan(dt.date(2026, 9, 30), real)
+    check("⭐ CENSUS PAIRED: the day BEFORE, same deferral, nothing elapsed",
+          c0["elapsed"] == 0 and not el0 and c0["deferred"] == c["deferred"])
+
+    # The census guard itself must fail LOUD, not quietly mis-add.
+    class _Rigged(dict):
+        pass
+    try:
+        _stale_open_scan(dt.date(2026, 9, 1),
+                         [{"id": "x", "openMechanicalItems": {"items": [
+                             {"item": "a", "state": "deferred"}]}}])
+        check("CENSUS: a deferral with no nextLook still raises Unknown", False)
+    except Unknown:
+        check("CENSUS: a deferral with no nextLook still raises Unknown", True)
 
     # write_state, both ways + the chronicle-preservation invariant. _eval
     # injects the verdict so this proves the WRITER offline; the signals above
