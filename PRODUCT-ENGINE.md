@@ -19,7 +19,7 @@ not start at step 3.
 
 | # | Do | Gated on | State |
 |---|---|---|---|
-| **1** | **Fleet lap 1** (`cycle/fleet/CYCLE-MAP.md`) | nothing | 🔴 **READY** — FIRED on INBOX · PROVENANCE · STALE-OPEN, `lap_count: 0`, never run |
+| **1** | ~~Fleet lap 1~~ | — | ✅ **RAN 2026-09-01** — beats 0,2,3,5,7 done · INBOX drained 2/2 · PROVENANCE 6→3. 🔴 **OPEN at beats 4 + 6, both Paul's gates** → `BACKLOG.md` Track B § FLEET LAP 1 |
 | **2** | Review the two conversation mines | agent (running 2026-09-01) | ⏳ |
 | **3** | **`user-researcher` interview** — beat 0 | step 2 | ⏸ |
 | **4** | Agile PM artifacts — vision · personas · JTBD · now/next/later | step 3 | ⏸ |
@@ -33,8 +33,9 @@ not start at step 3.
 
 **Independent, take when there is room:**
 - **UX sweep** — owed, all three thresholds blown (29d/21 · 65 viewer commits/20 · 6 laps/3).
-- **Contractor normalization** — the 32-string cleanup does **not** need the auth decision; only
-  *publishing contact details* does. See `BACKLOG.md` § CONTRACTORS & TRUSTED PEOPLE.
+- ✅ **Contractor normalization — PROPOSED 2026-09-01**, `.plans/2026-09-01-contractor-register-proposal.md`.
+  ⭐ The register **already exists** (`serviceContacts[]`, with judgment in Paul's own prose) — on
+  **1 vehicle out of 22**. Three moves + four questions for him. Nothing applied.
 - **D4 pre-glance stack ledger** (1,712px at 414×A+) — owed since 2026-08-31, never run.
 
 ⚠️ **Step 1 is deliberately first and is NOT part of this workstream.** It is ready, it is fired,
