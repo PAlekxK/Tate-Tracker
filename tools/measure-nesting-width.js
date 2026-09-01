@@ -50,6 +50,8 @@
 //   was sized to 390, which is NARROWER and therefore conservative — nothing
 //   already verified is invalidated, but no check had ever measured the 24px she
 //   actually has. 414 is canonical here; 390 is kept as the stress case.
+//   Both sizes are named in the VIEWPORTS register below — add a size there,
+//   never as a literal, so the next reader learns where a number came from.
 //
 //   ⚠️ WINDOW RESIZE SILENTLY DOES NOT TAKE in an automation tab (recorded on
 //   the `Fernwood :: Rainfall A+ overflow fix` anchor item, 2026-08-14). Render
@@ -62,6 +64,15 @@
 //   paste this file into the console, then:
 //     await measureNestingWidth.run()               // 414 and 390, A and A+
 //     await measureNestingWidth.run({widths:[414]}) // one width
+//
+//   The two that return a VERDICT rather than a table — run BOTH, read them
+//   apart. `clean` means no HIGH.
+//     await measureNestingWidth.herConditions()     // 414×848 × A+ — the gate
+//     await measureNestingWidth.stressConditions()  // 390×848 × A+ — narrower
+//
+//   And one that is deliberately NOT in any sweep and NOT a gate — see
+//   § LANDSCAPE at the foot of this file before you read anything into it:
+//     await measureNestingWidth.landscapeConditions()   // 896×414
 //
 // Record the result in MOM-CYCLE-LOG.md for the lap, and — if it reproduces —
 // in the BACKLOG row that commissioned it.
@@ -82,6 +93,39 @@
     ["Household → one system", "card-household", openFirstDisclosure],
     ["Weather", "card-weather", null],
   ];
+
+  // ⭐ THE VIEWPORT REGISTER — one place that names a size and says WHERE IT
+  // CAME FROM. Before this existed the numbers were literals scattered through
+  // defaults, and "390" read as a considered choice when it was inherited from
+  // an exhibit stylesheet nobody had revisited.
+  //
+  //   CANONICAL — 414×848. HERS, measured: 51 `/api/metrics` device batches at
+  //     `414x848` (lap 4, 2026-08-19). This is the size every default resolves
+  //     to. Height matters as much as width here: the pre-glance stack measures
+  //     1,712px, which is ~2 viewports of 848 and a different story at any other
+  //     height, so a check that sets width and lets height float is measuring a
+  //     phone nobody owns.
+  //   STRESS — 390×848. NOT hers and never was: it came from the
+  //     `/design-options` exhibit convention (`compare.html`: `width:min(390px,
+  //     88vw)`). It is KEPT, deliberately, because it is 24px NARROWER — every
+  //     check this repo ran before lap 4 ran here, so dropping it would retire
+  //     the only width the entire test history is expressed in, and would trade
+  //     one blind spot for another. It is a stress case, not a target device.
+  //   LANDSCAPE — 896×414. OBSERVED ONCE (a single batch, same lap). Defined so
+  //     it can be RUN, and deliberately in NO default sweep — see § LANDSCAPE
+  //     below for why one batch does not earn a standing case.
+  //
+  // ⚠️ Nothing between 390 and 414 is a breakpoint: `viewer.html`'s only
+  // width media queries are `max-width: 480px` and `max-width: 540px`, so both
+  // widths resolve to the SAME CSS branch. That makes a 390-vs-414 divergence
+  // less likely — it does NOT make it impossible, because the gap shows up in
+  // fluid arithmetic (`calc(100% - 24px)`, flex wrap points, ellipsis boxes),
+  // which is exactly where this repo's known width defects have lived.
+  const VIEWPORTS = {
+    canonical: { w: 414, h: 848, label: "hers (measured, 51 batches)" },
+    stress:    { w: 390, h: 848, label: "stress (narrower; the pre-lap-4 convention)" },
+    landscape: { w: 896, h: 414, label: "landscape (observed once — not a default)" },
+  };
 
   // A leaf must carry enough of its OWN text to wrap. Short labels ("Aug 9",
   // "Yes") cannot demonstrate a row cost at any width, and counting them would
@@ -343,9 +387,17 @@
 
   // Render viewer.html in a frame of the target width. Same origin, so the
   // media queries resolve against the FRAME — which is the whole point.
-  async function inFrame(width, textMode, fn) {
+  //
+  // ⚠️ HEIGHT IS A PARAMETER, not a constant. It was hardcoded to 848 — right
+  // for both portrait cases and therefore invisible as an assumption, but it
+  // made the observed LANDSCAPE size (896×414) literally inexpressible: you
+  // could ask for an 896-wide frame and still get an 848-tall one, i.e. a
+  // viewport no device has. Defaults to the canonical height so every existing
+  // caller is byte-for-byte unchanged.
+  async function inFrame(width, textMode, fn, height) {
+    const h = height || VIEWPORTS.canonical.h;
     const f = document.createElement("iframe");
-    f.style.cssText = "width:" + width + "px;height:848px;border:0;position:fixed;left:0;top:0;z-index:99999;background:#fff";
+    f.style.cssText = "width:" + width + "px;height:" + h + "px;border:0;position:fixed;left:0;top:0;z-index:99999;background:#fff";
     f.src = "/viewer.html";
     document.body.appendChild(f);
     await new Promise((r) => { f.onload = r; });
@@ -382,7 +434,9 @@
 
   async function run(opts) {
     opts = opts || {};
-    const widths = opts.widths || [414, 390];
+    // Canonical FIRST, stress second — the order is the message. Whoever reads
+    // the console reads hers before the one that is merely conservative.
+    const widths = opts.widths || [VIEWPORTS.canonical.w, VIEWPORTS.stress.w];
     const modes = opts.modes || ["A", "A+"];
     const all = [];
     for (const w of widths) {
@@ -417,7 +471,7 @@
   // MIN_TEXT characters of their own. A surface not walked is not cleared.
   async function gate(opts) {
     opts = opts || {};
-    const all = await run({ widths: opts.widths || [414], modes: opts.modes || ["A"] });
+    const all = await run({ widths: opts.widths || [VIEWPORTS.canonical.w], modes: opts.modes || ["A"] });
     const breaches = [];
     for (const r of all) {
       for (const d of r.domains) {
@@ -522,7 +576,7 @@
   async function pairs(opts) {
     opts = opts || {};
     const ids = opts.cards || DOMAINS.map((d) => d[1]);
-    return await inFrame(opts.width || 414, opts.mode || "A", async (doc) => {
+    return await inFrame(opts.width || VIEWPORTS.canonical.w, opts.mode || "A", async (doc) => {
       // open every card and its nested door so the pairs actually render
       for (const [, id, opener] of DOMAINS) {
         const card = doc.getElementById(id);
@@ -579,7 +633,7 @@
 
   async function tokens(opts) {
     opts = opts || {};
-    return await inFrame(opts.width || 414, opts.mode || "A", async (doc) => {
+    return await inFrame(opts.width || VIEWPORTS.canonical.w, opts.mode || "A", async (doc) => {
       for (const [, id, opener] of DOMAINS) {
         const card = doc.getElementById(id);
         if (!card) continue;
@@ -617,7 +671,9 @@
   // A surface not walked is not cleared, and a real phone can still differ.
   async function herConditions(opts) {
     opts = opts || {};
-    const W = opts.width || 414, MODE = opts.mode || "A+";
+    const W = opts.width || VIEWPORTS.canonical.w,
+          H = opts.height || VIEWPORTS.canonical.h,
+          MODE = opts.mode || "A+";
     return await inFrame(W, MODE, async (doc, vw) => {
       for (const [, id, opener] of DOMAINS) {
         const card = doc.getElementById(id);
@@ -728,17 +784,73 @@
       const order = { HIGH: 0, MED: 1, LOW: 2 };
       findings.sort((a, b) => order[a.sev] - order[b.sev]);
       const counts = findings.reduce((m, f) => (m[f.sev] = (m[f.sev] || 0) + 1, m), {});
-      console.log("── HER CONDITIONS: " + W + "px × " + MODE +
+      console.log("── HER CONDITIONS: " + W + "×" + H + " × " + MODE +
+                  "  ·  " + (opts.caseName || "canonical") +
                   "  ·  textLgApplied=" + doc.body.classList.contains("text-lg"));
       console.table(findings.slice(0, 40));
       return {
-        width: W, mode: MODE,
+        width: W, height: H, mode: MODE, case: opts.caseName || "canonical",
         textLgApplied: doc.body.classList.contains("text-lg"),
         counts, findings,
         clean: !findings.some((f) => f.sev === "HIGH"),
       };
-    });
+    }, H);
   }
 
-  window.measureNestingWidth = { run, gate, pairs, tokens, herConditions, inFrame, measureDoc, DOMAINS };
+  // ── THE STRESS CASE, WITH A NAME ────────────────────────────────────────
+  // `herConditions()` runs the size she HAS. This runs the 24px-narrower size
+  // every check in this repo used before lap 4.
+  //
+  // ⭐ WHY THIS FUNCTION EXISTS AT ALL. 390 was already retained in `run()`'s
+  // default widths — but `run()` REPORTS and only `herConditions()` VERDICTS,
+  // and leg 6e of `MOM-CYCLE-MAP.md` gates a release on `herConditions()`
+  // returning clean. So the stress width had a place in the reporting layer and
+  // NO entry point in the deciding layer: at release time, nothing ran it. That
+  // is the same shape as keeping a test file and deleting its caller. Now the
+  // stress case is a function you can name, run, and fail on.
+  //
+  // It is deliberately NOT folded into `herConditions()` as a second width. A
+  // gate that returns one verdict over two viewports cannot say WHICH one broke,
+  // and a stress breach and a hers breach do not deserve the same response: a
+  // HIGH at 414 is shipping to Mom, a HIGH at 390 alone is a robustness finding.
+  // Run both, read them separately.
+  async function stressConditions(opts) {
+    opts = opts || {};
+    return await herConditions(Object.assign({
+      width: VIEWPORTS.stress.w,
+      height: VIEWPORTS.stress.h,
+      caseName: "stress",
+    }, opts));
+  }
+
+  // ── § LANDSCAPE — 896×414 ───────────────────────────────────────────────
+  // ⚠️ RECOMMENDATION, NOT A RULING. The lap-4 metrics show **one** batch at
+  // `896x414` against **51** at `414x848`. One batch is a phone that got turned
+  // sideways, not a usage pattern, and it cannot distinguish "she reads in
+  // landscape" from "it was face-up on the table while she carried it."
+  //
+  // So the posture is: DEFINED and RUNNABLE (`landscapeConditions()`), in NO
+  // default sweep, and NOT a release gate. Promote it to a standing case only on
+  // evidence about HER — the same bar the A+ default was held to and walked back
+  // on: a session of real length in landscape, or her saying she turns it.
+  //
+  // Cheap now, and worth knowing once: at 896 wide the app is ABOVE both of its
+  // width breakpoints (`max-width: 480px` / `540px`), so landscape renders a CSS
+  // branch her portrait sessions never touch — it is not "the same layout, wider."
+  // And 414 tall is half the vertical room, against a pre-glance stack already
+  // measured at 1,712px. If it is ever gated, that is the finding to expect.
+  async function landscapeConditions(opts) {
+    opts = opts || {};
+    return await herConditions(Object.assign({
+      width: VIEWPORTS.landscape.w,
+      height: VIEWPORTS.landscape.h,
+      caseName: "landscape",
+    }, opts));
+  }
+
+  window.measureNestingWidth = {
+    run, gate, pairs, tokens,
+    herConditions, stressConditions, landscapeConditions,
+    inFrame, measureDoc, DOMAINS, VIEWPORTS,
+  };
 })();
