@@ -1402,6 +1402,74 @@ All three fail the suite; the restored code passes.
 
 ---
 
+## 🎗 Z-ACK · HER SIXTEEN ZONE NAMES ARE STILL UNACKNOWLEDGED — owed, gated, and previously only in the chronicle
+
+**The largest single contribution Mom has made to this project** — the 2026-08-30 naming session,
+**sixteen areas in her own words**, folded to canon 08-31 — has never been acknowledged to her. She
+opened the app the next night; the map is hers and the ribbon said nothing about it.
+
+**Gated, not forgotten.** `paul-stated 2026-09-01`, recategorized later the same day: the hold is on
+**the zone WORK** — Paul finishing it and calling it ready for distribution — **not** on the
+acknowledgment loop. Release condition: *zone work ready to distribute*. See
+`[[feedback_a_hold_names_the_work_not_the_mechanism]]`.
+
+⚠️ **Why this row exists at all:** until now this lived **only in `MOM-CYCLE-LOG.md`** — a chronicle.
+This file's own header says *"read status here, not from the dated log."* So the single biggest
+thing she has given us was owed a reply and was **not findable as open work**. That is the failure
+this repo names as its most repeated one, pointed at the ack loop.
+
+**When the zone work ships:** the ribbon leads on her sixteen names, with the changeable clause on
+the **retirements** (`parking-bank`, `upper-uber-wall-area`) — `parking-bank` was a fold call, not
+her instruction. Draft and reasoning: `MOM-CYCLE-LOG.md` § Lap 7.
+⚠️ Paul-relayed and **has no arrival record** — no id, no timestamp, no channel; it happened on paper
+at a kitchen table. Lap 4's open finding *"paul-relayed input has nowhere to live"* is still open and
+this is its biggest instance.
+
+---
+
+## 🟠 L1 · A LAP THAT OPENS AND CLOSES THE SAME DAY IS MEASURED AGAINST ITSELF
+
+`mom-cycle-status.py` published **FIRED · leg 7 · 0 unresolved · needs_paul false** the instant lap 8
+closed. Nothing is owed. `offers-passed` (4/3) and `sessions-quiet` (5/3) count *since the last lap*,
+and `last_lap()` resolves a lap to a **DATE, not an instant** — lap 8 opened and closed on
+2026-09-01, so her five sessions that same day, **including the 11:10 one that fired the lap**, count
+as having happened "since" it.
+
+⛔ **Do not open a lap on this reading.** It self-resolves at the next date boundary.
+**Fix:** timestamp-granular lap boundaries in `read-mom-engagement.last_lap()` — the chronicle
+heading carries only `YYYY-MM-DD`, so this needs a real lap-close timestamp, most naturally the
+`last_lap` object `momlib.lap_state()` already publishes. Same family as
+`[[reference_lap_clamp_is_time_scoped]]`: a lap's window has ENDS, and date-granularity cannot see
+them. **Not started.**
+
+---
+
+## 🟠 L2 · THE CONCURRENCY GUARD HAS ONE STATE SLOT AND TWO LAPS CAN SHARE A REPO
+
+`guard-concurrent.py` keeps `.private/cycle-guard-state.json` with a single `start`/`commit` pair and
+**`"lap": null`**. On 2026-09-01 the mom lap and the fleet lap ran concurrently in this tree
+(Paul-approved), and **each session's `record-commit` overwrote the other's**. Consequences, both
+observed:
+
+- **`check` cried wolf on this session's own commits** — it reported *"another session committed"*
+  and named `3f52e5b`, which the running lap had just made. It fired again at push time naming
+  `c90a37e`, likewise its own.
+- ⛔ **Worse, and the reason this is 🟠 not 🟡: `before-push` PASSED on the wrong baseline.** It
+  compared HEAD against `199278f` — the **fleet** session's recorded commit — and reported *"HEAD is
+  still this lap's commit."* It was not this lap's commit. A guard that passes on someone else's
+  baseline is worse than one that cries wolf, because the wolf-cry gets investigated.
+
+⭐ **The real divergence that day was caught by `git fetch`, not by the guard** — the remote was
+genuinely ahead by two bot commits. The guard is a HEAD-vs-recorded-sha comparator; it never sees the
+remote and (until 2026-09-01) never saw the working tree.
+
+**Fix direction, not chosen:** key the state by lap identity (the `lap` field exists and is `null`),
+so concurrent laps hold separate slots and a guard can only ever be cleared by its own lap. **Not
+started** — and note the guard's own doctrine that any state it cannot determine must BLOCK rather
+than pass.
+
+---
+
 ## 🌱 A-ASK · THE ASK DESIGN — a SCOPING conversation Paul seeded, not a change to make quietly
 
 `paul-stated 2026-09-01`: *"whatever she's interested in is what we need to latch onto, and that

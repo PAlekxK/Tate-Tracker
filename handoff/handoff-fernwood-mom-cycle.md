@@ -1,4 +1,11 @@
 # Handoff: fernwood-mom-cycle
+
+> ⛔ **CONSUMED — mom lap 8 CLOSED 2026-09-01. This brief is HISTORY, not open work.**
+> Do not re-run it. Live state: `data/cycle-state.json` (`lap_count 8`, `last_lap.outcome: closed`)
+> and the **Lap 8** section of `MOM-CYCLE-LOG.md`, which is authoritative over anything below.
+> ⚠️ Its §5 guardrail *"THE RIBBON IS HELD INDEFINITELY"* was **wrong and was corrected during the
+> lap** — the gate is on the ZONE WORK, not the acknowledgment loop. See the struck-through
+> guardrail below, and `[[feedback_a_hold_names_the_work_not_the_mechanism]]`.
 <!-- generated 2026-09-01 11:29 AM ET · sources: Tate-Tracker@a7b2e67, .claude@230931c · RECEIVER: verify shas vs HEAD before trusting any status below -->
 
 ## 1. Mission
