@@ -1,6 +1,7 @@
 ## fernwood-3 · Bolores corpus — confirm or reject "snapshot-at-ingest becomes the contract"
 
 - project: Tate-Tracker
+- loop: fernwood-fleet
 - source: anchor row "Bolores corpus — 4 ingestion gaps and 41% link decay" + its decisions.jsonl thread (7 turns; migrated Phase 3a, 2026-08-08)
 - options: confirm-snapshot-at-ingest | reject-keep-live-links
 

@@ -1,6 +1,7 @@
 ## fernwood-5 · After the 8/10 window — how lap 2 is timed
 
 - project: Tate-Tracker
+- loop: tate-tracker
 - source: anchor row "THE 8/10 WINDOW CLOSES ON AN UNMEASURABLE QUESTION" + D15 (migrated Phase 3a, 2026-08-08)
 - options: run-lap-2-calendar-timed-again | time-lap-2-to-her-next-visit | pause-the-cycle
 

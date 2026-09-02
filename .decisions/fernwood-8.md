@@ -1,6 +1,7 @@
 ## fernwood-8 · W13 — should Gardening be ONE card? (lead lap-2 decision)
 
 - project: Tate-Tracker
+- loop: tate-tracker
 - source: anchor row "W13 — should Gardening be ONE card?" + Tate-Tracker/BACKLOG.md W13 (migrated Phase 3a, 2026-08-08)
 - options: merge-gardening-into-one-card | keep-the-split-and-decide-on-lap-2-taps | merge-and-also-decide-wildlife-fishing
 

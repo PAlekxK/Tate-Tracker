@@ -1,6 +1,7 @@
 ## fernwood-7 · "Bring our fleet into…" — which fleet, and into what
 
 - project: Tate-Tracker
+- loop: claude-meta-stack
 - source: anchor row "UNRESOLVED — Paul's 'bring our fleet into…' (sentence cut off)", close-out 2026-08-04 (migrated Phase 3a, 2026-08-08)
 - options: agent-fleet-into-routine-work | fernwood-vehicle-fleet-into-the-cards | drop-it
 

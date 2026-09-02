@@ -1,6 +1,7 @@
 ## fernwood-12 · does a non-plant `suggest-add` fence get built, or does the Guru refuse gracefully?
 
 - project: Tate-Tracker
+- loop: tate-tracker
 - source: G1, found 2026-09-01 in the conversation that opened mom lap 8; interim shipped the same day (Worker `3cc3d422`)
 - options: extend-the-fence-to-all-domains | leave-it-at-a-graceful-refusal
 

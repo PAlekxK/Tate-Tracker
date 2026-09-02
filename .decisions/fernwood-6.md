@@ -1,6 +1,7 @@
 ## fernwood-6 · The carried amber — fairway-meadow has no photo
 
 - project: Tate-Tracker
+- loop: tate-tracker
 - source: anchor row "The bench slot is FILLED — q-fairway-grass-seedheads is live, with one amber carried" (migrated Phase 3a, 2026-08-08)
 - options: property-photo-on-your-next-visit | pull-the-card-until-a-photo-exists | accept-the-amber-as-standing
 

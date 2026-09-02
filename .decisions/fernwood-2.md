@@ -1,6 +1,7 @@
 ## fernwood-2 · Bolores paint — order carpet + trim as ONE decision against factory Chestnut
 
 - project: Tate-Tracker
+- loop: fernwood-fleet
 - source: anchor row "Bolores colour map" + Tate-Tracker/vehicles.json paint.⭐_COLOUR_MAP (migrated Phase 3a, 2026-08-08)
 - options: order-acc-kit-factory-chestnut-after-scrap-spray | match-to-todays-faded-interior | defer-until-paint-scheduled
 

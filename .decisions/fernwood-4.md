@@ -1,6 +1,7 @@
 ## fernwood-4 · Control-center page — your review verdict
 
 - project: Tate-Tracker
+- loop: tate-tracker
 - source: anchor row "Control-center page — BUILT, awaiting Paul's review"; charter .user-research/charter-2026-08-04-control-center.md; spec .ux-reviews/2026-08-04-control-center-spec.json (migrated Phase 3a, 2026-08-08)
 - options: accept-as-built | request-next-pass-on-the-three-items | rework-the-page
 

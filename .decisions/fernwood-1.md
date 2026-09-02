@@ -1,6 +1,7 @@
 ## fernwood-1 · Does the Almanac get a lifecycle, knowing only you can drain the queue?
 
 - project: Fernwood
+- loop: tate-tracker
 - source: .engineering/2026-08-15-almanac-lifecycle.md
 - options: build almanac-log.json (a queue you work) | leave it and accept the repeat-ask | narrow it to a counter only
 

@@ -1,6 +1,7 @@
 ## fernwood-11 · the ask design — is the confirm queue the wrong instrument, or the right one asked wrong?
 
 - project: Tate-Tracker
+- loop: tate-tracker
 - source: Paul seeded it 2026-09-01 during mom lap 8 — *"whatever she's interested in is what we need to latch onto… absolutely could be a seed for a future scoping conversation"*
 - options: re-scope-the-confirm-queue | keep-asking-and-instrument-her-doors | make-the-guru-the-primary-capture-surface
 

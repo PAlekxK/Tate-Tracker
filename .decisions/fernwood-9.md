@@ -1,6 +1,7 @@
 ## fernwood-9 · momack_unfolded — re-wire the dead metric or retire it
 
 - project: Tate-Tracker
+- loop: tate-tracker
 - source: anchor row "momack_unfolded is UNREACHABLE" + tools/check-telemetry.py (migrated Phase 3a, 2026-08-08)
 - options: retire-the-event | rewire-the-fold-into-changes
 
