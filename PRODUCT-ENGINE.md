@@ -285,6 +285,49 @@ for a reader with difficulty.* ⚠️ **Agent-proposed, not ruled** — and if P
 estate anyway, the cheap version is a **single accent token plus the property photo**, leaving the
 semantic palette untouched.
 
+### ⭐⭐ THE BETTER FRAME — a DIVERGENCE CONTRACT, not a personalization budget `[paul-stated 2026-09-02]`
+
+> *"Another way to think about it is: can we define what's okay if it deviates between the different
+> profiles? Like different font rules — if the different owners have different preferences, that's
+> okay, it's not gonna hamstring us to have the font be different. But there probably are some things
+> that we don't wanna change between the two unless we absolutely have to."*
+
+⭐ **This reframes the question and it is better than the cost framing above.** *How much
+personalization can we offer* is a budget question with no natural answer. *What is safe to diverge*
+is a **contract**, it is declarative, and **it can be checked.**
+
+⭐⭐ **AND PAUL ALREADY HAS THIS CONTRACT, ONE LEVEL UP.** `~/.claude/rituals/CYCLE-SPINE.md` is
+exactly this shape for **loops**: a minimal MANDATORY spine (S1–S6), everything else
+**optional-with-a-declared-reason**, and a dropped element (S5) that was cut precisely because *"a
+standard nobody adopted is not a standard everybody violates."* **The estate question is the same
+contract applied one level down** — reuse, not a new framework.
+
+**Its design rule is the test being reached for here, and it is already measured:**
+
+> *"Spine membership should track **'something breaks visibly'**, not 'it would be tidy'… the keys
+> that drifted are exactly the ones with **no consumer that degrades** when they are missing."*
+
+**So the test for every dimension is one question: IS THERE A CONSUMER THAT DEGRADES WHEN THIS
+DIFFERS BETWEEN ESTATES?** Not *is it nice to share* — *what visibly breaks.*
+
+| tier | test | examples (agent-proposed) |
+|---|---|---|
+| **FREE to diverge** | nothing degrades | text size (per-PERSON anyway) · property name, subtitle, photo · which domains exist · all record data · an accent token |
+| **DIVERGE WITH A DECLARED REASON** | something degrades, but the estate may have a real cause | domain *set* (the condo has no plants — a declared absence, not a fork) · the offline-first constraints (**Fernwood's premise, not the engine's**) · trigger thresholds · whether a contributor loop exists at all |
+| ⛔ **MUST NOT DIVERGE** | a consumer degrades visibly, and the estate has no standing to overrule it | the **semantic colour system** (`CARE_COLORS` + 29 utility classes encode MEANING) · capture stays deterministic and **AI-free** · the **AI boundary** · the fold + **watermark clamp** (divergence here is silent data loss) · the affirmative grammar (one learnable signal, `[paul-stated 2026-07-29]`) · check/probe contracts |
+
+⚠️ **The middle tier is the load-bearing one**, exactly as it is in the spine: *declared* absence is
+not drift. The condo having no plants is a **declaration**, and it should read as one — while the same
+absence undeclared would be a broken migration. **That distinction is the whole mechanism**, and it is
+what a checker could enforce.
+
+⭐ **Falsifier for this frame:** if a dimension lands in MUST-NOT-DIVERGE and nobody can name the
+consumer that degrades, it belongs in FREE and the contract is being used to enforce tidiness — which
+is the failure the spine already named and dropped an element over.
+
+⚠️ **Agent-proposed. The tiers above are a first cut, and the ASSIGNMENTS are Paul's** — the frame is
+his, the placement of any given row is not yet ruled.
+
 ### Also captured
 
 - ⭐ **"Fernwood as a test bed for everything"** — a standing role for the property, additive to
