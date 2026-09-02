@@ -483,7 +483,16 @@ middle tier: **a declared absence is not drift.**
 
 ### ⛔ AND THE RECORD ALREADY HALF-KNOWS THIS — by accident, in the most fragile way available
 
-**Measured 2026-09-02: not one vehicle carries a `location`, `home`, `stored` or `site` field. Zero.**
+**Measured 2026-09-02: no vehicle carries a `home`, `stored` or `site` field, and none carries any
+field that says WHERE THE MACHINE LIVES.**
+
+> ⚠️ **CORRECTED — this sentence read *"not one vehicle carries a `location`… field. Zero."* and that
+> is FALSE.** `location` appears **7 times** in `vehicles.json` (`:229, :235, :579, :585, :708, :714,
+> :1042`) — every one meaning **where the paint-code sticker is**, e.g. *"Driver door-jamb Safety
+> Compliance Certification Label."* The **conclusion survives** (nothing records where a machine
+> lives), but the sentence was the dangerous kind: a future agent would trust it and **mint
+> `location` for siting, straight into an existing meaning.** Caught by the staleness audit.
+> ⛔ **So `location` is TAKEN. The siting field must be named something else.**
 Yet `fleet_probe.py`'s SEASON signal correctly fires on **`dr200s-2017` and `drz400s-2001`** — the two
 dirt bikes — and not on the road cars.
 
