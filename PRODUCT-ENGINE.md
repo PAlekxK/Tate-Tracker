@@ -222,9 +222,15 @@ domain mix, and the only one that tests the owner/contributor role flip). Two pa
    >
    > **Scope, measured:** one occurrence, one commit, **never pushed** — `origin/main` was still at the
    > previous day's HEAD. Removed from the working tree 2026-09-02.
-   > ⚠️ **An edit is NOT sufficient on its own:** the name remains in `701af7a` in local history, so
-   > **pushing this branch would publish it.** Disposition is Paul's — it is a history rewrite, and
-   > those are his call. **The push stays held until he rules.**
+   > ✅ **RULED 2026-09-02 `[paul-stated]`: *"It doesn't need to appear, but we don't need to do a huge
+   > scrub if it showed up at one point."*** So: **no history rewrite.** The name stays in `701af7a`
+   > and will reach GitHub whenever this branch is pushed — accepted knowingly, having been told that
+   > pushing publishes it. **This question no longer holds the push.**
+   >
+   > ⭐ **The forward rule, which is the operative half: her name does not appear in tracked files.**
+   > Not in `viewer.html`, not in a card, not in a profile label, not in a commit message. If a
+   > surface ever needs to name her, that is a decision to make deliberately — not a copy detail, and
+   > not something that arrives by an agent using a name it was told in conversation.
    >
    > ⭐ **The lesson is the one this repo keeps paying for:** *a verification is true at an instant,
    > not for a day.* A claim of the form "X appears nowhere" is a **measurement with a timestamp**, and
