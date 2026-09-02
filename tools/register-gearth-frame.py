@@ -131,8 +131,21 @@ def main() -> int:
           f"({max(elevs)-min(elevs)} m spread) — why a flat fit could not work")
 
     bnd = json.loads(REF_BND.read_text())["bounds"]
-    W = H = 1500
     hi = invert_h(h)
+
+    # ⭐ NATIVE RESOLUTION, OWN BOUNDS — and this is the whole point of a zoomed capture.
+    # Resampling a 0.17 m/px zoom onto the shared 1500 px frame would put it back at
+    # ~0.5 m/px and throw away exactly the detail it was taken for. Paul found this the
+    # hard way: "the resolution still gets really poor when I zoom in." So the output
+    # keeps the capture's own pixel count and carries its own bounds; the tracing tool
+    # positions it from those. Perspective is still removed — the warp is onto an
+    # axis-aligned lat/lon grid — so it stays a drop-in overlay, just a sharper one.
+    corners = [apply_h(h, 0, 0), apply_h(h, cap.width, 0),
+               apply_h(h, 0, cap.height), apply_h(h, cap.width, cap.height)]
+    own = {"west": min(c[0] for c in corners), "east": max(c[0] for c in corners),
+           "south": min(c[1] for c in corners), "north": max(c[1] for c in corners)}
+    W, H = cap.width, cap.height
+    bnd = own
     out = Image.new("RGB", (W, H), (16, 18, 16))
     op, ip = out.load(), cap.load()
     inside = 0
@@ -145,8 +158,16 @@ def main() -> int:
             if 0 <= xi < cap.width and 0 <= yi < cap.height:
                 op[px, py] = ip[xi, yi]
                 inside += 1
-    cov = inside / (W * H)
-    print(f"coverage   {cov*100:.1f}% of the traced frame")
+    ref_b = json.loads(REF_BND.read_text())["bounds"]
+    fw = ref_b["east"] - ref_b["west"]; fh = ref_b["north"] - ref_b["south"]
+    cw = min(own["east"], ref_b["east"]) - max(own["west"], ref_b["west"])
+    chh = min(own["north"], ref_b["north"]) - max(own["south"], ref_b["south"])
+    cov = max(0.0, cw) * max(0.0, chh) / (fw * fh)
+    span_m = (own["east"] - own["west"]) * 111320 * math.cos(math.radians(34.5496))
+    print(f"native     {W}x{H} px over {span_m:.0f} m  ->  {span_m/W:.3f} m/px "
+          f"({0.6/(span_m/W):.1f}x NAIP)")
+    print(f"coverage   {cov*100:.1f}% of the traced frame — it is a WINDOW, positioned by "
+          f"its own bounds, not stretched to the frame")
 
     out_path = args.out or (args.points.parent / f"trace-gearth-{spec['captureDate']}.png")
     out.save(out_path)
@@ -183,9 +204,13 @@ def main() -> int:
                           "January frame buries in shadow — not a survey. Does not supersede "
                           "zones.json _meta.accuracyHonesty; check traces against NAIP.",
         "controlPoints": pts,
-        "bounds": bnd,
+        "bounds": own,
         "pixelWidth": W, "pixelHeight": H,
-        "registeredTo": "resampled onto base-naip-2022-01-leafoff's exact bounds — drop-in",
+        "registeredTo": "warped to an axis-aligned lat/lon grid at NATIVE resolution, carrying "
+                        "its OWN bounds. NOT stretched to the NAIP frame — doing that would "
+                        "resample a 0.1-0.2 m/px zoom back down to ~0.5 m/px and discard the "
+                        "detail the capture exists for. The tracing tool positions it from "
+                        "these bounds.",
     }, indent=2, ensure_ascii=False) + "\n")
     print(f"saved      {side}")
     return 0

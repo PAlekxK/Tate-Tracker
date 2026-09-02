@@ -325,14 +325,36 @@ const BASES=[
 // that has fetched them. Each is added as a button ONLY after its image is confirmed to
 // load; an offered control that 404s is worse than an absent one.
 const LOCAL_FRAMES=[
- {slug:"trace-gearth-2018-04-12", dir:"/images/property-map/.local/gearth/", label:"2018-04 ⭐",
-  date:"2018-04-12", gsd:"0.6m", sun:63.7, shadow:0.49, season:"LEAF-OFF",
-  note:"⭐ THE BEST VIEW OF THIS PROPERTY THAT EXISTS. Google Earth, leaf-off at a 63.7 deg sun - " +
-       "a THIRD of the January frame's shadow, and you can see through bare canopy to the ground. " +
-       "Registered by homography from Earth's own cursor readout (an NCC fit scored 0.21 and failed: " +
-       "it is a perspective camera over 71 m of relief). Covers 74% of the frame - the northern " +
-       "strip is missing. A homography is exact for a PLANE and this ground is not one, so it " +
-       "drifts where relief departs from it. FOR SEEING an edge, not a survey - check traces against NAIP."},
+ // ⭐ TWO ZOOM LEVELS, as Paul asked for: "the current level of zoom and one zoom more
+ // zoomed in than this one would be perfect for what I'm envisioning."
+ //
+ // WHY THEY CARRY THEIR OWN `bounds`. A screen capture is a FIXED RASTER — Paul found the
+ // limit himself: "that screenshot doesn't zoom like the Google Earth website does." The
+ // wide frame is 0.63 m/px, no better than NAIP. A zoomed capture is 0.19 m/px, but ONLY
+ // if it keeps its own pixels. Stretching it onto the shared 1500 px frame would resample
+ // it back to ~0.5 m/px and discard the exact detail it was taken for. So each carries its
+ // own bounds and is positioned as a WINDOW inside the frame — smaller area, real detail.
+ // Everything still overlays, because zone vertices are real WGS84 (schema v2).
+ {slug:"trace-2018-04-12-zoomA", dir:"/images/property-map/.local/gearth/", label:"2018 ZOOM ⭐",
+  date:"2018-04-12", gsd:"0.19m", sun:63.7, shadow:0.49, season:"LEAF-OFF",
+  bounds:{west:-84.3692960,south:34.5489513,east:-84.3660028,north:34.5500460},
+  note:"⭐ THE TRACING FRAME. Google Earth at 302 m across, 0.19 m/px — 3.1x NAIP, leaf-off at a " +
+       "63.7 deg sun. Covers 17% of the frame (the house and upper field) at REAL detail rather " +
+       "than the whole frame blurred. Zoom in and it stays sharp. Registered by homography from " +
+       "Earth's own cursor readout. A homography is exact for a PLANE and this ground is not one - " +
+       "for SEEING an edge, not a survey."},
+ {slug:"trace-2018-04-12-wide", dir:"/images/property-map/.local/gearth/", label:"2018 WIDE",
+  date:"2018-04-12", gsd:"0.63m", sun:63.7, shadow:0.49, season:"LEAF-OFF",
+  bounds:{west:-84.3723357,south:34.5470728,east:-84.3615769,north:34.5506350},
+  note:"The same leaf-off day, 986 m across — context, 75% of the frame. At 0.63 m/px it is NO " +
+       "sharper than NAIP; its value is the season and sun angle, not resolution. Use ZOOM for edges."},
+ {slug:"trace-2018-04-12-zoomC", dir:"/images/property-map/.local/gearth/", label:"2018 DEEP ⭐⭐",
+  date:"2018-04-12", gsd:"0.043m", sun:63.7, shadow:0.49, season:"LEAF-OFF",
+  bounds:{west:-84.3678997,south:34.5494365,east:-84.3671608,north:34.5496736},
+  note:"⭐⭐ SHARPEST BORDER DEFINITION. 68 m across at 0.043 m/px — 14x NAIP. Deck boards and " +
+       "fire-pit stones are legible. Labels off (View > Base map settings > Clean). Covers under " +
+       "1% of the frame: this is a magnifier for one border at a time, not a basemap. " +
+       "Pan the stage to it — it sits on the house and its garden."},
  {slug:"trace-esri-z19", dir:"/images/property-map/.local/", label:"HI-RES",
   date:"2022-02-12", gsd:"0.25m", sun:41.2, shadow:1.14, season:"LEAF-OFF",
   note:"Esri WorldView-3, 2.4x NAIP detail, leaf-off at a higher sun than the January frame. " +
@@ -503,11 +525,24 @@ function renderBaseBtns(){
 }
 function applyBase(){
   const b=BASES[baseIdx];
-  $("base").src=b.dir ? b.dir+b.slug+".png" : "/images/property-map/base-"+b.slug+".png";
+  const im=$("base");
+  im.src=b.dir ? b.dir+b.slug+".png" : "/images/property-map/base-"+b.slug+".png";
+  if(b.bounds){
+    // Place it by its OWN bounds. The image keeps its native pixel count, so zooming the
+    // stage reveals real detail instead of magnified pixels.
+    const L=toX(b.bounds.west), T=toY(b.bounds.north);
+    im.style.position="absolute";
+    im.style.left=L+"px"; im.style.top=T+"px";
+    im.style.width=(toX(b.bounds.east)-L)+"px";
+    im.style.height=(toY(b.bounds.south)-T)+"px";
+  } else {
+    im.style.position=""; im.style.left=""; im.style.top="";
+    im.style.width="1500px"; im.style.height="1500px";
+  }
   BASES.forEach((_,i)=>$("bs-"+i).classList.toggle("on",i===baseIdx));
   $("foot-prov").innerHTML = b.dir
     ? (b.slug.indexOf("gearth")>=0
-        ? `Google Earth ${b.date} · <b style="color:#e2966e">homography-registered, 74% coverage</b> — see, don't survey`
+        ? `Google Earth ${b.date} · <b style="color:#e2966e">${b.gsd}/px window</b> — registered, see don't survey`
         : `Esri WorldView-3 ${b.date} · <b style="color:#e2966e">±28 ft</b> (8.47 m stated — worse than NAIP)`)
     : `NAIP ${b.date} · ±20 ft`;
   $("base-note").innerHTML=
