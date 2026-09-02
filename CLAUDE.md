@@ -23,6 +23,7 @@ python3 ~/.claude/tools/health-probe.py --only fernwood  # ⭐ IS THE RECORD ITS
 python3 tools/check-ux-sweep.py            # ⭐ is a HOLISTIC two-pass UX sweep owed? (accumulation, not cadence)
 python3 tools/check-loop-docs.py           # ⭐ do the loop's DOCS still describe the loop's CODE? (the 3x divergence)
 python3 tools/check-backlog-drift.py       # ⭐ is a BACKLOG RATIONALIZATION owed? (accumulation, not cadence — and it does NOT fire a lap)
+python3 tools/check-vocabulary.py          # ⭐ is VOCABULARY.md still TRUE of the schema? (rejected names, double-bookings, aspirational terms)
 python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEEING — head-slot exposure; she sees ONE, not five
 ```
 

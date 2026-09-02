@@ -78,6 +78,39 @@ discovered late.
 
 ---
 
+## 3b · SURFACES AND DOORS — added 2026-09-02 from the journey work
+
+| term | means | why this word |
+|---|---|---|
+| **landing page** | the first surface, before any estate is chosen | ⛔ **It carries a PRODUCT-level greeting, never one estate's name.** Paul caught the mock branding it *"Fernwood"* — the page was named for one of the things it asks you to choose between |
+| **entry door** | establishes **who you are** and **which place**. Optional per person/estate | Distinct job from the vault. `config`-class |
+| **vault** | gates the **private tier** inside an estate — receipts, contacts, warranties. Optional | Paul's word. *"the additional vault being kind of embedded within the other cards"* |
+| **your homes** | the product-level greeting, on the landing page and the selection surface | ✅ `[paul-stated 2026-09-02: "let's call it your homes for now"]` ⭐ **A greeting, not a brand** — it names what they ARE rather than a function performed over them, which is exactly what §4's rejection reason tests for. ⚠️ *"For now"* — provisional |
+| **activation** | a person becoming a person *with a grant* — first credential, first presence | Distinct from *login*, which is a returning act |
+
+✅ **SETTLED PROVISIONALLY 2026-09-02: the greeting is "your homes."** It clears §4's test by
+construction — it describes no management function, so it does not name the reader as an operator of
+their own life.
+
+⚠️ **Two things to watch, neither blocking:** it is **plural-only**, and at ONE grant *"your homes"*
+over a single card reads oddly — the surface may need a singular form or to be absent, which is the
+same *absent-at-one-grant* rule the selector already carries. And **"home" is a claim**: it fits
+Fernwood and a condo someone lives in; it would not fit a rental or an investment property, so it
+constrains what an estate can be. Fine today, worth re-reading if that changes.
+
+⛔ **THE PRODUCT'S OWN NAME REMAINS OPEN — a greeting is not a brand — and "estate manager" is still rejected** — §4's reason holds and
+is aimed at exactly the reader who would meet this screen most. ⚠️ **But §4's premise moved:**
+`content-steward` held *call it nothing* on the grounds that the shell is invisible plumbing, with the
+falsifier *"the first time someone who is not Paul, Mom or Bob has to say the name out loud, it needs
+one."* **That has not fired as written** — no stranger has had to refer to it — **but a landing page
+met every open is not invisible plumbing.** The premise moved, not the rule. Open, and
+`content-steward`'s to settle.
+
+⭐ **Personalising the landing page with a person's NAME is available and does not breach the
+name rule** — that rule governs **tracked files** (no name in a card, a commit, `viewer.html`). **A
+name a person supplies at activation and sees rendered back is hers, held in her instance's data and
+never in the engine.**
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
