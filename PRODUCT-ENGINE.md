@@ -328,6 +328,49 @@ is the failure the spine already named and dropped an element over.
 ⚠️ **Agent-proposed. The tiers above are a first cut, and the ASSIGNMENTS are Paul's** — the frame is
 his, the placement of any given row is not yet ruled.
 
+### 🔌 THE MODULE SET IS A DECLARATION, AND NOTHING CAN EXPRESS IT TODAY `[paul-stated 2026-09-02]`
+
+> *"One thing that's gonna be important to keep track of is **which modules we're turning on or off
+> for different properties** — the condo has no garden, but Fernwood does. If we have users that do or
+> don't have vehicles or tools, there will sometimes be a **different mix and match of the components**
+> within different estates."*
+
+⭐⭐ **THIS IS WHAT MAKES THE MIDDLE TIER ENFORCEABLE**, and it is the same shape as ~70 of this
+portfolio's failure classes:
+
+> **A module that is OFF and a module that is ON BUT EMPTY produce the same observation — and they
+> mean opposite things.**
+
+An empty `vehicles.json` at Fernwood is a **gap** (someone should add vehicles; the harvester should
+keep asking). No vehicles at a condo is a **declaration** (asking would be nonsense). **Today nothing
+can tell them apart.** Verified 2026-09-02: `momlib.Domain` carries **seven** fields — `key · file ·
+const · group · time · markers · cardable` — and **not one of them says whether an estate is using
+this domain.**
+
+**Five consumers that degrade, which is exactly the spine's membership test being met:**
+
+| consumer | what goes wrong |
+|---|---|
+| `harvest-questions.py` | drafts confirm cards from honesty markers. At an off module it would draft **nonsense for that estate**; at an on-but-empty one it should arguably ask. It cannot tell |
+| `check-domains.py` | already prints 🔴 for six wildlife domains with no marker path. At a gardenless condo that red is **permanent and correct**, which is the **N8 · COSTLY CONTROL** signature Paul has already ruled against — *a control whose alarm never clears is one nobody reads* |
+| the Guru digest | ships the whole property record every turn, already **~127K tokens / 62–70% of the window**. A gardenless estate would carry plant scaffolding it can never use, and invite the model to discuss things that do not exist |
+| `renderDashboardStrip()` | four tiles including Plants. At the condo that is not an *empty* card — **it should not render at all** |
+| ⭐ **the engagement signals** | `offers-passed`, `sessions-quiet` and the funnel all key on what she was offered and did not take. **Counting "she did not tap the plant card" at a property with no plants would be a false signal ABOUT HER** — the exact class the 08-15 empty-answer-record finding exists to prevent, arriving at a second property |
+
+⛔ **That last row is why this is not a tidiness question.** A wrong denominator here produces a wrong
+claim about a person, on the surface this whole project is built to protect.
+
+### ⚠️ Open, and it is Paul's: what is the UNIT that turns on and off?
+
+He said **"modules"** and **"components."** The repo says **domains**. They are not obviously the same
+granularity — **"the garden" is not a domain**, it is `plant` + `weed` + `turf` + `zone` and the care
+calendar that binds them. Whereas *vehicles* maps cleanly to one domain, and *tools* is today a
+**group inside `vehicles.json`**, not a domain at all.
+
+**So the on/off unit is either a domain, or a named bundle of domains, and that choice changes the
+declaration's shape.** ⚠️ Do not settle it by picking whichever is convenient when the code is
+written — a bundle chosen implicitly is how a second vocabulary starts.
+
 ### Also captured
 
 - ⭐ **"Fernwood as a test bed for everything"** — a standing role for the property, additive to
