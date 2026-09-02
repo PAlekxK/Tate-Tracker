@@ -11,7 +11,7 @@ Starting-point imagery for the eventual property map view at 34.5496°N, 84.3674
 | `aerial-esri-z19.jpg` | ESRI World Imagery | z19, ~620 ft across, 0.8 ft/px | Close-in: house + driveway |
 | `aerial-esri-z18.jpg` | ESRI World Imagery | z18, ~1,240 ft across, 1.6 ft/px | Working scale: house, fairway, forest edge |
 | `aerial-esri-z17.jpg` | ESRI World Imagery | z17, ~4,100 ft across, 3.2 ft/px | Wide context: property in relation to Lake Sequoyah and neighbors |
-| `gep-2015-03-leafoff.png` | Google Earth Pro (user-supplied) | Mar 6, 2015 | **True leaf-off winter capture, canonical base layer for the eventual map view.** Bare deciduous trees show fairway pattern, driveway, and forest density clearly. House labeled "Fernwood" with pin. |
+| `gep-2015-03-leafoff.png` | Google Earth Pro (user-supplied) | Mar 6, 2015 | **SUPERSEDED — historical only, not a basemap.** Was the v1 base; it is oblique, un-georeferenced, and licensed, which is what made the v1 polygons unsalvageable (see `tools/fetch-basemap.py`). The committed base is `base-naip-2022-01-leafoff.webp`. Kept because the leaf-off detail is still useful to *look* at. |
 
 ### NAIP historical time-lapse (`naip/`)
 
@@ -79,6 +79,55 @@ python3 tools/fetch-naip-timelapse.py --span-ft 1200
 # Build the side-by-side composite from naip/ files
 python3 tools/build-naip-composite.py
 ```
+
+## Google Earth Pro — an editor, not a basemap
+
+Added 2026-09-01. GE Pro is now the recommended surface for **drawing and correcting zone
+geometry**, and is explicitly *not* a source for the committed base image.
+
+**Why it works as an editor.** Since `zones.json` schema v2, vertices are real WGS84
+`[lon, lat]`, independent of any basemap. GE Pro draws on a georeferenced globe, so what
+comes back out is coordinates, not pixels — the 2015 failure (fractions of an oblique GEP
+screenshot) cannot recur through this path. What it buys over `tools/area-trace.html`: the
+historical imagery slider, so you can pick the least-shadowed capture instead of being stuck
+with 2022-01-10's 32° winter sun; deeper zoom; and the measure tool.
+
+**Why it is not a basemap.** GE Pro imagery is licensed and may not be redistributed from
+this public repo — the same rule that disqualified Esri/Maxar (see `tools/fetch-basemap.py`).
+A GE screenshot also carries no bbox, so it cannot be registered the way
+`base-naip-2022-01-leafoff.bounds.json` registers NAIP. Look at it while tracing; ship NAIP.
+
+**Round trip**
+
+```bash
+python3 tools/zones-to-kml.py --open          # exports/fernwood-zones.kml, opens in GE Pro
+# ... trace in GE Pro, then right-click the folder > Save Place As... > .kml
+python3 tools/kml-to-zones.py edited.kml                                  # dry run: what moved
+python3 tools/kml-to-zones.py edited.kml --imagery "GE Pro, 2023-11-04" --write
+```
+
+The importer defaults to a dry run, requires `--imagery` before it will write, never deletes
+a zone, refuses polygons with holes, and errors rather than reporting success on a KML that
+holds zero polygons or coordinates off the property. Colors in the export are generated for
+on-screen legibility and are never written back.
+
+**Two things to hold onto while tracing**
+
+1. **Reset tilt to nadir first** (View → Reset → Tilt, or press `u`). In a tilted 3-D view a
+   click projects onto draped terrain; on a spur at 2,873 ft that lands the point downslope by
+   meters. It looks correct on screen.
+2. **Sharper is not more accurate.** GE resolves finer than NAIP's 0.6 m, but its
+   georegistration is not guaranteed better than NAIP's ±6 m. Before trusting a retrace, put
+   one unambiguous feature — a house corner, the driveway junction — in both frames and see how
+   far apart they land. That offset is real, and it enters the record the moment sources are
+   mixed. `zones.json` `_meta.accuracyHonesty` would need rewriting, not just relaxing.
+
+**Still the better answer for the field zones.** The shadow complaint of 2026-08-31 is an
+artifact of one capture. A canopy-height model derived from the 2018 GA statewide lidar (the
+same product that fixed the elevation) draws the woods/field edge with no shadows and no
+leaf-season dependence at all — it measures the trees instead of photographing them. That is
+the strongest available source for `the-turf`, `the-meadow`, `the-green` and `lawn`, and
+`lidar-hillshade-2018.png` shows the pull path already exists. Not built yet.
 
 ## Things found, things still to verify
 

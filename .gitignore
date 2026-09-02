@@ -18,3 +18,7 @@ __pycache__/
 
 # claude --bg agent worktrees — never tracked (added 2026-07-31)
 .claude/worktrees/
+
+# Derived KML exported for editing in Google Earth Pro (tools/zones-to-kml.py).
+# Regenerable from zones.json; the record is zones.json, never the export.
+exports/
