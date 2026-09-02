@@ -221,6 +221,41 @@ domain mix, and the only one that tests the owner/contributor role flip). Two pa
    without a fork, the modularization is not done — and that is knowable *before* shipping her
    anything.
 
+### 🏙 THE CONDO'S CONTENT — Paul's idea capture `[paul-stated 2026-09-02]`
+
+> *"She's right by a big park — so what are the free events in the park, what's the schedule of
+> events there? What new restaurants are opening in the area? What's the latest positive local news?
+> What's the weather?"*
+
+**Location, at the only specificity this public file may carry:** a **Midtown Atlanta condo adjacent
+to a large park.** ⛔ The street address and unit number are in `.private/condo-location.md`,
+gitignored, with the handling rule. Do not restate them anywhere tracked.
+
+⭐⭐ **THE STRATEGIC PROBLEM HIDING IN THAT LIST, and it is worth more than the features.** Every item
+is **external, live, and public** — events, restaurants, news. **Fernwood's entire model is the
+opposite:** internal, accumulated, and about things on the property, where the moat is precisely that
+*only this property's record exists.* Anyone can build a park events feed. **Nobody can build
+Fernwood's record.**
+
+**So a condo built as a local-info feed inherits none of the thing that makes Fernwood work.** The
+resolution that keeps the project's own principle intact is to make **her relationship to the place**
+the record: what she has been to, what she liked, what she wants to go back to, what she noticed on a
+walk. That is the same invite → fold → acknowledge loop, pointed at an **urban** ground truth instead
+of a garden — and it is the one thing about Midtown that is hers and not Google's.
+
+⚠️ **Three constraints it collides with, none of them small:**
+
+1. **A NEW INGESTION CLASS.** Fernwood has never pulled live external editorial content. Weather is
+   the closest and it is measured instrument data. **Events, openings and news are none of those.**
+2. ⛔ **"Positive local news" is an EDITORIAL SELECTION, which is judgment** — and the AI boundary is
+   silent on it, because Fernwood has never had a surface where a model chooses *what she sees*
+   rather than drafting something Paul approves. **That is a third path through the boundary and it
+   needs a ruling before it is built**, not after.
+3. **The offline premise inverts.** Fernwood is built around no cell service and Wi-Fi from the house.
+   Midtown assumes connectivity — and *"the community around it"* implies live external data by
+   definition. **The offline-first constraints are Fernwood's, not the engine's**, and this is the
+   second road to that same finding.
+
 ### 🆕 And a domain family that does not exist yet
 
 *"Local events… the community around it."* `momlib.DOMAINS` declares five action groups — `tend` ·
