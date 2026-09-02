@@ -234,6 +234,57 @@ from the house only.* An urban condo inverts that completely — connectivity is
 "community around it" implies live external data. **The offline-first constraints are FERNWOOD's, not
 the engine's**, and the manifest currently cannot tell those apart.
 
+### Then Bob — the transfer test `[paul-stated 2026-09-02]`
+
+> *"That would set us up decently to stand up **Bob's basic structure**: having a login, a menu to
+> select his property, then opening up the property — which we could start **seeding with data and
+> watching how it all grows**. That would be a good test bed of **how the tools we built to build
+> Fernwood transfer** to another place."*
+
+⭐ **Note what is being tested, because it is not the app.** *"The tools we built to build Fernwood"* —
+the harvest, the fold, the re-inline pipeline, the checks, the loops. The transfer question is about
+the **authoring machinery**, not the rendered surface. That is a different (and harder) claim than
+"the renderer is data-driven."
+
+### 🎨 PERSONALIZATION — the dimensions and their costs `[paul-raised 2026-09-02, OPEN]`
+
+> *"There is going to be a need for some layer of personalization… some design principles like color,
+> certainly maybe font size. So let's think about what's the degree of personalization we can offer
+> along which dimensions, and what the cost of all that is."*
+
+**Five dimensions, and they do not cost remotely the same.** Measured 2026-09-02, agent-proposed, for
+Paul's ruling:
+
+| # | Dimension | Cost | Read |
+|---|---|---|---|
+| 1 | **Data** — which plants, vehicles, zones, systems | **~free** | This IS the migration. The whole point |
+| 2 | **Identity** — property name, subtitle, photo | **cheap, but AUTHORED** | `content-steward`: an authored string per estate, never a recipe. A content act, not an engineering one |
+| 3 | **Which domains exist** — the condo has no plants but has a neighbourhood | **moderate** | Forced by *"no garden"* regardless. `momlib.DOMAINS` already declares domains; making the SET per-property is the work |
+| 4 | **Accessibility** — text size, contrast | ⚠️ **near-zero if modelled right; harmful if modelled wrong** | ⛔ **NOT a personalization dimension.** It is **C-person** — it belongs to the PERSON and travels with them |
+| 5 | **Visual system** — colour, typography, spacing | ⛔ **the most expensive, and it buys the least** | See below |
+
+⛔ **THE COLOUR TRAP, stated plainly because it was the first example raised.** Fernwood's colours are
+not decoration — **they are semantics.** `CARE_COLORS` plus **29 distinct `.c-/.b-/.br-/.t-` utility
+classes** encode *which care action this is* (prune · propagate · fertilize · water · repot ·
+inspect). A per-tenant palette does not restyle the app; it **breaks the meaning**, and it breaks it
+for the reader who most depends on consistent signals. The 2026-08-31 sweep's own finding is the
+warning: Fernwood carried **"110 buttons, 31 visual signatures and 10 radii"** and cleaning that up was
+real work. **Per-tenant theming multiplies exactly that surface by N** — and `/ux-sweep`'s informed
+pass would then have N palettes to adjudicate against a shared principle library.
+
+⭐ **And font size is a CATEGORY ERROR as a branding axis.** It is already per-person and
+device-stored (`tateTracker.textSize`, reported as `text_size_served`). Marguerite's measured
+**414 × A+** must follow *her* to the condo — filing it as per-property styling would reset her
+accessibility every time she switches places. **That is the C-person / C-edge split from the data
+model, arriving on a second road.**
+
+**The honest summary:** *personalization along DATA and IDENTITY is nearly free and is the entire
+proposition; personalization along the VISUAL SYSTEM is the most expensive thing on the list and buys
+the least, because the visual system is where the quality lives and where consistency is load-bearing
+for a reader with difficulty.* ⚠️ **Agent-proposed, not ruled** — and if Paul wants visual identity per
+estate anyway, the cheap version is a **single accent token plus the property photo**, leaving the
+semantic palette untouched.
+
 ### Also captured
 
 - ⭐ **"Fernwood as a test bed for everything"** — a standing role for the property, additive to
