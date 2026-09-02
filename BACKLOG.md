@@ -2254,6 +2254,27 @@ Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
 
 # TRACK C — Cross-cutting / infra / doctrine
 
+## 🔴 M3 · A NEW PHONE MAKES HER WORDS SMALLER — live today, no auth involved `[found 2026-09-02]` ⚙️ engine
+
+**`tateTracker.textSize` is localStorage-only and syncs nowhere.** Verified: `viewer.html:21107` is the
+only writer, **`worker.js` contains ZERO mentions of it**, and the app's own *"Sync settings"* overlay
+does not cover it.
+
+⭐⭐ **So the worst thing that happens on her next phone is not a login prompt — it is that the words
+get smaller**, on the one constraint she cannot work around. That is the loudest *"I broke it"* this
+product can produce, and it lands on the make-or-break user.
+
+⚠️ **And the record makes it worse.** She is served **A+** (`text_size_served` = `{size:"lg",
+stored:true}`, measured 08-20 and 08-24) while the toggle has **0 of 37 firings on her device** — every
+one is Paul's. However the setting got there, **there is no evidence she knows the control exists**, so
+a reset is not something she is equipped to undo.
+
+⛔ **This is independent of the auth work and does not wait on it.** Found by `user-researcher` while
+mapping activation journeys — the new-phone journey is *already* broken, today, with nothing to do
+with a door.
+
+---
+
 ## 🔴 M2 · `mom-queue-watch.py` RUNS, AND ITS STATE FILE SAYS IT DID NOT `[found 2026-09-02]` ⚙️ engine
 
 **A watcher on MOM'S channel whose own record is false.** It is launchd-loaded and fired at 09:00 on

@@ -429,6 +429,71 @@ calendar that binds them. Whereas *vehicles* maps cleanly to one domain, and *to
 declaration's shape.** ⚠️ Do not settle it by picking whichever is convenient when the code is
 written — a bundle chosen implicitly is how a second vocabulary starts.
 
+### 🚪 ACTIVATION — nobody signs up `[user-researcher, 2026-09-02]`
+
+⭐⭐ **The reframe, and it changes all four journeys:** read the settled model literally and **a grant
+is authored OUTSIDE the estate, by someone else, BEFORE the person arrives.** There is no self-serve
+path and no discovery surface. **This is a closed-enrolment product — a person is RECOGNIZED, never
+REGISTERED.**
+
+⚠️ Why that is operational rather than semantic: *the word "sign-up" in a scoping doc produces a form
+by default* — email, password, confirm, display name. Same failure shape as *every auth library gates
+the app shell*, one layer up: **wrong shape, not wrong placement.**
+
+**Four journeys, not one:** ① the administrator stands up an estate (nobody is activated; five
+authoring acts) · ② **Mom's retrofit** (grant precedes person; she has used the app since May) · ③
+Bob activates his own estate (the only genuine first meeting) · ④ a contributor at someone else's
+estate.
+
+⭐⭐ **THE CROSS-JOURNEY FINDING, and it is schema-shaped:** *the shortcut that makes ② kind is the
+exact act ④ forbids.* **Paul binding her phone in person** is the best design at Fernwood and an
+**unconsented act** at Bob's — because he holds **capability** there and **no relationship**. Hence:
+
+> **An invitation may only be authored by someone holding a RELATIONSHIP at the estate, never only a
+> CAPABILITY.**
+
+**And therefore activation is `config`, declared per grant — not engine-class.**
+
+### The minimum a person supplies is ZERO
+
+Required: a **person id** (minted), a **grant** (authored by someone else), a **device binding** — the
+only step a person performs. A **credential only where `entry: on`**, which is optional.
+
+⛔ **Email has no job** (recovery is a person; notification is anti-doctrine). ⛔ **Phone has no job
+and a doctrine conflict** — *the app is the channel, text is not*, and a stored number is a standing
+invitation to rebuild the channel that was deliberately closed. ⛔ **Display name is habit, and at
+Fernwood actively harmful** — it puts her name in the UI and in public git by construction, against
+the forward rule set today.
+
+⭐ **The one job that justifies a person record:** today's attribution is an **inference**
+(`deviceId` = a browser bucket); a binding is a **declaration**. ⛔ **AND ITS HAZARD:** the day
+identity exists, someone will retro-attribute the archive. **Identity must not be applied backwards** —
+pre-identity records stay unattributed permanently, `null` rather than absent, or the 2026-08-01
+retraction recurs with a stronger-looking warrant.
+
+### Mom's retrofit: **no visible change**
+
+> Her app on Tuesday looks exactly like Monday. The activation is an act Paul performs on her device
+> while she is holding it, and the telling is a person — the same way recovery is.
+
+⛔ Not a ribbon line (a login she did not ask for traces to nothing she gave) · not a first-run on an
+app she has used four months · not a *"set your password"* prompt, which is ③'s step in ②'s journey.
+**Falsifier: if she can tell anything happened, the retrofit was designed wrong.**
+
+### Credential ownership is PER GRANT, and any global answer is wrong for someone
+
+**Mom:** she chooses the word **in conversation**, Paul enters it, she never types. ⭐ *The trap is
+conflating choosing with typing; only the second is friction.* **Bob:** he sets his own — an owner not
+controlling his own credential is a governance defect, not a convenience. ⚠️ And ask for **a word she
+would tell Paul**, never *"a password"* — the latter harvests her bank credential.
+
+⚠️ **Lockout is invisible today:** nothing distinguishes *does not want the private tier* from *locked
+out of it*. **The door ships with instrumentation or it does not ship.**
+
+⭐ **Cheapest unblock, and the seat's own recommendation: build the door for PAUL, on PAUL's device,
+with her surface untouched.** It tests everything except her, and it is the only version of this work
+that can ship before her credential question is answered.
+
 ### 🔓 BOTH PASSWORDS ARE OPTIONAL — auth is CONFIG, not engine `[paul-stated 2026-09-02]`
 
 > *"We can make both of those password requirements optional, in theory."*
