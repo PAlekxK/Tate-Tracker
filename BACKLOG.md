@@ -40,6 +40,35 @@ the priority cut laid over it.
 
 ---
 
+## 🌸 THE POND AZALEA WANTS MOVING — a standing reminder, captured 2026-09-01
+
+Arrived as a field note + Guru turn at **1:43 PM ET, 2026-09-01**, on device `d-14nyhnjz…` —
+**Paul's own device** per `tools/people.json`'s 2026-07-28 clean-slate correction, not Mom's. So it
+is Paul-relayed input, which the channel doctrine counts as real input, and it is **not** an arrival
+the acknowledgment ribbon owes Mom a line for. Recorded here rather than swept up, because *"it was
+Paul" is a DISPOSITION, not a dismissal.*
+
+> *"There's an azalea by the pond that we do want to move later so we'll wanna reminder whenever the
+> weather and conditions are good according to that plant's profile — when's a good time to think
+> about moving it and what kind of spot to move it to."*
+
+**Three things it actually asks for, and only the first is trivial:**
+1. **A record that this specific azalea is slated to move.** `plants.json` has `azalea`, and the
+   pond-side individual is exactly the *"same species, several individuals across zones"* case that
+   **W6 (the instance model) is deferred on.** This is a real instance of that gate, not a
+   hypothetical — note it against W6 rather than cloning a record.
+2. **A timing reminder keyed to the plant's own profile.** Guru's reply said late-March–April or
+   late-August–September at this elevation. ⚠️ **That is a model read and is not canon** — it is not
+   in `plants.json`, and a transplant window is exactly the kind of date the season-note authoring
+   rule forbids asserting loosely. If it ships, it ships as authored canon with a source.
+3. **Where to move it to** — a judgment call needing sun/soil/drainage, i.e. a zone recommendation.
+   The new 2018 leaf-off basemap frames make the candidate ground legible for the first time.
+
+⚠️ **No card, no reminder and no canon edit has been made.** Deliberately: the ask arrived at a lap's
+close, item 2 would put an unverified date in front of a reader, and item 1 touches a deferred gate.
+
+---
+
 ## 🛰 BASEMAP & LAND-DATA SESSION — 2026-09-01 · what got built, and what is owed
 
 **How this started:** Paul asked whether Google Earth Pro's polygon tool could define zones.
