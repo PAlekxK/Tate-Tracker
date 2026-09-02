@@ -1,0 +1,27 @@
+{
+  "image": "base-naip-2017-10-oct.png",
+  "source": "USDA NAIP via Microsoft Planetary Computer",
+  "license": "public domain (US federal work) — redistributable",
+  "stacItem": "ga_m_3408430_sw_16_1_20171020_20171207",
+  "captureDate": "2017-10-20",
+  "gsdMeters": 1.0,
+  "projection": "EPSG:4326 linear (the API renders the exact bbox)",
+  "declaredAccuracy": "+/-6 m @ 95% (NAIP contract spec) — ~20 ft",
+  "bounds": {
+    "west": -84.36990044993301,
+    "south": 34.54754054054054,
+    "east": -84.364899550067,
+    "north": 34.55165945945946
+  },
+  "pixelWidth": 1500,
+  "pixelHeight": 1500,
+  "propertyAnchor": {
+    "lat": 34.5496,
+    "lon": -84.3674
+  },
+  "season": "leaf-on",
+  "seasonBasis": "month at ~2,873 ft Blue Ridge; Apr/Nov are mixed and read transitional",
+  "noonSunAltitudeDeg": 44.1,
+  "shadowLengthPerUnitHeight": 1.03,
+  "shadowNote": "shadow = height / tan(altitude). Higher is better for tracing edges."
+}

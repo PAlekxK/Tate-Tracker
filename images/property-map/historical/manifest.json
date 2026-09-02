@@ -1,0 +1,41 @@
+{
+  "purpose": "USGS historical topographic sheets cropped to the property. FOR LOOKING.",
+  "license": "public domain (US federal work) \u2014 these crops are redistributable",
+  "datumCaveat": "Sheets are NAD27; the anchor is WGS84. The 20-40 m north-Georgia shift is NOT applied (needs NADCON grids). Nothing traced on these may enter zones.json.",
+  "georeferencing": "TerraGo /LGIDict /CTM (PDF user space \u2192 Polyconic metres, Clarke 1866), inverted; the property is placed by the forward Polyconic projection. Verified against /Registration control points where the sheet supplies enough. No gdal required.",
+  "sheets": [
+    {
+      "year": 1888,
+      "sheet": "topo-1888.pdf",
+      "centralMeridian": -84.25,
+      "controlPoints": 2,
+      "ctmCheckMetres": 0.0,
+      "metresPerPdfPoint": 44.1,
+      "propertyInSheet": true,
+      "cropSpanFt": 6000.0,
+      "output": "topo-1888-property.png"
+    },
+    {
+      "year": 1911,
+      "sheet": "topo-1911.pdf",
+      "centralMeridian": -84.25,
+      "controlPoints": 4,
+      "ctmCheckMetres": 0.0,
+      "metresPerPdfPoint": 44.1,
+      "propertyInSheet": true,
+      "cropSpanFt": 6000.0,
+      "output": "topo-1911-property.png"
+    },
+    {
+      "year": 1971,
+      "sheet": "topo-1971.pdf",
+      "centralMeridian": -84.313,
+      "controlPoints": 12,
+      "ctmCheckMetres": 0.0,
+      "metresPerPdfPoint": 8.47,
+      "propertyInSheet": true,
+      "cropSpanFt": 6000.0,
+      "output": "topo-1971-property.png"
+    }
+  ]
+}
