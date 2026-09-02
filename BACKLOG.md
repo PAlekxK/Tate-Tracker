@@ -67,8 +67,44 @@ has flown this quad seven times and **exactly one is leaf-off — 2022-01-10, th
 all seven** at 33.4°, shadows 1.52× object height. That is the frame the zones were traced on,
 and it is why the 8/31 trace was hard. **So the frame is chosen PER ZONE, not once.**
 
+### 🔴 PAUL FOUND THE REAL LIMIT — 2026-09-01, and it outranks everything below
+
+> *"That screenshot doesn't zoom like the Google Earth website does. When I zoom in now with the
+> starred 2018-04 button selected, the resolution still gets really poor. And when I do the same on
+> Google Earth, the resolution stays good."*
+
+**He is right, and it is structural.** A screen capture is a FIXED RASTER — the 2018 frame is
+1568 px across ~700 m, so ~0.45 m/px, and zooming in the tracing tool only magnifies those pixels.
+Google Earth streams progressively finer tiles as you descend. **No amount of registering a single
+screenshot fixes this**; the detail is not in the file.
+
+**⭐ The fix, and the arithmetic says it is cheap.** All 23 zones fit inside **231 m × 138 m** —
+only 50% of the traced frame's width. The viewport is a 1512×595 letterbox, so:
+
+| capture width | resolution | vs NAIP | captures needed |
+|---|---|---|---|
+| 700 m *(what we have)* | 0.45 m/px | 1.3× | 1 |
+| **~350 m** | **0.22 m/px** | **2.7×** | **1 — covers every zone** |
+| 250 m | 0.16 m/px | 3.8× | 4 |
+| 150 m | 0.10 m/px | 6.3× | 6 |
+
+So Paul's own proposal — *"a zoomed out view and a zoomed in view that you can navigate around"* —
+is right, and one ~350 m capture centred on `-84.366847, 34.549125` covers all 23 zones at 2.7×
+NAIP. A 150 m mosaic at 6.3× is six captures if that is not enough.
+
+⚠️ **BLOCKED ON A FLAKY DEPENDENCY, not on a decision.** Earth Web wedges on its splash screen
+whenever an already-loaded instance is navigated by URL; it recovers after ~60–90 s but did not on
+the last three attempts. **Do not re-navigate to retry — that restarts the clock.** Wait it out, or
+drive zoom with the on-screen `−`/`+` controls, which do not trigger the reload path.
+
+**Registration is already solved and reusable** — `tools/register-gearth-frame.py` takes four
+control points read off Earth's own cursor readout, so each new capture is four hovers plus a
+screenshot. Nothing new needs designing.
+
 ### 🔜 OWED — next steps, in the order they are worth doing
 
+0. **⭐ THE ZOOMED-IN CAPTURE (above).** Highest value, unblocks real re-tracing, ~10 minutes when
+   Earth is behaving.
 1. **The 2018 frame covers 74%, not 100%.** The northern strip is missing — Earth Web's
    viewport is a wide letterbox and the frame is square. Fix: two captures mosaicked, or one at
    a wider zoom (costs resolution — at the wider zoom it is already ~0.61 m/px, no better than
