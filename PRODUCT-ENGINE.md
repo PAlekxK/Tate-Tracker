@@ -19,11 +19,46 @@ not start at step 3.
 
 | # | Do | Gated on | State |
 |---|---|---|---|
-| **1** | ~~Fleet lap 1~~ | — | ✅ **RAN 2026-09-01** — beats 0,2,3,5,7 done · INBOX drained 2/2 · PROVENANCE 6→3. 🔴 **OPEN at beats 4 + 6, both Paul's gates** → `BACKLOG.md` Track B § FLEET LAP 1 |
+| **1** | ~~Fleet laps 1-2~~ | — | ✅ **BOTH CLOSED 2026-09-01.** ⚠️ This row read *"OPEN at beats 4 + 6"* until 2026-09-02 — **beat 6 RAN** (Paul ruled; 5 Bolores items closed) and lap 2 closed after it. Beat 4 is **carried to lap 3 on Paul's instruction**, held by a signal (STALE-OPEN fires ~2026-10-29), not by a promise. 🟠 **The loop is FIRED again today** — SEASON + INBOX |
 | **2** | ~~Review the two conversation mines~~ | — | ✅ **BOTH LANDED 2026-09-01**, reviewed. 6 material findings · **217 images staged** · 4 new door entries. See below |
-| **3** | **`user-researcher` interview** — beat 0 | step 2 | ⏸ |
-| **4** | Agile PM artifacts — vision · personas · JTBD · now/next/later | step 3 | ⏸ |
-| **5** | Architecture options, priced | step 4 | ⛔ **do not start here** |
+| **3** | ~~`user-researcher` interview~~ | step 2 | ✅ **RAN 2026-09-02** as seat 1 of a 5-seat panel → `.user-research/2026-09-02-estate-manager-scoping.md` |
+| **4** | Agile PM artifacts | step 3 | 🟡 **partly delivered** by seat 1 (persona set + JTBD). ⛔ Its JTBD verdict is that the owner surface has **no evidenced job** — read it before commissioning more |
+| **5** | Architecture options, priced | step 4 | ✅ **RAN 2026-09-02** → `.engineering/…` + `.ai-advisor/…`. Options only; nothing decided |
+
+### 🗳 PANEL RAN 2026-09-02 — three seats converged. **AT PAUL'S GATE; nothing is ruled.**
+
+Seats: `user-researcher` · `engineering-partner` · `ai-advisor`. Brief:
+`.plans/2026-09-02-estate-manager-scoping-brief.md`. `ux-expert` and `content-steward` **held** —
+copy is surface-coupled and shape depends on where the personalization boundary lands.
+
+⭐⭐ **UNANIMOUS, from three independent lenses: do not build an estate-manager loop or owner
+surface yet.** Not *later, when convenient* — **the evidence for it does not exist.**
+
+| seat | why not |
+|---|---|
+| `user-researcher` | The one owner job unservable per-property (*"tell me which of my places needs me"*) is **unevidenced for both known users.** Paul has one property and his per-property loops serve him; Bob has never been asked |
+| `ai-advisor` | **All three candidate triggers fail** — divergence is N=1 (a check that cannot be *seen to fail*, against S3); a new instance fires once (an event, not a cycle); machinery propagation is **already `claude-meta-stack`'s**, so building it = a second meta-stack scoped to 2 of 14 loops |
+| `engineering-partner` | The **record scoping** is real and has a deadline; the **surface** does not. Separate them |
+
+**What all three say to do instead:** scope the record now (owner → property → contributor as a
+**naming and config contract** — not a database, not a URL scheme), classify what is engine vs
+config vs instance, and **write the promotion gate** that says when estate-manager earns loop
+status. `ai-advisor`'s proposed gate: instance 2 deployed **and** an `engine` artifact *observed* to
+diverge once.
+
+⛔ **The name should not be used.** `user-researcher`: *"manager"* is the task-board vocabulary
+Fernwood's own tone rule forbids, and a product-sounding name on an internal loop gets shipped by
+accident. `ai-advisor`: it is doing **three** jobs — tenancy model · Paul's build-management seat ·
+cross-instance conformance — and the middle one is **a missing SEAT, not a missing loop** (route to
+`/team-audit`).
+
+⚠️ **The main session's skill-vs-cycle partition was attacked by BOTH technical seats and does not
+survive as stated.** The *axis* holds (a skill is how work is done; a cycle is what makes it happen
+unasked). The *cut* was wrong: `fleet_probe.py` is **~85% mechanism**, and leaving the **probe**
+per-instance is how two probes drift into two definitions of *"a lap is owed."* Engineering: three
+layers (detector · declaration-as-data · human disposition). ai-advisor: four (procedure · probe ·
+config · state). ⛔ Both also say **do not extract the fleet skill yet** — one lap, still open at two
+of Paul's gates, against the standing *three runs before a Skill* rule.
 
 **Parked on Paul, correctly:**
 - **Mom-cycle lap 7 is OPEN at leg 6** — the ack ribbon is held until he does more zone work.
@@ -33,7 +68,7 @@ not start at step 3.
   block below. **Scoping is unblocked.**
 
 **Independent, take when there is room:**
-- ⛔ ~~**UX sweep** — owed~~ **NOT OWED. The checker was wrong** (fixed 2026-09-01). A full
+- ⚠️ **UX sweep — OWED AGAIN as of 2026-09-02** (24 viewer commits since the 08-31 run, limit 20). The line below is the 09-01 reading and is kept for its lesson, but **read the live checker, not this bullet.** ~~**NOT OWED. The checker was wrong** (fixed 2026-09-01).~~ A full
   two-pass production sweep ran **2026-08-31**, 17 of 18 punch items shipped; `check-ux-sweep.py`
   matched the FILENAME and the trail is named `production-full-sweep.md`, so its own clock went
   blind to it and reported 29 days. Now reads **rested · last 2026-08-31 (1d)**.
