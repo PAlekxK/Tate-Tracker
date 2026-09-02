@@ -26,3 +26,6 @@ exports/
 # High-res Esri tracing frame — NOT redistributable, local display only.
 # tools/fetch-trace-hires.py regenerates it. Never commit it.
 images/property-map/.local/
+
+# Google Earth Web captures — Google imagery, display-only, never redistributable.
+images/property-map/.local/gearth/

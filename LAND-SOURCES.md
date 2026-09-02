@@ -103,6 +103,15 @@ NOAA 1991–2020 climate normals (KJZP) · USDA Web Soil Survey series candidate
 never tested — waits on the W9 soil test**) · Almanac frost dates · the on-site Ambient Weather
 station, which is the only *measured* record of this exact spot.
 
+### Google Earth Web — historical archive back to 1985 (⛔ display only)
+~16+ captures against NAIP's 7, reaching 25 years further back. **The imagery date is
+URL-addressable**, so any capture is directly reachable and the archive is scriptable.
+⭐ The **March–April 2018** frame is the best view of this property that exists: leaf-off at a
+52–64° sun, roughly a third the shadow of the frame the zones were traced on.
+⚠️ Two documented traps — the attribution date **lags** the header while tiles load, and the
+1985 tick renders **100% loaded and completely blank** here.
+Full write-up, the URL recipe, and the untested capabilities: **`GOOGLE-EARTH-NOTES.md`**.
+
 ---
 
 ## LEADS — plausible, not yet checked. Do not cite as fact.
