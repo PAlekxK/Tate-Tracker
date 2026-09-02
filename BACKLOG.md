@@ -2293,6 +2293,70 @@ this repo's doctrine is that a quiet watcher and a dead one must never read the 
 
 ---
 
+## 📜 C3 · THE TRACE IS A QUERY, NOT A FILE — and the founding leak is located `[practice-steward, 2026-09-02]` ⚙️ engine
+
+Paul asked for *"records for each of these items tracing how they go from idea to concept to design."*
+`practice-steward` **did not reverse its earlier drop of a design-doc artifact**, and gave a measured
+reason instead of a preference.
+
+**It built the citation graph over all 98 artifacts.** Seeded at the activation research: out-degree
+**5**, ⭐ **in-degree 0**, depth-1 **6**, depth-2 10, full closure **77 of 98**.
+
+- ⭐ **In-degree zero IS the finding.** Every edge points backward — *that is a ledger, measured.* And
+  it is the second, better reason a `.decisions/` card is wrong here: **a card is an in-edge by
+  construction.**
+- **Closure 77 of 98 is why "just derive it" is not already true.** Depth-1 is a trace; depth-infinity
+  is the library. ⭐ **The depth bound IS the design.**
+- **Derivable today: artifact to artifact, 48 of 98 (49%)** with no new convention — a path is already
+  machine-readable.
+- **NOT derivable: commit to artifact, 5 of 100.** That single edge is the only place a convention is
+  owed.
+
+### THE FOUNDING LEAK, VERIFIED INDEPENDENTLY 2026-09-02
+
+`dbdff0b` (2026-08-02) carries, in its commit body:
+
+> *"Paul's x-corner hypothesis was researched and declined: glyph collision with the x answer, NN/g
+> icon-ambiguity findings for 65+, off the reading path."*
+
+**A real alternative, researched, declined, with three stated reasons — and it exists in exactly one
+place.** Grepped: **zero hits** in any tracked file for *x-corner*, *corner hypothesis*, or
+*icon-ambiguity* — **including the `.ux-reviews/` trail that should hold it.** The same commit points
+at `~/Desktop/fernwood-button-options`, a folder that no longer exists.
+
+**So the next person to propose an x-corner dismiss gets that research done again.** This is the leak
+class named earlier today — *what dies is the alternative built, measured and rejected* — caught in a
+specific commit, reasons still legible, reachable only by someone who already knows to run `git log`.
+
+**The design: a read-only trace QUERY at depth 1, not a per-item file.** The ceremony objection
+**dissolves rather than being scoped: nobody writes an empty record because nobody writes a record.**
+Read at OPEN, which is where re-proposal happens. Net cost: one read-only script, one commit-body
+rule, one heading string, one `exhibit.py choose`. It also **dropped the `Exhibit:` commit trailer it
+proposed the same morning** — a new convention at 0% adoption against an existing one at 5% the same
+regex already reads.
+
+### Skills — narrow YES, broad a THREE-WAY SPLIT `[paul asked directly]`
+
+**Narrow:** yes — **precisely because a skill is invoked and this procedure has no trigger**, so the
+container's measured weakness is not a defect here. This **retires D1**: a skill has no map to diverge
+from.
+
+| layer | container | evidence |
+|---|---|---|
+| **procedure** | **a skill** — universal | version-tracked, invocable; `design-options`' Refinement log proves procedure + iteration live in one file |
+| **trigger** | **NOT a skill — a detector at a pickup surface** | `/design-options`: 4 logged runs, **0 trigger-initiated**. `/ux-sweep` is named **zero times** in `mom-cycle/SKILL.md` |
+| **record** | **the weak leg — 5 of 38 skills carry any log** | The fix is prototyped in his own corpus: `finding-ledger` writes **automatically, as a side effect of an act that already happens.** **Hand-appended reaches 5/38; tool-written reaches 100%.** |
+
+### And it owns a miss in its own pipeline
+
+*Would the pipeline have surfaced the research's cheapest unblock — "build the door for Paul, on his
+own device, with her surface untouched"?* **No. A human did.** It refuses the charter excuse: that is
+a **dependency** claim, not a value claim, so it was in scope. **Fix — OPEN step 0: name the blocking
+unknowns from the seat artifacts that already list them, and record whether a subset is unblocked.
+"All of it is blocked" is a valid outcome.** That one step also covers M3.
+
+---
+
 ## 🎛 C2 · THERE IS NO FEATURE DEVELOPMENT PROCESS — and the prototyping tool has run ONCE `[paul-raised 2026-09-02]` ⚙️ engine
 
 Paul: *"I want to be sure we're using some of the prototyping tools we've built — not UX review,
