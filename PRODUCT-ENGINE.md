@@ -172,6 +172,78 @@ onward). If a claim here looks unsupported, `git log` before assuming it was inv
 
 ---
 
+## 🧭 THE EXPANSION MODEL `[paul-stated 2026-09-02, after stepping away]` — CAPTURE ONLY
+
+> *"Our expansion model — I want this in addition to our dev/QA/production environments, but really
+> use **Fernwood as a test bed for everything**. We've really proved the internal basic mechanics and
+> core components. So what we'll want to do is the data migration — modularize everything that makes
+> the Fernwood renderer, in a way that it can accept data to personalize everything. We'll figure out
+> the right balance, but ideally we have pretty **standard engines that produce everything based on
+> data specific to Fernwood versus Bob's house**. Then I'd want to expand Fernwood to just be **Mom's
+> profile**, and give her a login and the ability to select Fernwood from there. That would be a great
+> first step. Then from there we could add **her condo in Atlanta** — and that condo is going to be a
+> very different look. **There's no garden**, right? More of an urban side, local events. The weather
+> is still relevant. We have to think through how else we make something much more **low maintenance,
+> still engaging**, and highlight the uniqueness of that property and **the community around it**."*
+
+### The sequence, as he stated it
+
+| # | Step | Note |
+|---|---|---|
+| 1 | **Modularize the renderer** — standard engines, per-property data | The migration in `.plans/2026-09-02-data-model-design.md` |
+| 2 | **Fernwood becomes Mom's profile** — she logs in and selects Fernwood from it | *"a great first step"* |
+| 3 | **Add her Atlanta condo** as the second property | Urban, gardenless, community-facing |
+
+⭐ **THIS SETTLES AN OPEN QUESTION: instance 2 is HER CONDO, not Bob's house.** The data-model doc
+listed it undecided; `user-researcher` had independently reached the same candidate on different
+grounds (the only test case whose occupant's calibration is *already measured*, the most different
+domain mix, and the only one that tests the owner/contributor role flip). Two paths, one answer.
+
+### ⚠️ Four things this collides with — surfaced, none decided
+
+1. ⛔ **`user-researcher` recommended MODELLING the condo, NOT SHIPPING it to her** — *"her attention
+   is the scarcest resource, she is demonstrably still in the learning period, and Fernwood's own
+   adoption question was re-opened 2026-08-01 and never re-closed."* Paul's model ships her **a login
+   AND a second property**. Both are coherent; they are not the same plan. **His call, and it should
+   be made knowingly rather than by sequence.**
+2. **"Mom's profile" collides with the naming verdict.** `content-steward` held, with more confidence
+   than anything else it filed, that the multi-property shell should be called **nothing** — *"naming
+   it creates it"*, and every instance already has a name. A profile she logs into and selects from is
+   a surface that needs to be *something she opens*. Unresolved.
+3. ⚠️ **HER NAME IS NOT IN THIS PUBLIC REPO.** She is "Mom" in every tracked file; the name Paul used
+   appears **nowhere** (verified 2026-09-02). Naming the profile for her would put it in the UI and in
+   public git. **A deliberate decision, not a copy detail.**
+4. ⭐⭐ **"No garden" is the sharpest engine-vs-instance test that exists**, and it should be treated
+   as the migration's real falsifier rather than a content note. Plants are **41% of the Guru digest**;
+   the care calendar, `seasonNotes`, bloom windows, the honesty markers and the entire
+   harvest → confirm-card → fold → ribbon pipeline all hang off a growing thing. **At the condo they
+   have nothing to attach to.** If the "standard engine" cannot render a property with no plants
+   without a fork, the modularization is not done — and that is knowable *before* shipping her
+   anything.
+
+### 🆕 And a domain family that does not exist yet
+
+*"Local events… the community around it."* `momlib.DOMAINS` declares five action groups — `tend` ·
+`fight` · `visit` · `run` · `place` — every one of them about a *thing on the property*. **A
+neighbourhood, its events and its people are none of these.** The condo is not a subset of Fernwood's
+model with the plants removed; it needs at least one domain family Fernwood has never had, and that
+family is **outward-facing** where every existing one is inward-facing.
+
+⚠️ Note the tension with the site premise: Fernwood's design is built around *no cell service, Wi-Fi
+from the house only.* An urban condo inverts that completely — connectivity is assumed, and
+"community around it" implies live external data. **The offline-first constraints are FERNWOOD's, not
+the engine's**, and the manifest currently cannot tell those apart.
+
+### Also captured
+
+- ⭐ **"Fernwood as a test bed for everything"** — a standing role for the property, additive to
+  dev/QA/prod (C1). Worth stating in its own right: it makes Fernwood the place where a mechanism is
+  proven before it reaches a second estate, which is a *different* job from being instance 1.
+- **Paul: *"we can do another backlog rationalization the right way to do this."*** The 2026-09-02
+  proposal is unapplied and already carries the engine/config/instance axis this work needs.
+
+---
+
 ## ⭐⭐ C0 · FERNWOOD AS A PRODUCT — multi-tenancy, hosting, auth, cost `[paul-raised 2026-09-01]`
 
 > **CAPTURE ONLY. Nothing is scoped, nothing is decided, no work has started.** Paul asked for this
