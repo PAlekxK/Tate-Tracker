@@ -2254,6 +2254,50 @@ Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
 
 # TRACK C — Cross-cutting / infra / doctrine
 
+## 🎛 C2 · THERE IS NO FEATURE DEVELOPMENT PROCESS — and the prototyping tool has run ONCE `[paul-raised 2026-09-02]` ⚙️ engine
+
+Paul: *"I want to be sure we're using some of the prototyping tools we've built — not UX review,
+**concept review** or something… tools that let me quickly review visual concepts and click through
+features. That's something we'll need to formalize into a **feature development process**, so we can go
+from an **approved backlog row → design and concept → code → implementing and testing it fully in the
+larger stack**."*
+
+**The tool is `/design-options`** — the exhibit ideation cycle (`~/.claude/skills/design-options/`):
+mock options as swappable patches **on the live app with real data**, compose them into one
+self-contained `compare.html`, stage for Paul, iterate, then verify the shipped result against the
+winning exhibit.
+
+⛔ **MEASURED 2026-09-02: IT HAS RUN EXACTLY ONCE — 2026-08-02, the session it was standardized FROM.**
+Two commits, both that day (`430675c`, `f70aeec`); one directory on disk
+(`.design-options/2026-08-02-input-ia/`). **Zero runs in 31 days.**
+
+⭐⭐ **AND THE WAY IT WAS CREATED MAKES THAT WORSE, NOT NEUTRAL.** Paul explicitly **overrode the
+three-runs-before-a-Skill promotion gate** to get measurement instead: *"Just make it a skill… and
+let's instead take the opportunity to **measure how well the skill works and see how we can improve it
+over these iterations**."* The skill carries a Refinement log for exactly that. **There have been no
+further iterations, so the measurement he traded the gate for never happened.** The gate was spent and
+nothing was bought.
+
+**Why it went quiet is structural, not neglect** — it is **named** but not **wired**: 1 mention in
+`CLAUDE.md`, 1 in `MOM-CYCLE-MAP.md`, 3 in `BACKLOG.md`, **0 in the `/mom-cycle` procedure** (the
+execution path), 0 in the fleet map, and **no checker** — while `/ux-sweep` was given
+`check-ux-sweep.py` on 2026-08-24 for precisely this reason.
+
+⭐ **THIRD INSTANCE OF ONE SHAPE IN THIS SESSION'S OWN FINDINGS**, which is why it is filed as a
+process defect rather than a reminder: `/ux-sweep` (named nowhere the loop could reach, fixed 08-24) ·
+the backlog rationalization (no owner until `check-backlog-drift.py` was built today) · and this. Same
+sentence each time — **a capability the loop cannot reach by running its own procedure is not a
+capability the loop has** — and the same sentence as the meta-stack's seed inbox, one altitude up.
+⚠️ Paul could not remember the tool's name. **That is the symptom, not a lapse.**
+
+**Scope of the ask, as he framed it:** a pipeline, not a tool — *approved row → concept → code → ship
+→ test in the larger stack.* ⭐ **C1 (below) is the BACK HALF of this same pipeline**, so they are one
+engagement, not two. Sequenced: **`practice-steward` first** (it is process architecture, and the
+topology should serve the process rather than the reverse), **`engineering-partner` after**, on deploy
+topology and environments.
+
+---
+
 ## 🧪 C1 · THERE IS NO ENVIRONMENT BETWEEN A LOCAL FILE AND MOM'S PHONE `[paul-raised 2026-09-02]` ⚙️ engine
 
 Paul: *"I would really like us to start adopting practices like having a dev environment, a QA
