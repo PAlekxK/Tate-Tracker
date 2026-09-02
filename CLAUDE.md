@@ -412,6 +412,29 @@ A queue of small confirm-cards at the top of the app asking the ground-truth onl
 
 **Deferred pending signal (only n=2 real answers so far — honor [[feedback_defer_affordances_pending_signal]]):** the full "What you've settled" journal surface (content-steward drafted the copy) — the chip is the visible close for now; a standing settled-tracker risks the star-trap, so it waits for real engagement signal. Also deferred: dwell/note-opened metrics, retire-a-Not-sure-after-3-returns, AI-assisted card phrasing. Full panel trail: `.user-research/`, `.ux-reviews/2026-07-14-mom-perspective-loop-close-visibility.json`, `.engineering/2026-07-14-path-mom-harvest-fold-loop.md`, and the ai-advisor/content-steward returns.
 
+## 🔤 Vocabulary → `VOCABULARY.md` `[paul-ratified 2026-09-02]`
+
+**How we refer to things — one document, cited never restated.** `estate` · `grant` · `relationship`
+· `capability` · `domain` · `module` · `person` · `instance`, plus **the words we deliberately do NOT
+use and why**.
+
+⭐ **Read §4 before proposing any name.** It records what was rejected and the reason — `property` as
+a tenant noun (433 hits; `property.json` already means *facts about this place*, so the key is
+**`estateId`**), `tenant`, `profile`, `resident` (it is a bird), `user`, *"estate manager"*, and
+*"Almanac"* as a portable noun. **The rejections are the point:** this corpus's measured leak is that
+an alternative considered and rejected never gets written down, so the next reader re-proposes it.
+
+⚠️ **Two rules from it that bite immediately:** `estate` is a **schema word and never reaches a
+user-facing surface** — the interface names places, because she is not at *an estate*, she is at
+Fernwood. And **`engine` survives only as a CLASS LABEL** (`class: engine`), never as a standalone
+noun in prose — `viewer.html` carries **115 mentions of vehicle engines**. *(This file's sibling
+`PRODUCT-ENGINE.md` is a pre-existing compound filename, not prose, and is left alone.)*
+
+⛔ **`group` is DOUBLE-BOOKED in running code** — `tend/fight/visit/run/place` in `momlib.DOMAINS`
+(the action axis) and `vehicle/equipment/household-system` in `vehicles.json` (the kind axis). Two
+meanings, one key, one repo. **Not fixed by promoting the vocabulary**; it awaits a migration
+decision, and `module` will need to name sets across both, which is exactly that seam.
+
 ## 📋 Canonical backlog → `BACKLOG.md`
 
 **Live status for every Fernwood thread lives in `BACKLOG.md` (repo root) — read status there, not from the dated "Pickup point" log below (that log is historical, not current status).**

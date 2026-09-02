@@ -1,15 +1,11 @@
-# THE VOCABULARY — proposed 2026-09-02
+# THE VOCABULARY — how we refer to things
 
-> ## ✅ **PROMOTED 2026-09-02 to `VOCABULARY.md` at the repo root** `[paul-ratified: "let's promote
-> it to VOCABULARY.md"]`. **Read the canonical file, not this one.**
+> ## ✅ **CANON.** Promoted 2026-09-02 `[paul-ratified: "let's promote it to VOCABULARY.md"]`
+> Proposal trail: `.plans/2026-09-02-vocabulary-PROPOSAL.md` (marked promoted; do not read it as open).
 >
-> ⚠️ This header exists because **this session opened by fixing the identical defect**: the 07-29
-> rationalization proposal carried *"Nothing here has been applied"* for 35 days beside its own
-> applied result. A proposal that reads open next to its promoted outcome is the same failure, and
-> re-committing it inside the vocabulary file — whose §4 exists to stop rejected work being
-> re-proposed — would have been the worst possible place for it.
->
-> Kept as the decision record: what was proposed, and the collision audit it rested on.
+> **§3's terms are ratified BY THIS PROMOTION** and their stamps now read `paul-ratified 2026-09-02`.
+> **§5 is NOT ratified — it is a live defect awaiting a migration decision**, and promoting this file
+> did not fix it.
 
 **Why this document is dangerous, stated first.** This corpus already carries **seven confirmed
 vocabulary forks** — including three ratified wordings of one rule where the newest independently
@@ -68,9 +64,9 @@ discovered late.
 
 ---
 
-## 3 · PROPOSED — agent-proposed, needing Paul's ruling
+## 3 · RATIFIED 2026-09-02 — by the act of promoting this file `[paul-ratified]`
 
-| term | proposed meaning | why this word |
+| term | means | why this word |
 |---|---|---|
 | **module** | ⭐ **the ON/OFF unit per estate.** A named set of one or more domains — *"the garden"* is `plant`+`weed`+`turf`+`zone`; *"the fleet"* is `vehicle` | Effectively free (5 hits). `component` and `section` are UI-flavoured; `group` is double-booked |
 | **person** | a human. Never "user," never "account" | `user` is systems vocabulary on a surface built for one person who is not a user of software, she is a woman with a mountain |
@@ -84,7 +80,7 @@ discovered late.
 
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
-**This is the most valuable section in the document.** A glossary that only says what words mean gets
+**This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
 re-proposed against; one that records *what was rejected and why* does not. It is also the direct fix
 for today's measured finding that **what leaks from this corpus is the alternative considered and
 rejected** — so the next reader re-proposes it.
