@@ -113,10 +113,23 @@ onward). If a claim here looks unsupported, `git log` before assuming it was inv
    stays where it is. Do not merge, do not write to it off this entry. It is not dead — it is not
    *this*.
 2. ⭐⭐ **The tenancy unit is OWNER → N PROPERTIES, not user → property.** Bob asked for one profile
-   covering more than one place. **That is the same shape as Paul** (Fernwood, plus whatever follows). So
-   the multi-property case is not a future generalization to be designed for later — it is present
-   in **both** of the only two users this product has, on day one. Every schema, route and
-   surface should assume a property is a CHILD of an owner, never the root.
+   covering more than one place — `paul-relayed`, and the only validated multi-property case there is.
+   So a property should be a CHILD of an owner rather than the root.
+
+   > ⚠️ **CORRECTED 2026-09-02, hours after it was written, by the user-researcher seat.** This
+   > paragraph originally read *"that is the same shape as Paul (Fernwood, plus whatever follows)…
+   > present in **both** of the only two users this product has."* **Paul owns one property today.**
+   > *"Plus whatever follows"* was the main session's projection, written into a canon file as a
+   > present fact and then used to justify the schema. That is this repo's most-repeated failure
+   > (*a wrong SSOT row*) committed inside the very entry that resolves a stale row. **The schema
+   > recommendation survives on Bob's evidence alone; the "both users" argument does not, and is
+   > withdrawn.**
+
+   ⭐ **And the correctness half stands on its own, independent of any feature.** Without property
+   scoping, three things break in the direction that *looks like activity*: attribution loses its
+   bench/unresolved scope, the ribbon clock is unscoped, and `sessions-quiet` sums two households.
+   Those are defects to fix regardless of whether an owner-level surface is ever built. **Scope the
+   record now; defer the surface.**
 3. ✅ **Bob's house HAS a ground-truth contributor** `[paul-stated 2026-09-02]` — someone there who
    would answer the way Mom does for Fernwood. **So Track A's ask → fold → acknowledge machinery is
    CORE SHARED MACHINERY, not Fernwood-only.** ⚠️ And that makes the personalization boundary the
