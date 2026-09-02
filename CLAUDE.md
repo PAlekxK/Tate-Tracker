@@ -378,7 +378,32 @@ A queue of small confirm-cards at the top of the app asking the ground-truth onl
 
 **Two retire layers:** `syncServerAnswers` (per-Mom, interim — stop asking her once she answers, even before folding) + `active:false` in questions.json (universal, final — gone for everyone once folded; fold-answer.py sets this).
 
-**The AI boundary (ai-advisor, 2026-07-14; amended 2026-07-26 — Paul-ratified) — the one rule:** *AI never touches Mom's surface or Mom's words. It may only draft for Paul's approval on the way in, or analyze the record on the way out — Paul's eyes sit between the model and Mom, both directions.*
+**The AI boundary (ai-advisor, 2026-07-14; amended 2026-07-26 and 2026-09-02 — Paul-ratified) — the one rule:** *AI never touches an estate's people or their words. It may only draft for approval on the way in, or analyze the record on the way out — **the ADMINISTRATOR's eyes sit between the model and the estate's people**, both directions.*
+
+> ### ⭐ THE 2026-09-02 AMENDMENT — the gate is a ROLE, not a person `[paul-ratified 2026-09-02]`
+>
+> **Original wording, preserved:** *"AI never touches Mom's surface or Mom's words… **Paul's eyes**
+> sit between the model and **Mom**, both directions."*
+>
+> **Why it changed.** With a second estate the rule silently rewrote itself to *"the owner's eyes"* —
+> which Paul cannot enforce, because he is not the owner at Bob's house. Naming the **administrator
+> capability** instead makes it enforceable by the person who wrote it: **Paul administers every
+> estate.** Asked whether to use his name or the role, he ruled: *"use the role name."*
+>
+> ⚠️ **It also dissolves an edge case that had no answer.** At Mom's condo she would be **owner and
+> contributor at once** — so *"Paul's eyes sit between the model and Mom"* had no second party and no
+> meaning. The gate was never the owner; it was always the administrator, and the old wording only
+> looked right because Paul was both.
+>
+> ⛔ **NOTHING ABOUT MOM'S PROTECTION IS WEAKENED.** The rule is the same act by the same human; only
+> the *name of the seat* generalizes. Both amendment clauses below (INGRESS and QUARANTINE) stand
+> unchanged and now read against `administrator` wherever they said `Paul`.
+>
+> ⚠️ **And a duty follows the generalization, which the old wording never had to state:** an
+> administrator who is not a member of the household **reads that household's notes, voice and Guru
+> turns.** At Fernwood that is a family arrangement. At another estate it requires **explicit
+> up-front agreement before the first contributor input** — the hard prerequisite in
+> `.plans/2026-09-02-data-model-design.md` §7.
 
 > **AMENDMENT, 2026-07-26 (two clauses).** The 7/14 rule constrained **egress** and was silent on **ingress** — it was written for a world where everything she said arrived through the app. That stopped being true, so:
 > - **INGRESS — an agent may read only what Mom routed to the project.** *Paul relays; the model does not fetch.* No sweep, no watcher, no scheduled read of her messages or any other channel she did not send to Fernwood. **Paul reached this independently from the product side the same day** (see the channel doctrine above — the app is the feedback mechanism, text is not), so it is doctrine from both directions, not a safety hedge on a live practice.
