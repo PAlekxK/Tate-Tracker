@@ -7,6 +7,15 @@ State artifact: `cycle/fleet/cycle-state.json` · map: `CYCLE-MAP.md` beside thi
 
 ---
 
+<!-- meta-lap: 2026-09-02 -->
+> **2026-09-02 — META WORK, NOT A LAP.** The repo moved 13 commits today and **no lap of this loop
+> ran.** The work was the estate product (Fernwood as one instance of many), the data model, the
+> governance model, a backlog-rationalization trigger, and a new expert seat — loop *machinery* and
+> doctrine, none of it this loop's subject matter. ⛔ **This loop's trigger is unchanged and was not
+> fired:** it still rests on HER input. Recorded per `cycle-docs-check.py`, so a chronicle silent
+> beside a moving repo is not read as a lap that went unrecorded.
+
+
 ## Lap 2 — 2026-09-01 · ✅ **CLOSED** — the lap where beat 0, the loop's own gate, was found broken
 
 **Fired on: Paul's update, in person.** The probe was **RESTING** — all four signals quiet — so this

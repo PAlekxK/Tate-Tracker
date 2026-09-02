@@ -11,6 +11,15 @@ amended mid-lap.
 
 ---
 
+<!-- meta-lap: 2026-09-02 -->
+> **2026-09-02 — META WORK, NOT A LAP.** The repo moved 13 commits today and **no lap of this loop
+> ran.** The work was the estate product (Fernwood as one instance of many), the data model, the
+> governance model, a backlog-rationalization trigger, and a new expert seat — loop *machinery* and
+> doctrine, none of it this loop's subject matter. ⛔ **This loop's trigger is unchanged and was not
+> fired:** it still rests on HER input. Recorded per `cycle-docs-check.py`, so a chronicle silent
+> beside a moving repo is not read as a lap that went unrecorded.
+
+
 ## Interlap note — 2026-09-01 (evening) · **no lap ran.** The board re-fired AFTER lap 8 closed, and it was Paul's own device.
 
 **What happened, in order.** Lap 8 closed at **12:36 PM ET** (`5a1915c`), 7 of 7 + QA. At **1:43 PM**
