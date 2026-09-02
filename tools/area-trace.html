@@ -175,7 +175,7 @@
       <div class="hd">Ground — NAIP, every capture on this same frame</div>
       <div class="btns" id="base-btns"></div>
       <div class="tip" id="base-note"></div>
-      <div class="tip"><b>1</b>–<b>6</b> pick · <b>G</b> cycles. No single frame is right:
+      <div class="tip"><b>1</b>–<b>9</b> pick · <b>G</b> cycles. No single frame is right:
         leaf-off and high sun cannot co-occur at 34.5&deg;N.</div>
       <hr>
       <div class="hd">Terrain overlay — USGS lidar, same frame</div>
@@ -321,10 +321,23 @@ const BASES=[
 // 2.4x the detail. The catch is placement, and it is a real one — 8.47 m stated accuracy is
 // WORSE than NAIP's +/-6 m. Sharper is not better-placed. Trace shapes on it; do not treat
 // its absolute position as an upgrade.
-const HIRES={slug:"trace-esri-z19", dir:"/images/property-map/.local/",
+// Optional LOCAL frames — licensed imagery, gitignored, so they exist only on a machine
+// that has fetched them. Each is added as a button ONLY after its image is confirmed to
+// load; an offered control that 404s is worse than an absent one.
+const LOCAL_FRAMES=[
+ {slug:"trace-gearth-2018-04-12", dir:"/images/property-map/.local/gearth/", label:"2018-04 ⭐",
+  date:"2018-04-12", gsd:"0.6m", sun:63.7, shadow:0.49, season:"LEAF-OFF",
+  note:"⭐ THE BEST VIEW OF THIS PROPERTY THAT EXISTS. Google Earth, leaf-off at a 63.7 deg sun - " +
+       "a THIRD of the January frame's shadow, and you can see through bare canopy to the ground. " +
+       "Registered by homography from Earth's own cursor readout (an NCC fit scored 0.21 and failed: " +
+       "it is a perspective camera over 71 m of relief). Covers 74% of the frame - the northern " +
+       "strip is missing. A homography is exact for a PLANE and this ground is not one, so it " +
+       "drifts where relief departs from it. FOR SEEING an edge, not a survey - check traces against NAIP."},
+ {slug:"trace-esri-z19", dir:"/images/property-map/.local/", label:"HI-RES",
   date:"2022-02-12", gsd:"0.25m", sun:41.2, shadow:1.14, season:"LEAF-OFF",
   note:"Esri WorldView-3, 2.4x NAIP detail, leaf-off at a higher sun than the January frame. " +
-       "But 8.47 m stated accuracy vs NAIP's 6 m - sharper, NOT better placed. Local only, never shipped."};
+       "But 8.47 m stated accuracy vs NAIP's 6 m - sharper, NOT better placed. Local only, never shipped."},
+];
 let baseIdx=4;   // the frame zones.json was traced against; changing it changes nothing in the record
 const LAYERS=["off","hillshade","slope"];
 let topLayer="off", topOpacity=0.65, peeking=false;
@@ -485,7 +498,7 @@ function applyLayers(){
 function setLayer(k){ topLayer=k; applyLayers(); }
 function renderBaseBtns(){
   $("base-btns").innerHTML=BASES.map((b,i)=>
-    `<button id="bs-${i}" title="${b.date} - ${b.gsd} - noon sun ${b.sun}deg">${b.dir?"HI-RES":b.date.slice(0,7)}</button>`).join("");
+    `<button id="bs-${i}" title="${b.date} - ${b.gsd} - noon sun ${b.sun}deg">${b.label||b.date.slice(0,7)}</button>`).join("");
   BASES.forEach((b,i)=>$("bs-"+i).onclick=()=>setBase(i));
 }
 function applyBase(){
@@ -493,7 +506,9 @@ function applyBase(){
   $("base").src=b.dir ? b.dir+b.slug+".png" : "/images/property-map/base-"+b.slug+".png";
   BASES.forEach((_,i)=>$("bs-"+i).classList.toggle("on",i===baseIdx));
   $("foot-prov").innerHTML = b.dir
-    ? `Esri WorldView-3 ${b.date} · <b style="color:#e2966e">±28 ft</b> (8.47 m stated — worse than NAIP)`
+    ? (b.slug.indexOf("gearth")>=0
+        ? `Google Earth ${b.date} · <b style="color:#e2966e">homography-registered, 74% coverage</b> — see, don't survey`
+        : `Esri WorldView-3 ${b.date} · <b style="color:#e2966e">±28 ft</b> (8.47 m stated — worse than NAIP)`)
     : `NAIP ${b.date} · ±20 ft`;
   $("base-note").innerHTML=
     `<b>${b.date}</b> &middot; ${b.gsd} &middot; noon sun ${b.sun}&deg; &middot; ` +
@@ -506,11 +521,11 @@ function cycleBase(){ setBase(baseIdx+1); }
 BASES.forEach(b=>{const im=new Image(); im.src=b.dir?b.dir+b.slug+".png":"/images/property-map/base-"+b.slug+".png";});
 // Probe for the optional local hi-res frame. Only a frame that actually LOADS becomes a
 // button — an offered control that 404s is worse than an absent one.
-(function(){
+LOCAL_FRAMES.forEach(fr=>{
   const probe=new Image();
-  probe.onload=()=>{ BASES.push(HIRES); renderBaseBtns(); applyBase(); };
-  probe.src=HIRES.dir+HIRES.slug+".png";
-})();
+  probe.onload=()=>{ BASES.push(fr); renderBaseBtns(); applyBase(); };
+  probe.src=fr.dir+fr.slug+".png";
+});
 function applyPlat(){
   const im=$("platimg");
   const w=im.naturalWidth||1, h=im.naturalHeight||1;
@@ -840,7 +855,7 @@ window.addEventListener("keydown",e=>{
   if(e.key==="s"||e.key==="S"){smoothOn=!smoothOn;$("tsmooth").classList.toggle("on",smoothOn);
                                drawDone();drawLines();}
   if(e.key==="b"||e.key==="B")cycleLayer();
-  if(e.key>="1"&&e.key<="6"){const i=+e.key-1; if(i<BASES.length)setBase(i);}
+  if(e.key>="1"&&e.key<="9"){const i=+e.key-1; if(i<BASES.length)setBase(i);}
   if(e.key==="g"||e.key==="G")cycleBase();
   if(e.key==="p"||e.key==="P"){platShown=!platShown;applyPlat();}
   if(e.key===" "){e.preventDefault(); if(!peeking&&topLayer!=="off"){peeking=true;applyLayers();}}

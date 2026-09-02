@@ -40,6 +40,74 @@ the priority cut laid over it.
 
 ---
 
+## 🛰 BASEMAP & LAND-DATA SESSION — 2026-09-01 · what got built, and what is owed
+
+**How this started:** Paul asked whether Google Earth Pro's polygon tool could define zones.
+It ended four layers deeper. Full write-ups: **`LAND-SOURCES.md`** (every database, VERIFIED vs
+LEAD) and **`GOOGLE-EARTH-NOTES.md`** (how to drive Earth Web, and its two traps).
+
+### ✅ SHIPPED this session
+- **`tools/zones-to-kml.py` / `tools/kml-to-zones.py`** — round-trip zones through Google Earth
+  Pro. Importer is dry-run by default, requires `--imagery`, never deletes, refuses holes, and
+  errors on a KML with zero polygons or coordinates off the property. Round trip is a
+  byte-exact no-op across all 23 zones.
+- **`tools/area-trace.html` — SEVEN ground frames**, keys `1`–`9` / `G`. All NAIP frames render
+  to byte-identical bounds, so swapping one moves nothing but the photograph.
+- **`tools/fetch-trace-hires.py`** — Esri z19 (0.246 m/px, 2.4× NAIP). Local only.
+- **`tools/register-gearth-frame.py`** — georeferences a Google Earth capture by homography
+  from Earth's own cursor readout. ⭐ The **2018-04-12** frame is now a layer.
+- **`tools/fetch-historical-topo.py`** — USGS sheets back to 1888, cropped to the anchor.
+- **`fetch-basemap.py`** now derives season and records noon sun + shadow ratio. It had been
+  writing `"season": "leaf-off"` as a hardcoded string.
+
+### ⭐ THE FINDING THAT REFRAMES THE WHOLE THING
+**At 34.55°N, leaf-off and an overhead sun cannot co-occur.** The leaf-off window (Dec–early
+Apr) caps the noon sun near 55° at the equinox; sun above 60° only falls on full canopy. NAIP
+has flown this quad seven times and **exactly one is leaf-off — 2022-01-10, the lowest sun of
+all seven** at 33.4°, shadows 1.52× object height. That is the frame the zones were traced on,
+and it is why the 8/31 trace was hard. **So the frame is chosen PER ZONE, not once.**
+
+### 🔜 OWED — next steps, in the order they are worth doing
+
+1. **The 2018 frame covers 74%, not 100%.** The northern strip is missing — Earth Web's
+   viewport is a wide letterbox and the frame is square. Fix: two captures mosaicked, or one at
+   a wider zoom (costs resolution — at the wider zoom it is already ~0.61 m/px, no better than
+   NAIP). **Decide which before trusting it for the northern zones.**
+2. **Re-trace the field zones on a frame that can actually show them.** `the-turf`,
+   `the-meadow`, `the-green`, `the-green-ring`, `lawn` — all 23 zones are still `status: draft`
+   and were traced under 1.52× shadows. The 2018 frame is the one to redo them on.
+3. **Come back to Google Earth and explore properly** — three named capabilities untried:
+   **compare-two-years** (directly relevant: the lidar is 2018 and the western garden/patio were
+   regraded after it), the **measure tool**, and the **Gemini panel** (⚠️ anything it returns is
+   a model read, never a record value). Also: enumerate every exact capture date on the
+   1985→2025 timeline; only six are known.
+4. **Pickens County GIS / qPublic** — ⭐ **the property boundary is missing from every source in
+   this repo.** This is where it lives, along with deed, sales history and year-built.
+5. **USGS EarthExplorer single-frame aerials (1930s–1990s)** — the only path to a *photograph*
+   of this land before the house. Needs a login and per-frame control-point registration. The
+   1971 topo already establishes there was **no building at the anchor** then.
+6. **A canopy-height model from the 2018 lidar** (DSM − DTM) — would draw the woods/field edge
+   with no shadows and no leaf season at all. Strongest possible source for the field zones, and
+   the pull path already exists (`lidar-hillshade-2018.png`).
+7. **Pull the remaining historical topos** — 1892, 1898, 1911(×3), 1955, 1958(×3), 1961, 1963,
+   1981, plus US Topo 2011/2014/2017/2020/2024. Three of seventeen are done.
+
+### ⚠️ THREE MEASURED TRAPS — each returned success while carrying nothing
+- **Esri z20/z21** answer HTTP 200 with a valid PNG of a grey square reading *"Map data not yet
+  available."* A status check calls that a win and yields a grey basemap.
+- **Google Earth's attribution date LAGS the header** by one frame while tiles load. Recording it
+  mid-load puts a false capture date in the record.
+- **Earth's 1985 tick renders 100% loaded and completely blank** here. The tick is global
+  coverage, not local.
+
+**And one of my own:** the first registration attempt fitted scale+translation by correlation,
+scored NCC 0.21, and **got worse at higher resolution** — the signature of model mismatch, not
+noise. Earth Web is a perspective camera over 71 m of relief inside one frame. The fix was to
+stop guessing and read Earth's own cursor lat/lon at four corners. **The guard that refused the
+bad fit is why this is a note and not a corrupted layer.**
+
+---
+
 ## 📐 From the 2026-08-31 production ux-sweep — Paul's decision walkthrough (trail: `.ux-reviews/2026-08-31-production-full-sweep.md`)
 
 - **[paul-stated 2026-08-31 · D4 = ledger] Pre-glance stack height ledger, next mom-cycle lap.**
