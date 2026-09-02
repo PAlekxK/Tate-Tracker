@@ -2254,6 +2254,51 @@ Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
 
 # TRACK C — Cross-cutting / infra / doctrine
 
+## 🧪 C1 · THERE IS NO ENVIRONMENT BETWEEN A LOCAL FILE AND MOM'S PHONE `[paul-raised 2026-09-02]` ⚙️ engine
+
+Paul: *"I would really like us to start adopting practices like having a dev environment, a QA
+environment, a production environment explicitly — and I think the only thing we're really missing is
+QA, and ensuring we have agents set up to test things as they're released."*
+
+**His premise is right. The shape is sharper than "missing QA."** Measured 2026-09-02:
+
+| | |
+|---|---|
+| branches | **`main` only** — no staging branch, no second deploy target |
+| Pages | serves `viewer.html` from `main`, so **a push is a production deploy** |
+| Worker | one `worker/wrangler.toml`, **zero `[env.*]` blocks**, **one KV namespace** (`OBSERVATIONS`) |
+| CI | `deploy-worker.yml` fires on push to `main` |
+| unit-level | 11 tools carry `--selftest` |
+
+⭐⭐ **THE QA BEAT ALREADY EXISTS AND IT TESTS PRODUCTION.** `MOM-CYCLE-MAP.md:48`, leg 7-QA, added
+2026-09-01: *"a scoped UX/QA review of what this lap changed, **against the LIVE app** — does it look
+and behave as expected **where Mom will actually load it**."* Everything upstream of it is either a
+unit selftest or `check-live.py`, which proves the served bytes match HEAD and **says nothing about
+whether the result looks right**.
+
+**So this is not a gap in COVERAGE — it is a gap in SEQUENCE.** The verification was built and there
+was nowhere to run it except live. The 08-14 radar incident is the scar: Paul tapped a control on his
+phone and asked whether it had landed; it could not have, because Pages was still serving the pre-lap
+build while every check read green.
+
+⛔ **THE WORKER IS THE HARD HALF, AND IT SHARES A NAMESPACE WITH HER WORDS.** One KV namespace holds
+`feedback:<date>` — Mom's verbatim answers. **A QA environment on that namespace can write test data
+into her answer record.** `tools/people.json` already documents the hazard for the telemetry walk:
+*"paths that POST to `/api/feedback` are NOT safe to walk — they write into Mom's answer record, which
+no metrics exclusion covers."* ⭐ **So this and the KV property-prefix (`.plans/2026-09-02-data-model-design.md`
+§5) are the same piece of work, arriving from two directions.**
+
+⚠️ **And "agents that test as things release" needs a boundary or it fights an existing rule.** An
+agent walking the app today may exercise **metrics-safe paths only**; the write paths are fenced
+precisely because they reach her. That fence is correct and must not be dissolved to make testing
+easier — **a QA environment is what makes it dissolvable safely.**
+
+**Sequenced as a two-seat engagement, not started:** `practice-steward` owns what the process should
+be (what gates what, what "a release" means, where QA sits in the loop, what an agent may test);
+`engineering-partner` owns the deploy topology (Pages preview vs a second Pages site, Worker
+environments, namespace separation, what CI runs). Different questions — run as one brief, two seats.
+
+
 *Intent: things that serve both products or the meta-stack.*
 ---
 ## ⭐⭐ C0 · FERNWOOD AS A PRODUCT — **MOVED 2026-09-01 → `PRODUCT-ENGINE.md`**

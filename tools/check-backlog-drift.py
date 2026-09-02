@@ -107,29 +107,44 @@ def _read(path):
 
 
 def last_rationalization(backlog_text, plans_dir=PLANS):
-    """Newest evidence of an applied rationalization, from TWO independent sources.
+    """When was a rationalization last **APPLIED** — plus whether one is drafted and waiting.
 
-    Both are containers for the same claim, so neither is trusted alone: the head
-    marker can be edited without a run, and a .plans/ file can exist for a run that
-    was never applied. Taking the NEWEST is the fail-closed direction for a clock
-    (it under-reports how stale we are, never over-reports).
+    ⚠️ CORRECTED 2026-09-02, HOURS AFTER THIS TOOL SHIPPED, BY ITS OWN OUTPUT.
+    The first version took the NEWEST of two sources: BACKLOG.md's `(rationalized
+    <date>)` head marker, and any `.plans/*rationaliz*` filename. Writing
+    `.plans/2026-09-02-rationalization-PROPOSAL.md` — a proposal that had been
+    APPLIED TO NOTHING — reset the clock to 0d and silenced the days signal, while
+    the last applied run was still 2026-07-29.
+
+    That is [[reference_match_payload_not_container]] committed by the checker built
+    to catch it: a FILENAME (a run happened) was matched as a proxy for the PAYLOAD
+    (a run was applied). It is also the third instance today of one shape — a
+    PROPOSAL reading as a completed act — after the 07-29 header and the doc that
+    answered a question in one section and listed it open in another.
+
+    **Only the head marker means APPLIED.** Applying a rationalization is what
+    updates it, so the clock still resets as a side effect of doing the work. A
+    `.plans/` artifact NEWER than the marker is the opposite of a reset: it means a
+    run was drafted and NOT applied, which is reported rather than silently absorbed.
     """
-    found = []
     m = MARKER_PAT.search(backlog_text)
-    if m:
-        y, mo, d = m.group(1).split("-")
-        found.append((dt.date(int(y), int(mo), int(d)), f"BACKLOG.md head marker ({m.group(1)})"))
+    if not m:
+        raise Unknown("no `(rationalized <date>)` marker in BACKLOG.md's head — "
+                      "no rationalization has ever been APPLIED")
+    y, mo, d = m.group(1).split("-")
+    applied = dt.date(int(y), int(mo), int(d))
+
+    drafted = None
     if os.path.isdir(plans_dir):
         for name in os.listdir(plans_dir):
             if not PLAN_PAT.search(name):
                 continue
             dm = DATE_PAT.search(name)
             if dm:
-                found.append((dt.date(*map(int, dm.groups())), f".plans/{name}"))
-    if not found:
-        raise Unknown("no rationalization has ever been recorded "
-                      "(no head marker, no .plans/ artifact)")
-    return max(found, key=lambda t: t[0])
+                when = dt.date(*map(int, dm.groups()))
+                if when > applied and (drafted is None or when > drafted[0]):
+                    drafted = (when, name)
+    return applied, f"BACKLOG.md head marker ({m.group(1)})", drafted
 
 
 def measure(backlog_text):
@@ -198,7 +213,7 @@ def commits_since(since):
 
 def evaluate(backlog_text, today=None, plans_dir=PLANS, git=True):
     today = today or dt.date.today()
-    when, source = last_rationalization(backlog_text, plans_dir)
+    when, source, drafted = last_rationalization(backlog_text, plans_dir)
     m = measure(backlog_text)
     days = (today - when).days
     before = sections_added_since(when) if git else None
@@ -216,9 +231,14 @@ def evaluate(backlog_text, today=None, plans_dir=PLANS, git=True):
         fired.append(f"the ranked list is {m['headGap']} lines below its own head "
                      f"(limit {LIMIT_HEAD_GAP}) — line {m['headLine']} -> {m['tierLine']}")
 
+    if drafted:
+        fired.append(f"a rationalization was DRAFTED {drafted[0].isoformat()} and "
+                     f"NOT APPLIED (.plans/{drafted[1]})")
+
     return {
         "owed": bool(fired), "fired": fired,
         "lastRationalization": when.isoformat(), "source": source, "days": days,
+        "draftedNotApplied": (f"{drafted[0].isoformat()} .plans/{drafted[1]}" if drafted else None),
         "sectionsAddedSince": added, "backlogCommitsSince": commits_since(when) if git else None,
         **m,
     }
@@ -286,12 +306,27 @@ def _selftest():
     r = evaluate(tiers, today=today, plans_dir="/nonexistent", git=False)
     check("TIER 1/2/3 headings are not counted as drift", r["sectionsAboveTracks"] == 0)
 
+    # 4c · REGRESSION, 2026-09-02: an unapplied PROPOSAL must never reset the clock.
+    #      This is the bug that shipped in v1 and was caught by the tool's own output.
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        open(os.path.join(td, "2026-09-02-rationalization-PROPOSAL.md"), "w").write("x")
+        r = evaluate(HEALTHY.format(date="2026-06-01"), today=today, plans_dir=td, git=False)
+        check("an unapplied PROPOSAL does NOT reset the days clock",
+              any("since the last" in f for f in r["fired"]))
+        check("  and it is REPORTED as drafted-not-applied",
+              r.get("draftedNotApplied") is not None
+              and any("NOT APPLIED" in f for f in r["fired"]))
+        r2 = evaluate(HEALTHY.format(date="2026-09-02"), today=today, plans_dir=td, git=False)
+        check("  a marker on the SAME day as the plan is not 'drafted-not-applied'",
+              r2.get("draftedNotApplied") is None)
+
     # 5 · FAIL CLOSED: no evidence of any rationalization at all.
     try:
         evaluate("# Fernwood\n# ▶️ NEXT\n## TIER 1\n", today=today, plans_dir="/nonexistent", git=False)
-        check("no marker anywhere -> raises Unknown", False)
+        check("no APPLIED marker -> raises Unknown", False)
     except Unknown:
-        check("no marker anywhere -> raises Unknown", True)
+        check("no APPLIED marker -> raises Unknown", True)
 
     # 6 · FAIL CLOSED: the anchors moved. Must be LOUD, never silently zero drift.
     for label, text in (("head", "# Fernwood\n## TIER 1 · x\n"),
