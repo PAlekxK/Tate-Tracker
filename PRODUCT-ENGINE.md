@@ -406,6 +406,60 @@ calendar that binds them. Whereas *vehicles* maps cleanly to one domain, and *to
 declaration's shape.** ⚠️ Do not settle it by picking whichever is convenient when the code is
 written — a bundle chosen implicitly is how a second vocabulary starts.
 
+### 🧭 JOURNEYS, AND A MODULE THAT MIGHT NOT BELONG TO A PLACE `[paul-raised 2026-09-02]`
+
+> *"What are the customer journeys we have to think through and test and model? The login, for
+> example — and can we test these? And future enhancements: once you log in and see your two estates,
+> is there also potential for a **finance tab** or something there? Is there potential to **promote
+> vehicles out of the estates and have it top level**, so you've got a condo and then vehicles —
+> that ability to switch things around?"*
+
+⭐⭐ **THE PRECISE FORMULATION, using the ratified vocabulary: he is asking whether a `module` can be
+scoped to a PERSON instead of to an ESTATE.** Today every module is estate-scoped by construction.
+The axis he has found is: **does this module belong to a PLACE, or to a PERSON?**
+
+| module | scoped to | why |
+|---|---|---|
+| plants · zones · weather · household systems | **place** | they cannot be anywhere else |
+| **vehicles** | ⚠️ **arguable** | a machine moves, and its owner does not change when it does |
+| **finance** | **person** | not about a place at all |
+
+⛔ **AND THIS CONTRADICTS A RULING FROM EARLIER THE SAME DAY, WHICH IS THE POINT OF SAYING SO.**
+`.plans/2026-09-02-data-model-design.md:153` records **"A MACHINE BELONGS TO THE ESTATE"**
+`[paul-ratified 2026-09-02]`, chosen from three options — the rejected one was *"to a person, sited at
+an estate."* **He is now feeling the pull of the option he did not pick**, and that is a legitimate
+reason to revisit: the ruling was made on simplicity and accepted two consequences (his Bronco is
+nominally Fernwood's; Bob's contributor sees Bob's equipment record).
+
+⚠️ **Revisiting is fine. Revisiting WITHOUT NOTICING is not** — the standing rule from Mom's surfaces
+applies to the schema too: *a change must be intentional, journey-aware, and data-supported where data
+exists.* **Recorded here so the reversal, if it comes, is a decision rather than a drift.**
+
+### ⚠️ Two collisions on the "finance tab"
+
+1. **A finance surface already exists in the portfolio — twice.** `~/Developer/private-financial-dashboard`
+   and `~/Developer/market-digest-pipeline`. A finance tab inside the estate product is either a
+   **third** finance surface or a **view onto** one of those, and those are very different builds.
+   ⛔ Do not let it arrive as a third by default.
+2. **It is the first proposed surface that is NOT about property at all**, which makes it the real
+   test of what this product is. ⚠️ Note what the panel found unanimously: the owner-level *monitoring*
+   job is unevidenced, while multi-property *navigation* is validated. **A finance tab is neither** —
+   it is a third thing, and it should be argued on its own evidence rather than riding in on the
+   selector.
+
+### 🧪 "Can we test these?" — measured: no
+
+**There is no journey harness.** `telemetry-walk.js` exists (and is named once in `MOM-CYCLE-MAP.md`)
+and the mom-proxy walk is a leg-6 step — but **nothing models or tests a journey end to end**, and the
+first journey Paul names (login) does not exist yet to be tested. ⭐ **This is the same pipeline as
+C1 + C2** — journeys are what a QA environment would exercise, and *"model the journey"* is the front
+half of the feature-development process. **Not a separate workstream; the same one, with a name for
+what it tests.**
+
+**Routing** `[paul-suggested: "maybe this is a question for customer researcher"]` — `user-researcher`
+owns *what the journeys are*; `practice-steward` owns *how they get tested*. **Queued behind the condo
+research already in flight**, deliberately: adding a second charter mid-run dilutes both.
+
 ### Also captured
 
 - ⭐ **"Fernwood as a test bed for everything"** — a standing role for the property, additive to
