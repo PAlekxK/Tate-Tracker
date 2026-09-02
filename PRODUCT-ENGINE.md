@@ -210,9 +210,26 @@ domain mix, and the only one that tests the owner/contributor role flip). Two pa
    than anything else it filed, that the multi-property shell should be called **nothing** — *"naming
    it creates it"*, and every instance already has a name. A profile she logs into and selects from is
    a surface that needs to be *something she opens*. Unresolved.
-3. ⚠️ **HER NAME IS NOT IN THIS PUBLIC REPO.** She is "Mom" in every tracked file; the name Paul used
-   appears **nowhere** (verified 2026-09-02). Naming the profile for her would put it in the UI and in
-   public git. **A deliberate decision, not a copy detail.**
+3. ⚠️ **HER NAME MUST NOT ENTER THIS PUBLIC REPO.** She is "Mom" in every tracked file. Naming the
+   profile for her would put it in the UI and in public git. **A deliberate decision, not a copy
+   detail.**
+
+   > ⛔ **AND THIS PARAGRAPH'S OWN VERIFICATION WAS FALSIFIED 40 MINUTES LATER, BY THIS SESSION, IN
+   > THIS FILE.** It read *"the name Paul used appears **nowhere** (verified 2026-09-02)."* That was
+   > true when written. The same session then wrote her first name into **§ PERSONALIZATION, 100 lines
+   > below**, while explicitly holding the position that it should not be written — and committed it
+   > (`701af7a`). Caught by the `user-researcher` seat, not by the author.
+   >
+   > **Scope, measured:** one occurrence, one commit, **never pushed** — `origin/main` was still at the
+   > previous day's HEAD. Removed from the working tree 2026-09-02.
+   > ⚠️ **An edit is NOT sufficient on its own:** the name remains in `701af7a` in local history, so
+   > **pushing this branch would publish it.** Disposition is Paul's — it is a history rewrite, and
+   > those are his call. **The push stays held until he rules.**
+   >
+   > ⭐ **The lesson is the one this repo keeps paying for:** *a verification is true at an instant,
+   > not for a day.* A claim of the form "X appears nowhere" is a **measurement with a timestamp**, and
+   > this file treated it as a standing property — which is why the same document could assert the
+   > absence and contain the thing.
 4. ⭐⭐ **"No garden" is the sharpest engine-vs-instance test that exists**, and it should be treated
    as the migration's real falsifier rather than a content note. Plants are **41% of the Guru digest**;
    the care calendar, `seasonNotes`, bloom windows, the honesty markers and the entire
@@ -308,7 +325,7 @@ real work. **Per-tenant theming multiplies exactly that surface by N** — and `
 pass would then have N palettes to adjudicate against a shared principle library.
 
 ⭐ **And font size is a CATEGORY ERROR as a branding axis.** It is already per-person and
-device-stored (`tateTracker.textSize`, reported as `text_size_served`). Marguerite's measured
+device-stored (`tateTracker.textSize`, reported as `text_size_served`). **Mom's** measured
 **414 × A+** must follow *her* to the condo — filing it as per-property styling would reset her
 accessibility every time she switches places. **That is the C-person / C-edge split from the data
 model, arriving on a second road.**
