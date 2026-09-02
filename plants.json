@@ -5482,17 +5482,17 @@
       },
       "zones": [
         {
-          "zoneId": "western-garden"
+          "zoneId": "st-francis-garden"
         }
       ],
-      "zoneNote": "Named from a photograph, 2026-09-01 — a zone Paul had already confirmed for the frame. Cinnamon fern grows in several places on this property; only the photographed one is recorded here.",
+      "zoneNote": "Named from a photograph whose zone Paul confirmed as `st-francis-garden` (2026-09-01). ⚠️ CORRECTED the same evening: this entry first read `western-garden`, which was hand-typed into the export plan instead of being read from his confirmation. The five placements derived programmatically from the same source were all correct; only the two typed by hand were wrong.",
       "_provenance": "Added 2026-09-01 from the plant-identification pass. ⚠️ THIN BY DESIGN — species knowledge, not yet a season of local observation.",
       "photos": [
         {
           "src": "images/plants/property/cinnamon-fern-2026-04-30.jpg",
           "origin": "property",
           "date": "2026-04-30",
-          "zoneId": "western-garden",
+          "zoneId": "st-francis-garden",
           "sourceUuid": "C7A30B97-AA7C-4413-B96F-056D458336EE",
           "credit": "Paul Kirschenbauer",
           "caption": "Cinnamon-brown fertile fronds standing inside the green vase."
@@ -5568,17 +5568,17 @@
       },
       "zones": [
         {
-          "zoneId": "st-francis-garden"
+          "zoneId": "western-fern-azalea-garden"
         }
       ],
-      "zoneNote": "Named from a photograph, 2026-09-01. A large colony below the cross wall; it certainly grows elsewhere on the property and only the photographed stand is recorded.",
+      "zoneNote": "Named from a photograph whose zone Paul confirmed as `western-fern-azalea-garden` (2026-09-01). ⚠️ CORRECTED the same evening: this entry first read `st-francis-garden`, which was hand-typed into the export plan instead of being read from his confirmation. The five placements derived programmatically from the same source were all correct; only the two typed by hand were wrong.",
       "_provenance": "Added 2026-09-01 from the plant-identification pass. ⚠️ THIN BY DESIGN.",
       "photos": [
         {
           "src": "images/plants/property/sensitive-fern-2025-09-02.jpg",
           "origin": "property",
           "date": "2025-09-02",
-          "zoneId": "st-francis-garden",
+          "zoneId": "western-fern-azalea-garden",
           "sourceUuid": "F2EFD8D6-2677-454E-8229-8DD36683A872",
           "credit": "Paul Kirschenbauer",
           "caption": "The colony below the cross wall."
