@@ -11,6 +11,51 @@ amended mid-lap.
 
 ---
 
+## Interlap note — 2026-09-01 (evening) · **no lap ran.** The board re-fired AFTER lap 8 closed, and it was Paul's own device.
+
+**What happened, in order.** Lap 8 closed at **12:36 PM ET** (`5a1915c`), 7 of 7 + QA. At **1:43 PM**
+a field note and a Guru turn arrived. The evening session opened on a board reading
+🔴 **FIRED at leg 6**, ribbon `STALE, UNREAD`.
+
+⭐ **It did not reopen lap 8, and it did not open lap 9.** [[reference_lap_clamp_is_time_scoped]] —
+only input a lap actually HAD binds it, and this arrived 67 minutes after the close. And it fires no
+new lap because the arrival is **`d-14nyhnjz…`, Paul's own device**, per `tools/people.json`'s
+2026-07-28 clean-slate correction (the one that found the mapping had been backwards). Only an
+unresolved arrival fires the loop.
+
+**The blocker was ours, not hers.** `R2b UNREAD` was firing because **nothing had actually read**
+`observations` or `guru` past 11:13 AM while input sat at 1:43 PM. *The ribbon's clock is cleared by
+a stamp; that is not the act of reading.* Both channels were read in full this session, then
+attested. What was in them:
+
+| device | content | disposition |
+|---|---|---|
+| **Mom** `d-szqlt0h7…` | the refrigerator — *"LG 25.5 cu ft bottom freezer model LRDCS2603S"*, *"No water dispenser"*, *"Ice maker works"*, and the Guru turn *"I would like to add our refrigerator under household systems."* | **already covered** by the standing ribbon, in her own words |
+| **Paul** `d-14nyhnjz…` | the pond-azalea move request, propagated across 4 records | read, dispositioned per-record, **routed to `BACKLOG.md` § POND AZALEA** |
+
+**Four per-record dispositions written, not one batch clear** — the rule that a batch may not be
+cleared by one of its members. `check-arrival-dispositions.py` now returns clean.
+
+**Shipped:** one line. `MOM_ACK_DATA.acknowledgedThrough` 15:14 → 17:43:30. **The message is
+untouched** — no new words reached her, which is the only reason this was shippable without Paul
+authoring anything. Verified live: all five assets match HEAD.
+
+⚠️ **What was deliberately NOT done.** The azalea note asks for a transplant *window*, and Guru
+answered late-March/late-August. **That is a model read and is not in `plants.json`** — precisely the
+loose date the season-note authoring rule forbids. No card, no reminder, no canon edit. It also names
+a *specific individual* by the pond, which is a live instance of the deferred **W6** instance model
+rather than a hypothetical — noted against W6, not cloned into a new record.
+
+⭐ **The generalisable finding: "it was Paul" cost a full leg-6 alarm to establish.** The board could
+not tell a bench arrival from hers until a human-or-agent read the records, so an arrival on Paul's
+own device presents identically to one of Mom's for as long as nobody looks. That is working as
+designed — the loop must not *assume* — but it means **every post-lap arrival on a bench device will
+re-fire the board and cost a read.** Worth watching: if that recurs, the cheap fix is for the
+disposition check to surface bench-vs-unresolved at the moment the ribbon rule fires, rather than
+only under a separate command.
+
+---
+
 ## Lap 8 — 2026-09-01 · ✅ **CLOSED, 7 of 7 + QA** — the lap SHE opened, and the first canon in this repo folded from her own Guru conversation
 <!-- outcome:closed at:2026-09-01T16:48:11Z -->
 
