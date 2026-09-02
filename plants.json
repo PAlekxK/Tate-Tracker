@@ -15,8 +15,8 @@
       "Tallapoosa"
     ],
     "monthIndex": "0=Jan, 1=Feb, ..., 11=Dec",
-    "schemaVersion": 8,
-    "schemaNotes": "v8 (2026-09-01): `zoneId` (a single string) is REPLACED by `zones` — an ARRAY OF OBJECTS, each requiring only `zoneId`. Why an array: five plants were ruled multi-zone in one conversation (moss x3 patios, mountain-laurel x3, azalea x2, dogwood x2), so the singular field was not an edge case, it was wrong. Why OBJECTS and not plain strings: per-location facts already exist — moss is a ground planting in one place and a joint-fill in another; the dogwoods' cultivar is VERIFIED at one zone and UNKNOWN at two others. A string array would have needed a second migration the first time either was written, so `note`/`variety` can now be added to ANY single occurrence with no migration at all. [paul-approved 2026-09-01: 'I'm good with zone IDs as an array as long as we don't back ourselves into a corner at any point with these schemas because it may keep evolving.'] ⭐ EVERY zone in this file is asserted BY PAUL IN WORDS, never derived from photo GPS. Measured at photo-organizer lap 25: 12 of 18 zones sit in pairs closer together than the +/-9.1 m trace error, so point-in-polygon is a SHORTLIST, never a verdict. Nothing may auto-assign a zone here. || v7 (2026-07-26): added `seasonNotes` — an optional month-keyed object of authored prose ({\"0\"..\"11\"}, 0-indexed to match monthIndex and every care.*.months array). The card renders the current month's line and stays silent for months with none, which replaces the single `currentSeasonNote` string that drifted (it showed May text in July). AUTHORING RULE: the note carries the CHARACTER of the month; peakDates/peakWindow keep the dates. A note must never assert a date, a day-range, or \"now / right about now\" for anything that has peakDates — a month is coarser than a 1-2 week window, so such a claim is wrong for part of the month it renders in. Hedges must hold true across the whole month (\"late in the month\", \"by the time the flowers drop\"). DISPLAY-ONLY: nothing parses seasonNotes, same posture as peakWindow prose. `currentSeasonNote` is retained as the fallback until Paul's spot-check clears the full set. v6 (2026-07-14): added an optional plant-level `variety` field {value, confidence ('inferred'=book/photo-read guess / 'verified'=confirmed on the ground), askable (bool — can someone standing on the property settle it?), optional verifiedOn/source/note} — the structured home for cultivar/variety uncertainty that used to live as prose in scientificName. Drives the provenance chip on the card (guess→'confirmed on the ground') and is a first-class source for the Mama's-Perspective harvest engine. `confidence`+`askable` are the general honest-uncertainty markers a harvest reads. v5 (2026-07-12): added an optional plant-level `bloom` field {window (display prose), dates[] ({start,end} MM-DD, year-wrap-aware via mmddRangeActive), confidence ('verified'=observed on-property / 'inferred'=book), optional note} on flowering plants; foliage/structure plants omit it. Added an optional `roster` array on the Hydrangea hub entry (each {name, note}) naming the specific hydrangeas on the property, which each keep their own card with full care. v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,873 ft (~1,338 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
+    "schemaVersion": 9,
+    "schemaNotes": "v9 (2026-09-01): `photos` — an ARRAY of photograph objects — is ADDED beside the existing singular `photo`. Why an array and not a replacement: `photo` is read by viewer.html and by the digest, and every one of the 24 images it points at is Wikimedia stock; swapping the field would have been a rendering change smuggled inside a data change. `photo` stays the lead image; `photos` is the library. ⭐ EVERY ENTRY DECLARES ITS `origin`: \"property\" means Paul's own photograph OF THIS PLANT ON THIS GROUND, \"stock\" means a licensed picture of the species from somewhere else. Those are different KINDS of evidence and the field exists so nothing has to infer which it is holding. A property photo also carries `sourceUuid` — the Apple Photos asset it came from — so a picture on a public page can be walked back to the private frame that produced it. ⚠️ Property photographs are RE-ENCODED WITH NO METADATA before they land here (photo-organizer/tools/export_plant_photos.py, --verify): this repo is PUBLIC, and a JPEG's GPS tag would put the property's coordinates in a public git history where deleting the file later does not remove them. v8 (2026-09-01): `zoneId` (a single string) is REPLACED by `zones` — an ARRAY OF OBJECTS, each requiring only `zoneId`. Why an array: five plants were ruled multi-zone in one conversation (moss x3 patios, mountain-laurel x3, azalea x2, dogwood x2), so the singular field was not an edge case, it was wrong. Why OBJECTS and not plain strings: per-location facts already exist — moss is a ground planting in one place and a joint-fill in another; the dogwoods' cultivar is VERIFIED at one zone and UNKNOWN at two others. A string array would have needed a second migration the first time either was written, so `note`/`variety` can now be added to ANY single occurrence with no migration at all. [paul-approved 2026-09-01: 'I'm good with zone IDs as an array as long as we don't back ourselves into a corner at any point with these schemas because it may keep evolving.'] ⭐ EVERY zone in this file is asserted BY PAUL IN WORDS, never derived from photo GPS. Measured at photo-organizer lap 25: 12 of 18 zones sit in pairs closer together than the +/-9.1 m trace error, so point-in-polygon is a SHORTLIST, never a verdict. Nothing may auto-assign a zone here. || v7 (2026-07-26): added `seasonNotes` — an optional month-keyed object of authored prose ({\"0\"..\"11\"}, 0-indexed to match monthIndex and every care.*.months array). The card renders the current month's line and stays silent for months with none, which replaces the single `currentSeasonNote` string that drifted (it showed May text in July). AUTHORING RULE: the note carries the CHARACTER of the month; peakDates/peakWindow keep the dates. A note must never assert a date, a day-range, or \"now / right about now\" for anything that has peakDates — a month is coarser than a 1-2 week window, so such a claim is wrong for part of the month it renders in. Hedges must hold true across the whole month (\"late in the month\", \"by the time the flowers drop\"). DISPLAY-ONLY: nothing parses seasonNotes, same posture as peakWindow prose. `currentSeasonNote` is retained as the fallback until Paul's spot-check clears the full set. v6 (2026-07-14): added an optional plant-level `variety` field {value, confidence ('inferred'=book/photo-read guess / 'verified'=confirmed on the ground), askable (bool — can someone standing on the property settle it?), optional verifiedOn/source/note} — the structured home for cultivar/variety uncertainty that used to live as prose in scientificName. Drives the provenance chip on the card (guess→'confirmed on the ground') and is a first-class source for the Mama's-Perspective harvest engine. `confidence`+`askable` are the general honest-uncertainty markers a harvest reads. v5 (2026-07-12): added an optional plant-level `bloom` field {window (display prose), dates[] ({start,end} MM-DD, year-wrap-aware via mmddRangeActive), confidence ('verified'=observed on-property / 'inferred'=book), optional note} on flowering plants; foliage/structure plants omit it. Added an optional `roster` array on the Hydrangea hub entry (each {name, note}) naming the specific hydrangeas on the property, which each keep their own card with full care. v4 (2026-05-27): added optional zoneId (string|null) at the plant level, referencing zones.json. null until the property map ships zones populated with content. v3: added plant-level soilNotes, aspectPreference, frostSensitivity fields. Added peakWindow (string|null) and narrow (boolean) to all care entries and subcategories. Elevation-adjusted frost dates reflect ~2,873 ft (~1,338 ft above KJZP baseline). peakWindow = the optimal 1–2 week window within the broader months range. narrow:true = window is 3 weeks or less and timing-critical. v4 also represents the two managed grass areas (fairway-turf, fairway-meadow) as plant entries carrying a care calendar, and adds a 'mow' care type for turf/meadow cutting.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP — elevation-adjusted +10 days spring / -10 days fall for ~1,338 ft above station",
       "USDA Web Soil Survey — Pickens County, GA (Hayesville and the mesic Blue Ridge candidates: Ashe, Edneyville, Porters, Tallapoosa)",
@@ -883,7 +883,7 @@
           ]
         }
       },
-      "photo": "images/plants/boxwood.jpg",
+      "photo": "images/plants/property/boxwood-2024-03-02.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "No machine-readable author provided. MPF assumed (based on copyright claims).",
@@ -898,7 +898,36 @@
         "7": "Water at the base, never overhead. Wet foliage in summer heat is how blight gets started. Feeding waits for early spring — a late feed pushes soft growth that won't harden before winter.",
         "10": "Winter's job is the interior cleanout — reach inside and pull out the dead leaves trapped there. That litter is where blight overwinters."
       },
-      "zones": []
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        },
+        {
+          "zoneId": "the-meadow"
+        }
+      ],
+      "zoneNote": "Placed from a photograph, 2026-09-01. Paul confirmed the zone of the frame; the plant in it was identified separately and blind. Not derived from photo GPS — against these same 56 photographs the zone polygon agreed with him 6 times out of 56.",
+      "photos": [
+        {
+          "src": "images/plants/property/boxwood-2024-03-02.jpg",
+          "origin": "property",
+          "date": "2024-03-02",
+          "zoneId": "the-meadow",
+          "sourceUuid": "6E6CAEBD-DFF0-432B-96A8-32D6249F88EF",
+          "credit": "Paul Kirschenbauer",
+          "caption": "The boxwood row, the morning the daffodils were lifted."
+        },
+        {
+          "src": "images/plants/boxwood.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Wikimedia Commons",
+            "author": "No machine-readable author provided. MPF assumed (based on copyright claims).",
+            "license": "CC BY 2.5",
+            "url": "https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg"
+          }
+        }
+      ]
     },
     {
       "id": "holly",
@@ -1187,7 +1216,7 @@
           ]
         }
       },
-      "photo": "images/plants/mountain-laurel.jpg",
+      "photo": "images/plants/property/mountain-laurel-2026-05-21.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "Arx Fortis at English Wikipedia",
@@ -1222,7 +1251,28 @@
           "zoneId": "st-francis-garden"
         }
       ],
-      "zoneNote": "Paul, 2026-09-01: \"there is mountain laurel actually in the western garden, the pond, and the Saint Francis Garden. There's mountain laurel in all three of those locations.\" Photo evidence for the western-garden instance: IMG_7057.HEIC 2026-04-09, ruled at photo-organizer lap 25 (sweep 135)."
+      "zoneNote": "Paul, 2026-09-01: \"there is mountain laurel actually in the western garden, the pond, and the Saint Francis Garden. There's mountain laurel in all three of those locations.\" Photo evidence for the western-garden instance: IMG_7057.HEIC 2026-04-09, ruled at photo-organizer lap 25 (sweep 135).",
+      "photos": [
+        {
+          "src": "images/plants/property/mountain-laurel-2026-05-21.jpg",
+          "origin": "property",
+          "date": "2026-05-21",
+          "zoneId": "st-francis-garden",
+          "sourceUuid": "4782A9E6-A5C6-427D-8217-BCD78842E733",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Deep pink cups, each with its ten anther pockets."
+        },
+        {
+          "src": "images/plants/mountain-laurel.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Wikimedia Commons",
+            "author": "Arx Fortis at English Wikipedia",
+            "license": "CC BY-SA 3.0",
+            "url": "https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg"
+          }
+        }
+      ]
     },
     {
       "id": "japanese-maple",
@@ -1374,7 +1424,7 @@
           ]
         }
       },
-      "photo": "images/plants/japanese-maple.jpg",
+      "photo": "images/plants/property/japanese-maple-2026-04-20.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "Kurt Stüber [1]",
@@ -1396,7 +1446,28 @@
           "zoneId": "eastern-woodlands"
         }
       ],
-      "zoneNote": "Paul, 2026-09-01: \"there's a Japanese maple in the pond area as well as one in the eastern woodlands.\" ⭐ TWO TREES, TWO ZONES — he corrected a single-zone proposal to a pair unprompted, which is the third time tonight the array turned out to be necessary rather than tidy. ⭐ THE POND-AREA HALF IS DOUBLY EVIDENCED: he said \"a small Japanese maple by the pond\" on 2026-08-29 ruling photo cards 26-27, AND a photograph he ruled falls independently inside the pond-area polygon — his word and the geometry agreeing, which is the strongest evidence any unzoned plant had. ⚠️ THE EASTERN-WOODLANDS HALF RESTS ON HIS WORD ALONE: no photograph is joined to it, and eastern-woodlands is a LOW-confidence zone (nearest neighbour 7.3 m, under the ±9.1 m trace error). Stated so the two halves are not read as equally supported."
+      "zoneNote": "Paul, 2026-09-01: \"there's a Japanese maple in the pond area as well as one in the eastern woodlands.\" ⭐ TWO TREES, TWO ZONES — he corrected a single-zone proposal to a pair unprompted, which is the third time tonight the array turned out to be necessary rather than tidy. ⭐ THE POND-AREA HALF IS DOUBLY EVIDENCED: he said \"a small Japanese maple by the pond\" on 2026-08-29 ruling photo cards 26-27, AND a photograph he ruled falls independently inside the pond-area polygon — his word and the geometry agreeing, which is the strongest evidence any unzoned plant had. ⚠️ THE EASTERN-WOODLANDS HALF RESTS ON HIS WORD ALONE: no photograph is joined to it, and eastern-woodlands is a LOW-confidence zone (nearest neighbour 7.3 m, under the ±9.1 m trace error). Stated so the two halves are not read as equally supported.",
+      "photos": [
+        {
+          "src": "images/plants/property/japanese-maple-2026-04-20.jpg",
+          "origin": "property",
+          "date": "2026-04-20",
+          "zoneId": "eastern-woodlands",
+          "sourceUuid": "F093B898-B56F-4E34-AAB0-14A433393FBB",
+          "credit": "Paul Kirschenbauer",
+          "caption": "The red laceleaf maple on the woodland slope."
+        },
+        {
+          "src": "images/plants/japanese-maple.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Wikimedia Commons",
+            "author": "Kurt Stüber [1]",
+            "license": "CC BY-SA 3.0",
+            "url": "https://commons.wikimedia.org/wiki/File:Acer_palmatum0.jpg"
+          }
+        }
+      ]
     },
     {
       "id": "pyracomeles-berry-box",
@@ -1628,7 +1699,7 @@
           "peakDates": []
         }
       },
-      "photo": "images/plants/deutzia-yuki-cherry-blossom.jpg",
+      "photo": "images/plants/property/deutzia-yuki-cherry-blossom-2026-05-06.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "Unknown",
@@ -1652,7 +1723,33 @@
         "5": "The window closes here. Prune later in summer or in fall and you've traded away next spring.",
         "6": "Not much to do. Water through the first couple of summers after planting."
       },
-      "zones": []
+      "zones": [
+        {
+          "zoneId": "western-garden"
+        }
+      ],
+      "zoneNote": "Placed from a photograph, 2026-09-01. Paul confirmed the zone of the frame; the plant in it was identified separately and blind. Not derived from photo GPS — against these same 56 photographs the zone polygon agreed with him 6 times out of 56.",
+      "photos": [
+        {
+          "src": "images/plants/property/deutzia-yuki-cherry-blossom-2026-05-06.jpg",
+          "origin": "property",
+          "date": "2026-05-06",
+          "zoneId": "western-garden",
+          "sourceUuid": "1689BDBD-1D75-4235-8073-CC3D884DDF12",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Newly planted, nursery tag still on it."
+        },
+        {
+          "src": "images/plants/deutzia-yuki-cherry-blossom.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Wikimedia Commons",
+            "author": "Unknown",
+            "license": "Public domain",
+            "url": "https://commons.wikimedia.org/wiki/File:Deutzia_gracilis.jpg"
+          }
+        }
+      ]
     },
     {
       "id": "clematis",
@@ -1965,7 +2062,7 @@
           ]
         }
       },
-      "photo": "images/plants/hosta.jpg",
+      "photo": "images/plants/property/hosta-2026-04-30.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "Unknown",
@@ -1984,7 +2081,28 @@
           "zoneId": "hosta-garden"
         }
       ],
-      "zoneNote": "Paul, 2026-09-01: \"yes, hostas can go to hosta garden.\" ⭐ HIS WORD, not an inference from the zone's name — the zone was traced and folded the same evening and the name alone was deliberately NOT treated as evidence about the ground."
+      "zoneNote": "Paul, 2026-09-01: \"yes, hostas can go to hosta garden.\" ⭐ HIS WORD, not an inference from the zone's name — the zone was traced and folded the same evening and the name alone was deliberately NOT treated as evidence about the ground.",
+      "photos": [
+        {
+          "src": "images/plants/property/hosta-2026-04-30.jpg",
+          "origin": "property",
+          "date": "2026-04-30",
+          "zoneId": "hosta-garden",
+          "sourceUuid": "BBE3E992-9F03-400D-9B5C-4D15F0324735",
+          "credit": "Paul Kirschenbauer",
+          "caption": "The collection in late April — gold, white-margined, blue and chartreuse together."
+        },
+        {
+          "src": "images/plants/hosta.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Wikimedia Commons",
+            "author": "Unknown",
+            "license": "CC BY-SA 3.0",
+            "url": "https://commons.wikimedia.org/wiki/File:Hosta_Bressingham_Blue.JPG"
+          }
+        }
+      ]
     },
     {
       "id": "iris-blue-flag",
@@ -2110,7 +2228,7 @@
           ]
         }
       },
-      "photo": "images/plants/iris-blue-flag.jpg",
+      "photo": "images/plants/property/iris-blue-flag-2026-05-06.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "D. Gordon E. Robertson",
@@ -2137,6 +2255,27 @@
       "zones": [
         {
           "zoneId": "pond-area"
+        }
+      ],
+      "photos": [
+        {
+          "src": "images/plants/property/iris-blue-flag-2026-05-06.jpg",
+          "origin": "property",
+          "date": "2026-05-06",
+          "zoneId": "pond-area",
+          "sourceUuid": "73BEE04E-3754-4323-8F01-F99C9799303E",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Blue flag standing in the water among the lily pads."
+        },
+        {
+          "src": "images/plants/iris-blue-flag.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Wikimedia Commons",
+            "author": "D. Gordon E. Robertson",
+            "license": "CC BY-SA 3.0",
+            "url": "https://commons.wikimedia.org/wiki/File:Blue_Flag,_Ottawa.jpg"
+          }
         }
       ]
     },
@@ -2264,7 +2403,7 @@
           ]
         }
       },
-      "photo": "images/plants/iris-yellow-flag.jpg",
+      "photo": "images/plants/property/iris-yellow-flag-2026-04-30.jpg",
       "attribution": {
         "source": "Property record",
         "author": "Paul",
@@ -2291,6 +2430,27 @@
       "zones": [
         {
           "zoneId": "pond-area"
+        }
+      ],
+      "photos": [
+        {
+          "src": "images/plants/property/iris-yellow-flag-2026-04-30.jpg",
+          "origin": "property",
+          "date": "2026-04-30",
+          "zoneId": "pond-area",
+          "sourceUuid": "809330F2-02F5-480F-A299-A30C7D7A1D1F",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Yellow flag along the pond edge at the end of April."
+        },
+        {
+          "src": "images/plants/iris-yellow-flag.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Property record",
+            "author": "Paul",
+            "license": "Property record",
+            "takenOn": "2026-07-22"
+          }
         }
       ]
     },
@@ -3826,7 +3986,7 @@
           ]
         }
       },
-      "photo": null,
+      "photo": "images/plants/property/crocosmia-2026-07-12.jpg",
       "attribution": null,
       "bloom": {
         "window": "July into August",
@@ -3846,7 +4006,23 @@
         "7": "Keep it watered through a hot dry stretch. Fine webbing and pale stippling on the blades means mites.",
         "9": "Cut back once frost has blackened the foliage."
       },
-      "zones": []
+      "zones": [
+        {
+          "zoneId": "lower-40"
+        }
+      ],
+      "zoneNote": "Placed from a photograph, 2026-09-01. Paul confirmed the zone of the frame; the plant in it was identified separately and blind. Not derived from photo GPS — against these same 56 photographs the zone polygon agreed with him 6 times out of 56.",
+      "photos": [
+        {
+          "src": "images/plants/property/crocosmia-2026-07-12.jpg",
+          "origin": "property",
+          "date": "2026-07-12",
+          "zoneId": "lower-40",
+          "sourceUuid": "5A6B9196-7609-4736-8B07-C6E76B1FF27B",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Scarlet sprays over pleated foliage, mid-July."
+        }
+      ]
     },
     {
       "id": "garden-phlox",
@@ -3956,7 +4132,7 @@
           ]
         }
       },
-      "photo": null,
+      "photo": "images/plants/property/garden-phlox-2026-07-12.jpg",
       "attribution": null,
       "bloom": {
         "window": "July into mid-September",
@@ -3976,7 +4152,23 @@
         "8": "Still blooming. Division works now as well as it does in spring.",
         "10": "Cut to the ground after frost and clear the debris away. Don't compost mildewed foliage — it re-seeds the problem."
       },
-      "zones": []
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ],
+      "zoneNote": "Placed from a photograph, 2026-09-01. Paul confirmed the zone of the frame; the plant in it was identified separately and blind. Not derived from photo GPS — against these same 56 photographs the zone polygon agreed with him 6 times out of 56.",
+      "photos": [
+        {
+          "src": "images/plants/property/garden-phlox-2026-07-12.jpg",
+          "origin": "property",
+          "date": "2026-07-12",
+          "zoneId": "pond-area",
+          "sourceUuid": "50115168-2F26-4DD4-9C69-CD6F4D772EB0",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Lavender-pink heads in July — and the powdery mildew is plain on the leaves."
+        }
+      ]
     },
     {
       "id": "hydrangea-panicle",
@@ -4088,7 +4280,7 @@
         "confidence": "verified",
         "note": "Opens lime-white and ages to pink; seen coming into bloom on the property in mid-July 2026. Mom confirmed it in flower on the ground 2026-07-18 (Mama's Perspective — her third answer; independent second witness to the bloom window)."
       },
-      "photo": "images/plants/hydrangea-panicle.jpg",
+      "photo": "images/plants/property/hydrangea-panicle-2026-07-12.jpg",
       "attribution": {
         "source": "Wikimedia Commons",
         "author": "Hedwig Storch",
@@ -4103,14 +4295,40 @@
         "7": "Heavy cones after a summer downpour will pull the branches down. If it flops, cut them for the vase.",
         "8": "The white is ageing to pink. That's the plant doing what it should, not fading."
       },
-      "zones": []
+      "zones": [
+        {
+          "zoneId": "lower-40"
+        }
+      ],
+      "zoneNote": "Placed from a photograph, 2026-09-01. Paul confirmed the zone of the frame; the plant in it was identified separately and blind. Not derived from photo GPS — against these same 56 photographs the zone polygon agreed with him 6 times out of 56.",
+      "photos": [
+        {
+          "src": "images/plants/property/hydrangea-panicle-2026-07-12.jpg",
+          "origin": "property",
+          "date": "2026-07-12",
+          "zoneId": "lower-40",
+          "sourceUuid": "5A6B9196-7609-4736-8B07-C6E76B1FF27B",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Conical white panicles above the crocosmia."
+        },
+        {
+          "src": "images/plants/hydrangea-panicle.jpg",
+          "origin": "stock",
+          "attribution": {
+            "source": "Wikimedia Commons",
+            "author": "Hedwig Storch",
+            "license": "CC BY-SA 3.0",
+            "url": "https://commons.wikimedia.org/wiki/File:Hydrangea_paniculata_IMG_6629.JPG"
+          }
+        }
+      ]
     },
     {
       "id": "pickerelweed",
       "name": "Pickerelweed",
       "scientificName": "Pontederia cordata",
       "emoji": "🌾",
-      "photo": null,
+      "photo": "images/plants/property/pickerelweed-2025-09-02.jpg",
       "attribution": null,
       "guide": "A native emergent marginal aquatic with glossy heart-shaped leaves and violet-blue flower spikes through summer — one of the best-behaved, most pollinator-friendly plants for a pond edge. It grows in a few inches of standing water at the shallow margin and spreads by rhizome into a soft colony.",
       "currentSeasonNote": "Bought spring 2026 (Pike Nurseries) and set at the pond margin. First season here — note when the blue spikes first open to establish local bloom timing.",
@@ -4195,6 +4413,17 @@
         {
           "zoneId": "pond-area"
         }
+      ],
+      "photos": [
+        {
+          "src": "images/plants/property/pickerelweed-2025-09-02.jpg",
+          "origin": "property",
+          "date": "2025-09-02",
+          "zoneId": "pond-area",
+          "sourceUuid": "DF117821-3D9E-4F6C-B157-AE742F0ED3D8",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Heart-shaped leaves and a lavender spike, standing in the pond."
+        }
       ]
     },
     {
@@ -4202,7 +4431,7 @@
       "name": "Cardinal Flower",
       "scientificName": "Lobelia cardinalis",
       "emoji": "🌺",
-      "photo": null,
+      "photo": "images/plants/property/cardinal-flower-2026-08-19.jpg",
       "attribution": null,
       "guide": "A native wet-margin perennial found growing on the property, kept as a pond-bog plant. Its late-summer spikes of intense scarlet are a hummingbird magnet — one of the few reds a ruby-throat can't resist. It wants consistently moist, rich soil at the water's edge and is short-lived unless it's allowed to self-sow.",
       "currentSeasonNote": "An on-site native find, sited at the pond edge. Deer/rabbit stripped the pond-edge cardinal flower in Aug 2025 — worth watching for browse again as the scarlet spikes come up in late summer.",
@@ -4284,6 +4513,17 @@
       "zones": [
         {
           "zoneId": "pond-area"
+        }
+      ],
+      "photos": [
+        {
+          "src": "images/plants/property/cardinal-flower-2026-08-19.jpg",
+          "origin": "property",
+          "date": "2026-08-19",
+          "zoneId": "pond-area",
+          "sourceUuid": "FF6A2927-2708-4C1A-8D55-E457A172F8BF",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Red spikes at the water's edge in late August."
         }
       ]
     },
@@ -4541,7 +4781,7 @@
       "name": "Bowles' Golden Sedge",
       "scientificName": "Carex elata 'Aurea'",
       "emoji": "🌾",
-      "photo": null,
+      "photo": "images/plants/property/bowles-golden-sedge-2025-08-20.jpg",
       "attribution": null,
       "guide": "A bright golden-yellow sedge that lights up a pond edge — arching grassy blades in near-fluorescent chartreuse, best colour in spring and early summer. A clumping sedge for wet margins, it brings the one colour (soft gold) the rest of the pond greens lack.",
       "currentSeasonNote": "Bought spring 2026 (Pike Nurseries). First season here; the gold is brightest in the cooler months, greening a little through summer heat.",
@@ -4612,6 +4852,17 @@
       "zones": [
         {
           "zoneId": "pond-area"
+        }
+      ],
+      "photos": [
+        {
+          "src": "images/plants/property/bowles-golden-sedge-2025-08-20.jpg",
+          "origin": "property",
+          "date": "2025-08-20",
+          "zoneId": "pond-area",
+          "sourceUuid": "3A5A01BC-A8DA-4A4E-A82A-9E487C278E6C",
+          "credit": "Paul Kirschenbauer",
+          "caption": "The golden sedge clump, with water lettuce carpeting the surface behind."
         }
       ]
     },
@@ -4963,7 +5214,19 @@
         {
           "zoneId": "western-lower-patio"
         }
-      ]
+      ],
+      "photos": [
+        {
+          "src": "images/plants/property/moss-2025-06-20.jpg",
+          "origin": "property",
+          "date": "2025-06-20",
+          "zoneId": "eastern-patio",
+          "sourceUuid": "11545586-AA70-4263-86E5-C80FBF032B87",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Moss curated into the flagstone joints."
+        }
+      ],
+      "photo": "images/plants/property/moss-2025-06-20.jpg"
     },
     {
       "emoji": "🌼",
@@ -5148,6 +5411,289 @@
       },
       "zoneNote": "Paul, 2026-09-01: \"eight and nine are pictures of the label that was on the plant on the meadow\" — the zone renamed the-green-ring the same day. Granularity ruled by Paul: \"I would keep that level of granularity of constellation dogwood, especially since we have the label there.\" ⚠️ It is NOT established which shrub in the photographs is the labelled one; the label evidences the SPECIES at this zone.",
       "_provenance": "photo-organizer lap 25, reports/project-review-zone-fairway-border.answers.json #8/#9 (sweep 126)"
+    },
+    {
+      "id": "cinnamon-fern",
+      "name": "Cinnamon Fern",
+      "scientificName": "Osmundastrum cinnamomeum",
+      "emoji": "🌿",
+      "guide": "The fern that tells you what it is from thirty feet away. In spring it throws up a ring of green sterile fronds in a vase, and straight out of the middle of that vase come the fertile fronds — stiff, upright, and the colour of cinnamon. Nothing else here does that. By midsummer the fertile spikes have gone brown and brittle and the vase is just a big handsome fern, which is the form most people know it in.\n\nIt is a wet-feet plant. In the mountains it lines seeps and stream edges, and it will take more sun than you would expect **if** the ground stays damp — in dry ground it wants shade and it still sulks. That makes the pond surrounds and the spring drainage the honest places for it here.\n\nThis entry is thin on purpose. It was added from photographs on 2026-09-01 and the property has not yet been watched through a full season with the fern named, so what is written here is what the species does, not yet what it does *here*.",
+      "soilNotes": "Acidic, humus-rich, and reliably moist. Hayesville and Ashe soils suit it where the drainage is slow rather than sharp; it does not want the well-drained mid-slope a white pine wants.",
+      "aspectPreference": "Part shade to shade. Full sun only with its feet wet.",
+      "frostSensitivity": "Hardy well below anything this elevation sees. The croziers coming up in April are the only tender stage; a hard late frost burns them and the plant pushes another round.",
+      "care": {
+        "prune": {
+          "months": [
+            2,
+            3
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Cut the previous year's dead fronds back before the new croziers unfurl, so you are not picking brown out of green all season."
+        },
+        "propagate": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "water": {
+          "months": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "The whole game. Cinnamon fern does not recover from drying out the way a Christmas fern shrugs it off — a dry August browns it off early and it does not releaf until the next spring."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "inspect": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        }
+      },
+      "currentSeasonNote": "Right now — the fertile spikes have long since browned; the sterile fronds carry the plant until frost.",
+      "seasonNotes": {
+        "3": "Croziers come up. The fertile fronds appear with them, and for a few weeks this is the most conspicuous fern on the property.",
+        "6": "Fertile spikes brown off. The vase of green is what carries through summer.",
+        "9": "Fronds yellow and go down with the first hard frosts."
+      },
+      "zones": [
+        {
+          "zoneId": "western-garden"
+        }
+      ],
+      "zoneNote": "Named from a photograph, 2026-09-01 — a zone Paul had already confirmed for the frame. Cinnamon fern grows in several places on this property; only the photographed one is recorded here.",
+      "_provenance": "Added 2026-09-01 from the plant-identification pass. ⚠️ THIN BY DESIGN — species knowledge, not yet a season of local observation.",
+      "photos": [
+        {
+          "src": "images/plants/property/cinnamon-fern-2026-04-30.jpg",
+          "origin": "property",
+          "date": "2026-04-30",
+          "zoneId": "western-garden",
+          "sourceUuid": "C7A30B97-AA7C-4413-B96F-056D458336EE",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Cinnamon-brown fertile fronds standing inside the green vase."
+        }
+      ],
+      "photo": "images/plants/property/cinnamon-fern-2026-04-30.jpg"
+    },
+    {
+      "id": "sensitive-fern",
+      "name": "Sensitive Fern",
+      "scientificName": "Onoclea sensibilis",
+      "emoji": "🌿",
+      "guide": "Not really fern-shaped, which is how you know it. The pinnae are broad and wavy-edged with a net of veins you can see without stooping, so a colony reads as a lot of coarse green paddles rather than the fine lace people expect. It spreads by running rhizome and it makes a real colony — this is a groundcover fern, not a specimen one.\n\nThe name is a frost story: it goes down at the *first* touch of cold, earlier than anything around it, and the standing brown fertile fronds — hard little beaded spikes — persist through the winter and are usually the only part of it visible in January.\n\nIt likes damp and it tolerates disturbance, which is why it turns up along wall bases and bed edges. Give it room; where it is happy it will take the ground it is given.\n\nAdded from photographs on 2026-09-01 — thin, and honest about it.",
+      "soilNotes": "Moist to wet, acidic, tolerant of heavy ground. One of the few ferns that will hold in soil too damp for most of the others.",
+      "aspectPreference": "Part shade; full sun with consistent moisture. The fronds scorch in dry sun.",
+      "frostSensitivity": "The whole plant collapses at the first frost — earlier than its neighbours, and that is the species behaving normally, not dying.",
+      "care": {
+        "prune": {
+          "months": [
+            2
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Clear last year's collapsed fronds in late winter. Leave the brown fertile spikes if you like them — they hold their shape all winter."
+        },
+        "propagate": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "water": {
+          "months": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Wants steady damp. It wilts visibly and quickly, which at least makes it an honest indicator for the bed it is in."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "inspect": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        }
+      },
+      "currentSeasonNote": "Right now — full and green, with the first frost still six weeks out. It will be the first thing in the bed to go down when the cold comes.",
+      "seasonNotes": {
+        "3": "New fronds unroll, pale and soft.",
+        "9": "First frost takes it down in a night. The beaded fertile spikes stay standing.",
+        "11": "The brown spikes are all that is left, and they persist."
+      },
+      "zones": [
+        {
+          "zoneId": "st-francis-garden"
+        }
+      ],
+      "zoneNote": "Named from a photograph, 2026-09-01. A large colony below the cross wall; it certainly grows elsewhere on the property and only the photographed stand is recorded.",
+      "_provenance": "Added 2026-09-01 from the plant-identification pass. ⚠️ THIN BY DESIGN.",
+      "photos": [
+        {
+          "src": "images/plants/property/sensitive-fern-2025-09-02.jpg",
+          "origin": "property",
+          "date": "2025-09-02",
+          "zoneId": "st-francis-garden",
+          "sourceUuid": "F2EFD8D6-2677-454E-8229-8DD36683A872",
+          "credit": "Paul Kirschenbauer",
+          "caption": "The colony below the cross wall."
+        }
+      ],
+      "photo": "images/plants/property/sensitive-fern-2025-09-02.jpg"
+    },
+    {
+      "id": "flame-azalea",
+      "name": "Flame Azalea",
+      "scientificName": "Rhododendron calendulaceum",
+      "emoji": "🔥",
+      "guide": "The signature shrub of these mountains, and it is already here — which the record did not say until 2026-09-01. It had been sitting in the candidates file under *considering*, on the list of natives worth bringing back, while four photographs from 2026-04 show a mature one in full bloom beside the pond.\n\nIt is a **deciduous** azalea, which is the thing to hold onto, because everything else on the place wearing the name azalea is evergreen. It flowers on bare wood before the leaves come — orange through scarlet through a clear yellow, trumpet-shaped, with stamens that shoot well out past the petals. No scent to speak of. Then it leafs out and spends the rest of the year as an unremarkable open shrub, which is exactly how it gets overlooked eleven months of the year.\n\nIt wants what the mountain gives it: acid soil, sharp drainage, high shade or a woodland edge. It resents wet feet and it resents being fussed with. The correct amount of intervention is close to none.",
+      "soilNotes": "Acidic (pH 4.5–5.5), sharply drained, high in leaf litter. It is a slope plant — the clay subsoil in flat ground holds water it will not tolerate.",
+      "aspectPreference": "Woodland edge and high shade. It blooms hardest with some sun and burns in full exposure.",
+      "frostSensitivity": "The shrub is hardy well past anything here. The BLOOM is the exposure — it opens on bare wood in April, and a late frost after bud-break takes that year's flowers without harming the plant.",
+      "care": {
+        "prune": {
+          "months": [
+            4,
+            5
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Immediately after flowering, if at all. It sets next year's buds within weeks of blooming, so a winter tidy-up is a decision to skip a spring."
+        },
+        "propagate": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "fertilize": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Don't. Acidic mountain soil already suits it and feeding produces soft growth on a shrub whose whole habit is lean."
+        },
+        "water": {
+          "months": [
+            6,
+            7
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Only in a real drought, and only for a young plant. Established, it is on its own — and standing water will kill it faster than dry ground."
+        },
+        "repot": {
+          "months": [],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Not applicable."
+        },
+        "inspect": {
+          "months": [
+            3,
+            4
+          ],
+          "peakWindow": null,
+          "narrow": false,
+          "peakDates": [],
+          "description": "Watch the bud break against the frost dates. This is the window where a cold night decides whether there is a bloom."
+        }
+      },
+      "bloom": {
+        "window": "Early April at this elevation",
+        "dates": [
+          {
+            "start": "04-01",
+            "end": "04-25"
+          }
+        ],
+        "confidence": "observed",
+        "note": "⭐ OBSERVED, not inferred — photographed in full bloom 2026-04-05 and 2026-04-06. Field guides put flame azalea at May–June; on this ground, in that year, it was early April."
+      },
+      "currentSeasonNote": "Right now — long done flowering and easy to walk past. Next spring's buds are already set on this year's wood, so leave the pruners alone.",
+      "seasonNotes": {
+        "3": "Bud break, and the frost risk that goes with it.",
+        "4": "Bloom, on bare wood, before the leaves.",
+        "5": "The only pruning window there is, and only if something needs it.",
+        "9": "Unremarkable green. This is the month it disappears into the understory."
+      },
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        }
+      ],
+      "zoneNote": "Photographed in bloom beside the pond on 2026-04-05 and 2026-04-06; Paul had confirmed the zone of both frames. Whether the stand extends past the pond area is unrecorded.",
+      "_provenance": "PROMOTED FROM candidates.json on 2026-09-01. It was status `considering` in the what-we-could-plant list; photographs show it is already growing here. The candidate row is preserved under candidates.json `_promoted`.",
+      "photos": [
+        {
+          "src": "images/plants/property/flame-azalea-2026-04-05.jpg",
+          "origin": "property",
+          "date": "2026-04-05",
+          "zoneId": "pond-area",
+          "sourceUuid": "A5675B31-DE75-4569-83BA-9E40E3E680F8",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Orange trumpets on bare wood, before the leaves."
+        },
+        {
+          "src": "images/plants/property/flame-azalea-2026-04-06.jpg",
+          "origin": "property",
+          "date": "2026-04-06",
+          "zoneId": "pond-area",
+          "sourceUuid": "848F3919-9F22-40A8-A5B1-23F7AEE57425",
+          "credit": "Paul Kirschenbauer",
+          "caption": "Flame azalea beside the pond, early April."
+        }
+      ],
+      "photo": "images/plants/property/flame-azalea-2026-04-05.jpg"
     }
   ]
 }

@@ -11,7 +11,8 @@
       "bird-pollinator": "Strong wildlife value — Audubon Plants for Birds + Xerces Southeast pollinator list + NWF Native Plant Finder zip 30143.",
       "native-grass": "Native bunchgrasses and graminoids for understory, forest edge, or seepage zones.",
       "turf": "Grasses and lawn alternatives for the managed turf — the practical tall fescue alongside lower-input and native-leaning options worth trialing as the lawn leans toward the natural approach."
-    }
+    },
+    "promotedNote": "`_promoted` holds candidates found to be ALREADY GROWING here — moved out of the queue, not deleted, on the zones.json `_deleted` precedent. ⚠️ christmas-fern was CHECKED the same day and deliberately NOT promoted: the single photographic identification was medium confidence, which is not enough to move a row from 'could be' to 'is'."
   },
   "candidates": [
     {
@@ -90,32 +91,6 @@
         "author": "Bruce Marlin",
         "license": "CC BY-SA 3.0",
         "url": "https://commons.wikimedia.org/wiki/File:Tsuga_canadensis_morton.jpg"
-      }
-    },
-    {
-      "id": "flame-azalea",
-      "name": "Flame azalea",
-      "scientificName": "Rhododendron calendulaceum",
-      "emoji": "🔥",
-      "status": "considering",
-      "category": "bird-pollinator",
-      "rationale": "Signature North Georgia mountain native — the Cohutta and Smokies range is centered on this species. Brilliant May-June bloom. Confirmed in GNPS Blue Ridge landscaping list for both Montane Oak and Cove Forest understory.",
-      "communityFit": [
-        "Cove Forest",
-        "Low-to-Mid Elevation Oak Forest"
-      ],
-      "sourceIds": [
-        "gnps-ngm-sale",
-        "gardens-of-the-blue-ridge",
-        "native-forest-nursery"
-      ],
-      "notes": "If sourcing from Gardens of the Blue Ridge: they specialize in native azaleas including hard-to-find color forms. Drainage matters — happiest on sloped, well-drained, acidic soil.",
-      "photo": "images/candidates/flame-azalea.jpg",
-      "attribution": {
-        "source": "Wikimedia Commons",
-        "author": "User:Arx Fortis",
-        "license": "CC BY 2.5",
-        "url": "https://commons.wikimedia.org/wiki/File:Rhododendron_calendulaceum.jpg"
       }
     },
     {
@@ -545,6 +520,37 @@
       "curationNotes": "Horticulture web-verified 2026-07-25 against UGA Extension 'Minor Fruits and Nuts in Georgia' (B992) + general SE cherry references: cherries need 1,000–2,000 chill hrs met only in GA's Piedmont/mountains; sour > sweet in GA; sour cherries self-fertile; humid-SE disease pressure (brown rot, leaf spot, powdery mildew) and early-bloom frost risk are the real limiters. Heritage tie (Kirschenbauer = cherry farmer, Bavaria) is Paul-stated. Intent, not yet planted.",
       "photo": null,
       "attribution": null
+    }
+  ],
+  "_promoted": [
+    {
+      "id": "flame-azalea",
+      "name": "Flame azalea",
+      "scientificName": "Rhododendron calendulaceum",
+      "emoji": "🔥",
+      "status": "considering",
+      "category": "bird-pollinator",
+      "rationale": "Signature North Georgia mountain native — the Cohutta and Smokies range is centered on this species. Brilliant May-June bloom. Confirmed in GNPS Blue Ridge landscaping list for both Montane Oak and Cove Forest understory.",
+      "communityFit": [
+        "Cove Forest",
+        "Low-to-Mid Elevation Oak Forest"
+      ],
+      "sourceIds": [
+        "gnps-ngm-sale",
+        "gardens-of-the-blue-ridge",
+        "native-forest-nursery"
+      ],
+      "notes": "If sourcing from Gardens of the Blue Ridge: they specialize in native azaleas including hard-to-find color forms. Drainage matters — happiest on sloped, well-drained, acidic soil.",
+      "photo": "images/candidates/flame-azalea.jpg",
+      "attribution": {
+        "source": "Wikimedia Commons",
+        "author": "User:Arx Fortis",
+        "license": "CC BY 2.5",
+        "url": "https://commons.wikimedia.org/wiki/File:Rhododendron_calendulaceum.jpg"
+      },
+      "promotedTo": "plants.json",
+      "promotedOn": "2026-09-01",
+      "promotedWhy": "Photographed in full bloom on the property 2026-04-05 and 2026-04-06. This file tracks what COULD be here; a plant shown growing here belongs in plants.json. The row is kept — its rationale and sourcing research outlive the status change."
     }
   ]
 }
