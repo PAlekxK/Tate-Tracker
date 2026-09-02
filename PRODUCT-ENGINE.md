@@ -41,10 +41,24 @@ house is one new database plus one row. This is what `engineering-partner` recom
 > for her and is also part of our backlog roadmap. So definitely that journey of logging in and then
 > selecting a property will eventually have to work for both."*
 
-⛔ **This supersedes, for the roadmap, `CLAUDE.md`'s and this file's standing rule that Mom's surface
-has no login and that a trusted tier must be *additive, never a gate in front of what she already
-reaches*.** It was not overridden by accident or inference — it was put to him as the hardest
-constraint in the project and he ruled against it with a reason. **Do not "restore" the old rule.**
+⚠️ **CORRECTED 2026-09-02 — THIS WAS NOT A REVERSAL, AND CALLING IT ONE WAS THIS SESSION'S ERROR.**
+It was first recorded here (and reported to Paul) as *"reverses the no-login rule, deliberately."*
+Then `~/.claude/agent-foundations/_about-paul.md:58` was read, and it has said since **2026-05-11**:
+
+> *"**Low-friction authentication is the constraint, not password-free.** A simple,
+> easy-to-remember password is acceptable — Paul confirmed 2026-05-11 that nothing on the dashboard is
+> confidential. The original 'no password / Mom stops' hypothesis was **Paul's prior framing,
+> contradicted on 2026-05-11**."*
+
+⭐ **So Paul did not overturn a standing rule — he RESTORED a position he had already taken in May,
+which a September document had drifted away from.** The *"no login, deliberately"* framing entered
+in **this file, on 2026-09-01**, four months after the shared base recorded that framing as already
+contradicted. Two sources disagreed and the newer, narrower one was treated as doctrine.
+
+✅ **What IS genuinely new today, and it is the part that matters:** *"nothing on the dashboard is
+confidential"* **stops being true** under R7 — receipts, contractor contacts and another household's
+data go behind it. So the *reason* for auth changes from identity-and-convenience to **there is now
+something to protect**, and that is a real change even though the login itself is not.
 
 ⚠️ **But note the word "EVENTUALLY," and do not spend it early.** This is a **roadmap requirement,
 not a near-term change**. Nothing about her door changes today, and the old rule's *reasoning* still
