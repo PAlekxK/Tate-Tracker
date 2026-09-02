@@ -28,8 +28,9 @@ not start at step 3.
 **Parked on Paul, correctly:**
 - **Mom-cycle lap 7 is OPEN at leg 6** — the ack ribbon is held until he does more zone work.
   `MOM-CYCLE-LOG.md` § Lap 7. A later run must not read `R1 ack staleness 🔴` as neglect.
-- **Is "Bob's house" the Tate Commons ask, or a second one?** One sentence unblocks scoping. See
-  the UNRESOLVED block below.
+- ~~**Is "Bob's house" the Tate Commons ask, or a second one?**~~ ✅ **ANSWERED 2026-09-02** —
+  a personal household record, **more than one place under one profile**. See the resolved
+  block below. **Scoping is unblocked.**
 
 **Independent, take when there is room:**
 - ⛔ ~~**UX sweep** — owed~~ **NOT OWED. The checker was wrong** (fixed 2026-09-01). A full
@@ -81,7 +82,7 @@ onward). If a claim here looks unsupported, `git log` before assuming it was inv
 > *"I think this is probably a whole nother workstream. We need to figure out for Fernwood — focus
 > on product a little bit more, making it a little more formalized, and figuring out what are the
 > costs and path to doing that. So for example, getting a domain, and understanding if we want to
-> set this up for someone else — which we're being approached for now with Bob Rolader. What's the
+> set this up for someone else — which we're being approached for now with Bob. What's the
 > best way to do that? Just give him his own custom domain, and ideally give him a login and
 > password, or just a password, or some kind of authentication. And how do we make sure he has his
 > own database that's not necessarily hosted on my computer? How do we make it all functional and
@@ -99,9 +100,33 @@ onward). If a claim here looks unsupported, `git log` before assuming it was inv
 | Q5 | **Cost** — to stand up, and per additional tenant | Partly measurable today; `/api/cost-log` already tracks per-day Anthropic spend |
 | Q6 | **Whether to do it at all** | Not assumed. An approach is not a commitment, and ⛔ monetization is deferred to ~end-2026 (`[[project_monetization_deferred]]`) — this is a *portfolio and architecture* question right now, not a revenue one |
 
-### ⚠️ Is "Bob's house" the same ask as Tate Commons? — UNRESOLVED, ask Paul
+### ✅ RESOLVED 2026-09-02 — "Bob's house" is PERSONAL, and he has SEVERAL `[paul-stated]`
 
-`~/Developer/tate-commons` was stood up 2026-08-30 for **Bob Rolader's 2026-08-21 ask**, recorded
+> *"The high-level result of the discussion with Bob was that he is more interested in this product
+> managing his personal house — and he has more than one place, which it could expand to cover within his
+> profile. The outcome was that he was more interested in personal use at this point than Tate
+> Commons."*
+
+**Three consequences, and the second one reshapes the data model:**
+
+1. **Tate Commons is a DIFFERENT product and is not in this scope.** `~/Developer/tate-commons`
+   stays where it is. Do not merge, do not write to it off this entry. It is not dead — it is not
+   *this*.
+2. ⭐⭐ **The tenancy unit is OWNER → N PROPERTIES, not user → property.** Bob asked for one profile
+   covering more than one place. **That is the same shape as Paul** (Fernwood, plus whatever follows). So
+   the multi-property case is not a future generalization to be designed for later — it is present
+   in **both** of the only two users this product has, on day one. Every schema, route and
+   surface should assume a property is a CHILD of an owner, never the root.
+3. ✅ **Bob's house HAS a ground-truth contributor** `[paul-stated 2026-09-02]` — someone there who
+   would answer the way Mom does for Fernwood. **So Track A's ask → fold → acknowledge machinery is
+   CORE SHARED MACHINERY, not Fernwood-only.** ⚠️ And that makes the personalization boundary the
+   sharpest question in the scoping: the *loop* ports, the *person* does not. See the brief.
+
+---
+
+### ~~⚠️ Is "Bob's house" the same ask as Tate Commons? — UNRESOLVED, ask Paul~~ (answered above; kept for the reasoning)
+
+`~/Developer/tate-commons` was stood up 2026-08-30 for **Bob's 2026-08-21 ask**, recorded
 there as *Fernwood for the whole **community*** — a standalone at a Tate subdomain. Paul's words
 here are *"Bob's house"*, which reads as a **per-household instance of Fernwood**. Those are
 different products with different tenancy models, and one of them may have been misread. **Do not
@@ -376,7 +401,7 @@ option in it — tiered prompt, domain-scoped digests, retrieval, lookup tools, 
 downstream of a product decision nobody has written down. **Beat 0 of this workstream is the
 interview, not a design.** Do not open C0 with engineering.
 
-**Why user-researcher is the right seat and not a formality:** Bob Rolader is a **real prospective
+**Why user-researcher is the right seat and not a formality:** Bob is a **real prospective
 user who can be asked rather than assumed**, and that agent's charter forbids replacing real users
 with synthetic ones without an explicit OK. Paul is both product owner *and* a real Track B user.
 Mom is the only user with months of behavioural evidence behind her. Three genuine research
