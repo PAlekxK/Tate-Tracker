@@ -2259,3 +2259,30 @@ zones — that's something to log to Fernwood's backlog as well."* Card numbers 
 
 ⚠️ **NOTHING HERE WAS WRITTEN TO CANON.** Each is a proposal awaiting Paul or Mom, and three of them
 (daffodil, black-eyed Susan, the toad) name a living thing this property's records do not contain.
+
+### ↻ RECONCILED 2026-09-01 at close-out — two rows moved, and one was WRONG when written
+
+⛔ **THE TOAD ROW IS FALSE AND WAS FALSE THE HOUR IT WAS WRITTEN.** It says *"`mammals.json` has
+no amphibian sibling; `RECORD` may need one."* **`amphibians.json` exists, holds 12 species, is
+inlined in `viewer.html` as `AMPHIBIANS_DATA` and is in the Guru digest — and two of its twelve
+are the American Toad and Fowler's Toad.** So the toad does not need a file invented for it; it
+needs identifying against two entries already in canon. Checked by opening the file, which is
+what the row's own claim required and did not get. *A gap asserted without looking is worse than
+an unasked question: it commissions work that is already done.*
+
+- **`boxwood` (#139) — ✅ CLOSED.** The row's correction landed: boxwood now carries
+  `zones: [pond-area, the-meadow]` in `plants.json` (schema v9), placed from photographs whose
+  zone Paul confirmed. It is no longer photographs-only.
+- **`daffodil` (#108–110) — ↻ CORROBORATED, still deliberately not in canon.** A blind
+  identification the same evening independently read cards #2–4 as daffodils being lifted, in
+  `the-meadow`, agreeing with his words without having seen them. It stays out of `plants.json`
+  on purpose: this is a **removal** event, and a plant dug out is not a plant the property has.
+- **`black-eyed Susan` (#149) — unchanged.** Still future work he intends, still onto a
+  tombstoned zone. Not touched.
+- **the pond CONSTRUCTION arc (#115–122) and the LEAK (#163) — unchanged**, but corroborated
+  from a second direction: the blind pass independently read liner/underlayment work in the
+  2025-06-03 frames and two ponds (an upper and a lower) in 2025-06-14/06-21, which is the
+  first evidence for the *"little upper pond"* the lap-26 note flagged as unestablished.
+- **`moss` (#159–161) — unchanged and confirmed.** The blind pass read card #20 as moss in the
+  **flagstone joints** of the eastern patio, which matches the per-location `note` distinction
+  the v8 schema notes already describe (ground planting vs joint-fill).
