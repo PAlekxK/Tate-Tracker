@@ -172,6 +172,12 @@
     </div>
 
     <div id="layers">
+      <div class="hd">Ground — NAIP, every capture on this same frame</div>
+      <div class="btns" id="base-btns"></div>
+      <div class="tip" id="base-note"></div>
+      <div class="tip"><b>1</b>–<b>6</b> pick · <b>G</b> cycles. No single frame is right:
+        leaf-off and high sun cannot co-occur at 34.5&deg;N.</div>
+      <hr>
       <div class="hd">Terrain overlay — USGS lidar, same frame</div>
       <div class="btns">
         <button id="ly-off" class="on">Off</button>
@@ -236,7 +242,7 @@
       <button id="addline">Line</button>
     </div>
     <div id="foot">
-      NAIP 2022-01-10 · ±20 ft. Boundaries are where the <i>name</i> applies, not a survey line.<br>
+      <span id="foot-prov">NAIP 2022-01-10 · ±20 ft</span>. Boundaries are where the <i>name</i> applies, not a survey line.<br>
       <code id="savepath">…</code>
     </div>
   </div>
@@ -281,6 +287,45 @@ function chaikin(pts,closed,it){
 let showDraft=true,showDone=true;
 // The lidar rasters were rendered to bounds byte-identical with the NAIP base,
 // so they register exactly by construction — no transform of their own.
+// ---------- ground frames ----------
+// All five are rendered by fetch-basemap.py to BYTE-IDENTICAL bounds, so they are
+// drop-in swaps: no re-registration, no vertex changes, nothing moves on screen but
+// the photograph underneath. That is only possible because zone vertices are real
+// WGS84 (schema v2) rather than fractions of a picture.
+//
+// WHY THERE IS A CHOICE AT ALL, and it is not a preference. Paul asked for one frame
+// with the sun overhead AND no leaves. At 34.55N those are mutually exclusive: the
+// leaf-off window (Dec-early Apr) caps the noon sun near 55 degrees at the equinox,
+// and sun above 60 degrees only ever falls on full canopy. NAIP has flown this quad
+// seven times and exactly ONE is leaf-off - 2022-01-10, the lowest sun of all of them.
+// So the frame is picked PER ZONE: open ground reads best in October, and the wooded
+// zones are the only place the January frame's long shadows buy anything.
+const BASES=[
+  {slug:"naip-2010-08-aug",     date:"2010-08-31", gsd:"1.0m", sun:63.6, shadow:0.50, season:"leaf-on",
+   note:"Highest sun of any capture - and still the WEAKEST field frame. 1 m and hazy; sun angle is not the only variable."},
+  {slug:"naip-2015-09-sep",     date:"2015-09-15", gsd:"1.0m", sun:57.7, shadow:0.63, season:"leaf-on",
+   note:"Decent contrast on the field edge, but 1 m posting keeps it soft."},
+  {slug:"naip-2019-10-oct",     date:"2019-10-04", gsd:"0.6m", sun:50.1, shadow:0.84, season:"leaf-on",
+   note:"BEST FOR THE OPEN FIELD. 0.6 m, clean mown-edge contrast against the woods."},
+  {slug:"naip-2023-10-oct",     date:"2023-10-07", gsd:"0.6m", sun:48.9, shadow:0.87, season:"leaf-on",
+   note:"Newest, 0.6 m, and the closest in time to the ground as it stands now."},
+  {slug:"naip-2022-01-leafoff", date:"2022-01-10", gsd:"0.6m", sun:33.4, shadow:1.52, season:"LEAF-OFF",
+   note:"The only leaf-off capture. See under the canopy here - and NOWHERE else. Its 1.52x shadows are what made the 8/31 trace hard."},
+];
+// The high-res Esri frame is OPTIONAL and LOCAL. It is gitignored (not redistributable),
+// so on any machine that has not run tools/fetch-trace-hires.py it simply does not exist —
+// the button is added only after the image is confirmed to load, never as a dead control.
+// MEASURED provenance: WorldView-3, captured 2022-02-12, 0.31 m, stated accuracy 8.47 m.
+// It is LEAF-OFF at a ~41 deg noon sun, against the NAIP leaf-off frame's 33.4 deg. So it is
+// the closest thing that exists to what Paul asked for: bare trees AND a higher sun AND
+// 2.4x the detail. The catch is placement, and it is a real one — 8.47 m stated accuracy is
+// WORSE than NAIP's +/-6 m. Sharper is not better-placed. Trace shapes on it; do not treat
+// its absolute position as an upgrade.
+const HIRES={slug:"trace-esri-z19", dir:"/images/property-map/.local/",
+  date:"2022-02-12", gsd:"0.25m", sun:41.2, shadow:1.14, season:"LEAF-OFF",
+  note:"Esri WorldView-3, 2.4x NAIP detail, leaf-off at a higher sun than the January frame. " +
+       "But 8.47 m stated accuracy vs NAIP's 6 m - sharper, NOT better placed. Local only, never shipped."};
+let baseIdx=4;   // the frame zones.json was traced against; changing it changes nothing in the record
 const LAYERS=["off","hillshade","slope"];
 let topLayer="off", topOpacity=0.65, peeking=false;
 // The plat is a SEPARATE layer, not one of the terrain choices: you want it on
@@ -438,6 +483,34 @@ function applyLayers(){
   $("ly-pct").textContent=Math.round(topOpacity*100)+"%";
 }
 function setLayer(k){ topLayer=k; applyLayers(); }
+function renderBaseBtns(){
+  $("base-btns").innerHTML=BASES.map((b,i)=>
+    `<button id="bs-${i}" title="${b.date} - ${b.gsd} - noon sun ${b.sun}deg">${b.dir?"HI-RES":b.date.slice(0,7)}</button>`).join("");
+  BASES.forEach((b,i)=>$("bs-"+i).onclick=()=>setBase(i));
+}
+function applyBase(){
+  const b=BASES[baseIdx];
+  $("base").src=b.dir ? b.dir+b.slug+".png" : "/images/property-map/base-"+b.slug+".png";
+  BASES.forEach((_,i)=>$("bs-"+i).classList.toggle("on",i===baseIdx));
+  $("foot-prov").innerHTML = b.dir
+    ? `Esri WorldView-3 ${b.date} · <b style="color:#e2966e">±28 ft</b> (8.47 m stated — worse than NAIP)`
+    : `NAIP ${b.date} · ±20 ft`;
+  $("base-note").innerHTML=
+    `<b>${b.date}</b> &middot; ${b.gsd} &middot; noon sun ${b.sun}&deg; &middot; ` +
+    `shadow <b style="color:${b.shadow>1?"#e2966e":"#96c8a5"}">${b.shadow.toFixed(2)}&times;</b> height &middot; ` +
+    `<b style="color:${b.season==="LEAF-OFF"?"#e2966e":"#8aa89a"}">${b.season}</b><br>${b.note}`;
+}
+function setBase(i){ baseIdx=(i+BASES.length)%BASES.length; applyBase(); }
+function cycleBase(){ setBase(baseIdx+1); }
+// Preload every frame so a swap is instant rather than a white flash mid-trace.
+BASES.forEach(b=>{const im=new Image(); im.src=b.dir?b.dir+b.slug+".png":"/images/property-map/base-"+b.slug+".png";});
+// Probe for the optional local hi-res frame. Only a frame that actually LOADS becomes a
+// button — an offered control that 404s is worse than an absent one.
+(function(){
+  const probe=new Image();
+  probe.onload=()=>{ BASES.push(HIRES); renderBaseBtns(); applyBase(); };
+  probe.src=HIRES.dir+HIRES.slug+".png";
+})();
 function applyPlat(){
   const im=$("platimg");
   const w=im.naturalWidth||1, h=im.naturalHeight||1;
@@ -767,6 +840,8 @@ window.addEventListener("keydown",e=>{
   if(e.key==="s"||e.key==="S"){smoothOn=!smoothOn;$("tsmooth").classList.toggle("on",smoothOn);
                                drawDone();drawLines();}
   if(e.key==="b"||e.key==="B")cycleLayer();
+  if(e.key>="1"&&e.key<="6"){const i=+e.key-1; if(i<BASES.length)setBase(i);}
+  if(e.key==="g"||e.key==="G")cycleBase();
   if(e.key==="p"||e.key==="P"){platShown=!platShown;applyPlat();}
   if(e.key===" "){e.preventDefault(); if(!peeking&&topLayer!=="off"){peeking=true;applyLayers();}}
   if(e.key==="[")  {topOpacity=Math.max(0,topOpacity-0.1);applyLayers();}
@@ -807,6 +882,7 @@ $("tref").onclick=toggleRef;
 $("tlabels").onclick=cycleLabels;
 $("tsmooth").onclick=()=>{smoothOn=!smoothOn;$("tsmooth").classList.toggle("on",smoothOn);
                           drawDone();drawLines();};
+renderBaseBtns(); applyBase();
 LAYERS.forEach(k=>$("ly-"+k).onclick=()=>setLayer(k));
 $("ly-op").oninput=e=>{topOpacity=(+e.target.value)/100;applyLayers();};
 $("pl-show").onclick=()=>{platShown=!platShown;applyPlat();};

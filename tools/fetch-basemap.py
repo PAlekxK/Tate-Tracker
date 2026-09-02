@@ -27,6 +27,7 @@ redrawing. This is the whole reason the 2015 polygons were unsalvageable.
 Usage:
     python3 tools/fetch-basemap.py [--item ID] [--span-ft N] [--px N] [--slug NAME]
 """
+import datetime
 import json
 import math
 import os
@@ -96,6 +97,40 @@ def item_meta(item_id):
         return {}
 
 
+def sun_and_season(capture_date):
+    """Noon sun altitude and leaf state for a capture — the two numbers that decide
+    whether an edge is traceable, and neither was recorded before 2026-09-01.
+
+    Shadow length is height / tan(altitude), so a low sun does not dim the frame,
+    it BURIES the ground next to anything vertical. At 34.55N these two wants are in
+    direct conflict: the leaf-off window (Dec-early Apr) caps the noon sun near 55
+    degrees at the equinox, and sun above 60 degrees only happens under full canopy.
+    There is no capture that has both. Recording both numbers is what lets a tracer
+    pick the right frame per zone instead of hunting for one that cannot exist.
+    """
+    try:
+        d = datetime.date.fromisoformat(capture_date[:10])
+    except Exception:
+        return {}
+    doy = d.timetuple().tm_yday
+    dec = 23.44 * math.sin(math.radians(360 / 365 * (doy - 81)))
+    alt = 90 - PROPERTY_LAT + dec
+    # Leaf state at ~2,873 ft in the Blue Ridge: leaf-out runs late here, and drop is
+    # complete by early December. April and November are genuinely mixed, so they are
+    # labelled transitional rather than guessed either way.
+    m = d.month
+    season = ("leaf-off" if m in (12, 1, 2, 3) else
+              "leaf-on" if m in (5, 6, 7, 8, 9, 10) else
+              "transitional")
+    return {
+        "season": season,
+        "seasonBasis": "month at ~2,873 ft Blue Ridge; Apr/Nov are mixed and read transitional",
+        "noonSunAltitudeDeg": round(alt, 1),
+        "shadowLengthPerUnitHeight": round(1 / math.tan(math.radians(alt)), 2),
+        "shadowNote": "shadow = height / tan(altitude). Higher is better for tracing edges.",
+    }
+
+
 def main():
     item, span_ft, px, slug = DEFAULT_ITEM, 1500, 1500, "naip-2022-01-leafoff"
     a = sys.argv[1:]
@@ -126,7 +161,6 @@ def main():
         "stacItem": item,
         "captureDate": (meta.get("datetime") or DEFAULT_DATE)[:10],
         "gsdMeters": meta.get("gsd"),
-        "season": "leaf-off",
         "projection": "EPSG:4326 linear (the API renders the exact bbox)",
         "declaredAccuracy": "+/-6 m @ 95% (NAIP contract spec) — ~20 ft",
         "bounds": {"west": bbox[0], "south": bbox[1], "east": bbox[2], "north": bbox[3]},
@@ -134,6 +168,7 @@ def main():
         "pixelHeight": px,
         "propertyAnchor": {"lat": PROPERTY_LAT, "lon": PROPERTY_LON},
     }
+    bounds.update(sun_and_season(bounds["captureDate"]))
     side = os.path.join(out_dir, f"base-{slug}.bounds.json")
     with open(side, "w") as f:
         json.dump(bounds, f, indent=2, ensure_ascii=False)
