@@ -1388,7 +1388,15 @@
         "6": "Sap has slowed enough for refinement work — thinning for light and air, not shortening.",
         "7": "Scorched leaf margins mean too much afternoon sun. Sudden branch dieback with dark streaks in the cut wood is verticillium, and there's no cure for that one."
       },
-      "zones": []
+      "zones": [
+        {
+          "zoneId": "pond-area"
+        },
+        {
+          "zoneId": "eastern-woodlands"
+        }
+      ],
+      "zoneNote": "Paul, 2026-09-01: \"there's a Japanese maple in the pond area as well as one in the eastern woodlands.\" ⭐ TWO TREES, TWO ZONES — he corrected a single-zone proposal to a pair unprompted, which is the third time tonight the array turned out to be necessary rather than tidy. ⭐ THE POND-AREA HALF IS DOUBLY EVIDENCED: he said \"a small Japanese maple by the pond\" on 2026-08-29 ruling photo cards 26-27, AND a photograph he ruled falls independently inside the pond-area polygon — his word and the geometry agreeing, which is the strongest evidence any unzoned plant had. ⚠️ THE EASTERN-WOODLANDS HALF RESTS ON HIS WORD ALONE: no photograph is joined to it, and eastern-woodlands is a LOW-confidence zone (nearest neighbour 7.3 m, under the ±9.1 m trace error). Stated so the two halves are not read as equally supported."
     },
     {
       "id": "pyracomeles-berry-box",
