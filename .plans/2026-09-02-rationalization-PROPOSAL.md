@@ -102,6 +102,50 @@ a standing correctness guard against citing a number wrong. They belong *with* t
 
 ---
 
+## 1b · ⭐ THE SECOND AXIS — engine · config · instance `[paul-ratified 2026-09-02]`
+
+Paul, after the estate-manager scoping: *"Some of the backlog rationalization discussion with this
+framing will be helpful."* Asked directly whether to re-cut before he reviews: **yes — add engine vs
+instance as an axis.**
+
+**Why it belongs here and is not a second tracker.** The 07-29 tiers answer *what unblocks a row*.
+This answers a question that did not exist this morning: **does this row pay once, or every time?**
+Fernwood is now one instance of a product with a second and third property on the roadmap, so a row
+that improves shared machinery is an investment and a row that enriches Fernwood's own record is not
+— they are both worth doing and they are **not the same kind of thing**.
+
+| class | means | in the backlog |
+|---|---|---|
+| **⚙️ engine** | shared machinery; serves every property; a divergence here is a **defect** | the loop · the fold path · the watermark clamp · the Guru's register system · capture infra · auth · the probes' mechanisms |
+| **🎛 config** | per-property **declaration as data**, never a fork | frost dates · station MAC · coordinates · elevation · a property's declared signal set |
+| **🏡 instance** | Fernwood's own record and content | plants · weeds · insects · zones · the fleet record · her zone names · season notes |
+
+**First-cut classification at the section level** (row-level labelling is mechanical follow-on, not
+done here):
+
+| | sections |
+|---|---|
+| ⚙️ **engine** | A3 the loop · A5 privacy→auth · A6 Guru & capture infra · **B0 the ask loop** · L1/L2 lap machinery · M1 the feedback reader · G1 the Guru fence · A-ASK the ask design · W1 `viewer.html` ownership |
+| 🎛 **config** | the physical constants inside A2 · the frost/station/coords values Track B's probe re-types |
+| 🏡 **instance** | A2 the record about her place · A7 weeds · A9 insects · A8 the mine · B1–B4 the fleet record · B6 household · Z-ACK her zone names · V-SERIES |
+
+### ⚠️ Three guards, because this axis is easy to misuse
+
+1. ⛔ **"Engine" must not become a synonym for "important."** Mom's adoption is the open question this
+   whole project rests on, and it is answered by **instance** work. A backlog that sorts engine-first
+   would quietly deprioritize the only user with real evidence.
+2. ⭐ **Most of Mom's machinery IS the engine — that was the panel's finding, not a hope.** Track A's
+   ask → fold → acknowledge path is shared machinery now that Bob's house has a contributor. So the
+   axis does **not** cut cleanly along Track A / Track B, and anyone who assumes it does will mis-file
+   half the list.
+3. **This axis RANKS NOTHING on its own.** It is a label that makes a tier decision better informed —
+   *this Tier-3 row happens to pay three times* — never a competing sort. The tiers remain the sort.
+
+**What it changes about §1's reordering: nothing structural.** The moves stand. Each moved section
+additionally carries its class, so the migration can find its own rows without a second pass.
+
+---
+
 ## 2 · Rows this pass found wrong against reality — surfaced, not fixed
 
 The standing rule is *verify a row against the app before acting on it, and correct the row rather
