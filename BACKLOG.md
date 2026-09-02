@@ -2237,3 +2237,25 @@ the next reader does not re-derive it.
       mail is a **general detector** for unrecorded service rather than a one-off catch.
       ⚠️ The survey proves a visit, not what was done to the car. Date and dealer are evidence;
       anything about the work itself is not in the mail and must not be inferred into the record.
+
+---
+
+## 📥 PROJECT OBSERVATIONS FOUND IN THE PLANT PHOTOGRAPHS `[routed 2026-09-01 from photo-organizer lap 28]`
+
+Paul walked a plant sheet to confirm ZONES and named several things that are not plants at all.
+*"We identified some other pictures about different projects that were ongoing within the different
+zones — that's something to log to Fernwood's backlog as well."* Card numbers are seq in
+`photo-organizer/reports/botanical-plants-zone-confirm.answers.json` (sweep 155).
+
+| # | what he said | why it is a row |
+|---|---|---|
+| **115–122** | *"all really good pictures of the pond being constructed over time"* | ⭐ **A CONSTRUCTION ARC, eight photographs.** `project-pond` holds 4,002 rows as undifferentiated "pond work"; this is the build itself, dated and in sequence. |
+| **163** | *"the pond when it had a **leak**"* | ⭐ **A DATED DEFECT.** Lap 15 established the pond arc as *"patching holes, which failed, before a full liner replacement."* This is a photograph of the failure that caused it. |
+| **108–110** | *"digging up bulbs — **daffodils** that were in the meadow"* | A removal event, past tense. ⚠️ **`daffodil` is not in `plants.json`**, and "were" means they are gone. |
+| **139** | *"a good picture of the **boxwoods** by the parking area"* | ⭐ **CORRECTS THE RECORD.** `plant-zone-table.md` had boxwood as photographs-only in `house` — geometry alone, flagged too weak to propose. ⚠️ Which parking is NOT said: `main-parking` and `lower-parking` are both live. |
+| **149** | *"**black-eyed Susans**, which I'm trying to consolidate onto the parking bank"* | ⭐ **FUTURE WORK HE INTENDS**, not a location. ⛔ `parking-bank` is **TOMBSTONED** on his own 2026-08-31 ruling; successors `the-bank` and `lower-parking` cover different ground. ⚠️ Black-eyed Susan is not in `plants.json`. |
+| **173–174** | *"a cool toad"* | Not a plant — the wildlife record (`mammals.json` has no amphibian sibling; `RECORD` may need one). |
+| **159–161** | *"moss pictures"* | He named the subject, not the place. `moss` is already zoned to three patios on his earlier ruling; nothing here narrows which. |
+
+⚠️ **NOTHING HERE WAS WRITTEN TO CANON.** Each is a proposal awaiting Paul or Mom, and three of them
+(daffodil, black-eyed Susan, the toad) name a living thing this property's records do not contain.
