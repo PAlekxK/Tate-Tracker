@@ -429,6 +429,38 @@ calendar that binds them. Whereas *vehicles* maps cleanly to one domain, and *to
 declaration's shape.** ⚠️ Do not settle it by picking whichever is convenient when the code is
 written — a bundle chosen implicitly is how a second vocabulary starts.
 
+### 🔓 BOTH PASSWORDS ARE OPTIONAL — auth is CONFIG, not engine `[paul-stated 2026-09-02]`
+
+> *"We can make both of those password requirements optional, in theory."*
+
+**Two doors, two jobs** — Paul's own synthesis, and it is better than the either/or the exhibit posed:
+
+| door | job | when |
+|---|---|---|
+| **entry** | establishes **who you are** and **which place** | landing page → property menu |
+| **vault** | gates the **private tier** inside a place — receipts, contacts, warranties | embedded in the card stream |
+
+⭐⭐ **AND EITHER MAY BE TURNED OFF. That lands auth squarely in the divergence contract's `config`
+tier** — declared as data, per estate or per person, never a fork. It is not an engine property.
+
+⭐ **It also dissolves the sharpest objection on the table.** `.ux-reviews/2026-09-02-login-door-and-selector.md`
+holds that *the app must render its glance to completion with zero authorization round-trips* — the
+weather card is both of Mom's card opens since lap 4, and a lobby puts it behind a door. **With the
+entry password optional and hers OFF, her glance is never gated** while Bob's estate can require one.
+The review's constraint and Paul's landing page stop competing.
+
+⛔ **But the two are NOT symmetric, and the asymmetry should be declared rather than discovered:**
+turning the **vault** off means private material renders to anyone holding the phone; turning **entry**
+off costs only that the app does not know who is looking. **A default of `entry: off, vault: on`
+delivers both Paul's journey and the review's constraint** — agent-proposed, not ruled.
+
+⚠️ **A landing page, not a scene.** Paul corrected this mid-run: *"I misspoke when I said scene. I
+just meant landing page."* The photographic variants explored on that misread (an aerial, and the one
+real property photograph) were dropped, not shown. ⭐ Worth keeping the reason they were even
+plausible: **the repo holds exactly ONE photo taken at Fernwood** — a yellow-flag iris. Every other
+image is stock, and the photo doctrine requires those be captioned as *not taken here*. **A stock
+landscape on the landing page would assert a view of the place that is not the place.**
+
 ### 🧭 JOURNEYS, AND A MODULE THAT MIGHT NOT BELONG TO A PLACE `[paul-raised 2026-09-02]`
 
 > *"What are the customer journeys we have to think through and test and model? The login, for

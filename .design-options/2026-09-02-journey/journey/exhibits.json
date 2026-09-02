@@ -1,0 +1,52 @@
+{
+  "title": "Fernwood - the journey Paul described  (414 x A+, 'Midtown condo' as placeholder)",
+  "decision": "Two doors, two jobs: entry establishes WHO and WHICH PLACE; the vault gates the private tier INSIDE a place.",
+  "criteria": "Both passwords optional per Paul | crossed once not per visit | the vault never gates the glance | recovery is a person",
+  "recommend": "F1-F4 as a sequence, with the OPEN QUESTION marked: is F1+F2 met on every open, or once per device? The frames are identical either way; the cost is not.",
+  "exhibits": [
+    {
+      "id": "F1",
+      "file": "shots/F1.png",
+      "label": "1 · landing page",
+      "note": "Wordmark, the way in, and a human for recovery. No photograph.",
+      "look": "There is exactly ONE photo taken at Fernwood in the whole repo. A stock landscape here would assert a view of the place that is not the place.",
+      "status": "baseline",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "F2",
+      "file": "shots/F2.png",
+      "label": "2 · your places",
+      "note": "The property selection menu. 'Midtown condo' is a placeholder with nothing behind it.",
+      "look": "A whole screen for a binary. Fine as an ENTRY step; expensive if she meets it every open.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "F3",
+      "file": "shots/F3.png",
+      "label": "3 · Fernwood, as it is now",
+      "note": "Unchanged. This is the app today, at 414 x A+.",
+      "look": "Everything above the fold is the glance. Whatever the door costs, it is paid before this.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "F4",
+      "file": "shots/F4.png",
+      "label": "4 · the vault, embedded",
+      "note": "The SECOND door, inside a property: private tier gated in the card stream.",
+      "look": "It sits between Vehicles and Equipment and reads as a native card. The glance is untouched above it.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    }
+  ]
+}
