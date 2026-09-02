@@ -25,6 +25,60 @@ not start at step 3.
 | **4** | Agile PM artifacts | step 3 | 🟡 **partly delivered** by seat 1 (persona set + JTBD). ⛔ Its JTBD verdict is that the owner surface has **no evidenced job** — read it before commissioning more |
 | **5** | Architecture options, priced | step 4 | ✅ **RAN 2026-09-02** → `.engineering/…` + `.ai-advisor/…`. Options only; nothing decided |
 
+### ✅ PAUL RULED, 2026-09-02 — three answers, and one of them OVERRIDES WRITTEN DOCTRINE
+
+**① The tenancy unit is ONE DATABASE PER PROPERTY, with an owner→property GRANT LIST.**
+`[paul-ratified 2026-09-02, chosen from three modelled options]`. Fernwood is one database; each of
+Bob's houses is its own. **A property never knows who owns it** — access is a grant row, so a fourth
+house is one new database plus one row. This is what `engineering-partner` recommended independently.
+
+**② ⚠️ MOM WILL LOG IN AND SELECT A PROPERTY. This REVERSES the no-login rule, deliberately.**
+`[paul-stated 2026-09-02]`, asked directly, with the existing doctrine put in front of him:
+
+> *"I think yes, we have Mom login and pick a house — and again the login is part of just an overall
+> hardening of the text and PII that we've talked about, that also probably has some backlog
+> mentions. And Mom has a condo as well, so we can go ahead and say that will be a future requirement
+> for her and is also part of our backlog roadmap. So definitely that journey of logging in and then
+> selecting a property will eventually have to work for both."*
+
+⛔ **This supersedes, for the roadmap, `CLAUDE.md`'s and this file's standing rule that Mom's surface
+has no login and that a trusted tier must be *additive, never a gate in front of what she already
+reaches*.** It was not overridden by accident or inference — it was put to him as the hardest
+constraint in the project and he ruled against it with a reason. **Do not "restore" the old rule.**
+
+⚠️ **But note the word "EVENTUALLY," and do not spend it early.** This is a **roadmap requirement,
+not a near-term change**. Nothing about her door changes today, and the old rule's *reasoning* still
+governs how the new door gets built: her documented fear is getting things wrong, and the glance she
+demonstrably opens is the weather card. **What must never sit behind the login is a live design
+question, not a settled one.**
+
+⭐ **AND THE CONDO IS THE BIGGER FACT.** Mom is now a **multi-property user** — not merely a
+contributor at Fernwood. That makes her the **third** multi-property user and **the only one with real
+behavioural evidence**. It directly contradicts `user-researcher`'s *"the tenancy model is visible to
+owners and invisible to contributors"* and *"the contributor journey must not change at all."* That
+seat has been sent the new facts and asked to revise in place rather than let the finding stand.
+
+**③ THE ONE BOX MUST COVER THE WHOLE ESTATE — stated as a REQUIREMENT** `[paul-stated 2026-09-02]`:
+
+> *"We've talked about how to expand the chat box's coverage to be able to cover basically all the
+> information that would be part of one estate. That is an end goal still — where you go in and talk
+> to the Garden Guru, it should be able to reference everything in that estate's database. I know
+> there are several challenges and design decisions that need to be made to do that, but that is a
+> requirement."*
+
+⭐ **This makes `ai-advisor`'s RUNG 3 (deterministic lookup tools) MANDATORY, not optional — and it
+retires the "bigger window" answer.** The 61 `serviceHistory` rows and the 30-breaker directory are
+**dropped before the context window is reached**, so no model with a larger window can reach them. A
+digest that ships everything cannot scale to *everything*; the requirement is only satisfiable by
+retrieval, not by inflation. ✅ It also confirms scope: **one estate at a time**, which is why the
+cross-property ceiling finding was never a constraint on his design (see the correction below).
+
+⛔ **Open, and it is the crux:** does *"everything in that estate's database"* include the **private
+tier** — the 254 receipts, contractor contacts, breaker directory — once authenticated? That is
+exactly what ②'s PII hardening would unlock, and it is being put to Paul.
+
+---
+
 ### 🗳 PANEL RAN 2026-09-02 — three seats converged. **AT PAUL'S GATE; nothing is ruled.**
 
 Seats: `user-researcher` · `engineering-partner` · `ai-advisor`. Brief:
