@@ -78,6 +78,29 @@ discovered late.
 
 ---
 
+## 3c · PROCEDURE vs LOOP — the gap `check-vocabulary.py` could not see `[agent-proposed 2026-09-02]`
+
+Neither word has a row, and `CYCLE-SPINE.md` defines a **loop** only by what it *carries* (S1–S6),
+never by what it *is*. So there is no way to say that the concept-to-feature cycle is **not** one —
+which is exactly what `practice-steward` ruled it is not.
+
+> **Proposed test, read out of Paul's own ratified rule rather than invented: a LOOP can be OWED.
+> A PROCEDURE cannot.**
+
+A loop rests, fires on a signal, and can be **overdue** — that is why *"a lap that has not run is not
+late"* needed ratifying at all. A procedure has no resting state to be late from; it is invoked, it
+runs, it ends. ⭐ **The distinction is not stylistic: it decides whether a thing gets a trigger, a
+chronicle and a state artifact — and whether a check may ever report it as behind.**
+
+| | **loop** | **procedure** |
+|---|---|---|
+| can be OWED / overdue | ✅ | ⛔ never |
+| trigger | required | none — it is invoked |
+| chronicle + state artifact | required (S1, S4) | not applicable |
+| examples | mom-cycle · fleet · meta-stack | `/design-options` · `/close-out` · the concept-to-feature cycle |
+
+⚠️ **`[agent-proposed]`, not ratified** — §6's convention. Until Paul stamps it, it is a suggestion.
+
 ## 3b · SURFACES AND DOORS — added 2026-09-02 from the journey work
 
 | term | means | why this word |
