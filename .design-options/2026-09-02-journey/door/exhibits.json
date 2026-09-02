@@ -1,0 +1,52 @@
+{
+  "title": "Fernwood - where does the door go?  (414 x A+, her measured conditions)",
+  "decision": "Does the login sit before the app, inside it, or once at the threshold?",
+  "criteria": "Crossed once not per visit | never gates the glance | label promises the destination not the mechanism | recovery is a person",
+  "recommend": "R1-B: the only option that never puts anything between her and the weather card, which is both of her card opens since lap 4.",
+  "exhibits": [
+    {
+      "id": "CURRENT",
+      "file": "shots/CURRENT.png",
+      "label": "no door (today)",
+      "note": "The journey has ZERO steps today: opening the app IS arriving at Fernwood.",
+      "look": "There is no way in, because there is nothing yet to keep out.",
+      "status": "baseline",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-A",
+      "file": "shots/R1-A.png",
+      "label": "the lobby",
+      "note": "A full-screen sign-in BEFORE the app. What 'logging in' usually means.",
+      "look": "She meets a door before she meets the place. The glance is behind it.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-B",
+      "file": "shots/R1-B.png",
+      "label": "the room",
+      "note": "No entry screen. The door appears in the card stream, where the private content would be.",
+      "look": "Weather and the jump strip are untouched above it — she meets this only by reaching for receipts.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-C",
+      "file": "shots/R1-C.png",
+      "label": "the threshold",
+      "note": "A one-time card on first open, above the jump strip; never seen again on this phone.",
+      "look": "It sits between her and the glance ONCE. Compare that cost against B's zero.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    }
+  ]
+}

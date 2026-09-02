@@ -1,0 +1,52 @@
+{
+  "title": "Fernwood - how does she change places?  (414 x A+, with 'Midtown condo' as the placeholder second estate)",
+  "decision": "At two grants, what is the switch - and what does she see at ONE grant?",
+  "criteria": "Navigation not a question | absent at one grant | never gates the glance | a change action not an entry action",
+  "recommend": "R1-SA: the control is the display. It costs one glyph, and at one grant it is simply absent rather than disabled.",
+  "exhibits": [
+    {
+      "id": "CURRENT",
+      "file": "shots/CURRENT.png",
+      "label": "no selector (today)",
+      "note": "One grant, so nothing to switch. This is what she sees until the condo exists.",
+      "look": "The masthead already names the place in the largest type in the product.",
+      "status": "baseline",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-SA",
+      "file": "shots/R1-SA.png",
+      "label": "the masthead IS the control",
+      "note": "The h1 block becomes tappable and gains one chevron. Nothing else is added.",
+      "look": "One new glyph, zero new pixels of height. The thing that names the place is the thing you tap.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-SB",
+      "file": "shots/R1-SB.png",
+      "label": "a switch row",
+      "note": "Two place chips above the jump strip.",
+      "look": "It reads as PART of the jump strip - competing with the one affordance she takes 5 of 5 times.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    },
+    {
+      "id": "R1-SC",
+      "file": "shots/R1-SC.png",
+      "label": "a picker screen",
+      "note": "A full screen listing both places, before the app.",
+      "look": "A whole screen spent on a BINARY she changes about twice a year.",
+      "status": "candidate",
+      "css": "",
+      "added": "2026-09-02",
+      "archived": ""
+    }
+  ]
+}

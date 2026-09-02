@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><title>journey harness 414</title>
+<style>
+  html,body{margin:0;background:#3a3a3a;font:12px system-ui}
+  #wrap{width:414px;height:848px;margin:0;overflow:hidden;
+        box-shadow:0 0 0 1px #000;background:#fff}
+  iframe{width:414px;height:848px;border:0;display:block}
+</style>
+<div id="wrap"><iframe id="f" src="/viewer.html"></iframe></div>
+<script>
+  // A+ is her measured condition. Same origin, so this reaches the iframe.
+  try { localStorage.setItem('tateTracker.textSize','lg'); } catch(e){}
+  window.F = () => document.getElementById('f').contentWindow;
+  window.D = () => document.getElementById('f').contentDocument;
+</script>
