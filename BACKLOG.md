@@ -2254,6 +2254,24 @@ Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
 
 # TRACK C — Cross-cutting / infra / doctrine
 
+## 🔴 M2 · `mom-queue-watch.py` RUNS, AND ITS STATE FILE SAYS IT DID NOT `[found 2026-09-02]` ⚙️ engine
+
+**A watcher on MOM'S channel whose own record is false.** It is launchd-loaded and fired at 09:00 on
+2026-09-02 (`runs=1`, exit 0) — and `.private/mom-queue-watch-state.json` still reads
+`lastRun: 2026-09-01`. **Two early `return 0` paths write no state and no log**, so a run that finds
+nothing is indistinguishable from a run that never happened.
+
+⭐⭐ **THIS EXACT DEFECT WAS ALREADY FIXED ON THE SAME CHANNEL, AND THE FIX NEVER PROPAGATED.** The
+Mom-check counter (2026-08-02) exists because *a quiet watcher and a dead one printed the same thing:
+nothing.* `read-mom-feedback.py` now stamps `lastCheckedAt` on **every** run — verified today at
+13:14. **The manual watcher was fixed; the scheduled one was not.** Same failure, same channel, one
+month apart.
+
+⚠️ **Consequence:** the one automated watcher on her feedback channel cannot prove it is alive, and
+this repo's doctrine is that a quiet watcher and a dead one must never read the same.
+
+---
+
 ## 🎛 C2 · THERE IS NO FEATURE DEVELOPMENT PROCESS — and the prototyping tool has run ONCE `[paul-raised 2026-09-02]` ⚙️ engine
 
 Paul: *"I want to be sure we're using some of the prototyping tools we've built — not UX review,
@@ -2267,9 +2285,15 @@ mock options as swappable patches **on the live app with real data**, compose th
 self-contained `compare.html`, stage for Paul, iterate, then verify the shipped result against the
 winning exhibit.
 
-⛔ **MEASURED 2026-09-02: IT HAS RUN EXACTLY ONCE — 2026-08-02, the session it was standardized FROM.**
-Two commits, both that day (`430675c`, `f70aeec`); one directory on disk
-(`.design-options/2026-08-02-input-ia/`). **Zero runs in 31 days.**
+⛔ **CORRECTED 2026-09-02 by `practice-steward`: it has run ~3 times, last 2026-08-14 (19 days) — not
+once in 31.** ⚠️ **My count carried an unstated predicate** — *directories in
+`Tate-Tracker/.design-options/`* — reported as *runs of /design-options*. The 08-14 run (*the radar's
+door*) sits in the skill's **own Refinement log**, which is the authoritative record by the skill's
+own design, and I counted artifacts instead of reading it. *A count without its predicate*, and
+*counting artifacts instead of deriving state* — both already named in this corpus.
+
+✅ **The CONCLUSION survives, and it is the part that matters: every run was PAUL-INITIATED. Zero were
+trigger-initiated.**
 
 ⭐⭐ **AND THE WAY IT WAS CREATED MAKES THAT WORSE, NOT NEUTRAL.** Paul explicitly **overrode the
 three-runs-before-a-Skill promotion gate** to get measurement instead: *"Just make it a skill… and
