@@ -82,6 +82,42 @@
       "disposition": "SAME ACT AS guru:mtit1o6z-f2jy8, not a second one — this is the conversation MIRROR, and the link is deterministic: the record's conversation.conversationId == mtit1o6z-f2jy8. Dispositioned on its own so the mirror is attested in its own right rather than cleared by its twin. Her words: 'I would like to add our refrigerator under household systems.'",
       "attestedBy": "Claude read the record and matched conversation.conversationId to the guru record in lap 8 leg 2 — a field comparison, not an inference from timing",
       "dispositionedOn": "2026-09-01T15:40:58.739946+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "mtiygrg6-kdup4",
+      "recordTs": "2026-09-01T17:42:58.038Z",
+      "origin": "bench",
+      "disposition": "READ in full at lap-8 close. Paul's own device d-14nyhnjz (people.json 2026-07-28 clean-slate correction), so no ribbon is owed. Content is the pond-azalea move request — the same note propagated across channels — ROUTED to BACKLOG.md § POND AZALEA rather than swept up. Not Mom's; not dismissed.",
+      "attestedBy": "close-out session 2026-09-01",
+      "dispositionedOn": "2026-09-02T03:21:47.842071+00:00"
+    },
+    {
+      "channel": "guru",
+      "recordId": "mtiygrta-hjoq7",
+      "recordTs": "2026-09-01T17:43:05.615Z",
+      "origin": "bench",
+      "disposition": "READ in full at lap-8 close. Paul's own device d-14nyhnjz (people.json 2026-07-28 clean-slate correction), so no ribbon is owed. Content is the pond-azalea move request — the same note propagated across channels — ROUTED to BACKLOG.md § POND AZALEA rather than swept up. Not Mom's; not dismissed.",
+      "attestedBy": "close-out session 2026-09-01",
+      "dispositionedOn": "2026-09-02T03:21:48.210244+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "mtiyhexx-rdfm1",
+      "recordTs": "2026-09-01T17:43:28.485Z",
+      "origin": "bench",
+      "disposition": "READ in full at lap-8 close. Paul's own device d-14nyhnjz (people.json 2026-07-28 clean-slate correction), so no ribbon is owed. Content is the pond-azalea move request — the same note propagated across channels — ROUTED to BACKLOG.md § POND AZALEA rather than swept up. Not Mom's; not dismissed.",
+      "attestedBy": "close-out session 2026-09-01",
+      "dispositionedOn": "2026-09-02T03:21:48.400957+00:00"
+    },
+    {
+      "channel": "observations",
+      "recordId": "c-h7rjg357-mtiyhgkm",
+      "recordTs": "2026-09-01T17:43:30.600Z",
+      "origin": "bench",
+      "disposition": "READ in full at lap-8 close. Paul's own device d-14nyhnjz (people.json 2026-07-28 clean-slate correction), so no ribbon is owed. Content is the pond-azalea move request — the same note propagated across channels — ROUTED to BACKLOG.md § POND AZALEA rather than swept up. Not Mom's; not dismissed.",
+      "attestedBy": "close-out session 2026-09-01",
+      "dispositionedOn": "2026-09-02T03:21:48.593450+00:00"
     }
   ]
 }
