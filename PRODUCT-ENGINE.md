@@ -435,6 +435,58 @@ nominally Fernwood's; Bob's contributor sees Bob's equipment record).
 applies to the schema too: *a change must be intentional, journey-aware, and data-supported where data
 exists.* **Recorded here so the reversal, if it comes, is a decision rather than a drift.**
 
+### ⭐ THE DISCRIMINATOR IS SITING, NOT OWNERSHIP `[paul-stated 2026-09-02]`
+
+> *"This is not something we would just change on the fly, and different people have different
+> preferences. But thinking about it — if I have Fernwood and then the condo, and then **a car I use
+> to drive between the two** versus **a dirt bike that stays at Fernwood** — you can see there may be
+> different ways to represent that, where the car that's your main source of transportation is not
+> associated to an estate, but a dirt bike is, because it stays there."*
+
+⭐⭐ **This resolves the tension without reversing anything.** The question was never *who owns the
+machine* — it is **does the machine LIVE somewhere.** A dirt bike is sited; a car is mobile. Ownership
+is the same in both cases.
+
+**So the estate association becomes OPTIONAL AND DECLARED, not removed:**
+
+| | |
+|---|---|
+| `home: <estateId>` | **sited** — seasonal signals apply, it surfaces under that estate |
+| `home: null` | **mobile** — it belongs to the person and surfaces at the person level |
+
+✅ **"A machine belongs to the estate" `[paul-ratified 2026-09-02]` STAYS TRUE for sited machines.**
+This refines the ruling rather than overturning it, and it lands exactly in the divergence contract's
+middle tier: **a declared absence is not drift.**
+
+### ⛔ AND THE RECORD ALREADY HALF-KNOWS THIS — by accident, in the most fragile way available
+
+**Measured 2026-09-02: not one vehicle carries a `location`, `home`, `stored` or `site` field. Zero.**
+Yet `fleet_probe.py`'s SEASON signal correctly fires on **`dr200s-2017` and `drz400s-2001`** — the two
+dirt bikes — and not on the road cars.
+
+**How does it know? Because someone wrote *"Fall put-away"* on them as a maintenance item**
+(`fleet_probe.py:82`). ⚠️ **The discriminator between "lives at Fernwood" and "moves between places"
+is currently whether a human happened to write a task line.** Delete that line and the dirt bike
+becomes, as far as every tool can tell, a car — and the fall put-away signal goes quiet with nothing
+reporting that it did.
+
+⭐ **Same shape as the module on/off question, one level down:** a machine with **no home** and a
+machine **whose home was never recorded** produce the same observation. Only a *declared* `home: null`
+tells them apart.
+
+### 🔀 And the split that keeps preference out of the schema
+
+Paul: *"different people have different preferences."* ⭐ **Those are two different things and they
+should not share a field:**
+
+- **SITING IS A FACT** — the dirt bike is at Fernwood, and that is true regardless of who is looking.
+  **Data. `instance`-class.**
+- **SURFACING IS A PREFERENCE** — whether a mobile machine appears at the top level or nested under an
+  estate. **`config`-class, per person.**
+
+**So "different people have different preferences" does not have to contaminate the schema at all**,
+which is what would otherwise make this feel unresolvable.
+
 ### ⚠️ Two collisions on the "finance tab"
 
 1. **A finance surface already exists in the portfolio — twice.** `~/Developer/private-financial-dashboard`
