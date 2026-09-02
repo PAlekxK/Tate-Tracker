@@ -1,9 +1,24 @@
 # Fernwood — the rationalization, proposed (2026-07-29)
 
-**Status: PROPOSAL. Nothing here has been applied to `BACKLOG.md`.** Paul's spec said *"Do NOT start by
-editing — read the tracks, check them against git and the live app, then propose the reordering."* This
-is that proposal. On his go, it replaces the `▶️ NEXT` table and the TOP ITEM block; the tracks below
-them stay as the decision record.
+> ## ✅ STATUS: **APPLIED 2026-07-29** — commit `a6c89a8`, *"The rationalization: one NEXT list,
+> sorted by what unblocks each row."* Verify with `git show a6c89a8 -- BACKLOG.md`; the applied result
+> is `BACKLOG.md`'s head, *"▶️ NEXT — the one true list (rationalized 2026-07-29)."*
+>
+> ⚠️ **This header was corrected on 2026-09-02, and the correction is itself the finding.** For 35
+> days this file opened with the line preserved below — *"Nothing here has been applied"* — while its
+> own applied result sat in `BACKLOG.md` and was cited by that file's head. **A fully-executed
+> proposal read exactly like an open one**, and `BACKLOG.md` links here for the reasoning, so anyone
+> following that pointer met a stale OPEN before reaching a closed decision.
+>
+> This is `[[feedback_unchecked_box_is_not_open_work]]` in its textbook form: *closing a thread and
+> recording the closure are two acts, and only the first has a natural trigger.* The document is
+> unchanged below this line — it is the decision record of what was proposed, and rewriting it to
+> match what shipped would destroy the evidence of the difference.
+
+**The original status line, preserved:** *"Status: PROPOSAL. Nothing here has been applied to
+`BACKLOG.md`."* Paul's spec said *"Do NOT start by editing — read the tracks, check them against git
+and the live app, then propose the reordering."* This is that proposal. On his go, it replaces the
+`▶️ NEXT` table and the TOP ITEM block; the tracks below them stay as the decision record.
 
 **Panel:** ux-expert · user-researcher · engineering-partner · content-steward · ai-advisor, plus a
 mechanical verification sweep (140 rows classified). Reports in `.ux-reviews/`, `.user-research/`,

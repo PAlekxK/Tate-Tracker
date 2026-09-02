@@ -118,6 +118,37 @@ it goes quiet when she does"* (`CLAUDE.md` § what the ribbon is for). The trigg
 doctrine applied to the whole loop rather than to one card. A lap that fires on our cadence is a
 release cycle wearing the loop's clothes, and it spends her attention to do it.
 
+### ⛔ WHAT IS *NOT* A TRIGGER — the backlog, and the check that watches it `[paul-stated 2026-09-02]`
+
+`tools/check-backlog-drift.py` joined `CLAUDE.md`'s session-start block on 2026-09-02. **It fires
+nothing here.** It answers *"is a backlog rationalization owed?"* and the answer is never a reason to
+open a lap.
+
+It is recorded **in this section, beside the trigger rule**, precisely because it is the kind of
+thing that would otherwise be mistaken for one later. The blockquote above says *"not a schedule, not
+a **backlog**"* — a rationalization beat hung off leg 7 would have made that sentence false by
+construction, and this loop has already had its formal definition contradict its own code for ten
+days once (the 08-17 amendment, found at lap 6).
+
+**Two further reasons it is not a beat here, and they are structural rather than stylistic:**
+
+- **`BACKLOG.md` is not Track A's file.** It carries Tracks A, B and C, and since 2026-09-01 it is
+  written by **two loops** — this one and `fernwood-fleet` (`cycle/fleet/CYCLE-MAP.md`). A beat in
+  either loop grooms a file neither loop owns, and a lap of *this* loop would be scoping a Track B
+  reordering to Mom's cadence.
+- **Her cadence must not gate a shared artifact.** If she rests three months — which is her
+  prerogative and fires nothing — a close-beat rationalization rests three months with her.
+
+**Where it IS disposed:** at the **gate sweep** that opens a lap (the CYCLE-SPINE amendment of
+2026-08-31) — read the fired gate, then **act · fold · snooze · kill**, like any other. A lap may
+open, note it, snooze it and carry on; what it may not do is *fire* on it.
+
+⭐ **This is a reuse, not an invention.** `check-ux-sweep.py` established the shape on 2026-08-24:
+an accumulation trigger, sited in the session-start block, read at every pickup rather than every
+lap, that FLAGS and runs nothing. No new state, no new beat, no fourteenth loop.
+
+---
+
 **Three states, and they must stay tellable apart:**
 
 | state | what is true | what to do |

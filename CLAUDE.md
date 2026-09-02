@@ -22,6 +22,7 @@ python3 tools/read-mom-engagement.py --pickup # ⭐ WHAT SHE DID — sessions/op
 python3 ~/.claude/tools/health-probe.py --only fernwood  # ⭐ IS THE RECORD ITSELF INTACT — weather history, the Action, Pages, the Worker
 python3 tools/check-ux-sweep.py            # ⭐ is a HOLISTIC two-pass UX sweep owed? (accumulation, not cadence)
 python3 tools/check-loop-docs.py           # ⭐ do the loop's DOCS still describe the loop's CODE? (the 3x divergence)
+python3 tools/check-backlog-drift.py       # ⭐ is a BACKLOG RATIONALIZATION owed? (accumulation, not cadence — and it does NOT fire a lap)
 python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEEING — head-slot exposure; she sees ONE, not five
 ```
 
@@ -49,6 +50,40 @@ not per-fix."* **A single-seat review does NOT reset the clock; only a two-pass 
 `ux-expert` consult on one surface is precisely the single-fix work a sweep exists to zoom out from.
 Thresholds (21d / 20 viewer commits / 3 laps) are a **first cut, not ratified** — tune from what runs
 show and record the move in `MOM-CYCLE-LOG.md`.
+
+**⭐ AND THE SAME SHAPE NOW COVERS THE BACKLOG ITSELF** `[paul-stated 2026-09-02]` —
+`check-backlog-drift.py`. The five-seat rationalization Paul commissioned on 2026-07-28 **ran on
+07-29 and was applied** (`a6c89a8`). It was a **one-off he had to commission by hand**; nothing made
+it recur, so nothing did.
+
+**Measured 2026-09-02, 35 days later:** `BACKLOG.md` went **575 → 2,421 lines** (4.2×) over **134
+commits**, and the pointer head at line 19 — which declares *"read this for what now"* — now sits
+**734 lines above its own TIER 1 table** at line 753, with 18 later sections wedged between them, 5
+of which already read as finished. **The defect is not size.** A long decision record is correct and
+wanted. The defect is that the 07-29 run was commissioned to kill *"the two colliding ▶️ NEXT
+tables"* and **the same collision has re-grown by append**, in the file's own reading order. So the
+check is **sited on the distance from the pointer head to its own ranked list**, never on line count,
+which would fire on healthy growth.
+
+⛔ **IT DOES NOT FIRE A LAP, AND THAT IS THE LOAD-BEARING CONSTRAINT.** `MOM-CYCLE-MAP.md` is
+explicit — *"The loop rests. HER INPUT is what fires it. Not a schedule, not a backlog."* A
+rationalization **beat** inside the mom cycle would quietly convert it into a backlog-driven loop and
+make grooming wait on Mom's cadence. It is also **scoped wrong in both directions**: `BACKLOG.md`
+carries Tracks A, B and C, and since 2026-09-01 it is written by **two** loops (mom + fleet), so a
+beat in either one owns a file neither one owns. It is therefore a **pickup-time trigger**, read
+where `check-ux-sweep.py` is read, disposed at the lap's opening **gate sweep** (act · fold · snooze
+· kill) — reusing existing vocabulary rather than adding a state, a beat, or a fourteenth loop.
+
+⚠️ **The clock is read from EVIDENCE — `.plans/` artifacts plus BACKLOG.md's own `(rationalized
+<date>)` head marker, newest wins — never from a hand-typed line.** A count typed beside a tool that
+computes the same count is the CYCLE-SPINE enactment amendment's own recorded failure mode. It also
+means **applying** a rationalization resets the clock as a side effect of doing the work. Thresholds
+(30d / 12 new sections / 400-line head gap) are a **first cut, not ratified**; two of three fire
+today and `sectionsAddedSince` (11 of 12) deliberately does not — a control that is red on every
+signal from day one is one nobody reads. Selftest **16/16, proven by mutations** (a buried list with
+a fresh marker · an aged marker with a tight list · 40 sections below the tracks · a moved anchor,
+which fails CLOSED). ⛔ **It FLAGS; it never reorders** — the rationalization itself is PROPOSED as a
+diff for Paul, exactly as the 07-29 run was.
 
 **⭐ THE LAST LINE IS NOT A MOM CHECK, AND THAT IS WHY IT HAD TO BE ADDED** `[paul-stated 2026-08-24,
 lap 5]`. Every other check above asks *what has she given us and have we answered it*. **None of them
