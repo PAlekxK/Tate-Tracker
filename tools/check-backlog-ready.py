@@ -52,7 +52,18 @@ SEAT_PAT = re.compile(r"^\s*([a-z\-]+)\s*→\s*(.+?)\s*$")
 
 
 def file_date(path, root):
-    """When did this file first exist? git add-date when tracked, else mtime. Never raises."""
+    """When did this file first exist? git add-date when tracked, else mtime. Never raises.
+
+    A citation may point into a SIBLING repo (`../fernwood-private/…`) — the private sibling that
+    holds third-party scoping trails (C4 step 1b). Its own git history carries the original add-dates
+    (filter-repo preserves them), so the date is read from THAT repo, never from the clone's mtime —
+    a clone made today would otherwise make every moved trail read newer than the plan citing it.
+    """
+    abs_path = os.path.normpath(os.path.join(root, path))
+    if path.startswith("../"):
+        parts = os.path.normpath(path).split(os.sep)
+        root = os.path.normpath(os.path.join(root, parts[0], parts[1]))
+        path = os.sep.join(parts[2:])
     try:
         out = subprocess.run(["git", "log", "--diff-filter=A", "--format=%ct", "-1", "--", path],
                              cwd=root, capture_output=True, text=True, timeout=10).stdout.strip()

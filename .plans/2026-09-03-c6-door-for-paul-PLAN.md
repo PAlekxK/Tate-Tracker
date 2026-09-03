@@ -3,8 +3,8 @@
 - objective: O3
 - class: engine · declared
 - seats: engineering-partner → .engineering/2026-09-03-c6-door-for-paul.md
-         ux-expert → .ux-reviews/2026-09-02-login-door-and-selector.md
-         user-researcher → .user-research/2026-09-02-activation-journeys.md
+         ux-expert → ../fernwood-private/.ux-reviews/2026-09-02-login-door-and-selector.md
+         user-researcher → ../fernwood-private/.user-research/2026-09-02-activation-journeys.md
          ai-advisor → waived: no model on the path in this item; the vault's retrieval is the Guru item's
          content-steward → waived: no Mom-facing copy — her surface is untouched; door copy for Paul is not hers
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md

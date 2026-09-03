@@ -3,8 +3,8 @@
 - objective: O3
 - class: config
 - seats: engineering-partner → .engineering/2026-09-03-c7-condo-paper-model.md
-         user-researcher → .user-research/2026-09-02-condo-feature-research.md
-         content-steward → .content-reviews/2026-09-02-estate-naming-layer.md
+         user-researcher → ../fernwood-private/.user-research/2026-09-02-condo-feature-research.md
+         content-steward → ../fernwood-private/.content-reviews/2026-09-02-estate-naming-layer.md
          ux-expert → waived: nothing ships to her; the falsifier renders in a scratch path
          ai-advisor → waived: the outward-facing domain family is captured as a declared absence, not built; the AI-boundary third path is handed to Paul + ai-advisor as its own item
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md

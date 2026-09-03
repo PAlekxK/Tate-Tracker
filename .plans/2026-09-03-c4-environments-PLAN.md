@@ -87,9 +87,10 @@ residual risk = a paraphrase the regex misses, closed by a human read of the ~40
 repo, but flattens every seat file and this plan to one add-date — the first item through the readiness
 mechanism would erase the trail the mechanism verifies — and drops 50 commit narratives from O5's artifact.
 **Recommend replace-text.** Checks, all must hold: `git merge-base --is-ancestor origin/main HEAD` exit 0 (no pushed
-SHA moved); `git log -p origin/main..HEAD | grep '^+' | grep -ci 'more than one place\|Tate Commons\|the-surname'` = **0**
-(added lines only — the `-` lines that remove `the-surname` are already-public content and are expected; today the
-count is 27); `git log --format=%B origin/main..HEAD | grep -ci 'more than one place\|the-surname\|piedmont'` = 0;
+SHA moved); added lines only (`git log -p origin/main..HEAD | grep '^+'`) matched against **the left-hand side of every
+rule in the redaction file** = **0** — the phrases are deliberately not restated here, because a plan that names them
+is a file that carries them; the `-` lines that remove already-public content are expected; the commit messages
+(`git log --format=%B`) matched the same way = 0;
 `git ls-tree -r HEAD --name-only | grep -c -F -f <the 11>` = 0; `git grep -c 'approached for now with Bob\.' HEAD --
 PRODUCT-ENGINE.md` = 1 (the forward fix still reads "Bob"); `git grep -n -i -w bob HEAD -- PRODUCT-ENGINE.md
 BACKLOG.md CLAUDE.md VOCABULARY.md` printed in full and read by Paul; `python3 tools/check-backlog-ready.py`

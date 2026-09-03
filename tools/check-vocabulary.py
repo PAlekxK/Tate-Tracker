@@ -58,8 +58,9 @@ VOCAB = os.path.join(ROOT, "VOCABULARY.md")
 SCHEMA_SURFACES = [
     "tools/momlib.py",
     "worker/wrangler.toml",
-    ".plans/2026-09-02-data-model-design.md",
-    ".plans/2026-09-02-governance-model-PROPOSAL.md",
+    # moved to the private sibling 2026-09-03 (C4 step 1b) — read there; unreadable if the sibling is absent
+    "../fernwood-private/.plans/2026-09-02-data-model-design.md",
+    "../fernwood-private/.plans/2026-09-02-governance-model-PROPOSAL.md",
 ]
 
 # Parsed OUT of VOCABULARY.md rather than restated here — the file is canon, this is a reader.
