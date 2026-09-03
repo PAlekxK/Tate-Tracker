@@ -20,7 +20,7 @@ row. This is a substring lint over text; it names the leaks it can name.
     python3 tools/check-config-derivation.py             # exit 1 on any un-allowed hit
     python3 tools/check-config-derivation.py --selftest  # plant / clear / allowed-is-silent
 """
-import argparse, ast, fnmatch, io, os, re, subprocess, sys, tempfile, tokenize
+import argparse, ast, fnmatch, io, json, os, re, subprocess, sys, tempfile, tokenize
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
@@ -215,5 +215,9 @@ def selftest():
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("--selftest", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--json", action="store_true", help="{count} of un-allowed hits — check-engine-manifest's P4 reads it")
+    a = ap.parse_args()
+    if a.json:
+        f, _, _ = scan(ROOT); print(json.dumps({"count": len(f), "findings": [{"path": x[0], "file": x[1], "line": x[2]} for x in f]})); sys.exit(0)
     sys.exit(selftest() if a.selftest else main())

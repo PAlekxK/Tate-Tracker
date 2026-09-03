@@ -1172,14 +1172,9 @@ def harness_device_ids():
     global _HARNESS_IDS
     if _HARNESS_IDS is None:
         ids = set()
-        try:
-            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                   "people.json"), encoding="utf-8") as fh:
-                for p in (json.load(fh).get("people") or []):
-                    if p.get("isTestHarness"):
-                        ids.update(p.get("deviceIds") or [])
-        except (OSError, ValueError):
-            ids = set()          # absent/broken file -> filter nothing, the safe default
+        for p in _people()[0]:
+            if p.get("isTestHarness"):
+                ids.update(p.get("deviceIds") or [])
         _HARNESS_IDS = ids
     return _HARNESS_IDS
 
@@ -1208,18 +1203,43 @@ _BENCH_IDS = None
 _PEOPLE = None
 
 
+PRIVATE_SIBLING = os.path.expanduser(os.environ.get("FERNWOOD_PRIVATE", "~/Developer/fernwood-private"))
+
+
 def _people():
-    """`tools/people.json` parsed once: (list of people, _meta). Fails closed —
-    an absent or broken register resolves nobody."""
+    """`tools/people.json` parsed once, MERGED with the private device register
+    (`<sibling>/people-devices.json`, C5 8a — device ids are private by Paul's ruling):
+    (list of people with `deviceIds`, _meta). Fails closed — an absent or broken
+    public register resolves nobody; an absent sibling leaves every real person with
+    NO devices (the harness id is public and stays), so readers show UNMAPPED loudly
+    rather than attributing silently."""
     global _PEOPLE
     if _PEOPLE is None:
         try:
             with open(os.path.join(HERE, "people.json"), encoding="utf-8") as fh:
                 d = json.load(fh)
-            _PEOPLE = (d.get("people") or [], d.get("_meta") or {})
+            people = [dict(p) for p in (d.get("people") or [])]
         except (OSError, ValueError):
-            _PEOPLE = ([], {})
+            _PEOPLE = ([], {}); return _PEOPLE
+        devices, assumed = {}, {}
+        try:
+            with open(os.path.join(PRIVATE_SIBLING, "people-devices.json"), encoding="utf-8") as fh:
+                pd = json.load(fh)
+            devices = pd.get("devices") or {}; assumed = pd.get("assumedNotVerified") or {}
+        except (OSError, ValueError):
+            pass
+        for p in people:
+            if not isinstance(p.get("deviceIds"), list):
+                p["deviceIds"] = list(devices.get(p.get("id"), []))
+            if p.get("id") in assumed:
+                p["assumedNotVerified"] = assumed[p["id"]]
+        _PEOPLE = (people, d.get("_meta") or {})
     return _PEOPLE
+
+
+def people_devices_available():
+    """Is the private device register readable? Boards print UNMAPPED without it."""
+    return os.path.exists(os.path.join(PRIVATE_SIBLING, "people-devices.json"))
 
 
 # The record fields that carry "when was this written", per channel. First hit wins.
@@ -1317,14 +1337,9 @@ def bench_device_ids():
     global _BENCH_IDS
     if _BENCH_IDS is None:
         ids = set()
-        try:
-            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                   "people.json"), encoding="utf-8") as fh:
-                for p in (json.load(fh).get("people") or []):
-                    if p.get("excludeFromEngagement") and not p.get("isTestHarness"):
-                        ids.update(p.get("deviceIds") or [])
-        except (OSError, ValueError):
-            ids = set()          # absent/broken file -> classify nothing, the safe default
+        for p in _people()[0]:
+            if p.get("excludeFromEngagement") and not p.get("isTestHarness"):
+                ids.update(p.get("deviceIds") or [])
         _BENCH_IDS = ids
     return _BENCH_IDS
 

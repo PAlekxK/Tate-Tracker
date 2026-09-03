@@ -28,24 +28,30 @@ def _rx(p): return re.compile(p, re.I)
 ROSTER = [
     {"id": "breaker-directory", "what": "the electrical panel's hand-written door directory — every circuit, and `specs.breakerCircuit` on three household systems",
      "detect": _rx(r"breakerCircuit|panel circuit \d|Panel circuits? \d|door card|circuit directory"),
-     "disposition": "ruled-private", "by": "paul-stated 2026-09-03 (§③: the private tier is in scope behind a login the box asks for)",
-     "enforce": False, "note": "MOVE TIMING IS PAUL'S: removing it from the public build removes the panel card's content from Mom's page until the vault (C6 5) serves it back behind the door."},
+     "disposition": "ruled-private", "by": "paul-stated 2026-09-03; HOLD until C6 — \"the breaker can hold until C6\"",
+     "enforce": False, "note": "RELEASE CONDITION: C6 5 (the vault) serves it behind the door; then this row flips to enforce and the move happens. Until then it stays so Mom's panel card keeps its content."},
     {"id": "vins", "what": "vehicle VIN PREFIXES — six vehicles carry `vin` with the six serial characters ALREADY REDACTED (`3VW547AU0GM••••••`)",
      "detect": _rx(r'"vin"\s*:\s*"[A-HJ-NPR-Z0-9]{11}'),
-     "disposition": "pending-paul", "by": None, "enforce": False,
-     "note": "measured 2026-09-03: the public record holds make/model/year/plant (11 chars), never the serial. Paul rules whether the prefix stays; a FULL VIN appearing here would be a new leak and this row counts it too."},
+     "disposition": "public", "by": "paul-ruled 2026-09-03: \"the prefix can stay public\"", "enforce": False,
+     "note": "the serial stays redacted; a FULL 17-char VIN appearing would be a new leak — see the `full-vins` row."},
+    {"id": "full-vins", "what": "a FULL 17-character VIN anywhere in the public build",
+     "detect": _rx(r'"vin"\s*:\s*"[A-HJ-NPR-Z0-9]{17}"'),
+     "disposition": "ruled-private", "by": "implied by paul-ruled 2026-09-03 (only the prefix is public)", "enforce": True, "note": ""},
     {"id": "service-contact-phones", "what": "phone numbers in `serviceContacts` and restoration prose (18 phone-shaped values in vehicles.json)",
      "detect": _rx(r"\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b"),
-     "disposition": "pending-paul", "by": None, "enforce": False, "note": "business numbers of shops are public information; the question is whether the record of WHOM Paul uses is."},
+     "disposition": "ruled-private", "by": "paul-ruled 2026-09-03: \"let's keep that private\"", "enforce": False,
+     "note": "HELD with the breaker until C6 5 (agent's call, stated for Paul to override): the fleet card renders who-to-call lines to Mom, so moving them now removes them from her page until the vault serves them behind the door. Mechanics when released: `serviceContacts` + phone-bearing prose → the sibling; the card renders a name without a number until login."},
     {"id": "receipt-manifest", "what": "service-records.manifest.json — 254 rows of path · sha · bytes · date · vehicleId (no amounts, no vendors)",
      "detect": _rx(r'"sha256"'), "only_in": ("service-records.manifest.json",),
-     "disposition": "pending-paul", "by": None, "enforce": False, "note": "an EXISTENCE PROOF of the receipts and the fleet, not their content. Paul rules public or private."},
+     "disposition": "ruled-private", "by": "paul-ruled 2026-09-03: \"private\"", "enforce": True,
+     "note": "MOVED 2026-09-03 to fernwood-private/service-records.manifest.json; intake.py and photo-organizer's describe_documents.py repointed. History keeps the old rows until the C4 step-5 split rewrites it."},
     {"id": "device-ids", "what": "tools/people.json device ids (a browser bucket per person)",
      "detect": _rx(r'"d-[a-z0-9]{8}-[a-z0-9]{8}-[a-z0-9]{8}"'), "only_in": ("tools/people.json",),
-     "disposition": "pending-paul", "by": None, "enforce": False, "note": "not a credential and not PII on its own, but it maps a browser to a person by handle."},
+     "disposition": "ruled-private", "by": "paul-ruled 2026-09-03: \"private\"", "enforce": True,
+     "note": "MOVED 2026-09-03: real device ids live in fernwood-private/people-devices.json (keyed by personId); momlib._people() merges them; the synthetic harness id stays public. Prose mentions in people.json scrubbed."},
     {"id": "extension-office-phone", "what": "property.json resources.localExtension.phone (UGA Extension, Pickens County)",
      "detect": _rx(r"706-253-8840"),
-     "disposition": "public", "by": "agent-proposed 2026-09-03: a public office's published number", "enforce": False, "note": ""},
+     "disposition": "public", "by": "agent-proposed 2026-09-03: a public office's published number (Paul did not object when the roster was ruled)", "enforce": False, "note": ""},
 ]
 
 
@@ -122,7 +128,9 @@ def selftest():
     live = {r["id"]: c for r, c in scan()}
     check("LIVE: the breaker directory IS in the public build today (the finding this tool exists to keep visible)",
           bool(live["breaker-directory"]), live["breaker-directory"])
-    check("LIVE: VINs ARE in the public build today", bool(live["vins"]), live["vins"])
+    check("LIVE: VIN prefixes are in the public build (ruled public)", bool(live["vins"]), live["vins"])
+    check("LIVE: device ids are GONE from the public build (moved 2026-09-03)", not live["device-ids"], live["device-ids"])
+    check("LIVE: the receipt manifest is GONE from the public build (moved 2026-09-03)", not live["receipt-manifest"], live["receipt-manifest"])
     print("\n%s" % ("✅ controls hold." if ok else "\U0001f534 a control failed."))
     return 0 if ok else 1
 

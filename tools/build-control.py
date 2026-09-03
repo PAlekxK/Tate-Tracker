@@ -309,8 +309,13 @@ def people():
     shows up as UNMAPPED and is named on the page.
     """
     try:
-        with open(os.path.join(HERE, "people.json"), encoding="utf-8") as f:
-            data = json.load(f)
+        import momlib   # C5 8a: device ids come from the PRIVATE register, merged here
+        people_list, meta = momlib._people()
+        if not people_list:
+            raise FileNotFoundError("tools/people.json unreadable")
+        if not momlib.people_devices_available():
+            raise FileNotFoundError("private device register absent (fernwood-private/people-devices.json) — every device reads UNMAPPED")
+        data = {"people": people_list, "_meta": meta}
     except Exception as e:  # noqa: BLE001
         return {"error": f"{type(e).__name__}: {e}", "excluded": set(), "hers": set(),
                 "known": set(), "clean_slate": None}

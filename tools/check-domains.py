@@ -52,7 +52,6 @@ NON_DOMAINS = {
     "feedback-log.json": "where Mom's notes went",
     "weather.json": "readings", "weather-history.json": "readings",
     "weather-bias.json": "derived", "sun-horizon.json": "derived",
-    "service-records.manifest.json": "index of private receipts",
     "plants.draft.json": "pre-promotion drafts",
     "estate.json": "this estate's coordinate — one id + handle, not a collection (C5 2a)",
 }

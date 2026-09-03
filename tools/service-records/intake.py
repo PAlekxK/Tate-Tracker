@@ -25,10 +25,12 @@ import re
 import shutil
 import sys
 from datetime import datetime, timezone
+import os
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-MANIFEST = REPO / "service-records.manifest.json"
+# C5 8a `[paul-ruled 2026-09-03: private]` — the manifest lives in the private sibling, never the public repo.
+MANIFEST = Path(os.environ.get("FERNWOOD_PRIVATE", str(Path.home() / "Developer/fernwood-private"))) / "service-records.manifest.json"
 IMG_EXT = {".jpeg", ".jpg", ".png", ".heic", ".heif", ".tiff", ".pdf"}
 SKIP_NAMES = {"MANIFEST.md5", ".osxphotos_export.db"}
 TS_RE = re.compile(r"^(\d{8})_(\d{6})_")

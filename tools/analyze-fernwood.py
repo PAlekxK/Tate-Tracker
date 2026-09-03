@@ -157,13 +157,11 @@ def flatten_events(metrics_payload, excluded_devices):
 
 def load_people_map():
     """Return {deviceId: personName} from tools/people.json if present, else {}."""
-    if not os.path.exists(PEOPLE_JSON_PATH):
-        return {}
-    try:
-        with open(PEOPLE_JSON_PATH) as f:
-            data = json.load(f)
-    except (json.JSONDecodeError, OSError):
-        return {}
+    # C5 8a: device ids live in the PRIVATE register; momlib merges them (or leaves
+    # every real person unmapped when the sibling is absent — loud, never silent).
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import momlib
+    data = {"people": momlib._people()[0]}
     mapping = {}
     for entry in data.get("people", []):
         name = entry.get("name")

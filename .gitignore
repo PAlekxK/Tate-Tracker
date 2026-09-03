@@ -29,3 +29,4 @@ images/property-map/.local/
 
 # Google Earth Web captures — Google imagery, display-only, never redistributable.
 images/property-map/.local/gearth/
+.wrangler/
