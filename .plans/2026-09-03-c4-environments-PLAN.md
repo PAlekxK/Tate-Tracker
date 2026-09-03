@@ -213,7 +213,13 @@ selftests; `herConditions()` `clean:true` on the built file at 414 × A+; shippe
 address, `plants` declared absent) — **sited in `fernwood-private` by default** (Q5), built with `build-viewer.py
 --instance ~/Developer/fernwood-private/instance-condo --out <scratchpad>/condo.html`. Pass = it builds, renders at
 414 × A+ with no Plants tile, and `git diff --stat -- engine/` is empty for the whole run. Fail = the line is
-drawn wrong: stop, re-classify, no repo moves.
+drawn wrong: stop, re-classify, no repo moves. ⚠️ **AMENDED 2026-09-03 (C7 seat):** the pass predicate is
+**vacuously true today** — `engine/` does not exist, so the diff is empty on nothing. The check must first assert
+`git ls-files engine/ | wc -l` > 0, *then* assert the diff is empty. And the condo build's first failure is a
+**blank page**, not a missing tile: the plant-view-tabs wiring sits at top level and calls `querySelectorAll` on a
+`getElementById` result with no null check, so stripping the plants markup stops INIT — 5b's template must
+null-guard the six throw sites and `renderProperty`'s eleven unguarded dereferences before 5c can run
+(`.engineering/2026-09-03-c7-condo-paper-model.md` §2).
 **5d · Repo split** — **OUT of this plan**; gated on 5c.
 
 ## Falsifier
