@@ -12,6 +12,8 @@ and re-inlines them as `const RELEASE_NOTES_DATA = [...]` in `viewer.html`.
 Mirrors the existing wire-photos/wire-sounds re-inline pattern so the viewer
 keeps its no-build-step contract.
 """
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # C4 5b: reinline.sync_template
 import argparse
 import json
 import re
@@ -83,6 +85,10 @@ def reinline(viewer_path: Path, entries):
             raise RuntimeError("Could not find an insertion point in viewer.html")
         new_html = html[: marker.start()] + "\n" + payload + html[marker.start():]
     viewer_path.write_text(new_html, encoding="utf-8")
+    try:  # C4 5b: the engine template follows every direct edit of viewer.html
+        import reinline; reinline.sync_template(str(viewer_path))
+    except Exception as e:  # noqa: BLE001
+        print("⚠️ template sync failed (run tools/build-viewer.py --extract):", e)
 
 
 def main():

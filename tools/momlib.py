@@ -1634,6 +1634,10 @@ def set_acknowledged_through(ts, viewer_path=VIEWER):
     out = src[:start] + new_blob + src[end:]
     with open(viewer_path, "w", encoding="utf-8") as f:
         f.write(out)
+    try:  # C4 5b: the engine template follows every direct edit of viewer.html
+        import reinline; reinline.sync_template(viewer_path)
+    except Exception as e:  # noqa: BLE001 — never lose the ack write over the template
+        print("⚠️ template sync failed (run tools/build-viewer.py --extract):", e)
     return read_mom_ack(viewer_path)
 
 

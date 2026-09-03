@@ -1,0 +1,57 @@
+name: Build check (viewer)
+
+# C4 step 5b (.plans/2026-09-03-c4-environments-PLAN.md). viewer.html is BUILT from
+# engine/viewer.template.html + instance/fernwood.json + the rostered canon JSONs.
+# This workflow is CHECK-ONLY on purpose: it fails red when the committed viewer.html
+# is not byte-identical to that build, and it never commits a viewer.html back —
+# a push to `main` is a production deploy to Mom's phone, and CI must not become a
+# fifth writer of her surface. Red here means: a canon JSON moved without a rebuild,
+# or a writer edited viewer.html without the template following (`--extract`).
+#
+# It runs on both branches so the QA leg (`staging`) catches it before `main` does.
+
+on:
+  push:
+    branches: [main, staging]
+    paths:
+      - "viewer.html"
+      - "engine/**"
+      - "instance/**"
+      - "tools/build-viewer.py"
+      - "tools/check-data-inline.py"
+      - "property.json"
+      - "plants.json"
+      - "mammals.json"
+      - "birds.json"
+      - "amphibians.json"
+      - "snakes.json"
+      - "lizards.json"
+      - "fishing.json"
+      - "vehicles.json"
+      - "zones.json"
+      - "weeds.json"
+      - "turf.json"
+      - "insects.json"
+      - ".github/workflows/build-viewer.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: viewer.html is byte-identical to template + instance + canon
+        run: python3 tools/build-viewer.py --check
+
+      - name: inlined consts match their source JSONs (the pre-existing guard, kept as a control)
+        run: python3 tools/check-data-inline.py
+
+      - name: the builder's own controls hold
+        run: python3 tools/build-viewer.py --selftest

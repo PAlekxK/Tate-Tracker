@@ -61,6 +61,10 @@ def reinline_into_viewer(birds):
 
     with open(VIEWER, "w", encoding="utf-8") as f:
         f.write(new_html)
+    try:  # C4 5b: the engine template follows every direct edit of viewer.html
+        import reinline; reinline.sync_template(VIEWER)
+    except Exception as e:  # noqa: BLE001
+        print("⚠️ template sync failed (run tools/build-viewer.py --extract):", e)
     print(f"Re-inlined BIRDS_DATA into {VIEWER}")
 
 

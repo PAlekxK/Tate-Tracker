@@ -96,6 +96,10 @@ def main():
     html = pattern.sub(lambda _: blob, html, count=1)
     with open(VIEWER, "w", encoding="utf-8") as f:
         f.write(html)
+    try:  # C4 5b: the engine template follows every direct edit of viewer.html
+        import reinline; reinline.sync_template(VIEWER)
+    except Exception as e:  # noqa: BLE001
+        print("⚠️ template sync failed (run tools/build-viewer.py --extract):", e)
 
     const = re.search(r"const INSECTS_DATA = (\{.*?\});", html, re.DOTALL)
     wired = const.group(1).count('"src": "images/insects/') if const else 0
