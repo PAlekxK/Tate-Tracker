@@ -9,6 +9,7 @@
          ai-advisor → waived: the outward-facing domain family is captured as a declared absence, not built; the AI-boundary third path is handed to Paul + ai-advisor as its own item
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
+- ready: [paul-approved 2026-09-03]
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row, C4's RULED table and its THREE LEVELS ruling (decided, not
@@ -182,7 +183,19 @@ candidates: 0 · answer-age: ?`; `check-backlog-ready.py` → silent.
 
 ## Open before stamping
 
-> **✅ RULED 2026-09-03 `[paul-stated]` — Q7 · Q8. Seven remain.**
+> **✅ STAMPED 2026-09-03 `[paul-approved]`.** Paul: *"C7 — she does own the condo. And yes, we can just establish the
+> condo in minimal form and add a backlog item that, when we're at a good point to build it out after all this
+> migration has happened — I have images and stuff we can use to seed it, and other ideas — and there should be other
+> ideas captured in the backlog. We will keep it very minimal right now."*
+> - **Q1 → OWNER.** Paul holds an administrator grant. 1a's calibration block follows.
+> - **Q2 → MINIMAL, on the recommendation:** weather ON · garden OFF · **household ON** (its only unsubstitutable
+>   content) · **machines OFF** · **place ON in minimal form** so `renderProperty`'s guards are exercised for real.
+> - **Q3 → not now.** The placeholder stays with its reason; the build-out is its own DEFERRED row (`BACKLOG.md` § C8).
+> - **Q9 (second half) → yes**, step 0 gets its own Tier-1 row (#18).
+> - **Wait at their named steps:** Q4 (the AI-boundary third path — its own item) · Q5 (Midtown elevation source — 1a;
+>   3DEP recommended) · Q6 (the condo's `estateId` — 1a; Paul supplies a proper name, sibling-only) · Q9 first half
+>   (the Guru prompt's owner and name — C5 7b recommended).
+> - Q7 · Q8, ruled earlier the same day, below.
 > - **Q7 → a DERIVATION, never `declared-absent`, and it is an ENGINE rule, not a condo one.** Paul: *"we should
 >   definitely have information and reminders around frost, and that should have a historical layer to it of data for
 >   the region, but then also watching the particular forecast, and if there's a local station, obviously measuring that
