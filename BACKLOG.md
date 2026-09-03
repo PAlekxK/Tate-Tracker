@@ -2101,9 +2101,10 @@ Committee are different grains on the same mountain, and the repo name collides 
 under the new name with the old alive → repo rename **with** the forwarding page and the storage
 migration in the same push → internal variable names last, or never.
 
-→ READY · .plans/2026-09-03-c4-environments-PLAN.md — **plan DRAFTED 2026-09-03; all eight questions RULED** (its
-§ Open before stamping). ⭐ **The apex is `myhome.place`** `[paul-stated 2026-09-03]` — family doors beneath it; her icon stays
-"Fernwood Tracker". Awaiting the stamp: no `ready:` line yet.
+→ READY · .plans/2026-09-03-c4-environments-PLAN.md — ✅ **READY `[paul-approved 2026-09-03]` — the first item through the
+mechanism, stamped.** All eight questions ruled; ⭐ **the apex is `myhome.place`** — family doors beneath it; her icon stays
+"Fernwood Tracker". Next: step 1a (a fresh bundle) → 1b (the private sibling) → 1c (the rewrite, with Paul's read of the
+added Bob lines) → 1d the PUSH at Paul's gate.
 
 ### ✅ RULED 2026-09-03 `[paul-approved]` — both seats ran; the plan file is next
 

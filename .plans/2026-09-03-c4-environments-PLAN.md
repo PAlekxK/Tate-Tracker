@@ -4,9 +4,11 @@
 - class: engine · must-not-diverge
 - seats: practice-steward → .plans/2026-09-03-c4-process-PROPOSAL.md
          engineering-partner → .engineering/2026-09-03-c4-topology-options.md
+         engineering-partner → .engineering/2026-09-03-c4-topology-delta.md
          ai-advisor → waived: no model on the path
          ux-expert → waived: nothing Mom sees changes except a forwarding page, covered in ## QA
          content-steward → waived: no copy reaches anyone; the engine's name is deferred to its own item
+- ready: [paul-approved 2026-09-03]
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row, its eight rulings (decided, not re-argued here),
