@@ -25,6 +25,7 @@ python3 tools/check-loop-docs.py           # ⭐ do the loop's DOCS still descri
 python3 tools/check-backlog-drift.py       # ⭐ is a BACKLOG RATIONALIZATION owed? (accumulation, not cadence — and it does NOT fire a lap)
 python3 tools/check-backlog-ready.py       # ⭐ does every row that CLAIMS readiness have the trail behind it? (silent at zero; flags, never edits — `.plans/2026-09-03-backlog-readiness-PROPOSAL.md`)
 python3 tools/check-vocabulary.py          # ⭐ is VOCABULARY.md still TRUE of the schema? (rejected names, double-bookings, aspirational terms)
+python3 tools/check-storage-keys.py        # ⭐ is every browser-storage key ROSTERED? (a key the origin-move migration does not know about is a key she loses — C4 2b)
 python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEEING — head-slot exposure; she sees ONE, not five
 ```
 

@@ -139,7 +139,7 @@ dissolves **only on a `.pages.dev` origin, only after 3f is green**; the prod ha
 **2a · Domain** — **Paul** (name: Q1) · reversible · Cloudflare Registrar + DNS per
 `.engineering/2026-05-11-path-custom-domain.md`: `CNAME <host> → palekxk.github.io` (apex: GitHub's A/AAAA).
 Check: `dig +short <host>` resolves; GitHub answers 404 until 2d (expected).
-**2b · Pre-domain hygiene** — agent · reversible · a custom domain (like Pages QA) serves at `/`, not
+**2b · Pre-domain hygiene** — 🟡 **ROSTER + GUARD DONE 2026-09-03; the `momQueue.*` per-estate hygiene and 2c's pre-staging still open** — `STORAGE_KEYS` declared in `viewer.html` (18 keys, matching the measured count; declarative — usage sites keep their literals per 4f); `tools/check-storage-keys.py` scans for `"tateTracker.` literals outside the roster, exit 1 on an unrostered key, exit 2 (fails CLOSED) on a missing roster; selftest plants a 19th key and it fails. Added to `CLAUDE.md`'s session-start block so it has a caller. Root-serving proven by 3d green against QA. · agent · reversible · a custom domain (like Pages QA) serves at `/`, not
 `/Tate-Tracker/`; `viewer.html` carries zero `/Tate-Tracker/` paths (measured) and `measure-nesting-width.js`
 only comments. Declare the **18-key** `STORAGE_KEYS` roster in `viewer.html`; `check-storage-keys.py` scans for
 `"tateTracker.` literals and fails on an unlisted key (the `FETCH_RE` pattern). Pre-stage 2c's edits behind
