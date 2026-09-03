@@ -2153,6 +2153,8 @@ name in Mom-read prose is a **content** decision) · **derive config from canon*
 
 ## 🚪 C6 · THE DOOR FOR PAUL — entry + vault on his device, her surface untouched; M3 fixed first ⚙️ engine · declared
 
+→ READY · .plans/2026-09-03-c6-door-for-paul-PLAN.md — **plan DRAFTED 2026-09-03, at Paul's gate; six questions open before the stamp** (the DEFAULT_SIZE re-ruling first; step 3 does not open until the privacy seat has reviewed). Not stamped.
+
 `user-researcher`'s own recommendation (`.user-research/2026-09-02-activation-journeys.md`): *build
 the door for PAUL, on PAUL's device, with her surface untouched — it tests everything except her.* Two
 doors, two jobs, both optional per person and per estate (`PRODUCT-ENGINE.md` § BOTH PASSWORDS ARE
