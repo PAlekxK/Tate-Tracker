@@ -11,6 +11,7 @@
 - **ACTIVE** — being worked right now, or a live measurement phase.
 - **DEFERRED** — decided-not-now; each carries the **gate** that would unblock it.
 - **IDEATION** — raised, not yet designed or decided.
+- **READY** `[paul-approved 2026-09-03]` — scoped, reviewed by its declared seats, planned by a planning agent, and cleared by Paul; **waiting its turn**. Nothing about it changes until it is picked up, at which point it becomes ACTIVE. **A row earns READY by pointing at its plan file** — `→ READY · .plans/<date>-<slug>-PLAN.md` — whose header carries the five-field readiness record (objective id from `OBJECTIVES.md` · engine/config/instance class · the Tier-3 question + capture path where relevant · declared seats each cited to a trail file or waived with a reason · the plan). Definition, seam and check: `.plans/2026-09-03-backlog-readiness-PROPOSAL.md`; `tools/check-backlog-ready.py` flags a claim with no trail behind it and is silent at zero. **A row with no plan file is a fresh request by construction.** Default: one feature between concept and QA at a time; a second carries `wip-exception:` with a reason.
 - **KILLED / SUPERSEDED** — abandoned or folded into something else.
 
 The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026-07-17) — it's history, not status. Read status here.

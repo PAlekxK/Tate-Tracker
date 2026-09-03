@@ -1,11 +1,16 @@
 # BACKLOG READINESS — one mechanism for "is this row ready to build?" · PROPOSAL (2026-09-03)
 
-> ## ⛔ STATUS: **PROPOSAL. Nothing applied, no row marked, no tool built, no canon changed.**
-> Seat: `practice-steward` — **run in the main session with the seat's foundation loaded**, after four
-> subagent launches died on server 529 errors (2026-09-03, two models). Same charter, same
-> boundary: **method, never content — this file ranks nothing.** It ends at Paul's gate. When any
-> part is applied, replace this block with the applying commit sha (the instruction the 09-02
-> rationalization proposal wrote for itself, and which worked).
+> ## ✅ STATUS: **APPLIED 2026-09-03** `[paul-approved 2026-09-03 — all six §6 questions answered]`
+> Paul's answers: objectives **accepted as drafted** → `OBJECTIVES.md` · the word is **READY** ·
+> WIP default **one in flight, declared exceptions** · default-seats table **accepted** · seat base
+> update **yes, diff shown first** (pending) · **check first**, then the first item. Applied in the
+> commit that replaced this block: `OBJECTIVES.md` written, `tools/check-backlog-ready.py` built
+> (selftest 13/13 by mutation, silent at zero on the live repo), READY added to `BACKLOG.md`'s status
+> taxonomy, the check added to `CLAUDE.md`'s session-start block. **Zero rows marked READY** — a row
+> earns its file when picked up. Still open: the `_about-paul.md` § Fernwood diff (§1.5), and §5's
+> pre-registered question, which discharges in the first item's `## Retro`.
+> Seat: `practice-steward`, run in the main session with the seat's foundation loaded after four
+> subagent launches died on server 529 errors. **Method, never content — this file ranks nothing.**
 
 **Paul's ask, 2026-09-03, four parts** — (1) a ceremony and a data scheme that says whether a row is a
 fresh request or fully fleshed out, a *definition of ready*, and an expert review before build; (2) a
