@@ -6931,6 +6931,13 @@
 const IS_QA_ORIGIN = /\.pages\.dev$/.test(location.hostname);
 const WORKER_BASE = IS_QA_ORIGIN ? "https://tate-tracker-qa.paul-kirschenbauer.workers.dev" : "https://tate-tracker.paul-kirschenbauer.workers.dev";
 if (IS_QA_ORIGIN) document.title += " · QA";
+// ── Declared absence (C4 5c · the smallest form of C5 3b's OFF behaviour) ─────
+// An instance that carries no record for a domain declares it ABSENT; the builder
+// emits `{"_meta":{"declaredAbsent":true}, …:[]}` for that const. A renderer that reads
+// structure off such a const must return before it does — a declared absence is a
+// silent no-op for that card, never a throw, and never mistaken for an ON-but-EMPTY
+// record (which has no marker and still renders its empty state).
+const isDeclaredAbsent = d => !!(d && d._meta && d._meta.declaredAbsent === true);
 // ── Browser-storage roster (C4 2b, 2026-09-03) ────────────────────────────────
 // EVERY localStorage key this page reads or writes, declared once. Storage is per
 // ORIGIN, so the origin move (custom domain, C4 2d) leaves every one of these
@@ -9699,6 +9706,7 @@ let currentFishSpecies = "largemouth-bass";
 
 function renderFishing() {
   const fd = FISHING_DATA;
+  if (isDeclaredAbsent(fd)) return;  // C4 5c
   const lake = fd.lake;
   const lakeTemp = estimateLakeTemp();
   const phase = getCurrentFishingPhase(lakeTemp);
@@ -14382,6 +14390,7 @@ function renderTurf() {
   const body = document.getElementById("turf-body");
   const summaryEl = document.getElementById("turf-summary");
   if (!body) return;
+  if (isDeclaredAbsent(TURF_DATA)) return;  // C4 5c
   const d = (typeof TURF_DATA !== "undefined" && TURF_DATA) ? TURF_DATA : null;
   if (!d) return;
   if (summaryEl && d.summary) summaryEl.textContent = d.summary;
@@ -14454,6 +14463,7 @@ function renderWeeds() {
   const body = document.getElementById("weeds-body");
   const summaryEl = document.getElementById("weeds-summary");
   if (!body) return;
+  if (isDeclaredAbsent(WEEDS_DATA)) return;  // C4 5c
   const d = (typeof WEEDS_DATA !== "undefined" && WEEDS_DATA) ? WEEDS_DATA : null;
   if (!d) return;
   if (summaryEl && d.summary) summaryEl.textContent = d.summary;
@@ -16473,6 +16483,7 @@ function renderBirdsSummary() {
 
 function renderBirds() {
   const bd = BIRDS_DATA;
+  if (isDeclaredAbsent(bd)) return;  // C4 5c
   const mo = currentMonth;
   const MONTH_NAME = MONTHS_SHORT[mo];
 
@@ -16607,6 +16618,7 @@ function renderAmphibiansSummary() {
 
 function renderAmphibians() {
   const ad = AMPHIBIANS_DATA;
+  if (isDeclaredAbsent(ad)) return;  // C4 5c
   const mo = currentMonth;
   const MONTH_NAME = MONTHS_SHORT[mo];
 
@@ -17188,7 +17200,9 @@ function renderDashboardStrip() {
   // Fishing cell — promoted to its own tile (Pass 3). One reconciled verdict + the
   // operative window, from the SAME engine that drives the Fishing card's NOW block.
   const fishSubEl = document.getElementById("dash-fishing-sub");
-  if (fishSubEl && typeof FISHING_DATA !== "undefined" && typeof buildFishingDays === "function") {
+  if (fishSubEl && typeof FISHING_DATA !== "undefined" && isDeclaredAbsent(FISHING_DATA)) {
+    fishSubEl.innerHTML = '<div class="dash-tease-row"><span class="dash-tease-icon">🎣</span><span class="dash-tease-body">No water here</span></div>';  // C4 5c: a declared absence, not a broken cell
+  } else if (fishSubEl && typeof FISHING_DATA !== "undefined" && typeof buildFishingDays === "function") {
     const lakeTemp = estimateLakeTemp();
     const phase = getCurrentFishingPhase(lakeTemp);
     const { days, best } = buildFishingDays(lakeTemp);
@@ -17487,6 +17501,7 @@ function renderHerpCard(sp, prefix) {
 
 function renderSnakes() {
   const sd = SNAKES_DATA;
+  if (isDeclaredAbsent(sd)) return;  // C4 5c
   const mo = currentMonth;
   const MONTH_NAME = MONTHS_SHORT[mo];
 
@@ -17555,6 +17570,7 @@ function renderSnakes() {
 
 function renderLizards() {
   const ld = LIZARDS_DATA;
+  if (isDeclaredAbsent(ld)) return;  // C4 5c
   const mo = currentMonth;
   const MONTH_NAME = MONTHS_SHORT[mo];
 
@@ -17614,6 +17630,7 @@ function renderLizards() {
 
 function renderMammals() {
   const md = MAMMALS_DATA;
+  if (isDeclaredAbsent(md)) return;  // C4 5c
   const mo = currentMonth;
   const MONTH_NAME = MONTHS_SHORT[mo];
 
@@ -17888,6 +17905,7 @@ function renderChorusInvite(band) {
 
 function renderInsects() {
   const data = INSECTS_DATA;
+  if (isDeclaredAbsent(data)) return;  // C4 5c
   const mo = currentMonth;
   const MONTH_NAME = MONTHS_SHORT[mo];
   const { band } = insectHourBand();

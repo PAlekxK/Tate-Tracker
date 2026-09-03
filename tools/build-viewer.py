@@ -19,12 +19,15 @@ check-engine-manifest.py) stay literal in the template until each has a producer
 Serialization is reinline.py's: `json.dumps(data, ensure_ascii=False)` of the whole file —
 measured 2026-09-03 to reproduce all 12 inlined consts byte for byte.
 
-⚠️ THE BOUNDARY, stated: four writers still edit viewer.html directly — fold-answer.py
-(MOM_ACK_DATA), build-release-notes.py (RELEASE_NOTES_DATA), wire-photos.py
-(CANDIDATES_DATA) and the Worker's promote-species (re-inline via the GitHub API). Until
-they are re-pointed at the template (the plan's own next half of 5b), `--check` goes RED the
-moment one of them runs, and `--extract` is how the template absorbs their edit. Red there is
-the check working, not a broken build — read the diff offset it prints.
+⚠️ THE BOUNDARY, stated: the six Python writers that edit viewer.html directly
+(reinline.reinline_const, momlib's ack stamp, build-release-notes, wire-photos,
+wire-bird-photos, wire-sounds, wire-insect-photos) call reinline.sync_template() after
+their write, so the template follows them. The Worker's promote-species still writes
+plants.json + the re-inlined const through the GitHub API; that is consistent by
+construction (whole-file json.dumps reproduces the const byte for byte), so a rebuild
+yields the same bytes — and `--check` in CI (build-viewer.yml) is what would catch it if
+that ever stopped being true. Red on `--check` = a source moved without a rebuild, or a
+writer outside that list; `--extract` absorbs a direct edit.
 
 DECLARED ABSENCE (the smallest form, a stopgap until C5 step 3's module declaration): an
 instance config may list `"absent": ["plants", ...]` — a domain whose canon file it does not
@@ -49,7 +52,8 @@ DEFAULT_INSTANCE = os.path.join(ROOT, "instance", "fernwood.json")
 IDENTITY = {
     "title":       lambda ident, prop: ident["name"],
     "h1":          lambda ident, prop: ident["name"],
-    "subtitle":    lambda ident, prop: "%s %s" % (ident["taglinePrefix"], prop["property"]["address"]),
+    "subtitle":    lambda ident, prop: (("%s %s" % (ident["taglinePrefix"], prop["property"]["address"])).strip()
+                                        if prop["property"].get("address") else ident["taglinePrefix"]),
     "addressLine": lambda ident, prop: "%s, %s · %s ft %s" % (
         prop["property"]["city"], prop["property"]["state"],
         "{:,}".format(prop["location"]["elevation"]["estimated_ft"]), ident["addressLineSuffix"]),
