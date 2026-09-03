@@ -2100,6 +2100,16 @@ and the gifted Christmas part). It survives only in `detail` prose.
 
 ## 🏗 C4 · ENVIRONMENTS + REPO STRUCTURE + THE RENAME — the FIRST item through readiness `[paul-stated 2026-09-03]` ⚙️ engine · must-not-diverge
 
+> ⏸ **REPO VISIBILITY — should the instance be a PRIVATE repo?** `[paul-parked 2026-09-03: "let's not worry about this right now. I was curious, though."]`
+> Filed, not scoped. What was established when he asked: flipping the GitHub repo private is one setting and Actions/the
+> Worker's token writes survive it (2,000 free minutes/month); **but GitHub Pages does not publish from a private repo on a
+> free plan, and a Pages site is world-readable on any plan** — a private repo protects history and plans, never what the
+> viewer renders. The path that works is the one QA already uses: Cloudflare Pages via `wrangler pages deploy` (private repos
+> free; Cloudflare Access can gate the whole site). Costs to weigh: the portfolio trail goes dark, and Mom's github.io link
+> dies the moment a free-plan repo goes private. **Release condition:** decide at the C4 step 5 repo split (engine public,
+> instance private is then a free choice) — and never before 2d, so her link moves once, with Paul present. Privacy of the
+> data itself is C5 step 8 + the Worker's private tier, not this item.
+
 **Paul, 2026-09-03, three statements in one session that are one item:** *"hold off on publishing any
 information about Bob… how is our repo currently structured on GitHub, does it need to be reworked to
 fit our new approach"* · *"do we have a QA and dev and production environment and how does GitHub fit
