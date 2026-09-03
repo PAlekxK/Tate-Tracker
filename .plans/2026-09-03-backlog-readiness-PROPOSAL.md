@@ -7,8 +7,11 @@
 > commit that replaced this block: `OBJECTIVES.md` written, `tools/check-backlog-ready.py` built
 > (selftest 13/13 by mutation, silent at zero on the live repo), READY added to `BACKLOG.md`'s status
 > taxonomy, the check added to `CLAUDE.md`'s session-start block. **Zero rows marked READY** — a row
-> earns its file when picked up. Still open: the `_about-paul.md` § Fernwood diff (§1.5), and §5's
-> pre-registered question, which discharges in the first item's `## Retro`.
+> earns its file when picked up. Still open: §5's pre-registered question, which discharges in the
+> first item's `## Retro` (C4). **The `_about-paul.md` § Fernwood paragraph (§1.5) is DEFERRED until
+> the C4 rename lands** `[paul-stated 2026-09-03]` — it is a pointer paragraph to `OBJECTIVES.md`,
+> `VOCABULARY.md` and `PRODUCT-ENGINE.md` § THE SEQUENCE, and every one of those paths changes with
+> the rename. Release condition: the repo path is `~/Developer/Fernwood-Tracker`.
 > Seat: `practice-steward`, run in the main session with the seat's foundation loaded after four
 > subagent launches died on server 529 errors. **Method, never content — this file ranks nothing.**
 
