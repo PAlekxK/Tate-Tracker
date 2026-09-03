@@ -273,8 +273,10 @@ phone and watch it land on the new one; it must never show a GitHub 404).
    `over the community product`) instead.
    **Q1 has moved too:** ONE DOOR for everyone `[paul-stated 2026-09-03]` — the domain names the PRODUCT,
    not Fernwood; the product's name is a prerequisite, with `content-steward` + `user-researcher` running.
-3. **Q3 Does the QA Worker share the Anthropic key** — yes means an agent driving `/api/chat` is real spend;
-   no means Guru is not exercisable in QA (declared under R5).
+3. ~~**Q3 Does the QA Worker share the Anthropic key**~~ ✅ **RULED `[paul-stated 2026-09-03]`: a DEDICATED Anthropic key
+   for the QA Worker, with a hard per-run budget cap** (the Guru seat's recommendation: the live harness leg needs it to
+   catch the failure tool-use adds — answering right without calling the tool; replay runs at zero spend in CI). The
+   key value moves only through `/secrets`; the cap and who is told when it is exceeded are the Guru item's Q4.
 4. **Q4 Was her phone ever paired** (`tateTracker.sync.v1`) — decides whether 2d costs a token re-paste; the
    Sync settings diagnostics on her phone answer it in ten seconds at the start of the visit.
 5. ~~**Q5 The throwaway condo directory**~~ ✅ **RULED `[paul-stated 2026-09-03]`: `fernwood-private`.** Built
@@ -291,5 +293,6 @@ phone and watch it land on the new one; it must never show a GitHub 404).
 8. ~~**Q8 Who owns the forwarding repo long-term**~~ ✅ **RULED `[paul-stated 2026-09-03]`: keep it until the old
    Worker is deleted (seven days of zero traffic), then decide** — the forwarder's own traffic is the evidence.
 
-**Remaining before the stamp: Q1 (the product's name → the domain; naming seats running) and Q3 (the QA
-Anthropic key; waits on the Guru retrieval seat's harness design).**
+**Remaining before the stamp: Q1 only — the product's name → the apex domain.** Both naming seats have landed
+(`.content-reviews/2026-09-03-product-door-naming.md`, `.user-research/2026-09-03-product-door-naming.md`); the shape is
+now THREE LEVELS and the topology delta (`.engineering/2026-09-03-c4-topology-delta.md`) is folded in at the stamp.
