@@ -1,0 +1,125 @@
+name: Deploy QA
+
+# The QA leg of C4 (2026-09-03, .plans/2026-09-03-c4-environments-PLAN.md § 3e).
+# On push to `staging`, TWO things happen, and neither touches production:
+#   1. the QA Worker (`tate-tracker-qa`, its own KV namespace) is redeployed, and
+#      its /health is ASSERTED — env "qa", kv_canary "qa" — not merely printed;
+#   2. the commit's bytes are uploaded to the Cloudflare Pages project
+#      `fernwood-qa` (served at https://fernwood-qa.pages.dev/), from a
+#      `git archive` export so only TRACKED files ever leave the runner — never
+#      the working tree (locally, `.private/` sits beside it).
+# No digest commit-back: that stays on `main` (deploy-worker.yml). The weather
+# bots stay `main`-only — a declared exception, not an oversight.
+#
+# ⚠️ Same secret, same silent-skip hazard as deploy-worker.yml: the guard below is
+# `if: env.CF_TOKEN != ''`, so a secret under any OTHER name means this workflow
+# runs GREEN and deploys NOTHING. The skip-notice step is the only visible trace.
+# The token behind FERNWOOD_AUG_2026 was built from the "Edit Cloudflare Workers"
+# template; the Pages upload additionally needs the account permission
+# "Cloudflare Pages: Edit". Until that is granted, the Pages job FAILS LOUD (403)
+# rather than pretending — a red Pages job with a green Worker job is that state.
+
+on:
+  push:
+    branches: [staging]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-qa
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  QA_WORKER_URL: https://tate-tracker-qa.paul-kirschenbauer.workers.dev
+  QA_PAGES_URL: https://fernwood-qa.pages.dev/
+  PAGES_PROJECT: fernwood-qa
+
+jobs:
+  worker-qa:
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Rebuild Garden Guru digest (deployed with the Worker; never committed back here)
+        run: python3 tools/build-digest.py
+
+      - name: Skip notice (secret FERNWOOD_AUG_2026 not visible)
+        if: env.CF_TOKEN == ''
+        run: |
+          echo "::warning::NO DEPLOY. Repo secret FERNWOOD_AUG_2026 is empty or absent, so the QA Worker deploy was skipped. This run is green and deployed NOTHING."
+
+      - name: Deploy QA Worker (wrangler --env qa)
+        if: env.CF_TOKEN != ''
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
+        run: npx --yes wrangler@4 deploy --env qa
+
+      # Assert, don't print. A /health that answers anything but qa/qa means the
+      # deploy bound the wrong namespace or the wrong environment — the exact
+      # failure the canary exists to catch — and the job must go red.
+      - name: Assert QA /health (env qa, kv_canary qa)
+        if: env.CF_TOKEN != ''
+        run: |
+          body=$(curl -fsS "$QA_WORKER_URL/health")
+          echo "$body" | python3 -m json.tool
+          echo "$body" | python3 -c '
+          import json, sys
+          d = json.load(sys.stdin)
+          bad = [k for k, v in (("env", d.get("env")), ("kv_canary", d.get("kv_canary"))) if v != "qa"]
+          if bad:
+              print("::error::QA /health is not qa/qa:", {k: d.get(k) for k in ("env", "kv_canary")}); sys.exit(1)
+          if d.get("configured", {}).get("github"):
+              print("::error::QA Worker has GITHUB_* configured — promote-species must be unexercisable in QA"); sys.exit(1)
+          print("QA /health asserted: env=qa kv_canary=qa github=false")'
+
+  pages-qa:
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Only the commit's tracked bytes. `git archive` cannot see an untracked or
+      # ignored file, which is the property this step exists for.
+      - name: Export the commit (tracked files only)
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages-export"
+          git archive HEAD | tar -x -C "$RUNNER_TEMP/pages-export"
+          echo "exported $(find "$RUNNER_TEMP/pages-export" -type f | wc -l) files"
+
+      - name: Skip notice (secret FERNWOOD_AUG_2026 not visible)
+        if: env.CF_TOKEN == ''
+        run: |
+          echo "::warning::NO DEPLOY. Repo secret FERNWOOD_AUG_2026 is empty or absent, so the Pages QA upload was skipped. This run is green and deployed NOTHING."
+
+      - name: Upload to Cloudflare Pages (fernwood-qa, branch staging)
+        if: env.CF_TOKEN != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
+        run: |
+          npx --yes wrangler@4 pages deploy "$RUNNER_TEMP/pages-export" \
+            --project-name "$PAGES_PROJECT" --branch staging \
+            --commit-hash "$GITHUB_SHA" --commit-message "$(git log -1 --format=%s)"
+
+      # The same check a human runs, pointed at QA: every asset the app fetches
+      # must be byte-identical to this commit. Pages serves asynchronously, so poll.
+      - name: check-live against the QA origin
+        if: env.CF_TOKEN != ''
+        run: python3 tools/check-live.py --base "$QA_PAGES_URL" --ref HEAD --wait 180
