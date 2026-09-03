@@ -1,6 +1,13 @@
 # C4 · THE RELEASE PROCESS — what a release is, where QA sits, what an agent may test · PROPOSAL (2026-09-03)
 
-> ## ⛔ STATUS: **PROPOSAL. Ends at Paul's gate. No canon changed to write it.**
+> ## 🟡 STATUS: **FOUR OF SIX RULED 2026-09-03 `[paul-approved]`; two wait on the topology half.**
+> §9 Q1 `live` → **`shipped`** — applied: `tools/check-backlog-ready.py` (STAGES + the Retro guard,
+> selftest 13/13) and `VOCABULARY.md` § 3d. Q2 **keep `qa`, declare the collision** — declared in
+> `VOCABULARY.md` § 3d with its falsifier. Q3 **loops ship inside their own gates** — a fold, a ribbon,
+> a card carries no plan file; feature, engine and Track-B work does. Q5 **leg 6c PROXY is ABSOLUTE**
+> on any release touching a Mom-facing surface — not waivable. **Open:** Q4 the weather bot (declared
+> exception or a hole in the reaches-her-phone gate) and Q6 engine-objective ids — both depend on
+> `engineering-partner`'s topology options, in flight.
 > Seat: `practice-steward`, the PROCESS half of `BACKLOG.md` § C4. `engineering-partner` is drafting
 > the TOPOLOGY half concurrently — branches vs a second Pages site, Worker environments, namespace
 > separation, the public/private split, rename mechanics. **This file designs no topology.** Where the

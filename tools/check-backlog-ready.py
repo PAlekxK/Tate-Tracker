@@ -17,9 +17,15 @@ THE PLAN HEADER (flat `- key: value` list, the .decisions/ card format — no se
   - seats: ux-expert → .ux-reviews/<file>.md
            content-steward → waived: <reason>      one per line, continuation lines indented
   - ready: [paul-approved 2026-09-xx]     the gate — written by Paul or on his explicit go
-  - stage: ready                          ready|concept|build|qa|live|retro
+  - stage: ready                          ready|concept|build|qa|shipped|retro
   - wip-exception: <reason>               optional; required on a 2nd item between concept and qa
-  Required sections: ## Files touched · ## Sequence · ## Falsifier · ## QA   (+ ## Retro at live/retro)
+  Required sections: ## Files touched · ## Sequence · ## Falsifier · ## QA   (+ ## Retro at shipped/retro)
+  `shipped` [paul-approved 2026-09-03], not `live`: it is the word CLAUDE.md and MOM-CYCLE-MAP.md
+  already define as VERIFIED at the live URL. Under `live`, a push never verified and one verified
+  clean would wear the same word — the 08-14 radar incident's shape. The push-to-verified window
+  therefore sits inside `qa`, so IN_FLIGHT counts a release that is in production but unverified.
+  `qa` knowingly collides with the mom-cycle's leg 7-QA (a different act: the change arrived intact
+  where she loads it) — declared in VOCABULARY.md rather than renamed [paul-approved 2026-09-03].
 
 WHAT IT CAN VERIFY — that a claim has a trail: files exist, ids resolve, the order was right
 (a seat's trail file must be OLDER than the plan — seats shape WHAT before the plan drafts HOW).
@@ -35,7 +41,7 @@ import os, re, sys, glob, subprocess, tempfile, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CLASSES = {"engine", "config", "instance"}
 TIERS = {"free", "declared", "must-not-diverge"}
-STAGES = ["ready", "concept", "build", "qa", "live", "retro"]
+STAGES = ["ready", "concept", "build", "qa", "shipped", "retro"]
 IN_FLIGHT = {"concept", "build", "qa"}
 REQUIRED_SECTIONS = ["## Files touched", "## Sequence", "## Falsifier", "## QA"]
 POINTER_PAT = re.compile(r"→\s*READY\s*·\s*(\.plans/[^\s`|)]+)")
@@ -146,8 +152,8 @@ def check(root):
         ready = bool(re.search(r"\[paul-approved \d{4}-\d{2}-\d{2}\]", keys.get("ready", "")))
         if stage and stage != "ready" and not ready:
             findings.append((rel, f"stage `{stage}` with no `ready: [paul-approved …]` stamp — built without the gate"))
-        if stage in ("live", "retro") and "## Retro" not in sections:
-            findings.append((rel, "at `live` with no `## Retro` — the pre-registered question has not been answered"))
+        if stage in ("shipped", "retro") and "## Retro" not in sections:
+            findings.append((rel, "at `shipped` with no `## Retro` — the pre-registered question has not been answered"))
         if stage in IN_FLIGHT:
             in_flight.append((name, stage, bool(keys.get("wip-exception"))))
 
@@ -226,8 +232,8 @@ def selftest():
         f, _ = check(make(td, plan=GOOD_PLAN.replace("- ready: [paul-approved 2026-09-03]\n", "").replace("stage: ready", "stage: build")))
         ok("a stage past ready with no paul-approved stamp is flagged", any("without the gate" in m for _, m in f))
     with tempfile.TemporaryDirectory() as td:
-        f, _ = check(make(td, plan=GOOD_PLAN.replace("stage: ready", "stage: live")))
-        ok("live with no ## Retro is flagged", any("Retro" in m for _, m in f))
+        f, _ = check(make(td, plan=GOOD_PLAN.replace("stage: ready", "stage: shipped")))
+        ok("shipped with no ## Retro is flagged", any("Retro" in m for _, m in f))
     with tempfile.TemporaryDirectory() as td:
         f, _ = check(make(td, pointer=False))
         ok("a plan no row points at is flagged (orphan)", any("orphan" in m for _, m in f))

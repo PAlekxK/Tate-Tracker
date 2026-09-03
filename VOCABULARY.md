@@ -134,6 +134,29 @@ name rule** — that rule governs **tracked files** (no name in a card, a commit
 name a person supplies at activation and sees rendered back is hers, held in her instance's data and
 never in the engine.**
 
+## 3d · PIPELINE STAGES — ratified 2026-09-03 `[paul-approved]`
+
+The feature pipeline's `stage:` field (`.plans/*-PLAN.md` header; read by `tools/check-backlog-ready.py`).
+Designed in `.plans/2026-09-03-c4-process-PROPOSAL.md` §4; the readiness proposal's placeholders,
+ratified with one rename.
+
+| stage | means | why this word |
+|---|---|---|
+| **ready** | scoped, reviewed, planned, cleared by Paul; waiting its turn | `BACKLOG.md` status taxonomy, 2026-09-03 |
+| **concept** | options mocked on the live app and compared — `/design-options` | the skill's own name for what it does |
+| **build** | the change exists locally; nothing has left the machine | plain |
+| **qa** | the change is exercised where an agent may exercise it, **and** the push-to-verified window | ⚠️ **DECLARED COLLISION** — see below |
+| **shipped** | verified at the live URL, at her conditions | ✅ reuses the word `CLAUDE.md` § "Where Mom actually loads it" and `MOM-CYCLE-MAP.md` leg 7 already define. **Not `live`**: under `live`, a push never verified and one verified clean wear the same word — the 08-14 radar incident's shape |
+| **retro** | the plan's `## Retro` is written: planned vs touched, waivers, the pre-registered question answered | plain |
+
+⚠️ **`qa` is DOUBLE-BOOKED, knowingly** `[paul-approved 2026-09-03 — "keep qa, declare the collision"]`.
+The pipeline **stage** `qa` is falsified by *the change being wrong*. The mom-cycle's **leg 7-QA** is
+falsified by *the change being right and not arriving intact where she loads it*. Two acts; no QA
+environment can host the second. **Falsifier for keeping one word:** if a reader cannot tell which act
+*"QA passed"* means, the **stage** renames and the leg never does. Same class as §5 (one name, two
+meanings, one repo) — recorded here so `check-vocabulary.py`'s double-booking check reads it as
+declared, not discovered.
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
