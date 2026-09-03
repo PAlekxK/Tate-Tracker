@@ -2052,6 +2052,62 @@ and the gifted Christmas part). It survives only in `detail` prose.
 
 # TRACK C — Cross-cutting / infra / doctrine
 
+## 🏗 C4 · ENVIRONMENTS + REPO STRUCTURE + THE RENAME — the FIRST item through readiness `[paul-stated 2026-09-03]` ⚙️ engine · must-not-diverge
+
+**Paul, 2026-09-03, three statements in one session that are one item:** *"hold off on publishing any
+information about Bob… how is our repo currently structured on GitHub, does it need to be reworked to
+fit our new approach"* · *"do we have a QA and dev and production environment and how does GitHub fit
+into that — maybe that's a key process for the process steward… it may make sense to have it at the
+top of our backlog, to get that into working shape before launching everything else"* · *"let's take
+this opportunity to rename everything very clearly to Fernwood Tracker… add it into the environments
+and repo structure item."*
+
+**So this row absorbs C1 (environments) and C2's back half (the pipeline's QA leg), adds the repo
+topology question, and carries the rename.** It goes ahead of the record prep in
+`.plans/2026-09-02-data-model-design.md` §8, because that sequence's first step — prefixing the KV
+write path — is itself an environment decision. **Objective: O3** (`OBJECTIVES.md`). **Its readiness
+record will be the first `.plans/*-PLAN.md`**, so §5 of the readiness proposal discharges here.
+
+**Where the repo sits today** `[measured 2026-09-03]`:
+
+| fact | measured |
+|---|---|
+| visibility | **public** (so is `bolo-boys`, the only other repo on the account) |
+| branches | `main` only; Pages serves `viewer.html` from it — **a push is a production deploy** |
+| Worker | one config, zero `[env.*]`, **one KV namespace holding Mom's verbatim answers** |
+| CI | three workflows on `main`; the weather bot pushes ~4×/day |
+| tracked files naming Mom / the street address / Bob | **263** / **18** / **19** (Bob: all in the 43 unpushed commits) |
+| private tier | **743 MB** in `.private/`, gitignored, one laptop |
+| sibling Tate repos | `tate-commons`, `tate-dam-committee`: **no remote at all** |
+
+⛔ **The push is HELD on this row** until the topology ruling says where third-party scoping material
+lives. Not on her name (ruled publishable 2026-09-02), not on the code.
+
+**The rename — `Tate-Tracker` → `Fernwood-Tracker` — five layers, measured** `[2026-09-03]`. The
+2026-05-19 rename stopped at the app; *"a clear reason"* has now emerged: Tate Commons and the Tate Dam
+Committee are different grains on the same mountain, and the repo name collides with both.
+
+| layer | changes | hits | risk |
+|---|---|---|---|
+| prose + docs | `Tate-Tracker` · `Tate Tracker` · `tate_tracker` | 268 hits, ~120 files | none |
+| local path | `~/Developer/Tate-Tracker` | **165** files in `~/.claude` (88 tools/hooks/skills/agents) · 37 photo-organizer (reads `vehicles.json` **in place**) · 29 operating-layer · 2 launchd plists · 18 across six other repos | medium — **symlink at the old path**, migrate in stages |
+| GitHub repo name | git remotes redirect automatically | — | ⚠️ **the Pages URL is her home-screen link and the repo name is in its path**; redirect behaviour UNVERIFIED. ✅ **ACCEPTED** `[paul-stated 2026-09-03]`: *"understood that it will break the link for her, but I'll work with her to get that updated"* — so a forwarding page is a courtesy, not a gate, and the re-link is a Paul-in-person act, same as her activation |
+| Worker name | `tate-tracker.paul-kirschenbauer.workers.dev`, three endpoints called from the viewer | 5 hits | medium — KV id is unchanged so her data survives; **secrets must be re-set on the new Worker; keep the old name alive until the viewer ships** |
+| browser storage keys | 12 `tateTracker.*` keys on her phone incl. `textSize` and `deviceId` | 34 hits | low **only with a one-time migration** old-key → new-key on first load; done wrong it is M3 for real. Storage is per ORIGIN, so the repo rename alone does not touch it |
+
+**Order inside the item, so her bookmark breaks at most once:** docs + local path (symlinked) → Worker
+under the new name with the old alive → repo rename **with** the forwarding page and the storage
+migration in the same push → internal variable names last, or never.
+
+**Seats, declared (readiness §2 defaults):** `practice-steward` — what a release is, where QA sits,
+what an agent may test, the readiness → pipeline seam · `engineering-partner` — branches vs a second
+Pages site, Worker environments, namespace separation, public/private split, where the Bob and condo
+scoping docs live, the rename mechanics · `ai-advisor` **waived**: no model on the path ·
+`ux-expert` / `content-steward` **waived**: nothing Mom sees changes except a forwarding page, which
+the plan's QA section must cover. Then a planning agent drafts the plan; Paul stamps.
+
+---
+
 ## 🔴 M3 · A NEW PHONE MAKES HER WORDS SMALLER — live today, no auth involved `[found 2026-09-02]` ⚙️ engine
 
 **`tateTracker.textSize` is localStorage-only and syncs nowhere.** Verified: `viewer.html:21107` is the
