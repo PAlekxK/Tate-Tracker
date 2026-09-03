@@ -66,6 +66,36 @@ most of Mom's machinery IS engine (the ask → fold → acknowledge path is shar
 
 ---
 
+## 🧊 FOCUS FREEZE — the instance rests; the migration is the only active work `[paul-stated 2026-09-03]`
+
+Paul, 2026-09-03: *"let's make a distinction right now that we're freezing kind of the Fernwood-specific data and
+feedback cycle stages and all that, and I wanna focus at this point just on the large migration."*
+
+**What is FROZEN** — Fernwood-as-instance work, both tracks: the mom-cycle's proactive legs (bench-card approvals,
+new asks, season-note work, the decision cards fernwood-1 · 4 · 5 · 6 · 8 · 9 · 11 · 12), Track B fleet laps
+(lap 3 is FIRED on SEASON + INBOX and **stays unrun on purpose**; fernwood-2 · 3), the zone hold (already held),
+and any new instance content. `OBJECTIVES.md` **O1 · O2 · O4** rest. ⚠️ Not a loss of state — every row keeps its
+status; nothing here is closed, dropped or re-tiered.
+
+**What is ACTIVE** — the migration only: **O3** (and Guru under **O2** as an engine item). C4 in the pipeline;
+C5 · C6 · C7 · Guru at Paul's stamp gate. Plan of record: `PRODUCT-ENGINE.md` § THE SEQUENCE + the five
+`.plans/2026-09-03-*-PLAN.md` files. ⛔ The WIP rule stands: one item between concept and QA.
+
+**Two edges, OPEN — Paul's ruling, agent-proposed defaults marked:**
+- **An arrival from Mom during the freeze.** *Proposed:* it is still read and dispositioned (legs 1–2 of the
+  mom-cycle, so her surface is never silently ignored), but nothing is built or offered back unless it is a
+  defect on her surface. Proactive legs stay frozen.
+- **Release condition.** *Proposed:* the freeze lifts when C4 and C5 have shipped (the engine can render
+  Fernwood from config and the KV path is prefixed) — or on Paul's word, whichever first. ⚠️ A hold with no
+  release condition is abandonment with manners; if neither is right, name the one that is.
+
+**Mechanics, stated so the boards are read correctly:** neither `mom-cycle-status.py` nor `fleet_probe.py`
+publishes a HELD phase, so the loop board will keep rendering the fleet loop as FIRED and the mom loop as
+ARMED. Read those against this block. Both chronicles carry a dated FREEZE marker; `read-mom-feedback.py
+--pickup` still runs at every session start (it is the arrival detector, not a lap).
+
+---
+
 ## 👤 WAITING ON PAUL — and nothing else is
 
 | Item | What's needed | Where |

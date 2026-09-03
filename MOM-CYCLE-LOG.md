@@ -11,6 +11,12 @@ amended mid-lap.
 
 ---
 
+<!-- freeze: 2026-09-03 -->
+> **2026-09-03 — 🧊 FOCUS FREEZE, not a lap** `[paul-stated]`. This loop's proactive legs rest while the
+> migration (C4–C7, Guru — `PRODUCT-ENGINE.md` § THE SEQUENCE) is the only active Fernwood work. The
+> trigger is unchanged: her input still fires the arrival detector, and the proposed edge is that an
+> arrival is READ and DISPOSITIONED but nothing is built back. Terms + release condition:
+> `BACKLOG.md` § FOCUS FREEZE. ⛔ The status tool has no HELD phase; read its ARMED against this note.
 <!-- meta-lap: 2026-09-02 -->
 <!-- meta-lap: 2026-09-03 -->
 > **2026-09-03 — META, not a lap.** The repo moved 80+ commits today and this loop did not run: the second

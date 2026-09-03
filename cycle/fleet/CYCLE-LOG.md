@@ -7,6 +7,12 @@ State artifact: `cycle/fleet/cycle-state.json` · map: `CYCLE-MAP.md` beside thi
 
 ---
 
+<!-- freeze: 2026-09-03 -->
+> **2026-09-03 — 🧊 FOCUS FREEZE, not a lap** `[paul-stated]`. The probe reads FIRED (SEASON 44d to frost on
+> 2 machines · INBOX 6 unread) and **lap 3 stays unrun on purpose** while the migration is the only active
+> Fernwood work. The 6 inbox rows keep their place in `cycle/requests.jsonl`; nothing is refused or lost.
+> Terms + release condition: `BACKLOG.md` § FOCUS FREEZE. ⛔ `fleet_probe.py` has no HELD phase; read its
+> FIRED against this note.
 <!-- meta-lap: 2026-09-02 -->
 <!-- meta-lap: 2026-09-03 -->
 > **2026-09-03 — META, not a lap.** The repo moved 80+ commits today and this loop did not run: the second

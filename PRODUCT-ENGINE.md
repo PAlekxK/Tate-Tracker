@@ -14,6 +14,8 @@ this repo already made for `MOM-CYCLE-MAP.md` and `cycle/fleet/CYCLE-MAP.md`.
 
 ## ▶️ THE SEQUENCE — read this before anything below it
 
+> 🧊 **FOCUS FREEZE `[paul-stated 2026-09-03]` — this workstream is the ONLY active Fernwood work.** Instance work (mom-cycle proactive legs, fleet laps, new content) rests until the release condition in `BACKLOG.md` § FOCUS FREEZE. Two edges of the freeze are open for Paul's ruling there.
+
 The findings below are evidence, not a plan. **This is the plan.** The dependencies are real: do
 not start at step 3.
 
