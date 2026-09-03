@@ -52,6 +52,8 @@ jobs:
 
       - name: inlined consts match their source JSONs (the pre-existing guard, kept as a control)
         run: python3 tools/check-data-inline.py
+      - name: Public-build audit (C5 8a — report mode; check-only, never a writer)
+        run: python3 tools/check-public-build.py
 
       - name: the builder's own controls hold
         run: python3 tools/build-viewer.py --selftest
