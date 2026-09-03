@@ -59,6 +59,12 @@ the two `list({prefix})` calls; `zones:all` + `zones-last-seen:`), `worker/wrang
 `<h1>`, `header-subtitle`, `header-address`, the unified-input `aria-label`), `instance/fernwood.json` (identity derived by
 `momlib.config`, never re-typed), `tools/build-viewer.py` (substitution at build), `worker/worker.js` (`AMBIENT_MAC_DEFAULT`
 retired — the binding is required), `tools/check-config-derivation.py` roster (allowed locations gain the instance file).
+**Step 8 — the public-build audit `[paul-approved 2026-09-03]`.** New `tools/check-public-build.py` (a roster of
+fields ruled private-tier, asserted ABSENT from every artifact GitHub Pages serves: `viewer.html`, `worker/digest.json`,
+`property.json`, `vehicles.json`, `service-records.manifest.json`); `ENGINE-MANIFEST.md` gains a **tier** column
+(public · private); `.private/` or the private sibling receives whatever the audit moves. First named item: the breaker
+panel's thirty-circuit door directory (`breakerCircuit` rows in `property.json`, rendered in `viewer.html`, and in the
+Guru digest).
 **At the stamp:** `BACKLOG.md` § C5 gains `→ READY · .plans/2026-09-03-c5-record-prep-PLAN.md`; this file gains `- ready:`.
 
 ## Sequence
@@ -177,6 +183,22 @@ estate name in `<h1>`; `herConditions()` `clean:true`.
 **7c · The Worker's instance data** — agent · reversible · `AMBIENT_MAC_DEFAULT` retired; `env.AMBIENT_MAC` required, the
 proxy answers 503 `ambient-not-configured` without it — engine code holds no station. Check: `/health` reports
 `configured.ambient:true` on prod; a QA deploy without the var → 503 from `/api/ambient`, never Fernwood's readings.
+
+**8a · The public-build audit — nothing that will sit behind the login may remain in the public build** — agent
+drafts the roster, **Paul rules each row** · reversible (moving a field out of the public build is a build change; the
+data is kept) · **before C6 5a opens the vault, and before Guru step 7** `[paul-approved 2026-09-03]`. Why it is here:
+Paul, on the private tier: *"I don't want to be trying to protect private information behind the password but have
+this all be on a public repo."* GitHub Pages serves every byte of the public repo to anyone, so a login in the viewer
+protects nothing that is in the viewer. The private tier lives behind the Worker (KV, grant-checked) or in the private
+sibling — never in a Pages-served file. **Named today:** ① the breaker panel's door directory (`breakerCircuit` in
+`property.json` → `viewer.html` + `worker/digest.json`) — becomes private-tier and leaves the public build; ② the
+receipt manifest (`service-records.manifest.json`: 254 rows of path · sha · bytes · date · vehicleId, no amounts or
+vendors) — Paul rules whether an existence-proof of the receipts is public or private. **Not named, and the roster must
+ask:** contractor names and numbers in `property.json` `serviceHistory`, device ids in `tools/people.json`, anything
+under `vehicles.json` that is a VIN, plate or purchase price. Check: `check-public-build.py` runs green on `main` and in
+`build-viewer.yml` (check-only, never a writer — same discipline as the byte-identity check); `git grep -c breakerCircuit
+-- viewer.html worker/digest.json property.json` = 0 after the move; the Guru answers a breaker question only through
+step 7's authenticated lookup, and unauthenticated it asks for the login (Q6's third honesty string).
 
 ## Falsifier
 

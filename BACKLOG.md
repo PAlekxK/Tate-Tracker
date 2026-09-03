@@ -2186,6 +2186,9 @@ carries `depends-on:` so `check-backlog-ready.py` flags it when a dependency mov
 
 ## 🧱 C5 · RECORD PREP — the data model's reversible steps 1–5 `[paul-stated 2026-09-02 sequence]` ⚙️ engine · must-not-diverge
 
+> ➕ **Step 8 added `[paul-approved 2026-09-03]` — the PUBLIC-BUILD AUDIT.** Nothing that will sit behind the login may
+> remain in a Pages-served file; the breaker directory is the first named item. Plan § 8a.
+
 → READY · .plans/2026-09-03-c5-record-prep-PLAN.md — ✅ **STAMPED `[paul-approved 2026-09-03]`** — bundle · `fernwood` + opaque id · opaque personId, name supplied at setup · canon wins · producers for all six consts · `mixed` now · grant register in the sibling, estate never on the path. Waits its turn behind C4.
 
 The migration's preparation, all reversible, none needing a second instance: **prefix the KV write
