@@ -13365,8 +13365,10 @@ setTimeout(function () {
 function renderProperty() {
   const p = PROPERTY_DATA;
   const loc = p.location;
-  const fd = p.frostDates.atPropertyElevation;
-  const fdv = p.frostDates.valleyFloor_KJZP;
+  // C7 0b: a place with no frost record (or no local-resources record) omits those
+  // rows rather than rendering "undefined" — a declared absence, not a broken card.
+  const fd = p.frostDates && p.frostDates.atPropertyElevation;
+  const fdv = p.frostDates && p.frostDates.valleyFloor_KJZP;
   const mc = p.microclimate;
   const soil = p.soils;
   const climate = p.climate;
@@ -13399,6 +13401,7 @@ function renderProperty() {
   html += '</div>';
 
   // ── Frost Dates ──
+  if (fd && fdv) {
   html += '<div class="prop-panel">';
   html += '<div class="prop-panel-title">Frost Dates at Your Elevation</div>';
   html += '<div class="prop-frost-bar">';
@@ -13407,8 +13410,9 @@ function renderProperty() {
   html += '<div class="prop-frost-item"><div class="prop-frost-label">First Fall Frost (50%)</div><div class="prop-frost-val">' + fd.firstFall_50pct + '</div><div class="prop-frost-sub">Valley floor: ' + fdv.firstFall_50pct + '</div></div>';
   html += '<div class="prop-frost-item"><div class="prop-frost-label">Growing Season</div><div class="prop-frost-val">~' + fd.growingSeason_days + ' days</div><div class="prop-frost-sub">Valley floor: ' + fdv.growingSeason_days + ' days</div></div>';
   html += '</div>';
-  html += '<div class="prop-note" style="margin-top:8px;">' + p.frostDates.frostPocketWarning + '</div>';
+  if (p.frostDates.frostPocketWarning) html += '<div class="prop-note" style="margin-top:8px;">' + p.frostDates.frostPocketWarning + '</div>';
   html += '</div>';
+  }  // C7 0b: frost panel
 
   // ── Microclimate ──
   html += '<div class="prop-panel full-width">';
@@ -13504,11 +13508,12 @@ function renderProperty() {
   // ── Resources ──
   html += '<div class="prop-panel full-width">';
   html += '<div class="prop-panel-title">Local Resources</div>';
-  const ext = p.resources.localExtension;
-  html += '<div class="prop-row"><span class="prop-label">UGA Extension (Pickens Co.)</span><span class="prop-value">' + escapeHtml(ext.phone) + '</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">Soil Test</span><span class="prop-value">$9 · 1–2 weeks turnaround</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">Nearest Weather Station</span><span class="prop-value">KJZP (' + p.resources.nearestWeatherStation.elevation_ft.toLocaleString() + ' ft)</span></div>';
-  html += '<a class="prop-action-chip" href="' + escapeHtml(p.resources.nearestWeatherStation.nwsForecastUrl) + '" target="_blank">NWS Pickens Co. Forecast ↗</a>';
+  const ext = p.resources && p.resources.localExtension;
+  const stn = p.resources && p.resources.nearestWeatherStation;
+  if (ext) html += '<div class="prop-row"><span class="prop-label">UGA Extension (Pickens Co.)</span><span class="prop-value">' + escapeHtml(ext.phone) + '</span></div>';
+  if (ext) html += '<div class="prop-row"><span class="prop-label">Soil Test</span><span class="prop-value">$9 · 1–2 weeks turnaround</span></div>';
+  if (stn) html += '<div class="prop-row"><span class="prop-label">Nearest Weather Station</span><span class="prop-value">KJZP (' + stn.elevation_ft.toLocaleString() + ' ft)</span></div>';
+  if (stn) html += '<a class="prop-action-chip" href="' + escapeHtml(stn.nwsForecastUrl) + '" target="_blank">NWS Pickens Co. Forecast ↗</a>';
   html += '<a class="prop-action-chip" href="https://www.wunderground.com/wundermap?lat=34.5496&lon=-84.3674&zoom=13" target="_blank">Local Weather Stations ↗</a>';
   html += '<div class="prop-note" style="margin-top:12px;"><strong>Habitat certifications worth pursuing:</strong> <a href="https://www.audubon.org/conservation/about-bird-friendly-communities/certify-your-yard" target="_blank" rel="noopener">Birds Georgia Wildlife Sanctuary</a> ($110, mailable yard sign) · <a href="https://gnps.org/habitat/" target="_blank" rel="noopener">GNPS Habitat Certification</a> Silver or Gold ($40 + GNPS membership) · <a href="https://homegrownnationalpark.org" target="_blank" rel="noopener">Homegrown National Park</a> map registration (free).</div>';
   html += '</div>';
@@ -13641,11 +13646,12 @@ function renderPlantsSummary() {
     const actionStr = activeTypes.map(t => CARE_TYPES[t].label).join(" · ");
     summary = MONTHS[currentMonth] + ": " + actionStr;
   }
-  document.getElementById("plants-summary").textContent = summary;
+  { const el = document.getElementById("plants-summary"); if (el) el.textContent = summary; }  // C7 0a: a plantless estate has no summary element
 }
 
 function renderFilters() {
   const container = document.getElementById("filters");
+  if (!container) return;  // C7 0a: no filters element on a plantless estate — silent no-op
   const buttons = [{ key: "all", label: "All", icon: "🌿" }];
   for (const [k, v] of Object.entries(CARE_TYPES)) buttons.push({ key: k, label: v.label, icon: v.icon });
   container.innerHTML = buttons.map(b => {
@@ -13661,6 +13667,7 @@ function renderFilters() {
 
 function renderBanner() {
   const b = document.getElementById("banner");
+  if (!b) return;  // C7 0a: no banner element on a plantless estate — silent no-op
   if (activeFilter === "all") { b.innerHTML = ""; return; }
   const ct = CARE_TYPES[activeFilter];
   const matching = plantsNeedingCare(activeFilter);
@@ -13933,7 +13940,7 @@ function renderPlantCard(plant) {
 function renderPlantList() {
   let plantsToShow = PLANTS_DATA.plants;
   if (activeFilter !== "all") plantsToShow = plantsNeedingCare(activeFilter);
-  document.getElementById("plant-list").innerHTML = plantsToShow.map(renderPlantCard).join("");
+  { const el = document.getElementById("plant-list"); if (el) el.innerHTML = plantsToShow.map(renderPlantCard).join(""); }  // C7 0a
   document.querySelectorAll(".plant-head").forEach(head => {
     head.addEventListener("click", () => head.parentElement.classList.toggle("expanded"));
   });
@@ -14768,7 +14775,7 @@ function renderCalendarLegend() {
   const items = Object.entries(CARE_TYPES).map(([type, cfg]) =>
     '<span class="tag t-' + type + '">' + cfg.icon + ' ' + cfg.label + '</span>'
   ).join("");
-  document.getElementById("cal-legend").innerHTML = items;
+  { const el = document.getElementById("cal-legend"); if (el) el.innerHTML = items; }  // C7 0a
 }
 
 // Layout A: 3-month timeline (last, current, next)
@@ -14870,6 +14877,7 @@ function renderHeatmap() {
 
 function renderCalendarBody() {
   const content = document.getElementById("cal-content");
+  if (!content) return;  // C7 0a: no cal-content element on a plantless estate — silent no-op
   if (content) {
     content.innerHTML = renderHeatmap();
     // Open the "Full Year" grid AT the current month (plant names are sticky, so
@@ -17257,11 +17265,14 @@ function switchPlantView(view) {
   currentPlantView = view;
   document.querySelectorAll(".plant-view-tab").forEach(b =>
     b.classList.toggle("active", b.dataset.plantView === view));
-  document.getElementById("plant-this-month-content").style.display  = view === "this-month" ? "" : "none";
-  document.getElementById("plant-by-species-content").style.display  = view === "by-species" ? "" : "none";
-  document.getElementById("plant-timeline-content").style.display    = view === "timeline"   ? "" : "none";
-  document.getElementById("plant-full-year-content").style.display   = view === "full-year"  ? "" : "none";
-  if (view === "timeline")  document.getElementById("plant-timeline-content").innerHTML = renderTimeline();
+  // C7 0a: each lookup is guarded — on a plantless estate none of these panes exist,
+  // and a missing pane is a silent no-op for this renderer, never a throw.
+  const show = (id, on) => { const el = document.getElementById(id); if (el) el.style.display = on ? "" : "none"; };
+  show("plant-this-month-content", view === "this-month");
+  show("plant-by-species-content", view === "by-species");
+  show("plant-timeline-content",   view === "timeline");
+  show("plant-full-year-content",  view === "full-year");
+  if (view === "timeline") { const tl = document.getElementById("plant-timeline-content"); if (tl) tl.innerHTML = renderTimeline(); }
   if (view === "full-year") { renderCalendarBody(); renderCalendarLegend(); }
 }
 
@@ -18101,8 +18112,9 @@ function renderWildlifeSummary() {
   document.getElementById("wildlife-summary").textContent = parts.join(" · ") || "Birds · Mammals · Amphibians";
 }
 
-// Wire plant view tabs
-document.getElementById("plant-view-tabs").querySelectorAll(".plant-view-tab").forEach(btn =>
+// Wire plant view tabs. C7 0a: this sits at top level above INIT — before the guard, a
+// plantless build threw here and NOTHING below it ran (a blank page, not a missing tile).
+(document.getElementById("plant-view-tabs") || document.createDocumentFragment()).querySelectorAll(".plant-view-tab").forEach(btn =>
   btn.addEventListener("click", () => {
     const view = btn.dataset.plantView;
     if (typeof MetricsCollector !== "undefined") {
