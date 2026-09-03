@@ -287,27 +287,35 @@ MODULES = {
                  "non_domain_members": {"turf": "care regimes, not entities (NON_DOMAINS) — "
                                                 "but TURF_DATA renders, so garden must reach it"},
                  "what": "what you tend and fight, and the ground it grows in"},
-    "fleet":    {"members": ("vehicle",),
-                 "what": "what runs the place — Mom's own axis: vehicles / equipment / systems"},
+    # ⭐ THREE modules over ONE domain `[paul-stated 2026-09-03]`: "let's call it motor
+    # pool … and then just separately we'll have power tools and equipment and house
+    # systems." vehicles.json holds all three under its `group` field (vehicle ·
+    # equipment · household-system), so each module claims the `vehicle` domain and
+    # names the GROUP it switches. The domain is ON if any of the three is on;
+    # consumers that render by group (the three cards, the digest) filter by
+    # enabled_groups(). The filename stays — it is an infrastructure identifier.
+    "motor-pool":    {"members": ("vehicle",), "groups": ("vehicle",),
+                      "what": "the garage — trucks, cars, bikes, the cart"},
+    "equipment":     {"members": ("vehicle",), "groups": ("equipment",),
+                      "what": "power tools and yard equipment — mowers, blowers, saws"},
+    "house-systems": {"members": ("vehicle",), "groups": ("household-system",),
+                      "what": "what keeps the house running — furnace, water heater, breaker panel"},
     "wildlife": {"members": ("bird", "mammal", "amphibian", "snake", "lizard", "insect", "fish"),
                  "what": "what visits"},
     "place":    {"members": ("zone",),
                  "what": "the ground itself — zones, the property record's spatial half"},
 }
-# Module names C7's condo paper model declares that own NO domain in this manifest —
-# they switch renderers (weather card, household systems, a neighbourhood family)
-# rather than record collections. The resolver carries them so a declaration is
-# never "unknown"; they contribute nothing to enabled_domains(). `machines` is the
-# condo's word for what this table calls `fleet` — ⛔ NOT reconciled here: two
-# Paul-approved plans landed different names the same day, and which survives is
-# his call (C5 plan § 3a records the seam). Until ruled, `machines` is read as an
-# alias of `fleet` so a condo block is not silently half-read.
+# Module names that own NO domain in this manifest — they switch renderers (the
+# weather card, a neighbourhood family) rather than record collections. The resolver
+# carries them so a declaration is never "unknown"; they contribute nothing to
+# enabled_domains(). (C7's condo words `machines` / `household` were RETIRED by
+# Paul's 2026-09-03 ruling — the condo's estate.json now uses motor-pool ·
+# equipment · house-systems. No aliases: one vocabulary.)
 NON_DOMAIN_MODULES = {
     "weather":       "the weather card + strip tile — readings, not a record collection (RENDERED: must be declared)",
-    "household":     "household systems out of property.json — the condo's only unsubstitutable content",
     "neighbourhood": "an unbuilt family (declared-absent at the condo); needs the AI-boundary ruling",
 }
-MODULE_ALIASES = {"machines": "fleet"}
+MODULE_ALIASES = {}   # kept as a hook; empty by ruling
 MODULE_STATES = ("on", "on-minimal", "off", "declared-absent")
 _ON_STATES = ("on", "on-minimal")
 
@@ -393,6 +401,26 @@ def declared_off_domains(est=None):
     if on is None:
         return None
     return set(DOMAINS) - on
+
+
+def enabled_groups(est=None, domain="vehicle"):
+    """The `group` values of a multi-group domain (today only `vehicle`:
+    vehicle · equipment · household-system) that some ON module switches. None
+    when unreadable. A consumer that renders that domain BY GROUP filters on this;
+    enabled_domains() alone would say 'vehicle is on' while house-systems is off."""
+    mods = modules_of(est)
+    if mods is None:
+        return None
+    out = set()
+    for name, spec in MODULES.items():
+        if domain in spec["members"] and mods.get(name) in _ON_STATES:
+            out.update(spec.get("groups", ()))
+    return out
+
+
+def all_groups(domain="vehicle"):
+    """Every group any module claims for the domain — the roster the sweep judges against."""
+    return {g for spec in MODULES.values() if domain in spec["members"] for g in spec.get("groups", ())}
 
 
 def enabled_non_domains(est=None):

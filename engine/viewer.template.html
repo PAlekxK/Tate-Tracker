@@ -6488,7 +6488,7 @@
          cards now, and the furnace claim is dropped until there is more than one
          record behind it. The tile keeps ONE tier-B slot and points at Vehicles;
          the strip above is how she reaches the other two. -->
-    <button type="button" class="dash-cell dash-small" data-module="fleet" onclick="expandCard('card-vehicles','dash')">
+    <button type="button" class="dash-cell dash-small" data-module="motor-pool" onclick="expandCard('card-vehicles','dash')">
       <div class="dash-cell-label">Vehicles</div>
       <div class="dash-cell-sub">Trucks, mowers, saws — what each one is and how to keep it running</div>
     </button>
@@ -6557,7 +6557,7 @@
        ONE RENDERER still drives all three (renderVehicles, off the same GROUPS
        array and the same vehicles.json) — three card bodies, not three
        copy-pasted functions. -->
-  <div class="main-card" id="card-vehicles">
+  <div class="main-card" id="card-vehicles" data-module="motor-pool">
     <div class="main-card-header" data-toggle="vehicles">
       <div class="main-card-icon vehicles">🛻</div>
       <div class="main-card-meta">
@@ -6571,7 +6571,7 @@
     </div>
   </div>
 
-  <div class="main-card" id="card-equipment">
+  <div class="main-card" id="card-equipment" data-module="equipment">
     <div class="main-card-header" data-toggle="equipment">
       <div class="main-card-icon equipment">🧰</div>
       <div class="main-card-meta">
@@ -6585,7 +6585,7 @@
     </div>
   </div>
 
-  <div class="main-card" id="card-household">
+  <div class="main-card" id="card-household" data-module="house-systems">
     <div class="main-card-header" data-toggle="household">
       <div class="main-card-icon household">🏠</div>
       <div class="main-card-meta">
@@ -17028,14 +17028,17 @@ function renderPlantPeakPanel() {
 // C5 3b — THE FIFTH CONSUMER of the module declaration. Each module-bearing tile
 // carries `data-module`; a tile whose module is not ON (`on` / `on-minimal`) is not
 // rendered and the two-column grid reflows. Tiles with no data-module (Sky & Stars,
-// the journal) always render. At Fernwood every module is on, so the strip is the
+// the journal) always render. The three machine cards (Vehicles · Equipment ·
+// Household Systems) carry data-module too — motor-pool · equipment · house-systems
+// are three modules over one record file, so each card follows its own switch.
+// At Fernwood every module is on, so the strip is the
 // same four-plus tiles it has always been — that is the point. An UNDECLARED module
 // is OFF here exactly as it is for the Python consumers (momlib.module_state), so
 // a typo in estate.json hides a tile rather than silently showing one; an unreadable
 // set (no const) renders everything — the loud direction on a static page.
 function applyModuleTiles() {
   const mods = (typeof ESTATE_MODULES === "object" && ESTATE_MODULES) ? ESTATE_MODULES : null;
-  document.querySelectorAll(".dash-cell[data-module]").forEach(cell => {
+  document.querySelectorAll(".dash-cell[data-module], .main-card[data-module]").forEach(cell => {
     const st = mods ? mods[cell.dataset.module] : "on";
     cell.style.display = (st === "on" || st === "on-minimal") ? "" : "none";
   });

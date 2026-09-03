@@ -10,10 +10,12 @@
   },
   "modules": {
     "garden": "on",
-    "fleet": "on",
+    "motor-pool": "on",
+    "equipment": "on",
+    "house-systems": "on",
     "wildlife": "on",
     "place": "on",
     "weather": "on",
-    "_rule": "C5 3a (Q1 → unit B, the named bundle). A module is a NAMED BUNDLE whose members are declared in momlib.MODULES — never a per-domain switch. States: on · on-minimal (ON for domains) · off · declared-absent (OFF for domains; `declared-absent` says the family was never built here, `off` says it exists and is switched off — C7). A module MISSING from this block is OFF and a check-domains finding, never a silent default. Fernwood: everything on. `weather` is a NON-DOMAIN module (a renderer switch — the weather tile and card), declared because the strip reads it."
+    "_rule": "C5 3a (Q1 → unit B, the named bundle). A module is a NAMED BUNDLE whose members are declared in momlib.MODULES — never a per-domain switch. States: on · on-minimal (ON for domains) · off · declared-absent (OFF for domains; `declared-absent` says the family was never built here, `off` says it exists and is switched off — C7). A module MISSING from this block is OFF and a check-domains finding, never a silent default. Fernwood: everything on. `motor-pool` · `equipment` · `house-systems` `[paul-stated 2026-09-03]` are three modules over ONE domain (vehicles.json, by `group`). `weather` is a NON-DOMAIN module (a renderer switch — the weather tile and card), declared because the strip reads it."
   }
 }

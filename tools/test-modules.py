@@ -38,9 +38,14 @@ def main():
     bd = _mod("build-digest"); hv = _mod("harvest-questions"); mcs = _mod("mom-cycle-status")
     fernwood = momlib.estate()
     gardenless = {"estateId": {"id": "est-fixture", "handle": "fixture"},
-                  "modules": {"garden": "off", "fleet": "on", "wildlife": "on", "place": "off"}}
+                  "modules": {"garden": "off", "motor-pool": "on", "equipment": "on", "house-systems": "on",
+                              "wildlife": "on", "place": "off", "weather": "on"}}
     garden_off_place_on = {"estateId": {"id": "est-fixture2", "handle": "fixture2"},
-                           "modules": {"garden": "off", "fleet": "on", "wildlife": "on", "place": "on-minimal"}}
+                           "modules": {"garden": "off", "motor-pool": "on", "equipment": "on", "house-systems": "on",
+                                       "wildlife": "on", "place": "on-minimal", "weather": "on"}}
+    condo_like = {"estateId": {"id": "est-fixture3", "handle": "fixture3"},
+                  "modules": {"garden": "off", "motor-pool": "off", "equipment": "off", "house-systems": "on",
+                              "wildlife": "off", "place": "on-minimal", "weather": "on"}}
 
     print("\n── FERNWOOD (all on) — every consumer is a NO-OP ──\n")
     on_disk = json.load(open("worker/digest.json"))
@@ -61,6 +66,13 @@ def main():
     check("DIGEST   _meta.declares names the missing garden and place",
           d["_meta"].get("declares") == ["this estate declares no garden", "this estate declares no place"],
           str(d["_meta"].get("declares")))
+    d3 = bd.compose(condo_like)
+    check("DIGEST   house-systems alone → vehicles key holds ONLY household-system records",
+          "vehicles" in d3 and d3["vehicles"]["vehicles"] and all(v.get("group") == "household-system" for v in d3["vehicles"]["vehicles"]),
+          str(sorted({v.get("group") for v in d3.get("vehicles", {}).get("vehicles", [])})))
+    check("DIGEST   …and _meta.declares names motor-pool and equipment",
+          set(d3["_meta"]["declares"]) >= {"this estate declares no motor-pool", "this estate declares no equipment"},
+          str(d3["_meta"].get("declares")))
     d2 = bd.compose(garden_off_place_on)
     check("DIGEST   garden off but place on → zones STAYS (membership is not a partition)", "zones" in d2 and "plants" not in d2)
     gaps = []
@@ -83,10 +95,13 @@ def main():
               all(("%-11s" % k) in out and "declared off" in out for k in ("plant", "weed")))
         check("DOMAINS  🔴 finding: Fernwood's planted plants.json is UNDECLARED DATA at a gardenless estate",
               r.returncode == 1 and "plant: every module claiming it is OFF" in out, out[-400:])
-        json.dump({"estateId": {"id": "x", "handle": "x"}, "modules": {"garden": "on", "wildlife": "on", "place": "on"}}, open(p, "w"))
+        json.dump({"estateId": {"id": "x", "handle": "x"}, "modules": {"garden": "on", "wildlife": "on", "place": "on", "weather": "on",
+                                                                     "motor-pool": "on", "equipment": "on"}}, open(p, "w"))
         r1 = subprocess.run([sys.executable, os.path.join(HERE, "check-domains.py"), "--estate", p], capture_output=True, text=True)
-        check("DOMAINS  a module MISSING from the block (fleet) is a finding — OFF by omission is never silent",
-              r1.returncode == 1 and "module `fleet` is not declared" in r1.stdout, r1.stdout[-300:])
+        check("DOMAINS  a module MISSING from the block (house-systems) is a finding — OFF by omission is never silent",
+              r1.returncode == 1 and "module `house-systems` is not declared" in r1.stdout, r1.stdout[-300:])
+        check("DOMAINS  …and its household-system records at Fernwood are flagged as UNDECLARED DATA (group sweep)",
+              "switched-off group(s) ['household-system']" in r1.stdout, r1.stdout[-300:])
         # the ON-path control: Fernwood's own block still exits 0
         r0 = subprocess.run([sys.executable, os.path.join(HERE, "check-domains.py")], capture_output=True, text=True)
         check("DOMAINS  Fernwood's own declaration still conforms (exit 0)", r0.returncode == 0, r0.stdout[-300:])

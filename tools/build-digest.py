@@ -394,9 +394,23 @@ def compose(est=None, load=load):
             return DIGEST_NON_DOMAIN[key] in on_non
         return True
 
-    digest = _compose_all(load)
+    # vehicles.json is THREE modules over one file (motor-pool · equipment ·
+    # house-systems, by `group`): filter the records to the ON groups before the
+    # section is built; with none on, the key is omitted like any other.
+    groups = momlib.enabled_groups(est) or set()
+
+    def load_filtered(name):
+        data = load(name)
+        if name == "vehicles.json" and isinstance(data, dict) and isinstance(data.get("vehicles"), list):
+            data = dict(data)
+            data["vehicles"] = [v for v in data["vehicles"] if v.get("group") in groups]
+        return data
+
+    digest = _compose_all(load_filtered)
     for key in [k for k in digest if k != "_meta" and not want(k)]:
         del digest[key]
+    if "vehicles" in digest and not groups:
+        del digest["vehicles"]
     if absent_lines:
         digest["_meta"]["declares"] = absent_lines
     return digest

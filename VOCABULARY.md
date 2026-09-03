@@ -50,6 +50,8 @@ discovered late.
 | **capability** | what the person may do in the system. A **single value** | `paul-ratified 2026-09-02` |
 | **administrator** | the capability that carries the AI-boundary duty. *"The administrator's eyes sit between the model and the estate's people"* | `paul-ratified 2026-09-02`, `CLAUDE.md` |
 | **domain** | one data family with a declared file, const, group, time axis and marker path | `momlib.DOMAINS`, 2026-08-02 |
+| **module** | a NAMED BUNDLE of domains an estate switches on/off as one declaration (`estate.json: modules:`). Unit B, not a per-domain switch | `paul-ruled 2026-09-02` (C5 Q1), built C5 3a |
+| **motor pool** · **equipment** · **house systems** | the three machine modules — `motor-pool` · `equipment` · `house-systems` — over ONE record file (`vehicles.json`, by `group`). *"Let's call it motor pool … and then just separately we'll have power tools and equipment and house systems."* ⛔ Retires C7's `machines` / `household` and C5's draft `fleet` (the LOOP keeps its name; the module does not share it) | `paul-stated 2026-09-03` |
 
 ### ⚠️ Two frictions on ratified words — named so they are not rediscovered
 

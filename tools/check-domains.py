@@ -94,6 +94,22 @@ def main():
     # domain is judged as if ON (the loud direction).
     findings.extend(momlib.module_findings(est))
     off = momlib.declared_off_domains(est) or set()
+    # the group-level sweep for the one multi-module domain: a record whose `group`
+    # belongs to an OFF module is undeclared data even though the domain is on.
+    on_groups = momlib.enabled_groups(est)
+    if on_groups is not None and "vehicle" not in off:
+        try:
+            vrecs = records_of(momlib.DOMAINS["vehicle"]) or []
+        except (OSError, ValueError):
+            vrecs = []
+        stray = [r for r in vrecs if r.get("group") in (momlib.all_groups() - on_groups)]
+        if stray:
+            findings.append("vehicle: %d record(s) in switched-off group(s) %s — undeclared data; switch the module "
+                            "on or move the records" % (len(stray), sorted({r.get("group") for r in stray})))
+        unknown = [r for r in vrecs if r.get("group") not in momlib.all_groups()]
+        if unknown:
+            findings.append("vehicle: %d record(s) carry a `group` no module claims: %s"
+                            % (len(unknown), sorted({str(r.get("group")) for r in unknown})))
 
     for dtype, dom in sorted(momlib.DOMAINS.items()):
         if dtype in off:
