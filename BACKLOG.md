@@ -2099,6 +2099,22 @@ Committee are different grains on the same mountain, and the repo name collides 
 under the new name with the old alive → repo rename **with** the forwarding page and the storage
 migration in the same push → internal variable names last, or never.
 
+### ✅ RULED 2026-09-03 `[paul-approved]` — both seats ran; the plan file is next
+
+Seat trails: `.plans/2026-09-03-c4-process-PROPOSAL.md` (process) ·
+`.engineering/2026-09-03-c4-topology-options.md` (topology, stack review, rename mechanics).
+
+| question | ruling |
+|---|---|
+| Bob's full name, **already on `origin/main` since 09-01** (found by the topology seat) | **removed forward, history kept** — `165f787`. The forward rule now covers any third party by name |
+| the 44 unpushed commits' Bob and condo material | **bundle, then rewrite it out before any push** — bundle taken: `~/Developer/_bundles/Tate-Tracker-2026-09-03-pre-rewrite.bundle` (`--all`, verified). Destination: **a private sibling repo, local-only, no remote**, same shape as `tate-commons`; the public repo keeps pointers by filename only |
+| custom domain | **yes, BEFORE the rename** — a renamed repo does not redirect its Pages URL (GitHub docs, verified by the seat); a domain decouples her link from the repo name for good. Her one origin move happens in the same visit as the re-link he accepted |
+| QA topology | **accepted**: Cloudflare Pages as the QA origin (GitHub Pages stays prod) + wrangler `[env.qa]` with its own KV namespace + `WORKER_BASE` derived from the hostname. Bindings are non-inheritable, so a forgotten binding fails loud rather than reaching `feedback:<date>`. ⚠️ **Two Worker writes are ungated by design** (`POST /api/feedback`, `POST /api/zone-audio`, since the 07-15 loss) — so no credential can tell a QA writer from Mom; only a separate namespace can |
+| the inversion (engine ↔ instance) | **yes, staged behind the falsifier**: invert OWNERSHIP not the directory (each instance repo contains the engine at `engine/`, byte-identity checked, none of the 51 tool paths change); directory split inside one repo first → the *no garden* falsifier against a plantless instance → repo split only if it passes. **A build step is an accepted price**; it retires the re-inline path and the 1 MB cliff |
+| the instance's name | **`Fernwood`**, not `Fernwood-Tracker` — the engine is the tracker, the instance is the place. **One rename, ever.** The engine's own name stays open (`VOCABULARY.md` §4 rejects the obvious candidates; `content-steward`'s to propose) |
+| the weather bot (process Q4) | **declared exception** — a deterministic recorder writing one data file; completeness is already checked by the portfolio probe |
+| engine-objective ids (process Q6) | open until the directory split exists |
+
 **Seats, declared (readiness §2 defaults):** `practice-steward` — what a release is, where QA sits,
 what an agent may test, the readiness → pipeline seam · `engineering-partner` — branches vs a second
 Pages site, Worker environments, namespace separation, public/private split, where the Bob and condo
