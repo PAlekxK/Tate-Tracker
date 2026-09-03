@@ -2293,6 +2293,69 @@ this repo's doctrine is that a quiet watcher and a dead one must never read the 
 
 ---
 
+## 🗺 Z2 · ZONE CONSOLIDATION — surveyed 2026-09-02, and the sources have diverged `[paul-raised]` 🏡 instance
+
+Paul: *"Let's do a consolidation run of all the various zones I've drawn over time. I definitely have
+done some draws recently that are not reflected here."*
+
+**Survey run, not the consolidation.** Three overlapping sources:
+
+| source | count | mtime |
+|---|---|---|
+| `zones.json` (canon) | **23** zones, all `status: draft`, all with vertices | 09-01 18:43 |
+| `.private/zone-capture/areas-2026-08-30.json` | **24** areas | 09-01 18:34 |
+| `.private/zone-capture/areas-roster.json` | **17** areas | 08-31 09:05 |
+| `zones._deleted` | **6** | — |
+
+✅ **`exports/fernwood-zones.kml` is IDENTICAL to canon** — 23 polygons, `kml-to-zones.py` dry run
+reports *"no geometry changes."* So that export was made **from** canon and never edited. ⛔ **Paul's
+recent draws are NOT in it.** If they exist they are in Google Earth Pro and were never exported, or in
+a surface not yet found.
+
+**Name-level diff (capture vs canon), after normalising case and hyphens** — 19 matched:
+
+| in capture, not canon | reading |
+|---|---|
+| `WEstern Fern Garden` | almost certainly `western-fern-azalea-garden` — note the typo |
+| `parking` | almost certainly `main-parking` |
+| `Fairway`, `Fairway Border` | ⭐ **deliberately RETIRED** — both are in `zones._deleted` |
+| `The Path` | plausibly genuinely new; paths have no geometry in the record yet |
+
+**In canon, not capture:** `the-green-ring`, `the-turf` (likely added after the capture),
+`main-parking`, `western-fern-azalea-garden` (the two rename pairs above).
+
+### ⭐ The real finding: the fairway retirement still has live downstream references
+
+`fairway`, `fairway-border` and `fairway-fringe` sit in `zones._deleted` — retired deliberately. But:
+
+- **`fairway-border` is named 10× in this file**, from today's photo-organizer inbound *"a species is
+  named at `fairway-border`, and it is on a label Paul read himself"* — a species routed to a zone
+  that no longer exists.
+- The capture roster still carries `Fairway` and `Fairway Border` as areas.
+- **78 photo tags were already known orphaned** by this retirement (capture `2f3df75`).
+
+⚠️ **AND A NEAR-MISS WORTH RECORDING.** The head-slot card is `q-fairway-grass-seedheads`, and this
+survey was one step from reporting *"the card Mom is most likely to see asks about a deleted zone."*
+**That is false.** Its `entityRef` is a **plant** (`meadow-grass`), its prompt says *"the turf and
+meadow"* — both live zones — and **she never sees the id.** The id is a stale naming artifact, not a
+live defect. *Checked before claiming; the claim did not survive.*
+
+### Scope, if this becomes its own task
+
+1. **Find the recent draws.** They are not in the KML and not in `.private/zone-capture` (nothing zone-
+   shaped was modified 2026-09-02). Google Earth Pro's own store is the first place to look.
+2. **Resolve the rename pairs** — `parking`/`main-parking`, `WEstern Fern Garden`/`western-fern-azalea-garden`.
+   Two names for one place is the `group` defect at instance level.
+3. **Rule on the fairway retirement's downstream**: 78 orphaned photo tags, a routed species, a roster
+   entry, a card id. **Retiring a zone is not one act** — that is the finding to generalise.
+4. **`The Path`** — decide whether paths are zones or a new geometry class. The field-capture queue
+   already flags that the record has zones but no path or structure geometry.
+
+⛔ **Nothing consolidated. Nothing written. `zones.json` is canonical and hand-authored**, and
+`kml-to-zones.py` defaults to a dry run for exactly that reason.
+
+---
+
 ## 📜 C3 · THE TRACE IS A QUERY, NOT A FILE — and the founding leak is located `[practice-steward, 2026-09-02]` ⚙️ engine
 
 Paul asked for *"records for each of these items tracing how they go from idea to concept to design."*
