@@ -285,6 +285,7 @@ phone and watch it land on the new one; it must never show a GitHub 404).
    telemetry until re-pasted in person; 2d carries the re-paste.
 6. ~~**Q6 Replace-text vs squash**~~ ✅ **RULED `[paul-stated 2026-09-03]`: replace-text, keep the 50 commits.**
    Paul reads the added Bob lines before the push (1c's last check).
-7. **Q7 Cloudflare Access on the QA origin** — off by default here (the bytes are public anyway; the title marker
-   distinguishes it); turn it on if a stranger's traffic ever shows in the QA namespace.
+7. ~~**Q7 Cloudflare Access on the QA origin**~~ ✅ **RULED `[paul-stated 2026-09-03]`: off at first; on if a
+   stranger's traffic ever shows in the QA namespace.** The title marker distinguishes QA; the write probe runs
+   without a service token.
 8. **Q8 Who owns the forwarding repo long-term** — keep forever, or delete once the old Worker is deleted?
