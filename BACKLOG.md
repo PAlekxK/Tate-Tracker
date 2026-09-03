@@ -2169,6 +2169,8 @@ credential, never the path.** The privacy/security seat's unpark condition fired
 
 ## 🏙 C7 · THE CONDO AS A PAPER MODEL — and the "no garden" falsifier 🎛 config
 
+→ READY · .plans/2026-09-03-c7-condo-paper-model-PLAN.md — **plan DRAFTED 2026-09-03, at Paul's gate; nine questions open before the stamp** (her role at the condo first). Step 0 — the null-guard pass at Fernwood — is buildable now and pays on its own. Not stamped.
+
 `user-researcher`: *model it, don't ship it to her* — her attention is the scarcest resource and
 Fernwood's adoption question is still open. A plantless instance directory (⚠️ whether a throwaway
 condo directory may sit in the public repo is Paul's — nothing about the condo is public-safe beyond
