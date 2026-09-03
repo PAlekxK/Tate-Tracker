@@ -125,7 +125,7 @@ origin/staging` exit 0; `python3 tools/test-check-live.py` exit 0.
 --env qa`, curl the `-qa` `/health`, **no digest commit-back** (that stays on `main`). Pages QA deploys itself on
 push to `staging`. Weather bots stay `main`-only (declared exception). Check: a `workflow_dispatch` run shows
 the deploy step *ran* (the `FERNWOOD_AUG_2026` silent-skip notice must not print).
-**3f · The write probe** — agent · reversible · `tools/qa-write-probe.py --selftest`: reads QA `/health`,
+**3f · The write probe** — ✅ **DONE 2026-09-03** — `tools/qa-write-probe.py`: gate on `/health` qa/qa (selftest proves it REFUSES prod-shaped, mis-bound, env-less and unreadable-canary health; the prod-pointed mutation refused live), then POST under the harness id with a nonce. **Live 8/8:** nonce reads back from QA with `env:"qa"`, is instrumentation to every reader, ABSENT from prod under the prod token, `read-mom-feedback --pickup` and `check-mom-ack` byte-identical before/after. ⚠️ Amendment vs the stamped text: the ack control is *unchanged-by-the-write*, not *exit 0* — check-mom-ack was legitimately red before the probe ran (the 3b viewer commit is unpushed), and a control that fails on an unrelated standing condition is one nobody reads. R2 readers-treat-missing-env-as-cannot-tell is NOT built here (it is a reader change, C5's) — stated so it is not assumed. · agent · reversible · `tools/qa-write-probe.py --selftest`: reads QA `/health`,
 **refuses unless `env=="qa" && kv_canary=="qa"`**, POSTs `/api/feedback` with `deviceId
 d-telemetrytest-harness-v1` + a nonce. Positive control: `GET /api/feedback` on QA (QA token) contains the nonce.
 Negative controls: `GET /api/feedback` on prod (prod token) does not; `python3 tools/read-mom-feedback.py --pickup`
@@ -134,7 +134,7 @@ must *refuse*. Acceptance = the five process requirements: R1 unreadable by her 
 R2 `env` on every new record, readers treat a missing `env` after 2026-09-xx as "cannot tell", never clean;
 R3 both controls by command; R4 a URL + `curl`, no model; R5 declared unexercisable: the origin move / storage
 migration, Pages' async rebuild, her phone's cache, promote-species, anything paired with `sync.v1`.
-**3g · The fence, rewritten** — agent · reversible · `tools/people.json` `_meta`: the `/api/feedback` POST fence
+**3g · The fence, rewritten** — ✅ **DONE 2026-09-03** — `people.json` harness entry now carries the two-half fence: prod half permanent (metrics-only under the harness id, never POST /api/feedback, never her device), QA half dissolved on a `.pages.dev` origin, citing the probe and its re-run rule. `check-telemetry.py` still reads the file clean. · agent · reversible · `tools/people.json` `_meta`: the `/api/feedback` POST fence
 dissolves **only on a `.pages.dev` origin, only after 3f is green**; the prod half is permanent.
 **2a · Domain** — **Paul** (name: Q1) · reversible · Cloudflare Registrar + DNS per
 `.engineering/2026-05-11-path-custom-domain.md`: `CNAME <host> → palekxk.github.io` (apex: GitHub's A/AAAA).
