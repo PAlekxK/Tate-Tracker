@@ -103,6 +103,20 @@ jobs:
           mkdir -p "$RUNNER_TEMP/pages-export"
           git archive HEAD | tar -x -C "$RUNNER_TEMP/pages-export"
           echo "exported $(find "$RUNNER_TEMP/pages-export" -type f | wc -l) files"
+          # QA build stamp (paul-asked 2026-09-03: "a bar across the top that says QA and the last
+          # time it was updated"). Written into the EXPORT only — never a tracked file, never on
+          # prod. viewer.html shows it in the QA banner when the origin is *.pages.dev.
+          python3 - "$RUNNER_TEMP/pages-export/qa-build.json" <<'EOF'
+          import json, os, subprocess, sys, datetime
+          sha = os.environ.get("GITHUB_SHA", "")
+          subject = subprocess.run(["git", "log", "-1", "--format=%s"], capture_output=True, text=True).stdout.strip()
+          json.dump({"sha": sha, "short": sha[:7], "branch": "staging",
+                     "deployedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+                     "subject": subject[:160],
+                     "run": os.environ.get("GITHUB_SERVER_URL", "") + "/" + os.environ.get("GITHUB_REPOSITORY", "") + "/actions/runs/" + os.environ.get("GITHUB_RUN_ID", "")},
+                    open(sys.argv[1], "w"))
+          print("qa-build.json:", open(sys.argv[1]).read())
+          EOF
 
       - name: Skip notice (secret FERNWOOD_AUG_2026 not visible)
         if: env.CF_TOKEN == ''

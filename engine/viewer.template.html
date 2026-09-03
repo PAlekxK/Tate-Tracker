@@ -282,6 +282,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* QA banner — only ever visible on the QA origin (see #qa-banner). */
+  .qa-banner { background: #3b2f0a; color: #ffe9a8; font: 600 13px/1.4 -apple-system, "SF Mono", Menlo, monospace; padding: 8px 14px; letter-spacing: .01em; text-align: center; word-break: break-word; }
+  .qa-banner[hidden] { display: none; }
+  body.text-lg .qa-banner { font-size: 15px; }
+
   .header {
     background: linear-gradient(135deg, #183524 0%, #2a6040 50%, #3a8a58 100%);
     padding: 32px 18px 26px;
@@ -6272,6 +6277,11 @@
 </head>
 <body>
 
+<!-- QA BANNER (C4 3b follow-up, paul-asked 2026-09-03). Rendered ONLY on the QA origin
+     (*.pages.dev) from /qa-build.json, which the QA deploy writes into its export and prod
+     never has. Static markup + a fetch; nothing here runs on Mom's page. -->
+<div id="qa-banner" class="qa-banner" hidden role="status"></div>
+
 <div class="header">
   <div class="header-inner">
     <div class="text-size-toggle" role="group" aria-label="Text size">
@@ -6931,6 +6941,30 @@
 const IS_QA_ORIGIN = /\.pages\.dev$/.test(location.hostname);
 const WORKER_BASE = IS_QA_ORIGIN ? "https://fernwood-qa.paul-kirschenbauer.workers.dev" : "https://fernwood.paul-kirschenbauer.workers.dev";
 if (IS_QA_ORIGIN) document.title += " · QA";
+// The QA banner — "QA · staging @ <sha> · updated <when ET> · <what>". Paul's review window
+// (2026-09-03): he keeps the QA tab open while work lands, so the bar says which build he is
+// looking at and how old it is. /qa-build.json exists only in the QA export; a failed fetch
+// still shows the bar, saying so — a QA tab must never look like the live one.
+if (IS_QA_ORIGIN) {
+  (async () => {
+    const bar = document.getElementById("qa-banner");
+    if (!bar) return;
+    bar.hidden = false;
+    let text = "QA · build stamp unavailable — this IS the QA origin, but /qa-build.json did not load";
+    try {
+      const r = await fetch("/qa-build.json", { cache: "no-store" });
+      if (r.ok) {
+        const b = await r.json();
+        const at = new Date(b.deployedAt);
+        const when = at.toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) + " ET";
+        const ageMin = Math.max(0, Math.round((Date.now() - at.getTime()) / 60000));
+        const age = ageMin < 60 ? ageMin + " min ago" : ageMin < 1440 ? Math.round(ageMin / 60) + " h ago" : Math.round(ageMin / 1440) + " d ago";
+        text = "QA · " + (b.branch || "staging") + " @ " + (b.short || "?") + " · updated " + when + " (" + age + ")" + (b.subject ? " · " + b.subject : "");
+      }
+    } catch (e) { /* the fallback text stands */ }
+    bar.textContent = text;
+  })();
+}
 // ── Declared absence (C4 5c · the smallest form of C5 3b's OFF behaviour) ─────
 // An instance that carries no record for a domain declares it ABSENT; the builder
 // emits `{"_meta":{"declaredAbsent":true}, …:[]}` for that const. A renderer that reads
