@@ -182,6 +182,18 @@ candidates: 0 · answer-age: ?`; `check-backlog-ready.py` → silent.
 
 ## Open before stamping
 
+> **✅ RULED 2026-09-03 `[paul-stated]` — Q7 · Q8. Seven remain.**
+> - **Q7 → a DERIVATION, never `declared-absent`, and it is an ENGINE rule, not a condo one.** Paul: *"we should
+>   definitely have information and reminders around frost, and that should have a historical layer to it of data for
+>   the region, but then also watching the particular forecast, and if there's a local station, obviously measuring that
+>   as well."* So frost is a **weather-module** fact with **three layers** in the source hierarchy the design principle
+>   already names: ① regional historical normals (the record's floor, present at every estate) → ② the forecast watch →
+>   ③ the on-site station's measurement where one exists. It renders and reminds wherever weather is ON, garden or
+>   not. Consequence for C5 step 7: `FROST_MONTH` is not re-typed *and* not a single derived value — the config accessor
+>   exposes the layered source, and the seat's §7.4 derivation is the ① layer.
+> - **Q8 → C5 owns the `answer-age` fix;** this plan cites it. 1b stands only until C5 is stamped — which it now is.
+
+
 1. **Q1 Her role at the condo** — owner or contributor; 1a's whole calibration block follows from it, and data-model
    §2c is explicit that no global answer is right for everyone. 1a cannot be finished without it.
 2. **Q2 Which modules are ON** — weather yes, garden off are settled by the row; `machines`, `household` and `place`

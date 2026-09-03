@@ -9,6 +9,7 @@
          user-researcher → waived: her Guru use is measured (41 of 139 expansions; 4 turns in lap 8), not asked
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
+- ready: [paul-approved 2026-09-03]
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row (and its siblings in § A6: the caps audit, the RAG/corpus row, the
@@ -235,6 +236,16 @@ tool-called T/T`; QA `/health` → `chat_budget: {used, ceiling, date}`; `build-
 `check-digest-fresh.py` exit 0; `check-backlog-ready.py` → silent.
 
 ## Open before stamping
+
+> **✅ STAMPED 2026-09-03 `[paul-approved]` — on the harness picture.** Paul: *"if you want my stamp on the harness
+> picture, that sounds good. I trust your recommendation."* The four stamp-blocking questions are ruled on the
+> recommendations as written: **Q2 → 600 / 6 stay** (mechanisms required either way) · **Q5 → `turf` in the core** ·
+> **Q8 → yes, the core's hard-facts fragment names 2,959 as an explicit superseded negative** · **Q9 → fixtures
+> tracked under `tools/guru-fixtures/`**, harness-authored asks only, size-capped. **Still open at their named steps,
+> not at the stamp:** Q1 (the ceiling and turn cap — 3b) · Q3 (the streaming threshold — 8, measure first) · Q4 (whether
+> the private tier joins — 7) · Q6 (the honesty strings — 5a) · Q7 (the confusable pairings — 2a). Upstream Q10 is
+> discharged: C5 Q1 ruled **B, the named bundle**, on 2026-09-03.
+
 
 1. **Q1 The per-run cap and who is told** — the dedicated key is RULED (C4 Q3); the **value** of `CHAT_DAILY_CEILING`
    and the per-run `--max-turns` are Paul's spend. Told in three places by mechanism (every harness run · QA `/health` ·

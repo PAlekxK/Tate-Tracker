@@ -245,6 +245,8 @@ the plan is wrong and the step stops.
 >   user-researcher's ACTIVATION model (*"recognized, never registered"*; *"display name is habit"*) and that collision
 >   is surfaced there, not resolved here. **For THIS plan:** step 1b's resolver mints the opaque id; the caveat-window
 >   (07-13 → 07-27) records resolve to **null** — identity is not applied backwards.
+> - **Frost, ruled under C7 Q7 the same day and binding on step 7 here:** `FROST_MONTH` derives from a **three-layer**
+>   frost model (regional normals → forecast → station), not a single typed or derived month. See the C7 plan's ruling.
 > - **Q4 → canon wins.** *"let's go with the canon that we established and align everything to that."* 4c's `--fix`
 >   direction is canon → consts; the P5 count follows.
 
