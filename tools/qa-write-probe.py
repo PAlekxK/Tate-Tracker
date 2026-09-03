@@ -51,10 +51,18 @@ TIMEOUT = 30
 QA_NAMESPACE_ID = "a0cf82b615c648ff972961c46ce42661"   # worker/wrangler.toml [env.qa]
 
 
+def _wrangler_cmd():
+    """The cached wrangler binary when present (2 s), else npx — which HUNG for >10 min on
+    2026-09-03 while checking the registry. A probe that hangs is worse than one that skips."""
+    import glob
+    hits = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/wrangler/bin/wrangler.js")), key=os.path.getmtime)
+    return ["node", hits[-1]] if hits else ["npx", "--yes", "wrangler@4"]
+
+
 def kv_keys_remote(namespace_id):
     """Key names in a KV namespace via wrangler (remote). None when wrangler cannot run."""
     try:
-        r = subprocess.run(["npx", "--yes", "wrangler@4", "kv", "key", "list", "--namespace-id", namespace_id, "--remote"],
+        r = subprocess.run(_wrangler_cmd() + ["kv", "key", "list", "--namespace-id", namespace_id, "--remote"],
                            capture_output=True, text=True, timeout=120,
                            cwd=os.path.join(os.path.dirname(HERE), "worker"))
     except (OSError, subprocess.TimeoutExpired):
@@ -71,7 +79,7 @@ def kv_keys_remote(namespace_id):
 def kv_key_get_remote(namespace_id, key):
     """One value from a KV namespace via wrangler (remote); "" when unreadable."""
     try:
-        r = subprocess.run(["npx", "--yes", "wrangler@4", "kv", "key", "get", key, "--namespace-id", namespace_id, "--remote"],
+        r = subprocess.run(_wrangler_cmd() + ["kv", "key", "get", key, "--namespace-id", namespace_id, "--remote"],
                            capture_output=True, text=True, timeout=120,
                            cwd=os.path.join(os.path.dirname(HERE), "worker"))
         return r.stdout if r.returncode == 0 else ""
