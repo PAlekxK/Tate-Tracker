@@ -246,7 +246,18 @@
       "note": "NWS zone forecast for Pickens County. Check for freeze watches and warnings — at 2,873 ft, freeze events arrive earlier and hit harder than the valley forecast suggests."
     },
     "ebirdRegion": "US-GA-227",
-    "droughtFips": "13227"
+    "droughtFips": "13227",
+    "streamGauge": {
+      "site": "02389150",
+      "river": "Etowah River",
+      "note": "Gauge near Dawsonville (~30 mi) — same watershed that drains the property.",
+      "_meta": "MOVED HERE 2026-09-03 (C4 5c) from engine JS: which USGS gauge drains this place is instance data. An estate with no streamGauge renders no watershed panel and fetches nothing."
+    },
+    "seismic": {
+      "closestFeature": "Eastern Tennessee Seismic Zone",
+      "usgsMapExtent": "33.0,-86.5&extent=36.0,-82.0",
+      "_meta": "MOVED HERE 2026-09-03 (C4 5c): the seismic panel is regional and instance-specific; an estate with no `seismic` renders no panel."
+    }
   },
   "utilities": {
     "water": {

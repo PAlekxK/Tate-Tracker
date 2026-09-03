@@ -13486,19 +13486,22 @@ function renderProperty() {
   }  // C7 0b: frost panel
 
   // ── Microclimate ──
+  // Microclimate — every sub-block is optional canon (C4 5c: the condo declares none).
+  const ae = (mc && mc.aspectEffects) || null;
+  if (mc && (mc.thermalBelt || mc.frostPockets || ae)) {
   html += '<div class="prop-panel full-width">';
   html += '<div class="prop-panel-title">Microclimate Factors</div>';
-  html += '<div class="prop-micro-note"><strong>Thermal Belt:</strong> ' + mc.thermalBelt + '</div>';
-  html += '<div class="prop-micro-note"><strong>Frost Pockets:</strong> ' + mc.frostPockets + '</div>';
+  if (mc.thermalBelt) html += '<div class="prop-micro-note"><strong>Thermal Belt:</strong> ' + mc.thermalBelt + '</div>';
+  if (mc.frostPockets) html += '<div class="prop-micro-note"><strong>Frost Pockets:</strong> ' + mc.frostPockets + '</div>';
 
-  const ae = mc.aspectEffects;
+  if (ae) {
   html += '<div class="prop-aspect-grid">';
   const dirs = [
     { key: 'south_southwest', label: '↙ South/SW', d: ae.south_southwest },
     { key: 'north_northeast', label: '↗ North/NE', d: ae.north_northeast },
     { key: 'east',            label: '→ East',      d: ae.east },
     { key: 'west',            label: '← West',      d: ae.west },
-  ];
+  ].filter(x => x.d);
   dirs.forEach(({ label, d }) => {
     html += '<div class="prop-aspect-cell">';
     html += '<div class="prop-aspect-dir">' + escapeHtml(label) + '</div>';
@@ -13508,9 +13511,13 @@ function renderProperty() {
     html += '</div>';
   });
   html += '</div>';
+  }
   html += '</div>';
+  }
 
-  // ── Seismic activity (USGS, 300 km / M2.0+) ──
+  // ── Seismic activity (USGS, 300 km / M2.0+) — only where canon names the regional feature ──
+  const seismicCfg = p.resources && p.resources.seismic;
+  if (seismicCfg) {
   html += '<div class="prop-panel">';
   html += '<div class="prop-panel-title">Seismic Activity</div>';
   const sz = WEATHER_DATA.seismic;
@@ -13532,16 +13539,19 @@ function renderProperty() {
     if (sz.url) html += '<a class="prop-action-chip" href="' + escapeHtml(sz.url) + '" target="_blank" rel="noopener">USGS event detail ↗</a>';
   } else if (sz && sz.empty) {
     html += '<div class="prop-seismic-empty">No recent activity within ' + SEISMIC_RADIUS_KM + ' km at M' + SEISMIC_MIN_MAG.toFixed(1) + '+.</div>';
-    html += '<a class="prop-action-chip" href="https://earthquake.usgs.gov/earthquakes/map/?extent=33.0,-86.5&extent=36.0,-82.0" target="_blank" rel="noopener">USGS regional map ↗</a>';
+    if (seismicCfg.usgsMapExtent) html += '<a class="prop-action-chip" href="https://earthquake.usgs.gov/earthquakes/map/?extent=' + seismicCfg.usgsMapExtent + '" target="_blank" rel="noopener">USGS regional map ↗</a>';
   } else {
     html += '<div class="prop-seismic-empty">Checking USGS…</div>';
   }
-  html += '<div class="prop-note">Closest active feature: Eastern Tennessee Seismic Zone.</div>';
+  if (seismicCfg.closestFeature) html += '<div class="prop-note">Closest active feature: ' + escapeHtml(seismicCfg.closestFeature) + '.</div>';
   html += '</div>';
+  }
 
-  // ── Watershed (USGS Etowah gauge 02389150) ──
+  // ── Watershed — the gauge canon names (C4 5c); no gauge, no panel ──
+  const gauge = p.resources && p.resources.streamGauge;
+  if (gauge && gauge.site) {
   html += '<div class="prop-panel">';
-  html += '<div class="prop-panel-title">Watershed — Etowah River</div>';
+  html += '<div class="prop-panel-title">Watershed — ' + escapeHtml(gauge.river || "the river") + '</div>';
   const sf = WEATHER_DATA.streamflow;
   if (sf && !sf.empty) {
     html += '<div class="prop-stream-grid">';
@@ -13556,25 +13566,30 @@ function renderProperty() {
   } else {
     html += '<div class="prop-seismic-empty">Checking USGS…</div>';
   }
-  html += '<div class="prop-note">Gauge near Dawsonville (~30 mi) — same watershed that drains the property.</div>';
+  if (gauge.note) html += '<div class="prop-note">' + escapeHtml(gauge.note) + '</div>';
   html += '</div>';
+  }
 
-  // ── Soils ──
+  // ── Soils — each row only where canon has the value ──
+  if (soil && (soil.likelySeries || soil.parentMaterial || soil.texture)) {
   html += '<div class="prop-panel">';
   html += '<div class="prop-panel-title">Soils</div>';
-  html += '<div class="prop-soil-row"><div class="prop-soil-label">Likely Series</div><div class="prop-soil-val">' + escapeHtml(soil.likelySeries.join(', ')) + '</div></div>';
-  html += '<div class="prop-soil-row"><div class="prop-soil-label">Parent Material</div><div class="prop-soil-val">' + escapeHtml(soil.parentMaterial) + '</div></div>';
-  html += '<div class="prop-soil-row"><div class="prop-soil-label">Native pH</div><div class="prop-soil-val">' + escapeHtml(soil.pH.nativeRange) + '</div></div>';
-  html += '<div class="prop-soil-row"><div class="prop-soil-label">Texture</div><div class="prop-soil-val">' + escapeHtml(soil.texture) + '</div></div>';
-  html += '<div class="prop-soil-row"><div class="prop-soil-label">Rock Content</div><div class="prop-soil-val">' + escapeHtml(soil.rockContent) + '</div></div>';
-  html += '<div class="prop-note">' + escapeHtml(soil.pH.soilTestNote) + '</div>';
+  if (Array.isArray(soil.likelySeries)) html += '<div class="prop-soil-row"><div class="prop-soil-label">Likely Series</div><div class="prop-soil-val">' + escapeHtml(soil.likelySeries.join(', ')) + '</div></div>';
+  if (soil.parentMaterial) html += '<div class="prop-soil-row"><div class="prop-soil-label">Parent Material</div><div class="prop-soil-val">' + escapeHtml(soil.parentMaterial) + '</div></div>';
+  if (soil.pH && soil.pH.nativeRange) html += '<div class="prop-soil-row"><div class="prop-soil-label">Native pH</div><div class="prop-soil-val">' + escapeHtml(soil.pH.nativeRange) + '</div></div>';
+  if (soil.texture) html += '<div class="prop-soil-row"><div class="prop-soil-label">Texture</div><div class="prop-soil-val">' + escapeHtml(soil.texture) + '</div></div>';
+  if (soil.rockContent) html += '<div class="prop-soil-row"><div class="prop-soil-label">Rock Content</div><div class="prop-soil-val">' + escapeHtml(soil.rockContent) + '</div></div>';
+  if (soil.pH && soil.pH.soilTestNote) html += '<div class="prop-note">' + escapeHtml(soil.pH.soilTestNote) + '</div>';
   html += '</div>';
+  }
 
   // ── Climate ──
+  if (climate) {
   html += '<div class="prop-panel full-width" id="prop-climate-panel">';
   html += '<div class="prop-panel-title">Climate <span id="climate-data-badge" style="font-size:10px;font-weight:400;color:#8aa080;margin-left:6px;">Loading ERA5 actuals…</span></div>';
   html += '<div id="prop-climate-inner">' + renderClimateInner(climate) + '</div>';
   html += '</div>';
+  }
 
   // ── Resources ──
   html += '<div class="prop-panel full-width">';
@@ -15831,8 +15846,9 @@ function formatTimeAgo(ms) {
 // USGS NWIS streamflow at Etowah River gauge 02389150 (near Dawsonville, ~30 mi from
 // the property — the nearest active gauge on the Etowah). All three parameters reported:
 // 00060 streamflow ft³/s, 00065 gage height ft, 00010 water temperature °C → converted to °F.
-const USGS_ETOWAH_SITE = "02389150";
+const USGS_ETOWAH_SITE = ((((typeof PROPERTY_DATA === "object" && PROPERTY_DATA) || {}).resources || {}).streamGauge || {}).site || null;   // canon (C4 5c); null = this estate declares no gauge
 async function fetchUSGSStreamflow() {
+  if (!USGS_ETOWAH_SITE) return;   // no gauge declared — the watershed panel is not rendered either
   const url = "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=" + USGS_ETOWAH_SITE +
     "&parameterCd=00060,00065,00010";
   try {
