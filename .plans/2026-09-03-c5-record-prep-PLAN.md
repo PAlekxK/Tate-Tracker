@@ -10,7 +10,7 @@
          user-researcher → waived: no user question in this item
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
-- stage: build (opened 2026-09-03 after C4 4c shipped — the WIP slot)
+- stage: closing (2026-09-03 7:35 PM ET — every step shipped or held with a release condition; the 00:06Z cutover read and Paul's `--live` are the last two observations; retro below)
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row, C4's RULED table and its three-levels ruling (decided, not
@@ -294,3 +294,40 @@ the plan is wrong and the step stops.
    API contract **frozen** with the estate never on the path or query — recommend yes, it is what keeps 0b's cost at zero.
 8. **Not decided here, flagged:** `group`'s double-booking (VOCABULARY §5) — step 3 is the seam predicted to bite; the
    migration is its own decision, not this item's.
+
+## Retro — written at close, 2026-09-03, before the 00:06Z read (amended after it if it surprises)
+
+**Pre-registered questions, answered:**
+- **Did P4 or P5 reach zero?** P4 (config re-typed into engine) **0 · ARMED** — the lint keyed on canon paths found every
+  leak it could name, nine tools and five prompts derived, and the manifest reads it live. P5 (viewer consts outside the
+  roster) **8 counted, 3 with no producer** (EVENTS · SOURCES · SUN_HORIZON) — down from 10 / 6 at the stamp. "Still counted,
+  8" is the answer; the predicate is right-sized, it just is not done — Q5's remaining three rows are C7/Guru work.
+- **Was readiness ceremony?** Steps that exist only because a seat measured something: **5** (1a/1b's null-declared-not-absent,
+  2c's private-sibling siting, 3a's `turf` as a named non-domain member, 4b's type-changed detector, 5a's manifest+checker).
+  Not zero. The seats changed the build.
+- **Did any falsifier fire?** Two plan EXPECTATIONS were wrong and are recorded where they fell: 2a's positive control
+  (`check-domains` sweeps only domain-shaped files — the manifest check's P1 was the real control) and 2c's file-count check
+  (`git grep` counts mentions; `git ls-files` counts files). Neither was a build defect; both were a check that tested the
+  wrong predicate — the payload-not-container rule, twice, in a plan written to enforce it.
+
+**What this lap taught the next one (feedback_retro_improvement_closes_a_cycle — discharge these at the next lap's start):**
+1. **A `--help` is not a no-op.** `fetch-basemap.py --help` RAN the tool and rewrote a bounds record. Before probing a tool
+   for liveness, read whether it parses arguments. (Discharge: C6 lap start — list which tools it will probe and how.)
+2. **`npx` is a network call.** It hung >10 min on a registry check during the prod cutover while the cached binary answered
+   in 2 s. Anything on a cutover path uses the cached binary or a pinned local install. (Discharge: the probe already does;
+   check `deploy-worker.sh` and both workflows next lap.)
+3. **KV is eventually consistent (~30 s).** A read right after a wrangler put returned absent and would have failed a check.
+   A probe that reads back its own write waits or retries. (Discharge: `qa-write-probe` reads through the Worker after a
+   POST — measure whether it has ever false-missed.)
+4. **A snapshot beats a diff for a refactor that must not change behaviour.** The five prompts were captured before,
+   compared after — four identical, one differing in a known word. Use the same shape for C6's `handleChat` changes.
+5. **`modules_of(None)` meaning "this checkout" was a trap the selftest caught on first run.** Sentinel-None APIs in momlib
+   want an explicit check at every caller that can hold a missing file's None. (Discharge: grep momlib for `est=None`
+   defaults before C7's second instance reads through them.)
+6. **Two Paul-approved plans named the same thing differently on the same day** (fleet · machines → motor pool). The
+   vocabulary check reads schema surfaces, not plan files; a plan-to-plan name collision has no detector. (Discharge:
+   decide whether `check-vocabulary` should read `.plans/*-PLAN.md` module blocks, or whether VOCABULARY §2 is enough.)
+
+**Open at close, by design:** 3c (the second falsifier — planned, not built); 8a's two HELD rows (breaker directory,
+service-contact phones — release C6 5); Paul's `test-feedback-cycle.py --live`; the 00:06Z read (pending, background).
+
