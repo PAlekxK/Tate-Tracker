@@ -52,9 +52,21 @@ ROSTER = [
         "images/property-map/*.bounds.json": "georeference records",
         "viewer.html": "BUILT output", "engine/viewer.template.html": "PROPERTY_DATA placeholder; other hits are prose in engine markup — see P-note",
         "worker/digest.json": "BUILT output",
-        "worker/worker.js":  "⚠️ KNOWN LEAK, carried with a date: the system prompts type 2,873 ft in five blocks — C5 7c moves them to instance config. Allowed so the lint is not red until then; remove this row at 7c",
         "tools/check-condo-falsifier.py": "a DETECTOR string",
         ".plans/*.json": "records", ".ux-reviews/*.json": "records", ".engineering/*": "records", ".user-research/*": "records",
+    }),
+    ("property.address", "literal", (r"282 Church Mountain",), {
+        "property.json": "canon", "viewer.html": "BUILT output (header address line + PROPERTY_DATA)", "worker/digest.json": "BUILT output",
+        "birds.json": "domain _meta records the place", "amphibians.json": "domain _meta", "insects.json": "domain _meta", "lizards.json": "domain _meta",
+        "mammals.json": "domain _meta", "snakes.json": "domain _meta", "fishing.json": "domain _meta", "plants.json": "domain _meta", "weeds.json": "domain _meta",
+        "vehicles.json": "canon prose (an order record names the ship-to address) — content, not config",
+        "questions.json": "canon prose (a card's resolution note) — content, not config",
+        "engine/viewer.template.html": "PROPERTY_DATA placeholder; a hit here means the identity block stopped deriving",
+        "tools/check-condo-falsifier.py": "a DETECTOR string",
+        ".plans/*.json": "records", ".ux-reviews/*.json": "records", ".engineering/*": "records", ".user-research/*": "records",
+    }),
+    ("(deployment) AMBIENT_MAC — the station", "literal", (r"D8:F1:5B:15:28:B8",), {
+        "worker/wrangler.toml": "the ONE place the station lives — a [vars] entry per environment (C5 7c retired the code default)",
     }),
     ("frostDates.atPropertyElevation.firstFall_50pct", "type-changed", (r"\b10,\s*17\b",), {
         "property.json": "canon (as 'October 17')",

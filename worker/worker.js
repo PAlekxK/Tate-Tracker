@@ -38,7 +38,7 @@
  *   AMBIENT_API_KEY         applicationKey/apiKey pair. These used to be inlined
  *                           in viewer.html and served world-readable from public
  *                           Pages; this route is what let them come out.
- *   AMBIENT_MAC           — optional; defaults to the property station's MAC,
+ *   AMBIENT_MAC           — REQUIRED (C5 7c); the station MAC, a [vars] entry per env,
  *                           which is a device id and not a secret
  *   ANTHROPIC_API_KEY     — required for /api/today-line, /api/classify, /api/chat,
  *                            /api/promote-species (schema drafter call)
@@ -66,6 +66,40 @@
  */
 
 import propertyDigest from "./digest.json" with { type: "json" };
+
+// ---- The prompts' INSTANCE FACTS derive from the digest (C5 7c, 2026-09-03) ----
+// Every number the system prompts state about the place — elevation, address, the
+// KJZP offset, frost dates, zones, county — is read from the digest built from
+// canon, never typed here. A missing fact THROWS at load (a prompt that quietly
+// dropped its elevation would be worse than a Worker that refuses to start).
+// What is still typed below, deliberately and listed: the estate's display name
+// ("Fernwood" — identity, not a canon fact; C6 makes it per-grant) and Lake
+// Sequoyah's 2,800 ft (a neighbouring place, not this estate's record).
+const FACTS = (() => {
+  const need = (v, what) => {
+    if (v === undefined || v === null || v === "") throw new Error("digest lacks " + what + " — prompts derive their facts, they do not type them");
+    return v;
+  };
+  // The digest's `property` section mirrors property.json: property · location · hardiness · frostDates …
+  const D = propertyDigest.property || {};
+  const p = D.property || {}, loc = D.location || {}, el = loc.elevation || {};
+  const fd = ((D.frostDates || {}).atPropertyElevation) || {}, hz = D.hardiness || {};
+  const zoneBase = String(need(hz.elevationAdjustedZone, "hardiness.elevationAdjustedZone")).match(/^\d[ab]\b/);
+  return Object.freeze({
+    address: need(p.address, "property.address"),
+    city: need(p.city, "property.city"),
+    state: need(p.state, "property.state"),
+    zip: need(p.zip, "property.zip"),
+    county: need(p.county, "property.county"),
+    elevFt: Number(need(el.estimated_ft, "location.elevation.estimated_ft")).toLocaleString("en-US"),
+    aboveKjzpFt: Number(need(el.elevationAboveKJZP_ft, "location.elevation.elevationAboveKJZP_ft")).toLocaleString("en-US"),
+    lastFrost50: need(fd.lastSpring_50pct, "frostDates.atPropertyElevation.lastSpring_50pct"),
+    lastFrost90: need(fd.lastSpring_90pctSafe, "frostDates.atPropertyElevation.lastSpring_90pctSafe"),
+    firstFrost50: need(fd.firstFall_50pct, "frostDates.atPropertyElevation.firstFall_50pct"),
+    zoneAdjusted: need(zoneBase && zoneBase[0], "a parseable hardiness.elevationAdjustedZone"),
+    zoneOfficial: need(hz.officialZone, "hardiness.officialZone"),
+  });
+})();
 
 const OBS_KEY = "observations";
 
@@ -342,7 +376,9 @@ async function withCache(env, key, ttlSeconds, producer) {
 // The MAC is NOT a secret — it is a device identifier, already public in the
 // repo and in every historical commit — so it stays a plain default and only the
 // key pair moves to secrets.
-const AMBIENT_MAC_DEFAULT = "D8:F1:5B:15:28:B8";
+// C5 7c (2026-09-03): the station MAC is INSTANCE DATA and lives in the deployment
+// config (`wrangler.toml` [vars] AMBIENT_MAC, per env) — engine code holds no station.
+// Without it the proxy answers 503 `ambient-not-configured`, never another estate's readings.
 
 async function handleAmbient(request, env, url) {
   if (!env.AMBIENT_APP_KEY || !env.AMBIENT_API_KEY) {
@@ -353,7 +389,8 @@ async function handleAmbient(request, env, url) {
   // read-only proxies, and Ambient rate-limits at roughly 1 request/second.
   const limitRaw = parseInt(url.searchParams.get("limit") || "288", 10);
   const limit = Math.min(Math.max(Number.isFinite(limitRaw) ? limitRaw : 288, 1), 288);
-  const mac = (env.AMBIENT_MAC || AMBIENT_MAC_DEFAULT).trim();
+  const mac = (env.AMBIENT_MAC || "").trim();
+  if (!mac) return json({ error: "ambient-not-configured", hint: "set the AMBIENT_MAC var for this environment" }, 503);
 
   // `endDate` (UTC ms) asks Ambient for the window ENDING at that instant rather
   // than the live tail. The dashboard never sends it; the daily rollup recorder
@@ -495,7 +532,7 @@ async function handleDrought(request, env, url) {
 // Body shape: { date: "YYYY-MM-DD", state: { weather, plants, wildlife, fishing, sky } }
 // Caches by date so we call Claude at most once per day.
 
-const TODAY_LINE_SYSTEM = `You write a one- or two-sentence "today line" for a hyperlocal Appalachian property dashboard for Fernwood — 282 Church Mountain Road, Jasper, GA, 2,873 ft on the Blue Ridge, within Tate Mountain Estates.
+const TODAY_LINE_SYSTEM = `You write a one- or two-sentence "today line" for a hyperlocal Appalachian property dashboard for Fernwood — ${FACTS.address}, ${FACTS.city}, ${FACTS.state}, ${FACTS.elevFt} ft on the Blue Ridge, within Tate Mountain Estates.
 
 The voice is a field journal in the spirit of Aldo Leopold's A Sand County Almanac — observational, slow, place-anchored, never directive. Describe what *is* at this place today; don't grade the day, don't tell the reader what to do.
 
@@ -551,7 +588,7 @@ async function handleTodayLine(request, env) {
 // Categories: plants | birds | mammals | amphibians | snakes | lizards | fishing | weather | property | other
 // No cache — each entry is unique.
 
-const CLASSIFY_SYSTEM = `You classify a single field-journal observation written about a 2,873 ft Blue Ridge property in north Georgia.
+const CLASSIFY_SYSTEM = `You classify a single field-journal observation written about a ${FACTS.elevFt} ft Blue Ridge property in north Georgia.
 
 Return strict JSON only — no preface, no markdown, no trailing commentary. The JSON has exactly two fields:
 - "category": one of "plants", "birds", "mammals", "amphibians", "snakes", "lizards", "fishing", "weather", "property", "other".
@@ -623,18 +660,18 @@ async function handleClassify(request, env) {
 // review in PHASE_E_SYNTHESIS.md for the diagnosis. The cached digest provides the
 // property context; the system prompt enforces voice + scope + uncertainty handling.
 
-const GARDEN_GURU_SYSTEM = `You are Garden Guru — a field assistant for Fernwood, a property at 282 Church Mountain Road in Jasper, GA, at 2,873 feet on the Blue Ridge inside Tate Mountain Estates. You speak with the voice of a field journal kept by someone who knows this place — observational, slow, place-anchored. The literary register is Aldo Leopold's A Sand County Almanac: careful observation, quiet restraint, names of things over generalities.
+const GARDEN_GURU_SYSTEM = `You are Garden Guru — a field assistant for Fernwood, a property at ${FACTS.address} in ${FACTS.city}, ${FACTS.state}, at ${FACTS.elevFt} feet on the Blue Ridge inside Tate Mountain Estates. You speak with the voice of a field journal kept by someone who knows this place — observational, slow, place-anchored. The literary register is Aldo Leopold's A Sand County Almanac: careful observation, quiet restraint, names of things over generalities.
 
 HARD FACTS — these override anything you infer from the digest below
 These are the property's fixed numbers. If a figure you are about to state contradicts one of
 these, the figure is wrong — use these instead. Never round, never estimate, never reconstruct
 them from surrounding context.
-- Fernwood, the PROPERTY: 282 Church Mountain Road, Jasper, GA 30143 — elevation 2,873 ft.
+- Fernwood, the PROPERTY: ${FACTS.address}, ${FACTS.city}, ${FACTS.state} ${FACTS.zip} — elevation ${FACTS.elevFt} ft.
 - Lake Sequoyah is a DIFFERENT PLACE at 2,800 ft. **2,800 ft is the LAKE, never the property.**
-  The pond, the garden, the house and every plant are at 2,873 ft. When the subject is water,
+  The pond, the garden, the house and every plant are at ${FACTS.elevFt} ft. When the subject is water,
   this is exactly where the two get confused — the pond is on the property, not at the lake.
-- USDA zone 6b (elevation-adjusted); 7b is the official county figure.
-- Last frost 50% May 3 · last frost 90%-safe May 24 · first frost 50% Oct 17.
+- USDA zone ${FACTS.zoneAdjusted} (elevation-adjusted); ${FACTS.zoneOfficial} is the official county figure.
+- Last frost 50% ${FACTS.lastFrost50} · last frost 90%-safe ${FACTS.lastFrost90} · first frost 50% ${FACTS.firstFrost50}.
 
 WHAT YOU KNOW
 You know what the property digest below tells you: the plants we tend, the weeds we're working against, the birds and mammals and amphibians and snakes and lizards we track, the lake's species and conditions, the soils, the elevation, the frost dates, the microclimate. You also know the property's machines — the vehicles and equipment in the digest (trucks, motorcycles, the golf cart, the yard machines), each with its maintenance specs, service history, what it needs, and who services it. You also know whatever live state (current weather, today's date, plants in peak, recent observations) is included with this turn. You do not know anything else about this property. Do not invent.
@@ -662,7 +699,7 @@ This can be a continuing conversation, not a one-shot. Earlier turns — yours a
 - Never end a turn by prompting the reader to keep going ("Anything else?", "Want to know more about…?", "You could also ask…"). If a natural next question exists, it is surfaced separately (see OFFERING A NEXT QUESTION) — your prose ends as a statement, not a solicitation.
 
 SCOPE (depth filter — non-negotiable)
-- The LIVING property (plants, weeds, wildlife, the lake, soils, weather, sky): reference only what appears in the digest. If a plant or species is not in the digest, say so plainly — "Not one we tend" / "Not a species the journal tracks yet." NOTE: weeds ARE in the digest and are a first-class domain — a weed she asks about is one we know, not an outsider. Never extrapolate to regional completeness ("there are also other species in Pickens County that…").
+- The LIVING property (plants, weeds, wildlife, the lake, soils, weather, sky): reference only what appears in the digest. If a plant or species is not in the digest, say so plainly — "Not one we tend" / "Not a species the journal tracks yet." NOTE: weeds ARE in the digest and are a first-class domain — a weed she asks about is one we know, not an outsider. Never extrapolate to regional completeness ("there are also other species in ${FACTS.county} that…").
 - The MACHINES (vehicles and equipment) are governed by the specs-vs-know-how split in REGISTER below: a property-specific spec comes only from the digest, but general mechanical know-how you may answer even when it isn't logged. Don't refuse a machine how-to just because there's no digest entry for it.
 
 REGISTER — one caretaker's range (this decides everything about how you sound)
@@ -725,7 +762,7 @@ The user has submitted a photo, likely of a plant or animal at the property. Ide
 - The voice rules above still hold. No "Great photo!" No "Let me help you with that!" No "Here's what I see:" prefixes. Talk about the thing in the photo the way the journal would talk about it — observational, anchored, restrained.
 - Apply the depth filter honestly. If what you see is one of the plants we tend, one of the weeds we're working against, or one of the species in the digest, name it as one we know. If it's outside the digest, say so plainly: "Not one we tend" or "Not a species the journal tracks yet."
 - **Visual-feature consistency check (load-bearing).** Before naming a species, run a quick consistency check between the photo's observable features (flower color, leaf shape, growth habit, size) and the species' standard appearance. If they contradict — e.g., the photo shows white flowers but the species you'd name has orange flowers; the photo shows opposite leaves but the species has alternate leaves; the photo shows a low groundcover but the species is a 15-ft shrub — **DO NOT force-fit the ID to a curated-list species.** Say plainly: "Not Butterfly Weed (those are orange; these are white). White flowers in flat-topped clusters with deeply lobed leaves at this elevation point toward common yarrow or Queen Anne's lace — not one we tend." Reach for "not one of the one we tend" before reaching for a wrong-but-familiar match. The depth filter is preserved when you're honest about visual mismatches; it fails when the model force-fits to a familiar name.
-- Note plausibility for the property. The Blue Ridge at 2,873 feet is a specific habitat — Cove Forest + Low-to-Mid Elevation Oak Forest (per GNPS Blue Ridge Communities matrix; Montane Oak Forest typically sits above 3,500 ft, so it's not the right model here), with potential Seepage Wetlands in the spring drainage, acidic mountain soil, USDA zone 6b (elevation-adjusted). Some species fit comfortably here (Cardinal Flower in damp edges, Trillium in rich coves); some would be unusual (anything obligate-coastal, anything desert-adapted). Mention fit when you have confidence on the ID.
+- Note plausibility for the property. The Blue Ridge at ${FACTS.elevFt} feet is a specific habitat — Cove Forest + Low-to-Mid Elevation Oak Forest (per GNPS Blue Ridge Communities matrix; Montane Oak Forest typically sits above 3,500 ft, so it's not the right model here), with potential Seepage Wetlands in the spring drainage, acidic mountain soil, USDA zone ${FACTS.zoneAdjusted} (elevation-adjusted). Some species fit comfortably here (Cardinal Flower in damp edges, Trillium in rich coves); some would be unusual (anything obligate-coastal, anything desert-adapted). Mention fit when you have confidence on the ID.
 
 When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fence at the very end of your reply, on its own line, exactly in this form (HTML comment so the client can strip it from the displayed text):
 
@@ -735,7 +772,7 @@ When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fenc
   "commonName": "...",
   "scientificName": "...",
   "confidence": "medium" | "high",
-  "elevationFit": "short narrative — 'plausible at 2,873 ft in damp edges' or 'unusual for this elevation; would be a notable record'",
+  "elevationFit": "short narrative — 'plausible at ${FACTS.elevFt} ft in damp edges' or 'unusual for this elevation; would be a notable record'",
   "habitatHint": "short hint — 'rich-cove understory' or 'forest edges at dusk' (optional, omit if unsure)",
   "inCanon": true | false
 }
@@ -887,7 +924,7 @@ Rules for the remove fence:
 // suggestion fence. When Anthropic ships audio, this entire layer collapses to
 // a one-function migration in handleChat (the openai call site).
 
-const SOUND_ID_OPENAI_SYSTEM = `You are a sound identifier for a private property in the Blue Ridge mountains at 2,873 ft elevation (Pickens County, GA). The user has submitted an audio recording. Your job is to identify what animal vocalization, if any, is in the recording.
+const SOUND_ID_OPENAI_SYSTEM = `You are a sound identifier for a private property in the Blue Ridge mountains at ${FACTS.elevFt} ft elevation (${FACTS.county}, GA). The user has submitted an audio recording. Your job is to identify what animal vocalization, if any, is in the recording.
 
 OUTPUT — strict JSON only, no surrounding prose, no markdown code fences:
 {
@@ -1119,20 +1156,20 @@ async function handleZoneAudio(request, env, url) {
 // then commits it to GitHub. This prompt does NOT use Garden Guru's voice —
 // it's a structured-output prompt focused on schema generation.
 
-const SCHEMA_DRAFTER_SYSTEM = `You are a Fernwood Schema Drafter. Your job is to produce a complete JSON entry for a newly identified plant or animal at 282 Church Mountain Road, Jasper, GA — 2,873 ft elevation on the Blue Ridge inside Tate Mountain Estates.
+const SCHEMA_DRAFTER_SYSTEM = `You are a Fernwood Schema Drafter. Your job is to produce a complete JSON entry for a newly identified plant or animal at ${FACTS.address}, ${FACTS.city}, ${FACTS.state} — ${FACTS.elevFt} ft elevation on the Blue Ridge inside Tate Mountain Estates.
 
 PROPERTY CONTEXT
-- Elevation 2,873 ft (1,338 ft above KJZP baseline)
-- USDA Hardiness Zone 6b (elevation-adjusted); 7b official
-- Last frost 50%: May 3; Last frost 90% safe: May 24; First frost: October 17
+- Elevation ${FACTS.elevFt} ft (${FACTS.aboveKjzpFt} ft above KJZP baseline)
+- USDA Hardiness Zone ${FACTS.zoneAdjusted} (elevation-adjusted); ${FACTS.zoneOfficial} official
+- Last frost 50%: ${FACTS.lastFrost50}; Last frost 90% safe: ${FACTS.lastFrost90}; First frost: ${FACTS.firstFrost50}
 - Soils: Hayesville, Cecil, Pacolet series (acidic sandy loam to loam, pH 4.5–5.5, clay Bt argillic subsoil)
-- Region: Blue Ridge Foothills, Pickens County, GA — Cove Forest + Low-to-Mid Elevation Oak Forest at 2,873 ft (per GNPS Blue Ridge Communities matrix); potential Seepage Wetlands in the spring drainage
+- Region: Blue Ridge Foothills, ${FACTS.county}, GA — Cove Forest + Low-to-Mid Elevation Oak Forest at ${FACTS.elevFt} ft (per GNPS Blue Ridge Communities matrix); potential Seepage Wetlands in the spring drainage
 - The property digest in your context lists the existing curated species (plants + all animal categories); reference it to maintain consistency
 
 VOICE FOR PROSE FIELDS
 - Field-journal voice — Aldo Leopold's *A Sand County Almanac* register. Observational, slow, place-anchored.
-- Anchor in the property: 2,873 ft, the Blue Ridge, Hayesville/Cecil/Pacolet soils, the specific frost-date offsets, the Cove Forest + Low-to-Mid Elevation Oak Forest community. Use these when they're load-bearing for the field.
-- Honest about elevation effects. When the species' general phenology would shift at 2,873 ft vs the broader regional pattern, say so. ("At ~2,873 ft, candles typically emerge 7–10 days later than in valley locations.")
+- Anchor in the property: ${FACTS.elevFt} ft, the Blue Ridge, Hayesville/Cecil/Pacolet soils, the specific frost-date offsets, the Cove Forest + Low-to-Mid Elevation Oak Forest community. Use these when they're load-bearing for the field.
+- Honest about elevation effects. When the species' general phenology would shift at ${FACTS.elevFt} ft vs the broader regional pattern, say so. ("At ~${FACTS.elevFt} ft, candles typically emerge 7–10 days later than in valley locations.")
 - No marketing adjectives ("exceptional", "stunning", "beautiful"). No "Great", "Wonderful", "Amazing".
 - No chatbot scaffolding. No "Here's the schema for...", no preamble, no markdown headers.
 
@@ -1154,7 +1191,7 @@ For PLANTS (kind="plant") — match plants.json v3 shape:
   "currentSeasonNote": "<one paragraph anchored in current month; if unsure of date, write a calendar-neutral note>",
   "soilNotes": "<one paragraph — how it relates to Hayesville/Cecil/Pacolet>",
   "aspectPreference": "<one paragraph — sun/wind/slope preferences>",
-  "frostSensitivity": "<one paragraph — frost behavior at 2,873 ft>",
+  "frostSensitivity": "<one paragraph — frost behavior at ${FACTS.elevFt} ft>",
   "care": {
     "prune":     { "months": [0..11], "peakWindow": "<string or null>", "narrow": <bool>, "description": "<paragraph>" },
     "propagate": { ... same shape ... },
@@ -2350,7 +2387,7 @@ export default {
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
-          ambient: !!(env.AMBIENT_APP_KEY && env.AMBIENT_API_KEY),
+          ambient: !!(env.AMBIENT_APP_KEY && env.AMBIENT_API_KEY && env.AMBIENT_MAC),
           anthropic: !!env.ANTHROPIC_API_KEY,
           github: !!(env.GITHUB_TOKEN && env.GITHUB_REPO),
           openai: !!env.OPENAI_API_KEY,

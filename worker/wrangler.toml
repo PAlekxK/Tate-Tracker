@@ -30,6 +30,8 @@ ENV_NAME = "production"
 # split across two keys); QA cut over a day earlier to prove the path.
 ESTATE_ID = "est-3c9f1a"
 LEGACY_BEFORE = "2026-09-04"
+# C5 7c: the Ambient Weather station this estate reads — instance data, not engine code.
+AMBIENT_MAC = "D8:F1:5B:15:28:B8"
 
 # QA: its own KV namespace (nothing here can reach `feedback:<date>` in prod), its
 # own SHARED_TOKEN, no GITHUB_* / OPENAI_* (promote-species → 503 by design).
@@ -39,6 +41,7 @@ LEGACY_BEFORE = "2026-09-04"
 ENV_NAME = "qa"
 ESTATE_ID = "est-3c9f1a"
 LEGACY_BEFORE = "2026-09-03"
+AMBIENT_MAC = "D8:F1:5B:15:28:B8"
 [[env.qa.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "a0cf82b615c648ff972961c46ce42661"
