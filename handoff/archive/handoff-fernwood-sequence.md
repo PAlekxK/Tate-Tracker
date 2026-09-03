@@ -1,3 +1,4 @@
+<!-- clearing-state: CLEARED THE SEQUENCE steps 1–5 ran 2026-09-01/02; consumed — superseded by PRODUCT-ENGINE § THE SEQUENCE and the C4 plan (close-out 2026-09-03) -->
 # Handoff: fernwood-sequence
 <!-- generated 2026-09-01 10:20 AM ET · sources: Tate-Tracker@36aca87, .claude@e31d16f · RECEIVER: verify shas vs HEAD before trusting any status below -->
 

@@ -1,3 +1,4 @@
+<!-- clearing-state: CLEARED fleet lap 2 CLOSED 2026-09-01; consumed (close-out 2026-09-03) -->
 > ⛔ **CONSUMED — lap 2 CLOSED 2026-09-01 (`bc4a507`). This brief is HISTORY, not open work.**
 > Do not re-run it. Live state: `cycle/fleet/cycle-state.json` (`lap_count 2`, RESTING) and the
 > **Lap 2** section of `cycle/fleet/CYCLE-LOG.md`, which is authoritative over anything below.
