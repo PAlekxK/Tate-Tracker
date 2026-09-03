@@ -270,8 +270,15 @@ phone and watch it land on the new one; it must never show a GitHub 404).
 
 ## Open before stamping
 
-1. **Q1 The domain name** — Paul's pick (criteria in `.engineering/2026-05-11-path-custom-domain.md`: dictate-able
-   to Mom, no hyphens, field-journal tone); 2a cannot start without it.
+1. ~~**Q1 The domain name**~~ ✅ **RULED `[paul-stated 2026-09-03]`: the apex is `myhome.place`.** Paul: *"I don't
+   think we can expect everyone has multiple homes, and we want this to be a very positive thing. That's the address to go
+   to; you end up having your own login that brings you to your family view."* Registry lookup 2026-09-03 (RDAP, following
+   the registry redirect): **no record** — available unless the registrar prices it as premium, which only the registrar
+   page shows; **the purchase is Paul's act at Cloudflare Registrar (2a)**. Considered and closed the same hour: `.key`
+   and `.home` are not top-level domains (IANA root list 2026-09-03, 1,438 TLDs); `my.place`, `key.homes` and
+   `porchlight.place` are registered; `.my` is Malaysia's country code. Family doors: `<family>.myhome.place`. Her icon
+   label stays **"Fernwood Tracker"**, her word. ⚠️ The landing greeting *"your homes"* (`VOCABULARY.md` § 3b, provisional)
+   now sits under an apex that says *my home* — the content-steward reconciles the two in its note; not a build question.
 2. ~~**Q2 "Tate Commons" in the added-lines grep**~~ ✅ **RULED `[paul-stated 2026-09-03]`: only Bob's
    PREFERENCE is under the rule.** The two sentences saying he chose personal use over it are redacted;
    the product's name stays where it names the product. So the 1c added-lines grep drops `Tate Commons`
@@ -299,6 +306,6 @@ phone and watch it land on the new one; it must never show a GitHub 404).
 8. ~~**Q8 Who owns the forwarding repo long-term**~~ ✅ **RULED `[paul-stated 2026-09-03]`: keep it until the old
    Worker is deleted (seven days of zero traffic), then decide** — the forwarder's own traffic is the evidence.
 
-**Remaining before the stamp: Q1 only — the product's name → the apex domain.** Both naming seats have landed
+**Nothing remains before the stamp — every question ruled.** Both naming seats landed
 (`.content-reviews/2026-09-03-product-door-naming.md`, `.user-research/2026-09-03-product-door-naming.md`); the shape is
 now THREE LEVELS and the topology delta (`.engineering/2026-09-03-c4-topology-delta.md`) is folded in at the stamp.
