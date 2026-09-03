@@ -7041,7 +7041,7 @@ const CELESTIAL_DATA = {
   property: Object.assign({
     lat: PROPERTY_DATA.location.coordinates.latitude, lon: PROPERTY_DATA.location.coordinates.longitude,
     elevation_ft: PROPERTY_DATA.location.elevation.estimated_ft,
-  }, PROPERTY_DATA.sky || {}),
+  }, Object.fromEntries(Object.entries(PROPERTY_DATA.sky || {}).filter(([k]) => !k.startsWith("_")))),
   events: [
     {
       id: "eta-aquariids-2026",
@@ -13579,7 +13579,8 @@ function renderProperty() {
   if (soil.pH && soil.pH.nativeRange) html += '<div class="prop-soil-row"><div class="prop-soil-label">Native pH</div><div class="prop-soil-val">' + escapeHtml(soil.pH.nativeRange) + '</div></div>';
   if (soil.texture) html += '<div class="prop-soil-row"><div class="prop-soil-label">Texture</div><div class="prop-soil-val">' + escapeHtml(soil.texture) + '</div></div>';
   if (soil.rockContent) html += '<div class="prop-soil-row"><div class="prop-soil-label">Rock Content</div><div class="prop-soil-val">' + escapeHtml(soil.rockContent) + '</div></div>';
-  if (soil.pH && soil.pH.soilTestNote) html += '<div class="prop-note">' + escapeHtml(soil.pH.soilTestNote) + '</div>';
+  const soilNote = soil.pH && (soil.pH.soilTestRecommendation || soil.pH.soilTestNote);   // canon's key is soilTestRecommendation; the old key never existed, so this note was silently empty
+  if (soilNote) html += '<div class="prop-note">' + escapeHtml(soilNote) + '</div>';
   html += '</div>';
   }
 
@@ -16312,7 +16313,10 @@ function renderClimateInner(climate) {
 
   h += '<div class="prop-row"><span class="prop-label">Ice Storm Risk</span><span class="prop-value">' + escapeHtml(climate.wind.iceStormRisk) + '</span></div>';
   h += '<div class="prop-row"><span class="prop-label">Avg Snowfall</span><span class="prop-value">' + escapeHtml(climate.wind.snowfall_in_avg) + '</span></div>';
-  h += '<div class="prop-note">' + escapeHtml(climate.humidity) + '</div>';
+  // humidity is a small record in canon (summer · fallWinter); it rendered "[object Object]" on prod until 2026-09-03
+  const hum = climate.humidity;
+  const humText = typeof hum === "string" ? hum : (hum && typeof hum === "object" ? Object.values(hum).filter(x => typeof x === "string").join(" ") : "");
+  if (humText) h += '<div class="prop-note">' + escapeHtml(humText) + '</div>';
   return h;
 }
 
