@@ -270,6 +270,157 @@ EntitySource = Domain
 ENTITY_SOURCES = {t: d for t, d in DOMAINS.items() if d.cardable}
 
 
+# ⭐ THE MODULE DECLARATION (C5 3a, 2026-09-03 — Q1 ruled unit B, the named bundle).
+#
+# A module is a NAMED BUNDLE of domains that an estate switches on or off as ONE
+# atomic declaration in its `estate.json: modules:` block. Not a per-domain switch:
+# "the condo has no garden" is one line here and would be four drifting rows under
+# a per-domain scheme — and the measurement that decided it: `turf` is NOT in
+# DOMAINS (it is a care regime, declared a non-domain) yet TURF_DATA is a real
+# inlined const and turf IS a garden member. A domain switch cannot reach it; a
+# bundle names it.
+#
+# ⚠️ Membership is NOT a partition — `zone` belongs to both the garden and the
+# place. A domain is ON if ANY on-module claims it.
+MODULES = {
+    "garden":   {"members": ("plant", "weed", "zone"),
+                 "non_domain_members": {"turf": "care regimes, not entities (NON_DOMAINS) — "
+                                                "but TURF_DATA renders, so garden must reach it"},
+                 "what": "what you tend and fight, and the ground it grows in"},
+    "fleet":    {"members": ("vehicle",),
+                 "what": "what runs the place — Mom's own axis: vehicles / equipment / systems"},
+    "wildlife": {"members": ("bird", "mammal", "amphibian", "snake", "lizard", "insect", "fish"),
+                 "what": "what visits"},
+    "place":    {"members": ("zone",),
+                 "what": "the ground itself — zones, the property record's spatial half"},
+}
+# Module names C7's condo paper model declares that own NO domain in this manifest —
+# they switch renderers (weather card, household systems, a neighbourhood family)
+# rather than record collections. The resolver carries them so a declaration is
+# never "unknown"; they contribute nothing to enabled_domains(). `machines` is the
+# condo's word for what this table calls `fleet` — ⛔ NOT reconciled here: two
+# Paul-approved plans landed different names the same day, and which survives is
+# his call (C5 plan § 3a records the seam). Until ruled, `machines` is read as an
+# alias of `fleet` so a condo block is not silently half-read.
+NON_DOMAIN_MODULES = {
+    "weather":       "the weather card — readings, not a record collection",
+    "household":     "household systems out of property.json — the condo's only unsubstitutable content",
+    "neighbourhood": "an unbuilt family (declared-absent at the condo); needs the AI-boundary ruling",
+}
+MODULE_ALIASES = {"machines": "fleet"}
+MODULE_STATES = ("on", "on-minimal", "off", "declared-absent")
+_ON_STATES = ("on", "on-minimal")
+
+_ESTATE = None
+
+
+def estate(path=None, refresh=False):
+    """`estate.json` parsed once — this checkout's coordinate + module block.
+    Returns None when the file is absent or unreadable: an UNREADABLE module set is
+    a distinct observation from any declared one (the `?` idiom — a consumer
+    that cannot read the set publishes `?`, never a count and never a fire)."""
+    global _ESTATE
+    if path is None and _ESTATE is not None and not refresh:
+        return _ESTATE
+    try:
+        with open(path or os.path.join(ROOT, "estate.json"), encoding="utf-8") as fh:
+            est = json.load(fh)
+        if not isinstance(est, dict):
+            est = None
+    except (OSError, ValueError):
+        est = None
+    if path is None:
+        _ESTATE = est
+    return est
+
+
+def modules_of(est=None):
+    """The declared module block as {name: state}, aliases resolved, `_`-keys
+    dropped. None when the estate or its block is unreadable."""
+    est = estate() if est is None else est
+    if not isinstance(est, dict) or not isinstance(est.get("modules"), dict):
+        return None
+    out = {}
+    for name, state in est["modules"].items():
+        if name.startswith("_"):
+            continue
+        out[MODULE_ALIASES.get(name, name)] = state
+    return out
+
+
+def module_state(name, est=None):
+    """Declared state of one module: an element of MODULE_STATES, `"undeclared"`
+    when the block exists but does not name it (OFF for domains, and a finding),
+    or None when the block itself is unreadable."""
+    mods = modules_of(est)
+    if mods is None:
+        return None
+    return mods.get(MODULE_ALIASES.get(name, name), "undeclared")
+
+
+def enabled(name, est=None):
+    """Is this module ON for domains? None when unreadable (never treat as False —
+    publish `?`)."""
+    st = module_state(name, est)
+    if st is None:
+        return None
+    return st in _ON_STATES
+
+
+def enabled_domains(est=None):
+    """The set of DOMAINS keys that some ON module claims, or None when the module
+    set is unreadable. Every consumer asks THIS for on/off; none reads DOMAINS for
+    it — DOMAINS says what a domain IS, this says whether the estate HAS it."""
+    mods = modules_of(est)
+    if mods is None:
+        return None
+    on = set()
+    for name, spec in MODULES.items():
+        if mods.get(name) in _ON_STATES:
+            on.update(spec["members"])
+    return on
+
+
+def declared_off_domains(est=None):
+    """Domains every claiming module has switched off (or left undeclared) — the
+    `declared off` row state, distinct from 🔴 and from absent. None when unreadable."""
+    on = enabled_domains(est)
+    if on is None:
+        return None
+    return set(DOMAINS) - on
+
+
+def enabled_non_domains(est=None):
+    """Non-domain members (today: `turf`) reached through an ON module."""
+    mods = modules_of(est)
+    if mods is None:
+        return None
+    out = set()
+    for name, spec in MODULES.items():
+        if mods.get(name) in _ON_STATES:
+            out.update(spec.get("non_domain_members", {}))
+    return out
+
+
+def module_findings(est=None):
+    """Conformance of the declaration itself, for check-domains: modules the
+    manifest knows that the block does not name (→ OFF, silently, unless said here),
+    names the block uses that nothing knows, and states outside MODULE_STATES."""
+    mods = modules_of(est)
+    if mods is None:
+        return ["estate.json has no readable `modules:` block — every consumer reads `?`"]
+    out = []
+    known = set(MODULES) | set(NON_DOMAIN_MODULES)
+    for name in sorted(set(MODULES) - set(mods)):
+        out.append("module `%s` is not declared in estate.json — it is OFF by omission; declare it on or off" % name)
+    for name in sorted(set(mods) - known):
+        out.append("estate.json declares module `%s`, which neither MODULES nor NON_DOMAIN_MODULES knows" % name)
+    for name, st in sorted(mods.items()):
+        if st not in MODULE_STATES:
+            out.append("module `%s` has state %r — not one of %s" % (name, st, "/".join(MODULE_STATES)))
+    return out
+
+
 def _resolve_path(record, path):
     """Walk a dotted marker path. `*` means 'each value of this dict'.
 

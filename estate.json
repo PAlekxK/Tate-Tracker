@@ -7,5 +7,12 @@
   "estateId": {
     "id": "est-3c9f1a",
     "handle": "fernwood"
+  },
+  "modules": {
+    "garden": "on",
+    "fleet": "on",
+    "wildlife": "on",
+    "place": "on",
+    "_rule": "C5 3a (Q1 → unit B, the named bundle). A module is a NAMED BUNDLE whose members are declared in momlib.MODULES — never a per-domain switch. States: on · on-minimal (ON for domains) · off · declared-absent (OFF for domains; `declared-absent` says the family was never built here, `off` says it exists and is switched off — C7). A module MISSING from this block is OFF and a check-domains finding, never a silent default. Fernwood: everything on."
   }
 }

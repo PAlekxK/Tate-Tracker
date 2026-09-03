@@ -221,6 +221,51 @@ def attribute_suite():
           "personId" not in after)
 
 
+def modules_suite():
+    """C5 3a — the module declaration resolves on/off for every consumer; DOMAINS
+    never does. Fernwood is a no-op (everything on); a gardenless fixture is not."""
+    import tempfile
+    print("\n── MODULES: the named bundle, resolved from estate.json ──\n")
+    momlib._ESTATE = None
+    check("MODULES  every MODULES member is a declared domain",
+          all(m in momlib.DOMAINS for spec in momlib.MODULES.values() for m in spec["members"]))
+    check("MODULES  every domain is claimed by at least one module (nothing is unreachable)",
+          set(momlib.DOMAINS) == {m for spec in momlib.MODULES.values() for m in spec["members"]},
+          str(set(momlib.DOMAINS) - {m for spec in momlib.MODULES.values() for m in spec["members"]}))
+    check("MODULES  Fernwood declares everything on → enabled_domains == DOMAINS (the ON path is a no-op)",
+          momlib.enabled_domains() == set(momlib.DOMAINS), str(momlib.enabled_domains()))
+    check("MODULES  Fernwood's block has no findings", momlib.module_findings() == [], str(momlib.module_findings()))
+    check("MODULES  turf is reached through the garden", momlib.enabled_non_domains() == {"turf"})
+    gardenless = {"estateId": {"id": "est-test", "handle": "t"},
+                  "modules": {"garden": "off", "fleet": "off", "wildlife": "on", "place": "on-minimal"}}
+    on = momlib.enabled_domains(gardenless)
+    check("MODULES  garden off → plant and weed are OFF", not ({"plant", "weed"} & on), str(on))
+    check("MODULES  ...but zone stays ON because place (on-minimal) claims it — membership is not a partition",
+          "zone" in on)
+    check("MODULES  fleet off → vehicle is `declared off`, not absent",
+          "vehicle" in momlib.declared_off_domains(gardenless))
+    check("MODULES  garden off → turf is unreachable", momlib.enabled_non_domains(gardenless) == set())
+    check("MODULES  `declared-absent` is OFF for domains, distinct in state",
+          momlib.module_state("garden", {"modules": {"garden": "declared-absent"}}) == "declared-absent"
+          and momlib.enabled("garden", {"modules": {"garden": "declared-absent"}}) is False)
+    check("MODULES  the condo's `machines` reads as fleet (alias, pending Paul's ruling)",
+          momlib.module_state("fleet", {"modules": {"machines": "off"}}) == "off")
+    check("MODULES  an undeclared module is OFF and a FINDING, never a silent default",
+          momlib.module_state("fleet", {"modules": {"garden": "on"}}) == "undeclared"
+          and any("fleet" in f for f in momlib.module_findings({"modules": {"garden": "on"}})))
+    check("MODULES  a bad state is a finding",
+          any("bogus" in f for f in momlib.module_findings({"modules": {"garden": "bogus", "fleet": "on",
+                                                                         "wildlife": "on", "place": "on"}})))
+    check("MODULES  an unreadable module set is None — `?`, never False and never a count",
+          momlib.enabled_domains({}) is None and momlib.enabled("garden", {}) is None
+          and momlib.estate(path=os.path.join(tempfile.gettempdir(), "no-such-estate.json")) is None)
+    check("MODULES  the condo's paper-model block resolves without an unknown-name finding",
+          not [f for f in momlib.module_findings({"modules": {"weather": "on", "garden": "off", "household": "on",
+                                                              "machines": "off", "place": "on-minimal",
+                                                              "neighbourhood": "declared-absent"}})
+               if "neither" in f])
+
+
 def entity_map_suite():
     """8 · RESOLVE — one map, and the one duplicate the language forces.
 
@@ -587,6 +632,7 @@ def main():
     print("Feedback-cycle self-test — capture is not a loop; every leg is asserted.")
     offline_suite()
     attribute_suite()
+    modules_suite()
     entity_map_suite()
     ribbon_suite()
     draft_suite()
