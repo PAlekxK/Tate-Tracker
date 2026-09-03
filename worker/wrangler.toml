@@ -1,4 +1,9 @@
-name = "tate-tracker"
+# C4 4c (2026-09-03): the Worker's name is now `fernwood` (→ fernwood / fernwood-qa).
+# The OLD scripts `tate-tracker` / `tate-tracker-qa` stay deployed and ALIVE — same KV
+# namespace ids below, so the data is shared, not copied — until the viewer, the tools,
+# the recorder and both workflows point at the new name AND 7 days of /api/metrics on
+# the old script show zero traffic. Only then: `npx wrangler delete --name tate-tracker`.
+name = "fernwood"
 main = "worker.js"
 compatibility_date = "2026-05-01"
 
