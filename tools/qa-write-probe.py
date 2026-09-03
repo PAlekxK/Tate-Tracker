@@ -68,6 +68,17 @@ def kv_keys_remote(namespace_id):
         return None
 
 
+def kv_key_get_remote(namespace_id, key):
+    """One value from a KV namespace via wrangler (remote); "" when unreadable."""
+    try:
+        r = subprocess.run(["npx", "--yes", "wrangler@4", "kv", "key", "get", key, "--namespace-id", namespace_id, "--remote"],
+                           capture_output=True, text=True, timeout=120,
+                           cwd=os.path.join(os.path.dirname(HERE), "worker"))
+        return r.stdout if r.returncode == 0 else ""
+    except (OSError, subprocess.TimeoutExpired):
+        return ""
+
+
 def resolve_qa_token():
     tok = os.environ.get("FERNWOOD_QA_TOKEN", "").strip()
     if tok:
@@ -219,10 +230,12 @@ def live():
         today_s = str(today)
         all_ok &= check("C5 6a  the namespace holds `%s:feedback:%s`" % (est, today_s),
                         bool(est) and ("%s:feedback:%s" % (est, today_s)) in keys, str(sorted(k for k in keys if "feedback" in k)))
+        # The legacy key for today may legitimately EXIST (written before the cutover
+        # deploy); what must be true is that THIS run's nonce did not land in it.
         legacy_today = "feedback:%s" % today_s
-        all_ok &= check("C5 6b  no UNPREFIXED `feedback:%s` exists in QA (today is past QA's LEGACY_BEFORE)" % today_s,
-                        legacy_today not in keys or today_s < (health.get("legacyBefore") or ""),
-                        "legacyBefore=%s" % health.get("legacyBefore"))
+        legacy_val = kv_key_get_remote(QA_NAMESPACE_ID, legacy_today) if legacy_today in keys else ""
+        all_ok &= check("C5 6b  this run's nonce is NOT in the unprefixed `feedback:%s` (the legacy key gained nothing)" % today_s,
+                        nonce not in (legacy_val or ""), "legacyBefore=%s" % health.get("legacyBefore"))
         all_ok &= check("C5 6a  /health reports estateId + legacyBefore", bool(est) and bool(health.get("legacyBefore")))
 
     # 4. negative controls
