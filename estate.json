@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "purpose": "THIS estate's coordinate (C5 2a, 2026-09-03). The one root file that says which estate this checkout IS. Later: the module block (C5 3a).",
+    "rule": "An id is a COORDINATE, not a label — renaming the place does not rename the estateId. `handle` is the public-safe human name tools may print; `id` is what records, KV prefixes and grants carry. Never derive one from the other.",
+    "declared": "2026-09-03"
+  },
+  "estateId": {
+    "id": "est-3c9f1a",
+    "handle": "fernwood"
+  }
+}

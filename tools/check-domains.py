@@ -54,6 +54,7 @@ NON_DOMAINS = {
     "weather-bias.json": "derived", "sun-horizon.json": "derived",
     "service-records.manifest.json": "index of private receipts",
     "plants.draft.json": "pre-promotion drafts",
+    "estate.json": "this estate's coordinate — one id + handle, not a collection (C5 2a)",
 }
 
 # Keys that look like a temporal axis. Used to catch a domain growing one without
