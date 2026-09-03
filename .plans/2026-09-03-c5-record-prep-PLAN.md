@@ -9,6 +9,7 @@
          ux-expert → waived: nothing she sees changes; the identity block renders identically until config differs
          user-researcher → waived: no user question in this item
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
+- ready: [paul-approved 2026-09-03]
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row, C4's RULED table and its three-levels ruling (decided, not
@@ -226,7 +227,10 @@ the plan is wrong and the step stops.
 
 ## Open before stamping
 
-> **✅ RULED 2026-09-03 `[paul-stated]` — Q1 · Q2 · Q3 · Q4. Three remain (Q5 · Q6 · Q7).**
+> **✅ STAMPED 2026-09-03 `[paul-approved]` — *"OK I stamp all C5."* Q1–Q4 ruled as below; Q5 · Q6 · Q7 ruled on the
+> recommendations as written: **Q5 → every one of the six consts gets a producer and a roster row** (a retirement comes
+> back to Paul) · **Q6 → `mixed` lands now** · **Q7 → the grant register lives in the private sibling, and the API
+> contract is frozen with the estate never on the path or query.** Q8's `group` double-booking stays flagged, not this item's.**
 > - **Q1 → B, the named bundle.** *"bundle makes sense."*
 > - **Q2 → `fernwood`, and the id may be a record, not a bare string.** *"if estateId needs a dict or something with
 >   both the human and data ids that's fine by me."* So: an opaque data id **plus** a human handle, both recorded, the
