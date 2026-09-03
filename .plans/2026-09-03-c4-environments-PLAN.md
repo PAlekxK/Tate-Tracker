@@ -62,7 +62,7 @@ Each step: **who** · **reversible?** · **the deterministic check**. Existing t
 
 **1a · Fresh bundle** — ✅ DONE 2026-09-03 (`…-pre-rewrite-2.bundle`, main = HEAD `b7c7ccc`, verified) · agent · — · `git bundle create ~/Developer/_bundles/Tate-Tracker-2026-09-03-pre-rewrite-2.bundle --all
 && git bundle verify …-2.bundle` prints "complete history" and `refs/heads/main` = `git rev-parse HEAD`.
-**1b · The sibling** — ✅ DONE 2026-09-03 (`~/Developer/fernwood-private`: 11 files, 13 commits of history, no remote; `NEVER_PUBLIC` registered, selftest passes; `/encrypted-backup` still owed) · agent · reversible (delete the dir) · `git clone --no-local ~/Developer/Tate-Tracker
+**1b · The sibling** — ✅ DONE 2026-09-03 (`~/Developer/fernwood-private`: 11 files, 13 commits of history, no remote; `NEVER_PUBLIC` registered, selftest passes; ✅ `/encrypted-backup` DONE 2026-09-03 — `Backups/private-repos/fernwood-private-2026-09-03.bundle.gpg`, restore-proven 13/13 commits · 1/1 refs · 11/11 paths, plaintext deleted) · agent · reversible (delete the dir) · `git clone --no-local ~/Developer/Tate-Tracker
 ~/Developer/fernwood-private && cd ~/Developer/fernwood-private && git remote remove origin && git filter-repo
 --path <each of the 11>` (keeps only those paths, with history). Register `fernwood-private` in `NEVER_PUBLIC`.
 Checks: `git -C ~/Developer/fernwood-private remote -v` prints nothing; `git -C … log --oneline --
