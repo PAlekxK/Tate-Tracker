@@ -2124,6 +2124,58 @@ the plan's QA section must cover. Then a planning agent drafts the plan; Paul st
 
 ---
 
+## 🗂 THE GROOMING QUEUE — items being taken to READY while C4 is in flight `[paul-approved 2026-09-03]`
+
+Paul: *"push more chunks through the readiness mechanism to see if we get a clearer picture of
+everything that needs to be done… set up a queue for the next grooming batch and work through as much
+as you can using the processes independently."* Grooming is not the pipeline: several items may sit at
+READY while **one** is between concept and QA. Queue, seats and state: `.plans/2026-09-03-grooming-queue.md`.
+Every plan drafted before C4's rename lands cites files by **section and role, never by path**, and
+carries `depends-on:` so `check-backlog-ready.py` flags it when a dependency moves.
+
+## 🧱 C5 · RECORD PREP — the data model's reversible steps 1–5 `[paul-stated 2026-09-02 sequence]` ⚙️ engine · must-not-diverge
+
+The migration's preparation, all reversible, none needing a second instance: **prefix the KV write
+path** with an estate id (legacy prefix stays readable — *the only deadline*, `.plans/2026-09-02-data-model-design.md`
+§5) · **mint `estateId` / `personId` / a grant as data**, nothing branching on them · **the module-set
+declaration** in the domain manifest so an OFF module and an ON-but-EMPTY one stop producing the same
+observation (`PRODUCT-ENGINE.md` § THE MODULE SET IS A DECLARATION; ⚠️ the on/off UNIT is Paul's open
+call — domain or named bundle) · **an engine manifest + checker** classifying every artifact engine /
+config / instance · **de-hardcode the identity block** out of the viewer's engine half (⚠️ the product
+name in Mom-read prose is a **content** decision) · **derive config from canon** (kill the re-typed
+`FROST_MONTH`-style copies). **Objective O3. Depends on C4** — the KV prefix is an environment decision.
+
+## 🚪 C6 · THE DOOR FOR PAUL — entry + vault on his device, her surface untouched; M3 fixed first ⚙️ engine · declared
+
+`user-researcher`'s own recommendation (`.user-research/2026-09-02-activation-journeys.md`): *build
+the door for PAUL, on PAUL's device, with her surface untouched — it tests everything except her.* Two
+doors, two jobs, both optional per person and per estate (`PRODUCT-ENGINE.md` § BOTH PASSWORDS ARE
+OPTIONAL): **entry** establishes who and which place; **vault** gates the private tier. Default
+`entry: off, vault: on` — agent-proposed, not ruled. ⛔ **M3 is fixed FIRST**: `tateTracker.textSize`
+syncs nowhere, so a new device shrinks her words today with no auth involved — a door built on top of
+that inherits the loudest *"I broke it"* the product can produce. Constraints that survive: crossed
+once, never a silent expiry, recovery is a person, her credential is a word she tells Paul (asked in
+conversation, never typed), nothing she reaches today goes behind it. **Tenant is derived from the
+credential, never the path.** The privacy/security seat's unpark condition fired 2026-09-02
+(`~/.claude/agents/backlog.md`) — it reviews before build. **Objective O3. Depends on C5.**
+
+## 🏙 C7 · THE CONDO AS A PAPER MODEL — and the "no garden" falsifier 🎛 config
+
+`user-researcher`: *model it, don't ship it to her* — her attention is the scarcest resource and
+Fernwood's adoption question is still open. A plantless instance directory (⚠️ whether a throwaway
+condo directory may sit in the public repo is Paul's — nothing about the condo is public-safe beyond
+*Midtown Atlanta*) rendered by the standard engine **without a fork**; the module-set declaration
+(C5) is what says *no garden* is a declaration, not a gap. Plants are 41% of the digest and the whole
+harvest → confirm → fold → ribbon path hangs off a growing thing — **if the engine cannot render a
+plantless estate, the modularization is not done, and that is knowable before shipping her anything**
+(`PRODUCT-ENGINE.md` § four things this collides with, item 4). The condo's outward-facing domain
+family (events, the neighbourhood) is **captured, not built** here — it is a new ingestion class and a
+third path through the AI boundary that needs a ruling first. **Objective O3. Depends on C4's
+directory split and on C5.** Seat trails already exist: `.user-research/2026-09-02-condo-feature-research.md`,
+`.content-reviews/2026-09-02-estate-naming-layer.md`.
+
+---
+
 ## 🔴 M3 · A NEW PHONE MAKES HER WORDS SMALLER — live today, no auth involved `[found 2026-09-02]` ⚙️ engine
 
 **`tateTracker.textSize` is localStorage-only and syncs nowhere.** Verified: `viewer.html:21107` is the

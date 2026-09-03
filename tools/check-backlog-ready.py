@@ -19,6 +19,8 @@ THE PLAN HEADER (flat `- key: value` list, the .decisions/ card format — no se
   - ready: [paul-approved 2026-09-xx]     the gate — written by Paul or on his explicit go
   - stage: ready                          ready|concept|build|qa|shipped|retro
   - wip-exception: <reason>               optional; required on a 2nd item between concept and qa
+  - depends-on: .plans/<other>-PLAN.md    optional, repeatable; flagged when that plan is NEWER than
+                                          this one (a plan older than a dependency that changed)
   Required sections: ## Files touched · ## Sequence · ## Falsifier · ## QA   (+ ## Retro at shipped/retro)
   `shipped` [paul-approved 2026-09-03], not `live`: it is the word CLAUDE.md and MOM-CYCLE-MAP.md
   already define as VERIFIED at the live URL. Under `live`, a push never verified and one verified
@@ -66,7 +68,7 @@ def file_date(path, root):
 
 def parse_plan(text):
     """Header keys (with seats: continuation lines) + the set of ## section titles present."""
-    keys, seats, cur = {}, [], None
+    keys, seats, deps, cur = {}, [], [], None
     for line in text.split("\n"):
         m = re.match(r"^- ([a-z\-]+):\s*(.*)$", line)
         if m:
@@ -74,6 +76,8 @@ def parse_plan(text):
             if cur == "seats":
                 if m.group(2).strip():
                     seats.append(m.group(2).strip())
+            elif cur == "depends-on":
+                deps.append(m.group(2).strip().strip("`"))
             else:
                 keys[cur] = m.group(2).strip()
             continue
@@ -84,7 +88,7 @@ def parse_plan(text):
             if line.startswith("## ") or not line.strip():
                 cur = None
     sections = {l.strip() for l in text.split("\n") if l.startswith("## ")}
-    return keys, seats, sections
+    return keys, seats, deps, sections
 
 
 def check(root):
@@ -94,7 +98,8 @@ def check(root):
     obj_text = open(os.path.join(root, "OBJECTIVES.md"), encoding="utf-8").read() if os.path.exists(os.path.join(root, "OBJECTIVES.md")) else ""
     objectives = set(OBJ_PAT.findall(obj_text))
     plans = sorted(glob.glob(os.path.join(root, ".plans", "*-PLAN.md")))
-    pointers = POINTER_PAT.findall(backlog)
+    # a `<date>-<slug>` placeholder in the taxonomy's own example is documentation, not a claim
+    pointers = [p for p in POINTER_PAT.findall(backlog) if "<" not in p and not p.endswith("/")]
 
     for p in pointers:
         if not os.path.exists(os.path.join(root, p)):
@@ -102,8 +107,15 @@ def check(root):
 
     for path in plans:
         rel = os.path.relpath(path, root)
-        keys, seats, sections = parse_plan(open(path, encoding="utf-8").read())
+        keys, seats, deps, sections = parse_plan(open(path, encoding="utf-8").read())
         name = os.path.basename(path)
+        for d in deps:
+            if not os.path.exists(os.path.join(root, d)):
+                findings.append((rel, f"depends on `{d}` which does not exist"))
+                continue
+            dd, pd = file_date(d, root), file_date(rel, root)
+            if dd and pd and dd > pd:
+                findings.append((rel, f"depends on `{d}`, which is NEWER than this plan — re-read the dependency before acting"))
         if rel not in pointers:
             findings.append((rel, "no BACKLOG.md row points at this plan (orphan)"))
         for k in ("row", "objective", "class", "seats", "stage"):
@@ -253,6 +265,19 @@ def selftest():
     with tempfile.TemporaryDirectory() as td:
         f, _ = check(make(td, plan=GOOD_PLAN.replace("class: engine · declared", "class: engine")))
         ok("an engine item without a divergence tier is flagged", any("divergence tier" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td)
+        dep = os.path.join(td, ".plans", "2026-09-03-dep-PLAN.md")
+        open(dep, "w").write(GOOD_PLAN.replace("demo", "dep"))
+        open(os.path.join(td, "BACKLOG.md"), "a").write("| r2 | → READY · .plans/2026-09-03-dep-PLAN.md |\n")
+        main_p = os.path.join(td, ".plans", "2026-09-03-demo-PLAN.md")
+        open(main_p, "w").write(GOOD_PLAN.replace("- stage: ready", "- depends-on: .plans/2026-09-03-dep-PLAN.md\n- stage: ready"))
+        now = time.time(); os.utime(dep, (now + 100, now + 100)); os.utime(main_p, (now, now))
+        f, _ = check(td); ok("a dependency NEWER than the plan is flagged", any("NEWER than this plan" in m for _, m in f))
+        os.utime(dep, (now - 100, now - 100))
+        f, _ = check(td); ok("  and an older dependency is clean", not any("NEWER than this plan" in m for _, m in f))
+        open(main_p, "w").write(GOOD_PLAN.replace("- stage: ready", "- depends-on: .plans/2026-09-03-ghost-PLAN.md\n- stage: ready"))
+        f, _ = check(td); ok("  and a missing dependency is flagged", any("depends on" in m and "does not exist" in m for _, m in f))
     print(f"\n{'PASS' if not failed else 'FAIL'} — {failed} failure(s), {passed} passed")
     return 0 if not failed else 1
 
