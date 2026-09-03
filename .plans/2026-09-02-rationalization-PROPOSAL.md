@@ -1,11 +1,14 @@
-# Fernwood — the second rationalization, PROPOSED (2026-09-02)
+# Fernwood — the second rationalization, PROPOSED 2026-09-02 · **APPLIED 2026-09-03**
 
-> ## ⛔ STATUS: **PROPOSAL. Nothing here has been applied to `BACKLOG.md`.**
-> `BACKLOG.md` is canonical and the reordering is Paul's to approve, exactly as the 2026-07-29 run
-> was. **When it is applied**, the applier updates `BACKLOG.md`'s head marker to `(rationalized
-> 2026-09-02)` — which is what resets `check-backlog-drift.py`'s clock — and replaces this status
-> block with the applying commit sha. *That instruction exists because the 07-29 proposal carried
-> "nothing has been applied" for 35 days after it was applied.*
+> ## ✅ STATUS: **APPLIED 2026-09-03 in `9f17419`** `[paul-approved 2026-09-03]`
+> `BACKLOG.md`'s head marker now reads `(rationalized 2026-09-03)` — the application date, since the
+> clock measures time since a rationalization was *applied*, not drafted. `check-backlog-drift.py`
+> reads **rested · 110 lines head→list · 5 sections above the tracks**. §1's moves were applied by a
+> script that asserts every original line survives; **every move was a MOVE.** One declared
+> deviation: THE FOLD and the household build-out were moved **whole** rather than split into riders
+> and narrative — a split is a judgment edit, not a move. §2's four wrong rows and §3's eleven cards
+> remain **surfaced, not fixed / not ruled**; §6's pre-registered question is still open and
+> discharges at the next OWED run that is acted on.
 
 **Trigger:** `python3 tools/check-backlog-drift.py` → **OWED**, 2 of 3 signals fired.
 **Scope:** the reading order of `BACKLOG.md`'s live region. **Not** the tracks, which are the
