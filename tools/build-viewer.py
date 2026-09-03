@@ -88,6 +88,27 @@ def const_re(const):
     return re.compile(r"^((?:const|let) %s = )(.*?)(;)$" % re.escape(const), re.M)
 
 
+# C5 3b — the estate's MODULE SET reaches the browser as one const, built from
+# `<canon>/estate.json` (never from the instance file: one fact, one source). The
+# strip's tiles carry `data-module` and render from roster × this set.
+MODULES_CONST = "ESTATE_MODULES"
+MODULES_PH = "{{ESTATE:modules}}"
+
+
+def _modules_literal(canon):
+    sys.path.insert(0, HERE)
+    import momlib
+    est_path = os.path.join(canon, "estate.json")
+    est = momlib.estate(path=est_path)
+    # ⚠️ momlib.modules_of(None) means "this checkout's estate" — passing a missing
+    # file's None through would build ANOTHER estate's viewer with Fernwood's
+    # module set. Caught by the selftest on first run; refuse here, explicitly.
+    mods = momlib.modules_of(est) if est is not None else None
+    if mods is None:
+        raise RuntimeError("%s has no readable `modules:` block — an estate must declare its modules to be built" % est_path)
+    return json.dumps(mods, ensure_ascii=False)
+
+
 # ── extract: viewer.html → template ─────────────────────────────────────────────
 def extract(viewer_text):
     t = viewer_text
@@ -96,6 +117,10 @@ def extract(viewer_text):
         if not m:
             raise RuntimeError("extract: `%s` literal not found on one line in viewer.html" % const)
         t = t[:m.start(2)] + "{{DATA:%s}}" % const + t[m.end(2):]
+    m = const_re(MODULES_CONST).search(t)
+    if not m:
+        raise RuntimeError("extract: `%s` literal not found on one line in viewer.html" % MODULES_CONST)
+    t = t[:m.start(2)] + MODULES_PH + t[m.end(2):]
     for key, rx in IDENTITY_MARKUP.items():
         m = rx.search(t)
         if not m:
@@ -130,7 +155,10 @@ def build(template_text, instance_path):
         if ph not in out:
             raise RuntimeError("template has no identity placeholder %s" % key)
         out = out.replace(ph, fn(cfg["identity"], prop), 1)
-    if "{{DATA:" in out or "{{IDENTITY:" in out:
+    if MODULES_PH not in out:
+        raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % MODULES_PH)
+    out = out.replace(MODULES_PH, _modules_literal(canon), 1)
+    if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out:
         raise RuntimeError("unfilled placeholder remains after build")
     if "<title>" not in out or n < 10:
         raise RuntimeError("built output does not look like the app — refusing to write")
@@ -182,14 +210,15 @@ def selftest():
     viewer = open(VIEWER, encoding="utf-8").read()
     t = extract(viewer)
     check("extract → build round-trips the live viewer byte for byte", build(t, DEFAULT_INSTANCE) == viewer)
-    check("template carries %d DATA + 4 IDENTITY placeholders" % len(roster()),
-          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 4)
+    check("template carries %d DATA + 4 IDENTITY + 1 ESTATE placeholders" % len(roster()),
+          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 4 and t.count("{{ESTATE:") == 1)
     # a changed source must change the build (so --check can go red)
     with tempfile.TemporaryDirectory() as d:
         inst = os.path.join(d, "instance"); os.makedirs(inst)
         for f, *_ in roster():
             os.symlink(os.path.join(ROOT, f), os.path.join(d, f))
         os.symlink(os.path.join(ROOT, "property.json"), os.path.join(d, "property.json"))
+        os.symlink(os.path.join(ROOT, "estate.json"), os.path.join(d, "estate.json"))
         cfg = json.load(open(DEFAULT_INSTANCE)); cfg["canon"] = ".."
         cfg_path = os.path.join(inst, "x.json"); json.dump(cfg, open(cfg_path, "w"))
         os.remove(os.path.join(d, "turf.json"))
@@ -208,6 +237,18 @@ def selftest():
         b = build(t, cfg_path)
         check("the identity block derives from the instance config + property.json",
               "<title>Somewhere Else</title>" in b and "<h1>Somewhere Else</h1>" in b)
+        # C5 3b — the module set is built from <canon>/estate.json, never the instance file
+        os.remove(os.path.join(d, "estate.json"))
+        est = json.load(open(os.path.join(ROOT, "estate.json"))); est["modules"]["garden"] = "off"
+        json.dump(est, open(os.path.join(d, "estate.json"), "w"))
+        b = build(t, cfg_path)
+        check("a garden-off estate.json builds ESTATE_MODULES with garden off",
+              re.search(r'^const ESTATE_MODULES = \{.*"garden": "off".*\};$', b, re.M) is not None)
+        os.remove(os.path.join(d, "estate.json"))
+        try:
+            build(t, cfg_path); check("an estate with NO estate.json FAILS LOUD (modules are not optional)", False)
+        except RuntimeError:
+            check("an estate with NO estate.json FAILS LOUD (modules are not optional)", True)
     try:
         build(t.replace("{{DATA:TURF_DATA}}", "{}"), DEFAULT_INSTANCE)
         check("a template missing a placeholder THROWS", False)

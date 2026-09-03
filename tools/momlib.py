@@ -303,7 +303,7 @@ MODULES = {
 # his call (C5 plan § 3a records the seam). Until ruled, `machines` is read as an
 # alias of `fleet` so a condo block is not silently half-read.
 NON_DOMAIN_MODULES = {
-    "weather":       "the weather card — readings, not a record collection",
+    "weather":       "the weather card + strip tile — readings, not a record collection (RENDERED: must be declared)",
     "household":     "household systems out of property.json — the condo's only unsubstitutable content",
     "neighbourhood": "an unbuilt family (declared-absent at the condo); needs the AI-boundary ruling",
 }
@@ -336,7 +336,12 @@ def estate(path=None, refresh=False):
 
 def modules_of(est=None):
     """The declared module block as {name: state}, aliases resolved, `_`-keys
-    dropped. None when the estate or its block is unreadable."""
+    dropped. None when the estate or its block is unreadable.
+
+    ⚠️ `est=None` means THIS CHECKOUT'S estate.json. A caller holding the result of
+    `estate(path=...)` must not pass it through unchecked: a missing file's None
+    would silently become Fernwood's block. Check `is None` first (build-viewer
+    does)."""
     est = estate() if est is None else est
     if not isinstance(est, dict) or not isinstance(est.get("modules"), dict):
         return None
@@ -411,7 +416,8 @@ def module_findings(est=None):
         return ["estate.json has no readable `modules:` block — every consumer reads `?`"]
     out = []
     known = set(MODULES) | set(NON_DOMAIN_MODULES)
-    for name in sorted(set(MODULES) - set(mods)):
+    rendered = set(MODULES) | {n for n, why in NON_DOMAIN_MODULES.items() if "RENDERED" in why}
+    for name in sorted(rendered - set(mods)):
         out.append("module `%s` is not declared in estate.json — it is OFF by omission; declare it on or off" % name)
     for name in sorted(set(mods) - known):
         out.append("estate.json declares module `%s`, which neither MODULES nor NON_DOMAIN_MODULES knows" % name)
