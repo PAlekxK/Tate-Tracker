@@ -118,7 +118,7 @@ predicate (a visible marker, no second artifact). Check: `grep -c 'workers.dev' 
 project) · branch `staging` from `main`; project `fernwood-qa`, production branch `staging`, no build, output `/`.
 Access policy **off** at first (the bytes are a public repo's); the QA title marker carries the distinction.
 Check: `curl -sI https://fernwood-qa.pages.dev/viewer.html` → 200; 3d green.
-**3d · `check-live.py --base <url> --ref <ref>`** — agent · reversible · defaults unchanged; `test-check-live.py`
+**3d · `check-live.py --base <url> --ref <ref>`** — ✅ **DONE 2026-09-03** — `configure(base, ref)` re-points ONE comparison (a remote ref judges itself; a local ref against `origin/main`); defaults untouched; `test-check-live.py` gains three controls (QA origin · staging ref · defaults unchanged) → 10 hold; **QA run: 5 of 5 assets match `origin/staging`, exit 0** (urllib follows Pages' 308). ⚠️ Finding, pre-existing and out of scope: with a viewer change committed locally but NOT pushed, the prod run prints *"YOUR LOCAL HEAD IS BEHIND"* — it is AHEAD; the `local-behind` reason fires on `live == origin/main` without checking direction. Filed for the next Tier-1 pass. · agent · reversible · defaults unchanged; `test-check-live.py`
 gains a `--base` control. Check: `python3 tools/check-live.py --base https://fernwood-qa.pages.dev/ --ref
 origin/staging` exit 0; `python3 tools/test-check-live.py` exit 0.
 **3e · CI** — agent · reversible · `deploy-worker-qa.yml`: on push to `staging` (same `paths:`), `wrangler deploy

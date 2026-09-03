@@ -83,6 +83,36 @@ def main():
           not r["match"] and r.get("error"))
 
     cl.fetch_live = real_fetch
+
+    # 5. --base / --ref re-point the check (C4 3d). Positive control: the fetch
+    #    goes to the given origin and the comparison reads the given ref; the
+    #    near-miss: with nothing given, the defaults are exactly what they were.
+    import urllib.request as _ur
+    seen = {}
+    class _Resp:
+        status = 200
+        headers = {"last-modified": "now"}
+        def __init__(self, url): seen["url"] = url
+        def read(self): return b"x"
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+    real_open = _ur.urlopen
+    _ur.urlopen = lambda req, timeout=0: _Resp(req.full_url)
+    try:
+        b, r, o = cl.configure("https://fernwood-qa.pages.dev", "origin/staging")
+        cl.fetch_live("questions.json")
+        check("--base re-points the fetch at the QA origin",
+              seen.get("url") == "https://fernwood-qa.pages.dev/questions.json", seen.get("url"))
+        check("--ref origin/staging is compared and judged against itself",
+              r == "origin/staging" and o == "origin/staging", f"{r} / {o}")
+        cl.configure(cl.LIVE_BASE, "HEAD")
+        cl.fetch_live("questions.json")
+        check("defaults unchanged: prod origin, HEAD against origin/main",
+              seen.get("url") == cl.LIVE_BASE + "questions.json" and cl.REF == "HEAD" and cl.ORIGIN_REF == "origin/main",
+              seen.get("url"))
+    finally:
+        _ur.urlopen = real_open
+        cl.configure(cl.LIVE_BASE, "HEAD")
     bad = [n for n, ok in results if not ok]
     print()
     if bad:

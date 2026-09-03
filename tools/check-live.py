@@ -92,6 +92,28 @@ LIVE_BASE = "https://palekxk.github.io/Tate-Tracker/"
 LIVE_URL = LIVE_BASE + "viewer.html"          # kept: the page a human opens
 TRACKED_FILE = "viewer.html"                  # kept: the primary, reported first
 
+# ── Which origin, which ref (C4 3d, 2026-09-03) ──────────────────────────────
+# Defaults are UNCHANGED: prod (GitHub Pages) against HEAD, reasoned against
+# origin/main. `--base` / `--ref` re-point the same check at another origin —
+# the Cloudflare Pages QA site serves branch `staging`:
+#     python3 tools/check-live.py --base https://fernwood-qa.pages.dev/ --ref origin/staging
+# One check, two origins; a second copy of the comparison would drift.
+BASE = LIVE_BASE          # the origin fetched
+REF = "HEAD"              # the ref the origin is expected to serve
+ORIGIN_REF = "origin/main"  # what "local-behind" is judged against
+
+
+def configure(base=None, ref=None):
+    """Re-point the check. Returns (BASE, REF, ORIGIN_REF) so a caller can assert them."""
+    global BASE, REF, ORIGIN_REF
+    if base:
+        BASE = base if base.endswith("/") else base + "/"
+    if ref:
+        REF = ref
+        # A remote ref judges itself; a local ref is judged against its remote.
+        ORIGIN_REF = ref if ref.startswith("origin/") else "origin/main"
+    return BASE, REF, ORIGIN_REF
+
 # Every same-origin asset Pages serves that the app fetches at load. The DRIFT
 # GUARD below re-derives this from viewer.html on every run and fails if the two
 # disagree — so adding a fetch() without adding it here is a loud error, not a
@@ -121,7 +143,7 @@ def git_bytes(ref, path):
 
 
 def head_bytes(path=TRACKED_FILE):
-    return git_bytes("HEAD", path)
+    return git_bytes(REF, path)
 
 
 def declared_drift():
@@ -143,7 +165,7 @@ def declared_drift():
 
 def fetch_live(path=TRACKED_FILE):
     req = urllib.request.Request(
-        LIVE_BASE + path,
+        BASE + path,
         headers={"Cache-Control": "no-cache", "Pragma": "no-cache",
                  "User-Agent": "FernwoodLiveCheck/1.0 (+tools/check-live.py)"},
     )
@@ -161,7 +183,7 @@ def check_one(path, deadline, quiet):
     if head is None:
         return {"path": path, "error": "not in HEAD", "match": False}
     head_sha = digest(head)
-    dirty = sh("git", "diff", "--quiet", "HEAD", "--", path).returncode != 0
+    dirty = sh("git", "diff", "--quiet", REF, "--", path).returncode != 0
 
     attempt = 0
     live_sha = last_mod = None
@@ -189,7 +211,7 @@ def check_one(path, deadline, quiet):
     # that as a broken ship would teach the reader to ignore this tool.
     reason = None
     if not match and live_sha:
-        origin = git_bytes("origin/main", path)
+        origin = git_bytes(ORIGIN_REF, path)
         if origin is not None and digest(origin) == live_sha:
             reason = "local-behind"      # Pages is correct; YOUR HEAD is stale
         else:
@@ -204,7 +226,12 @@ def main():
     ap.add_argument("--wait", type=int, default=0,
                     help="seconds to keep polling until live matches HEAD (post-push)")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--base", default=None,
+                    help="origin to fetch (default: prod, GitHub Pages). QA: https://fernwood-qa.pages.dev/")
+    ap.add_argument("--ref", default=None,
+                    help="git ref the origin should serve (default: HEAD). QA: origin/staging")
     args = ap.parse_args()
+    configure(args.base, args.ref)
 
     # ⚠ THE DRIFT GUARD RUNS FIRST AND CAN FAIL THE WHOLE CHECK. An asset the app
     #   fetches and this tool does not verify is exactly the hole that made the
@@ -214,19 +241,19 @@ def main():
         print("⛔ could not read HEAD:viewer.html — not a git repo, or the file is untracked.")
         return 1
 
-    ahead = sh("git", "rev-list", "--count", "origin/main..HEAD").stdout.strip() or "?"
+    ahead = sh("git", "rev-list", "--count", f"{ORIGIN_REF}..{REF}").stdout.strip() or "?"
     deadline = time.time() + args.wait
     results = [check_one(f, deadline, args.json) for f in TRACKED_FILES]
     all_match = all(r["match"] for r in results) and not unchecked
 
     if args.json:
-        print(json.dumps({"base": LIVE_BASE, "assets": results,
+        print(json.dumps({"base": BASE, "ref": REF, "assets": results,
                           "uncheckedFetches": unchecked,
                           "commitsAheadOfOrigin": ahead,
                           "match": all_match}, indent=2))
         return 0 if all_match else 1
 
-    print("live check — %s" % LIVE_BASE)
+    print("live check — %s  (ref %s)" % (BASE, REF))
     print("  %d same-origin asset(s); questions.json is the one that decides what she is ASKED." % len(TRACKED_FILES))
     print()
     for r in results:
@@ -235,9 +262,9 @@ def main():
             print("  🔴 %-22s UNREACHABLE — %s" % (name, r["error"]))
             continue
         if r["match"]:
-            print("  ✅ %-22s matches HEAD  %s…  (%s)" % (name, r["headSha256"], r["lastModified"] or "—"))
+            print("  ✅ %-22s matches %s  %s…  (%s)" % (name, REF, r["headSha256"], r["lastModified"] or "—"))
         elif r["reason"] == "local-behind":
-            print("  ⚠️  %-22s live matches origin/main, YOUR LOCAL HEAD IS BEHIND." % name)
+            print("  ⚠️  %-22s live matches %s, YOUR LOCAL %s IS BEHIND." % (name, ORIGIN_REF, REF))
             print("       Pages is correct — pull before reading this as a failed ship.")
             print("       (Expected for weather-history.json: the bot commits on its own.)")
         else:
