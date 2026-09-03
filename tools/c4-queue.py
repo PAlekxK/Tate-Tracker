@@ -34,7 +34,7 @@ HELD = {
 # Steps that are not plan headings but ruled prerequisites, with where their record lives.
 SYNTHETIC = {
     "5b-guards": ("the null-guard pass (BACKLOG Tier-1 #18 / C7 step 0) — 5b's template needs it before 5c can run",
-                  "BACKLOG.md", r"\*\*18\*\*.*?\|"),
+                  "BACKLOG.md", r"\*\*18\*\* \|.{0,160}"),
 }
 
 STEP_RE = re.compile(r'^\*\*(\d[a-z]′?) · (.+?)\*\* — (.*)$', re.M)

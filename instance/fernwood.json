@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "purpose": "Fernwood's INSTANCE declaration for tools/build-viewer.py (C4 5b). Only what canon does not already say: the place's chosen name and the masthead's phrasing. Address, city, state, elevation and region are DERIVED from property.json at build time — never re-typed here (the FROST_MONTH leak shape).",
+    "declared": "2026-09-03",
+    "rule": "If a value here duplicates a canon value, delete it here and derive it. This file may name things; it may not restate facts."
+  },
+  "estate": "fernwood",
+  "canon": "..",
+  "identity": {
+    "name": "Fernwood",
+    "taglinePrefix": "An Appalachian Almanac for",
+    "addressLineSuffix": "on the Blue Ridge"
+  },
+  "absent": []
+}

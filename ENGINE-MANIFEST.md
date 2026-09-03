@@ -41,6 +41,8 @@ is moving in the right direction (reported as a count, never graded).
   "classes": ["engine", "config", "instance", "mixed", "private-pointer"],
 
   "dirs": {
+    "engine/":           {"class": "engine",   "tier": "MUST-NOT-DIVERGE", "tier_by": "agent-proposed 2026-09-03; Paul assigns", "note": "the engine's own home — viewer.template.html (C4 5b); byte-identity to the built viewer is the check"},
+    "instance/":         {"class": "config",   "note": "per-estate declarations as data (C4 5b) — what canon does not say, never a restated fact"},
     "tools/":            {"class": "engine",   "tier": "MUST-NOT-DIVERGE", "tier_by": "agent-proposed 2026-09-03; Paul assigns", "note": "explicit row — invert ownership, not the directory"},
     "worker/":           {"class": "engine",   "tier": "MUST-NOT-DIVERGE", "tier_by": "agent-proposed 2026-09-03; Paul assigns", "note": "explicit row — the Worker is the engine's server half; two files inside are mixed, see below"},
     ".github/":          {"class": "engine",   "tier": "DECLARED",         "tier_by": "agent-proposed 2026-09-03; Paul assigns", "note": "workflows are engine shape; the weather recorder's schedule is a declared per-instance exception (C4 process Q4)"},
