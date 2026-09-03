@@ -276,7 +276,9 @@ phone and watch it land on the new one; it must never show a GitHub 404).
    the registry redirect): **no record** — available unless the registrar prices it as premium, which only the registrar
    page shows; **the purchase is Paul's act at Cloudflare Registrar (2a)**. Considered and closed the same hour: `.key`
    and `.home` are not top-level domains (IANA root list 2026-09-03, 1,438 TLDs); `my.place`, `key.homes` and
-   `porchlight.place` are registered; `.my` is Malaysia's country code. Family doors: `<family>.myhome.place`. Her icon
+   `porchlight.place` are registered; `.my` is Malaysia's country code. **Runners-up, both free, both liked, not chosen**
+   `[paul-stated]`: `housekey.family` and `homekey.family` — *"my home dot place is a little cleaner."* Family doors:
+   `<family>.myhome.place`. Her icon
    label stays **"Fernwood Tracker"**, her word. ⚠️ The landing greeting *"your homes"* (`VOCABULARY.md` § 3b, provisional)
    now sits under an apex that says *my home* — the content-steward reconciles the two in its note; not a build question.
 2. ~~**Q2 "Tate Commons" in the added-lines grep**~~ ✅ **RULED `[paul-stated 2026-09-03]`: only Bob's
