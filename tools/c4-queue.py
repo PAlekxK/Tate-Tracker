@@ -23,6 +23,7 @@ PLAN = os.path.join(ROOT, ".plans", "2026-09-03-c4-environments-PLAN.md")
 
 # The ruled order for what runs NOW (paul-approved 2026-09-03), then what is HELD and why.
 RUN_ORDER = ["4a", "5a", "5b-guards", "5b", "5c", "4c"]
+RAN_TO_VERDICT = {"5c": "attempts 1–3 ran 2026-09-03; VERDICT FAIL on identity — the engine half still names Fernwood. Re-runs when C5 steps 5–7 move PROPERTY_DATA + the identity into config"}
 HELD = {
     "4b": "at a SESSION SEAM (moves the local dir; 165 refs in ~/.claude, 2 launchd jobs, project memory keyed by cwd)",
     "2c": "in THE VISIT (committed and pushed with 2d, never before)",
@@ -73,7 +74,7 @@ def synthetic_state(sid):
 def main():
     just_next = "--next" in sys.argv
     steps = load_steps()
-    glyph = {"done": "✅", "partial": "🟡", "open": "·", "unknown": "?"}
+    glyph = {"done": "✅", "partial": "🟡", "open": "·", "unknown": "?", "verdict": "⛔"}
     nxt = None
     if not just_next:
         print("C4 queue — derived from the plan file · %s\n" % os.path.relpath(PLAN, ROOT))
@@ -85,6 +86,8 @@ def main():
             title, state, detail = steps[sid]
         else:
             title, state, detail = "(no plan line)", "unknown", ""
+        if sid in RAN_TO_VERDICT and state == "partial":
+            state = "verdict"
         if nxt is None and state in ("open", "partial", "unknown"):
             nxt = sid
         if not just_next:
@@ -92,6 +95,8 @@ def main():
             print("  %s %-9s %s%s" % (glyph[state], sid, title, mark))
             if state == "partial":
                 print("       ↳ %s" % detail)
+            if state == "verdict":
+                print("       ↳ %s" % RAN_TO_VERDICT[sid])
     if just_next:
         print(nxt or "none")
         return 0
