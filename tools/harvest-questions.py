@@ -311,7 +311,7 @@ def to_question(cand, created):
     return q
 
 
-def load_records():
+def load_records(est=None, gaps=None):
     """Every domain the manifest marks cardable — not a hardcoded file list.
 
     ⭐ EXTRACTED 2026-08-02, and the extraction is the fix. M1 changed `harvest()`'s
@@ -329,12 +329,26 @@ def load_records():
     and three definitions of "pending" already cost this repo a real wrong claim.
     """
     records_by_type = {}
+    on = momlib.enabled_domains(est)
+    if on is None:
+        raise RuntimeError("estate.json has no readable `modules:` block — the harvester will not "
+                           "draft cards for domains the estate cannot say it has")
     for dtype, dom in momlib.DOMAINS.items():
         if not dom.cardable:
+            continue
+        # C5 3b — a domain whose every module is OFF is skipped, one `continue`
+        # beside the cardable one. Not an error, not a gap: the estate said so.
+        if dtype not in on:
             continue
         got = momlib.load_json(dom.file).get(dom.key)
         if isinstance(got, list):
             records_by_type[dtype] = [r for r in got if isinstance(r, dict)]
+            # ON but EMPTY is a GAP, reported — the module claims a domain the
+            # record has nothing in. Different from OFF, kept different.
+            if not records_by_type[dtype] and gaps is not None:
+                gaps.append("%s: module on, %s has no records — nothing to draft from" % (dtype, dom.file))
+        elif gaps is not None:
+            gaps.append("%s: module on, %s has no list at %r" % (dtype, dom.file, dom.key))
     return records_by_type
 
 
@@ -345,7 +359,10 @@ def main():
     args = ap.parse_args()
 
     today = dt.date.fromisoformat(args.today)
-    records_by_type = load_records()
+    gaps = []
+    records_by_type = load_records(gaps=gaps)
+    for g in gaps:
+        print("\u26a0\ufe0f  GAP  " + g)
     qdata = json.load(open(QUESTIONS, encoding="utf-8"))
     questions = qdata.get("questions", [])
 

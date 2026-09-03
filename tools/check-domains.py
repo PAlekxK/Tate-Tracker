@@ -69,6 +69,14 @@ def records_of(dom):
 
 
 def main():
+    # --estate <path>: judge a DIFFERENT estate's declaration against this checkout's
+    # canon files. The selftest uses it: a gardenless block over Fernwood's planted
+    # canon must print `declared off` for plant/weed AND a finding for the data.
+    est = None
+    if "--estate" in sys.argv:
+        est = momlib.estate(path=sys.argv[sys.argv.index("--estate") + 1])
+        if est is None:
+            print("✗ --estate file unreadable"); return 1
     findings, notes = [], []
     viewer_src = ""
     try:
@@ -80,7 +88,26 @@ def main():
     print(f"domain conformance — {len(momlib.DOMAINS)} declared\n")
     rows = []
 
+    # C5 3b — the module declaration is itself checked, and it decides a THIRD row
+    # state: `declared off` — neither 🔴 (a domain that cannot admit a guess) nor
+    # absent (a domain nobody declared). An unreadable block is a finding and every
+    # domain is judged as if ON (the loud direction).
+    findings.extend(momlib.module_findings(est))
+    off = momlib.declared_off_domains(est) or set()
+
     for dtype, dom in sorted(momlib.DOMAINS.items()):
+        if dtype in off:
+            # ⭐ the INVERTED sweep: data present at a switched-off domain is
+            # UNDECLARED DATA — the file says one thing and the estate another.
+            try:
+                recs = records_of(dom)
+            except (OSError, ValueError):
+                recs = None
+            if recs:
+                findings.append(f"{dtype}: every module claiming it is OFF, yet {dom.file} holds "
+                                f"{len(recs)} record(s) — undeclared data; switch the module on or move the file")
+            rows.append((dtype, dom.group, len(recs or []), "—", "—", "—", "declared off"))
+            continue
         # 1 · the declaration must resolve to real records
         recs = records_of(dom)
         if recs is None:
@@ -141,7 +168,7 @@ def main():
           f"{'w/ marker':>11}{'askable':>9}   wired")
     for dtype, group, n, paths, wm, ask, wired in rows:
         flag = "  🔴" if paths == 0 else ""
-        print(f"  {dtype:<11}{group:<7}{n:>5}{paths:>14}{wm:>11}{ask:>9}   {wired}{flag}")
+        print(f"  {dtype:<11}{group:<7}{n:>5}{str(paths):>14}{str(wm):>11}{str(ask):>9}   {wired}{flag}")
     gapless = [r[0] for r in rows if r[3] == 0]
     if gapless:
         print(f"\n  🔴 no way to admit a guess at all: {', '.join(gapless)}")

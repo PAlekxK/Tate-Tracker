@@ -337,6 +337,16 @@ def selftest():
         sigs, fired = engagement_signals(raw, days)
         return {s["name"]: s for s in sigs}, fired
 
+    # C5 3b — the denominator follows the module set.
+    sg, _ = engagement_signals(_eng(momqueue_viewed=5, momqueue_tapped=0), None, card_modules=False)
+    sg = {x["name"]: x for x in sg}
+    check("MODULES  no card-bearing module on → offers-passed is '—' and never fires",
+          (sg["offers-passed"]["value"], sg["offers-passed"]["fired"]), ("—", False))
+    sg, _ = engagement_signals(_eng(momqueue_viewed=5, momqueue_tapped=0), None, card_modules=None)
+    sg = {x["name"]: x for x in sg}
+    check("MODULES  unreadable module set → offers-passed is '?'", sg["offers-passed"]["value"], "?")
+    check("MODULES  at Fernwood a card-bearing module IS on", _card_modules_on(), True)
+
     s, f = _named(_eng(momqueue_viewed=3, momqueue_tapped=0))
     check("3 offers seen and passed FIRES", s["offers-passed"]["fired"], True)
     check("...and it is named as the reason", "offers-passed" in f, True)
@@ -504,8 +514,23 @@ def _days_since_answer():
     return int(m.group(1)) if m else None
 
 
-def engagement_signals(raw, last_answer_days=None, today=None):
+def _card_modules_on(est=None):
+    """C5 3b — does any module that can put a CARD in front of her read ON?
+    True/False, or None when the module set is unreadable (→ `?`, never fires).
+    Cards come only from `ENTITY_SOURCES` (the cardable domains), so this is
+    'is any cardable domain enabled'."""
+    on = momlib.enabled_domains(est)
+    if on is None:
+        return None
+    return any(d in on for d in momlib.ENTITY_SOURCES)
+
+
+def engagement_signals(raw, last_answer_days=None, today=None, card_modules=True):
     """Her BEHAVIOUR as trigger signals. PURE — fixtures drive it in the selftest.
+
+    `card_modules` (C5 3b): whether any card-bearing module is ON at this estate —
+    True (count offers), False (off-module offers LEAVE the denominator: a non-tap
+    where there are no plants is not a signal about her), None (unreadable → `?`).
 
     Returns (signals, fired) — `fired` is the subset of names that went off.
     """
@@ -519,7 +544,15 @@ def engagement_signals(raw, last_answer_days=None, today=None):
 
     # 1 · She saw the ask and passed over it. The one signal an ARRIVAL trigger can
     #     never produce: declining is invisible to a record that only logs answers.
-    if {"momqueue_viewed", "momqueue_tapped"} & unreadable:
+    if card_modules is None:
+        sigs.append({"name": "offers-passed", "fired": False, "value": "?",
+                     "threshold": VIEWED_NOT_TAKEN,
+                     "detail": "UNMEASURED: the estate's module set is unreadable"})
+    elif card_modules is False:
+        sigs.append({"name": "offers-passed", "fired": False, "value": "—",
+                     "threshold": VIEWED_NOT_TAKEN,
+                     "detail": "no card-bearing module is on at this estate — nothing was offered, so nothing was passed"})
+    elif {"momqueue_viewed", "momqueue_tapped"} & unreadable:
         sigs.append({"name": "offers-passed", "fired": False, "value": "?",
                      "threshold": VIEWED_NOT_TAKEN,
                      "detail": "UNMEASURED: the event was not live for this whole window"})
@@ -703,7 +736,8 @@ def main():
 
     # ⭐ ENGAGEMENT can RAISE the state, never lower it. `position()` stays the
     #   authority on an arrival-fired lap; this only reaches a loop it left ARMED.
-    eng_sigs, eng_fired = engagement_signals(_engagement_raw(), _days_since_answer())
+    eng_sigs, eng_fired = engagement_signals(_engagement_raw(), _days_since_answer(),
+                                             card_modules=_card_modules_on())
     if eng_fired and state != "FIRED":
         state = "FIRED"
 

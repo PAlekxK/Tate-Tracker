@@ -300,10 +300,9 @@ def load(path):
         return json.load(f)
 
 
-def main():
-    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    os.chdir(repo_root)
-
+def _compose_all(load):
+    """Every section, unconditionally — the hand-written literal roster #3.
+    compose() removes what the estate's modules do not claim."""
     digest = {
         "_meta": {
             "purpose": "Curated property digest for Garden Guru system prompt. Built from raw source files by tools/build-digest.py — re-run after editing any source. Strip targets: photo/sound/attribution/license/schema/citizen-science fields the assistant never verbally references.",
@@ -352,6 +351,61 @@ def main():
         # digest under the ~100K retrieval-degradation note this file names below.
         "vehicles": digest_vehicles(load("vehicles.json")),
     }
+    return digest
+
+
+# C5 3b — which digest key belongs to which domain (module membership decides
+# whether the key is BUILT AT ALL). `property` has no domain and is always built.
+DIGEST_DOMAIN = {
+    "plants": "plant", "birds": "bird", "mammals": "mammal", "amphibians": "amphibian",
+    "snakes": "snake", "lizards": "lizard", "insects": "insect", "fishing": "fish",
+    "weeds": "weed", "zones": "zone", "vehicles": "vehicle",
+}
+DIGEST_NON_DOMAIN = {"turf": "turf"}   # reached through a module's non_domain_members
+
+
+def compose(est=None, load=load):
+    """Build the digest dict for one estate. `est` is the parsed estate.json
+    (None → this checkout's); `load` reads a canon file by name (a fixture may
+    substitute its own). PURE apart from `load` — the selftest drives it.
+
+    ⛔ A module OFF at this estate means the key is OMITTED — never `"plants": []`.
+    An empty array still invites the model to reason about a garden that does not
+    exist; a missing key plus one `_meta.declares` line tells it the truth. An
+    UNREADABLE module set raises: a digest built on "everything, by default" for an
+    estate that could not state its modules would be the silent inflation R7 forbids.
+    """
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import momlib
+    est = momlib.estate() if est is None else est
+    on = momlib.enabled_domains(est)
+    if on is None:
+        raise RuntimeError("estate.json has no readable `modules:` block — refusing to build a digest "
+                           "that would include every domain by default")
+    on_non = momlib.enabled_non_domains(est) or set()
+    mods = momlib.modules_of(est) or {}
+    absent_lines = ["this estate declares no %s" % m for m, st in sorted(mods.items())
+                    if m in momlib.MODULES and st not in ("on", "on-minimal")]
+
+    def want(key):
+        if key in DIGEST_DOMAIN:
+            return DIGEST_DOMAIN[key] in on
+        if key in DIGEST_NON_DOMAIN:
+            return DIGEST_NON_DOMAIN[key] in on_non
+        return True
+
+    digest = _compose_all(load)
+    for key in [k for k in digest if k != "_meta" and not want(k)]:
+        del digest[key]
+    if absent_lines:
+        digest["_meta"]["declares"] = absent_lines
+    return digest
+
+
+def main():
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(repo_root)
+    digest = compose()
 
     import datetime
     digest["_meta"]["rebuiltAt"] = datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z"

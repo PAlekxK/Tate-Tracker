@@ -104,7 +104,7 @@ decided the unit); `estate.json: modules: {garden: on, fleet: on, wildlife: on, 
 membership is not a partition). Every consumer calls the resolver; none reads `DOMAINS` for on/off. Check: with Fernwood's
 block, `python3 tools/check-domains.py`, `check-cards.py`, `check-digest-fresh.py` all exit 0 **unchanged** — the ON path
 is untouched by construction, and `worker/digest.json` is byte-identical before and after.
-**3b · The five consumers, OFF vs ON-but-EMPTY** — agent · reversible · one behaviour each, stated so the fixture can assert it:
+**3b · The five consumers, OFF vs ON-but-EMPTY** — 🟡 **FOUR OF FIVE DONE 2026-09-03** — `harvest-questions.load_records(est, gaps)` (OFF → skip; ON-but-empty → a printed GAP), `check-domains.py` (third row state `declared off`, the INVERTED sweep as a finding, `module_findings()` folded in, `--estate <path>` to judge another declaration over this canon), `build-digest.compose(est, load)` (OFF → key OMITTED + `_meta.declares`; unreadable → REFUSES), `mom-cycle-status.engagement_signals(card_modules=)` (`_card_modules_on()`; False → `—` and never fires; None → `?`). `tools/test-modules.py` **19/19** on two fixtures — Fernwood a no-op (digest equal bar `_meta`, harvest first line unchanged, 5 controls exit 0, status selftest 36/36). ⏳ **The fifth — `renderDashboardStrip()` (viewer)** — is the Mom-visible one and goes staging → QA → `check-live` before `main`; see below. — agent · reversible · one behaviour each, stated so the fixture can assert it:
 
 | consumer (role) | module **OFF** | module **ON, file empty** |
 |---|---|---|
