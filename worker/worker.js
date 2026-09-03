@@ -106,6 +106,67 @@ function declarePerson(record) {
   return Object.assign({}, PERSON_UNKNOWN, record);
 }
 
+// ---- Every KV key carries the ESTATE (C5 6a/6b/6c, 2026-09-03) ----
+// `<estateId>:<kind>:<suffix>`. The estate comes from the ESTATE_ID binding — per
+// environment, non-inheritable, and a forgotten one THROWS (a Worker that cannot
+// say whose estate it serves must not read or write a record). NEVER from the
+// request path or query: the HTTP contract is unchanged, which is why the four
+// readers needed zero changes. C6 later passes the grant-resolved id through the
+// same signature.
+//
+// THE LEGACY WINDOW (6b): keys written before the cutover are unprefixed. A
+// date-keyed record is read from the era its DATE belongs to — `date <
+// LEGACY_BEFORE` → the old key, else the new one — never `get(new) || get(old)`,
+// which would hide a missing new key behind a stale old one forever. The cutover
+// is a var per environment so QA can cut over a day early and prove the path.
+// Id-keyed blobs (audio) carry their era in the id's base-36 timestamp.
+// Unprefixed keys are DELETED in a separate later act, never here.
+function estateId(env) {
+  if (!env.ESTATE_ID) throw new Error("ESTATE_ID binding is missing — every KV key carries the estate; refusing");
+  return env.ESTATE_ID;
+}
+function keyFor(env, ...parts) {
+  return estateId(env) + ":" + parts.join(":");
+}
+function legacyBefore(env) {
+  if (!env.LEGACY_BEFORE || !/^\d{4}-\d{2}-\d{2}$/.test(env.LEGACY_BEFORE)) {
+    throw new Error("LEGACY_BEFORE binding is missing or not YYYY-MM-DD — the legacy window must be declared");
+  }
+  return env.LEGACY_BEFORE;
+}
+function dateKey(env, kind, date) {
+  // `date` is YYYY-MM-DD (UTC). Writes AND reads route by the record's date, so
+  // the cutover day is not split across two keys.
+  return date < legacyBefore(env) ? `${kind}:${date}` : keyFor(env, kind, date);
+}
+function dateOfRecordingId(id) {
+  // generateRecordingId(): "r-<Date.now().toString(36)>-<rand>"
+  const m = /^r-([0-9a-z]+)-/.exec(String(id || ""));
+  if (!m) return null;
+  const ms = parseInt(m[1], 36);
+  return Number.isFinite(ms) ? new Date(ms).toISOString().slice(0, 10) : null;
+}
+function blobKey(env, kind, id) {
+  const d = dateOfRecordingId(id);
+  if (d === null) return keyFor(env, kind, id);              // an id with no timestamp is post-cutover by construction
+  return d < legacyBefore(env) ? `${kind}:${id}` : keyFor(env, kind, id);
+}
+// LIST both eras (6c): a listing is a union of what exists, not a lookup that
+// could mask a miss — so legacy keys stay visible until the separate deletion.
+async function listBothEras(env, kind) {
+  const names = [];
+  for (const prefix of [keyFor(env, kind) + ":", kind + ":"]) {
+    let cursor = undefined;
+    while (true) {
+      const result = await env.OBSERVATIONS.list({ prefix, cursor });
+      for (const k of result.keys) names.push(k.name);
+      if (result.list_complete || !result.cursor) break;
+      cursor = result.cursor;
+    }
+  }
+  return names;
+}
+
 // ---- Write-only capture exception (2026-07-16) ----
 // WHY THIS EXISTS. On 2026-07-15 Mom wrote substantive feedback on her MacBook —
 // a device that had never been paired with the token. Every write path gates on
@@ -132,7 +193,7 @@ const FEEDBACK_RATE_WINDOW_SEC = 300;  // 5 minutes
 async function feedbackRateLimitOk(request, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
-  const key = `ratelimit:feedback:${ip}:${bucket}`;
+  const key = keyFor(env, "ratelimit", "feedback", ip, bucket);
   try {
     const raw = await env.OBSERVATIONS.get(key);
     const n = raw ? parseInt(raw, 10) || 0 : 0;
@@ -151,7 +212,7 @@ async function feedbackRateLimitOk(request, env) {
 // ---- Observations ----
 
 async function loadObservations(env) {
-  const raw = await env.OBSERVATIONS.get(OBS_KEY);
+  const raw = await env.OBSERVATIONS.get(keyFor(env, OBS_KEY));   // copied from the legacy key at cutover (6c)
   if (!raw) return [];
   try {
     const arr = JSON.parse(raw);
@@ -162,7 +223,7 @@ async function loadObservations(env) {
 }
 
 async function saveObservations(env, arr) {
-  await env.OBSERVATIONS.put(OBS_KEY, JSON.stringify(arr));
+  await env.OBSERVATIONS.put(keyFor(env, OBS_KEY), JSON.stringify(arr));
 }
 
 // One-time cleanup endpoint: walks observations:all and strips base64
@@ -317,7 +378,7 @@ async function handleAmbient(request, env, url) {
   // longer than the live tail — which also keeps a --backfill or --recompute
   // walk from burning Ambient's ~1 req/sec budget on repeat.
   const ttl = endDate ? 3600 : 120;
-  const key = `cache:ambient:${mac}:${limit}:${endDate || "live"}`;
+  const key = keyFor(env, "cache", "ambient", mac, limit, endDate || "live");
   try {
     // 120 s (live): the station reports about once a minute, and the dashboard's
     // own "measured, not modelled" promise wants this fresh. Short enough to stay
@@ -366,7 +427,7 @@ async function handleAirNow(request, env, url) {
   const lat = url.searchParams.get("lat");
   const lon = url.searchParams.get("lon");
   if (!lat || !lon) return json({ error: "missing-lat-lon" }, 400);
-  const key = `cache:airnow:${lat}:${lon}`;
+  const key = keyFor(env, "cache", "airnow", lat, lon);
   try {
     const data = await withCache(env, key, 900 /* 15 min */, async () => {
       const apiKey = (env.AIRNOW_API_KEY || "").trim();
@@ -407,7 +468,7 @@ function parseUSDMCsv(csv) {
 
 async function handleDrought(request, env, url) {
   const fips = url.searchParams.get("fips") || "13227";
-  const key = `cache:drought:${fips}`;
+  const key = keyFor(env, "cache", "drought", fips);
   try {
     const data = await withCache(env, key, 6 * 3600 /* 6 hr */, async () => {
       const upstream = `https://usdmdataservices.unl.edu/api/CountyStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=${fips}&startdate=1/1/2024&enddate=12/31/2099&statisticsType=1`;
@@ -449,7 +510,7 @@ async function handleTodayLine(request, env) {
   catch (e) { return json({ error: "bad-json" }, 400); }
   const date = (body && body.date) || new Date().toISOString().slice(0, 10);
   const state = (body && body.state) || {};
-  const key = `cache:today-line:${date}`;
+  const key = keyFor(env, "cache", "today-line", date);
   const cached = await env.OBSERVATIONS.get(key);
   if (cached) {
     try { return json({ ...JSON.parse(cached), cached: true }); }
@@ -928,7 +989,7 @@ async function handleAudioUpload(request, env) {
   const recordingId = generateRecordingId();
   // KV TTL 1 hour — long enough for record + Garden Guru turn + two-step
   // confirm + promote, short enough that orphans get garbage-collected.
-  await env.OBSERVATIONS.put(`audio-blob:${recordingId}`, JSON.stringify({
+  await env.OBSERVATIONS.put(blobKey(env, "audio-blob", recordingId), JSON.stringify({
     mediaType,
     base64,
     uploadedAt: new Date().toISOString(),
@@ -995,7 +1056,7 @@ async function handleZoneAudio(request, env, url) {
       }
     }
     // Durable blob — NO expirationTtl. This is the whole point.
-    await env.OBSERVATIONS.put(`zone-audio-blob:${id}`, JSON.stringify({
+    await env.OBSERVATIONS.put(blobKey(env, "zone-audio-blob", id), JSON.stringify({
       id, zoneId, mediaType, base64, uploadedAt: nowIso, sizeBytes: base64.length,
       recordedAt, heldMs,
     }));
@@ -1007,7 +1068,7 @@ async function handleZoneAudio(request, env, url) {
     // failure class. So: file by arrival so nothing is missed, carry recordedAt as a
     // field so nothing is misdated, and let the reader sort by it.
     const today = nowIso.slice(0, 10);
-    const key = `zone-audio:${today}`;
+    const key = dateKey(env, "zone-audio", today);
     const meta = declarePerson({
       id, zoneId, uploadedAt: nowIso, mediaType, sizeBytes: base64.length,
       durationMs: Number.isFinite(body.durationMs) ? Math.round(body.durationMs) : null,
@@ -1028,7 +1089,7 @@ async function handleZoneAudio(request, env, url) {
     // Reached only past the global auth gate (token required).
     const id = url.searchParams.get("id");
     if (id) {
-      const raw = await env.OBSERVATIONS.get(`zone-audio-blob:${id}`);
+      const raw = await env.OBSERVATIONS.get(blobKey(env, "zone-audio-blob", id));
       if (!raw) return json({ error: "not-found" }, 404);
       return new Response(raw, { status: 200, headers: { "Content-Type": "application/json", ...CORS_HEADERS } });
     }
@@ -1041,7 +1102,7 @@ async function handleZoneAudio(request, env, url) {
     const out = [];
     let days = 0;
     for (let d = new Date(d0); d <= d1 && days < 90; d.setUTCDate(d.getUTCDate() + 1), days++) {
-      const raw = await env.OBSERVATIONS.get(`zone-audio:${d.toISOString().slice(0, 10)}`);
+      const raw = await env.OBSERVATIONS.get(dateKey(env, "zone-audio", d.toISOString().slice(0, 10)));
       if (raw) { try { const a = JSON.parse(raw); if (Array.isArray(a)) out.push(...a); } catch (e) {} }
     }
     out.sort((a, b) => (a.uploadedAt || "").localeCompare(b.uploadedAt || ""));
@@ -1177,7 +1238,7 @@ OUTPUT FORMAT
 
 async function logChatCost(env, conversationId, apiData) {
   const date = new Date().toISOString().slice(0, 10);
-  const key = `cost-log:${date}`;
+  const key = dateKey(env, "cost-log", date);
   const usage = apiData.usage || {};
   const entry = {
     ts: new Date().toISOString(),
@@ -1238,7 +1299,7 @@ const CONVERSATION_ORIGINS = ["app", "probe", "test"];
 const REAL_CONVERSATION = o => o == null || o === "app";
 
 async function persistConversation(env, conversationId, turns, origin, deviceId) {
-  const key = `conversation:${conversationId}`;
+  const key = keyFor(env, "conversation", conversationId);
   const existing = await env.OBSERVATIONS.get(key);
   let session;
   if (existing) {
@@ -1322,7 +1383,7 @@ async function handleChat(request, env) {
     const audioBlock = latestTurn.content.find(b => b && b.type === "audio_ref" && b.recordingId);
     if (audioBlock) {
       // Fetch the audio blob from KV
-      const kvKey = `audio-blob:${audioBlock.recordingId}`;
+      const kvKey = blobKey(env, "audio-blob", audioBlock.recordingId);
       const blobJson = await env.OBSERVATIONS.get(kvKey);
       if (!blobJson) {
         return json({ error: "audio-blob-expired-or-missing", recordingId: audioBlock.recordingId }, 410);
@@ -1567,7 +1628,7 @@ async function handleSuggestSpecies(request, env, url) {
       status: "pending",
     };
 
-    const key = `pending-species:${today}`;
+    const key = dateKey(env, "pending-species", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -1599,7 +1660,7 @@ async function handleSuggestSpecies(request, env, url) {
 
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(`pending-species:${date}`);
+      const raw = await env.OBSERVATIONS.get(dateKey(env, "pending-species", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -1616,7 +1677,7 @@ async function handleSuggestSpecies(request, env, url) {
       return json({ error: "bad-or-missing-id" }, 400);
     }
     const date = id.split(":")[0];
-    const key = `pending-species:${date}`;
+    const key = dateKey(env, "pending-species", date);
     const raw = await env.OBSERVATIONS.get(key);
     if (!raw) return json({ error: "not-found", id }, 404);
     let arr;
@@ -1910,7 +1971,7 @@ This plant was just added by the reader and has NOT been observed here across a 
   let audioCommitted = false;
   if (body.audioRecordingId) {
     try {
-      const blobJson = await env.OBSERVATIONS.get(`audio-blob:${body.audioRecordingId}`);
+      const blobJson = await env.OBSERVATIONS.get(blobKey(env, "audio-blob", body.audioRecordingId));
       if (blobJson) {
         const blobData = JSON.parse(blobJson);
         const audioExtMap = {
@@ -2021,7 +2082,7 @@ async function handleMetrics(request, env, url) {
     if (events.length > 200) return json({ error: "too-many-events", limit: 200 }, 400);
 
     const today = new Date().toISOString().slice(0, 10);
-    const key = `metrics:${today}`;
+    const key = dateKey(env, "metrics", today);
     const batch = {
       receivedAt: new Date().toISOString(),
       device,
@@ -2057,7 +2118,7 @@ async function handleMetrics(request, env, url) {
     if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(`metrics:${date}`);
+      const raw = await env.OBSERVATIONS.get(dateKey(env, "metrics", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -2093,7 +2154,7 @@ async function handleCostLog(request, env, url) {
   if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
   const days = {};
   for (const date of dates) {
-    const raw = await env.OBSERVATIONS.get(`cost-log:${date}`);
+    const raw = await env.OBSERVATIONS.get(dateKey(env, "cost-log", date));
     if (raw) {
       try { days[date] = JSON.parse(raw); }
       catch (e) { /* skip malformed */ }
@@ -2130,17 +2191,9 @@ async function handleConversations(request, env, url) {
   const includeAll = url.searchParams.get("origin") === "all";
   let excluded = 0;
 
-  const keys = [];
-  let cursor = undefined;
-  // Paginate the list call. At family scale this completes in 1 page; the loop
-  // is defense for the future and matches the KV contract (1000 keys per call).
-  while (true) {
-    const result = await env.OBSERVATIONS.list({ prefix: "conversation:", cursor });
-    for (const k of result.keys) keys.push(k.name);
-    if (result.list_complete) break;
-    cursor = result.cursor;
-    if (!cursor) break;
-  }
+  // Paginated inside listBothEras (KV contract: 1000 keys per call). Both eras
+  // are listed (6c) until the legacy keys are deleted in their own later act.
+  const keys = await listBothEras(env, "conversation");
 
   const conversations = [];
   for (const key of keys) {
@@ -2218,7 +2271,7 @@ async function handleFeedback(request, env, url) {
       env: env.ENV_NAME || "unset",   // C4 3a (R2): which deployment wrote this row
     });
     const today = new Date().toISOString().slice(0, 10);
-    const key = `feedback:${today}`;
+    const key = dateKey(env, "feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -2257,7 +2310,7 @@ async function handleFeedback(request, env, url) {
     if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(`feedback:${date}`);
+      const raw = await env.OBSERVATIONS.get(dateKey(env, "feedback", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -2291,6 +2344,8 @@ export default {
         ts: new Date().toISOString(),
         env: env.ENV_NAME ?? null,
         kv_canary: kvCanary,
+        estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
+        legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
         endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,
@@ -2571,7 +2626,7 @@ async function handleZoneSave(request, env) {
   // inlined ZONES_DATA in viewer.html). Writing KV first because it's the
   // freshness path; if git commits fail later, KV still has the new data.
   try {
-    await env.OBSERVATIONS.put("zones:all", JSON.stringify(fullData));
+    await env.OBSERVATIONS.put(keyFor(env, "zones", "all"), JSON.stringify(fullData));
   } catch (e) {
     // KV write failure is non-fatal — git is still canon. Log for diagnostics.
     console.warn("[zone-save] KV write failed:", e && e.message);
@@ -2584,7 +2639,7 @@ async function handleZoneSave(request, env) {
   if (editingDeviceId && /^[a-z0-9.\-_]{1,80}$/i.test(editingDeviceId)) {
     try {
       await env.OBSERVATIONS.put(
-        "zones-last-seen:" + editingDeviceId,
+        keyFor(env, "zones-last-seen", editingDeviceId),
         JSON.stringify({ version: nowIso, at: nowIso }),
         { expirationTtl: 30 * 24 * 60 * 60 }
       );
@@ -2641,7 +2696,7 @@ async function handleZoneFeedback(request, env, url) {
       status: "pending",
     });
 
-    const key = `zone-feedback:${today}`;
+    const key = dateKey(env, "zone-feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -2667,7 +2722,7 @@ async function handleZoneFeedback(request, env, url) {
     }
     const all = [];
     for (const day of days) {
-      const raw = await env.OBSERVATIONS.get(`zone-feedback:${day}`);
+      const raw = await env.OBSERVATIONS.get(dateKey(env, "zone-feedback", day));
       if (!raw) continue;
       try {
         const arr = JSON.parse(raw);
@@ -2690,7 +2745,7 @@ async function handleZonesGet(request, env, url) {
 
   let data = null;
   try {
-    const raw = await env.OBSERVATIONS.get("zones:all");
+    const raw = await env.OBSERVATIONS.get(keyFor(env, "zones", "all"));   // copied from the legacy key at cutover (6c)
     if (raw) data = JSON.parse(raw);
   } catch (e) { /* fall through to git fallback */ }
 
@@ -2714,7 +2769,7 @@ async function handleZonesGet(request, env, url) {
   if (deviceId && /^[a-z0-9.\-_]{1,80}$/i.test(deviceId) && canonVersion) {
     try {
       await env.OBSERVATIONS.put(
-        "zones-last-seen:" + deviceId,
+        keyFor(env, "zones-last-seen", deviceId),
         JSON.stringify({ version: canonVersion, at: new Date().toISOString() }),
         { expirationTtl: 30 * 24 * 60 * 60 }
       );
@@ -2733,7 +2788,7 @@ async function handleZonesSyncStatus(request, env, url) {
 
   let canonVersion = null;
   try {
-    const raw = await env.OBSERVATIONS.get("zones:all");
+    const raw = await env.OBSERVATIONS.get(keyFor(env, "zones", "all"));   // copied from the legacy key at cutover (6c)
     if (raw) {
       const data = JSON.parse(raw);
       canonVersion = (data._meta && data._meta.lastBuiltAt) || (data._meta && data._meta.lastBuilt) || null;
@@ -2742,9 +2797,10 @@ async function handleZonesSyncStatus(request, env, url) {
 
   const devices = [];
   try {
-    const listing = await env.OBSERVATIONS.list({ prefix: "zones-last-seen:" });
-    for (const k of (listing.keys || [])) {
-      const did = k.name.slice("zones-last-seen:".length);
+    const names = await listBothEras(env, "zones-last-seen");   // 6c: both eras until the legacy keys are deleted
+    for (const name of names) {
+      const did = name.slice(name.lastIndexOf("zones-last-seen:") + "zones-last-seen:".length);
+      const k = { name };
       try {
         const raw = await env.OBSERVATIONS.get(k.name);
         if (!raw) continue;

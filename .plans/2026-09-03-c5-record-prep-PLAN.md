@@ -154,7 +154,7 @@ mutation: planted unclassified file → P1; a waiver to a deleted file **and** o
 member the table cannot place → P1; `10, 17` in an engine file → P4 counts then clears; a new `*_DATA` const → P5 counts;
 a clean fixture → exit 0; an unreachable engine remote → `skipped`; a fixture whose `viewer.html` is a 404 page → **throws**.
 Then one line in `CLAUDE.md`'s session-start block (or the three counting checks behind one summary line — Q7).
-**6a · One key builder** — agent · reversible (additive) · **after C4 3a** · `keyFor(estateId, ...parts)` →
+**6a · One key builder** — 🟡 **BUILT 2026-09-03, on `staging` for QA** — `estateId(env)` / `keyFor(env, ...parts)` / `legacyBefore(env)` / `dateKey(env, kind, date)` / `blobKey(env, kind, id)` (era from the recording id's base-36 timestamp) / `listBothEras(env, kind)`; `ESTATE_ID` + `LEGACY_BEFORE` vars per env, non-inheritable, missing → throw; **45 sites routed, the env-canary alone stays unprefixed** (an environment fact, not estate data); `/health` reports both. Node unit test: cutover-day routing, blob eras, both throws. QA verdict below. — agent · reversible (additive) · **after C4 3a** · `keyFor(estateId, ...parts)` →
 `<estateId>:<prefix>:<suffix>`; `estateId` comes from the `ESTATE_ID` binding (per-env, non-inheritable — a forgotten one
 **throws**); C6 later passes the grant-resolved id through the same signature. **Never from the path or query** — the
 four readers' HTTP contract is unchanged, which is why they need zero changes. All 45 sites routed; a grep is the

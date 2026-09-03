@@ -23,6 +23,13 @@ id = "100f2b95e4be4c088a0000f917cf987b"
 # second proof: `/health.kv_canary` is READ FROM THE BOUND NAMESPACE, never re-typed.
 [vars]
 ENV_NAME = "production"
+# C5 6a/6b (2026-09-03): every KV key is `<ESTATE_ID>:<kind>:<suffix>`; dates before
+# LEGACY_BEFORE read the unprefixed keys written before the cutover. Both are
+# per-environment and NON-INHERITABLE — a forgotten one makes the Worker throw.
+# Prod cuts over at 2026-09-04 00:00Z (the next UTC day after deploy, so no day is
+# split across two keys); QA cut over a day earlier to prove the path.
+ESTATE_ID = "est-3c9f1a"
+LEGACY_BEFORE = "2026-09-04"
 
 # QA: its own KV namespace (nothing here can reach `feedback:<date>` in prod), its
 # own SHARED_TOKEN, no GITHUB_* / OPENAI_* (promote-species → 503 by design).
@@ -30,6 +37,8 @@ ENV_NAME = "production"
 [env.qa]
 [env.qa.vars]
 ENV_NAME = "qa"
+ESTATE_ID = "est-3c9f1a"
+LEGACY_BEFORE = "2026-09-03"
 [[env.qa.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "a0cf82b615c648ff972961c46ce42661"

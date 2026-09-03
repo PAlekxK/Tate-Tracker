@@ -48,6 +48,26 @@ HARNESS_ID = "d-telemetrytest-harness-v1"
 TIMEOUT = 30
 
 
+QA_NAMESPACE_ID = "a0cf82b615c648ff972961c46ce42661"   # worker/wrangler.toml [env.qa]
+
+
+def kv_keys_remote(namespace_id):
+    """Key names in a KV namespace via wrangler (remote). None when wrangler cannot run."""
+    try:
+        r = subprocess.run(["npx", "--yes", "wrangler@4", "kv", "key", "list", "--namespace-id", namespace_id, "--remote"],
+                           capture_output=True, text=True, timeout=120,
+                           cwd=os.path.join(os.path.dirname(HERE), "worker"))
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    i = r.stdout.find("[")
+    if r.returncode != 0 or i < 0:
+        return None
+    try:
+        return {k["name"] for k in json.loads(r.stdout[i:])}
+    except ValueError:
+        return None
+
+
 def resolve_qa_token():
     tok = os.environ.get("FERNWOOD_QA_TOKEN", "").strip()
     if tok:
@@ -186,6 +206,24 @@ def live():
                     "keys=%s" % (sorted(hit.keys()) if hit else None))
     all_ok &= check("HYGIENE  the row is instrumentation to every reader (harness id + test flag)",
                     bool(hit) and momlib.is_instrumentation(hit))
+
+    # 3b. C5 6a — the KEY the write landed under, read from the namespace itself
+    #     (wrangler, remote). Prefixed `<estateId>:feedback:<date>` present; NO
+    #     unprefixed `feedback:<date>` written by this run. Skipped, loudly, when
+    #     wrangler is not authenticated — a skipped check is not a pass.
+    est = health.get("estateId")
+    keys = kv_keys_remote(QA_NAMESPACE_ID)
+    if keys is None:
+        print("  ⚠️  KV LIST  skipped — wrangler not available/authenticated; the prefix is UNVERIFIED this run")
+    else:
+        today_s = str(today)
+        all_ok &= check("C5 6a  the namespace holds `%s:feedback:%s`" % (est, today_s),
+                        bool(est) and ("%s:feedback:%s" % (est, today_s)) in keys, str(sorted(k for k in keys if "feedback" in k)))
+        legacy_today = "feedback:%s" % today_s
+        all_ok &= check("C5 6b  no UNPREFIXED `feedback:%s` exists in QA (today is past QA's LEGACY_BEFORE)" % today_s,
+                        legacy_today not in keys or today_s < (health.get("legacyBefore") or ""),
+                        "legacyBefore=%s" % health.get("legacyBefore"))
+        all_ok &= check("C5 6a  /health reports estateId + legacyBefore", bool(est) and bool(health.get("legacyBefore")))
 
     # 4. negative controls
     prod_rows = read_feedback(PROD_URL, prod_tok, start, end)
