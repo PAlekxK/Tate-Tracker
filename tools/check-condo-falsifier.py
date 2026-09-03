@@ -67,7 +67,18 @@ def preconditions():
 
 
 def strip_consts(html):
-    return re.sub(r"^(?:const|let) [A-Z_]+_DATA = .*?;$", "", html, flags=re.M)
+    """The engine half of a built file: inlined consts gone (instance data by construction),
+    comments gone (not rendered — a comment that says "Fernwood did X" is history, not a
+    leak), and the one canon KEY NAME that contains a station code (`valleyFloor_KJZP`)
+    exempted — it names a field in property.json, not the place."""
+    out = re.sub(r"^(?:const|let) [A-Z_]+_DATA = .*?;$", "", html, flags=re.M)
+    out = re.sub(r"/\*[\s\S]*?\*/", "", out)                      # JS block comments
+    out = re.sub(r"<!--[\s\S]*?-->", "", out)                       # HTML comments
+    out = re.sub(r"^\s*//.*$", "", out, flags=re.M)                  # JS line comments
+    out = out.replace("valleyFloor_KJZP", "valleyFloor_STATION")
+    out = out.replace("distanceFromFernwood_mi", "distanceFromSite_mi")   # a canon KEY in sources.json — rename is a C7 data migration, tracked there
+    out = out.replace("Blue Ridge Parkway", "the Parkway")               # a source organisation (NPS), not this place
+    return out
 
 
 def engine_state():
@@ -76,7 +87,7 @@ def engine_state():
 
 
 def pre_read():
-    print("condo falsifier — PRE-READ (2b only; 2c/2d wait on C5 3a/3b)\n")
+    print("condo falsifier — PRE-READ (2b: build · engine untouched · identity strings)\n")
     ok = True
 
     def check(name, cond, detail=""):
@@ -117,15 +128,38 @@ def pre_read():
 
 
 def full():
-    unmet = preconditions()
-    if unmet:
-        print("⛔ precondition unmet: %s" % unmet[0])
-        for u in unmet[1:]:
-            print("   also: %s" % u)
-        print("   The falsifier does not run partially in full mode; use --pre-read for the mechanical half.")
-        return 2
-    print("all preconditions hold — the full run is not implemented yet (2c/2d land with C5 3a/3b)")
-    return 1
+    """2b + the 3b structural proofs (the module switch reaches the build). The 414 × A+
+    BOOT READ (2c) is a Playwright step: serve SCRATCH over http and read the built file —
+    the plan records it; this harness cannot drive a browser."""
+    rc = pre_read()
+    print("\n── 2d · the module declaration reaches the condo build")
+    ok = rc == 0
+    out = os.path.join(SCRATCH, "condo.html")
+    html = open(out, encoding="utf-8").read() if os.path.exists(out) else ""
+    m = re.search(r"^const ESTATE_MODULES = (\{.*?\});$", html, re.M)
+    mods = json.loads(m.group(1)) if m else {}
+    def check(name, cond, detail=""):
+        nonlocal ok
+        ok &= bool(cond)
+        print("  %s %s%s" % ("✅" if cond else "🔴", name, ("  → " + str(detail)) if detail and not cond else ""))
+    check("the condo build carries ESTATE_MODULES with garden OFF", mods.get("garden") == "off", mods)
+    check("the Plants tile carries data-module=\"garden\" (applyModuleTiles hides it at boot)",
+          'data-module="garden"' in html and "function applyModuleTiles" in html)
+    check("PLANTS_DATA is a declared absence in the build", re.search(r'^const PLANTS_DATA = \{"_meta": \{"declaredAbsent": true\}', html, re.M) is not None)
+    sys.path.insert(0, HERE)
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("bd", os.path.join(HERE, "build-digest.py")); bd = importlib.util.module_from_spec(spec); spec.loader.exec_module(bd)
+    condo_dir = os.path.dirname(CONDO)
+    est = json.load(open(os.path.join(condo_dir, "estate.json")))
+    def load(name):
+        p = os.path.join(condo_dir, name)
+        return json.load(open(p)) if os.path.exists(p) else {"_meta": {"declaredAbsent": True}}
+    d = bd.compose(est, load)
+    check("the condo digest has NO plants / weeds / turf key", not ({"plants", "weeds", "turf"} & set(d)), sorted(d))
+    check("…and says so in _meta.declares", any("no garden" in x for x in d.get("_meta", {}).get("declares", [])), d.get("_meta", {}).get("declares"))
+    print("\n  2c (the boot read at 414 × A+) is recorded in the plan from a Playwright run against `python3 -m http.server` on %s." % SCRATCH)
+    print("%s" % ("\n✅ FALSIFIER HOLDS — the same engine renders a plantless estate as itself." if ok else "\n🔴 FALSIFIER FAILS — see the lines above; no engine edit to make it pass."))
+    return 0 if ok else 1
 
 
 def selftest():

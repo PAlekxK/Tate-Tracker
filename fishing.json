@@ -13,7 +13,8 @@
       "Appalachian water temperature lapse research applied from property.json elevation data"
     ],
     "notes": "Water temperature estimates for Lake Sequoyah are derived from seasonal air temperature patterns adjusted for 2,800 ft elevation. Actual lake temperature varies — a $15 fishing thermometer on a line is the most reliable tool. Regulations should be verified annually at georgiawildlife.com before each season.",
-    "modelVersion": "2026-07-06"
+    "modelVersion": "2026-07-06",
+    "cardSummary": "Lake Sequoyah · 0.3 mi from the property"
   },
   "lake": {
     "name": "Lake Sequoyah",

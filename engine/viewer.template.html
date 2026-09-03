@@ -6309,7 +6309,7 @@
      succeeds), then hands off to Garden Guru for the answer + follow-up. The log
      never depends on the AI — a Guru refusal/timeout can't eat the note. Preserves
      the AI-free capture path; AI is the best-effort second step. -->
-<section class="unified-input" id="unified-input" aria-label="Note or ask the Fernwood Almanac">
+<section class="unified-input" id="unified-input" aria-label="{{IDENTITY:inputAria}}">
   <!-- ═══ TWO DOORS + A JUMP STRIP (Paul, 2026-08-02 evening — the R2-C exhibit,
        .design-options/2026-08-02-input-ia). The stack is now:
          0. the jump strip  — bare card names, "super quick access [so] you don't
@@ -6364,7 +6364,7 @@
   <div class="ic-card ic-card--almanac">
   <div class="ic-head">
     <span class="ic-head-icon almanac" aria-hidden="true">📖</span>
-    <span class="ic-head-title">Fernwood Almanac</span>
+    <span class="ic-head-title">{{IDENTITY:journalTile}}</span>
     <button type="button" class="ic-head-link" id="ui-history-link"
             aria-label="Look back at what you've written and asked before">Look back ›</button>
   </div>
@@ -6488,7 +6488,7 @@
          than describing the feature; she named this surface, so she names it.
          Copy is Mom-facing → human-confirmed before it ships. -->
     <button type="button" class="dash-cell" onclick="expandCard('card-fieldnotes','dash')">
-      <div class="dash-cell-label">Fernwood Almanac</div>
+      <div class="dash-cell-label">{{IDENTITY:journalTile}}</div>
       <div class="dash-cell-sub" id="dash-journal-sub">Look back at what you've written</div>
     </button>
   </div>
@@ -6504,8 +6504,8 @@
       <div class="dash-cell-sub">Trucks, mowers, saws — what each one is and how to keep it running</div>
     </button>
     <button type="button" class="dash-cell dash-small dash-imagery" data-module="place" onclick="expandCard('card-property','dash')">
-      <div class="dash-cell-label">Fernwood</div>
-      <div class="dash-cell-sub" id="dash-property-sub">On Cherokee land · Blue Ridge thermal belt</div>
+      <div class="dash-cell-label">{{IDENTITY:propertyTile}}</div>
+      <div class="dash-cell-sub" id="dash-property-sub">{{IDENTITY:propertyTileSub}}</div>
     </button>
   </div>
 </div>
@@ -6654,7 +6654,7 @@
       </div>
       <div class="plant-context-section">
         <div class="plant-context-section-title">On the property</div>
-        <div class="plant-context-section-intro">Below the plants the card tends, the land itself is a Mesic Cove and Montane Oak Forest mosaic at 2,873 feet. What grows here naturally — and what is missing — sits in this section.</div>
+        <div class="plant-context-section-intro" data-record-prose="property.intros.plantContext"></div>
 
         <div class="plant-context-callout">
           <div class="plant-context-callout-heading">Rare species worth looking for</div>
@@ -6680,7 +6680,7 @@
         <div class="plant-context-callout">
           <div class="plant-context-callout-heading">Sourcing</div>
           <div class="plant-context-callout-body">
-            For restorative plantings, wild-collected stock drives some natives toward extinction; ethically-propagated nurseries are the only acceptable path for rare species. The State Botanical Garden of Georgia and the Georgia Native Plant Initiative publish a <a href="https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1.pdf" target="_blank" rel="noopener">recommended-nurseries list</a> (June 2025). Nearby: <a href="http://www.nearlynativenursery.com/" target="_blank" rel="noopener">Nearly Native</a> (Fayetteville), <a href="https://www.northgeorgianatives.com/" target="_blank" rel="noopener">North Georgia Native Plant Nursery</a>, and <a href="https://gardensoftheblueridge.com/" target="_blank" rel="noopener">Gardens of the Blue Ridge</a> (NC) for hard-to-find Appalachian wildflowers.
+            For restorative plantings, wild-collected stock drives some natives toward extinction; ethically-propagated nurseries are the only acceptable path for rare species. The State Botanical Garden of Georgia and the Georgia Native Plant Initiative publish a <a href="https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1.pdf" target="_blank" rel="noopener">recommended-nurseries list</a> (June 2025). Nearby: <a href="http://www.nearlynativenursery.com/" target="_blank" rel="noopener">Nearly Native</a> (Fayetteville), <a href="https://www.northgeorgianatives.com/" target="_blank" rel="noopener">North Georgia Native Plant Nursery</a>, and <a href="https://gardensoftheblueridge.com/" target="_blank" rel="noopener">Gardens of the <span data-site="regionShort">Blue Ridge</span></a> (NC) for hard-to-find Appalachian wildflowers.
           </div>
         </div>
       </div>
@@ -6747,7 +6747,7 @@
       <div class="main-card-icon fishing">🎣</div>
       <div class="main-card-meta">
         <div class="main-card-title">Fishing</div>
-        <div class="main-card-summary">Lake Sequoyah · 0.3 mi from the property</div>
+        <div class="main-card-summary" data-record-prose="fishing.cardSummary"></div>
       </div>
       <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
     </div>
@@ -6846,7 +6846,7 @@
       <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
     </div>
     <div class="main-card-body">
-      <div class="cand-intro">Plants we might bring back to this slope. Natives that fit the cove forest and oak forest mosaic at 2,873 ft, the seepage in the spring drainage, and the wildlife the property already supports. Distinct from what's planted (that lives in the Plants card) — this is what could grow here.</div>
+      <div class="cand-intro" data-record-prose="property.intros.candidates"></div>
       <div class="cand-list" id="candidates-body"></div>
     </div>
   </div>
@@ -7014,6 +7014,11 @@ const RELEASE_NOTES_DATA = [{"date": "2026-09-01", "title": "The map got its nam
 // C5 3b — THIS ESTATE'S MODULE SET, built by tools/build-viewer.py from estate.json (one fact, one source).
 // The strip's tiles carry data-module and render from the declared roster × this set — see applyModuleTiles().
 const ESTATE_MODULES = {{ESTATE:modules}};
+// The estate's display names for JS (C4 5c): filled at build from the instance identity —
+// the same source as the masthead. Engine code says ESTATE_NAME / JOURNAL_NAME / STATION_NAME, never the word.
+const ESTATE_NAME = "{{IDENTITY:nameJs}}";
+const JOURNAL_NAME = "{{IDENTITY:journalTileJs}}";
+const STATION_NAME = "{{IDENTITY:stationName}}";
 const TURF_DATA = {{DATA:TURF_DATA}};
 const WEEDS_DATA = {{DATA:WEEDS_DATA}};
 const INSECTS_DATA = {{DATA:INSECTS_DATA}};
@@ -7027,16 +7032,16 @@ const SNAKES_DATA = {{DATA:SNAKES_DATA}};
 const LIZARDS_DATA = {{DATA:LIZARDS_DATA}};
 const MAMMALS_DATA = {{DATA:MAMMALS_DATA}};
 const SUN_HORIZON_DATA = {"_meta":{"purpose":"Terrain-horizon sunrise/sunset — when the sun actually clears/leaves the skyline, not the flat sea-level horizon Open-Meteo returns. HOUSE drives the dashboard sunset tile; LAKE drives the fishing dawn/dusk windows (that's where fishing happens).","method":"1-arcsec SRTM DEM (AWS terrain-tiles N34W085); skyline = max terrain angular elevation per azimuth out to 30 km, Earth-curvature + refraction k=0.13; upper-limb crossing (semidiameter 0.267 + horizon refraction 0.567); NOAA solar position.","caveat":"SRTM is a surface model (includes canopy), so these are 'sun off/onto the land' times, not bare-earth geometry. Local clock (America/New_York, DST per date). Computed for 2026; year-to-year drift is <1 min.","generated":"2026-07-25"},"house":{"lat":34.549665,"lon":-84.36748,"demElev_ft":2891,"westSkylineMax_deg":-0.69,"eastSkylineMax_deg":13.29,"byDate":{"01-01":{"sunrise":"07:49","sunset":"17:44"},"01-02":{"sunrise":"07:49","sunset":"17:45"},"01-03":{"sunrise":"07:49","sunset":"17:46"},"01-04":{"sunrise":"07:49","sunset":"17:47"},"01-05":{"sunrise":"07:49","sunset":"17:48"},"01-06":{"sunrise":"07:49","sunset":"17:48"},"01-07":{"sunrise":"07:48","sunset":"17:50"},"01-08":{"sunrise":"07:48","sunset":"17:50"},"01-09":{"sunrise":"07:48","sunset":"17:51"},"01-10":{"sunrise":"07:48","sunset":"17:52"},"01-11":{"sunrise":"07:48","sunset":"17:53"},"01-12":{"sunrise":"07:47","sunset":"17:54"},"01-13":{"sunrise":"07:47","sunset":"17:55"},"01-14":{"sunrise":"07:46","sunset":"17:56"},"01-15":{"sunrise":"07:46","sunset":"17:56"},"01-16":{"sunrise":"07:45","sunset":"17:58"},"01-17":{"sunrise":"07:45","sunset":"17:58"},"01-18":{"sunrise":"07:44","sunset":"17:00"},"01-19":{"sunrise":"07:44","sunset":"18:00"},"01-20":{"sunrise":"07:43","sunset":"18:02"},"01-21":{"sunrise":"07:43","sunset":"18:02"},"01-22":{"sunrise":"07:42","sunset":"18:03"},"01-23":{"sunrise":"07:42","sunset":"18:04"},"01-24":{"sunrise":"07:42","sunset":"18:05"},"01-25":{"sunrise":"07:42","sunset":"18:06"},"01-26":{"sunrise":"07:42","sunset":"18:07"},"01-27":{"sunrise":"07:42","sunset":"18:08"},"01-28":{"sunrise":"07:42","sunset":"18:09"},"01-29":{"sunrise":"07:41","sunset":"18:10"},"01-30":{"sunrise":"07:41","sunset":"18:11"},"01-31":{"sunrise":"07:41","sunset":"18:12"},"02-01":{"sunrise":"07:41","sunset":"18:13"},"02-02":{"sunrise":"07:40","sunset":"18:14"},"02-03":{"sunrise":"07:40","sunset":"18:15"},"02-04":{"sunrise":"07:40","sunset":"18:16"},"02-05":{"sunrise":"07:40","sunset":"18:17"},"02-06":{"sunrise":"07:39","sunset":"18:18"},"02-07":{"sunrise":"07:38","sunset":"18:19"},"02-08":{"sunrise":"07:38","sunset":"18:20"},"02-09":{"sunrise":"07:38","sunset":"18:21"},"02-10":{"sunrise":"07:37","sunset":"18:22"},"02-11":{"sunrise":"07:36","sunset":"18:23"},"02-12":{"sunrise":"07:36","sunset":"18:24"},"02-13":{"sunrise":"07:35","sunset":"18:25"},"02-14":{"sunrise":"07:34","sunset":"18:26"},"02-15":{"sunrise":"07:33","sunset":"18:27"},"02-16":{"sunrise":"07:32","sunset":"18:28"},"02-17":{"sunrise":"07:31","sunset":"18:29"},"02-18":{"sunrise":"07:30","sunset":"18:30"},"02-19":{"sunrise":"07:29","sunset":"18:30"},"02-20":{"sunrise":"07:28","sunset":"18:32"},"02-21":{"sunrise":"07:26","sunset":"18:32"},"02-22":{"sunrise":"07:24","sunset":"18:33"},"02-23":{"sunrise":"07:24","sunset":"18:34"},"02-24":{"sunrise":"07:23","sunset":"18:35"},"02-25":{"sunrise":"07:22","sunset":"18:36"},"02-26":{"sunrise":"07:22","sunset":"18:36"},"02-27":{"sunrise":"07:21","sunset":"18:37"},"02-28":{"sunrise":"07:20","sunset":"18:38"},"03-01":{"sunrise":"07:20","sunset":"18:39"},"03-02":{"sunrise":"07:19","sunset":"18:40"},"03-03":{"sunrise":"07:18","sunset":"18:40"},"03-04":{"sunrise":"07:18","sunset":"18:41"},"03-05":{"sunrise":"07:17","sunset":"18:42"},"03-06":{"sunrise":"07:16","sunset":"18:43"},"03-07":{"sunrise":"07:16","sunset":"18:44"},"03-08":{"sunrise":"08:15","sunset":"19:44"},"03-09":{"sunrise":"08:14","sunset":"19:45"},"03-10":{"sunrise":"08:13","sunset":"19:46"},"03-11":{"sunrise":"08:12","sunset":"19:47"},"03-12":{"sunrise":"08:12","sunset":"19:48"},"03-13":{"sunrise":"08:11","sunset":"19:48"},"03-14":{"sunrise":"08:10","sunset":"19:50"},"03-15":{"sunrise":"08:09","sunset":"19:50"},"03-16":{"sunrise":"08:08","sunset":"19:52"},"03-17":{"sunrise":"08:08","sunset":"19:52"},"03-18":{"sunrise":"08:07","sunset":"19:54"},"03-19":{"sunrise":"08:06","sunset":"19:54"},"03-20":{"sunrise":"08:05","sunset":"19:55"},"03-21":{"sunrise":"08:04","sunset":"19:56"},"03-22":{"sunrise":"08:04","sunset":"19:56"},"03-23":{"sunrise":"08:02","sunset":"19:57"},"03-24":{"sunrise":"08:02","sunset":"19:58"},"03-25":{"sunrise":"08:01","sunset":"19:58"},"03-26":{"sunrise":"08:00","sunset":"19:59"},"03-27":{"sunrise":"07:59","sunset":"20:00"},"03-28":{"sunrise":"07:58","sunset":"20:01"},"03-29":{"sunrise":"07:58","sunset":"20:02"},"03-30":{"sunrise":"07:57","sunset":"20:02"},"03-31":{"sunrise":"07:56","sunset":"20:04"},"04-01":{"sunrise":"07:55","sunset":"20:04"},"04-02":{"sunrise":"07:54","sunset":"20:06"},"04-03":{"sunrise":"07:54","sunset":"20:06"},"04-04":{"sunrise":"07:53","sunset":"20:07"},"04-05":{"sunrise":"07:52","sunset":"20:08"},"04-06":{"sunrise":"07:51","sunset":"20:08"},"04-07":{"sunrise":"07:50","sunset":"20:09"},"04-08":{"sunrise":"07:50","sunset":"20:09"},"04-09":{"sunrise":"07:49","sunset":"20:10"},"04-10":{"sunrise":"07:48","sunset":"20:10"},"04-11":{"sunrise":"07:48","sunset":"20:11"},"04-12":{"sunrise":"07:47","sunset":"20:12"},"04-13":{"sunrise":"07:46","sunset":"20:12"},"04-14":{"sunrise":"07:45","sunset":"20:12"},"04-15":{"sunrise":"07:44","sunset":"20:13"},"04-16":{"sunrise":"07:44","sunset":"20:14"},"04-17":{"sunrise":"07:43","sunset":"20:15"},"04-18":{"sunrise":"07:42","sunset":"20:16"},"04-19":{"sunrise":"07:42","sunset":"20:17"},"04-20":{"sunrise":"07:41","sunset":"20:18"},"04-21":{"sunrise":"07:40","sunset":"20:20"},"04-22":{"sunrise":"07:40","sunset":"20:20"},"04-23":{"sunrise":"07:39","sunset":"20:21"},"04-24":{"sunrise":"07:38","sunset":"20:22"},"04-25":{"sunrise":"07:38","sunset":"20:23"},"04-26":{"sunrise":"07:37","sunset":"20:24"},"04-27":{"sunrise":"07:36","sunset":"20:24"},"04-28":{"sunrise":"07:36","sunset":"20:25"},"04-29":{"sunrise":"07:35","sunset":"20:26"},"04-30":{"sunrise":"07:35","sunset":"20:27"},"05-01":{"sunrise":"07:34","sunset":"20:28"},"05-02":{"sunrise":"07:34","sunset":"20:29"},"05-03":{"sunrise":"07:33","sunset":"20:30"},"05-04":{"sunrise":"07:32","sunset":"20:30"},"05-05":{"sunrise":"07:32","sunset":"20:31"},"05-06":{"sunrise":"07:32","sunset":"20:32"},"05-07":{"sunrise":"07:31","sunset":"20:32"},"05-08":{"sunrise":"07:31","sunset":"20:33"},"05-09":{"sunrise":"07:30","sunset":"20:34"},"05-10":{"sunrise":"07:30","sunset":"20:35"},"05-11":{"sunrise":"07:30","sunset":"20:36"},"05-12":{"sunrise":"07:29","sunset":"20:36"},"05-13":{"sunrise":"07:29","sunset":"20:37"},"05-14":{"sunrise":"07:28","sunset":"20:38"},"05-15":{"sunrise":"07:28","sunset":"20:39"},"05-16":{"sunrise":"07:28","sunset":"20:40"},"05-17":{"sunrise":"07:27","sunset":"20:40"},"05-18":{"sunrise":"07:27","sunset":"20:41"},"05-19":{"sunrise":"07:27","sunset":"20:42"},"05-20":{"sunrise":"07:26","sunset":"20:42"},"05-21":{"sunrise":"07:26","sunset":"20:43"},"05-22":{"sunrise":"07:26","sunset":"20:44"},"05-23":{"sunrise":"07:26","sunset":"20:44"},"05-24":{"sunrise":"07:26","sunset":"20:45"},"05-25":{"sunrise":"07:26","sunset":"20:46"},"05-26":{"sunrise":"07:25","sunset":"20:46"},"05-27":{"sunrise":"07:25","sunset":"20:47"},"05-28":{"sunrise":"07:25","sunset":"20:48"},"05-29":{"sunrise":"07:25","sunset":"20:48"},"05-30":{"sunrise":"07:25","sunset":"20:49"},"05-31":{"sunrise":"07:25","sunset":"20:49"},"06-01":{"sunrise":"07:25","sunset":"20:50"},"06-02":{"sunrise":"07:25","sunset":"20:50"},"06-03":{"sunrise":"07:24","sunset":"20:50"},"06-04":{"sunrise":"07:24","sunset":"20:51"},"06-05":{"sunrise":"07:24","sunset":"20:52"},"06-06":{"sunrise":"07:25","sunset":"20:52"},"06-07":{"sunrise":"07:25","sunset":"20:52"},"06-08":{"sunrise":"07:25","sunset":"20:53"},"06-09":{"sunrise":"07:25","sunset":"20:54"},"06-10":{"sunrise":"07:25","sunset":"20:54"},"06-11":{"sunrise":"07:25","sunset":"20:54"},"06-12":{"sunrise":"07:25","sunset":"20:55"},"06-13":{"sunrise":"07:25","sunset":"20:55"},"06-14":{"sunrise":"07:25","sunset":"20:56"},"06-15":{"sunrise":"07:26","sunset":"20:56"},"06-16":{"sunrise":"07:26","sunset":"20:56"},"06-17":{"sunrise":"07:26","sunset":"20:56"},"06-18":{"sunrise":"07:26","sunset":"20:57"},"06-19":{"sunrise":"07:26","sunset":"20:57"},"06-20":{"sunrise":"07:26","sunset":"20:57"},"06-21":{"sunrise":"07:26","sunset":"20:58"},"06-22":{"sunrise":"07:27","sunset":"20:58"},"06-23":{"sunrise":"07:27","sunset":"20:58"},"06-24":{"sunrise":"07:27","sunset":"20:58"},"06-25":{"sunrise":"07:28","sunset":"20:58"},"06-26":{"sunrise":"07:28","sunset":"20:58"},"06-27":{"sunrise":"07:28","sunset":"20:58"},"06-28":{"sunrise":"07:28","sunset":"20:58"},"06-29":{"sunrise":"07:28","sunset":"20:58"},"06-30":{"sunrise":"07:29","sunset":"20:58"},"07-01":{"sunrise":"07:29","sunset":"20:58"},"07-02":{"sunrise":"07:30","sunset":"20:58"},"07-03":{"sunrise":"07:30","sunset":"20:58"},"07-04":{"sunrise":"07:30","sunset":"20:58"},"07-05":{"sunrise":"07:30","sunset":"20:58"},"07-06":{"sunrise":"07:31","sunset":"20:58"},"07-07":{"sunrise":"07:31","sunset":"20:58"},"07-08":{"sunrise":"07:32","sunset":"20:57"},"07-09":{"sunrise":"07:32","sunset":"20:57"},"07-10":{"sunrise":"07:32","sunset":"20:57"},"07-11":{"sunrise":"07:32","sunset":"20:57"},"07-12":{"sunrise":"07:33","sunset":"20:57"},"07-13":{"sunrise":"07:33","sunset":"20:56"},"07-14":{"sunrise":"07:34","sunset":"20:56"},"07-15":{"sunrise":"07:34","sunset":"20:56"},"07-16":{"sunrise":"07:34","sunset":"20:55"},"07-17":{"sunrise":"07:34","sunset":"20:55"},"07-18":{"sunrise":"07:35","sunset":"20:54"},"07-19":{"sunrise":"07:35","sunset":"20:54"},"07-20":{"sunrise":"07:36","sunset":"20:54"},"07-21":{"sunrise":"07:36","sunset":"20:53"},"07-22":{"sunrise":"07:36","sunset":"20:52"},"07-23":{"sunrise":"07:36","sunset":"20:52"},"07-24":{"sunrise":"07:37","sunset":"20:51"},"07-25":{"sunrise":"07:37","sunset":"20:50"},"07-26":{"sunrise":"07:38","sunset":"20:50"},"07-27":{"sunrise":"07:38","sunset":"20:49"},"07-28":{"sunrise":"07:38","sunset":"20:48"},"07-29":{"sunrise":"07:38","sunset":"20:47"},"07-30":{"sunrise":"07:39","sunset":"20:46"},"07-31":{"sunrise":"07:39","sunset":"20:46"},"08-01":{"sunrise":"07:40","sunset":"20:45"},"08-02":{"sunrise":"07:40","sunset":"20:44"},"08-03":{"sunrise":"07:40","sunset":"20:43"},"08-04":{"sunrise":"07:40","sunset":"20:42"},"08-05":{"sunrise":"07:40","sunset":"20:41"},"08-06":{"sunrise":"07:41","sunset":"20:40"},"08-07":{"sunrise":"07:41","sunset":"20:39"},"08-08":{"sunrise":"07:42","sunset":"20:38"},"08-09":{"sunrise":"07:42","sunset":"20:37"},"08-10":{"sunrise":"07:42","sunset":"20:36"},"08-11":{"sunrise":"07:42","sunset":"20:35"},"08-12":{"sunrise":"07:42","sunset":"20:34"},"08-13":{"sunrise":"07:43","sunset":"20:33"},"08-14":{"sunrise":"07:43","sunset":"20:32"},"08-15":{"sunrise":"07:43","sunset":"20:30"},"08-16":{"sunrise":"07:44","sunset":"20:29"},"08-17":{"sunrise":"07:44","sunset":"20:28"},"08-18":{"sunrise":"07:44","sunset":"20:27"},"08-19":{"sunrise":"07:44","sunset":"20:26"},"08-20":{"sunrise":"07:44","sunset":"20:24"},"08-21":{"sunrise":"07:45","sunset":"20:23"},"08-22":{"sunrise":"07:45","sunset":"20:21"},"08-23":{"sunrise":"07:45","sunset":"20:20"},"08-24":{"sunrise":"07:45","sunset":"20:18"},"08-25":{"sunrise":"07:46","sunset":"20:16"},"08-26":{"sunrise":"07:46","sunset":"20:15"},"08-27":{"sunrise":"07:46","sunset":"20:14"},"08-28":{"sunrise":"07:46","sunset":"20:13"},"08-29":{"sunrise":"07:46","sunset":"20:12"},"08-30":{"sunrise":"07:46","sunset":"20:10"},"08-31":{"sunrise":"07:46","sunset":"20:09"},"09-01":{"sunrise":"07:47","sunset":"20:08"},"09-02":{"sunrise":"07:47","sunset":"20:07"},"09-03":{"sunrise":"07:47","sunset":"20:06"},"09-04":{"sunrise":"07:47","sunset":"20:05"},"09-05":{"sunrise":"07:48","sunset":"20:04"},"09-06":{"sunrise":"07:48","sunset":"20:03"},"09-07":{"sunrise":"07:48","sunset":"20:02"},"09-08":{"sunrise":"07:48","sunset":"20:00"},"09-09":{"sunrise":"07:48","sunset":"19:58"},"09-10":{"sunrise":"07:48","sunset":"19:57"},"09-11":{"sunrise":"07:48","sunset":"19:55"},"09-12":{"sunrise":"07:48","sunset":"19:54"},"09-13":{"sunrise":"07:49","sunset":"19:52"},"09-14":{"sunrise":"07:49","sunset":"19:51"},"09-15":{"sunrise":"07:49","sunset":"19:49"},"09-16":{"sunrise":"07:49","sunset":"19:48"},"09-17":{"sunrise":"07:49","sunset":"19:46"},"09-18":{"sunrise":"07:50","sunset":"19:45"},"09-19":{"sunrise":"07:50","sunset":"19:44"},"09-20":{"sunrise":"07:50","sunset":"19:43"},"09-21":{"sunrise":"07:50","sunset":"19:42"},"09-22":{"sunrise":"07:50","sunset":"19:40"},"09-23":{"sunrise":"07:50","sunset":"19:39"},"09-24":{"sunrise":"07:50","sunset":"19:37"},"09-25":{"sunrise":"07:50","sunset":"19:36"},"09-26":{"sunrise":"07:51","sunset":"19:34"},"09-27":{"sunrise":"07:51","sunset":"19:32"},"09-28":{"sunrise":"07:51","sunset":"19:30"},"09-29":{"sunrise":"07:51","sunset":"19:29"},"09-30":{"sunrise":"07:52","sunset":"19:28"},"10-01":{"sunrise":"07:52","sunset":"19:26"},"10-02":{"sunrise":"07:52","sunset":"19:25"},"10-03":{"sunrise":"07:52","sunset":"19:24"},"10-04":{"sunrise":"07:52","sunset":"19:22"},"10-05":{"sunrise":"07:52","sunset":"19:21"},"10-06":{"sunrise":"07:53","sunset":"19:20"},"10-07":{"sunrise":"07:53","sunset":"19:18"},"10-08":{"sunrise":"07:53","sunset":"19:17"},"10-09":{"sunrise":"07:53","sunset":"19:16"},"10-10":{"sunrise":"07:54","sunset":"19:14"},"10-11":{"sunrise":"07:54","sunset":"19:13"},"10-12":{"sunrise":"07:54","sunset":"19:12"},"10-13":{"sunrise":"07:54","sunset":"19:11"},"10-14":{"sunrise":"07:54","sunset":"19:10"},"10-15":{"sunrise":"07:55","sunset":"19:08"},"10-16":{"sunrise":"07:55","sunset":"19:07"},"10-17":{"sunrise":"07:56","sunset":"19:06"},"10-18":{"sunrise":"07:56","sunset":"19:05"},"10-19":{"sunrise":"07:56","sunset":"19:04"},"10-20":{"sunrise":"07:57","sunset":"19:02"},"10-21":{"sunrise":"07:58","sunset":"19:02"},"10-22":{"sunrise":"07:59","sunset":"19:00"},"10-23":{"sunrise":"08:00","sunset":"18:59"},"10-24":{"sunrise":"08:01","sunset":"18:58"},"10-25":{"sunrise":"08:02","sunset":"18:57"},"10-26":{"sunrise":"08:03","sunset":"18:56"},"10-27":{"sunrise":"08:04","sunset":"18:55"},"10-28":{"sunrise":"08:04","sunset":"18:54"},"10-29":{"sunrise":"08:05","sunset":"18:52"},"10-30":{"sunrise":"08:06","sunset":"18:52"},"10-31":{"sunrise":"08:06","sunset":"18:51"},"11-01":{"sunrise":"07:07","sunset":"17:50"},"11-02":{"sunrise":"07:07","sunset":"17:49"},"11-03":{"sunrise":"07:08","sunset":"17:48"},"11-04":{"sunrise":"07:08","sunset":"17:47"},"11-05":{"sunrise":"07:09","sunset":"17:46"},"11-06":{"sunrise":"07:10","sunset":"17:46"},"11-07":{"sunrise":"07:10","sunset":"17:44"},"11-08":{"sunrise":"07:10","sunset":"17:44"},"11-09":{"sunrise":"07:11","sunset":"17:43"},"11-10":{"sunrise":"07:12","sunset":"17:42"},"11-11":{"sunrise":"07:12","sunset":"17:42"},"11-12":{"sunrise":"07:12","sunset":"17:41"},"11-13":{"sunrise":"07:13","sunset":"17:40"},"11-14":{"sunrise":"07:13","sunset":"17:40"},"11-15":{"sunrise":"07:14","sunset":"17:39"},"11-16":{"sunrise":"07:14","sunset":"17:38"},"11-17":{"sunrise":"07:15","sunset":"17:38"},"11-18":{"sunrise":"07:16","sunset":"17:37"},"11-19":{"sunrise":"07:16","sunset":"17:37"},"11-20":{"sunrise":"07:17","sunset":"17:36"},"11-21":{"sunrise":"07:18","sunset":"17:36"},"11-22":{"sunrise":"07:19","sunset":"17:36"},"11-23":{"sunrise":"07:20","sunset":"17:35"},"11-24":{"sunrise":"07:21","sunset":"17:35"},"11-25":{"sunrise":"07:22","sunset":"17:34"},"11-26":{"sunrise":"07:24","sunset":"17:34"},"11-27":{"sunrise":"07:25","sunset":"17:34"},"11-28":{"sunrise":"07:26","sunset":"17:34"},"11-29":{"sunrise":"07:27","sunset":"17:34"},"11-30":{"sunrise":"07:28","sunset":"17:33"},"12-01":{"sunrise":"07:29","sunset":"17:33"},"12-02":{"sunrise":"07:30","sunset":"17:33"},"12-03":{"sunrise":"07:31","sunset":"17:33"},"12-04":{"sunrise":"07:32","sunset":"17:33"},"12-05":{"sunrise":"07:33","sunset":"17:33"},"12-06":{"sunrise":"07:34","sunset":"17:33"},"12-07":{"sunrise":"07:35","sunset":"17:33"},"12-08":{"sunrise":"07:36","sunset":"17:33"},"12-09":{"sunrise":"07:37","sunset":"17:33"},"12-10":{"sunrise":"07:38","sunset":"17:33"},"12-11":{"sunrise":"07:38","sunset":"17:34"},"12-12":{"sunrise":"07:39","sunset":"17:34"},"12-13":{"sunrise":"07:40","sunset":"17:34"},"12-14":{"sunrise":"07:41","sunset":"17:34"},"12-15":{"sunrise":"07:42","sunset":"17:34"},"12-16":{"sunrise":"07:42","sunset":"17:35"},"12-17":{"sunrise":"07:43","sunset":"17:35"},"12-18":{"sunrise":"07:44","sunset":"17:36"},"12-19":{"sunrise":"07:44","sunset":"17:36"},"12-20":{"sunrise":"07:45","sunset":"17:36"},"12-21":{"sunrise":"07:45","sunset":"17:37"},"12-22":{"sunrise":"07:46","sunset":"17:38"},"12-23":{"sunrise":"07:46","sunset":"17:38"},"12-24":{"sunrise":"07:46","sunset":"17:38"},"12-25":{"sunrise":"07:47","sunset":"17:39"},"12-26":{"sunrise":"07:47","sunset":"17:40"},"12-27":{"sunrise":"07:48","sunset":"17:40"},"12-28":{"sunrise":"07:48","sunset":"17:41"},"12-29":{"sunrise":"07:48","sunset":"17:42"},"12-30":{"sunrise":"07:48","sunset":"17:42"},"12-31":{"sunrise":"07:48","sunset":"17:43"}}},"lake":{"lat":34.54516,"lon":-84.36684,"demElev_ft":2769,"westSkylineMax_deg":2.86,"eastSkylineMax_deg":7.78,"byDate":{"01-01":{"sunrise":"08:28","sunset":"17:22"},"01-02":{"sunrise":"08:29","sunset":"17:23"},"01-03":{"sunrise":"08:29","sunset":"17:24"},"01-04":{"sunrise":"08:29","sunset":"17:25"},"01-05":{"sunrise":"08:29","sunset":"17:26"},"01-06":{"sunrise":"08:29","sunset":"17:27"},"01-07":{"sunrise":"08:29","sunset":"17:28"},"01-08":{"sunrise":"08:29","sunset":"17:29"},"01-09":{"sunrise":"08:29","sunset":"17:30"},"01-10":{"sunrise":"08:28","sunset":"17:32"},"01-11":{"sunrise":"08:28","sunset":"17:33"},"01-12":{"sunrise":"08:28","sunset":"17:34"},"01-13":{"sunrise":"08:28","sunset":"17:36"},"01-14":{"sunrise":"08:28","sunset":"17:37"},"01-15":{"sunrise":"08:27","sunset":"17:38"},"01-16":{"sunrise":"08:27","sunset":"17:40"},"01-17":{"sunrise":"08:26","sunset":"17:42"},"01-18":{"sunrise":"08:26","sunset":"17:43"},"01-19":{"sunrise":"08:26","sunset":"17:44"},"01-20":{"sunrise":"08:25","sunset":"17:46"},"01-21":{"sunrise":"08:24","sunset":"17:48"},"01-22":{"sunrise":"08:24","sunset":"17:49"},"01-23":{"sunrise":"08:23","sunset":"17:51"},"01-24":{"sunrise":"08:22","sunset":"17:52"},"01-25":{"sunrise":"08:22","sunset":"17:54"},"01-26":{"sunrise":"08:21","sunset":"17:56"},"01-27":{"sunrise":"08:20","sunset":"17:57"},"01-28":{"sunrise":"08:19","sunset":"17:58"},"01-29":{"sunrise":"08:18","sunset":"17:00"},"01-30":{"sunrise":"08:16","sunset":"18:01"},"01-31":{"sunrise":"08:16","sunset":"18:02"},"02-01":{"sunrise":"08:14","sunset":"18:04"},"02-02":{"sunrise":"08:13","sunset":"18:06"},"02-03":{"sunrise":"08:12","sunset":"18:07"},"02-04":{"sunrise":"08:10","sunset":"18:08"},"02-05":{"sunrise":"08:09","sunset":"18:10"},"02-06":{"sunrise":"08:08","sunset":"18:11"},"02-07":{"sunrise":"08:06","sunset":"18:12"},"02-08":{"sunrise":"08:04","sunset":"18:13"},"02-09":{"sunrise":"08:03","sunset":"18:14"},"02-10":{"sunrise":"08:01","sunset":"18:14"},"02-11":{"sunrise":"07:59","sunset":"18:15"},"02-12":{"sunrise":"07:57","sunset":"18:16"},"02-13":{"sunrise":"07:56","sunset":"18:17"},"02-14":{"sunrise":"07:54","sunset":"18:18"},"02-15":{"sunrise":"07:52","sunset":"18:18"},"02-16":{"sunrise":"07:51","sunset":"18:19"},"02-17":{"sunrise":"07:50","sunset":"18:20"},"02-18":{"sunrise":"07:48","sunset":"18:21"},"02-19":{"sunrise":"07:46","sunset":"18:22"},"02-20":{"sunrise":"07:45","sunset":"18:22"},"02-21":{"sunrise":"07:44","sunset":"18:23"},"02-22":{"sunrise":"07:42","sunset":"18:24"},"02-23":{"sunrise":"07:40","sunset":"18:25"},"02-24":{"sunrise":"07:38","sunset":"18:26"},"02-25":{"sunrise":"07:36","sunset":"18:27"},"02-26":{"sunrise":"07:34","sunset":"18:28"},"02-27":{"sunrise":"07:32","sunset":"18:29"},"02-28":{"sunrise":"07:30","sunset":"18:30"},"03-01":{"sunrise":"07:28","sunset":"18:32"},"03-02":{"sunrise":"07:26","sunset":"18:32"},"03-03":{"sunrise":"07:24","sunset":"18:33"},"03-04":{"sunrise":"07:22","sunset":"18:34"},"03-05":{"sunrise":"07:20","sunset":"18:35"},"03-06":{"sunrise":"07:18","sunset":"18:36"},"03-07":{"sunrise":"07:16","sunset":"18:36"},"03-08":{"sunrise":"08:15","sunset":"19:36"},"03-09":{"sunrise":"08:13","sunset":"19:37"},"03-10":{"sunrise":"08:11","sunset":"19:38"},"03-11":{"sunrise":"08:09","sunset":"19:38"},"03-12":{"sunrise":"08:07","sunset":"19:38"},"03-13":{"sunrise":"08:06","sunset":"19:39"},"03-14":{"sunrise":"08:04","sunset":"19:39"},"03-15":{"sunrise":"08:03","sunset":"19:39"},"03-16":{"sunrise":"08:02","sunset":"19:40"},"03-17":{"sunrise":"08:01","sunset":"19:40"},"03-18":{"sunrise":"07:00","sunset":"19:41"},"03-19":{"sunrise":"07:58","sunset":"19:42"},"03-20":{"sunrise":"07:57","sunset":"19:42"},"03-21":{"sunrise":"07:56","sunset":"19:43"},"03-22":{"sunrise":"07:54","sunset":"19:44"},"03-23":{"sunrise":"07:53","sunset":"19:44"},"03-24":{"sunrise":"07:51","sunset":"19:45"},"03-25":{"sunrise":"07:50","sunset":"19:46"},"03-26":{"sunrise":"07:48","sunset":"19:46"},"03-27":{"sunrise":"07:46","sunset":"19:48"},"03-28":{"sunrise":"07:43","sunset":"19:48"},"03-29":{"sunrise":"07:42","sunset":"19:49"},"03-30":{"sunrise":"07:40","sunset":"19:50"},"03-31":{"sunrise":"07:38","sunset":"19:51"},"04-01":{"sunrise":"07:36","sunset":"19:52"},"04-02":{"sunrise":"07:36","sunset":"19:52"},"04-03":{"sunrise":"07:35","sunset":"19:53"},"04-04":{"sunrise":"07:34","sunset":"19:54"},"04-05":{"sunrise":"07:33","sunset":"19:55"},"04-06":{"sunrise":"07:32","sunset":"19:56"},"04-07":{"sunrise":"07:32","sunset":"19:56"},"04-08":{"sunrise":"07:31","sunset":"19:57"},"04-09":{"sunrise":"07:30","sunset":"19:58"},"04-10":{"sunrise":"07:29","sunset":"19:59"},"04-11":{"sunrise":"07:28","sunset":"19:00"},"04-12":{"sunrise":"07:28","sunset":"20:00"},"04-13":{"sunrise":"07:26","sunset":"20:01"},"04-14":{"sunrise":"07:26","sunset":"20:02"},"04-15":{"sunrise":"07:25","sunset":"20:02"},"04-16":{"sunrise":"07:24","sunset":"20:04"},"04-17":{"sunrise":"07:23","sunset":"20:04"},"04-18":{"sunrise":"07:22","sunset":"20:05"},"04-19":{"sunrise":"07:21","sunset":"20:06"},"04-20":{"sunrise":"07:20","sunset":"20:06"},"04-21":{"sunrise":"07:20","sunset":"20:07"},"04-22":{"sunrise":"07:18","sunset":"20:08"},"04-23":{"sunrise":"07:17","sunset":"20:08"},"04-24":{"sunrise":"07:16","sunset":"20:08"},"04-25":{"sunrise":"07:15","sunset":"20:09"},"04-26":{"sunrise":"07:14","sunset":"20:10"},"04-27":{"sunrise":"07:13","sunset":"20:10"},"04-28":{"sunrise":"07:12","sunset":"20:11"},"04-29":{"sunrise":"07:10","sunset":"20:12"},"04-30":{"sunrise":"07:09","sunset":"20:12"},"05-01":{"sunrise":"07:08","sunset":"20:13"},"05-02":{"sunrise":"07:06","sunset":"20:14"},"05-03":{"sunrise":"07:05","sunset":"20:14"},"05-04":{"sunrise":"07:04","sunset":"20:15"},"05-05":{"sunrise":"07:02","sunset":"20:16"},"05-06":{"sunrise":"07:01","sunset":"20:17"},"05-07":{"sunrise":"07:00","sunset":"20:17"},"05-08":{"sunrise":"06:59","sunset":"20:18"},"05-09":{"sunrise":"06:58","sunset":"20:18"},"05-10":{"sunrise":"06:57","sunset":"20:19"},"05-11":{"sunrise":"06:56","sunset":"20:20"},"05-12":{"sunrise":"06:56","sunset":"20:20"},"05-13":{"sunrise":"06:54","sunset":"20:21"},"05-14":{"sunrise":"06:54","sunset":"20:22"},"05-15":{"sunrise":"06:53","sunset":"20:22"},"05-16":{"sunrise":"06:52","sunset":"20:23"},"05-17":{"sunrise":"06:51","sunset":"20:24"},"05-18":{"sunrise":"06:50","sunset":"20:24"},"05-19":{"sunrise":"06:50","sunset":"20:25"},"05-20":{"sunrise":"06:49","sunset":"20:26"},"05-21":{"sunrise":"06:48","sunset":"20:26"},"05-22":{"sunrise":"06:47","sunset":"20:27"},"05-23":{"sunrise":"06:47","sunset":"20:28"},"05-24":{"sunrise":"06:46","sunset":"20:28"},"05-25":{"sunrise":"06:46","sunset":"20:28"},"05-26":{"sunrise":"06:45","sunset":"20:29"},"05-27":{"sunrise":"06:44","sunset":"20:30"},"05-28":{"sunrise":"06:44","sunset":"20:30"},"05-29":{"sunrise":"06:43","sunset":"20:31"},"05-30":{"sunrise":"06:43","sunset":"20:32"},"05-31":{"sunrise":"06:42","sunset":"20:32"},"06-01":{"sunrise":"06:42","sunset":"20:33"},"06-02":{"sunrise":"06:41","sunset":"20:34"},"06-03":{"sunrise":"06:41","sunset":"20:34"},"06-04":{"sunrise":"06:41","sunset":"20:35"},"06-05":{"sunrise":"06:40","sunset":"20:35"},"06-06":{"sunrise":"06:40","sunset":"20:36"},"06-07":{"sunrise":"06:40","sunset":"20:36"},"06-08":{"sunrise":"06:40","sunset":"20:37"},"06-09":{"sunrise":"06:40","sunset":"20:37"},"06-10":{"sunrise":"06:40","sunset":"20:38"},"06-11":{"sunrise":"06:40","sunset":"20:38"},"06-12":{"sunrise":"06:40","sunset":"20:38"},"06-13":{"sunrise":"06:40","sunset":"20:39"},"06-14":{"sunrise":"06:40","sunset":"20:39"},"06-15":{"sunrise":"06:40","sunset":"20:40"},"06-16":{"sunrise":"06:40","sunset":"20:40"},"06-17":{"sunrise":"06:40","sunset":"20:40"},"06-18":{"sunrise":"06:40","sunset":"20:40"},"06-19":{"sunrise":"06:40","sunset":"20:41"},"06-20":{"sunrise":"06:40","sunset":"20:41"},"06-21":{"sunrise":"06:40","sunset":"20:41"},"06-22":{"sunrise":"06:40","sunset":"20:42"},"06-23":{"sunrise":"06:41","sunset":"20:42"},"06-24":{"sunrise":"06:41","sunset":"20:42"},"06-25":{"sunrise":"06:41","sunset":"20:42"},"06-26":{"sunrise":"06:42","sunset":"20:42"},"06-27":{"sunrise":"06:42","sunset":"20:42"},"06-28":{"sunrise":"06:42","sunset":"20:42"},"06-29":{"sunrise":"06:43","sunset":"20:42"},"06-30":{"sunrise":"06:43","sunset":"20:42"},"07-01":{"sunrise":"06:44","sunset":"20:42"},"07-02":{"sunrise":"06:44","sunset":"20:42"},"07-03":{"sunrise":"06:45","sunset":"20:42"},"07-04":{"sunrise":"06:45","sunset":"20:42"},"07-05":{"sunrise":"06:46","sunset":"20:42"},"07-06":{"sunrise":"06:46","sunset":"20:42"},"07-07":{"sunrise":"06:47","sunset":"20:41"},"07-08":{"sunrise":"06:48","sunset":"20:41"},"07-09":{"sunrise":"06:48","sunset":"20:41"},"07-10":{"sunrise":"06:49","sunset":"20:40"},"07-11":{"sunrise":"06:50","sunset":"20:40"},"07-12":{"sunrise":"06:50","sunset":"20:40"},"07-13":{"sunrise":"06:51","sunset":"20:39"},"07-14":{"sunrise":"06:52","sunset":"20:39"},"07-15":{"sunrise":"06:52","sunset":"20:38"},"07-16":{"sunrise":"06:53","sunset":"20:38"},"07-17":{"sunrise":"06:54","sunset":"20:38"},"07-18":{"sunrise":"06:55","sunset":"20:37"},"07-19":{"sunrise":"06:56","sunset":"20:37"},"07-20":{"sunrise":"06:56","sunset":"20:36"},"07-21":{"sunrise":"06:57","sunset":"20:36"},"07-22":{"sunrise":"06:58","sunset":"20:36"},"07-23":{"sunrise":"06:59","sunset":"20:35"},"07-24":{"sunrise":"06:00","sunset":"20:34"},"07-25":{"sunrise":"07:00","sunset":"20:34"},"07-26":{"sunrise":"07:01","sunset":"20:33"},"07-27":{"sunrise":"07:02","sunset":"20:32"},"07-28":{"sunrise":"07:03","sunset":"20:32"},"07-29":{"sunrise":"07:04","sunset":"20:31"},"07-30":{"sunrise":"07:05","sunset":"20:30"},"07-31":{"sunrise":"07:06","sunset":"20:30"},"08-01":{"sunrise":"07:06","sunset":"20:29"},"08-02":{"sunrise":"07:07","sunset":"20:28"},"08-03":{"sunrise":"07:08","sunset":"20:28"},"08-04":{"sunrise":"07:08","sunset":"20:27"},"08-05":{"sunrise":"07:10","sunset":"20:26"},"08-06":{"sunrise":"07:10","sunset":"20:25"},"08-07":{"sunrise":"07:12","sunset":"20:24"},"08-08":{"sunrise":"07:12","sunset":"20:23"},"08-09":{"sunrise":"07:14","sunset":"20:22"},"08-10":{"sunrise":"07:15","sunset":"20:21"},"08-11":{"sunrise":"07:16","sunset":"20:20"},"08-12":{"sunrise":"07:17","sunset":"20:19"},"08-13":{"sunrise":"07:18","sunset":"20:18"},"08-14":{"sunrise":"07:19","sunset":"20:18"},"08-15":{"sunrise":"07:20","sunset":"20:16"},"08-16":{"sunrise":"07:20","sunset":"20:16"},"08-17":{"sunrise":"07:21","sunset":"20:14"},"08-18":{"sunrise":"07:22","sunset":"20:14"},"08-19":{"sunrise":"07:22","sunset":"20:12"},"08-20":{"sunrise":"07:23","sunset":"20:12"},"08-21":{"sunrise":"07:24","sunset":"20:10"},"08-22":{"sunrise":"07:24","sunset":"20:09"},"08-23":{"sunrise":"07:25","sunset":"20:08"},"08-24":{"sunrise":"07:25","sunset":"20:07"},"08-25":{"sunrise":"07:26","sunset":"20:06"},"08-26":{"sunrise":"07:26","sunset":"20:05"},"08-27":{"sunrise":"07:26","sunset":"20:03"},"08-28":{"sunrise":"07:26","sunset":"20:02"},"08-29":{"sunrise":"07:27","sunset":"20:00"},"08-30":{"sunrise":"07:27","sunset":"19:59"},"08-31":{"sunrise":"07:27","sunset":"19:58"},"09-01":{"sunrise":"07:28","sunset":"19:57"},"09-02":{"sunrise":"07:28","sunset":"19:55"},"09-03":{"sunrise":"07:28","sunset":"19:54"},"09-04":{"sunrise":"07:28","sunset":"19:52"},"09-05":{"sunrise":"07:28","sunset":"19:51"},"09-06":{"sunrise":"07:29","sunset":"19:50"},"09-07":{"sunrise":"07:29","sunset":"19:48"},"09-08":{"sunrise":"07:29","sunset":"19:47"},"09-09":{"sunrise":"07:29","sunset":"19:46"},"09-10":{"sunrise":"07:30","sunset":"19:44"},"09-11":{"sunrise":"07:30","sunset":"19:43"},"09-12":{"sunrise":"07:30","sunset":"19:41"},"09-13":{"sunrise":"07:32","sunset":"19:40"},"09-14":{"sunrise":"07:33","sunset":"19:38"},"09-15":{"sunrise":"07:34","sunset":"19:37"},"09-16":{"sunrise":"07:36","sunset":"19:35"},"09-17":{"sunrise":"07:37","sunset":"19:34"},"09-18":{"sunrise":"07:38","sunset":"19:32"},"09-19":{"sunrise":"07:39","sunset":"19:31"},"09-20":{"sunrise":"07:40","sunset":"19:30"},"09-21":{"sunrise":"07:41","sunset":"19:28"},"09-22":{"sunrise":"07:42","sunset":"19:27"},"09-23":{"sunrise":"07:42","sunset":"19:26"},"09-24":{"sunrise":"07:43","sunset":"19:24"},"09-25":{"sunrise":"07:44","sunset":"19:23"},"09-26":{"sunrise":"07:44","sunset":"19:22"},"09-27":{"sunrise":"07:45","sunset":"19:21"},"09-28":{"sunrise":"07:45","sunset":"19:20"},"09-29":{"sunrise":"07:46","sunset":"19:19"},"09-30":{"sunrise":"07:46","sunset":"19:18"},"10-01":{"sunrise":"07:48","sunset":"19:18"},"10-02":{"sunrise":"07:49","sunset":"19:16"},"10-03":{"sunrise":"07:50","sunset":"19:16"},"10-04":{"sunrise":"07:52","sunset":"19:14"},"10-05":{"sunrise":"07:53","sunset":"19:14"},"10-06":{"sunrise":"07:54","sunset":"19:12"},"10-07":{"sunrise":"07:55","sunset":"19:11"},"10-08":{"sunrise":"07:56","sunset":"19:10"},"10-09":{"sunrise":"07:58","sunset":"19:08"},"10-10":{"sunrise":"07:59","sunset":"19:07"},"10-11":{"sunrise":"08:01","sunset":"19:06"},"10-12":{"sunrise":"08:02","sunset":"19:04"},"10-13":{"sunrise":"08:04","sunset":"19:02"},"10-14":{"sunrise":"08:05","sunset":"19:01"},"10-15":{"sunrise":"08:07","sunset":"18:00"},"10-16":{"sunrise":"08:08","sunset":"18:58"},"10-17":{"sunrise":"08:10","sunset":"18:57"},"10-18":{"sunrise":"08:12","sunset":"18:56"},"10-19":{"sunrise":"08:13","sunset":"18:54"},"10-20":{"sunrise":"08:14","sunset":"18:54"},"10-21":{"sunrise":"08:16","sunset":"18:52"},"10-22":{"sunrise":"08:17","sunset":"18:51"},"10-23":{"sunrise":"08:18","sunset":"18:50"},"10-24":{"sunrise":"08:20","sunset":"18:49"},"10-25":{"sunrise":"08:21","sunset":"18:48"},"10-26":{"sunrise":"08:22","sunset":"18:48"},"10-27":{"sunrise":"08:24","sunset":"18:46"},"10-28":{"sunrise":"08:25","sunset":"18:46"},"10-29":{"sunrise":"08:26","sunset":"18:45"},"10-30":{"sunrise":"08:28","sunset":"18:44"},"10-31":{"sunrise":"08:30","sunset":"18:43"},"11-01":{"sunrise":"07:32","sunset":"17:42"},"11-02":{"sunrise":"07:34","sunset":"17:42"},"11-03":{"sunrise":"07:35","sunset":"17:40"},"11-04":{"sunrise":"07:37","sunset":"17:40"},"11-05":{"sunrise":"07:38","sunset":"17:38"},"11-06":{"sunrise":"07:40","sunset":"17:37"},"11-07":{"sunrise":"07:41","sunset":"17:36"},"11-08":{"sunrise":"07:43","sunset":"17:35"},"11-09":{"sunrise":"07:44","sunset":"17:34"},"11-10":{"sunrise":"07:46","sunset":"17:32"},"11-11":{"sunrise":"07:47","sunset":"17:31"},"11-12":{"sunrise":"07:48","sunset":"17:30"},"11-13":{"sunrise":"07:50","sunset":"17:29"},"11-14":{"sunrise":"07:51","sunset":"17:28"},"11-15":{"sunrise":"07:52","sunset":"17:27"},"11-16":{"sunrise":"07:54","sunset":"17:26"},"11-17":{"sunrise":"07:55","sunset":"17:24"},"11-18":{"sunrise":"07:56","sunset":"17:24"},"11-19":{"sunrise":"07:57","sunset":"17:22"},"11-20":{"sunrise":"07:58","sunset":"17:21"},"11-21":{"sunrise":"07:00","sunset":"17:20"},"11-22":{"sunrise":"08:00","sunset":"17:19"},"11-23":{"sunrise":"08:02","sunset":"17:18"},"11-24":{"sunrise":"08:03","sunset":"17:18"},"11-25":{"sunrise":"08:04","sunset":"17:16"},"11-26":{"sunrise":"08:05","sunset":"17:16"},"11-27":{"sunrise":"08:06","sunset":"17:15"},"11-28":{"sunrise":"08:07","sunset":"17:14"},"11-29":{"sunrise":"08:08","sunset":"17:14"},"11-30":{"sunrise":"08:09","sunset":"17:13"},"12-01":{"sunrise":"08:10","sunset":"17:12"},"12-02":{"sunrise":"08:11","sunset":"17:12"},"12-03":{"sunrise":"08:12","sunset":"17:12"},"12-04":{"sunrise":"08:13","sunset":"17:12"},"12-05":{"sunrise":"08:14","sunset":"17:12"},"12-06":{"sunrise":"08:14","sunset":"17:12"},"12-07":{"sunrise":"08:15","sunset":"17:12"},"12-08":{"sunrise":"08:16","sunset":"17:12"},"12-09":{"sunrise":"08:17","sunset":"17:12"},"12-10":{"sunrise":"08:18","sunset":"17:12"},"12-11":{"sunrise":"08:18","sunset":"17:12"},"12-12":{"sunrise":"08:19","sunset":"17:12"},"12-13":{"sunrise":"08:20","sunset":"17:12"},"12-14":{"sunrise":"08:20","sunset":"17:12"},"12-15":{"sunrise":"08:21","sunset":"17:12"},"12-16":{"sunrise":"08:22","sunset":"17:12"},"12-17":{"sunrise":"08:22","sunset":"17:13"},"12-18":{"sunrise":"08:23","sunset":"17:13"},"12-19":{"sunrise":"08:24","sunset":"17:14"},"12-20":{"sunrise":"08:24","sunset":"17:14"},"12-21":{"sunrise":"08:24","sunset":"17:14"},"12-22":{"sunrise":"08:25","sunset":"17:15"},"12-23":{"sunrise":"08:26","sunset":"17:16"},"12-24":{"sunrise":"08:26","sunset":"17:16"},"12-25":{"sunrise":"08:26","sunset":"17:17"},"12-26":{"sunrise":"08:27","sunset":"17:18"},"12-27":{"sunrise":"08:27","sunset":"17:18"},"12-28":{"sunrise":"08:28","sunset":"17:19"},"12-29":{"sunrise":"08:28","sunset":"17:20"},"12-30":{"sunrise":"08:28","sunset":"17:20"},"12-31":{"sunrise":"08:28","sunset":"17:22"}}}};
+
+const PROPERTY_DATA = {{DATA:PROPERTY_DATA}};
+// CELESTIAL_DATA sits BELOW PROPERTY_DATA on purpose: its `property` block and tips read canon (C4 5c).
 const CELESTIAL_DATA = {
-  property: {
-    lat: 34.5496, lon: -84.3674, elevation_ft: 2873,
-    bortleEstimate: 3,
-    bortleLabel: "Rural Sky",
-    sqmEstimate: "21.5–21.8",
-    atlasNote: "Pickens County sits ~60 miles north of Atlanta's light dome. On nights with good transparency, naked-eye limiting magnitude ~6.0–6.3 and the Milky Way is visible Jun–Sep. Elevation at 2,873 ft reduces the atmospheric column by ~6%, improving planetary detail and transparency vs. the Atlanta metro.",
-    milkyWayMonths: [5, 6, 7, 8, 9],
-    bestSpots: "South and west-facing open ridgelines on the property. South horizon unobstructed — ideal for planetary and ecliptic objects. North/northeast may have treeline at low altitudes."
-  },
+  // The place itself comes from canon: coordinates/elevation from `location`, the sky
+  // facts from `sky` (C4 5c, 2026-09-03). Nothing here names the estate.
+  property: Object.assign({
+    lat: PROPERTY_DATA.location.coordinates.latitude, lon: PROPERTY_DATA.location.coordinates.longitude,
+    elevation_ft: PROPERTY_DATA.location.elevation.estimated_ft,
+  }, PROPERTY_DATA.sky || {}),
   events: [
     {
       id: "eta-aquariids-2026",
@@ -7080,7 +7085,7 @@ const CELESTIAL_DATA = {
       rate: null,
       direction: "South — galactic core rises in south-southeast",
       altitude: "Sagittarius/core reaches 35–40° altitude around midnight in summer — solid elevation from 34°N",
-      tip: "From your property's dark Bortle 3 skies, the Milky Way is plainly visible on moonless nights from June through September. The galactic core — the bright, cloudy band through Sagittarius and Scorpius — rises in the south-southeast after 10pm in June and is overhead by midnight in August. Best from a south-facing clearing or open ridge. A phone on a tripod captures stunning shots with a 20–30 second exposure.",
+      tip: `From your property's dark Bortle ${(PROPERTY_DATA.sky || {}).bortleEstimate || '?'} skies, the Milky Way is plainly visible on moonless nights from June through September. The galactic core — the bright, cloudy band through Sagittarius and Scorpius — rises in the south-southeast after 10pm in June and is overhead by midnight in August. Best from a south-facing clearing or open ridge. A phone on a tripod captures stunning shots with a 20–30 second exposure.`,
       durationNote: "Core visible Jun–Sep; best Aug when galactic center is highest"
     },
     {
@@ -7095,7 +7100,7 @@ const CELESTIAL_DATA = {
       rate: "40–60/hr",
       direction: "Northeast → overhead after midnight",
       altitude: "Radiant in Perseus reaches 70°+ by 3am at 34°N — near-ideal geometry",
-      tip: "2026 is an exceptional Perseid year: the new moon falls on Aug 12, meaning zero moonlight interference all night long. From your property's dark Bortle 3 skies, expect 50–60 meteors per hour at peak, plus occasional brilliant fireballs that can light up the whole sky. No equipment needed — just a reclining chair and 20 minutes to dark-adapt your eyes. Start watching after 10pm; peak runs 1–4am ET with Perseus high in the northeast.",
+      tip: `2026 is an exceptional Perseid year: the new moon falls on Aug 12, meaning zero moonlight interference all night long. From your property's dark Bortle ${(PROPERTY_DATA.sky || {}).bortleEstimate || '?'} skies, expect 50–60 meteors per hour at peak, plus occasional brilliant fireballs that can light up the whole sky. No equipment needed — just a reclining chair and 20 minutes to dark-adapt your eyes. Start watching after 10pm; peak runs 1–4am ET with Perseus high in the northeast.`,
       durationNote: "Active Jul 17–Aug 24; peak Aug 11–13; new moon = darkest possible skies"
     },
     {
@@ -7170,7 +7175,7 @@ const CELESTIAL_DATA = {
       rate: "60–120/hr",
       direction: "Northeast → overhead by midnight; radiant in Gemini",
       altitude: "Radiant transits near-overhead from 34°N — ideal geometry; among the highest of any annual shower",
-      tip: "The Geminids are arguably the best annual meteor shower — and 2026 is a favorable year with a waxing crescent moon that sets early, leaving dark skies through the night. Unlike most showers, Geminids are active as early as 9pm when Gemini rises — you don't need to stay up until 3am. Multi-colored meteors including distinctive green fireballs from asteroid 3200 Phaethon. From your Bortle 3 property skies, expect 80–100 meteors per hour at peak.",
+      tip: `The Geminids are arguably the best annual meteor shower — and 2026 is a favorable year with a waxing crescent moon that sets early, leaving dark skies through the night. Unlike most showers, Geminids are active as early as 9pm when Gemini rises — you don't need to stay up until 3am. Multi-colored meteors including distinctive green fireballs from asteroid 3200 Phaethon. From your Bortle ${(PROPERTY_DATA.sky || {}).bortleEstimate || '?'} property skies, expect 80–100 meteors per hour at peak.`,
       durationNote: "Active Dec 4–20; strong Dec 12–15; peak night Dec 13–14"
     },
     {
@@ -7230,13 +7235,11 @@ const CELESTIAL_DATA = {
       rate: "50–100/hr",
       direction: "Northeast → overhead by midnight",
       altitude: "Near-ideal geometry from 34°N",
-      tip: "Another Geminid year — always reliable. Check 2027 moon phase. Your property's Bortle 3 skies will show this to full effect.",
+      tip: `Another Geminid year — always reliable. Check 2027 moon phase. Your property's Bortle ${(PROPERTY_DATA.sky || {}).bortleEstimate || '?'} skies will show this to full effect.`,
       durationNote: "Active Dec 4–20; peak Dec 13–14"
     }
   ]
 };
-
-const PROPERTY_DATA = {{DATA:PROPERTY_DATA}};
 
 const EVENTS_DATA = {"_meta":{"lastUpdated":"2026-05-19","scope":"Recurring annual events within ~45 min drive of the property — Pickens, Gilmer, Fannin, Lumpkin counties. Manually curated; not a live feed (see CLAUDE.md for the feed-availability scoping that justified this).","refreshCadence":"Annual review each January; spot-check 30 days before each event.","schema":{"id":"Kebab-case slug, stable across years.","name":"Event display name.","location":"Specific venue or street, including town.","county":"Pickens | Gilmer | Fannin | Lumpkin | etc.","driveMin":"Approx drive time from the property, in minutes. Update if route changes.","dates":"Specific date or YYYY-MM-DD..YYYY-MM-DD range for the next confirmed occurrence. Null if the next year's dates aren't yet posted.","pattern":"Human-readable recurrence rule (e.g., 'First weekend of October'). Used to render fallback text when dates is null.","type":"Tags — festival | market | music | food | outdoor | history | family | holiday | rodeo | art","url":"Primary URL for the event (official site preferred over aggregator).","notes":"1-2 sentences in field-journal voice. What this event actually is, plus any property-anchored connection."}},"events":[{"id":"marble-festival","name":"Georgia Marble Festival","location":"Lee Newton Park, 500 Veterans Memorial Blvd, Jasper","county":"Pickens","driveMin":15,"dates":"2026-10-03..2026-10-04","pattern":"First weekend of October","type":["festival","art","music","family","history"],"url":"https://www.pickenschamber.com/marble-festival/","notes":"44th annual in 2026. About 120 exhibitors, 9,000 attendees. Quarry tours, marble-sculpting and chainsaw-carving demos, 5K and parade. The closest thing Pickens County has to a hometown festival — directly anchored in the marble heritage that explains why Tate exists at all."},{"id":"talking-rock-heritage-days","name":"Talking Rock Heritage Days","location":"Town of Talking Rock (along Talking Rock Creek)","county":"Pickens","driveMin":15,"dates":null,"pattern":"Third weekend of October","type":["festival","art","music","history","family"],"url":"https://talkingrockga.com/heritagedaysfestival.html","notes":"Two-day arts/crafts/music festival in the tiny incorporated town of Talking Rock, on the banks of the creek that the Cherokee called Nunyu-gunwaniski. Free admission and parking. Pair with a stop at the Hwy 136 bridge — the old Federal Road's Talking Rock Ford crossing."},{"id":"sheriffs-jeepfest","name":"Sheriff's JeepFest","location":"8795 Hwy 53 East, Jasper","county":"Pickens","driveMin":15,"dates":"2026-08-29..2026-08-31","pattern":"Last full weekend of August","type":["festival","music","family","outdoor"],"url":"https://www.sheriffsjeepfest.com/","notes":"Three-day Jeep festival: trails, obstacles, mud, concerts, food. Spectators free. Benefits Georgia Sheriffs' Youth Homes, Pickens Special Olympics, Boys & Girls Club, Jasper Youth Sports."},{"id":"jasper-pro-rodeo","name":"Jasper Pro Rodeo (Pickens County Stampede)","location":"Jasper","county":"Pickens","driveMin":15,"dates":null,"pattern":"Second weekend of May","type":["rodeo","family"],"url":"https://www.rodeoticket.com/jasper-pro-rodeo-pickens-county-stampeded/rodeo-information","notes":"Annual PRCA rodeo. Single-evening attendance option."},{"id":"georgia-apple-festival","name":"Georgia Apple Festival","location":"Ellijay Lions Club Fairgrounds, Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-10-10..2026-10-11","pattern":"Second and third weekends of October","type":["festival","food","art","family"],"url":"https://www.georgiaapplefestival.org/","notes":"Largest annual event in Gilmer County. Hundreds of vendors, on-site demos, live music, fair food. $10 admission, kids under 12 free. Note the two-weekend schedule — Oct 10-11 AND Oct 17-18 in 2026."},{"id":"georgia-apple-festival-week-2","name":"Georgia Apple Festival — Weekend 2","location":"Ellijay Lions Club Fairgrounds, Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-10-17..2026-10-18","pattern":"Third weekend of October (second of two Apple Festival weekends)","type":["festival","food","art","family"],"url":"https://www.georgiaapplefestival.org/","notes":"Second weekend of the Apple Festival run."},{"id":"ellijay-farmers-market","name":"Ellijay Farmers & Artisans Market","location":"Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":"2026-05-02..2026-09-26","pattern":"Saturdays, 8:30 AM – 12:30 PM, May through September","type":["market","food","family"],"url":"https://www.facebook.com/ellijayfarmers/","notes":"50+ vendors weekly through the growing season. Recurring — render as a weekly chip when active, not a single-date callout."},{"id":"blue-ridge-trout-festival","name":"Blue Ridge Trout & Outdoor Adventures Festival","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-04-25","pattern":"Last Saturday of April","type":["festival","outdoor","food","family"],"url":"https://blueridgetroutfest.com/","notes":"Cast, bike, paddle, hike, fish, climb, ride — plus live music, craft beer, outdoor art. Honors the trout streams of Fannin County."},{"id":"blue-ridge-spring-arts-park","name":"Spring Arts in the Park (Blue Ridge)","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Memorial Day weekend","type":["festival","art","food"],"url":"https://www.blueridgemountains.com/events/annual-events/spring-arts-in-the-park/","notes":"200+ juried fine arts exhibitors plus crafts, food, artist demos. The bigger of Blue Ridge's two Arts in the Park weekends."},{"id":"blue-ridge-fall-arts-park","name":"Fall Arts in the Park (Blue Ridge)","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-10-10..2026-10-11","pattern":"Second weekend of October","type":["festival","art","food"],"url":"https://www.blueridgemountains.com/events/annual-events/spring-arts-in-the-park/","notes":"Fall counterpart to Spring Arts in the Park. Conflicts with Apple Festival weekend 1 — pick one or split the day."},{"id":"blue-ridge-blues-bbq","name":"Blue Ridge Blues & BBQ Festival","location":"Downtown City Park, Blue Ridge","county":"Fannin","driveMin":45,"dates":"2026-09-19","pattern":"Third Saturday of September","type":["festival","music","food"],"url":"https://blueridgebluesandbbq.com/","notes":"15th annual in 2026. 11:30 AM – 9 PM. 15+ BBQ pitmasters, blues acts, local vendors."},{"id":"blue-ridge-st-patricks-parade","name":"Blue Ridge St. Patrick's Day Parade","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Saturday closest to March 17","type":["holiday","family"],"url":"https://www.blueridgemountains.com/events/","notes":"Small-town St. Patrick's parade with local businesses and community groups."},{"id":"blue-ridge-fire-ice-chili","name":"Fire and Ice Chili Cook-Off (Blue Ridge)","location":"Downtown Blue Ridge","county":"Fannin","driveMin":45,"dates":null,"pattern":"Presidents' Day weekend (mid-February)","type":["festival","food","family"],"url":"https://www.blueridgemountains.com/events/","notes":"Winter chili festival with ice sculptures. One of the few mid-winter local festivals worth the drive."},{"id":"bear-on-the-square","name":"Bear on the Square Mountain Festival","location":"Hancock Park / Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":"2026-04-17..2026-04-19","pattern":"Third weekend of April","type":["festival","music","art","family"],"url":"https://bearonthesquare.org/","notes":"28th annual in 2026. Friday ticketed concert (Lonesome River Band, 2026); Saturday and Sunday free. Juried mountain crafts, storytelling, music workshops, Sunday Gospel Jam. The marquee Appalachian-tradition festival in the area."},{"id":"dahlonega-arts-wine","name":"Dahlonega Arts & Wine Festival","location":"Hancock Park, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Mid-May, single weekend","type":["festival","art","food"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Wine from area wineries plus arts, crafts, live jazz. Dahlonega is Georgia's wine country anchor."},{"id":"dahlonega-gold-rush-days","name":"Gold Rush Days (Dahlonega)","location":"Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Third weekend of October","type":["festival","art","history","family"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Commemorates Georgia's 1828 gold rush (Dahlonega, not the famous 1849 California one). Crafts, panning demonstrations, parade."},{"id":"ellijay-light-up","name":"Light Up Ellijay","location":"Historic Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":null,"pattern":"First weekend of December","type":["holiday","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Tree lighting, Santa, parade, live entertainment, seasonal vendors. The local holiday-season opener."},{"id":"ellijay-holiday-lights","name":"Holiday Lights of Ellijay","location":"Ellijay Lions Club Fairgrounds","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Late November through December","type":["holiday","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Drive-through light display with light maze and Santa visits. Multi-week run."},{"id":"ellijay-christmas-market-sand-street","name":"Christmas Market on Sand Street","location":"Sand Street, Downtown Ellijay","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Early December (one Saturday)","type":["holiday","market","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Outdoor holiday market along Sand Street with crafts, food, and seasonal vendors. Pair with Light Up Ellijay if the dates line up."},{"id":"ellijay-mountain-trail-fest","name":"Georgia Mountain Trail Fest","location":"Ellijay / Cartecay area","county":"Gilmer","driveMin":30,"dates":null,"pattern":"Spring (date varies)","type":["outdoor","family"],"url":"https://downtownellijay.com/annual-events/","notes":"Multi-trail running/hiking event through the Cartecay-area trail system. Date set annually; check Downtown Ellijay events for the current year's posting."},{"id":"dahlonega-old-fashioned-christmas","name":"Old Fashioned Christmas (Dahlonega)","location":"Town Square, Dahlonega","county":"Lumpkin","driveMin":45,"dates":null,"pattern":"Saturdays in December","type":["holiday","family"],"url":"https://www.dahlonega.org/events/festivals-and-annual-events/","notes":"Multi-Saturday holiday celebration on the Dahlonega town square — carolers, Santa, horse-drawn carriages, tree lighting. The Appalachian-foothills small-town Christmas you go to see if you didn't grow up with one."},{"id":"tate-day","name":"Tate Day","location":"Village of Tate / Tate House grounds","county":"Pickens","driveMin":5,"dates":null,"pattern":"Periodic — announced via Pickens Past blog","type":["history","family"],"url":"https://www.pickenspast.com/","notes":"Local-history event commemorating Col. Sam Tate and the Village of Tate. The most property-anchored event in the area — Tate Mountain Estates begins ~0.3 mi from the front door. Sporadic schedule; watch Pickens Past for announcements."}]};
 
@@ -8815,7 +8818,7 @@ function renderRainfallPanel() {
   container.innerHTML =
     '<div class="wblock">' +
       '<div class="wblock-header"><span class="wblock-title">Rainfall</span>' +
-        (station ? srcChip('station', {dot: rainStationDot, title: 'Fernwood Weather Vane — measured on the property'}) : '') +
+        (station ? srcChip('station', {dot: rainStationDot, title: STATION_NAME + ' — measured on the property'}) : '') +
       '</div>' +
       gaugeBlock +
       byDayBlock +
@@ -8891,7 +8894,6 @@ function renderWeather() {
   // above is the key; each box below cites with just the colored oval + dot).
   const stationDot = station ? liveDot(stationTs, 10, 30) : '<span class="live-dot error"></span>';
   const omDot = omIsPlaceholder ? '<span class="live-dot stale"></span>' : liveDot(omFetchedAt, 90, 360);
-  const STATION_NAME = "Fernwood Weather Vane";
 
   let html = "";
 
@@ -9103,7 +9105,7 @@ function renderWeather() {
   html += '<details class="weather-methodology">';
   html +=   '<summary>Where does this data come from?</summary>';
   html +=   '<div class="weather-methodology-body">';
-  html +=     '<p><strong>📡 Fernwood Weather Vane</strong> — the Ambient Weather station on the property. The live measured readings, the indoor sensors, and the on-property rain-gauge totals. The green dot means it\'s reporting.</p>';
+  html +=     '<p><strong>📡 ' + escapeHtml(STATION_NAME) + '</strong> — the Ambient Weather station on the property. The live measured readings, the indoor sensors, and the on-property rain-gauge totals. The green dot means it\'s reporting.</p>';
   html +=     '<p><strong>🌐 Open-Meteo</strong> — the third-party forecast model, pulled in from off the property. The condition word, the 7-day and hour-by-hour outlook, and the gridded precipitation behind the rainfall context.</p>';
   html +=     '<p><strong>📊 ERA5</strong> — Open-Meteo\'s archived reanalysis (2001–2025). The 25-year historical normal the rainfall percentile chips compare against — regional, not the property gauge.</p>';
   html +=     '<p>If a source goes offline, the dependent sections will simply be missing — the indicators at the top of the card show which feeds are live.</p>';
@@ -9993,7 +9995,7 @@ function renderPropertyMap() {
              '<div class="pmap-canvas" id="pmap-canvas">' +
                '<picture>' +
                  '<source srcset="' + escapeHtml(baseSrc) + '" type="image/webp">' +
-                 '<img class="pmap-base" src="' + escapeHtml(fallbackSrc) + '" alt="Aerial view of Fernwood, leaf-off" loading="lazy">' +
+                 '<img class="pmap-base" src="' + escapeHtml(fallbackSrc) + '" alt="Aerial view of ' + escapeHtml(ESTATE_NAME) + ', leaf-off" loading="lazy">' +
                '</picture>' +
                svg +
              '</div>' +
@@ -11567,7 +11569,7 @@ const MomQueue = (function () {
     hIcon.textContent = "🗺️";
     const hTitle = document.createElement("span");
     hTitle.className = "ic-head-title";
-    hTitle.textContent = "Exploring and defining Fernwood's zones";
+    hTitle.textContent = "Exploring and defining " + ESTATE_NAME + "'s zones";
     head.appendChild(hIcon);
     head.appendChild(hTitle);
     card.appendChild(head);
@@ -13417,6 +13419,14 @@ setTimeout(function () {
   } catch (e) { /* swallow */ }
 }, 1500);
 
+// This place's few names, read from the record — never typed into engine code (C4 5c).
+function siteCounty() { return ((PROPERTY_DATA.property || {}).county) || "the county"; }
+function siteStreet() { return String((PROPERTY_DATA.property || {}).address || "this place").replace(/^\d+\s+/, ""); }
+function siteShortAddress() { return String((PROPERTY_DATA.property || {}).address || "").replace(/\bRoad\b/, "Rd"); }
+function siteCoords() { const c = (PROPERTY_DATA.location || {}).coordinates || {}; return { lat: c.latitude, lon: c.longitude, label: Math.abs(c.latitude) + "°" + (c.latitude < 0 ? "S" : "N") + ", " + Math.abs(c.longitude) + "°" + (c.longitude < 0 ? "W" : "E") }; }
+function siteElevFt() { const e = ((PROPERTY_DATA.location || {}).elevation || {}).estimated_ft; return Number.isFinite(e) ? e.toLocaleString() : "this"; }
+function siteStationId() { return (((PROPERTY_DATA.resources || {}).nearestWeatherStation) || {}).id || "the reference station"; }
+
 function renderProperty() {
   const p = PROPERTY_DATA;
   const loc = p.location;
@@ -13437,22 +13447,28 @@ function renderProperty() {
   let html = renderPropertyMap();
 
   // Lead paragraph — the almanac's opening page.
-  html += '<div class="prop-lead">' +
-    'The house sits at 2,873 feet on a south-facing shoulder of the Blue Ridge in Pickens County — land that was Cherokee Nation until 1838 and that became Tate Mountain Estates a century later, when Col. Sam Tate raised Lake Sequoyah a quarter-mile down the hill. The soil is Hayesville and Cecil and Pacolet — the red-clay subsoil and mica-flecked loam that this part of the Appalachians has been weathering out of gneiss and schist for a long time. Rain that falls on the fairway drains east into the headwaters of the Etowah; on clear nights the sky reads Bortle 3, one tier shy of the darkest in Georgia. It is a small piece of a large place, and the almanac that follows is an attempt to keep track of it.' +
-    '</div>';
+  // The almanac's opening page comes from canon (`story`), never from engine text — an
+  // estate with no story renders none (C4 5c / C5 7b, 2026-09-03).
+  const story = p.story || {};
+  if (story.lead) html += '<div class="prop-lead">' + story.lead + '</div>';
 
   html += '<div class="prop-grid">';
 
   // ── Location & Elevation ──
   html += '<div class="prop-panel">';
   html += '<div class="prop-panel-title">Location &amp; Elevation</div>';
-  html += '<div class="prop-row"><span class="prop-label">Address</span><span class="prop-value">282 Church Mountain Rd</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">County</span><span class="prop-value">Pickens Co., GA</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">Region</span><span class="prop-value">Blue Ridge</span></div>';
+  const pp = p.property || {};
+  const shortAddress = String(pp.address || "").replace(/\bRoad\b/, "Rd");
+  const shortCounty = String(pp.county || "").replace(/\bCounty\b/, "Co.");
+  const shortRegion = String(pp.region || "").split(",")[0].trim();
+  if (pp.address) html += '<div class="prop-row"><span class="prop-label">Address</span><span class="prop-value">' + escapeHtml(shortAddress) + '</span></div>';
+  if (pp.county) html += '<div class="prop-row"><span class="prop-label">County</span><span class="prop-value">' + escapeHtml(shortCounty + (pp.state ? ", " + pp.state : "")) + '</span></div>';
+  if (pp.region) html += '<div class="prop-row"><span class="prop-label">Region</span><span class="prop-value">' + escapeHtml(shortRegion) + '</span></div>';
   html += '<div class="prop-row"><span class="prop-label">Elevation</span><span class="prop-value">~' + elev.estimated_ft.toLocaleString() + ' ft' + elevConf + '</span></div>';
   html += '<div class="prop-row"><span class="prop-label">USDA Zone</span><span class="prop-value">' + hard.officialZone + ' (official) · ' + hard.elevationAdjustedZone.split('(')[0].trim() + ' (at elevation)</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">Cove Forest + Low-to-Mid Elevation Oak Forest</span></div>';
-  html += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (Jasper city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (KJZP). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
+  if (loc.naturalCommunity) html += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">' + escapeHtml(loc.naturalCommunity) + '</span></div>';
+  const stnId = (p.resources && p.resources.nearestWeatherStation && p.resources.nearestWeatherStation.id) || "the reference station";
+  html += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (' + escapeHtml(pp.city || "valley") + ' city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (' + escapeHtml(stnId) + '). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
   html += '</div>';
 
   // ── Frost Dates ──
@@ -13565,11 +13581,11 @@ function renderProperty() {
   html += '<div class="prop-panel-title">Local Resources</div>';
   const ext = p.resources && p.resources.localExtension;
   const stn = p.resources && p.resources.nearestWeatherStation;
-  if (ext) html += '<div class="prop-row"><span class="prop-label">UGA Extension (Pickens Co.)</span><span class="prop-value">' + escapeHtml(ext.phone) + '</span></div>';
+  if (ext) html += '<div class="prop-row"><span class="prop-label">UGA Extension (' + escapeHtml(shortCounty) + ')</span><span class="prop-value">' + escapeHtml(ext.phone) + '</span></div>';
   if (ext) html += '<div class="prop-row"><span class="prop-label">Soil Test</span><span class="prop-value">$9 · 1–2 weeks turnaround</span></div>';
-  if (stn) html += '<div class="prop-row"><span class="prop-label">Nearest Weather Station</span><span class="prop-value">KJZP (' + stn.elevation_ft.toLocaleString() + ' ft)</span></div>';
-  if (stn) html += '<a class="prop-action-chip" href="' + escapeHtml(stn.nwsForecastUrl) + '" target="_blank">NWS Pickens Co. Forecast ↗</a>';
-  html += '<a class="prop-action-chip" href="https://www.wunderground.com/wundermap?lat=34.5496&lon=-84.3674&zoom=13" target="_blank">Local Weather Stations ↗</a>';
+  if (stn) html += '<div class="prop-row"><span class="prop-label">Nearest Weather Station</span><span class="prop-value">' + escapeHtml(stn.id || stnId) + ' (' + stn.elevation_ft.toLocaleString() + ' ft)</span></div>';
+  if (stn) html += '<a class="prop-action-chip" href="' + escapeHtml(stn.nwsForecastUrl) + '" target="_blank">NWS ' + escapeHtml(shortCounty) + ' Forecast ↗</a>';
+  if (loc.coordinates) html += '<a class="prop-action-chip" href="https://www.wunderground.com/wundermap?lat=' + loc.coordinates.latitude + '&lon=' + loc.coordinates.longitude + '&zoom=13" target="_blank">Local Weather Stations ↗</a>';
   html += '<div class="prop-note" style="margin-top:12px;"><strong>Habitat certifications worth pursuing:</strong> <a href="https://www.audubon.org/conservation/about-bird-friendly-communities/certify-your-yard" target="_blank" rel="noopener">Birds Georgia Wildlife Sanctuary</a> ($110, mailable yard sign) · <a href="https://gnps.org/habitat/" target="_blank" rel="noopener">GNPS Habitat Certification</a> Silver or Gold ($40 + GNPS membership) · <a href="https://homegrownnationalpark.org" target="_blank" rel="noopener">Homegrown National Park</a> map registration (free).</div>';
   html += '</div>';
 
@@ -13578,68 +13594,14 @@ function renderProperty() {
   // Surface-fact callouts — the dimensional story of this place.
   html += '<div class="prop-callouts-section">';
 
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">Tate Mountain Estates</div>' +
-    '<div class="prop-callout-body">' +
-      'The house stands inside Tate Mountain Estates, the mountain development Col. Sam Tate of the Georgia Marble Company laid out in 1928. He raised Lake Sequoyah at the heart of it — naming it for the Cherokee silversmith who invented the syllabary in the 1820s — and built the Connahaynee Lodge atop Burnt Mountain at 3,300 feet: thirty rooms, marble baths, American chestnut logs. The Depression took the company into bankruptcy in 1934, and a basement fire took the lodge in March of 1946. The lake and the road grid are what remained. Fernwood is what this small piece of it is called.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">On Cherokee land</div>' +
-    '<div class="prop-callout-body">' +
-      'This ground was Cherokee Nation territory from 1793 until the 1838 Removal. Talking Rock Creek, six miles east, ran through Sanderstown — the first community along the creek, founded by the Cherokee Sanders brothers — and through Taloney, where a day school called the Carmel Mission ran from 1819 until Removal. The Federal Road crossed the creek at the ford where Hwy 136 crosses now; the same site became Fort Newman, the stockade that held local Cherokee in 1838. The white oak, ramps, sochan, and ginseng on this mountainside were tended for thousands of years before there was a survey line. The Eastern Band\'s <a href="https://ebci-nrd.org/center-for-cherokee-plants/" target="_blank" rel="noopener">Center for Cherokee Plants</a> still keeps that seedwork going in western North Carolina.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">The original Appalachian Trail</div>' +
-    '<div class="prop-callout-body">' +
-      'From 1937 to 1958 the Appalachian Trail ended on Mount Oglethorpe, the high point of Pickens County and the same ridge as this house. Col. Sam Tate engineered the southern routing himself, bringing the trail through his private land to draw foot traffic up to the resort. The terminus moved thirteen miles northeast to Springer Mountain in 1958 after logging, chicken ranching, and a gravel road brought vandalism to the summit. <a href="https://eaglesrestpark.org/" target="_blank" rel="noopener">Eagles Rest Park</a> preserves the original site.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">A Unionist county</div>' +
-    '<div class="prop-callout-body">' +
-      'The Union flag flew over the Pickens courthouse for nearly a month after Georgia seceded in 1861; the state government had to demand its removal. This county sits north of the old cotton line — small subsistence farms, few enslaved people, more Unionist sentiment than plantation economy. Six companies went to the Confederacy and one — Company D of the 1st Georgia Infantry Battalion — went to the Union Army, and a Pickens militia cavalry unit guided Sherman around Confederate positions during the Atlanta Campaign.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">Worked marble, eight hundred AD</div>' +
-    '<div class="prop-callout-body">' +
-      'The Pickens marble deposit runs five to seven miles long and up to two thousand feet deep. Native peoples worked it as far back as 800 AD — a thousand years before Henry Fitzsimmons opened the first commercial quarry in the 1830s and the Tate family organized the Georgia Marble Company in 1884. About sixty percent of the monuments in Washington use it.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">A Bortle 3 sky</div>' +
-    '<div class="prop-callout-body">' +
-      'The night sky here reads Bortle 3 on the nine-step scale that runs from inner-city orange (9) to the rare unpolluted dark of a desert sky (1). Stephen C. Foster State Park, in the Okefenokee, is Bortle 2 — the only IDA-certified dark-sky site in Georgia — which puts this ridge one tier off the darkest sky the state offers. The Milky Way is visible overhead from May through September on a clear moonless night.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">Keystone plants for the Blue Ridge</div>' +
-    '<div class="prop-callout-body">' +
-      'A handful of native plant genera do a disproportionate share of the ecological work in this ecoregion. Oaks support more than 400 species of butterfly and moth caterpillars on their leaves; willows around 300; cherries around 200; blueberries and goldenrods carry the herbaceous layer. Those caterpillars are what the warblers and chickadees feed to their nestlings in May and June. The mature oak-hickory forest around the house is doing real work in that food chain.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">Outdoor burning, by season</div>' +
-    '<div class="prop-callout-body">' +
-      'Georgia\'s state outdoor-burning ban runs May 1 through September 30 statewide — no permits issued, no open burning of yard debris. The rest of the year, burns require a permit from the Georgia Forestry Commission at <a href="https://gatrees.org" target="_blank" rel="noopener">gatrees.org</a>. The ban is an air-quality rule, not a fire-danger rule; it covers the months when ground-level ozone pushes hardest.' +
-    '</div>' +
-  '</div>';
-
-  html += '<div class="prop-callout">' +
-    '<div class="prop-callout-heading">Homegrown National Park</div>' +
-    '<div class="prop-callout-body">' +
-      'Doug Tallamy\'s <a href="https://homegrownnationalpark.org" target="_blank" rel="noopener">Homegrown National Park</a> is a grassroots project that asks landowners to register native habitat — any size, any condition — on a single national map. The math is that private land in aggregate dwarfs every public preserve combined, and that biodiversity recovery is mostly a matter of what gets planted at home. The property qualifies on the strength of the existing mature forest alone.' +
-    '</div>' +
-  '</div>';
+  // Surface-fact callouts come from canon (`story.callouts`) — see the lead above.
+  (story.callouts || []).forEach(c => {
+    if (!c || !c.heading) return;
+    html += '<div class="prop-callout">' +
+      '<div class="prop-callout-heading">' + escapeHtml(c.heading) + '</div>' +
+      '<div class="prop-callout-body">' + (c.bodyHtml || "") + '</div>' +
+    '</div>';
+  });
 
   html += '</div>'; // close prop-callouts-section
 
@@ -13944,7 +13906,7 @@ function renderPlantCard(plant) {
   if (plant.soilNotes) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">Soil</div><div class="plant-site-val">' + escapeHtml(plant.soilNotes) + '</div></div>';
   if (plant.aspectPreference) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">Aspect &amp; Siting</div><div class="plant-site-val">' + escapeHtml(plant.aspectPreference) + '</div></div>';
   if (plant.frostSensitivity) siteRowsHtml += '<div class="plant-site-row"><div class="plant-site-label">Frost</div><div class="plant-site-val">' + escapeHtml(plant.frostSensitivity) + '</div></div>';
-  const siteHtml = siteRowsHtml ? '<div class="plant-site-section" data-site-id="' + plant.id + '"><div class="plant-site-toggle section-label" onclick="toggleSitePanel(this)">Site Notes for Church Mountain Road <span class="site-chevron">▼</span></div><div class="plant-site-panel">' + siteRowsHtml + '</div></div>' : '';
+  const siteHtml = siteRowsHtml ? '<div class="plant-site-section" data-site-id="' + plant.id + '"><div class="plant-site-toggle section-label" onclick="toggleSitePanel(this)">Site Notes for ' + escapeHtml(siteStreet()) + ' <span class="site-chevron">▼</span></div><div class="plant-site-panel">' + siteRowsHtml + '</div></div>' : '';
 
   const thumbHtml = plant.photo
     ? '<img class="plant-thumb" src="' + plant.photo + '" alt="' + escapeHtml(plant.name) + '" loading="lazy" onerror="this.remove()">'
@@ -15086,7 +15048,7 @@ async function initRadarMap() {
   L.circleMarker([lat, lon], {
     radius: 6, color: "#2a7a4a", fillColor: "#4aaa6a",
     fillOpacity: 0.9, weight: 2
-  }).addTo(_radarMap).bindPopup("282 Church Mountain Rd");
+  }).addTo(_radarMap).bindPopup(siteShortAddress());
 
   // Fetch RainViewer frames
   const res  = await fetch("https://api.rainviewer.com/public/weather-maps.json");
@@ -16150,7 +16112,7 @@ function renderCelestial() {
 
   // ── Tonight's Sky ──────────────────────────────────────────────────────────
   h += '<div class="cel-tonight-panel">';
-  h += '<div class="cel-tonight-hdr">🌌 Tonight\'s Sky — Church Mountain Road</div>';
+  h += '<div class="cel-tonight-hdr">🌌 Tonight\'s Sky — ' + escapeHtml(siteStreet()) + '</div>';
   h += '<div class="cel-sky-grid">';
 
   // Stargazing (cloud-layer + visibility) — falls back to WMO sky when live cloud data unavailable
@@ -16339,7 +16301,7 @@ function renderClimateInner(climate) {
 }
 
 async function fetchClimateNormals() {
-  const lat = 34.5496, lon = -84.3674;
+  const lat = siteCoords().lat, lon = siteCoords().lon;
   // Open-Meteo archive API: 30-year daily data for 1991-2020 normals at property coordinates
   const url = 'https://archive-api.open-meteo.com/v1/archive' +
     '?latitude=' + lat + '&longitude=' + lon +
@@ -16393,16 +16355,16 @@ async function fetchClimateNormals() {
 
     // Persist onto the data object so renderClimateInner picks it up on re-render
     PROPERTY_DATA.climate.monthlyNormals = normals;
-    PROPERTY_DATA.climate.era5Source = 'ERA5-Land via Open-Meteo archive API (1991–2020 · 34.5496°N, 84.3674°W)';
+    PROPERTY_DATA.climate.era5Source = 'ERA5-Land via Open-Meteo archive API (1991–2020 · ' + siteCoords().label + ')';
 
     // Update the climate inner panel and re-render the rainfall panel now that normals are available
     const inner = document.getElementById('prop-climate-inner');
     if (inner) inner.innerHTML = renderClimateInner(PROPERTY_DATA.climate);
-    if (badge) badge.innerHTML = '🟢 ERA5 actual · 1991–2020 · 34.5496°N, 84.3674°W';
+    if (badge) badge.innerHTML = '🟢 ERA5 actual · 1991–2020 · ' + escapeHtml(siteCoords().label);
 
   } catch (err) {
     console.warn('Climate normals fetch failed:', err);
-    if (badge) badge.innerHTML = '<span style="color:#c08020;">⚠ ERA5 unavailable — showing KJZP estimates</span>';
+    if (badge) badge.innerHTML = '<span style="color:#c08020;">⚠ ERA5 unavailable — showing ' + escapeHtml(siteStationId()) + ' estimates</span>';
   }
 }
 
@@ -16600,7 +16562,7 @@ function renderBirds() {
     if (sp.feeder) card += `<div class="bio-species-fun"><strong>Feeder:</strong> ${escapeHtml(sp.feeder)}</div>`;
     if (sp.funFact) card += `<div class="bio-species-fun">${escapeHtml(sp.funFact)}</div>`;
     if (sp.ebirdCode) {
-      card += `<a class="bio-deep-dive-chip" href="https://ebird.org/species/${escapeHtml(sp.ebirdCode)}/US-GA-227" target="_blank" rel="noopener">eBird · Pickens Co. ↗</a>`;
+      card += `<a class="bio-deep-dive-chip" href="https://ebird.org/species/${escapeHtml(sp.ebirdCode)}/${escapeHtml((PROPERTY_DATA.resources || {}).ebirdRegion || "US-GA")}" target="_blank" rel="noopener">eBird · ${escapeHtml(siteCounty())} ↗</a>`;
     }
     card += '</div>'; // body
     card += '</div>'; // row
@@ -16628,7 +16590,7 @@ function renderBirds() {
   // Feeder panel
   const fr = bd.propertyHighlights.feederRecommendations;
   h += '<div class="bio-feeder-panel">';
-  h += '<div class="bio-feeder-title">Feeder Guide for Church Mountain Road</div>';
+  h += '<div class="bio-feeder-title">Feeder Guide for ' + escapeHtml(siteStreet()) + '</div>';
   h += `<div class="bio-feeder-row"><span class="bio-feeder-label">Hummingbird: </span>${escapeHtml(fr.hummingbird)}</div>`;
   h += `<div class="bio-feeder-row"><span class="bio-feeder-label">Sunflower: </span>${escapeHtml(fr.blackOilSunflower)}</div>`;
   h += `<div class="bio-feeder-row"><span class="bio-feeder-label">Nyjer/Thistle: </span>${escapeHtml(fr.nyjer)}</div>`;
@@ -16636,7 +16598,7 @@ function renderBirds() {
   h += `<div class="bio-feeder-row"><span class="bio-feeder-label">Platform/Ground: </span>${escapeHtml(fr.platform)}</div>`;
   h += '</div>';
 
-  h += '<div class="bio-data-note">Species data compiled from eBird (Cornell Lab), Georgia Ornithological Society, and Breeding Bird Atlas of Georgia — Pickens County records. Timing adjusted for confirmed 2,873 ft elevation.</div>';
+  h += '<div class="bio-data-note">Species data compiled from eBird (Cornell Lab), Georgia Ornithological Society, and Breeding Bird Atlas of Georgia — ' + escapeHtml(siteCounty()) + ' records. Timing adjusted for confirmed ' + escapeHtml(siteElevFt()) + ' ft elevation.</div>';
   h += '</div>'; // bio-section
 
   const target = document.getElementById('wildlife-tab-content') || document.getElementById('birds-content');
@@ -16788,7 +16750,7 @@ function renderAmphibians() {
   h += `<div class="bio-feeder-row" style="border-color:#c8eae0;">${escapeHtml(ad.propertyHighlights.pondManagementNotes)}</div>`;
   h += '</div>';
 
-  h += '<div class="bio-data-note">Species data compiled from Georgia Reptile Society herp atlas (Pickens County), iNaturalist observations, and Amphibians and Reptiles of Georgia (Jensen et al.). Timing adjusted for 2,873 ft elevation.</div>';
+  h += '<div class="bio-data-note">Species data compiled from Georgia Reptile Society herp atlas (' + escapeHtml(siteCounty()) + '), iNaturalist observations, and Amphibians and Reptiles of Georgia (Jensen et al.). Timing adjusted for ' + escapeHtml(siteElevFt()) + ' ft elevation.</div>';
   h += '</div>';
 
   const target = document.getElementById('wildlife-tab-content') || document.getElementById('amphibians-content');
@@ -17628,7 +17590,7 @@ function renderSnakes() {
     h += '</div></div>';
   }
 
-  h += '<div class="bio-data-note">Species compiled from Amphibians and Reptiles of Georgia (Jensen et al.), Georgia DNR, SREL Herpetology (UGA), and iNaturalist Pickens County records. Activity timing adjusted for 2,873 ft elevation.</div>';
+  h += '<div class="bio-data-note">Species compiled from Amphibians and Reptiles of Georgia (Jensen et al.), Georgia DNR, SREL Herpetology (UGA), and iNaturalist ' + escapeHtml(siteCounty()) + ' records. Activity timing adjusted for ' + escapeHtml(siteElevFt()) + ' ft elevation.</div>';
   h += '</div>';
 
   const target = document.getElementById('wildlife-tab-content');
@@ -17688,7 +17650,7 @@ function renderLizards() {
     h += '</ul></div></div>';
   }
 
-  h += '<div class="bio-data-note">Species compiled from Amphibians and Reptiles of Georgia (Jensen et al.), Georgia DNR, SREL Herpetology (UGA), and iNaturalist Pickens County records. Activity timing adjusted for 2,873 ft elevation.</div>';
+  h += '<div class="bio-data-note">Species compiled from Amphibians and Reptiles of Georgia (Jensen et al.), Georgia DNR, SREL Herpetology (UGA), and iNaturalist ' + escapeHtml(siteCounty()) + ' records. Activity timing adjusted for ' + escapeHtml(siteElevFt()) + ' ft elevation.</div>';
   h += '</div>';
 
   const target = document.getElementById('wildlife-tab-content');
@@ -17783,7 +17745,7 @@ function renderMammals() {
     h += '</div>';
   }
 
-  h += '<div class="bio-data-note">Species curated from regular observations on the property; natural history grounded in Georgia DNR, NPS Blue Ridge Parkway, NC Wildlife, and SREL/Animal Diversity Web. Encounter peaks reflect typical patterns at 2,873 ft.</div>';
+  h += '<div class="bio-data-note">Species curated from regular observations on the property; natural history grounded in Georgia DNR, NPS Blue Ridge Parkway, NC Wildlife, and SREL/Animal Diversity Web. Encounter peaks reflect typical patterns at ' + escapeHtml(siteElevFt()) + ' ft.</div>';
   h += '</div>';
 
   const target = document.getElementById('wildlife-tab-content');
@@ -17935,7 +17897,7 @@ function renderChorusNow() {
   // The honesty marker, stated once and up front rather than buried per-card. This
   // whole domain is a hypothesis until somebody stands outside and listens.
   const solarNote = exact ? '' : ' Times of day are approximate — no sunset reading loaded.';
-  h += `<div class="chorus-now-foot">⚠️ Nothing in this list has been confirmed at Fernwood yet — `
+  h += `<div class="chorus-now-foot">⚠️ Nothing in this list has been confirmed at ${escapeHtml(ESTATE_NAME)} yet — `
      + `every species here is a range-and-habitat guess. This is the one part of the record where `
      + `one evening on the porch beats any amount of research.${escapeHtml(solarNote)}</div>`;
   h += '</div>';
@@ -18084,7 +18046,7 @@ function renderInsects() {
       // alone still invites the reader to assume the property; naming iNaturalist
       // and the observer's own location is the honest version.
       card += '<div class="ins-photo-note">Reference photographs from iNaturalist — '
-            + 'taken elsewhere by the observers credited, not at Fernwood. '
+            + 'taken elsewhere by the observers credited, not at ' + escapeHtml(ESTATE_NAME) + '. '
             + 'Three per species so a mis-identified one stands out rather than standing alone.</div>';
     } else if (sp.photo) {
       card += `<img class="bio-species-photo" src="${sp.photo}" alt="${escapeHtml(sp.name)}" loading="lazy" onerror="this.remove()">`;
@@ -18150,7 +18112,7 @@ function renderInsects() {
 
   h += '<div class="bio-data-note">Songs and seasonal timing from Singing Insects of North America (T. J. Walker, Univ. of Florida) '
      + 'and The Songs of Insects (Elliott &amp; Hershberger); cicada records via Cicada Mania and UGA CAES. '
-     + 'Presence at 2,873 ft is inferred from range and habitat throughout — no species here has been verified on the property.</div>';
+     + 'Presence at ' + escapeHtml(siteElevFt()) + ' ft is inferred from range and habitat throughout — no species here has been verified on the property.</div>';
   h += '</div>';
 
   const target = document.getElementById('wildlife-tab-content');
@@ -18248,6 +18210,23 @@ renderWeeds();
 renderCandidates();
 renderReferences();
 renderReleaseNotes();
+// Prose that names the place is filled from the record, never typed into markup (C4 5c).
+// `data-record-prose` names a path: fishing.cardSummary → FISHING_DATA._meta.cardSummary;
+// property.intros.x → PROPERTY_DATA.intros.x. Absent → the element is hidden.
+function applyRecordProse() {
+  document.querySelectorAll("[data-record-prose]").forEach(el => {
+    const path = el.dataset.recordProse.split(".");
+    let node = path[0] === "fishing" ? ((typeof FISHING_DATA === "object" && FISHING_DATA && FISHING_DATA._meta) || {}) : (typeof PROPERTY_DATA === "object" ? PROPERTY_DATA : {});
+    for (const k of path.slice(1)) node = (node && typeof node === "object") ? node[k] : undefined;
+    if (typeof node === "string" && node) { el.textContent = node; el.style.display = ""; }
+    else { el.style.display = "none"; }
+  });
+  // `data-site` spans carry one derived word from the record (a region, a street);
+  // the markup keeps a fallback the record overrides.
+  const region = String(((PROPERTY_DATA.property || {}).region) || "").split(",")[0].trim();
+  document.querySelectorAll("[data-site='regionShort']").forEach(el => { if (region) el.textContent = region; });
+}
+applyRecordProse();
 renderDashboardStrip();
 fetchLiveWeather();
 fetchAmbientWeather();
@@ -18535,7 +18514,7 @@ const MetricsViewObserver = (function () {
 async function fetchAirNowAQI() {
   if (!WorkerAPI.isConfigured()) return;
   try {
-    const lat = 34.5496, lon = -84.3674;
+    const lat = siteCoords().lat, lon = siteCoords().lon;
     const data = await WorkerAPI.call("GET", `/api/airnow?lat=${lat}&lon=${lon}`);
     const obs = (data.observations || []).filter(o => o.AQI != null);
     if (!obs.length) return;
@@ -18560,7 +18539,7 @@ async function fetchAirNowAQI() {
 async function fetchDroughtStatus() {
   if (!WorkerAPI.isConfigured()) return;
   try {
-    const data = await WorkerAPI.call("GET", "/api/drought?fips=13227");
+    const data = await WorkerAPI.call("GET", "/api/drought?fips=" + encodeURIComponent((PROPERTY_DATA.resources || {}).droughtFips || ""));
     const latest = data.latest;
     if (!latest) return;
     // The USDM record has D0/D1/D2/D3/D4 percent-of-area columns.
@@ -18578,8 +18557,8 @@ async function fetchDroughtStatus() {
     WEATHER_DATA.drought = { category, pct, date };
     if (typeof renderWeather === "function") renderWeather();
     const body = category === "None"
-      ? `Pickens County is out of drought conditions as of ${date} — the US Drought Monitor shows the whole county clear.`
-      : `Pickens County sits at <strong>${escapeHtml(dLabel[category])}</strong> (${pct.toFixed(0)}% of the county) as of ${date}, per the US Drought Monitor.`;
+      ? `${escapeHtml(siteCounty())} is out of drought conditions as of ${date} — the US Drought Monitor shows the whole county clear.`
+      : `${escapeHtml(siteCounty())} sits at <strong>${escapeHtml(dLabel[category])}</strong> (${pct.toFixed(0)}% of the county) as of ${date}, per the US Drought Monitor.`;
     const propContent = document.getElementById("property-content");
     if (!propContent || propContent.querySelector(".prop-callout-drought")) return;
     // Inject after the "Outdoor burning" callout so they read as a pair.
@@ -18666,7 +18645,7 @@ async function fetchTodayLine() {
 // ---- Fire-weather alerts (NWS active-alerts at property point — CORS-enabled, no key) ----
 async function fetchFireWeatherAlerts() {
   try {
-    const url = "https://api.weather.gov/alerts/active?point=34.5496,-84.3674";
+    const url = "https://api.weather.gov/alerts/active?point=" + siteCoords().lat + "," + siteCoords().lon;
     const res = await fetch(url);
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
@@ -19829,7 +19808,7 @@ const GardenGuru = (function () {
       }
     } catch (e) {
       const errMsg = e.notConfigured
-        ? "The Fernwood Almanac isn't connected yet. Open Sync settings in the Fernwood Almanac to connect to the Worker."
+        ? "The " + JOURNAL_NAME + " isn't connected yet. Open Sync settings in the " + JOURNAL_NAME + " to connect to the Worker."
         : "The Almanac can't reach the network just now — try again in a moment.";
       turns.push({ role: "assistant", content: errMsg, ts: new Date().toISOString(), isError: true });
     }
@@ -19869,7 +19848,7 @@ const GardenGuru = (function () {
       if (!recordingId) throw new Error("upload returned no recordingId");
     } catch (e) {
       const errMsg = e && e.notConfigured
-        ? "The Listen feature isn't configured yet. Open Sync settings in the Fernwood Almanac to connect to the Worker."
+        ? "The Listen feature isn't configured yet. Open Sync settings in the " + JOURNAL_NAME + " to connect to the Worker."
         : "The Almanac couldn't upload your recording — try again in a moment.";
       const isFirst = !conversationId;
       if (isFirst) conversationId = newId();

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": 1,
-    "lastUpdated": "2026-08-31",
+    "lastUpdated": "2026-09-03",
     "note": "Coordinates confirmed via Google Maps (May 2026). Elevation MEASURED at 875.7 m / 2,873 ft from USGS 3DEP 1 m lidar at those coordinates (2026-08-31). ⚠️ This supersedes 902 m / 2,959 ft, which came from the Open-Meteo elevation API — a ~90 m global model that reads 86 ft high on this spur and still returns 902.0 m today. An earlier ~1,750 ft estimate was also wrong; it used Lake Sequoyah rather than the property.",
     "dataSources": [
       "NOAA 1991–2020 Climate Normals, KJZP Pickens County Airport (elev 1,535 ft)",
@@ -59,7 +59,8 @@
       "primary": "south",
       "description": "House faces south onto an open clearing. Confirmed via satellite imagery (May 2026).",
       "implication": "Maximum solar gain on south face; open clearing amplifies warming effect on sunny days."
-    }
+    },
+    "naturalCommunity": "Cove Forest + Low-to-Mid Elevation Oak Forest"
   },
   "hardiness": {
     "officialZone": "7b",
@@ -243,7 +244,9 @@
     "nwsForecast": {
       "url": "https://forecast.weather.gov/MapClick.php?zoneid=GAZ013",
       "note": "NWS zone forecast for Pickens County. Check for freeze watches and warnings — at 2,873 ft, freeze events arrive earlier and hit harder than the valley forecast suggests."
-    }
+    },
+    "ebirdRegion": "US-GA-227",
+    "droughtFips": "13227"
   },
   "utilities": {
     "water": {
@@ -252,5 +255,67 @@
       "confidence": "Paul-stated 2026-07-25",
       "note": "The house water comes off a pump system that serves a portion of Tate Mountain Estates (a shared community supply). Worth knowing for any water-pressure, outage, or well-vs-municipal question — it's neither."
     }
+  },
+  "story": {
+    "_meta": "The property card's almanac page — the lead paragraph and the surface-fact callouts. MOVED HERE 2026-09-03 (C4 5c / C5 7b): these were typed into engine JS (renderProperty) and named this place from inside the engine; canon owns them now and the renderer reads `story`. Bodies may carry inline HTML links. An estate with no `story` renders no lead and no callouts.",
+    "lead": "The house sits at 2,873 feet on a south-facing shoulder of the Blue Ridge in Pickens County — land that was Cherokee Nation until 1838 and that became Tate Mountain Estates a century later, when Col. Sam Tate raised Lake Sequoyah a quarter-mile down the hill. The soil is Hayesville and Cecil and Pacolet — the red-clay subsoil and mica-flecked loam that this part of the Appalachians has been weathering out of gneiss and schist for a long time. Rain that falls on the fairway drains east into the headwaters of the Etowah; on clear nights the sky reads Bortle 3, one tier shy of the darkest in Georgia. It is a small piece of a large place, and the almanac that follows is an attempt to keep track of it.",
+    "callouts": [
+      {
+        "heading": "Tate Mountain Estates",
+        "bodyHtml": "The house stands inside Tate Mountain Estates, the mountain development Col. Sam Tate of the Georgia Marble Company laid out in 1928. He raised Lake Sequoyah at the heart of it — naming it for the Cherokee silversmith who invented the syllabary in the 1820s — and built the Connahaynee Lodge atop Burnt Mountain at 3,300 feet: thirty rooms, marble baths, American chestnut logs. The Depression took the company into bankruptcy in 1934, and a basement fire took the lodge in March of 1946. The lake and the road grid are what remained. Fernwood is what this small piece of it is called."
+      },
+      {
+        "heading": "On Cherokee land",
+        "bodyHtml": "This ground was Cherokee Nation territory from 1793 until the 1838 Removal. Talking Rock Creek, six miles east, ran through Sanderstown — the first community along the creek, founded by the Cherokee Sanders brothers — and through Taloney, where a day school called the Carmel Mission ran from 1819 until Removal. The Federal Road crossed the creek at the ford where Hwy 136 crosses now; the same site became Fort Newman, the stockade that held local Cherokee in 1838. The white oak, ramps, sochan, and ginseng on this mountainside were tended for thousands of years before there was a survey line. The Eastern Band's <a href=\"https://ebci-nrd.org/center-for-cherokee-plants/\" target=\"_blank\" rel=\"noopener\">Center for Cherokee Plants</a> still keeps that seedwork going in western North Carolina."
+      },
+      {
+        "heading": "The original Appalachian Trail",
+        "bodyHtml": "From 1937 to 1958 the Appalachian Trail ended on Mount Oglethorpe, the high point of Pickens County and the same ridge as this house. Col. Sam Tate engineered the southern routing himself, bringing the trail through his private land to draw foot traffic up to the resort. The terminus moved thirteen miles northeast to Springer Mountain in 1958 after logging, chicken ranching, and a gravel road brought vandalism to the summit. <a href=\"https://eaglesrestpark.org/\" target=\"_blank\" rel=\"noopener\">Eagles Rest Park</a> preserves the original site."
+      },
+      {
+        "heading": "A Unionist county",
+        "bodyHtml": "The Union flag flew over the Pickens courthouse for nearly a month after Georgia seceded in 1861; the state government had to demand its removal. This county sits north of the old cotton line — small subsistence farms, few enslaved people, more Unionist sentiment than plantation economy. Six companies went to the Confederacy and one — Company D of the 1st Georgia Infantry Battalion — went to the Union Army, and a Pickens militia cavalry unit guided Sherman around Confederate positions during the Atlanta Campaign."
+      },
+      {
+        "heading": "Worked marble, eight hundred AD",
+        "bodyHtml": "The Pickens marble deposit runs five to seven miles long and up to two thousand feet deep. Native peoples worked it as far back as 800 AD — a thousand years before Henry Fitzsimmons opened the first commercial quarry in the 1830s and the Tate family organized the Georgia Marble Company in 1884. About sixty percent of the monuments in Washington use it."
+      },
+      {
+        "heading": "A Bortle 3 sky",
+        "bodyHtml": "The night sky here reads Bortle 3 on the nine-step scale that runs from inner-city orange (9) to the rare unpolluted dark of a desert sky (1). Stephen C. Foster State Park, in the Okefenokee, is Bortle 2 — the only IDA-certified dark-sky site in Georgia — which puts this ridge one tier off the darkest sky the state offers. The Milky Way is visible overhead from May through September on a clear moonless night."
+      },
+      {
+        "heading": "Keystone plants for the Blue Ridge",
+        "bodyHtml": "A handful of native plant genera do a disproportionate share of the ecological work in this ecoregion. Oaks support more than 400 species of butterfly and moth caterpillars on their leaves; willows around 300; cherries around 200; blueberries and goldenrods carry the herbaceous layer. Those caterpillars are what the warblers and chickadees feed to their nestlings in May and June. The mature oak-hickory forest around the house is doing real work in that food chain."
+      },
+      {
+        "heading": "Outdoor burning, by season",
+        "bodyHtml": "Georgia's state outdoor-burning ban runs May 1 through September 30 statewide — no permits issued, no open burning of yard debris. The rest of the year, burns require a permit from the Georgia Forestry Commission at <a href=\"https://gatrees.org\" target=\"_blank\" rel=\"noopener\">gatrees.org</a>. The ban is an air-quality rule, not a fire-danger rule; it covers the months when ground-level ozone pushes hardest."
+      },
+      {
+        "heading": "Homegrown National Park",
+        "bodyHtml": "Doug Tallamy's <a href=\"https://homegrownnationalpark.org\" target=\"_blank\" rel=\"noopener\">Homegrown National Park</a> is a grassroots project that asks landowners to register native habitat — any size, any condition — on a single national map. The math is that private land in aggregate dwarfs every public preserve combined, and that biodiversity recovery is mostly a matter of what gets planted at home. The property qualifies on the strength of the existing mature forest alone."
+      }
+    ]
+  },
+  "sky": {
+    "_meta": "The night sky at this place — MOVED HERE 2026-09-03 from CELESTIAL_DATA.property in engine JS. Coordinates/elevation are NOT repeated here; the sky card reads them from `location`.",
+    "bortleEstimate": 3,
+    "bortleLabel": "Rural Sky",
+    "sqmEstimate": "21.5–21.8",
+    "atlasNote": "Pickens County sits ~60 miles north of Atlanta's light dome. On nights with good transparency, naked-eye limiting magnitude ~6.0–6.3 and the Milky Way is visible Jun–Sep. Elevation at 2,873 ft reduces the atmospheric column by ~6%, improving planetary detail and transparency vs. the Atlanta metro.",
+    "milkyWayMonths": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "bestSpots": "South and west-facing open ridgelines on the property. South horizon unobstructed — ideal for planetary and ecliptic objects. North/northeast may have treeline at low altitudes."
+  },
+  "intros": {
+    "_meta": "Card intros that name this place's community and elevation — MOVED HERE 2026-09-03 from static engine markup; filled at load by applyRecordProse().",
+    "plantContext": "Below the plants the card tends, the land itself is a Mesic Cove and Montane Oak Forest mosaic at 2,873 feet. What grows here naturally — and what is missing — sits in this section.",
+    "candidates": "Plants we might bring back to this slope. Natives that fit the cove forest and oak forest mosaic at 2,873 ft, the seepage in the spring drainage, and the wildlife the property already supports. Distinct from what's planted (that lives in the Plants card) — this is what could grow here."
   }
 }

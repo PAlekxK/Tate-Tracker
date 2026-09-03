@@ -57,12 +57,28 @@ IDENTITY = {
     "addressLine": lambda ident, prop: "%s, %s · %s ft %s" % (
         prop["property"]["city"], prop["property"]["state"],
         "{:,}".format(prop["location"]["elevation"]["estimated_ft"]), ident["addressLineSuffix"]),
+    # C4 5c (2026-09-03): the three strip labels that named the founding instance in engine markup.
+    "journalTile":     lambda ident, prop: ident.get("journalTile") or (ident["name"] + " Almanac"),
+    "propertyTile":    lambda ident, prop: ident["name"],
+    "propertyTileSub": lambda ident, prop: ident.get("propertyTileSub", ""),
+    "inputAria":       lambda ident, prop: "Note or ask the " + (ident.get("journalTile") or (ident["name"] + " Almanac")),
+    # JS string consts (C4 5c) — json.dumps minus the quotes so a name with a quote cannot break the script
+    "nameJs":          lambda ident, prop: json.dumps(ident["name"], ensure_ascii=False)[1:-1],
+    "journalTileJs":   lambda ident, prop: json.dumps(ident.get("journalTile") or (ident["name"] + " Almanac"), ensure_ascii=False)[1:-1],
+    "stationName":     lambda ident, prop: json.dumps(ident.get("stationName") or "the weather station", ensure_ascii=False)[1:-1],
 }
 IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "title":       re.compile(r"(<title>)(.*?)(</title>)"),
     "h1":          re.compile(r"(<h1>)(.*?)(</h1>)"),
     "subtitle":    re.compile(r'(<div class="header-subtitle">\n\s*)(.*?)(\n)'),
     "addressLine": re.compile(r'(<div class="header-address">\n\s*)(.*?)(\n)'),
+    "journalTile":     re.compile(r"(onclick=\"expandCard\('card-fieldnotes','dash'\)\">\n\s*<div class=\"dash-cell-label\">)(.*?)(</div>)"),
+    "propertyTile":    re.compile(r"(onclick=\"expandCard\('card-property','dash'\)\">\n\s*<div class=\"dash-cell-label\">)(.*?)(</div>)"),
+    "propertyTileSub": re.compile(r'(<div class="dash-cell-sub" id="dash-property-sub">)(.*?)(</div>)'),
+    "inputAria":       re.compile(r'(<section class="unified-input" id="unified-input" aria-label=")(.*?)(">)'),
+    "nameJs":          re.compile(r'(^const ESTATE_NAME = ")(.*?)(";$)', re.M),
+    "journalTileJs":   re.compile(r'(^const JOURNAL_NAME = ")(.*?)(";$)', re.M),
+    "stationName":     re.compile(r'(^const STATION_NAME = ")(.*?)(";$)', re.M),
 }
 EMPTY_SHAPE = {  # what an ABSENT domain's const looks like — the list key per kind
     "plants": {"_meta": {"declaredAbsent": True}, "plants": []},
@@ -126,6 +142,8 @@ def extract(viewer_text):
         if not m:
             raise RuntimeError("extract: identity markup for `%s` not found" % key)
         t = t[:m.start(2)] + "{{IDENTITY:%s}}" % key + t[m.end(2):]
+    # a second site for the journal name (the input head) — same key, same value
+    t = re.sub(r'(<span class="ic-head-title">)(.*?)(</span>)', r'\1{{IDENTITY:journalTile}}\3', t, count=1)
     return t
 
 
@@ -154,7 +172,7 @@ def build(template_text, instance_path):
         ph = "{{IDENTITY:%s}}" % key
         if ph not in out:
             raise RuntimeError("template has no identity placeholder %s" % key)
-        out = out.replace(ph, fn(cfg["identity"], prop), 1)
+        out = out.replace(ph, fn(cfg["identity"], prop))   # every site of the key
     if MODULES_PH not in out:
         raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % MODULES_PH)
     out = out.replace(MODULES_PH, _modules_literal(canon), 1)
@@ -210,8 +228,8 @@ def selftest():
     viewer = open(VIEWER, encoding="utf-8").read()
     t = extract(viewer)
     check("extract → build round-trips the live viewer byte for byte", build(t, DEFAULT_INSTANCE) == viewer)
-    check("template carries %d DATA + 4 IDENTITY + 1 ESTATE placeholders" % len(roster()),
-          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 4 and t.count("{{ESTATE:") == 1)
+    check("template carries %d DATA + 12 IDENTITY + 1 ESTATE placeholders" % len(roster()),
+          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 12 and t.count("{{ESTATE:") == 1)
     # a changed source must change the build (so --check can go red)
     with tempfile.TemporaryDirectory() as d:
         inst = os.path.join(d, "instance"); os.makedirs(inst)

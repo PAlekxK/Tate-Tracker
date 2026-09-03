@@ -9,7 +9,9 @@
   "identity": {
     "name": "Fernwood",
     "taglinePrefix": "An Appalachian Almanac for",
-    "addressLineSuffix": "on the Blue Ridge"
+    "addressLineSuffix": "on the Blue Ridge",
+    "propertyTileSub": "On Cherokee land · Blue Ridge thermal belt",
+    "stationName": "Fernwood Weather Vane"
   },
   "absent": []
 }
