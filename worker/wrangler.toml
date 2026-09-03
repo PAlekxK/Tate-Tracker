@@ -11,3 +11,20 @@ id = "100f2b95e4be4c088a0000f917cf987b"
 # SHARED_TOKEN is set via:
 #   wrangler secret put SHARED_TOKEN
 # (do NOT commit the actual token here — it's read from Worker secrets at runtime)
+
+# ── Environments (C4 step 3a, 2026-09-03) ─────────────────────────────────────
+# ENV_NAME is read by /health (`env`) and stamped on every new feedback / zone-audio
+# record (`env`), so a reader can tell a QA write from Mom's. The KV canary is the
+# second proof: `/health.kv_canary` is READ FROM THE BOUND NAMESPACE, never re-typed.
+[vars]
+ENV_NAME = "production"
+
+# QA: its own KV namespace (nothing here can reach `feedback:<date>` in prod), its
+# own SHARED_TOKEN, no GITHUB_* / OPENAI_* (promote-species → 503 by design).
+# Deploy: `npx wrangler deploy --env qa`  ·  Remove: `npx wrangler delete --env qa`
+[env.qa]
+[env.qa.vars]
+ENV_NAME = "qa"
+[[env.qa.kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "a0cf82b615c648ff972961c46ce42661"

@@ -1000,6 +1000,7 @@ async function handleZoneAudio(request, env, url) {
       recordedAt, heldMs,
       deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
       reviewed: false,
+      env: env.ENV_NAME || "unset",   // C4 3a (R2)
     };
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
@@ -2200,6 +2201,7 @@ async function handleFeedback(request, env, url) {
       context: body.context && typeof body.context === "object" ? body.context : { type: "general" },
       sentiment: hasSentiment ? body.sentiment : null,
       note,
+      env: env.ENV_NAME || "unset",   // C4 3a (R2): which deployment wrote this row
     };
     const today = new Date().toISOString().slice(0, 10);
     const key = `feedback:${today}`;
@@ -2264,9 +2266,17 @@ export default {
     }
 
     if (url.pathname === "/health") {
+      // env + kv_canary (C4 3a): `env` is the deploy-time var; `kv_canary` is read
+      // from the BOUND namespace (seeded once per namespace with its own name), so a
+      // mis-bound KV shows up here as a mismatch rather than as a quiet write into
+      // Mom's data. Neither value is re-typed from an id.
+      let kvCanary = null;
+      try { kvCanary = await env.OBSERVATIONS.get("env-canary"); } catch (e) { kvCanary = "unreadable"; }
       return json({
         ok: true,
         ts: new Date().toISOString(),
+        env: env.ENV_NAME ?? null,
+        kv_canary: kvCanary,
         endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,
