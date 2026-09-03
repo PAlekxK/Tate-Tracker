@@ -512,6 +512,13 @@ def live_suite():
           back is not None and back.get("note") == payload["note"])
     if back is None:
         return
+    # C5 1a — the Worker DECLARES the person slot on every new record. The key
+    # must be present and null: absent would mean a pre-C5 Worker wrote it,
+    # and a non-null value would mean something other than the resolver
+    # (momlib.person_for, the only legitimate writer) named a person.
+    check("CAPTURE  the stored record declares `personId: null` (C5 1a — declared, never absent)",
+          "personId" in back and back["personId"] is None,
+          "keys=%s" % sorted(back.keys()))
     check("SURFACE  a real note would classify as `needs-reply`",
           momlib.note_state({**back, "context": {**back["context"], "test": False}},
                             {})["state"] == "needs-reply")

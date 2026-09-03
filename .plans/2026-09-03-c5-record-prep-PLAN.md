@@ -10,6 +10,7 @@
          user-researcher → waived: no user question in this item
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
+- stage: build (opened 2026-09-03 after C4 4c shipped — the WIP slot)
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row, C4's RULED table and its three-levels ruling (decided, not
@@ -71,7 +72,7 @@ Guru digest).
 
 Each step: **who** · **reversible?** · **the deterministic check**. Existing tools first; new checks prove themselves by mutation.
 
-**1a · `personId` on every new record** — agent · reversible (additive field) · the Worker stamps `personId: null` at
+**1a · `personId` on every new record** — 🟡 **BUILT 2026-09-03, on `staging` for QA** — `declarePerson()` at the four write sites (feedback · zone-audio · zone-feedback · conversation first-write); `test-feedback-cycle.py --live` + `qa-write-probe.py` both assert the key. QA verdict + the prod read pending below. — agent · reversible (additive field) · the Worker stamps `personId: null` at
 its lowest write helper for feedback, zone-audio, zone-feedback and conversations. **Null is declared, never absent**: an
 absent field means *pre-step record*, a null means *written after the field existed and nobody could say* — different
 observations, kept different. No handler reads a person from the request (there is no credential until C6). Check:

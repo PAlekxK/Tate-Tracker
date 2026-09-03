@@ -181,6 +181,9 @@ def live():
     all_ok &= check("POSITIVE  the nonce reads back from QA (QA token)", hit is not None)
     all_ok &= check("R2  the QA row carries env == \"qa\"", bool(hit) and hit.get("env") == "qa",
                     json.dumps(hit and {k: hit.get(k) for k in ("id", "env", "deviceId")}))
+    all_ok &= check("C5 1a  the QA row declares personId: null (declared, never absent)",
+                    bool(hit) and "personId" in hit and hit.get("personId") is None,
+                    "keys=%s" % (sorted(hit.keys()) if hit else None))
     all_ok &= check("HYGIENE  the row is instrumentation to every reader (harness id + test flag)",
                     bool(hit) and momlib.is_instrumentation(hit))
 

@@ -92,6 +92,20 @@ function authOk(request, env) {
   return env.SHARED_TOKEN && tok && tok === env.SHARED_TOKEN;
 }
 
+// ---- Person on the record (C5 1a, 2026-09-03) ----
+// Every NEW record the Worker writes declares `personId: null`. Null is DECLARED,
+// never absent: an absent field means "written before the field existed" (a
+// pre-step record); a null means "written after it existed and nobody could
+// say." Two different observations, kept different. No handler reads a person
+// from the request — there is no credential until C6 — so this is the ONLY
+// value the Worker can honestly write today. The resolver that can turn a
+// deviceId into a person (momlib.person_for, C5 1b) runs on the read side and
+// is the only writer of a non-null person anywhere.
+const PERSON_UNKNOWN = Object.freeze({ personId: null });
+function declarePerson(record) {
+  return Object.assign({}, PERSON_UNKNOWN, record);
+}
+
 // ---- Write-only capture exception (2026-07-16) ----
 // WHY THIS EXISTS. On 2026-07-15 Mom wrote substantive feedback on her MacBook —
 // a device that had never been paired with the token. Every write path gates on
@@ -994,14 +1008,14 @@ async function handleZoneAudio(request, env, url) {
     // field so nothing is misdated, and let the reader sort by it.
     const today = nowIso.slice(0, 10);
     const key = `zone-audio:${today}`;
-    const meta = {
+    const meta = declarePerson({
       id, zoneId, uploadedAt: nowIso, mediaType, sizeBytes: base64.length,
       durationMs: Number.isFinite(body.durationMs) ? Math.round(body.durationMs) : null,
       recordedAt, heldMs,
       deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
       reviewed: false,
       env: env.ENV_NAME || "unset",   // C4 3a (R2)
-    };
+    });
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
@@ -1231,11 +1245,11 @@ async function persistConversation(env, conversationId, turns, origin, deviceId)
     try { session = JSON.parse(existing); } catch (e) { session = null; }
   }
   if (!session) {
-    session = {
+    session = declarePerson({
       id: conversationId,
       startedAt: new Date().toISOString(),
       turns: [],
-    };
+    });
   }
   // WHICH DEVICE opened this conversation (2026-07-30). Sticky and first-write-
   // wins, exactly like `origin`: a later turn cannot relabel who started it, and
@@ -2193,7 +2207,7 @@ async function handleFeedback(request, env, url) {
     if (!hasSentiment && !note.trim()) {
       return json({ error: "need-sentiment-or-note" }, 400);
     }
-    const record = {
+    const record = declarePerson({
       id: body.id || ("fb-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36)),
       ts: body.ts || new Date().toISOString(),
       sessionId: body.sessionId || null,
@@ -2202,7 +2216,7 @@ async function handleFeedback(request, env, url) {
       sentiment: hasSentiment ? body.sentiment : null,
       note,
       env: env.ENV_NAME || "unset",   // C4 3a (R2): which deployment wrote this row
-    };
+    });
     const today = new Date().toISOString().slice(0, 10);
     const key = `feedback:${today}`;
     const existing = await env.OBSERVATIONS.get(key);
@@ -2618,14 +2632,14 @@ async function handleZoneFeedback(request, env, url) {
 
     const today = new Date().toISOString().slice(0, 10);
     const rand = Math.floor(Math.random() * 65536).toString(16).padStart(4, "0");
-    const record = {
+    const record = declarePerson({
       id: `${today}:${Date.now()}-${rand}`,
       text: text.slice(0, 2000),
       createdAt: new Date().toISOString(),
       by: typeof body.by === "string" ? body.by.slice(0, 40) : "device",
       deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
       status: "pending",
-    };
+    });
 
     const key = `zone-feedback:${today}`;
     const existing = await env.OBSERVATIONS.get(key);
