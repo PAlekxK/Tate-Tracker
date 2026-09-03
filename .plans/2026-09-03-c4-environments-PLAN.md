@@ -266,9 +266,13 @@ phone and watch it land on the new one; it must never show a GitHub 404).
 
 1. **Q1 The domain name** — Paul's pick (criteria in `.engineering/2026-05-11-path-custom-domain.md`: dictate-able
    to Mom, no hyphens, field-journal tone); 2a cannot start without it.
-2. **Q2 "Tate Commons" in the added-lines grep** — the phrase is already on `origin/main` twice as the other
-   product's name; is the *name* under the rule (so the B0 and PRODUCT-ENGINE mentions reword to
-   "the community product"), or only Bob's preference about it?
+2. ~~**Q2 "Tate Commons" in the added-lines grep**~~ ✅ **RULED `[paul-stated 2026-09-03]`: only Bob's
+   PREFERENCE is under the rule.** The two sentences saying he chose personal use over it are redacted;
+   the product's name stays where it names the product. So the 1c added-lines grep drops `Tate Commons`
+   from its pattern and adds the preference phrasing (`a personal household record`, `not the community product`,
+   `over the community product`) instead.
+   **Q1 has moved too:** ONE DOOR for everyone `[paul-stated 2026-09-03]` — the domain names the PRODUCT,
+   not Fernwood; the product's name is a prerequisite, with `content-steward` + `user-researcher` running.
 3. **Q3 Does the QA Worker share the Anthropic key** — yes means an agent driving `/api/chat` is real spend;
    no means Guru is not exercisable in QA (declared under R5).
 4. **Q4 Was her phone ever paired** (`tateTracker.sync.v1`) — decides whether 2d costs a token re-paste; the
