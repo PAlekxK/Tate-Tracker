@@ -283,8 +283,8 @@ phone and watch it land on the new one; it must never show a GitHub 404).
    cannot leave an unpaired device and `text_size_served` was recorded from hers, so **her phone is paired and
    holds the sync token — which is the one shared admin credential.** Rotating `SHARED_TOKEN` blinds her
    telemetry until re-pasted in person; 2d carries the re-paste.
-6. **Q6 Replace-text vs squash** — the plan recommends replace-text (keeps the seat-before-plan add-dates and
-   the 50-commit narrative); confirm, or take the squash and accept a flattened trail on the first item.
+6. ~~**Q6 Replace-text vs squash**~~ ✅ **RULED `[paul-stated 2026-09-03]`: replace-text, keep the 50 commits.**
+   Paul reads the added Bob lines before the push (1c's last check).
 7. **Q7 Cloudflare Access on the QA origin** — off by default here (the bytes are public anyway; the title marker
    distinguishes it); turn it on if a stranger's traffic ever shows in the QA namespace.
 8. **Q8 Who owns the forwarding repo long-term** — keep forever, or delete once the old Worker is deleted?
