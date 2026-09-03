@@ -16,7 +16,7 @@
 The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026-07-17) — it's history, not status. Read status here.
 
 ---
-# ▶️ NEXT — the one true list (rationalized 2026-07-29)
+# ▶️ NEXT — the one true list (rationalized 2026-09-03)
 
 > **This replaces the old TOP ITEM block and the two colliding `▶️ NEXT` tables.** The rationalization
 > Paul commissioned on 2026-07-28 **ran on 2026-07-29**: five expert seats (ux · user-research ·
@@ -24,6 +24,17 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 > against git and the live app. Proposal + full reasoning: `.plans/2026-07-29-rationalized-backlog-PROPOSAL.md`.
 > Panel reports: `.ux-reviews/`, `.user-research/`, `.engineering/`, `.content-reviews/`, `.ai-advisor/`,
 > `.plans/2026-07-29-verification-sweep.md`. The old head is preserved in git.
+>
+> **Second rationalization — proposed 2026-09-02, applied 2026-09-03** `[paul-approved 2026-09-03]`.
+> Trigger: `tools/check-backlog-drift.py` (head→list gap 734 lines, 35 days). Scope: reading order only —
+> **every move was a MOVE**, no row deleted, no status changed; each moved section carries a provenance
+> line. Proposal + reasoning: `.plans/2026-09-02-rationalization-PROPOSAL.md`. ⚠️ The four sections it
+> proposed to *split* (riders vs narrative) were moved **whole** instead — splitting is a judgment
+> edit, not a move. The old order is preserved in git.
+>
+> **Reading order now:** WAITING ON PAUL → open decision cards → Tier 1 / 2 / 3 → the three lenses
+> (orienting principle · engagement guard · Track A vs B) → the tracks. The detector's own
+> thresholds are a first cut; its pre-registered question discharges per the proposal's §6.
 
 **This is a POINTER list, not a second tracker.** Status stays in the row it points to. The ~156 rows
 below are the **decision record** — read them for *why*; read this for *what now*.
@@ -38,542 +49,155 @@ the priority cut laid over it.
 | **2 · CONFIRMED** | An answer Mom has **already given** — build it |
 | **3 · STEER** | A question **not yet asked** — and the row is INCOMPLETE until it names ① the question and ② how the answer gets captured |
 
----
 
-## 🌸 THE POND AZALEA WANTS MOVING — a standing reminder, captured 2026-09-01
+**Second axis — engine · config · instance** `[paul-ratified 2026-09-02]`, proposal §1b. It labels; it
+**ranks nothing** — the tiers remain the sort. *Does this row pay once, or every time?*
 
-Arrived as a field note + Guru turn at **1:43 PM ET, 2026-09-01**, on device `d-14nyhnjz…` —
-**Paul's own device** per `tools/people.json`'s 2026-07-28 clean-slate correction, not Mom's. So it
-is Paul-relayed input, which the channel doctrine counts as real input, and it is **not** an arrival
-the acknowledgment ribbon owes Mom a line for. Recorded here rather than swept up, because *"it was
-Paul" is a DISPOSITION, not a dismissal.*
-
-> *"There's an azalea by the pond that we do want to move later so we'll wanna reminder whenever the
-> weather and conditions are good according to that plant's profile — when's a good time to think
-> about moving it and what kind of spot to move it to."*
-
-**Three things it actually asks for, and only the first is trivial:**
-1. **A record that this specific azalea is slated to move.** `plants.json` has `azalea`, and the
-   pond-side individual is exactly the *"same species, several individuals across zones"* case that
-   **W6 (the instance model) is deferred on.** This is a real instance of that gate, not a
-   hypothetical — note it against W6 rather than cloning a record.
-2. **A timing reminder keyed to the plant's own profile.** Guru's reply said late-March–April or
-   late-August–September at this elevation. ⚠️ **That is a model read and is not canon** — it is not
-   in `plants.json`, and a transplant window is exactly the kind of date the season-note authoring
-   rule forbids asserting loosely. If it ships, it ships as authored canon with a source.
-3. **Where to move it to** — a judgment call needing sun/soil/drainage, i.e. a zone recommendation.
-   The new 2018 leaf-off basemap frames make the candidate ground legible for the first time.
-
-⚠️ **No card, no reminder and no canon edit has been made.** Deliberately: the ask arrived at a lap's
-close, item 2 would put an unverified date in front of a reader, and item 1 touches a deferred gate.
-
----
-
-## 🛰 BASEMAP & LAND-DATA SESSION — 2026-09-01 · what got built, and what is owed
-
-**How this started:** Paul asked whether Google Earth Pro's polygon tool could define zones.
-It ended four layers deeper. Full write-ups: **`LAND-SOURCES.md`** (every database, VERIFIED vs
-LEAD) and **`GOOGLE-EARTH-NOTES.md`** (how to drive Earth Web, and its two traps).
-
-### ✅ SHIPPED this session
-- **`tools/zones-to-kml.py` / `tools/kml-to-zones.py`** — round-trip zones through Google Earth
-  Pro. Importer is dry-run by default, requires `--imagery`, never deletes, refuses holes, and
-  errors on a KML with zero polygons or coordinates off the property. Round trip is a
-  byte-exact no-op across all 23 zones.
-- **`tools/area-trace.html` — SEVEN ground frames**, keys `1`–`9` / `G`. All NAIP frames render
-  to byte-identical bounds, so swapping one moves nothing but the photograph.
-- **`tools/fetch-trace-hires.py`** — Esri z19 (0.246 m/px, 2.4× NAIP). Local only.
-- **`tools/register-gearth-frame.py`** — georeferences a Google Earth capture by homography
-  from Earth's own cursor readout. ⭐ The **2018-04-12** frame is now a layer.
-- **`tools/fetch-historical-topo.py`** — USGS sheets back to 1888, cropped to the anchor.
-- **`fetch-basemap.py`** now derives season and records noon sun + shadow ratio. It had been
-  writing `"season": "leaf-off"` as a hardcoded string.
-
-### ⭐ THE FINDING THAT REFRAMES THE WHOLE THING
-**At 34.55°N, leaf-off and an overhead sun cannot co-occur.** The leaf-off window (Dec–early
-Apr) caps the noon sun near 55° at the equinox; sun above 60° only falls on full canopy. NAIP
-has flown this quad seven times and **exactly one is leaf-off — 2022-01-10, the lowest sun of
-all seven** at 33.4°, shadows 1.52× object height. That is the frame the zones were traced on,
-and it is why the 8/31 trace was hard. **So the frame is chosen PER ZONE, not once.**
-
-### 🔴 PAUL FOUND THE REAL LIMIT — 2026-09-01, and it outranks everything below
-
-> *"That screenshot doesn't zoom like the Google Earth website does. When I zoom in now with the
-> starred 2018-04 button selected, the resolution still gets really poor. And when I do the same on
-> Google Earth, the resolution stays good."*
-
-**He is right, and it is structural.** A screen capture is a FIXED RASTER — the 2018 frame is
-1568 px across ~700 m, so ~0.45 m/px, and zooming in the tracing tool only magnifies those pixels.
-Google Earth streams progressively finer tiles as you descend. **No amount of registering a single
-screenshot fixes this**; the detail is not in the file.
-
-**⭐ The fix, and the arithmetic says it is cheap.** All 23 zones fit inside **231 m × 138 m** —
-only 50% of the traced frame's width. The viewport is a 1512×595 letterbox, so:
-
-| capture width | resolution | vs NAIP | captures needed |
-|---|---|---|---|
-| 700 m *(what we have)* | 0.45 m/px | 1.3× | 1 |
-| **~350 m** | **0.22 m/px** | **2.7×** | **1 — covers every zone** |
-| 250 m | 0.16 m/px | 3.8× | 4 |
-| 150 m | 0.10 m/px | 6.3× | 6 |
-
-So Paul's own proposal — *"a zoomed out view and a zoomed in view that you can navigate around"* —
-is right, and one ~350 m capture centred on `-84.366847, 34.549125` covers all 23 zones at 2.7×
-NAIP. A 150 m mosaic at 6.3× is six captures if that is not enough.
-
-⚠️ **BLOCKED ON A FLAKY DEPENDENCY, not on a decision.** Earth Web wedges on its splash screen
-whenever an already-loaded instance is navigated by URL; it recovers after ~60–90 s but did not on
-the last three attempts. **Do not re-navigate to retry — that restarts the clock.** Wait it out, or
-drive zoom with the on-screen `−`/`+` controls, which do not trigger the reload path.
-
-**Registration is already solved and reusable** — `tools/register-gearth-frame.py` takes four
-control points read off Earth's own cursor readout, so each new capture is four hovers plus a
-screenshot. Nothing new needs designing.
-
-### 🔜 OWED — next steps, in the order they are worth doing
-
-0. **⭐ THE ZOOMED-IN CAPTURE (above).** Highest value, unblocks real re-tracing, ~10 minutes when
-   Earth is behaving.
-1. **The 2018 frame covers 74%, not 100%.** The northern strip is missing — Earth Web's
-   viewport is a wide letterbox and the frame is square. Fix: two captures mosaicked, or one at
-   a wider zoom (costs resolution — at the wider zoom it is already ~0.61 m/px, no better than
-   NAIP). **Decide which before trusting it for the northern zones.**
-2. **Re-trace the field zones on a frame that can actually show them.** `the-turf`,
-   `the-meadow`, `the-green`, `the-green-ring`, `lawn` — all 23 zones are still `status: draft`
-   and were traced under 1.52× shadows. The 2018 frame is the one to redo them on.
-3. **Come back to Google Earth and explore properly** — three named capabilities untried:
-   **compare-two-years** (directly relevant: the lidar is 2018 and the western garden/patio were
-   regraded after it), the **measure tool**, and the **Gemini panel** (⚠️ anything it returns is
-   a model read, never a record value). Also: enumerate every exact capture date on the
-   1985→2025 timeline; only six are known.
-4. **Pickens County GIS / qPublic** — ⭐ **the property boundary is missing from every source in
-   this repo.** This is where it lives, along with deed, sales history and year-built.
-5. **USGS EarthExplorer single-frame aerials (1930s–1990s)** — the only path to a *photograph*
-   of this land before the house. Needs a login and per-frame control-point registration. The
-   1971 topo already establishes there was **no building at the anchor** then.
-6. **A canopy-height model from the 2018 lidar** (DSM − DTM) — would draw the woods/field edge
-   with no shadows and no leaf season at all. Strongest possible source for the field zones, and
-   the pull path already exists (`lidar-hillshade-2018.png`).
-7. **Pull the remaining historical topos** — 1892, 1898, 1911(×3), 1955, 1958(×3), 1961, 1963,
-   1981, plus US Topo 2011/2014/2017/2020/2024. Three of seventeen are done.
-
-### ⚠️ THREE MEASURED TRAPS — each returned success while carrying nothing
-- **Esri z20/z21** answer HTTP 200 with a valid PNG of a grey square reading *"Map data not yet
-  available."* A status check calls that a win and yields a grey basemap.
-- **Google Earth's attribution date LAGS the header** by one frame while tiles load. Recording it
-  mid-load puts a false capture date in the record.
-- **Earth's 1985 tick renders 100% loaded and completely blank** here. The tick is global
-  coverage, not local.
-
-**And one of my own:** the first registration attempt fitted scale+translation by correlation,
-scored NCC 0.21, and **got worse at higher resolution** — the signature of model mismatch, not
-noise. Earth Web is a perspective camera over 71 m of relief inside one frame. The fix was to
-stop guessing and read Earth's own cursor lat/lon at four corners. **The guard that refused the
-bad fit is why this is a note and not a corrupted layer.**
-
----
-
-## 📐 From the 2026-08-31 production ux-sweep — Paul's decision walkthrough (trail: `.ux-reviews/2026-08-31-production-full-sweep.md`)
-
-- **[paul-stated 2026-08-31 · D4 = ledger] Pre-glance stack height ledger, next mom-cycle lap.**
-  The stack above the first glance row measures **1,712px at 414×A+** (first card ~3.6 viewports
-  down). Every resident is individually ratified; the SUM never ruled on. Run the 8/24-style
-  height ledger (Leg 6e harness) on the stack, let the numbers propose the trim, Paul decides
-  from the ledger. Change nothing before the ledger.
-- **[paul-stated 2026-08-31 · D3 = ask her] `q-jumpstrip-coverage` staged inactive** — reflective
-  card asking whether she wants Fishing / night-sky / Almanac chips. Ships on Paul's wording
-  confirm + `rationalize-bench.py --approve`. Gardening-band breadcrumb ("Plants · The Fairway ·
-  Weeds" at the chip landing) WAITS on the zone fold's vocabulary.
-- **[holds pending THE FOLD] Decision-1 remainders**: cross-reference wording (meadow ↔ map) and
-  zoning the hydrangea ring — Mom's 2026-08-31 traced vocabulary (16 areas incl. Fairway Border,
-  The Green, Fern Garden; NO Fairway/Meadow) supersedes today's zone names, so wording written
-  now would name zones the fold retires. **The fold itself** (`.plans/2026-08-31-zones-traced-with-mom.json`,
-  status PROPOSAL — NOT FOLDED, all 4 open questions resolved) is the project's biggest open act:
-  a reviewed session that lands Mom's map as canon, disposes of Fairway/Parking Bank/Upper-Uber
-  Wall/House, and remaps plant zoneIds.
-- **Small follow-ups from the sweep**: ✅ turf.json/TURF_DATA added to `check-data-inline.py`
-  2026-08-31 (caught its first drift the same run) · still open: a `check-zones-drift` in the
-  session-start block (repo zones.json vs live `/api/zones` — the two disagreed in both directions
-  for 6 weeks with nothing flagging it) · sweep lesson: grep `.plans/` before declaring something
-  absent from the record.
-
-## 🗺 THE FOLD — SHIPPED 2026-08-31 (Mom's map is canon) · three riders open
-
-Folded `.plans/2026-08-31-zones-traced-with-mom.json` into zones.json + the Worker KV
-(`zones:all`): **18 zones** = her 16 traced areas + fairway & house KEPT per her/Paul rulings;
-fairway-fringe → fairway-border (plan `draftZoneId`); tombstones so cached devices drop the
-retired ids. turf.json's fringe reference remapped. Verified live: `/api/zones` serves 18 with
-`_deleted` intact.
-- ✅ **parking-bank retirement RATIFIED** `[paul-stated 2026-08-31: "You can just get rid of
-  parking bank. That was an old name."]` — superseded by her the-bank + lower-parking.
-- **Linear features need schema v3** — The Path, Upper-Uber wall, Driveway are traced but NOT in
-  zones.json: `handleZoneSave` rebuilds `{_meta, zones}` wholesale, so any other key is silently
-  dropped on the next editor save. They live in the plan file until the schema carries lines.
-- **⭐ THE CAPTURE TOOLS — do not lose track of them** `[paul-stated 2026-08-31]`:
-  **`tools/zone-capture.html`** (annotation/naming overlay) and **`tools/area-trace.html`**
-  (polygon tracing against the registered basemap) are STANDALONE pages, separate from the in-app
-  zone editor — this session nearly missed them and declared the Fern Garden lost. Pointer also
-  lives in zones.json `_meta.fold_2026_08_31`.
-- Decision-1 riders now unblocked: cross-reference wording (meadow ↔ map, in her vocabulary) and
-  zoning the ring hydrangeas to `fairway-border`. `[paul-directed 2026-08-31]` **the WHICH
-  question routes through the photo library** — plant-labeled photos × the new zone polygons
-  propose, Paul confirms. Ask filed: `photo-organizer/BACKLOG.md` § "INBOUND from Fernwood
-  2026-08-31" (carries the camera-vs-subject and ±30ft caveats + the fold's stale-zone-tag
-  impact). His memory can still short-circuit it any time with a one-line answer.
-
-## 🏠 Household systems build-out — SHIPPED 2026-08-31 · four gaps open (Track B)
-
-From Paul's five photos (archived `.private/household-photos/`, serials in
-`.private/devices-identifiers.json`): the household-system group grew 1 → 5 —
-propane furnace, Bradford White RE250T6-1NCYY water heater (built Sept 2024 per
-the serial date code), Samsung WF45K6500AV washer (built Oct 2016), and the
-Square D Homeline HOMC30UC panel with its 30-row door directory transcribed.
-Two new optional record sections in `renderVehicleItem`: **`rhythms[]`** (cyclical
-chores — null `lastDone` renders "no date on record yet", never "overdue"; with a
-date it warms quiet → coming up → worth doing, the tag-renewal ladder) and
-**`circuits[]`** (the panel directory, per-row confidence chips). Structure call,
-Paul-raised in-session: household-system **stays a group inside vehicles.json**,
-exactly as equipment is — one schema, one renderer, one reinline pipeline; a
-later split is mechanical if the group outgrows the file.
-
-**Open, and each is a two-minute physical act at the property:**
-
-| # | Gap | Settles |
-|---|---|---|
-| H1 | 📷 Photograph the **furnace data plate** (inside/beside the upper burner-compartment door) | Model · serial · age · igniter part number — the whole identity is `tbd` until this |
-| H2 | 👀 Read the **air-filter size** off the filter edge in the return slot | The one recurring chore's shopping fact; card says `tbd` |
-| H3 | 🔌 Flip-test panel rows **28** ("Booster pump"?) and **30** ("Bath GFI"? "Barn"?) — handwriting reads | Two `inferred` circuit rows; a booster pump would also be a new fact about the water supply |
-| H4 | 🧾 Find the **water heater install invoice** (not in Gmail — checked 2026-08-31) | Starts the 6-yr warranty clock from install rather than the Sept 2024 build date |
-
-Deferred by doctrine (`defer-affordances-pending-signal`): a capture affordance
-for `rhythms[].lastDone`. The deterministic door today is editing
-`vehicles.json` + reinline; build a UI for it only when the rhythms prove used.
-
----
-## 🧑‍🔧 CONTRACTORS & TRUSTED PEOPLE — the register already exists, denormalized, and it is already colliding `[paul-raised 2026-09-01]`
-
-> *"The value of just some reference information — like contractors, trusted contractors, the history
-> that you have with them… and then potentially we get into detailed information inside the house
-> like which breakers control which outlets, where is the water shut-off valve inside and outside.
-> There's a lot of knowledge that — static may not be the right word — but needs to help be
-> remembered over time. That's the field journal applied… it's very helpful for vehicles as well as
-> the garden, and it's helpful for the house as well."*
-
-⭐ **THE REFRAME: this is not a new domain, it is a NORMALIZATION of one that has been accreting for
-a year.** Measured 2026-09-01 across `vehicles.json`:
-
-- **61 service rows, every one carrying a `shop` string — 32 DISTINCT strings.**
-- **Three collision families are already live:**
-  - `Express Oil` (7) · `Express Oil Change & Tire Engineers (Canton, GA)` (4) · `Express Oil
-    (Atlanta — Moreland Ave)` (1) — **one relationship, two locations, or three?** Unresolved.
-  - `Volkswagen of Marietta` (1) · `Volkswagen of Marietta (parts counter)` (1) — one business split
-    by department.
-  - `DIY (Paul)` (13) · `DIY (Amazon parts)` (3) · `DIY (eBay parts)` (1) · `DIY (Mom)` (1) — **not
-    shops at all.** "DIY" is the *absence* of a vendor, and **`DIY (Mom)` is a fact about a person
-    doing the work sitting in a vendor field.**
-
-**What the register lacks is exactly the three things Paul named:** **identity** (one row per
-relationship, not N strings) · **history with them** (already present, just not joined) ·
-**judgment — would we call them again**, which exists **nowhere** and only he has.
-
-### ⛔ AND IT IS 100% VEHICLES. The house has no people in it at all.
-
-The house was built, roofed, wired, plumbed and heated by somebody, and Fernwood knows none of them.
-The 08-31 build-out gave the household group **five systems**, every one carrying `maintenance` and
-**not one carrying a who**. The **2026-04-23 roof inspection** already sitting in the
-photo-organizer inbound (P2) is the first household service event with **no contractor to attach it
-to**.
-
-### The second half — latent physical facts — is a DIFFERENT animal, and half of it is already open
-
-`circuits[]` shipped 08-31, but that is the **panel's claim about itself**: hand-written on the door,
-some rows graded `inferred`, three blank. Paul is describing the **inverse index** — standing at an
-outlet, *which breaker?* That is a **room → fixture → circuit** map and it does not exist. **H3
-(flip-test rows 28 and 30) is literally its first two rows.** Shut-off valves are a third thing
-again: not a system, not a circuit, but **a location needed at the worst possible moment**, which
-argues for reachability without opening a card at all.
-
-⭐ **THE PROPERTY THAT ACTUALLY DISTINGUISHES THIS WORK — and Paul was right that "static" is the
-wrong word.** It is not that these facts don't change. It is **who else knows them**. Vehicle
-service history is knowledge Paul *creates* by doing the work. Which breaker runs the patio is
-knowledge that **already exists in the world**: an electrician derived it once, wrote thirty rows on
-a door in pencil, and left. Mom holds a large amount of the same kind about this property. That
-reframes the job from *build a form* to **capture before the knower is gone** — which carries a
-clock a garden card does not.
-
-### ⚠️ Two decisions to make BEFORE building, not during
-
-1. **This repo is PUBLIC.** Contractor names, numbers and prices are PII. `.private/` already exists
-   for exactly this (`devices-identifiers.json`, `household-photos`). The public card can carry the
-   relationship without the phone number — but see **C0's auth reframe**: `.private/` is a
-   *capability ceiling*, and the contractor's number is worthless on a laptop in Atlanta when the
-   furnace quits in Jasper. **This item and C0/Q2 are the same question wearing two hats.**
-2. **A published map of how to shut off water at an unoccupied mountain house** deserves a deliberate
-   decision rather than a default. Same file, same repo, very different exposure. **Paul's call —
-   the point is that he makes it rather than inherits it.**
-
-**Recommended sequencing (agent view, not a decision):** contractors first — it is a normalization
-with **61 rows of existing evidence to fold**, and it unblocks the household half immediately. The
-breaker map and the valves are **field-capture work**: they want a session at the property with a
-phone, and **H1–H4 are already the start of that list**.
-
----
-
-## 🗺 INBOUND from photo-organizer — 2026-09-01: **THE PHOTO→ZONE JOIN HAS A MEASURED FLOOR, and 12 of your 18 zones are under it**
-
-Closing the plant × zone thread. Three zone sheets ruled by Paul (photo-organizer sweeps 126, 135,
-136). **Two actionable plant results, and one finding that governs how the rest of this work should
-be done.**
-
-### ⭐ Two `zoneId` proposals — both resting on Paul's WORDS, not on geometry
-
-| plant | `plants.json` today | proposed | evidence |
-|---|---|---|---|
-| **Constellation Dogwood** | `dogwood` · *Cornus florida* · `zoneId: null` | `fairway-border` | a photographed nursery label **Paul read himself** |
-| **Mountain Laurel** | `mountain-laurel` · *Kalmia latifolia* · `zoneId: null` | `western-garden` | *"22 shows some Mountain Laurel that's in the western garden"* |
-
-Plus one correction to an existing record: **`moss` is zoned `western-garden`, and Paul says the
-EASTERN PATIO "has a lot of moss in the cracks between the rocks."** Its own `soilNotes` already
-say moss wants a firm, damp, lean *surface* rather than soil — which is exactly a patio crack.
-⚠️ **`zoneId` is singular**, so a second location is a schema question, not an overwrite.
-
-### ⭐⭐ THE FINDING — the join CANNOT resolve your garden zones, and re-tracing will not fix it
-
-Paul ruled a 22-card `st-francis-garden` sheet in one sentence: ***"These are all really of the
-eastern patio."*** All 22. So the numbers were measured:
-
-| | |
+| class | means |
 |---|---|
-| `st-francis-garden` | **10.1 × 6.0 m** |
-| `eastern-patio` | **9.4 × 6.6 m** |
-| distance between their centroids | **5.9 m** — *less than either zone's own width* |
-| `fern-garden` from `st-francis-garden` | 11.1 m |
-| `zones.json` `_meta.accuracyHonesty` | **±30 ft (~9.1 m)** |
+| **⚙️ engine** | shared machinery, serves every estate; a divergence here is a **defect** |
+| **🎛 config** | per-estate **declaration as data**, never a fork |
+| **🏡 instance** | Fernwood's own record and content |
 
-**The error budget is larger than the distance between the zones.** A single GPS point cannot
-choose between them at any threshold. **12 of your 18 zones sit in at least one such pair** — only
-`fairway`, `house`, `lower-40`, `lower-parking`, `stable-grounds` and `the-bank` are cleanly
-separable. **The join works at property scale and fails at garden scale, which is exactly where
-the plants are.**
+⛔ *Engine* is not a synonym for *important* — Mom's adoption is answered by **instance** work. And
+most of Mom's machinery IS engine (the ask → fold → acknowledge path is shared), so the axis does
+**not** cut along Track A / Track B.
 
-⚠️ **AND IT QUALIFIES THE TWO RESULTS ABOVE.** `fairway-border ↔ the-green-house` is 6.1 m;
-`western-garden ↔ western-lower-patio` is 5.7 m. **Both proposals came off unresolvable zones.**
-They stand because **Paul named the place in his own words** — not because the polygon did.
-⛔ **So do not let anything auto-assign `zoneId` from this join.** It would have written both of
-these correctly and had no way to know it was lucky.
+---
 
-### ⭐ THREE SEPARATE LIMITS — and only the first is fixable by drawing better
+## 👤 WAITING ON PAUL — and nothing else is
 
-Paul, 2026-09-01: *"it could also be that the zones that I drew in are not exact, because the
-picture I zoomed in on was blurry… we'll probably need to use the pictures we identify to help
-refine our understanding of the zones as well."* **He is right, and it is a different problem
-from the one above.**
-
-1. **POLYGON ACCURACY** — traced off a blurry basemap; `zones.json` says so itself. **Re-traceable,
-   and his reverse join is sound and unbuilt:** a photograph he has *attributed* is evidence about
-   where a boundary actually runs. That is a real proposal and nobody has built it.
-2. **RESOLUTION** — a *perfect* polygon still cannot be read from one GPS point at 5.9 m
-   separation. **Re-tracing does not touch this.**
-3. **CAMERA ≠ SUBJECT** — a plant is photographed *from* somewhere else. No geometry fixes it.
-
-⛔ **Conflating (1) with (2) produces the wrong next move:** a re-trace that feels like progress
-and changes nothing about the join inside the cluster.
-
-### 📥 A DOOR THIS REPO DOES NOT HAVE — raised for the third time, and now with the blocker named
-
-`ask-cycle.py` reports **`tate-tracker` = CANNOT be asked — no door**, so this write-up is
-hand-filed, like the two before it. photo-organizer pre-registered a door for Fernwood's Track A
-at lap 22 and it has now been carried three laps.
-⚠️ **It was NOT created unilaterally, and the reason is specific:** a declared inbox that no
-`CYCLE-MAP` reads is *"a door nothing reads"*, which `ask-cycle.py` exists to refuse. **Fernwood
-has no CYCLE-MAP**, so the wiring has to happen on this side first. **Concretely:** a
-`page.cycle.inbox` block for `tate-tracker` in `operating-layer/config/projects.json`, a
-`cycle/requests.jsonl` here, and a line in a Fernwood cycle map that reads it. **Paul's call —
-REFUSED is a fine answer if hand-filing is working.**
-
-## 🌿 INBOUND from photo-organizer — 2026-09-01: **A SPECIES IS NAMED AT `fairway-border`, and it is on a label Paul read himself**
-
-First `--zone` review lap, serving the plant×zone ask. Paul ruled 10 plant-labelled photographs
-inside the **Fairway Border** polygon. Provenance: photo-organizer sweep **125**, answers file
-`reports/project-review-zone-fairway-border.answers.json`, ruled by voice 2026-09-01.
-
-### ⭐ THE ACTIONABLE ONE — `plants.json` `dogwood` can be zoned
-
-`IMG_8872` and `IMG_8873` (2026-07-20 17:21) are two photographs **of the nursery label attached
-to the plant**. Paul, 2026-09-01: *"eight and nine are pictures of the label that was on the plant
-on the fairway fringe. So it says exactly what kind of plant it is."* He then **read it**:
-
-> **"Constellation Dogwood is what it says."**
-
-**`plants.json` already holds `dogwood`** (*Cornus florida*) and its **`zoneId` is `null`** — one
-of the **23 of 36** entries with no zone. **Proposal: `zoneId: "fairway-border"`.**
-
-### ⭐ PAUL RULED THE GRANULARITY, AND GAVE THE REASON `[paul-stated 2026-09-01]`
-
-> *"I would keep that level of granularity of constellation dogwood, especially since we have the
-> label there."*
-
-**The reason is the rule: a photographed physical label is evidence at CULTIVAR level, so the
-record is kept at cultivar level.** It generalises past this plant — **where a nursery tag exists
-in the corpus, do not collapse to the genus.** photo-organizer applied it to its own vocabulary
-the same session: the tag category is now `reference:constellation-dogwood:plant-label:2026-07-20`,
-keyed on the cultivar, matching the existing `reference:<subject>:<kind>:<date>` pattern.
-
-⚠️ **SO THE EXISTING `dogwood` ENTRY IS NOT AUTOMATICALLY THIS PLANT.** Its `scientificName` is
-**`Cornus florida`**; *"Constellation"* is generally sold as a **Rutgers Stellar-series hybrid
-(*Cornus kousa* × *C. florida*)**. Under Paul's own granularity ruling the likely shape is a
-**distinct `constellation-dogwood` entry** zoned to `fairway-border`, leaving the generic
-`dogwood` record alone — **but that is his edit in his file, and the alternative (correcting the
-existing entry) is still open.** ⚠️ The hybrid claim is an **agent's horticultural recollection**,
-neither read off the label nor checked against a source; **the only VERIFIED string is the two
-words Paul read.**
-
-### The rest of the ruling
-
-| cards | date | Paul's words | filed as |
-|---|---|---|---|
-| #1–2 | 2025-05-03 | *"looking off the Green down the hill towards the driveway… not really sure what exactly is a note"* | `unattributable` |
-| #3 (+#4) | 2025-06-26 | *"a lot of tree clearing… part of the western garden work that's been ongoing"* | `project-tree-work:2025-06-26` |
-| #5 | 2025-10-23 | *"repairing damage that was done, you can see landscaping"* | `project-western-garden-terrace` |
-| #6–7 | 2026-05-01 | *"that's a fruit tree on the edge of the fairway"* | `observed:property:fruit-tree:2026-05-01` |
-| #8–9 | 2026-07-20 | the nursery label (above) | `reference:fairway-border:plant-label:2026-07-20` |
-| #10 | 2026-07-20 | *"pictures of plants on the edge of the fairway"* | `observed:property:plants-to-note:2026-07-20` |
-
-⚠️ **A SECOND, UNNAMED PLANT AT THE SAME ZONE:** #6–7 are a **fruit tree** on the fairway edge,
-2026-05-01 — a different date and a separate statement from the July dogwood. Whether they are the
-same plant is **not stated and not assumed**. If they are different, `fairway-border` holds at
-least two plants worth a record.
-⚠️ **#10 is a plant, not the label, and whether it shows the labelled dogwood is not stated** —
-he said *"plants"*, plural.
-
-### ⚠️ Three things this does NOT establish
-
-1. **The hydrangea question is still OPEN, not answered negative.** The ask's first errand was
-   whether hydrangea photos evidence this ring. Paul named a fruit tree and a dogwood and **never
-   said hydrangea**. He ruled the sheet, not the question.
-2. **Zone membership is where the CAMERA stood.** #1–2 sit inside the polygon while pointing *out
-   of it* (down the hill toward the driveway) — the rule appearing live on the first two cards.
-   Polygons also carry a **±30 ft** honesty budget, so at ring scale this is a shortlist.
-3. **`plants.json` was NOT touched**, and will not be from photo-organizer. `zoneId` is singular —
-   the original ask said `zoneIds`, and any edit must match the real schema.
-
-### ⭐ The method finding, which is the reusable part
-
-**A photographed nursery tag carries what no classifier in that corpus can.** Apple's labels across
-all ten cards are generic — *Foliage, Forest, Plant, Vegetation* — and name **no species**; the
-local VLM reads activity well and object identity badly (five documented failures, including a gas
-tank called "a welding helmet"). The one card that resolved anything is **a photograph of a piece
-of printed card**, and Apple's own **"Document, Printed Page"** label flagged it *before Paul
-spoke*. **Transferable: to find species names in a photo corpus, hunt Document/Printed Page inside
-a zone.**
-
-⭐ **And what an agent deliberately did NOT do:** nobody read the label off the image. **Paul did.**
-An agent OCRing a nursery tag and writing a cultivar into `plants.json` would be a model read
-promoted to a record — precisely what the verification doctrine forbids. The human read is what
-makes *"Constellation Dogwood"* usable here at all.
-
-## 🔧 INBOUND from photo-organizer — 2026-09-01: **MOWER BLADE SHARPENING IS DATED** (Track B)
-
-Answers the fleet-cycle request filed 2026-09-01 (`photo-organizer/cycle/requests.jsonl`,
-`from: tate-tracker:fleet-cycle`). ⭐ **No new review was needed — Paul had already ruled these
-photographs on 2026-08-16**, lap 17, answers file
-`photo-organizer/reports/project-review-burst-2025-04-10.answers.json`. The fleet lap was holding
-an item the photo corpus had already answered.
-
-**THE DATE: 2025-04-10.** The blades are photographed being sharpened at **17:36** — `IMG_6194.HEIC`
-and `IMG_6195.MOV`. The whole Husqvarna sequence runs **16:02 → 18:03** that day (`IMG_6183`,
-`6184`, `6185`, `6194`, `6195`, `6197`), carried in photo-organizer's DB as
-`observed:husqvarna-mower:repair:2025-04-10` — **6 rows**.
-
-**THE MACHINE: the Husqvarna Z254F** — ⚠️ **and this is Paul's WORD, not the photograph's.** The
-request asked whether the images show which mower. They do not. The answers file records the
-finding explicitly: *"two mowers nearly collapsed — only Paul's wording kept the Husqvarna and the
-Kobalt apart."* Filed as fact about what he said, a proposal about what the pictures prove.
-
-**⭐ IT WAS DONE OFF-PROPERTY, at Herman's shop.** Paul, 2026-08-16: *"we did ALL the sharpening in
-Herman's shop. He showed us how."* ⭐ **The geometry predicted this before he said it** — `IMG_6195`
-sat **707 m** out and `IMG_6205` **712 m**, while every other mower card that day was **14–31 m**;
-the outlier was surfaced as *"the blades very likely went to the shop — not decided here"* and he
-then volunteered the shop unprompted.
-
-**⚡ WHY THIS BEARS ON THE ROUNDED 5/8" BOLT.** The sequence is tight and it runs the right way:
-**04-10** blades come off and are sharpened (blade bolts out) → **04-13** the Kobalt push mower is
-worked (`observed:kobalt-km2040x-06:repair:2025-04-13`, `IMG_6248.HEIC`, *"the electric lawnmower,
-the small one"*) → **04-14** Paul asks for a bolt extractor for a rounded, seized 5/8" bolt. **The
-blade bolts were out four days before the bolt problem was raised.** Which machine the seized bolt
-belongs to is NOT established by this — a 5/8" deck bolt is more consistent with the riding mower,
-but that is an inference and the fleet record should not adopt it as fact.
-
-⚠️ **FOUR CAVEATS, because a model read lands here as a proposal and never as fact:**
-1. **The parts list is HEDGED and the sharpening is not.** Paul: *"it LOOKS LIKE we replaced the
-   fuel line and the air filter and the fuel filter and sharpened the blades."* The **sharpening**
-   is separately confirmed (the sparks, plus the Herman's-shop statement); **fuel line / air filter
-   / fuel filter are hedged and must stay hedged** in any serviceHistory entry.
-2. **The VLM read the sharpening as WELDING** — the fifth object-identity failure in this corpus.
-   Nothing here rests on an image-derived claim.
-3. **An unresolved residual, flagged in the answers file:** `IMG_6194` (#4) carries a **19 m** GPS
-   fix and so cannot also be at the shop, while its sibling `IMG_6195` is at 707 m. One of the two
-   is wrong and it is not resolved.
-4. **`IMG_6205` (#5→#7, 2025-04-11) is `unattributable`** — *"me helping Herman at a shop"* — real
-   activity Paul could not tie to a project.
-
-**⛔ NOTHING WAS WRITTEN TO `vehicles.json`.** Both mowers still carry zero `serviceHistory`, and
-that stays Paul's edit — photo-organizer already holds 15 unapplied proposals and does not add
-itself to another repo's canonical file. **The proposal, if taken:** a `husqvarna-mower` entry
-dated `2025-04-10`, `shop: "Herman's shop (DIY, taught by Herman)"`, work = blade sharpening
-**confirmed** + fuel line / air filter / fuel filter **hedged**, no receipt — a live instance of
-the *"labour leaves no receipt"* hole, which is why the fleet record never knew it happened.
-
-⭐ **A GAP THIS SURFACES AND THE GRAMMAR STILL CANNOT HOLD:** *"He showed us how."* The record has
-no slot for **who did the work** or **who taught it** — third instance (after the hired tree crew
-and the gifted Christmas part). It survives only in `detail` prose.
-
-## 📷 INBOUND from the photo-organizer loop — 2026-08-28 (its lap 22, beat 4b)
-
-> **A cross-loop handoff, and it is HERE rather than in `cycle/requests.jsonl` on purpose.**
-> The 8/28 inbound door is scoped to **Track B** — vehicles, parts, equipment, service events.
-> These are property/landscaping facts, which is Track A's half of the repo, and `ask-cycle`
-> reports `tate-tracker` as **CANNOT be asked — no door**. photo-organizer's cycle map names
-> `Tate-Tracker/BACKLOG.md` as the destination for *"Fernwood — service work, vehicles, zones,
-> property"*, so that is where they go. ⚠️ **Two fleet items from the same review DID go through
-> the door** (GTI 2026-07-21, and a photographed Bronco parts list) — see `cycle/requests.jsonl`.
-> Provenance: photo-organizer sweep **120**, answers file
-> `reports/project-review-never-reviewed-bursts.answers.json`, **ruled by Paul by voice 2026-08-28**.
-
-### 🌿 P1 · The WESTERN GARDEN is a five-week arc, and in two of three parts it is not in the frame
-
-| when | what | cards |
+| Item | What's needed | Where |
 |---|---|---|
-| **2025-11-16** | A **heavy sculpture** taken off a truck — *"that will eventually go in the western Garden at Fernwood"* | 14 photographs |
-| **2025-12-22** | **Mountain laurels dug up** — *"that actually got planted in the western Garden"* | 1 |
-| **2025-12-23** | *"building one of the original walls in the western Garden at Fernwood"* | 2 |
+| **🔑 Ambient Weather key rotation** | ⏸ **TABLED 2026-08-02 by Paul mid-flight** — resume when he has gas for it. **Step 1 of 3 is DONE:** the Worker proxy exists and is deployed — `/api/ambient`, cached 120s, `limit` clamped, upstream error bodies never echoed (an Ambient error can quote the query string back). It is **deliberately ahead of the token gate**: the call it replaces was a direct browser fetch that worked on every device paired or not, and the token is pasted per-device, so gating it would blank the conditions on Mom's device — the 2026-07-16 silent-void failure. `/health` reports `ambient:false` until secrets exist. **Step 2 is PAUL'S and needs a real TTY** (`npx wrangler secret put AMBIENT_APP_KEY` / `AMBIENT_API_KEY` from `worker/`, values at `viewer.html:6990-6991`) — ⚠️ never via `!`, which uploads an EMPTY secret and prints success. **Step 3 (agent):** switch viewer.html to the proxy and strip the literals — **deliberately NOT done yet**, because doing it before the secrets exist breaks the live dashboard. Only then does Paul rotate, and by that point no key is in any client so the rotation is final. | C |
+| ⏸ **The zone map now reads ALL-DASHED** — **HELD 2026-07-31, and so is all further zone work** | All 10 zones are `status: draft`, so the draft-rendering that shipped 7/28 made the whole map dashed. If that reads as *"nothing here is settled,"* the fix would be to **confirm the zones we trust**, not soften the rendering. **Paul's call 2026-07-31: hold this AND every other zone thread** — *"hold on any further zone work, basically, until we get some signal from mom that the zones are important."* **UN-PARK TRIGGER: a signal from Mom that zones matter to her** — a zone-audio recording she initiates, a zone named or corrected in her own words, a Guru question about a zone, or anything she says to Paul about the map. Today the front door has **0 taps from her device** and none of her four real inputs has ever been about a zone, so this is holding a thread that has no demand behind it — the [[feedback_defer_affordances_pending_signal]] posture applied to a whole track rather than one affordance. ⚠️ **What this hold covers:** confirming zone `status`, the naming-completeness pass, `zoneAffinity`, zone-journey v2, the map-highlight. ⚠️ **What it does NOT cover:** `zoneId` assignment on the 23 null plants (re-derived 2026-08-02; was 24 when the record held fewer plants) (that is canon structure, invisible to her, and W9's soil fold depends on it) and W9 soil sampling itself, which is Paul's fall fieldwork and waits on nothing. | A2 · ⏸ HELD |
+| ~~**🗣 Get Mom to adopt "Almanac"**~~ | ✅ **DROPPED FROM TRACKING 2026-08-02 — Paul: *"go ahead and drop number seven, like, you don't need to keep track of that."*** Not reversed, not decided against — simply no longer a tracked item. He owns the conversation with her and does not need a row reminding him. The 07-30 release note already told her *"If a different name suits you better, say so,"* so the door stays open in the app without anything here. **Do not re-add a card** (one was drafted and deleted on his instruction). | Tier-3 STEER #8 |
+| **🪑 Approve a batch of bench cards** | ⚠️ **THE 08-02 PREMISE HAS FLIPPED — re-measured 2026-08-08.** That row concluded *"nothing is urgent"* **because the queue was full**; it is not anymore. She answered `q-top-categories` on 08-03 and it retired on 08-04, so `rationalize-bench.py` now reads **4 live · 1 OPEN SLOT · 8 awaiting Paul's clear gate · 0 approved on the bench**. Approving now *does* change what she sees. **RIPE: `q-fairway-grass-seedheads`** — its own trigger is *"flip in August when seed-heads emerge,"* and it is August. **Still SKIP (out of season, per today's run):** `q-spiderwort-bloom`, `q-hydrangea-dreamcloud-bloom` (reopens 09-01), `q-lizards-tail-bloom`. The 08-02 reading, preserved because its reasoning stands: ✅ **VERIFIED 2026-08-02 — nothing is urgent, and nothing is owed to her.** Live queue was **full and healthy**: 5 confirm cards, every observable exists today, **0 open slots**, so approving changed nothing until one was answered. *(Checked the scare too: 6 cards read as `active`, but `SUPPORTED_KINDS = ["confirm"]` filters the open-standing card out of the 5-slice and `generalQ()` renders it separately as the foot-line — it is visible, via a different path. Not a bug.)* Loop state: **nothing ready to fold, nothing pinning the watermark, no unanswered notes** — `q-almanac-name` already handled-then-retired, which released the ceiling. **Supply is now 10 in the pipe** (8 on the bench + virginia-creeper and wild-violet, newly harvestable after M1). **RIPE:** `q-fairway-grass-seedheads` — flip in August, the seed spikes are the tell. **SKIP (out of season):** `q-spiderwort-bloom`, `q-hydrangea-dreamcloud-bloom` (reopens 09-01), `q-lizards-tail-bloom`. ⚠️ **`q-wild-violet`'s observable is "the little purple flowers next spring"** — the harvester flags it; do not serve it in August. **The constraint has flipped:** it is no longer supply, it is the gate and the cap. An agent may run the report; only Paul runs `--approve`. | A3 · "THE BENCH" |
+| ~~**178 season notes await a spot-check**~~ | ↻ **REFRAMED 2026-08-02 — Paul will not read 178 notes, and the row should stop asking.** *"I'm not gonna do that realistically… let's have a strategic way of going through this."* Two facts reshaped it: **only the CURRENT month ever renders** (`plant.seasonNotes[String(currentMonth)]` — August is 24, never 178), and the v7 rule **forbids date claims outright**, so the notes are deliberately unfalsifiable by timing. **Tier 1 SHIPPED:** `tools/check-season-notes.py` audits all 178 against each plant's own bloom/care months — heuristics over prose, so it flags and never fixes. **Tier 2 is dead as written** (Paul reading a month) — he wants **Mom** doing this, in the app, inside the existing capture/feedback loop. **Tier 3** = season-note cards that ask about the OBSERVABLE the note describes, never about our prose; unblocked by M1 but competes for the 5-slot cap. | A2 · #8 |
+| ~~**Three relayed conversations**~~ | ✅ **CLOSED 2026-08-02 — Paul: *"let's just close nine. That seems out of date."*** Retires Tier-3 **#3** (the household-repair question feeding B6) and **#4** (what she expected to happen when she reported the rainfall number), both authored off the 2026-07-26 feedback, plus the categories follow-up. ⚠️ **What closes with them:** #4 was the only planned read on *what she expects back when she reports something* — the return-leg design now proceeds on inference rather than her account. If that gap bites, re-ask it fresh rather than reviving these — a question written for a week-old moment is the staleness that closed this row. | A1 · B6 |
+| **⭐ Should BEHAVIOUR be able to fire a lap?** `[paul-raised 2026-08-15]` | **The measurement half is BUILT and wired; the trigger half is his call and deliberately untouched.** Paul: *"the false signal of her not responding to any of the cards means she's not using the app. But that's just because that's the only thing we're checking **and have as a trigger for cycles**."* Today every detector in the loop keys on an **arrival** (an answer, a note, a recording, a Guru turn), so `mom-cycle-status.py` read 🟢 ARMED / *"nothing unread could be hers"* on 2026-08-15 while her device had **3 sessions, 2 jump-strip taps and 2 card opens since lap 3** — and **18 sessions on 11 active days** across the prior month, five of them (08-11, 08-12) producing no arrival at all. ✅ **Shipped 2026-08-15:** `tools/read-mom-engagement.py` (her device, since the last lap — sessions · card opens · journal · offered→viewed→taken), in the session-start block, in the map's checks table, and on the board as an informational **BETWEEN-LAP USE** line. ✅ **ANSWERED 2026-08-17 — `0fee32f`, `[paul-approved]`. This row's question is CLOSED and the row is kept only for its argument.** Paul settled it after a pickup rendered the loop 🟢 ARMED / *"nothing unread could be hers"* on a window in which she had 4 sessions across 3 active days and viewed 3 of 4 offers without tapping one. **Three signals shipped**, thresholds agent-proposed and ratified by his pick: `offers-passed` (≥3 seen and not tapped), `sessions-quiet` (≥3 sessions, no arrival), `answer-age` (≥21d). ⚠️ **The amendment reached `CLAUDE.md` and the code and NEITHER prose surface** — `MOM-CYCLE-MAP.md` and the Skill both still said her input alone fires a lap, for 10 days. Caught lap 6 (2026-08-27); both amended, and `tools/check-loop-docs.py` now fails on the gap. Original framing kept below because the reasoning is still the reasoning: ~~**The question for Paul: should a behavioural signal fire one, and which?**~~ The candidates are not equal — *she used it and gave nothing* (arguably the most informative state we have, and today it is invisible), *she was offered something N times and never took it*, *she stopped coming* (a decay trigger, which is the one thing an arrival-only loop can NEVER fire — silence produces no event). ⚠️ **The cost of getting it wrong runs one way:** an arrival trigger is self-limiting because she has to act; a behavioural trigger fires on our own instrumentation and could put the loop on a cadence, which is exactly what *"the loop RESTS; HER input fires it"* was written to prevent. ⚠️ And at this n a behavioural trigger would be firing on **single-digit counts from a device bucket, not a person**. | loop · A1 |
+| ~~**A+ DEFAULT — held for next lap**~~ 🏁 **WALKED BACK 2026-08-19, NEVER SHIPPED** `[paul-stated 2026-08-19: "let's not force an A+ text resizing if she's used to A"]` | ✅ **CLOSED — and the hold did its job: because `2e8791a` was never pushed, MOM WAS NEVER SERVED A+.** The default is `normal` again (lap 4). **Two reasons, and the second generalises:** ① she has never fired the toggle, so she is habituated to A, and changing the default re-formats every surface at once for someone who did not ask. ② **the hunch it was testing was answered by something else.** The premise was *"she just doesn't understand the UI"*; lap 4 found she navigates **100% by the jump strip** and opened the radar on her **first contact with its new door** — having told Paul twice she liked the radar, once saying she *"didn't know how to access it."* **That is a DOOR problem, not a comprehension problem, and a door problem is not fixed by resizing her type.** Do not re-raise the A+ default without new evidence about HER, not about the UI. The reasoning + verdict now live in `viewer.html`'s `wireTextSizeToggle` block; `2e8791a` stays in history as the experiment. ✅ **The deferred 390px A+ check RAN anyway (lap 4) and PASSED** — see the row below; it is not owed work any more. <br><br>*(Original hold reasoning follows.)* 🔴 **READ THIS BEFORE PUSHING ANYTHING IN THIS REPO.** `2e8791a` changes `viewer.html` and is **deliberately unpushed**. Pages serves `main`, so pushing it — including as a ride-along on some unrelated commit — **ships the A+ default to Mom early and starts the experiment at the wrong moment**. Two reasons it waits, and the first is the load-bearing one: ① **the before/after engagement comparison must not straddle a lap boundary.** `read-mom-engagement.py` windows on the last lap; landing the switch mid-interval splits the baseline across the lap-3 window and makes the only real read of this test (session length · card opens · journal interaction, before vs. after) unresolvable. ② the deferred 390px A+ check happens at the same moment. **What "next lap" means concretely:** push it at the START of the next lap, then stamp the date so the engagement read can be split on it. ⚠️ **The board will show 🟡 unpushed commit(s) and `check-live.py` will report the live page behind HEAD for as long as this holds — that is the hold working, NOT a shipping failure.** This repo's own doctrine ("a commit is not a ship") is what makes that amber look like a defect; it is not one here. <br><br>✅ **① NO RELEASE NOTE** — Paul: *"no release note for now."* A note naming the text-size control would tell her the control exists, which is the exact variable under test. **Recorded here rather than silently skipped**, so a later reader does not find a user-facing change with no entry and "fix" it — the standing every-change-ships-a-note rule is being *deliberately* suspended for this one change, and only this one. ✅ **② THE 390px A+ CHECK IS DEFERRED TO NEXT LAP** — Paul: *"save it for next lap."* So it is **owed work with a name**, not a gap: verify the layout at a true 390px viewport in A+ before the lap closes. ⚠️ **Until it runs, the A+-at-her-viewport layout is UNVERIFIED and must not be described as checked** — A+ was *Paul's* mode and is now *everyone's*, so every A+-only layout bug is promoted from his screen to hers, and one is already known-unverified (the 08-02 rainfall-strip fix, *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"*). It also overlaps the nested-card width question filed in the shape-system section — **run them as one measurement pass**, since both are "what is the used content width on her phone." <br><br>*(Original framing follows, for the reasoning.)* *"Let's try defaulting Mom to A+ moving forward and see if she toggles it back as a test. My hunch is she just doesn't understand the UI."* **Built and committed, NOT pushed** — it changes her surface, so it is leg 6 and his to release. Implementation is a DEFAULT change, not a `.text-lg` change, which is the standing guidance (`viewer.html:2523`). Nothing is written to localStorage on a default, so an absent key keeps meaning *"she has never chosen"* — the only reason a later `text_size_changed` reads as a real decision — and a new `text_size_served {size, stored}` fires once per session to supply the denominator (verified firing with the harness deviceId 2026-08-15; it will read NEVER-FIRED in `check-telemetry.py` until a real session flushes). **① THE RELEASE-NOTE CALL.** The standing rule is that every user-facing change ships a note — but a note naming the text-size control **tells her the control exists, which is the exact variable being tested**. Recommendation: **ship this one without a note**, recorded here rather than silently skipped; if he wants a note, it should describe something else that shipped and never mention type size. **② THE 390px CHECK IS NOT DONE.** Verified: the default applies, A+ is pressed, nothing is stored, the event fires. **NOT verified: layout at a true 390px A+ viewport.** ⚠️ **AND THE STATED REASON WAS WRONG — corrected at close-out 2026-08-15 before it could propagate.** It was recorded as *"the window would not resize below 1512 here,"* which is a true observation (`resize_window` reported success and `clientWidth` stayed 1512) and a **false limitation**: the anchor item `Fernwood :: Rainfall A+ overflow fix` has carried the workaround since 2026-08-14 — *"render `viewer.html` in a 390px-wide iframe; window resize silently does NOT take."* Technique and evidence in the `/design-options` Refinement log. **So this check is CHEAP and unblocked; it is deferred by Paul's call, not by a tool limit.** Next lap: use the iframe, do not re-discover the wall. This matters because A+ was *Paul's* mode and is now *everyone's*, so every A+-only layout bug is promoted from his screen to hers, and one is already known-unverified (the 08-02 rainfall-strip fix, *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"*) — **that same anchor item is the one carrying the technique, which is why it should be worked in the same pass.** ⚠️ **And the null result will not settle the hunch** — see the "as simple as possible" hypothesis in the shape-system section. | A4 · loop |
+| **✅ 390px A+ LAYOUT CHECK — RAN AND PASSED** `[lap 4, 2026-08-19]` | Ran with the iframe technique (window resize silently does not take). True 390px, A+ applied from the default, nothing stored. **Zero page-level horizontal overflow** collapsed AND with all 15 cards expanded. **Zero A+-ONLY clipping**: 13 clipped elements under A+, the same 13 under A, none new. ⭐ **This retires the known-unverified 08-02 rainfall-strip fix** — 70 rainfall elements measured, none past 390px, worst clip 5px. So A+ was never the layout risk it was held to be; it was walked back for a different reason entirely. | A4 · loop |
+| **⚠️ HER VIEWPORT IS 414×848, NOT 390** `[lap 4, 2026-08-19]` | Measured from `/api/metrics` device records: **51 batches at `414x848`**, one landscape `896x414`. Every layout check in this repo — including lap 4's — has been sized to **390**, which came from the `/design-options` exhibit convention, not from her device. 390 is NARROWER, so every check to date is conservative and nothing already-verified is invalidated. But it means **no check has ever measured the 24px she actually has**, and a bug that only appears between 390 and 414 is invisible to this repo's entire test history. **Fix: make 414×848 the canonical width and keep 390 as the stress case.** | A4 |
+| **✂️ CELESTIAL EVENT NAMES TRUNCATE — and A+ makes it much worse** `[lap 4, 2026-08-19]` | `.cel-event-name` is `white-space: nowrap` + `text-overflow: ellipsis` in a ~126px box. *"☄️ Geminid Meteor Shower — Best of the Year"* renders as *"☄️ Geminid Meteor …"* — **the payoff half of the name is gone.** Clips **11px under A, up to 136px under A+** (7 events affected). ⭐ **The shape: the TITLE is the only nowrap element in the row while the body text beneath it wraps freely** — so the one line naming the thing is the one line that cannot. Not currently urgent (A+ was walked back, so it is the 11px case that ships), but it is a real legibility loss on a card built to be glanced at. **Fix is likely one line: let it wrap.** | A4 |
+| **🚨 `check-mom-ack.py`'s `shipped` FLAG READS THE FILE, NOT THE RIBBON** `[lap 4, 2026-08-19]` | `momlib.ribbon_state()` computes `shipped` from `git log origin/main..HEAD -- viewer.html` — **any** unpushed commit touching the file. During the 08-15 A+ hold it reported **🔴 NOT SHIPPED** for the ribbon while `MOM_ACK_DATA` was **byte-identical to `origin/main`** — the ribbon had reached her. Worse, its remediation line prints *"COMMIT AND PUSH (Pages serves viewer.html; a commit alone never reaches her)"*, which during a deliberate hold **is an instruction to break the hold**. ⭐ **The 08-15 guard was placed in `CLAUDE.md` and `BACKLOG.md` where `check-live.py`'s conclusion forms — this is a SECOND, unguarded reader of the same state.** Exactly the 08-14 `card_expanded` lesson restated: *when you fix a control that misreports itself, ask what else reads that state.* **Fix: diff the `MOM_ACK_DATA` block between `HEAD` and `origin/main`, not the whole file.** | loop · A1 |
+| **⚠️ MOVING THE RADAR CHANGED WHAT `radar_section_viewed` MEANS** `[lap 4, 2026-08-19]` | The radar door moved from **2,447px** down the weather card to **115px** (shipped lap 4). `radar_section_viewed` fires from an IntersectionObserver on `data-metric-section="radar"`, so before the move it meant *"she scrolled ~2,300px to reach the radar"* and after it fires **almost the instant she opens the weather card**. ⛔ **Counts either side of 2026-08-19 are NOT comparable** — and the post-change number gets easier to hit for reasons that have nothing to do with her. **`radar_toggled` is unaffected and is the event to judge this by.** Split every radar read on the ship date. | loop · A4 |
+| **⛔ PAUL-RELAYED INPUT HAS NOWHERE TO LIVE** `[lap 4, 2026-08-19]` | Rule 2 of the loop says *"Paul relays, or it is not in the system. Paul-relayed input IS real input."* **But there is no place to put it.** `read-mom-feedback.py --address` can only act on notes that arrived **from her device**; a sentence Paul relays in conversation has no record, no id, no timestamp, and no channel `check-mom-ack.py` can see. ⭐ **Two live consequences, both already paid:** ① lap 4 was redirected by *"she says she's using the radar a lot"* and **shipped a change because of it, with no trace of the input in the record**; ② the radar was built at lap 3 because she *"named it twice"* — two namings that exist **only in a commit message**. ⭐⭐ **And it structurally blocks clean-lap criterion 5:** the return leg must lead with the DATE HER INPUT ARRIVED, so input with no arrival timestamp cannot be acknowledged in the ribbon's own required form. **Needs: a relayed-input record with an arrival time Paul states, feeding the same lifecycle as her device notes.** This is the single highest-leverage gap the loop has. | loop · A1 |
+| **⚠️ LEG 0's CONCURRENT-SESSION GUARD HAS A HOLE BETWEEN COMMIT AND PUSH** `[lap 4, 2026-08-19]` | Leg 0 says run `git log --oneline -1` **at the start and again before committing**. On lap 4 both checks were clean — and another session committed **24 seconds AFTER** this lap's commit (`04db47c`, Bronco coolant service, `session_01Ky5oyq8XdKvkUC8t9XDZZm`), landing in the window the guard does not cover. **It was caught by the push being REJECTED, not by the guard.** Had the remote not also moved (the weather bot), the push would have silently published another session's in-progress commit. ⚠️ **And the recovery rewrote their sha** (`04db47c` → `d84ccc0`; patch md5 identical, original in reflog) — harmless here because Paul confirmed it was his own window, but a second session that then tried to push would see a divergence it did not cause. **Fix: check HEAD immediately before PUSH, not only before commit — and compare against the sha recorded at commit time.** | loop |
+| **GTI spare key + service bundle** | ~$450–500 dealer job, no clock. Bundle with the Chamblee recall trip | B1 |
+| **📷 EASTERN PATIO WAS BUILT NOV 2016 – APR 2017, not Thanksgiving 2020** `[photo-organizer lap 15, 2026-08-16]` | ⭐ **A four-year correction, and it replaces a MODEL READ with a DETERMINISTIC one.** `sweep_project_datewindows.py` inferred *"eastern-patio ≈ Thanksgiving 2020"* and that inference has sat unconfirmed since 2026-08-03. Paul surfaced 18 photos from the **"Dads Phone" album** showing the patio under construction; **all 18 carry EXIF dates and none carries GPS.** The build sequence reads cleanly: **2016-11-19** cinder-block wall → **11-25** firebox + arch form → **11-29** stone veneer → **12-02** chimney flue → **12-11/12-14** wall faced, flagstone staged → **12-26** flagstone into the sand bed → **12-31** laid, wreath up → **2017-01-26** essentially complete → **2017-04-16** finished, grass in, steps built. ⚠️ **Two of the 18 contradict themselves and are NOT being used:** `E7756FD8` and `1DD96C3C` (the two group shots) carry **2020-02-13** yet show the same sand bed and wreath as the 12-26/12-31 session, and are the only two with no `camera_make` — the signature of a re-saved copy whose date was reset. **Paul's call:** accept 2016-11 → 2017-04 as the build window, and say which session the two group photos actually belong to. | photo-organizer |
+| **🚤 THE FLEET HAS NO BOAT, and a boat repair is now in the photo record** `[photo-organizer lap 15]` | `vehicles.json` holds **18 entries and none is a boat**, so the `service:<vehicle-id>` grammar cannot hold it. A 2025-10-05 photo is a **boat motor being repaired — fishing line stuck in it** (Paul's words, no hesitation). The ruling was recorded as `unattributable` **only because the record has nowhere to put it** — the gap is in the fleet, not in his identification. Same shape as the 2024-07 Audi finding, which is still open. **Needs: a fleet id, or a decision that boats live outside `vehicles.json`.** | photo-organizer |
+| **🔧 Bronco tailgate latch was APART 27–28 DAYS BEFORE its parts were bought** `[photo-organizer lap 15]` | Photos **2025-10-06** show tailgate latch mechanism pieces. The records are **`sr-2025-11-02-tailgate-latch-assembly-7896`** (Classic Industries) and **`sr-2025-11-03-tailgate-latch-handle-rod`** (DIY, eBay parts) — both **November**. Under Paul's own 2026-08-08 ruling (*a record date is a PURCHASE date; a photo-evidenced date is a WORK date; work supersedes, both retained*) these want a proposed **`workDate: 2025-10-06`**. Live instance of the third structural hole: **a receipt-first join cannot see a diagnosis that precedes the purchase by a month.** | photo-organizer |
+| **🚙 The photo record puts Bolores here BEFORE its own first service entry** `[photo-organizer lap 15]` | The earliest `bronco-1989` entry is **`sr-2025-10-07-purchased-titled-in-georgia`**. Burst `2025-10-03..10-06` — **up to four days earlier** — is Paul deep-cleaning it, and 10 of those assets were already in the `vehicle-bolores` album. So the vehicle's photographic record starts **before** the paperwork date its history begins at. Not a contradiction (titling is paperwork), but the fleet card currently implies acquisition on 10-07 and the photos say otherwise. **Needs: whether `bronco-1989` gets an acquisition date distinct from its titling date.** | photo-organizer |
+| **🗺 AN EXTENSIVE ZONE NAMING INITIATIVE** `[paul-stated 2026-08-16, from photo-organizer lap 16]` | Paul, ruling a 2023 burst: *"for the western naming, let's just know that that's something that needs to be clarified by the Fernwood project in an extensive zone naming initiative."* **What forced it:** he called an area *"western upper patio, I guess we should call it"* — and it collides three ways with `project-western-patio` (**3,759 rows**), `project-western-garden-terrace` (55) and `zone-western-garden` (68). He declined to settle it mid-review, correctly. **Also unnamed and now carrying photographs:** the parking area between the upper patio and the driveway (distinct from `zone-parking-bank` and from lap 6's `lower-parking-*`, which was already flagged as a possible fifth region and never resolved), plus **Bryan cabin** and **Bryan swamp** (below). ⚠️⚠️ **THIS COLLIDES WITH A STANDING HOLD AND THE COLLISION IS THE POINT.** The 2026-07-31 row *"the zone map now reads ALL-DASHED"* holds **all** zone work — and names *"the naming-completeness pass"* as covered — with un-park trigger *"a signal from Mom that zones matter to her."* **That signal has NOT arrived.** What has arrived is a different demand: the photo corpus needs the names to file 2016–2023 evidence, which is a RECORD need, not a Mom-surface need. **Paul's call: does a corpus-driven naming pass un-park the hold, or run beside it without touching anything Mom sees?** Do not assume the first. | photo-organizer · A2 ⏸ |
+| **🏚 "Bryan cabin" and "Bryan swamp" — two places Fernwood has never heard of** `[photo-organizer lap 16]` | Six photographs of **Dad working on the Bryan cabin** (2023-05-24) and six of **breaking up a beaver dam in the Bryan swamp** (2023-06-05) are now in the record under `project-bryan-cabin`. Neither place appears in `zones.json` (10 zones) or anywhere in Fernwood. ⚠️ **Spelling was nearly lost:** Paul's voice rulings produced *Brian*, *Ryan* and *Bryan* within minutes; the category was minted as `project-brian-cabin`, flagged rather than guessed, and he settled it — **Bryan**. The misspelling was corrected at 6 rows and verified to leave zero orphans. ⚠️ **And the work is DAD'S, not Paul's** — second live instance of the missing WHO-DID-THE-WORK axis (the first was the 2025-06-26 hired tree crew). It exists only in prose, so a later read of this category will attribute Dad's day to Paul. | photo-organizer |
+| **🦫 BEAVER MANAGEMENT IS A STANDING CONDITION, not two incidents** `[paul-stated 2026-08-16]` | Paul: *"there's been ongoing beaver work and a lot of bears."* The record holds **`observed:property:beaver-management:2020-11-23` (15 rows)** and now **`:2023-06-05` (20 rows)** — two episodes **31 months apart**, and the 2023 one is a complete arc: see the dam → trial the trap in the parking area → take it to the Bryan cabin → break the dam and set it → set it again three days later. **Nothing but a CATEGORY could have linked them**; no date clustering spans 31 months. **The gap: if the work is ongoing, the record has scattered episodes and no thread.** Fernwood is where a recurring property condition belongs. | photo-organizer |
+| **🐻 A second bear, a year earlier than the one on record** `[photo-organizer lap 16]` | `scene:wildlife-black-bear:2024-06-23` (5 rows) already existed. A **2023-06-09** sighting near the house is now recorded as `scene:wildlife-bear:2023-06-09` — **species deliberately NOT promoted**, because Paul said *"a bear"*, not *"black bear"*. If they are the same species the two forms should be unified. Paul: *"a lot of bears"* — so like the beavers, the record holds sightings and no thread. **This belongs to Fernwood's wildlife domain, not to photo-organizer.** *(Aside worth keeping: the model read this frame as "tools on a workbench in a garage" and was FAIRLY exonerated — the bear is far off in the woods, partly behind a tree, with a patio filling the foreground.)* | photo-organizer · wildlife |
+| **🏗 THE PUMP HOUSE — built Aug 2025, and it is pond infrastructure** `[photo-organizer lap 17]` | 13 photographs of the **actual construction**: the old pump taken out and the new pump house built, 2025-08-20..08-25. Read with the April 2025 pond burst, **August 2025 is a pond-infrastructure period** — new pump, pump house, and **cattails Paul collected FROM THE WILD** to plant in the pond. The pond thread now runs cause → remedy → replanting instead of 4,020 undifferentiated rows. ⚠️ **Provenance has no slot:** *"got from the wild"* is a fact about a plant that Fernwood's plants domain cannot currently record. | photo-organizer |
+| **🌿 A plant eaten up, 2025-08-20** `[photo-organizer lap 17]` | Paul's words. Filed as `observed:property:plant-damage:2025-08-20`. **Plant damage is Fernwood's content, not photo-organizer's** — it belongs beside the plants and weeds domains. No cause recorded; he did not name one. | photo-organizer · plants |
+| **🛠 Two mowers, two first-ever service records, from photographs** `[photo-organizer lap 17]` | Both fleet mowers had **zero** `serviceHistory` entries. 2025-04-10 gives the **Husqvarna Z254F** its first (Paul: *"it LOOKS LIKE we replaced the fuel line and the air filter and the fuel filter and sharpened the blades"*) and 2025-04-13 gives the **Kobalt cordless** one. ⚠️⚠️ **THE PARTS LIST IS A HEDGE — "it looks like" — Paul reading photographs, not recalling the job.** He also said *"those are good for the service record,"* so this is a maintenance claim about a machine built on an inference. **It must not be written into `vehicles.json` as fact.** ⭐ The blades were sharpened **at Herman's shop** — *"he showed us how"* — not on the property. | photo-organizer |
+| **⛳ A golf cart that is not ours, and a speedometer** `[photo-organizer lap 17]` | 2026-04-06: Paul took the `g22a-2005` out to work on the **Wilbur** golf cart — 4 photographs at 736–773 m. Filed `unattributable`, deliberately: our cart was the **transport**, and filing it to `g22a-2005` would write a repair we did not do into its history. ⚠️ **"Wilbur" is an unverified transcription of speech** (the Bryan/Brian/Ryan lesson). Also this burst: the **400's speedometer circuit board** (`drz400s-2001`, four frames) and an **oil drain plug replacement** on our cart. | photo-organizer |
+| **🐖 "Our wild pig history" is ASSERTED but ABSENT** `[photo-organizer lap 17]` | Paul, ruling a 2025-04-13 photo: *"a pig that was killed on Tate properties — kinda worth recording in our wild pig history."* **There is no such history.** No pig, hog or boar category exists anywhere in the photo corpus. ⭐ **This is the inverse of the beaver finding and the pair is the point:** beaver management *did* already exist (2020 + 2023) and bears *did* (2024), so the record can now distinguish **a thread he has** from **a thread he believes he has**. Started as `observed:property:wild-pig:2025-04-13`, following the beaver grammar. | photo-organizer · wildlife |
+| **💧 The pond arc now has its CAUSE: patching failed, then the liner was replaced** `[photo-organizer lap 15]` | `project-pond` holds **4,002 rows** and spans three review sheets, but nothing recorded *why* the work happened. Burst `2025-04-17..04-21` is Paul **patching holes in the pond before a full liner replacement** (his words). That makes April 2025 a **diagnosis phase whose outcome was "patching failed"**, and it reframes every later pond photo as pre- or post-liner. ⚠️ **The liner replacement itself is in no burst and has no located record** — if it was a purchase, it should be findable; if it was labour, it is the first structural hole and will never have one. | photo-organizer |
 
-⭐ **The destination is Paul's testimony, not something the photographs show.** In the sculpture
-and laurel sets the garden is nowhere in the picture — it is where the thing was *going*. No
-geofence, no date cluster and no vision model could have produced that link; it took a human
-looking at a truck and saying where its cargo ended up.
+---
+## 🗳 DECISION CARDS OPEN — 11 of 12, Paul's to rule
 
-**What this is for on the Fernwood side:** the western garden has a build history that the record
-may not carry — a sculpture arriving, source stock for its planting, and a first wall, all inside
-five weeks. ⚠️ **NOT verified and deliberately not assumed:** whether the sculpture was ever
-installed, and where in the garden the laurels went in. The photographs evidence the *delivery and
-the digging*, not the outcome.
+**Pointer block, added 2026-09-03.** The cards are `.decisions/fernwood-*.md`; answers land in
+`~/Developer/operating-layer/data/decisions.jsonl` — **read the count from there, never from this
+line** (as of 2026-09-03 it holds one Fernwood answer, `fernwood-10`). Nine were minted 2026-08-08.
 
-📌 Related, already on this repo's own surfaces: `project-western-garden-terrace` is an existing
-photo category (55 prior rulings) and cards #32–33 were filed under it rather than minting a
-sibling. **Whether the sculpture delivery belongs to that same category or to its own is a naming
-call left for Paul** — photo-organizer's rule is that splitting an existing category is his alone.
+| card | question |
+|---|---|
+| `fernwood-1` | Does the Almanac get a lifecycle, knowing only you can drain the queue? |
+| `fernwood-2` | Bolores paint — carpet + trim as ONE decision against factory Chestnut |
+| `fernwood-3` | Bolores corpus — confirm or reject *snapshot-at-ingest becomes the contract* |
+| `fernwood-4` | Control-center page — your review verdict *(open the page, not the code)* |
+| `fernwood-5` | ⚠️ **premise overtaken** — asked how lap 2 is timed; laps 3–8 have since closed. **Re-mint or retire, do not answer as written** |
+| `fernwood-6` | ⚠️ **premise false** — says `check-cards` exits 1; it exits 0 today. **Re-verify before answering** |
+| `fernwood-7` | *"Bring our fleet into…"* — which fleet, and into what |
+| `fernwood-8` | W13 — should Gardening be ONE card? |
+| `fernwood-9` | `momack_unfolded` — re-wire the dead metric or retire it |
+| `fernwood-11` | The ask design — is the confirm queue the wrong instrument, or the right one asked wrong? |
+| `fernwood-12` | Does a non-plant `suggest-add` fence get built, or does the Guru refuse gracefully? |
 
-### 🏠 P2 · A roof inspection happened on 2026-04-23
+⛔ Answering a card whose premise reality has changed is the same failure as a stale PROPOSAL header
+(proposal §3).
 
-Paul: *"73 [is a picture of an] inspector … coming to look at the roof."* One photograph, ruled
-`observed:property:roof-inspection:2026-04-23`. The model's own read of the card is *"people
-actively working on the roof of the house, two trucks parked"* — which corroborates that
-somebody was up there and says nothing about **who**, **why**, or **what they found**.
+---
 
-**Filed because a dated inspection is the kind of property event that leaves no other trace** once
-the photo scrolls past. If there is a report, an invoice or a contractor name anywhere, this dates
-it. If there is not, this is the only record that it happened.
+## 🔥 TIER 1 · FIX NOW — remaining
+
+*Nothing blocks these. All agent-drivable. **The Mom-facing ones are wording changes and stay gated on
+Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
+
+| # | Item | Where | Note |
+|---|---|---|---|
+| ~~**1**~~ | ✅ **DONE 2026-07-29 — and the row's arithmetic was WRONG.** It said 7 active against a cap of 5 with **two** cards rendering to nobody. But `SUPPORTED_KINDS = ["confirm"]` and `q-open-standing` is `kind: open` — the standing foot-line never competes for a slot. So it was **6 confirms against 5**, and exactly **ONE** card was invisible: `q-weed-stiltgrass`. `q-strategy-pollinators` was visible in slot 5 the whole time. Verified in a browser, not inferred. **Fixed:** `questions.json` reordered by INFORMATION VALUE (rationale in its `_ordering` key) — stiltgrass promoted 6th→2nd; pollinators takes its place out of view, verified unanswered first so it cannot pin the watermark. | A3 · A7 | ✅ |
+| ~~**2**~~ | ✅ **RESOLVED 2026-07-29 by REFRAMING, not retiring (Paul's call) — and the "no label at all" premise was about the JSON, not the screen.** The row said two cards had **no `"I haven't looked"` label at all**. True of `questions.json`; **false of what Mom sees** — the viewer defaults a missing `later` (`L.later || "I haven't looked"`), so all three buttons always rendered. Verified on screen. There was no functional gap; the **prompt** was the real defect. Also: only **2** un-reframed verdict cards existed in the visible set, not 3. **Fixed:** both prompts reframed to the record's-own-gap template and labels now emitted EXPLICITLY so the file and the screen agree. | A3 | ✅ |
+| ~~**3**~~ | ✅ **SHIPPED 2026-07-29.** `TEMPLATES["bloom"]` rewritten to content-steward's draft (plant = subject; hedge = the record's own gap; "yet" makes *Not blooming* a fact about the season, not a verdict on us). `{where}` anchor wired from `zoneId` via `zones.json`, empty when unknown — never invented. **Labels are Paul's wording: `It's blooming · Not blooming · Snooze card`.** `TEMPLATES["variety"]` now emits a `⟨…⟩` SKELETON on purpose — no generic string can name the per-plant observable — and `check-cards.py` **fails any served card still carrying one**. ⚠️ A template fix cannot reach prompts already in `questions.json`; the 2 live cards were hand-edited to match. | A3 | ✅ |
+| ~~**4**~~ | ⚠️ **REVERSED BY PAUL 2026-07-29 — and the measurement was wrong.** Measured at 390×844 they were **431px** apart, not 190, and they did **not** share a grammar: `Got it` was a pale outline pill in DM Sans 12.5px with no glyph; `That's all of them` was a solid `#3a6a3a` fill, Crimson 14px, ✓ glyph. **This row wanted them made MORE different. Paul's call is the opposite:** *"the cue and affirmative styling, we should make it consistent and a consistent signal of we hear you, and we've recorded your information … let's make it simple and consistent for mom."* One learnable signal beats two precise ones she must tell apart — and the app already HAD that grammar (ux-expert F4: fill + glyph carry the decision independent of label legibility), the ribbon just never adopted it. **Fixed:** the ribbon's buttons are now literally the same components (`gg-suggest-btn-yes` / `-neutral`), so they cannot drift apart on the next change. | A4 | ✅ |
+| ~~**5**~~ | ✅ **SHIPPED 2026-07-29 in `d6d0bdc` — the row was just never struck** (found 2026-08-08 while picking this up as "agent-drivable"). `.rain-cell.rain-active` went `#e8f4fc`/`#8ab4d8`/`#1f4870` → `#e6f8ec`/`#5cb87a`/`#14612f` **+ `font-weight:700`** — station green, salience carried by fill + weight instead of a second hue. The fix also reached a surface this row never named: `.rain-byday-cell.is-today` was wearing the same regional-model blue on measured station data, and now gets a **structural ring** (`box-shadow: inset 0 0 0 1px`) because *"Today" is a POSITION, not a source and not an amount.* **Verified 2026-08-08:** `#8ab4d8` now survives only on `.src-tag-forecast` — the regional-model chip, where blue means exactly the one thing it should. On `main`, pushed. ⚠️ The row's line reference (`viewer.html:1659`) had also drifted to 1875. | A3 · W8·b | ✅ |
+| **6** | ⏸ **HELD OPEN by Paul 2026-07-29** — *"the check mark is fine on the acknowledgment ribbon for now at least, but we can keep that as an option."* Not killed, not scheduled. Note that the ✓ now **rhymes** with the ✓ on every affirmative button (row 4), which arguably earns its place better than it did when it stood alone. Revisit if the ribbon ever reads as a checklist header. | W8·b ② | ⏸ Paul |
+| ~~**8**~~ | ✅ **RESOLVED — and this row was STALE for two days.** Verified 2026-08-14 against the world, not the checkbox: `check-data-inline.py` reports **VEHICLES_DATA in sync** and `check-digest-fresh.py` reports the digest **fresh**, so both halves this row was waiting on are closed. The re-inline landed in **`7d660ff` (2026-08-12 17:52, Paul's own commit — *"Bolores reaches Mom's page and Guru — the record was two entries ahead of both"*)**, i.e. the confirm this row was holding for was given by *doing the work*, and nobody came back to strike the row. ⚠️ **Checked specifically because the risk ran the other way:** the 08-14 boxwood change ran an **unscoped** `check-data-inline.py --fix`, which this row itself warns *"also re-inlines anything else drifted at that moment"* — so the question was whether an agent had silently resolved a row deliberately held for Paul. It had not: `git show c83d2b7 -- viewer.html` touches **no** `VEHICLES_DATA` line. **The original row text follows, unedited, as the evidence.**<br><br>🔴 ~~**`VEHICLES_DATA` IS DRIFTED — 18 fields. The app is not showing ground truth Paul recorded** (found 2026-08-10 while running the session-start block for an unrelated Mom check). `vehicles.json` was edited on 08-09 (`2c58a4e`, `fba4a1c` — Bolores) and `viewer.html` was never re-inlined, so for the 17 domains where **the inlined const IS what renders**, those edits are simply not in the app. Two of them are Paul's own 08-09 ground-truth reads: *"the RetroSound is just kind of zip tied in"* (`restoration[20]`, item + detail + status all differ) and *"THE SPARE PAIR IS IN THE GARAGE"* (`restoration[21]`). The inlined copy still shows the superseded rows (`Amp + subwoofers (down the road)` / `long-term`; `Dash bezel — rear window & defrost` / `done`). **Deliberately NOT auto-fixed:** the drift rule says surface it and get Paul's confirm the source edits are legit, then `--fix`. This is the low-ambiguity case (his own commits, not a Guru canon-write), so the confirm should be quick — but the rule exists so nobody skips it. ⚠️ **The re-inline must be scoped to `VEHICLES_DATA`** (`reinline.reinline_from_source`); a bare `check-data-inline.py --fix` also re-inlines anything else drifted at that moment. <br><br>↻ **2026-08-12 — THE BLAST RADIUS IS BIGGER THAN THIS ROW SAYS: `worker/digest.json` is STALE ON THE SAME SECTION.** `check-digest-fresh.py` exits 1 naming `vehicles`; the digest was last rebuilt `7957b65` (08-08) and `vehicles.json` moved on 08-09. So it is not only that the dashboard is behind — **Garden Guru is answering from the superseded vehicle record too**, which is the exact 2026-07-07 failure (plants + fishing stale for three days). Same root cause, same one confirm from Paul unblocks both. The full fix is `reinline.reinline_from_source` scoped to `VEHICLES_DATA`, then `build-digest.py`, then `bash tools/deploy-worker.sh` — a re-inline alone leaves Guru stale. <br><br>↻ **2026-08-12 — STILL OPEN, still Paul's, but the confirm is now a ONE-GLANCE confirm: the delta was pinned deterministically rather than described.** The drift rule asks for a human signal that the source edits are legit, and what it is actually guarding against is an **unattributed write hiding in the delta** — a Guru canon-write riding along beside Paul's. That is now falsified, not assumed: the inlined `VEHICLES_DATA` is **byte-identical to `vehicles.json` at `6365912` (2026-08-07)** — compared as parsed JSON, whole object, not a spot check. So the drift is **exactly** the three 08-09 commits this row already names (`66d2789` · `fba4a1c` · `2c58a4e`) and **nothing else**; the earlier `restoration` growth (20→23→24 across 08-03 → 08-07) was all re-inlined and is not in play. All three are authored *and* committed by `Paul Kirschenbauer <paulkirschenbauer@Pauls-MacBook-Pro-2.local>` — a local session, not the GitHub-API identity a Guru promote writes under. Whole delta: **15 insertions, 5 deletions**, every one inside `vehicles[3].restoration` (Bolores), touching 6 `detail`, 3 `item`, 2 `status`. **The question left for Paul is therefore only "were my own three 08-09 Bolores commits right?" — there is no third party in this change.** Deliberately still not auto-fixed: that answer is his, and pinning the provenance is not the same as presuming it. Falsifier for the whole row remains `check-data-inline.py` **and** `check-digest-fresh.py` both exiting 0. ~~ | B2 · B4 | ✅ |
+| ~~**9**~~ | ✅ **FIXED 2026-08-12 in `789d5dc` — and it was TWO collapses, not one.** ⓵ *Every arrival looked like her arrival.* `momlib.split_arrivals()` now splits arrivals by **ORIGIN** into `bench` / `unresolved`. ⛔ **There is no `hers` bucket and no path to one** — a device Paul registered as his own (`excludeFromEngagement`) is `bench`; an unknown device **and a record with no `deviceId` at all** are `unresolved` and keep the board lit. Bench arrivals are **separated and NAMED on screen, never dropped** (he shared his phone with Mom until 07-28, so a silent drop could discard hers): `_drop_harness` deletes, this classifies. **The declaration was already there and this board had never read it** — measured today, all three arrivals lighting the board were `d-avslqpyd-m72qxt1s-mpeuqnyg`, flagged `excludeFromEngagement:true` since 2026-07-28 and honoured by the funnel for two weeks. ⓶ *"Nobody has looked" rendered as "she is owed a card."* The board derived the return leg from `check-mom-ack.py`'s **exit code** (1 for any finding), so R2b UNREAD and R1/R2 STALE wore the same red at the same leg. `check-mom-ack.py --json` now reports which rule fired: UNREAD → **leg 1 READ**, STALE → **leg 6** at Paul's gate. `position()` is pure and `--selftest` drives it with fixtures — **14 assertions, 3 negative controls**, ⭐ **proven by mutation**: a no-device record classed as bench, unresolved arrivals routed back to leg 6, and a faithful replay of the 08-10 bug were each injected and each caught with exit 1. Live board reads **🟢 ARMED**, 3 bench arrivals named. | A1 · loop | ✅ |
+| ~~**7**~~ | ✅ **SHIPPED 2026-07-29 — and they were NOT the only ones.** `.ack-btn` 30→44px, and `.mom-queue-nav-arrow` was **40px** too (the arrows that were destroying her typed-but-unsent notes until 7/29, so a miss there used to cost her words) → 44×44. Both now inherit the shared button grammar. <br><br>↻ **THE RESIDUAL IS CLOSED — re-measured 2026-08-12, and this row's own enumeration was wrong in both directions.** It read *"STILL OPEN, app-wide, outside her input stack: 13 other interactive rules measure under 44px"* and listed them. The **08-01 app-wide sweep already swept that set** and 08-02 decided the two it held (both in the loose-threads table above) — but nobody came back and struck this row, so **the only Tier-1 row still flagged 🤖 agent-drivable was pointing at work finished eleven days earlier.** Verified against `viewer.html` today, selector by selector. **Grown to a 44px box:** `.text-size-btn` (`min-height`+`min-width:44px`, commented *"was 36"*) · `.pmap-sync-action-btn` · `.pmap-add-btn` · `.fish-tab` · `.ref-drawer-toggle` (`min-height:44px` on the toggle itself) · `.ref-category-header` · `.feedback-send`. **Given a 44px hit area only,** via the shared `::after` rule at `viewer.html:176–190`: `.bio-sound-btn` · `.pmap-ctrl-btn` · `.ui-glyph-btn` · `.radar-toggle-btn` · `.fn-sync-btn` · `.feedback-close`, plus anything carrying `.tap44`. <br><br>**Three of the nine things this row named were never targets at all.** `.fn-mic-btn` — the one it called out as *"a Mom-facing capture control"* — is **dead CSS**: `grep` returns four hits, all inside the stylesheet plus one comment, and **zero** in markup or JS. The control it was worrying about does not exist; the live mic is `.ui-glyph-btn.ui-mic-btn` at 40px with the 44px `::after`. `.ui-glyph-btn` *"inner glyphs 13/24"* are the SVG icon and the stop square **inside** that button, not tappable things. And **"sync chip 24" matches no selector in the file** — the real control is `.fn-sync-btn`, `::after`-covered. `.ref-drawer-toggle .main-card-icon` 38px is likewise a decorative icon inside a 44px toggle. <br><br>**One exemption stands, and it is a register entry rather than an oversight:** `.ack-inline-link` at 22px, small on purpose (WCAG 2.2's explicit inline-target exception; Paul's call 2026-08-02), recorded in the `.tap44` comment block so the next sweep does not re-open it. The other 08-02 exemption is **gone rather than standing** — `.mom-queue-launcher-dismiss` was retired that same evening for the unified `.card-later-link`, which carries `min-height:44px`, and the CSS says so at the site. | A4 | ✅ |
+| **10** | 🔴 **`FN_STORAGE_KEY` TDZ — vehicle cards silently drop their field notes** (found 2026-08-15 by reading the live console, not by a check). `renderVehicles()` runs at `viewer.html:17143`; `const FN_STORAGE_KEY` is declared at `17734`. `renderVehicleItem` guards with `typeof fnLoadAll === 'function'`, which **passes** — function declarations hoist, `const` does not — so `fnLoadAll()` is called inside the const's temporal dead zone and throws `ReferenceError: Cannot access 'FN_STORAGE_KEY' before initialization`, **18× on every page load**. The `catch` swallows it to `vNotes = []`, so every vehicle card renders **as if it has no field notes** and nothing on screen says otherwise. ⚠️ **PRE-EXISTING, not from the insect work** — verified by comparing declaration order at the merge-base `5d3eedb` and at HEAD; identical. Not fixed here because it is outside what this session was asked for, and because the Almanac lifecycle is being scoped concurrently (`f6c2194`) by whoever owns that thread. **Falsifier:** load the app and read the console — zero `FN_STORAGE_KEY` warnings, and a vehicle with a logged note renders it. | B2 · Almanac | 🤖 |
+| **11** | 🟠 **The sound pipeline never verifies that a recording IS the species it is filed under — `sounds/birds/` (17) and `sounds/frogs/` (8) are UNAUDITED.** Proven live 2026-08-15: fetching insect audio filed a **juvenile Australian magpie** as the Morning Cicada, because `title_matches_species` accepts a bare species-epithet match and *Gymnorhina **tibicen*** shares its epithet with *Neotibicen **tibicen***. It downloaded, transcoded, wrote an attribution entry and **reported success**. Caught only because the filename said magpie. Birds are the most exposed domain — Commons is full of bird audio, and bird binomials collide freely. Fixed for insects via `COMMONS_SKIP` in `fetch-sounds.py` (one documented entry, routes a homonym-poisoned species to iNaturalist, which matches by taxon rather than filename); **the general hazard is untouched.** ⚠️ The photo side is already immune by construction — `fetch-insect-photos.py` is iNaturalist-research-grade only, deliberately never Wikipedia-title-matched. **Scope:** read 25 filenames in `sounds/*/\_attribution.json` against their binomials; ~25 min, no network. **Falsifier:** every entry's `file`/`source_url` names the record's own genus or a documented synonym. | A6 | 🤖 |
+| ~~**12**~~ | ✅ **FIXED 2026-08-28 — `tools/check-arrival-dispositions.py`, and Paul LISTENED to the clip.** The control keys a disposition to (channel, record id), so nothing but looking at that record can supply it and the `readThrough` watermark can no longer step over one. Selftest **14/14, proven by three mutations**: bench arrivals silently cleared · a **watermark-shaped** clear (the faithful replay of 08-10) · a baseline that swallows records uncounted. ⭐ **The mutation run also caught a hole in the test itself** — the first fixture carried no `recordTs`, so a watermark regression passed clean; the fixture now carries one and says why. `feedback` keeps reading `feedback-log.json` (one rule, two stores, no migration of a tracked record). Pre-control history sits behind a **declared, dated baseline** — itself a batch clear, so it is dated, justified on its face, counted (68), printed on every clean run and **never** reported as a disposition. The 08-09 clip is dispositioned explicitly: *Paul's own bench test, disregard*, attested **by ear** 2026-08-28, with the note that the four prior legs were all inference. Wired into `CLAUDE.md`'s session-start block, the map's checks table, and the Skill's gap list. **Original row follows.**<br><br>🔴 ~~**A DISPOSITION WAS MADE FOR A BATCH ON ONE SIBLING RECORD'S EVIDENCE — the 08-09 zone clip was cleared by a Guru turn, not by itself** (found 2026-08-28 re-examining the clip at Paul's ask). The 08-10 interlap note reads: *"Zero records carrying her deviceId on any channel since 2026-08-03 (feedback · observations · zone-audio · guru · pending-species, 30-day window) … The 08-09 traffic that lit the board is Paul's own — **the Guru turn says so in its own text**."* The recording **was seen** on 08-10 and dismissed on a **different record's** self-identification. ⚠️ **Lap 3 frames this failure as the CLAUDE.md wiring gap, and that is only half of it.** The wiring gap (`read-mom-zone-audio.py` absent from the session-start block, fixed 08-14) explains why nobody **listened**; this explains why nobody **noticed they hadn't** — a batch clear leaves no per-record hole for the next sweep to catch, so the channel reads attested while one of its records has never been opened. The rule this violates is already written in `CLAUDE.md`: *"it was Paul" is a DISPOSITION, not a dismissal … nobody listened and we listened and it was Paul's must never print the same.* That rule was authored **for one record** and has no mechanism holding it at **batch** scope. **Designed remedy:** disposition is recorded PER ARRIVAL ID, and a sweep may not report a channel attested while any arrival in it lacks its own. **Falsifier / seen-to-fail test:** inject two arrivals in the same minute from the same deviceId where only one self-identifies in its own content — the checker must still report the second as undispositioned. ⭐ **The structural half is ALREADY NAMED and nobody connected it to this incident:** the `/mom-cycle` Skill's own gap list reads *"No per-item lifecycle on `/api/zone-audio` or Guru turns. They're covered for the ack check but a single recording can still go unanswered (3 of 5 were never listened to)."* Start there rather than re-deriving it. ⚠️ Per lap 6's pre-registered rule, this is a repeat of a class already fixed in prose — **the answer is a control, not a louder banner.** ⚠️ Sub-item, same channel's bookkeeping: `/api/zone-audio` returns **`"reviewed": false`** for `r-msm3oqo6-8edsfawx` to this day. `--mark-reviewed` advances only the local watermark in `.private/mom-zone-audio-state.json`; **nothing ever writes the server field**. A status field with no writer reads *never reviewed* forever — a container that cannot match its payload. Either write it or delete it — still open, and the one part of this row not closed today.~~ | A1 · A6 · loop | ✅ |
+| ~~**13**~~ | ✅ **FIXED 2026-08-28, same control.** An authored-content arrival from a bench device is `bench-unheard`: it still requires a disposition, and `owed_to_mom` is **False**, so it can never manufacture a ribbon out of Paul's own test tap — row 9's fix is not reversed. Asserted three ways in the selftest and caught by the bench-skip mutation. **Original row follows.**<br><br>🟠 ~~**BENCH IS A CONTENT CLAIM MADE FROM DEVICE SHAPE, and on authored-content channels that is the one inference `people.json` forbids** (found 2026-08-28, same pass). `momlib.split_arrivals()` bins any arrival from an `excludeFromEngagement` device as `bench`, and bench arrivals correctly do not light the board — that is row 9's fix and **it is not being reversed here**. But `tools/people.json` carries the standing rule that attribution comes from **authored CONTENT, never device shape** (it is why the 07-28 backwards mapping was caught, and it is written into `d-l4ct2ilv`'s own falsifier: *"if any authored content — a confirm answer, a written note, **a voice recording** — ever arrives from this deviceId, the assumption is WRONG"*). On the four **authored-content** channels — zone-audio, feedback, observations, guru — the bench bin decides *whose words these are* on the strength of *which browser posted them*, which is exactly the inference that rule exists to prohibit. Consequence, live today: a recording Mom makes on Paul's laptop is **structurally guaranteed** never to raise anything. **Designed remedy is NOT to light the board** (that re-opens row 9's collapse) — it is that an authored-content arrival from a bench device is `bench-unheard` until something **content-level** attests it, and stays named and undispositioned until then. Telemetry-only signals are unaffected; a device bucket is a fine instrument for counting sessions and a bad one for deciding authorship. **Falsifier:** a voice recording posted from a bench deviceId must survive a full sweep still reported as needing a disposition, and must NOT appear as an arrival owed a ribbon.~~ | A1 · A6 · loop | ✅ |
+| **14** | 🟡 **`/api/zone-audio`'s `reviewed` field has NO WRITER — it reads `false` forever** (found 2026-08-28 while building the per-arrival control; **carved out of row 12 into its own row the same day, because a live sub-item inside a ~~struck~~ row is not routed to anything** — the next lap reads the row header, not its interior). `read-mom-zone-audio.py --mark-reviewed` advances only the local watermark in `.private/mom-zone-audio-state.json`; nothing has ever written the server field. Measured: `r-msm3oqo6-8edsfawx` still returns `"reviewed": false` **after** Paul listened to it and its disposition was recorded. A status field with no writer is a container that cannot match its payload — and this one reads in the DANGEROUS direction, since *never reviewed* is the state a reader would act on. **Two legal fixes, and picking one is the work:** have the disposition write it (the Worker needs a PATCH path), or **delete the field** — the local ledger is now the real answer, so the server field is arguably just dead weight. ⚠️ Do not "fix" it by having `--mark-reviewed` write it: that would re-attach the truth to a WATERMARK advance, which is the exact mechanism rows 12/13 just removed. **Falsifier:** either the field tracks `arrival-dispositions.json` for every zone-audio record, or it is gone from the API response. | A6 · loop | 🤖 |
+| **15** | 🟡 **"Behind N" on this repo is almost always a BOT, and nothing says so — so a routine event and a real anomaly print the same line** `[paul-raised 2026-08-28]`. Paul, on being shown the diverged state: *"that Tate-Tracker thing is probably the weather bot, right? Let's make sure that's not always a surprise."* ⭐ **He named the right mechanism and the right usual suspect** — measured over 90 days on `origin/main`: **`weather-recorder[bot]` 345 commits**, `fernwood-deployer[bot]` 9, Paul 631. Today's behind-1 happened to be the rarer one (`51533f4`, the Worker auto-deploy), which is exactly why a per-incident guess is the wrong instrument. `repo-sweep.sh` prints `✖ DIVERGED … STOP, never force-push` identically whether the remote moved because a cron rolled up rainfall or because a human pushed something unexpected — and C2 guardrail (c) then routes BOTH to Paul as a decision. **A guardrail that fires 345 times for one real case is a guardrail people learn to wave through** — the same failure this repo already names in `is_instrumentation` and in the close-out ritual's *"a check that re-asks a settled question trains the reader to skim it."* ⭐ **The lanes are already clean, which is what makes this cheap:** `weather-recorder[bot]` has touched **only** `weather-history.json` + `weather-bias.json` in 90 days, and `fernwood-deployer[bot]` **only** `worker/digest.json`. **Designed remedy:** a registry of machine writers (author → allowed paths) and a check that classifies every remote-ahead commit against it — `EXPECTED (bot, in lane)` vs `⛔ UNEXPECTED`, the second being the only one that reaches Paul. ⚠️ **It must NEVER auto-merge or auto-pull** — the point is to classify the surprise, not to remove the human from a history operation; guardrail (c) still owns what happens next. ⚠️ And **in-lane is the whole predicate**: a bot commit touching a file outside its declared lane is MORE alarming than a human one, not less. **Falsifier / seen-to-fail:** inject a commit authored by a registered bot that touches `viewer.html`, and the check must classify it UNEXPECTED. | loop · infra | 🤖 |
+
+---
+
+## ✅ TIER 2 · CONFIRMED — she already answered; build it
+
+| # | Item | The answer that authorizes it | Where |
+|---|---|---|---|
+| ~~**1**~~ ✅ **SHIPPED 2026-07-29** — Journal tile added to the top strip, sub adopts HER framing ("Look back at what you've written"). | She asked *"Is there a way to look back at these?"* **and answered the naming card Yes.** It is the **most-opened card in the app** (41 of 139 expansions) sitting **8th of 13, with no dashboard tile.** She asked to look back and still cannot find it | A6 |
+| ~~**2**~~ ✅ **SHIPPED 2026-07-29**, then SUPERSEDED the same day: the ribbon now covers the moss AND the Journal naming AND the rainfall, with a link each (`links: [{phrase, card}]` — the old single `linkPhrase`/`linkCard` pair could only point at one). | She gave it 7/26; the record has it, credited to her by name; **she has never been told.** Point the next ribbon at the moss record via the shipped `linkPhrase`/`linkCard`. Asks nothing; produces an object she can see | A2 · A3 |
+| ~~**3**~~ | ✅ **SHIPPED 2026-08-04 — the row was never struck, and its counts had drifted** (found 2026-08-08). It read *"7 vehicle, 9 equipment, **0** household-system"*; canon is now **7 · 10 · 1**. What landed is more than the enum: **"Machines" was retired** — a word neither Mom nor Paul used — and **her three categories are three cards** (`card-vehicles` · `card-equipment` · `card-household`, `GROUPS` at `viewer.html:13255`), each with an intro describing **only itself**. The old shared intro promised *"trucks, mowers, the furnace"* on a card whose household section **returned early and rendered nothing** — the app told her about a furnace it did not show. Entry #1 is the Nest thermostat, folded from `devices.json` and read **deterministically** from the Google Takeout export, not inferred; serial + device IDs deliberately held in `.private/` because this file inlines into a public Pages build. Plus **the authorship door** `[paul-stated 2026-08-04]` — a quiet `.card-later-link` walking her to the Almanac composer, deliberately *not* a confirm card (no `_foldTarget` → would pin the watermark) and *not* the affirmative ✓ grammar (that paint means "recorded," not "opens"). | She proposed the category unprompted and derived the taxonomy herself. The cheapest possible demonstration that proposing something to this app makes it appear | B6 |
+| ~~**4**~~ ✅ **SHIPPED 2026-07-29 — the MONTH. The YEAR does not exist and the card says so.** This row said "presentation only; station history is already local." Half right: `weather-history.json` starts **2026-05-02** (84 days), so there is no year of measured data. The ERA5 grid does cover a year, and using it would answer a question about HER gauge with a model — the 14× substitution she caught. Shipped: last-30-days + whole-record totals, plus a caveat sized to be READ. `stationRainRange()` returns coverage beside every total so a partial window can't pose as a whole one. | Her direct ask, 7/29 (`fb-946dp0qk-ms639ds6`). Station history is already local; presentation only | W8·c |
+| ~~**5**~~ ✅ **SHIPPED 2026-07-29 — and it was a WRITE task, not a read task.** This row said "every note already carries which door it came through." It did not: `section` was set on **2 of 14** records, because only 1 of 5 `postFeedback` call sites passed it. All five doors now stamp themselves; the helper writes `"unspecified"` rather than omitting so a future gap is visible. `tools/read-feedback-sections.py` keeps THREE kinds of unknown apart (uninstrumented / unspecified / floor-bypassed). Prospective only — the 12 existing records can never be attributed to a surface. Coverage at ship: **14%**. | The instrument itself. Every note already carries which door it came through — **nobody has ever read it that way**, which is why we cannot tell a decline from a misunderstanding | A1 · W8·a |
+| ~~**6**~~ ✅ **SHIPPED + DEPLOYED 2026-07-29.** `origin` predicate at three call sites, sticky and one-way. Verified end-to-end against the live Worker: probe hidden by default, visible with `?origin=all`, `excludedNonApp: 1` reported rather than silent, and momlib's `guru` channel unmoved. | Test turns persist to `conversation:<id>` → listed by `/api/conversations` → read as an **arrival**, so probing makes Paul read as owing Mom a reply. Worse: a test conversation lands in the store **the Journal reads back** — it is visible to Mom. One `origin` predicate at three call sites | A6 |
+
+---
+
+## 🧭 TIER 3 · STEER — each carries its question AND its capture path
+
+*Per Paul's rule: a Tier-3 row without both is on the kill list.*
+
+| # | Question | Ask via | Capture path |
+|---|---|---|---|
+| **R** | **Is the radar's problem the DOOR or the POSITION?** She has told Paul twice she likes it — 07-29 *"didn't know how to access it"*, and again 08-13. `[lap 3, 2026-08-14]` | ⛔ **NOT via a card.** Tier 2 already answered it; a verdict-class ask about a layout nobody can self-report, into a queue with zero taps since 08-03. Ask **Paul** to ask a past-behaviour question next time he is with her — *"last week when it was really coming down, did you end up looking at the radar?"* → *"what'd you do to get to it?"*. Never demonstrate the path; that destroys the observation | **`radar_section_viewed` + `radar_toggled`**, shipped 08-14. ⭐ **DECISION RULE PRE-REGISTERED** (`MOM-CYCLE-LOG.md` lap 3, written before the data existed): viewed-but-not-toggled → **the door** is wrong, upgrade the toggle; **neither** → **position** is wrong, move it under *Right now*; **both** → nothing is broken, close the thread. **Trigger, not a date:** the next rain event carrying a Weather jump-strip tap. ✅ **ALL THREE EVENTS PROVEN 2026-08-14 11:38 AM ET** (Paul's iPhone: `card_expanded {via:"strip"}` + `radar_section_viewed` + `radar_toggled`). ⚠️ **His walk does NOT trigger the rule** — it was pre-registered about HER journey, and he knew exactly where the radar was; it proves the instrument, not her path. **Rule stays armed.** <br><br>**IF THE ANSWER IS "THE DOOR", here is the fix, pre-measured so nobody re-derives it:** `.radar-section-title` is **13px**, `.radar-toggle-btn` **11px**, `.radar-anim-btn` 11px, `.radar-frame-indicator` 10.5px — i.e. **the door is smaller than the 14px "▼" chevron replaced on 07-29 for being too hard to see**, and it renders *below* the "Where does this data come from?" accordion, in the position a footer occupies. The fix is the ratified **cards-as-doors** treatment: a labelled pill stating the action, real `role="button"` + `aria-expanded` + keyboard (the header is a bare `div` with an `onclick`), and a `body.text-lg` entry. ⚠️ **`body.text-lg` carries 146 rules app-wide and ZERO for any radar element**, so in large-text mode everything around the radar grows and its own label does not — the identical defect already documented for the rainfall card. **Honest qualifier: that half is latent, not live — Mom has never used A/A+ (0 of 27 `text_size_changed` events are hers), so it bites nobody today.** The 11px default does. ✅ **THE DOOR IS FIXED — 2026-08-14, Paul chose exhibit R-C** from four staged options (*"if it's a key feature, let's highlight it as such… I like that it's still nested within the weather card itself"*). Heading + 11px chip collapsed into ONE full-width 15px button naming the action, real `<button>` semantics with `aria-expanded`, 44px min-height, and the missing `body.text-lg` rules. ⚠️ **This narrows the pre-registered rule rather than voiding it.** The earlier note here said not to touch the door mid-measurement; that was **over-cautious and is superseded** — `radar_section_viewed` fires on scroll-into-view and is completely independent of how the button looks, so the POSITION branch is untouched. What is now unanswerable is only *"would the 11px door have worked?"*, which nobody needs: it was substandard against the ratified cards-as-doors pattern regardless. **Still live: does she ever scroll this far?** If `radar_section_viewed` stays silent for her, position is the problem and the section moves under *Right now*. Tap area is NOT the issue: `.radar-toggle-btn` already carries a 44px `::after` (viewer.html:180-190) and the whole header row is clickable <br><br>🟡 **HER EVENTS LANDED 2026-08-20 — AND THE RULE STILL DOES NOT FIRE. READ THIS BEFORE CLOSING THE THREAD** `[lap 5, 2026-08-24]`. Her device, 9:31 AM, in order: `momack_tapped` + `ribbon_general_sent {section:"ack-reply"}` ("Fabulous") → `momqueue_viewed` → `jumpstrip_tapped {target:"card-weather"}` → `card_expanded {via:"strip"}` → **`radar_section_viewed` → `radar_toggled {shown:true}`** → `session_end {durationSec:66}`. On the **both** branch that reads *"nothing is broken, close the thread."* **Do not close it.** Two disqualifiers, and they are the rule's own: <br>① **The stated trigger did not occur.** The rule fires on *"the next RAIN EVENT carrying a Weather jump-strip tap."* `weather-history.json` has **`rainTotal: 0` for 2026-08-20** (0 on 08-19 too; 0.11" on 08-21). It was dry. The rule was built to detect whether she can FIND the radar when she *wants* it, and wanting it is what rain supplies. <br>② **The path was demonstrated to her seconds earlier — by us.** The ribbon she had just tapped says, in its own words, *"The radar is the first thing in the Weather card now… You'd said you didn't know how to get to it."* This row's own left column forbids exactly this: **"Never demonstrate the path; that destroys the observation."** We demonstrated it in the acknowledgment and then measured her following it. That is a **reachability** reading — the door works when pointed at — not the **findability** reading the rule was pre-registered to take. <br>**What it DOES establish, and it is not nothing:** the radar is reachable, the instrument fires end-to-end on her device, and she acted on a ribbon within one minute of reading it. **Rule stays armed** for a genuine rain event with no ribbon pointing at the radar in the same session. ⚠️ Whoever reads that next: check `rainTotal` for the day AND check whether the live ribbon named the radar, or this same confound repeats invisibly. <br><br>🔴 **AND THE "latent, not live" QUALIFIER ABOVE IS NOW FALSE** — see the corrected A/A+ bullet at the head of this file (lap 5). Her device is served `{size:"lg", stored:true}` (08-20, 08-24). The `body.text-lg` half of any radar defect **bites her**, and the "0 of 27" count is now **0 of 37** — still zero, still not the same claim as "she is on A." |
+| ~~**0**~~ | ✅ **ANSWERED 2026-08-03, RETIRED 2026-08-04 — and the pre-scheduled hand-retire WORKED.** She answered **Yes / "That's all of them"** (sentiment `landed`) in her 7:52–7:56 AM ET session, and the retire landed the next day: `active:false` + `resolvedAt: 2026-08-04`. **The watermark was never pinned** — verified 2026-08-08, nothing is holding the ceiling. This row is the one worked example of the 2026-07-27 unprobeable rule being honoured *in advance* rather than discovered after it bit. **Her five, in her words: vehicles / equipment / house systems / gardening / wildlife** — carried forward into the 8/10 strip decision, which the shipped strip does **not** yet reflect | Card (live) | ✅ Retired by hand as pre-scheduled |
+| **1** | **The real discriminator** — zero wrongness risk but **our** topic: *"We've never written down what's actually coming to the feeders this summer — only what the books say should be. From where you sit, are the hummingbirds still working the feeders, or have they thinned out?"* | ONE card, after Tier-1 #1–2 clear the queue | Needs a `_foldTarget` → a dated `observedHere` line on the Birds card, **in her name**. Answers → our-topic asks are repairable. Silence → **topic origin binds and `harvest-questions.py`'s whole supply chain is dead** |
+| **2** | `q-fairway-grass-seedheads` — already staged verbatim | Flip `active:true` **in August** when seed-heads emerge | Existing fold path; a second sample in the same cell as #1 |
+| ~~**3**~~ | ~~*"The last time something in the house needed a repair or a part — what were you trying to find, and where did you end up looking?"*~~ | ✅ **RETIRED 2026-08-02** | Closed with the relayed-conversations row above (Paul: *"that seems out of date"*). B6 proceeds on the shape she already gave unprompted |
+| ~~**4**~~ | ~~*"When you wrote in that the rainfall number looked wrong — what did you figure would happen with that?"*~~ | ✅ **RETIRED 2026-08-02** | Closed with the same call. Was the only planned read on what she expects back when she reports something; the return leg now proceeds on inference. Re-ask fresh if that gap bites — do not revive this wording |
+| **5** | **Guru turn audit** — opens conversation content | **Paul ratifies** (not Mom) | v1 needs **no AI**: the fact table gives exact strings, so `2,800` in an assistant turn is a regex hit. Shrinks the ask from *"AI may analyze conversation content"* to *"a script may grep our own output"* |
+| **6** | **W6 instance model** — what is its real shape? | **Paul** | Design doc first. **Not Mom's** — asking her to adjudicate a schema is the exact class A3 just deprioritised |
+| **7** | **Wildlife confidence markers** — 67 records assert an animal is present with no way to say *"we think"* | **Paul** | Schema call; see the taxonomy answer in the proposal doc §6 |
+| **8** ⭐ | **Getting her to adopt "Almanac"** — on 2026-07-30 the record card was renamed **Journal → Fernwood Almanac**, so the write surface, the record and the voice all share one name. That knowingly overrides her own word: she answered `q-almanac-name` Yes on 7/29 and "Journal" was hers. Paul: *"let's try to get her to adopt Almanac. I think it's the more appropriate. we'll work on that with her, though."*<br><br>**↻ RATIONALE RECORDED 2026-07-31 (Paul) — the rename is a CONSOLIDATION, and that is the part that is settled.** *"We had Almanac and Journal and Garden Guru and all kinds of stuff scattered around… I think the fact that we had so many names in the past confused mom. We're starting with Almanac. That's something we can measure and ask mom about, but it was important to first have a clean, aligned, consistent language."* **Verified name inventory at the time of the rename:** `Almanac` carried **3 referents** (the header tagline *"An Appalachian Almanac for Fernwood"*, the voice you ask, and the look-back card) · `Garden Guru` carried 1 (the same voice, older name) · `Journal` carried 1 (the look-back card only, and only after 7/29). So the voice had **two names at once**, and anchoring on Almanac moved **one** string while anchoring on Journal would have moved three and cost the property's own tagline. This is the third application of the ratified **consistency-over-precision** rule on her surfaces (after the affirmative grammar 7/29 and the third button 7/31). | **PAUL, in conversation — not a card.** *"You do not need to worry about that. I will work on her, not we."* A drafted confirm card was written and then **deleted** on that instruction; do not re-add one | Paul relays whatever comes back. **If she wants Journal, it goes back everywhere** — that is the loop working, not a reversal. Standing rule this follows: Paul drives outreach, the app iterates on the signal he brings back.<br><br>**⚠️ Keep the two claims separate when measuring.** Consolidation (one name, whatever it is) is justified by the inventory above and is **not** what is under test. *Which* name wins is **not** settled by that argument — she was asked, she said Journal, and it moved a day later. **The measurable question is only ever "does Almanac land for her,"** and the rename has been live and in the release notes since 07-30, so she has already seen it. Do not let the strength of the consolidation case be read as evidence for the name choice. |
+
+**Resolved with #8, same day:** the acknowledgment ribbon used to read *"You called it the journal, so
+that is its name: the Journal sits at the top now."* The rename made that sentence false on her screen,
+so **the naming clause was removed** at Paul's direction — not rewritten to praise the new name. What
+she is still told is the part that stayed true: what she's written now sits at the top. The `links`
+entry moved from the phrase *"the Journal"* to *"at the top now"*, pointing at the same card, so she
+loses no door.
+
+**⚠️ PRE-COMMITTED, IN WRITING:** a miss on **#1** is **NOT** evidence for the topic-origin hypothesis
+until the input-stack cleanup ships and the card is re-offered on a clean surface. Otherwise a null gets
+over-read exactly the way the A1 gate was.
+
+**↻ 2026-07-30 — THE PRECONDITION IS NOW MET. The clock starts today, not earlier.** The input-stack
+cleanup shipped (`ca6939f`→`4145385`, W8·a below), so a null on #1 from **2026-07-30 onward** is
+admissible evidence. Anything before today still is not, and the two must not be pooled — the whole
+point of writing this down in advance was to stop a pre-cleanup null from being read as a verdict.
+⚠️ Note this lands **inside** the clean measurement time-box that closes 2026-08-10, and the restyle
+touched all four surfaces at once. Launcher counts in particular must not be pooled across 07-30.
 
 ---
 
@@ -680,354 +304,6 @@ surface outranks anything that adds an ask** — the second is unmeasurable unti
 
 ---
 
-## ✅ SHIPPED 2026-07-29 — the Tier-1 correctness pass
-
-*All verified in a real browser at 390×844 or by rebuild. Detail in the proposal doc.*
-
-| Item | What landed |
-|---|---|
-| ✅ **The falsified Bolores tire size no longer renders** | `maintenance.tires` said **33**X12.50R15LT, stamped `"confidence":"verified"`, still carrying the exact *"size read off the actual sidewalls"* sentence `7494b46` **proved false** — and it was in Guru's digest. The 7/29 fix had reached `specs.tires` and stopped there. **A clear must reach every asserting line.** |
-| ✅ **Guru's digest held a FABRICATED zone and none of the real ones** | `property.json.propertyZones` still contained the shipped-template placeholder `zone-placeholder` / *"Example: Front Beds"* — and it flowed into the digest, while **zero** of the ten real zones were there. The assistant carried an invented place-name on the surface Mom's voice walks and her map are built on. Stub removed; **real zones now in the digest lean** (id/name/type/status — `vertices`/`history` stripped as pure distractor mass), plus `turf.json`, closing the *"Guru reads an id it cannot resolve"* hole behind the weeds' `observedZones`. |
-| ✅ **Every text box triggered an iOS Safari viewport zoom** | All three inputs rendered below the 16px threshold (`.ui-textarea` 14, `.mom-queue-correction` 15, `.feedback-panel-input` 15.5). **She tapped a box and the page jumped to ~1.2× and did not come back.** Never caught because the app had only ever been reviewed on a desktop viewport. 16px is now a documented functional floor. |
-| ✅ **The carousel arrows silently destroyed typed-but-unsent notes** | `‹`/`›` called `render()` — which rebuilds the host — without ever reading the textarea. The codebase already knew the hazard: `showAck(keep)` carries an explicit no-wipe branch commented *"her text stays exactly where she left it."* **The arrows never got the same guard.** Now an in-memory per-card draft store, bound on input so **every** re-render path is covered, cleared only on a send that did not fail. Browser-verified: type → step away → step back → her words are still there. |
-| ✅ **Guru recited a falsified soil series** | Cecil/Pacolet are thermic Piedmont series capped near 900 ft; the property is 2,873 ft. `plants.json._meta.soilSeries` still **listed** them 4 days after `property.json` retracted them, and both files' citations still named them. Corrected + aligned. The **17** per-plant `soilNotes` are W9-gated (they get rewritten once, well, against a measured pH) so they are scrubbed **in the derived digest only** — the repo keeps its record, the assistant stops asserting a retracted fact. |
-| ✅ **`check-mom-ack.py:229` asserted a behaviour that does not exist** | It told the reader `read-mom-zone-audio.py` "marks its own channel." It never calls `mark_channel_read` and holds no `momlib` reference at all — so zone-audio read as self-attesting while nothing was reading it. |
-| ✅ **`CLAUDE.md` was wrong about its own codebase** | Documented `viewer.html` as "~4,600 lines"; it is **17,878**. And *"fetched at page load, inlined copies as fallback"* is true of only **4 of 21** JSON files — for the other 17 the inlined constant **is** what renders, which is why `check-data-inline.py` is a correctness gate, not a tidiness check. |
-| ✅ **A live release note promised a feature that is gone** | *"Anything you've starred stays starred"* — the star UI was retired. Rewritten and re-inlined. |
-
----
-
-## ✅ SHIPPED 2026-07-29 (evening) — the agent-drivable sweep + Paul's four calls
-
-*All browser-verified at 390×844. Tier-1 #1–#5, #7 and Tier-2 #1, #4, #5, #6 are closed above;
-#6 (the ✓) is held open by Paul. Three backlog premises were checked and found WRONG — each is
-corrected in its own row rather than quietly fixed, because a wrong SSOT row is the failure this
-repo keeps re-learning.*
-
-**Paul's four calls this session, all now in code:**
-1. **The ✓ stays on the ribbon** for now, kept as an option (Tier-1 #6).
-2. **The ribbon covers everything since the last one she gave input on, each linked** to where she
-   can see it. This required a renderer change — one `linkPhrase`/`linkCard` pair became
-   `links: [{phrase, card}]`.
-3. **Promote stiltgrass, and order the queue by the data most helpful to us.** Ordering axis now
-   lives in `questions.json._ordering`: an answer that unblocks a BUILD > one that fills a canon
-   gap > a verdict on our own guess.
-4. **Bloom labels are `It's blooming · Not blooming · Snooze card`**, snooze meaning dismiss-and-
-   resurface (the mechanism already worked that way — `notSure()` snoozes for the day only).
-
-**⭐ And one doctrine REVERSAL worth remembering:** Tier-1 #4 wanted the two green affirmatives made
-*more different*. Paul reversed it — consistency over precision, because one learnable signal beats
-two she has to tell apart. The affirmative grammar is now a single shared component set.
-
-### ⚠️ LOOSE THREADS LEFT OPEN — named, not buried
-
-| Thread | Why it's open |
-|---|---|
-| ~~**The third button is inconsistent across cards**~~ | ✅ **DECIDED 2026-07-31 (Paul) — all six collapsed to `Snooze card`.** The four remaining wordings (`I haven't looked` ×2, `I'll think on it`, `Haven't thought about it`) are gone. His reasoning: the label should carry the **promise**, not the state — *"it's more clear that the card doesn't just disappear, it's not embarrassing to hit snooze, and it also doesn't create any worry that the card will not pop back up."* Note this changed **what she is told, not what happens** — all three wordings always ran the same `snoozed[id] !== today` path (hidden for the day, back tomorrow). Set as an **initial direction under watch**, not a settled answer — see the row below. |
-| **👁 WATCH — `Snooze card` is action-shaped, not state-shaped** (the monitored variable in Mom's feedback loop) | The 7/26 doctrine chose STATE language on the reasoning that a state is unembarrassing to someone afraid of being wrong, and `check-cards.py` lints deferral-shaped labels. `Snooze card` does not trip the lint and Paul weighed clarity higher — exemption recorded in `check-cards.py`, widened 2026-07-31 to all cards. **This is now the single deliberate reversal of a finding grounded in her own words, applied app-wide** — so it is the first variable to revisit if deferral behaviour shifts.<br><br>**What to watch:** third-button tap rate, and whether a card gets snoozed repeatedly without ever being answered (a snooze loop = the label made deferring too easy, which is the failure mode the state framing was protecting against). **Escalation if it shifts: ask her directly** — a card asking which wording she prefers, human-confirmed like any authored content. **⚠️ Do not read the pre-07-31 window as a baseline:** only the 2 bloom cards carried `Snooze card` before, so any comparison across that date pools two different treatments — the same over-read the A1 gate suffered. The clean series starts 2026-07-31. |
-| ~~**13 sub-44px targets app-wide**~~ | ✅ **SWEPT 2026-08-01 — 12 of 14 fixed; 2 held for Paul.** ⚠️ **The old row's enumeration was wrong in both directions and is corrected here**, per the standing "verify a row against the app before acting" rule. It was measured, not re-read: every interactive element rendered in a **real 390px viewport** (iframe, so `@media (max-width:480px)` resolves), all cards expanded. **Wrong-high:** `.fn-mic-btn` (called out as "the sharpest of these — a Mom-facing capture control at 38px") is **dead CSS — no such element exists in the DOM**; the live mic is `.ui-glyph-btn.ui-mic-btn` at 40px. `.ref-drawer-toggle .main-card-icon` 38px is a **decorative icon inside a `min-height:44px` toggle**, never a target. `.ui-glyph-btn` is a 40×40 button, not "inner glyphs 13/24." **Wrong-low — four real targets the row never listed**, two of them Mom-facing: `.ack-inline-link` 60×22 (the tappable phrases in the acknowledgment ribbon — the very surface the 7/29 pass hardened), `.mom-queue-launcher-dismiss` 90×25, `.feedback-close` 29×30, `.radar-toggle-btn` 58×21, `.fish-tab` 90×29, `.ref-category-header` 363×43, `.feedback-send` 324×43.<br><br>**Two techniques, chosen per control** (see the `.tap44` comment block at the top of viewer.html's CSS): **grow the box** where the control is already substantial and a bigger visual helps (`.fish-tab` 29→44, `.text-size-btn` 36→44, `.pmap-add-btn` 36→44, `.pmap-sync-action-btn` 38→44, `.ref-category-header`, `.feedback-send`), or **`.tap44` — grow only the hit area** via a centered transparent `::after`, leaving paint and layout untouched, for the small quiet icon buttons (`.bio-sound-btn` ×16, `.pmap-ctrl-btn`, `.ui-glyph-btn`, `.radar-toggle-btn`, `.fn-sync-btn`, `.feedback-close`). The second technique is what let this land on Mom's surfaces without redesigning them.<br><br>**Verified, not assumed:** an A/B hit-test against the unmodified HEAD build (both served, same probe, 61 controls) returned **byte-identical hit-stealing lists** — the enlarged areas steal **zero** new taps. Side-by-side screenshots show no visual change outside the grown boxes. **STILL OPEN, deliberately — both Mom-facing, both judgment calls, see the two rows below.** |
-| ~~**⏸ `.ack-inline-link` 60×22 — held, needs Paul**~~ | ✅ **DECIDED 2026-08-02 — leave it as-is, row closed.** Paul: *"I'm good with just leaving it and close it."* This is not a deferral: **WCAG 2.2 target-size carries an explicit exception for a target inside a sentence**, precisely because the height of an inline link is the height of a line of text and cannot be raised without changing the prose around it. If the ribbon's typography is ever revisited, a taller line-height may be worth it **as a readability improvement for Mom, measured on its own terms** — not smuggled in as a tap fix. Original reasoning, unchanged: the tappable phrases *inside* the acknowledgment sentence ("under Plants", "at the top now", "day by day"). They are **inline in running prose by design** — the CSS comment says it: *"it reads as part of the sentence, not as a control bolted on."* A 44px hit area on an inline link overlaps the surrounding text and the adjacent links, so the mechanical fix is the one thing that would break it. Real options are design calls on her surface: give them more line-height so the row is naturally 44px, or promote them out of the sentence into chips (which the 7/26 doctrine argues against — the sentence *is* the point). |
-| ~~**⏸ `.mom-queue-launcher-dismiss` 90×25 — held, needs Paul**~~ | ✅ **DECIDED 2026-08-02 — it stays small.** Paul: *"we can keep that small, that's fine."* Recorded as a **ratified exception** in viewer.html's `.tap44` comment block so the next sweep measures 90×25 and does not read it as an oversight. Original reasoning, unchanged: enlarging a **dismiss** control is not obviously an improvement: a bigger target for "make this go away" makes accidentally dropping her card queue easier, and the queue is the thing the whole loop depends on. The 44px floor exists so she doesn't miss what she meant to hit — it does not argue for making the destructive option easier to hit by accident. Paul's call. |
-| **The ribbon has NOT told her about the month view** as of this commit | `feedback-log.json` carries `addressed: true` / `acknowledgedToHer: false` for `fb-946dp0qk-ms639ds6` deliberately — she was told "not built yet," and that answer is now obsolete. This ribbon fixes it; the flag flips once it's pushed and she taps. |
-| ~~**`q-strategy-pollinators` is now active-but-invisible**~~ | ↻ **RESOLVED 2026-07-31 into a third option — neither retire nor promote.** Correction to this row's own framing: it is **not** "a card serving nobody." `outstanding()` filters unanswered *then* slices 5, so pollinators enters the visible set the moment Mom answers any one of the five above it — it self-heals. It stays active and stays where it is. **The real work it exposed is the bench** (7 cards drafted and never served, no re-ranking, and freshness checked only at birth) — now scoped as its own A3 row with Paul's two design calls settled. |
-| **`read-feedback-sections.py` coverage is 14%** | By construction — stamping is prospective. Do not read the uninstrumented 12 as a signal about her; the tool refuses to let you. |
-
----
-
-> ⚠️ **`vehicles.json` is AHEAD of the app — re-inline pending Paul's confirm** `[found at close-out 2026-08-09]`
-> `python3 tools/check-data-inline.py` reports **DRIFT in vehicles**: the inlined `VEHICLES_DATA` disagrees
-> with `vehicles.json` (restoration entries among them), from the 08-09 Bolores audio session
-> (`66d2789` / `fba4a1c` / `2c58a4e`). **Per this repo's own architecture note, most domains render from the
-> INLINED constant — so un-re-inlined source is simply NOT IN THE APP.**
-> **Deliberately not auto-fixed.** CLAUDE.md's drift rule is explicit that the point is a *human signal that
-> the addition is legit*, not a tidy-up.
-> ↻ **2026-08-12 — this block is now a POINTER; the live row is Tier 1 · 8 below, and this copy was WRONG
-> ABOUT THE REMEDY.** Two statements of one thread had drifted apart in the dangerous direction: this one
-> prescribed a bare `check-data-inline.py --fix`, which is the exact command row 8 warns against — it
-> re-inlines *anything else* drifted at that moment, not just vehicles. It also never learned that
-> `worker/digest.json` is stale on the same section, so following it would leave **Garden Guru answering
-> from the superseded vehicle record** while the dashboard went green. Read row 8 for the scoped sequence
-> (`reinline.reinline_from_source` → `build-digest.py` → `deploy-worker.sh`) and the pinned provenance.
-> Falsifier for the thread: `check-data-inline.py` **and** `check-digest-fresh.py` both exit 0.
-
-## 🔥 TIER 1 · FIX NOW — remaining
-
-*Nothing blocks these. All agent-drivable. **The Mom-facing ones are wording changes and stay gated on
-Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
-
-| # | Item | Where | Note |
-|---|---|---|---|
-| ~~**1**~~ | ✅ **DONE 2026-07-29 — and the row's arithmetic was WRONG.** It said 7 active against a cap of 5 with **two** cards rendering to nobody. But `SUPPORTED_KINDS = ["confirm"]` and `q-open-standing` is `kind: open` — the standing foot-line never competes for a slot. So it was **6 confirms against 5**, and exactly **ONE** card was invisible: `q-weed-stiltgrass`. `q-strategy-pollinators` was visible in slot 5 the whole time. Verified in a browser, not inferred. **Fixed:** `questions.json` reordered by INFORMATION VALUE (rationale in its `_ordering` key) — stiltgrass promoted 6th→2nd; pollinators takes its place out of view, verified unanswered first so it cannot pin the watermark. | A3 · A7 | ✅ |
-| ~~**2**~~ | ✅ **RESOLVED 2026-07-29 by REFRAMING, not retiring (Paul's call) — and the "no label at all" premise was about the JSON, not the screen.** The row said two cards had **no `"I haven't looked"` label at all**. True of `questions.json`; **false of what Mom sees** — the viewer defaults a missing `later` (`L.later || "I haven't looked"`), so all three buttons always rendered. Verified on screen. There was no functional gap; the **prompt** was the real defect. Also: only **2** un-reframed verdict cards existed in the visible set, not 3. **Fixed:** both prompts reframed to the record's-own-gap template and labels now emitted EXPLICITLY so the file and the screen agree. | A3 | ✅ |
-| ~~**3**~~ | ✅ **SHIPPED 2026-07-29.** `TEMPLATES["bloom"]` rewritten to content-steward's draft (plant = subject; hedge = the record's own gap; "yet" makes *Not blooming* a fact about the season, not a verdict on us). `{where}` anchor wired from `zoneId` via `zones.json`, empty when unknown — never invented. **Labels are Paul's wording: `It's blooming · Not blooming · Snooze card`.** `TEMPLATES["variety"]` now emits a `⟨…⟩` SKELETON on purpose — no generic string can name the per-plant observable — and `check-cards.py` **fails any served card still carrying one**. ⚠️ A template fix cannot reach prompts already in `questions.json`; the 2 live cards were hand-edited to match. | A3 | ✅ |
-| ~~**4**~~ | ⚠️ **REVERSED BY PAUL 2026-07-29 — and the measurement was wrong.** Measured at 390×844 they were **431px** apart, not 190, and they did **not** share a grammar: `Got it` was a pale outline pill in DM Sans 12.5px with no glyph; `That's all of them` was a solid `#3a6a3a` fill, Crimson 14px, ✓ glyph. **This row wanted them made MORE different. Paul's call is the opposite:** *"the cue and affirmative styling, we should make it consistent and a consistent signal of we hear you, and we've recorded your information … let's make it simple and consistent for mom."* One learnable signal beats two precise ones she must tell apart — and the app already HAD that grammar (ux-expert F4: fill + glyph carry the decision independent of label legibility), the ribbon just never adopted it. **Fixed:** the ribbon's buttons are now literally the same components (`gg-suggest-btn-yes` / `-neutral`), so they cannot drift apart on the next change. | A4 | ✅ |
-| ~~**5**~~ | ✅ **SHIPPED 2026-07-29 in `d6d0bdc` — the row was just never struck** (found 2026-08-08 while picking this up as "agent-drivable"). `.rain-cell.rain-active` went `#e8f4fc`/`#8ab4d8`/`#1f4870` → `#e6f8ec`/`#5cb87a`/`#14612f` **+ `font-weight:700`** — station green, salience carried by fill + weight instead of a second hue. The fix also reached a surface this row never named: `.rain-byday-cell.is-today` was wearing the same regional-model blue on measured station data, and now gets a **structural ring** (`box-shadow: inset 0 0 0 1px`) because *"Today" is a POSITION, not a source and not an amount.* **Verified 2026-08-08:** `#8ab4d8` now survives only on `.src-tag-forecast` — the regional-model chip, where blue means exactly the one thing it should. On `main`, pushed. ⚠️ The row's line reference (`viewer.html:1659`) had also drifted to 1875. | A3 · W8·b | ✅ |
-| **6** | ⏸ **HELD OPEN by Paul 2026-07-29** — *"the check mark is fine on the acknowledgment ribbon for now at least, but we can keep that as an option."* Not killed, not scheduled. Note that the ✓ now **rhymes** with the ✓ on every affirmative button (row 4), which arguably earns its place better than it did when it stood alone. Revisit if the ribbon ever reads as a checklist header. | W8·b ② | ⏸ Paul |
-| ~~**8**~~ | ✅ **RESOLVED — and this row was STALE for two days.** Verified 2026-08-14 against the world, not the checkbox: `check-data-inline.py` reports **VEHICLES_DATA in sync** and `check-digest-fresh.py` reports the digest **fresh**, so both halves this row was waiting on are closed. The re-inline landed in **`7d660ff` (2026-08-12 17:52, Paul's own commit — *"Bolores reaches Mom's page and Guru — the record was two entries ahead of both"*)**, i.e. the confirm this row was holding for was given by *doing the work*, and nobody came back to strike the row. ⚠️ **Checked specifically because the risk ran the other way:** the 08-14 boxwood change ran an **unscoped** `check-data-inline.py --fix`, which this row itself warns *"also re-inlines anything else drifted at that moment"* — so the question was whether an agent had silently resolved a row deliberately held for Paul. It had not: `git show c83d2b7 -- viewer.html` touches **no** `VEHICLES_DATA` line. **The original row text follows, unedited, as the evidence.**<br><br>🔴 ~~**`VEHICLES_DATA` IS DRIFTED — 18 fields. The app is not showing ground truth Paul recorded** (found 2026-08-10 while running the session-start block for an unrelated Mom check). `vehicles.json` was edited on 08-09 (`2c58a4e`, `fba4a1c` — Bolores) and `viewer.html` was never re-inlined, so for the 17 domains where **the inlined const IS what renders**, those edits are simply not in the app. Two of them are Paul's own 08-09 ground-truth reads: *"the RetroSound is just kind of zip tied in"* (`restoration[20]`, item + detail + status all differ) and *"THE SPARE PAIR IS IN THE GARAGE"* (`restoration[21]`). The inlined copy still shows the superseded rows (`Amp + subwoofers (down the road)` / `long-term`; `Dash bezel — rear window & defrost` / `done`). **Deliberately NOT auto-fixed:** the drift rule says surface it and get Paul's confirm the source edits are legit, then `--fix`. This is the low-ambiguity case (his own commits, not a Guru canon-write), so the confirm should be quick — but the rule exists so nobody skips it. ⚠️ **The re-inline must be scoped to `VEHICLES_DATA`** (`reinline.reinline_from_source`); a bare `check-data-inline.py --fix` also re-inlines anything else drifted at that moment. <br><br>↻ **2026-08-12 — THE BLAST RADIUS IS BIGGER THAN THIS ROW SAYS: `worker/digest.json` is STALE ON THE SAME SECTION.** `check-digest-fresh.py` exits 1 naming `vehicles`; the digest was last rebuilt `7957b65` (08-08) and `vehicles.json` moved on 08-09. So it is not only that the dashboard is behind — **Garden Guru is answering from the superseded vehicle record too**, which is the exact 2026-07-07 failure (plants + fishing stale for three days). Same root cause, same one confirm from Paul unblocks both. The full fix is `reinline.reinline_from_source` scoped to `VEHICLES_DATA`, then `build-digest.py`, then `bash tools/deploy-worker.sh` — a re-inline alone leaves Guru stale. <br><br>↻ **2026-08-12 — STILL OPEN, still Paul's, but the confirm is now a ONE-GLANCE confirm: the delta was pinned deterministically rather than described.** The drift rule asks for a human signal that the source edits are legit, and what it is actually guarding against is an **unattributed write hiding in the delta** — a Guru canon-write riding along beside Paul's. That is now falsified, not assumed: the inlined `VEHICLES_DATA` is **byte-identical to `vehicles.json` at `6365912` (2026-08-07)** — compared as parsed JSON, whole object, not a spot check. So the drift is **exactly** the three 08-09 commits this row already names (`66d2789` · `fba4a1c` · `2c58a4e`) and **nothing else**; the earlier `restoration` growth (20→23→24 across 08-03 → 08-07) was all re-inlined and is not in play. All three are authored *and* committed by `Paul Kirschenbauer <paulkirschenbauer@Pauls-MacBook-Pro-2.local>` — a local session, not the GitHub-API identity a Guru promote writes under. Whole delta: **15 insertions, 5 deletions**, every one inside `vehicles[3].restoration` (Bolores), touching 6 `detail`, 3 `item`, 2 `status`. **The question left for Paul is therefore only "were my own three 08-09 Bolores commits right?" — there is no third party in this change.** Deliberately still not auto-fixed: that answer is his, and pinning the provenance is not the same as presuming it. Falsifier for the whole row remains `check-data-inline.py` **and** `check-digest-fresh.py` both exiting 0. ~~ | B2 · B4 | ✅ |
-| ~~**9**~~ | ✅ **FIXED 2026-08-12 in `789d5dc` — and it was TWO collapses, not one.** ⓵ *Every arrival looked like her arrival.* `momlib.split_arrivals()` now splits arrivals by **ORIGIN** into `bench` / `unresolved`. ⛔ **There is no `hers` bucket and no path to one** — a device Paul registered as his own (`excludeFromEngagement`) is `bench`; an unknown device **and a record with no `deviceId` at all** are `unresolved` and keep the board lit. Bench arrivals are **separated and NAMED on screen, never dropped** (he shared his phone with Mom until 07-28, so a silent drop could discard hers): `_drop_harness` deletes, this classifies. **The declaration was already there and this board had never read it** — measured today, all three arrivals lighting the board were `d-avslqpyd-m72qxt1s-mpeuqnyg`, flagged `excludeFromEngagement:true` since 2026-07-28 and honoured by the funnel for two weeks. ⓶ *"Nobody has looked" rendered as "she is owed a card."* The board derived the return leg from `check-mom-ack.py`'s **exit code** (1 for any finding), so R2b UNREAD and R1/R2 STALE wore the same red at the same leg. `check-mom-ack.py --json` now reports which rule fired: UNREAD → **leg 1 READ**, STALE → **leg 6** at Paul's gate. `position()` is pure and `--selftest` drives it with fixtures — **14 assertions, 3 negative controls**, ⭐ **proven by mutation**: a no-device record classed as bench, unresolved arrivals routed back to leg 6, and a faithful replay of the 08-10 bug were each injected and each caught with exit 1. Live board reads **🟢 ARMED**, 3 bench arrivals named. | A1 · loop | ✅ |
-| ~~**7**~~ | ✅ **SHIPPED 2026-07-29 — and they were NOT the only ones.** `.ack-btn` 30→44px, and `.mom-queue-nav-arrow` was **40px** too (the arrows that were destroying her typed-but-unsent notes until 7/29, so a miss there used to cost her words) → 44×44. Both now inherit the shared button grammar. <br><br>↻ **THE RESIDUAL IS CLOSED — re-measured 2026-08-12, and this row's own enumeration was wrong in both directions.** It read *"STILL OPEN, app-wide, outside her input stack: 13 other interactive rules measure under 44px"* and listed them. The **08-01 app-wide sweep already swept that set** and 08-02 decided the two it held (both in the loose-threads table above) — but nobody came back and struck this row, so **the only Tier-1 row still flagged 🤖 agent-drivable was pointing at work finished eleven days earlier.** Verified against `viewer.html` today, selector by selector. **Grown to a 44px box:** `.text-size-btn` (`min-height`+`min-width:44px`, commented *"was 36"*) · `.pmap-sync-action-btn` · `.pmap-add-btn` · `.fish-tab` · `.ref-drawer-toggle` (`min-height:44px` on the toggle itself) · `.ref-category-header` · `.feedback-send`. **Given a 44px hit area only,** via the shared `::after` rule at `viewer.html:176–190`: `.bio-sound-btn` · `.pmap-ctrl-btn` · `.ui-glyph-btn` · `.radar-toggle-btn` · `.fn-sync-btn` · `.feedback-close`, plus anything carrying `.tap44`. <br><br>**Three of the nine things this row named were never targets at all.** `.fn-mic-btn` — the one it called out as *"a Mom-facing capture control"* — is **dead CSS**: `grep` returns four hits, all inside the stylesheet plus one comment, and **zero** in markup or JS. The control it was worrying about does not exist; the live mic is `.ui-glyph-btn.ui-mic-btn` at 40px with the 44px `::after`. `.ui-glyph-btn` *"inner glyphs 13/24"* are the SVG icon and the stop square **inside** that button, not tappable things. And **"sync chip 24" matches no selector in the file** — the real control is `.fn-sync-btn`, `::after`-covered. `.ref-drawer-toggle .main-card-icon` 38px is likewise a decorative icon inside a 44px toggle. <br><br>**One exemption stands, and it is a register entry rather than an oversight:** `.ack-inline-link` at 22px, small on purpose (WCAG 2.2's explicit inline-target exception; Paul's call 2026-08-02), recorded in the `.tap44` comment block so the next sweep does not re-open it. The other 08-02 exemption is **gone rather than standing** — `.mom-queue-launcher-dismiss` was retired that same evening for the unified `.card-later-link`, which carries `min-height:44px`, and the CSS says so at the site. | A4 | ✅ |
-| **10** | 🔴 **`FN_STORAGE_KEY` TDZ — vehicle cards silently drop their field notes** (found 2026-08-15 by reading the live console, not by a check). `renderVehicles()` runs at `viewer.html:17143`; `const FN_STORAGE_KEY` is declared at `17734`. `renderVehicleItem` guards with `typeof fnLoadAll === 'function'`, which **passes** — function declarations hoist, `const` does not — so `fnLoadAll()` is called inside the const's temporal dead zone and throws `ReferenceError: Cannot access 'FN_STORAGE_KEY' before initialization`, **18× on every page load**. The `catch` swallows it to `vNotes = []`, so every vehicle card renders **as if it has no field notes** and nothing on screen says otherwise. ⚠️ **PRE-EXISTING, not from the insect work** — verified by comparing declaration order at the merge-base `5d3eedb` and at HEAD; identical. Not fixed here because it is outside what this session was asked for, and because the Almanac lifecycle is being scoped concurrently (`f6c2194`) by whoever owns that thread. **Falsifier:** load the app and read the console — zero `FN_STORAGE_KEY` warnings, and a vehicle with a logged note renders it. | B2 · Almanac | 🤖 |
-| **11** | 🟠 **The sound pipeline never verifies that a recording IS the species it is filed under — `sounds/birds/` (17) and `sounds/frogs/` (8) are UNAUDITED.** Proven live 2026-08-15: fetching insect audio filed a **juvenile Australian magpie** as the Morning Cicada, because `title_matches_species` accepts a bare species-epithet match and *Gymnorhina **tibicen*** shares its epithet with *Neotibicen **tibicen***. It downloaded, transcoded, wrote an attribution entry and **reported success**. Caught only because the filename said magpie. Birds are the most exposed domain — Commons is full of bird audio, and bird binomials collide freely. Fixed for insects via `COMMONS_SKIP` in `fetch-sounds.py` (one documented entry, routes a homonym-poisoned species to iNaturalist, which matches by taxon rather than filename); **the general hazard is untouched.** ⚠️ The photo side is already immune by construction — `fetch-insect-photos.py` is iNaturalist-research-grade only, deliberately never Wikipedia-title-matched. **Scope:** read 25 filenames in `sounds/*/\_attribution.json` against their binomials; ~25 min, no network. **Falsifier:** every entry's `file`/`source_url` names the record's own genus or a documented synonym. | A6 | 🤖 |
-| ~~**12**~~ | ✅ **FIXED 2026-08-28 — `tools/check-arrival-dispositions.py`, and Paul LISTENED to the clip.** The control keys a disposition to (channel, record id), so nothing but looking at that record can supply it and the `readThrough` watermark can no longer step over one. Selftest **14/14, proven by three mutations**: bench arrivals silently cleared · a **watermark-shaped** clear (the faithful replay of 08-10) · a baseline that swallows records uncounted. ⭐ **The mutation run also caught a hole in the test itself** — the first fixture carried no `recordTs`, so a watermark regression passed clean; the fixture now carries one and says why. `feedback` keeps reading `feedback-log.json` (one rule, two stores, no migration of a tracked record). Pre-control history sits behind a **declared, dated baseline** — itself a batch clear, so it is dated, justified on its face, counted (68), printed on every clean run and **never** reported as a disposition. The 08-09 clip is dispositioned explicitly: *Paul's own bench test, disregard*, attested **by ear** 2026-08-28, with the note that the four prior legs were all inference. Wired into `CLAUDE.md`'s session-start block, the map's checks table, and the Skill's gap list. **Original row follows.**<br><br>🔴 ~~**A DISPOSITION WAS MADE FOR A BATCH ON ONE SIBLING RECORD'S EVIDENCE — the 08-09 zone clip was cleared by a Guru turn, not by itself** (found 2026-08-28 re-examining the clip at Paul's ask). The 08-10 interlap note reads: *"Zero records carrying her deviceId on any channel since 2026-08-03 (feedback · observations · zone-audio · guru · pending-species, 30-day window) … The 08-09 traffic that lit the board is Paul's own — **the Guru turn says so in its own text**."* The recording **was seen** on 08-10 and dismissed on a **different record's** self-identification. ⚠️ **Lap 3 frames this failure as the CLAUDE.md wiring gap, and that is only half of it.** The wiring gap (`read-mom-zone-audio.py` absent from the session-start block, fixed 08-14) explains why nobody **listened**; this explains why nobody **noticed they hadn't** — a batch clear leaves no per-record hole for the next sweep to catch, so the channel reads attested while one of its records has never been opened. The rule this violates is already written in `CLAUDE.md`: *"it was Paul" is a DISPOSITION, not a dismissal … nobody listened and we listened and it was Paul's must never print the same.* That rule was authored **for one record** and has no mechanism holding it at **batch** scope. **Designed remedy:** disposition is recorded PER ARRIVAL ID, and a sweep may not report a channel attested while any arrival in it lacks its own. **Falsifier / seen-to-fail test:** inject two arrivals in the same minute from the same deviceId where only one self-identifies in its own content — the checker must still report the second as undispositioned. ⭐ **The structural half is ALREADY NAMED and nobody connected it to this incident:** the `/mom-cycle` Skill's own gap list reads *"No per-item lifecycle on `/api/zone-audio` or Guru turns. They're covered for the ack check but a single recording can still go unanswered (3 of 5 were never listened to)."* Start there rather than re-deriving it. ⚠️ Per lap 6's pre-registered rule, this is a repeat of a class already fixed in prose — **the answer is a control, not a louder banner.** ⚠️ Sub-item, same channel's bookkeeping: `/api/zone-audio` returns **`"reviewed": false`** for `r-msm3oqo6-8edsfawx` to this day. `--mark-reviewed` advances only the local watermark in `.private/mom-zone-audio-state.json`; **nothing ever writes the server field**. A status field with no writer reads *never reviewed* forever — a container that cannot match its payload. Either write it or delete it — still open, and the one part of this row not closed today.~~ | A1 · A6 · loop | ✅ |
-| ~~**13**~~ | ✅ **FIXED 2026-08-28, same control.** An authored-content arrival from a bench device is `bench-unheard`: it still requires a disposition, and `owed_to_mom` is **False**, so it can never manufacture a ribbon out of Paul's own test tap — row 9's fix is not reversed. Asserted three ways in the selftest and caught by the bench-skip mutation. **Original row follows.**<br><br>🟠 ~~**BENCH IS A CONTENT CLAIM MADE FROM DEVICE SHAPE, and on authored-content channels that is the one inference `people.json` forbids** (found 2026-08-28, same pass). `momlib.split_arrivals()` bins any arrival from an `excludeFromEngagement` device as `bench`, and bench arrivals correctly do not light the board — that is row 9's fix and **it is not being reversed here**. But `tools/people.json` carries the standing rule that attribution comes from **authored CONTENT, never device shape** (it is why the 07-28 backwards mapping was caught, and it is written into `d-l4ct2ilv`'s own falsifier: *"if any authored content — a confirm answer, a written note, **a voice recording** — ever arrives from this deviceId, the assumption is WRONG"*). On the four **authored-content** channels — zone-audio, feedback, observations, guru — the bench bin decides *whose words these are* on the strength of *which browser posted them*, which is exactly the inference that rule exists to prohibit. Consequence, live today: a recording Mom makes on Paul's laptop is **structurally guaranteed** never to raise anything. **Designed remedy is NOT to light the board** (that re-opens row 9's collapse) — it is that an authored-content arrival from a bench device is `bench-unheard` until something **content-level** attests it, and stays named and undispositioned until then. Telemetry-only signals are unaffected; a device bucket is a fine instrument for counting sessions and a bad one for deciding authorship. **Falsifier:** a voice recording posted from a bench deviceId must survive a full sweep still reported as needing a disposition, and must NOT appear as an arrival owed a ribbon.~~ | A1 · A6 · loop | ✅ |
-| **14** | 🟡 **`/api/zone-audio`'s `reviewed` field has NO WRITER — it reads `false` forever** (found 2026-08-28 while building the per-arrival control; **carved out of row 12 into its own row the same day, because a live sub-item inside a ~~struck~~ row is not routed to anything** — the next lap reads the row header, not its interior). `read-mom-zone-audio.py --mark-reviewed` advances only the local watermark in `.private/mom-zone-audio-state.json`; nothing has ever written the server field. Measured: `r-msm3oqo6-8edsfawx` still returns `"reviewed": false` **after** Paul listened to it and its disposition was recorded. A status field with no writer is a container that cannot match its payload — and this one reads in the DANGEROUS direction, since *never reviewed* is the state a reader would act on. **Two legal fixes, and picking one is the work:** have the disposition write it (the Worker needs a PATCH path), or **delete the field** — the local ledger is now the real answer, so the server field is arguably just dead weight. ⚠️ Do not "fix" it by having `--mark-reviewed` write it: that would re-attach the truth to a WATERMARK advance, which is the exact mechanism rows 12/13 just removed. **Falsifier:** either the field tracks `arrival-dispositions.json` for every zone-audio record, or it is gone from the API response. | A6 · loop | 🤖 |
-| **15** | 🟡 **"Behind N" on this repo is almost always a BOT, and nothing says so — so a routine event and a real anomaly print the same line** `[paul-raised 2026-08-28]`. Paul, on being shown the diverged state: *"that Tate-Tracker thing is probably the weather bot, right? Let's make sure that's not always a surprise."* ⭐ **He named the right mechanism and the right usual suspect** — measured over 90 days on `origin/main`: **`weather-recorder[bot]` 345 commits**, `fernwood-deployer[bot]` 9, Paul 631. Today's behind-1 happened to be the rarer one (`51533f4`, the Worker auto-deploy), which is exactly why a per-incident guess is the wrong instrument. `repo-sweep.sh` prints `✖ DIVERGED … STOP, never force-push` identically whether the remote moved because a cron rolled up rainfall or because a human pushed something unexpected — and C2 guardrail (c) then routes BOTH to Paul as a decision. **A guardrail that fires 345 times for one real case is a guardrail people learn to wave through** — the same failure this repo already names in `is_instrumentation` and in the close-out ritual's *"a check that re-asks a settled question trains the reader to skim it."* ⭐ **The lanes are already clean, which is what makes this cheap:** `weather-recorder[bot]` has touched **only** `weather-history.json` + `weather-bias.json` in 90 days, and `fernwood-deployer[bot]` **only** `worker/digest.json`. **Designed remedy:** a registry of machine writers (author → allowed paths) and a check that classifies every remote-ahead commit against it — `EXPECTED (bot, in lane)` vs `⛔ UNEXPECTED`, the second being the only one that reaches Paul. ⚠️ **It must NEVER auto-merge or auto-pull** — the point is to classify the surprise, not to remove the human from a history operation; guardrail (c) still owns what happens next. ⚠️ And **in-lane is the whole predicate**: a bot commit touching a file outside its declared lane is MORE alarming than a human one, not less. **Falsifier / seen-to-fail:** inject a commit authored by a registered bot that touches `viewer.html`, and the check must classify it UNEXPECTED. | loop · infra | 🤖 |
-
----
-
-## ✅ TIER 2 · CONFIRMED — she already answered; build it
-
-| # | Item | The answer that authorizes it | Where |
-|---|---|---|---|
-| ~~**1**~~ ✅ **SHIPPED 2026-07-29** — Journal tile added to the top strip, sub adopts HER framing ("Look back at what you've written"). | She asked *"Is there a way to look back at these?"* **and answered the naming card Yes.** It is the **most-opened card in the app** (41 of 139 expansions) sitting **8th of 13, with no dashboard tile.** She asked to look back and still cannot find it | A6 |
-| ~~**2**~~ ✅ **SHIPPED 2026-07-29**, then SUPERSEDED the same day: the ribbon now covers the moss AND the Journal naming AND the rainfall, with a link each (`links: [{phrase, card}]` — the old single `linkPhrase`/`linkCard` pair could only point at one). | She gave it 7/26; the record has it, credited to her by name; **she has never been told.** Point the next ribbon at the moss record via the shipped `linkPhrase`/`linkCard`. Asks nothing; produces an object she can see | A2 · A3 |
-| ~~**3**~~ | ✅ **SHIPPED 2026-08-04 — the row was never struck, and its counts had drifted** (found 2026-08-08). It read *"7 vehicle, 9 equipment, **0** household-system"*; canon is now **7 · 10 · 1**. What landed is more than the enum: **"Machines" was retired** — a word neither Mom nor Paul used — and **her three categories are three cards** (`card-vehicles` · `card-equipment` · `card-household`, `GROUPS` at `viewer.html:13255`), each with an intro describing **only itself**. The old shared intro promised *"trucks, mowers, the furnace"* on a card whose household section **returned early and rendered nothing** — the app told her about a furnace it did not show. Entry #1 is the Nest thermostat, folded from `devices.json` and read **deterministically** from the Google Takeout export, not inferred; serial + device IDs deliberately held in `.private/` because this file inlines into a public Pages build. Plus **the authorship door** `[paul-stated 2026-08-04]` — a quiet `.card-later-link` walking her to the Almanac composer, deliberately *not* a confirm card (no `_foldTarget` → would pin the watermark) and *not* the affirmative ✓ grammar (that paint means "recorded," not "opens"). | She proposed the category unprompted and derived the taxonomy herself. The cheapest possible demonstration that proposing something to this app makes it appear | B6 |
-| ~~**4**~~ ✅ **SHIPPED 2026-07-29 — the MONTH. The YEAR does not exist and the card says so.** This row said "presentation only; station history is already local." Half right: `weather-history.json` starts **2026-05-02** (84 days), so there is no year of measured data. The ERA5 grid does cover a year, and using it would answer a question about HER gauge with a model — the 14× substitution she caught. Shipped: last-30-days + whole-record totals, plus a caveat sized to be READ. `stationRainRange()` returns coverage beside every total so a partial window can't pose as a whole one. | Her direct ask, 7/29 (`fb-946dp0qk-ms639ds6`). Station history is already local; presentation only | W8·c |
-| ~~**5**~~ ✅ **SHIPPED 2026-07-29 — and it was a WRITE task, not a read task.** This row said "every note already carries which door it came through." It did not: `section` was set on **2 of 14** records, because only 1 of 5 `postFeedback` call sites passed it. All five doors now stamp themselves; the helper writes `"unspecified"` rather than omitting so a future gap is visible. `tools/read-feedback-sections.py` keeps THREE kinds of unknown apart (uninstrumented / unspecified / floor-bypassed). Prospective only — the 12 existing records can never be attributed to a surface. Coverage at ship: **14%**. | The instrument itself. Every note already carries which door it came through — **nobody has ever read it that way**, which is why we cannot tell a decline from a misunderstanding | A1 · W8·a |
-| ~~**6**~~ ✅ **SHIPPED + DEPLOYED 2026-07-29.** `origin` predicate at three call sites, sticky and one-way. Verified end-to-end against the live Worker: probe hidden by default, visible with `?origin=all`, `excludedNonApp: 1` reported rather than silent, and momlib's `guru` channel unmoved. | Test turns persist to `conversation:<id>` → listed by `/api/conversations` → read as an **arrival**, so probing makes Paul read as owing Mom a reply. Worse: a test conversation lands in the store **the Journal reads back** — it is visible to Mom. One `origin` predicate at three call sites | A6 |
-
----
-
-## 🧭 TIER 3 · STEER — each carries its question AND its capture path
-
-*Per Paul's rule: a Tier-3 row without both is on the kill list.*
-
-| # | Question | Ask via | Capture path |
-|---|---|---|---|
-| **R** | **Is the radar's problem the DOOR or the POSITION?** She has told Paul twice she likes it — 07-29 *"didn't know how to access it"*, and again 08-13. `[lap 3, 2026-08-14]` | ⛔ **NOT via a card.** Tier 2 already answered it; a verdict-class ask about a layout nobody can self-report, into a queue with zero taps since 08-03. Ask **Paul** to ask a past-behaviour question next time he is with her — *"last week when it was really coming down, did you end up looking at the radar?"* → *"what'd you do to get to it?"*. Never demonstrate the path; that destroys the observation | **`radar_section_viewed` + `radar_toggled`**, shipped 08-14. ⭐ **DECISION RULE PRE-REGISTERED** (`MOM-CYCLE-LOG.md` lap 3, written before the data existed): viewed-but-not-toggled → **the door** is wrong, upgrade the toggle; **neither** → **position** is wrong, move it under *Right now*; **both** → nothing is broken, close the thread. **Trigger, not a date:** the next rain event carrying a Weather jump-strip tap. ✅ **ALL THREE EVENTS PROVEN 2026-08-14 11:38 AM ET** (Paul's iPhone: `card_expanded {via:"strip"}` + `radar_section_viewed` + `radar_toggled`). ⚠️ **His walk does NOT trigger the rule** — it was pre-registered about HER journey, and he knew exactly where the radar was; it proves the instrument, not her path. **Rule stays armed.** <br><br>**IF THE ANSWER IS "THE DOOR", here is the fix, pre-measured so nobody re-derives it:** `.radar-section-title` is **13px**, `.radar-toggle-btn` **11px**, `.radar-anim-btn` 11px, `.radar-frame-indicator` 10.5px — i.e. **the door is smaller than the 14px "▼" chevron replaced on 07-29 for being too hard to see**, and it renders *below* the "Where does this data come from?" accordion, in the position a footer occupies. The fix is the ratified **cards-as-doors** treatment: a labelled pill stating the action, real `role="button"` + `aria-expanded` + keyboard (the header is a bare `div` with an `onclick`), and a `body.text-lg` entry. ⚠️ **`body.text-lg` carries 146 rules app-wide and ZERO for any radar element**, so in large-text mode everything around the radar grows and its own label does not — the identical defect already documented for the rainfall card. **Honest qualifier: that half is latent, not live — Mom has never used A/A+ (0 of 27 `text_size_changed` events are hers), so it bites nobody today.** The 11px default does. ✅ **THE DOOR IS FIXED — 2026-08-14, Paul chose exhibit R-C** from four staged options (*"if it's a key feature, let's highlight it as such… I like that it's still nested within the weather card itself"*). Heading + 11px chip collapsed into ONE full-width 15px button naming the action, real `<button>` semantics with `aria-expanded`, 44px min-height, and the missing `body.text-lg` rules. ⚠️ **This narrows the pre-registered rule rather than voiding it.** The earlier note here said not to touch the door mid-measurement; that was **over-cautious and is superseded** — `radar_section_viewed` fires on scroll-into-view and is completely independent of how the button looks, so the POSITION branch is untouched. What is now unanswerable is only *"would the 11px door have worked?"*, which nobody needs: it was substandard against the ratified cards-as-doors pattern regardless. **Still live: does she ever scroll this far?** If `radar_section_viewed` stays silent for her, position is the problem and the section moves under *Right now*. Tap area is NOT the issue: `.radar-toggle-btn` already carries a 44px `::after` (viewer.html:180-190) and the whole header row is clickable <br><br>🟡 **HER EVENTS LANDED 2026-08-20 — AND THE RULE STILL DOES NOT FIRE. READ THIS BEFORE CLOSING THE THREAD** `[lap 5, 2026-08-24]`. Her device, 9:31 AM, in order: `momack_tapped` + `ribbon_general_sent {section:"ack-reply"}` ("Fabulous") → `momqueue_viewed` → `jumpstrip_tapped {target:"card-weather"}` → `card_expanded {via:"strip"}` → **`radar_section_viewed` → `radar_toggled {shown:true}`** → `session_end {durationSec:66}`. On the **both** branch that reads *"nothing is broken, close the thread."* **Do not close it.** Two disqualifiers, and they are the rule's own: <br>① **The stated trigger did not occur.** The rule fires on *"the next RAIN EVENT carrying a Weather jump-strip tap."* `weather-history.json` has **`rainTotal: 0` for 2026-08-20** (0 on 08-19 too; 0.11" on 08-21). It was dry. The rule was built to detect whether she can FIND the radar when she *wants* it, and wanting it is what rain supplies. <br>② **The path was demonstrated to her seconds earlier — by us.** The ribbon she had just tapped says, in its own words, *"The radar is the first thing in the Weather card now… You'd said you didn't know how to get to it."* This row's own left column forbids exactly this: **"Never demonstrate the path; that destroys the observation."** We demonstrated it in the acknowledgment and then measured her following it. That is a **reachability** reading — the door works when pointed at — not the **findability** reading the rule was pre-registered to take. <br>**What it DOES establish, and it is not nothing:** the radar is reachable, the instrument fires end-to-end on her device, and she acted on a ribbon within one minute of reading it. **Rule stays armed** for a genuine rain event with no ribbon pointing at the radar in the same session. ⚠️ Whoever reads that next: check `rainTotal` for the day AND check whether the live ribbon named the radar, or this same confound repeats invisibly. <br><br>🔴 **AND THE "latent, not live" QUALIFIER ABOVE IS NOW FALSE** — see the corrected A/A+ bullet at the head of this file (lap 5). Her device is served `{size:"lg", stored:true}` (08-20, 08-24). The `body.text-lg` half of any radar defect **bites her**, and the "0 of 27" count is now **0 of 37** — still zero, still not the same claim as "she is on A." |
-| ~~**0**~~ | ✅ **ANSWERED 2026-08-03, RETIRED 2026-08-04 — and the pre-scheduled hand-retire WORKED.** She answered **Yes / "That's all of them"** (sentiment `landed`) in her 7:52–7:56 AM ET session, and the retire landed the next day: `active:false` + `resolvedAt: 2026-08-04`. **The watermark was never pinned** — verified 2026-08-08, nothing is holding the ceiling. This row is the one worked example of the 2026-07-27 unprobeable rule being honoured *in advance* rather than discovered after it bit. **Her five, in her words: vehicles / equipment / house systems / gardening / wildlife** — carried forward into the 8/10 strip decision, which the shipped strip does **not** yet reflect | Card (live) | ✅ Retired by hand as pre-scheduled |
-| **1** | **The real discriminator** — zero wrongness risk but **our** topic: *"We've never written down what's actually coming to the feeders this summer — only what the books say should be. From where you sit, are the hummingbirds still working the feeders, or have they thinned out?"* | ONE card, after Tier-1 #1–2 clear the queue | Needs a `_foldTarget` → a dated `observedHere` line on the Birds card, **in her name**. Answers → our-topic asks are repairable. Silence → **topic origin binds and `harvest-questions.py`'s whole supply chain is dead** |
-| **2** | `q-fairway-grass-seedheads` — already staged verbatim | Flip `active:true` **in August** when seed-heads emerge | Existing fold path; a second sample in the same cell as #1 |
-| ~~**3**~~ | ~~*"The last time something in the house needed a repair or a part — what were you trying to find, and where did you end up looking?"*~~ | ✅ **RETIRED 2026-08-02** | Closed with the relayed-conversations row above (Paul: *"that seems out of date"*). B6 proceeds on the shape she already gave unprompted |
-| ~~**4**~~ | ~~*"When you wrote in that the rainfall number looked wrong — what did you figure would happen with that?"*~~ | ✅ **RETIRED 2026-08-02** | Closed with the same call. Was the only planned read on what she expects back when she reports something; the return leg now proceeds on inference. Re-ask fresh if that gap bites — do not revive this wording |
-| **5** | **Guru turn audit** — opens conversation content | **Paul ratifies** (not Mom) | v1 needs **no AI**: the fact table gives exact strings, so `2,800` in an assistant turn is a regex hit. Shrinks the ask from *"AI may analyze conversation content"* to *"a script may grep our own output"* |
-| **6** | **W6 instance model** — what is its real shape? | **Paul** | Design doc first. **Not Mom's** — asking her to adjudicate a schema is the exact class A3 just deprioritised |
-| **7** | **Wildlife confidence markers** — 67 records assert an animal is present with no way to say *"we think"* | **Paul** | Schema call; see the taxonomy answer in the proposal doc §6 |
-| **8** ⭐ | **Getting her to adopt "Almanac"** — on 2026-07-30 the record card was renamed **Journal → Fernwood Almanac**, so the write surface, the record and the voice all share one name. That knowingly overrides her own word: she answered `q-almanac-name` Yes on 7/29 and "Journal" was hers. Paul: *"let's try to get her to adopt Almanac. I think it's the more appropriate. we'll work on that with her, though."*<br><br>**↻ RATIONALE RECORDED 2026-07-31 (Paul) — the rename is a CONSOLIDATION, and that is the part that is settled.** *"We had Almanac and Journal and Garden Guru and all kinds of stuff scattered around… I think the fact that we had so many names in the past confused mom. We're starting with Almanac. That's something we can measure and ask mom about, but it was important to first have a clean, aligned, consistent language."* **Verified name inventory at the time of the rename:** `Almanac` carried **3 referents** (the header tagline *"An Appalachian Almanac for Fernwood"*, the voice you ask, and the look-back card) · `Garden Guru` carried 1 (the same voice, older name) · `Journal` carried 1 (the look-back card only, and only after 7/29). So the voice had **two names at once**, and anchoring on Almanac moved **one** string while anchoring on Journal would have moved three and cost the property's own tagline. This is the third application of the ratified **consistency-over-precision** rule on her surfaces (after the affirmative grammar 7/29 and the third button 7/31). | **PAUL, in conversation — not a card.** *"You do not need to worry about that. I will work on her, not we."* A drafted confirm card was written and then **deleted** on that instruction; do not re-add one | Paul relays whatever comes back. **If she wants Journal, it goes back everywhere** — that is the loop working, not a reversal. Standing rule this follows: Paul drives outreach, the app iterates on the signal he brings back.<br><br>**⚠️ Keep the two claims separate when measuring.** Consolidation (one name, whatever it is) is justified by the inventory above and is **not** what is under test. *Which* name wins is **not** settled by that argument — she was asked, she said Journal, and it moved a day later. **The measurable question is only ever "does Almanac land for her,"** and the rename has been live and in the release notes since 07-30, so she has already seen it. Do not let the strength of the consolidation case be read as evidence for the name choice. |
-
-**Resolved with #8, same day:** the acknowledgment ribbon used to read *"You called it the journal, so
-that is its name: the Journal sits at the top now."* The rename made that sentence false on her screen,
-so **the naming clause was removed** at Paul's direction — not rewritten to praise the new name. What
-she is still told is the part that stayed true: what she's written now sits at the top. The `links`
-entry moved from the phrase *"the Journal"* to *"at the top now"*, pointing at the same card, so she
-loses no door.
-
-**⚠️ PRE-COMMITTED, IN WRITING:** a miss on **#1** is **NOT** evidence for the topic-origin hypothesis
-until the input-stack cleanup ships and the card is re-offered on a clean surface. Otherwise a null gets
-over-read exactly the way the A1 gate was.
-
-**↻ 2026-07-30 — THE PRECONDITION IS NOW MET. The clock starts today, not earlier.** The input-stack
-cleanup shipped (`ca6939f`→`4145385`, W8·a below), so a null on #1 from **2026-07-30 onward** is
-admissible evidence. Anything before today still is not, and the two must not be pooled — the whole
-point of writing this down in advance was to stop a pre-cleanup null from being read as a verdict.
-⚠️ Note this lands **inside** the clean measurement time-box that closes 2026-08-10, and the restyle
-touched all four surfaces at once. Launcher counts in particular must not be pooled across 07-30.
-
----
-
-## 🎨 The shape system — SHIPPED 2026-08-02 (Paul-commissioned UX audit)
-
-Commissioned by Paul as a general UX audit, three named areas plus a whole-viewer sweep. Full findings:
-`.ux-reviews/2026-08-02-button-system-weather-collapse-disclosure.json` (18 findings). Shipped and
-**live on Pages** in `582607f`→`b386597`.
-
-| What shipped | Detail |
-|---|---|
-| ✅ **The button system is named** | 110 buttons / 31 visual signatures / 10 button radii → **8, all on a token scale**. The key finding: the system was **already 90% emergent** — pills are choices, 10px rects are commits — and had simply never been written down, which is why it broke just often enough to be unlearnable. Tokens + 4 role classes (`.btn-commit` / `.btn-choice` / `.btn-quiet` / `.btn-link`) in `viewer.html`, plus the rule that **a new visual signature is a claim that a fifth role exists**. 118 literal radii converted to tokens with zero rendering change. **Standing rule 1 is NAMED by this, not altered.** |
-| ✅ **The by-day rainfall strip stopped overflowing** | `repeat(7, 1fr)` floors every track at the widest cell's min-content, so the single 5-char label ("Today") sized all seven → ~21px past the right edge, **only in A+ on a phone**. `minmax(0,1fr)` + `min-width:0`, plus a 4+3 wrap at A+. ⚠️ **Verified by arithmetic and mechanism, NOT at a true 390px A+ viewport** — no reproduction was achieved this session. Worth one look on a phone in large text. |
-| ✅ **The affirmative pill stays a pill at any height** | `22px` was a pill only because `min-height` happened to be 44px; `text-lg` raises it to 52px and left the radius, so the app's one "we heard you" control became a rounded rect sharing the Save button's silhouette. Now `999px`. Touched a ratified component — **Paul's explicit go, 2026-08-02.** |
-| ✅ **The weather card says each thing once** | Root cause was **two independent rule cascades over the same four inputs** (`generateGardenerInsight` first-match-wins vs `generateAlerts` all-match) at **mismatched thresholds** — rain 0.05/0.02, saturation 0.5/0.75 — so a light-rain afternoon had one saying it was raining and the other silent. Thresholds aligned to the lower, every rule keyed, the glance's key subtracted from the alert list. Six rules stopped baking figures into their sentences; the frost low keeps its number (it appears nowhere else, and there the figure IS the meaning). Collapsed header appends the temp as its own element rather than forking the generator. |
-| ✅ **The fungal advisory has a subject** | Paul: *"is that a plant thing, or what is that?"* It had none. `property.json:100` names boxwood blight / powdery mildew for exactly this condition and boxwood is in canon. Now *"Fungal weather for the boxwood and anything crowded — water at the base, not the leaves."* Deterministic lookup, ordered by property.json's own risk language, degrades honestly if canon changes. |
-| ✅ **The confirm-card action row is even** | Paul: *"that's all of them is kind of on top of a row where something's missing."* A wrap artifact: three pills needing ~394px in a 336px card, so the deferral wrapped alone leaving ~200px of empty row. Now a 2-col grid with the deferral spanning. **A true 3-up is not reachable at 390px** (three even cells give 106px; "I haven't looked" needs ~136px at her type floor) — Paul chose 2+1 over dropping below the floor. |
-| ✅ **`＋ Add a note` → `Tell me in your own words`** | Recommended 2026-07-26, never shipped until now. Names what opens, in her register, and drops a glyph carrying neither decision nor topic. **Paul-approved wording, 2026-08-02** (Mom-facing authored content — gated, then pushed). |
-
-### 🔬 NEXT LAP — the "she wants it AS SIMPLE AS POSSIBLE" hypothesis `[paul-raised 2026-08-15]`
-
-Paul: *"if that's true, and if she likes the jump menu over the context-rich summary menu we
-previously developed, that she may prefer as clean and simple a UI as possible… that's to consider in
-the next lap of the cycle **with the customer researcher** and ensure we consider in our longer term
-strategy."*
-
-**Deliberately NOT acted on this session.** Filed as a hypothesis with its evidence and its
-falsifiers so the next lap's **user-researcher** seat starts from the record rather than from the
-sentence. Long-horizon: if it holds, it is a **strategy input**, not a punch-list item — it would
-argue against the whole context-rich direction, which is a bigger call than any single card.
-
-**Three next-lap items, and two of them are ONE measurement.** The deferred 390px A+ viewport check
-(WAITING ON PAUL) and the nested-card width question below are both *"what is the used content width
-on her phone"* — run them as a single pass. This hypothesis is the third, and it is the one that
-needs a **discriminating probe**, not more counting.
-
-**What actually supports it today — and it is thinner than it feels:**
-- She has **never fired the A/A+ toggle** (line 101), while Paul's devices fired it 22×.
-- Since `card_expanded` started carrying `via` (2026-08-14, lap 3), **every card open from her
-  device came via the jump strip** — and that is **2 opens**, on one day. `jumpstrip_viewed` was only
-  instrumented 08-04, so there is no clean before/after against the dashboard tiles.
-- Her sessions are **short**: 13s, 33s, 91s since lap 3 (`read-mom-engagement.py`).
-
-⚠️ **THE RIVAL EXPLANATION IS PAUL'S OWN, AND IT PREDICTS THE SAME DATA.** *"My hunch is she just
-doesn't understand the UI."* A person who does not recognise a control does not use it — which is
-indistinguishable, in this record, from a person who prefers not to. **"Simple" and "opaque" produce
-identical telemetry**, and only one of them is a preference. Do not let the first become the finding
-because it is the more flattering read. This is the same shape as the 07-28 attribution error: a
-confident inference from a toggle, held for 26 days, and backwards.
-- ⭐ **The A+ default test (shipped today) is one probe of this and CANNOT settle it** — see its
-  reasoning at `viewer.html`'s `wireTextSizeToggle`. If she never toggles back, that is consistent
-  with *both* readings.
-- **A discriminating probe is what this lap owes**, and it will not come from more counting: an
-  observation or a question that separates *did not notice* from *did not want*. That is a
-  user-researcher design problem, and Mom's attention is the scarcest resource in the project — so it
-  competes for the 5-slot cap and probably belongs at leg 3 tier 2 (Paul) before it ever reaches her.
-
----
-
-### 🟡 MEASURED + PARTLY FIXED — does the nesting eat the width? `[paul-raised 2026-08-15 · re-raised with a named path 2026-08-24 · MEASURED lap 5]`
-
-> ## ✅ MEASURED 2026-08-24 (mom-cycle lap 5) — **THE CLAIM REPRODUCES ON ALL SIX DOMAINS WALKED**
-> Harness `tools/measure-nesting-width.js` · report `.plans/2026-08-24-nesting-width-measurement.md`
-> · raw `.plans/2026-08-24-nesting-width-raw.json` · seats `.user-research/2026-08-24-nesting-depth.md`,
-> `.ux-reviews/2026-08-24-nesting-depth.md`.
->
-> **81 extra line boxes** across six domains at her real viewport (414×848), card content 387px,
-> worst column **135.3px = 32.7%**. **Materially identical in A and A+** — so it is NOT an A+-only
-> finding, which is the bar this row itself set.
->
-> ⭐ **IT SPLITS IN TWO, AND THE ROW ABOVE NAMED ONLY ONE.** ① padding compounds (36+33+22 = **91px**
-> before a word is set); ② a **two-column row inside the narrowed box** cuts 296→135 — a bigger single
-> cut than all three padding levels combined, and **not among the fixes this row contemplated**.
->
-> ⚠️ **AND THE WORST ROW COST IS NOT THE DEEPEST NODE.** `vehicle-notes` sits at depth 5 in a *wide*
-> 281px column (68% of its card) and ran **20 lines where 14 would do**. This row's instruction to
-> prefer "collapsing a nesting level" would have missed it, and so would any width-floor rule.
->
-> ⭐ **THE BIGGEST SINGLE RECOVERABLE CUT WAS NEITHER PADDING NOR A LEVEL — it was a 40px decorative
-> emoji.** `.vehicle-icon` (40px + 12px gap) sat as the first flex child of `.vehicle`, so every line
-> of every panel beneath it — specs, maintenance, restoration, notes, service history — was set 52px
-> narrower than the card, at every depth. **Found by the `ux-expert` seat; both the measurement report
-> and seat 1 had read it as part of the padding chain.**
->
-> ### THE RULE THIS PRODUCED — the ROW TAX, now enforced by the harness
-> **Clause A (verdict):** no text leaf may cost more than **25% extra line boxes** vs. the same text
-> reflowed at its own card's content width (`rowTax ≤ 1.25`).
-> **Clause B (diagnosis):** chrome between `.main-card-body` and a leaf may spend **≤15%** of card
-> content width — chrome being ancestor padding/border/margin **plus any fixed-width non-text sibling**.
-> A width FLOOR was tried and discarded: it does not flag `vehicle-notes`. The tax is scale-invariant,
-> stated in Paul's own unit, and **auto-exempts short values** (a cell reading "10W-30" scores 1.00),
-> so it needs no exemption list. `measureNestingWidth.gate()` exits on breach. **Thresholds are a
-> first cut, to be tuned from runs** — the rule is checkable, which is what this repo requires of a
-> new visual rule; the constant is not yet claimed to be right.
->
-> ### ✅ SHIPPED IN LAP 5 — Paul-surface only, measured before and after
-> `.vehicle` un-flexed and the icon moved into a header row + `table-layout: fixed` on the specs
-> table. **The three domains `renderVehicleItem` renders went from 32 extra rows to 15 — a 53%
-> reduction from two CSS changes.** Vehicles narrowest 152.6→**184.8px**, Equipment 265→**317px**,
-> Household 265→**287.9px**; no horizontal overflow; icon intact.
-> `table-layout: fixed` is **prevention, not repair**: `td:first-child` carries `white-space: nowrap`
-> (hard) with `width: 38%` (a hint under auto layout), so a long label takes the value column with no
-> floor — invisible with Paul's short labels, live the moment **household** phrases populate the same
-> template.
->
-> ### ⏸ GATED — Mom-facing, NOT shipped, awaiting Paul
-> · **Stack the chorus row** (the `ux-expert` seat adjudicated 135.3px a **defect**, against seat 1's
-> read: `soundsLike` values are **54–116-char prose sentences**, and `.chorus-now-item` is a *per-row*
-> flex with `flex-shrink:0` — it pays a two-up's full width cost and delivers **no** column alignment.
-> Arithmetic runs the other way from seat 1's fear: the 110-char entry is **5 lines two-up, 3
-> stacked**.) · **`.bio-section` padding** · **sticky card header**.
->
-> ### ⛔ THE WAYFINDING HALF HAS A BLOCKER NOBODY HAD NAMED
-> `.main-card { overflow: hidden }` (verified, `viewer.html:394`) makes `position: sticky`
-> **inoperable** on any card header. So the zero-`sticky` count in this repo is not only a fact about
-> intent — it is a fact about **capability**: had anyone tried it, it would have failed while looking
-> like it worked.
-
-
-Paul: *"whether the cards within cards and nested drop downs is eating up margins and width of the
-page. So that for example the info boxes within a given insect's card are relatively narrow resulting
-in more rows than necessary. **This is true across our card schema.**"*
-
-**Not scheduled this lap — filed so the next one starts with it.** Deliberately recorded as a
-**question with a measurement**, not a fix: the whole point of the shape system above is that a new
-visual rule must be a claim someone can check, and "it feels cramped" is not yet one.
-
-- **The claim to test:** each nesting level (`.main-card` → section → info box → disclosure) spends
-  its own horizontal padding/border, and those costs **compound multiplicatively down the tree**
-  while the page's `max-width: 660px` and a 390px phone do not grow. If four levels each spend
-  ~12–14px a side, the innermost text column is ~100px narrower than the card that contains it —
-  which shows up not as a visible margin but as **more wrapped rows than the content needs**.
-- **How to measure it, and this is the part that must not be skipped:** compute the *used* content
-  width at every nesting depth **at 390px, in BOTH text modes**, and report the innermost column as a
-  fraction of the viewport. The insect card is Paul's named exemplar (shipped 08-15, the deepest tree
-  in the app) — but the finding is only worth acting on if it reproduces on **at least two other
-  domains**, since he says it is schema-wide.
-- ⚠️ **Measure at a real viewport, do not infer from the CSS.** The 08-02 rainfall-strip fix in the
-  table above was *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"* — the same
-  shortcut, one section up, and it is still carrying an unverified note.
-- ⚠️ **A+ is PAUL'S mode, not hers** (line 101 — she has never fired the A/A+ toggle). A width finding
-  that only bites at A+ is a real defect for whoever meets it, but it is **not** evidence about Mom's
-  experience, and it must not be argued as one. Tune the **default** scale.
-- **What a fix is allowed to be:** collapsing a nesting *level* (removing a box, not shaving its
-  padding) is the structural answer and the one that compounds; a padding token pass is the cosmetic
-  one. Prefer the first — but neither ships without the measurement above, and anything touching a
-  ratified component needs Paul's explicit go, as `.gg-suggest-btn-yes` did on 08-02.
-
----
-
-**⏸ HELD — do not ship before 2026-08-10.** The launcher's 🎤 glyph and the `.fish-tab` restyle (which
-would return the filled dark-green pill to the affirmative and give the app ONE tab grammar). Both sit
-inside the clean measurement window above, and the 07-30 shell restyle already spent the one recoverable
-confound. **Gate: 2026-08-10** — take them in the same change that reads the launcher's result.
-
-**⛔ DECLINED, with reasoning recorded at the call site in `viewer.html`.** The audit proposed pulling
-`.mom-queue-addnote` into the verdict row as a fourth choice chip. That would have reversed **both**
-halves of Paul's 2026-07-14 steer — full-width, *"as legible as the answer buttons"*, with the dashed
-border marking it a **modifier, not a 4th answer**. The ragged-row complaint is fully answered by the
-grid without it.
-
-⚠️ **A premise in that review was WRONG and is corrected here rather than quietly fixed past.** It
-justified two findings on "A+ is the mode Mom is most likely using" / "Mom's configuration." **Line 101
-of this file says the opposite from telemetry: she has NEVER fired the A/A+ toggle; Paul's device fired
-it 22×.** A+ is *Paul's* mode. Both fixes stand on their own merits — an overflow is a defect for
-whoever meets it, and a shape rule holding in only one of two text modes is broken in both — but the
-premise must not propagate. The standing guidance is unchanged: **tune the DEFAULT type scale, not
-`body.text-lg`.**
-
----
-
-## 🔭 Two-pass fresh-eyes review — RAN 2026-08-03; punch list mostly FROZEN
-
-The founding `/ux-sweep` run (skill formalized same day, `~/.claude/skills/ux-sweep/SKILL.md`).
-Full trail + adjudications: **`.ux-reviews/2026-08-03-two-pass-fresh-eyes-pilot.md`** — status of
-each punch item lives THERE; this section is the pointer plus the gates.
-
-- ✅ **Shipped 2026-08-03:** Save-button geometry freeze (`6c5d462`) · Mama's Perspective folded
-  receipt + one-question view + one Write-me-back (`05db30a`, release-noted `a584cb1`).
-- ⛔ **Declined `[paul-stated 2026-08-03]`:** always-slim feedback ribbon — the chat bubble stays
-  as-is; momentary cover-ups accepted as natural. Recorded in the review file; do not re-propose.
-- ⏸ **11 punch items PARKED behind Paul's freeze:** *"let's not do too much more before getting
-  mom's feedback."* **Gate: Mom's next feedback round lands, or Paul lifts it by name** (he lifted
-  it once, scoped to the Mama's Perspective card only). Includes the one-line `FN_STORAGE_KEY` TDZ
-  fix (vehicle field notes silently never render — invisible to Mom, eligible on a word) and the
-  clock/pressure/provenance unifications.
-- ❓ **Parked questions `[paul-stated 2026-08-03]`:** machine status chrome (skipped, revisit
-  someday) · Mama's-card default-collapse / strip altitude (explore later).
-- ↩️ **ONE OF ITS SHIPPED CHANGES HAS A FOLLOW-UP `[paul-raised 2026-08-09]`.** Retiring the carousel
-  furniture (dots + `‹ ›`) fixed the queue-of-five pressure, but the replacement — a link under a
-  full-width `border-top` — **stopped reading as a cycle of the card above it**. Row: **A4 · W8·e**.
-  Read that row before touching this nav: restoring the dots would undo the 08-03 call, and the row
-  exists precisely because both properties have to hold at once.
-
-| Kill | Because |
-|---|---|
-| **The moss card as an experiment** | The experiment already ran — `q-almanac-name` was the same cell (zero wrongness, her words, answerable from a chair) and was answered in a day. Moss is **her** topic, so all three hypotheses predict she answers it: **it discriminates nothing.** And the record already shipped 7/26. → converted to the Tier-2 return leg |
-| **W8·b ①** (the rainfall type-scale inversion) | **Shipped 7/26** (`0ef98e5`) — gauge 18px, by-day 16px, ERA5 15px, plus 8 `body.text-lg` rules. It was written on 7/29 describing the **pre-fix** state and was used as the axis table's worked Tier-1 example. **Deleted, not folded** — a spot fix is exactly what the typography pass would undo |
-| **The 80K digest gate** | A tripwire nobody acts on, computed by an estimator that under-reads ~13–15%, proxying a **$2.47 lifetime** cost. It was crossed 16 days before someone wrote "back under the ceiling" |
-| **"Does per-card Add-a-note earn its place?" as a question for Mom** (W7) | Verdict-shaped, about our own design, and answerable from telemetry we already hold (`context.section`) |
-| **Add-a-photo-on-card** | Adds a **sixth** input affordance to the surface we are disambiguating |
-| **"Tell her a wrong answer costs nothing"** | Reassurance the product has not demonstrated erodes rather than reassures. The queue header already says it once, correctly. Instead: make wrongness structurally impossible, and fire a receipt at the disagreeing tap — *"Noted — the record had it wrong, and now it doesn't."* |
-| **R2-vs-Drive backup row** · **candidates/devices into the digest** · **LLM-judge in harness v1** · **vector DBs** · **any framework/bundler migration** | No askable question, or over-engineering for a two-user app at 0.54 turns/day |
-
----
-
 ## ⚖️ TRACK A vs TRACK B — the ranking that had never been made
 
 **Track A first, and the carve-out turned out to be unnecessary.**
@@ -1044,42 +320,6 @@ each punch item lives THERE; this section is the pointer plus the gates.
 
 ---
 
-## 👤 WAITING ON PAUL — and nothing else is
-
-| Item | What's needed | Where |
-|---|---|---|
-| **🔑 Ambient Weather key rotation** | ⏸ **TABLED 2026-08-02 by Paul mid-flight** — resume when he has gas for it. **Step 1 of 3 is DONE:** the Worker proxy exists and is deployed — `/api/ambient`, cached 120s, `limit` clamped, upstream error bodies never echoed (an Ambient error can quote the query string back). It is **deliberately ahead of the token gate**: the call it replaces was a direct browser fetch that worked on every device paired or not, and the token is pasted per-device, so gating it would blank the conditions on Mom's device — the 2026-07-16 silent-void failure. `/health` reports `ambient:false` until secrets exist. **Step 2 is PAUL'S and needs a real TTY** (`npx wrangler secret put AMBIENT_APP_KEY` / `AMBIENT_API_KEY` from `worker/`, values at `viewer.html:6990-6991`) — ⚠️ never via `!`, which uploads an EMPTY secret and prints success. **Step 3 (agent):** switch viewer.html to the proxy and strip the literals — **deliberately NOT done yet**, because doing it before the secrets exist breaks the live dashboard. Only then does Paul rotate, and by that point no key is in any client so the rotation is final. | C |
-| ⏸ **The zone map now reads ALL-DASHED** — **HELD 2026-07-31, and so is all further zone work** | All 10 zones are `status: draft`, so the draft-rendering that shipped 7/28 made the whole map dashed. If that reads as *"nothing here is settled,"* the fix would be to **confirm the zones we trust**, not soften the rendering. **Paul's call 2026-07-31: hold this AND every other zone thread** — *"hold on any further zone work, basically, until we get some signal from mom that the zones are important."* **UN-PARK TRIGGER: a signal from Mom that zones matter to her** — a zone-audio recording she initiates, a zone named or corrected in her own words, a Guru question about a zone, or anything she says to Paul about the map. Today the front door has **0 taps from her device** and none of her four real inputs has ever been about a zone, so this is holding a thread that has no demand behind it — the [[feedback_defer_affordances_pending_signal]] posture applied to a whole track rather than one affordance. ⚠️ **What this hold covers:** confirming zone `status`, the naming-completeness pass, `zoneAffinity`, zone-journey v2, the map-highlight. ⚠️ **What it does NOT cover:** `zoneId` assignment on the 23 null plants (re-derived 2026-08-02; was 24 when the record held fewer plants) (that is canon structure, invisible to her, and W9's soil fold depends on it) and W9 soil sampling itself, which is Paul's fall fieldwork and waits on nothing. | A2 · ⏸ HELD |
-| ~~**🗣 Get Mom to adopt "Almanac"**~~ | ✅ **DROPPED FROM TRACKING 2026-08-02 — Paul: *"go ahead and drop number seven, like, you don't need to keep track of that."*** Not reversed, not decided against — simply no longer a tracked item. He owns the conversation with her and does not need a row reminding him. The 07-30 release note already told her *"If a different name suits you better, say so,"* so the door stays open in the app without anything here. **Do not re-add a card** (one was drafted and deleted on his instruction). | Tier-3 STEER #8 |
-| **🪑 Approve a batch of bench cards** | ⚠️ **THE 08-02 PREMISE HAS FLIPPED — re-measured 2026-08-08.** That row concluded *"nothing is urgent"* **because the queue was full**; it is not anymore. She answered `q-top-categories` on 08-03 and it retired on 08-04, so `rationalize-bench.py` now reads **4 live · 1 OPEN SLOT · 8 awaiting Paul's clear gate · 0 approved on the bench**. Approving now *does* change what she sees. **RIPE: `q-fairway-grass-seedheads`** — its own trigger is *"flip in August when seed-heads emerge,"* and it is August. **Still SKIP (out of season, per today's run):** `q-spiderwort-bloom`, `q-hydrangea-dreamcloud-bloom` (reopens 09-01), `q-lizards-tail-bloom`. The 08-02 reading, preserved because its reasoning stands: ✅ **VERIFIED 2026-08-02 — nothing is urgent, and nothing is owed to her.** Live queue was **full and healthy**: 5 confirm cards, every observable exists today, **0 open slots**, so approving changed nothing until one was answered. *(Checked the scare too: 6 cards read as `active`, but `SUPPORTED_KINDS = ["confirm"]` filters the open-standing card out of the 5-slice and `generalQ()` renders it separately as the foot-line — it is visible, via a different path. Not a bug.)* Loop state: **nothing ready to fold, nothing pinning the watermark, no unanswered notes** — `q-almanac-name` already handled-then-retired, which released the ceiling. **Supply is now 10 in the pipe** (8 on the bench + virginia-creeper and wild-violet, newly harvestable after M1). **RIPE:** `q-fairway-grass-seedheads` — flip in August, the seed spikes are the tell. **SKIP (out of season):** `q-spiderwort-bloom`, `q-hydrangea-dreamcloud-bloom` (reopens 09-01), `q-lizards-tail-bloom`. ⚠️ **`q-wild-violet`'s observable is "the little purple flowers next spring"** — the harvester flags it; do not serve it in August. **The constraint has flipped:** it is no longer supply, it is the gate and the cap. An agent may run the report; only Paul runs `--approve`. | A3 · "THE BENCH" |
-| ~~**178 season notes await a spot-check**~~ | ↻ **REFRAMED 2026-08-02 — Paul will not read 178 notes, and the row should stop asking.** *"I'm not gonna do that realistically… let's have a strategic way of going through this."* Two facts reshaped it: **only the CURRENT month ever renders** (`plant.seasonNotes[String(currentMonth)]` — August is 24, never 178), and the v7 rule **forbids date claims outright**, so the notes are deliberately unfalsifiable by timing. **Tier 1 SHIPPED:** `tools/check-season-notes.py` audits all 178 against each plant's own bloom/care months — heuristics over prose, so it flags and never fixes. **Tier 2 is dead as written** (Paul reading a month) — he wants **Mom** doing this, in the app, inside the existing capture/feedback loop. **Tier 3** = season-note cards that ask about the OBSERVABLE the note describes, never about our prose; unblocked by M1 but competes for the 5-slot cap. | A2 · #8 |
-| ~~**Three relayed conversations**~~ | ✅ **CLOSED 2026-08-02 — Paul: *"let's just close nine. That seems out of date."*** Retires Tier-3 **#3** (the household-repair question feeding B6) and **#4** (what she expected to happen when she reported the rainfall number), both authored off the 2026-07-26 feedback, plus the categories follow-up. ⚠️ **What closes with them:** #4 was the only planned read on *what she expects back when she reports something* — the return-leg design now proceeds on inference rather than her account. If that gap bites, re-ask it fresh rather than reviving these — a question written for a week-old moment is the staleness that closed this row. | A1 · B6 |
-| **⭐ Should BEHAVIOUR be able to fire a lap?** `[paul-raised 2026-08-15]` | **The measurement half is BUILT and wired; the trigger half is his call and deliberately untouched.** Paul: *"the false signal of her not responding to any of the cards means she's not using the app. But that's just because that's the only thing we're checking **and have as a trigger for cycles**."* Today every detector in the loop keys on an **arrival** (an answer, a note, a recording, a Guru turn), so `mom-cycle-status.py` read 🟢 ARMED / *"nothing unread could be hers"* on 2026-08-15 while her device had **3 sessions, 2 jump-strip taps and 2 card opens since lap 3** — and **18 sessions on 11 active days** across the prior month, five of them (08-11, 08-12) producing no arrival at all. ✅ **Shipped 2026-08-15:** `tools/read-mom-engagement.py` (her device, since the last lap — sessions · card opens · journal · offered→viewed→taken), in the session-start block, in the map's checks table, and on the board as an informational **BETWEEN-LAP USE** line. ✅ **ANSWERED 2026-08-17 — `0fee32f`, `[paul-approved]`. This row's question is CLOSED and the row is kept only for its argument.** Paul settled it after a pickup rendered the loop 🟢 ARMED / *"nothing unread could be hers"* on a window in which she had 4 sessions across 3 active days and viewed 3 of 4 offers without tapping one. **Three signals shipped**, thresholds agent-proposed and ratified by his pick: `offers-passed` (≥3 seen and not tapped), `sessions-quiet` (≥3 sessions, no arrival), `answer-age` (≥21d). ⚠️ **The amendment reached `CLAUDE.md` and the code and NEITHER prose surface** — `MOM-CYCLE-MAP.md` and the Skill both still said her input alone fires a lap, for 10 days. Caught lap 6 (2026-08-27); both amended, and `tools/check-loop-docs.py` now fails on the gap. Original framing kept below because the reasoning is still the reasoning: ~~**The question for Paul: should a behavioural signal fire one, and which?**~~ The candidates are not equal — *she used it and gave nothing* (arguably the most informative state we have, and today it is invisible), *she was offered something N times and never took it*, *she stopped coming* (a decay trigger, which is the one thing an arrival-only loop can NEVER fire — silence produces no event). ⚠️ **The cost of getting it wrong runs one way:** an arrival trigger is self-limiting because she has to act; a behavioural trigger fires on our own instrumentation and could put the loop on a cadence, which is exactly what *"the loop RESTS; HER input fires it"* was written to prevent. ⚠️ And at this n a behavioural trigger would be firing on **single-digit counts from a device bucket, not a person**. | loop · A1 |
-| ~~**A+ DEFAULT — held for next lap**~~ 🏁 **WALKED BACK 2026-08-19, NEVER SHIPPED** `[paul-stated 2026-08-19: "let's not force an A+ text resizing if she's used to A"]` | ✅ **CLOSED — and the hold did its job: because `2e8791a` was never pushed, MOM WAS NEVER SERVED A+.** The default is `normal` again (lap 4). **Two reasons, and the second generalises:** ① she has never fired the toggle, so she is habituated to A, and changing the default re-formats every surface at once for someone who did not ask. ② **the hunch it was testing was answered by something else.** The premise was *"she just doesn't understand the UI"*; lap 4 found she navigates **100% by the jump strip** and opened the radar on her **first contact with its new door** — having told Paul twice she liked the radar, once saying she *"didn't know how to access it."* **That is a DOOR problem, not a comprehension problem, and a door problem is not fixed by resizing her type.** Do not re-raise the A+ default without new evidence about HER, not about the UI. The reasoning + verdict now live in `viewer.html`'s `wireTextSizeToggle` block; `2e8791a` stays in history as the experiment. ✅ **The deferred 390px A+ check RAN anyway (lap 4) and PASSED** — see the row below; it is not owed work any more. <br><br>*(Original hold reasoning follows.)* 🔴 **READ THIS BEFORE PUSHING ANYTHING IN THIS REPO.** `2e8791a` changes `viewer.html` and is **deliberately unpushed**. Pages serves `main`, so pushing it — including as a ride-along on some unrelated commit — **ships the A+ default to Mom early and starts the experiment at the wrong moment**. Two reasons it waits, and the first is the load-bearing one: ① **the before/after engagement comparison must not straddle a lap boundary.** `read-mom-engagement.py` windows on the last lap; landing the switch mid-interval splits the baseline across the lap-3 window and makes the only real read of this test (session length · card opens · journal interaction, before vs. after) unresolvable. ② the deferred 390px A+ check happens at the same moment. **What "next lap" means concretely:** push it at the START of the next lap, then stamp the date so the engagement read can be split on it. ⚠️ **The board will show 🟡 unpushed commit(s) and `check-live.py` will report the live page behind HEAD for as long as this holds — that is the hold working, NOT a shipping failure.** This repo's own doctrine ("a commit is not a ship") is what makes that amber look like a defect; it is not one here. <br><br>✅ **① NO RELEASE NOTE** — Paul: *"no release note for now."* A note naming the text-size control would tell her the control exists, which is the exact variable under test. **Recorded here rather than silently skipped**, so a later reader does not find a user-facing change with no entry and "fix" it — the standing every-change-ships-a-note rule is being *deliberately* suspended for this one change, and only this one. ✅ **② THE 390px A+ CHECK IS DEFERRED TO NEXT LAP** — Paul: *"save it for next lap."* So it is **owed work with a name**, not a gap: verify the layout at a true 390px viewport in A+ before the lap closes. ⚠️ **Until it runs, the A+-at-her-viewport layout is UNVERIFIED and must not be described as checked** — A+ was *Paul's* mode and is now *everyone's*, so every A+-only layout bug is promoted from his screen to hers, and one is already known-unverified (the 08-02 rainfall-strip fix, *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"*). It also overlaps the nested-card width question filed in the shape-system section — **run them as one measurement pass**, since both are "what is the used content width on her phone." <br><br>*(Original framing follows, for the reasoning.)* *"Let's try defaulting Mom to A+ moving forward and see if she toggles it back as a test. My hunch is she just doesn't understand the UI."* **Built and committed, NOT pushed** — it changes her surface, so it is leg 6 and his to release. Implementation is a DEFAULT change, not a `.text-lg` change, which is the standing guidance (`viewer.html:2523`). Nothing is written to localStorage on a default, so an absent key keeps meaning *"she has never chosen"* — the only reason a later `text_size_changed` reads as a real decision — and a new `text_size_served {size, stored}` fires once per session to supply the denominator (verified firing with the harness deviceId 2026-08-15; it will read NEVER-FIRED in `check-telemetry.py` until a real session flushes). **① THE RELEASE-NOTE CALL.** The standing rule is that every user-facing change ships a note — but a note naming the text-size control **tells her the control exists, which is the exact variable being tested**. Recommendation: **ship this one without a note**, recorded here rather than silently skipped; if he wants a note, it should describe something else that shipped and never mention type size. **② THE 390px CHECK IS NOT DONE.** Verified: the default applies, A+ is pressed, nothing is stored, the event fires. **NOT verified: layout at a true 390px A+ viewport.** ⚠️ **AND THE STATED REASON WAS WRONG — corrected at close-out 2026-08-15 before it could propagate.** It was recorded as *"the window would not resize below 1512 here,"* which is a true observation (`resize_window` reported success and `clientWidth` stayed 1512) and a **false limitation**: the anchor item `Fernwood :: Rainfall A+ overflow fix` has carried the workaround since 2026-08-14 — *"render `viewer.html` in a 390px-wide iframe; window resize silently does NOT take."* Technique and evidence in the `/design-options` Refinement log. **So this check is CHEAP and unblocked; it is deferred by Paul's call, not by a tool limit.** Next lap: use the iframe, do not re-discover the wall. This matters because A+ was *Paul's* mode and is now *everyone's*, so every A+-only layout bug is promoted from his screen to hers, and one is already known-unverified (the 08-02 rainfall-strip fix, *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"*) — **that same anchor item is the one carrying the technique, which is why it should be worked in the same pass.** ⚠️ **And the null result will not settle the hunch** — see the "as simple as possible" hypothesis in the shape-system section. | A4 · loop |
-| **✅ 390px A+ LAYOUT CHECK — RAN AND PASSED** `[lap 4, 2026-08-19]` | Ran with the iframe technique (window resize silently does not take). True 390px, A+ applied from the default, nothing stored. **Zero page-level horizontal overflow** collapsed AND with all 15 cards expanded. **Zero A+-ONLY clipping**: 13 clipped elements under A+, the same 13 under A, none new. ⭐ **This retires the known-unverified 08-02 rainfall-strip fix** — 70 rainfall elements measured, none past 390px, worst clip 5px. So A+ was never the layout risk it was held to be; it was walked back for a different reason entirely. | A4 · loop |
-| **⚠️ HER VIEWPORT IS 414×848, NOT 390** `[lap 4, 2026-08-19]` | Measured from `/api/metrics` device records: **51 batches at `414x848`**, one landscape `896x414`. Every layout check in this repo — including lap 4's — has been sized to **390**, which came from the `/design-options` exhibit convention, not from her device. 390 is NARROWER, so every check to date is conservative and nothing already-verified is invalidated. But it means **no check has ever measured the 24px she actually has**, and a bug that only appears between 390 and 414 is invisible to this repo's entire test history. **Fix: make 414×848 the canonical width and keep 390 as the stress case.** | A4 |
-| **✂️ CELESTIAL EVENT NAMES TRUNCATE — and A+ makes it much worse** `[lap 4, 2026-08-19]` | `.cel-event-name` is `white-space: nowrap` + `text-overflow: ellipsis` in a ~126px box. *"☄️ Geminid Meteor Shower — Best of the Year"* renders as *"☄️ Geminid Meteor …"* — **the payoff half of the name is gone.** Clips **11px under A, up to 136px under A+** (7 events affected). ⭐ **The shape: the TITLE is the only nowrap element in the row while the body text beneath it wraps freely** — so the one line naming the thing is the one line that cannot. Not currently urgent (A+ was walked back, so it is the 11px case that ships), but it is a real legibility loss on a card built to be glanced at. **Fix is likely one line: let it wrap.** | A4 |
-| **🚨 `check-mom-ack.py`'s `shipped` FLAG READS THE FILE, NOT THE RIBBON** `[lap 4, 2026-08-19]` | `momlib.ribbon_state()` computes `shipped` from `git log origin/main..HEAD -- viewer.html` — **any** unpushed commit touching the file. During the 08-15 A+ hold it reported **🔴 NOT SHIPPED** for the ribbon while `MOM_ACK_DATA` was **byte-identical to `origin/main`** — the ribbon had reached her. Worse, its remediation line prints *"COMMIT AND PUSH (Pages serves viewer.html; a commit alone never reaches her)"*, which during a deliberate hold **is an instruction to break the hold**. ⭐ **The 08-15 guard was placed in `CLAUDE.md` and `BACKLOG.md` where `check-live.py`'s conclusion forms — this is a SECOND, unguarded reader of the same state.** Exactly the 08-14 `card_expanded` lesson restated: *when you fix a control that misreports itself, ask what else reads that state.* **Fix: diff the `MOM_ACK_DATA` block between `HEAD` and `origin/main`, not the whole file.** | loop · A1 |
-| **⚠️ MOVING THE RADAR CHANGED WHAT `radar_section_viewed` MEANS** `[lap 4, 2026-08-19]` | The radar door moved from **2,447px** down the weather card to **115px** (shipped lap 4). `radar_section_viewed` fires from an IntersectionObserver on `data-metric-section="radar"`, so before the move it meant *"she scrolled ~2,300px to reach the radar"* and after it fires **almost the instant she opens the weather card**. ⛔ **Counts either side of 2026-08-19 are NOT comparable** — and the post-change number gets easier to hit for reasons that have nothing to do with her. **`radar_toggled` is unaffected and is the event to judge this by.** Split every radar read on the ship date. | loop · A4 |
-| **⛔ PAUL-RELAYED INPUT HAS NOWHERE TO LIVE** `[lap 4, 2026-08-19]` | Rule 2 of the loop says *"Paul relays, or it is not in the system. Paul-relayed input IS real input."* **But there is no place to put it.** `read-mom-feedback.py --address` can only act on notes that arrived **from her device**; a sentence Paul relays in conversation has no record, no id, no timestamp, and no channel `check-mom-ack.py` can see. ⭐ **Two live consequences, both already paid:** ① lap 4 was redirected by *"she says she's using the radar a lot"* and **shipped a change because of it, with no trace of the input in the record**; ② the radar was built at lap 3 because she *"named it twice"* — two namings that exist **only in a commit message**. ⭐⭐ **And it structurally blocks clean-lap criterion 5:** the return leg must lead with the DATE HER INPUT ARRIVED, so input with no arrival timestamp cannot be acknowledged in the ribbon's own required form. **Needs: a relayed-input record with an arrival time Paul states, feeding the same lifecycle as her device notes.** This is the single highest-leverage gap the loop has. | loop · A1 |
-| **⚠️ LEG 0's CONCURRENT-SESSION GUARD HAS A HOLE BETWEEN COMMIT AND PUSH** `[lap 4, 2026-08-19]` | Leg 0 says run `git log --oneline -1` **at the start and again before committing**. On lap 4 both checks were clean — and another session committed **24 seconds AFTER** this lap's commit (`04db47c`, Bronco coolant service, `session_01Ky5oyq8XdKvkUC8t9XDZZm`), landing in the window the guard does not cover. **It was caught by the push being REJECTED, not by the guard.** Had the remote not also moved (the weather bot), the push would have silently published another session's in-progress commit. ⚠️ **And the recovery rewrote their sha** (`04db47c` → `d84ccc0`; patch md5 identical, original in reflog) — harmless here because Paul confirmed it was his own window, but a second session that then tried to push would see a divergence it did not cause. **Fix: check HEAD immediately before PUSH, not only before commit — and compare against the sha recorded at commit time.** | loop |
-| **GTI spare key + service bundle** | ~$450–500 dealer job, no clock. Bundle with the Chamblee recall trip | B1 |
-| **📷 EASTERN PATIO WAS BUILT NOV 2016 – APR 2017, not Thanksgiving 2020** `[photo-organizer lap 15, 2026-08-16]` | ⭐ **A four-year correction, and it replaces a MODEL READ with a DETERMINISTIC one.** `sweep_project_datewindows.py` inferred *"eastern-patio ≈ Thanksgiving 2020"* and that inference has sat unconfirmed since 2026-08-03. Paul surfaced 18 photos from the **"Dads Phone" album** showing the patio under construction; **all 18 carry EXIF dates and none carries GPS.** The build sequence reads cleanly: **2016-11-19** cinder-block wall → **11-25** firebox + arch form → **11-29** stone veneer → **12-02** chimney flue → **12-11/12-14** wall faced, flagstone staged → **12-26** flagstone into the sand bed → **12-31** laid, wreath up → **2017-01-26** essentially complete → **2017-04-16** finished, grass in, steps built. ⚠️ **Two of the 18 contradict themselves and are NOT being used:** `E7756FD8` and `1DD96C3C` (the two group shots) carry **2020-02-13** yet show the same sand bed and wreath as the 12-26/12-31 session, and are the only two with no `camera_make` — the signature of a re-saved copy whose date was reset. **Paul's call:** accept 2016-11 → 2017-04 as the build window, and say which session the two group photos actually belong to. | photo-organizer |
-| **🚤 THE FLEET HAS NO BOAT, and a boat repair is now in the photo record** `[photo-organizer lap 15]` | `vehicles.json` holds **18 entries and none is a boat**, so the `service:<vehicle-id>` grammar cannot hold it. A 2025-10-05 photo is a **boat motor being repaired — fishing line stuck in it** (Paul's words, no hesitation). The ruling was recorded as `unattributable` **only because the record has nowhere to put it** — the gap is in the fleet, not in his identification. Same shape as the 2024-07 Audi finding, which is still open. **Needs: a fleet id, or a decision that boats live outside `vehicles.json`.** | photo-organizer |
-| **🔧 Bronco tailgate latch was APART 27–28 DAYS BEFORE its parts were bought** `[photo-organizer lap 15]` | Photos **2025-10-06** show tailgate latch mechanism pieces. The records are **`sr-2025-11-02-tailgate-latch-assembly-7896`** (Classic Industries) and **`sr-2025-11-03-tailgate-latch-handle-rod`** (DIY, eBay parts) — both **November**. Under Paul's own 2026-08-08 ruling (*a record date is a PURCHASE date; a photo-evidenced date is a WORK date; work supersedes, both retained*) these want a proposed **`workDate: 2025-10-06`**. Live instance of the third structural hole: **a receipt-first join cannot see a diagnosis that precedes the purchase by a month.** | photo-organizer |
-| **🚙 The photo record puts Bolores here BEFORE its own first service entry** `[photo-organizer lap 15]` | The earliest `bronco-1989` entry is **`sr-2025-10-07-purchased-titled-in-georgia`**. Burst `2025-10-03..10-06` — **up to four days earlier** — is Paul deep-cleaning it, and 10 of those assets were already in the `vehicle-bolores` album. So the vehicle's photographic record starts **before** the paperwork date its history begins at. Not a contradiction (titling is paperwork), but the fleet card currently implies acquisition on 10-07 and the photos say otherwise. **Needs: whether `bronco-1989` gets an acquisition date distinct from its titling date.** | photo-organizer |
-| **🗺 AN EXTENSIVE ZONE NAMING INITIATIVE** `[paul-stated 2026-08-16, from photo-organizer lap 16]` | Paul, ruling a 2023 burst: *"for the western naming, let's just know that that's something that needs to be clarified by the Fernwood project in an extensive zone naming initiative."* **What forced it:** he called an area *"western upper patio, I guess we should call it"* — and it collides three ways with `project-western-patio` (**3,759 rows**), `project-western-garden-terrace` (55) and `zone-western-garden` (68). He declined to settle it mid-review, correctly. **Also unnamed and now carrying photographs:** the parking area between the upper patio and the driveway (distinct from `zone-parking-bank` and from lap 6's `lower-parking-*`, which was already flagged as a possible fifth region and never resolved), plus **Bryan cabin** and **Bryan swamp** (below). ⚠️⚠️ **THIS COLLIDES WITH A STANDING HOLD AND THE COLLISION IS THE POINT.** The 2026-07-31 row *"the zone map now reads ALL-DASHED"* holds **all** zone work — and names *"the naming-completeness pass"* as covered — with un-park trigger *"a signal from Mom that zones matter to her."* **That signal has NOT arrived.** What has arrived is a different demand: the photo corpus needs the names to file 2016–2023 evidence, which is a RECORD need, not a Mom-surface need. **Paul's call: does a corpus-driven naming pass un-park the hold, or run beside it without touching anything Mom sees?** Do not assume the first. | photo-organizer · A2 ⏸ |
-| **🏚 "Bryan cabin" and "Bryan swamp" — two places Fernwood has never heard of** `[photo-organizer lap 16]` | Six photographs of **Dad working on the Bryan cabin** (2023-05-24) and six of **breaking up a beaver dam in the Bryan swamp** (2023-06-05) are now in the record under `project-bryan-cabin`. Neither place appears in `zones.json` (10 zones) or anywhere in Fernwood. ⚠️ **Spelling was nearly lost:** Paul's voice rulings produced *Brian*, *Ryan* and *Bryan* within minutes; the category was minted as `project-brian-cabin`, flagged rather than guessed, and he settled it — **Bryan**. The misspelling was corrected at 6 rows and verified to leave zero orphans. ⚠️ **And the work is DAD'S, not Paul's** — second live instance of the missing WHO-DID-THE-WORK axis (the first was the 2025-06-26 hired tree crew). It exists only in prose, so a later read of this category will attribute Dad's day to Paul. | photo-organizer |
-| **🦫 BEAVER MANAGEMENT IS A STANDING CONDITION, not two incidents** `[paul-stated 2026-08-16]` | Paul: *"there's been ongoing beaver work and a lot of bears."* The record holds **`observed:property:beaver-management:2020-11-23` (15 rows)** and now **`:2023-06-05` (20 rows)** — two episodes **31 months apart**, and the 2023 one is a complete arc: see the dam → trial the trap in the parking area → take it to the Bryan cabin → break the dam and set it → set it again three days later. **Nothing but a CATEGORY could have linked them**; no date clustering spans 31 months. **The gap: if the work is ongoing, the record has scattered episodes and no thread.** Fernwood is where a recurring property condition belongs. | photo-organizer |
-| **🐻 A second bear, a year earlier than the one on record** `[photo-organizer lap 16]` | `scene:wildlife-black-bear:2024-06-23` (5 rows) already existed. A **2023-06-09** sighting near the house is now recorded as `scene:wildlife-bear:2023-06-09` — **species deliberately NOT promoted**, because Paul said *"a bear"*, not *"black bear"*. If they are the same species the two forms should be unified. Paul: *"a lot of bears"* — so like the beavers, the record holds sightings and no thread. **This belongs to Fernwood's wildlife domain, not to photo-organizer.** *(Aside worth keeping: the model read this frame as "tools on a workbench in a garage" and was FAIRLY exonerated — the bear is far off in the woods, partly behind a tree, with a patio filling the foreground.)* | photo-organizer · wildlife |
-| **🏗 THE PUMP HOUSE — built Aug 2025, and it is pond infrastructure** `[photo-organizer lap 17]` | 13 photographs of the **actual construction**: the old pump taken out and the new pump house built, 2025-08-20..08-25. Read with the April 2025 pond burst, **August 2025 is a pond-infrastructure period** — new pump, pump house, and **cattails Paul collected FROM THE WILD** to plant in the pond. The pond thread now runs cause → remedy → replanting instead of 4,020 undifferentiated rows. ⚠️ **Provenance has no slot:** *"got from the wild"* is a fact about a plant that Fernwood's plants domain cannot currently record. | photo-organizer |
-| **🌿 A plant eaten up, 2025-08-20** `[photo-organizer lap 17]` | Paul's words. Filed as `observed:property:plant-damage:2025-08-20`. **Plant damage is Fernwood's content, not photo-organizer's** — it belongs beside the plants and weeds domains. No cause recorded; he did not name one. | photo-organizer · plants |
-| **🛠 Two mowers, two first-ever service records, from photographs** `[photo-organizer lap 17]` | Both fleet mowers had **zero** `serviceHistory` entries. 2025-04-10 gives the **Husqvarna Z254F** its first (Paul: *"it LOOKS LIKE we replaced the fuel line and the air filter and the fuel filter and sharpened the blades"*) and 2025-04-13 gives the **Kobalt cordless** one. ⚠️⚠️ **THE PARTS LIST IS A HEDGE — "it looks like" — Paul reading photographs, not recalling the job.** He also said *"those are good for the service record,"* so this is a maintenance claim about a machine built on an inference. **It must not be written into `vehicles.json` as fact.** ⭐ The blades were sharpened **at Herman's shop** — *"he showed us how"* — not on the property. | photo-organizer |
-| **⛳ A golf cart that is not ours, and a speedometer** `[photo-organizer lap 17]` | 2026-04-06: Paul took the `g22a-2005` out to work on the **Wilbur** golf cart — 4 photographs at 736–773 m. Filed `unattributable`, deliberately: our cart was the **transport**, and filing it to `g22a-2005` would write a repair we did not do into its history. ⚠️ **"Wilbur" is an unverified transcription of speech** (the Bryan/Brian/Ryan lesson). Also this burst: the **400's speedometer circuit board** (`drz400s-2001`, four frames) and an **oil drain plug replacement** on our cart. | photo-organizer |
-| **🐖 "Our wild pig history" is ASSERTED but ABSENT** `[photo-organizer lap 17]` | Paul, ruling a 2025-04-13 photo: *"a pig that was killed on Tate properties — kinda worth recording in our wild pig history."* **There is no such history.** No pig, hog or boar category exists anywhere in the photo corpus. ⭐ **This is the inverse of the beaver finding and the pair is the point:** beaver management *did* already exist (2020 + 2023) and bears *did* (2024), so the record can now distinguish **a thread he has** from **a thread he believes he has**. Started as `observed:property:wild-pig:2025-04-13`, following the beaver grammar. | photo-organizer · wildlife |
-| **💧 The pond arc now has its CAUSE: patching failed, then the liner was replaced** `[photo-organizer lap 15]` | `project-pond` holds **4,002 rows** and spans three review sheets, but nothing recorded *why* the work happened. Burst `2025-04-17..04-21` is Paul **patching holes in the pond before a full liner replacement** (his words). That makes April 2025 a **diagnosis phase whose outcome was "patching failed"**, and it reframes every later pond photo as pre- or post-liner. ⚠️ **The liner replacement itself is in no burst and has no located record** — if it was a purchase, it should be findable; if it was labour, it is the first structural hole and will never have one. | photo-organizer |
-
----
 # TRACK A — Mom's field journal
 
 *Intent: a hyper-personal field journal that helps Mom see and record what only she can know from standing on the ground — and gets more trustworthy the more of her ground-truth it folds back in. Glance → repository → loop. Capture stays deterministic and AI-free; AI lives only on the ask path, behind Paul's gate.*
@@ -1423,6 +663,403 @@ as before.
 - **Pest-control facts stay in Fernwood; the hunting/firearms detail stays private** (kept out of this public repo — see the mine's round-2 report §E; cross-link only in a private surface). Ratified.
 
 **⚠️ Reconcile learning (Paul, 2026-07-25) — the mine conflates the nearby LAKE with the property POND.** Two mine-sourced water items were mis-attributed to the pond when they belong to Lake Sequoyah: the **amphibian decline** (KILLED — hearsay, and it's the lake) and the **beaver** (they fell trees at the lake, not the pond — the property pond has no beaver and is healthy, full of frogs). **On any mine-sourced water/aquatic item, verify pond-vs-lake with Paul before authoring** — the two are 0.3 mi apart and the source text blurs them. (Bear-at-the-pond-liner and the deer/rabbit pond-edge browse were confirmed as genuinely the property pond.)
+
+---
+
+## 🌸 THE POND AZALEA WANTS MOVING — a standing reminder, captured 2026-09-01 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track A · A2 (the record about her place), per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+Arrived as a field note + Guru turn at **1:43 PM ET, 2026-09-01**, on device `d-14nyhnjz…` —
+**Paul's own device** per `tools/people.json`'s 2026-07-28 clean-slate correction, not Mom's. So it
+is Paul-relayed input, which the channel doctrine counts as real input, and it is **not** an arrival
+the acknowledgment ribbon owes Mom a line for. Recorded here rather than swept up, because *"it was
+Paul" is a DISPOSITION, not a dismissal.*
+
+> *"There's an azalea by the pond that we do want to move later so we'll wanna reminder whenever the
+> weather and conditions are good according to that plant's profile — when's a good time to think
+> about moving it and what kind of spot to move it to."*
+
+**Three things it actually asks for, and only the first is trivial:**
+1. **A record that this specific azalea is slated to move.** `plants.json` has `azalea`, and the
+   pond-side individual is exactly the *"same species, several individuals across zones"* case that
+   **W6 (the instance model) is deferred on.** This is a real instance of that gate, not a
+   hypothetical — note it against W6 rather than cloning a record.
+2. **A timing reminder keyed to the plant's own profile.** Guru's reply said late-March–April or
+   late-August–September at this elevation. ⚠️ **That is a model read and is not canon** — it is not
+   in `plants.json`, and a transplant window is exactly the kind of date the season-note authoring
+   rule forbids asserting loosely. If it ships, it ships as authored canon with a source.
+3. **Where to move it to** — a judgment call needing sun/soil/drainage, i.e. a zone recommendation.
+   The new 2018 leaf-off basemap frames make the candidate ground legible for the first time.
+
+⚠️ **No card, no reminder and no canon edit has been made.** Deliberately: the ask arrived at a lap's
+close, item 2 would put an unverified date in front of a reader, and item 1 touches a deferred gate.
+
+---
+
+## 🛰 BASEMAP & LAND-DATA SESSION — 2026-09-01 · what got built, and what is owed 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track A · A2 — session dump, kept whole, per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+**How this started:** Paul asked whether Google Earth Pro's polygon tool could define zones.
+It ended four layers deeper. Full write-ups: **`LAND-SOURCES.md`** (every database, VERIFIED vs
+LEAD) and **`GOOGLE-EARTH-NOTES.md`** (how to drive Earth Web, and its two traps).
+
+### ✅ SHIPPED this session
+- **`tools/zones-to-kml.py` / `tools/kml-to-zones.py`** — round-trip zones through Google Earth
+  Pro. Importer is dry-run by default, requires `--imagery`, never deletes, refuses holes, and
+  errors on a KML with zero polygons or coordinates off the property. Round trip is a
+  byte-exact no-op across all 23 zones.
+- **`tools/area-trace.html` — SEVEN ground frames**, keys `1`–`9` / `G`. All NAIP frames render
+  to byte-identical bounds, so swapping one moves nothing but the photograph.
+- **`tools/fetch-trace-hires.py`** — Esri z19 (0.246 m/px, 2.4× NAIP). Local only.
+- **`tools/register-gearth-frame.py`** — georeferences a Google Earth capture by homography
+  from Earth's own cursor readout. ⭐ The **2018-04-12** frame is now a layer.
+- **`tools/fetch-historical-topo.py`** — USGS sheets back to 1888, cropped to the anchor.
+- **`fetch-basemap.py`** now derives season and records noon sun + shadow ratio. It had been
+  writing `"season": "leaf-off"` as a hardcoded string.
+
+### ⭐ THE FINDING THAT REFRAMES THE WHOLE THING
+**At 34.55°N, leaf-off and an overhead sun cannot co-occur.** The leaf-off window (Dec–early
+Apr) caps the noon sun near 55° at the equinox; sun above 60° only falls on full canopy. NAIP
+has flown this quad seven times and **exactly one is leaf-off — 2022-01-10, the lowest sun of
+all seven** at 33.4°, shadows 1.52× object height. That is the frame the zones were traced on,
+and it is why the 8/31 trace was hard. **So the frame is chosen PER ZONE, not once.**
+
+### 🔴 PAUL FOUND THE REAL LIMIT — 2026-09-01, and it outranks everything below
+
+> *"That screenshot doesn't zoom like the Google Earth website does. When I zoom in now with the
+> starred 2018-04 button selected, the resolution still gets really poor. And when I do the same on
+> Google Earth, the resolution stays good."*
+
+**He is right, and it is structural.** A screen capture is a FIXED RASTER — the 2018 frame is
+1568 px across ~700 m, so ~0.45 m/px, and zooming in the tracing tool only magnifies those pixels.
+Google Earth streams progressively finer tiles as you descend. **No amount of registering a single
+screenshot fixes this**; the detail is not in the file.
+
+**⭐ The fix, and the arithmetic says it is cheap.** All 23 zones fit inside **231 m × 138 m** —
+only 50% of the traced frame's width. The viewport is a 1512×595 letterbox, so:
+
+| capture width | resolution | vs NAIP | captures needed |
+|---|---|---|---|
+| 700 m *(what we have)* | 0.45 m/px | 1.3× | 1 |
+| **~350 m** | **0.22 m/px** | **2.7×** | **1 — covers every zone** |
+| 250 m | 0.16 m/px | 3.8× | 4 |
+| 150 m | 0.10 m/px | 6.3× | 6 |
+
+So Paul's own proposal — *"a zoomed out view and a zoomed in view that you can navigate around"* —
+is right, and one ~350 m capture centred on `-84.366847, 34.549125` covers all 23 zones at 2.7×
+NAIP. A 150 m mosaic at 6.3× is six captures if that is not enough.
+
+⚠️ **BLOCKED ON A FLAKY DEPENDENCY, not on a decision.** Earth Web wedges on its splash screen
+whenever an already-loaded instance is navigated by URL; it recovers after ~60–90 s but did not on
+the last three attempts. **Do not re-navigate to retry — that restarts the clock.** Wait it out, or
+drive zoom with the on-screen `−`/`+` controls, which do not trigger the reload path.
+
+**Registration is already solved and reusable** — `tools/register-gearth-frame.py` takes four
+control points read off Earth's own cursor readout, so each new capture is four hovers plus a
+screenshot. Nothing new needs designing.
+
+### 🔜 OWED — next steps, in the order they are worth doing
+
+0. **⭐ THE ZOOMED-IN CAPTURE (above).** Highest value, unblocks real re-tracing, ~10 minutes when
+   Earth is behaving.
+1. **The 2018 frame covers 74%, not 100%.** The northern strip is missing — Earth Web's
+   viewport is a wide letterbox and the frame is square. Fix: two captures mosaicked, or one at
+   a wider zoom (costs resolution — at the wider zoom it is already ~0.61 m/px, no better than
+   NAIP). **Decide which before trusting it for the northern zones.**
+2. **Re-trace the field zones on a frame that can actually show them.** `the-turf`,
+   `the-meadow`, `the-green`, `the-green-ring`, `lawn` — all 23 zones are still `status: draft`
+   and were traced under 1.52× shadows. The 2018 frame is the one to redo them on.
+3. **Come back to Google Earth and explore properly** — three named capabilities untried:
+   **compare-two-years** (directly relevant: the lidar is 2018 and the western garden/patio were
+   regraded after it), the **measure tool**, and the **Gemini panel** (⚠️ anything it returns is
+   a model read, never a record value). Also: enumerate every exact capture date on the
+   1985→2025 timeline; only six are known.
+4. **Pickens County GIS / qPublic** — ⭐ **the property boundary is missing from every source in
+   this repo.** This is where it lives, along with deed, sales history and year-built.
+5. **USGS EarthExplorer single-frame aerials (1930s–1990s)** — the only path to a *photograph*
+   of this land before the house. Needs a login and per-frame control-point registration. The
+   1971 topo already establishes there was **no building at the anchor** then.
+6. **A canopy-height model from the 2018 lidar** (DSM − DTM) — would draw the woods/field edge
+   with no shadows and no leaf season at all. Strongest possible source for the field zones, and
+   the pull path already exists (`lidar-hillshade-2018.png`).
+7. **Pull the remaining historical topos** — 1892, 1898, 1911(×3), 1955, 1958(×3), 1961, 1963,
+   1981, plus US Topo 2011/2014/2017/2020/2024. Three of seventeen are done.
+
+### ⚠️ THREE MEASURED TRAPS — each returned success while carrying nothing
+- **Esri z20/z21** answer HTTP 200 with a valid PNG of a grey square reading *"Map data not yet
+  available."* A status check calls that a win and yields a grey basemap.
+- **Google Earth's attribution date LAGS the header** by one frame while tiles load. Recording it
+  mid-load puts a false capture date in the record.
+- **Earth's 1985 tick renders 100% loaded and completely blank** here. The tick is global
+  coverage, not local.
+
+**And one of my own:** the first registration attempt fitted scale+translation by correlation,
+scored NCC 0.21, and **got worse at higher resolution** — the signature of model mismatch, not
+noise. Earth Web is a perspective camera over 71 m of relief inside one frame. The fix was to
+stop guessing and read Earth's own cursor lat/lon at four corners. **The guard that refused the
+bad fit is why this is a note and not a corrupted layer.**
+
+---
+
+## 📐 From the 2026-08-31 production ux-sweep — Paul's decision walkthrough (trail: `.ux-reviews/2026-08-31-production-full-sweep.md`) ⚙️ engine
+
+*(Moved from the live region 2026-09-03 → Track A · A4 — Paul's walkthrough, open items, per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+- **[paul-stated 2026-08-31 · D4 = ledger] Pre-glance stack height ledger, next mom-cycle lap.**
+  The stack above the first glance row measures **1,712px at 414×A+** (first card ~3.6 viewports
+  down). Every resident is individually ratified; the SUM never ruled on. Run the 8/24-style
+  height ledger (Leg 6e harness) on the stack, let the numbers propose the trim, Paul decides
+  from the ledger. Change nothing before the ledger.
+- **[paul-stated 2026-08-31 · D3 = ask her] `q-jumpstrip-coverage` staged inactive** — reflective
+  card asking whether she wants Fishing / night-sky / Almanac chips. Ships on Paul's wording
+  confirm + `rationalize-bench.py --approve`. Gardening-band breadcrumb ("Plants · The Fairway ·
+  Weeds" at the chip landing) WAITS on the zone fold's vocabulary.
+- **[holds pending THE FOLD] Decision-1 remainders**: cross-reference wording (meadow ↔ map) and
+  zoning the hydrangea ring — Mom's 2026-08-31 traced vocabulary (16 areas incl. Fairway Border,
+  The Green, Fern Garden; NO Fairway/Meadow) supersedes today's zone names, so wording written
+  now would name zones the fold retires. **The fold itself** (`.plans/2026-08-31-zones-traced-with-mom.json`,
+  status PROPOSAL — NOT FOLDED, all 4 open questions resolved) is the project's biggest open act:
+  a reviewed session that lands Mom's map as canon, disposes of Fairway/Parking Bank/Upper-Uber
+  Wall/House, and remaps plant zoneIds.
+- **Small follow-ups from the sweep**: ✅ turf.json/TURF_DATA added to `check-data-inline.py`
+  2026-08-31 (caught its first drift the same run) · still open: a `check-zones-drift` in the
+  session-start block (repo zones.json vs live `/api/zones` — the two disagreed in both directions
+  for 6 weeks with nothing flagging it) · sweep lesson: grep `.plans/` before declaring something
+  absent from the record.
+
+## 🗺 THE FOLD — SHIPPED 2026-08-31 (Mom's map is canon) · three riders open 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track A · A2 — kept whole (the proposal split riders from narrative; a whole-section move was chosen so no line is re-homed by judgment), per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+Folded `.plans/2026-08-31-zones-traced-with-mom.json` into zones.json + the Worker KV
+(`zones:all`): **18 zones** = her 16 traced areas + fairway & house KEPT per her/Paul rulings;
+fairway-fringe → fairway-border (plan `draftZoneId`); tombstones so cached devices drop the
+retired ids. turf.json's fringe reference remapped. Verified live: `/api/zones` serves 18 with
+`_deleted` intact.
+- ✅ **parking-bank retirement RATIFIED** `[paul-stated 2026-08-31: "You can just get rid of
+  parking bank. That was an old name."]` — superseded by her the-bank + lower-parking.
+- **Linear features need schema v3** — The Path, Upper-Uber wall, Driveway are traced but NOT in
+  zones.json: `handleZoneSave` rebuilds `{_meta, zones}` wholesale, so any other key is silently
+  dropped on the next editor save. They live in the plan file until the schema carries lines.
+- **⭐ THE CAPTURE TOOLS — do not lose track of them** `[paul-stated 2026-08-31]`:
+  **`tools/zone-capture.html`** (annotation/naming overlay) and **`tools/area-trace.html`**
+  (polygon tracing against the registered basemap) are STANDALONE pages, separate from the in-app
+  zone editor — this session nearly missed them and declared the Fern Garden lost. Pointer also
+  lives in zones.json `_meta.fold_2026_08_31`.
+- Decision-1 riders now unblocked: cross-reference wording (meadow ↔ map, in her vocabulary) and
+  zoning the ring hydrangeas to `fairway-border`. `[paul-directed 2026-08-31]` **the WHICH
+  question routes through the photo library** — plant-labeled photos × the new zone polygons
+  propose, Paul confirms. Ask filed: `photo-organizer/BACKLOG.md` § "INBOUND from Fernwood
+  2026-08-31" (carries the camera-vs-subject and ±30ft caveats + the fold's stale-zone-tag
+  impact). His memory can still short-circuit it any time with a one-line answer.
+
+## 🗺 INBOUND from photo-organizer — 2026-09-01: **THE PHOTO→ZONE JOIN HAS A MEASURED FLOOR, and 12 of your 18 zones are under it** 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track A · A2, per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+Closing the plant × zone thread. Three zone sheets ruled by Paul (photo-organizer sweeps 126, 135,
+136). **Two actionable plant results, and one finding that governs how the rest of this work should
+be done.**
+
+### ⭐ Two `zoneId` proposals — both resting on Paul's WORDS, not on geometry
+
+| plant | `plants.json` today | proposed | evidence |
+|---|---|---|---|
+| **Constellation Dogwood** | `dogwood` · *Cornus florida* · `zoneId: null` | `fairway-border` | a photographed nursery label **Paul read himself** |
+| **Mountain Laurel** | `mountain-laurel` · *Kalmia latifolia* · `zoneId: null` | `western-garden` | *"22 shows some Mountain Laurel that's in the western garden"* |
+
+Plus one correction to an existing record: **`moss` is zoned `western-garden`, and Paul says the
+EASTERN PATIO "has a lot of moss in the cracks between the rocks."** Its own `soilNotes` already
+say moss wants a firm, damp, lean *surface* rather than soil — which is exactly a patio crack.
+⚠️ **`zoneId` is singular**, so a second location is a schema question, not an overwrite.
+
+### ⭐⭐ THE FINDING — the join CANNOT resolve your garden zones, and re-tracing will not fix it
+
+Paul ruled a 22-card `st-francis-garden` sheet in one sentence: ***"These are all really of the
+eastern patio."*** All 22. So the numbers were measured:
+
+| | |
+|---|---|
+| `st-francis-garden` | **10.1 × 6.0 m** |
+| `eastern-patio` | **9.4 × 6.6 m** |
+| distance between their centroids | **5.9 m** — *less than either zone's own width* |
+| `fern-garden` from `st-francis-garden` | 11.1 m |
+| `zones.json` `_meta.accuracyHonesty` | **±30 ft (~9.1 m)** |
+
+**The error budget is larger than the distance between the zones.** A single GPS point cannot
+choose between them at any threshold. **12 of your 18 zones sit in at least one such pair** — only
+`fairway`, `house`, `lower-40`, `lower-parking`, `stable-grounds` and `the-bank` are cleanly
+separable. **The join works at property scale and fails at garden scale, which is exactly where
+the plants are.**
+
+⚠️ **AND IT QUALIFIES THE TWO RESULTS ABOVE.** `fairway-border ↔ the-green-house` is 6.1 m;
+`western-garden ↔ western-lower-patio` is 5.7 m. **Both proposals came off unresolvable zones.**
+They stand because **Paul named the place in his own words** — not because the polygon did.
+⛔ **So do not let anything auto-assign `zoneId` from this join.** It would have written both of
+these correctly and had no way to know it was lucky.
+
+### ⭐ THREE SEPARATE LIMITS — and only the first is fixable by drawing better
+
+Paul, 2026-09-01: *"it could also be that the zones that I drew in are not exact, because the
+picture I zoomed in on was blurry… we'll probably need to use the pictures we identify to help
+refine our understanding of the zones as well."* **He is right, and it is a different problem
+from the one above.**
+
+1. **POLYGON ACCURACY** — traced off a blurry basemap; `zones.json` says so itself. **Re-traceable,
+   and his reverse join is sound and unbuilt:** a photograph he has *attributed* is evidence about
+   where a boundary actually runs. That is a real proposal and nobody has built it.
+2. **RESOLUTION** — a *perfect* polygon still cannot be read from one GPS point at 5.9 m
+   separation. **Re-tracing does not touch this.**
+3. **CAMERA ≠ SUBJECT** — a plant is photographed *from* somewhere else. No geometry fixes it.
+
+⛔ **Conflating (1) with (2) produces the wrong next move:** a re-trace that feels like progress
+and changes nothing about the join inside the cluster.
+
+### 📥 A DOOR THIS REPO DOES NOT HAVE — raised for the third time, and now with the blocker named
+
+`ask-cycle.py` reports **`tate-tracker` = CANNOT be asked — no door**, so this write-up is
+hand-filed, like the two before it. photo-organizer pre-registered a door for Fernwood's Track A
+at lap 22 and it has now been carried three laps.
+⚠️ **It was NOT created unilaterally, and the reason is specific:** a declared inbox that no
+`CYCLE-MAP` reads is *"a door nothing reads"*, which `ask-cycle.py` exists to refuse. **Fernwood
+has no CYCLE-MAP**, so the wiring has to happen on this side first. **Concretely:** a
+`page.cycle.inbox` block for `tate-tracker` in `operating-layer/config/projects.json`, a
+`cycle/requests.jsonl` here, and a line in a Fernwood cycle map that reads it. **Paul's call —
+REFUSED is a fine answer if hand-filing is working.**
+
+## 🌿 INBOUND from photo-organizer — 2026-09-01: **A SPECIES IS NAMED AT `fairway-border`, and it is on a label Paul read himself** 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track A · A2, per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+First `--zone` review lap, serving the plant×zone ask. Paul ruled 10 plant-labelled photographs
+inside the **Fairway Border** polygon. Provenance: photo-organizer sweep **125**, answers file
+`reports/project-review-zone-fairway-border.answers.json`, ruled by voice 2026-09-01.
+
+### ⭐ THE ACTIONABLE ONE — `plants.json` `dogwood` can be zoned
+
+`IMG_8872` and `IMG_8873` (2026-07-20 17:21) are two photographs **of the nursery label attached
+to the plant**. Paul, 2026-09-01: *"eight and nine are pictures of the label that was on the plant
+on the fairway fringe. So it says exactly what kind of plant it is."* He then **read it**:
+
+> **"Constellation Dogwood is what it says."**
+
+**`plants.json` already holds `dogwood`** (*Cornus florida*) and its **`zoneId` is `null`** — one
+of the **23 of 36** entries with no zone. **Proposal: `zoneId: "fairway-border"`.**
+
+### ⭐ PAUL RULED THE GRANULARITY, AND GAVE THE REASON `[paul-stated 2026-09-01]`
+
+> *"I would keep that level of granularity of constellation dogwood, especially since we have the
+> label there."*
+
+**The reason is the rule: a photographed physical label is evidence at CULTIVAR level, so the
+record is kept at cultivar level.** It generalises past this plant — **where a nursery tag exists
+in the corpus, do not collapse to the genus.** photo-organizer applied it to its own vocabulary
+the same session: the tag category is now `reference:constellation-dogwood:plant-label:2026-07-20`,
+keyed on the cultivar, matching the existing `reference:<subject>:<kind>:<date>` pattern.
+
+⚠️ **SO THE EXISTING `dogwood` ENTRY IS NOT AUTOMATICALLY THIS PLANT.** Its `scientificName` is
+**`Cornus florida`**; *"Constellation"* is generally sold as a **Rutgers Stellar-series hybrid
+(*Cornus kousa* × *C. florida*)**. Under Paul's own granularity ruling the likely shape is a
+**distinct `constellation-dogwood` entry** zoned to `fairway-border`, leaving the generic
+`dogwood` record alone — **but that is his edit in his file, and the alternative (correcting the
+existing entry) is still open.** ⚠️ The hybrid claim is an **agent's horticultural recollection**,
+neither read off the label nor checked against a source; **the only VERIFIED string is the two
+words Paul read.**
+
+### The rest of the ruling
+
+| cards | date | Paul's words | filed as |
+|---|---|---|---|
+| #1–2 | 2025-05-03 | *"looking off the Green down the hill towards the driveway… not really sure what exactly is a note"* | `unattributable` |
+| #3 (+#4) | 2025-06-26 | *"a lot of tree clearing… part of the western garden work that's been ongoing"* | `project-tree-work:2025-06-26` |
+| #5 | 2025-10-23 | *"repairing damage that was done, you can see landscaping"* | `project-western-garden-terrace` |
+| #6–7 | 2026-05-01 | *"that's a fruit tree on the edge of the fairway"* | `observed:property:fruit-tree:2026-05-01` |
+| #8–9 | 2026-07-20 | the nursery label (above) | `reference:fairway-border:plant-label:2026-07-20` |
+| #10 | 2026-07-20 | *"pictures of plants on the edge of the fairway"* | `observed:property:plants-to-note:2026-07-20` |
+
+⚠️ **A SECOND, UNNAMED PLANT AT THE SAME ZONE:** #6–7 are a **fruit tree** on the fairway edge,
+2026-05-01 — a different date and a separate statement from the July dogwood. Whether they are the
+same plant is **not stated and not assumed**. If they are different, `fairway-border` holds at
+least two plants worth a record.
+⚠️ **#10 is a plant, not the label, and whether it shows the labelled dogwood is not stated** —
+he said *"plants"*, plural.
+
+### ⚠️ Three things this does NOT establish
+
+1. **The hydrangea question is still OPEN, not answered negative.** The ask's first errand was
+   whether hydrangea photos evidence this ring. Paul named a fruit tree and a dogwood and **never
+   said hydrangea**. He ruled the sheet, not the question.
+2. **Zone membership is where the CAMERA stood.** #1–2 sit inside the polygon while pointing *out
+   of it* (down the hill toward the driveway) — the rule appearing live on the first two cards.
+   Polygons also carry a **±30 ft** honesty budget, so at ring scale this is a shortlist.
+3. **`plants.json` was NOT touched**, and will not be from photo-organizer. `zoneId` is singular —
+   the original ask said `zoneIds`, and any edit must match the real schema.
+
+### ⭐ The method finding, which is the reusable part
+
+**A photographed nursery tag carries what no classifier in that corpus can.** Apple's labels across
+all ten cards are generic — *Foliage, Forest, Plant, Vegetation* — and name **no species**; the
+local VLM reads activity well and object identity badly (five documented failures, including a gas
+tank called "a welding helmet"). The one card that resolved anything is **a photograph of a piece
+of printed card**, and Apple's own **"Document, Printed Page"** label flagged it *before Paul
+spoke*. **Transferable: to find species names in a photo corpus, hunt Document/Printed Page inside
+a zone.**
+
+⭐ **And what an agent deliberately did NOT do:** nobody read the label off the image. **Paul did.**
+An agent OCRing a nursery tag and writing a cultivar into `plants.json` would be a model read
+promoted to a record — precisely what the verification doctrine forbids. The human read is what
+makes *"Constellation Dogwood"* usable here at all.
+
+## 📷 INBOUND from the photo-organizer loop — 2026-08-28 (its lap 22, beat 4b) 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track A · A2, per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+> **A cross-loop handoff, and it is HERE rather than in `cycle/requests.jsonl` on purpose.**
+> The 8/28 inbound door is scoped to **Track B** — vehicles, parts, equipment, service events.
+> These are property/landscaping facts, which is Track A's half of the repo, and `ask-cycle`
+> reports `tate-tracker` as **CANNOT be asked — no door**. photo-organizer's cycle map names
+> `Tate-Tracker/BACKLOG.md` as the destination for *"Fernwood — service work, vehicles, zones,
+> property"*, so that is where they go. ⚠️ **Two fleet items from the same review DID go through
+> the door** (GTI 2026-07-21, and a photographed Bronco parts list) — see `cycle/requests.jsonl`.
+> Provenance: photo-organizer sweep **120**, answers file
+> `reports/project-review-never-reviewed-bursts.answers.json`, **ruled by Paul by voice 2026-08-28**.
+
+### 🌿 P1 · The WESTERN GARDEN is a five-week arc, and in two of three parts it is not in the frame
+
+| when | what | cards |
+|---|---|---|
+| **2025-11-16** | A **heavy sculpture** taken off a truck — *"that will eventually go in the western Garden at Fernwood"* | 14 photographs |
+| **2025-12-22** | **Mountain laurels dug up** — *"that actually got planted in the western Garden"* | 1 |
+| **2025-12-23** | *"building one of the original walls in the western Garden at Fernwood"* | 2 |
+
+⭐ **The destination is Paul's testimony, not something the photographs show.** In the sculpture
+and laurel sets the garden is nowhere in the picture — it is where the thing was *going*. No
+geofence, no date cluster and no vision model could have produced that link; it took a human
+looking at a truck and saying where its cargo ended up.
+
+**What this is for on the Fernwood side:** the western garden has a build history that the record
+may not carry — a sculpture arriving, source stock for its planting, and a first wall, all inside
+five weeks. ⚠️ **NOT verified and deliberately not assumed:** whether the sculpture was ever
+installed, and where in the garden the laurels went in. The photographs evidence the *delivery and
+the digging*, not the outcome.
+
+📌 Related, already on this repo's own surfaces: `project-western-garden-terrace` is an existing
+photo category (55 prior rulings) and cards #32–33 were filed under it rather than minting a
+sibling. **Whether the sculpture delivery belongs to that same category or to its own is a naming
+call left for Paul** — photo-organizer's rule is that splitting an existing category is his alone.
+
+### 🏠 P2 · A roof inspection happened on 2026-04-23
+
+Paul: *"73 [is a picture of an] inspector … coming to look at the roof."* One photograph, ruled
+`observed:property:roof-inspection:2026-04-23`. The model's own read of the card is *"people
+actively working on the roof of the house, two trucks parked"* — which corroborates that
+somebody was up there and says nothing about **who**, **why**, or **what they found**.
+
+**Filed because a dated inspection is the kind of property event that leaves no other trace** once
+the photo scrolls past. If there is a report, an invoice or a contractor name anywhere, this dates
+it. If there is not, this is the only record that it happened.
 
 ---
 
@@ -2252,6 +1889,166 @@ Feasibility studied same day; filed IDEATION — "lots of other stuff to do."*
 
 ---
 
+## 🏠 Household systems build-out — SHIPPED 2026-08-31 · four gaps open (Track B) 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track B · B6 — kept whole (same reason as THE FOLD), per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+From Paul's five photos (archived `.private/household-photos/`, serials in
+`.private/devices-identifiers.json`): the household-system group grew 1 → 5 —
+propane furnace, Bradford White RE250T6-1NCYY water heater (built Sept 2024 per
+the serial date code), Samsung WF45K6500AV washer (built Oct 2016), and the
+Square D Homeline HOMC30UC panel with its 30-row door directory transcribed.
+Two new optional record sections in `renderVehicleItem`: **`rhythms[]`** (cyclical
+chores — null `lastDone` renders "no date on record yet", never "overdue"; with a
+date it warms quiet → coming up → worth doing, the tag-renewal ladder) and
+**`circuits[]`** (the panel directory, per-row confidence chips). Structure call,
+Paul-raised in-session: household-system **stays a group inside vehicles.json**,
+exactly as equipment is — one schema, one renderer, one reinline pipeline; a
+later split is mechanical if the group outgrows the file.
+
+**Open, and each is a two-minute physical act at the property:**
+
+| # | Gap | Settles |
+|---|---|---|
+| H1 | 📷 Photograph the **furnace data plate** (inside/beside the upper burner-compartment door) | Model · serial · age · igniter part number — the whole identity is `tbd` until this |
+| H2 | 👀 Read the **air-filter size** off the filter edge in the return slot | The one recurring chore's shopping fact; card says `tbd` |
+| H3 | 🔌 Flip-test panel rows **28** ("Booster pump"?) and **30** ("Bath GFI"? "Barn"?) — handwriting reads | Two `inferred` circuit rows; a booster pump would also be a new fact about the water supply |
+| H4 | 🧾 Find the **water heater install invoice** (not in Gmail — checked 2026-08-31) | Starts the 6-yr warranty clock from install rather than the Sept 2024 build date |
+
+Deferred by doctrine (`defer-affordances-pending-signal`): a capture affordance
+for `rhythms[].lastDone`. The deterministic door today is editing
+`vehicles.json` + reinline; build a UI for it only when the rhythms prove used.
+
+---
+## 🧑‍🔧 CONTRACTORS & TRUSTED PEOPLE — the register already exists, denormalized, and it is already colliding `[paul-raised 2026-09-01]` 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track B · B8 (new) — a Paul-facing register, per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+> *"The value of just some reference information — like contractors, trusted contractors, the history
+> that you have with them… and then potentially we get into detailed information inside the house
+> like which breakers control which outlets, where is the water shut-off valve inside and outside.
+> There's a lot of knowledge that — static may not be the right word — but needs to help be
+> remembered over time. That's the field journal applied… it's very helpful for vehicles as well as
+> the garden, and it's helpful for the house as well."*
+
+⭐ **THE REFRAME: this is not a new domain, it is a NORMALIZATION of one that has been accreting for
+a year.** Measured 2026-09-01 across `vehicles.json`:
+
+- **61 service rows, every one carrying a `shop` string — 32 DISTINCT strings.**
+- **Three collision families are already live:**
+  - `Express Oil` (7) · `Express Oil Change & Tire Engineers (Canton, GA)` (4) · `Express Oil
+    (Atlanta — Moreland Ave)` (1) — **one relationship, two locations, or three?** Unresolved.
+  - `Volkswagen of Marietta` (1) · `Volkswagen of Marietta (parts counter)` (1) — one business split
+    by department.
+  - `DIY (Paul)` (13) · `DIY (Amazon parts)` (3) · `DIY (eBay parts)` (1) · `DIY (Mom)` (1) — **not
+    shops at all.** "DIY" is the *absence* of a vendor, and **`DIY (Mom)` is a fact about a person
+    doing the work sitting in a vendor field.**
+
+**What the register lacks is exactly the three things Paul named:** **identity** (one row per
+relationship, not N strings) · **history with them** (already present, just not joined) ·
+**judgment — would we call them again**, which exists **nowhere** and only he has.
+
+### ⛔ AND IT IS 100% VEHICLES. The house has no people in it at all.
+
+The house was built, roofed, wired, plumbed and heated by somebody, and Fernwood knows none of them.
+The 08-31 build-out gave the household group **five systems**, every one carrying `maintenance` and
+**not one carrying a who**. The **2026-04-23 roof inspection** already sitting in the
+photo-organizer inbound (P2) is the first household service event with **no contractor to attach it
+to**.
+
+### The second half — latent physical facts — is a DIFFERENT animal, and half of it is already open
+
+`circuits[]` shipped 08-31, but that is the **panel's claim about itself**: hand-written on the door,
+some rows graded `inferred`, three blank. Paul is describing the **inverse index** — standing at an
+outlet, *which breaker?* That is a **room → fixture → circuit** map and it does not exist. **H3
+(flip-test rows 28 and 30) is literally its first two rows.** Shut-off valves are a third thing
+again: not a system, not a circuit, but **a location needed at the worst possible moment**, which
+argues for reachability without opening a card at all.
+
+⭐ **THE PROPERTY THAT ACTUALLY DISTINGUISHES THIS WORK — and Paul was right that "static" is the
+wrong word.** It is not that these facts don't change. It is **who else knows them**. Vehicle
+service history is knowledge Paul *creates* by doing the work. Which breaker runs the patio is
+knowledge that **already exists in the world**: an electrician derived it once, wrote thirty rows on
+a door in pencil, and left. Mom holds a large amount of the same kind about this property. That
+reframes the job from *build a form* to **capture before the knower is gone** — which carries a
+clock a garden card does not.
+
+### ⚠️ Two decisions to make BEFORE building, not during
+
+1. **This repo is PUBLIC.** Contractor names, numbers and prices are PII. `.private/` already exists
+   for exactly this (`devices-identifiers.json`, `household-photos`). The public card can carry the
+   relationship without the phone number — but see **C0's auth reframe**: `.private/` is a
+   *capability ceiling*, and the contractor's number is worthless on a laptop in Atlanta when the
+   furnace quits in Jasper. **This item and C0/Q2 are the same question wearing two hats.**
+2. **A published map of how to shut off water at an unoccupied mountain house** deserves a deliberate
+   decision rather than a default. Same file, same repo, very different exposure. **Paul's call —
+   the point is that he makes it rather than inherits it.**
+
+**Recommended sequencing (agent view, not a decision):** contractors first — it is a normalization
+with **61 rows of existing evidence to fold**, and it unblocks the household half immediately. The
+breaker map and the valves are **field-capture work**: they want a session at the property with a
+phone, and **H1–H4 are already the start of that list**.
+
+---
+
+## 🔧 INBOUND from photo-organizer — 2026-09-01: **MOWER BLADE SHARPENING IS DATED** (Track B) 🏡 instance
+
+*(Moved from the live region 2026-09-03 → Track B · B2 (the record), per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. Class label is the §1b first cut, agent-proposed; row-level labelling is the mechanical follow-on. No content changed.)*
+
+Answers the fleet-cycle request filed 2026-09-01 (`photo-organizer/cycle/requests.jsonl`,
+`from: tate-tracker:fleet-cycle`). ⭐ **No new review was needed — Paul had already ruled these
+photographs on 2026-08-16**, lap 17, answers file
+`photo-organizer/reports/project-review-burst-2025-04-10.answers.json`. The fleet lap was holding
+an item the photo corpus had already answered.
+
+**THE DATE: 2025-04-10.** The blades are photographed being sharpened at **17:36** — `IMG_6194.HEIC`
+and `IMG_6195.MOV`. The whole Husqvarna sequence runs **16:02 → 18:03** that day (`IMG_6183`,
+`6184`, `6185`, `6194`, `6195`, `6197`), carried in photo-organizer's DB as
+`observed:husqvarna-mower:repair:2025-04-10` — **6 rows**.
+
+**THE MACHINE: the Husqvarna Z254F** — ⚠️ **and this is Paul's WORD, not the photograph's.** The
+request asked whether the images show which mower. They do not. The answers file records the
+finding explicitly: *"two mowers nearly collapsed — only Paul's wording kept the Husqvarna and the
+Kobalt apart."* Filed as fact about what he said, a proposal about what the pictures prove.
+
+**⭐ IT WAS DONE OFF-PROPERTY, at Herman's shop.** Paul, 2026-08-16: *"we did ALL the sharpening in
+Herman's shop. He showed us how."* ⭐ **The geometry predicted this before he said it** — `IMG_6195`
+sat **707 m** out and `IMG_6205` **712 m**, while every other mower card that day was **14–31 m**;
+the outlier was surfaced as *"the blades very likely went to the shop — not decided here"* and he
+then volunteered the shop unprompted.
+
+**⚡ WHY THIS BEARS ON THE ROUNDED 5/8" BOLT.** The sequence is tight and it runs the right way:
+**04-10** blades come off and are sharpened (blade bolts out) → **04-13** the Kobalt push mower is
+worked (`observed:kobalt-km2040x-06:repair:2025-04-13`, `IMG_6248.HEIC`, *"the electric lawnmower,
+the small one"*) → **04-14** Paul asks for a bolt extractor for a rounded, seized 5/8" bolt. **The
+blade bolts were out four days before the bolt problem was raised.** Which machine the seized bolt
+belongs to is NOT established by this — a 5/8" deck bolt is more consistent with the riding mower,
+but that is an inference and the fleet record should not adopt it as fact.
+
+⚠️ **FOUR CAVEATS, because a model read lands here as a proposal and never as fact:**
+1. **The parts list is HEDGED and the sharpening is not.** Paul: *"it LOOKS LIKE we replaced the
+   fuel line and the air filter and the fuel filter and sharpened the blades."* The **sharpening**
+   is separately confirmed (the sparks, plus the Herman's-shop statement); **fuel line / air filter
+   / fuel filter are hedged and must stay hedged** in any serviceHistory entry.
+2. **The VLM read the sharpening as WELDING** — the fifth object-identity failure in this corpus.
+   Nothing here rests on an image-derived claim.
+3. **An unresolved residual, flagged in the answers file:** `IMG_6194` (#4) carries a **19 m** GPS
+   fix and so cannot also be at the shop, while its sibling `IMG_6195` is at 707 m. One of the two
+   is wrong and it is not resolved.
+4. **`IMG_6205` (#5→#7, 2025-04-11) is `unattributable`** — *"me helping Herman at a shop"* — real
+   activity Paul could not tie to a project.
+
+**⛔ NOTHING WAS WRITTEN TO `vehicles.json`.** Both mowers still carry zero `serviceHistory`, and
+that stays Paul's edit — photo-organizer already holds 15 unapplied proposals and does not add
+itself to another repo's canonical file. **The proposal, if taken:** a `husqvarna-mower` entry
+dated `2025-04-10`, `shop: "Herman's shop (DIY, taught by Herman)"`, work = blade sharpening
+**confirmed** + fuel line / air filter / fuel filter **hedged**, no receipt — a live instance of
+the *"labour leaves no receipt"* hole, which is why the fleet record never knew it happened.
+
+⭐ **A GAP THIS SURFACES AND THE GRAMMAR STILL CANNOT HOLD:** *"He showed us how."* The record has
+no slot for **who did the work** or **who taught it** — third instance (after the hired tree crew
+and the gifted Christmas part). It survives only in `detail` prose.
+
 # TRACK C — Cross-cutting / infra / doctrine
 
 ## 🔴 M3 · A NEW PHONE MAKES HER WORDS SMALLER — live today, no auth involved `[found 2026-09-02]` ⚙️ engine
@@ -2553,6 +2350,287 @@ wanna capture that for a backlog for later."*
 **2026-07-14 — Plant look-fors → Plants tile.** The day's top *plant* look-fors lead the always-visible Plants tile as tappable "👀 Worth a look" rows; tapping routes to the composer pre-filled to log what she sees. Top-two, priority-led (narrow bloom/prune windows lead; routine turf only when nothing more urgent). One engine (`gatherPlantLookForCandidates`). Also: unified-input close-outs — button relabeled "Save & ask the Almanac"; fixed the conversation-open layout shuffle (Mama's Perspective stays pinned, composer + button stay together).
 
 **2026-07-13 — Worker deploy automation** (built, awaiting the `CLOUDFLARE_API_TOKEN` secret — now Track C). **Save/Ask → ONE button "Save & ask the Almanac"** (log-first, then Garden Guru; `bc2cfff`) — writes her verbatim entry first (deterministic, AI-free, always succeeds), then fires Guru best-effort. Closes the 7/3 failure; **resolves the 2026-07-05 "Save/Ask two-button split" question** (hierarchy → one log-first button). Preserves [[feedback_no_ai_on_capture]].
+
+## ✅ SHIPPED 2026-07-29 — the Tier-1 correctness pass
+
+*(Moved to the archive 2026-09-03 — already finished; per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. No content changed.)*
+
+*All verified in a real browser at 390×844 or by rebuild. Detail in the proposal doc.*
+
+| Item | What landed |
+|---|---|
+| ✅ **The falsified Bolores tire size no longer renders** | `maintenance.tires` said **33**X12.50R15LT, stamped `"confidence":"verified"`, still carrying the exact *"size read off the actual sidewalls"* sentence `7494b46` **proved false** — and it was in Guru's digest. The 7/29 fix had reached `specs.tires` and stopped there. **A clear must reach every asserting line.** |
+| ✅ **Guru's digest held a FABRICATED zone and none of the real ones** | `property.json.propertyZones` still contained the shipped-template placeholder `zone-placeholder` / *"Example: Front Beds"* — and it flowed into the digest, while **zero** of the ten real zones were there. The assistant carried an invented place-name on the surface Mom's voice walks and her map are built on. Stub removed; **real zones now in the digest lean** (id/name/type/status — `vertices`/`history` stripped as pure distractor mass), plus `turf.json`, closing the *"Guru reads an id it cannot resolve"* hole behind the weeds' `observedZones`. |
+| ✅ **Every text box triggered an iOS Safari viewport zoom** | All three inputs rendered below the 16px threshold (`.ui-textarea` 14, `.mom-queue-correction` 15, `.feedback-panel-input` 15.5). **She tapped a box and the page jumped to ~1.2× and did not come back.** Never caught because the app had only ever been reviewed on a desktop viewport. 16px is now a documented functional floor. |
+| ✅ **The carousel arrows silently destroyed typed-but-unsent notes** | `‹`/`›` called `render()` — which rebuilds the host — without ever reading the textarea. The codebase already knew the hazard: `showAck(keep)` carries an explicit no-wipe branch commented *"her text stays exactly where she left it."* **The arrows never got the same guard.** Now an in-memory per-card draft store, bound on input so **every** re-render path is covered, cleared only on a send that did not fail. Browser-verified: type → step away → step back → her words are still there. |
+| ✅ **Guru recited a falsified soil series** | Cecil/Pacolet are thermic Piedmont series capped near 900 ft; the property is 2,873 ft. `plants.json._meta.soilSeries` still **listed** them 4 days after `property.json` retracted them, and both files' citations still named them. Corrected + aligned. The **17** per-plant `soilNotes` are W9-gated (they get rewritten once, well, against a measured pH) so they are scrubbed **in the derived digest only** — the repo keeps its record, the assistant stops asserting a retracted fact. |
+| ✅ **`check-mom-ack.py:229` asserted a behaviour that does not exist** | It told the reader `read-mom-zone-audio.py` "marks its own channel." It never calls `mark_channel_read` and holds no `momlib` reference at all — so zone-audio read as self-attesting while nothing was reading it. |
+| ✅ **`CLAUDE.md` was wrong about its own codebase** | Documented `viewer.html` as "~4,600 lines"; it is **17,878**. And *"fetched at page load, inlined copies as fallback"* is true of only **4 of 21** JSON files — for the other 17 the inlined constant **is** what renders, which is why `check-data-inline.py` is a correctness gate, not a tidiness check. |
+| ✅ **A live release note promised a feature that is gone** | *"Anything you've starred stays starred"* — the star UI was retired. Rewritten and re-inlined. |
+
+---
+
+## ✅ SHIPPED 2026-07-29 (evening) — the agent-drivable sweep + Paul's four calls
+
+*(Moved to the archive 2026-09-03 — already finished; per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. No content changed.)*
+
+*All browser-verified at 390×844. Tier-1 #1–#5, #7 and Tier-2 #1, #4, #5, #6 are closed above;
+#6 (the ✓) is held open by Paul. Three backlog premises were checked and found WRONG — each is
+corrected in its own row rather than quietly fixed, because a wrong SSOT row is the failure this
+repo keeps re-learning.*
+
+**Paul's four calls this session, all now in code:**
+1. **The ✓ stays on the ribbon** for now, kept as an option (Tier-1 #6).
+2. **The ribbon covers everything since the last one she gave input on, each linked** to where she
+   can see it. This required a renderer change — one `linkPhrase`/`linkCard` pair became
+   `links: [{phrase, card}]`.
+3. **Promote stiltgrass, and order the queue by the data most helpful to us.** Ordering axis now
+   lives in `questions.json._ordering`: an answer that unblocks a BUILD > one that fills a canon
+   gap > a verdict on our own guess.
+4. **Bloom labels are `It's blooming · Not blooming · Snooze card`**, snooze meaning dismiss-and-
+   resurface (the mechanism already worked that way — `notSure()` snoozes for the day only).
+
+**⭐ And one doctrine REVERSAL worth remembering:** Tier-1 #4 wanted the two green affirmatives made
+*more different*. Paul reversed it — consistency over precision, because one learnable signal beats
+two she has to tell apart. The affirmative grammar is now a single shared component set.
+
+### ⚠️ LOOSE THREADS LEFT OPEN — named, not buried
+
+| Thread | Why it's open |
+|---|---|
+| ~~**The third button is inconsistent across cards**~~ | ✅ **DECIDED 2026-07-31 (Paul) — all six collapsed to `Snooze card`.** The four remaining wordings (`I haven't looked` ×2, `I'll think on it`, `Haven't thought about it`) are gone. His reasoning: the label should carry the **promise**, not the state — *"it's more clear that the card doesn't just disappear, it's not embarrassing to hit snooze, and it also doesn't create any worry that the card will not pop back up."* Note this changed **what she is told, not what happens** — all three wordings always ran the same `snoozed[id] !== today` path (hidden for the day, back tomorrow). Set as an **initial direction under watch**, not a settled answer — see the row below. |
+| **👁 WATCH — `Snooze card` is action-shaped, not state-shaped** (the monitored variable in Mom's feedback loop) | The 7/26 doctrine chose STATE language on the reasoning that a state is unembarrassing to someone afraid of being wrong, and `check-cards.py` lints deferral-shaped labels. `Snooze card` does not trip the lint and Paul weighed clarity higher — exemption recorded in `check-cards.py`, widened 2026-07-31 to all cards. **This is now the single deliberate reversal of a finding grounded in her own words, applied app-wide** — so it is the first variable to revisit if deferral behaviour shifts.<br><br>**What to watch:** third-button tap rate, and whether a card gets snoozed repeatedly without ever being answered (a snooze loop = the label made deferring too easy, which is the failure mode the state framing was protecting against). **Escalation if it shifts: ask her directly** — a card asking which wording she prefers, human-confirmed like any authored content. **⚠️ Do not read the pre-07-31 window as a baseline:** only the 2 bloom cards carried `Snooze card` before, so any comparison across that date pools two different treatments — the same over-read the A1 gate suffered. The clean series starts 2026-07-31. |
+| ~~**13 sub-44px targets app-wide**~~ | ✅ **SWEPT 2026-08-01 — 12 of 14 fixed; 2 held for Paul.** ⚠️ **The old row's enumeration was wrong in both directions and is corrected here**, per the standing "verify a row against the app before acting" rule. It was measured, not re-read: every interactive element rendered in a **real 390px viewport** (iframe, so `@media (max-width:480px)` resolves), all cards expanded. **Wrong-high:** `.fn-mic-btn` (called out as "the sharpest of these — a Mom-facing capture control at 38px") is **dead CSS — no such element exists in the DOM**; the live mic is `.ui-glyph-btn.ui-mic-btn` at 40px. `.ref-drawer-toggle .main-card-icon` 38px is a **decorative icon inside a `min-height:44px` toggle**, never a target. `.ui-glyph-btn` is a 40×40 button, not "inner glyphs 13/24." **Wrong-low — four real targets the row never listed**, two of them Mom-facing: `.ack-inline-link` 60×22 (the tappable phrases in the acknowledgment ribbon — the very surface the 7/29 pass hardened), `.mom-queue-launcher-dismiss` 90×25, `.feedback-close` 29×30, `.radar-toggle-btn` 58×21, `.fish-tab` 90×29, `.ref-category-header` 363×43, `.feedback-send` 324×43.<br><br>**Two techniques, chosen per control** (see the `.tap44` comment block at the top of viewer.html's CSS): **grow the box** where the control is already substantial and a bigger visual helps (`.fish-tab` 29→44, `.text-size-btn` 36→44, `.pmap-add-btn` 36→44, `.pmap-sync-action-btn` 38→44, `.ref-category-header`, `.feedback-send`), or **`.tap44` — grow only the hit area** via a centered transparent `::after`, leaving paint and layout untouched, for the small quiet icon buttons (`.bio-sound-btn` ×16, `.pmap-ctrl-btn`, `.ui-glyph-btn`, `.radar-toggle-btn`, `.fn-sync-btn`, `.feedback-close`). The second technique is what let this land on Mom's surfaces without redesigning them.<br><br>**Verified, not assumed:** an A/B hit-test against the unmodified HEAD build (both served, same probe, 61 controls) returned **byte-identical hit-stealing lists** — the enlarged areas steal **zero** new taps. Side-by-side screenshots show no visual change outside the grown boxes. **STILL OPEN, deliberately — both Mom-facing, both judgment calls, see the two rows below.** |
+| ~~**⏸ `.ack-inline-link` 60×22 — held, needs Paul**~~ | ✅ **DECIDED 2026-08-02 — leave it as-is, row closed.** Paul: *"I'm good with just leaving it and close it."* This is not a deferral: **WCAG 2.2 target-size carries an explicit exception for a target inside a sentence**, precisely because the height of an inline link is the height of a line of text and cannot be raised without changing the prose around it. If the ribbon's typography is ever revisited, a taller line-height may be worth it **as a readability improvement for Mom, measured on its own terms** — not smuggled in as a tap fix. Original reasoning, unchanged: the tappable phrases *inside* the acknowledgment sentence ("under Plants", "at the top now", "day by day"). They are **inline in running prose by design** — the CSS comment says it: *"it reads as part of the sentence, not as a control bolted on."* A 44px hit area on an inline link overlaps the surrounding text and the adjacent links, so the mechanical fix is the one thing that would break it. Real options are design calls on her surface: give them more line-height so the row is naturally 44px, or promote them out of the sentence into chips (which the 7/26 doctrine argues against — the sentence *is* the point). |
+| ~~**⏸ `.mom-queue-launcher-dismiss` 90×25 — held, needs Paul**~~ | ✅ **DECIDED 2026-08-02 — it stays small.** Paul: *"we can keep that small, that's fine."* Recorded as a **ratified exception** in viewer.html's `.tap44` comment block so the next sweep measures 90×25 and does not read it as an oversight. Original reasoning, unchanged: enlarging a **dismiss** control is not obviously an improvement: a bigger target for "make this go away" makes accidentally dropping her card queue easier, and the queue is the thing the whole loop depends on. The 44px floor exists so she doesn't miss what she meant to hit — it does not argue for making the destructive option easier to hit by accident. Paul's call. |
+| **The ribbon has NOT told her about the month view** as of this commit | `feedback-log.json` carries `addressed: true` / `acknowledgedToHer: false` for `fb-946dp0qk-ms639ds6` deliberately — she was told "not built yet," and that answer is now obsolete. This ribbon fixes it; the flag flips once it's pushed and she taps. |
+| ~~**`q-strategy-pollinators` is now active-but-invisible**~~ | ↻ **RESOLVED 2026-07-31 into a third option — neither retire nor promote.** Correction to this row's own framing: it is **not** "a card serving nobody." `outstanding()` filters unanswered *then* slices 5, so pollinators enters the visible set the moment Mom answers any one of the five above it — it self-heals. It stays active and stays where it is. **The real work it exposed is the bench** (7 cards drafted and never served, no re-ranking, and freshness checked only at birth) — now scoped as its own A3 row with Paul's two design calls settled. |
+| **`read-feedback-sections.py` coverage is 14%** | By construction — stamping is prospective. Do not read the uninstrumented 12 as a signal about her; the tool refuses to let you. |
+
+---
+
+> ⚠️ **`vehicles.json` is AHEAD of the app — re-inline pending Paul's confirm** `[found at close-out 2026-08-09]`
+> `python3 tools/check-data-inline.py` reports **DRIFT in vehicles**: the inlined `VEHICLES_DATA` disagrees
+> with `vehicles.json` (restoration entries among them), from the 08-09 Bolores audio session
+> (`66d2789` / `fba4a1c` / `2c58a4e`). **Per this repo's own architecture note, most domains render from the
+> INLINED constant — so un-re-inlined source is simply NOT IN THE APP.**
+> **Deliberately not auto-fixed.** CLAUDE.md's drift rule is explicit that the point is a *human signal that
+> the addition is legit*, not a tidy-up.
+> ↻ **2026-08-12 — this block is now a POINTER; the live row is Tier 1 · 8 below, and this copy was WRONG
+> ABOUT THE REMEDY.** Two statements of one thread had drifted apart in the dangerous direction: this one
+> prescribed a bare `check-data-inline.py --fix`, which is the exact command row 8 warns against — it
+> re-inlines *anything else* drifted at that moment, not just vehicles. It also never learned that
+> `worker/digest.json` is stale on the same section, so following it would leave **Garden Guru answering
+> from the superseded vehicle record** while the dashboard went green. Read row 8 for the scoped sequence
+> (`reinline.reinline_from_source` → `build-digest.py` → `deploy-worker.sh`) and the pinned provenance.
+> Falsifier for the thread: `check-data-inline.py` **and** `check-digest-fresh.py` both exit 0.
+
+## 🎨 The shape system — SHIPPED 2026-08-02 (Paul-commissioned UX audit)
+
+*(Moved to the archive 2026-09-03 — already finished; per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. No content changed.)*
+
+Commissioned by Paul as a general UX audit, three named areas plus a whole-viewer sweep. Full findings:
+`.ux-reviews/2026-08-02-button-system-weather-collapse-disclosure.json` (18 findings). Shipped and
+**live on Pages** in `582607f`→`b386597`.
+
+| What shipped | Detail |
+|---|---|
+| ✅ **The button system is named** | 110 buttons / 31 visual signatures / 10 button radii → **8, all on a token scale**. The key finding: the system was **already 90% emergent** — pills are choices, 10px rects are commits — and had simply never been written down, which is why it broke just often enough to be unlearnable. Tokens + 4 role classes (`.btn-commit` / `.btn-choice` / `.btn-quiet` / `.btn-link`) in `viewer.html`, plus the rule that **a new visual signature is a claim that a fifth role exists**. 118 literal radii converted to tokens with zero rendering change. **Standing rule 1 is NAMED by this, not altered.** |
+| ✅ **The by-day rainfall strip stopped overflowing** | `repeat(7, 1fr)` floors every track at the widest cell's min-content, so the single 5-char label ("Today") sized all seven → ~21px past the right edge, **only in A+ on a phone**. `minmax(0,1fr)` + `min-width:0`, plus a 4+3 wrap at A+. ⚠️ **Verified by arithmetic and mechanism, NOT at a true 390px A+ viewport** — no reproduction was achieved this session. Worth one look on a phone in large text. |
+| ✅ **The affirmative pill stays a pill at any height** | `22px` was a pill only because `min-height` happened to be 44px; `text-lg` raises it to 52px and left the radius, so the app's one "we heard you" control became a rounded rect sharing the Save button's silhouette. Now `999px`. Touched a ratified component — **Paul's explicit go, 2026-08-02.** |
+| ✅ **The weather card says each thing once** | Root cause was **two independent rule cascades over the same four inputs** (`generateGardenerInsight` first-match-wins vs `generateAlerts` all-match) at **mismatched thresholds** — rain 0.05/0.02, saturation 0.5/0.75 — so a light-rain afternoon had one saying it was raining and the other silent. Thresholds aligned to the lower, every rule keyed, the glance's key subtracted from the alert list. Six rules stopped baking figures into their sentences; the frost low keeps its number (it appears nowhere else, and there the figure IS the meaning). Collapsed header appends the temp as its own element rather than forking the generator. |
+| ✅ **The fungal advisory has a subject** | Paul: *"is that a plant thing, or what is that?"* It had none. `property.json:100` names boxwood blight / powdery mildew for exactly this condition and boxwood is in canon. Now *"Fungal weather for the boxwood and anything crowded — water at the base, not the leaves."* Deterministic lookup, ordered by property.json's own risk language, degrades honestly if canon changes. |
+| ✅ **The confirm-card action row is even** | Paul: *"that's all of them is kind of on top of a row where something's missing."* A wrap artifact: three pills needing ~394px in a 336px card, so the deferral wrapped alone leaving ~200px of empty row. Now a 2-col grid with the deferral spanning. **A true 3-up is not reachable at 390px** (three even cells give 106px; "I haven't looked" needs ~136px at her type floor) — Paul chose 2+1 over dropping below the floor. |
+| ✅ **`＋ Add a note` → `Tell me in your own words`** | Recommended 2026-07-26, never shipped until now. Names what opens, in her register, and drops a glyph carrying neither decision nor topic. **Paul-approved wording, 2026-08-02** (Mom-facing authored content — gated, then pushed). |
+
+### 🔬 NEXT LAP — the "she wants it AS SIMPLE AS POSSIBLE" hypothesis `[paul-raised 2026-08-15]`
+
+Paul: *"if that's true, and if she likes the jump menu over the context-rich summary menu we
+previously developed, that she may prefer as clean and simple a UI as possible… that's to consider in
+the next lap of the cycle **with the customer researcher** and ensure we consider in our longer term
+strategy."*
+
+**Deliberately NOT acted on this session.** Filed as a hypothesis with its evidence and its
+falsifiers so the next lap's **user-researcher** seat starts from the record rather than from the
+sentence. Long-horizon: if it holds, it is a **strategy input**, not a punch-list item — it would
+argue against the whole context-rich direction, which is a bigger call than any single card.
+
+**Three next-lap items, and two of them are ONE measurement.** The deferred 390px A+ viewport check
+(WAITING ON PAUL) and the nested-card width question below are both *"what is the used content width
+on her phone"* — run them as a single pass. This hypothesis is the third, and it is the one that
+needs a **discriminating probe**, not more counting.
+
+**What actually supports it today — and it is thinner than it feels:**
+- She has **never fired the A/A+ toggle** (line 101), while Paul's devices fired it 22×.
+- Since `card_expanded` started carrying `via` (2026-08-14, lap 3), **every card open from her
+  device came via the jump strip** — and that is **2 opens**, on one day. `jumpstrip_viewed` was only
+  instrumented 08-04, so there is no clean before/after against the dashboard tiles.
+- Her sessions are **short**: 13s, 33s, 91s since lap 3 (`read-mom-engagement.py`).
+
+⚠️ **THE RIVAL EXPLANATION IS PAUL'S OWN, AND IT PREDICTS THE SAME DATA.** *"My hunch is she just
+doesn't understand the UI."* A person who does not recognise a control does not use it — which is
+indistinguishable, in this record, from a person who prefers not to. **"Simple" and "opaque" produce
+identical telemetry**, and only one of them is a preference. Do not let the first become the finding
+because it is the more flattering read. This is the same shape as the 07-28 attribution error: a
+confident inference from a toggle, held for 26 days, and backwards.
+- ⭐ **The A+ default test (shipped today) is one probe of this and CANNOT settle it** — see its
+  reasoning at `viewer.html`'s `wireTextSizeToggle`. If she never toggles back, that is consistent
+  with *both* readings.
+- **A discriminating probe is what this lap owes**, and it will not come from more counting: an
+  observation or a question that separates *did not notice* from *did not want*. That is a
+  user-researcher design problem, and Mom's attention is the scarcest resource in the project — so it
+  competes for the 5-slot cap and probably belongs at leg 3 tier 2 (Paul) before it ever reaches her.
+
+---
+
+### 🟡 MEASURED + PARTLY FIXED — does the nesting eat the width? `[paul-raised 2026-08-15 · re-raised with a named path 2026-08-24 · MEASURED lap 5]`
+
+> ## ✅ MEASURED 2026-08-24 (mom-cycle lap 5) — **THE CLAIM REPRODUCES ON ALL SIX DOMAINS WALKED**
+> Harness `tools/measure-nesting-width.js` · report `.plans/2026-08-24-nesting-width-measurement.md`
+> · raw `.plans/2026-08-24-nesting-width-raw.json` · seats `.user-research/2026-08-24-nesting-depth.md`,
+> `.ux-reviews/2026-08-24-nesting-depth.md`.
+>
+> **81 extra line boxes** across six domains at her real viewport (414×848), card content 387px,
+> worst column **135.3px = 32.7%**. **Materially identical in A and A+** — so it is NOT an A+-only
+> finding, which is the bar this row itself set.
+>
+> ⭐ **IT SPLITS IN TWO, AND THE ROW ABOVE NAMED ONLY ONE.** ① padding compounds (36+33+22 = **91px**
+> before a word is set); ② a **two-column row inside the narrowed box** cuts 296→135 — a bigger single
+> cut than all three padding levels combined, and **not among the fixes this row contemplated**.
+>
+> ⚠️ **AND THE WORST ROW COST IS NOT THE DEEPEST NODE.** `vehicle-notes` sits at depth 5 in a *wide*
+> 281px column (68% of its card) and ran **20 lines where 14 would do**. This row's instruction to
+> prefer "collapsing a nesting level" would have missed it, and so would any width-floor rule.
+>
+> ⭐ **THE BIGGEST SINGLE RECOVERABLE CUT WAS NEITHER PADDING NOR A LEVEL — it was a 40px decorative
+> emoji.** `.vehicle-icon` (40px + 12px gap) sat as the first flex child of `.vehicle`, so every line
+> of every panel beneath it — specs, maintenance, restoration, notes, service history — was set 52px
+> narrower than the card, at every depth. **Found by the `ux-expert` seat; both the measurement report
+> and seat 1 had read it as part of the padding chain.**
+>
+> ### THE RULE THIS PRODUCED — the ROW TAX, now enforced by the harness
+> **Clause A (verdict):** no text leaf may cost more than **25% extra line boxes** vs. the same text
+> reflowed at its own card's content width (`rowTax ≤ 1.25`).
+> **Clause B (diagnosis):** chrome between `.main-card-body` and a leaf may spend **≤15%** of card
+> content width — chrome being ancestor padding/border/margin **plus any fixed-width non-text sibling**.
+> A width FLOOR was tried and discarded: it does not flag `vehicle-notes`. The tax is scale-invariant,
+> stated in Paul's own unit, and **auto-exempts short values** (a cell reading "10W-30" scores 1.00),
+> so it needs no exemption list. `measureNestingWidth.gate()` exits on breach. **Thresholds are a
+> first cut, to be tuned from runs** — the rule is checkable, which is what this repo requires of a
+> new visual rule; the constant is not yet claimed to be right.
+>
+> ### ✅ SHIPPED IN LAP 5 — Paul-surface only, measured before and after
+> `.vehicle` un-flexed and the icon moved into a header row + `table-layout: fixed` on the specs
+> table. **The three domains `renderVehicleItem` renders went from 32 extra rows to 15 — a 53%
+> reduction from two CSS changes.** Vehicles narrowest 152.6→**184.8px**, Equipment 265→**317px**,
+> Household 265→**287.9px**; no horizontal overflow; icon intact.
+> `table-layout: fixed` is **prevention, not repair**: `td:first-child` carries `white-space: nowrap`
+> (hard) with `width: 38%` (a hint under auto layout), so a long label takes the value column with no
+> floor — invisible with Paul's short labels, live the moment **household** phrases populate the same
+> template.
+>
+> ### ⏸ GATED — Mom-facing, NOT shipped, awaiting Paul
+> · **Stack the chorus row** (the `ux-expert` seat adjudicated 135.3px a **defect**, against seat 1's
+> read: `soundsLike` values are **54–116-char prose sentences**, and `.chorus-now-item` is a *per-row*
+> flex with `flex-shrink:0` — it pays a two-up's full width cost and delivers **no** column alignment.
+> Arithmetic runs the other way from seat 1's fear: the 110-char entry is **5 lines two-up, 3
+> stacked**.) · **`.bio-section` padding** · **sticky card header**.
+>
+> ### ⛔ THE WAYFINDING HALF HAS A BLOCKER NOBODY HAD NAMED
+> `.main-card { overflow: hidden }` (verified, `viewer.html:394`) makes `position: sticky`
+> **inoperable** on any card header. So the zero-`sticky` count in this repo is not only a fact about
+> intent — it is a fact about **capability**: had anyone tried it, it would have failed while looking
+> like it worked.
+
+
+Paul: *"whether the cards within cards and nested drop downs is eating up margins and width of the
+page. So that for example the info boxes within a given insect's card are relatively narrow resulting
+in more rows than necessary. **This is true across our card schema.**"*
+
+**Not scheduled this lap — filed so the next one starts with it.** Deliberately recorded as a
+**question with a measurement**, not a fix: the whole point of the shape system above is that a new
+visual rule must be a claim someone can check, and "it feels cramped" is not yet one.
+
+- **The claim to test:** each nesting level (`.main-card` → section → info box → disclosure) spends
+  its own horizontal padding/border, and those costs **compound multiplicatively down the tree**
+  while the page's `max-width: 660px` and a 390px phone do not grow. If four levels each spend
+  ~12–14px a side, the innermost text column is ~100px narrower than the card that contains it —
+  which shows up not as a visible margin but as **more wrapped rows than the content needs**.
+- **How to measure it, and this is the part that must not be skipped:** compute the *used* content
+  width at every nesting depth **at 390px, in BOTH text modes**, and report the innermost column as a
+  fraction of the viewport. The insect card is Paul's named exemplar (shipped 08-15, the deepest tree
+  in the app) — but the finding is only worth acting on if it reproduces on **at least two other
+  domains**, since he says it is schema-wide.
+- ⚠️ **Measure at a real viewport, do not infer from the CSS.** The 08-02 rainfall-strip fix in the
+  table above was *"verified by arithmetic and mechanism, NOT at a true 390px A+ viewport"* — the same
+  shortcut, one section up, and it is still carrying an unverified note.
+- ⚠️ **A+ is PAUL'S mode, not hers** (line 101 — she has never fired the A/A+ toggle). A width finding
+  that only bites at A+ is a real defect for whoever meets it, but it is **not** evidence about Mom's
+  experience, and it must not be argued as one. Tune the **default** scale.
+- **What a fix is allowed to be:** collapsing a nesting *level* (removing a box, not shaving its
+  padding) is the structural answer and the one that compounds; a padding token pass is the cosmetic
+  one. Prefer the first — but neither ships without the measurement above, and anything touching a
+  ratified component needs Paul's explicit go, as `.gg-suggest-btn-yes` did on 08-02.
+
+---
+
+**⏸ HELD — do not ship before 2026-08-10.** The launcher's 🎤 glyph and the `.fish-tab` restyle (which
+would return the filled dark-green pill to the affirmative and give the app ONE tab grammar). Both sit
+inside the clean measurement window above, and the 07-30 shell restyle already spent the one recoverable
+confound. **Gate: 2026-08-10** — take them in the same change that reads the launcher's result.
+
+**⛔ DECLINED, with reasoning recorded at the call site in `viewer.html`.** The audit proposed pulling
+`.mom-queue-addnote` into the verdict row as a fourth choice chip. That would have reversed **both**
+halves of Paul's 2026-07-14 steer — full-width, *"as legible as the answer buttons"*, with the dashed
+border marking it a **modifier, not a 4th answer**. The ragged-row complaint is fully answered by the
+grid without it.
+
+⚠️ **A premise in that review was WRONG and is corrected here rather than quietly fixed past.** It
+justified two findings on "A+ is the mode Mom is most likely using" / "Mom's configuration." **Line 101
+of this file says the opposite from telemetry: she has NEVER fired the A/A+ toggle; Paul's device fired
+it 22×.** A+ is *Paul's* mode. Both fixes stand on their own merits — an overflow is a defect for
+whoever meets it, and a shape rule holding in only one of two text modes is broken in both — but the
+premise must not propagate. The standing guidance is unchanged: **tune the DEFAULT type scale, not
+`body.text-lg`.**
+
+---
+
+## 🔭 Two-pass fresh-eyes review — RAN 2026-08-03; punch list mostly FROZEN
+
+*(Moved to the archive 2026-09-03 — already finished; per `.plans/2026-09-02-rationalization-PROPOSAL.md` §1. No content changed.)*
+
+The founding `/ux-sweep` run (skill formalized same day, `~/.claude/skills/ux-sweep/SKILL.md`).
+Full trail + adjudications: **`.ux-reviews/2026-08-03-two-pass-fresh-eyes-pilot.md`** — status of
+each punch item lives THERE; this section is the pointer plus the gates.
+
+- ✅ **Shipped 2026-08-03:** Save-button geometry freeze (`6c5d462`) · Mama's Perspective folded
+  receipt + one-question view + one Write-me-back (`05db30a`, release-noted `a584cb1`).
+- ⛔ **Declined `[paul-stated 2026-08-03]`:** always-slim feedback ribbon — the chat bubble stays
+  as-is; momentary cover-ups accepted as natural. Recorded in the review file; do not re-propose.
+- ⏸ **11 punch items PARKED behind Paul's freeze:** *"let's not do too much more before getting
+  mom's feedback."* **Gate: Mom's next feedback round lands, or Paul lifts it by name** (he lifted
+  it once, scoped to the Mama's Perspective card only). Includes the one-line `FN_STORAGE_KEY` TDZ
+  fix (vehicle field notes silently never render — invisible to Mom, eligible on a word) and the
+  clock/pressure/provenance unifications.
+- ❓ **Parked questions `[paul-stated 2026-08-03]`:** machine status chrome (skipped, revisit
+  someday) · Mama's-card default-collapse / strip altitude (explore later).
+- ↩️ **ONE OF ITS SHIPPED CHANGES HAS A FOLLOW-UP `[paul-raised 2026-08-09]`.** Retiring the carousel
+  furniture (dots + `‹ ›`) fixed the queue-of-five pressure, but the replacement — a link under a
+  full-width `border-top` — **stopped reading as a cycle of the card above it**. Row: **A4 · W8·e**.
+  Read that row before touching this nav: restoring the dots would undo the 08-03 call, and the row
+  exists precisely because both properties have to hold at once.
+
+| Kill | Because |
+|---|---|
+| **The moss card as an experiment** | The experiment already ran — `q-almanac-name` was the same cell (zero wrongness, her words, answerable from a chair) and was answered in a day. Moss is **her** topic, so all three hypotheses predict she answers it: **it discriminates nothing.** And the record already shipped 7/26. → converted to the Tier-2 return leg |
+| **W8·b ①** (the rainfall type-scale inversion) | **Shipped 7/26** (`0ef98e5`) — gauge 18px, by-day 16px, ERA5 15px, plus 8 `body.text-lg` rules. It was written on 7/29 describing the **pre-fix** state and was used as the axis table's worked Tier-1 example. **Deleted, not folded** — a spot fix is exactly what the typography pass would undo |
+| **The 80K digest gate** | A tripwire nobody acts on, computed by an estimator that under-reads ~13–15%, proxying a **$2.47 lifetime** cost. It was crossed 16 days before someone wrote "back under the ceiling" |
+| **"Does per-card Add-a-note earn its place?" as a question for Mom** (W7) | Verdict-shaped, about our own design, and answerable from telemetry we already hold (`context.section`) |
+| **Add-a-photo-on-card** | Adds a **sixth** input affordance to the surface we are disambiguating |
+| **"Tell her a wrong answer costs nothing"** | Reassurance the product has not demonstrated erodes rather than reassures. The queue header already says it once, correctly. Instead: make wrongness structurally impossible, and fire a receipt at the disagreeing tap — *"Noted — the record had it wrong, and now it doesn't."* |
+| **R2-vs-Drive backup row** · **candidates/devices into the digest** · **LLM-judge in harness v1** · **vector DBs** · **any framework/bundler migration** | No askable question, or over-engineering for a two-user app at 0.54 turns/day |
+
+---
 
 ## SHIPPED (the built base these build on)
 
