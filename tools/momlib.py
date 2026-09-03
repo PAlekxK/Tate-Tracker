@@ -39,7 +39,7 @@ ROOT = os.path.abspath(os.path.join(HERE, ".."))
 VIEWER = os.path.join(ROOT, "viewer.html")
 TOKEN_FILE = os.path.join(ROOT, ".private", "fernwood-token")
 
-DEFAULT_WORKER_URL = "https://tate-tracker.paul-kirschenbauer.workers.dev"
+DEFAULT_WORKER_URL = "https://fernwood.paul-kirschenbauer.workers.dev"
 WORKER_URL = os.environ.get("FERNWOOD_WORKER_URL", DEFAULT_WORKER_URL).rstrip("/")
 HTTP_TIMEOUT_SEC = 30
 USER_AGENT = "FernwoodMomLib/1.0 (+tools/momlib.py)"

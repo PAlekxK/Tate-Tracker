@@ -10,7 +10,7 @@ name: Deploy Worker
 # The Cloudflare token behind it: "fernwood-worker-deploy (GitHub Actions)", built
 # from the "Edit Cloudflare Workers" template, scoped to Paul's account only, with
 # the template's zone-scoped Workers Routes permission REMOVED — this Worker serves
-# from tate-tracker.paul-kirschenbauer.workers.dev, a workers.dev subdomain with no
+# from fernwood.paul-kirschenbauer.workers.dev, a workers.dev subdomain with no
 # custom zone, so that permission would have forced a zone grant the deploy never uses.
 # Add it back only if Fernwood moves to a custom domain.
 #
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CF_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
-      WORKER_URL: https://tate-tracker.paul-kirschenbauer.workers.dev
+      WORKER_URL: https://fernwood.paul-kirschenbauer.workers.dev
     steps:
       - uses: actions/checkout@v4
 

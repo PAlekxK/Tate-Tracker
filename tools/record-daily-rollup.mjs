@@ -37,7 +37,7 @@ const ROLLUP_TZ = "America/New_York";
 // The Worker proxy. It holds the credential and the station MAC; this script
 // holds neither.
 const PROXY = (process.env.AMBIENT_PROXY ||
-  "https://tate-tracker.paul-kirschenbauer.workers.dev/api/ambient").replace(/\/$/, "");
+  "https://fernwood.paul-kirschenbauer.workers.dev/api/ambient").replace(/\/$/, "");
 
 // === args ===
 const args = process.argv.slice(2);

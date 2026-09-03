@@ -44,7 +44,7 @@ import base64
 import urllib.parse
 import urllib.request
 
-DEFAULT_WORKER_URL = "https://tate-tracker.paul-kirschenbauer.workers.dev"
+DEFAULT_WORKER_URL = "https://fernwood.paul-kirschenbauer.workers.dev"
 WORKER_URL = os.environ.get("FERNWOOD_WORKER_URL", DEFAULT_WORKER_URL).rstrip("/")
 HTTP_TIMEOUT_SEC = 45
 USER_AGENT = "FernwoodMomZoneAudio/1.0 (+tools/read-mom-zone-audio.py)"

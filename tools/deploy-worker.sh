@@ -25,7 +25,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-WORKER_URL="${FERNWOOD_WORKER_URL:-https://tate-tracker.paul-kirschenbauer.workers.dev}"
+WORKER_URL="${FERNWOOD_WORKER_URL:-https://fernwood.paul-kirschenbauer.workers.dev}"
 DO_DEPLOY=1
 [[ "${1:-}" == "--no-deploy" ]] && DO_DEPLOY=0
 

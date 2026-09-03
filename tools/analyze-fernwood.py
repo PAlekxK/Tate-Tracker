@@ -33,7 +33,7 @@ from collections import Counter, defaultdict
 
 # === Config =================================================================
 
-DEFAULT_WORKER_URL = "https://tate-tracker.paul-kirschenbauer.workers.dev"
+DEFAULT_WORKER_URL = "https://fernwood.paul-kirschenbauer.workers.dev"
 WORKER_URL = os.environ.get("FERNWOOD_WORKER_URL", DEFAULT_WORKER_URL).rstrip("/")
 TOKEN = os.environ.get("FERNWOOD_TOKEN", "")
 HTTP_TIMEOUT_SEC = 20

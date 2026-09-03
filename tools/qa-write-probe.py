@@ -41,7 +41,7 @@ sys.path.insert(0, HERE)
 import momlib  # noqa: E402
 
 QA_URL = os.environ.get("FERNWOOD_QA_WORKER_URL",
-                        "https://tate-tracker-qa.paul-kirschenbauer.workers.dev").rstrip("/")
+                        "https://fernwood-qa.paul-kirschenbauer.workers.dev").rstrip("/")
 PROD_URL = momlib.DEFAULT_WORKER_URL
 QA_TOKEN_FILE = os.path.join(momlib.ROOT, ".private", "fernwood-token-qa")
 HARNESS_ID = "d-telemetrytest-harness-v1"

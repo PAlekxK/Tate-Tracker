@@ -38,7 +38,7 @@ Set as env vars:
 
 ```bash
 FERNWOOD_TOKEN=<the Worker SHARED_TOKEN secret>
-FERNWOOD_WORKER_URL=https://tate-tracker.paul-kirschenbauer.workers.dev  # default
+FERNWOOD_WORKER_URL=https://fernwood.paul-kirschenbauer.workers.dev  # default
 ```
 
 ### Per-person attribution (optional)

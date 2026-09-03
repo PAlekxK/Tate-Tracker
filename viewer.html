@@ -6929,7 +6929,7 @@
 // endpoints below derive from it, and a visible title marker so a QA tab can
 // never be mistaken for the live one. Plan: .plans/2026-09-03-c4-environments-PLAN.md § 3b.
 const IS_QA_ORIGIN = /\.pages\.dev$/.test(location.hostname);
-const WORKER_BASE = IS_QA_ORIGIN ? "https://tate-tracker-qa.paul-kirschenbauer.workers.dev" : "https://tate-tracker.paul-kirschenbauer.workers.dev";
+const WORKER_BASE = IS_QA_ORIGIN ? "https://fernwood-qa.paul-kirschenbauer.workers.dev" : "https://fernwood.paul-kirschenbauer.workers.dev";
 if (IS_QA_ORIGIN) document.title += " · QA";
 // ── Declared absence (C4 5c · the smallest form of C5 3b's OFF behaviour) ─────
 // An instance that carries no record for a domain declares it ABSENT; the builder

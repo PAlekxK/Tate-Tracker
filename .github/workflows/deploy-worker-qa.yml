@@ -32,7 +32,7 @@ permissions:
   contents: read
 
 env:
-  QA_WORKER_URL: https://tate-tracker-qa.paul-kirschenbauer.workers.dev
+  QA_WORKER_URL: https://fernwood-qa.paul-kirschenbauer.workers.dev
   QA_PAGES_URL: https://fernwood-qa.pages.dev/
   PAGES_PROJECT: fernwood-qa
 
