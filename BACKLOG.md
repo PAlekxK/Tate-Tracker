@@ -2100,6 +2100,8 @@ and the gifted Christmas part). It survives only in `detail` prose.
 
 ## 🏗 C4 · ENVIRONMENTS + REPO STRUCTURE + THE RENAME — the FIRST item through readiness `[paul-stated 2026-09-03]` ⚙️ engine · must-not-diverge
 
+> 🆕 **THE UNIQUENESS LEDGER** `[paul-stated 2026-09-03: "establish between any properties a sense of uniqueness and customization down to even the theme color… track what's dynamic and unique and where there's boilerplate text that may just be left over and not part of our official vocabulary… having two properties compare over time will help with that"]` — filed under C4 5c's falsifier, which is its seed: build both estates, render both, and DIFF the rendered text — identical sentences outside canon are boilerplate candidates (engine prose that names no place but should be reviewed for register), differing ones are instance. First slices: ① a `tools/uniqueness-ledger.py` that emits the shared-vs-unique text table from two builds; ② `identity.theme` (an accent colour per instance, applied as a CSS variable at build — the condo gets its own); ③ VOCABULARY §3 reads the ledger for leftover words. Not started; the falsifier's per-string count is the measurement it grows from.
+
 > ⏸ **REPO VISIBILITY — should the instance be a PRIVATE repo?** `[paul-parked 2026-09-03: "let's not worry about this right now. I was curious, though."]`
 > Filed, not scoped. What was established when he asked: flipping the GitHub repo private is one setting and Actions/the
 > Worker's token writes survive it (2,000 free minutes/month); **but GitHub Pages does not publish from a private repo on a
