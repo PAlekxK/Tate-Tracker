@@ -67,17 +67,34 @@ def preconditions():
 
 
 def strip_consts(html):
-    """The engine half of a built file: inlined consts gone (instance data by construction),
-    comments gone (not rendered — a comment that says "Fernwood did X" is history, not a
-    leak), and the one canon KEY NAME that contains a station code (`valleyFloor_KJZP`)
-    exempted — it names a field in property.json, not the place."""
+    """The engine half of a built file: inlined consts gone (instance data by construction);
+    WHOLE-LINE comments gone (a comment that says "Fernwood did X" is history, not a leak);
+    two names exempted — a canon KEY (`valleyFloor_KJZP`, `distanceFromFernwood_mi`) names a
+    field, and `Blue Ridge Parkway` names an NPS unit, not this place.
+
+    ⚠️ Line-based ON PURPOSE (2026-09-03): a regex block-comment strip swallowed 36% of the built
+    file — 312 openers vs 317 closers, because `/*` also appears inside JS strings and regex
+    literals — and hid two card titles and a sync intro that DID name the place. A strip that
+    over-matches makes the falsifier pass by deleting the evidence."""
     out = re.sub(r"^(?:const|let) [A-Z_]+_DATA = .*?;$", "", html, flags=re.M)
-    out = re.sub(r"/\*[\s\S]*?\*/", "", out)                      # JS block comments
-    out = re.sub(r"<!--[\s\S]*?-->", "", out)                       # HTML comments
-    out = re.sub(r"^\s*//.*$", "", out, flags=re.M)                  # JS line comments
+    kept, in_block = [], None          # in_block: the closer we are waiting for
+    for line in out.split("\n"):
+        st = line.strip()
+        if in_block:
+            if in_block in st:
+                in_block = None
+            continue
+        if st.startswith("/*") and "*/" not in st:
+            in_block = "*/"; continue
+        if st.startswith("<!--") and "-->" not in st:
+            in_block = "-->"; continue
+        if st.startswith(("//", "<!--", "/*", "*", "*/")):
+            continue
+        kept.append(re.sub(r"<!--.*?-->", "", line))
+    out = "\n".join(kept)
     out = out.replace("valleyFloor_KJZP", "valleyFloor_STATION")
-    out = out.replace("distanceFromFernwood_mi", "distanceFromSite_mi")   # a canon KEY in sources.json — rename is a C7 data migration, tracked there
-    out = out.replace("Blue Ridge Parkway", "the Parkway")               # a source organisation (NPS), not this place
+    out = out.replace("distanceFromFernwood_mi", "distanceFromSite_mi")
+    out = out.replace("Blue Ridge Parkway", "the Parkway")
     return out
 
 

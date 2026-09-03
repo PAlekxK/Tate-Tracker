@@ -142,8 +142,10 @@ def extract(viewer_text):
         if not m:
             raise RuntimeError("extract: identity markup for `%s` not found" % key)
         t = t[:m.start(2)] + "{{IDENTITY:%s}}" % key + t[m.end(2):]
-    # a second site for the journal name (the input head) — same key, same value
+    # further sites for the same keys — the input head and the two card titles
     t = re.sub(r'(<span class="ic-head-title">)(.*?)(</span>)', r'\1{{IDENTITY:journalTile}}\3', t, count=1)
+    t = re.sub(r'(data-toggle="fieldnotes">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)', r'\1{{IDENTITY:journalTile}}\3', t, count=1)
+    t = re.sub(r'(data-toggle="property">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)', r'\1{{IDENTITY:propertyTile}}\3', t, count=1)
     return t
 
 
@@ -228,8 +230,8 @@ def selftest():
     viewer = open(VIEWER, encoding="utf-8").read()
     t = extract(viewer)
     check("extract → build round-trips the live viewer byte for byte", build(t, DEFAULT_INSTANCE) == viewer)
-    check("template carries %d DATA + 12 IDENTITY + 1 ESTATE placeholders" % len(roster()),
-          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 12 and t.count("{{ESTATE:") == 1)
+    check("template carries %d DATA + 14 IDENTITY + 1 ESTATE placeholders" % len(roster()),
+          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 14 and t.count("{{ESTATE:") == 1)
     # a changed source must change the build (so --check can go red)
     with tempfile.TemporaryDirectory() as d:
         inst = os.path.join(d, "instance"); os.makedirs(inst)

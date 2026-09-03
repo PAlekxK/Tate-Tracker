@@ -6680,7 +6680,7 @@
         <div class="plant-context-callout">
           <div class="plant-context-callout-heading">Sourcing</div>
           <div class="plant-context-callout-body">
-            For restorative plantings, wild-collected stock drives some natives toward extinction; ethically-propagated nurseries are the only acceptable path for rare species. The State Botanical Garden of Georgia and the Georgia Native Plant Initiative publish a <a href="https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1.pdf" target="_blank" rel="noopener">recommended-nurseries list</a> (June 2025). Nearby: <a href="http://www.nearlynativenursery.com/" target="_blank" rel="noopener">Nearly Native</a> (Fayetteville), <a href="https://www.northgeorgianatives.com/" target="_blank" rel="noopener">North Georgia Native Plant Nursery</a>, and <a href="https://gardensoftheblueridge.com/" target="_blank" rel="noopener">Gardens of the <span data-site="regionShort">Blue Ridge</span></a> (NC) for hard-to-find Appalachian wildflowers.
+            For restorative plantings, wild-collected stock drives some natives toward extinction; ethically-propagated nurseries are the only acceptable path for rare species. The State Botanical Garden of Georgia and the Georgia Native Plant Initiative publish a <a href="https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1.pdf" target="_blank" rel="noopener">recommended-nurseries list</a> (June 2025). Nearby: <a href="http://www.nearlynativenursery.com/" target="_blank" rel="noopener">Nearly Native</a> (Fayetteville), <a href="https://www.northgeorgianatives.com/" target="_blank" rel="noopener">North Georgia Native Plant Nursery</a>, and <a href="https://gardensoftheblueridge.com/" target="_blank" rel="noopener">Gardens of the <span data-site="regionShort"></span></a> (NC) for hard-to-find Appalachian wildflowers.
           </div>
         </div>
       </div>
@@ -6894,7 +6894,7 @@
     </div>
     <div class="fn-modal-body">
       <div class="fn-sync-intro">
-        Connect this device to your Fernwood Worker so entries follow you between phone, tablet, and laptop. One-time setup per device — paste the same Worker URL and shared token everywhere you want to sync. Deploy instructions live in the repo's <code>worker/README.md</code>.
+        Connect this device to your <span data-site="estateName">Fernwood</span> Worker so entries follow you between phone, tablet, and laptop. One-time setup per device — paste the same Worker URL and shared token everywhere you want to sync. Deploy instructions live in the repo's <code>worker/README.md</code>.
       </div>
       <div class="fn-sync-device-row">
         <span class="fn-sync-device-label">This device</span>
@@ -13468,7 +13468,7 @@ function renderProperty() {
   html += '<div class="prop-row"><span class="prop-label">USDA Zone</span><span class="prop-value">' + hard.officialZone + ' (official) · ' + hard.elevationAdjustedZone.split('(')[0].trim() + ' (at elevation)</span></div>';
   if (loc.naturalCommunity) html += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">' + escapeHtml(loc.naturalCommunity) + '</span></div>';
   const stnId = (p.resources && p.resources.nearestWeatherStation && p.resources.nearestWeatherStation.id) || "the reference station";
-  html += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (' + escapeHtml(pp.city || "valley") + ' city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (' + escapeHtml(stnId) + '). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
+  if (Number.isFinite(elev.valleyFloorRef_ft) && Number.isFinite(elev.airportRef_ft)) html += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (' + escapeHtml(pp.city || "valley") + ' city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (' + escapeHtml(stnId) + '). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
   html += '</div>';
 
   // ── Frost Dates ──
@@ -18224,7 +18224,8 @@ function applyRecordProse() {
   // `data-site` spans carry one derived word from the record (a region, a street);
   // the markup keeps a fallback the record overrides.
   const region = String(((PROPERTY_DATA.property || {}).region) || "").split(",")[0].trim();
-  document.querySelectorAll("[data-site='regionShort']").forEach(el => { if (region) el.textContent = region; });
+  document.querySelectorAll("[data-site='regionShort']").forEach(el => { el.textContent = region || "the region"; });
+  document.querySelectorAll("[data-site='estateName']").forEach(el => { el.textContent = (typeof ESTATE_NAME === "string" && ESTATE_NAME) || "your"; });
 }
 applyRecordProse();
 renderDashboardStrip();
