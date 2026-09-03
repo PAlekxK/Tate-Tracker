@@ -277,8 +277,12 @@ phone and watch it land on the new one; it must never show a GitHub 404).
    no means Guru is not exercisable in QA (declared under R5).
 4. **Q4 Was her phone ever paired** (`tateTracker.sync.v1`) — decides whether 2d costs a token re-paste; the
    Sync settings diagnostics on her phone answer it in ten seconds at the start of the visit.
-5. **Q5 The throwaway condo directory** — build `instance-condo/` from `fernwood-private` (default here) or
-   accept a placeholder directory in the public repo?
+5. ~~**Q5 The throwaway condo directory**~~ ✅ **RULED `[paul-stated 2026-09-03]`: `fernwood-private`.** Built
+   from there with `--instance`; the public repo carries no condo directory until the condo is public-safe.
+   **Q4 is answered by measurement, not by Paul** (`.engineering/2026-09-03-c6-door-for-paul.md`): metrics
+   cannot leave an unpaired device and `text_size_served` was recorded from hers, so **her phone is paired and
+   holds the sync token — which is the one shared admin credential.** Rotating `SHARED_TOKEN` blinds her
+   telemetry until re-pasted in person; 2d carries the re-paste.
 6. **Q6 Replace-text vs squash** — the plan recommends replace-text (keeps the seat-before-plan add-dates and
    the 50-commit narrative); confirm, or take the squash and accept a flattened trail on the first item.
 7. **Q7 Cloudflare Access on the QA origin** — off by default here (the bytes are public anyway; the title marker
