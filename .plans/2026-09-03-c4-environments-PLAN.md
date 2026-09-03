@@ -288,4 +288,8 @@ phone and watch it land on the new one; it must never show a GitHub 404).
 7. ~~**Q7 Cloudflare Access on the QA origin**~~ ✅ **RULED `[paul-stated 2026-09-03]`: off at first; on if a
    stranger's traffic ever shows in the QA namespace.** The title marker distinguishes QA; the write probe runs
    without a service token.
-8. **Q8 Who owns the forwarding repo long-term** — keep forever, or delete once the old Worker is deleted?
+8. ~~**Q8 Who owns the forwarding repo long-term**~~ ✅ **RULED `[paul-stated 2026-09-03]`: keep it until the old
+   Worker is deleted (seven days of zero traffic), then decide** — the forwarder's own traffic is the evidence.
+
+**Remaining before the stamp: Q1 (the product's name → the domain; naming seats running) and Q3 (the QA
+Anthropic key; waits on the Guru retrieval seat's harness design).**
