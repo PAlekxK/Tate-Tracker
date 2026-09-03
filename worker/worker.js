@@ -420,7 +420,7 @@ async function handleDrought(request, env, url) {
 // Body shape: { date: "YYYY-MM-DD", state: { weather, plants, wildlife, fishing, sky } }
 // Caches by date so we call Claude at most once per day.
 
-const TODAY_LINE_SYSTEM = `You write a one- or two-sentence "today line" for a hyperlocal Appalachian property dashboard for Fernwood — 282 Church Mountain Road, Jasper, GA, 2,959 ft on the Blue Ridge, within Tate Mountain Estates.
+const TODAY_LINE_SYSTEM = `You write a one- or two-sentence "today line" for a hyperlocal Appalachian property dashboard for Fernwood — 282 Church Mountain Road, Jasper, GA, 2,873 ft on the Blue Ridge, within Tate Mountain Estates.
 
 The voice is a field journal in the spirit of Aldo Leopold's A Sand County Almanac — observational, slow, place-anchored, never directive. Describe what *is* at this place today; don't grade the day, don't tell the reader what to do.
 
@@ -476,7 +476,7 @@ async function handleTodayLine(request, env) {
 // Categories: plants | birds | mammals | amphibians | snakes | lizards | fishing | weather | property | other
 // No cache — each entry is unique.
 
-const CLASSIFY_SYSTEM = `You classify a single field-journal observation written about a 2,959 ft Blue Ridge property in north Georgia.
+const CLASSIFY_SYSTEM = `You classify a single field-journal observation written about a 2,873 ft Blue Ridge property in north Georgia.
 
 Return strict JSON only — no preface, no markdown, no trailing commentary. The JSON has exactly two fields:
 - "category": one of "plants", "birds", "mammals", "amphibians", "snakes", "lizards", "fishing", "weather", "property", "other".
@@ -548,15 +548,15 @@ async function handleClassify(request, env) {
 // review in PHASE_E_SYNTHESIS.md for the diagnosis. The cached digest provides the
 // property context; the system prompt enforces voice + scope + uncertainty handling.
 
-const GARDEN_GURU_SYSTEM = `You are Garden Guru — a field assistant for Fernwood, a property at 282 Church Mountain Road in Jasper, GA, at 2,959 feet on the Blue Ridge inside Tate Mountain Estates. You speak with the voice of a field journal kept by someone who knows this place — observational, slow, place-anchored. The literary register is Aldo Leopold's A Sand County Almanac: careful observation, quiet restraint, names of things over generalities.
+const GARDEN_GURU_SYSTEM = `You are Garden Guru — a field assistant for Fernwood, a property at 282 Church Mountain Road in Jasper, GA, at 2,873 feet on the Blue Ridge inside Tate Mountain Estates. You speak with the voice of a field journal kept by someone who knows this place — observational, slow, place-anchored. The literary register is Aldo Leopold's A Sand County Almanac: careful observation, quiet restraint, names of things over generalities.
 
 HARD FACTS — these override anything you infer from the digest below
 These are the property's fixed numbers. If a figure you are about to state contradicts one of
 these, the figure is wrong — use these instead. Never round, never estimate, never reconstruct
 them from surrounding context.
-- Fernwood, the PROPERTY: 282 Church Mountain Road, Jasper, GA 30143 — elevation 2,959 ft.
+- Fernwood, the PROPERTY: 282 Church Mountain Road, Jasper, GA 30143 — elevation 2,873 ft.
 - Lake Sequoyah is a DIFFERENT PLACE at 2,800 ft. **2,800 ft is the LAKE, never the property.**
-  The pond, the garden, the house and every plant are at 2,959 ft. When the subject is water,
+  The pond, the garden, the house and every plant are at 2,873 ft. When the subject is water,
   this is exactly where the two get confused — the pond is on the property, not at the lake.
 - USDA zone 6b (elevation-adjusted); 7b is the official county figure.
 - Last frost 50% May 3 · last frost 90%-safe May 24 · first frost 50% Oct 17.
@@ -650,7 +650,7 @@ The user has submitted a photo, likely of a plant or animal at the property. Ide
 - The voice rules above still hold. No "Great photo!" No "Let me help you with that!" No "Here's what I see:" prefixes. Talk about the thing in the photo the way the journal would talk about it — observational, anchored, restrained.
 - Apply the depth filter honestly. If what you see is one of the plants we tend, one of the weeds we're working against, or one of the species in the digest, name it as one we know. If it's outside the digest, say so plainly: "Not one we tend" or "Not a species the journal tracks yet."
 - **Visual-feature consistency check (load-bearing).** Before naming a species, run a quick consistency check between the photo's observable features (flower color, leaf shape, growth habit, size) and the species' standard appearance. If they contradict — e.g., the photo shows white flowers but the species you'd name has orange flowers; the photo shows opposite leaves but the species has alternate leaves; the photo shows a low groundcover but the species is a 15-ft shrub — **DO NOT force-fit the ID to a curated-list species.** Say plainly: "Not Butterfly Weed (those are orange; these are white). White flowers in flat-topped clusters with deeply lobed leaves at this elevation point toward common yarrow or Queen Anne's lace — not one we tend." Reach for "not one of the one we tend" before reaching for a wrong-but-familiar match. The depth filter is preserved when you're honest about visual mismatches; it fails when the model force-fits to a familiar name.
-- Note plausibility for the property. The Blue Ridge at 2,959 feet is a specific habitat — Cove Forest + Low-to-Mid Elevation Oak Forest (per GNPS Blue Ridge Communities matrix; Montane Oak Forest typically sits above 3,500 ft, so it's not the right model here), with potential Seepage Wetlands in the spring drainage, acidic mountain soil, USDA zone 6b (elevation-adjusted). Some species fit comfortably here (Cardinal Flower in damp edges, Trillium in rich coves); some would be unusual (anything obligate-coastal, anything desert-adapted). Mention fit when you have confidence on the ID.
+- Note plausibility for the property. The Blue Ridge at 2,873 feet is a specific habitat — Cove Forest + Low-to-Mid Elevation Oak Forest (per GNPS Blue Ridge Communities matrix; Montane Oak Forest typically sits above 3,500 ft, so it's not the right model here), with potential Seepage Wetlands in the spring drainage, acidic mountain soil, USDA zone 6b (elevation-adjusted). Some species fit comfortably here (Cardinal Flower in damp edges, Trillium in rich coves); some would be unusual (anything obligate-coastal, anything desert-adapted). Mention fit when you have confidence on the ID.
 
 When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fence at the very end of your reply, on its own line, exactly in this form (HTML comment so the client can strip it from the displayed text):
 
@@ -660,7 +660,7 @@ When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fenc
   "commonName": "...",
   "scientificName": "...",
   "confidence": "medium" | "high",
-  "elevationFit": "short narrative — 'plausible at 2,959 ft in damp edges' or 'unusual for this elevation; would be a notable record'",
+  "elevationFit": "short narrative — 'plausible at 2,873 ft in damp edges' or 'unusual for this elevation; would be a notable record'",
   "habitatHint": "short hint — 'rich-cove understory' or 'forest edges at dusk' (optional, omit if unsure)",
   "inCanon": true | false
 }
@@ -812,7 +812,7 @@ Rules for the remove fence:
 // suggestion fence. When Anthropic ships audio, this entire layer collapses to
 // a one-function migration in handleChat (the openai call site).
 
-const SOUND_ID_OPENAI_SYSTEM = `You are a sound identifier for a private property in the Blue Ridge mountains at 2,959 ft elevation (Pickens County, GA). The user has submitted an audio recording. Your job is to identify what animal vocalization, if any, is in the recording.
+const SOUND_ID_OPENAI_SYSTEM = `You are a sound identifier for a private property in the Blue Ridge mountains at 2,873 ft elevation (Pickens County, GA). The user has submitted an audio recording. Your job is to identify what animal vocalization, if any, is in the recording.
 
 OUTPUT — strict JSON only, no surrounding prose, no markdown code fences:
 {
@@ -1043,20 +1043,20 @@ async function handleZoneAudio(request, env, url) {
 // then commits it to GitHub. This prompt does NOT use Garden Guru's voice —
 // it's a structured-output prompt focused on schema generation.
 
-const SCHEMA_DRAFTER_SYSTEM = `You are a Fernwood Schema Drafter. Your job is to produce a complete JSON entry for a newly identified plant or animal at 282 Church Mountain Road, Jasper, GA — 2,959 ft elevation on the Blue Ridge inside Tate Mountain Estates.
+const SCHEMA_DRAFTER_SYSTEM = `You are a Fernwood Schema Drafter. Your job is to produce a complete JSON entry for a newly identified plant or animal at 282 Church Mountain Road, Jasper, GA — 2,873 ft elevation on the Blue Ridge inside Tate Mountain Estates.
 
 PROPERTY CONTEXT
-- Elevation 2,959 ft (1,424 ft above KJZP baseline)
+- Elevation 2,873 ft (1,338 ft above KJZP baseline)
 - USDA Hardiness Zone 6b (elevation-adjusted); 7b official
 - Last frost 50%: May 3; Last frost 90% safe: May 24; First frost: October 17
 - Soils: Hayesville, Cecil, Pacolet series (acidic sandy loam to loam, pH 4.5–5.5, clay Bt argillic subsoil)
-- Region: Blue Ridge Foothills, Pickens County, GA — Cove Forest + Low-to-Mid Elevation Oak Forest at 2,959 ft (per GNPS Blue Ridge Communities matrix); potential Seepage Wetlands in the spring drainage
+- Region: Blue Ridge Foothills, Pickens County, GA — Cove Forest + Low-to-Mid Elevation Oak Forest at 2,873 ft (per GNPS Blue Ridge Communities matrix); potential Seepage Wetlands in the spring drainage
 - The property digest in your context lists the existing curated species (plants + all animal categories); reference it to maintain consistency
 
 VOICE FOR PROSE FIELDS
 - Field-journal voice — Aldo Leopold's *A Sand County Almanac* register. Observational, slow, place-anchored.
-- Anchor in the property: 2,959 ft, the Blue Ridge, Hayesville/Cecil/Pacolet soils, the specific frost-date offsets, the Cove Forest + Low-to-Mid Elevation Oak Forest community. Use these when they're load-bearing for the field.
-- Honest about elevation effects. When the species' general phenology would shift at 2,959 ft vs the broader regional pattern, say so. ("At ~2,959 ft, candles typically emerge 7–10 days later than in valley locations.")
+- Anchor in the property: 2,873 ft, the Blue Ridge, Hayesville/Cecil/Pacolet soils, the specific frost-date offsets, the Cove Forest + Low-to-Mid Elevation Oak Forest community. Use these when they're load-bearing for the field.
+- Honest about elevation effects. When the species' general phenology would shift at 2,873 ft vs the broader regional pattern, say so. ("At ~2,873 ft, candles typically emerge 7–10 days later than in valley locations.")
 - No marketing adjectives ("exceptional", "stunning", "beautiful"). No "Great", "Wonderful", "Amazing".
 - No chatbot scaffolding. No "Here's the schema for...", no preamble, no markdown headers.
 
@@ -1078,7 +1078,7 @@ For PLANTS (kind="plant") — match plants.json v3 shape:
   "currentSeasonNote": "<one paragraph anchored in current month; if unsure of date, write a calendar-neutral note>",
   "soilNotes": "<one paragraph — how it relates to Hayesville/Cecil/Pacolet>",
   "aspectPreference": "<one paragraph — sun/wind/slope preferences>",
-  "frostSensitivity": "<one paragraph — frost behavior at 2,959 ft>",
+  "frostSensitivity": "<one paragraph — frost behavior at 2,873 ft>",
   "care": {
     "prune":     { "months": [0..11], "peakWindow": "<string or null>", "narrow": <bool>, "description": "<paragraph>" },
     "propagate": { ... same shape ... },
