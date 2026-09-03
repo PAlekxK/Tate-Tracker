@@ -109,7 +109,7 @@ If you'd rather not put credentials in GitHub secrets, run it locally. Save as
   <array>
     <string>/bin/bash</string>
     <string>-c</string>
-    <string>cd /Users/paulkirschenbauer/Documents/Claude/Projects/Tate-Tracker &amp;&amp; /usr/local/bin/node tools/record-daily-rollup.mjs --today &amp;&amp; git add weather-history.json &amp;&amp; (git diff --cached --quiet || git commit -m "weather rollup" &amp;&amp; git push)</string>
+    <string>cd /Users/paulkirschenbauer/Developer/Tate-Tracker &amp;&amp; /usr/local/bin/node tools/record-daily-rollup.mjs --today &amp;&amp; git add weather-history.json &amp;&amp; (git diff --cached --quiet || git commit -m "weather rollup" &amp;&amp; git push)</string>
   </array>
 
   <key>StartCalendarInterval</key>
@@ -215,7 +215,7 @@ purged history). Consequences for anyone working locally:
 
 - **Your local `main` will routinely be a few commits behind `origin/main`.**
   That is the bot working as designed — not drift, not a problem.
-- **Start every Tate-Tracker session with `git pull --rebase origin main`,** and
+- **Start every Fernwood session with `git pull --rebase origin main`,** and
   rebase again right before you push. The bot only ever touches
   `weather-history.json`; manual work touches other files — so rebases are
   conflict-free by construction.

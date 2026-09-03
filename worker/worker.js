@@ -1,5 +1,5 @@
 /**
- * Fernwood (Tate Tracker) Cloudflare Worker
+ * Fernwood Cloudflare Worker
  *
  * Endpoints (all under X-Tate-Token auth except /health):
  *   GET    /api/observations              list observations

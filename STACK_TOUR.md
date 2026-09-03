@@ -1,4 +1,4 @@
-# Stack Tour — Fernwood (Tate-Tracker)
+# Stack Tour — Fernwood
 
 A guided tour of every piece of the dashboard's stack — what it is, why it's there, where to find it. Written for the version that exists as of 2026-05-19. The repo is intentionally simple, so this tour is short.
 
@@ -17,7 +17,7 @@ Fernwood is a static website. There is no backend server you can SSH into and no
 | GitHub repo | `https://github.com/PAlekxK/Tate-Tracker` |
 | Public URL | GitHub Pages serving `main` (auto-deploys on push) |
 | Cloudflare Worker | `https://tate-tracker.paul-kirschenbauer.workers.dev` |
-| Local working dir | `/Users/paulkirschenbauer/Documents/Claude/Projects/Tate-Tracker` |
+| Local working dir | `~/Developer/Tate-Tracker` (repo directory keeps the old name until C4 4b) |
 
 Three names matter here:
 - **GitHub** hosts the source code.

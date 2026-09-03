@@ -1,4 +1,4 @@
-# Fernwood (Tate Tracker) — Cloudflare Worker
+# Fernwood — Cloudflare Worker
 
 This Worker is the dashboard's tiny backend. It exists for one reason: Field Notes observations need to follow you between devices. When you dictate "first hummingbird at the feeder" on your phone in the field, it should be there when you open the dashboard on your laptop later.
 
@@ -33,7 +33,7 @@ Each endpoint returns `503 not-configured` if its secret is missing — the dash
 
 ## Deploy — one-time setup
 
-You'll need a Cloudflare account (free) and the `wrangler` CLI. You already use Cloudflare as the domain registrar for the Tate Tracker live site, so the account is in place.
+You'll need a Cloudflare account (free) and the `wrangler` CLI. You already use Cloudflare as the domain registrar for the Fernwood live site, so the account is in place.
 
 ```bash
 # Install wrangler if you don't have it
