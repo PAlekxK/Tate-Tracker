@@ -4,7 +4,6 @@
 - class: engine · must-not-diverge
 - seats: practice-steward → .plans/2026-09-03-c4-process-PROPOSAL.md
          engineering-partner → .engineering/2026-09-03-c4-topology-options.md
-         engineering-partner → .engineering/2026-09-03-c4-topology-delta.md
          ai-advisor → waived: no model on the path
          ux-expert → waived: nothing Mom sees changes except a forwarding page, covered in ## QA
          content-steward → waived: no copy reaches anyone; the engine's name is deferred to its own item
@@ -269,6 +268,62 @@ phone and watch it land on the new one; it must never show a GitHub 404).
 `{"env":"qa","kv_canary":"qa"}` / `{"env":"production","kv_canary":"production"}`; `qa-write-probe.py` →
 `present in qa · absent in production · pickup silent`; `check-backlog-ready.py` → silent; `git merge-base
 --is-ancestor origin/main HEAD; echo $?` → `0`; the added-lines grep → `0`.
+
+## Amendment 2026-09-03 — the three-level ruling folded in, from the topology DELTA
+
+⚠️ **Provenance, stated because the check caught it:** `.engineering/2026-09-03-c4-topology-delta.md` was written
+**after** this plan was drafted, in answer to the THREE LEVELS ruling (`BACKLOG.md` § C4). `check-backlog-ready.py`
+flags a seat trail newer than its plan, correctly; so the delta is cited **here, as an amendment**, not in the seat
+header, and this section is the re-read the readiness proposal calls for (*a re-read against the new text, never a
+re-date*). The delta's own step numbers refer to the seat's original 15-step sequence; mapped to this plan's labels.
+
+**What the delta verified (Cloudflare docs):** Pages does not document wildcard custom domains — apex + subdomains,
+one at a time, which under closed enrolment is a *feature*: a family door is a deliberate dashboard act. Worker routes
+do support wildcards; a Worker serves static assets without invoking code; proxied wildcard DNS is free on all plans.
+
+**Changes to the steps above:**
+- **2a (domain) — restated.** Register **`myhome.place`** at Cloudflare Registrar (Paul); create the zone; enable
+  Universal SSL; ⛔ **run the certificate-transparency check BEFORE any family host exists** (`openssl s_client` **and**
+  `crt.sh` — a tool reading our config reports on the record, not the world). If Universal SSL covers hosts under one
+  wildcard SAN, no family name ever enters a CT log; if per-host certs are issued, each family name is published to an
+  append-only log — that result is Paul's call ③ below.
+- **2a′ (new) — the apex page.** A static page at `myhome.place`: what this is, who made it, how to reach Paul; **no
+  estate name, no family name, no place name**; enrolment is closed, so no sign-up. Check: `grep` finds zero
+  estate/family/place names; `crt.sh` shows only the apex and the wildcard.
+- **3c (QA origin) — merges into production.** One Cloudflare Pages project, two environments: the **production
+  branch → the family domains** (`<family-a>.myhome.place`); **`staging` → the `*.pages.dev` QA origin**. GitHub Pages
+  stops being the production host at 2d. **P1 vs P2** (a Pages project with one custom domain per family, vs
+  Worker-served static assets behind a wildcard route): the delta recommends **P1 for family A's door** — stacking
+  "the Worker now serves the page" onto the one irreversible act that touches her puts two new things on it — and
+  **evaluates P2 at family B's door**, where nobody has a link to lose. ⚠️ **A5 is REOPENED and not discharged:** the
+  07-17 downgrade of Worker-serving rested on origin change, origin-bound storage and a paid plan — the first two are
+  discharged by this ruling itself, but the stake (her access) still binds; P2 needs Paul's explicit re-ruling.
+- **2b (hygiene) — grows.** `momQueue.answered / snoozed / offered` hold **per-estate** state on what is now a
+  **per-family** origin; the condo would open showing her as having answered Fernwood's questions. Estate-segment those
+  keys before the condo exists (the delta's D4). The 18-key roster stays.
+- **2c / 4d — retargeted.** `LIVE_BASE` → `https://<family-a>.myhome.place/`; the old Pages URL forwards to the family
+  door — still a courtesy, not a gate. **2d is unchanged in cost and still once**: it now lands on the Cloudflare-served
+  family door; the itemised storage bill above applies unchanged. 4c (the Worker rename) adds a `hostAgrees` slot for C6.
+- **3a — more load-bearing, unchanged.** Once prod and QA share a host stack, `[env.qa]`'s own KV is the **only** data
+  isolation. Bindings are non-inheritable; a forgotten one throws.
+- **Subdomain = routing only.** `viewer.html` reads `location.hostname` **nowhere today** (verified by the seat), so family
+  resolution is entirely new code and needs a selftest; the Worker derives every grant from the credential and checks the
+  hostname's family agrees (C6 3c); mismatch → 404, never 403.
+- **New gates, after 5d, none of them Paul's-family work:** **G16** close the two ungated write paths and land the
+  hostname↔grant check — **blocks family B's door; blocks nothing for family A**. **G17** the consent conversation, then
+  create family B's host **inside** it — the first HTTPS request to their door is the disclosure. **G18** family B's two
+  estates: the chooser's first real exercise and the no-garden falsifier for real (the synthetic 5c run stays — it is what
+  makes their door safe to open).
+
+**Still three irreversible steps; still only 2d and 4d touch her, once.**
+
+### Paul's calls surfaced by the delta — ⚠️ OPEN AFTER THE STAMP (the stamp was given on the eight questions above)
+1. **P1 vs P2 for family A's door** — P1 recommended (a Pages project, one custom domain per family).
+2. **The A5 re-ruling** — Worker-serving was downgraded 2026-07-17 on her-access grounds; P2 reopens it. Paul's, not
+   the seat's, and not needed for P1.
+3. **If the CT check shows per-host certificates** — opaque family labels, or accept that family names publish.
+4. **Whether family B is approached at all before the condo proves the chooser.**
+Steps **1a–1d** are unaffected by all four; **2a and 3c wait on ①** (and on ② only if P2 is chosen).
 
 ## Open before stamping
 
