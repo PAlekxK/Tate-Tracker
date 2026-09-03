@@ -89,6 +89,11 @@ C5 · C6 · C7 · Guru at Paul's stamp gate. Plan of record: `PRODUCT-ENGINE.md`
   Fernwood from config and the KV path is prefixed) — or on Paul's word, whichever first. ⚠️ A hold with no
   release condition is abandonment with manners; if neither is right, name the one that is.
 
+**Frozen questions — parked here by Paul's word, released with the freeze:**
+- **A larger-than-A+ text option for older readers** `[paul-stated 2026-09-03]` — *"if we do anything, I would think we
+  would add an option to make the text even bigger for older people."* Raised while ruling C6 Q1 (the toggle goes, A+
+  is the standard). Instance/config work, O1; needs a signal from a reader, never a default.
+
 **Mechanics, stated so the boards are read correctly:** neither `mom-cycle-status.py` nor `fleet_probe.py`
 publishes a HELD phase, so the loop board will keep rendering the fleet loop as FIRED and the mom loop as
 ARMED. Read those against this block. Both chronicles carry a dated FREEZE marker; `read-mom-feedback.py
@@ -2186,7 +2191,7 @@ name in Mom-read prose is a **content** decision) · **derive config from canon*
 
 ## 🚪 C6 · THE DOOR FOR PAUL — entry + vault on his device, her surface untouched; M3 fixed first ⚙️ engine · declared
 
-→ READY · .plans/2026-09-03-c6-door-for-paul-PLAN.md — **plan DRAFTED 2026-09-03, at Paul's gate; six questions open before the stamp** (the DEFAULT_SIZE re-ruling first; step 3 does not open until the privacy seat has reviewed). Not stamped.
+→ READY · .plans/2026-09-03-c6-door-for-paul-PLAN.md — ✅ **STAMPED `[paul-approved 2026-09-03]`** — ⭐ **the text-size toggle is REMOVED and A+ is the one standard size** (M3 retires by construction; step 1 re-drafts before build); entry off / vault on for her grant; Ambient stays ungated. Three questions wait at their named steps (first vault room · privacy seat · her credential word).
 
 `user-researcher`'s own recommendation (`.user-research/2026-09-02-activation-journeys.md`): *build
 the door for PAUL, on PAUL's device, with her surface untouched — it tests everything except her.* Two

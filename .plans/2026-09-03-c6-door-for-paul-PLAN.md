@@ -9,6 +9,7 @@
          content-steward → waived: no Mom-facing copy — her surface is untouched; door copy for Paul is not hers
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
+- ready: [paul-approved 2026-09-03]
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row, § M3, C4's RULED table and its three-levels ruling (decided, not
@@ -232,6 +233,31 @@ complete`; `qa-write-probe.py` DOOR leg → `2xx · GET 401 · 413 · 429 with f
 3c's curl → `404 · 200 · 200`; `read-mom-engagement.py` → `door: ? (route absent on prod)` today; `check-backlog-ready.py` → silent.
 
 ## Open before stamping
+
+> **✅ STAMPED 2026-09-03 `[paul-approved]` — Q1 ruled DIFFERENTLY from the recommendation; Q2 · Q6 on the
+> recommendations as written** (Paul opened with *"Yeah"* and then re-ruled only Q1 — read as acceptance of the other
+> two; a one-word reversal re-opens either).
+> - **Q1 → THE TOGGLE GOES. A+ (`lg`) becomes the ONE standard size; there is no served default because there is no
+>   choice.** Paul: *"for now, let's just remove the text zoom and make A+ just the standard text. We can always come
+>   back to that. If we do anything, I would think we would add an option to make the text even bigger for older people,
+>   frankly. But let's save that for later — that can go to the frozen questions."* **Consequences, and step 1 must be
+>   RE-DRAFTED before build:** 1a is discharged by this ruling · 1b/1c are **void** (no `DEFAULT_SIZE`, no per-instance
+>   `display.defaultTextSize`, no placeholder, no lint row) and are replaced by **1b′ remove the control and make `lg`
+>   the base styling** — the stored `tateTracker.textSize` key is left in place and no longer read (never deleted from
+>   her phone), `text_size_served` / `text_size_changed` retire from the instrument roster with a dated note, the
+>   08-19 decision block in `wireTextSizeToggle` is superseded in place with this ruling, and `RELEASE_NOTES.md` carries
+>   it (a control she can see disappears — **Mom-facing, so it ships through C4's QA origin and `main` at Paul's
+>   gate**) · **M3 retires by construction** — nothing is left to sync, so *"M3 fixed first"* is satisfied by removal ·
+>   1d stands, shorter (a new phone needs no A+ step). ⚠️ Measured footprint: `viewer.html` carries **158** lines
+>   mentioning `textSize` / `text-lg` / `wireTextSizeToggle` — the removal is a real edit, not a constant flip; the
+>   `.text-lg` class either becomes the base or every rule under it is folded into the base rule set. **The "even
+>   bigger" option is parked in the FOCUS FREEZE** (`BACKLOG.md` § FOCUS FREEZE → frozen questions), not here.
+> - **Q2 → `entry:off, vault:on` for her grant; Paul's own `entry:on`.**
+> - **Q6 → `/api/ambient` stays ungated in C6.**
+> - **Still open at their named steps:** Q3 (the first vault room — 5c) · Q4 (privacy seat, agent or checklist — before
+>   step 3; recommendation stands: agent) · Q5 (her credential word — Mom's retrofit, not this item). The flagged
+>   `isTestHarness` split stands as the recommendation.
+
 
 1. **Q1 `DEFAULT_SIZE` re-ruling** — may the served default become a declared per-instance value set to `lg`? Ruled
    `normal` on 08-19 on *"she is habituated to A"*; the record now reads `{lg, stored:true}` on her device. Yes / no.
