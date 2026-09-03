@@ -14,7 +14,7 @@ this repo already made for `MOM-CYCLE-MAP.md` and `cycle/fleet/CYCLE-MAP.md`.
 
 ## ▶️ THE SEQUENCE — read this before anything below it
 
-> 🧊 **FOCUS FREEZE `[paul-stated 2026-09-03]` — this workstream is the ONLY active Fernwood work.** Instance work (mom-cycle proactive legs, fleet laps, new content) rests until the release condition in `BACKLOG.md` § FOCUS FREEZE. Two edges of the freeze are open for Paul's ruling there.
+> 🧊 **FOCUS FREEZE `[paul-stated 2026-09-03]` — this workstream is the ONLY active Fernwood work.** Instance work (mom-cycle proactive legs, fleet laps, new content) rests until the release condition in `BACKLOG.md` § FOCUS FREEZE. ✅ Both edges RULED 2026-09-03: **Mom's arrivals are HELD unread (nothing ingested, nothing actioned) and the freeze lifts on Paul's word only** — shipping C4/C5 does not lift it.
 
 The findings below are evidence, not a plan. **This is the plan.** The dependencies are real: do
 not start at step 3.
@@ -89,9 +89,21 @@ digest that ships everything cannot scale to *everything*; the requirement is on
 retrieval, not by inflation. ✅ It also confirms scope: **one estate at a time**, which is why the
 cross-property ceiling finding was never a constraint on his design (see the correction below).
 
-⛔ **Open, and it is the crux:** does *"everything in that estate's database"* include the **private
-tier** — the 254 receipts, contractor contacts, breaker directory — once authenticated? That is
-exactly what ②'s PII hardening would unlock, and it is being put to Paul.
+✅ **RULED `[paul-stated 2026-09-03]` — YES, the private tier is IN SCOPE for the box, behind a login the box
+itself asks for.** Paul: *"Yes. I agree. The guru should be able to handle some of this private information, but
+would need to ask for a login to do that."*
+
+⭐ **The shape this fixes:** the box has TWO tiers of answer, and the boundary is a **runtime ask, not a
+separate surface.** An unauthenticated turn that reaches for the private tier (a receipt, a contractor, a
+breaker) does not fail silently and does not leak — it **asks for the login**, then answers. So the login
+is not a wall in front of the box; it is a step the box can request mid-conversation. Consequences:
+- Guru retrieval plan **Q4 is answered** — step 7 (the private tier through the box) is unblocked by *sequence*
+  only (after C6 5a's `grantFor`), no longer by a ruling.
+- C6 (the door for Paul) must expose the login as something `handleChat` can **prompt for and resume after** —
+  the ask-then-answer flow is a C6/Guru seam, and the honesty strings (Q6) need a third class: *"that's in the
+  private record — log in and ask again."*
+- *"Some of"* is his word — **which** private fields the box may speak is still a design question (the
+  breaker directory yes; a contractor's phone number is a different reveal). Not ruled; scope it at step 7.
 
 ---
 

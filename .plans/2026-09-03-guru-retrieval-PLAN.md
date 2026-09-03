@@ -256,8 +256,9 @@ tool-called T/T`; QA `/health` → `chat_budget: {used, ceiling, date}`; `build-
 3. **Q3 The streaming threshold** — proposed client p75 ≥ 4 s for a text turn, reasoned from the site premise (house Wi-Fi,
    no progress signal). Paul's number; and if today's measured p75 is already ≥ 4 s, streaming is owed now, independent of
    tool-use (the seat's own falsifier).
-4. **Q4 When the private tier joins** — after C6 5a by sequence; whether *"everything in that estate's database"* includes
-   it at all is the open crux in `PRODUCT-ENGINE.md` § ③. Step 7 does not open until that is ruled.
+4. **Q4 When the private tier joins** — ✅ **RULED `[paul-stated 2026-09-03]`: it joins, behind a login the box asks
+   for mid-conversation** (`PRODUCT-ENGINE.md` § ③). Step 7 is now gated on sequence only (after C6 5a). Open inside it:
+   *which* private fields the box may speak (*"some of this private information"*), and the ask-then-resume flow.
 5. **Q5 Whether `turf` sits in the core** or behind `turf_regime()` — the ai-advisor leans core (~1.2K tokens; the weeds'
    advice is incoherent without it). Recommend core.
 6. **Q6 The honesty strings for the two-direction class** — does every lookup return *"not in the record"*, or does each

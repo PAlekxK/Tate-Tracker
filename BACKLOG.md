@@ -81,13 +81,21 @@ status; nothing here is closed, dropped or re-tiered.
 C5 · C6 · C7 · Guru at Paul's stamp gate. Plan of record: `PRODUCT-ENGINE.md` § THE SEQUENCE + the five
 `.plans/2026-09-03-*-PLAN.md` files. ⛔ The WIP rule stands: one item between concept and QA.
 
-**Two edges, OPEN — Paul's ruling, agent-proposed defaults marked:**
-- **An arrival from Mom during the freeze.** *Proposed:* it is still read and dispositioned (legs 1–2 of the
-  mom-cycle, so her surface is never silently ignored), but nothing is built or offered back unless it is a
-  defect on her surface. Proactive legs stay frozen.
-- **Release condition.** *Proposed:* the freeze lifts when C4 and C5 have shipped (the engine can render
-  Fernwood from config and the KV path is prefixed) — or on Paul's word, whichever first. ⚠️ A hold with no
-  release condition is abandonment with manners; if neither is right, name the one that is.
+**Two edges — ✅ RULED `[paul-stated 2026-09-03]`, and BOTH proposed defaults were REJECTED:**
+
+> *"Freeze Edge. No. Let's hold all feedback from mom. Let's not ingest it or action anything. Just make it
+> very clear where we've drawn the line, and I will say when to lift the freeze."*
+
+- **An arrival from Mom during the freeze is HELD, not read.** Nothing is ingested and nothing is dispositioned —
+  not legs 1–2, not a defect triage. The proposed *"read and disposition, build nothing back"* default is
+  **rejected**. ⛔ THE LINE: `read-mom-feedback.py --pickup` still fires at session start because it is the
+  arrival *detector*; its output is a COUNT that says *"something is waiting behind the freeze"* and nothing
+  more. Do not open it, do not `--address` it, do not draft an ack. ⚠️ **When the freeze lifts, the first
+  mom-cycle lap starts with a backlog of unread arrivals — that is by design, not neglect.** `R1 ack staleness
+  🔴` and every unread count are expected reads during the freeze.
+- **Release condition is PAUL'S WORD, and only that.** The proposed *"when C4 and C5 have shipped"* condition is
+  **rejected** — shipping C4/C5 does NOT lift the freeze. The freeze ends when Paul says so, in as many words.
+  ⚠️ The *"abandonment with manners"* rule is satisfied: the release condition is a named human act, not silence.
 
 **Frozen questions — parked here by Paul's word, released with the freeze:**
 - **A larger-than-A+ text option for older readers** `[paul-stated 2026-09-03]` — *"if we do anything, I would think we
