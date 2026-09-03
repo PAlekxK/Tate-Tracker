@@ -1,16 +1,27 @@
 {
   "_meta": {
     "purpose": "deviceId → person mapping read by tools/analyze-fernwood.py and tools/read-mom-funnel.py.",
-    "lastUpdated": "2026-07-30",
+    "lastUpdated": "2026-09-03",
     "CLEAN_SLATE": "2026-07-28",
     "resetWhy": "The mapping was BACKWARDS until 2026-07-28. `d-14nyhnjz-5lh01604-mpevr35o` was recorded as Mom on the strength of a 2026-07-02 interview plus the A/A+ text-size toggle; it is Paul's. Corrected against CONTENT, not activity shape: all four of Mom's genuine inputs — confirms 2026-07-13 (crocosmia, white mophead), 2026-07-19 (panicle hydrangea), and the 2026-07-26 rainfall note — carry deviceId `d-szqlt0h7-79xgx1bj-mpfrqkme`, and `d-14nyhnjz` has produced ZERO feedback records ever. The only zone recordings on `d-14nyhnjz` are Paul saying 'this is Paul testing.' Verified against /api/feedback 2026-07-28; Paul confirmed the reading the same day.",
     "whatThisInvalidates": "Every engagement number computed before 2026-07-28 attributed Paul's own app-opens to Mom and Mom's to nobody. The two figures that actually drove decisions — '0 launcher taps in nine days' and 'a carousel she declined 33/33' — are counts of the WRONG PERSON and do not reproduce. Do not cite any pre-2026-07-28 funnel verdict; re-derive it. Commit 5237293 changed Mom's surface on the strength of the 33/33 figure and is under review for that reason.",
     "attributionIsValidFrom": "FULLY valid 2026-07-28 onward; USABLE-WITH-A-CAVEAT from 2026-07-13. Two conditions previously made a deviceId unusable as a person. (1) Paul shared his phone with Mom — ENDED by his decision 2026-07-28 ('we're not gonna do that anymore'), so from that date a device is exactly one person. (2) Until 2026-07-16 every write path gated on per-device pairing, so an unpaired device wrote nothing and 'absent from the data' was indistinguishable from 'never showed up' — fixed 2026-07-16 by capture that works unpaired, plus the context.paired flag on each feedback record. The measurement window starts 2026-07-13 (Paul's call — her first confirm answer) because the contamination that mattered was per-DEVICE, not per-date, and the excludeFromEngagement drop removes it. The residual caveat, stated rather than hidden: between 07-13 and 07-27 a session on Mom's device could still have been Paul holding her phone, and nothing in the data can flag it. That biases toward over-crediting her slightly; the pairing gate biases the other way. Neither is correctable retroactively — which is exactly why 07-28 forward is the clean record.",
     "ifYouAreTemptedToReGuess": "Don't. The previous mapping was a confident inference from a toggle and an interview, and it was wrong for 26 days while reading as CONFIRMED. Attribute only from CONTENT the person demonstrably authored — a confirm answer, a written note, a recording of their voice — never from device activity shape.",
-    "channelCoverage": "WHICH CHANNELS CARRY A deviceId AT ALL (2026-07-30). Before this date only /api/feedback did — so this mapping, however correct, could never be applied to field notes or Garden Guru conversations, and 'was that Paul or Mom?' was unanswerable from the record for the two channels check-mom-ack.py flags most often. Fixed 2026-07-30: observations are stamped at ObservationStore.save() (the lowest write helper, so all four entry constructors and any future one inherit it, first-writer-wins on updates), and /api/chat now carries device_id which persistConversation stores stickily and /api/conversations returns. ⚠️ RECORDS WRITTEN BEFORE 2026-07-30 ON THOSE TWO CHANNELS HAVE NO DEVICE AND NEVER WILL — there is nothing to backfill from. For those, attribution is CONTENT-ONLY, which is the standing rule anyway: a deviceId makes attribution possible, it never asserts one."
+    "channelCoverage": "WHICH CHANNELS CARRY A deviceId AT ALL (2026-07-30). Before this date only /api/feedback did — so this mapping, however correct, could never be applied to field notes or Garden Guru conversations, and 'was that Paul or Mom?' was unanswerable from the record for the two channels check-mom-ack.py flags most often. Fixed 2026-07-30: observations are stamped at ObservationStore.save() (the lowest write helper, so all four entry constructors and any future one inherit it, first-writer-wins on updates), and /api/chat now carries device_id which persistConversation stores stickily and /api/conversations returns. ⚠️ RECORDS WRITTEN BEFORE 2026-07-30 ON THOSE TWO CHANNELS HAVE NO DEVICE AND NEVER WILL — there is nothing to backfill from. For those, attribution is CONTENT-ONLY, which is the standing rule anyway: a deviceId makes attribution possible, it never asserts one.",
+    "personId": "C5 2b (2026-09-03, Q3 ruled): `id` is the OPAQUE personId — a coordinate, not a label. `name` is the HANDLE this repo uses in prose and tool output; it is public-safe and never a real name. Under C6 the person supplies their own display name at setup and it lives in the account record, never here. Renaming the handle does not rename the id. The harness id is not a person and `momlib.person_for()` never resolves to it.",
+    "attribution": {
+      "fullyValidFrom": "2026-07-28",
+      "caveatWindow": {
+        "from": "2026-07-13",
+        "to": "2026-07-27"
+      },
+      "caveatResolvesTo": null,
+      "_why": "Machine-readable form of `attributionIsValidFrom` above, added for C5 1b so the resolver reads dates, not prose. Records dated before fullyValidFrom resolve to NO person (the caveat window resolves to null unless Paul rules otherwise — he has not). Identity is never applied backwards."
+    }
   },
   "people": [
     {
+      "id": "p-7f3a2c",
       "name": "paul",
       "deviceIds": [
         "d-avslqpyd-m72qxt1s-mpeuqnyg",
@@ -25,6 +36,7 @@
       "notes": "laptop (Mac, ttys session); iPhone Safari; and d-14nyhnjz — the builder/test device previously misattributed to Mom. `excludeFromEngagement` keeps builder-testing out of the funnel DETERMINISTICALLY, rather than depending on the localStorage flag tateTracker.metricsExclude (viewer.html:14878) being set on every browser Paul ever tests from. A flag that must be re-set per browser is a flag that will be missed."
     },
     {
+      "id": "p-harness-v1",
       "name": "telemetry-test",
       "deviceIds": [
         "d-telemetrytest-harness-v1"
@@ -34,6 +46,7 @@
       "notes": "SYNTHETIC. Not a person — the fixed deviceId the baseline telemetry walk runs under (added 2026-08-08, Paul-approved: 'as long as we're clear that this is a test run and that data doesn't pollute the rest of the data pool'). Set localStorage['tateTracker.deviceId'] = this value BEFORE walking, then walk the paths. WHY NOT the existing tateTracker.metricsExclude flag: it makes MetricsCollector.track() a no-op (viewer.html:16688) — nothing is buffered and nothing is sent — so it can prove nothing about whether an event lands. The test must RECORD to be a test; it must be SEGREGATED to be safe. Hence a real id that every analysis tool drops. `excludeFromEngagement` keeps it out of the funnel and analyze-fernwood exactly as it keeps Paul's builder devices out; `isTestHarness` is the stronger claim check-telemetry.py reads to keep 'we proved the wiring' apart from 'a human did this' — an event fired ONLY by this device is WIRED, not USED, and conflating those would turn a synthetic tap into evidence about a person. ⚠️ THE FENCE, rewritten 2026-09-03 (C4 3g) — it has TWO HALVES and only one ever dissolves. PROD HALF, PERMANENT: on fernwood.paul-kirschenbauer.workers.dev (and its predecessor tate-tracker.paul-kirschenbauer.workers.dev until that script is deleted, C4 4c) / palekxk.github.io (and the custom domain when it exists), paths that POST to /api/feedback (a card answer, a note, the ack 'Got it' receipt) are NOT safe to walk — they write into Mom's answer record, which no metrics exclusion covers. Walk metrics-only paths there, under this id, and never her device. QA HALF, DISSOLVED: on a .pages.dev origin (fernwood-qa.pages.dev → tate-tracker-qa, its OWN KV namespace) every path may be walked under this id, including POST /api/feedback, /api/zone-audio, card answers and the receipt tap — verified 2026-09-03 by tools/qa-write-probe.py (8/8: the write lands in QA, carries env=qa, and is ABSENT from prod under the prod token; read-mom-feedback --pickup and check-mom-ack unchanged). The probe REFUSES unless /health reads env=qa AND kv_canary=qa, so the QA half cannot be exercised against a mis-bound Worker. Re-run the probe after any Worker or wrangler.toml change before walking a write path on QA."
     },
     {
+      "id": "p-b91e4d",
       "name": "mom",
       "deviceIds": [
         "d-szqlt0h7-79xgx1bj-mpfrqkme"

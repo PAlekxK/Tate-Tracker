@@ -72,14 +72,14 @@ Guru digest).
 
 Each step: **who** · **reversible?** · **the deterministic check**. Existing tools first; new checks prove themselves by mutation.
 
-**1a · `personId` on every new record** — 🟡 **BUILT 2026-09-03, on `staging` for QA** — `declarePerson()` at the four write sites (feedback · zone-audio · zone-feedback · conversation first-write); `test-feedback-cycle.py --live` + `qa-write-probe.py` both assert the key. QA verdict + the prod read pending below. — agent · reversible (additive field) · the Worker stamps `personId: null` at
+**1a · `personId` on every new record** — ✅ **SHIPPED 2026-09-03 `d02d124`** — `declarePerson()` at the four write sites (feedback · zone-audio · zone-feedback · conversation first-write). QA first: Deploy QA green on `staging`, `qa-write-probe.py` **9/9** including the new *declares personId: null* check on a row read back from `fernwood-qa`. Then `main`: Deploy Worker green, prod `/health` ok · production · all secrets. `test-feedback-cycle.py` offline suite green; its `--live` leg gained the same assertion and is **Paul's to run** (a prod write). ⏳ **One check waits on the world:** the next real prod record (Mom's or Paul's, via `GET /api/feedback`) carries `personId: null`. — agent · reversible (additive field) · the Worker stamps `personId: null` at
 its lowest write helper for feedback, zone-audio, zone-feedback and conversations. **Null is declared, never absent**: an
 absent field means *pre-step record*, a null means *written after the field existed and nobody could say* — different
 observations, kept different. No handler reads a person from the request (there is no credential until C6). Check:
 `python3 tools/test-feedback-cycle.py` CAPTURE leg asserts the stored record carries the key; `bash tools/deploy-worker.sh`
 `/health` OK; the next real record on prod (Mom's or Paul's, read via `GET /api/feedback`) carries `personId: null`.
 `--live` is **Paul's** to run — it is a prod write.
-**1b · The resolver, with the boundary built in** — agent · reversible · `momlib.person_for(record)` maps `deviceId` →
+**1b · The resolver, with the boundary built in** — ✅ **DONE 2026-09-03** — `momlib.attribute(record)` → `{personId, reason}` and `momlib.person_for(record)`; reads `_meta.attribution` (dates as DATA, added in 2b), resolves only on/after `fullyValidFrom` 2026-07-28, the caveat window → `caveatResolvesTo` (null), earlier → None, harness → None, undated → None. `test-feedback-cycle.py` gained an ATTRIBUTE leg, **10/10**; `git grep -l personId -- tools worker` = momlib · people.json · the two tests · worker.js (declaring files only). — agent · reversible · `momlib.person_for(record)` maps `deviceId` →
 `people[].id` **only for records dated on/after `_meta.attributionIsValidFrom`'s fully-valid date**; earlier → `None` with
 the reason string from `_meta`; the caveat window (07-13 → 07-27) → `None` unless Paul rules otherwise (Q3 of the seat's §8).
 It is the **only** writer of a non-null person anywhere. Check: a new ATTRIBUTE leg in `test-feedback-cycle.py` — a fixture
@@ -90,7 +90,7 @@ personId -- tools worker` lists the declaring files only.
 control first: with the file present and **no** `NON_DOMAINS` row, `python3 tools/check-domains.py` must **fail** (the
 undeclared sweep); add the row with a reason; it exits 0. Then `python3 tools/check-vocabulary.py` exit 0 (V1: no
 `propertyId`; V5: `location` not minted); `git grep -l estateId` = the declaring files only.
-**2b · `personId` promoted in the register** — agent · reversible · `tools/people.json` `people[].id` beside `name`
+**2b · `personId` promoted in the register** — ✅ **DONE 2026-09-03, pulled forward because 1b reads `id`** — `people[].id` is OPAQUE per Q3 (`p-7f3a2c` paul · `p-b91e4d` mom · `p-harness-v1` harness); `name` stays the public-safe HANDLE; `_meta.personId` states the rule, `_meta.attribution` carries `fullyValidFrom` + `caveatWindow` as fields. `check-vocabulary.py` clean; every register reader still runs (`check-telemetry.py`'s exit 1 is its own pre-existing finding, measured against a stash). — agent · reversible · `tools/people.json` `people[].id` beside `name`
 (`paul`, the handle for Mom — Q3, `telemetry-test`); no real name enters a tracked file. Check: `check-vocabulary.py` exit 0;
 1b's leg reads `id`, not `name`.
 **2c · The grant register** — agent · reversible · **after C4 1b**: `grants.json` in the private sibling — one row

@@ -972,6 +972,97 @@ def _drop_harness(recs):
 _BENCH_IDS = None
 
 
+# ---- Person resolution (C5 1b, 2026-09-03) --------------------------------
+# THE ONLY WRITER OF A NON-NULL PERSON ANYWHERE. The Worker declares
+# `personId: null` on every new record (C5 1a) and never reads a person from a
+# request — there is no credential until C6. This function is where a deviceId
+# MAY become a person, and only under the register's own validity rule.
+_PEOPLE = None
+
+
+def _people():
+    """`tools/people.json` parsed once: (list of people, _meta). Fails closed —
+    an absent or broken register resolves nobody."""
+    global _PEOPLE
+    if _PEOPLE is None:
+        try:
+            with open(os.path.join(HERE, "people.json"), encoding="utf-8") as fh:
+                d = json.load(fh)
+            _PEOPLE = (d.get("people") or [], d.get("_meta") or {})
+        except (OSError, ValueError):
+            _PEOPLE = ([], {})
+    return _PEOPLE
+
+
+# The record fields that carry "when was this written", per channel. First hit wins.
+_RECORD_DATE_KEYS = ("ts", "createdAt", "uploadedAt", "recordedAt", "startedAt")
+
+
+def _record_date(record):
+    for k in _RECORD_DATE_KEYS:
+        v = record.get(k) if isinstance(record, dict) else None
+        if isinstance(v, str) and len(v) >= 10:
+            return v[:10]
+    return None
+
+
+def attribute(record):
+    """Resolve a stored record to a person, WITH the reason — the explainable form.
+
+    Returns ``{"personId": <id or None>, "reason": <str>}``.
+
+    Rules, all from `tools/people.json` `_meta.attribution` (data, not prose):
+      · no deviceId on the record          → None ("no device on the record")
+      · device not registered               → None
+      · device is the test harness          → None (not a person; `is_instrumentation` owns it)
+      · record has no date                  → None (validity cannot be judged)
+      · dated before `fullyValidFrom`       → None — inside the caveat window (07-13 → 07-27)
+                                              it resolves to `caveatResolvesTo` (null; Paul has
+                                              not ruled otherwise), before it to None outright.
+                                              ⚠️ Identity is NEVER applied backwards.
+      · dated on/after `fullyValidFrom`     → the person's opaque `id`
+
+    A deviceId is a browser bucket, not a person: this makes attribution
+    POSSIBLE under Paul's own validity rule; it does not make the record's
+    `personId` field true retroactively, and it never touches the store.
+    """
+    people, meta = _people()
+    att = meta.get("attribution") or {}
+    valid_from = att.get("fullyValidFrom")
+    window = att.get("caveatWindow") or {}
+    if not isinstance(record, dict) or not record.get("deviceId"):
+        return {"personId": None, "reason": "no device on the record"}
+    dev = record["deviceId"]
+    hit = next((p for p in people if dev in (p.get("deviceIds") or [])), None)
+    if hit is None:
+        return {"personId": None, "reason": "device %s is not registered" % dev}
+    if hit.get("isTestHarness"):
+        return {"personId": None, "reason": "device is the test harness, not a person"}
+    if not valid_from:
+        return {"personId": None, "reason": "register declares no fullyValidFrom; resolving nobody"}
+    day = _record_date(record)
+    if day is None:
+        return {"personId": None, "reason": "record carries no date; validity cannot be judged"}
+    if day >= valid_from:
+        note = ""
+        if dev in (hit.get("assumedNotVerified") or {}):
+            note = " (device mapping is an ASSUMPTION Paul accepted, not established from content)"
+        return {"personId": hit.get("id"), "reason": "device registered to %s; dated %s ≥ %s%s"
+                % (hit.get("name"), day, valid_from, note)}
+    if window.get("from") and window["from"] <= day <= (window.get("to") or valid_from):
+        return {"personId": att.get("caveatResolvesTo"),
+                "reason": "dated %s, inside the caveat window %s → %s (a session on this device could "
+                          "still have been the other person); resolves to %r per the register"
+                          % (day, window["from"], window.get("to"), att.get("caveatResolvesTo"))}
+    return {"personId": None, "reason": "dated %s, before %s — identity is not applied backwards"
+            % (day, valid_from)}
+
+
+def person_for(record):
+    """The opaque personId a stored record resolves to, or None. See `attribute()`."""
+    return attribute(record)["personId"]
+
+
 def bench_device_ids():
     """Devices PAUL HIMSELF registered as his own bench/builder devices —
     `excludeFromEngagement: true` in `tools/people.json`, minus the harness ids,

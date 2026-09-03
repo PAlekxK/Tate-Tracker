@@ -185,6 +185,42 @@ def offline_suite():
           wm5 == newer, f"stamped {wm5}, expected {newer}")
 
 
+def attribute_suite():
+    """C5 1b — the resolver is the ONLY writer of a non-null person, and it
+    honours the register's validity rule: identity is never applied backwards."""
+    print("\n── ATTRIBUTE: deviceId → person, under the register's own rule ──\n")
+    momlib._PEOPLE = None
+    people = {p["name"]: p for p in momlib._people()[0]}
+    mom_dev = people["mom"]["deviceIds"][0]
+    paul_dev = people["paul"]["deviceIds"][0]
+    harness = people["telemetry-test"]["deviceIds"][0]
+    check("ATTRIBUTE  every person in the register carries an opaque `id` (C5 2b)",
+          all(isinstance(p.get("id"), str) and p["id"].startswith("p-") and p["id"] != p["name"]
+              for p in people.values()), str({n: p.get("id") for n, p in people.items()}))
+    before = {"id": "fb-x1", "ts": "2026-07-01T12:00:00Z", "deviceId": mom_dev, "note": "x"}
+    caveat = {"id": "fb-x2", "ts": "2026-07-20T12:00:00Z", "deviceId": mom_dev, "note": "x"}
+    after = {"id": "fb-x3", "ts": "2026-08-01T12:00:00Z", "deviceId": mom_dev, "note": "x"}
+    check("ATTRIBUTE  a 2026-07-01 record on a registered device resolves to None",
+          momlib.person_for(before) is None, momlib.attribute(before)["reason"])
+    check("ATTRIBUTE  a record inside the caveat window (07-13 → 07-27) resolves to None",
+          momlib.person_for(caveat) is None, momlib.attribute(caveat)["reason"])
+    check("ATTRIBUTE  a 2026-08-01 record resolves to the person's `id`, not the handle",
+          momlib.person_for(after) == people["mom"]["id"], momlib.attribute(after)["reason"])
+    check("ATTRIBUTE  Paul's device resolves to Paul's id, never Mom's",
+          momlib.person_for({**after, "deviceId": paul_dev}) == people["paul"]["id"])
+    check("ATTRIBUTE  the test harness is not a person",
+          momlib.person_for({**after, "deviceId": harness}) is None)
+    check("ATTRIBUTE  no deviceId → None (pre-07-30 channels have nothing to resolve from)",
+          momlib.person_for({"id": "fb-x4", "ts": "2026-08-01T12:00:00Z"}) is None)
+    check("ATTRIBUTE  an undated record on a registered device → None (validity cannot be judged)",
+          momlib.person_for({"id": "fb-x5", "deviceId": mom_dev}) is None)
+    check("ATTRIBUTE  a zone-feedback row (createdAt) and a conversation (startedAt) resolve too",
+          momlib.person_for({"createdAt": "2026-08-01T00:00:00Z", "deviceId": mom_dev}) == people["mom"]["id"]
+          and momlib.person_for({"startedAt": "2026-08-01T00:00:00Z", "deviceId": mom_dev}) == people["mom"]["id"])
+    check("ATTRIBUTE  the resolver never writes — the record is unchanged after resolution",
+          "personId" not in after)
+
+
 def entity_map_suite():
     """8 · RESOLVE — one map, and the one duplicate the language forces.
 
@@ -550,6 +586,7 @@ def main():
 
     print("Feedback-cycle self-test — capture is not a loop; every leg is asserted.")
     offline_suite()
+    attribute_suite()
     entity_map_suite()
     ribbon_suite()
     draft_suite()
