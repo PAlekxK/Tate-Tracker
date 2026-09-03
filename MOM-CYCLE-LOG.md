@@ -12,6 +12,13 @@ amended mid-lap.
 ---
 
 <!-- meta-lap: 2026-09-02 -->
+<!-- meta-lap: 2026-09-03 -->
+> **2026-09-03 — META, not a lap.** The repo moved 80+ commits today and this loop did not run: the second
+> backlog rationalization was applied, the readiness mechanism was built (`check-backlog-ready.py`), five plans
+> were drafted through it, C4 (environments · repo structure · the rename to Fernwood) was stamped and its first
+> four steps ran — the unpushed range was rewritten to move third-party scoping into `fernwood-private`, then
+> pushed and live-verified. Nothing on Mom's surface changed; `check-mom-ack.py` was silent after the push.
+> The Guru's stale elevation (2,959 → 2,873 ft) was fixed and deployed the same day.
 > **2026-09-02 — META WORK, NOT A LAP.** The repo moved 13 commits today and **no lap of this loop
 > ran.** The work was the estate product (Fernwood as one instance of many), the data model, the
 > governance model, a backlog-rationalization trigger, and a new expert seat — loop *machinery* and

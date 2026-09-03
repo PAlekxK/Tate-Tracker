@@ -124,6 +124,16 @@ release cycle wearing the loop's clothes, and it spends her attention to do it.
 nothing here.** It answers *"is a backlog rationalization owed?"* and the answer is never a reason to
 open a lap.
 
+`tools/check-backlog-ready.py` joined the same block on 2026-09-03 `[paul-approved]`. It is the READINESS
+check — does every backlog row that CLAIMS to be ready (a `→ READY · .plans/…-PLAN.md` pointer) have the
+trail behind it: seat citations that exist and predate the plan, a resolvable objective id, the four plan
+sections, a stamp before any stage past `ready`, a `## Retro` at `shipped`, declared dependencies older
+than the plan, and at most one item between `concept` and `qa` without a declared exception. **Silent at
+zero**: it grades only rows that claim readiness, so it can never be a permanently-red control. Like the
+drift check it is a pickup-time detector, never a beat, and it does not fire a lap — grooming is not the
+loop, and the loop's own releases (a fold, a ribbon, a card) carry no plan file by ruling
+(`.plans/2026-09-03-c4-process-PROPOSAL.md` Q3). Spec: `.plans/2026-09-03-backlog-readiness-PROPOSAL.md`.
+
 It is recorded **in this section, beside the trigger rule**, precisely because it is the kind of
 thing that would otherwise be mistaken for one later. The blockquote above says *"not a schedule, not
 a **backlog**"* — a rationalization beat hung off leg 7 would have made that sentence false by
