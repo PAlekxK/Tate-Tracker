@@ -431,6 +431,32 @@ calendar that binds them. Whereas *vehicles* maps cleanly to one domain, and *to
 declaration's shape.** ⚠️ Do not settle it by picking whichever is convenient when the code is
 written — a bundle chosen implicitly is how a second vocabulary starts.
 
+### 🧭 THE SETUP JOURNEY — invite → account → profile → devices joined `[paul-stated 2026-09-03]` — CAPTURE ONLY
+
+Raised while ruling C5 Q3 (Mom's `personId`). Verbatim: *"we need to have within the journey a set-up phase and allow
+people to set their own name — they'll get some kind of invite, set up an account, and that will include setting up
+their profile and providing their name, and it's on us to then use that name to track feedback in that account instead
+of the device ID. And I also hope we can streamline the syncing issue — that's kind of manual now — to sync devices into
+this account. That's a bigger thing to step back and look at and make sure we have well described."*
+
+**Four things it asks for, kept separate:** ① an **invite** as the entry act · ② an **account** the person sets up,
+with a **profile** and a **self-supplied name** · ③ feedback and observations keyed to the **account**, not `deviceId` ·
+④ **devices join the account** in place of today's manual per-device pairing (`sync.v1` token pasted by hand; M3's
+text-size sync is the same wound).
+
+⚠️ **THIS COLLIDES WITH THE ACTIVATION MODEL BELOW, and the collision is Paul's to resolve, not this file's.** The
+user-researcher's model (next section) holds: *recognized, never registered* · the minimum a person supplies is ZERO ·
+a display name is *habit, and at Fernwood harmful* · Mom's retrofit is *no visible change*. What survives both
+readings: the invite IS the grant authored by someone with a relationship (①); the id stays minted and opaque, the name
+is data in the account record — **so the public-git objection dissolves if the name never enters a tracked file** (②);
+account-keyed attribution is the seat's own *"binding is a declaration"* (③, ④). What does not survive both: **does Mom
+go through the setup phase, or is her retrofit the exception?** — a name she types is *③'s step in ②'s journey* by the
+seat's own words. **Also unresolved:** what "account" means with no email and no phone (both ruled to have no job).
+
+**Next:** a user-researcher journey + engineering seat, groomed as its own item (queued in
+`.plans/2026-09-03-grooming-queue.md` for the next batch). Touches C5 1b (the resolver), C6 (entry, binding, M3) and
+the data-model §2 rules. ⛔ Nothing here is built or decided; C5's stamp does not wait on it.
+
 ### 🚪 ACTIVATION — nobody signs up `[user-researcher, 2026-09-02]`
 
 ⭐⭐ **The reframe, and it changes all four journeys:** read the settled model literally and **a grant

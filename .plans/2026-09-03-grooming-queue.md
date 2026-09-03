@@ -32,6 +32,12 @@ looking at something else · the objective trace's coverage (if everything cites
 O1, that is a finding about the backlog) · whether the default-seats table produces all-waivers or
 all-reviews across n=5 (the readiness proposal's §5 question, now answerable).
 
+## Next batch — queued, not groomed
+
+| # | item | row | objective | class | seats | depends on | state |
+|---|---|---|---|---|---|---|---|
+| 5 | The setup journey — invite → account → profile → devices joined `[paul-stated 2026-09-03]` | `PRODUCT-ENGINE.md` § THE SETUP JOURNEY | O3 | engine · declared | user-researcher (the four journeys, re-read against a setup phase) · engineering-partner (account record, device binding, the sync path) · practice-steward if the invite becomes a governed act | C5 (1b) · C6 | **captured** — collides with § ACTIVATION; Paul resolves the collision before seats run |
+
 ## Closing note — the batch CLOSED 2026-09-03: five plans drafted, zero stamped, check silent across all five
 
 **The three pre-registered questions, answered from the files (not from memory):**

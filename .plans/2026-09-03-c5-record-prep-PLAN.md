@@ -226,6 +226,25 @@ the plan is wrong and the step stops.
 
 ## Open before stamping
 
+> **✅ RULED 2026-09-03 `[paul-stated]` — Q1 · Q2 · Q3 · Q4. Three remain (Q5 · Q6 · Q7).**
+> - **Q1 → B, the named bundle.** *"bundle makes sense."*
+> - **Q2 → `fernwood`, and the id may be a record, not a bare string.** *"if estateId needs a dict or something with
+>   both the human and data ids that's fine by me."* So: an opaque data id **plus** a human handle, both recorded, the
+>   coordinate-not-label rule attached to the data id.
+> - **Q3 → opaque `personId`; the display name is SUPPLIED BY THE PERSON at setup and lives in the account record, never
+>   in a tracked file.** Paul widened this into a journey statement: *"we need to have within the journey a set-up phase
+>   and allow people to set their own name — they'll get some kind of invite, set up an account, and that will include
+>   setting up their profile and providing their name, and it's on us to then use that name to track feedback in that
+>   account instead of the device ID. And I also hope we can streamline the syncing issue — that's kind of manual now —
+>   to sync devices into this account. That's a bigger thing to step back and look at and make sure we have well
+>   described."* Captured as its own item: `PRODUCT-ENGINE.md` § THE SETUP JOURNEY; ⚠️ it collides with the
+>   user-researcher's ACTIVATION model (*"recognized, never registered"*; *"display name is habit"*) and that collision
+>   is surfaced there, not resolved here. **For THIS plan:** step 1b's resolver mints the opaque id; the caveat-window
+>   (07-13 → 07-27) records resolve to **null** — identity is not applied backwards.
+> - **Q4 → canon wins.** *"let's go with the canon that we established and align everything to that."* 4c's `--fix`
+>   direction is canon → consts; the P5 count follows.
+
+
 1. **Q1 The module UNIT** — domain (A) or named bundle (B). The seat recommends **B** on one measurement: `turf` is not
    in `momlib.DOMAINS` and *is* a real inlined const, so *"garden off"* under A leaves turf rendering; A also reopens
    VOCABULARY §3's ratified `module`. Paul's call; 3a cannot start without it.
