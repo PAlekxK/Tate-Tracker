@@ -8,7 +8,7 @@
          ux-expert → waived: nothing Mom sees changes except a forwarding page, covered in ## QA
          content-steward → waived: no copy reaches anyone; the engine's name is deferred to its own item
 - ready: [paul-approved 2026-09-03]
-- stage: ready
+- stage: build
 
 Drafted by the planning agent 2026-09-03 from the row, its eight rulings (decided, not re-argued here),
 both seat trails, the data-model design §3/§5/§8, `OBJECTIVES.md` and `VOCABULARY.md` §3d/§4.
@@ -60,9 +60,9 @@ callers (`fold-answer.py`, `check-data-inline.py --fix`, `wire-*.py`), `worker/w
 
 Each step: **who** · **reversible?** · **the deterministic check**. Existing tools first.
 
-**1a · Fresh bundle** — agent · — · `git bundle create ~/Developer/_bundles/Tate-Tracker-2026-09-03-pre-rewrite-2.bundle --all
+**1a · Fresh bundle** — ✅ DONE 2026-09-03 (`…-pre-rewrite-2.bundle`, main = HEAD `b7c7ccc`, verified) · agent · — · `git bundle create ~/Developer/_bundles/Tate-Tracker-2026-09-03-pre-rewrite-2.bundle --all
 && git bundle verify …-2.bundle` prints "complete history" and `refs/heads/main` = `git rev-parse HEAD`.
-**1b · The sibling** — agent · reversible (delete the dir) · `git clone --no-local ~/Developer/Tate-Tracker
+**1b · The sibling** — ✅ DONE 2026-09-03 (`~/Developer/fernwood-private`: 11 files, 13 commits of history, no remote; `NEVER_PUBLIC` registered, selftest passes; `/encrypted-backup` still owed) · agent · reversible (delete the dir) · `git clone --no-local ~/Developer/Tate-Tracker
 ~/Developer/fernwood-private && cd ~/Developer/fernwood-private && git remote remove origin && git filter-repo
 --path <each of the 11>` (keeps only those paths, with history). Register `fernwood-private` in `NEVER_PUBLIC`.
 Checks: `git -C ~/Developer/fernwood-private remote -v` prints nothing; `git -C … log --oneline --
