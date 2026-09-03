@@ -2082,8 +2082,8 @@ record will be the first `.plans/*-PLAN.md`**, so §5 of the readiness proposal 
 | private tier | **743 MB** in `.private/`, gitignored, one laptop |
 | sibling Tate repos | `tate-commons`, `tate-dam-committee`: **no remote at all** |
 
-⛔ **The push is HELD on this row** until the topology ruling says where third-party scoping material
-lives. Not on her name (ruled publishable 2026-09-02), not on the code.
+✅ **The push hold was RELEASED 2026-09-03** — third-party scoping material moved to `fernwood-private` and the
+unpushed range was rewritten (C4 1c) before the push (C4 1d).
 
 **The rename — `Tate-Tracker` → `Fernwood-Tracker` — five layers, measured** `[2026-09-03]`. The
 2026-05-19 rename stopped at the app; *"a clear reason"* has now emerged: Tate Commons and the Tate Dam
@@ -2103,8 +2103,8 @@ migration in the same push → internal variable names last, or never.
 
 → READY · .plans/2026-09-03-c4-environments-PLAN.md — ✅ **READY `[paul-approved 2026-09-03]` — the first item through the
 mechanism, stamped.** All eight questions ruled; ⭐ **the apex is `myhome.place`** — family doors beneath it; her icon stays
-"Fernwood Tracker". Next: step 1a (a fresh bundle) → 1b (the private sibling) → 1c (the rewrite, with Paul's read of the
-added Bob lines) → 1d the PUSH at Paul's gate.
+"Fernwood Tracker". Steps 1a–1d ✅ DONE 2026-09-03 — bundle · sibling · rewrite (three passes, verified) · PUSH (live-verified).
+**The push hold is released.** Next: 3a the QA Worker; the sibling's `/encrypted-backup` is owed.
 
 ### ✅ RULED 2026-09-03 `[paul-approved]` — both seats ran; the plan file is next
 

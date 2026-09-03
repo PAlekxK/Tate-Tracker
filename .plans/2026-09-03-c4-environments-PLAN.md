@@ -95,7 +95,7 @@ is a file that carries them; the `-` lines that remove already-public content ar
 PRODUCT-ENGINE.md` = 1 (the forward fix still reads "Bob"); `git grep -n -i -w bob HEAD -- PRODUCT-ENGINE.md
 BACKLOG.md CLAUDE.md VOCABULARY.md` printed in full and read by Paul; `python3 tools/check-backlog-ready.py`
 silent; the 12 `--selftest` tools pass; `python3 tools/check-vocabulary.py` exit 0.
-**1d · PUSH** — **Paul's gate** · ⛔ **not reversible** · pre: `python3 tools/guard-concurrent.py before-push`; the
+**1d · PUSH** — ✅ DONE 2026-09-03 `[paul-stated: "Push"]` — 79 commits fast-forwarded onto six bot commits; `check-live.py --wait 180` all five assets match HEAD; `check-mom-ack.py` silent; origin holds no surname and none of the 11 files · **Paul's gate** · ⛔ **not reversible** · pre: `python3 tools/guard-concurrent.py before-push`; the
 push hook runs. Post: `python3 tools/check-live.py --wait 180` exit 0 (expected byte-identical — the range
 touches no served asset, so leg 6c PROXY is waived *with that reason*); `python3 tools/check-mom-ack.py` exit 0.
 **3a · `[env.qa]` Worker** — agent · reversible (`wrangler delete --env qa`) · `wrangler kv namespace create OBSERVATIONS
