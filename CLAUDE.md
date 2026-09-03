@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 python3 tools/check-domains.py             # does every domain still conform to the ONE manifest?
 python3 tools/check-data-inline.py         # viewer.html inlines vs source JSON
+python3 tools/check-config-derivation.py  # canon values TYPED into engine code (C5 4b) — 34.5496 · 2,873 · 10, 17
 python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
 python3 tools/check-cards.py               # does the SERVED card queue match reality?

@@ -6,6 +6,9 @@ observer, then solves when the sun's upper limb actually clears/leaves that
 skyline -- and compares it to the flat-horizon sunset the dashboard uses today.
 """
 import math, struct, json, sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402 — canon values derive, never re-typed (C5 4a)
 
 TILE = "N34W085.hgt"
 N = 3601                      # 1-arcsec tile
@@ -165,7 +168,7 @@ def hhmm(m):
 
 if __name__ == "__main__":
     SITES = {
-        "House (Fernwood)": (34.5496, -84.3674),
+        "House (Fernwood)": (momlib.config("location.coordinates.latitude"), momlib.config("location.coordinates.longitude")),
     }
     if len(sys.argv) > 2:
         SITES = {sys.argv[3] if len(sys.argv) > 3 else "site":

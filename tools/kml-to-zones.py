@@ -48,7 +48,7 @@ ZONES = REPO / "zones.json"
 
 KML_NS = {"k": "http://www.opengis.net/kml/2.2"}
 
-# Property envelope. The anchor is 34.5496 N, -84.3674 W; +/-0.02 deg is ~1.4 mi,
+# Property envelope. The anchor is property.json `location.coordinates`; +/-0.02 deg is ~1.4 mi,
 # far wider than the property and far narrower than a wrong-place or swapped-axis
 # mistake. This is the guard that catches [lat, lon] order, the documented footgun
 # in this schema (_meta.vertexOrder).

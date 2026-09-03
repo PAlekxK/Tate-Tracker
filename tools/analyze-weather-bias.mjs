@@ -27,7 +27,9 @@ const ROOT = path.resolve(__dirname, "..");
 const HISTORY_FILE = path.join(ROOT, "weather-history.json");
 const BIAS_FILE = path.join(ROOT, "weather-bias.json");
 const TZ = "America/New_York";
-const LAT = 34.5496, LON = -84.3674;
+// C5 4a — coordinates derive from canon, never re-typed.
+const __prop = JSON.parse((await import("fs")).readFileSync(path.join(ROOT, "property.json"), "utf8"));
+const LAT = __prop.location.coordinates.latitude, LON = __prop.location.coordinates.longitude;
 
 // Station days with fewer than this many 5-min records are partial (install
 // gaps, outages) and excluded so the comparison is apples-to-apples.

@@ -47,7 +47,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 
 # --- provisional thresholds (lap 1 re-cadences all of these) ---------------
-FROST_MONTH, FROST_DAY = 10, 17     # first frost at Tate, from the record
+sys.path.insert(0, HERE)
+import momlib  # noqa: E402
+# C5 4a — DERIVED from canon, parsed once. This line was `= 10, 17`, typed beside a
+# property.json that says "October 17": the founding config leak the data-model design
+# named. The value moved once already (Oct 20 → Oct 17) and this tool did not follow.
+FROST_MONTH, FROST_DAY = momlib.parse_month_day(
+    momlib.config("frostDates.atPropertyElevation.firstFall_50pct"))
 FROST_WINDOW_DAYS = 45              # start nagging this far out — parts have lead time
 STALE_OPEN_DAYS = 60                # an open physical check older than this
 

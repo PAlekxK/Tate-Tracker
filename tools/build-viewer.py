@@ -217,7 +217,8 @@ def selftest():
         inst = os.path.join(d, "instance"); os.makedirs(inst)
         for f, *_ in roster():
             os.symlink(os.path.join(ROOT, f), os.path.join(d, f))
-        os.symlink(os.path.join(ROOT, "property.json"), os.path.join(d, "property.json"))
+        if not os.path.exists(os.path.join(d, "property.json")):   # rostered since C5 4c
+            os.symlink(os.path.join(ROOT, "property.json"), os.path.join(d, "property.json"))
         os.symlink(os.path.join(ROOT, "estate.json"), os.path.join(d, "estate.json"))
         cfg = json.load(open(DEFAULT_INSTANCE)); cfg["canon"] = ".."
         cfg_path = os.path.join(inst, "x.json"); json.dump(cfg, open(cfg_path, "w"))

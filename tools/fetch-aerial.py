@@ -11,7 +11,7 @@ Tile source: https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery
 Public access; personal/non-commercial use is fine. The tiles are sourced from
 Maxar, USDA NAIP, and regional providers depending on coverage.
 
-Property anchor: 34.5496 N, 84.3674 W (from property.json).
+Property anchor: read from property.json `location.coordinates` (never re-typed here).
 """
 import math
 import os
@@ -21,9 +21,11 @@ import urllib.request
 import urllib.error
 from io import BytesIO
 from PIL import Image, ImageDraw
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402 — canon values derive, never re-typed (C5 4a)
 
-PROPERTY_LAT = 34.5496
-PROPERTY_LON = -84.3674
+PROPERTY_LAT = momlib.config("location.coordinates.latitude")
+PROPERTY_LON = momlib.config("location.coordinates.longitude")
 TILE_SIZE = 256
 
 SOURCES = {

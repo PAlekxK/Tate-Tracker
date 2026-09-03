@@ -34,9 +34,12 @@ import os
 import sys
 import urllib.parse
 import urllib.request
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402 — canon values derive, never re-typed (C5 4a)
 
-PROPERTY_LAT = 34.5496
-PROPERTY_LON = -84.3674
+PROPERTY_LAT = momlib.config("location.coordinates.latitude")
+PROPERTY_LON = momlib.config("location.coordinates.longitude")
+ELEV_FT = momlib.config("location.elevation.estimated_ft")
 
 # The leaf-off capture over this quarter-quad. NAIP aims for growing season, so a
 # leaf-off frame is luck, not policy — 2022-01-10 is the one this quad has.
@@ -124,7 +127,7 @@ def sun_and_season(capture_date):
               "transitional")
     return {
         "season": season,
-        "seasonBasis": "month at ~2,873 ft Blue Ridge; Apr/Nov are mixed and read transitional",
+        "seasonBasis": f"month at ~{ELEV_FT:,} ft Blue Ridge; Apr/Nov are mixed and read transitional",
         "noonSunAltitudeDeg": round(alt, 1),
         "shadowLengthPerUnitHeight": round(1 / math.tan(math.radians(alt)), 2),
         "shadowNote": "shadow = height / tan(altitude). Higher is better for tracing edges.",

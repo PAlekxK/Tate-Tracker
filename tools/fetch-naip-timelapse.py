@@ -20,9 +20,11 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402 — canon values derive, never re-typed (C5 4a)
 
-PROPERTY_LAT = 34.5496
-PROPERTY_LON = -84.3674
+PROPERTY_LAT = momlib.config("location.coordinates.latitude")
+PROPERTY_LON = momlib.config("location.coordinates.longitude")
 
 STAC_URL = "https://planetarycomputer.microsoft.com/api/stac/v1/search"
 DATA_BASE = "https://planetarycomputer.microsoft.com/api/data/v1/item/bbox/{bbox}.png"

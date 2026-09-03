@@ -50,14 +50,16 @@ import subprocess
 import sys
 from pathlib import Path
 from xml.sax.saxutils import escape
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402 — canon values derive, never re-typed (C5 4a)
 
 REPO = Path(__file__).resolve().parent.parent
 ZONES = REPO / "zones.json"
 DEFAULT_OUT = REPO / "exports" / "fernwood-zones.kml"
 
 # Property anchor (property.json, confirmed via Google Maps May 2026).
-ANCHOR_LAT = 34.5496
-ANCHOR_LON = -84.3674
+ANCHOR_LAT = momlib.config("location.coordinates.latitude")
+ANCHOR_LON = momlib.config("location.coordinates.longitude")
 
 TYPE_ORDER = ["turf", "planted", "structure"]
 

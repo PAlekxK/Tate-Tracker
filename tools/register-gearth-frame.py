@@ -39,6 +39,9 @@ from __future__ import annotations
 import argparse, json, math, sys
 from pathlib import Path
 from PIL import Image
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402 — canon values derive, never re-typed (C5 4a)
 
 REPO = Path(__file__).resolve().parent.parent
 REF_BND = REPO / "images/property-map/base-naip-2022-01-leafoff.bounds.json"
@@ -163,7 +166,7 @@ def main() -> int:
     cw = min(own["east"], ref_b["east"]) - max(own["west"], ref_b["west"])
     chh = min(own["north"], ref_b["north"]) - max(own["south"], ref_b["south"])
     cov = max(0.0, cw) * max(0.0, chh) / (fw * fh)
-    span_m = (own["east"] - own["west"]) * 111320 * math.cos(math.radians(34.5496))
+    span_m = (own["east"] - own["west"]) * 111320 * math.cos(math.radians(momlib.config("location.coordinates.latitude")))
     print(f"native     {W}x{H} px over {span_m:.0f} m  ->  {span_m/W:.3f} m/px "
           f"({0.6/(span_m/W):.1f}x NAIP)")
     print(f"coverage   {cov*100:.1f}% of the traced frame — it is a WINDOW, positioned by "

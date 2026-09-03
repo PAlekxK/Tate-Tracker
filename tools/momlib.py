@@ -270,6 +270,49 @@ EntitySource = Domain
 ENTITY_SOURCES = {t: d for t, d in DOMAINS.items() if d.cardable}
 
 
+# ---- Canon config accessor (C5 4a, 2026-09-03) --------------------------------
+_PROPERTY = None
+MONTHS = ("january", "february", "march", "april", "may", "june", "july",
+          "august", "september", "october", "november", "december")
+
+
+def config(path, root=None):
+    """Read ONE value out of canon (`property.json`; later the instance file) by
+    dotted path — `config("frostDates.atPropertyElevation.firstFall_50pct")`.
+
+    RAISES KeyError on a missing path. Never a default: a default is a typed
+    literal wearing a disguise, and the founding leak (`FROST_MONTH, FROST_DAY =
+    10, 17` in fleet_probe.py, beside canon saying "October 17") is exactly what a
+    default would have re-created. List indices are `[n]`.
+    """
+    global _PROPERTY
+    if root is None and _PROPERTY is not None:
+        node = _PROPERTY
+    else:
+        with open(os.path.join(root or ROOT, "property.json"), encoding="utf-8") as fh:
+            node = json.load(fh)
+        if root is None:
+            _PROPERTY = node
+    for part in re.findall(r"[^.\[\]]+|\[\d+\]", path):
+        try:
+            if part.startswith("["):
+                node = node[int(part[1:-1])]
+            else:
+                node = node[part]
+        except (KeyError, IndexError, TypeError):
+            raise KeyError("property.json has no value at %r (failed at %r)" % (path, part))
+    return node
+
+
+def parse_month_day(text):
+    """`"October 17"` → (10, 17). Canon writes frost dates as words, tools want
+    numbers; the parse happens once, here, so no tool re-types the pair."""
+    m = re.match(r"\s*([A-Za-z]+)\s+(\d{1,2})\s*$", str(text))
+    if not m or m.group(1).lower() not in MONTHS:
+        raise ValueError("not a 'Month D' date: %r" % (text,))
+    return MONTHS.index(m.group(1).lower()) + 1, int(m.group(2))
+
+
 # ⭐ THE MODULE DECLARATION (C5 3a, 2026-09-03 — Q1 ruled unit B, the named bundle).
 #
 # A module is a NAMED BUNDLE of domains that an estate switches on or off as ONE

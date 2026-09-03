@@ -86,7 +86,23 @@ SOURCES = [
     # runtime, so this const IS the app for that domain — the usual case, not the
     # exception (17 of 21 JSONs work this way).
     ("insects.json",    "INSECTS_DATA",    "species",  "insects"),
+    # C5 4c (2026-09-03, Q4 → canon wins): WHOLE-DOCUMENT rows — no list key, so the
+    # id-set compare is vacuous and deep_diff carries the whole check. These two were
+    # the "0e" consts: re-inlined by nothing, drifted for weeks (fairway → clearing /
+    # turf / meadow: 2 + 7 + 7 paths in PROPERTY_DATA, 5 in REFERENCES_DATA).
+    ("property.json",   "PROPERTY_DATA",   "",         "property"),
+    ("references.json", "REFERENCES_DATA", "",         "references"),
+    # NOT rostered, with reasons: CELESTIAL_DATA is not the mirror of a JSON file (it
+    # is computed/curated in place); WEATHER_DATA is a runtime cache. The manifest's
+    # P5 counts them.
 ]
+
+# Subtrees deep_diff must ignore per const — a runtime cache lives under
+# PROPERTY_DATA.climate.monthlyNormals when the app has fetched normals; the canon
+# file never carries it, so without this exclusion the row fires on every load.
+EXCLUDE_SUBTREES = {
+    "PROPERTY_DATA": ("climate.monthlyNormals",),
+}
 
 # Cap on how many differing paths to print per const (keep output legible).
 MAX_DIFFS_SHOWN = 12
@@ -206,6 +222,8 @@ def check_all():
             continue
         # Same entry set — now check CONTENT (the drift the id-set compare is blind to).
         content_diffs = deep_diff(inlined, json_data)
+        excl = EXCLUDE_SUBTREES.get(const_name, ())
+        content_diffs = [d for d in content_diffs if not any(d[0].lstrip(".").startswith(e) for e in excl)]
         if content_diffs:
             any_drift = True
             drift_categories.append(category)

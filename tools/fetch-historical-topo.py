@@ -33,11 +33,14 @@ from __future__ import annotations
 
 import argparse, json, math, re, subprocess, sys, urllib.parse, urllib.request
 from pathlib import Path
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import momlib  # noqa: E402 — canon values derive, never re-typed (C5 4a)
 
 REPO = Path(__file__).resolve().parent.parent
 LOCAL = REPO / "images/property-map/.local/topo"
 OUT = REPO / "images/property-map/historical"
-LAT, LON = 34.5496, -84.3674
+LAT, LON = momlib.config("location.coordinates.latitude"), momlib.config("location.coordinates.longitude")
 
 A = 6378206.4          # Clarke 1866 semi-major (NAD27)
 ES = 0.00676865799729  # Clarke 1866 eccentricity squared
