@@ -7712,8 +7712,8 @@ function hourLabel(hr) {
 
 async function fetchLiveWeather() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
   const url = "https://api.open-meteo.com/v1/forecast" +
     "?latitude=" + lat + "&longitude=" + lon +
     "&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day,surface_pressure,cloud_cover_low,cloud_cover_mid,cloud_cover_high,visibility" +
@@ -8440,8 +8440,8 @@ function renderAmbientStationPanel(d, errMsg) {
 // =========================
 async function fetchRecentPrecip() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
   const today = new Date();
   const todayStr = today.toISOString().split("T")[0];
   const dayOfMonth = today.getDate(); // 1-based
@@ -8497,8 +8497,8 @@ async function fetchRecentPrecip() {
 // =========================
 async function fetchPrecipHistory() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
   const url = 'https://archive-api.open-meteo.com/v1/archive' +
     '?latitude=' + lat + '&longitude=' + lon +
     '&start_date=2001-01-01&end_date=2025-12-31' +
@@ -15046,8 +15046,8 @@ async function toggleRadar() {
 }
 
 async function initRadarMap() {
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
 
   _radarMap = L.map("radar-map", {
     center: [lat, lon],
@@ -15899,8 +15899,8 @@ const SEISMIC_MIN_MAG   = 2.0;
 async function fetchUSGSEarthquakes() {
   if (!(PROPERTY_DATA.resources && PROPERTY_DATA.resources.seismic)) return;   // no regional feature declared → no panel, no query
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat ?? siteCoords().lat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon ?? siteCoords().lon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
   const url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson" +
     "&latitude=" + lat + "&longitude=" + lon +
     "&maxradiuskm=" + SEISMIC_RADIUS_KM +
@@ -15936,8 +15936,8 @@ async function fetchUSGSEarthquakes() {
 // Cached on WEATHER_DATA.nwsSkyCover as an array of { start: Date, percent: number }.
 async function fetchNWSSkyCover() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
   try {
     const pointsRes = await fetch("https://api.weather.gov/points/" + lat + "," + lon);
     if (!pointsRes.ok) throw new Error("points HTTP " + pointsRes.status);
@@ -15976,8 +15976,8 @@ function nwsSkyCoverForDarkWindow(date) {
   const samples = WEATHER_DATA.nwsSkyCover;
   if (!Array.isArray(samples) || samples.length === 0) return null;
   if (!window.SunCalc) return null;
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
   const times = SunCalc.getTimes(date, lat, lon);
   const start = times.night, end = times.nightEnd;
   if (!start || !end || isNaN(start) || isNaN(end)) return null;
@@ -16078,8 +16078,8 @@ function toggleCelEvent(id) {
 
 function updateCelestialSkyDetails(date) {
   if (!window.SunCalc) return;
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  const lat = siteCoords().lat;
+  const lon = siteCoords().lon;
   const times = SunCalc.getTimes(date, lat, lon);
 
   // Astronomical dark window
