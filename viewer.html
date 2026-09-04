@@ -905,6 +905,20 @@
     stroke: #2a4a1a;                   /* deep forest-green for contrast on the aerial */
     stroke-width: 2;
     vector-effect: non-scaling-stroke; /* stroke stays consistent under zoom */
+    /* 93 of the record's 437 vertices turn more than 60 degrees off straight
+       (measured 2026-09-04). The SVG default join is `miter`, which throws a
+       spike out past the corner on every one of them, and those spikes are a
+       large part of why a boundary traced at ~2.5 m spacing off a +/-9.1 m
+       instrument READS ragged. Round joins cost nothing and change no
+       coordinate: this is how the line is drawn, not where it is. */
+    stroke-linejoin: round;
+    /* NOTE, so this is not read as more than it is: `.pmap-zone.is-draft` below
+       sets `stroke-linecap: butt` for its dash ends, and all 23 zones are
+       `status: draft` today -- so the round CAP is currently overridden
+       everywhere and only the round JOIN is doing visible work. The cap starts
+       mattering the day a zone is confirmed. The dash rule is deliberately left
+       alone: it is an authoring/honesty call, not a render one. */
+    stroke-linecap: round;
     pointer-events: auto;              /* future: tap handlers in step 5 */
     cursor: pointer;
   }
@@ -10011,6 +10025,38 @@ const ZoneGeo = (function () {
            lonLatToFrac, fracToLonLat, lonLatToPixel };
 })();
 
+// ---- Chaikin corner-cutting, RENDER ONLY.
+// Mirrors tools/area-trace.html's chaikin() (b661d59) so the reading surface and
+// the authoring surface draw the same curve. It moves the DRAWN line a median of
+// 0.10 m from the clicked vertices (p90 0.55 m, max 2.79 m) against the record's
+// own +/-9.1 m positional budget -- so it corrects nothing and is not meant to.
+//
+// It must NEVER be written back to zones.json. Three independent reasons:
+//   1. It corrects nothing (above), so a write would replace what Paul actually
+//      clicked with an interpretation of it, for no gain in truth.
+//   2. Each ring is smoothed independently, so a write would PULL APART the 58
+//      coordinates that the tracer's snap made exactly identical across 20 zone
+//      pairs -- undoing the one piece of shared structure the record has.
+//   3. It is AREA-BIASED INWARD on small convex rings -- western-fern-azalea-garden
+//      -10.5%, house -7.7%, hosta-garden -6.1% (measured 2026-09-04). Area is a
+//      claim this record publishes per zone, so a write would silently shrink the
+//      smallest zones by up to a tenth while every DISTANCE check stayed green.
+// Reason 3 is why the proof obligation below is SHIPPED rather than observed once.
+const CHAIKIN_ITERATIONS = 2;
+function chaikinClosed(pts, iterations) {
+  let p = pts;
+  for (let k = 0; k < (iterations || 2); k++) {
+    const out = [];
+    for (let i = 0; i < p.length; i++) {
+      const a = p[i], b = p[(i + 1) % p.length];
+      out.push([0.75 * a[0] + 0.25 * b[0], 0.75 * a[1] + 0.25 * b[1]]);
+      out.push([0.25 * a[0] + 0.75 * b[0], 0.25 * a[1] + 0.75 * b[1]]);
+    }
+    p = out;
+  }
+  return p;
+}
+
 // ---- Property map (Phase Z — looking at the whole property is the value;
 //      affordances on top come later). Renders the aerial WebP base + an SVG
 //      zone overlay reading from ZONES_DATA. Pan + pinch-zoom on iOS Safari.
@@ -10032,13 +10078,21 @@ function renderPropertyMap() {
   // projected to image-pixel space at render time.
   const IMG_W = ZoneGeo.imgW();
   const IMG_H = ZoneGeo.imgH();
+  // ⛔ PROOF OBLIGATION, inherited from b661d59 and shipped rather than observed
+  // once: smoothing is a VIEW. If a future edit ever lets it touch the record,
+  // this fires on every render instead of silently shrinking the small zones.
+  const verticesBefore = JSON.stringify(zones.map(z => (z && z.vertices) || null));
+
   let svg = '<svg class="pmap-overlay" viewBox="0 0 ' + IMG_W + ' ' + IMG_H + '">';
   for (const z of zones) {
     if (!z || !Array.isArray(z.vertices) || z.vertices.length < 3) continue;
-    const points = z.vertices.map(v => {
-      const p = ZoneGeo.lonLatToPixel(v);
-      return p[0].toFixed(1) + "," + p[1].toFixed(1);
-    }).join(" ");
+    // Project FIRST, then smooth the projected copy. lonLatToPixel returns a fresh
+    // array per vertex and chaikinClosed only reads its input, so no path here can
+    // reach z.vertices -- which the assertion below proves rather than asserts by
+    // inspection.
+    const px = z.vertices.map(v => ZoneGeo.lonLatToPixel(v));
+    const points = chaikinClosed(px, CHAIKIN_ITERATIONS)
+      .map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
     // Only `confirmed` earns the solid outline. Anything else — draft, flagged,
     // or a status this build has never heard of — renders as not-yet-confirmed,
     // because the failure that matters is a guess reading as fact, not the
@@ -10057,6 +10111,17 @@ function renderPropertyMap() {
     svg += '<text class="pmap-zone-label" x="' + cx.toFixed(1) + '" y="' + cy.toFixed(1) + '" font-size="36">' + escapeHtml(z.name) + '</text>';
   }
   svg += '</svg>';
+
+  // Assert, don't hope. Reported on window so a QA run can read the verdict
+  // deterministically instead of scraping the console; console.error rather than
+  // throw, because a viewer that throws costs Mom the whole page over a defect
+  // that is, by construction, invisible on screen.
+  window.__pmapVertexIdentityOK =
+    JSON.stringify(zones.map(z => (z && z.vertices) || null)) === verticesBefore;
+  if (!window.__pmapVertexIdentityOK) {
+    console.error("[pmap] ASSERTION FAILED: render-time smoothing mutated stored zone " +
+                  "vertices. Chaikin is RENDER-ONLY -- see the block above chaikinClosed().");
+  }
 
   // Picture element with WebP + PNG fallback for older browsers.
   return '<div class="pmap-section">' +
