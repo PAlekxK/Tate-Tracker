@@ -11,6 +11,7 @@
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
 - stage: build
+- wip-exception: opened under the same 2026-09-03 instruction; steps 1a–1d · 2a · 3a · 3b are instrumentation and harness only, independent of C4's held steps and of C6.
 - stage-note: opened 2026-09-03 9:00 PM ET — 1a–1d · 2a · 3a · 3b built; 2b and 3c wait on Paul's cap; 4–6 are the retrieval build
 - stage: ready
 

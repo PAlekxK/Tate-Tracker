@@ -11,6 +11,7 @@
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
 - stage: build
+- wip-exception: C4 stays `build` only because its remaining steps (2c/2d the visit · 4b the session seam · 4d the rename · 5d the split) are all HELD on Paul; nothing in C4 can move tonight. C6 opened under Paul's 2026-09-03 instruction to run the queue autonomously; its shipped steps (2a–2c · 3b/3c) touch no C4 file.
 - stage-note: opened 2026-09-03 9:00 PM ET — steps 2a–2c shipped; 1b/1c wait on Paul's A+ default gate; 3 waits on the privacy seat, spawned
 
 Drafted by the planning agent 2026-09-03 from the row, § M3, C4's RULED table and its three-levels ruling (decided, not
