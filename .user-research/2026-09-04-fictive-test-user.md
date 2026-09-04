@@ -717,15 +717,40 @@ the hub. Each is verified, not relayed.
    default, so an iPad reads `desktop` — an error running in precisely the direction that inflates
    the number justifying desktop investment. **The field nobody reads is the more honest of the
    two.** ⚠️ Report the *distribution*, never an average: browser zoom moves `innerWidth`.
-4. ⛔ **`/design-options` CANNOT SHOOT A DESKTOP EXHIBIT — a capability gap, not a wiring one.** Its
-   capture prep is hard-wired to a 414px iframe harness, and its own log records `browser_resize`
-   returning success without resizing, **three runs running**. So the mechanism Paul named for
-   *"test before we invest"* structurally cannot test the thing this whole section is about. ~5
-   lines (a second wrap at the measured width, `innerWidth` verified from inside the frame).
-   ⚠️ Separately, it is **reachable by name only** — unnamed in the session-start block,
-   `MOM-CYCLE-MAP.md` and `/mom-cycle`: *instance five* of this repo's named failure shape. ⛔ But
-   **do not give it a clock** — it is decision-driven, not accumulation-driven; a cadence would
-   spend exhibit attention on laps with no decision in them.
+4. ⭐ **`/design-options` — a LIVE HTML exhibit is preferred over static desktop images**
+   `[paul-ruled 2026-09-04: "we kinda prefer that over desktop static images as long as there's no
+   huge barrier… that's a change we should examine if it's not already the case"]`.
+
+   **Verified against the tool — it is NOT already the case, and Paul's memory is two real things
+   blended:**
+   - ✅ `exhibit.py` **does** emit a self-contained `compare.html` that opens in Chrome. That half
+     is exactly as he remembers.
+   - ⛔ **But its panels are base64-inlined PNGs** — static. `exhibit.py` takes `shot` (a PNG) and
+     has no live/iframe mode.
+   - ✅ **The INTERACTIVE one he remembers is real and was a one-off**: the 2026-09-04 onboarding
+     round used a scratchpad composer (`compose-onboarding.py`) that inlined each screen as a
+     **`srcdoc` iframe** in a 414-wide phone frame. The skill's own log already says it is *"worth
+     folding into `exhibit.py` as an `--html` mode."* **So the change he is asking for is already
+     pre-flagged by the skill against itself; nothing made it recur, so it did not.**
+
+   ⭐ **And for DESKTOP specifically, live is not merely preferred — it is the better medium, and it
+   dissolves a problem the consults raised.** The skill's own rule 8 is *never downscale when the
+   subject is size*; two laptop-width screenshots side by side on a compare page are unreadable, and
+   the subject here **is** width. A live frame at the measured width is scrollable and interactive
+   and sidesteps it entirely.
+
+   **The barrier is small, which was Paul's condition.** The capture harness **already loads the
+   live app in an iframe** (`<iframe src="/viewer.html">` at 414×815) — a desktop exhibit is that
+   harness at a different width, opened in Chrome instead of screenshotted. ⚠️ Two honest costs:
+   the one-off composer was ~3.4 MB self-contained (a full-app live frame differs in shape from
+   inlined `srcdoc` screens), and its own log records `browser_resize` returning success **without
+   resizing, three runs running** — so `innerWidth` must be verified from inside the frame, per the
+   rule already written there.
+
+   ⚠️ Separately, `/design-options` is **reachable by name only** — unnamed in the session-start
+   block, `MOM-CYCLE-MAP.md` and `/mom-cycle`: *instance five* of this repo's named failure shape.
+   ⛔ But **do not give it a clock** — it is decision-driven, not accumulation-driven; a cadence
+   would spend exhibit attention on laps with no decision in them.
 5. ✅ **Monitor-after needs a recorded PREDICTION, not an instrument.** Every instrument exists
    (`check-telemetry.py --before`, `check-live.py`, the funnel and engagement readers). What is
    missing is something to compare the after-reading *to*. Three lines on the **lap entry** — not
