@@ -6471,7 +6471,7 @@
       <div class="dash-cell-label">Wildlife</div>
       <div class="dash-cell-sub" id="dash-wildlife-sub"></div>
     </button>
-    <button type="button" class="dash-cell" onclick="expandCard('card-celestial','dash')">
+    <button type="button" class="dash-cell" data-module="sky" onclick="expandCard('card-celestial','dash')">
       <div class="dash-cell-label">Sky &amp; Stars</div>
       <div class="dash-cell-sub" id="dash-astronomy-sub"><span class="summary-loading">Checking the sky…</span></div>
     </button>
@@ -6757,7 +6757,7 @@
   </div>
 
   <!-- CELESTIAL / SKY CARD -->
-  <div class="main-card" id="card-celestial">
+  <div class="main-card" id="card-celestial" data-module="sky">
     <div class="main-card-header" data-toggle="celestial">
       <div class="main-card-icon celestial">🔭</div>
       <div class="main-card-meta">

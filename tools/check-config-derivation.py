@@ -53,6 +53,8 @@ ROSTER = [
         "viewer.html": "BUILT output", "engine/viewer.template.html": "PROPERTY_DATA placeholder; other hits are prose in engine markup — see P-note",
         "worker/digest.json": "BUILT output",
         "tools/check-condo-falsifier.py": "a DETECTOR string",
+        "tools/guru-facts.py": "SELFTEST FIXTURES — strings the derived regexes are tested against; the rows derive, and the file's own AST check fails on a typed number outside the selftest",
+        "tools/guru-probe.py": "SELFTEST FIXTURES for the inverted grader",
         ".plans/*.json": "records", ".ux-reviews/*.json": "records", ".engineering/*": "records", ".user-research/*": "records",
     }),
     ("property.address", "literal", (r"282 Church Mountain",), {

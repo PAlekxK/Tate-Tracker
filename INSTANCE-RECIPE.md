@@ -43,9 +43,10 @@ Instance identity keys in use: `name`, `taglinePrefix`, `addressLineSuffix`, `pr
 | `wildlife` — what visits | bird, mammal, amphibian, snake, lizard, insect, fish | — | `#card-fishing`, `#card-wildlife` |
 | `place` — the ground itself — zones, the property record's spatial half | zone | — | (python consumers only) |
 | `weather` — the weather card + strip tile — readings, not a record collection | — | renderer switch | `#card-weather` |
+| `sky` — the Sky & Stars card + tile — computed from coordinates and dates, no record collection | — | renderer switch | `#card-celestial` |
 | `neighbourhood` — an unbuilt family | — | renderer switch | — |
 
-Fernwood's block: {"garden": "on", "motor-pool": "on", "equipment": "on", "house-systems": "on", "wildlife": "on", "place": "on", "weather": "on"}. Condo (paper model): garden · motor-pool · equipment · wildlife OFF, house-systems ON, place on-minimal, neighbourhood declared-absent.
+Fernwood's block: {"garden": "on", "motor-pool": "on", "equipment": "on", "house-systems": "on", "wildlife": "on", "place": "on", "weather": "on", "sky": "on"}. Condo (paper model): garden · motor-pool · equipment · wildlife OFF, house-systems ON, place on-minimal, neighbourhood declared-absent.
 
 ## 4 · Canon an instance must supply (or declare absent)
 
@@ -103,6 +104,7 @@ python3 tools/uniqueness-ledger.py <fernwood-url> <new-url>                     
 
 ## Refinement log — hand-kept, survives regeneration
 
+- 2026-09-03 (later) — Paul, reading the condo: *"it's interesting that moon and stars is there and populated even though we didn't turn it on… it does make me wonder if that should be nested within weather in a collapsed thing at the end of the weather card."* Two things came of it: **`sky` is now a switchable renderer module** (declared `on` at both estates — a choice, not a default), and the GROUPING question is open for the UX seat: which cards are peers and which nest (sky under weather? fishing under wildlife?). Natural grouping will show itself as more estates switch modules; this log is where each observation lands.
 - 2026-09-03 — first written, from the condo pass. Next revisit: Bob's house (the third estate, first one outside the family). Questions to carry: does `identity.theme` land before or with Bob? which of the 47 shared sentences become canon prose vs engine copy? does a family door (C4) change what `estate.json` must declare?
 
 <!-- refinement-log:end -->

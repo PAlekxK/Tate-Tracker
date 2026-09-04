@@ -361,6 +361,7 @@ MODULES = {
 # equipment · house-systems. No aliases: one vocabulary.)
 NON_DOMAIN_MODULES = {
     "weather":       "the weather card + strip tile — readings, not a record collection (RENDERED: must be declared)",
+    "sky":           "the Sky & Stars card + tile — computed from coordinates and dates, no record collection (RENDERED: must be declared). paul-raised 2026-09-03: should it nest inside weather? a design question, logged in INSTANCE-RECIPE.md",
     "neighbourhood": "an unbuilt family (declared-absent at the condo); needs the AI-boundary ruling",
 }
 MODULE_ALIASES = {}   # kept as a hook; empty by ruling
