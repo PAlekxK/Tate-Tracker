@@ -574,3 +574,281 @@ which is candidate strength and not canon:
 pieces of 2026-09-04 thinking still had to be re-explained to a fresh session from Paul's memory rather
 than reached by running the repo's own procedure, then this file proposed citations where mechanisms were
 needed, and the right response is code — a fail-closed refusal, not another sentence.*
+
+---
+
+## §D — DESIGN: the exhibit cycle, and the switchover rule
+
+**Added 2026-09-04 ~1:20 PM ET on Paul's follow-up** — *"this is where we have that review option skill —
+and let's bring the process steward in here as well to help steer how this is all tied together and
+used"* — plus his addendum a minute later: *"there's gotta be a point at which we switch to some concepts
+and mockups to help me… now it's really helpful to just talk to real examples and views rather than
+concepts. Sure there are best practices in thinking on when that switchover happens."*
+
+⛔ **Method only. Nothing below rules on a step, a variant, or which screen is better.**
+
+**Measured before writing this, 1:15 PM ET:** `~/Developer/fernwood-private/.design/` **does not exist** —
+there is no rendered screen on the journey question. Against that, **256 KB of journey prose across five
+`.user-research` files** dated 09-02 → 09-04, plus one `.ux-reviews` and two `.engineering` trails: three
+seats, three days, zero pictures. (The *nine-stage journey · six-item decision list · ~800K tokens*
+figures came from the coordinator and are **not independently verified here**.)
+
+---
+
+### D.1 · Siting a `/design-options` run on a surface that is not live
+
+The skill's core rule is *"the exhibit is the **live artifact under a swappable patch**… never a
+drawing, a separate mockup tool, or prose about spacing."* **The onboarding door has no live artifact.**
+The run is therefore a declared exception, and the honest way to take an exception in this corpus is to
+name it, not to quietly satisfy the rule's letter.
+
+**What preserves the rule's PURPOSE while its letter cannot hold.** The rule exists to stop a variant
+faking behaviour the code cannot honour — *"a variant that fakes behavior the code can't honor invites a
+decision that can't ship."* Three substitutes carry that purpose, and all three are already true:
+
+| the rule's guarantee | what supplies it here |
+|---|---|
+| **the medium is the product's** | the mocks are standalone HTML **in Fernwood's own design system**, drawn from `engine/viewer.template.html` — not a mockup tool, not a drawing |
+| **the viewport is the user's** | **414 × A+**, the ratified her-conditions (leg 6e), set the way the skill's Capture prep already prescribes (`tateTracker.textSize='lg'` before load; confirm `body.className` contains `text-lg` — *stored is not applied*) |
+| **the behaviour is honourable** | the door's mechanism is already decided — remembered username + typed password `[paul-stated 2026-09-04]` — and `tools/grant-mint.py` exists. **A variant may only depict a step that mechanism can perform** |
+
+**Four preconditions, three from the skill, one forced by the absent baseline:**
+
+1. **No invented data** (the 2026-08-14 rule). ⚠️ **The naming step is the live risk**: it renders a
+   *name*, and a name is a fact-shaped thing. Use a placeholder that could never be mistaken for canon —
+   never a plausible estate name, never Mom's word for anything.
+2. **One variable per step**, or the note says so out loud. The user-researcher's per-step proposals are
+   what make this statable; without them a "step" is not yet a unit.
+3. **≤3 candidates.** Pruning is the presenter's job, not Paul's.
+4. ⭐ **The baseline must be DECLARED, not omitted.** Exhibit rule 1 makes the baseline mandatory and
+   leftmost. There is no live door, so the set carries either the current QA entry screen as
+   `status: baseline`, or a first cell reading **`baseline: none — this surface does not exist yet`**.
+   Silently dropping it turns a *"which of these"* into an unanchored *"do you like this"*, and the
+   exhibit's whole discipline is the anchor.
+
+**What the run MUST record in the skill's Refinement log** — the standard block (`rounds · options shown
+(+archived) · decision · wall-clock first exhibit → decision · frictions · skill changes`) **plus two
+lines this run forces**:
+
+```
+medium: standalone HTML in the app's design system at 414 × A+ — NOT the live artifact under a patch
+        (the surface does not exist yet; the skill's core rule is knowingly excepted, see §D.1)
+baseline: none — this surface does not exist on QA | <or the QA entry screen, id + sha>
+```
+
+Without the first line a later reader cites this run as evidence the medium rule held, and the exception
+silently becomes the precedent. That is the corpus's own recurring shape.
+
+**What the run must NOT claim — three, and the third is the one that will actually be gotten wrong:**
+
+1. ⛔ **Not "verified at her conditions."** `herConditions()` and `qa-walk.py` measure the *built page*. A
+   standalone mock at 414 is drawn at her width; it has not passed her gate. The skill's drift guard
+   (*re-capture CURRENT and eyeball it against the winning exhibit*) is **deferred to the build** and the
+   log must say so, or a ruled mock gets read later as a passed gate.
+2. ⛔ **Not "the behaviour works."** A mock shows a form; it cannot show that submitting it mints a grant.
+3. ⛔ **Not "this is settled."** `feedback_ratification_does_not_survive_the_rule_that_follows_it` — *a
+   ratification is a point-in-time event, not a standing property.* **Paul rules on the screen as drawn.
+   The built screen is re-checked at the E2E walk (§B.5), and that re-check is not a formality** — it is
+   the only thing standing between a stamped picture and a shipped surface nobody re-looked at.
+
+---
+
+### D.2 · Capturing his reactions so "he reacted on his phone" becomes a citable ruling
+
+**The measured seam, stated plainly: the Artifact gives REACH and has NO capture path.** The
+ratification-server pattern (`project_phone_ratification_surface`) works because *Send to Claude* POSTs to
+`serve.py`, which writes his calls **verbatim** to `decisions/LATEST.json` — an AI-free capture path by
+construction. A published Artifact has no POST-back. Reactions arrive as **voice in chat**, which means a
+model is on the capture path unless something downstream fixes his words.
+
+⭐ **And the Artifact route is already sanctioned for exactly this case**, so no ruling is needed on it:
+that memory's design-doc point 8 reads *"real cards never go to a third-party surface; **a Claude Artifact
+is fine only for synthetic prototypes**."* Onboarding mocks are synthetic prototypes — no canon, no PII,
+placeholder names. ✅ **Permitted. It is just not a capture surface, and must not be treated as one.**
+
+**So: do not mint a capture surface. Mint a CARD.** Three existing mechanisms, zero new ones:
+
+| the reaction | where it lands | mechanism |
+|---|---|---|
+| **kills an option** | the exhibit set itself | `exhibit.py drop <id> "<his reason, his words>"` — rule 6: archived by **stated reason**, reachable, dimmed, never deleted |
+| **changes the set** | a new round | round-stamped ids (`R2-C`) — rule 5, because *"option C" goes ambiguous by round 3* |
+| **settles the question** | ⭐ `.decisions/fernwood-N.md` → `decisions.jsonl` | the repo already holds `fernwood-1…12` in a flat key list with a **required `options:` line — and an exhibit set IS an options list.** `source:` names the exhibit set; his answer lands **verbatim** in `~/Developer/operating-layer/data/decisions.jsonl`; applied through the gated apply with a `Closes:` trailer (session-cycle § State Contract) |
+
+The readiness proposal already sanctions the citation: *"A row may cite a card in `seats:` as its ruling.
+Same file format, different job — no merge."* So the onboarding plan cites `fernwood-N`, and the chain
+from *he reacted on his phone* to *the plan may build it* is complete without a new file.
+
+⚠️ **The honest gap, named rather than papered over:** between the Artifact on his phone and any of those
+three commands, **someone retypes his words.** That transcription seam is unavoidable on a voice channel.
+The corpus's existing mitigation is the right one — `decisions.jsonl`'s `choice` field stores **raw,
+unedited voice, transcription noise included** (sampled today: a `career-4` entry reads exactly like Paul
+talking, mid-sentence). Keep it that way.
+**Falsifier:** if a `choice` field starts reading like a summary instead of like Paul talking, the capture
+path has grown an editor — and the fix is the LAN server's POST, not better summarising.
+
+---
+
+### D.3 · The three hand-offs — each owned by a ceremony that already exists
+
+⛔ **No fourth loop.** The exhibit cycle is a **stage of the onboarding plan**, not a peer of it.
+
+**① → the onboarding plan (queue #7).** The exhibit cycle **is** that plan's `concept` stage — the
+readiness proposal already names it: *"`/design-options`… **is** the `concept` stage of the pipeline, and a
+seat trail like any other."* Owning ceremony: **the plan header.** One line:
+
+```
+- stage-note: concept round R1 — exhibit set <path>, 3 variants + declared baseline, staged and published;
+              ruled by .decisions/fernwood-N (choice verbatim in decisions.jsonl <ts>)
+```
+and `- stage: concept`. The `/design-options` Refinement-log entry is a valid `seats:` citation for
+`ux-expert` — again, already ruled.
+
+**② → the E2E journey test (queue #7b).** The winning variant per step becomes the walk's **expected
+screens**. Owning ceremony: the plan's `## QA` **`accept:` block** — one `render` clause per ruled step.
+⭐ **The ordering is the hand-off and it is one-way: you cannot write an acceptance clause for a screen
+nobody has agreed on.** The exhibit cycle is upstream of the accept block, which is upstream of the walk.
+One line, in `## QA`:
+```
+5c render  414x848 A+  #onboard-name input[name=displayName]   # the ruled naming step, per fernwood-N
+```
+
+**③ → the vocabulary plan (queue #1) — the naming step's copy.** The default-seats table already routes
+copy to `content-steward`, and the vocabulary plan already declares its content-steward trail and defers
+its ux/user-research seats *"to the onboarding plan."* So the seats need nothing.
+**The ruling does:** the naming step's exhibit renders the registry's words, and **the word is the
+vocabulary plan's property.** One line, on the **vocabulary plan**, not the onboarding plan:
+```
+- stage-note: the record's word as it reads in the naming step was ruled at onboarding concept R1
+              (.decisions/fernwood-N); the registry default is unchanged / changes to "<word>"
+```
+⚠️ **Direction matters and must not be inverted.** `onboarding depends-on vocabulary` is already the
+declared direction (§B.6). Recording the naming ruling on the *onboarding* plan and adding a
+`depends-on: onboarding` to the vocabulary plan would close a cycle — and **`check-backlog-ready.py`
+detects a dependency that does not exist and one that is newer, but does NOT detect a cycle** (read from
+its `check()`; no visited-set, no traversal). A circular pair would pass green forever.
+
+---
+
+### D.4 · Un-primed pass BEFORE Paul sees it — scoped to defects, never to preference
+
+**BEFORE — and the deciding sentence is already in `/ux-sweep`'s own charter:** *"Before a real-user
+feedback round — so reactions measure the product, not the scaffolding."* **Paul is the real user of the
+exhibit.** A reaction cycle spent on a broken mock rather than on the design question is the expensive
+failure here, because the skill's own measurement frame names his reaction latency as *the binding
+constraint* — *"every friction that costs a reaction cycle gets named and fixed."*
+
+The cost objection is weak: pass 1 on **static mock screens** is far cheaper than on a live app — no
+browser driving, no live-backend safety rule, no cold-start. It reads HTML files.
+
+⭐ **But it is scoped hard, and this is the part that keeps the seat inside its lane.** The un-primed pass
+answers exactly one question, **per variant**:
+
+> *Can a first-time reader complete this step from what is on the screen?*
+
+It may report a blocker, a missing affordance, an unreadable label, an unanswerable question. **It may NOT
+rank the variants and may NOT name a winner.** Choosing is Paul's; marking one recommendation with a
+one-line why is the *presenter's* job under exhibit rule 7, and a fresh-eyes agent doing it would be the
+seat overreaching into the one call the whole exhibit exists to put in front of him.
+
+**Falsifier, and measure it on the first two runs:** count pass-1 findings that **changed a variant before
+the exhibit was staged**. Zero on two runs → the pass is ceremony on a static image; delete it and let the
+exhibit go straight to him.
+
+---
+
+### D.5 · ⭐ THE SWITCHOVER RULE — when prose stops and pictures start
+
+**The rule does not need inventing. It already exists as a stage boundary with no trigger.**
+
+The pipeline word for "we are looking at screens now" is **`concept`**, and the readiness proposal already
+binds it to `/design-options`. So the switchover is the transition **`ready → concept`**. Now look at
+every other boundary in that pipeline:
+
+| boundary | what fires or gates it |
+|---|---|
+| `draft → ready` | **Paul's `ready: [paul-approved …]` stamp** |
+| **`ready → concept`** | ⛔ **nothing. No gate, no trigger, no check.** |
+| `concept → build` | the ruled exhibit (a card, once §D.2 is wired) |
+| `build → qa` | `qa-walk` · `check-live` · the `accept:` clauses |
+| `qa → shipped` | Paul's stamp + verified live |
+| `shipped → retro` | the pre-registered question, enforced by `check-backlog-ready.py` |
+
+**`ready → concept` is the one boundary in the whole pipeline with neither a gate nor a trigger** — so it
+crosses when somebody remembers, which is this repo's own named failure shape: *a capability the loop
+cannot reach by running its own procedure is not a capability the loop has.* That is the finding. The rule
+below is the smallest thing that closes it.
+
+#### The trigger Paul can apply from his side of the screen
+
+> **"Am I being asked to react to a sentence about a screen, or to the screen?"**
+> If the last two or three things put in front of you were prose descriptions of a surface — a step list,
+> a version table, a recommendation in words — the thread has crossed its switchover and the next artifact
+> should be a picture.
+
+**Why that phrasing and not a count:** it needs nothing but what is already in front of him, it works in a
+voice memo, and it cannot be gamed by an agent, because the agent does not control what he was handed.
+
+#### The deterministic companion, and its guard
+
+Agent-side, reported at **one moment only** — the `ready → concept` boundary — as a **count with its
+predicate, never a grade**:
+
+```
+switchover read: <N> KB of seat prose filed against this question across <M> files / <S> seats
+                 · <R> rendered artifacts.   (measured, not graded)
+```
+
+⚠️ **Reported at the boundary, never continuously.** A standing prose-to-pixel ratio would read red for
+the whole life of every research-heavy thread — the N8 costly-control signature, and the thing Paul has
+ruled against twice. One reading, at one moment, with its denominator.
+**Falsifier:** if the number is read at three boundaries and changes no decision about when to mock, drop
+it and keep only Paul's question above.
+
+#### What must be true BEFORE mocking
+
+The four preconditions in §D.1 — **medium · one variable · no invented data · a declared baseline** — are
+the whole precondition set, and they are the skill's own. The general form, stated once because it is what
+makes the rule teachable rather than procedural:
+
+> ⭐ **Prose is the right medium for *what must be true*. A picture is the right medium for *which of
+> these*. The switchover is the moment the open questions stop being the first kind and become the
+> second.** Mocking before that produces variants of an undecided thing; mocking after it produces prose
+> about a decision a picture would have settled in one reaction.
+
+#### What a run costs
+
+**Read it from the tool, not from this file.** `/design-options`'s Refinement log records
+`rounds · options shown (+archived) · wall-clock first exhibit → decision · frictions` for **every run,
+no exceptions** — four runs are logged (08-02 ×2, 08-14, 09-02). **Any number written here would be a
+hand-written count beside a tool that computes the same number**, which is the defect CYCLE-SPINE's own
+enactment amendment committed in its own text. The structural cost is stable and worth stating: **one
+capture pass at 414 × A+ · one `exhibit.py` compose · one staging + publish · one reaction cycle**, and
+the reaction cycle is the only part on Paul's clock.
+
+#### Was today's sequence right or late? — **Late, in method terms, and diagnosably so**
+
+The skill's own **Sequencing rule** decides it: *"A norms/research pass **constrains the option set** — run
+it **before or alongside round 1.** If it lands after variants are cut, treat it as a challenge to the
+set, not a ratification of the winner."*
+
+The rule assumes research and round 1 are **concurrent or adjacent**. Measured here: five journey research
+artifacts across three days, 256 KB, three seats — and **round 1 does not exist**. So the research did not
+*constrain* an option set; in the absence of one it **substituted** for it.
+
+⭐ **The consequence is specific, not a scolding: the option set will be cut from prose rather than from
+options seen side by side.** That is the same defect the sequencing rule names, arriving from the other
+direction — and the rule's own remedy transfers cleanly: treat the first exhibit as **a challenge to what
+the prose concluded, not a rendering of it.** If a variant nobody wrote down turns out to be the obvious
+one on screen, that is the switchover paying for itself, not a failure of the research.
+
+**Two things this finding is NOT.** It is not a claim that the research was excessive — that is a value
+call and it is Paul's; the five artifacts stand and they are what makes *"one variable per step"* statable
+at all. And it is not costly: **nothing has shipped**, so the order is recoverable at zero cost by running
+round 1 now. **Only the ORDER of the first exhibit relative to the prose was inverted, and the fix is to
+stop inverting it — not to undo anything.**
+
+**Falsifier for this whole section:** if the first exhibit round produces no variant the prose had not
+already named, and Paul's reaction is *"yes, as written"*, then prose had **not** run past its usefulness
+here, the switchover rule fired early, and the trigger in §D.5 should be loosened rather than tightened.
+Record that outcome in the Refinement log either way — *"none — the exhibit ratified the prose"* is a
+valid recorded result, exactly as a retro that produces nothing is.
