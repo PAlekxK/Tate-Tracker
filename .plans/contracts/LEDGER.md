@@ -300,7 +300,7 @@ at 414×848 and 900×1100 and saw no layout defect, and labelled that an **obser
 review**. ⚠️ The canvas commit is comment-only (hub-proven by comment-stripped diff), so it changes
 no executable code — but "not reviewed against its intent" still stands as stated.
 
-## ⛔ QA DEPLOY — RULED GO BY PAUL, BLOCKED ON THE HUB'S PERMISSIONS
+## ✅ QA DEPLOY — RESOLVED 2026-09-04 ~3:25 PM ET (was: blocked, then reported failed)
 `[paul-ruled 2026-09-04]` — he is good with deploying to QA and wants current state there to build
 the skeleton out. **The hub's `git push` was denied by the auto-mode permission classifier.**
 ⛔ Not routed to a lane: asking another session to run a command denied here is permission
@@ -313,3 +313,35 @@ Verified ready, so nothing needs re-deriving when it runs:
 - **Real executable change reaching QA: 2,992 bytes** comments-stripped. The canvas's contribution
   is zero — it is pure comment, proven twice.
 - Lane D's gate battery all green at current HEAD, `--check` byte-identical, `qa-divergence` clean.
+
+### QA deploy — the full arc, because two of its three "failures" were instruments, not the deploy
+
+1. **Hub's `git push` denied** by the auto-mode permission classifier, on a change Paul had already
+   ruled GO. ⛔ Not routed to a lane (permission laundering); surfaced to Paul, who authorised the
+   retry. It then succeeded: `0bcbc86..cb18ade main -> staging`, pre-push public-build audit clean.
+2. **`Deploy QA #123` reported FAILURE** — but `worker-qa` succeeded in 32s and the Pages **upload**
+   succeeded in 20s. The failing step was `check-live`, which polls the origin and gave up after
+   **12 attempts / 180s**.
+3. ⭐ **The deploy was fine. The gate's wait budget was too short.** Confirmed at ~3:25 PM: QA now
+   serves `e8f1b78abb82`, byte-matching HEAD, with no intervention — no re-run, no cache purge.
+
+**The row this leaves:** `tools/check-live.py --wait 180` under-waits for `viewer.html` specifically.
+The four JSON assets landed inside the window; the **2 MB HTML did not**, and Pages needed somewhere
+between 3 and ~13 minutes. So a healthy deploy reports as FAILED whenever the largest asset is the
+slow one — **fail-safe in direction, but it cost a full diagnosis and would train a reader to
+discount the gate.** A gate that cries wolf on the happy path gets ignored on the real one.
+Not fixed here; logged as unowned.
+
+⭐ **What the gate got RIGHT, and should not be weakened:** it refused to call a deploy green while
+the artifact was absent, and it said why — *"Do NOT read any telemetry zero as behaviour until this
+is green. Code that has not reached her browser cannot record anything at all."* That is exactly
+the trap Paul would have walked into building the skeleton on QA. **Lengthen the wait; never relax
+the assertion.**
+
+⚠️ **Independent corroboration worth recording:** the hub measured `HEAD e8f1b78abb82` vs
+`live 5b9bc672e3c6` by sha comparison, and CI's `check-live` printed the *same two hashes* from its
+own run. Two instruments, no coordination, identical verdict. ⚠️ **The hub's FIRST probe — grepping
+the served HTML for markers — returned two false POSITIVES** (case-insensitive matches against
+prose, plus a `stroke-linejoin` that already existed on an icon rule). **The marker probe was
+unreliable in both directions; only the byte comparison was honest.** Fourth instance today of
+[[reference_match_payload_not_container]].
