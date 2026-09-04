@@ -1,7 +1,7 @@
 # LANE B — map-region smoothing
 
 
-## STATUS: OPEN — at gate, holding. Two authoring gates with Paul.
+## STATUS: OPEN — at gate, holding. RELEASE CONDITION: Paul is done asking about zone smoothing. Any hub, or Paul, may release it; it is not this session's to remember.
 Read `_PREAMBLE.md` first. It binds.
 
 ## OWNS (the only paths you may write)

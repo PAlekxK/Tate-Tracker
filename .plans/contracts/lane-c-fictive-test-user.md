@@ -1,7 +1,7 @@
 # LANE C — the fictive test user
 
 
-## STATUS: OPEN — at gate, holding. Three gates with Paul.
+## STATUS: OPEN — at gate, holding. RELEASE CONDITION: its doc is revised for the lens reframing + naming ruling, and §10.5 is answered. Any hub may release it.
 Read `_PREAMBLE.md` first. It binds.
 
 ## OWNS (the only paths you may write)

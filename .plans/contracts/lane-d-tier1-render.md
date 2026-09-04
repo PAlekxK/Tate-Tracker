@@ -1,7 +1,7 @@
 # LANE D — Tier 1 render fix (map regions)
 
 
-## STATUS: OPEN — working.
+## STATUS: OPEN — working. RELEASE CONDITION: gate reached (before/after staged) and Paul has seen it.
 Read `_PREAMBLE.md` first. It binds. **You are the QA-HOLDING lane for this run** — see §QA.
 
 `[paul-greenlit 2026-09-04]` *"yes, greenlight tier 1 as its own lane."*
