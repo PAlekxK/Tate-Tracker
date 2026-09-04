@@ -197,7 +197,7 @@ def build(template_text, instance_path):
         import importlib.util
         spec = importlib.util.spec_from_file_location("brn", os.path.join(HERE, "build-release-notes.py")); brn = importlib.util.module_from_spec(spec); spec.loader.exec_module(brn)
         from pathlib import Path as _P
-        entries = brn.parse_release_notes(_P(notes_path))
+        entries = brn.parse_release_notes(_P(notes_path))[:5]   # the same "latest 5" build-release-notes.py inlines
     out = out.replace("{{RELEASE_NOTES}}", json.dumps(entries, ensure_ascii=False), 1)
     if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out or "{{RELEASE_NOTES}}" in out:
         raise RuntimeError("unfilled placeholder remains after build")
