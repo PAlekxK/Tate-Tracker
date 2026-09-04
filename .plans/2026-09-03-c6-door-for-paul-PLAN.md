@@ -63,7 +63,7 @@ prod `SHARED_TOKEN`'s value. **Step 7:** nothing built — a reserved header nam
 
 Each step: **who** · **reversible?** · **the deterministic check**. Existing tools first; new checks prove themselves by mutation.
 
-**1a · The re-ruling, presented as evidence** — **Paul** (Q1) · — · the 08-19 block ends *"do not re-raise the A+
+**1a · The re-ruling, presented as evidence** — ✅ **EVIDENCE READ 2026-09-03:** her device's `text_size_served` reports **lg (A+) in 8 of 8** reports over 60 days (64 metric batches; most recent 2026-09-01). Paul, 9:45 PM ET: *"whatever Mom has been using, whatever she's used to seeing, that's the standard."* → **A+ IS the standard, measured, not ruled.** 1b/1c make the served default what she already has; under the build-in-QA direction they land on QA and prod follows at the migration. — **Paul** (Q1) · — · the 08-19 block ends *"do not re-raise the A+
 default without new evidence about HER."* The evidence: `text_size_served = {size:"lg", stored:true}` on her device
 (08-20, 08-24) and 0 of 37 toggle firings from it. This is a different act from the one walked back: that one
 re-formatted every surface for a person on A; this one decides what an **unconfigured** device shows, and hers is

@@ -97,6 +97,15 @@ C5 · C6 · C7 · Guru at Paul's stamp gate. Plan of record: `PRODUCT-ENGINE.md`
   **rejected** — shipping C4/C5 does NOT lift the freeze. The freeze ends when Paul says so, in as many words.
   ⚠️ The *"abandonment with manners"* rule is satisfied: the release condition is a named human act, not silence.
 
+**⭐ BUILD IT ALL IN QA; PAUL RUNS THE MIGRATION** `[paul-stated 2026-09-03 9:45 PM ET]` — *"let's build everything out that we
+can in QA and test it, and I will worry about managing the migration with Mom — so we can just build everything out and
+not worry about the transition."* Consequences for every plan under the freeze: the QA origin + QA Worker are the BUILD
+TARGET for the door, the vault, the setup journey and the A+ default; `main` receives only engine/infra changes that leave
+her page identical (or defect fixes); anything Mom would see or bind to waits on QA until Paul's migration act, which is one
+event he manages in person (her device binding, the real grant tokens, the public-repo moves of the breaker directory and
+service-contact phones). Grant VALUES on QA are fixtures the agent mints; real ones are minted at migration through
+`/secrets`. This retires three of tonight's gates (A+ default · grant values · first vault room) as QA work.
+
 **Frozen questions — parked here by Paul's word, released with the freeze:**
 - **A larger-than-A+ text option for older readers** `[paul-stated 2026-09-03]` — *"if we do anything, I would think we
   would add an option to make the text even bigger for older people."* Raised while ruling C6 Q1 (the toggle goes, A+
