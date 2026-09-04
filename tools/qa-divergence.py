@@ -67,12 +67,14 @@ def main():
             print("   %s %s %s  %s" % ("✅" if r["recorded"] or cls != "SURFACE" else "🔴", r["sha"], r["when"], r["subject"][:110]))
             if cls == "SURFACE":
                 print("        files: " + ", ".join(f for f in r["files"] if SURFACE.match(f))[:160])
-    reg = os.path.join(HERE, "qa-fixtures.json")
-    if os.path.exists(reg):
-        fx = json.load(open(reg)).get("rows", [])
-        print("\n  DECLARED FIXTURES (%d) — values that must NEVER reach main; everything else above is a STAGED prod change" % len(fx))
-        for r in fx: print("   %s %s qa=%r → prod=%r · retired by %s" % (r["file"], r["path"], r["qaValue"], r["prodValue"], r["retiredBy"]))
+    # under the freeze `staging` is main-in-waiting and the migration is a FAST-FORWARD (`git push origin staging:main`),
+    # which ships the exact sha QA served and tested. Anything on main that staging lacks kills that — today only the
+    # deploy bot's digest rebuild; remedy: back-merge origin/main into the staging line (engineering seat, 2026-09-04).
+    behind = git("rev-list", "--count", "origin/staging..origin/main").strip()
+    print("\n  migration fast-forward: %s" % ("✅ available (main has nothing staging lacks)" if behind == "0" else "🔴 BLOCKED — %s commit(s) on main not on staging: %s → back-merge origin/main" % (behind, git("log", "--oneline", "origin/staging..origin/main").strip().replace("\n", " · ")[:200])))
     unrec = [r for r in rows if r["class"] == "SURFACE" and not r["recorded"]]
+    if a.check and behind != "0":
+        print("\n🔴 the migration cannot fast-forward — back-merge origin/main into the staging line before anything else"); return 1
     if a.check and unrec:
         print("\n🔴 %d SURFACE commit(s) on QA are not named in any plan stage-note — record the addition where its plan lives" % len(unrec)); return 1
     if not rows:

@@ -1,39 +1,46 @@
 #!/usr/bin/env python3
-"""check-qa-fixtures.py — a QA fixture value must never reach a ref destined for Mom's page.
-    python3 tools/check-qa-fixtures.py                      # list the register
-    python3 tools/check-qa-fixtures.py --check --ref origin/main   # red if any row's qaValue is present at that ref
-    python3 tools/check-qa-fixtures.py --check --ref HEAD --branch main   # CI form: only enforces when the branch is main
-Engineering seat, 2026-09-04 (.engineering/2026-09-04-qa-instance-overlay.md): the divergence mechanism is the `staging`
-branch; QA-only values are committed straight into the instance file there; this register names each one and this check
-catches a merge, a cherry-pick and the migration with one predicate. Fails CLOSED on a missing register.
+"""check-qa-fixtures.py — a QA-only value is marked INLINE and must never reach a ref destined for Mom's page.
+    python3 tools/check-qa-fixtures.py                          # list the `_qaFixture` markers in instance/*.json at HEAD
+    python3 tools/check-qa-fixtures.py --check --ref origin/main
+    python3 tools/check-qa-fixtures.py --check --ref HEAD --branch main   # CI form: enforces only when the branch is main/prod
+Engineering seat, 2026-09-04 (.engineering/2026-09-04-qa-instance-overlay.md, re-answer under the freeze): `staging` is
+main-in-waiting, so a QA-only value is declared NEXT TO ITSELF — `"vault": {"rooms": ["qa-contacts"], "_qaFixture": "C6 5c
+retires this"}` — and the migration checklist is "remove every `_qaFixture`, rebuild, QA verifies, fast-forward". This check
+is the grep: any `_qaFixture` key in an instance file at a main/prod ref is red. A value that will one day be TRUE at
+Fernwood (the A+ default, identity.theme) is a staged prod change and carries NO marker.
 """
 import argparse, json, os, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
-REG = os.path.join(HERE, "qa-fixtures.json")
+MARK = "_qaFixture"
 
-def at(ref, file, path):
-    r = subprocess.run(["git", "-C", ROOT, "show", "%s:%s" % (ref, file)], capture_output=True, text=True)
-    if r.returncode: return ("<missing file>",)
-    cur = json.loads(r.stdout)
-    for part in path.split("."):
-        if not isinstance(cur, dict) or part not in cur: return ("<missing key>",)
-        cur = cur[part]
-    return (cur,)
+def files_at(ref):
+    r = subprocess.run(["git", "-C", ROOT, "ls-tree", "--name-only", ref, "instance/"], capture_output=True, text=True)
+    return [f for f in r.stdout.split() if f.endswith(".json")]
+
+def markers(obj, path=""):
+    out = []
+    if isinstance(obj, dict):
+        if MARK in obj: out.append((path or "<root>", obj[MARK]))
+        for k, v in obj.items(): out += markers(v, (path + "." + k) if path else k)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj): out += markers(v, "%s[%d]" % (path, i))
+    return out
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--check", action="store_true"); ap.add_argument("--ref", default="origin/main"); ap.add_argument("--branch", default=None)
+    ap = argparse.ArgumentParser(); ap.add_argument("--check", action="store_true"); ap.add_argument("--ref", default="HEAD"); ap.add_argument("--branch", default=None)
     a = ap.parse_args()
-    if not os.path.exists(REG): print("⛔ tools/qa-fixtures.json is missing — failing closed"); return 3
-    rows = json.load(open(REG))["rows"]
-    enforce = not a.branch or a.branch in ("main", "prod")
-    print("qa-fixtures — %d registered QA-only value(s)%s" % (len(rows), "" if a.check else ""))
-    for r in rows: print("  %s %s  qa=%r prod=%r  · %s · retired by %s" % (r["file"], r["path"], r["qaValue"], r["prodValue"], r["why"], r["retiredBy"]))
+    found = []
+    for f in files_at(a.ref):
+        r = subprocess.run(["git", "-C", ROOT, "show", "%s:%s" % (a.ref, f)], capture_output=True, text=True)
+        if r.returncode: continue
+        try: found += [(f, p, why) for p, why in markers(json.loads(r.stdout))]
+        except ValueError: print("⛔ %s at %s is not JSON" % (f, a.ref)); return 3
+    print("qa-fixtures at %s — %d `%s` marker(s)" % (a.ref, len(found), MARK))
+    for f, p, why in found: print("  %s %s · %s" % (f, p, why))
     if not a.check: return 0
-    if not enforce: print("  (branch %s: fixtures allowed here)" % a.branch); return 0
-    bad = [r for r in rows if at(a.ref, r["file"], r["path"])[0] == r["qaValue"]]
-    if bad:
-        print("🔴 %d QA fixture value(s) present at %s — a fixture is about to reach Mom's page: %s" % (len(bad), a.ref, ", ".join("%s:%s" % (r["file"], r["path"]) for r in bad))); return 1
-    print("✅ no QA fixture value at %s" % a.ref); return 0
+    if a.branch and a.branch not in ("main", "prod"): print("  (branch %s: fixtures allowed here)" % a.branch); return 0
+    if found: print("🔴 %d QA fixture(s) in an instance file at %s — remove every `%s` before the migration push" % (len(found), a.ref, MARK)); return 1
+    print("✅ no QA fixture marker at %s" % a.ref); return 0
 
 if __name__ == "__main__":
     sys.exit(main())

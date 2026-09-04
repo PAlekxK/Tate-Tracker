@@ -233,3 +233,123 @@ cross-project. Rationale: the instinct when QA needs different values is to buil
 cheaper and more honest instrument is a register naming which values are fixtures plus a check at the boundary
 they must not cross — because the layering mechanism has to be correct at every read, while the register only
 has to be correct at one gate.
+
+---
+
+# RE-ANSWER — 2026-09-04, with the freeze as the premise
+
+Paul: *"since we've frozen content on the live version, or at least frozen new changes — does that help us? I want
+to go about this in the easiest and cleanest way possible."*
+
+**Yes. It helps a lot, and it simplifies rather than changes the answer.** Two things collapse.
+
+## What the freeze actually changes
+
+**① `staging` is not a QA branch. It is `main`-in-waiting.** `origin/main..origin/staging` is not "QA extras" — it
+is *the entire unreleased release*. That reframes the whole problem: there is no ongoing risk of a fixture
+"crossing into prod," because nothing crosses. There is exactly **one** crossing event, ever: the migration.
+
+**② So the fixture register collapses to a migration checklist.** Paul's instinct in the ask is right. A continuous
+guard on `main` would be over-engineering against a boundary the freeze already holds shut. Drop it.
+
+**Revision to my earlier answer:** I put the register in `tools/` because `instance/` is SURFACE class in the
+ledger. Under the freeze that objection dissolves — everything on `staging` is SURFACE-divergent anyway and every
+SURFACE commit already owes a stage-note. So **put the declaration next to the value**, inline:
+
+```
+"vault": { "rooms": ["qa-contacts"],
+           "_qaFixture": "C6 5c retires this — Paul authors the real room" }
+```
+
+No second file, no drift between register and value, and the check is a grep for `_qaFixture`.
+
+## The finding that matters — measured just now
+
+I checked whether the migration can be a **fast-forward** (`git push origin staging:main`), and the answer is
+*almost*:
+
+```
+main ancestor of staging?  NO
+origin/main..origin/staging   23 commits   (the release)
+origin/staging..origin/main    1 commit    ← the only blocker
+  88051ad  digest: rebuild on deploy 2026-09-04T09:24Z [skip ci]
+```
+
+**The cherry-pick path is not the problem.** Both prod cherry-picks (`3c71b60`, `0d166b1`) are ancestors of
+*both* branches — that discipline is working. The single fast-forward blocker is a **CI bot commit**:
+`deploy-worker.yml` commits `worker/digest.json` back to `main` after every prod Worker deploy
+(`contents: write`, `[skip ci]`). It will recur on every prod Worker fix.
+
+And `worker/digest.json` is one of the two files that already has a merge driver — `fernwood-digest` → **REGENERATE**.
+So the blocker is both trivial and already solved; it just has to be *cleared*, not *resolved at migration*.
+
+## The one path
+
+**Make the migration a fast-forward, and keep it one back-merge away from being available at all times.**
+
+Why fast-forward rather than a curated merge, in one sentence: **a merge produces a new commit whose `viewer.html`
+was never served anywhere, at the single riskiest moment in the project.** A fast-forward ships the exact sha that
+was already deployed to QA, loaded at 414 × A+, and passed `check-live`. The bytes Mom gets are the bytes that were
+tested. That is the whole argument, and it outranks every other consideration here.
+
+The migration then reads as five lines:
+
+1. **On `staging`:** remove every `_qaFixture` (set the real values), `python3 tools/build-viewer.py`, commit.
+2. **QA deploys it.** Verify there: `check-live.py --base QA --ref origin/staging` 5/5 · `herConditions()` clean at
+   414 × 848 × A+ · `qa-walk.py` 0. ⭐ **The fixture removal is itself tested, on QA, before it is prod.**
+3. **Gates:** `grep -c _qaFixture instance/*.json` = 0 · `build-viewer.py --check` green ·
+   `git rev-list --count origin/staging..origin/main` = 0.
+4. **Ship:** `git push origin staging:main`. One command, no merge commit, no resolution.
+5. **Prove:** `check-live.py --wait 180` · `check-mom-ack.py` · `/health` on `fernwood`.
+
+## The 2 changes (down from 3)
+
+**1. `qa-divergence.py --check` also asserts the fast-forward is still available.** One git call —
+`git rev-list --count origin/staging..origin/main` must be 0 — and a remedy line naming the back-merge. **This is
+the valuable half of the whole re-answer:** it turns *"will the migration be clean?"* from something Paul finds out
+on migration day into a signal that is green (or not) every session. Today it reads 1, and the remedy is one
+command: `git merge origin/main` on staging.
+
+**2. Back-merge `main` into `staging` as the last step of the prod cherry-pick procedure** — after the deploy, so
+the bot's digest commit is included. Record it as a stage-note in the C4 plan beside the existing, working check
+(`git diff origin/main <prod-branch> -- viewer.html instance/ engine/` must be EMPTY). Keep that one; it is what
+kept the cherry-picks clean and it is why this is a one-commit problem instead of a real merge.
+
+*(The `_qaFixture` marker is a convention, not a change — it costs one key in a file you are already editing.)*
+
+## Falsifier
+
+**`git rev-list --count origin/staging..origin/main` is non-zero for anything other than the digest bot, or stays
+non-zero across sessions.** That would mean `main` is growing real work `staging` does not have, the fast-forward
+premise is false, and a curated merge has to be designed properly rather than avoided. One stale bot commit is a
+back-merge; a pattern is a different architecture.
+
+Secondary: a `_qaFixture`-marked value is present in `origin/main` after the migration.
+
+## What NOT to do
+
+1. **Do not cherry-pick to `main` without back-merging to `staging`.** That single omission is the only thing that
+   can destroy the fast-forward.
+2. **Do not resolve a `viewer.html` merge conflict at the migration.** If you are resolving, you are about to ship
+   bytes that were never served. Back out and get to a fast-forward instead.
+3. **Do not build a continuous fixture register while the freeze holds.** The freeze is the isolation; a second
+   mechanism over it is over-engineering. Build it only if the freeze lifts before the fixtures retire.
+4. **Do not let a prod fix carry a SURFACE file.** `worker/` only. The existing EMPTY-diff check stays mandatory.
+5. **Do not combine fixture removal with the migration push.** Remove on `staging`, verify on QA, *then* ship —
+   otherwise the first time the prod values are exercised is on her page.
+
+## Unchanged by the freeze
+
+- **The theme colour needs nothing.** Its own `_note` marks it a real prod value; it just rides the fast-forward.
+- **The condo is untouched** — a different estate, its own instance file, built via `--instance/--out`, sited in
+  `fernwood-private`. Orthogonal to all of this.
+- **Both build checks stay honest.** `build-viewer.py --check` is live and meaningful on `staging`; on frozen `main`
+  it is green over a static artifact — harmless, and no branch conditional is needed anywhere.
+
+## One watch-item
+
+Under the freeze, **every** SURFACE commit on `staging` is divergence and owes a stage-note, so the ledger grows
+monotonically for as long as the freeze lasts (23 today). That is the right cost for Paul's trackability ask — but
+this repo has a recorded failure mode: *a control that is red on every signal is one nobody reads.* If unrecorded
+SURFACE commits ever accumulate past ~10, the discipline has failed rather than the tool, and the honest fix is to
+record them in a batch, not to loosen the gate.
