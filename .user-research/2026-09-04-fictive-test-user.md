@@ -776,6 +776,49 @@ the hub. Each is verified, not relayed.
    change known to have shipped on a bad reading. Starting a monitor-after discipline while its own
    counterexample stays open is worth noticing.
 
+### 9c · Residue — items that would otherwise exist only in a closing session's context
+
+*Small, specific, and needed by whoever actually makes the edits. Recorded at close-out because the
+consult reports live in session-scoped temp files and go with the window.*
+
+**Two more places in `SKILL.md` where the viewport is specified and would now disagree with itself**
+(`practice-steward`, line-level):
+- **`:168` — the Synthesis trail contract** enumerates the method note as *"(served-tree md5 check,
+  **viewport**, safety rule)"*, **singular**. Edit 4 changes the trail's behaviour without changing
+  the line that *specifies* the trail. Change to `viewport set`, or Edit 4 is contradicted by the
+  section that owns the artifact.
+- **`:205` — Frictions** reads *"creating a tab silently resets to desktop width — resize FIRST."*
+  Under a one-viewport rule that is unambiguously a hazard. Under a two-viewport rule **a reviewer
+  on the desktop leg can read a reset as ARRIVAL.** This is the single sentence most likely to turn
+  an unintended reset into an unnoticed pass. Re-word to *"an unintended width."*
+
+**Two principle candidates proposed by `ux-expert`, written nowhere yet.** ⛔ Promoting either is a
+library decision, not this lane's — recorded so they are not lost:
+- **Cross-project:** *"A doctrine shield names a CLAIM, never a TOPIC."* A DELIBERATE-PER-DOCTRINE
+  verdict states the exact proposition it closes, and the adjudicator restates the finding before
+  applying it. **Falsifier: if the shield can be applied by keyword match, it is a topic and it will
+  over-capture.** *(Second occurrence available — the strip↔card duplication contract has the same
+  shape and has been cited three sweeps running.)*
+- **Fernwood:** *"When the column is the design, the window edge is not the design edge."*
+  (1 occurrence — the feedback ribbon and the masthead discs are the two worked cases.)
+
+**One artifact deliberately not written:** `engineering-partner` noted that its reasoning belongs in
+`.engineering/2026-09-04-path-usage-share-instrument.md` — *"the 'don't build it, and here's the gate
+that would change that' reasoning is the kind that gets re-litigated in three months."* Not written:
+outside this lane's OWNS, and the run was live.
+
+**A cross-ritual seam, unowned:** `/design-options` mocks at 414 in a 414-wide iframe, and its
+`@media (max-width:480px)` technique resolves against **the iframe**, not the window. An exhibit
+ratified at 414 is not expressible at laptop width in that harness as it stands. Not this edit set's
+defect; a seam that now exists.
+
+**And a trigger that fires on nothing:** `check-ux-sweep.py`'s thresholds are declared *"a FIRST
+CUT, agent-proposed, not ratified — tune from what runs show."* The mechanism to re-tune exists;
+**nothing triggers a tuning review**, and this change alters the ritual those thresholds were cut
+for. Reported, not resolved.
+
+---
+
 ⚠️ **Empirical status of rows 2–3:** the width claims are **structurally verified, empirically
 unverified.** It is proven that the field is captured on every batch and read by nothing; **no actual
 value has been looked at.** No live read was run — network reads against the Worker were outside
