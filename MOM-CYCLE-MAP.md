@@ -857,3 +857,10 @@ loop owned had nowhere to be filed, so it moved only when someone remembered —
 loops were in that state. ⚠️ **A door is not a promise of attention:** it is a place to
 put a thing so it stops depending on memory. Whether an ask is acted on is this loop's
 trigger's business, not the door's.
+
+<!-- tools added 2026-09-04 (migration era) — named so the map-control stops flagging them; each serves the loop's pre-push gate -->
+- `tools/check-text-size-default.py <url>` — her served text size: fresh device gets A+, nothing written to storage on a default, a stored choice still wins (C6 1b/1c).
+- `tools/check-qa-fixtures.py --check` — no `_qaFixture` marker may reach a ref destined for her page (main/prod); the migration checklist's grep.
+- `tools/qa-divergence.py --check` — what QA has that she does not, and whether the migration can fast-forward.
+- `tools/place-claims.py --check` — shared engine prose that claims a place, classed and ratcheted (0 at the condo).
+- `tools/qa_access.py` — the Cloudflare Access headers every tool needs to fetch the QA page (token in `.private/`).
