@@ -44,6 +44,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CLASSES = {"engine", "config", "instance"}
 TIERS = {"free", "declared", "must-not-diverge"}
 STAGES = ["ready", "concept", "build", "qa", "shipped", "retro"]
+REPEATABLE = {"stage-note"}   # a dated LOG line, appended per event — many is the design, not a disagreement
 IN_FLIGHT = {"concept", "build", "qa"}
 REQUIRED_SECTIONS = ["## Files touched", "## Sequence", "## Falsifier", "## QA"]
 POINTER_PAT = re.compile(r"→\s*READY\s*·\s*(\.plans/[^\s`|)]+)")
@@ -105,7 +106,7 @@ def parse_plan(text):
             elif cur == "depends-on":
                 deps.append(m.group(2).strip().strip("`"))
             else:
-                if cur in keys:
+                if cur in keys and cur not in REPEATABLE:
                     # a header key written TWICE — two writers disagreed and last-wins picked one silently
                     # (measured 2026-09-04: two plans carried `stage:` twice and parsed as the stale value,
                     # so the WIP count read 2 where the artifacts said 4). Recorded, flagged by check().
@@ -265,6 +266,10 @@ def selftest():
         make(td, plan=GOOD_PLAN.replace("- stage: ready", "- stage: build\n- stage: ready", 1))
         f, fl = check(td)
         ok("a plan with TWO `stage:` lines is flagged as a duplicated header key", any("appears more than once" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td, plan=GOOD_PLAN.replace("- stage: ready", "- stage: ready\n- stage-note: opened\n- stage-note: step 1 shipped", 1))
+        f, _ = check(td)
+        ok("repeated `stage-note:` lines are a LOG, not a duplicate", not any("appears more than once" in m for _, m in f))
     with tempfile.TemporaryDirectory() as td:
         make(td, plan=GOOD_PLAN.replace("- stage: ready", "- stage: retro", 1) + "\n## Retro — written at close, 2026-09-03\n\nanswered.\n")
         f, _ = check(td)
