@@ -1,7 +1,7 @@
 # LANE C — the fictive test user
 
 
-## STATUS: OPEN — at gate, holding. RELEASE CONDITION: its doc is revised for the lens reframing + naming ruling, and §10.5 is answered. Any hub may release it.
+## STATUS: CLOSED 2026-09-04 — gate met, doc revised, §10.5 answered, all three consults returned and folded. Released by the hub. Absence is EXPECTED. Its carried items and eight unowned rows are in LEDGER.md.
 Read `_PREAMBLE.md` first. It binds.
 
 ## OWNS (the only paths you may write)

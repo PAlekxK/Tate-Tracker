@@ -345,3 +345,50 @@ the served HTML for markers — returned two false POSITIVES** (case-insensitive
 prose, plus a `stroke-linejoin` that already existed on an icon rule). **The marker probe was
 unreliable in both directions; only the byte comparison was honest.** Fourth instance today of
 [[reference_match_payload_not_container]].
+
+## Lane C CLOSED — carried items taken, and one warning that must survive
+
+Nine commits `a0640ee`→`7d4c04c`, all by explicit path, all on its own OWNS file, plus the
+Paul-instructed canvas widening it declared at the time. `.user-research/2026-09-04-condo-dweller.md`
+remains untracked — it predates the lane and no lane touched it. Nothing uncommitted, nothing running.
+
+### ⚠️ THE HONEST LIMIT — do not let this be sanded off
+**The width claims in its §9 are STRUCTURALLY VERIFIED and EMPIRICALLY UNVERIFIED.** It is proven
+that the field is captured on every batch and read by nothing. **No actual value has ever been
+looked at** — a live read was not in the lane's authorization. ⛔ **§9 must NOT ship with the
+secondary viewport stamped `[measured]` until someone actually looks.** A structural proof that a
+number is *collected* is not evidence of what the number *says*, and the gap between those two is
+exactly where a confident wrong answer gets made.
+
+### Eight unowned rows, from its §9b
+1. ⭐ **A one-word `deviceClass` key fix — 106 days live, found independently by TWO seats.** Two
+   independent discoveries of the same defect is the strongest signal in the set.
+2. ⛔ **Do NOT build a usage-share instrument at n=2.** Gate named: a third household.
+3. **Read the widths ONCE BY HAND before the edit set ships** — with the iPadOS-Mac-UA hazard stated.
+   This is the cheap discharge of the honest limit above.
+4. **The `/design-options` live-HTML promotion** Paul ruled on today. ⚠️ Self-corrected by the lane:
+   an interactive path EXISTS as a proven one-off and is already flagged in the skill's own log, so
+   *"cannot shoot desktop"* was accurate for the PNG path and **incomplete** as stated.
+5. **Monitor-after needs a recorded PREDICTION, not an instrument.**
+6. ⛔ **`qa-walk.py` stays 414 and must NOT gain a desktop `herConditions()`** — the deterministic
+   floor is her conditions on purpose. ⚠️ Read alongside the hub's own row that `check-live`'s
+   180s wait under-covers: *lengthen a wait, never widen a floor that means something.*
+7. **Two width-anchored contradictions** in the skill text.
+8. **`5237293` still open.**
+
+### Carried in its §9c (`7d4c04c`) because the consult reports die with the window
+- `SKILL.md:168` — the trail contract still says **"viewport" SINGULAR**, so Edit 4 changes the
+  trail's behaviour while the line specifying the trail contradicts it.
+- `SKILL.md:205` — *"creating a tab silently resets to desktop width"* reads as a **HAZARD** under
+  one viewport and as **ARRIVAL** under two. The single sentence most likely to turn an unintended
+  reset into an unnoticed pass.
+- ⭐ **Two principle candidates, written nowhere else.** Cross-project: *"a doctrine shield names a
+  CLAIM, never a TOPIC"* — falsifier included (if it can be applied by keyword match it is a topic
+  and will over-capture), and a second occurrence already exists in the strip↔card contract.
+  Fernwood: *"when the column is the design, the window edge is not the design edge."*
+  ⛔ Promoting either is a library decision and was explicitly not the lane's.
+- engineering-partner named `.engineering/2026-09-04-path-usage-share-instrument.md` as where its
+  **don't-build-it** reasoning belongs. NOT written — outside OWNS while the run was live. Its own
+  words: the kind of reasoning that gets re-litigated in three months.
+- The `/design-options` `@media`-resolves-against-the-iframe seam, and `check-ux-sweep.py`'s
+  thresholds having a re-tuning mechanism that nothing triggers.
