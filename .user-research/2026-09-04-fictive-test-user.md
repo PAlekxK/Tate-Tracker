@@ -379,12 +379,20 @@ maintain — which is the same argument the whole engine/instance split is built
    looked at. The ruling settles *what the design is*; it does not assert the design is currently
    well-executed on desktop — which is precisely what §9's wiring exists to find out.
 
-⚠️ **This document is not the durable home for the ruling.** It is a test-fixture design; a
-ratified layout contract belongs where renderers and reviewers actually read it — the doctrine
-block at the top of `viewer.html`'s stylesheet (where the affirmative-grammar and strip↔card
-contracts already live) and/or `~/.claude/design-principles/`. **Out of this lane's OWNS** —
-flagged to the hub as a placement decision, carried here in the interim so the ruling is not
-homeless.
+✅ **HOME: `engine/viewer.template.html`, the stylesheet doctrine region** (`3aada23`, Paul's
+direct instruction). The ruling is written as **"THE CANVAS — one column at every width,"** sited
+as the outermost of the three systems: shape says what a *button* is, nesting says what a *row*
+is, the canvas says what the *page* is — because the other two are spending space this one has
+decided. Written to the **template**, not to `viewer.html`, which is generated;
+`build-viewer.py --check` reads byte-identical.
+
+Two things live in that block and not here, because they only bite at the source: **a `min-width`
+block is now a claim that this ruling changed** (a second layout, needing Paul), and the block
+states plainly that it is **not tool-enforced** — a lint counting `min-width` blocks would pass
+the day someone shipped a bad wide layout without one. The honest check is a human at 1440px,
+reached through §9's viewport set.
+
+*This document keeps only the reasoning trail. The contract is at the source.*
 
 ## 9 · The wiring proposal — 4 edits to `~/.claude/skills/ux-sweep/SKILL.md`
 
@@ -429,16 +437,13 @@ stops being invisible.
    not be added by a lane.
 3. **§3f — designation, not a name.** Recommend `HARNESS-01` with no biography. If he wants a
    name, it must be obviously non-real — never a plausible first name.
-4. ~~**§8 — ratify the centered column as the desktop design, or commission a desktop layout.**~~
-   ✅ **SETTLED `[paul-ruled 2026-09-04]` — the centered column IS the desktop design.** What
-   remains is **placement, not the decision**: the ratified contract needs a durable home a
-   renderer or a reviewer actually reads (`viewer.html`'s stylesheet doctrine block and/or
-   `~/.claude/design-principles/`), which is outside this lane's OWNS. §8 carries it in the
-   interim.
+4. ~~**§8 — ratify the centered column, or commission a desktop layout.**~~ ✅ **CLOSED
+   `[paul-ruled 2026-09-04]`** — ratified, and landed in `engine/viewer.template.html`'s doctrine
+   region as **THE CANVAS** (`3aada23`). Nothing outstanding.
 5. **§9 — the four `/ux-sweep` edits**, coordinated with the amendment already proposed in that
-   skill's own log. Edit 3(c) now depends on the §8 ruling and should not ship without it having
-   a durable home — a DELIBERATE-PER-DOCTRINE verdict that cites a ruling no principle file
-   carries is a verdict the next sweep cannot verify.
+   skill's own log. ✅ Edit 3(c)'s precondition is now met: the DELIBERATE-PER-DOCTRINE verdict
+   has a block at the source to cite, so a future sweep can verify the ruling it is being held to
+   rather than taking a report's word for it.
 6. **Sequencing.** Prod is frozen and Mom's feedback is held. Nothing here is urgent, and lap 0
    of a tenure costs real time. Recommend the wiring (§9, cheap, immediately useful) lands well
    before the harness (§3, a build).
