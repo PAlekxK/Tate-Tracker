@@ -346,6 +346,13 @@ def selftest():
     sg = {x["name"]: x for x in sg}
     check("MODULES  unreadable module set → offers-passed is '?'", sg["offers-passed"]["value"], "?")
     check("MODULES  at Fernwood a card-bearing module IS on", _card_modules_on(), True)
+    # C7 1b — answer-age follows the module set, and ON-but-empty still fires
+    sg, _ = engagement_signals(_eng(), 22, card_modules=False); sg = {x["name"]: x for x in sg}
+    check("C7 1b  a 22-day gap at an estate with no card-bearing module publishes '?' and never fires",
+          (sg["answer-age"]["value"], sg["answer-age"]["fired"]), ("?", False))
+    sg, _ = engagement_signals(_eng(), 22, card_modules=True); sg = {x["name"]: x for x in sg}
+    check("C7 1b  the same gap where a card module is on (even with an empty plants.json) STILL fires",
+          sg["answer-age"]["fired"], True)
 
     s, f = _named(_eng(momqueue_viewed=3, momqueue_tapped=0))
     check("3 offers seen and passed FIRES", s["offers-passed"]["fired"], True)
@@ -570,7 +577,13 @@ def engagement_signals(raw, last_answer_days=None, today=None, card_modules=True
                  "detail": "sessions since the lap — using it, settling nothing"})
 
     # 3 · The slow clock. A real gate: time passes whether or not anyone works it.
-    if last_answer_days is None:
+    #     C7 1b: an estate with NO card-bearing module has no contributor loop, so a
+    #     silence there is not hers — publish `?`, the file's existing idiom.
+    if card_modules is False:
+        sigs.append({"name": "answer-age", "fired": False, "value": "?",
+                     "threshold": DAYS_SINCE_ANSWER,
+                     "detail": "UNMEASURED: no contributor loop at this estate (no card-bearing module is on)"})
+    elif last_answer_days is None:
         sigs.append({"name": "answer-age", "fired": False, "value": "?",
                      "threshold": DAYS_SINCE_ANSWER,
                      "detail": "UNMEASURED: no dated answer on record"})

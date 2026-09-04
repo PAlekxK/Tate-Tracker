@@ -66,6 +66,9 @@ IDENTITY = {
     "nameJs":          lambda ident, prop: json.dumps(ident["name"], ensure_ascii=False)[1:-1],
     "journalTileJs":   lambda ident, prop: json.dumps(ident.get("journalTile") or (ident["name"] + " Almanac"), ensure_ascii=False)[1:-1],
     "stationName":     lambda ident, prop: json.dumps(ident.get("stationName") or "the weather station", ensure_ascii=False)[1:-1],
+    # C7 1c — three-state station: "present" (fetch; offline → error dot) · "declared-absent" (no fetch; regional label, no error dot).
+    # A missing key is NOT a default: it builds as "undeclared" and the viewer treats that like present, loudly labelled.
+    "station":         lambda ident, prop: ident.get("station", "undeclared"),
 }
 IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "title":       re.compile(r"(<title>)(.*?)(</title>)"),
@@ -79,6 +82,7 @@ IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "nameJs":          re.compile(r'(^const ESTATE_NAME = ")(.*?)(";$)', re.M),
     "journalTileJs":   re.compile(r'(^const JOURNAL_NAME = ")(.*?)(";$)', re.M),
     "stationName":     re.compile(r'(^const STATION_NAME = ")(.*?)(";$)', re.M),
+    "station":         re.compile(r'(^const ESTATE_STATION = ")(.*?)(";$)', re.M),
 }
 EMPTY_SHAPE = {  # what an ABSENT domain's const looks like — the list key per kind
     "plants": {"_meta": {"declaredAbsent": True}, "plants": []},
@@ -230,8 +234,8 @@ def selftest():
     viewer = open(VIEWER, encoding="utf-8").read()
     t = extract(viewer)
     check("extract → build round-trips the live viewer byte for byte", build(t, DEFAULT_INSTANCE) == viewer)
-    check("template carries %d DATA + 14 IDENTITY + 1 ESTATE placeholders" % len(roster()),
-          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 14 and t.count("{{ESTATE:") == 1)
+    check("template carries %d DATA + 15 IDENTITY + 1 ESTATE placeholders" % len(roster()),
+          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 15 and t.count("{{ESTATE:") == 1)
     # a changed source must change the build (so --check can go red)
     with tempfile.TemporaryDirectory() as d:
         inst = os.path.join(d, "instance"); os.makedirs(inst)

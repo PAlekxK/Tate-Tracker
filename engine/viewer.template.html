@@ -7019,6 +7019,10 @@ const ESTATE_MODULES = {{ESTATE:modules}};
 const ESTATE_NAME = "{{IDENTITY:nameJs}}";
 const JOURNAL_NAME = "{{IDENTITY:journalTileJs}}";
 const STATION_NAME = "{{IDENTITY:stationName}}";
+// C7 1c — does this estate HAVE a station? "present" · "declared-absent" · "undeclared" (the build's
+// loud non-default). Declared-absent: no proxy call, the weather card says regional, no error dot.
+const ESTATE_STATION = "{{IDENTITY:station}}";
+const STATION_DECLARED_ABSENT = ESTATE_STATION === "declared-absent";
 const TURF_DATA = {{DATA:TURF_DATA}};
 const WEEDS_DATA = {{DATA:WEEDS_DATA}};
 const INSECTS_DATA = {{DATA:INSECTS_DATA}};
@@ -7888,6 +7892,7 @@ function applyStationOverrides(d, history) {
 }
 
 async function fetchAmbientWeather() {
+  if (STATION_DECLARED_ABSENT) { WEATHER_DATA.stationDeclaredAbsent = true; return; }   // C7 1c: nothing to ask; the card labels itself regional
   // limit=288 = 24 hours at 5-min cadence — gives us trend sparklines on the same call
   const url = AMBIENT_ENDPOINT + "?limit=288";
   try {
@@ -8335,6 +8340,12 @@ function renderAmbientStationPanel(d, errMsg) {
   if (!panel) return;
 
   if (!d) {
+    if (STATION_DECLARED_ABSENT) {
+      panel.innerHTML = '<div class="wblock-status"><span class="live-dot stale"></span> This place declares no weather station — readings here are regional (modelled).</div>';
+      const insideHost0 = document.getElementById("wsec-inside");
+      if (insideHost0) insideHost0.style.display = "none";
+      return;
+    }
     const msg = errMsg ? "Error: " + errMsg : "Hardware not yet online — data will appear when station is powered on";
     panel.innerHTML = '<div class="wblock-status"><span class="live-dot error"></span> ' + escapeHtml(msg) + '</div>';
     const insideHost = document.getElementById("wsec-inside");
@@ -8676,7 +8687,7 @@ function renderRainfallPanel() {
 
   // Gauge freshness → the box's 📡 source chip (measured on the property).
   const stationTs = station && (station.dateutc || (station.date ? new Date(station.date).getTime() : null));
-  const rainStationDot = station ? liveDot(stationTs, 10, 30) : '<span class="live-dot error"></span>';
+  const rainStationDot = station ? liveDot(stationTs, 10, 30) : (STATION_DECLARED_ABSENT ? '<span class="live-dot stale"></span>' : '<span class="live-dot error"></span>');
 
   // ── Station gauge block (now/today/event/week/month) ──
   const gaugeBlock = station ? renderPropertyGaugeBlock(station) : '';
@@ -8889,11 +8900,11 @@ function renderWeather() {
   const stationTs = station && (station.dateutc || (station.date ? new Date(station.date).getTime() : null));
   const stationIndicator = station
     ? liveIndicator(stationTs, 10, 30)
-    : '<span class="live-dot error"></span> Not online';
+    : (STATION_DECLARED_ABSENT ? '<span class="live-dot stale"></span> No station here — regional readings' : '<span class="live-dot error"></span> Not online');
 
   // Bare freshness dots for the compact per-box source chips (the status bar
   // above is the key; each box below cites with just the colored oval + dot).
-  const stationDot = station ? liveDot(stationTs, 10, 30) : '<span class="live-dot error"></span>';
+  const stationDot = station ? liveDot(stationTs, 10, 30) : (STATION_DECLARED_ABSENT ? '<span class="live-dot stale"></span>' : '<span class="live-dot error"></span>');
   const omDot = omIsPlaceholder ? '<span class="live-dot stale"></span>' : liveDot(omFetchedAt, 90, 360);
 
   let html = "";
