@@ -7707,6 +7707,7 @@ function hourLabel(hr) {
 }
 
 async function fetchLiveWeather() {
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = PROPERTY_DATA.location.coordinates.approximateLat;
   const lon = PROPERTY_DATA.location.coordinates.approximateLon;
   const url = "https://api.open-meteo.com/v1/forecast" +
@@ -15883,8 +15884,10 @@ async function fetchUSGSStreamflow() {
 const SEISMIC_RADIUS_KM = 300;
 const SEISMIC_MIN_MAG   = 2.0;
 async function fetchUSGSEarthquakes() {
-  const lat = PROPERTY_DATA.location.coordinates.approximateLat;
-  const lon = PROPERTY_DATA.location.coordinates.approximateLon;
+  if (!(PROPERTY_DATA.resources && PROPERTY_DATA.resources.seismic)) return;   // no regional feature declared → no panel, no query
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
+  const lat = PROPERTY_DATA.location.coordinates.approximateLat ?? siteCoords().lat;
+  const lon = PROPERTY_DATA.location.coordinates.approximateLon ?? siteCoords().lon;
   const url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson" +
     "&latitude=" + lat + "&longitude=" + lon +
     "&maxradiuskm=" + SEISMIC_RADIUS_KM +
@@ -15919,6 +15922,7 @@ async function fetchUSGSEarthquakes() {
 // NWS skyCover — two-step fetch (/points → /gridpoints) for an astronomy-trusted cloud forecast.
 // Cached on WEATHER_DATA.nwsSkyCover as an array of { start: Date, percent: number }.
 async function fetchNWSSkyCover() {
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = PROPERTY_DATA.location.coordinates.approximateLat;
   const lon = PROPERTY_DATA.location.coordinates.approximateLon;
   try {
@@ -16321,6 +16325,7 @@ function renderClimateInner(climate) {
 }
 
 async function fetchClimateNormals() {
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = siteCoords().lat, lon = siteCoords().lon;
   // Open-Meteo archive API: 30-year daily data for 1991-2020 normals at property coordinates
   const url = 'https://archive-api.open-meteo.com/v1/archive' +
@@ -18533,6 +18538,7 @@ const MetricsViewObserver = (function () {
 
 // ---- AirNow AQI chip (Phase C2) ----
 async function fetchAirNowAQI() {
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   if (!WorkerAPI.isConfigured()) return;
   try {
     const lat = siteCoords().lat, lon = siteCoords().lon;
@@ -18665,6 +18671,7 @@ async function fetchTodayLine() {
 
 // ---- Fire-weather alerts (NWS active-alerts at property point — CORS-enabled, no key) ----
 async function fetchFireWeatherAlerts() {
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   try {
     const url = "https://api.weather.gov/alerts/active?point=" + siteCoords().lat + "," + siteCoords().lon;
     const res = await fetch(url);
