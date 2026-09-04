@@ -114,6 +114,22 @@ def const_re(const):
 MODULES_CONST = "ESTATE_MODULES"
 MODULES_PH = "{{ESTATE:modules}}"
 
+# C6 1c — the SERVED text-size default is instance config: `display.defaultTextSize` ("lg" | "normal"), filled into
+# `wireTextSizeToggle`'s DEFAULT_SIZE. A missing key FAILS the build rather than defaulting: which size an unconfigured
+# device is served is a decision, and the instance file is where it is written down. The reason lives in the template's
+# decision block; only the value lives here.
+DISPLAY_PH = "{{DISPLAY:defaultTextSize}}"
+DISPLAY_MARKUP = re.compile(r'(^  const DEFAULT_SIZE = ")(.*?)(";)', re.M)
+TEXT_SIZES = ("lg", "normal")
+
+
+def _display_value(cfg, instance_path):
+    v = (cfg.get("display") or {}).get("defaultTextSize")
+    if v not in TEXT_SIZES:
+        raise RuntimeError("%s must declare display.defaultTextSize as one of %s (got %r) — the served default is a decision, not a fallback"
+                           % (instance_path, TEXT_SIZES, v))
+    return v
+
 
 def _modules_literal(canon):
     sys.path.insert(0, HERE)
@@ -151,6 +167,10 @@ def extract(viewer_text):
             raise RuntimeError("extract: identity markup for `%s` not found" % key)
         t = t[:m.start(2)] + "{{IDENTITY:%s}}" % key + t[m.end(2):]
     # further sites for the same keys — the input head and the two card titles
+    m = DISPLAY_MARKUP.search(t)
+    if not m:
+        raise RuntimeError("viewer has no `const DEFAULT_SIZE = \"…\"` line — the text-size toggle moved?")
+    t = t[:m.start(2)] + DISPLAY_PH + t[m.end(2):]
     t = re.sub(r'(<span class="ic-head-title">)(.*?)(</span>)', r'\1{{IDENTITY:journalTile}}\3', t, count=1)
     t = re.sub(r'(data-toggle="fieldnotes">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)', r'\1{{IDENTITY:journalTile}}\3', t, count=1)
     t = re.sub(r'(data-toggle="property">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)', r'\1{{IDENTITY:propertyTile}}\3', t, count=1)
@@ -183,6 +203,9 @@ def build(template_text, instance_path):
         if ph not in out:
             raise RuntimeError("template has no identity placeholder %s" % key)
         out = out.replace(ph, fn(cfg["identity"], prop))   # every site of the key
+    if DISPLAY_PH not in out:
+        raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % DISPLAY_PH)
+    out = out.replace(DISPLAY_PH, _display_value(cfg, instance_path), 1)
     if MODULES_PH not in out:
         raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % MODULES_PH)
     out = out.replace(MODULES_PH, _modules_literal(canon), 1)
@@ -199,7 +222,7 @@ def build(template_text, instance_path):
         from pathlib import Path as _P
         entries = brn.parse_release_notes(_P(notes_path))[:5]   # the same "latest 5" build-release-notes.py inlines
     out = out.replace("{{RELEASE_NOTES}}", json.dumps(entries, ensure_ascii=False), 1)
-    if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out or "{{RELEASE_NOTES}}" in out:
+    if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out or "{{DISPLAY:" in out or "{{RELEASE_NOTES}}" in out:
         raise RuntimeError("unfilled placeholder remains after build")
     if "<title>" not in out or n < 10:
         raise RuntimeError("built output does not look like the app — refusing to write")
@@ -251,8 +274,8 @@ def selftest():
     viewer = open(VIEWER, encoding="utf-8").read()
     t = extract(viewer)
     check("extract → build round-trips the live viewer byte for byte", build(t, DEFAULT_INSTANCE) == viewer)
-    check("template carries %d DATA + 15 IDENTITY + 1 ESTATE placeholders" % len(roster()),
-          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 15 and t.count("{{ESTATE:") == 1)
+    check("template carries %d DATA + 15 IDENTITY + 1 ESTATE + 1 DISPLAY placeholders" % len(roster()),
+          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 15 and t.count("{{ESTATE:") == 1 and t.count("{{DISPLAY:") == 1)
     # a changed source must change the build (so --check can go red)
     with tempfile.TemporaryDirectory() as d:
         inst = os.path.join(d, "instance"); os.makedirs(inst)

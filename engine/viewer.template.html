@@ -21247,6 +21247,22 @@ function gatherGuruLiveState() {
 // Per-device localStorage; applied via body.text-lg class.
 // The scaling rules live in the .text-lg CSS block at the end of <style>.
 //
+// ✅ RE-RULED 2026-09-03 ON NEW EVIDENCE ABOUT HER — the served default is A+ ("lg"),
+// and it is INSTANCE CONFIG (C6 1b/1c), not a literal here. The block below ends
+// "do not re-raise the A+ default without new evidence about HER." The evidence:
+// her device's `text_size_served` reads {size:"lg", stored:true} in 8 of 8 reports
+// over 60 days (latest 2026-09-01), with 0 toggle firings from it in the record —
+// she IS on A+, and has been; "never toggled" and "is on A" were different claims.
+// Paul, 2026-09-03 9:45 PM ET: "whatever Mom has been using, whatever she's used
+// to seeing, that's the standard." So this is a DIFFERENT act from the one walked
+// back: that one re-formatted every surface for a person on A; this one decides
+// what an UNCONFIGURED device shows, and hers is configured — untouched by
+// construction (the stored key wins, below). Nothing is written to storage on a
+// default, so {lg, stored:false} (served) stays distinguishable from
+// {lg, stored:true} (chosen). Lands on QA first; prod follows at the migration.
+// The value is `display.defaultTextSize` in instance/<estate>.json; this block is
+// the reason. History follows, kept whole.
+//
 // ⛔ THE A+ DEFAULT WAS TRIED AND WALKED BACK, 2026-08-19 `[paul-stated]`: "if she
 // is happy with A, let's not change it to A+ — in the formatting everything is
 // gonna change, so let's not force an A+ text resizing if she's used to A."
@@ -21302,7 +21318,7 @@ function gatherGuruLiveState() {
 
 (function wireTextSizeToggle() {
   const KEY = "tateTracker.textSize";
-  const DEFAULT_SIZE = "normal";   // walked back 2026-08-19 — see the block above
+  const DEFAULT_SIZE = "{{DISPLAY:defaultTextSize}}";   // the INSTANCE's served default (C6 1c) — filled by build-viewer.py from instance/<estate>.json display.defaultTextSize; the reasoning is the block above
   const aBtn = document.getElementById("text-size-a");
   const aplusBtn = document.getElementById("text-size-aplus");
   if (!aBtn || !aplusBtn) return;

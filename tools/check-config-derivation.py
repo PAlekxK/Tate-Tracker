@@ -57,6 +57,13 @@ ROSTER = [
         "tools/guru-probe.py": "SELFTEST FIXTURES for the inverted grader",
         ".plans/*.json": "records", ".ux-reviews/*.json": "records", ".engineering/*": "records", ".user-research/*": "records",
     }),
+    # C6 1c — the SERVED text-size default is instance config (instance/<estate>.json display.defaultTextSize),
+    # filled into the template's DEFAULT_SIZE. A typed `DEFAULT_SIZE = "lg"` under engine/ or tools/ is a fork.
+    ("instance.display.defaultTextSize", "literal", (r'DEFAULT_SIZE\s*=\s*"(?:lg|normal)"',), {
+        "viewer.html":                         "BUILT output — build-viewer.py fills {{DISPLAY:defaultTextSize}}",
+        "tools/check-config-derivation.py":    "the DETECTOR string",
+        ".plans/*": "records", ".engineering/*": "records", ".ux-reviews/*": "records", ".user-research/*": "records",
+    }),
     ("property.address", "literal", (r"282 Church Mountain",), {
         "property.json": "canon", "viewer.html": "BUILT output (header address line + PROPERTY_DATA)", "worker/digest.json": "BUILT output",
         "birds.json": "domain _meta records the place", "amphibians.json": "domain _meta", "insects.json": "domain _meta", "lizards.json": "domain _meta",
@@ -206,6 +213,15 @@ def selftest():
         open(tool, "w").write("ELEV_FT = 2873\n")
         f, _, _ = scan(d)
         check("`2873` typed in a tool → FIRES", any(x[0].endswith("estimated_ft") for x in f), f)
+        os.makedirs(os.path.join(d, "engine"), exist_ok=True)
+        eng = os.path.join(d, "engine", "scratch.template.html")
+        open(eng, "w").write('<script>\n  const DEFAULT_SIZE = "lg";\n</script>\n')
+        f, _, _ = scan(d)
+        check("PLANT `DEFAULT_SIZE = \"lg\"` under engine/ → FIRES (C6 1c: the served default is instance config)",
+              any(x[0] == "instance.display.defaultTextSize" and x[1].startswith("engine/") for x in f), f)
+        open(eng, "w").write('<script>\n  const DEFAULT_SIZE = "{{DISPLAY:defaultTextSize}}";\n</script>\n')
+        f, _, _ = scan(d)
+        check("the placeholder in its place → CLEARS", not any(x[0] == "instance.display.defaultTextSize" for x in f), f)
         open(tool, "w").write("x = 2873/1000*7  # a computed copy\n")
         f, _, _ = scan(d)
         check("BLIND SPOT, stated not hidden: a computed copy still contains the literal here, but `2.873` or a lapse-rate result would not — documented in the docstring",

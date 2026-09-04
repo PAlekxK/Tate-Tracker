@@ -14,5 +14,9 @@
     "stationName": "Fernwood Weather Vane",
     "station": "present"
   },
-  "absent": []
+  "absent": [],
+  "display": {
+    "defaultTextSize": "lg",
+    "_rule": "C6 1c (2026-09-03): what an UNCONFIGURED device is served. A device with a stored choice keeps it. Measured 9/03: her device reads lg (A+) in 8 of 8 text_size_served reports — the value follows her, it does not lead her."
+  }
 }
