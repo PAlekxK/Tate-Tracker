@@ -219,6 +219,60 @@ either an area (the mis-modelling `badf097` already found and refused to bake in
 means two zones sharing an edge where a path actually runs. **Lines-in-the-schema is a prerequisite for Model A,
 not an adjacent nicety.**
 
+### ⭐⭐ 4b · THE GATE ABOVE MAY DISSOLVE RATHER THAN NEED ANSWERING — read this before acting on §4
+
+*Added later the same day, 2026-09-04. **§4 above is preserved as written and is now partly superseded.** A
+superseded recommendation with its reason is more useful cold than a clean file that hides the turn — so both are
+here, and this subsection says which one is live.*
+
+**Paul proposed a different move**, unprompted, after being shown the 11 sliver pairs `[paul-stated 2026-09-04]`:
+
+> **"what would be best is for you to help me be able to draw the barriers or the landmarks on the map. Maybe
+> that's a really good place to start."**
+
+> **"maybe landmarks on the map are more important than trying to set zones by individual vertices."**
+
+⭐ **This is better than the question §4 asks, and the reason is the record's own, not this plan's.** `badf097`'s
+commit body already established it: ***"a shared border IS a line."*** So **drawing the wall that runs between two
+zones is the same act as answering "do these two abut?"** — except it yields a **record** rather than an
+**opinion**, it is performed by standing where the wall is rather than adjudicating a sub-pixel gap on an aerial
+(§4's own trap), and it cannot go stale the way an undocumented verdict does.
+
+**Consequence for §4:** *"which zones abut which"* may not be a question anyone ever has to answer in the abstract.
+It may simply be a **by-product of capturing the linear features that already exist on the ground** — walls, paths,
+the driveway, fences. If so, the "biggest decision in the plan" framing at the top of §4 is **wrong**, and the real
+prerequisite was always the one §4 listed third: **lines in the schema.**
+
+⚠️ **NOT free, and the blocker is precise.** The drawing half already exists — `tools/area-trace.html` gained open
+polylines with snapping on 2026-08-31 (`badf097`), seeded with The Path, the Upper-Uber wall and the Driveway. The
+**saving** half does not: `zones.json` has **no `lines` key**, and `_meta.fold_2026_08_31` says why — *"the
+zone-save round-trip rebuilds {_meta, zones} wholesale and would silently drop any other key, so lines stay in the
+plan file until a schema v3 adds them."*
+⛔ **Schema v3 shipped, added `partOf`, and did not add lines.** The deferral named its own trigger, the trigger
+fired, and nothing noticed. *(Third instance of that shape found in this one run, all failing in the
+safe-looking direction — see §8. A park with a satisfied gate reads healthier than a gateless one, and nothing
+checks it.)* **So this is a save-path problem, not a drawing problem.**
+
+⚠️ **AND THE ORDER CHANGED — record this or a cold reader will re-derive the original recommendation from the same
+evidence.** This plan is written Fernwood-first throughout. Paul inverted it the same day `[paul-stated 2026-09-04]`:
+
+> **"I think we should do the product and engine territory work and then we prove that by using it for Fernwood."**
+
+So landmarks-first is being designed as an **engine / onboarding primitive**, and Fernwood drawing its own walls and
+paths becomes the **proof** of that primitive rather than the first build. ⛔ **The Fernwood-first sequencing implied
+by §7's tiers is therefore superseded for the LINES work specifically** — Tier 1 (render) and Tier 2 (the reviewed
+data pass) are unaffected and remain as written.
+
+⚠️ **Two constraints on the engine work, both recorded because they are easy to lose:**
+1. `PRODUCT-ENGINE.md` is **capture-only** and opens with a `user-researcher` interview rather than an architecture
+   decision. Expect the first move to be an interview, not a landmark schema. That is the sequence, not a delay.
+2. ⭐ **Proof at the end, input at the start.** The **only** evidence anywhere of how a person actually names a
+   place is the 2026-08-30 naming session — 16 areas named unprompted, every one a name a real person would use
+   (*"The bank"*, *"The Bluff"*, *"The Green"*). n=1, and it is the only n that exists. Corpus:
+   `.plans/2026-08-31-zones-traced-with-mom.json` plus Paul's two linear-feature rulings. **The risk to name:**
+   *"Fernwood proves it at the end"* can quietly become *"Fernwood's evidence is out of scope at the start,"* and
+   then the primitive gets designed from first principles against zero observed behaviour.
+
 ---
 
 ## 5 · Prior art — what is already out there
@@ -430,8 +484,16 @@ the detection automates, the fix stays gated. ⚠️ Do not build it before Paul
   `ST_CoverageInvalidEdges`, and mapshaper's exact-coordinate topology detection + `-clean gap-fill-area=` +
   `snap-interval=` are from vendor docs read 2026-09-04, **not from running either tool**. GRASS `v.clean` flags,
   JTS `CoverageSimplifier`, ArcGIS PAEK and `smoothr` are cited from knowledge and are **not** re-verified here.
-- **The `_meta.sharedBorders` "no vertex snapping" line is stale** (§2) — reported, not fixed; this lane does not
-  own `zones.json`.
+- **⭐ TWO STALE NOTES IN `zones.json _meta`, both found by this lane, both reported and NOT fixed** — this lane does
+  not own canon, and the hub proposes rather than edits.
+  1. `_meta.sharedBorders` says *"no vertex snapping"* (§2). **False:** 58 coordinates are exactly shared across 20
+     zone pairs. Stale in the safe-looking direction — it *under*-reports the structure the record already has.
+  2. `_meta.fold_2026_08_31` defers linear features *"until a schema v3 adds them"* (§4b). **Schema v3 shipped,
+     added `partOf`, did not add lines.** A deferral that named its own trigger, where the trigger has fired.
+  ⚠️ **This is a CLASS, not two coincidences.** A third instance turned up elsewhere in the same run (an agents
+  README claiming 7 where 9 were real). All three fail in the direction that looks healthy. And the second one is
+  the nastier shape: tooling flags a *gateless* park, but nothing flags a park whose **gate has been satisfied** —
+  a gated deferral reads *more* responsible than an ungated one right up until its gate quietly passes.
 - **Whether any downstream consumer reads zone area or slope.** If per-zone acreage or slope is published anywhere,
   the Chaikin area-shrink finding (§5) becomes a correctness issue and not merely a caution. Not traced.
 
