@@ -1,5 +1,7 @@
 # LANE C — the fictive test user
 
+
+## STATUS: OPEN — at gate, holding. Three gates with Paul.
 Read `_PREAMBLE.md` first. It binds.
 
 ## OWNS (the only paths you may write)

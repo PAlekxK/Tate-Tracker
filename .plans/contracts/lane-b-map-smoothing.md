@@ -1,5 +1,7 @@
 # LANE B — map-region smoothing
 
+
+## STATUS: OPEN — at gate, holding. Two authoring gates with Paul.
 Read `_PREAMBLE.md` first. It binds.
 
 ## OWNS (the only paths you may write)

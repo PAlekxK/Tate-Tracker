@@ -1,5 +1,7 @@
 # LANE A — the business-analyst seat
 
+
+## STATUS: CLOSED 2026-09-04 — gate met, released by the hub. Absence is EXPECTED.
 Read `_PREAMBLE.md` first. It binds.
 
 ## OWNS (the only paths you may write)

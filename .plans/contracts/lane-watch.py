@@ -43,6 +43,24 @@ def owns():
         out[fn[:-3]] = keep
     return out
 
+def status():
+    """lane slug -> its declared STATUS line, read from the contract.
+
+    Added 2026-09-04 after lane A asked the question this tool could not answer:
+    once a lane's tab closes, its absence from the live list is indistinguishable
+    from a lane that vanished mid-work. A watcher that cannot tell "finished"
+    from "disappeared" reports a clean run and a dead one identically -- the same
+    quiet-failure shape this project already names three times. The contract
+    declares it; nothing is inferred from absence.
+    """
+    out = {}
+    for fn in sorted(os.listdir(HERE)):
+        if fn.startswith("lane-") and fn.endswith(".md"):
+            m = re.search(r"^## STATUS:\s*(.+)$", open(os.path.join(HERE, fn)).read(), re.M)
+            out[fn[:-3]] = m.group(1).strip() if m else "UNDECLARED"
+    return out
+
+
 def live():
     try:
         rows = json.loads(sh("claude", "agents", "--json") or "[]")
@@ -70,6 +88,22 @@ def main():
         print(f"  {flag}{r.get('name','?'):<22} {st:<8} {age:>4}m{note}")
 
     # what actually got written since the base
+    # closed vs vanished — the distinction absence alone cannot make
+    S = status()
+    names = " ".join(r.get("name", "") for r in sessions)
+    print("\nDECLARED STATUS (from each contract; absence is never inferred)")
+    for lane, v in sorted(S.items()):
+        if v.startswith("CLOSED"):
+            print(f"  ✓ {lane:<26} {v}")
+        elif v == "UNDECLARED":
+            print(f"  ⚠ {lane:<26} no ## STATUS line — the watcher cannot judge its absence")
+        else:
+            print(f"  · {lane:<26} {v}")
+    open_lanes = [l for l, v in S.items() if not v.startswith("CLOSED") and v != "UNDECLARED"]
+    if open_lanes and len(sessions) < len(open_lanes):
+        print(f"  ⚠ {len(open_lanes)} lane(s) declared OPEN but only {len(sessions)} live session(s) —")
+        print("    one is VANISHED, not closed. Check before assuming it finished.")
+
     files = [f for f in sh("git", "log", f"{BASE}..HEAD", "--name-only",
                            "--pretty=format:").split("\n") if f.strip()]
     seen, claimed = sorted(set(files)), set()
@@ -79,7 +113,13 @@ def main():
                                        or os.path.basename(p) == os.path.basename(f)
                                        for p in paths)]
         claimed |= set(hits)
-        print(f"  {lane:<26} {len(hits)} in-OWNS")
+        # A lane whose OWNS live in another repo cannot be judged from this git log.
+        # Printing "0" for it reads as "did nothing", which is the flattering direction.
+        outside = [p for p in paths if p.startswith("~") or p.startswith("/")]
+        if outside and not hits:
+            print(f"  {lane:<26} n/a — OWNS are outside this repo ({outside[0]}); not visible here")
+        else:
+            print(f"  {lane:<26} {len(hits)} in-OWNS")
     stray = [f for f in seen if f not in claimed]
     if stray:
         print(f"\n  ⚠ {len(stray)} path(s) matched NO lane's OWNS — hub writes, or drift:")
