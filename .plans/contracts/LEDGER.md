@@ -86,3 +86,21 @@ only in lane C's fixture document. A ratified layout contract does not belong in
 design doc — it belongs where renderers and reviewers read it. Both candidate homes are outside
 every lane's OWNS, and one of them is engine territory while prod is frozen. **Hub holds it; Paul
 picks the home.**
+
+### Lane B follow-up (`bebbfe3`) — hub-verified 2026-09-04
+
+Paul answered in-tab: it was the **viewer's** map. Lane B's resulting finding —
+*the 2026-08-31 snapping + smoothing work landed on the AUTHORING surface and never
+reached the READING one* — **verifies**:
+
+- `chaikin`: **0 hits in `viewer.html`, 3 in `tools/area-trace.html`.** The corner-cutting
+  exists only where zones are drawn, never where they are read.
+- ⚠️ **The join claim needed a second look, and the first check nearly cleared it wrongly.**
+  A bare `grep -c stroke-linejoin viewer.html` returns **2**, which reads as "round joins are
+  set." Both are unrelated: one is a 24px icon rule (`viewer.html:4272`), the other a sparkline
+  polyline (`:8058`). **Neither touches a zone polygon**, so the zone map does render with the
+  default miter join and lane B is right. Instance of [[reference_match_payload_not_container]]
+  caught on a live check — the container matched, the payload did not.
+
+**Acceptance criterion for anything shipping from that plan:** *does it render on `viewer.html`* —
+never *does the tracer do it*.
