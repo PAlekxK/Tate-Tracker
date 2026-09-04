@@ -2110,7 +2110,7 @@ and the gifted Christmas part). It survives only in `detail` prose.
 
 ## 🏗 C4 · ENVIRONMENTS + REPO STRUCTURE + THE RENAME — the FIRST item through readiness `[paul-stated 2026-09-03]` ⚙️ engine · must-not-diverge
 
-> 🆕 **THE UNIQUENESS LEDGER** `[paul-stated 2026-09-03: "establish between any properties a sense of uniqueness and customization down to even the theme color… track what's dynamic and unique and where there's boilerplate text that may just be left over and not part of our official vocabulary… having two properties compare over time will help with that"]` — filed under C4 5c's falsifier, which is its seed: build both estates, render both, and DIFF the rendered text — identical sentences outside canon are boilerplate candidates (engine prose that names no place but should be reviewed for register), differing ones are instance. First slices: ① a `tools/uniqueness-ledger.py` that emits the shared-vs-unique text table from two builds; ② `identity.theme` (an accent colour per instance, applied as a CSS variable at build — the condo gets its own); ③ VOCABULARY §3 reads the ledger for leftover words. **Slice ① BUILT 2026-09-03: `tools/uniqueness-ledger.py <urlA> <urlB>`** — first run, Fernwood (prod build) vs the condo (scratch): **562 shared sentences · 4,781 unique to Fernwood · 41 unique to the condo · THEME IDENTICAL** (the condo wears Fernwood's colours). **47 shared sentences speak of a PLACE** — engine prose that reads the same at a Midtown condo: *"This slope was once chestnut canopy"*, *"Roundstone offers a Georgia-ecotype switchgrass — the right provenance for this slope"*, *"Always worth watching from your dark property skies"*, the meteor-shower *"Good from property"* rows, *"The house's systems, on the record"*, GNPS Blue Ridge list confirmations. Each is a candidate to move into canon (instance prose) or to reword as engine copy that names no place. Full list: `.private/condo-falsifier/uniqueness-ledger.json`. **Slices ② (identity.theme) and ③ (vocabulary reads the ledger): not started.** **④ RULED 2026-09-04 ~5:00 AM ET [paul-stated]: the 47 place-naming sentences are not a one-off edit — they become part of THIS document, which tracks per location what is unique, what is deterministically updated, and what is linked to what. "We need to be sure the condo doesn't have references to chestnut canopy or whatever — that's not necessarily true. Let's figure out a way to track this and approach it systematically."** → the ledger gains a per-sentence CLASS (engine-neutral · place-claim → instance prose · reword) held in a tracked file, and a CHECK that a place-claim sentence never renders at an instance whose canon does not declare it (the condo build must carry zero of the 47). Build order: the classification file + the check first (instrumentation, no surface change); the moves themselves ride the migration. **CLASSIFIED 2026-09-04 ~6:00 AM ET by the content steward (`.content-reviews/2026-09-04-place-claims-classification.md`), applied to `engine/place-claims.json` as a proposal for Paul's read: 44 instance-prose (39 of them QUOTES of canon the engine inlines — candidates.json 29, sky.bortleEstimate 8, events 1, sources 1 — so a data-driven render fixes them; 5 hardcoded in the template with no canon field yet: the plant-context callouts incl. "chestnut canopy", two meteor tips) · 9 reword (reworded sentence supplied) · 5 engine-neutral. Three for Paul's eye: the chestnut-canopy callout (hardcoded HTML → `property.json story`-style callouts), the eight "Excellent/Good from property" sky ratings (a Bortle-8 condo told meteor viewing is Excellent — derive from `sky.bortleEstimate`), and "what the Almanac knows" on the capture surface (§4: Almanac is not portable; render the estate name). `place-claims.py --check` is GREEN; 53 render at the condo; falls only.** **② RULED 2026-09-04 ~5:05 AM ET [paul-stated]: one MAIN colour per instance, the scheme derived from it — green is Fernwood's, the condo's is a DARK BLUE ("just go with the dark blue as the main color for the condo"); both estates get their own scheme. And a NEW ROW: a basic selector in a settings menu that lets a person pick between schemes — backlog, not now.** The value is declared in the condo's instance file today (`identity.theme.main`, an agent-picked hex for "dark blue" until Paul's eye says otherwise); the build (CSS variables derived at build time, C4 5c-safe) is feature-class and waits behind the non-feature queue.
+> 🆕 **THE UNIQUENESS LEDGER** `[paul-stated 2026-09-03: "establish between any properties a sense of uniqueness and customization down to even the theme color… track what's dynamic and unique and where there's boilerplate text that may just be left over and not part of our official vocabulary… having two properties compare over time will help with that"]` — filed under C4 5c's falsifier, which is its seed: build both estates, render both, and DIFF the rendered text — identical sentences outside canon are boilerplate candidates (engine prose that names no place but should be reviewed for register), differing ones are instance. First slices: ① a `tools/uniqueness-ledger.py` that emits the shared-vs-unique text table from two builds; ② `identity.theme` (an accent colour per instance, applied as a CSS variable at build — the condo gets its own); ③ VOCABULARY §3 reads the ledger for leftover words. **Slice ① BUILT 2026-09-03: `tools/uniqueness-ledger.py <urlA> <urlB>`** — first run, Fernwood (prod build) vs the condo (scratch): **562 shared sentences · 4,781 unique to Fernwood · 41 unique to the condo · THEME IDENTICAL** (the condo wears Fernwood's colours). **47 shared sentences speak of a PLACE** — engine prose that reads the same at a Midtown condo: *"This slope was once chestnut canopy"*, *"Roundstone offers a Georgia-ecotype switchgrass — the right provenance for this slope"*, *"Always worth watching from your dark property skies"*, the meteor-shower *"Good from property"* rows, *"The house's systems, on the record"*, GNPS Blue Ridge list confirmations. Each is a candidate to move into canon (instance prose) or to reword as engine copy that names no place. Full list: `.private/condo-falsifier/uniqueness-ledger.json`. **Slices ② (identity.theme) and ③ (vocabulary reads the ledger): not started.** **④ RULED 2026-09-04 ~5:00 AM ET [paul-stated]: the 47 place-naming sentences are not a one-off edit — they become part of THIS document, which tracks per location what is unique, what is deterministically updated, and what is linked to what. "We need to be sure the condo doesn't have references to chestnut canopy or whatever — that's not necessarily true. Let's figure out a way to track this and approach it systematically."** → the ledger gains a per-sentence CLASS (engine-neutral · place-claim → instance prose · reword) held in a tracked file, and a CHECK that a place-claim sentence never renders at an instance whose canon does not declare it (the condo build must carry zero of the 47). Build order: the classification file + the check first (instrumentation, no surface change); the moves themselves ride the migration. **CLASSIFIED 2026-09-04 ~6:00 AM ET by the content steward (`.content-reviews/2026-09-04-place-claims-classification.md`), applied to `engine/place-claims.json` as a proposal for Paul's read: 44 instance-prose (39 of them QUOTES of canon the engine inlines — candidates.json 29, sky.bortleEstimate 8, events 1, sources 1 — so a data-driven render fixes them; 5 hardcoded in the template with no canon field yet: the plant-context callouts incl. "chestnut canopy", two meteor tips) · 9 reword (reworded sentence supplied) · 5 engine-neutral. Three for Paul's eye: the chestnut-canopy callout (hardcoded HTML → `property.json story`-style callouts), the eight "Excellent/Good from property" sky ratings (a Bortle-8 condo told meteor viewing is Excellent — derive from `sky.bortleEstimate`), and "what the Almanac knows" on the capture surface (§4: Almanac is not portable; render the estate name). `place-claims.py --check` is GREEN; 53 render at the condo; falls only.** **MOVED 2026-09-04 ~7:30 AM ET [paul-approved: "all good things to catch — continue to build that"]: the four plant-context callouts (incl. chestnut canopy) → `property.json plantContext.callouts[]` rendered through a `data-record-callouts` door (an estate without them renders none); the meteor verdict is DERIVED from `sky.bortleEstimate` (Bortle ≤3 regional · 4–5 one step down · ≥6 two · no sky record → no verdict) and says "from here"; the capture intro names the instance's journal; and two more UNROSTERED inlines were found and rostered — `candidates.json` (29 of the 44 claims) and `events.json` — so the condo declares them absent. Re-measured: shared sentences 562 → 165; place claims rendering at the condo **53 → 10**; the ratchet now sits at 10.** **② RULED 2026-09-04 ~5:05 AM ET [paul-stated]: one MAIN colour per instance, the scheme derived from it — green is Fernwood's, the condo's is a DARK BLUE ("just go with the dark blue as the main color for the condo"); both estates get their own scheme. And a NEW ROW: a basic selector in a settings menu that lets a person pick between schemes — backlog, not now.** The value is declared in the condo's instance file today (`identity.theme.main`, an agent-picked hex for "dark blue" until Paul's eye says otherwise); the build (CSS variables derived at build time, C4 5c-safe) is feature-class and waits behind the non-feature queue.
 
 > ⏸ **REPO VISIBILITY — should the instance be a PRIVATE repo?** `[paul-parked 2026-09-03: "let's not worry about this right now. I was curious, though."]`
 > Filed, not scoped. What was established when he asked: flipping the GitHub repo private is one setting and Actions/the
@@ -3034,3 +3034,394 @@ an unasked question: it commissions work that is already done.*
 - **`moss` (#159–161) — unchanged and confirmed.** The blind pass read card #20 as moss in the
   **flagstone joints** of the eastern patio, which matches the per-location `note` distinction
   the v8 schema notes already describe (ground planting vs joint-fill).
+
+---
+
+# 🌱 SEEDS — the 2026-09-04 latent-idea mine `[paul-directed 2026-09-04]`
+
+> **These are SEEDS, not scoped rows.** Paul: *"just append it to the existing backlog for now as items
+> that need to be analyzed as seeds, really."* Every row below is **`IDEATION`** by construction — raised,
+> **not designed, not decided, not costed**. ⛔ **Nothing here is READY and nothing here may claim READY
+> without going through the normal path** (objective id · class · declared seats · a plan file ·
+> Paul's clear). Each needs analysis before it is worth anything.
+
+**Where they came from.** A four-window mine of Paul's own conversation record, commissioned 2026-09-04:
+**317 candidates → 110 discarded → 207 kept → 145 distinct → the 27 below.** Four miners worked
+independently and blind to each other (May–June documents · July · August · September), so an idea that
+recurs across windows is the closest thing to corroboration a retrospective mine produces. **Recurrence is
+the strongest signal here and every row carries its count.**
+
+⚠️ **THE CORPUS BOUNDARY IS ASYMMETRIC — it decides what a recurrence count can mean.**
+Verbatim Paul exists only for **2026-07-03 → today (63 days)**; 1,218 of his turns were read. **May–June has
+no conversation record at all** — the 30-day `cleanupPeriodDays` default deleted it before `31aa229`
+(2026-08-03) raised retention to 3650. What survives from that window is 69 committed documents, and
+**only 2 of the 52 candidates mined from it are Paul's words** (48 are agent-authored analysis, tagged
+`assumption`). **So a recurrence count of 1 may mean "said once" or may mean "the other times were
+deleted." It is a floor, never a ceiling.**
+
+⚠️ **`already-in-backlog: NO` is really UNVERIFIED-NO for any term that could sit inside a quoted JSON
+payload.** Measured: one mined row claimed "subwoofer does not appear in `BACKLOG.md`" — it does, at line
+196, inside a `VEHICLES_DATA` drift narrative quoting `vehicles.json`. That row did not survive into the 27,
+but the class of error did not get eliminated, only sampled. Re-check any "not in the backlog" claim before
+acting on it.
+
+🧊 **FOCUS FREEZE APPLIES.** **21 of the 27 sit under O1 · O2 · O4, which rest.** The six live ones are
+`P-14` · `P-15` · `P-27` (O5) and `P-24` · `P-25` · `P-26` (O3). **Filed, not scheduled.** Re-growing the
+list nine days after the 2026-09-03 rationalization is exactly what `tools/check-backlog-drift.py` exists to
+catch — these are parked in one dated block *below* the tracks, deliberately out of the reading order, and
+they are not pointer rows in `▶️ NEXT`.
+
+**Trail — never-public, and it is the evidence for every quote below.**
+`.private/idea-mine-2026-09-04/` (gitignored): `SYNTHESIS.md` (the full 841-line reading — ladder, the
+twelve themes, the connection map, three structural findings, the 110-item discard pile) plus the four
+`mined-*.md` candidate files. ⚠️ **It is in `.private/` because this repo is PUBLIC** and the raw mine
+carries verbatim turns from sessions that also touched other projects. One quote below (`P-08`) is redacted
+for the same reason.
+
+**Four decisions that need no build.** The mine found six live conflicts — two rulings that collide, each
+settleable in a line. The sharpest four: light-privacy-never-at-the-cost-of-her-access vs. logins and role
+tiers · *always offer free text* vs. the killed open-feedback box · *don't give her authorship-level input
+yet* vs. *a plant table she can edit and own* · *prove she's logging in* vs. the ruling that declined a
+last-open beacon. **These are worth more than any row below**; see `SYNTHESIS.md` §2.2.
+
+
+### O4 · Track B — the fleet and household record
+
+**`P-01` · ⭐ THE REMINDER ENGINE — a clock keyed to the real world, not a task list**
+*L2 capability · O4 (frost half: O1) · recurrence **3** (Jul · Aug · Sep) · `validated`*
+> *"I need to get my emissions and registration done. My birthday is June third, so both the GTI and Valoris
+> are due, and that's something we should have built in, uh, to the tool as kind of a reminder."*
+> — Paul, **2026-07-11** (`C07-012`)
+
+Triggers are: **the owner's birthday** (GA registration — and *"the Tiguan and F150 are in my mom's name.
+Her birthday is in September"*, `C07-013`, so the trigger is per-owner and needs an owner field);
+**the season** (*"let's set a schedule reminder for when you get starting to get too cold to ride. And
+that's a good way to spend a fall evening"* — `C07-083`, note the field-journal framing is already his);
+**a service interval researched now and attached to a future event** (`C07-031`); **frost**, as a three-layer
+derivation with reminders (`C09-045`); and **charge state** on machines that sit for months (`C09-013`).
+⚠️ **Prerequisite: `P-02`** — a decommissioned machine must not generate a clock. **Highest
+recurrence-to-build gap in the corpus:** asked in three windows, `B1` reads *"no clock at all right now."*
+
+**`P-02` · ⭐ ASSET LIFECYCLE AND RESIDENCY**
+*L2 capability · O4 · O3 · recurrence **2** (Jul · Sep) · `validated`*
+> *"The home light blower, I think we can just not worry about. It's decommissioned."* — **2026-09-01** (`C09-008`)
+> *"if I have Fernwood and then condo and then a car that I just used to drive between two of them versus a
+> dirt bike that stays at Fernwood… the car that's your main source of transportation is not associated to
+> an estate, but a dirt bike is because it stays there."* — **2026-09-02** (`C09-037`)
+
+Two fields, one row: a **lifecycle state** (active / decommissioned / not-ours / former) so a retired machine
+stops generating gaps without being erased — `C07-067` wants the same field pointed backwards, *"a history
+of every car I've owned"* — and a **residency rule** (location-bound vs. person-bound). Unblocks `P-01` and
+`P-26`. Not in backlog: the Generac row is a *recommissioning sweep*, the golf-cart row notes one that *"is
+not ours"*, and neither is a state.
+
+**`P-03` · ALIASES RESOLVE TO ONE ASSET — and "motor pool" is his answer, unrecorded**
+*L3 feature · O4 · recurrence **1** (Sep) · `validated`*
+> *"Alias does definitely make sense, um, probably for vehicles as well. Right? Since we've certainly seen
+> that come up."* — **2026-09-01** (`C09-012`)
+> *"let's call it motor pool… and then just separately we'll have power tools and equipment and house
+> systems"* — **2026-09-03** (`C09-047`)
+
+**Verified:** `BACKLOG.md`'s only "alias" hit is domain aliases in `C4`; **zero hits for "motor pool."**
+Bolores/Dolores/the Bronco and Blue Thunder/the 200 already collide in the record. The naming half is
+loss-type-2 from §3.1 — the *need* is tracked in `B6`, the *answer* is not. Cheap; free to record now.
+
+**`P-04` · ⭐ THE PROJECT ARC AS A RECORD TYPE**
+*L2 capability · O4 · recurrence **3** (Jul · Aug · Sep) · `validated`*
+> *"the big coolant change for Bolores that was a multisession thing and is a good example of the content
+> that I'm gonna be sure we're capturing."* — **2026-09-01** (`C09-006`)
+
+A unit **above** the service entry: sessions, photos, dead ends, before/after. Related expressions across
+three windows: *"a narrative book you can flip through of the work done to the various vehicles"*
+(`C07-008`, Jul); *"a procedure we can use for the golf cart and other vehicles as well to create their own
+visual journeys"* (`C08-019`, Aug); *"sending this past state of various projects to Mom is helpful. I
+regularly go back and look for past times we've worked on a project, so we remember before and after"*
+(`C07-100`, Jul). Arcs exist today only as **findings** (project-pond, the western-garden five weeks, the
+door panel), never as a record type. `B7` is scoped to one vehicle by declaration.
+
+**`P-05` · MACHINE LORE — quirks, incidents, and jury-rigged repairs**
+*L3 feature · O4 · recurrence **2** (Jul · Aug) · `validated`*
+> *"Let's just know this is normal behavior and something to bear in mind for Blue Thunder."* — **2026-07-27** (`C07-082`)
+> *"I kind of forced it into place using some washers on all the attaching screws, duct tape and elbow
+> grease. But it's pretty solid as far as a fix goes and avoids having to buy a bunch of new body parts."*
+> — **2026-07-22** (`C07-060`)
+
+Three content types the `techniques[]` panel does not cover: **normal-but-alarming** (so a recurring symptom
+stops reading as a new fault), **incidents** (cause, method, materials, why it was good enough), and
+**stuck-on** — `C07-016`, *"needing to diagnose the wires, which I've been putting off to some extent"* — a
+state distinct from done/not-done. `C08-031` extends all three to the house.
+
+**`P-06` · A NEGATIVE FINDING IS A RECORD, AND THE RECORD MAY CONTRADICT A RECEIPT**
+*L3 feature · O2 · O4 · recurrence **2** (Jul · Aug) · `validated`*
+> *"the fact Express Oil change conducted a pressure test and didn't find a leak is a powerful and important
+> observation."* — **2026-07-11** (`C07-014`)
+> *"whether Express Oil made some kind of mistake and didn't perform the service they said on my car… we
+> also have a receipt from them saying they did my brake fluid change and a full coolant test so let's think
+> through that sequence of events and contradictions."* — **2026-08-28** (`C08-066`)
+
+Two halves of one capability: the schema can carry a **searched-negative**, and the record can **cross-check
+a shop's claim against later independent evidence**. Feeds a per-shop trust signal — which is what
+`CONTRACTORS & TRUSTED PEOPLE` will need and does not currently name.
+
+**`P-07` · ⭐ LABELS, PLATES AND DECALS AS AN IDENTIFIER SOURCE**
+*L2 capability · O4 · recurrence **2** (Aug · Sep) · `validated`*
+> *"34 through 35 are important pictures of labels from Dolores that Fernwood will definitely wanna analyze
+> in detail."* — **2026-09-01** (`C09-060`)
+
+`V4` covers **VINs**. The wider class does not exist: paint codes, tire placards, breaker-box labels,
+appliance nameplates. The capture path is already proven twice — *"pictures of the various tools and power
+tools we have that I actually used to populate the library of equipment"* (`C08-099`) and the household-
+systems build from nameplate photos (`C08-082`). **Pairs with `P-14`** (his confirm queue is the review
+affordance this needs).
+
+**`P-08` · ⭐ THE TRIP ASSEMBLER — every open item dischargeable by being somewhere**
+*L3 feature · O4 (tests O3 — see V-2) · recurrence **1** (Sep) · `validated`*
+> *"I'm trying to put together a list of stuff I can do if I drive to Jasper… [a health-record errand —
+> redacted], returning coolant from the Bolores coolant change, maybe getting the 200 battery looked
+> at, picking up a few supplies for the door panel work, make a call or two. What else can I do? Just
+> looking across kind of my open items."* — **2026-09-01** (`C09-007`)
+> <sub>One clause redacted: it named a medical provider and this file is public. Full text in `.private/idea-mine-2026-09-04/`.</sub>
+
+He asked this of a `home` session, not Fernwood, and it spans health · fleet · supplies. `B1` bundles
+specific trips by hand; `B2` has *"the one-trip physical checks"*. Nothing assembles across domains on
+demand. ⚠️ **This row is also evidence for V-2** — the assembling unit is *the person's open items*, not
+*the estate's*.
+
+**`P-09` · READINESS — do I already own what this job needs, and is the part in stock?**
+*L3 feature · O4 · recurrence **1** (Aug, three separate expressions in one message) · `validated`*
+> *"I just wanna be sure that I'm not missing anything that I would need to clean and prep the panels to be
+> repainted… all the materials and chemicals and supplies that I've been buying… check all that and be sure
+> that I have what I need."* — **2026-08-31** (`C08-096`)
+
+Plus *"do we have a source that has in stock the specific interior saddle spray can"* (`C08-098`) — **a part
+is not solved until someone actually has it** — and *"make sure you've looked for the right vendor with the
+best prices"* (`C08-054`). `PARTS-SHORTLIST.md` holds candidates; availability and owned-consumables are
+tracked nowhere.
+
+**`P-10` · THE ORDER BANK — a standing basket per vendor**
+*L4 grace-note · O4 · recurrence **1** (Aug) · `validated`*
+> *"I think I want to start an LMC order bank."* — **2026-08-18** (`C08-053`)
+
+Nine words, and a concrete unbuilt thing. **Verified: zero hits for "order bank" in `BACKLOG.md`.** Parts get
+identified across sessions and ordered one at a time; batching saves shipping and decisions.
+
+**`P-11` · PAPER OUTPUT — a test sheet you carry to the machine**
+*L4 grace-note · O4 · recurrence **1** (Aug) · `validated`*
+> *"print me the test sheet"* — **2026-08-30** (`C08-074`)
+
+Four words, but it names an **output channel the app has never had** — and one that is the only surface that
+works everywhere on a property with *"no cell reception… coverage falls off with distance from the house"*
+(`CLAUDE.md` § THE SITE'S PHYSICAL PREMISE). `CPJ-019` proposed the same shape in May for the field journal
+— that half is `assumption` (agent-authored) and is **not** offered as support.
+
+---
+
+### O4 · O5 — Paul's own door
+
+**`P-12` · ⭐⭐ WHERE THE THINGS THAT LIVE ONLY IN HIS HEAD GO**
+*L1 theme / L2 capability · O4 · recurrence **3** (Jul · Aug · Sep) · `validated`*
+> *"The things that live only in my head, where can we record them that makes sense?"* — **2026-09-03** (`C09-057`)
+
+**He is asking the question, which means the answer is unclear to him.** Corroborated across windows by the
+shape of the failure rather than a restatement: *"what about all the information I provided in pictures for
+the GTI, you know, bodywork that I did… I'm just kinda providing updates. Are you seeing those conversations
+as well?"* (`C09-004`, Sep); *"can also log that the front left tire on the truck was low, and I filled it
+up today"* (`C08-056`, Aug, standing in the driveway); *"a lot of the panel attachment points got snapped…
+I forced it into place using some washers"* (`C07-060`, Jul, narrated over 20 photos).
+**`B0` measured the same hole from the code side.** `C6` is entry + vault; `cycle/requests.jsonl` is an
+inbound door for *other projects*. Neither is a free capture surface for him.
+
+**`P-13` · ⭐⭐ A ONE-AT-A-TIME ANSWER QUEUE FOR PAUL — offline, voice-capable**
+*L2 capability · O4 · O5 · recurrence **2** (Aug · Sep) · `validated`*
+> *"I should be able to read the full context there and provide an answer… free response even with the
+> submit. But the advantage there is being able to have a moment to read that full thing just by itself and
+> type down an answer and send that to push it forward, which may then regenerate another question."*
+> — **2026-08-02** (`C08-011`)
+> *"what if you just show me pictures of plants that are on the Fernwood property with a hypothesis of the
+> zone, and I confirm what zone it's in."* — **2026-09-02** (`C09-018`)
+
+**The second one is the strongest evidence in the corpus, because it worked.** He invented it on the spot
+minutes after a generic photo review stalled, and it is what actually moved data that night. Two riders,
+both his, both in Aug: **offline** — *"our Internet went out and then I was not really able to easily access
+any of the information or do reading when it would've been a really nice time to just read through the cards
+and put a wave of responses out there"* (`C08-033`) — and **voice** — *"one thing I do want to be able to do
+is voice dictate"* (`C08-034`). ⚠️ Note the structural symmetry: **this is Mama's Perspective, aimed at
+him.** Building it twice would be the divergence `C09-032` exists to prevent.
+
+**`P-14` · A DETERMINISTIC STATUS DOOR FOR FERNWOOD**
+*L3 feature · O5 · recurrence **2** (Jul · Aug) · `validated`*
+> *"I just had the idea of status indicators about whether the published site is online for the Fernwood
+> tracker."* — **2026-07-31** (`C07-101`)
+> *"I think the checks should basically be running automatically… that should just be running on a regular
+> cadence and the results being published."* — **2026-08-02** (`C08-008`)
+
+**Scope carefully (V-1):** the *command centre* is operating-layer's. The **Fernwood-owned half** is that
+its own checks publish their results on a cadence rather than waiting for a session to run them. Directly
+serves the global stance *"if the only way to learn whether a site is up is to ask Claude, this is broken"*
+— and `C08-009` is that stance in his own words, about this repo: *"the click that checks Fernwood goes
+through Claude too. I would rather avoid that."* **Zero Fernwood rows for it.**
+
+**`P-15` · THE TOOL CENSUS — what exists, what has no caller, what must become engine**
+*L3 feature · O5 · recurrence **1** (Sep) · `validated`*
+> *"what are all the functions that we built? Are they being used correctly and implemented? Is there
+> anything that we are not using, that we could be using? … having taken the general census of the whole
+> population, do another pass of the structure of functions that we'll have to modularize."*
+> — **2026-09-02** (`C09-039`)
+
+`C3` audited **skills**; nothing has audited `tools/`. Backed by a known cross-project pattern — *"the check
+usually already EXISTS and has no CALLER"* — and directly upstream of `C5`'s modularisation.
+
+---
+
+### O1 · O2 — Mom's surfaces and the record
+
+**`P-16` · ⭐ MOM OPERATES THE MACHINES — a start-up mnemonic built for her**
+*L3 feature · O1 · O4 · recurrence **2** (Aug direct; Jul/Sep for the audience question) · `validated`*
+> *"What about, like, a very simple acronym or something that would be the initial checklist every time mom
+> wants to start the bike? Like, kill switch, choke, gas — the most critical things she has to check."*
+> — **2026-08-30** (`C08-073`)
+
+**Verified: zero hits for "acronym" in `BACKLOG.md`.** The context is a live recurring failure: *"it's hard
+to tell whether it's just low battery because mom's been trying to fire it with low gas"* (`C08-072`).
+**This row is the concrete test of §3.2.** If Track B is Paul-only, it is out of scope; if it isn't, it is
+the cheapest Track-B card in the corpus. ⚠️ Tone: it must read as a field-journal aide, never a checklist
+with a completion state.
+
+**`P-17` · ⭐ ONE PROVENANCE + CONFIDENCE FIELD, ACROSS EVERY DOMAIN**
+*L2 capability · O2 · recurrence **3** (Jul · Aug · Sep) · `validated`*
+> *"we never wanna misrepresent any data as being from one source or being fresher than it is."*
+> — **2026-07-14** (`C07-026`)
+> *"anything we pull from an online forum should be noted as such and until we've verified it either against
+> the real real world or other official sources, taken with a grain of salt appropriately."*
+> — **2026-09-01** (`C09-005`)
+> *"maybe it's worth keeping that hierarchy of certainty with different sources to back it all up, but let's
+> limit what we are showing to the user."* — **2026-08-31** (`C08-087`)
+
+`check-domains.py` already reports the shape of the problem — *"only **honesty** had diverged: weeds
+top-level, plants nested and partial, vehicles per-value, wildlife nothing at all across 64 records."*
+**One schema decision unblocks five existing rows** (see §2.2). The last quote adds the rule the schema
+half is missing: **hold full internally, show less.**
+
+**`P-18` · ⭐ RESOLVE THE PARTICIPATION LADDER — react → adjudicate → author**
+*L2 capability · O1 · recurrence **2** (Jul · Aug) · `validated` (both sides) · **CONFLICT X3***
+> *"we make an update to the site, including a way for her to see and edit the data scheme… we need to come
+> up with a good mechanism for her to be able to edit and own all that data."* — **2026-07-16** (`C07-039`)
+> *"she's still warming up to her feedback and adjudication role, so let's not give her the opportunity to
+> provide authorship level input."* — **2026-08-04** (`C08-025`)
+
+**Not a build — a declaration.** Which rung is she on, what promotes her, and who decides. Downstream: `X2`
+(the always-offer-free-text rule), `C08-024`'s empty-card-as-ask, and `W6`. ⚠️ Reading `C08-025`'s double
+negative as *"don't yet ask her to author"* is my inference — worth confirming.
+
+**`P-19` · DEFINE THE TIMING WORDS — "worth a look" · "peak this week" · "this month"**
+*L3 feature · O1 · O2 · recurrence **1** (Aug) · `validated`*
+> *"we also have 'worth a look' and 'peak this week' and then 'this month' — that's also probably something
+> pretty important that we have clearly documented as to how that works and what the difference is."*
+> — **2026-08-31** (`C08-086`)
+
+**Zero backlog coverage.** These are the three phrases that nudge her, and none has a written predicate. A
+trust item, not a copy item: *"trust is the load-bearing emotion here"* — and she is the one person who can
+check the app against the actual sky. Cheap: document the predicate, then decide whether to show it.
+
+**`P-20` · ONE DISMISS GESTURE, ONE WORD**
+*L3 feature · O1 · recurrence **2** (Jul · Aug) · `validated`*
+> *"that's something we need to standardize because that seems to me like yet another phrasing of that
+> option to dismiss a card that we've talked about in different settings and scenarios over time."*
+> — **2026-08-25** (`C08-062`)
+
+He has watched the phrasing fork three or four ways — *"ask me later"* (`C07-033`) → *Snooze* (`C07-097`) →
+*"bring this card back another time"* → an X. `W8·e` has been open since 08-09 with no build. **Sits under
+`P-21`** as its first case.
+
+**`P-21` · THE ACCUMULATING DESIGN-RULE LIBRARY**
+*L2 capability · O1 · O5 · recurrence **2** (Jul · Aug) · `validated`*
+> *"we should challenge ourselves to ensure that as we have this chorus stacking, we're not inventing a new
+> rule, but we're retaining a cohesive look throughout all the different hierarchies. And so we're more or
+> less setting up rules over time for how to handle this nesting."* — **2026-08-25** (`C08-058`)
+
+He also *wrote* one of these rules himself, correcting an expert: *"the split by freshness not topic ignores
+the fact that we have the cards within Fernwood Tracker that tells you what the content is, and then it's
+organized by freshness within that topic"* (`C07-025`). `~/.claude/design-principles/` exists and `/ux-sweep`
+already adjudicates against it — **the gap is Fernwood-specific rules, and a requirement that each new case
+either satisfies one or explicitly extends it.**
+
+**`P-22` · PRESENCE vs. RESPONSE — settle the beacon question**
+*L3 feature · Tier 3 · O1 · recurrence **2** (Aug · Sep) · `validated` · **CONFLICT X4***
+> *"she said she logs into the app regularly and especially loves the weather section and the radar. So I'm
+> wondering, is there a way that we can see that that's true — that she's been logging in even if she's not
+> answering the cards up top?"* — **2026-08-14** (`C08-047`), restated **08-16** (`C08-049`)
+
+**The question not yet answered:** does a *last-open* signal (as against the session/event stream
+`read-mom-engagement.py` already reads) tell us anything the funnel does not — and was the Tier-1 ruling that
+declined a beacon made against this use case or a different one?
+**How the answer gets captured:** not a card. This is a **Paul-side ruling** — re-read the declining ruling,
+then either retire it in writing or state why it stands. The tension between a twice-asked want and a
+standing decline is currently recorded nowhere, which is the actual defect.
+
+**`P-23` · A TRAIL CAM IS AN UNKNOWN SENSOR, AND ARTHROPODS WANT AN ID PATH**
+*L3 / L4 · O2 · recurrence **1** (Sep) · `validated`*
+> *"five is setting up a trail cam to look for a groundhog that was at the stable… there was a scary spider
+> in 12 and 13 and 14 that may want to get ID for Fernwood… 72 is a picture of a ton of these fuzzy
+> caterpillars that seem to be around right now — good observation for Tate."* — **2026-09-01** (`C09-059`)
+
+**Verified: zero hits for "trail cam" / "trailcam".** Two things: a **second on-site capture device** (after
+the weather station) that the record does not know exists, and **arthropod ID by photo** — `A9 · Insects` is
+sound-first with reference photos and does not serve *"what is this spider."* ⚠️ `CPJ-014` (a soil-moisture
+sensor, May, agent-authored) proposed the same *pattern* and is `assumption`; it is noted, not counted.
+
+---
+
+### O3 — the product engine
+
+**`P-24` · ⭐ THE TOP LEVEL IS ARRANGED PER PERSON**
+*L2 capability · O3 · recurrence **1** (Sep, four expressions in one session) · `validated`*
+> *"my mom might have the option to choose between condo, Tate, and Tiguan, but my brother would see the
+> Tiguan as a vehicle nested within Fernwood."* — **2026-09-04** (`C09-052`)
+
+**Zero backlog coverage**, and it is a constraint on `C4`/`C9`, not a feature. Three supporting statements
+from the same window: *"is there the potential to promote vehicles out of the estates and have it top
+level"* (`C09-036`); the residency rule (`C09-037` — see `P-02`); and the crossed-access falsifier — *"Can
+I, as Paul, access Tate and my condo, and Mom access Tate and her condo, but we cannot access each other's
+condos?"* (`C09-051`). `C9` rules that estates *are* the grant rows, which **implies** this; the case is not
+written as the falsifier it functions as.
+
+**`P-25` · THE GURU'S PER-PERSON LEXICON**
+*L3 feature · O3 · recurrence **1** (Sep) · `validated`*
+> *"it should be part of kind of the lexicon of the garden guru based on who it's talking to."*
+> — **2026-09-04** (`C09-048`)
+
+**Verified: zero hits for "lexicon."** A ruling made four days ago that fell through the floor. Pairs with
+`C09-027`'s constraint — *"we would not expect one chat box to be able to cover multiple properties"* — which
+is a **retrieval-design** constraint, not only an auth one, and is likewise unwritten.
+
+**`P-26` · ONBOARDING IS AN IMPORT, NOT A BUILD**
+*L3 feature · O3 · recurrence **2** (Aug · Sep) · `validated`*
+> *"we will have flexibility so that we can just approach other people and — to oversimplify — pull in all
+> their data and preferences and what they are interested in and wanna see and then just populate it."*
+> — **2026-09-01** (`C09-002`)
+
+`C9` and `PRODUCT-ENGINE.md § THE SETUP JOURNEY` cover **access and profile**; nothing covers **importing
+their existing material to populate the instance**. ⭐ And the differentiator he named in August is the part
+most at risk of being lost: *"a key part of all those interactions is the human side of understanding needs,
+the story, collecting information from the person to really make the personalized side real. And that's a
+differentiator I wanna call out"* (`C08-046`, 2026-08-13). Also `C08-094`, same window: *"institutional
+memory is a good thing to build up"* — **the value proposition in one line: the record survives the person
+who knows things.**
+
+---
+
+### O5 — the loops
+
+**`P-27` · ⭐ EVERY DEFERRED GATE NEEDS A READER**
+*L2 capability · O5 · recurrence — **none; this is my proposal, not Paul's want** · `assumption`*
+
+⚠️ **Tagged honestly:** no verbatim Paul quote asks for this. It is my remedy for §3.3, verified against the
+live backlog today (Phase H · Phase G · W6 · the `C09-019` kill). Nearest Paul-voiced support is adjacent,
+not direct — *"a ready to fire, right, or a trigger column"* (`C08-052`, 2026-08-17). **Offered as a
+proposal for Paul to accept or reject, not as demand signal.**
+Shape, if accepted: the `DEFERRED` taxonomy already requires a gate; extend it to require **who or what
+reads it**, and let `check-backlog-drift.py`'s sibling report gates whose reader is "nobody." Phase H's
+three watchable triggers (`CPJ-047`) go into the row so it can tell someone what to look at.
+
+---
+

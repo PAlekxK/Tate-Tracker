@@ -328,5 +328,29 @@
     "_meta": "Card intros that name this place's community and elevation — MOVED HERE 2026-09-03 from static engine markup; filled at load by applyRecordProse().",
     "plantContext": "Below the plants the card tends, the land itself is a Mesic Cove and Montane Oak Forest mosaic at 2,873 feet. What grows here naturally — and what is missing — sits in this section.",
     "candidates": "Plants we might bring back to this slope. Natives that fit the cove forest and oak forest mosaic at 2,873 ft, the seepage in the spring drainage, and the wildlife the property already supports. Distinct from what's planted (that lives in the Plants card) — this is what could grow here."
+  },
+  "plantContext": {
+    "_meta": {
+      "purpose": "The plant-context callouts under 'On the property' — moved 2026-09-04 from hardcoded engine HTML (the 'chestnut canopy' sentence Paul named) into canon, the same door as story.callouts: an estate with no plantContext renders no callouts. bodyHtml is the record's, rendered as-is.",
+      "movedFrom": "engine/viewer.template.html plant-context-callout ×4"
+    },
+    "callouts": [
+      {
+        "heading": "Rare species worth looking for",
+        "bodyHtml": "GA DNR lists these rich-cove species as worth noticing if you find them on the property — special-concern, not yet endangered: cucumber-root, galax, trailing arbutus, partridge-berry, round-leaved violet. In wetter seepage spots: umbrella leaf, turk's-cap lily, bee balm, Canadian wood nettle, and several orchids including the Pink Lady's Slipper. Look, don't pick. Full species accounts and habitat associations are in the <a href=\"https://georgiawildlife.com/sites/default/files/wrd/pdf/rare-data/natural_communities_thumbnail_accounts.pdf\" target=\"_blank\" rel=\"noopener\">GA DNR Natural Communities PDF</a>."
+      },
+      {
+        "heading": "This forest was once chestnut canopy",
+        "bodyHtml": "The American chestnut was a dominant canopy tree across the southern Appalachians until the chestnut blight, introduced from Asia in 1904, killed virtually all mature trees by 1950. At this elevation it would have been one of the most important nut producers — turkey, bear, squirrel, deer — and a major timber tree. The American Chestnut Foundation's <a href=\"https://tacf.org/\" target=\"_blank\" rel=\"noopener\">Restoration Chestnut 1.0</a> (released 2005) brings blight-resistant trees back to participating landowners through regional chapters."
+      },
+      {
+        "heading": "Hemlocks at this elevation",
+        "bodyHtml": "Eastern and Carolina hemlocks are being lost to the Hemlock Woolly Adelgid, statewide in Georgia since 2012. The treatment that works is an imidacloprid or dinotefuran soil drench applied at root flare, anytime the ground isn't frozen or saturated — a 2015 multi-state trial showed 96% survival of treated hemlocks at four years versus 48% of untreated. The GA Forestry Commission documents the <a href=\"https://gatrees.org/hemlock-woolly-adelgid-hwa-in-georgia/\" target=\"_blank\" rel=\"noopener\">treatment protocol</a>; the <a href=\"https://savehemlocksnc.org/\" target=\"_blank\" rel=\"noopener\">Hemlock Restoration Initiative</a> coordinates regionally."
+      },
+      {
+        "heading": "Sourcing",
+        "bodyHtml": "For restorative plantings, wild-collected stock drives some natives toward extinction; ethically-propagated nurseries are the only acceptable path for rare species. The State Botanical Garden of Georgia and the Georgia Native Plant Initiative publish a <a href=\"https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1.pdf\" target=\"_blank\" rel=\"noopener\">recommended-nurseries list</a> (June 2025). Nearby: <a href=\"http://www.nearlynativenursery.com/\" target=\"_blank\" rel=\"noopener\">Nearly Native</a> (Fayetteville), <a href=\"https://www.northgeorgianatives.com/\" target=\"_blank\" rel=\"noopener\">North Georgia Native Plant Nursery</a>, and <a href=\"https://gardensoftheblueridge.com/\" target=\"_blank\" rel=\"noopener\">Gardens of the <span data-site=\"regionShort\"></span></a> (NC) for hard-to-find Appalachian wildflowers."
+      }
+    ]
   }
 }
