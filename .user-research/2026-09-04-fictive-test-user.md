@@ -578,33 +578,183 @@ effort on POLISH; it does not gate BROKENNESS** — something merely *unoptimize
 width is correctly out of scope, while something *broken* there is still broken. The ruling narrows
 what we optimize, not what counts as a defect.
 
-**Edit 1 — Setup step 4: a viewport SET, not a viewport.**
-> *Pick the viewport **set** from the project's real readers: a **primary** (the owner's measured
-> conditions — Fernwood: 414×848 at A+) and a **secondary desktop** (1440×900). The project's own
-> measured her-conditions doctrine outranks any convention here.*
+### ✅ FOLDED — the edit set after three consults (ux-expert · practice-steward · engineering-partner)
 
-⚠️ **Fold this into the amendment already PROPOSED in the skill's 2026-08-31 log** (item (b), the
-her-conditions line), so that one line is edited once rather than twice by two hands.
+**All three convergences first, because they agree and that is the signal:** ⛔ **do not type
+`1440×900` into the skill.** All three independently reached it. The measured desktop width is
+already in the record (`deviceBlock().viewport`, on every batch, read by nothing), and typing a
+convention here reproduces the `390×844` defect one reader over — *measured for her, conventional
+for him.* **Read it once before this ships.**
 
-**Edit 2 — Pass 1's method line.** Add: *review at **both** viewports; resize and **re-walk** —
-never infer the second from the first.* Grounded in the skill's own hazard that tab creation
-silently resets width: what looks like desktop coverage today is an accident, not a pass.
+**Edit 1 — Setup step 4: a viewport SET, defined BY RELATION.** ⚠️ *Substantially rewritten; my
+first draft had a defect that would have silently dropped mobile.*
 
-**Edit 3 — Pass 2, three clauses.** (a) Re-verify each finding *at the width it was made at* —
-a claim that reproduces at one width and not the other is **labelled with its width**, never
-stated unqualified. (b) The coherence sweep gains one question: *does this hold at both widths?*
-(c) ⭐ **The ratified-contract clause, now that §8 is settled:** *"there is no desktop layout / the
-app doesn't use the wide screen"* is **DELIBERATE-PER-DOCTRINE**, naming the 2026-09-04 ruling.
-Desktop findings are adjudicated against **"does the centered column read as deliberate here?"** —
-never against a desktop layout that was decided not to exist.
+> *Pick the viewport **set** from the project's real readers: the **primary** (the owner's measured
+> conditions) plus **the other class — phone or desktop, whichever the primary is not** — at that
+> project's own measured size for it. Each entry carries **width × height × text mode × pointer
+> capability**, and each is stamped `[measured <date>]` or `[assumed]`. The project's own
+> measured-conditions doctrine outranks any convention here, and it applies to **every** entry in
+> the set: a measured primary beside an assumed secondary is the 8/24 defect wearing a second hat.
+> Fernwood: primary 414×848 · A+ · touch `[measured]`; secondary laptop-class `[to be measured]`.*
 
-**Edit 4 — Trail + run log.** The method note records **both** viewports; a run that reviewed one
-**records that the other went unreviewed**, rather than letting silence imply it passed. That
-posture is not new — it is the skill's own launcher rule, reused verbatim rather than re-minted.
+- ⛔ **The defect this fixes.** My draft said *"primary + desktop secondary."* Measured by
+  `practice-steward`: **all five operating-layer sweeps already run at 1440×900** — so there the
+  primary IS desktop, and my wording yields **desktop + desktop**, a no-op that reads as compliance
+  while silently dropping the mobile half of Paul's ruling on the project where mobile is the
+  uncovered class. *By relation* fixes both projects with one rule.
+- ⭐ **Pointer capability was missing from all four of my edits** (`ux-expert`). The two
+  `@media (hover: hover)` blocks key on **pointer, not width** — so reviewing at 414 in a plain
+  desktop browser fires hover rules Mom has never seen. **Every past "mobile" pass has been
+  reviewing a tile lift and a row highlight that do not exist on her phone.**
+- **Fold into the 8/31 log's proposed item (b)** — same line (`:83`), one edit. It also fixes what
+  (b) alone would not: (b) adds the clause while leaving the wrong literal `390×844` in the same
+  sentence.
 
-**What this deliberately does not do:** add a third viewport (tablet), gate a sweep on desktop
-parity, or imply the two widths carry equal weight. Mom's conditions remain primary; desktop
-stops being invisible.
+**Edit 2 — Pass 1: RESET and re-walk, not resize and re-walk.** *Strengthened.*
+Fernwood's instance state carries over between walks — `ackSeen`, `zoneJourney.launcherDismissed`,
+`momQueue.offered`, `textSize`, plus every expanded card. The 8/31 sweep's FAB finding was
+explicitly *"at rest on first paint"*; that class of finding is **structurally unreproducible** on a
+second walk in a warm session, so the second viewport reads clean because the state is dirty. This
+repo has already paid for the identical mechanism — the A/A+ harness where *"the A+ frame wrote
+localStorage, and every later frame restored it — the instrument agreed with itself and was wrong."*
+So: **resize · clear the rostered storage keys · re-navigate · re-walk from first paint**, and
+**carry the verified-cleared state in the output.**
+
+**Edit 3 — Pass 2.** (a) and (b) as drafted. **(c) replaced.**
+(a) Re-verify each finding *at the width it was made at*; (b) a claim reproducing at one width and
+not the other is **labelled with its width**, never stated unqualified — plus *once the column is
+the design, the window edge and the design edge are two different places, so every window-anchored
+element is re-checked at every width in the set.*
+
+⭐ **(c) — my wording shielded a TOPIC, not a CLAIM, and would have suppressed real findings.**
+`ux-expert` named two already in the blast radius, both derivable from source: the **masthead
+composition** (`.header::before/::after`, 200px and 160px discs on a full-bleed band whose content
+caps at 660px — at laptop width the discs and the gradient's lightest quarter fall outside the
+column) and the **feedback ribbon** (`position: fixed; right: 0` — at 414 it occludes the ack
+ribbon's tappable phrase; at laptop width it is orphaned out in the flanking whitespace: *same
+element, opposite findings, both true*). Replacement:
+
+> **(c) The canvas clause.** Exactly **one** proposition is DELIBERATE-PER-DOCTRINE at desktop
+> width: *"Fernwood needs a distinct wide-screen layout, or a breakpoint above the ~660px column."*
+> Cite `engine/viewer.template.html` § THE CANVAS — **read the block; do not take a report's word
+> for it.** **The clause covers the DECISION, never the EXECUTION.** Before applying it, restate the
+> finding as ***"at ‹width›, ‹element› ‹does what›."*** If it names an element, a measurement or a
+> behaviour, **the clause does not apply.** Shield it only if it survives no restatement other than
+> *"there should be a desktop layout."* **A shielded item is written down, never dropped.** ⭐
+> **Three shields in three consecutive sweeps is itself a finding** — either fresh eyes keep seeing
+> something the ruling does not cover, or its premise has moved. The premise is falsifiable: a
+> reader class the ruling did not consider, or a job the single measure demonstrably fails, is
+> **NEEDS-PAUL**, not a shielded item.
+
+⚠️ **Edits 2 and 3(c) are a matched pair — ship together or ship neither.** Edit 2 creates pressure
+toward exactly what the ruling forbids: a reviewer told *both views must look really good*, seeing
+them differ, will recommend making them the same — which at this product means desktop CSS, means a
+`min-width` block, which THE CANVAS defines as a claim the ruling changed.
+
+**Edit 4 — the run log, not only the trail.** *Re-sited.*
+My draft put coverage in the **trail** (per-run). A skip recorded only there is invisible across
+runs — you would open three 60 KB files to see a pattern. **Paul's tracking condition is satisfied
+by one line in the Refinement-log template**, all of it a byproduct of 3(a):
+
+```
+viewports: <primary WxH+mode> walked · <secondary> walked | SKIPPED (<why>) · findings by width: N primary-only / N secondary-only / N both
+```
+
+After three runs that answers exactly what he asked: *did the second width ever get walked · did it
+find anything the first did not · what did it cost.* ⛔ **No duration or effort field** — frictions
+absorbs it, and a per-leg timer on a two-agent ritual is a metric nobody fills. ✅ **And the
+instrument needed nothing new** — 3(a) is the instrument; everything else is a rollup.
+
+**Edit 5 — NEW. Setup step 1 must reach the ruling.** ⛔ **Without this, Edit 3(c) is unverifiable
+and §10's claim that siting the ruling at the source fixed anything is FALSE.** Pass 1 is forbidden
+source; pass 2's setup enumerates only `~/.claude/design-principles/*`. So pass 2 would take *the
+skill's word* for a ruling it cannot open. One line: *"plus any ratified design contract sited at
+the project's source (Fernwood: `engine/viewer.template.html`, the stylesheet doctrine region)."*
+
+**Edit 6 — NEW, and it is a de-scoping.** The desktop leg is a **scoped checklist on pass 2**, not a
+second full un-primed pass-1 walk.
+- **The reason is structural, not economy:** pass 1's whole value is being un-primed, and §8(2)
+  pre-writes the verdict it would reach at that width. A second un-primed walk pays full discovery
+  price for a conclusion already written, every run, forever.
+- **Pass 2 is already in the browser re-verifying and already holds the doctrine** needed not to
+  re-litigate. Its desktop brief is bounded and already enumerated by THE CANVAS: masthead at width
+  · hover states duplicating touch affordances · flanking whitespace as margin vs. accident ·
+  fixed-position elements when the column is not the window · **plus re-check every CONFIRMED
+  pass-1 finding at the secondary width and label it (3a).**
+- ⚠️ **The cadence argument behind it, measured:** `check-ux-sweep.py`'s thresholds are 21d / 20
+  commits / 3 laps, and **both** Fernwood sweeps overshot — 8/31 ran at 53 commits / 6 laps. Four
+  days after that sweep it already reads `owed: true` at 55 commits. **The clock fires ~4× faster
+  than the ritual runs; making the ritual heavier widens that gap rather than closing it.**
+
+**What the set deliberately does not do:** add a tablet viewport · gate a sweep on desktop parity ·
+imply the widths carry equal weight (a desktop-only finding caps at `major` unless it blocks a job)
+· or touch `qa-walk.py` (see below).
+
+
+---
+
+## 9b · ⛔ What the consults surfaced that is NOT a `/ux-sweep` edit — UNOWNED ROWS
+
+**None of these is this lane's to act on.** Recorded so they do not die with the window; routed to
+the hub. Each is verified, not relayed.
+
+1. ⭐ **`analyze-fernwood.py:150` reads `device.get("class")`; the emitter sends `deviceClass`.**
+   A **one-word fix**. See R2 above for the full chain. ⚠️ **Fix it for the right reason:** not
+   because the share matters, but because *a confident-looking `class` column full of `unknown` is
+   worse than no column* — this repo's most-repeated failure class in its own words. Both
+   `practice-steward` and `engineering-partner` found it independently; **106 days live**, through a
+   device-mapping crisis, a funnel rewrite and a clean-slate re-derivation of `people.json`.
+2. ⛔ **DO NOT BUILD a usage-share instrument** `[engineering-partner, and this is the recommendation
+   to keep]`. Two real users. The answer is a sentence that will not move for months: *one person
+   uses desktop, and he is the builder.* A percentage over a denominator of 2 is theatre, and
+   `defer_affordances_pending_signal` governs instruments as much as affordances. ⭐ **The 106-day
+   bug is the argument**: a number nobody missed for three and a half months is not a number anybody
+   needs. **The gate that would change this is nameable: a third household.**
+3. ✅ **DO read the widths once, by hand, before the edit set ships.** `deviceBlock().viewport` has
+   shipped on every batch for months and no reader has ever touched it. One read turns the secondary
+   viewport from `[assumed]` into `[measured]`, exactly as 414×848 became measured. ⚠️
+   **`deviceClass()` cannot do this job and would mislead:** iPadOS Safari sends a Mac user-agent by
+   default, so an iPad reads `desktop` — an error running in precisely the direction that inflates
+   the number justifying desktop investment. **The field nobody reads is the more honest of the
+   two.** ⚠️ Report the *distribution*, never an average: browser zoom moves `innerWidth`.
+4. ⛔ **`/design-options` CANNOT SHOOT A DESKTOP EXHIBIT — a capability gap, not a wiring one.** Its
+   capture prep is hard-wired to a 414px iframe harness, and its own log records `browser_resize`
+   returning success without resizing, **three runs running**. So the mechanism Paul named for
+   *"test before we invest"* structurally cannot test the thing this whole section is about. ~5
+   lines (a second wrap at the measured width, `innerWidth` verified from inside the frame).
+   ⚠️ Separately, it is **reachable by name only** — unnamed in the session-start block,
+   `MOM-CYCLE-MAP.md` and `/mom-cycle`: *instance five* of this repo's named failure shape. ⛔ But
+   **do not give it a clock** — it is decision-driven, not accumulation-driven; a cadence would
+   spend exhibit attention on laps with no decision in them.
+5. ✅ **Monitor-after needs a recorded PREDICTION, not an instrument.** Every instrument exists
+   (`check-telemetry.py --before`, `check-live.py`, the funnel and engagement readers). What is
+   missing is something to compare the after-reading *to*. Three lines on the **lap entry** — not
+   `RELEASE_NOTES.md`, which is Mom-facing field-journal prose: `predicts:` · `instrument:` ·
+   `verified-live:`. ⚠️ **Most predictions will return UNMEASURED at n=1, and UNMEASURED is not
+   "it did not work."** The payoff is not statistical: writing the line forces *"could this even be
+   measured at our n?"* to be asked **before** the build — which is literally the ask.
+6. **`qa-walk.py` stays at 414×848** `[both process and engineering seats agree]`. Its viewport is a
+   **contract, not an estimate**; a gate whose threshold reads the record can quiet itself and
+   re-baseline instead of failing loudly. ⛔ **And do NOT add a desktop `herConditions()`** — its
+   first checks are page-scroll-sideways and elements-past-the-right-edge, which at laptop width with
+   a ratified 660px column are **green by construction**. That would ship a control printing
+   *"desktop checked, clean"* in a state where *"our check cannot see desktop defects"* prints
+   identically. **The honest fix is a stated non-coverage**, in the `exit 3 = UNCHECKABLE, never
+   green by absence` idiom this repo already uses.
+7. ⚠️ **Two width-anchored contradictions, reported not resolved.** `design-principles/fernwood.md`
+   carries *"answer controls above the fold at 414 × A+"* — a principle with **no defined verdict at
+   the secondary width**, which pass 2 adjudicates against. And THE CANVAS is sited in `engine/`,
+   shared by every instance **by construction**, while its reasoning is Fernwood's (a field journal
+   wants one readable measure). **When the condo instance lands, an engine-sited canvas contract
+   binds it.** Whether that is intended is Paul's.
+8. **`5237293` is still listed "under review"** in `people.json._meta.whatThisInvalidates` — the one
+   change known to have shipped on a bad reading. Starting a monitor-after discipline while its own
+   counterexample stays open is worth noticing.
+
+⚠️ **Empirical status of rows 2–3:** the width claims are **structurally verified, empirically
+unverified.** It is proven that the field is captured on every batch and read by nothing; **no actual
+value has been looked at.** No live read was run — network reads against the Worker were outside
+this lane's authorization.
 
 ---
 
