@@ -8439,6 +8439,7 @@ function renderAmbientStationPanel(d, errMsg) {
 // RECENT PRECIP HISTORY
 // =========================
 async function fetchRecentPrecip() {
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = PROPERTY_DATA.location.coordinates.approximateLat;
   const lon = PROPERTY_DATA.location.coordinates.approximateLon;
   const today = new Date();
@@ -8495,6 +8496,7 @@ async function fetchRecentPrecip() {
 // PRECIP HISTORY (percentile comparison vs 2001–2025)
 // =========================
 async function fetchPrecipHistory() {
+  if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = PROPERTY_DATA.location.coordinates.approximateLat;
   const lon = PROPERTY_DATA.location.coordinates.approximateLon;
   const url = 'https://archive-api.open-meteo.com/v1/archive' +
