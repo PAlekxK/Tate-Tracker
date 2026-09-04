@@ -11,6 +11,7 @@
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
 - ready: [paul-approved 2026-09-03]
 - stage: ready
+- stage-note: 2026-09-04 ~5:05 AM ET — commit "identity.theme.main declared on both instances": Paul ruled the condo's main colour is a dark blue and Fernwood's is its green [paul-stated]; the values are DECLARED in the instance files only (nothing reads them yet — slice ② of the uniqueness ledger derives the scheme at build); Fernwood's hex is a placeholder to be derived from the rendered green, never typed. The condo paper model was rebuilt on tonight's template and opened for Paul's 2e read at http://127.0.0.1:8765/viewer.html.
 
 Drafted by the planning agent 2026-09-03 from the row, C4's RULED table and its THREE LEVELS ruling (decided, not
 re-argued: product apex · family door · instance by grant; two example families for planning — family B's two

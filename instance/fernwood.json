@@ -12,7 +12,11 @@
     "addressLineSuffix": "on the Blue Ridge",
     "propertyTileSub": "On Cherokee land · Blue Ridge thermal belt",
     "stationName": "Fernwood Weather Vane",
-    "station": "present"
+    "station": "present",
+    "theme": {
+      "main": "#2f5d3a",
+      "_note": "paul-stated 2026-09-04: 'green is for Fernwood'. Placeholder hex until the build reads the CURRENT rendered green from the template (slice ②) — this value must be derived from what she sees today, not typed here."
+    }
   },
   "absent": [],
   "display": {

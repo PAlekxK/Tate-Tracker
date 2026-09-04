@@ -30,7 +30,7 @@ Paul, 2026-09-03: *"a very clear picture of what is dynamic versus what's genera
 | `stationName` | Fernwood Weather Vane | `build-viewer.IDENTITY['stationName']` |
 | `station` | present | `build-viewer.IDENTITY['station']` |
 
-Instance identity keys in use: `name`, `taglinePrefix`, `addressLineSuffix`, `propertyTileSub`, `stationName`, `station`. Absent → `undeclared` / defaults (`station` builds as `undeclared`, loudly).
+Instance identity keys in use: `name`, `taglinePrefix`, `addressLineSuffix`, `propertyTileSub`, `stationName`, `station`, `theme`. Absent → `undeclared` / defaults (`station` builds as `undeclared`, loudly).
 
 ## 3 · Modules (`estate.json` → `modules`) and what each switches
 
@@ -80,7 +80,7 @@ Everything else in the template is ENGINE and must name no place — the falsifi
 
 ## 6 · Deployment inputs (the Worker)
 
-`wrangler.toml` vars per environment: `AMBIENT_MAC`, `CHAT_DAILY_BUDGET_USD`, `ENV_NAME`, `ESTATE_ID`, `FAMILY_HOSTS`, `LEGACY_BEFORE`. Secrets (set through `/secrets`, never a file): `AIRNOW_API_KEY`, `AMBIENT_API_KEY`, `AMBIENT_APP_KEY`, `ANTHROPIC_API_KEY`, `GITHUB_TOKEN`, `OPENAI_API_KEY`, `SHARED_TOKEN`.
+`wrangler.toml` vars per environment: `CHAT_DAILY_BUDGET_USD`, `ENV_NAME`, `ESTATE_ID`, `FAMILY_HOSTS`, `LEGACY_BEFORE`. Secrets (set through `/secrets`, never a file): `AIRNOW_API_KEY`, `AMBIENT_API_KEY`, `AMBIENT_APP_KEY`, `ANTHROPIC_API_KEY`, `GITHUB_TOKEN`, `OPENAI_API_KEY`, `SHARED_TOKEN`.
 
 ## 7 · The proof a new instance renders as itself
 
