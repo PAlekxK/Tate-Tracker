@@ -10,7 +10,7 @@
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md (identity block · instance/<estate>.json)
 - depends-on: .plans/2026-09-03-c7-condo-paper-model-PLAN.md (the placeholders this retires)
 - ready: DRAFT — both seats RAN 2026-09-04 ~1:20 PM ET and are folded in below (§4); Paul has not stamped
-- stage: proposal
+- stage: concept
 - stage-note: SEATS FOLDED 2026-09-04 ~1:25 PM ET — content-steward (`.content-reviews/2026-09-04-vocabulary-nicknames.md`, 15 findings) + engineering-partner (`.engineering/2026-09-04-vocabulary-nicknames.md`, 12 findings); the main session verified the load-bearing claims (WORKER_BASE is a Fernwood literal in the engine template; `almanac_history_opened` has zero consumers; `digest.core.names` is the entity index; 9 hard-coded "Mama's Perspective" sites). §1a–§1f stand as drafted EXCEPT where §4 amends them.
 - stage-note: drafted 2026-09-04 ~12:10 PM ET from Paul's ask (*"a pretty robust proposal"* — people may name things themselves; the internal name is what we call it, recorded beside their nickname) and the three-referent comment in the viewer (2026-07-30) — see §0.
 
@@ -68,8 +68,11 @@ Greps engine text (template markup + JS string literals + Worker strings, outsid
 ### 1f · Migration of what exists
 `journalTile`/`journalShort` → `names.record`; `stationName` → `names.station`; the condo placeholders → `names.record = {name:"Midtown Notes", short:"the Notes", by:"agent", how:"placeholder"}` until a person names it. **Fernwood byte-identical after the pass** (the C5 5c control: eight rendered regions hashed before/after). `VOCABULARY.md` gains §3f (the registry) and §4 keeps its rejections.
 
-## 2 · Falsifier
+## Falsifier
 Build the condo with `names.record` = *"the Housebook"*, load QA, ask the Guru a lookup that misses: it must say *"not in the Housebook"*; the card title, the save button and the storage messages must say the same word; Fernwood's eight regions hash-identical; the lint finds zero literals. Then set a KV `names` row by the runtime path with a different word and reload without a build: the viewer and the Guru say the new word.
+
+## QA
+On QA only (staging → the Access-gated origin + `fernwood-qa` Worker). Build Fernwood and the condo from the same template; Fernwood's eight rendered regions hash-identical before/after (the C5 5c control); `build-viewer.py --check` green at every commit; the ratchet lint's baseline set at the measured count and never raised; `qa-walk.py` exit 0 on QA and the condo scratch build; the honesty strings on the QA Worker say the estate's word (`guru-probe` NO_SOURCE / NOT_IN_RECORD legs); the runtime words row exercised by `qa-write-probe` under a QA fixture grant, never on prod.
 
 ## 3 · Open for Paul (after the seats)
 1. The condo's record word until she names it (Housebook recommended; Ledger; Notes).
