@@ -277,8 +277,10 @@ MONTHS = ("january", "february", "march", "april", "may", "june", "july",
 
 
 def config(path, root=None):
-    """Read ONE value out of canon (`property.json`; later the instance file) by
-    dotted path — `config("frostDates.atPropertyElevation.firstFall_50pct")`.
+    """Read ONE value out of canon by dotted path — `config("frostDates.atPropertyElevation.firstFall_50pct")`
+    reads `property.json`; a FILE-QUALIFIED path `config("fishing.json:lake.elevation_ft")` reads another
+    canon file at the repo root (Guru 2a). Raises KeyError on a missing path and FileNotFoundError on a
+    missing file — never a default.
 
     RAISES KeyError on a missing path. Never a default: a default is a typed
     literal wearing a disguise, and the founding leak (`FROST_MONTH, FROST_DAY =
@@ -286,12 +288,15 @@ def config(path, root=None):
     default would have re-created. List indices are `[n]`.
     """
     global _PROPERTY
-    if root is None and _PROPERTY is not None:
+    fname = "property.json"
+    if ":" in path and path.split(":", 1)[0].endswith(".json"):
+        fname, path = path.split(":", 1)
+    if fname == "property.json" and root is None and _PROPERTY is not None:
         node = _PROPERTY
     else:
-        with open(os.path.join(root or ROOT, "property.json"), encoding="utf-8") as fh:
+        with open(os.path.join(root or ROOT, fname), encoding="utf-8") as fh:
             node = json.load(fh)
-        if root is None:
+        if fname == "property.json" and root is None:
             _PROPERTY = node
     for part in re.findall(r"[^.\[\]]+|\[\d+\]", path):
         try:

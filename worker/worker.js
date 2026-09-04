@@ -1531,6 +1531,14 @@ async function handleChat(request, env) {
     { type: "text", text: liveStateText },
   ];
   const chatMessages = turns.map(t => ({ role: t.role, content: t.content }));
+  // Guru 3b — a DAILY SPEND CEILING on QA only. The harness's --max-turns is a convenience; this is
+  // the load-bearing stop. Prod carries no ceiling (unchanged). `chat-budget:<date>` = tokens billed today.
+  const ceiling = env.ENV_NAME === "qa" && env.CHAT_DAILY_CEILING ? parseInt(env.CHAT_DAILY_CEILING, 10) : null;
+  const budgetKey = ceiling ? dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)) : null;
+  if (ceiling) {
+    const used = parseInt((await env.OBSERVATIONS.get(budgetKey)) || "0", 10) || 0;
+    if (used >= ceiling) return json({ error: "chat-budget-exceeded", used, ceiling }, 429);
+  }
   const t0 = Date.now();   // Guru 1b — the server clock around the upstream call
   const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -1560,6 +1568,14 @@ async function handleChat(request, env) {
   catch (e) { console.warn("conversation persist failed:", e); }
   try { await logChatCost(env, conversationId, apiData, { latency_ms: latencyMs, round_trips: 1 }); }
   catch (e) { console.warn("cost log failed:", e); }
+  if (ceiling) {   // Guru 3b — bill this turn against today's QA budget (input + cache + output tokens)
+    try {
+      const u = apiData.usage || {};
+      const billed = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.output_tokens || 0);
+      const used = parseInt((await env.OBSERVATIONS.get(budgetKey)) || "0", 10) || 0;
+      await env.OBSERVATIONS.put(budgetKey, String(used + billed), { expirationTtl: 3 * 86400 });
+    } catch (e) { console.warn("chat budget write failed:", e); }
+  }
 
   const out = {
     reply,
@@ -2474,6 +2490,10 @@ export default {
         kv_canary: kvCanary,
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
+        ...(env.ENV_NAME === "qa" && env.CHAT_DAILY_CEILING ? { chat_budget: await (async () => {   // Guru 3b — QA only
+          let used = 0; try { used = parseInt((await env.OBSERVATIONS.get(dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)))) || "0", 10) || 0; } catch (e) { /* unreadable → 0 shown as unknown below */ }
+          return { used, ceiling: parseInt(env.CHAT_DAILY_CEILING, 10), date: new Date().toISOString().slice(0, 10) };
+        })() } : {}),
         endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,

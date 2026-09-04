@@ -42,6 +42,9 @@ ENV_NAME = "qa"
 ESTATE_ID = "est-3c9f1a"
 LEGACY_BEFORE = "2026-09-03"
 AMBIENT_MAC = "D8:F1:5B:15:28:B8"
+# Guru 3b: the QA Worker refuses /api/chat once today's billed tokens pass this (prod has NO ceiling).
+# Paul sets the number (Q1); this is a placeholder low enough to stop a runaway harness.
+CHAT_DAILY_CEILING = "150000"
 [[env.qa.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "a0cf82b615c648ff972961c46ce42661"
