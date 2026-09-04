@@ -491,7 +491,18 @@ async function withCache(env, key, ttlSeconds, producer) {
     catch (e) { /* fall through and re-fetch */ }
   }
   const fresh = await producer();
-  await env.OBSERVATIONS.put(key, JSON.stringify(fresh), { expirationTtl: ttlSeconds });
+  // Best-effort: a cache that cannot be written must not cost the caller a read
+  // it already has. Measured 2026-09-04: the account-wide KV daily write cap
+  // (spent by a QA library load) made this put throw AFTER Ambient answered,
+  // so /api/ambient 502'd, the weather recorder failed, and her weather card
+  // went dark for the rest of the UTC day. The read is the product; the cache
+  // is a courtesy to Ambient's rate limit.
+  try {
+    await env.OBSERVATIONS.put(key, JSON.stringify(fresh), { expirationTtl: ttlSeconds });
+  } catch (e) {
+    console.warn("withCache: put failed, serving uncached:", String(e && e.message || e));
+    return { ...fresh, cached: false, cacheWrite: "failed" };
+  }
   return { ...fresh, cached: false };
 }
 
