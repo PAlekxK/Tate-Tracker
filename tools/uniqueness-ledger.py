@@ -14,6 +14,7 @@ not choose. Paul: "track what's dynamic and unique and where there's boilerplate
 left over and not part of our official vocabulary — having two properties compare over time will help."
 """
 import argparse, glob, json, os, re, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import qa_access
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NODE = r"""
@@ -24,7 +25,7 @@ const { chromium } = require('playwright');
   const browser = await chromium.launch(exe ? { executablePath: exe } : {});
   const out = {};
   for (const url of [a, b]) {
-    const page = await browser.newPage({ viewport: { width: 414, height: 848 } });
+    const page = await browser.newPage({ viewport: { width: 414, height: 848 }, extraHTTPHeaders: JSON.parse(process.env.QA_ACCESS_HEADERS || '{}') });
     await page.goto(url, { waitUntil: 'load', timeout: 60000 }); await page.waitForTimeout(2500);
     out[url] = await page.evaluate(() => {
       const texts = []; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -58,7 +59,7 @@ def main():
     args = ap.parse_args()
     hits = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/playwright/package.json")), key=os.path.getmtime)
     if not hits: print("⛔ no Playwright under ~/.npm/_npx"); return 2
-    env = dict(os.environ, NODE_PATH=os.path.dirname(os.path.dirname(hits[-1])))
+    env = dict(os.environ, NODE_PATH=os.path.dirname(os.path.dirname(hits[-1])), QA_ACCESS_HEADERS=json.dumps(qa_access.headers(args.a) or qa_access.headers(args.b)))
     exes = sorted(glob.glob(os.path.expanduser("~/Library/Caches/ms-playwright/chromium-*/chrome-mac*/*.app/Contents/MacOS/*")), key=os.path.getmtime)
     if exes: env["QA_WALK_CHROMIUM"] = exes[-1]
     r = subprocess.run(["node", "-e", NODE, "--", args.a, args.b], capture_output=True, text=True, env=env, timeout=300)

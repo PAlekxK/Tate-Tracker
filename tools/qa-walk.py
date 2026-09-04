@@ -18,6 +18,7 @@ Also asserts, because the module switch and the identity pass depend on them:
   · zero uncaught script errors during load
 """
 import argparse, glob, json, os, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import qa_access
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -28,7 +29,7 @@ const { chromium } = require('playwright');
   // the MCP server's cached browser, so this needs no install; any Chromium under the cache will do
   const exe = process.env.QA_WALK_CHROMIUM || null;
   const browser = await chromium.launch(exe ? { executablePath: exe } : {});
-  const page = await browser.newPage({ viewport: { width: 414, height: 848 } });
+  const page = await browser.newPage({ viewport: { width: 414, height: 848 }, extraHTTPHeaders: JSON.parse(process.env.QA_ACCESS_HEADERS || '{}') });
   const errors = [];
   page.on('pageerror', e => errors.push(String(e.message).slice(0, 200)));
   const out = { url, ok: false };
@@ -99,7 +100,7 @@ def main():
     nm = find_playwright()
     if not nm:
         print("⛔ qa-walk: no Playwright found under ~/.npm/_npx — run any Playwright MCP session once, or `npx playwright install chromium`"); return 2
-    env = dict(os.environ, NODE_PATH=nm)
+    env = dict(os.environ, NODE_PATH=nm, QA_ACCESS_HEADERS=json.dumps(qa_access.headers(a.url if hasattr(a, "url") else "")))
     exes = sorted(glob.glob(os.path.expanduser("~/Library/Caches/ms-playwright/chromium-*/chrome-mac*/*.app/Contents/MacOS/*")), key=os.path.getmtime)
     if exes:
         env["QA_WALK_CHROMIUM"] = exes[-1]

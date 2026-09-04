@@ -15,6 +15,7 @@ Exit 0 all assertions hold · 1 an assertion failed · 2 the page never rendered
 qa-walk.py's: the Playwright the MCP server cached under ~/.npm/_npx, no install.
 """
 import argparse, glob, json, os, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import qa_access
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 NODE = r"""
 const [url, expect] = process.argv.slice(-2);
@@ -24,7 +25,7 @@ const { chromium } = require('playwright');
   const browser = await chromium.launch(exe ? { executablePath: exe } : {});
   const out = { url, expect, contexts: [] };
   async function walk(label, init) {
-    const ctx = await browser.newContext({ viewport: { width: 414, height: 848 } });
+    const ctx = await browser.newContext({ viewport: { width: 414, height: 848 }, extraHTTPHeaders: JSON.parse(process.env.QA_ACCESS_HEADERS || '{}') });
     await ctx.route('**/api/**', r => r.abort());
     if (init) await ctx.addInitScript(init);
     const page = await ctx.newPage();
@@ -62,7 +63,7 @@ def main():
     url = a.url if "://" in a.url else "file://" + os.path.abspath(a.url)
     nm = find_playwright()
     if not nm: print("⛔ no Playwright under ~/.npm/_npx — run any Playwright MCP session once"); return 2
-    env = dict(os.environ, NODE_PATH=nm)
+    env = dict(os.environ, NODE_PATH=nm, QA_ACCESS_HEADERS=json.dumps(qa_access.headers(url)))
     exes = sorted(glob.glob(os.path.expanduser("~/Library/Caches/ms-playwright/chromium-*/chrome-mac*/*.app/Contents/MacOS/*")), key=os.path.getmtime)
     if exes: env["QA_WALK_CHROMIUM"] = exes[-1]
     r = subprocess.run(["node", "-e", NODE, "--", url, expect], capture_output=True, text=True, env=env, timeout=240)

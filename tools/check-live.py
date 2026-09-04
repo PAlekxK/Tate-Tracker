@@ -80,7 +80,9 @@ import hashlib
 import re
 import json
 import subprocess
+import os
 import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import qa_access  # QA origin behind Cloudflare Access (2026-09-04)
 import time
 import urllib.error
 import urllib.request
@@ -173,7 +175,7 @@ def declared_drift():
 def fetch_live(path=TRACKED_FILE):
     req = urllib.request.Request(
         BASE + path,
-        headers={"Cache-Control": "no-cache", "Pragma": "no-cache",
+        headers={"Cache-Control": "no-cache", "Pragma": "no-cache", **qa_access.headers(LIVE_BASE if "LIVE_BASE" in globals() else ""),
                  "User-Agent": "FernwoodLiveCheck/1.0 (+tools/check-live.py)"},
     )
     with urllib.request.urlopen(req, timeout=TIMEOUT_SEC) as resp:
