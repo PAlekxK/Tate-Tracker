@@ -202,7 +202,7 @@ defect. `[unverified — I did not enumerate what is currently in the QA namespa
 ### 3 · ⚠️ `important` — **a device id Paul ruled private is in a public tracked file**, in the same file 3a is about to add its placeholder discipline to
 
 **Observation `[verified]`.** `worker/wrangler.toml` — tracked, committed (`9d65723`), remote
-`github.com/PAlekxK/Tate-Tracker` — carries `AMBIENT_MAC = "D8:F1:5B:15:28:B8"` in **both** environments.
+`github.com/PAlekxK/Tate-Tracker` — carries `AMBIENT_MAC = "D8:F1:••:••:••:B8"` in **both** environments.
 `tools/check-config-derivation.py:68` declares it *"the ONE place the station lives."* The repo is public
 `[stated in CLAUDE.md's AI-boundary amendment — "committed into a public repo"; not re-verified via the
 GitHub API, gh is not installed on this machine (measured)]`. `.private/ambient-station.json` still exists

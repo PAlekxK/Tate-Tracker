@@ -74,7 +74,7 @@ ROSTER = [
         "tools/check-condo-falsifier.py": "a DETECTOR string",
         ".plans/*.json": "records", ".ux-reviews/*.json": "records", ".engineering/*": "records", ".user-research/*": "records",
     }),
-    ("(deployment) AMBIENT_MAC — the station", "literal", (r"D8:F1:5B:15:28:B8",), {
+    ("(deployment) AMBIENT_MAC — the station", "literal", (r"\b[0-9A-Fa-f]{2}(?::[0-9A-Fa-f]{2}){5}\b",), {   # 2026-09-04: a MAC-SHAPED pattern, never the value — the MAC is a Worker SECRET now; any MAC in the tree is a leak
         "worker/wrangler.toml": "the ONE place the station lives — a [vars] entry per environment (C5 7c retired the code default)",
     }),
     ("frostDates.atPropertyElevation.firstFall_50pct", "type-changed", (r"\b10,\s*17\b",), {
