@@ -333,8 +333,8 @@ Append a row per incident or test. **An empty row is not a passing test.**
 |---|---|---|---|---|
 | 2026-08-30 | Left sitting with a **trickle charger attached but UNPOWERED** | Lost charge. Days elapsed not recorded. ✅ **CHARGER NOW IDENTIFIED 2026-09-01** — **NEXPEAK NC201 PRO**, 12 V/24 V, "7-stage intelligent pulse repair charger", modes STD / AGM-GEL / WET / REPAIR. ⚠️ `[photo-MODEL-READ 2026-09-01, unverified]` — read off Paul's photograph of the unit, not from a purchase record. | — | **Hypothesis, not a verdict.** A charger with no blocking diode back-feeds through its own output stage when unpowered. 20 mA for 3 days = 1.4 Ah of a 6 Ah battery. A smart maintainer draws microamps; a dumb trickle charger often does not. **Read the label.** |
 | 2026-08-30 | **Three starts in ~1 hour**, each shut off quickly (t=0, +30 min, +60 min) | Start 1 fine · start 2 fine · start 3 **clearly struggling, barely caught** | 2 | ⭐ **The most informative run so far, because it held FUEL CONSTANT.** The engine fired all three times — fuel, spark and carb are all exonerated for this episode. The only thing that degraded was cranking power, monotonically. **This episode is on the electrical axis.** ⚠️ Partly self-inflicted: see the standing rule below — a short idle run on this bike is a net WITHDRAWAL, so three of them is a discharge test. Still: three starts should not take a healthy 6 Ah battery from fine to barely-turning. |
-
 | 2026-09-01 | ⭐ **CHARGED FULLY, LEFT OVERNIGHT, WOULD NOT START** — Paul, verbal, at fleet lap 2 beat 0 | *"charging the 200 for a good amount and then left it overnight… the battery kind of dimmed and it sounded like I was trying to turn over… it just wound up clicking"*. No meter reading taken before the attempts. | 2 | ⭐ **THIS BREAKS THE RECORD'S OWN PATTERN.** Every prior episode had *charging restores starting*, which is why the record read this as charge STATE. A full charge that does not survive one night is a different claim: the battery is not HOLDING, or something drained it. **This is an uninstrumented T4 failure.** ⚠️ Paul: *"I don't think the bike was plugged into the charger"* — hedged, so the 8/30 back-feed hypothesis is weakened, NOT excluded; T5's A/B settles it by measurement. ⚠️ The clean T4 for this night is GONE — it was cranked repeatedly before any reading. |
+| 2026-09-04 | ⭐ **CHARGE CYCLE ON THE NEXPEAK — "empty" → "full" in ~15 MINUTES — then open-circuit decay with the charger ATTACHED BUT UNPOWERED** — Paul, verbal, same day | Charger clipped on; it reported the battery **empty**. Mains on. **~15 minutes later it reported essentially full.** Mains unplugged, **charger left clipped to the battery**; **13.1 V**. Over the next **~1 hour** the reading fell **below 13.0 V** and the charger's own gauge dropped below full. ⚠️ Every value here is **charger-display-reported** unless Paul confirms the 13.1 came off the All-Sun EM830 — a charger's SoC bar is not a state-of-charge measurement. ⚠️ Clock times not recorded. | — *(no start attempted)* | ⭐ **THE 15 MINUTES IS THE FINDING. THE FIRST-HOUR DECAY IS NOT.** ① **A 6 Ah battery cannot go from empty to full in 15 minutes** — that is on the order of 1 Ah delivered at any rate this charger can push. So one of three things is true, and **two of them are the same failure**: the "empty" was a depressed-voltage read on a battery that was never empty; or there is so little usable capacity left that it fills in minutes; or the charger terminated on *terminal voltage*, which a battery with high internal resistance reaches almost instantly. The last two are **capacity / internal resistance** — the T2b *"capacity is gone"* branch, seen for the first time **without cranking the bike**. ② ⛔ **The decay 13.1 → just under 13.0 in an hour is NORMAL surface-charge dissipation and is not evidence of a fault.** A freshly-charged lead-acid/AGM sits at 13.0–13.2 and falls toward its true resting OCV (12.6–12.8 when healthy) over 1–4 hours. **What matters is where it SETTLES, not that it fell.** And the charger "now showing less than full" is *the same observation read off a second display* — not independent corroboration. ③ ⛔ **CONFOUNDED, by the exact configuration this guide's standing habits forbid** — *"a charger is either POWERED or fully DISCONNECTED — never attached and dead"* — which is the 8/30 back-feed condition. Normal surface decay, back-feed through the unpowered charger, and a battery that does not hold are **inseparable in this reading**. ④ What it does narrow: **the engine never ran today.** If she is charged, the charger is taken fully off, and she still slides overnight, the fault is the battery or a parasitic drain and the charging system is not the explanation for *that*. ⚠️ **T3 still has to be run before anything is replaced** — a dead charging system would kill a new battery the same way. |
 
 ### Incident record so far (from conversation, not yet instrumented)
 
@@ -349,6 +349,39 @@ Append a row per incident or test. **An empty row is not a passing test.**
 ⚠️ These are recalled, not measured. They are here so the pattern is legible, **not** as evidence.
 
 ---
+
+## ⏱ OPEN WINDOW — 2026-09-04, and it closes when the charge does
+
+**The battery is charged and off mains RIGHT NOW.** That is the precondition every bench test in
+this file has been waiting on for five days, and it is the cleanest one this record has ever had:
+nothing has been cranked, so no evidence has been destroyed yet. **T3 has never been measured and
+this guide calls it decisive.** The order below is deliberate — each step preserves the next.
+
+1. **Unmate the charger completely** (SAE connector apart, or clips off). Do not leave it attached
+   and dead — that is the confound, and it is also the standing habit. *(30 seconds. Do this first
+   even if you do nothing else — every reading after it is clean, and every reading before it isn't.)*
+2. **Read the date stamp on the battery case** while you are in there and write it down. That closes
+   the record's oldest open item — *"battery age unknown"* — for free. If it is a 2017 original it is
+   ~9 years old against a 3–5 year AGM life.
+3. **T1, on the meter, not the charger.** EM830, red lead in `VΩmA`, dial to **20 V DC (`—`)**, probes
+   on the posts. Write the number **and the time**. Then again in ~2 hours. ≥12.6 full · 12.4 ≈ 75% ·
+   12.2 ≈ 50% · ≤12.0 flat. **Where it settles is the answer; the fall on the way there is not.**
+4. **T2b — three cranks, 60 s apart, lowest volts each.** Start / shut off / wait / repeat. Use MIN/MAX
+   hold if the meter has it. All three ≥10.5 and within ~0.3 V = the battery is fine, look elsewhere.
+   A descending ladder = **capacity is gone**, which is what the 15-minute charge already hints at.
+   *(No meter, no helper? The by-ear version is the same test: "did the third sound like the first?")*
+5. **T3, straight off the third crank while she is running — THE decisive one.** Meter still on the
+   posts. Read **stopped**, then **idle**, then holding **~5 000 r/min**. Pass = **13.0–16.0 V at
+   5 000**. Same figure stopped *and* at 5 000 = the charging system is dead, and that single result
+   explains the entire pattern and moots the battery argument.
+6. **Then ride her 20 minutes at 3 000+ r/min** — not an idle, which is a net withdrawal.
+7. **T4 tonight.** Park level, **petcock OFF**, charger fully off the battery, record volts + time.
+   Read again in the morning **before touching anything**. ≤0.1 V = normal · ≥0.3 V = drain or a
+   battery that no longer holds. **This is the reading 9/01 lost** by being cranked before anyone read it.
+
+⚠️ **Do not buy a battery on today's evidence.** The 15-minute charge is a strong hint and it is
+still a charger's own display talking. T3 first — a dead charging system kills the replacement the
+same way it killed this one.
 
 ## What would close this
 
