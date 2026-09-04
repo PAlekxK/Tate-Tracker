@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "purpose": "Guru 6a \u2014 the prose library index, as built; `build-library-index.py --check` fails when this would change",
+    "chunk": 900
+  },
+  "estate": "est-qa0001",
+  "sources": {
+    "references.json": "b90c81dfca4afed8",
+    "research-resources.md": "6149e433243e2d50",
+    "manuals/text/bronco-1989-audio-din-install.txt": "b037adffc6880b3c",
+    "manuals/text/bronco-1989-audio-motor2b.txt": "798f571b436356a3",
+    "manuals/text/bronco-1989-audio-speakers.txt": "7a5da7c91c419d89",
+    "manuals/text/bronco-1989-lmc-catalog-fd88.txt": "527b301e6d9ef41d",
+    "manuals/text/bronco-1989.txt": "37e631bc05479e28",
+    "manuals/text/chainsaw-cs352-parts.txt": "03d1188eb9ce4335",
+    "manuals/text/chainsaw-cs352.txt": "4954c3c180641f75",
+    "manuals/text/chainsaw-ms290.txt": "cf8f3f149b73fcac",
+    "manuals/text/dr200s-2017-service.txt": "cba6183a6dabad5d",
+    "manuals/text/drz400s-2001-service.txt": "f07aa2cd82ce5fdf",
+    "manuals/text/echo-pb250ln-parts.txt": "45c6f1a69a6585ea",
+    "manuals/text/echo-pb250ln.txt": "71fbe99aaff5bc5c",
+    "manuals/text/echo-pb7910t.txt": "9ba87a1010f98088",
+    "manuals/text/f150-2006.txt": "e6cdc2e36a7474c0",
+    "manuals/text/g22a-2005-ax2.txt": "a7da858e1e3dd4d1",
+    "manuals/text/g22a-2005-wiring.txt": "7b670c26f47ee952",
+    "manuals/text/g22a-2005.txt": "44ea34561653c843",
+    "manuals/text/generac-7000exl.txt": "e15a90813205d15d",
+    "manuals/text/gti-2016.txt": "74bbfeea331d7b83",
+    "manuals/text/homelite-blower-vac.txt": "0a3a92f4a7662440",
+    "manuals/text/homelite-trimmer.txt": "6b2e54116cd12b47",
+    "manuals/text/husqvarna-mower-engine.txt": "4c20df674cabb4a7",
+    "manuals/text/husqvarna-mower-yth24v54.txt": "640aba0909b2ab3d",
+    "manuals/text/kobalt-km2040x-06.txt": "36456383d3d42689",
+    "manuals/text/tiguan-2018.txt": "736e363cbefb4aac"
+  },
+  "chunks": 7330,
+  "vocab": 23440,
+  "shards": 783,
+  "avgdl": 69.156,
+  "indexSha": "6e42952b3dac7acf76822d22943d4b1951b513bdd7ee702d32913cbe18ad5293",
+  "bytes": {
+    "chunks": 6606157,
+    "shards": 6878372,
+    "stats": 132762
+  },
+  "loaded": {
+    "qa": {
+      "indexSha": "6e42952b3dac7acf76822d22943d4b1951b513bdd7ee702d32913cbe18ad5293",
+      "estate": "est-qa0001",
+      "at": "2026-09-04T09:49:23+00:00"
+    }
+  }
+}

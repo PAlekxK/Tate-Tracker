@@ -90,6 +90,7 @@ const LOOKUP_STRINGS = Object.freeze({
   NOT_IN_RECORD: "not in the record",
   AMBIGUOUS: "more than one entry matches — name one of them",
   LOGIN_REQUIRED: "behind the door — that part of the record needs the login before it can be read",
+  NO_SOURCE: "the library holds nothing on that",
 });
 const CORE_TOOLS = [
   { name: "get_plant", description: "One plant we tend, by name or id — the full record entry.", input_schema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] } },
@@ -102,7 +103,44 @@ const CORE_TOOLS = [
   { name: "rhythms", description: "A machine's recurring care rhythms (task, every N months, last done).", input_schema: { type: "object", properties: { vehicle: { type: "string" } }, required: ["vehicle"] } },
   { name: "turf_regime", description: "The turf care regime for a zone (or all regimes).", input_schema: { type: "object", properties: { zone: { type: "string" } } } },
   { name: "fishing_species", description: "The fish the lake holds, per the record.", input_schema: { type: "object", properties: {} } },
+  // 6a — retrieval over the PROSE library (references · research notes · the manuals), deterministic BM25 over KV shards
+  { name: "search_library", description: "Search the prose library (the references, the research notes, the machines' manuals) for passages. Returns the top passages by a deterministic score, each with an id — cite what you draw on as [lib:<id>]. found:false means the library holds nothing on it.", input_schema: { type: "object", properties: { q: { type: "string" }, limit: { type: "integer" } }, required: ["q"] } },
 ];
+// 6a scorer — mirrors tools/build-library-index.py (same tokens, same stopwords, BM25 k1/b from the stats row). Exported
+// for the replay. Ties break on id, so the same query over the same index returns the same list every time.
+const LIB_STOP = new Set("the and for with that this from are was were you your our its his her they them have has had not but can may all any one two".split(" "));
+function libTokens(t) { return [...new Set((String(t || "").toLowerCase().match(/[a-z0-9]{3,}/g) || []).filter(w => !LIB_STOP.has(w)))]; }
+function bm25Rank(terms, shards, stats, limit) {
+  const N = stats.N || 0, avgdl = stats.avgdl || 1, dl = stats.dl || {}, k1 = stats.k1 || 1.2, b = stats.b || 0.75;
+  const scores = new Map();
+  for (const w of terms) {
+    const post = shards[w]; if (!post || !post.length) continue;
+    const df = post.length, idf = Math.log(1 + (N - df + 0.5) / (df + 0.5));
+    for (const [id, tf] of post) {
+      const len = dl[id] || avgdl;
+      scores.set(id, (scores.get(id) || 0) + idf * (tf * (k1 + 1)) / (tf + k1 * (1 - b + b * len / avgdl)));
+    }
+  }
+  const ranked = [...scores.entries()].sort((x, y) => (y[1] - x[1]) || (x[0] < y[0] ? -1 : 1));
+  const n = Math.max(1, Math.min(10, parseInt(limit, 10) || 5));
+  return { total: ranked.length, top: ranked.slice(0, n).map(([id, score]) => ({ id, score: Math.round(score * 1000) / 1000 })) };
+}
+async function searchLibrary(env, q, limit) {
+  const terms = libTokens(q);
+  if (!terms.length) return { found: false, reason: LOOKUP_STRINGS.NO_SOURCE };
+  const statsRaw = await env.OBSERVATIONS.get(keyFor(env, "library", "stats"));
+  if (!statsRaw) return { found: false, reason: "the library index is not loaded at this estate" };
+  const stats = JSON.parse(statsRaw);
+  const prefixes = [...new Set(terms.map(w => w.slice(0, 2)))];
+  const shardRows = await Promise.all(prefixes.map(p => env.OBSERVATIONS.get(keyFor(env, "library", "shard", p))));
+  const shards = {};
+  for (const raw of shardRows) if (raw) { const o = JSON.parse(raw); for (const w of terms) if (o[w]) shards[w] = o[w]; }
+  const r = bm25Rank(terms, shards, stats, limit);
+  if (!r.total) return { found: false, reason: LOOKUP_STRINGS.NO_SOURCE };
+  const docs = await Promise.all(r.top.map(t => env.OBSERVATIONS.get(keyFor(env, "library", "chunk", t.id))));
+  const results = r.top.map((t, i) => { const d = docs[i] ? JSON.parse(docs[i]) : null; return d ? { id: t.id, score: t.score, source: d.source, span: d.span, text: d.text } : { id: t.id, score: t.score, missing: true }; });
+  return { found: true, total: r.total, shown: results.length, results };
+}
 const GG_MAX_USER_TURNS = 6;      // the ceiling is re-keyed to USER turns (5a, numbers Q2); the raw array holds tool pairs
 const GG_MAX_TURNS_RAW = 40;
 const GG_MAX_ROUND_TRIPS = 3;
@@ -126,7 +164,7 @@ function _truncate(rows, limit) {
 }
 
 /** Pure: (toolName, input, ctx) → a JSON-able result. ctx = { digest, vaultOpen }. Exported for tools/guru-replay.mjs. */
-function dispatchTool(name, input, ctx) {
+async function dispatchTool(name, input, ctx) {
   const D = ctx.digest || propertyDigest; const inp = input || {};
   const speciesKinds = ["birds", "mammals", "amphibians", "snakes", "lizards", "insects"];
   switch (name) {
@@ -193,6 +231,10 @@ function dispatchTool(name, input, ctx) {
       const rows = _sortBy((D.fishing && D.fishing.species) || [], "name");
       return rows.length ? { found: true, total: rows.length, shown: rows.length, species: rows } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
     }
+    case "search_library": {
+      if (!ctx.env) return { found: false, reason: "the library index is not loaded at this estate" };
+      return searchLibrary(ctx.env, inp.q, inp.limit);
+    }
     default:
       return { found: false, reason: "no such tool" };
   }
@@ -211,7 +253,7 @@ function namesMentioned(text) {
   }
   return false;
 }
-const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — derived hard facts (each carrying its which-is-which marker; a marked value is answered WITH its marker), the voice rules per module, a names index (id + name + markers for everything this place keeps) — plus the property, zones and turf sections. It is NOT the full record: a plant, species or machine appears here by NAME only. When a question needs detail this view does not hold, say so plainly in the journal's voice ("the journal keeps that entry; this view holds only its name") — never fill the gap from general knowledge. The depth filter is unchanged: a name not in the index is not one we keep. TOOL RESULTS ARE THE RECORD'S ANSWER: when a lookup returns found:false, say its reason in the reply, in the journal's voice, and give NO value of your own for what it could not read — a breaker number, a date or a spec that did not come back from a tool is not known, whatever you may recall. BEFORE answering anything about a particular plant, weed, species, zone, machine, its service or the breaker panel, CALL the matching tool first — on this substrate the names index is all you hold, and the tool is how the record is read.`;
+const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — derived hard facts (each carrying its which-is-which marker; a marked value is answered WITH its marker), the voice rules per module, a names index (id + name + markers for everything this place keeps) — plus the property, zones and turf sections. It is NOT the full record: a plant, species or machine appears here by NAME only. When a question needs detail this view does not hold, say so plainly in the journal's voice ("the journal keeps that entry; this view holds only its name") — never fill the gap from general knowledge. The depth filter is unchanged: a name not in the index is not one we keep. TOOL RESULTS ARE THE RECORD'S ANSWER: when a lookup returns found:false, say its reason in the reply, in the journal's voice, and give NO value of your own for what it could not read — a breaker number, a date or a spec that did not come back from a tool is not known, whatever you may recall. BEFORE answering anything about a particular plant, weed, species, zone, machine, its service or the breaker panel, CALL the matching tool first — on this substrate the names index is all you hold, and the tool is how the record is read. For anything the prose library might hold (a manual's instruction, a reference, a research note), call search_library and CITE each passage you draw on as [lib:<id>] at the end of the sentence that uses it; when it returns found:false, say the library holds nothing on that and stop — never paraphrase from memory.`;
 
 // ---- The prompts' INSTANCE FACTS derive from the digest (C5 7c, 2026-09-03) ----
 // Every number the system prompts state about the place — elevation, address, the
@@ -1774,7 +1816,11 @@ async function handleChat(request, env, auth) {
   while (true) {
     roundTrips += 1;
     const useTools = substrate === "core" && CORE_TOOLS.length > 0;
-    const forceTool = useTools && roundTrips === 1 && userTurns === 1 && namesMentioned(latestText);
+    // 5a/6a — force a tool on the FIRST round of a first turn that names a canon entity OR asks for what the prose
+    // library holds (a manual, the references, the research notes). Measured 2026-09-04: without the cue the model
+    // answered library questions from the digest's remnants and never called search_library.
+    const LIBRARY_CUE = /\b(manual|manuals|reference|references|research|notes?|library|says?|instructions?|spec|specs|torque|gap|procedure)\b/i;
+    const forceTool = useTools && roundTrips === 1 && userTurns === 1 && (namesMentioned(latestText) || LIBRARY_CUE.test(latestText));
     const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST", headers,
       body: JSON.stringify({
@@ -1793,11 +1839,12 @@ async function handleChat(request, env, auth) {
     for (const k of Object.keys(usageSum)) usageSum[k] += ((apiData.usage || {})[k] || 0);
     const uses = (apiData.content || []).filter(c => c.type === "tool_use");
     if (!useTools || apiData.stop_reason !== "tool_use" || !uses.length || roundTrips >= GG_MAX_ROUND_TRIPS) break;
-    const results = uses.map(u => {
-      const result = dispatchTool(u.name, u.input, { digest: propertyDigest, vaultOpen });
+    const results = [];
+    for (const u of uses) {
+      const result = await dispatchTool(u.name, u.input, { digest: propertyDigest, vaultOpen, env });
       toolCalls.push({ name: u.name, input: u.input, found: !!result.found, total: result.total, shown: result.shown, reason: result.reason });
-      return { type: "tool_result", tool_use_id: u.id, content: JSON.stringify(result) };
-    });
+      results.push({ type: "tool_result", tool_use_id: u.id, content: JSON.stringify(result) });
+    }
     loopMessages.push({ role: "assistant", content: apiData.content });
     loopMessages.push({ role: "user", content: results });
   }
@@ -2740,7 +2787,7 @@ async function handleFeedback(request, env, url) {
 
 // ---- Router ----
 
-export { dispatchTool, CORE_TOOLS, LOOKUP_STRINGS };   // 5a — tools/guru-replay.mjs drives the dispatcher on fixtures
+export { dispatchTool, CORE_TOOLS, LOOKUP_STRINGS, bm25Rank, libTokens };   // 5a — tools/guru-replay.mjs drives the dispatcher on fixtures
 
 export default {
   async fetch(request, env, ctx) {

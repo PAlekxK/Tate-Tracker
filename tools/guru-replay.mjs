@@ -3,37 +3,37 @@
 //   node tools/guru-replay.mjs
 // Every lookup is COMPLETE (never a model-chosen top-k), deterministically sorted, counted when truncated, or
 // {found:false, reason} in the record's own words; a standing caveat rides verbatim; the door stays shut without vault.
-import { dispatchTool, CORE_TOOLS, LOOKUP_STRINGS } from "../worker/worker.js";
+import { dispatchTool, CORE_TOOLS, LOOKUP_STRINGS, bm25Rank, libTokens } from "../worker/worker.js";
 import { readFileSync } from "node:fs";
 const digest = JSON.parse(readFileSync(new URL("../worker/digest.json", import.meta.url), "utf8"));
 let ok = true;
 const check = (name, cond, detail) => { ok &&= !!cond; console.log(`  ${cond ? "✅" : "🔴"} ${name}${cond || detail === undefined ? "" : "  → " + JSON.stringify(detail).slice(0, 200)}`); };
 console.log("guru-replay — dispatch fixtures\n");
 const ctx = { digest, vaultOpen: false };
-check("ten tools in the declared order", CORE_TOOLS.map(t => t.name).join(",") === "get_plant,list_plants,list_weeds,get_species,get_zone,service_history,circuit_for,rhythms,turf_regime,fishing_species");
+check("the lookup tools in the declared order", CORE_TOOLS.map(t => t.name).join(",").startsWith("get_plant,list_plants,list_weeds,get_species,get_zone,service_history,circuit_for,rhythms,turf_regime,fishing_species"));
 const firstPlant = digest.plants.plants[0];
-const gp = dispatchTool("get_plant", { name: firstPlant.name }, ctx);
+const gp = await dispatchTool("get_plant", { name: firstPlant.name }, ctx);
 check("get_plant by exact name → the full entry", gp.found && gp.plant.id === firstPlant.id);
-check("get_plant unknown → {found:false, reason:'not in the record'}", dispatchTool("get_plant", { name: "zzz-not-a-plant" }, ctx).reason === LOOKUP_STRINGS.NOT_IN_RECORD);
-const lp = dispatchTool("list_plants", {}, ctx);
+check("get_plant unknown → {found:false, reason:'not in the record'}", (await dispatchTool("get_plant", { name: "zzz-not-a-plant" }, ctx)).reason === LOOKUP_STRINGS.NOT_IN_RECORD);
+const lp = await dispatchTool("list_plants", {}, ctx);
 check("list_plants is complete and counted", lp.found && lp.total === digest.plants.plants.length && lp.shown === lp.total);
 check("list_plants sorted by name", JSON.stringify(lp.rows.map(r => r.name)) === JSON.stringify([...lp.rows.map(r => r.name)].sort((a, b) => a.localeCompare(b))));
-const sh = dispatchTool("service_history", { vehicle: "bronco" }, ctx);
+const sh = await dispatchTool("service_history", { vehicle: "bronco" }, ctx);
 check("service_history bronco → {total:28, shown:10} newest first", sh.found && sh.total === 28 && sh.shown === 10 && sh.rows[0].date >= sh.rows[1].date, { total: sh.total, shown: sh.shown });
-const shb = dispatchTool("service_history", { vehicle: "bronco", topic: "brake", limit: 50 }, ctx);
+const shb = await dispatchTool("service_history", { vehicle: "bronco", topic: "brake", limit: 50 }, ctx);
 check("…topic 'brake' filters IN THE TOOL and counts", shb.found && shb.total === 3 && shb.shown === 3, { total: shb.total });
-const gti = dispatchTool("service_history", { vehicle: "gti", limit: 2 }, ctx);
+const gti = await dispatchTool("service_history", { vehicle: "gti", limit: 2 }, ctx);
 check("a record with a standing caveat returns it VERBATIM", gti.found && typeof gti.caveat === "string" && gti.caveat.startsWith("Summarized from scanned paper records"));
-check("determinism: two identical calls → identical JSON", JSON.stringify(dispatchTool("service_history", { vehicle: "bronco" }, ctx)) === JSON.stringify(sh));
-check("circuit_for WITHOUT the vault → the login string, no circuit", dispatchTool("circuit_for", { what: "water heater" }, ctx).reason === LOOKUP_STRINGS.LOGIN_REQUIRED);
-const cf = dispatchTool("circuit_for", { what: "water heater" }, { digest, vaultOpen: true });
+check("determinism: two identical calls → identical JSON", JSON.stringify(await dispatchTool("service_history", { vehicle: "bronco" }, ctx)) === JSON.stringify(sh));
+check("circuit_for WITHOUT the vault → the login string, no circuit", (await dispatchTool("circuit_for", { what: "water heater" }, ctx)).reason === LOOKUP_STRINGS.LOGIN_REQUIRED);
+const cf = await dispatchTool("circuit_for", { what: "water heater" }, { digest, vaultOpen: true });
 check("circuit_for WITH the vault → the circuit(s)", cf.found && cf.circuits.length >= 1 && typeof cf.circuits[0].n === "number");
-const amb = dispatchTool("get_species", { name: "e" }, ctx);
+const amb = await dispatchTool("get_species", { name: "e" }, ctx);
 check("an ambiguous name → AMBIGUOUS with sorted candidates, never a guess", amb.found === false && amb.reason === LOOKUP_STRINGS.AMBIGUOUS && Array.isArray(amb.candidates));
-check("get_zone by id", dispatchTool("get_zone", { name: digest.zones[0].id }, ctx).found);
-check("turf_regime with no zone → all regimes, counted", dispatchTool("turf_regime", {}, ctx).total === digest.turf.regimes.length);
-check("fishing_species complete", dispatchTool("fishing_species", {}, ctx).total === digest.fishing.species.length);
-check("an unknown tool → found:false", dispatchTool("nope", {}, ctx).found === false);
+check("get_zone by id", (await dispatchTool("get_zone", { name: digest.zones[0].id }, ctx)).found);
+check("turf_regime with no zone → all regimes, counted", (await dispatchTool("turf_regime", {}, ctx)).total === digest.turf.regimes.length);
+check("fishing_species complete", (await dispatchTool("fishing_species", {}, ctx)).total === digest.fishing.species.length);
+check("an unknown tool → found:false", (await dispatchTool("nope", {}, ctx)).found === false);
 
 // ── 5b: THE FENCES RESOLVE AGAINST CANON ─────────────────────────────────────────────────────────────────────────
 // The six client parsers are lifted VERBATIM from the built viewer (a scratch copy missing one → the extractor THROWS,
@@ -93,6 +93,17 @@ check("CONTROL: a log fence naming a plant the index cannot resolve → the harn
 let threw = false;
 try { extractFenceParsers(readFileSync(viewerPath, "utf8").replace("function parseLogFence(", "function parseLogFenceX(")); } catch (e) { threw = /parseLogFence/.test(String(e.message)); }
 check("MUTATION: a viewer missing parseLogFence → the extractor throws naming it", threw);
-console.log(`\nfences 6/6 · dispatch ${CORE_TOOLS.length} · control 1 · mutation 1`);
+// ── 6a: the scorer is DETERMINISTIC on a fixture (the model may cite, never select) ──
+const fxShards = { torque: [["a", 2], ["b", 1]], blade: [["a", 1]], oil: [["c", 3]] };
+const fxStats = { N: 3, avgdl: 10, dl: { a: 10, b: 10, c: 10 }, k1: 1.2, b: 0.75 };
+const q = libTokens("the blade torque, and the torque again");
+check("libTokens: lowercase, ≥3 chars, stopwords out, DISTINCT", JSON.stringify(q) === JSON.stringify(["blade", "torque", "again"]));
+const s1 = bm25Rank(["torque", "blade"], fxShards, fxStats, 5), s2 = bm25Rank(["torque", "blade"], fxShards, fxStats, 5);
+check("bm25Rank: the doc with both terms ranks first; total counts every doc with any term", s1.top[0].id === "a" && s1.total === 2);
+check("bm25Rank: identical calls → identical output", JSON.stringify(s1) === JSON.stringify(s2));
+check("bm25Rank: a term with no postings → total 0 (the tool then says the library holds nothing)", bm25Rank(["zebra"], fxShards, fxStats, 5).total === 0);
+check("ties break on id, not on insertion order", bm25Rank(["oil"], { oil: [["z", 1], ["m", 1]] }, { N: 2, avgdl: 10, dl: { z: 10, m: 10 } }, 5).top[0].id === "m");
+check("eleven tools; search_library is last in the declared order", CORE_TOOLS.length === 11 && CORE_TOOLS[10].name === "search_library");
+console.log(`\nfences 6/6 · dispatch ${CORE_TOOLS.length} · scorer 5 · control 1 · mutation 1`);
 console.log(`\n${ok ? "✅ controls hold." : "🔴 a control failed."}`);
 process.exit(ok ? 0 : 1);

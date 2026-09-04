@@ -114,6 +114,13 @@ def rows(root=None):
     add("breaker-furnace", "Which breaker is the furnace on?", [r"(?i)circuit\s+\d+"], [], "vehicles.json:vehicles[].circuits", True,
         "private-tier WITH a vault grant: answerable through circuit_for; the probe sends no grant yet, so this row is skipped (requires_grant)")
     out[-1]["requires_grant"] = True
+    # ── 6a: retrieval rows — a cite must name a chunk id that EXISTS in the index (the probe checks against the local build)
+    add("library-cite-switchgrass", "What do the research notes say about switchgrass for this slope?", [r"\[lib:[0-9a-f]{12}\]"], [],
+        "research-resources.md (via search_library)", True, "must-cite: every [lib:<id>] the reply carries must exist in the built index; a right-sounding answer with no cite is recalled, not retrieved")
+    out[-1]["must_cite"] = True
+    add("library-no-source", "What does the library say about zebra migration in Kenya?", [r"(?i)nothing|no (source|passage|note)|not (in|hold)|holds nothing|doesn't hold"],
+        [{"rx": r"\[lib:[0-9a-f]{12}\]", "class": "fabricated-cite", "from": "search_library found:false"}],
+        "search_library found:false", True, "the no-relevant-source row REFUSES rather than paraphrases: no cite may appear, and the reply says the library holds nothing")
     return out
 
 
@@ -149,7 +156,7 @@ def selftest():
         check("…and the lake sibling row prints `skipped` when config cannot reach fishing.json", any("skipped" in n for n in doc["elevation"]["must_not_contain"]), doc["elevation"]["must_not_contain"])
     check("frost rows accept both spellings (Oct 17 · October 17) and reject the wrong day",
           re.search(live["frost-firstFall_50pct"]["must_contain"][0], "around Oct 17") and re.search(live["frost-firstFall_50pct"]["must_contain"][0], "October 17") and not re.search(live["frost-firstFall_50pct"]["must_contain"][0], "October 27"))
-    check("exactly one row requires the authenticated lookup (requires_grant) and three need a tool call", sum(1 for r in live.values() if r.get("requires_grant")) == 1 and sum(1 for r in live.values() if r["requires_tool"]) == 3, [(r["id"], r["requires_tool"], r.get("requires_grant")) for r in live.values()])
+    check("exactly one row requires the authenticated lookup (requires_grant) and five need a tool call", sum(1 for r in live.values() if r.get("requires_grant")) == 1 and sum(1 for r in live.values() if r["requires_tool"]) == 5, [(r["id"], r["requires_tool"], r.get("requires_grant")) for r in live.values()])
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed."))
     return 0 if ok else 1
 

@@ -13,7 +13,7 @@ carries a must-NOT (the stale self, the confusable sibling) even if the right nu
     python3 tools/guru-probe.py --selftest
     python3 tools/guru-probe.py --live --max-turns 3        # QA only, origin "test"
 """
-import argparse, json, os, re, sys, urllib.error, urllib.request
+import re, argparse, json, os, re, sys, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
@@ -123,6 +123,15 @@ def live(max_turns, substrate="digest", only=None):
                 verdict, why = "RED", ("right answer with NO tool call — recalled, not looked up" if verdict == "GREEN" else why + " · and no tool call")
             elif verdict == "GREEN":
                 why = "ok · tool %s" % ",".join(c.get("name", "?") for c in dbg["tool_calls"])
+        if row.get("must_cite") and sub == "core" and verdict == "GREEN":
+            idx = os.path.join(ROOT, ".private", "library-index", "kv-chunks.json")
+            cited = set(re.findall(r"\[lib:([0-9a-f]{12})\]", text))
+            if not os.path.exists(idx):
+                verdict, why = "RED", "UNCHECKABLE: no local index build (.private/library-index) to verify the cited ids against"
+            else:
+                ids = {c["key"].rsplit(":", 1)[1] for c in json.load(open(idx))}
+                bad = sorted(cited - ids)
+                verdict, why = ("RED", "cited id(s) NOT in the index: %s — a fabricated cite" % bad) if bad else ("GREEN", why + " · %d cite(s) verified" % len(cited))
         u = dbg.get("usage") or {}
         seen_prefix.setdefault(sub, set()).add(dbg.get("prefix_sha"))
         print("  %s %-24s %s · %sms · prefix %s · cache read %s / new %s" % ("✅" if verdict == "GREEN" else "🔴", row["id"], why, dbg.get("latency_ms", "?"), str(dbg.get("prefix_sha", "?"))[:8], u.get("cache_read", "?"), u.get("cache_creation", "?")))
