@@ -211,12 +211,18 @@ def live():
         return 1
     all_ok = check("WRITE  POST /api/feedback on QA accepted", body.get("stored") == 1, json.dumps(body))
 
-    today = dt.date.today()
-    start, end = str(today - dt.timedelta(days=1)), str(today)
+    # UTC dates: the Worker keys every record by the UTC day, which is tomorrow's date after 8 PM ET.
+    today = dt.datetime.now(dt.timezone.utc).date()
+    start, end = str(today - dt.timedelta(days=1)), str(today + dt.timedelta(days=1))
 
-    # 3. positive control
-    qa_rows = read_feedback(QA_URL, qa_tok, start, end)
-    hit = next((r for r in qa_rows if nonce in (r.get("note") or "")), None)
+    # 3. positive control — KV is eventually consistent (~30 s measured); retry before calling it a miss
+    import time
+    hit = None
+    for attempt in range(4):
+        qa_rows = read_feedback(QA_URL, qa_tok, start, end)
+        hit = next((r for r in qa_rows if nonce in (r.get("note") or "")), None)
+        if hit: break
+        time.sleep(10)
     all_ok &= check("POSITIVE  the nonce reads back from QA (QA token)", hit is not None)
     all_ok &= check("R2  the QA row carries env == \"qa\"", bool(hit) and hit.get("env") == "qa",
                     json.dumps(hit and {k: hit.get(k) for k in ("id", "env", "deviceId")}))
