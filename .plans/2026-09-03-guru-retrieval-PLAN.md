@@ -10,7 +10,8 @@
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
-- stage: build (opened 2026-09-03 9:00 PM ET — 1a–1d · 2a · 3a · 3b built; 2b and 3c wait on Paul's cap; 4–6 are the retrieval build)
+- stage: build
+- stage-note: opened 2026-09-03 9:00 PM ET — 1a–1d · 2a · 3a · 3b built; 2b and 3c wait on Paul's cap; 4–6 are the retrieval build
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row (and its siblings in § A6: the caps audit, the RAG/corpus row, the

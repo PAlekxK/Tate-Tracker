@@ -10,7 +10,8 @@
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
-- stage: build (opened 2026-09-03 9:00 PM ET — steps 2a–2c shipped; 1b/1c wait on Paul's A+ default gate; 3 waits on the privacy seat, spawned)
+- stage: build
+- stage-note: opened 2026-09-03 9:00 PM ET — steps 2a–2c shipped; 1b/1c wait on Paul's A+ default gate; 3 waits on the privacy seat, spawned
 
 Drafted by the planning agent 2026-09-03 from the row, § M3, C4's RULED table and its three-levels ruling (decided, not
 re-argued: product apex · family door per family · instance by grant; two example families, `<family-a>` and `<family-b>`;
@@ -113,13 +114,13 @@ is presented* is what lets Paul's row hold an opaque minted token and her row ho
 a commit. `--revoke` = one KV delete + `revokedAt` — an act with an author. Check: `--selftest` — mint → the row has a
 hash and no token; `git -C <sibling> grep -c <token>` = 0; revoke → `wrangler kv key get` not-found; in the public repo
 `git grep -c grants.json` = 0.
-**3b · `grantFor(request)` beside `authOk`** — agent · reversible · reads the grant header (name ≠ `X-Tate-Token`,
+**3b · `grantFor(request)` beside `authOk`** — ✅ **BUILT + QA-PROVEN 2026-09-03 `e911007`** — `X-Grant` → `sha256Hex` → one KV `get` of `<estate>:grant:<hash>` → row or null; **the row's `estateId` must equal `env.ESTATE_ID`** (the seat's condition ①; a foreign row is *no grant*), `revokedAt` honoured, no clock compared (`grep Date` inside = 0), the estate never read from path/query/body (grep = 0). `/api/grant/whoami` is the one read a grant unlocks today (personId · estateId · capability · relationship · entry · vault). QA, with two fixture rows planted in the QA namespace only (tokens in the scratchpad, never the repo): valid grant → 200 the row; another estate's grant → 404; garbage → 404; no grant → 404; a grant alone still cannot read `/api/feedback` (401 — 6a widens). — agent · reversible · reads the grant header (name ≠ `X-Tate-Token`,
 seat discipline 2), hashes, one KV `get`, returns the row or `null`; **the estate comes from the row** and is passed into
 C5 6a's `keyFor(estateId, …)` — the signature is already shaped for it. Any estate on the path, query or body is
 **ignored**. It compares nothing against the clock (ux F2's checkable rule). Check: C5 6a's grep stays 0; `grep -n
 'Date.now\|new Date' worker/worker.js` has no hit inside `grantFor`/`hostAgrees`; on QA, two grants → two estate ids
 (`fernwood-qa`, `estate-b-qa`; fixtures, no family name) — each reads only its own prefix; a cross-read is not-found.
-**3c · `hostAgrees(request, grant)` — the check and its fail mode** — agent · reversible · at the **top of the router
+**3c · `hostAgrees(request, grant)` — the check and its fail mode** — ✅ **BUILT + QA-PROVEN 2026-09-03** — sits AFTER preflight and the credential-free capture POSTs (seat 15), before anything a grant unlocks; `FAMILY_HOSTS` per env (only already-public hostnames in the toml: prod `palekxk.github.io`, QA `fernwood-qa.pages.dev`); no Origin agrees vacuously (seat-confirmed); mismatch → **the router's own `{error:"not-found", path}` 404** and a server-side `door_failed {reason: host-mismatch | unknown-or-other-estate, serverSide: true}` written through `ctx.waitUntil` (the seat's timing oracle). QA: valid grant + QA Origin → 200; valid grant + `Origin: https://family-b.example` → 404; the QA `door:` key gained both reasons. ⚠️ Note for 6a: an unauthenticated unknown path answers 401 (the master gate comes first), so the byte-identical 404 is identical to the *authenticated* 404 — the seat's intent (no 403, no existence leak) holds. — agent · reversible · at the **top of the router
 before any dispatch** (delta D3 — handlers here are reached by paths that bypass the gate above them). *The credential
 decides; the hostname must agree*: the hostname is the request's `Origin` under P1 (Pages serves the page) or the
 Worker's own host under P2 — one function, one line differs. `FAMILY_HOSTS` per env in `wrangler.toml` holds

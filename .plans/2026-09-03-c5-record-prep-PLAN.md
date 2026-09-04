@@ -10,7 +10,8 @@
          user-researcher → waived: no user question in this item
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
-- stage: closing (2026-09-03 7:35 PM ET — every step shipped or held with a release condition; the 00:06Z cutover read and Paul's `--live` are the last two observations; retro below)
+- stage: closing
+- stage-note: 2026-09-03 7:35 PM ET — every step shipped or held with a release condition; the 00:06Z cutover read and Paul's `--live` are the last two observations; retro below
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row, C4's RULED table and its three-levels ruling (decided, not
