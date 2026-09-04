@@ -664,6 +664,7 @@ async function handleTodayLine(request, env) {
       "Content-Type": "application/json",
       "x-api-key": env.ANTHROPIC_API_KEY,
       "anthropic-version": "2023-06-01",
+      ...(env.ANTHROPIC_WORKSPACE_ID ? { "anthropic-workspace-id": env.ANTHROPIC_WORKSPACE_ID } : {}),   // an identity-linked key (QA's dedicated key) must name its workspace
     },
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",
@@ -725,6 +726,7 @@ async function handleClassify(request, env) {
       "Content-Type": "application/json",
       "x-api-key": env.ANTHROPIC_API_KEY,
       "anthropic-version": "2023-06-01",
+      ...(env.ANTHROPIC_WORKSPACE_ID ? { "anthropic-workspace-id": env.ANTHROPIC_WORKSPACE_ID } : {}),   // an identity-linked key (QA's dedicated key) must name its workspace
     },
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",
@@ -1584,6 +1586,7 @@ async function handleChat(request, env) {
       "Content-Type": "application/json",
       "x-api-key": env.ANTHROPIC_API_KEY,
       "anthropic-version": "2023-06-01",
+      ...(env.ANTHROPIC_WORKSPACE_ID ? { "anthropic-workspace-id": env.ANTHROPIC_WORKSPACE_ID } : {}),   // an identity-linked key (QA's dedicated key) must name its workspace
     },
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",
@@ -1999,6 +2002,7 @@ This plant was just added by the reader and has NOT been observed here across a 
       "Content-Type": "application/json",
       "x-api-key": env.ANTHROPIC_API_KEY,
       "anthropic-version": "2023-06-01",
+      ...(env.ANTHROPIC_WORKSPACE_ID ? { "anthropic-workspace-id": env.ANTHROPIC_WORKSPACE_ID } : {}),   // an identity-linked key (QA's dedicated key) must name its workspace
     },
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",

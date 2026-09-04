@@ -6513,7 +6513,7 @@
 <div class="content-wrap">
 
   <!-- WEATHER CARD -->
-  <div class="main-card" id="card-weather">
+  <div class="main-card" id="card-weather" data-module="weather">
     <div class="main-card-header" data-toggle="weather">
       <div class="main-card-icon weather" id="weather-card-icon"></div>
       <div class="main-card-meta">
@@ -6610,7 +6610,7 @@
     </div>
   </div>
 
-  <div class="main-card" id="card-plants">
+  <div class="main-card" id="card-plants" data-module="garden">
     <div class="main-card-header" data-toggle="plants">
       <div class="main-card-icon plants">🌿</div>
       <div class="main-card-meta">
@@ -6688,7 +6688,7 @@
   </div>
 
   <!-- THE FIELD CARD — turf + meadow deep dive (added 2026-05-28; renamed from "The Fairway" 2026-09-01) -->
-  <div class="main-card" id="card-turf">
+  <div class="main-card" id="card-turf" data-module="garden">
     <div class="main-card-header" data-toggle="turf">
       <div class="main-card-icon field">🌾</div>
       <div class="main-card-meta">
@@ -6703,7 +6703,7 @@
   </div>
 
   <!-- WEEDS CARD — what's worth getting after, and when (added 2026-07-20) -->
-  <div class="main-card" id="card-weeds">
+  <div class="main-card" id="card-weeds" data-module="garden">
     <div class="main-card-header" data-toggle="weeds">
       <div class="main-card-icon weeds">🥀</div>
       <div class="main-card-meta">
@@ -6718,7 +6718,7 @@
   </div>
 
   <!-- WILDLIFE CARD (Birds + Amphibians unified) -->
-  <div class="main-card" id="card-wildlife">
+  <div class="main-card" id="card-wildlife" data-module="wildlife">
     <div class="main-card-header" data-toggle="wildlife">
       <div class="main-card-icon wildlife">🐾</div>
       <div class="main-card-meta">
@@ -6742,7 +6742,7 @@
 
   <!-- FISHING CARD (Pass 3 — promoted from a Wildlife tab to its own top-level card,
        right after Wildlife. Internals read A–G per the glance-&-repository principle.) -->
-  <div class="main-card" id="card-fishing">
+  <div class="main-card" id="card-fishing" data-module="wildlife">
     <div class="main-card-header" data-toggle="fishing">
       <div class="main-card-icon fishing">🎣</div>
       <div class="main-card-meta">
@@ -6836,7 +6836,7 @@
     <div class="main-card-body" id="property-content"></div>
   </div>
 
-  <div class="main-card" id="card-candidates">
+  <div class="main-card" id="card-candidates" data-module="garden">
     <div class="main-card-header" data-toggle="candidates">
       <div class="main-card-icon candidates">🌱</div>
       <div class="main-card-meta">
@@ -17083,9 +17083,15 @@ function renderPlantPeakPanel() {
 // set (no const) renders everything — the loud direction on a static page.
 function applyModuleTiles() {
   const mods = (typeof ESTATE_MODULES === "object" && ESTATE_MODULES) ? ESTATE_MODULES : null;
-  document.querySelectorAll(".dash-cell[data-module], .main-card[data-module]").forEach(cell => {
+  // every element that declares its module: strip tiles, main cards, the Mama's Perspective master card
+  document.querySelectorAll("[data-module]").forEach(cell => {
     const st = mods ? mods[cell.dataset.module] : "on";
     cell.style.display = (st === "on" || st === "on-minimal") ? "" : "none";
+  });
+  // the jump strip follows the cards it points at — a link to a hidden card is a dead end
+  document.querySelectorAll(".jump-strip a[data-jump]").forEach(a => {
+    const target = document.getElementById(a.dataset.jump);
+    a.style.display = (target && getComputedStyle(target).display === "none") ? "none" : "";
   });
 }
 

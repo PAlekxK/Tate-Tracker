@@ -529,6 +529,8 @@ python3 -m http.server 8765     # then, in the browser console on any same-origi
 #   paste tools/measure-nesting-width.js, then:  await measureNestingWidth.herConditions()
 ```
 
+> ⭐ **MEASURED 2026-09-03 — A+ IS THE STANDARD.** Her device's `text_size_served` reads **lg in 8 of 8** reports over 60 days (latest 2026-09-01). Paul: *"whatever Mom has been using, whatever she's used to seeing, that's the standard."* Every layout check runs at **414 × 848 × A+** (`herConditions()`), every design doc assumes A+, and the served default for new devices becomes A+ on QA (C6 1b/1c) ahead of the migration. The paragraph below is the history of how the number was found.
+
 **Every layout check in this repo has run at 390 × A, and neither number was ever hers.** 390 came
 from the `/design-options` exhibit convention; her device reports **414×848** (51 metric batches, lap
 4) — 390 is narrower, so past checks are conservative, but **none ever measured the 24px she actually
