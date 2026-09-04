@@ -2381,7 +2381,7 @@ Paul asked for *"records for each of these items tracing how they go from idea t
 `practice-steward` **did not reverse its earlier drop of a design-doc artifact**, and gave a measured
 reason instead of a preference.
 
-**It built the citation graph over all 98 artifacts.** Seeded at the activation research: out-degree
+**It built the citation graph over all 98 artifacts** *(⚠️ CORRECTED 2026-09-03 by the grooming session, verified: "98" reproduces under no predicate — tracked `.md`+`.json` in the seven seat dirs at HEAD is **162** (122 md-only · 167 with `.design-options` · 185 with root canon); the 49 % figure survives as IN-DEGREE, 79/162, and **56 of 162 (35 %) are isolated** — a count printed without its predicate, the class C2 corrects one section down. Trail: `~/.claude/agents/audits/2026-09-02-trace-record-and-activation-cycle.md` §2.1–2.6, `aef4de9`)*. Seeded at the activation research: out-degree
 **5**, ⭐ **in-degree 0**, depth-1 **6**, depth-2 10, full closure **77 of 98**.
 
 - ⭐ **In-degree zero IS the finding.** Every edge points backward — *that is a ledger, measured.* And
@@ -2396,17 +2396,17 @@ reason instead of a preference.
 
 ### THE FOUNDING LEAK, VERIFIED INDEPENDENTLY 2026-09-02
 
-`dbdff0b` (2026-08-02) carries, in its commit body:
+`dbdff0b` (2026-08-02; ⚠️ **unreachable from every ref — it survives only in this laptop's object store, so it fails on any clone; the reachable twin is `9077df5`**, *"v2 button system — one shape, one green, stacked; the defer link carries its own promise"* — corrected 2026-09-03) carries, in its commit body:
 
-> *"Paul's x-corner hypothesis was researched and declined: glyph collision with the x answer, NN/g
+> *"Paul's ×-corner hypothesis was researched and declined: glyph collision with the x answer, NN/g
 > icon-ambiguity findings for 65+, off the reading path."*
 
 **A real alternative, researched, declined, with three stated reasons — and it exists in exactly one
-place.** Grepped: **zero hits** in any tracked file for *x-corner*, *corner hypothesis*, or
+place.** Grepped: **zero hits** in any tracked file for *x-corner*, *corner hypothesis*, or *(⚠️ corrected 2026-09-03: the commit body spells it **×-corner** with the U+00D7 multiplication sign; grepping the ASCII `x-corner` finds only this row's own write-up (`7cf1f1d`), while `×-corner` finds `9077df5` — the documented method could not have found its own finding; both glyphs now appear here so either search lands)*
 *icon-ambiguity* — **including the `.ux-reviews/` trail that should hold it.** The same commit points
-at `~/Desktop/fernwood-button-options`, a folder that no longer exists.
+at `~/Desktop/fernwood-button-options` — *(⚠️ corrected 2026-09-03: the folder EXISTS — `labeled-7-option-C-44px.png`, `labeled-8-option-C-37px.png`, `archive/`, mtime 2026-08-02 21:49; the row mourned evidence that is on disk)*.
 
-**So the next person to propose an x-corner dismiss gets that research done again.** This is the leak
+**So the next person to propose an x-corner (×-corner) dismiss gets that research done again.** This is the leak
 class named earlier today — *what dies is the alternative built, measured and rejected* — caught in a
 specific commit, reasons still legible, reachable only by someone who already knows to run `git log`.
 
