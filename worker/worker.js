@@ -86,12 +86,18 @@ const DIGEST_CORE = (() => {
 // {found:false, reason} — never [], never a model-chosen top-k. A record with a standing caveat returns it verbatim.
 // The honesty strings below are DRAFTED (agent, 2026-09-04) and await Paul's word (plan Q6) — they are the record's,
 // not the model's, which is the whole point of returning them from a tool.
-const LOOKUP_STRINGS = Object.freeze({
-  NOT_IN_RECORD: "not in the record",
+// THE ONE PLACE these words live [paul-stated 2026-09-04: "make sure all that's lined up so if we update it we don't have
+// to go hunting various iterations"]: the replay imports them; guru-facts.py PARSES this block for its expectations;
+// the plans cite it and never restate it. `{journal}` is the instance's own name for its record (digest core.identity,
+// from instance/<estate>.json — "the Fernwood Almanac"); an estate with no identity gets the engine word.
+const LOOKUP_STRINGS_TEMPLATE = Object.freeze({
+  NOT_IN_RECORD: "not in {journal}",
   AMBIGUOUS: "more than one entry matches — name one of them",
-  LOGIN_REQUIRED: "behind the door — that part of the record needs the login before it can be read",
-  NO_SOURCE: "the library holds nothing on that",
+  LOGIN_REQUIRED: "in the safe — that part of {journal} needs the login before it can be read",
+  NO_SOURCE: "{journal}'s library holds nothing on that",
 });
+const JOURNAL_WORD = (() => { const id = (propertyDigest.core && propertyDigest.core.identity) || {}; return id.journalName ? "the " + id.journalName : "the journal"; })();
+const LOOKUP_STRINGS = Object.freeze(Object.fromEntries(Object.entries(LOOKUP_STRINGS_TEMPLATE).map(([k, v]) => [k, v.replace(/\{journal\}/g, JOURNAL_WORD)])));
 const CORE_TOOLS = [
   { name: "get_plant", description: "One plant we tend, by name or id — the full record entry.", input_schema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] } },
   { name: "list_plants", description: "Every plant we tend: id and name, sorted by name.", input_schema: { type: "object", properties: {} } },
@@ -2787,7 +2793,7 @@ async function handleFeedback(request, env, url) {
 
 // ---- Router ----
 
-export { dispatchTool, CORE_TOOLS, LOOKUP_STRINGS, bm25Rank, libTokens };   // 5a — tools/guru-replay.mjs drives the dispatcher on fixtures
+export { dispatchTool, CORE_TOOLS, LOOKUP_STRINGS, LOOKUP_STRINGS_TEMPLATE, JOURNAL_WORD, bm25Rank, libTokens };   // 5a — tools/guru-replay.mjs drives the dispatcher on fixtures
 
 export default {
   async fetch(request, env, ctx) {

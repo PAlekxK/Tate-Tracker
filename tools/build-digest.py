@@ -473,7 +473,12 @@ def digest_core(load, est, on, on_non, groups, digest):
     if "fishing" in digest and isinstance(digest["fishing"].get("species"), list): idx("fish", digest["fishing"]["species"], marker_keys=("statusLabel", "presence"))
     if "zones" in digest: idx("zones", digest["zones"], marker_keys=("status", "type"))
     if "vehicles" in digest: idx("vehicles", digest["vehicles"].get("vehicles"), marker_keys=("nickname", "group", "status"))
+    # the instance's own name for its record ("Fernwood Almanac") — each estate names its own thing (VOCABULARY §4);
+    # read from the instance file beside the canon when one exists, else the engine word. Fills `{journal}` in the
+    # Worker's LOOKUP_STRINGS, so the honesty strings say the reader's word without the Worker holding instance data.
+    identity = _identity_for(load)
     core = {
+        "identity": identity,
         "_meta": {"purpose": "Guru 4a — the cacheable core: derived hard facts with markers, per-module voice fragments, a names index. Stripped from the legacy prompt path; consumed by the `substrate:\"core\"` path (4b).",
                   "includes": list(CORE_INCLUDES), "tokPerChar": TOK_PER_CHAR, "floorTokens": CORE_FLOOR_TOKENS, "budgetTokens": CORE_BUDGET_TOKENS},
         "facts": {"lines": lines, "values": values, "confusables": confusables},
@@ -504,6 +509,20 @@ def digest_lookup(load, groups):
             row["caveat"] = v["_serviceHistoryNote"]
         out["vehicles"][v["id"]] = row
     return out
+
+
+def _identity_for(load):
+    """{name, journalName} from the instance file (instance/<estate>.json in the repo root — the DEFAULT instance); a
+    fixture without one gets the engine words. Never a typed place name."""
+    try:
+        inst = load("instance/fernwood.json")
+        ident = inst.get("identity") or {}
+        name = ident.get("name")
+        if name:
+            return {"name": name, "journalName": ident.get("journalTile") or (name + " Almanac")}
+    except (FileNotFoundError, OSError, ValueError, TypeError, AttributeError):
+        pass
+    return {"name": None, "journalName": None}
 
 
 def _on_modules(est):
