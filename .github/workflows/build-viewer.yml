@@ -19,6 +19,7 @@ on:
       - "instance/**"
       - "tools/build-viewer.py"
       - "tools/check-data-inline.py"
+      - "tools/check-public-build.py"
       - "property.json"
       - "plants.json"
       - "mammals.json"
@@ -53,7 +54,10 @@ jobs:
       - name: inlined consts match their source JSONs (the pre-existing guard, kept as a control)
         run: python3 tools/check-data-inline.py
       - name: Public-build audit (C5 8a — report mode; check-only, never a writer)
-        run: python3 tools/check-public-build.py
+        # --skip-needles: the `supplied-names` row needs the private sibling, which CI never has. The row is
+        # checked LOCALLY before a push (session start + pre-push); here it prints NOT CHECKED rather than
+        # passing by absence. Setting a needle secret in CI is a later act, and is Paul's.
+        run: python3 tools/check-public-build.py --skip-needles
 
       - name: the builder's own controls hold
         run: python3 tools/build-viewer.py --selftest

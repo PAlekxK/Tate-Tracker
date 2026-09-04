@@ -105,6 +105,7 @@ her page identical (or defect fixes); anything Mom would see or bind to waits on
 event he manages in person (her device binding, the real grant tokens, the public-repo moves of the breaker directory and
 service-contact phones). Grant VALUES on QA are fixtures the agent mints; real ones are minted at migration through
 `/secrets`. This retires three of tonight's gates (A+ default · grant values · first vault room) as QA work.
+> ⚠️ **THE BRANCH CONSEQUENCE, measured 2026-09-03 10:31 PM ET:** local `main` is the QA integration line (it pushes to `staging`), and the first migration-only change — C6 1b/1c, the served A+ default — now sits on it. **From here, `git push origin main` ships every QA-built change to Mom at once.** A prod-needed fix (a defect, an engine change identical for her) therefore goes out on a **`prod` branch cut from `origin/main` with the fix cherry-picked**, never by pushing local `main`. Release the hold on `main` only with Paul's word on the migration.
 
 **Frozen questions — parked here by Paul's word, released with the freeze:**
 - **A larger-than-A+ text option for older readers** `[paul-stated 2026-09-03]` — *"if we do anything, I would think we

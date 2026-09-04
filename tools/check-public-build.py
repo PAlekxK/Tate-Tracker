@@ -25,6 +25,71 @@ SERVED = ("viewer.html", "worker/digest.json", "vehicles.json", "property.json",
 
 def _rx(p): return re.compile(p, re.I)
 
+# ---- the `supplied-names` NEEDLE row (setup-journey seat I2, 2026-09-03) ----
+# A name a person supplies about themselves may live on her device, in KV, or in the private sibling — NEVER in a
+# tracked file (activation-journeys §6, paul-ratified 2026-09-02). A name is not regex-detectable, but it IS
+# detectable as a NEEDLE: the literal names, held where names may be held, grepped case-insensitively on word
+# boundaries across EVERY tracked file (`git ls-files`), not the six SERVED artifacts — the measured leak path is
+# pickup-tool output pasted into tracked prose (MOM-CYCLE-LOG.md, BACKLOG.md), not the build. When the sibling
+# file is ABSENT the row is UNCHECKABLE and the run exits non-zero: a check that passes because it could not look
+# is this repo's most-repeated failure. `--skip-needles` (CI, which never has the sibling) says so out loud.
+PRIVATE_SIBLING = os.path.expanduser(os.environ.get("FERNWOOD_PRIVATE", "~/Developer/fernwood-private"))   # mirrors momlib.PRIVATE_SIBLING
+NEEDLES_FILE = os.environ.get("SUPPLIED_NAMES_FILE") or os.path.join(PRIVATE_SIBLING, "supplied-names.json")
+NEEDLE_SKIP_DIRS = {".git", "node_modules", ".private", ".playwright-mcp"}
+EXIT_UNCHECKABLE = 3
+
+
+def _tracked_files(root):
+    import subprocess
+    r = subprocess.run(["git", "-C", root, "ls-files"], capture_output=True, text=True)
+    if r.returncode == 0 and r.stdout.strip():
+        return [x for x in r.stdout.split("\n") if x]
+    out = []
+    for dp, dns, fns in os.walk(root):
+        dns[:] = [d for d in dns if d not in NEEDLE_SKIP_DIRS]
+        for fn in fns:
+            out.append(os.path.relpath(os.path.join(dp, fn), root))
+    return out
+
+
+def scan_needles(root=ROOT, needles_file=None):
+    """→ {"status": "uncheckable"|"ok", "needles": n, "hits": {rel: [name, ...]}}. Never silently green:
+    an absent needle file is a distinct status, and the caller exits non-zero on it."""
+    nf = needles_file or NEEDLES_FILE
+    if not os.path.exists(nf):
+        return {"status": "uncheckable", "needles": 0, "hits": {}, "file": nf}
+    names = [n for n in json.load(open(nf, encoding="utf-8")).get("names", []) if isinstance(n, str) and n.strip()]
+    rxs = [(n, re.compile(r"(?<![A-Za-z0-9])" + re.escape(n.strip()) + r"(?![A-Za-z0-9])", re.I)) for n in names]
+    hits = {}
+    if rxs:
+        for rel in _tracked_files(root):
+            p = os.path.join(root, rel)
+            if os.path.abspath(p) == os.path.abspath(nf):
+                continue   # the register is not a leak of itself (only reachable when the register sits inside the scanned root, as in the selftest)
+            try:
+                with open(p, encoding="utf-8", errors="replace") as fh:
+                    t = fh.read()
+            except (OSError, IsADirectoryError):
+                continue
+            found = [n for n, rx in rxs if rx.search(t)]
+            if found:
+                hits[rel] = found
+    return {"status": "ok", "needles": len(rxs), "hits": hits, "file": nf}
+
+
+def report_needles(res):
+    if res["status"] == "uncheckable":
+        print("  \u26d4 supplied-names          UNCHECKABLE — needle file absent: %s (the private sibling is not here; this run cannot say)" % res["file"])
+        return EXIT_UNCHECKABLE
+    if res["hits"]:
+        print("  \u274c supplied-names          ruled-private  %d needle(s); a SUPPLIED NAME is in %d tracked file(s):" % (res["needles"], len(res["hits"])))
+        for rel, names in sorted(res["hits"].items()):
+            print("     %s  \u2190 %s" % (rel, ", ".join("\u2022" * len(n) for n in names)))   # the name itself is never printed
+        return 1
+    print("  \u2705 supplied-names          ruled-private  %d needle(s) registered, none in any tracked file%s"
+          % (res["needles"], "" if res["needles"] else " — EMPTY register: the row can find nothing yet; the act that captures a name must register it"))
+    return 0
+
 ROSTER = [
     {"id": "breaker-directory", "what": "the electrical panel's hand-written door directory — every circuit, and `specs.breakerCircuit` on three household systems",
      "detect": _rx(r"breakerCircuit|panel circuit \d|Panel circuits? \d|door card|circuit directory"),
@@ -79,6 +144,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--strict", action="store_true", help="every non-public row is enforced (the target state)")
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--skip-needles", action="store_true", help="CI: the private sibling is never present there; say so instead of failing UNCHECKABLE")
     a = ap.parse_args()
     if a.selftest:
         return selftest()
@@ -98,12 +164,23 @@ def main():
             print("     %s" % r["note"])
         if present and enforced and r["disposition"] != "public":
             failing.append(r["id"])
+    needle_rc = 0
+    if a.skip_needles:
+        print("  \u26a0\ufe0f  supplied-names          NOT CHECKED (--skip-needles): this environment has no private sibling; the row is checked locally, before a push")
+    else:
+        needle_rc = report_needles(scan_needles())
     print()
     pend = [r["id"] for r, _ in rows if r["disposition"] == "pending-paul"]
     if pend:
         print("  \U0001f464 Paul rules: " + ", ".join(pend))
     if failing:
         print("\n❌ %d enforced row(s) still in the public build: %s" % (len(failing), ", ".join(failing)))
+        return 1
+    if needle_rc == EXIT_UNCHECKABLE:
+        print("\n\u26d4 the supplied-names row could not be checked — exit %d, never green by absence." % EXIT_UNCHECKABLE)
+        return EXIT_UNCHECKABLE
+    if needle_rc:
+        print("\n\u274c a supplied name is in a tracked file — remove it BEFORE any push; a pushed name is public forever.")
         return 1
     print("\n✅ no ENFORCED row is in the public build. (⚠️ rows are present and awaiting a ruling or a move — a green line is not 'nothing private is public'.)")
     return 0
@@ -125,7 +202,25 @@ def selftest():
         check("a VIN in the viewer is COUNTED", rows["vins"].get("viewer.html") == 1, rows["vins"])
         check("a breaker circuit in the viewer is COUNTED", rows["breaker-directory"].get("viewer.html", 0) >= 1, rows["breaker-directory"])
         check("the manifest row only looks at the manifest", not rows["receipt-manifest"])
+        # the supplied-names NEEDLE row, proven by mutation while no real name exists (seat I2)
+        nf = os.path.join(d, "supplied-names.json")
+        res = scan_needles(d, nf)
+        check("needle file ABSENT → UNCHECKABLE (never green by absence)", res["status"] == "uncheckable")
+        fake = "Zeb" + "ulon Quix" + "ote"   # assembled, so this file never carries the literal it plants
+        open(nf, "w").write(json.dumps({"names": [fake]}))
+        open(os.path.join(d, "tools", "notes.md"), "w").write("she signed it %s, twice\n" % fake.lower())
+        res = scan_needles(d, nf)
+        check("a registered name in a tracked file → HIT (case-insensitive)", res["hits"].get("tools/notes.md") == [fake], res)
+        open(os.path.join(d, "tools", "notes.md"), "w").write("%sian %sry is a different word\n" % (fake.split()[0], fake.split()[1]))
+        res = scan_needles(d, nf)
+        check("the name inside a longer word → NO hit (word boundary)", not res["hits"], res)
+        open(nf, "w").write('{"names": []}')
+        res = scan_needles(d, nf)
+        check("an empty register → checkable, zero needles, zero hits", res["status"] == "ok" and res["needles"] == 0 and not res["hits"])
     live = {r["id"]: c for r, c in scan()}
+    lres = scan_needles()
+    check("LIVE: the needle file is present and the register is CHECKABLE here", lres["status"] == "ok", lres["file"])
+    check("LIVE: no supplied name is in any tracked file today", not lres["hits"], sorted(lres["hits"]))
     check("LIVE: the breaker directory IS in the public build today (the finding this tool exists to keep visible)",
           bool(live["breaker-directory"]), live["breaker-directory"])
     check("LIVE: VIN prefixes are in the public build (ruled public)", bool(live["vins"]), live["vins"])
