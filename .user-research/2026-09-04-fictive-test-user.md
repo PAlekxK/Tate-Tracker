@@ -5,7 +5,12 @@ project: tate-tracker
 last_updated: 2026-09-04
 evidence_level: "n/a — this document describes a FIXTURE, not a person. It contains no user evidence and may never be cited as any."
 lane: "C (fictive test user), parallel run 2026-09-04 PM ET"
+revisions:
+  - "2026-09-04 (2) — §2 REWRITTEN: the Hillyer model is an expectation lens, not an artifact
+     (Paul, in-session); §3f naming ruled `synthetic-<demographic>`; §6 demographic stated as a
+     blocked dependency; the (B) fork named as out of scope; the @media count corrected 14 → 13."
 sources:
+  - "Paul, in-session 2026-09-04 — the Hillyer mechanism, the naming ruling, the separate identity"
   - ".private/voice-memos/2026-09-04-1346-fictive-test-user.txt (whisper transcript, [transcript-UNVERIFIED])"
   - ".private/voice-memos/2026-09-04-1347-synthetic-persona-desktop-mobile.txt (same)"
   - "tools/people.json — the existing p-harness-v1 synthetic identity + its two-half fence"
@@ -65,32 +70,74 @@ file — and whose reports are hypotheses handed to the doctrine pass, never fin
 
 ---
 
-## 2 · The Hillyer model — ⚠️ I could not find it
+## 2 · The Hillyer model — it is an EXPECTATION LENS, not an artifact
 
-Paul's 1:47 memo: *"I think we've made like a synthetic Scott Hillyer in the Hillyer case for
-example so something to model after that."*
+> **⚠️ This section previously read "I could not find it," and that framing was WRONG — not
+> merely incomplete.** Corrected 2026-09-04 on Paul's own account. The first version reported an
+> absence honestly and still misled, because *"we searched and found nothing"* reads as **settled**
+> when the real answer was that we were looking for the **wrong class of object**.
 
-**Searched and not found.** `~/LocalProjects/hillyer-case` contains **no synthetic-Scott
-artifact** — no persona file, no simulator, no "read this as Scott would" agent. What is there
-is the opposite class of thing, and the distinction matters enough to state:
+**What it actually was** `[paul-stated 2026-09-04]`: an agent that read everything the case
+produced *against Scott's own prior messages* — ingesting how he had written, what he had reacted
+to, what he had rejected — **and then read each new outbound draft as if it were him receiving
+it**, to predict what he would expect and whether the thing would land.
 
-| artifact | what it actually is |
-|---|---|
-| `Hillyer_Case_Master/SCOTT_DISAGREEMENTS.md` | a register of **what the real Scott actually disputed**, sourced to his marked-up PDF, his voice memo and his texts. Track-2 `[Scott]` — his account, logged, never adjudicated. Real evidence. |
-| `_analysis/CRIB_2026-07-26_scott-sitdown.md` | a **prep sheet** anticipating his reactions in a real meeting — *"hand him the phone and stop talking."* Built from his record; not a model of him. |
+So it is not a persona document, a simulator, or a fixture. It is a **review posture**: a lens
+applied to *our output*, grounded in a corpus of *the reader's own behaviour*.
 
-Both are **models of a real person derived from that person's own words** — the exact inverse of
-a synthetic persona. So there is no artifact to copy, and I have not invented what it probably
-was. `[verified — filesystem search + read, 2026-09-04]`
+### ⭐ Why two independent searches missed it — the durable finding
 
-**One thing from that corpus IS transferable**, and this design takes it: the Hillyer record's
-governing discipline is that **a lower-grade source may never clear a higher-grade one** —
-`[Scott]` is never a twin, OCR never clears Track-1, *"a source that derives from the record
-cannot clear the record."* Translated here: **a synthetic occupant may never clear a question
-about a real one.** That is §1's line 2, and it is the only inheritance claimed.
+Both this lane and the hub searched, separately, and both found nothing. Neither search was
+careless; **both were looking for a document.** A capability that exists as *an agent's behaviour*
+leaves **no artifact to grep for** — no file, no filename, no distinctive string. It lived in how
+a review was run, not in something the review wrote down.
 
-⚠️ If Paul knows of an artifact this search missed, that is the thing to read — this section is
-a report of absence, not a conclusion that none exists.
+**That is a real search failure mode and this corpus will hit it again.** When a capability is
+described and the filesystem is silent, *"it does not exist"* and *"it is not a file"* are
+indistinguishable from the outside — and the second is invisible to every tool we search with. The
+fix is not a better grep; it is to ask **"would this have left an artifact at all?"** before
+reporting an absence. `[verified — two independent searches, 2026-09-04]`
+
+### What it changes here — the tenure becomes a corpus
+
+This makes the accumulation in §3 do **double duty**, and is a stronger justification than the
+four in §3b:
+
+- The tenure is not only *state that exercises code*. It is a **record of what this occupant was
+  shown, what it tapped, and what it passed over** — which is exactly the corpus the lens needs.
+- So a new card, ribbon or flow is not judged in the abstract. It is judged as: *does this land
+  for someone who has lived here six weeks and already passed over four of these?*
+- **No cold reviewer can ask that question**, because the question is made of history.
+
+### ⛔ AND IT FORKS — (B) IS OUT OF SCOPE FOR THIS DOCUMENT
+
+The lens can be pointed at two different corpora, and they are **not the same capability**:
+
+- **(A) pointed at the SYNTHETIC harness** — the corpus is its own tenure. No real person's words
+  are involved anywhere. **No AI-boundary question arises.** ✅ **This is what this document
+  designs, and the only thing it designs.**
+- **(B) pointed at a REAL reader** — the literal Hillyer shape. At Fernwood that reader is **Mom**.
+  It is arguably *permitted* — analysing the record on the way out is the one legitimate AI seat —
+  but it inherits the **QUARANTINE clause** (model output derived from her words about herself
+  never leaves `.private/` and never reaches her) and the **administrator gate**, and it is a
+  **distinct capability with its own build-or-not decision**.
+
+⛔ **(B) is deliberately NOT carried here.** Burying a decision about pointing a model at a real
+person inside a *test-fixture design document* is the same defect this run flagged an hour earlier
+about the canvas ruling: **a decision living somewhere nobody would look for it.** It is named
+here in one paragraph and routed to the hub as its own row. Do not fold it back in.
+
+### The discipline still inherited
+
+Unchanged by the correction: the Hillyer record's governing rule is that **a lower-grade source
+may never clear a higher-grade one** — `[Scott]` is never a twin, OCR never clears Track-1,
+*"a source that derives from the record cannot clear the record."* Translated: **a synthetic
+occupant may never clear a question about a real one.** That is §1's line 2.
+
+*(The two real artifacts found by the original search — `SCOTT_DISAGREEMENTS.md`, a register of
+what the real Scott disputed, and `CRIB_2026-07-26_scott-sitdown.md`, a prep sheet built from his
+record — remain what they were: models of a real person from that person's own words. They are not
+the thing Paul meant, and they are not a template for anything synthetic.)*
 
 ---
 
@@ -140,6 +187,13 @@ Each is a real, currently-untested path in this repo:
 **None of these are visible to a reviewer who loads the page cold.** That is the case for the
 harness in one sentence: *it tests the app's memory, and memory is the only thing a fresh-eyes
 pass structurally cannot see.*
+
+⭐ **And a fifth, which outranks the four above — added 2026-09-04 with §2's correction.** The
+tenure is also the **corpus the expectation lens reads against**. The four reasons here are about
+*code paths a fresh instance cannot reach*; this one is about *a question a fresh reviewer cannot
+ask*: **does this land for someone who has lived here six weeks and already passed over four of
+these?** The accumulated record of what this occupant was shown, tapped and ignored is what makes
+that question answerable at all. See §2.
 
 ### 3c · Where the instance lives
 
@@ -223,13 +277,36 @@ like a first-time occupant), and **no more than that**:
 
 ⛔ **It has no name and no biography, deliberately.** A plausible first name is exactly the thing
 that gets merged into real-person research three months from now, and a biography is exactly the
-thing that gets quoted. It carries a **designation**: `HARNESS-01`.
+thing that gets quoted.
+
+### ✅ The naming ruling `[paul-ruled 2026-09-04]` — `synthetic-<demographic>`
+
+**This lane recommended `HARNESS-01`. Paul ruled otherwise, and his form is better:** the name is
+the word **`synthetic`** plus **the demographic it is meant to simulate**.
+
+**Why it beats the recommendation, stated because the reasoning is the reusable part:** `HARNESS-01`
+achieved *"this is not a person"* only for a reader who had opened this document.
+**`synthetic-<demographic>` carries the warning label wherever the id travels** — every log line,
+every commit message, every tool output, every stray grep hit six months from now. It is
+self-declaring at the point of use, which is precisely the property the designation was reaching
+for and did not have.
+
+⚠️ **And the guardrail that must ride with it, ratified as written.** Naming it by demographic
+makes it **LOOK like evidence about that demographic** — which is the one thing it can never be.
+So §6's rule holds *harder* under this name, not softer: **a hypothesis generator, never evidence
+about the group it names, and never consulted where a real record can be read instead.** The name
+buys legibility at the cost of a resemblance to authority it does not have; the guardrail is what
+pays for it.
+
+⛔ **The demographic itself is NOT chosen here** — see §6's dependency. Until it is, the persona is
+referred to structurally, never by a placeholder demographic that would then get quoted as if it
+had been decided.
 
 ⚠️ **Naming note against `VOCABULARY.md` §4:** `tenant`, `resident`, `user`, `profile` and
-*"estate manager"* are all rejected there, for reasons that hold here too. **`harness` is used
-because the codebase already uses it** (`isTestHarness`) and it is the one word that says
-*not a person* in its ordinary meaning. It is a schema word — like `estate`, it never reaches a
-user-facing surface.
+*"estate manager"* are all rejected there, for reasons that hold here too. **`harness` survives as
+the mechanism word** — the codebase already uses it (`isTestHarness`) and it is the one word that
+says *not a person* in its ordinary meaning — but the **identity** is named `synthetic-…` per the
+ruling above. Both are schema words: like `estate`, neither reaches a user-facing surface.
 
 ---
 
@@ -301,21 +378,55 @@ ship anything · rank a backlog · write canon · reach any Mom-facing surface.
 
 ---
 
-## 6 · The extensibility hook — noted, NOT built
+## 6 · Segments — the demographic is a NAMED DEPENDENCY, not a gap
 
 Paul: *"could also then interface into testing hypotheses about different consumer groups like
 older people right especially."*
 
-The mechanism generalizes cleanly — `HARNESS-02`, `-03`, each a **segment hypothesis** with its
-own instance, its own fences, its own tenure. **Do not build this now.** One harness has to earn
-its keep first, and the whole design rests on accumulation that does not exist yet.
+The mechanism generalizes cleanly — each identity a **segment hypothesis** with its own instance,
+its own fences, its own tenure. ⭐ **Plural is now assumed from the start** `[paul-ruled
+2026-09-04]`: *"we may continue to evolve this or establish other personas to look through
+things."* So the id scheme is built for many from day one rather than one identity that later has
+to be split — the same mistake shape as folding this into `p-harness-v1` (§3c).
 
-⛔ **And the guardrail to write down before anyone builds it,** because it is the point at which
-this idea becomes actively harmful: **a synthetic older user is a hypothesis generator and never
-evidence about older users.** This project already has *real* evidence about an older user —
-sourced, hard-won, and repeatedly wrong when inferred instead of measured (the device mapping was
-backwards for 26 days while reading as CONFIRMED). A synthetic segment must never be consulted
-where a real record can be read instead, and its output can never be tagged above `assumption`.
+### ⛔ The dependency, and its blocker
+
+**This document does not choose the demographic, and could not.** Paul ruled it *"should be
+defined in conjunction with the customer researcher and our business researcher"* — the
+`user-researcher` and `business-analyst` seats.
+
+**That work is BLOCKED, and the blocker is stated here so the gap is not mistaken for an
+oversight:** the `business-analyst` seat is **unstamped** — its onboarding interview and resource
+gathering never ran. Running the demographic work first would make the interview a *reconciliation
+against work it was supposed to shape*, which is the wrong order and hard to undo.
+
+**Ordering (the hub's call, recorded here, not proposed by this lane):**
+`stamp the seat → its interview + resource gathering → then the demographic work with both seats.`
+
+⚠️ **Carry-forward for whoever first spawns `business-analyst`:** confirm both preload skill blocks
+**actually arrived**. That step has a documented history of failing silently — `examiner-panel` was
+born without its preload and nothing detected it. **A symlink that resolves is not proof the block
+loaded.**
+
+⛔ **Nothing here waits on that.** The design above is complete and testable without a demographic;
+the demographic decides *which* segment the first identity simulates, not whether the mechanism
+works. Do not hold this document open for it.
+
+### ⛔ The guardrail — and the naming ruling makes it MORE load-bearing, not less
+
+This is the point at which the idea becomes actively harmful: **a synthetic older reader is a
+hypothesis generator and never evidence about older readers.** This project already has *real*
+evidence about an older reader — sourced, hard-won, and repeatedly wrong when inferred instead of
+measured (the device mapping was backwards for 26 days while reading as CONFIRMED). A synthetic
+segment must never be consulted where a real record can be read instead, and its output can never
+be tagged above `assumption`.
+
+⚠️ **`synthetic-<demographic>` (§3f) raises the stakes on this paragraph.** A name that states a
+demographic *looks* like a claim about that demographic every time it is read — in a report title,
+a commit, a finding attributed to it. The name is still right, because it declares its own
+synthetic nature wherever it travels. But the two properties arrive together: **the name makes the
+fixture legible and makes its output easier to mistake for evidence.** This guardrail is the half
+that pays for the other, and it does not get dropped when the demographic is chosen.
 
 ---
 
@@ -331,8 +442,10 @@ kept apart on purpose.
 
 `[verified — `viewer.html`, read 2026-09-04]`
 
-- **14 `@media` queries. Not one of them is a breakpoint above 660px.** They are `max-width: 480`
-  / `540` (mobile narrowing) plus `hover` and `prefers-reduced-motion` feature queries.
+- **13 `@media` blocks, and ZERO `min-width`.** ⚠️ *An earlier draft said 14 — that was a raw grep
+  hit count including one comment reference. Re-derived deterministically with comments stripped,
+  and reproduced independently by the hub: **7 `max-width` (480px and 540px only), 4
+  `prefers-reduced-motion`, 2 `hover`.** Not one is a breakpoint above 660px.*
 - **The layout is a 660px column, centered.** On a desktop window it is that same column with
   whitespace on both sides. There is no desktop layout; there is a mobile layout on a wide screen.
 - **Two live `@media (hover: hover)` blocks** — a tile lift and a glance-row highlight. Both were
@@ -428,22 +541,32 @@ stops being invisible.
 
 ---
 
-## 10 · What needs Paul
+## 10 · Open items — one left
 
-1. **§2 — the synthetic-Scott artifact was not found.** Does he know of one this search missed?
-   The design does not depend on it; the request to model after it does.
-2. **§3c(i) — a second synthetic identity in `people.json`** (`p-harness-tenure-v1`,
-   `isTenureHarness`). It touches an attribution file with a history of costly errors; it should
-   not be added by a lane.
-3. **§3f — designation, not a name.** Recommend `HARNESS-01` with no biography. If he wants a
-   name, it must be obviously non-real — never a plausible first name.
+1. ~~**§2 — the synthetic-Scott artifact was not found.**~~ ✅ **CLOSED `[paul-stated
+   2026-09-04]`** — it was never an artifact. It is an **expectation lens** (§2, rewritten), and
+   the reason two independent searches missed it is now recorded as the more durable finding.
+2. ~~**§3c(i) — a second synthetic identity in `people.json`.**~~ ✅ **CLOSED `[paul-ruled
+   2026-09-04]`** — separate identity confirmed, *"because we may continue to evolve this or
+   establish other personas."* Plural is assumed from the start (§6). The write itself is
+   mechanical and outside this lane's OWNS.
+3. ~~**§3f — designation, not a name.**~~ ✅ **CLOSED `[paul-ruled 2026-09-04]`** —
+   `synthetic-<demographic>`, overruling this lane's `HARNESS-01`. Reasoning and the guardrail
+   that rides with it are in §3f.
 4. ~~**§8 — ratify the centered column, or commission a desktop layout.**~~ ✅ **CLOSED
    `[paul-ruled 2026-09-04]`** — ratified, and landed in `engine/viewer.template.html`'s doctrine
    region as **THE CANVAS** (`3aada23`). Nothing outstanding.
-5. **§9 — the four `/ux-sweep` edits**, coordinated with the amendment already proposed in that
-   skill's own log. ✅ Edit 3(c)'s precondition is now met: the DELIBERATE-PER-DOCTRINE verdict
-   has a block at the source to cite, so a future sweep can verify the ruling it is being held to
-   rather than taking a report's word for it.
-6. **Sequencing.** Prod is frozen and Mom's feedback is held. Nothing here is urgent, and lap 0
-   of a tenure costs real time. Recommend the wiring (§9, cheap, immediately useful) lands well
-   before the harness (§3, a build).
+5. ⭐ **STILL OPEN — §9, the four `/ux-sweep` edits.** They change how every future review runs,
+   so they are Paul's. ✅ Edit 3(c)'s precondition is met: the DELIBERATE-PER-DOCTRINE verdict now
+   has a block at the source to cite, so a future sweep can *verify* the ruling it is being held
+   to rather than taking a report's word for it. Coordinate with the amendment already proposed in
+   that skill's own 2026-08-31 log so the viewport line is edited once.
+
+6. ~~**Sequencing** (§9 wiring before §3 harness).~~ ⛔ **NOT THIS LANE'S.** Taken by the hub — a
+   lane sees only its own work and cannot order the run. Recorded here so a reader does not
+   mistake its absence for an oversight.
+
+**Carried elsewhere, deliberately not on this list:** the **(B) fork** — an expectation lens
+pointed at a *real* reader (§2) — is its own decision, routed to the hub, not folded in here. And
+the **demographic** is a named dependency with a stated blocker (§6), not an open question for
+this document.
