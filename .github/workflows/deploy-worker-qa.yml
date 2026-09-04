@@ -138,6 +138,13 @@ jobs:
 
       # The same check a human runs, pointed at QA: every asset the app fetches
       # must be byte-identical to this commit. Pages serves asynchronously, so poll.
+      # The QA origin is behind Cloudflare Access (2026-09-04). qa_access.py reads the
+      # service token from these two env vars in CI (repo secrets, Paul's to set); with
+      # neither set it sends no headers and this step FAILS LOUD on the Access page —
+      # which is the honest state, not a green that fetched nothing.
       - name: check-live against the QA origin
         if: env.CF_TOKEN != ''
+        env:
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: python3 tools/check-live.py --base "$QA_PAGES_URL" --ref HEAD --wait 180
