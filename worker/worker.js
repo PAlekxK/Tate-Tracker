@@ -2323,7 +2323,7 @@ async function handleRemoveSpecies(request, env) {
 // Never accepts observation bodies or conversation content; the client is the
 // source of truth for what it sends. Keys mirror the cost-log:YYYY-MM-DD shape.
 
-async function handleMetrics(request, env, url) {
+async function handleMetrics(request, env, url, auth) {
   if (request.method === "POST") {
     let body;
     try { body = await request.json(); }
@@ -2337,6 +2337,7 @@ async function handleMetrics(request, env, url) {
     const key = dateKey(env, "metrics", today);
     const batch = {
       receivedAt: new Date().toISOString(),
+      via: (auth && auth.via) || "master",   // C6 6a — which credential carried the batch; her phone reads `master`
       device,
       events,
     };
@@ -2655,8 +2656,8 @@ export default {
     // estate's grant, or a hostname that disagrees → the router's own 404, byte-identical (a 403
     // would confirm the door exists), and a server-side door_failed lands in `door:` via waitUntil so
     // the response time does not carry the reason (the seat's timing oracle). ----
+    const grant = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;   // resolved ONCE; 6a reads it at the gate below
     if (request.headers.get(GRANT_HEADER)) {
-      const grant = await grantFor(request, env);
       if (!grant || !hostAgrees(request, env)) {
         const reason = !grant ? "unknown-or-other-estate" : "host-mismatch";
         const rec = declarePerson({ id: "door-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
@@ -2688,7 +2689,21 @@ export default {
     // less than the world-readable API key this route exists to retire.
     if (url.pathname === "/api/ambient")    return handleAmbient(request, env, url);
 
-    if (!authOk(request, env)) return unauthorized();
+    // ---- C6 6a (2026-09-04) — DUAL-ACCEPT on the read paths: the master token OR a resolved grant whose host agrees.
+    // `capability: administrator` unlocks what the master unlocks today; `member` (a contributor) unlocks /api/metrics
+    // POST and the vault only. NOTHING is removed — her paired phone keeps reporting through the master, and a request
+    // carrying both credentials is read as the master. The wrong-capability answer is a shaped 403 (a VALID credential
+    // that cannot do this; unlike an unknown grant, which stays the router's 404 above) — the seat's code, if it names
+    // another, replaces this one line. ----
+    const viaMaster = authOk(request, env);
+    const viaGrant = !!(grant && hostAgrees(request, env));
+    if (!viaMaster && !viaGrant) return unauthorized();
+    const auth = viaMaster ? { via: "master", capability: "administrator", personId: null }
+                           : { via: "grant", capability: grant.capability === "administrator" ? "administrator" : "member", personId: grant.personId || null };
+    if (auth.capability !== "administrator") {
+      const memberOk = (url.pathname === "/api/metrics" && request.method === "POST") || url.pathname.startsWith("/api/vault");
+      if (!memberOk) return json({ error: "not-permitted", capability: auth.capability, door: "entry" }, 403);
+    }
 
     if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url);
     if (url.pathname === "/api/airnow")     return handleAirNow(request, env, url);
@@ -2696,7 +2711,7 @@ export default {
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env);
     if (url.pathname === "/api/classify")   return handleClassify(request, env);
     if (url.pathname === "/api/chat")       return handleChat(request, env);
-    if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url);
+    if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth);
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
