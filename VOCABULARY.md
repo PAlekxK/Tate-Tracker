@@ -159,6 +159,47 @@ environment can host the second. **Falsifier for keeping one word:** if a reader
 meanings, one repo) — recorded here so `check-vocabulary.py`'s double-booking check reads it as
 declared, not discovered.
 
+## 3e · AUTHORITY — who may author a grant, and what confers nothing `[paul-ratified 2026-09-03]`
+
+> **Where the fields live:** `agreedBy` · `recordedBy` · `consentSource` · `scope` are fields of the **`consent` list on the grant row**, which lands with C6 3a (`grants.json` in the private sibling + the KV grant store). Until 3a ships this section states the rule that row must carry; `check-vocabulary.py` grades identifiers in schema surfaces, so the claim is forward-looking on purpose and dated.
+
+§2 and §3 name the words. This names **what binds them** — ruled the night the onboarding model was
+synthesised, and separated here because the words were ratified 2026-09-02 without an authority rule
+and a reader could not derive one from the table.
+
+| act | authored by | why it is legitimate |
+|---|---|---|
+| the **founding owner grant** at a new estate | **administrator** | capability-only, and legitimate *only* under the bootstrap repair — the prospective owner's own **request**, plus the fact that the activation rule protects an estate's **existing** people and a founding estate has none |
+| **every grant after it**, at that estate | **owner** | satisfies the activation rule with no repair: the owner holds a `relationship` there by construction |
+| a grant where the administrator holds **no relationship** at that estate | **owner**, gated | the `administrator-reads` consent entry must exist or the mint refuses |
+
+⛔ **THE INVARIANT — membership confers nothing.** `[paul-stated 2026-09-03: "it should not render in
+an estate just because they're in that family somehow. They need to be invited."]`
+
+> **A person's estates are exactly the grant rows minted for them — never a set derived from who they
+> are related to.** There must be no code path, and no derivation, in which a family relationship
+> produces or implies an estate grant.
+
+- **`relationship` is NOT an access axis.** It carries `owner` / `contributor` / `member` for the
+  consent gate and the activation rule. **Anything that reads `relationship` to decide *reachability*
+  is the defect this line names.**
+- A **family door** is an address several people's private views sit behind. It is not a membership,
+  and it grants nothing.
+- The **family→estates map stays unbuilt** — not merely unnecessary, but the artifact that would make
+  the forbidden derivation possible.
+- ✅ It is what makes the ordinary case free: two people in one family holding **disjoint** estates
+  need no exception, because neither has a set to inherit.
+
+⚠️ **AUTHORED is not RECORDED, and the schema must keep them apart.** `[paul-stated 2026-09-03:
+"I'm fine to author the invites to start… we will work on trying to automate parts of that over time."]`
+
+Paul performs the act by hand today, because no owner-facing invite surface exists. The grant must
+still record the **owner** as `agreedBy` and Paul as `recordedBy`, with `consentSource: attested`.
+**If a hand-executed grant records only Paul, every row reads as administrator-authored — the
+capability-only act the activation rule forbids — while remaining perfectly well-formed and therefore
+undetectable.** Manual execution is safe *only* because the consent record can tell executing from
+authoring.
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
