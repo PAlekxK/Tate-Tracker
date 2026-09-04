@@ -10,7 +10,7 @@
 | 4 | **C7 engine rows** — R2 an OFF module looks intentional · R5 events gated by a module · R3 the manual-vs-automated population view (INSTANCE-RECIPE) | engine → QA | condo walk clean; Fernwood byte-identical (R1 waits on a ux seat then Paul) |
 | 5 | **C6 vault** — 5a the routes as a lookup · 5b the card declared per instance | engine → QA | qa-write-probe; 4a/4b/5c stay Paul's |
 | 6 | **UX sweep, two-pass, on QA** — owed on 56 viewer commits | review | punch list, fixes gated |
-| 7 | **Onboarding plan** — THE GOAL: a link → an account → first run at 414 × A+ → her data reaches the estate server-side; seats: user-researcher · ux-expert · engineering-partner · content-steward (the message copy) | plan | **proposal** — Paul stamps; the message itself is his |
+| 7 | **Onboarding plan** — THE GOAL, and `[paul-stated 12:05 PM ET]` **the CONDO is the first run, and naming is a step the person answers** — a link → an account → first run at 414 × A+ → her data reaches the estate server-side; seats: user-researcher · ux-expert · engineering-partner · content-steward (the message copy) | plan | **proposal** — Paul stamps; the message itself is his |
 | 8 | **Guru cost analysis** — owed since the $3 ceiling; from the QA cost log | analysis | numbers to Paul |
 | 9 | **Docs** — README title (stale by two renames) · handoff clearing-state | docs → staging | — |
 
