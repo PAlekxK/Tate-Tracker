@@ -109,11 +109,22 @@ def main():
         print(f"  ⚠ {len(open_lanes)} lane(s) declared OPEN but only {len(sessions)} live session(s) —")
         print("    at least one is VANISHED, not closed. Check before assuming it finished.")
     elif open_lanes:
-        print(f"  · {len(open_lanes)} open, {len(sessions)} live — ⚠ COUNTS MATCH, WHICH IS NOT A PAIRING.")
+        # The hub's own session runs OUTSIDE the target repo by design, so it can never
+        # appear in `sessions`. Counting it as an open lane guarantees a permanent
+        # off-by-one that the "counts match" branch then launders into a clean read.
+        open_lanes = [l for l in open_lanes if l != "lane-hub"]
+        print(f"  · {len(open_lanes)} open lane(s) (hub excluded — its session is not in this repo),"
+              f" {len(sessions)} live session(s) here")
+        print("  ⚠ COUNTS ARE NOT A PAIRING.")
         print("    ⛔ This compares NUMBERS, not identities: a lane that died while an unrelated")
         print("       session opened in this repo balances the count and reads exactly like health.")
         print("       Nothing here binds a session to a lane — that needs a slug exported at spawn.")
         print("       Read the names above against the open lanes yourself.")
+        closed = [l for l, v in S.items() if v.startswith("CLOSED")]
+        if closed and sessions:
+            print(f"  ⚠ {len(closed)} lane(s) are CLOSED while {len(sessions)} session(s) are still up —")
+            print("    RELEASED IS NOT EXITED. A released lane's window can sit idle for a long time,")
+            print("    and it is still a writer in this tree until it actually closes.")
     if elsewhere:
         print(f"  · {len(elsewhere)} interactive session(s) in OTHER repos — not judged here:")
         for r in elsewhere[:4]:
