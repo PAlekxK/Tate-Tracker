@@ -10,6 +10,7 @@
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
+- stage: build (opened 2026-09-03 9:00 PM ET — 1a–1d · 2a · 3a · 3b built; 2b and 3c wait on Paul's cap; 4–6 are the retrieval build)
 - stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row (and its siblings in § A6: the caps audit, the RAG/corpus row, the
@@ -102,7 +103,7 @@ one-character prompt edit changes it.
 **1d · The workflow `paths:` fix** — ✅ **SHIPPED 2026-09-03** — `weeds.json` · `insects.json` · `zones.json` · `turf.json` added to `deploy-worker.yml`; the deploy on `c96b085` ran its Deploy step (the skip notice did NOT print). The whitespace-commit trigger proof waits for the next real edit to one of those files. — agent · reversible · `weeds.json`, `insects.json`, `zones.json`, `turf.json` added.
 Check: a `workflow_dispatch` run shows the deploy step *ran* (the `FERNWOOD_AUG_2026` silent-skip notice must not print);
 then a whitespace-only commit to `turf.json` triggers the workflow (the run list is the proof); `check-digest-fresh.py` exit 0.
-**2a · `guru-facts.py`, derived** — agent · reversible · **after C5 4a** · one row = `{id, ask, must_contain[],
+**2a · `guru-facts.py`, derived** — ✅ **BUILT 2026-09-03** — 8 rows, every string via `momlib.config` (now file-qualified: `fishing.json:lake.elevation_ft`), one number formatter, tolerant regexes; stale-self from `supersededValue`, the lake as the declared confusable sibling; `--selftest` 9/9 — the AST walk finds no typed number ≥ 100 outside docstrings and the selftest, the doctored 2,959 moves the must-contain, the unreachable sibling prints `skipped`, a correct lake answer is green on its own row. — agent · reversible · **after C5 4a** · one row = `{id, ask, must_contain[],
 must_not_contain[], source_path, requires_tool, why}`; every string via `momlib.config(<file-qualified dotted path>)`, one
 formatter, whitespace-tolerant regexes (`2,?8\s?73`). Two negative classes kept apart: **stale-self** from the correction
 record (`location.elevation.supersededValue.estimated_ft`) — auto-discoverable; **confusable sibling** from a declared
@@ -117,12 +118,12 @@ negative (inert until 4) against them at zero spend; a fixture whose `prefix_sha
 (read from one `test` turn at record time, stored beside it) is **expired** and reported, never passed. Check: the workflow
 step runs before `wrangler deploy`; mutation — doctor one fixture's reply to 2,959 and push a branch: CI red before deploy;
 delete a `parse*Fence` marker in a scratch copy → the extractor **throws** (a 404-shaped viewer scores nothing).
-**3a · The harness's own resolver** — agent · reversible · `guru-probe.py` reads `FERNWOOD_QA_TOKEN` or
+**3a · The harness's own resolver** — ✅ **BUILT 2026-09-03** — `guru-probe.py`: QA token/URL only, no prod fallback, refuses unless `/health` says `env:qa · kv_canary:qa`; inverted grading (a must-NOT hit is red even beside the right number); `--selftest` 11/11 incl. LIVE refusal of prod. The live leg runs only with `--live --max-turns N` — **not run: Paul sets the cap (Q1)**. — agent · reversible · `guru-probe.py` reads `FERNWOOD_QA_TOKEN` or
 `.private/fernwood-qa-token` and `FERNWOOD_QA_WORKER_URL`, **no fallback to `momlib.resolve_token()`**; before any row it
 reads `/health` and **refuses unless `env=="qa" && kv_canary=="qa"`** (the `qa-write-probe.py` shape). Check: `--selftest`
 — pointed at prod `/health` it refuses; with no QA token it exits non-zero naming the variable; the QA token against prod
 `/api/conversations` → 401 (C4 3a's "different value" made structural).
-**3b · The Worker-side ceiling on QA** — agent · reversible · **after C4 3a** · `handleChat` on `ENV_NAME=="qa"` reads
+**3b · The Worker-side ceiling on QA** — ✅ **SHIPPED to QA 2026-09-03 `c577f9b`** — `handleChat` on `ENV_NAME=="qa"` reads `chat-budget:<date>` (tokens billed today, written after `logChatCost`), refuses over `CHAT_DAILY_CEILING` with `{error:"chat-budget-exceeded", used, ceiling}` (429); QA `/health` → `chat_budget: {used: 0, ceiling: 150000, date}`; prod `/health` has no key and no ceiling. **150,000 is a placeholder — Paul sets the number (Q1).** The below-one-turn refusal test waits for a permitted turn. — agent · reversible · **after C4 3a** · `handleChat` on `ENV_NAME=="qa"` reads
 `chat-budget:<date>` (tokens billed today, written beside `logChatCost`) and refuses over `CHAT_DAILY_CEILING` with
 `{error:"chat-budget-exceeded", used, ceiling}`; QA `/health` reports `chat_budget`. The harness-side `--max-turns` is a
 convenience, declared **not load-bearing**. Prod carries no ceiling (unchanged). Check, QA only: set the ceiling below one
