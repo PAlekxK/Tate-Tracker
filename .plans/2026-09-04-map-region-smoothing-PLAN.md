@@ -309,6 +309,25 @@ automated pass.
 The ordering is not caution for its own sake — it is the acceptance criterion applied literally. Paul asked for the
 map to look clean. **Tier 1 is entirely look, changes no stored coordinate, and is where most of the visible win is.**
 
+⭐⭐ **CONFIRMED — IT IS THE VIEWER'S MAP** `[paul-stated 2026-09-04, in the session that raised this]`. Asked
+whether he was looking at the viewer or the tracer, Paul: *"it was the viewer's map."* Three consequences, and the
+last one is the finding:
+
+1. **"Turn on the smoothing that already exists" is NOT available.** The Chaikin toggle lives in
+   `tools/area-trace.html` and renders nothing on `viewer.html`. Tier 1 step 2 is a real (small) build, not a
+   default flip.
+2. **Tier 1 is now the whole near-term answer, and its confidence goes up.** Every one of the three things that
+   make a noisy polyline read as ragged is present *and unmitigated* on the surface he was looking at: miter joins
+   on 93 sharp turns, no corner-cutting, and a dashed stroke on all 23 zones. The tracer has two of the three
+   fixed; the viewer has none. That is a straightforward explanation of why the map looks worse than the tool that
+   drew it.
+3. ⭐ **The real finding: the 2026-08-31 work landed on the AUTHORING surface and never reached the READING one.**
+   Snapping and smoothing were both built into the tracer, both verified, both correct — and the map Paul and Mom
+   actually open got neither. This is the shape `CLAUDE.md` already names about `/ux-sweep`: *a capability the loop
+   cannot reach by running its own procedure is not a capability the loop has.* Here it is one step worse — the
+   capability exists, is proven, and is pointed at the wrong surface. **Whatever ships from this plan, the check
+   is "does it render on `viewer.html`," never "does the tracer do it."**
+
 ### Tier 1 — render only. No data write. (small)
 1. **`stroke-linejoin: round`, `stroke-linecap: round`** on `.pmap-zone`. Removes the miter spikes on the 93
    sharp turns. One CSS declaration, zero data risk.
@@ -366,11 +385,9 @@ the detection automates, the fix stays gated. ⚠️ Do not build it before Paul
 
 ## 8 · What I could not verify
 
-- **Whether Paul's complaint is about the viewer's map, the tracer's map, or both.** The memo says *"Fernwood's
-  latest regions."* Measured: the **tracer** has Chaikin smoothing (toggle, default OFF) and snapping; the
-  **viewer** (`viewer.html` ~line 9995) has neither — raw `<polygon>`, miter joins, all 23 dashed. If he was
-  looking at the tracer *with smoothing off*, the fix is partly "turn it on / default it on." **This is the single
-  cheapest thing to ask him**, and it could change Tier 1's shape.
+- ~~**Whether Paul's complaint is about the viewer's map, the tracer's map, or both.**~~ ✅ **ANSWERED
+  `[paul-stated 2026-09-04, same session]`: "it was the viewer's map."** See the box below — it removes an option
+  and hardens Tier 1.
 - **I did not render anything.** Every number here is computed from coordinates; none is a look at the map. The
   claim *"Tier 1 closes most of the complaint"* is reasoned from what makes polylines read as ragged — it is a
   hypothesis, and the exhibit in Tier 2 step 5 is what would test it.
