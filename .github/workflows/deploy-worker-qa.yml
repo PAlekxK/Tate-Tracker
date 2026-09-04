@@ -58,6 +58,8 @@ jobs:
         run: |
           echo "::warning::NO DEPLOY. Repo secret FERNWOOD_AUG_2026 is empty or absent, so the QA Worker deploy was skipped. This run is green and deployed NOTHING."
 
+      - name: Guru replay — six fence parsers lifted from the built viewer resolve against canon; dispatch fixtures (5a/5b; no network)
+        run: node tools/guru-replay.mjs
       - name: Deploy QA Worker (wrangler --env qa)
         if: env.CF_TOKEN != ''
         working-directory: worker

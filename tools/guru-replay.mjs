@@ -34,5 +34,65 @@ check("get_zone by id", dispatchTool("get_zone", { name: digest.zones[0].id }, c
 check("turf_regime with no zone → all regimes, counted", dispatchTool("turf_regime", {}, ctx).total === digest.turf.regimes.length);
 check("fishing_species complete", dispatchTool("fishing_species", {}, ctx).total === digest.fishing.species.length);
 check("an unknown tool → found:false", dispatchTool("nope", {}, ctx).found === false);
+
+// ── 5b: THE FENCES RESOLVE AGAINST CANON ─────────────────────────────────────────────────────────────────────────
+// The six client parsers are lifted VERBATIM from the built viewer (a scratch copy missing one → the extractor THROWS,
+// so a 404-shaped viewer scores nothing), then driven on fences that name canon entities. A fence whose entity the
+// names index cannot resolve is a harness FAIL — never a client-side silent miss.
+import { existsSync } from "node:fs";
+const FENCE_FNS = ["parseSuggestionFence", "parseFollowupFence", "parseRegisterFence", "parseLogFence", "parseAddFence", "parseRemoveFence"];
+function extractFenceParsers(html) {
+  const grab = (startIdx) => {   // brace-matched function body from `function name(`
+    let i = html.indexOf("{", startIdx), depth = 0;
+    for (let j = i; j < html.length; j++) { if (html[j] === "{") depth++; else if (html[j] === "}") { depth--; if (depth === 0) return html.slice(startIdx, j + 1); } }
+    throw new Error("unbalanced braces");
+  };
+  const kinds = html.match(/const SUGGEST_FENCE_KINDS = new Set\(\[[\s\S]*?\]\);/);
+  if (!kinds) throw new Error("viewer has no SUGGEST_FENCE_KINDS — not the app, or the fence contract moved");
+  let src = kinds[0] + "\n";
+  for (const fn of FENCE_FNS) {
+    const at = html.indexOf(`function ${fn}(`);
+    if (at < 0) throw new Error(`viewer has no ${fn} — a parser is missing; the harness scores nothing`);
+    src += grab(at) + "\n";
+  }
+  return new Function(src + `return {${FENCE_FNS.join(",")}};`)();
+}
+const viewerPath = new URL("../viewer.html", import.meta.url);
+const P = extractFenceParsers(readFileSync(viewerPath, "utf8"));
+check("six fence parsers lifted from the built viewer", FENCE_FNS.every(f => typeof P[f] === "function"));
+const names = digest.core.names;
+const norm = (x) => String(x || "").toLowerCase().trim();
+const resolves = (section, name) => (names[section] || []).some(r => norm(r.name) === norm(name) || norm(r.id) === norm(name) || norm(r.sci) === norm(name));
+const KIND_SECTION = { plant: "plants", bird: "birds", mammal: "mammals", amphibian: "amphibians", snake: "snakes", lizard: "lizards", fish: "fish" };
+const plant = names.plants[0], bird = names.birds[0], vehicle = names.vehicles[0];
+const prose = "The laurels by the porch are near the end of their bloom.";
+// row 1 — suggest-species names a tracked bird → resolves
+const r1 = P.parseSuggestionFence(`${prose}\n<!--suggest-species ${JSON.stringify({ kind: "bird", commonName: bird.name, scientificName: bird.sci || "x" })}-->`);
+check("suggest-species: parsed, prose stripped, and the bird RESOLVES in names.birds", r1.suggestion && r1.displayText === prose && resolves(KIND_SECTION[r1.suggestion.kind], r1.suggestion.commonName));
+// row 2 — suggest-log (observation) names a tracked plant → resolves
+const r2 = P.parseLogFence(`${prose}\n<!--suggest-log ${JSON.stringify({ noteType: "observation", target: { name: plant.name } })}-->`);
+check("suggest-log observation: the plant RESOLVES in names.plants", r2.log && r2.text === prose && resolves("plants", r2.log.targetName));
+// row 3 — suggest-log (vehicle-note) names a machine → resolves
+const r3 = P.parseLogFence(`Plug gap is fine.\n<!--suggest-log ${JSON.stringify({ noteType: "vehicle-note", target: { name: vehicle.name } })}-->`);
+check("suggest-log vehicle-note: the machine RESOLVES in names.vehicles", r3.log && resolves("vehicles", r3.log.targetName));
+// row 4 — suggest-remove names a tracked plant → resolves
+const r4 = P.parseRemoveFence(`${prose}\n<!--suggest-remove ${JSON.stringify({ kind: "plant", name: plant.name })}-->`);
+check("suggest-remove: the plant RESOLVES", r4.remove && resolves("plants", r4.remove.name));
+// row 5 — suggest-add is for a plant NOT yet kept: it must NOT resolve (a resolvable name is the wrong fence)
+const r5 = P.parseAddFence(`${prose}\n<!--suggest-add ${JSON.stringify({ kind: "plant", commonName: "Zebulon's Quixote Lily", scientificName: "Lilium zebuloni" })}-->`);
+check("suggest-add: parsed, and the new plant does NOT resolve (that is what makes it an add)", r5.add && !resolves("plants", r5.add.commonName));
+const r5b = P.parseAddFence(`${prose}\n<!--suggest-add ${JSON.stringify({ kind: "plant", commonName: plant.name })}-->`);
+check("suggest-add naming a plant we ALREADY keep → harness FAIL (the wrong fence), asserted as detected", r5b.add && resolves("plants", r5b.add.commonName));
+// row 6 — followup + register carry no entity: parse-and-strip only, and they compose
+const r6 = P.parseRegisterFence(P.parseFollowupFence(`Oil is 10W-40.\n<!--suggest-followup {"prompt":"How much does it take?"}-->\n<!--register:machine-->`).text);
+check("suggest-followup + register:machine: both stripped, followup kept, machine=true", r6.machine && r6.text === "Oil is 10W-40.");
+// the CONTROL: an unresolvable entity in a resolving fence is a FAIL the harness must be able to say
+const rX = P.parseLogFence(`${prose}\n<!--suggest-log ${JSON.stringify({ noteType: "observation", target: { name: "Zebulon's Quixote Lily" } })}-->`);
+check("CONTROL: a log fence naming a plant the index cannot resolve → the harness says FAIL (not a silent client miss)", rX.log && !resolves("plants", rX.log.targetName));
+// the MUTATION: a viewer missing one parser → the extractor THROWS
+let threw = false;
+try { extractFenceParsers(readFileSync(viewerPath, "utf8").replace("function parseLogFence(", "function parseLogFenceX(")); } catch (e) { threw = /parseLogFence/.test(String(e.message)); }
+check("MUTATION: a viewer missing parseLogFence → the extractor throws naming it", threw);
+console.log(`\nfences 6/6 · dispatch ${CORE_TOOLS.length} · control 1 · mutation 1`);
 console.log(`\n${ok ? "✅ controls hold." : "🔴 a control failed."}`);
 process.exit(ok ? 0 : 1);
