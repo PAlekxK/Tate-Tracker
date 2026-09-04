@@ -1,7 +1,7 @@
 # LANE D — Tier 1 render fix (map regions)
 
 
-## STATUS: CLOSED 2026-09-04 — gate met, verified, released by the hub. Absence is EXPECTED. Its four carried items are in LEDGER.md; the QA push it routed to the hub is BLOCKED on hub permissions and surfaced to Paul.
+## STATUS: CLOSED 2026-09-04 — gate met, verified, released by the hub. Absence is EXPECTED. Its four carried items are in LEDGER.md. The QA deploy it routed to the hub is DONE: pushed cb18ade, and fernwood-qa is serving e8f1b78abb82 (byte-matches HEAD) as of ~3:25 PM ET.
 Read `_PREAMBLE.md` first. It binds. **You are the QA-HOLDING lane for this run** — see §QA.
 
 `[paul-greenlit 2026-09-04]` *"yes, greenlight tier 1 as its own lane."*
