@@ -40,13 +40,18 @@ const { chromium } = require('playwright');
     const empties = await page.evaluate(() => {
       const out = [];
       const vis = (el) => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; };
+      // cards are COLLAPSED at load (measured 2026-09-04: a blank map and an empty references card passed "clean" because
+      // only open cards were measured) — expand every card the module set left in the page, then look inside.
+      for (const card of document.querySelectorAll('.main-card')) {
+        if (card.offsetParent !== null || getComputedStyle(card).display !== 'none') card.classList.add('expanded');
+      }
       for (const card of document.querySelectorAll('.main-card, .dash-cell')) {
         if (!vis(card)) continue;
         const clone = card.cloneNode(true);
         clone.querySelectorAll('.main-card-title, .main-card-header, .dash-cell-label, .ic-head-title, button').forEach(n => n.remove());
         const text = (clone.textContent || '').replace(/\s+/g, ' ').trim();
-        const media = card.querySelector('img, canvas, svg, video, audio, iframe, [style*="background-image"]');
-        const mediaVis = media && vis(media);
+        const medias = [...card.querySelectorAll('img, canvas, svg, video, audio, iframe, [style*="background-image"]')];
+        const mediaVis = medias.some(m => vis(m) && !(m.tagName === 'IMG' && !(m.complete && m.naturalWidth > 0)));   // a broken/blank <img> is not media
         if (text.length < 24 && !mediaVis) out.push({ id: card.id || card.className.split(' ')[0], text: text.slice(0, 40) });
       }
       return out;

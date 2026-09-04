@@ -91,6 +91,7 @@ EMPTY_SHAPE = {  # what an ABSENT domain's const looks like — the list key per
     "zones": {"_meta": {"declaredAbsent": True}, "zones": []},
     "weeds": {"_meta": {"declaredAbsent": True}, "weeds": []},
     "sources": {"_meta": {"declaredAbsent": True}, "sources": []},
+    "events": {"_meta": {"declaredAbsent": True}, "events": []},
 }
 
 

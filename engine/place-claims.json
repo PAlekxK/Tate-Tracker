@@ -10,409 +10,467 @@
  "claims": {
   "fc2730efad": {
    "text": "A native of the cove forests at this elevation — the wild cousin to the hydrangeas already by the porch.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].rationale`. Also names a Fernwood plant fact (\"the hydrangeas already by the porch\")",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "298221de9b": {
    "text": "A wet-meadow native that would suit the pond's edge or the spring drainage seepage.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].rationale`. Asserts a pond and a spring drainage",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "d21001261e": {
    "text": "ACTIONABLE NOW: check existing hemlocks on the property for HWA and treat (imidacloprid + dinotefuran soil drench at root flare).",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[eastern-hemlock].notes`. ⚠️ Also a **charter breach independent of the condo**: \"ACTIONABLE NOW\" + bare imperative violates *Field journal, not task manager* and *Action sentences soften toward \"worth doing\"*",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "a117d99f33": {
    "text": "Always worth watching from your dark property skies.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "**No canon behind it** — hardcoded meteor-shower `tip`, `engine/viewer.template.html:7228`. The astronomy is engine; this sentence is a dark-sky claim and must move to the estate's record",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "50a0bef48f": {
    "text": "Blue Ridge Blues & BBQ Festival",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `events.json` → `events[].name`. A Midtown condo's local events are not Blue Ridge festivals",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "f2f0893448": {
    "text": "Confirmed in GNPS Blue Ridge Cove Forest list.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `curationNotes`. Places the reader in a Blue Ridge cove-forest community",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "3e7ef179a1": {
    "text": "Confirmed in GNPS Blue Ridge landscaping list for both Montane Oak and Cove Forest understory.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `curationNotes`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "29ae2a7067": {
    "text": "Confirmed in GNPS Blue Ridge list across Cove, Low-Mid Oak, and Seepage communities.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `curationNotes`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "73fd4f1fff": {
    "text": "Confirmed in GNPS Blue Ridge Seepage Wetland list.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `curationNotes`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "d2bc7b9256": {
    "text": "Direct fit for the pond area and the spring drainage.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes`. Names two Fernwood features",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "c2868040dc": {
    "text": "Excellent from property · 🌒 Thin crescent — minimal · 60–120/hr",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `property.json` → `sky.bortleEstimate` + the celestial roster's `georgiaVisibility` (today hardcoded in the engine template; label map at `viewer.template.html:16215`). The rating is a **dark-sky claim**, not a label — rewording \"from property\" leaves it false at Bortle 8",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "38e33e7a64": {
    "text": "Excellent from property · 🌓 Quarter moon — moderate",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "same as `c2868040dc` — renders canon: `property.json` → `sky.bortleEstimate`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "eebc2bd4a7": {
    "text": "Fine fescues struggle in the hot, humid Piedmont but are far more viable up here, where summers run 10–15°F cooler.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes`. \"up here… 10–15°F cooler\" is a 2,873 ft claim; false at 1,050 ft",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "ce7e13e649": {
    "text": "For a Blue Ridge native alternative, 'Zagreb' threadleaf coreopsis (C.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes` (sentence-split artifact of the ledger)",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "79ba4cb2a6": {
    "text": "GA DNR lists these rich-cove species as worth noticing if you find them on the property — special-concern, not yet endangered: cucumber-root, galax, trailing arbutus, partridge-berry, round-leaved violet.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "**No canon behind it** — hardcoded callout body, `engine/viewer.template.html:6662`. Same shape as the property-card callouts already moved to `property.json` → `story.callouts` on 2026-09-03",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "ad1c23441c": {
    "text": "Gardens of the Blue Ridge",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `sources.json` → `sources[].name`. A regional nursery roster; each estate sources from its own region",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "0620a31356": {
    "text": "Good from property · 🌑 New moon — ideal · 15–30/hr",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "same as `c2868040dc` — renders canon: `property.json` → `sky.bortleEstimate`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "ea13f11802": {
    "text": "Good from property · 🌒 Thin crescent — minimal · 25–60/hr",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "same as `c2868040dc` — renders canon: `property.json` → `sky.bortleEstimate`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "cd5d9a8863": {
    "text": "Good from property · 🌔 Gibbous — significant · 10–15/hr",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "same as `c2868040dc` — renders canon: `property.json` → `sky.bortleEstimate`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "989d549d5d": {
    "text": "Good from property · 🌕 Full/bright — severe · 10–20/hr",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "same as `c2868040dc` — renders canon: `property.json` → `sky.bortleEstimate`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "19f43c0c06": {
    "text": "Good from property · 🌕 Full/bright — severe · 30–50/hr",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "same as `c2868040dc` — renders canon: `property.json` → `sky.bortleEstimate`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "fcb35179fc": {
    "text": "Good from property · 🌕 Full/bright — severe · 50–100/hr",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "same as `c2868040dc` — renders canon: `property.json` → `sky.bortleEstimate`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "336e23d2fc": {
    "text": "Grasses and lawn alternatives for the managed fairway turf — the practical tall fescue alongside lower-input and native-leaning options worth trialing as the lawn leans toward the natural approach.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `_meta.categories.turf`. ⚠️ **And the built copy has drifted from its source**: `candidates.json` says *\"the managed turf\"*; the inlined `CANDIDATES_DATA` says *\"the managed **fairway** turf\"* (`viewer.template.html:7253`). \"Fairway\" is Fernwood's own noun and it leaked into engine-shipped copy",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "d0357c448a": {
    "text": "If found on the property, leave alone and support — do not transplant.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes`. Assumes rich-cove flora underfoot",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "18bdb41932": {
    "text": "If sourcing from Gardens of the Blue Ridge: they specialize in native azaleas including hard-to-find color forms.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[flame-azalea].notes`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "2fbd846698": {
    "text": "Is there something else the house runs on?",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "Drop \"the house\" — a condo unit is not a house. Also check the trailing button string *\"Tell the Almanac ›\"* (`viewer.template.html:14356`), which is out of this register but carries the same defect as `68b119a817`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "4cec61cf54": {
    "text": "Likely already present on the property in the spring drainage.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes`. Asserts a spring drainage exists here",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "5f2174a422": {
    "text": "Look-don't-pick if found on the property; if planting, only ethical-propagation sources.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `_meta.categories.rich-cove`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "41f1d2a2f8": {
    "text": "Most ecologically meaningful candidate on this list; also the slowest and least guaranteed.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[american-chestnut].notes`. ⚠️ The register's place-word regex matched \"on this\" — a false positive — but the sentence is a judgment about **Fernwood's** candidate list, so it moves with the record either way",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "72b6516528": {
    "text": "Multi-decade canopy / regional restoration species.",
-   "class": "unclassified",
-   "note": "",
+   "class": "engine-neutral",
+   "note": "A category **definition**, not a claim about where the reader is — true wherever a restoration module runs. Renders only where that module is on; that is module gating, not copy",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "58d3782a85": {
    "text": "Non-native (Eurasian) — the one practical exception to the native-first thinking on this list, earned by being the realistic choice for a lush mowed turf at this elevation.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[tall-fescue].notes`. \"at this elevation\" is the place claim",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "62fbe973eb": {
    "text": "On the property",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "Section title, `viewer.template.html:6656`. Charter — *anchored naming beats field-journal-fluent naming*: do **not** reword to \"Here\" or \"This Place\" (names the register, not the thing). Render the estate's own name through the existing `data-site=\"estateName\"` door",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "15c54dc50b": {
    "text": "Once a dominant canopy species at this elevation in the southern Appalachians.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[american-chestnut].rationale`. \"at this elevation\"",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "c2b55d010d": {
    "text": "One of the easiest natives to establish under existing tree canopy.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes`. Presumes the reader has existing tree canopy",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "4025a34f1f": {
    "text": "palustris is a coastal-plain wetland species, not a Blue Ridge native.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `curationNotes`. A Blue-Ridge-relative claim",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "3962a6c5a8": {
    "text": "Roundstone offers a Georgia-ecotype switchgrass — the right provenance for this slope.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[switchgrass].notes`. \"this slope\"",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "cb3080d7e9": {
    "text": "Show all sync phases on this device",
-   "class": "unclassified",
-   "note": "",
+   "class": "engine-neutral",
+   "note": "Control label; \"device\" is not a place",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "60e0a8744a": {
    "text": "Signature North Georgia mountain native — the Cohutta and Smokies range is centered on this species.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].rationale`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "9dc785661e": {
    "text": "sphaerocarpa is a south-central species, not a Blue Ridge native.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `curationNotes`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "800d4ad9ab": {
    "text": "Tallamy-defined keystone genera for Blue Ridge ecoregion — species that support disproportionate caterpillar / Lepidoptera diversity (oaks 400+, cherries 450+, willows 380+).",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `_meta.categories.keystone`. Ecoregion-scoped by construction",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "ff0d1cfdbc": {
    "text": "The 25-year historical normal the rainfall percentile chips compare against — regional, not the property gauge.",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "`viewer.template.html:9125`. \"the property gauge\" → the on-site gauge; the row should also only render where the estate declares a gauge",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "b3f592f076": {
    "text": "The American chestnut was a dominant canopy tree across the southern Appalachians until the chestnut blight, introduced from Asia in 1904, killed virtually all mature trees by 1950.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "**No canon behind it** — hardcoded callout body, `viewer.template.html:6669`. Regionally true anywhere, but it is the **body of the chestnut callout** whose heading (`41ef349fc8`) is the false claim. Classed instance-prose deliberately so the ratchet keeps counting it: neutral-classing it would let the condo render southern-Appalachian chestnut history under a clean check",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "90136ced35": {
    "text": "The cloud copy is the source of truth, so nothing here is lost.",
-   "class": "unclassified",
-   "note": "",
+   "class": "engine-neutral",
+   "note": "\"here\" = this phone. Sync-maintenance help text",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "b15e031271": {
    "text": "The first observation goes here.",
-   "class": "unclassified",
-   "note": "",
+   "class": "engine-neutral",
+   "note": "Empty state; \"here\" = this list",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "d1d56fd311": {
    "text": "The grass already running the fairway, listed here for the choice that matters when overseeding: a quality turf-type blend, not old pasture-grade “Kentucky 31.” UGA's standard cool-season lawn grass for the North Georgia mountains.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[tall-fescue].notes`. \"the fairway\" and \"the North Georgia mountains\" are both Fernwood claims",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "db24a895a0": {
    "text": "The live measured readings, the indoor sensors, and the on-property rain-gauge totals.",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "Weather source legend",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "9660e008ce": {
    "text": "The pond and spring drainage could host it if the trial winner is the priority.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "ad4a2e083d": {
    "text": "The systems the house runs on — what each one is, the rhythms that keep it happy, and which breaker feeds it.",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "House-systems module blurb, `viewer.template.html:14328`. Keeps its job everywhere once \"the house\" goes",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "41ef349fc8": {
    "text": "This forest was once chestnut canopy",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "**No canon behind it** — hardcoded heading, `viewer.template.html:6667`. ⭐ Paul's own named example. Needs a canon home first (see recommendation below)",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "ccff0e2ba2": {
    "text": "This slope was once chestnut canopy.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[american-chestnut].rationale`. The data twin of the row above",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "c95d46fefe": {
    "text": "verticillata 'Zagreb') was also a top performer in the same trial — and a better fit for dry sunny spots than for the pond's edge.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `candidates[].notes`. \"the pond's edge\"",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "68b119a817": {
    "text": "What you set down here is what the Almanac knows.",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "Capture-surface intro, `viewer.template.html:19272`. `VOCABULARY.md` §4 — *\"Almanac\" is not a portable noun*: a genre promise earned by 178 month-keyed season notes, false at a gardenless condo. Render the estate's name through the existing `data-site=\"estateName\"` door",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "ef5477c768": {
    "text": "What's in the garage and shed — and what each one needs",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "Machines summary, `viewer.template.html:14002`. A condo has no shed. If Paul wants \"garage and shed\" kept at Fernwood, it becomes a per-estate string rather than engine copy",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "687a807b67": {
    "text": "Year-round evergreen native fern — confirmed in GNPS Blue Ridge Low-to-Mid Oak Forest list.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "renders canon: `candidates.json` → `curationNotes`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "d0fe3682cf": {
    "text": "Your property's dark skies reveal Orion brilliantly as a backdrop.",
-   "class": "unclassified",
-   "note": "",
+   "class": "instance-prose",
+   "note": "**No canon behind it** — hardcoded meteor-shower `tip`, `viewer.template.html:7153`. The Orionid facts around it stay engine; this sentence is the dark-sky claim",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "5809e4ac60": {
    "text": "· last light here 8:05 PM",
-   "class": "unclassified",
-   "note": "",
+   "class": "engine-neutral",
+   "note": "\"here\" = wherever you are; the time is computed from the instance's own coordinates. ⚠️ Neutral **only** while sunset derives from instance coords, never a typed value",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "17f7ddaf43": {
    "text": "— the Ambient Weather station on the property.",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "Weather source legend, `viewer.template.html:9124`. Also gate the row on the estate declaring a station — at the condo there is none",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "4b0a0f7309": {
    "text": "— the third-party forecast model, pulled in from off the property.",
-   "class": "unclassified",
-   "note": "",
+   "class": "reword",
+   "note": "Weather source legend, `viewer.template.html:9124`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true
+   "rendersAtCondo": true,
+   "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   }
  }
 }
