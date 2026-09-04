@@ -32,6 +32,9 @@ ESTATE_ID = "est-3c9f1a"
 LEGACY_BEFORE = "2026-09-04"
 # C5 7c: the Ambient Weather station this estate reads — instance data, not engine code.
 AMBIENT_MAC = "D8:F1:5B:15:28:B8"
+# C6 3c: hostnames a presented grant may arrive from (the Origin header). Only already-public hosts here; a
+# family's own hostname is set as a var from the private sibling at deploy, never in this tracked file.
+FAMILY_HOSTS = "palekxk.github.io"
 
 # QA: its own KV namespace (nothing here can reach `feedback:<date>` in prod), its
 # own SHARED_TOKEN, no GITHUB_* / OPENAI_* (promote-species → 503 by design).
@@ -47,6 +50,7 @@ AMBIENT_MAC = "D8:F1:5B:15:28:B8"
 # Guru 3b: the QA Worker refuses /api/chat once today's billed tokens pass this (prod has NO ceiling).
 # Paul sets the number (Q1); this is a placeholder low enough to stop a runaway harness.
 CHAT_DAILY_CEILING = "150000"
+FAMILY_HOSTS = "fernwood-qa.pages.dev"
 [[env.qa.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "a0cf82b615c648ff972961c46ce42661"

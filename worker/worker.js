@@ -248,6 +248,47 @@ async function doorRateLimitOk(request, env) {
 // ⛔ No estate field is READ — one sent is ignored (seat §4); the estate is the binding's.
 // The Worker stamps env · receivedAt · personId:null (C5 1a); a person is attributed ONLY from a
 // valid grant header on door_opened — 3b lands that; until then every row is personId:null.
+async function storeDoorRecord(env, record) {
+  const key = dateKey(env, "door", (record.receivedAt || new Date().toISOString()).slice(0, 10));
+  const existing = await env.OBSERVATIONS.get(key);
+  let arr = [];
+  if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
+  arr.push(record);
+  await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+  return arr.length;
+}
+
+// ---- C6 3b/3c · the GRANT (2026-09-03, under the privacy seat's four conditions) ----
+// A grant is presented in `X-Grant` (never X-Tate-Token — seat discipline 2), hashed, and looked
+// up as ONE KV row `<estate>:grant:<sha256(presented)>`: {personId, estateId, relationship,
+// capability, entry, vault, issuedAt}. No `exp`, no TTL, no clock compared (ux F2). The estate
+// on the row MUST equal this deploy's binding (seat finding 1 — two estates in one request is the
+// failure): a row for another estate is treated as no grant. Nothing on the path, query or body
+// is ever read as an estate (C5 6a's rule, still grep-checked).
+const GRANT_HEADER = "X-Grant";
+async function grantFor(request, env) {
+  const presented = request.headers.get(GRANT_HEADER);
+  if (!presented || presented.length > 256) return null;
+  const raw = await env.OBSERVATIONS.get(keyFor(env, "grant", await sha256Hex(presented)));
+  if (!raw) return null;
+  let row;
+  try { row = JSON.parse(raw); } catch (e) { return null; }
+  if (!row || row.estateId !== env.ESTATE_ID || row.revokedAt) return null;
+  return row;
+}
+// The credential decides; the hostname must AGREE. Under P1 the page is served by Pages, so the
+// claim is the request's Origin; a request with no Origin (curl, tools) makes no claim and agrees
+// vacuously (the seat confirmed this — it is a routing check, not access control). FAMILY_HOSTS
+// is a per-env var; the tracked toml carries only hostnames that are already public.
+function hostAgrees(request, env) {
+  const origin = request.headers.get("Origin");
+  if (!origin) return true;
+  let host;
+  try { host = new URL(origin).hostname; } catch (e) { return false; }
+  const allowed = String(env.FAMILY_HOSTS || "").split(",").map(h => h.trim()).filter(Boolean);
+  return allowed.includes(host);
+}
+
 async function handleDoor(request, env, url) {
   if (request.method === "POST") {
     let body;
@@ -265,14 +306,8 @@ async function handleDoor(request, env, url) {
       env: env.ENV_NAME || "unset",
       receivedAt: nowIso,
     });
-    const today = nowIso.slice(0, 10);
-    const key = dateKey(env, "door", today);
-    const existing = await env.OBSERVATIONS.get(key);
-    let arr = [];
-    if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
-    arr.push(record);
-    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
-    return json({ stored: 1, id: record.id, total_today: arr.length });
+    const total = await storeDoorRecord(env, record);
+    return json({ stored: 1, id: record.id, total_today: total });
   }
   if (request.method === "GET") {
     const start = url.searchParams.get("start"), end = url.searchParams.get("end");
@@ -2474,7 +2509,7 @@ async function handleFeedback(request, env, url) {
 // ---- Router ----
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (request.method === "OPTIONS") {
@@ -2499,7 +2534,7 @@ export default {
           let used = 0; try { used = parseInt((await env.OBSERVATIONS.get(dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)))) || "0", 10) || 0; } catch (e) { /* unreadable → 0 shown as unknown below */ }
           return { used, ceiling: parseInt(env.CHAT_DAILY_CEILING, 10), date: new Date().toISOString().slice(0, 10) };
         })() } : {}),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/grant/whoami", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -2541,6 +2576,30 @@ export default {
       if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
       return handleZoneAudio(request, env, url);
     }
+
+    // ---- C6 3b/3c · a presented grant is checked HERE — after preflight and the credential-free
+    // capture POSTs (seat finding 15), before anything a grant could unlock. Unknown grant, another
+    // estate's grant, or a hostname that disagrees → the router's own 404, byte-identical (a 403
+    // would confirm the door exists), and a server-side door_failed lands in `door:` via waitUntil so
+    // the response time does not carry the reason (the seat's timing oracle). ----
+    if (request.headers.get(GRANT_HEADER)) {
+      const grant = await grantFor(request, env);
+      if (!grant || !hostAgrees(request, env)) {
+        const reason = !grant ? "unknown-or-other-estate" : "host-mismatch";
+        const rec = declarePerson({ id: "door-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
+          ts: new Date().toISOString(), event: "door_failed", door: url.pathname.startsWith("/api/vault") ? "vault" : "entry",
+          deviceId: null, env: env.ENV_NAME || "unset", receivedAt: new Date().toISOString(), reason, serverSide: true });
+        const p = storeDoorRecord(env, rec).catch(() => {});
+        if (ctx && ctx.waitUntil) ctx.waitUntil(p); else await p;
+        return json({ error: "not-found", path: url.pathname }, 404);
+      }
+      // the one read a grant unlocks TODAY: what the credential itself is. 6a widens this.
+      if (url.pathname === "/api/grant/whoami") {
+        return json({ personId: grant.personId, estateId: grant.estateId, capability: grant.capability,
+                      relationship: grant.relationship || [], entry: !!grant.entry, vault: !!grant.vault });
+      }
+    }
+    if (url.pathname === "/api/grant/whoami") return json({ error: "not-found", path: url.pathname }, 404);   // no grant presented → the same 404
 
     // ---- READ-ONLY WEATHER, DELIBERATELY UNGATED (2026-08-02) ----
     // The station call it replaces was a DIRECT browser fetch, so it worked on
