@@ -66,15 +66,20 @@ def live():
         rows = json.loads(sh("claude", "agents", "--json") or "[]")
     except Exception:
         return []
-    return [r for r in rows
-            if r.get("kind") == "interactive" and r.get("cwd", "").endswith("Tate-Tracker")]
+    here = [r for r in rows if r.get("kind") == "interactive"
+            and os.path.abspath(r.get("cwd", "")) == REPO]
+    # A lane whose OWNS are in another repo runs with a different cwd and is invisible
+    # above. The WRITES panel already says so; the LIVE panel used to imply completeness.
+    other = [r for r in rows if r.get("kind") == "interactive"
+             and os.path.abspath(r.get("cwd", "")) != REPO]
+    return here, other
 
 def main():
     O = owns()
     print(f"── LANE WATCH · {time.strftime('%-I:%M %p')} · base {BASE}\n")
 
-    sessions = live()
-    print(f"LIVE ({len(sessions)} interactive session(s) in this repo)")
+    sessions, elsewhere = live()
+    print(f"LIVE ({len(sessions)} interactive session(s) with cwd = this repo)")
     if not sessions:
         print("  ⚠ none — every lane has exited. A lane that exited before reporting its gate")
         print("    is indistinguishable from one that finished; check the commits below.")
@@ -102,7 +107,18 @@ def main():
     open_lanes = [l for l, v in S.items() if not v.startswith("CLOSED") and v != "UNDECLARED"]
     if open_lanes and len(sessions) < len(open_lanes):
         print(f"  ⚠ {len(open_lanes)} lane(s) declared OPEN but only {len(sessions)} live session(s) —")
-        print("    one is VANISHED, not closed. Check before assuming it finished.")
+        print("    at least one is VANISHED, not closed. Check before assuming it finished.")
+    elif open_lanes:
+        print(f"  · {len(open_lanes)} open, {len(sessions)} live — ⚠ COUNTS MATCH, WHICH IS NOT A PAIRING.")
+        print("    ⛔ This compares NUMBERS, not identities: a lane that died while an unrelated")
+        print("       session opened in this repo balances the count and reads exactly like health.")
+        print("       Nothing here binds a session to a lane — that needs a slug exported at spawn.")
+        print("       Read the names above against the open lanes yourself.")
+    if elsewhere:
+        print(f"  · {len(elsewhere)} interactive session(s) in OTHER repos — not judged here:")
+        for r in elsewhere[:4]:
+            print(f"      {r.get('name','?'):<24} {os.path.basename(r.get('cwd',''))}")
+        print("    A lane whose OWNS are in another repo (lane A was) runs with a different cwd.")
 
     files = [f for f in sh("git", "log", f"{BASE}..HEAD", "--name-only",
                            "--pretty=format:").split("\n") if f.strip()]
