@@ -3,14 +3,13 @@
     "purpose": "Guru 6a \u2014 the prose library index, as built; `build-library-index.py --check` fails when this would change",
     "chunk": 900
   },
-  "estate": "est-qa0001",
+  "estate": "est-3c9f1a",
   "sources": {
     "references.json": "b90c81dfca4afed8",
     "research-resources.md": "6149e433243e2d50",
     "manuals/text/bronco-1989-audio-din-install.txt": "b037adffc6880b3c",
     "manuals/text/bronco-1989-audio-motor2b.txt": "798f571b436356a3",
     "manuals/text/bronco-1989-audio-speakers.txt": "7a5da7c91c419d89",
-    "manuals/text/bronco-1989-lmc-catalog-fd88.txt": "527b301e6d9ef41d",
     "manuals/text/bronco-1989.txt": "37e631bc05479e28",
     "manuals/text/chainsaw-cs352-parts.txt": "03d1188eb9ce4335",
     "manuals/text/chainsaw-cs352.txt": "4954c3c180641f75",
@@ -33,15 +32,15 @@
     "manuals/text/kobalt-km2040x-06.txt": "36456383d3d42689",
     "manuals/text/tiguan-2018.txt": "736e363cbefb4aac"
   },
-  "chunks": 7330,
-  "vocab": 23440,
-  "shards": 783,
-  "avgdl": 69.156,
-  "indexSha": "6e42952b3dac7acf76822d22943d4b1951b513bdd7ee702d32913cbe18ad5293",
+  "chunks": 5777,
+  "vocab": 19726,
+  "shards": 731,
+  "avgdl": 75.929,
+  "indexSha": "205422c6269342c02f46d9505d2a9207e50dee747abaa9e8a3fe11ce3a395125",
   "bytes": {
-    "chunks": 6606157,
-    "shards": 6878372,
-    "stats": 132762
+    "chunks": 5017217,
+    "shards": 5965324,
+    "stats": 104892
   },
   "loaded": {
     "qa": {

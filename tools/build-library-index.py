@@ -38,6 +38,17 @@ def chunk_text(text, n=CHUNK):
     if cur: out.append(cur)
     return out
 
+def _ignored(root, path):
+    """True when git ignores `path` — such a file never reaches CI's tracked-only export (git archive), so it
+    must never reach the index either (2026-09-04: the local-only LMC catalog put 1,553 chunks in the manifest
+    that CI could not see, and Deploy QA went red on every run). Outside a repo git answers 128 → not ignored."""
+    r = subprocess.run(["git", "-C", root, "check-ignore", "-q", "--", path], capture_output=True)
+    return r.returncode == 0
+
+def source_files(root, pat):
+    """The files a pattern names, in sorted order, minus anything git ignores."""
+    return [f for f in sorted(glob.glob(os.path.join(root, pat))) if not _ignored(root, os.path.relpath(f, root))]
+
 def documents(root=ROOT):
     """→ [(source, span, text)] in a deterministic order."""
     docs = []
@@ -53,7 +64,7 @@ def documents(root=ROOT):
     p = os.path.join(root, "research-resources.md")
     if os.path.exists(p):
         for i, c in enumerate(chunk_text(open(p, encoding="utf-8").read())): docs.append(("research-resources.md", "chunk %d" % i, c))
-    for f in sorted(glob.glob(os.path.join(root, "manuals", "text", "*.txt"))):
+    for f in source_files(root, "manuals/text/*.txt"):
         rel = os.path.relpath(f, root)
         for i, c in enumerate(chunk_text(open(f, encoding="utf-8", errors="replace").read())): docs.append((rel, "chunk %d" % i, c))
     return docs
@@ -77,7 +88,7 @@ def build(root=ROOT, estate="est-3c9f1a"):
     index_sha = sha(("".join(r["value"] for r in shard_rows) + stats["value"]).encode())
     src_shas = {}
     for pat in SOURCES:
-        for f in sorted(glob.glob(os.path.join(root, pat))):
+        for f in source_files(root, pat):
             src_shas[os.path.relpath(f, root)] = sha(open(f, "rb").read())[:16]
     manifest = {"_meta": {"purpose": "Guru 6a — the prose library index, as built; `build-library-index.py --check` fails when this would change", "chunk": CHUNK},
                 "estate": estate, "sources": src_shas, "chunks": N, "vocab": sum(len(s) for s in shards.values()), "shards": len(shard_rows),
@@ -121,6 +132,10 @@ def check():
     same = all(old.get(k) == new.get(k) for k in ("sources", "chunks", "vocab", "shards", "indexSha"))
     if same:
         print("✅ library index is fresh: %d chunks · %d terms · %d shards · sha %s… · loaded: %s" % (new["chunks"], new["vocab"], new["shards"], new["indexSha"][:10], ", ".join("%s@%s" % (e, v["at"][:10]) for e, v in (old.get("loaded") or {}).items()) or "NOWHERE"))
+        # A fresh manifest with a stale KV is the case the docstring warns of — say so, per env, instead of leaving it to a reader.
+        for e, v in (old.get("loaded") or {}).items():
+            if v.get("indexSha") != new["indexSha"]:
+                print("   ⚠️  %s KV holds sha %s… (loaded %s) — NOT this manifest; the Guru there answers from the old index until `--load --env %s` (≈%d KV writes; the daily write cap is account-wide)" % (e, str(v.get("indexSha"))[:10], v.get("at", "?")[:10], e, new["chunks"] + new["shards"] + 1))
         return 0
     print("🔴 library index DRIFTED — sources changed since the manifest (chunks %s→%s, sha %s…→%s…). Rebuild + --load, then commit the manifest." % (old.get("chunks"), new["chunks"], str(old.get("indexSha"))[:8], new["indexSha"][:8])); return 1
 
@@ -143,6 +158,11 @@ def selftest():
         open(os.path.join(d, "manuals", "text", "mower.txt"), "a").write("\n\nSpark plug gap 0.030 in.\n")
         c = build(d, "est-t")
         chk("a source change → a different sha and source hash (the --check shape)", c[3]["indexSha"] != a[3]["indexSha"] and c[3]["sources"]["manuals/text/mower.txt"] != a[3]["sources"]["manuals/text/mower.txt"])
+        subprocess.run(["git", "-C", d, "init", "-q"], check=True)
+        open(os.path.join(d, ".gitignore"), "w").write("manuals/text/catalog.txt\n")
+        open(os.path.join(d, "manuals", "text", "catalog.txt"), "w").write("Part 1234 lists at $19.95. " * 40 + "\n")
+        e = build(d, "est-t")
+        chk("a gitignored source is skipped (what CI's tracked-only export sees)", e[3]["indexSha"] == c[3]["indexSha"] and "manuals/text/catalog.txt" not in e[3]["sources"])
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed.")); return 0 if ok else 1
 
 if __name__ == "__main__":
