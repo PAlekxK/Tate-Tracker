@@ -234,6 +234,24 @@ complete`; `qa-write-probe.py` DOOR leg → `2xx · GET 401 · 413 · 429 with f
 
 ## Open before stamping
 
+> 🔒 **PRIVACY SEAT RAN 2026-09-03 (an agent — Q4 answered: an agent, because four of its fifteen findings existed only
+> because something was executed or fetched). Trail: `.engineering/2026-09-03-c6-privacy-seat-review.md`.** **Verdict:
+> step 3 OPENS on four conditions** — ① `grantFor` ASSERTS `grant.estateId === env.ESTATE_ID` and 404s otherwise (never
+> thread a row-derived estate into `keyFor` beside the binding — two estates in one request); ② QA gets its own estate id
+> — **done tonight: `est-qa0001`**; ③ the mismatch 404 is byte-identical to the router's real 404; ④ `X-Grant` is the
+> header and it is in `Access-Control-Allow-Headers` — **done tonight**. **Q5 answered: NO word — the presented credential
+> is an opaque minted token for every grant, hers included** (`grant:<sha256(presented)>` uses the hash as the KEY, so no
+> per-row salt is possible; a word's only defence would be entropy it does not have). A device-local unlock over the stored
+> token is the named successor if Paul still wants a word. **Also fixed tonight from the review:** feedback fields bounded
+> and the body measured (finding 12 — Content-Length is advisory; every POST rewrites a day's key); `personSource` on the
+> resolver's attributions (finding 10). **For Paul:** the station MAC sits in the public `wrangler.toml` (a device id,
+> ruled private) — moving it to a Worker secret means a short ambient outage between the var's removal and the secret's
+> landing, so it is his call and his `/secrets` (finding 3); `fernwood-qa.pages.dev` answers anonymously — the C4 delta's
+> "Access-gated" claim is wrong; Cloudflare Access on QA is a decision (finding 13). **Design notes carried into 3c/4b/6a:**
+> the host check is routing not access control (4); `X-Tate-Token` is set in 7 client places, not one (14); the host check
+> sits AFTER preflight and the credential-free capture POSTs (15); 6a's grant unlocks reads + metrics + vault only, branching
+> on `capability` never `relationship` (8); the host-mismatch record write goes through `ctx.waitUntil` (timing oracle).
+
 > **✅ STAMPED 2026-09-03 `[paul-approved]` — Q1 ruled DIFFERENTLY from the recommendation; Q2 · Q6 on the
 > recommendations as written** (Paul opened with *"Yeah"* and then re-ruled only Q1 — read as acceptance of the other
 > two; a one-word reversal re-opens either).

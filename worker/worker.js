@@ -106,7 +106,7 @@ const OBS_KEY = "observations";
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, X-Tate-Token",
+  "Access-Control-Allow-Headers": "Content-Type, X-Tate-Token, X-Grant",
   "Access-Control-Max-Age": "86400",
 };
 
@@ -2391,7 +2391,11 @@ async function handleConversations(request, env, url) {
 async function handleFeedback(request, env, url) {
   if (request.method === "POST") {
     let body;
-    try { body = await request.json(); }
+    // Privacy seat 2026-09-03 (finding 12): Content-Length is advisory — measure the body we actually read.
+    const rawText = await request.text();
+    if (rawText.length > FEEDBACK_MAX_BYTES) return json({ error: "too-large" }, 413);
+    let body;
+    try { body = JSON.parse(rawText); }
     catch (e) { return json({ error: "bad-json" }, 400); }
     if (!body || typeof body !== "object") return json({ error: "bad-body" }, 400);
     // A record must carry at least one signal: a reaction sentiment OR a note.
@@ -2405,11 +2409,13 @@ async function handleFeedback(request, env, url) {
       return json({ error: "need-sentiment-or-note" }, 400);
     }
     const record = declarePerson({
-      id: body.id || ("fb-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36)),
-      ts: body.ts || new Date().toISOString(),
-      sessionId: body.sessionId || null,
-      deviceId: body.deviceId || null,
-      context: body.context && typeof body.context === "object" ? body.context : { type: "general" },
+      // every client-supplied field is BOUNDED (privacy seat finding 12): a day's key is rewritten whole on
+      // every POST, so an unbounded field is a denial-of-capture lever, not just clutter
+      id: (typeof body.id === "string" && body.id.length <= 80 ? body.id : null) || ("fb-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36)),
+      ts: (typeof body.ts === "string" && body.ts.length <= 40 ? body.ts : null) || new Date().toISOString(),
+      sessionId: typeof body.sessionId === "string" ? body.sessionId.slice(0, 80) : null,
+      deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
+      context: (body.context && typeof body.context === "object" && JSON.stringify(body.context).length <= 2048) ? body.context : { type: "general" },
       sentiment: hasSentiment ? body.sentiment : null,
       note,
       env: env.ENV_NAME || "unset",   // C4 3a (R2): which deployment wrote this row

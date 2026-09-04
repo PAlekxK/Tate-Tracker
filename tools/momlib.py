@@ -1262,7 +1262,9 @@ def _record_date(record):
 def attribute(record):
     """Resolve a stored record to a person, WITH the reason — the explainable form.
 
-    Returns ``{"personId": <id or None>, "reason": <str>}``.
+    Returns ``{"personId": <id or None>, "reason": <str>, "personSource": "device-inference" | None}`` —
+    `personSource` (privacy seat 2026-09-03, finding 10) says HOW the person was reached; a grant-backed
+    attribution (C6 3b) will carry "grant". Never confuse the two in a count.
 
     Rules, all from `tools/people.json` `_meta.attribution` (data, not prose):
       · no deviceId on the record          → None ("no device on the record")
@@ -1300,8 +1302,8 @@ def attribute(record):
         note = ""
         if dev in (hit.get("assumedNotVerified") or {}):
             note = " (device mapping is an ASSUMPTION Paul accepted, not established from content)"
-        return {"personId": hit.get("id"), "reason": "device registered to %s; dated %s ≥ %s%s"
-                % (hit.get("name"), day, valid_from, note)}
+        return {"personId": hit.get("id"), "personSource": "device-inference",
+                "reason": "device registered to %s; dated %s ≥ %s%s" % (hit.get("name"), day, valid_from, note)}
     if window.get("from") and window["from"] <= day <= (window.get("to") or valid_from):
         return {"personId": att.get("caveatResolvesTo"),
                 "reason": "dated %s, inside the caveat window %s → %s (a session on this device could "
