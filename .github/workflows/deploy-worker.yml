@@ -44,6 +44,11 @@ on:
       - "property.json"
       - "vehicles.json"
       - ".github/workflows/deploy-worker.yml"
+      - "weeds.json"
+      - "insects.json"
+      - "zones.json"
+      - "turf.json"
+      # Guru 1d (2026-09-03): the four digest sources the list forgot — an edit here silently never redeployed
   # Manual runs from the Actions tab (redeploy on demand)
   workflow_dispatch:
 

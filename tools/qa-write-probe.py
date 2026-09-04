@@ -246,6 +246,44 @@ def live():
                         nonce not in (legacy_val or ""), "legacyBefore=%s" % health.get("legacyBefore"))
         all_ok &= check("C5 6a  /health reports estateId + legacyBefore", bool(est) and bool(health.get("legacyBefore")))
 
+    # 3c. C6 2a — the DOOR route on QA: write-only no token · GET needs the token · 1.1 KB → 413 ·
+    #     the 21st in 5 min → 429 while a feedback POST from the same IP still lands (separate
+    #     bucket, positive control) · read-back carries env:"qa", personId:null, no estate echoed.
+    door_ok = True
+    def door_post(payload_bytes, token=None):
+        req = urllib.request.Request(QA_URL + "/api/door", data=payload_bytes, method="POST",
+                                     headers={"Content-Type": "application/json", "User-Agent": "qa-write-probe",
+                                              **({"X-Tate-Token": token} if token else {})})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp: return resp.status, json.load(resp)
+        except urllib.error.HTTPError as e: return e.code, None
+    door_nonce = secrets.token_hex(6)
+    base_evt = {"event": "door_reached", "door": "entry", "deviceId": HARNESS_ID, "ts": payload["ts"], "estate": "SHOULD-BE-IGNORED-" + door_nonce}
+    st, body_d = door_post(json.dumps(base_evt).encode())
+    door_ok &= check("C6 2a  DOOR  no-token POST /api/door → 2xx", 200 <= st < 300, st)
+    st_get = None
+    try:
+        urllib.request.urlopen(urllib.request.Request(QA_URL + "/api/door?start=%s&end=%s" % (start, end), headers={"User-Agent": "qa-write-probe"}), timeout=30)
+    except urllib.error.HTTPError as e: st_get = e.code
+    door_ok &= check("C6 2a  DOOR  GET without a token → 401", st_get == 401, st_get)
+    st_big, _ = door_post(json.dumps({**base_evt, "pad": "x" * 1100}).encode())
+    door_ok &= check("C6 2a  DOOR  a 1.1 KB body → 413", st_big == 413, st_big)
+    st_bad, _ = door_post(json.dumps({**base_evt, "event": "door_kicked"}).encode())
+    door_ok &= check("C6 2a  DOOR  an unknown event → 400", st_bad == 400, st_bad)
+    codes = [door_post(json.dumps(base_evt).encode())[0] for _ in range(21)]
+    door_ok &= check("C6 2a  DOOR  the door's own bucket fills to 429 within 5 min", 429 in codes, codes[-3:])
+    fb_after = post_feedback(QA_URL, qa_tok, {**payload, "id": payload["id"] + "-after-door-storm", "note": payload["note"] + " (after door storm)"})
+    door_ok &= check("C6 2a  DOOR  …while a feedback POST from the same IP STILL lands (separate bucket)", fb_after.get("stored") == 1, fb_after)
+    try:
+        d = json.load(urllib.request.urlopen(urllib.request.Request(QA_URL + "/api/door?start=%s&end=%s" % (start, end), headers={"X-Tate-Token": qa_tok, "User-Agent": "qa-write-probe"}), timeout=30))
+        rows = [r for day in d.get("days", {}).values() for r in day]
+        mine = [r for r in rows if r.get("deviceId") == HARNESS_ID]
+        door_ok &= check("C6 2a  DOOR  read-back (QA token) carries env:qa · personId:null · NO estate field echoed",
+                         bool(mine) and all(r.get("env") == "qa" and "personId" in r and r["personId"] is None and "estate" not in r for r in mine), len(mine))
+    except Exception as e:  # noqa: BLE001
+        door_ok &= check("C6 2a  DOOR  read-back", False, str(e))
+    all_ok &= door_ok
+
     # 4. negative controls
     prod_rows = read_feedback(PROD_URL, prod_tok, start, end)
     all_ok &= check("NEGATIVE  the nonce is ABSENT from prod (prod token)",

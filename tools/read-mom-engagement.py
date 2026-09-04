@@ -156,13 +156,63 @@ def last_lap():
 
 
 def her_devices():
-    """Device ids people.json maps to Mom. A bucket, never a claim about a person."""
-    try:
-        with open(PEOPLE, encoding="utf-8") as f:
-            people = json.load(f).get("people") or []
-    except (OSError, ValueError):
-        return []
+    """Device ids the register maps to Mom. A bucket, never a claim about a person.
+    C5 8a (2026-09-03): the ids live in the PRIVATE register; momlib merges them. Without
+    the sibling this returns [] and the report says UNMAPPED, never a quiet zero."""
+    people = momlib._people()[0]
     return [d for p in people if p.get("name") == "mom" for d in (p.get("deviceIds") or [])]
+
+
+# ── C6 2c · the door line ─────────────────────────────────────────────────────
+def door_line(sessions, door_events, binding, route_exists=True):
+    """One line about the door, PURE — the selftest drives it.
+    sessions: her metrics sessions since the lap · door_events: her door records since the lap
+    (None when the route could not be read) · binding: the date her device was bound, from the
+    private grants.json (None = unbound) · route_exists False before /api/door exists → `?`, never 0."""
+    if not route_exists or door_events is None:
+        return "DOOR  ? — /api/door not readable (before the route exists this is UNMEASURED, not 0)"
+    if binding is None:
+        return "DOOR  unbound — no grant binds her device yet; %d door event(s) is a baseline, not a signal" % len(door_events)
+    if sessions and not door_events:
+        return "DOOR  UNREACHED · %d session(s) · 0 door events — go look" % len(sessions)
+    n = lambda k: len([e for e in door_events if e.get("event") == k])
+    return "DOOR  %d reached · %d opened · %d failed across %d session(s) since binding %s" % (n("door_reached"), n("door_opened"), n("door_failed"), len(sessions), binding)
+
+
+def her_binding():
+    """Binding date from the PRIVATE grants.json (`boundAt` lands with C6 4a); None until then."""
+    try:
+        with open(os.path.join(momlib.PRIVATE_SIBLING, "grants.json"), encoding="utf-8") as f:
+            for g in json.load(f).get("grants") or []:
+                if str(g.get("_handles", "")).startswith("mom") and g.get("boundAt"):
+                    return g["boundAt"]
+    except (OSError, ValueError):
+        pass
+    return None
+
+
+def her_door_events(token, start, end, hers):
+    """Door records on her devices in the window, or None when the route is unreadable (404 before it exists)."""
+    try:
+        data = momlib._get("/api/door", token, {"start": start, "end": end})
+    except Exception:  # noqa: BLE001
+        return None
+    hs = set(hers)
+    return [e for day in (data.get("days") or {}).values() for e in day if e.get("deviceId") in hs]
+
+
+def door_selftest():
+    ok = True
+    def check(name, cond):
+        nonlocal ok; ok &= bool(cond); print("  %s %s" % ("✅" if cond else "🔴", name))
+    print("door-line selftest (C6 2c)")
+    check("bound device · 3 sessions · 0 door events → UNREACHED · go look",
+          door_line([{}, {}, {}], [], "2026-09-10").startswith("DOOR  UNREACHED · 3 session(s) · 0 door events"))
+    check("unbound device → unbound", door_line([{}], [], None).startswith("DOOR  unbound"))
+    check("a window before the route → ? (never 0)", door_line([{}], None, "2026-09-10").startswith("DOOR  ?"))
+    check("bound + events → counts", "1 reached · 1 opened · 0 failed" in door_line([{}], [{"event": "door_reached"}, {"event": "door_opened"}], "2026-09-10"))
+    print("%s" % ("✅ door line holds." if ok else "🔴 a control failed."))
+    return 0 if ok else 1
 
 
 def collect(data, hers, window_start, window_start_ts=None):
@@ -254,7 +304,9 @@ def build(window_start, hers, token, window_start_ts=None):
     # inside it are unmeasured, not behavioural.
     unreadable = sorted(t for t, ts in first_seen.items() if ts[:10] >= window_start)
 
+    door = door_line(sessions_of(mine) if "sessions_of" in globals() else [], her_door_events(token, lookback_d.isoformat(), end_d.isoformat(), hers), her_binding())
     return {
+        "hers": list(hers), "door_line": door,
         "window_start": window_start,
         "window_start_ts": window_start_ts,
         "sessions": sessions_of(mine),
@@ -279,6 +331,10 @@ def report(r, lap):
     print(f"   her device per tools/people.json — a browser bucket, not a person.\n"
           f"   {r['other_device_events']} event(s) from every other device are not counted here.\n")
 
+    if not r.get("hers"):
+        print("  ⚠️  UNMAPPED — no device is mapped to Mom (is the private device register present?) — every count below is about NOBODY.\n")
+    if r.get("door_line"):
+        print("  " + r["door_line"] + "\n")
     print(f"  SESSIONS — an app open (there is no login)")
     print(f"    {n_s} session(s) across {n_d} active day(s)")
     for ts, dur in r["sessions"]:
@@ -346,7 +402,10 @@ def main():
     ap.add_argument("--since", help="YYYY-MM-DD; overrides the lap boundary")
     ap.add_argument("--pickup", action="store_true", help="one line, for the session-start block")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--selftest", action="store_true", help="C6 2c door line, no network")
     a = ap.parse_args()
+    if a.selftest:
+        return door_selftest()
 
     lap = last_lap()
     window_start = a.since or (lap[1] if lap else

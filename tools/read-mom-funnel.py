@@ -51,6 +51,17 @@ import os
 import subprocess
 import sys
 
+
+def _register_people():
+    """The people register WITH device ids — merged by momlib from the private sibling
+    (C5 8a, 2026-09-03). The public tools/people.json no longer carries ids; a direct read
+    would exclude nobody and map nobody, silently."""
+    import importlib.util, os as _os
+    spec = importlib.util.spec_from_file_location("momlib", _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "momlib.py"))
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+    return m._people()[0]
+
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
 
@@ -469,12 +480,11 @@ def main():
     if args.rotation:
         excluded = set()
         try:
-            with open(os.path.join(os.path.dirname(__file__), "people.json")) as fh:
-                for person in (json.load(fh).get("people") or []):
-                    if person.get("excludeFromEngagement"):
-                        excluded.update(person.get("deviceIds") or [])
-                        if person.get("deviceId"):
-                            excluded.add(person["deviceId"])
+            for person in _register_people():
+                if person.get("excludeFromEngagement"):
+                    excluded.update(person.get("deviceIds") or [])
+                    if person.get("deviceId"):
+                        excluded.add(person["deviceId"])
         except Exception as e:
             print(f"⛔ cannot read people.json ({e}) — refusing to report numbers that")
             print("   would silently include the builder's own devices.")
@@ -590,10 +600,9 @@ def main():
     # per browser is a flag that will be missed; the map is the durable place for this.
     excluded = set()
     try:
-        with open(os.path.join(os.path.dirname(__file__), "people.json")) as fh:
-            for person in (json.load(fh).get("people") or []):
-                if person.get("excludeFromEngagement"):
-                    excluded.update(person.get("deviceIds") or [])
+        for person in _register_people():
+            if person.get("excludeFromEngagement"):
+                excluded.update(person.get("deviceIds") or [])
     except Exception:
         excluded = set()   # absent/broken map -> exclude nothing, and say so below
     dropped = [t for t in events if t[1] in excluded]
@@ -606,9 +615,8 @@ def main():
     # tell which, so the tool NAMES it and lets Paul answer instead of quietly picking.
     known = set(excluded)
     try:
-        with open(os.path.join(os.path.dirname(__file__), "people.json")) as fh:
-            for person in (json.load(fh).get("people") or []):
-                known.update(person.get("deviceIds") or [])
+        for person in _register_people():
+            known.update(person.get("deviceIds") or [])
     except Exception:
         pass
     unmapped = sorted({t[1] for t in events if t[1] not in known and t[1] != "unknown"})

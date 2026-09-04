@@ -224,6 +224,74 @@ const FEEDBACK_MAX_BYTES = 8 * 1024;   // a note is capped at 2000 chars downstr
 const FEEDBACK_RATE_MAX = 20;          // per IP, per window
 const FEEDBACK_RATE_WINDOW_SEC = 300;  // 5 minutes
 
+// C6 2a (2026-09-03) — the DOOR's own rate bucket: a door storm must never 429 a note.
+const DOOR_MAX_BYTES = 1024;
+const DOOR_EVENTS = ["door_reached", "door_opened", "door_failed"];
+const DOORS = ["entry", "vault"];
+async function doorRateLimitOk(request, env) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
+  const key = keyFor(env, "ratelimit", "door", ip, bucket);
+  try {
+    const raw = await env.OBSERVATIONS.get(key);
+    const n = raw ? parseInt(raw, 10) || 0 : 0;
+    if (n >= FEEDBACK_RATE_MAX) return false;
+    await env.OBSERVATIONS.put(key, String(n + 1), { expirationTtl: FEEDBACK_RATE_WINDOW_SEC * 2 });
+    return true;
+  } catch (e) {
+    return true;
+  }
+}
+
+// C6 2a — door events: `{event, door, deviceId, ts}`. Write-only without a token (the locked-out
+// person is exactly who must be able to report door_failed); GET falls through to the gate.
+// ⛔ No estate field is READ — one sent is ignored (seat §4); the estate is the binding's.
+// The Worker stamps env · receivedAt · personId:null (C5 1a); a person is attributed ONLY from a
+// valid grant header on door_opened — 3b lands that; until then every row is personId:null.
+async function handleDoor(request, env, url) {
+  if (request.method === "POST") {
+    let body;
+    try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+    if (!body || typeof body !== "object") return json({ error: "bad-body" }, 400);
+    if (!DOOR_EVENTS.includes(body.event)) return json({ error: "bad-event", allowed: DOOR_EVENTS }, 400);
+    if (!DOORS.includes(body.door)) return json({ error: "bad-door", allowed: DOORS }, 400);
+    const nowIso = new Date().toISOString();
+    const record = declarePerson({
+      id: "door-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
+      ts: typeof body.ts === "string" ? body.ts.slice(0, 40) : nowIso,
+      event: body.event,
+      door: body.door,
+      deviceId: typeof body.deviceId === "string" ? body.deviceId.slice(0, 40) : null,
+      env: env.ENV_NAME || "unset",
+      receivedAt: nowIso,
+    });
+    const today = nowIso.slice(0, 10);
+    const key = dateKey(env, "door", today);
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = [];
+    if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
+    arr.push(record);
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+    return json({ stored: 1, id: record.id, total_today: arr.length });
+  }
+  if (request.method === "GET") {
+    const start = url.searchParams.get("start"), end = url.searchParams.get("end");
+    if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+    const startMs = Date.parse(start + "T00:00:00Z"), endMs = Date.parse(end + "T00:00:00Z");
+    if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) return json({ error: "bad-date-range" }, 400);
+    const dates = [];
+    for (let t = startMs; t <= endMs; t += 86400000) dates.push(new Date(t).toISOString().slice(0, 10));
+    if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
+    const days = {};
+    for (const date of dates) {
+      const raw = await env.OBSERVATIONS.get(dateKey(env, "door", date));
+      if (raw) { try { days[date] = JSON.parse(raw); } catch (e) { /* skip malformed */ } }
+    }
+    return json({ range: { start, end }, days });
+  }
+  return json({ error: "method-not-allowed" }, 405);
+}
+
 async function feedbackRateLimitOk(request, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
@@ -1273,7 +1341,7 @@ OUTPUT FORMAT
 - The JSON must parse with JSON.parse() directly.
 - If you're given a photo, use it to constrain the schema where it helps (e.g., observed coloration in 'appearance', species-specific habitat clues). If no photo, draft from species knowledge.`;
 
-async function logChatCost(env, conversationId, apiData) {
+async function logChatCost(env, conversationId, apiData, extra) {
   const date = new Date().toISOString().slice(0, 10);
   const key = dateKey(env, "cost-log", date);
   const usage = apiData.usage || {};
@@ -1288,6 +1356,7 @@ async function logChatCost(env, conversationId, apiData) {
       output_tokens: usage.output_tokens || 0,
     },
   };
+  if (extra && Number.isFinite(extra.latency_ms)) { entry.latency_ms = extra.latency_ms; entry.round_trips = extra.round_trips || 1; }   // Guru 1b
   const existing = await env.OBSERVATIONS.get(key);
   let arr = [];
   if (existing) {
@@ -1391,6 +1460,11 @@ async function handleChat(request, env) {
   // Unknown values collapse to `app` rather than 400 — a probe that mistypes its
   // own origin should be treated as real traffic (loud, visible, someone fixes it)
   // rather than silently excluded from the record it was meant to exercise.
+  // Guru 1a (2026-09-03): a NON-EMPTY origin outside the enum is a 400, not a silent "app" — a
+  // probe that misspells its origin must not be counted as her. Absent stays "app" (legacy records).
+  if (body && body.origin != null && body.origin !== "" && !CONVERSATION_ORIGINS.includes(body.origin)) {
+    return json({ error: "unknown-origin", allowed: CONVERSATION_ORIGINS }, 400);
+  }
   const reqOrigin = CONVERSATION_ORIGINS.includes(body && body.origin) ? body.origin : "app";
   // Structural only — a device bucket, never turn content. Bounded and shape-checked
   // at the boundary so a malformed client cannot write junk into the session record.
@@ -1451,6 +1525,13 @@ async function handleChat(request, env) {
   // The cache_control on the digest block is the big cost saver — within a 5-minute window
   // across turns or sessions, the ~57K-token digest is read at 10% of base rate.
   const liveStateText = "CURRENT STATE (today):\n" + JSON.stringify(liveState);
+  const chatSystem = [
+    { type: "text", text: GARDEN_GURU_SYSTEM, cache_control: { type: "ephemeral" } },
+    { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(propertyDigest), cache_control: { type: "ephemeral" } },
+    { type: "text", text: liveStateText },
+  ];
+  const chatMessages = turns.map(t => ({ role: t.role, content: t.content }));
+  const t0 = Date.now();   // Guru 1b — the server clock around the upstream call
   const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -1461,14 +1542,11 @@ async function handleChat(request, env) {
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 600,
-      system: [
-        { type: "text", text: GARDEN_GURU_SYSTEM, cache_control: { type: "ephemeral" } },
-        { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(propertyDigest), cache_control: { type: "ephemeral" } },
-        { type: "text", text: liveStateText },
-      ],
-      messages: turns.map(t => ({ role: t.role, content: t.content })),
+      system: chatSystem,
+      messages: chatMessages,
     }),
   });
+  const latencyMs = Date.now() - t0;
   if (!apiRes.ok) {
     const txt = await apiRes.text().catch(() => "");
     return json({ error: `anthropic HTTP ${apiRes.status}`, detail: txt.slice(0, 300) }, 502);
@@ -1480,16 +1558,29 @@ async function handleChat(request, env) {
   const updatedTurns = [...turns, { role: "assistant", content: reply, ts: new Date().toISOString() }];
   try { await persistConversation(env, conversationId, updatedTurns, reqOrigin, reqDeviceId); }
   catch (e) { console.warn("conversation persist failed:", e); }
-  try { await logChatCost(env, conversationId, apiData); }
+  try { await logChatCost(env, conversationId, apiData, { latency_ms: latencyMs, round_trips: 1 }); }
   catch (e) { console.warn("cost log failed:", e); }
 
-  return json({
+  const out = {
     reply,
     conversation_id: conversationId,
     usage: apiData.usage,
     model: apiData.model,
     fetchedAt: new Date().toISOString(),
-  });
+  };
+  // Guru 1c — a `debug` block for NON-app origins only: her response keeps exactly these five keys.
+  // prefix_sha is over the rendered prefix in API render order (tools → system → messages), computed
+  // here so a harness never re-parses the template literal.
+  if (reqOrigin !== "app") {
+    out.debug = { tool_calls: [], round_trips: 1, latency_ms: latencyMs,
+                  prefix_sha: await sha256Hex(JSON.stringify({ tools: [], system: chatSystem, messages: chatMessages })) };
+  }
+  return json(out);
+}
+
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 // ---- GitHub Contents API helpers (Phase F Option C) ----
@@ -2383,7 +2474,7 @@ export default {
         kv_canary: kvCanary,
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -2404,6 +2495,15 @@ export default {
       if (len > FEEDBACK_MAX_BYTES) return json({ error: "too-large" }, 413);
       if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
       return handleFeedback(request, env, url);
+    }
+
+    // C6 2a — door events, same write-only-no-token doctrine, its OWN bucket (a door
+    // storm never 429s a note). GET falls through to the token gate below.
+    if (url.pathname === "/api/door" && request.method === "POST" && !authOk(request, env)) {
+      const len = parseInt(request.headers.get("Content-Length") || "0", 10);
+      if (len > DOOR_MAX_BYTES) return json({ error: "too-large" }, 413);
+      if (!(await doorRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      return handleDoor(request, env, url);
     }
 
     // W3 zone audio — same write-only-no-token doctrine as /api/feedback, so Mom's
@@ -2443,6 +2543,7 @@ export default {
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
+    if (url.pathname === "/api/door")       return handleDoor(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
     if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);

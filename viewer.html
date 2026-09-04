@@ -7001,6 +7001,7 @@ const STORAGE_KEYS = Object.freeze({
   metricsExclude:      "tateTracker.metricsExclude",
   observations:        "tateTracker.observations.v1",
   feedbackOutbox:      "tateTracker.feedbackOutbox.v1",
+  doorOutbox:          "tateTracker.door.outbox.v1",        // C6 2b — door events buffered offline, flushed on the next in-range load
   ackSeen:             "tateTracker.ackSeen.v1",
   momQueueAnswered:    "tateTracker.momQueue.answered.v1",  // ⚠️ per-ESTATE state on a per-family origin (C4 2b hygiene)
   momQueueSnoozed:     "tateTracker.momQueue.snoozed.v1",
@@ -18317,6 +18318,34 @@ const WorkerAPI = (function () {
 // =========================
 // METRICS — engagement event capture (2026-05-20)
 // =========================
+// ── C6 2b · DoorEvents — the door reports itself, even when locked out ─────────────────
+// Posts direct with `keepalive`, never through MetricsCollector (its flush is gated on a
+// paired device; the locked-out person is exactly who it cannot carry). Buffered under a
+// rostered key when offline; flushed on the next load. No door exists yet, so nothing calls
+// send(): `door_reached = 0` is a truthful baseline, not a broken sensor.
+const DoorEvents = (function () {
+  const KEY = STORAGE_KEYS.doorOutbox;
+  function readBuf() { try { const a = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function writeBuf(a) { try { localStorage.setItem(KEY, JSON.stringify(a.slice(-50))); } catch (e) { /* storage full or blocked — the event is lost, and that is the honest state */ } }
+  async function post(rec) {
+    const r = await fetch(WORKER_BASE + "/api/door", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: JSON.stringify(rec) });
+    if (!r.ok) throw new Error("door " + r.status);
+  }
+  async function flush() {
+    const buf = readBuf(); if (!buf.length) return;
+    const left = [];
+    for (const rec of buf) { try { await post(rec); } catch (e) { left.push(rec); } }
+    writeBuf(left);
+  }
+  function send(event, door) {
+    const rec = { event, door, ts: new Date().toISOString(),
+                  deviceId: (typeof MetricsCollector !== "undefined" && MetricsCollector.deviceId) ? MetricsCollector.deviceId() : null };
+    post(rec).catch(() => { const b = readBuf(); b.push(rec); writeBuf(b); });
+  }
+  if (typeof window !== "undefined") window.addEventListener("load", () => { flush().catch(() => {}); });
+  return { send, flush };
+})();
+
 // Buffers structural events to localStorage; flushes to /api/metrics on
 // session boundaries (visibilitychange→hidden, beforeunload, 60s timer).
 // Privacy: structural events only — no field-note bodies or conversation
@@ -19784,6 +19813,8 @@ const GardenGuru = (function () {
         device_id: (typeof MetricsCollector !== "undefined" && MetricsCollector.deviceId)
           ? MetricsCollector.deviceId() : null,
       });
+      // Guru 1b — the client clock: how long she waited for the words (the image path already tracks its own)
+      if (typeof MetricsCollector !== "undefined") MetricsCollector.track("reply_received", { conversationId, latencyMs: Date.now() - askStartMs });
       const rawReply = (result && result.reply) || "[no reply]";
       // Strip the log fence and the follow-up fence (each matches anywhere), then parse
       // the species fence off the tail of what remains.
