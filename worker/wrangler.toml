@@ -47,9 +47,9 @@ ENV_NAME = "qa"
 ESTATE_ID = "est-qa0001"
 LEGACY_BEFORE = "2026-09-03"
 AMBIENT_MAC = "D8:F1:5B:15:28:B8"
-# Guru 3b: the QA Worker refuses /api/chat once today's billed tokens pass this (prod has NO ceiling).
-# Paul sets the number (Q1); this is a placeholder low enough to stop a runaway harness.
-CHAT_DAILY_CEILING = "150000"
+# Guru 3b: the QA Worker refuses /api/chat once today's spend, priced at the model's published rates, passes
+# this many dollars (prod has NO ceiling). Paul, 2026-09-03: "a clean dollar fifty a day".
+CHAT_DAILY_BUDGET_USD = "1.50"
 FAMILY_HOSTS = "fernwood-qa.pages.dev"
 [[env.qa.kv_namespaces]]
 binding = "OBSERVATIONS"

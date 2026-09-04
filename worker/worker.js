@@ -1568,11 +1568,14 @@ async function handleChat(request, env) {
   const chatMessages = turns.map(t => ({ role: t.role, content: t.content }));
   // Guru 3b — a DAILY SPEND CEILING on QA only. The harness's --max-turns is a convenience; this is
   // the load-bearing stop. Prod carries no ceiling (unchanged). `chat-budget:<date>` = tokens billed today.
-  const ceiling = env.ENV_NAME === "qa" && env.CHAT_DAILY_CEILING ? parseInt(env.CHAT_DAILY_CEILING, 10) : null;
-  const budgetKey = ceiling ? dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)) : null;
-  if (ceiling) {
-    const used = parseInt((await env.OBSERVATIONS.get(budgetKey)) || "0", 10) || 0;
-    if (used >= ceiling) return json({ error: "chat-budget-exceeded", used, ceiling }, 429);
+  // Paul, 2026-09-03: "a clean dollar fifty a day" — the ceiling is DOLLARS, priced per turn at the
+  // model's published rates (CHAT_PRICES), so a cold-cache turn (~11¢) and a warm one (<1¢) count as
+  // what they cost. `chat-budget:<date>` holds {usd, tokens, turns}.
+  const ceilingUsd = env.ENV_NAME === "qa" && env.CHAT_DAILY_BUDGET_USD ? parseFloat(env.CHAT_DAILY_BUDGET_USD) : null;
+  const budgetKey = ceilingUsd ? dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)) : null;
+  if (ceilingUsd) {
+    const b = await readBudget(env, budgetKey);
+    if (b.usd >= ceilingUsd) return json({ error: "chat-budget-exceeded", used_usd: +b.usd.toFixed(4), ceiling_usd: ceilingUsd, turns: b.turns }, 429);
   }
   const t0 = Date.now();   // Guru 1b — the server clock around the upstream call
   const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
@@ -1603,12 +1606,13 @@ async function handleChat(request, env) {
   catch (e) { console.warn("conversation persist failed:", e); }
   try { await logChatCost(env, conversationId, apiData, { latency_ms: latencyMs, round_trips: 1 }); }
   catch (e) { console.warn("cost log failed:", e); }
-  if (ceiling) {   // Guru 3b — bill this turn against today's QA budget (input + cache + output tokens)
+  if (ceilingUsd) {   // Guru 3b — bill this turn, in dollars, against today's QA budget
     try {
+      const b = await readBudget(env, budgetKey);
       const u = apiData.usage || {};
-      const billed = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.output_tokens || 0);
-      const used = parseInt((await env.OBSERVATIONS.get(budgetKey)) || "0", 10) || 0;
-      await env.OBSERVATIONS.put(budgetKey, String(used + billed), { expirationTtl: 3 * 86400 });
+      const cost = turnCostUsd(apiData.model, u);
+      const tokens = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.output_tokens || 0);
+      await env.OBSERVATIONS.put(budgetKey, JSON.stringify({ usd: b.usd + cost, tokens: b.tokens + tokens, turns: b.turns + 1 }), { expirationTtl: 3 * 86400 });
     } catch (e) { console.warn("chat budget write failed:", e); }
   }
 
@@ -1627,6 +1631,25 @@ async function handleChat(request, env) {
                   prefix_sha: await sha256Hex(JSON.stringify({ tools: [], system: chatSystem, messages: chatMessages })) };
   }
   return json(out);
+}
+
+// Published per-million-token rates (USD) for the models this Worker calls — used ONLY to meter the QA
+// budget. Read from the claude-api skill 2026-09-03; a model not listed prices at the Haiku row (the
+// only model handleChat uses) and is flagged in the budget record.
+const CHAT_PRICES = { "claude-haiku-4-5": { input: 1.00, cache_write: 1.25, cache_read: 0.10, output: 5.00 } };
+function turnCostUsd(model, u) {
+  const key = Object.keys(CHAT_PRICES).find(k => String(model || "").startsWith(k)) || "claude-haiku-4-5";
+  const p = CHAT_PRICES[key];
+  return ((u.input_tokens || 0) * p.input + (u.cache_creation_input_tokens || 0) * p.cache_write +
+          (u.cache_read_input_tokens || 0) * p.cache_read + (u.output_tokens || 0) * p.output) / 1e6;
+}
+async function readBudget(env, key) {
+  try {
+    const raw = await env.OBSERVATIONS.get(key);
+    if (!raw) return { usd: 0, tokens: 0, turns: 0 };
+    if (/^\d+$/.test(raw.trim())) return { usd: 0, tokens: parseInt(raw, 10), turns: 0 };   // the pre-dollar shape
+    const b = JSON.parse(raw); return { usd: +b.usd || 0, tokens: +b.tokens || 0, turns: +b.turns || 0 };
+  } catch (e) { return { usd: 0, tokens: 0, turns: 0 }; }
 }
 
 async function sha256Hex(text) {
@@ -2530,9 +2553,9 @@ export default {
         kv_canary: kvCanary,
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
-        ...(env.ENV_NAME === "qa" && env.CHAT_DAILY_CEILING ? { chat_budget: await (async () => {   // Guru 3b — QA only
-          let used = 0; try { used = parseInt((await env.OBSERVATIONS.get(dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)))) || "0", 10) || 0; } catch (e) { /* unreadable → 0 shown as unknown below */ }
-          return { used, ceiling: parseInt(env.CHAT_DAILY_CEILING, 10), date: new Date().toISOString().slice(0, 10) };
+        ...(env.ENV_NAME === "qa" && env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — QA only, in dollars
+          const b = await readBudget(env, dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)));
+          return { used_usd: +b.usd.toFixed(4), ceiling_usd: parseFloat(env.CHAT_DAILY_BUDGET_USD), turns: b.turns, tokens: b.tokens, date: new Date().toISOString().slice(0, 10) };
         })() } : {}),
         endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/grant/whoami", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {

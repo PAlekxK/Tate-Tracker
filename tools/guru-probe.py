@@ -90,13 +90,14 @@ def live(max_turns):
     if not ok:
         print("⛔ REFUSED — no turn spent."); return 2
     if h.get("chat_budget"):
-        print("  · QA chat budget: %s" % json.dumps(h["chat_budget"]))
+        b = h["chat_budget"]; print("  · QA chat budget today: $%.3f of $%.2f · %s turn(s)" % (b.get("used_usd", 0), b.get("ceiling_usd", 0), b.get("turns", 0)))
+    fix_dir = os.path.join(ROOT, ".private", "guru-fixtures"); os.makedirs(fix_dir, exist_ok=True)
     rows = [r for r in gf.rows() if not r["requires_tool"]][:max_turns]
     rc = 0
     for row in rows:
         st, resp = ask(QA_URL, tok, row)
         if st == 429 and isinstance(resp, dict) and resp.get("error") == "chat-budget-exceeded":
-            print("  💰 BUDGET  %s — the Worker refused (%s used / %s ceiling); stopping, not erroring" % (row["id"], resp.get("used"), resp.get("ceiling"))); return 3
+            print("  💰 BUDGET  %s — the Worker refused ($%s used / $%s ceiling); stopping, not erroring" % (row["id"], resp.get("used_usd"), resp.get("ceiling_usd"))); return 3
         if st != 200:
             print("  ⛔ ERROR   %s — HTTP %s %s" % (row["id"], st, json.dumps(resp)[:120])); rc = 1; continue
         text = resp.get("reply", "")
@@ -105,6 +106,11 @@ def live(max_turns):
         print("  %s %-24s %s · %sms · prefix %s" % ("✅" if verdict == "GREEN" else "🔴", row["id"], why, dbg.get("latency_ms", "?"), str(dbg.get("prefix_sha", "?"))[:8]))
         if verdict != "GREEN":
             rc = 1; print("      reply: %s" % text[:220].replace("\n", " "))
+        # Guru 2b — a FIXTURE per row: the harness's own ask, never a conversation of hers; prefix_sha beside it
+        import datetime as _dt
+        json.dump({"row_id": row["id"], "request": {"ask": row["ask"], "origin": "test"}, "response": text, "usage": resp.get("usage"), "model": resp.get("model"),
+                   "prefix_sha": dbg.get("prefix_sha"), "latency_ms": dbg.get("latency_ms"), "verdict": verdict, "recorded_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds")},
+                  open(os.path.join(fix_dir, row["id"] + ".json"), "w"), indent=1, ensure_ascii=False)
     return rc
 
 
