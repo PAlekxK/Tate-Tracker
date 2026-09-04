@@ -6,7 +6,7 @@
 | Lane | Topic | Writes | Status |
 |---|---|---|---|
 | A | business-analyst seat | `~/.claude/agents/` + foundation | ✅ AT GATE — `fa9d368`, marked UNSTAMPED. Paul stamps the foundation before the seat works |
-| B | map-region smoothing | one new `.plans/` doc | ▶ in flight (plan file staged, uncommitted) |
+| B | map-region smoothing | one new `.plans/` doc | ✅ AT GATE — `ecf9df1`, 400 lines. 3 items need Paul |
 | C | fictive test user | one new `.user-research/` doc | ✅ AT GATE — `a0640ee`, 1 file / 417 lines. 6 items need Paul; #4 is BLOCKING |
 | — | **round-1 exhibit picks** → `.decisions/fernwood-13.md` | **PAUL — not delegable** | open |
 | D | UX sweep (queue #6) | `.ux-reviews/` | HELD — needs Paul at a terminal to triage |
@@ -48,3 +48,41 @@ its gate was "drafted, Paul stamps," not "in service."
 **All four writers staged by explicit path.** Verified at 14:39 — the other session's five
 uncommitted files in `~/.claude` (MEMORY.md, the finding ledger, the KV memory, cycle-state,
 `feedback/`) are untouched by every lane and by the hub. The rule held under live concurrency.
+
+---
+
+## Run 1 — CLOSED 2026-09-04 ~2:45 PM ET. All three lanes reached their gate.
+
+| lane | launched | gate artifact | disposition |
+|---|---|---|---|
+| A | 14:30 | `~/.claude/agent-foundations/business-analyst.md` (`fa9d368`,`9b7ddd6`) | reported · UNSTAMPED, awaiting Paul |
+| B | 14:30 | `.plans/2026-09-04-map-region-smoothing-PLAN.md` (`ecf9df1`) | reported · awaiting Paul |
+| C | 14:30 | `.user-research/2026-09-04-fictive-test-user.md` (`a0640ee`,`44754f9`) | reported · §8 RULED by Paul in-tab; 5 items open |
+| hub | — | this ledger + meta seed (`a83c97c`) | closed |
+| practice-steward | 14:30 | `~/.claude/agents/audits/2026-09-04-parallel-lanes.md` (`2ae41f3`) | reported |
+
+**The `launched-at` / `gate` / `disposition` columns exist because of that audit's M2** — the
+previous table read `launched | launched | launched` and could not distinguish a lane that
+finished quietly from one that died at a permission prompt. Fixed on run 1 rather than run 3,
+since the fix was three columns.
+
+**Hub-verified, not taken on trust** (the audit's §6 named lane compliance as unverified):
+- Lane B's measurements reproduce exactly — 23 zones, 437 vertices, 23/23 `draft`,
+  **58 exactly-shared coordinates across 20 zone pairs**.
+- ⚠️ Which confirms lane B's out-of-scope catch: `zones.json _meta.sharedBorders` states
+  *"traced independently, by eye, with no vertex snapping."* **That is now false**, and false in
+  the safe-looking direction. Left uncorrected deliberately: it is canon, and the hub proposes
+  rather than edits.
+- Lane C's desktop finding verifies and is stronger than it reported — `viewer.html` contains
+  **no `min-width` media query at all**, so "the centered column" is the file, not a reading.
+- Lane A's "the remit was already researched" verifies — `project_monetization_deferred` holds
+  the 2026-08-13 study, the utility-vs-journal datum and the $1,500–5,000 shape.
+
+**Cross-session `SendMessage` DELIVERS.** Listed as unverified at launch and again in the audit's
+§6; four sessions reported in over the peer socket and all were received. Question closed.
+
+⚠️ **OPEN, carried by no lane:** Paul's `[paul-ruled 2026-09-04]` layout contract currently lives
+only in lane C's fixture document. A ratified layout contract does not belong in a test-fixture
+design doc — it belongs where renderers and reviewers read it. Both candidate homes are outside
+every lane's OWNS, and one of them is engine territory while prod is frozen. **Hub holds it; Paul
+picks the home.**
