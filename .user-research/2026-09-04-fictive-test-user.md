@@ -511,6 +511,24 @@ reached through §9's viewport set.
 
 ⛔ **NOT MADE.** Per the lane gate, this lane does not edit the skill. Proposals only.
 
+> ### ⚠️ THIS WORDING IS NOT FINAL — approved in principle, not ratified `[2026-09-04]`
+>
+> Paul: *"I'm good with approving all of these"* — **conditional on three things**, and until they
+> resolve, nothing below is settled text:
+> 1. *"as long as we have all this tracked so we can continue to assess how UX sweep works"* — a
+>    **measurement** condition. Note the instrument may already exist: the skill's own *"run log —
+>    MEASUREMENT (append every run, no exceptions)"*, which **Edit 4 already touches**. The
+>    honest answer may be "nothing new is needed," and that is the answer to prefer.
+> 2. *"as long as the UX expert approves as well **or we go with their recommendation**"* — ⭐ he
+>    **pre-committed to their wording over this lane's** where the two differ. So a reader must not
+>    treat the four edits below as this document's final position; they are the version submitted
+>    for review.
+> 3. *"the process steward should weigh in"* — added separately, on the ritual's structure.
+>
+> **Both consults were commissioned read-only and write nothing.** Whatever returns is folded or
+> rejected *here* before any edit reaches the skill. ⛔ **Do not apply these edits from this
+> document as it stands.**
+
 **Edit 1 — Setup step 4: a viewport SET, not a viewport.**
 > *Pick the viewport **set** from the project's real readers: a **primary** (the owner's measured
 > conditions — Fernwood: 414×848 at A+) and a **secondary desktop** (1440×900). The project's own
