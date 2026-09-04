@@ -55,6 +55,7 @@ ROSTER = [
         "tools/check-condo-falsifier.py": "a DETECTOR string",
         "tools/guru-facts.py": "SELFTEST FIXTURES — strings the derived regexes are tested against; the rows derive, and the file's own AST check fails on a typed number outside the selftest",
         "tools/guru-probe.py": "SELFTEST FIXTURES for the inverted grader",
+        "engine/place-claims.json": "a REGISTER of prose place claims — the steward's notes quote canon numbers as evidence, never as config",
         ".plans/*.json": "records", ".ux-reviews/*.json": "records", ".engineering/*": "records", ".user-research/*": "records",
     }),
     # C6 1c — the SERVED text-size default is instance config (instance/<estate>.json display.defaultTextSize),
