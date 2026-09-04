@@ -864,3 +864,5 @@ trigger's business, not the door's.
 - `tools/qa-divergence.py --check` — what QA has that she does not, and whether the migration can fast-forward.
 - `tools/place-claims.py --check` — shared engine prose that claims a place, classed and ratcheted (0 at the condo).
 - `tools/qa_access.py` — the Cloudflare Access headers every tool needs to fetch the QA page (token in `.private/`).
+- `tools/check-config-derivation.py` — canon values TYPED into engine code (34.5496 · 2,873 · the frost dates · the served text size) — a fork detector; session-start and pre-push.
+- `tools/check-public-build.py` — private-tier classes in the PUBLIC build + the supplied-names needle row; the pre-push hook runs it before anything leaves the machine.
