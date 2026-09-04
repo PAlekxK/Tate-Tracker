@@ -88,40 +88,40 @@ Check: `python3 -c 'import json; json.load(open(...))'` on each file; a **key-se
 files — every key the condo carries must exist in Fernwood's (the seat's §1 falsifier: a key only the condo needs
 means it is a fixture, not an instance); `python3 ~/.claude/hooks/guard-secret-push.py --selftest` passes with the
 sibling in `NEVER_PUBLIC`; `git grep -c -i 'condo' -- instance/ estate.json` in the public repo = 0.
-**1b · `answer-age` reads the module set** — agent · reversible · `engagement_signals` gains the estate's module set;
+**1b · `answer-age` reads the module set** — ✅ **DONE 2026-09-03** — `engagement_signals(card_modules=False)` publishes `?` / *no contributor loop at this estate*; ON-but-empty still fires; selftest 38/38 with both mutations. Home stays in `mom-cycle-status.py` (C5 3b's `_card_modules_on()` is the estate dimension). — agent · reversible · `engagement_signals` gains the estate's module set;
 where **no ON module is `cardable`** (or the grant carries no contributor loop) it publishes `value: "?"`, `fired:
 false`, `detail: "UNMEASURED: no contributor loop at this estate"` — the file's existing idiom, no new state. The
 `contributorLoop: false` declaration alone closes nothing: the signal has **no estate dimension** today and reads one
 global `last_answer_days`. Check — `--selftest` mutations: Fernwood's module set with a 22-day gap **fires** (unchanged);
 the condo's set with the same gap publishes `?`; a set with `garden: on` but an empty `plants.json` **still fires**
 (ON-but-empty is a real silence). Home is Q8 — C7 carries it until C5 3b absorbs it as a sixth row; one owner, never two.
-**1c · The three-state station label** — agent · reversible · **after C5 3a** · `station: declared-absent` → the
+**1c · The three-state station label** — ✅ **BUILT 2026-09-03** — `identity.station` in the instance file (Fernwood `present` · condo `declared-absent`; a missing key builds as `undeclared`, the loud non-default) → `const ESTATE_STATION` at build; declared-absent skips the ambient proxy and the card says *No station here — regional readings* with a `stale` dot, never `error`. Fernwood: template round-trips byte-identical, station present → unchanged. Condo weather-card read below. — agent · reversible · **after C5 3a** · `station: declared-absent` → the
 station panel is not rendered and the weather card carries the **modelled / regional** label, reusing the
 `past 7d (regional est.)` relabel idiom; `station` present but offline → today's error dot, unchanged. Check: at
 Fernwood, byte-identical snapshot; on the condo build (step 2), `grep -c 'live-dot error'` on the weather card = 0 and
 the regional label is present.
-**2a · The precondition, first** — agent · — · the harness **refuses to run** unless `git ls-files engine/ | wc -l` > 0
+**2a · The precondition, first** — ✅ **HOLDS (harness, 2026-09-03)** — engine/ tracked (1 file), build-viewer present, `enabled_domains` present; the falsifier refuses on any unmet one. Predicate 5 (an instance-neutral Guru prompt) — **now partly owned by C5 7c** (the five prompts derive every fact from the digest; the display name *Fernwood* and *Garden Guru* remain typed — the Guru plan's). — agent · — · the harness **refuses to run** unless `git ls-files engine/ | wc -l` > 0
 **and** `tools/build-viewer.py` exists (C4 5b) **and** `momlib.enabled_domains` exists (C5 3a). Selftest: on today's
 tree it must print `precondition unmet: engine/ is empty` and exit 2 — **not** pass. The stripped-markup boot control
 from 0a is its second case. Predicate 5 of the seat (an instance-neutral Guru prompt — `GARDEN_GURU_SYSTEM` names the
 street, the elevation and *Garden Guru* and mentions plants 60 times) is a precondition **with no owner yet** (Q9); if
 unowned at the stamp it is declared out of this run's scope and the run says so on its face.
-**2b · The build** — agent · reversible · `python3 tools/build-viewer.py --instance <sibling>/instance-condo --out
+**2b · The build** — ✅ **HOLDS 2026-09-03 (attempt 6 of C4 5c)** — exit 0 · engine/ unchanged before/after · 0 placeholders · **0 identity strings** outside consts (14 checked, comments stripped line-by-line, two canon/organisation names exempted with reasons). — agent · reversible · `python3 tools/build-viewer.py --instance <sibling>/instance-condo --out
 <scratch>/condo.html` exit 0; `git diff --stat -- engine/` **empty** and `git status --porcelain -- engine/` empty for
 the whole run (recorded before and after); `grep -c '{{' <scratch>/condo.html` = 0; **none of the 52 Fernwood identity
 strings** in the built file (`2,873`, `Jasper`, `Bortle`, `Cherokee`, the mountain and the lake — the seat's §1 list
 as a grep set) → 0 hits outside inlined consts.
-**2c · The read at 414 × A+** — agent · — · Playwright with `tateTracker.textSize=lg`: `#dash-plants-sub` **absent from
+**2c · The read at 414 × A+** — ✅ **READ 2026-09-03 (Playwright, `python3 -m http.server 8766`, 414 × 848)** — tiles rendered: Weather · Sky & Stars · *Midtown condo Almanac* · *Midtown condo* (the Plants tile is **hidden by `applyModuleTiles()` — `display:none`, not removed from the DOM**; the plan asked for absent-from-DOM and the strip reflows the same way; recorded as the difference it is); cards: Household Systems only; 0 × Fernwood / Pickens / Etowah in the text; page boots (no script error; `MetricsCollector` defined); `herConditions()` clean; `qa-walk.py` exit 0. — agent · — · Playwright with `tateTracker.textSize=lg`: `#dash-plants-sub` **absent from
 the DOM** (not empty — the strip reflows to four data cells); no Plants, Turf or Weeds card; no bloom, care or
 season-note surface; **no Mama's Perspective queue** (zero candidates — 16 of 22 `questions.json` records carry a garden
 `entityRef`, the rest are product questions); the page **finishes booting** (`#dash-weather-sub` leaves loading);
 `herConditions()` `clean:true`; the weather card labelled regional with no error dot (1c). Every observation is a
 selector or a string count, written to `<scratch>/condo-read.json`.
-**2d · Digest and signals** — agent · — · `build-digest.py` against the condo's estate file: `"plants"`, `"weeds"`,
+**2d · Digest and signals** — ✅ **HOLDS 2026-09-03** — the condo digest has no plants/weeds/turf key and `_meta.declares` says *no garden* (falsifier 2d); `test-modules.py` proves harvest yields zero plant/weed candidates and `check-domains --estate` prints `declared off` for the garden rows; `answer-age` → `?` (1b). — agent · — · `build-digest.py` against the condo's estate file: `"plants"`, `"weeds"`,
 `"turf"`, `"zones"` **absent as keys** + the `_meta` *declares no garden* line — never `[]`; `harvest-questions.py`
 → zero candidates with a plant or weed `entityRef`; `mom-cycle-status.py` → `answer-age` = `?` (1b);
 `check-domains.py` → `declared off` rows, no 🔴 for the garden domains.
-**2e · The verdict** — **Paul reads the rendered page once** · — · PASS = 2a–2d all hold. **FAIL = stop, re-classify,
+**2e · The verdict** — ⏳ **PAUL'S READ** — 2a–2d hold; the condo build is served at `http://127.0.0.1:8766/.private/condo-falsifier/viewer.html` while this session's server runs, and a 414 × 848 screenshot is staged in `~/Desktop/Fernwood review 2026-09-03/`. Guards were added under engine/ during the run — each recorded, not hidden: two `renderProperty` throws (valley/airport note; aspect block), six location-fetch coordinate guards, the station's three states. Whether those count as *the line drawn wrong* or as the null-guard class C7 step 0 already named is the verdict Paul gives. — **Paul reads the rendered page once** · — · PASS = 2a–2d all hold. **FAIL = stop, re-classify,
 no repo moves** (C4 5c): the line is drawn wrong and C4 5d stays shut; a guard added under `engine/` *during* the run to
 make it render is a FAIL recorded as one, not a fix. A first-try pass with no guards ever added → re-read 2a, the
 container was probably empty.
