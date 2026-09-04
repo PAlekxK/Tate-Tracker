@@ -201,6 +201,7 @@ under `vehicles.json` that is a VIN, plate or purchase price. Check: `check-publ
 `build-viewer.yml` (check-only, never a writer — same discipline as the byte-identity check); `git grep -c breakerCircuit
 -- viewer.html worker/digest.json property.json` = 0 after the move; the Guru answers a breaker question only through
 step 7's authenticated lookup, and unauthenticated it asks for the login (Q6's third honesty string).
+- stage-note: 8a's audit gained the **`supplied-names` NEEDLE row** 2026-09-03 11:05 PM ET (setup-journey seat I2): names held in `fernwood-private/supplied-names.json` (EMPTY today, on purpose), grepped case-insensitively on word boundaries across every `git ls-files` path — not the six served artifacts, because the measured leak path is pickup-tool output pasted into tracked prose. Absent sibling → UNCHECKABLE, exit 3, never green by absence; CI runs `--skip-needles` and says NOT CHECKED out loud. Proven by LIVE mutation: a registered fake name planted in VOCABULARY.md → exit 1 naming the file (never the name); restored → exit 0. Limits stated in the register's _meta: it finds only names it knows (the act that captures a name must register it) and it cannot un-publish.
 
 ## Falsifier
 
