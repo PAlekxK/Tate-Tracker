@@ -1,18 +1,24 @@
 # vocabulary-nicknames · One concept registry; every estate — and the person living there — names each thing; the internal id never moves
 - row: BACKLOG.md § FREEZE block → "THE DEVELOPMENT GOAL" (amended 12:05 PM ET: naming is a first-run step the person answers) · § C7 (identity.journalTile/journalShort are agent placeholders)
-- objective: O3 (the Product Engine) · feeds the onboarding plan (queue #7)
-- class: engine · declared (viewer identity fill · Worker honesty strings · digest identity · a lint)
+- objective: O3
+- class: engine · declared
 - seats: content-steward → .content-reviews/2026-09-04-vocabulary-nicknames.md
          engineering-partner → .engineering/2026-09-04-vocabulary-nicknames.md
-         ux-expert → deferred to the onboarding plan (the naming STEP is a first-run surface; this plan is the registry beneath it)
-         user-researcher → deferred to the onboarding plan (same reason)
+         ux-expert → waived: the naming STEP is a first-run surface reviewed in the onboarding plan; this plan is the registry beneath it and renders no new control
+         user-researcher → waived: her side of naming is in the onboarding journey map (fernwood-private/.user-research/2026-09-04-onboarding-journey.md); this plan is the contract, not the ask
          ai-advisor → waived: no model on any path here; capture is deterministic by rule
-- depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md (identity block · instance/<estate>.json)
-- depends-on: .plans/2026-09-03-c7-condo-paper-model-PLAN.md (the placeholders this retires)
+- depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
+- depends-on: .plans/2026-09-03-c7-condo-paper-model-PLAN.md
 - ready: DRAFT — both seats RAN 2026-09-04 ~1:20 PM ET and are folded in below (§4); Paul has not stamped
 - stage: concept
 - stage-note: SEATS FOLDED 2026-09-04 ~1:25 PM ET — content-steward (`.content-reviews/2026-09-04-vocabulary-nicknames.md`, 15 findings) + engineering-partner (`.engineering/2026-09-04-vocabulary-nicknames.md`, 12 findings); the main session verified the load-bearing claims (WORKER_BASE is a Fernwood literal in the engine template; `almanac_history_opened` has zero consumers; `digest.core.names` is the entity index; 9 hard-coded "Mama's Perspective" sites). §1a–§1f stand as drafted EXCEPT where §4 amends them.
 - stage-note: drafted 2026-09-04 ~12:10 PM ET from Paul's ask (*"a pretty robust proposal"* — people may name things themselves; the internal name is what we call it, recorded beside their nickname) and the three-referent comment in the viewer (2026-07-30) — see §0.
+
+## Files touched
+`engine/concepts.json` (new, engine) · `instance/fernwood.json` + `fernwood-private/instance-condo/instance.json` (`identity.words`) · `engine/viewer.template.html` (one `{{WORDS}}` placeholder; 16 Almanac sites + 9 Perspective sites read `WORDS.*`; `JOURNAL_NAME` retires; `WORKER_BASE` → instance config) · `tools/build-viewer.py` (the fill, one regex) · `tools/build-digest.py` (`core.identity.words`) · `worker/worker.js` (`LOOKUP_STRINGS_TEMPLATE` `{record.short}`; `GET/PUT <estate>:words` behind a grant) · `tools/check-concept-words.py` (new, ratchet) + `engine/concept-words.json` (register) · `VOCABULARY.md` §3f · `CLAUDE.md` session-start block (the lint's caller) · `.github/workflows/build-viewer.yml`.
+
+## Sequence
+0. Paul stamps §1–§4. 1. `engine/concepts.json` + `VOCABULARY.md` §3f (docs, no surface). 2. `WORKER_BASE` → instance config (prerequisite; SURFACE, byte-identical at Fernwood by construction). 3. The register + ratchet lint at the measured baseline (tooling; session-start + CI). 4. `identity.words` in both instance files + the builder's `{{WORDS}}` fill + the 25 sites read `WORDS.*`, migrated PER SITE by referent; Fernwood's eight regions hash-identical (SURFACE, named here). 5. Digest identity + Worker strings say `{record.short}`; QA Worker deploy; guru-probe honesty legs. 6. Metrics cut-over. 7. Runtime words row: Worker route behind a grant + the boot read; exercised by `qa-write-probe` under a QA fixture. 8. The onboarding plan takes the naming STEP from here.
 
 ## 0 · What is true today, measured 2026-09-04
 
