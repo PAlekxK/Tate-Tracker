@@ -419,27 +419,32 @@ def _fmt_ft(n):
 def digest_core(load, est, on, on_non, groups, digest):
     """The core, derived — see the block above. `digest` is the already-filtered dict (names come from it)."""
     prop = load("property.json")
+    # Every fact is CONDITIONAL on the canon holding it (measured 2026-09-04: the condo paper model has no frost dates,
+    # and a required key broke its digest build — the C4 5c falsifier caught it). A fact the record does not hold is
+    # simply not a line; only a record with neither an address nor an elevation is refused.
+    g = lambda path: _get(prop, path, None)
     values = {
-        "address":     _get(prop, "property.address"),
-        "city":        _get(prop, "property.city"),
-        "state":       _get(prop, "property.state"),
-        "county":      _get(prop, "property.county"),
-        "elevFt":      _get(prop, "location.elevation.estimated_ft"),
-        "aboveKjzpFt": _get(prop, "location.elevation.elevationAboveKJZP_ft", None),
-        "lastFrost50": _get(prop, "frostDates.atPropertyElevation.lastSpring_50pct"),
-        "lastFrost90": _get(prop, "frostDates.atPropertyElevation.lastSpring_90pctSafe", None),
-        "firstFrost50": _get(prop, "frostDates.atPropertyElevation.firstFall_50pct"),
-        "zoneAdjusted": str(_get(prop, "hardiness.elevationAdjustedZone")).split(" ")[0],
-        "zoneOfficial": _get(prop, "hardiness.officialZone"),
-        "station":     _get(prop, "resources.nearestWeatherStation.id", None),
+        "address": g("property.address"), "city": g("property.city"), "state": g("property.state"), "county": g("property.county"),
+        "elevFt": g("location.elevation.estimated_ft"), "aboveKjzpFt": g("location.elevation.elevationAboveKJZP_ft"),
+        "lastFrost50": g("frostDates.atPropertyElevation.lastSpring_50pct"), "lastFrost90": g("frostDates.atPropertyElevation.lastSpring_90pctSafe"),
+        "firstFrost50": g("frostDates.atPropertyElevation.firstFall_50pct"),
+        "zoneAdjusted": (str(g("hardiness.elevationAdjustedZone")).split(" ")[0] if g("hardiness.elevationAdjustedZone") else None),
+        "zoneOfficial": g("hardiness.officialZone"), "station": g("resources.nearestWeatherStation.id"),
     }
-    lines = [
-        "The property is at %s, %s, %s (%s County), at %s ft — THE PROPERTY'S elevation, the number every other height is measured against." % (
-            values["address"], values["city"], values["state"], values["county"], _fmt_ft(values["elevFt"])),
-        "Plan for USDA zone %s (the elevation-adjusted zone); the official map says %s." % (values["zoneAdjusted"], values["zoneOfficial"]),
-        "Frost: last spring frost about %s (50%%)%s; first fall frost about %s (50%%) — the elevation-adjusted dates, not the valley's." % (
-            values["lastFrost50"], (", safe after %s" % values["lastFrost90"]) if values["lastFrost90"] else "", values["firstFrost50"]),
-    ]
+    if not values["address"] and values["elevFt"] is None:
+        raise RuntimeError("property.json holds neither an address nor an elevation — refusing to derive a core with no place in it")
+    lines = []
+    where = ", ".join(x for x in (values["address"], values["city"], values["state"]) if x)
+    if values["elevFt"] is not None:
+        lines.append("The property is at %s%s, at %s ft — THE PROPERTY'S elevation, the number every other height is measured against." % (
+            where, (" (%s County)" % values["county"]) if values["county"] else "", _fmt_ft(values["elevFt"])))
+    elif where:
+        lines.append("The property is at %s%s." % (where, (" (%s County)" % values["county"]) if values["county"] else ""))
+    if values["zoneAdjusted"] and values["zoneOfficial"]:
+        lines.append("Plan for USDA zone %s (the elevation-adjusted zone); the official map says %s." % (values["zoneAdjusted"], values["zoneOfficial"]))
+    if values["lastFrost50"] and values["firstFrost50"]:
+        lines.append("Frost: last spring frost about %s (50%%)%s; first fall frost about %s (50%%) — the elevation-adjusted dates, not the valley's." % (
+            values["lastFrost50"], (", safe after %s" % values["lastFrost90"]) if values["lastFrost90"] else "", values["firstFrost50"]))
     if values["aboveKjzpFt"] is not None and values["station"]:
         lines.append("The reference station is %s in the valley, %s ft BELOW the property — its readings are the valley's, not the ridge's." % (values["station"], _fmt_ft(values["aboveKjzpFt"])))
     confusables = []
