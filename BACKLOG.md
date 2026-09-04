@@ -3078,6 +3078,16 @@ twelve themes, the connection map, three structural findings, the 110-item disca
 carries verbatim turns from sessions that also touched other projects. One quote below (`P-08`) is redacted
 for the same reason.
 
+⚠️ **PROVENANCE — this section is NOT described by the commit that carries it.** It was written
+2026-09-04 and swept into **`17ec631`** — *"Place claims moved: plant-context callouts… condo place
+claims 53 → 10"* — by a **concurrent session** that staged broadly while this one was still working.
+The content is intact (27 rows, verified at HEAD); only the commit message is wrong, and
+`git log -S` on this heading is the way back to it. **Left unrewritten deliberately** `[paul-ruled
+2026-09-04]`: the commit is another window's and history rewriting on a shared repo is not a
+unilateral act. *The lesson is the one `feedback_git_add_all_in_shared_repo` already names, running
+in the opposite direction — a broad stage does not only sweep another session's work IN, it also
+absorbs yours into a commit that does not describe it.*
+
 **Four decisions that need no build.** The mine found six live conflicts — two rulings that collide, each
 settleable in a line. The sharpest four: light-privacy-never-at-the-cost-of-her-access vs. logins and role
 tiers · *always offer free text* vs. the killed open-feedback box · *don't give her authorship-level input
