@@ -139,6 +139,15 @@ key via `/secrets` (`ANTHROPIC_API_KEY --env qa`); every row asserts a/b/c/d of 
 point it at a Worker built before 1c: red, not green; the origin hygiene controls (`excludedNonApp` increments;
 `check-mom-ack.py` exit 0; `read-mom-feedback.py --pickup` silent); today's elevation row green, service/breaker rows
 **red until 5** (a truthful red, recorded as the baseline).
+- stage-note: 3c live leg #1 ran 2026-09-03 10:23 PM ET on QA under the new single-workspace key: 7 of 8 rows green
+  (elevation, both frost dates, zone, county, station); **lake-elevation RED** — the reply gave the lake's height from the
+  confusable sibling `location.elevation.estimated_ft` (2,800 ft), fixture `.private/guru-fixtures/lake-elevation.json`.
+  Baseline recorded, not fixed: the must-NOT holds and 4a's derived core is where the sibling gets its marker. Budget after
+  the leg: 8 turns, well under the $1.50 ceiling (the run prints the figure). Key incident the same night: BOTH Anthropic
+  keys (prod and QA) were identity-linked across workspaces and died when Anthropic began requiring
+  `anthropic-workspace-id`; prod Guru was dark from some point after 12:35 PM ET until 10:24 PM ET. Replaced with two
+  keys pinned to one workspace via `/secrets`, verified by use (classify 200 on both). **Awaiting Paul: revoke the two
+  old keys in the Console** — rotation is closed only when the old credential is dead.
 **4a · The core + names index in `build-digest.py`** — agent · reversible · **recommend `build-digest.py`, not a new
 tool**: one artifact, one freshness check already in the session-start block and the workflow; the module-aware assembly
 (C5 3b) already lands in the same `main()` dict. The `core` section = per-module voice fragments (the depth-filter clause
