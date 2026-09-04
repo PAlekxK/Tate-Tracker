@@ -3,7 +3,7 @@
     "purpose": "Guru 6a \u2014 the prose library index, as built; `build-library-index.py --check` fails when this would change",
     "chunk": 900
   },
-  "estate": "est-3c9f1a",
+  "estate": "est-qa0001",
   "sources": {
     "references.json": "b90c81dfca4afed8",
     "research-resources.md": "6149e433243e2d50",
@@ -44,9 +44,9 @@
   },
   "loaded": {
     "qa": {
-      "indexSha": "6e42952b3dac7acf76822d22943d4b1951b513bdd7ee702d32913cbe18ad5293",
+      "indexSha": "205422c6269342c02f46d9505d2a9207e50dee747abaa9e8a3fe11ce3a395125",
       "estate": "est-qa0001",
-      "at": "2026-09-04T09:49:23+00:00"
+      "at": "2026-09-04T15:07:17+00:00"
     }
   }
 }
