@@ -215,3 +215,39 @@ A caller for `claude agents --json` + git's name-only log, per the audit's M3 (*
 caller, don't build a watcher*). Reports, never gates. ⚠️ It **cannot** tell a hub write from a
 lane's drift, so it names the path with its commit and asks a human — a checker that guessed
 would be worse than one that asks.
+
+### Lane D AT GATE (`6408706`) — hub-verified 2026-09-04
+
+Every claim re-checked here, not relayed:
+- **Scope honoured** — 2 files, both in OWNS: `engine/viewer.template.html` (the edit target)
+  and `viewer.html` (rebuild output, never hand-edited). Nothing else.
+- `build-viewer.py --check` → **byte-identical**. Not pushed.
+- ⭐ **No data moved** — `git log 2e65319..HEAD -- zones.json data/` returns **0 commits**. The
+  render-only constraint held in fact, not just in intent.
+- **The Chaikin arithmetic reproduces exactly**: 437 stored vertices → 1,748 rendered, and 2
+  iterations on closed rings must double twice (437→874→1,748). Reported figure matches computed.
+- **The `is-draft` finding is real and is in the code** — `.pmap-zone.is-draft` sets
+  `stroke-linecap: butt` for its dash ends, so with all 23 zones `draft` the round CAP is
+  overridden everywhere and only the round JOIN does visible work today. Lane D did not touch it
+  (dash grammar is Paul's) and left a comment so the next reader does not "fix" it.
+
+⭐ **The vertex-identity assertion SHIPS rather than being observed once** — it re-runs every
+render, publishes `window.__pmapVertexIdentityOK` so QA reads a verdict instead of scraping a
+console, and uses `console.error` rather than `throw`, because a viewer that throws costs Mom the
+page over a defect invisible on screen. At the condo the no-basemap early return sits above it, so
+the flag is `undefined` (no map rendered) and never `false` — the falsifier stays honest.
+
+⚠️ **Lane D stated the limit rather than overselling it:** at Mom's conditions (a 361px stage for
+the whole property) the change is close to invisible; it shows the moment anyone zooms. The
+exhibit says so on its face.
+
+## 🔶 OPEN, no owner — surfaced by lanes, not assigned
+- **The A/B lens fork** (lane C) — pointing an expectation lens at a REAL reader (at Fernwood,
+  Mom) is a DISTINCT capability that inherits the quarantine clause and the administrator gate.
+  Named out-of-scope in lane C's doc; needs Paul as its own decision.
+- **The utility-vs-journal tension** (lane A) — recommended as a `.decisions/` card, not minted.
+- **3DEP lidar coverage for Pickens is UNCONFIRMED** (§478) — it gates whether an adjacency
+  exhibit can honestly be built at all, since 9 of 11 sliver pairs are sub-pixel on the current
+  aerial. Minutes to check; not a lane.
+- **The business-analyst seat is UNSTAMPED** — ritual steps 4, 5 and 7.3 owe, and the demographic
+  work lane C needs is blocked behind them.
