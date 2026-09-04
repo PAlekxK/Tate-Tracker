@@ -11,6 +11,59 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* ══ THE CANVAS — ONE COLUMN AT EVERY WIDTH [paul-ruled 2026-09-04] ══════
+     The shape system below says what a BUTTON is; the nesting system says
+     what a ROW is. This says what the PAGE is, and it is the outermost of the
+     three because the other two are spending space this one has decided.
+
+     ⭐ THE RULING: the ~660px centered column IS the desktop design. On a wide
+     screen that is the INTENDED presentation — not a fallback, not a mobile
+     layout leaking onto a monitor, not an unfinished state.
+
+     WHY IT HAD TO BE RULED. It was true by OMISSION, never by decision, and
+     those two are indistinguishable from inside the file. Measured 2026-09-04
+     (deterministically, comments stripped): 13 @media blocks — 7 max-width
+     (480px and 540px, both narrowing), 4 prefers-reduced-motion, 2 hover.
+     ZERO min-width. There has never been a breakpoint above the column, so
+     "desktop" was whatever the phone layout did when nobody was looking.
+     A layout nobody chose reads exactly like a layout nobody finished.
+
+     RATIFIED ON: one readable measure suits a field journal; there is no
+     reflow to keep honest; and there is exactly ONE layout to maintain —
+     which is the same argument the engine/instance split rests on. Paul is
+     himself a daily wide-view reader (laptop + iPhone), so this is a choice
+     about his own surface, not a deferral of someone else's.
+
+     WHAT IT BINDS:
+     1. THE REVIEW QUESTION CHANGES SHAPE. Not "where is the desktop layout?"
+        but "does the centered column read as DELIBERATE at 1440px?" — which
+        has answerable parts: the header gradient across a wide masthead; the
+        two hover:hover blocks, which now DUPLICATE touch affordances the
+        tiles already carry (the 7/29 chevron was added because hover was
+        invisible on her phone — on desktop both now fire); whether the
+        flanking whitespace reads as intentional margin or as a phone
+        screenshot; and what the fixed-position elements do when the column
+        is not the window.
+     2. ⛔ A SWEEP MAY NOT RE-LITIGATE IT. "The app doesn't use the wide
+        screen" is a DELIBERATE-PER-DOCTRINE verdict citing this block, not a
+        finding. Fresh eyes WILL raise it, correctly and unprompted, on the
+        first run at a second viewport; adjudicating it is the doctrine pass's
+        job — the same protection the strip<->card duplication contract has.
+     3. ⚠️ RATIFIED IS NOT EXEMPT. This settles WHAT the design is. It asserts
+        nothing about whether the design is well EXECUTED at a width nobody
+        had reviewed — which is the open question, not a closed one.
+
+     ⚠️ A min-width block is now a CLAIM THAT THIS RULING CHANGED. Adding one
+     is not a refinement of this layout; it is a second layout, and it needs
+     Paul, not a paint job. (Same posture as "a new visual signature is a
+     claim that a fifth role exists" below.)
+
+     NOT ENFORCED BY A TOOL, deliberately and for now: the honest check is a
+     human at 1440px, and a lint that counted min-width blocks would pass the
+     day someone shipped a bad wide layout without one. Reached instead
+     through the review path — /ux-sweep's viewport SET, whose wiring is
+     proposed in .user-research/2026-09-04-fictive-test-user.md §9. */
+
   /* ── The shape system (2026-08-02) ───────────────────────────────────────
      Fernwood had 110 buttons, 31 visual signatures and 10 radii — not because
      anyone drifted, but because nothing ever declared what a button IS. Every
