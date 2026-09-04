@@ -51,11 +51,16 @@ def gate(h):
 
 
 def grade(row, text):
-    """inverted: any must-NOT hit is red regardless of must-contain; then every must-contain must hit."""
+    """Inverted: any must-NOT hit is RED regardless of must-contain; then every must-contain must hit. RED is a FLAG,
+    never a verdict on the Guru (AI verification flags, never clears): a regex cannot tell "the lake at 2,800 ft, below
+    the property's 2,873" (a correct contrast) from the swap it exists to catch, so it names WHICH case a reader is
+    looking at and the reader decides. Measured 2026-09-04: two live legs were correct contrasts, and the first was
+    reported as a Guru error — the misread was the reader's, and this line is what stops the next one."""
     hits_not = [n for n in row["must_not_contain"] if n.get("rx") and re.search(n["rx"], text)]
-    if hits_not:
-        return "RED", "carries a must-NOT: " + ", ".join("%s (%s)" % (n["class"], n["from"]) for n in hits_not)
     missing = [rx for rx in row["must_contain"] if not re.search(rx, text)]
+    if hits_not:
+        how = "the asked value is ABSENT — a SUBSTITUTION" if missing else "the asked value is PRESENT too — READ IT: a correct contrast, or a swapped attribution"
+        return "RED", "carries a must-NOT: " + ", ".join("%s (%s)" % (n["class"], n["from"]) for n in hits_not) + " · " + how
     if missing:
         return "RED", "missing must-contain %s" % missing
     return "GREEN", "ok"
