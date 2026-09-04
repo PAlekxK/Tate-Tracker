@@ -37,7 +37,7 @@
    "class": "instance-prose",
    "note": "**No canon behind it** — hardcoded meteor-shower `tip`, `engine/viewer.template.html:7228`. The astronomy is engine; this sentence is a dark-sky claim and must move to the estate's record",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "50a0bef48f": {
@@ -213,7 +213,7 @@
    "class": "reword",
    "note": "Drop \"the house\" — a condo unit is not a house. Also check the trailing button string *\"Tell the Almanac ›\"* (`viewer.template.html:14356`), which is out of this register but carries the same defect as `68b119a817`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "4cec61cf54": {
@@ -261,7 +261,7 @@
    "class": "reword",
    "note": "Section title, `viewer.template.html:6656`. Charter — *anchored naming beats field-journal-fluent naming*: do **not** reword to \"Here\" or \"This Place\" (names the register, not the thing). Render the estate's own name through the existing `data-site=\"estateName\"` door",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "15c54dc50b": {
@@ -333,7 +333,7 @@
    "class": "reword",
    "note": "`viewer.template.html:9125`. \"the property gauge\" → the on-site gauge; the row should also only render where the estate declares a gauge",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "b3f592f076": {
@@ -373,7 +373,7 @@
    "class": "reword",
    "note": "Weather source legend",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "9660e008ce": {
@@ -389,7 +389,7 @@
    "class": "reword",
    "note": "House-systems module blurb, `viewer.template.html:14328`. Keeps its job everywhere once \"the house\" goes",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "41ef349fc8": {
@@ -429,7 +429,7 @@
    "class": "reword",
    "note": "Machines summary, `viewer.template.html:14002`. A condo has no shed. If Paul wants \"garage and shed\" kept at Fernwood, it becomes a per-estate string rather than engine copy",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "687a807b67": {
@@ -445,7 +445,7 @@
    "class": "instance-prose",
    "note": "**No canon behind it** — hardcoded meteor-shower `tip`, `viewer.template.html:7153`. The Orionid facts around it stay engine; this sentence is the dark-sky claim",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "5809e4ac60": {
@@ -461,7 +461,7 @@
    "class": "reword",
    "note": "Weather source legend, `viewer.template.html:9124`. Also gate the row on the estate declaring a station — at the condo there is none",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   },
   "4b0a0f7309": {
@@ -469,7 +469,7 @@
    "class": "reword",
    "note": "Weather source legend, `viewer.template.html:9124`",
    "firstSeen": "2026-09-04",
-   "rendersAtCondo": true,
+   "rendersAtCondo": false,
    "classedBy": "content-steward 2026-09-04 (proposal; Paul's read pending)"
   }
  }

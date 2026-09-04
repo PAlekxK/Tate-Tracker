@@ -6653,7 +6653,7 @@
         </div>
       </div>
       <div class="plant-context-section">
-        <div class="plant-context-section-title">On the property</div>
+        <div class="plant-context-section-title">At <span data-site="estateName"></span></div>
         <div class="plant-context-section-intro" data-record-prose="property.intros.plantContext"></div>
 
         <!-- callouts come from the record (property.plantContext.callouts) — moved out of engine HTML 2026-09-04 [paul-stated: "the condo doesn't have chestnut canopy"] -->
@@ -7125,7 +7125,7 @@ const CELESTIAL_DATA = {
       rate: "10–20/hr",
       direction: "South to overhead; radiant in Orion",
       altitude: "Orion rises well above horizon by 2am at 34°N — good radiant elevation",
-      tip: "Also Halley's Comet debris, like the Eta Aquariids. Orionids are fast (66 km/s) and produce bright meteors with persistent glowing trains. Best after midnight when Orion is well up in the south. Your property's dark skies reveal Orion brilliantly as a backdrop. Fall nights in North Georgia can be crisp and clear — excellent conditions.",
+      tip: "Also Halley's Comet debris, like the Eta Aquariids. Orionids are fast (66 km/s) and produce bright meteors with persistent glowing trains. Best after midnight when Orion is well up in the south. Fall nights in North Georgia can be crisp and clear — excellent conditions.",
       durationNote: "Active Oct 2–Nov 7; peak Oct 21–22"
     },
     {
@@ -7200,7 +7200,7 @@ const CELESTIAL_DATA = {
       rate: "30–50/hr",
       direction: "Northeast → overhead after midnight",
       altitude: "Radiant 70°+ by 3am at 34°N",
-      tip: "The reliable annual Perseid favorite. Moon conditions will depend on where the lunar cycle falls in 2027 — check closer to the date. Always worth watching from your dark property skies.",
+      tip: "The reliable annual Perseid favorite. Moon conditions will depend on where the lunar cycle falls in 2027 — check closer to the date.",
       durationNote: "Active Jul 17–Aug 24; peak Aug 11–13"
     },
     {
@@ -9096,9 +9096,10 @@ function renderWeather() {
   html += '<details class="weather-methodology">';
   html +=   '<summary>Where does this data come from?</summary>';
   html +=   '<div class="weather-methodology-body">';
-  html +=     '<p><strong>📡 ' + escapeHtml(STATION_NAME) + '</strong> — the Ambient Weather station on the property. The live measured readings, the indoor sensors, and the on-property rain-gauge totals. The green dot means it\'s reporting.</p>';
-  html +=     '<p><strong>🌐 Open-Meteo</strong> — the third-party forecast model, pulled in from off the property. The condition word, the 7-day and hour-by-hour outlook, and the gridded precipitation behind the rainfall context.</p>';
-  html +=     '<p><strong>📊 ERA5</strong> — Open-Meteo\'s archived reanalysis (2001–2025). The 25-year historical normal the rainfall percentile chips compare against — regional, not the property gauge.</p>';
+  if (typeof ESTATE_STATION !== "string" || ESTATE_STATION === "present" || ESTATE_STATION === "undeclared")   // no station declared → no station row
+  html +=     '<p><strong>📡 ' + escapeHtml(STATION_NAME) + '</strong> — the weather station. The live measured readings, the indoor sensors, and the rain-gauge totals at the station. The green dot means it\'s reporting.</p>';
+  html +=     '<p><strong>🌐 Open-Meteo</strong> — the third-party forecast model, from the regional grid rather than a sensor on site. The condition word, the 7-day and hour-by-hour outlook, and the gridded precipitation behind the rainfall context.</p>';
+  html +=     '<p><strong>📊 ERA5</strong> — Open-Meteo\'s archived reanalysis (2001–2025). The 25-year historical normal the rainfall percentile chips compare against — regional, not the on-site gauge.</p>';
   html +=     '<p>If a source goes offline, the dependent sections will simply be missing — the indicators at the top of the card show which feeds are live.</p>';
   html +=   '</div>';
   html += '</details>';
@@ -13980,7 +13981,7 @@ function renderPlantList() {
 // =========================
 
 function renderVehiclesSummary() {
-  document.getElementById("vehicles-summary").textContent = "What's in the garage and shed — and what each one needs";
+  document.getElementById("vehicles-summary").textContent = "The machines we keep — and what each one needs";
   const eq = document.getElementById("equipment-summary");
   if (eq) eq.textContent = "Mowers, blowers, trimmers, saws — and what each one runs on";
   const hh = document.getElementById("household-summary");
@@ -14306,7 +14307,7 @@ function renderVehicles() {
   const INTRO = {
     'vehicles-list':  'Everything on the place that drives. Each row carries the oils, plug gaps, and filter sizes you need at the store.',
     'equipment-list': 'Mowers, blowers, trimmers, saws — with the fuel mixes, plug gaps and filter part numbers for each.',
-    'household-list': 'The systems the house runs on — what each one is, the rhythms that keep it happy, and which breaker feeds it.',
+    'household-list': 'The systems the home runs on — what each one is, the rhythms that keep it happy, and which breaker feeds it.',
   };
   GROUPS.forEach(g => {
     const host = document.getElementById(g.target);
@@ -14334,7 +14335,7 @@ function renderVehicles() {
     //     openers so there's a consistent design language."
     if (g.target === 'household-list') {
       html += '<button type="button" class="card-later-link" id="household-add-link">' +
-              'Is there something else the house runs on? Tell the Almanac \u203a</button>';
+              'Is there something else the home runs on? Tell ' + escapeHtml(typeof JOURNAL_NAME === "string" && JOURNAL_NAME ? "the " + JOURNAL_NAME : "the journal") + ' \u203a</button>';
     }
     // Ungrouped records surface on the Vehicles card rather than vanishing —
     // the same fail-loud posture the three-way split was written with.
