@@ -143,3 +143,47 @@ improvising the right rule. Proposed wording, to make that repeatable rather tha
 > acting on one must first verify no other writer is live in the affected tree, and must DECLARE
 > the widening to the hub in the same breath as doing it.** Silence is the violation, not the
 > widening.
+
+---
+
+## Run 2 — OPEN 2026-09-04 ~3:05 PM ET
+
+| lane | topic | writes | holds QA | status |
+|---|---|---|---|---|
+| D | Tier 1 map render (steps 1–2 only) | `engine/viewer.template.html` + rebuilt `viewer.html` | **YES — sole holder** | launched |
+
+`[paul-greenlit]` *"yes, greenlight tier 1 as its own lane."* **Lane B caught that the greenlight
+bundles a decision Paul has not made:** Tier 1 is three steps and the third — the DASH — is his
+authoring call, not agent work. Lane D asks about it and does not act. That catch is the clearest
+argument yet for the routing rule: a lane that had simply executed "Tier 1" would have reversed an
+honesty rule on Mom's surface.
+
+**Standing rules now in force**
+- Questions of scope / sequencing / ownership route to the hub `[paul-stated 2026-09-04]`.
+- At most ONE lane holds QA for a whole run (practice-steward audit). Lane D holds it, and still
+  does not push — prod is FROZEN, and Paul sees a local before/after first.
+
+## Rulings Paul gave directly in lane tabs (the hub was holding two of these — both now moot)
+
+- **Seat name** — *"I don't really care about the name."* → `business-analyst` STANDS. The hub's
+  backing of a rename is withdrawn; the description carries the remit. **Registered in
+  `~/.claude/agents/README.md`** now that the name is settled.
+- **Bob's motive** — *"I talked about bob's motives in the voice notes."* → substance CONFIRMED.
+  ⚠️ Two limits survive because he lifted neither: what is confirmed is the **substance, not a
+  verbatim** (Bob is still never quoted), and a confirmed relay **does not open a channel** — the
+  AI boundary and the quarantine clause still bind.
+- **Research posture** — *"let the seat do all its own original research."* The 2026-08-13 study
+  is now a **PRIOR to re-test, not an authority to cite.** This reversed a drafted commitment;
+  lane A reversed it explicitly in the file rather than quietly.
+- **Scope** — *"Fernwood to start, but will expand to the rest of the portfolio."* Fernwood is the
+  first instance, not the subject. ⛔ Oculus and joint ventures are NOT in scope until he opens them.
+- **The canvas** — the ~660px centered column IS the desktop design `[paul-ruled]`, now sited in
+  `engine/viewer.template.html`.
+
+## ⭐ Router drift, found while registering the seat — measured, not assumed
+`~/.claude/agents/README.md` claimed **7 agents**; **9** carry frontmatter. It omitted
+**practice-steward** (which has had a routing-table row since it was stood up) and
+**business-analyst** (spawnable — it appears in the live agent-type list — while absent from the
+router). **Two agents invisible at once.** This is the same defect the file's own 2026-08-02 note
+documents about examiner-panel: that fix corrected the *number* and left it hand-written, so it
+could only be right until the next agent. The line now carries the command that derives it.
