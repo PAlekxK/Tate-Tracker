@@ -31,7 +31,7 @@ ENV_NAME = "production"
 ESTATE_ID = "est-3c9f1a"
 LEGACY_BEFORE = "2026-09-04"
 # C5 7c: the Ambient Weather station this estate reads — instance data, not engine code.
-AMBIENT_MAC = "D8:F1:5B:15:28:B8"
+# AMBIENT_MAC — a Worker SECRET since 2026-09-04 (paul-stated: "go for it now"), never a var in this public file; install with `wrangler secret bulk` per env. The route answers 503 without it.
 # C6 3c: hostnames a presented grant may arrive from (the Origin header). Only already-public hosts here; a
 # family's own hostname is set as a var from the private sibling at deploy, never in this tracked file.
 FAMILY_HOSTS = "palekxk.github.io"
@@ -46,7 +46,7 @@ ENV_NAME = "qa"
 # a prod one and 3b's two-estate check can run. QA holds only probe rows; today's prefixed QA rows are orphaned by design.
 ESTATE_ID = "est-qa0001"
 LEGACY_BEFORE = "2026-09-03"
-AMBIENT_MAC = "D8:F1:5B:15:28:B8"
+# AMBIENT_MAC — secret per env (see [vars] note)
 # Guru 3b: the QA Worker refuses /api/chat once today's spend, priced at the model's published rates, passes
 # this many dollars (prod has NO ceiling). Paul, 2026-09-03: "a clean dollar fifty a day".
 CHAT_DAILY_BUDGET_USD = "1.50"
