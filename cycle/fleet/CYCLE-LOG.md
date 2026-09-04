@@ -633,3 +633,5 @@ earn its place** — does a forum sweep on the Blue Thunder charging question pr
 with a test attached, or only noise? Blue Thunder is the natural first subject.
 
 ⚠️ **NOT a lap.** Do not count this section as one.
+
+<!-- meta-lap: 2026-09-04 — engine/migration work only; the fleet loop did not run. -->

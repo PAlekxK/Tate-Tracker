@@ -2071,3 +2071,5 @@ can reach**, which is the only reason this note belongs in her log at all.
 drifted, nothing said so, and it was found by accident while doing unrelated work. It is the
 `[[reference_generated_views_check]]` shape — the check existed and was simply not run at the
 commit that needed it.
+
+<!-- meta-lap: 2026-09-04 — the Product Engine migration build (QA-first; C5/C6/Guru/C7 steps; Access on QA). No mom-cycle lap ran: her feedback is HELD by Paul's 9/03 freeze. -->
