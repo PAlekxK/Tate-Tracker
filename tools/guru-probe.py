@@ -18,7 +18,7 @@ import argparse, json, os, re, sys, urllib.error, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 QA_URL = os.environ.get("FERNWOOD_QA_WORKER_URL", "https://fernwood-qa.paul-kirschenbauer.workers.dev").rstrip("/")
-QA_TOKEN_FILE = os.path.join(ROOT, ".private", "fernwood-qa-token")
+QA_TOKEN_FILE = os.path.join(ROOT, ".private", "fernwood-token-qa")
 
 
 def resolve_qa_token():
