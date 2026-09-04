@@ -1,0 +1,418 @@
+{
+ "_meta": {
+  "purpose": "Place claims in SHARED engine prose — see tools/place-claims.py",
+  "declared": "2026-09-04"
+ },
+ "baseline": {
+  "renderingAtCondo": 58,
+  "setOn": "2026-09-04"
+ },
+ "claims": {
+  "fc2730efad": {
+   "text": "A native of the cove forests at this elevation — the wild cousin to the hydrangeas already by the porch.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "298221de9b": {
+   "text": "A wet-meadow native that would suit the pond's edge or the spring drainage seepage.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "d21001261e": {
+   "text": "ACTIONABLE NOW: check existing hemlocks on the property for HWA and treat (imidacloprid + dinotefuran soil drench at root flare).",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "a117d99f33": {
+   "text": "Always worth watching from your dark property skies.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "50a0bef48f": {
+   "text": "Blue Ridge Blues & BBQ Festival",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "f2f0893448": {
+   "text": "Confirmed in GNPS Blue Ridge Cove Forest list.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "3e7ef179a1": {
+   "text": "Confirmed in GNPS Blue Ridge landscaping list for both Montane Oak and Cove Forest understory.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "29ae2a7067": {
+   "text": "Confirmed in GNPS Blue Ridge list across Cove, Low-Mid Oak, and Seepage communities.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "73fd4f1fff": {
+   "text": "Confirmed in GNPS Blue Ridge Seepage Wetland list.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "d2bc7b9256": {
+   "text": "Direct fit for the pond area and the spring drainage.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "c2868040dc": {
+   "text": "Excellent from property · 🌒 Thin crescent — minimal · 60–120/hr",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "38e33e7a64": {
+   "text": "Excellent from property · 🌓 Quarter moon — moderate",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "eebc2bd4a7": {
+   "text": "Fine fescues struggle in the hot, humid Piedmont but are far more viable up here, where summers run 10–15°F cooler.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "ce7e13e649": {
+   "text": "For a Blue Ridge native alternative, 'Zagreb' threadleaf coreopsis (C.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "79ba4cb2a6": {
+   "text": "GA DNR lists these rich-cove species as worth noticing if you find them on the property — special-concern, not yet endangered: cucumber-root, galax, trailing arbutus, partridge-berry, round-leaved violet.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "ad1c23441c": {
+   "text": "Gardens of the Blue Ridge",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "0620a31356": {
+   "text": "Good from property · 🌑 New moon — ideal · 15–30/hr",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "ea13f11802": {
+   "text": "Good from property · 🌒 Thin crescent — minimal · 25–60/hr",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "cd5d9a8863": {
+   "text": "Good from property · 🌔 Gibbous — significant · 10–15/hr",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "989d549d5d": {
+   "text": "Good from property · 🌕 Full/bright — severe · 10–20/hr",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "19f43c0c06": {
+   "text": "Good from property · 🌕 Full/bright — severe · 30–50/hr",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "fcb35179fc": {
+   "text": "Good from property · 🌕 Full/bright — severe · 50–100/hr",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "336e23d2fc": {
+   "text": "Grasses and lawn alternatives for the managed fairway turf — the practical tall fescue alongside lower-input and native-leaning options worth trialing as the lawn leans toward the natural approach.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "d0357c448a": {
+   "text": "If found on the property, leave alone and support — do not transplant.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "18bdb41932": {
+   "text": "If sourcing from Gardens of the Blue Ridge: they specialize in native azaleas including hard-to-find color forms.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "2fbd846698": {
+   "text": "Is there something else the house runs on?",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "4cec61cf54": {
+   "text": "Likely already present on the property in the spring drainage.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "5f2174a422": {
+   "text": "Look-don't-pick if found on the property; if planting, only ethical-propagation sources.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "41f1d2a2f8": {
+   "text": "Most ecologically meaningful candidate on this list; also the slowest and least guaranteed.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "72b6516528": {
+   "text": "Multi-decade canopy / regional restoration species.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "58d3782a85": {
+   "text": "Non-native (Eurasian) — the one practical exception to the native-first thinking on this list, earned by being the realistic choice for a lush mowed turf at this elevation.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "62fbe973eb": {
+   "text": "On the property",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "15c54dc50b": {
+   "text": "Once a dominant canopy species at this elevation in the southern Appalachians.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "c2b55d010d": {
+   "text": "One of the easiest natives to establish under existing tree canopy.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "4025a34f1f": {
+   "text": "palustris is a coastal-plain wetland species, not a Blue Ridge native.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "3962a6c5a8": {
+   "text": "Roundstone offers a Georgia-ecotype switchgrass — the right provenance for this slope.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "cb3080d7e9": {
+   "text": "Show all sync phases on this device",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "60e0a8744a": {
+   "text": "Signature North Georgia mountain native — the Cohutta and Smokies range is centered on this species.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "9dc785661e": {
+   "text": "sphaerocarpa is a south-central species, not a Blue Ridge native.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "800d4ad9ab": {
+   "text": "Tallamy-defined keystone genera for Blue Ridge ecoregion — species that support disproportionate caterpillar / Lepidoptera diversity (oaks 400+, cherries 450+, willows 380+).",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "ff0d1cfdbc": {
+   "text": "The 25-year historical normal the rainfall percentile chips compare against — regional, not the property gauge.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "b3f592f076": {
+   "text": "The American chestnut was a dominant canopy tree across the southern Appalachians until the chestnut blight, introduced from Asia in 1904, killed virtually all mature trees by 1950.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "90136ced35": {
+   "text": "The cloud copy is the source of truth, so nothing here is lost.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "b15e031271": {
+   "text": "The first observation goes here.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "d1d56fd311": {
+   "text": "The grass already running the fairway, listed here for the choice that matters when overseeding: a quality turf-type blend, not old pasture-grade “Kentucky 31.” UGA's standard cool-season lawn grass for the North Georgia mountains.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "db24a895a0": {
+   "text": "The live measured readings, the indoor sensors, and the on-property rain-gauge totals.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "9660e008ce": {
+   "text": "The pond and spring drainage could host it if the trial winner is the priority.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "ad4a2e083d": {
+   "text": "The systems the house runs on — what each one is, the rhythms that keep it happy, and which breaker feeds it.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "41ef349fc8": {
+   "text": "This forest was once chestnut canopy",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "ccff0e2ba2": {
+   "text": "This slope was once chestnut canopy.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "c95d46fefe": {
+   "text": "verticillata 'Zagreb') was also a top performer in the same trial — and a better fit for dry sunny spots than for the pond's edge.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "68b119a817": {
+   "text": "What you set down here is what the Almanac knows.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "ef5477c768": {
+   "text": "What's in the garage and shed — and what each one needs",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "687a807b67": {
+   "text": "Year-round evergreen native fern — confirmed in GNPS Blue Ridge Low-to-Mid Oak Forest list.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "d0fe3682cf": {
+   "text": "Your property's dark skies reveal Orion brilliantly as a backdrop.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "5809e4ac60": {
+   "text": "· last light here 8:05 PM",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "17f7ddaf43": {
+   "text": "— the Ambient Weather station on the property.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  },
+  "4b0a0f7309": {
+   "text": "— the third-party forecast model, pulled in from off the property.",
+   "class": "unclassified",
+   "note": "",
+   "firstSeen": "2026-09-04",
+   "rendersAtCondo": true
+  }
+ }
+}

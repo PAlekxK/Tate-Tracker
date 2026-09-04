@@ -13,6 +13,7 @@ python3 tools/check-config-derivation.py  # canon values TYPED into engine code 
 python3 tools/instance-recipe.py --check   # INSTANCE-RECIPE.md still says what the code says (generated; the log inside is hand-kept)
 python3 tools/check-public-build.py        # private-tier values in the PUBLIC build + the supplied-names NEEDLE row (exit 3 = UNCHECKABLE: the sibling is absent — never green by absence)
 python3 tools/build-library-index.py --check  # Guru 6a: the prose library index (7,330 chunks in KV) still matches its sources; says where it is LOADED (a fresh manifest with a stale KV is still possible)
+python3 tools/place-claims.py --check      # shared engine prose that claims a PLACE (engine/place-claims.json): red while any row is unclassified or the condo count grows [paul-stated 2026-09-04: track it systematically]
 python3 tools/qa-divergence.py --check     # what QA has that the live Fernwood (Mom) does not — origin/main..origin/staging by surface class; a SURFACE commit no plan stage-note names is RED [paul-stated 2026-09-04: additions must be trackable]
 python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
