@@ -1,4 +1,4 @@
-<!-- clearing-state: LIVE — the forward baton for the Product Engine migration era; close-out clears it when the migration lands -->
+<!-- clearing-state: SUPERSEDED 2026-09-04 ~11:50 AM ET [paul-stated]: the migration is DEFERRED and not open work; prod stays frozen, QA is its own instance, the features hold is lifted on QA, THE GOAL is onboarding by a link (BACKLOG FREEZE block). The live queue is .plans/2026-09-04-independent-queue.md. The doors and holds below still hold; the "What Paul owes" list does not. -->
 # PICK UP HERE — Fernwood, migration era (written 2026-09-04 ~9:30 AM ET at close-out)
 
 **Where things stand, in one screen.** Everything buildable without Paul is built and on **QA** (`staging` branch →
