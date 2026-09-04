@@ -348,26 +348,43 @@ kept apart on purpose.
 real daily user of the wide view, and the product-engine direction means future readers will not
 all be phone-first.
 
-## 8 · ⚠️ The prior question this ruling surfaces — and it needs Paul
+## 8 · ✅ THE CENTERED COLUMN IS THE DESKTOP DESIGN `[paul-ruled 2026-09-04]`
 
-*"Both views look really good"* presumes a desktop view exists as a **designed** thing. Today it
-does not. So the honest reading is that this ruling creates **design work, not only review work** —
-and a review rule pointed at an undesigned surface will return twenty findings that are all one
-finding wearing different hats.
+**The prior question, and how it was settled.** *"Both views look really good"* presumes a desktop
+view exists as a **designed** thing. Measured (§7), it did not — desktop was the mobile column
+centered in whatever whitespace remained, by omission rather than by decision. That made the
+review ruling ambiguous: pointed at an undesigned surface it would have returned twenty findings
+that were all one finding wearing different hats. Two options went to Paul — ratify the centered
+column, or commission a desktop layout. **He ratified the column.**
 
-**Two options, and I recommend the first:**
+**What is now ratified.** Fernwood renders **one layout at every width**: a single ~660px column,
+centered, with no breakpoint above it. On a wide screen that is the intended presentation, not a
+fallback and not an unfinished state. The reasoning it is ratified on: a single readable measure
+suits a field journal, there is no reflow to keep honest, and there is exactly one layout to
+maintain — which is the same argument the whole engine/instance split is built on.
 
-- **(a) Ratify the centered column as the intended desktop design** `[recommended]`. It is a
-  defensible choice for a field journal — a single readable measure, no reflow, one layout to
-  maintain, one thing to keep honest. Ratify it, and the review rule then has a *contract* to hold
-  desktop to: "does the centered column read as deliberate at 1440px?" — a question with real
-  answers (the header gradient across a wide masthead, hover states that duplicate touch
-  affordances, whether the whitespace reads as intentional or as a phone screenshot).
-- **(b) Commission a desktop layout.** Real work, a second layout to maintain forever, and it
-  competes directly with the C6 setup/migration sequence.
+**What it binds — three consequences, and they are the operative part:**
 
-Until he rules, §9's wiring should ship with desktop reviewed **as the centered column**, so the
-rule starts working immediately without pre-empting his call.
+1. ⭐ **The desktop review question changes shape.** It is no longer *"where is the desktop
+   layout?"* but **"does the centered column read as DELIBERATE at 1440px?"** — which has real,
+   answerable sub-questions: the header gradient stretched across a wide masthead · hover states
+   that now duplicate touch affordances the tiles already carry (§7) · whether the flanking
+   whitespace reads as intentional margin or as a phone screenshot pasted on a desktop · what the
+   fixed-position elements (the feedback FAB, the ack ribbon) do when the column is not the window.
+2. ⛔ **A sweep may not re-litigate it.** *"The app doesn't use the wide screen"* is now a
+   **DELIBERATE-PER-DOCTRINE** verdict in pass 2's vocabulary, naming this ruling — not a finding.
+   Fresh eyes will raise it, correctly and unprompted, on the first run; that is pass 2's job to
+   adjudicate, exactly as it protected the ratified strip↔card duplication contract.
+3. ⚠️ **Ratified is not exempt.** A ratified layout can still be executed badly at a width nobody
+   looked at. The ruling settles *what the design is*; it does not assert the design is currently
+   well-executed on desktop — which is precisely what §9's wiring exists to find out.
+
+⚠️ **This document is not the durable home for the ruling.** It is a test-fixture design; a
+ratified layout contract belongs where renderers and reviewers actually read it — the doctrine
+block at the top of `viewer.html`'s stylesheet (where the affirmative-grammar and strip↔card
+contracts already live) and/or `~/.claude/design-principles/`. **Out of this lane's OWNS** —
+flagged to the hub as a placement decision, carried here in the interim so the ruling is not
+homeless.
 
 ## 9 · The wiring proposal — 4 edits to `~/.claude/skills/ux-sweep/SKILL.md`
 
@@ -385,9 +402,13 @@ her-conditions line), so that one line is edited once rather than twice by two h
 never infer the second from the first.* Grounded in the skill's own hazard that tab creation
 silently resets width: what looks like desktop coverage today is an accident, not a pass.
 
-**Edit 3 — Pass 2, two clauses.** (a) Re-verify each finding *at the width it was made at* —
+**Edit 3 — Pass 2, three clauses.** (a) Re-verify each finding *at the width it was made at* —
 a claim that reproduces at one width and not the other is **labelled with its width**, never
 stated unqualified. (b) The coherence sweep gains one question: *does this hold at both widths?*
+(c) ⭐ **The ratified-contract clause, now that §8 is settled:** *"there is no desktop layout / the
+app doesn't use the wide screen"* is **DELIBERATE-PER-DOCTRINE**, naming the 2026-09-04 ruling.
+Desktop findings are adjudicated against **"does the centered column read as deliberate here?"** —
+never against a desktop layout that was decided not to exist.
 
 **Edit 4 — Trail + run log.** The method note records **both** viewports; a run that reviewed one
 **records that the other went unreviewed**, rather than letting silence imply it passed. That
@@ -408,10 +429,16 @@ stops being invisible.
    not be added by a lane.
 3. **§3f — designation, not a name.** Recommend `HARNESS-01` with no biography. If he wants a
    name, it must be obviously non-real — never a plausible first name.
-4. **§8 — ratify the centered column as the desktop design, or commission a desktop layout.**
-   Recommend ratify (a). This is the one that blocks §9 from being fully honest.
+4. ~~**§8 — ratify the centered column as the desktop design, or commission a desktop layout.**~~
+   ✅ **SETTLED `[paul-ruled 2026-09-04]` — the centered column IS the desktop design.** What
+   remains is **placement, not the decision**: the ratified contract needs a durable home a
+   renderer or a reviewer actually reads (`viewer.html`'s stylesheet doctrine block and/or
+   `~/.claude/design-principles/`), which is outside this lane's OWNS. §8 carries it in the
+   interim.
 5. **§9 — the four `/ux-sweep` edits**, coordinated with the amendment already proposed in that
-   skill's own log.
+   skill's own log. Edit 3(c) now depends on the §8 ruling and should not ship without it having
+   a durable home — a DELIBERATE-PER-DOCTRINE verdict that cites a ruling no principle file
+   carries is a verdict the next sweep cannot verify.
 6. **Sequencing.** Prod is frozen and Mom's feedback is held. Nothing here is urgent, and lap 0
    of a tenure costs real time. Recommend the wiring (§9, cheap, immediately useful) lands well
    before the harness (§3, a build).
