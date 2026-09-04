@@ -59,6 +59,21 @@ def file_date(path, root):
     (filter-repo preserves them), so the date is read from THAT repo, never from the clone's mtime —
     a clone made today would otherwise make every moved trail read newer than the plan citing it.
     """
+    # A citation may also point at PORTFOLIO level (`~/.claude/agents/audits/…`) — where the
+    # practice-steward writes. Flagged 2026-09-03: `~` was joined onto the repo root and read as
+    # missing, so the one seat that writes at portfolio level could not cite itself. The date is
+    # read from THAT repo's git, like the sibling branch — never from the working copy's mtime.
+    if path.startswith("~") or os.path.isabs(path):
+        full = os.path.normpath(os.path.expanduser(path))
+        repo = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=os.path.dirname(full) if os.path.exists(os.path.dirname(full)) else "/",
+                              capture_output=True, text=True).stdout.strip()
+        if repo:
+            root, path = repo, os.path.relpath(full, repo)
+        else:
+            try:
+                return dt.date.fromtimestamp(os.path.getmtime(full))
+            except OSError:
+                return None
     abs_path = os.path.normpath(os.path.join(root, path))
     if path.startswith("../"):
         parts = os.path.normpath(path).split(os.sep)
@@ -160,7 +175,8 @@ def check(root):
                     findings.append((rel, f"{seat} waived with no reason — a declared-optional element needs its declaration"))
                 continue
             target = target.strip("`")
-            if not os.path.exists(os.path.join(root, target)):
+            resolved = os.path.expanduser(target) if (target.startswith("~") or os.path.isabs(target)) else os.path.join(root, target)
+            if not os.path.exists(resolved):
                 findings.append((rel, f"{seat} cites `{target}` which does not exist — the review is asserted"))
                 continue
             sd = file_date(target, root)
