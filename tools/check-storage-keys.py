@@ -24,6 +24,10 @@ VIEWER = os.path.join(ROOT, "viewer.html")
 
 LITERAL_RE = re.compile(r'["\'`](tateTracker\.[A-Za-z0-9_.]+)["\'`]')
 ROSTER_RE = re.compile(r'const STORAGE_KEYS = Object\.freeze\(\{(.*?)\}\);', re.S)
+# C4 2b — the roster names which keys hold PER-ESTATE state; every usage of one of those literals must pass through
+# estateKey(), which inserts ESTATE_ID. A bare use is the exact defect (her answers at one estate shown at another).
+PER_ESTATE_RE = re.compile(r'const STORAGE_KEYS_PER_ESTATE = Object\.freeze\(\[(.*?)\]\);', re.S)
+NAME_RE = re.compile(r'^\s*([A-Za-z0-9_]+):\s*["\'`](tateTracker\.[A-Za-z0-9_.]+)["\'`]', re.M)
 
 
 def roster_and_literals(src):
@@ -48,12 +52,35 @@ def check(src, quiet=False):
         print("⛔ STORAGE_KEYS roster not found in viewer.html — the guard has nothing to guard.")
         return 2
     unrostered = {k: ln for k, ln in used.items() if k not in roster}
+    # per-estate keys: every usage literal outside the roster must be wrapped as estateKey("…")
+    bare = {}
+    pm = PER_ESTATE_RE.search(src)
+    if pm:
+        names = set(re.findall(r'["\'`]([A-Za-z0-9_]+)["\'`]', pm.group(1)))
+        by_name = dict(NAME_RE.findall(_.group(1))) if (_ := ROSTER_RE.search(src)) else {}
+        outside = src[:_.start()] + src[_.end():]
+        for name in sorted(names):
+            lit = by_name.get(name)
+            if not lit:
+                bare[name] = "named in STORAGE_KEYS_PER_ESTATE but not in STORAGE_KEYS"; continue
+            for mm in re.finditer(r'["\'`]' + re.escape(lit) + r'["\'`]', outside):
+                pre = outside[max(0, mm.start() - 12):mm.start()]
+                if not pre.endswith("estateKey("):
+                    bare[lit] = "used bare (not estateKey(…)) at viewer.html:%d" % (outside[:mm.start()].count("\n") + 1 + (1 if mm.start() >= _.start() else 0))
     unused = sorted(k for k in roster if k not in used)
     if not quiet:
         print("storage keys — %d rostered · %d distinct literals in use" % (len(roster), len(used)))
         if unused:
             print("  · rostered but no usage literal outside the roster: %s" % ", ".join(unused))
             print("    (not a failure — a key can be read through the roster object; it is a prompt to look)")
+    if not quiet and pm:
+        print("  · %d per-estate key(s) declared (STORAGE_KEYS_PER_ESTATE); every use wrapped in estateKey(): %s" % (len(re.findall(r'["\'`]([A-Za-z0-9_]+)["\'`]', pm.group(1))), "no" if bare else "yes"))
+    if bare:
+        print("  🔴 per-estate key(s) used BARE — her answers at one estate would show at another:")
+        for k, why in bare.items():
+            print("       · %-52s %s" % (k, why))
+        if not unrostered:
+            return 1
     if unrostered:
         print("  🔴 %d key(s) in use and NOT in STORAGE_KEYS:" % len(unrostered))
         for k, ln in sorted(unrostered.items(), key=lambda kv: kv[1]):
@@ -72,6 +99,10 @@ def selftest(src):
     rc = check(src, quiet=True)
     ok &= rc == 0
     print("  %s the live file passes (exit %d)" % ("✅" if rc == 0 else "🔴", rc))
+    bare = src.replace("</script>", 'localStorage.getItem("tateTracker.momQueue.answered.v1");\n</script>', 1)
+    rc = check(bare, quiet=True)
+    ok &= rc == 1
+    print("  %s a BARE use of a per-estate key FAILS (exit %d)" % ("✅" if rc == 1 else "🔴", rc))
     planted = src.replace("</script>", 'localStorage.getItem("tateTracker.plantedNineteenth.v1");\n</script>', 1)
     rc = check(planted, quiet=True)
     ok &= rc == 1

@@ -6986,10 +6986,29 @@ const STORAGE_KEYS = Object.freeze({
   zonesLastSyncedAt:   "tateTracker.zones.lastSyncedAt.v1",
   zoneLauncherDismissed: "tateTracker.zoneJourney.launcherDismissed.v1",
 });
+// C4 2b — the keys above that hold PER-ESTATE state (what this person answered / snoozed / was offered / wrote in
+// the general log about THIS estate's questions). On a family origin that serves two estates, an unsegmented key
+// would show her at the condo as having answered Fernwood's questions. Their usage sites wrap the literal in
+// estateKey(), which inserts ESTATE_ID after the prefix; check-storage-keys.py fails on a bare use of one of these.
+const STORAGE_KEYS_PER_ESTATE = Object.freeze(["momQueueAnswered", "momQueueSnoozed", "momQueueOffered", "momQueueGeneral"]);
+function estateKey(k) { return k.replace(/^tateTracker\./, "tateTracker." + ESTATE_ID + "."); }
+// One-time carry-over: a device that holds the OLD unsegmented key and not yet the segmented one copies it forward
+// (never deleted — the frozen page that wrote it may still run on this device). Deterministic, no network.
+(function carryOverEstateKeys() {
+  try {
+    STORAGE_KEYS_PER_ESTATE.forEach(function (name) {
+      var old = STORAGE_KEYS[name], neu = estateKey(old);
+      if (localStorage.getItem(old) != null && localStorage.getItem(neu) == null) localStorage.setItem(neu, localStorage.getItem(old));
+    });
+  } catch (e) { /* storage unavailable — the queue falls back to its own guards */ }
+})();
 const RELEASE_NOTES_DATA = [{"date": "2026-09-01", "title": "The map got its names right", "bullets": ["**The Fairway card is now The Field.** The open ground below the house is one field run two ways, and it now says so: **The Turf** (mown regularly) and **The Meadow** (let go, cut back hard once a year).", "**\"Fairway\" is gone from the property.** It turned out to be backwards. On a golf course a fairway is the *closely mown* corridor and the unmaintained ground is the rough — so the word had been sitting on the opposite half of the field. \"Meadow\" had drifted the same way in the other direction. Both now mean what they mean everywhere on the site.", "**The Green keeps its name**, because it earned it — it is the flat area left from when this ground was a golf course, and it is the one golf word still standing.", "**Fairway Border is now The Green Ring** — same ground, a name that says where it is.", "**New areas on the map:** the Western Fern and Azalea Garden, and Main Parking.", "**Plants can live in more than one place now.** The moss is on all three patios, the mountain laurel is in three gardens, and the azaleas are in two — the record could only ever hold one spot per plant before, so it was quietly wrong about all of them.", "**A new plant: Constellation Dogwood**, on the Green Ring — named off the nursery label.", "**The names that moved, in one place:** Fairway Border → **The Green Ring** · Fairway Turf → **Turf Grass** · Fairway Meadow → **Meadow Grass** · the Fairway card → **The Field**. The Green stayed The Green.", "**Some of the zones are still in progress.** The map is being walked and retraced area by area, so a few boundaries are rougher than they will be and more names may still move. More to come."]}, {"date": "2026-09-01", "title": "The refrigerator, because you asked for it", "bullets": ["**The refrigerator is on the record now, under Household Systems** — the LG 25.5 cu ft bottom-freezer, right where you asked for it. The specs came from you: the model number, the ice maker that works, and no water dispenser.", "**It carries its own rhythms** — the coils to vacuum twice a year, the door and drawer seals to check, and a yearly look at the actual temperature inside. None of them are dated yet, so none of them are nagging.", "**Two things it says plainly that we don't know.** Whether it's freestanding or built into the cabinets, and how old it is — both would be settled by one look at the plate inside the door. The card says so rather than guessing."]}, {"date": "2026-08-31", "title": "A round of polish, top to bottom", "bullets": ["**The radar's map is back to normal.** The map tiles under the rain had started printing a watermark; the rain layer itself was always fine. New map source, same radar.", "**The bird list reads cleanly at larger text** — species names and their season tags no longer crowd or cover each other.", "**Where there's more to scroll, the edge now says so.** The wildlife tabs and the Full Year plant grid fade at the edge when more is waiting — and Full Year opens on the current month instead of January.", "**One clock everywhere.** Every sunrise and sunset now reads like \"7:23 PM\" — no more \"19:58\" hiding among them.", "**The machines' cards read like the rest of the journal.** Our workshop bookkeeping moved off the page; the facts about each machine stayed."]}, {"date": "2026-08-31", "title": "The house's systems, on the record", "bullets": ["**Household Systems grew from one entry to five.** The propane furnace, the water heater, the washing machine and the breaker panel join the thermostat — each with what it is, what it needs, and the spare parts worth knowing about before something quits.", "**Each system carries its rhythms now** — the recurring chores, like changing the furnace filter or running the washer's cleaning cycle, with how often each wants doing. Nothing nags: a chore we haven't dated yet simply says so.", "**The breaker panel's hand-written door card is readable in the app** — all thirty circuits transcribed, with the hard-to-read rows marked honestly instead of guessed at."]}, {"date": "2026-08-27", "title": "the questions take turns", "bullets": []}];
 // C5 3b — THIS ESTATE'S MODULE SET, built by tools/build-viewer.py from estate.json (one fact, one source).
 // The strip's tiles carry data-module and render from the declared roster × this set — see applyModuleTiles().
 const ESTATE_MODULES = {"garden": "on", "motor-pool": "on", "equipment": "on", "house-systems": "on", "wildlife": "on", "place": "on", "weather": "on", "sky": "on"};
+// C4 2b (2026-09-04) — THIS ESTATE'S ID, from instance.json `estateId`. Browser storage is per ORIGIN, and a family
+// door serves more than one estate, so per-estate state is keyed under it — see estateKey() beside STORAGE_KEYS.
+const ESTATE_ID = "est-3c9f1a";
 // The estate's display names for JS (C4 5c): filled at build from the instance identity —
 // the same source as the masthead. Engine code says ESTATE_NAME / JOURNAL_NAME / STATION_NAME, never the word.
 const ESTATE_NAME = "Fernwood";
@@ -11315,10 +11334,10 @@ const MOM_ACK_DATA = {
 };
 
 const MomQueue = (function () {
-  const ANSWERED_KEY = "tateTracker.momQueue.answered.v1"; // { [questionId]: record }
-  const SNOOZED_KEY = "tateTracker.momQueue.snoozed.v1";   // { [questionId]: "YYYY-MM-DD" } — "Not sure" hides for the day
-  const GENERAL_LOG_KEY = "tateTracker.momQueue.general.v1"; // [ {note, at} ] — repeatable backup
-  const OFFERED_KEY = "tateTracker.momQueue.offered.v1";   // { [questionId]: firstOfferedISO } — for offer→answer latency (novelty vs. durable)
+  const ANSWERED_KEY = estateKey("tateTracker.momQueue.answered.v1"); // { [questionId]: record }
+  const SNOOZED_KEY = estateKey("tateTracker.momQueue.snoozed.v1");   // { [questionId]: "YYYY-MM-DD" } — "Not sure" hides for the day
+  const GENERAL_LOG_KEY = estateKey("tateTracker.momQueue.general.v1"); // [ {note, at} ] — repeatable backup
+  const OFFERED_KEY = estateKey("tateTracker.momQueue.offered.v1");   // { [questionId]: firstOfferedISO } — for offer→answer latency (novelty vs. durable)
 
   // ---- W1: capture that cannot lie (2026-07-16) ----
   // On 2026-07-15 Mom wrote substantive feedback on her MacBook and every word was

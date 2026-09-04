@@ -6986,10 +6986,29 @@ const STORAGE_KEYS = Object.freeze({
   zonesLastSyncedAt:   "tateTracker.zones.lastSyncedAt.v1",
   zoneLauncherDismissed: "tateTracker.zoneJourney.launcherDismissed.v1",
 });
+// C4 2b — the keys above that hold PER-ESTATE state (what this person answered / snoozed / was offered / wrote in
+// the general log about THIS estate's questions). On a family origin that serves two estates, an unsegmented key
+// would show her at the condo as having answered Fernwood's questions. Their usage sites wrap the literal in
+// estateKey(), which inserts ESTATE_ID after the prefix; check-storage-keys.py fails on a bare use of one of these.
+const STORAGE_KEYS_PER_ESTATE = Object.freeze(["momQueueAnswered", "momQueueSnoozed", "momQueueOffered", "momQueueGeneral"]);
+function estateKey(k) { return k.replace(/^tateTracker\./, "tateTracker." + ESTATE_ID + "."); }
+// One-time carry-over: a device that holds the OLD unsegmented key and not yet the segmented one copies it forward
+// (never deleted — the frozen page that wrote it may still run on this device). Deterministic, no network.
+(function carryOverEstateKeys() {
+  try {
+    STORAGE_KEYS_PER_ESTATE.forEach(function (name) {
+      var old = STORAGE_KEYS[name], neu = estateKey(old);
+      if (localStorage.getItem(old) != null && localStorage.getItem(neu) == null) localStorage.setItem(neu, localStorage.getItem(old));
+    });
+  } catch (e) { /* storage unavailable — the queue falls back to its own guards */ }
+})();
 const RELEASE_NOTES_DATA = {{RELEASE_NOTES}};
 // C5 3b — THIS ESTATE'S MODULE SET, built by tools/build-viewer.py from estate.json (one fact, one source).
 // The strip's tiles carry data-module and render from the declared roster × this set — see applyModuleTiles().
 const ESTATE_MODULES = {{ESTATE:modules}};
+// C4 2b (2026-09-04) — THIS ESTATE'S ID, from instance.json `estateId`. Browser storage is per ORIGIN, and a family
+// door serves more than one estate, so per-estate state is keyed under it — see estateKey() beside STORAGE_KEYS.
+const ESTATE_ID = {{ESTATE:id}};
 // The estate's display names for JS (C4 5c): filled at build from the instance identity —
 // the same source as the masthead. Engine code says ESTATE_NAME / JOURNAL_NAME / STATION_NAME, never the word.
 const ESTATE_NAME = "{{IDENTITY:nameJs}}";
@@ -11315,10 +11334,10 @@ const MOM_ACK_DATA = {
 };
 
 const MomQueue = (function () {
-  const ANSWERED_KEY = "tateTracker.momQueue.answered.v1"; // { [questionId]: record }
-  const SNOOZED_KEY = "tateTracker.momQueue.snoozed.v1";   // { [questionId]: "YYYY-MM-DD" } — "Not sure" hides for the day
-  const GENERAL_LOG_KEY = "tateTracker.momQueue.general.v1"; // [ {note, at} ] — repeatable backup
-  const OFFERED_KEY = "tateTracker.momQueue.offered.v1";   // { [questionId]: firstOfferedISO } — for offer→answer latency (novelty vs. durable)
+  const ANSWERED_KEY = estateKey("tateTracker.momQueue.answered.v1"); // { [questionId]: record }
+  const SNOOZED_KEY = estateKey("tateTracker.momQueue.snoozed.v1");   // { [questionId]: "YYYY-MM-DD" } — "Not sure" hides for the day
+  const GENERAL_LOG_KEY = estateKey("tateTracker.momQueue.general.v1"); // [ {note, at} ] — repeatable backup
+  const OFFERED_KEY = estateKey("tateTracker.momQueue.offered.v1");   // { [questionId]: firstOfferedISO } — for offer→answer latency (novelty vs. durable)
 
   // ---- W1: capture that cannot lie (2026-07-16) ----
   // On 2026-07-15 Mom wrote substantive feedback on her MacBook and every word was

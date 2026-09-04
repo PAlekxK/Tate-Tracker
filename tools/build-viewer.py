@@ -116,6 +116,13 @@ def const_re(const):
 MODULES_CONST = "ESTATE_MODULES"
 MODULES_PH = "{{ESTATE:modules}}"
 
+# C4 2b (2026-09-04) — THIS ESTATE'S ID reaches the browser as one const so per-estate browser storage (the question
+# queue) can be keyed under it on a family origin that serves more than one estate. Read from instance.json `estateId`;
+# a missing or malformed id FAILS the build — which estate a device's answers belong to is a fact, not a default.
+ESTATE_ID_CONST = "ESTATE_ID"
+ESTATE_ID_PH = "{{ESTATE:id}}"
+ESTATE_ID_RE = re.compile(r"^est-[a-z0-9]{4,24}$")
+
 # C6 1c — the SERVED text-size default is instance config: `display.defaultTextSize` ("lg" | "normal"), filled into
 # `wireTextSizeToggle`'s DEFAULT_SIZE. A missing key FAILS the build rather than defaulting: which size an unconfigured
 # device is served is a decision, and the instance file is where it is written down. The reason lives in the template's
@@ -159,6 +166,10 @@ def extract(viewer_text):
     if not m:
         raise RuntimeError("extract: `%s` literal not found on one line in viewer.html" % MODULES_CONST)
     t = t[:m.start(2)] + MODULES_PH + t[m.end(2):]
+    m = const_re(ESTATE_ID_CONST).search(t)
+    if not m:
+        raise RuntimeError("extract: `%s` literal not found on one line in viewer.html" % ESTATE_ID_CONST)
+    t = t[:m.start(2)] + ESTATE_ID_PH + t[m.end(2):]
     m = const_re("RELEASE_NOTES_DATA").search(t)
     if not m:
         raise RuntimeError("extract: `RELEASE_NOTES_DATA` literal not found on one line in viewer.html")
@@ -211,6 +222,13 @@ def build(template_text, instance_path):
     if MODULES_PH not in out:
         raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % MODULES_PH)
     out = out.replace(MODULES_PH, _modules_literal(canon), 1)
+    if ESTATE_ID_PH not in out:
+        raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % ESTATE_ID_PH)
+    eid = cfg.get("estateId")
+    if not isinstance(eid, str) or not ESTATE_ID_RE.match(eid):
+        raise RuntimeError("%s must declare `estateId` matching %s (got %r) — per-estate browser storage is keyed under it (C4 2b)"
+                           % (instance_path, ESTATE_ID_RE.pattern, eid))
+    out = out.replace(ESTATE_ID_PH, json.dumps(eid), 1)
     # Release notes are the INSTANCE's (paul-stated 2026-09-03: nothing to display → no indication of it): parsed from
     # <canon>/RELEASE_NOTES.md by build-release-notes.py's own parser; an estate without one builds an empty list and
     # the card hides itself.
@@ -276,8 +294,8 @@ def selftest():
     viewer = open(VIEWER, encoding="utf-8").read()
     t = extract(viewer)
     check("extract → build round-trips the live viewer byte for byte", build(t, DEFAULT_INSTANCE) == viewer)
-    check("template carries %d DATA + 15 IDENTITY + 1 ESTATE + 1 DISPLAY placeholders" % len(roster()),
-          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 15 and t.count("{{ESTATE:") == 1 and t.count("{{DISPLAY:") == 1)
+    check("template carries %d DATA + 15 IDENTITY + 2 ESTATE + 1 DISPLAY placeholders" % len(roster()),
+          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 15 and t.count("{{ESTATE:") == 2 and t.count("{{DISPLAY:") == 1)
     # a changed source must change the build (so --check can go red)
     with tempfile.TemporaryDirectory() as d:
         inst = os.path.join(d, "instance"); os.makedirs(inst)

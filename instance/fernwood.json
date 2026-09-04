@@ -5,6 +5,7 @@
     "rule": "If a value here duplicates a canon value, delete it here and derive it. This file may name things; it may not restate facts."
   },
   "estate": "fernwood",
+  "estateId": "est-3c9f1a",
   "canon": "..",
   "identity": {
     "name": "Fernwood",
