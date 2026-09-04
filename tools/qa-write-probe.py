@@ -145,7 +145,7 @@ def run_tool(*args):
 
 
 def check(name, cond, detail=""):
-    print("  %s %s%s" % ("✅" if cond else "🔴", name, ("  → " + detail) if detail and not cond else ""))
+    print("  %s %s%s" % ("✅" if cond else "🔴", name, ("  → " + str(detail)) if detail not in ("", None) and not cond else ""))
     return bool(cond)
 
 
@@ -260,6 +260,14 @@ def live():
     door_nonce = secrets.token_hex(6)
     base_evt = {"event": "door_reached", "door": "entry", "deviceId": HARNESS_ID, "ts": payload["ts"], "estate": "SHOULD-BE-IGNORED-" + door_nonce}
     st, body_d = door_post(json.dumps(base_evt).encode())
+    if st == 429:
+        # the door bucket is per IP per 5-minute window — a run within 5 min of the last one
+        # starts full. Wait for the next window rather than fail on our own storm.
+        import time
+        wait = 300 - int(time.time()) % 300 + 2
+        print("           (door bucket already full from a run in this 5-min window — waiting %ds for the next window)" % wait)
+        time.sleep(wait)
+        st, body_d = door_post(json.dumps(base_evt).encode())
     door_ok &= check("C6 2a  DOOR  no-token POST /api/door → 2xx", 200 <= st < 300, st)
     st_get = None
     try:
@@ -274,14 +282,22 @@ def live():
     door_ok &= check("C6 2a  DOOR  the door's own bucket fills to 429 within 5 min", 429 in codes, codes[-3:])
     fb_after = post_feedback(QA_URL, qa_tok, {**payload, "id": payload["id"] + "-after-door-storm", "note": payload["note"] + " (after door storm)"})
     door_ok &= check("C6 2a  DOOR  …while a feedback POST from the same IP STILL lands (separate bucket)", fb_after.get("stored") == 1, fb_after)
-    try:
-        d = json.load(urllib.request.urlopen(urllib.request.Request(QA_URL + "/api/door?start=%s&end=%s" % (start, end), headers={"X-Tate-Token": qa_tok, "User-Agent": "qa-write-probe"}), timeout=30))
-        rows = [r for day in d.get("days", {}).values() for r in day]
-        mine = [r for r in rows if r.get("deviceId") == HARNESS_ID]
-        door_ok &= check("C6 2a  DOOR  read-back (QA token) carries env:qa · personId:null · NO estate field echoed",
-                         bool(mine) and all(r.get("env") == "qa" and "personId" in r and r["personId"] is None and "estate" not in r for r in mine), len(mine))
-    except Exception as e:  # noqa: BLE001
-        door_ok &= check("C6 2a  DOOR  read-back", False, str(e))
+    # The Worker keys by UTC date; the local date can be a day behind after 8 PM ET. And KV is
+    # eventually consistent (~30 s measured 2026-09-03) — read in a UTC-wide window and retry.
+    utc_today = dt.datetime.now(dt.timezone.utc).date()
+    d_start, d_end = str(utc_today - dt.timedelta(days=1)), str(utc_today + dt.timedelta(days=1))
+    mine = []
+    for attempt in range(4):
+        try:
+            d = json.load(urllib.request.urlopen(urllib.request.Request(QA_URL + "/api/door?start=%s&end=%s" % (d_start, d_end), headers={"X-Tate-Token": qa_tok, "User-Agent": "qa-write-probe"}), timeout=30))
+            rows = [r for day in d.get("days", {}).values() for r in day]
+            mine = [r for r in rows if r.get("deviceId") == HARNESS_ID]
+            if mine: break
+        except Exception as e:  # noqa: BLE001
+            print("           (door read-back attempt %d: %s)" % (attempt + 1, e))
+        import time; time.sleep(12)
+    door_ok &= check("C6 2a  DOOR  read-back (QA token, UTC window, ≤48 s for KV consistency) carries env:qa · personId:null · NO estate echoed",
+                     bool(mine) and all(r.get("env") == "qa" and "personId" in r and r["personId"] is None and "estate" not in r for r in mine), len(mine))
     all_ok &= door_ok
 
     # 4. negative controls
