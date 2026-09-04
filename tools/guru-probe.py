@@ -82,7 +82,7 @@ def ask(base, token, row, substrate="digest"):
             return e.code, {"error": "http %d" % e.code}
 
 
-def live(max_turns, substrate="digest"):
+def live(max_turns, substrate="digest", only=None):
     import importlib.util
     spec = importlib.util.spec_from_file_location("gf", os.path.join(HERE, "guru-facts.py")); gf = importlib.util.module_from_spec(spec); spec.loader.exec_module(gf)
     tok = resolve_qa_token()
@@ -99,7 +99,9 @@ def live(max_turns, substrate="digest"):
     if h.get("chat_budget"):
         b = h["chat_budget"]; print("  · QA chat budget today: $%.3f of $%.2f · %s turn(s)" % (b.get("used_usd", 0), b.get("ceiling_usd", 0), b.get("turns", 0)))
     fix_dir = os.path.join(ROOT, ".private", "guru-fixtures"); os.makedirs(fix_dir, exist_ok=True)
-    rows = [r for r in gf.rows() if not r["requires_tool"]][:max_turns]
+    allrows = [r for r in gf.rows() if not r.get("requires_grant")]
+    rows = ([r for r in allrows if not r["requires_tool"]] if substrate == "digest" else allrows)[:max_turns]   # 5a: tool rows run on the CORE path
+    if only: rows = [r for r in allrows if r["id"] in only][:max_turns]
     rc = 0
     subs = ("digest", "core") if substrate == "both" else (substrate,)
     seen_prefix = {}
@@ -114,6 +116,13 @@ def live(max_turns, substrate="digest"):
         text = resp.get("reply", "")
         verdict, why = grade(row, text)
         dbg = resp.get("debug") or {}
+        if row.get("requires_tool") and sub == "core":
+            if not resp.get("debug"):
+                verdict, why = "RED", "the Worker did not report tool_calls — deploy is older than the harness"
+            elif not dbg.get("tool_calls"):
+                verdict, why = "RED", ("right answer with NO tool call — recalled, not looked up" if verdict == "GREEN" else why + " · and no tool call")
+            elif verdict == "GREEN":
+                why = "ok · tool %s" % ",".join(c.get("name", "?") for c in dbg["tool_calls"])
         u = dbg.get("usage") or {}
         seen_prefix.setdefault(sub, set()).add(dbg.get("prefix_sha"))
         print("  %s %-24s %s · %sms · prefix %s · cache read %s / new %s" % ("✅" if verdict == "GREEN" else "🔴", row["id"], why, dbg.get("latency_ms", "?"), str(dbg.get("prefix_sha", "?"))[:8], u.get("cache_read", "?"), u.get("cache_creation", "?")))
@@ -122,7 +131,7 @@ def live(max_turns, substrate="digest"):
         # Guru 2b — a FIXTURE per row: the harness's own ask, never a conversation of hers; prefix_sha beside it
         import datetime as _dt
         json.dump({"row_id": row["id"], "substrate": sub, "request": {"ask": row["ask"], "origin": "test"}, "response": text, "usage": resp.get("usage") or u, "model": resp.get("model"),
-                   "prefix_sha": dbg.get("prefix_sha"), "latency_ms": dbg.get("latency_ms"), "verdict": verdict, "recorded_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds")},
+                   "prefix_sha": dbg.get("prefix_sha"), "latency_ms": dbg.get("latency_ms"), "tool_calls": dbg.get("tool_calls"), "round_trips": dbg.get("round_trips"), "verdict": verdict, "recorded_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds")},
                   open(os.path.join(fix_dir, row["id"] + ("" if sub == "digest" else "." + sub) + ".json"), "w"), indent=1, ensure_ascii=False)
     if len(subs) > 1:
         a, b = seen_prefix.get("digest", set()), seen_prefix.get("core", set())
@@ -170,5 +179,6 @@ def selftest():
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--selftest", action="store_true"); ap.add_argument("--live", action="store_true"); ap.add_argument("--max-turns", type=int, default=1)
     ap.add_argument("--substrate", choices=("digest", "core", "both"), default="digest", help="Guru 4b: which prompt substrate the Worker assembles (core = the flag the client never sends)")
+    ap.add_argument("--row", action="append", default=[], help="run only these row id(s)")
     a = ap.parse_args()
-    sys.exit(selftest() if a.selftest else (live(a.max_turns, a.substrate) if a.live else (print(__doc__) or 0)))
+    sys.exit(selftest() if a.selftest else (live(a.max_turns, a.substrate, a.row) if a.live else (print(__doc__) or 0)))

@@ -484,6 +484,28 @@ def digest_core(load, est, on, on_non, groups, digest):
     return core
 
 
+def digest_lookup(load, groups):
+    """Guru 5a — full-fidelity LOOKUP sections the tools dispatch over (never inlined into any prompt: the legacy path
+    strips them with `core`; the core path reaches them only through a tool result). Per ON vehicle: serviceHistory
+    COMPLETE and sorted newest-first, rhythms, circuits, openMechanicalItems, and the record's own standing caveat
+    (`_serviceHistoryNote`) verbatim — a lookup returns no more than the record supports, and says so in the record's words."""
+    d = load("vehicles.json")
+    out = {"vehicles": {}}
+    for v in d.get("vehicles", []):
+        if v.get("group") not in groups or not v.get("id"):
+            continue
+        row = {"id": v["id"], "name": v.get("name"), "nickname": v.get("nickname"), "group": v.get("group")}
+        if isinstance(v.get("serviceHistory"), list):
+            row["serviceHistory"] = sorted(v["serviceHistory"], key=lambda r: (str(r.get("date") or ""), str(r.get("id") or "")), reverse=True)
+        for k in ("rhythms", "circuits", "openMechanicalItems"):
+            if v.get(k):
+                row[k] = v[k]
+        if v.get("_serviceHistoryNote"):
+            row["caveat"] = v["_serviceHistoryNote"]
+        out["vehicles"][v["id"]] = row
+    return out
+
+
 def _on_modules(est):
     import momlib
     mods = momlib.modules_of(est) or {}
@@ -558,6 +580,7 @@ def compose(est=None, load=load):
     if absent_lines:
         digest["_meta"]["declares"] = absent_lines
     digest["core"] = digest_core(load_filtered, est, on, on_non, groups, digest)
+    digest["lookup"] = digest_lookup(load_filtered, groups)
     return digest
 
 

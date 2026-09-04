@@ -69,7 +69,7 @@ import propertyDigest from "./digest.json" with { type: "json" };
 // Guru 4a (2026-09-03): the digest now carries a `core` key (derived facts with markers, per-module voice,
 // a names index) for the `substrate:"core"` path (4b). The LEGACY prompt path below must stay byte-identical for
 // prod's cached prefix, so it inlines the digest WITHOUT that key. One artifact, two substrates.
-const DIGEST_LEGACY = (() => { const { core, ...rest } = propertyDigest; return rest; })();
+const DIGEST_LEGACY = (() => { const { core, lookup, ...rest } = propertyDigest; return rest; })();   // 5a: `lookup` is reached by tools only
 // Guru 4b: the CORE substrate = core + the sections the artifact itself declares (`core._meta.includes`, never
 // retyped here). Selected by `substrate:"core"` in the chat body — the real client never sends it — so prod's
 // app path stays byte-identical. null on a digest built before 4a → the request is refused, not degraded.
@@ -80,8 +80,138 @@ const DIGEST_CORE = (() => {
   for (const k of (c._meta.includes || [])) if (propertyDigest[k] !== undefined) out[k] = propertyDigest[k];
   return out;
 })();
-const CORE_TOOLS = [];   // 4b declares the ORDER; the schemas land with the lookup rungs (5/6). Empty is a declared order too.
-const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — derived hard facts (each carrying its which-is-which marker; a marked value is answered WITH its marker), the voice rules per module, a names index (id + name + markers for everything this place keeps) — plus the property, zones and turf sections. It is NOT the full record: a plant, species or machine appears here by NAME only. When a question needs detail this view does not hold, say so plainly in the journal's voice ("the journal keeps that entry; this view holds only its name") — never fill the gap from general knowledge. The depth filter is unchanged: a name not in the index is not one we keep.`;
+// ---- Guru 5a (2026-09-04): LOOKUPS — complete, or raise. Ten tools over the digest's names index + `lookup`
+// sections, in this DECLARED ORDER (the order is part of the cached prefix). Every result is the record COMPLETE and
+// deterministically sorted, truncated IN THE TOOL at `limit` most-recent with {total, shown}, or
+// {found:false, reason} — never [], never a model-chosen top-k. A record with a standing caveat returns it verbatim.
+// The honesty strings below are DRAFTED (agent, 2026-09-04) and await Paul's word (plan Q6) — they are the record's,
+// not the model's, which is the whole point of returning them from a tool.
+const LOOKUP_STRINGS = Object.freeze({
+  NOT_IN_RECORD: "not in the record",
+  AMBIGUOUS: "more than one entry matches — name one of them",
+  LOGIN_REQUIRED: "behind the door — that part of the record needs the login before it can be read",
+});
+const CORE_TOOLS = [
+  { name: "get_plant", description: "One plant we tend, by name or id — the full record entry.", input_schema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] } },
+  { name: "list_plants", description: "Every plant we tend: id and name, sorted by name.", input_schema: { type: "object", properties: {} } },
+  { name: "list_weeds", description: "Every weed we work against: id, name and its markers.", input_schema: { type: "object", properties: {} } },
+  { name: "get_species", description: "One species the journal tracks (bird, mammal, amphibian, snake, lizard, insect, fish), by name.", input_schema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] } },
+  { name: "get_zone", description: "One zone of the ground, by name or id.", input_schema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] } },
+  { name: "service_history", description: "A machine's service history, newest first, optionally filtered by a topic word (brakes, oil, tires…). Returns {total, shown}.", input_schema: { type: "object", properties: { vehicle: { type: "string" }, topic: { type: "string" }, limit: { type: "integer" } }, required: ["vehicle"] } },
+  { name: "circuit_for", description: "Which breaker circuit serves a thing in the house (the panel directory). Needs the login.", input_schema: { type: "object", properties: { what: { type: "string" } }, required: ["what"] } },
+  { name: "rhythms", description: "A machine's recurring care rhythms (task, every N months, last done).", input_schema: { type: "object", properties: { vehicle: { type: "string" } }, required: ["vehicle"] } },
+  { name: "turf_regime", description: "The turf care regime for a zone (or all regimes).", input_schema: { type: "object", properties: { zone: { type: "string" } } } },
+  { name: "fishing_species", description: "The fish the lake holds, per the record.", input_schema: { type: "object", properties: {} } },
+];
+const GG_MAX_USER_TURNS = 6;      // the ceiling is re-keyed to USER turns (5a, numbers Q2); the raw array holds tool pairs
+const GG_MAX_TURNS_RAW = 40;
+const GG_MAX_ROUND_TRIPS = 3;
+
+function _norm(x) { return String(x || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); }
+function _resolve(rows, q, keys) {
+  // exact id/name → one; else substring on the keys → one, or AMBIGUOUS with candidates, or NOT_IN_RECORD
+  const nq = _norm(q);
+  if (!nq) return { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+  const exact = rows.filter(r => keys.some(k => _norm(r[k]) === nq));
+  if (exact.length === 1) return { found: true, row: exact[0] };
+  const part = rows.filter(r => keys.some(k => _norm(r[k]).includes(nq)));
+  if (part.length === 1) return { found: true, row: part[0] };
+  if (part.length > 1) return { found: false, reason: LOOKUP_STRINGS.AMBIGUOUS, candidates: part.map(r => r.name || r.id).sort() };
+  return { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+}
+function _sortBy(arr, key) { return [...arr].sort((a, b) => String(a[key] || "").localeCompare(String(b[key] || ""))); }
+function _truncate(rows, limit) {
+  const n = Math.max(1, Math.min(50, parseInt(limit, 10) || 10));
+  return { total: rows.length, shown: Math.min(n, rows.length), rows: rows.slice(0, n) };
+}
+
+/** Pure: (toolName, input, ctx) → a JSON-able result. ctx = { digest, vaultOpen }. Exported for tools/guru-replay.mjs. */
+function dispatchTool(name, input, ctx) {
+  const D = ctx.digest || propertyDigest; const inp = input || {};
+  const speciesKinds = ["birds", "mammals", "amphibians", "snakes", "lizards", "insects"];
+  switch (name) {
+    case "get_plant": {
+      const rows = (D.plants && D.plants.plants) || [];
+      const r = _resolve(rows, inp.name, ["id", "name", "scientificName"]);
+      return r.found ? { found: true, plant: r.row } : r;
+    }
+    case "list_plants": {
+      const rows = _sortBy(((D.plants && D.plants.plants) || []).map(p => ({ id: p.id, name: p.name, scientificName: p.scientificName })), "name");
+      return rows.length ? { found: true, ..._truncate(rows, 50) } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+    }
+    case "list_weeds": {
+      const rows = _sortBy(((D.weeds && D.weeds.weeds) || []).map(w => ({ id: w.id, name: w.name, scientificName: w.scientificName, confidence: w.confidence, status: w.status, momConfirm: w.momConfirm })), "name");
+      return rows.length ? { found: true, ..._truncate(rows, 50) } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+    }
+    case "get_species": {
+      const rows = [];
+      for (const k of speciesKinds) for (const sp of ((D[k] && D[k].species) || [])) rows.push({ ...sp, _kind: k });
+      for (const sp of ((D.fishing && D.fishing.species) || [])) rows.push({ ...sp, _kind: "fish" });
+      const r = _resolve(rows, inp.name, ["id", "name", "scientificName"]);
+      return r.found ? { found: true, kind: r.row._kind, species: r.row } : r;
+    }
+    case "get_zone": {
+      const rows = Array.isArray(D.zones) ? D.zones : [];
+      const r = _resolve(rows, inp.name, ["id", "name"]);
+      return r.found ? { found: true, zone: r.row } : r;
+    }
+    case "service_history": {
+      const vs = Object.values((D.lookup && D.lookup.vehicles) || {});
+      const r = _resolve(vs, inp.vehicle, ["id", "name", "nickname"]);
+      if (!r.found) return r;
+      let rows = r.row.serviceHistory || [];
+      const topic = _norm(inp.topic);
+      if (topic) rows = rows.filter(h => _norm(JSON.stringify(h)).includes(topic));
+      const t = _truncate(rows, inp.limit);
+      const out = { found: true, vehicle: r.row.name || r.row.id, total: t.total, shown: t.shown, rows: t.rows };
+      if (r.row.caveat) out.caveat = r.row.caveat;
+      return out;
+    }
+    case "circuit_for": {
+      if (!ctx.vaultOpen) return { found: false, reason: LOOKUP_STRINGS.LOGIN_REQUIRED };
+      const rows = [];
+      for (const v of Object.values((D.lookup && D.lookup.vehicles) || {})) for (const c of (v.circuits || [])) rows.push({ panel: v.id, n: c.n, label: c.label });
+      const q = _norm(inp.what);
+      const hit = rows.filter(c => _norm(c.label).includes(q)).sort((a, b) => a.n - b.n);
+      return hit.length ? { found: true, total: hit.length, shown: hit.length, circuits: hit } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+    }
+    case "rhythms": {
+      const vs = Object.values((D.lookup && D.lookup.vehicles) || {});
+      const r = _resolve(vs, inp.vehicle, ["id", "name", "nickname"]);
+      if (!r.found) return r;
+      const rows = _sortBy(r.row.rhythms || [], "task");
+      return rows.length ? { found: true, vehicle: r.row.name || r.row.id, total: rows.length, shown: rows.length, rhythms: rows } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+    }
+    case "turf_regime": {
+      const rows = _sortBy((D.turf && D.turf.regimes) || [], "id");
+      if (!rows.length) return { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+      if (!inp.zone) return { found: true, total: rows.length, shown: rows.length, regimes: rows };
+      const r = _resolve(rows, inp.zone, ["id", "label", "zoneId"]);
+      return r.found ? { found: true, regime: r.row } : r;
+    }
+    case "fishing_species": {
+      const rows = _sortBy((D.fishing && D.fishing.species) || [], "name");
+      return rows.length ? { found: true, total: rows.length, shown: rows.length, species: rows } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+    }
+    default:
+      return { found: false, reason: "no such tool" };
+  }
+}
+function namesMentioned(text) {
+  // does this turn NAME a canon entity? (first-turn tool_choice:any per 5a) — the names index is the closed world
+  const t = _norm(text); if (!t) return false;
+  // token-level: "the Bronco's brakes" names "1989 Ford Bronco"; a whole-name match missed it (measured 2026-09-04).
+  // Tokens under 5 letters (ford, main, panel, oak) are too common to count as naming a thing.
+  const words = new Set(t.split(" ").filter(w => w.length >= 5));
+  const names = (propertyDigest.core && propertyDigest.core.names) || {};
+  for (const rows of Object.values(names)) for (const r of rows) {
+    for (const field of [r.name, r.nickname, r.id]) {
+      for (const tok of _norm(field).split(" ")) if (tok.length >= 5 && words.has(tok)) return true;
+    }
+  }
+  return false;
+}
+const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — derived hard facts (each carrying its which-is-which marker; a marked value is answered WITH its marker), the voice rules per module, a names index (id + name + markers for everything this place keeps) — plus the property, zones and turf sections. It is NOT the full record: a plant, species or machine appears here by NAME only. When a question needs detail this view does not hold, say so plainly in the journal's voice ("the journal keeps that entry; this view holds only its name") — never fill the gap from general knowledge. The depth filter is unchanged: a name not in the index is not one we keep. TOOL RESULTS ARE THE RECORD'S ANSWER: when a lookup returns found:false, say its reason in the reply, in the journal's voice, and give NO value of your own for what it could not read — a breaker number, a date or a spec that did not come back from a tool is not known, whatever you may recall. BEFORE answering anything about a particular plant, weed, species, zone, machine, its service or the breaker panel, CALL the matching tool first — on this substrate the names index is all you hold, and the tool is how the record is read.`;
 
 // ---- The prompts' INSTANCE FACTS derive from the digest (C5 7c, 2026-09-03) ----
 // Every number the system prompts state about the place — elevation, address, the
@@ -1511,7 +1641,7 @@ async function persistConversation(env, conversationId, turns, origin, deviceId)
   await env.OBSERVATIONS.put(key, JSON.stringify(session));
 }
 
-async function handleChat(request, env) {
+async function handleChat(request, env, auth) {
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
 
   // Phase F: turns may carry image content blocks. A 1568px JPEG@0.85 base64-encodes
@@ -1548,8 +1678,10 @@ async function handleChat(request, env) {
   }
   // Sanity-cap turns at 20 so the message array stays bounded even if a client drifts.
   // Front-end enforces the 5-follow-up cap; this is just defense in depth.
-  if (turns.length > 20) {
-    return json({ error: "too-many-turns", limit: 20 }, 400);
+  const userTurns = turns.filter(t => t && t.role === "user").length;
+  if (userTurns > GG_MAX_USER_TURNS) return json({ error: "too-many-user-turns", limit: GG_MAX_USER_TURNS }, 400);   // 5a: keyed to USER turns
+  if (turns.length > GG_MAX_TURNS_RAW) {
+    return json({ error: "too-many-turns", limit: GG_MAX_TURNS_RAW }, 400);
   }
   // Phase F: turns[].content may be either a string (pre-Phase-F shape) or an array
   // of content blocks (text + image). Anthropic accepts both; persistConversation
@@ -1623,28 +1755,54 @@ async function handleChat(request, env) {
     if (b.usd >= ceilingUsd) return json({ error: "chat-budget-exceeded", used_usd: +b.usd.toFixed(4), ceiling_usd: ceilingUsd, turns: b.turns }, 429);
   }
   const t0 = Date.now();   // Guru 1b — the server clock around the upstream call
-  const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": env.ANTHROPIC_API_KEY,
-      "anthropic-version": "2023-06-01",
-      ...(env.ANTHROPIC_WORKSPACE_ID ? { "anthropic-workspace-id": env.ANTHROPIC_WORKSPACE_ID } : {}),   // an identity-linked key (QA's dedicated key) must name its workspace
-    },
-    body: JSON.stringify({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 600,
-      system: chatSystem,
-      ...(substrate === "core" && CORE_TOOLS.length ? { tools: CORE_TOOLS } : {}),
-      messages: chatMessages,
-    }),
-  });
-  const latencyMs = Date.now() - t0;
-  if (!apiRes.ok) {
-    const txt = await apiRes.text().catch(() => "");
-    return json({ error: `anthropic HTTP ${apiRes.status}`, detail: txt.slice(0, 300) }, 502);
+  // 5a — the core path runs a bounded tool loop: [tools → system → messages]; a tool_use stop runs the dispatcher
+  // and appends the pair; up to GG_MAX_ROUND_TRIPS. The digest path is ONE call, as before. Usage is summed.
+  const headers = {
+    "Content-Type": "application/json",
+    "x-api-key": env.ANTHROPIC_API_KEY,
+    "anthropic-version": "2023-06-01",
+    ...(env.ANTHROPIC_WORKSPACE_ID ? { "anthropic-workspace-id": env.ANTHROPIC_WORKSPACE_ID } : {}),   // an identity-linked key (QA's dedicated key) must name its workspace
+  };
+  const loopMessages = chatMessages.map(m => ({ role: m.role, content: m.content }));
+  const toolCalls = []; let roundTrips = 0; let apiData = null;
+  const usageSum = { input_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, output_tokens: 0 };
+  const latestText = typeof latestTurn.content === "string" ? latestTurn.content : JSON.stringify(latestTurn.content || "");
+  // The vault opens ONLY for a resolved grant that carries vault:on — never for the shared app token, which is
+  // public in the viewer and would otherwise read the private tier out through the Guru [paul-stated 2026-09-03:
+  // "the guru should be able to handle some of this private information, but would need to ask for a login"].
+  const vaultOpen = !!(auth && auth.via === "grant" && auth.vault);
+  while (true) {
+    roundTrips += 1;
+    const useTools = substrate === "core" && CORE_TOOLS.length > 0;
+    const forceTool = useTools && roundTrips === 1 && userTurns === 1 && namesMentioned(latestText);
+    const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST", headers,
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 600,
+        system: chatSystem,
+        ...(useTools ? { tools: CORE_TOOLS, ...(forceTool ? { tool_choice: { type: "any" } } : {}) } : {}),
+        messages: loopMessages,
+      }),
+    });
+    if (!apiRes.ok) {
+      const txt = await apiRes.text().catch(() => "");
+      return json({ error: `anthropic HTTP ${apiRes.status}`, detail: txt.slice(0, 300) }, 502);
+    }
+    apiData = await apiRes.json();
+    for (const k of Object.keys(usageSum)) usageSum[k] += ((apiData.usage || {})[k] || 0);
+    const uses = (apiData.content || []).filter(c => c.type === "tool_use");
+    if (!useTools || apiData.stop_reason !== "tool_use" || !uses.length || roundTrips >= GG_MAX_ROUND_TRIPS) break;
+    const results = uses.map(u => {
+      const result = dispatchTool(u.name, u.input, { digest: propertyDigest, vaultOpen });
+      toolCalls.push({ name: u.name, input: u.input, found: !!result.found, total: result.total, shown: result.shown, reason: result.reason });
+      return { type: "tool_result", tool_use_id: u.id, content: JSON.stringify(result) };
+    });
+    loopMessages.push({ role: "assistant", content: apiData.content });
+    loopMessages.push({ role: "user", content: results });
   }
-  const apiData = await apiRes.json();
+  apiData.usage = usageSum;
+  const latencyMs = Date.now() - t0;
   const reply = (apiData.content || []).filter(c => c.type === "text").map(c => c.text).join("").trim();
 
   // Append assistant turn to the conversation, then persist + log cost.
@@ -1675,7 +1833,7 @@ async function handleChat(request, env) {
   // here so a harness never re-parses the template literal.
   if (reqOrigin !== "app") {
     const u = apiData.usage || {};
-    out.debug = { tool_calls: [], round_trips: 1, latency_ms: latencyMs, substrate,
+    out.debug = { tool_calls: toolCalls, round_trips: roundTrips, latency_ms: latencyMs, substrate,
                   usage: { input: u.input_tokens || 0, cache_creation: u.cache_creation_input_tokens || 0, cache_read: u.cache_read_input_tokens || 0, output: u.output_tokens || 0 },
                   prefix_sha: await sha256Hex(JSON.stringify({ tools: substrate === "core" ? CORE_TOOLS : [], system: chatSystem, messages: chatMessages })) };
   }
@@ -2582,6 +2740,8 @@ async function handleFeedback(request, env, url) {
 
 // ---- Router ----
 
+export { dispatchTool, CORE_TOOLS, LOOKUP_STRINGS };   // 5a — tools/guru-replay.mjs drives the dispatcher on fixtures
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -2699,7 +2859,7 @@ export default {
     const viaGrant = !!(grant && hostAgrees(request, env));
     if (!viaMaster && !viaGrant) return unauthorized();
     const auth = viaMaster ? { via: "master", capability: "administrator", personId: null }
-                           : { via: "grant", capability: grant.capability === "administrator" ? "administrator" : "member", personId: grant.personId || null };
+                           : { via: "grant", capability: grant.capability === "administrator" ? "administrator" : "member", personId: grant.personId || null, vault: !!grant.vault };
     if (auth.capability !== "administrator") {
       const memberOk = (url.pathname === "/api/metrics" && request.method === "POST") || url.pathname.startsWith("/api/vault");
       if (!memberOk) return json({ error: "not-permitted", capability: auth.capability, door: "entry" }, 403);
@@ -2710,7 +2870,7 @@ export default {
     if (url.pathname === "/api/drought")    return handleDrought(request, env, url);
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env);
     if (url.pathname === "/api/classify")   return handleClassify(request, env);
-    if (url.pathname === "/api/chat")       return handleChat(request, env);
+    if (url.pathname === "/api/chat")       return handleChat(request, env, auth);
     if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth);
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
