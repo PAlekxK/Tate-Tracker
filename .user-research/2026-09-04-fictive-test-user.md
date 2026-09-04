@@ -529,6 +529,55 @@ reached through §9's viewport set.
 > rejected *here* before any edit reaches the skill. ⛔ **Do not apply these edits from this
 > document as it stands.**
 
+### 📌 Rulings accumulated pending the fold — recorded as they land, not held in a session
+
+*Consults are still returning; the edits below are rewritten ONCE, when all have landed. These are
+recorded immediately so nothing lives only in a running window.*
+
+**R1 · The desktop target is the LAPTOP CLASS, not the widest screen** `[paul-ruled 2026-09-04]`.
+Asked whether he reads Fernwood on an external monitor: *"I sometimes have hooked up to an external
+monitor, but I wanna focus on really my laptop screen and more of the standard display sizes
+because that external monitor is really big."*
+
+⭐ **This OVERRULES the ux-expert's "take the widest real width" tiebreaker.** Their argument was
+sound on its own terms — the canvas ruling's risks (whitespace reading as unfinished,
+window-anchored elements drifting off the column) grow monotonically with width, so the widest
+width is the one that can *falsify* the ruling's execution. **Paul's ruling is a SCOPE decision,
+not a measurement correction, and scope is his.** The secondary viewport is therefore the **modal
+laptop-class width**, read from the record and stamped `[measured <date>]`, with
+external-monitor sessions **excluded from the target** — not discarded as bad data.
+
+**R2 · ⛔ THE `deviceClass` READER IS BROKEN — a verified defect, and it corrects a claim this
+lane made** `[verified 2026-09-04, three points in the chain]`. Found by `practice-steward`;
+re-verified here rather than relayed:
+
+| where | what it says |
+|---|---|
+| `viewer.html:18547` (and the template) | emits **`deviceClass`** inside `deviceBlock()` |
+| `worker/worker.js:2578` | stores the `device` object **verbatim** — no rename in transit |
+| `tools/analyze-fernwood.py:150` | reads **`device.get("class")`** — ⛔ **a key that is never sent** |
+
+So `deviceClass` resolves to `None`, and `analyze-fernwood.py:577`'s
+`e["deviceClass"] or "unknown"` has rendered **`unknown` for every device on every run since the
+field existed.** ⚠️ **The failure is invisible because `unknown` is exactly what a genuinely
+unclassifiable device would print** — a plausible-looking table over no data. `deviceId` is read
+correctly (`device.get("deviceId")` matches the emitter), so attribution works; **only the class
+column is dead.**
+
+⭐ **This corrects an earlier claim by this lane.** It was reported that `analyze-fernwood.py`
+"renders a per-device `class` column ✅ readable." **The column renders; it has never contained
+data.** The error was reading the renderer and the aggregation without tracing the key back to the
+emitter — *the two halves agreed with each other and neither agreed with the source.* Fixing it is
+engineering work and is not this lane's; it is a **prerequisite**, because nothing downstream can
+be sized by device class until the reader reads.
+
+⚠️ **The consequence to carry, because it follows from a principle adopted in the same breath:**
+out-of-target is not out-of-existence. The page still renders at 2560 when he plugs in, and the
+canvas ruling's risks are worst exactly there. Per the ux-expert's line — **usage share sizes
+effort on POLISH; it does not gate BROKENNESS** — something merely *unoptimized* at external-monitor
+width is correctly out of scope, while something *broken* there is still broken. The ruling narrows
+what we optimize, not what counts as a defect.
+
 **Edit 1 — Setup step 4: a viewport SET, not a viewport.**
 > *Pick the viewport **set** from the project's real readers: a **primary** (the owner's measured
 > conditions — Fernwood: 414×848 at A+) and a **secondary desktop** (1440×900). The project's own
