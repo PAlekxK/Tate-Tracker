@@ -392,3 +392,76 @@ exactly where a confident wrong answer gets made.
   words: the kind of reasoning that gets re-litigated in three months.
 - The `/design-options` `@media`-resolves-against-the-iframe seam, and `check-ux-sweep.py`'s
   thresholds having a re-tuning mechanism that nothing triggers.
+
+---
+
+## ⭐ STRATEGIC INPUT — the boundaries question is a LIVE SESSION WITH MOM `[paul-stated 2026-09-04 ~4:20 PM ET]`
+
+*"I think it's asking you for boundaries and all that, and that may be something that I really wanna
+walk through doing with mom live, to really test things out and see how it lands for her."*
+
+**This reframes the adjacency question from a data gap into a designed event**, and it converges with
+three separate findings this run produced independently:
+
+1. **Lane B:** drawing the barrier IS answering "do these abut" — the same act, but it produces a
+   record instead of an opinion, done by standing where the wall is rather than squinting at a
+   sub-pixel gap. The gate DISSOLVES rather than needing an answer.
+2. **Lane B, again:** the only evidence of how a person actually names a place is the 2026-08-30
+   naming session — 16 areas, named unprompted, every one a name a person would really use.
+   **n=1, and it is the only n that exists.** A second live session makes it n=2 *and* tests the
+   primitive on the same afternoon.
+3. **Paul's own sequencing ruling:** engine/product first, *"then we prove that by using it for
+   Fernwood."* A live session with Mom **IS** that proof — it is not a Fernwood data-collection
+   errand that happens to come first.
+
+⭐ **So one event does three jobs**: it collects the boundary record, it validates the landmarks-first
+onboarding primitive against a real person, and it is the proof step the sequencing ruling asks for.
+**That is the strongest argument yet for landmarks-first** — the alternative (Paul answering 11
+sliver pairs from recall) collects worse data AND tests nothing.
+
+⛔ **Constraints that bind this, unchanged:** the AI boundary — *AI never touches an estate's people
+or their words; the administrator's eyes sit between the model and the estate's people, both
+directions.* This session is **Paul-run**. An agent may prepare the instrument and analyse the record
+afterwards; it may not be in the room, and nothing it drafts reaches her except through him.
+
+⚠️ **And the honest limit lane C stamped applies here too**: watching how it *lands for her* is
+observation, and observation is evidence about behaviour only if it is written down at the time.
+The 8/30 session's value came from `.plans/2026-08-31-zones-traced-with-mom.json` existing, not from
+anyone remembering it.
+
+## ⭐ STRATEGIC INPUT 2 — WALK THE WHOLE ONBOARDING ON QA `[paul-stated 2026-09-04 ~4:22 PM ET]`
+
+*"Maybe we need to just run through the whole onboarding process actually for our QA environment.
+If we can create a branch within it that allows me to walk through the setup process so we can test
+it all out and learn from it — that could be interesting."*
+
+**This is the switchover rule pushed one step further.** At 1:40 PM he ruled *"I'm ready to look at
+something and respond to something other than this terminal window"* → mocks. This says the next
+rung: **stop deciding onboarding by picking from mocks, and walk a real instance.**
+
+**It is already half-specified in the queue** — nobody needs to invent it:
+- **7b, THE END-TO-END JOURNEY TEST** `[paul-stated ~12:20 PM]`: *"actually walk through this login
+  process according to an invite message and a link that we provide … check both sides of the
+  journey."* That is this, with a walk seat instead of Paul.
+- **#7, the onboarding plan**: link → account → first run at 414 × A+ → her data reaches the estate
+  server-side, **the condo as the first run**, naming as a step she answers.
+- **Lane C's harness** was designed to *build its own instance over time* — the same mechanism, run
+  by a synthetic occupant instead of by Paul.
+
+⭐ **THE THREE INPUTS CONVERGE ON ONE THING.** Landmarks-first (lane B) · a live session with Mom
+(4:20 PM) · a walkable setup path on QA (4:22 PM) are **not three projects**. They are one build and
+two proofs of it: build the onboarding primitive, Paul walks it himself on QA, then he walks it with
+Mom and watches how it lands. The engine-first sequencing ruling already orders them.
+
+⚠️ **What "a branch within it" has to mean, because the words are load-bearing:** QA is ONE deploy
+target and one origin, and the run's standing rule is that at most one lane holds it. A second
+git branch does not give a second QA. What he actually needs is **a re-runnable path through the
+existing QA instance** — a way to enter setup from zero repeatedly without destroying state — which
+is a product question (can an estate be re-onboarded?) before it is an infrastructure one.
+**Do not answer this by branching git.**
+
+⛔ **And it collides with a live constraint:** the round-1 exhibit picks on `.decisions/fernwood-13.md`
+are still unmade. If onboarding is now decided by walking rather than by picking, **the exhibit's
+status must be settled explicitly** — superseded, or still the input to what gets built. Leaving
+both alive is how two sources of truth for the same decision get created. **Paul's call, and it is
+the first question of the strategy reset.**
