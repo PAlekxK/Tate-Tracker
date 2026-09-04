@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "purpose": "QA FIXTURES \u2014 every value on the `staging` branch that must NEVER reach `main` (Mom's page). One row per key. `why` and `retiredBy` are the load-bearing fields. A value that will one day be true at Fernwood is a STAGED PROD CHANGE and does not belong here (the A+ default, identity.theme).",
+    "source": ".engineering/2026-09-04-qa-instance-overlay.md \u2014 keep ONE divergence mechanism (the staging branch); guard the KEY, not a file layer",
+    "declared": "2026-09-04",
+    "shape": "rows: [{file, path (dotted), qaValue, prodValue, why, retiredBy}]"
+  },
+  "rows": []
+}

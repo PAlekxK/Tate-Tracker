@@ -90,13 +90,29 @@ const DIGEST_CORE = (() => {
 // to go hunting various iterations"]: the replay imports them; guru-facts.py PARSES this block for its expectations;
 // the plans cite it and never restate it. `{journal}` is the instance's own name for its record (digest core.identity,
 // from instance/<estate>.json — "the Fernwood Almanac"); an estate with no identity gets the engine word.
+// Text per content-steward review 2026-09-04 (.content-reviews/2026-09-04-guru-honesty-strings.md): NO_SOURCE and
+// LOGIN_REQUIRED share "that part of {journal}" so the library and the safe read as two rooms of one corpus; NO_SOURCE
+// may NOT borrow the corpus-wide "not in {journal}" (one room's search cannot assert absence from the whole); fragments
+// stay lowercase-initial (relayed inline); no possessive on the slot; the slot carries its own article.
+// OPEN, Paul's word: "login" vs "password" in LOGIN_REQUIRED.
 const LOOKUP_STRINGS_TEMPLATE = Object.freeze({
   NOT_IN_RECORD: "not in {journal}",
-  AMBIGUOUS: "more than one entry matches — name one of them",
+  NONE_RECORDED: "none of those in {journal}",
+  AMBIGUOUS: "more than one entry goes by that name — which one did you mean?",
   LOGIN_REQUIRED: "in the safe — that part of {journal} needs the login before it can be read",
-  NO_SOURCE: "{journal}'s library holds nothing on that",
+  NO_SOURCE: "not in the library — the part of {journal} that holds the references, the research notes and the manuals",
+  NO_LIBRARY: "{journal} keeps no library — no references, notes or manuals to search",
 });
-const JOURNAL_WORD = (() => { const id = (propertyDigest.core && propertyDigest.core.identity) || {}; return id.journalName ? "the " + id.journalName : "the journal"; })();
+// {journal} = the instance's SHORT word for its record with its own article: the reader is already standing inside
+// Fernwood, so "the Almanac", not "the Fernwood Almanac". Declared as identity.journalShort when an estate needs to
+// (a name that takes no article); else derived: the journal name minus a leading estate name, with "the".
+const JOURNAL_WORD = (() => {
+  const id = (propertyDigest.core && propertyDigest.core.identity) || {};
+  if (id.journalShort) return id.journalShort;
+  if (!id.journalName) return "the journal";
+  const short = id.name && id.journalName.startsWith(id.name + " ") ? id.journalName.slice(id.name.length + 1) : id.journalName;
+  return "the " + short;
+})();
 const LOOKUP_STRINGS = Object.freeze(Object.fromEntries(Object.entries(LOOKUP_STRINGS_TEMPLATE).map(([k, v]) => [k, v.replace(/\{journal\}/g, JOURNAL_WORD)])));
 const CORE_TOOLS = [
   { name: "get_plant", description: "One plant we tend, by name or id — the full record entry.", input_schema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] } },
@@ -135,7 +151,7 @@ async function searchLibrary(env, q, limit) {
   const terms = libTokens(q);
   if (!terms.length) return { found: false, reason: LOOKUP_STRINGS.NO_SOURCE };
   const statsRaw = await env.OBSERVATIONS.get(keyFor(env, "library", "stats"));
-  if (!statsRaw) return { found: false, reason: "the library index is not loaded at this estate" };
+  if (!statsRaw) return { found: false, reason: LOOKUP_STRINGS.NO_LIBRARY };
   const stats = JSON.parse(statsRaw);
   const prefixes = [...new Set(terms.map(w => w.slice(0, 2)))];
   const shardRows = await Promise.all(prefixes.map(p => env.OBSERVATIONS.get(keyFor(env, "library", "shard", p))));
@@ -181,11 +197,11 @@ async function dispatchTool(name, input, ctx) {
     }
     case "list_plants": {
       const rows = _sortBy(((D.plants && D.plants.plants) || []).map(p => ({ id: p.id, name: p.name, scientificName: p.scientificName })), "name");
-      return rows.length ? { found: true, ..._truncate(rows, 50) } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+      return rows.length ? { found: true, ..._truncate(rows, 50) } : { found: false, reason: LOOKUP_STRINGS.NONE_RECORDED };
     }
     case "list_weeds": {
       const rows = _sortBy(((D.weeds && D.weeds.weeds) || []).map(w => ({ id: w.id, name: w.name, scientificName: w.scientificName, confidence: w.confidence, status: w.status, momConfirm: w.momConfirm })), "name");
-      return rows.length ? { found: true, ..._truncate(rows, 50) } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+      return rows.length ? { found: true, ..._truncate(rows, 50) } : { found: false, reason: LOOKUP_STRINGS.NONE_RECORDED };
     }
     case "get_species": {
       const rows = [];
@@ -228,21 +244,21 @@ async function dispatchTool(name, input, ctx) {
     }
     case "turf_regime": {
       const rows = _sortBy((D.turf && D.turf.regimes) || [], "id");
-      if (!rows.length) return { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+      if (!rows.length) return { found: false, reason: LOOKUP_STRINGS.NONE_RECORDED };
       if (!inp.zone) return { found: true, total: rows.length, shown: rows.length, regimes: rows };
       const r = _resolve(rows, inp.zone, ["id", "label", "zoneId"]);
       return r.found ? { found: true, regime: r.row } : r;
     }
     case "fishing_species": {
       const rows = _sortBy((D.fishing && D.fishing.species) || [], "name");
-      return rows.length ? { found: true, total: rows.length, shown: rows.length, species: rows } : { found: false, reason: LOOKUP_STRINGS.NOT_IN_RECORD };
+      return rows.length ? { found: true, total: rows.length, shown: rows.length, species: rows } : { found: false, reason: LOOKUP_STRINGS.NONE_RECORDED };
     }
     case "search_library": {
-      if (!ctx.env) return { found: false, reason: "the library index is not loaded at this estate" };
+      if (!ctx.env) return { found: false, reason: LOOKUP_STRINGS.NO_LIBRARY };
       return searchLibrary(ctx.env, inp.q, inp.limit);
     }
     default:
-      return { found: false, reason: "no such tool" };
+      return { found: false, error: "no such tool" };   // an `error`, never a `reason`: nothing here is fit to relay to the reader
   }
 }
 function namesMentioned(text) {
@@ -259,7 +275,7 @@ function namesMentioned(text) {
   }
   return false;
 }
-const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — derived hard facts (each carrying its which-is-which marker; a marked value is answered WITH its marker), the voice rules per module, a names index (id + name + markers for everything this place keeps) — plus the property, zones and turf sections. It is NOT the full record: a plant, species or machine appears here by NAME only. When a question needs detail this view does not hold, say so plainly in the journal's voice ("the journal keeps that entry; this view holds only its name") — never fill the gap from general knowledge. The depth filter is unchanged: a name not in the index is not one we keep. TOOL RESULTS ARE THE RECORD'S ANSWER: when a lookup returns found:false, say its reason in the reply, in the journal's voice, and give NO value of your own for what it could not read — a breaker number, a date or a spec that did not come back from a tool is not known, whatever you may recall. BEFORE answering anything about a particular plant, weed, species, zone, machine, its service or the breaker panel, CALL the matching tool first — on this substrate the names index is all you hold, and the tool is how the record is read. For anything the prose library might hold (a manual's instruction, a reference, a research note), call search_library and CITE each passage you draw on as [lib:<id>] at the end of the sentence that uses it; when it returns found:false, say the library holds nothing on that and stop — never paraphrase from memory.`;
+const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — derived hard facts (each carrying its which-is-which marker; a marked value is answered WITH its marker), the voice rules per module, a names index (id + name + markers for everything this place keeps) — plus the property, zones and turf sections. It is NOT the full record: a plant, species or machine appears here by NAME only. When a question needs detail this view does not hold, say so plainly in the journal's voice ("the journal keeps that entry; this view holds only its name") — never fill the gap from general knowledge. The depth filter is unchanged: a name not in the index is not one we keep. TOOL RESULTS ARE THE RECORD'S ANSWER: when a lookup returns found:false, RELAY ITS REASON IN ITS OWN WORDS — the reason is the record's sentence, not a hint to paraphrase (say "in the safe — that part of the Almanac needs the login before it can be read", not "locked behind your credentials") — and give NO value of your own for what it could not read — a breaker number, a date or a spec that did not come back from a tool is not known, whatever you may recall. BEFORE answering anything about a particular plant, weed, species, zone, machine, its service or the breaker panel, CALL the matching tool first — on this substrate the names index is all you hold, and the tool is how the record is read. For anything the prose library might hold (a manual's instruction, a reference, a research note), call search_library and CITE each passage you draw on as [lib:<id>] at the end of the sentence that uses it; when it returns found:false, say the library holds nothing on that and stop — never paraphrase from memory.`;
 
 // ---- The prompts' INSTANCE FACTS derive from the digest (C5 7c, 2026-09-03) ----
 // Every number the system prompts state about the place — elevation, address, the

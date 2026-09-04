@@ -59,5 +59,7 @@ jobs:
         # passing by absence. Setting a needle secret in CI is a later act, and is Paul's.
         run: python3 tools/check-public-build.py --skip-needles
 
+      - name: no QA fixture value on a ref destined for Mom's page (enforced on main only)
+        run: python3 tools/check-qa-fixtures.py --check --ref HEAD --branch "${{ github.ref_name }}"
       - name: the builder's own controls hold
         run: python3 tools/build-viewer.py --selftest

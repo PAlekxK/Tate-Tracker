@@ -14,7 +14,7 @@ check("the lookup tools in the declared order", CORE_TOOLS.map(t => t.name).join
 const firstPlant = digest.plants.plants[0];
 const gp = await dispatchTool("get_plant", { name: firstPlant.name }, ctx);
 check("get_plant by exact name → the full entry", gp.found && gp.plant.id === firstPlant.id);
-check("get_plant unknown → {found:false, reason:'not in the record'}", (await dispatchTool("get_plant", { name: "zzz-not-a-plant" }, ctx)).reason === LOOKUP_STRINGS.NOT_IN_RECORD);
+check("get_plant unknown → {found:false, reason: LOOKUP_STRINGS.NOT_IN_RECORD}", (await dispatchTool("get_plant", { name: "zzz-not-a-plant" }, ctx)).reason === LOOKUP_STRINGS.NOT_IN_RECORD);
 const lp = await dispatchTool("list_plants", {}, ctx);
 check("list_plants is complete and counted", lp.found && lp.total === digest.plants.plants.length && lp.shown === lp.total);
 check("list_plants sorted by name", JSON.stringify(lp.rows.map(r => r.name)) === JSON.stringify([...lp.rows.map(r => r.name)].sort((a, b) => a.localeCompare(b))));
@@ -33,7 +33,8 @@ check("an ambiguous name → AMBIGUOUS with sorted candidates, never a guess", a
 check("get_zone by id", (await dispatchTool("get_zone", { name: digest.zones[0].id }, ctx)).found);
 check("turf_regime with no zone → all regimes, counted", (await dispatchTool("turf_regime", {}, ctx)).total === digest.turf.regimes.length);
 check("fishing_species complete", (await dispatchTool("fishing_species", {}, ctx)).total === digest.fishing.species.length);
-check("an unknown tool → found:false", (await dispatchTool("nope", {}, ctx)).found === false);
+const nope = await dispatchTool("nope", {}, ctx);
+check("an unknown tool → found:false with an `error`, no `reason` (nothing to relay)", nope.found === false && nope.error && !nope.reason);
 
 // ── 5b: THE FENCES RESOLVE AGAINST CANON ─────────────────────────────────────────────────────────────────────────
 // The six client parsers are lifted VERBATIM from the built viewer (a scratch copy missing one → the extractor THROWS,
@@ -101,7 +102,7 @@ check("libTokens: lowercase, ≥3 chars, stopwords out, DISTINCT", JSON.stringif
 const s1 = bm25Rank(["torque", "blade"], fxShards, fxStats, 5), s2 = bm25Rank(["torque", "blade"], fxShards, fxStats, 5);
 check("bm25Rank: the doc with both terms ranks first; total counts every doc with any term", s1.top[0].id === "a" && s1.total === 2);
 check("bm25Rank: identical calls → identical output", JSON.stringify(s1) === JSON.stringify(s2));
-check("bm25Rank: a term with no postings → total 0 (the tool then says the library holds nothing)", bm25Rank(["zebra"], fxShards, fxStats, 5).total === 0);
+check("bm25Rank: a term with no postings → total 0 (the tool then returns NO_SOURCE)", bm25Rank(["zebra"], fxShards, fxStats, 5).total === 0);
 check("ties break on id, not on insertion order", bm25Rank(["oil"], { oil: [["z", 1], ["m", 1]] }, { N: 2, avgdl: 10, dl: { z: 10, m: 10 } }, 5).top[0].id === "m");
 check("eleven tools; search_library is last in the declared order", CORE_TOOLS.length === 11 && CORE_TOOLS[10].name === "search_library");
 console.log(`\nfences 6/6 · dispatch ${CORE_TOOLS.length} · scorer 5 · control 1 · mutation 1`);

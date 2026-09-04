@@ -35,6 +35,23 @@ const { chromium } = require('playwright');
   try {
     await page.goto(url, { waitUntil: 'load', timeout: 60000 });
     await page.waitForTimeout(1500);
+    // [paul-stated 2026-09-04] "it's better to not display something rather than display something that's empty":
+    // a VISIBLE card or tile whose body carries no text and no media is a hollow container → a finding.
+    const empties = await page.evaluate(() => {
+      const out = [];
+      const vis = (el) => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; };
+      for (const card of document.querySelectorAll('.main-card, .dash-cell')) {
+        if (!vis(card)) continue;
+        const clone = card.cloneNode(true);
+        clone.querySelectorAll('.main-card-title, .main-card-header, .dash-cell-label, .ic-head-title, button').forEach(n => n.remove());
+        const text = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+        const media = card.querySelector('img, canvas, svg, video, audio, iframe, [style*="background-image"]');
+        const mediaVis = media && vis(media);
+        if (text.length < 24 && !mediaVis) out.push({ id: card.id || card.className.split(' ')[0], text: text.slice(0, 40) });
+      }
+      return out;
+    });
+    out.empties = empties;
     const basics = await page.evaluate(() => ({
       title: document.title,
       mainCards: document.querySelectorAll('.main-card').length,
@@ -55,7 +72,7 @@ const { chromium } = require('playwright');
       return { clean: v.clean, counts: v.counts, high: v.findings.filter(f => f.sev === 'HIGH') };
     }, dir);
     out.verdict = verdict;
-    out.ok = !!verdict.clean && !errors.length && !basics.objectObject && !!basics.modules;
+    out.ok = !!verdict.clean && !errors.length && !basics.objectObject && !!basics.modules && !(out.empties && out.empties.length);
     console.log(JSON.stringify(out));
     process.exit(verdict.error ? 2 : (out.ok ? 0 : 1));
   } catch (e) {
@@ -98,6 +115,7 @@ def main():
     for h in (v.get("high") or [])[:5]: print("     HIGH %s — %s" % (h.get("kind"), h.get("detail")))
     if out.get("objectObject"): print("  ✗ %d .prop-note(s) read '[object Object]'" % out["objectObject"])
     for e in out.get("scriptErrors") or []: print("  ✗ script error: %s" % e)
+    for em in out.get("empties") or []: print("  ✗ EMPTY container rendered: #%s — 'better to not display than display empty' [paul-stated 2026-09-04]" % em.get("id"))
     print("  %s" % ("✅ exit 0 — clean at her conditions" if r.returncode == 0 else ("🔴 exit %d" % r.returncode)))
     return r.returncode
 

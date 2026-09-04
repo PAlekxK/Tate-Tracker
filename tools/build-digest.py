@@ -519,7 +519,10 @@ def _identity_for(load):
         ident = inst.get("identity") or {}
         name = ident.get("name")
         if name:
-            return {"name": name, "journalName": ident.get("journalTile") or (name + " Almanac")}
+            out = {"name": name, "journalName": ident.get("journalTile") or (name + " Almanac")}
+            if ident.get("journalShort"):
+                out["journalShort"] = ident["journalShort"]
+            return out
     except (FileNotFoundError, OSError, ValueError, TypeError, AttributeError):
         pass
     return {"name": None, "journalName": None}

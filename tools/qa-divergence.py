@@ -65,6 +65,11 @@ def main():
             print("   %s %s %s  %s" % ("✅" if r["recorded"] or cls != "SURFACE" else "🔴", r["sha"], r["when"], r["subject"][:110]))
             if cls == "SURFACE":
                 print("        files: " + ", ".join(f for f in r["files"] if SURFACE.match(f))[:160])
+    reg = os.path.join(HERE, "qa-fixtures.json")
+    if os.path.exists(reg):
+        fx = json.load(open(reg)).get("rows", [])
+        print("\n  DECLARED FIXTURES (%d) — values that must NEVER reach main; everything else above is a STAGED prod change" % len(fx))
+        for r in fx: print("   %s %s qa=%r → prod=%r · retired by %s" % (r["file"], r["path"], r["qaValue"], r["prodValue"], r["retiredBy"]))
     unrec = [r for r in rows if r["class"] == "SURFACE" and not r["recorded"]]
     if a.check and unrec:
         print("\n🔴 %d SURFACE commit(s) on QA are not named in any plan stage-note — record the addition where its plan lives" % len(unrec)); return 1

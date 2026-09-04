@@ -2258,6 +2258,12 @@ directory split and on C5.** Seat trails already exist: `.user-research/2026-09-
 `.content-reviews/2026-09-02-estate-naming-layer.md`.
 
 
+### C7 · Paul's first read of the condo, 2026-09-04 — three rows and one rule `[paul-stated]`
+- **C7-R1 · Jump strip vs summary tiles vs cards.** Three layers repeat one thing (emoji · tile line · big card). Rationalize: which layer is the door, which the glance, which the room. ux seat, then Paul.
+- **C7-R2 · An OFF module must look intentional.** Today the summary grid shows gaps where garden/wildlife are off at the condo. The grid re-flows or the tile row declares itself; and modules become on/off SETTINGS a person can flip (the estate.json module set already exists — this is its surface).
+- **C7-R3 · The manual-vs-automated population view.** *"a standard view of what we really need to populate manually versus what's automated so we don't miss something"* — the map and references were blank at the condo. `INSTANCE-RECIPE.md` (generated) is the seed: per module, per field: derived · automated · hand-authored · declared-absent.
+- ⭐ **RULE (captured 2026-09-04): "It's better to not display something rather than display something that's empty."** Every container — map, references, any card or tile — is hidden when it has nothing, never rendered hollow. Enforced by a walk assertion (no empty rendered container at 414 × A+), red at the condo today for the map and references until the renderer hides them.
+
 ## 🏙 C8 · THE CONDO BUILD-OUT — after the migration `[paul-stated 2026-09-03]` 🏡 instance · DEFERRED
 
 **Gate: the migration has landed** — C4 · C5 · C7 shipped (the engine renders a plantless estate from config without a
