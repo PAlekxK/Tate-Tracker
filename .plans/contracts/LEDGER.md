@@ -104,3 +104,42 @@ reached the READING one* — **verifies**:
 
 **Acceptance criterion for anything shipping from that plan:** *does it render on `viewer.html`* —
 never *does the tracer do it*.
+
+### Lane C scope-widening (`3aada23`, `56b1185`) — hub-verified 2026-09-04
+
+Lane C wrote OUTSIDE its OWNS, into engine territory the ledger had marked HELD, on Paul's
+direct instruction. It declared this rather than letting the hub find it, and checked run 1 was
+closed and the tree clean first. **Verified, and it holds:**
+
+- ⭐ **Comment-only — PROVEN, not asserted.** A naive diff-grep looks alarming (prose lines
+  inside a multi-line comment read as code, and the prose quotes `@media`/`min-width`/`;`).
+  The rigorous test is comment-stripping both revisions and comparing: **identical for
+  `viewer.html` AND `engine/viewer.template.html`**, +3319 bytes of comment, zero executable
+  change. Mom's surface is unmoved.
+- `python3 tools/build-viewer.py --check` → ✅ byte-identical to template + instance.
+- Nothing pushed (10 commits still local).
+- **The measurement reproduces exactly: 13 `@media` blocks, ZERO `min-width`** — 6×480px,
+  1×540px, 4 prefers-reduced-motion, 2 hover. Lane C's correction of its own earlier "14" is
+  right, and it corrects the hub's relay of that number too. A grep hit count included a prose
+  reference; the block carries the accurate 13.
+- ⭐ **Lane C corrected the instruction on a ground that mattered.** `viewer.html` is GENERATED.
+  Writing the block there directly would have gone red on `--check` and been absorbed on the
+  next `--extract`. It wrote the source template instead — and argued the ruling is ENGINE-class
+  prose (a layout contract governing the shared renderer), so the template is right on the
+  manifest's own terms, not merely mechanically.
+
+**Hub endorses its two prose-not-tool guards.** Stating plainly that the contract is not
+tool-enforced, *because* a lint counting `min-width` blocks would pass the day someone shipped a
+bad wide layout without one, is the honest form: a green check that implies coverage it does not
+have is worse than a declared absence.
+
+## 🔶 PROPOSED preamble amendment for run 2 — NOT APPLIED, Paul's call
+
+The preamble says OWNS binds, full stop, and has no clause for what lane C actually hit: a
+direct instruction from Paul that widens scope after the run has closed. It behaved correctly by
+improvising the right rule. Proposed wording, to make that repeatable rather than lucky:
+
+> **OWNS binds for the duration of the run. Paul's direct instruction supersedes it — but a lane
+> acting on one must first verify no other writer is live in the affected tree, and must DECLARE
+> the widening to the hub in the same breath as doing it.** Silence is the violation, not the
+> widening.
