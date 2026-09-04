@@ -10,7 +10,7 @@
 - depends-on: .plans/2026-09-03-c5-record-prep-PLAN.md
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
-- stage: ready
+- stage: build (opened 2026-09-03 9:00 PM ET — steps 2a–2c shipped; 1b/1c wait on Paul's A+ default gate; 3 waits on the privacy seat, spawned)
 
 Drafted by the planning agent 2026-09-03 from the row, § M3, C4's RULED table and its three-levels ruling (decided, not
 re-argued: product apex · family door per family · instance by grant; two example families, `<family-a>` and `<family-b>`;
@@ -83,7 +83,7 @@ the built file; `check-config-derivation.py --selftest` fires on a planted `DEFA
 `people.json`: a new device for her is set up by Paul in person — A+ (30 s) and, after 6b, her grant credential. The
 working mechanism at n=1, said rather than pretended (seat §1). **Restore-at-binding (seat M3-b) is deferred out of
 C6**: it needs C5's `personId` and ux F3 says the device stays authoritative; a mirror is a later item.
-**2a · `POST /api/door`, ahead of the gate** — agent · reversible (additive; delete the branch) · the `/api/feedback`
+**2a · `POST /api/door`, ahead of the gate** — ✅ **SHIPPED 2026-09-03 `c96b085` `[paul: run the queue]`** — write-only no token on its OWN bucket (`ratelimit:door:`), `event ∈ door_reached|door_opened|door_failed`, `door ∈ entry|vault`, no estate field read, stamps `env · receivedAt · personId:null`, key `door:<date>` via `dateKey`, GET behind the token. QA (`qa-write-probe` DOOR leg, 7/7): no-token POST 2xx · GET 401 · 1.1 KB 413 · unknown event 400 · the door bucket 429s at the 21st **while a feedback POST from the same IP still lands** · read-back `env:qa · personId:null · no estate echoed`. Prod: `/health` lists `/api/door`. ⚠️ Two probe defects found on the way and fixed: it read back in a LOCAL-date window (a day behind after 8 PM ET — the Worker keys by UTC) and it did not wait for KV consistency. — agent · reversible (additive; delete the branch) · the `/api/feedback`
 shape: write-only, no token, `Content-Length` ≤ 1 KB, rate-limited on **its own bucket** (`ratelimit:door:`) so a door
 storm never 429s a note; body `{event ∈ door_reached|door_opened|door_failed, door ∈ entry|vault, deviceId, ts}`; ⛔
 **no estate field is read** — one is ignored if sent (seat §4); the Worker stamps `env`, `receivedAt`, `personId: null`
@@ -92,13 +92,13 @@ Key `door:<date>` via C5 6a's builder; GET falls through to the gate. Check, **Q
 DOOR leg — no-token POST → 2xx; GET no token → 401; 1.1 KB → 413; the 21st in 5 min → 429 **while a feedback POST from
 the same IP still lands** (the separate bucket, positive control); read-back carries `env:"qa"`, `personId:null`, and no
 estate echoed from the body. Prod after `deploy-worker.sh`: `/health` lists `/api/door`; nothing else changes.
-**2b · The client sender** — agent · reversible · `DoorEvents.send()` posts direct with `keepalive`, never through
+**2b · The client sender** — ✅ **SHIPPED 2026-09-03** — `DoorEvents.send(event, door)` posts direct with `keepalive`, never through `MetricsCollector`; buffers under the rostered key `tateTracker.door.outbox.v1` when offline and flushes on load; **nothing calls it yet — `door_reached = 0` is the truthful baseline**. `check-storage-keys.py` passes with the key rostered; the viewer walks clean on QA and prod. — agent · reversible · `DoorEvents.send()` posts direct with `keepalive`, never through
 `MetricsCollector` (its flush is gated — the locked-out person is exactly who it cannot carry); buffered under a
 rostered key when offline (the site premise) and flushed on the next in-range load. No door exists yet, so nothing
 fires: **`door_reached = 0` is a truthful baseline**, the denominator the seat's rule needs. Check: `check-storage-keys.py`
 passes with the key rostered and fails on a planted unrostered one; on the QA origin under `d-telemetrytest-harness-v1`
 a synthetic send lands in QA KV; `check-telemetry.py` reports it WIRED, not USED.
-**2c · The reader** — agent · reversible · `read-mom-engagement.py` gains one line: door events on her device since the
+**2c · The reader** — ✅ **SHIPPED 2026-09-03** — `read-mom-engagement.py` gains the door line (`?` before the route is readable · `unbound` · `UNREACHED · N sessions · 0 door events — go look` · counts since binding), `--selftest` 4/4, binding date read from the private `grants.json` (`boundAt`, lands with 4a). ⚠️ **Found on the way:** this reader and `read-mom-funnel.py` still opened `tools/people.json` directly for device ids — after C5 8a's move that mapped NOBODY and would have counted zero for Mom silently; both now read momlib's merged register and print UNMAPPED when the private register is absent. — agent · reversible · `read-mom-engagement.py` gains one line: door events on her device since the
 last lap, **and sessions on a bound device with zero door events** (metrics sessions × `door:` records × the binding
 date from `grants.json`; runs where the sibling is). Before 2a exists on prod it prints `?`, never `0`. Check:
 `--selftest` — bound device, 3 sessions, 0 door events → `UNREACHED · 3 sessions · 0 door events — go look`; unbound

@@ -81,25 +81,25 @@ the waiting state per the ux seat), `RELEASE_NOTES.md`. **Never:** `X-Tate-Token
 
 Each step: **who** · **reversible?** · **the deterministic check**. Existing tools first; new checks prove themselves by mutation.
 
-**1a · The strict origin enum, everywhere** — agent · reversible (one predicate) · `handleChat` returns 400
+**1a · The strict origin enum, everywhere** — ✅ **SHIPPED 2026-09-03 `c96b085`** — a non-empty `origin` outside `CONVERSATION_ORIGINS` → 400 `unknown-origin`; absent stays `app`. Not exercised against QA's Worker (a chat turn spends a model call; Q1's ceiling is unset) — proven by reading the predicate; the HYGIENE `--live` leg is Paul's. — agent · reversible (one predicate) · `handleChat` returns 400
 `{error:"unknown-origin"}` for a non-empty `origin` outside `CONVERSATION_ORIGINS`; absent stays `app` for the recorded
 reason (legacy records). The real client sends no `origin` (measured), so this cannot touch her. Deploy via
 `deploy-worker.sh`, sandbox off. Check: `test-feedback-cycle.py` HYGIENE leg — `origin:"prob"` → 400 and
 `/api/conversations?origin=all` gains no record; `origin:"test"` → 2xx and `excludedNonApp` increments;
 `check-mom-ack.py` exit 0; `read-mom-feedback.py --pickup` silent; `/health` OK.
-**1b · The two latency clocks** — agent · reversible (additive fields) · server: `logChatCost` gains `latency_ms` (around
+**1b · The two latency clocks** — ✅ **SHIPPED 2026-09-03** — server: `logChatCost(..., {latency_ms, round_trips: 1})` around the upstream fetch; client: `reply_received {conversationId, latencyMs}` on text turns (the image path already had its own). `check-telemetry` lists `reply_received` WIRED, NOT USED — correct until a turn happens. — agent · reversible (additive fields) · server: `logChatCost` gains `latency_ms` (around
 the upstream `fetch`) and `round_trips` (1 today); client: `askStartMs` spent on every text turn as
 `reply_received {conversationId, latencyMs}` — the image event unchanged. The viewer change ships through C4's QA origin
 if 3 exists, else at Paul's gate after `check-live.py --wait 180`. Check: one `origin:"test"` turn on the Worker writes a
 `cost-log:<date>` entry carrying `latency_ms > 0`; `check-telemetry.py` reports `reply_received` WIRED; `check-storage-keys.py`
 (C4 2b) passes — no new key.
-**1c · The `debug` field, non-app only** — agent · reversible · `reqOrigin !== "app"` ⇒ the response gains
+**1c · The `debug` field, non-app only** — ✅ **SHIPPED 2026-09-03** — `reqOrigin !== "app"` ⇒ `debug: {tool_calls: [], round_trips, latency_ms, prefix_sha}`; `prefix_sha` = SHA-256 (Worker `crypto.subtle`) over `{tools, system, messages}` in render order. Her response keeps exactly its five keys (the `app` branch is untouched). Not yet exercised with a turn — see 1a. — agent · reversible · `reqOrigin !== "app"` ⇒ the response gains
 `debug: {tool_calls: [], round_trips, prefix_sha, latency_ms}`; `prefix_sha` = sha256 over the rendered prefix in API
 render order (`tools` → `system` → `messages`), **computed by the Worker** so a Python harness never re-parses the template
 literal. Check: an `app` turn's response keys are exactly today's five (assert on the recorded shape — Mom's response is
 byte-identical); a `test` turn carries `debug`; two `test` turns with no prompt change carry the same `prefix_sha`; a
 one-character prompt edit changes it.
-**1d · The workflow `paths:` fix** — agent · reversible · `weeds.json`, `insects.json`, `zones.json`, `turf.json` added.
+**1d · The workflow `paths:` fix** — ✅ **SHIPPED 2026-09-03** — `weeds.json` · `insects.json` · `zones.json` · `turf.json` added to `deploy-worker.yml`; the deploy on `c96b085` ran its Deploy step (the skip notice did NOT print). The whitespace-commit trigger proof waits for the next real edit to one of those files. — agent · reversible · `weeds.json`, `insects.json`, `zones.json`, `turf.json` added.
 Check: a `workflow_dispatch` run shows the deploy step *ran* (the `FERNWOOD_AUG_2026` silent-skip notice must not print);
 then a whitespace-only commit to `turf.json` triggers the workflow (the run list is the proof); `check-digest-fresh.py` exit 0.
 **2a · `guru-facts.py`, derived** — agent · reversible · **after C5 4a** · one row = `{id, ask, must_contain[],
