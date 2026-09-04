@@ -1,7 +1,7 @@
 # LANE D — Tier 1 render fix (map regions)
 
 
-## STATUS: AT GATE 2026-09-04 — steps 1-2 built and verified (6408706), exhibit staged to ~/Desktop/ATTACH-THESE. Holding QA, not pushed. RELEASE CONDITION: Paul has looked and ruled on the QA deploy.
+## STATUS: CLOSED 2026-09-04 — gate met, verified, released by the hub. Absence is EXPECTED. Its four carried items are in LEDGER.md; the QA push it routed to the hub is BLOCKED on hub permissions and surfaced to Paul.
 Read `_PREAMBLE.md` first. It binds. **You are the QA-HOLDING lane for this run** — see §QA.
 
 `[paul-greenlit 2026-09-04]` *"yes, greenlight tier 1 as its own lane."*

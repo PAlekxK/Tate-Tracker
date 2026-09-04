@@ -272,3 +272,44 @@ exhibit says so on its face.
   that must not die with its window. The preamble's widening rule covers writes, not spawns.
   **New standard: declare a spawn AND name it as a dependency at close-out.** To fold into
   `_PREAMBLE.md` at the next run boundary — not now, because live lanes read their contract once.
+
+## Lane D CLOSED — the four things it was carrying, taken explicitly
+
+1. ⭐ **THE DASH IS STILL UNANSWERED, and must not be absorbed into the adjacency ruling.** Paul
+   ruled the adjacency *premise* in another tab ("some do have a wall or a trail or a strip of
+   nothing, and some don't"), but that is a **different question**. The dash is: all 23 zones are
+   `status: draft`, so the whole map renders dashed and the draft signal carries no information;
+   the real fix is Paul confirming the zones he trusts — a `status` edit, not geometry. **Orphaned
+   unless the maps session has it.**
+2. **The link between (1) and the `is-draft` cap.** `.pmap-zone.is-draft` sets
+   `stroke-linecap: butt`, so the round CAP lane D shipped is overridden on all 23 zones today and
+   only the round JOIN does visible work. It starts mattering **the moment (1) is answered.** The
+   cap fact is durable in a code comment; **this LINK existed only in lane D's context.**
+3. **Artifacts:** exhibit at `~/Desktop/ATTACH-THESE` (persists); source PNGs at
+   `.playwright-mcp/{before,after}-{full,all,bluff}.png` (gitignored, on disk).
+4. ⭐ **METHOD, which existed only in that session:** deterministic before/after map framing by
+   setting `#pmap-canvas`'s transform directly and centring on a zone's `getBBox()` — same crop on
+   both sides, within 1–2px. **Any future map exhibit wants this rather than eyeballed
+   screenshots**, which cannot hold a crop steady across two renders and therefore cannot show a
+   subtle geometry change honestly. Recorded here because a method with no artifact is exactly what
+   a closing session loses.
+
+**Lane D's honest boundary, preserved:** it verified its own surface commit and explicitly did NOT
+review THE CANVAS against its own intent — lane C's, not its to clear. It browsed the built viewer
+at 414×848 and 900×1100 and saw no layout defect, and labelled that an **observation, not a
+review**. ⚠️ The canvas commit is comment-only (hub-proven by comment-stripped diff), so it changes
+no executable code — but "not reviewed against its intent" still stands as stated.
+
+## ⛔ QA DEPLOY — RULED GO BY PAUL, BLOCKED ON THE HUB'S PERMISSIONS
+`[paul-ruled 2026-09-04]` — he is good with deploying to QA and wants current state there to build
+the skeleton out. **The hub's `git push` was denied by the auto-mode permission classifier.**
+⛔ Not routed to a lane: asking another session to run a command denied here is permission
+laundering, and the run's own preamble forbids lanes pushing anyway. **Surfaced to Paul to run.**
+
+Verified ready, so nothing needs re-deriving when it runs:
+- Local `main` tracks `origin/staging` (**QA**). `origin/main` is Mom's page and is untouched.
+- **Clean fast-forward** — `git merge-base --is-ancestor origin/staging HEAD` passes. No merge, no rebase.
+- 26 commits ahead; **only 2 touch a surface file** (`6408706` Tier 1, `3aada23` the canvas).
+- **Real executable change reaching QA: 2,992 bytes** comments-stripped. The canvas's contribution
+  is zero — it is pure comment, proven twice.
+- Lane D's gate battery all green at current HEAD, `--check` byte-identical, `qa-divergence` clean.
