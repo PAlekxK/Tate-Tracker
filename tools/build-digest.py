@@ -364,6 +364,150 @@ DIGEST_DOMAIN = {
 DIGEST_NON_DOMAIN = {"turf": "turf"}   # reached through a module's non_domain_members
 
 
+
+# ── Guru 4a (2026-09-03): THE CORE — the small, cacheable, module-aware half of the substrate ──
+# Built into the SAME artifact (one freshness check, one workflow) as a `core` key; the legacy
+# prompt path strips it (worker.js DIGEST_LEGACY) so prod's cached prefix stays byte-identical
+# until 4b's `substrate:"core"` path consumes it. Three parts, and what each is NOT:
+#   facts  — HARD FACTS **derived** from the loaded property.json (and the lake's own height from
+#            fishing.json when wildlife is on), rendered as prose lines WITH THEIR MARKERS. The
+#            confusable sibling (the lake) rides beside the property's elevation with a marker
+#            saying which is which — the exact row the first live leg turned red on. No number
+#            here is typed: the selftest asserts every value equals its canon path.
+#   voice  — the depth-filter clause split BY MODULE, engine prose that names no place; only ON
+#            modules contribute a fragment. Agent-authored 2026-09-03 from the prompt's own
+#            SCOPE/MACHINES text; the content-steward reviews register, not the split.
+#   names  — id + name for every entity of every ON module, so an id in a question resolves
+#            without the whole record; a marked field's content never rides without its marker
+#            (a weed's `confidence`, a zone's `status: draft`, a species' `statusLabel`).
+# THE FLOOR: the core substrate (core + property + zones + turf, whichever are present) must be
+# ≥ CORE_FLOOR_TOKENS at the measured TOK_PER_CHAR — Haiku's minimum cacheable prefix, so the
+# cached read is real — and ≤ CORE_BUDGET_TOKENS, both NON-ZERO EXIT in main(). compose() stays
+# pure (it records the estimate); the build and the selftest are where the floor bites.
+TOK_PER_CHAR = 0.2693           # measured from the live cost log (research/2026-07-28-garden-guru-scope.md); chars//4 under-read by ~15%
+CORE_FLOOR_TOKENS = 4096        # Haiku 4.5's minimum cacheable prefix — below it the "cached" core is billed uncached every turn
+CORE_BUDGET_TOKENS = 24000      # DECLARED ceiling for the cacheable core substrate (agent-set 2026-09-03; Paul may move it) — the whole point of the core is to be small
+CORE_INCLUDES = ("property", "zones", "turf")
+
+MODULE_VOICE = {   # engine prose — names no place; keyed by module; only ON modules ride
+    "garden":        "The living garden — plants we tend, weeds we work against, the turf regimes — is answered only from the record. A plant not in the record: say plainly \"Not one we tend.\" Weeds in the record are ours, not outsiders; a weed asked about is one we know. Never extrapolate to regional completeness.",
+    "wildlife":      "Species: only what the journal tracks. Not listed: \"Not a species the journal tracks yet.\" A species carrying a presence or status marker is answered with that hedge intact.",
+    "place":         "Zones and the ground: a zone is named by its recorded name and nothing else; an id that does not resolve here is not a place, and a draft zone is said to be a draft.",
+    "motor-pool":    "The garage's machines: a property-specific spec (oil, octane, plug gap, torque, pressure, interval) comes only from the record — not logged means say so. General mechanical know-how may be answered plainly in the shop-hand register. An [UNCONFIRMED] marker on a value travels into the answer.",
+    "equipment":     "Power tools and yard equipment follow the machine rule: logged specs only, general know-how plainly, markers carried.",
+    "house-systems": "What keeps the house running follows the machine rule: logged specs only, general know-how plainly, markers carried. Anything the record holds behind the door is answered by asking for the login, never from memory.",
+    "weather":       "Weather is read from live state on this turn, never recalled from the record.",
+    "sky":           "Sun, moon and stars come from computed tables for this place and date, never from memory.",
+}
+
+
+def _get(d, path, default=KeyError):
+    cur = d
+    for part in path.split("."):
+        if not isinstance(cur, dict) or part not in cur:
+            if default is KeyError:
+                raise KeyError(path)
+            return default
+        cur = cur[part]
+    return cur
+
+
+def _fmt_ft(n):
+    return "{:,}".format(int(n))
+
+
+def digest_core(load, est, on, on_non, groups, digest):
+    """The core, derived — see the block above. `digest` is the already-filtered dict (names come from it)."""
+    prop = load("property.json")
+    values = {
+        "address":     _get(prop, "property.address"),
+        "city":        _get(prop, "property.city"),
+        "state":       _get(prop, "property.state"),
+        "county":      _get(prop, "property.county"),
+        "elevFt":      _get(prop, "location.elevation.estimated_ft"),
+        "aboveKjzpFt": _get(prop, "location.elevation.elevationAboveKJZP_ft", None),
+        "lastFrost50": _get(prop, "frostDates.atPropertyElevation.lastSpring_50pct"),
+        "lastFrost90": _get(prop, "frostDates.atPropertyElevation.lastSpring_90pctSafe", None),
+        "firstFrost50": _get(prop, "frostDates.atPropertyElevation.firstFall_50pct"),
+        "zoneAdjusted": str(_get(prop, "hardiness.elevationAdjustedZone")).split(" ")[0],
+        "zoneOfficial": _get(prop, "hardiness.officialZone"),
+        "station":     _get(prop, "resources.nearestWeatherStation.id", None),
+    }
+    lines = [
+        "The property is at %s, %s, %s (%s County), at %s ft — THE PROPERTY'S elevation, the number every other height is measured against." % (
+            values["address"], values["city"], values["state"], values["county"], _fmt_ft(values["elevFt"])),
+        "Plan for USDA zone %s (the elevation-adjusted zone); the official map says %s." % (values["zoneAdjusted"], values["zoneOfficial"]),
+        "Frost: last spring frost about %s (50%%)%s; first fall frost about %s (50%%) — the elevation-adjusted dates, not the valley's." % (
+            values["lastFrost50"], (", safe after %s" % values["lastFrost90"]) if values["lastFrost90"] else "", values["firstFrost50"]),
+    ]
+    if values["aboveKjzpFt"] is not None and values["station"]:
+        lines.append("The reference station is %s in the valley, %s ft BELOW the property — its readings are the valley's, not the ridge's." % (values["station"], _fmt_ft(values["aboveKjzpFt"])))
+    confusables = []
+    if "fish" in on:
+        try:
+            lake = _get(load("fishing.json"), "lake.elevation_ft")
+            lake_name = _get(load("fishing.json"), "lake.name", "the lake")
+            values["lakeElevFt"] = lake
+            confusables.append({"asked": "location.elevation.estimated_ft", "sibling": "fishing.json:lake.elevation_ft", "value": lake,
+                                "marker": "THE LAKE'S elevation, not the property's — a different place at a different height"})
+            lines.append("%s sits at %s ft — THE LAKE'S elevation, a different place at a different height; never give it as the property's, and never give the property's as the lake's." % (lake_name, _fmt_ft(lake)))
+        except (KeyError, FileNotFoundError, TypeError):
+            pass
+    voice = {m: MODULE_VOICE[m] for m in MODULE_VOICE if m in _on_modules(est)}
+    names = {}
+    def idx(key, arr, name_key="name", marker_keys=()):
+        rows = []
+        for e in arr or []:
+            if not isinstance(e, dict) or not e.get("id"):
+                continue
+            row = {"id": e["id"], "name": e.get(name_key) or e.get("commonName") or e["id"]}
+            if e.get("scientificName"): row["sci"] = e["scientificName"]
+            for mk in marker_keys:
+                if e.get(mk) not in (None, "", []): row[mk] = e[mk]
+            rows.append(row)
+        if rows: names[key] = rows
+    if "plants" in digest: idx("plants", digest["plants"].get("plants"))
+    if "weeds" in digest:  idx("weeds", digest["weeds"].get("weeds"), marker_keys=("confidence", "status", "momConfirm"))
+    for k in ("birds", "mammals", "amphibians", "snakes", "lizards", "insects"):
+        if k in digest: idx(k, digest[k].get("species"), marker_keys=("statusLabel", "presence"))
+    if "fishing" in digest and isinstance(digest["fishing"].get("species"), list): idx("fish", digest["fishing"]["species"], marker_keys=("statusLabel", "presence"))
+    if "zones" in digest: idx("zones", digest["zones"], marker_keys=("status", "type"))
+    if "vehicles" in digest: idx("vehicles", digest["vehicles"].get("vehicles"), marker_keys=("nickname", "group", "status"))
+    core = {
+        "_meta": {"purpose": "Guru 4a — the cacheable core: derived hard facts with markers, per-module voice fragments, a names index. Stripped from the legacy prompt path; consumed by the `substrate:\"core\"` path (4b).",
+                  "includes": list(CORE_INCLUDES), "tokPerChar": TOK_PER_CHAR, "floorTokens": CORE_FLOOR_TOKENS, "budgetTokens": CORE_BUDGET_TOKENS},
+        "facts": {"lines": lines, "values": values, "confusables": confusables},
+        "voice": voice,
+        "names": names,
+    }
+    core["_meta"]["estTokens"] = core_tokens(digest, core)
+    return core
+
+
+def _on_modules(est):
+    import momlib
+    mods = momlib.modules_of(est) or {}
+    return {m for m, st in mods.items() if st in ("on", "on-minimal")}
+
+
+def core_tokens(digest, core=None):
+    """Estimated tokens of the core substrate = core + the included sections that are present."""
+    core = core if core is not None else digest.get("core", {})
+    parts = [json.dumps(core, ensure_ascii=False, separators=(",", ":"))]
+    parts += [json.dumps(digest[k], ensure_ascii=False, separators=(",", ":")) for k in CORE_INCLUDES if k in digest]
+    return int(round(sum(len(p) for p in parts) * TOK_PER_CHAR))
+
+
+def assert_core_floor(digest):
+    """NON-ZERO EXIT either side — the first digest gate that actually gates."""
+    n = core_tokens(digest)
+    if n < CORE_FLOOR_TOKENS:
+        raise RuntimeError("core substrate is ~%d tokens, UNDER the %d cacheable floor — a 'cached' core this small is billed uncached every turn; add substance or lower nothing" % (n, CORE_FLOOR_TOKENS))
+    if n > CORE_BUDGET_TOKENS:
+        raise RuntimeError("core substrate is ~%d tokens, OVER the declared %d budget — the core exists to be small; move content to a lookup" % (n, CORE_BUDGET_TOKENS))
+    return n
+
+
 def compose(est=None, load=load):
     """Build the digest dict for one estate. `est` is the parsed estate.json
     (None → this checkout's); `load` reads a canon file by name (a fixture may
@@ -413,13 +557,17 @@ def compose(est=None, load=load):
         del digest["vehicles"]
     if absent_lines:
         digest["_meta"]["declares"] = absent_lines
+    digest["core"] = digest_core(load_filtered, est, on, on_non, groups, digest)
     return digest
 
 
 def main():
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     os.chdir(repo_root)
+    if "--selftest" in sys.argv:
+        sys.exit(selftest())
     digest = compose()
+    core_n = assert_core_floor(digest)   # NON-ZERO EXIT under the floor or over the budget
 
     import datetime
     digest["_meta"]["rebuiltAt"] = datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z"
@@ -436,8 +584,8 @@ def main():
                   "property.json")
     )
     digest_size = os.path.getsize(out_path)
-    # Rough char→token estimate: ~4 chars/token for JSON
-    est_tokens = digest_size // 4
+    # Measured ratio (0.2693 tok/char, from the live cost log) — `// 4` under-read by ~15% at exactly the ceiling it watched (F9)
+    est_tokens = int(digest_size * TOK_PER_CHAR)
 
     print(f"Source files total: {raw_total:,} bytes")
     print(f"Digest:             {digest_size:,} bytes")
@@ -447,6 +595,7 @@ def main():
     # at expected use (~$0.06 cache write + ~$0.006 per cached turn).
     status = "OK" if est_tokens < 80000 else "approaching ceiling"
     print(f"Est. token count:   ~{est_tokens:,} tokens ({status})")
+    print(f"Core substrate:     ~{core_n:,} tokens (floor {CORE_FLOOR_TOKENS:,} · budget {CORE_BUDGET_TOKENS:,}) — {len(digest['core']['names'])} names sections · {len(digest['core']['voice'])} voice fragments · {len(digest['core']['facts']['confusables'])} confusable(s) marked")
     print(f"Written to:         {out_path}")
 
     if "--verify" in sys.argv:
@@ -457,6 +606,49 @@ def main():
                 continue
             section_size = len(json.dumps(val, ensure_ascii=False, separators=(",", ":")))
             print(f"  {key:14}  {section_size:>8,} bytes")
+
+
+def selftest():
+    """The core's controls: derived (never typed), module-aware, and a floor that FIRES."""
+    ok = True
+    def check(name, cond, detail=""):
+        nonlocal ok; ok &= bool(cond)
+        print("  %s %s%s" % ("✅" if cond else "🔴", name, ("  → " + str(detail)) if detail and not cond else ""))
+    print("build-digest selftest (Guru 4a — the core)\n")
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import momlib
+    d = compose()
+    core = d["core"]; prop = load("property.json"); fish = load("fishing.json")
+    check("facts.values.elevFt EQUALS canon location.elevation.estimated_ft (derived, not typed)", core["facts"]["values"]["elevFt"] == prop["location"]["elevation"]["estimated_ft"])
+    check("the lake rides as a CONFUSABLE with its marker, equal to fishing.json lake.elevation_ft", core["facts"]["confusables"] and core["facts"]["confusables"][0]["value"] == fish["lake"]["elevation_ft"] and "LAKE" in core["facts"]["confusables"][0]["marker"])
+    check("the property line and the lake line both carry a which-is-which marker", any("THE PROPERTY'S" in l for l in core["facts"]["lines"]) and any("THE LAKE'S" in l for l in core["facts"]["lines"]))
+    check("names index covers plants · weeds · zones · vehicles · birds at Fernwood", {"plants", "weeds", "zones", "vehicles", "birds"} <= set(core["names"]), sorted(core["names"]))
+    check("a draft zone rides WITH its status marker", any(r.get("status") == "draft" for r in core["names"].get("zones", [])))
+    check("voice fragments name no place (no 'Fernwood', no 'Tate', no 'Blue Ridge')", not any(w in json.dumps(core["voice"]) for w in ("Fernwood", "Tate", "Blue Ridge", "Church Mountain")))
+    n = assert_core_floor(d)
+    check("Fernwood's core substrate is inside [floor, budget]: ~%d tokens" % n, CORE_FLOOR_TOKENS <= n <= CORE_BUDGET_TOKENS)
+    gardenless = {"estateId": {"id": "est-test"}, "modules": {"garden": "off", "motor-pool": "on", "equipment": "on", "house-systems": "on", "wildlife": "on", "place": "off", "weather": "on", "sky": "on"}}
+    g = compose(gardenless)
+    check("gardenless estate → NO plants/weeds names, NO garden voice fragment, NO 'we tend' clause",
+          "plants" not in g["core"]["names"] and "weeds" not in g["core"]["names"] and "garden" not in g["core"]["voice"] and "we tend" not in json.dumps(g["core"]),
+          [k for k in g["core"]["names"]] + sorted(g["core"]["voice"]))   # a species NAMED "…planthopper" is wildlife, not a garden token
+    check("…and no 'zone' names section (place off)", "zones" not in g["core"]["names"])
+    def tiny_load(name):
+        if name == "property.json":
+            return {"property": {"address": "1 Test Rd", "city": "X", "state": "GA", "county": "Y"},
+                    "location": {"elevation": {"estimated_ft": 1000}}, "hardiness": {"officialZone": "7b", "elevationAdjustedZone": "7a"},
+                    "frostDates": {"atPropertyElevation": {"lastSpring_50pct": "April 20", "firstFall_50pct": "October 20"}}, "resources": {}}
+        if name == "zones.json": return {"zones": []}
+        if name == "turf.json": return {"regimes": []}
+        return load(name)
+    minimal = {"estateId": {"id": "est-tiny"}, "modules": {"garden": "off", "motor-pool": "off", "equipment": "off", "house-systems": "on", "wildlife": "off", "place": "on-minimal", "weather": "on", "sky": "on"}}
+    t = compose(minimal, load=tiny_load)
+    fired = False
+    try: assert_core_floor(t)
+    except RuntimeError as e: fired = "UNDER" in str(e)
+    check("a near-empty estate (the C7 shape) → the FLOOR FIRES (~%d tokens)" % core_tokens(t), fired)
+    print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed."))
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

@@ -66,6 +66,10 @@
  */
 
 import propertyDigest from "./digest.json" with { type: "json" };
+// Guru 4a (2026-09-03): the digest now carries a `core` key (derived facts with markers, per-module voice,
+// a names index) for the `substrate:"core"` path (4b). The LEGACY prompt path below must stay byte-identical for
+// prod's cached prefix, so it inlines the digest WITHOUT that key. One artifact, two substrates.
+const DIGEST_LEGACY = (() => { const { core, ...rest } = propertyDigest; return rest; })();
 
 // ---- The prompts' INSTANCE FACTS derive from the digest (C5 7c, 2026-09-03) ----
 // Every number the system prompts state about the place — elevation, address, the
@@ -1583,7 +1587,7 @@ async function handleChat(request, env) {
   const liveStateText = "CURRENT STATE (today):\n" + JSON.stringify(liveState);
   const chatSystem = [
     { type: "text", text: GARDEN_GURU_SYSTEM, cache_control: { type: "ephemeral" } },
-    { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(propertyDigest), cache_control: { type: "ephemeral" } },
+    { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(DIGEST_LEGACY), cache_control: { type: "ephemeral" } },
     { type: "text", text: liveStateText },
   ];
   const chatMessages = turns.map(t => ({ role: t.role, content: t.content }));
@@ -2028,7 +2032,7 @@ This plant was just added by the reader and has NOT been observed here across a 
       max_tokens: 2000,
       system: [
         { type: "text", text: SCHEMA_DRAFTER_SYSTEM, cache_control: { type: "ephemeral" } },
-        { type: "text", text: "PROPERTY DIGEST (for reference, voice, and species-overlap consistency):\n" + JSON.stringify(propertyDigest), cache_control: { type: "ephemeral" } },
+        { type: "text", text: "PROPERTY DIGEST (for reference, voice, and species-overlap consistency):\n" + JSON.stringify(DIGEST_LEGACY), cache_control: { type: "ephemeral" } },
       ],
       messages: [{ role: "user", content: drafterUserContent }],
     }),
