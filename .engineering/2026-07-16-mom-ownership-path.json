@@ -166,11 +166,11 @@
       "area": "other",
       "severity": "important",
       "location": "tools/people.json",
-      "observation": "people.json maps mom → `d-14nyhnjz-5lh01604-mpevr35o`. That is falsified by hard evidence: Mom's two 7/13 confirms (q-crocosmia-lucifer, q-white-mophead-annabelle — the answers Paul folded to canon as HER ground truth) carry deviceId `d-szqlt0h7-79xgx1bj-mpfrqkme`. Those feedback records are Mom by definition. Meanwhile `mpevr35o` was active every day 7/13–7/16 including 7/15, and per the coordinator posted the 'Test by Paul' observations.",
+      "observation": "people.json maps mom → `d-‹p-7f3a2c›`. That is falsified by hard evidence: Mom's two 7/13 confirms (q-crocosmia-lucifer, q-white-mophead-annabelle — the answers Paul folded to canon as HER ground truth) carry deviceId `d-‹p-b91e4d›`. Those feedback records are Mom by definition. Meanwhile `mpevr35o` was active every day 7/13–7/16 including 7/15, and per the coordinator posted the 'Test by Paul' observations.",
       "risk_or_impact": "Paul's read of 'Mom uses this daily' may be substantially his own usage reflected back at him. Her actual iPhone appears in metrics on 7/13 ONLY across the 7/13–7/16 window. The Grow/Kill validation gate is currently being judged against corrupted attribution — this could produce exactly the wrong call in either direction.",
       "principle_invoked": "Model-read values are hypotheses until verified",
       "the_why": "The original mom→mpevr35o mapping was a behavioral INFERENCE from the 5/26 rollup ('only device that used the A/A+ text-size toggle; most-active daily'), later written into people.json as if confirmed. A feedback record carrying a deviceId is deterministic evidence; a usage-pattern inference is not. When the two disagree, the deterministic one wins.",
-      "recommendation": "Correct people.json: mom → `d-szqlt0h7-79xgx1bj-mpfrqkme`. Leave `d-14nyhnjz-5lh01604-mpevr35o` UNATTRIBUTED pending Paul's confirmation rather than reassigning it to him on my inference — I have not independently verified its owner. Then re-read the validation gate with corrected attribution before making any Grow/Kill call.",
+      "recommendation": "Correct people.json: mom → `d-‹p-b91e4d›`. Leave `d-‹p-7f3a2c›` UNATTRIBUTED pending Paul's confirmation rather than reassigning it to him on my inference — I have not independently verified its owner. Then re-read the validation gate with corrected attribution before making any Grow/Kill call.",
       "effort": "low"
     },
     {
@@ -202,7 +202,7 @@
   ],
   "open_questions_for_user": [
     "F3 is the load-bearing call: are you OK with an unauthenticated write-only POST /api/feedback (rate-limited, size-capped, GET still token-gated)? It's what structurally kills the dark-device class. The cost is that someone who discovers the Worker URL could put junk in your queue.",
-    "F9: who actually owns `d-14nyhnjz-5lh01604-mpevr35o`? It's been labeled Mom in people.json since 7/11 and the two real confirms say otherwise. This changes how you read the Grow/Kill gate.",
+    "F9: who actually owns `d-‹p-7f3a2c›`? It's been labeled Mom in people.json since 7/11 and the two real confirms say otherwise. This changes how you read the Grow/Kill gate.",
     "F7: comfortable with Mom writing zoneId + photo straight to git canon (dropdown-constrained, no free text)? She's had entry-CREATION rights since 5/21, so this is a narrowing, not an expansion — but it's your canon.",
     "F10: still want to leave her 7/15 words on the MacBook, now that we know the exact key and a zero-effort recovery exists?"
   ],

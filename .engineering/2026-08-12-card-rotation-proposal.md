@@ -18,7 +18,7 @@ stated, and that the mechanism the backlog planned to build it on has never once
 ## What was measured, and against what denominator
 
 `/api/metrics`, 2026-06-13 → 2026-08-12, filtered to Mom's device
-(`d-szqlt0h7-79xgx1bj-mpfrqkme`, the only device established from authored content).
+(`d-‹p-b91e4d›`, the only device established from authored content).
 
 | event | count |
 |---|---|

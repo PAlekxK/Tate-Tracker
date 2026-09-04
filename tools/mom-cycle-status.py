@@ -35,7 +35,7 @@ landed*, never on *whose browser it landed from*, so Paul's own bench taps raise
 the same 🔴 as Mom speaking. On 2026-08-10 the board read 🔴 RETURN LEG + 🔴 UNREAD
 off a Guru turn whose own text says *"testing testing this is Paul… disregard this
 data."* Measured again on 2026-08-12 and still true: all three arrivals lighting
-the board were `d-avslqpyd-m72qxt1s-mpeuqnyg`, a device carrying
+the board were `d-‹p-7f3a2c›`, a device carrying
 `excludeFromEngagement: true` in `tools/people.json` since 2026-07-28 — a
 declaration the funnel had honoured for two weeks and this board had never read.
 

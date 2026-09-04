@@ -545,12 +545,12 @@ ever played it**, and lap 3 says so on its own face at the gate.
 | id | `r-msm3oqo6-8edsfawx` · zone `fairway` |
 | uploaded | `2026-08-09T17:52:44.550Z` (1:52 PM ET) |
 | length | `durationMs 5784` server-side; **5.46 s** measured by `ffprobe` on the staged file |
-| deviceId | `d-avslqpyd-m72qxt1s-mpeuqnyg` |
+| deviceId | `d-‹p-7f3a2c›` |
 | staged / transcribed / watermarked | 08-14, 10:38 / 10:59 / 11:01 AM ET |
 
 Three legs, each checked independently today rather than inherited:
 
-1. **The device** — `tools/people.json` maps `d-avslqpyd-m72qxt1s-mpeuqnyg` to Paul,
+1. **The device** — `tools/people.json` maps `d-‹p-7f3a2c›` to Paul,
    `excludeFromEngagement: true`. It is the **established** mapping, not the one flagged
    `assumedNotVerified` (`d-l4ct2ilv`).
 2. **The sibling record** — observation `c-n20bpx4o-msm3pv3i`, `2026-08-09T17:53:36.942Z`, **52

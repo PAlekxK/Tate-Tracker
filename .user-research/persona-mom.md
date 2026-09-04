@@ -25,9 +25,9 @@ The user whose adoption decides whether Fernwood is worth building at all. Joint
 > Mom.** They now carry `[⛔️ INVALIDATED 2026-08-01]` in place of that tag.
 >
 > `tools/people.json` is unambiguous: the device mapping was **backwards until 2026-07-28**.
-> `d-14nyhnjz-5lh01604-mpevr35o` — the device this persona calls "likely-Mom" and builds its
+> `d-‹p-7f3a2c›` — the device this persona calls "likely-Mom" and builds its
 > entire behavioural tier on — **is Paul's**. It was corrected against *content*, not activity
-> shape: all four of Mom's genuine inputs carry `d-szqlt0h7-79xgx1bj-mpfrqkme`, `d-14nyhnjz` has
+> shape: all four of Mom's genuine inputs carry `d-‹p-b91e4d›`, `d-14nyhnjz` has
 > produced **zero** feedback records ever, and its only zone recordings are Paul saying *"this is
 > Paul testing."* Paul confirmed the reading the same day.
 >

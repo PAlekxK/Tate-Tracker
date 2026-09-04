@@ -24,7 +24,7 @@ clean, fresh eyes." Sweep clock at launch: 53 viewer.html commits (limit 20), 6 
   tabs, scroll OK. Given verbatim to both agents. Pass 1 exit state: clean, nothing
   answered, nothing typed.
 - **Telemetry pollution (accepted cost, to exclude):** review deviceId
-  **`d-l4ct2ilv-9aea2gza-mrpewe2o`**, session 2026-08-31 ~20:55–21:20 UTC. Its page
+  **`d-‹p-7f3a2c›`**, session 2026-08-31 ~20:55–21:20 UTC. Its page
   load also stamped `firstOfferedAt` exposure for `q-fairway-grass-seedheads` in its
   own (review-local) offered map. Register the deviceId as bench / disregard in
   engagement reads.
@@ -148,7 +148,7 @@ This feels intentional and coherent — one palette, one voice, one card grammar
 
 ## 5. Housekeeping — analytics exclusion
 localStorage for this review browser:
-- **`tateTracker.deviceId` = `d-l4ct2ilv-9aea2gza-mrpewe2o`** ← the metrics identifier; exclude this device's traffic (session today, 2026-08-31 ~20:55–21:20 UTC).
+- **`tateTracker.deviceId` = `d-‹p-7f3a2c›`** ← the metrics identifier; exclude this device's traffic (session today, 2026-08-31 ~20:55–21:20 UTC).
 - `tateTracker.momQueue.offered.v1` gained `"q-fairway-grass-seedheads": "2026-08-31T20:55:33.906Z"` — my page load stamped a first-offered timestamp for the crabgrass/seed-heads card (head-slot exposure); no answer/snooze/dismiss was ever tapped.
 - Other keys: `textSize` (`lg`, deliberately left on per instructions), `sync.v1` (worker URL + token), `lastSync.v1`, `observations.v1`/`zones.v1` (synced-down data), `sync.audience.v1` (`verbose`), `metrics.v1` (`[]`), `zones.lastSyncedAt.v1`.
 Exit state clean: no cards left expanded, nothing typed, no question answered, radar toggled back off.
@@ -166,7 +166,7 @@ plants.json / turf.json / viewer.html. All held.
 
 # Fernwood /ux-sweep 2026-08-31 — Pass 2 (doctrine pass): adjudication + punch list
 
-**Method.** Doctrine loaded in full (`~/.claude/design-principles/fernwood.md` + all six cross-project section files + candidates; repo CLAUDE.md ratified sections; the 2026-08-03 pilot verdicts; the 2026-08-04 jump-strip taxonomy review; MOM-CYCLE-LOG/BACKLOG spot-checks). Live page re-measured at production URL, 414×848, `text-lg` verified on body. Every load-bearing pass-1 claim was re-measured against the rendered page, and every coherence claim below carries a file:line mechanism plus a rendered consequence I observed myself. Telemetry: same bench deviceId as pass 1 (`d-l4ct2ilv-9aea2gza-mrpewe2o`), one additional session ~21:27 UTC 8/31 — keep it registered as bench. Exit state clean: 0 cards expanded, nothing answered, typed, submitted, or recorded; radar not toggled.
+**Method.** Doctrine loaded in full (`~/.claude/design-principles/fernwood.md` + all six cross-project section files + candidates; repo CLAUDE.md ratified sections; the 2026-08-03 pilot verdicts; the 2026-08-04 jump-strip taxonomy review; MOM-CYCLE-LOG/BACKLOG spot-checks). Live page re-measured at production URL, 414×848, `text-lg` verified on body. Every load-bearing pass-1 claim was re-measured against the rendered page, and every coherence claim below carries a file:line mechanism plus a rendered consequence I observed myself. Telemetry: same bench deviceId as pass 1 (`d-‹p-7f3a2c›`), one additional session ~21:27 UTC 8/31 — keep it registered as bench. Exit state clean: 0 cards expanded, nothing answered, typed, submitted, or recorded; radar not toggled.
 
 ## A. Adjudication table
 

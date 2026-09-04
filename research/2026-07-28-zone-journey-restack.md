@@ -27,8 +27,8 @@ VERDICT: HOLD (not enough signal — n is low; one episode is not validation)
 Every `launcher_tapped` event in the entire record, printed raw:
 
 ```
-2026-07-18T03:58:54.367Z  d-14nyhnjz-5lh01604-mpevr35o  flowId fl-evr35o-20260718-1
-2026-07-18T04:11:36.052Z  d-14nyhnjz-5lh01604-mpevr35o  flowId fl-evr35o-20260718-1
+2026-07-18T03:58:54.367Z  d-‹p-7f3a2c›  flowId fl-evr35o-20260718-1
+2026-07-18T04:11:36.052Z  d-‹p-7f3a2c›  flowId fl-evr35o-20260718-1
 ```
 
 Two taps, ever, both on 2026-07-18, both on one device. Counting the audit's window:
@@ -70,7 +70,7 @@ Even on its own numbers the audit line was 32/33, not 33/33 — it recorded `tap
 
 ### Claim C — the finding that makes A and B both uninterpretable: **the device denominators are contaminated.**
 
-`tools/people.json` maps `d-14nyhnjz-5lh01604-mpevr35o` → **mom** ("CONFIRMED Mom (2026-07-02 discovery interview) = the active daily user"). That same file's `_meta` opens with `"ATTRIBUTION_IS_INVALID"` and warns that Paul shares his phone with Mom. The behavioural split says the mapping cannot be load-bearing:
+`tools/people.json` maps `d-‹p-7f3a2c›` → **mom** ("CONFIRMED Mom (2026-07-02 discovery interview) = the active daily user"). That same file's `_meta` opens with `"ATTRIBUTION_IS_INVALID"` and warns that Paul shares his phone with Mom. The behavioural split says the mapping cannot be load-bearing:
 
 | surface | `d-14nyhnjz` (mapped "mom") | `d-szqlt0h7` (**unmapped**) |
 |---|---|---|
@@ -229,7 +229,7 @@ The one change I would defend regardless is a *demotion in emphasis*, not positi
 
 ## CARD FOR DECISION
 
-**Which device is Mom's — `d-14nyhnjz-5lh01604-mpevr35o` or `d-szqlt0h7-79xgx1bj-mpfrqkme`? And which device do you test from?**
+**Which device is Mom's — `d-‹p-7f3a2c›` or `d-‹p-b91e4d›`? And which device do you test from?**
 
 Paul can answer this in one sentence and it is the only thing standing between this item and a real verdict. Everything else in this file is measured; this is the one fact the data cannot settle, and it flips the diagnosis 180°:
 

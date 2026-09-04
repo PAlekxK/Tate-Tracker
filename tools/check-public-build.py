@@ -25,6 +25,20 @@ SERVED = ("viewer.html", "worker/digest.json", "vehicles.json", "property.json",
 
 def _rx(p): return re.compile(p, re.I)
 
+
+def _harness_ids():
+    """The synthetic telemetry-harness device id(s) declared public in tools/people.json — read, not retyped."""
+    try:
+        ppl = json.load(open(os.path.join(ROOT, "tools", "people.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        return set()
+    out = set()
+    for p in ppl.get("people", []):
+        if p.get("name") == "telemetry-test" or p.get("synthetic"):
+            for d in (p.get("deviceIds") or []):
+                if isinstance(d, str): out.add(d)
+    return out
+
 # ---- the `supplied-names` NEEDLE row (setup-journey seat I2, 2026-09-03) ----
 # A name a person supplies about themselves may live on her device, in KV, or in the private sibling — NEVER in a
 # tracked file (activation-journeys §6, paul-ratified 2026-09-02). A name is not regex-detectable, but it IS
@@ -99,8 +113,8 @@ ROSTER = [
      "detect": _rx(r'"vin"\s*:\s*"[A-HJ-NPR-Z0-9]{11}'),
      "disposition": "public", "by": "paul-ruled 2026-09-03: \"the prefix can stay public\"", "enforce": False,
      "note": "the serial stays redacted; a FULL 17-char VIN appearing would be a new leak — see the `full-vins` row."},
-    {"id": "full-vins", "what": "a FULL 17-character VIN anywhere in the public build",
-     "detect": _rx(r'"vin"\s*:\s*"[A-HJ-NPR-Z0-9]{17}"'),
+    {"id": "full-vins", "what": "a FULL 17-character VIN anywhere in a tracked file — prose included (the 2026-09-03 miss wanted a `\"vin\":` key)",
+     "detect": re.compile(r'(?<![A-Za-z0-9])(?=(?:[0-9]*[A-HJ-NPR-Z]){3})(?=[A-HJ-NPR-Z0-9]*\d)[A-HJ-NPR-Z0-9]{17}(?![A-Za-z0-9])'),   # 17 VIN-alphabet chars, ≥3 letters and ≥1 digit; case-sensitive so hex shas never match; a one-letter journal PII (S2451…) does not
      "disposition": "ruled-private", "by": "implied by paul-ruled 2026-09-03 (only the prefix is public)", "enforce": True, "note": ""},
     {"id": "service-contact-phones", "what": "phone numbers in `serviceContacts` and restoration prose (18 phone-shaped values in vehicles.json)",
      "detect": _rx(r"\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b"),
@@ -110,8 +124,8 @@ ROSTER = [
      "detect": _rx(r'"sha256"'), "only_in": ("service-records.manifest.json",),
      "disposition": "ruled-private", "by": "paul-ruled 2026-09-03: \"private\"", "enforce": True,
      "note": "MOVED 2026-09-03 to fernwood-private/service-records.manifest.json; intake.py and photo-organizer's describe_documents.py repointed. History keeps the old rows until the C4 step-5 split rewrites it."},
-    {"id": "device-ids", "what": "tools/people.json device ids (a browser bucket per person)",
-     "detect": _rx(r'"d-[a-z0-9]{8}-[a-z0-9]{8}-[a-z0-9]{8}"'), "only_in": ("tools/people.json",),
+    {"id": "device-ids", "what": "real device ids (a browser bucket per person) in ANY tracked file — prose included; the synthetic harness id is allowed",
+     "detect": re.compile(r'(?<![A-Za-z0-9])d-[a-z0-9]{8}-[a-z0-9]{8}-[a-z0-9]{6,10}(?![A-Za-z0-9])'), "allow_values": _harness_ids,
      "disposition": "ruled-private", "by": "paul-ruled 2026-09-03: \"private\"", "enforce": True,
      "note": "MOVED 2026-09-03: real device ids live in fernwood-private/people-devices.json (keyed by personId); momlib._people() merges them; the synthetic harness id stays public. Prose mentions in people.json scrubbed."},
     {"id": "extension-office-phone", "what": "property.json resources.localExtension.phone (UGA Extension, Pickens County)",
@@ -121,19 +135,34 @@ ROSTER = [
 
 
 def scan(root=ROOT):
+    """Every TRACKED file (git ls-files), not the six SERVED artifacts. Widened 2026-09-03 after the privacy seat
+    found a full VIN in cycle/requests.jsonl under a green `full-vins` row — the row's scope was the build, the
+    value sat in a tracked record. The build is a subset of the tracked tree; Pages serves the tree. SERVED is
+    kept as the list a reader should look at first, not as the scan's boundary."""
     texts = {}
-    for rel in SERVED:
+    for rel in _tracked_files(root):
         p = os.path.join(root, rel)
-        if os.path.exists(p):
-            with open(p, encoding="utf-8", errors="replace") as fh:
-                texts[rel] = fh.read()
+        if os.path.isdir(p):
+            continue
+        try:
+            with open(p, "rb") as fh:
+                head = fh.read(8192)
+                if b"\x00" in head:
+                    continue   # binary (audio, images): bytes that happen to spell a VIN are not a VIN
+                texts[rel] = (head + fh.read()).decode("utf-8", errors="replace")
+        except OSError:
+            continue
     rows = []
     for r in ROSTER:
         counts = {}
         for rel, t in texts.items():
             if r.get("only_in") and rel not in r["only_in"]:
                 continue
-            n = len(r["detect"].findall(t))
+            found = r["detect"].findall(t)
+            if r.get("allow_values"):
+                allowed = r["allow_values"]() if callable(r["allow_values"]) else r["allow_values"]
+                found = [v for v in found if v not in allowed]
+            n = len(found)
             if n:
                 counts[rel] = n
         rows.append((r, counts))
@@ -197,7 +226,8 @@ def selftest():
         open(os.path.join(d, "viewer.html"), "w").write("<html>nothing private</html>")
         rows = scan(d)
         check("a clean build → no row present", all(not c for _, c in rows))
-        open(os.path.join(d, "viewer.html"), "w").write('const X = {"vin": "WVWZZZ3CZWE123456", "breakerCircuit": "Panel circuit 7"};')
+        fake_vin = "WVWZZZ3CZ" + "WE123456"   # assembled: the tool must not carry a VIN-shaped literal the widened row would find
+        open(os.path.join(d, "viewer.html"), "w").write('const X = {"vin": "%s", "breakerCircuit": "Panel circuit 7"};' % fake_vin)
         rows = {r["id"]: c for r, c in scan(d)}
         check("a VIN in the viewer is COUNTED", rows["vins"].get("viewer.html") == 1, rows["vins"])
         check("a breaker circuit in the viewer is COUNTED", rows["breaker-directory"].get("viewer.html", 0) >= 1, rows["breaker-directory"])
@@ -224,8 +254,8 @@ def selftest():
     check("LIVE: the breaker directory IS in the public build today (the finding this tool exists to keep visible)",
           bool(live["breaker-directory"]), live["breaker-directory"])
     check("LIVE: VIN prefixes are in the public build (ruled public)", bool(live["vins"]), live["vins"])
-    check("LIVE: device ids are GONE from the public build (moved 2026-09-03)", not live["device-ids"], live["device-ids"])
-    check("LIVE: the receipt manifest is GONE from the public build (moved 2026-09-03)", not live["receipt-manifest"], live["receipt-manifest"])
+    check("LIVE: no real device id is in ANY tracked file (moved 2026-09-03; prose redacted 2026-09-03 after the widened scan found 4 ids in 10 files)", not live["device-ids"], sorted(live["device-ids"]))
+    check("LIVE: the receipt manifest is GONE from the tracked tree (moved 2026-09-03)", not live["receipt-manifest"], live["receipt-manifest"])
     print("\n%s" % ("✅ controls hold." if ok else "\U0001f534 a control failed."))
     return 0 if ok else 1
 
