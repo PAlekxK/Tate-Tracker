@@ -61,8 +61,10 @@ def grade(row, text):
     return "GREEN", "ok"
 
 
-def ask(base, token, row):
-    body = {"origin": "test", "conversation_id": "guru-probe-" + row["id"], "turns": [{"role": "user", "content": row["ask"], "ts": "2026-01-01T00:00:00Z"}], "live_state": {}}
+def ask(base, token, row, substrate="digest"):
+    body = {"origin": "test", "conversation_id": "guru-probe-" + row["id"] + ("-core" if substrate == "core" else ""), "turns": [{"role": "user", "content": row["ask"], "ts": "2026-01-01T00:00:00Z"}], "live_state": {}}
+    if substrate == "core":
+        body["substrate"] = "core"   # Guru 4b — the flag the real client never sends
     req = urllib.request.Request(base + "/api/chat", data=json.dumps(body).encode(), method="POST",
                                  headers={"Content-Type": "application/json", "X-Tate-Token": token, "User-Agent": "guru-probe"})
     try:
@@ -75,7 +77,7 @@ def ask(base, token, row):
             return e.code, {"error": "http %d" % e.code}
 
 
-def live(max_turns):
+def live(max_turns, substrate="digest"):
     import importlib.util
     spec = importlib.util.spec_from_file_location("gf", os.path.join(HERE, "guru-facts.py")); gf = importlib.util.module_from_spec(spec); spec.loader.exec_module(gf)
     tok = resolve_qa_token()
@@ -94,8 +96,12 @@ def live(max_turns):
     fix_dir = os.path.join(ROOT, ".private", "guru-fixtures"); os.makedirs(fix_dir, exist_ok=True)
     rows = [r for r in gf.rows() if not r["requires_tool"]][:max_turns]
     rc = 0
-    for row in rows:
-        st, resp = ask(QA_URL, tok, row)
+    subs = ("digest", "core") if substrate == "both" else (substrate,)
+    seen_prefix = {}
+    for sub in subs:
+      if len(subs) > 1: print("  ── substrate: %s ──" % sub)
+      for row in rows:
+        st, resp = ask(QA_URL, tok, row, sub)
         if st == 429 and isinstance(resp, dict) and resp.get("error") == "chat-budget-exceeded":
             print("  💰 BUDGET  %s — the Worker refused ($%s used / $%s ceiling); stopping, not erroring" % (row["id"], resp.get("used_usd"), resp.get("ceiling_usd"))); return 3
         if st != 200:
@@ -103,14 +109,19 @@ def live(max_turns):
         text = resp.get("reply", "")
         verdict, why = grade(row, text)
         dbg = resp.get("debug") or {}
-        print("  %s %-24s %s · %sms · prefix %s" % ("✅" if verdict == "GREEN" else "🔴", row["id"], why, dbg.get("latency_ms", "?"), str(dbg.get("prefix_sha", "?"))[:8]))
+        u = dbg.get("usage") or {}
+        seen_prefix.setdefault(sub, set()).add(dbg.get("prefix_sha"))
+        print("  %s %-24s %s · %sms · prefix %s · cache read %s / new %s" % ("✅" if verdict == "GREEN" else "🔴", row["id"], why, dbg.get("latency_ms", "?"), str(dbg.get("prefix_sha", "?"))[:8], u.get("cache_read", "?"), u.get("cache_creation", "?")))
         if verdict != "GREEN":
             rc = 1; print("      reply: %s" % text[:220].replace("\n", " "))
         # Guru 2b — a FIXTURE per row: the harness's own ask, never a conversation of hers; prefix_sha beside it
         import datetime as _dt
-        json.dump({"row_id": row["id"], "request": {"ask": row["ask"], "origin": "test"}, "response": text, "usage": resp.get("usage"), "model": resp.get("model"),
+        json.dump({"row_id": row["id"], "substrate": sub, "request": {"ask": row["ask"], "origin": "test"}, "response": text, "usage": resp.get("usage") or u, "model": resp.get("model"),
                    "prefix_sha": dbg.get("prefix_sha"), "latency_ms": dbg.get("latency_ms"), "verdict": verdict, "recorded_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds")},
-                  open(os.path.join(fix_dir, row["id"] + ".json"), "w"), indent=1, ensure_ascii=False)
+                  open(os.path.join(fix_dir, row["id"] + ("" if sub == "digest" else "." + sub) + ".json"), "w"), indent=1, ensure_ascii=False)
+    if len(subs) > 1:
+        a, b = seen_prefix.get("digest", set()), seen_prefix.get("core", set())
+        print("  %s the two substrates render DIFFERENT prefixes" % ("✅" if a and b and not (a & b) else "🔴"))
     return rc
 
 
@@ -153,5 +164,6 @@ def selftest():
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--selftest", action="store_true"); ap.add_argument("--live", action="store_true"); ap.add_argument("--max-turns", type=int, default=1)
+    ap.add_argument("--substrate", choices=("digest", "core", "both"), default="digest", help="Guru 4b: which prompt substrate the Worker assembles (core = the flag the client never sends)")
     a = ap.parse_args()
-    sys.exit(selftest() if a.selftest else (live(a.max_turns) if a.live else (print(__doc__) or 0)))
+    sys.exit(selftest() if a.selftest else (live(a.max_turns, a.substrate) if a.live else (print(__doc__) or 0)))

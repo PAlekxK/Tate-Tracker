@@ -70,6 +70,18 @@ import propertyDigest from "./digest.json" with { type: "json" };
 // a names index) for the `substrate:"core"` path (4b). The LEGACY prompt path below must stay byte-identical for
 // prod's cached prefix, so it inlines the digest WITHOUT that key. One artifact, two substrates.
 const DIGEST_LEGACY = (() => { const { core, ...rest } = propertyDigest; return rest; })();
+// Guru 4b: the CORE substrate = core + the sections the artifact itself declares (`core._meta.includes`, never
+// retyped here). Selected by `substrate:"core"` in the chat body — the real client never sends it — so prod's
+// app path stays byte-identical. null on a digest built before 4a → the request is refused, not degraded.
+const DIGEST_CORE = (() => {
+  const c = propertyDigest.core;
+  if (!c || !c._meta) return null;
+  const out = { core: c };
+  for (const k of (c._meta.includes || [])) if (propertyDigest[k] !== undefined) out[k] = propertyDigest[k];
+  return out;
+})();
+const CORE_TOOLS = [];   // 4b declares the ORDER; the schemas land with the lookup rungs (5/6). Empty is a declared order too.
+const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — derived hard facts (each carrying its which-is-which marker; a marked value is answered WITH its marker), the voice rules per module, a names index (id + name + markers for everything this place keeps) — plus the property, zones and turf sections. It is NOT the full record: a plant, species or machine appears here by NAME only. When a question needs detail this view does not hold, say so plainly in the journal's voice ("the journal keeps that entry; this view holds only its name") — never fill the gap from general knowledge. The depth filter is unchanged: a name not in the index is not one we keep.`;
 
 // ---- The prompts' INSTANCE FACTS derive from the digest (C5 7c, 2026-09-03) ----
 // Every number the system prompts state about the place — elevation, address, the
@@ -1585,7 +1597,15 @@ async function handleChat(request, env) {
   // The cache_control on the digest block is the big cost saver — within a 5-minute window
   // across turns or sessions, the ~57K-token digest is read at 10% of base rate.
   const liveStateText = "CURRENT STATE (today):\n" + JSON.stringify(liveState);
-  const chatSystem = [
+  // Guru 4b — two substrates over one artifact. `digest` (the app's path, unchanged bytes): [voice] [digest] [live].
+  // `core` (selected only by an explicit `substrate:"core"`, which the client never sends): [voice + core, one cached
+  // block] → [live state], with CORE_TOOLS in their declared order. A core request against a pre-4a digest is refused.
+  const substrate = body && body.substrate === "core" ? "core" : "digest";
+  if (substrate === "core" && !DIGEST_CORE) return json({ error: "core-substrate-unavailable", hint: "the deployed digest carries no `core` — rebuild with tools/build-digest.py" }, 400);
+  const chatSystem = substrate === "core" ? [
+    { type: "text", text: GARDEN_GURU_SYSTEM + "\n\n" + CORE_SUBSTRATE_NOTE + "\n\nCORE RECORD:\n" + JSON.stringify(DIGEST_CORE), cache_control: { type: "ephemeral" } },
+    { type: "text", text: liveStateText },
+  ] : [
     { type: "text", text: GARDEN_GURU_SYSTEM, cache_control: { type: "ephemeral" } },
     { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(DIGEST_LEGACY), cache_control: { type: "ephemeral" } },
     { type: "text", text: liveStateText },
@@ -1615,6 +1635,7 @@ async function handleChat(request, env) {
       model: "claude-haiku-4-5-20251001",
       max_tokens: 600,
       system: chatSystem,
+      ...(substrate === "core" && CORE_TOOLS.length ? { tools: CORE_TOOLS } : {}),
       messages: chatMessages,
     }),
   });
@@ -1653,8 +1674,10 @@ async function handleChat(request, env) {
   // prefix_sha is over the rendered prefix in API render order (tools → system → messages), computed
   // here so a harness never re-parses the template literal.
   if (reqOrigin !== "app") {
-    out.debug = { tool_calls: [], round_trips: 1, latency_ms: latencyMs,
-                  prefix_sha: await sha256Hex(JSON.stringify({ tools: [], system: chatSystem, messages: chatMessages })) };
+    const u = apiData.usage || {};
+    out.debug = { tool_calls: [], round_trips: 1, latency_ms: latencyMs, substrate,
+                  usage: { input: u.input_tokens || 0, cache_creation: u.cache_creation_input_tokens || 0, cache_read: u.cache_read_input_tokens || 0, output: u.output_tokens || 0 },
+                  prefix_sha: await sha256Hex(JSON.stringify({ tools: substrate === "core" ? CORE_TOOLS : [], system: chatSystem, messages: chatMessages })) };
   }
   return json(out);
 }
