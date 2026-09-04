@@ -40,23 +40,44 @@ You are ONE LANE in a parallel Fernwood run launched 2026-09-04 PM ET.
   phrasing as a verbatim `[paul-stated]` ruling. Paul has not yet reviewed the
   wording.
 
-## ⭐ ROUTE QUESTIONS TO THE HUB `[paul-stated 2026-09-04]`
+## ⭐ WHERE A QUESTION GOES — hub first, then ASK PAUL IN YOUR OWN TAB `[paul-stated 2026-09-04]`
 
-**Every question of scope, sequencing or ownership goes to the hub — you do not answer it in
-your tab.** Single source of truth. Route: what happens next · who owns a piece of work ·
-whether something becomes a BACKLOG / canon / principle-library row · whether you may widen
-scope · what another lane is doing · anything that would have you describing the shape of the
-overall run.
+**Supersedes the first version of this rule, which sent everything to the hub and had the hub
+relay gates to Paul. That was wrong** — it stripped each question of the context that made it
+answerable, and Paul had to answer blind in a window that held none of the material.
 
-**You DO still answer Paul directly about your own lane** — its content, findings, reasoning and
-artifacts. He uses lane tabs deliberately and should not have to come to the hub for what you
-just produced. The split is: *your work, you answer; the run's shape, the hub answers.* You only
-see your own lane, and answering from that view is how two windows start disagreeing — which is
-the whole thing this rule prevents.
+**The sequence, every time:**
+
+1. **CHECK WITH THE HUB FIRST — always**, including things you are sure are Paul questions.
+   No exceptions, and no "this one is obviously his."
+2. **The hub answers what it can**, routes what is actually another lane's, and kills what is
+   already settled elsewhere. Most questions die here. That is the point.
+3. **If the hub confirms it is truly a gate for Paul, YOU ask him — in YOUR OWN TAB**, with the
+   surrounding context visible. ⛔ **Do not hand it back to the hub to relay.** He wants to look
+   up, see the full context, and answer where the work is.
+4. **The hub tells Paul WHICH TABS are waiting — never the question itself.** A pointer, so he
+   has one place to see what is pending without the questions being torn out of their context.
+
+**Why it is this shape.** A gate needs its evidence in the same window as its question. Relaying
+one into the hub window turns a decision he could make in ten seconds into a decision he has to
+reconstruct. Meanwhile the *filtering* genuinely belongs to the hub, because you only see your own
+lane and cannot know a neighbour already answered it.
+
+**The bar for step 3 is "truly a gate"** — it changes what gets built, it is authoring or taste or
+priority, or it is his to rule on by doctrine. Not "I would like a second opinion," and not
+"confirm what I just did." Those stop at step 2.
 
 ⚠️ It is easy to over-answer by one step. Describing what is in front of him next is fine;
-**offering to do it is not** — that is a sequencing decision. A lane caught itself doing exactly
-this on run 1, after the fact, and flagged it. Flagging beats silence; not doing it beats both.
+**offering to do it is not** — that is a sequencing decision and it belongs to the hub. A lane
+caught itself doing exactly this on run 1, after the fact, and flagged it. Flagging beats silence;
+not doing it beats both.
+
+## Answering Paul when he asks YOU something
+
+He uses lane tabs deliberately. **Answer freely about your own lane** — content, findings,
+reasoning, artifacts, why you did what you did. You are the best window for that and the hub is
+only a relay. What still routes to the hub is the *run's shape*: what happens next, who owns a
+piece of work, whether something becomes a canon or backlog row, whether you may widen scope.
 
 ## 🔶 WIDENING SCOPE — operating rule, NOT YET RATIFIED
 
