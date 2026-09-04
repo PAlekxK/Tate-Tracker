@@ -104,7 +104,14 @@ def main():
             print(f"  ⚠ {lane:<26} no ## STATUS line — the watcher cannot judge its absence")
         else:
             print(f"  · {lane:<26} {v}")
-    open_lanes = [l for l, v in S.items() if not v.startswith("CLOSED") and v != "UNDECLARED"]
+    # ⛔ The hub is excluded BEFORE the test, not inside a branch of it. Its own session runs
+    # outside the target repo by design and can never appear in `sessions`, so counting it as an
+    # open lane is a permanent off-by-one. Removing it from the DISPLAY but not the TEST (which
+    # this file did, 8d1b0a1) just moves the error: at 2 live sessions and 2 genuinely open lanes
+    # -- the healthy steady state -- the test fired "VANISHED" on a clean run. An alarm on by
+    # construction, which is the thing this tool exists not to be.
+    open_lanes = [l for l, v in S.items()
+                  if not v.startswith("CLOSED") and v != "UNDECLARED" and l != "lane-hub"]
     if open_lanes and len(sessions) < len(open_lanes):
         print(f"  ⚠ {len(open_lanes)} lane(s) declared OPEN but only {len(sessions)} live session(s) —")
         print("    at least one is VANISHED, not closed. Check before assuming it finished.")
@@ -112,7 +119,6 @@ def main():
         # The hub's own session runs OUTSIDE the target repo by design, so it can never
         # appear in `sessions`. Counting it as an open lane guarantees a permanent
         # off-by-one that the "counts match" branch then launders into a clean read.
-        open_lanes = [l for l in open_lanes if l != "lane-hub"]
         print(f"  · {len(open_lanes)} open lane(s) (hub excluded — its session is not in this repo),"
               f" {len(sessions)} live session(s) here")
         print("  ⚠ COUNTS ARE NOT A PAIRING.")
@@ -147,6 +153,14 @@ def main():
             print(f"  {lane:<26} n/a — OWNS are outside this repo ({outside[0]}); not visible here")
         else:
             print(f"  {lane:<26} {len(hits)} in-OWNS")
+        # ⭐ The hub owns a whole DIRECTORY, so its writes stopped appearing in the stray list --
+        # traded 7 false alarms for one true blind spot. The hazard that list used to surface is
+        # named in lane-hub.md itself: a LANE editing a live lane's contract. A bare count cannot
+        # show it. Print them by name, always -- the Mom-check counter aimed at this tool.
+        if lane == "lane-hub" and hits:
+            for f in hits:
+                who = sh("git", "log", "-1", "--pretty=format:%h %an", f"{BASE}..HEAD", "--", f)
+                print(f"      · {f}  ({who[:40]})")
     stray = [f for f in seen if f not in claimed]
     if stray:
         print(f"\n  ⚠ {len(stray)} path(s) matched NO lane's OWNS — hub writes, or drift:")
