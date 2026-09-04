@@ -49,7 +49,7 @@ LEGACY_BEFORE = "2026-09-03"
 # AMBIENT_MAC — secret per env (see [vars] note)
 # Guru 3b: the QA Worker refuses /api/chat once today's spend, priced at the model's published rates, passes
 # this many dollars (prod has NO ceiling). Paul, 2026-09-03: "a clean dollar fifty a day".
-CHAT_DAILY_BUDGET_USD = "1.50"
+CHAT_DAILY_BUDGET_USD = "3.00"   # paul-stated 2026-09-04 ~3:20 AM ET: "raise the limit to three dollars and keep momentum going on building — as long as we are really taking all this seriously and doing the analysis" (was 1.50, paul-stated 2026-09-03)
 FAMILY_HOSTS = "fernwood-qa.pages.dev"
 [[env.qa.kv_namespaces]]
 binding = "OBSERVATIONS"
