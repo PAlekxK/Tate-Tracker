@@ -2394,7 +2394,6 @@ async function handleFeedback(request, env, url) {
     // Privacy seat 2026-09-03 (finding 12): Content-Length is advisory — measure the body we actually read.
     const rawText = await request.text();
     if (rawText.length > FEEDBACK_MAX_BYTES) return json({ error: "too-large" }, 413);
-    let body;
     try { body = JSON.parse(rawText); }
     catch (e) { return json({ error: "bad-json" }, 400); }
     if (!body || typeof body !== "object") return json({ error: "bad-body" }, 400);
