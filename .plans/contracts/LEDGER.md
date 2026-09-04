@@ -148,9 +148,15 @@ improvising the right rule. Proposed wording, to make that repeatable rather tha
 
 ## Run 2 — OPEN 2026-09-04 ~3:05 PM ET
 
-| lane | topic | writes | holds QA | status |
-|---|---|---|---|---|
-| D | Tier 1 map render (steps 1–2 only) | `engine/viewer.template.html` + rebuilt `viewer.html` | **YES — sole holder** | launched |
+| lane | topic | writes | holds QA | launched | gate | disposition |
+|---|---|---|---|---|---|---|
+| D | Tier 1 map render (steps 1–2 only) | `engine/viewer.template.html` + rebuilt `viewer.html` | **YES — sole holder** | 14:52 | `6408706` + exhibit staged | **AT GATE** — verified; awaiting Paul on the dash + QA deploy |
+
+> ⚠️ *Corrected 2026-09-04 (practice-steward).* This table read `status: launched` while the same
+> file's "Lane D AT GATE" section said otherwise. The `launched / gate / disposition` columns that
+> M2 produced were added to run 1's **retrospective** table and never carried into run 2's **live**
+> one — **the fix landed on the record of the closed run, not on the instrument of the open one.**
+> That is the same defect one level up.
 
 `[paul-greenlit]` *"yes, greenlight tier 1 as its own lane."* **Lane B caught that the greenlight
 bundles a decision Paul has not made:** Tier 1 is three steps and the third — the DASH — is his
@@ -251,3 +257,18 @@ exhibit says so on its face.
   aerial. Minutes to check; not a lane.
 - **The business-analyst seat is UNSTAMPED** — ritual steps 4, 5 and 7.3 owe, and the demographic
   work lane C needs is blocked behind them.
+
+## 🔶 OPEN, no owner — added 2026-09-04 (running register; the hub's release condition discharges it)
+- **`tools/qa-walk.py` measures ONE viewport** — hard-coded `414 × 848` at line 32, docstring
+  "at HER conditions" at line 7. Deliberate and correct while only Mom's surface was in scope.
+  ⚠️ **Paul has since ratified the centered column as the DESKTOP design and is himself a daily
+  wide-view reader**, so desktop is in scope by his own ruling while the deterministic gate still
+  covers one viewport — and two AI review passes are about to assume both are covered. **A coverage
+  gap that reads as covered.** Surfaced by lane C while writing a consult prompt; not lane C's to
+  fix. Held pending its ux-expert consult, which may rule a second deterministic viewport is not
+  the right answer.
+- **A spawned agent outlives the instruction that spawned it.** Lane C spawned two consults on
+  Paul's direct instruction, declared it correctly, and named the running agents as the one thing
+  that must not die with its window. The preamble's widening rule covers writes, not spawns.
+  **New standard: declare a spawn AND name it as a dependency at close-out.** To fold into
+  `_PREAMBLE.md` at the next run boundary — not now, because live lanes read their contract once.
