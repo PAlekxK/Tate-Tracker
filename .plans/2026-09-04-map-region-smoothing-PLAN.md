@@ -186,6 +186,33 @@ look identical to a distance test, and only Paul knows whether either pair actua
 bed, a walk or a drop between them. **Geometry proposes, Paul rules** — the rule `zones.json` v3 already states for
 `partOf`, and the same rule applies here.
 
+✅ **ANSWERED IN PART, AND IT SETTLES THE PREMISE** `[paul-stated 2026-09-04, asked in-lane with the 11 pairs and
+their gap distances in front of him]`:
+
+> **"Some do have a wall or a trail or a strip of nothing, and some don't."**
+
+⭐ **This upgrades the per-pair recommendation from CAUTION to EVIDENCE, and that is a change in the grade of the
+claim, not a rewording.** §7 Tier 2 step 6 previously said "review each pair" as a *method* hedge — the safe posture
+when you cannot tell. It is now a *fact about the ground*, stated by the only person who can state it: the 11 slivers
+are a genuine mix. ⛔ Therefore **no global tolerance pass is safe at any value.** "Close every gap under 1 m" would
+silently weld shut a wall, a trail, or a strip of open ground — and the geometry is identical either way, so nothing
+downstream would ever flag it.
+
+⭐ **It also independently vindicates `_meta.sharedBorders`'s own warning** — *"Do not read a gap between two zones
+as unclaimed ground."* The **"strip of nothing"** case is exactly that, and it is **neither an abutment nor a
+defect**: it is real ground no zone claims. A cleanup that closed it would not be fixing a sliver, it would be
+**inventing a boundary**.
+
+⚠️ **STILL OPEN: which pair is which.** That is a map question, not a memory question, and it should not be answered
+from recall. ⛔ **But it may not be answerable from imagery either** — the 11 gaps are 0.13–0.90 m on a 0.6 m/px
+basemap, so **several are sub-pixel**, and a rendered zoom would look authoritative while carrying no information
+about whether a wall is there. An exhibit built on the NAIP base alone would be a confidently-wrong instrument.
+The lidar hillshade is the only candidate that could carry a wall or grade break the photo cannot — but §478's
+3DEP coverage for Pickens County is **recorded as unconfirmed**, and at ~1 m posting it is a *shadow* answer, not a
+*resolution* answer, so it may still not resolve a sub-metre feature. **Honest possibility to hold: some of these
+pairs are not decidable from any imagery obtainable, and are settled only by standing there.** If that is where the
+lidar check lands, it belongs here as a stated limit, not as a question anyone keeps re-asking Paul.
+
 ⚠️ **And there is a third thing in the way, already on the BACKLOG:** the record has **one geometry, the polygon**,
 and paths / walls / the driveway are **lines**. A coverage built before lines exist would have to model The Path as
 either an area (the mis-modelling `badf097` already found and refused to bake in) or as *nothing* — and "nothing"
@@ -358,6 +385,11 @@ for: a render transform can be tuned, toggled and reverted with no migration.
    ⛔ **Never run a per-ring simplifier in a for-loop** — it separates the 58 already-shared coordinates.
 6. **Close the 11 named slivers explicitly**, as a reviewed list, not a global tolerance. §3d says 9 of 11 need
    vertex-to-edge insertion — a coverage tool does this; a snap loop cannot.
+   ⛔ **NOT a judgment call any more — a RULING.** `[paul-stated 2026-09-04]` *"Some do have a wall or a trail or a
+   strip of nothing, and some don't."* The 11 are a mix, so **there is no tolerance at which a global pass is
+   correct**; a per-pair verdict from Paul is a hard prerequisite, and any pair he has not ruled on stays open
+   rather than being closed by default. See §4. ⚠️ And do not assume the verdicts can be collected from a screen —
+   several gaps are sub-pixel on the current basemap.
 7. ⛔ **Snap tolerance is capped at ~0.5 m and the cap is measured** (§3e). Any value near the ±9.1 m accuracy
    budget collapses the map. Whatever ships, this number belongs in a comment beside it with the table.
 
