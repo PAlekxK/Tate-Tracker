@@ -60,6 +60,8 @@ jobs:
 
       - name: Guru replay — six fence parsers lifted from the built viewer resolve against canon; dispatch fixtures (5a/5b; no network)
         run: node tools/guru-replay.mjs
+      - name: Library index manifest matches its sources (6a; rebuilds in memory, no KV)
+        run: python3 tools/build-library-index.py --check
       - name: Deploy QA Worker (wrangler --env qa)
         if: env.CF_TOKEN != ''
         working-directory: worker
