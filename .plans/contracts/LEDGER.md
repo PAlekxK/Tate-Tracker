@@ -187,3 +187,31 @@ honesty rule on Mom's surface.
 router). **Two agents invisible at once.** This is the same defect the file's own 2026-08-02 note
 documents about examiner-panel: that fix corrected the *number* and left it hand-written, so it
 could only be right until the next agent. The line now carries the command that derives it.
+
+## Lane A CLOSED — three items the hub took so they would not die with it
+
+1. **Ritual steps 4, 5 and 7.3 still owe** for the business-analyst seat — the interview and
+   resource-gathering never ran (the gate stopped before them), and the preload probe never ran
+   because probing means spawning the seat. ⚠️ **7.3 has a history of failing silently:
+   examiner-panel was born without its preload and nothing detected it.** Whoever first spawns
+   this seat confirms both skill blocks actually arrived — a symlink that resolves is not proof
+   the block loaded.
+2. **The seat is UNSTAMPED.** First deliverable ① (the entitlement-vs-service-level reading of
+   Paul's three tiers) is `[agent-proposed]`. Deliberately not run as a lane follow-on: it would
+   skip the interview that is supposed to shape it, and the interview would then be reconciling
+   against work it should have preceded.
+3. ⭐ **THE UNWRITTEN TENSION has no home yet.** The 2026-08-13 study measured that within every
+   niche the **utility** app beats the **journal** app by 100–10,000× in ratings volume — against
+   Fernwood's ratified **field-journal, not task-manager** tone, which is load-bearing in two
+   CLAUDE.md files. Nobody has written those two facts next to each other.
+   **Hub's read: this is not a BACKLOG row.** A backlog row is work someone decided to do, and
+   nobody has decided anything here. It is a DECISION, which makes `.decisions/` the right shape
+   on this project's own terms. **Recommended to Paul rather than minted** — framing a decision he
+   has not been asked yet is the part that should be his. Recorded here meanwhile so it cannot be
+   lost, which is the failure mode item 3 was reported to prevent.
+
+## Lane liveness — `python3 .plans/contracts/lane-watch.py [base-sha]`
+A caller for `claude agents --json` + git's name-only log, per the audit's M3 (*give the door a
+caller, don't build a watcher*). Reports, never gates. ⚠️ It **cannot** tell a hub write from a
+lane's drift, so it names the path with its commit and asks a human — a checker that guessed
+would be worse than one that asks.
