@@ -126,6 +126,13 @@ TRACKED_FILES = [
     "weather-bias.json",
 ]
 
+# Same-origin fetches that are NOT shipped assets, with the reason each is exempt from
+# the roster. A name here is a declaration, not a hole: the drift guard still lists any
+# fetch it does not know.
+NOT_ASSETS = {
+    "qa-build.json": "the QA deploy's build stamp — written into the Pages EXPORT by deploy-worker-qa.yml, never a tracked file; prod has none (404) by design (paul-asked 2026-09-03)",
+}
+
 # Same-origin fetches only — an absolute URL to another host is somebody else's
 # uptime, not our ship. (rainviewer / api.weather.gov are the two today.)
 FETCH_RE = re.compile(r"""fetch\(\s*["'`](?!https?://)\.?/?([A-Za-z0-9_\-./]+\.(?:json|html|js|css))""")
@@ -159,7 +166,7 @@ def declared_drift():
     found = set()
     for m in FETCH_RE.finditer(src.decode("utf-8", "replace")):
         found.add(m.group(1).lstrip("./"))
-    unchecked = sorted(f for f in found if f not in TRACKED_FILES)
+    unchecked = sorted(f for f in found if f not in TRACKED_FILES and f not in NOT_ASSETS)
     return found, unchecked
 
 
