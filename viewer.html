@@ -18266,6 +18266,11 @@ function applyRecordProse() {
     if (typeof node === "string" && node) { el.textContent = node; el.style.display = ""; }
     else { el.style.display = "none"; }
   });
+  // "Nothing to display → no indication of it" (paul-stated 2026-09-03): a card whose record declares
+  // absence or is empty hides itself. Data-driven, beside the module-driven hides above.
+  const hideIf = (id, cond) => { const el = document.getElementById(id); if (el) el.style.display = cond ? "none" : ""; };
+  hideIf("card-references", !!(typeof REFERENCES_DATA === "object" && REFERENCES_DATA && REFERENCES_DATA._meta && REFERENCES_DATA._meta.declaredAbsent));
+  hideIf("card-release-notes", !(typeof RELEASE_NOTES_DATA !== "undefined" && Array.isArray(RELEASE_NOTES_DATA) && RELEASE_NOTES_DATA.length));
   // `data-site` spans carry one derived word from the record (a region, a street);
   // the markup keeps a fallback the record overrides.
   const region = String(((PROPERTY_DATA.property || {}).region) || "").split(",")[0].trim();

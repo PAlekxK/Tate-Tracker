@@ -141,6 +141,10 @@ def extract(viewer_text):
     if not m:
         raise RuntimeError("extract: `%s` literal not found on one line in viewer.html" % MODULES_CONST)
     t = t[:m.start(2)] + MODULES_PH + t[m.end(2):]
+    m = const_re("RELEASE_NOTES_DATA").search(t)
+    if not m:
+        raise RuntimeError("extract: `RELEASE_NOTES_DATA` literal not found on one line in viewer.html")
+    t = t[:m.start(2)] + "{{RELEASE_NOTES}}" + t[m.end(2):]
     for key, rx in IDENTITY_MARKUP.items():
         m = rx.search(t)
         if not m:
@@ -182,7 +186,20 @@ def build(template_text, instance_path):
     if MODULES_PH not in out:
         raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % MODULES_PH)
     out = out.replace(MODULES_PH, _modules_literal(canon), 1)
-    if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out:
+    # Release notes are the INSTANCE's (paul-stated 2026-09-03: nothing to display → no indication of it): parsed from
+    # <canon>/RELEASE_NOTES.md by build-release-notes.py's own parser; an estate without one builds an empty list and
+    # the card hides itself.
+    if "{{RELEASE_NOTES}}" not in out:
+        raise RuntimeError("template has no {{RELEASE_NOTES}} placeholder — is the template stale? (--extract)")
+    notes_path = os.path.join(canon, "RELEASE_NOTES.md")
+    entries = []
+    if os.path.exists(notes_path):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("brn", os.path.join(HERE, "build-release-notes.py")); brn = importlib.util.module_from_spec(spec); spec.loader.exec_module(brn)
+        from pathlib import Path as _P
+        entries = brn.parse_release_notes(_P(notes_path))
+    out = out.replace("{{RELEASE_NOTES}}", json.dumps(entries, ensure_ascii=False), 1)
+    if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out or "{{RELEASE_NOTES}}" in out:
         raise RuntimeError("unfilled placeholder remains after build")
     if "<title>" not in out or n < 10:
         raise RuntimeError("built output does not look like the app — refusing to write")
