@@ -13,7 +13,6 @@
 - stage: build
 - wip-exception: opened under the same 2026-09-03 instruction; steps 1a–1d · 2a · 3a · 3b are instrumentation and harness only, independent of C4's held steps and of C6.
 - stage-note: opened 2026-09-03 9:00 PM ET — 1a–1d · 2a · 3a · 3b built; 2b and 3c wait on Paul's cap; 4–6 are the retrieval build
-- stage: ready
 
 Drafted by the planning agent 2026-09-03 from the row (and its siblings in § A6: the caps audit, the RAG/corpus row, the
 2,800 ft row), Tier 1 #16 (FIXED + deployed `c25bc5c`, interim until C5's config derivation) and #17, C4's RULED table

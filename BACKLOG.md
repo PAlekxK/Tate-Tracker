@@ -2274,6 +2274,51 @@ when the gate opens; user-researcher first, since her calibration at the condo i
 
 ---
 
+## 🎟 C9 · THE INVITE FLOW — how an owner brings additional people into their estate `[paul-raised 2026-09-03]` ⚙️ engine · declared
+
+Paul: *"we have discussions about how administrators, how owners of a house after they've been invited
+can invite additional people to that process."* ⏸ **Not critical now** — raised to be findable, not to
+be scheduled.
+
+**Why this row exists at all:** the authority was ruled 2026-09-03 and the *mechanics* were not. Before
+this row, `BACKLOG.md` carried **zero** rows about person-invitation — its only `invite` hits are A3,
+which means Mom's ask→fold loop, a different sense of the word. The work sat in `PRODUCT-ENGINE.md`
+§ THE SETUP JOURNEY / § ACTIVATION and in five 09-03 trails with **no pointer from any row**, which is
+the exact defect `.plans/2026-09-03-backlog-readiness-PROPOSAL.md` §0(b) measured.
+
+**✅ RULED 2026-09-03, do not re-open** (`.engineering/2026-09-03-onboarding-model.md`, § AUTHORITY):
+- The **administrator** authors the *founding owner grant* only; the **owner** authors every grant
+  after that, at their own estate.
+- ⛔ **Membership confers nothing.** A person's estates are exactly the grant rows minted for them,
+  never derived from family. **`relationship` is not an access axis.**
+- **Authored ≠ recorded.** Paul executes by hand today; the row records the **owner** as `agreedBy`,
+  Paul as `recordedBy`, `consentSource: attested`.
+- Consent is a **list keyed by scope**; the AI-boundary gate is enforced **at the mint**, no watcher.
+
+**🔜 OPEN — the mechanics, and they are the whole of this row:**
+1. **The invite's shape** — four candidates, none chosen (onboarding Q1): (A) owner fills a form → it
+   reaches Paul → Paul sends · (B) direct from the app · (C) the standing position until ruled · (D)
+   link-only, no addressee. ⭐ **(A) is the agreed START, automation the stated direction** — but the
+   analysis found **(A) is the least private of the four**, because it routes every household's roster
+   through the administrator.
+2. **The owner-facing surface** — does not exist. Onboarding Q8 asks whether `/design-options` is the
+   right instrument for it (four states mocked), which would also be the first **trigger-initiated**
+   run of that tool (C2).
+3. **`invite:` KV kind + the claim route** (S3) — specified, not built. A claim is a single-use state
+   change, not a clock.
+4. **Email's scope** — the *physical-premise* argument against email does **not** survive for an
+   outbound invite to another household; what survives is the retention half, Paul's outbound gate, and
+   the authored-content rule.
+
+⚠️ **RELEASE CONDITION, and it is a fact rather than a date:** (A) is safe **only while Fernwood is the
+only estate with people in it**. It must be re-ruled **before instance 2 activates any person who is
+not Paul's family** — not because it degrades, but because the thing that makes it harmless (there are
+no other households) disappears. See Bob Q2.
+
+**Trails:** `.engineering/2026-09-03-onboarding-model.md` (§ AUTHORITY, Q1–Q14) ·
+`.engineering/2026-09-03-setup-journey.md` · `.user-research/2026-09-03-setup-journey.md` ·
+`PRODUCT-ENGINE.md` § THE SETUP JOURNEY · household-specific material in the private sibling.
+
 ## 🔴 M3 · A NEW PHONE MAKES HER WORDS SMALLER — live today, no auth involved `[found 2026-09-02]` ⚙️ engine
 
 **`tateTracker.textSize` is localStorage-only and syncs nowhere.** Verified: `viewer.html:21107` is the

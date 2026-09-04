@@ -10,9 +10,8 @@
          user-researcher → waived: no user question in this item
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
 - ready: [paul-approved 2026-09-03]
-- stage: closing
-- stage-note: 2026-09-03 7:35 PM ET — every step shipped or held with a release condition; the 00:06Z cutover read and Paul's `--live` are the last two observations; retro below
-- stage: ready
+- stage: retro
+- stage-note: stage was written `closing` (not a STAGES word) above a stale `ready` line until 2026-09-04 12:50 AM ET — collapsed to one line, `retro` (the plan's steps are shipped or held with release conditions and the retro is recorded). 2026-09-03 7:35 PM ET — every step shipped or held with a release condition; the 00:06Z cutover read and Paul's `--live` are the last two observations; retro below
 
 Drafted by the planning agent 2026-09-03 from the row, C4's RULED table and its three-levels ruling (decided, not
 re-argued: product apex · family door per family · instance by grant; two example families for planning; the app served

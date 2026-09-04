@@ -105,6 +105,11 @@ def parse_plan(text):
             elif cur == "depends-on":
                 deps.append(m.group(2).strip().strip("`"))
             else:
+                if cur in keys:
+                    # a header key written TWICE — two writers disagreed and last-wins picked one silently
+                    # (measured 2026-09-04: two plans carried `stage:` twice and parsed as the stale value,
+                    # so the WIP count read 2 where the artifacts said 4). Recorded, flagged by check().
+                    keys.setdefault("_duplicates", []).append(cur)
                 keys[cur] = m.group(2).strip()
             continue
         if cur == "seats" and line.startswith(" ") and line.strip():
@@ -185,13 +190,16 @@ def check(root):
         for sec in REQUIRED_SECTIONS:
             if sec not in sections:
                 findings.append((rel, f"missing section `{sec}`"))
+        for dup in sorted(set(keys.get("_duplicates", []))):
+            findings.append((rel, f"header key `{dup}` appears more than once — two writers disagreed; collapse it to one line (the parser will not pick for you)"))
         stage = keys.get("stage", "")
         if stage and stage not in STAGES:
             findings.append((rel, f"stage `{stage}` is not one of {'/'.join(STAGES)}"))
         ready = bool(re.search(r"\[paul-approved \d{4}-\d{2}-\d{2}\]", keys.get("ready", "")))
         if stage and stage != "ready" and not ready:
             findings.append((rel, f"stage `{stage}` with no `ready: [paul-approved …]` stamp — built without the gate"))
-        if stage in ("shipped", "retro") and "## Retro" not in sections:
+        has_retro = any(t == "## Retro" or t.startswith("## Retro ") or t.startswith("## Retro —") for t in sections)   # a DATED retro heading is the good pattern, not a miss
+        if stage in ("shipped", "retro") and not has_retro:
             findings.append((rel, "at `shipped` with no `## Retro` — the pre-registered question has not been answered"))
         if stage in IN_FLIGHT:
             in_flight.append((name, stage, bool(keys.get("wip-exception"))))
@@ -253,6 +261,14 @@ def selftest():
     with tempfile.TemporaryDirectory() as td:
         os.makedirs(os.path.join(td, ".plans")); open(os.path.join(td, "BACKLOG.md"), "w").write("x")
         f, _ = check(td); ok("silent at zero — an untouched backlog produces no flag", f == [])
+    with tempfile.TemporaryDirectory() as td:
+        make(td, plan=GOOD_PLAN.replace("- stage: ready", "- stage: build\n- stage: ready", 1))
+        f, fl = check(td)
+        ok("a plan with TWO `stage:` lines is flagged as a duplicated header key", any("appears more than once" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td, plan=GOOD_PLAN.replace("- stage: ready", "- stage: retro", 1) + "\n## Retro — written at close, 2026-09-03\n\nanswered.\n")
+        f, _ = check(td)
+        ok("a DATED `## Retro — …` heading satisfies the retro requirement", not any("## Retro" in m for _, m in f))
     with tempfile.TemporaryDirectory() as td:
         f, _ = check(make(td)); ok("a complete plan with an older seat trail is CLEAN", f == [])
     with tempfile.TemporaryDirectory() as td:
