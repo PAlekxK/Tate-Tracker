@@ -92,6 +92,25 @@ expect it to change:
 Derived from run 1, where a lane hit this with no rule to follow and improvised all three parts
 correctly. Written down so the next lane does not have to be that careful to be that lucky.
 
+## ⭐ WHEN YOU ARE DONE — CLOSE OUT AND SAY SO `[paul-stated 2026-09-04]`
+
+**A lane at a terminal state does not sit.** When your gate is met, your questions are answered or
+routed, and you hold nothing another lane needs — **close out and tell Paul the window is ready to
+clear.** Do not wait to be noticed. A lane holding quietly is indistinguishable from a lane still
+working, and it is a latent second writer in the tree for as long as it sits.
+
+**Before you declare ready-to-clear, verify — and report the answers, not the conclusion:**
+1. Everything you produced is **committed by explicit path**; nothing of yours is uncommitted.
+2. Nothing is running in the background in your session.
+3. Your contract's `## STATUS` line is accurate, including its RELEASE CONDITION.
+4. You **name anything you were carrying that must not die with you** — an open dependency, an
+   unanswered question, a finding that lives only in your context. The hub takes those explicitly.
+   Something that exists only in a closing session's head is the thing that gets lost.
+5. Ask the hub before closing, and say what closing would destroy. Run 1's lane A did exactly this
+   and its two closing questions found **two real defects in the hub's own tooling** — a watcher
+   that could not tell a clean finish from a death, and a report that read a cross-repo lane's work
+   as "did nothing." **The close-out check is not a formality; it is the last review of the run.**
+
 ## What you are NOT
 
 You are not the hub. You do not re-plan the queue, re-order other lanes, or
