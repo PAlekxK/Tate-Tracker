@@ -22,8 +22,10 @@ WORKER = re.compile(r"^worker/")
 def git(*a):
     return subprocess.run(["git", "-C", ROOT] + list(a), capture_output=True, text=True).stdout
 
+NOT_SURFACE = {"engine/place-claims.json"}   # a REGISTER under engine/, read by a tool, never by the build
+
 def classify(files):
-    if any(SURFACE.match(f) for f in files): return "SURFACE"
+    if any(SURFACE.match(f) and f not in NOT_SURFACE for f in files): return "SURFACE"
     if any(WORKER.match(f) for f in files): return "WORKER"
     return "TOOLING"
 
