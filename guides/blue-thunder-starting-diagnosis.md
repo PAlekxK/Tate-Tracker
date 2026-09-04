@@ -360,18 +360,80 @@ this guide calls it decisive.** The order below is deliberate — each step pres
 1. **Unmate the charger completely** (SAE connector apart, or clips off). Do not leave it attached
    and dead — that is the confound, and it is also the standing habit. *(30 seconds. Do this first
    even if you do nothing else — every reading after it is clean, and every reading before it isn't.)*
-2. **Read the date stamp on the battery case** while you are in there and write it down. That closes
-   the record's oldest open item — *"battery age unknown"* — for free. If it is a 2017 original it is
-   ~9 years old against a 3–5 year AGM life.
+2. ⭐⭐ **THE BATTERY IS NOT THE ONE THE RECORD THINKS IT IS — and that kills the open item's premise.**
+   `[photo-MODEL-READ 2026-09-04, UNVERIFIED]` The label in photo `51AB05F2…` reads **XTREME · 12V ·
+   AGM TECHNOLOGY · XTAX7L-BS · 12V 6AH**. The record says **YTX7L-BS** everywhere — on the vehicle
+   card, in this guide, in the open item. An **XTAX7L-BS is an aftermarket Xtreme AGM**, the
+   size-and-rating equivalent of a YTX7L-BS, **not** what Suzuki would have shipped in 2017 (that
+   would be a Yuasa).
+
+   **So this battery is a REPLACEMENT, and the open item's whole argument — *"if it is the 2017
+   original it is ~9 years old against a 3–5 year AGM life"* — is reasoning from a false premise.**
+   It is newer than 2017. How much newer is still unknown, and it matters more now, not less: an
+   aftermarket AGM that is only a year or two old and already behaving like this is a *worse* sign
+   than a nine-year-old original, because age stops being the explanation.
+
+   ⚠️ **This is a model read off a photograph and is a hypothesis until Paul confirms it** — the same
+   gate the NEXPEAK identification went through on 9/01. **Two ways to close it, and the second is
+   better than the case stamp:**
+   - 👁 **Look at the label** and read the part number back. Ten seconds, and it settles the identity.
+   - 🔎 **Find the purchase.** A replacement battery was *bought*, so a dated receipt exists somewhere.
+     **SEARCHED 2026-09-04, and the local registers do not have it:** zero matches for *Xtreme* /
+     *XTAX7L* in `.private/service-records/`, nothing in `AMAZON-PARTS.md`, nothing battery-shaped in
+     `EMAIL-RECEIPTS.md`, and `dr200s-2017/EXTRACTED.md` has no battery row at all. ⚠️ **That absence
+     is not evidence** — those registers are known wrong in both directions and clear an order only
+     with an order number. **Unswept, not empty.** The next place to look is Gmail/Amazon directly.
+
+   ⭐⭐ **AND THERE IS ONE LIVE LEAD, SITTING IN ANOTHER VEHICLE'S FILE.**
+   `.private/service-records/bronco-1989/EYEBALL-VERDICTS.md` #01 closed a split receipt — **NAPA
+   Canton, 2025-10-10** — where Paul ruled *"I got the windshield wipers at Napa for the bronco.
+   **Battery not for bronco.**"* It left an explicit, unresolved residual: *"the battery core belongs
+   to something… the other 1989-era candidates that day are the F-150 or the GTI. Left unassigned
+   rather than guessed."*
+
+   **THE DR200S WAS NEVER ON THAT CANDIDATE LIST** — the residual only ever considered cars. A
+   motorcycle battery bought in **October 2025** would also sit correctly against this bike's own
+   note that she was *"recommissioned ~June 2026 after sitting… the battery stored off the bike."*
+
+   ⛔ **THIS IS A QUESTION, NOT AN ANSWER — and it is filed as one on purpose** (the loop's own rule:
+   *never take a number, take a question*). Nothing here says the NAPA core was Blue Thunder's. What
+   it does is add a **third candidate to a two-candidate residual**, and hand Paul one question that
+   could close a dangling thread in the Bronco file and date this battery in the same breath:
+   **"the battery core you traded at NAPA on 2025-10-10 — was that the 200's?"**
+   - Still worth doing while you are in there: **look for a date stamp** on the case anyway.
 3. **T1, on the meter, not the charger.** EM830, red lead in `VΩmA`, dial to **20 V DC (`—`)**, probes
    on the posts. Write the number **and the time**. Then again in ~2 hours. ≥12.6 full · 12.4 ≈ 75% ·
    12.2 ≈ 50% · ≤12.0 flat. **Where it settles is the answer; the fall on the way there is not.**
 
-   | time | reading | instrument | note |
+   | time (ET) | reading | instrument | note |
    |---|---|---|---|
-   | ~15:1? | **13.1 V** | 🔴 NEXPEAK display | mains just unplugged, charger still clipped on and awake |
-   | ~16:2? | **12.6 V** | 🔴 NEXPEAK display | charger still clipped on and awake |
-   | | | ✅ EM830 | ← **the first honest reading goes here, charger fully off** |
+   | ~15:1x | **13.1 V** | 🟡 NEXPEAK display | mains just unplugged, charger still clipped on and awake |
+   | ~16:2x | **12.6 V** | 🟡 NEXPEAK display | Paul, verbal — *"it's down to 12.6"* |
+   | **18:08:16** | **12.6 V** | 🟡 NEXPEAK display | last reading before unplugging · photo `664E1ED4-92E1-4476-831C-ED831C5828AB` |
+   | **18:09:36** | **12.60 V** | ✅ **All-Sun EM830** | **charger disconnected** · photo `51AB05F2-C34A-4A52-9106-6C1D07E9244C` |
+
+   *(Times are EXIF `DateTimeOriginal`, offset −04:00, read off the two photographs — deterministic,
+   not recalled. 80 seconds apart, charger first.)*
+
+   ⭐⭐ **TWO RESULTS, AND THE FIRST ONE RETIRES A WARNING THIS FILE HAS BEEN CARRYING.**
+
+   **① THE NEXPEAK'S VOLTMETER IS GOOD.** Charger display **12.6**, meter **12.60**, eighty seconds
+   apart on the same battery. So the 🔴 provenance downgrade written into the 9/04 row is **too harsh
+   for the voltage figure** and is corrected to 🟡: the 13.1 V may be read as a real measurement.
+   ⚠️ **This clears the voltmeter ONLY.** Its **state-of-charge bar is a separate instrument** and is
+   still ungraded — a derived guess, not a measurement, and the *"full in 15 minutes"* claim came from
+   *that*, not from the voltage.
+
+   **② IT HAS SETTLED, AND IT SETTLED LOW.** 12.6 at ~16:2x and **still 12.6 at 18:08** — about
+   **1¾ hours flat.** The decay is over; 13.1 → 12.6 was surface charge shedding exactly as predicted,
+   and this is now a **settled open-circuit voltage** rather than a number in motion.
+   ⚠️ *Flat to the display's resolution* — the NEXPEAK shows one decimal, so it cannot see movement
+   below ~0.05 V. The EM830's two decimals can, and 12.60 is the first reading that could.
+   ⭐ **A settled 12.60 on an AGM is roughly 75%, not full.** So a battery the charger called *full*
+   three hours ago has come to rest at about three-quarters — **it never actually reached full**,
+   which is precisely what a 15-minute termination predicts. **This is a soft fail, not a hard one:**
+   12.60 is a serviceable resting voltage and would start most bikes. It does not condemn the battery
+   and it does not clear it. **Voltage still is not capacity — T2b is still the test.**
 
    ⭐ **12.6 IS A CEILING, NOT AN ANSWER — it was still falling when it was read.** A settled OCV is
    the number that *stops moving* (1–4 h, longer to be strict), so the true resting figure is **at or
