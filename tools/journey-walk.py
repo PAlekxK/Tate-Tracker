@@ -24,18 +24,23 @@ STORE = os.path.join(ROOT, ".private", "synthetic-identities.json")
 OUT = os.path.join(ROOT, ".private", "synthetic-walks")
 
 
-def identity(role):
+def identity(role, env):
     d = json.load(open(STORE, encoding="utf-8"))
-    v = (d.get("identities") or {}).get(role)
+    # ⛔ ROLE@ENV, never the bare role. An identity is per-role-PER-ENVIRONMENT: "mom" on QA and "mom"
+    # on lab are different accounts with different personIds, and looking one up by role alone is how
+    # a gate-1 walk silently borrowed gate 2's identity.
+    key = "%s@%s" % (role, env)
+    v = (d.get("identities") or {}).get(key)
     if not v:
-        raise SystemExit("journey-walk: no identity %r — `synthetic-identity.py --create %s`" % (role, role))
+        raise SystemExit("journey-walk: no identity %r — `synthetic-identity.py --create %s --env %s`"
+                         % (key, role, env))
     return v
 
 
-def refresh(role):
-    subprocess.run([sys.executable, os.path.join(ROOT, "tools", "synthetic-identity.py"), "--login", role],
-                   capture_output=True, text=True, timeout=180)
-    return identity(role)
+def refresh(role, env):
+    subprocess.run([sys.executable, os.path.join(ROOT, "tools", "synthetic-identity.py"),
+                    "--login", role, "--env", env], capture_output=True, text=True, timeout=180)
+    return identity(role, env)
 
 
 def view(url, actions, shot):
@@ -82,10 +87,19 @@ def main():
     ap.add_argument("--role", required=True)
     ap.add_argument("--fresh", action="store_true", help="sign up in-flow rather than arriving with a token")
     ap.add_argument("--answers", help="JSON file of what this walker types; defaults to the role's own")
+    # ⭐ GATE 1 RUNS ON QA `[paul-approved 2026-09-05]`. The origin was HARDCODED to lab, so every
+    # gate-1 walk ran in gate 2's environment while the cascade said otherwise — and nothing could
+    # report the mismatch because there was no parameter to disagree with. QA is the default because
+    # it is the only origin with its own estate (est-qa0001) AND a CI-maintained build stamp; lab is
+    # hand-deployed and cannot say which build it is serving. Lab stays REACHABLE (Paul walks it at
+    # gate 2) but you have to ask for it, and the transcript records which you asked for.
+    ap.add_argument("--origin", choices=["qa", "lab"], default="qa",
+                    help="which origin to walk (default qa — gate 1). lab is gate 2, Paul's seat.")
     a = ap.parse_args()
 
-    v = refresh(a.role) if not a.fresh else identity(a.role)
-    base = "https://fernwood-lab.pages.dev/onboarding/"
+    v = refresh(a.role, a.origin) if not a.fresh else identity(a.role, a.origin)
+    base = {"qa":  "https://fernwood-qa.pages.dev/onboarding/",
+            "lab": "https://fernwood-lab.pages.dev/onboarding/"}[a.origin]
     url = base if a.fresh else base + "?g=" + (v.get("token") or "")
 
     ans = {"username": v["username"], "password": v["word"], "email": v["email"],
@@ -98,7 +112,10 @@ def main():
     os.makedirs(d, exist_ok=True)
 
     print("journey-walk — %s · run %s" % (a.role, run))
-    record = {"role": a.role, "runAt": run, "fresh": bool(a.fresh), "personId": v.get("personId"),
+    # The transcript records the ORIGIN it walked. A walk that cannot say where it ran cannot be
+    # checked against the cascade, which is exactly how gate 1 ran in gate 2's environment unnoticed.
+    record = {"role": a.role, "runAt": run, "origin": a.origin, "originUrl": base,
+              "fresh": bool(a.fresh), "personId": v.get("personId"),
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
     for name, actions in stops(a.fresh, ans):

@@ -70,8 +70,27 @@ def identity_from_tree(path=DOC):
 # ── beat 1 · FIX THE TARGET, fail closed three ways ─────────────────────────────────────────────
 def fix_target(intended_sha, allow_stale=False):
     out = {}
+    # ⛔ GATE 1 RUNS ON QA, NEVER ON LAB — and the reason recorded here until 2026-09-05 was WRONG in a
+    # way that invited the wrong fix. It said "every path there returns the same 200 document". That IS
+    # true of lab: /definitely-not-a-real-path.json returns 200 with the root document. But it is
+    # EQUALLY true of QA — the SPA fallback is a Cloudflare Pages property, not a lab property — so the
+    # stated reason does not discriminate between the two, and anyone who checked it could "fix" this
+    # by pointing at QA and believe they had solved something. Measured on both origins.
+    #
+    # The reasons that actually discriminate:
+    #   1. QA has its OWN estate (est-qa0001). Lab shared PRODUCTION's estate id until 2026-09-05, so
+    #      lab records were byte-identical in prefix to prod's and separable only by namespace. Now
+    #      est-lab0001 — but "not prod's id" is not the same as "the gate-1 estate".
+    #   2. QA's build stamp is written into the Pages export by deploy-worker-qa.yml and is CURRENT.
+    #      Lab is deployed by hand, qa-build.json is never a tracked file, so lab's stamp is whatever
+    #      some earlier CI run left behind. On 2026-09-05 lab served HEAD 6d61fc0 while its own stamp
+    #      claimed 99cc226 — an origin that cannot say which build it is serving cannot anchor a gate.
     if "lab" in QA_ORIGIN:
-        raise SystemExit("journey-logic: ⛔ never lab — every path there returns the same 200 document")
+        raise SystemExit(
+            "journey-logic: ⛔ never lab — gate 1 runs on QA. Lab is hand-deployed and its "
+            "qa-build.json is left over from CI, so it cannot say which build it is serving. "
+            "(Note: the 200-for-any-path behaviour is a Pages property QA shares — that is NOT "
+            "the reason, and pointing this at QA to dodge the check fixes nothing.)")
     try:
         st, body = get(QA_ORIGIN + "/qa-build.json")
         build = json.loads(body)

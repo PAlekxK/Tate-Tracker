@@ -78,7 +78,14 @@ id = "a0cf82b615c648ff972961c46ce42661"
 [env.lab]
 [env.lab.vars]
 ENV_NAME = "lab"
-ESTATE_ID = "est-3c9f1a"
+# ⛔ LAB MUST NOT SHARE PRODUCTION'S ESTATE ID. It was "est-3c9f1a" — byte-identical to prod's — and
+# every KV key is `<estateId>:<kind>:<suffix>`, so the estate id is the ONLY tenant separator inside a
+# namespace. With them equal, lab and prod records were told apart ONLY by living in different KV
+# namespaces: one mispointed binding and lab's writes land in prod's store under keys nothing can
+# distinguish, carrying no marker saying which environment wrote them. Restored to est-lab0001 (which
+# already held records here) on 2026-09-05, while this was still a config change and not a forensic
+# sort. `paul-approved`; pre-switch export in .private/kv-exports/lab-est-3c9f1a-preswitch.json.
+ESTATE_ID = "est-lab0001"
 # 1970 on purpose: a fresh estate has NO pre-cutover era, so no key may ever route to the
 # unprefixed legacy reads. (LEGACY_BEFORE is non-inheritable and `legacyBefore()` THROWS
 # without it — a new env that omits it is dead on its first dated read, not degraded.)

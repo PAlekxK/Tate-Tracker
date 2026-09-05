@@ -41,9 +41,41 @@ ROLES = {
 }
 
 
+# ⭐ AN IDENTITY IS PER-ROLE-PER-ENVIRONMENT `[paul-approved 2026-09-05]`. The store was keyed by role
+# alone, so "mom" was one account across every environment — which silently forced every walk onto one
+# origin and is part of why gate 1 ran in gate 2's environment. Gate 1 is QA and gate 2 is lab, and the
+# same role needs its OWN durable account in each: they are different people to the server, with
+# different personIds and separate histories.
+def ikey(role, env):
+    return "%s@%s" % (role, env)
+
+
+def migrate(d):
+    """Legacy entries were keyed by bare role. Re-key them under their OWN recorded env — never a
+    guessed one — so no history is orphaned and nothing silently changes environment."""
+    ids = d.get("identities") or {}
+    moved = []
+    for k in list(ids):
+        if "@" in k:
+            continue
+        v = ids[k]
+        env = v.get("env")
+        if not env:
+            continue          # cannot place it safely; leave it alone rather than guess
+        ids[ikey(k, env)] = v
+        del ids[k]
+        moved.append("%s → %s" % (k, ikey(k, env)))
+    return moved
+
+
 def load():
     try:
-        return json.load(open(STORE, encoding="utf-8"))
+        d = json.load(open(STORE, encoding="utf-8"))
+        moved = migrate(d)
+        if moved:
+            save(d)
+            print("  migrated to role@env keys: " + ", ".join(moved))
+        return d
     except (OSError, ValueError):
         return {"_rule": "SYNTHETIC identities. Passwords here are dev-only and this file is "
                          "gitignored and mode 600. Nothing here is a real person.", "identities": {}}
@@ -111,10 +143,10 @@ def main():
     ids = d.setdefault("identities", {})
 
     if a.create:
-        if role in ids:
+        if ikey(role, a.env) in ids:
             raise SystemExit("synthetic-identity: %r already exists — use --login to refresh its token, "
                              "or delete it from the store deliberately. Recreating would orphan its history, "
-                             "which is the one thing a durable identity is for." % role)
+                             "which is the one thing a durable identity is for." % ikey(role, a.env))
         uname = "syn-%s-%s" % (role, secrets.token_hex(2))
         word = secrets.token_urlsafe(18)
         st, body = post(a.env, "/api/account", {
@@ -122,7 +154,7 @@ def main():
             "phone": None, "accent": ROLES[role]["accent"]})
         if st != 201:
             raise SystemExit("synthetic-identity: account creation failed (%s) %s" % (st, body))
-        ids[role] = {"role": role, "username": uname, "word": word, "email": "%s@synthetic.invalid" % uname,
+        ids[ikey(role, a.env)] = {"role": role, "username": uname, "word": word, "email": "%s@synthetic.invalid" % uname,
                      "env": a.env, "personId": body.get("personId"), "token": body.get("token"),
                      "createdAt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")}
         save(d)
@@ -131,9 +163,10 @@ def main():
         return 0
 
     if a.login:
-        v = ids.get(role)
+        v = ids.get(ikey(role, a.env))
         if not v:
-            raise SystemExit("synthetic-identity: no identity %r yet — `--create %s`" % (role, role))
+            raise SystemExit("synthetic-identity: no identity %r yet — `--create %s --env %s`"
+                             % (ikey(role, a.env), role, a.env))
         st, body = post(v["env"], "/api/session", {"username": v["username"], "word": v["word"]})
         if st != 200 or not body.get("token"):
             raise SystemExit("synthetic-identity: login failed (%s) %s" % (st, body))
