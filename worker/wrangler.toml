@@ -60,10 +60,25 @@ id = "a0cf82b615c648ff972961c46ce42661"
 # ⛔ NO GITHUB_TOKEN, deliberately and permanently: GITHUB_BRANCH defaults to "main" (worker.js
 # ~1974), so a lab Worker holding one would promote species straight onto Mom's live branch.
 # Deploy: `npx wrangler deploy --env lab`  ·  Remove: `npx wrangler delete --env lab`
+# ⭐ FERNWOOD DEV `[paul-ruled 2026-09-05]`: "we should have a Fernwood dev, qa, and production."
+# The estate is now est-3c9f1a — THE SAME COORDINATE AS PRODUCTION — because an estateId names an
+# ESTATE, not an estate-in-an-environment, and estate.json already rules an id "a COORDINATE, not a
+# label." The environment is the NAMESPACE; this one is 1e0bd883, prod's is 100f2b95, and they cannot
+# see each other. Same property, same shape, different data — which is what environments are for.
+#
+# ⛔ AND THIS BREAKS G3. grant-mint's estate_agrees() stops a credential being minted into the wrong
+# environment by comparing the estate you asked for against the estate that env binds. Once dev, qa
+# and production all bind est-3c9f1a that comparison is always true and THE CHECK CAN NEVER FIRE —
+# so a credential meant for dev, minted with the wrong --env, lands in PRODUCTION as a valid working
+# credential for the real Fernwood, silently. The guard has to be rebuilt around which NAMESPACE is
+# being written, not which estate was named. Demonstrated, not assumed — see the session record.
+#
+# ⚠️ The DEPLOYMENT is still named lab (URL, worker name, gate-2 link, tools). Renaming it to dev is
+# separate churn and is not what makes this Fernwood dev; the estate is.
 [env.lab]
 [env.lab.vars]
 ENV_NAME = "lab"
-ESTATE_ID = "est-lab0001"
+ESTATE_ID = "est-3c9f1a"
 # 1970 on purpose: a fresh estate has NO pre-cutover era, so no key may ever route to the
 # unprefixed legacy reads. (LEGACY_BEFORE is non-inheritable and `legacyBefore()` THROWS
 # without it — a new env that omits it is dead on its first dated read, not degraded.)

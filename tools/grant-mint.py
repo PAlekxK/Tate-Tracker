@@ -58,7 +58,8 @@ def environments():
         doc = tomllib.load(f)
     def one(node):
         kvs = node.get("kv_namespaces") or [{}]
-        return {"estate": (node.get("vars") or {}).get("ESTATE_ID"), "kv": kvs[0].get("id")}
+        v = node.get("vars") or {}
+        return {"estate": v.get("ESTATE_ID"), "kv": kvs[0].get("id"), "envName": v.get("ENV_NAME")}
     envs = {"prod": one(doc)}
     for name, node in (doc.get("env") or {}).items():
         envs[name] = one(node)
@@ -174,6 +175,44 @@ def run_kv(env, verb, key, value=None, dry=False):
     return ok
 
 
+def env_agrees(env, dry=False):
+    """G3b — ASK THE DESTINATION WHO IT IS, before writing to it.
+
+    ⛔ WHY THIS EXISTS, AND WHY G3 ALONE STOPPED BEING ENOUGH ON 2026-09-05.
+    G3 catches a wrong `--env` by noticing the estate you named is not the estate that env binds. That
+    works only while each environment binds a DIFFERENT estate. Paul ruled the same day that an
+    estateId names an ESTATE, not an estate-in-an-environment — so Fernwood dev, qa and production all
+    bind `est-3c9f1a`, G3's comparison is always true, and it CAN NEVER FIRE. Demonstrated, not
+    assumed: the identical mint was accepted for `--env lab` and `--env prod` minutes after the change.
+
+    A credential meant for dev, minted with the wrong `--env`, would then land in PRODUCTION as a
+    valid working credential for the real Fernwood, silently, on the least debuggable path there is.
+
+    ⭐ So the guard moves from "do two config values agree" — which they now do BY DESIGN — to "does
+    the destination say it is who I think it is." Every namespace carries an `env-canary` key holding
+    its own name. Reading it routes through the SAME `--env` flag the write will use, so it is a probe
+    of the actual destination rather than a restatement of the roster. A fixture must assert its own
+    destination; so must a credential.
+    """
+    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or ("production" if env == "prod" else env)
+    if dry or KV_OFFLINE:
+        return                      # nothing is written, so there is no destination to confirm
+    # cwd MATTERS: `--binding` resolves through worker/wrangler.toml, exactly as run_kv does. Without
+    # it every read fails and the guard refuses everything — which looks like a working fail-closed
+    # control and is actually a control that cannot pass. Caught on its first live run.
+    r = subprocess.run(kv_cmd(env, "get", "env-canary"), cwd=os.path.join(ROOT, "worker"),
+                       capture_output=True, text=True, timeout=180)
+    got = (r.stdout or "").strip().splitlines()[-1].strip() if (r.stdout or "").strip() else ""
+    if r.returncode != 0 or not got:
+        raise Refuse("G3b: could not read `env-canary` from the namespace `--env %s` targets, so the "
+                     "destination is unconfirmed. Refusing to mint a credential into a namespace that "
+                     "will not say who it is." % env)
+    if got != declared:
+        raise Refuse("G3b: `--env %s` reaches a namespace whose env-canary says %r, not %r. The flag and "
+                     "the destination disagree — this is the wrong-environment mint G3 used to catch "
+                     "before every environment began binding the same estate." % (env, got, declared))
+
+
 def estate_agrees(estate, env):
     """G3 — the estate must be the one THIS deployment binds, or the credential is born dead.
 
@@ -192,6 +231,7 @@ def estate_agrees(estate, env):
 
 def mint(reg_path, person, estate, env, entry, vault, relationship, capability, consents, issued_by, fixture_out, dry, rotate, fixture_name=None):
     estate_agrees(estate, env)
+    env_agrees(env, dry)
     reg = load_register(reg_path)
     for g in reg.get("grants", []):
         declare(g)
