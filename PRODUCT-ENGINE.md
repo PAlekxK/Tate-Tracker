@@ -1156,3 +1156,84 @@ evaluation, before code), `ai-advisor` (where AI sits per-tenant, and whose key 
 ---
 
 # SHARED REFERENCE
+
+---
+
+## 🎙 RECOVERED FROM VOICE MEMOS — 2026-09-04, unprocessed for a day `[paul-stated 2026-09-04]`
+
+⚠️ **HOW THIS WAS FOUND, because the failure matters as much as the content.** Eight memos were
+recorded 2026-09-04. One was a 0-second false start. Six were transcribed in a single 14:23 batch;
+**three of those six were then cited by nothing in either repo**, and a seventh (18:55) was recorded
+after the batch and never transcribed at all. **There is no voice-memo ingest tool** — `tools/` has
+`transcribe-mom-zone-audio.py` for Mom's zone audio and nothing for Paul's own. Capture depended on
+someone remembering, so it caught everything before 14:23 and nothing after.
+
+⭐ **The cost was not hypothetical.** On 2026-09-05 a full session re-derived the account/property
+split, argued about where the module ask belongs, and asked practice-steward to design a
+prioritization mechanism — **all of which are answered below, in his own words, from the day before.**
+
+⚠️ All quotes are `[transcript-UNVERIFIED]` — a local whisper read of his voice, project material
+rather than canon. Sources (gitignored, `.private/voice-memos/`), each named in full because
+`ingest-voice-memos.py --unread` greps for the whole stem and an abbreviated citation reads as
+unread — it caught exactly that in this paragraph on its first run:
+`2026-09-04-1220-business-model-modules` · `2026-09-04-1342-offering-tiers-target-customer` ·
+`2026-09-04-1351-onboarding-metered-gamified` · `2026-09-04-1855-zone-map-point-annotations`.
+
+### ① The account layer and the property layer are SEPARATE — stated 09-04, re-derived 09-05
+> *"With Mom, there's kind of the account setup layer and then there's the property setup layer,
+> regarding setting up her [profile] versus Fernwood and then the condo."*
+
+**One account, several properties, and Mom is the first case** — she holds Fernwood *and* the condo.
+⛔ Collides with `grantFor()`'s refusal of any grant outside the deployment's binding (**one deploy,
+one estate**) and with the activation model's *"nobody signs up."* Both collisions are recorded and
+both are Paul's.
+
+### ② ⭐ THE POPULATION ORDER — and the principle that generates it
+> *"They need to establish what the address is so that we can source a photo to them that they use to
+> draw the zones on. And then it asks what plants are in what zones, and so on."*
+
+Stated sequence: **name · address · login and settings · colour scheme** → the address sources an
+aerial photo → **she draws zones on it** → zones are asked what plants they hold. And the rule
+underneath:
+
+> ⭐ *"We don't have modules that pop up and are empty. I think that's a key determinant in figuring
+> out what's the right order to populate modules."*
+>
+> *"If we have a module that's been turned on and literally has no content to display, how does that
+> module then drive its own onboarding process?"*
+
+**This is the ordering axis the 09-05 journey-as-prioritizer proposal declined to supply** — correctly,
+since it rules on method and this is content. **Each card carries its own population journey**: a
+module turned on prompts for what it needs to stop being empty. It also sharpens §403 — *off* vs *on
+but empty* is not only an observability gap, it is a **sequencing instruction**.
+
+### ③ A personalization menu, and Mom and Bob as administrative-layer testers
+> *"Give Mom and Bob outright a personalization menu where they can turn certain modules on and off,
+> and basically treat them as beta testers of the administrative layer as well."*
+
+⚠️ Note what this does to the release cascade: it puts a **second** surface in front of gate-3 people —
+the admin layer — which no gate currently covers.
+
+### ④ The onboarding VISION — metered, and built *with* her
+> *"One key thing is that we use the onboarding process to make the individual feel like they're
+> building it with us, and to keep the amount of information that they get a little bit metered so
+> they read through and understand and give feedback on more."*
+>
+> *"Do we want to try to gamify it, where they have to answer questions to unlock new modules?"* —
+> **open, his**, and it collides with the anti-nag charter and with a reader who has answered 0 of 35.
+
+Also his: confirmation cards belong to onboarding, and the point is *"directing their attention so
+they see full discovery of everything that's built for them."*
+
+### ⑤ The map wants POINTS, not just regions `[2026-09-04 18:55 — the memo nothing ingested]`
+> *"Not only walls and dividing lines and paths — probably its own category — but also specific points
+> where specific projects or repairs happened, or a shut-off valve is. It's probably worth its own
+> individual discovery research journey to determine what all you want to mark on the map."*
+
+Distinct from `.plans/2026-09-04-map-region-smoothing-PLAN.md`, which is region geometry. This is
+**point annotation with a type system**, and he scopes it as its own research journey.
+
+### ⑥ Commercial — folded to `../fernwood-private/.business/2026-09-05-segment-JOINT-BRIEF.md`
+The offering axis (app access · module access · update access · **the SLA on feedback turnaround**),
+the operator-vs-handover lean, and ⭐ **Bob's succession job** — the strongest real-prospect evidence
+the project holds — live there, not here. Monetization stays deferred to ~end-2026.
