@@ -240,7 +240,7 @@
          screen for no token, an unknown token, another estate's token, or a revoked
          one — the Worker already answers all four with a byte-identical 404. ────── -->
   <section id="s-nolink" class="card" hidden>
-    <p class="lede">This link has expired.</p>
+    <p class="lede">This link isn't working.</p>
     <p class="soft">Ask Paul to send you a fresh one — it only takes him a second.</p>
   </section>
 
@@ -394,7 +394,7 @@
          ~200px below the fold and behind the keyboard. That is the one line Paul most wants read
          (`paul-stated 2026-09-05`), rendering where she would almost certainly never meet it.
          A disclosure that arrives after the commit is not a disclosure. -->
-    <p class="quiet" style="margin-top:4px">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul is the only other person who sees it, and you can change it any time.</p>
+    <p class="quiet" style="margin-top:4px">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul — who built this and sent you the link — is the only other person who sees it, and you can change it any time.</p>
     <!-- ⭐ ABOVE THE BUTTON, not below it (2026-09-05). It rendered under the commit control, so a
          reader who tapped and saw nothing move had to scroll PAST the button to find out why. Both
          walkers who met it thought the button was broken; one would have abandoned. The answer to
@@ -502,7 +502,7 @@
          the expensive kind. It is an outlined neutral, it carries no ✓, and the copy after it
          apologises for nothing. -->
     <div id="confirm" hidden>
-      <p class="soft" style="margin-bottom:0">Have I got that right?</p>
+      <p class="soft" style="margin-bottom:0">Does the map find you?</p>
       <button type="button" id="ok1"><span class="tick">✓</span>Yes, that's it</button>
       <button type="button" id="ok2" class="btn-secondary">Not quite</button>
     </div>
@@ -523,14 +523,14 @@
          back as 1·2·3, and tapping again removes it. Answering nothing is a legitimate answer. -->
     <hr class="seam" id="s5seam" hidden>
     <div id="s5" hidden>
-      <p class="soft" style="margin-bottom:2px">That's the weather sorted. What else would you want to look at?</p>
-      <p class="quiet" style="margin-top:0">Tap them in the order they matter to you — skip anything you don't care about. Some of these already work; some are only ideas, and how you rank them is how I decide what to build next.</p>
+      <p class="soft" style="margin-bottom:2px">What else would you want to look at?</p>
+      <p class="quiet" style="margin-top:0">Tap them in the order they matter to you — skip anything you don't care about, and tap one again to take it back off. Some of these already work; some are only ideas, and how you rank them is how I decide what to build next.</p>
       <div id="interests" class="swatches"></div>
       <button type="button" id="go5"><span class="tick">✓</span>Save these</button>
       <p id="s5thanks" class="soft" hidden></p>
     </div>
 
-    <p class="soft">I'm putting it together now — the weather where you are, and what grows there. Nothing for you to do; I'll send it over and ask you one thing: what else you'd want to look at.</p>
+    <p class="soft">I'm putting it together now — the weather where you are, and what grows there. Nothing more needed from you today.</p>
     <p class="quiet" id="s4placeholder">I'm calling it “My Home” until you name it.</p>
   </section>
 </main>
@@ -621,7 +621,7 @@
       desc: "Everything organised well enough that someone else could pick it up.",
       builds: ["papers", "succession", "export"], soon: true },
     { id: "other", label: "Something else",
-      desc: "Tell me what I've missed.", builds: [] }
+      desc: "Rank this if something's missing — then tell me in the box above.", builds: [] }
   ];
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
