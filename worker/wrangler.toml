@@ -54,3 +54,48 @@ FAMILY_HOSTS = "fernwood-qa.pages.dev"
 [[env.qa.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "a0cf82b615c648ff972961c46ce42661"
+
+# LAB (2026-09-04, paul-asked): Paul + Claude work ahead here. No real person is ever served
+# from it. Its own KV namespace, its own estate id — nothing here can reach QA's rows or prod's.
+# ⛔ NO GITHUB_TOKEN, deliberately and permanently: GITHUB_BRANCH defaults to "main" (worker.js
+# ~1974), so a lab Worker holding one would promote species straight onto Mom's live branch.
+# Deploy: `npx wrangler deploy --env lab`  ·  Remove: `npx wrangler delete --env lab`
+[env.lab]
+[env.lab.vars]
+ENV_NAME = "lab"
+ESTATE_ID = "est-lab0001"
+# 1970 on purpose: a fresh estate has NO pre-cutover era, so no key may ever route to the
+# unprefixed legacy reads. (LEGACY_BEFORE is non-inheritable and `legacyBefore()` THROWS
+# without it — a new env that omits it is dead on its first dated read, not degraded.)
+LEGACY_BEFORE = "1970-01-01"
+# The ceiling now applies to every non-production env (worker.js, 2026-09-04); it read
+# `ENV_NAME === "qa"` until today, so lab would have inherited prod's NO ceiling — in the one
+# environment we hammer Guru hardest.
+CHAT_DAILY_BUDGET_USD = "3.00"
+FAMILY_HOSTS = "fernwood-lab.pages.dev"
+[[env.lab.kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "1e0bd883e9824388af66563775c96d56"
+
+# KIRSCHENBAUER PRODUCTION (2026-09-04, paul-named): the account-based app where a real person
+# logs in and sets up their place. Mom is the first. ⚠️ ENV_NAME is "home", NOT "production" —
+# `production` is a ROLE that transfers (content-steward, 2026-09-04), and today the frozen
+# Fernwood still holds it. When that instance retires, this becomes production; naming it so now
+# would double-book the word deliberately, which is §5's `group` defect with the lights on.
+# ⛔ NO GITHUB_TOKEN, ever: GITHUB_BRANCH defaults to "main", so a token here would promote
+# species onto Mom's live branch.
+# Deploy: `npx wrangler deploy --env kirschenbauer`
+[env.kirschenbauer]
+[env.kirschenbauer.vars]
+ENV_NAME = "kirschenbauer-production"
+ESTATE_ID = "est-e6696a"
+# A fresh estate has no pre-cutover era, so no key may route to the unprefixed legacy reads.
+LEGACY_BEFORE = "1970-01-01"
+# Generous on purpose. It exists to stop a BUG, never to stop HER — the Guru cost analysis puts a
+# cold turn at ~19¢ and the warm path at ~3¢, so her real usage cannot approach this. A brand-new
+# environment with an unproven flow should not be the one deployment with no brake.
+CHAT_DAILY_BUDGET_USD = "10.00"
+FAMILY_HOSTS = "fernwood-kirschenbauer.pages.dev"
+[[env.kirschenbauer.kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "79464451e3a7497594b17d8c60c7254d"
