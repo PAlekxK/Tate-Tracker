@@ -49,8 +49,41 @@ affordance-without-signal trap, and Fernwood's own measured evidence is that eve
 button go*; it is **what does she have to already be doing for creating a place to be the obvious
 next move.** That is a research question, not a UI one.
 
-## Open, for Paul
-- Who is this person, and does read-only at Fernwood mean the **frozen** instance or the production one?
-- Does view-only see everything a member sees, or a subset (Mom's notes? Guru turns? the vault)?
-  ⚠️ The administrator-reads consent gate exists because someone outside a household reading its
-  notes is a consent question — a view-only role inherits that question, it does not escape it.
+## ⭐ ANSWERED `[paul-stated 2026-09-04]` — and it collapses the design
+
+> *"Read-only means the production one, understanding that will develop over time. The frozen
+> Fernwood she already has access to — just call her **Angel**. We can give her access rights as we
+> deem fit, and that's the administrative layer that no one else really needs to see. But this is the
+> same journey: she has to log in, create an account, and then is presented with the options of
+> viewing Fernwood, or adding a property or asset or anything like that."*
+
+**IT IS ONE JOURNEY, NOT TWO.** Angel and Mom walk the identical flow; only what sits behind the door
+differs. That retires the "option to add a property" as a yes/no step and replaces it with a
+**chooser rendered from her grants**:
+
+| | account layer | then the chooser offers |
+|---|---|---|
+| **Mom** | identical | *add a place* (she has no existing grant) |
+| **Angel** | identical | *view Fernwood* · *add a place* |
+
+**Consequences, all good:**
+- The flow gets **built once**, and it generalises to every future person by construction — the
+  chooser is a render of grant rows, not a branch per person.
+- It matches §3e's invariant exactly: **a person's estates are exactly the grant rows minted for
+  them.** The chooser IS that list. There is no second derivation to go wrong.
+- ⭐ *"Add a place"* is offered to **everyone, always** — which answers the no-provocation tension
+  from the other side. It is not a promoted affordance; it is one of the doors she is standing in
+  front of, the same as any other. Nothing pushes her toward it.
+- Access rights stay administrator-set and invisible: *"that's the administrative layer that no one
+  else really needs to see."*
+
+## Still open
+- **Read-only is scoped to PRODUCTION Fernwood**, which does not exist yet — so this requirement
+  cannot be satisfied before production is stood up. It is downstream of that, not parallel to it.
+- ⚠️ **A third party reading a household's content is a consent question the current gate does not
+  cover.** `administrator-reads` exists because someone outside the household reading its notes needs
+  agreement — but Angel is **not** the administrator, so that entry does not describe her. On the
+  FROZEN Fernwood this is moot: it is a public GitHub Pages URL, readable by anyone with the link.
+  **On production it is live**, because production is where private content would accumulate. Whose
+  agreement covers Angel reading Mom's notes and Guru turns, and is it a new consent scope?
+- Does view-only mean everything a member sees, or a subset (notes · Guru turns · the vault)?
