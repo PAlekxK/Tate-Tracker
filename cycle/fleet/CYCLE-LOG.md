@@ -600,6 +600,58 @@ INBOX cleared, PROVENANCE 6 → 3 with every remaining flag substantive.
 
 ---
 
+## 2026-09-05 — 🔓 LAP 3 OPEN (human trigger: Paul at the machine with a meter)
+
+**Not closed.** Beat 6 is Paul's gate and it has not run. `lap_count` stays 2 until it does.
+
+**Probe on opening:** `FIRED — SEASON, INBOX` (42d to first frost with the fall put-away open on
+two machines · 8 unread rows). PROVENANCE and STALE-OPEN resting.
+
+**Beat 0 · BRIEF** — `vehicle-brief.py "the 200"` → `dr200s-2017`, score 6, no tie. ⭐ **The lap-2
+aliases fix holds:** the same class of loose phrase that resolved to `bronco-1989` in lap 2 now
+lands on the right machine first.
+
+**Beat 4 · VERIFY — the physical reads actually happened**, which is what this loop has been
+waiting on for six days. Three meter photographs, EXIF-timestamped:
+
+| ET | reading | grade |
+|---|---|---|
+| 09-04 21:07:13 | 12.64 V | `[photo-MODEL-READ, UNVERIFIED]` |
+| 09-05 09:46:19 | 12.55 V | `[photo-MODEL-READ, UNVERIFIED]` |
+| 09-05 09:46:32 | 9.41 V | `paul-stated` (his figure, in words) |
+
+**Two findings, folded into `guides/blue-thunder-starting-diagnosis.md`:**
+
+1. ✅ **T4 PASSES — 12.64 → 12.55 over 12 h 39 m, −0.09 V, inside the ±0.1 V band.** The battery
+   holds overnight and there is **no parasitic drain**. T5 is retired unless something resurfaces
+   it. First in-band result this investigation has ever produced.
+2. ⛔ **She collapsed to 9.41 V and clicked.** Below T2's 9.5 V floor and below T2b's first-rung
+   threshold. ⚠️ **Not promoted to a verdict** — both thresholds are written for a *fully charged*
+   battery and she was at ~78%. **But the asymmetry inverted, and that is the new reasoning:** a
+   partial charge flatters a good reading and cannot flatter a bad one, so 9.41 is a **floor** on
+   how bad the capacity is, not a confounded number. Third independent line arriving at high
+   internal resistance.
+
+**👤 CARRIED TO PAUL, one question:** was the 9.41 read with the starter button **held**, or
+**after release**? Under load it is a textbook T2 crank reading. After release, still at 9.41, it
+is far worse — a pack with no charge acceptance left, and the 12.55 before it was surface charge.
+The photographs are 13 seconds apart and cannot answer it. **Recorded as open, not guessed.**
+
+**⏱ THE OPEN WINDOW CLOSED, exactly as 9/04 predicted it would.** *"Run it now, while she still has
+the charge to start."* She no longer does. ⭐ **T3 survives anyway** — the AVAPOW is in the kit, and
+T3 asks about the alternator, so how the engine got running is irrelevant to its answer. The one
+step that would ruin it is written down: **unclip the jump pack before reading.**
+
+**💵 The purchase gate is UNMOVED and was carried to a store trip the same day** — a parts-run
+checklist was staged for Paul with the battery explicitly gated behind T3, because today's numbers
+make the battery look bad without establishing that the battery is the *cause*, and the middle row
+of T3's table is where buying now wastes the money twice.
+
+**Beats not yet run:** 1 FIELD (not triggered — the record has answers), 2 SWEEP (done), 3 INTAKE
+(8 rows unread, untouched), 5 SEASON, 6 RECORD 👤, 7 AMEND.
+
+---
+
 ## 2026-08-30 — LOOP DECLARED, no lap has run
 
 `paul-decided`. The loop was declared today and its machinery built and tested; **lap 1 has

@@ -517,6 +517,116 @@ start, T3 becomes hard to run at all.
 
 ---
 
+# 📉 THE WINDOW CLOSED, AND IT CLOSED ON A MEASUREMENT — 2026-09-05, fleet lap 3
+
+**Three meter photographs, timestamps read deterministically from EXIF (`DateTimeOriginal`,
+offset −04:00), so the SEQUENCE is not a model read even where the digits are.**
+
+| # | ET timestamp | reading | provenance | what it is |
+|---|---|---|---|---|
+| 1 | **2026-09-04 21:07:13** | **12.64 V** | `[photo-MODEL-READ, UNVERIFIED]` | rested, charger off — 3h after the 18:09:36 settled 12.60 |
+| 2 | **2026-09-05 09:46:19** | **12.55 V** | `[photo-MODEL-READ, UNVERIFIED]` | rested, next morning, before the first crank |
+| 3 | **2026-09-05 09:46:32** | **9.41 V** | ⭐ **`paul-stated`** — he gave the figure in words | **13 seconds later**, on/just after a start attempt: *"it seemed to not have enough energy and then start clicking"* |
+
+## ✅ T4 — RUN, UNPLANNED, AND IT PASSES
+
+**12.64 → 12.55 over 12 h 39 m = −0.09 V.** T4's own band is *"within ~0.1 V = normal; a drop of
+0.3 V or more = parasitic drain or a battery that no longer holds."*
+
+⭐ **So the battery HOLDS ITS CHARGE OVERNIGHT, and there is no parasitic drain.** That is the first
+clean, in-band result this file has ever recorded, and it **retires T5** unless something else
+resurfaces it. It also kills a candidate: *"something is live on the bike draining it"* is now
+measured false, not merely unlikely.
+
+⚠️ **Two limits, stated rather than smoothed over.** (a) T4's written precondition is *"after T3,
+park level, petcock OFF"* — T3 was never run and the petcock state that night is not recorded, so
+this is a valid overnight-hold measurement taken outside the protocol's frame, not a protocol-clean
+T4. (b) Both endpoints are digits read off a photograph. **The DELTA is what carries the finding,
+and a consistent misread of the same display would preserve it** — but Paul confirming the two
+numbers is a ten-second job that would promote this from inferred to verified.
+
+## ⛔ AND THE SAME MORNING, THE OTHER HALF: SHE COLLAPSED TO 9.41 V AND CLICKED
+
+**T2's threshold, quoted from this file:** *"Should hold above ~10.5 V. A fully charged battery that
+collapses below ~9.5 V cannot deliver current any more — it is finished, whatever it reads at rest."*
+
+**T2b's ladder table, first row:** *"first one already below ~9.5 V → it cannot deliver current.
+Done — replace it, no further testing needed."*
+
+**9.41 is below both.** And the clicking is the corroborating symptom, not a second opinion: a
+starter relay that chatters instead of pulling in is the signature of a supply that cannot hold up
+under inrush.
+
+### ⚠️ THE ONE THING THAT STOPS THIS BEING A VERDICT, and it is the protocol's own caveat
+
+**Both thresholds are written for a FULLY CHARGED battery, and she was at ~12.55 V ≈ 78%.** This is
+the exact confusion the whole file exists to break — *"capacity is gone"* vs *"it simply was not
+full."* Lap 2's own reasoning struck a T2b run for precisely this reason.
+
+**But the asymmetry has flipped, and that is the new thing.** At 75% you cannot conclude the battery
+is fine from a good number — a partial charge flatters nothing. **A 78%-charged battery collapsing
+to 9.41 V is not flattered by anything.** It is a floor, not a ceiling: a fuller battery would have
+done better, so the true capacity is *at least* this bad. The reading is weak evidence FOR the
+battery and strong evidence AGAINST it, and it points the same way as the settled-12.60 /
+fast-termination / high-internal-resistance reasoning from 9/04 — a third independent direction
+arriving at the same place.
+
+### 👤 THE QUESTION THAT DECIDES HOW HARD THIS LANDS — one sentence from Paul
+
+**Was the 9.41 V read WITH THE STARTER BUTTON HELD DOWN, or AFTER releasing it?** The photographs
+are 13 seconds apart and both readings answer different questions:
+
+- **Under load (button held)** → this is a textbook **T2 crank reading**, below the 9.5 V floor.
+  Bad, expected, and interpretable.
+- **After release, still sitting at 9.41** → **far worse.** A battery that does not spring back
+  toward its resting voltage within seconds of the load coming off has essentially no charge
+  acceptance left, and the ~12.55 that preceded it was surface charge sitting on a pack that cannot
+  deliver. That reading would end the investigation on the battery axis by itself.
+
+⛔ **Not guessed. Recorded as open.**
+
+## 🎯 WHAT THIS CHANGES — T3 IS STILL THE TEST, AND IT IS STILL RUNNABLE TODAY
+
+**The 9/04 warning came true:** *"RUN IT NOW, WHILE SHE STILL HAS THE CHARGE TO START… if she gets
+too flat to start, T3 becomes hard to run at all."* She is now too flat to start. **The open window
+is closed.**
+
+⭐ **But T3 is NOT lost, because the AVAPOW jump starter is in the kit** (this file's own no-tools
+discriminator is built on it). T3 asks *"is the bike putting charge back?"* — a question about the
+**alternator**, not the battery — so how the engine got running is irrelevant to the answer.
+
+**The procedure, with the one step that would otherwise ruin the reading:**
+
+1. Clip the AVAPOW on. Start her.
+2. ⛔ **TAKE THE JUMP PACK OFF before reading anything.** With it clipped on, the meter across the
+   battery reads the jump pack's output, not the bike's charging system — **a plausible number that
+   answers the wrong question.** *(Match the payload, not the container.)*
+3. Meter on the posts, 20 V DC. Read **stopped** (she is already running, so take this as the
+   pre-start 12.55) → **idle** → **~5 000 r/min held a few seconds**. Three numbers.
+4. **What you are reading is whether it CLIMBS.**
+5. Then ride her 20 minutes at 3 000+ r/min — the only thing that actually puts charge back.
+
+⚠️ **AND THE JUMP-PACK START IS ITSELF A FREE TEST**, per this file's line 102: **fires on the jump
+pack → engine, fuel and spark are all fine, it was purely a charge problem.** Still won't fire →
+the fault was never the battery's cranking power. Either way the answer is worth having before
+anything is bought.
+
+## 💵 THE PURCHASE GATE IS UNCHANGED AND IT IS THE WHOLE POINT
+
+**T3's result table decides what to buy, and nothing measured today moves it:**
+
+| T3 at ~5 000 r/min | verdict | buy |
+|---|---|---|
+| **13.0–16.0 V** | charging system fine → the battery is the fault, and the rescue routes are spent | ✅ **buy the battery** |
+| **~12.3 V, no climb** | she is not charging at all | ⛔ **DO NOT buy a battery** — a new one dies exactly the same way |
+| **above 16 V** | regulator/rectifier cooking the battery | ⛔ **fix first** — it would also explain an AGM aging out early |
+
+⛔ **So: do not buy a battery on today's trip on the strength of the 9.41 alone.** Today's readings
+make the battery look bad — they do **not** establish that the battery is the *cause*, and the
+middle row of that table is the one where buying now wastes the money twice.
+
+---
+
 ## ⏱ OPEN WINDOW — 2026-09-04, and it closes when the charge does
 
 **The battery is charged and off mains RIGHT NOW.** That is the precondition every bench test in
