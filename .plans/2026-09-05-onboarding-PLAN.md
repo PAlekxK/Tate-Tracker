@@ -71,9 +71,11 @@ against 1 confirmed plus 6 judgement findings — a ratio to watch, not yet a ve
   logic, not the Worker's behaviour, and no live write was made to QA KV on lap 1.
 
 ## Open before stamping
-1. **The invite message has no tracked home.** It is half the journey (side 2's entire input) and a
-   change to it can arm no clock, because there is nothing to watch. Where it lives is a
-   content-and-privacy call — Paul's.
+1. ~~**The invite message has no tracked home.**~~ ✅ **CLOSED 2026-09-05 00:38** —
+   `onboarding/invite-message.md`, `{{LINK}}` placeholder, no credential. ⚠️ This row read as open for
+   nine hours after it was fixed, and the tools could not see it: the search everyone ran was
+   `ls .plans/ | grep -i onboard`, which can never find a file in `onboarding/`. **A searched-negative
+   is only as wide as its search path.** Still Paul's: `[the condo]`, and whether the closing call ships.
 2. **Content seat unread** on every Mom-facing word here, including the walker's ambiguity findings
    ("Where is it?" — the property, or her own address?).
 3. **The cascade tracking design is PROPOSED, not ruled**

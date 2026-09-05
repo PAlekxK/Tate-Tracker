@@ -18,6 +18,19 @@ Three properties this tool exists to have, each because something already went w
 
 It writes NOTHING. The document is served by route interception, so a run leaves no residue in KV,
 no fixture row and no tracked file.
+
+⛔ THE BOUNDARY, AND IT IS NOT A SMALL ONE (measured by practice-steward, 2026-09-05):
+`identity_from_tree()` derives the screen roster FROM THE DOCUMENT IT IS ABOUT TO TEST. So the
+completeness predicate is the document's own screen list, and **"this journey is missing its opening
+stages" is structurally unreachable by this tool.** On 2026-09-05 it passed 15/15 paths and 5/5
+mutations over a journey with no account step, no hub and no name ask anywhere — every one of which
+Paul then named as missing within the hour. Nothing here was wrong; there was no upstream declaration
+to compare against.
+
+⭐ So a green run means: *every path this document contains resolves as stated.* It does NOT mean the
+journey is complete, and no mutation of this document can make it say otherwise. The oracle for
+completeness has to come from OUTSIDE the artifact — a declared stage list. Until one exists, read a
+green run as coverage of what was built, never as coverage of what a person needs.
 """
 import argparse, json, os, re, shutil, subprocess, sys, tempfile, urllib.request
 

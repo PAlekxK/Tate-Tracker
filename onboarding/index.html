@@ -181,6 +181,10 @@
   /* The outlined neutral the button grammar above already describes but never had a class for.
      It carries NO ✓ — the tick is the affirmative's mark and must not appear on the alternative. */
   button.btn-secondary { color: var(--ink); background: transparent; border-color: var(--edge); margin-top: 10px; }
+  /* The seam between CHECKING the address and SAYING something about it. Two different acts, and
+     without a rule between them the second reads as more of the first. */
+  .seam { border: 0; border-top: 1px solid var(--edge); margin: 22px 0 18px; }
+  .optional-tag { font-weight: 400; color: var(--ink-soft); }
   button.btn-secondary:active { background: #f2f4f6; border-color: var(--edge); }
   button[disabled] { opacity: .55; cursor: default; }
   button .tick { margin-right: 8px; }
@@ -346,7 +350,12 @@
             be." ② It also narrows against Paul's ruling four commits ago that no TYPE is presumed —
             a car or an appliance is not a home. Both are content-steward's to settle; the bridge is
             Paul's explicit instruction and is applied. -->
-    <p class="lede">My Home, so far.</p>
+    <!-- ⭐ THE NAME LIVES IN THE PAGE <h1>, NOT HERE `[paul-stated 2026-09-05: "My Home would be the
+         name that they provide, and then add the address to the top under My Home"]`. `#head` already
+         carries it on all four screens; a second copy 80px below printed the same two words twice.
+         When account creation captures her word it lands in the h1 and is hers from arrival — not a
+         reveal on the last screen. Her word renders EXACTLY: nothing appended, nothing case-corrected
+         (this project normalised "household systems" once already, on a surface she reads). -->
     <p id="s4addr" class="soft" hidden></p>
 
     <!-- ⭐ A MAP LINK, SO SHE CONFIRMS BY SIGHT `[paul-stated 2026-09-05]`: "when we confirm the
@@ -365,8 +374,9 @@
          she was shown one screen earlier ("Paul is the only other person who sees it") FALSE, and
          a disclosure falsified by the next screen is worse than none. A link sends nothing until she
          taps it, and the label says where it goes before she does. The promise stays true. -->
-    <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>Have a look on the map ›</a>
-    <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Opens Google Maps. Nothing about you is sent anywhere unless you tap it. If the pin looks wrong, tell Paul.</p>
+    <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>Verify address on Google Maps ›</a>
+    <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Nothing goes to Google unless you tap. If the pin looks wrong, tell Paul.</p>
+    <hr class="seam" id="s4seam" hidden>
     <!-- ⭐ THE SCREEN ALREADY TOLD HER TO SPEAK AND GAVE HER NO MOUTH `[paul-stated 2026-09-05]`:
          "this is a good chance asking for feedback like if that's my address." The gate-1 walk hit
          the same gap from the other side — the walker was promised "you can change it any time" on
@@ -384,14 +394,13 @@
     </div>
     <div id="s4ask" hidden>
       <p id="s4asktext" class="soft"></p>
-      <textarea id="s4note" rows="3"></textarea>
+      <textarea id="s4note" rows="3" placeholder="Optional"></textarea>
       <button type="button" id="sendNote"><span class="tick">✓</span>Send</button>
     </div>
-    <p id="s4thanks" class="soft" hidden>Got it — that comes straight to me.</p>
+    <p id="s4thanks" class="soft" hidden></p>
 
-    <p>I'm putting it together now — the weather where you are, and what grows there.</p>
-    <p class="soft">Nothing for you to do. When it's ready I'll send it over, and ask you one thing: what else you'd want to look at.</p>
-    <p class="quiet">“My Home” is just what we call it until you name it — that comes later, and it can be anything you like.</p>
+    <p class="soft">I'm putting it together now — the weather where you are, and what grows there. Nothing for you to do; I'll send it over and ask you one thing: what else you'd want to look at.</p>
+    <p class="quiet">I'm calling it “My Home” until you name it.</p>
   </section>
 </main>
 
@@ -427,7 +436,7 @@
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote",
-   "confirm", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks"]
+   "confirm", "s4seam", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
@@ -474,6 +483,7 @@
       if (hasQuery) el.maplink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
       // the ask only appears once there is something to confirm
       el.confirm.hidden = !a;
+      el.s4seam.hidden = !a;
     }
     show("s" + n);
   }
@@ -584,11 +594,18 @@
   });
   el.sendNote.addEventListener("click", function () {
     var note = el.s4note.value.trim();
-    if (!note) { el.s4ask.hidden = true; el.s4thanks.hidden = false; return; }
+    // ⛔ AN EMPTY SEND IS NOT A DELIVERY. This printed "that comes straight to me" over a box that
+    // sent nothing — a receipt for something that never happened, on the screen where the flow spends
+    // its credibility. The close is true of the null case or it is not this slot.
+    if (!note) { el.s4ask.hidden = true; el.s4thanks.textContent = "You're done."; el.s4thanks.hidden = false; return; }
     var kind = el.s4note.getAttribute("data-kind") === "no" ? "address-correction" : "onboarding-note";
     el.sendNote.disabled = true; el.sendNote.innerHTML = "Sending…";
     postAnswer("onboard-" + kind, note, { type: "onboarding", field: kind, step: 4 })
-      .then(function () { el.s4ask.hidden = true; el.s4thanks.hidden = false; })
+      .then(function () {
+        el.s4ask.hidden = true;
+        el.s4thanks.textContent = "Got it — that comes straight to me. You're done.";
+        el.s4thanks.hidden = false;
+      })
       ["catch"](function () {
         el.sendNote.disabled = false;
         el.sendNote.innerHTML = '<span class="tick">\u2713</span>Send';

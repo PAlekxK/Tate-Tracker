@@ -493,7 +493,7 @@ release cascade, not a thirteenth loop on the board. **Whether it should become 
 2. **What the "right" outcome is for paths 11 (cleared storage after the link is consumed) and 12 (new
    device).** The path table asserts a *stated* outcome; **what should happen to a person who clears
    her browser is a product decision.**
-3. **Where the message text should live** (§1c). It is half the journey set and has no tracked home.
+3. ~~**Where the message text should live**~~ (§1c). ✅ It has one since 2026-09-05 00:38 — `onboarding/invite-message.md`. The claim was stale within the hour and survived because its evidence was `ls .plans/ | grep -i onboard`, a search that could not reach the file.
    Where it goes is a content-and-privacy call.
 4. **The `personId: null` fix** (§3). Capability model.
 5. **What a gate passes ON** — the `accept:` clauses per feature. Content; the 09-03 proposal §3a is
