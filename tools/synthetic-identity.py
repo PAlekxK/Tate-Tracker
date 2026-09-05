@@ -34,6 +34,7 @@ WORKERS = {"lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
            "qa": "https://fernwood-qa.paul-kirschenbauer.workers.dev"}
 PAGES = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev"}
 ROLES = {
+    "owner":     {"accent": "#7A3E2A", "note": "open-ended: invented her own place, no Fernwood context"},
     "mom":       {"accent": "#2C4A2C", "note": "shaped by ../fernwood-private/.user-research/2026-09-05-synthetic-mom.md"},
     "wide-eyed": {"accent": "#3F5266", "note": "un-primed: the link and nothing else"},
     "strict":    {"accent": "#2C5674", "note": "reads the same journey against the design principles"},
