@@ -253,7 +253,7 @@
          that would be a wall of text for a reader whose measured depth-2 engagement is zero. Nobody
          needs "City" explained; what needs explaining is what the ADDRESS is for. So the disclosure
          sits once, under the group. -->
-    <p class="lede">Where is it?</p>
+    <p class="lede">Where is your place?</p>
     <p class="soft">If your phone offers to fill this in, take it — it's quicker.</p>
 
     <div class="field">
@@ -378,7 +378,7 @@
          the expensive kind. It is an outlined neutral, it carries no ✓, and the copy after it
          apologises for nothing. -->
     <div id="confirm" hidden>
-      <p class="soft" style="margin-bottom:0">Does that look right?</p>
+      <p class="soft" style="margin-bottom:0">Have I got that right?</p>
       <button type="button" id="ok1"><span class="tick">✓</span>Yes, that's it</button>
       <button type="button" id="ok2" class="btn-secondary">Not quite</button>
     </div>
@@ -387,10 +387,10 @@
       <textarea id="s4note" rows="3"></textarea>
       <button type="button" id="sendNote"><span class="tick">✓</span>Send</button>
     </div>
-    <p id="s4thanks" class="soft" hidden>Got it — thank you.</p>
+    <p id="s4thanks" class="soft" hidden>Got it — that comes straight to me.</p>
 
-    <p>We're putting it together now — taking what you told us and building everything around it. That's the weather where you actually are, what grows there, and what's worth a look each month.</p>
-    <p class="soft">There's nothing for you to do while we work. Paul will let you know when the next piece is ready.</p>
+    <p>I'm putting it together now — the weather where you are, and what grows there.</p>
+    <p class="soft">Nothing for you to do. When it's ready I'll send it over, and ask you one thing: what else you'd want to look at.</p>
     <p class="quiet">“My Home” is just what we call it until you name it — that comes later, and it can be anything you like.</p>
   </section>
 </main>
@@ -560,14 +560,15 @@
       });
   }
 
-  // ⚠️ COPY BELOW IS PLACEHOLDER AND IS content-steward'S TO SETTLE, per Paul 2026-09-05
-  // ("Steward can do all that wording, the tone"). The MECHANICS are settled; the words are not.
+  // Copy settled by content-steward 2026-09-05 (../fernwood-private/.content-reviews/
+  // 2026-09-05-onboarding-copy.md). ⛔ The QUESTION carries the no-blame rule, not the button:
+  // "Does that look right? → Not quite" leaves the fault with whoever supplied the value.
   function ask(kind) {
     el.confirm.hidden = true;
     el.s4ask.hidden = false;
     el.s4asktext.textContent = kind === "ok"
-      ? "Good — thank you. Anything else you noticed while going through this? Nothing is too small, and you can skip it."
-      : "No problem. Tell me what it should say and I'll fix it.";
+      ? "Good — that's settled. Anything read oddly on the way through? That's the useful bit — or leave it blank."
+      : "No problem — you don't have to do it again. Tell me what it should say and I'll put it right.";
     el.s4note.setAttribute("data-kind", kind);
     el.s4note.focus();
   }
