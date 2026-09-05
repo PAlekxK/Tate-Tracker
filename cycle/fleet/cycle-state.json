@@ -1,30 +1,30 @@
 {
- "state": "RESTING",
- "generated_at": "2026-09-01T16:16:08Z",
+ "state": "FIRED",
+ "generated_at": "2026-09-05T14:31:17Z",
  "generated_by": "tools/fleet_probe.py --write-state",
- "lap_count": 2,
+ "lap_count": 3,
  "last_lap": {
-  "lap": 2,
-  "date": "2026-09-01",
+  "lap": 3,
+  "date": "2026-09-05",
   "outcome": "closed",
-  "outcome_note": "✅ CLOSED 2026-09-01. Opened on Paul's in-person update (probe was RESTING — a HUMAN trigger, recorded as such). ⭐ THE LAP'S FINDING IS THAT THE LOOP'S OWN GATE WAS BROKEN: beat 0 resolved his first real dictated sentence to bronco-1989 (61) over dr200s-2017 (2) — the correct machine placed LAST of eight — because `doorLabel` is a dict on 1 of 22 machines and str() turned 1,557 chars of prose into a name haystack, so his filler words scored. Fixed, then fixed AGAIN (a weak-only trim word could still carry a confident answer). aliases[] adopted, Paul-approved, with shared words deliberately AMBIGUOUS. S1 signals[] tri-state adopted via write_state(). Guard gained `check --paths` after reporting CLEAR while a public file was contended. A PEER session reported a census bug in lap 1's own amendment — reproduced, fixed, mutation-proven. Beat 6 RAN: the fold was a CORRECTION, falsifying the record's own 'charging has restored starting every time' claim. ⏭ CARRIED TO LAP 3 on Paul's instruction: the bench work (T3 is decisive and never measured), the emissions nextLook date HE never picked, seven proposed aliases that are the lap's words not his, and guard-state namespacing (adopts at lap 3's start). ⚠️ Lap 1 pre-registered the question that would have caught the beat-0 defect and closed without asking it."
+  "outcome_note": "✅ CLOSED 2026-09-05, same day. HUMAN trigger (Paul at the machine with a meter); the probe was FIRED on SEASON+INBOX and neither is what the lap worked. ⭐ THE FILE'S FIRST IN-BAND MEASUREMENT: T4 ran and PASSED (12.64→12.55 over 12h39m, −0.09 V), retiring T5 and resolving the 09-01 'did not survive one night' entry, which was inferred from a failed start with no meter. Holds voltage, cannot deliver current — one mechanism, not two. Battery identified off its own label: XTAX7L-BS (Xtreme/Ascent/© Batteries Plus, Made in Vietnam, dry-charge); the record's YTX7L-BS was the JIS SIZE GROUP, never an identity — third container/payload confusion in this file. ⛔ A tier-C forum claim (Xtreme = East Penn/Deka) was carried as a question per the FIELD rule and FALSIFIED in three hours by the battery's own back panel. 👤 BEAT 6 RAN: paul-decided REPLACE, after asking to be shown whether it made sense against the full history — five converging lines, two of them alternator-independent. The T3 gate INVERTED rather than lifting: she can no longer start, so the battery is now the cheapest way to unblock T3. Buy first, run T3 on the first ride. ⛔ BEAT 3 DID NOT RUN — 8 inbox rows untouched, so the probe stays FIRED on INBOX and that is correct, not a failure to close. ⏭ CARRIED: T3 (nextLook 09-12), the Batteries Plus purchase-history lookup that is the only thing that closes battery-age (nextLook 09-12), and one unanswered question — was 9.41 V read with the button HELD or after RELEASE. Lap 1's amendment 2 is APPLIED (dated nextLook on two physical rows) but fleet_probe.py does not yet READ the field, so it is documentation, not a control."
  },
- "next": null,
- "why": "4 signal(s) checked, none fired",
+ "next": "lap 4 — probe FIRED on SEASON, INBOX",
+ "why": "probe FIRED on SEASON, INBOX",
  "signals": [
   {
    "name": "SEASON",
-   "status": "quiet",
-   "fired": false,
+   "status": "fired",
+   "fired": true,
    "observed_via": "detector:s1_season",
-   "headline": "46d to first frost · outside the 45d window"
+   "headline": "42d to first frost and the fall put-away is still open on 2 machine(s): dr200s-2017, drz400s-2001"
   },
   {
    "name": "INBOX",
-   "status": "quiet",
-   "fired": false,
+   "status": "fired",
+   "fired": true,
    "observed_via": "detector:s2_inbox (cycle/requests.jsonl)",
-   "headline": "inbox clear (6 filed, all handled)"
+   "headline": "8 unread fleet correction(s) filed: [session-process-audit-2026-09-01] NOBODY OWNS viewer.html, AND…"
   },
   {
    "name": "PROVENANCE",
@@ -38,8 +38,8 @@
    "status": "quiet",
    "fired": false,
    "observed_via": "detector:s4_stale_open",
-   "headline": "no open check older than 60d [3 open (0 undated, not testable) · 7 closed · 1 deferred]"
+   "headline": "no open check older than 60d [3 open (0 undated, not testable) · 7 closed · 0 deferred · 1 standing…"
   }
  ],
- "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md. ⭐ 2026-09-01 lap 2: `signals[]` with the tri-state `status: quiet|fired|unobserved` is ADOPTED (S1 amendment, 2026-08-31) and is PROBE-OWNED — written by write_state(), never by hand. `last_lap.outcome` is now the closed enum with prose in `outcome_note`, adopted at this lap's close because that is when last_lap is written. ⛔ THE STANDING RULE, unchanged and broken once already: `state`/`why`/`next`/`generated_at`/`generated_by`/`signals` belong to the probe and must never be typed by hand; only `lap_count`, `last_lap` and `_note` are the lap's. ⚠️ NOT adopted deliberately: the `state` phase word (RESTING->ARMED). run() prints RESTING on the non-AI door, and publishing ARMED while the door says RESTING would make the artifact and the door disagree — the exact payload/container split this lap found five times. Adopt both together or neither."
+ "_note": "S1 shape per ~/.claude/rituals/CYCLE-SPINE.md. ⭐ 2026-09-01 lap 2: `signals[]` with the tri-state `status: quiet|fired|unobserved` is ADOPTED (S1 amendment, 2026-08-31) and is PROBE-OWNED — written by write_state(), never by hand. `last_lap.outcome` is now the closed enum with prose in `outcome_note`, adopted at this lap's close because that is when last_lap is written. ⛔ THE STANDING RULE, unchanged and broken once already: `state`/`why`/`next`/`generated_at`/`generated_by`/`signals` belong to the probe and must never be typed by hand; only `lap_count`, `last_lap` and `_note` are the lap's. ⚠️ NOT adopted deliberately: the `state` phase word (RESTING->ARMED). run() prints RESTING on the non-AI door, and publishing ARMED while the door says RESTING would make the artifact and the door disagree — the exact payload/container split this lap found five times. Adopt both together or neither. ⭐ 2026-09-05 lap 3: two openMechanicalItems rows now carry a dated `nextLook` — lap 1's amendment 2, applied. ⚠️ The probe does NOT read that field yet, so STALE-OPEN still computes from the check date alone; wiring it is amendment 1 of lap 3 and is Paul's to rule on."
 }

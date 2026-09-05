@@ -600,7 +600,80 @@ INBOX cleared, PROVENANCE 6 → 3 with every remaining flag substantive.
 
 ---
 
-## 2026-09-05 — 🔓 LAP 3 OPEN (human trigger: Paul at the machine with a meter)
+## 2026-09-05 — ✅ LAP 3 CLOSED (human trigger: Paul at the machine with a meter)
+
+**`lap_count` 2 → 3.** Closed the same day it opened, on Paul's word, with the battery thread
+disposed and two rows carrying a dated next-look instead of an open-ended flag.
+
+### ⭐ WHAT THIS LAP ACTUALLY PRODUCED — the first REAL measurements in six days
+
+**T4 ran and PASSED** (12.64 → 12.55 over 12 h 39 m, −0.09 V), which retires T5 and, more
+importantly, **breaks the ambiguity the whole file was built to break**: she holds voltage and
+cannot deliver current. It also **resolves the 09-01 "did not survive one night" entry**, which
+was inferred from a failed start with no meter — one mechanism, not two.
+
+**The battery was identified off its own label** — `XTAX7L-BS`, Xtreme / Ascent / © Batteries
+Plus, **Made in Vietnam**, dry-charge by its own back panel. The record's `YTX7L-BS` was the JIS
+size group, never this battery's part number.
+
+### 👤 BEAT 6 · RECORD — Paul's gate RAN, and it reversed a standing instruction
+
+**`paul-decided`: REPLACE THE BATTERY.** He asked to be shown whether that made sense against the
+full history rather than being told. It does: five lines converge, **two of them alternator-
+independent**, so T3 could never have changed the verdict on the battery.
+
+⭐ **The gate did not disappear, it INVERTED.** On 09-04 she could still start, so T3 was free and
+buying was a guess → *test first*. Today she cannot start, so **the battery is the cheapest way to
+unblock T3** → *buy first, run T3 on the first ride.* **The order reversed; the gate stands.**
+
+### ⛔ WHAT THIS LAP DELIBERATELY DID NOT DO
+
+- **Beat 3 · INTAKE did not run.** 8 rows sit unread in `cycle/requests.jsonl`. The probe will
+  stay **FIRED on INBOX** after this close, and that is correct rather than a defect — this was a
+  human-triggered lap on one machine, not an inbox drain. Do not read the FIRED line as this lap
+  failing to close.
+- **Beat 1 · FIELD ran once and was immediately useful in the negative.** A tier-C forum claim
+  (Xtreme = East Penn/Deka) was carried as a question, then **falsified within three hours by the
+  words moulded on the battery's own back panel.** ⭐ The quarantine earned its keep by being
+  *wrong out loud* rather than by being right.
+- **No expert seats.** Declared absent, as the map says.
+
+### 🎯 CARRIED FORWARD — three items, and each one names what closes it
+
+| # | item | closes on |
+|---|---|---|
+| 1 | **T3 — charging output** | the first ride on the new battery. **Unclip the jump pack before reading.** `nextLook 2026-09-12` |
+| 2 | **Battery age / provenance** | a Batteries Plus purchase-history lookup by phone — Canton #969 (770) 609-3111. **An order number, not another ask.** `nextLook 2026-09-12` |
+| 3 | 👤 **Was the 9.41 V read with the button HELD or after RELEASE?** | one sentence from Paul. Recorded as open rather than guessed. |
+
+### Beat 7 · AMEND — pre-registered before the lap, honoured after
+
+**Pre-registered metric:** *does a lap that opens on a human trigger, with the probe's own signals
+pointing elsewhere, still produce a disposable finding?* → **yes, and it produced the file's first
+in-band measurement.** The trigger being human rather than the probe cost nothing.
+
+**Amendments, Paul rules, none applied:**
+
+1. ⭐ **LAP 1'S AMENDMENT 2 IS NOW APPLIED, AND SHOULD BE MADE PART OF THE SIGNAL.** That lap
+   proposed letting a physical check be *scheduled* with a dated next-look so STALE-OPEN can rest
+   without a schedule masquerading as an answer. Two rows now carry `nextLook`. **`fleet_probe.py`
+   should read it** — today it does not, so the field is documentation rather than a control.
+2. ⭐⭐ **THE CONTAINER/PAYLOAD CONFUSION HAS NOW HAPPENED THREE TIMES IN THIS ONE FILE** — the
+   DR200SE manual, beat 0's `doorLabel` resolver, and today `YTX7L-BS` read as an identity when it
+   is a size group. **Proposal:** `vehicle-brief.py --check` already scans for a URL-as-a-source;
+   add a scan for **spec-group strings sitting in identity fields**. The three instances share one
+   shape and only one of them was caught by a control.
+3. ⚠️ **A model read of a photograph did real work this lap, and the guard held.** Every voltage
+   above is graded, the delta rather than the endpoints carries T4, and the one figure that became
+   load-bearing (9.41) is Paul's own words. **Nothing was folded on a photo alone** — but the
+   volume of photo-derived material is rising, and the rule's next test will be a lap where Paul
+   is not standing next to the machine to correct it.
+
+---
+
+<!-- superseded opening note, kept for the trail -->
+
+### (opening note, 2026-09-05)
 
 **Not closed.** Beat 6 is Paul's gate and it has not run. `lap_count` stays 2 until it does.
 
