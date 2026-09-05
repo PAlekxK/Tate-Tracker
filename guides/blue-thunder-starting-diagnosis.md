@@ -517,6 +517,102 @@ start, T3 becomes hard to run at all.
 
 ---
 
+# 🔎 THE BATTERY CAME OUT AND WAS PHOTOGRAPHED — 2026-09-05 10:10–10:11 ET
+
+**Five photographs, EXIF-stamped, taken deliberately to settle the identification.** In-situ label
+shot at 10:10:29, battery out and in hand 10:11:21 → 10:11:30.
+
+## ✅ IDENTIFICATION CLOSED — and the record's part number was never this battery's
+
+**The label, read off a legible high-resolution photograph of the battery in Paul's hand:**
+
+> **XTREME** · AGM TECHNOLOGY · **`XTAX7L-BS` · 12V · 6AH** · POWER SPORT BATTERY
+> *Distributed by / Distribuido cerca* **Ascent Battery Supply, LLC**, 1325 Walnut Ridge Drive,
+> Hartland, Wisconsin 53029 · 1-888-9 ASCENT · **© 2019 Batteries Plus, LLC**
+
+⭐ **This corroborates the 2026-09-04 `[photo-MODEL-READ, UNVERIFIED]` from a SECOND, independent
+photograph** — a different day, a different angle, the battery out of the bike and held to the
+camera on purpose. Two legible reads agreeing is materially stronger than one. **Paul's one-word
+yes promotes it to `paul-verified`; until then it stands as a corroborated photo read.**
+
+**What it settles:** the record says `YTX7L-BS` on the vehicle card, in this guide and in the open
+item. **`YTX7L-BS` is the SIZE SPEC — the JIS group — not this battery's part number.** Nothing in
+the record was wrong about the *fitment*; it was wrong to read a group designation as an identity.
+*(The same container/payload confusion as the manual and as beat 0's resolver. Third instance.)*
+
+## ⛔ AND IT FALSIFIES A FORUM CLAIM THE SAME DAY IT WAS RAISED
+
+Research this morning surfaced a forum post asserting **Xtreme is made by East Penn/Deka** — a
+tier-C note, and it was carried as a question rather than a fact, per the FIELD-beat rule.
+
+**The back panel says `Made in Vietnam · Hecho en Vietnam`.** East Penn is Pennsylvania. **The
+claim is dead, killed by direct observation of the object in under three hours.** ⭐ This is the
+quarantine rule working exactly as designed: *a forum may send you to look; it may never tell you
+what you will find.*
+
+## ⭐⭐ AND THE BACK PANEL CONFIRMS IT IS A DRY-CHARGE BATTERY, IN ITS OWN WORDS
+
+The retailer listing said *"Dry Charge AGM."* That was a third-party page. **The battery itself
+now says the same thing:**
+
+> *"See owner's manual for proper disposal of **acid container**… Follow **preparation
+> instructions** carefully. Do not tip. **Keep vent caps tight and level.**"*
+
+**That is activation language.** It shipped dry and was filled with acid at a counter.
+
+⭐ **WHY THIS MATTERS MORE THAN THE BRAND TIER.** A dry-charge battery requires an **initial
+charge after filling** — typically hours at low current — or it never reaches full capacity and
+sulfates from the start. Counters routinely fill and hand over. **If that is what happened here,
+this battery was capacity-limited on day one**, and it explains the whole file without needing a
+second fault: the 15-minute charge termination, the settle at ~12.60, the monotonic crank
+degradation, and this guide's own line that *the battery has never had a genuine full charge in
+this record's memory.*
+
+⚠️ **Hypothesis, and it is falsifiable by a question, not a measurement:** does Paul remember it
+being filled at the counter, or did it come sealed in a box?
+
+## ⭐ THE MOLDED CASE CODE — `LE010824-V`
+
+Molded into the case side, read at 4× on a contrast-stretched crop, unambiguous.
+
+**Reading, offered as a hypothesis:** `LE01` plant/mold code · **`0824` = August 2024** ·
+`V` = Vietnam, matching the back panel.
+
+⛔ **IT IS A CASE DATE, NOT AN ACTIVATION DATE**, and the difference matters. What it gives is a
+**FLOOR, and the floor is the useful part: the battery cannot be older than its case.** If the
+reading is right, **this battery is at most ~13 months old.**
+
+⭐⭐ **THAT RETIRES THE LAST OF THE AGE ARGUMENT, AND IT MAKES THE FAILURE WORSE, NOT BETTER.** The
+open item's original reasoning — *"if it is the 2017 original it is ~9 years old against a 3–5
+year AGM life"* — was already reasoning from a false premise once the replacement was spotted on
+09-04. It is now dead twice over. **An AGM that is roughly one year old and behaving like this has
+no age explanation at all**, which pushes the weight onto activation, charging profile, or the
+charging system.
+
+## 🎯 THE ACTION THIS CREATES, AND IT COMES BEFORE BUYING ANYTHING
+
+**`© Batteries Plus` + `Ascent Battery Supply` means the purchase happened at a Batteries Plus**,
+and the nearest is **store #969, 3640 Marietta Hwy Ste 200, Canton GA 30114 · (770) 609-3111**
+(the other is Woodstock #859, 9820 Hwy 92).
+
+**Batteries Plus keeps purchase history against a phone number.** One call answers two things this
+record has been unable to answer by any other means:
+
+1. 📅 **The exact purchase/activation date** — *"The fact the record is missing"* section above has
+   been open since 08-30 and asks for exactly this. A receipt closes it outright, and it is the
+   only thing that ever could: **an order number, not another ask.**
+2. 💵 **Whether the 12-month free-replacement warranty is still live.** ⚠️ The 12-month term is
+   from a third-party listing and is **unverified for this SKU** — but if the case date is right
+   and it was activated in late 2024 or later, **this may be a free replacement.**
+
+⚠️ **AND IF IT IS UNDER WARRANTY, THE STORE TEST SHOULD HAPPEN THERE**, not at an auto-parts
+counter — a warranty claim wants their own tester's verdict on their own paperwork.
+
+⛔ **NONE OF THIS UNBLOCKS T3.** Whatever battery goes in, free or bought, the charging system is
+still unmeasured and still the only thing that decides whether the new one survives.
+
+---
+
 # ✅ RULING — REPLACE IT. `paul-decided 2026-09-05`, and the record supports him.
 
 **Paul: *"I think at this point I want to just replace it… look at the full battery diagnosis
