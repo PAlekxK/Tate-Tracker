@@ -71,7 +71,7 @@ the screen she reads:**
 | 1 | *"If the pin looks wrong, **tell Paul**."* | `s4` — on screen, with no control beside it |
 | 2 | *"…**tell Paul** and nothing is lost."* | the save-failure copy — the moment she most needs a route |
 | 3 | *"Give me a ring when you're done and I'll do the last piece."* | the invite message |
-| 4 | **Recovery is Paul, full stop** — no email, no phone, both ruled to have no job | account-credential design |
+| 4 | ~~**Recovery is Paul, full stop** — no email, no phone~~ ⚠️ **REVERSED `[paul-stated 2026-09-05]`**: *"capture their email address as well and make their phone number optional."* Both are now collected at signup. ⛔ It does not create a reset yet — the Worker has no send capability — so today it is a way for Paul to REACH her, not for her to recover alone. The dependency shrinks when something can send. | account-credential design, superseded |
 | 5 | **The Worker has no send capability** — the invite is his own outbound act | by design |
 | 6 | **Consent is authored by hand**: *"Paul executes by hand today"* | `grant-mint.py` |
 | 7 | **Address standardisation is Paul by hand** until a USPS credential exists | `BACKLOG.md` |
@@ -1313,6 +1313,11 @@ unread — it caught exactly that in this paragraph on its first run:
 ⛔ Collides with `grantFor()`'s refusal of any grant outside the deployment's binding (**one deploy,
 one estate**) and with the activation model's *"nobody signs up."* Both collisions are recorded and
 both are Paul's.
+
+> ✅ **BOTH RESOLVED THE SAME DAY, and this paragraph is kept only as the trail.** *"Nobody signs up"*
+> is retired (§ ACTIVATION). The deploy binding is being unpicked: `scopeFor`/`scopeOf` exist, the 47
+> key sites name a scope, and dev binds `est-3c9f1a` alongside production. ⚠️ Multi-estate is still
+> GATED on retiring the master token — the collision is resolved in direction, not in fact.
 
 ### ② ⭐ THE POPULATION ORDER — and the principle that generates it
 > *"They need to establish what the address is so that we can source a photo to them that they use to

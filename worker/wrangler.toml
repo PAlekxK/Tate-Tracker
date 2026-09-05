@@ -99,10 +99,12 @@ binding = "OBSERVATIONS"
 id = "1e0bd883e9824388af66563775c96d56"
 
 # HOME (2026-09-04) — the account-based deployment: a person logs in and keeps their places: the account-based app where a real person
-# logs in and sets up their place. Mom is the first. ⚠️ ENV_NAME is "home", NOT "production" —
-# `production` is a ROLE that transfers (content-steward, 2026-09-04), and today the frozen
-# Fernwood still holds it. When that instance retires, this becomes production; naming it so now
-# would double-book the word deliberately, which is §5's `group` defect with the lights on.
+# logs in and sets up their place. Mom is the first. ENV_NAME is "home", NOT "production" —
+# `production` is a ROLE that transfers (content-steward, 2026-09-04), and the frozen Fernwood held it.
+# ⭐ THE CONDITION THIS WAS WAITING ON HAS BEEN MET `[paul-stated 2026-09-05]`: the frozen GitHub-Pages
+# Fernwood is now named **the legacy version**, which takes it OUT of the production role. So the word
+# is free and this environment is Fernwood production — the rename is bookkeeping, not a decision, and
+# it is deliberately not done in the same commit as the ruling.
 # ⛔ NO GITHUB_TOKEN, ever: GITHUB_BRANCH defaults to "main", so a token here would promote
 # species onto Mom's live branch.
 # Deploy: `npx wrangler deploy --env home`

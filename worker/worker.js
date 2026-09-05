@@ -431,6 +431,14 @@ async function handleAccountCreate(request, env, scope) {
   const word = typeof body.word === "string" ? body.word : "";
   if (!/^[a-zA-Z0-9._-]{3,40}$/.test(username)) return json({ error: "bad-username" }, 400);
   if (word.length < ACCOUNT_MIN_WORD) return json({ error: "word-too-short", min: ACCOUNT_MIN_WORD }, 400);
+  // ⭐ EMAIL REQUIRED, PHONE OPTIONAL `[paul-stated 2026-09-05]` — reverses "no email, no phone, both
+  // ruled to have no job". Stored on the ACCOUNT row (the private store), never on the grant row and
+  // never in a key. ⛔ The Worker still has no send capability, so this enables Paul to reach a person;
+  // it does not yet enable a person to recover alone. Validated loosely on purpose: a strict address
+  // regex rejects real addresses, and a wrong one here costs a contact route, not a login.
+  const email = typeof body.email === "string" ? body.email.trim().slice(0, 254) : "";
+  const phone = typeof body.phone === "string" ? body.phone.trim().slice(0, 40) : "";
+  if (!email || email.indexOf("@") < 1) return json({ error: "bad-email" }, 400);
 
   const akey = accountKey(scope, username);
   if (await env.OBSERVATIONS.get(akey)) return json({ error: "username-taken" }, 409);
@@ -454,7 +462,7 @@ async function handleAccountCreate(request, env, scope) {
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
   await env.OBSERVATIONS.put(akey, JSON.stringify({
     personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
-    createdAt: new Date().toISOString(), tokenHash,
+    createdAt: new Date().toISOString(), tokenHash, email, phone: phone || null,
   }));
   return json({ personId, token, estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] }, 201);
 }

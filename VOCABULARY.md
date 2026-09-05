@@ -53,6 +53,20 @@ discovered late.
 | **module** | a NAMED BUNDLE of domains an estate switches on/off as one declaration (`estate.json: modules:`). Unit B, not a per-domain switch | `paul-ruled 2026-09-02` (C5 Q1), built C5 3a |
 | **motor pool** · **equipment** · **house systems** | the three machine modules — `motor-pool` · `equipment` · `house-systems` — over ONE record file (`vehicles.json`, by `group`). *"Let's call it motor pool … and then just separately we'll have power tools and equipment and house systems."* ⛔ Retires C7's `machines` / `household` and C5's draft `fleet` (the LOOP keeps its name; the module does not share it) | `paul-stated 2026-09-03` |
 
+> ### ⛔ `household` — REJECTED TWICE, and reintroduced anyway `[recorded 2026-09-05]`
+>
+> Rejected once as a module name (`house systems` won, `paul-stated 2026-09-03`). Reintroduced on
+> 2026-09-05 by a session as a **tenant noun** — used ~40 times across commit subjects and two
+> engineering briefs before anyone checked the vocabulary. **The ratified word is `estate`**, which
+> already means *one property, multiple per person*, so the import bought nothing.
+>
+> ⚠️ It is NOT a blanket ban: `household system(s)` is Mom's own coined phrase and is protected. What
+> is rejected is `household` as a name for the thing an `estate` already names.
+>
+> ⭐ The lesson is the one §4 exists for: **a word can be rejected and still walk back in**, because
+> nothing between coining a term and committing it consults this file. Commit messages are immutable,
+> so the misuse stays in `git log` — this row is what makes it resolvable.
+
 ### ⚠️ Two frictions on ratified words — named so they are not rediscovered
 
 - **`estate` collides with "Tate Mountain Estates,"** the real development this project's own
@@ -112,6 +126,9 @@ chronicle and a state artifact — and whether a check may ever report it as beh
 | **vault** | gates the **private tier** inside an estate — receipts, contacts, warranties. Optional | Paul's word. *"the additional vault being kind of embedded within the other cards"* |
 | **your homes** | the product-level greeting, on the landing page and the selection surface | ✅ `[paul-stated 2026-09-02: "let's call it your homes for now"]` ⭐ **A greeting, not a brand** — it names what they ARE rather than a function performed over them, which is exactly what §4's rejection reason tests for. ⚠️ *"For now"* — provisional |
 | **activation** | a person becoming a person *with a grant* — first credential, first presence | Distinct from *login*, which is a returning act |
+| **the top bar** | the header line, and it always answers **"where am I"** — most specific wins: the **estate** you are in > the **person** signed in > **"My Home"**, the product itself. Never decoration | `paul-stated 2026-09-05` |
+| **username** | how a person signs in, and **the only part of an account other people can see**. Anyone sharing a place sees it | `paul-stated 2026-09-05` |
+| **password** | the secret half of a credential. ⛔ Use the WORD — not "a word only you know", not "a passphrase". A euphemism for a thing everyone already has a name for costs recognition and buys nothing | `paul-stated 2026-09-05` |
 | **the safe** | the READER-FACING word for the vault door — *"in the safe — that part of the Almanac needs the login before it can be read"* | `[paul-stated 2026-09-04]`, adopted on content-steward review the same day (`.content-reviews/2026-09-04-guru-honesty-strings.md`): names an object in a house, not a function over a life (§4's test); makes no claim about the place, so it is engine furniture, hard-coded, while `{journal}` stays templated. **`vault` stays the SCHEMA word** (rows, KV keys, routes). ⚠️ grep noise: `safe` the adjective and `lastFrost_90pctSafe` are not this word. Open: *login* vs *password* in the sentence — Paul's |
 | **the library** | the room of the record that holds the references, the research notes and the manuals — reached by `search_library` | steward 2026-09-04: makes no genre promise, so it travels; **not *shelf*** — `vehicles.json` already uses *on-shelf* for a part bought and not yet installed (a second `group` would be §5's defect) |
 

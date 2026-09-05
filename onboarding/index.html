@@ -195,6 +195,16 @@
   .swatch span { display: block; font-size: .82rem; color: var(--ink-soft); margin-top: 4px; }
   .swatch[aria-pressed="true"] i { border-color: var(--ink); }
   .swatch[aria-pressed="true"] span { font-weight: 600; color: var(--ink); }
+  /* Interests are ranked by TAP ORDER — the rank badge is the only number, and it appears only once
+     tapped, so an untouched list carries no implied ordering. */
+  .interest { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+    background: transparent; color: var(--ink); border: 1.5px solid var(--edge); border-radius: 13px;
+    padding: 12px 14px; margin: 0 0 8px; min-height: 0; font-size: 1.02rem; font-weight: 400; }
+  .interest[aria-pressed="true"] { border-color: var(--accent); }
+  .interest b { flex: 0 0 26px; height: 26px; border-radius: 50%; background: var(--accent);
+    color: #fff; font-size: .84rem; font-weight: 700; display: none; align-items: center; justify-content: center; }
+  .interest[aria-pressed="true"] b { display: flex; }
+  #interests { display: block; }
   .optional-tag { font-weight: 400; color: var(--ink-soft); }
   button.btn-secondary:active { background: #f2f4f6; border-color: var(--edge); }
   button[disabled] { opacity: .55; cursor: default; }
@@ -236,15 +246,47 @@
   <section id="s0" class="card" hidden>
     <p class="lede">Let's set you up.</p>
     <p class="soft">Two things, then we'll get to your place.</p>
-    <label for="uname">Pick a username</label>
+    <!-- ⭐ THE WORDS ARE `username` AND `password` `[paul-stated 2026-09-05]`. Not "a word only you
+         know" — that was mine, and it was a euphemism for a thing everyone already has a name for.
+         Every box says underneath what it is and who can see it, because that is the question a
+         person actually has at the moment they are typing into it. -->
+    <label for="uname">Username</label>
     <input id="uname" type="text" autocapitalize="none" autocorrect="off" autocomplete="username" enterkeyhint="next">
-    <label for="uword" style="margin-top:14px">And a word only you know</label>
-    <input id="uword" type="password" autocomplete="new-password" enterkeyhint="done">
-    <p class="quiet" style="margin-top:6px">Eight characters or more. There's no email to reset it — if it's lost, Paul sorts it out.</p>
+    <p class="quiet" style="margin-top:5px">This is how you sign in. Anyone who shares a place with you will see it, so pick something you don't mind them seeing.</p>
+
+    <label for="uword" style="margin-top:16px">Password</label>
+    <input id="uword" type="password" autocomplete="new-password" enterkeyhint="next">
+    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody else ever sees this — not even Paul.</p>
+
+    <!-- ⭐ EMAIL AND PHONE `[paul-stated 2026-09-05]`: "capture their email address as well and make
+         their phone number optional." ⚠️ THIS REVERSES the account-credential design, which recorded
+         "Recovery is Paul, full stop" with email and phone "both ruled to have no job". It is a
+         coherent reversal: an address on file is what makes a reset possible WITHOUT Paul, which is
+         the stated end goal. ⛔ But it does not create one yet — the Worker has no send capability by
+         design, so today this is a way for Paul to reach her, not a self-service reset. The copy says
+         only what is true today. -->
+    <label for="uemail" style="margin-top:16px">Email address</label>
+    <input id="uemail" type="email" autocapitalize="none" autocorrect="off" autocomplete="email" enterkeyhint="next">
+    <p class="quiet" style="margin-top:5px">So Paul can reach you if something needs sorting out. Nothing is ever sent to it automatically.</p>
+
+    <label for="uphone" style="margin-top:16px">Phone number <span class="optional">— optional</span></label>
+    <input id="uphone" type="tel" autocomplete="tel" enterkeyhint="next">
+    <p class="quiet" style="margin-top:5px">Only if you'd rather be called than emailed. You can leave this blank.</p>
+
+    <label for="uword2" style="margin-top:16px">Password again</label>
+    <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="done">
+    <p class="quiet" style="margin-top:5px">Just to be sure it's what you meant. There's no email reset — if it's lost, Paul sorts it out by hand.</p>
     <p class="soft" style="margin-top:18px">Pick a colour for your place</p>
     <div id="swatches" class="swatches"></div>
     <div class="trouble" id="trouble0" hidden></div>
     <button type="button" id="go0"><span class="tick">✓</span>Create my account</button>
+    <!-- ⚠️ A REAL ADDRESS ON A PUBLIC PAGE `[paul-stated 2026-09-05]`: "you can provide my email
+         address there to reach out to me if anything goes wrong." Doing it, and naming the cost once:
+         this page is served publicly AND lives in a public repo, so the address is scrapeable from
+         both. It is also the only route a person has when the password is lost, because there is no
+         reset — which is the end-goal's own word-of-mouth dependency, written down. -->
+    <p class="quiet" style="margin-top:16px">If anything goes wrong, or you get stuck, email Paul at
+      <a href="mailto:paul.kirschenbauer@gmail.com">paul.kirschenbauer@gmail.com</a>.</p>
   </section>
 
   <section id="s1" class="card" hidden>
@@ -439,6 +481,23 @@
     </div>
     <p id="s4thanks" class="soft" hidden></p>
 
+    <!-- ⭐ THE INTERESTS ASK, IN THE INITIAL ONBOARDING `[paul-stated 2026-09-05]`: "we should also
+         close out on a list of the modules or areas of interest that we asked them to rank — that's
+         another thing we can include in the initial onboarding."
+         ⚠️ THIS REVERSES content-steward's 09-05 ruling, which moved this ask to "the next piece" on
+         the argument that piece one is determined by the address alone. Paul's call; recorded as a
+         reversal rather than left looking accidental. Its copy has NOT been back through that seat.
+         ⭐ RANKED BY TAP ORDER — no drag, no numbers to type. The order she taps IS the ranking, shown
+         back as 1·2·3, and tapping again removes it. Answering nothing is a legitimate answer. -->
+    <hr class="seam" id="s5seam" hidden>
+    <div id="s5" hidden>
+      <p class="soft" style="margin-bottom:2px">That's the weather sorted. What else would you want to look at?</p>
+      <p class="quiet" style="margin-top:0">Tap them in the order they matter to you. Skip anything you don't care about.</p>
+      <div id="interests" class="swatches"></div>
+      <button type="button" id="go5"><span class="tick">✓</span>Save these</button>
+      <p id="s5thanks" class="soft" hidden></p>
+    </div>
+
     <p class="soft">I'm putting it together now — the weather where you are, and what grows there. Nothing for you to do; I'll send it over and ask you one thing: what else you'd want to look at.</p>
     <p class="quiet" id="s4placeholder">I'm calling it “My Home” until you name it.</p>
   </section>
@@ -457,6 +516,7 @@
   var K_NAME  = "fw-onboard-name";  // HER word for the place — rides the <h1> from the moment she gives it
   var K_COLOR = "fw-accent";        // the account's chosen accent
   var K_OWNER = "fw-onboard-owner"; // WHOSE session the stored answers belong to
+  var K_USER  = "fw-username";      // who is signed in — the top bar's middle state
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into
@@ -485,11 +545,22 @@
     { id: "dusk", name: "Dusk", hex: "#6B4676" }, { id: "spruce", name: "Spruce", hex: "#245C5C" },
     { id: "fernwood", name: "Fernwood", hex: "#2C4A2C" }
   ];
+  // ⭐ HER OWN FIVE, IN HER WORDS AND HER ORDER (content-steward, from the user-research record),
+  // plus Papers — never offered before and the most differentiating — and an escape hatch.
+  // ⛔ Weather is deliberately absent: it is already promised on this same screen, so listing it
+  // would make one row a lie.
+  var INTERESTS = [
+    { id: "house-systems", label: "Household systems" }, { id: "garden", label: "Gardening" },
+    { id: "motor-pool", label: "Vehicles" }, { id: "equipment", label: "Equipment" },
+    { id: "wildlife", label: "Wildlife" }, { id: "papers", label: "Papers and documents" },
+    { id: "other", label: "Something else" }
+  ];
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
-   "s0", "uname", "uword", "swatches", "trouble0", "go0"]
+   "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
+   "s5", "s5seam", "interests", "go5", "s5thanks"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
@@ -528,13 +599,23 @@
     if (hex) document.documentElement.style.setProperty("--accent", hex);
   }
   paintAccent();
-  if (el.head && read(K_NAME)) el.head.textContent = read(K_NAME);   // before any fetch resolves
+  if (el.head) paintName();                                          // before any fetch resolves
 
   // Her word, exactly as she typed it — nothing appended, nothing case-corrected. This project
   // normalised "household systems" once already on a surface she reads; it does not do that again.
+  // ⭐ THE TOP BAR ALWAYS SAYS WHERE YOU ARE `[paul-stated 2026-09-05]`. Three states, most specific
+  // wins: the ESTATE you are in > the PERSON who is signed in > the product itself. So the bar is
+  // never decoration — it is the answer to "where am I", which is the question a person actually has
+  // once one account can hold several places.
+  //   no one signed in      → "My Home"   (the product, and a placeholder that reads as one)
+  //   signed in, no estate  → the person
+  //   inside an estate      → that estate's name
+  // The person state is the USERNAME — `[paul-confirmed 2026-09-05]`, asked directly. Not a stand-in
+  // for a display name: there is no display name and none is wanted. The username is already the part
+  // of an account other people see, so the bar shows exactly what everyone else would call you.
   function paintName() {
-    var nm = read(K_NAME);
-    if (nm) el.head.textContent = nm;
+    var estate = read(K_NAME), who = read(K_USER);
+    el.head.textContent = estate || who || "My Home";
   }
 
   function step(n) {
@@ -565,52 +646,16 @@
       // she named it, so stop explaining a placeholder that is no longer on screen
       if (read(K_NAME)) el.s4placeholder.hidden = true;
       el.s4seam.hidden = !a;
+      el.s5seam.hidden = !a;
+      el.s5.hidden = !a;
     }
     show("s" + n);
   }
 
-  // ⭐ NO GRANT IS NO LONGER A DEAD END. Before account creation existed, arriving without a
-  // credential could only mean a broken link. Now it means "you have not signed up yet", which is the
-  // normal front door of a registration product. A bad WORKER still fails closed.
-  if (!WORKER) { show("s-nolink"); return; }
-  if (!grant) { show("s0"); el.uname.focus(); return; }
-
-  // Recognition is the SERVER's to confirm, never this page's. An unknown, revoked or
-  // other-estate credential returns the router's own 404 — deliberately byte-identical to a
-  // route that does not exist — so there is exactly one failure screen and it leaks nothing.
-  // ⛔ THE REJECTION HANDLER IS ON THE FETCH, NOT ON THE CHAIN. A single trailing .catch() cannot
-  // tell a transport failure from a bug in the success path, so it renders BOTH as "no connection" —
-  // and on 2026-09-05 that is exactly what happened: a `var show` in step() shadowed show() for the
-  // whole function, step() threw on every call, and a total outage read to every visitor as bad
-  // wi-fi. Offline is a real state and keeps its words; a code fault is OUR fault and says so.
-  var OFFLINE = {};
-  fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
-    .then(function (r) { return r.ok ? r.json() : null; },
-          function () { return OFFLINE; })        // transport only — never a code fault
-    .then(function (who) {
-      if (who === OFFLINE) {
-        // Offline is NOT a bad link, and must never be dressed as one.
-        el["s-nolink"].innerHTML =
-          '<p class="lede">No connection right now.</p>' +
-          '<p class="soft">Try again once you\'re back on wi-fi — the link keeps working.</p>';
-        show("s-nolink"); return;
-      }
-      if (!who) { show("s-nolink"); return; }
-      var at = read(K_STEP);
-      // Someone who has finished returns to her PLACE, not to the thank-you she already read.
-      step(at === "4" ? 4 : at === "3" ? 4 : at === "2" ? 2 : 1);
-    })
-    .catch(function (e) {
-      // Something on our side broke. Say that — do not blame her connection, and do not blame the
-      // link, because both send her somewhere that cannot help her.
-      el["s-nolink"].innerHTML =
-        '<p class="lede">Something went wrong on our end.</p>' +
-        '<p class="soft">Nothing you did. Tap the link again in a minute — and tell Paul if it keeps happening.</p>';
-      show("s-nolink");
-      // stays observable: a swallowed fault is how the 09-05 outage hid for a day
-      setTimeout(function () { throw e; }, 0);
-    });
-
+  // ⛔ THE ACCOUNT SCREEN IS WIRED BEFORE THE ROUTING, and that ordering is the bug this fixes.
+  // It used to sit below `if (!grant) { show("s0"); return; }` — so the screen rendered with no
+  // colour chips and a button that did nothing, because the early return skipped its own listeners.
+  // A screen you can see and cannot use is worse than one that fails to load. Caught by walking it.
   // ---- ACCOUNT CREATION ----
   var chosen = read(K_COLOR) || PALETTE[0].hex;
   PALETTE.forEach(function (c) {
@@ -628,20 +673,30 @@
   });
 
   el.go0.addEventListener("click", function () {
-    var u = el.uname.value.trim(), w = el.uword.value;
+    var u = el.uname.value.trim(), w = el.uword.value, w2 = el.uword2.value;
+    var em = el.uemail.value.trim(), ph = el.uphone.value.trim();
     var need = [];
     if (!u) need.push("a username");
-    if (w.length < 8) need.push("a word of eight characters or more");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) need.push("an email address");
+    if (w.length < 8) need.push("a password of eight characters or more");
     if (need.length) {
       el.trouble0.hidden = false;
       el.trouble0.innerHTML = "Still needs " + need.join(" and ") + ".";
       (!u ? el.uname : el.uword).focus();
       return;
     }
+    // Names the mismatch and never scolds — and does NOT clear what she typed, because retyping both
+    // is the expensive part and the whole reason for asking twice.
+    if (w !== w2) {
+      el.trouble0.hidden = false;
+      el.trouble0.innerHTML = "The two passwords don't match — have another look at the second one.";
+      el.uword2.focus();
+      return;
+    }
     el.go0.disabled = true; el.go0.innerHTML = "Setting up…";
     fetch(WORKER + "/api/account", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: u, word: w })
+      body: JSON.stringify({ username: u, word: w, email: em, phone: ph || null })
     })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
       .then(function (res) {
@@ -655,6 +710,8 @@
         }
         store(K_GRANT, res.b.token);
         store(K_OWNER, res.b.token);
+        store(K_USER, u);
+        paintName();                                    // the bar switches to them the moment they exist
         clearAnswers();                                 // a brand-new account starts clean, always
         step(1);
       })
@@ -662,6 +719,48 @@
         el.trouble0.hidden = false;
         el.trouble0.innerHTML = "No connection right now — try again once you're back on wi-fi.";
         el.go0.disabled = false; el.go0.innerHTML = '<span class="tick">\u2713</span>Create my account';
+      });
+  });
+
+  // ---- INTERESTS, RANKED BY TAP ORDER ----
+  var ranked = [];
+  function paintInterests() {
+    [].forEach.call(el.interests.children, function (n) {
+      var i = ranked.indexOf(n.getAttribute("data-id"));
+      n.setAttribute("aria-pressed", String(i >= 0));
+      n.querySelector("b").textContent = i >= 0 ? String(i + 1) : "";
+    });
+  }
+  INTERESTS.forEach(function (it) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "interest"; b.setAttribute("data-id", it.id);
+    b.setAttribute("aria-pressed", "false");
+    b.innerHTML = "<b></b><span>" + it.label + "</span>";
+    b.addEventListener("click", function () {
+      var i = ranked.indexOf(it.id);
+      if (i >= 0) { ranked.splice(i, 1); } else { ranked.push(it.id); }
+      paintInterests();
+    });
+    el.interests.appendChild(b);
+  });
+  el.go5.addEventListener("click", function () {
+    // Nothing chosen is a legitimate answer and is recorded as one — an empty ranking and an unasked
+    // question are different observations, and only the first says she looked.
+    el.go5.disabled = true; el.go5.innerHTML = "Saving…";
+    postAnswer("onboard-interests", ranked.length ? ranked.join(" > ") : "(none chosen)",
+               { type: "onboarding", field: "interests", step: 5, ranked: ranked })
+      .then(function () {
+        el.go5.hidden = true;
+        el.s5thanks.textContent = ranked.length
+          ? "Got it — that's what I'll build first."
+          : "Noted — nothing yet. You can tell me any time.";
+        el.s5thanks.hidden = false;
+      })
+      ["catch"](function () {
+        el.go5.disabled = false;
+        el.go5.innerHTML = '<span class="tick">\u2713</span>Save these';
+        el.s5thanks.textContent = "That didn't save — your picks are still here, tap once more.";
+        el.s5thanks.hidden = false;
       });
   });
 
@@ -807,6 +906,57 @@
         el.go2.innerHTML = '<span class="tick">✓</span>That\'s it';
       });
   });
+
+  // ---- ROUTING RUNS LAST, AND THAT ORDER IS LOAD-BEARING ----
+  // ⛔ This block RETURNS. When it sat above the listener wiring, every `return` skipped the rest of
+  // the file: arriving without a grant rendered the account screen with no colour chips and a dead
+  // button, and after account creation the naming screen appeared with `go1` unwired too. A screen
+  // you can see and cannot use is worse than one that fails to load, and it looks fine in a
+  // screenshot. Found by walking it in a real browser twice, one screen apart.
+  // Everything above only ATTACHES behaviour; nothing above decides what to show.
+  // ⭐ NO GRANT IS NO LONGER A DEAD END. Before account creation existed, arriving without a
+  // credential could only mean a broken link. Now it means "you have not signed up yet", which is the
+  // normal front door of a registration product. A bad WORKER still fails closed.
+  if (!WORKER) { show("s-nolink"); return; }
+  if (!grant) { show("s0"); el.uname.focus(); return; }
+
+  // Recognition is the SERVER's to confirm, never this page's. An unknown, revoked or
+  // other-estate credential returns the router's own 404 — deliberately byte-identical to a
+  // route that does not exist — so there is exactly one failure screen and it leaks nothing.
+  // ⛔ THE REJECTION HANDLER IS ON THE FETCH, NOT ON THE CHAIN. A single trailing .catch() cannot
+  // tell a transport failure from a bug in the success path, so it renders BOTH as "no connection" —
+  // and on 2026-09-05 that is exactly what happened: a `var show` in step() shadowed show() for the
+  // whole function, step() threw on every call, and a total outage read to every visitor as bad
+  // wi-fi. Offline is a real state and keeps its words; a code fault is OUR fault and says so.
+  var OFFLINE = {};
+  fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
+    .then(function (r) { return r.ok ? r.json() : null; },
+          function () { return OFFLINE; })        // transport only — never a code fault
+    .then(function (who) {
+      if (who === OFFLINE) {
+        // Offline is NOT a bad link, and must never be dressed as one.
+        el["s-nolink"].innerHTML =
+          '<p class="lede">No connection right now.</p>' +
+          '<p class="soft">Try again once you\'re back on wi-fi — the link keeps working.</p>';
+        show("s-nolink"); return;
+      }
+      if (!who) { show("s-nolink"); return; }
+      var at = read(K_STEP);
+      // Someone who has finished returns to her PLACE, not to the thank-you she already read.
+      step(at === "4" ? 4 : at === "3" ? 4 : at === "2" ? 2 : 1);
+    })
+    .catch(function (e) {
+      // Something on our side broke. Say that — do not blame her connection, and do not blame the
+      // link, because both send her somewhere that cannot help her.
+      el["s-nolink"].innerHTML =
+        '<p class="lede">Something went wrong on our end.</p>' +
+        '<p class="soft">Nothing you did. Tap the link again in a minute — and tell Paul if it keeps happening.</p>';
+      show("s-nolink");
+      // stays observable: a swallowed fault is how the 09-05 outage hid for a day
+      setTimeout(function () { throw e; }, 0);
+    });
+
+
 })();
 </script>
 </body>
