@@ -469,6 +469,46 @@ async function handleAccountCreate(request, env, scope) {
   return json({ personId, token, estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] }, 201);
 }
 
+// ⭐ A USERNAME IS CHANGEABLE `[paul-ruled 2026-09-05]`. It was not, and until it was, the copy could
+// not carry the reversibility clause every ask is supposed to carry — so the choice was a false
+// promise or a missing one. The account row is keyed BY the username, so a rename is a RE-KEY, not
+// a field write; that is why this is its own endpoint and not a patch on /api/profile. The grant row
+// is keyed by token hash and holds personId, so a rename never touches the credential: she is not
+// signed out, and no token rotates.
+async function handleUsernameChange(request, env, scope) {
+  const grant = await grantFor(request, env);
+  if (!grant) return json({ error: "not-found" }, 404);   // byte-identical to a route that isn't there
+  let body;
+  try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+  const from = typeof body.from === "string" ? body.from.trim() : "";
+  const to = typeof body.to === "string" ? body.to.trim() : "";
+  if (!/^[a-zA-Z0-9._-]{3,40}$/.test(to)) return json({ error: "bad-username" }, 400);
+
+  const fromKey = accountKey(scope, from), toKey = accountKey(scope, to);
+  const raw = await env.OBSERVATIONS.get(fromKey);
+  if (!raw) return json({ error: "not-found" }, 404);
+  let acct;
+  try { acct = JSON.parse(raw); } catch (e) { return json({ error: "account-malformed" }, 500); }
+  // ⛔ THE GRANT MUST OWN THE ROW IT RENAMES. Without this any valid grant in the estate could re-key
+  // somebody else's account: a grant proves WHO you are, never WHICH row you may touch.
+  if (acct.personId !== grant.personId) return json({ error: "not-found" }, 404);
+
+  if (fromKey === toKey) return json({ ok: true, username: to, unchanged: true });
+  // ⚠️ Eventually consistent, exactly as at signup: this read can miss a name claimed moments ago,
+  // so it narrows the race and does not close it. Same known limit, stated rather than implied.
+  if (await env.OBSERVATIONS.get(toKey)) return json({ error: "username-taken" }, 409);
+
+  // ⛔ NEW KEY FIRST, OLD KEY SECOND, NEVER THE REVERSE. KV has no transaction, so one order fails by
+  // LOCKING HER OUT (old deleted, new never written) and the other fails by leaving both names alive
+  // for a moment. Only the second is recoverable, and a duplicate row is a far smaller problem than
+  // a person who cannot sign in to her own place.
+  acct.username = to;
+  acct.renamedAt = new Date().toISOString();
+  await env.OBSERVATIONS.put(toKey, JSON.stringify(acct));
+  await env.OBSERVATIONS.delete(fromKey);
+  return json({ ok: true, username: to });
+}
+
 async function handleSession(request, env, scope) {
   let body;
   try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
@@ -3091,6 +3131,10 @@ export default {
         await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
         return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null });
       } catch (e) { return json({ error: "bad-json" }, 400); }
+    }
+    if (url.pathname === "/api/account/username" && request.method === "POST" && !authOk(request, env)) {
+      try { return await handleUsernameChange(request, env, scopeOf(env)); }
+      catch (e) { return json({ error: "rename-failed", detail: String(e && e.message || e).slice(0, 300) }, 500); }
     }
     if (url.pathname === "/api/session" && request.method === "POST" && !authOk(request, env)) {
       try { return await handleSession(request, env, scopeOf(env)); }

@@ -258,7 +258,12 @@
          person actually has at the moment they are typing into it. -->
     <label for="uname">Username</label>
     <input id="uname" type="text" autocapitalize="none" autocorrect="off" autocomplete="username" enterkeyhint="next">
-    <p class="quiet" style="margin-top:5px">This is how you sign in. Anyone who shares a place with you will see it, so pick something you don't mind them seeing.</p>
+    <!-- ⭐ THE REVERSIBILITY CLAUSE IS HERE BECAUSE IT IS NOW TRUE `[paul-ruled 2026-09-05]`. It was
+         absent until tonight for a good reason — the account row is keyed BY the username, so it was
+         genuinely unchangeable and a clause would have been a false promise. `/api/account/username`
+         re-keys it, so the sentence and the product now agree. ⛔ Email and phone still carry NO such
+         clause: nothing re-keys those yet, and a clause is owed only where it is true. -->
+    <p class="quiet" style="margin-top:5px">This is how you sign in. Anyone who shares a place with you will see it, so pick something you don't mind them seeing — and you can change it later if you'd rather.</p>
 
     <label for="uword" style="margin-top:16px">Password</label>
     <input id="uword" type="password" autocomplete="new-password" enterkeyhint="next">
