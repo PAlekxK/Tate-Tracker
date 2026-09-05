@@ -129,7 +129,12 @@ def check(root):
     backlog = open(os.path.join(root, "BACKLOG.md"), encoding="utf-8").read() if os.path.exists(os.path.join(root, "BACKLOG.md")) else ""
     obj_text = open(os.path.join(root, "OBJECTIVES.md"), encoding="utf-8").read() if os.path.exists(os.path.join(root, "OBJECTIVES.md")) else ""
     objectives = set(OBJ_PAT.findall(obj_text))
-    plans = sorted(glob.glob(os.path.join(root, ".plans", "*-PLAN.md")))
+    # ⚠️ PROPOSALs are graded too. Until 2026-09-05 this globbed `*-PLAN.md` only, so ten
+    # `*-PROPOSAL.md` files carrying `ready: agent-proposed — Paul rules` were invisible to the
+    # one instrument whose job is surfacing what Paul owes. A checker that cannot see the thing
+    # it exists to check reads exactly like a clean one. (practice-steward, 2026-09-05)
+    plans = sorted(glob.glob(os.path.join(root, ".plans", "*-PLAN.md"))
+                    + glob.glob(os.path.join(root, ".plans", "*-PROPOSAL.md")))
     # a `<date>-<slug>` placeholder in the taxonomy's own example is documentation, not a claim
     pointers = [p for p in POINTER_PAT.findall(backlog) if "<" not in p and not p.endswith("/")]
 
@@ -188,9 +193,16 @@ def check(root):
             sd = file_date(target, root)
             if sd and plan_date and sd > plan_date:
                 findings.append((rel, f"{seat}'s trail `{target}` is NEWER than the plan — seats shape WHAT before the plan drafts HOW"))
-        for sec in REQUIRED_SECTIONS:
-            if sec not in sections:
-                findings.append((rel, f"missing section `{sec}`"))
+        # ⛔ A PROPOSAL IS GRADED ON ITS HEADER, NOT ON A PLAN'S SECTIONS. A proposal argues a
+        # question; `## Files touched` / `## Sequence` / `## QA` describe work that has been decided,
+        # which is precisely what a proposal has not done yet. Requiring them made this check go from
+        # 25 flags to 173 the moment PROPOSALs became visible — a control whose alarm never clears is
+        # one nobody reads, which this repo has already ruled against. What a proposal DOES owe is the
+        # header: who proposed it, what it depends on, and that it is awaiting Paul.
+        if not rel.endswith("-PROPOSAL.md"):
+            for sec in REQUIRED_SECTIONS:
+                if sec not in sections:
+                    findings.append((rel, f"missing section `{sec}`"))
         for dup in sorted(set(keys.get("_duplicates", []))):
             findings.append((rel, f"header key `{dup}` appears more than once — two writers disagreed; collapse it to one line (the parser will not pick for you)"))
         stage = keys.get("stage", "")
@@ -214,7 +226,8 @@ def check(root):
 
 def main():
     findings, in_flight = check(ROOT)
-    plans = glob.glob(os.path.join(ROOT, ".plans", "*-PLAN.md"))
+    plans = (glob.glob(os.path.join(ROOT, ".plans", "*-PLAN.md"))
+             + glob.glob(os.path.join(ROOT, ".plans", "*-PROPOSAL.md")))
     if not plans and not findings:
         return 0  # silent at zero — nothing claims readiness
     if in_flight:

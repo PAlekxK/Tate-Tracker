@@ -38,8 +38,12 @@ def rosters():
     src = open(WORKER_JS, encoding="utf-8").read()
     out = {}
     for fn in ("keyFor", "dateKey", "blobKey"):
-        lit = set(re.findall(rf'{fn}\(\s*env\s*,\s*"([^"]+)"', src))
-        var = set(re.findall(rf'{fn}\(\s*env\s*,\s*([A-Z_][A-Z0-9_]*)\b', src))
+        # ⚠️ The FIRST argument is whatever the Worker currently calls its scope. It was `env`; on
+        # 2026-09-05 it became `scopeOf(env)`, and this regex — pinned to the old spelling — returned
+        # an EMPTY roster. See the guard below for why that was worse than returning a wrong one.
+        arg = r'[A-Za-z_][A-Za-z0-9_.]*(?:\([^()]*\))?'
+        lit = set(re.findall(rf'{fn}\(\s*{arg}\s*,\s*"([^"]+)"', src))
+        var = set(re.findall(rf'{fn}\(\s*{arg}\s*,\s*([A-Z_][A-Z0-9_]*)\b', src))
         out[fn] = {"literal": sorted(lit), "unresolved": sorted(var)}
     return out
 
@@ -96,6 +100,18 @@ def main():
         raise SystemExit("household-export: %s is missing estate/legacyBefore/namespace in wrangler.toml" % a.env)
 
     ros = rosters()
+    # ⛔ AN EMPTY ROSTER IS A REFUSAL, NOT A RESULT — and this is the whole lesson of 2026-09-05.
+    # A worker.js refactor renamed the key builders' first argument, this tool's regex went stale, the
+    # roster came back EMPTY, and the export printed "0 found" over a household that had just been
+    # written to through the flow. That reads as "the household is empty". It meant "I do not know
+    # what to look for". A tool built to stop a clean-looking zero standing in for an unknown produced
+    # exactly one, about itself. Nothing downstream could have told the difference.
+    if not any(ros[fn]["literal"] for fn in ros):
+        raise SystemExit(
+            "household-export: the kind roster derived from worker.js is EMPTY.\n"
+            "  That is a broken derivation, not an empty household, and this tool refuses to report a\n"
+            "  zero it cannot stand behind. The key builders' first argument was probably renamed —\n"
+            "  check `rosters()` against worker.js's current keyFor/dateKey/blobKey call shape.")
     if a.selftest:
         return selftest(ros)
 
