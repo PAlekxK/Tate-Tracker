@@ -150,16 +150,16 @@ function bm25Rank(terms, shards, stats, limit) {
 async function searchLibrary(env, q, limit) {
   const terms = libTokens(q);
   if (!terms.length) return { found: false, reason: LOOKUP_STRINGS.NO_SOURCE };
-  const statsRaw = await env.OBSERVATIONS.get(keyFor(env, "library", "stats"));
+  const statsRaw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "library", "stats"));
   if (!statsRaw) return { found: false, reason: LOOKUP_STRINGS.NO_LIBRARY };
   const stats = JSON.parse(statsRaw);
   const prefixes = [...new Set(terms.map(w => w.slice(0, 2)))];
-  const shardRows = await Promise.all(prefixes.map(p => env.OBSERVATIONS.get(keyFor(env, "library", "shard", p))));
+  const shardRows = await Promise.all(prefixes.map(p => env.OBSERVATIONS.get(keyFor(scopeOf(env), "library", "shard", p))));
   const shards = {};
   for (const raw of shardRows) if (raw) { const o = JSON.parse(raw); for (const w of terms) if (o[w]) shards[w] = o[w]; }
   const r = bm25Rank(terms, shards, stats, limit);
   if (!r.total) return { found: false, reason: LOOKUP_STRINGS.NO_SOURCE };
-  const docs = await Promise.all(r.top.map(t => env.OBSERVATIONS.get(keyFor(env, "library", "chunk", t.id))));
+  const docs = await Promise.all(r.top.map(t => env.OBSERVATIONS.get(keyFor(scopeOf(env), "library", "chunk", t.id))));
   const results = r.top.map((t, i) => { const d = docs[i] ? JSON.parse(docs[i]) : null; return d ? { id: t.id, score: t.score, source: d.source, span: d.span, text: d.text } : { id: t.id, score: t.score, missing: true }; });
   return { found: true, total: r.total, shown: results.length, results };
 }
@@ -406,8 +406,35 @@ function estateId(env) {
   if (!env.ESTATE_ID) throw new Error("ESTATE_ID binding is missing — every KV key carries the estate; refusing");
   return env.ESTATE_ID;
 }
-function keyFor(env, ...parts) {
-  return estateId(env) + ":" + parts.join(":");
+// ---- THE SCOPE: what a key is built UNDER, resolved once and passed, never re-derived ----
+// A key builder used to take `env` and read the household off the deployment binding. That is
+// correct while one deployment serves one household and wrong the moment it serves several, and the
+// dangerous version of wrong is silent: a site that keeps reading the binding builds a key under the
+// WRONG household with no error. So the builders now take a resolved scope and refuse anything else.
+// `assertScope` is the whole point -- a forgotten site is a throw at the call, not a wrong key.
+function assertScope(scope) {
+  if (!scope || typeof scope !== "object" || !scope.id || !scope.source) {
+    throw new Error("assertScope: a key builder takes a resolved scope {id,type,source,legacyBefore} - not an env, not a string");
+  }
+  return scope;
+}
+// The DEPLOYMENT's scope. ⛔ The only function in this file that reads ESTATE_ID. Every remaining
+// `scopeOf(env)` at a call site is therefore an exact, greppable inventory of the sites that still
+// take the household from config -- which is what the multi-household flip has to work through.
+function scopeOf(env) {
+  return { id: estateId(env), type: "estate", source: "deploy", legacyBefore: legacyBefore(env) };
+}
+// The scope for a REQUEST. A resolved grant outranks the deployment, because the grant is the only
+// thing that knows which household this caller actually holds. (The host step lands with
+// multi-household; today there is nothing to resolve it against.)
+function scopeFor(request, env, grant) {
+  if (grant && grant.estateId) {
+    return { id: grant.estateId, type: "estate", source: "grant", legacyBefore: legacyBefore(env) };
+  }
+  return scopeOf(env);
+}
+function keyFor(scope, ...parts) {
+  return assertScope(scope).id + ":" + parts.join(":");
 }
 function legacyBefore(env) {
   if (!env.LEGACY_BEFORE || !/^\d{4}-\d{2}-\d{2}$/.test(env.LEGACY_BEFORE)) {
@@ -415,10 +442,14 @@ function legacyBefore(env) {
   }
   return env.LEGACY_BEFORE;
 }
-function dateKey(env, kind, date) {
+function dateKey(scope, kind, date) {
   // `date` is YYYY-MM-DD (UTC). Writes AND reads route by the record's date, so
   // the cutover day is not split across two keys.
-  return date < legacyBefore(env) ? `${kind}:${date}` : keyFor(env, kind, date);
+  // ⚠️ legacyBefore rides ON the scope, not on env: the legacy era has no household slot at all, so
+  // when a namespace holds two households no single value of it is correct. Carrying it here is what
+  // lets that become a per-household fact later instead of a per-deployment one.
+  assertScope(scope);
+  return date < scope.legacyBefore ? `${kind}:${date}` : keyFor(scope, kind, date);
 }
 function dateOfRecordingId(id) {
   // generateRecordingId(): "r-<Date.now().toString(36)>-<rand>"
@@ -427,16 +458,17 @@ function dateOfRecordingId(id) {
   const ms = parseInt(m[1], 36);
   return Number.isFinite(ms) ? new Date(ms).toISOString().slice(0, 10) : null;
 }
-function blobKey(env, kind, id) {
+function blobKey(scope, kind, id) {
+  assertScope(scope);
   const d = dateOfRecordingId(id);
-  if (d === null) return keyFor(env, kind, id);              // an id with no timestamp is post-cutover by construction
-  return d < legacyBefore(env) ? `${kind}:${id}` : keyFor(env, kind, id);
+  if (d === null) return keyFor(scope, kind, id);            // an id with no timestamp is post-cutover by construction
+  return d < scope.legacyBefore ? `${kind}:${id}` : keyFor(scope, kind, id);
 }
 // LIST both eras (6c): a listing is a union of what exists, not a lookup that
 // could mask a miss — so legacy keys stay visible until the separate deletion.
 async function listBothEras(env, kind) {
   const names = [];
-  for (const prefix of [keyFor(env, kind) + ":", kind + ":"]) {
+  for (const prefix of [keyFor(scopeOf(env), kind) + ":", kind + ":"]) {
     let cursor = undefined;
     while (true) {
       const result = await env.OBSERVATIONS.list({ prefix, cursor });
@@ -478,7 +510,7 @@ const DOORS = ["entry", "vault"];
 async function doorRateLimitOk(request, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
-  const key = keyFor(env, "ratelimit", "door", ip, bucket);
+  const key = keyFor(scopeOf(env), "ratelimit", "door", ip, bucket);
   try {
     const raw = await env.OBSERVATIONS.get(key);
     const n = raw ? parseInt(raw, 10) || 0 : 0;
@@ -496,7 +528,7 @@ async function doorRateLimitOk(request, env) {
 // The Worker stamps env · receivedAt · personId:null (C5 1a); a person is attributed ONLY from a
 // valid grant header on door_opened — 3b lands that; until then every row is personId:null.
 async function storeDoorRecord(env, record) {
-  const key = dateKey(env, "door", (record.receivedAt || new Date().toISOString()).slice(0, 10));
+  const key = dateKey(scopeOf(env), "door", (record.receivedAt || new Date().toISOString()).slice(0, 10));
   const existing = await env.OBSERVATIONS.get(key);
   let arr = [];
   if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
@@ -516,7 +548,7 @@ const GRANT_HEADER = "X-Grant";
 async function grantFor(request, env) {
   const presented = request.headers.get(GRANT_HEADER);
   if (!presented || presented.length > 256) return null;
-  const raw = await env.OBSERVATIONS.get(keyFor(env, "grant", await sha256Hex(presented)));
+  const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "grant", await sha256Hex(presented)));
   if (!raw) return null;
   let row;
   try { row = JSON.parse(raw); } catch (e) { return null; }
@@ -566,7 +598,7 @@ async function handleDoor(request, env, url) {
     if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(dateKey(env, "door", date));
+      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "door", date));
       if (raw) { try { days[date] = JSON.parse(raw); } catch (e) { /* skip malformed */ } }
     }
     return json({ range: { start, end }, days });
@@ -577,7 +609,7 @@ async function handleDoor(request, env, url) {
 async function feedbackRateLimitOk(request, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
-  const key = keyFor(env, "ratelimit", "feedback", ip, bucket);
+  const key = keyFor(scopeOf(env), "ratelimit", "feedback", ip, bucket);
   try {
     const raw = await env.OBSERVATIONS.get(key);
     const n = raw ? parseInt(raw, 10) || 0 : 0;
@@ -596,7 +628,7 @@ async function feedbackRateLimitOk(request, env) {
 // ---- Observations ----
 
 async function loadObservations(env) {
-  const raw = await env.OBSERVATIONS.get(keyFor(env, OBS_KEY));   // copied from the legacy key at cutover (6c)
+  const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), OBS_KEY));   // copied from the legacy key at cutover (6c)
   if (!raw) return [];
   try {
     const arr = JSON.parse(raw);
@@ -607,7 +639,7 @@ async function loadObservations(env) {
 }
 
 async function saveObservations(env, arr) {
-  await env.OBSERVATIONS.put(keyFor(env, OBS_KEY), JSON.stringify(arr));
+  await env.OBSERVATIONS.put(keyFor(scopeOf(env), OBS_KEY), JSON.stringify(arr));
 }
 
 // One-time cleanup endpoint: walks observations:all and strips base64
@@ -776,7 +808,7 @@ async function handleAmbient(request, env, url) {
   // longer than the live tail — which also keeps a --backfill or --recompute
   // walk from burning Ambient's ~1 req/sec budget on repeat.
   const ttl = endDate ? 3600 : 120;
-  const key = keyFor(env, "cache", "ambient", mac, limit, endDate || "live");
+  const key = keyFor(scopeOf(env), "cache", "ambient", mac, limit, endDate || "live");
   try {
     // 120 s (live): the station reports about once a minute, and the dashboard's
     // own "measured, not modelled" promise wants this fresh. Short enough to stay
@@ -825,7 +857,7 @@ async function handleAirNow(request, env, url) {
   const lat = url.searchParams.get("lat");
   const lon = url.searchParams.get("lon");
   if (!lat || !lon) return json({ error: "missing-lat-lon" }, 400);
-  const key = keyFor(env, "cache", "airnow", lat, lon);
+  const key = keyFor(scopeOf(env), "cache", "airnow", lat, lon);
   try {
     const data = await withCache(env, key, 900 /* 15 min */, async () => {
       const apiKey = (env.AIRNOW_API_KEY || "").trim();
@@ -866,7 +898,7 @@ function parseUSDMCsv(csv) {
 
 async function handleDrought(request, env, url) {
   const fips = url.searchParams.get("fips") || "13227";
-  const key = keyFor(env, "cache", "drought", fips);
+  const key = keyFor(scopeOf(env), "cache", "drought", fips);
   try {
     const data = await withCache(env, key, 6 * 3600 /* 6 hr */, async () => {
       const upstream = `https://usdmdataservices.unl.edu/api/CountyStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=${fips}&startdate=1/1/2024&enddate=12/31/2099&statisticsType=1`;
@@ -908,7 +940,7 @@ async function handleTodayLine(request, env) {
   catch (e) { return json({ error: "bad-json" }, 400); }
   const date = (body && body.date) || new Date().toISOString().slice(0, 10);
   const state = (body && body.state) || {};
-  const key = keyFor(env, "cache", "today-line", date);
+  const key = keyFor(scopeOf(env), "cache", "today-line", date);
   const cached = await env.OBSERVATIONS.get(key);
   if (cached) {
     try { return json({ ...JSON.parse(cached), cached: true }); }
@@ -1389,7 +1421,7 @@ async function handleAudioUpload(request, env) {
   const recordingId = generateRecordingId();
   // KV TTL 1 hour — long enough for record + Garden Guru turn + two-step
   // confirm + promote, short enough that orphans get garbage-collected.
-  await env.OBSERVATIONS.put(blobKey(env, "audio-blob", recordingId), JSON.stringify({
+  await env.OBSERVATIONS.put(blobKey(scopeOf(env), "audio-blob", recordingId), JSON.stringify({
     mediaType,
     base64,
     uploadedAt: new Date().toISOString(),
@@ -1456,7 +1488,7 @@ async function handleZoneAudio(request, env, url) {
       }
     }
     // Durable blob — NO expirationTtl. This is the whole point.
-    await env.OBSERVATIONS.put(blobKey(env, "zone-audio-blob", id), JSON.stringify({
+    await env.OBSERVATIONS.put(blobKey(scopeOf(env), "zone-audio-blob", id), JSON.stringify({
       id, zoneId, mediaType, base64, uploadedAt: nowIso, sizeBytes: base64.length,
       recordedAt, heldMs,
     }));
@@ -1468,7 +1500,7 @@ async function handleZoneAudio(request, env, url) {
     // failure class. So: file by arrival so nothing is missed, carry recordedAt as a
     // field so nothing is misdated, and let the reader sort by it.
     const today = nowIso.slice(0, 10);
-    const key = dateKey(env, "zone-audio", today);
+    const key = dateKey(scopeOf(env), "zone-audio", today);
     const meta = declarePerson({
       id, zoneId, uploadedAt: nowIso, mediaType, sizeBytes: base64.length,
       durationMs: Number.isFinite(body.durationMs) ? Math.round(body.durationMs) : null,
@@ -1489,7 +1521,7 @@ async function handleZoneAudio(request, env, url) {
     // Reached only past the global auth gate (token required).
     const id = url.searchParams.get("id");
     if (id) {
-      const raw = await env.OBSERVATIONS.get(blobKey(env, "zone-audio-blob", id));
+      const raw = await env.OBSERVATIONS.get(blobKey(scopeOf(env), "zone-audio-blob", id));
       if (!raw) return json({ error: "not-found" }, 404);
       return new Response(raw, { status: 200, headers: { "Content-Type": "application/json", ...CORS_HEADERS } });
     }
@@ -1502,7 +1534,7 @@ async function handleZoneAudio(request, env, url) {
     const out = [];
     let days = 0;
     for (let d = new Date(d0); d <= d1 && days < 90; d.setUTCDate(d.getUTCDate() + 1), days++) {
-      const raw = await env.OBSERVATIONS.get(dateKey(env, "zone-audio", d.toISOString().slice(0, 10)));
+      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "zone-audio", d.toISOString().slice(0, 10)));
       if (raw) { try { const a = JSON.parse(raw); if (Array.isArray(a)) out.push(...a); } catch (e) {} }
     }
     out.sort((a, b) => (a.uploadedAt || "").localeCompare(b.uploadedAt || ""));
@@ -1638,7 +1670,7 @@ OUTPUT FORMAT
 
 async function logChatCost(env, conversationId, apiData, extra) {
   const date = new Date().toISOString().slice(0, 10);
-  const key = dateKey(env, "cost-log", date);
+  const key = dateKey(scopeOf(env), "cost-log", date);
   const usage = apiData.usage || {};
   const entry = {
     ts: new Date().toISOString(),
@@ -1700,7 +1732,7 @@ const CONVERSATION_ORIGINS = ["app", "probe", "test"];
 const REAL_CONVERSATION = o => o == null || o === "app";
 
 async function persistConversation(env, conversationId, turns, origin, deviceId) {
-  const key = keyFor(env, "conversation", conversationId);
+  const key = keyFor(scopeOf(env), "conversation", conversationId);
   const existing = await env.OBSERVATIONS.get(key);
   let session;
   if (existing) {
@@ -1791,7 +1823,7 @@ async function handleChat(request, env, auth) {
     const audioBlock = latestTurn.content.find(b => b && b.type === "audio_ref" && b.recordingId);
     if (audioBlock) {
       // Fetch the audio blob from KV
-      const kvKey = blobKey(env, "audio-blob", audioBlock.recordingId);
+      const kvKey = blobKey(scopeOf(env), "audio-blob", audioBlock.recordingId);
       const blobJson = await env.OBSERVATIONS.get(kvKey);
       if (!blobJson) {
         return json({ error: "audio-blob-expired-or-missing", recordingId: audioBlock.recordingId }, 410);
@@ -1850,7 +1882,7 @@ async function handleChat(request, env, auth) {
   // one. Prod declares none and is unchanged. Same class as the two other defects found
   // tonight: origin used to answer audience, and a tab title computed from a project name.
   const ceilingUsd = env.CHAT_DAILY_BUDGET_USD ? parseFloat(env.CHAT_DAILY_BUDGET_USD) : null;
-  const budgetKey = ceilingUsd ? dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)) : null;
+  const budgetKey = ceilingUsd ? dateKey(scopeOf(env), "chat-budget", new Date().toISOString().slice(0, 10)) : null;
   if (ceilingUsd) {
     const b = await readBudget(env, budgetKey);
     if (b.usd >= ceilingUsd) return json({ error: "chat-budget-exceeded", used_usd: +b.usd.toFixed(4), ceiling_usd: ceilingUsd, turns: b.turns }, 429);
@@ -2143,7 +2175,7 @@ async function handleSuggestSpecies(request, env, url) {
       status: "pending",
     };
 
-    const key = dateKey(env, "pending-species", today);
+    const key = dateKey(scopeOf(env), "pending-species", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -2175,7 +2207,7 @@ async function handleSuggestSpecies(request, env, url) {
 
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(dateKey(env, "pending-species", date));
+      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "pending-species", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -2192,7 +2224,7 @@ async function handleSuggestSpecies(request, env, url) {
       return json({ error: "bad-or-missing-id" }, 400);
     }
     const date = id.split(":")[0];
-    const key = dateKey(env, "pending-species", date);
+    const key = dateKey(scopeOf(env), "pending-species", date);
     const raw = await env.OBSERVATIONS.get(key);
     if (!raw) return json({ error: "not-found", id }, 404);
     let arr;
@@ -2487,7 +2519,7 @@ This plant was just added by the reader and has NOT been observed here across a 
   let audioCommitted = false;
   if (body.audioRecordingId) {
     try {
-      const blobJson = await env.OBSERVATIONS.get(blobKey(env, "audio-blob", body.audioRecordingId));
+      const blobJson = await env.OBSERVATIONS.get(blobKey(scopeOf(env), "audio-blob", body.audioRecordingId));
       if (blobJson) {
         const blobData = JSON.parse(blobJson);
         const audioExtMap = {
@@ -2598,7 +2630,7 @@ async function handleMetrics(request, env, url, auth) {
     if (events.length > 200) return json({ error: "too-many-events", limit: 200 }, 400);
 
     const today = new Date().toISOString().slice(0, 10);
-    const key = dateKey(env, "metrics", today);
+    const key = dateKey(scopeOf(env), "metrics", today);
     const batch = {
       receivedAt: new Date().toISOString(),
       via: (auth && auth.via) || "master",   // C6 6a — which credential carried the batch; her phone reads `master`
@@ -2635,7 +2667,7 @@ async function handleMetrics(request, env, url, auth) {
     if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(dateKey(env, "metrics", date));
+      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "metrics", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -2671,7 +2703,7 @@ async function handleCostLog(request, env, url) {
   if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
   const days = {};
   for (const date of dates) {
-    const raw = await env.OBSERVATIONS.get(dateKey(env, "cost-log", date));
+    const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "cost-log", date));
     if (raw) {
       try { days[date] = JSON.parse(raw); }
       catch (e) { /* skip malformed */ }
@@ -2796,7 +2828,7 @@ async function handleFeedback(request, env, url, grant) {
     // writer of a non-null person and takes it from a RESOLVED grant row, never from the body.
     const attributed = (grant && grant.personId && grant.estateId) ? attributeTo(record, grant) : record;
     const today = new Date().toISOString().slice(0, 10);
-    const key = dateKey(env, "feedback", today);
+    const key = dateKey(scopeOf(env), "feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -2835,7 +2867,7 @@ async function handleFeedback(request, env, url, grant) {
     if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(dateKey(env, "feedback", date));
+      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "feedback", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -2874,7 +2906,7 @@ export default {
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
         ...(env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — reported wherever a budget is DECLARED, in dollars
-          const b = await readBudget(env, dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)));
+          const b = await readBudget(env, dateKey(scopeOf(env), "chat-budget", new Date().toISOString().slice(0, 10)));
           return { used_usd: +b.usd.toFixed(4), ceiling_usd: parseFloat(env.CHAT_DAILY_BUDGET_USD), turns: b.turns, tokens: b.tokens, date: new Date().toISOString().slice(0, 10) };
         })() } : {}),
         endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/grant/whoami", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
@@ -3213,7 +3245,7 @@ async function handleZoneSave(request, env) {
   // inlined ZONES_DATA in viewer.html). Writing KV first because it's the
   // freshness path; if git commits fail later, KV still has the new data.
   try {
-    await env.OBSERVATIONS.put(keyFor(env, "zones", "all"), JSON.stringify(fullData));
+    await env.OBSERVATIONS.put(keyFor(scopeOf(env), "zones", "all"), JSON.stringify(fullData));
   } catch (e) {
     // KV write failure is non-fatal — git is still canon. Log for diagnostics.
     console.warn("[zone-save] KV write failed:", e && e.message);
@@ -3226,7 +3258,7 @@ async function handleZoneSave(request, env) {
   if (editingDeviceId && /^[a-z0-9.\-_]{1,80}$/i.test(editingDeviceId)) {
     try {
       await env.OBSERVATIONS.put(
-        keyFor(env, "zones-last-seen", editingDeviceId),
+        keyFor(scopeOf(env), "zones-last-seen", editingDeviceId),
         JSON.stringify({ version: nowIso, at: nowIso }),
         { expirationTtl: 30 * 24 * 60 * 60 }
       );
@@ -3283,7 +3315,7 @@ async function handleZoneFeedback(request, env, url) {
       status: "pending",
     });
 
-    const key = dateKey(env, "zone-feedback", today);
+    const key = dateKey(scopeOf(env), "zone-feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -3309,7 +3341,7 @@ async function handleZoneFeedback(request, env, url) {
     }
     const all = [];
     for (const day of days) {
-      const raw = await env.OBSERVATIONS.get(dateKey(env, "zone-feedback", day));
+      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "zone-feedback", day));
       if (!raw) continue;
       try {
         const arr = JSON.parse(raw);
@@ -3332,7 +3364,7 @@ async function handleZonesGet(request, env, url) {
 
   let data = null;
   try {
-    const raw = await env.OBSERVATIONS.get(keyFor(env, "zones", "all"));   // copied from the legacy key at cutover (6c)
+    const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "zones", "all"));   // copied from the legacy key at cutover (6c)
     if (raw) data = JSON.parse(raw);
   } catch (e) { /* fall through to git fallback */ }
 
@@ -3356,7 +3388,7 @@ async function handleZonesGet(request, env, url) {
   if (deviceId && /^[a-z0-9.\-_]{1,80}$/i.test(deviceId) && canonVersion) {
     try {
       await env.OBSERVATIONS.put(
-        keyFor(env, "zones-last-seen", deviceId),
+        keyFor(scopeOf(env), "zones-last-seen", deviceId),
         JSON.stringify({ version: canonVersion, at: new Date().toISOString() }),
         { expirationTtl: 30 * 24 * 60 * 60 }
       );
@@ -3375,7 +3407,7 @@ async function handleZonesSyncStatus(request, env, url) {
 
   let canonVersion = null;
   try {
-    const raw = await env.OBSERVATIONS.get(keyFor(env, "zones", "all"));   // copied from the legacy key at cutover (6c)
+    const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "zones", "all"));   // copied from the legacy key at cutover (6c)
     if (raw) {
       const data = JSON.parse(raw);
       canonVersion = (data._meta && data._meta.lastBuiltAt) || (data._meta && data._meta.lastBuilt) || null;
