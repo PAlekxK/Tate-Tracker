@@ -12,7 +12,7 @@ Actions replay from a fresh browser every time, so a run is reproducible and the
 in is the order they happen. Cloudflare Access is handled internally with a host-scoped cookie; you
 do not need a credential and there is nothing here for you to configure.
 """
-import argparse, glob, json, os, subprocess, sys, urllib.request, http.cookiejar
+import tempfile, uuid, argparse, glob, json, os, subprocess, sys, urllib.request, http.cookiejar
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 
@@ -92,7 +92,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("url")
     ap.add_argument("--do", action="append", default=[], help='"click:#id" or "type:#id=text"')
-    ap.add_argument("--shot", default="/tmp/journey-view.png")
+    # ⛔ A PER-PROCESS DEFAULT, NOT A SHARED ONE. It was "/tmp/journey-view.png" for every caller, so
+    # parallel walkers overwrote each other's screenshots — and on 2026-09-05 a primed walker read a
+    # DIFFERENT walker's rendered screen and correctly reported itself contaminated. Priming leaks and
+    # cannot be un-leaked; a shared write path in the harness is how it leaks silently. A fixture must
+    # assert its own destination.
+    ap.add_argument("--shot", default=os.path.join(
+        tempfile.gettempdir(), "journey-view-%d-%s.png" % (os.getpid(), uuid.uuid4().hex[:6])))
     a = ap.parse_args()
 
     mods = glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/playwright"))

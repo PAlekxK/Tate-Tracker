@@ -219,6 +219,8 @@
     border: 1.5px solid #d9c9a4; border-radius: 13px;
     background: #fdf7e9; font-size: .96rem;
   }
+  /* the field the message is ABOUT — so "the state" doesn't send her hunting for which box */
+  input.bad { border-color: #b3402e; background: #fdf3f1; }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -367,7 +369,11 @@
       <div class="field state">
         <label for="state">State</label>
         <input id="state" type="text" autocomplete="address-level1" autocapitalize="characters"
-               maxlength="2" enterkeyhint="next" placeholder="GA">
+               maxlength="2" enterkeyhint="next">
+        <!-- ⛔ NO placeholder HERE. It was placeholder="GA" until 2026-09-05, when two independent
+             walkers left this box alone because grey text in a required field reads as filled — one
+             of them called it "the single most likely place to lose someone". A placeholder is a
+             HINT; in a required field it is indistinguishable from an ANSWER. -->
       </div>
       <div class="field">
         <label for="zip">ZIP code</label>
@@ -384,11 +390,12 @@
          (`paul-stated 2026-09-05`), rendering where she would almost certainly never meet it.
          A disclosure that arrives after the commit is not a disclosure. -->
     <p class="quiet" style="margin-top:4px">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul is the only other person who sees it, and you can change it any time.</p>
+    <!-- ⭐ ABOVE THE BUTTON, not below it (2026-09-05). It rendered under the commit control, so a
+         reader who tapped and saw nothing move had to scroll PAST the button to find out why. Both
+         walkers who met it thought the button was broken; one would have abandoned. The answer to
+         "why did nothing happen" has to render where the reader is already looking. -->
+    <div class="trouble" id="trouble" hidden></div>
     <button type="button" id="go2"><span class="tick">✓</span>That's it</button>
-    <div class="trouble" id="trouble" hidden>
-      <strong>That didn't save.</strong> Your answers are still here — tap <em>That's it</em> once more.
-      If it keeps refusing, tell Paul and nothing is lost.
-    </div>
   </section>
 
   <!-- ── SCREEN 3 · THE WAIT. The most important screen in the sequence. ───────────
@@ -403,8 +410,8 @@
   <section id="s3" class="card" hidden>
     <p class="lede">Got it — that's everything we needed from you today.</p>
     <p>Now it's our turn. We'll build your place around that address: the weather where you actually are, what grows there, what's worth keeping an eye on.</p>
-    <p class="soft">Paul will send you the next piece in a few days, with one more small question. Nothing to do until then.</p>
-    <button type="button" id="go3"><span class="tick">✓</span>See your place</button>
+    <p class="soft">One more question on the next screen, and then you're done — Paul will send you the first piece in a few days.</p>
+    <button type="button" id="go3">See your place</button>
   </section>
 
   <!-- ── SCREEN 4 · HER PLACE, on day one ─────────────────────────────────────────
@@ -853,7 +860,8 @@
       ["catch"](function () {
         el.go5.disabled = false;
         el.go5.innerHTML = '<span class="tick">\u2713</span>Save these';
-        el.s5thanks.textContent = "That didn't save — your picks are still here, tap once more.";
+        // Same rule as the address: a failed REQUEST is not an observed failed WRITE.
+        el.s5thanks.textContent = "That didn't go through — your picks are still here, tap once more.";
         el.s5thanks.hidden = false;
       });
   });
@@ -976,7 +984,13 @@
       el.trouble.hidden = false;
       el.trouble.innerHTML = "Still needs " + (need.length === 1 ? need[0]
         : need.slice(0, -1).join(", ") + " and " + need[need.length - 1]) + ".";
-      (!p.line1 ? el.a1 : !p.city ? el.city : !p.state ? el.state : el.zip).focus();
+      // Mark the field ITSELF, not just the prose. A message that names "the state" still leaves the
+      // reader hunting for which box that is.
+      [el.a1, el.city, el.state, el.zip].forEach(function (f) { f.classList.remove("bad"); });
+      var first = !p.line1 ? el.a1 : !p.city ? el.city : !p.state ? el.state : el.zip;
+      first.classList.add("bad");
+      try { el.trouble.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e) {}
+      first.focus();
       return;
     }
 
@@ -996,7 +1010,10 @@
       })
       .catch(function () {
         el.trouble.hidden = false;
-        el.trouble.innerHTML = "<strong>That didn't save.</strong> Your answers are still here — tap <em>That's it</em> once more. If it keeps refusing, tell Paul and nothing is lost.";
+        // ⛔ NEVER "That didn't save." — the request can fail AFTER the write lands, and on 2026-09-05
+        // a walker was told her address was lost while it sat on file. The client observes a failed
+        // REQUEST, never a failed WRITE. Say only what is true from here.
+        el.trouble.innerHTML = "<strong>That didn't go through.</strong> Your answers are still here — tap <em>That's it</em> once more. Nothing is lost either way, and if it keeps refusing, tell Paul.";
         el.go2.disabled = false;
         el.go2.innerHTML = '<span class="tick">✓</span>That\'s it';
       });
