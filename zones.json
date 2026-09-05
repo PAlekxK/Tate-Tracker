@@ -2688,7 +2688,7 @@
           "by": "paul-fold",
           "action": "retired",
           "details": {
-            "why": "paul-stated 2026-08-31: 'It's a wall. More of a dividing line than a zone.' A LINEAR feature — polygon retired; the traced line lives in the plan file pending a linear-feature schema (v3, backlogged)"
+            "why": "paul-stated 2026-08-31: 'It's a wall. More of a dividing line than a zone.' A LINEAR feature — polygon retired; the traced line lives in the plan file pending a linear-feature schema. ⚠ CORRECTED 2026-09-04: v3 SHIPPED and added `partOf`, NOT lines — this deferral's stated trigger has already fired and the deferral is still open. The same clause in _meta.fold_2026_08_31 was corrected earlier today and THIS copy was missed: one deferral, two places, fixed in one"
           }
         }
       ]
