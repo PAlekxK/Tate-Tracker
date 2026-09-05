@@ -580,6 +580,34 @@ that differ between G22A gas and G22E electric).
 flags were genuinely wrong documents; four were cosmetic. **A lap that acked all six to clear the
 board would have silenced exactly the finding the check exists for.**
 
+### ⚠️ POST-CLOSE ADDENDUM, same day — a defect found by USING the door
+
+Paul asked for the day's residue to be filed for ingest after the freeze lifts. Writing that row
+found this, and it is the third amendment:
+
+⛔ **`fleet_probe.py`'s INBOX detector reads `(r.get("status") or "open") == "open"`.** So a row
+counts **only** when its status is literally `open` or absent. The row was first filed as
+`"deferred-by-paul"` — an honest, self-describing status — and **the INBOX count did not move.**
+A row filed at the door, to be picked up later, was invisible to the door.
+
+⭐⭐ **AND THE SAME FILE ALREADY HAS THE RIGHT BEHAVIOUR TWENTY LINES AWAY.**
+`_signal_record()` refuses an unrecognised *signal* status outright — *"unknown status {status!r}
+— refusing to guess."* So the probe **fails CLOSED on an unknown signal status and fails OPEN on
+an unknown row status.** One file, two opposite dispositions toward the same kind of unknown, and
+the failing-open one is the one that loses work.
+
+**Proposal (amendment 3, Paul rules):** `s2_inbox` should raise `Unknown` — which reaches
+**UNKNOWN (exit 2), never RESTING** — on a status it does not recognise, rather than treating it
+as handled. The map already says exit 2 *"means a source could not be read and is **never**
+treated as rest."* An unreadable status is exactly that.
+
+**Worked around, not fixed:** the row now carries `status: "open"` with the deferral in a separate
+`hold` field naming its release condition, per *a HOLD names the WORK, not the mechanism*. INBOX
+went 8 → 9, which is the honest number.
+
+⚠️ **This did not come from reading the code.** It came from filing a real row and noticing a
+count that should have moved and didn't. The lap's own beat-2 output was the control.
+
 ### Beat 7 · AMEND — pre-registered before the lap, honoured after
 
 **Pre-registered metric:** *does a lap move `lap_count` off 0 and leave the board legible?* → **yes**;
