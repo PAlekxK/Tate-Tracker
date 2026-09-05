@@ -184,6 +184,17 @@
   /* The seam between CHECKING the address and SAYING something about it. Two different acts, and
      without a rule between them the second reads as more of the first. */
   .seam { border: 0; border-top: 1px solid var(--edge); margin: 22px 0 18px; }
+  /* Colour is chosen by SIGHT, and the page itself is the preview — tapping recolours --accent live,
+     so the button she is about to press changes under her thumb. Names sit under every chip: colour
+     alone fails WCAG 1.4.1, and two of these are greens. ⛔ No ✓ on a chip — the tick is the mark of
+     the control that RECORDS, and seven ticked chips plus a ticked button is eight candidate controls
+     for one answer. (ux-expert, 2026-09-05) */
+  .swatches { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .swatch { border: 0; background: none; padding: 0; margin: 0; width: auto; min-height: 0; cursor: pointer; text-align: center; }
+  .swatch i { display: block; width: 56px; height: 56px; border-radius: 12px; border: 2px solid transparent; }
+  .swatch span { display: block; font-size: .82rem; color: var(--ink-soft); margin-top: 4px; }
+  .swatch[aria-pressed="true"] i { border-color: var(--ink); }
+  .swatch[aria-pressed="true"] span { font-weight: 600; color: var(--ink); }
   .optional-tag { font-weight: 400; color: var(--ink-soft); }
   button.btn-secondary:active { background: #f2f4f6; border-color: var(--edge); }
   button[disabled] { opacity: .55; cursor: default; }
@@ -218,6 +229,24 @@
   </section>
 
   <!-- ── SCREEN 1 · she is recognised ──────────────────────────────────────────── -->
+  <!-- ⭐ ACCOUNT CREATION `[paul-ruled 2026-09-05]` — full registration: a person sets up their own
+       account. This is Act 01 and it runs AHEAD of naming the place: the colour lives here too,
+       because it is an account-level choice and because it is the flow's only no-wrong-answer beat.
+       ⛔ DEV ONLY UNTIL REVIEWED — credential code, unreviewed. -->
+  <section id="s0" class="card" hidden>
+    <p class="lede">Let's set you up.</p>
+    <p class="soft">Two things, then we'll get to your place.</p>
+    <label for="uname">Pick a username</label>
+    <input id="uname" type="text" autocapitalize="none" autocorrect="off" autocomplete="username" enterkeyhint="next">
+    <label for="uword" style="margin-top:14px">And a word only you know</label>
+    <input id="uword" type="password" autocomplete="new-password" enterkeyhint="done">
+    <p class="quiet" style="margin-top:6px">Eight characters or more. There's no email to reset it — if it's lost, Paul sorts it out.</p>
+    <p class="soft" style="margin-top:18px">Pick a colour for your place</p>
+    <div id="swatches" class="swatches"></div>
+    <div class="trouble" id="trouble0" hidden></div>
+    <button type="button" id="go0"><span class="tick">✓</span>Create my account</button>
+  </section>
+
   <section id="s1" class="card" hidden>
     <!-- ⚠️ INTERIM COPY. `[paul-stated 2026-09-05]`: "I don't really want there to be an instance in
          which that happens — I want us to go through the motions on everything, and I'll even make Mom
@@ -426,6 +455,8 @@
   var K_ADDR  = "fw-onboard-addr"; // echoed back on screen 4 — she sees her own words land
   var K_PARTS = "fw-onboard-parts"; // the components, for the map query and the later USPS step
   var K_NAME  = "fw-onboard-name";  // HER word for the place — rides the <h1> from the moment she gives it
+  var K_COLOR = "fw-accent";        // the account's chosen accent
+  var K_OWNER = "fw-onboard-owner"; // WHOSE session the stored answers belong to
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into
@@ -445,14 +476,24 @@
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 
+  // The seven ruled accents. ⚠️ CANONICAL LIST IS engine/palette.json — `tools/palette.py --check`
+  // recomputes every contrast ratio from the hex and fails below AAA. This is a copy because this page
+  // has no build step; if they diverge, palette.json wins.
+  var PALETTE = [
+    { id: "stone", name: "Stone", hex: "#3F5266" }, { id: "pine", name: "Pine", hex: "#2F5D3A" },
+    { id: "lake", name: "Lake", hex: "#2C5674" }, { id: "clay", name: "Clay", hex: "#7A3E2A" },
+    { id: "dusk", name: "Dusk", hex: "#6B4676" }, { id: "spruce", name: "Spruce", hex: "#245C5C" },
+    { id: "fernwood", name: "Fernwood", hex: "#2C4A2C" }
+  ];
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
-   "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks"]
+   "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
+   "s0", "uname", "uword", "swatches", "trouble0", "go0"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
-    ["s-wait", "s-nolink", "s1", "s2", "s3", "s4"].forEach(function (id) {
+    ["s-wait", "s-nolink", "s0", "s1", "s2", "s3", "s4"].forEach(function (id) {
       el[id].hidden = (id !== which);
     });
     window.scrollTo(0, 0);
@@ -469,7 +510,24 @@
     url.searchParams.delete("g");
     try { history.replaceState(null, "", url.pathname + url.search + url.hash); } catch (e) {}
   }
+  // ⛔ A NEW PERSON MUST NOT INHERIT THE LAST ONE'S SESSION. Found 2026-09-05 by walking a fresh
+  // grant in a browser that had already been walked: fw-onboard-step/addr/parts are keyed to the
+  // ORIGIN, so the page resumed a different person's progress and showed them an address they had
+  // never typed, on the confirm screen, skipping the naming step entirely. The credential had
+  // changed; the data had not. Every test rig missed it because they all open a fresh context.
+  function clearAnswers() {
+    [K_STEP, K_ADDR, K_PARTS, K_NAME].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+  }
   var grant = read(K_GRANT);
+  var owner = read(K_OWNER);
+  if (grant && owner && owner !== grant) { clearAnswers(); }
+  if (grant) store(K_OWNER, grant);
+
+  function paintAccent() {
+    var hex = read(K_COLOR);
+    if (hex) document.documentElement.style.setProperty("--accent", hex);
+  }
+  paintAccent();
   if (el.head && read(K_NAME)) el.head.textContent = read(K_NAME);   // before any fetch resolves
 
   // Her word, exactly as she typed it — nothing appended, nothing case-corrected. This project
@@ -511,7 +569,11 @@
     show("s" + n);
   }
 
-  if (!grant || !WORKER) { show("s-nolink"); return; }
+  // ⭐ NO GRANT IS NO LONGER A DEAD END. Before account creation existed, arriving without a
+  // credential could only mean a broken link. Now it means "you have not signed up yet", which is the
+  // normal front door of a registration product. A bad WORKER still fails closed.
+  if (!WORKER) { show("s-nolink"); return; }
+  if (!grant) { show("s0"); el.uname.focus(); return; }
 
   // Recognition is the SERVER's to confirm, never this page's. An unknown, revoked or
   // other-estate credential returns the router's own 404 — deliberately byte-identical to a
@@ -548,6 +610,60 @@
       // stays observable: a swallowed fault is how the 09-05 outage hid for a day
       setTimeout(function () { throw e; }, 0);
     });
+
+  // ---- ACCOUNT CREATION ----
+  var chosen = read(K_COLOR) || PALETTE[0].hex;
+  PALETTE.forEach(function (c) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "swatch"; b.setAttribute("aria-pressed", String(c.hex === chosen));
+    b.innerHTML = '<i style="background:' + c.hex + '"></i><span>' + c.name + '</span>';
+    b.addEventListener("click", function () {
+      chosen = c.hex;
+      store(K_COLOR, c.hex);
+      paintAccent();                                   // the page IS the preview
+      [].forEach.call(el.swatches.children, function (n) { n.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true");
+    });
+    el.swatches.appendChild(b);
+  });
+
+  el.go0.addEventListener("click", function () {
+    var u = el.uname.value.trim(), w = el.uword.value;
+    var need = [];
+    if (!u) need.push("a username");
+    if (w.length < 8) need.push("a word of eight characters or more");
+    if (need.length) {
+      el.trouble0.hidden = false;
+      el.trouble0.innerHTML = "Still needs " + need.join(" and ") + ".";
+      (!u ? el.uname : el.uword).focus();
+      return;
+    }
+    el.go0.disabled = true; el.go0.innerHTML = "Setting up…";
+    fetch(WORKER + "/api/account", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: u, word: w })
+    })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          var msg = res.b && res.b.error === "username-taken"
+            ? "That username is taken — try another."
+            : "That didn't go through. Your answers are still here — tap once more.";
+          el.trouble0.hidden = false; el.trouble0.innerHTML = msg;
+          el.go0.disabled = false; el.go0.innerHTML = '<span class="tick">\u2713</span>Create my account';
+          return;
+        }
+        store(K_GRANT, res.b.token);
+        store(K_OWNER, res.b.token);
+        clearAnswers();                                 // a brand-new account starts clean, always
+        step(1);
+      })
+      ["catch"](function () {
+        el.trouble0.hidden = false;
+        el.trouble0.innerHTML = "No connection right now — try again once you're back on wi-fi.";
+        el.go0.disabled = false; el.go0.innerHTML = '<span class="tick">\u2713</span>Create my account';
+      });
+  });
 
   el.go1.addEventListener("click", function () {
     var nm = el.pname.value.trim();

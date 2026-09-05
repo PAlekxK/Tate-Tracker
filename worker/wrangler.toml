@@ -88,6 +88,12 @@ LEGACY_BEFORE = "1970-01-01"
 # environment we hammer Guru hardest.
 CHAT_DAILY_BUDGET_USD = "3.00"
 FAMILY_HOSTS = "fernwood-lab.pages.dev"
+# PBKDF2 at a real iteration count exceeds the default CPU ceiling and the isolate is KILLED — which
+# surfaces as a 1101 that `try/catch` cannot catch, because the isolate is gone rather than throwing.
+# Measured 2026-09-05: 2,000 iterations succeeds, 210,000 does not.
+[env.lab.limits]
+cpu_ms = 5000
+
 [[env.lab.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "1e0bd883e9824388af66563775c96d56"

@@ -387,6 +387,99 @@ function attributeTo(record, grant) {
   });
 }
 
+
+// ---- ACCOUNTS (C6 Option D, built 2026-09-05) --------------------------------------------------
+// `[paul-ruled 2026-09-05]` full registration: a person sets up their own account. Two stores, never
+// one: the ACCOUNT row is keyed by username and holds the salt+hash; the GRANT row is keyed by the
+// hash of an opaque token and is UNCHANGED — `grantFor()` is not touched, not one line. So the
+// password never becomes a KV key, and what is presented on every gated request is still the token.
+//
+// ⛔ DEV ONLY UNTIL REVIEWED. This is credential code written to make the full onboarding walk
+// possible; it has not had a security review and must not reach production on that basis.
+// ⚠️ 100,000 is the PLATFORM CEILING, not a choice: Workers' WebCrypto refuses above it
+// ("Pbkdf2 failed: iteration counts above 100000 are not supported"). OWASP's 2023 floor for
+// PBKDF2-SHA256 is 210,000, so this sits BELOW the recommendation and cannot be raised here.
+// Recorded as a known shortfall rather than rounded off — it is an argument for moving the
+// credential to a memory-hard KDF or an origin that allows more, not something to leave implicit.
+const PBKDF2_ITERATIONS = 100000;
+const ACCOUNT_MIN_WORD = 8;
+
+function b64(bytes) { return btoa(String.fromCharCode(...new Uint8Array(bytes))); }
+function unb64(str) { return Uint8Array.from(atob(str), c => c.charCodeAt(0)); }
+
+async function derive(password, saltBytes, iterations) {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits(
+    { name: "PBKDF2", salt: saltBytes, iterations, hash: "SHA-256" }, key, 256);
+  return b64(bits);
+}
+
+// Constant-time-ish compare: never leak WHERE two hashes diverge via early exit.
+function sameHash(a, b) {
+  if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+function accountKey(scope, username) { return keyFor(scope, "account", username.trim().toLowerCase()); }
+
+async function handleAccountCreate(request, env, scope) {
+  let body;
+  try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+  const username = typeof body.username === "string" ? body.username.trim() : "";
+  const word = typeof body.word === "string" ? body.word : "";
+  if (!/^[a-zA-Z0-9._-]{3,40}$/.test(username)) return json({ error: "bad-username" }, 400);
+  if (word.length < ACCOUNT_MIN_WORD) return json({ error: "word-too-short", min: ACCOUNT_MIN_WORD }, 400);
+
+  const akey = accountKey(scope, username);
+  if (await env.OBSERVATIONS.get(akey)) return json({ error: "username-taken" }, 409);
+
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const hash = await derive(word, salt, PBKDF2_ITERATIONS);
+  const personId = "p-" + b64(crypto.getRandomValues(new Uint8Array(9))).replace(/[^a-zA-Z0-9]/g, "").slice(0, 12).toLowerCase();
+  // The opaque token: what every later request presents. Returned ONCE, in this response, and never
+  // read back — a KV read here would negative-cache the key we are about to write.
+  const token = b64(crypto.getRandomValues(new Uint8Array(32))).replace(/[+/=]/g, "").slice(0, 43);
+  const tokenHash = await sha256Hex(token);
+
+  // ⭐ G1 IN THE WORKER'S OWN SHAPE: a founding owner grant needs the prospective owner's OWN
+  // request as its warrant. Signing yourself up IS that request, recorded as consentSource "self".
+  const grantRow = {
+    personId, estateId: scope.id, relationship: ["owner"], capability: "administrator",
+    entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: personId,
+    consent: [{ scope: "founding-request", agreedOn: new Date().toISOString().slice(0, 10),
+                agreedBy: personId, recordedBy: personId, consentSource: "self", how: "account-signup" }],
+  };
+  await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
+  await env.OBSERVATIONS.put(akey, JSON.stringify({
+    personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
+    createdAt: new Date().toISOString(), tokenHash,
+  }));
+  return json({ personId, token, estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] }, 201);
+}
+
+async function handleSession(request, env, scope) {
+  let body;
+  try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+  const username = typeof body.username === "string" ? body.username.trim() : "";
+  const word = typeof body.word === "string" ? body.word : "";
+  // ⛔ ONE failure shape for "no such account" and "wrong word" — a distinguishable pair is a
+  // username oracle, the same reason the grant 404 is byte-identical to a missing route.
+  const deny = () => json({ error: "not-found" }, 404);
+  if (!username || !word) return deny();
+  const raw = await env.OBSERVATIONS.get(accountKey(scope, username));
+  if (!raw) { await derive(word, crypto.getRandomValues(new Uint8Array(16)), PBKDF2_ITERATIONS); return deny(); }
+  let acct;
+  try { acct = JSON.parse(raw); } catch (e) { return deny(); }
+  const got = await derive(word, unb64(acct.salt), acct.iterations || PBKDF2_ITERATIONS);
+  if (!sameHash(got, acct.hash)) return deny();
+  // The account row holds the token HASH, never the token — so a session cannot hand back a
+  // credential the account store does not have. Login returns the LIST, length 1 today (the chooser).
+  return json({ personId: acct.personId, needsToken: true,
+                estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] });
+}
+
 // ---- Every KV key carries the ESTATE (C5 6a/6b/6c, 2026-09-03) ----
 // `<estateId>:<kind>:<suffix>`. The estate comes from the ESTATE_ID binding — per
 // environment, non-inheritable, and a forgotten one THROWS (a Worker that cannot
@@ -2938,6 +3031,18 @@ export default {
       // had to move together or the fix attributes nothing.
       const fbGrant = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
       return handleFeedback(request, env, url, fbGrant);
+    }
+
+    // ---- ACCOUNTS: creating one cannot require a credential, so these sit above the gate ----
+    if (url.pathname === "/api/account" && request.method === "POST" && !authOk(request, env)) {
+      // ⚠️ DEV-ONLY DIAGNOSTIC: the message is surfaced so a 1101 is debuggable without a tail.
+      // ⛔ Must not survive into production — an error body is an oracle.
+      try { return await handleAccountCreate(request, env, scopeOf(env)); }
+      catch (e) { return json({ error: "account-failed", detail: String(e && e.message || e).slice(0, 300) }, 500); }
+    }
+    if (url.pathname === "/api/session" && request.method === "POST" && !authOk(request, env)) {
+      try { return await handleSession(request, env, scopeOf(env)); }
+      catch (e) { return json({ error: "session-failed", detail: String(e && e.message || e).slice(0, 300) }, 500); }
     }
 
     // C6 2a — door events, same write-only-no-token doctrine, its OWN bucket (a door
