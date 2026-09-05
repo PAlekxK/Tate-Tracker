@@ -159,7 +159,16 @@
     <label for="addr">Your address</label>
     <textarea id="addr" autocomplete="street-address" autocapitalize="words" spellcheck="false" enterkeyhint="done"></textarea>
     <button type="button" id="go2"><span class="tick">✓</span>That's it</button>
-    <p class="quiet">If it comes out wrong, it's easy to change later.</p>
+    <!-- ⭐ THE STANDING SHAPE FOR EVERY ASK (paul-stated 2026-09-05): under the box, say WHAT IT
+         IS FOR and THAT IT CAN CHANGE. "I like that we're always under the text box, when we ask
+         for information, clarifying that it can be changed later — and also clarify what it's used
+         for, as much as possible, in a clearer and user-friendly way that's reassuring."
+
+         ⛔ It has to stay TRUE. "Paul is the only other person who sees it" is the honest version
+         of a privacy line: the administrator DOES read what an estate's people write — that is the
+         AI boundary's own premise — so the copy says so plainly instead of implying nobody does.
+         And never call a thing changeable and then make changing it costly. -->
+    <p class="quiet">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul is the only other person who sees it, and you can change it any time.</p>
     <div class="trouble" id="trouble" hidden>
       <strong>That didn't save.</strong> Your words are still here — tap <em>That's it</em> once more.
       If it keeps refusing, tell Paul and nothing is lost.
@@ -179,6 +188,28 @@
     <p class="lede">Got it — that's everything we needed from you today.</p>
     <p>Now it's our turn. We'll build your place around that address: the weather where you actually are, what grows there, what's worth keeping an eye on.</p>
     <p class="soft">Paul will send you the next piece in a few days, with one more small question. Nothing to do until then.</p>
+    <button type="button" id="go3"><span class="tick">✓</span>See your place</button>
+  </section>
+
+  <!-- ── SCREEN 4 · HER PLACE, on day one ─────────────────────────────────────────
+         ⭐ paul-stated 2026-09-05: "when we give people a thank-you and say there's more
+         coming, let them at least go back to the current state of their dashboard. It could
+         be that this one time it's so-to-speak empty — but it's not empty, because there's a
+         message saying we're processing your input and personalizing all of your data."
+
+         So the flow does NOT dead-end on a thank-you. It hands her the thing she will come
+         back to, in the state it is actually in. That also answers the journey's highest-risk
+         stage — "how do I get back" — from the right side: she has already been there once.
+
+         ⛔ AND IT MUST NOT FAKE FULLNESS. Fernwood's standing rule is never to surface an
+         empty module; the answer here is not a placeholder grid or a skeleton loader, it is
+         ONE honest card that says what is happening. An empty dashboard reads as broken. A
+         dashboard with one true sentence reads as early. ─────────────────────────────── -->
+  <section id="s4" class="card" hidden>
+    <p class="lede">Your place, so far.</p>
+    <p id="s4addr" class="soft" hidden></p>
+    <p>We're putting it together now — taking what you told us and building everything around it. That's the weather where you actually are, what grows there, and what's worth a look each month.</p>
+    <p class="soft">There's nothing for you to do while we work. Paul will let you know when the next piece is ready.</p>
   </section>
 </main>
 
@@ -190,6 +221,7 @@
   // from, or strand a key on the app she already has. These two are the whole roster.
   var K_GRANT = "fw-grant";        // the presented credential — opaque, never decoded here
   var K_STEP  = "fw-onboard-step"; // so a reload does not re-ask something she already answered
+  var K_ADDR  = "fw-onboard-addr"; // echoed back on screen 4 — she sees her own words land
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into
@@ -210,11 +242,11 @@
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 
   var el = {};
-  ["s-wait", "s-nolink", "s1", "s2", "s3", "go1", "go2", "addr", "trouble", "head"]
+  ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "addr", "trouble", "head", "s4addr"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
-    ["s-wait", "s-nolink", "s1", "s2", "s3"].forEach(function (id) {
+    ["s-wait", "s-nolink", "s1", "s2", "s3", "s4"].forEach(function (id) {
       el[id].hidden = (id !== which);
     });
     window.scrollTo(0, 0);
@@ -233,7 +265,15 @@
   }
   var grant = read(K_GRANT);
 
-  function step(n) { store(K_STEP, String(n)); show("s" + n); }
+  function step(n) {
+    store(K_STEP, String(n));
+    if (n === 4) {
+      var a = read(K_ADDR);
+      el.s4addr.hidden = !a;
+      if (a) el.s4addr.textContent = a;
+    }
+    show("s" + n);
+  }
 
   if (!grant || !WORKER) { show("s-nolink"); return; }
 
@@ -245,7 +285,8 @@
     .then(function (who) {
       if (!who) { show("s-nolink"); return; }
       var at = read(K_STEP);
-      step(at === "3" ? 3 : at === "2" ? 2 : 1);
+      // Someone who has finished returns to her PLACE, not to the thank-you she already read.
+      step(at === "4" ? 4 : at === "3" ? 4 : at === "2" ? 2 : 1);
     })
     .catch(function () {
       // Offline is NOT a bad link, and must never be dressed as one.
@@ -256,6 +297,7 @@
     });
 
   el.go1.addEventListener("click", function () { step(2); el.addr.focus(); });
+  el.go3.addEventListener("click", function () { step(4); });
 
   el.go2.addEventListener("click", function () {
     var text = el.addr.value.trim();
@@ -268,18 +310,28 @@
     el.go2.disabled = true;
     el.go2.innerHTML = "Saving…";
 
+    // A short, stable fingerprint of the presented credential. Not a secret and not reversible
+    // into one — it exists only so the same person's answer lands on the same key twice.
+    var fp = 0, gv = read(K_GRANT) || "x";
+    for (var i = 0; i < gv.length; i++) { fp = ((fp << 5) - fp + gv.charCodeAt(i)) | 0; }
+    fp = (fp >>> 0).toString(36);
+
     fetch(WORKER + "/api/feedback", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        // A stable id makes a replayed tap idempotent rather than a duplicate row.
-        id: "onboard-address-" + (read(K_GRANT) ? "g" : "x") + "-" + Date.now().toString(36),
+        // ⭐ IDEMPOTENT ON THE CREDENTIAL, NOT THE CLOCK (gate-1 finding, 2026-09-05). The id
+        // used to carry Date.now(), so every submit was a NEW row: walking the flow twice —
+        // which a cleared browser or a second phone makes her do — left two address rows in the
+        // estate with nothing to say which was current. handleFeedback is idempotent on `id`, so
+        // deriving it from the grant makes a re-answer REPLACE rather than accumulate.
+        id: "onboard-address-" + fp,
         note: text,
         context: { type: "onboarding", field: "address", step: 2 }
       })
     })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-      .then(function () { step(3); })
+      .then(function () { store(K_ADDR, text); step(3); })
       .catch(function () {
         el.trouble.hidden = false;
         el.go2.disabled = false;
