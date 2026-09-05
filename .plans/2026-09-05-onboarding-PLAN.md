@@ -10,9 +10,11 @@
 - depends-on: .plans/2026-09-04-vocabulary-nicknames-PLAN.md
 - depends-on: .plans/2026-09-03-c6-door-for-paul-PLAN.md
 - depends-on: .plans/2026-09-04-three-environments-PLAN.md
-- ready: [paul-stated 2026-09-04 ~11:55 AM ET] — THE DEVELOPMENT GOAL authorises the work.
-  ⚠️ THIS PLAN FILE IS WRITTEN AFTER THE FACT (2026-09-05) and has NOT been stamped as a plan.
-  The work was on QA before it had an identity; that is the drift this file closes. **Paul rules.**
+- ready: [paul-approved 2026-09-05] — stamped in session, after reading it. THE DEVELOPMENT GOAL
+  [paul-stated 2026-09-04 ~11:55 AM ET] authorises the work itself.
+  ⚠️ The stamp does not rewrite the history: this file was still written AFTER the surface was already
+  deployed to QA, and closing that drift is what it is for. The gate-1 walk it records ran BEFORE the
+  stamp, not because of it.
 - stage: qa
 - wip-exception: this opens no new WIP. It gives an identity to work already deployed to QA, which
   under the ratified join key had nowhere to carry cascade state. Writing it lowers drift, not raises it.
