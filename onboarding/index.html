@@ -940,11 +940,26 @@
       method: "POST", headers: headers,
       body: JSON.stringify({ id: prefix + "-" + (fp >>> 0).toString(36), note: note, context: ctx })
     })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      // ⛔ THE REASON MUST SURVIVE. The catch below swallowed WHY, so an intermittent failure on
+      // 2026-09-05 could not be attributed after the fact — the leading explanation (eleven deploys
+      // landed while four walkers walked, and the edge does not update atomically) is plausible and
+      // unprovable, because nothing recorded the status. A failure a walk cannot describe is a
+      // failure nobody can fix. Console only: this is diagnostic, never her problem to read.
+      .then(function (r) {
+        if (r.ok) return r.json();
+        console.error("[fw-post] " + prefix + " HTTP " + r.status + " from " + WORKER);
+        return Promise.reject(r.status);
+      }, function (e) {
+        console.error("[fw-post] " + prefix + " transport failure: " + (e && e.message || e));
+        return Promise.reject("transport");
+      })
       .then(function (res) {
         // A 200 is not proof of a write. {stored:0, duplicate:true} means byte-identical words are
         // already on file, which counts. Anything else that stored nothing does not.
-        if (res && res.stored === 0 && !res.duplicate) return Promise.reject("not-stored");
+        if (res && res.stored === 0 && !res.duplicate) {
+          console.error("[fw-post] " + prefix + " stored:0 without duplicate — " + JSON.stringify(res));
+          return Promise.reject("not-stored");
+        }
         return res;
       });
   }

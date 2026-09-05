@@ -17,7 +17,7 @@ in the same run folder and are joined by the run id, never blended.
 Runs land in `.private/synthetic-walks/<role>/<timestamp>/` — private, because a walk carries the
 walker's invented address and the account's credentials are one file away.
 """
-import argparse, datetime as dt, glob, json, os, subprocess, sys
+import time, urllib.request, argparse, datetime as dt, glob, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORE = os.path.join(ROOT, ".private", "synthetic-identities.json")
@@ -41,6 +41,31 @@ def refresh(role, env):
     subprocess.run([sys.executable, os.path.join(ROOT, "tools", "synthetic-identity.py"),
                     "--login", role, "--env", env], capture_output=True, text=True, timeout=180)
     return identity(role, env)
+
+
+# ⛔ A WALK MUST NOT WALK A MOVING TARGET. On 2026-09-05 four walkers ran between 17:00 and 17:30
+# while eleven deploys went out — one walk started 2m29s after a deploy and finished before the next.
+# Cloudflare's edge does not update atomically (the bare host served the previous index.html for
+# minutes, measured the same night), so a walker could load one build and have its writes answered by
+# another. That produced an intermittent "didn't go through" nobody could reproduce afterwards, and it
+# is unfalsifiable after the fact: the walk records no build. So the build is READ AT THE START AND
+# RE-READ AT THE END, and a walk that straddled a deploy says so in its own transcript rather than
+# being quietly believed.
+def served_sha(env):
+    url = {"qa": "https://fernwood-qa.pages.dev", "lab": "https://fernwood-lab.pages.dev"}[env]
+    h = {"User-Agent": "Mozilla/5.0"}          # a UA-less request is 403'd at the edge, not by the Worker
+    try:
+        tok = json.load(open(os.path.join(ROOT, ".private", "cf-access-service-token.json")))
+        h["CF-Access-Client-Id"] = tok["CF_ACCESS_CLIENT_ID"]
+        h["CF-Access-Client-Secret"] = tok["CF_ACCESS_CLIENT_SECRET"]
+    except OSError:
+        pass
+    try:
+        req = urllib.request.Request(url + "/qa-build.json?cb=%d" % time.time(), headers=h)
+        with urllib.request.urlopen(req, timeout=30) as f:
+            return (json.loads(f.read()) or {}).get("sha")
+    except Exception:
+        return None
 
 
 def view(url, actions, shot):
@@ -111,7 +136,9 @@ def main():
     d = os.path.join(OUT, a.role, run)
     os.makedirs(d, exist_ok=True)
 
-    print("journey-walk — %s · run %s" % (a.role, run))
+    print("journey-walk — %s · run %s · origin %s" % (a.role, run, a.origin))
+    sha_before = served_sha(a.origin)
+    print("  build at start: %s" % (sha_before[:7] if sha_before else "⚠️ UNKNOWN — origin cannot say what it serves"))
     # The transcript records the ORIGIN it walked. A walk that cannot say where it ran cannot be
     # checked against the cascade, which is exactly how gate 1 ran in gate 2's environment unnoticed.
     record = {"role": a.role, "runAt": run, "origin": a.origin, "originUrl": base,
@@ -130,6 +157,22 @@ def main():
         record["stops"].append(dict(got, stop=name, status="walked"))
         first = next((l for l in got["screen"].splitlines() if l.startswith("PAGE TITLE")), "")
         print("  %-14s %5.1fs  %s%s" % (name, got["seconds"], first, "  ⛔ " + (got["error"] or "") if got["error"] else ""))
+
+    sha_after = served_sha(a.origin)
+    record["buildBefore"], record["buildAfter"] = sha_before, sha_after
+    if sha_before and sha_after and sha_before != sha_after:
+        record["contaminated"] = True
+        record["contaminatedWhy"] = ("the origin changed build mid-walk (%s → %s) — a deploy landed "
+                                     "while this walked, so screens may come from different builds"
+                                     % (sha_before[:7], sha_after[:7]))
+        print("\n  ⛔ CONTAMINATED — the origin changed build mid-walk (%s → %s)."
+              "\n     This walk is NOT evidence about either build. Re-run it." % (sha_before[:7], sha_after[:7]))
+    elif not (sha_before and sha_after):
+        record["contaminated"] = "unknown"
+        record["contaminatedWhy"] = "the origin could not report its build, so a mid-walk deploy is undetectable"
+        print("\n  ⚠️  build unverifiable — a mid-walk deploy could not have been detected.")
+    else:
+        record["contaminated"] = False
 
     with open(os.path.join(d, "transcript.json"), "w", encoding="utf-8") as f:
         json.dump(record, f, indent=2)

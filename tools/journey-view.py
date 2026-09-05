@@ -48,7 +48,11 @@ const cfg = JSON.parse(process.argv[2]);
   ctx.setDefaultTimeout(8000);
   if (cfg.cookie) await ctx.addCookies([Object.assign({}, cfg.cookie, { secure: true, httpOnly: true })]);
   const page = await ctx.newPage();
-  const out = { steps: [] };
+  const out = { steps: [], console: [] };
+  // A walk that cannot say WHY a write failed cannot attribute it later. Errors only —
+  // a full console dump buries the one line that matters.
+  page.on('console', (m) => { if (m.type() === 'error') out.console.push(m.text().slice(0, 300)); });
+  page.on('pageerror', (e) => out.console.push('PAGEERROR: ' + String(e).slice(0, 300)));
   try {
     await page.goto(cfg.url, { waitUntil: 'load', timeout: 45000 });
     await page.waitForTimeout(1200);
@@ -125,6 +129,10 @@ def main():
             print("  ⚠️  could not do %r — %s" % (s["action"], s.get("error")))
     sc = r["screen"]
     print("PAGE TITLE: %s" % sc["title"])
+    if data.get("console"):
+        print("CONSOLE ERRORS (the page's own diagnostics — why a write failed, not just that it did):")
+        for c in data["console"][:8]:
+            print("   " + c)
     print("ON SCREEN:")
     for t in sc["text"]:
         print("   %s" % t)
