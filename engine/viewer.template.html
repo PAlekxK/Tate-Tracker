@@ -6994,13 +6994,30 @@ const PAGES_WORKERS = {
 const PAGES_LABEL = /\.pages\.dev$/.test(location.hostname) ? location.hostname.split(".")[0] : null;
 const IS_PREVIEW_ORIGIN = PAGES_LABEL !== null;
 const PREVIEW_KNOWN = IS_PREVIEW_ORIGIN && Object.hasOwn(PAGES_WORKERS, PAGES_LABEL);
-const IS_QA_ORIGIN = PAGES_LABEL === "fernwood-qa";   // kept: existing readers below
 // An unrecognised preview host gets "" — every API call then resolves RELATIVE to the Pages
 // origin and 404s. It cannot reach any Worker, so it cannot write into any estate.
 const WORKER_BASE = IS_PREVIEW_ORIGIN
   ? (PREVIEW_KNOWN ? PAGES_WORKERS[PAGES_LABEL] : "")
   : "https://fernwood.paul-kirschenbauer.workers.dev";
-if (IS_PREVIEW_ORIGIN) {
+
+// ⛔ AN ENVIRONMENT NAME NEVER REACHES A READER (content-steward, 2026-09-04 — the same rule
+// VOCABULARY §2 states for `estate`). The first version of this block derived the tab marker
+// from the Pages project name by arithmetic, which meant a reader served from a preview origin
+// read "· QA" in her own browser tab — and "· UNKNOWN ORIGIN — NOT SAVING" if the host was not
+// recognised. Under the environments plan the person on the QA origin is MOM. A display string
+// computed from an infrastructure identifier leaves no literal to grep and no lint that can see
+// it, which is exactly why it survived review as a "safety fix".
+//
+// The marker is OPERATOR FURNITURE. It is ABSENT for a reader — never softened, never
+// translated: a warm rendering of "this is a test build" plants doubt in the one reader whose
+// documented fear is getting things wrong. Paul opts in once per device with ?operator=1.
+let IS_OPERATOR = false;
+try {
+  if (new URLSearchParams(location.search).get("operator") === "1") localStorage.setItem("fw-operator", "1");
+  IS_OPERATOR = localStorage.getItem("fw-operator") === "1";
+} catch (e) { IS_OPERATOR = false; }   // private mode / blocked storage → treat as a reader
+const SHOW_ENV_MARKER = IS_PREVIEW_ORIGIN && IS_OPERATOR;
+if (SHOW_ENV_MARKER) {
   document.title += PREVIEW_KNOWN ? " · " + PAGES_LABEL.replace("fernwood-", "").toUpperCase()
                                   : " · UNKNOWN ORIGIN — NOT SAVING";
 }
@@ -7008,7 +7025,7 @@ if (IS_PREVIEW_ORIGIN) {
 // (2026-09-03): he keeps the QA tab open while work lands, so the bar says which build he is
 // looking at and how old it is. /qa-build.json exists only in the QA export; a failed fetch
 // still shows the bar, saying so — a QA tab must never look like the live one.
-if (IS_PREVIEW_ORIGIN) {
+if (SHOW_ENV_MARKER) {
   (async () => {
     const bar = document.getElementById("qa-banner");
     if (!bar) return;
