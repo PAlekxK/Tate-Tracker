@@ -6981,14 +6981,34 @@
 // custom domain, a local file — talks to production. One predicate, three
 // endpoints below derive from it, and a visible title marker so a QA tab can
 // never be mistaken for the live one. Plan: .plans/2026-09-03-c4-environments-PLAN.md § 3b.
-const IS_QA_ORIGIN = /\.pages\.dev$/.test(location.hostname);
-const WORKER_BASE = IS_QA_ORIGIN ? "https://fernwood-qa.paul-kirschenbauer.workers.dev" : "https://fernwood.paul-kirschenbauer.workers.dev";
-if (IS_QA_ORIGIN) document.title += " · QA";
+// ⛔ NAMED HOSTS, NOT A SUFFIX TEST (2026-09-04). This was `/\.pages\.dev$/` — a BINARY
+// predicate — so the day a second preview project existed, every one of its page loads would
+// have talked to the QA Worker and written under QA's estate id. With QA becoming the estate
+// Mom sets up, that is her data. A new preview host must FAIL CLOSED, never inherit a
+// neighbour's Worker. Non-preview origins (GitHub Pages, a custom domain, a local file) are
+// untouched and still resolve to production.
+const PAGES_WORKERS = {
+  "fernwood-qa":  "https://fernwood-qa.paul-kirschenbauer.workers.dev",
+  "fernwood-lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+};
+const PAGES_LABEL = /\.pages\.dev$/.test(location.hostname) ? location.hostname.split(".")[0] : null;
+const IS_PREVIEW_ORIGIN = PAGES_LABEL !== null;
+const PREVIEW_KNOWN = IS_PREVIEW_ORIGIN && Object.hasOwn(PAGES_WORKERS, PAGES_LABEL);
+const IS_QA_ORIGIN = PAGES_LABEL === "fernwood-qa";   // kept: existing readers below
+// An unrecognised preview host gets "" — every API call then resolves RELATIVE to the Pages
+// origin and 404s. It cannot reach any Worker, so it cannot write into any estate.
+const WORKER_BASE = IS_PREVIEW_ORIGIN
+  ? (PREVIEW_KNOWN ? PAGES_WORKERS[PAGES_LABEL] : "")
+  : "https://fernwood.paul-kirschenbauer.workers.dev";
+if (IS_PREVIEW_ORIGIN) {
+  document.title += PREVIEW_KNOWN ? " · " + PAGES_LABEL.replace("fernwood-", "").toUpperCase()
+                                  : " · UNKNOWN ORIGIN — NOT SAVING";
+}
 // The QA banner — "QA · staging @ <sha> · updated <when ET> · <what>". Paul's review window
 // (2026-09-03): he keeps the QA tab open while work lands, so the bar says which build he is
 // looking at and how old it is. /qa-build.json exists only in the QA export; a failed fetch
 // still shows the bar, saying so — a QA tab must never look like the live one.
-if (IS_QA_ORIGIN) {
+if (IS_PREVIEW_ORIGIN) {
   (async () => {
     const bar = document.getElementById("qa-banner");
     if (!bar) return;

@@ -1823,7 +1823,10 @@ async function handleChat(request, env, auth) {
   // Paul, 2026-09-03: "a clean dollar fifty a day" — the ceiling is DOLLARS, priced per turn at the
   // model's published rates (CHAT_PRICES), so a cold-cache turn (~11¢) and a warm one (<1¢) count as
   // what they cost. `chat-budget:<date>` holds {usd, tokens, turns}.
-  const ceilingUsd = env.ENV_NAME === "qa" && env.CHAT_DAILY_BUDGET_USD ? parseFloat(env.CHAT_DAILY_BUDGET_USD) : null;
+  // ⛔ EVERY non-production env, not just "qa" (2026-09-04). This read `=== "qa"`, so a third
+  // environment would silently inherit PRODUCTION's no-ceiling behaviour — in the one place we
+  // hammer Guru hardest. Prod is unchanged: it declares no budget and still has no ceiling.
+  const ceilingUsd = env.ENV_NAME !== "production" && env.CHAT_DAILY_BUDGET_USD ? parseFloat(env.CHAT_DAILY_BUDGET_USD) : null;
   const budgetKey = ceilingUsd ? dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)) : null;
   if (ceilingUsd) {
     const b = await readBudget(env, budgetKey);
@@ -2844,7 +2847,7 @@ export default {
         kv_canary: kvCanary,
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
-        ...(env.ENV_NAME === "qa" && env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — QA only, in dollars
+        ...(env.ENV_NAME !== "production" && env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — any non-prod env, in dollars
           const b = await readBudget(env, dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)));
           return { used_usd: +b.usd.toFixed(4), ceiling_usd: parseFloat(env.CHAT_DAILY_BUDGET_USD), turns: b.turns, tokens: b.tokens, date: new Date().toISOString().slice(0, 10) };
         })() } : {}),
