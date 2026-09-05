@@ -87,3 +87,36 @@ differs. That retires the "option to add a property" as a yes/no step and replac
   **On production it is live**, because production is where private content would accumulate. Whose
   agreement covers Angel reading Mom's notes and Guru turns, and is it a new consent scope?
 - Does view-only mean everything a member sees, or a subset (notes · Guru turns · the vault)?
+
+
+---
+
+## ⛔⛔ THE CHOOSER CANNOT BE RENDERED AS RATIFIED `[practice-steward 2026-09-04; hub-verified]`
+
+The chooser Paul ratified — *log in, then be offered what your grants allow* — **cannot be built for
+a person who spans estates.** `worker.js` reads exactly ONE KV binding (`env.OBSERVATIONS`), and
+`wrangler.toml` declares that same single binding once per environment. **No deployment can read
+another deployment's silo.** Angel's grant at Fernwood lives in Fernwood's silo; her grant at her own
+place lives in that place's silo; **nothing can see both.**
+
+⛔ The obvious workaround is forbidden by Paul's own ruling four hours earlier: a person-level index
+across silos would be *"a second derivation that could disagree with"* the grant rows.
+
+### ⭐ IT DOES NOT BLOCK MOM
+She holds **one** grant, in the `home` deployment's own silo, which that deployment reads. Her
+chooser has exactly one entry and **her flow works today.** The limitation bites only when a person
+spans estates — Angel, not Mom.
+
+### Three requirements now converge on ONE engineering change
+Removing the instance↔deployment weld is needed by: Angel's chooser · *"she cannot create an estate
+if creating one means Paul deploying a Worker"* · practice-steward's `until`-not-`by-design` ruling,
+which until tonight had no driver.
+
+⚠️ **The cost is real.** Many estates per deployment means many estates per namespace — **the blast
+radius widens from one place to all of them.** Once estates share a silo, *"reset the environment"*
+stops being safe; only delete-by-prefix is. **Backup granularity must move to the prefix at the same
+time as the weld comes out, never after.** ⚠️ Unverified: whether `wrangler kv` offers per-prefix
+delete/restore as a primitive.
+
+**A Paul decision, not a technicality:** is a widened blast radius an acceptable price for self-serve
+estate creation?
