@@ -120,3 +120,64 @@ delete/restore as a primitive.
 
 **A Paul decision, not a technicality:** is a widened blast radius an acceptable price for self-serve
 estate creation?
+
+---
+
+## ⭐⭐ THE HIERARCHY IS RELATIVE TO THE VIEWER, AND THE THING GRANTED IS NOT ALWAYS A PLACE `[paul-stated 2026-09-05 ~3 AM ET]`
+
+> *"It says 'what's the address of your condo' — realistically, if someone's going through the flow
+> there's not going to be any indication or promise that it's a condo versus whatever. So we'll
+> eventually have to think of a way to normalize around that, because in theory someone should be
+> able to add a car there, or a property, or a condo — I'd like to build in the flexibility that they
+> can add an individual appliance there, if possible.*
+>
+> *That boils back down to the theory we talked about, about different individuals having a login and
+> then being presented with a menu of different options, which are at different hierarchies based on
+> who logged in. So Mom may see, when she logs in, Fernwood with the vehicle nested under it — that's
+> a level up. For someone else when they log in, they just see that vehicle, not nested under a
+> property. That's just a generic example to demonstrate the logic."*
+
+**Two claims, and the second is the structural one.**
+
+### 1 · The thing a person adds is a NODE, not necessarily a place
+Property · vehicle · appliance are all candidates. The onboarding surface must therefore presume no
+type — the word *condo* has been removed from `onboarding/index.html` for exactly this reason (it was
+a first-instance leak into an `engine` surface, the same defect class as the Fernwood green that page
+already had to shed). ⚠️ **The type question belongs one step EARLIER than the address** — *what are
+you adding?* — and that step does not exist. Note that an address is the right first question for a
+place and the **wrong** first question for a car, so this is not cosmetic: the first-run sequence
+branches on a type we currently never ask for.
+
+### 2 · ⭐ EACH PERSON'S TREE IS ROOTED AT THEIR OWN GRANTS
+The same vehicle is *nested under Fernwood* for Mom and *a top-level thing* for someone whose grant is
+on the vehicle alone. **There is no single global hierarchy — there is one tree per viewer, and its
+roots are exactly that person's grant rows.**
+
+⭐ **This does not contradict the ratified model; it is that model, generalized.** §3e already says a
+person's estates are exactly the grant rows minted for them, and the chooser is *"a render of grant
+rows, not a branch per person… there is no second derivation to go wrong."* Paul's example replaces
+**estate** with **node** in that same sentence and it still holds. The invariant survives intact:
+**membership confers nothing, and containment confers nothing either** — holding Fernwood does not
+imply holding the vehicle inside it, and holding the vehicle implies nothing about Fernwood.
+
+⚠️ **What it DOES cost, stated plainly.** Three things in running code assume the granted thing is an
+estate and that an estate is the addressing root:
+- `grantFor()` refuses a row whose `estateId` differs from the deployment binding — one deploy, one
+  estate (`worker.js`).
+- Every KV key is `<estateId>:<kind>:<suffix>`. A grant on a vehicle *inside* an estate has no key
+  shape today.
+- `tools/grant-mint.py` mints against `--estate`, and its new G3 gate asserts the estate matches the
+  environment's binding.
+
+So this lands on **the same instance↔deployment weld** the three converging requirements above
+already name. It is now a **fourth** driver, and the sharpest, because it changes what a grant POINTS
+AT rather than only how many of them one deployment can see.
+
+⛔ **NOT SCOPED. NOT STARTED.** Captured on Paul's own framing — *"something to consider as we build,
+in that we want all this flexibility"* — and deliberately not designed at 3 AM. The immediate,
+already-shipped consequence is only the removal of the presumed type from the onboarding copy.
+
+⚠️ **One thing to settle before anyone builds it,** because it is cheap now and expensive later:
+whether a node's *containment* is a property of the node (the vehicle knows it sits at Fernwood) or of
+the grant (a person's grant says where their view is rooted). Those look identical at n=1 and diverge
+the moment two people see the same vehicle at different depths — which is precisely the example above.
