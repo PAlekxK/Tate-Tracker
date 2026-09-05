@@ -65,6 +65,14 @@ TOOL_GLOBS = ("check-*.py", "read-*.py", "test-feedback-cycle.py",
 NOT_IN_LOOP = {
     "check-domains.py": "domain-contract check — the record's structure, not her feedback",
     "check-cycle-map.py": "this file; it documents the map, it is not a loop leg",
+    # ⛔ The RELEASE CASCADE's gate 1, not a leg of the mom cycle. Naming these in MOM-CYCLE-MAP.md
+    # to silence the flag would forge a loop step that does not exist — a worse defect than the flag,
+    # because the map is what a later reader trusts about the loop's shape.
+    # (practice-steward, .plans/2026-09-05-journey-test-cycle-PROPOSAL.md §0.2)
+    "journey-logic.js": "gate-1 journey walk (bare logic) — release cascade, not the mom loop",
+    "journey-logic.py": "gate-1 journey walk (bare logic) — release cascade, not the mom loop",
+    "journey-view.py": "gate-1 journey walk (receiving side) — release cascade, not the mom loop",
+    "palette.py": "estate accent palette + its contrast guard — engine config, not a loop leg",
 }
 
 LEGS = ["GUARD", "READ", "TRIAGE", "RESOLVE", "EXPERT", "SHIP", "GATE", "CLOSE"]
