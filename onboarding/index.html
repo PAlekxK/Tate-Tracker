@@ -106,7 +106,20 @@
   .soft { color: var(--ink-soft); }
   .quiet { font-size: .92rem; color: var(--ink-soft); margin-top: 16px; }
 
-  label { display: block; font-weight: 500; margin-bottom: 10px; }
+  label { display: block; font-weight: 500; margin-bottom: 7px; font-size: .97rem; }
+  .field { margin-bottom: 14px; }
+  .row2 { display: flex; gap: 10px; }
+  .row2 .field { flex: 1; margin-bottom: 14px; }
+  .row2 .field.state { flex: 0 0 34%; }
+  input, select {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; font-family: inherit; font-size: 1.04rem; line-height: 1.4; color: var(--ink);
+    padding: 13px 14px; min-height: 52px;
+    border: 1.5px solid var(--edge); border-radius: 13px; background: #fbfcfd;
+  }
+  select { background-image: none; }
+  input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(63,82,102,.18); }
+  .optional { font-weight: 400; color: var(--ink-soft); }
   textarea {
     width: 100%; min-height: 108px; resize: vertical;
     font-family: inherit; font-size: 1.04rem; line-height: 1.45; color: var(--ink);
@@ -184,32 +197,58 @@
          typed field." So there is exactly one, and it is a textarea rather than an
          input so a two-line address does not scroll sideways under her thumb. ────── -->
   <section id="s2" class="card" hidden>
-    <!-- ⭐ NO TYPE IS PRESUMED `[paul-stated 2026-09-05]`: "it says 'what's the address of your
-         condo' — realistically, if someone's going through the flow there's not going to be any
-         indication or promise that it's a condo versus whatever. In theory someone should be able to
-         add a car there, or a property, or a condo, or an individual appliance."
-         "condo" was a leak from the first instance into an `engine` surface — the same defect class as
-         the Fernwood green this page already had to shed. The word is simply removed rather than
-         swapped for a different guess; the type question belongs one step EARLIER (what are you
-         adding?), which does not exist yet. See the roles-and-access requirement, § viewer-relative
-         hierarchy. -->
-    <p class="lede">Where is it?</p>
-    <p class="soft">However you'd normally write the address.</p>
-    <label for="addr">Your address</label>
-    <textarea id="addr" autocomplete="street-address" autocapitalize="words" spellcheck="false" enterkeyhint="done"></textarea>
-    <button type="button" id="go2"><span class="tick">✓</span>That's it</button>
-    <!-- ⭐ THE STANDING SHAPE FOR EVERY ASK (paul-stated 2026-09-05): under the box, say WHAT IT
-         IS FOR and THAT IT CAN CHANGE. "I like that we're always under the text box, when we ask
-         for information, clarifying that it can be changed later — and also clarify what it's used
-         for, as much as possible, in a clearer and user-friendly way that's reassuring."
+    <!-- ⭐ STRUCTURED FIELDS, NOT A TEXTAREA `[paul-stated 2026-09-05]`: "I do wonder if it's
+         beneficial here — and on the way to our USPS API verification — if we just use a general
+         formed input address rather than just a big text box: address line 1, 2, city, state, all
+         that as separate fields."
 
-         ⛔ It has to stay TRUE. "Paul is the only other person who sees it" is the honest version
-         of a privacy line: the administrator DOES read what an estate's people write — that is the
-         AI boundary's own premise — so the copy says so plainly instead of implying nobody does.
-         And never call a thing changeable and then make changing it costly. -->
+         Two reasons it is right, and the second is the one that overturns the research objection:
+         ① USPS Addresses v3 takes structured COMPONENTS, so a blob would have to be parsed, and
+           blob-parsing is exactly where a unit number gets silently dropped.
+         ② ⭐ AUTOFILL. With real `autocomplete` tokens, iOS and Chrome offer the whole address from
+           her contact card in ONE TAP. The onboarding journey names "a form with more than one typed
+           field" as the killer at this stage — but that finding is about many UNRELATED asks. An
+           address form is the most conventional form on the internet, and the autofill path means
+           this is plausibly LESS typing than a blank box, not more. It is a testable claim, and
+           gates 1 and 2 are where it gets tested.
+
+         ⛔ FIELD-CLARITY IS ATTACHED TO THE ASK, NOT TO EVERY INPUT. Paul's rule is that every field
+         says what it is for, how it is not used, and who sees it. Applied literally to five inputs
+         that would be a wall of text for a reader whose measured depth-2 engagement is zero. Nobody
+         needs "City" explained; what needs explaining is what the ADDRESS is for. So the disclosure
+         sits once, under the group. -->
+    <p class="lede">Where is it?</p>
+    <p class="soft">If your phone offers to fill this in, take it — it's quicker.</p>
+
+    <div class="field">
+      <label for="a1">Street address</label>
+      <input id="a1" type="text" autocomplete="address-line1" autocapitalize="words" enterkeyhint="next">
+    </div>
+    <div class="field">
+      <label for="a2">Apartment or unit <span class="optional">— if you have one</span></label>
+      <input id="a2" type="text" autocomplete="address-line2" autocapitalize="words" enterkeyhint="next">
+    </div>
+    <div class="field">
+      <label for="city">City</label>
+      <input id="city" type="text" autocomplete="address-level2" autocapitalize="words" enterkeyhint="next">
+    </div>
+    <div class="row2">
+      <div class="field state">
+        <label for="state">State</label>
+        <input id="state" type="text" autocomplete="address-level1" autocapitalize="characters"
+               maxlength="2" enterkeyhint="next" placeholder="GA">
+      </div>
+      <div class="field">
+        <label for="zip">ZIP code</label>
+        <input id="zip" type="text" autocomplete="postal-code" inputmode="numeric"
+               maxlength="10" enterkeyhint="done">
+      </div>
+    </div>
+
+    <button type="button" id="go2"><span class="tick">✓</span>That's it</button>
     <p class="quiet">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul is the only other person who sees it, and you can change it any time.</p>
     <div class="trouble" id="trouble" hidden>
-      <strong>That didn't save.</strong> Your words are still here — tap <em>That's it</em> once more.
+      <strong>That didn't save.</strong> Your answers are still here — tap <em>That's it</em> once more.
       If it keeps refusing, tell Paul and nothing is lost.
     </div>
   </section>
@@ -281,7 +320,8 @@
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 
   var el = {};
-  ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "addr", "trouble", "head", "s4addr"]
+  ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
+   "a1", "a2", "city", "state", "zip"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
@@ -335,38 +375,52 @@
       show("s-nolink");
     });
 
-  el.go1.addEventListener("click", function () { step(2); el.addr.focus(); });
+  el.go1.addEventListener("click", function () { step(2); el.a1.focus(); });
+
+  // Her words, per field, exactly as typed. Nothing is cleaned at capture — a standardisation is a
+  // SUGGESTION she confirms (Paul's address-validation ruling), and it is not built yet.
+  function parts() {
+    return {
+      line1: el.a1.value.trim(),
+      line2: el.a2.value.trim(),
+      city:  el.city.value.trim(),
+      state: el.state.value.trim().toUpperCase(),
+      zip:   el.zip.value.trim()
+    };
+  }
+  function composed(p) {
+    var street = p.line1 + (p.line2 ? ", " + p.line2 : "");
+    return street + "\n" + p.city + ", " + p.state + " " + p.zip;
+  }
   el.go3.addEventListener("click", function () { step(4); });
 
   el.go2.addEventListener("click", function () {
-    var text = el.addr.value.trim();
-    if (!text) { el.addr.focus(); return; }
+    var p = parts();
+    // The four required fields. ⛔ The message names WHAT IS MISSING and never scolds — this reader's
+    // documented fear is getting things wrong, so an error that reads as a verdict is the expensive
+    // kind. `line2` is genuinely optional and is never asked about.
+    var need = [];
+    if (!p.line1) need.push("the street address");
+    if (!p.city)  need.push("the city");
+    if (!p.state) need.push("the state");
+    if (!p.zip)   need.push("the ZIP code");
+    if (need.length) {
+      el.trouble.hidden = false;
+      el.trouble.innerHTML = "Still needs " + (need.length === 1 ? need[0]
+        : need.slice(0, -1).join(", ") + " and " + need[need.length - 1]) + ".";
+      (!p.line1 ? el.a1 : !p.city ? el.city : !p.state ? el.state : el.zip).focus();
+      return;
+    }
 
-    // ⛔ CAPTURE MUST NOT LIE (CLAUDE.md, the 2026-07-15 loss). She is told it landed only after
-    // the Worker says it landed. On failure her words stay in the box and the button stays live —
-    // a flow that thanks her for something it dropped is the one failure her surfaces forbid.
+    var text = composed(p);
     el.trouble.hidden = true;
     el.go2.disabled = true;
     el.go2.innerHTML = "Saving…";
 
-    // ⭐⭐ THE FINGERPRINT COVERS THE CREDENTIAL **AND THE ANSWER** — and the second half is the
-    // load-bearing one. Caught in gate 1's own re-walk, 2026-09-05.
-    //
-    // `handleFeedback` is idempotent on `id`, and idempotent here means DISCARD: a matching id
-    // returns `{stored: 0, duplicate: true}` with HTTP 200 and never touches the stored row. So an
-    // id keyed on the credential ALONE — which is what the first pass at this fix did — makes her
-    // first answer permanent and every correction a silent no-op. The page would have said
-    // "saved", advanced her to the thank-you, and thrown the correction away.
-    //
-    // That breaks the two rules this surface exists to keep. Capture must not lie (the 2026-07-15
-    // loss). And "everything is changeable" carries its own caveat — never call a thing changeable
-    // and then make changing it costly — while the line directly under this box promises her, in
-    // her own words, that she can change it any time.
-    //
-    // With the ANSWER in the fingerprint: a genuine replay of the same words dedups (which is what
-    // the outbox needs), and different words are a different id, so a correction LANDS as a new
-    // row. Her earlier words are never overwritten — this repo stores verbatim and keeps history;
-    // the newest row by `ts` is the current one.
+    // ⭐ IDEMPOTENT ON THE CREDENTIAL **AND THE ANSWER** — see the 2026-09-05 finding. `handleFeedback`
+    // discards a matching id rather than replacing it, so an id keyed on the credential alone would
+    // make her first answer permanent and every correction a silent no-op. With the answer in the
+    // fingerprint, a replay dedups and a correction lands.
     var gv = (read(K_GRANT) || "x") + "\u0000" + text;
     var fp = 0;
     for (var i = 0; i < gv.length; i++) { fp = ((fp << 5) - fp + gv.charCodeAt(i)) | 0; }
@@ -376,28 +430,24 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        // ⭐ IDEMPOTENT ON THE CREDENTIAL, NOT THE CLOCK (gate-1 finding, 2026-09-05). The id
-        // used to carry Date.now(), so every submit was a NEW row: walking the flow twice —
-        // which a cleared browser or a second phone makes her do — left two address rows in the
-        // estate with nothing to say which was current. handleFeedback is idempotent on `id`, so
-        // deriving it from the grant makes a re-answer REPLACE rather than accumulate.
         id: "onboard-address-" + fp,
         note: text,
-        context: { type: "onboarding", field: "address", step: 2 }
+        // The COMPONENTS ride along, because USPS Addresses v3 takes structured parts and parsing a
+        // blob back apart is where a unit number gets silently dropped.
+        context: { type: "onboarding", field: "address", step: 2, parts: p, verified: false }
       })
     })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
       .then(function (res) {
-        // A 200 is not proof of a write. `{stored: 0, duplicate: true}` means the Worker kept what
-        // it already had — which, now that the id covers the answer, can only happen when the words
-        // are byte-identical to what is already on file. That is genuinely recorded, so it counts.
-        // Anything else that stored nothing does NOT, and must not be dressed as success.
+        // A 200 is not proof of a write. `{stored:0, duplicate:true}` means byte-identical words are
+        // already on file, which counts. Anything else that stored nothing does not.
         if (res && res.stored === 0 && !res.duplicate) return Promise.reject("not-stored");
         store(K_ADDR, text);
         step(3);
       })
       .catch(function () {
         el.trouble.hidden = false;
+        el.trouble.innerHTML = "<strong>That didn't save.</strong> Your answers are still here — tap <em>That's it</em> once more. If it keeps refusing, tell Paul and nothing is lost.";
         el.go2.disabled = false;
         el.go2.innerHTML = '<span class="tick">✓</span>That\'s it';
       });
