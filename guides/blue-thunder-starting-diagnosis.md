@@ -350,6 +350,53 @@ Append a row per incident or test. **An empty row is not a passing test.**
 
 ---
 
+## 🧨 TWO WEEKS OF REPAIR MODE HAVE ALREADY BEEN RUN — `paul-stated 2026-09-04`
+
+*"I've put it on repair mode multiple times over the past two weeks, and it's done the pulse
+treatment and the sulfurization and all that. I've switched modes up and tried to recharge it. So I
+don't think just switching modes will fix the option because I've tried that."*
+
+**He is right, and this retires the fix proposed one section above before it was ever tried.** The
+"chronic partial charging on the wrong profile" candidate assumed the AGM profile was *untried*. It
+was not. **Mode is not the untested variable.** Struck.
+
+### What this DOES and DOES NOT establish — the two are easy to run together and they are not the same
+
+✅ **The rescue routes are spent.** Repeated desulfation, mode changes and recharges across two weeks
+have not changed the behaviour. Whatever is wrong is **not going to be charged out of it.** As a
+practical matter that is settled, and it is the part that governs what to do next.
+
+⛔ **But it is NOT proof the battery is unrecoverable, and the reason matters:** *pulse desulfation
+is of contested efficacy.* A treatment that may do nothing, doing nothing, is **not a valid negative
+test** — it fails to distinguish *"the battery cannot be recovered"* from *"the treatment was inert."*
+**Do not let a failed rescue be promoted into a diagnosis.** It removes an option; it does not supply
+a finding. *(Same discipline as the manual and the charger display: the container ran, the payload
+was never verified.)*
+
+### ⚠️ AND A NEW RISK, POINTING AT THE TREATMENT ITSELF
+
+**Desulfation modes work by applying elevated-voltage pulses** — commonly well above the 13.0–16.0 V
+band this file already flags as the point where a regulator is *"cooking the battery."* **A sealed
+AGM cannot replace electrolyte it gasses off.** So **two weeks of repeated REPAIR cycles on a sealed
+AGM is a candidate CONTRIBUTOR to its decline, not only a failed rescue of it.**
+
+⛔ **Recommendation: stop running REPAIR mode on this battery.** It has had its chances, the upside is
+unproven, and the downside is a mechanism this file already names elsewhere. ⚠️ Hypothesis, not a
+verdict — nothing here is measured, and the pulse voltage of this unit is unknown.
+
+### ⭐⭐ THE QUESTION IS NOT WHICH MODE. IT IS **HOW LONG.**
+
+Every charge in this record terminates fast — *"pretty much full after 15 minutes."* **If it declares
+full in fifteen minutes in EVERY mode, then mode was never the variable, and the fast termination is
+a PROPERTY OF THE BATTERY rather than a setting on the charger.** A pack whose terminal voltage jumps
+to the cutoff almost immediately is describing **high internal resistance** — which is the same thing
+the settled 12.60 hints at, arrived at from a second direction.
+
+👤 **The one open question worth Paul's memory:** *across all those attempts, did any single charge
+ever run for HOURS rather than minutes?* Not which mode — **how long.** If the honest answer is that
+none of them ever ran long, **this battery has never once been full in this record's memory**, and
+that is a finding rather than an oversight.
+
 ## 🔁 THE CHARGER WAS IN **STD** MODE — `paul-stated 2026-09-04` — and it reframes the day
 
 **It was never on AGM/GEL.** A 6 Ah sealed AGM was charged on the STANDARD (car) profile. Three
@@ -419,20 +466,54 @@ now would burn the charge and produce an uninterpretable result.
 point, not a contradiction.** That instruction was correct while the voltage was still falling — the
 settled number was the thing at risk, and it was taken. **We have it. The question has moved.**
 
-**THE ORDER NOW:**
+**THE ORDER NOW — ⚠️ SUPERSEDED THE SAME DAY, see the box below. Kept because the reasoning still
+holds and only the priority changed.**
 
-1. **Recharge on `AGM/GEL`** — the mode this battery has apparently never had. If the unit lets you
-   choose current independently, take the **low / motorcycle** rate: 0.6–1.8 A for a 6 Ah battery.
-2. **Let it run for HOURS, and do not believe an early "full."** Bulk ends around 80%; absorption is
-   the part that actually fills it and it cannot be hurried. Give it 4+ hours, or simply leave it.
-   ⭐ **Note the time it goes on and the time you take it off** — this is the first properly-charged
-   baseline this bike will have, and undated it is worth much less.
-3. **Charger fully OFF, then rest ≥1 hour — overnight is better.** EM830 on the posts.
-   **≥12.8 V = the battery was never the problem, the charging of it was. Still ~12.6 = the capacity
-   really is gone**, and that is a measurement rather than a suspicion.
-4. **T4 comes free** if it rests overnight — read it again in the morning before touching anything.
+1. ~~**Recharge on `AGM/GEL`**~~ — **STRUCK: already tried** (`paul-stated`, see the REPAIR MODE
+   section above). Mode is not the untested variable.
+2. **Let it run for HOURS, and do not believe an early "full."** ⭐ **This half SURVIVES and is now
+   the open question** — bulk ends ~80%, absorption is what actually fills it and cannot be hurried.
+   Note the time on and the time off.
+3. **Charger fully OFF, rest ≥1 hour — overnight better.** EM830 on the posts. ≥12.8 V = the battery
+   was never the problem; still ~12.6 = the capacity is gone, measured rather than suspected.
+4. **T4 comes free** if it rests overnight — read it again before touching anything.
 5. **THEN T2b**, from a genuinely full battery, where its ladder finally means something.
-6. **T3 off the back of it** while she is running — still the decisive test, still never measured.
+6. **T3** while she is running.
+
+---
+
+# 🎯 STOP TREATING THE BATTERY. RUN T3. — the standing next action as of 2026-09-04 evening
+
+**T3 has been called "the decisive test" and "the next test to run" since 2026-08-30, and across five
+days and three sessions it still has not been run.** Everything else has been.
+
+⭐⭐ **T3 IS THE ONLY TEST IN THIS FILE WHOSE VALIDITY DOES NOT DEPEND ON THE BATTERY'S CONDITION.**
+T1, T2b and T4 all ask *"how good is this battery?"* and every one of them has been confounded today
+by not knowing how full it was. **T3 asks a different question — is the bike putting charge back? —
+and a 75%-charged battery answers it exactly as well as a new one would.** That is why it keeps
+coming out on top however the battery evidence moves, and it is why it should have been first.
+
+**And it is the only test whose result changes what you BUY.**
+
+| T3 result | what it means | what to do |
+|---|---|---|
+| **13.0–16.0 V at ~5 000 r/min** | charging system is fine | the battery is the fault. **Replace it** — the evidence is already sufficient and the rescue routes are spent. |
+| **~12.3 V, no climb from stopped → 5 000** | **she is not charging at all** | ⛔ **do not buy a battery yet** — a new one dies exactly the same way. Fix the charging system first. This single result explains the entire record. |
+| **above 16 V** | regulator/rectifier failing | it has been **cooking** the battery — which would also explain why an AGM aged out early. Fix before replacing. |
+
+**⏱ RUN IT NOW, WHILE SHE STILL HAS THE CHARGE TO START.** She is at ~75%, which started her three
+times on 8/30. Every day spent treating the battery spends that margin — and if she gets too flat to
+start, T3 becomes hard to run at all.
+
+**How, in one pass:**
+1. Meter on the posts, **20 V DC**, and leave it clipped there.
+2. ⭐ **Set MIN/MAX hold if the EM830 has it** — then you can rev with both hands and read the peak
+   afterwards, instead of needing a second person.
+3. Read **stopped** → write it down. Start her, read at **idle** → write it down. Hold **~5 000 r/min**
+   for a few seconds → write it down. **Three numbers. What you are reading is whether it CLIMBS.**
+4. Then **ride her 20 minutes at 3 000+ r/min** — the only thing that actually puts charge back, and
+   it doubles as the recharge the next test wants.
+
 
 ---
 
