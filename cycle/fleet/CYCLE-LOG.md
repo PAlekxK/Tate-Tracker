@@ -13,6 +13,11 @@ State artifact: `cycle/fleet/cycle-state.json` · map: `CYCLE-MAP.md` beside thi
 > Fernwood work. The 6 inbox rows keep their place in `cycle/requests.jsonl`; nothing is refused or lost.
 > Terms + release condition: `BACKLOG.md` § FOCUS FREEZE. ⛔ `fleet_probe.py` has no HELD phase; read its
 > FIRED against this note.
+>
+> ⚡ **RELEASED 2026-09-05 — Paul opened lap 3 himself** (*"launch a fleet cycle… focusing on the 200"*), standing
+> at the machine with a meter. The release condition on a hold like this was always his word, and he gave it.
+> **Lap 3 is below and is CLOSED.** ⛔ The freeze on the PROD PUSH is a different thing and is still on — this
+> note released the loop, not the deploy. Kept rather than deleted so the two are not read as one.
 <!-- meta-lap: 2026-09-02 -->
 <!-- meta-lap: 2026-09-03 -->
 > **2026-09-03 — META, not a lap.** The repo moved 80+ commits today and this loop did not run: the second
@@ -28,6 +33,129 @@ State artifact: `cycle/fleet/cycle-state.json` · map: `CYCLE-MAP.md` beside thi
 > fired:** it still rests on HER input. Recorded per `cycle-docs-check.py`, so a chronicle silent
 > beside a moving repo is not read as a lap that went unrecorded.
 
+
+## Lap 3 — 2026-09-05 · ✅ **CLOSED** — the first in-band measurement, and a door that could not see the row filed at it
+
+**`lap_count` 2 → 3.** Closed the same day it opened, on Paul's word, with the battery thread
+disposed and two rows carrying a dated next-look instead of an open-ended flag.
+
+### ⭐ WHAT THIS LAP ACTUALLY PRODUCED — the first REAL measurements in six days
+
+**T4 ran and PASSED** (12.64 → 12.55 over 12 h 39 m, −0.09 V), which retires T5 and, more
+importantly, **breaks the ambiguity the whole file was built to break**: she holds voltage and
+cannot deliver current. It also **resolves the 09-01 "did not survive one night" entry**, which
+was inferred from a failed start with no meter — one mechanism, not two.
+
+**The battery was identified off its own label** — `XTAX7L-BS`, Xtreme / Ascent / © Batteries
+Plus, **Made in Vietnam**, dry-charge by its own back panel. The record's `YTX7L-BS` was the JIS
+size group, never this battery's part number.
+
+### 👤 BEAT 6 · RECORD — Paul's gate RAN, and it reversed a standing instruction
+
+**`paul-decided`: REPLACE THE BATTERY.** He asked to be shown whether that made sense against the
+full history rather than being told. It does: five lines converge, **two of them alternator-
+independent**, so T3 could never have changed the verdict on the battery.
+
+⭐ **The gate did not disappear, it INVERTED.** On 09-04 she could still start, so T3 was free and
+buying was a guess → *test first*. Today she cannot start, so **the battery is the cheapest way to
+unblock T3** → *buy first, run T3 on the first ride.* **The order reversed; the gate stands.**
+
+### ⛔ WHAT THIS LAP DELIBERATELY DID NOT DO
+
+- **Beat 3 · INTAKE did not run.** 8 rows sit unread in `cycle/requests.jsonl`. The probe will
+  stay **FIRED on INBOX** after this close, and that is correct rather than a defect — this was a
+  human-triggered lap on one machine, not an inbox drain. Do not read the FIRED line as this lap
+  failing to close.
+- **Beat 1 · FIELD ran once and was immediately useful in the negative.** A tier-C forum claim
+  (Xtreme = East Penn/Deka) was carried as a question, then **falsified within three hours by the
+  words moulded on the battery's own back panel.** ⭐ The quarantine earned its keep by being
+  *wrong out loud* rather than by being right.
+- **No expert seats.** Declared absent, as the map says.
+
+### 🎯 CARRIED FORWARD — three items, and each one names what closes it
+
+| # | item | closes on |
+|---|---|---|
+| 1 | **T3 — charging output** | the first ride on the new battery. **Unclip the jump pack before reading.** `nextLook 2026-09-12` |
+| 2 | **Battery age / provenance** | a Batteries Plus purchase-history lookup by phone — Canton #969 (770) 609-3111. **An order number, not another ask.** `nextLook 2026-09-12` |
+| 3 | 👤 **Was the 9.41 V read with the button HELD or after RELEASE?** | one sentence from Paul. Recorded as open rather than guessed. |
+
+### Beat 7 · AMEND — pre-registered before the lap, honoured after
+
+**Pre-registered metric:** *does a lap that opens on a human trigger, with the probe's own signals
+pointing elsewhere, still produce a disposable finding?* → **yes, and it produced the file's first
+in-band measurement.** The trigger being human rather than the probe cost nothing.
+
+**Amendments, Paul rules, none applied:**
+
+1. ⭐ **LAP 1'S AMENDMENT 2 IS NOW APPLIED, AND SHOULD BE MADE PART OF THE SIGNAL.** That lap
+   proposed letting a physical check be *scheduled* with a dated next-look so STALE-OPEN can rest
+   without a schedule masquerading as an answer. Two rows now carry `nextLook`. **`fleet_probe.py`
+   should read it** — today it does not, so the field is documentation rather than a control.
+2. ⭐⭐ **THE CONTAINER/PAYLOAD CONFUSION HAS NOW HAPPENED THREE TIMES IN THIS ONE FILE** — the
+   DR200SE manual, beat 0's `doorLabel` resolver, and today `YTX7L-BS` read as an identity when it
+   is a size group. **Proposal:** `vehicle-brief.py --check` already scans for a URL-as-a-source;
+   add a scan for **spec-group strings sitting in identity fields**. The three instances share one
+   shape and only one of them was caught by a control.
+3. ⚠️ **A model read of a photograph did real work this lap, and the guard held.** Every voltage
+   above is graded, the delta rather than the endpoints carries T4, and the one figure that became
+   load-bearing (9.41) is Paul's own words. **Nothing was folded on a photo alone** — but the
+   volume of photo-derived material is rising, and the rule's next test will be a lap where Paul
+   is not standing next to the machine to correct it.
+
+---
+
+### (the opening note this lap was filed under, kept for the trail)
+
+**Not closed.** Beat 6 is Paul's gate and it has not run. `lap_count` stays 2 until it does.
+
+**Probe on opening:** `FIRED — SEASON, INBOX` (42d to first frost with the fall put-away open on
+two machines · 8 unread rows). PROVENANCE and STALE-OPEN resting.
+
+**Beat 0 · BRIEF** — `vehicle-brief.py "the 200"` → `dr200s-2017`, score 6, no tie. ⭐ **The lap-2
+aliases fix holds:** the same class of loose phrase that resolved to `bronco-1989` in lap 2 now
+lands on the right machine first.
+
+**Beat 4 · VERIFY — the physical reads actually happened**, which is what this loop has been
+waiting on for six days. Three meter photographs, EXIF-timestamped:
+
+| ET | reading | grade |
+|---|---|---|
+| 09-04 21:07:13 | 12.64 V | `[photo-MODEL-READ, UNVERIFIED]` |
+| 09-05 09:46:19 | 12.55 V | `[photo-MODEL-READ, UNVERIFIED]` |
+| 09-05 09:46:32 | 9.41 V | `paul-stated` (his figure, in words) |
+
+**Two findings, folded into `guides/blue-thunder-starting-diagnosis.md`:**
+
+1. ✅ **T4 PASSES — 12.64 → 12.55 over 12 h 39 m, −0.09 V, inside the ±0.1 V band.** The battery
+   holds overnight and there is **no parasitic drain**. T5 is retired unless something resurfaces
+   it. First in-band result this investigation has ever produced.
+2. ⛔ **She collapsed to 9.41 V and clicked.** Below T2's 9.5 V floor and below T2b's first-rung
+   threshold. ⚠️ **Not promoted to a verdict** — both thresholds are written for a *fully charged*
+   battery and she was at ~78%. **But the asymmetry inverted, and that is the new reasoning:** a
+   partial charge flatters a good reading and cannot flatter a bad one, so 9.41 is a **floor** on
+   how bad the capacity is, not a confounded number. Third independent line arriving at high
+   internal resistance.
+
+**👤 CARRIED TO PAUL, one question:** was the 9.41 read with the starter button **held**, or
+**after release**? Under load it is a textbook T2 crank reading. After release, still at 9.41, it
+is far worse — a pack with no charge acceptance left, and the 12.55 before it was surface charge.
+The photographs are 13 seconds apart and cannot answer it. **Recorded as open, not guessed.**
+
+**⏱ THE OPEN WINDOW CLOSED, exactly as 9/04 predicted it would.** *"Run it now, while she still has
+the charge to start."* She no longer does. ⭐ **T3 survives anyway** — the AVAPOW is in the kit, and
+T3 asks about the alternator, so how the engine got running is irrelevant to its answer. The one
+step that would ruin it is written down: **unclip the jump pack before reading.**
+
+**💵 The purchase gate is UNMOVED and was carried to a store trip the same day** — a parts-run
+checklist was staged for Paul with the battery explicitly gated behind T3, because today's numbers
+make the battery look bad without establishing that the battery is the *cause*, and the middle row
+of T3's table is where buying now wastes the money twice.
+
+**Beats not yet run:** 1 FIELD (not triggered — the record has answers), 2 SWEEP (done), 3 INTAKE
+(8 rows unread, untouched), 5 SEASON, 6 RECORD 👤, 7 AMEND.
+
+---
 
 ## Lap 2 — 2026-09-01 · ✅ **CLOSED** — the lap where beat 0, the loop's own gate, was found broken
 
@@ -625,131 +753,6 @@ INBOX cleared, PROVENANCE 6 → 3 with every remaining flag substantive.
    board read FIRED permanently. **Proposal:** let a physical check be *scheduled* (a dated
    next-look) so it rests until that date — without letting a schedule masquerade as an answer.
 3. **SEASON is 1 day outside its window** (46d vs 45d). Next lap will almost certainly open on it.
-
----
-
-## 2026-09-05 — ✅ LAP 3 CLOSED (human trigger: Paul at the machine with a meter)
-
-**`lap_count` 2 → 3.** Closed the same day it opened, on Paul's word, with the battery thread
-disposed and two rows carrying a dated next-look instead of an open-ended flag.
-
-### ⭐ WHAT THIS LAP ACTUALLY PRODUCED — the first REAL measurements in six days
-
-**T4 ran and PASSED** (12.64 → 12.55 over 12 h 39 m, −0.09 V), which retires T5 and, more
-importantly, **breaks the ambiguity the whole file was built to break**: she holds voltage and
-cannot deliver current. It also **resolves the 09-01 "did not survive one night" entry**, which
-was inferred from a failed start with no meter — one mechanism, not two.
-
-**The battery was identified off its own label** — `XTAX7L-BS`, Xtreme / Ascent / © Batteries
-Plus, **Made in Vietnam**, dry-charge by its own back panel. The record's `YTX7L-BS` was the JIS
-size group, never this battery's part number.
-
-### 👤 BEAT 6 · RECORD — Paul's gate RAN, and it reversed a standing instruction
-
-**`paul-decided`: REPLACE THE BATTERY.** He asked to be shown whether that made sense against the
-full history rather than being told. It does: five lines converge, **two of them alternator-
-independent**, so T3 could never have changed the verdict on the battery.
-
-⭐ **The gate did not disappear, it INVERTED.** On 09-04 she could still start, so T3 was free and
-buying was a guess → *test first*. Today she cannot start, so **the battery is the cheapest way to
-unblock T3** → *buy first, run T3 on the first ride.* **The order reversed; the gate stands.**
-
-### ⛔ WHAT THIS LAP DELIBERATELY DID NOT DO
-
-- **Beat 3 · INTAKE did not run.** 8 rows sit unread in `cycle/requests.jsonl`. The probe will
-  stay **FIRED on INBOX** after this close, and that is correct rather than a defect — this was a
-  human-triggered lap on one machine, not an inbox drain. Do not read the FIRED line as this lap
-  failing to close.
-- **Beat 1 · FIELD ran once and was immediately useful in the negative.** A tier-C forum claim
-  (Xtreme = East Penn/Deka) was carried as a question, then **falsified within three hours by the
-  words moulded on the battery's own back panel.** ⭐ The quarantine earned its keep by being
-  *wrong out loud* rather than by being right.
-- **No expert seats.** Declared absent, as the map says.
-
-### 🎯 CARRIED FORWARD — three items, and each one names what closes it
-
-| # | item | closes on |
-|---|---|---|
-| 1 | **T3 — charging output** | the first ride on the new battery. **Unclip the jump pack before reading.** `nextLook 2026-09-12` |
-| 2 | **Battery age / provenance** | a Batteries Plus purchase-history lookup by phone — Canton #969 (770) 609-3111. **An order number, not another ask.** `nextLook 2026-09-12` |
-| 3 | 👤 **Was the 9.41 V read with the button HELD or after RELEASE?** | one sentence from Paul. Recorded as open rather than guessed. |
-
-### Beat 7 · AMEND — pre-registered before the lap, honoured after
-
-**Pre-registered metric:** *does a lap that opens on a human trigger, with the probe's own signals
-pointing elsewhere, still produce a disposable finding?* → **yes, and it produced the file's first
-in-band measurement.** The trigger being human rather than the probe cost nothing.
-
-**Amendments, Paul rules, none applied:**
-
-1. ⭐ **LAP 1'S AMENDMENT 2 IS NOW APPLIED, AND SHOULD BE MADE PART OF THE SIGNAL.** That lap
-   proposed letting a physical check be *scheduled* with a dated next-look so STALE-OPEN can rest
-   without a schedule masquerading as an answer. Two rows now carry `nextLook`. **`fleet_probe.py`
-   should read it** — today it does not, so the field is documentation rather than a control.
-2. ⭐⭐ **THE CONTAINER/PAYLOAD CONFUSION HAS NOW HAPPENED THREE TIMES IN THIS ONE FILE** — the
-   DR200SE manual, beat 0's `doorLabel` resolver, and today `YTX7L-BS` read as an identity when it
-   is a size group. **Proposal:** `vehicle-brief.py --check` already scans for a URL-as-a-source;
-   add a scan for **spec-group strings sitting in identity fields**. The three instances share one
-   shape and only one of them was caught by a control.
-3. ⚠️ **A model read of a photograph did real work this lap, and the guard held.** Every voltage
-   above is graded, the delta rather than the endpoints carries T4, and the one figure that became
-   load-bearing (9.41) is Paul's own words. **Nothing was folded on a photo alone** — but the
-   volume of photo-derived material is rising, and the rule's next test will be a lap where Paul
-   is not standing next to the machine to correct it.
-
----
-
-<!-- superseded opening note, kept for the trail -->
-
-### (opening note, 2026-09-05)
-
-**Not closed.** Beat 6 is Paul's gate and it has not run. `lap_count` stays 2 until it does.
-
-**Probe on opening:** `FIRED — SEASON, INBOX` (42d to first frost with the fall put-away open on
-two machines · 8 unread rows). PROVENANCE and STALE-OPEN resting.
-
-**Beat 0 · BRIEF** — `vehicle-brief.py "the 200"` → `dr200s-2017`, score 6, no tie. ⭐ **The lap-2
-aliases fix holds:** the same class of loose phrase that resolved to `bronco-1989` in lap 2 now
-lands on the right machine first.
-
-**Beat 4 · VERIFY — the physical reads actually happened**, which is what this loop has been
-waiting on for six days. Three meter photographs, EXIF-timestamped:
-
-| ET | reading | grade |
-|---|---|---|
-| 09-04 21:07:13 | 12.64 V | `[photo-MODEL-READ, UNVERIFIED]` |
-| 09-05 09:46:19 | 12.55 V | `[photo-MODEL-READ, UNVERIFIED]` |
-| 09-05 09:46:32 | 9.41 V | `paul-stated` (his figure, in words) |
-
-**Two findings, folded into `guides/blue-thunder-starting-diagnosis.md`:**
-
-1. ✅ **T4 PASSES — 12.64 → 12.55 over 12 h 39 m, −0.09 V, inside the ±0.1 V band.** The battery
-   holds overnight and there is **no parasitic drain**. T5 is retired unless something resurfaces
-   it. First in-band result this investigation has ever produced.
-2. ⛔ **She collapsed to 9.41 V and clicked.** Below T2's 9.5 V floor and below T2b's first-rung
-   threshold. ⚠️ **Not promoted to a verdict** — both thresholds are written for a *fully charged*
-   battery and she was at ~78%. **But the asymmetry inverted, and that is the new reasoning:** a
-   partial charge flatters a good reading and cannot flatter a bad one, so 9.41 is a **floor** on
-   how bad the capacity is, not a confounded number. Third independent line arriving at high
-   internal resistance.
-
-**👤 CARRIED TO PAUL, one question:** was the 9.41 read with the starter button **held**, or
-**after release**? Under load it is a textbook T2 crank reading. After release, still at 9.41, it
-is far worse — a pack with no charge acceptance left, and the 12.55 before it was surface charge.
-The photographs are 13 seconds apart and cannot answer it. **Recorded as open, not guessed.**
-
-**⏱ THE OPEN WINDOW CLOSED, exactly as 9/04 predicted it would.** *"Run it now, while she still has
-the charge to start."* She no longer does. ⭐ **T3 survives anyway** — the AVAPOW is in the kit, and
-T3 asks about the alternator, so how the engine got running is irrelevant to its answer. The one
-step that would ruin it is written down: **unclip the jump pack before reading.**
-
-**💵 The purchase gate is UNMOVED and was carried to a store trip the same day** — a parts-run
-checklist was staged for Paul with the battery explicitly gated behind T3, because today's numbers
-make the battery look bad without establishing that the battery is the *cause*, and the middle row
-of T3's table is where buying now wastes the money twice.
-
-**Beats not yet run:** 1 FIELD (not triggered — the record has answers), 2 SWEEP (done), 3 INTAKE
-(8 rows unread, untouched), 5 SEASON, 6 RECORD 👤, 7 AMEND.
 
 ---
 
