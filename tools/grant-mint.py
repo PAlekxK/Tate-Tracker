@@ -2,11 +2,11 @@
 """grant-mint.py — C6 3a: mint, revoke and declare grants; the ONE writer of the grant register and the KV grant store.
 
     python3 tools/grant-mint.py init-schema                       # every row declares entry · vault · credential · consent
-    python3 tools/grant-mint.py mint --person p-… --estate est-… --env qa|prod [--entry] [--vault] \
+    python3 tools/grant-mint.py mint --person p-… --estate est-… --env prod|qa|lab|home [--entry] [--vault] \
         [--relationship owner,contributor] [--capability member|administrator] \
         [--consent scope=administrator-reads,agreedBy=p-…,recordedBy=p-…,consentSource=self|attested,how=conversation,agreedOn=YYYY-MM-DD]… \
         [--issued-by p-…] [--fixture-out <path>] [--dry-run] [--rotate]
-    python3 tools/grant-mint.py revoke --person p-… --estate est-… --env qa|prod [--dry-run]
+    python3 tools/grant-mint.py revoke --person p-… --estate est-… --env prod|qa|lab|home [--dry-run]
     python3 tools/grant-mint.py --selftest
 
 THE ROW (grants.json, private sibling — never the public repo): one per (personId, estateId).
@@ -34,13 +34,38 @@ THE GATES, AT THE MINT [paul-ruled 2026-09-03, onboarding-model Q3 — "no watch
 THE TOKEN leaves this process exactly once, into a mode-600 file (`/secrets` shape): the fixture file for QA rows, or a hand-off
 file opened in the editor for a real person. It is never printed, never logged, never in the register, never in a commit.
 """
-import argparse, datetime, glob, hashlib, json, os, secrets, subprocess, sys, tempfile
+import argparse, datetime, glob, hashlib, json, os, secrets, subprocess, sys, tempfile, tomllib
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import momlib  # noqa: E402
 
 REGISTER = os.path.join(momlib.PRIVATE_SIBLING, "grants.json")
+WRANGLER = os.path.join(ROOT, "worker", "wrangler.toml")
+
+
+def environments():
+    """env name → {estate, kv} READ FROM `worker/wrangler.toml`, never restated here.
+
+    ⭐ WHY THIS IS DERIVED (2026-09-05). `--env` was a hardcoded `("qa","prod")` and `kv_cmd` appended
+    `--env qa` for exactly one name, so this tool could not mint into `lab` or `home` — the two
+    environments that had been declared in the toml for a day. A tool that restates the deployment
+    roster goes stale the moment a fifth environment lands; reading the toml is the same
+    one-source-N-readers rule the domain manifest and the health canary already run on.
+    `prod` is the toml's TOP LEVEL and takes no `--env` flag — that asymmetry is wrangler's, not ours.
+    """
+    with open(WRANGLER, "rb") as f:
+        doc = tomllib.load(f)
+    def one(node):
+        kvs = node.get("kv_namespaces") or [{}]
+        return {"estate": (node.get("vars") or {}).get("ESTATE_ID"), "kv": kvs[0].get("id")}
+    envs = {"prod": one(doc)}
+    for name, node in (doc.get("env") or {}).items():
+        envs[name] = one(node)
+    return envs
+
+
+ENVIRONMENTS = environments()
 SCOPES = ("founding-request", "administrator-reads", "access")
 SOURCES = ("self", "attested")
 RELATIONSHIPS = ("owner", "contributor", "member")
@@ -124,8 +149,10 @@ def parse_consent(spec):
 def kv_cmd(env, verb, key, value=None):
     wr = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/wrangler/bin/wrangler.js")), key=os.path.getmtime)
     cmd = ["node", wr[-1] if wr else "wrangler", "kv", "key", verb, "--binding", "OBSERVATIONS", "--remote"]
-    if env == "qa":
-        cmd += ["--env", "qa"]
+    if env not in ENVIRONMENTS:
+        raise Refuse("env %r is not declared in worker/wrangler.toml (declared: %s)" % (env, ", ".join(sorted(ENVIRONMENTS))))
+    if env != "prod":
+        cmd += ["--env", env]   # `prod` is the toml's top level and takes no flag
     cmd.append(key)
     if value is not None:
         cmd.append(value)
@@ -143,7 +170,24 @@ def run_kv(env, verb, key, value=None, dry=False):
     return ok
 
 
+def estate_agrees(estate, env):
+    """G3 — the estate must be the one THIS deployment binds, or the credential is born dead.
+
+    `grantFor()` (worker.js) nulls any row whose `estateId != env.ESTATE_ID`, so a mint into the wrong
+    environment writes a KV row, writes the register, prints "minted", and produces a credential that
+    can never open anything. It fails at PRESENTATION, on her phone, with a 404 that is deliberately
+    byte-identical to an unknown grant — the least debuggable moment available. The toml already knows
+    the pairing; this reads it rather than trusting the two flags to agree.
+    """
+    declared = (ENVIRONMENTS.get(env) or {}).get("estate")
+    if declared and estate != declared:
+        raise Refuse("G3: env %r binds estate %s, not %s — `grantFor()` refuses a row whose estateId differs "
+                     "from the deploy binding, so this mint would produce a credential that opens nothing"
+                     % (env, declared, estate))
+
+
 def mint(reg_path, person, estate, env, entry, vault, relationship, capability, consents, issued_by, fixture_out, dry, rotate, fixture_name=None):
+    estate_agrees(estate, env)
     reg = load_register(reg_path)
     for g in reg.get("grants", []):
         declare(g)
@@ -210,6 +254,7 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
 
 
 def revoke(reg_path, person, estate, env, dry):
+    estate_agrees(estate, env)
     reg = load_register(reg_path)
     row = find_row(reg, person, estate)
     if not row or not row.get("credential") or row["credential"].get("revokedAt"):
@@ -241,46 +286,61 @@ def selftest():
         try: fn(); return False
         except Refuse as e: return needle in str(e)
     print("grant-mint selftest (every KV call dry-run)\n")
-    with tempfile.TemporaryDirectory() as d:
-        reg = os.path.join(d, "grants.json"); fx = os.path.join(d, "fixture-tokens.json")
-        json.dump({"_meta": {}, "grants": [
-            {"personId": "p-admin", "estateId": "est-A", "relationship": ["contributor"], "capability": "administrator"},
-            {"personId": "p-mom", "estateId": "est-A", "relationship": ["owner", "contributor"], "capability": "member"},
-        ]}, open(reg, "w"))
-        init_schema(reg)
-        r = load_register(reg)
-        check("init-schema: every row declares entry · vault · credential · consent", all(all(k in g for k in ("entry", "vault", "credential", "consent")) for g in r["grants"]))
-        # est-A: the administrator holds a relationship → G2 does not gate; mom already owner → not founding
-        h = mint(reg, "p-mom", "est-A", "qa", True, False, ["owner", "contributor"], "member", [], "p-admin", fx, True, False, "mom-A")
-        r = load_register(reg); row = find_row(r, "p-mom", "est-A")
-        check("mint at an ungated estate needs no consent; the row holds a HASH", row["credential"]["hash"] == h and len(h) == 64)
-        tok = json.load(open(fx))["mom-A"]
-        check("the token is NOT in the register", tok not in open(reg).read())
-        check("the token file is mode 600", oct(os.stat(fx).st_mode)[-3:] == "600")
-        check("the token hashes to the row's hash (what the Worker will look up)", hashlib.sha256(tok.encode()).hexdigest() == h)
-        check("a second mint on a live row is REFUSED without --rotate", refused(lambda: mint(reg, "p-mom", "est-A", "qa", True, False, ["owner"], "member", [], "p-admin", fx, True, False), "already holds"))
-        # est-B: gated (administrator holds no row) — the founding owner grant
-        fr_relay = parse_consent("scope=founding-request,agreedOn=2026-09-03,agreedBy=p-admin,recordedBy=p-admin,consentSource=attested,how=email")
-        fr_own = parse_consent("scope=founding-request,agreedOn=2026-09-03,agreedBy=p-bob,recordedBy=p-admin,consentSource=self,how=conversation")
-        ar = parse_consent("scope=administrator-reads,agreedOn=2026-09-03,agreedBy=p-bob,recordedBy=p-admin,consentSource=self,how=conversation")
-        check("G1: founding owner grant with NO founding-request → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "qa", True, True, ["owner"], "member", [ar], "p-admin", fx, True, False), "G1"))
-        check("G1: a founding-request agreed by the ADMINISTRATOR (a relay) → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "qa", True, True, ["owner"], "member", [fr_relay, ar], "p-admin", fx, True, False), "a relay is not a request"))
-        check("G2: founding grant with the request but NO administrator-reads at a gated estate → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "qa", True, True, ["owner"], "member", [fr_own], "p-admin", fx, True, False), "G2"))
-        mint(reg, "p-bob", "est-B", "qa", True, True, ["owner"], "member", [fr_own, ar], "p-admin", fx, True, False, "bob-B")
-        r = load_register(reg); row = find_row(r, "p-bob", "est-B")
-        check("with both entries the founding grant mints; consent is a LIST of 2 with distinct scopes", sorted(c["scope"] for c in row["consent"]) == ["administrator-reads", "founding-request"])
-        check("consent entries carry the full field set", all(all(k in c for k in CONSENT_FIELDS) for c in row["consent"]))
-        att = parse_consent("scope=administrator-reads,agreedOn=2026-09-03,agreedBy=p-kid,recordedBy=p-bob,consentSource=attested,how=told-by-owner")
-        check("G2: a contributor at the gated estate without administrator-reads → REFUSED", refused(lambda: mint(reg, "p-kid", "est-B", "qa", True, False, ["contributor"], "member", [], "p-admin", fx, True, False), "G2"))
-        mint(reg, "p-kid", "est-B", "qa", True, False, ["contributor"], "member", [att], "p-admin", fx, True, False, "kid-B")
-        row = find_row(load_register(reg), "p-kid", "est-B")
-        check("…with an ATTESTED entry it mints, and the record says attested (second-hand stays legible)", row["consent"][0]["consentSource"] == "attested" and row["consent"][0]["recordedBy"] == "p-bob")
-        check("`access` cannot be hand-written", refused(lambda: parse_consent("scope=access,agreedOn=2026-09-03,agreedBy=p-x,recordedBy=p-x,consentSource=self,how=claim"), "claim route"))
-        check("a consent entry missing a field is REFUSED, not defaulted", refused(lambda: parse_consent("scope=administrator-reads,agreedBy=p-x"), "lacks"))
-        revoke(reg, "p-kid", "est-B", "qa", True)
-        row = find_row(load_register(reg), "p-kid", "est-B")
-        check("revoke sets revokedAt (an act with an author) and emitted the KV delete", bool(row["credential"]["revokedAt"]))
-        check("revoking again is REFUSED (no live credential)", refused(lambda: revoke(reg, "p-kid", "est-B", "qa", True), "no live credential"))
+    global ENVIRONMENTS
+    real_envs = ENVIRONMENTS
+    # The fixtures below use synthetic estates, so G3 cannot be checked against the real toml. Declare a
+    # fixture deployment map with the same SHAPE and assert G3 against it explicitly further down.
+    ENVIRONMENTS = {"envA": {"estate": "est-A", "kv": None}, "envB": {"estate": "est-B", "kv": None}}
+    try:
+      with tempfile.TemporaryDirectory() as d:
+          reg = os.path.join(d, "grants.json"); fx = os.path.join(d, "fixture-tokens.json")
+          json.dump({"_meta": {}, "grants": [
+              {"personId": "p-admin", "estateId": "est-A", "relationship": ["contributor"], "capability": "administrator"},
+              {"personId": "p-mom", "estateId": "est-A", "relationship": ["owner", "contributor"], "capability": "member"},
+          ]}, open(reg, "w"))
+          init_schema(reg)
+          r = load_register(reg)
+          check("init-schema: every row declares entry · vault · credential · consent", all(all(k in g for k in ("entry", "vault", "credential", "consent")) for g in r["grants"]))
+          # est-A: the administrator holds a relationship → G2 does not gate; mom already owner → not founding
+          h = mint(reg, "p-mom", "est-A", "envA", True, False, ["owner", "contributor"], "member", [], "p-admin", fx, True, False, "mom-A")
+          r = load_register(reg); row = find_row(r, "p-mom", "est-A")
+          check("mint at an ungated estate needs no consent; the row holds a HASH", row["credential"]["hash"] == h and len(h) == 64)
+          tok = json.load(open(fx))["mom-A"]
+          check("the token is NOT in the register", tok not in open(reg).read())
+          check("the token file is mode 600", oct(os.stat(fx).st_mode)[-3:] == "600")
+          check("the token hashes to the row's hash (what the Worker will look up)", hashlib.sha256(tok.encode()).hexdigest() == h)
+          check("a second mint on a live row is REFUSED without --rotate", refused(lambda: mint(reg, "p-mom", "est-A", "envA", True, False, ["owner"], "member", [], "p-admin", fx, True, False), "already holds"))
+          # est-B: gated (administrator holds no row) — the founding owner grant
+          fr_relay = parse_consent("scope=founding-request,agreedOn=2026-09-03,agreedBy=p-admin,recordedBy=p-admin,consentSource=attested,how=email")
+          fr_own = parse_consent("scope=founding-request,agreedOn=2026-09-03,agreedBy=p-bob,recordedBy=p-admin,consentSource=self,how=conversation")
+          ar = parse_consent("scope=administrator-reads,agreedOn=2026-09-03,agreedBy=p-bob,recordedBy=p-admin,consentSource=self,how=conversation")
+          check("G1: founding owner grant with NO founding-request → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [ar], "p-admin", fx, True, False), "G1"))
+          check("G1: a founding-request agreed by the ADMINISTRATOR (a relay) → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_relay, ar], "p-admin", fx, True, False), "a relay is not a request"))
+          check("G2: founding grant with the request but NO administrator-reads at a gated estate → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_own], "p-admin", fx, True, False), "G2"))
+          mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_own, ar], "p-admin", fx, True, False, "bob-B")
+          r = load_register(reg); row = find_row(r, "p-bob", "est-B")
+          check("with both entries the founding grant mints; consent is a LIST of 2 with distinct scopes", sorted(c["scope"] for c in row["consent"]) == ["administrator-reads", "founding-request"])
+          check("consent entries carry the full field set", all(all(k in c for k in CONSENT_FIELDS) for c in row["consent"]))
+          att = parse_consent("scope=administrator-reads,agreedOn=2026-09-03,agreedBy=p-kid,recordedBy=p-bob,consentSource=attested,how=told-by-owner")
+          check("G2: a contributor at the gated estate without administrator-reads → REFUSED", refused(lambda: mint(reg, "p-kid", "est-B", "envB", True, False, ["contributor"], "member", [], "p-admin", fx, True, False), "G2"))
+          mint(reg, "p-kid", "est-B", "envB", True, False, ["contributor"], "member", [att], "p-admin", fx, True, False, "kid-B")
+          row = find_row(load_register(reg), "p-kid", "est-B")
+          check("…with an ATTESTED entry it mints, and the record says attested (second-hand stays legible)", row["consent"][0]["consentSource"] == "attested" and row["consent"][0]["recordedBy"] == "p-bob")
+          check("`access` cannot be hand-written", refused(lambda: parse_consent("scope=access,agreedOn=2026-09-03,agreedBy=p-x,recordedBy=p-x,consentSource=self,how=claim"), "claim route"))
+          check("a consent entry missing a field is REFUSED, not defaulted", refused(lambda: parse_consent("scope=administrator-reads,agreedBy=p-x"), "lacks"))
+          revoke(reg, "p-kid", "est-B", "envB", True)
+          row = find_row(load_register(reg), "p-kid", "est-B")
+          check("revoke sets revokedAt (an act with an author) and emitted the KV delete", bool(row["credential"]["revokedAt"]))
+          check("revoking again is REFUSED (no live credential)", refused(lambda: revoke(reg, "p-kid", "est-B", "envB", True), "no live credential"))
+          check("G3: an estate that is not the env's binding is REFUSED (a credential born dead)",
+                refused(lambda: mint(reg, "p-mom", "est-A", "envB", True, False, ["owner"], "member", [], "p-admin", fx, True, True), "G3"))
+          check("G3: revoke is guarded too (a wrong-env revoke deletes nothing and still stamps revokedAt)",
+                refused(lambda: revoke(reg, "p-mom", "est-A", "envB", True), "G3"))
+          check("an env absent from wrangler.toml is REFUSED by kv_cmd",
+                refused(lambda: kv_cmd("nosuch", "put", "k", "v"), "not declared in worker/wrangler.toml"))
+          check("kv_cmd routes a non-prod env with --env <name>", kv_cmd("envA", "put", "k", "v")[-4:-2] == ["--env", "envA"])
+    finally:
+        ENVIRONMENTS = real_envs
     pub = subprocess.run(["git", "-C", ROOT, "ls-files", "--", "grants.json", "**/grants.json"], capture_output=True, text=True).stdout.strip()
     check("the register is NOT a tracked file of the public repo", pub == "")
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed."))
@@ -292,7 +352,7 @@ def main():
     ap.add_argument("verb", nargs="?", choices=("mint", "revoke", "init-schema"))
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--register", default=REGISTER, help="the grant register (default: the private sibling's grants.json)")
-    ap.add_argument("--person"); ap.add_argument("--estate"); ap.add_argument("--env", choices=("qa", "prod"))
+    ap.add_argument("--person"); ap.add_argument("--estate"); ap.add_argument("--env", choices=tuple(sorted(ENVIRONMENTS)))
     ap.add_argument("--entry", action="store_true"); ap.add_argument("--vault", action="store_true")
     ap.add_argument("--relationship", default="", help="comma list: owner,contributor,member")
     ap.add_argument("--capability", default="member", choices=CAPABILITIES)

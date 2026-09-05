@@ -73,3 +73,33 @@ so the diff is mechanical rather than a vibe check.
   than widen to "any non-prod", which would be weaker.
 - **`deploy-worker-qa.yml`'s header comment says the QA Worker is `tate-tracker-qa`.** Stale by two
   renames; `wrangler.toml` makes it `fernwood-qa`. Correct it while adding the lab workflow.
+
+---
+
+## ⭐ WHAT `lab` IS FOR — Paul's own playground `[paul-stated 2026-09-05 ~1:40 AM ET]`
+
+> *"Within all these environments we're creating there needs to be one — this is my personal
+> playground. That's probably my own instance of Fernwood that I can build off of and do whatever I
+> want with, and then I'll create my own condo and potentially other fictitious properties or
+> entries or whatever. That's what I mean by playground."*
+
+This sharpens step 2/3's *"Paul + Claude, working ahead"* into something more specific, and it
+**changes what lab has to be able to do**:
+
+1. **A full instance of Fernwood that he can freely break.** Step 3 already seeds lab from Fernwood's
+   canon; this ratifies that seed as the *point* rather than a convenience, and makes lab the control
+   for the hand-built-vs-generated comparison.
+2. ⭐ **MANY estates, including fictitious ones** — his own condo, and *"other fictitious properties
+   or entries."* That is a **third independent driver for removing the instance↔deployment weld**,
+   alongside Angel's chooser and self-serve estate creation
+   (`2026-09-04-roles-and-access-REQUIREMENT.md` § Three requirements converge).
+
+⭐ **And lab is the right place to PROVE the weld removal.** The requirement doc names the real cost —
+*"once estates share a silo, 'reset the environment' stops being safe; only delete-by-prefix is"* —
+and flags `wrangler kv` per-prefix delete as **UNVERIFIED**. lab is the one environment where **no
+real person is ever served**, so the widened blast radius can be exercised, and the prefix-delete
+primitive verified, against estates that are fictitious by design. Do that here before it is proposed
+anywhere a person's record lives.
+
+⚠️ **Not scoped tonight.** Captured as input, per Paul's own framing (*"just to help provide a little
+more input on that"*). Tonight's thread is Mom's onboarding link.

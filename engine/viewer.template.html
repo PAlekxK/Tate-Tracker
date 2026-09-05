@@ -6988,9 +6988,18 @@
 // neighbour's Worker. Non-preview origins (GitHub Pages, a custom domain, a local file) are
 // untouched and still resolve to production.
 const PAGES_WORKERS = {
-  "fernwood-qa":  "https://fernwood-qa.paul-kirschenbauer.workers.dev",
-  "fernwood-lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+  "fernwood-qa":   "https://fernwood-qa.paul-kirschenbauer.workers.dev",
+  "fernwood-lab":  "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+  "fernwood-home": "https://fernwood-home.paul-kirschenbauer.workers.dev",
 };
+// ⚠️ `fernwood-home` is MAPPED BUT NOT YET SERVED THIS FILE (2026-09-05). The home origin carries the
+// onboarding page only; this viewer is NOT in its deploy. The row is here because the map failing
+// closed on a declared environment is a latent defect, not a safety feature — but read the hazard it
+// arms before you put this file on that origin: every *_DATA const in this build is FERNWOOD's canon,
+// while WORKER_BASE would resolve to the home Worker, whose binding is `est-e6696a`. That renders
+// another place's plants, elevation and fleet to a reader at her own address, and writes her
+// observations into her silo under Fernwood's frame. **The viewer must read its instance from the
+// deployment before it is served here** (C4 5b's shrink target is exactly this work).
 const PAGES_LABEL = /\.pages\.dev$/.test(location.hostname) ? location.hostname.split(".")[0] : null;
 const IS_PREVIEW_ORIGIN = PAGES_LABEL !== null;
 const PREVIEW_KNOWN = IS_PREVIEW_ORIGIN && Object.hasOwn(PAGES_WORKERS, PAGES_LABEL);
