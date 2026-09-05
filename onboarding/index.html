@@ -201,6 +201,10 @@
     background: transparent; color: var(--ink); border: 1.5px solid var(--edge); border-radius: 13px;
     padding: 12px 14px; margin: 0 0 8px; min-height: 0; font-size: 1.02rem; font-weight: 400; }
   .interest[aria-pressed="true"] { border-color: var(--accent); }
+  .interest .ilabel { display: block; }
+  .interest .idesc { display: block; font-style: normal; font-size: .88rem; color: var(--ink-soft); margin-top: 3px; line-height: 1.35; }
+  /* ⛔ The honesty tag is quiet, not a badge — it informs, it does not advertise. */
+  .interest .soon { font-style: normal; font-size: .78rem; color: var(--ink-quiet, #8a95a3); font-weight: 400; }
   .interest b { flex: 0 0 26px; height: 26px; border-radius: 50%; background: var(--accent);
     color: #fff; font-size: .84rem; font-weight: 700; display: none; align-items: center; justify-content: center; }
   .interest[aria-pressed="true"] b { display: flex; }
@@ -276,6 +280,11 @@
     <label for="uword2" style="margin-top:16px">Password again</label>
     <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="done">
     <p class="quiet" style="margin-top:5px">Just to be sure it's what you meant. There's no email reset — if it's lost, Paul sorts it out by hand.</p>
+    <!-- CLAUDE.md #5, "everything is changeable": one short VARIED clause attached to the thing just
+         given — never a standing footer, and never the same phrasing twice running. ⛔ And only where
+         it is TRUE. The colour is genuinely re-pickable here and later; the password is not casually
+         changeable today, so nothing claims it is. -->
+    <p class="quiet" style="margin-top:14px">Nothing here is set in stone — the colour especially. Pick one now and swap it whenever you fancy.</p>
     <p class="soft" style="margin-top:18px">Pick a colour for your place</p>
     <div id="swatches" class="swatches"></div>
     <div class="trouble" id="trouble0" hidden></div>
@@ -309,7 +318,7 @@
     <p class="soft">There's nothing in it yet. We'll build it around what you tell us, a piece at a time — starting with what to call it.</p>
     <label for="pname">What would you like to call it?</label>
     <input id="pname" type="text" enterkeyhint="next" autocapitalize="words" autocomplete="off" maxlength="60">
-    <p class="quiet" style="margin-top:8px">Anything you like — it's yours, and you can change it whenever.</p>
+    <p class="quiet" style="margin-top:8px">Anything you like — it's yours. Rename it later if a better one turns up.</p>
     <div class="trouble" id="trouble1" hidden></div>
     <button type="button" id="go1"><span class="tick">✓</span>That's it</button>
   </section>
@@ -458,6 +467,17 @@
          taps it, and the label says where it goes before she does. The promise stays true. -->
     <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>Verify address on Google Maps ›</a>
     <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Nothing goes to Google unless you tap. If the pin looks wrong, tell Paul.</p>
+    <!-- ⭐ THE RENAME PATH EXISTS BECAUSE THE PROMISE DOES. s1 says "rename it later if a better one
+         turns up", and CLAUDE.md #5 allows that sentence only where it is TRUE. Without this the
+         place could never be renamed at all — a point of no return on the very first thing she was
+         told was hers. `[paul-stated 2026-09-05]`: "nothing has to be fully locked in and there's no
+         point of no return really." -->
+    <p class="quiet" style="margin-top:2px"><a href="#" id="renameLink">Call it something else ›</a></p>
+    <div id="renameBox" hidden>
+      <label for="rename2">A new name for it</label>
+      <input id="rename2" type="text" autocapitalize="words" maxlength="60">
+      <button type="button" id="renameGo"><span class="tick">✓</span>Use this name</button>
+    </div>
     <hr class="seam" id="s4seam" hidden>
     <!-- ⭐ THE SCREEN ALREADY TOLD HER TO SPEAK AND GAVE HER NO MOUTH `[paul-stated 2026-09-05]`:
          "this is a good chance asking for feedback like if that's my address." The gate-1 walk hit
@@ -492,7 +512,7 @@
     <hr class="seam" id="s5seam" hidden>
     <div id="s5" hidden>
       <p class="soft" style="margin-bottom:2px">That's the weather sorted. What else would you want to look at?</p>
-      <p class="quiet" style="margin-top:0">Tap them in the order they matter to you. Skip anything you don't care about.</p>
+      <p class="quiet" style="margin-top:0">Tap them in the order they matter to you — skip anything you don't care about. Some of these already work; some are only ideas, and how you rank them is how I decide what to build next.</p>
       <div id="interests" class="swatches"></div>
       <button type="button" id="go5"><span class="tick">✓</span>Save these</button>
       <p id="s5thanks" class="soft" hidden></p>
@@ -549,18 +569,54 @@
   // plus Papers — never offered before and the most differentiating — and an escape hatch.
   // ⛔ Weather is deliberately absent: it is already promised on this same screen, so listing it
   // would make one row a lie.
+  // ⭐ WHAT EACH ONE IS, AND WHAT IT BUILDS `[paul-stated 2026-09-05]`. Two jobs in one list:
+  //   · the DESCRIPTION is for her — you cannot rank what you cannot picture;
+  //   · `builds` is for us — the domains/modules a pick actually turns on, so a ranking is an input
+  //     to the module set rather than a sentiment. It is data, never rendered.
+  // ⛔ AND THE SEEDS ARE LABELLED AS SEEDS. Several of these are ideas with nothing behind them yet.
+  // Asking her to rank them is legitimate — that is how we learn what to build. Letting her think
+  // they already exist is not, and this project's own rule is that a confidently-wrong surface is
+  // worse than an honestly-unsure one. `soon: true` renders a quiet "an idea — not built yet".
   var INTERESTS = [
-    { id: "house-systems", label: "Household systems" }, { id: "garden", label: "Gardening" },
-    { id: "motor-pool", label: "Vehicles" }, { id: "equipment", label: "Equipment" },
-    { id: "wildlife", label: "Wildlife" }, { id: "papers", label: "Papers and documents" },
-    { id: "other", label: "Something else" }
+    { id: "garden", label: "Gardening",
+      desc: "What's planted where, when to prune, what's coming into season.",
+      builds: ["plant", "weed", "zone", "care-calendar"] },
+    { id: "house-systems", label: "Household systems",
+      desc: "The well, the septic, the heating — what they are and when they were last seen to.",
+      builds: ["house-systems", "service-history"] },
+    { id: "motor-pool", label: "Vehicles",
+      desc: "Cars, mowers, anything with an engine — and what's been done to them.",
+      builds: ["motor-pool", "service-history"] },
+    { id: "equipment", label: "Equipment and tools",
+      desc: "What you own, where it lives, and what it needs.",
+      builds: ["equipment"] },
+    { id: "wildlife", label: "Wildlife",
+      desc: "Birds, frogs, what's around your place and when.",
+      builds: ["bird", "amphibian", "mammal", "fish"] },
+    { id: "papers", label: "Papers and documents",
+      desc: "Warranties, manuals, deeds — the things someone would need if you weren't there.",
+      builds: ["papers", "succession"], soon: true },
+    { id: "map-zones", label: "A map you draw yourself",
+      desc: "Trace your own areas onto a photo of your place, then fill them in.",
+      builds: ["zone", "basemap"], soon: true },
+    { id: "map-points", label: "Marking spots on the map",
+      desc: "Where the shut-off valve is. Where that repair happened. Things you'd forget.",
+      builds: ["zone", "point-annotation"], soon: true },
+    { id: "ask", label: "Asking questions about your place",
+      desc: "Ask about your own property and get answers out of its own record.",
+      builds: ["guru", "library"], soon: true },
+    { id: "handover", label: "Handing it all over",
+      desc: "Everything organised well enough that someone else could pick it up.",
+      builds: ["papers", "succession", "export"], soon: true },
+    { id: "other", label: "Something else",
+      desc: "Tell me what I've missed.", builds: [] }
   ];
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
-   "s5", "s5seam", "interests", "go5", "s5thanks"]
+   "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
@@ -648,6 +704,7 @@
       el.s4seam.hidden = !a;
       el.s5seam.hidden = !a;
       el.s5.hidden = !a;
+      el.renameLink.hidden = !a;
     }
     show("s" + n);
   }
@@ -735,7 +792,9 @@
     var b = document.createElement("button");
     b.type = "button"; b.className = "interest"; b.setAttribute("data-id", it.id);
     b.setAttribute("aria-pressed", "false");
-    b.innerHTML = "<b></b><span>" + it.label + "</span>";
+    b.innerHTML = '<b></b><span class="ilabel">' + it.label
+      + (it.soon ? ' <em class="soon">an idea — not built yet</em>' : "")
+      + '<i class="idesc">' + it.desc + "</i></span>";
     b.addEventListener("click", function () {
       var i = ranked.indexOf(it.id);
       if (i >= 0) { ranked.splice(i, 1); } else { ranked.push(it.id); }
@@ -743,6 +802,24 @@
     });
     el.interests.appendChild(b);
   });
+  el.renameLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    el.rename2.value = read(K_NAME) || "";
+    el.renameBox.hidden = false;
+    el.renameLink.hidden = true;
+    el.rename2.focus();
+  });
+  el.renameGo.addEventListener("click", function () {
+    var nm = el.rename2.value.trim();
+    if (!nm) { el.rename2.focus(); return; }
+    store(K_NAME, nm);
+    paintName();                                     // the top bar follows immediately
+    postAnswer("onboard-name", nm, { type: "onboarding", field: "name", step: 4, renamed: true })["catch"](function () {});
+    el.renameBox.hidden = true;
+    el.renameLink.hidden = false;
+    el.renameLink.textContent = "Call it something else ›";
+  });
+
   el.go5.addEventListener("click", function () {
     // Nothing chosen is a legitimate answer and is recorded as one — an empty ranking and an unasked
     // question are different observations, and only the first says she looked.
@@ -750,10 +827,15 @@
     postAnswer("onboard-interests", ranked.length ? ranked.join(" > ") : "(none chosen)",
                { type: "onboarding", field: "interests", step: 5, ranked: ranked })
       .then(function () {
-        el.go5.hidden = true;
+        // ⛔ THE BUTTON STAYS. It used to hide on success, which made the ranking a one-shot — and
+        // "everything is changeable" (CLAUDE.md #5) is only allowed to be SAID where it is TRUE.
+        // Re-tapping re-sends; the fingerprint carries the answer, so a changed order lands as a new
+        // record and an unchanged one dedups.
+        el.go5.disabled = false;
+        el.go5.innerHTML = '<span class="tick">\u2713</span>Update these';
         el.s5thanks.textContent = ranked.length
-          ? "Got it — that's what I'll build first."
-          : "Noted — nothing yet. You can tell me any time.";
+          ? "Got it — that's what I'll build first. Change the order any time; the last one wins."
+          : "Noted — nothing yet.";
         el.s5thanks.hidden = false;
       })
       ["catch"](function () {
