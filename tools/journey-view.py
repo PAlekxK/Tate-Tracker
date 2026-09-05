@@ -67,7 +67,12 @@ const cfg = JSON.parse(process.argv[2]);
       const vis = (el) => { if (!el) return false; const r = el.getBoundingClientRect();
         const cs = getComputedStyle(el); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; };
       const text = [];
-      document.querySelectorAll('h1,h2,h3,p,label,li,strong,em,span').forEach((n) => {
+      // ⛔ `.trouble` and [role=alert] ARE IN THIS LIST DELIBERATELY. The set was tag-only until
+      // 2026-09-05, and an error message written into a bare <div> was therefore invisible to
+      // every walk — the harness reported a screen with no error while the screen plainly showed
+      // one. A journey walk exists to catch exactly that copy, so the instrument was blind in the
+      // one place it most needed to see.
+      document.querySelectorAll('h1,h2,h3,p,label,li,strong,em,span,.trouble,[role="alert"]').forEach((n) => {
         if (!vis(n)) return;
         if (n.querySelector('h1,h2,h3,p,label,li')) return;      // keep leaves only
         const t = (n.innerText || '').replace(/\s+/g, ' ').trim();
