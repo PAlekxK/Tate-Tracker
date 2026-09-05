@@ -422,10 +422,14 @@
         if (pr) q = [pr.line1, pr.line2, pr.city, (pr.state + " " + pr.zip).trim()].filter(Boolean).join(", ");
       } catch (e) { q = ""; }
       if (!q && a) q = a.replace(/\n/g, ", ");
-      var show = !!q;
-      el.maplink.hidden = !show;
-      el.mapnote.hidden = !show;
-      if (show) el.maplink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+      // ⛔ NOT `show` — `var` is function-scoped, so a local named `show` hoists over the outer
+      // show() for the WHOLE of step(), and `show("s" + n)` below then throws for EVERY n. That
+      // defect shipped in a2b7b68 and took the entire journey down: the throw lands in the whoami
+      // .catch, which renders it as "No connection right now."
+      var hasQuery = !!q;
+      el.maplink.hidden = !hasQuery;
+      el.mapnote.hidden = !hasQuery;
+      if (hasQuery) el.maplink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
     }
     show("s" + n);
   }
@@ -435,20 +439,37 @@
   // Recognition is the SERVER's to confirm, never this page's. An unknown, revoked or
   // other-estate credential returns the router's own 404 — deliberately byte-identical to a
   // route that does not exist — so there is exactly one failure screen and it leaks nothing.
+  // ⛔ THE REJECTION HANDLER IS ON THE FETCH, NOT ON THE CHAIN. A single trailing .catch() cannot
+  // tell a transport failure from a bug in the success path, so it renders BOTH as "no connection" —
+  // and on 2026-09-05 that is exactly what happened: a `var show` in step() shadowed show() for the
+  // whole function, step() threw on every call, and a total outage read to every visitor as bad
+  // wi-fi. Offline is a real state and keeps its words; a code fault is OUR fault and says so.
+  var OFFLINE = {};
   fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
-    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (r) { return r.ok ? r.json() : null; },
+          function () { return OFFLINE; })        // transport only — never a code fault
     .then(function (who) {
+      if (who === OFFLINE) {
+        // Offline is NOT a bad link, and must never be dressed as one.
+        el["s-nolink"].innerHTML =
+          '<p class="lede">No connection right now.</p>' +
+          '<p class="soft">Try again once you\'re back on wi-fi — the link keeps working.</p>';
+        show("s-nolink"); return;
+      }
       if (!who) { show("s-nolink"); return; }
       var at = read(K_STEP);
       // Someone who has finished returns to her PLACE, not to the thank-you she already read.
       step(at === "4" ? 4 : at === "3" ? 4 : at === "2" ? 2 : 1);
     })
-    .catch(function () {
-      // Offline is NOT a bad link, and must never be dressed as one.
+    .catch(function (e) {
+      // Something on our side broke. Say that — do not blame her connection, and do not blame the
+      // link, because both send her somewhere that cannot help her.
       el["s-nolink"].innerHTML =
-        '<p class="lede">No connection right now.</p>' +
-        '<p class="soft">Try again once you\'re back on wi-fi — the link keeps working.</p>';
+        '<p class="lede">Something went wrong on our end.</p>' +
+        '<p class="soft">Nothing you did. Tap the link again in a minute — and tell Paul if it keeps happening.</p>';
       show("s-nolink");
+      // stays observable: a swallowed fault is how the 09-05 outage hid for a day
+      setTimeout(function () { throw e; }, 0);
     });
 
   el.go1.addEventListener("click", function () { step(2); el.a1.focus(); });
