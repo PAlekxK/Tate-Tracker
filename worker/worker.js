@@ -1826,7 +1826,12 @@ async function handleChat(request, env, auth) {
   // ⛔ EVERY non-production env, not just "qa" (2026-09-04). This read `=== "qa"`, so a third
   // environment would silently inherit PRODUCTION's no-ceiling behaviour — in the one place we
   // hammer Guru hardest. Prod is unchanged: it declares no budget and still has no ceiling.
-  const ceilingUsd = env.ENV_NAME !== "production" && env.CHAT_DAILY_BUDGET_USD ? parseFloat(env.CHAT_DAILY_BUDGET_USD) : null;
+  // ⛔ DERIVED FROM THE DECLARATION, NEVER FROM THE NAME (2026-09-04). This read `=== "qa"`,
+  // then `!== "production"` — both made a spend brake depend on a WORD, so renaming an
+  // environment silently removed its ceiling. An env has a ceiling if and only if it DECLARES
+  // one. Prod declares none and is unchanged. Same class as the two other defects found
+  // tonight: origin used to answer audience, and a tab title computed from a project name.
+  const ceilingUsd = env.CHAT_DAILY_BUDGET_USD ? parseFloat(env.CHAT_DAILY_BUDGET_USD) : null;
   const budgetKey = ceilingUsd ? dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)) : null;
   if (ceilingUsd) {
     const b = await readBudget(env, budgetKey);
@@ -2847,7 +2852,7 @@ export default {
         kv_canary: kvCanary,
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
-        ...(env.ENV_NAME !== "production" && env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — any non-prod env, in dollars
+        ...(env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — reported wherever a budget is DECLARED, in dollars
           const b = await readBudget(env, dateKey(env, "chat-budget", new Date().toISOString().slice(0, 10)));
           return { used_usd: +b.usd.toFixed(4), ceiling_usd: parseFloat(env.CHAT_DAILY_BUDGET_USD), turns: b.turns, tokens: b.tokens, date: new Date().toISOString().slice(0, 10) };
         })() } : {}),

@@ -77,17 +77,17 @@ FAMILY_HOSTS = "fernwood-lab.pages.dev"
 binding = "OBSERVATIONS"
 id = "1e0bd883e9824388af66563775c96d56"
 
-# KIRSCHENBAUER PRODUCTION (2026-09-04, paul-named): the account-based app where a real person
+# HOME (2026-09-04) — the account-based deployment: a person logs in and keeps their places: the account-based app where a real person
 # logs in and sets up their place. Mom is the first. ⚠️ ENV_NAME is "home", NOT "production" —
 # `production` is a ROLE that transfers (content-steward, 2026-09-04), and today the frozen
 # Fernwood still holds it. When that instance retires, this becomes production; naming it so now
 # would double-book the word deliberately, which is §5's `group` defect with the lights on.
 # ⛔ NO GITHUB_TOKEN, ever: GITHUB_BRANCH defaults to "main", so a token here would promote
 # species onto Mom's live branch.
-# Deploy: `npx wrangler deploy --env kirschenbauer`
-[env.kirschenbauer]
-[env.kirschenbauer.vars]
-ENV_NAME = "kirschenbauer-production"
+# Deploy: `npx wrangler deploy --env home`
+[env.home]
+[env.home.vars]
+ENV_NAME = "home"
 ESTATE_ID = "est-e6696a"
 # A fresh estate has no pre-cutover era, so no key may route to the unprefixed legacy reads.
 LEGACY_BEFORE = "1970-01-01"
@@ -95,7 +95,7 @@ LEGACY_BEFORE = "1970-01-01"
 # cold turn at ~19¢ and the warm path at ~3¢, so her real usage cannot approach this. A brand-new
 # environment with an unproven flow should not be the one deployment with no brake.
 CHAT_DAILY_BUDGET_USD = "10.00"
-FAMILY_HOSTS = "fernwood-kirschenbauer.pages.dev"
-[[env.kirschenbauer.kv_namespaces]]
+FAMILY_HOSTS = "fernwood-home.pages.dev"
+[[env.home.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "79464451e3a7497594b17d8c60c7254d"
