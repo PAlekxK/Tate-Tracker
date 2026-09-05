@@ -1,0 +1,134 @@
+{
+  "plan": null,
+  "planNote": "⚠️ NO PLAN FILE EXISTS for onboarding. Under the ratified join key this walk has no release identity to attach to. Writing it is the cheapest open act (cascade proposal §7).",
+  "gate": 1,
+  "ranAt": "2026-09-05T04:15:00-04:00",
+  "derived": {
+    "origin": "https://fernwood-qa.pages.dev",
+    "servedSha": "408ff9443b78a72fe506af7b418e0f59b021544b",
+    "servedSubj": "onboarding: step() threw on EVERY call — the whole journey was down, and it read as offline",
+    "env": "qa",
+    "kvCanary": "qa",
+    "estateId": "est-qa0001",
+    "localHead": "408ff9443b78a72fe506af7b418e0f59b021544b",
+    "servedMatchesHead": true,
+    "walker": "p-qa-synth-1",
+    "identity": {
+      "title": "My Home",
+      "screens": [
+        "s-nolink",
+        "s-wait",
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "derivedFrom": "onboarding/index.html at run time, never typed"
+    },
+    "proofA": {
+      "tool": "tools/journey-logic.py",
+      "paths": 15,
+      "passed": 15,
+      "exit": 0,
+      "ranAgainst": "the bytes QA serves (sha-verified identical to tree)"
+    },
+    "mutations": {
+      "ran": 5,
+      "caught": 5,
+      "ids": [
+        "m-guard",
+        "m-worker-hardcode",
+        "m-fp-grant-only",
+        "m-stored-zero",
+        "m-wrong-doc"
+      ]
+    },
+    "proofB": {
+      "side1": "grant minted/verified → p-qa-synth-1@est-qa0001; link + message produced",
+      "side2": "un-primed agent, input = message text only, via tools/journey-view.py",
+      "isolationPlant": {
+        "ran": true,
+        "passed": true,
+        "detail": "link stripped from the message; agent made ZERO tool calls, refused to guess or hunt the URL, and named the gap. Side 2 is UNCONTAMINATED."
+      }
+    }
+  },
+  "asserted": {
+    "by": "claude-session (main window)",
+    "verdict": "pass-with-findings",
+    "adjudication": "/ux-sweep pass-2 contract: every load-bearing claim re-verified before acceptance.",
+    "confirmed": [
+      {
+        "id": "F1",
+        "sev": "HIGH",
+        "claim": "the address on the confirm screen renders as one run-on line",
+        "proof": "textContent='412 Laurel Ridge Road\\nJasper, GA 30143'; innerText='…Road Jasper, GA 30143'; computed white-space='normal'. composed() joins with \\n but #s4addr has no pre-line rule.",
+        "why": "it is the screen that asks her to check her own address is right"
+      },
+      {
+        "id": "F2",
+        "sev": "MED",
+        "claim": "'Where is it?' is ambiguous — the property, or her own address",
+        "proof": "walker hesitated at the first field and was unsure whose address was wanted",
+        "owner": "content"
+      },
+      {
+        "id": "F3",
+        "sev": "MED",
+        "claim": "the link is the credential but nothing identifies her — no greeting, no name",
+        "proof": "walker: 'nothing asked me who I was… if that link got loose, whoever has it walks straight into my address'",
+        "owner": "Paul — this is the account-credential design already drafted"
+      },
+      {
+        "id": "F4",
+        "sev": "MED",
+        "claim": "no way to see or change what she submitted, though the screen promises it",
+        "proof": "'you can change it any time' appears where she types; no route to it afterwards",
+        "owner": "product"
+      },
+      {
+        "id": "F5",
+        "sev": "LOW",
+        "claim": "a ✓ sits on every button BEFORE it is pressed",
+        "proof": "'✓Start', '✓That's it', '✓See your place' — reads as already-done",
+        "owner": "design"
+      },
+      {
+        "id": "F6",
+        "sev": "LOW",
+        "claim": "'we/our' and 'Paul' read as different parties",
+        "proof": "'Now it's our turn' beside 'Paul is the only other person who sees it'",
+        "owner": "content"
+      },
+      {
+        "id": "F7",
+        "sev": "LOW",
+        "claim": "completion is signalled only by running out of buttons",
+        "proof": "walker: 'the real signal was running out of buttons'",
+        "owner": "design"
+      }
+    ],
+    "rejected": [
+      {
+        "claim": "returning to the link later starts over blank — the address did not save",
+        "verdict": "FALSE POSITIVE — harness artifact",
+        "proof": "journey-view.py opens a FRESH context per invocation, so localStorage never persists between the walker's 'visits'. The resume table is proven green on the served bytes (path 6: step=2→s2, 3→s4, 4→s4). ⭐ This is exactly the 'false positive manufactured by the reviewer's own interaction state' /ux-sweep pass 2 warns of, and it was the walker's single most alarming finding."
+      },
+      {
+        "claim": "'Apartment or unit — if you have one' is printed twice",
+        "verdict": "FALSE POSITIVE — harness artifact",
+        "proof": "source has it once (index.html:245); the label wraps a <span class=optional>. journey-view.py prints leaf nodes and emitted both."
+      },
+      {
+        "claim": "Google Maps moved the pin to 'Laurel Ridge Trail'",
+        "verdict": "NOT A PRODUCT DEFECT — external geocoder",
+        "proof": "the page hands Google a query string and links out; the screen already tells her to check the pin. Kept because the invitation to check is what surfaced it."
+      }
+    ],
+    "limits": [
+      "A clean journey walk is a PRECONDITION for sending, never evidence the trial will succeed. The walker is a fluent reader with no fear of getting things wrong; her documented constraint is exactly that fear.",
+      "Proof A drives the page with the Worker INTERCEPTED for fault paths. It proves the page's logic, not the Worker's behaviour. No live write was made to QA KV on this lap.",
+      "Gate 2 (Paul) and gate 3 (Mom) have NEVER run and are UNPROVEN."
+    ]
+  }
+}

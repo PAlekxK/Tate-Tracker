@@ -129,6 +129,10 @@
   select { background-image: none; }
   input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(63,82,102,.18); }
   .optional { font-weight: 400; color: var(--ink-soft); }
+  /* composed() joins the street and the city line with "\n". Without this the browser collapses that
+     newline to a space and her address reads back as one run-on line — on the very screen that asks
+     her to check it is right. Found by the 2026-09-05 gate-1 walk. */
+  #s4addr { white-space: pre-line; }
   a.maplink {
     display: block; margin: 4px 0 2px;
     min-height: 52px; padding: 14px 16px;
