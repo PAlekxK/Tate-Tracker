@@ -1,5 +1,10 @@
 # Handoff: onboarding-journey-testing
-<!-- generated 2026-09-05 ~5:20 AM ET · sources: Tate-Tracker@d478a3c, fernwood-private@c0bc194, ~/.claude@846aa75 · RECEIVER: verify shas vs HEAD before trusting any status below -->
+<!-- generated 2026-09-05 ~5:20 AM ET · re-stamped ~5:35 AM after the final close-out commits ·
+     sources: Tate-Tracker@0315796 (+1: THIS commit moves it, by construction), fernwood-private@ffc89d5, ~/.claude@f44c3e7
+     ALL THREE REPOS WERE VERIFIED CLEAN AND FULLY COMMITTED AT THIS STAMP — `git status --porcelain` empty in each,
+     Tate-Tracker pushed to origin/staging, the other two local-only by design (no remote, nothing to push).
+     RECEIVER: verify shas vs HEAD before trusting any status below. A one-commit gap on Tate-Tracker whose only
+     delta is this file is EXPECTED; anything more means work landed after the handoff and the status is stale. -->
 
 ## 1 · Mission
 Stand up **iterative cycles of testing the onboarding journey** — logic and function proven *before it reaches Paul*. `[paul-stated 2026-09-05 ~5:15 AM ET]`: *"I really hope we can start running some iterative cycles of testing out the journey and its functionality, using the UX review skill — and call practice-steward to figure out exactly how to do it. Be sure that things are proved out from a bare-logic point of view and a functional point of view before it gets to me. And that should really be the full onboarding journey."*
@@ -12,6 +17,7 @@ Stand up **iterative cycles of testing the onboarding journey** — logic and fu
 - `onboarding/index.html` — the artifact. Four views, all comments are load-bearing rationale.
 
 ## 3 · Next steps (ordered)
+0. **Verify the tree is clean before you trust anything** — `git status --porcelain` in `Tate-Tracker`, `../fernwood-private` and `~/.claude`. All three were **empty** at the stamp above. Anything dirty now landed after this brief was written, so reconcile it from git before acting on any status here. ⚠️ The two siblings have **no remote by design** — "unpushed" is not a defect there; "uncommitted" is.
 1. **Ask `practice-steward` how to run this**, per Paul's explicit instruction — it already holds the cascade design. The question is the CYCLE: what fires a lap, what a lap does, what it leaves behind, and how gate 1 differs from a `/ux-sweep`.
 2. **Separate the two proofs Paul named — they are different tests.** *Bare logic*: does every path resolve (bad grant · revoked · offline · duplicate submit · cleared storage · new device)? *Functional*: does a person walking it get where they're going? Do not let one stand in for the other.
 3. **The journey runner needs its own assertion.** ⛔ `qa-walk.py` asserts `.main-card`, which `onboarding/index.html` has **zero** of — a tokenless run would walk the Cloudflare Access login page, which returns **HTTP 200**, and report clean. Assert `<title>My Home</title>` / `#s1`–`#s4`.
