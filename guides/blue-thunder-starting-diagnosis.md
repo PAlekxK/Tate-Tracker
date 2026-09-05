@@ -517,6 +517,111 @@ start, T3 becomes hard to run at all.
 
 ---
 
+# ✅ RULING — REPLACE IT. `paul-decided 2026-09-05`, and the record supports him.
+
+**Paul: *"I think at this point I want to just replace it… look at the full battery diagnosis
+history and tell me whether that doesn't make sense."*** It makes sense. This section is the
+audit he asked for, including the one hole that remains and the cheap way to close it.
+
+## FIVE INDEPENDENT LINES, AND THEY ALL LAND ON THE SAME MECHANISM
+
+| # | evidence | date | what it indicts |
+|---|---|---|---|
+| 1 | **Three warm restarts, monotonic degradation** — fine · fine · barely caught | 08-30 | cranking power, and it held fuel constant |
+| 2 | **"Empty" → "full" in ~15 minutes** on the bench charger | 09-04 | terminal voltage reached almost instantly = **high internal resistance** |
+| 3 | **Settles at ~12.60 after every "full"** | 09-04 | never actually filled, or cannot hold a fill |
+| 4 | **12.55 rested → 9.41 under crank, then clicking** | 09-05 | cannot deliver current |
+| 5 | ⭐ **T4 PASSES (−0.09 V/12 h) AND SHE STILL WON'T START** | 09-05 | **holds voltage, cannot supply current** |
+
+⭐⭐ **LINE 5 IS THE ONE THAT CLOSES IT, AND IT ONLY EXISTS AS OF TODAY.** Every earlier reading
+was ambiguous between *charge state* and *capacity*. A battery that **holds its voltage overnight
+within 0.09 V** and then **collapses to 9.41 V under load** has separated those two for the first
+time: **the charge is there and the current is not.** That is the textbook signature of high
+internal resistance, and it is the same mechanism lines 2 and 3 arrived at from the bench.
+
+⭐ **IT ALSO RESOLVES THE 09-01 CONTRADICTION.** That row reads *"charged fully, left overnight,
+would not start"* and was recorded as **the record breaking its own pattern** — a battery that
+does not hold. **Today's measured overnight hold contradicts that reading.** The battery held on
+09-01 too; it simply could not start the bike. *"It didn't hold"* was an inference from a failed
+start, taken with no meter. **The measurement wins, and the mechanism is one thing, not two.**
+
+## ⭐ AND TWO OF THE FIVE ARE ALTERNATOR-INDEPENDENT — WHICH IS WHY THE T3 GATE NO LONGER BLOCKS
+
+**Lines 2 and 4 were both taken with the engine off.** The 15-minute charge termination happened
+on a **mains charger**; the 9.41 collapse was a load test from a **known resting voltage**. The
+state of the charging system cannot explain either one. **So the battery is condemned on evidence
+that does not depend on T3, and running T3 first would not change the verdict on the battery.**
+
+## ⛔ BUT THE GATE'S REAL ARGUMENT SURVIVES — IT IS JUST NOT AN ARGUMENT FOR WAITING
+
+The gate never said *"the battery might be fine."* It said: **a dead charging system would kill a
+new battery the same way**, and that is still true. The 09-04 **CHRONIC PARTIAL CHARGING**
+candidate — the only one that explains the whole pattern — is untested and remains untested.
+
+⭐⭐ **WHAT CHANGED IS THE DIRECTION OF THE BLOCK, AND THIS IS THE WHOLE RULING.** The gate was
+written on 09-04 when *she could still start* and buying was speculative. **Both halves inverted
+overnight:**
+
+- **Then:** T3 was free (she started), a battery was a guess → *test first, then buy.*
+- **Now:** she will not start, so T3 needs a jump pack and a careful unclip → **the battery is the
+  cheapest way to un-block T3.** A new battery makes the decisive test trivial to run.
+
+**So the ORDER reverses and the GATE does not disappear:**
+
+> ### 🎯 BUY THE BATTERY. RUN T3 ON THE FIRST RIDE, NOT "SOON."
+>
+> The exposure from being wrong is **weeks of slow drain, not one ride** — and T3 takes five
+> minutes with an engine that runs. Running it the same day the new battery goes in costs nothing
+> and closes the last candidate. **A new battery that is never followed by T3 is the failure this
+> gate was written to prevent, and it is now the only way to reach it.**
+
+## ⚠️ THE ONE HONEST HOLE, AND IT CLOSES FOR FREE ON THE WAY TO THE STORE
+
+**This battery has never had a genuine full charge in this record's memory.** Every charge
+terminated at the end of bulk (~80%), so *"the capacity is gone"* has never been measured from a
+truly full state. That hole is real and it is the only thing that could still surprise us.
+
+⭐ **TAKE THE OLD BATTERY WITH YOU.** Every major parts counter runs a free conductance test and a
+free charge. It costs one trip you are already making, and it buys three things this record
+cannot otherwise get:
+
+1. **A measured CCA against the rating** — a *number*, not five converging inferences. Tell them
+   12 V 6 Ah AGM powersports, ~100 CCA.
+2. **A free charge on a proper charger**, which closes the never-actually-full hole — and if they
+   hand it back reading **12.8–12.9 V rested**, that is the 09-04 falsifier firing and the only
+   result that should stop the purchase.
+3. 👁 **The label read.** `XTAX7L-BS` vs the record's `YTX7L-BS` is still `[photo-MODEL-READ,
+   UNVERIFIED]`. The battery will be in your hands — settle it in ten seconds.
+
+⚠️ **This does NOT overturn this file's own line that the starter is a harsher load than a
+commercial tester.** It is still 18 A against 60–100 A. **A conductance tester is not being used
+as a better load test — it is being used as an INSTRUMENT**, reporting internal resistance
+directly, which is the exact quantity all five lines above infer. Different question, and the one
+that has never been measured. ⛔ **A "GOOD" verdict from it does not clear the battery** against
+five converging lines and a 9.41 V collapse; it would mean *stop and think*, not *stand down*.
+
+## WHAT TO BUY, AND THE TWO HABITS THAT COME WITH IT
+
+- **Size:** `YTX7L-BS` / `XTAX7L-BS` — 12 V, 6 Ah, sealed AGM. Mainstream, shelf stock. **Read the
+  spec off the old case, do not order off this file.**
+- ⛔ **Charge it on the AGM/GEL profile, never STD.** The 09-04 finding stands: a 6 Ah sealed AGM
+  was being charged on the car profile. Rate wants **0.6–1.8 A**, not car-mode current.
+- ⛔ **Never run REPAIR/desulfation mode on the new one.** Two weeks of elevated-voltage pulses on
+  a sealed AGM is a *candidate contributor* to the old one's decline, not just a failed rescue.
+- ⛔ **A charger is POWERED or FULLY DISCONNECTED — never attached and dead.** That is the measured
+  ~20 mA path: 0.24 Ah overnight, **1.4 Ah over three days**, which is the 08-30 episode exactly.
+- ⭐ **Fit the Battery Tender pigtail with a voltmeter plug** while the battery is out. It makes
+  the pre-crank number exist for the first time, and it is a number Mom can read over the phone.
+
+## ⛔ AND THE FALSIFIER, PRE-REGISTERED BEFORE THE PART IS FITTED
+
+**If she still will not start on a brand-new, properly-charged battery, the fault was never the
+battery** — and the axis moves to the starter, the relay, the main fuse or the wiring. Writing
+that down now is what stops a new battery from being read as a diagnosis. **A part that fixes it
+is evidence; a part that does not must be allowed to say so.**
+
+---
+
 # 📉 THE WINDOW CLOSED, AND IT CLOSED ON A MEASUREMENT — 2026-09-05, fleet lap 3
 
 **Three meter photographs, timestamps read deterministically from EXIF (`DateTimeOriginal`,
