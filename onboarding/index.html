@@ -32,20 +32,39 @@
 
   /* 414 × 848 · A+ — HER conditions, measured, not assumed (CLAUDE.md, paul-stated 2026-08-24:
      "whatever Mom has been using, that's the standard"; text_size_served = lg in 8 of 8 reports). */
+  /* ⭐⭐ THE ONBOARDING CARRIES NO INSTANCE'S IDENTITY — a NEUTRAL COOL GRAY-BLUE
+     `[paul-stated 2026-09-05]`: "whether we have, when people get the invite, a very neutral
+     gray / dark gray-blue, cool color — that then will help them, when they pick another
+     color, make that pop even more."
+
+     ⛔ THIS CORRECTS AN EARLIER CHOICE IN THIS FILE. The first version used Fernwood's forest
+     green on purpose, to answer the onboarding journey's stage-2 risk — she slides from +1 to 0
+     "the moment the page does not look like her app." That reasoning was wrong at the root:
+     green is FERNWOOD'S identity, this page is classed `engine` and serves every estate, and
+     she is not arriving at Fernwood — she is starting a place of her own. Familiar green would
+     have quietly told her the wrong thing, and spent the moment that should be hers.
+
+     So the ground is deliberately quiet, and every colour is a TOKEN: an estate's own accent can
+     be injected over `--accent` later without touching a rule. Neutral is not an absence of
+     design here — it is the canvas that makes her eventual pick land. */
   :root {
-    --ink:        #24352b;
-    --ink-soft:   #5b6f62;
-    --card:       #ffffff;
-    --edge:       #d8eacc;
-    --green-deep: #183524;
-    --green-mid:  #2a6040;
-    --green-lit:  #3a8a58;
-    --base:       19px;
+    --ink:       #1d2530;   /* cool near-black */
+    --ink-soft:  #5d6b7c;   /* muted slate — secondary prose */
+    --card:      #ffffff;
+    --edge:      #dde2e9;   /* cool light border */
+    --ground-a:  #f5f7f9;   /* page wash, top */
+    --ground-b:  #eaeef3;   /* page wash, bottom */
+    --brand-deep:#212a36;   /* header gradient — dark gray-blue */
+    --brand-mid: #33404f;
+    --brand-lit: #47576a;
+    --accent:    #3f5266;   /* the affirmative fill. An instance colour overrides THIS token. */
+    --accent-on: #334455;   /* its pressed state */
+    --base:      19px;
   }
   * { box-sizing: border-box; -webkit-text-size-adjust: 100%; }
   html, body { margin: 0; padding: 0; }
   body {
-    background: linear-gradient(#edf7e6, #e2f0d8);
+    background: linear-gradient(var(--ground-a), var(--ground-b));
     background-attachment: fixed;
     color: var(--ink);
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -56,8 +75,8 @@
     flex-direction: column;
   }
   header {
-    background: linear-gradient(135deg, var(--green-deep), var(--green-mid) 55%, var(--green-lit));
-    color: #eaf6ec;
+    background: linear-gradient(135deg, var(--brand-deep), var(--brand-mid) 55%, var(--brand-lit));
+    color: #eef1f5;
     padding: 26px 22px 24px;
     position: relative;
     overflow: hidden;
@@ -93,29 +112,34 @@
     font-family: inherit; font-size: 1.04rem; line-height: 1.45; color: var(--ink);
     padding: 13px 14px;
     border: 1.5px solid var(--edge); border-radius: 13px;
-    background: #fcfefb;
+    background: #fbfcfd;
   }
-  textarea:focus { outline: none; border-color: var(--green-lit); box-shadow: 0 0 0 3px rgba(58,138,88,.16); }
+  textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(63,82,102,.18); }
 
   /* ONE affirmative grammar, everywhere she taps (CLAUDE.md standing rule 1, paul-stated
-     2026-07-29): affirmative = filled green + ✓. Consistency outranks semantic precision here. */
+     2026-07-29). ⭐ THE GRAMMAR IS ENGINE; THE HUE WAS ALWAYS INSTANCE. The ratified rule is
+     FILLED + ✓ — a solid fill carrying a check, against an outlined neutral for the secondary.
+     It was written when Fernwood was the only estate, so it recorded the fill as *green*. Here
+     the fill is `--accent`, and an estate's own colour overrides that one token: the learnable
+     signal she is being taught survives the recolour intact, which is the whole point of it
+     being a grammar rather than a swatch. */
   button {
     -webkit-appearance: none; appearance: none;
     display: block; width: 100%; margin-top: 18px;
     min-height: 54px; padding: 14px 18px;
     font-family: inherit; font-size: 1.06rem; font-weight: 500;
-    color: #fff; background: var(--green-lit);
-    border: 1.5px solid var(--green-lit); border-radius: 13px;
+    color: #fff; background: var(--accent);
+    border: 1.5px solid var(--accent); border-radius: 13px;
     cursor: pointer;
   }
-  button:active { background: var(--green-mid); border-color: var(--green-mid); }
+  button:active { background: var(--accent-on); border-color: var(--accent-on); }
   button[disabled] { opacity: .55; cursor: default; }
   button .tick { margin-right: 8px; }
 
   .trouble {
     margin-top: 15px; padding: 13px 14px;
-    border: 1.5px solid #e6d8b8; border-radius: 13px;
-    background: #fdf8ec; font-size: .96rem;
+    border: 1.5px solid #d9c9a4; border-radius: 13px;
+    background: #fdf7e9; font-size: .96rem;
   }
   [hidden] { display: none !important; }
 </style>
@@ -123,7 +147,6 @@
 <body>
 
 <header>
-  <div class="mark" aria-hidden="true">🌿</div>
   <h1 id="head">Your place</h1>
 </header>
 
