@@ -28,7 +28,16 @@
   She is not at "an estate" in "home" — she is at her own address.
 -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap');
+  /* ⛔ NO WEBFONT FETCH. This page loaded Crimson Text and DM Sans from fonts.googleapis.com on
+     EVERY view, which contacts Google before the reader has done anything — IP, user-agent and
+     referring URL, unasked. That is the same silent disclosure this page refuses one screen below
+     when it declines to EMBED a map, and an inconsistency a privacy claim cannot survive
+     `[paul-stated 2026-09-05: "we should be highlighting that we're making a conscientious decision
+     to protect their privacy"]`.
+
+     System stacks instead: zero requests, nothing to block, and on her device it resolves to SF,
+     which is more legible at A+ than DM Sans is. If the exact typefaces are wanted back, self-host
+     the two woff2 files in this directory — same look, still no third party. */
 
   /* 414 × 848 · A+ — HER conditions, measured, not assumed (CLAUDE.md, paul-stated 2026-08-24:
      "whatever Mom has been using, that's the standard"; text_size_served = lg in 8 of 8 reports). */
@@ -67,7 +76,7 @@
     background: linear-gradient(var(--ground-a), var(--ground-b));
     background-attachment: fixed;
     color: var(--ink);
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, sans-serif;
     font-size: var(--base);
     line-height: 1.55;
     min-height: 100vh;
@@ -89,7 +98,7 @@
   header::after  { width: 120px; height: 120px; bottom: -66px; left: -30px; }
   header .mark { font-size: 1.5rem; line-height: 1; margin-bottom: 8px; }
   header h1 {
-    font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
+    font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
     font-weight: 600; font-size: 1.72rem; line-height: 1.2;
     margin: 0; letter-spacing: .2px;
   }
@@ -338,7 +347,7 @@
          a disclosure falsified by the next screen is worse than none. A link sends nothing until she
          taps it, and the label says where it goes before she does. The promise stays true. -->
     <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>Have a look on the map ›</a>
-    <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Opens Google Maps. If it puts you in the wrong spot, tell Paul — it's easy to change.</p>
+    <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Opens Google Maps. Nothing about you is sent anywhere unless you tap it. If the pin looks wrong, tell Paul.</p>
     <p>We're putting it together now — taking what you told us and building everything around it. That's the weather where you actually are, what grows there, and what's worth a look each month.</p>
     <p class="soft">There's nothing for you to do while we work. Paul will let you know when the next piece is ready.</p>
     <p class="quiet">“My Home” is just what we call it until you name it — that comes later, and it can be anything you like.</p>
