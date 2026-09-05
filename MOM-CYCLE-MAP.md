@@ -866,9 +866,3 @@ trigger's business, not the door's.
 - `tools/qa_access.py` — the Cloudflare Access headers every tool needs to fetch the QA page (token in `.private/`).
 - `tools/check-config-derivation.py` — canon values TYPED into engine code (34.5496 · 2,873 · the frost dates · the served text size) — a fork detector; session-start and pre-push.
 - `tools/check-public-build.py` — private-tier classes in the PUBLIC build + the supplied-names needle row; the pre-push hook runs it before anything leaves the machine.
-
-<!-- meta-lap: 2026-09-05 -->
-**2026-09-05 — NOT a mom lap.** The day's Tate-Tracker commits are the RELEASE CASCADE's gate 1 —
-the onboarding journey test (`tools/journey-logic.py`), a P0 in `onboarding/index.html`, the estate
-accent palette, and `personId` attribution. Her surface is frozen and her feedback channel stayed
-HELD and unread. The loop rests; **her input is what fires it**, and none arrived.

@@ -2073,3 +2073,5 @@ drifted, nothing said so, and it was found by accident while doing unrelated wor
 commit that needed it.
 
 <!-- meta-lap: 2026-09-04 — the Product Engine migration build (QA-first; C5/C6/Guru/C7 steps; Access on QA). No mom-cycle lap ran: her feedback is HELD by Paul's 9/03 freeze. -->
+
+<!-- meta-lap: 2026-09-05 — the release cascade's GATE 1: the onboarding journey test (tools/journey-logic.py, 15 paths + a 5/5 mutation suite), a P0 in onboarding/index.html that had the whole journey down and reading as offline, the estate accent palette, and personId attribution. No mom-cycle lap ran: her surface is frozen and her feedback stays HELD by Paul's 9/03 freeze — the loop rests, her input fires it, and none arrived. -->

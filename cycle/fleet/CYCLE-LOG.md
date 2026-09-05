@@ -635,3 +635,5 @@ with a test attached, or only noise? Blue Thunder is the natural first subject.
 ⚠️ **NOT a lap.** Do not count this section as one.
 
 <!-- meta-lap: 2026-09-04 — engine/migration work only; the fleet loop did not run. -->
+
+<!-- meta-lap: 2026-09-05 — cascade/onboarding work only; the fleet loop did not run. -->
