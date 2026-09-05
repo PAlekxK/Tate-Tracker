@@ -57,7 +57,12 @@ def stops(fresh, answers):
         "type:#uemail=" + a["email"], "click:#go0"])
     return [
         ("01-arrive", []),
-        ("02-account", signup[:-1] if fresh else []),
+        # ⛔ None, NOT []. This read `signup[:-1] if fresh else []`, so on the arrive-with-a-token
+        # path the account stop got an EMPTY action list — it re-rendered the arrival screen and
+        # recorded itself COMPLETE. A stop named "account" that never visits the account screen and
+        # reports success is a false green, and it is why s0 looked covered while nothing walked it.
+        # None means "not reachable in this mode" and the runner refuses to score it.
+        ("02-account", signup[:-1] if fresh else None),
         ("03-named", signup + ["type:#pname=" + a["place"], "click:#go1"]),
         ("04-address", signup + ["type:#pname=" + a["place"], "click:#go1",
                                  "type:#a1=" + a["line1"], "type:#city=" + a["city"],
@@ -97,15 +102,26 @@ def main():
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
     for name, actions in stops(a.fresh, ans):
+        if actions is None:
+            # Unreachable is a RESULT, and it is not a pass. It is recorded so a reader of the
+            # transcript can see the screen went unvisited instead of inferring it was fine.
+            record["stops"].append({"stop": name, "status": "not-reachable",
+                                    "why": "arrived with a token; this stop exists only on the --fresh signup path"})
+            print("  %-14s   ---   NOT REACHABLE on this path — re-run with --fresh to walk it" % name)
+            continue
         got = view(url, actions, os.path.join(d, name + ".png"))
-        record["stops"].append(dict(got, stop=name))
+        record["stops"].append(dict(got, stop=name, status="walked"))
         first = next((l for l in got["screen"].splitlines() if l.startswith("PAGE TITLE")), "")
         print("  %-14s %5.1fs  %s%s" % (name, got["seconds"], first, "  ⛔ " + (got["error"] or "") if got["error"] else ""))
 
     with open(os.path.join(d, "transcript.json"), "w", encoding="utf-8") as f:
         json.dump(record, f, indent=2)
     open(os.path.join(d, "REPORT.md"), "w", encoding="utf-8").write(
-        "# %s — run %s\n\n> ⛔ The walker's OWN experience goes here, written by the walker.\n"
+        "# %s — run %s\n\n<!-- WALK-REPORT-UNWRITTEN — delete this line when the walker has written it.\n"
+        "     ⛔ Anything consolidating walks MUST refuse to count a seat while this marker is present.\n"
+        "     On 2026-09-05 a 287-byte stub was counted as a seat that had reported, and a finding was\n"
+        "     attributed to three seats when only two had produced any experiential claim. -->\n"
+        "> ⛔ The walker's OWN experience goes here, written by the walker.\n"
         "> This file is deliberately separate from transcript.json: what the product DID and what a\n"
         "> person FELT are different kinds of claim, and merging them makes the second unfalsifiable.\n" % (a.role, run))
     prior = sorted(glob.glob(os.path.join(OUT, a.role, "*")))
