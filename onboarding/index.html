@@ -650,6 +650,17 @@
   if (grant && owner && owner !== grant) { clearAnswers(); }
   if (grant) store(K_OWNER, grant);
 
+  // The place's name and its colour are ACCOUNT facts, not browser state. Kept only in localStorage
+  // they die with the browser — which is not durability, it is a cache that looks like a profile.
+  function saveProfile(patch) {
+    var g = read(K_GRANT), u = read(K_USER);
+    if (!g || !u) return;
+    fetch(WORKER + "/api/profile", {
+      method: "POST", headers: { "Content-Type": "application/json", "X-Grant": g },
+      body: JSON.stringify(Object.assign({ username: u }, patch))
+    })["catch"](function () {});                       // best effort; the local copy already applied
+  }
+
   function paintAccent() {
     var hex = read(K_COLOR);
     if (hex) document.documentElement.style.setProperty("--accent", hex);
@@ -753,7 +764,7 @@
     el.go0.disabled = true; el.go0.innerHTML = "Setting up…";
     fetch(WORKER + "/api/account", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: u, word: w, email: em, phone: ph || null })
+      body: JSON.stringify({ username: u, word: w, email: em, phone: ph || null, accent: read(K_COLOR) })
     })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
       .then(function (res) {
@@ -815,6 +826,7 @@
     store(K_NAME, nm);
     paintName();                                     // the top bar follows immediately
     postAnswer("onboard-name", nm, { type: "onboarding", field: "name", step: 4, renamed: true })["catch"](function () {});
+    saveProfile({ name: nm });
     el.renameBox.hidden = true;
     el.renameLink.hidden = false;
     el.renameLink.textContent = "Call it something else ›";
@@ -858,6 +870,7 @@
     store(K_NAME, nm);
     paintName();
     postAnswer("onboard-name", nm, { type: "onboarding", field: "name", step: 1 })["catch"](function () {});
+    saveProfile({ name: nm });   // ⭐ durable: a name kept only in localStorage dies with the browser
     step(2);
     el.a1.focus();
   });

@@ -463,6 +463,8 @@ async function handleAccountCreate(request, env, scope) {
   await env.OBSERVATIONS.put(akey, JSON.stringify({
     personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
     createdAt: new Date().toISOString(), tokenHash, email, phone: phone || null,
+    accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
+    placeName: null,
   }));
   return json({ personId, token, estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] }, 201);
 }
@@ -482,9 +484,31 @@ async function handleSession(request, env, scope) {
   try { acct = JSON.parse(raw); } catch (e) { return deny(); }
   const got = await derive(word, unb64(acct.salt), acct.iterations || PBKDF2_ITERATIONS);
   if (!sameHash(got, acct.hash)) return deny();
-  // The account row holds the token HASH, never the token — so a session cannot hand back a
-  // credential the account store does not have. Login returns the LIST, length 1 today (the chooser).
-  return json({ personId: acct.personId, needsToken: true,
+
+  // ⛔ LOGIN ISSUES A FRESH CREDENTIAL. It used to return `needsToken: true` and nothing else, on the
+  // reasoning that the account row holds only the token's HASH so it cannot hand back what it does
+  // not have. That reasoning was correct and the conclusion was useless: the account was durable and
+  // UNUSABLE — right password, account found, no way back in. Found by asking "is it durable?" and
+  // testing rather than assuming.
+  // So a session MINTS a new token and rotates the grant: the old row is deleted, so a stolen or
+  // stale credential stops working the next time she signs in.
+  const token = b64(crypto.getRandomValues(new Uint8Array(32))).replace(/[+/=]/g, "").slice(0, 43);
+  const tokenHash = await sha256Hex(token);
+  const prior = await env.OBSERVATIONS.get(keyFor(scope, "grant", acct.tokenHash || "none"));
+  const grantRow = prior ? JSON.parse(prior) : {
+    personId: acct.personId, estateId: scope.id, relationship: ["owner"], capability: "administrator",
+    entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: acct.personId, consent: [],
+  };
+  await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
+  if (acct.tokenHash && acct.tokenHash !== tokenHash) {
+    await env.OBSERVATIONS.delete(keyFor(scope, "grant", acct.tokenHash));
+  }
+  await env.OBSERVATIONS.put(accountKey(scope, username), JSON.stringify(Object.assign({}, acct, { tokenHash })));
+
+  // ⭐ AND THE THINGS THAT MAKE IT HERS COME BACK TOO. The place's name and the accent used to live
+  // only in localStorage, so clearing a browser reset her to "My Home" in Stone — durable data, and
+  // an identity that evaporated. They are stored on the account and returned on every session.
+  return json({ personId: acct.personId, token, name: acct.placeName || null, accent: acct.accent || null,
                 estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] });
 }
 
@@ -3047,6 +3071,26 @@ export default {
       // ⛔ Must not survive into production — an error body is an oracle.
       try { return await handleAccountCreate(request, env, scopeOf(env)); }
       catch (e) { return json({ error: "account-failed", detail: String(e && e.message || e).slice(0, 300) }, 500); }
+    }
+    // The place's name and accent are ACCOUNT-LEVEL facts, not feedback. A grant identifies who is
+    // asking, so this needs no separate credential — and it fails closed without one.
+    if (url.pathname === "/api/profile" && request.method === "POST") {
+      const g = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
+      if (!g) return json({ error: "not-found" }, 404);
+      try {
+        const b = await request.json();
+        const uname = typeof b.username === "string" ? b.username.trim() : "";
+        if (!uname) return json({ error: "bad-request" }, 400);
+        const sc = scopeOf(env);
+        const raw = await env.OBSERVATIONS.get(accountKey(sc, uname));
+        if (!raw) return json({ error: "not-found" }, 404);
+        const acct = JSON.parse(raw);
+        if (acct.personId !== g.personId) return json({ error: "not-found" }, 404);
+        if (typeof b.name === "string") acct.placeName = b.name.slice(0, 60);
+        if (typeof b.accent === "string") acct.accent = b.accent.slice(0, 9);
+        await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
+        return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null });
+      } catch (e) { return json({ error: "bad-json" }, 400); }
     }
     if (url.pathname === "/api/session" && request.method === "POST" && !authOk(request, env)) {
       try { return await handleSession(request, env, scopeOf(env)); }
