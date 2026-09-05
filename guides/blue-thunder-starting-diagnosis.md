@@ -350,6 +350,92 @@ Append a row per incident or test. **An empty row is not a passing test.**
 
 ---
 
+## 🔁 THE CHARGER WAS IN **STD** MODE — `paul-stated 2026-09-04` — and it reframes the day
+
+**It was never on AGM/GEL.** A 6 Ah sealed AGM was charged on the STANDARD (car) profile. Three
+consequences, and the first is a **retraction of this file's own reasoning from earlier today.**
+
+### ⚠️ RETRACTION — "it cannot be a real charge in 15 minutes" was overstated
+
+That claim was written assuming a maintainer-rate current. **On a car profile it does not hold.**
+If STD pushes several amps, 15 minutes is on the order of **1–2 Ah**, which into a 6 Ah battery
+sitting part-full is a substantial and entirely legitimate slug of charge.
+
+**What survives, and it is narrower:** *no* lead-acid battery reaches genuine **full** in 15 minutes
+at any current, because the absorption phase is **chemistry-limited, not current-limited** — it takes
+hours whatever you feed it. So the charger did not lie about *charging*; it lied about **"full."** It
+terminated at the end of **bulk**, which lands a lead-acid battery around **80%**.
+
+⭐⭐ **AND THAT RECONCILES THE WHOLE DAY WITHOUT A DYING BATTERY.** Bulk termination ≈ 80%, settling
+to a resting **12.60 ≈ 75%**, is a *coherent and innocent* story. **The 15-minute charge stops being
+evidence of lost capacity and becomes evidence of an interrupted charge.** ⛔ **It does not clear the
+battery either** — it removes a witness, it does not supply an alibi. **We now have no clean reading
+of what this battery can hold, because it has not been properly filled.**
+
+### The risk running the other way — STD on an AGM is not neutral
+
+- **Rate.** The rule of thumb is 10–30% of capacity: **0.6–1.8 A for a 6 Ah battery.** A car-mode
+  current well above that heats a small AGM and costs it life. ⚠️ **The NC201 Pro's per-mode current
+  is NOT known to this record — read it off the unit or its manual.** It decides the arithmetic above.
+- **Profile.** A flooded/STD stage set can run absorption higher than an AGM wants, and a
+  flooded **equalisation** stage is genuinely damaging to a sealed battery, which cannot replace
+  gassed-off electrolyte. *(Whether STD on this unit equalises is unknown — same question, same place.)*
+
+### ⭐ SO THE ROOT-CAUSE LIST GAINS A FOURTH CANDIDATE, AND IT IS THE ONLY ONE THAT EXPLAINS EVERYTHING
+
+The record's three prior causes were **fuel**, **contacts**, **kill switch** — each explained one
+incident and none explained the pattern. This one explains the pattern:
+
+> **CHRONIC PARTIAL CHARGING.** Every charge terminates at ~80% on the wrong profile → the battery
+> is never actually filled → progressive **sulfation** → capacity falls → *charging restores starting*
+> (a partial charge is plenty for a day or two) → **and then it fades again.** Self-reinforcing, and it
+> matches every episode in this file including the 9/01 overnight failure.
+
+**Its falsifier is cheap and is the next test:** give her one *genuine* full charge on the right
+profile and see where she settles. **12.8–12.9 V rested = the battery was never the problem, it was
+the charging of it.** Still ~12.6 after a proper full charge = the capacity really is gone, and now we
+know it rather than suspect it. *(The NC201 Pro's REPAIR/desulfation mode exists for exactly this
+failure — worth a look **after** the honest baseline, never before it, or it corrupts the reading.)*
+
+### 🔎 The NAPA question is ASKED AND UNANSWERED — do not re-ask it
+
+`paul-stated 2026-09-04: "I don't know about number two."` The 2025-10-10 NAPA battery core stays
+**unassigned**, now with three candidates instead of two (F-150, GTI, **and this bike**). Recorded so
+a later pass does not spend Paul's attention on a question he has already declined to answer from
+memory. **A receipt or an order number is the only thing that closes it now** — not another ask.
+
+### ✅ WHAT THE OPEN-WINDOW LIST BELOW STILL GETS RIGHT, AND THE ONE PLACE IT IS NOW WRONG
+
+Steps 1–3 are **done**: charger off, and a settled **12.60 V** on the EM830 at 18:09:36. Step 2's
+label read is **with Paul** *(`paul-stated`: "I'll get number one")*.
+
+⛔ **But the list says T2b next, and that is now the wrong order.** T2b's own written precondition is
+*"fully charged, charger off the bike, rested ≥1 hour"* — **and we have just established she is at
+about 75%, not fully charged.** A crank ladder run at 75% cannot separate *"capacity is gone"* from
+*"it simply was not full,"* which is the exact confusion this whole file exists to break. Running it
+now would burn the charge and produce an uninterpretable result.
+
+⚠️ **This reverses the "do not recharge" instruction given earlier today, and the reversal is the
+point, not a contradiction.** That instruction was correct while the voltage was still falling — the
+settled number was the thing at risk, and it was taken. **We have it. The question has moved.**
+
+**THE ORDER NOW:**
+
+1. **Recharge on `AGM/GEL`** — the mode this battery has apparently never had. If the unit lets you
+   choose current independently, take the **low / motorcycle** rate: 0.6–1.8 A for a 6 Ah battery.
+2. **Let it run for HOURS, and do not believe an early "full."** Bulk ends around 80%; absorption is
+   the part that actually fills it and it cannot be hurried. Give it 4+ hours, or simply leave it.
+   ⭐ **Note the time it goes on and the time you take it off** — this is the first properly-charged
+   baseline this bike will have, and undated it is worth much less.
+3. **Charger fully OFF, then rest ≥1 hour — overnight is better.** EM830 on the posts.
+   **≥12.8 V = the battery was never the problem, the charging of it was. Still ~12.6 = the capacity
+   really is gone**, and that is a measurement rather than a suspicion.
+4. **T4 comes free** if it rests overnight — read it again in the morning before touching anything.
+5. **THEN T2b**, from a genuinely full battery, where its ladder finally means something.
+6. **T3 off the back of it** while she is running — still the decisive test, still never measured.
+
+---
+
 ## ⏱ OPEN WINDOW — 2026-09-04, and it closes when the charge does
 
 **The battery is charged and off mains RIGHT NOW.** That is the precondition every bench test in
