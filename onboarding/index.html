@@ -120,6 +120,14 @@
   select { background-image: none; }
   input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(63,82,102,.18); }
   .optional { font-weight: 400; color: var(--ink-soft); }
+  a.maplink {
+    display: block; margin: 4px 0 2px;
+    min-height: 52px; padding: 14px 16px;
+    font-size: 1.02rem; font-weight: 500; text-decoration: none;
+    color: var(--accent); background: #fbfcfd;
+    border: 1.5px solid var(--edge); border-radius: 13px;
+  }
+  a.maplink:active { background: #f1f4f7; }
   textarea {
     width: 100%; min-height: 108px; resize: vertical;
     font-family: inherit; font-size: 1.04rem; line-height: 1.45; color: var(--ink);
@@ -312,6 +320,25 @@
             Paul's explicit instruction and is applied. -->
     <p class="lede">My Home, so far.</p>
     <p id="s4addr" class="soft" hidden></p>
+
+    <!-- ⭐ A MAP LINK, SO SHE CONFIRMS BY SIGHT `[paul-stated 2026-09-05]`: "when we confirm the
+         address we should have like a Google Maps link, because that's ultimately what we'll use to
+         pull together the map and be sure we have the right location… that way they also get a
+         confirmation with a third party about what we're talking about, and they can say if anything
+         looks wrong."
+
+         ⭐ WHY IT SUITS THIS READER SPECIFICALLY: her measured engagement is depth-1 — card faces,
+         never opening individuals — and reading is difficult. Proofreading a standardised address
+         string is work; recognising your own roof is instant. This is confirmation that does not
+         depend on reading, which almost nothing else in the flow can say.
+
+         ⛔ IT IS A LINK, NEVER AN EMBED, AND THAT IS A PRIVACY DECISION NOT A STYLE ONE. An embedded
+         map would send her address to Google on page load, silently — which would make the sentence
+         she was shown one screen earlier ("Paul is the only other person who sees it") FALSE, and
+         a disclosure falsified by the next screen is worse than none. A link sends nothing until she
+         taps it, and the label says where it goes before she does. The promise stays true. -->
+    <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>Have a look on the map ›</a>
+    <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Opens Google Maps. If it puts you in the wrong spot, tell Paul — it's easy to change.</p>
     <p>We're putting it together now — taking what you told us and building everything around it. That's the weather where you actually are, what grows there, and what's worth a look each month.</p>
     <p class="soft">There's nothing for you to do while we work. Paul will let you know when the next piece is ready.</p>
     <p class="quiet">“My Home” is just what we call it until you name it — that comes later, and it can be anything you like.</p>
@@ -327,6 +354,7 @@
   var K_GRANT = "fw-grant";        // the presented credential — opaque, never decoded here
   var K_STEP  = "fw-onboard-step"; // so a reload does not re-ask something she already answered
   var K_ADDR  = "fw-onboard-addr"; // echoed back on screen 4 — she sees her own words land
+  var K_PARTS = "fw-onboard-parts"; // the components, for the map query and the later USPS step
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into
@@ -348,7 +376,7 @@
 
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
-   "a1", "a2", "city", "state", "zip"]
+   "a1", "a2", "city", "state", "zip", "maplink", "mapnote"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
@@ -377,6 +405,18 @@
       var a = read(K_ADDR);
       el.s4addr.hidden = !a;
       if (a) el.s4addr.textContent = a;
+      // The query is built from the COMPONENTS where we have them — a newline-joined blob geocodes
+      // worse than "street, city, ST zip", and a unit number in line 2 is what most often moves the pin.
+      var q = "";
+      try {
+        var pr = JSON.parse(read(K_PARTS) || "null");
+        if (pr) q = [pr.line1, pr.line2, pr.city, (pr.state + " " + pr.zip).trim()].filter(Boolean).join(", ");
+      } catch (e) { q = ""; }
+      if (!q && a) q = a.replace(/\n/g, ", ");
+      var show = !!q;
+      el.maplink.hidden = !show;
+      el.mapnote.hidden = !show;
+      if (show) el.maplink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
     }
     show("s" + n);
   }
@@ -470,6 +510,7 @@
         // already on file, which counts. Anything else that stored nothing does not.
         if (res && res.stored === 0 && !res.duplicate) return Promise.reject("not-stored");
         store(K_ADDR, text);
+        store(K_PARTS, JSON.stringify(p));
         step(3);
       })
       .catch(function () {
