@@ -103,3 +103,47 @@ anywhere a person's record lives.
 
 ⚠️ **Not scoped tonight.** Captured as input, per Paul's own framing (*"just to help provide a little
 more input on that"*). Tonight's thread is Mom's onboarding link.
+
+---
+
+## ⭐⭐ THE RELEASE CASCADE — synthetic persona → Paul → Mom `[paul-stated 2026-09-05 ~1:50 AM ET]`
+
+> *"We have QA do it first with one of our synthetic personas and they set up their own profile, and
+> if they pass it, then it goes to me to set up my profile, and then it goes to Mom. So that at least
+> is a clear cascade."*
+>
+> *"Practice-steward should be sure that we're tracking that for each and every feature over time, to
+> be sure that everything goes through a rigorous testing process. So it'll probably evolve over time."*
+
+**Three gates, in order. A feature reaches a real person only after clearing both gates in front of it.**
+
+| # | gate | environment | who walks it | what it proves |
+|---|---|---|---|---|
+| 1 | **synthetic persona** | QA · `est-qa0001` | a persona from `.user-research/`, driven | the flow works *at all* — on a person with no history and no allowances made |
+| 2 | **Paul** | lab · `est-lab0001` | Paul, his own profile | it works for a real human who can debug it, in the playground that serves no one |
+| 3 | **Mom** | home · `est-e6696a` | Mom | ship |
+
+⭐ **THIS RE-ORDERS TONIGHT.** The handoff's mission was *"a link Paul can send Mom tonight"* and its
+§3 step 6 ends *"hand Paul the URL."* Under this ruling **Mom is gate 3, not gate 1** — the link is
+built and proven, and it is not sent until a synthetic persona and Paul have each walked it. The
+build is unchanged; the **endpoint** moved.
+
+⚠️ **The cascade is why gate 1 is a persona and not a smoke test.** The whole design risk named in
+the onboarding journey is that *"an onboarding step reads to her as a card or as a conversation — and
+it has never been tested."* A curl that returns 200 cannot fail that way. The persona has to
+**actually set up a profile**, in order, on a phone-shaped screen.
+
+⛔ **Gate 2 is not a formality and must not collapse into gate 1.** Paul walking it is the only gate
+where the administrator sees what the person sees; it is also the AI boundary's own requirement, since
+every word on that surface is authored content that reaches a person only through him.
+
+### Ownership — `practice-steward`, per feature, over time
+Paul assigned the tracking: **every feature carries its cascade state**, and the process is expected to
+**evolve**. Two things follow that are not yet built:
+- **Where the state lives.** A cascade state per feature is a record, and this repo's own measured
+  failure is that a hand-kept status line rots (`check-backlog-ready.py` exists for exactly this shape).
+  It should be **derived from evidence** — a walk leaves a trail — not typed into a table.
+- ⚠️ **A gate that is never seen to fail is not a gate.** The first cascade that passes all three on
+  the first try should be treated as *unproven*, not *validated*, until one has caught something.
+
+⚠️ **Not designed tonight.** Captured verbatim, with the re-ordering applied to the work in flight.

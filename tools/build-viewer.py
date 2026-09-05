@@ -260,7 +260,13 @@ def cmd_extract():
 def cmd_build(instance, out_path):
     built = build(open(TEMPLATE, encoding="utf-8").read(), instance)
     open(out_path, "w", encoding="utf-8").write(built)
-    print("built %s from %s (%s bytes)" % (os.path.relpath(out_path, ROOT), os.path.relpath(instance, ROOT), "{:,}".format(len(built))))
+    # ⚠️ BYTES, NOT CHARACTERS (2026-09-05, found by the lane-D session). `len(built)` counts
+    # characters; the file is written UTF-8, so every ⭐ ⛔ ✅ and em-dash in the doctrine cost 2–3
+    # bytes and were counted as 1 — under-reporting by ~17 KB (0.84%) at the time it was found, and
+    # the gap GROWS with every marker added. This is the one number this repo prints about the size
+    # of the file with a known 1 MB cliff, and it was wrong TOWARD the cliff: it always said the
+    # file was smaller than it is. `--check` is unaffected — it compares content, not this number.
+    print("built %s from %s (%s bytes)" % (os.path.relpath(out_path, ROOT), os.path.relpath(instance, ROOT), "{:,}".format(len(built.encode("utf-8")))))
     return 0
 
 

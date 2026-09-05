@@ -146,6 +146,10 @@ def parse_consent(spec):
     return {k: entry[k] for k in CONSENT_FIELDS}
 
 
+KV_OFFLINE = False   # selftest only: exercise the REGISTER writes with no network. `--dry-run` is a
+                     # different thing entirely and is enforced in mint()/revoke(), not here.
+
+
 def kv_cmd(env, verb, key, value=None):
     wr = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/wrangler/bin/wrangler.js")), key=os.path.getmtime)
     cmd = ["node", wr[-1] if wr else "wrangler", "kv", "key", verb, "--binding", "OBSERVATIONS", "--remote"]
@@ -162,8 +166,8 @@ def kv_cmd(env, verb, key, value=None):
 def run_kv(env, verb, key, value=None, dry=False):
     cmd = kv_cmd(env, verb, key, value)
     shown = " ".join(c if c != value else "'<row json>'" for c in cmd)
-    if dry:
-        print("  dry-run: " + shown); return True
+    if dry or KV_OFFLINE:
+        print("  %s: %s" % ("dry-run" if dry else "kv-offline", shown)); return True
     r = subprocess.run(cmd, cwd=os.path.join(ROOT, "worker"), capture_output=True, text=True, timeout=120)
     ok = r.returncode == 0
     print("  kv %s %s → %s" % (verb, key[:28] + "…", "ok" if ok else "FAILED\n" + r.stderr[-400:]))
@@ -222,7 +226,8 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
     else:
         if row.get("credential") and rotate:
             old = row["credential"]; old["revokedAt"] = ts
-            run_kv(env, "delete", "%s:grant:%s" % (estate, old["hash"]), dry=dry)
+            if not dry:
+                run_kv(env, "delete", "%s:grant:%s" % (estate, old["hash"]), dry=dry)
             row.setdefault("credentialHistory", []).append(old)
         row["relationship"] = list(relationship) if relationship else row.get("relationship", [])
         row["capability"] = capability
@@ -232,6 +237,17 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
         row["consent"] = [x for x in row["consent"] if x.get("scope") != c["scope"]] + [c]
     kv_row = {"personId": person, "estateId": estate, "relationship": row["relationship"], "capability": capability,
               "entry": bool(entry), "vault": bool(vault), "issuedAt": ts, "issuedBy": issued_by}
+    # ⭐ A DRY RUN CHANGES NOTHING (2026-09-05). It used to change the register.
+    # `run_kv` returns True under --dry-run, so the guard on the next line passed and
+    # `save_register` ran: the register gained a row with a live credential hash while KV gained
+    # nothing. That is a PHANTOM CREDENTIAL — precisely the state the Refuse below exists to
+    # prevent — and it is worse than the failure it mirrors, because the register is the artifact a
+    # human reads to answer "who can reach what". Found by running the tool's own --dry-run against
+    # lab: `access-map.py` said est-lab0001 had no grant, and one dry run later it had a live one.
+    if dry:
+        print("  dry-run: (%s, %s) env=%s entry=%s vault=%s · consent scopes %s · NOTHING WRITTEN — "
+              "no KV row, no register row, no token" % (person, estate, env, bool(entry), bool(vault), sorted(scopes) or "none"))
+        return h
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(kv_row, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — register NOT written (a row with no store entry would be a credential nobody can present)")
     save_register(reg_path, reg)
@@ -260,6 +276,8 @@ def revoke(reg_path, person, estate, env, dry):
     if not row or not row.get("credential") or row["credential"].get("revokedAt"):
         raise Refuse("(%s, %s) holds no live credential" % (person, estate))
     h = row["credential"]["hash"]
+    if dry:
+        print("  dry-run: would revoke (%s, %s) · hash %s… · NOTHING WRITTEN" % (person, estate, h[:10])); return
     if not run_kv(env, "delete", "%s:grant:%s" % (estate, h), dry=dry):
         raise Refuse("KV delete failed — revokedAt NOT written (the store is the truth the door reads)")
     row["credential"]["revokedAt"] = now_iso()
@@ -286,8 +304,8 @@ def selftest():
         try: fn(); return False
         except Refuse as e: return needle in str(e)
     print("grant-mint selftest (every KV call dry-run)\n")
-    global ENVIRONMENTS
-    real_envs = ENVIRONMENTS
+    global ENVIRONMENTS, KV_OFFLINE
+    real_envs, KV_OFFLINE = ENVIRONMENTS, True
     # The fixtures below use synthetic estates, so G3 cannot be checked against the real toml. Declare a
     # fixture deployment map with the same SHAPE and assert G3 against it explicitly further down.
     ENVIRONMENTS = {"envA": {"estate": "est-A", "kv": None}, "envB": {"estate": "est-B", "kv": None}}
@@ -302,45 +320,54 @@ def selftest():
           r = load_register(reg)
           check("init-schema: every row declares entry · vault · credential · consent", all(all(k in g for k in ("entry", "vault", "credential", "consent")) for g in r["grants"]))
           # est-A: the administrator holds a relationship → G2 does not gate; mom already owner → not founding
-          h = mint(reg, "p-mom", "est-A", "envA", True, False, ["owner", "contributor"], "member", [], "p-admin", fx, True, False, "mom-A")
+          h = mint(reg, "p-mom", "est-A", "envA", True, False, ["owner", "contributor"], "member", [], "p-admin", fx, False, False, "mom-A")
           r = load_register(reg); row = find_row(r, "p-mom", "est-A")
           check("mint at an ungated estate needs no consent; the row holds a HASH", row["credential"]["hash"] == h and len(h) == 64)
           tok = json.load(open(fx))["mom-A"]
           check("the token is NOT in the register", tok not in open(reg).read())
           check("the token file is mode 600", oct(os.stat(fx).st_mode)[-3:] == "600")
           check("the token hashes to the row's hash (what the Worker will look up)", hashlib.sha256(tok.encode()).hexdigest() == h)
-          check("a second mint on a live row is REFUSED without --rotate", refused(lambda: mint(reg, "p-mom", "est-A", "envA", True, False, ["owner"], "member", [], "p-admin", fx, True, False), "already holds"))
+          check("a second mint on a live row is REFUSED without --rotate", refused(lambda: mint(reg, "p-mom", "est-A", "envA", True, False, ["owner"], "member", [], "p-admin", fx, False, False), "already holds"))
           # est-B: gated (administrator holds no row) — the founding owner grant
           fr_relay = parse_consent("scope=founding-request,agreedOn=2026-09-03,agreedBy=p-admin,recordedBy=p-admin,consentSource=attested,how=email")
           fr_own = parse_consent("scope=founding-request,agreedOn=2026-09-03,agreedBy=p-bob,recordedBy=p-admin,consentSource=self,how=conversation")
           ar = parse_consent("scope=administrator-reads,agreedOn=2026-09-03,agreedBy=p-bob,recordedBy=p-admin,consentSource=self,how=conversation")
-          check("G1: founding owner grant with NO founding-request → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [ar], "p-admin", fx, True, False), "G1"))
-          check("G1: a founding-request agreed by the ADMINISTRATOR (a relay) → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_relay, ar], "p-admin", fx, True, False), "a relay is not a request"))
-          check("G2: founding grant with the request but NO administrator-reads at a gated estate → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_own], "p-admin", fx, True, False), "G2"))
-          mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_own, ar], "p-admin", fx, True, False, "bob-B")
+          check("G1: founding owner grant with NO founding-request → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [ar], "p-admin", fx, False, False), "G1"))
+          check("G1: a founding-request agreed by the ADMINISTRATOR (a relay) → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_relay, ar], "p-admin", fx, False, False), "a relay is not a request"))
+          check("G2: founding grant with the request but NO administrator-reads at a gated estate → REFUSED", refused(lambda: mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_own], "p-admin", fx, False, False), "G2"))
+          mint(reg, "p-bob", "est-B", "envB", True, True, ["owner"], "member", [fr_own, ar], "p-admin", fx, False, False, "bob-B")
           r = load_register(reg); row = find_row(r, "p-bob", "est-B")
           check("with both entries the founding grant mints; consent is a LIST of 2 with distinct scopes", sorted(c["scope"] for c in row["consent"]) == ["administrator-reads", "founding-request"])
           check("consent entries carry the full field set", all(all(k in c for k in CONSENT_FIELDS) for c in row["consent"]))
           att = parse_consent("scope=administrator-reads,agreedOn=2026-09-03,agreedBy=p-kid,recordedBy=p-bob,consentSource=attested,how=told-by-owner")
-          check("G2: a contributor at the gated estate without administrator-reads → REFUSED", refused(lambda: mint(reg, "p-kid", "est-B", "envB", True, False, ["contributor"], "member", [], "p-admin", fx, True, False), "G2"))
-          mint(reg, "p-kid", "est-B", "envB", True, False, ["contributor"], "member", [att], "p-admin", fx, True, False, "kid-B")
+          check("G2: a contributor at the gated estate without administrator-reads → REFUSED", refused(lambda: mint(reg, "p-kid", "est-B", "envB", True, False, ["contributor"], "member", [], "p-admin", fx, False, False), "G2"))
+          mint(reg, "p-kid", "est-B", "envB", True, False, ["contributor"], "member", [att], "p-admin", fx, False, False, "kid-B")
           row = find_row(load_register(reg), "p-kid", "est-B")
           check("…with an ATTESTED entry it mints, and the record says attested (second-hand stays legible)", row["consent"][0]["consentSource"] == "attested" and row["consent"][0]["recordedBy"] == "p-bob")
           check("`access` cannot be hand-written", refused(lambda: parse_consent("scope=access,agreedOn=2026-09-03,agreedBy=p-x,recordedBy=p-x,consentSource=self,how=claim"), "claim route"))
           check("a consent entry missing a field is REFUSED, not defaulted", refused(lambda: parse_consent("scope=administrator-reads,agreedBy=p-x"), "lacks"))
-          revoke(reg, "p-kid", "est-B", "envB", True)
+          revoke(reg, "p-kid", "est-B", "envB", False)
           row = find_row(load_register(reg), "p-kid", "est-B")
           check("revoke sets revokedAt (an act with an author) and emitted the KV delete", bool(row["credential"]["revokedAt"]))
-          check("revoking again is REFUSED (no live credential)", refused(lambda: revoke(reg, "p-kid", "est-B", "envB", True), "no live credential"))
+          check("revoking again is REFUSED (no live credential)", refused(lambda: revoke(reg, "p-kid", "est-B", "envB", False), "no live credential"))
           check("G3: an estate that is not the env's binding is REFUSED (a credential born dead)",
-                refused(lambda: mint(reg, "p-mom", "est-A", "envB", True, False, ["owner"], "member", [], "p-admin", fx, True, True), "G3"))
+                refused(lambda: mint(reg, "p-mom", "est-A", "envB", True, False, ["owner"], "member", [], "p-admin", fx, False, True), "G3"))
           check("G3: revoke is guarded too (a wrong-env revoke deletes nothing and still stamps revokedAt)",
                 refused(lambda: revoke(reg, "p-mom", "est-A", "envB", True), "G3"))
           check("an env absent from wrangler.toml is REFUSED by kv_cmd",
                 refused(lambda: kv_cmd("nosuch", "put", "k", "v"), "not declared in worker/wrangler.toml"))
           check("kv_cmd routes a non-prod env with --env <name>", kv_cmd("envA", "put", "k", "v")[-4:-2] == ["--env", "envA"])
+          # ⭐ THE REGRESSION THAT MOTIVATED THIS: --dry-run wrote the register (a credential in the
+          # register, nothing in KV — a row nobody can present). Proven by MUTATION: the bytes before
+          # and after a dry mint, and a dry revoke, must be identical.
+          before = open(reg, "rb").read()
+          mint(reg, "p-ghost", "est-A", "envA", True, False, ["contributor"], "member", [], "p-admin", fx, True, False, "ghost")
+          check("--dry-run mint leaves the register BYTE-IDENTICAL (no phantom credential)", open(reg, "rb").read() == before)
+          check("--dry-run mint writes no row at all", find_row(load_register(reg), "p-ghost", "est-A") is None)
+          revoke(reg, "p-mom", "est-A", "envA", True)
+          check("--dry-run revoke leaves the register BYTE-IDENTICAL", open(reg, "rb").read() == before)
     finally:
-        ENVIRONMENTS = real_envs
+        ENVIRONMENTS, KV_OFFLINE = real_envs, False
     pub = subprocess.run(["git", "-C", ROOT, "ls-files", "--", "grants.json", "**/grants.json"], capture_output=True, text=True).stdout.strip()
     check("the register is NOT a tracked file of the public repo", pub == "")
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed."))

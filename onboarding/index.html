@@ -199,7 +199,8 @@
   // than a write into the wrong place.
   var PAGES_WORKERS = {
     "fernwood-home": "https://fernwood-home.paul-kirschenbauer.workers.dev",
-    "fernwood-lab":  "https://fernwood-lab.paul-kirschenbauer.workers.dev"
+    "fernwood-lab":  "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+    "fernwood-qa":   "https://fernwood-qa.paul-kirschenbauer.workers.dev"
   };
   var label = /\.pages\.dev$/.test(location.hostname) ? location.hostname.split(".")[0] : null;
   var WORKER = (label && Object.prototype.hasOwnProperty.call(PAGES_WORKERS, label))
