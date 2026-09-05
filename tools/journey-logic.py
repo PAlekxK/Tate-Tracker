@@ -121,7 +121,9 @@ def run_paths(doc_body, login_bytes, identity, settle=900):
 MUTATIONS = [
     ("m-guard", 'if (!grant || !WORKER) { show("s-nolink"); return; }', "if (false) { show(\"s-nolink\"); return; }", 2),
     ("m-worker-hardcode", "? PAGES_WORKERS[label] : null;", ": PAGES_WORKERS[\"fernwood-qa\"];", 5),
-    ("m-fp-grant-only", 'var gv = (read(K_GRANT) || "x") + "\\u0000" + text;', 'var gv = (read(K_GRANT) || "x");', 9),
+    # ⚠️ anchored on postAnswer()'s fingerprint since the 2026-09-05 refactor moved it out of go2.
+    # The suite REFUSED to score this green when the anchor moved, which is the property that matters.
+    ("m-fp-grant-only", 'var gv = (read(K_GRANT) || "x") + "\\u0000" + note;', 'var gv = (read(K_GRANT) || "x");', 9),
     ("m-stored-zero", "if (res && res.stored === 0 && !res.duplicate) return Promise.reject(\"not-stored\");",
      "if (false) return Promise.reject(\"not-stored\");", 10),
 ]

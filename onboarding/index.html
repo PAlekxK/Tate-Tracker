@@ -66,8 +66,19 @@
     --brand-deep:#212a36;   /* header gradient — dark gray-blue */
     --brand-mid: #33404f;
     --brand-lit: #47576a;
-    --accent:    #3f5266;   /* the affirmative fill. An instance colour overrides THIS token. */
-    --accent-on: #334455;   /* its pressed state */
+    --accent:    #3f5266;   /* the affirmative fill — the ONE token an instance overrides */
+    /* ⛔ THE COMMENT ABOVE USED TO BE FALSE. `--accent-on` was an independent hex and the focus ring
+       was `rgba(63,82,102,.18)` — the accent, hardcoded — in two rules. Overriding --accent alone
+       recoloured the button and left its pressed state and both focus rings slate. Measured by
+       ux-expert 2026-09-05 and verified here before fixing. Both are now DERIVED, so one value in
+       really is one value in.
+       The plain hex on each first line is the fallback for a browser without color-mix (Safari <16.2):
+       the second declaration is simply invalid there and the first stands, which reproduces exactly
+       today's behaviour — never worse, and never a wrong colour. */
+    --accent-on: #334455;
+    --accent-on: color-mix(in srgb, var(--accent) 84%, #000);
+    --accent-ring: rgba(63,82,102,.18);
+    --accent-ring: color-mix(in srgb, var(--accent) 18%, transparent);
     --base:      19px;
   }
   * { box-sizing: border-box; -webkit-text-size-adjust: 100%; }
@@ -127,7 +138,7 @@
     border: 1.5px solid var(--edge); border-radius: 13px; background: #fbfcfd;
   }
   select { background-image: none; }
-  input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(63,82,102,.18); }
+  input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
   .optional { font-weight: 400; color: var(--ink-soft); }
   /* composed() joins the street and the city line with "\n". Without this the browser collapses that
      newline to a space and her address reads back as one run-on line — on the very screen that asks
@@ -148,7 +159,7 @@
     border: 1.5px solid var(--edge); border-radius: 13px;
     background: #fbfcfd;
   }
-  textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(63,82,102,.18); }
+  textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
 
   /* ONE affirmative grammar, everywhere she taps (CLAUDE.md standing rule 1, paul-stated
      2026-07-29). ⭐ THE GRAMMAR IS ENGINE; THE HUE WAS ALWAYS INSTANCE. The ratified rule is
@@ -167,6 +178,10 @@
     cursor: pointer;
   }
   button:active { background: var(--accent-on); border-color: var(--accent-on); }
+  /* The outlined neutral the button grammar above already describes but never had a class for.
+     It carries NO ✓ — the tick is the affirmative's mark and must not appear on the alternative. */
+  button.btn-secondary { color: var(--ink); background: transparent; border-color: var(--edge); margin-top: 10px; }
+  button.btn-secondary:active { background: #f2f4f6; border-color: var(--edge); }
   button[disabled] { opacity: .55; cursor: default; }
   button .tick { margin-right: 8px; }
 
@@ -352,6 +367,28 @@
          taps it, and the label says where it goes before she does. The promise stays true. -->
     <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>Have a look on the map ›</a>
     <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Opens Google Maps. Nothing about you is sent anywhere unless you tap it. If the pin looks wrong, tell Paul.</p>
+    <!-- ⭐ THE SCREEN ALREADY TOLD HER TO SPEAK AND GAVE HER NO MOUTH `[paul-stated 2026-09-05]`:
+         "this is a good chance asking for feedback like if that's my address." The gate-1 walk hit
+         the same gap from the other side — the walker was promised "you can change it any time" on
+         the screen where she typed, and could find no route back afterwards. An instruction to tell
+         someone, with no way to tell them, reads as an invitation and behaves as a wall.
+
+         ⛔ "Not quite" IS NOT THE ERROR PATH and must never be styled as one. Her documented
+         constraint is the fear of getting things wrong; a correction that reads as her mistake is
+         the expensive kind. It is an outlined neutral, it carries no ✓, and the copy after it
+         apologises for nothing. -->
+    <div id="confirm" hidden>
+      <p class="soft" style="margin-bottom:0">Does that look right?</p>
+      <button type="button" id="ok1"><span class="tick">✓</span>Yes, that's it</button>
+      <button type="button" id="ok2" class="btn-secondary">Not quite</button>
+    </div>
+    <div id="s4ask" hidden>
+      <p id="s4asktext" class="soft"></p>
+      <textarea id="s4note" rows="3"></textarea>
+      <button type="button" id="sendNote"><span class="tick">✓</span>Send</button>
+    </div>
+    <p id="s4thanks" class="soft" hidden>Got it — thank you.</p>
+
     <p>We're putting it together now — taking what you told us and building everything around it. That's the weather where you actually are, what grows there, and what's worth a look each month.</p>
     <p class="soft">There's nothing for you to do while we work. Paul will let you know when the next piece is ready.</p>
     <p class="quiet">“My Home” is just what we call it until you name it — that comes later, and it can be anything you like.</p>
@@ -389,7 +426,8 @@
 
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
-   "a1", "a2", "city", "state", "zip", "maplink", "mapnote"]
+   "a1", "a2", "city", "state", "zip", "maplink", "mapnote",
+   "confirm", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
@@ -434,6 +472,8 @@
       el.maplink.hidden = !hasQuery;
       el.mapnote.hidden = !hasQuery;
       if (hasQuery) el.maplink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+      // the ask only appears once there is something to confirm
+      el.confirm.hidden = !a;
     }
     show("s" + n);
   }
@@ -493,6 +533,68 @@
     var street = p.line1 + (p.line2 ? ", " + p.line2 : "");
     return street + "\n" + p.city + ", " + p.state + " " + p.zip;
   }
+  // ⭐ ONE WRITE PATH FOR EVERY ANSWER THIS FLOW CAPTURES, AND IT PRESENTS THE CREDENTIAL.
+  // `[paul-ruled 2026-09-05]` — attribute when presented, stay open: the header rides along so a
+  // credentialed answer can be attributed, and the endpoint still accepts an unauthenticated write
+  // so capture can never fail closed on her. Before this, only whoami sent X-Grant and every stored
+  // answer was personId:null even from a reader holding a live grant.
+  // The fingerprint keys on the credential AND the answer: keyed on the credential alone, a
+  // correction becomes a silent no-op while the page says "saved" (the 2026-09-05 finding).
+  function postAnswer(prefix, note, ctx) {
+    var gv = (read(K_GRANT) || "x") + "\u0000" + note;
+    var fp = 0;
+    for (var i = 0; i < gv.length; i++) { fp = ((fp << 5) - fp + gv.charCodeAt(i)) | 0; }
+    var headers = { "Content-Type": "application/json" };
+    var g = read(K_GRANT);
+    if (g) headers["X-Grant"] = g;
+    return fetch(WORKER + "/api/feedback", {
+      method: "POST", headers: headers,
+      body: JSON.stringify({ id: prefix + "-" + (fp >>> 0).toString(36), note: note, context: ctx })
+    })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function (res) {
+        // A 200 is not proof of a write. {stored:0, duplicate:true} means byte-identical words are
+        // already on file, which counts. Anything else that stored nothing does not.
+        if (res && res.stored === 0 && !res.duplicate) return Promise.reject("not-stored");
+        return res;
+      });
+  }
+
+  // ⚠️ COPY BELOW IS PLACEHOLDER AND IS content-steward'S TO SETTLE, per Paul 2026-09-05
+  // ("Steward can do all that wording, the tone"). The MECHANICS are settled; the words are not.
+  function ask(kind) {
+    el.confirm.hidden = true;
+    el.s4ask.hidden = false;
+    el.s4asktext.textContent = kind === "ok"
+      ? "Good — thank you. Anything else you noticed while going through this? Nothing is too small, and you can skip it."
+      : "No problem. Tell me what it should say and I'll fix it.";
+    el.s4note.setAttribute("data-kind", kind);
+    el.s4note.focus();
+  }
+  el.ok1.addEventListener("click", function () {
+    postAnswer("onboard-addr-confirm", "confirmed: " + (read(K_ADDR) || ""),
+               { type: "onboarding", field: "address-confirm", step: 4, agrees: true })["catch"](function () {});
+    ask("ok");
+  });
+  el.ok2.addEventListener("click", function () {
+    postAnswer("onboard-addr-dispute", "not right: " + (read(K_ADDR) || ""),
+               { type: "onboarding", field: "address-confirm", step: 4, agrees: false })["catch"](function () {});
+    ask("no");
+  });
+  el.sendNote.addEventListener("click", function () {
+    var note = el.s4note.value.trim();
+    if (!note) { el.s4ask.hidden = true; el.s4thanks.hidden = false; return; }
+    var kind = el.s4note.getAttribute("data-kind") === "no" ? "address-correction" : "onboarding-note";
+    el.sendNote.disabled = true; el.sendNote.innerHTML = "Sending…";
+    postAnswer("onboard-" + kind, note, { type: "onboarding", field: kind, step: 4 })
+      .then(function () { el.s4ask.hidden = true; el.s4thanks.hidden = false; })
+      ["catch"](function () {
+        el.sendNote.disabled = false;
+        el.sendNote.innerHTML = '<span class="tick">\u2713</span>Send';
+        el.s4asktext.textContent = "That didn't send. Your words are still here — tap Send once more.";
+      });
+  });
+
   el.go3.addEventListener("click", function () { step(4); });
 
   el.go2.addEventListener("click", function () {
@@ -518,31 +620,11 @@
     el.go2.disabled = true;
     el.go2.innerHTML = "Saving…";
 
-    // ⭐ IDEMPOTENT ON THE CREDENTIAL **AND THE ANSWER** — see the 2026-09-05 finding. `handleFeedback`
-    // discards a matching id rather than replacing it, so an id keyed on the credential alone would
-    // make her first answer permanent and every correction a silent no-op. With the answer in the
-    // fingerprint, a replay dedups and a correction lands.
-    var gv = (read(K_GRANT) || "x") + "\u0000" + text;
-    var fp = 0;
-    for (var i = 0; i < gv.length; i++) { fp = ((fp << 5) - fp + gv.charCodeAt(i)) | 0; }
-    fp = (fp >>> 0).toString(36);
-
-    fetch(WORKER + "/api/feedback", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: "onboard-address-" + fp,
-        note: text,
-        // The COMPONENTS ride along, because USPS Addresses v3 takes structured parts and parsing a
-        // blob back apart is where a unit number gets silently dropped.
-        context: { type: "onboarding", field: "address", step: 2, parts: p, verified: false }
-      })
-    })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    // The COMPONENTS ride along, because USPS Addresses v3 takes structured parts and parsing a
+    // blob back apart is where a unit number gets silently dropped.
+    postAnswer("onboard-address", text,
+               { type: "onboarding", field: "address", step: 2, parts: p, verified: false })
       .then(function (res) {
-        // A 200 is not proof of a write. `{stored:0, duplicate:true}` means byte-identical words are
-        // already on file, which counts. Anything else that stored nothing does not.
-        if (res && res.stored === 0 && !res.duplicate) return Promise.reject("not-stored");
         store(K_ADDR, text);
         store(K_PARTS, JSON.stringify(p));
         step(3);

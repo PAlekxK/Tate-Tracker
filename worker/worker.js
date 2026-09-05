@@ -2743,7 +2743,7 @@ async function handleConversations(request, env, url) {
 // observation bodies. Stored in KV under feedback:YYYY-MM-DD, mirroring the
 // cost-log + metrics shape. Never auto-injected into AI context until Phase 2.
 
-async function handleFeedback(request, env, url) {
+async function handleFeedback(request, env, url, grant) {
   if (request.method === "POST") {
     let body;
     // Privacy seat 2026-09-03 (finding 12): Content-Length is advisory — measure the body we actually read.
@@ -2774,6 +2774,9 @@ async function handleFeedback(request, env, url) {
       note,
       env: env.ENV_NAME || "unset",   // C4 3a (R2): which deployment wrote this row
     });
+    // declarePerson() above stamps personId:null and is the guard; attributeTo() is the ONE legal
+    // writer of a non-null person and takes it from a RESOLVED grant row, never from the body.
+    const attributed = (grant && grant.personId && grant.estateId) ? attributeTo(record, grant) : record;
     const today = new Date().toISOString().slice(0, 10);
     const key = dateKey(env, "feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
@@ -2790,9 +2793,9 @@ async function handleFeedback(request, env, url) {
     if (body.id && arr.some(r => r && r.id === body.id)) {
       return json({ stored: 0, duplicate: true, total: arr.length, id: record.id });
     }
-    arr.push(record);
+    arr.push(attributed);                       // the ATTRIBUTED row is what lands, never the bare one
     await env.OBSERVATIONS.put(key, JSON.stringify(arr));
-    return json({ stored: 1, total: arr.length, id: record.id });
+    return json({ stored: 1, total: arr.length, id: record.id, personId: attributed.personId || null });
   }
 
   if (request.method === "GET") {
@@ -2876,7 +2879,15 @@ export default {
       const len = parseInt(request.headers.get("Content-Length") || "0", 10);
       if (len > FEEDBACK_MAX_BYTES) return json({ error: "too-large" }, 413);
       if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
-      return handleFeedback(request, env, url);
+      // ⭐ ATTRIBUTE WHEN PRESENTED, STAY OPEN `[paul-ruled 2026-09-05]`. This route sits ahead of the
+      // auth gate on purpose (2026-07-15 loss) and that does not change: an answer with no credential
+      // is still accepted, because a capture that can fail closed on her is worse than an unattributed
+      // one. What changes is that a credential, when one IS presented, is resolved HERE — previously
+      // grantFor() ran only below this short-circuit, so every onboarding answer stored personId:null
+      // even from a reader holding a live grant. The page not sending X-Grant was the other half; both
+      // had to move together or the fix attributes nothing.
+      const fbGrant = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
+      return handleFeedback(request, env, url, fbGrant);
     }
 
     // C6 2a — door events, same write-only-no-token doctrine, its OWN bucket (a door
