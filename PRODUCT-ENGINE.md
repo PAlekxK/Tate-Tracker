@@ -12,6 +12,46 @@ this repo already made for `MOM-CYCLE-MAP.md` and `cycle/fleet/CYCLE-MAP.md`.
 
 ---
 
+## 🔑 THE MASTER TOKEN IS RETIRED WHEN ACCOUNTS SUPERSEDE IT `[paul-ruled 2026-09-05]`
+
+**The ruling:** the deployment-wide `SHARED_TOKEN` goes away once the account step does its job —
+not before, because until accounts exist it is the only thing that pairs a device.
+
+### What it is today, and why it is CORRECT today
+One shared password per deployment, pasted into each device (`viewer.html:6951` is literally a
+*"paste the SHARED_TOKEN value"* box) and sent as `X-Tate-Token` on every request. The Worker's two
+auth paths are not symmetric (`worker.js:2975-2979`):
+
+| path | carries | origin checked |
+|---|---|---|
+| `viaGrant` | a person, a capability, a household | ✅ `hostAgrees()` |
+| `viaMaster` | `capability: "administrator"`, `personId: null`, **no household** | ⛔ never |
+
+⭐ **With one household per deployment, "everything" MEANS "Fernwood" — which is exactly right.** This
+is a house key for a house with one door. Nothing about it is a defect at n=1, and the comment that
+prices it should not be rewritten as though it were.
+
+### What breaks the moment one deployment serves several households
+*Everything* silently becomes *every household on that deployment*. Read the token out of any paired
+browser's storage → point it at another household's address → that household's feedback, recordings,
+conversations and observations, including DELETE. CORS is `Access-Control-Allow-Origin: *` with
+`X-Tate-Token` in the allow-list (`worker.js:317-319`), so it works from **any web page**.
+
+### ⭐ WHY THIS SEQUENCES THE WHOLE TENANCY EFFORT
+Threading the household through the 47 key-building sites makes the KEYS correct and leaves the
+CREDENTIAL household-blind — the tedious safe half done, the sharp half open, at exactly the point
+multi-household starts feeling nearly finished. So:
+
+> **accounts → retire the master token → multi-household is safe to enable.**
+
+Multi-household is therefore gated on work already ruled and on the path, not on a new security
+project. ⛔ **Do not enable a second household on any deployment while the master token still reaches
+a browser.**
+
+### What "retired" has to mean, concretely
+Grants become the only credential a browser holds. If a break-glass administrator key survives at
+all, it never reaches a device — Paul holds it. That last part is unruled; the retirement is not.
+
 ## ⭐⭐ THE END GOAL — A PRODUCT THAT DOES NOT RUN THROUGH PAUL'S MOUTH `[paul-stated 2026-09-05]`
 
 > *"We are trying to move towards a totally production-ready product that doesn't rely on me relaying
