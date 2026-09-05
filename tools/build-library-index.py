@@ -69,7 +69,12 @@ def documents(root=ROOT):
         for i, c in enumerate(chunk_text(open(f, encoding="utf-8", errors="replace").read())): docs.append((rel, "chunk %d" % i, c))
     return docs
 
-def build(root=ROOT, estate="est-3c9f1a"):
+# NO DEFAULT FOR `estate`, DELIBERATELY. It used to default to "est-3c9f1a" -- the real household's
+# id -- so any call that forgot the argument built ANOTHER household's library index under Fernwood's
+# name and silently replaced Guru's corpus. No error, no warning; the index just became someone
+# else's. Found 2026-09-05 in an adversarial read of the multi-household work. A required
+# keyword-only argument turns that into a TypeError at the call site, which is the whole fix.
+def build(root=ROOT, *, estate):
     docs = documents(root)
     chunks, dl, shards = [], {}, {}
     for src, span, text in docs:
@@ -128,7 +133,13 @@ def load(env):
 def check():
     if not os.path.exists(MANIFEST): print("🔴 no manifest — run the build"); return 1
     old = json.load(open(MANIFEST))
-    _, _, _, new = build(estate=old.get("estate", "est-3c9f1a"))
+    est = old.get("estate")
+    if not est:
+        # Fail loudly rather than guess a household: checking against the wrong one would report a
+        # false "fresh", which is worse than refusing to check.
+        print("no `estate` in the manifest -- cannot verify freshness without knowing whose index this is")
+        return 1
+    _, _, _, new = build(estate=est)
     same = all(old.get(k) == new.get(k) for k in ("sources", "chunks", "vocab", "shards", "indexSha"))
     if same:
         print("✅ library index is fresh: %d chunks · %d terms · %d shards · sha %s… · loaded: %s" % (new["chunks"], new["vocab"], new["shards"], new["indexSha"][:10], ", ".join("%s@%s" % (e, v["at"][:10]) for e, v in (old.get("loaded") or {}).items()) or "NOWHERE"))
@@ -149,19 +160,19 @@ def selftest():
         json.dump({"categories": {"soil": [{"note": "Clay loam on this slope drains slowly after a hard rain, and lime is worth a soil test first. " * 2}]}}, open(os.path.join(d, "references.json"), "w"))
         open(os.path.join(d, "research-resources.md"), "w").write("# Notes\n\nSwitchgrass wants full sun and lean ground.\n\n" + "Bluestem tolerates drought on the ridge. " * 30 + "\n")
         open(os.path.join(d, "manuals", "text", "mower.txt"), "w").write("Change the oil every 50 hours. Use SAE 30 above 40 F.\n\nBlade torque is 45 ft-lb.\n")
-        a = build(d, "est-t"); b = build(d, "est-t")
+        a = build(d, estate="est-t"); b = build(d, estate="est-t")
         chk("deterministic: two builds → the same index sha and ids", a[3]["indexSha"] == b[3]["indexSha"] and [c["key"] for c in a[0]] == [c["key"] for c in b[0]])
         chk("three sources chunked (%d chunks)" % a[3]["chunks"], a[3]["chunks"] >= 3 and set(a[3]["sources"]) == {"references.json", "research-resources.md", "manuals/text/mower.txt"})
         shards = {r["key"].split(":")[-1]: json.loads(r["value"]) for r in a[1]}
         chk("postings are sharded by 2-char prefix and sorted", "to" in shards and "torque" in shards["to"] and all(all(v[i] <= v[i + 1] for i in range(len(v) - 1)) for s in shards.values() for v in s.values()))
         chk("stopwords are out of the vocabulary", not any("the" in s for s in shards.values()))
         open(os.path.join(d, "manuals", "text", "mower.txt"), "a").write("\n\nSpark plug gap 0.030 in.\n")
-        c = build(d, "est-t")
+        c = build(d, estate="est-t")
         chk("a source change → a different sha and source hash (the --check shape)", c[3]["indexSha"] != a[3]["indexSha"] and c[3]["sources"]["manuals/text/mower.txt"] != a[3]["sources"]["manuals/text/mower.txt"])
         subprocess.run(["git", "-C", d, "init", "-q"], check=True)
         open(os.path.join(d, ".gitignore"), "w").write("manuals/text/catalog.txt\n")
         open(os.path.join(d, "manuals", "text", "catalog.txt"), "w").write("Part 1234 lists at $19.95. " * 40 + "\n")
-        e = build(d, "est-t")
+        e = build(d, estate="est-t")
         chk("a gitignored source is skipped (what CI's tracked-only export sees)", e[3]["indexSha"] == c[3]["indexSha"] and "manuals/text/catalog.txt" not in e[3]["sources"])
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed.")); return 0 if ok else 1
 
@@ -173,5 +184,7 @@ if __name__ == "__main__":
     if a.load:
         if not a.env: raise SystemExit("--load needs --env qa|prod")
         sys.exit(load(a.env))
-    ch, sh, st, m = build(); write(ch, sh, st, m)
+    if not a.env:
+        raise SystemExit("build needs --env qa|prod -- the index is built FOR a household, and which one is not a default")
+    ch, sh, st, m = build(estate=estate_for(a.env)); write(ch, sh, st, m)
     print("built: %d chunks · %d terms · %d shards · chunks %.1f MB · shards %.1f MB · stats %.0f KB · sha %s…" % (m["chunks"], m["vocab"], m["shards"], m["bytes"]["chunks"] / 1e6, m["bytes"]["shards"] / 1e6, m["bytes"]["stats"] / 1e3, m["indexSha"][:10]))
