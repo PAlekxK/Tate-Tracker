@@ -747,6 +747,12 @@
     el.swatches.appendChild(b);
   });
 
+  // A field stops being wrong the moment she edits it. Leaving the mark on a corrected box is how a
+  // form ends up covered in red that no longer means anything.
+  [ "uname", "uemail", "uword", "uword2", "a1", "city", "state", "zip" ].forEach(function (id) {
+    if (el[id]) el[id].addEventListener("input", function () { el[id].classList.remove("bad"); });
+  });
+
   el.go0.addEventListener("click", function () {
     var u = el.uname.value.trim(), w = el.uword.value, w2 = el.uword2.value;
     var em = el.uemail.value.trim(), ph = el.uphone.value.trim();
@@ -756,8 +762,19 @@
     if (w.length < 8) need.push("a password of eight characters or more");
     if (need.length) {
       el.trouble0.hidden = false;
-      el.trouble0.innerHTML = "Still needs " + need.join(" and ") + ".";
-      (!u ? el.uname : el.uword).focus();
+      el.trouble0.innerHTML = "Still needs " + (need.length === 1 ? need[0]
+        : need.slice(0, -1).join(", ") + " and " + need[need.length - 1]) + ".";
+      // ⛔ FOCUS THE FIELD THAT IS ACTUALLY MISSING. This read `(!u ? el.uname : el.uword)`, so a
+      // reader who filled everything EXCEPT the email was sent to the PASSWORD box — a field she had
+      // already filled correctly — while the empty one sat untouched further up. Naming the problem
+      // and then pointing at the wrong box is worse than not pointing.
+      [el.uname, el.uemail, el.uword, el.uword2].forEach(function (f) { f.classList.remove("bad"); });
+      var firstBad = !u ? el.uname
+        : !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) ? el.uemail
+        : el.uword;
+      firstBad.classList.add("bad");
+      try { el.trouble0.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e) {}
+      firstBad.focus();
       return;
     }
     // Names the mismatch and never scolds — and does NOT clear what she typed, because retyping both
@@ -765,6 +782,8 @@
     if (w !== w2) {
       el.trouble0.hidden = false;
       el.trouble0.innerHTML = "The two passwords don't match — have another look at the second one.";
+      [el.uname, el.uemail, el.uword].forEach(function (f) { f.classList.remove("bad"); });
+      el.uword2.classList.add("bad");
       el.uword2.focus();
       return;
     }
