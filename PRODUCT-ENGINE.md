@@ -12,6 +12,46 @@ this repo already made for `MOM-CYCLE-MAP.md` and `cycle/fleet/CYCLE-MAP.md`.
 
 ---
 
+## ⭐⭐ THE END GOAL — A PRODUCT THAT DOES NOT RUN THROUGH PAUL'S MOUTH `[paul-stated 2026-09-05]`
+
+> *"We are trying to move towards a totally production-ready product that doesn't rely on me relaying
+> information by word of mouth."* — and, immediately after: *"that's an end goal to always bear in
+> mind."*
+
+**A standing lens, not a task.** It does not say to remove Paul — he is the administrator and the AI
+boundary puts his eyes between the model and the estate's people, deliberately, both directions. It
+says the product must not **depend on him being awake, reachable, and remembering.** Those are
+different, and the second is a single point of failure wearing a relationship's clothes.
+
+⚠️ **Measured 2026-09-05, the day it was stated. It is deeper than the copy, and two of them are on
+the screen she reads:**
+
+| # | dependency | where |
+|---|---|---|
+| 1 | *"If the pin looks wrong, **tell Paul**."* | `s4` — on screen, with no control beside it |
+| 2 | *"…**tell Paul** and nothing is lost."* | the save-failure copy — the moment she most needs a route |
+| 3 | *"Give me a ring when you're done and I'll do the last piece."* | the invite message |
+| 4 | **Recovery is Paul, full stop** — no email, no phone, both ruled to have no job | account-credential design |
+| 5 | **The Worker has no send capability** — the invite is his own outbound act | by design |
+| 6 | **Consent is authored by hand**: *"Paul executes by hand today"* | `grant-mint.py` |
+| 7 | **Address standardisation is Paul by hand** until a USPS credential exists | `BACKLOG.md` |
+| 8 | ⭐ *"Paul relays them, or they are not in the system"* | the AI boundary's INGRESS clause |
+
+⭐ **Row 8 is the one to think hardest about, and it is not simply a defect.** The ingress clause is a
+*privacy* rule — an agent may not fetch her words from a channel she did not route here — and it
+should survive. What must not survive is **relaying as the only path**, which the corpus has already
+caught itself on: *"Paul relays in conversation has no record, no id, no timestamp, and no channel."*
+**The fix is to give her more doors into the product, never to give the model more doors into her.**
+
+⛔ **What this does NOT license.** It is not a reason to add automated outbound, to fetch from her
+messages, or to remove his approval gate on authored content. Those are separate rulings and this one
+does not touch them. **A "production-ready" product still has an administrator; it just does not have
+a bottleneck.**
+
+**The cheap test, when scoping anything:** *if Paul were unreachable for a week, what would a person
+using this be unable to do?* Today: recover an account · get a correction made · report a wrong pin ·
+be invited at all · have an address standardised. That list is the backlog this goal implies.
+
 ## ▶️ THE SEQUENCE — read this before anything below it
 
 > 🧊 **FOCUS FREEZE `[paul-stated 2026-09-03]` — this workstream is the ONLY active Fernwood work.** Instance work (mom-cycle proactive legs, fleet laps, new content) rests until the release condition in `BACKLOG.md` § FOCUS FREEZE. ✅ Both edges RULED 2026-09-03: **Mom's arrivals are HELD unread (nothing ingested, nothing actioned) and the freeze lifts on Paul's word only** — shipping C4/C5 does not lift it.
@@ -469,7 +509,53 @@ seat's own words. **Also unresolved:** what "account" means with no email and no
 `.plans/2026-09-03-grooming-queue.md` for the next batch). Touches C5 1b (the resolver), C6 (entry, binding, M3) and
 the data-model §2 rules. ⛔ Nothing here is built or decided; C5's stamp does not wait on it.
 
-### 🚪 ACTIVATION — nobody signs up `[user-researcher, 2026-09-02]`
+### 🚪 ACTIVATION — ⛔ **"NOBODY SIGNS UP" IS RETIRED** `[paul-ruled 2026-09-05]`
+
+> ## ⛔ READ THIS BEFORE THE SECTION BELOW IT
+>
+> `[paul-ruled 2026-09-05]`, asked directly whether the product is registration or recognition:
+> **full registration — people set up their own account and add their own properties.** And on the
+> model beneath: *"Nobody signs up must be outdated."*
+>
+> **The section below is PRESERVED, not deleted** — this corpus's measured leak is that an
+> alternative considered and rejected never gets written down, so the next reader re-proposes it.
+> Read it as the model that was held from 2026-09-02 to 2026-09-05, and as the reasoning that has to
+> be answered rather than ignored. **It is no longer the design.**
+>
+> ### ⭐ THE CODE WAS ALREADY ON PAUL'S SIDE, AND NOBODY NOTICED THE DISAGREEMENT
+> `grant-mint.py`'s **G1** — ratified `[paul-ruled 2026-09-03]`, three weeks before this question was
+> asked — reads: *"founding owner grant (an `owner` where the estate has none) needs a
+> `founding-request` entry whose agreedBy IS the person — **the prospective owner's OWN request is
+> the entire warrant**."* That is a self-founding gate. **The narrative said nobody signs up while
+> the mint required the signer's own consent as the warrant.** They contradicted each other for
+> three weeks and both read as ratified.
+>
+> ⭐ **So the reversal is far cheaper than it looks: the credential layer needs no change.** What the
+> ruling actually costs is narrower and is listed below.
+>
+> ### What this ruling still requires — none of it designed
+> 1. ⛔ **`grantFor()` refuses any grant whose `estateId` differs from the deployment binding — one
+>    deploy, one estate.** A hub listing several properties, and an *Add a property* button that
+>    creates one, have nowhere to run. **This is the blocker, and it is architectural.**
+> 2. **An estate-creation route.** Nothing today mints an estate; `grant-mint.py` mints a grant
+>    *against* one that already exists. Self-serve means the person performs an act no route offers.
+> 3. **The account row** (`.engineering/2026-09-05-account-credential.md`, Option D) — designed, not
+>    built, not ruled.
+> 4. ⚠️ **AUTHORED ≠ RECORDED inverts.** The mint's own note says *"Paul executes by hand today, so a
+>    consent entry records the OWNER as agreedBy and Paul as recordedBy with consentSource
+>    attested."* Under self-registration the person executes, so `consentSource` becomes **`self`**
+>    and `recordedBy` is the person — the shape exists, the default flips.
+> 5. **What survives untouched:** *an invitation may only be authored by someone holding a
+>    RELATIONSHIP at the estate, never only a capability.* Self-registration is about founding your
+>    OWN estate; inviting someone into somebody else's is a different act and that gate still binds.
+> 6. ⚠️ **Mom's retrofit is now the exception, not the model.** The section below built its whole
+>    argument on her (grant precedes person; *"no visible change"*). She is a **test subject, not the
+>    market** `[paul-stated 2026-09-05]`, and reasoning from her to the engine is the instance leaking
+>    into the engine.
+
+---
+
+#### 🗄 HISTORICAL — the model held 2026-09-02 → 2026-09-05 `[user-researcher, 2026-09-02]`
 
 ⭐⭐ **The reframe, and it changes all four journeys:** read the settled model literally and **a grant
 is authored OUTSIDE the estate, by someone else, BEFORE the person arrives.** There is no self-serve
