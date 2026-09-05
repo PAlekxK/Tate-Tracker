@@ -125,6 +125,37 @@ same *absent-at-one-grant* rule the selector already carries. And **"home" is a 
 Fernwood and a condo someone lives in; it would not fit a rental or an investment property, so it
 constrains what an estate can be. Fine today, worth re-reading if that changes.
 
+> ### ✅ RULED 2026-09-05 — the claim is the POSITIONING, and the burden of proof is on widening it `[paul-stated]`
+>
+> > *"We have a customer base semi-established through Mom, through Bob — of managing the estate that
+> > you own. I think that's the customer. That's very different than the use for a rental or
+> > investment property, and also someone that would only use this to track their car, or a single
+> > appliance. It's just a matter of saying: OK, this is a very clear case, established, and we're
+> > trying to brand it successfully for that. Because we're taking a modular approach, we can always
+> > repackage and rebrand things. But if I'm getting this pushback about people with a rental property
+> > needing to manage this — **demonstrate that they actually would use this.** Same for someone that
+> > just has a car."*
+>
+> **So "home" narrowing the product is the POINT, not a defect.** The warning above was raised against
+> a hypothetical reader; the ruling is that a hypothetical reader does not get to constrain a real
+> one. ⭐ **The burden of proof inverts: anyone proposing to widen the noun must first demonstrate the
+> wider user would actually use this.** That is the same posture as
+> [[feedback_defer_affordances_pending_signal]] and *build doors on measured demand*, applied to
+> naming rather than to features — and modularity is what makes it cheap to be wrong later.
+>
+> ⚠️ **AND IT DOES NOT CONTRADICT THE SAME NIGHT'S NODE RULING, because the two speak to different
+> things.** Hours earlier Paul ruled that no TYPE is presumed and that *"someone should be able to add
+> a car there, or a property, or a condo, or an individual appliance."* That is about what an estate
+> **CONTAINS** — and it is already true, `vehicles.json` has held a fleet for months. This ruling is
+> about what an estate **IS**, and who the product is FOR. A vehicle inside a home is shipped
+> reality; a vehicle-only *customer* is the hypothetical he is declining to design for.
+>
+> ⭐ **The same distinction dissolves the other apparent conflict: A GRANT ROOT IS NOT A CUSTOMER
+> SEGMENT.** Paul's own example — *"someone else logs in and just sees that vehicle, not nested under
+> a property"* — describes a person **rooted at** a vehicle inside someone else's estate: a mechanic,
+> a caretaker, a family member. They are a guest at an estate, not a customer of a vehicle product.
+> Viewer-relative hierarchy therefore stands in full, and it costs this positioning nothing.
+
 ⛔ **THE PRODUCT'S OWN NAME REMAINS OPEN — a greeting is not a brand — and "estate manager" is still rejected** — §4's reason holds and
 is aimed at exactly the reader who would meet this screen most. ⚠️ **But §4's premise moved:**
 `content-steward` held *call it nothing* on the grounds that the shell is invisible plumbing, with the
