@@ -264,6 +264,48 @@ async function nolinkHTML(page) {
              `firstId=${first.id} correctedId=${fixed.id} screen=${fixed.shown||'none'}`);
     }
 
+    // ─── PATHS 14 + 15 — NAMING, the first step of home setup [paul-stated 2026-09-05].
+    // Added the same hour the step was: a path table that lags the journey is the exact blindness
+    // this runner already admits to — it derives its screen roster from the document, so a NEW screen
+    // is covered only if someone writes the row.
+    {
+      const p = await openPage(browser, { body: DOC, api: api(OK_WHOAMI), url: DOC_URL + '?g=' + cfg.grant });
+      await p.click('#go1');                       // no name typed
+      await p.waitForTimeout(400);
+      const shown = await visible(p);
+      const t = await p.evaluate(() => {
+        const e = document.getElementById('trouble1');
+        return { hidden: e.hidden, text: (e.textContent || '').trim() };
+      });
+      const focused = await p.evaluate(() => document.activeElement && document.activeElement.id);
+      record(14, 'an empty name is refused — stays on s1, names what is missing, focuses the field',
+             shown.join() === 's1' && !t.hidden && /name/i.test(t.text) && focused === 'pname',
+             `screen=${shown.join()||'none'} trouble="${t.text}" focus=${focused}`);
+      await p.__ctx.close();
+    }
+    {
+      const p = await openPage(browser, { body: DOC, api: api(OK_WHOAMI, { status: 200, json: { stored: 1 } }),
+                                          url: DOC_URL + '?g=' + cfg.grant });
+      await p.fill('#pname', "Mom's condo");
+      await p.click('#go1');
+      await p.waitForTimeout(500);
+      const afterName = await visible(p);
+      const h1 = await p.evaluate(() => document.getElementById('head').textContent.trim());
+      const stored = await p.evaluate(() => localStorage.getItem('fw-onboard-name'));
+      // and it must survive all the way to the confirm screen
+      await p.fill('#a1', '282 Church Mountain Road'); await p.fill('#city', 'Jasper');
+      await p.fill('#state', 'GA'); await p.fill('#zip', '30143');
+      await p.click('#go2'); await p.waitForTimeout(500);
+      await p.click('#go3'); await p.waitForTimeout(400);
+      const h1End = await p.evaluate(() => document.getElementById('head').textContent.trim());
+      const phHidden = await p.evaluate(() => document.getElementById('s4placeholder').hidden);
+      record(15, 'her name rides the h1 from s1 to s4, verbatim, and retires the placeholder line',
+             afterName.join() === 's2' && h1 === "Mom's condo" && stored === "Mom's condo"
+               && h1End === "Mom's condo" && phHidden,
+             `afterName=${afterName.join()||'none'} h1="${h1}" h1AtConfirm="${h1End}" placeholderHidden=${phHidden}`);
+      await p.__ctx.close();
+    }
+
     // ─── PATH 10 — a 200 is not proof of a write
     {
       const p = await openPage(browser, { body: DOC, api: api(OK_WHOAMI, { status: 200, json: { stored: 0 } }),

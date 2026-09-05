@@ -227,9 +227,20 @@
          in, create an account"). The account-creation step is not built yet, so the claim is simply
          withdrawn rather than replaced with a promise this page cannot keep. ⛔ Do not re-add a
          "nothing to set up" line; that is the design being retired. -->
+    <!-- ⭐ NAMING IS THE FIRST STEP OF HOME SETUP `[paul-stated 2026-09-05]`: "I would expect them
+         naming the home to be the first step in the home setup, so we would have the name by now."
+         So s1 stops being a splash with a Start button and becomes the first question. Her word then
+         rides the <h1> on every screen after this one, and s4 confirms a place that already has her
+         name on it rather than one we are still calling "My Home".
+         ⚠️ COPY IS INTERIM — content-steward has not read this screen since it changed shape, and
+         "starting with one question" now sits above the FIRST of two. That sentence is on its list. -->
     <p class="lede">This is the start of a place of your own.</p>
-    <p class="soft">There's nothing in it yet. We'll build it around what you tell us, a piece at a time — starting with one question.</p>
-    <button type="button" id="go1"><span class="tick">✓</span>Start</button>
+    <p class="soft">There's nothing in it yet. We'll build it around what you tell us, a piece at a time — starting with what to call it.</p>
+    <label for="pname">What would you like to call it?</label>
+    <input id="pname" type="text" enterkeyhint="next" autocapitalize="words" autocomplete="off" maxlength="60">
+    <p class="quiet" style="margin-top:8px">Anything you like — it's yours, and you can change it whenever.</p>
+    <div class="trouble" id="trouble1" hidden></div>
+    <button type="button" id="go1"><span class="tick">✓</span>That's it</button>
   </section>
 
   <!-- ── SCREEN 2 · the address · ONE typed field ──────────────────────────────────
@@ -400,7 +411,7 @@
     <p id="s4thanks" class="soft" hidden></p>
 
     <p class="soft">I'm putting it together now — the weather where you are, and what grows there. Nothing for you to do; I'll send it over and ask you one thing: what else you'd want to look at.</p>
-    <p class="quiet">I'm calling it “My Home” until you name it.</p>
+    <p class="quiet" id="s4placeholder">I'm calling it “My Home” until you name it.</p>
   </section>
 </main>
 
@@ -414,6 +425,7 @@
   var K_STEP  = "fw-onboard-step"; // so a reload does not re-ask something she already answered
   var K_ADDR  = "fw-onboard-addr"; // echoed back on screen 4 — she sees her own words land
   var K_PARTS = "fw-onboard-parts"; // the components, for the map query and the later USPS step
+  var K_NAME  = "fw-onboard-name";  // HER word for the place — rides the <h1> from the moment she gives it
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into
@@ -435,8 +447,8 @@
 
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
-   "a1", "a2", "city", "state", "zip", "maplink", "mapnote",
-   "confirm", "s4seam", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks"]
+   "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
+   "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   function show(which) {
@@ -458,9 +470,18 @@
     try { history.replaceState(null, "", url.pathname + url.search + url.hash); } catch (e) {}
   }
   var grant = read(K_GRANT);
+  if (el.head && read(K_NAME)) el.head.textContent = read(K_NAME);   // before any fetch resolves
+
+  // Her word, exactly as she typed it — nothing appended, nothing case-corrected. This project
+  // normalised "household systems" once already on a surface she reads; it does not do that again.
+  function paintName() {
+    var nm = read(K_NAME);
+    if (nm) el.head.textContent = nm;
+  }
 
   function step(n) {
     store(K_STEP, String(n));
+    paintName();
     if (n === 4) {
       var a = read(K_ADDR);
       el.s4addr.hidden = !a;
@@ -483,6 +504,8 @@
       if (hasQuery) el.maplink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
       // the ask only appears once there is something to confirm
       el.confirm.hidden = !a;
+      // she named it, so stop explaining a placeholder that is no longer on screen
+      if (read(K_NAME)) el.s4placeholder.hidden = true;
       el.s4seam.hidden = !a;
     }
     show("s" + n);
@@ -526,7 +549,21 @@
       setTimeout(function () { throw e; }, 0);
     });
 
-  el.go1.addEventListener("click", function () { step(2); el.a1.focus(); });
+  el.go1.addEventListener("click", function () {
+    var nm = el.pname.value.trim();
+    if (!nm) {
+      // names what is missing and never scolds — the same rule the address step follows
+      el.trouble1.hidden = false;
+      el.trouble1.innerHTML = "Still needs a name — anything you'd call it.";
+      el.pname.focus();
+      return;
+    }
+    store(K_NAME, nm);
+    paintName();
+    postAnswer("onboard-name", nm, { type: "onboarding", field: "name", step: 1 })["catch"](function () {});
+    step(2);
+    el.a1.focus();
+  });
 
   // Her words, per field, exactly as typed. Nothing is cleaned at capture — a standardisation is a
   // SUGGESTION she confirms (Paul's address-validation ruling), and it is not built yet.

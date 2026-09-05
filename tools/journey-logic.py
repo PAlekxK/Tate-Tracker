@@ -139,6 +139,9 @@ MUTATIONS = [
     ("m-fp-grant-only", 'var gv = (read(K_GRANT) || "x") + "\\u0000" + note;', 'var gv = (read(K_GRANT) || "x");', 9),
     ("m-stored-zero", "if (res && res.stored === 0 && !res.duplicate) return Promise.reject(\"not-stored\");",
      "if (false) return Promise.reject(\"not-stored\");", 10),
+    # naming became the first step 2026-09-05; the mutation was written the same hour, because a path
+    # nothing can flip red is a path that proves nothing about the screen it names.
+    ("m-name-optional", 'if (!nm) {', 'if (false) {', 14),
 ]
 
 
