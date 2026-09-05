@@ -345,7 +345,16 @@ function authOk(request, env) {
 // value the Worker can honestly write today. The resolver that can turn a
 // deviceId into a person (momlib.person_for, C5 1b) runs on the read side and
 // is the only writer of a non-null person anywhere.
-const PERSON_UNKNOWN = Object.freeze({ personId: null });
+// ⭐ AND THE SAME RULE FOR THE HOUSEHOLD `[paul-stated 2026-09-05]`: "we definitely need feedback to
+// be traced to an individual AND a specific home." Until now the household lived ONLY in the KV key
+// prefix — so a record lifted out of its key (exported, backed up, handed to a reader) lost which
+// home it belonged to, and the pre-cutover records never had one anywhere. Both are declared null
+// here for the same reason personId is: null means "written after the field existed and nobody could
+// say," which is a different observation from a field that was never there.
+// ⛔ It is NOT filled from `env.ESTATE_ID`. That would bake the one-deploy-one-estate binding into
+// every row we write — the exact assumption being removed now that one account holds several
+// households. The estate is a fact about the GRANT, so it comes from the grant or it stays null.
+const PERSON_UNKNOWN = Object.freeze({ personId: null, estateId: null });
 // Privacy seat F9 (applied 2026-09-03, routed from the setup-journey seat as I1): declarePerson is a GUARD, not a
 // merge. Before this the `record` argument won, so any handler could smuggle a non-null person past the declaration
 // by putting one in its literal. Now a record that arrives already carrying a non-null personId THROWS — the only
@@ -355,6 +364,9 @@ const PERSON_UNKNOWN = Object.freeze({ personId: null });
 function declarePerson(record) {
   if (record && record.personId != null) {
     throw new Error("declarePerson: a record arrived with personId already set — attribute through attributeTo(record, grant), never in the literal");
+  }
+  if (record && record.estateId != null) {
+    throw new Error("declarePerson: a record arrived with estateId already set — the household comes from the resolved grant via attributeTo, never from a literal or from the deploy binding");
   }
   return Object.assign({}, record, PERSON_UNKNOWN);
 }
@@ -366,7 +378,13 @@ function attributeTo(record, grant) {
   if (!grant || !grant.personId || !grant.estateId) {
     throw new Error("attributeTo: needs a resolved grant with personId and estateId — refusing to attribute from anything else");
   }
-  return Object.assign({}, record, { personId: grant.personId, personSource: "grant" });
+  // Both facts come from the SAME resolved row, so they cannot disagree — which is the property that
+  // makes "everything Mom said" and "everything about the condo" two answerable questions instead of
+  // one. estateSource mirrors personSource: the shape is "the value, and where it came from."
+  return Object.assign({}, record, {
+    personId: grant.personId, personSource: "grant",
+    estateId: grant.estateId, estateSource: "grant",
+  });
 }
 
 // ---- Every KV key carries the ESTATE (C5 6a/6b/6c, 2026-09-03) ----
