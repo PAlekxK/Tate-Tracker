@@ -88,7 +88,16 @@ def date_key(estate, legacy_before, kind, date):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--env", required=True, choices=["production", "qa", "lab", "home"])
+    # ⭐ DERIVED, NOT TYPED — F2, 2026-09-06. This list was hand-written as four entries while
+    # `envs()` right above it read SIX out of the toml, so `bob` and `paul` could not be exported by
+    # the one tool that exists to replace "delete the namespace". Same defect as check-storage-keys'
+    # three blind days, one level up: an instrument whose scope is typed cannot follow the thing it
+    # measures. ⛔ A derivation that finds NOTHING must refuse, never fall back to a typed default —
+    # a silent fallback is how this class of bug reads green.
+    _envs = sorted(envs())
+    if not _envs:
+        sys.exit("UNCHECKABLE: no environments parsed from %s — refusing to guess a roster" % TOML)
+    ap.add_argument("--env", required=True, choices=_envs)
     ap.add_argument("--since", default=None, help="YYYY-MM-DD (default: 120 days back)")
     ap.add_argument("--out", default=None, help="write the copy here (default: report only)")
     ap.add_argument("--selftest", action="store_true")
