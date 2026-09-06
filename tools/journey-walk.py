@@ -270,6 +270,7 @@ def main():
     # long since have gone — and a dead grant is indistinguishable from no grant, so the walk would
     # meet `invite-required` and read as a product failure rather than a stale fixture. Logging in
     # first guarantees the invite the walker arrives on is live at the moment she uses it.
+    run = dt.datetime.now().strftime("%Y-%m-%dT%H%M%S")
     v = refresh(a.role, a.origin)
     base = {"qa":   "https://fernwood-qa.pages.dev/onboarding/",
             "lab":  "https://fernwood-lab.pages.dev/onboarding/",
@@ -283,7 +284,8 @@ def main():
     # ⭐ EVERY WALK DECLARES ITSELF SYNTHETIC. onboarding stamps `context.synthetic` on every answer
     # when this is present, so a test row can be found and removed later without guessing — and so a
     # reading of "what people told us" is never quietly a reading of what our own harness typed.
-    url = base + "?g=" + (v.get("token") or "") + "&syn=1"
+    # The run id IS the run folder, so a KV row joins to this walk's transcript with no inference.
+    url = base + "?g=" + (v.get("token") or "") + "&syn=" + run
 
     # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
     # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this
@@ -319,7 +321,6 @@ def main():
         print("      Every seat using this default types the same thing, so N seats are ONE")
         print("      observation. Write %s to make this seat its own." % os.path.relpath(role_file, ROOT))
 
-    run = dt.datetime.now().strftime("%Y-%m-%dT%H%M%S")
     d = os.path.join(OUT, a.role, run)
     os.makedirs(d, exist_ok=True)
 

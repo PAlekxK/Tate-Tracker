@@ -108,6 +108,56 @@ def provenance(row):
     return "real" if (row.get("_date") or "") > MARKER_LANDED else "unknown"
 
 
+# ⭐ RUN IDENTITY, AND WHICH RUN IS CURRENT `[paul-stated 2026-09-06]`: "if we find a critical error
+# that requires a rerun of a synthetic, the aborted or failed or unsatisfactory run should not be
+# kept in memory… we would always be only committing the data from the FINAL SUCCESSFUL run. So it
+# would supersede everything else. We're keeping all the feedback and runs as we go."
+#
+# ⛔ THE PROBLEM THAT MAKES THIS NECESSARY, MEASURED before it was built: est-qa0001 held 18 place
+# names across 7 distinct values, with nothing saying which was current — because "keep the last
+# good run" had nothing to group BY. A row carried estate, person, time and env, and no ATTEMPT.
+#
+# ⭐ THE JOIN: a synthetic walk passes `?syn=<runId>` where runId IS its own run folder, so a stored
+# `sessionId` equals `.private/synthetic-walks/<role>/<runId>/`. No inference, no fuzzy matching.
+#
+# ⛔ AND "CURRENT" IS NOT "NEWEST". The aborted run is usually the last one — that is exactly Paul's
+# case. So current = the newest run this seat has that WALK-INTEGRITY WILL COUNT, which already
+# refuses a walk with a failed stop, a build that moved mid-walk, or no written report. A run that
+# fell over cannot become the authority by being late.
+# ⚠️ Paul's judgment overrides it: `.private/current-runs.json` mapping role -> runId wins where
+# present, because "some of that will come down to my human judgment of what's good enough."
+def walk_runs(root=ROOT):
+    """runId -> {role, countable}. Read from the walk corpus; nothing is restated here."""
+    import glob as _g, importlib.util as _ilu
+    spec = _ilu.spec_from_file_location("wi", os.path.join(root, "tools", "walk-integrity.py"))
+    wi = _ilu.module_from_spec(spec); spec.loader.exec_module(wi)
+    out = {}
+    for d in _g.glob(os.path.join(root, ".private", "synthetic-walks", "*", "*")):
+        if not os.path.isdir(d):
+            continue
+        v = wi.verdict(d)
+        out[os.path.basename(d)] = {"role": v["seat"], "countable": not v["refusals"],
+                                    "refusals": [k for k, _ in v["refusals"]]}
+    return out
+
+
+def current_runs(runs, root=ROOT):
+    """role -> the runId whose data is authoritative."""
+    override = {}
+    p = os.path.join(root, ".private", "current-runs.json")
+    if os.path.exists(p):
+        try:
+            override = json.load(open(p, encoding="utf-8")) or {}
+        except ValueError:
+            override = {}
+    best = {}
+    for rid, meta in sorted(runs.items()):
+        if meta["countable"]:
+            best[meta["role"]] = rid          # sorted ascending, so the last countable wins
+    best.update({k: v for k, v in override.items() if isinstance(v, str)})
+    return best
+
+
 def rows_from(payload):
     """Every onboarding answer across the window, newest first."""
     out = []
@@ -121,10 +171,29 @@ def rows_from(payload):
 
 
 def report(rows, env, days):
+    runs = walk_runs()
+    cur = current_runs(runs)
+    cur_ids = set(cur.values())
+
+    def standing(r):
+        sid = r.get("sessionId")
+        if not sid:
+            return "no-run"          # pre-dates run identity; cannot be superseded or trusted
+        meta = runs.get(sid)
+        if not meta:
+            return "unlinked"        # a run id we have no walk for — a person, or a lost transcript
+        return "current" if sid in cur_ids else "superseded"
+
     counts = collections.Counter(provenance(r) for r in rows)
+    st = collections.Counter(standing(r) for r in rows)
     print("read-onboarding — env %s · last %d day(s) · %d answer(s)" % (env, days, len(rows)))
     print("   provenance: %d real · %d synthetic · %d unknown"
           % (counts.get("real", 0), counts.get("synthetic", 0), counts.get("unknown", 0)))
+    print("   standing:   %d current · %d superseded · %d unlinked · %d pre-date run identity"
+          % (st.get("current", 0), st.get("superseded", 0), st.get("unlinked", 0), st.get("no-run", 0)))
+    if cur:
+        print("   authoritative run per seat: %s"
+              % ", ".join("%s=%s" % (k, v) for k, v in sorted(cur.items())))
     if counts.get("unknown"):
         print("   ⚠️ UNKNOWN means captured before the synthetic marker shipped (%s). It is NOT a"
               % MARKER_LANDED)
@@ -169,7 +238,8 @@ def report(rows, env, days):
     print("EVERY ANSWER, newest first")
     for r in rows[:60]:
         a = field(r).replace("\n", " / ")
-        print("   %s  %-4s %-24s %s" % (r.get("_date"), provenance(r)[:4], kind(r)[:24], a[:86]))
+        print("   %s  %-4s %-10s %-22s %s" % (r.get("_date"), provenance(r)[:4],
+                                                    standing(r)[:10], kind(r)[:22], a[:70]))
     return 0
 
 
@@ -215,7 +285,19 @@ def selftest():
           "pre-marker test data would be counted as something a person said")
     check("a NEW unstamped row reads real",
           provenance({"_date": "2026-09-07"}) == "real")
-    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 10 - len(fails), 10))
+
+    # ⭐ SUPERSEDING — the property Paul actually asked for, asserted rather than assumed.
+    runs = {"2026-09-06T100000": {"role": "mom", "countable": True, "refusals": []},
+            "2026-09-06T110000": {"role": "mom", "countable": False, "refusals": ["stops-did-not-complete"]},
+            "2026-09-06T090000": {"role": "owner", "countable": True, "refusals": []}}
+    cur = current_runs(runs, root="/nonexistent")     # no override file
+    check("the newest COUNTABLE run is authoritative", cur.get("mom") == "2026-09-06T100000",
+          "got %r — a run that fell over became the authority by being late, which is Paul's exact case"
+          % cur.get("mom"))
+    check("each seat has its own authority", cur.get("owner") == "2026-09-06T090000")
+    check("a seat with no countable run has NO authority", "strict" not in cur,
+          "an unproven seat must not silently claim one")
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 13 - len(fails), 13))
     return 1 if fails else 0
 
 
@@ -223,6 +305,9 @@ def main():
     ap = argparse.ArgumentParser(description="read what people said while setting their place up")
     ap.add_argument("--env", choices=sorted(WORKERS), default="qa")
     ap.add_argument("--days", type=int, default=7)
+    ap.add_argument("--current", action="store_true",
+                    help="only rows from the authoritative run of each seat — what the estate "
+                         "actually claims, with superseded attempts left in the trail")
     ap.add_argument("--only", choices=["real", "synthetic", "unknown"],
                     help="show one provenance class — `real` is what a person actually told us")
     ap.add_argument("--selftest", action="store_true")
@@ -237,6 +322,13 @@ def main():
     rows = rows_from(payload)
     if a.only:
         rows = [r for r in rows if provenance(r) == a.only]
+    if a.current:
+        cur_ids = set(current_runs(walk_runs()).values())
+        # ⛔ A ROW WITH NO RUN ID IS DROPPED HERE, DELIBERATELY. It cannot be shown to be current,
+        # and --current is the view that answers "what does this estate actually claim". Including
+        # the unattributable would make the answer look complete while resting on rows nothing can
+        # supersede — the flattering direction.
+        rows = [r for r in rows if r.get("sessionId") in cur_ids]
     return report(rows, a.env, a.days)
 
 

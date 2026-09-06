@@ -1190,7 +1190,23 @@
   // ⛔ NO VALUES, EVER. Names of things she touched — never a character she typed. The Worker
   // re-enforces this on an allow-list, because a capture path that trusts its caller is not a
   // boundary. Fire-and-forget: instrumentation must never be the thing that costs her the page.
-  var SID = (function () { try { return Math.random().toString(36).slice(2, 12); } catch (e) { return "x"; } })();
+  // ⭐ ONE RUN IDENTITY, SHARED BY TELEMETRY AND ANSWERS. It was minted here for the metrics batch
+  // and never sent with an answer — so `sessionId` and `deviceId` sat NULL on all 44 records in QA
+  // while the Worker accepted and stored both. The field existed, the value existed, the storage
+  // existed, and one line never connected them. Fifth capability found today that was built and
+  // never called.
+  // ⛔ WHY IT MATTERS BEYOND TIDINESS: without a run id nothing groups a person's answers into the
+  // ATTEMPT that produced them. Measured 2026-09-06, est-qa0001 held 18 place names across 7
+  // distinct values and 8 distinct addresses, with nothing saying which was current — because
+  // "keep the last good run, supersede the rest" has nothing to group BY.
+  // ⭐ A SYNTHETIC WALK SUPPLIES ITS OWN. `?syn=<runId>` makes the stored sessionId equal the walk's
+  // run folder on disk, so a KV row and a transcript can be joined without inference. A real reader
+  // gets a random one, which is the same mechanism and no special case.
+  var SYN_RUN = (function () {
+    var m = /[?&]syn=([A-Za-z0-9T:_-]{1,40})(&|$)/.exec(location.search);
+    return m && m[1] !== "1" ? m[1] : null;
+  })();
+  var SID = SYN_RUN || (function () { try { return Math.random().toString(36).slice(2, 12); } catch (e) { return "x"; } })();
   var evBuf = [], screenAt = Date.now();
 
   var evTimer = null;
@@ -1509,7 +1525,7 @@
   // earlier test runs, indistinguishable from anything a person typed.
   // ⚠️ IT IS A PROVENANCE MARKER, NOT A CONTROL. Anyone can put ?syn=1 in a URL; that is fine,
   // because its job is to let us find and remove OUR OWN test data, never to keep anyone out.
-  var SYNTHETIC = /[?&]syn=1(&|$)/.test(location.search);
+  var SYNTHETIC = /[?&]syn=/.test(location.search);
   function postAnswer(prefix, note, ctx) {
     if (SYNTHETIC) { ctx = ctx || {}; ctx.synthetic = true; }
     var gv = (read(K_GRANT) || "x") + "\u0000" + note;
@@ -1520,7 +1536,8 @@
     if (g) headers["X-Grant"] = g;
     return fetch(WORKER + "/api/feedback", {
       method: "POST", headers: headers,
-      body: JSON.stringify({ id: prefix + "-" + (fp >>> 0).toString(36), note: note, context: ctx })
+      body: JSON.stringify({ id: prefix + "-" + (fp >>> 0).toString(36), note: note, context: ctx,
+                             sessionId: SID })
     })
       // ⛔ THE REASON MUST SURVIVE. The catch below swallowed WHY, so an intermittent failure on
       // 2026-09-05 could not be attributed after the fact — the leading explanation (eleven deploys
