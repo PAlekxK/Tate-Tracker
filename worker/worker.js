@@ -3356,6 +3356,28 @@ export default {
     // would confirm the door exists), and a server-side door_failed lands in `door:` via waitUntil so
     // the response time does not carry the reason (the seat's timing oracle). ----
     const grant = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;   // resolved ONCE; 6a reads it at the gate below
+    // ⭐ SLICE ① OF THE MULTI-HOUSEHOLD CONVERSION — AND IT IS A DELIBERATE NO-OP TODAY.
+    // `scopeFor` prefers a resolved grant's estate over the deployment's binding, and it has had
+    // ZERO CALLERS since it was written, while `scopeOf(env)` sits at ~51 sites. The conversion is
+    // moving those sites one at a time; this line is the foundation, resolved exactly where the
+    // grant already is, so no handler has to re-derive it and none can derive it differently.
+    // ⛔ TODAY THIS EQUALS scopeOf(env) FOR EVERY REQUEST, by construction: `grantFor` rejects a
+    // foreign-estate grant before this point, so `grant.estateId` is always the deployment's own.
+    // That is exactly why it is safe to land first — behaviour cannot change, and the next slice
+    // moves READ-ONLY handlers onto it before anything that writes.
+    // ⚠️ AND THE REASON THE ORDER MATTERS, recorded because it is counter-intuitive: `assertScope`
+    // catches a FORGOTTEN conversion, never a WRONG one. A site still calling `scopeOf(env)` passes
+    // it perfectly — valid scope, wrong household. So the identity doors go LAST: they are one-line
+    // changes and therefore tempting to do first, and flipping them early would mint grants for a
+    // second estate while every downstream handler still keyed by the binding — every write landing
+    // under the wrong household, with nothing firing.
+    // ⛔ AND THE NEXT WALL, FOUND WHILE PROVING THIS ONE IS SAFE — recorded so the conversion does
+    // not discover it late. `grantFor` looks the grant up at `keyFor(scopeOf(env), "grant", …)` and
+    // then rejects `row.estateId !== env.ESTATE_ID`. So a foreign grant fails TWICE: it is not in
+    // this deployment's namespace, and it would be rejected if it were. Both must change for one
+    // deployment to serve many estates, and the LOOKUP is the harder half — a grant token would
+    // have to resolve without already knowing which estate to look in.
+    const requestScope = scopeFor(request, env, grant);   // eslint-disable-line no-unused-vars
     if (request.headers.get(GRANT_HEADER)) {
       if (!grant || !hostAgrees(request, env)) {
         const reason = !grant ? "unknown-or-other-estate" : "host-mismatch";
