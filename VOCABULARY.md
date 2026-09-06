@@ -250,6 +250,47 @@ capability-only act the activation rule forbids — while remaining perfectly we
 undetectable.** Manual execution is safe *only* because the consent record can tell executing from
 authoring.
 
+## 3f · TWO ADMINISTRATORS, AND ONLY ONE OF THEM IS IN THE APP `[paul-ruled 2026-09-06]`
+
+> *"There needs to be an overall application administrator, and that's the estate manager master
+> loop and overall back end everything. And then there's a per-estate administrator in the app.
+> And we can just call that estate owner."*
+
+**The word was doing two jobs and one of them outranked the other.** Until today `administrator`
+named both the person who runs the service and the person who founded a household — and the second
+reading is the one every design conversation used, while the first is the one that actually holds
+the master token.
+
+| word | who | scope | how it is held |
+|---|---|---|---|
+| **application administrator** | whoever runs the service — the estate-manager master loop and the back end entire | ACROSS estates, per deployment | the master token (`X-Tate-Token`) |
+| **estate owner** | the person who founded a household and answers for it | ONE estate | a grant with `capability: administrator` for that estate |
+
+⭐ **The founding owner IS the estate owner, and that is deliberate** `[paul-ruled 2026-09-06]`.
+Capability is INHERITED FROM THE INVITE (`handleAccountCreate`), and `grant-mint` defaults to
+`member` — so a founding owner is an administrator only because the invite that created them said
+so. Asked whether that was intended, Paul: *"realistically… yes. The founding owner should have
+administrator over a household."*
+
+⛔ **AND NO PROFILE OUTRANKS ANOTHER INSIDE THE APP** `[paul-ruled 2026-09-06]`: *"I don't want my
+profile in production to have any more rights than Mom's, Will's or Bob's over the houses that they
+create."* So Paul's own household account is an **estate owner** like any other. His extra reach is
+the **application administrator** role, which is a different seat wearing a different credential —
+not a bigger version of the same one.
+
+⚠️ **THE DUTY THAT FOLLOWS, and it is not hypothetical.** `/api/feedback` GET is dual-accept: the
+master token **or** an estate owner's grant. Under deployment-per-household the application
+administrator therefore reads a second household's rows — Bob's succession plan, his daughters'
+records — by construction. `CLAUDE.md`'s standing rule already covers it: *an administrator who is
+not a member of the household requires explicit up-front agreement BEFORE the first contributor
+input.* That agreement is owed to Bob before his daughters write anything, and it is Paul's to get.
+
+⛔ **STILL UNBUILT, named here so it is not rediscovered as a surprise.** An estate owner cannot
+found a SECOND estate. An account is created against an invite and the estate comes from the
+deployment binding, so there is no "add another place" path at all — and Bob's stated requirement is
+two houses he sets up himself from one invite. That needs the per-request scope conversion AND a
+found-a-new-estate flow, neither of which exists.
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
