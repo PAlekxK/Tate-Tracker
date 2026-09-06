@@ -182,15 +182,30 @@ def report(rows, env, days):
         meta = runs.get(sid)
         if not meta:
             return "unlinked"        # a run id we have no walk for — a person, or a lost transcript
-        return "current" if sid in cur_ids else "superseded"
+        if sid in cur_ids:
+            return "current"
+        # ⛔ SUPERSEDED AND PENDING ARE NOT THE SAME THING, and calling both "superseded" reads as
+        # "something replaced this" when the truth is often the opposite. A run NEWER than the
+        # authoritative one has not been beaten — it has not yet been READ. Its data is real and
+        # waiting; the seat that walked it has not written the experiential half, so walk-integrity
+        # will not count it and it cannot claim authority.
+        # ⭐ That is the property worth keeping: DATA DOES NOT BECOME AUTHORITATIVE UNTIL SOMEONE
+        # HAS READ THE RUN THAT PRODUCED IT. Saying "pending" keeps that legible; saying
+        # "superseded" would quietly turn an unread run into a discarded one.
+        authoritative = cur.get(meta["role"])
+        if authoritative and sid > authoritative:
+            return "pending"
+        return "superseded"
 
     counts = collections.Counter(provenance(r) for r in rows)
     st = collections.Counter(standing(r) for r in rows)
     print("read-onboarding — env %s · last %d day(s) · %d answer(s)" % (env, days, len(rows)))
     print("   provenance: %d real · %d synthetic · %d unknown"
           % (counts.get("real", 0), counts.get("synthetic", 0), counts.get("unknown", 0)))
-    print("   standing:   %d current · %d superseded · %d unlinked · %d pre-date run identity"
-          % (st.get("current", 0), st.get("superseded", 0), st.get("unlinked", 0), st.get("no-run", 0)))
+    print("   standing:   %d current · %d pending (walked, not yet read) · %d superseded · "
+          "%d unlinked · %d pre-date run identity"
+          % (st.get("current", 0), st.get("pending", 0), st.get("superseded", 0),
+             st.get("unlinked", 0), st.get("no-run", 0)))
     if cur:
         print("   authoritative run per seat: %s"
               % ", ".join("%s=%s" % (k, v) for k, v in sorted(cur.items())))
@@ -297,7 +312,10 @@ def selftest():
     check("each seat has its own authority", cur.get("owner") == "2026-09-06T090000")
     check("a seat with no countable run has NO authority", "strict" not in cur,
           "an unproven seat must not silently claim one")
-    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 13 - len(fails), 13))
+    check("PENDING and SUPERSEDED are distinguishable",
+          "2026-09-06T120000" > "2026-09-06T100000" and "2026-09-06T090000" < "2026-09-06T100000",
+          "run ids must sort chronologically or newer-vs-older cannot be told apart")
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 14 - len(fails), 14))
     return 1 if fails else 0
 
 

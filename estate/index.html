@@ -266,7 +266,18 @@
   if (mine && ranked && ranked.length) {
     rows.push({
       label: "What I'll build first",
-      value: ranked.slice(0, 3).map(function (r, i) { return (i + 1) + ". " + r; }).join("\n"),
+      // ⛔ IT SHOWED ONLY THREE. `wide-eyed` ranked four and watched the fourth vanish with no
+      // acknowledgment — "my 4th pick vanishes with no acknowledgment". Silently dropping part of
+      // what someone told us, on the screen whose entire job is showing that we heard them, is the
+      // worst place in the product to do it. Every pick shows.
+      // ⭐ And the "an idea — not built yet" marker travels with it: the same seat noted an unbuilt
+      // idea was listed "with the same confidence as the two real features", so a caveat she was
+      // shown while choosing had quietly disappeared by the time we repeated it back.
+      value: ranked.map(function (r, i) {
+        var label = (r && r.label) || r;                 // older runs stored a bare string
+        var soon = !!(r && r.soon);
+        return (i + 1) + ". " + label + (soon ? "  (an idea — not built yet)" : "");
+      }).join("\n"),
       prov: "Because that's how you ranked them.",
       act: "Change the order ›"
     });

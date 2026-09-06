@@ -1351,9 +1351,17 @@
         store(K_GRANT, res.b.token);
         store(K_OWNER, res.b.token);
         store(K_USER, u);
-        store(K_PREF, pref);
         paintName();                                    // the bar switches to them the moment they exist
         clearAnswers();                                 // a brand-new account starts clean, always
+        // ⛔ AFTER the clear, and that ordering is the whole bug. K_PREF was stored one line ABOVE
+        // clearAnswers() and wiped by it immediately — I added K_PREF to that list the same day for
+        // the owner guard (where clearing it IS correct: a different credential must not inherit a
+        // previous person's contact choice) without noticing this call site clears a BRAND-NEW
+        // account too. Stored, then erased, on adjacent lines.
+        // ⭐ Two synthetic seats caught it independently — "asked once at the very start and never
+        // surfaced again" — after a review seat had already predicted the field would go missing.
+        // The list is right; the position was wrong.
+        store(K_PREF, pref);
         step(1);
       })
       ["catch"](function () {
@@ -1431,10 +1439,15 @@
     // empty list rather than skipped, so the arrival can tell "she looked and chose nothing" from
     // "she never got there" — the same distinction this handler's own comment insists on.
     try {
+      // ⛔ THE "an idea — not built yet" MARKER MUST TRAVEL. The arrival screen listed a
+      // not-yet-built idea with exactly the same confidence as a shipped feature, so an honesty
+      // marker the reader was shown while choosing disappeared one screen later — `wide-eyed`
+      // caught it: "loses the honesty marker it had one screen earlier". Storing the label alone
+      // threw away the only thing that made the list truthful.
       store(K_RANK, JSON.stringify(ranked.map(function (id) {
         var found = null;
-        INTERESTS.forEach(function (it) { if (it.id === id) found = it.label; });
-        return found || id;
+        INTERESTS.forEach(function (it) { if (it.id === id) found = { label: it.label, soon: !!it.soon }; });
+        return found || { label: id, soon: false };
       })));
     } catch (e) {}
     // ⭐ WHAT THEY SAID IS MISSING TRAVELS AS ITS OWN ANSWER, not appended to the ranking string.
