@@ -95,6 +95,19 @@ def kind(row):
     return parts[0] if len(parts) == 2 and parts[1] and parts[1].isalnum() else rid
 
 
+# ⛔ THREE STATES, NOT TWO. A row stamped `context.synthetic` is ours. A row captured AFTER the
+# marker shipped (2026-09-06) without it is a person's. A row from BEFORE that is UNKNOWN — and
+# calling it real would be exactly the flattering-decay this repo keeps paying for, because the QA
+# store demonstrably holds our own test values from earlier runs. Unknown is printed as unknown.
+MARKER_LANDED = "2026-09-06"
+
+
+def provenance(row):
+    if (row.get("context") or {}).get("synthetic") is True:
+        return "synthetic"
+    return "real" if (row.get("_date") or "") > MARKER_LANDED else "unknown"
+
+
 def rows_from(payload):
     """Every onboarding answer across the window, newest first."""
     out = []
@@ -108,7 +121,15 @@ def rows_from(payload):
 
 
 def report(rows, env, days):
-    print("read-onboarding — env %s · last %d day(s) · %d answer(s)\n" % (env, days, len(rows)))
+    counts = collections.Counter(provenance(r) for r in rows)
+    print("read-onboarding — env %s · last %d day(s) · %d answer(s)" % (env, days, len(rows)))
+    print("   provenance: %d real · %d synthetic · %d unknown"
+          % (counts.get("real", 0), counts.get("synthetic", 0), counts.get("unknown", 0)))
+    if counts.get("unknown"):
+        print("   ⚠️ UNKNOWN means captured before the synthetic marker shipped (%s). It is NOT a"
+              % MARKER_LANDED)
+        print("      claim that a person wrote it — this store holds our own test values.")
+    print()
     if not rows:
         print("No onboarding answers in the window. That is a real reading, not an error —")
         print("but it is also what a broken token would look like, so check a walk landed.")
@@ -119,7 +140,7 @@ def report(rows, env, days):
     print("⭐ WHAT'S MISSING — the only place someone can name a need we never anticipated")
     if missing:
         for r in missing:
-            print("   %s  %s" % (r.get("_date"), field(r)))
+            print("   %s  [%s]  %s" % (r.get("_date"), provenance(r)[:4], field(r)))
     else:
         print("   (nobody has said. ⚠️ Ranking 'Something else' and typing nothing is a DIFFERENT")
         print("    reading from never ranking it — the first says they looked for something and")
@@ -148,7 +169,7 @@ def report(rows, env, days):
     print("EVERY ANSWER, newest first")
     for r in rows[:60]:
         a = field(r).replace("\n", " / ")
-        print("   %s  %-24s %s" % (r.get("_date"), kind(r)[:24], a[:92]))
+        print("   %s  %-4s %-24s %s" % (r.get("_date"), provenance(r)[:4], kind(r)[:24], a[:86]))
     return 0
 
 
@@ -186,7 +207,15 @@ def selftest():
           kind({"id": "onboard-interests-1a2b3c"}) == "onboard-interests",
           "postAnswer mints <prefix>-<hash>, so exact-id matching silently matches nothing")
     check("an empty payload yields no rows", not rows_from({"days": {}}))
-    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 7 - len(fails), 7))
+    # ⭐ THE THREE STATES, ASSERTED — including that absence of the marker is never promoted to real.
+    check("a stamped row reads synthetic",
+          provenance({"context": {"synthetic": True}, "_date": "2026-09-07"}) == "synthetic")
+    check("an OLD unstamped row reads unknown, never real",
+          provenance({"_date": "2026-09-01"}) == "unknown",
+          "pre-marker test data would be counted as something a person said")
+    check("a NEW unstamped row reads real",
+          provenance({"_date": "2026-09-07"}) == "real")
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 10 - len(fails), 10))
     return 1 if fails else 0
 
 
@@ -194,6 +223,8 @@ def main():
     ap = argparse.ArgumentParser(description="read what people said while setting their place up")
     ap.add_argument("--env", choices=sorted(WORKERS), default="qa")
     ap.add_argument("--days", type=int, default=7)
+    ap.add_argument("--only", choices=["real", "synthetic", "unknown"],
+                    help="show one provenance class — `real` is what a person actually told us")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     if a.selftest:
@@ -203,7 +234,10 @@ def main():
         print("⚠️  UNREADABLE — %s" % why)
         print("   This is NOT 'no answers'. Nothing can be concluded about what people said.")
         return 3
-    return report(rows_from(payload), a.env, a.days)
+    rows = rows_from(payload)
+    if a.only:
+        rows = [r for r in rows if provenance(r) == a.only]
+    return report(rows, a.env, a.days)
 
 
 if __name__ == "__main__":

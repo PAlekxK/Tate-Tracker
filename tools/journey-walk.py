@@ -280,7 +280,10 @@ def main():
     # run since that commit, so the harness has been unable to create a profile for a day and
     # nothing said so. The fresh/token distinction is NOT whether she holds a grant — an invited
     # person always does — it is whether she CREATES an account or arrives already having one.
-    url = base + "?g=" + (v.get("token") or "")
+    # ⭐ EVERY WALK DECLARES ITSELF SYNTHETIC. onboarding stamps `context.synthetic` on every answer
+    # when this is present, so a test row can be found and removed later without guessing — and so a
+    # reading of "what people told us" is never quietly a reading of what our own harness typed.
+    url = base + "?g=" + (v.get("token") or "") + "&syn=1"
 
     # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
     # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this

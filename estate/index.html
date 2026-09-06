@@ -211,11 +211,40 @@
 
   var addr = mine ? read(K_ADDR) : null;
   if (addr) {
+    // ⛔ A MAIL DROP IS NOT A PLACE, AND SAYING SO IS THE KINDEST OPTION AVAILABLE
+    // `[paul-ruled 2026-09-06]`. The `strict` seat gave a PO box, was promised the app would "build
+    // your place around that address", and nothing ever pushed back — she tapped confirm "on a
+    // technicality" knowing the promise rested on a fiction. Her words: everything was "recognized
+    // as a string but not evaluated as content".
+    // ⛔ AND NOT A VALIDATOR. ux-expert was explicit: a form that rejects her address scolds the one
+    // reader least willing to be told she is wrong, on the screen where she has already disclosed
+    // the least she could. So the app takes the answer, keeps it exactly, and says plainly what it
+    // cannot do with it — the failure becomes visible and kind instead of silent and permanent.
+    var boxy = /\b(p\.?\s?o\.?\s*box|post\s*office\s*box|postal\s*box)\b/i.test(addr);
     rows.push({
       label: "Where it is",
       value: addr,                       // exactly as typed: no case-correction, no standardising
-      prov: "You gave me this during setup.",
-      act: "That's not right ›"
+      prov: boxy
+        ? "A box number tells me where your post goes, not where your place is — so the weather and what grows there are the parts I can't work out yet."
+        : "You gave me this during setup.",
+      act: boxy ? "Add where it actually is ›" : "That's not right ›"
+    });
+  }
+
+  // ── how to reach you ───────────────────────────────────────────────────────────────────────
+  // Shown because it was answered once, pre-selected by default, and never surfaced again. "None"
+  // is stated plainly rather than softened: it is the choice with the largest consequence, and a
+  // reader who picked it should be able to see that it took.
+  var pref = mine ? read("fw-onboard-contact") : null;
+  if (pref) {
+    rows.push({
+      label: "How to reach you",
+      value: pref === "none" ? "You asked me not to get in touch."
+           : pref === "phone" ? "By phone." : "By email.",
+      prov: pref === "none"
+        ? "I'll keep to that. It also means I can't send you a new password if you lose yours — email me and I'll sort it."
+        : "You chose this when you made your account.",
+      act: "Change that ›"
     });
   }
 

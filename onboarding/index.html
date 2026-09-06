@@ -778,6 +778,12 @@
   // had nothing to read and rendered a receipt with its only derived row missing. Found 2026-09-06
   // by walking it. Same owner guard as the other answers: it is cleared when the grant changes.
   var K_RANK  = "fw-onboard-interests";
+  // ⛔ THE HIGHEST-STAKES FIELD IN THE FLOW WAS SHOWN BACK NOWHERE. It is pre-selected by default,
+  // answered once, and never seen again — and its "please don't contact me" branch closes the only
+  // route to a forgotten password. Two seats noticed independently that it vanishes, and ux-expert
+  // named it before either walked. Kept locally so the arrival can say what was chosen, and cleared
+  // with the rest when the grant changes.
+  var K_PREF  = "fw-onboard-contact";
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into
@@ -818,31 +824,51 @@
   // Asking her to rank them is legitimate — that is how we learn what to build. Letting her think
   // they already exist is not, and this project's own rule is that a confidently-wrong surface is
   // worse than an honestly-unsure one. `soon: true` renders a quiet "an idea — not built yet".
+  // ⭐ THE ORDER ENCODES UNIVERSALITY, NOT PREFERENCE, AND NEVER A KIND OF PLACE
+  // `[paul-ruled 2026-09-06]`: "we should never assume what kind of place someone has… let them
+  // select things, hopefully that will teach us and help us anticipate new ways to provide value."
+  //
+  // ⛔ IT USED TO BE BUILT-FIRST, and that read as a claim about what this app is FOR. Gardening led,
+  // described as though it were the subject — and the `mom` seat, walking a condo, said so unprompted:
+  // "the ordering of the list itself assumes a yard is the default resident here, and a condo is the
+  // exception working around it." She was right, and no amount of "skip anything you don't care
+  // about" undoes what position says first.
+  //
+  // So the list now runs from what exists at ANY place (systems, papers, tools) to what exists only
+  // at some (ground, vehicles, wildlife), then the map tools, then the two that are life-stages
+  // rather than place-types, then the open door. ⚠️ Readiness is NOT carried by position — each
+  // entry's own "an idea — not built yet" tag does that job, and doing it twice is what made the
+  // order editorial in the first place.
+  //
+  // ⚠️ AND THIS ORDER IS ITSELF AN ASSUMPTION, so it is measured rather than trusted: every rank
+  // event records the POSITION the item was sitting in, which is the only way to tell a genuine
+  // preference from an artifact of being near the top. If position predicts ranking better than
+  // subject does, this list is teaching us about itself and not about anybody's place.
   var INTERESTS = [
-    { id: "garden", label: "Gardening",
-      desc: "What's planted where, when to prune, what's coming into season.",
-      builds: ["plant", "weed", "zone", "care-calendar"] },
     { id: "house-systems", label: "Household systems",
       desc: "The well, the septic, the heating — what they are and when they were last seen to.",
       builds: ["house-systems", "service-history"] },
-    { id: "motor-pool", label: "Vehicles",
-      desc: "Cars, mowers, anything with an engine — and what's been done to them.",
-      builds: ["motor-pool", "service-history"] },
-    { id: "equipment", label: "Equipment and tools",
-      desc: "What you own, where it lives, and what it needs.",
-      builds: ["equipment"] },
-    { id: "wildlife", label: "Wildlife",
-      desc: "Birds, frogs, what's around your place and when.",
-      builds: ["bird", "amphibian", "mammal", "fish"] },
     { id: "papers", label: "Papers and documents",
       desc: "Warranties, manuals, deeds — the things someone would need if you weren't there.",
       builds: ["papers", "succession"], soon: true },
-    { id: "map-zones", label: "A map you draw yourself",
-      desc: "Trace your own areas onto a photo of your place, then fill them in.",
-      builds: ["zone", "basemap"], soon: true },
+    { id: "equipment", label: "Equipment and tools",
+      desc: "What you own, where it lives, and what it needs.",
+      builds: ["equipment"] },
+    { id: "garden", label: "Gardening",
+      desc: "What's planted where, when to prune, what's coming into season.",
+      builds: ["plant", "weed", "zone", "care-calendar"] },
+    { id: "motor-pool", label: "Vehicles",
+      desc: "Cars, mowers, anything with an engine — and what's been done to them.",
+      builds: ["motor-pool", "service-history"] },
+    { id: "wildlife", label: "Wildlife",
+      desc: "Birds, frogs, what's around your place and when.",
+      builds: ["bird", "amphibian", "mammal", "fish"] },
     { id: "map-points", label: "Marking spots on the map",
       desc: "Where the shut-off valve is. Where that repair happened. Things you'd forget.",
       builds: ["zone", "point-annotation"], soon: true },
+    { id: "map-zones", label: "A map you draw yourself",
+      desc: "Trace your own areas onto a photo of your place, then fill them in.",
+      builds: ["zone", "basemap"], soon: true },
     { id: "ask", label: "Asking questions about your place",
       desc: "Ask about your own place and get answers out of its own record.",
       builds: ["guru", "library"], soon: true },
@@ -894,7 +920,7 @@
   // never typed, on the confirm screen, skipping the naming step entirely. The credential had
   // changed; the data had not. Every test rig missed it because they all open a fresh context.
   function clearAnswers() {
-    [K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+    [K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK, K_PREF].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
   }
   var grant = read(K_GRANT);
   var owner = read(K_OWNER);
@@ -1307,6 +1333,7 @@
         store(K_GRANT, res.b.token);
         store(K_OWNER, res.b.token);
         store(K_USER, u);
+        store(K_PREF, pref);
         paintName();                                    // the bar switches to them the moment they exist
         clearAnswers();                                 // a brand-new account starts clean, always
         step(1);
@@ -1339,7 +1366,7 @@
       if (i >= 0) { ranked.splice(i, 1); } else { ranked.push(it.id); }
       // ⭐ the ITEM and the running count. Whether anyone ever discovers the second tap is a live
       // question — wide-eyed found it by accident — and this is the only thing that can answer it.
-      ev("rank", (i >= 0 ? "remove:" : "add:") + it.id, ranked.length);
+      ev("rank", (i >= 0 ? "remove:" : "add:") + it.id + "@" + (INTERESTS.indexOf(it) + 1), ranked.length);
       if (it.id === "other") {
         // Un-ranking it hides the box but KEEPS whatever was typed — someone who taps twice by
         // accident has not withdrawn what they said, and losing it silently would be the expensive
@@ -1369,6 +1396,13 @@
     el.renameLink.hidden = false;
     el.renameLink.textContent = "Call it something else ›";
   });
+
+  // Reads the door's own label rather than restating it — the button says "Open <her name>" once
+  // she has named the place, and a hard-coded copy here would drift from it the moment she renames.
+  function doorLine() {
+    var t = (el.gohome && (el.gohome.textContent || "").trim()) || "";
+    return t ? "When you're ready, " + t.charAt(0).toLowerCase() + t.slice(1) + " below." : "";
+  }
 
   el.go5.addEventListener("click", function () {
     // Nothing chosen is a legitimate answer and is recorded as one — an empty ranking and an unasked
@@ -1404,9 +1438,15 @@
         // record and an unchanged one dedups.
         el.go5.disabled = false;
         el.go5.innerHTML = '<span class="tick">\u2713</span>Update these';
+        // ⛔ TWO PRESSES FOR WHAT FELT LIKE ONE DECISION. The `mom` seat: "'Save these' and then,
+        // immediately after, 'Open the condo' — two separate presses for what feels like one
+        // decision. Neither one on its own got me to the home screen, and I didn't know that going
+        // in." Saving and leaving genuinely ARE two acts — someone may want to change the order
+        // without walking out — so they are not merged. What was missing is that nothing said the
+        // door was the next thing, so the sentence now points at it by name.
         el.s5thanks.textContent = ranked.length
-          ? "Got it — that's noted. Change the order any time; the last one wins."
-          : "Noted — nothing yet.";
+          ? "Got it — that's noted. Change the order any time; the last one wins. " + doorLine()
+          : "Noted — nothing yet. " + doorLine();
         el.s5thanks.hidden = false;
       })
       ["catch"](function () {
@@ -1457,7 +1497,19 @@
   // answer was personId:null even from a reader holding a live grant.
   // The fingerprint keys on the credential AND the answer: keyed on the credential alone, a
   // correction becomes a silent no-op while the page says "saved" (the 2026-09-05 finding).
+  // ⭐ SYNTHETIC RECORDS DECLARE THEMSELVES, AT CAPTURE `[paul-stated 2026-09-06]`: "let's be sure
+  // we're tracking what's kind of test or synthetic values, and we can even get rid of them once
+  // Mom populates an estate with that address."
+  // ⛔ IT HAS TO BE STAMPED HERE, BY THE THING THAT KNOWS. Classifying afterwards is guesswork: a
+  // `--fresh` walk mints a brand-new account whose personId appears in no registry, and the stored
+  // record carries a personId and no username, so nothing downstream can tell a synthetic row from
+  // a real one. Measured today — the QA store holds "282 Church Mountain Rd" and "Fernwood QA" from
+  // earlier test runs, indistinguishable from anything a person typed.
+  // ⚠️ IT IS A PROVENANCE MARKER, NOT A CONTROL. Anyone can put ?syn=1 in a URL; that is fine,
+  // because its job is to let us find and remove OUR OWN test data, never to keep anyone out.
+  var SYNTHETIC = /[?&]syn=1(&|$)/.test(location.search);
   function postAnswer(prefix, note, ctx) {
+    if (SYNTHETIC) { ctx = ctx || {}; ctx.synthetic = true; }
     var gv = (read(K_GRANT) || "x") + "\u0000" + note;
     var fp = 0;
     for (var i = 0; i < gv.length; i++) { fp = ((fp << 5) - fp + gv.charCodeAt(i)) | 0; }
