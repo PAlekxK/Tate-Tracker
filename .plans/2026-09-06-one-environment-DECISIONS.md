@@ -195,3 +195,53 @@ answers survived the conversion). Only the second is about tenancy.
 - Three cheap ones carried from practice-steward: the `.plans/` stage enum (fifth instance) ·
   whether the offsite verifier hands to `/team-audit` · whether the chronicle "not-a-lap"
   assertion is re-made for today's 35 commits.
+
+---
+
+## 5 · THE RELEASE LOOP `[paul-stated 2026-09-06, evening]`
+
+⭐ **Recorded verbatim because it has never been written down anywhere, and three sessions tonight
+found rulings that existed only in a transcript.** This is a LOOP, in Paul's own framing — not a
+one-way cascade with a Paul-shaped gate at the end.
+
+> *"I'm expecting that by the time we get to production — not to mention the other environments —
+> we have a build, we run it through our synthetic testers until it no longer fails, and then I run
+> it. If I spot a failure it goes back through that loop of synthetics until it no longer fails,
+> then back to me — and that is a loop in and of itself. And then once I clear it, it is truly
+> released."*
+
+**The shape, stated so it can pass or fail:**
+
+1. A build enters the **synthetic loop** and stays there **until it no longer fails**. Not one
+   battery — as many as it takes. "It ran" is not the exit condition; "it stopped failing" is.
+2. Paul runs it himself.
+3. ⭐ **A failure Paul spots re-enters the synthetic loop** — it does not get patched under him and
+   handed straight back. The synthetics re-establish the clean run.
+4. Back to Paul. **This cycle repeats.**
+5. **Paul clearing it is the release event.** Nothing is "truly released" before that.
+
+⚠️ **What this contradicts in how tonight actually ran:** a single QA battery was treated as
+satisfying the gate, and the build was handed to Paul with three of his expectations unmet
+(production, Chrome-watchable, UX review). One pass is not the loop.
+
+## 6 · SEATS ARE PERSONAS WITH DURABLE PROFILES `[paul-stated 2026-09-06, evening]`
+
+> *"The seats — the synths — we defined them, and really they should be personas that have their own
+> profile that they establish in a household."*
+
+A seat is not a throwaway fixture per run. It **establishes and keeps a profile in a household**, the
+way a person would. ⚠️ Tonight's practice diverges: every `--fresh` walk creates a NEW account, so
+four seats have accumulated dozens of one-shot accounts across estates, and the production seats'
+grants were deleted out from under them by a reset while the register still read live.
+
+## 7 · DATA ENDURANCE IS AN OPEN, ALREADY-DISCUSSED POLICY — NOT YET WRITTEN
+
+Paul: *"we talked at length about the logic about how long the data sets endure — if it's just a
+testing cycle that doesn't pass, versus a superseded run, and then what environment."* The pieces
+exist in scattered form (run identity / supersession, `walk-integrity`'s countability, the
+`current`/`pending`/`superseded`/`unlinked` vocabulary, the archive and reset tools) but **no single
+document states the policy**, and Paul has asked for it pulled together.
+
+Axes it must answer: a cycle that **fails** vs one **superseded** by a later run vs a **durable
+persona's** own record · and **which environment** the answer differs in (`lab` / `qa` / `home` /
+the frozen `est-3c9f1a`).
