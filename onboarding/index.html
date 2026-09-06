@@ -229,6 +229,13 @@
     padding: 15px 18px; border-radius: 13px; font-size: 1.05rem; font-weight: 600;
     background: var(--accent); color: #fff;
   }
+  .fbwrap { max-width: 560px; margin: 18px auto 34px; padding: 0 16px; }
+  .fblink {
+    display: block; width: auto; margin: 0 auto; padding: 8px 4px; min-height: 0;
+    background: none; border: 0; color: #5d7387; font: inherit; font-size: .92rem;
+    text-decoration: underline; cursor: pointer;
+  }
+  .fblabel { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
   .picks { display: flex; flex-direction: column; gap: 9px; margin-top: 9px; }
   .pick {
     /* ⛔ align-items:flex-start AND no forced height. The cards were equal-height, so a one-line
@@ -697,6 +704,24 @@
     </div>
     <p class="quiet" id="s4placeholder">I'm calling it “My Home” until you name it.</p>
   </section>
+  <!-- ⭐ THE GENERAL FEEDBACK CHANNEL, ON EVERY SCREEN `[paul-stated 2026-09-05]`: "I want her to
+       have the general feedback mechanism we've established for Fernwood tracker throughout all
+       screens."
+       ⛔ It sits OUTSIDE the cards deliberately, so it is one channel that follows her rather than
+       five copies that drift — the shape this repo pays for repeatedly. It records WHICH SCREEN she
+       was on, which is the half that makes a note actionable: "this is confusing" is worth little,
+       "this is confusing, on the address screen" is a punch-list row.
+       ⛔ Closed by default. A standing open textarea is the affordance-without-signal trap, and a
+       permanently-visible ask reads as a quota. One quiet line until she wants it. -->
+  <div id="fb" class="fbwrap">
+    <button type="button" id="fbopen" class="fblink">Something not right? Tell me.</button>
+    <div id="fbbox" hidden>
+      <label for="fbnote" class="fblabel">What's on your mind?</label>
+      <textarea id="fbnote" rows="3" placeholder="Anything at all — it comes straight to Paul."></textarea>
+      <button type="button" id="fbsend"><span class="tick">✓</span>Send</button>
+      <p id="fbthanks" class="quiet" hidden></p>
+    </div>
+  </div>
 </main>
 
 <script>
@@ -792,14 +817,16 @@
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
-   "unamestate", "uword2state", "s0invite", "handoff", "gohome", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
+   "unamestate", "uword2state", "s0invite", "handoff", "gohome", "fb", "fbopen", "fbbox", "fbnote", "fbsend", "fbthanks", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
+  var currentScreen = null;
   function show(which) {
     ["s-wait", "s-nolink", "s0", "s1", "s2", "s3", "s4"].forEach(function (id) {
       el[id].hidden = (id !== which);
     });
+    currentScreen = which;
     window.scrollTo(0, 0);
   }
 
@@ -1038,6 +1065,38 @@
   }
   el.contactpick.addEventListener("change", paintContact);
   paintContact();
+
+  // ---- THE GENERAL FEEDBACK CHANNEL ------------------------------------------------------------
+  el.fbopen.addEventListener("click", function () {
+    var opening = el.fbbox.hidden;
+    el.fbbox.hidden = !opening;
+    el.fbopen.hidden = opening;                    // the invitation gets out of the way once accepted
+    if (opening) el.fbnote.focus();
+  });
+
+  el.fbsend.addEventListener("click", function () {
+    var note = (el.fbnote.value || "").trim();
+    // ⛔ AN EMPTY SEND IS NOT A DELIVERY. The same defect was found on the s4 note box earlier today:
+    // it printed a receipt for something that never left the browser. A receipt for nothing is worse
+    // than no receipt, because she stops watching.
+    if (!note) { el.fbnote.focus(); return; }
+    el.fbsend.disabled = true; el.fbsend.innerHTML = "Sending…";
+    postAnswer("note-" + (currentScreen || "unknown"), note,
+               { type: "general-feedback", screen: currentScreen, step: read(K_STEP) || null })
+      .then(function () {
+        el.fbbox.hidden = true;
+        el.fbopen.hidden = false;
+        el.fbopen.textContent = "Thanks — say something else?";
+        el.fbnote.value = "";
+        el.fbsend.disabled = false; el.fbsend.innerHTML = '<span class="tick">\u2713</span>Send';
+      })
+      ["catch"](function () {
+        el.fbthanks.hidden = false;
+        el.fbthanks.className = "quiet bad-text";
+        el.fbthanks.textContent = "That didn't go through — your words are still here, tap once more.";
+        el.fbsend.disabled = false; el.fbsend.innerHTML = '<span class="tick">\u2713</span>Send';
+      });
+  });
 
   el.go0.addEventListener("click", function () {
     var u = el.uname.value.trim(), w = el.uword.value, w2 = el.uword2.value;
