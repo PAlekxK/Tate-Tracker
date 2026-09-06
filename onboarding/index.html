@@ -522,7 +522,12 @@
   <section id="s3" class="card" hidden>
     <p class="lede">Got it — that's your place on the map.</p>
     <p>Now it's our turn. We'll build your place around that address: the weather where you actually are, what grows there, what's worth keeping an eye on.</p>
-    <p class="soft">One more question on the next screen, and then you're done — Paul will send you the first piece in a few days.</p>
+    <!-- ⛔ THIS PROMISED CONTACT SHE MAY HAVE JUST DECLINED. It read "Paul will send you the first
+         piece in a few days" — two screens after she may have chosen "Please don't contact me", on
+         the screen whose only job is making the wait feel safe. It also promised a CADENCE nothing
+         schedules (Paul sends by hand; "a few days" has been wrong before) and said "one more
+         question" over more than one. Says only what is true for every reader. -->
+    <p class="soft">A few more things on the next screen, and the setup's done.</p>
     <button type="button" id="go3">See your place</button>
   </section>
 
@@ -645,7 +650,13 @@
       <p id="s5thanks" class="soft" hidden></p>
     </div>
 
-    <p class="soft">I'm putting it together now — the weather where you are, and what grows there. Nothing more needed from you today.</p>
+    <!-- ⛔ FALSIFIED BY THE BUTTON BELOW IT, WITHOUT BEING EDITED. This said "I'm putting it together
+         now — the weather where you are, and what grows there", which was true and safe while the
+         journey DEAD-ENDED. The handoff added hours later opens a view built from files shipped with
+         the deployment, not from her answers — so the promise now sits directly above the control
+         that disproves it. Third instance tonight of a sentence going false because something grew
+         beside it; none of the three was touched by the edit that broke it. -->
+    <p class="soft">That's the setup done — nothing more needed from you today.</p>
 
     <!-- ⭐ THE HANDOFF `[paul-stated 2026-09-05]`: "at some point we have to transfer from the
          onboarding process to the main estate view." Until now the journey DEAD-ENDED — she finished
@@ -659,7 +670,11 @@
          the shared estate visible, which is a reason to fix the tenancy, not to hide the door. -->
     <div id="handoff" hidden style="margin-top:20px">
       <a id="gohome" class="bigbtn" href="/viewer">Open your place</a>
-      <p class="quiet" style="margin-top:8px">This is yours from now on — you can come back to it any time you're signed in.</p>
+      <!-- ⭐ THE OFFER, NOT A RECEIPT `[paul-stated 2026-09-05]`: the foundation finishes, the
+           personalising never does, and her willingness is the only throttle. The old line said she
+           COULD come back without saying there was anything to come back FOR. ⛔ And it must not
+           imply her answers have already shaped what she is opening — they have not. -->
+      <p class="quiet" style="margin-top:8px">This is yours now. It fills out as you tell me more — as much or as little as you like, whenever you like.</p>
     </div>
     <p class="quiet" id="s4placeholder">I'm calling it “My Home” until you name it.</p>
   </section>
