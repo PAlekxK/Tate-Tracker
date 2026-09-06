@@ -17,7 +17,7 @@ in the same run folder and are joined by the run id, never blended.
 Runs land in `.private/synthetic-walks/<role>/<timestamp>/` — private, because a walk carries the
 walker's invented address and the account's credentials are one file away.
 """
-import time, urllib.request, argparse, datetime as dt, glob, json, os, subprocess, sys
+import re, time, urllib.request, argparse, datetime as dt, glob, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORE = os.path.join(ROOT, ".private", "synthetic-identities.json")
@@ -140,10 +140,20 @@ def view(url, actions, shot, watch=False, shot_dir=None):
 # screen either — but it means a late stop's absence is no longer independent evidence that the
 # late stop is broken. walk-integrity refuses a run with incomplete stops for exactly this reason.
 STOP_NAMES = ["01-arrive", "02-account", "03-named", "04-address",
-              "05-submitted", "06-confirm", "06b-ranked", "07-handoff"]
+              "05-submitted", "06-confirm", "06b-ranked", "07-handoff",
+              # ⭐ THE JOURNEY DID NOT END AT THE HANDOFF ANY MORE. Four surfaces shipped on
+              # 2026-09-06 — the shelf, both settings pages, and the utility row that reaches them
+              # — and a walk that stops at 07 cannot see any of them. The same gap that let the
+              # arrival page go unwalked for a day, one layer out.
+              # ⚠️ NUMBERED IN ROUTE ORDER, NOT IN TIDINESS ORDER. The first numbering read
+              # 08-homes → 09-place-settings, and the selftest refused it: the walk reaches place
+              # settings FROM the estate, returns, and only then crosses to the shelf. A stop list
+              # whose numbers imply a route nobody takes is a small lie that a later reader would
+              # have to re-derive from the actions.
+              "08-place-settings", "09-homes", "10-add-a-home", "11-account-settings"]
 
 
-def journey(fresh, answers):
+def journey(fresh, answers, origin=""):
     """The whole walk as ONE action list. `shot:<name>` marks where a stop is recorded."""
     a = answers
     acts = ["shot:01-arrive"]
@@ -170,6 +180,20 @@ def journey(fresh, answers):
              "click:#go3", "shot:06-confirm"]
     acts += ranks
     acts += ["shot:06b-ranked", "click:#go5", "click:#gohome", "shot:07-handoff"]
+    # ── the five acts past the handoff ──────────────────────────────────────────────────────────
+    # Each control is reached the way a reader reaches it — by the link she can see — rather than by
+    # navigating to a URL, so a broken or missing control fails the walk instead of being routed
+    # around. `goto:` is used only to return, where a reader would use the browser or the control
+    # she just proved works.
+    # ⛔ THE ORIGIN ROOT, NOT THE ONBOARDING PATH. Built from the onboarding URL this produced
+    # `/onboarding/estate/`, which does not exist — the goto timed out at 45s and every stop after
+    # it was unreachable. The caller passes the flow's own base, so strip the last segment.
+    base = re.sub(r"/onboarding/?$", "", origin.rstrip("/"))
+    acts += ['click:a[href="/settings/place/"]', "shot:08-place-settings",
+             "goto:" + base + "/estate/",
+             'click:a[href="/homes/"]', "shot:09-homes",
+             "click:#addbtn", "shot:10-add-a-home",
+             'click:a[href="/settings/account/"]', "shot:11-account-settings"]
     return acts
 
 
@@ -192,13 +216,13 @@ def selftest():
     # 1 · ⭐ THE LIMITER FIX, AS AN ASSERTION. The replay design minted a username per stop and so
     #     created FIVE accounts per seat; that is what flooded 20-per-5-minutes. One journey, one
     #     account. If this ever regresses, the battery starts DOSing the target again silently.
-    fresh = journey(fresh=True, answers=A)
+    fresh = journey(fresh=True, answers=A, origin="https://x")
     signups = [x for x in fresh if x.startswith("type:#uname=")]
     check("a fresh journey creates exactly ONE account", len(signups) == 1,
           "found %d signup(s) — every extra one is a real account and a real write" % len(signups))
 
     # 2 · arriving on a token must create none at all
-    tok = journey(fresh=False, answers=A)
+    tok = journey(fresh=False, answers=A, origin="https://x")
     check("a token arrival creates NO account",
           not [x for x in tok if x.startswith("type:#uname=")], "a signup leaked into the token path")
 
@@ -334,7 +358,7 @@ def main():
               "answersSource": answers_source, "watched": bool(a.watch),
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
-    acts = journey(a.fresh, ans)
+    acts = journey(a.fresh, ans, origin=base)
     print("  one continuous journey — %d actions, %d checkpoints, %s"
           % (len([x for x in acts if not x.startswith("shot:")]), len(STOP_NAMES),
              "ONE account created" if a.fresh else "arriving on a token (no account created)"))

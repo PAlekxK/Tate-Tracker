@@ -207,11 +207,19 @@ def main():
     if a.json_out:
         with open(a.json_out, "w", encoding="utf-8") as f:
             json.dump(r, f, indent=2)
+    # ⛔ THE PER-ACTION FAILURES PRINT FIRST, EVEN WHEN THE PAGE ITSELF ERRORED. This returned early
+    # on `error`, so a run that failed nine actions and then hit a navigation error printed the
+    # navigation error ALONE — and journey-walk, which reads these lines to populate failedActions,
+    # recorded `failedActions: None` over a walk where three stops were never reached. A clean
+    # failure field above a failed run is the false-green shape this harness exists to refuse, and
+    # it was in the harness. Measured 2026-09-06.
+    for st in r.get("steps") or []:
+        if not st.get("ok"):
+            print("  ⚠️  could not do %r — %s" % (st["action"], st.get("error")))
     if r.get("error"):
-        print("Could not open the link: %s" % r["error"]); return 2
-    for s in r["steps"]:
-        if not s["ok"]:
-            print("  ⚠️  could not do %r — %s" % (s["action"], s.get("error")))
+        print("Could not open the link: %s" % r["error"])
+        print("SCREENSHOT: %s" % a.shot)
+        return 2
     sc = r["screen"]
     print("PAGE TITLE: %s" % sc["title"])
     # Printed on its own line so journey-walk can parse it without re-running the browser.
