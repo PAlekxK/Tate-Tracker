@@ -113,6 +113,93 @@ service-contact phones). Grant VALUES on QA are fixtures the agent mints; real o
 
 **⭐⭐ THE DEVELOPMENT GOAL — Mom is the trial; the transition is a LINK, not a visit** `[paul-stated 2026-09-04 ~11:55 AM ET]` — Paul: *"Mom's version of Fernwood is frozen now. She can still submit feedback and provide data there. We are in parallel developing QA, which is not frozen at all, and we'll have new features that extend past Mom's version of Fernwood. And Mom does not have access, and that's fine. I will let you know when we are gonna make the transition to the new Fernwood. But I think, really, we should use Mom as the trial, and that's the goal, is that we have all the functionality set up that when we transition her, it's by sending her a message with a link to set up an account and do the full onboarding. So let's set that as a clear kind of development goal."* Consequences: (i) C4 2d's *"THE VISIT"* procedure (origin move by hand on her phone, A+ re-entered, the sync token re-pasted) is **superseded as the transition mechanism** — the onboarding flow must carry what the visit carried, or say what it cannot; the fast-forward itself stays the deploy mechanics; (ii) the C6 door (username + password, grant-mint, the vault) is on the critical path, followed by an ONBOARDING plan nothing yet holds — account creation from a link, first-run at 414 × A+, her data reaching the new estate server-side (notes, observations, `momQueue.*`) rather than through browser storage; (iii) *"send her a message with a link"* is an OUTBOUND act at the end — gated, Paul's; (iv) her feedback keeps landing in the prod Worker throughout and stays HELD, not blocked. **Amended `[paul-stated 2026-09-04 ~12:05 PM ET]`:** *"we can also have Mom set up the condo. That would be a good first run. So however we do this, we can prompt her to name and provide the name for herself. So we need to provide that capability, and this is a good test of that."* → the CONDO is the trial estate for onboarding, and NAMING is a first-run step the person answers (deterministic capture, no AI on that path; the internal concept id never moves; her word is recorded as that estate's display name with provenance — who named it, when). The onboarding plan this goal calls for now exists → READY · .plans/2026-09-05-onboarding-PLAN.md (written 2026-09-05, after the surface was already on QA; stage `qa`, gate 1 walked — **Paul rules on the plan**). Ties the vocabulary/nicknames plan → READY · .plans/2026-09-04-vocabulary-nicknames-PLAN.md (seats folded 1:25 PM ET; stage `concept`, awaiting Paul's stamp — the pointer is the readiness check's row shape, not a claim) to the onboarding plan.
 
+---
+
+## 🔓 2026-09-06 — FOUR RULINGS, and the reason this block exists
+
+⚠️ **Measured 2026-09-06 18:30 ET, and it is why these are written down rather than remembered:** the
+§ FOCUS FREEZE block above was last touched substantively **2026-09-04 06:23** (`17ec631`); the freeze
+itself began **2026-09-03 14:11:59 ET** (`475872f`). Between that last edit and this one, **four rulings
+were made and none of them existed in any file.** Paul, asked for the freeze's start date, could not
+recall it — the man who made every ruling in this section. Six registers held freeze state, two of them
+Python docstrings, and `git grep 'FOCUS FREEZE' -- '*.py'` returns **zero**: no tool reads the freeze,
+so every command in the session-start block is freeze-blind. ⭐ **THE RULE THIS IMPLIES, Paul's to
+ratify: a ruling that is not in the register is not in force.** No check can catch a spoken ruling; only
+that rule can. Full design → `.plans/2026-09-06-freeze-register-PROCESS.md`.
+
+**⭐ 1. MOM'S FERNWOOD IS A DELIBERATE DATA CONTROL** `[paul-stated 2026-09-06 evening]` — *"Fernwood as
+it exists that mom has access to just stays as it is. The production home is her blank slate."* And:
+*"We're gonna keep all of mom's existing feedback and figure out how to work through it as we unlock
+different modules… all of that becomes frozen and it will just be a manual process between you and me
+figuring out how we catch up the other instance, but that's OK as long as we keep all the data clearly
+labeled and separated and available."* The hand-built instance is preserved so a from-scratch build with
+Mom can be **compared against it** — the 23 hand-traced zones become an answer key, not merely a dataset.
+⚠️ **THE FREEZE IS CLAIMED, NOT ENFORCED**, measured tonight: `weather-recorder[bot]` (447 commits,
+`cron: "0 */6 * * *"`) pushes to `origin/main`, and GitHub Pages rebuilds from it — **her "frozen" site
+has republished every six hours since the ruling.** `BACKLOG.md` blamed the digest bot (38 commits,
+event-driven); wrong owner, which is why it survived. Not to be stated as achieved until that cron is
+dealt with. **Open — Paul's call, it is his weather history.**
+
+**⭐ 2. PARTIAL UNFREEZE — Track B vehicles & equipment** `[paul-stated 2026-09-06]` — *"let's lift that
+freeze at least on vehicles and equipment that I provided feedback on in a very targeted and intentional
+way."* ⭐ **NO NEW STATE WORD WAS NEEDED.** A freeze has **three axes — WORK · PUSH · CHANNEL** — and Paul
+drew that distinction himself three times (*"freezing… the feedback cycle stages"* 09-03; *"this note
+released the loop, not the deploy"* 09-05; *"this lifts the FEATURES hold, not the freeze on her
+channels"* 09-04). So: **Track B → WORK: LIFTED · PUSH: FROZEN · CHANNEL: n/a.** Mom's channels, prod,
+and the zone/season work are untouched by this line.
+
+**⭐ 3. THE TRANSITION IS A GUIDED VISIT — this SUPERSEDES the 09-04 "a LINK, not a visit" ruling above**
+`[paul-stated 2026-09-06]` — *"We will have mom establish a new account and property, which I'll guide
+her in person to be fernwood. then we will sunset her access to the current fernwood she has access to,
+but keep it's data for reference."* Consequences: (i) the onboarding flow no longer has to carry
+everything a visit carried; (ii) **the control is an ARTIFACT, not a live site** — which is the only
+shape compatible with revoking her access, since her origin is public GitHub Pages with no access
+control to revoke. Both artifacts already exist: a **175-key archive, 0 unreadable**
+(`.private/frozen-fernwood-archive/frozen-2026-09-06T000836.json`) and `origin/main`'s `viewer.html`
+byte-for-byte as served. ⛔ **THE SUNSET'S FIRST STEP IS NOT THE LOCKOUT.**
+`tateTracker.feedbackOutbox.v1`, `tateTracker.door.outbox.v1` and four `momQueue.*` keys exist **nowhere
+but her phone** until they flush (`viewer.html:11552`, held until a 2xx), and no new surface reads any
+`tateTracker.*` key. **One phone tap while online, before lockout, is the difference between a sunset and
+a silent deletion.** Order: drain her device *during the visit* → re-archive + `--verify` → rotate
+`SHARED_TOKEN` (that is the actual lockout) → tag the sha → disable Pages (**never edit `main`**) → stop
+the bots. Trap: 171 of 175 keys are legacy **unprefixed**, so prefix-scoped enumeration sees 4 of 175 —
+only `archive-frozen-estate.py` can see them, and **no restore tool exists.**
+
+**⭐ 4. THE HOLD ON MOM'S FEEDBACK IS LIFTED — FULLY** `[paul-stated 2026-09-06]` — *"OK lift it fully."*
+This is the named human act the 09-03 edge required (*"I will say when to lift the freeze"*). **Read,
+disposition and act are all released.** ⛔ **THE ONE CONSTRAINT THAT REMAINS, and it is the data-control
+ruling doing its job rather than a residue of this freeze: every action lands on the NEW instance, never
+on the control.** Nothing ships to her surface; no acknowledgment is drafted back to her without Paul.
+⚠️ **AND THE HOLD WAS ALREADY LEAKING** — `BACKLOG.md:88-90` says `read-mom-feedback.py --pickup` output
+*"is a COUNT… and nothing more."* It is not: `:556` prints her note verbatim and `:578-580` prints 110
+characters of every unanswered note, and it fires at **every session start**. `render_counter` and
+`render_channels` honour the ruling; `render_pickup` does not. So this ruling formalises something that
+had been happening for three days. **Ruling vs mechanism — the mechanism was winning.**
+**Census behind the line** (metadata only, taken while the hold stood): **81 arrivals · 17 individually
+dispositioned, all before the freeze · 63 batch-cleared by watermark and never individually attested ·
+1 undispositioned.** That 63 is the real number: most of her feedback was never held *or* read — it was
+swept. Zero commits after the freeze touched either disposition ledger, so the freeze itself was kept.
+
+**📦 DEPLOY TO THE FROZEN INSTANCE — the first one under the data-control ruling** `[paul-authorised
+2026-09-06]`. Baseline is now nameable: **`prod = 322a416 + 79a31c8 = 7b0a94c`** (branch
+`prod-frozen-zonefix`, local only). Deployed 2026-09-06 23:43 UTC, version
+`11118842-7f54-4d83-9ab0-656fcf08b432`, health asserting `env=production` / `est-3c9f1a`. **Why surgical
+and not HEAD:** the delta to HEAD is 602 insertions carrying six ungated new routes (`/api/account`,
+`/api/session`, `/api/profile`, `/api/onboarding-metrics`, +2) and **93 lines refactoring the KV key
+derivation her eight months live under** — deploying it would have put the unreleased product on the
+control. The deployed `/health` endpoint list contains **none of those routes**, which is the behavioural
+fingerprint standing in for a `BUILD_SHA` nobody has yet. Digest content identical apart from
+`rebuiltAt`; **her content did not move.** ⚠️ `79a31c8`'s commit message and code comment both say the
+fields *"stripped… and committed the deletion"*, past tense. **False — the defect never fired.** Counts
+in `zones.json` only ever rose, and the last Worker-authored write was **2026-07-17**, before the fields
+existed. The fix prevents a loss; it did not repair one.
+
+⚠️ **AND THE PROD DEPLOY PATH HAD NEVER RUN TO COMPLETION.** `deploy-worker.sh` sets an *empty*
+`WRANGLER_ARGS` for the top-level target, and expanding an empty array under `set -u` throws on macOS
+**bash 3.2**. The `--env home` path works because its array is non-empty. Patched in the deploy worktree
+only (`${WRANGLER_ARGS[@]+"${WRANGLER_ARGS[@]}"}`); **the fix is still OWED in the shared tree.** The
+script already carried a bash-3.2 warning about `mapfile` one screen above the line that broke.
+
 **Frozen questions — parked here by Paul's word, released with the freeze:**
 - **A larger-than-A+ text option for older readers** `[paul-stated 2026-09-03]` — *"if we do anything, I would think we
   would add an option to make the text even bigger for older people."* Raised while ruling C6 Q1 (the toggle goes, A+
