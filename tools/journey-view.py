@@ -69,7 +69,7 @@ const cfg = JSON.parse(process.argv[2]);
   const page = await ctx.newPage();
   // A screenshot's entire meaning is its geometry. Recording it here means a later reader can tell
   // what the image is EVIDENCE OF, instead of assuming the standard it was supposed to meet.
-  const out = { steps: [], console: [],
+  const out = { steps: [], console: [], checkpoints: [],
                 geometry: { width: 414, height: 848, deviceScaleFactor: 3, isMobile: true } };
   // A walk that cannot say WHY a write failed cannot attribute it later. Errors only —
   // a full console dump buries the one line that matters.
@@ -78,23 +78,14 @@ const cfg = JSON.parse(process.argv[2]);
   try {
     await page.goto(cfg.url, { waitUntil: 'load', timeout: 45000 });
     await page.waitForTimeout(1200);
-    for (const act of cfg.actions) {
-      try {
-        // ⭐ `goto:` CROSSES THE HANDOFF. Every stop until now ended at the last onboarding screen, so
-        // the seam between onboarding and the estate view — the thing the whole journey builds toward
-        // — was walked by nobody, and whatever a brand-new person sees on the other side was untested.
-        // Same browser context, so localStorage survives the navigation exactly as it does for her.
-        if (act.startsWith('goto:')) { await page.goto(act.slice(5), { waitUntil: 'load', timeout: 45000 }); await page.waitForTimeout(1200); }
-        else if (act.startsWith('click:')) { await page.click(act.slice(6)); }
-        else if (act.startsWith('type:')) {
-          const rest = act.slice(5); const i = rest.indexOf('=');
-          await page.fill(rest.slice(0, i), rest.slice(i + 1));
-        }
-        await page.waitForTimeout(700);
-        out.steps.push({ action: act, ok: true });
-      } catch (e) { out.steps.push({ action: act, ok: false, error: String(e.message).split('\n')[0] }); }
-    }
-    out.screen = await page.evaluate(() => {
+    // ⭐ ONE JOURNEY, MANY CHECKPOINTS `[paul-stated 2026-09-06]`: "I want all the synthetics to run
+    // profile creation in chrome that we can watch." A watched walk has to look like a PERSON using
+    // the app — arrive, sign up, name the place, walk out — not seven browser launches each
+    // replaying the last one from scratch. It is also the limiter fix: replaying every prefix cost
+    // 47 actions and FIVE account creations per seat, which is what flooded 20-writes-per-5-minutes.
+    // A `shot:<name>` pseudo-action captures the full state HERE, mid-journey, so one continuous
+    // session yields the same per-stop evidence the replay used to.
+    const describe = () => page.evaluate(() => {
       const vis = (el) => { if (!el) return false; const r = el.getBoundingClientRect();
         const cs = getComputedStyle(el); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; };
       const text = [];
@@ -126,6 +117,32 @@ const cfg = JSON.parse(process.argv[2]);
       return { title: document.title, url: location.href, text, fields, buttons,
                screenId: openSection ? openSection.id : null };
     });
+    for (const act of cfg.actions) {
+      try {
+        // ⭐ `goto:` CROSSES THE HANDOFF. Every stop until now ended at the last onboarding screen, so
+        // the seam between onboarding and the estate view — the thing the whole journey builds toward
+        // — was walked by nobody, and whatever a brand-new person sees on the other side was untested.
+        // Same browser context, so localStorage survives the navigation exactly as it does for her.
+        if (act.startsWith('shot:')) {
+          // A checkpoint is a RECORD, not a pause: full state + both frames, named by the caller.
+          const nm = act.slice(5);
+          const sc = await describe();
+          const base = cfg.shotDir + '/' + nm;
+          await page.screenshot({ path: base + '.png', fullPage: true });
+          await page.screenshot({ path: base + '.fold.png', fullPage: false });
+          out.checkpoints.push({ name: nm, screen: sc, shot: base + '.png' });
+        }
+        else if (act.startsWith('goto:')) { await page.goto(act.slice(5), { waitUntil: 'load', timeout: 45000 }); await page.waitForTimeout(1200); }
+        else if (act.startsWith('click:')) { await page.click(act.slice(6)); }
+        else if (act.startsWith('type:')) {
+          const rest = act.slice(5); const i = rest.indexOf('=');
+          await page.fill(rest.slice(0, i), rest.slice(i + 1));
+        }
+        await page.waitForTimeout(700);
+        out.steps.push({ action: act, ok: true });
+      } catch (e) { out.steps.push({ action: act, ok: false, error: String(e.message).split('\n')[0] }); }
+    }
+    out.screen = await describe();
     // ⛔ TWO FRAMES, AND THE SECOND IS THE ONE THAT CAN JUDGE THE FOLD. A full-page capture is
     // STITCHED, which (a) hides where the viewport actually ends, so a reviewer cannot say what is
     // above the fold, and (b) manufactures a phantom: `background-attachment: fixed` seams into a
@@ -154,6 +171,16 @@ def main():
     # assert its own destination.
     ap.add_argument("--shot", default=os.path.join(
         tempfile.gettempdir(), "journey-view-%d-%s.png" % (os.getpid(), uuid.uuid4().hex[:6])))
+    # ⛔ THE PROSE IS FOR A PERSON; A CALLER NEEDS THE RECORD. journey-walk parsed stdout, so when
+    # the walk moved to one continuous run it silently kept only what the summary line carried —
+    # name, screen id, title — and DROPPED every checkpoint's screen text. That is the richest
+    # evidence this harness collects ("capture as much data as possible... accretive by design"),
+    # and worse, walk-integrity's refusal that scans screen prose for `could not do` can never fire
+    # against a record that has no prose. Emitting the full result as JSON removes the incentive to
+    # re-derive it from print statements.
+    ap.add_argument("--json", dest="json_out", help="write the complete result (incl. every checkpoint's full screen) to this path")
+    ap.add_argument("--shot-dir", dest="shot_dir",
+                    help="directory for `shot:<name>` checkpoint captures (default: alongside --shot)")
     ap.add_argument("--watch", action="store_true",
                     help="open a VISIBLE browser and pace the actions so a person can follow them. "
                          "Same viewport (414x848 @3x, mobile) and same screenshots as a headless run — "
@@ -167,7 +194,8 @@ def main():
     js = "/tmp/.journey-view.js"
     open(js, "w").write(NODE)
     cfg = {"url": a.url, "actions": a.do, "shot": a.shot, "cookie": access_cookie(a.url),
-           "watch": bool(a.watch)}
+           "watch": bool(a.watch),
+           "shotDir": a.shot_dir or os.path.dirname(os.path.abspath(a.shot))}
     # A watched run is paced for a human (slowMo), so the headless timeout would kill it mid-walk and
     # the transcript would blame the product for the instrument's impatience.
     p = subprocess.run(["node", js, json.dumps(cfg)], capture_output=True, text=True, env=env,
@@ -176,6 +204,9 @@ def main():
         raise SystemExit("journey-view: could not open that link\n" + (p.stderr or "")[-800:])
     r = json.loads(p.stdout)
 
+    if a.json_out:
+        with open(a.json_out, "w", encoding="utf-8") as f:
+            json.dump(r, f, indent=2)
     if r.get("error"):
         print("Could not open the link: %s" % r["error"]); return 2
     for s in r["steps"]:
@@ -202,6 +233,9 @@ def main():
             print("   %s%s%s" % (b["text"] or "(no text)",
                                  " [#%s]" % b["id"] if b["id"] else "",
                                  " → %s" % b["href"] if b["href"] else ""))
+    for c in r.get("checkpoints") or []:
+        print("CHECKPOINT %s | screen=%s | title=%s | shot=%s"
+              % (c["name"], c["screen"].get("screenId") or "-", c["screen"].get("title"), c["shot"]))
     print("SCREENSHOT: %s" % a.shot)
     return 0
 

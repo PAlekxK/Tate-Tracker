@@ -69,8 +69,10 @@ def served_sha(env):
         return None
 
 
-def view(url, actions, shot, watch=False):
+def view(url, actions, shot, watch=False, shot_dir=None):
     cmd = [sys.executable, os.path.join(ROOT, "tools", "journey-view.py"), url, "--shot", shot]
+    if shot_dir:
+        cmd += ["--shot-dir", shot_dir, "--json", os.path.join(shot_dir, "_view.json")]
     if watch:
         cmd.append("--watch")
     for a in actions:
@@ -86,67 +88,80 @@ def view(url, actions, shot, watch=False):
     # The section the page was actually showing when the shot was taken — the join key between a
     # feedback note (which records s0..s4) and the screenshot beside this record.
     sid = next((l.split(":", 1)[1].strip() for l in out.splitlines() if l.startswith("SCREEN ID:")), None)
+    # journey-view prints one CHECKPOINT line per `shot:` — name | screen | title | shot path.
+    # Prefer the structured result — it carries every checkpoint's FULL screen. The stdout parse
+    # below is the fallback for a direct call with no --shot-dir, and it is lossy by construction.
+    cps = []
+    if shot_dir:
+        try:
+            full = json.load(open(os.path.join(shot_dir, "_view.json"), encoding="utf-8"))
+            for c in full.get("checkpoints") or []:
+                sc = c.get("screen") or {}
+                cps.append({"stop": c.get("name"), "screen": sc.get("screenId"),
+                            "title": sc.get("title"), "shot": c.get("shot"),
+                            "text": sc.get("text") or [], "fields": sc.get("fields") or [],
+                            "buttons": sc.get("buttons") or [], "url": sc.get("url")})
+        except (OSError, ValueError):
+            cps = []
+    for l in ([] if cps else out.splitlines()):
+        if not l.startswith("CHECKPOINT "):
+            continue
+        parts = [x.strip() for x in l[len("CHECKPOINT "):].split("|")]
+        d = {"stop": parts[0]}
+        for x in parts[1:]:
+            k, _, v = x.partition("=")
+            d[k.strip()] = v.strip()
+        cps.append(d)
     return {"actions": actions, "seconds": round((dt.datetime.now() - t0).total_seconds(), 1),
             "screen": out, "screenId": None if sid in (None, "-") else sid,
+            "checkpoints": cps,
             "error": r.stderr[-400:] if r.returncode else None,
             "failedActions": failed or None,
             "rateLimited": ("429" in out) or ("rate-limited" in out)}
 
 
-# The journey as a sequence of STOPS. Each stop is what the walker has done so far — replayed from
-# the start, so every stop is independently reproducible and a failure at stop 4 does not hide stop 3.
-def stops(fresh, answers, run_tag=""):
+# ⭐ ONE CONTINUOUS JOURNEY, CHECKPOINTED — replaces the replay-every-prefix design
+# `[paul-stated 2026-09-06]`: "I want all the synthetics to run profile creation in chrome that we
+# can watch." Two things were wrong with replaying, and they were the same thing:
+#
+#   · IT COST FIVE ACCOUNTS PER SEAT. Every stop re-ran signup from scratch, and since account
+#     creation is not idempotent each stop had to mint a fresh username. Measured on the 09-05
+#     production runs: 47 actions and 5 account creations per walk, 13 walks. That — not four
+#     seats — is what flooded a limiter of 20 writes per IP per 5 minutes.
+#   · IT IS NOT WHAT A PERSON DOES. A real reader arrives once and walks forward. Replaying each
+#     prefix tests a journey nobody takes, and watching it looks like a machine restarting rather
+#     than someone using the app.
+#
+# A `shot:<name>` checkpoint records the full screen mid-journey, so ONE session still yields the
+# same per-stop evidence — same names, same screenshots, same screen text.
+#
+# ⚠️ THE TRADE, STATED: a failure now CASCADES. If naming the place fails, nothing after it runs.
+# That is the honest behaviour — a reader who cannot name her place never reaches the address
+# screen either — but it means a late stop's absence is no longer independent evidence that the
+# late stop is broken. walk-integrity refuses a run with incomplete stops for exactly this reason.
+STOP_NAMES = ["01-arrive", "02-account", "03-named", "04-address",
+              "05-submitted", "06-confirm", "07-handoff"]
+
+
+def journey(fresh, answers):
+    """The whole walk as ONE action list. `shot:<name>` marks where a stop is recorded."""
     a = answers
-    # ⛔ A UNIQUE USERNAME PER STOP. Every stop replays the journey FROM THE START, and account
-    # creation is not idempotent — so with one username the first stop created the account and every
-    # later stop hit "that username is taken" and never left s0. Found 2026-09-05 by noticing three
-    # screenshots were byte-identical; the text dump read as a plausible account screen every time,
-    # so nothing in the transcript said the walk had stopped walking. A replayed step that CHANGES
-    # THE WORLD has to vary the thing the world remembers.
-    def signup_for(stop):
-        if not fresh:
-            return []
-        u = "%s-%s%s" % (a["username"], run_tag, stop.split("-")[0])
-        return ["type:#uname=" + u, "type:#uword=" + a["password"], "type:#uword2=" + a["password"],
-                "type:#uemail=" + a["email"], "click:#go0"]
-    signup = signup_for("00")
-    return [
-        ("01-arrive", []),
-        # ⛔ None, NOT []. This read `signup[:-1] if fresh else []`, so on the arrive-with-a-token
-        # path the account stop got an EMPTY action list — it re-rendered the arrival screen and
-        # recorded itself COMPLETE. A stop named "account" that never visits the account screen and
-        # reports success is a false green, and it is why s0 looked covered while nothing walked it.
-        # None means "not reachable in this mode" and the runner refuses to score it.
-        ("02-account", signup_for("02")[:-1] if fresh else None),
-        ("03-named", signup_for("03-named") + ["type:#pname=" + a["place"], "click:#go1"]),
-        ("04-address", signup_for("04-address") + ["type:#pname=" + a["place"], "click:#go1",
-                                 "type:#a1=" + a["line1"], "type:#city=" + a["city"],
-                                 "type:#state=" + a["state"], "type:#zip=" + a["zip"]]),
-        ("05-submitted", signup_for("05-submitted") + ["type:#pname=" + a["place"], "click:#go1",
-                                   "type:#a1=" + a["line1"], "type:#city=" + a["city"],
-                                   "type:#state=" + a["state"], "type:#zip=" + a["zip"], "click:#go2"]),
-        ("06-confirm", signup_for("06-confirm") + ["type:#pname=" + a["place"], "click:#go1",
-                                 "type:#a1=" + a["line1"], "type:#city=" + a["city"],
-                                 "type:#state=" + a["state"], "type:#zip=" + a["zip"],
-                                 "click:#go2", "click:#go3"]),
-        # ⛔ NO WALK HAD EVER CROSSED THE HANDOFF. Measured 2026-09-06: every stop name ever
-        # recorded across all 20 runs stops at 06-confirm, so no synthetic seat has ever been a
-        # SIGNED-IN READER looking at the estate view. Two things were therefore untestable and
-        # nobody could see that they were:
-        #   · the persistent General-feedback RIBBON lives only in engine/viewer.template.html.
-        #     Paul asked for that channel to be available on every screen once someone has an
-        #     account and is logged in — and the battery meant to prove it stopped one click short
-        #     of the first screen that has it.
-        #   · a walker's answers only pay off past this door. wide-eyed types a Maine address
-        #     against shipped Georgia weather, frost and plant data; that is a different STRING
-        #     until a stop renders the place it describes, and then it is a different OBSERVATION.
-        # #gohome is an <a href="/viewer">, so this stop leaves the onboarding document entirely —
-        # which is exactly why it is the one stop that can prove the handoff rather than assert it.
-        ("07-handoff", signup_for("07-handoff") + ["type:#pname=" + a["place"], "click:#go1",
-                                 "type:#a1=" + a["line1"], "type:#city=" + a["city"],
-                                 "type:#state=" + a["state"], "type:#zip=" + a["zip"],
-                                 "click:#go2", "click:#go3", "click:#go5", "click:#gohome"]),
-    ]
+    acts = ["shot:01-arrive"]
+    if fresh:
+        acts += ["type:#uname=" + a["username"], "type:#uword=" + a["password"],
+                 "type:#uword2=" + a["password"], "type:#uemail=" + a["email"],
+                 "shot:02-account", "click:#go0"]
+    else:
+        # Arriving on a token skips the account screen. It is recorded as NOT REACHABLE rather than
+        # silently missing — a stop that never happened must not read like one that passed.
+        acts += ["shot:02-account"]
+    acts += ["type:#pname=" + a["place"], "click:#go1", "shot:03-named",
+             "type:#a1=" + a["line1"], "type:#city=" + a["city"],
+             "type:#state=" + a["state"], "type:#zip=" + a["zip"], "shot:04-address",
+             "click:#go2", "shot:05-submitted",
+             "click:#go3", "shot:06-confirm",
+             "click:#go5", "click:#gohome", "shot:07-handoff"]
+    return acts
 
 
 # ---- SELFTEST · the four false greens, as ASSERTIONS rather than as prose ----------------------
@@ -158,46 +173,60 @@ def selftest():
     fails = []
 
     def check(name, ok, why):
-        print("  %s %-34s %s" % ("✅" if ok else "🔴", name, "" if ok else why))
+        print("  %s %-44s %s" % ("✅" if ok else "🔴", name, "" if ok else why))
         if not ok:
             fails.append(name)
 
-    # 1 · a stop that cannot run must not score as walked (the empty-action-list green)
-    st = dict(stops(fresh=False, answers={"username": "u", "password": "p", "email": "e",
-                                          "place": "P", "line1": "l", "city": "c",
-                                          "state": "GA", "zip": "3"}))
-    check("unreachable stop is None, not []", st.get("02-account") is None,
-          "02-account returned %r — an empty list scores 'walked' having done nothing" % (st.get("02-account"),))
-
-    # 2 · a replayed step must vary what the world remembers (the same-username green)
-    a = {"username": "syn", "password": "p", "email": "e", "place": "P",
+    A = {"username": "syn", "password": "p", "email": "e@x.com", "place": "P",
          "line1": "l", "city": "c", "state": "GA", "zip": "3"}
-    names = []
-    for stop, acts in stops(fresh=True, answers=a, run_tag="T"):
-        if not acts:
-            continue
-        names += [x.split("=", 1)[1] for x in acts if x.startswith("type:#uname=")]
-    check("each replayed stop mints its own username", len(names) == len(set(names)),
-          "reused: %r — after the first stop every later one hits 'username taken'" % (names,))
 
-    # 3 · the status must be DERIVED from the failures the harness already recorded
+    # 1 · ⭐ THE LIMITER FIX, AS AN ASSERTION. The replay design minted a username per stop and so
+    #     created FIVE accounts per seat; that is what flooded 20-per-5-minutes. One journey, one
+    #     account. If this ever regresses, the battery starts DOSing the target again silently.
+    fresh = journey(fresh=True, answers=A)
+    signups = [x for x in fresh if x.startswith("type:#uname=")]
+    check("a fresh journey creates exactly ONE account", len(signups) == 1,
+          "found %d signup(s) — every extra one is a real account and a real write" % len(signups))
+
+    # 2 · arriving on a token must create none at all
+    tok = journey(fresh=False, answers=A)
+    check("a token arrival creates NO account",
+          not [x for x in tok if x.startswith("type:#uname=")], "a signup leaked into the token path")
+
+    # 3 · every declared stop must actually be captured, or a stop silently stops existing
+    shots = [x[5:] for x in fresh if x.startswith("shot:")]
+    check("every STOP_NAME is checkpointed", shots == STOP_NAMES,
+          "declared %r but the journey shoots %r" % (STOP_NAMES, shots))
+
+    # 4 · ⭐ THE HANDOFF IS WALKED. No walk had ever crossed it before 2026-09-06 — every stop name
+    #     ever recorded stopped at 06-confirm — so the estate view, and the feedback ribbon that
+    #     lives only there, had been walked by nobody.
+    check("the journey crosses the handoff", "click:#gohome" in fresh,
+          "nothing clicks #gohome, so no seat is ever a signed-in reader")
+
+    # 5 · the status derivation the old harness lacked, which scored every stop 'walked'
     for got, want in ((   {"failedActions": ["click:#go3 — timeout"], "rateLimited": False}, "incomplete"),
                       (   {"failedActions": None, "rateLimited": True},                     "rate-limited"),
                       (   {"failedActions": None, "rateLimited": False, "error": "boom"},   "error"),
                       (   {"failedActions": None, "rateLimited": False},                    "walked")):
         f = got.get("failedActions") or []
-        st2 = "error" if got.get("error") else ("incomplete" if f else
-              ("rate-limited" if got.get("rateLimited") else "walked"))
-        check("status(%s)" % want, st2 == want, "got %r" % st2)
+        st = "error" if got.get("error") else ("incomplete" if f else
+             ("rate-limited" if got.get("rateLimited") else "walked"))
+        check("status(%s)" % want, st == want, "got %r" % st)
 
-    # 4 · the shot path must be per-process (the shared-screenshot contamination)
+    # 6 · the shared-screenshot contamination
     import subprocess as sp
     out = sp.run([sys.executable, os.path.join(ROOT, "tools", "journey-view.py"), "--help"],
                  capture_output=True, text=True).stdout
     check("screenshot path is not a shared constant", "/tmp/journey-view.png" not in out,
           "a fixed default path lets parallel walkers overwrite each other")
 
-    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 7 - len(fails), 7))
+    # 7 · the cost of a walk, asserted rather than assumed
+    writes = len([x for x in fresh if x.startswith("click:#go")])
+    check("a fresh walk spends few enough writes to stay under the limiter", writes <= 6,
+          "%d submit clicks — the cap is 20 writes per IP per 5 min, shared by 4 seats" % writes)
+
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 10 - len(fails), 10))
     return 1 if fails else 0
 
 
@@ -228,11 +257,21 @@ def main():
     if not a.role:
         raise SystemExit("journey-walk: --role is required (or use --selftest)")
 
-    v = refresh(a.role, a.origin) if not a.fresh else identity(a.role, a.origin)
+    # ⛔ BOTH PATHS REFRESH. The fresh path used the STORED token, which is a grant row that may
+    # long since have gone — and a dead grant is indistinguishable from no grant, so the walk would
+    # meet `invite-required` and read as a product failure rather than a stale fixture. Logging in
+    # first guarantees the invite the walker arrives on is live at the moment she uses it.
+    v = refresh(a.role, a.origin)
     base = {"qa":   "https://fernwood-qa.pages.dev/onboarding/",
             "lab":  "https://fernwood-lab.pages.dev/onboarding/",
             "home": "https://fernwood-home.pages.dev/onboarding/"}[a.origin]
-    url = base if a.fresh else base + "?g=" + (v.get("token") or "")
+    # ⛔ FRESH MUST ARRIVE ON AN INVITE TOO. This read `base if a.fresh`, i.e. no grant at all —
+    # and since c111417 (2026-09-05 23:31) /api/account answers `invite-required` 403 without one:
+    # "the capability now comes from the invite and never from the applicant." No fresh walk has
+    # run since that commit, so the harness has been unable to create a profile for a day and
+    # nothing said so. The fresh/token distinction is NOT whether she holds a grant — an invited
+    # person always does — it is whether she CREATES an account or arrives already having one.
+    url = base + "?g=" + (v.get("token") or "")
 
     # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
     # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this
@@ -245,7 +284,14 @@ def main():
     # Resolution order: --answers  >  .private/walk-answers/<role>.json  >  the shared default.
     # The transcript RECORDS which one was used, so walk-integrity.py can refuse a battery whose
     # seats collapse to one input instead of that fact being invisible after the fact.
-    ans = {"username": v["username"], "password": v["word"], "email": v["email"],
+    # ⛔ A REPLAYED-WORLD STEP MUST VARY WHAT THE WORLD REMEMBERS. Account creation is not
+    # idempotent, so a second fresh run for the same seat would hit "that username is taken" and
+    # never leave s0 — the 2026-09-05 defect, which the old design solved per STOP and this one
+    # still needs per RUN. Only the fresh path uniquifies: a token arrival signs in as the
+    # identity that already exists and must keep its real username.
+    run_tag = dt.datetime.now().strftime("%H%M%S")
+    ans = {"username": (v["username"] + "-" + run_tag) if a.fresh else v["username"],
+           "password": v["word"], "email": v["email"],
            "place": "A place", "line1": "1 Example Road", "city": "Jasper", "state": "GA", "zip": "30143"}
     answers_source = "shared-default"
     role_file = os.path.join(ROOT, ".private", "walk-answers", "%s.json" % a.role)
@@ -275,29 +321,51 @@ def main():
               "answersSource": answers_source, "watched": bool(a.watch),
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
-    for name, actions in stops(a.fresh, ans, run_tag=dt.datetime.now().strftime("%H%M%S")):
-        if actions is None:
-            # Unreachable is a RESULT, and it is not a pass. It is recorded so a reader of the
-            # transcript can see the screen went unvisited instead of inferring it was fine.
+    acts = journey(a.fresh, ans)
+    print("  one continuous journey — %d actions, %d checkpoints, %s"
+          % (len([x for x in acts if not x.startswith("shot:")]), len(STOP_NAMES),
+             "ONE account created" if a.fresh else "arriving on a token (no account created)"))
+    got = view(url, acts, os.path.join(d, "final.png"), watch=a.watch, shot_dir=d)
+    failed_all = got.get("failedActions") or []
+    seen = {c["stop"]: c for c in got.get("checkpoints") or []}
+
+    for name in STOP_NAMES:
+        if name == "02-account" and not a.fresh:
             record["stops"].append({"stop": name, "status": "not-reachable",
                                     "why": "arrived with a token; this stop exists only on the --fresh signup path"})
             print("  %-14s   ---   NOT REACHABLE on this path — re-run with --fresh to walk it" % name)
             continue
-        got = view(url, actions, os.path.join(d, name + ".png"), watch=a.watch)
-        # ⛔ CONSUME THE FAILURE THE HARNESS ALREADY RECORDED. journey-view reports ok:false per
-        # action; this filed every stop as "walked" without ever reading it. All three false greens
-        # tonight were the same shape — a plausible artifact produced having done nothing — and the
-        # evidence to refuse two of them was sitting in the record, unconsumed.
-        failed = got.get("failedActions") or []
-        status = "error" if got.get("error") else ("incomplete" if failed else
-                 ("rate-limited" if got.get("rateLimited") else "walked"))
-        record["stops"].append(dict(got, stop=name, status=status))
-        if status != "walked":
-            print("       \u26d4 %s%s" % (status.upper(),
-                  (" — did not happen: " + "; ".join(f[:60] for f in failed[:2])) if failed
-                  else " — the Worker refused a write during this stop"))
-        first = next((l for l in got["screen"].splitlines() if l.startswith("PAGE TITLE")), "")
-        print("  %-14s %5.1fs  %s%s" % (name, got["seconds"], first, "  ⛔ " + (got["error"] or "") if got["error"] else ""))
+        cp = seen.get(name)
+        if not cp:
+            # ⛔ A CHECKPOINT THAT NEVER FIRED IS A STOP THE WALKER NEVER REACHED. In the continuous
+            # design this is the normal shape of a failure — the journey stopped earlier — so it is
+            # recorded as its own status rather than omitted, because an absent stop and a passed
+            # stop must never render the same.
+            record["stops"].append({"stop": name, "status": "not-reached",
+                                    "why": "the journey did not get this far; see the earlier failure"})
+            print("  %-14s   ---   ⛔ NOT REACHED" % name)
+            continue
+        record["stops"].append({"stop": name, "status": "walked", "screenId": cp.get("screen"),
+                                "title": cp.get("title"), "shot": cp.get("shot"),
+                                "url": cp.get("url"),
+                                # the full screen, kept per stop — this is what a later reader
+                                # re-reads with a new question in mind, and what the integrity
+                                # check scans for a stop that reports success over a failure.
+                                "screen": cp.get("text") or [], "fields": cp.get("fields") or [],
+                                "buttons": cp.get("buttons") or []})
+        print("  %-14s  screen=%-4s %s" % (name, cp.get("screen") or "-", cp.get("title") or ""))
+
+    # The failures belong to the JOURNEY, not to a stop — one session, one action stream.
+    if failed_all:
+        record["failedActions"] = failed_all
+        print("\n  ⛔ %d action(s) did not happen:" % len(failed_all))
+        for f in failed_all[:4]:
+            print("       %s" % f[:110])
+    if got.get("rateLimited"):
+        record["rateLimited"] = True
+        print("  ⛔ RATE-LIMITED during this walk — the Worker refused a write")
+    if got.get("error"):
+        record["error"] = got["error"]
 
     sha_after = served_sha(a.origin)
     record["buildBefore"], record["buildAfter"] = sha_before, sha_after
