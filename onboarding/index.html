@@ -906,10 +906,23 @@
   // closed the tab", which are the two outcomes the whole journey is built to tell apart.
   function wireHandoff() {
     if (!el.gohome) return;
-    el.gohome.addEventListener("click", function () {
-      ev("handoff", "tapped");
-      ev("complete", "reached-estate");
-      flushEv(true);
+    el.gohome.addEventListener("click", function (e) {
+      // ⛔ HOLD THE NAVIGATION FOR A BEAT. Neither a beacon nor a keepalive fetch reliably wins the
+      // race against a link's own navigation — measured in QA across three attempts, `handoff` landed
+      // zero times while every other event landed. So the link stops being a link for ~120ms: send,
+      // then go. That is imperceptible to her and it is the difference between knowing she walked
+      // into her place and not knowing whether she closed the tab.
+      // ⛔ AND IT MUST NEVER TRAP HER. If anything here throws, the fallback navigates anyway — an
+      // instrument that can strand a reader on the last screen of her setup is worse than no
+      // instrument at all.
+      var href = el.gohome.getAttribute("href") || "/viewer";
+      try {
+        e.preventDefault();
+        ev("handoff", "tapped");
+        ev("complete", "reached-estate");
+        flushEv(true);
+      } catch (err) { location.href = href; return; }
+      setTimeout(function () { location.href = href; }, 120);
     });
   }
 
@@ -1107,15 +1120,24 @@
   var SID = (function () { try { return Math.random().toString(36).slice(2, 12); } catch (e) { return "x"; } })();
   var evBuf = [], screenAt = Date.now();
 
+  var evTimer = null;
   function ev(name, detail, n) {
     evBuf.push({ name: name, screen: currentScreen, detail: detail || null,
                  n: (typeof n === "number" ? n : null),
                  msIn: Date.now() - screenAt, at: new Date().toISOString() });
-    if (evBuf.length >= 12) flushEv();
+    // ⛔ A TIMER, because a screen change is not a guarantee. Delivery used to depend on the NEXT
+    // screen change, so everything emitted after the LAST one — opening the feedback box, tapping
+    // through to her place — sat in the buffer and died with the page. Measured in QA: `screen`
+    // events landed 49 times while `feedback_open` and `handoff` landed zero. The events that
+    // happen at the END of a journey are exactly the ones a journey exists to record, and they were
+    // the only ones structurally guaranteed to be lost.
+    if (evBuf.length >= 12) { flushEv(); return; }
+    if (evTimer) clearTimeout(evTimer);
+    evTimer = setTimeout(flushEv, 900);
   }
 
   function flushEv(useBeacon) {
-    if (!evBuf.length || !WORKER) return;
+    if (!evBuf.length || !WORKER) return "empty-or-no-worker:" + evBuf.length + "/" + WORKER;
     var body = JSON.stringify({ sid: SID, events: evBuf.splice(0, evBuf.length) });
     try {
       // ⭐ sendBeacon ON THE WAY OUT. A normal fetch is cancelled when the page goes away, which is
@@ -1129,7 +1151,7 @@
         // was the one the beacon could not send. The Worker parses the body regardless of its type.
         var sent = navigator.sendBeacon(WORKER + "/api/onboarding-metrics",
                                         new Blob([body], { type: "text/plain;charset=UTF-8" }));
-        if (sent) return;
+        if (sent) return "beacon-ok";
         // ⚠️ sendBeacon returns FALSE when the user agent refuses to queue it. Falling through to
         // keepalive fetch is the difference between a best effort and a silent loss.
       }
