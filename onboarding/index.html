@@ -1544,8 +1544,14 @@
   // ⛔ IT HAS TO BE STAMPED HERE, BY THE THING THAT KNOWS. Classifying afterwards is guesswork: a
   // `--fresh` walk mints a brand-new account whose personId appears in no registry, and the stored
   // record carries a personId and no username, so nothing downstream can tell a synthetic row from
-  // a real one. Measured today — the QA store holds "282 Church Mountain Rd" and "Fernwood QA" from
+  // a real one. Measured today — the QA store holds a real street address and place name from
   // earlier test runs, indistinguishable from anything a person typed.
+  // ⛔ THE ADDRESS THAT USED TO BE QUOTED HERE IS GONE ON PURPOSE, 2026-09-06. This file is served
+  // to strangers from a household origin, and a comment ships in the source even though it renders
+  // nothing. It survived every check: the deploy's neutrality scan STRIPS COMMENTS before matching
+  // (correctly — comments are not content), and the standalone checker reads only estate/index.html.
+  // ⭐ So an example in a comment is content too, on any file that is SERVED. Name the shape of a
+  // value, never an instance of it.
   // ⚠️ IT IS A PROVENANCE MARKER, NOT A CONTROL. Anyone can put ?syn=1 in a URL; that is fine,
   // because its job is to let us find and remove OUR OWN test data, never to keep anyone out.
   var SYNTHETIC = /[?&]syn=/.test(location.search);

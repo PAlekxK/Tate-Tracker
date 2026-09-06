@@ -28,7 +28,36 @@ for is the failure mode this repo pays for most often.
 import argparse, glob, json, os, re, sys, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAGE = os.path.join(ROOT, "estate", "index.html")
+# ⛔ THIS SCANNED ONE FILE. Fixed 2026-09-06 — the FIFTH instance of this shape in one day
+# (check-storage-keys three times, household-export's --env list, now this). The checker that exists
+# to prove a household origin names no other household read `estate/index.html` and nothing else,
+# while `pages-deploy.py` shipped five other files to that origin. It missed a street address in a
+# comment on `onboarding/index.html`, the page a stranger actually lands on.
+# ⭐ DERIVED FROM WHAT IS ACTUALLY SHIPPED, never a typed path: the roster is pages-deploy's own
+# HOUSEHOLD_ALLOW — one roster, two readers, the arrangement this file already uses for its needles.
+def _shipped_pages():
+    import importlib.util as _ilu
+    try:
+        spec = _ilu.spec_from_file_location("pd", os.path.join(ROOT, "tools", "pages-deploy.py"))
+        pd = _ilu.module_from_spec(spec); spec.loader.exec_module(pd)
+        allow = [a for a in pd.HOUSEHOLD_ALLOW if a.endswith((".html", ".md"))]
+        # ⛔ `index.html` IS NOT SHIPPED AS WRITTEN — `pages-deploy.py` OVERWRITES it in the export
+        # with a generated "My Home" redirect, precisely because the tracked one points at
+        # viewer.html. Scanning the repo file therefore reports a leak that cannot reach a reader:
+        # measured 2026-09-06, the file says `<title>Fernwood</title>` while the origin serves
+        # `<title>My Home</title>`. ⭐ Excluded WITH ITS REASON rather than allow-listed as a token —
+        # the file is out of scope, the string is not forgiven. Use `--url` to check the real origin,
+        # which is the only surface that can answer for a generated file.
+        allow = [a for a in allow if a != "index.html"]
+    except Exception:
+        allow = []
+    out = [os.path.join(ROOT, *a.split("/")) for a in allow]
+    return [p for p in out if os.path.exists(p)]
+
+
+PAGES = _shipped_pages()
+# ⚠️ A derivation that finds nothing must be VISIBLE, never a silent fallback to the old single file.
+PAGE = PAGES[0] if PAGES else os.path.join(ROOT, "estate", "index.html")
 
 # The place's own identity — what makes Fernwood Fernwood rather than a property app.
 FIXED = ["Fernwood", "Jasper", "Church Mountain", "Blue Ridge", "Cherokee", "Tate Mountain",
@@ -201,18 +230,46 @@ def main():
         print("⚠️  UNCHECKABLE — could not read the surface: %s" % e)
         return 3
 
-    where = a.url or os.path.relpath(a.page, ROOT)
-    found = hits_in(strip_comments(html), needles)
-    print("check-estate-neutral — %s · %d needle(s) · %d byte(s)" % (where, len(needles), len(html)))
-    if not found:
-        print("✅ the arrival surface names no other household.")
+    # ⭐ SWEEP EVERY SHIPPED PAGE, not just the first. A --page or --url names ONE surface
+    # deliberately; the default is the whole set a household origin actually serves.
+    targets = [(a.url, None)] if a.url else (
+        [(None, a.page)] if a.page != PAGE else [(None, p) for p in PAGES])
+    if not targets:
+        print("⚠️  UNCHECKABLE — no shipped pages derived from pages-deploy's allow-list.")
+        return 3
+
+    total, worst = 0, 0
+    print("check-estate-neutral — %d surface(s) · %d needle(s)\n" % (len(targets), len(needles)))
+    for url, page in targets:
+        try:
+            body = load(url, page) if url else load(None, page)
+        except (OSError, ValueError) as e:
+            print("  ⚠️  UNCHECKABLE  %s — %s" % (url or page, e)); worst = max(worst, 3); continue
+        where = url or os.path.relpath(page, ROOT)
+        # ⛔ COMMENTS ARE STRIPPED FOR THE RENDERED CHECK, AND SCANNED SEPARATELY. A comment renders
+        # nothing but SHIPS in the source a stranger can read — measured 2026-09-06, a street address
+        # sat in a JS comment on the onboarding page and passed every check for exactly this reason.
+        rendered = hits_in(strip_comments(body), needles)
+        in_source = hits_in(body, needles)
+        only_comment = [h for h in in_source if h not in rendered]
+        mark = "🔴" if rendered else ("⚠️ " if only_comment else "✅")
+        print("  %s %-30s %7d bytes  rendered=%d  in-comments=%d"
+              % (mark, where, len(body), len(rendered), len(only_comment)))
+        for n, line, excerpt in rendered[:6]:
+            print("       🔴 %-24s line %-5d %s" % (repr(n), line, excerpt))
+        for n, line, excerpt in only_comment[:4]:
+            print("       ⚠️  %-24s line %-5d (comment — renders nothing, ships anyway)" % (repr(n), line))
+        total += len(rendered)
+        worst = max(worst, 1 if rendered else 0)
+
+    if worst == 0:
+        print("\n✅ every shipped surface names no other household — rendered content and source alike.")
         return 0
-    print("🔴 %d household-specific token(s) reach the reader:" % len(found))
-    for n, line, excerpt in found[:20]:
-        print("   %-28s line %-5d %s" % (repr(n), line, excerpt))
-    print("\nA brand-new estate is being shown another household's place. This is the tenancy leak")
-    print("wearing a different surface — fix the surface, do not add the token to an allow-list.")
-    return 1
+    if total:
+        print("\n🔴 %d household-specific token(s) REACH THE READER." % total)
+        print("A brand-new estate is being shown another household's place. This is the tenancy leak")
+        print("wearing a different surface — fix the surface, do not add the token to an allow-list.")
+    return worst
 
 
 if __name__ == "__main__":
