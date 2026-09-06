@@ -3581,6 +3581,29 @@ function sanitizeZone(z) {
     updatedAt: typeof z.updatedAt === "string" ? z.updatedAt.slice(0, 40) : new Date().toISOString(),
     lastEditedBy: typeof z.lastEditedBy === "string" ? z.lastEditedBy.slice(0, 40) : "device",
     history,
+    // ⛔ SCHEMA v3's TWO FIELDS, ADDED HERE 2026-09-06 AFTER THEY WERE FOUND BEING SILENTLY DELETED.
+    // This function rebuilds a zone from a FIXED KEY LIST, so any key the schema adds and this list
+    // omits is dropped — and `handleZoneSave` writes `body.zones.map(sanitizeZone)` WHOLESALE to
+    // zones.json, to KV, and back into viewer.html's inlined ZONES_DATA. The client posts the entire
+    // zone set on every save, so ONE rename, drag or new place stripped `partOf` and `provenance`
+    // from canon and committed the deletion. Measured at HEAD: `the-green` was the only zone of 23
+    // carrying them, and `provenance` held a paul-stated line dated 2026-09-01.
+    // ⚠️ `check-data-inline.py` COULD NOT SEE IT: the Worker writes zones.json and the inlined copy
+    // from the SAME sanitized object, so both sides were stripped consistently and the check read
+    // green. Same shape as the blind-check finding in .plans/2026-09-06-one-environment-DECISIONS.md
+    // — an instrument whose scope is not derived from what declares reality.
+    // ⭐ THE GENERAL RULE, worth more than this fix: A FIELD WHITELIST AT A STORAGE BOUNDARY IS A
+    // COPY OF THE SCHEMA, AND IT DRIFTS SILENTLY EVERY TIME THE SCHEMA MOVES. zones.json's own
+    // `_meta.fold_2026_08_31` predicted exactly this — "the zone-save round-trip rebuilds
+    // {_meta, zones} wholesale and would silently drop any other key" — and it came true one key
+    // early, on keys the same schema bump added. sanitizeZone will not be the last one.
+    // Sanitised, never passed through raw: partOf is a zone id, provenance is prose.
+    partOf: typeof z.partOf === "string" && z.partOf.trim()
+      ? z.partOf.slice(0, 80).toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "")
+      : undefined,
+    provenance: typeof z.provenance === "string" && z.provenance.trim()
+      ? z.provenance.slice(0, 2000)
+      : undefined,
   };
 }
 
