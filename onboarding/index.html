@@ -229,7 +229,15 @@
     display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px;
     border: 1.5px solid #dfe3e8; border-radius: 12px; cursor: pointer; font-size: .96rem;
   }
-  .pick input { margin-top: 3px; flex: none; }
+  /* ⛔ THE GLOBAL `input` RULE HITS RADIOS TOO. It sets width:100% + padding + border for the text
+     fields, so each radio rendered as a full-width box and shoved its own label outside the card.
+     Caught by LOOKING at the screen — the text dump listed the options in the right order and read
+     perfectly fine, which is exactly the failure a text-only walk cannot see. */
+  .pick input[type="radio"] {
+    width: auto; min-width: 0; flex: none; margin: 3px 0 0;
+    padding: 0; border: 0; background: none; box-shadow: none; appearance: auto; accent-color: #3c5a72;
+  }
+  .pick span { flex: 1 1 auto; min-width: 0; }
   .pick:has(input:checked) { border-color: #3c5a72; background: #f4f7fa; }
 
   .linky {
