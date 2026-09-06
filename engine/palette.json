@@ -1,16 +1,46 @@
 {
   "_rule": "The estate accent palette. ENGINE — the set is shared; an estate's CHOICE is instance config, alongside display.defaultTextSize. `--accent` is the ONE token an instance overrides; --accent-on and --accent-ring derive from it (onboarding/index.html :69-81), which was NOT true before 2026-09-05.",
   "_contrast": "Ratios are NOT stored here on purpose — a typed ratio is a hand-kept fact that rots. `python3 tools/palette.py --check` recomputes every one from the hex and fails below AAA.",
-  "_ruled": "[paul-ruled 2026-09-05] — 'include all of them, and yeah, include Fernwood as well.' Paul took the full candidate set over ux-expert's recommended five.",
+  "_ruled": "[paul-ruled 2026-09-05] — 'include all of them, and yeah, include Fernwood as well.' Paul took the full candidate set over ux-expert's recommended five.  — AMENDED [paul-ruled 2026-09-06]: the swatch is now `fern` / \"Fern\". The original ruling stands as made and is kept above; it was made when Fernwood was the only estate. With a second household arriving, an engine-tier palette offering a swatch named after ONE household invited a new reader to paint their place after somebody else's house. tools/pages-deploy.py refused the first household export over exactly this. The HEX is unchanged, and an accent persists as a hex rather than an id, so no existing choice moves.",
   "_known_trade": "⚠️ THREE GREENS (pine, spruce, fernwood) and a widened lightness band. ux-expert recommended ONE green and ONE blue because two of either is a discrimination task for a reader with documented difficulty reading, and proposed spruce as a SWAP for dusk rather than an addition; it flagged fernwood as outside the band (measured, not decided). Paul ruled the full set knowing this. Recorded as a KNOWN TRADE, not an oversight — if chip selection is later measured to be error-prone, this line is where to look first.",
   "default": "stone",
   "colors": [
-    { "id": "stone",    "name": "Stone",    "hex": "#3F5266", "note": "the value the flow shipped with; the default an estate that never picks keeps" },
-    { "id": "pine",     "name": "Pine",     "hex": "#2F5D3A" },
-    { "id": "lake",     "name": "Lake",     "hex": "#2C5674" },
-    { "id": "clay",     "name": "Clay",     "hex": "#7A3E2A" },
-    { "id": "dusk",     "name": "Dusk",     "hex": "#6B4676" },
-    { "id": "spruce",   "name": "Spruce",   "hex": "#245C5C" },
-    { "id": "fernwood", "name": "Fernwood", "hex": "#2C4A2C", "note": "the estate's own green. Outside the lightness band the other six share." }
+    {
+      "id": "stone",
+      "name": "Stone",
+      "hex": "#3F5266",
+      "note": "the value the flow shipped with; the default an estate that never picks keeps"
+    },
+    {
+      "id": "pine",
+      "name": "Pine",
+      "hex": "#2F5D3A"
+    },
+    {
+      "id": "lake",
+      "name": "Lake",
+      "hex": "#2C5674"
+    },
+    {
+      "id": "clay",
+      "name": "Clay",
+      "hex": "#7A3E2A"
+    },
+    {
+      "id": "dusk",
+      "name": "Dusk",
+      "hex": "#6B4676"
+    },
+    {
+      "id": "spruce",
+      "name": "Spruce",
+      "hex": "#245C5C"
+    },
+    {
+      "id": "fern",
+      "name": "Fern",
+      "hex": "#2C4A2C",
+      "note": "the estate's own green. Outside the lightness band the other six share."
+    }
   ]
 }
