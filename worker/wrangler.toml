@@ -165,3 +165,29 @@ FAMILY_HOSTS = "myhome-bob.pages.dev"
 [[env.bob.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "22250acec6fe42e696fe7dc7936b6a2d"
+
+# ⛔ PAUL'S OWN HOME — A HOUSEHOLD LIKE ANY OTHER, AND THAT IS THE POINT.
+# `[paul-ruled 2026-09-06]`: "I don't want my profile in production to have any more rights than
+# Mom's, Will's or Bob's over the houses that they create." So this is not an operator environment
+# with extra reach; it is one person's place, isolated from every other by the same mechanism.
+# ⛔ AND IT STARTS FROM SCRATCH `[paul-stated 2026-09-06]`: "I want to set this up in production
+# from scratch, so you don't need to carry any of my property information over." Nothing from
+# Fernwood is seeded here — no canon, no property.json, no plants. He walks the real flow as a new
+# reader, which is the same cold start Mom gets, and it is what makes his walk evidence about the
+# product rather than about a migration.
+# ⚠️ The host carries the PRODUCT name, never an estate's (VOCABULARY: an estate name never reaches
+# a user-facing surface, and a hostname is one).
+[env.paul.limits]
+cpu_ms = 5000
+
+[env.paul]
+name = "myhome-paul"
+[env.paul.vars]
+ENV_NAME = "paul"
+ESTATE_ID = "est-d93508"
+LEGACY_BEFORE = "1970-01-01"
+CHAT_DAILY_BUDGET_USD = "5.00"
+FAMILY_HOSTS = "myhome-paul.pages.dev"
+[[env.paul.kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "e752e1c3a34c4c82b0b3074c080cca83"

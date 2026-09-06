@@ -27,10 +27,11 @@ import argparse, json, os, shutil, subprocess, sys, tempfile, time, urllib.reque
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 PROJECT = {"lab": "fernwood-lab", "qa": "fernwood-qa", "home": "fernwood-home",
-           "bob": "myhome-bob"}
-BRANCH  = {"lab": "lab", "qa": "staging", "home": "home", "bob": "bob"}
+           "bob": "myhome-bob", "paul": "myhome-paul"}
+BRANCH  = {"lab": "lab", "qa": "staging", "home": "home", "bob": "bob", "paul": "paul"}
 ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
-           "home": "https://fernwood-home.pages.dev", "bob": "https://myhome-bob.pages.dev"}
+           "home": "https://fernwood-home.pages.dev", "bob": "https://myhome-bob.pages.dev",
+           "paul": "https://myhome-paul.pages.dev"}
 
 # ⛔⛔ A HOUSEHOLD IS NOT AN ENVIRONMENT, AND SHIPPING IT LIKE ONE MOVES THE LEAK RATHER THAN FIXING
 # IT. `lab`/`qa`/`home` are OUR environments — every one of them may carry Fernwood's canon, because
@@ -45,7 +46,7 @@ ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.p
 # that we thought of everything; an allow-list fails toward serving too little, which is a 404 and
 # not a disclosure. And the export is then CHECKED — the deploy refuses on any household-specific
 # token, so the allow-list cannot silently rot as files are added.
-HOUSEHOLD = {"bob"}
+HOUSEHOLD = {"bob", "paul"}
 HOUSEHOLD_ALLOW = ("onboarding/index.html", "estate/index.html", "homes/index.html",
                    "settings/place/index.html", "settings/account/index.html",
                    "qa-build.json", "favicon.ico", "index.html")

@@ -59,7 +59,7 @@
   /* the 4px rail is a SIGNIFIER: it wears this home's own colour, so the shelf predicts the screen
      the next tap opens. The shelf itself belongs to no home and wears none of them. */
   .home .rail { position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent); }
-  .home .nm { font-size:1.15rem; font-weight:600; }
+  .home .nm { font-size:1.15rem; font-weight:600; margin:0; }
   .home .where { margin:3px 0 0; font-size:.92rem; color:var(--ink-soft); }
   .home .go { position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--ink-soft); }
 
@@ -174,7 +174,12 @@
       b.type = "button"; b.className = "home";
       var rail = document.createElement("span"); rail.className = "rail";
       if (h.accent && /^#[0-9a-fA-F]{6}$/.test(h.accent)) rail.style.background = h.accent;
-      var nm = document.createElement("div"); nm.className = "nm";
+      // ⛔ A <p>, NOT A DIV — third time today. The walk's screen capture collects
+      // h1,h2,h3,p,label,li,strong,em,span; a home's NAME in a bare div was absent from every
+      // ON SCREEN record, so the most important string on this surface was invisible to the only
+      // instrument that reads it. The banner had the same defect this morning and the fix did not
+      // generalise, because I fixed the instance.
+      var nm = document.createElement("p"); nm.className = "nm";
       nm.textContent = h.name || "My Home";       // her word, verbatim — never title-cased
       b.appendChild(rail); b.appendChild(nm);
       var where = townState(h.addressParts);

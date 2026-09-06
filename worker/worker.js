@@ -3253,6 +3253,28 @@ export default {
         if (Array.isArray(b.ranked)) acct.ranked = b.ranked.slice(0, 20);
 
         await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
+        // ⭐ AND THE CALLER'S OWN GRANT IS REFRESHED IN THE SAME BREATH. The grant row is the
+        // credential-shaped VIEW of the account, and it was only ever rebuilt at SIGN-IN — so
+        // within the session that created the account, /api/grant/whoami still answered with the
+        // signup grant's empty fields.
+        // ⛔ MEASURED, BY A SEAT READING ITS OWN WALK: the shelf showed "My Home" for a home the
+        // owner had named "Hollow Creek Road" thirty seconds earlier, and they called it "the one
+        // place something I had just typed seemed to be forgotten". A view that updates only on a
+        // later, unrelated act is a view that is wrong for exactly as long as the reader is looking
+        // at it.
+        try {
+          const gtok = request.headers.get(GRANT_HEADER);
+          const gkey2 = keyFor(sc, "grant", await sha256Hex(gtok));
+          const graw2 = await env.OBSERVATIONS.get(gkey2);
+          if (graw2) {
+            const grow2 = JSON.parse(graw2);
+            for (const f of ["placeName", "accent", "address", "addressParts", "ranked",
+                             "contactPref", "profileAccent"]) {
+              if (acct[f] !== undefined && acct[f] !== null) grow2[f] = acct[f];
+            }
+            await env.OBSERVATIONS.put(gkey2, JSON.stringify(grow2));
+          }
+        } catch (e) { /* the account write is what matters; the view catches up at sign-in */ }
         return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null,
                       email: acct.email || null, phone: acct.phone || null,
                       contactPref: acct.contactPref || "email" });
