@@ -1240,8 +1240,12 @@
       return;
     }
     el.go0.disabled = true; el.go0.innerHTML = "Setting up…";
+    // The invite rides along: an account is created AGAINST a warrant.
+    var inviteHdrs = { "Content-Type": "application/json" };
+    var inv = read(K_GRANT);
+    if (inv) inviteHdrs["X-Grant"] = inv;
     fetch(WORKER + "/api/account", {
-      method: "POST", headers: { "Content-Type": "application/json" },
+      method: "POST", headers: inviteHdrs,
       body: JSON.stringify({ username: u, word: w, email: em || null, phone: ph || null,
                              contactPref: pref, accent: read(K_COLOR) })
     })

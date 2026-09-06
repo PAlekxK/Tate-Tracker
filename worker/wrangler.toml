@@ -115,6 +115,12 @@ id = "1e0bd883e9824388af66563775c96d56"
 # ⛔ NO GITHUB_TOKEN, ever: GITHUB_BRANCH defaults to "main", so a token here would promote
 # species onto Mom's live branch.
 # Deploy: `npx wrangler deploy --env home`
+# ⛔ THE SAME CEILING AS LAB. Lab is where the uncatchable-1101 PBKDF2 kill was MEASURED (2,000 ok,
+# 210,000 not) and 100,000 sits inside that band. Without this line production's login path can die
+# where lab survives — and a 1101 is not catchable by try/catch, so it would read as an outage.
+[env.home.limits]
+cpu_ms = 5000
+
 [env.home]
 [env.home.vars]
 ENV_NAME = "home"

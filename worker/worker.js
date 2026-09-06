@@ -452,6 +452,20 @@ async function handleAccountCreate(request, env, scope) {
   if (email && !emailOk) return json({ error: "bad-email" }, 400);
   if (phone && !phoneOk) return json({ error: "bad-phone" }, 400);
 
+  // ⛔ AN ACCOUNT IS CREATED AGAINST A WARRANT, NEVER ON SELF-ASSERTION `[fixed 2026-09-05]`.
+  // This route was UNAUTHENTICATED and self-minted an `administrator` grant. Verified by use on
+  // production: `POST /api/account` with `{}` returned 400 bad-username — the route ran, no
+  // credential asked. Anyone holding the Worker URL (a literal in a tracked file, in a repo that
+  // answers 200 unauthenticated) could mint themselves administrator of this estate, which unlocks
+  // every note anyone has written, the chat budget, and observation deletes. The file's own comment
+  // said "DEV ONLY UNTIL REVIEWED… must not reach production on that basis" and it was promoted
+  // anyway. The estate being empty is the only reason this was not already an incident.
+  //
+  // Signup may establish WHO YOU ARE to this place. It may not establish WHAT YOU MAY DO to other
+  // people's records — so the capability now comes from the invite and never from the applicant.
+  const invite = await grantFor(request, env);
+  if (!invite) return json({ error: "invite-required" }, 403);
+
   const akey = accountKey(scope, username);
   if (await env.OBSERVATIONS.get(akey)) return json({ error: "username-taken" }, 409);
 
@@ -466,7 +480,12 @@ async function handleAccountCreate(request, env, scope) {
   // ⭐ G1 IN THE WORKER'S OWN SHAPE: a founding owner grant needs the prospective owner's OWN
   // request as its warrant. Signing yourself up IS that request, recorded as consentSource "self".
   const grantRow = {
-    personId, estateId: scope.id, relationship: ["owner"], capability: "administrator",
+    // INHERITED from the invite, not asserted by the applicant. An invited member comes out a
+    // member; a founding invite that says administrator produces an administrator, and the claim
+    // finally has a source.
+    personId, estateId: scope.id,
+    relationship: Array.isArray(invite.relationship) && invite.relationship.length ? invite.relationship : ["member"],
+    capability: invite.capability === "administrator" ? "administrator" : "member",
     entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: personId,
     consent: [{ scope: "founding-request", agreedOn: new Date().toISOString().slice(0, 10),
                 agreedBy: personId, recordedBy: personId, consentSource: "self", how: "account-signup" }],
@@ -484,7 +503,13 @@ async function handleAccountCreate(request, env, scope) {
     accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
     placeName: null,
   }));
-  return json({ personId, token, estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] }, 201);
+  // ⛔ SPEND THE INVITE. It was never revoked: account creation overwrote the browser's copy while
+  // the KV row stayed valid forever — no expiry, no TTL — so every invite ever issued remained a
+  // live administrator credential for anyone who still had the link.
+  try { await env.OBSERVATIONS.delete(keyFor(scope, "grant", await sha256Hex(request.headers.get(GRANT_HEADER)))); }
+  catch (e) { /* the new account already exists; a stale invite is the lesser failure */ }
+  return json({ personId, token, estates: [{ estateId: scope.id,
+                relationship: grantRow.relationship, capability: grantRow.capability }] }, 201);
 }
 
 // ⭐ A USERNAME IS CHANGEABLE `[paul-ruled 2026-09-05]`. It was not, and until it was, the copy could
