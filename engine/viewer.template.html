@@ -8358,8 +8358,13 @@ function generateGardenerInsight() {
       // mildew"), NOT by canon array order — canon order would have named the
       // hydrangea for a condition property.json names the boxwood for.
       const canon = ((typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || []);
-      const susceptible = ["boxwood", "hydrangea", "mountain-laurel"]
-        .map(id => (canon.find(p => p.id === id) || {}).name)
+      // ⛔ WAS A HARDCODED ID LIST of this household's plants. It filtered against canon, so it
+      // rendered nothing for a household without them — but the engine still carried three plant
+      // ids it had no business knowing. The ORDER mattered (canon order named the wrong plant
+      // first), so canon carries a RANK rather than a boolean: the intent lives with the data.
+      const susceptible = canon.filter(p => p.fungalSusceptible)
+        .sort((a, b) => a.fungalSusceptible - b.fungalSusceptible)
+        .map(p => p.name)
         .filter(Boolean);
       return {
         key: "muggy",
@@ -9331,7 +9336,7 @@ function generateAlerts() {
     if (station.tempf != null && station.tempf > 88) {
       alerts.push({ key: "heat", severity: "warning", source: "station", icon: "🥵",
         title: "It's " + Math.round(station.tempf) + "° at the property — hot afternoon",
-        text: "Hydrangeas and azaleas in sun stress fast above 88°F. Worth deep-watering and checking shaded plants for wilting."
+        text: "Broad-leaved shrubs in full sun stress fast above 88°F. Worth deep-watering and checking shaded plants for wilting."
       });
       stationCovers.heat = true;
     }
@@ -9388,7 +9393,7 @@ function generateAlerts() {
     if (low <= 28) {
       alerts.push({ key: "frost", severity: "severe", source: "forecast", icon: "🥶",
         title: "Hard freeze " + (i === 0 ? "tonight" : "in " + i + " day" + (i>1?"s":"")) + " — low " + low + "°",
-        text: "Cover or move tender plants. Drain hoses, disconnect spigots, protect outdoor faucets. Japanese maples already leafed out are vulnerable; worth draping with frost cloth."
+        text: "Cover or move tender plants. Drain hoses, disconnect spigots, protect outdoor faucets. Anything already leafed out is vulnerable; worth draping with frost cloth."
       });
       break;
     } else if (low <= 32) {
@@ -9415,7 +9420,7 @@ function generateAlerts() {
   if (heatDays >= 3 && !stationCovers.heat) {
     alerts.push({ key: "heat", severity: "warning", source: "forecast", icon: "🥵",
       title: "Hot stretch ahead — " + heatDays + " days above 92°",
-      text: "Hydrangeas will wilt visibly in the afternoons; worth deep-watering before the heat hits. Japanese maples and azaleas in too much sun will scorch."
+      text: "Broad-leaved shrubs will wilt visibly in the afternoons; worth deep-watering before the heat hits. Anything in more sun than it wants will scorch."
     });
   }
 
@@ -9455,7 +9460,7 @@ function generateAlerts() {
       }
       alerts.push({ key: "storm", severity: "warning", source: "forecast", icon: "⛈️",
         title: "Heavy rain coming through " + (i === 0 ? "today" : "soon"),
-        text: "Significant rain expected " + when + rainCtx + ". Worth watching low-lying beds for standing water — boxwoods, mountain laurel, and dogwoods are especially susceptible to root rot in saturated soil."
+        text: "Significant rain expected " + when + rainCtx + ". Worth watching low-lying beds for standing water — shrubs in ground that drains poorly are especially susceptible to root rot."
       });
       break;
     }
@@ -14109,7 +14114,13 @@ function renderRoster(plant) {
     '<div class="roster-item"><div class="roster-name">' + escapeHtml(r.name) + '</div>' +
     (r.note ? '<div class="roster-note">' + escapeHtml(r.note) + '</div>' : '') + '</div>'
   ).join('');
-  return '<div class="plant-roster"><div class="section-label">The hydrangeas on the property</div>' + items + '</div>';
+  // ⛔ THE LABEL NAMED ONE HOUSEHOLD'S PLANT, 2026-09-06. This read "The hydrangeas on the
+  // property" for EVERY plant with a roster, in every household — so a reader looking at their
+  // boxwoods was told they were hydrangeas. It was wrong for Fernwood too, not only for a stranger:
+  // canon has rosters on more than one plant. Derived from the plant being rendered instead.
+  const plural = /s$/i.test(plant.name) ? plant.name : plant.name + 's';
+  return '<div class="plant-roster"><div class="section-label">The ' + escapeHtml(plural.toLowerCase()) +
+         ' on the property</div>' + items + '</div>';
 }
 
 function renderPlantCard(plant) {
@@ -15034,15 +15045,15 @@ function renderCalendarLegend() {
 
 // Layout A: 3-month timeline (last, current, next)
 // Plant names abbreviated for fit; actions written out as single words.
+// ⭐ ABBREVIATIONS ONLY, 2026-09-06. This map existed to shorten names for calendar fit, but seven
+// of its ten entries were IDENTITY — "white-pine" → "White Pine" — which `plantShortName` already
+// produces by falling back to `plant.name`. So they bought nothing and put one household's plant
+// vocabulary in the engine, where a neutral build still carried it. Verified identical to canon for
+// all seven before removal, so dropping them is a provable no-op for what any reader sees.
+// ⛔ AN ENTRY HERE MUST BE A REAL ABBREVIATION. If it equals the canon name, delete it — the
+// fallback is the answer, and an identity entry is engine code asserting a fact canon already owns.
 const PLANT_SHORT_NAMES = {
-  "white-pine":      "White Pine",
-  "azalea":          "Azalea",
-  "hydrangea":       "Hydrangea",
-  "dogwood":         "Dogwood",
-  "boxwood":         "Boxwood",
-  "holly":           "Holly",
   "mountain-laurel": "Mt. Laurel",
-  "japanese-maple":  "Japanese Maple",
   "turf-grass":      "Turf",
   "meadow-grass":    "Meadow"
 };
@@ -18184,7 +18195,7 @@ function renderChorusInvite(band) {
   let h = '<div class="chorus-invite">';
   h += '<div class="chorus-invite-title">🌡️ The cricket thermometer — worth testing tonight</div>';
   h += `<div class="chorus-invite-body">${escapeHtml(g.method)} `
-     + escapeHtml('Snowy Tree Crickets chirp at a rate that tracks air temperature closely enough to have been used as a field thermometer. Listen for the clean, evenly spaced whistle — a rough pulsing trill is a different tree cricket and the count will not hold.')
+     + escapeHtml(g.about || '')
      + '</div>';
   h += tempF != null
     ? `<span class="chorus-invite-gauge">The gauge says ${tempF}° right now — how close does the cricket get?</span>`

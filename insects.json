@@ -65,7 +65,9 @@
       "why": "Snowy Tree Crickets chirp at a rate that tracks temperature so closely they were used as a field thermometer long before anyone carried one. The 13-seconds-plus-40 form is calibrated for eastern populations; western ones run slightly faster.",
       "localAngle": "The property has an on-site weather station reading air temperature every five minutes. That makes this the one piece of folk science here we can actually check — count the chirps on the porch, compare to the gauge, and see how close the cricket gets.",
       "confidence": "documented",
-      "caveat": "The formula assumes you are hearing Snowy Tree Cricket and not one of the other tree crickets, whose rates differ. A clean, mellow, evenly spaced whistle is the snowy; a rougher pulsing trill is not."
+      "caveat": "The formula assumes you are hearing Snowy Tree Cricket and not one of the other tree crickets, whose rates differ. A clean, mellow, evenly spaced whistle is the snowy; a rougher pulsing trill is not.",
+      "about": "Snowy Tree Crickets chirp at a rate that tracks air temperature closely enough to have been used as a field thermometer. Listen for the clean, evenly spaced whistle — a rough pulsing trill is a different tree cricket and the count will not hold.",
+      "_about_note": "Moved out of the engine 2026-09-06. The renderer hardcoded this species explanation beside the `method` it already read from here, so a household with no snowy tree cricket still carried the text. A fact about a species belongs with the species."
     },
     "katydidFrostLore": {
       "claim": "Mountain weather lore holds that first frost arrives six to eight weeks after you hear the first katydid, and that an early katydid means an early frost.",

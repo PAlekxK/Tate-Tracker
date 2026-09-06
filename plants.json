@@ -24,7 +24,8 @@
       "USDA Plant Hardiness Zone Map 2023",
       "UGA Cooperative Extension North Georgia gardening and pest management resources"
     ],
-    "soilSeriesNote": "INFERRED, never tested. Aligned to property.json.soils.likelySeries on 2026-07-29 — this list still read [Hayesville, Cecil, Pacolet] four days after those two series were falsified for this elevation, so plants.json was asserting a soil basis property.json had already retracted. The per-plant soilNotes prose still names the old series in ~17 records and is deliberately NOT rewritten here: it waits on the W9 test result and zoneId assignment so it can be rewritten once, well, against measured pH. See .plans/2026-07-25-soil-sampling-plan.md."
+    "soilSeriesNote": "INFERRED, never tested. Aligned to property.json.soils.likelySeries on 2026-07-29 — this list still read [Hayesville, Cecil, Pacolet] four days after those two series were falsified for this elevation, so plants.json was asserting a soil basis property.json had already retracted. The per-plant soilNotes prose still names the old series in ~17 records and is deliberately NOT rewritten here: it waits on the W9 test result and zoneId assignment so it can be rewritten once, well, against measured pH. See .plans/2026-07-25-soil-sampling-plan.md.",
+    "fungalSusceptible": "Rank (1 = named first) for the muggy-weather advisory. Moved out of the engine 2026-09-06, where three of this household's plant ids were hardcoded. A household marks its own susceptible plants; one that marks none gets the generic advisory."
   },
   "plants": [
     {
@@ -531,7 +532,8 @@
         "6": "The old-wood types get their one pruning window, and it closes fast once the last flowers fade. Humid stretches bring powdery mildew to the crowded ones.",
         "8": "The panicle carries the show alone now. Watering still matters."
       },
-      "zones": []
+      "zones": [],
+      "fungalSusceptible": 2
     },
     {
       "id": "dogwood",
@@ -927,7 +929,8 @@
             "url": "https://commons.wikimedia.org/wiki/File:Buxus_sempervirens.jpg"
           }
         }
-      ]
+      ],
+      "fungalSusceptible": 1
     },
     {
       "id": "holly",
@@ -1272,7 +1275,8 @@
             "url": "https://commons.wikimedia.org/wiki/File:Kalmia_Latifolia.jpg"
           }
         }
-      ]
+      ],
+      "fungalSusceptible": 3
     },
     {
       "id": "japanese-maple",
