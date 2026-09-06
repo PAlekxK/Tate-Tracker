@@ -245,3 +245,44 @@ document states the policy**, and Paul has asked for it pulled together.
 Axes it must answer: a cycle that **fails** vs one **superseded** by a later run vs a **durable
 persona's** own record · and **which environment** the answer differs in (`lab` / `qa` / `home` /
 the frozen `est-3c9f1a`).
+
+---
+
+## 8 · FOUR RULINGS — the parity build `[paul-ruled 2026-09-06, late]`
+
+**R4 · ONE ARTIFACT, FLAGGED DELTA.** *"Production ships the full app, built from its own instance,
+as the same artifact QA certified — and the feature delta is a flag, not an environment."* This is
+Humble & Farley's deployment pipeline: **build once, deploy many; the binary is not
+environment-specific.** ⛔ It retires the accidental flag we have now — production's **missing
+Anthropic key is a feature flag implemented by an absent secret**: unscopable, unrollbackable, and it
+reports as a 503 rather than as *off*.
+
+**R5 · EMPTY, NOT ABSENT.** A new household's sections **exist and say they hold nothing yet**.
+⚠️ The named risk stands and is a walk question, not an argument: a screen of empty cards can read as
+*broken* to a cautious reader. That is the `strict` and `wide-eyed` seats' job to report.
+
+**R6 · THREE CLASSES, AND AUTHORED NEVER REGENERATES.** The axis is **what the output BECOMES**, not
+whether a model touched it:
+
+| class | what it is | if two runs disagreed? |
+|---|---|---|
+| **Computed** | the rules force it; no model, ever | **a bug** |
+| **Said** | one answer, one reader, one moment — never read back as fact | **expected** |
+| **Authored** | a model drafted it, **a person confirmed it**, it entered the record with provenance, it never runs again | the question is malformed — if you can ask it, it is a cache pretending to be a record |
+
+> **`VOCABULARY.md` line:** *What the Almanac **says** is said once, to one reader, in one moment,
+> and is never the record; what the record **holds** is computed, or confirmed by a person before it
+> was written — and it reads the same to everyone, every time.*
+> **Falsifier:** if anything a reader was **told** can later be found being **read back as a fact**,
+> the line has been crossed.
+
+⛔ **AUTHORED CONTENT NEVER REGENERATES**, and the first reason is tonight's: a regenerating cache of
+Authored content would mean a difference between the two Fernwood instances could no longer be
+attributed to the change under test — **the data control would stop controlling for anything.**
+Pre-declined before it is built, because "refresh the guide" is the most natural next feature here.
+
+**R7 · GURU IS OFF IN PRODUCTION, DECLARED.** No key. ⛔ And production stops declaring a
+`CHAT_DAILY_BUDGET_USD` for a capability it cannot run — *a budget for something that cannot happen
+is a claim the system makes about itself that is not true.* Turn it on when an AI-bearing screen
+actually ships to a household. **Dependency to clear first:** under one production environment the
+chat budget is one shared pot, so it must split per estate before the flag is worth turning on.
