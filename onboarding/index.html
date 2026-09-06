@@ -336,6 +336,9 @@
       <button type="button" class="peek" data-for="uword2" aria-pressed="false" aria-label="Show password">Show</button>
     </div>
     <p class="quiet" style="margin-top:5px">Just to be sure it's what you meant.</p>
+    <!-- Answered WHILE she types, like the username. The submit-time check stays and is still the
+         authority — this only stops her discovering a typo by having the whole form bounce. -->
+    <p id="uword2state" class="quiet" style="margin-top:4px" hidden></p>
 
     <!-- ⭐ EMAIL AND PHONE `[paul-stated 2026-09-05]`: "capture their email address as well and make
          their phone number optional." ⚠️ THIS REVERSES the account-credential design, which recorded
@@ -720,7 +723,7 @@
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
-   "unamestate", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
+   "unamestate", "uword2state", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
@@ -906,6 +909,33 @@
         .catch(function () { sayUname("", ""); });              // never let a check failure block her
     }, 450);
   });
+
+  // ---- s0 · DO THE TWO PASSWORDS MATCH? --------------------------------------------------------
+  // ⛔ IT MUST NOT SCOLD HER MID-WORD. Every partial password is a mismatch while she is still typing
+  // it, so a check that fires on every keystroke shows "doesn't match" for the entire time she is
+  // getting it right — which trains her to ignore the line by the moment it finally means something.
+  // So: agreement is reported the instant it is true, and disagreement only after she pauses.
+  var pwTimer = null;
+  function sayMatch(cls, text) {
+    el.uword2state.hidden = !text;
+    el.uword2state.className = "quiet" + (cls ? " " + cls : "");
+    el.uword2state.textContent = text || "";
+  }
+  function checkMatch(immediate) {
+    if (pwTimer) clearTimeout(pwTimer);
+    var a = el.uword.value, b = el.uword2.value;
+    if (!b) { sayMatch("", ""); return; }
+    if (a === b) { el.uword2.classList.remove("bad"); sayMatch("ok", "These match."); return; }
+    sayMatch("", "");
+    pwTimer = setTimeout(function () {
+      if (el.uword2.value && el.uword.value !== el.uword2.value) {
+        sayMatch("bad-text", "These don't match yet.");
+      }
+    }, immediate ? 0 : 700);
+  }
+  el.uword.addEventListener("input", function () { checkMatch(false); });
+  el.uword2.addEventListener("input", function () { checkMatch(false); });
+  el.uword2.addEventListener("blur", function () { checkMatch(true); });   // leaving the field is a pause
 
   // ---- s0 · HOW SHOULD PAUL REACH YOU? ----------------------------------------------------------
   function contactPref() {
