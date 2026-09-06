@@ -231,15 +231,22 @@
   }
   .picks { display: flex; flex-direction: column; gap: 9px; margin-top: 9px; }
   .pick {
+    /* ⛔ align-items:flex-start AND no forced height. The cards were equal-height, so a one-line
+       label left its radio floating in an empty band — and it was the PRE-SELECTED option, the one
+       card the eye lands on first. A misaligned control on the default answer is the strongest
+       available cue that a group is not to be trusted. Each card now sizes to its own content and
+       every dot sits on the first line of its own label. */
     display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px;
     border: 1.5px solid #dfe3e8; border-radius: 12px; cursor: pointer; font-size: .96rem;
+    min-height: 0;
   }
   /* ⛔ THE GLOBAL `input` RULE HITS RADIOS TOO. It sets width:100% + padding + border for the text
      fields, so each radio rendered as a full-width box and shoved its own label outside the card.
      Caught by LOOKING at the screen — the text dump listed the options in the right order and read
      perfectly fine, which is exactly the failure a text-only walk cannot see. */
   .pick input[type="radio"] {
-    width: auto; min-width: 0; flex: none; margin: 3px 0 0;
+    /* 2px lifts the dot onto the label's cap-height rather than its line-box top */
+    width: auto; min-width: 0; flex: none; margin: 2px 0 0;
     padding: 0; border: 0; background: none; box-shadow: none; appearance: auto; accent-color: #3c5a72;
   }
   .pick span { flex: 1 1 auto; min-width: 0; }
@@ -255,6 +262,12 @@
   .pwwrap input { padding-right: 70px; flex: 1 1 auto; }
   .peek {
     position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    /* ⛔ margin:0 IS LOAD-BEARING. The global `button` rule sets margin-top:18px, which pushed this
+       control 18px below the centre `top:50%` had just placed it at — so "Show" rendered on a lower
+       line than the characters it reveals, reading as a word that had fallen out of the field. An
+       earlier attempt to fix this by making the WRAPPER a flex box could not have worked: the offset
+       was never in the wrapper's height, it was in the button's own inherited margin. */
+    margin: 0;
     background: none; border: 0; padding: 8px; min-height: 0; width: auto;
     color: #3c5a72; font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer;
   }
