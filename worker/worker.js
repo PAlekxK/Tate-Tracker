@@ -3197,7 +3197,18 @@ export default {
     if (url.pathname === "/api/onboarding-metrics" && request.method === "POST" && !authOk(request, env)) {
       const len = parseInt(request.headers.get("Content-Length") || "0", 10);
       if (len > 24000) return json({ error: "too-large" }, 413);
-      if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      // ⛔ A DEDICATED BUCKET, generous, deliberately NOT the feedback one. Telemetry sharing a
+      // limiter with her answers can spend the quota her WORDS needed — the same inversion the
+      // door's separate bucket exists to prevent. Measuring must never cost the thing measured.
+      {
+        const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+        const rk = keyFor(scopeOf(env), "ratelimit", "obmetrics", ip, Math.floor(Date.now() / 300000));
+        try {
+          const n = parseInt((await env.OBSERVATIONS.get(rk)) || "0", 10) || 0;
+          if (n >= 200) return json({ error: "rate-limited" }, 429);
+          await env.OBSERVATIONS.put(rk, String(n + 1), { expirationTtl: 600 });
+        } catch (e) { /* fail OPEN — a limiter outage must not eat the signal */ }
+      }
       let body;
       try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
       const evs = Array.isArray(body && body.events) ? body.events.slice(0, 100) : null;

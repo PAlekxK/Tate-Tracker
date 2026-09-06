@@ -830,6 +830,10 @@
     currentScreen = which;
     screenAt = Date.now();
     ev("screen", "enter");
+    // ⛔ FLUSH HERE, not only at a buffer threshold. A whole journey generates fewer events than the
+    // threshold, and pagehide does not fire reliably when a browser is CLOSED rather than navigated —
+    // so the batch recording an ABANDONMENT was the batch least likely ever to be sent.
+    flushEv();
     window.scrollTo(0, 0);
   }
 
