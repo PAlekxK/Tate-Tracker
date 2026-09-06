@@ -3120,8 +3120,25 @@ export default {
       try {
         const b = await request.json();
         const uname = typeof b.username === "string" ? b.username.trim() : "";
-        if (!uname) return json({ error: "bad-request" }, 400);
         const sc = scopeOf(env);
+        // ⭐ A GRANT-LINK READER HAS NO ACCOUNT ROW, AND HER NAME MUST STILL PERSIST. This required a
+        // username, so an invited reader — which is how Mom arrives, and how all four walkers arrived
+        // — could not write at all. The client then bailed before even asking (saveProfile returns
+        // early with no K_USER), so nothing failed loudly: her place name and colour lived in
+        // localStorage alone while s1 promised "rename it later" and s4 shipped a live rename
+        // control. Copy that a clear-your-browser falsifies is a broken promise, not a small bug.
+        // The GRANT row is her durable home until she has an account, and it is already keyed by
+        // something we hold.
+        if (!uname) {
+          const gkey = keyFor(sc, "grant", await sha256Hex(request.headers.get(GRANT_HEADER)));
+          const graw = await env.OBSERVATIONS.get(gkey);
+          if (!graw) return json({ error: "not-found" }, 404);
+          const grow = JSON.parse(graw);
+          if (typeof b.name === "string") grow.placeName = b.name.slice(0, 60);
+          if (typeof b.accent === "string") grow.accent = b.accent.slice(0, 9);
+          await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
+          return json({ ok: true, on: "grant", name: grow.placeName || null, accent: grow.accent || null });
+        }
         const raw = await env.OBSERVATIONS.get(accountKey(sc, uname));
         if (!raw) return json({ error: "not-found" }, 404);
         const acct = JSON.parse(raw);
@@ -3180,7 +3197,9 @@ export default {
       // the one read a grant unlocks TODAY: what the credential itself is. 6a widens this.
       if (url.pathname === "/api/grant/whoami") {
         return json({ personId: grant.personId, estateId: grant.estateId, capability: grant.capability,
-                      relationship: grant.relationship || [], entry: !!grant.entry, vault: !!grant.vault });
+                      relationship: grant.relationship || [], entry: !!grant.entry, vault: !!grant.vault,
+                      // her place, so a return on a cleared browser is a RESUME and not a fresh start
+                      name: grant.placeName || null, accent: grant.accent || null });
       }
     }
     if (url.pathname === "/api/grant/whoami") return json({ error: "not-found", path: url.pathname }, 404);   // no grant presented → the same 404

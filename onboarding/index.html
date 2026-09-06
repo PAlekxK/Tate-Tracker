@@ -666,10 +666,13 @@
   // they die with the browser — which is not durability, it is a cache that looks like a profile.
   function saveProfile(patch) {
     var g = read(K_GRANT), u = read(K_USER);
-    if (!g || !u) return;
+    // ⛔ ONLY THE GRANT IS REQUIRED. This demanded a username too, and K_USER is set ONLY at account
+    // creation — so for every invited reader this returned here and the write never happened. The
+    // Worker now writes to the grant row when no username is sent.
+    if (!g) return;
     fetch(WORKER + "/api/profile", {
       method: "POST", headers: { "Content-Type": "application/json", "X-Grant": g },
-      body: JSON.stringify(Object.assign({ username: u }, patch))
+      body: JSON.stringify(Object.assign(u ? { username: u } : {}, patch))
     })["catch"](function () {});                       // best effort; the local copy already applied
   }
 
