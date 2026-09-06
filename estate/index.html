@@ -65,8 +65,15 @@
   header { background: var(--accent); color: #fff; padding: 22px 18px 18px; }
   header .inner { max-width: 660px; margin: 0 auto; }
   .utility { display: flex; justify-content: space-between; align-items: center; margin: 0 0 10px; }
-  .ubtn { color: #fff; opacity: .8; text-decoration: none; font-size: .82rem; position: relative; }
-  .ubtn:hover, .ubtn:focus-visible { opacity: 1; }
+  /* ⛔ .82rem AT .8 OPACITY WAS TOO QUIET TO FIND. The `mom` seat, reading her own walk: these are
+     "small, quiet words on a dark header that I only found because I was hunting" — and she is the
+     reader least likely to hunt. Paul asked for a single UNINTRUSIVE control and that still holds;
+     unintrusive means it does not compete with her place's name, not that it hides. Raised to .95rem
+     at full opacity with an underline, which is still a utility line above the h1 and is now legible
+     at A+ on a dark ground. The 44px hit area was never the problem — being SEEN was. */
+  .ubtn { color:#fff; opacity:1; text-decoration:underline; text-underline-offset:3px;
+          font-size:.95rem; position:relative; }
+  .ubtn:focus-visible { outline:3px solid #cfe6b8; outline-offset:2px; }
   /* 44px hit area without a 44px box — the shared pattern this repo already uses everywhere. */
   .tap44::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
                   width: 44px; height: 44px; min-width: 100%; }

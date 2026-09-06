@@ -27,7 +27,13 @@
   worse than none), sign-out (it ships only with its consequence line), and any disclosure at all.
 -->
 <style>
-  :root { --ink:#23301f; --ink-soft:#5d6b57; --line:#d8eacc; --accent:#3F5266; --paper:#fff; }
+  /* ⛔ IT DEFAULTED TO STONE BLUE-GREY AND SHE HAD NEVER CHOSEN IT. The `mom` seat: this page
+     "carries its own separate colour picker (blue-grey header, distinct from the home's green) that
+     I don't recall ever choosing." She was right — an unset profile colour was INVENTING one, and a
+     surface wearing a colour a reader never picked teaches her the app decides things without her.
+     Until she chooses, this wears the product's own default, the same green every other unset
+     surface wears; choosing then becomes a real change she made rather than a correction of ours. */
+  :root { --ink:#23301f; --ink-soft:#5d6b57; --line:#d8eacc; --accent:#2f5d3a; --paper:#fff; }
   * { box-sizing:border-box; }
   body { margin:0; padding:0 0 56px;
     font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -37,8 +43,15 @@
   header { background:var(--accent); color:#fff; padding:18px 18px 20px; }
   header .inner { max-width:660px; margin:0 auto; }
   .utility { margin:0 0 10px; }
-  .ubtn { color:#fff; opacity:.8; text-decoration:none; font-size:.82rem; position:relative; }
-  .ubtn:hover, .ubtn:focus-visible { opacity:1; }
+  /* ⛔ .82rem AT .8 OPACITY WAS TOO QUIET TO FIND. The `mom` seat, reading her own walk: these are
+     "small, quiet words on a dark header that I only found because I was hunting" — and she is the
+     reader least likely to hunt. Paul asked for a single UNINTRUSIVE control and that still holds;
+     unintrusive means it does not compete with her place's name, not that it hides. Raised to .95rem
+     at full opacity with an underline, which is still a utility line above the h1 and is now legible
+     at A+ on a dark ground. The 44px hit area was never the problem — being SEEN was. */
+  .ubtn { color:#fff; opacity:1; text-decoration:underline; text-underline-offset:3px;
+          font-size:.95rem; position:relative; }
+  .ubtn:focus-visible { outline:3px solid #cfe6b8; outline-offset:2px; }
   .tap44::after { content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
                   width:44px; height:44px; min-width:100%; }
   h1 { margin:0; font-size:1.5rem; font-weight:600; }
