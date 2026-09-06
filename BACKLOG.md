@@ -180,6 +180,34 @@ dispositioned, all before the freeze · 63 batch-cleared by watermark and never 
 1 undispositioned.** That 63 is the real number: most of her feedback was never held *or* read — it was
 swept. Zero commits after the freeze touched either disposition ledger, so the freeze itself was kept.
 
+**⭐ 5. THE MAP IS SHOWN EMPTY — she draws it, we do not prepopulate it** `[paul-stated 2026-09-06]` —
+*"Let's show mom her map but without any zones when she gets there in production. Then we will discover
+together how best to build the map in the most logical manner."* And, immediately after: *"We use
+everything we've done as grounding information, but don't prepopulate."*
+
+**What it settles.** The open sub-question was whether her 23 hand-traced zones MIGRATE to the new
+instance or she REDRAWS. Answer: neither, exactly — **the map arrives empty and is built together.**
+Consequences: (i) zones do **not** migrate; production's map is blank when she reaches it; (ii) the 23
+hand-traced zones stay on the frozen control and become the **ANSWER KEY** — the benchmark for how close
+a from-scratch build gets, which is the entire reason the control is being kept; (iii) *"discover
+together how best to build the map"* makes the map-building itself a **joint design act**, not a
+migration step, so there is no prepopulated draft for her to merely accept or reject; (iv) it retires
+"show her the map on the frozen instance" as an option — the showing happens in production.
+
+⭐ **THE GENERAL SHAPE, and it is wider than the map: WHAT WE KNOW INFORMS THE DESIGN, IT DOES NOT
+PRE-FILL HER WORK.** Everything accumulated — the 23 zones, her 16 names, the vocabulary, the walk
+transcripts — is **grounding information** for how the experience is built. None of it is content poured
+into her instance ahead of her. 🔬 Candidate principle for the design-stance library; **not written
+there** — Paul rules on that separately.
+
+⚠️ **ONE DEBT THIS DOES NOT DISCHARGE, and it should be named rather than assumed away.** The
+acknowledgment owed for the zone work (`Z-ACK`) was going to be discharged *by construction* — showing
+her the map she made **is** the acknowledgment, and the most attributive form the ribbon doctrine could
+ask for. Under this ruling she never sees those 23 zones rendered back to her. **Sixteen of the 23 names
+are hers**; if she renames the same places differently on the blank map, that divergence is itself the
+measurement — but it is not an acknowledgment. The debt needs another form, or an explicit decision that
+building it together in person IS the acknowledgment. **Open — Paul's.**
+
 **📦 DEPLOY TO THE FROZEN INSTANCE — the first one under the data-control ruling** `[paul-authorised
 2026-09-06]`. Baseline is now nameable: **`prod = 322a416 + 79a31c8 = 7b0a94c`** (branch
 `prod-frozen-zonefix`, local only). Deployed 2026-09-06 23:43 UTC, version
