@@ -1,58 +1,128 @@
 #!/usr/bin/env bash
 #
-# deploy-worker.sh — rebuild Garden Guru's digest from the source JSON and deploy the Worker.
-#
-# Garden Guru answers from `worker/digest.json`, which is bundled into the Worker at
-# deploy time. The digest is a SNAPSHOT of the source JSON (plants.json, vehicles.json,
-# fishing.json, …), so any change to those files only reaches Guru after a rebuild + deploy.
-# (This is the drift that bit us 2026-07-07: plants + fishing were stale for three days
-# because a source changed but the digest was never rebuilt + redeployed.)
-#
-# Run this after committing a change to any source JSON that Guru should know about.
+# deploy-worker.sh — rebuild Garden Guru's digest from source JSON and deploy the Worker
+#                    TO AN EXPLICITLY NAMED ENVIRONMENT.
 #
 # Usage:
-#   tools/deploy-worker.sh            # rebuild digest, deploy, health-check
-#   tools/deploy-worker.sh --no-deploy # rebuild + freshness-check only (no wrangler deploy)
+#   tools/deploy-worker.sh --env home          # the new product's production household
+#   tools/deploy-worker.sh --env qa            # where gate 1 runs
+#   tools/deploy-worker.sh --env home --no-deploy   # rebuild + freshness check only
+#
+# ⛔⛔ WHY --env IS REQUIRED, ADDED 2026-09-06. This script used to run a bare `npx wrangler deploy`,
+# which targets wrangler.toml's TOP LEVEL — the `fernwood` Worker on `est-3c9f1a`. That is the live
+# instance Mom uses, and Paul ruled the same day that it "just stays as it is" while the new product
+# is built beside it. So the script's DEFAULT action was to push new code onto the one deployment
+# that is supposed to be frozen, and its health check then read that same frozen URL and printed OK.
+# Nothing about it looked wrong. There is no --env default now, deliberately.
+#
+# ⚠️ AND THE WORD `prod` IS A TRAP HERE. In wrangler's vocabulary the top level takes no --env flag,
+# and `tools/grant-mint.py` calls it `prod` — but the family's production household for the NEW
+# product is `--env home`. Reaching for "prod" gets Mom's frozen instance. Deploying to it requires
+# the long flag below, which exists to make that an act rather than a typo.
 #
 # Notes:
-#   - Needs network + Cloudflare auth for the `wrangler deploy` step. If you're inside a
-#     sandboxed agent session, run it yourself from the prompt:  ! tools/deploy-worker.sh
-#   - worker/digest.json is git-tracked; if the rebuild changes it, commit the result so
-#     the repo and the deployed Worker stay in sync (the script reminds you at the end).
+#   - Needs network + Cloudflare auth. Inside a sandboxed agent session, run it from the prompt:
+#       ! tools/deploy-worker.sh --env home
+#   - worker/digest.json is git-tracked; commit it if the rebuild changes it.
 
 set -euo pipefail
-
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-WORKER_URL="${FERNWOOD_WORKER_URL:-https://fernwood.paul-kirschenbauer.workers.dev}"
+ENV=""
 DO_DEPLOY=1
-[[ "${1:-}" == "--no-deploy" ]] && DO_DEPLOY=0
+FROZEN_OK=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --env) ENV="${2:-}"; shift 2 ;;
+    --no-deploy) DO_DEPLOY=0; shift ;;
+    --i-mean-the-frozen-fernwood) FROZEN_OK=1; shift ;;
+    *) echo "deploy-worker: unknown argument '$1'" >&2; exit 2 ;;
+  esac
+done
 
+# ⭐ THE ROSTER IS DERIVED FROM wrangler.toml, NEVER TYPED HERE. Same control three instruments were
+# missing today: an instrument whose scope is hand-written cannot follow the thing it measures.
+# ⚠️ NOT `mapfile` — macOS ships bash 3.2 and it does not exist there. Measured 2026-09-06: the
+# first version of this line failed with "mapfile: command not found" on Paul's own machine, which
+# would have made every refusal below unreachable. A guard that cannot run is not a guard.
+# ⚠️ And no inner heredoc: nesting one inside the heredoc that WRITES this file terminated the
+# outer one early. grep+sed needs neither.
+ENVS=()
+while IFS= read -r _e; do ENVS+=("$_e"); done < <(
+  grep -E '^\[env\.[A-Za-z0-9_]+\]' worker/wrangler.toml | sed -E 's/^\[env\.([A-Za-z0-9_]+)\].*/\1/'
+)
+if [[ ${#ENVS[@]} -eq 0 ]]; then
+  echo "deploy-worker: UNCHECKABLE — no environments parsed from worker/wrangler.toml. Refusing." >&2
+  exit 2
+fi
+
+if [[ -z "$ENV" ]]; then
+  echo "deploy-worker: ⛔ --env is REQUIRED. There is no default, on purpose." >&2
+  echo "  declared: ${ENVS[*]}" >&2
+  echo "  the new product's production household is:  --env home" >&2
+  echo "  Mom's frozen Fernwood is the toml's top level and needs --i-mean-the-frozen-fernwood." >&2
+  exit 2
+fi
+
+if [[ "$ENV" == "prod" || "$ENV" == "top" || "$ENV" == "fernwood" ]]; then
+  if [[ "$FROZEN_OK" -ne 1 ]]; then
+    echo "deploy-worker: ⛔ REFUSING — '$ENV' means the toml's top level, which is the LIVE Fernwood" >&2
+    echo "  Mom uses (est-3c9f1a). Paul ruled 2026-09-06 that it stays exactly as it is." >&2
+    echo "  If you genuinely mean it, re-run with --i-mean-the-frozen-fernwood." >&2
+    exit 1
+  fi
+  WRANGLER_ARGS=()
+  HEALTH="https://fernwood.paul-kirschenbauer.workers.dev"
+else
+  ok=0; for e in "${ENVS[@]}"; do [[ "$e" == "$ENV" ]] && ok=1; done
+  if [[ "$ok" -ne 1 ]]; then
+    echo "deploy-worker: ⛔ '$ENV' is not declared in worker/wrangler.toml (declared: ${ENVS[*]})" >&2
+    exit 2
+  fi
+  WRANGLER_ARGS=(--env "$ENV")
+  case "$ENV" in
+    bob)  HEALTH="https://myhome-bob.paul-kirschenbauer.workers.dev" ;;
+    paul) HEALTH="https://myhome-paul.paul-kirschenbauer.workers.dev" ;;
+    *)    HEALTH="https://fernwood-${ENV}.paul-kirschenbauer.workers.dev" ;;
+  esac
+fi
+
+echo "==> target: env=${ENV}   health=${HEALTH}"
 echo "==> [1/4] Rebuilding Garden Guru's digest from source JSON…"
 python3 tools/build-digest.py
-
 echo "==> [2/4] Verifying the on-disk digest matches a fresh rebuild…"
 python3 tools/check-digest-fresh.py
 
 if [[ "$DO_DEPLOY" -eq 0 ]]; then
   echo "==> --no-deploy set; stopping before wrangler deploy."
 else
-  echo "==> [3/4] Deploying the Worker (wrangler)…"
-  ( cd worker && npx wrangler deploy )
+  echo "==> [3/4] Deploying the Worker to ${ENV}…"
+  ( cd worker && npx --yes wrangler@4 deploy "${WRANGLER_ARGS[@]}" )
 
-  echo "==> [4/4] Health check ($WORKER_URL/health)…"
-  if curl -fsS "$WORKER_URL/health" | python3 -m json.tool 2>/dev/null; then
-    echo "    health OK."
+  # ⛔ THE HEALTH CHECK MUST PROVE IT REACHED THE ENVIRONMENT IT DEPLOYED TO. The old one read a
+  # hardcoded URL, so a deploy to any environment printed the top level's OK — a check that passes
+  # while pointing at the wrong system is worse than no check.
+  echo "==> [4/4] Health check (${HEALTH}/health)…"
+  body="$(curl -fsS -A 'deploy-worker' "${HEALTH}/health" || true)"
+  if [[ -z "$body" ]]; then
+    echo "    ⚠️  couldn't fetch /health — verify manually."
   else
-    echo "    (couldn't fetch/parse /health — verify manually in a browser)"
+    echo "$body" | python3 -m json.tool || echo "$body"
+    got="$(printf '%s' "$body" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("env",""))' 2>/dev/null || true)"
+    want="$ENV"; [[ "$ENV" == "prod" || "$ENV" == "top" || "$ENV" == "fernwood" ]] && want="production"
+    if [[ "$got" == "$want" ]]; then
+      echo "    ✅ health OK and it reports env='${got}' — the deploy reached the intended environment."
+    else
+      echo "    🔴 health reports env='${got}' but this deploy targeted '${want}'. Do NOT trust this deploy."
+      exit 1
+    fi
   fi
 fi
 
 echo
 if ! git diff --quiet -- worker/digest.json; then
-  echo "==> NOTE: worker/digest.json changed — commit it to keep the repo in sync:"
-  echo "      git add worker/digest.json && git commit -m 'digest: rebuild for <what changed>'"
+  echo "==> NOTE: worker/digest.json changed — commit it to keep the repo in sync."
 else
   echo "==> worker/digest.json unchanged since last commit."
 fi
