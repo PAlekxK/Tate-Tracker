@@ -93,6 +93,9 @@ EMPTY_SHAPE = {  # what an ABSENT domain's const looks like — the list key per
     "sources": {"_meta": {"declaredAbsent": True}, "sources": []},
     "events": {"_meta": {"declaredAbsent": True}, "events": []},
     "candidates": {"_meta": {"declaredAbsent": True}, "candidates": []},
+    # `catalog` is two lists, not one — a household with no sourcing catalogue still renders the
+    # Candidates card, it just has nowhere to send you yet. R5: empty, not absent.
+    "catalog": {"_meta": {"declaredAbsent": True}, "programs": [], "nurseries": []},
 }
 
 
@@ -203,10 +206,24 @@ def build(template_text, instance_path):
         if ph not in out:
             raise RuntimeError("template has no placeholder for %s — is the template stale? (--extract)" % const)
         path = os.path.join(canon, file)
-        if os.path.exists(path):
-            data = json.load(open(path, encoding="utf-8"))
-        elif name in absent or kind in absent:
+        # ⛔ A DECLARATION OF ABSENCE OUTRANKS A FILE THAT HAPPENS TO BE THERE. Until 2026-09-06 this
+        # tested `os.path.exists` FIRST, which made `absent` a no-op whenever the canon file existed
+        # — so an instance could declare every domain absent, point `canon` at a populated directory,
+        # and be built carrying that household's ENTIRE canon while its own config said it held
+        # nothing. Silently. That is the exact failure mode of the neutral build this mechanism is
+        # now being used for, and nothing would have reported it: the config would read correct.
+        # ⭐ The general rule: WHEN A DECLARATION AND THE FILESYSTEM DISAGREE, THE DECLARATION WINS
+        # AND THE DISAGREEMENT IS REPORTED. Inheriting data nobody asked for is the worse failure —
+        # a missing file is a loud error, an unexpected household's data is a leak.
+        declared_absent = name in absent or kind in absent
+        if declared_absent:
             data = EMPTY_SHAPE.get(kind) or {"_meta": {"declaredAbsent": True}}
+            if os.path.exists(path):
+                print("  ⚠️  %s declares `%s` absent and %s EXISTS — the declaration wins, the file "
+                      "is NOT read." % (os.path.relpath(instance_path, ROOT), name,
+                                        os.path.relpath(path, ROOT)), file=sys.stderr)
+        elif os.path.exists(path):
+            data = json.load(open(path, encoding="utf-8"))
         else:
             raise RuntimeError("%s has no %s and does not declare `%s` absent" % (instance_path, file, name))
         out = out.replace(ph, json.dumps(data, ensure_ascii=False), 1)
@@ -320,7 +337,15 @@ def selftest():
             build(t, cfg_path); check("a MISSING canon file that is not declared absent FAILS LOUD", False)
         except RuntimeError:
             check("a MISSING canon file that is not declared absent FAILS LOUD", True)
+        # ⛔ THE CASE THAT WAS NEVER TESTED, AND THAT IS WHY THE BUG SURVIVED: declared absent
+        # WITH THE FILE PRESENT. Every existing absence test removed the file first, so the
+        # precedence between a declaration and a real file was never asserted in either direction.
+        json.dump({"_meta": {"real": True}, "rows": [1, 2, 3]}, open(os.path.join(d, "weeds.json"), "w"))
         cfg["absent"] = ["weeds"]; json.dump(cfg, open(cfg_path, "w"))
+        present_but_absent = build(t, cfg_path)
+        check("a DECLARED absence beats a canon file that EXISTS (declaration wins, no inheritance)",
+              '"real": true' not in present_but_absent.lower().replace('"real":true', '"real": true'))
+        os.remove(os.path.join(d, "weeds.json"))
         b = build(t, cfg_path)
         check("a DECLARED absence builds an empty const of the right shape",
               'const WEEDS_DATA = {"_meta": {"declaredAbsent": true}, "weeds": []};' in b)

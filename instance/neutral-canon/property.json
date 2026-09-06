@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "neutral": true,
+    "purpose": "the SHAPE a household property record has, with no household in it. Every value is filled from what the person tells us at onboarding, never typed here."
+  },
+  "property": {
+    "name": "",
+    "address": "",
+    "city": "",
+    "state": "",
+    "zip": "",
+    "county": "",
+    "region": "",
+    "owner": ""
+  },
+  "location": {
+    "elevation": {
+      "estimated_ft": 0
+    }
+  },
+  "hardiness": {},
+  "frostDates": {},
+  "climate": {},
+  "soils": {},
+  "microclimate": {},
+  "propertyZones": {},
+  "resources": {},
+  "utilities": {},
+  "story": {},
+  "sky": {},
+  "intros": {},
+  "plantContext": {}
+}

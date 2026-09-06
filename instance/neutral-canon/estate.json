@@ -1,0 +1,12 @@
+{
+  "_meta": {
+    "neutral": true
+  },
+  "modules": {
+    "garden": true,
+    "wildlife": true,
+    "vehicles": true,
+    "zones": true,
+    "journal": true
+  }
+}

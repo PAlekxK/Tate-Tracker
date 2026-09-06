@@ -81,6 +81,11 @@ SOURCES = [
     # Added 2026-08-31 (ux-sweep follow-up): TURF_DATA was the one re-inlined
     # const the checker could not see — a turf.json edit would silently never ship.
     ("turf.json",       "TURF_DATA",       "sources",  "turf"),
+    # ⛔ Added 2026-09-06 — SOURCES_DATA was an 8.4 KB LITERAL in the engine template, and it is
+    # household content: every nursery carries `distanceFromFernwood_mi`, and the list is North
+    # Georgia. It was four of the ten tokens a neutral build still leaked, and it had no producer,
+    # no drift alarm and no way to be absent. Rostered so a household without it builds EMPTY.
+    ("sources.json",    "SOURCES_DATA",    "catalog",  "sources"),
     ("events.json",     "EVENTS_DATA",     "events",   "events"),
     ("candidates.json", "CANDIDATES_DATA", "candidates", "candidates"),   # 2026-09-04: was inlined UNROSTERED — Fernwood's "plants we might bring back" rode into the condo (29 of the 44 place claims)   # 2026-09-04: was inlined UNROSTERED — the condo carried Pickens-County events [paul-stated: "nothing to do with Midtown"]
 
