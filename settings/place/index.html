@@ -128,7 +128,20 @@
   ];
 
   var grant = read(K_GRANT);
+  // ⛔ A PICKER THAT SHOWS NO SELECTION CANNOT TELL HER WHAT COLOUR HER PLACE ALREADY IS. The
+  // `wide-eyed` seat, reading its own walk: three colour pickers, and "no swatch ever showing which
+  // colour was currently selected on any of the three screens." True whenever nothing had been
+  // explicitly chosen — the masthead rendered the default and no swatch claimed it, so the control
+  // disagreed with the screen it was controlling.
+  // ⭐ So an unset value resolves to WHAT IS ACTUALLY RENDERING, not to nothing. user-researcher
+  // asked for exactly this: open showing the colour the masthead is currently painting.
   var chosen = read(K_COLOR);
+  if (!chosen) {
+    try {
+      var cur = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+      if (/^#[0-9a-fA-F]{6}$/.test(cur)) chosen = cur;
+    } catch (e) {}
+  }
 
   // ⛔ OPEN SHOWING THE COLOUR THE MASTHEAD IS ACTUALLY RENDERING, never a declared-but-unread one.
   // user-researcher named this specifically: `fw-accent` is ambiguous evidence, and a settings page
@@ -144,7 +157,10 @@
     PALETTE.forEach(function (c) {
       var b = document.createElement("button");
       b.type = "button"; b.className = "swatch";
-      b.setAttribute("aria-pressed", String((chosen || "").toLowerCase() === c.hex.toLowerCase()));
+            var sel = (chosen || "").toLowerCase() === c.hex.toLowerCase();
+      b.setAttribute("aria-pressed", String(sel));
+      // A name under a ring is what makes the state readable at A+; the ring alone is a hairline.
+      if (sel) b.setAttribute("aria-current", "true");
       b.setAttribute("aria-label", c.name);
       var i = document.createElement("i"); i.style.background = c.hex;
       var s = document.createElement("span"); s.textContent = c.name;
