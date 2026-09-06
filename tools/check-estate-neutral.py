@@ -101,7 +101,11 @@ def strip_comments(html):
     # neither renders. ⚠️ ORDER MATTERS — URLs are stripped FIRST, so the `//` in `https://` is
     # already gone and cannot be mistaken for the start of a comment. A needle in executable code,
     # including a string literal, is still checked; the selftest asserts that direction too.
-    return re.sub(r"(?m)//.*$", " ", html)
+    html = re.sub(r"(?m)//.*$", " ", html)
+    # ⛔ AND CSS BLOCK COMMENTS. Found 2026-09-06 running a household export: onboarding's stylesheet
+    # explains, in /* */, why it does NOT use Fernwood's green — and the check read that explanation
+    # as the leak. Same rule as the other two: it does not reach a reader, so it is not checked.
+    return re.sub(r"/\*.*?\*/", " ", html, flags=re.S)
 
 
 def load(url=None, page=PAGE):
@@ -164,10 +168,15 @@ def selftest():
           not hits_in(strip_comments(jscomment), needles),
           "source explanation is being read as rendered content")
 
+    css = '<html><style>/* not Fernwood green, deliberately */</style><body><h1>My Home</h1></body></html>'
+    check("a needle in a CSS /* */ comment does not fail the page",
+          not hits_in(strip_comments(css), needles),
+          "a stylesheet's own reasoning is being read as rendered content")
+
     check("an EMPTY needle list is uncheckable, never a pass", not hits_in(clean, []),
           "no needles must never render as clean")
 
-    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 9 - len(fails), 9))
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 10 - len(fails), 10))
     return 1 if fails else 0
 
 

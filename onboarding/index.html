@@ -791,14 +791,16 @@
   // file served from any other origin would write a stranger's answer into HER silo. An
   // unrecognised host resolves to no Worker at all, and no Worker means the calm screen rather
   // than a write into the wrong place.
-  var PAGES_WORKERS = {
-    "fernwood-home": "https://fernwood-home.paul-kirschenbauer.workers.dev",
-    "fernwood-lab":  "https://fernwood-lab.paul-kirschenbauer.workers.dev",
-    "fernwood-qa":   "https://fernwood-qa.paul-kirschenbauer.workers.dev"
-  };
+  // ⛔ DERIVED, NOT ENUMERATED — a tenancy decision, not a tidiness one. These map KEYS spelled out
+  // one household's name, in the bytes every reader is served, on the page classed `engine` that
+  // serves EVERY estate. check-estate-neutral flagged them on the first household export
+  // (2026-09-06). The Pages host and its Worker share a label, and the label is read from the URL
+  // the reader is already on — so no household name is written here, and a new household needs no
+  // edit to this file at all. Same fix already applied to estate/index.html.
   var label = /\.pages\.dev$/.test(location.hostname) ? location.hostname.split(".")[0] : null;
-  var WORKER = (label && Object.prototype.hasOwnProperty.call(PAGES_WORKERS, label))
-    ? PAGES_WORKERS[label] : null;
+  var WORKER = (label && /^[a-z0-9-]{2,40}$/.test(label))
+    ? "https://" + label + ".paul-kirschenbauer.workers.dev"
+    : "https://fernwood.paul-kirschenbauer.workers.dev";
 
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
