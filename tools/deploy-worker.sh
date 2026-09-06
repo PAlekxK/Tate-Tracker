@@ -98,7 +98,14 @@ if [[ "$DO_DEPLOY" -eq 0 ]]; then
   echo "==> --no-deploy set; stopping before wrangler deploy."
 else
   echo "==> [3/4] Deploying the Worker to ${ENV}…"
-  ( cd worker && npx --yes wrangler@4 deploy "${WRANGLER_ARGS[@]}" )
+  # ⛔ `"${A[@]}"` ON AN EMPTY ARRAY IS AN UNBOUND VARIABLE UNDER `set -u` IN BASH 3.2, which is what
+  # macOS ships. The top-level target takes no --env flag, so its array is EMPTY — meaning the path
+  # to Mom's frozen instance died here with "WRANGLER_ARGS[@]: unbound variable" and had never once
+  # run to completion. `--env home` worked only because its array is non-empty, which is exactly the
+  # shape that hides a bug: the common path passes and the rare one is broken.
+  # ⚠️ One screen above this line there is already a bash-3.2 warning about `mapfile`. Writing that
+  # warning did not stop me writing this. Found by paulkirschenbauer-06 running the path.
+  ( cd worker && npx --yes wrangler@4 deploy ${WRANGLER_ARGS[@]+"${WRANGLER_ARGS[@]}"} )
 
   # ⛔ THE HEALTH CHECK MUST PROVE IT REACHED THE ENVIRONMENT IT DEPLOYED TO. The old one read a
   # hardcoded URL, so a deploy to any environment printed the top level's OK — a check that passes
