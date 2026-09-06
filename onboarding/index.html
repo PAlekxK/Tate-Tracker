@@ -243,8 +243,11 @@
   /* ⛔ IN THE FIELD, RIGHT-ALIGNED — the convention. The reveal WAS on the page as an underlined link
      under the second box, and Paul reported not seeing it at all. A control in an unconventional
      place is a control that does not exist for the reader; "it was already there" is not a defence. */
-  .pwwrap { position: relative; }
-  .pwwrap input { padding-right: 70px; }
+  /* display:flex, not the default. As a block wrapper around an inline-block <input> the box picks up
+     the baseline descender gap, so it renders a few px taller than the field and `top:50%` lands
+     BELOW the field's centre. Flex makes the wrapper exactly the input's height. */
+  .pwwrap { position: relative; display: flex; align-items: center; }
+  .pwwrap input { padding-right: 70px; flex: 1 1 auto; }
   .peek {
     position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
     background: none; border: 0; padding: 8px; min-height: 0; width: auto;
