@@ -1,5 +1,13 @@
 # MOM-CYCLE LOG — the lap chronicle
 
+<!-- meta-lap: 2026-09-06 -->
+<!-- ASSERTED BY THE 2026-09-05/06 SESSION, not measured, and overturnable by deleting this block.
+     The ~49 commits that moved this repo on 2026-09-05/06 were ONBOARDING DEVELOPMENT — the
+     first-run journey, its instrumentation, the production promotion, and two credential fixes.
+     They were NOT a lap of this cycle: no arrival fired it, Mom gave no input, and no return leg
+     was drafted or shipped. Recorded because the alternative reading — "a lap went unrecorded" —
+     is false, and would make the chronicle lie in the safe-looking direction. -->
+
 One section per lap, **written as the lap runs**, every line pointing at something durable. This is
 the evidence half of `MOM-CYCLE-MAP.md`: the map says what the loop *is*, this says what it *did*.
 
