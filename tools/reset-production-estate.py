@@ -214,6 +214,25 @@ def main():
         return 1
     print("  ✅ dump verified complete — %d of %d records have content." % (len(doomed), len(doomed)))
 
+    # ⛔ DELETING A GRANT KEY DOES NOT REVOKE THE GRANT IN THE REGISTER, AND THE REGISTER IS WHAT A
+    # HUMAN READS. Measured 2026-09-06: `fernwood-private/grants.json` showed p-paul's credential for
+    # est-e6696a issued 03:28 and `revokedAt: None` — live, by the record — while the estate held no
+    # grant key at all. An earlier reset had removed the door and left the record saying open. That
+    # is the record over-reporting in the reassuring direction, which is the one that costs an hour.
+    # ⚠️ THIS TOOL MUST NOT WRITE THE REGISTER — grant-mint.py declares itself its only writer, and a
+    # second writer for one fact is the modelling error this project already rejected once today. So
+    # it REPORTS, loudly, and names the exact command that closes the gap.
+    grants = [k for k in doomed if k.split(":")[1:2] == ["grant"]]
+    if grants:
+        print("\n  ⚠️  %d GRANT key(s) are in this delete. Removing the KV row kills the credential at"
+              % len(grants))
+        print("      the door, but the register will still read `revokedAt: None` for it — live, to")
+        print("      anyone who reads the record instead of the store.")
+        for k in grants[:10]:
+            print("        %s" % k)
+        print("      Close it with:  python3 tools/grant-mint.py revoke --person <id> --estate %s --env <env>"
+              % a.estate)
+
     if not a.confirm:
         print("\n  DRY RUN — nothing deleted. Re-run with --confirm to proceed.")
         return 0
