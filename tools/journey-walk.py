@@ -140,7 +140,7 @@ def view(url, actions, shot, watch=False, shot_dir=None):
 # screen either — but it means a late stop's absence is no longer independent evidence that the
 # late stop is broken. walk-integrity refuses a run with incomplete stops for exactly this reason.
 STOP_NAMES = ["01-arrive", "02-account", "03-named", "04-address",
-              "05-submitted", "06-confirm", "07-handoff"]
+              "05-submitted", "06-confirm", "06b-ranked", "07-handoff"]
 
 
 def journey(fresh, answers):
@@ -155,12 +155,21 @@ def journey(fresh, answers):
         # Arriving on a token skips the account screen. It is recorded as NOT REACHABLE rather than
         # silently missing — a stop that never happened must not read like one that passed.
         acts += ["shot:02-account"]
+    # ⭐ THE SEAT ACTUALLY RANKS `[paul-stated 2026-09-06]`: "not just breeze through it and fill it
+    # out, but read everything… what's natural to do." Until now every walk clicked "Save these"
+    # having chosen NOTHING, so the ranking screen was walked past rather than walked, and the
+    # arrival surface's only derived row could never populate. The chips are ranked BY TAP ORDER, so
+    # the order in a seat's profile IS its ranking — and this is where the seats finally differ in
+    # BEHAVIOUR rather than only in the strings they type. mom's condo has no garden and she does
+    # not rank gardening; that is C7's approved falsifier, walked rather than asserted.
+    ranks = ["click:button.interest[data-id=\"%s\"]" % r for r in (a.get("interests") or [])]
     acts += ["type:#pname=" + a["place"], "click:#go1", "shot:03-named",
              "type:#a1=" + a["line1"], "type:#city=" + a["city"],
              "type:#state=" + a["state"], "type:#zip=" + a["zip"], "shot:04-address",
              "click:#go2", "shot:05-submitted",
-             "click:#go3", "shot:06-confirm",
-             "click:#go5", "click:#gohome", "shot:07-handoff"]
+             "click:#go3", "shot:06-confirm"]
+    acts += ranks
+    acts += ["shot:06b-ranked", "click:#go5", "click:#gohome", "shot:07-handoff"]
     return acts
 
 

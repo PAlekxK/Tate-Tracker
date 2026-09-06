@@ -740,6 +740,11 @@
   var K_COLOR = "fw-accent";        // the account's chosen accent
   var K_OWNER = "fw-onboard-owner"; // WHOSE session the stored answers belong to
   var K_USER  = "fw-username";      // who is signed in — the top bar's middle state
+  // ⛔ THE RANKING WAS POSTED AND NEVER KEPT. It went to the Worker as an answer and nowhere else,
+  // so the arrival surface — the one screen whose job is to show what we DID with what she gave —
+  // had nothing to read and rendered a receipt with its only derived row missing. Found 2026-09-06
+  // by walking it. Same owner guard as the other answers: it is cleared when the grant changes.
+  var K_RANK  = "fw-onboard-interests";
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into
@@ -856,7 +861,7 @@
   // never typed, on the confirm screen, skipping the naming step entirely. The credential had
   // changed; the data had not. Every test rig missed it because they all open a fresh context.
   function clearAnswers() {
-    [K_STEP, K_ADDR, K_PARTS, K_NAME].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+    [K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
   }
   var grant = read(K_GRANT);
   var owner = read(K_OWNER);
@@ -1329,6 +1334,17 @@
     // Nothing chosen is a legitimate answer and is recorded as one — an empty ranking and an unasked
     // question are different observations, and only the first says she looked.
     el.go5.disabled = true; el.go5.innerHTML = "Saving…";
+    // Keep it locally too, LABELS not ids — the arrival surface shows her the order she chose, and
+    // an internal id ("house-systems") is not a thing anyone said. An empty ranking is stored as an
+    // empty list rather than skipped, so the arrival can tell "she looked and chose nothing" from
+    // "she never got there" — the same distinction this handler's own comment insists on.
+    try {
+      store(K_RANK, JSON.stringify(ranked.map(function (id) {
+        var found = null;
+        INTERESTS.forEach(function (it) { if (it.id === id) found = it.label; });
+        return found || id;
+      })));
+    } catch (e) {}
     postAnswer("onboard-interests", ranked.length ? ranked.join(" > ") : "(none chosen)",
                { type: "onboarding", field: "interests", step: 5, ranked: ranked })
       .then(function () {

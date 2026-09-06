@@ -67,7 +67,10 @@
   h1 { margin: 0; font-size: 1.5rem; line-height: 1.25; font-weight: 600; word-break: break-word; }
   /* ⚠️ WRAP, NEVER TRUNCATE. #pname promises 60 characters and the wide-eyed seat types 33 with a
      curly apostrophe; a masthead that ellipsises has edited her word. */
-  .who { margin: 6px 0 0; font-size: .9rem; opacity: .85; }
+  /* ⛔ UTILITY, NOT IDENTITY. This sat at masthead weight directly under her place's name — the
+     second most prominent thing on the screen was a username. It is here so a shared device can say
+     whose place this is; it is not what she came to see. */
+  .who { margin: 6px 0 0; font-size: .78rem; opacity: .62; font-weight: 400; }
 
   /* ── the banner: a STATE banner, not a feedback banner. Its content is what is happening to her
         place; the invitation to correct rides inside the rows, attached to specific things she
@@ -227,6 +230,10 @@
   // address→coordinates→zone path exists, this row is where its output belongs.
   var ranked = null;
   try { ranked = JSON.parse(read("fw-onboard-interests") || "null"); } catch (e) { ranked = null; }
+  // ⛔ AN EMPTY RANKING IS NOT A MISSING ONE. She looked at the list and chose nothing, which is a
+  // real answer; the row is omitted rather than printing "(none chosen)" at her, because silence
+  // beats telling someone their answer was empty. But the two states stay distinguishable in the
+  // record, which is what the ranking handler's own comment insists on.
   if (mine && ranked && ranked.length) {
     rows.push({
       label: "What I'll build first",
