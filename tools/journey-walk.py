@@ -150,7 +150,13 @@ STOP_NAMES = ["01-arrive", "02-account", "03-named", "04-address",
               # settings FROM the estate, returns, and only then crosses to the shelf. A stop list
               # whose numbers imply a route nobody takes is a small lie that a later reader would
               # have to re-derive from the actions.
-              "08-place-settings", "09-homes", "10-add-a-home", "11-account-settings"]
+              "08-place-settings", "09-homes", "10-add-a-home", "11-account-settings",
+              # ⭐ AND IT DID NOT END AT SETTINGS EITHER. Production ships the full application now,
+              # built from the household's own instance — and until this stop, no seat had ever seen
+              # it. Gate ① was certifying the onboarding AROUND the product and never the product.
+              # Same gap as the line above, one layer out again: the walk kept ending wherever the
+              # last thing built happened to end.
+              "12-the-app"]
 
 
 def journey(fresh, answers, origin=""):
@@ -193,7 +199,19 @@ def journey(fresh, answers, origin=""):
              "goto:" + base + "/estate/",
              'click:a[href="/homes/"]', "shot:09-homes",
              "click:#addbtn", "shot:10-add-a-home",
-             'click:a[href="/settings/account/"]', "shot:11-account-settings"]
+             'click:a[href="/settings/account/"]', "shot:11-account-settings",
+             # ⭐ STOP 12 — THE APP ITSELF, ADDED 2026-09-06. Production now ships the full 1.08 MB
+             # application built from the household's OWN instance, and until this stop existed no
+             # seat had ever seen it: the twelve-stop journey ended at settings, so gate ① certified
+             # onboarding and never the product. `goto:` because nothing links here yet — the
+             # arrival page's handoff to `/viewer` was removed on 2026-09-06 when that file was
+             # still Fernwood's build, and whether to restore it is Paul's call. This stop exists to
+             # give him the evidence for that call rather than to pre-empt it.
+             # ⛔ IT IS THE FIRST TEST OF R5, "empty not absent": every card here has nothing in it
+             # — no plants, no vehicles, no zones, no station. Whether that reads as "waiting for me"
+             # or as "broken" is the finding, and `strict` and `wide-eyed` are the seats to hear it
+             # from. A walk that skips this cannot answer the question Paul actually asked.
+             "goto:" + base + "/viewer", "shot:12-the-app"]
     return acts
 
 
