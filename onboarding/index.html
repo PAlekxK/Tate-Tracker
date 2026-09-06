@@ -307,8 +307,13 @@
     <!-- Shown only to someone who arrived on a link. Without it she taps an invitation and meets a
          signup form with no explanation of why the thing she was invited to is asking her to join. -->
     <p id="s0invite" class="soft" style="margin-bottom:10px" hidden><strong>You've been invited.</strong> First, a way back in — so this is yours on any phone, not just this one.</p>
-    <p class="lede">Let's set up your account.</p>
-    <p class="soft">This part is just your account — who you are and how to sign back in. Once it's done, you'll set up your place.</p>
+    <!-- ⭐ THE INTRODUCTION `[paul-ruled 2026-09-05: "we" in general]`. Three "Paul"s appear further
+         down this screen and nothing said who he was — on the screen where she is asked to trust a
+         stranger with her address. It used to sit on s2, three screens late; the invite-routing
+         ruling made everyone meet s0, so it becomes a one-line fix. Inclusive "let's" — Paul and her
+         together — is the register; the corporate "we" (the app as an entity) is what goes. -->
+    <p class="lede">Paul built this — let's set up your account.</p>
+    <p class="soft">This part is just the account — who you are and how you sign back in. Your place comes next.</p>
     <!-- ⭐ THE WORDS ARE `username` AND `password` `[paul-stated 2026-09-05]`. Not "a word only you
          know" — that was mine, and it was a euphemism for a thing everyone already has a name for.
          Every box says underneath what it is and who can see it, because that is the question a
@@ -320,7 +325,7 @@
          genuinely unchangeable and a clause would have been a false promise. `/api/account/username`
          re-keys it, so the sentence and the product now agree. ⛔ Email and phone still carry NO such
          clause: nothing re-keys those yet, and a clause is owed only where it is true. -->
-    <p class="quiet" style="margin-top:5px">This is how you sign in. Anyone who shares a place with you will see it, so pick something you don't mind them seeing — and you can change it later if you'd rather.</p>
+    <p class="quiet" style="margin-top:5px">This is how you sign in. Anyone who shares a place with you will see it, so pick something you don't mind them seeing. It can change later if you'd rather.</p>
     <!-- Answered WHILE she types, not after she commits. Finding out the name is taken by having the
          whole form bounce is the expensive way to learn it. -->
     <p id="unamestate" class="quiet" style="margin-top:4px" hidden></p>
@@ -334,7 +339,10 @@
          Paul. This said "there's no email reset", which is true of the AUTOMATIC kind and reads as
          "email will not help you" — while email is the only thing that does. A true sentence that
          points the reader away from the one working door is worse than a vague one. -->
-    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody else ever sees this — not even Paul. There's no automatic reset, so if you lose it, email him and he'll set you a new one by hand.</p>
+    <!-- ⛔ IT CONTRADICTED ITSELF ALOUD: nobody sees it, not even him … and he'll set you a new one.
+         If he cannot see it, how does he set it? He RESETS it, he does not READ it — and that was
+         never on the page. -->
+    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody else ever sees this — not even Paul. If you lose it he can't look it up, but email him and he'll set you a new one.</p>
 
     <!-- ⭐ THE PAIR SITS TOGETHER `[paul-stated 2026-09-05, walking it]`. "Password again" used to sit
          AFTER email and phone, so the two halves of one question had two unrelated questions wedged
@@ -391,15 +399,13 @@
     <div id="phonerow">
       <label for="uphone" style="margin-top:16px">Phone number <span class="optional" id="phoneopt">— optional</span></label>
       <input id="uphone" type="tel" autocomplete="tel" enterkeyhint="next">
-      <p class="quiet" style="margin-top:5px">Only if you'd rather be called than emailed.</p>
     </div>
 
     <!-- CLAUDE.md #5, "everything is changeable": one short VARIED clause attached to the thing just
          given — never a standing footer, and never the same phrasing twice running. ⛔ And only where
          it is TRUE. The colour is genuinely re-pickable here and later; the password is not casually
          changeable today, so nothing claims it is. -->
-    <p class="quiet" style="margin-top:14px">Nothing here is set in stone — the colour especially. Pick one now and swap it whenever you fancy.</p>
-    <p class="soft" style="margin-top:18px">Pick a colour scheme for your digital home</p>
+    <p class="soft" style="margin-top:18px">Pick a colour — it's the one your place will open in. Swap it whenever you like.</p>
     <div id="swatches" class="swatches"></div>
     <div class="trouble" id="trouble0" hidden></div>
     <button type="button" id="go0"><span class="tick">✓</span>Create my account</button>
@@ -501,7 +507,7 @@
          ~200px below the fold and behind the keyboard. That is the one line Paul most wants read
          (`paul-stated 2026-09-05`), rendering where she would almost certainly never meet it.
          A disclosure that arrives after the commit is not a disclosure. -->
-    <p class="quiet" style="margin-top:4px">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul — who built this — is the only other person who sees it, and you can change it any time.</p>
+    <p class="quiet" style="margin-top:4px">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul — who built this — is the only other person who sees it. If it comes out wrong, you can put it right on the next screen.</p>
     <!-- ⭐ ABOVE THE BUTTON, not below it (2026-09-05). It rendered under the commit control, so a
          reader who tapped and saw nothing move had to scroll PAST the button to find out why. Both
          walkers who met it thought the button was broken; one would have abandoned. The answer to
@@ -520,14 +526,14 @@
          and called it the interim of a vision with no wait at all; a promise of THREE
          is a promise to a person whose documented fear is getting things wrong. ───── -->
   <section id="s3" class="card" hidden>
-    <p class="lede">Got it — that's your place on the map.</p>
+    <p class="lede">Got it — that's the address down.</p>
     <p>Now it's our turn. We'll build your place around that address: the weather where you actually are, what grows there, what's worth keeping an eye on.</p>
     <!-- ⛔ THIS PROMISED CONTACT SHE MAY HAVE JUST DECLINED. It read "Paul will send you the first
          piece in a few days" — two screens after she may have chosen "Please don't contact me", on
          the screen whose only job is making the wait feel safe. It also promised a CADENCE nothing
          schedules (Paul sends by hand; "a few days" has been wrong before) and said "one more
          question" over more than one. Says only what is true for every reader. -->
-    <p class="soft">A few more things on the next screen, and the setup's done.</p>
+    <p class="soft">Next, a look at your place — and the setup's done.</p>
     <button type="button" id="go3">See your place</button>
   </section>
 
@@ -760,13 +766,13 @@
       desc: "Where the shut-off valve is. Where that repair happened. Things you'd forget.",
       builds: ["zone", "point-annotation"], soon: true },
     { id: "ask", label: "Asking questions about your place",
-      desc: "Ask about your own property and get answers out of its own record.",
+      desc: "Ask about your own place and get answers out of its own record.",
       builds: ["guru", "library"], soon: true },
     { id: "handover", label: "Handing it all over",
       desc: "Everything organised well enough that someone else could pick it up.",
       builds: ["papers", "succession", "export"], soon: true },
     { id: "other", label: "Something else",
-      desc: "Rank this if something's missing — then tell me in the box above.", builds: [] }
+      desc: "Rank this if something's missing — say what, and it gets looked at.", builds: [] }
   ];
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
@@ -1137,7 +1143,7 @@
         el.go5.disabled = false;
         el.go5.innerHTML = '<span class="tick">\u2713</span>Update these';
         el.s5thanks.textContent = ranked.length
-          ? "Got it — that's what I'll build first. Change the order any time; the last one wins."
+          ? "Got it — that's noted. Change the order any time; the last one wins."
           : "Noted — nothing yet.";
         el.s5thanks.hidden = false;
       })
@@ -1261,7 +1267,7 @@
     postAnswer("onboard-" + kind, note, { type: "onboarding", field: kind, step: 4 })
       .then(function () {
         el.s4ask.hidden = true;
-        el.s4thanks.textContent = "Got it — that comes straight to me. You're done.";
+        el.s4thanks.textContent = "Got it — that goes straight to Paul.";
         el.s4thanks.hidden = false;
       })
       ["catch"](function () {
