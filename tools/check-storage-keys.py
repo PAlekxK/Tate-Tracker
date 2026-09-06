@@ -41,7 +41,12 @@ ONBOARDING = os.path.join(ROOT, "onboarding", "index.html")
 def household_surfaces(root=ROOT):
     import glob as _g
     out = []
-    for d in sorted(_g.glob(os.path.join(root, "*", "index.html"))):
+    # ⛔ RECURSIVE, AND THAT WAS THE THIRD MISS OF THE DAY. A one-level glob found onboarding/,
+    # estate/ and homes/ and silently skipped settings/place/ and settings/account/ — built minutes
+    # after it. The morning's version scanned only viewer.html; the noon version named two files by
+    # hand; this one looked one directory deep. Each fix was correct about the instance it was
+    # written for and wrong about the shape, which is why the depth is now unbounded.
+    for d in sorted(_g.glob(os.path.join(root, "**", "index.html"), recursive=True)):
         rel = os.path.relpath(d, root)
         if rel.split(os.sep)[0] in ("node_modules", "engine", "tools", "guides", "worker"):
             continue

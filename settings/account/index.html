@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Your account</title>
+<!--
+  settings/account/index.html — the PERSON's settings, not a place's.
+
+  ⭐ PAINTED IN THE PROFILE COLOUR `[paul-ruled 2026-09-06, VOCABULARY §3g]`: "if they're in their
+  account settings, it's their account colour." This surface belongs to no home, so it wears none of
+  them — which is also what keeps a home's colour meaning "which one am I in" everywhere else.
+
+  ⛔ THE PROFILE COLOUR IS A DIFFERENT FIELD FROM THE PLACE'S, and the shipped signup copy is what
+  settles that rather than an argument: s2 says "Pick a colour — it's the one YOUR PLACE will open
+  in", so the swatch chosen during setup has always been the estate's. This one is new, it is set
+  here rather than during setup, and nothing in the flow asks a person to choose a colour for a
+  shelf they have not seen yet.
+
+  ⛔ HOW TO REACH YOU LEADS, and that is not a layout preference. It is the highest-stakes field in
+  the product — pre-selected by default, asked once on the first screen of setup, and then never
+  shown again — and its "please don't" branch closes the only route to a forgotten password. The
+  `strict` and `mom` seats each asked for it back, independently and unprompted.
+
+  ⛔ CUT FROM PASS 1, DELIBERATELY: a password change (no reset path exists, so half a mechanism is
+  worse than none), sign-out (it ships only with its consequence line), and any disclosure at all.
+-->
+<style>
+  :root { --ink:#23301f; --ink-soft:#5d6b57; --line:#d8eacc; --accent:#3F5266; --paper:#fff; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:0 0 56px;
+    font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color:var(--ink); background:linear-gradient(#edf7e6,#e2f0d8); background-attachment:fixed;
+    -webkit-text-size-adjust:100%; }
+  .wrap { max-width:660px; margin:0 auto; padding:0 18px; }
+  header { background:var(--accent); color:#fff; padding:18px 18px 20px; }
+  header .inner { max-width:660px; margin:0 auto; }
+  .utility { margin:0 0 10px; }
+  .ubtn { color:#fff; opacity:.8; text-decoration:none; font-size:.82rem; position:relative; }
+  .ubtn:hover, .ubtn:focus-visible { opacity:1; }
+  .tap44::after { content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+                  width:44px; height:44px; min-width:100%; }
+  h1 { margin:0; font-size:1.5rem; font-weight:600; }
+  .card { background:var(--paper); border:1.5px solid var(--line); border-radius:18px; padding:20px 18px; margin:18px 0; }
+  label { display:block; font-size:.82rem; letter-spacing:.02em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+  .quiet { font-size:.92rem; color:var(--ink-soft); margin-top:6px; }
+  .value { font-size:1.05rem; }
+  .radio { display:flex; align-items:center; gap:10px; margin:10px 0; }
+  .radio input { width:22px; height:22px; }
+  input[type=text] { width:100%; font:inherit; padding:11px; border:1.5px solid #c6d6bb; border-radius:12px; }
+  .swatches { display:flex; flex-wrap:wrap; gap:12px; margin-top:4px; }
+  .swatch { background:none; border:0; padding:0; cursor:pointer; font:inherit; text-align:center; width:66px; }
+  .swatch i { display:block; width:44px; height:44px; border-radius:50%; margin:0 auto; border:3px solid transparent; }
+  .swatch span { display:block; font-size:.82rem; color:var(--ink-soft); margin-top:4px; }
+  .swatch[aria-pressed="true"] i { border-color:var(--ink); }
+  .swatch[aria-pressed="true"] span { font-weight:600; color:var(--ink); }
+  button.save { font:inherit; cursor:pointer; border-radius:12px; padding:12px 18px; border:1.5px solid var(--accent);
+                background:var(--accent); color:#fff; font-weight:600; }
+  .tick { margin-right:7px; }
+  .trouble { color:#8a3b2a; margin-top:10px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+
+<header><div class="inner">
+  <div class="utility"><a class="ubtn tap44" href="/homes/">‹ Your homes</a></div>
+  <h1>Your account</h1>
+</div></header>
+
+<div class="wrap">
+  <div class="card">
+    <label>How to reach you</label>
+    <div class="radio"><input type="radio" name="contact" id="c-email" value="email"><label for="c-email" style="text-transform:none;font-size:1rem;margin:0">By email</label></div>
+    <div class="radio"><input type="radio" name="contact" id="c-phone" value="phone"><label for="c-phone" style="text-transform:none;font-size:1rem;margin:0">By phone</label></div>
+    <div class="radio"><input type="radio" name="contact" id="c-none" value="none"><label for="c-none" style="text-transform:none;font-size:1rem;margin:0">Please don't get in touch</label></div>
+    <p class="quiet" id="nonenote" hidden>I'll keep to that. It also means I can't send you a new password if you lose yours — email me and I'll sort it out.</p>
+  </div>
+
+  <div class="card">
+    <label>Your colour</label>
+    <div class="swatches" id="swatches"></div>
+    <p class="quiet">This one is yours — it paints your homes list and this page. Each home keeps its own.</p>
+  </div>
+
+  <div class="card">
+    <label>Username</label>
+    <p class="value" id="uname">—</p>
+    <p class="quiet">How you sign in. Anyone who shares a home with you sees it.</p>
+  </div>
+
+  <p><button type="button" class="save" id="save"><span class="tick">✓</span>Save</button></p>
+  <p class="trouble" id="trouble" hidden></p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var label = (location.hostname.split(".")[0] || "");
+  var WORKER = (/\.pages\.dev$/.test(location.hostname) && /^[a-z0-9-]{2,40}$/.test(label))
+    ? "https://" + label + ".paul-kirschenbauer.workers.dev"
+    : "https://fernwood.paul-kirschenbauer.workers.dev";
+
+  var K_GRANT = "fw-grant", K_USER = "fw-username", K_PREF = "fw-onboard-contact",
+      K_PROFILE = "fw-profile-accent";
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function el(id) { return document.getElementById(id); }
+
+  var PALETTE = [
+    { id:"stone", name:"Stone", hex:"#3F5266" }, { id:"pine", name:"Pine", hex:"#2F5D3A" },
+    { id:"lake", name:"Lake", hex:"#2C5674" }, { id:"clay", name:"Clay", hex:"#7A3E2A" },
+    { id:"dusk", name:"Dusk", hex:"#6B4676" }, { id:"spruce", name:"Spruce", hex:"#245C5C" },
+    { id:"fern", name:"Fern", hex:"#2C4A2C" }
+  ];
+
+  var grant = read(K_GRANT);
+  var chosen = read(K_PROFILE);
+  if (chosen && /^#[0-9a-fA-F]{6}$/.test(chosen)) document.documentElement.style.setProperty("--accent", chosen);
+  var u = read(K_USER);
+  if (u) el("uname").textContent = u;
+
+  function paintSwatches() {
+    var host = el("swatches"); host.innerHTML = "";
+    PALETTE.forEach(function (c) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "swatch";
+      b.setAttribute("aria-pressed", String((chosen || "").toLowerCase() === c.hex.toLowerCase()));
+      b.setAttribute("aria-label", c.name);
+      var i = document.createElement("i"); i.style.background = c.hex;
+      var s = document.createElement("span"); s.textContent = c.name;
+      b.appendChild(i); b.appendChild(s);
+      b.addEventListener("click", function () {
+        chosen = c.hex;
+        document.documentElement.style.setProperty("--accent", c.hex);
+        paintSwatches();
+      });
+      host.appendChild(b);
+    });
+  }
+  paintSwatches();
+
+  function setPref(v) {
+    var r = el("c-" + (v === "phone" ? "phone" : v === "none" ? "none" : "email"));
+    if (r) r.checked = true;
+    el("nonenote").hidden = v !== "none";
+  }
+  setPref(read(K_PREF) || "email");
+  ["c-email", "c-phone", "c-none"].forEach(function (id) {
+    el(id).addEventListener("change", function () { el("nonenote").hidden = el("c-none").checked === false; });
+  });
+
+  // The record is the truth; what the device holds is a cache. Same rule as every other surface.
+  if (grant) {
+    fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        if (d.contactPref) { store(K_PREF, d.contactPref); setPref(d.contactPref); }
+        if (d.profileAccent) {
+          chosen = d.profileAccent; store(K_PROFILE, d.profileAccent);
+          document.documentElement.style.setProperty("--accent", d.profileAccent);
+          paintSwatches();
+        }
+      })["catch"](function () {});
+  }
+
+  el("save").addEventListener("click", function () {
+    var btn = el("save");
+    btn.disabled = true; btn.innerHTML = "Saving…";
+    var pref = el("c-none").checked ? "none" : el("c-phone").checked ? "phone" : "email";
+    var body = { contactPref: pref };
+    if (chosen) body.profileAccent = chosen;
+    if (u) body.username = u;
+    var h = { "Content-Type": "application/json" };
+    if (grant) h["X-Grant"] = grant;
+    fetch(WORKER + "/api/profile", { method: "POST", headers: h, body: JSON.stringify(body) })
+      .then(function (r) {
+        if (!r.ok) throw new Error("not ok");
+        store(K_PREF, pref);
+        if (chosen) store(K_PROFILE, chosen);
+        location.href = "/homes/";                 // the loop closes on the return trip
+      })["catch"](function () {
+        btn.disabled = false; btn.innerHTML = '<span class="tick">✓</span>Save';
+        el("trouble").textContent = "That didn't go through — your changes are still here, tap Save once more.";
+        el("trouble").hidden = false;
+      });
+  });
+})();
+</script>
+</body>
+</html>

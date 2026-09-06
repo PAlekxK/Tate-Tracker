@@ -784,6 +784,12 @@
   // named it before either walked. Kept locally so the arrival can say what was chosen, and cleared
   // with the rest when the grant changes.
   var K_PREF  = "fw-onboard-contact";
+  // ⛔ DECLARED HERE, USED ELSEWHERE — and that is deliberate. This file is the canonical roster of
+  // every browser key the household surfaces touch (check-storage-keys enforces it), so a key owned
+  // by account settings is still declared here or nothing polices it. The PERSON's colour, as
+  // opposed to K_COLOR which is a PLACE's [paul-ruled 2026-09-06, VOCABULARY §3g]. Nothing in the
+  // setup flow writes it: a reader is not asked to colour a shelf she has not seen.
+  var K_PROFILE = "fw-profile-accent";   // eslint-disable-line no-unused-vars
 
   // The Worker is DERIVED FROM THE ORIGIN and FAILS CLOSED — the same shape as the viewer's
   // PAGES_WORKERS map, and for a sharper reason here. This page writes a person's answer into

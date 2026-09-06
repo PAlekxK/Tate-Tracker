@@ -601,7 +601,8 @@ async function handleSession(request, env, scope) {
   // credential-shaped VIEW of it, refreshed every time she signs in — which is precisely when a new
   // device needs it. A field is carried only when the account HAS it, so an older account with no
   // address does not overwrite anything with null.
-  for (const f of ["placeName", "accent", "address", "addressParts", "ranked", "contactPref"]) {
+  for (const f of ["placeName", "accent", "address", "addressParts", "ranked", "contactPref",
+                   "profileAccent"]) {
     if (acct[f] !== undefined && acct[f] !== null) grantRow[f] = acct[f];
   }
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
@@ -3225,6 +3226,11 @@ export default {
           if (b.addressParts && typeof b.addressParts === "object") grow.addressParts = b.addressParts;
           if (Array.isArray(b.ranked)) grow.ranked = b.ranked.slice(0, 20);
           if (["email", "phone", "none"].indexOf(b.contactPref) >= 0) grow.contactPref = b.contactPref;
+          // ⭐ THE PERSON'S OWN COLOUR, distinct from the place's `accent` [paul-ruled 2026-09-06].
+          // They never compete: this paints the shelf of homes and account settings; `accent` paints
+          // a home and anything derived from it. Named by SURFACE, each has a territory the other
+          // never enters.
+          if (typeof b.profileAccent === "string") grow.profileAccent = b.profileAccent.slice(0, 9);
           await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
           return json({ ok: true, on: "grant", name: grow.placeName || null, accent: grow.accent || null });
         }
@@ -3241,6 +3247,7 @@ export default {
         if (typeof b.email === "string") acct.email = b.email.trim().slice(0, 200) || null;
         if (typeof b.phone === "string") acct.phone = b.phone.trim().slice(0, 40) || null;
         if (["email", "phone", "none"].indexOf(b.contactPref) >= 0) acct.contactPref = b.contactPref;
+        if (typeof b.profileAccent === "string") acct.profileAccent = b.profileAccent.slice(0, 9);
         if (typeof b.address === "string") acct.address = b.address.slice(0, 300);
         if (b.addressParts && typeof b.addressParts === "object") acct.addressParts = b.addressParts;
         if (Array.isArray(b.ranked)) acct.ranked = b.ranked.slice(0, 20);
@@ -3402,7 +3409,8 @@ export default {
                       // words. A grant reads what it wrote plus what the household published; it
                       // never reads what somebody else said.
                       address: grant.address || null, addressParts: grant.addressParts || null,
-                      ranked: grant.ranked || null, contactPref: grant.contactPref || null });
+                      ranked: grant.ranked || null, contactPref: grant.contactPref || null,
+                      profileAccent: grant.profileAccent || null });
       }
     }
     if (url.pathname === "/api/grant/whoami") return json({ error: "not-found", path: url.pathname }, 404);   // no grant presented → the same 404

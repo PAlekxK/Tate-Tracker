@@ -123,7 +123,7 @@
     : "https://fernwood.paul-kirschenbauer.workers.dev";
 
   var K_GRANT = "fw-grant", K_NAME = "fw-onboard-name", K_COLOR = "fw-accent",
-      K_PARTS = "fw-onboard-parts", K_USER = "fw-username";
+      K_PARTS = "fw-onboard-parts", K_USER = "fw-username", K_PROFILE = "fw-profile-accent";
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function el(id) { return document.getElementById(id); }
 
@@ -140,6 +140,12 @@
   })();
 
   var grant = read(K_GRANT);
+  // ⭐ THE SHELF WEARS THE PERSON'S COLOUR, NEVER A HOME'S [paul-ruled 2026-09-06]. It belongs to no
+  // place — which is exactly what keeps a home's colour meaning "which one am I in" everywhere else.
+  // Each row still wears its own home's colour as a rail, so the shelf predicts the next screen
+  // without pretending to be a place.
+  var prof = read(K_PROFILE);
+  if (prof && /^#[0-9a-fA-F]{6}$/.test(prof)) document.documentElement.style.setProperty("--accent", prof);
   var user = read(K_USER);
   if (user) { el("who").textContent = "Signed in as " + user; el("who").hidden = false; }
 
@@ -195,6 +201,10 @@
         // ⚠️ ONE HOME, AND THAT IS THE TRUTH RATHER THAN A LIMITATION OF THIS PAGE. A credential
         // resolves to exactly one estate today; there is no person→estates index. Rendering an
         // array of one keeps this page correct the day there are two, with no second shape to build.
+        if (d.profileAccent && /^#[0-9a-fA-F]{6}$/.test(d.profileAccent)) {
+          try { localStorage.setItem(K_PROFILE, d.profileAccent); } catch (e) {}
+          document.documentElement.style.setProperty("--accent", d.profileAccent);
+        }
         renderHomes([{ name: d.name, accent: d.accent, addressParts: d.addressParts }]);
       })["catch"](function () {});
   }

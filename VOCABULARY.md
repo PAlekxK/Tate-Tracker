@@ -291,6 +291,46 @@ deployment binding, so there is no "add another place" path at all — and Bob's
 two houses he sets up himself from one invite. That needs the per-request scope conversion AND a
 found-a-new-estate flow, neither of which exists.
 
+## 3g · TWO COLOURS, AND THE SCREEN DECIDES WHICH ONE PAINTS `[paul-ruled 2026-09-06]`
+
+> *"Technically we have them choose a PROFILE colour — that would be the colour in the account menu
+> and the account settings pages. And then they can also set individual colours for their individual
+> estates. For now we just make the colour dependent on what screen they're on: if they're looking
+> at a given estate, or estate settings, or other derivative pages, it's the colour they selected for
+> that estate. And if they're in their account settings, it's their account colour."*
+
+| colour | belongs to | paints |
+|---|---|---|
+| **the place's colour** | one estate | that estate, its settings, and anything derived from it |
+| **the profile colour** | the person | the shelf of homes, account settings, and anything not inside a place |
+
+⛔ **THEY DO NOT COMPETE, AND THAT IS THE WHOLE RULING.** They were on a collision course only while
+both were called "the accent" and neither said where it applied. Named by SURFACE, each has a
+territory the other never enters — which is why two pickers is the right answer here and would be
+the wrong answer if they painted the same pixels.
+
+⭐ **WHICH ONE THE SIGNUP PICK IS, SETTLED BY THE SHIPPED COPY RATHER THAN BY ARGUMENT.** s2 reads
+*"Pick a colour — it's the one **your place** will open in."* So the swatch chosen at signup is the
+**place's** colour and always was; `accent` on the account row has been the estate's colour since it
+shipped, and `estate/index.html` painting the masthead with it is correct, not a bug. The **profile**
+colour is the genuinely new field, and it is set in account settings rather than during setup —
+nothing in the flow should ask a person to choose a colour for a shelf they have not yet seen.
+
+⚠️ **ux-expert ruled the opposite on 2026-09-06 — colour is per-place, one concept, one picker — and
+Paul overruled it the same day.** Recorded rather than quietly replaced: its argument was that an
+account colour "destroys the fastest pre-literate *which one am I in* signal available." That risk
+is real and is answered by the surface rule, not dismissed by it: inside a place, the place's colour
+always wins, so the signal ux-expert was protecting is exactly the one preserved.
+
+⭐ **THE ONE SEAM, and both design seats found it independently:** a home's row on the shelf. The
+shelf is painted in the person's colour and belongs to no place — so each row wears its own home's
+colour as a rail rather than a fill. The shelf then predicts the screen the next tap opens without
+ever pretending to be a place.
+
+⛔ **`identity.theme.main`** in `instance/*.json` is the same concept as the place's colour, declared
+at build and read by nothing (C7). Two writers for one value is how a fork starts: whichever becomes
+authoritative, the other must be derived from it or deleted. **Open, and it is Paul's.**
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
