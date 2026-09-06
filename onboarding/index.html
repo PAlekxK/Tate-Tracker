@@ -547,7 +547,7 @@
          schedules (Paul sends by hand; "a few days" has been wrong before) and said "one more
          question" over more than one. Says only what is true for every reader. -->
     <p class="soft">Next, a look at your place — and the setup's done.</p>
-    <button type="button" id="go3">See your place</button>
+    <button type="button" id="go3">Take a look</button>
   </section>
 
   <!-- ── SCREEN 4 · HER PLACE, on day one ─────────────────────────────────────────
@@ -688,7 +688,7 @@
          first one's estate and can read and write her records with or without it. This just makes
          the shared estate visible, which is a reason to fix the tenancy, not to hide the door. -->
     <div id="handoff" hidden style="margin-top:20px">
-      <a id="gohome" class="bigbtn" href="/viewer">Open your place</a>
+      <a id="gohome" class="bigbtn" href="/viewer">Open my home</a>
       <!-- ⭐ THE OFFER, NOT A RECEIPT `[paul-stated 2026-09-05]`: the foundation finishes, the
            personalising never does, and her willingness is the only throttle. The old line said she
            COULD come back without saying there was anything to come back FOR. ⛔ And it must not
@@ -866,6 +866,14 @@
   function paintHandoff() {
     if (!el.handoff) return;
     el.handoff.hidden = !(read(K_USER) && read(K_GRANT));
+    // ⭐ NAME THE DESTINATION WITH HER OWN NAME FOR IT. "your place" was doing double duty — the
+    // physical property AND the app — and two buttons one screen apart read "See your place" and
+    // "Open your place" while going to completely different destinations. Paul could not tell what
+    // the second meant, and he specified the flow. Using the name she gave removes the ambiguity
+    // without minting a new abstract noun for the digital surface, which is the trap the earlier
+    // "your digital home" attempt fell into. It also matches the top bar, which already reads this way.
+    var named = read(K_NAME);
+    if (el.gohome) el.gohome.textContent = named ? "Open " + named : "Open my home";
   }
 
   function paintName() {
