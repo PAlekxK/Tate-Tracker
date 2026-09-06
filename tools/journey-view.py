@@ -44,11 +44,25 @@ const { chromium } = require('playwright');
 const cfg = JSON.parse(process.argv[2]);
 (async () => {
   const b = await chromium.launch();
-  const ctx = await b.newContext({ viewport: { width: 414, height: 848 } });
+  // ⭐ deviceScaleFactor 3 — HER DEVICE'S RESOLUTION, not a third of it. Every pixel review to date
+  // read a 1x raster (36KB where 172KB was available), so hairline rules, sub-pixel misalignment and
+  // small-type legibility were all being judged from an image that had thrown them away. isMobile +
+  // hasTouch also make the page behave as a phone rather than a narrow desktop.
+  // ⛔ AND THE FLOOR THAT WASN'T: real Chrome cannot be RESIZED below ~606px by hand, but a
+  // CDP-driven Chrome has no such floor. The instrument was never choosing between her width and a
+  // real browser — measured 2026-09-05, real Chrome 152 and bundled Chromium render this page
+  // identically (same font stack, same h1 width, same height).
+  const ctx = await b.newContext({
+    viewport: { width: 414, height: 848 },
+    deviceScaleFactor: 3, isMobile: true, hasTouch: true,
+  });
   ctx.setDefaultTimeout(8000);
   if (cfg.cookie) await ctx.addCookies([Object.assign({}, cfg.cookie, { secure: true, httpOnly: true })]);
   const page = await ctx.newPage();
-  const out = { steps: [], console: [] };
+  // A screenshot's entire meaning is its geometry. Recording it here means a later reader can tell
+  // what the image is EVIDENCE OF, instead of assuming the standard it was supposed to meet.
+  const out = { steps: [], console: [],
+                geometry: { width: 414, height: 848, deviceScaleFactor: 3, isMobile: true } };
   // A walk that cannot say WHY a write failed cannot attribute it later. Errors only —
   // a full console dump buries the one line that matters.
   page.on('console', (m) => { if (m.type() === 'error') out.console.push(m.text().slice(0, 300)); });

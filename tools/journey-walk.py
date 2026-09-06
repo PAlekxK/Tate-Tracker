@@ -167,7 +167,21 @@ def main():
             print("  %-14s   ---   NOT REACHABLE on this path — re-run with --fresh to walk it" % name)
             continue
         got = view(url, actions, os.path.join(d, name + ".png"))
-        record["stops"].append(dict(got, stop=name, status="walked"))
+        # ⛔ CONSUME THE FAILURE THE HARNESS ALREADY RECORDED. journey-view reports ok:false per
+        # action; this filed every stop as "walked" without ever reading it. All three false greens
+        # tonight were the same shape — a plausible artifact produced having done nothing — and the
+        # evidence to refuse two of them was sitting in the record, unconsumed.
+        failed = [x for x in (got.get("steps") or []) if not x.get("ok")]
+        status = "walked"
+        if got.get("error"):
+            status = "error"
+        elif failed:
+            status = "incomplete"
+        record["stops"].append(dict(got, stop=name, status=status,
+                                    failedActions=[x.get("action") for x in failed] or None))
+        if status != "walked":
+            print("       ⛔ %s — %d action(s) did not happen: %s"
+                  % (status.upper(), len(failed), ", ".join(x.get("action","?") for x in failed[:3])))
         first = next((l for l in got["screen"].splitlines() if l.startswith("PAGE TITLE")), "")
         print("  %-14s %5.1fs  %s%s" % (name, got["seconds"], first, "  ⛔ " + (got["error"] or "") if got["error"] else ""))
 
