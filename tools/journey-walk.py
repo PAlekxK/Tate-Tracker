@@ -80,11 +80,21 @@ def view(url, actions, shot):
 
 # The journey as a sequence of STOPS. Each stop is what the walker has done so far — replayed from
 # the start, so every stop is independently reproducible and a failure at stop 4 does not hide stop 3.
-def stops(fresh, answers):
+def stops(fresh, answers, run_tag=""):
     a = answers
-    signup = ([] if not fresh else [
-        "type:#uname=" + a["username"], "type:#uword=" + a["password"], "type:#uword2=" + a["password"],
-        "type:#uemail=" + a["email"], "click:#go0"])
+    # ⛔ A UNIQUE USERNAME PER STOP. Every stop replays the journey FROM THE START, and account
+    # creation is not idempotent — so with one username the first stop created the account and every
+    # later stop hit "that username is taken" and never left s0. Found 2026-09-05 by noticing three
+    # screenshots were byte-identical; the text dump read as a plausible account screen every time,
+    # so nothing in the transcript said the walk had stopped walking. A replayed step that CHANGES
+    # THE WORLD has to vary the thing the world remembers.
+    def signup_for(stop):
+        if not fresh:
+            return []
+        u = "%s-%s%s" % (a["username"], run_tag, stop.split("-")[0])
+        return ["type:#uname=" + u, "type:#uword=" + a["password"], "type:#uword2=" + a["password"],
+                "type:#uemail=" + a["email"], "click:#go0"]
+    signup = signup_for("00")
     return [
         ("01-arrive", []),
         # ⛔ None, NOT []. This read `signup[:-1] if fresh else []`, so on the arrive-with-a-token
@@ -92,15 +102,15 @@ def stops(fresh, answers):
         # recorded itself COMPLETE. A stop named "account" that never visits the account screen and
         # reports success is a false green, and it is why s0 looked covered while nothing walked it.
         # None means "not reachable in this mode" and the runner refuses to score it.
-        ("02-account", signup[:-1] if fresh else None),
-        ("03-named", signup + ["type:#pname=" + a["place"], "click:#go1"]),
-        ("04-address", signup + ["type:#pname=" + a["place"], "click:#go1",
+        ("02-account", signup_for("02")[:-1] if fresh else None),
+        ("03-named", signup_for("03-named") + ["type:#pname=" + a["place"], "click:#go1"]),
+        ("04-address", signup_for("04-address") + ["type:#pname=" + a["place"], "click:#go1",
                                  "type:#a1=" + a["line1"], "type:#city=" + a["city"],
                                  "type:#state=" + a["state"], "type:#zip=" + a["zip"]]),
-        ("05-submitted", signup + ["type:#pname=" + a["place"], "click:#go1",
+        ("05-submitted", signup_for("05-submitted") + ["type:#pname=" + a["place"], "click:#go1",
                                    "type:#a1=" + a["line1"], "type:#city=" + a["city"],
                                    "type:#state=" + a["state"], "type:#zip=" + a["zip"], "click:#go2"]),
-        ("06-confirm", signup + ["type:#pname=" + a["place"], "click:#go1",
+        ("06-confirm", signup_for("06-confirm") + ["type:#pname=" + a["place"], "click:#go1",
                                  "type:#a1=" + a["line1"], "type:#city=" + a["city"],
                                  "type:#state=" + a["state"], "type:#zip=" + a["zip"],
                                  "click:#go2", "click:#go3"]),
@@ -145,7 +155,7 @@ def main():
               "fresh": bool(a.fresh), "personId": v.get("personId"),
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
-    for name, actions in stops(a.fresh, ans):
+    for name, actions in stops(a.fresh, ans, run_tag=dt.datetime.now().strftime("%H%M%S")):
         if actions is None:
             # Unreachable is a RESULT, and it is not a pass. It is recorded so a reader of the
             # transcript can see the screen went unvisited instead of inferring it was fine.
