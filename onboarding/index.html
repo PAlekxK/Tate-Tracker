@@ -219,6 +219,11 @@
     border: 1.5px solid #d9c9a4; border-radius: 13px;
     background: #fdf7e9; font-size: .96rem;
   }
+  /* a step marker, not a heading — it tells her WHERE she is, and stays quieter than the lede */
+  .step {
+    font-weight: 700; font-size: .82rem; letter-spacing: .07em; text-transform: uppercase;
+    color: #5d7387; margin: 0 0 6px;
+  }
   .picks { display: flex; flex-direction: column; gap: 9px; margin-top: 9px; }
   .pick {
     display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px;
@@ -265,8 +270,14 @@
        because it is an account-level choice and because it is the flow's only no-wrong-answer beat.
        ⛔ DEV ONLY UNTIL REVIEWED — credential code, unreviewed. -->
   <section id="s0" class="card" hidden>
-    <p class="lede">Let's set you up.</p>
-    <p class="soft">Two things, then we'll get to your place.</p>
+    <!-- ⭐ NAME THE STEP `[paul-stated 2026-09-05, walking it]`. The screen never said what part of the
+         process it was, so a reader typing a password could not tell whether this WAS the setup or
+         a gate in front of it. It also promised "two things" above six asks — flagged independently
+         by two seats — and the fix is not a better count but no count at all: name the step, say what
+         comes after, and the reader can see the shape without being given a number to check. -->
+    <p class="step">Account setup</p>
+    <p class="lede">Let's set up your account.</p>
+    <p class="soft">This part is just your account — who you are and how to sign back in. Once it's done, you'll set up your place.</p>
     <!-- ⭐ THE WORDS ARE `username` AND `password` `[paul-stated 2026-09-05]`. Not "a word only you
          know" — that was mine, and it was a euphemism for a thing everyone already has a name for.
          Every box says underneath what it is and who can see it, because that is the question a
