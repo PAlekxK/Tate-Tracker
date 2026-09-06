@@ -299,6 +299,9 @@
          by two seats — and the fix is not a better count but no count at all: name the step, say what
          comes after, and the reader can see the shape without being given a number to check. -->
     <p class="step">Account setup</p>
+    <!-- Shown only to someone who arrived on a link. Without it she taps an invitation and meets a
+         signup form with no explanation of why the thing she was invited to is asking her to join. -->
+    <p id="s0invite" class="soft" style="margin-bottom:10px" hidden><strong>You've been invited.</strong> First, a way back in — so this is yours on any phone, not just this one.</p>
     <p class="lede">Let's set up your account.</p>
     <p class="soft">This part is just your account — who you are and how to sign back in. Once it's done, you'll set up your place.</p>
     <!-- ⭐ THE WORDS ARE `username` AND `password` `[paul-stated 2026-09-05]`. Not "a word only you
@@ -727,7 +730,7 @@
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
-   "unamestate", "uword2state", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
+   "unamestate", "uword2state", "s0invite", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
@@ -1274,7 +1277,22 @@
   // credential could only mean a broken link. Now it means "you have not signed up yet", which is the
   // normal front door of a registration product. A bad WORKER still fails closed.
   if (!WORKER) { show("s-nolink"); return; }
-  if (!grant) { show("s0"); el.uname.focus(); return; }
+  // ⭐ AN INVITED READER ROUTES THROUGH ACCOUNT CREATION `[paul-ruled 2026-09-05]`. A grant link used
+  // to skip s0 entirely, so someone texted a link tapped it, named her place, and never chose a
+  // username or password — which meant the ONLY way back in was that exact message on that exact
+  // phone. Open it on another device, or lose the text, and she began again as a stranger. "Text Mom
+  // a link to set up an account" did not set up an account.
+  //
+  // ⛔ THE TEST IS "DOES SHE ALREADY HAVE ONE", NOT "DID SHE ARRIVE WITH A LINK". K_USER is set only
+  // by account creation, so a returning reader skips s0 and resumes, and a first-time reader makes an
+  // account whether or not she was invited. That is Paul's rule — route through creation UNLESS the
+  // account exists — expressed as the one condition that actually distinguishes the two.
+  if (!read(K_USER)) {
+    if (grant) {
+      el.s0invite.hidden = false;                    // say why she is being asked, since she was invited
+    }
+    show("s0"); el.uname.focus(); return;
+  }
 
   // Recognition is the SERVER's to confirm, never this page's. An unknown, revoked or
   // other-estate credential returns the router's own 404 — deliberately byte-identical to a

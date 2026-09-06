@@ -463,6 +463,12 @@ async function handleAccountCreate(request, env, scope) {
   await env.OBSERVATIONS.put(akey, JSON.stringify({
     personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
     createdAt: new Date().toISOString(), tokenHash, email, phone: phone || null,
+    // ⛔ A PREFERENCE COLLECTED AND DISCARDED IS WORSE THAN ONE NEVER ASKED FOR. This field was
+    // missing while the page already sent it, so every reader who chose "please don't contact me"
+    // had that answer thrown away at the moment she gave it. Unknown values collapse to "email"
+    // ONLY because that is what the form defaults to; an unrecognised value never silently becomes
+    // permission to contact when she may have meant the opposite — so "none" survives verbatim.
+    contactPref: ["email", "phone", "none"].indexOf(body.contactPref) >= 0 ? body.contactPref : "email",
     accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
     placeName: null,
   }));
@@ -3143,10 +3149,19 @@ export default {
         if (!raw) return json({ error: "not-found" }, 404);
         const acct = JSON.parse(raw);
         if (acct.personId !== g.personId) return json({ error: "not-found" }, 404);
+        // ⭐ EVERYTHING IS CHANGEABLE AFTER CREATION `[paul-ruled 2026-09-05]`. This took name and
+        // accent only, so "change this whenever you like" beside the contact question was a promise
+        // with nothing behind it. Each field is written ONLY when present, so a caller sending one
+        // field never blanks the others.
         if (typeof b.name === "string") acct.placeName = b.name.slice(0, 60);
         if (typeof b.accent === "string") acct.accent = b.accent.slice(0, 9);
+        if (typeof b.email === "string") acct.email = b.email.trim().slice(0, 200) || null;
+        if (typeof b.phone === "string") acct.phone = b.phone.trim().slice(0, 40) || null;
+        if (["email", "phone", "none"].indexOf(b.contactPref) >= 0) acct.contactPref = b.contactPref;
         await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
-        return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null });
+        return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null,
+                      email: acct.email || null, phone: acct.phone || null,
+                      contactPref: acct.contactPref || "email" });
       } catch (e) { return json({ error: "bad-json" }, 400); }
     }
     // ⚠️ A USERNAME ORACLE, KNOWINGLY. This Worker deliberately avoids being one elsewhere — the
