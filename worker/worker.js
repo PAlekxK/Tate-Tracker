@@ -438,7 +438,19 @@ async function handleAccountCreate(request, env, scope) {
   // regex rejects real addresses, and a wrong one here costs a contact route, not a login.
   const email = typeof body.email === "string" ? body.email.trim().slice(0, 254) : "";
   const phone = typeof body.phone === "string" ? body.phone.trim().slice(0, 40) : "";
-  if (!email || email.indexOf("@") < 1) return json({ error: "bad-email" }, 400);
+  // ⛔ THE REQUIREMENT FOLLOWS HER ANSWER, IT DOES NOT OVERRIDE IT. This demanded an email
+  // unconditionally, so the moment the page started offering "please don't contact me" the server
+  // refused every reader who chose it — the option was on the screen and unusable, which is worse
+  // than not offering it. Now: whatever she nominates as the route must be present and plausible,
+  // the other is optional, and "none" requires neither. An address that IS supplied is still
+  // checked, so a typo in an optional field is not silently kept.
+  const pref = ["email", "phone", "none"].indexOf(body.contactPref) >= 0 ? body.contactPref : "email";
+  const emailOk = email && email.indexOf("@") >= 1;
+  const phoneOk = phone.replace(/\D/g, "").length >= 7;
+  if (pref === "email" && !emailOk) return json({ error: "bad-email" }, 400);
+  if (pref === "phone" && !phoneOk) return json({ error: "bad-phone" }, 400);
+  if (email && !emailOk) return json({ error: "bad-email" }, 400);
+  if (phone && !phoneOk) return json({ error: "bad-phone" }, 400);
 
   const akey = accountKey(scope, username);
   if (await env.OBSERVATIONS.get(akey)) return json({ error: "username-taken" }, 409);
@@ -462,13 +474,13 @@ async function handleAccountCreate(request, env, scope) {
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
   await env.OBSERVATIONS.put(akey, JSON.stringify({
     personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
-    createdAt: new Date().toISOString(), tokenHash, email, phone: phone || null,
+    createdAt: new Date().toISOString(), tokenHash, email: email || null, phone: phone || null,
     // ⛔ A PREFERENCE COLLECTED AND DISCARDED IS WORSE THAN ONE NEVER ASKED FOR. This field was
     // missing while the page already sent it, so every reader who chose "please don't contact me"
     // had that answer thrown away at the moment she gave it. Unknown values collapse to "email"
     // ONLY because that is what the form defaults to; an unrecognised value never silently becomes
     // permission to contact when she may have meant the opposite — so "none" survives verbatim.
-    contactPref: ["email", "phone", "none"].indexOf(body.contactPref) >= 0 ? body.contactPref : "email",
+    contactPref: pref,
     accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
     placeName: null,
   }));
@@ -554,7 +566,12 @@ async function handleSession(request, env, scope) {
   // ⭐ AND THE THINGS THAT MAKE IT HERS COME BACK TOO. The place's name and the accent used to live
   // only in localStorage, so clearing a browser reset her to "My Home" in Stone — durable data, and
   // an identity that evaporated. They are stored on the account and returned on every session.
+  // Her own details come back to her own authenticated session — without them nothing can ever SHOW
+  // her what she chose, and "everything is changeable" needs a surface that can read the current value
+  // before it can offer to change it.
   return json({ personId: acct.personId, token, name: acct.placeName || null, accent: acct.accent || null,
+                email: acct.email || null, phone: acct.phone || null,
+                contactPref: acct.contactPref || "email",
                 estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] });
 }
 
