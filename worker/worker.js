@@ -500,6 +500,10 @@ async function handleAccountCreate(request, env, scope) {
     // ONLY because that is what the form defaults to; an unrecognised value never silently becomes
     // permission to contact when she may have meant the opposite — so "none" survives verbatim.
     contactPref: pref,
+    // ⛔ THE ACCOUNT REMEMBERS ITS OWN WARRANT. Without this the login path had nothing to inherit
+    // from and fell back to a hardcoded "administrator" — so a member whose grant row went missing
+    // would be re-minted as an administrator by the act of signing in.
+    relationship: grantRow.relationship, capability: grantRow.capability,
     accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
     placeName: null,
   }));
@@ -579,7 +583,13 @@ async function handleSession(request, env, scope) {
   const tokenHash = await sha256Hex(token);
   const prior = await env.OBSERVATIONS.get(keyFor(scope, "grant", acct.tokenHash || "none"));
   const grantRow = prior ? JSON.parse(prior) : {
-    personId: acct.personId, estateId: scope.id, relationship: ["owner"], capability: "administrator",
+    // ⛔ INHERITED, NOT ASSERTED — same rule as account creation, and this is the path it was missed
+    // on. This fallback fires when the prior grant row is gone; hardcoding "administrator" here made
+    // a LOST GRANT into a privilege escalation, reachable by simply signing in. Accounts created
+    // before the account row carried a capability default to `member`, which fails toward less.
+    personId: acct.personId, estateId: scope.id,
+    relationship: Array.isArray(acct.relationship) && acct.relationship.length ? acct.relationship : ["member"],
+    capability: acct.capability === "administrator" ? "administrator" : "member",
     entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: acct.personId, consent: [],
   };
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
@@ -597,7 +607,11 @@ async function handleSession(request, env, scope) {
   return json({ personId: acct.personId, token, name: acct.placeName || null, accent: acct.accent || null,
                 email: acct.email || null, phone: acct.phone || null,
                 contactPref: acct.contactPref || "email",
-                estates: [{ estateId: scope.id, relationship: ["owner"], capability: "administrator" }] });
+                // the response reports what the GRANT actually says. It claimed administrator
+                // unconditionally, so a member signed in and was told she was an administrator —
+                // the Worker enforced correctly while the client was told something else.
+                estates: [{ estateId: scope.id, relationship: grantRow.relationship,
+                            capability: grantRow.capability }] });
 }
 
 // ---- Every KV key carries the ESTATE (C5 6a/6b/6c, 2026-09-03) ----
