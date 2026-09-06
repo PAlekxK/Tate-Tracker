@@ -16,7 +16,7 @@ a memo as we test all this." A walker who signs up fresh every run tests only th
 forever. The same identity, returning, is what exercises LOGIN, what makes run 2 comparable to run 1,
 and what lets a profile accrue — which is the thing being built.
 
-THE THREE ROLES, and they are deliberately different:
+THE ROLES, and they are deliberately different:
   mom        — shaped by the research profile; walks as the founding user we actually have evidence about
   wide-eyed  — un-primed. Knows the link and nothing else. Catches what a stranger meets.
   strict     — the same journey read against the design principles and this repo's own rules.
@@ -46,6 +46,13 @@ ROLES = {
     "mom":       {"accent": "#2C4A2C", "note": "shaped by ../fernwood-private/.user-research/2026-09-05-synthetic-mom.md"},
     "wide-eyed": {"accent": "#3F5266", "note": "un-primed: the link and nothing else"},
     "strict":    {"accent": "#2C5674", "note": "reads the same journey against the design principles"},
+    # ⭐ THE SUCCESSION SEAT, added 2026-09-06. `handover` is one of the eleven things the ranking
+    # screen offers and it was the ONLY one no seat had ever ranked — so the flow's answer to
+    # "I am setting this up so somebody else can take it over" had never been walked by anyone.
+    # That is not a hypothetical gap: the first prospective reader outside the family describes his
+    # job exactly that way. ⛔ This seat is a SHAPE, not a person — invented details throughout,
+    # nothing about any real neighbour, and it is not a stand-in for meeting him.
+    "handover":  {"accent": "#5C4B7A", "note": "setting the place up so someone else can take it over"},
 }
 
 

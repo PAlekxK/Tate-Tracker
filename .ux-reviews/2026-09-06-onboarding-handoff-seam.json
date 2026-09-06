@@ -1,0 +1,224 @@
+{
+  "review_id": "ux-2026-09-06-onboarding-handoff-seam",
+  "project": "fernwood",
+  "subject": "The onboarding→estate handoff: what s4 owns vs what the estate view owns, the buildout state, the playback, and the banner. Reviewing Paul's stated design, not inventing one.",
+  "review_date": "2026-09-06",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA (the seam between two surfaces), with screen-component rulings inside it",
+  "user_context": {
+    "primary_user": "A NEW estate owner crossing the handoff for the first time — not Mom. The only real observation in the corpus is Paul walking production as a stranger (GATE2-paul-findings.md, lap 2, n=1, [validated]); the three synthetic seats (wide-eyed / strict / mom) are a test instrument, permanently [assumption]. The live second household is Bob (VOCABULARY.md:147, paul-stated 2026-09-05). Mom is gate 3 of the release cascade and is NOT the reader of this seam on day one.",
+    "core_jobs_to_be_done": [
+      "Confirm that the thing I just gave my home address to is actually MINE — recognise it in the first two seconds (P30, [validated])",
+      "Find out whether I got anything back for what I gave (P32, [validated] — 'what can we pull together for them at that level of data provision?')",
+      "Know what happens next, and that anything I got wrong is fixable without asking a person",
+      "Not be asked again for something I just answered thirty seconds ago"
+    ],
+    "context_of_use": "iPhone, 414 × 848, text size possibly A+, standing/sitting with the phone in one hand, in the ten seconds after tapping the last button of a five-screen setup. She has just handed a home address to someone she may know only through one text message. Depth-1 attention is the measured pattern on the one reader we have telemetry for: card faces, never opening individuals — so anything behind a disclosure is content she has not seen.",
+    "assumptions_made": [
+      "The second household's reader resembles Paul-as-stranger more than Mom — a phone reader who owns a place and expects a return for an address. [assumption]",
+      "The buildout period is days, not minutes — Paul builds by hand and s3's own source comment records that 'a few days' has been wrong before. [source-read]",
+      "The per-estate view does not exist yet; viewer.html is a build artifact (engine/viewer.template.html + instance/fernwood.json + canon inlined at build time), so every account on a deployment gets the same file. [source-read, and the premise of this review]",
+      "R1 (which affordance is 'the feedback bubble') and R3 (one screen at the end, or two) are unruled — .plans/2026-09-06-state-and-next-steps-AUDIT.md §6.1. Findings F11 and F12 are conditional on those."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "A CTA's label must promise what the destination actually delivers — especially across a tool boundary (cross-project/interaction-and-friction.md) — third occurrence, first outside Bolo Boys",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+    "Static visuals lie on dynamic surfaces (cross-project/honest-surfaces.md)",
+    "Friction kills — it just works (cross-project/interaction-and-friction.md)",
+    "Meet the user at the action (cross-project/interaction-and-friction.md)",
+    "Save-success at the surface, not at the destination (cross-project/interaction-and-friction.md)",
+    "One engine, one verdict (fernwood.md — canon, paul-ratified 2026-08-02), extended here from compute to ASKING",
+    "Strip teases, card holds (fernwood.md — paul-stated 2026-07-30)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Caution as noticing, not warning (fernwood.md — paul-stated 2026-07-30)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Give before you ask — a surface that only extracts gets ignored (fernwood.md, candidate)",
+    "Ask what she can SEE, never what she has to KNOW (fernwood.md, candidate)",
+    "The loop-close belongs at the glance altitude (fernwood.md, candidate)",
+    "One shell, one signal each (fernwood.md, candidate)",
+    "ONE affirmative grammar, everywhere she taps (Tate-Tracker/CLAUDE.md standing rule 1, paul-stated 2026-07-29)",
+    "'Everything is changeable' — one short varied clause, never a standing footer, and it must be TRUE (Tate-Tracker/CLAUDE.md standing rule 5, paul-stated 2026-08-04)",
+    "Never surface an empty module — one honest card beats a skeleton loader (Tate-Tracker/CLAUDE.md, s4 source comment)",
+    "Nielsen #1 visibility of system status · #2 match with the real world · #4 consistency · #6 recognition over recall · #9 help users recognise and recover",
+    "Norman — conceptual model, feedback, signifiers"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "flow",
+      "severity": "important",
+      "observation": "THE SEAM RULING — the thing I am most confident about and the thing a naive build gets wrong. s4 already asks a confirm question ('Does the map find you?' → #ok1 'Yes, that's it' / #ok2 'Not quite'), already offers a rename, already plays back the address, already collects the ranking. Paul's estate-view design ('a confirm or edit button', 'does this seem personalized to me') is a SECOND confirm about overlapping material, ten seconds and one tap later. If both surfaces ASK, this repo has minted the two-engines defect on the ask path: two controls settling one fact, guaranteed to drift in wording, in grammar, and eventually in what they write.",
+      "user_impact": "Being asked the same question twice within one journey does not read as thoroughness — it reads as 'it didn't hear me the first time.' For a reader whose documented fear is getting things wrong, a re-ask is a strong signal she got it wrong. And the first thing she learns about the estate view is that answering things there may not stick.",
+      "principle_invoked": "One engine, one verdict (fernwood canon) — extended from 'two compute paths for one value' to 'two controls settling one fact'; plus Nielsen #4 (consistency) and #6 (recognition over recall)",
+      "recommendation": "Rule the seam on the OBJECT, not the screen. s4 confirms the ADDRESS — a question about a string and a pin, answerable only against the map link that lives there. The estate view confirms the PLACE — Paul's own question, 'does the buildout make sense based on what I provided', which cannot be asked before there is a buildout. Operative rule, one sentence: ON THE ESTATE VIEW, EVERYTHING s4 ALREADY SETTLED APPEARS AS A RECEIPT, NEVER AS A QUESTION. Only things s4 never asked may be asked there. Concretely: (a) do NOT re-render the ok1/ok2 pair on the estate view; (b) the address line renders with its settled state instead — 'you confirmed this on <date>' if she tapped Yes, 'you told me this needs a look — I'm on it' if she tapped Not quite; (c) every playback row carries a quiet, uniform 'Not right?' affordance that opens an EDIT, never a re-CONFIRM. This is the fernwood provenance-chip mechanism ('our read from a photo' → 'confirmed on the ground') applied to the seam — reuse it, invent nothing.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "consistency",
+      "severity": "critical",
+      "observation": "THE BUILDOUT VIEW MUST BE A DIFFERENT VIEW, NOT THE FERNWOOD VIEWER WITH CARDS HIDDEN. The obvious implementation — render viewer.html and suppress the empty domain cards — leaks Fernwood on at least six surfaces the card-hiding does not touch: the masthead identity strings (instance/fernwood.json 'An Appalachian Almanac for' / 'on the Blue Ridge' — 'An Appalachian Almanac for The Old Miller's Place on the Bend, Bangor ME' is P29 in one line of chrome); the jump strip (bare card names for cards that do not exist); the Almanac / Garden Guru door (its digest is Fernwood canon, so asking it about a Maine property returns Georgia answers — P29 through a second door); Mama's Perspective and MOM_ACK_DATA (FeedbackRibbon and the ack strip initialise unconditionally, viewer.template.html:13017); RELEASE_NOTES_DATA ('Recent updates' about a property she has never seen); and the station name / weather hero.",
+      "user_impact": "This is the exact defect Paul is fixing, re-entering through the back door. A reader who gets a clean 'buildout in progress' card at the top and then finds a working Ask-your-place box that describes a mountain in Jasper has been shown the same thing P29 showed, with an extra step. Worse: it is now non-obvious, so it will survive a screenshot review.",
+      "principle_invoked": "A CTA's label must promise what the destination actually delivers (cross-project) + Static visuals lie on dynamic surfaces (cross-project) + Nielsen #1 (visibility of true system status)",
+      "recommendation": "Treat 'buildout' as a distinct render target with its own allow-list, not the full viewer with a deny-list. Nothing renders unless it is explicitly cleared for a place with no canon. Falsifier to hold the build to: LOAD THE BUILDOUT VIEW FOR A BANGOR, MAINE ESTATE AND GREP THE RENDERED DOM FOR 'Jasper', 'Blue Ridge', 'Appalachian', 'Fernwood', 'Cherokee', '2,873' AND EVERY SPECIES NAME IN plants.json. Zero hits, or it is not shipped. That is a mechanical check and it belongs in the session-start block beside check-public-build.py, which already runs the same shape of test.",
+      "effort": "high"
+    },
+    {
+      "id": "F3",
+      "area": "feedback",
+      "severity": "important",
+      "observation": "THE BANNER. Paul wants it 'across the top' and wants it to say 'your feedback is critical to making this digital home helpful to you.' A permanent banner whose content is an ask collides with two things already ruled here: standing rule 5's own clause (a reassurance repeated verbatim 'reads as a warning that something is fragile', which is why 'keep it coming' was killed), and the onboarding's own recorded reasoning for keeping #fbopen closed by default — 'a permanently-visible ask reads as a quota.' The measured split on the one reader with telemetry is total: every affordance that ASKS her got 0 taps across lap 8; the one that MOVES her got 5 of 5.",
+      "user_impact": "A standing 'your feedback is critical' strip is the highest-value real estate on the page spent on a sentence that does not change, does not tell her anything about her place, and gets banner-blind within three visits. It also inverts the give-before-you-ask order at the exact moment she has given six things and received nothing.",
+      "principle_invoked": "Give before you ask (fernwood candidate) + 'Everything is changeable' — never a standing footer, never the same phrasing twice running (CLAUDE.md rule 5) + Among competing solicitation surfaces, demonstrated engagement sets altitude (fernwood candidate)",
+      "recommendation": "MY RULING, and Paul can overrule it: keep the banner, change what it is. It is a STATE banner, not a feedback banner. Its content is what is happening to her place right now — which is honest, changes as the record changes, and earns the top slot on freshness. The invitation to correct rides inside the playback rows (F4), attached to the specific thing each row names, which is where rule 5 says a changeability clause belongs. Paul's intent — 'she should feel her feedback is driving this' — is then carried by STRUCTURE rather than by the banner narrating its own purpose at her, which is the same move the ack ribbon already made ('<date> — what your answer changed:' does the attribution in four words; 'because of you' was ruled out). PERSISTENCE: derived, never a flag. It renders while the estate has zero cards built from her data. WEIGHT: full-width top card, her accent, quiet type, no glyph, no percentage, no colour-coded strip — it reads as a note from a person, not a status page. DECAY: it disappears the first time the estate view carries one card built from HER data. Not on a date, not on a dismissal, not on visit three. At that moment the page carries the message better than the banner can, and a banner explaining an absence that has ended is a false statement about the state. SECOND STATE, and I think it is required: between 'nothing yet' and 'gone', it becomes 'here's what's arrived since you set up' — which is the ack-ribbon mechanism, already built. Reuse it. Do not build a third ribbon on this deployment.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "THE PLAYBACK — which fields, in what order, at what altitude. Everything collected today: username, password, contact preference + email/phone, accent, place name, address (5 components), the address confirm and any note, the interests ranking. Two of those — ACCENT and CONTACT PREFERENCE — are played back nowhere, and the ranking is played back only as a transient #s5thanks line that dies with the screen.",
+      "user_impact": "Paul's test for this screen is 'does this seem personalized to me?' A playback that shows her only her address answers 'no' — she gave six things and sees one. A playback ordered by our data model rather than by what she can check with her own eyes fails at half-engagement, where she reads two rows and stops.",
+      "principle_invoked": "Lead with the synthesis, not the rows (cross-project) + Make every surface read at half-engagement (fernwood) + Give before you ask (fernwood candidate)",
+      "recommendation": "Five rows, on ONE card face, in this order — ordered by how much of her place each defines, not by capture order: (1) THE PLACE — her name and her address as a settled statement, carrying the confirm state from s4. Top because it is the load-bearing input and its error is the most expensive. (2) WHAT I'M BUILDING FIRST — derived from her ranking, in her order, naming which of her top picks exist today and which are ideas. This row is the one that actually answers 'does the buildout make sense based on what I provided.' (3) HOW TO REACH YOU — see F5. (4) ANYTHING SHE TYPED — her s4 note or feedback line, verbatim, with a plain 'I've got this.' Cheapest trust move available; adopt her words, never improve them (the 'household systems' rule). (5) The colour is NOT a row — see F9. ALTITUDE: all five are visible on the card face. Zero disclosures. Measured depth-2 engagement on the one instrumented reader is zero, so anything behind a tap is content she has not seen. EXCLUDED deliberately: username (nothing for her to check), password (obvious), and the Google Maps link (it belongs to the address-confirming moment; re-offering it re-opens a question she already settled — F1).",
+      "effort": "medium"
+    },
+    {
+      "id": "F5",
+      "area": "flow",
+      "severity": "important",
+      "observation": "CONTACT PREFERENCE IS THE HIGHEST-STAKES FIELD IN THE FLOW AND IT IS NEVER SHOWN AGAIN. #contactpick is answered on s0, screen one of five. The 'Please don't' branch carries a real, disclosed consequence — there is no password reset, so Paul-by-hand is the only way back in and she has just closed that route. That consequence is stated once, in #contactnone, at the moment she picks it, and never again. It is also the one radio group with a PRE-SELECTED default ('Email me', checked), so a reader who never touched it has an answer on file she never gave.",
+      "user_impact": "The cost of a wrong value here is not friction — it is the account. And the pre-selected default means the most likely wrong value is the one nobody chose. This is also the field the synthetic seats structurally cannot exercise (walk-answers README §3.1: 'No seat can decline' — all four sat on the email default on 09-05), so it has never been walked by anything.",
+      "principle_invoked": "Every ASK says USE · NOT-use · WHO SEES IT · reversibility (paul-stated 2026-09-05) + Nielsen #9 (help users recognise and recover) + 'Everything is changeable' must be TRUE",
+      "recommendation": "It goes in the playback, stated as a consequence in the concrete rather than as a setting: 'Paul will email you at <address> if something needs sorting' / 'Paul will call or text <number>' / 'Paul won't contact you — if you get stuck, email him at <address>.' The 'Please don't' variant is the one that must carry its own recovery route inline, because that reader has no other. Editable IN PLACE: it is one choice among three, the control already exists (#contactpick), reuse that exact component. And flag separately for Paul: the pre-selected default is a live question I am not ruling on — it trades completion rate against a permission nobody granted.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "empty-state",
+      "severity": "important",
+      "observation": "'BUILDOUT IN PROGRESS' AS A PHRASE AND AS A STATE. The phrase is a status-page noun with no actor — it is the ops-dashboard register this project removes on sight, and it is the one register that reliably reads as 'something is being done to a machine' rather than 'someone is making my place.' Every neighbouring sentence in the onboarding is first-person and has a person in it: 'I'm calling it My Home until you name it', 'it comes straight to Paul', 'How you rank them is how I decide what to build next.'",
+      "user_impact": "Two failure directions and the design has to miss both. Reading as BROKEN: an empty grid, greyed tiles, a skeleton loader, a spinner — all say 'content arrives in a moment' when the truth is days. Reading as a LYING PROGRESS BAR: a percentage, a step counter, a bar, or any phrase implying a schedule — nothing schedules this, Paul builds by hand, and s3's own source comment records that 'a few days' has already been wrong. A progress indicator that does not move teaches her to check for movement and then never moves, which is worse than no indicator.",
+      "principle_invoked": "Never surface an empty module — one honest card beats a skeleton loader (CLAUDE.md / s4 source comment) + Glyphs follow the journal voice, not the dashboard voice (fernwood) + Static visuals lie on dynamic surfaces (cross-project) + Nielsen #1",
+      "recommendation": "Constraints on the copy, which is content-steward's to write, not mine: FIRST PERSON with a named actor (Paul is building it, not 'the system'); NO time promise of any kind; NO percentage, bar, step count or spinner; and it must lead with WHAT IS HERE, not with what is missing — the card's own sentence is 'here is everything you've told me so far', and the playback below it is the proof. Structurally: exactly ONE card in this state. Not a card plus a placeholder grid. The absence of tiles is not a gap to be filled, it is the honest picture. And the state itself is DERIVED — 'has this estate any card built from her data' — never a boolean somebody has to remember to flip, which is this repo's 'an unchecked box is not open work' failure waiting to happen.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "error-handling",
+      "severity": "critical",
+      "observation": "THE PO BOX — the strict seat, and the one silent failure in the whole flow. s2 promises: 'We use this to build your place around where you actually are — your weather, and what grows in your spot.' 'PO Box 417, Cartersville, GA 30120' has no physical location. The map link resolves cleanly to the post office, so she will tap 'Yes, that's it' — a correct answer to the wrong question — and the buildout will then produce weather and a growing zone for a post office that may be miles from her house. NOTHING in the flow, on the estate view, or in the record ever tells her, or tells Paul. The seats' own README names this: 'the one input for which the flow's central promise cannot be kept, silently.'",
+      "user_impact": "She completes the job and gets a product that is quietly wrong about her place forever. This is the trust failure this project treats as existential — the record disagreeing with what she can see out of her own window — arriving on day one, undetected, with a green tick beside it.",
+      "principle_invoked": "A value's provenance and freshness must be shown as honestly as the value itself (cross-project) + Ask what she can SEE, never what she has to KNOW (fernwood candidate) + Nielsen #9",
+      "recommendation": "DO NOT add a 'that looks like a PO box' validator. It is brittle, it scolds, and it fires on precisely the reader least willing to be told she did it wrong — and it would be the flow's only accusatory moment. Fix it on the playback side instead: the PLACE row states the DERIVED consequence, not the input she typed. Something in the shape of 'your weather will come from <derived town / station / elevation>' — a concrete fact she can recognise or fail to recognise. The moment a reader in a hollow eight miles out reads the name of the post office's town, she has something to correct, and correcting it is not an admission of error. This is the 'ask what she can SEE' rule applied to a value rather than an identification: show the consequence, let her recognise it. It also happens to be a partial answer to P32 — the derived location IS something an address alone yields.",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "S4'S CLOSING LINE IS FALSIFIED BY THE SCREEN AFTER IT — for the third time in this file's history, by growth rather than by edit. 'That's the setup done — nothing more needed from you today' sits directly above the handoff. If the estate view opens with a buildout banner and a confirm-or-edit playback, then something IS wanted from her today, on the very next tap. The source comment two lines above that sentence records the identical failure happening to its predecessor.",
+      "user_impact": "Small, but it is the last sentence she reads before crossing, and it sets the expectation she crosses with. Told 'nothing more needed', she meets a screen with controls on it; either she does nothing (and the playback's whole purpose is lost) or she feels the line was untrue.",
+      "principle_invoked": "A CTA's label must promise what the destination actually delivers (cross-project) — the same rule, applied to the sentence beside the CTA rather than the CTA itself",
+      "recommendation": "Rewrite the close so it hands her forward rather than closing her out — it should say the setup part is finished AND that what she'll find on the other side is what she gave, with a way to fix anything. Content-steward's words. The structural rule worth writing down: any sentence that claims a journey is finished must be re-read whenever a control is added after it, and this file now has three instances of exactly that going stale.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "area": "affordance",
+      "severity": "nice-to-have",
+      "observation": "THE ACCENT COLOUR IS PLAYED BACK BY BEING, NOT BY SAYING. viewer.template.html:6364 already reads fw-accent from localStorage before paint and derives the three header depths from it, so the estate view arrives in her colour with no work. A 'your colour: Clay' row would be a list item restating something the whole page is already doing.",
+      "user_impact": "Neutral-to-positive as it stands. The risk is only that a playback built by enumerating captured fields adds a colour row reflexively, spending a line of the scarcest space in the product on a fact the page already demonstrates.",
+      "principle_invoked": "Ornament earns its place (cross-project) + Icons earn their place — true AND useful (cross-project): a value that has to be STATED has failed to be SEEN",
+      "recommendation": "No colour row. If it must be nameable, it is a small swatch beside the h1 with the palette name on tap, or one clause inside the place row — not a list item. AND: whatever it says, call it 'your colour', not 'this place's colour', until Paul rules P19 (profile colour vs place colour, one per place). Using the wrong noun now would pre-empt a ruling he flagged himself and would have to be unwound.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "THE LONG NAME HAS NEVER BEEN MEASURED, AND #pname'S OWN maxlength PROMISES 60 CHARACTERS. The wide-eyed seat types 'The Old Miller's Place on the Bend' — 33 characters, carrying an iOS curly apostrophe. That string rides the onboarding h1 on four screens, the handoff button ('Open ' + name, so 39 characters on one bigbtn), and — on the estate view — the masthead h1, which sits above a subtitle and an address line in a gradient header. At 414 × A+ the button wraps to three lines at minimum and the masthead consumes a large share of the first screen before the buildout banner has rendered a pixel. Every layout judgement in this repo runs at 414 × 848 A+; this one never has.",
+      "user_impact": "The masthead is the first thing that says 'this is yours.' If it wraps badly, or pushes the banner and the playback below the fold, the reader's opening impression of her own place is a broken-looking title bar and no content. And the reader most likely to type a long, affectionate name is the reader most invested in the place having a name.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood) + An ask-card's answer must be reachable without scrolling, at HER conditions (fernwood candidate — the same measurement discipline, applied to the masthead)",
+      "recommendation": "Measure at the ceiling the field actually permits, not at 'Fernwood'. Three strings to run through the masthead and the handoff button at 414 × 848 in BOTH text modes: a 60-character name, 'the condo' (lowercase, and it must NOT be title-cased — the 'household systems' rule is that her word renders exactly), and 'Home'. Then decide whether the masthead h1 wraps, truncates with a full value on tap, or drops the subtitle line when the name is long. My recommendation is WRAP, never truncate — a truncated name is the product editing her word, which is the one thing this project has ruled against on a surface she reads.",
+      "effort": "medium"
+    },
+    {
+      "id": "F11",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "THE FEEDBACK AFFORDANCE CHANGES SHAPE, NAME, COLOUR AND DEFAULT-OPENNESS IN ONE TAP. Onboarding carries .fblink — one quiet underlined line, closed by default, recording which screen she was on. The viewer carries .feedback-ribbon — a persistent bookmark tab, always visible, labelled 'General feedback', with a 💬 glyph, initialised unconditionally at module load (viewer.template.html:13017). Crossing the handoff, the reader meets a different one. This is literally 'what the reader sees crossing over', so it belongs in this review even though the ruling is Paul's (R1, .plans/2026-09-06-state-and-next-steps-AUDIT.md §6.1).",
+      "user_impact": "Two affordances for one job, one tap apart, is the fastest possible way to teach a new reader that the app is two apps. It also means whichever one she learned in onboarding is not the one she meets afterwards — so the channel she was taught is not the channel she has.",
+      "principle_invoked": "One shell, one signal each (fernwood candidate) + Nielsen #4 (consistency and standards) + the persistent handle wears the journal's furniture, not the app's chrome (fernwood candidate)",
+      "recommendation": "I do not rule R1 — it is a product-surface identity call. My UX input, for whichever way Paul rules: the ONBOARDING version is the better-designed one on two counts that are measurable rather than aesthetic — it is closed by default (the ribbon is the standing-ask shape whose recorded cost is 'reads as a quota'), and it records the screen, which is the half that turns 'this is confusing' into a punch-list row. The 💬 glyph on the ribbon is also a straight violation of the glyph rule as written (a chat bubble is platform chrome, not journal furniture). Whatever wins, the constraint is that the reader must not meet two different ones across the handoff.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "area": "flow",
+      "severity": "important",
+      "observation": "THE ROUND TRIP HAS NO RETURN PATH, AND THE MECHANISM WILL ASK TWICE EVEN IF THE DESIGN DOES NOT. Editing the address or the ranking means five fields or eleven tappable items — those are screens, not rows, so they route back into onboarding. But onboarding's step() writes K_STEP, and a reader sent back re-enters at whatever step she is routed to and then walks FORWARD through the flow again — meeting the confirm pair, the interests block and the handoff a second time. That is F1's duplicate ask arriving through the plumbing rather than through the design.",
+      "user_impact": "She taps 'not right' on her address, fixes it, and is walked through her whole setup again, being asked to confirm and rank things she already settled. The most likely outcome is that she stops using the edit affordance, which makes 'everything is changeable' untrue — and rule 5 permits that sentence only where it is true.",
+      "principle_invoked": "'Everything is changeable' must be TRUE (CLAUDE.md rule 5) + Save-success at the surface, not at the destination (cross-project) + Nielsen #3 (user control and freedom)",
+      "recommendation": "An edit route must be a SINGLE-PURPOSE round trip: open the one screen, take the change, return to the estate view, confirm the change AT THE ESTATE VIEW (that is the surface she acted from). It must not re-enter the sequential flow. Concretely that means an edit-mode entry that does not touch K_STEP and whose commit button returns rather than advances. Cheapest correct version: the address edit screen reuses the s2 field group as a component, but the s2 SCREEN — with its step machinery, its lede and its forward button — is not what she is sent to.",
+      "effort": "medium"
+    },
+    {
+      "id": "F13",
+      "area": "flow",
+      "severity": "important",
+      "observation": "THE 'WHAT I'M BUILDING FIRST' ROW MUST BE DERIVED FROM HER RANKING, NOT FROM A DEFAULT ORDER. The mom seat is the falsifier: a condo, no garden, C7's approved case (BACKLOG.md §C7, paul-approved 2026-09-03). If the playback's build order is hard-coded or defaults to the INTERESTS array order, a reader who ranked 'Household systems' and 'Papers' sees GARDENING at the top of her own place on day one — and six of the eleven items carry soon:true, so an undifferentiated list also risks promising things that do not exist.",
+      "user_impact": "This single row is the strongest evidence available that the ranking was read, and the weakest possible answer to Paul's own test question, 'do I feel like all my feedback is being recognized?' Getting it wrong actively disproves personalisation on the screen built to demonstrate it.",
+      "principle_invoked": "Meet the user at the action (cross-project) + the seeds are labelled as seeds (the INTERESTS soon:true convention, already in the flow) + One engine, one verdict — the ranking has one reader",
+      "recommendation": "Render her order, in her order, using the same 1·2·3 numerals #interests already paints so the shape is recognisable from thirty seconds ago. Carry the soon:true honesty across the seam — a picked item that is not built says so here too, in the same words it used on s5. If she ranked nothing (a legitimate answer, already recorded as '(none chosen)'), the row says what will be built anyway and offers the ranking, once — that is a thing s4 asked and she declined, so per F1 it may be re-offered only as an invitation, never as an unanswered question sitting open.",
+      "effort": "low"
+    },
+    {
+      "id": "F14",
+      "area": "other",
+      "severity": "nice-to-have",
+      "observation": "TWO SMALL SEAT TRIPS WORTH ONE LINE EACH. (a) The curly apostrophe in 'The Old Miller's Place on the Bend' is safe everywhere it goes today — textContent in the h1 and the button, encodeURIComponent in the map query, JSON.stringify to the Worker. The risk is entirely in the NEW path: a per-estate build that substitutes the name the way build-viewer.py substitutes {{IDENTITY:h1}}. A U+2019 is fine in Python and fine in HTML text, and it breaks the moment it lands unescaped in an HTML attribute or a JS string literal. (b) The strict seat's place name is 'Home', one character-class away from the product's own 'My Home' placeholder — so a masthead reading 'Home' is indistinguishable from an estate nobody named.",
+      "user_impact": "(a) A build-time escaping failure on the name is a blank or broken masthead on the one element that says 'this is yours.' (b) A reader who named her place 'Home' cannot tell whether her name was taken.",
+      "principle_invoked": "Norman — feedback and signifiers: a placeholder must be distinguishable from a value",
+      "recommendation": "(a) One constraint for whoever builds the per-estate view: the name reaches the DOM as text, never as a template-substituted attribute or JS literal. Add the curly apostrophe to whatever fixture the build check uses. (b) Do NOT validate or reject 'Home' — telling her the name she chose is too close to ours is exactly the moment this flow is designed to avoid. Fix the other side: make the unnamed placeholder read as an absence rather than as a plausible name, so no name she could type collides with it.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "⭐ THE ONE I MOST WANT ANSWERED — your own P32, and I decline to invent an answer to it: is there ONE genuinely-derived thing an address alone should produce on day one? Sunrise/sunset and today's conditions for her actual coordinates is the obvious candidate — deterministic, no canon required, no AI, and it is the difference between the estate view being a RECEIPT for what she gave and being a PRODUCT that gave something back. Every finding above assumes the answer is 'no, not yet' and designs an honest receipt. If the answer is 'yes', F6 and F7 both get materially better and the banner in F3 acquires something true to sit above.",
+    "Does the estate view own the rename permanently, and does s4 keep its rename link? My read: yes to both, and they are not a duplicate ask because neither is a QUESTION — but the two must use identical wording ('Call it something else') so the shape is learnable. Confirm.",
+    "The contact-preference radio is PRE-SELECTED on 'Email me'. That means the most likely value on file is one nobody actively chose. Deliberate (completion rate) or drift? I am not ruling it.",
+    "R1 blocks F11 and R3 (one screen at the end, or two) interacts with F1 — the seam ruling REDUCES the s4 control count by moving 'does the buildout make sense' off that screen, which is a point in favour of a particular answer to R3. Worth deciding them together rather than in sequence.",
+    "Is the buildout state per-ESTATE or per-DOMAIN? If a place can have weather built but nothing else, F3's decay condition ('one card built from her data') fires early and the banner leaves while most of the place is still empty. I ruled the simple version; the richer one is a product-model call."
+  ],
+  "follow_up_research_suggested": [
+    "⭐ The gap named in the seats' own README §3.3 and unclosed: ONE REAL PERSON in the segment — owns a place, reads on a phone — watched silently, once, crossing the handoff. Every product-model finding in the corpus (P19, P26, P27, P30, P31, P32) came from a person with stake; no synthetic seat has produced that class and adding seats will not. Bob is the obvious candidate and only Paul can recruit him.",
+    "Add ONE stop after #gohome to journey-walk.py's stops(). Until a seat crosses the handoff, wide-eyed is a different string rather than a different observation — the seats' README says so in its own words, and the Maine address cannot pay off on a screen no walker reaches.",
+    "Measure the masthead and the handoff button at 414 × 848 in both text modes with a 60-character name, 'the condo', and 'Home' (F10). The harness does not capture computed font size today, so every legibility claim in this review is conditional.",
+    "Instrument the playback rows: does anyone tap an edit? That is the only thing that can tell you whether 'everything is changeable' is being experienced or merely stated — and it is a door the reader opens herself, which is the class of signal this project has ruled it should prefer over authoring another ask."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "A second surface REPORTS what the first surface settled — it never re-asks it. When a journey crosses from a capture surface to a destination surface, every value the capture surface already confirmed appears downstream as a RECEIPT carrying its settled state, with a quiet edit affordance. Only a question the first surface never asked may be asked on the second.",
+      "scope": "fernwood",
+      "rationale": "Sharpens the canon rule 'One engine, one verdict' from the COMPUTE path onto the ASK path. That rule's tell is 'a shared input set plus a shared output slot'; this one's tell is 'two controls that could settle one fact.' The failure mode is identical — two things that can disagree — but the existing rule as written would not catch a duplicate confirm, because no function is being computed twice. First occurrence: the onboarding s4 confirm pair against the proposed estate-view confirm/edit, 2026-09-06. Watch for a second occurrence on any Fernwood surface where a fold and a card both touch one value."
+    },
+    {
+      "principle": "A status may stand; an ask may not. A persistent top-of-surface element earns its position only while its content is a STATE that changes as the record changes. The moment its content is a solicitation, it must be attached to a specific thing the reader just gave, and it must decay on a signal (the state ending), never on a date, a dismissal or a visit count.",
+      "scope": "fernwood",
+      "rationale": "Reconciles Paul's 'banner across the top' with two rules already in force that would otherwise both forbid it — standing rule 5's ban on a standing footer, and the onboarding's own recorded reasoning that a permanently-visible ask reads as a quota. The discrimination between the two cases (status vs ask) is what neither existing rule can make, and it is the thing that let this review say yes to the banner rather than no. 1 occurrence."
+    },
+    {
+      "principle": "Show the consequence, don't validate the input. Where an input can be wrong in a way the product cannot detect, do not add a validator — play back the DERIVED consequence in the concrete and let the reader recognise or fail to recognise it.",
+      "scope": "fernwood",
+      "rationale": "Extends the existing candidate 'Ask what she can SEE, never what she has to KNOW' from identification questions to VALUES. Same mechanism, same reason: a validator manufactures a right answer she can miss and puts the product in the position of correcting her, which is the expensive failure for a reader whose documented fear is getting things wrong. A derived consequence has no wrong answer available — she either recognises the town her weather comes from or she doesn't. First occurrence: the PO-box case, F7. Strong second-occurrence candidate given how much of this product is derived values."
+    },
+    {
+      "principle": "CONFIRMING OCCURRENCE, not a new principle — 'A CTA's label must promise what the destination actually delivers' (cross-project, canon since 2026-07-08).",
+      "scope": "cross-project",
+      "rationale": "Third occurrence and the FIRST outside Bolo Boys, which matters because the rule's Why currently rests on two findings from one project and two tool boundaries of the same kind (Drive folder, Google Calendar URL). This one is different in kind — no external tool, no OS action, an in-app navigation — and it produced the sharpest instance in the corpus: 'Open Grant Park Oasis' landing on Fernwood, found by a real person in one tap (P29). It also demonstrates the rule's corollary cleanly for the second time: when the destination is fixed, the label needs no rewrite — building the per-estate view is what finally makes 'Open <name>' true. Worth adding to the existing principle's Why as a third occurrence rather than filing anything new."
+    }
+  ]
+}
