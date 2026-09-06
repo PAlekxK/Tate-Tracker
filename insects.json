@@ -63,7 +63,7 @@
       "species": "snowy-tree-cricket",
       "method": "Count the chirps in 13 seconds and add 40. That is the air temperature in °F.",
       "why": "Snowy Tree Crickets chirp at a rate that tracks temperature so closely they were used as a field thermometer long before anyone carried one. The 13-seconds-plus-40 form is calibrated for eastern populations; western ones run slightly faster.",
-      "fernwoodAngle": "The property has an on-site weather station reading air temperature every five minutes. That makes this the one piece of folk science here we can actually check — count the chirps on the porch, compare to the gauge, and see how close the cricket gets.",
+      "localAngle": "The property has an on-site weather station reading air temperature every five minutes. That makes this the one piece of folk science here we can actually check — count the chirps on the porch, compare to the gauge, and see how close the cricket gets.",
       "confidence": "documented",
       "caveat": "The formula assumes you are hearing Snowy Tree Cricket and not one of the other tree crickets, whose rates differ. A clean, mellow, evenly spaced whistle is the snowy; a rougher pulsing trill is not."
     },
@@ -71,7 +71,7 @@
       "claim": "Mountain weather lore holds that first frost arrives six to eight weeks after you hear the first katydid, and that an early katydid means an early frost.",
       "status": "folklore — recorded here because it is worth testing, NOT because it is a forecast",
       "howToTest": "Log the date of the first katydid heard at the property. Fernwood's own 50% first-frost date is October 17. Six to eight weeks back from that puts the first katydid between August 22 and September 5 — which is far later than katydids actually start singing in north Georgia (early July). On its face the lore does not survive contact with this property's frost record.",
-      "fernwoodAngle": "Two or three years of logged first-katydid dates against the station's actual first-frost dates would settle it here for good, one way or the other."
+      "localAngle": "Two or three years of logged first-katydid dates against the station's actual first-frost dates would settle it here for good, one way or the other."
     }
   },
   "species": [

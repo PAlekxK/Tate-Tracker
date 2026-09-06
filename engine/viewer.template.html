@@ -9322,7 +9322,7 @@ function generateAlerts() {
     if (todayTotal > 0.5 && rate < 0.02) {
       alerts.push({ key: "saturated", severity: "warning", source: "station", icon: "💦",
         title: "Wet soil after " + todayTotal.toFixed(2) + '" today',
-        text: "Property gauge total today. Worth holding off on planting or working low areas; root rot risk for boxwoods, mountain laurel, dogwoods."
+        text: "Property gauge total today. Worth holding off on planting or working low areas; root rot risk for shrubs sitting in ground that drains poorly."
       });
       stationCovers.rain = true;
     }
@@ -9394,7 +9394,13 @@ function generateAlerts() {
     } else if (low <= 32) {
       alerts.push({ key: "frost", severity: "warning", source: "forecast", icon: "❄️",
         title: "Frost coming " + (i === 0 ? "tonight" : "in " + i + " day" + (i>1?"s":"")),
-        text: "Low of " + low + "°F. Tender new growth on hydrangeas, Japanese maples, and recently-planted azaleas at risk — worth covering with sheets or frost cloth in the evening."
+        // ⛔ ADVISORY PROSE NAMES NO SPECIES, 2026-09-06. It used to read "hydrangeas,
+        // Japanese maples, and recently-planted azaleas" — this household's plants, rendered to
+        // every household regardless of what they grow. An advisory is ENGINE; it fires on weather,
+        // not on canon, so it may describe a CONDITION and never an instance. (The `susceptible`
+        // list nearby is different and fine: those ids filter against PLANTS_DATA, so a household
+        // without those plants renders nothing.)
+        text: "Low of " + low + "°F. Tender new growth and anything recently planted is at risk — worth covering with sheets or frost cloth in the evening."
       });
       break;
     }
