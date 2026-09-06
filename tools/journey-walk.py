@@ -52,7 +52,8 @@ def refresh(role, env):
 # RE-READ AT THE END, and a walk that straddled a deploy says so in its own transcript rather than
 # being quietly believed.
 def served_sha(env):
-    url = {"qa": "https://fernwood-qa.pages.dev", "lab": "https://fernwood-lab.pages.dev"}[env]
+    url = {"qa": "https://fernwood-qa.pages.dev", "lab": "https://fernwood-lab.pages.dev",
+           "home": "https://fernwood-home.pages.dev"}[env]
     h = {"User-Agent": "Mozilla/5.0"}          # a UA-less request is 403'd at the edge, not by the Worker
     try:
         tok = json.load(open(os.path.join(ROOT, ".private", "cf-access-service-token.json")))
@@ -128,13 +129,15 @@ def main():
     # it is the only origin with its own estate (est-qa0001) AND a CI-maintained build stamp; lab is
     # hand-deployed and cannot say which build it is serving. Lab stays REACHABLE (Paul walks it at
     # gate 2) but you have to ask for it, and the transcript records which you asked for.
-    ap.add_argument("--origin", choices=["qa", "lab"], default="qa",
-                    help="which origin to walk (default qa — gate 1). lab is gate 2, Paul's seat.")
+    ap.add_argument("--origin", choices=["qa", "lab", "home"], default="qa",
+                    help="which origin to walk (default qa — gate 1). lab is gate 2. "
+                         "⚠️ home is PRODUCTION and writes real rows into Mom's estate.")
     a = ap.parse_args()
 
     v = refresh(a.role, a.origin) if not a.fresh else identity(a.role, a.origin)
-    base = {"qa":  "https://fernwood-qa.pages.dev/onboarding/",
-            "lab": "https://fernwood-lab.pages.dev/onboarding/"}[a.origin]
+    base = {"qa":   "https://fernwood-qa.pages.dev/onboarding/",
+            "lab":  "https://fernwood-lab.pages.dev/onboarding/",
+            "home": "https://fernwood-home.pages.dev/onboarding/"}[a.origin]
     url = base if a.fresh else base + "?g=" + (v.get("token") or "")
 
     ans = {"username": v["username"], "password": v["word"], "email": v["email"],

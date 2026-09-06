@@ -89,7 +89,16 @@ const cfg = JSON.parse(process.argv[2]);
         id: b.id || null, text: (b.innerText || '').trim(), href: b.getAttribute('href') || null }));
       return { title: document.title, url: location.href, text, fields, buttons };
     });
+    // ⛔ TWO FRAMES, AND THE SECOND IS THE ONE THAT CAN JUDGE THE FOLD. A full-page capture is
+    // STITCHED, which (a) hides where the viewport actually ends, so a reviewer cannot say what is
+    // above the fold, and (b) manufactures a phantom: `background-attachment: fixed` seams into a
+    // horizontal band that the vision seat correctly identified as an artifact only after nearly
+    // filing it as a layout break. The viewport frame has neither problem and costs one screenshot.
+    // ⭐ ux-expert, 2026-09-05: this — not a real-Chrome swap — is what the fold findings needed.
+    // Chrome cannot go below ~606px, and at that width TWO of tonight's real bugs disappear
+    // entirely, because their mechanism is text wrapping at 414px.
     await page.screenshot({ path: cfg.shot, fullPage: true });
+    await page.screenshot({ path: cfg.shot.replace(/\.png$/, '.fold.png'), fullPage: false });
   } catch (e) { out.error = String(e.message).split('\n')[0]; }
   await b.close();
   console.log(JSON.stringify(out, null, 2));

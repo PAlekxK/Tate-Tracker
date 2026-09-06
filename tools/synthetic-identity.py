@@ -30,9 +30,17 @@ import argparse, datetime as dt, json, os, secrets, sys, urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORE = os.path.join(ROOT, ".private", "synthetic-identities.json")
 MEMO_DIR = os.path.join(ROOT, ".private", "synthetic-memos")
-WORKERS = {"lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+# ⚠️ `home` IS PRODUCTION and is here only because Paul authorised a full synthetic battery against
+# it on 2026-09-05. Every identity minted here writes REAL ROWS into Mom's estate (est-e6696a), which
+# he has separately ruled must "start from nothing other than a text to Mom". Both cannot be true at
+# once, so anything created here is recorded in .private/synthetic-production-manifest.json and
+# production is reset before her invite. ⛔ Do not widen this map further without the same explicit
+# authorisation, and never leave a production identity behind unrecorded.
+WORKERS = {"home": "https://fernwood-home.paul-kirschenbauer.workers.dev",
+           "lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
            "qa": "https://fernwood-qa.paul-kirschenbauer.workers.dev"}
-PAGES = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev"}
+PAGES = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
+         "home": "https://fernwood-home.pages.dev"}
 ROLES = {
     "owner":     {"accent": "#7A3E2A", "note": "open-ended: invented her own place, no Fernwood context"},
     "mom":       {"accent": "#2C4A2C", "note": "shaped by ../fernwood-private/.user-research/2026-09-05-synthetic-mom.md"},
@@ -101,7 +109,27 @@ def post(env, path, body, grant=None):
         except Exception: return e.code, {}
 
 
+MANIFEST = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        ".private", "synthetic-production-manifest.json")
+
+
+def record_production(entry):
+    """Every synthetic row written to PRODUCTION is written down, so it can be removed. A cleanup
+    that depends on remembering what was made is a cleanup that misses one."""
+    try:
+        m = json.load(open(MANIFEST, encoding="utf-8"))
+    except (OSError, ValueError):
+        m = {"note": "synthetic rows written to PRODUCTION (est-e6696a). Remove before Mom's invite.",
+             "created": []}
+    m["created"].append(entry)
+    os.makedirs(os.path.dirname(MANIFEST), exist_ok=True)
+    with open(MANIFEST, "w", encoding="utf-8") as f:
+        json.dump(m, f, indent=2)
+
+
 def guard(env):
+    if env == "home":
+        print("  ⚠️  PRODUCTION — this writes real rows into Mom's estate. Recorded in the manifest.")
     if env not in WORKERS:
         raise SystemExit("synthetic-identity: refusing env %r — these write real rows and belong in dev/qa only" % env)
 
@@ -158,6 +186,10 @@ def main():
                      "env": a.env, "personId": body.get("personId"), "token": body.get("token"),
                      "createdAt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")}
         save(d)
+        if a.env == "home":
+            record_production({"kind": "account", "role": role, "username": uname,
+                               "personId": body.get("personId"),
+                               "createdAt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")})
         print("  created %s → %s (personId %s)" % (role, uname, body.get("personId")))
         print("  link: %s/onboarding/?g=%s" % (PAGES[a.env], body.get("token")))
         return 0
