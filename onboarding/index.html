@@ -1122,8 +1122,16 @@
       // exactly the moment an ABANDONMENT needs to be recorded — the event we most want is the one
       // an ordinary request is least able to deliver.
       if (useBeacon && navigator.sendBeacon) {
-        navigator.sendBeacon(WORKER + "/api/onboarding-metrics", new Blob([body], { type: "application/json" }));
-        return;
+        // ⛔ text/plain, NOT application/json. The Worker is a different ORIGIN, and a JSON body makes
+        // the request non-simple, which triggers a CORS preflight — and sendBeacon cannot preflight,
+        // so the browser DROPS IT SILENTLY. Measured 2026-09-05 in QA: the handoff tap navigated
+        // correctly and no handoff event ever arrived. The one event that only a beacon can deliver
+        // was the one the beacon could not send. The Worker parses the body regardless of its type.
+        var sent = navigator.sendBeacon(WORKER + "/api/onboarding-metrics",
+                                        new Blob([body], { type: "text/plain;charset=UTF-8" }));
+        if (sent) return;
+        // ⚠️ sendBeacon returns FALSE when the user agent refuses to queue it. Falling through to
+        // keepalive fetch is the difference between a best effort and a silent loss.
       }
       fetch(WORKER + "/api/onboarding-metrics",
             { method: "POST", headers: { "Content-Type": "application/json" }, body: body, keepalive: true })
