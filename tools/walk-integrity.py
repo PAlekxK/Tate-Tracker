@@ -235,10 +235,29 @@ def main():
     if not counted:
         print("\n🔴 NOT ONE RUN IS COUNTABLE. A consolidation over this corpus would be inventing.")
         return 2
+    # ⛔ A CHECK THAT CAN NEVER GO GREEN IS A CHECK NOBODY READS. Returning 1 whenever ANY run is
+    # refused made this permanently red by construction: historical runs stay refused forever —
+    # that is the point of keeping them — so the exit code would carry no information the day one
+    # actually mattered. This repo already records that failure ("a control that is red on every
+    # signal from day one is one nobody reads") and this tool went into the session-start block, so
+    # it had to earn its place there.
+    # ⭐ The actionable question is not "has anything ever failed" but "did the LATEST attempt at
+    # each seat succeed" — a newly refused run is news; a refused run from three weeks ago is the
+    # trail doing its job.
+    newest = {}
+    for r in rows:
+        if r["run"] > newest.get(r["seat"], {}).get("run", ""):
+            newest[r["seat"]] = r
+    stale = sorted(s for s, r in newest.items() if r["refusals"])
     if refused:
-        print("\n⚠️  %d run(s) refused — a consolidation must exclude them by dir, not by seat name."
-              % len(refused))
-    return 1 if refused else 0
+        print("\n   %d run(s) refused and kept — a consolidation must exclude them by dir, not by "
+              "seat name. That is the trail, not a fault." % len(refused))
+    if stale:
+        print("🔴 THE NEWEST RUN IS REFUSED for: %s — the latest attempt at these seats produced "
+              "nothing countable." % ", ".join(stale))
+        return 1
+    print("✅ every seat's newest run is countable.")
+    return 0
 
 
 if __name__ == "__main__":

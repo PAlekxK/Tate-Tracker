@@ -36,7 +36,30 @@ python3 tools/build-viewer.py --check      # ⭐ is viewer.html BYTE-IDENTICAL t
 python3 tools/check-engine-manifest.py     # ⭐ is every tracked file CLASSIFIED engine/config/instance? (P1/P2 fail; P3 skipped until an engine remote; P4/P5 counted, self-arming — `ENGINE-MANIFEST.md`)
 python3 tools/check-storage-keys.py        # ⭐ is every browser-storage key ROSTERED? (a key the origin-move migration does not know about is a key she loses — C4 2b)
 python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEEING — head-slot exposure; she sees ONE, not five
+python3 tools/read-onboarding.py --env qa  # ⭐ WHAT PEOPLE SAID WHILE SETTING UP — and ⭐ WHAT'S MISSING first: the only line where someone can name a need we never anticipated. Reports real · synthetic · unknown, and which RUN is authoritative
+python3 tools/walk-integrity.py            # ⭐ WHICH SYNTHETIC WALKS MAY BE COUNTED — refuses a run with an unwritten report, a stop that scored "walked" over its own `could not do`, a build that moved mid-walk, or seats that collapse to one input
+python3 tools/check-estate-neutral.py      # ⭐ DOES A HOUSEHOLD SURFACE NAME ANOTHER HOUSEHOLD — 311 needles, species read FROM CANON; exit 3 = UNCHECKABLE (never green by absence). `--url` checks what an origin actually serves
 ```
+
+### ⭐ THE THREE NEW LINES ABOVE EXIST BECAUSE A CAPABILITY THE LOOP CANNOT REACH IS NOT A CAPABILITY
+
+**Added 2026-09-06, the same day they were built, and deliberately not later.** practice-steward's
+audit that afternoon found `walk-integrity`, `walk-brief`, `check-estate-neutral` and
+`read-onboarding` named in **zero** `.md` files, zero skills and zero commands — the **fourth**
+instance of the exact shape this file already records three times (`/ux-sweep` unreachable for 21
+days, `telemetry-walk.js` unnamed for 16, weather completeness living outside the loop). The first
+three were found weeks after the fact. This one was caught the same day, and writing them in here is
+the whole of the fix: *a capability the loop cannot reach by running its own procedure is not a
+capability the loop has.*
+
+⭐ **`tools/pages-deploy.py` is the model to copy, not this block.** It does not merely NAME
+`check-estate-neutral` — it CALLS it and REFUSES the deploy on a hit. A check wired into the thing
+it guards cannot be forgotten; a check listed in a document can. Where a new check guards a specific
+act, wire it into that act and let this block be the reader's index, not the enforcement.
+
+⚠️ **`walk-brief.py` is deliberately NOT in the block.** It renders a walk for a reading seat and
+reports no state, so a session that ran it every pickup would be doing work nobody asked for. It is
+reached from `/mom-cycle` and by hand. Naming everything is how a checklist stops being read.
 
 **⭐ THE LAST LINE IS THE ZOOM-OUT THAT SINGLE-FIX WORK NEVER SCHEDULES** `[paul-stated 2026-08-24]`:
 *"That UX review should have a pass of kind of fresh eyes, and then a pass that has our principles
