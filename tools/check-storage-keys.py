@@ -159,6 +159,22 @@ def check_household_keys():
         for lit in sorted(set(FW_LIT_RE.findall(src))):
             if lit not in declared:
                 problems.append("%s uses %r, which onboarding never declares" % (name, lit))
+        # ⛔ AND EVERY K_* IDENTIFIER MUST BE DECLARED IN THE FILE THAT USES IT. A key can be
+        # correctly rostered and still crash: on 2026-09-06 estate/ referenced `K_RANK`, which only
+        # onboarding declares, inside a promise — so it threw a ReferenceError that its own .catch()
+        # swallowed, and the reconcile silently did nothing. The literal was rostered; the NAME was
+        # not in scope. Second undefined-name defect of the day (the first hoisted a `describe`
+        # helper below the loop that used it), which is enough to be a shape rather than bad luck.
+        # ⚠️ Comments are stripped first — a constant named while EXPLAINING something is not a use.
+        body = re.sub(r"<!--.*?-->", " ", src, flags=re.S)
+        body = re.sub(r"(?m)//.*$", " ", body)
+        body = re.sub(r"/\*.*?\*/", " ", body, flags=re.S)
+        here = set(re.findall(r'\bvar\s+(K_[A-Z_]+)\s*=', body)) | set(
+            re.findall(r',\s*(K_[A-Z_]+)\s*=', body))
+        for ident in sorted(set(re.findall(r'\b(K_[A-Z_]+)\b', body))):
+            if ident not in here:
+                problems.append("%s references %s, which it never declares — a ReferenceError a "
+                                "surrounding .catch() will hide" % (name, ident))
     return declared, problems
 
 

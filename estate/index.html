@@ -179,7 +179,8 @@
   // Same key names as onboarding — this page READS what that flow wrote and writes none of them.
   var K_GRANT = "fw-grant", K_ADDR = "fw-onboard-addr", K_PARTS = "fw-onboard-parts",
       K_NAME = "fw-onboard-name", K_COLOR = "fw-accent", K_OWNER = "fw-onboard-owner",
-      K_USER = "fw-username";
+      K_USER = "fw-username", K_RANK = "fw-onboard-interests",
+      K_PREF = "fw-onboard-contact";
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function el(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? "" : s); }
@@ -235,7 +236,7 @@
   // Shown because it was answered once, pre-selected by default, and never surfaced again. "None"
   // is stated plainly rather than softened: it is the choice with the largest consequence, and a
   // reader who picked it should be able to see that it took.
-  var pref = mine ? read("fw-onboard-contact") : null;
+  var pref = mine ? read(K_PREF) : null;
   if (pref) {
     rows.push({
       label: "How to reach you",
@@ -258,7 +259,7 @@
   // would be a confidently-wrong number on the exact surface whose job is to be trusted. When an
   // address→coordinates→zone path exists, this row is where its output belongs.
   var ranked = null;
-  try { ranked = JSON.parse(read("fw-onboard-interests") || "null"); } catch (e) { ranked = null; }
+  try { ranked = JSON.parse(read(K_RANK) || "null"); } catch (e) { ranked = null; }
   // ⛔ AN EMPTY RANKING IS NOT A MISSING ONE. She looked at the list and chose nothing, which is a
   // real answer; the row is omitted rather than printing "(none chosen)" at her, because silence
   // beats telling someone their answer was empty. But the two states stay distinguishable in the
@@ -312,6 +313,39 @@
     }
   }
   render();
+
+  // ── the server is the truth; localStorage is a cache ───────────────────────────────────────
+  // ⛔ THIS PAGE READ ONLY localStorage AND NEVER THE SERVER. So it was blank on a second device —
+  // falsifying s0's "yours on any phone, not just this one" — and the run-authority mechanism could
+  // name a winning run that nothing rendered, because the page never asked anyone.
+  // ⭐ RENDER LOCAL INSTANTLY, THEN RECONCILE. Her place appears with no spinner and no wait, and
+  // the record corrects it a moment later if they differ.
+  // ⛔ AND THE SERVER WINS, NOT THE NEWER ONE. Resolving by timestamp is the trap: the aborted
+  // attempt is usually the LAST one, and device clocks skew. Silence on a transport failure — an
+  // offline reader keeps the cached view rather than being told her place is empty, which matters
+  // here because the property has no cell reception and Wi-Fi only near the house.
+  (function reconcile() {
+    if (!grant) return;
+    fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;                       // a non-2xx says nothing about her place
+        var changed = false;
+        function put(k, v) {
+          if (v == null || v === "") return;
+          try { if (localStorage.getItem(k) !== String(v)) { localStorage.setItem(k, String(v)); changed = true; } } catch (e) {}
+        }
+        put(K_NAME, d.name);
+        put(K_COLOR, d.accent);
+        put(K_ADDR, d.address);
+        put(K_PREF, d.contactPref);
+        if (d.addressParts) put(K_PARTS, JSON.stringify(d.addressParts));
+        if (d.ranked) put(K_RANK, JSON.stringify(d.ranked));
+        // Re-render only if the record actually disagreed, so the common case costs nothing and a
+        // reader never sees her own screen flicker for no reason.
+        if (changed) location.reload();
+      })["catch"](function () { /* offline: the cached view stands, and says nothing false */ });
+  })();
 
   // ── telemetry: `complete` lives HERE now ───────────────────────────────────────────────────
   // ⛔ IT USED TO FIRE ON THE HANDOFF TAP, 120ms before navigation began, with the detail

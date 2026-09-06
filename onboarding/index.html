@@ -1455,6 +1455,10 @@
     // that can name something we DON'T, which makes it the highest-value sentence on the screen and
     // the last one that should arrive buried inside another field's value. Sent before the ranking
     // so a failure on the second write cannot lose the first.
+    // The ranking is the other half of what the arrival replays back, and it had the same defect.
+    try {
+      saveProfile({ ranked: JSON.parse(read(K_RANK) || "[]"), contactPref: read(K_PREF) || undefined });
+    } catch (e) {}
     var otherNote = ((el.othernote && el.othernote.value) || "").trim();
     if (ranked.indexOf("other") >= 0 && otherNote) {
       postAnswer("onboard-interests-other", otherNote,
@@ -1657,6 +1661,14 @@
 
     // The COMPONENTS ride along, because USPS Addresses v3 takes structured parts and parsing a
     // blob back apart is where a unit number gets silently dropped.
+    // ⭐ THE ADDRESS BECOMES A FACT, not only a log line. It went ONLY to the feedback log, so the
+    // arrival screen could render it from localStorage alone — blank on a second device, against
+    // s0's own promise that this is hers on any phone. The log keeps the provenance; the record
+    // keeps the value.
+    try {
+      var _parts = JSON.parse(read(K_PARTS) || "null");
+      saveProfile({ address: text, addressParts: _parts || undefined });
+    } catch (e) {}
     postAnswer("onboard-address", text,
                { type: "onboarding", field: "address", step: 2, parts: p, verified: false })
       .then(function (res) {

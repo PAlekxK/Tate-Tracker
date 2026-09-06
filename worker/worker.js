@@ -3198,6 +3198,21 @@ export default {
           const grow = JSON.parse(graw);
           if (typeof b.name === "string") grow.placeName = b.name.slice(0, 60);
           if (typeof b.accent === "string") grow.accent = b.accent.slice(0, 9);
+        // ⭐ THE PLACE'S OWN FACTS LAND ON THE RECORD, NOT ONLY IN THE LOG `[paul-approved
+        // 2026-09-06]`. The address and the ranking went ONLY to /api/feedback — an append-only
+        // log — so the arrival screen had to render them from localStorage, which meant a second
+        // device showed a blank place and falsified s0's own promise ("yours on any phone, not
+        // just this one"). A run-authority mechanism could then name which attempt was current and
+        // nothing rendered the winner, because there was nowhere to PUT one.
+        // ⭐ THE RULE, and it is the reusable part: A RECEIPT READS STATE; IT NEVER RE-DERIVES FROM
+        // A LOG. Both writes stay — the answer still POSTs to feedback, which is the provenance and
+        // what run identity attaches to, AND the value lands here, which is the current value. The
+        // split this file already draws correctly for placeName and drew wrongly for the address.
+        // ⚠️ Each field is written ONLY when present, so a caller sending one never blanks another.
+          if (typeof b.address === "string") grow.address = b.address.slice(0, 300);
+          if (b.addressParts && typeof b.addressParts === "object") grow.addressParts = b.addressParts;
+          if (Array.isArray(b.ranked)) grow.ranked = b.ranked.slice(0, 20);
+          if (["email", "phone", "none"].indexOf(b.contactPref) >= 0) grow.contactPref = b.contactPref;
           await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
           return json({ ok: true, on: "grant", name: grow.placeName || null, accent: grow.accent || null });
         }
@@ -3214,6 +3229,10 @@ export default {
         if (typeof b.email === "string") acct.email = b.email.trim().slice(0, 200) || null;
         if (typeof b.phone === "string") acct.phone = b.phone.trim().slice(0, 40) || null;
         if (["email", "phone", "none"].indexOf(b.contactPref) >= 0) acct.contactPref = b.contactPref;
+        if (typeof b.address === "string") acct.address = b.address.slice(0, 300);
+        if (b.addressParts && typeof b.addressParts === "object") acct.addressParts = b.addressParts;
+        if (Array.isArray(b.ranked)) acct.ranked = b.ranked.slice(0, 20);
+
         await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
         return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null,
                       email: acct.email || null, phone: acct.phone || null,
@@ -3340,7 +3359,16 @@ export default {
         return json({ personId: grant.personId, estateId: grant.estateId, capability: grant.capability,
                       relationship: grant.relationship || [], entry: !!grant.entry, vault: !!grant.vault,
                       // her place, so a return on a cleared browser is a RESUME and not a fresh start
-                      name: grant.placeName || null, accent: grant.accent || null });
+                      name: grant.placeName || null, accent: grant.accent || null,
+                      // ⭐ 6a, widening exactly as the line above anticipated. THE ONE ROW THE
+                      // CALLER'S OWN CREDENTIAL IS — no capability check, because reading what you
+                      // yourself supplied is not an administrative act, and this sits ABOVE the
+                      // administrator/member gate so it never inherits that question.
+                      // ⛔ It returns the ESTATE'S OWN FACTS and never another person's authored
+                      // words. A grant reads what it wrote plus what the household published; it
+                      // never reads what somebody else said.
+                      address: grant.address || null, addressParts: grant.addressParts || null,
+                      ranked: grant.ranked || null, contactPref: grant.contactPref || null });
       }
     }
     if (url.pathname === "/api/grant/whoami") return json({ error: "not-found", path: url.pathname }, 404);   // no grant presented → the same 404
