@@ -489,6 +489,13 @@
          needs "City" explained; what needs explaining is what the ADDRESS is for. So the disclosure
          sits once, under the group. -->
     <p class="lede">Where is your place?</p>
+    <!-- ⛔ THE NAME AND THE ADDRESS LOOK LIKE THE SAME KIND OF THING, AND NOTHING SAID OTHERWISE.
+         The `owner` seat called its place "Hollow Creek Road" — which is what everyone round there
+         calls it — and then met this form, with that name sitting in the masthead directly above a
+         field labelled "Street address", for a real address that has no street name of its own
+         (48 Hwy 136 W). Two address-shaped strings, one screen, and the app never said which was
+         which. This says it once, quietly, and only where the confusion actually happens. -->
+    <p class="soft">The mailing address — what you called your place stays as it is.</p>
     <p class="soft">If your phone offers to fill this in, take it — it's quicker.</p>
 
     <div class="field">
@@ -640,7 +647,19 @@
          the expensive kind. It is an outlined neutral, it carries no ✓, and the copy after it
          apologises for nothing. -->
     <div id="confirm" hidden>
-      <p class="soft" style="margin-bottom:0">Does the map find you?</p>
+      <!-- ⛔ THIS ASKED ABOUT A MAP THAT IS NOT ON THE SCREEN. "Does the map find you?" assumes she
+           has seen a pin — and there is deliberately no embedded map here, because embedding one
+           would send her address to Google on page load and falsify the privacy sentence she read
+           one screen earlier. The privacy call is right; the copy simply never followed it.
+           ⛔ AND TWO SEATS CONFIRMED SOMETHING THEY HAD NEVER SEEN (2026-09-06). `strict` tapped
+           "Yes, that's it" on a technicality — the string matched what she typed — and `wide-eyed`
+           called it "a blind tap, not a verified confirmation". A confirmation nobody can actually
+           perform is worse than no confirmation, because the record then says she checked.
+           ⭐ So the question is now about the thing that IS on screen: her address, as she typed it.
+           The map stays available above as an optional way to check, and checking it is her choice
+           rather than an assumed step. Wording is content-steward's ratified no-blame form — the
+           fault sits with whoever supplied the value, never with the reader. -->
+      <p class="soft" style="margin-bottom:0">Does that look right?</p>
       <button type="button" id="ok1"><span class="tick">✓</span>Yes, that's it</button>
       <button type="button" id="ok2" class="btn-secondary">Not quite</button>
     </div>
@@ -672,6 +691,20 @@
       <p class="quiet" style="margin-top:0">Tap them in the order they matter to you — skip anything you don't care about, and tap one again to take it back off.</p>
       <p class="quiet" style="margin-top:7px">Some of these already work; some are only ideas. How you rank them is how I decide what to build next.</p>
       <div id="interests" class="swatches"></div>
+      <!-- ⛔ "SAY WHAT" HAD NOWHERE TO SAY IT. "Something else" described itself as *"Rank this if
+           something's missing — say what, and it gets looked at"* and shipped with no field behind
+           it, so the one door that can teach us about a kind of place we never anticipated was an
+           invitation into a wall. `paul-stated 2026-09-06`: "we should never assume what kind of
+           place someone has… let them select things, hopefully that will teach us and help us
+           anticipate new ways to provide value." This is that door, and it was shut.
+           ⭐ It appears only when they rank "Something else" — an always-visible free-text box on
+           this screen would be a seventh ask, and this flow already carries the most reading of
+           any screen in the journey. Ranking it IS the request to be asked. -->
+      <div id="otherbox" hidden>
+        <label for="othernote">What's missing?</label>
+        <input id="othernote" type="text" maxlength="120" autocapitalize="sentences"
+               placeholder="In your own words">
+      </div>
       <button type="button" id="go5"><span class="tick">✓</span>Save these</button>
       <p id="s5thanks" class="soft" hidden></p>
     </div>
@@ -825,7 +858,7 @@
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
    "unamestate", "uword2state", "s0invite", "handoff", "gohome", "fb", "fbopen", "fbbox", "fbnote", "fbsend", "fbthanks", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
-   "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
+   "s5", "s5seam", "interests", "go5", "s5thanks", "otherbox", "othernote", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
   var currentScreen = null;
@@ -1307,6 +1340,13 @@
       // ⭐ the ITEM and the running count. Whether anyone ever discovers the second tap is a live
       // question — wide-eyed found it by accident — and this is the only thing that can answer it.
       ev("rank", (i >= 0 ? "remove:" : "add:") + it.id, ranked.length);
+      if (it.id === "other") {
+        // Un-ranking it hides the box but KEEPS whatever was typed — someone who taps twice by
+        // accident has not withdrawn what they said, and losing it silently would be the expensive
+        // kind of tidy. It is only dropped from the answer if "other" is genuinely not ranked.
+        el.otherbox.hidden = ranked.indexOf("other") < 0;
+        if (!el.otherbox.hidden) { try { el.othernote.focus(); } catch (e) {} }
+      }
       paintInterests();
     });
     el.interests.appendChild(b);
@@ -1345,6 +1385,16 @@
         return found || id;
       })));
     } catch (e) {}
+    // ⭐ WHAT THEY SAID IS MISSING TRAVELS AS ITS OWN ANSWER, not appended to the ranking string.
+    // The ranking is a list of ids we already know about; this is the only line in the whole flow
+    // that can name something we DON'T, which makes it the highest-value sentence on the screen and
+    // the last one that should arrive buried inside another field's value. Sent before the ranking
+    // so a failure on the second write cannot lose the first.
+    var otherNote = ((el.othernote && el.othernote.value) || "").trim();
+    if (ranked.indexOf("other") >= 0 && otherNote) {
+      postAnswer("onboard-interests-other", otherNote,
+                 { type: "onboarding", field: "interests-other", step: 5 })["catch"](function () {});
+    }
     postAnswer("onboard-interests", ranked.length ? ranked.join(" > ") : "(none chosen)",
                { type: "onboarding", field: "interests", step: 5, ranked: ranked })
       .then(function () {
