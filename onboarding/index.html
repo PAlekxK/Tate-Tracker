@@ -1179,7 +1179,11 @@
     el.confirm.hidden = true;
     el.s4ask.hidden = false;
     el.s4asktext.textContent = kind === "ok"
-      ? "Good — that's settled. Anything read oddly on the way through? That's the useful bit — or leave it blank."
+      // ⛔ JUST ASK `[paul-stated 2026-09-05, walking it]`. This read "Anything read oddly on the way
+      // through? That's the useful bit — or leave it blank." — three clauses to ask one question,
+      // "read oddly" is our internal reviewing vocabulary rather than hers, and "that's the useful
+      // bit" tells her which of her own answers we value before she has given any.
+      ? "Good — that's settled. Any other thoughts?"
       : "No problem — you don't have to do it again. Tell me what it should say and I'll put it right.";
     el.s4note.setAttribute("data-kind", kind);
     el.s4note.focus();
