@@ -108,6 +108,8 @@ def report(kinds, legacy_windows, unresolved=()):
     print("  %s roster DERIVED from worker.js: %d kinds" % ("✅", len(kinds)))
     if unresolved:
         # Named, never counted as covered — a kind built from a variable is one this suite cannot see.
+        # ✅ RESOLVED 2026-09-06 for the only member: `OBS_KEY` is built with keyFor and NEVER with
+        # dateKey (worker.js:314, 871, 882), so observations have no legacy era. 19 is the whole set.
         print("     ⚠️  %d kind(s) built from a variable, so NOT covered here: %s"
               % (len(unresolved), ", ".join(unresolved)))
 
@@ -127,7 +129,17 @@ def report(kinds, legacy_windows, unresolved=()):
             print("     ⛔ %-11s LEGACY_BEFORE=%s → %d kinds share ONE unprefixed key across households"
                   % (env, lb, len(leg)))
         else:
-            print("     ✅ %-11s LEGACY_BEFORE=%s → no legacy era; every key carries its estate" % (env, lb))
+            # ⛔ NOT ✅ — AND THIS IS THE WHOLE POINT. `LEGACY_BEFORE=1970-01-01` is a CLAIM in the
+            # toml, not a fact about KV. Flipping the two live windows to 1970 turns every line of
+            # this report green with ZERO bytes moved and eight months of Mom's history stranded
+            # unreachable — measured 2026-09-06, on the control built that same afternoon to catch
+            # exactly this class. Green-after-a-correct-re-key and green-after-a-one-character-edit
+            # are the SAME observation here, so this line may never claim the second.
+            # ⭐ The rule it cost: for DATA, the falsifier must be the data — never the config that
+            # routes to it. A twin-count with its negative control run first is the honest
+            # instrument; until it exists this reads UNVERIFIED, which is what is true.
+            print("     ⬜ %-11s LEGACY_BEFORE=%s → no legacy era DECLARED — UNVERIFIED, no key was counted"
+                  % (env, lb))
     if hot:
         print("\n     ⛔ THIS IS A CONSTRAINT ON THE MERGE, NOT A DEFECT IN THE CODE.")
         print("        A namespace with a live legacy era cannot become the shared one until that")
@@ -142,9 +154,12 @@ def report(kinds, legacy_windows, unresolved=()):
     if fails:
         print("\n🔴 %d failing assertion(s)." % fails)
         return 1
-    print("\n🟡 PARTIAL — 2 of %d tests run and pass; %d cannot run until the merged Worker exists."
-          % (total, len(UNCHECKABLE)))
-    print("   Never read this as a clean bill: it is the most this suite can honestly say today.")
+    print("\n🟡 PARTIAL — 1 of %d tests genuinely runs (T1); T1b reads the CONFIG, not the store;"
+          % total)
+    print("   %d cannot run until the merged Worker exists." % len(UNCHECKABLE))
+    print("   ⛔ THIS IS NOT A MERGE GATE AND MUST NOT BE USED AS ONE. T1b can be turned green by")
+    print("      editing LEGACY_BEFORE — the same edit that strands the history it is watching.")
+    print("      The gate is a twin-count over both eras, with its negative control run FIRST.")
     return 0
 
 
