@@ -161,25 +161,7 @@ def main():
                     made += 1
             print("  tombstoned %d removed path(s) — the origin cannot keep serving them" % made)
 
-            # ⛔ REBUILD THE APP FOR THIS HOUSEHOLD. `git archive` hands us Fernwood's viewer.html —
-            # 2 MB carrying its address, its plants and its whole fleet. Shipping that to another
-            # household is the leak this file exists to prevent, and the allow-list alone would have
-            # let it straight through now that viewer.html is on it.
-            # ⭐ The instance is REQUIRED, never defaulted: a household with no declared instance is
-            # a household we cannot build an app for, and falling back to the tracked file would
-            # ship exactly the wrong one. Refuse.
-            inst = os.path.join(ROOT, "instance", "%s.json" % a.env)
-            if not os.path.exists(inst):
-                raise SystemExit("pages-deploy: ⛔ REFUSING — %s is a household origin and has no "
-                                 "instance/%s.json. Falling back to the tracked viewer.html would "
-                                 "ship another household's app." % (a.env, a.env))
-            r = run(["python3", os.path.join(ROOT, "tools", "build-viewer.py"),
-                     "--instance", inst, "--out", os.path.join(export, "viewer.html")])
-            if r.returncode != 0:
-                raise SystemExit("pages-deploy: ⛔ build-viewer failed for %s\n%s"
-                                 % (a.env, (r.stderr or r.stdout)[-800:]))
-            print("  built this household's own app from instance/%s.json (%d bytes)"
-                  % (a.env, os.path.getsize(os.path.join(export, "viewer.html"))))
+
             with open(os.path.join(export, "index.html"), "w", encoding="utf-8") as f:
                 f.write('<!DOCTYPE html>\n<html><head><meta charset="UTF-8">'
                         '<meta name="robots" content="noindex, nofollow">'
@@ -195,6 +177,32 @@ def main():
                 low = n.lower()
                 if low == ".private" or "secret" in low or "cf-access" in low:
                     leaks.append(os.path.relpath(os.path.join(dirpath, n), export))
+
+        # ⛔⛔ THE APP IS BUILT FOR THIS ENVIRONMENT, NOT INHERITED FROM THE REPO. `git archive` hands
+        # the export FERNWOOD'S viewer.html — 2 MB carrying its address, its plants and its whole
+        # fleet. Any environment with its own declared instance gets its own build instead.
+        # ⭐ DELIBERATELY NOT INSIDE THE HOUSEHOLD BRANCH `[paul-ruled 2026-09-06]`: "QA neutral —
+        # synths should walk what I'll walk." Which APP an environment runs and WHICH FILES it ships
+        # are two different questions, and tying them together is what made an earlier
+        # recommendation come out backwards — parity is a property of the environment, promotion is
+        # a property of the artifact. So QA runs production's app without being pruned to production's
+        # file list.
+        # ⚠️ A HOUSEHOLD WITHOUT AN INSTANCE IS REFUSED; a non-household without one keeps the tracked
+        # file, because `lab` and the legacy line are still Fernwood by construction.
+        _inst = os.path.join(ROOT, "instance", "%s.json" % a.env)
+        if os.path.exists(_inst):
+            _r = run(["python3", os.path.join(ROOT, "tools", "build-viewer.py"),
+                      "--instance", _inst, "--out", os.path.join(export, "viewer.html")])
+            if _r.returncode != 0:
+                raise SystemExit("pages-deploy: ⛔ build-viewer failed for %s\n%s"
+                                 % (a.env, (_r.stderr or _r.stdout)[-800:]))
+            print("  built %s's own app from instance/%s.json (%d bytes)"
+                  % (a.env, a.env, os.path.getsize(os.path.join(export, "viewer.html"))))
+        elif a.env in HOUSEHOLD:
+            raise SystemExit("pages-deploy: ⛔ REFUSING — %s is a household origin and has no "
+                             "instance/%s.json. Falling back to the tracked viewer.html would ship "
+                             "another household's app." % (a.env, a.env))
+
         if leaks:
             raise SystemExit("pages-deploy: ⛔ REFUSING — export contains %s" % ", ".join(leaks[:5]))
 
