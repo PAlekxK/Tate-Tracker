@@ -224,6 +224,11 @@
     font-weight: 700; font-size: .82rem; letter-spacing: .07em; text-transform: uppercase;
     color: #5d7387; margin: 0 0 6px;
   }
+  .bigbtn {
+    display: block; text-align: center; text-decoration: none;
+    padding: 15px 18px; border-radius: 13px; font-size: 1.05rem; font-weight: 600;
+    background: var(--accent); color: #fff;
+  }
   .picks { display: flex; flex-direction: column; gap: 9px; margin-top: 9px; }
   .pick {
     display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px;
@@ -641,6 +646,21 @@
     </div>
 
     <p class="soft">I'm putting it together now — the weather where you are, and what grows there. Nothing more needed from you today.</p>
+
+    <!-- ⭐ THE HANDOFF `[paul-stated 2026-09-05]`: "at some point we have to transfer from the
+         onboarding process to the main estate view." Until now the journey DEAD-ENDED — she finished
+         setting her place up and there was no way to reach it, which made every "your place" on the
+         way through a place she could not visit.
+         ⛔ The button is rendered by script, never by markup, and only once she has an account. It
+         leads to a view whose CONTENT is shipped with the deployment rather than scoped to her
+         estate, so it is correct for the one account that owns that content and wrong for a second.
+         The exposure is not this button — a second account on this deployment already shares the
+         first one's estate and can read and write her records with or without it. This just makes
+         the shared estate visible, which is a reason to fix the tenancy, not to hide the door. -->
+    <div id="handoff" hidden style="margin-top:20px">
+      <a id="gohome" class="bigbtn" href="/viewer">Open your place</a>
+      <p class="quiet" style="margin-top:8px">This is yours from now on — you can come back to it any time you're signed in.</p>
+    </div>
     <p class="quiet" id="s4placeholder">I'm calling it “My Home” until you name it.</p>
   </section>
 </main>
@@ -738,7 +758,7 @@
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
-   "unamestate", "uword2state", "s0invite", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
+   "unamestate", "uword2state", "s0invite", "handoff", "gohome", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
@@ -806,9 +826,18 @@
   // The person state is the USERNAME — `[paul-confirmed 2026-09-05]`, asked directly. Not a stand-in
   // for a display name: there is no display name and none is wanted. The username is already the part
   // of an account other people see, so the bar shows exactly what everyone else would call you.
+  // The door appears only when there is a place behind it AND an account that owns it. An invited
+  // reader who never made an account has no way back, so offering her a permanent home would be a
+  // promise the next tap breaks.
+  function paintHandoff() {
+    if (!el.handoff) return;
+    el.handoff.hidden = !(read(K_USER) && read(K_GRANT));
+  }
+
   function paintName() {
     var estate = read(K_NAME), who = read(K_USER);
     el.head.textContent = estate || who || "My Home";
+    paintHandoff();
   }
 
   function step(n) {
